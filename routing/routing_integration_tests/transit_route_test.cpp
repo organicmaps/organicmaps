@@ -44,7 +44,7 @@ UNIT_TEST(Transit_Moscow_NoSubwayTest)
                                   mercator::FromLatLon(55.73470, 37.62617));
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 612.7);
+  integration::TestRouteLength(*routeResult.first, 604.86);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayAbsent(*routeResult.first);
@@ -58,6 +58,7 @@ UNIT_TEST(Transit_Piter_FrunzenskyaToPlochadVosstaniya)
                                   mercator::FromLatLon(59.93096, 30.35872));
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
+  /// @todo https://github.com/organicmaps/organicmaps/issues/1669
   integration::TestRouteLength(*routeResult.first, 4952.43);
 
   CHECK(routeResult.first, ());
@@ -124,7 +125,8 @@ UNIT_TEST(Transit_London_DeptfordBridgeToCyprus)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 12323.7);
+  // I don't see any bad routing sections here. Make actual value.
+  integration::TestRouteLength(*routeResult.first, 12707.1);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
@@ -139,7 +141,7 @@ UNIT_TEST(Transit_Washington_FoggyToShaw)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 5887.58);
+  integration::TestRouteLength(*routeResult.first, 5818.35);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);

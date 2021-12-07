@@ -47,9 +47,7 @@ TestAbsentRegionsFinder::TestAbsentRegionsFinder()
   , m_manager(m_framework.GetRoutingManager())
   , m_callbacks(m_manager.GetCallbacksForTests())
 {
-  storage::Storage storage;
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
-  m_numMwmIds = CreateNumMwmIds(storage);
+  m_numMwmIds = CreateNumMwmIds(m_framework.GetStorage());
 
   m_countryFileGetter = [this](m2::PointD const & p) -> std::string {
     return m_callbacks.m_countryInfoGetter().GetRegionCountryId(p);
@@ -82,17 +80,18 @@ std::set<std::string> TestAbsentRegionsFinder::GetRegions(Checkpoints const & ch
 
   return regions;
 }
+} // namespace
 
 // From "Russia_Republic of Karelia_South" to "Russia_Krasnodar Krai".
 // https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=61.759%2C34.452%3B45.070%2C38.940#map=5/54.869/40.210
 /**
  * @todo Current test set and Organic set differ from OSRM route. Need to make deep investigation here.
  * OSRM wants Novgorod, Tver, Moscow (looks good).
- * Organic wants Vologda, Tver, Vladimir, Moscow East, Ryazan (also may be good).
+ * Organic wants Vologda, Tver, Moscow East, Ryazan (also may be good).
  * Current test set doesn't have Tver (obvious error).
  * Ukraine_Luhansk Oblast is not a good idea for both variants.
  */
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Karelia_Krasnodar)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Karelia_Krasnodar)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(61.76, 34.45),
                                 mercator::FromLatLon(45.07, 38.94)};
@@ -117,7 +116,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Karelia_Krasnod
   std::set<std::string> const planRegions{
     "Russia_Krasnodar Krai", "Russia_Leningradskaya Oblast_Southeast", "Russia_Lipetsk Oblast",
     "Russia_Moscow Oblast_East", "Russia_Republic of Karelia_South", "Russia_Rostov Oblast",
-    "Russia_Ryazan Oblast", "Russia_Tula Oblast", "Russia_Tver Oblast", "Russia_Vladimir Oblast",
+    "Russia_Ryazan Oblast", "Russia_Tula Oblast", "Russia_Tver Oblast",
     "Russia_Vologda Oblast", "Russia_Voronezh Oblast",
     "Ukraine_Luhansk Oblast"
   };
@@ -126,7 +125,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Karelia_Krasnod
 }
 
 // From "Canada_Ontario_Kingston" to "US_Maryland_and_DC".
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Kingston_DC)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Kingston_DC)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(45.38, -75.69),
                                 mercator::FromLatLon(38.91, -77.031)};
@@ -141,7 +140,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Kingston_DC)
 
 // From "US_Colorado_Aspen" to "Canada_Saskatchewan_Saskatoon".
 // https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=39.9578%2C-106.8238%3B49.9167%2C-106.9606#map=5/46.284/-101.609
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Colorado_Saskatchewan)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Colorado_Saskatchewan)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(39.95763, -106.79994),
                                 mercator::FromLatLon(49.92034, -106.99302)};
@@ -156,7 +155,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Colorado_Saskat
 // https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=50.878%2C4.447%3B50.775%2C6.444#map=9/50.8204/5.5810
 /// @todo OSRM route differs from Organic (check the link below). The difference is not significant,
 /// just Organic wants to cross 3 countries instead of 2 (+Netherlands).
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Belgium_Germany)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Belgium_Germany)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(50.87763, 4.44676),
                                 mercator::FromLatLon(50.76935, 6.42488)};
@@ -169,20 +168,23 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Belgium_Germany
 }
 
 // From "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen" to "Belgium_Flemish Brabant".
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Gernamy_Belgium)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Gernamy_Belgium)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(50.76935, 6.42488),
                                 mercator::FromLatLon(50.78285, 4.46508)};
 
+  // OSRM also makes route via Netherlands.
   std::set<std::string> const planRegions{
-      "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen", "Belgium_Liege",
-      "Belgium_Flemish Brabant"};
+    "Belgium_Flemish Brabant", "Belgium_Liege", "Belgium_Limburg",
+    "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen",
+    "Netherlands_Limburg"
+  };
 
   TestRegions(checkpoints, planRegions);
 }
 
 // From "Kazakhstan_South" to "Mongolia".
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Kazakhstan_Mongolia)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Kazakhstan_Mongolia)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(46.12223, 79.28636),
                                 mercator::FromLatLon(47.04792, 97.74559)};
@@ -193,7 +195,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Kazakhstan_Mong
 }
 
 // From "Bolivia_North" to "Brazil_North Region_East".
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Bolivia_Brazil)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Bolivia_Brazil)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(-16.54128, -60.83588),
                                 mercator::FromLatLon(-7.38744, -51.29514)};
@@ -205,7 +207,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Bolivia_Brazil)
 }
 
 // From "Egypt" to "Sudan_West".
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Egypt_Sudan)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Egypt_Sudan)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(25.84571, 30.34731),
                                 mercator::FromLatLon(19.82398, 30.20142)};
@@ -216,7 +218,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Egypt_Sudan)
 }
 
 // From "Sudan_West" to "Chad".
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Sudan_Chad)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Sudan_Chad)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(12.91113, 25.01158),
                                 mercator::FromLatLon(13.44014, 20.23824)};
@@ -227,7 +229,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Sudan_Chad)
 }
 
 // From "Australia_Sydney" to "Australia_Victoria".
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Sydney_Victoria)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Sydney_Victoria)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(-35.08077, 148.45423),
                                 mercator::FromLatLon(-36.81267, 145.74843)};
@@ -238,7 +240,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Sydney_Victoria
 }
 
 // From "Thailand_South" to "Cambodia".
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Thailand_Cambodia)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Thailand_Cambodia)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(7.89, 98.30),
                                 mercator::FromLatLon(11.56, 104.86)};
@@ -250,7 +252,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Thailand_Cambod
 
 // Inside "China_Sichuan". If the route is inside single mwm we expect empty result from
 // RegionsRouter.
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_China)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, China)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(30.78611, 102.55829),
                                 mercator::FromLatLon(27.54127, 102.02502)};
@@ -261,7 +263,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_China)
 }
 
 // Inside "Finland_Eastern Finland_North".
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Finland)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Finland)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(63.54162, 28.71141),
                                 mercator::FromLatLon(64.6790, 28.73029)};
@@ -272,7 +274,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Finland)
 }
 
 // https://github.com/organicmaps/organicmaps/issues/980
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_BC_Alberta)
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, BC_Alberta)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(49.2608724, -123.1139529),
                                 mercator::FromLatLon(53.5354110, -113.5079960)};
@@ -282,5 +284,3 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_BC_Alberta)
 
   TestRegions(checkpoints, planRegions);
 }
-
-}  // namespace

@@ -64,7 +64,7 @@ UNIT_TEST(NetherlandsAmsterdamBicycleYes)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  TEST(base::AlmostEqualAbs(route.GetTotalTimeSec(), 304.2, 1.0), (route.GetTotalTimeSec()));
+  TEST_ALMOST_EQUAL_ABS(route.GetTotalTimeSec(), 300.0, 10.0, ());
 }
 
 // This test on tag cycleway=opposite for a streets which have oneway=yes.

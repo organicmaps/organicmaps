@@ -65,7 +65,7 @@ void TestFilesExistence(size_t newestIndex, size_t fileCount, std::string const 
 TRouteResult GetRouteResult()
 {
   return integration::CalculateRoute(integration::GetVehicleComponents(routing::VehicleType::Car),
-                                     mercator::FromLatLon(55.76100, 37.58000), m2::PointD::Zero(),
+                                     mercator::FromLatLon(55.7607268, 37.5801099), m2::PointD::Zero(),
                                      mercator::FromLatLon(55.75718, 37.63156));
 }
 

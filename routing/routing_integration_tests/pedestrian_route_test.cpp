@@ -56,7 +56,7 @@ UNIT_TEST(MoscowMuzeonToLebedinoeOzeroGorkyPark)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.7348, 37.606), {0., 0.},
-      mercator::FromLatLon(55.724, 37.5956), 1767.0);
+      mercator::FromLatLon(55.724, 37.5956), 1640.0);
 }
 
 /*
@@ -74,10 +74,12 @@ UNIT_TEST(Zgrad315parkingToMusicSchoolBus_BadRoute)
 
 UNIT_TEST(Zgrad924aToKrukovo)
 {
+  // New valid distance here (OSRM makes the same route).
+  // Connect this footway? https://www.openstreetmap.org/way/970708358#map=19/55.98064/37.17245
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.9844, 37.1808), {0., 0.},
-      mercator::FromLatLon(55.9802, 37.1736), 974.);
+      mercator::FromLatLon(55.9802, 37.1736), 2461.);
 }
 
 UNIT_TEST(MoscowMailRuStarbucksToPetrovskoRazumovskyAlley)
@@ -141,7 +143,7 @@ UNIT_TEST(SwedenStockholmSlussenHiltonToAfChapmanHostel)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(59.32045, 18.06928), {0., 0.},
-      mercator::FromLatLon(59.3254, 18.08022), 2078.3);
+      mercator::FromLatLon(59.3254, 18.08022), 2328.);
 }
 
 UNIT_TEST(EstoniaTallinnRadissonHiltonToCatherdalChurch)
@@ -418,12 +420,13 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
 
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
-  TEST_EQUAL(t.size(), 4, ());
+  TEST_EQUAL(t.size(), 5, ());
 
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::TurnLeft, ());
-  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::TurnLeft, ());
-  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
-  TEST_EQUAL(t[3].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
+  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::TurnLeft, ());
+  TEST_EQUAL(t[3].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[4].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
 UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
@@ -488,10 +491,12 @@ UNIT_TEST(MoscowKashirskoe16ToVorobeviGori)
 // Test on building pedestrian route past ferry.
 UNIT_TEST(SwitzerlandSaintBlaisePedestrianPastFerry)
 {
+  // New value has bigger ditance (+100 meters), but better ETA (-1 minute).
+  // Check with intermediate point {47.0098, 6.9770}
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(47.010336, 6.982954), {0.0, 0.0},
-      mercator::FromLatLon(47.005817, 6.970227), 1532.3);
+      mercator::FromLatLon(47.005817, 6.970227), 1662.43);
 }
 
 // Test on building pedestrian route past ferry.
