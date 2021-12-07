@@ -59,7 +59,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents(VehicleType::Car),
         mercator::FromLatLon(55.97310, 37.41460), {0.0, 0.0},
-        mercator::FromLatLon(55.75100, 37.61790), 42732.6);
+        mercator::FromLatLon(55.75100, 37.61790), 39129.8);
   }
 
   // Restrictions tests. Check restrictions generation, if there are any errors.
@@ -311,7 +311,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 1023.0);
+    integration::TestRouteTime(route, 1044.42);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
@@ -392,7 +392,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 19381.5);
+    integration::TestRouteTime(route, 19053.0);
   }
 
   // Test on roads with tag route=shuttle_train
@@ -468,7 +468,7 @@ namespace
       mercator::FromLatLon(43.38234, -5.67648), {0.0, 0.0},
       mercator::FromLatLon(43.38222, -5.69083), 8289.0);
   }
-  
+
   UNIT_TEST(RussiaMoscowRestirctionOnlyMany)
   {
     integration::CalculateRouteAndTestRouteLength(

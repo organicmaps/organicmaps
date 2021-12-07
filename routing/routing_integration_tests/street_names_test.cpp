@@ -31,6 +31,7 @@ UNIT_TEST(RussiaTulskayaToPaveletskayaStreetNamesTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
+  /// @todo https://github.com/organicmaps/organicmaps/issues/1668
   integration::TestCurrentStreetName(route, "Большая Тульская улица");
   integration::TestNextStreetName(route, "Подольское шоссе");
 

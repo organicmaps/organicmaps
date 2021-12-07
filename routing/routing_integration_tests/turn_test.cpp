@@ -639,11 +639,15 @@ UNIT_TEST(RussiaKubinkaTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+
+  /// @todo This test is obsolete.
+  /*
+  integration::TestTurnCount(route, 2);
 
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
   integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
       {CarDirection::TurnSlightLeft, CarDirection::TurnLeft});
+  */
 }
 
 // Test on absence of unnecessary turn.
@@ -763,8 +767,10 @@ UNIT_TEST(NetherlandsBarneveldTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  /// @todo iOS app makes some strange route here. The test is valid!
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
 UNIT_TEST(BelorussiaMinskTest)

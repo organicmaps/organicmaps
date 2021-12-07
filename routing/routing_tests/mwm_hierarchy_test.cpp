@@ -48,4 +48,11 @@ UNIT_TEST(MwmHierarchyHandler_Smoke)
                                      GetCountryID(mwmIDs, "Crimea")), ());
   TEST(!handler.HasCrossBorderPenalty(GetCountryID(mwmIDs, "Denmark_Region Zealand"),
                                       GetCountryID(mwmIDs, "Denmark_Region of Southern Denmark")), ());
+
+  TEST(handler.HasCrossBorderPenalty(GetCountryID(mwmIDs, "Ukraine_Zakarpattia Oblast"),
+                                     GetCountryID(mwmIDs, "Slovakia_Region of Kosice")), ());
+  TEST(handler.HasCrossBorderPenalty(GetCountryID(mwmIDs, "Ukraine_Zakarpattia Oblast"),
+                                     GetCountryID(mwmIDs, "Hungary_Northern Great Plain")), ());
+  TEST(!handler.HasCrossBorderPenalty(GetCountryID(mwmIDs, "Hungary_Northern Great Plain"),
+                                      GetCountryID(mwmIDs, "Slovakia_Region of Kosice")), ());
 }
