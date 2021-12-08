@@ -228,13 +228,15 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   {
     mCategoryEditor = BookmarkManager.INSTANCE::createCategory;
 
-    EditTextDialogFragment dialogFragment = EditTextDialogFragment.show(getString(R.string.bookmarks_create_new_group),
-                                                              getString(R.string.bookmarks_new_list_hint),
-                                                              getString(R.string.bookmark_set_name),
-                                                              getString(R.string.create), getString(R.string.cancel),
-                                                              MAX_CATEGORY_NAME_LENGTH,
-                                                              this,
-                                                              new CategoryValidator());
+    EditTextDialogFragment dialogFragment =
+        EditTextDialogFragment.show(getString(R.string.bookmarks_create_new_group),
+                                    getString(R.string.bookmarks_new_list_hint),
+                                    getString(R.string.bookmark_set_name),
+                                    getString(R.string.create),
+                                    getString(R.string.cancel),
+                                    MAX_CATEGORY_NAME_LENGTH,
+                                    this,
+                                    new CategoryValidator());
     dialogFragment.setTextSaveListener(this::onSaveText);
   }
 
@@ -480,13 +482,15 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
         {
           BookmarkManager.INSTANCE.setCategoryName(category.getId(), newName);
         };
-        EditTextDialogFragment.show(frag.getString(R.string.bookmark_set_name),
-            category.getName(),
-            frag.getString(R.string.rename),
-            frag.getString(R.string.cancel),
-            MAX_CATEGORY_NAME_LENGTH,
-            frag,
-            new CategoryValidator());
+        EditTextDialogFragment dialogFragment =
+            EditTextDialogFragment.show(frag.getString(R.string.bookmark_set_name),
+                                        category.getName(),
+                                        frag.getString(R.string.rename),
+                                        frag.getString(R.string.cancel),
+                                        MAX_CATEGORY_NAME_LENGTH,
+                                        frag,
+                                        new CategoryValidator());
+        dialogFragment.setTextSaveListener(frag::onSaveText);
       }
     }
 

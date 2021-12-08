@@ -173,8 +173,8 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
   {
     @SuppressLint("InflateParams") final View root = getActivity().getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
     mEtInputLayout = root.findViewById(R.id.et__input_layout);
-    mEtInputLayout.setHint(TextUtils.isEmpty(mHint) ? getString(R.string.name) : mHint);
     mEtInput = mEtInputLayout.findViewById(R.id.et__input);
+    mEtInput.setHint(TextUtils.isEmpty(mHint) ? getString(R.string.name) : mHint);
     int maxLength = getArguments().getInt(ARG_TEXT_LENGTH_LIMIT);
     if (maxLength != NO_LIMITED_TEXT_LENGTH)
     {

@@ -126,12 +126,13 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
   @Override
   public void onCategoryCreate()
   {
-    EditTextDialogFragment dialogFragment = EditTextDialogFragment.show(getString(R.string.bookmark_set_name),
-                                                              null,
-                                                              getString(R.string.ok),
-                                                              null,
-                                                              this,
-                                                              new CategoryValidator());
+    EditTextDialogFragment dialogFragment =
+        EditTextDialogFragment.show(getString(R.string.bookmark_set_name),
+                                    null,
+                                    getString(R.string.ok),
+                                    null,
+                                    this,
+                                    new CategoryValidator());
     dialogFragment.setTextSaveListener(this::createCategory);
   }
 }
