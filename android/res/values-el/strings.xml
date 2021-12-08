@@ -450,6 +450,8 @@
 	<string name="details">Λεπτομέρειες</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Προσθέστε ένα δρόμο</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">Εισαγάγετε ένα όνομα οδού</string>
 	<string name="choose_language">Επιλέξτε μια γλώσσα</string>
 	<string name="choose_street">Επιλέξτε μια οδό</string>
 	<string name="cuisine">Κουζίνα</string>

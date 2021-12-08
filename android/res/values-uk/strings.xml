@@ -451,7 +451,7 @@
 	<string name="details">Детальніше</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Додати вулицю</string>
-	<!-- New street dialog validation message -->
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
 	<string name="empty_street_name_error">Введіть назву вулиці</string>
 	<string name="choose_language">Вибрати мову</string>
 	<string name="choose_street">Вибрати вулицю</string>
@@ -549,7 +549,7 @@
 	<string name="editor_remove_place_button">Видалити</string>
 	<string name="editor_place_doesnt_exist">Місце не існує</string>
 	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
-	<string name="delete_place_empty_comment_error">Введіть коментар щодо видалення</string>
+	<string name="delete_place_empty_comment_error">Будь ласка, вкажіть причину видалення</string>
 	<string name="text_more_button">…більше</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Введіть правильний номер телефону</string>

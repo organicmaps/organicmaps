@@ -439,6 +439,8 @@
 	<string name="details">جزئیات</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">اضافه کردن خیابان</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">ﺪﯿﻨﮐ ﺩﺭﺍﻭ ﺍﺭ ﻥﺎﺑﺎﯿﺧ ﻡﺎﻧ</string>
 	<string name="choose_language">انتخاب یک زبان</string>
 	<string name="choose_street">انتخاب یک خیابان</string>
 	<string name="postal_code">کد پستی</string>

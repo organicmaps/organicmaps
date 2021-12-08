@@ -460,6 +460,8 @@
 	<string name="details">Падрабязнасці</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Дадаць вуліцу</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">Увядзіце назву вуліцы</string>
 	<string name="choose_language">Выбраць мову</string>
 	<string name="choose_street">Выбраць вуліцу</string>
 	<string name="postal_code">Паштовы індэкс</string>
@@ -555,6 +557,8 @@
 	<string name="editor_remove_place_message">Выдаліць даданае месца?</string>
 	<string name="editor_remove_place_button">Выдаліць</string>
 	<string name="editor_place_doesnt_exist">Месца не існуе</string>
+	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+	<string name="delete_place_empty_comment_error">Калі ласка, укажыце прычыну выдалення</string>
 	<string name="text_more_button">…яшчэ</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Увядзіце нумар тэлефона правільна</string>

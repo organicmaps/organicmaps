@@ -476,8 +476,8 @@
 	<string name="details">Details</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Add a street</string>
-	<!-- New street dialog validation message -->
-	<string name="empty_street_name_error">Please enter street name</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">Please enter a street name</string>
 	<string name="choose_language">Choose a language</string>
 	<string name="choose_street">Choose a street</string>
 	<string name="postal_code">Postal Code</string>
@@ -575,7 +575,7 @@
 	<string name="editor_remove_place_button">Delete</string>
 	<string name="editor_place_doesnt_exist">Place does not exist</string>
 	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
-	<string name="delete_place_empty_comment_error">Please enter comment</string>
+	<string name="delete_place_empty_comment_error">Please indicate the reason for deleting the place</string>
 	<string name="text_more_button">…more</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Enter a valid phone number</string>

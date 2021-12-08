@@ -780,7 +780,7 @@
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Додати вулицю";
 
-/* New street dialog validation message */
+/* Error to display when a new street name is not entered in the New street dialog */
 "empty_street_name_error" = "Введіть назву вулиці";
 
 "choose_language" = "Вибрати мову";
@@ -968,7 +968,7 @@
 "editor_place_doesnt_exist" = "Місце не існує";
 
 /* Error message for "Place doesn't exist" dialog when comment is empty */
-"delete_place_empty_comment_error" = "Введіть коментар щодо видалення";
+"delete_place_empty_comment_error" = "Будь ласка, вкажіть причину видалення";
 
 "text_more_button" = "…більше";
 

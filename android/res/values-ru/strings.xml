@@ -458,7 +458,7 @@
 	<string name="details">Подробнее</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Добавить улицу</string>
-	<!-- New street dialog validation message -->
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
 	<string name="empty_street_name_error">Введите название улицы</string>
 	<string name="choose_language">Выбрать язык</string>
 	<string name="choose_street">Выбрать улицу</string>
@@ -557,7 +557,7 @@
 	<string name="editor_remove_place_button">Удалить</string>
 	<string name="editor_place_doesnt_exist">Места не существует</string>
 	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
-	<string name="delete_place_empty_comment_error">Введите коментарий к удалению</string>
+	<string name="delete_place_empty_comment_error">Пожалуйста, укажите причину удаления</string>
 	<string name="text_more_button">…ещё</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Введите корректный номер телефона</string>

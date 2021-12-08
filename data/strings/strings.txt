@@ -10434,9 +10434,18 @@
     zh-Hant = 新增街道
 
   [empty_street_name_error]
-    comment = New street dialog validation message
+    comment = Error to display when a new street name is not entered in the New street dialog
     tags = android
-    en = Please enter street name
+    en = Please enter a street name
+    ar = ﻉﺭﺎﺷ ﻢﺳﺍ ﻞﺧﺩﺃ
+    be = Увядзіце назву вуліцы
+    bg = Въведете име на улица
+    cs = Zadejte název ulice
+    da = Indtast et gadenavn
+    de = Geben Sie einen Straßennamen ein
+    el = Εισαγάγετε ένα όνομα οδού
+    es = Ingrese un nombre de calle
+    fa = ﺪﯿﻨﮐ ﺩﺭﺍﻭ ﺍﺭ ﻥﺎﺑﺎﯿﺧ ﻡﺎﻧ
     ru = Введите название улицы
     uk = Введіть назву вулиці
 
@@ -13492,9 +13501,10 @@
   [delete_place_empty_comment_error]
     comment = Error message for "Place doesn't exist" dialog when comment is empty
     tags = android
-    en = Please enter comment
-    ru = Введите коментарий к удалению
-    uk = Введіть коментар щодо видалення
+    en = Please indicate the reason for deleting the place
+    be = Калі ласка, укажыце прычыну выдалення
+    ru = Пожалуйста, укажите причину удаления
+    uk = Будь ласка, вкажіть причину видалення
 
   [text_more_button]
     tags = ios
