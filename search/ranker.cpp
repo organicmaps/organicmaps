@@ -96,20 +96,13 @@ vector<vector<strings::UniString>> ModifyStrasse(vector<strings::UniString> cons
   return result;
 }
 
-pair<NameScores, size_t> GetNameScores(FeatureType & ft, Geocoder::Params const & params,
+NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
                                        TokenRange const & range, Model::Type type)
 {
   NameScores bestScores;
 
   TokenSlice const slice(params, range);
   TokenSliceNoCategories const sliceNoCategories(params, range);
-
-  size_t matchedLength = 0;
-  if (type != Model::Type::TYPE_COUNT)
-  {
-    for (size_t i = 0; i < slice.Size(); ++i)
-      matchedLength += slice.Get(i).GetOriginal().size();
-  }
 
   for (auto const lang : params.GetLangs())
   {
@@ -176,7 +169,7 @@ pair<NameScores, size_t> GetNameScores(FeatureType & ft, Geocoder::Params const 
       UpdateNameScores(shield, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
   }
 
-  return make_pair(bestScores, matchedLength);
+  return bestScores;
 }
 
 void MatchTokenRange(FeatureType & ft, Geocoder::Params const & params, TokenRange const & range,
@@ -184,17 +177,11 @@ void MatchTokenRange(FeatureType & ft, Geocoder::Params const & params, TokenRan
                      bool & isAltOrOldName)
 {
   auto const scores = GetNameScores(ft, params, range, type);
-  errorsMade = scores.first.m_errorsMade;
-  isAltOrOldName = scores.first.m_isAltOrOldName;
-  matchedLength = scores.second;
+  errorsMade = scores.m_errorsMade;
+  isAltOrOldName = scores.m_isAltOrOldName;
+  matchedLength = scores.m_matchedLength;
   if (errorsMade.IsValid())
     return;
-
-  for (auto const token : range)
-  {
-    errorsMade += ErrorsMade{GetMaxErrorsForToken(params.GetToken(token).GetOriginal())};
-    matchedLength += params.GetToken(token).GetOriginal().size();
-  }
 }
 
 void RemoveDuplicatingLinear(vector<RankerResult> & results)
@@ -466,10 +453,10 @@ private:
     {
       auto const scores = GetNameScores(ft, m_params, preInfo.InnermostTokenRange(), info.m_type);
 
-      auto nameScore = scores.first.m_nameScore;
-      auto errorsMade = scores.first.m_errorsMade;
-      bool isAltOrOldName = scores.first.m_isAltOrOldName;
-      auto matchedLength = scores.second;
+      auto nameScore = scores.m_nameScore;
+      auto errorsMade = scores.m_errorsMade;
+      bool isAltOrOldName = scores.m_isAltOrOldName;
+      auto matchedLength = scores.m_matchedLength;
 
       if (info.m_type != Model::TYPE_STREET &&
           preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId)
@@ -482,11 +469,11 @@ private:
           auto const & range = preInfo.m_tokenRanges[type];
           auto const streetScores = GetNameScores(*street, m_params, range, type);
 
-          nameScore = min(nameScore, streetScores.first.m_nameScore);
-          errorsMade += streetScores.first.m_errorsMade;
-          if (streetScores.first.m_isAltOrOldName)
+          nameScore = min(nameScore, streetScores.m_nameScore);
+          errorsMade += streetScores.m_errorsMade;
+          if (streetScores.m_isAltOrOldName)
             isAltOrOldName = true;
-          matchedLength += streetScores.second;
+          matchedLength += streetScores.m_matchedLength;
         }
       }
 
@@ -559,7 +546,6 @@ private:
                                      info.m_nameScore == NAME_SCORE_FULL_MATCH &&
                                      isCountryOrCapital(ft);
     }
-
     CategoriesInfo const categoriesInfo(feature::TypesHolder(ft),
                                         TokenSlice(m_params, preInfo.InnermostTokenRange()),
                                         m_ranker.m_params.m_categoryLocales, m_ranker.m_categories);
@@ -693,6 +679,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
 
 void Ranker::SuggestStrings()
 {
+  // Prefix is only empty when tokens exceeds the max allowed. No point in giving suggestions then.
   if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
 
@@ -901,9 +888,6 @@ void Ranker::ProcessSuggestions(vector<RankerResult> & vec) const
         {
           ++added;
         }
-
-        i = vec.erase(i);
-        continue;
       }
     }
     ++i;
