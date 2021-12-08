@@ -135,8 +135,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   {
     super.onViewCreated(view, savedInstanceState);
 
-    mToolbarInnerLayout = getToolbarController().getToolbar().findViewById(R.id.toolbar_inner_layout);
-    mSave = getToolbarController().getToolbar().findViewById(R.id.save);
+    final View toolbar = getToolbarController().getToolbar();
+    mToolbarInnerLayout = toolbar.findViewById(R.id.toolbar_inner_layout);
+    mSave = toolbar.findViewById(R.id.save);
     mSave.setOnClickListener(this);
     UiUtils.setupHomeUpButtonAsNavigationIcon(getToolbarController().getToolbar(),
                                               v -> onBackPressed());
@@ -266,10 +267,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     startActivity(new Intent(host, FeatureCategoryActivity.class));
   }
 
-  private void showSearchControls(boolean showSearch) {
+  private void showSearchControls(boolean showSearch)
+  {
     ((SearchToolbarController) getToolbarController()).showSearchControls(showSearch);
-    if (mToolbarInnerLayout != null && mSave != null) {
-      // Make room for the toolbar title if the search controls are hidden
+    if (mToolbarInnerLayout != null && mSave != null)
+    {
+      // Make room for the toolbar title if the search controls are hidden.
       mToolbarInnerLayout.getLayoutParams().width = showSearch
               ? ViewGroup.LayoutParams.MATCH_PARENT
               : mSave.getLayoutParams().width;
