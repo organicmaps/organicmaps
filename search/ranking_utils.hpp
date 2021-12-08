@@ -118,38 +118,49 @@ enum NameScore
 struct NameScores
 {
   NameScores() = default;
-  NameScores(NameScore nameScore, ErrorsMade const & errorsMade, bool isAltOrOldName)
-    : m_nameScore(nameScore), m_errorsMade(errorsMade), m_isAltOrOldName(isAltOrOldName)
+  NameScores(NameScore nameScore, ErrorsMade const & errorsMade, bool isAltOrOldName, size_t matchedLength)
+    : m_nameScore(nameScore), m_errorsMade(errorsMade), m_isAltOrOldName(isAltOrOldName), m_matchedLength(matchedLength)
   {
   }
 
   void UpdateIfBetter(NameScores const & rhs)
   {
-    auto const newNameScoreIsBetter = rhs.m_nameScore > m_nameScore;
-    auto const nameScoresAreEqual = rhs.m_nameScore == m_nameScore;
+    auto const newNameScoreIsBetter = m_nameScore < rhs.m_nameScore;
+    auto const nameScoresAreEqual = m_nameScore == rhs.m_nameScore;
     auto const newLanguageIsBetter = m_isAltOrOldName && !rhs.m_isAltOrOldName;
     auto const languagesAreEqual = m_isAltOrOldName == rhs.m_isAltOrOldName;
-    if (newNameScoreIsBetter || (nameScoresAreEqual && newLanguageIsBetter))
+    auto const newMatchedLengthIsBetter = m_matchedLength < rhs.m_matchedLength;
+    // It's okay to pick a slightly worse matched length if other scores are better.
+    auto const matchedLengthsAreSimilar = (m_matchedLength - m_matchedLength / 4) <= rhs.m_matchedLength;
+
+    if (newMatchedLengthIsBetter ||
+       (matchedLengthsAreSimilar && newNameScoreIsBetter) ||
+       (matchedLengthsAreSimilar && nameScoresAreEqual && newLanguageIsBetter))
     {
       m_nameScore = rhs.m_nameScore;
       m_errorsMade = rhs.m_errorsMade;
       m_isAltOrOldName = rhs.m_isAltOrOldName;
+      m_matchedLength = rhs.m_matchedLength;
       return;
     }
-    if (nameScoresAreEqual && languagesAreEqual)
+    if (matchedLengthsAreSimilar && nameScoresAreEqual && languagesAreEqual)
       m_errorsMade = ErrorsMade::Min(m_errorsMade, rhs.m_errorsMade);
   }
 
   bool operator==(NameScores const & rhs)
   {
     return m_nameScore == rhs.m_nameScore && m_errorsMade == rhs.m_errorsMade &&
-           m_isAltOrOldName == rhs.m_isAltOrOldName;
+           m_isAltOrOldName == rhs.m_isAltOrOldName && m_matchedLength == rhs.m_matchedLength;
   }
 
   NameScore m_nameScore = NAME_SCORE_ZERO;
   ErrorsMade m_errorsMade;
   bool m_isAltOrOldName = false;
+  size_t m_matchedLength = 0;
 };
+
+std::string DebugPrint(NameScore const & score);
+std::string DebugPrint(NameScores const & scores);
 
 // Returns true when |s| is a stop-word and may be removed from a query.
 bool IsStopWord(strings::UniString const & s);
@@ -164,55 +175,111 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
   if (slice.Empty())
     return {};
 
-  size_t const n = tokens.size();
-  size_t const m = slice.Size();
-
-  bool const lastTokenIsPrefix = slice.IsPrefix(m - 1);
-
   NameScores scores;
-  for (size_t offset = 0; offset + m <= n; ++offset)
+  // Slice is the user query. Token is the potential match.
+  size_t const tokenCount = tokens.size();
+  size_t const sliceCount = slice.Size();
+
+  // Try matching words between token and slice, iterating over offsets.
+  // We want to try all possible offsets of the slice and token lists
+  // When offset = 0, the last token in tokens is compared to the first in slice.
+  // When offset = sliceCount + tokenCount, the last token
+  // in slice is compared to the first in tokens.
+  // Feature names and queries aren't necessarily index-aligned, so it's important
+  // to "slide" the feature name along the query to look for matches.
+  // For instance,
+  // "Pennsylvania Ave NW, Washington, DC"
+  // "1600 Pennsylvania Ave"
+  // doesn't match at all, but
+  //      "Pennsylvania Ave NW, Washington, DC"
+  // "1600 Pennsylvania Ave"
+  // is a partial match. Fuzzy matching helps match buildings
+  // missing addresses in OSM, and it helps be more flexible in general.
+  for (size_t offset = 0; offset < sliceCount + tokenCount; ++offset)
   {
-    ErrorsMade totalErrorsMade;
-    bool match = true;
-    for (size_t i = 0; i < m - 1 && match; ++i)
+    // Reset error and match-length count for each offset attempt.
+    ErrorsMade totalErrorsMade(0);
+    size_t matchedLength = 0;
+    // Highest quality namescore possible for this offset
+    NameScore nameScore = NAME_SCORE_SUBSTRING;
+    // Prefix & full matches must test starting at the same index. (tokenIndex == i)
+    if (0 == (tokenCount - 1) - offset)
     {
-      auto errorsMade = impl::GetErrorsMade(slice.Get(i), tokens[offset + i]);
-      match = match && errorsMade.IsValid();
-      totalErrorsMade += errorsMade;
+      if (sliceCount == tokenCount)
+          nameScore = NAME_SCORE_FULL_MATCH;
+      else
+          nameScore = NAME_SCORE_PREFIX;
+    }
+    bool isAltOrOldName = false;
+    // Iterate through the entire slice. Incomplete matches can still be good.
+    // Using this slice & token as an example:
+    //                              0   1   2   3   4   5   6
+    // slice count=7:              foo bar baz bot bop bip bla
+    // token count=3:      bar baz bot
+    //
+    // When offset = 0, tokenIndex should start at +2:
+    //                 0   1   2   3   4   5   6
+    // slice =         foo bar baz bot bop bip bla
+    // token = baz bot bop
+    //          0   1   2
+    // 
+    // Offset must run to 8 to test all potential matches. (slice + token - 1)
+    // Making tokenIndex start at -6 (-sliceSize)
+    //                  0   1   2   3   4   5   6
+    // slice =         foo bar baz bot bop bip bla
+    // token =                                 baz bot bop
+    //                 -6  -5  -4  -3  -2  -1   0   1   2
+    for (size_t i = 0; i < sliceCount; ++i)
+    {
+      size_t const tokenIndex = i + (tokenCount - 1) - offset;
+      // Ensure that tokenIndex is within bounds.
+      if (tokenIndex < 0 || tokenCount <= tokenIndex)
+        continue;
+      // Count the errors. If GetErrorsMade finds a match, count it towards
+      // the matched length and check against the prior best.
+      auto errorsMade = impl::GetErrorsMade(slice.Get(i), tokens[tokenIndex]);
+
+      // See if prefix token rules apply. The prefix token is the last one in the
+      // search, so it may only be partially typed.
+      // GetPrefixErrorsMade only expects the start of a token to match.
+      if (!errorsMade.IsValid() && slice.IsPrefix(i))
+      {
+        errorsMade = impl::GetPrefixErrorsMade(slice.Get(i), tokens[tokenIndex]);
+        if (nameScore == NAME_SCORE_FULL_MATCH)
+          nameScore = NAME_SCORE_PREFIX;
+      }
+      // If this was a full match and prior tokens matched, downgrade from full to prefix.
+      if (!errorsMade.IsValid() && nameScore == NAME_SCORE_FULL_MATCH && matchedLength)
+      {
+        nameScore = NAME_SCORE_PREFIX;
+        errorsMade = ErrorsMade(0);
+        // Don't count this token towards match length.
+        matchedLength -= slice.Get(i).GetOriginal().size();
+      }
+      if (errorsMade.IsValid())
+      {
+        // Update the match quality
+        totalErrorsMade += errorsMade;
+        matchedLength += slice.Get(i).GetOriginal().size();
+        isAltOrOldName =
+            lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode;
+      }
+      else
+      {
+        // If any token mismatches, this is at best a substring match.
+        nameScore = NAME_SCORE_SUBSTRING;
+      }
     }
 
-    if (!match)
-      continue;
-
-    auto const prefixErrorsMade =
-        lastTokenIsPrefix ? impl::GetPrefixErrorsMade(slice.Get(m - 1), tokens[offset + m - 1])
-                          : ErrorsMade{};
-    auto const fullErrorsMade = impl::GetErrorsMade(slice.Get(m - 1), tokens[offset + m - 1]);
-    if (!fullErrorsMade.IsValid() && !(prefixErrorsMade.IsValid() && lastTokenIsPrefix))
-      continue;
-
-    auto const isAltOrOldName =
-        lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode;
-    if (m == n && fullErrorsMade.IsValid())
+    if (matchedLength == 0)
     {
-      scores.m_nameScore = NAME_SCORE_FULL_MATCH;
-      scores.m_errorsMade = totalErrorsMade + fullErrorsMade;
-      scores.m_isAltOrOldName = isAltOrOldName;
-      return scores;
+      nameScore = NAME_SCORE_ZERO;
+      totalErrorsMade = ErrorsMade();
     }
-
-    auto const newErrors =
-        lastTokenIsPrefix ? ErrorsMade::Min(fullErrorsMade, prefixErrorsMade) : fullErrorsMade;
-
-    if (offset == 0)
-    {
-      scores.UpdateIfBetter(
-          NameScores(NAME_SCORE_PREFIX, totalErrorsMade + newErrors, isAltOrOldName));
-    }
-
-    scores.UpdateIfBetter(
-        NameScores(NAME_SCORE_SUBSTRING, totalErrorsMade + newErrors, isAltOrOldName));
+    scores.UpdateIfBetter(NameScores(nameScore, totalErrorsMade, isAltOrOldName, matchedLength));
   }
+  // Uncomment for verbose search logging
+  // LOG(LDEBUG, ("Match quality", search::DebugPrint(scores), "from", tokens, "into", slice));
   return scores;
 }
 
@@ -224,7 +291,4 @@ NameScores GetNameScores(std::string const & name, uint8_t lang, Slice const & s
                  Delimiters());
   return GetNameScores(tokens, lang, slice);
 }
-
-std::string DebugPrint(NameScore score);
-std::string DebugPrint(NameScores scores);
 }  // namespace search

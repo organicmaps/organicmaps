@@ -16,6 +16,9 @@ namespace search
 namespace
 {
 // All synonyms should be lowercase.
+
+// @todo These should check the map language and use
+// only the corresponding translation.
 map<string, vector<string>> const kSynonyms = {
     {"n",    {"north"}},
     {"w",    {"west"}},
@@ -26,6 +29,10 @@ map<string, vector<string>> const kSynonyms = {
     {"sw",   {"southwest"}},
     {"se",   {"southeast"}},
     {"st",   {"saint", "street"}},
+    {"blvd", {"boulevard"}},
+    {"cir",  {"circle"}},
+    {"ct",   {"court"}},
+    {"rt",   {"route"}},
     {"св",   {"святой", "святого", "святая", "святые", "святых", "свято"}},
     {"б",    {"большая", "большой"}},
     {"бол",  {"большая", "большой"}},
@@ -134,6 +141,14 @@ void QueryParams::AddSynonyms()
 
     for (auto const & synonym : it->second)
       token.AddSynonym(synonym);
+  }
+  if (m_hasPrefix)
+  {
+    string const ss = ToUtf8(MakeLowerCase(m_prefixToken.GetOriginal()));
+    auto const it = kSynonyms.find(ss);
+    if (it != kSynonyms.end())
+      for (auto const & synonym : it->second)
+        m_prefixToken.AddSynonym(synonym);
   }
 }
 

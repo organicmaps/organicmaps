@@ -46,29 +46,37 @@ NameScores GetScore(string const & name, string const & query, TokenRange const 
 UNIT_TEST(NameTest_Smoke)
 {
   auto const test = [](string const & name, string const & query, TokenRange const & tokenRange,
-                       NameScore nameScore, size_t errorsMade) {
+                       NameScore nameScore, size_t errorsMade, size_t matchedLength) {
     TEST_EQUAL(
         GetScore(name, query, tokenRange),
         NameScores(nameScore, nameScore == NAME_SCORE_ZERO ? ErrorsMade() : ErrorsMade(errorsMade),
-                   false /* isAltOrOldNAme */),
+                   false /* isAltOrOldNAme */, matchedLength),
         (name, query, tokenRange));
   };
 
-  test("New York", "Central Park, New York, US", TokenRange(2, 4), NAME_SCORE_FULL_MATCH, 0);
-  test("New York", "York", TokenRange(0, 1), NAME_SCORE_SUBSTRING, 0);
-  test("Moscow", "Red Square Mosc", TokenRange(2, 3), NAME_SCORE_PREFIX, 0);
-  test("Moscow", "Red Square Moscow", TokenRange(2, 3), NAME_SCORE_FULL_MATCH, 0);
-  test("Moscow", "Red Square Moscw", TokenRange(2, 3), NAME_SCORE_FULL_MATCH, 1);
-  test("San Francisco", "Fran", TokenRange(0, 1), NAME_SCORE_SUBSTRING, 0);
-  test("San Francisco", "Fran ", TokenRange(0, 1), NAME_SCORE_ZERO, 0);
-  test("San Francisco", "Sa", TokenRange(0, 1), NAME_SCORE_PREFIX, 0);
-  test("San Francisco", "San ", TokenRange(0, 1), NAME_SCORE_PREFIX, 0);
-  test("Лермонтовъ", "Лермон", TokenRange(0, 1), NAME_SCORE_PREFIX, 0);
-  test("Лермонтовъ", "Лермонтов", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1);
-  test("Лермонтовъ", "Лермонтово", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1);
-  test("Лермонтовъ", "Лермнтовъ", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1);
-  test("фото на документы", "фото", TokenRange(0, 1), NAME_SCORE_PREFIX, 0);
-  test("фотоателье", "фото", TokenRange(0, 1), NAME_SCORE_PREFIX, 0);
+  base::ScopedLogLevelChanger const enableDebug(LDEBUG);
+  //    name,      query,                        range,            expected score,   errors, match length
+  test("New York", "Central Park, New York, US", TokenRange(2, 4), NAME_SCORE_FULL_MATCH, 0, 7);
+  test("New York", "York", TokenRange(0, 1), NAME_SCORE_SUBSTRING, 0, 4);
+  test("New York", "Chicago", TokenRange(0, 1), NAME_SCORE_ZERO, 0, 0);
+  test("Moscow", "Red Square Mosc", TokenRange(2, 3), NAME_SCORE_PREFIX, 0, 4);
+  test("Moscow", "Red Square Moscow", TokenRange(2, 3), NAME_SCORE_FULL_MATCH, 0, 6);
+  test("Moscow", "Red Square Moscw", TokenRange(2, 3), NAME_SCORE_FULL_MATCH, 1, 5);
+  test("San Francisco", "Fran", TokenRange(0, 1), NAME_SCORE_SUBSTRING, 0, 4);
+  test("San Francisco", "Fran ", TokenRange(0, 1), NAME_SCORE_ZERO, 0, 0);
+  test("San Francisco", "Sa", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 2);
+  test("San Francisco", "San ", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 3);
+  test("South Fredrick Street", "S Fredrick St", TokenRange(0, 3), NAME_SCORE_FULL_MATCH, 0, 11);
+  test("South Fredrick Street", "S Fredrick", TokenRange(0, 2), NAME_SCORE_PREFIX, 0, 9);
+  test("South Fredrick Street", "Fredrick St", TokenRange(0, 2), NAME_SCORE_SUBSTRING, 0, 10);
+  test("North Scott Boulevard", "N Scott Blvd", TokenRange(0, 3), NAME_SCORE_FULL_MATCH, 0, 10);
+  test("North Scott Boulevard", "N Scott", TokenRange(0, 2), NAME_SCORE_PREFIX, 0, 6);
+  test("Лермонтовъ", "Лермон", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 6);
+  test("Лермонтовъ", "Лермонтов", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1, 9);
+  test("Лермонтовъ", "Лермонтово", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1, 10);
+  test("Лермонтовъ", "Лермнтовъ", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1, 9);
+  test("фото на документы", "фото", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 4);
+  test("фотоателье", "фото", TokenRange(0, 1), NAME_SCORE_PREFIX, 0, 4);
 }
 
 UNIT_TEST(PreferCountry)

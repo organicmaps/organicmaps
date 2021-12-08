@@ -123,7 +123,7 @@ void PrepareStringForMatching(string const & name, vector<strings::UniString> & 
   SplitUniString(NormalizeAndSimplifyString(name), filter, Delimiters());
 }
 
-string DebugPrint(NameScore score)
+string DebugPrint(NameScore const & score)
 {
   switch (score)
   {
@@ -136,11 +136,11 @@ string DebugPrint(NameScore score)
   return "Unknown";
 }
 
-string DebugPrint(NameScores scores)
+string DebugPrint(NameScores const & scores)
 {
   ostringstream os;
-  os << "[ " << DebugPrint(scores.m_nameScore) << ", " << DebugPrint(scores.m_errorsMade) << ", "
-     << scores.m_isAltOrOldName << " ]";
+  os << "[ " << DebugPrint(scores.m_nameScore) << ", Length:" << scores.m_matchedLength << ", " << DebugPrint(scores.m_errorsMade) << ", "
+     << (scores.m_isAltOrOldName ? "Old name" : "New name") << " ]";
   return os.str();
 }
 }  // namespace search
