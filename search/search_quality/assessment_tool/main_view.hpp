@@ -25,7 +25,7 @@ class MainView : public QMainWindow, public View
   Q_OBJECT
 
 public:
-  explicit MainView(Framework & framework);
+  explicit MainView(Framework & framework, QRect const & screenGeometry);
   ~MainView() override;
 
   // View overrides:

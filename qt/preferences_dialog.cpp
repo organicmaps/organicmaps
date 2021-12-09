@@ -3,6 +3,7 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
+#include <QtGlobal>  // QT_VERSION_CHECK
 #include <QtGui/QIcon>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QHBoxLayout>
@@ -56,8 +57,13 @@ namespace qt
       m_pUnits->button(static_cast<int>(u))->setChecked(true);
 
       // Temporary to pass the address of overloaded function.
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
       void (QButtonGroup::* buttonClicked)(int) = &QButtonGroup::buttonClicked;
+#else
+      void (QButtonGroup::* buttonClicked)(int) = &QButtonGroup::idClicked;
+#endif
       connect(m_pUnits, buttonClicked, this, &PreferencesDialog::OnUnitsChanged);
+
     }
 
   #ifdef BUILD_DESIGNER

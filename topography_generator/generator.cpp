@@ -425,7 +425,7 @@ private:
 template <typename ParamsType>
 void RunGenerateIsolinesTasks(int left, int bottom, int right, int top,
                               std::string const & srtmPath, ParamsType const & params,
-                              size_t threadsCount, size_t maxCachedTilesPerThread,
+                              long threadsCount, long maxCachedTilesPerThread,
                               bool forceRegenerate)
 {
   std::vector<std::unique_ptr<TileIsolinesTask>> tasks;
@@ -436,7 +436,7 @@ void RunGenerateIsolinesTasks(int left, int bottom, int right, int top,
   int tilesRowPerTask = top - bottom;
   int tilesColPerTask = right - left;
 
-  if (tilesRowPerTask * tilesColPerTask <= static_cast<ssize_t>(threadsCount))
+  if (tilesRowPerTask * tilesColPerTask <= threadsCount)
   {
     tilesRowPerTask = 1;
     tilesColPerTask = 1;
@@ -468,8 +468,8 @@ void RunGenerateIsolinesTasks(int left, int bottom, int right, int top,
 }
 }  // namespace
 
-Generator::Generator(std::string const & srtmPath, size_t threadsCount,
-                     size_t maxCachedTilesPerThread, bool forceRegenerate)
+Generator::Generator(std::string const & srtmPath, long threadsCount,
+                     long maxCachedTilesPerThread, bool forceRegenerate)
   : m_threadsCount(threadsCount)
   , m_maxCachedTilesPerThread(maxCachedTilesPerThread)
   , m_srtmPath(srtmPath)

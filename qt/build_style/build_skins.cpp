@@ -58,7 +58,7 @@ inline bool SkinCoorrectColor(SkinType s) { return std::get<2>(g_skinInfo[s]); }
 
 QString GetSkinGeneratorPath()
 {
-  QString path = GetExternalPath("skin_generator_tool", "skin_generator_tool.app/Contents/MacOS", "");
+  QString const path = GetExternalPath("skin_generator_tool", "skin_generator_tool.app/Contents/MacOS", "");
   if (path.isEmpty())
     throw std::runtime_error("Can't find skin_generator_tool");
   ASSERT(QFileInfo::exists(path), (path.toStdString()));
@@ -93,7 +93,7 @@ std::unordered_map<std::string, int> GetSkinSizes(QString const & file)
 
   try
   {
-    std::ifstream ifs(to_string(file));
+    std::ifstream ifs(file.toStdString());
 
     std::string line;
     while (std::getline(ifs, line))
@@ -149,31 +149,18 @@ void BuildSkinImpl(QString const & styleDir, QString const & suffix,
     throw std::runtime_error("Unable to create symbols/png link");
   RAII const cleaner([=]() { QFile::remove(pngDir); });
 
-  // Prepare command line
-  QStringList params;
-  params << GetSkinGeneratorPath() <<
-          "--symbolWidth" << std::to_string(size).c_str() <<
-          "--symbolHeight" << std::to_string(size).c_str() <<
-          "--symbolsDir" << symbolsDir <<
-          "--skinName" << JoinPathQt({outputDir, "basic"}) <<
-          "--skinSuffix=\"\"";
-  if (colorCorrection)
-    params << "--colorCorrection true";
-  QString const cmd = params.join(' ');
+  QString const strSize = QString::number(size);
+  // Run the script.
+  (void)ExecProcess(GetSkinGeneratorPath(), {
+      "--symbolWidth", strSize,
+      "--symbolHeight", strSize,
+      "--symbolsDir", symbolsDir,
+      "--skinName", JoinPathQt({outputDir, "basic"}),
+      "--skinSuffix=",
+      "--colorCorrection", (colorCorrection ? "true" : "false"),
+  });
 
-  // Run the script
-  auto res = ExecProcess(cmd);
-
-  // If script returns non zero then it is error
-  if (res.first != 0)
-  {
-    QString msg = QString("System error ") + std::to_string(res.first).c_str();
-    if (!res.second.isEmpty())
-      msg = msg + "\n" + res.second;
-    throw std::runtime_error(to_string(msg));
-  }
-
-  // Check files were created
+  // Check if files were created.
   if (QFile(JoinPathQt({outputDir, "symbols.png"})).size() == 0 ||
       QFile(JoinPathQt({outputDir, "symbols.sdf"})).size() == 0)
   {
@@ -191,7 +178,7 @@ void BuildSkins(QString const & styleDir, QString const & outputDir)
   {
     QString const suffix = SkinSuffix(s);
     QString const outputSkinDir = JoinPathQt({outputDir, "resources-" + suffix + "_design"});
-    int const size = resolution2size.at(to_string(suffix)); // SkinSize(s);
+    int const size = resolution2size.at(suffix.toStdString()); // SkinSize(s);
     bool const colorCorrection = SkinCoorrectColor(s);
 
     BuildSkinImpl(styleDir, suffix, size, colorCorrection, outputSkinDir);

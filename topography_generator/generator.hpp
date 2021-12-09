@@ -51,7 +51,7 @@ using ProfileToIsolinesPackingParams = std::map<std::string, IsolinesPackingPara
 class Generator
 {
 public:
-  Generator(std::string const & srtmPath, size_t threadsCount, size_t maxCachedTilesPerThread,
+  Generator(std::string const & srtmPath, long threadsCount, long maxCachedTilesPerThread,
             bool forceRegenerate);
 
   void InitCountryInfoGetter(std::string const & dataDir);
@@ -94,8 +94,9 @@ private:
   std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
   storage::CountryInfoReader * m_infoReader = nullptr;
 
-  size_t m_threadsCount;
-  size_t m_maxCachedTilesPerThread;
+  // They can't be negative, it is done to avoid compiler warnings.
+  long m_threadsCount;
+  long m_maxCachedTilesPerThread;
   std::string m_srtmPath;
   bool m_forceRegenerate;
 };

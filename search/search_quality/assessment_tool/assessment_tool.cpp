@@ -9,6 +9,7 @@
 
 #include "platform/platform.hpp"
 
+#include <QtGui/QScreen>
 #include <QtWidgets/QApplication>
 
 #include "gflags/gflags.h"
@@ -39,7 +40,7 @@ int main(int argc, char ** argv)
   params.m_numSearchAPIThreads = FLAGS_num_threads;
 
   Framework framework(params);
-  MainView view(framework);
+  MainView view(framework, app.primaryScreen()->geometry());
   MainModel model(framework);
 
   model.SetView(view);

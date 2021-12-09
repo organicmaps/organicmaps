@@ -48,10 +48,10 @@ namespace
 char const kJSON[] = "JSON Lines files (*.jsonl)";
 }  // namespace
 
-MainView::MainView(Framework & framework) : m_framework(framework)
+MainView::MainView(Framework & framework, QRect const & screenGeometry)
+: m_framework(framework)
 {
-  QDesktopWidget const * desktop = QApplication::desktop();
-  setGeometry(desktop->screenGeometry(desktop->primaryScreen()));
+  setGeometry(screenGeometry);
 
   setWindowTitle(tr("Assessment tool"));
   InitMapWidget();
@@ -543,7 +543,9 @@ void MainView::AddSelectedFeature(QPoint const & p)
 QDockWidget * MainView::CreateDock(QWidget & widget)
 {
   auto * dock = new QDockWidget(QString(), this /* parent */, Qt::Widget);
-  dock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+  dock->setFeatures(QDockWidget::DockWidgetClosable | 
+                    QDockWidget::DockWidgetMovable |
+                    QDockWidget::DockWidgetFloatable);
   dock->setWidget(&widget);
   return dock;
 }

@@ -110,26 +110,14 @@ void RunRecalculationGeometryScript(QString const & mapcssFile)
   CopyFromResources("classificator.txt", geometryToolResourceDir);
   CopyFromResources("types.txt", geometryToolResourceDir);
 
-  QStringList params;
-  params << "python" <<
-            '"' + GetRecalculateGeometryScriptPath() + '"' <<
-            '"' + resourceDir + '"' <<
-            '"' + writableDir + '"' <<
-            '"' + generatorToolPath + '"' <<
-            '"' + appPath + '"' <<
-            '"' + mapcssFile + '"';
-  QString const cmd = params.join(' ');
-
-  auto const res = ExecProcess(cmd);
-
-  // If script returns non zero then it is error
-  if (res.first != 0)
-  {
-    QString msg = QString("System error ") + std::to_string(res.first).c_str();
-    if (!res.second.isEmpty())
-      msg = msg + "\n" + res.second;
-    throw std::runtime_error(to_string(msg));
-  }
+  (void)ExecProcess("python", {
+      GetRecalculateGeometryScriptPath(),
+      resourceDir,
+      writableDir,
+      generatorToolPath,
+      appPath,
+      mapcssFile,
+  });
 }
 
 bool NeedRecalculate = false;

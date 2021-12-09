@@ -7,53 +7,31 @@
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
-#include <QtCore/QStringList>
+#include <QtCore/QProcessEnvironment>
 
 #include <exception>
 #include <string>
 
-namespace
-{
-QString GetScriptPath()
-{
-  return GetExternalPath("drules_info.py", "kothic/src", "../tools/python/stylesheet");
-}
-}  // namespace
-
 namespace build_style
 {
-
 QString GetStyleStatistics(QString const & mapcssMappingFile, QString const & drulesFile)
 {
   if (!QFile(mapcssMappingFile).exists())
-    throw std::runtime_error("mapcss-mapping file does not exist");
+    throw std::runtime_error("mapcss-mapping file does not exist at " + mapcssMappingFile.toStdString());
 
   if (!QFile(drulesFile).exists())
-    throw std::runtime_error("drawing-rules file does not exist");
+    throw std::runtime_error("drawing-rules file does not exist at " + drulesFile.toStdString());
 
-  // Prepare command line
-  QStringList params;
-  params << "python" << GetScriptPath() << mapcssMappingFile << drulesFile;
-  QString const cmd = params.join(' ');
-
-  // Add path to the protobuf EGG in the PROTOBUF_EGG_PATH environment variable
-  QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+  // Add path to the protobuf EGG in the PROTOBUF_EGG_PATH environment variable.
+  QProcessEnvironment env{QProcessEnvironment::systemEnvironment()};
   env.insert("PROTOBUF_EGG_PATH", GetProtobufEggPath());
 
-  // Run the script
-  auto const res = ExecProcess(cmd, &env);
-
-  QString text;
-  if (res.first != 0)
-  {
-    text = QString("System error ") + std::to_string(res.first).c_str();
-    if (!res.second.isEmpty())
-      text = text + "\n" + res.second;
-  }
-  else
-    text = res.second;
-
-  return text;
+  // Run the script.
+  return ExecProcess("python", {
+    GetExternalPath("drules_info.py", "kothic/src", "../tools/python/stylesheet"),
+    mapcssMappingFile,
+    drulesFile,
+  }, &env);
 }
 
 QString GetCurrentStyleStatistics()
@@ -64,4 +42,3 @@ QString GetCurrentStyleStatistics()
   return GetStyleStatistics(mappingPath, drulesPath);
 }
 }  // namespace build_style
-

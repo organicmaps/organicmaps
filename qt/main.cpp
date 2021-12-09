@@ -21,6 +21,7 @@
 #include "gflags/gflags.h"
 
 #include <QtCore/QDir>
+#include <QtGui/QScreen>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFileDialog>
@@ -110,6 +111,12 @@ public:
 
 int main(int argc, char * argv[])
 {
+  // Our double parsing code (base/string_utils.hpp) needs dots as a floating point delimiters, not commas.
+  // TODO: Refactor our doubles parsing code to use locale-independent delimiters.
+  // For example, https://github.com/google/double-conversion can be used.
+  // See http://dbaron.org/log/20121222-locale for more details.
+  (void)::setenv("LC_NUMERIC", "C", 1);
+
   gflags::SetUsageMessage("Desktop application.");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
@@ -125,33 +132,24 @@ int main(int argc, char * argv[])
 
   Q_INIT_RESOURCE(resources_common);
 
-  // Our double parsing code (base/string_utils.hpp) needs dots as a floating point delimiters, not commas.
-  // TODO: Refactor our doubles parsing code to use locale-independent delimiters.
-  // For example, https://github.com/google/double-conversion can be used.
-  // See http://dbaron.org/log/20121222-locale for more details.
-  (void)::setenv("LC_NUMERIC", "C", 1);
-
   InitializeFinalize mainGuard;
   UNUSED_VALUE(mainGuard);
 
-  QApplication a(argc, argv);
+  QApplication app(argc, argv);
 
   platform.SetupMeasurementSystem();
 
-  // display EULA if needed
+  // Display EULA if needed.
   char const * settingsEULA = "EulaAccepted";
   bool eulaAccepted = false;
   if (!settings::Get(settingsEULA, eulaAccepted) || !eulaAccepted)
   {
-    QStringList buttons;
-    buttons << "Accept" << "Decline";
-
     string buffer;
     {
       ReaderPtr<Reader> reader = platform.GetReader("copyright.html");
       reader.ReadAsString(buffer);
     }
-    qt::InfoDialog eulaDialog(qAppName(), buffer.c_str(), nullptr, buttons);
+    qt::InfoDialog eulaDialog(qAppName(), buffer.c_str(), nullptr, {"Accept", "Decline"});
     eulaAccepted = (eulaDialog.exec() == 1);
     settings::Set(settingsEULA, eulaAccepted);
   }
@@ -164,7 +162,7 @@ int main(int argc, char * argv[])
     std::unique_ptr<qt::ScreenshotParams> screenshotParams;
 
 #if defined(OMIM_OS_MAC)
-    apiOpenGLES3 = a.arguments().contains("es3", Qt::CaseInsensitive);
+    apiOpenGLES3 = app.arguments().contains("es3", Qt::CaseInsensitive);
 #endif
 
     if (!FLAGS_lang.empty())
@@ -231,9 +229,10 @@ int main(int argc, char * argv[])
 #endif // BUILD_DESIGNER
 
     Framework framework(frameworkParams);
-    qt::MainWindow w(framework, apiOpenGLES3, std::move(screenshotParams), mapcssFilePath);
+    qt::MainWindow w(framework, apiOpenGLES3, std::move(screenshotParams),
+                     app.primaryScreen()->geometry(), mapcssFilePath);
     w.show();
-    returnCode = a.exec();
+    returnCode = app.exec();
   }
 
 #ifdef BUILD_DESIGNER

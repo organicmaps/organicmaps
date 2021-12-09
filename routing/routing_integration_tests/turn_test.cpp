@@ -635,13 +635,13 @@ UNIT_TEST(RussiaKubinkaTest)
                                   mercator::FromLatLon(55.58533, 36.83779), {0., 0.},
                                   mercator::FromLatLon(55.58365, 36.8333));
 
-  Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   /// @todo This test is obsolete.
   /*
+  Route const & route = *routeResult.first;
   integration::TestTurnCount(route, 2);
 
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);

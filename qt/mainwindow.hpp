@@ -75,7 +75,7 @@ class MainWindow : public QMainWindow, location::LocationObserver
 
 public:
   MainWindow(Framework & framework, bool apiOpenGLES3, std::unique_ptr<ScreenshotParams> && screenshotParams,
-             QString const & mapcssFilePath = QString());
+             QRect const & screenGeometry, QString const & mapcssFilePath = QString());
 
   static void SetDefaultSurfaceFormat(bool apiOpenGLES3);
 
