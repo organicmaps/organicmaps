@@ -289,7 +289,7 @@ void BookmarkDialog::FillTree()
                                                  true /* withComma */);
         }
         auto bookmarkItem = CreateTreeItem(name + " (Bookmark)", categoryItem);
-        bookmarkItem->setTextColor(0, Qt::blue);
+        bookmarkItem->setForeground(0, Qt::blue);
         m_bookmarks[bookmarkItem] = bookmarkId;
       }
 
@@ -300,7 +300,7 @@ void BookmarkDialog::FillTree()
         if (name.empty())
           name = "No name";
         auto trackItem = CreateTreeItem(name + " (Track)", categoryItem);
-        trackItem->setTextColor(0, Qt::darkGreen);
+        trackItem->setForeground(0, Qt::darkGreen);
         m_tracks[trackItem] = trackId;
       }
     }

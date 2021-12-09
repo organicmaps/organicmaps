@@ -5,43 +5,26 @@
 #include "platform/platform.hpp"
 
 #include <QtCore/QDir>
-#include <QtCore/QStringList>
 
 #include <exception>
 #include <string>
 
-namespace
-{
-QString GetScriptPath()
-{
-  return GetExternalPath("generate_styles_override.py", "", "../tools/python");
-}
-}  // namespace
-
 namespace build_style
 {
-QString RunBuildingPhonePack(QString const & stylesFolder, QString const & targetFolder)
+QString RunBuildingPhonePack(QString const & stylesDir, QString const & targetDir)
 {
-  if (!QDir(stylesFolder).exists())
-    throw std::runtime_error("styles folder does not exist");
+  using std::to_string, std::runtime_error;
 
-  if (!QDir(targetFolder).exists())
-    throw std::runtime_error("target folder does not exist");
+  if (!QDir(stylesDir).exists())
+    throw runtime_error("Styles directory does not exist " + stylesDir.toStdString());
 
-  QStringList params;
-  params << "python" <<
-         '"' + GetScriptPath() + '"' <<
-         '"' + stylesFolder + '"' <<
-         '"' + targetFolder + '"';
-  QString const cmd = params.join(' ');
-  auto const res = ExecProcess(cmd);
-  if (res.first != 0)
-  {
-    QString msg = QString("System error ") + std::to_string(res.first).c_str();
-    if (!res.second.isEmpty())
-      msg = msg + "\n" + res.second;
-    throw std::runtime_error(to_string(msg));
-  }
-  return res.second;
+  if (!QDir(targetDir).exists())
+    throw runtime_error("target directory does not exist" + targetDir.toStdString());
+  
+  return ExecProcess("python", {
+    GetExternalPath("generate_styles_override.py", "", "../tools/python"),
+    stylesDir,
+    targetDir
+  });
 }
 }  // namespace build_style

@@ -324,13 +324,13 @@ void SearchPanel::OnAnimationTimer()
 {
   static int angle = 0;
 
-  QMatrix rm;
+  QTransform transform;
   angle += 15;
   if (angle >= 360)
     angle = 0;
-  rm.rotate(angle);
+  transform.rotate(angle);
 
-  m_pClearButton->setIcon(QIcon(m_busyIcon.transformed(rm)));
+  m_pClearButton->setIcon(QIcon(m_busyIcon.transformed(transform)));
 }
 
 void SearchPanel::OnClearButton()

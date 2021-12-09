@@ -274,8 +274,6 @@ void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
 
 } // namespace
 
-/// @todo Too long to wait for downloads.
-/*
 UNIT_TEST(SmallMwms_GroupDownloadDelete_Test1)
 {
   TestDownloadDelete(false, false);
@@ -295,4 +293,3 @@ UNIT_TEST(SmallMwms_GroupDownloadDelete_Test4)
 {
   TestDownloadDelete(true, true);
 }
-*/

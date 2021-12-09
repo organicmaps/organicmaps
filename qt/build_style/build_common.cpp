@@ -6,30 +6,45 @@
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QProcess>
+#include <QtCore/QProcessEnvironment>
 #include <QtCore/QRegExp>
 
 #include <exception>
+#include <iomanip>  // std::quoted
+#include <string>
 
-std::pair<int, QString> ExecProcess(QString const & cmd, QProcessEnvironment const * env)
+QString ExecProcess(QString const & program, std::initializer_list<QString> args, QProcessEnvironment const * env)
 {
+  // Quote all arguments.
+  QStringList qargs(args);
+  for (auto i = qargs.begin(); i != qargs.end(); ++i)
+    *i = "\"" + *i + "\"";
+
   QProcess p;
   if (nullptr != env)
     p.setProcessEnvironment(*env);
-  p.start(cmd);
+  
+  p.start(program, qargs, QIODevice::ReadOnly);
   p.waitForFinished(-1);
 
   int const exitCode = p.exitCode();
-
   QString output = p.readAllStandardOutput();
   QString const error = p.readAllStandardError();
+  if (exitCode != 0)
+  {
+    QString msg = "Error: " + program + " " + qargs.join(" ") + "\nReturned " + QString::number(exitCode);
+    if (!output.isEmpty())
+      msg += "\n" + output;
+    if (!error.isEmpty())
+      msg += "\nSTDERR:\n" + error;
+    throw std::runtime_error(msg.toStdString());
+  }
   if (!error.isEmpty())
   {
-    if (!output.isEmpty())
-      output += "\n";
-    output += error;
+    QString const msg = "STDERR with a zero exit code:\n" + program + " " + qargs.join(" ");
+    throw std::runtime_error(msg.toStdString());
   }
-
-  return std::make_pair(exitCode, output);
+  return output;
 }
 
 bool CopyFile(QString const & oldFile, QString const & newFile)
@@ -67,7 +82,7 @@ void CopyToResources(QString const & name, QString const & input, QString const 
   }
 }
 
-QString JoinPathQt(std::initializer_list<QString> const & folders)
+QString JoinPathQt(std::initializer_list<QString> folders)
 {
   QString result;
   bool firstInserted = false;

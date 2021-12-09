@@ -11,15 +11,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
-#include <QtCore/QStringList>
-
-namespace
-{
-QString GetScriptPath()
-{
-  return GetExternalPath("libkomwm.py", "kothic/src", "../tools/kothic/src");
-}
-}  // namespace
+#include <QtCore/QProcessEnvironment>
 
 namespace build_style
 {
@@ -32,32 +24,19 @@ void BuildDrawingRulesImpl(QString const & mapcssFile, QString const & outputDir
   if (QFile(outputFile).exists())
     throw std::runtime_error("Output directory is not clear");
 
-  // Prepare command line
-  QStringList params;
-  params << "python" <<
-            GetScriptPath() <<
-            "-s" << mapcssFile <<
-            "-o" << outputTemplate <<
-            "-x" << "True";
-  QString const cmd = params.join(' ');
-
   // Add path to the protobuf EGG in the PROTOBUF_EGG_PATH environment variable
-  QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+  QProcessEnvironment env{QProcessEnvironment::systemEnvironment()};
   env.insert("PROTOBUF_EGG_PATH", GetProtobufEggPath());
 
   // Run the script
-  auto const res = ExecProcess(cmd, &env);
+  (void)ExecProcess("python", {
+    GetExternalPath("libkomwm.py", "kothic/src", "../tools/kothic/src"),
+    "-s", mapcssFile,
+    "-o", outputTemplate,
+    "-x", "True",
+  }, &env);
 
-  // Script returs nothing and zero exit code if it is executed succesfully,
-  if (res.first != 0 || !res.second.isEmpty())
-  {
-    QString msg = QString("System error ") + std::to_string(res.first).c_str();
-    if (!res.second.isEmpty())
-      msg = msg + "\n" + res.second;
-    throw std::runtime_error(to_string(msg));
-  }
-
-  // Ensure generated files has non-zero size
+  // Ensure that generated file is not empty.
   if (QFile(outputFile).size() == 0)
     throw std::runtime_error("Drawing rules file has zero size");
 }

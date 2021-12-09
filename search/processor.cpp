@@ -488,7 +488,6 @@ void Processor::SearchByFeatureId()
     if (EatFid(s, fid))
       EmitFeaturesByIndexFromAllMwms(infos, fid);
   }
-
   // Case 1.
   if (hasFidPrefix)
   {
@@ -503,8 +502,16 @@ void Processor::SearchByFeatureId()
     ok = ok && EatMwmName(m_countriesTrie, s, mwmName);
     ok = ok && strings::EatPrefix(s, ",");
     ok = ok && EatFid(s, fid);
+    // fid variable can not be uninitialized below, but by some reason compilers do not understand it.
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wconditional-uninitialized"
+#endif
     if (ok)
       EmitFeatureIfExists(infos, mwmName, {} /* version */, fid);
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
   }
 
   // Case 2.
@@ -522,8 +529,16 @@ void Processor::SearchByFeatureId()
     ok = ok && strings::EatPrefix(s, "], ");
     ok = ok && EatFid(s, fid);
     ok = ok && strings::EatPrefix(s, " }");
+    // fid variable can not be uninitialized below, but by some reason compilers do not understand it.
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wconditional-uninitialized"
+#endif
     if (ok)
       EmitFeatureIfExists(infos, mwmName, version, fid);
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
   }
 }
 

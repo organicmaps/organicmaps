@@ -239,9 +239,7 @@ namespace openlr
 MainWindow::MainWindow(Framework & framework)
   : m_framework(framework)
 {
-  m_mapWidget = new MapWidget(
-      m_framework, false /* apiOpenGLES3 */, this /* parent */
-  );
+  m_mapWidget = new MapWidget(m_framework, false /* apiOpenGLES3 */, this /* parent */);
 
   m_layout = new QHBoxLayout();
   m_layout->addWidget(m_mapWidget);
@@ -252,8 +250,8 @@ MainWindow::MainWindow(Framework & framework)
 
   setCentralWidget(window);
 
-  // setWindowTitle(tr("OMaps"));
-  // setWindowIcon(QIcon(":/ui/logo.png"));
+  setWindowTitle(tr("Organic Maps"));
+  setWindowIcon(QIcon(":/ui/logo.png"));
 
   QMenu * fileMenu = new QMenu("File", this);
   menuBar()->addMenu(fileMenu);

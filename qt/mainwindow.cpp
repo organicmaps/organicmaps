@@ -153,6 +153,7 @@ extern char const * kTokenSecretSetting;
 
 MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
                        std::unique_ptr<ScreenshotParams> && screenshotParams,
+                       QRect const & screenGeometry,
                        QString const &
 #ifdef BUILD_DESIGNER
                        mapcssFilePath
@@ -165,9 +166,7 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
   , m_mapcssFilePath(mapcssFilePath)
 #endif
 {
-  // Always runs on the first desktop
-  QDesktopWidget const * desktop(QApplication::desktop());
-  setGeometry(desktop->screenGeometry(desktop->primaryScreen()));
+  setGeometry(screenGeometry);
 
   if (m_screenshotMode)
   {

@@ -25,6 +25,7 @@
 
 namespace
 {
+/*
 void UpdateLocationForArchiving(location::GpsInfo & point) { point.m_timestamp += 3; }
 
 size_t GetFilesCount(std::string const & path,
@@ -63,20 +64,20 @@ void TestFilesExistence(size_t newestIndex, size_t fileCount, std::string const 
          ());
   }
 }
-
+*/
 TRouteResult GetRouteResult()
 {
   return integration::CalculateRoute(integration::GetVehicleComponents(routing::VehicleType::Car),
                                      mercator::FromLatLon(55.7607268, 37.5801099), m2::PointD::Zero(),
                                      mercator::FromLatLon(55.75718, 37.63156));
 }
-
+/*
 size_t GetInitialTimestamp()
 {
   auto const now = std::chrono::system_clock::now();
   return std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
 }
-
+*/
 class TestArchivalReporter
 {
 public:
