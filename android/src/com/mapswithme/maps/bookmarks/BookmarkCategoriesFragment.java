@@ -376,7 +376,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   protected enum MenuItemClickProcessorWrapper
   {
     SET_SHARE(R.id.share, shareAction()),
-    SET_EDIT(R.id.edit, editAction()),
     SHOW_ON_MAP(R.id.show_on_map, showAction()),
     LIST_SETTINGS(R.id.settings, showListSettings()),
     DELETE_LIST(R.id.delete, deleteAction());
@@ -403,12 +402,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     private static MenuClickProcessorBase.DeleteAction deleteAction()
     {
       return new MenuClickProcessorBase.DeleteAction();
-    }
-
-    @NonNull
-    private static MenuClickProcessorBase.EditAction editAction()
-    {
-      return new MenuClickProcessorBase.EditAction();
     }
 
     @IdRes
@@ -469,28 +462,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
                           @NonNull BookmarkCategory category)
       {
         frag.onDeleteActionSelected(category);
-      }
-    }
-
-    protected static class EditAction extends MenuClickProcessorBase
-    {
-      @Override
-      public void process(@NonNull BookmarkCategoriesFragment frag,
-                          @NonNull BookmarkCategory category)
-      {
-        frag.mCategoryEditor = newName ->
-        {
-          BookmarkManager.INSTANCE.setCategoryName(category.getId(), newName);
-        };
-        EditTextDialogFragment dialogFragment =
-            EditTextDialogFragment.show(frag.getString(R.string.bookmark_set_name),
-                                        category.getName(),
-                                        frag.getString(R.string.rename),
-                                        frag.getString(R.string.cancel),
-                                        MAX_CATEGORY_NAME_LENGTH,
-                                        frag,
-                                        new CategoryValidator());
-        dialogFragment.setTextSaveListener(frag::onSaveText);
       }
     }
 

@@ -7856,42 +7856,6 @@
     zh-Hans = 隐藏
     zh-Hant = 隱藏
 
-  [rename]
-    comment = «Rename» context menu
-    tags = android
-    en = Rename
-    ar = إعادة تسمية
-    be = Пераіменаваць
-    bg = Преименуване
-    cs = Přejmenovat
-    da = Omdøb
-    de = Umbenennen
-    el = Μετονομασία
-    es = Renombrar
-    fa = تغیر نام
-    fi = Nimeä uudelleen
-    fr = Renommer
-    hu = Átnevez
-    id = Ubah nama
-    it = Rinomina
-    ja = 名前を変更する
-    ko = 다른 이름으로 변경
-    nb = Nytt navn
-    nl = Naam wijzigen
-    pl = Zmień nazwę
-    pt = Alterar nome
-    pt-BR = Renomear
-    ro = Redenumire
-    ru = Переименовать
-    sk = Premenovať
-    sv = Byt namn
-    th = เปลี่ยนชื่อ
-    tr = Yeniden Adlandır
-    uk = Перейменувати
-    vi = Đổi tên
-    zh-Hans = 重命名
-    zh-Hant = 重新命名
-
   [routing_planning_error]
     comment = Failed planning route message in navigation view
     tags = ios
