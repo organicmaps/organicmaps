@@ -728,14 +728,8 @@ public:
   void CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type,
                   std::string const & note);
 
-public:
-  storage::CountriesVec GetTopmostCountries(ms::LatLon const & latlon) const;
-
 private:
-  std::unique_ptr<search::CityFinder> m_cityFinder;
   CachingAddressGetter m_addressGetter;
-
-  void InitCityFinder();
 
 public:
   // TipsApi::Delegate override.

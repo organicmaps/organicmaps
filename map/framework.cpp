@@ -159,23 +159,6 @@ bool ParseSetGpsTrackMinAccuracyCommand(string const & query)
   GpsTrackFilter::StoreMinHorizontalAccuracy(value);
   return true;
 }
-/*
-string MakeSearchBookingUrl(booking::Api const & bookingApi, search::CityFinder & cityFinder,
-                            FeatureType & ft)
-{
-  string name;
-  auto const & info = ft.GetID().m_mwmId.GetInfo();
-  ASSERT(info, ());
-
-  int8_t lang = feature::GetNameForSearchOnBooking(info->GetRegionData(), ft.GetNames(), name);
-
-  if (lang == StringUtf8Multilang::kUnsupportedLanguageCode)
-    return {};
-
-  string city = cityFinder.GetCityName(feature::GetCenter(ft), lang);
-
-  return bookingApi.GetSearchUrl(city, name);
-}*/
 }  // namespace
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
@@ -383,8 +366,6 @@ Framework::Framework(FrameworkParams const & params)
   m_searchMarks.SetBookmarkManager(m_bmManager.get());
 
   m_routingManager.SetTransitManager(&m_transitManager);
-
-  InitCityFinder();
 
   // Init storage with needed callback.
   m_storage.Init(bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
@@ -3108,15 +3089,6 @@ void Framework::CreateNote(osm::MapObject const & mapObject,
     DeactivateMapSelection(true /* notifyUI */);
 }
 
-storage::CountriesVec Framework::GetTopmostCountries(ms::LatLon const & latlon) const
-{
-  m2::PointD const point = mercator::FromLatLon(latlon);
-  auto const countryId = m_infoGetter->GetRegionCountryId(point);
-  storage::CountriesVec topmostCountryIds;
-  GetStorage().GetTopmostNodesFor(countryId, topmostCountryIds);
-  return topmostCountryIds;
-}
-
 namespace
 {
 vector<dp::Color> colorList = {
@@ -3348,13 +3320,6 @@ void Framework::RegisterCountryFilesOnRoute(shared_ptr<routing::NumMwmIds> ptr) 
 {
   m_storage.ForEachCountryFile(
       [&ptr](platform::CountryFile const & file) { ptr->RegisterFile(file); });
-}
-
-void Framework::InitCityFinder()
-{
-  ASSERT(!m_cityFinder, ());
-
-  m_cityFinder = make_unique<search::CityFinder>(m_featuresFetcher.GetDataSource());
 }
 
 void Framework::SetPlacePageLocation(place_page::Info & info)
