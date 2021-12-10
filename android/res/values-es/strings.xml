@@ -455,6 +455,8 @@
 	<string name="details">Detalles</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Añadir una calle</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">Ingrese un nombre de calle</string>
 	<string name="choose_language">Elegir un idioma</string>
 	<string name="choose_street">Elegir una calle</string>
 	<string name="postal_code">Código postal</string>

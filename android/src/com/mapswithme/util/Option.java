@@ -3,12 +3,15 @@ package com.mapswithme.util;
 public class Option<T>
 {
   private final T mValue;
-  private final T mOption;
 
-  public Option(T useIfValueIsNull, T value)
+  public static<U> Option<U> empty()
+  {
+    return new Option<>(null);
+  }
+
+  public Option(T value)
   {
     mValue = value;
-    mOption = useIfValueIsNull;
   }
 
   public boolean hasValue()
@@ -18,6 +21,12 @@ public class Option<T>
 
   public T get()
   {
-    return hasValue() ? mValue : mOption;
+    assert(hasValue());
+    return mValue;
+  }
+
+  public T getOrElse(T defaultValue)
+  {
+    return hasValue() ? mValue : defaultValue;
   }
 }

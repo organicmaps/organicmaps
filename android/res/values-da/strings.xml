@@ -448,6 +448,8 @@
 	<string name="details">Oplysninger</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Tilføj en gade</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">Indtast et gadenavn</string>
 	<string name="choose_language">Vælg et sprog</string>
 	<string name="choose_street">Vælg en gade</string>
 	<string name="postal_code">Postnummer</string>

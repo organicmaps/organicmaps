@@ -10,12 +10,13 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
+import com.mapswithme.util.Option;
 
 public class StreetFragment extends BaseMwmRecyclerFragment<StreetAdapter>
-    implements EditTextDialogFragment.EditTextDialogInterface
 {
   private LocalizedStreet mSelectedString;
 
@@ -59,17 +60,18 @@ public class StreetFragment extends BaseMwmRecyclerFragment<StreetAdapter>
       ((EditorHostFragment) getParentFragment()).setStreet(street);
   }
 
-  @NonNull
-  @Override
-  public EditTextDialogFragment.OnTextSaveListener getSaveTextListener()
+  public EditTextDialogFragment.OnTextSaveListener getSaveStreetListener()
   {
     return text -> saveStreet(new LocalizedStreet(text, ""));
   }
 
-  @NonNull
-  @Override
-  public EditTextDialogFragment.Validator getValidator()
+  public static EditTextDialogFragment.Validator getStreetValidator()
   {
-    return (activity, text) -> !TextUtils.isEmpty(text);
+    return (activity, text) -> {
+      if (TextUtils.isEmpty(text))
+        return new Option<>(activity.getString(R.string.empty_street_name_error));
+      else
+        return Option.empty();
+    };
   }
 }

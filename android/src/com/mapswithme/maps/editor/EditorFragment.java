@@ -38,12 +38,12 @@ import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.Option;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
-public class EditorFragment extends BaseMwmFragment implements View.OnClickListener,
-                                                               EditTextDialogFragment.EditTextDialogInterface
+public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
 {
   final static String LAST_INDEX_OF_NAMES_ARRAY = "LastIndexOfNamesArray";
 
@@ -783,24 +783,31 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void placeDoesntExist()
   {
-    EditTextDialogFragment.show(getString(R.string.editor_place_doesnt_exist), "", getString(R.string.editor_comment_hint),
-                                getString(R.string.editor_report_problem_send_button), getString(R.string.cancel), this);
+    EditTextDialogFragment dialogFragment =
+        EditTextDialogFragment.show(getString(R.string.editor_place_doesnt_exist),
+                                    "",
+                                    getString(R.string.editor_comment_hint),
+                                    getString(R.string.editor_report_problem_send_button),
+                                    getString(R.string.cancel),
+                                    this,
+                                    getDeleteCommentValidator());
+    dialogFragment.setTextSaveListener(this::commitPlaceDoesntExists);
+  }
+
+  private void commitPlaceDoesntExists(@NonNull String text)
+  {
+    Editor.nativePlaceDoesNotExist(text);
+    mParent.onBackPressed();
   }
 
   @NonNull
-  @Override
-  public EditTextDialogFragment.OnTextSaveListener getSaveTextListener()
+  private EditTextDialogFragment.Validator getDeleteCommentValidator()
   {
-    return text -> {
-      Editor.nativePlaceDoesNotExist(text);
-      mParent.onBackPressed();
+    return (activity, text) -> {
+      if (TextUtils.isEmpty(text))
+        return new Option<>(activity.getString(R.string.delete_place_empty_comment_error));
+      else
+        return Option.empty();
     };
-  }
-
-  @NonNull
-  @Override
-  public EditTextDialogFragment.Validator getValidator()
-  {
-    return (activity, text) -> !TextUtils.isEmpty(text);
   }
 }

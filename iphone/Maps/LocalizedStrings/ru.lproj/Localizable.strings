@@ -780,6 +780,9 @@
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Добавить улицу";
 
+/* Error to display when a new street name is not entered in the New street dialog */
+"empty_street_name_error" = "Введите название улицы";
+
 "choose_language" = "Выбрать язык";
 
 "choose_street" = "Выбрать улицу";
@@ -963,6 +966,9 @@
 "editor_remove_place_button" = "Удалить";
 
 "editor_place_doesnt_exist" = "Места не существует";
+
+/* Error message for "Place doesn't exist" dialog when comment is empty */
+"delete_place_empty_comment_error" = "Пожалуйста, укажите причину удаления";
 
 "text_more_button" = "…ещё";
 

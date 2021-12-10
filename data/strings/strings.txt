@@ -7856,42 +7856,6 @@
     zh-Hans = 隐藏
     zh-Hant = 隱藏
 
-  [rename]
-    comment = «Rename» context menu
-    tags = android
-    en = Rename
-    ar = إعادة تسمية
-    be = Пераіменаваць
-    bg = Преименуване
-    cs = Přejmenovat
-    da = Omdøb
-    de = Umbenennen
-    el = Μετονομασία
-    es = Renombrar
-    fa = تغیر نام
-    fi = Nimeä uudelleen
-    fr = Renommer
-    hu = Átnevez
-    id = Ubah nama
-    it = Rinomina
-    ja = 名前を変更する
-    ko = 다른 이름으로 변경
-    nb = Nytt navn
-    nl = Naam wijzigen
-    pl = Zmień nazwę
-    pt = Alterar nome
-    pt-BR = Renomear
-    ro = Redenumire
-    ru = Переименовать
-    sk = Premenovať
-    sv = Byt namn
-    th = เปลี่ยนชื่อ
-    tr = Yeniden Adlandır
-    uk = Перейменувати
-    vi = Đổi tên
-    zh-Hans = 重命名
-    zh-Hant = 重新命名
-
   [routing_planning_error]
     comment = Failed planning route message in navigation view
     tags = ios
@@ -9661,7 +9625,7 @@
     zh-Hant = 今天沒有營業
 
   [day_off]
-    tags = ios
+    tags = android, ios
     en = Closed
     ar = مغلق
     be = Зачынена
@@ -10432,6 +10396,22 @@
     vi = Thêm con đường
     zh-Hans = 添加街道
     zh-Hant = 新增街道
+
+  [empty_street_name_error]
+    comment = Error to display when a new street name is not entered in the New street dialog
+    tags = android
+    en = Please enter a street name
+    ar = ﻉﺭﺎﺷ ﻢﺳﺍ ﻞﺧﺩﺃ
+    be = Увядзіце назву вуліцы
+    bg = Въведете име на улица
+    cs = Zadejte název ulice
+    da = Indtast et gadenavn
+    de = Geben Sie einen Straßennamen ein
+    el = Εισαγάγετε ένα όνομα οδού
+    es = Ingrese un nombre de calle
+    fa = ﺪﯿﻨﮐ ﺩﺭﺍﻭ ﺍﺭ ﻥﺎﺑﺎﯿﺧ ﻡﺎﻧ
+    ru = Введите название улицы
+    uk = Введіть назву вулиці
 
   [choose_language]
     tags = android, ios
@@ -13481,6 +13461,14 @@
     vi = Địa điểm không tồn tại
     zh-Hans = 位置不存在
     zh-Hant = 位置不存在
+
+  [delete_place_empty_comment_error]
+    comment = Error message for "Place doesn't exist" dialog when comment is empty
+    tags = android
+    en = Please indicate the reason for deleting the place
+    be = Калі ласка, укажыце прычыну выдалення
+    ru = Пожалуйста, укажите причину удаления
+    uk = Будь ласка, вкажіть причину видалення
 
   [text_more_button]
     tags = ios

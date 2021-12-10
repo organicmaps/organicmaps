@@ -21,8 +21,7 @@ import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import java.util.List;
 
 public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
-                                         implements EditTextDialogFragment.EditTextDialogInterface,
-                                                    ChooseBookmarkCategoryAdapter.CategoryListener
+                                         implements ChooseBookmarkCategoryAdapter.CategoryListener
 {
   public static final String CATEGORY_POSITION = "ExtraCategoryPosition";
 
@@ -79,21 +78,6 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     super.onAttach(activity);
   }
 
-  @NonNull
-  @Override
-  public EditTextDialogFragment.OnTextSaveListener getSaveTextListener()
-  {
-    return this::createCategory;
-  }
-
-  @NonNull
-  @Override
-  public EditTextDialogFragment.Validator getValidator()
-  {
-    return new CategoryValidator();
-  }
-
-
   private void createCategory(@NonNull String name)
   {
     BookmarkManager.INSTANCE.createCategory(name);
@@ -142,7 +126,13 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
   @Override
   public void onCategoryCreate()
   {
-    EditTextDialogFragment.show(getString(R.string.bookmark_set_name), null,
-                                getString(R.string.ok), null, this);
+    EditTextDialogFragment dialogFragment =
+        EditTextDialogFragment.show(getString(R.string.bookmark_set_name),
+                                    null,
+                                    getString(R.string.ok),
+                                    null,
+                                    this,
+                                    new CategoryValidator());
+    dialogFragment.setTextSaveListener(this::createCategory);
   }
 }

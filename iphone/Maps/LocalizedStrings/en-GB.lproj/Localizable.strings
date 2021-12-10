@@ -780,6 +780,9 @@
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Add a street";
 
+/* Error to display when a new street name is not entered in the New street dialog */
+"empty_street_name_error" = "Please enter a street name";
+
 "choose_language" = "Choose a language";
 
 "choose_street" = "Choose a street";
@@ -963,6 +966,9 @@
 "editor_remove_place_button" = "Delete";
 
 "editor_place_doesnt_exist" = "Place does not exist";
+
+/* Error message for "Place doesn't exist" dialog when comment is empty */
+"delete_place_empty_comment_error" = "Please indicate the reason for deleting the place";
 
 "text_more_button" = "…more";
 

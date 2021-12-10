@@ -450,6 +450,8 @@
 	<string name="details">التفاصيل</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">إضافة شارع</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">ﻉﺭﺎﺷ ﻢﺳﺍ ﻞﺧﺩﺃ</string>
 	<string name="choose_language">اختر اللغة</string>
 	<string name="choose_street">اختر الشارع</string>
 	<string name="postal_code">الرمز البريدي</string>
