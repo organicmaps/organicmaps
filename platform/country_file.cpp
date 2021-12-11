@@ -32,18 +32,14 @@ namespace platform
 {
 CountryFile::CountryFile() : m_mapSize(0) {}
 
-CountryFile::CountryFile(string name) : m_name(std::move(name)), m_mapSize(0) {}
-
-string const & CountryFile::GetName() const { return m_name; }
-
-void CountryFile::SetRemoteSize(MwmSize mapSize)
+CountryFile::CountryFile(std::string name)
+: m_name(std::move(name)), m_mapSize(0)
 {
-  m_mapSize = mapSize;
 }
 
-MwmSize CountryFile::GetRemoteSize() const
+CountryFile::CountryFile(std::string name, MwmSize size, std::string sha1)
+: m_name(std::move(name)), m_mapSize(size), m_sha1(sha1)
 {
-  return m_mapSize;
 }
 
 string GetFileName(string const & countryFile, MapFileType type)

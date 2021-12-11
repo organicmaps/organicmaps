@@ -38,7 +38,7 @@ public:
   {
   }
 
-  void SetFile(platform::CountryFile const & file) { m_file = file; }
+  void SetFile(platform::CountryFile && file) { m_file = std::move(file); }
   void SetSubtreeAttrs(MwmCounter subtreeMwmNumber, MwmSize subtreeMwmSizeBytes)
   {
     m_subtreeMwmNumber = subtreeMwmNumber;
@@ -46,12 +46,10 @@ public:
   }
   MwmCounter GetSubtreeMwmCounter() const { return m_subtreeMwmNumber; }
   MwmSize GetSubtreeMwmSizeBytes() const { return m_subtreeMwmSizeBytes; }
-  CountryId GetParent() const { return m_parent; }
 
-  /// This function valid for current logic - one file for one country (region).
-  /// If the logic will be changed, replace GetFile with ForEachFile.
   platform::CountryFile const & GetFile() const { return m_file; }
   CountryId const & Name() const { return m_name; }
+  CountryId const & GetParent() const { return m_parent; }
 
 private:
   /// Name in the country node tree. In single mwm case it's a country id.
