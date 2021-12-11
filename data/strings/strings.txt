@@ -796,7 +796,7 @@
     sk = Skúsiť znova
     sv = Försök igen
     th = ลองอีกครั้ง
-    tr = Tekrar Deneyin
+    tr = Tekrar Dene
     uk = Спробуйте ще раз
     vi = Thử lại
     zh-Hans = 重试
@@ -1484,7 +1484,7 @@
     sk = Meno záložky
     sv = Bokmärkessamlingens namn
     th = ชื่อของชุดบุ๊กมาร์ก
-    tr = Yer İmi Adını Ayarla
+    tr = Yer İmi Listesi Adı
     uk = Назва групи
     vi = Đánh dấu Tên Bộ
     zh-Hans = 书签集名称
@@ -1519,7 +1519,7 @@
     sk = Skupiny záložiek
     sv = Bokmärkessamlingar
     th = ชุดของบุ๊กมาร์ก
-    tr = Yer İmi Ayarları
+    tr = Yer İmi Listeleri
     uk = Групи мiток
     vi = Đánh dấu Bộ
     zh-Hans = 书签集
@@ -1703,7 +1703,7 @@
     sk = Skupina
     sv = Samling
     th = ชุด
-    tr = Ayarla
+    tr = Liste
     uk = Група
     vi = Đặt
     zh-Hans = 集合
@@ -1777,7 +1777,7 @@
     sv = Spara kartor i
     sw = Hifadhi ramani kwenye
     th = บันทึกแผนที่ไปยัง
-    tr = Haritaları depolama
+    tr = Haritaları şuraya kaydet:
     uk = Зберігати мапи до
     vi = Lưu bản đồ vào
     zh-Hans = 将地图保存到
@@ -1851,7 +1851,7 @@
     sk = Presunúť mapy?
     sv = Flytta kartor?
     th = ลบแผนที่?
-    tr = Haritaları taşı?
+    tr = Haritalar taşınsın mı?
     uk = Перемістити мапи?
     vi = Di chuyển bản đồ?
     zh-Hans = 移动地图？
@@ -1925,7 +1925,7 @@
     sk = Meracie jednotky
     sv = Längdenheter
     th = หน่วยการวัด
-    tr = Ölçü Birimleri
+    tr = Ölçü birimleri
     uk = Одиниці виміру
     vi = Đơn vị đo
     zh-Hans = 测量单位
@@ -2037,7 +2037,7 @@
     sv = Produkter
     sw = Migahawani
     th = ซื้อของกินของใช้
-    tr = Bakkaliye
+    tr = Market
     uk = Продукти
     vi = Cửa hàng tạp hóa
     zh-Hans = 食品
@@ -2112,7 +2112,7 @@
     sk = Čerpacia stanica
     sv = Bensin
     th = ก๊าซ
-    tr = Benzin
+    tr = Yakıt
     uk = Заправка
     vi = Khí đốt
     zh-Hans = 汽油
@@ -2557,7 +2557,7 @@
     sk = Záchody
     sv = Toalett
     th = ห้องน้ำ
-    tr = Tuvalet
+    tr = WC
     uk = Туалет
     vi = Nhà vệ sinh
     zh-Hans = 厕所
@@ -2704,7 +2704,7 @@
     sk = Zdielané záložky Organic Maps
     sv = Organic Maps bokmärken har delats med dig
     th = แชร์บุ๊กมาร์กของ Organic Maps แล้ว
-    tr = Paylaşılan Organic Maps yer imleri
+    tr = Seninle paylaşılan Organic Maps yer imleri
     uk = З вами поділилися мiтками Organic Maps
     vi = Điểm đánh dấu Organic Maps được chia sẻ
     zh-Hans = Organic Maps 书签已与您共享
@@ -2721,7 +2721,8 @@
     pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!
     pt-BR = Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Por favor os abra se você tiver o Organic Maps instalado. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android com o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!
     ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
-    zh-Hant = 你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps！
+    tr = Merhaba!\n\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ile seyahat etmenin keyfini çıkarın!
+    zh-Hant = 你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps!
 
   [load_kmz_title]
     comment = message title of loading file
@@ -2975,7 +2976,7 @@
     sk = Práve prebieha sťahovanie krajiny.
     sv = Nedladdning av landet är startat nu.
     th = กำลังดำเนินการดาวน์โหลดประเทศในตอนนี้
-    tr = Ülke indirme işlemi şu anda sürüyor.
+    tr = Harita indirme işlemi şu anda sürüyor.
     uk = Зараз відбувається завантаження країни.
     vi = Hiện đang tải xuống quốc gia.
     zh-Hans = 地图下载进行中。
@@ -3011,7 +3012,7 @@
     sk = Pozri kde som. Otvor odkaz: %1$@ alebo %2$@
     sv = Hej, kolla på min nuvarande position på Organic Maps! %1$@ eller %2$@ Har du inte offline-kartor? Ladda ner här: https://omaps.app/get
     th = เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ Organic Maps! %1$@ หรือ %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: https://omaps.app/get
-    tr = Hey, Organic Maps’de geçerli konumumu incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yok mu? Buradan indir: https://omaps.app/get
+    tr = Hey, Organic Maps’te geçerli konumumu incele! %1$@ veya %2$@ Çevrimdışı haritalar sende yok mu? Buradan indir: https://omaps.app/get
     uk = Глянь де я зараз. Іди %1$@ або %2$@
     vi = Này, hãy xem vị trí hiện tại của tôi tại Organic Maps! %1$@ hoặc %2$@ Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: https://omaps.app/get
     zh-Hans = 嘿，在 Organic Maps 上查看我目前的位置吧!%1$@ 或%2$@ 未安装离线地图？在此下载: https://omaps.app/get
@@ -3083,7 +3084,7 @@
     sk = Pozrite si moju aktuálnu polohu na mape Organic Maps
     sv = Hej, kolla på min nuvarande position på Organic Maps kartan!
     th = นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ Organic Maps สิ!
-    tr = Hey, Organic Maps’de geçerli konumumu incele!
+    tr = Hey, Organic Maps’te geçerli konumumu incele!
     uk = Поглянь на моє поточне місцезнаходження на мапі Organic Maps
     vi = Này, hãy xem vị trí hiện tại của tôi tại Organic Maps map!
     zh-Hans = 嗨，到 Organic Maps 查看我的当前位置！
@@ -3362,6 +3363,7 @@
     pt = Versão dos dados: %d
     pt-BR = Versão dos dados: %d
     ru = Версия данных: %d
+    tr = Veri sürümü: %d
     zh-Hans = 资料版本： %d
     zh-Hant = 資料版本： %d
 
