@@ -13,17 +13,23 @@ namespace platform
 {
 UNIT_TEST(CountryFile_Smoke)
 {
-  CountryFile countryFile("TestCountryOneComponent");
-  TEST_EQUAL("TestCountryOneComponent", countryFile.GetName(), ());
-  string const mapFileName =
-      GetFileName(countryFile.GetName(), MapFileType::Map);
+  {
+    CountryFile cf("One");
+    TEST_EQUAL("One", cf.GetName(), ());
+    string const mapFileName = GetFileName(cf.GetName(), MapFileType::Map);
 
-  TEST_EQUAL("TestCountryOneComponent" DATA_FILE_EXTENSION, mapFileName, ());
+    TEST_EQUAL("One" DATA_FILE_EXTENSION, mapFileName, ());
+    TEST_EQUAL(0, cf.GetRemoteSize(), ());
+  }
 
-  TEST_EQUAL(0, countryFile.GetRemoteSize(), ());
+  {
+    CountryFile cf("Three", 666, "xxxSHAxxx");
+    TEST_EQUAL("Three", cf.GetName(), ());
+    string const mapFileName = GetFileName(cf.GetName(), MapFileType::Map);
 
-  countryFile.SetRemoteSize(3 /* mapSize */);
-
-  TEST_EQUAL(3, countryFile.GetRemoteSize(), ());
+    TEST_EQUAL("Three" DATA_FILE_EXTENSION, mapFileName, ());
+    TEST_EQUAL(666, cf.GetRemoteSize(), ());
+    TEST_EQUAL("xxxSHAxxx", cf.GetSha1(), ());
+  }
 }
 }  // namespace platform

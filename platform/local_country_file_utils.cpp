@@ -222,6 +222,8 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
                                 vector<LocalCountryFile> & localFiles)
 {
   string const dir = GetDataDirFullPath(dataDir);
+
+  /// @todo Should we search for files in root data folder, except minsk-pass tests?
   FindAllLocalMapsInDirectoryAndCleanup(dir, 0 /* version */, latestVersion, localFiles);
 
   Platform::TFilesWithType fwts;

@@ -72,8 +72,7 @@ std::string GetFilePathByUrl(std::string const & url)
 
   auto const fileType = urlComponents[0] == kDiffsPath ? MapFileType::Diff : MapFileType::Map;
 
-  return platform::GetFileDownloadPath(dataVersion, platform::CountryFile(countryComponents[0]),
-                                       fileType);
+  return platform::GetFileDownloadPath(dataVersion, platform::CountryFile(countryComponents[0]), fileType);
 }
 
 }  // namespace downloader
