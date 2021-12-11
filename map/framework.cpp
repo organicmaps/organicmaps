@@ -1,7 +1,6 @@
 #include "map/framework.hpp"
 #include "map/benchmark_tools.hpp"
 #include "map/chart_generator.hpp"
-#include "map/displayed_categories_modifiers.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/user_mark.hpp"

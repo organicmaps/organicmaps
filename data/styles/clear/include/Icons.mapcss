@@ -2533,5 +2533,3 @@ area|z18-[amenity=motorcycle_parking]
 node|z16-[amenity=parking_space][parking=underground],
 area|z16-[amenity=parking_space][parking=underground]
 {icon-image: zero-icon.svg;}
-
-/* 8 Sponsored */

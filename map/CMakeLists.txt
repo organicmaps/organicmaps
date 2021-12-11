@@ -15,8 +15,6 @@ set(SRC
   caching_address_getter.hpp
   chart_generator.cpp
   chart_generator.hpp
-  displayed_categories_modifiers.cpp
-  displayed_categories_modifiers.hpp
   elevation_info.cpp
   elevation_info.hpp
   everywhere_search_callback.cpp

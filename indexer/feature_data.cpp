@@ -126,7 +126,6 @@ private:
         {"psurface"},
         {"internet_access"},
         {"wheelchair"},
-        {"sponsored"},
         {"entrance"},
         {"cuisine"},
         {"recycling"},

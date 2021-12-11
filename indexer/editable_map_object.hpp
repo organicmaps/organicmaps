@@ -111,7 +111,6 @@ public:
   std::string GetWikipedia() const;
 
   void ForEachMetadataItem(
-      bool skipSponsored,
       std::function<void(std::string const & tag, std::string const & value)> const & fn) const;
 
   // These two methods should only be used in tests.

@@ -126,7 +126,7 @@ public:
 protected:
   /// @returns "the best" type to display in UI.
   std::string GetLocalizedType() const;
-  
+
   FeatureID m_featureID;
   m2::PointD m_mercator;
 
@@ -185,10 +185,6 @@ std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
     case Metadata::FMD_MIN_HEIGHT:
     case Metadata::FMD_DENOMINATION:
     case Metadata::FMD_TEST_ID:
-    case Metadata::FMD_SPONSORED_ID:
-    case Metadata::FMD_PRICE_RATE:
-    case Metadata::FMD_RATING:
-    case Metadata::FMD_BANNER_URL:
     case Metadata::FMD_AIRPORT_IATA:
     case Metadata::FMD_BRAND:
     case Metadata::FMD_DURATION:

@@ -36,13 +36,11 @@ struct CountryFeaturesCounters
   int64_t m_area = 0;
   int64_t m_poi = 0;
   int64_t m_cityTownOrVillage = 0;
-  int64_t m_bookingHotels = 0;
 
   CountryFeaturesCounters() = default;
 
   constexpr CountryFeaturesCounters(int64_t fbs, int64_t geometryPoints, int64_t point, int64_t line,
-                                    int64_t area, int64_t poi, int64_t cityTownOrVillage,
-                                    int64_t bookingHotels)
+                                    int64_t area, int64_t poi, int64_t cityTownOrVillage)
     : m_fbs(fbs)
     , m_geometryPoints(geometryPoints)
     , m_point(point)
@@ -50,7 +48,6 @@ struct CountryFeaturesCounters
     , m_area(area)
     , m_poi(poi)
     , m_cityTownOrVillage(cityTownOrVillage)
-    , m_bookingHotels(bookingHotels)
   {
   }
 
@@ -58,24 +55,21 @@ struct CountryFeaturesCounters
   {
     return CountryFeaturesCounters(m_fbs + rhs.m_fbs, m_geometryPoints + rhs.m_geometryPoints,
                                    m_point + rhs.m_point, m_line + rhs.m_line, m_area + rhs.m_area,
-                                   m_poi + rhs.m_poi, m_cityTownOrVillage + rhs.m_cityTownOrVillage,
-                                   m_bookingHotels + rhs.m_bookingHotels);
+                                   m_poi + rhs.m_poi, m_cityTownOrVillage + rhs.m_cityTownOrVillage);
   }
 
   CountryFeaturesCounters operator-(CountryFeaturesCounters const & rhs) const
   {
     return CountryFeaturesCounters(m_fbs - rhs.m_fbs, m_geometryPoints - rhs.m_geometryPoints,
                                    m_point - rhs.m_point, m_line - rhs.m_line, m_area - rhs.m_area,
-                                   m_poi - rhs.m_poi, m_cityTownOrVillage - rhs.m_cityTownOrVillage,
-                                   m_bookingHotels - rhs.m_bookingHotels);
+                                   m_poi - rhs.m_poi, m_cityTownOrVillage - rhs.m_cityTownOrVillage);
   }
 
   bool operator==(CountryFeaturesCounters const & rhs) const
   {
     return m_fbs == rhs.m_fbs && m_geometryPoints == rhs.m_geometryPoints &&
            m_point == rhs.m_point && m_line == rhs.m_line && m_area == rhs.m_area &&
-           m_poi == rhs.m_poi && m_cityTownOrVillage == rhs.m_cityTownOrVillage &&
-           m_bookingHotels == rhs.m_bookingHotels;
+           m_poi == rhs.m_poi && m_cityTownOrVillage == rhs.m_cityTownOrVillage;
   }
 
   bool operator!=(CountryFeaturesCounters const & rhs) const { return !(*this == rhs); }
@@ -117,51 +111,49 @@ std::string DebugPrint(CountryFeaturesCounters const & cnt)
   std::ostringstream out;
   out << "CountryFeaturesCount(fbs = " << cnt.m_fbs << ", geometryPoints = " << cnt.m_geometryPoints
       << ", point = " << cnt.m_point << ", line = " << cnt.m_line << ", area = " << cnt.m_area
-      << ", poi = " << cnt.m_poi << ", cityTownOrVillage = " << cnt.m_cityTownOrVillage
-      << ", bookingHotels = " << cnt.m_bookingHotels << ")";
+      << ", poi = " << cnt.m_poi << ", cityTownOrVillage = " << cnt.m_cityTownOrVillage << ")";
   return out.str();
 }
 
 CountryFeaturesCounters constexpr kWorldCounters(945 /* fbs */, 364406 /* geometryPoints */,
                                                  334 /* point */, 598 /* line */, 13 /* area */,
-                                                 428 /* poi */, 172 /* cityTownOrVillage */,
-                                                 0 /* bookingHotels */);
+                                                 428 /* poi */, 172 /* cityTownOrVillage */);
 
 CountryFeaturesCounters constexpr kNorthAucklandCounters(
     1812144 /* fbs */, 12195444 /* geometryPoints */, 1007580 /* point */, 205448 /* line */,
-    599116 /* area */, 212424 /* poi */, 521 /* cityTownOrVillage */, 3557 /* bookingHotels */);
+    599116 /* area */, 212424 /* poi */, 521 /* cityTownOrVillage */);
 
 CountryFeaturesCounters constexpr kNorthWellingtonCounters(
     797814 /* fbs */, 7771530 /* geometryPoints */, 460560 /* point */, 86978 /* line */,
-    250276 /* area */, 95863 /* poi */, 297 /* cityTownOrVillage */, 1062 /* bookingHotels */);
+    250276 /* area */, 95863 /* poi */, 297 /* cityTownOrVillage */);
 
 CountryFeaturesCounters constexpr kSouthCanterburyCounters(
     637239 /* fbs */, 6984183 /* geometryPoints */, 397964 /* point */, 81688 /* line */,
-    157587 /* area */, 89690 /* poi */, 331 /* cityTownOrVillage */, 2085 /* bookingHotels */);
+    157587 /* area */, 89690 /* poi */, 331 /* cityTownOrVillage */);
 
 CountryFeaturesCounters constexpr kSouthSouthlandCounters(
     340644 /* fbs */, 5342380 /* geometryPoints */, 186000 /* point */, 40118 /* line */,
-    114526 /* area */, 40671 /* poi */, 297 /* cityTownOrVillage */, 1621 /* bookingHotels */);
+    114526 /* area */, 40671 /* poi */, 297 /* cityTownOrVillage */);
 
 CountryFeaturesCounters constexpr kSouthSouthlandMixedNodesCounters(
     2 /* fbs */, 2 /* geometryPoints */, 2 /* point */, 0 /* line */, 0 /* area */, 0 /* poi */,
-    0 /* cityTownOrVillage */, 0 /* bookingHotels */);
+    0 /* cityTownOrVillage */);
 
 CountryFeaturesCounters constexpr kNorthAucklandComplexFeaturesCounters(
     288 /* fbs */, 16119 /* geometryPoints */, 0 /* point */, 252 /* line */, 36 /* area */,
-    0 /* poi */, 0 /* cityTownOrVillage */, 0 /* bookingHotels */);
+    0 /* poi */, 0 /* cityTownOrVillage */);
 
 CountryFeaturesCounters constexpr kNorthWellingtonComplexFeaturesCounters(
     254 /* fbs */, 18434 /* geometryPoints */, 0 /* point */, 244 /* line */, 10 /* area */,
-    0 /* poi */, 0 /* cityTownOrVillage */, 0 /* bookingHotels */);
+    0 /* poi */, 0 /* cityTownOrVillage */);
 
 CountryFeaturesCounters constexpr kSouthCanterburyComplexFeaturesCounters(
     1037 /* fbs */, 73854 /* geometryPoints */, 0 /* point */, 1016 /* line */, 21 /* area */,
-    0 /* poi */, 0 /* cityTownOrVillage */, 0 /* bookingHotels */);
+    0 /* poi */, 0 /* cityTownOrVillage */);
 
 CountryFeaturesCounters constexpr kSouthSouthlandComplexFeaturesCounters(
     1252 /* fbs */, 141706 /* geometryPoints */, 0 /* point */, 1245 /* line */, 7 /* area */,
-    0 /* poi */, 0 /* cityTownOrVillage */, 0 /* bookingHotels */);
+    0 /* poi */, 0 /* cityTownOrVillage */);
 
 class FeatureIntegrationTests
 {
@@ -326,8 +318,6 @@ public:
     rawGenerator.GenerateWorld();
     TEST(rawGenerator.Execute(), ());
 
-    size_t partner1CntReal = 0;
-
     std::map<std::string, CountryFeatureResults> results;
     results["kNorthAucklandCounters"] =
         CountryFeatureResults(GetCountersForCountry(northAuckland), kNorthAucklandCounters);
@@ -335,19 +325,12 @@ public:
         CountryFeatureResults(GetCountersForCountry(northWellington), kNorthWellingtonCounters);
     results["kSouthCanterburyCounters"] =
         CountryFeatureResults(GetCountersForCountry(southCanterbury), kSouthCanterburyCounters);
-    results["kSouthSouthlandCounters + kSouthSouthlandMixedNodesCounters"] = CountryFeatureResults(
-        GetCountersForCountry(
-            southSouthland,
-            [&](auto const & fb) {
-              static auto const partner1 = classif().GetTypeByPath({"sponsored", "partner1"});
-              if (fb.HasType(partner1))
-                ++partner1CntReal;
-            }),
+    results["kSouthSouthlandCounters + kSouthSouthlandMixedNodesCounters"] =
+        CountryFeatureResults(GetCountersForCountry(southSouthland),
         kSouthSouthlandCounters + kSouthSouthlandMixedNodesCounters);
     results["kWorldCounters"] = CountryFeatureResults(GetCountersForCountry(world), kWorldCounters);
 
     TestAndLogCountryFeatures(results);
-    TEST_EQUAL(partner1CntReal, 4, ());
   }
 
   void CheckGeneratedData()
@@ -428,10 +411,6 @@ private:
       if (isCityTownOrVillage(fb.GetTypes()))
         ++actual.m_cityTownOrVillage;
 
-      auto static const & bookingChecker = ftypes::IsBookingHotelChecker::Instance();
-      if (bookingChecker(fb.GetTypes()))
-        ++actual.m_bookingHotels;
-
       fn(fb);
     }
 
@@ -480,26 +459,6 @@ private:
     CHECK_EQUAL(
         std::rename(m_mixedTagsFilenames.first.c_str(), m_mixedTagsFilenames.second.c_str()), 0,
         ());
-    std::string const fakeNodes =
-        "sponsored=partner1\n"
-        "lat=-46.43525\n"
-        "lon=168.35674\n"
-        "banner_url=https://localads.maps.me/redirects/test\n"
-        "name=Test name1\n"
-        "\n"
-        "sponsored=partner1\n"
-        "lat=-46.43512\n"
-        "lon=168.35359\n"
-        "banner_url=https://localads.maps.me/redirects/test\n"
-        "name=Test name2\n";
-    WriteToFile(m_mixedNodesFilenames.first, fakeNodes);
-
-    std::string const mixesTags =
-        "way,548504067,sponsored=partner1,banner_url=https://localads.maps.me/redirects/"
-        "test,name=Test name3\n"
-        "way,548504066,sponsored=partner1,banner_url=https://localads.maps.me/redirects/"
-        "test,name=Test name4\n";
-    WriteToFile(m_mixedTagsFilenames.first, mixesTags);
   }
 
   void WriteToFile(std::string const & filename, std::string const & data)

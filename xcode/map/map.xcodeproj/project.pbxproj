@@ -17,8 +17,6 @@
 		34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34921F611BFA0A6900737D6E /* api_mark_point.hpp */; };
 		39E3C60323312BA800FB0C37 /* features_fetcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39E3C60123312BA800FB0C37 /* features_fetcher.hpp */; };
 		39E3C60423312BA800FB0C37 /* features_fetcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39E3C60223312BA800FB0C37 /* features_fetcher.cpp */; };
-		3D47B2C71F20EF06000828D2 /* displayed_categories_modifiers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B2C51F20EF06000828D2 /* displayed_categories_modifiers.cpp */; };
-		3D47B2C81F20EF06000828D2 /* displayed_categories_modifiers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D47B2C61F20EF06000828D2 /* displayed_categories_modifiers.hpp */; };
 		3D4E99821FB462B60025B48C /* everywhere_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E99801FB462B60025B48C /* everywhere_search_params.hpp */; };
 		3D4E99831FB462B60025B48C /* viewport_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E99811FB462B60025B48C /* viewport_search_params.hpp */; };
 		3D62CBCC20F4DFD600E7BB6E /* search_product_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D62CBCB20F4DFD600E7BB6E /* search_product_info.hpp */; };
@@ -163,8 +161,6 @@
 		34AF87EA1DBE5AD000E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		39E3C60123312BA800FB0C37 /* features_fetcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = features_fetcher.hpp; sourceTree = "<group>"; };
 		39E3C60223312BA800FB0C37 /* features_fetcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = features_fetcher.cpp; sourceTree = "<group>"; };
-		3D47B2C51F20EF06000828D2 /* displayed_categories_modifiers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = displayed_categories_modifiers.cpp; sourceTree = "<group>"; };
-		3D47B2C61F20EF06000828D2 /* displayed_categories_modifiers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = displayed_categories_modifiers.hpp; sourceTree = "<group>"; };
 		3D4E99801FB462B60025B48C /* everywhere_search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = everywhere_search_params.hpp; sourceTree = "<group>"; };
 		3D4E99811FB462B60025B48C /* viewport_search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viewport_search_params.hpp; sourceTree = "<group>"; };
 		3D62CBCB20F4DFD600E7BB6E /* search_product_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_product_info.hpp; sourceTree = "<group>"; };
@@ -405,8 +401,6 @@
 				3DD692B2220AD240001C3C62 /* caching_address_getter.hpp */,
 				348AB57A1D7EE0C6009F8301 /* chart_generator.cpp */,
 				348AB57B1D7EE0C6009F8301 /* chart_generator.hpp */,
-				3D47B2C51F20EF06000828D2 /* displayed_categories_modifiers.cpp */,
-				3D47B2C61F20EF06000828D2 /* displayed_categories_modifiers.hpp */,
 				3DBD7B90240D523300ED9FE8 /* elevation_info.cpp */,
 				3DBD7B91240D523300ED9FE8 /* elevation_info.hpp */,
 				3DA5722E20C195EC007BDE27 /* everywhere_search_callback.cpp */,
@@ -503,7 +497,6 @@
 				3D4E99821FB462B60025B48C /* everywhere_search_params.hpp in Headers */,
 				675346751A4054E800A0A8C3 /* mwm_url.hpp in Headers */,
 				6753464B1A4054E800A0A8C3 /* bookmark.hpp in Headers */,
-				3D47B2C81F20EF06000828D2 /* displayed_categories_modifiers.hpp in Headers */,
 				BB4E5F271FCC664A00A77250 /* transit_reader.hpp in Headers */,
 				348AB57D1D7EE0C6009F8301 /* chart_generator.hpp in Headers */,
 				3DF528D8237DC82E000ED0D5 /* position_provider.hpp in Headers */,
@@ -699,7 +692,6 @@
 				56C116602090E5670068BBC0 /* extrapolator.cpp in Sources */,
 				39E3C60423312BA800FB0C37 /* features_fetcher.cpp in Sources */,
 				348AB57C1D7EE0C6009F8301 /* chart_generator.cpp in Sources */,
-				3D47B2C71F20EF06000828D2 /* displayed_categories_modifiers.cpp in Sources */,
 				45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */,
 				BBA014AD2073C784007402E4 /* bookmark_helpers.cpp in Sources */,
 				F6D2CE7E1EDEB7F500636DFD /* routing_manager.cpp in Sources */,

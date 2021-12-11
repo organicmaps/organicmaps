@@ -90,17 +90,12 @@ public:
     case Metadata::FMD_HEIGHT: valid = ValidateAndFormat_height(v); break;
     case Metadata::FMD_DENOMINATION: valid = ValidateAndFormat_denomination(v); break;
     case Metadata::FMD_BUILDING_LEVELS: valid = ValidateAndFormat_building_levels(v); break;
-    // Parse banner_url tag added by TagsMixer.
-    case Metadata::FMD_BANNER_URL: valid = ValidateAndFormat_url(v); break;
     case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
     case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
     case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
     // Used for old data compatibility only and should not be set:
     case Metadata::FMD_CUISINE:
     // Metadata types we do not get from OSM.
-    case Metadata::FMD_SPONSORED_ID:
-    case Metadata::FMD_PRICE_RATE:
-    case Metadata::FMD_RATING:
     case Metadata::FMD_BRAND:
     case Metadata::FMD_TEST_ID:
     case Metadata::FMD_COUNT: CHECK(false, (mdType, "should not be parsed from OSM."));

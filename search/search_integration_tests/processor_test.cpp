@@ -45,39 +45,6 @@ namespace search
 {
 namespace
 {
-class TestHotel : public TestPOI
-{
-public:
-  using Type = ftypes::IsHotelChecker::Type;
-
-  TestHotel(m2::PointD const & center, string const & name, string const & lang, float rating,
-            int priceRate, Type type)
-    : TestPOI(center, name, lang), m_rating(rating), m_priceRate(priceRate)
-  {
-    CHECK_GREATER_OR_EQUAL(m_rating, 0.0, ());
-    CHECK_LESS_OR_EQUAL(m_rating, 10.0, ());
-
-    CHECK_GREATER_OR_EQUAL(m_priceRate, 0, ());
-    CHECK_LESS_OR_EQUAL(m_priceRate, 5, ());
-
-    SetTypes({{"tourism", ftypes::IsHotelChecker::GetHotelTypeTag(type)}});
-  }
-
-  // TestPOI overrides:
-  void Serialize(FeatureBuilder & fb) const override
-  {
-    TestPOI::Serialize(fb);
-
-    auto & metadata = fb.GetMetadata();
-    metadata.Set(Metadata::FMD_RATING, strings::to_string(m_rating));
-    metadata.Set(Metadata::FMD_PRICE_RATE, strings::to_string(m_priceRate));
-  }
-
-private:
-  float const m_rating;
-  int const m_priceRate;
-};
-
 class TestAirport : public TestPOI
 {
 public:
