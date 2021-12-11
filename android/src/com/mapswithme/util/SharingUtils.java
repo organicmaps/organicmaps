@@ -60,8 +60,6 @@ public class SharingUtils
     final String text = context.getString(R.string.my_position_share_email, address, geoUrl, httpUrl);
     intent.putExtra(Intent.EXTRA_TEXT, text);
 
-    // Sponsored is unused.
-
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
   }
 

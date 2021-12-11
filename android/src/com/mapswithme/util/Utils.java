@@ -411,43 +411,6 @@ public class Utils
     }
   }
 
-  private static void launchAppDirectly(@NonNull Context context, @NonNull SponsoredLinks links)
-  {
-    Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    intent.setData(Uri.parse(links.getDeepLink()));
-    context.startActivity(intent);
-  }
-
-  private static void launchAppIndirectly(@NonNull Context context, @NonNull SponsoredLinks links)
-  {
-    Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.setData(Uri.parse(links.getDeepLink()));
-    context.startActivity(intent);
-  }
-
-  public static void openPartner(@NonNull Context activity, @NonNull SponsoredLinks links,
-                                 @NonNull String packageName, @NonNull PartnerAppOpenMode openMode)
-  {
-    switch (openMode)
-    {
-      case  Direct:
-        if (!Utils.isAppInstalled(activity, packageName))
-        {
-          openUrl(activity, links.getUniversalLink());
-          return;
-        }
-        launchAppDirectly(activity, links);
-        break;
-      case Indirect:
-        launchAppIndirectly(activity, links);
-        break;
-      default:
-        throw new AssertionError("Unsupported partner app open mode: " + openMode +
-                                 "; Package name: " + packageName);
-    }
-  }
-
   public static void sendTo(@NonNull Context context, @NonNull String email)
   {
     Intent intent = new Intent(Intent.ACTION_SENDTO);

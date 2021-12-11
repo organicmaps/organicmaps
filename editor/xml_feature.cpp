@@ -517,10 +517,10 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
     }
   }
 
-  object.ForEachMetadataItem(true /* skipSponsored */,
-                             [&toFeature](string const & tag, string const & value) {
-                               toFeature.SetTagValue(tag, value);
-                             });
+  object.ForEachMetadataItem([&toFeature](string const & tag, string const & value)
+  {
+    toFeature.SetTagValue(tag, value);
+  });
 
   return toFeature;
 }

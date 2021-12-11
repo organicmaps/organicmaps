@@ -281,7 +281,6 @@ namespace
     static uint32_t const wheelchair = classif().GetTypeByPath({"wheelchair"});
     static uint32_t const cuisine = classif().GetTypeByPath({"cuisine"});
     static uint32_t const recycling = classif().GetTypeByPath({"recycling"});
-    static uint32_t const sponsored = classif().GetTypeByPath({"sponsored"});
     // Reserved for custom event processing, e.g. fc2018.
     // static uint32_t const event = classif().GetTypeByPath({"event" });
 
@@ -302,9 +301,6 @@ namespace
       return true;
 
     if (type == cuisine || type == recycling)
-      return true;
-
-    if (g != GeomType::Line && type == sponsored)
       return true;
 
     // Reserved for custom event processing, e.g. fc2018.

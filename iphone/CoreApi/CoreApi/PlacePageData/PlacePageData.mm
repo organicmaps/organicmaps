@@ -29,7 +29,6 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   FeatureID m_featureID;
   m2::PointD m_mercator;
   std::vector<std::string> m_rawTypes;
-  std::string m_hotelId;
 }
 
 @end
@@ -85,8 +84,6 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
     m_featureID = rawData().GetID();
     m_mercator = rawData().GetMercator();
     m_rawTypes = rawData().GetRawTypes();
-    m_hotelId = rawData().GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-
   }
   return self;
 }

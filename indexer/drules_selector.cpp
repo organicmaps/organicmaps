@@ -154,20 +154,6 @@ bool GetBoundingBoxArea(FeatureType & ft, double & sqM)
   sqM = mercator::AreaOnEarth(ft.GetLimitRect(scales::GetUpperScale()));
   return true;
 }
-
-// Feature tag value evaluator for tag 'rating'
-bool GetRating(FeatureType & ft, double & rating)
-{
-  double constexpr kDefaultRating = 0.0;
-
-  string ratingStr = ft.GetMetadata(feature::Metadata::FMD_RATING);
-  if (ratingStr.empty() || !strings::to_double(ratingStr, rating))
-    rating = kDefaultRating;
-  return true;
-}
-
-// Add new tag value evaluator here
-
 }  // namespace
 
 unique_ptr<ISelector> ParseSelector(string const & str)
@@ -205,17 +191,6 @@ unique_ptr<ISelector> ParseSelector(string const & str)
       return unique_ptr<ISelector>();
     }
     return make_unique<Selector<double>>(&GetBoundingBoxArea, e.m_operator, value);
-  }
-  else if (e.m_tag == "rating")
-  {
-    double value = 0;
-    if (!e.m_value.empty() && (!strings::to_double(e.m_value, value) || value < 0))
-    {
-      // bad string format
-      LOG(LDEBUG, ("Invalid selector:", str));
-      return unique_ptr<ISelector>();
-    }
-    return make_unique<Selector<double>>(&GetRating, e.m_operator, value);
   }
   else if (e.m_tag == "extra_tag")
   {

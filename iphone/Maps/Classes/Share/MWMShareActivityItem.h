@@ -10,7 +10,6 @@ class LatLon;
 - (NSString *)title;
 - (NSString *)subtitle;
 - (NSString *)address;
-- (NSURL *)sponsoredDescriptionURL;
 - (NSString *)phoneNumber;
 - (ms::LatLon)latLon;
 

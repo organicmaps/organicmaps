@@ -134,10 +134,10 @@ public:
     FMD_DENOMINATION = 21,
     FMD_BUILDING_LEVELS = 22,
     FMD_TEST_ID = 23,
-    FMD_SPONSORED_ID = 24,
-    FMD_PRICE_RATE = 25,
-    FMD_RATING = 26,
-    FMD_BANNER_URL = 27,
+    // FMD_SPONSORED_ID = 24,
+    // FMD_PRICE_RATE = 25,
+    // FMD_RATING = 26,
+    // FMD_BANNER_URL = 27,
     FMD_LEVEL = 28,
     FMD_AIRPORT_IATA = 29,
     FMD_BRAND = 30,
@@ -156,7 +156,6 @@ public:
 
   /// Used to normalize tags like "contact:phone", "phone" and "contact:mobile" to a common metadata enum value.
   static bool TypeFromString(std::string const & osmTagKey, EType & outType);
-  static bool IsSponsoredType(EType const & type);
 
   std::vector<Metadata::EType> GetKeys() const;
 
