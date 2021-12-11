@@ -64,24 +64,24 @@
 	<string name="continue_download">繼續</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s 下載失敗</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">新增收藏夾</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">書籤顏色</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">收藏夾名稱</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">收藏夾</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">書籤</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">我的地點</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">名稱</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">地址</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">收藏夾</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">收藏夾</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">設定</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -134,9 +134,9 @@
 	<string name="police">警察局</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">描述說明</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">已分享 Organic Maps 書籤</string>
-	<string name="share_bookmarks_email_body">你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps！</string>
+	<string name="share_bookmarks_email_body">你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">正在載入書籤…</string>
 	<!-- Kmz file successful loading -->
@@ -377,8 +377,6 @@
 	<string name="show">顯示</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">隱藏</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">重新命名</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">路線計劃失敗</string>
 	<!-- Arrive routing message in navigation view -->
@@ -632,9 +630,10 @@
 	<string name="setting_emulate_bad_storage">模擬不良儲存空間</string>
 	<string name="core_entrance">入口</string>
 	<string name="error_enter_correct_name">請輸入正確的名稱</string>
-	<string name="bookmarks_groups">清單</string>
-	<string name="bookmarks_groups_hide_all">隱藏全部</string>
-	<string name="bookmarks_groups_show_all">顯示全部</string>
+	<string name="bookmark_lists">清單</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">隱藏全部</string>
+	<string name="bookmark_lists_show_all">顯示全部</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d 個書籤</item>
 	</plurals>
@@ -697,8 +696,7 @@
 	<string name="hide_from_map">從卡中隱藏</string>
 	<string name="public_access">開放空間</string>
 	<string name="limited_access">私人空間</string>
-	<string name="bookmark_category_name">類別</string>
-	<string name="bookmark_category_description_hint">增加說明(文字或html)</string>
+	<string name="bookmark_list_description_hint">增加說明(文字或html)</string>
 	<string name="not_shared">私人</string>
 	<string name="tags_loading_error_subtitle">載入標籤時出錯，請重試</string>
 	<string name="download_button">下載</string>

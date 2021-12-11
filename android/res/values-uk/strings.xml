@@ -67,24 +67,24 @@
 	<string name="continue_download">Продовжити</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Не вдалося завантажити %s</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Додати групу</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Колір мiтки</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Назва групи</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Групи мiток</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Мітки</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Мої Мітки</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Iм\'я</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Адреса</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Група</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Група</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Налаштування</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -137,7 +137,7 @@
 	<string name="police">Поліція</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Примітка</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">З вами поділилися мiтками Organic Maps</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Завантаження мiток</string>
@@ -367,8 +367,6 @@
 	<string name="show">Показати</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Приховати</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Перейменувати</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Збій планування маршруту</string>
 	<!-- Arrive routing message in navigation view -->
@@ -624,9 +622,10 @@
 	<string name="setting_emulate_bad_storage">Емулювати проблемне сховище</string>
 	<string name="core_entrance">Вхід</string>
 	<string name="error_enter_correct_name">Будь ласка, введіть коректне ім\'я</string>
-	<string name="bookmarks_groups">Списки</string>
-	<string name="bookmarks_groups_hide_all">Приховати всі</string>
-	<string name="bookmarks_groups_show_all">Показати всі</string>
+	<string name="bookmark_lists">Списки</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Приховати всі</string>
+	<string name="bookmark_lists_show_all">Показати всі</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d закладок</item>
 	</plurals>
@@ -688,8 +687,7 @@
 	<string name="hide_from_map">Приховати з карти</string>
 	<string name="public_access">Публічний доступ</string>
 	<string name="limited_access">Приватний доступ</string>
-	<string name="bookmark_category_name">Категорія</string>
-	<string name="bookmark_category_description_hint">Додайте опис (текст чи html)</string>
+	<string name="bookmark_list_description_hint">Додайте опис (текст чи html)</string>
 	<string name="not_shared">Особистий</string>
 	<string name="tags_loading_error_subtitle">Під час завантаження тегів сталася помилка, будь ласка, спробуйте ще раз</string>
 	<string name="download_button">Завантажити</string>

@@ -46,9 +46,10 @@
 	<string name="setting_emulate_bad_storage">Emular el almacenamiento dañado</string>
 	<string name="core_entrance">Entrada</string>
 	<string name="error_enter_correct_name">Introduzca el nombre correcto</string>
-	<string name="bookmarks_groups">Listas</string>
-	<string name="bookmarks_groups_hide_all">Ocultar todo</string>
-	<string name="bookmarks_groups_show_all">Mostrar todo</string>
+	<string name="bookmark_lists">Listas</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Ocultar todo</string>
+	<string name="bookmark_lists_show_all">Mostrar todo</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d marcadores</item>
 	</plurals>
@@ -107,7 +108,7 @@
 	<string name="hide_from_map">Ocultar del mapa</string>
 	<string name="public_access">Acceso público</string>
 	<string name="limited_access">Acceso limitado</string>
-	<string name="bookmark_category_description_hint">Introduzca una descripción (texto o html)</string>
+	<string name="bookmark_list_description_hint">Introduzca una descripción (texto o html)</string>
 	<string name="not_shared">Privado</string>
 	<string name="tags_loading_error_subtitle">Ocurrió un error al cargar las etiquetas, por favor intente de nuevo</string>
 	<string name="download_button">Descargar</string>

@@ -108,22 +108,22 @@
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@, échec lors du téléchargement";
 
-/* Add New Bookmark Set dialog title */
+/* "Add new bookmark list" dialog title */
 "add_new_set" = "Ajouter un nouveau groupe";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Couleur du signet";
 
-/* Add Bookmark Set dialog - hint when set name is empty */
+/* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Nom du groupe de signets";
 
-/* Bookmark Sets dialog title */
+/* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Groupes de signets";
 
-/* Bookmarks - dialog title */
+/* "Bookmarks" dialog title */
 "bookmarks" = "Signets";
 
-/* Default bookmarks set name */
+/* Default bookmark list name */
 "core_my_places" = "Mes endroits";
 
 /* Add bookmark dialog - bookmark name */
@@ -132,8 +132,8 @@
 /* Editor title above street and house number */
 "address" = "Adresse";
 
-/* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "Groupe";
+/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
+"list" = "Groupe";
 
 /* Settings button in system menu */
 "settings" = "Paramètres";
@@ -213,7 +213,7 @@
 /* Notes field in Bookmarks view */
 "description" = "Notes";
 
-/* Email Subject when sharing bookmarks category */
+/* Email Subject when sharing bookmark list */
 "share_bookmarks_email_subject" = "Signets Organic Maps partagés";
 
 "share_bookmarks_email_body" = "Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps !";
@@ -619,9 +619,6 @@
 
 /* «Hide» context menu */
 "hide" = "Masquer";
-
-/* «Rename» context menu */
-"rename" = "Renommer";
 
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "La planification de l'itinéraire a échoué";
@@ -1106,11 +1103,12 @@
 
 "error_enter_correct_name" = "Veuillez entrer un nom correct";
 
-"bookmarks_groups" = "Listes";
+"bookmark_lists" = "Listes";
 
-"bookmarks_groups_hide_all" = "Tout masquer";
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Tout masquer";
 
-"bookmarks_groups_show_all" = "Tout afficher";
+"bookmark_lists_show_all" = "Tout afficher";
 
 "bookmarks_create_new_group" = "Créer une nouvelle liste";
 
@@ -1205,9 +1203,7 @@
 
 "limited_access" = "Accès limité";
 
-"bookmark_category_name" = "Catégorie";
-
-"bookmark_category_description_hint" = "Tapez une description (texte ou html)";
+"bookmark_list_description_hint" = "Tapez une description (texte ou html)";
 
 "not_shared" = "Personnel";
 

@@ -64,24 +64,24 @@
 	<string name="continue_download">Pokračovat</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Stahování selhalo: %s</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Přidat novou skupinu záložek</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Barva záložky</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Název záložky</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Skupiny záložek</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Záložky</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Moje místa</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Název</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adresa</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Skupina</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Skupina</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Nastavení</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -134,7 +134,7 @@
 	<string name="police">Policie</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Poznámky</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Sdílené záložky Organic Maps</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Nahrávání záložek</string>
@@ -364,8 +364,6 @@
 	<string name="show">Ukázat</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Skrýt</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Přejmenovat</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Naplánování trasy se nezdařilo</string>
 	<!-- Arrive routing message in navigation view -->
@@ -614,9 +612,10 @@
 	<string name="setting_emulate_bad_storage">Emulovat špatné úložiště</string>
 	<string name="core_entrance">Vstup</string>
 	<string name="error_enter_correct_name">Zadejte prosím správný název</string>
-	<string name="bookmarks_groups">Seznamy</string>
-	<string name="bookmarks_groups_hide_all">Skrýt vše</string>
-	<string name="bookmarks_groups_show_all">Zobrazit vše</string>
+	<string name="bookmark_lists">Seznamy</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Skrýt vše</string>
+	<string name="bookmark_lists_show_all">Zobrazit vše</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d záložek</item>
 	</plurals>
@@ -678,8 +677,7 @@
 	<string name="hide_from_map">Neukazovat na mapě</string>
 	<string name="public_access">Veřejně přístupné</string>
 	<string name="limited_access">Soukromé</string>
-	<string name="bookmark_category_name">Kategorie</string>
-	<string name="bookmark_category_description_hint">Přidejte popis (text nebo html)</string>
+	<string name="bookmark_list_description_hint">Přidejte popis (text nebo html)</string>
 	<string name="not_shared">Osobní účet</string>
 	<string name="tags_loading_error_subtitle">Během nahrávání tagů se stala chyba, zkuste to prosím ještě jednou</string>
 	<string name="download_button">Stáhnout</string>

@@ -108,22 +108,22 @@
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ download has failed";
 
-/* Add New Bookmark Set dialog title */
-"add_new_set" = "Add New Set";
+/* "Add new bookmark list" dialog title */
+"add_new_set" = "Add New List";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Bookmark Color";
 
-/* Add Bookmark Set dialog - hint when set name is empty */
-"bookmark_set_name" = "Bookmark Set Name";
+/* Add Bookmark list dialog - hint when the list name is empty */
+"bookmark_set_name" = "Bookmark List Name";
 
-/* Bookmark Sets dialog title */
-"bookmark_sets" = "Bookmark Sets";
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "Bookmark Lists";
 
-/* Bookmarks - dialog title */
+/* "Bookmarks" dialog title */
 "bookmarks" = "Bookmarks";
 
-/* Default bookmarks set name */
+/* Default bookmark list name */
 "core_my_places" = "My Places";
 
 /* Add bookmark dialog - bookmark name */
@@ -132,8 +132,8 @@
 /* Editor title above street and house number */
 "address" = "Address";
 
-/* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "Set";
+/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
+"list" = "List";
 
 /* Settings button in system menu */
 "settings" = "Settings";
@@ -213,7 +213,7 @@
 /* Notes field in Bookmarks view */
 "description" = "Notes";
 
-/* Email Subject when sharing bookmarks category */
+/* Email Subject when sharing bookmark list */
 "share_bookmarks_email_subject" = "Organic Maps bookmarks were shared with you";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
@@ -619,9 +619,6 @@
 
 /* «Hide» context menu */
 "hide" = "Hide";
-
-/* «Rename» context menu */
-"rename" = "Rename";
 
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Route Planning Failed";
@@ -1106,11 +1103,12 @@
 
 "error_enter_correct_name" = "Introduzca el nombre correcto";
 
-"bookmarks_groups" = "Listas";
+"bookmark_lists" = "Listas";
 
-"bookmarks_groups_hide_all" = "Ocultar todo";
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Ocultar todo";
 
-"bookmarks_groups_show_all" = "Mostrar todo";
+"bookmark_lists_show_all" = "Mostrar todo";
 
 "bookmarks_create_new_group" = "Crear lista nueva";
 
@@ -1205,9 +1203,7 @@
 
 "limited_access" = "Acceso limitado";
 
-"bookmark_category_name" = "Category";
-
-"bookmark_category_description_hint" = "Introduzca una descripción (texto o html)";
+"bookmark_list_description_hint" = "Introduzca una descripción (texto o html)";
 
 "not_shared" = "Privado";
 

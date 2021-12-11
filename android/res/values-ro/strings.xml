@@ -64,24 +64,24 @@
 	<string name="continue_download">Continuă</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Descărcarea %s nu a reușit</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Adăugare la „Marcaje”</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Culoare marcaj</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Nume set marcaje</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Seturi marcaje</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Marcaje</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Locurile mele</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nume</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adresă</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Set</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Set</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Setări</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -134,7 +134,7 @@
 	<string name="police">Poliție</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Note</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Marcaje Organic Maps partajate</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Se încarcă marcajele</string>
@@ -363,8 +363,6 @@
 	<string name="show">Afișare</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Ascundere</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Redenumire</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Planificarea rutei a eșuat</string>
 	<!-- Arrive routing message in navigation view -->
@@ -611,9 +609,10 @@
 	<string name="setting_emulate_bad_storage">Emulare stocare eronată</string>
 	<string name="core_entrance">Intrare</string>
 	<string name="error_enter_correct_name">Introdu un nume corect</string>
-	<string name="bookmarks_groups">Liste</string>
-	<string name="bookmarks_groups_hide_all">Ascundere toate</string>
-	<string name="bookmarks_groups_show_all">Afișare toate</string>
+	<string name="bookmark_lists">Liste</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Ascundere toate</string>
+	<string name="bookmark_lists_show_all">Afișare toate</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d semne de carte</item>
 	</plurals>
@@ -674,8 +673,7 @@
 	<string name="hide_from_map">Ascundeți de pe hartă</string>
 	<string name="public_access">Acces public</string>
 	<string name="limited_access">Acces privat</string>
-	<string name="bookmark_category_name">Categorie</string>
-	<string name="bookmark_category_description_hint">Adăugați o descriere (text sau html)</string>
+	<string name="bookmark_list_description_hint">Adăugați o descriere (text sau html)</string>
 	<string name="not_shared">Personal</string>
 	<string name="tags_loading_error_subtitle">În timpul încărcării tag-urilor s-a produs o eroare, vă rugăm să încercați încă odată</string>
 	<string name="download_button">Descărcați</string>

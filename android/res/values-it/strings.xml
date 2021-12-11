@@ -64,22 +64,22 @@
 	<string name="continue_download">Continua</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Il download di %s non è riuscito</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Aggiungi un nuovo Set</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Colore del Segnalibro</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Seleziona un nome del segnalibro</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Seleziona un segnalibro</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Segnalibri</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">I miei luoghi</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Indirizzo</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Seleziona</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Seleziona</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Impostazioni</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -132,7 +132,7 @@
 	<string name="police">Polizia</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Note</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Il segnalibri Organic Maps è stato condiviso con te</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Caricamento segnalibri in corso</string>
@@ -362,8 +362,6 @@
 	<string name="show">Mostra</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Nascondi</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Rinomina</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Pianificazione del percorso fallito</string>
 	<!-- Arrive routing message in navigation view -->
@@ -610,9 +608,10 @@
 	<string name="setting_emulate_bad_storage">Simula archivio danneggiato</string>
 	<string name="core_entrance">Ingresso</string>
 	<string name="error_enter_correct_name">Inserisci un nome corretto</string>
-	<string name="bookmarks_groups">Elenchi</string>
-	<string name="bookmarks_groups_hide_all">Nascondi tutto</string>
-	<string name="bookmarks_groups_show_all">Mostra tutto</string>
+	<string name="bookmark_lists">Elenchi</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Nascondi tutto</string>
+	<string name="bookmark_lists_show_all">Mostra tutto</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d preferiti</item>
 	</plurals>
@@ -673,8 +672,7 @@
 	<string name="hide_from_map">Nascondere sulla mappa</string>
 	<string name="public_access">Accesso pubblico</string>
 	<string name="limited_access">Accesso privato</string>
-	<string name="bookmark_category_name">Categoria</string>
-	<string name="bookmark_category_description_hint">Aggiungere la descrizione (testo o html)</string>
+	<string name="bookmark_list_description_hint">Aggiungere la descrizione (testo o html)</string>
 	<string name="not_shared">Personale</string>
 	<string name="tags_loading_error_subtitle">Si è verificato un errore durante il caricamento dei tag. Si prega di riprovare</string>
 	<string name="download_button">Scaricare</string>

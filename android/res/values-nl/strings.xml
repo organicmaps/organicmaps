@@ -61,24 +61,24 @@
 	<string name="continue_download">Doorgaan</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s download is mislukt</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Voeg nieuwe groep toe</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Bladwijzer-kleur</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Naam van bladwijzergroep</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Bladwijzergroepen</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Bladwijzers</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Mijn plaatsen</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Naam</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adres</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Groep</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Groep</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Instellingen</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -131,7 +131,7 @@
 	<string name="police">Politie</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notities</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Bladwijzers van Organic Maps met u gedeeld</string>
 	<string name="share_bookmarks_email_body">Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!</string>
 	<!-- message title of loading file -->
@@ -368,8 +368,6 @@
 	<string name="show">Tonen</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Verbergen</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Naam wijzigen</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Routeberekening mislukt</string>
 	<!-- Arrive routing message in navigation view -->
@@ -616,9 +614,10 @@
 	<string name="setting_emulate_bad_storage">Slechte opslag emuleren</string>
 	<string name="core_entrance">Ingang</string>
 	<string name="error_enter_correct_name">Voer een juiste naam in</string>
-	<string name="bookmarks_groups">lijsten</string>
-	<string name="bookmarks_groups_hide_all">Alles verbergen</string>
-	<string name="bookmarks_groups_show_all">Alles weergeven</string>
+	<string name="bookmark_lists">lijsten</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Alles verbergen</string>
+	<string name="bookmark_lists_show_all">Alles weergeven</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d bladwijzers</item>
 	</plurals>
@@ -679,8 +678,7 @@
 	<string name="hide_from_map">Van de kaart verbergen</string>
 	<string name="public_access">Publiek toegang</string>
 	<string name="limited_access">Beperkte toegang</string>
-	<string name="bookmark_category_name">Categorie</string>
-	<string name="bookmark_category_description_hint">Maak een beschrijving aan (tekst of html)</string>
+	<string name="bookmark_list_description_hint">Maak een beschrijving aan (tekst of html)</string>
 	<string name="not_shared">Privé</string>
 	<string name="tags_loading_error_subtitle">Er is een fout opgetreden tijdens het laden van tags, probeer het opnieuw</string>
 	<string name="download_button">Downloaden</string>

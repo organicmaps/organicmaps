@@ -108,22 +108,22 @@
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ - descărcarea a eșuat";
 
-/* Add New Bookmark Set dialog title */
+/* "Add new bookmark list" dialog title */
 "add_new_set" = "Thêm Bộ Mới";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Đánh dấu Màu sắc";
 
-/* Add Bookmark Set dialog - hint when set name is empty */
+/* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Đánh dấu Tên Bộ";
 
-/* Bookmark Sets dialog title */
+/* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Đánh dấu Bộ";
 
-/* Bookmarks - dialog title */
+/* "Bookmarks" dialog title */
 "bookmarks" = "Đánh dấu";
 
-/* Default bookmarks set name */
+/* Default bookmark list name */
 "core_my_places" = "Các Địa chỉ của Tôi";
 
 /* Add bookmark dialog - bookmark name */
@@ -132,8 +132,8 @@
 /* Editor title above street and house number */
 "address" = "Địa chỉ";
 
-/* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "Đặt";
+/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
+"list" = "Đặt";
 
 /* Settings button in system menu */
 "settings" = "Thiết lập";
@@ -213,7 +213,7 @@
 /* Notes field in Bookmarks view */
 "description" = "Ghi chú";
 
-/* Email Subject when sharing bookmarks category */
+/* Email Subject when sharing bookmark list */
 "share_bookmarks_email_subject" = "Điểm đánh dấu Organic Maps được chia sẻ";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
@@ -619,9 +619,6 @@
 
 /* «Hide» context menu */
 "hide" = "Ẩn";
-
-/* «Rename» context menu */
-"rename" = "Đổi tên";
 
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Không thể Lập Lộ trình";
@@ -1106,11 +1103,12 @@
 
 "error_enter_correct_name" = "Vui lòng nhập một tên chính xác";
 
-"bookmarks_groups" = "Danh sách";
+"bookmark_lists" = "Danh sách";
 
-"bookmarks_groups_hide_all" = "Ẩn tất cả";
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Ẩn tất cả";
 
-"bookmarks_groups_show_all" = "Hiển thị tất cả";
+"bookmark_lists_show_all" = "Hiển thị tất cả";
 
 "bookmarks_create_new_group" = "Tạo danh sách mới";
 
@@ -1205,9 +1203,7 @@
 
 "limited_access" = "Truy cập hạn chế";
 
-"bookmark_category_name" = "Thể loại";
-
-"bookmark_category_description_hint" = "Đánh vào một mô tả (văn bản hoặc html)";
+"bookmark_list_description_hint" = "Đánh vào một mô tả (văn bản hoặc html)";
 
 "not_shared" = "Riêng tư";
 

@@ -66,24 +66,24 @@
 	<string name="continue_download">Lanjutkan</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s gagal diunduh</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Tambahkan Set baru</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Warna Penanda</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Nama Set Penanda</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Set Penanda</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Penanda</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Tempat-tempat Saya</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nama</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Alamat</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Set</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Set</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Pengaturan</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -136,7 +136,7 @@
 	<string name="police">Polisi</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Catatan</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Bagikan penanda Organic Maps</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Memuat Penanda</string>
@@ -366,8 +366,6 @@
 	<string name="show">Tampilkan</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Sembunyikan</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Ubah nama</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Sudah sampai di tujuan</string>
 	<!-- Arrive routing message in navigation view -->
@@ -614,9 +612,10 @@
 	<string name="setting_emulate_bad_storage">Emulasi penyimpanan yang buruk</string>
 	<string name="core_entrance">Tempat masuk</string>
 	<string name="error_enter_correct_name">Harap masukkan nama yang benar</string>
-	<string name="bookmarks_groups">Daftar</string>
-	<string name="bookmarks_groups_hide_all">Sembunyikan semua</string>
-	<string name="bookmarks_groups_show_all">Perlihatkan semua</string>
+	<string name="bookmark_lists">Daftar</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Sembunyikan semua</string>
+	<string name="bookmark_lists_show_all">Perlihatkan semua</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d markah</item>
 	</plurals>
@@ -677,8 +676,7 @@
 	<string name="hide_from_map">Sembunyikan dari peta</string>
 	<string name="public_access">Akses umum</string>
 	<string name="limited_access">Akses terbatas</string>
-	<string name="bookmark_category_name">Kategori</string>
-	<string name="bookmark_category_description_hint">Ketikkan deskripsi (teks atau html)</string>
+	<string name="bookmark_list_description_hint">Ketikkan deskripsi (teks atau html)</string>
 	<string name="not_shared">Pribadi</string>
 	<string name="tags_loading_error_subtitle">Kesalahan terjadi saat memuat tag, silakan coba lagi</string>
 	<string name="download_button">Unduh</string>

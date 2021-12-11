@@ -67,24 +67,24 @@
 	<string name="continue_download">Continue</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s download has failed</string>
-	<!-- Add New Bookmark Set dialog title -->
-	<string name="add_new_set">Add New Set</string>
+	<!-- "Add new bookmark list" dialog title -->
+	<string name="add_new_set">Add New List</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Bookmark Color</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
-	<string name="bookmark_set_name">Bookmark Set Name</string>
-	<!-- Bookmark Sets dialog title -->
-	<string name="bookmark_sets">Bookmark Sets</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
+	<string name="bookmark_set_name">Bookmark List Name</string>
+	<!-- "Bookmark Lists" dialog title -->
+	<string name="bookmark_sets">Bookmark Lists</string>
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Bookmarks</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">My Places</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Name</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Address</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Set</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">List</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Settings</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -137,7 +137,7 @@
 	<string name="police">Police</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notes</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Organic Maps bookmarks were shared with you</string>
 	<string name="share_bookmarks_email_body">Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don\'t, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!</string>
 	<!-- message title of loading file -->
@@ -390,8 +390,6 @@
 	<string name="show">Show</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Hide</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Rename</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Route Planning Failed</string>
 	<!-- Arrive routing message in navigation view -->
@@ -650,9 +648,10 @@
 	<string name="setting_emulate_bad_storage">Emulate bad storage</string>
 	<string name="core_entrance">Entrance</string>
 	<string name="error_enter_correct_name">Please, enter a correct name</string>
-	<string name="bookmarks_groups">Lists</string>
-	<string name="bookmarks_groups_hide_all">Hide all</string>
-	<string name="bookmarks_groups_show_all">Show all</string>
+	<string name="bookmark_lists">Lists</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Hide all</string>
+	<string name="bookmark_lists_show_all">Show all</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="one">%d bookmark</item>
 	  <item quantity="other">%d bookmarks</item>
@@ -720,8 +719,7 @@
 	<string name="hide_from_map">Hide from map</string>
 	<string name="public_access">Public access</string>
 	<string name="limited_access">Limited access</string>
-	<string name="bookmark_category_name">Category</string>
-	<string name="bookmark_category_description_hint">Type a description (text or html)</string>
+	<string name="bookmark_list_description_hint">Type a description (text or html)</string>
 	<string name="not_shared">Private</string>
 	<string name="tags_loading_error_subtitle">An error occurred while loading tags, please try again</string>
 	<string name="download_button">Download</string>

@@ -108,22 +108,22 @@
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "Il download di %@ non è riuscito";
 
-/* Add New Bookmark Set dialog title */
+/* "Add new bookmark list" dialog title */
 "add_new_set" = "Aggiungi un nuovo Set";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Colore del Segnalibro";
 
-/* Add Bookmark Set dialog - hint when set name is empty */
+/* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Seleziona un nome del segnalibro";
 
-/* Bookmark Sets dialog title */
+/* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Seleziona un segnalibro";
 
-/* Bookmarks - dialog title */
+/* "Bookmarks" dialog title */
 "bookmarks" = "Segnalibri";
 
-/* Default bookmarks set name */
+/* Default bookmark list name */
 "core_my_places" = "I miei luoghi";
 
 /* Add bookmark dialog - bookmark name */
@@ -132,8 +132,8 @@
 /* Editor title above street and house number */
 "address" = "Indirizzo";
 
-/* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "Seleziona";
+/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
+"list" = "Seleziona";
 
 /* Settings button in system menu */
 "settings" = "Impostazioni";
@@ -213,7 +213,7 @@
 /* Notes field in Bookmarks view */
 "description" = "Note";
 
-/* Email Subject when sharing bookmarks category */
+/* Email Subject when sharing bookmark list */
 "share_bookmarks_email_subject" = "Il segnalibri Organic Maps è stato condiviso con te";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
@@ -619,9 +619,6 @@
 
 /* «Hide» context menu */
 "hide" = "Nascondi";
-
-/* «Rename» context menu */
-"rename" = "Rinomina";
 
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Pianificazione del percorso fallito";
@@ -1106,11 +1103,12 @@
 
 "error_enter_correct_name" = "Inserisci un nome corretto";
 
-"bookmarks_groups" = "Elenchi";
+"bookmark_lists" = "Elenchi";
 
-"bookmarks_groups_hide_all" = "Nascondi tutto";
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Nascondi tutto";
 
-"bookmarks_groups_show_all" = "Mostra tutto";
+"bookmark_lists_show_all" = "Mostra tutto";
 
 "bookmarks_create_new_group" = "Crea una nuova lista";
 
@@ -1205,9 +1203,7 @@
 
 "limited_access" = "Accesso privato";
 
-"bookmark_category_name" = "Categoria";
-
-"bookmark_category_description_hint" = "Aggiungere la descrizione (testo o html)";
+"bookmark_list_description_hint" = "Aggiungere la descrizione (testo o html)";
 
 "not_shared" = "Personale";
 

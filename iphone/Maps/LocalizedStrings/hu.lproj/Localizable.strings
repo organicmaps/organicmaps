@@ -108,22 +108,22 @@
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ letöltése sikertelen";
 
-/* Add New Bookmark Set dialog title */
+/* "Add new bookmark list" dialog title */
 "add_new_set" = "Új csoport létrehozása";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Könyvjelző színe";
 
-/* Add Bookmark Set dialog - hint when set name is empty */
+/* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Könyvjelzőcsoport neve";
 
-/* Bookmark Sets dialog title */
+/* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Könyvjelzőcsoportok";
 
-/* Bookmarks - dialog title */
+/* "Bookmarks" dialog title */
 "bookmarks" = "Könyvjelzők";
 
-/* Default bookmarks set name */
+/* Default bookmark list name */
 "core_my_places" = "Saját helyeim";
 
 /* Add bookmark dialog - bookmark name */
@@ -132,8 +132,8 @@
 /* Editor title above street and house number */
 "address" = "Cím";
 
-/* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "Csoport";
+/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
+"list" = "Csoport";
 
 /* Settings button in system menu */
 "settings" = "Beállítások";
@@ -213,7 +213,7 @@
 /* Notes field in Bookmarks view */
 "description" = "Jegyzetek";
 
-/* Email Subject when sharing bookmarks category */
+/* Email Subject when sharing bookmark list */
 "share_bookmarks_email_subject" = "Egy Organic Maps könyvjelzőt osztottak meg Önnel";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
@@ -619,9 +619,6 @@
 
 /* «Hide» context menu */
 "hide" = "Elrejt";
-
-/* «Rename» context menu */
-"rename" = "Átnevez";
 
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Sikertelen útvonaltervezés";
@@ -1106,11 +1103,12 @@
 
 "error_enter_correct_name" = "Kérjük adja meg a helyes nevet";
 
-"bookmarks_groups" = "List";
+"bookmark_lists" = "List";
 
-"bookmarks_groups_hide_all" = "Összes elrejtése";
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Összes elrejtése";
 
-"bookmarks_groups_show_all" = "Összes megjelenítése";
+"bookmark_lists_show_all" = "Összes megjelenítése";
 
 "bookmarks_create_new_group" = "Új lista létrehozása";
 
@@ -1205,9 +1203,7 @@
 
 "limited_access" = "Személyes hozzáférés";
 
-"bookmark_category_name" = "Kategória";
-
-"bookmark_category_description_hint" = "Leírás hozzáadása (szöveg vagy html)";
+"bookmark_list_description_hint" = "Leírás hozzáadása (szöveg vagy html)";
 
 "not_shared" = "Privát";
 

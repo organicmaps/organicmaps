@@ -108,22 +108,22 @@
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "การดาวน์โหลด %@ ล้มเหลว";
 
-/* Add New Bookmark Set dialog title */
+/* "Add new bookmark list" dialog title */
 "add_new_set" = "เพิ่มชุดใหม่";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "สีของบุ๊กมาร์ก";
 
-/* Add Bookmark Set dialog - hint when set name is empty */
+/* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "ชื่อของชุดบุ๊กมาร์ก";
 
-/* Bookmark Sets dialog title */
+/* "Bookmark Lists" dialog title */
 "bookmark_sets" = "ชุดของบุ๊กมาร์ก";
 
-/* Bookmarks - dialog title */
+/* "Bookmarks" dialog title */
 "bookmarks" = "บุ๊กมาร์ก";
 
-/* Default bookmarks set name */
+/* Default bookmark list name */
 "core_my_places" = "สถานที่ของฉัน";
 
 /* Add bookmark dialog - bookmark name */
@@ -132,8 +132,8 @@
 /* Editor title above street and house number */
 "address" = "ที่อยู่";
 
-/* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "ชุด";
+/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
+"list" = "ชุด";
 
 /* Settings button in system menu */
 "settings" = "การตั้งค่า";
@@ -213,7 +213,7 @@
 /* Notes field in Bookmarks view */
 "description" = "บันทึก";
 
-/* Email Subject when sharing bookmarks category */
+/* Email Subject when sharing bookmark list */
 "share_bookmarks_email_subject" = "แชร์บุ๊กมาร์กของ Organic Maps แล้ว";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
@@ -619,9 +619,6 @@
 
 /* «Hide» context menu */
 "hide" = "ซ่อน";
-
-/* «Rename» context menu */
-"rename" = "เปลี่ยนชื่อ";
 
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "การวางแผนเส้นทางล้มเหลว";
@@ -1106,11 +1103,12 @@
 
 "error_enter_correct_name" = "กรุณาใส่ชื่อที่ถูกต้อง";
 
-"bookmarks_groups" = "รายการ";
+"bookmark_lists" = "รายการ";
 
-"bookmarks_groups_hide_all" = "ซ่อนทั้งหมด";
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "ซ่อนทั้งหมด";
 
-"bookmarks_groups_show_all" = "แสดงทั้งหมด";
+"bookmark_lists_show_all" = "แสดงทั้งหมด";
 
 "bookmarks_create_new_group" = "สร้างรายการใหม่";
 
@@ -1205,9 +1203,7 @@
 
 "limited_access" = "จำกัดการเข้าถึง";
 
-"bookmark_category_name" = "หมวดหมู่";
-
-"bookmark_category_description_hint" = "พิมพ์รายละเอียด (ข้อความหรือ html)";
+"bookmark_list_description_hint" = "พิมพ์รายละเอียด (ข้อความหรือ html)";
 
 "not_shared" = "ส่วนตัว";
 

@@ -64,24 +64,24 @@
 	<string name="continue_download">Continuar</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">O descarregamento de %s falhou</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Adicionar conjunto novo</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Cor do favorito</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Nome do conjunto de favoritos</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Conjuntos de favoritos</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Favoritos</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Os meus locais</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nome</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Endereço</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Conjunto</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Conjunto</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Configurações</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -134,7 +134,7 @@
 	<string name="police">Polícia</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notas</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Os favoritos do Organic Maps foram partilhados consigo</string>
 	<string name="share_bookmarks_email_body">Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!</string>
 	<!-- message title of loading file -->
@@ -371,8 +371,6 @@
 	<string name="show">Mostrar</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Ocultar</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Alterar nome</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Falha no planeamento da rota</string>
 	<!-- Arrive routing message in navigation view -->
@@ -621,9 +619,10 @@
 	<string name="setting_emulate_bad_storage">Emular o armazenamento defeituoso</string>
 	<string name="core_entrance">Entrada</string>
 	<string name="error_enter_correct_name">Introduza um nome correto</string>
-	<string name="bookmarks_groups">Listas</string>
-	<string name="bookmarks_groups_hide_all">Ocultar tudo</string>
-	<string name="bookmarks_groups_show_all">Mostrar tudo</string>
+	<string name="bookmark_lists">Listas</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Ocultar tudo</string>
+	<string name="bookmark_lists_show_all">Mostrar tudo</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="one">%d favorito</item>
 	  <item quantity="other">%d favoritos</item>
@@ -691,8 +690,7 @@
 	<string name="hide_from_map">Remover do mapa</string>
 	<string name="public_access">Acesso público</string>
 	<string name="limited_access">Acesso limitado</string>
-	<string name="bookmark_category_name">Categoria</string>
-	<string name="bookmark_category_description_hint">Introduza uma descrição (texto ou html)</string>
+	<string name="bookmark_list_description_hint">Introduza uma descrição (texto ou html)</string>
 	<string name="not_shared">Privado</string>
 	<string name="tags_loading_error_subtitle">Surgiu um erro ao carregar as etiquetas, por favor tente novamente</string>
 	<string name="download_button">Descarregar</string>

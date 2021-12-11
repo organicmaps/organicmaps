@@ -66,24 +66,24 @@
 	<string name="continue_download">استمرار</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">فشلت عملية تنزيل %s</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">إضافة مجموعة جديدة</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">لون الإشارة المرجعية</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">اسم مجموعة الإشارات المرجعية</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">مجموعات الإشارات المرجعية</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">الإشارات المرجعية</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">أماكني</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">الاسم</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">العنوان</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">المجموعة</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">المجموعة</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">الإعدادات</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -136,7 +136,7 @@
 	<string name="police">شرطة</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">ملاحظات</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">تم مشاركة اشارات Organic Maps المرجعية معك</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">تحميل الإشارات المرجعية</string>
@@ -366,8 +366,6 @@
 	<string name="show">عرض</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">إخفاء</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">إعادة تسمية</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">فشل في تخطيط المسار</string>
 	<!-- Arrive routing message in navigation view -->
@@ -616,9 +614,10 @@
 	<string name="setting_emulate_bad_storage">محاكاة التخزين السيء</string>
 	<string name="core_entrance">المدخل</string>
 	<string name="error_enter_correct_name">الرجاء إدخال اسم صحيح</string>
-	<string name="bookmarks_groups">قوائم</string>
-	<string name="bookmarks_groups_hide_all">إخفاء الكل</string>
-	<string name="bookmarks_groups_show_all">إظهار الكل</string>
+	<string name="bookmark_lists">قوائم</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">إخفاء الكل</string>
+	<string name="bookmark_lists_show_all">إظهار الكل</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d من الإشارات المرجعية</item>
 	</plurals>
@@ -678,8 +677,7 @@
 	<string name="hide_from_map">إخفاء من الخريطة</string>
 	<string name="public_access">إطلاع الجمهور</string>
 	<string name="limited_access">محدودية فرص حصول</string>
-	<string name="bookmark_category_name">الفئة</string>
-	<string name="bookmark_category_description_hint">اكتب وصفًا (نص أو html)</string>
+	<string name="bookmark_list_description_hint">اكتب وصفًا (نص أو html)</string>
 	<string name="not_shared">خاص</string>
 	<string name="tags_loading_error_subtitle">حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى</string>
 	<string name="download_button">تحميل</string>

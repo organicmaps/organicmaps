@@ -108,22 +108,22 @@
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@다운로드가 실패했습니다";
 
-/* Add New Bookmark Set dialog title */
+/* "Add new bookmark list" dialog title */
 "add_new_set" = "새로운 세트 추가";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "색상 즐겨찾기에 추가";
 
-/* Add Bookmark Set dialog - hint when set name is empty */
+/* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "집합 이름을 즐겨찾기에 추가";
 
-/* Bookmark Sets dialog title */
+/* "Bookmark Lists" dialog title */
 "bookmark_sets" = "세트를 즐겨찾기에 추가";
 
-/* Bookmarks - dialog title */
+/* "Bookmarks" dialog title */
 "bookmarks" = "북마크";
 
-/* Default bookmarks set name */
+/* Default bookmark list name */
 "core_my_places" = "내 장소";
 
 /* Add bookmark dialog - bookmark name */
@@ -132,8 +132,8 @@
 /* Editor title above street and house number */
 "address" = "주소";
 
-/* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "집합";
+/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
+"list" = "집합";
 
 /* Settings button in system menu */
 "settings" = "설정";
@@ -213,7 +213,7 @@
 /* Notes field in Bookmarks view */
 "description" = "메모";
 
-/* Email Subject when sharing bookmarks category */
+/* Email Subject when sharing bookmark list */
 "share_bookmarks_email_subject" = "귀하와 공유된 Organic Maps 즐겨찾기";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
@@ -619,9 +619,6 @@
 
 /* «Hide» context menu */
 "hide" = "숨기기";
-
-/* «Rename» context menu */
-"rename" = "다른 이름으로 변경";
 
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "경로 계획 실패";
@@ -1106,11 +1103,12 @@
 
 "error_enter_correct_name" = "올바른 이름을 입력하세요.";
 
-"bookmarks_groups" = "기울기";
+"bookmark_lists" = "기울기";
 
-"bookmarks_groups_hide_all" = "모두 숨기기";
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "모두 숨기기";
 
-"bookmarks_groups_show_all" = "모두 표시";
+"bookmark_lists_show_all" = "모두 표시";
 
 "bookmarks_create_new_group" = "새 목록 만들기";
 
@@ -1205,9 +1203,7 @@
 
 "limited_access" = "제한 접근";
 
-"bookmark_category_name" = "범주";
-
-"bookmark_category_description_hint" = "묘사를 적으세요 (글자 혹은 html)";
+"bookmark_list_description_hint" = "묘사를 적으세요 (글자 혹은 html)";
 
 "not_shared" = "개인";
 
