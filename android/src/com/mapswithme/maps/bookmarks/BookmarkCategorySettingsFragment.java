@@ -61,7 +61,7 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
 
   private void initViews(@NonNull View root)
   {
-    mEditCategoryNameView = root.findViewById(R.id.edit_category_name_view);
+    mEditCategoryNameView = root.findViewById(R.id.edit_list_name_view);
     mEditCategoryNameView.setText(mCategory.getName());
     InputFilter[] f = { new InputFilter.LengthFilter(TEXT_LENGTH_LIMIT) };
     mEditCategoryNameView.setFilters(f);

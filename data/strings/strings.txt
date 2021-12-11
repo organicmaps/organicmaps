@@ -1380,9 +1380,9 @@
     zh-Hant = %@ 下載失敗
 
   [add_new_set]
-    comment = Add New Bookmark Set dialog title
+    comment = "Add new bookmark list" dialog title
     tags = android, ios
-    en = Add New Set
+    en = Add New List
     ar = إضافة مجموعة جديدة
     be = Дадаць новую групу
     bg = Добавяне на нова група
@@ -1455,9 +1455,9 @@
     zh-Hant = 書籤顏色
 
   [bookmark_set_name]
-    comment = Add Bookmark Set dialog - hint when set name is empty
+    comment = Add Bookmark list dialog - hint when the list name is empty
     tags = android, ios
-    en = Bookmark Set Name
+    en = Bookmark List Name
     ar = اسم مجموعة الإشارات المرجعية
     be = Назва групы закладак
     bg = Име на група
@@ -1491,9 +1491,9 @@
     zh-Hant = 收藏夾名稱
 
   [bookmark_sets]
-    comment = Bookmark Sets dialog title
+    comment = "Bookmark Lists" dialog title
     tags = ios
-    en = Bookmark Sets
+    en = Bookmark Lists
     ar = مجموعات الإشارات المرجعية
     be = Групы закладак
     cs = Skupiny záložek
@@ -1526,7 +1526,7 @@
     zh-Hant = 收藏夾
 
   [bookmarks]
-    comment = Bookmarks - dialog title
+    comment = "Bookmarks" dialog title
     tags = android, ios
     en = Bookmarks
     ar = الإشارات المرجعية
@@ -1563,7 +1563,7 @@
     zh-Hant = 書籤
 
   [core_my_places]
-    comment = Default bookmarks set name
+    comment = Default bookmark list name
     tags = android, ios
     en = My Places
     ar = أماكني
@@ -1672,10 +1672,10 @@
     zh-Hans = 地址
     zh-Hant = 地址
 
-  [set]
-    comment = Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell
+  [list]
+    comment = Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently.
     tags = android
-    en = Set
+    en = List
     ar = المجموعة
     be = Група
     bg = Група
@@ -2675,7 +2675,7 @@
     zh-Hant = 描述說明
 
   [share_bookmarks_email_subject]
-    comment = Email Subject when sharing bookmarks category
+    comment = Email Subject when sharing bookmark list
     tags = android
     en = Organic Maps bookmarks were shared with you
     ar = تم مشاركة اشارات Organic Maps المرجعية معك
@@ -13475,8 +13475,8 @@
     en = Please indicate the reason for deleting the place
     be = Калі ласка, укажыце прычыну выдалення
     ru = Пожалуйста, укажите причину удаления
-    uk = Будь ласка, вкажіть причину видалення
     tr = Lütfen bu yerin silinmesinin nedenini belirtin
+    uk = Будь ласка, вкажіть причину видалення
 
   [text_more_button]
     tags = ios
@@ -15573,7 +15573,7 @@
     zh-Hans = 请输入正确的名称
     zh-Hant = 請輸入正確的名稱
 
-  [bookmarks_groups]
+  [bookmark_lists]
     tags = android, ios
     en = Lists
     ar = قوائم
@@ -15610,7 +15610,8 @@
     zh-Hans = 列表
     zh-Hant = 清單
 
-  [bookmarks_groups_hide_all]
+  [bookmark_lists_hide_all]
+    comment = Do not display all bookmark lists on the map
     tags = android, ios
     en = Hide all
     ar = إخفاء الكل
@@ -15647,7 +15648,7 @@
     zh-Hans = 全部隱藏
     zh-Hant = 隱藏全部
 
-  [bookmarks_groups_show_all]
+  [bookmark_lists_show_all]
     tags = android, ios
     en = Show all
     ar = إظهار الكل
@@ -17596,42 +17597,7 @@
     zh-Hans = 私人访问
     zh-Hant = 私人空間
 
-  [bookmark_category_name]
-    tags = android
-    en = Category
-    ar = الفئة
-    be = Катэгорыя
-    bg = Категория
-    cs = Kategorie
-    da = Kategori
-    de = Kategorie
-    el = Κατηγορία
-    es = Categoría
-    fa = دسته بندی
-    fi = Kategoria
-    fr = Catégorie
-    hu = Kategória
-    id = Kategori
-    it = Categoria
-    ja = カテゴリ
-    ko = 범주
-    nb = Kategori
-    nl = Categorie
-    pl = Kategoria
-    pt = Categoria
-    pt-BR = Categoria
-    ro = Categorie
-    ru = Категория
-    sk = Kategória
-    sv = Kategori
-    th = หมวดหมู่
-    tr = Kategori
-    uk = Категорія
-    vi = Thể loại
-    zh-Hans = 类别
-    zh-Hant = 類別
-
-  [bookmark_category_description_hint]
+  [bookmark_list_description_hint]
     tags = android, ios
     en = Type a description (text or html)
     ar = اكتب وصفًا (نص أو html)

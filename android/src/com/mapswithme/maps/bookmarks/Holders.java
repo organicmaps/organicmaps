@@ -87,8 +87,8 @@ public class Holders
                    final boolean showAll)
     {
       mButton.setText(showAll
-                      ? R.string.bookmarks_groups_show_all
-                      : R.string.bookmarks_groups_hide_all);
+                      ? R.string.bookmark_lists_show_all
+                      : R.string.bookmark_lists_hide_all);
       mButton.setOnClickListener(new ToggleShowAllClickListener(action, showAll));
     }
 
@@ -96,8 +96,8 @@ public class Holders
                    final boolean showAll)
     {
       mButton.setText(showAll
-                      ? R.string.bookmarks_groups_show_all
-                      : R.string.bookmarks_groups_hide_all);
+                      ? R.string.bookmark_lists_show_all
+                      : R.string.bookmark_lists_hide_all);
       mButton.setOnClickListener(new ToggleShowAllChildCategoryClickListener(
           action, showAll));
     }

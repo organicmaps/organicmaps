@@ -43,7 +43,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base"
       android:layout_marginEnd="@dimen/margin_quadruple"
-      android:text="@string/set"
+      android:text="@string/list"
       android:textAppearance="@style/MwmTextAppearance.Body3" />
     <TextView
       android:id="@+id/tv__bookmark_set"

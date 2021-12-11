@@ -79,7 +79,7 @@ final class CategorySettingsViewController: MWMTableViewController {
       } else {
         let cell = tableView.dequeueReusableCell(cell: MWMNoteCell.self, indexPath: indexPath)
         cell.config(with: self, noteText: bookmarkGroup.detailedAnnotation,
-                    placeholder: L("bookmark_category_description_hint"))
+                    placeholder: L("bookmark_list_description_hint"))
         noteCell = cell
         return cell
       }
