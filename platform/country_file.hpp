@@ -17,18 +17,14 @@ class CountryFile
 public:
   CountryFile();
   explicit CountryFile(std::string name);
+  CountryFile(std::string name, MwmSize size, std::string sha1);
 
   /// \returns Empty (invalid) CountryFile.
   bool IsEmpty() const { return m_name.empty(); }
 
   /// \returns file name without extensions.
-  std::string const & GetName() const;
-
-  /// \note Remote size is size of mwm in bytes.
-  void SetRemoteSize(MwmSize mapSize);
-  MwmSize GetRemoteSize() const;
-
-  void SetSha1(std::string const & base64Sha1) { m_sha1 = base64Sha1; }
+  std::string const & GetName() const { return m_name; }
+  MwmSize GetRemoteSize() const { return m_mapSize; }
   std::string const & GetSha1() const { return m_sha1; }
 
   inline bool operator<(const CountryFile & rhs) const { return m_name < rhs.m_name; }
