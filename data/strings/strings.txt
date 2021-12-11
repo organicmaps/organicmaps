@@ -796,7 +796,7 @@
     sk = Skúsiť znova
     sv = Försök igen
     th = ลองอีกครั้ง
-    tr = Tekrar Deneyin
+    tr = Tekrar Dene
     uk = Спробуйте ще раз
     vi = Thử lại
     zh-Hans = 重试
@@ -1484,7 +1484,7 @@
     sk = Meno záložky
     sv = Bokmärkessamlingens namn
     th = ชื่อของชุดบุ๊กมาร์ก
-    tr = Yer İmi Adını Ayarla
+    tr = Yer İmi Listesi Adı
     uk = Назва групи
     vi = Đánh dấu Tên Bộ
     zh-Hans = 书签集名称
@@ -1519,7 +1519,7 @@
     sk = Skupiny záložiek
     sv = Bokmärkessamlingar
     th = ชุดของบุ๊กมาร์ก
-    tr = Yer İmi Ayarları
+    tr = Yer İmi Listeleri
     uk = Групи мiток
     vi = Đánh dấu Bộ
     zh-Hans = 书签集
@@ -1703,7 +1703,7 @@
     sk = Skupina
     sv = Samling
     th = ชุด
-    tr = Ayarla
+    tr = Liste
     uk = Група
     vi = Đặt
     zh-Hans = 集合
@@ -1777,7 +1777,7 @@
     sv = Spara kartor i
     sw = Hifadhi ramani kwenye
     th = บันทึกแผนที่ไปยัง
-    tr = Haritaları depolama
+    tr = Haritaları şuraya kaydet:
     uk = Зберігати мапи до
     vi = Lưu bản đồ vào
     zh-Hans = 将地图保存到
@@ -1851,7 +1851,7 @@
     sk = Presunúť mapy?
     sv = Flytta kartor?
     th = ลบแผนที่?
-    tr = Haritaları taşı?
+    tr = Haritalar taşınsın mı?
     uk = Перемістити мапи?
     vi = Di chuyển bản đồ?
     zh-Hans = 移动地图？
@@ -1925,7 +1925,7 @@
     sk = Meracie jednotky
     sv = Längdenheter
     th = หน่วยการวัด
-    tr = Ölçü Birimleri
+    tr = Ölçü birimleri
     uk = Одиниці виміру
     vi = Đơn vị đo
     zh-Hans = 测量单位
@@ -2037,7 +2037,7 @@
     sv = Produkter
     sw = Migahawani
     th = ซื้อของกินของใช้
-    tr = Bakkaliye
+    tr = Market
     uk = Продукти
     vi = Cửa hàng tạp hóa
     zh-Hans = 食品
@@ -2112,7 +2112,7 @@
     sk = Čerpacia stanica
     sv = Bensin
     th = ก๊าซ
-    tr = Benzin
+    tr = Yakıt
     uk = Заправка
     vi = Khí đốt
     zh-Hans = 汽油
@@ -2557,7 +2557,7 @@
     sk = Záchody
     sv = Toalett
     th = ห้องน้ำ
-    tr = Tuvalet
+    tr = WC
     uk = Туалет
     vi = Nhà vệ sinh
     zh-Hans = 厕所
@@ -2704,7 +2704,7 @@
     sk = Zdielané záložky Organic Maps
     sv = Organic Maps bokmärken har delats med dig
     th = แชร์บุ๊กมาร์กของ Organic Maps แล้ว
-    tr = Paylaşılan Organic Maps yer imleri
+    tr = Seninle paylaşılan Organic Maps yer imleri
     uk = З вами поділилися мiтками Organic Maps
     vi = Điểm đánh dấu Organic Maps được chia sẻ
     zh-Hans = Organic Maps 书签已与您共享
@@ -2721,7 +2721,8 @@
     pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!
     pt-BR = Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Por favor os abra se você tiver o Organic Maps instalado. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android com o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!
     ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
-    zh-Hant = 你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps！
+    tr = Merhaba!\n\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ile seyahat etmenin keyfini çıkarın!
+    zh-Hant = 你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps!
 
   [load_kmz_title]
     comment = message title of loading file
@@ -2975,7 +2976,7 @@
     sk = Práve prebieha sťahovanie krajiny.
     sv = Nedladdning av landet är startat nu.
     th = กำลังดำเนินการดาวน์โหลดประเทศในตอนนี้
-    tr = Ülke indirme işlemi şu anda sürüyor.
+    tr = Harita indirme işlemi şu anda sürüyor.
     uk = Зараз відбувається завантаження країни.
     vi = Hiện đang tải xuống quốc gia.
     zh-Hans = 地图下载进行中。
@@ -3011,7 +3012,7 @@
     sk = Pozri kde som. Otvor odkaz: %1$@ alebo %2$@
     sv = Hej, kolla på min nuvarande position på Organic Maps! %1$@ eller %2$@ Har du inte offline-kartor? Ladda ner här: https://omaps.app/get
     th = เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ Organic Maps! %1$@ หรือ %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: https://omaps.app/get
-    tr = Hey, Organic Maps’de geçerli konumumu incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yok mu? Buradan indir: https://omaps.app/get
+    tr = Hey, Organic Maps’te geçerli konumumu incele! %1$@ veya %2$@ Çevrimdışı haritalar sende yok mu? Buradan indir: https://omaps.app/get
     uk = Глянь де я зараз. Іди %1$@ або %2$@
     vi = Này, hãy xem vị trí hiện tại của tôi tại Organic Maps! %1$@ hoặc %2$@ Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: https://omaps.app/get
     zh-Hans = 嘿，在 Organic Maps 上查看我目前的位置吧!%1$@ 或%2$@ 未安装离线地图？在此下载: https://omaps.app/get
@@ -3083,7 +3084,7 @@
     sk = Pozrite si moju aktuálnu polohu na mape Organic Maps
     sv = Hej, kolla på min nuvarande position på Organic Maps kartan!
     th = นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ Organic Maps สิ!
-    tr = Hey, Organic Maps’de geçerli konumumu incele!
+    tr = Hey, Organic Maps’te geçerli konumumu incele!
     uk = Поглянь на моє поточне місцезнаходження на мапі Organic Maps
     vi = Này, hãy xem vị trí hiện tại của tôi tại Organic Maps map!
     zh-Hans = 嗨，到 Organic Maps 查看我的当前位置！
@@ -3362,6 +3363,7 @@
     pt = Versão dos dados: %d
     pt-BR = Versão dos dados: %d
     ru = Версия данных: %d
+    tr = Veri sürümü: %d
     zh-Hans = 资料版本： %d
     zh-Hant = 資料版本： %d
 
@@ -3433,7 +3435,7 @@
     sk = Stopy
     sv = Rutter
     th = การติดตาม
-    tr = Parçalar
+    tr = Kayıtlar
     uk = Маршрути
     vi = Dấu vết
     zh-Hans = 轨迹
@@ -3528,6 +3530,7 @@
     pt = Configurações gerais
     pt-BR = Configurações gerais
     ru = Общие настройки
+    tr = Genel ayarlar
     zh-Hans = 常规设置
     zh-Hant = 一般設定
 
@@ -3547,6 +3550,7 @@
     pt = Informação
     pt-BR = Informação
     ru = Информация
+    tr = Bilgi
     zh-Hans = 信息
     zh-Hant = 資訊
 
@@ -3651,7 +3655,7 @@
     sk = Zobraziť na obrazovke
     sv = Visa på skärmen
     th = แสดงบนหน้าจอ
-    tr = Ekranda göster
+    tr = Haritada göster
     uk = Відображення на екрані
     vi = Hiển thị trên màn hình
     zh-Hans = 在屏幕上显示
@@ -3867,7 +3871,7 @@
     sk = 3D budovy
     sv = 3D-byggnader
     th = ตึก 3D
-    tr = 3 Boyutlu Binalar
+    tr = 3D yapılar
     uk = Будівлі у 3D
     vi = Nhà cửa 3D
     zh-Hans = 3D 建筑
@@ -4047,7 +4051,7 @@
     sk = Posledná trasa
     sv = Senaste resväg
     th = เส้นทางล่าสุด
-    tr = En son yol
+    tr = En sonki kayıt
     uk = Недавній маршрут
     vi = Tìm kiếm gần đây
     zh-Hans = 最近的路径
@@ -4627,7 +4631,7 @@
     sv = Frågor och svar
     sw = Maswali na majibu
     th = คำถามและคำตอบ
-    tr = Sorular ve cevaplar
+    tr = Sıkça Sorulan Sorular
     uk = Питання та відповіді
     vi = Câu hỏi và trả lời
     zh-Hans = 问题和解答
@@ -4664,7 +4668,7 @@
     sv = Hur stöder vi oss?
     sw = Jinsi ya kutuunga mkono?
     th = วิธีการสนับสนุนเรา
-    tr = Bizi nasıl destekleyebilirim?
+    tr = Sizi nasıl destekleyebilirim?
     uk = Як нас підтримати?
     vi = Làm thế nào để hỗ trợ chúng tôi?
     zh-Hans = 如何支持我们？
@@ -5459,7 +5463,7 @@
     sk = Zopakovať
     sv = Repetera
     th = ทำซ้ำ
-    tr = Tekrarla
+    tr = Tekrar dene
     uk = Повторити
     vi = Lặp lại
     zh-Hans = 重复
@@ -5892,7 +5896,7 @@
     sk = Prosím, povoľte Služby určovania polohy
     sv = Vänligen aktivera platstjänster
     th = โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง
-    tr = Lütfen Yer Hizmetlerini etkinleştirin
+    tr = Lütfen Konum Hizmetlerini etkinleştirin
     uk = Будь ласка, увімкніть геолокацію
     vi = Bạn vui lòng bật Dịch vụ Định vị
     zh-Hans = 请启用位置服务
@@ -7742,7 +7746,7 @@
     sk = Stiahnutím mapy už nebudete potrebovať pripojenie k internetu a môžete si začať vyhľadávať a vytvárať trasy.
     sv = För att börja söka och skapa rutter, ladda ner kartan, och du behöver inte Internet-anslutning längre.
     th = เพื่อเริ่มต้นการค้นหาและสร้างเส้นทาง โปรดดาวน์โหลดแผนที่ และคุณจะไม่จำเป็นต้องทำการเชื่อมต่ออินเทอร์เน็ตอีกต่อไป
-    tr = Rotaları aramak ve oluşturmaya başlamak için lütfen haritayı indirin ve artık internet bağlantısına ihtiyacınız yok.
+    tr = Rotaları aramak ve oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra artık internet bağlantısına ihtiyacınız olmayacak.
     uk = Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте мапу і вам більше ніколи не знадобиться інтернет-з’єднання.
     vi = Để bắt đầu tìm kiếm và tạo đường đi, vui lòng tải về bản đồ, và bạn sẽ không cần đến kết nối Internet nữa.
     zh-Hans = 要开始搜索和创建路线，请下载地图，那您就不再需要网络连接了。
@@ -7778,7 +7782,7 @@
     sk = Vybrať mapu
     sv = Välj kartan
     th = เลือกแผนที่
-    tr = Haritayi Seçin
+    tr = Haritayı Seçin
     uk = Вибрати мапу
     vi = Chọn bản đồ
     zh-Hans = 选择地图
@@ -8375,7 +8379,7 @@
     sk = Rýchlo pristupujte k nedávnym hľadaným výrazom.
     sv = Få snabbare åtkomst till senaste sökförfrågan.
     th = เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว
-    tr = En son yapılan arama sorgularına hızlı erişim.
+    tr = En son yapılan arama sorgularını görüntüle.
     uk = Швидкий доступ до недавніх результатів пошуку.
     vi = Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.
     zh-Hans = 快速访问最近的搜索查询。
@@ -8410,7 +8414,7 @@
     sk = Vymazať históriu vyhľadávania
     sv = Rensa sökhistorik
     th = ล้างการค้นหาประวัติ
-    tr = Arama geçmişini temizle
+    tr = Arama Geçmişini temizle
     uk = Очистити історію пошуку
     vi = Xóa Lịch sử Tìm kiếm
     zh-Hans = 清除历史搜索
@@ -8426,6 +8430,7 @@
     fr = Wikipédia
     pt = Wikipédia
     pt-BR = Wikipédia
+    tr = Vikipedi
     zh-Hans = 维基百科
     zh-Hant = 維基百科
 
@@ -8563,7 +8568,7 @@
     sk = Cesta do
     sv = Rutt till
     th = เส้นทางถึง
-    tr = Varış yeri:
+    tr = Varış yeri
     uk = Сюди
     vi = Tuyến đến
     zh-Hans = 到这去
@@ -9230,7 +9235,7 @@
     sk = Prosím, pridajte detailný popis problému, aby mohla komunita OpenStreetMap opraviť danú chybu.
     sv = Beskriv problemet i detalj så att OpenStreeMaps community kan lösa felet.
     th = กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreeMap จะสามารถแก้ไขข้อผิดพลาดได้
-    tr = OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde tanımlayın.
+    tr = OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde açıklayın.
     uk = Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.
     vi = Xin mô tả chi tiết vấn đề để cộng đồng OpenStreeMap có thể sửa lỗi đó.
     zh-Hans = 请详细描述此问题以便OpenStreeMap社区能够修复此错误。
@@ -9265,7 +9270,7 @@
     sk = K oprave môžete prispieť aj vy na stránke https://www.openstreetmap.org/
     sv = Eller gör det själv på https://www.openstreetmap.org/
     th = หรือทำด้วยตัวคุณเองที่ https://www.openstreetmap.org/
-    tr = Veya bunu adresinden kendiniz yapın https://www.openstreetmap.org/
+    tr = Veya bunu https://www.openstreetmap.org/ adresinden kendiniz yapın
     uk = Або зробіть це самостійно на сайті https://www.openstreetmap.org/
     vi = Hoặc bạn có thể tự sửa tại https://www.openstreetmap.org/
     zh-Hans = 或者在https://www.openstreetmap.org/上亲自修复此错误。
@@ -9793,7 +9798,7 @@
     sk = Nemáte účet v OpenStreetMap?
     sv = Inget konto hos OpenStreetMap?
     th = ไม่มีบัญชีใน OpenStreetMap?
-    tr = OpenStreetMap' hesabın yok mu?
+    tr = OpenStreetMap hesabın yok mu?
     uk = Не зареєстровані в OpenStreetMap?
     vi = Bạn chưa có tài khoản tại OpenStreetMap ư?
     zh-Hans = 在OpenStreetMap上没有账户吗？
@@ -10214,7 +10219,7 @@
     sk = Názov miesta
     sv = Platsens namn
     th = ชื่อสถานที่
-    tr = Yer ismi
+    tr = Yerin Adı
     uk = Назва
     vi = Tên địa điểm
     zh-Hans = 地点名
@@ -10320,7 +10325,7 @@
     sk = Číslo domu
     sv = Ett husnummer
     th = บ้านเลขที่
-    tr = Bir ev numarası
+    tr = Bina numarası
     uk = Номер будинку
     vi = Số nhà
     zh-Hans = 门牌号码
@@ -10411,6 +10416,7 @@
     es = Ingrese un nombre de calle
     fa = ﺪﯿﻨﮐ ﺩﺭﺍﻭ ﺍﺭ ﻥﺎﺑﺎﯿﺧ ﻡﺎﻧ
     ru = Введите название улицы
+    tr = Lütfen bir sokak adı girin
     uk = Введіть назву вулиці
 
   [choose_language]
@@ -10665,6 +10671,7 @@
     fr = Ajouter un numéro de téléphone
     pl = Dodaj numer telefonu
     ru = Добавить телефон
+    tr = Telefon Ekle
     zh-Hant = 新增電話
 
   [please_note]
@@ -11081,7 +11088,7 @@
     sk = Ak chcete nastaviť správnu polohu objektu, posuňte mapu.
     sv = Dra på kartan för att välja objektets rätta plats.
     th = ดึงแผนที่เพื่อเลือกตำแหน่งวัตถุที่ถูกต้อง
-    tr = Objenin doğru konumunu seçmek için haritayı çekin.
+    tr = Objenin doğru konumunu seçmek için haritayı sürükleyin.
     uk = Потягніть мапу, щоб вибрати правильне місцезнаходження об’єкту.
     vi = Kéo bản đồ để chọn vị trí chính xác của đối tượng
     zh-Hans = 拖动地图以选择此对象的正确位置。
@@ -11291,7 +11298,7 @@
     sk = Názov miesta
     sv = Namn på platsen
     th = ชื่อสถานที่
-    tr = Yerin ismi
+    tr = Yerin adı
     uk = Назва місця
     vi = Tên địa điểm
     zh-Hans = 该地点的名称
@@ -11466,7 +11473,7 @@
     sk = Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.
     sv = Lägg till nya platser till kartan och redigera de befintliga direkt från appen.
     th = เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง
-    tr = Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.
+    tr = Doğrudan uygulamadan haritaya yeni yerler ekleyin ve mevcut yerleri düzenleyin.
     uk = Додати нові місця до мапи і редагувати існуючі місця прямо з програми.
     vi = Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.
     zh-Hans = 添加新地点到该地图，并直接通过此应用编辑已存在的地点。
@@ -11571,7 +11578,7 @@
     sk = Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.
     sv = Logga in så att andra användare kan se de ändringar du gjort.
     th = ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้
-    tr = Giriş yapın böylelikle diğer kullanıcılar yaptığınız değişiklikleri görebilirler.
+    tr = Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için oturum açın
     uk = Увійдіть, щоб ваші зміни побачили інші користувачі.
     vi = Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.
     zh-Hans = 登录，让其他用户能看到您所作出的修改。
@@ -11642,7 +11649,7 @@
     sk = Vďaka mne sú mapy na Organic Maps lepšie
     sv = Jag förbättrade kartorna hos Organic Maps
     th = ฉันได้ปรับปรุงแผนที่ Organic Maps
-    tr = Organic Maps haritalarını iyileştirdim
+    tr = Organic Maps haritalarını geliştirdim
     uk = Я покращив мапи Organic Maps
     vi = Tôi đã cải thiện các bản đồ Organic Maps
     zh-Hans = 我改进了Organic Maps地图
@@ -11712,7 +11719,7 @@
     sk = Sťahovať prostredníctvom pripojenia na mobilnú sieť?
     sv = Ladda ned med mobildata?
     th = ดาวน์โหลดโดยใช้การเชื่อมต่อเครือข่ายมือถือ?
-    tr = Hücresel bir ağ bağlantısı kullanarak indir?
+    tr = Hücresel bir ağ bağlantısı kullanarak indirilsin mi?
     uk = Завантажити за допомогою мобільної мережі?
     vi = Tải xuống qua kết nối mạng di động?
     zh-Hans = 用手机网络连接下载吗？
@@ -11746,7 +11753,7 @@
     sk = V prípade niektorých plánov alebo použitím roamingu by to mohlo byť značne nákladné.
     sv = Detta kan vara mycket dyrt med vissa abonnemang och vid roaming.
     th = มันอาจมีราคาสูงมากหากใช้แผนโทรศัพท์บางประเภทหรือหากทำการโรมมิ่ง
-    tr = Bu işlem bazı planlarla ya da dolaşım ise büyük ölçüde pahalı olabilir.
+    tr = Bu işlem, bazı planlarda veya dolaşımda oldukça pahalı olabilir.
     uk = Це може бути задорого за деякими планами або за умовами роумінгу.
     vi = Như vậy sẽ rất đắt tiền với một số gói dữ liệu hoặc khi chuyển vùng.
     zh-Hans = 用一些方案或漫游的话这可能相当昂贵。
@@ -11781,7 +11788,7 @@
     sk = Zadajte správne číslo domu
     sv = Ange korrekt husnummer
     th = กรอกบ้านเลขที่ให้ถูกต้อง
-    tr = Doğru ev numarası girin
+    tr = Geçerli bir bina numarası girin
     uk = Введіть правильний номер будинку
     vi = Nhập số nhà chính xác
     zh-Hans = 输入正确的房屋号
@@ -11852,7 +11859,7 @@
     sk = Upraviť s maximálne 25 poschodiami
     sv = Redigera byggnaden med max 25 våningar
     th = แก้ไขอาคารที่มีจำนวนชั้นมากกว่า 25
-    tr = Binayı en fazla 25 katlı düzenle
+    tr = Kat sayısı 25'i geçmemelidir
     uk = Редагуйте будівлі висотою максимум 25 поверхів
     vi = Sửa tòa nhà có tối đa 25 tầng
     zh-Hans = 编辑最多 25 层的建筑
@@ -11922,7 +11929,7 @@
     sk = Zadajte správne PSČ
     sv = Ange korrekt postnr
     th = กรุณาใส่รหัสไปรษณีย์ที่ถูกต้อง
-    tr = Doğru Posta Kodunu girin
+    tr = Geçerli bir posta kodu girin
     uk = Введіть коректний поштовий індекс
     vi = Nhập Mã ZIP chính xác
     zh-Hans = 输入正确的邮政编码
@@ -12065,7 +12072,7 @@
     sk = Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v Organic Maps.
     sv = Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i Organic Maps.
     th = คำแนะนำการเปลี่ยนแปลงของคุณจะถูกส่งไปยังกลุ่ม OpenStreetMap โปรดอธิบายรายละเอียดที่ Organic Maps ไม่สามารถแก้ไขได้
-    tr = Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. Organic Maps’de düzenlenemeyen ayrıntıları açıklayın.
+    tr = Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. Organic Maps’te düzenlenemeyen ayrıntıları açıklayın.
     uk = Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об'єкт, які не можна редагувати у Organic Maps.
     vi = Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong Organic Maps.
     zh-Hans = 您建议的更改将发送至 OpenStreetMap 社区。说明无法在 Organic Maps 编辑的详情。
@@ -12275,7 +12282,7 @@
     sk = Pokračovať v mazaní vašej súčasnej pozície?
     sv = Fortsätt detektera din nuvarande plats?
     th = ค้นหาที่ตั้งปัจจุบันต่อไปหรือไม่?
-    tr = Geçerli konumunuzuz izlenmeye devam edilsin mi
+    tr = Geçerli konumunuzuz izlenmeye devam edilsin mi?
     uk = Продовжити пошук місцезнаходження?
     vi = Tiếp tục phát hiện địa điểm hiện tại của bạn?
     zh-Hans = 继续检测您的当前位置？
@@ -12311,7 +12318,7 @@
     sk = Súčasná pozícia je neznáma. Možno sa nachádzate v budove alebo v tuneli.
     sv = Nuvarande plats okänd. Du kanske är i en byggnad eller tunnel.
     th = ไม่ทราบชื่อสถานที่ปัจจุบัน คุณอาจจะอยู่ในอาคาร หรือ ในอุโมงค์
-    tr = Geçerli konum bilinmiyor Muhtemelen bir binanın içinde veya tüneldesiniz.
+    tr = Geçerli konum bilinmiyor. Muhtemelen bir binanın içinde veya tüneldesiniz.
     uk = Місцезнаходження не знайдено. Можливо, ви знаходитесь у приміщенні або тунелі.
     vi = Chưa biết địa điểm hiện tại. Có thể bạn đang ở trong một tòa nhà hoặc đường hầm.
     zh-Hans = 当前位置未知，可能您在建筑内或隧道内。
@@ -12450,7 +12457,7 @@
     sk = Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.
     sv = Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.
     th = มีข้อผิดพลาดเกิดขึ้นในขณะที่กำลังหาที่ตั้งที่คุณอยู่ โปรดตรวจสอบอุปกรณ์ของคุณว่าทำงานถูกต้อง และลองใหม่อีกครั้ง
-    tr = Konumunuz aranırken bir hata oluştu. Cihazının düzgün çalışıp çalışmadığını kontrol edip daha sonra tekrar deneyin.
+    tr = Konumunuz aranırken bir hata oluştu. Cihazınızın düzgün çalışıp çalışmadığını kontrol edin ve daha sonra tekrar deneyin.
     uk = Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.
     vi = Có lỗi khi tìm kiếm địa điểm của bạn. Đảm bảo rằng thiết bị của bạn hoạt động tốt và thử lại sau.
     zh-Hans = 搜索您的位置时发生错误。请检查您的设备是否工作正常，然后重试。
@@ -12486,7 +12493,7 @@
     sk = Identifikácia lokality je zablokovaná
     sv = Platsidentifiering avaktiverad
     th = ปิดการใช้งานการระบุตำแหน่งที่ตั้งแล้ว
-    tr = Konum tanımlama devre dışı bırakıldı
+    tr = Konum servisleri devre dışı bırakıldı
     uk = Ідентифікацію місцезнаходження відключено
     vi = Chức năng nhận biết địa điểm bị tắt
     zh-Hans = 地点定位被禁用
@@ -12522,7 +12529,7 @@
     sk = Povoliť prístup ku geolokalizácii v nastaveniach prístroja
     sv = Aktivera tillgång till geografisk plats i enhetens inställningar
     th = เปิดใช้งานการเข้าถึงตำแหน่งภูมิศาสตร์ในการตั้งค่าอุปกรณ์
-    tr = Cihaz ayarlarında konum belirlemeye erişimi etkinleştirin
+    tr = Cihaz ayarlarında coğrafi konuma erişimi etkinleştirin
     uk = Увімкніть доступ до геолокації в налаштуваннях цього пристрою
     vi = Bật truy cập định vị địa lý trong thiết lập thiết bị
     zh-Hans = 启用设备设置中的地理位置定位
@@ -12628,7 +12635,7 @@
     sk = 3. Vyberte si počas používania aplikácie
     sv = 3. Välj Medan appen används
     th = 3. เลือกในขณะใช้แอป
-    tr = 3. Uygulamayı Kullanırken Seç
+    tr = 3. "Uygulamayı Kullanırken"i Seçin
     uk = 3. Оберіть "Під час роботи програми"
     vi = 3. Chọn Khi Đang Dùng Ứng dụng
     zh-Hans = 3. 使用应用时选择
@@ -12830,7 +12837,7 @@
     sk = mph
     sv = mph
     th = ไมล์/ชม.
-    tr = mph
+    tr = saatte mil
     uk = ми/год
     vi = mph
     zh-Hans = 英里每小时
@@ -13386,7 +13393,7 @@
     sk = Odstrániť pridané miesto?
     sv = Ta bort en tillagd plats?
     th = ลบที่ที่เพิ่มออก
-    tr = Eklenen bir yer kaldırılsın mı?
+    tr = Eklenen yer kaldırılsın mı?
     uk = Видалити об'єкт, що ви додали?
     vi = Xóa một địa điểm đã thêm?
     zh-Hans = 删除已添加的位置？
@@ -13469,6 +13476,7 @@
     be = Калі ласка, укажыце прычыну выдалення
     ru = Пожалуйста, укажите причину удаления
     uk = Будь ласка, вкажіть причину видалення
+    tr = Lütfen bu yerin silinmesinin nedenini belirtin
 
   [text_more_button]
     tags = ios
@@ -13535,7 +13543,7 @@
     sk = Zadajte správne telefónne číslo
     sv = Ange korrekt telefonnummer
     th = กรอกหมายเลขโทรศัพท์ที่ถูกต้อง
-    tr = Doğru telefon numarası gir
+    tr = Geçerli bir telefon numarası girin
     uk = Введіть правильний номер телефону
     vi = Nhập chính xác số điện thoại
     zh-Hans = 输入正确的电话号码
@@ -13619,6 +13627,7 @@
     fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
     pl = Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku
     ru = Введите корректный веб-адрес Facebook страницы или имя пользователя
+    tr = Geçerli bir Facebook web adresi, hesap veya sayfa adı girin
     uk = Введіть вірну веб-адресу Facebook сторінки або і'мя користувача
     zh-Hant = 輸入有效臉書網址、帳號或粉絲頁名稱
 
@@ -13630,6 +13639,7 @@
     fr = Saisissez une adresse web, un nom de compte Instagram valide
     pl = Wprowadź poprawny link lub nazwę konta na Instagramie
     ru = Введите корректный веб-адрес Instagram страницы или имя пользователя
+    tr = Geçerli bir İnstagram web adresi veya hesap adı girin
     uk = Введіть вірну веб-адресу Instagram сторінки або і'мя користувача
     zh-Hant = 輸入有效 Instagram 網址或帳號名稱
 
@@ -13641,6 +13651,7 @@
     fr = Saisissez une adresse web, un nom de compte Twitter valide
     pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
     ru = Введите корректный веб-адрес Twitter страницы или имя пользователя
+    tr = Geçerli bir Twitter web adresi veya kullanıcı adı girin
     uk = Введіть вірну веб-адресу Twitter сторінки або і'мя користувача
     zh-Hant = 輸入有效推特網址或使用者名稱
 
@@ -13652,6 +13663,7 @@
     fr = Saisissez une adresse web, un nom de compte VK valide
     pl = Wprowadź poprawny adres lub nazwę konta na VK
     ru = Введите корректный веб-адрес VK страницы или имя пользователя
+    tr = Geçerli bir VK web adresi veya hesap adı girin
     uk = Введіть вірну веб-адресу VK сторінки або і'мя користувача
     zh-Hant = 輸入有效 VK 網益止或帳號名稱
 
@@ -13660,6 +13672,7 @@
     en = Enter a valid LINE web address or LINE ID
     be = Упішыце вэб-адрас LINE старонкі або LINE ID
     ru = Введите корректный веб-адрес LINE страницы или LINE ID
+    tr = Geçerli bir Line web adresi veya Line ID'si girin
     uk = Введіть вірну веб-адресу LINE сторінки або LINE ID
 
   [refresh]
@@ -13833,7 +13846,7 @@
     sk = Skontrolujeme zmeny. V prípade otázok vás budeme kontaktovať emailom.
     sv = Vi kommer att kontrollera ändringar. Om vi har några frågor kontaktar vi dig via e-post.
     th = เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล
-    tr = Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla temasa geçeceğiz.
+    tr = Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla iletişime geçeceğiz.
     uk = Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.
     vi = Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.
     zh-Hans = 我们会检查更改。如果我们有任何问题，我们会邮件与您联系。
@@ -14117,7 +14130,7 @@
     sk = Prijať
     sv = Acceptera
     th = ยอมรับ
-    tr = Kabul
+    tr = Kabul et
     uk = Прийняти
     vi = Chấp nhận
     zh-Hans = 接受
@@ -14153,7 +14166,7 @@
     sk = Odmietnuť
     sv = Neka
     th = ปฏิเสธ
-    tr = Ret
+    tr = Reddet
     uk = Відхилити
     vi = Từ chối
     zh-Hans = 拒绝
@@ -14826,7 +14839,7 @@
     sv = Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     sw = Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     th = เราใช้ระบบ TTS สำหรับคำแนะนำด้วยเสียงพูด เครื่องแอนดรอยด์จำนวนมากใช้งาน Google TTS คุณสามารถดาวน์โหลดหรืออัปเดตได้จาก Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
-    tr = Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS'yi kullanıyor, Uygulamayı, Google Play'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    tr = Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS'yi kullanıyor. Uygulamayı, Google Play'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)
     uk = Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     vi = Chúng tôi sử dụng TTS hệ thống để hướng dẫn bằng giọng nói. Rất nhiều thiết bị Android sử dụng Google TTS, bạn có thể tải về hoặc cập nhật nó từ Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     zh-Hans = 我们为语音指令使用“文字转语音”系统。许多 Android 设备使用 Google 文字转语音，您可以从 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下载或更新这一功能
@@ -14938,7 +14951,7 @@
     sv = Transkribering till latin
     sw = Tafsiri kwa lugha ya Kilatini
     th = การทับศัพท์เป็นภาษาละติน
-    tr = Latince alfabesine çevirme
+    tr = Latin alfabesine çevirme
     uk = Транслітерація латинськими літерами
     vi = Chuyển ngữ sang chữ Latinh
     zh-Hans = 直译成拉丁文
@@ -15443,7 +15456,7 @@
     sv = Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet är skrivskyddat. Kontrollera det och kontakta oss på support@organicmaps.app
     sw = Hifadhi ya nje haipatikani, pengine Kadi ya SD imeondolewa, imeharibika au mfumo wa faili ni wa kusoma pekee. Tafadhali ikague na uwasiliane nasi kwa kutumia support@organicmaps.app
     th = ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support@organicmaps.app
-    tr = Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support@organicmaps.app adresinden bizimle iletişime geçin
+    tr = Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin veya support@organicmaps.app adresinden bizimle iletişime geçin
     uk = Зовнішнє сховище не доступно. Ймовірно, SD-картку пам'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв'яжіться з нами, написавши на адресу електронну пошту support@organicmaps.app
     vi = Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support@organicmaps.app
     zh-Hans = 外部存储空间不可用，可能是存储卡已移除、损坏，或者文件系统为只读。请检查，然后通过以下方式联系我们：support@organicmaps.app
@@ -15766,6 +15779,7 @@
     pt = Importar favoritos
     pt-BR = Importar favoritos
     ru = Импортировать метки
+    tr = Yer imlerini içe aktar
     zh-Hant = 匯入書籤
 
   [downloader_hide_screen]
@@ -16058,7 +16072,7 @@
     sv = Namnet kunde inte vara tomt
     sw = Jina halikuweza kuwa tupu
     th = ชื่อต้องไม่ว่างเปล่า
-    tr = Isim boş olamaz
+    tr = İsim boş olamaz
     uk = Ім'я не може бути порожнім
     vi = Tên không được để trống
     zh-Hans = 名字不能为空
@@ -16095,7 +16109,7 @@
     sv = Vänligen ange listnamnet
     sw = Tafadhali ingiza jina la orodha
     th = โปรดป้อนชื่อรายการ
-    tr = Lütfen liste ismini giriniz
+    tr = Lütfen liste ismini girin
     uk = Будь ласка, введіть назву списку
     vi = Vui lòng nhập tên danh sách
     zh-Hans = 请输入列表名称
@@ -16206,7 +16220,7 @@
     sv = Vänligen välj ett annat namn
     sw = Tafadhali chagua jina lingine
     th = โปรดเลือกชื่ออื่น
-    tr = Lütfen başka bir isim seçiniz
+    tr = Lütfen başka bir isim seçin
     uk = Виберіть інше ім'я
     vi = Vui lòng chọn một tên khác
     zh-Hans = 请选择其他名称
@@ -16279,7 +16293,7 @@
     sv = Vänligen vänta…
     sw = Tafadhali subiri…
     th = โปรดรอสักครู่ …
-    tr = Lütfen bekle…
+    tr = Lütfen bekleyin�
     uk = Будь ласка, зачекайте…
     vi = Vui lòng chờ…
     zh-Hans = 请稍候…
@@ -16350,7 +16364,7 @@
     sk = Profil OpenStreetMap
     sv = OpenStreetMap profil
     th = โปรไฟล์ OpenStreetMap
-    tr = OpenStreetMap profil
+    tr = OpenStreetMap profili
     uk = Профіль OpenStreetMap
     vi = Hồ sơ OpenStreetMap
     zh-Hans = OpenStreetMap 资料
@@ -16492,7 +16506,7 @@
     sv = Konvertera
     sw = Badilisha
     th = แปลง
-    tr = Dönüştürmek
+    tr = Dönüştür
     uk = Конвертувати
     vi = Chuyển đổi
     zh-Hans = 兑换
@@ -16714,7 +16728,7 @@
     sv = Återställa
     sw = Rejesha
     th = ฟื้นฟู
-    tr = Restore
+    tr = Geri al
     uk = Відновити
     vi = Khôi phục
     zh-Hans = 恢复
@@ -16762,7 +16776,7 @@
     sv = %d plats
     sw = Eneo %d
     th = %d สถานที่
-    tr = %d yer
+    tr = %d obje
     uk = %d місце
     vi = %d nơi
     zh-Hans = %d 地点
@@ -16859,7 +16873,7 @@
     sv = %d spår
     sw = Njia %d
     th = %d ติดตามต่าง ๆ
-    tr = %d izleme
+    tr = %d kayıt
     uk = %d треків
     vi = %d các chặn đường
     zh-Hans = %d 跟踪
@@ -16896,7 +16910,7 @@
     sv = Spårningsinställningar
     sw = Mipangilio ya ufuatiliaji
     th = การตั้งค่าการติดตาม
-    tr = İzleme ayarları
+    tr = Kayıt ayarları
     uk = Налаштування супроводу
     vi = Thiết lập theo dõi
     zh-Hans = 支持设置
@@ -17358,6 +17372,7 @@
     pt = Popular
     pt-BR = Popular
     ru = Популярно
+    tr = Popüler
     zh-Hant = 受歡迎的
 
   [export_file]
@@ -17684,7 +17699,7 @@
     sv = Personlig
     sw = Faragha
     th = ส่วนตัว
-    tr = Şahsi
+    tr = Gizli
     uk = Особистий
     vi = Riêng tư
     zh-Hans = 私人
@@ -18239,7 +18254,7 @@
     sv = Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.
     sw = Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.
     th = ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น
-    tr = Seçenek tanı amaçlı, günlüğe kaydetmeyi açar. Uygulamayla ilgili sorunları gideren destek ekibimiz için yardımcı olabilir. Bu seçeneği yalnızca Organic Maps desteğinin isteği üzerine etkinleştirin.
+    tr = Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.
     uk = Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку.
     vi = Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.
     zh-Hans = 此选项启用以记录操作来进行诊断。这有助于团队识别应用程序的问题。请仅在Organic Maps支持请求时开启该选项。
@@ -19586,7 +19601,7 @@
     sv = Utan kärrväg
     sw = Hamna za vum
     th = ไม่มีลูกรัง
-    tr = Stabilizesiz
+    tr = Toprak yol yok
     uk = Без ґрунт.
     vi = Trừ đườg đất
     zh-Hans = 无土路路段
@@ -20463,7 +20478,7 @@
     sv = Bredvid mig
     sw = Karibu yangu
     th = ใกล้ฉัน
-    tr = Bana yakın
+    tr = Bana yakınlarda
     uk = Поруч зі мною
     vi = Ở gần tôi
     zh-Hans = 在我旁边
@@ -21940,6 +21955,7 @@
     pt = Descarregar o mapa mundial
     pt-BR = Baixar mapa mundial
     ru = Скачать карту мира
+    tr = Dünya haritasını indir
 
   [connection_failure]
     tags = android
@@ -21954,6 +21970,7 @@
     pt = Falha na coneção
     pt-BR = Falha na coneção
     ru = Ошибка подключения
+    tr = Bağlantı hatası
 
   [disconnect_usb_cable_title]
     tags = android
@@ -21966,6 +21983,7 @@
     fr = Déconnectez le câble USB
     pl = Odłącz kabel USB
     ru = Отсоедините USB кабель
+    tr = USB kablosunu çıkarın
     zh-Hant = 拔除 USB 線
 
   [enable_screen_sleep]
@@ -21998,7 +22016,7 @@
     sk = Nechajte obrazovku spať
     sv = Låt skärmen sova
     th = อนุญาตให้หน้าจอเข้าสู่โหมดสลีป
-    tr = Ekranın uyumasına izin ver
+    tr = Ekranın kapanmasına izin ver
     uk = Дозволити екрану вимкнутись
     vi = Cho phép màn hình ở chế độ ngủ
     zh-Hans = 允许屏幕进入休眠状态
@@ -22035,7 +22053,7 @@
     sk = Ak je táto možnosť povolená, obrazovka bude môcť po určitej dobe nečinnosti spať.
     sv = När den är aktiverad får skärmen sova efter en period av inaktivitet.
     th = เมื่อเปิดใช้งานหน้าจอจะได้รับอนุญาตให้เข้าสู่โหมดสลีปหลังจากไม่มีการใช้งานเป็นระยะเวลาหนึ่ง
-    tr = Etkinleştirildiğinde ekranın bir süre hareketsiz kaldıktan sonra uykuya geçmesine izin verilir.
+    tr = Etkinleştirildiğinde ekranın bir süre hareketsiz kaldıktan sonra kapanmasına izin verilir.
     uk = При включенні екран може переходити в сплячий режим після певного періоду бездіяльності
     vi = Khi được bật, màn hình sẽ được phép ở chế độ ngủ sau một thời gian không hoạt động.
     zh-Hans = 启用后，屏幕将在一段时间不活动后进入休眠状态。
@@ -22220,6 +22238,7 @@
     fr = Supprimer la route
     pl = Usuwanie trasy
     ru = Удалить трек
+    tr = Kaydı Sil
     zh-Hant = 刪除路徑
 
   [placepage_track_name_hint]
@@ -22232,6 +22251,7 @@
     fr = Nom de la route
     pl = Nazwa trasy
     ru = Название трека
+    tr = Kayıt Adı
     zh-Hant = 路徑名稱
 
   [move]
