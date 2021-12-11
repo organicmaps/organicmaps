@@ -27,7 +27,7 @@
     android:layout_centerVertical="true"
     android:background="?selectableItemBackground"
     android:paddingTop="@dimen/margin_half_plus"
-    android:text="@string/bookmarks_groups_hide_all"
+    android:text="@string/bookmark_lists_hide_all"
     android:textAllCaps="true"
     android:textColor="?colorAccent" />
 </RelativeLayout>

@@ -16,10 +16,10 @@ final class BookmarksListSectionHeader: UITableViewHeaderFooterView {
       visibilityButton.isHidden = true
     case .hideAll:
       visibilityButton.isHidden = false
-      visibilityButton.setTitle(L("bookmarks_groups_hide_all"), for: .normal)
+      visibilityButton.setTitle(L("bookmark_lists_hide_all"), for: .normal)
     case .showAll:
       visibilityButton.isHidden = false
-      visibilityButton.setTitle(L("bookmarks_groups_show_all"), for: .normal)
+      visibilityButton.setTitle(L("bookmark_lists_show_all"), for: .normal)
     }
   }
 }

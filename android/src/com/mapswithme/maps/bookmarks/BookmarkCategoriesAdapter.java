@@ -115,7 +115,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
       HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
       headerViewHolder.setAction(mMassOperationAction,
           BookmarkManager.INSTANCE.areAllCategoriesInvisible());
-      headerViewHolder.getText().setText(R.string.bookmarks_groups);
+      headerViewHolder.getText().setText(R.string.bookmark_lists);
       break;
     }
     case TYPE_CATEGORY_ITEM:

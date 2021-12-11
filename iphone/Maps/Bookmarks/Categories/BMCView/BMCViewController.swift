@@ -41,7 +41,7 @@ final class BMCViewController: MWMViewController {
     super.viewWillAppear(animated)
     viewModel.reloadData()
   }
-  
+
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     // Disable all notifications in BM on appearance of this view.
@@ -50,7 +50,7 @@ final class BMCViewController: MWMViewController {
     viewModel.setNotificationsEnabled(false)
     viewModel.addToObserverList()
   }
-  
+
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     // Allow to send all notifications in BM.
@@ -91,7 +91,7 @@ final class BMCViewController: MWMViewController {
   private func openCategorySettings(category: BookmarkGroup) {
     let settingsController = CategorySettingsViewController(bookmarkGroup: BookmarksManager.shared().category(withId: category.categoryId))
     settingsController.delegate = self
-    
+
     MapViewController.topViewController().navigationController?.pushViewController(settingsController,
                                                                                    animated: true)
   }
@@ -238,7 +238,7 @@ extension BMCViewController: UITableViewDelegate {
     case .categories:
       let categoriesHeader = tableView.dequeueReusableHeaderFooterView(BMCCategoriesHeader.self)
       categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
-      categoriesHeader.title = L("bookmarks_groups")
+      categoriesHeader.title = L("bookmark_lists")
       categoriesHeader.delegate = self
       return categoriesHeader
     case .actions: return actionsHeader
@@ -294,7 +294,7 @@ extension BMCViewController: CategorySettingsViewControllerDelegate {
                                   didEndEditing categoryId: MWMMarkGroupID) {
     navigationController?.popViewController(animated: true)
   }
-  
+
   func categorySettingsController(_ viewController: CategorySettingsViewController,
                                   didDelete categoryId: MWMMarkGroupID) {
     navigationController?.popViewController(animated: true)

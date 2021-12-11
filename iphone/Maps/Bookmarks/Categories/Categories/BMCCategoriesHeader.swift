@@ -8,7 +8,7 @@ final class BMCCategoriesHeader: UITableViewHeaderFooterView {
 
   var isShowAll = false {
     didSet {
-      let title = L(isShowAll ? "bookmarks_groups_show_all" : "bookmarks_groups_hide_all")
+      let title = L(isShowAll ? "bookmark_lists_show_all" : "bookmark_lists_hide_all")
       UIView.performWithoutAnimation {
         button.setTitle(title, for: .normal)
         button.layoutIfNeeded()
