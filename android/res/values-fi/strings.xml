@@ -66,24 +66,24 @@
 	<string name="continue_download">Jatka</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s lataus epäonnistui</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Lisää uusi valikoima</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Kirjanmerkin väri</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Kirjanmerkkivalikoiman nimi</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Kirjanmerkkivalikoimat</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Kirjanmerkit</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Paikkani</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nimi</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Osoite</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Aseta</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Aseta</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Asetukset</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -136,7 +136,7 @@
 	<string name="police">Poliisi</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Muistiinpanot</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Jaetut Organic Maps-kirjanmerkit</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Ladataan kirjanmerkkejä</string>
@@ -370,8 +370,6 @@
 	<string name="show">Näytä</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Piilota</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Nimeä uudelleen</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Reitin suunnittelu epäonnistui</string>
 	<!-- Arrive routing message in navigation view -->
@@ -618,9 +616,10 @@
 	<string name="setting_emulate_bad_storage">Jäljittele virheellistä tallennustilaa</string>
 	<string name="core_entrance">Sisäänkäynti</string>
 	<string name="error_enter_correct_name">Anna oikea nimi</string>
-	<string name="bookmarks_groups">Listat</string>
-	<string name="bookmarks_groups_hide_all">Piilota kaikki</string>
-	<string name="bookmarks_groups_show_all">Näytä kaikki</string>
+	<string name="bookmark_lists">Listat</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Piilota kaikki</string>
+	<string name="bookmark_lists_show_all">Näytä kaikki</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d kirjanmerkkiä</item>
 	</plurals>
@@ -683,8 +682,7 @@
 	<string name="hide_from_map">Piilota kartalta</string>
 	<string name="public_access">Julkinen pääsy</string>
 	<string name="limited_access">Yksityinen pääsy</string>
-	<string name="bookmark_category_name">Kategoria</string>
-	<string name="bookmark_category_description_hint">Lisää kuvaus (teksti tai html)</string>
+	<string name="bookmark_list_description_hint">Lisää kuvaus (teksti tai html)</string>
 	<string name="not_shared">Henkilökohtainen</string>
 	<string name="tags_loading_error_subtitle">Tunnisteiden lataamisen aikana tapahtui virhe, yritä uudelleen</string>
 	<string name="download_button">Ladata</string>

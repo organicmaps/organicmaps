@@ -64,24 +64,24 @@
 	<string name="continue_download">Kontynuuj</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Nie udało się pobrać %s</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Dodaj nowy zestaw</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Kolor zakładki</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Nazwa zestawu zakładek</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Zestawy zakładek</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Zakładki</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Moje miejsca</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nazwa</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adres</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Zestaw</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Zestaw</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ustawienia</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -134,7 +134,7 @@
 	<string name="police">Policja</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notatki</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Udostępnione zakładki z Organic Maps</string>
 	<string name="share_bookmarks_email_body">Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!</string>
 	<!-- message title of loading file -->
@@ -371,8 +371,6 @@
 	<string name="show">Pokaż</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Ukryj</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Zmień nazwę</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Planowanie trasy nieudane</string>
 	<!-- Arrive routing message in navigation view -->
@@ -624,9 +622,10 @@
 	<string name="setting_emulate_bad_storage">Emuluj wadliwą pamięć masową</string>
 	<string name="core_entrance">Wejście</string>
 	<string name="error_enter_correct_name">Wprowadź poprawną nazwę</string>
-	<string name="bookmarks_groups">Listy</string>
-	<string name="bookmarks_groups_hide_all">Ukryj wszystkie</string>
-	<string name="bookmarks_groups_show_all">Pokaż wszystkie</string>
+	<string name="bookmark_lists">Listy</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Ukryj wszystkie</string>
+	<string name="bookmark_lists_show_all">Pokaż wszystkie</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">Zakładki: %d</item>
 	</plurals>
@@ -691,8 +690,7 @@
 	<string name="hide_from_map">Ukryj mapy</string>
 	<string name="public_access">Dostęp publiczny</string>
 	<string name="limited_access">Dostęp prywatny</string>
-	<string name="bookmark_category_name">Kategoria</string>
-	<string name="bookmark_category_description_hint">Dodaj opis (tekst lub html)</string>
+	<string name="bookmark_list_description_hint">Dodaj opis (tekst lub html)</string>
 	<string name="not_shared">Osobisty</string>
 	<string name="tags_loading_error_subtitle">Wystąpił błąd podczas pobierania tagów, spróbuj ponownie</string>
 	<string name="download_button">Pobierz</string>

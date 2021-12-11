@@ -64,24 +64,24 @@
 	<string name="continue_download">계속</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s다운로드가 실패했습니다</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">새로운 세트 추가</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">색상 즐겨찾기에 추가</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">집합 이름을 즐겨찾기에 추가</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">세트를 즐겨찾기에 추가</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">북마크</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">내 장소</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">이름</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">주소</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">집합</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">집합</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">설정</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -134,7 +134,7 @@
 	<string name="police">치안대</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">메모</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">귀하와 공유된 Organic Maps 즐겨찾기</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">즐겨찾기 로드</string>
@@ -364,8 +364,6 @@
 	<string name="show">표시</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">숨기기</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">다른 이름으로 변경</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">경로 계획 실패</string>
 	<!-- Arrive routing message in navigation view -->
@@ -612,9 +610,10 @@
 	<string name="setting_emulate_bad_storage">불량 저장소 에뮬레이션</string>
 	<string name="core_entrance">입구</string>
 	<string name="error_enter_correct_name">올바른 이름을 입력하세요.</string>
-	<string name="bookmarks_groups">기울기</string>
-	<string name="bookmarks_groups_hide_all">모두 숨기기</string>
-	<string name="bookmarks_groups_show_all">모두 표시</string>
+	<string name="bookmark_lists">기울기</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">모두 숨기기</string>
+	<string name="bookmark_lists_show_all">모두 표시</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d 북마크</item>
 	</plurals>
@@ -674,8 +673,7 @@
 	<string name="hide_from_map">지도에서 숨기기</string>
 	<string name="public_access">일반 접근</string>
 	<string name="limited_access">제한 접근</string>
-	<string name="bookmark_category_name">범주</string>
-	<string name="bookmark_category_description_hint">묘사를 적으세요 (글자 혹은 html)</string>
+	<string name="bookmark_list_description_hint">묘사를 적으세요 (글자 혹은 html)</string>
 	<string name="not_shared">개인</string>
 	<string name="tags_loading_error_subtitle">태그를 불러오는 중 에러가 발생했습니다. 다시 시도해보세요</string>
 	<string name="download_button">다운로드</string>

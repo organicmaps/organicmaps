@@ -66,24 +66,24 @@
 	<string name="continue_download">Continuer</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s, échec lors du téléchargement</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Ajouter un nouveau groupe</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Couleur du signet</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Nom du groupe de signets</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Groupes de signets</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Signets</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Mes endroits</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nom</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adresse</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Groupe</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Groupe</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Paramètres</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -136,7 +136,7 @@
 	<string name="police">Police</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notes</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Signets Organic Maps partagés</string>
 	<string name="share_bookmarks_email_body">Bonjour !\n\nVous trouverez ci-joint mes signets de l\'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l\'avez pas, téléchargez l\'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps !</string>
 	<!-- message title of loading file -->
@@ -373,8 +373,6 @@
 	<string name="show">Afficher</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Masquer</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Renommer</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">La planification de l\'itinéraire a échoué</string>
 	<!-- Arrive routing message in navigation view -->
@@ -628,9 +626,10 @@
 	<string name="setting_emulate_bad_storage">Émuler le mauvais stockage</string>
 	<string name="core_entrance">Entrée</string>
 	<string name="error_enter_correct_name">Veuillez entrer un nom correct</string>
-	<string name="bookmarks_groups">Listes</string>
-	<string name="bookmarks_groups_hide_all">Tout masquer</string>
-	<string name="bookmarks_groups_show_all">Tout afficher</string>
+	<string name="bookmark_lists">Listes</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Tout masquer</string>
+	<string name="bookmark_lists_show_all">Tout afficher</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d signets</item>
 	</plurals>
@@ -696,8 +695,7 @@
 	<string name="hide_from_map">Masquer de la carte</string>
 	<string name="public_access">Accès publique</string>
 	<string name="limited_access">Accès limité</string>
-	<string name="bookmark_category_name">Catégorie</string>
-	<string name="bookmark_category_description_hint">Tapez une description (texte ou html)</string>
+	<string name="bookmark_list_description_hint">Tapez une description (texte ou html)</string>
 	<string name="not_shared">Personnel</string>
 	<string name="tags_loading_error_subtitle">Une erreur s\'est produite lors du chargement des tags, veuillez réessayer</string>
 	<string name="download_button">Téléchargez</string>

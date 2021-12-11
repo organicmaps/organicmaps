@@ -66,20 +66,20 @@
 	<string name="continue_download">ادامه</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s دانلود با شکست مواجه شد</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">اضافه کردن مجموعه جدید</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">رنگ نشانه</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">نشانه ها</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">مکان من</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">نام</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">ادرس</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">مجموعه</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">مجموعه</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">تنظیمات</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -355,8 +355,6 @@
 	<string name="show">نمایش</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">مخفی کردن</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">تغیر نام</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">برنامه ریزی مسیر ناموفق</string>
 	<!-- Arrive routing message in navigation view -->
@@ -602,9 +600,10 @@
 	<string name="setting_emulate_bad_storage">شبیه سازی ذخیره سازی بد</string>
 	<string name="core_entrance">ورودی</string>
 	<string name="error_enter_correct_name">لطفا نام صحیح را وارد کنید</string>
-	<string name="bookmarks_groups">لیست ها</string>
-	<string name="bookmarks_groups_hide_all">پنهان کردن همه</string>
-	<string name="bookmarks_groups_show_all">نمایش همه</string>
+	<string name="bookmark_lists">لیست ها</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">پنهان کردن همه</string>
+	<string name="bookmark_lists_show_all">نمایش همه</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="one">%d نشانه</item>
 	  <item quantity="other">%d نشانه‌ها</item>
@@ -670,8 +669,7 @@
 	<string name="hide_from_map">پنهان کردن از نقشه</string>
 	<string name="public_access">دسترسی عمومی</string>
 	<string name="limited_access">دسترسی محدود</string>
-	<string name="bookmark_category_name">دسته بندی</string>
-	<string name="bookmark_category_description_hint">یک توضیح (متن یا html) تایپ نمایید</string>
+	<string name="bookmark_list_description_hint">یک توضیح (متن یا html) تایپ نمایید</string>
 	<string name="not_shared">خصوصی</string>
 	<string name="tags_loading_error_subtitle">هنگام بارگذاری برچسب خطایی رخ داد، لطفا دوباره امتحان کنید</string>
 	<string name="download_button">دانلود</string>

@@ -66,24 +66,24 @@
 	<string name="continue_download">Fortfahren</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s Herunterladen fehlgeschlagen</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Neue Gruppe hinzufügen</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Lesezeichenfarbe</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Name des Lesezeichens</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Lesezeichenmappe</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Lesezeichengruppen</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Meine Orte</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Name</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adresse</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Gruppe</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Gruppe</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Einstellungen</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -136,7 +136,7 @@
 	<string name="police">Polizeistation</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notizen</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Organic Maps-Lesezeichen mit Ihnen geteilt</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Lesezeichen werden geladen</string>
@@ -372,8 +372,6 @@
 	<string name="show">Anzeigen</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Ausblenden</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Umbenennen</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Routenplanung fehlgeschlagen</string>
 	<!-- Arrive routing message in navigation view -->
@@ -627,9 +625,10 @@
 	<string name="setting_emulate_bad_storage">Fehlerhaften Speicher emulieren</string>
 	<string name="core_entrance">Eingang</string>
 	<string name="error_enter_correct_name">Bitte geben Sie einen korrekten Namen ein</string>
-	<string name="bookmarks_groups">Listen</string>
-	<string name="bookmarks_groups_hide_all">Alle verbergen</string>
-	<string name="bookmarks_groups_show_all">Alle anzeigen</string>
+	<string name="bookmark_lists">Listen</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Alle verbergen</string>
+	<string name="bookmark_lists_show_all">Alle anzeigen</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d Lesezeichen</item>
 	</plurals>
@@ -693,8 +692,7 @@
 	<string name="hide_from_map">Auf der Karte ausblenden</string>
 	<string name="public_access">Öffentlicher Zugriff</string>
 	<string name="limited_access">Privater Zugriff</string>
-	<string name="bookmark_category_name">Kategorie</string>
-	<string name="bookmark_category_description_hint">Fügen Sie die Beschreibung hinzu (Text oder html)</string>
+	<string name="bookmark_list_description_hint">Fügen Sie die Beschreibung hinzu (Text oder html)</string>
 	<string name="not_shared">Persönlich</string>
 	<string name="tags_loading_error_subtitle">Während dem Laden der Tags ist ein Fehler aufgetreten, bitte, versuchen Sie es erneut</string>
 	<string name="download_button">Downloaden</string>

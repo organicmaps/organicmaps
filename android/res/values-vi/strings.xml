@@ -64,24 +64,24 @@
 	<string name="continue_download">Tiếp tục</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s - descărcarea a eșuat</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Thêm Bộ Mới</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Đánh dấu Màu sắc</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Đánh dấu Tên Bộ</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Đánh dấu Bộ</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Đánh dấu</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Các Địa chỉ của Tôi</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Tên</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Địa chỉ</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Đặt</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Đặt</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Thiết lập</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -134,7 +134,7 @@
 	<string name="police">Cảnh sát</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Ghi chú</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Điểm đánh dấu Organic Maps được chia sẻ</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Tải Điểm đánh dấu</string>
@@ -364,8 +364,6 @@
 	<string name="show">Hiện</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Ẩn</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Đổi tên</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Không thể Lập Lộ trình</string>
 	<!-- Arrive routing message in navigation view -->
@@ -612,9 +610,10 @@
 	<string name="setting_emulate_bad_storage">Giả lập ổ lưu trữ hỏng</string>
 	<string name="core_entrance">Lối vào</string>
 	<string name="error_enter_correct_name">Vui lòng nhập một tên chính xác</string>
-	<string name="bookmarks_groups">Danh sách</string>
-	<string name="bookmarks_groups_hide_all">Ẩn tất cả</string>
-	<string name="bookmarks_groups_show_all">Hiển thị tất cả</string>
+	<string name="bookmark_lists">Danh sách</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Ẩn tất cả</string>
+	<string name="bookmark_lists_show_all">Hiển thị tất cả</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d dấu trang</item>
 	</plurals>
@@ -675,8 +674,7 @@
 	<string name="hide_from_map">Ẩn từ bản đồ</string>
 	<string name="public_access">Truy cập công khai</string>
 	<string name="limited_access">Truy cập hạn chế</string>
-	<string name="bookmark_category_name">Thể loại</string>
-	<string name="bookmark_category_description_hint">Đánh vào một mô tả (văn bản hoặc html)</string>
+	<string name="bookmark_list_description_hint">Đánh vào một mô tả (văn bản hoặc html)</string>
 	<string name="not_shared">Riêng tư</string>
 	<string name="tags_loading_error_subtitle">Đã xảy ra lỗi khi tải thẻ, vui lòng thử lại</string>
 	<string name="download_button">Tải</string>

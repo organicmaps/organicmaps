@@ -108,22 +108,22 @@
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "Descărcarea %@ nu a reușit";
 
-/* Add New Bookmark Set dialog title */
+/* "Add new bookmark list" dialog title */
 "add_new_set" = "Adăugare la „Marcaje”";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Culoare marcaj";
 
-/* Add Bookmark Set dialog - hint when set name is empty */
+/* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Nume set marcaje";
 
-/* Bookmark Sets dialog title */
+/* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Seturi marcaje";
 
-/* Bookmarks - dialog title */
+/* "Bookmarks" dialog title */
 "bookmarks" = "Marcaje";
 
-/* Default bookmarks set name */
+/* Default bookmark list name */
 "core_my_places" = "Locurile mele";
 
 /* Add bookmark dialog - bookmark name */
@@ -132,8 +132,8 @@
 /* Editor title above street and house number */
 "address" = "Adresă";
 
-/* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "Set";
+/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
+"list" = "Set";
 
 /* Settings button in system menu */
 "settings" = "Setări";
@@ -213,7 +213,7 @@
 /* Notes field in Bookmarks view */
 "description" = "Note";
 
-/* Email Subject when sharing bookmarks category */
+/* Email Subject when sharing bookmark list */
 "share_bookmarks_email_subject" = "Marcaje Organic Maps partajate";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
@@ -619,9 +619,6 @@
 
 /* «Hide» context menu */
 "hide" = "Ascundere";
-
-/* «Rename» context menu */
-"rename" = "Redenumire";
 
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Planificarea rutei a eșuat";
@@ -1106,11 +1103,12 @@
 
 "error_enter_correct_name" = "Introdu un nume corect";
 
-"bookmarks_groups" = "Liste";
+"bookmark_lists" = "Liste";
 
-"bookmarks_groups_hide_all" = "Ascundere toate";
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Ascundere toate";
 
-"bookmarks_groups_show_all" = "Afișare toate";
+"bookmark_lists_show_all" = "Afișare toate";
 
 "bookmarks_create_new_group" = "Creați o listă nouă";
 
@@ -1205,9 +1203,7 @@
 
 "limited_access" = "Acces privat";
 
-"bookmark_category_name" = "Categorie";
-
-"bookmark_category_description_hint" = "Adăugați o descriere (text sau html)";
+"bookmark_list_description_hint" = "Adăugați o descriere (text sau html)";
 
 "not_shared" = "Personal";
 

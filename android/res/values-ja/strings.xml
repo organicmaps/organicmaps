@@ -64,24 +64,24 @@
 	<string name="continue_download">続行</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%sのダウンロードが失敗しました</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">新しいセットを作成</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">ブックマーク表示色</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">ブックマークセット名称</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">ブックマークセット</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">ブックマーク</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">マイロケーション</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">名称</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">住所</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">セット</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">セット</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">設定</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -134,7 +134,7 @@
 	<string name="police">警察</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">メモ</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Organic Mapsの位置情報シェア</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">ブックマークの読み込み中</string>
@@ -362,8 +362,6 @@
 	<string name="show">表示する</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">隠す</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">名前を変更する</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">ルート検索に失敗</string>
 	<!-- Arrive routing message in navigation view -->
@@ -610,9 +608,10 @@
 	<string name="setting_emulate_bad_storage">壊れたストレージをエミュレート</string>
 	<string name="core_entrance">入口</string>
 	<string name="error_enter_correct_name">正しい名前を入力してください</string>
-	<string name="bookmarks_groups">リスト</string>
-	<string name="bookmarks_groups_hide_all">すべて非表示</string>
-	<string name="bookmarks_groups_show_all">すべて表示</string>
+	<string name="bookmark_lists">リスト</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">すべて非表示</string>
+	<string name="bookmark_lists_show_all">すべて表示</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d個のブックマーク</item>
 	</plurals>
@@ -672,8 +671,7 @@
 	<string name="hide_from_map">マップから隠す</string>
 	<string name="public_access">パブリック・アクセス</string>
 	<string name="limited_access">制限されたアクセス</string>
-	<string name="bookmark_category_name">カテゴリ</string>
-	<string name="bookmark_category_description_hint">説明(テキストまたはhtml)を記入してください</string>
+	<string name="bookmark_list_description_hint">説明(テキストまたはhtml)を記入してください</string>
 	<string name="not_shared">非公開</string>
 	<string name="tags_loading_error_subtitle">タグのロード中にエラーが起きました。もう一度やり直してください</string>
 	<string name="download_button">ダウンロード</string>

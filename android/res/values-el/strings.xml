@@ -65,24 +65,24 @@
 	<string name="continue_download">Συνέχεια</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">η λήψη %s απέτυχε</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Προσθέστε νέο σύνολο</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Χρώμα αγαπημένου</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Όνομα συνόλου αγαπημένων</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Σύνολα αγαπημένων</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Αγαπημένα</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Οι τοποθεσίες μου</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Όνομα</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Διεύθυνση</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Σύνολο</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Σύνολο</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ρυθμίσεις</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -135,7 +135,7 @@
 	<string name="police">Αστυνομία</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Σημειώσεις</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Κοινοποιήθηκαν αγαπημένα Organic Maps με σας</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Φόρτωση αγαπημένων</string>
@@ -366,8 +366,6 @@
 	<string name="show">Εμφάνιση</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Απόκρυψη</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Μετονομασία</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Ο σχεδιασμός διαδρομής απέτυχε</string>
 	<!-- Arrive routing message in navigation view -->
@@ -604,9 +602,10 @@
 	<string name="setting_emulate_bad_storage">Εξομείωση κακού αποθηκευτικού χώρου</string>
 	<string name="core_entrance">Είσοδος</string>
 	<string name="error_enter_correct_name">Εισάγετε ένα σωστό όνομα</string>
-	<string name="bookmarks_groups">Τόπος αγώνων</string>
-	<string name="bookmarks_groups_hide_all">Απόκρυψη όλων</string>
-	<string name="bookmarks_groups_show_all">Εμφάνιση όλων</string>
+	<string name="bookmark_lists">Τόπος αγώνων</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Απόκρυψη όλων</string>
+	<string name="bookmark_lists_show_all">Εμφάνιση όλων</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d αγαπημένα</item>
 	</plurals>
@@ -667,8 +666,7 @@
 	<string name="hide_from_map">Κρύψε από τον χάρτη</string>
 	<string name="public_access">Δημόσια πρόσβαση</string>
 	<string name="limited_access">Περιορισμένη πρόσβαση</string>
-	<string name="bookmark_category_name">Κατηγορία</string>
-	<string name="bookmark_category_description_hint">Πληκτρολογήστε μια περιγραφή (κείμενο ή html)</string>
+	<string name="bookmark_list_description_hint">Πληκτρολογήστε μια περιγραφή (κείμενο ή html)</string>
 	<string name="not_shared">Προσωπικός</string>
 	<string name="tags_loading_error_subtitle">Ένα σφάλμα συνέβη στο φόρτωμα των ετικετών, παρακαλώ ξαναπροσπαθήστε</string>
 	<string name="download_button">Κατέβασμα</string>

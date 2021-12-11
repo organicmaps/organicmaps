@@ -67,24 +67,24 @@
 	<string name="continue_download">Працягнуць</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Спампаваць %s не ўдалося</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Дадаць новую групу</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Колер закладкі</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Назва групы закладак</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Групы закладак</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Закладкі</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Мае месцы</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Назва</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Адрас</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Група</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Група</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Налады</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -137,7 +137,7 @@
 	<string name="police">Паліцыя</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Нататкі</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">З вамі падзяліліся закладкамі Ogranic Maps</string>
 	<string name="share_bookmarks_email_body">Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!</string>
 	<!-- message title of loading file -->
@@ -374,8 +374,6 @@
 	<string name="show">Паказаць</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Схаваць</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Пераіменаваць</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Памылка пракладання маршрута</string>
 	<!-- Arrive routing message in navigation view -->
@@ -629,9 +627,10 @@
 	<string name="setting_emulate_bad_storage">Эмуляваць дрэннае сховішча</string>
 	<string name="core_entrance">Уваход</string>
 	<string name="error_enter_correct_name">Калі ласка, увядзіце назву правільна</string>
-	<string name="bookmarks_groups">Спісы</string>
-	<string name="bookmarks_groups_hide_all">Схаваць усе</string>
-	<string name="bookmarks_groups_show_all">Паказаць усе</string>
+	<string name="bookmark_lists">Спісы</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Схаваць усе</string>
+	<string name="bookmark_lists_show_all">Паказаць усе</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="few">%d закладкі</item>
 	  <item quantity="one">%d закладка</item>
@@ -699,8 +698,7 @@
 	<string name="hide_from_map">Схаваць з мапы</string>
 	<string name="public_access">Публічны доступ</string>
 	<string name="limited_access">Абмежаваны доступ</string>
-	<string name="bookmark_category_name">Катэгорыя</string>
-	<string name="bookmark_category_description_hint">Дабаўце апісанне (тэкст альбо html)</string>
+	<string name="bookmark_list_description_hint">Дабаўце апісанне (тэкст альбо html)</string>
 	<string name="not_shared">Прыватны</string>
 	<string name="tags_loading_error_subtitle">Адбылася памылка падчас загрузкі метак, калі ласка паспрабуйце зноў</string>
 	<string name="download_button">Спампаваць</string>

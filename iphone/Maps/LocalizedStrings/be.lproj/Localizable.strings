@@ -108,22 +108,22 @@
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "Спампаваць %@ не ўдалося";
 
-/* Add New Bookmark Set dialog title */
+/* "Add new bookmark list" dialog title */
 "add_new_set" = "Дадаць новую групу";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Колер закладкі";
 
-/* Add Bookmark Set dialog - hint when set name is empty */
+/* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Назва групы закладак";
 
-/* Bookmark Sets dialog title */
+/* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Групы закладак";
 
-/* Bookmarks - dialog title */
+/* "Bookmarks" dialog title */
 "bookmarks" = "Закладкі";
 
-/* Default bookmarks set name */
+/* Default bookmark list name */
 "core_my_places" = "Мае месцы";
 
 /* Add bookmark dialog - bookmark name */
@@ -132,8 +132,8 @@
 /* Editor title above street and house number */
 "address" = "Адрас";
 
-/* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "Група";
+/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
+"list" = "Група";
 
 /* Settings button in system menu */
 "settings" = "Налады";
@@ -213,7 +213,7 @@
 /* Notes field in Bookmarks view */
 "description" = "Нататкі";
 
-/* Email Subject when sharing bookmarks category */
+/* Email Subject when sharing bookmark list */
 "share_bookmarks_email_subject" = "З вамі падзяліліся закладкамі Ogranic Maps";
 
 "share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
@@ -619,9 +619,6 @@
 
 /* «Hide» context menu */
 "hide" = "Схаваць";
-
-/* «Rename» context menu */
-"rename" = "Пераіменаваць";
 
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Памылка пракладання маршрута";
@@ -1106,11 +1103,12 @@
 
 "error_enter_correct_name" = "Калі ласка, увядзіце назву правільна";
 
-"bookmarks_groups" = "Спісы";
+"bookmark_lists" = "Спісы";
 
-"bookmarks_groups_hide_all" = "Схаваць усе";
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Схаваць усе";
 
-"bookmarks_groups_show_all" = "Паказаць усе";
+"bookmark_lists_show_all" = "Паказаць усе";
 
 "bookmarks_create_new_group" = "Стварыць новы спіс";
 
@@ -1205,9 +1203,7 @@
 
 "limited_access" = "Абмежаваны доступ";
 
-"bookmark_category_name" = "Катэгорыя";
-
-"bookmark_category_description_hint" = "Дабаўце апісанне (тэкст альбо html)";
+"bookmark_list_description_hint" = "Дабаўце апісанне (тэкст альбо html)";
 
 "not_shared" = "Прыватны";
 

@@ -64,24 +64,24 @@
 	<string name="continue_download">Fortsæt</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s download mislykkedes</string>
-	<!-- Add New Bookmark Set dialog title -->
+	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Tilføj nyt sæt</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Bogmærke Farve</string>
-	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Indstil bogmærkenavn</string>
-	<!-- Bookmark Sets dialog title -->
+	<!-- "Bookmark Lists" dialog title -->
 	<string name="bookmark_sets">Bogmærk sæt</string>
-	<!-- Bookmarks - dialog title -->
+	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Bogmærker</string>
-	<!-- Default bookmarks set name -->
+	<!-- Default bookmark list name -->
 	<string name="core_my_places">Mine Steder</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Navn</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adresse</string>
-	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
-	<string name="set">Sæt</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<string name="list">Sæt</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Indstillinger</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -134,7 +134,7 @@
 	<string name="police">Politi</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Noter</string>
-	<!-- Email Subject when sharing bookmarks category -->
+	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Organic Maps bogmærker er blevet delt med dig</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Indlæser Bogmærker</string>
@@ -364,8 +364,6 @@
 	<string name="show">Vis</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Skjul</string>
-	<!-- «Rename» context menu -->
-	<string name="rename">Omdøb</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Ruteplanlægning mislykkedes</string>
 	<!-- Arrive routing message in navigation view -->
@@ -614,9 +612,10 @@
 	<string name="setting_emulate_bad_storage">Emulere beskadiget lager</string>
 	<string name="core_entrance">Indgang</string>
 	<string name="error_enter_correct_name">Angiv et korrekt navn</string>
-	<string name="bookmarks_groups">Lister</string>
-	<string name="bookmarks_groups_hide_all">Skjul alle</string>
-	<string name="bookmarks_groups_show_all">Vis alle</string>
+	<string name="bookmark_lists">Lister</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Skjul alle</string>
+	<string name="bookmark_lists_show_all">Vis alle</string>
 	<plurals name="bookmarks_places">
 	  <item quantity="other">%d bogmærker</item>
 	</plurals>
@@ -677,8 +676,7 @@
 	<string name="hide_from_map">Skjul på kort</string>
 	<string name="public_access">Offentlig adgang</string>
 	<string name="limited_access">Begrænset adgang</string>
-	<string name="bookmark_category_name">Kategori</string>
-	<string name="bookmark_category_description_hint">Lav en beskrivelse (tekst eller html)</string>
+	<string name="bookmark_list_description_hint">Lav en beskrivelse (tekst eller html)</string>
 	<string name="not_shared">Privat</string>
 	<string name="tags_loading_error_subtitle">Der skete en fejl under hentning af tags, prøv igen</string>
 	<string name="download_button">Download</string>
