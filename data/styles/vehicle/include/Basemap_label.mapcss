@@ -111,8 +111,8 @@ line[waterway],
 
 node|z1-2[place=continent],
 node|z12-[place=archipelago],
-node|z12-14[place=island],
 area|z12-[place=archipelago],
+node|z12-14[place=island],
 area|z12-14[place=island],
 node|z14-[natural=cape],
 area|z14-[natural=cape]
@@ -122,8 +122,8 @@ node|z1-2[place=continent]
 {font-size: 12;text-color: @country_label;max-width: 5;-x-me-text-priority:16000;}
 
 node|z12-[place=archipelago],
-node|z12-14[place=island],
 area|z12-[place=archipelago],
+node|z12-14[place=island],
 area|z12-14[place=island]
 {font-size: 9;text-color: @district_label;}
 
