@@ -7127,7 +7127,6 @@ cont {
     scale: 17
     symbol {
       name: "mail-m"
-      apply_for_type: 1
       priority: 16632
     }
     caption {
@@ -7135,6 +7134,7 @@ cont {
         height: 10
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
       priority: 15632
     }
@@ -7142,8 +7142,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "postbox-m"
-      apply_for_type: 1
+      name: "mail-m"
       priority: 16632
     }
     caption {
@@ -7159,8 +7158,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "postbox-m"
-      apply_for_type: 1
+      name: "mail-m"
       priority: 16632
     }
     caption {
@@ -49463,12 +49461,26 @@ cont {
       color: 14934482
       priority: -16700
     }
+    caption {
+      primary {
+        height: 10
+        color: 8355711
+      }
+      priority: 15000
+    }
   }
   element {
     scale: 15
     area {
       color: 14934482
       priority: -16700
+    }
+    caption {
+      primary {
+        height: 10
+        color: 8355711
+      }
+      priority: 15000
     }
   }
   element {
@@ -49477,12 +49489,26 @@ cont {
       color: 14934482
       priority: -16700
     }
+    caption {
+      primary {
+        height: 8
+        color: 8355711
+      }
+      priority: 15000
+    }
   }
   element {
     scale: 17
     area {
       color: 14934482
       priority: -16700
+    }
+    caption {
+      primary {
+        height: 8
+        color: 8355711
+      }
+      priority: 15000
     }
   }
   element {
@@ -49491,12 +49517,26 @@ cont {
       color: 14934482
       priority: -16700
     }
+    caption {
+      primary {
+        height: 8
+        color: 8355711
+      }
+      priority: 15000
+    }
   }
   element {
     scale: 19
     area {
       color: 14934482
       priority: -16700
+    }
+    caption {
+      primary {
+        height: 8
+        color: 8355711
+      }
+      priority: 15000
     }
   }
 }
@@ -51185,12 +51225,26 @@ cont {
       color: 15591638
       priority: -15858
     }
+    caption {
+      primary {
+        height: 9
+        color: 6381914
+      }
+      priority: 15142
+    }
   }
   element {
     scale: 17
     area {
       color: 15591638
       priority: -15858
+    }
+    caption {
+      primary {
+        height: 9
+        color: 6381914
+      }
+      priority: 15142
     }
   }
   element {
@@ -51199,12 +51253,26 @@ cont {
       color: 15591638
       priority: -15858
     }
+    caption {
+      primary {
+        height: 9
+        color: 6381914
+      }
+      priority: 15142
+    }
   }
   element {
     scale: 19
     area {
       color: 15591638
       priority: -15858
+    }
+    caption {
+      primary {
+        height: 9
+        color: 6381914
+      }
+      priority: 15142
     }
   }
 }
@@ -52529,12 +52597,26 @@ cont {
       color: 15591638
       priority: -15858
     }
+    caption {
+      primary {
+        height: 9
+        color: 6381914
+      }
+      priority: 15142
+    }
   }
   element {
     scale: 17
     area {
       color: 15591638
       priority: -15858
+    }
+    caption {
+      primary {
+        height: 9
+        color: 6381914
+      }
+      priority: 15142
     }
   }
   element {
@@ -52543,12 +52625,26 @@ cont {
       color: 15591638
       priority: -15858
     }
+    caption {
+      primary {
+        height: 9
+        color: 6381914
+      }
+      priority: 15142
+    }
   }
   element {
     scale: 19
     area {
       color: 15591638
       priority: -15858
+    }
+    caption {
+      primary {
+        height: 9
+        color: 6381914
+      }
+      priority: 15142
     }
   }
 }
