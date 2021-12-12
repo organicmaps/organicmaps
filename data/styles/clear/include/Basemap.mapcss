@@ -321,7 +321,7 @@ area|z16-[leisure=garden]
 {fill-color: @forest;}
 
 area|z12-[natural=bare_rock],
-{fill-color: #EDE5DC;}
+{fill-color: @barerock;}
 
 /* 5.BEACH & GLACIER */
 
