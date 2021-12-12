@@ -26,6 +26,8 @@
   8.1 Pier
   8.2 Building
   8.3 Airports
+  8.4 Platforms
+9.ISOLINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
@@ -730,6 +732,11 @@ area|z14[aeroway=terminal]
 area|z15[aeroway=terminal]
 { text: name; font-size: 9; fill-opacity: 0.8; text-color: @building_label; text-position: center;}
 area|z16-[aeroway=terminal]
+{text: name; font-size: 9; fill-opacity: 1; text-color: @building_label; text-position: center;}
+
+/* 8.4 Platforms */
+area|z16-[railway=platform],
+area|z16-[public_transport=platform],
 {text: name; font-size: 9; fill-opacity: 1; text-color: @building_label; text-position: center;}
 
 /* 9. ISOLINES */
