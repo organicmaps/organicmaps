@@ -22450,6 +22450,65 @@ cont {
   }
 }
 cont {
+  name: "natural-bare_rock"
+  element {
+    scale: 12
+    area {
+      color: 15590876
+      priority: 1001
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 15590876
+      priority: 1001
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 15590876
+      priority: 1001
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 15590876
+      priority: 1001
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15590876
+      priority: 1001
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 15590876
+      priority: 1001
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 15590876
+      priority: 1001
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 15590876
+      priority: 1001
+    }
+  }
+}
+cont {
   name: "natural-bay"
   element {
     scale: 14

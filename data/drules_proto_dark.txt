@@ -7061,7 +7061,6 @@ cont {
     scale: 17
     symbol {
       name: "mail-m"
-      apply_for_type: 1
       priority: 16632
     }
     caption {
@@ -7069,6 +7068,7 @@ cont {
         height: 10
         color: 5592405
         offset_y: 1
+        is_optional: true
       }
       priority: 15632
     }
@@ -7076,8 +7076,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "postbox-m"
-      apply_for_type: 1
+      name: "mail-m"
       priority: 16632
     }
     caption {
@@ -7093,8 +7092,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "postbox-m"
-      apply_for_type: 1
+      name: "mail-m"
       priority: 16632
     }
     caption {
@@ -37865,21 +37863,21 @@ cont {
   element {
     scale: 12
     area {
-      color: 15590876
+      color: 3156522
       priority: -15898
     }
   }
   element {
     scale: 13
     area {
-      color: 15590876
+      color: 3156522
       priority: -15898
     }
   }
   element {
     scale: 14
     area {
-      color: 15590876
+      color: 3156522
       priority: -15898
     }
     caption {
@@ -37895,7 +37893,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 15590876
+      color: 3156522
       priority: -15898
     }
     caption {
@@ -37911,7 +37909,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 15590876
+      color: 3156522
       priority: -15898
     }
     caption {
@@ -37927,7 +37925,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 15590876
+      color: 3156522
       priority: -15898
     }
     caption {
@@ -37943,7 +37941,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 15590876
+      color: 3156522
       priority: -15898
     }
     caption {
@@ -37959,7 +37957,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 15590876
+      color: 3156522
       priority: -15898
     }
     caption {
@@ -49353,11 +49351,25 @@ cont {
     area {
       priority: -16700
     }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 15000
+    }
   }
   element {
     scale: 15
     area {
       priority: -16700
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 15000
     }
   }
   element {
@@ -49365,11 +49377,25 @@ cont {
     area {
       priority: -16700
     }
+    caption {
+      primary {
+        height: 8
+        color: 5592405
+      }
+      priority: 15000
+    }
   }
   element {
     scale: 17
     area {
       priority: -16700
+    }
+    caption {
+      primary {
+        height: 8
+        color: 5592405
+      }
+      priority: 15000
     }
   }
   element {
@@ -49377,11 +49403,25 @@ cont {
     area {
       priority: -16700
     }
+    caption {
+      primary {
+        height: 8
+        color: 5592405
+      }
+      priority: 15000
+    }
   }
   element {
     scale: 19
     area {
       priority: -16700
+    }
+    caption {
+      primary {
+        height: 8
+        color: 5592405
+      }
+      priority: 15000
     }
   }
 }
@@ -50934,12 +50974,26 @@ cont {
       color: 2499106
       priority: -15858
     }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15142
+    }
   }
   element {
     scale: 17
     area {
       color: 2499106
       priority: -15858
+    }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15142
     }
   }
   element {
@@ -50948,12 +51002,26 @@ cont {
       color: 2499106
       priority: -15858
     }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15142
+    }
   }
   element {
     scale: 19
     area {
       color: 2499106
       priority: -15858
+    }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15142
     }
   }
 }
@@ -52278,12 +52346,26 @@ cont {
       color: 2499106
       priority: -15858
     }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15142
+    }
   }
   element {
     scale: 17
     area {
       color: 2499106
       priority: -15858
+    }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15142
     }
   }
   element {
@@ -52292,12 +52374,26 @@ cont {
       color: 2499106
       priority: -15858
     }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15142
+    }
   }
   element {
     scale: 19
     area {
       color: 2499106
       priority: -15858
+    }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15142
     }
   }
 }
