@@ -163,6 +163,7 @@ area[amenity=kindergarten],
 node[amenity=childcare],
 area[amenity=childcare],
 node[amenity=post_office],
+area[amenity=post_office],
 node[amenity=car_sharing],
 area[amenity=car_sharing],
 node[power=station],
@@ -1414,6 +1415,7 @@ area|z17-[amenity=shower],
 node|z17-[amenity=bicycle_rental],
 area|z17-[amenity=bicycle_rental],
 node|z17-[amenity=post_office],
+area|z17-[amenity=post_office],
 node|z17-[power=station],
 area|z17-[power=station],
 node|z17-[amenity=vending_machine],
@@ -1921,11 +1923,14 @@ node|z18-[amenity=bicycle_rental],
 area|z18-[amenity=bicycle_rental]
 {font-size: 11;text-optional: true;}
 
-node|z17[amenity=post_office]
-{icon-image: mail-m.svg;}
+node|z17-[amenity=post_office],
+area|z17-[amenity=post_office],
+{icon-image: mail-m.svg;text-optional: true;}
 node|z18-[amenity=post_office],
+area|z18-[amenity=post_office],
+{font-size: 11;text-optional: true;}
 node|z18-[amenity=post_box],
-area|z18-[amenity=post_box]
+area|z18-[amenity=post_box],
 {icon-image: postbox-m.svg;font-size: 11;text-optional: true;}
 node|z18-[emergency=fire_hydrant],
 area|z18-[emergency=fire_hydrant]
