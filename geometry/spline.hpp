@@ -18,8 +18,6 @@ public:
     PointD m_avrDir;
 
     iterator();
-    iterator(iterator const & other);
-    iterator & operator=(iterator const & other);
 
     void Attach(Spline const & spl);
     void Advance(double step);
@@ -49,8 +47,6 @@ public:
   explicit Spline(size_t reservedSize);
   explicit Spline(std::vector<PointD> const & path);
   explicit Spline(std::vector<PointD> && path);
-  Spline(Spline const & spl) = default;
-  Spline const & operator=(Spline const & spl);
 
   void AddPoint(PointD const & pt);
   void ReplacePoint(PointD const & pt);
@@ -97,8 +93,6 @@ public:
   SharedSpline() = default;
   explicit SharedSpline(std::vector<PointD> const & path);
   explicit SharedSpline(std::vector<PointD> && path);
-  SharedSpline(SharedSpline const & other);
-  SharedSpline const & operator= (SharedSpline const & spl);
 
   bool IsNull() const;
   void Reset(Spline * spline);
