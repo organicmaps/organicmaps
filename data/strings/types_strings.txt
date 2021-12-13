@@ -10803,6 +10803,7 @@
 
   [type.historic.battlefield]
     en = Battlefield
+    de = Schlachtfeld
     fr = Champ de bataille
     ja = 古戦場
     pl = Miejsce historycznej bitwy
@@ -10814,6 +10815,7 @@
 
   [type.historic.boundary_stone]
     en = Boundary Stone
+    de = Grenzstein
     ja = 境界標
     pl = Historyczny kamień graniczny
     pt = Marco fronteiriço
@@ -10891,7 +10893,7 @@
     ar = قلعة
     cs = Zámek
     da = Slot
-    de = Burg
+    de = Schloss
     el = Κάστρο
     es = Castillo
     fa = گردشگری
@@ -10920,6 +10922,7 @@
 
   [type.historic.citywalls]
     en = City Wall
+    de = Stadtmauer
     fr = Muraille
     ja = 歴史的な城壁
     pl = Historyczne mury miasta
@@ -10931,6 +10934,7 @@
 
   [type.historic.fort]
     en = Fort
+    de = Festung
     fr = Fort militaire
     ja = 歴史的な要塞
     pl = Historyczny fort
@@ -10976,7 +10980,7 @@
     ar = نصب تذكاري
     cs = Pomník
     da = Mindesmærke
-    de = Denkmal
+    de = Gedenktafel
     el = Μνημείο
     fa = گردشگری
     fi = Muistomerkki
@@ -11007,7 +11011,7 @@
     ar = نصب تذكاري
     cs = Pomník
     da = Mindesmærke
-    de = Denkmal
+    de = Skulptur
     el = Μνημείο
     fa = گردشگری
     fi = Muistomerkki
@@ -11038,7 +11042,7 @@
     ar = نصب تذكاري
     cs = Pomník
     da = Mindesmærke
-    de = Denkmal
+    de = Statue
     el = Μνημείο
     fa = گردشگری
     fi = Muistomerkki
@@ -11094,7 +11098,7 @@
     ar = آثار
     cs = Ruiny
     da = Ruiner
-    de = Ruinen
+    de = Ruine
     el = Ερείπια
     es = Ruinas
     fa = گردشگری
@@ -11187,6 +11191,7 @@
 
   [type.historic.wayside_cross]
     en = Christian Cross
+    de = Wegkreuz
     fr = Croix
     ja = 歴史的な十字架
     pl = Krzyż przydrożny
@@ -11197,6 +11202,7 @@
 
   [type.historic.wayside_shrine]
     en = Shrine
+    de = Bildstock
     fr = Oratoire
     ja = 歴史的な祠
     pl = Kapliczka przydrożna
@@ -11307,6 +11313,7 @@
 
   [type.landuse.allotments]
     en = Allotments
+    de = Kleingarten
     fr = Jardins familiaux
     ja = 市民農園
     pl = Działki
@@ -11354,6 +11361,7 @@
 
   [type.landuse.brownfield]
     en = Brownfield
+    de = Brachfläche
     fr = Friche industrielle
     ja = 再開発用地
     pl = Teren do zabudowy
@@ -11431,7 +11439,7 @@
     ar = فناء الكنيسة
     cs = Nádvoří kostela
     da = Kirkegård
-    de = Kirchenhof
+    de = Kirchhof
     el = Αυλόγυρος εκκλησίας
     es = Camposanto
     es-MX = Camposanto
@@ -11462,6 +11470,7 @@
 
   [type.landuse.commercial]
     en = Commercial Area
+    de = Gewerbegebiet
     fr = Zone commerciale
     ja = 商業用地
     pl = Teren handlu i usług
@@ -11473,6 +11482,7 @@
 
   [type.landuse.construction]
     en = Construction
+    de = Baustelle
     fr = Chantier de construction
     ja = 建設工事中
     pl = Teren budowy
@@ -11484,6 +11494,7 @@
 
   [type.landuse.farm]
     en = Farm
+    de = Bauernhof
     ja = 農地
     pl = Gospodarstwo rolne
     pt = Quinta
@@ -11537,6 +11548,7 @@
 
   [type.landuse.field]
     en = Field
+    de = Feld
     fr = Champ
     pl = Pole
     pt = Campo
@@ -11674,6 +11686,7 @@
 
   [type.landuse.garages]
     en = Garages
+    de = Garagen
     ja = ガレージ
     pl = Garaże
     pt = Garagens
@@ -11718,6 +11731,7 @@
 
   [type.landuse.greenfield]
     en = Greenfield
+    de = Rohbauland
     fr = Terrain vierge
     ja = 建設予定地
     pl = Obszar pod zabudowę
@@ -11728,6 +11742,7 @@
 
   [type.landuse.greenhouse_horticulture]
     en = Greenhouse
+    de = Gewächshaus-Fläche
     fr = Culture sous serre
     ja = 温室栽培
     pt = Estufas
@@ -11738,6 +11753,7 @@
 
   [type.landuse.industrial]
     en = Industrial Land
+    de = Industriegebiet
     fr = Zone industrielle
     ja = 工業用地
     pl = Obszar przemysłowy
@@ -11783,6 +11799,7 @@
 
   [type.landuse.meadow]
     en = Meadow
+    de = Wiese
     fr = Prairie
     ja = 牧草地
     pl = Łąka
@@ -11794,6 +11811,7 @@
 
   [type.landuse.military]
     en = Military Area
+    de = Militärisch genutztes Gebiet
     fr = Terrain militaire
     ja = 軍用地
     pl = Teren wojskowy
@@ -11805,6 +11823,7 @@
 
   [type.landuse.orchard]
     en = Orchard
+    de = Obstplantage
     fr = Vergers
     ja = 果樹園
     pl = Sad
@@ -11816,6 +11835,7 @@
 
   [type.landuse.quarry]
     en = Quarry
+    de = Steinbruch
     fr = Carrières
     ja = 採石場
     pl = Kamieniołom
@@ -11861,6 +11881,7 @@
 
   [type.landuse.recreation_ground]
     en = Recreation Ground
+    de = Erholungsgebiet
     ja = レクリエーション
     pl = Tereny wypoczynkowe
     pt = Área de lazer
@@ -11901,6 +11922,7 @@
 
   [type.landuse.residential]
     en = Residential Land
+    de = Wohngebiet
     fr = Zone résidentielle
     ja = 住宅地
     pl = Tereny zamieszkania
@@ -11912,6 +11934,7 @@
 
   [type.landuse.retail]
     en = Retail Land
+    de = Einzelhandelsgebiet
     ja = 小売店エリア
     pl = Obszar handlu
     pt = Área de retalho
@@ -11922,6 +11945,7 @@
 
   [type.landuse.salt_pond]
     en = Pond
+    de = Saline
     fr = Marais salant
     ja = 塩田
     pl = Słone jezioro
@@ -11941,6 +11965,7 @@
 
   [type.landuse.vineyard]
     en = Vineyard
+    de = Weinberg
     fr = Vignes
     ja = ブドウ園
     pl = Winnica
@@ -12132,6 +12157,7 @@
 
   [type.leisure.ice_rink]
     en = Ice Rink
+    de = Eislaufplatz
     fr = Patinoire
     ja = アイスリンク
     pl = Lodowisko
@@ -12472,6 +12498,7 @@
 
   [type.leisure.slipway]
     en = Slipway
+    de = Bootsrampe
     fr = Cale de lancement
     ja = スリップウェイ
     pl = Pochylnia
@@ -12704,6 +12731,7 @@
 
   [type.leisure.track]
     en = Track
+    de = Laufbahn
     fr = Piste de course
     ja = トラック
     pt = Pista para desportos não motorizados
@@ -12755,6 +12783,7 @@
 
   [type.man_made.breakwater]
     en = Breakwater
+    de = Wellenbrecher
     fr = Brise-lames
     ja = 防波堤
     pl = Falochron
@@ -12766,6 +12795,7 @@
 
   [type.man_made.cairn]
     en = Cairn
+    de = Steinhaufen
     ja = ケルン
     pl = Kopiec
     pt = Moledro ou mariola
@@ -12806,6 +12836,7 @@
 
   [type.man_made.cutline]
     en = Cutline
+    de = Schneise
     ja = 森林の切れ目
     pl = Przecinka leśna
     pt = Atalhada
@@ -12848,6 +12879,7 @@
 
   [type.man_made.pier]
     en = Pier
+    de = Anlegestelle
     fr = Jetée
     ja = 桟橋
     nl = Pier
@@ -12887,6 +12919,7 @@
 
   [type.man_made.storage_tank]
     en = Storage Tank
+    de = Speichertank
     fr = Réservoir
     be = Рэзервуар
     ru = Резервуар
@@ -12958,6 +12991,7 @@
 
   [type.man_made.wastewater_plant]
     en = Wastewater Plant
+    de = Kläranlage
     fr = Station d'épuration
     ja = 下水処理場
     pl = Oczyszczalnia ścieków
@@ -13097,6 +13131,7 @@
 
   [type.man_made.works]
     en = Industrial Works
+    de = Fabrik
     ja = 工場
     pt = Fábrica
     pt-BR = Fábrica
@@ -13142,6 +13177,7 @@
 
   [type.mountain_pass]
     en = Mountain Pass
+    de = Gebirgspass
     fr = Col de montagne
     be = Перавал
     it = Passo
@@ -13160,6 +13196,7 @@
 
   [type.natural.bare_rock]
     en = Bare Rock
+    de = Nackter Fels
     fr = Zone rocheuse
     ja = 岩肌
     nl = Kale steen
@@ -13234,12 +13271,14 @@
 
   [type.natural.beach.sand]
     en = Sandy Beach
+    de = Sandstrand
     be = Пяшчаны пляж
     ru = Песчаный пляж
     uk = Піщаний пляж
 
   [type.natural.beach.gravel]
     en = Gravel Beach
+    de = Kiesstrand
     be = Галечны пляж
     ru = Галечный пляж
     uk = Гальковий пляж
@@ -13312,6 +13351,7 @@
 
   [type.natural.cliff]
     en = Cliff
+    de = Klippe
     fr = Falaise
     ja = 崖
     nl = Klif
@@ -13323,6 +13363,7 @@
 
   [type.natural.coastline]
     en = Coastline
+    de = Küstenlinie
     fr = Littoral
     ja = 海岸線
     nl = Kustlijn
@@ -13436,6 +13477,7 @@
 
   [type.natural.heath]
     en = Heath
+    de = Heide
     fr = Lande
     ja = ヒース
     nl = Heide
@@ -13447,6 +13489,7 @@
 
   [type.natural.hot_spring]
     en = Hot Spring
+    de = Thermalquelle
     fr = Source chaude
     ja = 温泉
     nl = Heetwaterbron
@@ -13663,7 +13706,7 @@
     be = Вяршыня
     cs = Hora
     da = Bjerg
-    de = Berg
+    de = Gipfel
     el = Κορυφή
     es = Cima
     fa = قله
@@ -13692,6 +13735,7 @@
 
   [type.natural.saddle]
     en = Mountain Saddle
+    de = Bergsattel
     fr = Col de montagne
     be = Седлавіна
     it = Sella
@@ -13700,6 +13744,7 @@
 
   [type.natural.rock]
     en = Rock
+    de = Fels
     fr = Rocher
     ja = 岩
     nl = Steen
@@ -13843,6 +13888,7 @@
 
   [type.natural.tree_row]
     en = Tree Row
+    de = Allee
     fr = Rangée d'arbre
     ja = 並木
     nl = Bomenrij
@@ -13854,6 +13900,7 @@
 
   [type.natural.vineyard]
     en = Vineyard
+    de = Weinberg
     ja = ブドウ園
     nl = Wijngaard
     pl = Winnica
@@ -13964,6 +14011,7 @@
 
   [type.natural.wetland.bog]
     en = Wetland
+    de = Moor
     fr = Tourbière
     ja = 泥炭地
     nl = Moeras
@@ -13975,6 +14023,7 @@
 
   [type.natural.wetland.marsh]
     en = Wetland
+    de = Sumpf
     fr = Marais
     ja = 沼地
     nl = Moeras
