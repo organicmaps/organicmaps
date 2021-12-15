@@ -155,7 +155,7 @@ public class Utils
   {
     final android.content.ClipboardManager clipboard =
         (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-    final ClipData clip = ClipData.newPlainText("maps.me: " + text, text);
+    final ClipData clip = ClipData.newPlainText("Organic Maps: " + text, text);
     clipboard.setPrimaryClip(clip);
   }
 
