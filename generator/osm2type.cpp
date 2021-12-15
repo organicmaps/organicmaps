@@ -30,7 +30,7 @@
 
 namespace ftype
 {
-using std::function, std::string, std::vector;
+using std::string;
 
 namespace
 {
@@ -161,7 +161,7 @@ public:
     // Note that the matching logic here is different from the one used in classificator matching,
     // see ParseMapCSS() and Matches() in generator/utils.cpp.
     char const * m_value;
-    function<Function> m_func;
+    std::function<Function> m_func;
   };
 
   template <typename Function = void()>
@@ -188,8 +188,8 @@ public:
   }
 
 protected:
-  static void Call(function<void()> const & f, string &, string &) { f(); }
-  static void Call(function<void(string &, string &)> const & f, string & k, string & v)
+  static void Call(std::function<void()> const & f, string &, string &) { f(); }
+  static void Call(std::function<void(string &, string &)> const & f, string & k, string & v)
   {
     f(k, v);
   }
@@ -248,7 +248,7 @@ public:
   {
     Classificator const & c = classif();
 
-    static std::map<Type, vector<string>> const kTypeToName = {
+    static std::map<Type, std::vector<string>> const kTypeToName = {
         {Type::Entrance,           {"entrance"}},
         {Type::Highway,            {"highway"}},
         {Type::Address,            {"building", "address"}},
@@ -321,7 +321,7 @@ private:
 // - building-garages is left while building is removed;
 // - amenity-parking-underground-fee is left while amenity-parking and amenity-parking-fee is removed;
 // - both amenity-charging_station-motorcar and amenity-charging_station-bicycle are left;
-void LeaveLongestTypes(vector<generator::TypeStrings> & matchedTypes)
+void LeaveLongestTypes(std::vector<generator::TypeStrings> & matchedTypes)
 {
   auto const equalPrefix = [](auto const & lhs, auto const & rhs)
   {
@@ -357,11 +357,11 @@ void LeaveLongestTypes(vector<generator::TypeStrings> & matchedTypes)
   base::SortUnique(matchedTypes, isBetter, isEqual);
 }
 
-void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uint32_t)> const & filterType)
+void MatchTypes(OsmElement * p, FeatureBuilderParams & params, TypesFilterFnT const & filterType)
 {
   auto static const rules = generator::ParseMapCSS(GetPlatform().GetReader(MAPCSS_MAPPING_FILE));
 
-  vector<generator::TypeStrings> matchedTypes;
+  std::vector<generator::TypeStrings> matchedTypes;
   for (auto const & [typeString, rule] : rules)
   {
     if (rule.Matches(p->m_tags))
@@ -609,7 +609,7 @@ string DetermineSurface(OsmElement * p)
   return psurface;
 }
 
-void PreprocessElement(OsmElement * p)
+void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
 {
   bool hasLayer = false;
   char const * layer = nullptr;
@@ -750,25 +750,47 @@ void PreprocessElement(OsmElement * p)
     });
   }
 
-  // In Japan, South Korea and Turkey place=province means place=state.
-  auto static const infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
-  CHECK(infoGetter, ());
-  auto static const countryTree = storage::LoadCountriesFromFile(COUNTRIES_FILE);
-  CHECK(countryTree, ());
-  p->UpdateTag("place", [&](string & value) {
+  class CountriesLoader
+  {
+    std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
+    std::optional<storage::CountryTree> m_countryTree;
+    std::array<storage::CountryId, 3> m_provinceToState;
+
+  public:
+    // In this countries place=province means place=state.
+    CountriesLoader() : m_provinceToState{"Japan", "South Korea", "Turkey"}
+    {
+      m_infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
+      CHECK(m_infoGetter, ());
+      m_countryTree = storage::LoadCountriesFromFile(COUNTRIES_FILE);
+      CHECK(m_countryTree, ());
+    }
+
+    bool IsTransformToState(m2::PointD const & pt) const
+    {
+      auto const countryId = m_infoGetter->GetRegionCountryId(pt);
+      if (!countryId.empty())
+      {
+        auto const country = storage::GetTopmostParentFor(*m_countryTree, countryId);
+        return base::IsExist(m_provinceToState, country);
+      }
+
+      LOG(LWARNING, ("CountryId not found for (lat, lon):", mercator::ToLatLon(pt)));
+      return false;
+    }
+  };
+
+  static CountriesLoader s_countriesChecker;
+
+  p->UpdateTag("place", [&](string & value)
+  {
     if (value != "province")
       return;
 
-    std::array<storage::CountryId, 3> const provinceToStateCountries = {"Japan", "South Korea",
-                                                                        "Turkey"};
-    auto const pt = mercator::FromLatLon(p->m_lat, p->m_lon);
-    auto const countryId = infoGetter->GetRegionCountryId(pt);
-    auto const country = storage::GetTopmostParentFor(*countryTree, countryId);
-    if (base::FindIf(provinceToStateCountries, [&](auto const & c) { return c == country; }) !=
-        provinceToStateCountries.end())
-    {
+    CHECK(calcOrg, ());
+    auto const org = calcOrg(p);
+    if (org && s_countriesChecker.IsTransformToState(*org))
       value = "state";
-    }
   });
 }
 
@@ -961,13 +983,13 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 }  // namespace
 
 void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
-                    function<bool(uint32_t)> const & filterType)
+                    TypesFilterFnT const & filterType, CalculateOriginFnT const & calcOrg)
 {
   // At this point, some preprocessing could've been done to the tags already
   // in TranslatorInterface::Preprocess(), e.g. converting tags according to replaced_tags.txt.
 
   // Stage1: Preprocess tags.
-  PreprocessElement(p);
+  PreprocessElement(p, calcOrg);
 
   // Stage2: Process feature name on all languages.
   NamesExtractor namesExtractor(params);

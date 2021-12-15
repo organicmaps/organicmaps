@@ -7,6 +7,8 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_visibility.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include <utility>
 
 using namespace feature;
@@ -20,9 +22,57 @@ std::shared_ptr<FeatureMakerBase> FeatureMakerSimple::Clone() const
 
 void FeatureMakerSimple::ParseParams(FeatureBuilderParams & params, OsmElement & p) const
 {
-  ftype::GetNameAndType(&p, params, [] (uint32_t type) {
-    return classif().IsTypeValid(type);
-  });
+  auto const & cl = classif();
+  ftype::GetNameAndType(&p, params,
+                        [&cl] (uint32_t type) { return cl.IsTypeValid(type); },
+                        [this](OsmElement const * p) { return GetOrigin(*p); });
+}
+
+std::optional<m2::PointD> FeatureMakerSimple::ReadNode(uint64_t id) const
+{
+  m2::PointD res;
+  if (m_cache->GetNode(id, res.y, res.x))
+    return res;
+  return {};
+}
+
+std::optional<m2::PointD> FeatureMakerSimple::GetOrigin(OsmElement const & e) const
+{
+  if (e.IsNode())
+  {
+    CHECK(e.m_lat != 0 || e.m_lon != 0, (e.m_id));
+    return mercator::FromLatLon(e.m_lat, e.m_lon);
+  }
+  else if (e.IsWay())
+  {
+    CHECK(!e.m_nodes.empty(), (e.m_id));
+    return ReadNode(e.m_nodes.front());
+  }
+  else
+  {
+    CHECK(!e.m_members.empty(), (e.m_id));
+    for (auto const & m : e.m_members)
+    {
+      if (m.m_type == OsmElement::EntityType::Node)
+        return ReadNode(m.m_ref);
+    }
+
+    for (auto const & m : e.m_members)
+    {
+      if (m.m_type == OsmElement::EntityType::Way)
+      {
+        WayElement way(m.m_ref);
+        if (m_cache->GetWay(m.m_ref, way))
+        {
+          CHECK(!way.m_nodes.empty(), (m.m_ref));
+          return ReadNode(way.m_nodes.front());
+        }
+      }
+    }
+
+    LOG(LWARNING, ("No geometry members for relation", e.m_id));
+    return {};
+  }
 }
 
 bool FeatureMakerSimple::BuildFromNode(OsmElement & p, FeatureBuilderParams const & params)
@@ -99,6 +149,7 @@ std::shared_ptr<FeatureMakerBase> FeatureMaker::Clone() const
 
 void FeatureMaker::ParseParams(FeatureBuilderParams & params, OsmElement & p) const
 {
-  ftype::GetNameAndType(&p, params);
+  ftype::GetNameAndType(&p, params, &feature::IsUsefulType,
+                        [this](OsmElement const * p) { return GetOrigin(*p); });
 }
 }  // namespace generator

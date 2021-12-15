@@ -4,6 +4,7 @@
 #include "generator/feature_maker_base.hpp"
 #include "generator/intermediate_data.hpp"
 
+
 struct OsmElement;
 
 namespace generator
@@ -19,6 +20,12 @@ public:
 
 protected:
   void ParseParams(FeatureBuilderParams & params, OsmElement & element) const override;
+
+  /// @return Any origin mercator point (prefer nodes) that belongs to \a e.
+  std::optional<m2::PointD> GetOrigin(OsmElement const & e) const;
+
+  /// @return Mercator point from intermediate cache storage.
+  std::optional<m2::PointD> ReadNode(uint64_t id) const;
 
 private:
   bool BuildFromNode(OsmElement & element, FeatureBuilderParams const & params) override;
