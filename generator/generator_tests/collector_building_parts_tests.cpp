@@ -99,8 +99,7 @@ public:
   }
 
   // IntermediateDataReaderBase overrides:
-  bool GetNode(generator::cache::Key /* id */, double & /* lat */,
-               double & /* lon */) const override
+  bool GetNode(generator::cache::Key, double &, double &) const override
   {
     UNREACHABLE();
   }

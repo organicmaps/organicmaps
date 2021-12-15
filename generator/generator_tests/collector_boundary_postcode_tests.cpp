@@ -55,7 +55,6 @@ unordered_map<uint64_t, WayElement> const kWays = {
 
 class IntermediateDataReaderTest : public generator::cache::IntermediateDataReaderInterface
 {
-  // IntermediateDataReaderBase overrides:
   bool GetNode(uint64_t id, double & lat, double & lon) const override
   {
     auto const it = kNodes.find(id);
