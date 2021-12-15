@@ -311,10 +311,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     SpannableStringBuilder builder = new SpannableStringBuilder();
     initTimeBuilderSequence(context, time, builder);
 
-    String dot = " • ";
+    String dot = "\u00A0• ";
     initDotBuilderSequence(context, dot, builder);
 
-    String dist = routingInfo.distToTarget + " " + routingInfo.targetUnits;
+    String dist = routingInfo.distToTarget + "\u00A0" + routingInfo.targetUnits;
     initDistanceBuilderSequence(context, dist, builder);
 
     return builder;

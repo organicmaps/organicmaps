@@ -1042,7 +1042,7 @@ public class RoutingController implements Initializable<Void>
                                                               String.valueOf(hours), hour);
     SpannableStringBuilder displayedM = Utils.formatUnitsText(context, textSize, unitsSize,
                                                               String.valueOf(minutes), min);
-    return hours == 0 ? displayedM : TextUtils.concat(displayedH + " ", displayedM);
+    return hours == 0 ? displayedM : TextUtils.concat(displayedH + "\u00A0", displayedM);
   }
 
   static String formatArrivalTime(int seconds)
