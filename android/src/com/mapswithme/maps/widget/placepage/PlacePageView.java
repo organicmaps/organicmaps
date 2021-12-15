@@ -1402,10 +1402,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   public boolean onLongClick(View v)
   {
     final Object tag = v.getTag();
-    final String tagStr = tag == null ? "" : tag.toString();
 
-    final PopupMenu popup = new PopupMenu(getContext(), v);
-    final Menu menu = popup.getMenu();
     final List<String> items = new ArrayList<>();
     switch (v.getId())
     {
@@ -1488,21 +1485,34 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
     }
 
-    final String copyText = getResources().getString(android.R.string.copy);
-    for (int i = 0; i < items.size(); i++)
-      menu.add(Menu.NONE, i, i, String.format("%s %s", copyText, items.get(i)));
-
-    popup.setOnMenuItemClickListener(item -> {
-      final int id = item.getItemId();
-      final Context ctx = getContext();
-      Utils.copyTextToClipboard(ctx, items.get(id));
+    final Context ctx = getContext();
+    if (items.size() == 1)
+    {
+      Utils.copyTextToClipboard(ctx, items.get(0));
       Utils.showSnackbarAbove(mDetails,
                               getRootView().findViewById(R.id.menu_frame),
-                              ctx.getString(R.string.copied_to_clipboard, items.get(id)));
-      return true;
-    });
+                              ctx.getString(R.string.copied_to_clipboard, items.get(0)));
+    }
+    else
+    {
+      final PopupMenu popup = new PopupMenu(getContext(), v);
+      final Menu menu = popup.getMenu();
+      final String copyText = getResources().getString(android.R.string.copy);
 
-    popup.show();
+      for (int i = 0; i < items.size(); i++)
+        menu.add(Menu.NONE, i, i, String.format("%s %s", copyText, items.get(i)));
+
+      popup.setOnMenuItemClickListener(item -> {
+        final int id = item.getItemId();
+        Utils.copyTextToClipboard(ctx, items.get(id));
+        Utils.showSnackbarAbove(mDetails,
+                                getRootView().findViewById(R.id.menu_frame),
+                                ctx.getString(R.string.copied_to_clipboard, items.get(id)));
+        return true;
+      });
+      popup.show();
+    }
+
     return true;
   }
 

@@ -96,21 +96,11 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
     @Override
     public boolean onLongClick(View view)
     {
-      final PopupMenu popup = new PopupMenu(view.getContext(), view);
-      final Menu menu = popup.getMenu();
-      final String copyText = view.getResources().getString(android.R.string.copy);
       final String phoneNumber = mPhone.getText().toString();
-      menu.add(Menu.NONE, 0, 0, String.format("%s %s", copyText, phoneNumber));
-
-      popup.setOnMenuItemClickListener(item -> {
-        final Context ctx = view.getContext();
-        Utils.copyTextToClipboard(ctx, phoneNumber);
-        Utils.showSnackbarAbove(view, view.getRootView().findViewById(R.id.menu_frame),
-                                ctx.getString(R.string.copied_to_clipboard, phoneNumber));
-        return true;
-      });
-
-      popup.show();
+      final Context ctx = view.getContext();
+      Utils.copyTextToClipboard(ctx, phoneNumber);
+      Utils.showSnackbarAbove(view, view.getRootView().findViewById(R.id.menu_frame),
+                              ctx.getString(R.string.copied_to_clipboard, phoneNumber));
       return true;
     }
   }
