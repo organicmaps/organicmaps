@@ -180,13 +180,17 @@ android {
       def pchFlag = 'OFF'
       if (project.hasProperty('pch')) pchFlag = 'ON'
 
+      def njobs = ''
+      if (project.hasProperty('njobs')) njobs = project.getProperty('njobs')
+
       cmake {
         cppFlags '-fexceptions', '-frtti'
         // There is no sense to enable sections without gcc's --gc-sections flag.
         cFlags '-fno-function-sections', '-fno-data-sections',
                '-Wno-extern-c-compat'
         arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static',
-                  "-DOS=$osName", '-DSKIP_TESTS=ON', "-DUSE_PCH=$pchFlag"
+                  "-DOS=$osName", '-DSKIP_TESTS=ON', "-DUSE_PCH=$pchFlag",
+                  "-DNJOBS=$njobs"
         targets 'organicmaps'
       }
     }

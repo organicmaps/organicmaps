@@ -111,14 +111,14 @@ brew install cmake qt@5
 
 ### Building
 
-To build a debug version of the desktop app:
+To build a desktop app:
 ```bash
-tools/unix/build_omim.sh -d desktop
+tools/unix/build_omim.sh -r desktop
 ```
 
-The output binary will go into `../omim-build-debug`.
+The output binary will go into `../omim-build-release`.
 
-Check `tools/unix/build_omim.sh -h` for more build options, e.g. to build a release.
+Check `tools/unix/build_omim.sh -h` for more build options, e.g. to build a debug version.
 
 Besides _desktop_ there are other targets like _generator_tool_, to see a full list execute:
 
@@ -351,9 +351,11 @@ To create separate apks for all target arches add a `-PsplitApk` option (by defa
 
 Adding a `-Ppch` (use precompiled headers) option makes builds ~15% faster.
 
-If a running build makes your computer slow and laggish then try lowering the priority of the build process by adding a `--priority=low` option.
+If a running build makes your computer slow and laggish then try lowering the priority of the build process by adding a `--priority=low` option and/or add a `-Pnjobs=<N>` option to limit number of parallel processes.
 
 See also https://developer.android.com/studio/build/building-cmdline.
+
+To add any of those options to in-studio builds list them in "Command-line Options" in "File > Settings... > Build, Execution, Deployment > Compiler"
 
 #### Reduce resource usage
 

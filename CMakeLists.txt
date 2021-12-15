@@ -95,6 +95,15 @@ option(SKIP_DESKTOP "Skip building of desktop application" OFF)
 # TODO: Fix mapshot, it doesn't work without our old FreeType hack.
 option(BUILD_MAPSHOT "Build mapshot tool" OFF)
 option(USE_PCH "Use precompiled headers" OFF)
+option(NJOBS "Number of parallel processes" OFF)
+
+if (NJOBS)
+  message("Number of parallel processes: ${NJOBS}")
+  set(CMAKE_JOB_POOLS custom=${NJOBS})
+  set(CMAKE_JOB_POOL_COMPILE custom)
+  set(CMAKE_JOB_POOL_LINK custom)
+  set(CMAKE_JOB_POOL_PRECOMPILE_HEADER custom)
+endif()
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.0)
   message(FATAL_ERROR "Minimum supported g++ version is 7.0 yours is ${CMAKE_CXX_COMPILER_VERSION}")
