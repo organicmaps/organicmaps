@@ -169,17 +169,27 @@ bool DoesBuildingConsistOfParts(FeatureBuilder const & fbBuilding,
   BoostPolygon building;
   BoostMultiPolygon partsUnion;
 
+  double buildingArea = 0;
   buildingPartsKDTree.ForEachInRect(fbBuilding.GetLimitRect(), [&](auto const & fbPart) {
     // Lazy initialization that will not occur with high probability
     if (bg::is_empty(building))
+    {
       generator::boost_helpers::FillPolygon(building, fbBuilding);
+      buildingArea = bg::area(building);
+    }
 
     BoostPolygon part;
     generator::boost_helpers::FillPolygon(part, fbPart);
 
-    BoostMultiPolygon newPartsUnion;
-    bg::union_(partsUnion, part, newPartsUnion);
-    partsUnion = std::move(newPartsUnion);
+    // Take parts that smaller than input building outline.
+    // Example of a big building:part as a "stylobate" here:
+    // https://www.openstreetmap.org/way/533683349#map=18/53.93091/27.65261
+    if (0.8 * bg::area(part) <= buildingArea)
+    {
+      BoostMultiPolygon newPartsUnion;
+      bg::union_(partsUnion, part, newPartsUnion);
+      partsUnion = std::move(newPartsUnion);
+    }
   });
 
   if (bg::is_empty(building))
@@ -190,7 +200,7 @@ bool DoesBuildingConsistOfParts(FeatureBuilder const & fbBuilding,
 
   // Consider a building as consisting of parts if the building footprint
   // is covered with parts at least by 90%.
-  return bg::area(partsWithinBuilding) >= 0.9 * bg::area(building);
+  return bg::area(partsWithinBuilding) >= 0.9 * buildingArea;
 }
 
 void CountryFinalProcessor::ProcessBuildingParts()
