@@ -41,7 +41,7 @@ private:
 
   Transliteration();
 
-  bool Transliterate(std::string transliteratorId, icu::UnicodeString & ustr) const;
+  bool Transliterate(std::string const & transID, icu::UnicodeString & ustr) const;
 
   std::mutex m_initializationMutex;
   std::atomic<bool> m_inited;
