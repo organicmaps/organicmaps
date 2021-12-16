@@ -80,7 +80,7 @@ StipplePenRasterizator::StipplePenRasterizator(StipplePenKey const & key)
 {
   m_patternLength = std::accumulate(m_key.m_pattern.begin(), m_key.m_pattern.end(), 0);
   uint32_t const availableSize = kMaxStipplePenLength - 2; // the first and the last pixel reserved
-  ASSERT_LESS(m_patternLength, availableSize, ());
+  ASSERT(m_patternLength > 0 && m_patternLength < availableSize, (m_patternLength, availableSize));
   uint32_t const count = floor(availableSize / m_patternLength);
   m_pixelLength = count * m_patternLength;
 }

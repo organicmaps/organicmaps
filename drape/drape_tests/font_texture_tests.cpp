@@ -51,7 +51,7 @@ public:
   void Render(QPaintDevice * device)
   {
     QPainter p(device);
-    for (auto d : m_images)
+    for (auto const & d : m_images)
       p.drawImage(d.first, d.second);
   }
 

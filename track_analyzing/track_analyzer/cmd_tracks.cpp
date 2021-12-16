@@ -152,7 +152,7 @@ void CmdTracks(string const & filepath, string const & trackExtension, StringFil
         EdgeEstimator::Create(VehicleType::Car, *vehicleModel,
           nullptr /* trafficStash */, nullptr /* dataSource */, nullptr /* numMwmIds */);
 
-    for (auto it : userToMatchedTracks)
+    for (auto const & it : userToMatchedTracks)
     {
       string const & user = it.first;
       if (userFilter(user))

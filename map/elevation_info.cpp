@@ -17,8 +17,13 @@ template <typename T>
 void FillProperty(kml::Properties const & properties, std::string const & key, T & value)
 {
   auto const it = properties.find(key);
-  if (it != properties.cend() && !strings::to_any(it->second, value))
-    LOG(LERROR, ("Conversion is not possible for key", key, "string representation is", it->second));
+  if (it == properties.cend())
+    LOG(LERROR, ("Property not found for key:", key));
+  else
+  {
+    if (!strings::to_any(it->second, value))
+      LOG(LERROR, ("Conversion is not possible for key", key, "string representation is", it->second));
+  }
 }
 }  // namespace
 
