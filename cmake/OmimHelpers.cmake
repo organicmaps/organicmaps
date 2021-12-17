@@ -71,6 +71,8 @@ endfunction()
 
 function(omim_add_library library)
   add_library(${library} ${ARGN})
+  set_target_properties(${library} PROPERTIES UNITY_BUILD ON)
+  set_target_properties(${library} PROPERTIES UNITY_BUILD_BATCH_SIZE 50)
   add_dependencies(${library} BuildVersion)
   # Enable warnings for all our libraries.
   target_compile_options(${library} PRIVATE ${OMIM_WARNING_FLAGS})

@@ -160,3 +160,24 @@ target_link_libraries(${PROJECT_NAME}
 
 omim_add_test_subdirectory(platform_tests_support)
 omim_add_test_subdirectory(platform_tests)
+
+set_property(
+  SOURCE
+    preferred_languages.cpp
+apple_location_service.mm
+gui_thread_apple.mm
+http_client_apple.mm
+http_thread_apple.h
+http_thread_apple.mm
+http_uploader_apple.mm
+http_uploader_background_dummy.cpp
+locale.mm
+platform_mac.mm
+platform_unix_impl.cpp
+platform_unix_impl.hpp
+secure_storage_qt.cpp
+socket_apple.mm
+http_session_manager.mm
+PROPERTY
+    SKIP_UNITY_BUILD_INCLUSION ON
+)

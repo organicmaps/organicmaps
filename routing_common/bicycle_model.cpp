@@ -10,7 +10,7 @@
 using namespace routing;
 using namespace std;
 
-namespace
+namespace bicycle_model
 {
 // See model specifics in different countries here:
 //   https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
@@ -379,19 +379,19 @@ VehicleModel::SurfaceInitList const kBicycleSurface = {
   {{"psurface", "unpaved_good"}, {1.0, 1.0}},
   {{"psurface", "unpaved_bad"}, {0.3, 0.3}}
 };
-}  // namespace
+}  // namespace bicycle_model
 
 namespace routing
 {
 BicycleModel::BicycleModel()
-  : VehicleModel(classif(), kBicycleOptionsDefault, kBicycleSurface,
-                 {kDefaultSpeeds, kDefaultFactors})
+  : VehicleModel(classif(), bicycle_model::kBicycleOptionsDefault, bicycle_model::kBicycleSurface,
+                 {bicycle_model::kDefaultSpeeds, bicycle_model::kDefaultFactors})
 {
   Init();
 }
 
 BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & speedLimits)
-  : VehicleModel(classif(), speedLimits, kBicycleSurface, {kDefaultSpeeds, kDefaultFactors})
+  : VehicleModel(classif(), speedLimits, bicycle_model::kBicycleSurface, {bicycle_model::kDefaultSpeeds, bicycle_model::kDefaultFactors})
 {
   Init();
 }
@@ -406,8 +406,8 @@ void BicycleModel::Init()
   m_onedirBicycleType = classif().GetTypeByPath({"hwtag", "onedir_bicycle"});
   vector<AdditionalRoadTags> const additionalTags = {
       {hwtagYesBicycle, m_maxModelSpeed},
-      {{"route", "ferry"}, kDefaultSpeeds.at(HighwayType::RouteFerry)},
-      {{"man_made", "pier"}, kDefaultSpeeds.at(HighwayType::ManMadePier)}};
+      {{"route", "ferry"}, bicycle_model::kDefaultSpeeds.at(HighwayType::RouteFerry)},
+      {{"man_made", "pier"}, bicycle_model::kDefaultSpeeds.at(HighwayType::ManMadePier)}};
 
   SetAdditionalRoadTypes(classif(), additionalTags);
 }
@@ -451,14 +451,14 @@ bool BicycleModel::IsOneWay(FeatureType & f) const
   return VehicleModel::IsOneWay(f);
 }
 
-SpeedKMpH const & BicycleModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
+SpeedKMpH const & BicycleModel::GetOffroadSpeed() const { return bicycle_model::kSpeedOffroadKMpH; }
 
 // If one of feature types will be disabled for bicycles, features of this type will be simplified
 // in generator. Look FeatureBuilder1::IsRoad() for more details.
 // static
 BicycleModel const & BicycleModel::AllLimitsInstance()
 {
-  static BicycleModel const instance(kBicycleOptionsAll);
+  static BicycleModel const instance(bicycle_model::kBicycleOptionsAll);
   return instance;
 }
 
@@ -466,6 +466,7 @@ BicycleModelFactory::BicycleModelFactory(
     CountryParentNameGetterFn const & countryParentNameGetterFn)
   : VehicleModelFactory(countryParentNameGetterFn)
 {
+  using namespace bicycle_model;
   // Names must be the same with country names from countries.txt
   m_models[""] = make_shared<BicycleModel>(kBicycleOptionsDefault);
   m_models["Australia"] = make_shared<BicycleModel>(kBicycleOptionsAustralia);
