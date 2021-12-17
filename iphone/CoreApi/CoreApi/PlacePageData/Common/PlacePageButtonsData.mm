@@ -12,13 +12,10 @@
     _showAddPlace = rawData.ShouldShowAddPlace();
     _showEditPlace = rawData.ShouldShowEditPlace();
     _showAddBusiness = rawData.ShouldShowAddBusiness();
+    if (_showAddPlace || _showEditPlace || _showAddBusiness)
+      return self;
   }
-
-  if (_showAddPlace || _showEditPlace || _showAddBusiness) {
-    return self;
-  } else {
-    return nil;
-  }
+  return nil;
 }
 
 @end
