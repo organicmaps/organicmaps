@@ -2,12 +2,6 @@
 
 #include "com/mapswithme/core/jni_helper.hpp"
 
-
-namespace
-{
-  ::Framework * frm() { return g_framework->NativeFramework(); }
-} //  namespace
-
 extern "C"
 {
   JNIEXPORT void JNICALL

@@ -28,11 +28,11 @@
 #include <utility>
 #include <vector>
 
+namespace generator_tests
+{
 using namespace generator;
 
-namespace
-{
-class Feature : public tests_support::TestFeature
+class Feature : public generator::tests_support::TestFeature
 {
 public:
   Feature() = default;
@@ -53,10 +53,7 @@ public:
 private:
   std::vector<uint32_t> m_types;
 };
-}  // namespace
 
-namespace generator_tests
-{
 class TestDescriptionSectionBuilder
 {
 public:
@@ -343,11 +340,8 @@ private:
 };
 
 std::string const TestDescriptionSectionBuilder::kMwmFile = "MwmFile";
-
 std::string const TestDescriptionSectionBuilder::kDirPages = "wiki";
-}  // namespace generator_tests
 
-using namespace generator_tests;
 
 UNIT_CLASS_TEST(TestDescriptionSectionBuilder, DescriptionsCollectionBuilder_MakeDescriptions)
 {
@@ -379,8 +373,6 @@ UNIT_CLASS_TEST(TestDescriptionSectionBuilder, DescriptionsCollectionBuilder_Bui
   TestDescriptionSectionBuilder::BuildDescriptionsSection();
 }
 
-namespace generator_tests
-{
 
 // http://en.wikipedia.org/wiki/Helsinki_Olympic_Stadium/ -  en, de, ru, fr
 // https://en.wikipedia.org/wiki/Turku_Cathedral - en, ru

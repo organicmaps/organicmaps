@@ -52,7 +52,7 @@ namespace
 
 UNIT_TEST(Average)
 {
-  double const eps = 1.0E-3;
+  double constexpr eps = 1.0E-3;
 
   double arr1[] = { math::pi-eps, -math::pi+eps };
   TEST(is_equal_angle(ang::GetMiddleAngle(arr1[0], arr1[1]), math::pi), ());
@@ -74,7 +74,7 @@ UNIT_TEST(ShortestDistance)
 
 UNIT_TEST(TwoVectorsAngle)
 {
-  double const eps = 1e-10;
+  double constexpr eps = 1e-10;
   TEST(base::AlmostEqualAbs(ang::TwoVectorsAngle(m2::Point<double>(0, 0)  /* p */,
                                                  m2::Point<double>(0, 1)  /* p1 */,
                                                  m2::Point<double>(1, 0)) /* p2 */, 3 * math::pi2, eps), ());

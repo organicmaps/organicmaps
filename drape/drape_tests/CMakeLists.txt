@@ -8,7 +8,6 @@ set(SRC
   buffer_tests.cpp
   dummy_texture.hpp
   font_texture_tests.cpp
-  gl_functions.cpp
   gl_mock_functions.cpp
   gl_mock_functions.hpp
   glyph_mng_tests.cpp

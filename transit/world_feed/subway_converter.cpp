@@ -11,8 +11,11 @@
 #include <iterator>
 #include <limits>
 
-#include "3party/jansson/myjansson.hpp"
-#include "3party/opening_hours/opening_hours.hpp"
+namespace transit
+{
+std::string const kHashPrefix = "mapsme_transit";
+std::string const kDefaultLang = "default";
+std::string const kSubwayRouteType = "subway";
 
 namespace
 {
@@ -60,12 +63,7 @@ void UpdateReversedSegmentIndexes(transit::LineSegment & segment, size_t polylin
 }
 }  // namespace
 
-namespace transit
-{
-std::string const kHashPrefix = "mapsme_transit";
-std::string const kDefaultLang = "default";
-std::string const kSubwayRouteType = "subway";
-std::string const kDefaultHours = "24/7";
+
 
 SubwayConverter::SubwayConverter(std::string const & subwayJson, WorldFeed & feed)
   : m_subwayJson(subwayJson), m_feed(feed)

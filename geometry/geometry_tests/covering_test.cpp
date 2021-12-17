@@ -11,6 +11,8 @@
 
 // TODO: Add covering unit tests here.
 
+namespace covering_test
+{
 using namespace std;
 
 using CellId = m2::CellId<5>;
@@ -135,3 +137,4 @@ UNIT_TEST(Covering_Simplify_Smoke)
   e.push_back(CellId("0012"));
   TEST_EQUAL(v, e, ());
 }
+}  // namespace covering_test

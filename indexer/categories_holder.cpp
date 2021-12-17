@@ -13,7 +13,7 @@ using namespace std;
 
 namespace
 {
-enum State
+enum ParseState
 {
   EParseTypes,
   EParseLanguages
@@ -194,7 +194,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
   m_name2type.Clear();
   m_groupTranslations.clear();
 
-  State state = EParseTypes;
+  ParseState state = EParseTypes;
   string line;
   Category cat;
   vector<uint32_t> types;

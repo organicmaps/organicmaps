@@ -8,7 +8,7 @@
 
 #include <vector>
 
-namespace
+namespace polyline_tests
 {
 double constexpr kEps = 1e-5;
 
@@ -56,4 +56,4 @@ UNIT_TEST(Rect_PolylineMinDistanceTest)
   TestClosest(poly, m2::PointD(1.5, 5.0), 4.0 * 4.0 + 1.5 * 1.5 /* expectedSquaredDist */, 0 /* expectedIndex */);
   TestClosest(poly, m2::PointD(3.0, 1.0), 0.0 /* expectedSquaredDist */, 4 /* expectedIndex */);
 }
-}  // namespace
+}  // namespace polyline_tests

@@ -27,12 +27,12 @@
 BOOST_GEOMETRY_REGISTER_POINT_2D(m2::PointD, double, boost::geometry::cs::cartesian, x, y);
 BOOST_GEOMETRY_REGISTER_RING(std::vector<m2::PointD>);
 
-using namespace feature;
-
 namespace generator
 {
 namespace hierarchy
 {
+using namespace feature;
+
 namespace
 {
 double CalculateOverlapPercentage(std::vector<m2::PointD> const & lhs,

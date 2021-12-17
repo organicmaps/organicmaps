@@ -118,14 +118,6 @@ unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
 
 void GetAllLocalFiles(vector<LocalCountryFile> & localFiles)
 {
-  // Setting stored paths from testingmain.cpp
-  Platform & pl = GetPlatform();
-  CommandLineOptions const & options = GetTestingOptions();
-  if (options.m_dataPath)
-    pl.SetWritableDirForTests(options.m_dataPath);
-  if (options.m_resourcePath)
-    pl.SetResourceDir(options.m_resourcePath);
-
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */,
                                        localFiles);
   for (auto & file : localFiles)

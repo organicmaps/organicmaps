@@ -14,10 +14,12 @@
 
 namespace df
 {
+namespace arrow3d {
 double constexpr kArrowSize = 12.0;
 double constexpr kArrow3dScaleMin = 1.0;
 double constexpr kArrow3dScaleMax = 2.2;
 int constexpr kArrow3dMinZoom = 16;
+}  // namespace arrow3d
 
 float constexpr kOutlineScale = 1.2f;
 
@@ -40,12 +42,12 @@ Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context)
     0.0f, 0.0f, -1.0f, 1.0f,    0.0f,  2.0f, 0.0f, 1.0f,    1.2f, -1.0f, 0.0f, 1.0f,
     0.0f, 0.0f, -1.0f, 1.0f,    0.0f, -0.5f, 0.0f, 1.0f,    -1.2f, -1.0f, 0.0f, 1.0f,
     0.0f, 0.0f, -1.0f, 1.0f,    1.2f, -1.0f, 0.0f, 1.0f,    0.0f, -0.5f, 0.0f, 1.0f,
-    
+
     0.0f, 2.27f, 0.0f, 0.0f,    1.4f, -1.17f, 0.0f, 0.0f,   0.0f, 2.0f, 0.0f, 1.0f,
     0.0f, 2.0f, 0.0f, 1.0f,     1.4f, -1.17f, 0.0f, 0.0f,   1.2f, -1.0f, 0.0f, 1.0f,
     0.0f, 2.27f, 0.0f, 0.0f,    0.0f, 2.0f, 0.0f, 1.0f,     -1.4f, -1.17f, 0.0f, 0.0f,
     0.0f, 2.0f, 0.0f, 1.0f,     -1.2f, -1.0f, 0.0f, 1.0f,   -1.4f, -1.17f, 0.0f, 0.0f,
-    
+
     1.2f, -1.0f, 0.0f, 1.0f,    1.4f, -1.17f, 0.0f, 0.0f,   0.0f, -0.67f, 0.0f, 0.0f,
     0.0f, -0.5f, 0.0f, 1.0f,    1.2f, -1.0f, 0.0f, 1.0f,    0.0f, -0.67f, 0.0f, 0.0f,
     -1.2f, -1.0f, 0.0f, 1.0f,   0.0f, -0.67f, 0.0f, 0.0f,   -1.4f, -1.17f, 0.0f, 0.0f,
@@ -74,7 +76,7 @@ Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context)
 double Arrow3d::GetMaxBottomSize()
 {
   double const kBottomSize = 1.0;
-  return kBottomSize * kArrowSize * kArrow3dScaleMax * kOutlineScale;
+  return kBottomSize * arrow3d::kArrowSize * arrow3d::kArrow3dScaleMax * kOutlineScale;
 }
 
 void Arrow3d::SetPosition(const m2::PointD & position)
@@ -140,11 +142,11 @@ void Arrow3d::RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Pro
 math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz,
                                                       float scaleFactor, dp::ApiVersion apiVersion) const
 {
-  double arrowScale = VisualParams::Instance().GetVisualScale() * kArrowSize * scaleFactor;
+  double arrowScale = VisualParams::Instance().GetVisualScale() * arrow3d::kArrowSize * scaleFactor;
   if (screen.isPerspective())
   {
-    double const t = GetNormalizedZoomLevel(screen.GetScale(), kArrow3dMinZoom);
-    arrowScale *= (kArrow3dScaleMin * (1.0 - t) + kArrow3dScaleMax * t);
+    double const t = GetNormalizedZoomLevel(screen.GetScale(), arrow3d::kArrow3dMinZoom);
+    arrowScale *= (arrow3d::kArrow3dScaleMin * (1.0 - t) + arrow3d::kArrow3dScaleMax * t);
   }
 
   auto const scaleX = static_cast<float>(arrowScale * 2.0 / screen.PixelRect().SizeX());

@@ -19,10 +19,10 @@
 BOOST_GEOMETRY_REGISTER_POINT_2D(m2::PointD, double, boost::geometry::cs::cartesian, x, y);
 BOOST_GEOMETRY_REGISTER_RING(std::vector<m2::PointD>);
 
-namespace
+namespace feature
 {
-using namespace feature;
-
+namespace affiliation
+{
 template <typename T>
 struct RemoveCvref
 {
@@ -70,7 +70,7 @@ void ForEachPoint(T && t, F && f)
 
 // An implementation for CountriesFilesAffiliation class.
 template <typename T>
-std::vector<std::string> GetAffiliations(T && t,
+std::vector<std::string> GetAffiliations(T const & t,
                                          borders::CountryPolygonsCollection const & countryPolygonsTree,
                                          bool haveBordersForWholeWorld)
 {
@@ -168,10 +168,8 @@ std::vector<std::string> GetAffiliations(T && t, IndexSharedPtr const & index)
   auto const oneCountry = IsOneCountryForLimitRect(GetLimitRect(t), index);
   return oneCountry ? std::vector<std::string>{*oneCountry} : GetHonestAffiliations(t, index);
 }
-}  // namespace
+}  // namespace affiliation
 
-namespace feature
-{
 CountriesFilesAffiliation::CountriesFilesAffiliation(std::string const & borderPath, bool haveBordersForWholeWorld)
   : m_countryPolygonsTree(borders::GetOrCreateCountryPolygonsTree(borderPath))
   , m_haveBordersForWholeWorld(haveBordersForWholeWorld)
@@ -180,13 +178,13 @@ CountriesFilesAffiliation::CountriesFilesAffiliation(std::string const & borderP
 
 std::vector<std::string> CountriesFilesAffiliation::GetAffiliations(FeatureBuilder const & fb) const
 {
-  return ::GetAffiliations(fb, m_countryPolygonsTree, m_haveBordersForWholeWorld);
+  return affiliation::GetAffiliations(fb, m_countryPolygonsTree, m_haveBordersForWholeWorld);
 }
 
 std::vector<std::string>
 CountriesFilesAffiliation::GetAffiliations(m2::PointD const & point) const
 {
-  return ::GetAffiliations(point, m_countryPolygonsTree, m_haveBordersForWholeWorld);
+  return affiliation::GetAffiliations(point, m_countryPolygonsTree, m_haveBordersForWholeWorld);
 }
 
 bool CountriesFilesAffiliation::HasCountryByName(std::string const & name) const
@@ -221,12 +219,12 @@ CountriesFilesIndexAffiliation::CountriesFilesIndexAffiliation(std::string const
 
 std::vector<std::string> CountriesFilesIndexAffiliation::GetAffiliations(FeatureBuilder const & fb) const
 {
-  return ::GetAffiliations(fb, m_index);
+  return affiliation::GetAffiliations(fb, m_index);
 }
 
 std::vector<std::string> CountriesFilesIndexAffiliation::GetAffiliations(m2::PointD const & point) const
 {
-  return ::GetAffiliations(point, m_index);
+  return affiliation::GetAffiliations(point, m_index);
 }
 
 std::shared_ptr<CountriesFilesIndexAffiliation::Tree>
@@ -254,7 +252,7 @@ CountriesFilesIndexAffiliation::BuildIndex(const std::vector<m2::RectD> & net)
         }
         else
         {
-          auto const box = MakeBox(rect);
+          auto const box = affiliation::MakeBox(rect);
           std::vector<std::reference_wrapper<borders::CountryPolygons const>> interCountries;
           for (borders::CountryPolygons const & cp : countries)
           {
@@ -293,7 +291,7 @@ CountriesFilesIndexAffiliation::BuildIndex(const std::vector<m2::RectD> & net)
         {
           std::vector<std::reference_wrapper<borders::CountryPolygons const>> interCountries{*countryPtr};
           std::lock_guard<std::mutex> lock(treeCellsMutex);
-          treeCells.emplace_back(MakeBox(rect), std::move(interCountries));
+          treeCells.emplace_back(affiliation::MakeBox(rect), std::move(interCountries));
         }
       });
     }

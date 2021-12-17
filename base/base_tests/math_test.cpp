@@ -51,8 +51,8 @@ UNIT_TEST(AlmostEqualULPs_double)
   TEST_ALMOST_EQUAL_ULPS(3.0, 3.0, ());
   TEST_ALMOST_EQUAL_ULPS(+0.0, -0.0, ());
 
-  double const eps = std::numeric_limits<double>::epsilon();
-  double const dmax = std::numeric_limits<double>::max();
+  double constexpr eps = std::numeric_limits<double>::epsilon();
+  double constexpr dmax = std::numeric_limits<double>::max();
 
   TEST_ALMOST_EQUAL_ULPS(1.0 + eps, 1.0, ());
   TEST_ALMOST_EQUAL_ULPS(1.0 - eps, 1.0, ());
@@ -96,8 +96,8 @@ UNIT_TEST(AlmostEqualULPs_float)
 
 UNIT_TEST(AlmostEqual_Smoke)
 {
-  double const small = 1e-18;
-  double const eps = 1e-10;
+  double constexpr small = 1e-18;
+  double constexpr eps = 1e-10;
 
   TEST(base::AlmostEqualAbs(0.0, 0.0 + small, eps), ());
   TEST(!base::AlmostEqualRel(0.0, 0.0 + small, eps), ());

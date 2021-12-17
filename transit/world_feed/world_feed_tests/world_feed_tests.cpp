@@ -19,10 +19,10 @@
 #include "3party/just_gtfs/just_gtfs.h"
 #include "3party/opening_hours/opening_hours.hpp"
 
+namespace world_feed_tests
+{
 using namespace transit;
 
-namespace
-{
 std::vector<gtfs::CalendarAvailability> GetCalendarAvailability(std::vector<size_t> const & data)
 {
   CHECK_EQUAL(data.size(), 7, ());
@@ -412,9 +412,6 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_NearCircle)
 
 UNIT_TEST(Transit_ColorPicker)
 {
-  auto const & options = GetTestingOptions();
-  GetPlatform().SetResourceDir(options.m_resourcePath);
-
   ColorPicker colorPicker;
 
   // We check that we don't match with the 'text' colors subset. This is the color of transit
@@ -571,4 +568,4 @@ UNIT_TEST(SplitLineToRegions)
   TestStopsRange({1, 2, 3, 4, 5, 6, 7} /* stopsOnLine */, {3, 4} /* stopsInRegion */,
                  1 /* firstIdxPlan */, 4 /* lastIdxPlan */);
 }
-}  // namespace
+}  // namespace world_feed_tests

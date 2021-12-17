@@ -10,9 +10,9 @@ namespace df
 
 namespace
 {
-double const kValidSplineTurn = 15 * math::pi / 180;
-double const kCosTurn = cos(kValidSplineTurn);
-double const kSinTurn = sin(kValidSplineTurn);
+double const kValidPathSplineTurn = 15 * math::pi / 180;
+double const kCosTurn = cos(kValidPathSplineTurn);
+double const kSinTurn = sin(kValidPathSplineTurn);
 double const kRoundStep = 23;
 int const kMaxStepsCount = 7;
 
@@ -91,7 +91,7 @@ void AddPointAndRound(m2::Spline & spline, m2::PointD const & pt)
   double const dotProduct = m2::DotProduct(dir1, dir2);
   if (dotProduct < kCosTurn)
   {
-    int leftStepsCount = static_cast<int>(acos(dotProduct) / kValidSplineTurn);
+    int leftStepsCount = static_cast<int>(acos(dotProduct) / kValidPathSplineTurn);
     std::vector<m2::PointD> roundedCorner;
     while (leftStepsCount > 0 && leftStepsCount <= kMaxStepsCount &&
            RoundCorner(spline.GetPath()[spline.GetSize() - 2],

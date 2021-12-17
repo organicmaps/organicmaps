@@ -25,9 +25,10 @@
 #ifndef FIRSTSESSION_H
 #define FIRSTSESSION_H
 
+#import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 #import <Foundation/NSDate.h>
-#import <CoreLocation/CoreLocation.h>
+#import <TargetConditionals.h> // TARGET_OS_IPHONE
 
 #if (TARGET_OS_IPHONE > 0)
 #import <UIKit/UIApplication.h> // enum UIBackgroundFetchResult

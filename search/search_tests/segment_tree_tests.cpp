@@ -11,13 +11,13 @@
 #include <set>
 #include <vector>
 
+namespace segment_tree_tests
+{
 using namespace search;
 using namespace std;
 
 using Segment = SegmentTree::Segment;
 
-namespace
-{
 auto const kInvalidId = numeric_limits<size_t>::max();
 
 size_t FindAny(SegmentTree const & tree, double x)
@@ -89,4 +89,4 @@ UNIT_TEST(SegmentTree_Simple)
   TEST_EQUAL((set<size_t>{2}), FindAll(tree, -5.5), ());
   TEST_EQUAL((set<size_t>{2, 3}), FindAll(tree, -5), ());
 }
-}  // namespace
+}  // namespace segment_tree_tests

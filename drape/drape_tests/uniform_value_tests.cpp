@@ -20,7 +20,7 @@ using ::testing::Invoke;
 using ::testing::InSequence;
 using namespace dp;
 
-namespace
+namespace uniform_value_tests
 {
 template<typename T>
 class MemoryComparer
@@ -74,7 +74,6 @@ void mock_glGetActiveUniform(uint32_t programID, uint32_t index, int32_t * size,
     ASSERT(false, ("Undefined index:", index));
   }
 }
-}  // namespace
 
 UNIT_TEST(UniformValueTest)
 {
@@ -179,3 +178,4 @@ UNIT_TEST(UniformValueTest)
   vs.reset();
   fs.reset();
 }
+}  // namespace uniform_value_tests

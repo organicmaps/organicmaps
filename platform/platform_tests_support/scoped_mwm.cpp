@@ -12,14 +12,13 @@
 
 #include "base/timer.hpp"
 
-using feature::DataHeader;
 namespace platform
 {
 namespace tests_support
 {
 ScopedMwm::ScopedMwm(std::string const & relativePath) : m_file(relativePath, ScopedFile::Mode::Create)
 {
-  DataHeader header;
+  feature::DataHeader header;
   {
     FilesContainerW container(m_file.GetFullPath());
 

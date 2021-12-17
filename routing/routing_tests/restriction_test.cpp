@@ -15,10 +15,11 @@
 #include <utility>
 #include <vector>
 
-namespace routing_test
+namespace restriction_test
 {
-using namespace std;
 using namespace routing;
+using namespace routing_test;
+using namespace std;
 
 using Algorithm = AStarAlgorithm<Segment, SegmentEdge, RouteWeight>;
 
@@ -1084,5 +1085,4 @@ UNIT_CLASS_TEST(RestrictionTest, RestrictionOnlyWithWayAsVia_1)
   test({start, {0, 0}, {1, 0}, {2, 0}, {2, 1}, {3, 1}, finish}, std::move(restrictionsNo));
   test({start, {0, 0}, {1, 0}, {2, 0}, {3, 1}, finish}, RestrictionVec());
 }
-}  // namespace routing_test
-
+}  // namespace restriction_test

@@ -57,8 +57,8 @@ sort_typeBstar(const sauchar_t *T, saidx_it SA,
   saint_t c0, c1;
 
   /* Initialize bucket arrays. */
-  for(i = 0; i < BUCKET_A_SIZE; ++i) { bucket_A[i] = 0; }
-  for(i = 0; i < BUCKET_B_SIZE; ++i) { bucket_B[i] = 0; }
+  for(i = 0; i < static_cast<saidx_t>(BUCKET_A_SIZE); ++i) { bucket_A[i] = 0; }
+  for(i = 0; i < static_cast<saidx_t>(BUCKET_B_SIZE); ++i) { bucket_B[i] = 0; }
 
   /* Count the number of occurrences of the first one or two characters of each
      type A, B and B* suffix. Moreover, store the beginning position of all
@@ -84,11 +84,11 @@ note:
 */
 
   /* Calculate the index of start/end point of each bucket. */
-  for(c0 = 0, i = 0, j = 0; c0 < ALPHABET_SIZE; ++c0) {
+  for(c0 = 0, i = 0, j = 0; c0 < static_cast<saint_t>(ALPHABET_SIZE); ++c0) {
     t = i + BUCKET_A(c0);
     BUCKET_A(c0) = i + j; /* start point */
     i = t + BUCKET_B(c0, c0);
-    for(c1 = c0 + 1; c1 < ALPHABET_SIZE; ++c1) {
+    for(c1 = c0 + 1; c1 < static_cast<saint_t>(ALPHABET_SIZE); ++c1) {
       j += BUCKET_BSTAR(c0, c1);
       BUCKET_BSTAR(c0, c1) = j; /* end point */
       i += BUCKET_B(c0, c1);
@@ -178,10 +178,9 @@ construct_SA(const sauchar_t *T, saidx_it SA,
        the sorted order of type B* suffixes. */
     for(c1 = ALPHABET_SIZE - 2; 0 <= c1; --c1) {
       /* Scan the suffix array from right to left. */
-      for(i = SA + BUCKET_BSTAR(c1, c1 + 1),
-          j = SA + BUCKET_A(c1 + 1) - 1, k = NULL, c2 = -1;
-          i <= j;
-          --j) {
+      for (i = SA + BUCKET_BSTAR(c1, c1 + 1), j = SA + BUCKET_A(c1 + 1) - 1,
+          k = nullptr, c2 = -1;
+           i <= j; --j) {
         if(0 < (s = *j)) {
           assert(T[s] == c1);
           assert(((s + 1) < n) && (T[s] <= T[s + 1]));
@@ -239,16 +238,24 @@ divsufsort(const sauchar_t *T, saidx_it SA, saidx_t n) {
   saint_t err = 0;
 
   /* Check arguments. */
-  if((T == NULL) || (SA == NULL) || (n < 0)) { return -1; }
-  else if(n == 0) { return 0; }
-  else if(n == 1) { SA[0] = 0; return 0; }
-  else if(n == 2) { m = (T[0] < T[1]); SA[m ^ 1] = 0, SA[m] = 1; return 0; }
+  if ((T == nullptr) || (SA == nullptr) || (n < 0)) {
+    return -1;
+  } else if (n == 0) {
+    return 0;
+  } else if (n == 1) {
+    SA[0] = 0;
+    return 0;
+  } else if (n == 2) {
+    m = (T[0] < T[1]);
+    SA[m ^ 1] = 0, SA[m] = 1;
+    return 0;
+  }
 
   bucket_A = (saidx_t *)malloc(BUCKET_A_SIZE * sizeof(saidx_t));
   bucket_B = (saidx_t *)malloc(BUCKET_B_SIZE * sizeof(saidx_t));
 
   /* Suffixsort. */
-  if((bucket_A != NULL) && (bucket_B != NULL)) {
+  if ((bucket_A != nullptr) && (bucket_B != nullptr)) {
     m = sort_typeBstar(T, SA, bucket_A, bucket_B, n);
     construct_SA(T, SA, bucket_A, bucket_B, n, m);
   } else {

@@ -477,7 +477,7 @@ UNIT_TEST(HS_MWMSearch)
       p.x = mercator::XToLon(p.x);
       p.y = mercator::YToLat(p.y);
 
-      //double const eps = 3.0E-4;
+      //double constexpr eps = 3.0E-4;
       //if (fabs(p.x - a.m_lon) < eps && fabs(p.y - a.m_lat) < eps)
       if (ms::DistanceOnEarth(a.m_lat, a.m_lon, p.y, p.x) < 3.0)
       {

@@ -1,9 +1,8 @@
 #include "testing/testing.hpp"
 
-#include "platform/platform_tests_support/scoped_mwm.cpp"
+#include "platform/platform_tests_support/scoped_mwm.hpp"
 
 #include "indexer/indexer_tests/test_mwm_set.hpp"
-
 #include "indexer/mwm_set.hpp"
 
 #include "base/macros.hpp"
@@ -11,16 +10,16 @@
 #include <initializer_list>
 #include <unordered_map>
 
+namespace mwm_set_test
+{
+using namespace platform::tests_support;
 using namespace std;
 using platform::CountryFile;
 using platform::LocalCountryFile;
 using tests::TestMwmSet;
-using namespace platform::tests_support;
 
 using MwmsInfo = unordered_map<string, shared_ptr<MwmInfo>>;
 
-namespace
-{
 void GetMwmsInfo(MwmSet const & mwmSet, MwmsInfo & mwmsInfo)
 {
   vector<shared_ptr<MwmInfo>> mwmsInfoList;
@@ -37,7 +36,6 @@ void TestFilesPresence(MwmsInfo const & mwmsInfo, initializer_list<string> const
   for (string const & countryFileName : expectedNames)
     TEST_EQUAL(1, mwmsInfo.count(countryFileName), (countryFileName));
 }
-}  // namespace
 
 UNIT_TEST(MwmSetSmokeTest)
 {
@@ -171,3 +169,4 @@ UNIT_TEST(MwmSetLockAndIdTest)
   TEST(!handle.GetId().IsAlive(), ());
   TEST(!handle.GetId().GetInfo().get(), ());
 }
+}  // namespace mwm_set_test

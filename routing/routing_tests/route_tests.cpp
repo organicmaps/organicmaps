@@ -16,12 +16,12 @@
 #include <string>
 #include <vector>
 
+namespace route_tests
+{
 using namespace routing;
 using namespace routing::turns;
 using namespace std;
 
-namespace
-{
 static vector<m2::PointD> const kTestGeometry({{0, 0}, {0,1}, {1,1}, {1,2}, {1,3}});
 static vector<Segment> const kTestSegments(
     {{0, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}, {0, 0, 3, true}});
@@ -87,7 +87,6 @@ std::vector<vector<Segment>> GetSegments()
       {kFakeNumMwmId, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}, {kFakeNumMwmId, 0, 3, true}};
   return {segmentsAllReal, segmentsFakeHeadAndTail, segmentsAllFake};
 }
-}  // namespace
 
 UNIT_TEST(AddAbsentCountryToRouteTest)
 {
@@ -373,3 +372,4 @@ UNIT_TEST(RouteNameTest)
   route.GetCurrentStreetName(name);
   TEST_EQUAL(name, "Street2", ());
 }
+}  // namespace route_tests

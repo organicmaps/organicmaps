@@ -5,8 +5,6 @@
 
 #include "base/macros.hpp"
 
-namespace base
-{
 namespace threads
 {
 template <typename Thread = std::thread, typename ThreadContainer = std::vector<Thread>>
@@ -77,4 +75,3 @@ private:
   DISALLOW_COPY(FunctionWrapper);
 };
 }  // namespace threads
-}  // namespace base

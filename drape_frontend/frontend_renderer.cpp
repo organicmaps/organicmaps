@@ -2727,7 +2727,7 @@ m2::AnyRectD TapInfo::GetRoutingPointTapRect(m2::PointD const & mercator, Screen
 }
 
 // static
-m2::AnyRectD TapInfo::GetPreciseTapRect(m2::PointD const & mercator, double const eps)
+m2::AnyRectD TapInfo::GetPreciseTapRect(m2::PointD const & mercator, double eps)
 {
   return m2::AnyRectD(mercator, ang::AngleD(0.0) /* angle */, m2::RectD(-eps, -eps, eps, eps));
 }

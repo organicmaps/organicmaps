@@ -9,8 +9,9 @@
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
+namespace download_calc_size_test
+{
 using namespace storage;
-
 void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
                  Storage::ProgressFunction const & progress)
 {
@@ -42,7 +43,7 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
 
   TEST_EQUAL(baseProgress.m_bytesDownloaded, 0, ());
   TEST_EQUAL(baseProgress.m_bytesTotal, 0, ());
-  
+
   for (auto const &country : kTestCountries)
   {
     baseProgress.m_bytesTotal += s.CountrySizeInBytes(country).second;
@@ -52,10 +53,10 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
                                                               downloader::Progress const & /* progress */) {
     auto const currentProgress = s.GetOverallProgress(kTestCountries);
     LOG_SHORT(LINFO, (id, "downloading progress:", currentProgress));
-    
+
     TEST_GREATER_OR_EQUAL(currentProgress.m_bytesDownloaded, baseProgress.m_bytesDownloaded, ());
     baseProgress.m_bytesDownloaded = currentProgress.m_bytesDownloaded;
-    
+
     TEST_LESS_OR_EQUAL(currentProgress.m_bytesDownloaded, baseProgress.m_bytesTotal, ());
     TEST_EQUAL(currentProgress.m_bytesTotal, baseProgress.m_bytesTotal, ());
   };
@@ -64,6 +65,7 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
 
   for (auto const & countryId : kTestCountries)
     s.DownloadNode(countryId);
-  
+
   testing::RunEventLoop();
 }
+}  // namespace download_calc_size_test

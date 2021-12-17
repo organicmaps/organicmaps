@@ -199,3 +199,4 @@ namespace android
 }
 
 extern std::unique_ptr<android::Framework> g_framework;
+::Framework * frm();

@@ -123,18 +123,11 @@ void ClassifObject::ConcatChildNames(string & s) const
 // Classificator implementation
 /////////////////////////////////////////////////////////////////////////////////////////
 
-namespace
-{
-Classificator & classif(MapStyle mapStyle)
-{
-  static Classificator c[MapStyleCount];
-  return c[mapStyle];
-}
-} // namespace
-
 Classificator & classif()
 {
-  return classif(GetStyleReader().GetCurrentStyle());
+  static Classificator c[MapStyleCount];
+  MapStyle const mapStyle = GetStyleReader().GetCurrentStyle();
+  return c[mapStyle];
 }
 
 namespace ftype

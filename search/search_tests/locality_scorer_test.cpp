@@ -24,12 +24,12 @@
 #include <unordered_map>
 #include <vector>
 
+namespace locality_scorer_test
+{
 using namespace search;
 using namespace std;
 using namespace strings;
 
-namespace
-{
 class LocalityScorerTest : public LocalityScorer::Delegate
 {
 public:
@@ -164,7 +164,6 @@ protected:
 
   base::MemTrie<UniString, base::VectorValues<uint32_t>> m_searchIndex;
 };
-}  // namespace
 
 UNIT_CLASS_TEST(LocalityScorerTest, Smoke)
 {
@@ -344,3 +343,4 @@ UNIT_CLASS_TEST(LocalityScorerTest, MatchedRegion)
   TEST_EQUAL(GetTopLocalities(3 /* limit */),
              Ids({ID_SPRINGFIELD_MATCHED_REGION, ID_SPRINGFIELD_CLOSE, ID_SPRINGFIELD_RANK1}), ());
 }
+}  // namespace locality_scorer_test
