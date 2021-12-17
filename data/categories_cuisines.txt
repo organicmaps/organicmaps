@@ -60,7 +60,7 @@ uk:Випічка
 vi:Bánh mì vòng bagel
 zh-Hans:贝格
 zh-Hant:貝果
-el:Κουλούρι
+el:Κουλούρι|Μπάγκελ
 he:בייגל
 sk:Bagely
 
@@ -107,7 +107,7 @@ da:Burger
 nl:Hamburgers
 fi:Hampurilainen
 fr:Hamburger
-de:Burger
+de:Burger|Hamburger
 hu:Hamburger
 id:Burger
 it:Hamburger
@@ -126,7 +126,7 @@ uk:Бургери
 vi:Bánh hamburger
 zh-Hans:汉堡包
 zh-Hant:漢堡
-el:Μπιφτέκι
+el:Μπιφτέκι|Χάμπουργκερ
 he:המבורגר
 sk:Hamburger
 
@@ -140,7 +140,7 @@ da:Kager
 nl:Taart
 fi:Kakku
 fr:Gâteau
-de:Kuchen
+de:Kuchen|Bäckerei
 hu:Torta
 id:Kue
 it:Torte
@@ -159,7 +159,7 @@ uk:Кондитерська
 vi:Bánh ngọt
 zh-Hans:蛋糕
 zh-Hant:蛋糕
-el:Κέικ
+el:Κέικ|αρτοποιείο
 he:עוגה
 sk:Koláče
 
@@ -192,7 +192,7 @@ uk:Кава
 vi:Cà phê
 zh-Hans:咖啡
 zh-Hant:咖啡
-el:Καφές
+el:Καφές|καφενείο
 he:הֶפָק
 sk:Káva
 sw:Kahawa
