@@ -66,6 +66,7 @@ platform :ios do
       workspace: 'omim.xcworkspace',
       scheme: 'OMaps',
       configuration: 'Release',
+      silent: false,
       clean: false,
       include_symbols: true,
       include_bitcode: true,
