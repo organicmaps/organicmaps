@@ -2251,39 +2251,39 @@
 
 "type.historic.archaeological_site" = "Ausgrabungsstätte";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "Schlachtfeld";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Grenzstein";
 
 "type.historic.castle" = "Burg";
 
 "type.historic.castle.defensive" = "Burg";
 
-"type.historic.castle.stately" = "Burg";
+"type.historic.castle.stately" = "Schloss";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "Stadtmauer";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "Festung";
 
 "type.historic.memorial" = "Denkmal";
 
-"type.historic.memorial.plaque" = "Denkmal";
+"type.historic.memorial.plaque" = "Gedenktafel";
 
-"type.historic.memorial.sculpture" = "Denkmal";
+"type.historic.memorial.sculpture" = "Skulptur";
 
-"type.historic.memorial.statue" = "Denkmal";
+"type.historic.memorial.statue" = "Statue";
 
 "type.historic.monument" = "Monument";
 
-"type.historic.ruins" = "Ruinen";
+"type.historic.ruins" = "Ruine";
 
 "type.historic.ship" = "Schiff";
 
 "type.historic.tomb" = "Grabstätte";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "Wegkreuz";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "Bildstock";
 
 "type.hwtag" = "hwtag";
 
@@ -2321,29 +2321,29 @@
 
 "type.landuse" = "Landuse";
 
-"type.landuse.allotments" = "Allotments";
+"type.landuse.allotments" = "Kleingarten";
 
 "type.landuse.basin" = "Wasserbecken";
 
-"type.landuse.brownfield" = "Brownfield";
+"type.landuse.brownfield" = "Brachfläche";
 
 "type.landuse.cemetery" = "Friedhof";
 
 "type.landuse.cemetery.christian" = "Friedhof";
 
-"type.landuse.churchyard" = "Kirchenhof";
+"type.landuse.churchyard" = "Kirchhof";
 
-"type.landuse.commercial" = "Commercial Area";
+"type.landuse.commercial" = "Gewerbegebiet";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "Baustelle";
 
-"type.landuse.farm" = "Farm";
+"type.landuse.farm" = "Bauernhof";
 
 "type.landuse.farmland" = "Agrarland";
 
 "type.landuse.farmyard" = "Farmyard";
 
-"type.landuse.field" = "Field";
+"type.landuse.field" = "Feld";
 
 "type.landuse.forest" = "Wald";
 
@@ -2353,41 +2353,41 @@
 
 "type.landuse.forest.mixed" = "Mischwald";
 
-"type.landuse.garages" = "Garages";
+"type.landuse.garages" = "Garagen";
 
 "type.landuse.grass" = "Wiese";
 
-"type.landuse.greenfield" = "Greenfield";
+"type.landuse.greenfield" = "Rohbauland";
 
-"type.landuse.greenhouse_horticulture" = "Greenhouse";
+"type.landuse.greenhouse_horticulture" = "Gewächshaus-Fläche";
 
-"type.landuse.industrial" = "Industrial Land";
+"type.landuse.industrial" = "Industriegebiet";
 
 "type.landuse.landfill" = "Müllhalde";
 
-"type.landuse.meadow" = "Meadow";
+"type.landuse.meadow" = "Wiese";
 
-"type.landuse.military" = "Military Area";
+"type.landuse.military" = "Militärisch genutztes Gebiet";
 
-"type.landuse.orchard" = "Orchard";
+"type.landuse.orchard" = "Obstplantage";
 
-"type.landuse.quarry" = "Quarry";
+"type.landuse.quarry" = "Steinbruch";
 
 "type.landuse.railway" = "Eisenbahnanlagen";
 
-"type.landuse.recreation_ground" = "Recreation Ground";
+"type.landuse.recreation_ground" = "Erholungsgebiet";
 
 "type.landuse.reservoir" = "Wasserfläche";
 
-"type.landuse.residential" = "Residential Land";
+"type.landuse.residential" = "Wohngebiet";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Einzelhandelsgebiet";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Saline";
 
 "type.landuse.village_green" = "Land";
 
-"type.landuse.vineyard" = "Vineyard";
+"type.landuse.vineyard" = "Weinberg";
 
 "type.leisure" = "Leisure";
 
@@ -2403,7 +2403,7 @@
 
 "type.leisure.golf_course" = "Golfplatz";
 
-"type.leisure.ice_rink" = "Ice Rink";
+"type.leisure.ice_rink" = "Eislaufplatz";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
 
@@ -2429,7 +2429,7 @@
 
 "type.leisure.sauna" = "Sauna";
 
-"type.leisure.slipway" = "Slipway";
+"type.leisure.slipway" = "Bootsrampe";
 
 "type.leisure.sports_centre" = "Sportzentrum";
 
@@ -2445,23 +2445,23 @@
 
 "type.leisure.swimming_pool" = "Schwimmbecken";
 
-"type.leisure.track" = "Track";
+"type.leisure.track" = "Laufbahn";
 
 "type.leisure.water_park" = "Aquapark";
 
 "type.man_made" = "Man Made";
 
-"type.man_made.breakwater" = "Breakwater";
+"type.man_made.breakwater" = "Wellenbrecher";
 
-"type.man_made.cairn" = "Cairn";
+"type.man_made.cairn" = "Steinhaufen";
 
 "type.man_made.chimney" = "Fabrikschornstein";
 
-"type.man_made.cutline" = "Cutline";
+"type.man_made.cutline" = "Schneise";
 
 "type.man_made.lighthouse" = "Leuchtturm";
 
-"type.man_made.pier" = "Pier";
+"type.man_made.pier" = "Anlegestelle";
 
 "type.man_made.pipeline" = "Pipeline";
 
@@ -2469,13 +2469,13 @@
 
 "type.man_made.silo" = "Silo";
 
-"type.man_made.storage_tank" = "Storage Tank";
+"type.man_made.storage_tank" = "Speichertank";
 
 "type.man_made.surveillance" = "Überwachungskamera";
 
 "type.man_made.tower" = "Turm";
 
-"type.man_made.wastewater_plant" = "Wastewater Plant";
+"type.man_made.wastewater_plant" = "Kläranlage";
 
 "type.man_made.water_tap" = "Wasserhahn";
 
@@ -2485,7 +2485,7 @@
 
 "type.man_made.windmill" = "Windmühle";
 
-"type.man_made.works" = "Industrial Works";
+"type.man_made.works" = "Fabrik";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2495,27 +2495,27 @@
 
 "type.military.bunker" = "Bunker";
 
-"type.mountain_pass" = "Mountain Pass";
+"type.mountain_pass" = "Gebirgspass";
 
 "type.natural" = "Natural";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Nackter Fels";
 
 "type.natural.bay" = "Bucht";
 
 "type.natural.beach" = "Strand";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Sandstrand";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Kiesstrand";
 
 "type.natural.cape" = "Kap";
 
 "type.natural.cave_entrance" = "Höhle";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Klippe";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Küstenlinie";
 
 "type.natural.geyser" = "Geysir";
 
@@ -2523,9 +2523,9 @@
 
 "type.natural.grassland" = "Grasland";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Heide";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Thermalquelle";
 
 "type.natural.water.lake" = "See";
 
@@ -2543,11 +2543,11 @@
 
 "type.natural.orchard" = "Orchard";
 
-"type.natural.peak" = "Berg";
+"type.natural.peak" = "Gipfel";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Bergsattel";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Fels";
 
 "type.natural.scrub" = "Dickicht";
 
@@ -2557,9 +2557,9 @@
 
 "type.natural.tree" = "Baum";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Allee";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Weinberg";
 
 "type.natural.volcano" = "Vulkan";
 
@@ -2567,9 +2567,9 @@
 
 "type.natural.wetland" = "Moorgegend";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Moor";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Sumpf";
 
 "type.noexit" = "noexit";
 
