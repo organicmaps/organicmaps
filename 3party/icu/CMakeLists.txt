@@ -14,6 +14,7 @@ set(SRC
   icu/icu4c/source/common/cmemory.cpp
   icu/icu4c/source/common/cstring.cpp
   icu/icu4c/source/common/edits.cpp
+  icu/icu4c/source/common/emojiprops.cpp
   icu/icu4c/source/common/loadednormalizer2impl.cpp
   icu/icu4c/source/common/localebuilder.cpp
   icu/icu4c/source/common/locid.cpp
@@ -38,6 +39,8 @@ set(SRC
   icu/icu4c/source/common/ubidiwrt.cpp
   icu/icu4c/source/common/ucase.cpp
   icu/icu4c/source/common/uchar.cpp
+  icu/icu4c/source/common/ucharstrie.cpp
+  icu/icu4c/source/common/ucharstrieiterator.cpp
   icu/icu4c/source/common/ucln_cmn.cpp
   icu/icu4c/source/common/ucmndata.cpp
   icu/icu4c/source/common/ucptrie.cpp
@@ -85,6 +88,7 @@ set(SRC
   icu/icu4c/source/common/utrie2.cpp
   icu/icu4c/source/common/utrie_swap.cpp
   icu/icu4c/source/common/uvector.cpp
+  icu/icu4c/source/common/uvectr32.cpp
   icu/icu4c/source/i18n/anytrans.cpp
   icu/icu4c/source/i18n/casetrn.cpp
   icu/icu4c/source/i18n/cpdtrans.cpp
