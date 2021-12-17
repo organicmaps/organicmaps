@@ -235,7 +235,7 @@ std::string DebugPrint(m2::Point<T> const & p)
 }
 
 template <typename T>
-bool AlmostEqualAbs(m2::Point<T> const & a, m2::Point<T> const & b, double const eps)
+bool AlmostEqualAbs(m2::Point<T> const & a, m2::Point<T> const & b, double eps)
 {
   return base::AlmostEqualAbs(a.x, b.x, eps) && base::AlmostEqualAbs(a.y, b.y, eps);
 }
@@ -309,7 +309,7 @@ bool AlmostEqualULPs(m2::Point<T> const & p1, m2::Point<T> const & p2, unsigned 
 }
 
 template <typename T>
-bool AlmostEqualAbs(m2::Point<T> const & p1, m2::Point<T> const & p2, double const & eps)
+bool AlmostEqualAbs(m2::Point<T> const & p1, m2::Point<T> const & p2, double eps)
 {
   return m2::AlmostEqualAbs(p1, p2, eps);
 }

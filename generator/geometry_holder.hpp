@@ -31,7 +31,7 @@ public:
   // For FeatureType serialization maxNumTriangles should be less than numeric_limits<uint8_t>::max
   // because FeatureType format uses uint8_t to encode the number of triangles.
   GeometryHolder(FileGetter geoFileGetter, FileGetter trgFileGetter, FeatureBuilder & fb,
-                 feature::DataHeader const & header, size_t maxNumTriangles = 14)
+                 DataHeader const & header, size_t maxNumTriangles = 14)
     : m_geoFileGetter(geoFileGetter)
     , m_trgFileGetter(trgFileGetter)
     , m_fb(fb)
@@ -42,7 +42,7 @@ public:
   {
   }
 
-  GeometryHolder(FeatureBuilder & fb, feature::DataHeader const & header,
+  GeometryHolder(FeatureBuilder & fb, DataHeader const & header,
                  size_t maxNumTriangles = 14)
     : m_fb(fb)
     , m_ptsInner(true)

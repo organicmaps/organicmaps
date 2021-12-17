@@ -23,7 +23,7 @@ using namespace routing;
 
 namespace openlr
 {
-namespace
+namespace cpg
 {
 int const kNumBuckets = 256;
 double const kAnglesInBucket = 360.0 / kNumBuckets;
@@ -35,7 +35,7 @@ uint32_t Bearing(m2::PointD const & a, m2::PointD const & b)
   CHECK_GREATER_OR_EQUAL(angle, 0, ("Angle should be greater than or equal to 0"));
   return base::Clamp(angle / kAnglesInBucket, 0.0, 255.0);
 }
-}  // namespace
+}  // namespace cpg
 
 // CandidatePathsGetter::Link ----------------------------------------------------------------------
 Graph::Edge CandidatePathsGetter::Link::GetStartEdge() const
@@ -215,7 +215,7 @@ void CandidatePathsGetter::GetBestCandidatePaths(
       auto const bearEndPoint =
           pointsSelector.GetEndPoint(part->m_edge, part->m_distanceM);
 
-      auto const bearing = Bearing(bearStartPoint, bearEndPoint);
+      auto const bearing = cpg::Bearing(bearStartPoint, bearEndPoint);
       auto const bearingDiff = AbsDifference(bearing, requiredBearing);
       auto const pathDistDiff = AbsDifference(part->m_distanceM, bearDistM);
 

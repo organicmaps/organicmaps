@@ -10,10 +10,10 @@
 
 #include "3party/just_gtfs/just_gtfs.h"
 
-using namespace transit;
-
-namespace
+namespace transit_schedule_tests
 {
+using namespace ::transit;
+
 // String dates are provided in GTFS date format YYYYMMDD.
 // String times are provided in GTFS time format HH:MM:SS.
 uint32_t GetYear(std::string const & date) { return std::stoi(date.substr(0, 4)); }
@@ -244,4 +244,4 @@ UNIT_TEST(TransitSchedule_Schedule_DateException_Status)
   // 01.01.2020.
   TEST(busSchedule.GetStatus(time_t(1577874088)) == Status::Unknown, ());
 }
-}  // namespace
+}  // namespace transit_schedule_tests

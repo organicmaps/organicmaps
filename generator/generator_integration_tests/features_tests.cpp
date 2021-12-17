@@ -430,11 +430,6 @@ private:
     classificator::Load();
     auto & platform = GetPlatform();
 
-    // Should be initialized in testingmain.cpp
-    //auto const & options = GetTestingOptions();
-    //platform.SetResourceDir(options.m_resourcePath);
-    //platform.SetSettingsDir(options.m_resourcePath);
-
     m_threadCount = static_cast<size_t>(platform.CpuCores());
     m_testPath = base::JoinPath(platform.WritableDir(), "gen-test");
     m_genInfo.SetNodeStorageType("map");

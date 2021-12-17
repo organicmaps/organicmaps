@@ -134,7 +134,7 @@ public:
   }
 };
 
-namespace detail
+namespace polygon_detail
 {
   template <typename F> class StripEmitter
   {
@@ -164,11 +164,11 @@ namespace detail
 
 /// Make single strip for the range of points [beg, end), started with index = i.
 template <typename F>
-void MakeSingleStripFromIndex(size_t i, size_t n, F f)
+void MakeSingleStripFromIndex(size_t i, size_t n, F && f)
 {
   ASSERT_LESS(i, n, ());
   f(i);
-  FindSingleStripForIndex(i, n, detail::StripEmitter<F>(f));
+  FindSingleStripForIndex(i, n, polygon_detail::StripEmitter<F>(f));
 }
 
 template <class TIter> double GetPolygonArea(TIter beg, TIter end)

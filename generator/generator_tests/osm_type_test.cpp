@@ -19,67 +19,67 @@
 #include <string>
 #include <vector>
 
+namespace osm_type_test
+{
 using namespace generator::tests_support;
 using namespace tests;
 
 using Tags = std::vector<OsmElement::Tag>;
 
-namespace
+void DumpTypes(std::vector<uint32_t> const & v)
 {
-  void DumpTypes(std::vector<uint32_t> const & v)
+  Classificator const & c = classif();
+  for (size_t i = 0; i < v.size(); ++i)
+    std::cout << c.GetFullObjectName(v[i]) << std::endl;
+}
+
+void DumpParsedTypes(Tags const & tags)
+{
+  OsmElement e;
+  FillXmlElement(tags, &e);
+
+  FeatureBuilderParams params;
+  ftype::GetNameAndType(&e, params);
+
+  DumpTypes(params.m_types);
+}
+
+void TestSurfaceTypes(std::string const & surface, std::string const & smoothness,
+                      std::string const & grade, char const * value)
+{
+  OsmElement e;
+  e.AddTag("highway", "unclassified");
+  e.AddTag("surface", surface);
+  e.AddTag("smoothness", smoothness);
+  e.AddTag("surface:grade", grade);
+
+  FeatureBuilderParams params;
+  ftype::GetNameAndType(&e, params);
+
+  TEST_EQUAL(params.m_types.size(), 2, (params));
+  TEST(params.IsTypeExist(GetType({"highway", "unclassified"})), ());
+  std::string psurface;
+  for (auto type : params.m_types)
   {
-    Classificator const & c = classif();
-    for (size_t i = 0; i < v.size(); ++i)
-      std::cout << c.GetFullObjectName(v[i]) << std::endl;
+    std::string const rtype = classif().GetReadableObjectName(type);
+    if (rtype.substr(0, 9) == "psurface-")
+      psurface = rtype.substr(9);
   }
+  TEST(params.IsTypeExist(GetType({"psurface", value})),
+        ("Surface:", surface, "Smoothness:", smoothness, "Grade:", grade, "Expected:", value,
+        "Got:", psurface));
+}
 
-  void DumpParsedTypes(Tags const & tags)
-  {
-    OsmElement e;
-    FillXmlElement(tags, &e);
+FeatureBuilderParams GetFeatureBuilderParams(Tags const & tags)
+{
+  OsmElement e;
+  FillXmlElement(tags, &e);
+  FeatureBuilderParams params;
 
-    FeatureBuilderParams params;
-    ftype::GetNameAndType(&e, params);
+  ftype::GetNameAndType(&e, params);
+  return params;
+}
 
-    DumpTypes(params.m_types);
-  }
-
-  void TestSurfaceTypes(std::string const & surface, std::string const & smoothness,
-                        std::string const & grade, char const * value)
-  {
-    OsmElement e;
-    e.AddTag("highway", "unclassified");
-    e.AddTag("surface", surface);
-    e.AddTag("smoothness", smoothness);
-    e.AddTag("surface:grade", grade);
-
-    FeatureBuilderParams params;
-    ftype::GetNameAndType(&e, params);
-
-    TEST_EQUAL(params.m_types.size(), 2, (params));
-    TEST(params.IsTypeExist(GetType({"highway", "unclassified"})), ());
-    std::string psurface;
-    for (auto type : params.m_types)
-    {
-      std::string const rtype = classif().GetReadableObjectName(type);
-      if (rtype.substr(0, 9) == "psurface-")
-        psurface = rtype.substr(9);
-    }
-    TEST(params.IsTypeExist(GetType({"psurface", value})),
-         ("Surface:", surface, "Smoothness:", smoothness, "Grade:", grade, "Expected:", value,
-          "Got:", psurface));
-  }
-
-  FeatureBuilderParams GetFeatureBuilderParams(Tags const & tags)
-  {
-    OsmElement e;
-    FillXmlElement(tags, &e);
-    FeatureBuilderParams params;
-
-    ftype::GetNameAndType(&e, params);
-    return params;
-  }
-}  // namespace
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SkipDummy)
 {
@@ -2196,3 +2196,4 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     TEST(params.IsTypeExist(GetType(type.first)), (type, params));
   }
 }
+}  // namespace osm_type_test

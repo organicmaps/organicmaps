@@ -22,13 +22,13 @@
 #include <memory>
 #include <vector>
 
+namespace collector_routing_city_boundaries_tests
+{
 using namespace generator_tests;
 using namespace generator;
-using namespace tests_support;
+using namespace generator::tests_support;
 using namespace feature;
 
-namespace
-{
 using BoundariesCollector = RoutingCityBoundariesCollector;
 
 std::string const kDumpFileName = "dump.bin";
@@ -131,7 +131,7 @@ bool CheckPolygonExistance(std::vector<std::vector<m2::PointD>> const & polygons
 
     for (size_t i = 0; i < polygon.size(); ++i)
     {
-      if (!base::AlmostEqualAbs(polygon[i], polygonToFind[i], 1e-6))
+      if (!m2::AlmostEqualAbs(polygon[i], polygonToFind[i], 1e-6))
       {
         same = false;
         break;
@@ -202,7 +202,7 @@ double CalculateEarthAreaForConvexPolygon(std::vector<ms::LatLon> const & latlon
 
   return area;
 }
-}  // namespace
+
 
 UNIT_CLASS_TEST(TestWithClassificator, CollectorRoutingCityBoundaries_1)
 {
@@ -210,7 +210,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorRoutingCityBoundaries_1)
   SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
   SCOPE_GUARD(rmDump, std::bind(Platform::RemoveFileIfExists, std::cref(kDumpFileName)));
 
-  std::shared_ptr<cache::IntermediateDataReader> cache;
+  std::shared_ptr<generator::cache::IntermediateDataReader> cache;
   auto c1 = std::make_shared<BoundariesCollector>(filename, kDumpFileName, cache);
 
   Collect(*c1, {placeRelation1, placeRelation2, placeRelation3, placeRelation4},
@@ -231,7 +231,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorRoutingCityBoundaries_2)
   SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
   SCOPE_GUARD(rmDump, std::bind(Platform::RemoveFileIfExists, std::cref(kDumpFileName)));
 
-  std::shared_ptr<cache::IntermediateDataReader> cache;
+  std::shared_ptr<generator::cache::IntermediateDataReader> cache;
   auto c1 = std::make_shared<BoundariesCollector>(filename, kDumpFileName, cache);
   auto c2 = c1->Clone();
 
@@ -329,3 +329,4 @@ UNIT_TEST(AreaOnEarth_Concave_Polygon)
                             areaOnEarth,
                             1e-6), ());
 }
+}  // namespace collector_routing_city_boundaries_tests

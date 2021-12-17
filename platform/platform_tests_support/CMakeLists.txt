@@ -17,4 +17,7 @@ set(SRC
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-target_link_libraries(${PROJECT_NAME} platform)
+target_link_libraries(${PROJECT_NAME}
+  platform
+  indexer  # feature::DataHeader::Save
+)

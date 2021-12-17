@@ -15,12 +15,10 @@
 
 #include "3party/opening_hours/opening_hours.hpp"
 
-using namespace std;
-
 namespace routing_test
 {
-namespace
-{
+using namespace std;
+
 double constexpr kEpsilon = 1e-6;
 
 template <typename Graph>
@@ -39,7 +37,6 @@ void AddGraph(unordered_map<NumMwmId, unique_ptr<Graph>> & graphs, NumMwmId mwmI
   CHECK(it == graphs.end(), ("Already contains graph for mwm", mwmId));
   graphs[mwmId] = move(graph);
 }
-}  // namespace
 
 // RestrictionTest ---------------------------------------------------------------------------------
 void RestrictionTest::SetStarter(FakeEnding const & start, FakeEnding const & finish)

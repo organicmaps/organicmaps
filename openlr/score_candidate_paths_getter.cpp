@@ -28,7 +28,7 @@ using namespace std;
 
 namespace openlr
 {
-namespace
+namespace scpg
 {
 int constexpr kNumBuckets = 256;
 double constexpr kAnglesInBucket = 360.0 / kNumBuckets;
@@ -66,7 +66,7 @@ void EdgeSortUniqueByStartAndEndPoints(Graph::EdgeListT & edges)
         return e1.GetStartPoint() == e2.GetStartPoint() && e1.GetEndPoint() == e2.GetEndPoint();
       });
 }
-}  // namespace
+}  // namespace scpg
 
 // ScoreCandidatePathsGetter::Link ----------------------------------------------------------------------
 Graph::Edge ScoreCandidatePathsGetter::Link::GetStartEdge() const
@@ -191,7 +191,7 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
     // It's possible that road edges are duplicated a lot of times. It's a error but
     // a mapper may do that. To prevent a combinatorial explosion while matching
     // duplicated edges should be removed.
-    EdgeSortUniqueByStartAndEndPoints(edges);
+    scpg::EdgeSortUniqueByStartAndEndPoints(edges);
 
     for (auto const & e : edges)
     {
@@ -322,9 +322,9 @@ bool ScoreCandidatePathsGetter::GetBearingScore(BearingPointsSelector const & po
 {
   auto const bearEndPoint = pointsSelector.GetEndPoint(part.m_edge, part.m_distanceM);
 
-  auto const bearingDeg = BearingInDeg(bearStartPoint, bearEndPoint);
-  double const requiredBearingDeg = ToAngleInDeg(requiredBearing);
-  double const angleDeviationDeg = DifferenceInDeg(bearingDeg, requiredBearingDeg);
+  auto const bearingDeg = scpg::BearingInDeg(bearStartPoint, bearEndPoint);
+  double const requiredBearingDeg = scpg::ToAngleInDeg(requiredBearing);
+  double const angleDeviationDeg = scpg::DifferenceInDeg(bearingDeg, requiredBearingDeg);
 
   // If the bearing according to osm segments (|bearingDeg|) is significantly different
   // from the bearing set in openlr (|requiredBearingDeg|) the candidate should be skipped.

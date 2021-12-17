@@ -20,10 +20,10 @@
 #include <string>
 #include <vector>
 
+namespace metalines_tests
+{
 using namespace feature;
 
-namespace
-{
 OsmElement MakeHighway(uint64_t id, std::string const & name, std::vector<uint64_t> const & nodes,
                        bool isOneway = false)
 {
@@ -82,7 +82,7 @@ auto const wo8 = MakeHighway(8/* id */, "w" /* name */, {17, 16, 15} /* nodes */
 
 auto const b1 = MakeHighway(1/* id */, "b" /* name */, {1, 2, 3} /* nodes */);
 auto const b2 = MakeHighway(2/* id */, "b" /* name */, {3, 4, 5} /* nodes */);
-}  // namespace
+
 
 UNIT_TEST(MetalinesTest_Case0)
 {
@@ -197,3 +197,4 @@ UNIT_TEST(MetalinesTest_MetalinesBuilderMarge)
   TEST_EQUAL(s.count({1, 2}), 1, ());
   TEST_EQUAL(s.count({4, 5}), 1, ());
 }
+}  // namespace metalines_tests

@@ -51,7 +51,7 @@ namespace {
 
 /*- Private Functions -*/
 
-const saint_t lg_table[256]= {
+const saint_t lg_table_[256]= {
  -1,0,1,1,2,2,2,2,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
   5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
   6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
@@ -67,11 +67,11 @@ saint_t
 tr_ilg(saidx_t n) {
   return (n & 0xffff0000) ?
           ((n & 0xff000000) ?
-            24 + lg_table[(n >> 24) & 0xff] :
-            16 + lg_table[(n >> 16) & 0xff]) :
+            24 + lg_table_[(n >> 24) & 0xff] :
+            16 + lg_table_[(n >> 16) & 0xff]) :
           ((n & 0x0000ff00) ?
-             8 + lg_table[(n >>  8) & 0xff] :
-             0 + lg_table[(n >>  0) & 0xff]);
+             8 + lg_table_[(n >>  8) & 0xff] :
+             0 + lg_table_[(n >>  0) & 0xff]);
 }
 
 
@@ -352,7 +352,7 @@ tr_introsort(saidx_it ISA, const_saidx_it ISAd,
 
         /* push */
         if(1 < (b - a)) {
-          STACK_PUSH5(NULL, a, b, 0, 0);
+          STACK_PUSH5(nullptr, a, b, 0, 0);
           STACK_PUSH5(ISAd - incr, first, last, -2, trlink);
           trlink = ssize - 2;
         }

@@ -19,12 +19,12 @@
 #include <string>
 #include <vector>
 
+namespace async_router_test
+{
 using namespace routing;
 using namespace std::placeholders;
 using namespace std;
 
-namespace
-{
 class DummyRouter : public IRouter
 {
   RouterResultCode m_result;
@@ -32,7 +32,7 @@ class DummyRouter : public IRouter
 
 public:
   DummyRouter(RouterResultCode code, set<string> const & absent) : m_result(code), m_absent(absent) {}
-  
+
   // IRouter overrides:
   string GetName() const override { return "Dummy"; }
   void SetGuides(GuidesTracks && /* guides */) override {}
@@ -146,4 +146,4 @@ struct DummyRoutingCallbacks
 //  TEST_EQUAL(resultCallback.m_absent.size(), 1, ());
 //  TEST(resultCallback.m_absent[0].empty(), ());
 //}
-}  //  namespace
+}  //  namespace async_router_test

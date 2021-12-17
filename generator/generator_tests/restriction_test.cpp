@@ -29,16 +29,15 @@
 #include <utility>
 #include <vector>
 
-using namespace std;
-
+namespace restriction_test
+{
 using namespace feature;
 using namespace generator;
 using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
+using namespace std;
 
-namespace
-{
 // Directory name for creating test mwm and temporary files.
 string const kTestDir = "restriction_generation_test";
 // Temporary mwm name for testing.
@@ -93,8 +92,8 @@ void BuildEmptyMwm(LocalCountryFile & country)
   generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
 }
 
-void LoadRestrictions(string const & mwmFilePath, 
-                      vector<Restriction> & restrictions, 
+void LoadRestrictions(string const & mwmFilePath,
+                      vector<Restriction> & restrictions,
                       vector<RestrictionUTurnForTests> & restrictionsUTurn)
 {
   FilesContainerR const cont(mwmFilePath);
@@ -137,7 +136,7 @@ void LoadRestrictions(string const & mwmFilePath,
 /// loads the restriction section and test loaded restrictions.
 /// \param |restrictionPath| comma separated text with restrictions in osm id terms.
 /// \param |osmIdsToFeatureIdContent| comma separated text with mapping from osm ids to feature ids.
-void TestRestrictionBuilding(string const & restrictionPath,  
+void TestRestrictionBuilding(string const & restrictionPath,
                              string const & osmIdsToFeatureIdContent,
                              unique_ptr<IndexGraph> graph,
                              vector<Restriction> & expectedNotUTurn,
@@ -435,4 +434,4 @@ UNIT_TEST(RestrictionGenerationTest_WithUTurn_BadConnection_1)
   TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
-}  // namespace
+}  // namespace restriction_test

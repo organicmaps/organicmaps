@@ -29,7 +29,6 @@ char const kNo[] = "No";
 char const kOnly[] = "Only";
 char const kNoUTurn[] = "NoUTurn";
 char const kOnlyUTurn[] = "OnlyUTurn";
-char const kDelim[] = ", \t\r\n";
 
 bool ParseLineOfWayIds(strings::SimpleTokenizer & iter, std::vector<base::GeoObjectId> & numbers)
 {
@@ -87,7 +86,7 @@ bool RestrictionCollector::ParseRestrictions(std::string const & path)
   std::string line;
   while (std::getline(stream, line))
   {
-    strings::SimpleTokenizer iter(line, kDelim);
+    strings::SimpleTokenizer iter(line, ", \t\r\n");
     if (!iter)  // the line is empty
       return false;
 

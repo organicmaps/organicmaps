@@ -20,11 +20,10 @@
 
 #include "defines.hpp"
 
+namespace mwm_url_tests
+{
 using namespace std;
 using namespace url_scheme;
-
-namespace
-{
 using UrlType = ParsedMapApi::UrlType;
 static FrameworkParams const kFrameworkParams(false /* m_enableDiffs */);
 
@@ -116,7 +115,6 @@ bool IsValid(Framework & fm, string const & urlString, UrlType expectedType)
 
   return api.IsValid();
 }
-}  // namespace
 
 UNIT_TEST(MapApiSmoke)
 {
@@ -456,3 +454,4 @@ UNIT_TEST(MWMApiBalloonActionDefaultTest)
     TEST(api.GoBackOnBalloonClick(), (""));
   }
 }
+}  // namespace mwm_url_tests

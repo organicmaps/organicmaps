@@ -8,7 +8,7 @@
 using namespace std;
 using namespace std::chrono;
 
-namespace
+namespace gps_track
 {
 
 inline pair<size_t, size_t> UnionRanges(pair<size_t, size_t> const & a, pair<size_t, size_t> const & b)
@@ -30,7 +30,7 @@ inline pair<size_t, size_t> UnionRanges(pair<size_t, size_t> const & a, pair<siz
 
 size_t constexpr kItemBlockSize = 1000;
 
-} // namespace
+} // namespace gps_track
 
 size_t const GpsTrack::kInvalidId = GpsTrackCollection::kInvalidId;
 
@@ -181,7 +181,7 @@ void GpsTrack::InitCollection(hours duration)
     // and filtered points are inserted in the runtime collection.
 
     vector<location::GpsInfo> originPoints;
-    originPoints.reserve(kItemBlockSize);
+    originPoints.reserve(gps_track::kItemBlockSize);
 
     m_storage->ForEach([this, &originPoints](location::GpsInfo const & originPoint)->bool
     {
@@ -301,7 +301,8 @@ void GpsTrack::UpdateCollection(hours duration, bool needClear, vector<location:
   else
     addedIds = make_pair(kInvalidId, kInvalidId);
 
-  evictedIds = UnionRanges(evictedIdsByAdd, UnionRanges(evictedIdsByClear, evictedIdsByDuration));
+  evictedIds = gps_track::UnionRanges(evictedIdsByAdd,
+                                      gps_track::UnionRanges(evictedIdsByClear, evictedIdsByDuration));
 }
 
 void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t, size_t> const & evictedIds)

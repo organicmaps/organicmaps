@@ -37,7 +37,7 @@ namespace
 {
 // Shows distribution of simularity in comparison mode.
 static std::string const kPythonDistribution = "show_distribution.py";
-static std::string const kPythonBarError = "show_errors_distribution.py";
+static std::string const kPythonBarDistributionError = "show_errors_distribution.py";
 
 double constexpr kBadETADiffPercent = std::numeric_limits<double>::max();
 
@@ -239,7 +239,7 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
   FillLabelsAndErrorTypeDistribution(errorLabels, errorsCount, mapsmeErrorCounter,
                                      anotherErrorCounter);
 
-  auto const pythonScriptPath = base::JoinPath(FLAGS_save_results, kPythonBarError);
+  auto const pythonScriptPath = base::JoinPath(FLAGS_save_results, kPythonBarDistributionError);
   CreatePythonBarByMap(pythonScriptPath, errorLabels, errorsCount,
                        {"mapsme", IsMapsmeVsMapsme() ? "old mapsme" : "api"} /* legends */,
                        "Type of errors" /* xlabel */, "Number of errors" /* ylabel */);

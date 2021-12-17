@@ -23,7 +23,7 @@ static_assert(numeric_limits<double>::has_infinity, "");
 double const kInf = numeric_limits<double>::infinity();
 
 // Checks whether (p1 - p) x (p2 - p) >= 0.
-bool IsCCW(PointD const & p1, PointD const & p2, PointD const & p, double eps)
+bool IsCCWNeg(PointD const & p1, PointD const & p2, PointD const & p, double eps)
 {
   return robust::OrientedS(p1, p2, p) > -eps;
 }
@@ -137,7 +137,7 @@ bool CalipersBox::HasPoint(PointD const & p, double eps) const
   {
     auto const & a = m_points[i];
     auto const & b = m_points[(i + 1) % n];
-    if (!IsCCW(b, p, a, eps))
+    if (!IsCCWNeg(b, p, a, eps))
       return false;
   }
   return true;

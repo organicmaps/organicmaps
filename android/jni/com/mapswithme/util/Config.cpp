@@ -2,11 +2,6 @@
 #include "com/mapswithme/maps/Framework.hpp"
 #include "platform/settings.hpp"
 
-namespace
-{
-::Framework * frm() { return g_framework->NativeFramework(); }
-}
-
 extern "C"
 {
   JNIEXPORT jboolean JNICALL

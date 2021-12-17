@@ -23,6 +23,6 @@ public:
 
 private:
   base::thread_pool::computational::ThreadPool m_threadPool;
-  base::threads::ThreadSafeQueue<std::shared_ptr<TranslatorInterface>> m_translators;
+  threads::ThreadSafeQueue<std::shared_ptr<TranslatorInterface>> m_translators;
 };
 }  // namespace generator

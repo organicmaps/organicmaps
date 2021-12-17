@@ -17,7 +17,7 @@
 
 namespace df
 {
-namespace
+namespace mp
 {
 df::ColorConstant const kMyPositionAccuracyColor = "MyPositionAccuracy";
 
@@ -52,7 +52,7 @@ dp::BindingInfo GetMarkerBindingInfo()
 
   return info;
 }
-}  // namespace
+}  // namespace mp
 
 MyPosition::MyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
   : m_position(m2::PointF::Zero())
@@ -159,10 +159,10 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context,
   auto const etalonSector = static_cast<float>(2.0 * math::pi / kTriangleCount);
 
   dp::TextureManager::ColorRegion color;
-  mng->GetColorRegion(df::GetColorConstant(df::kMyPositionAccuracyColor), color);
+  mng->GetColorRegion(df::GetColorConstant(mp::kMyPositionAccuracyColor), color);
   glsl::vec2 colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
-  buffer_vector<MarkerVertex, kTriangleCount> buffer;
+  buffer_vector<mp::MarkerVertex, kTriangleCount> buffer;
   glsl::vec2 startNormal(0.0f, 1.0f);
 
   for (size_t i = 0; i < kTriangleCount + 1; ++i)
@@ -193,7 +193,7 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context,
     });
 
     dp::AttributeProvider provider(1 /* stream count */, kVertexCount);
-    provider.InitStream(0 /* stream index */, GetMarkerBindingInfo(), make_ref(buffer.data()));
+    provider.InitStream(0 /* stream index */, mp::GetMarkerBindingInfo(), make_ref(buffer.data()));
 
     m_parts[MyPositionAccuracy].first = batcher.InsertTriangleList(context, state,
                                                                    make_ref(&provider), nullptr);
@@ -209,7 +209,7 @@ void MyPosition::CacheSymbol(ref_ptr<dp::GraphicsContext> context,
   m2::RectF const & texRect = symbol.GetTexRect();
   m2::PointF const halfSize = symbol.GetPixelSize() * 0.5f;
 
-  MarkerVertex data[4] =
+  mp::MarkerVertex data[4] =
   {
     { glsl::vec2(-halfSize.x,  halfSize.y), glsl::ToVec2(texRect.LeftTop()) },
     { glsl::vec2(-halfSize.x, -halfSize.y), glsl::ToVec2(texRect.LeftBottom()) },
@@ -218,7 +218,7 @@ void MyPosition::CacheSymbol(ref_ptr<dp::GraphicsContext> context,
   };
 
   dp::AttributeProvider provider(1 /* streamCount */, dp::Batcher::VertexPerQuad);
-  provider.InitStream(0 /* streamIndex */, GetMarkerBindingInfo(), make_ref(data));
+  provider.InitStream(0 /* streamIndex */, mp::GetMarkerBindingInfo(), make_ref(data));
   m_parts[part].first = batcher.InsertTriangleStrip(context, state, make_ref(&provider), nullptr);
   ASSERT(m_parts[part].first.IsValid(), ());
 }

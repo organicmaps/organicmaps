@@ -400,15 +400,15 @@ void CalcCrossMwmTransitionsExperimental(
     }
     auto reader = cont.GetReader(TRANSIT_FILE_TAG);
 
-    transit::experimental::TransitData transitData;
+    ::transit::experimental::TransitData transitData;
     transitData.DeserializeForCrossMwm(*reader.GetPtr());
     auto const & stops = transitData.GetStops();
     auto const & edges = transitData.GetEdges();
 
-    auto const getStopIdPoint = [&stops](transit::TransitId stopId) {
+    auto const getStopIdPoint = [&stops](::transit::TransitId stopId) {
       auto const it = find_if(
           stops.begin(), stops.end(),
-          [stopId](transit::experimental::Stop const & stop) { return stop.GetId() == stopId; });
+          [stopId](::transit::experimental::Stop const & stop) { return stop.GetId() == stopId; });
 
       CHECK(it != stops.end(),
             ("stopId:", stopId, "is not found in stops. Size of stops:", stops.size()));

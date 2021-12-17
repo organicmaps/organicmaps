@@ -16,11 +16,11 @@
 #include <cstdint>
 #include <vector>
 
+namespace vehicle_model_test
+{
 using namespace routing;
 using namespace std;
 
-namespace
-{
 HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(100.0 /* in city */, 150.0 /* out city */)},
     {HighwayType::HighwayPrimary, InOutCitySpeedKMpH(90.0 /* in city */, 120.0 /* out city */)},
@@ -129,7 +129,7 @@ void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expe
 
   TEST_EQUAL(vehicleModel.HasPassThroughType(h), expectedValue, ());
 }
-}  // namespace
+
 
 UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_MaxSpeed)
 {
@@ -288,3 +288,4 @@ UNIT_TEST(VehicleModel_CarModelValidation)
     TEST(speedIt->second.IsValid(), (hwType, speedIt->second));
   }
 }
+}  // namespace vehicle_model_test

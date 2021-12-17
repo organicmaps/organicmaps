@@ -25,6 +25,8 @@
 
 #include <boost/iterator/transform_iterator.hpp>
 
+namespace text_index_tests
+{
 using namespace platform::tests_support;
 using namespace search_base;
 using namespace search;
@@ -32,8 +34,6 @@ using namespace std;
 
 using boost::make_transform_iterator;
 
-namespace
-{
 // Prepend several bytes to serialized indexes in order to check the relative offsets.
 size_t const kSkip = 10;
 
@@ -77,13 +77,10 @@ void TestForEach(Index const & index, Token const & token, vector<uint32_t> cons
   index.ForEachPosting(token, base::MakeBackInsertFunctor(actual));
   TEST_EQUAL(actual, expected, (token));
 };
-}  // namespace
 
-namespace search
-{
 UNIT_TEST(TextIndex_Smoke)
 {
-  vector<Token> const docsCollection = {
+  vector<search_base::Token> const docsCollection = {
       "a b c",
       "a c",
   };
@@ -152,12 +149,12 @@ UNIT_TEST(TextIndex_UniString)
 UNIT_TEST(TextIndex_Merging)
 {
   // todo(@m) Arrays? docsCollection[i]
-  vector<Token> const docsCollection1 = {
+  vector<search_base::Token> const docsCollection1 = {
       "a b c",
       "",
       "d",
   };
-  vector<Token> const docsCollection2 = {
+  vector<search_base::Token> const docsCollection2 = {
       "",
       "a c",
       "e",
@@ -202,4 +199,4 @@ UNIT_TEST(TextIndex_Merging)
     TestForEach(textIndexReader3, "e", {2});
   }
 }
-}  // namespace search
+}  // namespace text_index_tests

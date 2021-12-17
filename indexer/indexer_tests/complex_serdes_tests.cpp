@@ -9,25 +9,26 @@
 #include <cstdint>
 #include <vector>
 
-namespace
+namespace complex_serdes_tests
 {
 using ByteVector = std::vector<uint8_t>;
+using ::complex::ComplexSerdes;
 
 decltype(auto) GetForest()
 {
-  auto tree1 = tree_node::MakeTreeNode<complex::ComplexSerdes::Ids>({1, 2, 3});
-  auto node11 = tree_node::MakeTreeNode<complex::ComplexSerdes::Ids>({11, 12, 13});
-  tree_node::Link(tree_node::MakeTreeNode<complex::ComplexSerdes::Ids>({111}), node11);
-  tree_node::Link(tree_node::MakeTreeNode<complex::ComplexSerdes::Ids>({112, 113}), node11);
-  tree_node::Link(tree_node::MakeTreeNode<complex::ComplexSerdes::Ids>({114}), node11);
+  auto tree1 = tree_node::MakeTreeNode<ComplexSerdes::Ids>({1, 2, 3});
+  auto node11 = tree_node::MakeTreeNode<ComplexSerdes::Ids>({11, 12, 13});
+  tree_node::Link(tree_node::MakeTreeNode<ComplexSerdes::Ids>({111}), node11);
+  tree_node::Link(tree_node::MakeTreeNode<ComplexSerdes::Ids>({112, 113}), node11);
+  tree_node::Link(tree_node::MakeTreeNode<ComplexSerdes::Ids>({114}), node11);
   tree_node::Link(node11, tree1);
-  tree_node::Link(tree_node::MakeTreeNode<complex::ComplexSerdes::Ids>({6, 7}), tree1);
+  tree_node::Link(tree_node::MakeTreeNode<ComplexSerdes::Ids>({6, 7}), tree1);
 
-  auto tree2 = tree_node::MakeTreeNode<complex::ComplexSerdes::Ids>({9});
-  tree_node::Link(tree_node::MakeTreeNode<complex::ComplexSerdes::Ids>({21, 22, 23}), tree2);
-  tree_node::Link(tree_node::MakeTreeNode<complex::ComplexSerdes::Ids>({24, 25}), tree2);
+  auto tree2 = tree_node::MakeTreeNode<ComplexSerdes::Ids>({9});
+  tree_node::Link(tree_node::MakeTreeNode<ComplexSerdes::Ids>({21, 22, 23}), tree2);
+  tree_node::Link(tree_node::MakeTreeNode<ComplexSerdes::Ids>({24, 25}), tree2);
 
-  tree_node::Forest<complex::ComplexSerdes::Ids> forest;
+  tree_node::Forest<ComplexSerdes::Ids> forest;
   forest.Append(tree1);
   forest.Append(tree2);
   return forest;
@@ -40,13 +41,13 @@ UNIT_TEST(Complex_SerdesV0)
   {
     MemWriter<decltype(buffer)> writer(buffer);
     WriterSink<decltype(writer)> sink(writer);
-    complex::ComplexSerdes::Serialize(sink, complex::ComplexSerdes::Version::V0, expectedForest);
+    ComplexSerdes::Serialize(sink, ComplexSerdes::Version::V0, expectedForest);
   }
   {
     MemReader reader(buffer.data(), buffer.size());
     ReaderSource<decltype(reader)> src(reader);
-    tree_node::Forest<complex::ComplexSerdes::Ids> forest;
-    complex::ComplexSerdes::Deserialize(src, complex::ComplexSerdes::Version::V0, forest);
+    tree_node::Forest<ComplexSerdes::Ids> forest;
+    ComplexSerdes::Deserialize(src, ComplexSerdes::Version::V0, forest);
     TEST_EQUAL(forest, expectedForest, ());
   }
 }
@@ -58,13 +59,13 @@ UNIT_TEST(Complex_Serdes)
   {
     MemWriter<decltype(buffer)> writer(buffer);
     WriterSink<decltype(writer)> sink(writer);
-    complex::ComplexSerdes::Serialize(sink, expectedForest);
+    ComplexSerdes::Serialize(sink, expectedForest);
   }
   {
     MemReader reader(buffer.data(), buffer.size());
-    tree_node::Forest<complex::ComplexSerdes::Ids> forest;
-    complex::ComplexSerdes::Deserialize(reader, forest);
+    tree_node::Forest<ComplexSerdes::Ids> forest;
+    ComplexSerdes::Deserialize(reader, forest);
     TEST_EQUAL(forest, expectedForest, ());
   }
 }
-}  // namespace
+}  // namespace complex_serdes_tests

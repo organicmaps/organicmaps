@@ -21,8 +21,6 @@ using namespace std::placeholders;
 
 namespace
 {
-::Framework * frm() { return g_framework->NativeFramework(); }
-
 jclass g_bookmarkManagerClass;
 jfieldID g_bookmarkManagerInstanceField;
 jmethodID g_onBookmarksChangedMethod;

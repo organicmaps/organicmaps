@@ -17,11 +17,10 @@
 #include <utility>
 #include <vector>
 
+namespace gps_track_test
+{
 using namespace std;
 using namespace std::chrono;
-
-namespace
-{
 
 inline location::GpsInfo Make(double timestamp, ms::LatLon const & ll, double speed)
 {
@@ -82,8 +81,6 @@ private:
 };
 
 seconds const kWaitForCallbackTimeout = seconds(5);
-
-} // namespace
 
 UNIT_TEST(GpsTrack_Simple)
 {
@@ -205,3 +202,4 @@ UNIT_TEST(GpsTrack_EvictedByAdd)
   TEST_EQUAL(callback.m_toRemove.first, 0, ());
   TEST_EQUAL(callback.m_toRemove.second, 0, ());
 }
+} // namespace gps_track_test

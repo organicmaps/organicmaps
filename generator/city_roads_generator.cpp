@@ -9,7 +9,7 @@
 #include "platform/platform.hpp"
 
 #include "indexer/feature.hpp"
-#include "indexer/feature_data.cpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/feature_processor.hpp"
 
 #include "coding/read_write_utils.hpp"
@@ -18,10 +18,12 @@
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 
-#include <utility>
-
 #include "defines.hpp"
 
+#include <utility>
+
+namespace routing
+{
 using namespace generator;
 using namespace std;
 
@@ -62,9 +64,9 @@ vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boun
   CitiesBoundariesChecker const checker(citiesBoundaries);
 
   vector<uint32_t> cityRoadFeatureIds;
-  ForEachFeature(dataPath, [&cityRoadFeatureIds, &checker](FeatureType & ft, uint32_t)
+  feature::ForEachFeature(dataPath, [&cityRoadFeatureIds, &checker](FeatureType & ft, uint32_t)
   {
-    TypesHolder types(ft);
+    feature::TypesHolder types(ft);
     if (!routing::IsCarRoad(types) && !routing::IsBicycleRoad(types))
       return;
 
@@ -91,8 +93,6 @@ vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boun
 }
 }  // namespace
 
-namespace routing
-{
 void SerializeCityRoads(string const & dataPath, vector<uint32_t> && cityRoadFeatureIds)
 {
   if (cityRoadFeatureIds.empty())

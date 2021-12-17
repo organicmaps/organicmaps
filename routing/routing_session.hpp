@@ -167,6 +167,8 @@ public:
 
   std::shared_ptr<Route> GetRouteForTests() const { return m_route; }
 
+  double GetCompletionPercent() const;
+
 private:
   struct DoReadyCallback
   {
@@ -185,7 +187,6 @@ private:
   void RemoveRoute();
   void RebuildRouteOnTrafficUpdate();
 
-  double GetCompletionPercent() const;
   void PassCheckpoints();
 
 private:

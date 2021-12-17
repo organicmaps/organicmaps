@@ -31,8 +31,8 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
+namespace road_access_test
+{
 using namespace feature;
 using namespace generator::tests_support;
 using namespace generator;
@@ -41,8 +41,6 @@ using namespace platform;
 using namespace routing;
 using namespace std;
 
-namespace
-{
 string const kTestDir = "road_access_generation_test";
 string const kTestMwm = "test";
 string const kRoadAccessFilename = "road_access_in_osm_ids.csv";
@@ -415,4 +413,4 @@ UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
 
   TEST_EQUAL(resultFile, expectedFile, ());
 }
-}  // namespace
+}  // namespace road_access_test

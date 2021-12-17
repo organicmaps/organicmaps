@@ -10,7 +10,7 @@
 using namespace routing;
 using namespace std;
 
-namespace
+namespace pedestrian_model
 {
 // See model specifics in different countries here:
 //   https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
@@ -264,19 +264,19 @@ VehicleModel::SurfaceInitList const kPedestrianSurface = {
   {{"psurface", "unpaved_good"}, {1.0, 1.0}},
   {{"psurface", "unpaved_bad"}, {0.8, 0.8}}
 };
-}  // namespace
+}  // namespace pedestrian_model
 
 namespace routing
 {
 PedestrianModel::PedestrianModel()
-  : VehicleModel(classif(), kPedestrianOptionsDefault, kPedestrianSurface,
-                 {kDefaultSpeeds, kDefaultFactors})
+  : VehicleModel(classif(), pedestrian_model::kPedestrianOptionsDefault, pedestrian_model::kPedestrianSurface,
+                 {pedestrian_model::kDefaultSpeeds, pedestrian_model::kDefaultFactors})
 {
   Init();
 }
 
 PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & speedLimits)
-  : VehicleModel(classif(), speedLimits, kPedestrianSurface, {kDefaultSpeeds, kDefaultFactors})
+  : VehicleModel(classif(), speedLimits, pedestrian_model::kPedestrianSurface, {pedestrian_model::kDefaultSpeeds, pedestrian_model::kDefaultFactors})
 {
   Init();
 }
@@ -286,7 +286,7 @@ SpeedKMpH PedestrianModel::GetSpeed(FeatureType & f, SpeedParams const & speedPa
   return VehicleModel::GetSpeedWihtoutMaxspeed(f, speedParams);
 }
 
-SpeedKMpH const & PedestrianModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
+SpeedKMpH const & PedestrianModel::GetOffroadSpeed() const { return pedestrian_model::kSpeedOffroadKMpH; }
 
 void PedestrianModel::Init()
 {
@@ -297,8 +297,8 @@ void PedestrianModel::Init()
 
   vector<AdditionalRoadTags> const additionalTags = {
       {hwtagYesFoot, m_maxModelSpeed},
-      {{"route", "ferry"}, kDefaultSpeeds.at(HighwayType::RouteFerry)},
-      {{"man_made", "pier"}, kDefaultSpeeds.at(HighwayType::ManMadePier)}};
+      {{"route", "ferry"}, pedestrian_model::kDefaultSpeeds.at(HighwayType::RouteFerry)},
+      {{"man_made", "pier"}, pedestrian_model::kDefaultSpeeds.at(HighwayType::ManMadePier)}};
 
   SetAdditionalRoadTypes(classif(), additionalTags);
 }
@@ -319,7 +319,7 @@ VehicleModelInterface::RoadAvailability PedestrianModel::GetRoadAvailability(fea
 // static
 PedestrianModel const & PedestrianModel::AllLimitsInstance()
 {
-  static PedestrianModel const instance(kPedestrianOptionsAll);
+  static PedestrianModel const instance(pedestrian_model::kPedestrianOptionsAll);
   return instance;
 }
 
@@ -327,6 +327,7 @@ PedestrianModelFactory::PedestrianModelFactory(
     CountryParentNameGetterFn const & countryParentNameGetterFn)
   : VehicleModelFactory(countryParentNameGetterFn)
 {
+  using namespace pedestrian_model;
   // Names must be the same with country names from countries.txt
   m_models[""] = make_shared<PedestrianModel>(kPedestrianOptionsDefault);
   m_models["Australia"] = make_shared<PedestrianModel>(kPedestrianOptionsAustralia);
