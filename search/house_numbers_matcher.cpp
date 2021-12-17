@@ -480,11 +480,8 @@ void Tokenize(UniString s, bool isPrefix, vector<Token> & ts)
   }
 }
 
-void ParseHouseNumber(strings::UniString const & s, vector<vector<Token>> & parses)
+void ParseHouseNumber(vector<Token> & tokens, vector<vector<Token>> & parses)
 {
-  vector<Token> tokens;
-  Tokenize(s, false /* isPrefix */, tokens);
-
   bool numbersSequence = true;
   ForEachGroup(tokens, [&tokens, &numbersSequence](size_t i, size_t j)
                {
@@ -522,6 +519,13 @@ void ParseHouseNumber(strings::UniString const & s, vector<vector<Token>> & pars
     SimplifyParse(parses[i]);
 }
 
+void ParseHouseNumber(strings::UniString const & houseNumber, vector<vector<Token>> & parses)
+{
+  vector<Token> tokens;
+  Tokenize(houseNumber, false, tokens);
+  ParseHouseNumber(tokens, parses);
+}
+
 void ParseQuery(strings::UniString const & query, bool queryIsPrefix, vector<Token> & parse)
 {
   Tokenize(query, queryIsPrefix, parse);
@@ -545,17 +549,23 @@ bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<Token> con
   if (houseNumber.empty() || queryParse.empty())
     return false;
 
-  // Fast pre-check, helps to early exit without complex house number
-  // parsing.
-  if (IsASCIIDigit(houseNumber[0]) && IsASCIIDigit(queryParse[0].m_value[0]) &&
-      houseNumber[0] != queryParse[0].m_value[0])
-  {
-    return false;
+  vector<Token> tokens;
+  Tokenize(houseNumber, false, tokens);
+
+  // special case for czechoslovakia house numbers
+  // query N should match M/N
+  if (queryParse.size() == 1 && queryParse[0].m_type == Token::TYPE_NUMBER) {
+    if (tokens.size() == 3 &&
+      tokens[0].m_type == Token::TYPE_NUMBER &&
+      tokens[1].m_type == Token::TYPE_SLASH &&
+      tokens[2] == queryParse[0]) {
+      return true;
+    }
   }
 
   vector<vector<Token>> houseNumberParses;
-  ParseHouseNumber(houseNumber, houseNumberParses);
-
+  ParseHouseNumber(tokens, houseNumberParses);
+  
   for (auto & parse : houseNumberParses)
   {
     if (parse.empty())

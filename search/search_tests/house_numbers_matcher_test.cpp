@@ -144,6 +144,8 @@ UNIT_TEST(HouseNumbersMatcher_Smoke)
   TEST(HouseNumbersMatch("16 к1", "16 к1"), ());
   TEST(HouseNumbersMatch("16 к1", "дом 16 к1"), ());
   TEST(HouseNumbersMatch("14 д 1", "дом 14 д1"), ());
+  
+  TEST(HouseNumbersMatch("135/4", "4"), ());
 }
 
 UNIT_TEST(LooksLikeHouseNumber_Smoke)
