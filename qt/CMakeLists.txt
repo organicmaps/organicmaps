@@ -129,7 +129,7 @@ copy_resources(
   unicode_blocks.txt
   World.mwm
   WorldCoasts.mwm
-  icudt69l.dat
+  icudt70l.dat
 
   00_NotoNaskhArabic-Regular.ttf
   00_NotoSansThai-Regular.ttf
