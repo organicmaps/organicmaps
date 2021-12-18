@@ -1392,13 +1392,11 @@ size_t Framework::ShowSearchResults(search::Results const & results)
 
 void Framework::FillSearchResultsMarks(bool clear, search::Results const & results)
 {
-  FillSearchResultsMarks(results.begin(), results.end(), clear,
-                         Framework::SearchMarkPostProcessing());
+  FillSearchResultsMarks(results.begin(), results.end(), clear);
 }
 
-void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
-                                       search::Results::ConstIter end, bool clear,
-                                       SearchMarkPostProcessing fn)
+void Framework::FillSearchResultsMarks(SearchResultsIterT begin, SearchResultsIterT end,
+                                       bool clear, SearchMarkPostProcessing const & fn)
 {
   auto editSession = GetBookmarkManager().GetEditSession();
   if (clear)
@@ -2022,6 +2020,7 @@ void Framework::DeactivateMapSelection(bool notifyUI)
 
 void Framework::InvalidateUserMarks()
 {
+  // Actual invalidation call happens in EditSession dtor.
   GetBookmarkManager().GetEditSession();
 }
 
@@ -3247,11 +3246,9 @@ void Framework::RunUITask(function<void()> fn)
   GetPlatform().RunTask(Platform::Thread::Gui, move(fn));
 }
 
-void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
-                                          search::Results::ConstIter end, bool clear)
+void Framework::ShowViewportSearchResults(SearchResultsIterT begin, SearchResultsIterT end, bool clear)
 {
-  FillSearchResultsMarks(begin, end, clear,
-                         Framework::SearchMarkPostProcessing());
+  FillSearchResultsMarks(begin, end, clear);
 }
 
 void Framework::ClearViewportSearchResults()

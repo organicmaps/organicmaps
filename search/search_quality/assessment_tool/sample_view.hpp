@@ -33,11 +33,12 @@ public:
   void OnSearchStarted();
   void OnSearchCompleted();
 
-  void AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end);
+  using SearchResultsIterT = search::Results::ConstIter;
+  void AddFoundResults(SearchResultsIterT begin, SearchResultsIterT end);
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
                            std::vector<ResultsEdits::Entry> const & entries);
 
-  void ShowFoundResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end);
+  void ShowFoundResultsMarks(SearchResultsIterT begin, SearchResultsIterT end);
   void ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
                                 std::vector<ResultsEdits::Entry> const & entries);
   void ClearSearchResultMarks();

@@ -167,8 +167,7 @@ void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results 
   }
 
   m_pDrawWidget->GetFramework().FillSearchResultsMarks(m_results.begin() + sizeBeforeUpdate,
-                                                       m_results.end(), false /* clear */,
-                                                       Framework::SearchMarkPostProcessing());
+                                                       m_results.end(), false /* clear */);
 
   if (results.IsEndMarker())
     StopBusyIndicator();
