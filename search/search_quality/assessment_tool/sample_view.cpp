@@ -242,7 +242,7 @@ void SampleView::OnSearchCompleted()
   m_markAllAsIrrelevant->setEnabled(resultsAvailable);
 }
 
-void SampleView::AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
+void SampleView::AddFoundResults(SearchResultsIterT begin, SearchResultsIterT end)
 {
   for (auto it = begin; it != end; ++it)
     m_foundResults->Add(*it /* result */);
@@ -266,10 +266,9 @@ void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const &
     m_nonFoundResultsBox->show();
 }
 
-void SampleView::ShowFoundResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end)
+void SampleView::ShowFoundResultsMarks(SearchResultsIterT begin, SearchResultsIterT end)
 {
-  m_framework.FillSearchResultsMarks(begin, end, false,
-                                     Framework::SearchMarkPostProcessing());
+  m_framework.FillSearchResultsMarks(begin, end, false);
 }
 
 void SampleView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
