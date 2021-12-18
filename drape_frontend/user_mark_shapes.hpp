@@ -38,7 +38,7 @@ struct UserMarkRenderParams
   bool m_customDepth = false;
   DepthLayer m_depthLayer = DepthLayer::UserMarkLayer;
   bool m_hasCreationAnimation = false;
-  bool m_justCreated = false;
+  mutable bool m_justCreated = false;   ///< will be reset after first caching
   bool m_isVisible = true;
   FeatureID m_featureId;
   bool m_isMarkAboveText = false;
@@ -92,9 +92,9 @@ void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmen
 
 void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                     ref_ptr<dp::TextureManager> textures, kml::MarkIdCollection const & marksId,
-                    UserMarksRenderCollection & renderParams, dp::Batcher & batcher);
+                    UserMarksRenderCollection const & renderParams, dp::Batcher & batcher);
 
 void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                     ref_ptr<dp::TextureManager> textures, kml::TrackIdCollection const & linesId,
-                    UserLinesRenderCollection & renderParams, dp::Batcher & batcher);
+                    UserLinesRenderCollection const & renderParams, dp::Batcher & batcher);
 }  // namespace df

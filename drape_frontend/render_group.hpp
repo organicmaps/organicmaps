@@ -23,6 +23,7 @@ namespace df
 {
 class DebugRectRenderer;
 
+/// @todo Actually, there is no need in this polymorphic interface.
 class BaseRenderGroup
 {
 public:

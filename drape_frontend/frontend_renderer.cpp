@@ -61,52 +61,27 @@ double constexpr kVSyncIntervalMetalVulkan = 0.03;
 std::string const kTransitBackgroundColor = "TransitBackground";
 
 template <typename ToDo>
-bool RemoveGroups(ToDo & filter, std::vector<drape_ptr<RenderGroup>> & groups,
+bool RemoveGroups(ToDo && filter, std::vector<drape_ptr<RenderGroup>> & groups,
                   ref_ptr<dp::OverlayTree> tree)
 {
-  size_t startCount = groups.size();
-  size_t count = startCount;
-  size_t current = 0;
-  while (current < count)
+  auto const itEnd = groups.end();
+  auto it = std::remove_if(groups.begin(), itEnd, [&filter, tree](drape_ptr<RenderGroup> & group)
   {
-    drape_ptr<RenderGroup> & group = groups[current];
     if (filter(group))
     {
       group->RemoveOverlay(tree);
-      swap(group, groups.back());
-      groups.pop_back();
-      --count;
+      return true;
     }
-    else
-    {
-      ++current;
-    }
-  }
-
-  return startCount != count;
-}
-
-struct RemoveTilePredicate
-{
-  mutable bool m_deletionMark = false;
-  std::function<bool(drape_ptr<RenderGroup> const &)> const & m_predicate;
-
-  explicit RemoveTilePredicate(std::function<bool(drape_ptr<RenderGroup> const &)> const & predicate)
-    : m_predicate(predicate)
-  {}
-
-  bool operator()(drape_ptr<RenderGroup> const & group) const
-  {
-    if (m_predicate(group))
-    {
-      group->DeleteLater();
-      m_deletionMark = true;
-      return group->CanBeDeleted();
-    }
-
     return false;
+  });
+
+  if (it != itEnd)
+  {
+    groups.erase(it, itEnd);
+    return true;
   }
-};
+  return false;
+}
 
 class DebugLabelGuard
 {
@@ -179,7 +154,7 @@ private:
 };
 #endif
 }  // namespace
-  
+
 FrontendRenderer::FrontendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
   , m_trafficRenderer(new TrafficRenderer())
@@ -1235,13 +1210,18 @@ void FrontendRenderer::AddToRenderGroup(dp::RenderState const & state,
 
 void FrontendRenderer::RemoveRenderGroupsLater(TRenderGroupRemovePredicate const & predicate)
 {
-  ASSERT(predicate != nullptr, ());
-
   for (RenderLayer & layer : m_layers)
   {
-    RemoveTilePredicate f(predicate);
-    RemoveGroups(f, layer.m_renderGroups, make_ref(m_overlayTree));
-    layer.m_isDirty |= f.m_deletionMark;
+    RemoveGroups([&predicate, &layer](drape_ptr<RenderGroup> const & group)
+    {
+      if (predicate(group))
+      {
+        group->DeleteLater();
+        layer.m_isDirty = true;
+        return group->CanBeDeleted();
+      }
+      return false;
+    }, layer.m_renderGroups, make_ref(m_overlayTree));
   }
 }
 
@@ -1255,12 +1235,13 @@ bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
   if (tileKey.m_userMarksGeneration > m_maxUserMarksGeneration)
     m_maxUserMarksGeneration = tileKey.m_userMarksGeneration;
 
-  auto removePredicate = [&tileKey](drape_ptr<RenderGroup> const & group)
+  RemoveRenderGroupsLater([&tileKey](drape_ptr<RenderGroup> const & group)
   {
-    return group->GetTileKey() == tileKey && (group->GetTileKey().m_generation < tileKey.m_generation ||
-        (group->IsUserMark() && group->GetTileKey().m_userMarksGeneration < tileKey.m_userMarksGeneration));
-  };
-  RemoveRenderGroupsLater(removePredicate);
+    auto const & groupKey = group->GetTileKey();
+    return groupKey == tileKey &&
+          (groupKey.m_generation < tileKey.m_generation ||
+          (group->IsUserMark() && groupKey.m_userMarksGeneration < tileKey.m_userMarksGeneration));
+  });
 
   return result;
 }
@@ -1430,7 +1411,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   if (m_postprocessRenderer->BeginFrame(m_context, modelView, activeFrame))
   {
     RefreshBgColor();
-    
+
     uint32_t clearBits = dp::ClearBits::ColorBit | dp::ClearBits::DepthBit;
     if (m_apiVersion == dp::ApiVersion::OpenGLES2 || m_apiVersion == dp::ApiVersion::OpenGLES3)
       clearBits |= dp::ClearBits::StencilBit;
@@ -1553,22 +1534,22 @@ void FrontendRenderer::PreRender3dLayer(ScreenBase const & modelView)
 {
   if (!m_buildingsFramebuffer->IsSupported())
     return;
-  
+
   RenderLayer & layer = m_layers[static_cast<size_t>(DepthLayer::Geometry3dLayer)];
   if (layer.m_renderGroups.empty())
     return;
-  
+
   m_context->SetFramebuffer(make_ref(m_buildingsFramebuffer));
   m_context->SetClearColor(dp::Color::Transparent());
   m_context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit, dp::ClearBits::ColorBit /* storeBits */);
   m_context->ApplyFramebuffer("Buildings");
   m_viewport.Apply(m_context);
-  
+
   layer.Sort(make_ref(m_overlayTree));
   for (drape_ptr<RenderGroup> const & group : layer.m_renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
 }
-  
+
 void FrontendRenderer::Render3dLayer(ScreenBase const & modelView)
 {
   RenderLayer & layer = m_layers[static_cast<size_t>(DepthLayer::Geometry3dLayer)];
@@ -1588,7 +1569,7 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView)
     // Fallback for devices which do not support rendering to the texture.
     CHECK(m_context != nullptr, ());
     m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
-    
+
     layer.Sort(make_ref(m_overlayTree));
     for (drape_ptr<RenderGroup> const & group : layer.m_renderGroups)
       RenderSingleGroup(m_context, modelView, make_ref(group));
@@ -1678,7 +1659,7 @@ void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
 {
   if (HasTransitRouteData())
     RenderTransitBackground();
-  
+
   if (m_routeRenderer->HasData() || m_routeRenderer->HasPreviewData())
   {
     CHECK(m_context != nullptr, ());
@@ -1739,7 +1720,7 @@ void FrontendRenderer::RenderEmptyFrame()
 void FrontendRenderer::RenderFrame()
 {
   DrapeMeasurerGuard drapeMeasurerGuard;
-  
+
   CHECK(m_context != nullptr, ());
   if (!m_context->Validate())
   {
@@ -2164,11 +2145,11 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
   {
     auto r = m_selectionShape->GetSelectionGeometryBoundingBox();
     r.Scale(kBoundingBoxScale);
-    
+
     m2::RectD pixelRect;
     pixelRect.Add(screen.PtoP3d(screen.GtoP(r.LeftTop())));
     pixelRect.Add(screen.PtoP3d(screen.GtoP(r.RightBottom())));
-    
+
     rect.Inflate(pixelRect.SizeX(), pixelRect.SizeY());
     targetRect.Inflate(pixelRect.SizeX(), pixelRect.SizeY());
   }
@@ -2185,7 +2166,7 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
       rect.Inflate(r, r);
       targetRect.Inflate(r, r);
     }
-    
+
     double const kOffset = 50 * VisualParams::Instance().GetVisualScale();
     rect.Inflate(kOffset, kOffset);
     targetRect.Inflate(kOffset, kOffset);
@@ -2241,8 +2222,9 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 
   // Request new tiles.
   TTilesCollection tiles;
+  /// @todo Introduce small_set class based on buffer_vector.
   buffer_vector<TileKey, 8> tilesToDelete;
-  auto result = CalcTilesCoverage(rect, dataZoomLevel,
+  auto const result = CalcTilesCoverage(rect, dataZoomLevel,
                                   [this, &rect, &tiles, &tilesToDelete](int tileX, int tileY)
   {
     TileKey const key(tileX, tileY, m_currentZoomLevel);
@@ -2261,7 +2243,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   auto removePredicate = [this, &result, &tilesToDelete](drape_ptr<RenderGroup> const & group)
   {
     TileKey const & key = group->GetTileKey();
-    return group->GetTileKey().m_zoomLevel == m_currentZoomLevel &&
+    return key.m_zoomLevel == m_currentZoomLevel &&
            (key.m_x < result.m_minTileX || key.m_x >= result.m_maxTileX ||
            key.m_y < result.m_minTileY || key.m_y >= result.m_maxTileY ||
            std::find(tilesToDelete.begin(), tilesToDelete.end(), key) != tilesToDelete.end());

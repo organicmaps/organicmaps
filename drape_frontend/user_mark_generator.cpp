@@ -249,28 +249,23 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
 
 void UserMarkGenerator::CacheUserLines(ref_ptr<dp::GraphicsContext> context,
                                        TileKey const & tileKey, MarksIDGroups const & indexesGroups,
-                                       ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher)
+                                       ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher) const
 {
-  for (auto & groupPair : indexesGroups)
+  for (auto const & gp : indexesGroups)
   {
-    kml::MarkGroupId groupId = groupPair.first;
-    if (m_groupsVisibility.find(groupId) == m_groupsVisibility.end())
-      continue;
-
-    df::CacheUserLines(context, tileKey, textures, groupPair.second->m_lineIds, m_lines, batcher);
+    if (m_groupsVisibility.find(gp.first) != m_groupsVisibility.end())
+      df::CacheUserLines(context, tileKey, textures, gp.second->m_lineIds, m_lines, batcher);
   }
 }
 
 void UserMarkGenerator::CacheUserMarks(ref_ptr<dp::GraphicsContext> context,
                                        TileKey const & tileKey, MarksIDGroups const & indexesGroups,
-                                       ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher)
+                                       ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher) const
 {
-  for (auto & groupPair : indexesGroups)
+  for (auto const & gp : indexesGroups)
   {
-    kml::MarkGroupId groupId = groupPair.first;
-    if (m_groupsVisibility.find(groupId) == m_groupsVisibility.end())
-      continue;
-    df::CacheUserMarks(context, tileKey, textures, groupPair.second->m_markIds, m_marks, batcher);
+    if (m_groupsVisibility.find(gp.first) != m_groupsVisibility.end())
+      df::CacheUserMarks(context, tileKey, textures, gp.second->m_markIds, m_marks, batcher);
   }
 }
 

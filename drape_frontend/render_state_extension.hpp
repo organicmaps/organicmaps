@@ -26,6 +26,7 @@ enum class DepthLayer : uint8_t
   LayersCount
 };
 
+/// @todo Replace with simple struct without polymorphism.
 class RenderStateExtension : public dp::BaseRenderStateExtension
 {
 public:
