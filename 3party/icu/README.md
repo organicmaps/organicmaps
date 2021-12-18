@@ -20,7 +20,8 @@ make -j$(nproc)
 cp data/out/icudt??l.dat ../../../data/
 ```
 
-Don't forget to delete an old .dat file in the $(OMIM_ROOT)/data and update all references in the code:
+Don't forget to delete an old .dat file in the $(OMIM_ROOT)/data and update symlink in `android/assets/`
+and all references in the code:
 
 ```
 indexer/transliteration_loader.cpp
