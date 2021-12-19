@@ -2,6 +2,8 @@
 
   [type.aerialway]
     en = Aerialway
+    el = Τελεφερίκ
+    de = Seilbahn
     fr = Transport par câble aérien
     ja = 索道
     pl = Transport linowy
@@ -12,6 +14,8 @@
 
   [type.aerialway.cable_car]
     en = Aerialway
+    el = Τελεφερίκ
+    de = Seilbahn
     fr = Téléphérique
     ja = ロープウェイ
     pl = Kolej linowa
@@ -23,6 +27,8 @@
 
   [type.aerialway.chair_lift]
     en = Aerialway
+    el = Τελεφερίκ
+    de = Seilbahn
     fr = Télésiège
     ja = チェアリフト
     pl = Wyciąg krzesełkowy
@@ -33,6 +39,8 @@
 
   [type.aerialway.drag_lift]
     en = Aerialway
+    el = Τελεφερίκ
+    de = Seilbahn
     fr = Téléski
     ja = 牽引リフト
     pl = Wyciąg orczykowy
@@ -42,6 +50,8 @@
 
   [type.aerialway.gondola]
     en = Aerialway
+    el = Τελεφερίκ
+    de = Seilbahn
     fr = Télécabine
     ja = ゴンドラ
     pl = Gondola kolejki linowej
@@ -52,6 +62,8 @@
 
   [type.aerialway.mixed_lift]
     en = Aerialway
+    el = Τελεφερίκ
+    de = Seilbahn
     ja = 混合リフト
     pl = Wyciąg mieszany
     pt = Teleférico híbrido
@@ -63,8 +75,8 @@
     ar = محطة تلفريك
     cs = Stanice lanové dráhy
     da = Kabelbanestation
-    de = Seilbahn
-    el = Σταθμός αερομεταφοράς
+    de = Seilbahnstation
+    el = Σταθμός τελεφερίκ
     es = Estación de teleférico
     fi = Köysirata-asema
     fr = Remontées mécaniques
