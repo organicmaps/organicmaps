@@ -1485,19 +1485,19 @@
 
 /********** Types **********/
 
-"type.aerialway" = "Aerialway";
+"type.aerialway" = "Seilbahn";
 
-"type.aerialway.cable_car" = "Aerialway";
+"type.aerialway.cable_car" = "Seilbahn";
 
-"type.aerialway.chair_lift" = "Aerialway";
+"type.aerialway.chair_lift" = "Seilbahn";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "Seilbahn";
 
-"type.aerialway.gondola" = "Aerialway";
+"type.aerialway.gondola" = "Seilbahn";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "Seilbahn";
 
-"type.aerialway.station" = "Seilbahn";
+"type.aerialway.station" = "Seilbahnstation";
 
 "type.aeroway" = "Aeroway";
 

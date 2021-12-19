@@ -838,7 +838,13 @@
 	<string name="track_title">Strecken</string>
 
 	<!-- SECTION: Types -->
-	<string name="type.aerialway.station">Seilbahn</string>
+	<string name="type.aerialway">Seilbahn</string>
+	<string name="type.aerialway.cable_car">Seilbahn</string>
+	<string name="type.aerialway.chair_lift">Seilbahn</string>
+	<string name="type.aerialway.drag_lift">Seilbahn</string>
+	<string name="type.aerialway.gondola">Seilbahn</string>
+	<string name="type.aerialway.mixed_lift">Seilbahn</string>
+	<string name="type.aerialway.station">Seilbahnstation</string>
 	<string name="type.aeroway.aerodrome">Flughafen</string>
 	<string name="type.aeroway.aerodrome.international">Flughafen</string>
 	<string name="type.aeroway.helipad">Hubschrauberlandeplatz</string>

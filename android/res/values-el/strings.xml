@@ -807,7 +807,13 @@
 	<string name="track_title">Τροχιά</string>
 
 	<!-- SECTION: Types -->
-	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>
+	<string name="type.aerialway">Τελεφερίκ</string>
+	<string name="type.aerialway.cable_car">Τελεφερίκ</string>
+	<string name="type.aerialway.chair_lift">Τελεφερίκ</string>
+	<string name="type.aerialway.drag_lift">Τελεφερίκ</string>
+	<string name="type.aerialway.gondola">Τελεφερίκ</string>
+	<string name="type.aerialway.mixed_lift">Τελεφερίκ</string>
+	<string name="type.aerialway.station">Σταθμός τελεφερίκ</string>
 	<string name="type.aeroway.aerodrome">Αεροδρόμιο</string>
 	<string name="type.aeroway.aerodrome.international">Αεροδρόμιο</string>
 	<string name="type.aeroway.helipad">Ελικοδρόμιο</string>

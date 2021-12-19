@@ -1485,19 +1485,19 @@
 
 /********** Types **********/
 
-"type.aerialway" = "Aerialway";
+"type.aerialway" = "Τελεφερίκ";
 
-"type.aerialway.cable_car" = "Aerialway";
+"type.aerialway.cable_car" = "Τελεφερίκ";
 
-"type.aerialway.chair_lift" = "Aerialway";
+"type.aerialway.chair_lift" = "Τελεφερίκ";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "Τελεφερίκ";
 
-"type.aerialway.gondola" = "Aerialway";
+"type.aerialway.gondola" = "Τελεφερίκ";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "Τελεφερίκ";
 
-"type.aerialway.station" = "Σταθμός αερομεταφοράς";
+"type.aerialway.station" = "Σταθμός τελεφερίκ";
 
 "type.aeroway" = "Aeroway";
 
