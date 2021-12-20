@@ -374,6 +374,12 @@
 		FA526333266AEA4D00B5EBFD /* uinvchar.h in Headers */ = {isa = PBXBuildFile; fileRef = FA525FA0266AEA4C00B5EBFD /* uinvchar.h */; };
 		FA526334266AEA4D00B5EBFD /* locmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525FA1266AEA4C00B5EBFD /* locmap.cpp */; };
 		FA526337266AEA4D00B5EBFD /* utrace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA525FA4266AEA4C00B5EBFD /* utrace.cpp */; };
+		FACE0515276CA365006A197F /* emojiprops.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACE0513276CA364006A197F /* emojiprops.cpp */; };
+		FACE0516276CA365006A197F /* emojiprops.h in Headers */ = {isa = PBXBuildFile; fileRef = FACE0514276CA365006A197F /* emojiprops.h */; };
+		FACE051B276CA5DE006A197F /* ucharstrieiterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACE0517276CA5DD006A197F /* ucharstrieiterator.cpp */; };
+		FACE051C276CA5DE006A197F /* uvectr32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACE0518276CA5DE006A197F /* uvectr32.cpp */; };
+		FACE051D276CA5DE006A197F /* ucharstrie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACE0519276CA5DE006A197F /* ucharstrie.cpp */; };
+		FACE051E276CA5DE006A197F /* uvectr32.h in Headers */ = {isa = PBXBuildFile; fileRef = FACE051A276CA5DE006A197F /* uvectr32.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -747,6 +753,12 @@
 		FA525FA0266AEA4C00B5EBFD /* uinvchar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uinvchar.h; sourceTree = "<group>"; };
 		FA525FA1266AEA4C00B5EBFD /* locmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locmap.cpp; sourceTree = "<group>"; };
 		FA525FA4266AEA4C00B5EBFD /* utrace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utrace.cpp; sourceTree = "<group>"; };
+		FACE0513276CA364006A197F /* emojiprops.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = emojiprops.cpp; sourceTree = "<group>"; };
+		FACE0514276CA365006A197F /* emojiprops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = emojiprops.h; sourceTree = "<group>"; };
+		FACE0517276CA5DD006A197F /* ucharstrieiterator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ucharstrieiterator.cpp; sourceTree = "<group>"; };
+		FACE0518276CA5DE006A197F /* uvectr32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uvectr32.cpp; sourceTree = "<group>"; };
+		FACE0519276CA5DE006A197F /* ucharstrie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ucharstrie.cpp; sourceTree = "<group>"; };
+		FACE051A276CA5DE006A197F /* uvectr32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uvectr32.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -961,6 +973,8 @@
 				FA525E2A266AEA4B00B5EBFD /* cstring.cpp */,
 				FA525F02266AEA4B00B5EBFD /* cstring.h */,
 				FA525F2E266AEA4B00B5EBFD /* edits.cpp */,
+				FACE0513276CA364006A197F /* emojiprops.cpp */,
+				FACE0514276CA365006A197F /* emojiprops.h */,
 				FA525F37266AEA4B00B5EBFD /* loadednormalizer2impl.cpp */,
 				FA525EF5266AEA4B00B5EBFD /* localebuilder.cpp */,
 				FA525E3A266AEA4B00B5EBFD /* locid.cpp */,
@@ -999,6 +1013,8 @@
 				FA525EB4266AEA4B00B5EBFD /* ucase.cpp */,
 				FA525F69266AEA4B00B5EBFD /* ucase.h */,
 				FA525F68266AEA4B00B5EBFD /* uchar.cpp */,
+				FACE0519276CA5DE006A197F /* ucharstrie.cpp */,
+				FACE0517276CA5DD006A197F /* ucharstrieiterator.cpp */,
 				FA525F26266AEA4B00B5EBFD /* ucln_cmn.cpp */,
 				FA525F9F266AEA4C00B5EBFD /* ucln_cmn.h */,
 				FA525F1E266AEA4B00B5EBFD /* ucln_imp.h */,
@@ -1076,6 +1092,8 @@
 				FA525E4B266AEA4B00B5EBFD /* utrie2.h */,
 				FA525EB3266AEA4B00B5EBFD /* uvector.cpp */,
 				FA525E19266AEA4B00B5EBFD /* uvector.h */,
+				FACE0518276CA5DE006A197F /* uvectr32.cpp */,
+				FACE051A276CA5DE006A197F /* uvectr32.h */,
 			);
 			name = common;
 			path = ../../3party/icu/icu/icu4c/source/common;
@@ -1220,6 +1238,7 @@
 				FA526075266AEA4C00B5EBFD /* quant.h in Headers */,
 				FA526216266AEA4D00B5EBFD /* uobject.h in Headers */,
 				FA5261F7266AEA4D00B5EBFD /* edits.h in Headers */,
+				FACE051E276CA5DE006A197F /* uvectr32.h in Headers */,
 				FA52621B266AEA4D00B5EBFD /* caniter.h in Headers */,
 				FA52603F266AEA4C00B5EBFD /* upluralrules.h in Headers */,
 				FA526183266AEA4D00B5EBFD /* rbt_set.h in Headers */,
@@ -1392,6 +1411,7 @@
 				FA526057266AEA4C00B5EBFD /* stsearch.h in Headers */,
 				FA526230266AEA4D00B5EBFD /* uchar.h in Headers */,
 				FA526235266AEA4D00B5EBFD /* ucnv_cb.h in Headers */,
+				FACE0516276CA365006A197F /* emojiprops.h in Headers */,
 				FA5261B3266AEA4D00B5EBFD /* locmap.h in Headers */,
 				FA526258266AEA4D00B5EBFD /* utracimp.h in Headers */,
 				FA526247266AEA4D00B5EBFD /* utf8.h in Headers */,
@@ -1511,6 +1531,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FACE0515276CA365006A197F /* emojiprops.cpp in Sources */,
 				FA5262FB266AEA4D00B5EBFD /* ubidi_props.cpp in Sources */,
 				FA5260EA266AEA4C00B5EBFD /* titletrn.cpp in Sources */,
 				FA525FAA266AEA4C00B5EBFD /* nultrans.cpp in Sources */,
@@ -1545,6 +1566,7 @@
 				FA5261C5266AEA4D00B5EBFD /* util.cpp in Sources */,
 				FA5262CD266AEA4D00B5EBFD /* loadednormalizer2impl.cpp in Sources */,
 				FA52628C266AEA4D00B5EBFD /* localebuilder.cpp in Sources */,
+				FACE051D276CA5DE006A197F /* ucharstrie.cpp in Sources */,
 				FA5262AB266AEA4D00B5EBFD /* unifilt.cpp in Sources */,
 				FA5261DA266AEA4D00B5EBFD /* loclikely.cpp in Sources */,
 				FA5260FE266AEA4C00B5EBFD /* rbt_pars.cpp in Sources */,
@@ -1579,6 +1601,7 @@
 				FA5262D6266AEA4D00B5EBFD /* udataswp.cpp in Sources */,
 				FA526296266AEA4D00B5EBFD /* cmemory.cpp in Sources */,
 				FA5261BE266AEA4D00B5EBFD /* ubiditransform.cpp in Sources */,
+				FACE051C276CA5DE006A197F /* uvectr32.cpp in Sources */,
 				FA526319266AEA4D00B5EBFD /* util_props.cpp in Sources */,
 				FA525FBB266AEA4C00B5EBFD /* transreg.cpp in Sources */,
 				FA5260C2266AEA4C00B5EBFD /* funcrepl.cpp in Sources */,
@@ -1617,6 +1640,7 @@
 				FA5262C4266AEA4D00B5EBFD /* edits.cpp in Sources */,
 				FA5261D8266AEA4D00B5EBFD /* unames.cpp in Sources */,
 				FA5262ED266AEA4D00B5EBFD /* appendable.cpp in Sources */,
+				FACE051B276CA5DE006A197F /* ucharstrieiterator.cpp in Sources */,
 				FA5262AC266AEA4D00B5EBFD /* utrie_swap.cpp in Sources */,
 				FA526334266AEA4D00B5EBFD /* locmap.cpp in Sources */,
 				FA526080266AEA4C00B5EBFD /* translit.cpp in Sources */,

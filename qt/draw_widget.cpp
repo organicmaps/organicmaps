@@ -533,12 +533,14 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 
 void DrawWidget::SubmitBookmark(m2::PointD const & pt)
 {
-  if (!m_framework.GetBookmarkManager().HasBmCategory(m_bookmarksCategoryId))
-    m_bookmarksCategoryId = m_framework.GetBookmarkManager().CreateBookmarkCategory("Desktop_bookmarks");
+  auto & manager = m_framework.GetBookmarkManager();
+  if (!manager.HasBmCategory(m_bookmarksCategoryId))
+    m_bookmarksCategoryId = manager.CreateBookmarkCategory("Desktop_bookmarks");
+
   kml::BookmarkData data;
   data.m_color.m_predefinedColor = kml::PredefinedColor::Red;
   data.m_point = m_framework.P3dtoG(pt);
-  m_framework.GetBookmarkManager().GetEditSession().CreateBookmark(std::move(data), m_bookmarksCategoryId);
+  manager.GetEditSession().CreateBookmark(std::move(data), m_bookmarksCategoryId);
 }
 
 void DrawWidget::FollowRoute()

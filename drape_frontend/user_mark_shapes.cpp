@@ -392,7 +392,7 @@ drape_ptr<dp::OverlayHandle> CreateSymbolOverlayHandle(UserMarkRenderParams cons
 
 void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                     ref_ptr<dp::TextureManager> textures, kml::MarkIdCollection const & marksId,
-                    UserMarksRenderCollection & renderParams, dp::Batcher & batcher)
+                    UserMarksRenderCollection const & renderParams, dp::Batcher & batcher)
 {
   using UPV = UserPointVertex;
   buffer_vector<UPV, dp::Batcher::VertexPerQuad> buffer;
@@ -403,7 +403,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     if (it == renderParams.end())
       continue;
 
-    UserMarkRenderParams & renderInfo = *it->second;
+    UserMarkRenderParams const & renderInfo = *it->second;
     if (!renderInfo.m_isVisible)
       continue;
 
@@ -568,7 +568,7 @@ void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmen
 
 void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                     ref_ptr<dp::TextureManager> textures, kml::TrackIdCollection const & linesId,
-                    UserLinesRenderCollection & renderParams, dp::Batcher & batcher)
+                    UserLinesRenderCollection const & renderParams, dp::Batcher & batcher)
 {
   CHECK_GREATER(tileKey.m_zoomLevel, 0, ());
   CHECK_LESS(tileKey.m_zoomLevel - 1, static_cast<int>(kLineWidthZoomFactor.size()), ());

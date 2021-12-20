@@ -39,7 +39,7 @@ cp -r ../data/resources-6plus_clear/ assets/
 cp -r ../data/sound-strings/ assets/
 cp -r ../data/countries-strings/ assets/
 
-cp -r ../data/icudt69l.dat assets/
+cp -r ../data/icudt70l.dat assets/
 
 
 rm -rf flavors/mwm-ttf-assets

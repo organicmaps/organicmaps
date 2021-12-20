@@ -213,8 +213,7 @@ public:
     {
       auto const j = static_cast<uint32_t>(m_ids.select(i));
       Value value;
-      bool const ok = Get(j, value);
-      CHECK(ok, ());
+      CHECK(Get(j, value), (i, j));
       fn(j, value);
     }
   }

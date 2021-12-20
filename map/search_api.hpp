@@ -54,23 +54,18 @@ public:
 
     virtual void RunUITask(std::function<void()> /* fn */) {}
 
-    virtual void ShowViewportSearchResults(search::Results::ConstIter begin,
-                                           search::Results::ConstIter end, bool clear)
-    {
-    }
+    using ResultsIterT = search::Results::ConstIter;
+    virtual void ShowViewportSearchResults(ResultsIterT begin, ResultsIterT end, bool clear) {}
 
     virtual void ClearViewportSearchResults() {}
 
-    virtual std::optional<m2::PointD> GetCurrentPosition() const { return {}; };
+    virtual std::optional<m2::PointD> GetCurrentPosition() const { return {}; }
 
-    virtual bool ParseSearchQueryCommand(search::SearchParams const & /* params */)
-    {
-      return false;
-    };
+    virtual bool ParseSearchQueryCommand(search::SearchParams const & /* params */) { return false; }
 
-    virtual m2::PointD GetMinDistanceBetweenResults() const { return {}; };
+    virtual m2::PointD GetMinDistanceBetweenResults() const { return {}; }
 
-    virtual search::ProductInfo GetProductInfo(search::Result const & result) const { return {}; };
+    virtual search::ProductInfo GetProductInfo(search::Result const & result) const { return {}; }
   };
 
   SearchAPI(DataSource & dataSource, storage::Storage const & storage,

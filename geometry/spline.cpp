@@ -35,7 +35,7 @@ void Spline::AddPoint(PointD const & pt)
   if (!IsEmpty() && (pt - m_position.back()).IsAlmostZero())
     return;
 
-  if(IsEmpty())
+  if (IsEmpty())
     m_position.push_back(pt);
   else
   {
@@ -103,17 +103,6 @@ Spline::iterator Spline::GetPoint(double step) const
   return it;
 }
 
-Spline const & Spline::operator=(Spline const & spl)
-{
-  if (&spl != this)
-  {
-    m_position = spl.m_position;
-    m_direction = spl.m_direction;
-    m_length = spl.m_length;
-  }
-  return *this;
-}
-
 double Spline::GetLength() const
 {
   return accumulate(m_length.begin(), m_length.end(), 0.0);
@@ -140,34 +129,8 @@ Spline::iterator::iterator()
   : m_checker(false)
   , m_spl(NULL)
   , m_index(0)
-  , m_dist(0) {}
-
-Spline::iterator::iterator(Spline::iterator const & other)
+  , m_dist(0)
 {
-  m_checker = other.m_checker;
-  m_spl = other.m_spl;
-  m_index = other.m_index;
-  m_dist = other.m_dist;
-
-  m_pos = other.m_pos;
-  m_dir = other.m_dir;
-  m_avrDir = other.m_avrDir;
-}
-
-Spline::iterator & Spline::iterator::operator=(Spline::iterator const & other)
-{
-  if (this == &other)
-    return *this;
-
-  m_checker = other.m_checker;
-  m_spl = other.m_spl;
-  m_index = other.m_index;
-  m_dist = other.m_dist;
-
-  m_pos = other.m_pos;
-  m_dir = other.m_dir;
-  m_avrDir = other.m_avrDir;
-  return *this;
 }
 
 void Spline::iterator::Attach(Spline const & spl)
@@ -222,7 +185,7 @@ size_t Spline::iterator::GetIndex() const
 void Spline::iterator::AdvanceBackward(double step)
 {
   m_dist += step;
-  while(m_dist < 0.0f)
+  while (m_dist < 0.0f)
   {
     if (m_index == 0)
     {
@@ -238,6 +201,7 @@ void Spline::iterator::AdvanceBackward(double step)
 
     m_dist += m_spl->m_length[m_index];
   }
+
   m_dir = m_spl->m_direction[m_index];
   m_avrDir = -m_pos;
   m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
@@ -252,6 +216,7 @@ void Spline::iterator::AdvanceForward(double step)
     m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
     return;
   }
+
   while (m_dist > m_spl->m_length[m_index])
   {
     m_dist -= m_spl->m_length[m_index];
@@ -278,19 +243,6 @@ SharedSpline::SharedSpline(vector<PointD> const & path)
 SharedSpline::SharedSpline(vector<PointD> && path)
   : m_spline(make_shared<Spline>(move(path)))
 {
-}
-
-SharedSpline::SharedSpline(SharedSpline const & other)
-{
-  if (this != &other)
-    m_spline = other.m_spline;
-}
-
-SharedSpline const & SharedSpline::operator= (SharedSpline const & spl)
-{
-  if (this != &spl)
-    m_spline = spl.m_spline;
-  return *this;
 }
 
 bool SharedSpline::IsNull() const
@@ -331,4 +283,4 @@ Spline const * SharedSpline::Get() const
   ASSERT(!IsNull(), ());
   return m_spline.get();
 }
-}
+} // namespace m2

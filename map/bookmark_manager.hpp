@@ -136,7 +136,7 @@ public:
     template <typename UserMarkT, typename F>
     void DeleteUserMarks(UserMark::Type type, F && deletePredicate)
     {
-      return m_bmManager.DeleteUserMarks<UserMarkT>(type, std::move(deletePredicate));
+      return m_bmManager.DeleteUserMarks<UserMarkT>(type, std::forward<F>(deletePredicate));
     }
 
     void DeleteUserMark(kml::MarkId markId);
