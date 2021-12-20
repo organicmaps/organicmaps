@@ -57,6 +57,7 @@
     </style>
 
     <script>
+      "use strict";
       function getLanguage() {
         let lang = navigator.language || navigator.userLanguage;
         const found = location.href.indexOf("?");
@@ -77,17 +78,17 @@
       function showLanguage() {
         let lang = getLanguage();
         const iso6391 = lang.substring(0, 2);
-        if (canReadRussian.includes(iso6391))
+        if (canReadRussian.indexOf(iso6391) >= 0)  // Array.includes is not supported in Android 5 and 6.
           lang = 'ru';
-        else if (translations.includes(iso6391)) {
+        else if (translations.indexOf(iso6391) >= 0) {
           if (lang != 'pt-BR')
             lang = iso6391;
         } else
           lang = 'en';
 
-        var elems = document.querySelectorAll('[lang="' + lang + '"]');
-        // Make them visible
-        for (i = 0; i < elems.length; ++i) elems[i].style.display = "block";
+        let elems = document.querySelectorAll('[lang="' + lang + '"]');
+        // Make them visible.
+        for (let i = 0; i < elems.length; ++i) elems[i].style.display = "block";
       }
     </script>
   </head>
