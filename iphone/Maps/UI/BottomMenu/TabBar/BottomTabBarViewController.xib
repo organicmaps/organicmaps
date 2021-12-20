@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,8 +12,9 @@
             <connections>
                 <outlet property="bookmarksButton" destination="dgG-ki-3tB" id="md5-3T-9tb"/>
                 <outlet property="downloadBadge" destination="uDI-ZC-4wx" id="fAf-cy-Ozn"/>
+                <outlet property="helpButton" destination="dzf-7Z-N6a" id="ORg-VO-5ar"/>
                 <outlet property="moreButton" destination="svD-yi-GrZ" id="kjk-ZW-nZN"/>
-                <outlet property="routeButton" destination="dzf-7Z-N6a" id="M5Q-pe-o4B"/>
+                <outlet property="routeButton" destination="dzf-7Z-N6b" id="M5Q-pe-o4B"/>
                 <outlet property="searchButton" destination="No0-ld-JX3" id="m5F-UT-j94"/>
                 <outlet property="view" destination="zuH-WU-hiP" id="eoa-4I-wKs"/>
             </connections>
@@ -44,7 +45,7 @@
                                 <action selector="onSearchButtonPressed:" destination="-1" eventType="touchUpInside" id="0D5-RB-HBQ"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-7Z-N6a" userLabel="P2P" customClass="MWMButton">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-7Z-N6b" userLabel="P2P" customClass="MWMButton">
                             <rect key="frame" x="0.0" y="0.0" width="93.5" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="p2pButton"/>
                             <state key="normal" image="ic_menu_point_to_point"/>
@@ -53,6 +54,17 @@
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="onPoint2PointButtonPressed:" destination="-1" eventType="touchUpInside" id="PPa-zZ-odU"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-7Z-N6a" userLabel="Help" customClass="MWMButton">
+                            <rect key="frame" x="0.0" y="0.0" width="93.5" height="48"/>
+                            <accessibility key="accessibilityConfiguration" identifier="helpButton"/>
+                            <state key="normal" image="ic_menu_question"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onHelpButtonPressed:" destination="-1" eventType="touchUpInside" id="1gx-P2-sRJ"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dgG-ki-3tB" userLabel="Bookmarks" customClass="MWMButton">
@@ -136,6 +148,7 @@
         <image name="ic_menu" width="48" height="48"/>
         <image name="ic_menu_bookmark_list" width="48" height="48"/>
         <image name="ic_menu_point_to_point" width="48" height="48"/>
+        <image name="ic_menu_question" width="29" height="29"/>
         <image name="ic_menu_search" width="48" height="48"/>
     </resources>
 </document>

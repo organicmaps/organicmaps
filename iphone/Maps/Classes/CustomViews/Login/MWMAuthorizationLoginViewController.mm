@@ -95,24 +95,24 @@ using namespace osm_auth_ios;
 {
   [self performOnlineAction:^
   {
-    [self openUrl:[NSURL URLWithString:@(OsmOAuth::ServerAuth().GetRegistrationURL().c_str())]];
+    [self openUrl:@(OsmOAuth::ServerAuth().GetRegistrationURL().c_str())];
   }];
 }
 
 - (IBAction)osmTap
 {
-  [self openUrl:[NSURL URLWithString:@"https://wiki.openstreetmap.org/wiki/Main_Page"]];
+  [self openUrl:@"https://wiki.openstreetmap.org/wiki/Main_Page"];
 }
 
 - (IBAction)historyTap
 {
-  [self openUrl:[NSURL URLWithString:[NSString stringWithFormat:
+  [self openUrl:[NSString stringWithFormat:
 #ifdef DEBUG
-                                      @"https://master.apis.dev.openstreetmap.org/user/%@/history"
+                 @"https://master.apis.dev.openstreetmap.org/user/%@/history"
 #else
-                                      @"https://www.openstreetmap.org/user/%@/history"
+                 @"https://www.openstreetmap.org/user/%@/history"
 #endif
-                                      , OSMUserName()]]];
+                 , OSMUserName()]];
 }
 
 - (void)logout

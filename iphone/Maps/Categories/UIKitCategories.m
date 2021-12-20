@@ -169,23 +169,37 @@
 
 @implementation UIViewController (Safari)
 
-- (void)openUrl:(NSURL *)url
+- (BOOL)openUrl:(NSString * _Nonnull)urlString
 {
+  return [self openUrl:urlString inSafari:NO];
+}
+
+- (BOOL)openUrl:(NSString *)urlString inSafari:(BOOL)safari
+{
+  NSURL * url = [[NSURL alloc] initWithString:urlString];
   if (!url)
   {
-    NSAssert(false, @"URL is nil!");
-    return;
+    NSAssert(false, @"Invalid URL %@", urlString);
+    return NO;
   }
   NSString * scheme = url.scheme;
-  if (!([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]))
+  if (!([scheme isEqualToString:@"https"] || [scheme isEqualToString:@"http"]))
   {
-    NSAssert(false, @"Incorrect url's scheme!");
-    return;
+    NSAssert(false, @"Incorrect url scheme %@", scheme);
+    return NO;
   }
 
-  SFSafariViewController * svc = [[SFSafariViewController alloc] initWithURL:url];
-  svc.delegate = self;
-  [self.navigationController presentViewController:svc animated:YES completion:nil];
+  if (safari)
+  {
+    [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
+  }
+  else
+  {
+    SFSafariViewController * svc = [[SFSafariViewController alloc] initWithURL:url];
+    svc.delegate = self;
+    [self.navigationController presentViewController:svc animated:YES completion:nil];
+  }
+  return YES;
 }
 
 @end

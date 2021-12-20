@@ -1,7 +1,7 @@
 protocol BottomTabBarInteractorProtocol: AnyObject {
   func openSearch()
   func openPoint2Point()
-  func openDiscovery()
+  func openHelp()
   func openBookmarks()
   func openMenu()
 }
@@ -41,11 +41,8 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
     }
   }
   
-  func openDiscovery() {
-//    NetworkPolicy.shared().callOnlineApi { (canUseNetwork) in
-//      let vc = MWMDiscoveryController.instance(withConnection: canUseNetwork)
-//      MapViewController.shared()?.navigationController?.pushViewController(vc!, animated: true)
-//    }
+  func openHelp() {
+    MapViewController.shared()?.navigationController?.pushViewController(AboutController(), animated: true)
   }
   
   func openBookmarks() {

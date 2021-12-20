@@ -3253,7 +3253,7 @@
     zh-Hant = 分享
 
   [email]
-    comment = Share by email button text, also used in editor.
+    comment = Share by email button text, also used in editor and About.
     tags = android,ios
     en = Email
     ar = البريد الالكتروني
