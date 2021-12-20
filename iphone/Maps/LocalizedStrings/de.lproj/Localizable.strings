@@ -1487,33 +1487,33 @@
 
 "type.aerialway" = "Seilbahn";
 
-"type.aerialway.cable_car" = "Seilbahn";
+"type.aerialway.cable_car" = "Pendelbahn";
 
-"type.aerialway.chair_lift" = "Seilbahn";
+"type.aerialway.chair_lift" = "Sessellift";
 
-"type.aerialway.drag_lift" = "Seilbahn";
+"type.aerialway.drag_lift" = "Schlepplift";
 
-"type.aerialway.gondola" = "Seilbahn";
+"type.aerialway.gondola" = "Gondelbahn";
 
-"type.aerialway.mixed_lift" = "Seilbahn";
+"type.aerialway.mixed_lift" = "Kombibahn";
 
-"type.aerialway.station" = "Seilbahnstation";
+"type.aerialway.station" = "Liftstation";
 
-"type.aeroway" = "Aeroway";
+"type.aeroway" = "Luftverkehr";
 
-"type.aeroway.aerodrome" = "Flughafen";
+"type.aeroway.aerodrome" = "Flugplatz";
 
 "type.aeroway.aerodrome.international" = "Flughafen";
 
-"type.aeroway.apron" = "aeroway-apron";
+"type.aeroway.apron" = "Vorfeld";
 
 "type.aeroway.gate" = "Gate";
 
 "type.aeroway.helipad" = "Hubschrauberlandeplatz";
 
-"type.aeroway.runway" = "aeroway-runway";
+"type.aeroway.runway" = "Start-/Landebahn";
 
-"type.aeroway.taxiway" = "aeroway-taxiway";
+"type.aeroway.taxiway" = "Rollweg";
 
 "type.aeroway.terminal" = "Terminal";
 
@@ -1709,7 +1709,7 @@
 
 "type.amenity.university" = "Universität";
 
-"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine" = "Verkaufsautomat";
 
 "type.amenity.vending_machine.cigarettes" = "Zigarettenautomat";
 
@@ -1727,7 +1727,7 @@
 
 "type.amenity.water_point" = "Wasseranschluss";
 
-"type.barrier" = "Barrier";
+"type.barrier" = "Barriere";
 
 "type.barrier.block" = "Block";
 
@@ -1739,11 +1739,11 @@
 
 "type.barrier.city_wall" = "Stadtmauer";
 
-"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.barrier.cycle_barrier" = "Umlaufschranke";
 
 "type.barrier.entrance" = "Durchgang";
 
-"type.barrier.fence" = "Fence";
+"type.barrier.fence" = "Zaun";
 
 "type.barrier.gate" = "Tor";
 
@@ -1763,7 +1763,7 @@
 
 "type.boundary" = "Grenze";
 
-"type.boundary.administrative" = "boundary-administrative";
+"type.boundary.administrative" = "Verwaltungsgrenze";
 
 "type.boundary.administrative.10" = "boundary-administrative-10";
 
@@ -2023,47 +2023,47 @@
 
 "type.healthcare.laboratory" = "Medizinisches Labor";
 
-"type.highway" = "Autobahn";
+"type.highway" = "Straße";
 
-"type.highway.bridleway" = "Rider's Path";
+"type.highway.bridleway" = "Reitweg";
 
-"type.highway.bridleway.bridge" = "Rider's Path";
+"type.highway.bridleway.bridge" = "Reitweg";
 
-"type.highway.bridleway.permissive" = "Rider's Path";
+"type.highway.bridleway.permissive" = "Reitweg";
 
-"type.highway.bridleway.tunnel" = "Rider's Path";
+"type.highway.bridleway.tunnel" = "Reitweg";
 
 "type.highway.bus_stop" = "Bushaltestelle";
 
 "type.highway.construction" = "Straße im Bau";
 
-"type.highway.cycleway" = "Bike Path";
+"type.highway.cycleway" = "Radweg";
 
-"type.highway.cycleway.bridge" = "Bike Path";
+"type.highway.cycleway.bridge" = "Radweg";
 
-"type.highway.cycleway.permissive" = "Bike Path";
+"type.highway.cycleway.permissive" = "Radweg";
 
-"type.highway.cycleway.tunnel" = "Bike Path";
+"type.highway.cycleway.tunnel" = "Radweg";
 
-"type.highway.elevator" = "Elevator";
+"type.highway.elevator" = "Aufzug";
 
 "type.highway.footway" = "Fußweg";
 
-"type.highway.footway.alpine_hiking" = "Fußweg";
+"type.highway.footway.alpine_hiking" = "Alpinwanderweg";
 
 "type.highway.footway.area" = "Fußweg";
 
 "type.highway.footway.bridge" = "Fußweg";
 
-"type.highway.footway.demanding_alpine_hiking" = "Wanderweg";
+"type.highway.footway.demanding_alpine_hiking" = "Anspruchsvoller Alpinwanderweg";
 
-"type.highway.footway.demanding_mountain_hiking" = "Wanderweg";
+"type.highway.footway.demanding_mountain_hiking" = "Anspruchsvoller Bergwanderweg";
 
-"type.highway.footway.difficult_alpine_hiking" = "Wanderweg";
+"type.highway.footway.difficult_alpine_hiking" = "Schwieriger Alpinwanderweg";
 
 "type.highway.footway.hiking" = "Wanderweg";
 
-"type.highway.footway.mountain_hiking" = "Wanderweg";
+"type.highway.footway.mountain_hiking" = "Bergwanderweg";
 
 "type.highway.footway.permissive" = "Fußweg";
 
@@ -2079,37 +2079,37 @@
 
 "type.highway.motorway" = "Autobahn";
 
-"type.highway.motorway.bridge" = "Autobahn";
+"type.highway.motorway.bridge" = "Autobahnbrücke";
 
 "type.highway.motorway.tunnel" = "Autobahntunnel";
 
-"type.highway.motorway_junction" = "Ausfahrt";
+"type.highway.motorway_junction" = "Autobahnausfahrt";
 
-"type.highway.motorway_link" = "Auffahrt";
+"type.highway.motorway_link" = "Autobahnauffahrt";
 
-"type.highway.motorway_link.bridge" = "Auffahrt";
+"type.highway.motorway_link.bridge" = "Autobahnauffahrt";
 
-"type.highway.motorway_link.tunnel" = "Auffahrt";
+"type.highway.motorway_link.tunnel" = "Autobahnauffahrt";
 
 "type.highway.path" = "Weg";
 
-"type.highway.path.alpine_hiking" = "Weg";
+"type.highway.path.alpine_hiking" = "Alpinwanderweg";
 
-"type.highway.path.bicycle" = "Weg";
+"type.highway.path.bicycle" = "Radweg";
 
 "type.highway.path.bridge" = "Weg";
 
-"type.highway.path.demanding_alpine_hiking" = "Weg";
+"type.highway.path.demanding_alpine_hiking" = "Anspruchsvoller Alpinwanderweg";
 
-"type.highway.path.demanding_mountain_hiking" = "Weg";
+"type.highway.path.demanding_mountain_hiking" = "Anspruchsvoller Bergwanderweg";
 
-"type.highway.path.difficult_alpine_hiking" = "Weg";
+"type.highway.path.difficult_alpine_hiking" = "Schwieriger Alpinwanderweg";
 
-"type.highway.path.hiking" = "Weg";
+"type.highway.path.hiking" = "Wanderweg";
 
-"type.highway.path.horse" = "Weg";
+"type.highway.path.horse" = "Reitweg";
 
-"type.highway.path.mountain_hiking" = "Weg";
+"type.highway.path.mountain_hiking" = "Bergwanderweg";
 
 "type.highway.path.permissive" = "Weg";
 
@@ -2177,7 +2177,7 @@
 
 "type.highway.service.tunnel" = "Straßentunnel";
 
-"type.highway.services" = "Service on the Road";
+"type.highway.services" = "Raststätte";
 
 "type.highway.speed_camera" = "Blitzer";
 
@@ -2247,7 +2247,7 @@
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
 
-"type.historic" = "Historic";
+"type.historic" = "Historisches Objekt";
 
 "type.historic.archaeological_site" = "Ausgrabungsstätte";
 
@@ -2317,9 +2317,9 @@
 
 "type.junction" = "Junction";
 
-"type.junction.roundabout" = "Roundabout";
+"type.junction.roundabout" = "Kreisverkehr";
 
-"type.landuse" = "Landuse";
+"type.landuse" = "Landnutzung";
 
 "type.landuse.allotments" = "Kleingarten";
 
@@ -2341,7 +2341,7 @@
 
 "type.landuse.farmland" = "Agrarland";
 
-"type.landuse.farmyard" = "Farmyard";
+"type.landuse.farmyard" = "Landwirtschaftlich genutzte Fläche";
 
 "type.landuse.field" = "Feld";
 
@@ -2385,13 +2385,13 @@
 
 "type.landuse.salt_pond" = "Saline";
 
-"type.landuse.village_green" = "Land";
+"type.landuse.village_green" = "Dorfplatz";
 
 "type.landuse.vineyard" = "Weinberg";
 
-"type.leisure" = "Leisure";
+"type.leisure" = "Freizeit";
 
-"type.leisure.common" = "leisure-common";
+"type.leisure.common" = "öffentliche Grünfläche";
 
 "type.leisure.dog_park" = "Hundeauslauffläche";
 
@@ -2407,7 +2407,7 @@
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
 
-"type.leisure.marina" = "Marina";
+"type.leisure.marina" = "Jachthafen";
 
 "type.leisure.nature_reserve" = "Naturschutzgebiet";
 
@@ -2425,7 +2425,7 @@
 
 "type.leisure.playground" = "Spielplatz";
 
-"type.leisure.recreation_ground" = "Recreation Ground";
+"type.leisure.recreation_ground" = "Freizeitgelände";
 
 "type.leisure.sauna" = "Sauna";
 
@@ -2433,7 +2433,7 @@
 
 "type.leisure.sports_centre" = "Sportzentrum";
 
-"type.leisure.sports_centre.climbing" = "Kletterzentrum";
+"type.leisure.sports_centre.climbing" = "Kletterhalle";
 
 "type.leisure.sports_centre.shooting" = "Schießanlage";
 
@@ -2449,7 +2449,7 @@
 
 "type.leisure.water_park" = "Aquapark";
 
-"type.man_made" = "Man Made";
+"type.man_made" = "künstliche Anlage";
 
 "type.man_made.breakwater" = "Wellenbrecher";
 
@@ -2491,13 +2491,13 @@
 
 "type.mapswithme.grid" = "mapswithme-grid";
 
-"type.military" = "Military";
+"type.military" = "Militärisches Objekt";
 
 "type.military.bunker" = "Bunker";
 
 "type.mountain_pass" = "Gebirgspass";
 
-"type.natural" = "Natural";
+"type.natural" = "Natur";
 
 "type.natural.bare_rock" = "Nackter Fels";
 
@@ -2539,9 +2539,9 @@
 
 "type.natural.land" = "Land";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Wiese";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Garten";
 
 "type.natural.peak" = "Gipfel";
 
@@ -2565,7 +2565,7 @@
 
 "type.natural.water" = "Wasserfläche";
 
-"type.natural.wetland" = "Moorgegend";
+"type.natural.wetland" = "Feuchtgebiet";
 
 "type.natural.wetland.bog" = "Moor";
 
@@ -2589,9 +2589,9 @@
 
 "type.office.ngo" = "Büro einer Nichtregierungsorganisation";
 
-"type.office.telecommunication" = "Mobilbetreiber";
+"type.office.telecommunication" = "Mobilfunkbetreiber";
 
-"type.place" = "place";
+"type.place" = "Ort";
 
 "type.place.city" = "Großstadt";
 
@@ -2619,7 +2619,7 @@
 
 "type.place.continent" = "Kontinent";
 
-"type.place.country" = "Land";
+"type.place.country" = "Staat";
 
 "type.place.county" = "Kreis";
 
@@ -2629,13 +2629,13 @@
 
 "type.place.island" = "Insel";
 
-"type.place.islet" = "Insel";
+"type.place.islet" = "kleine Insel";
 
-"type.place.isolated_dwelling" = "Dwelling";
+"type.place.isolated_dwelling" = "Kleinstsiedlung";
 
 "type.place.locality" = "Örtlichkeit";
 
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Stadtviertel";
 
 "type.place.ocean" = "Ozean";
 
@@ -2643,11 +2643,11 @@
 
 "type.place.sea" = "Meer";
 
-"type.place.square" = "Square";
+"type.place.square" = "Platz";
 
-"type.place.state" = "Staat";
+"type.place.state" = "Bundesland";
 
-"type.place.state.USA" = "Staat";
+"type.place.state.USA" = "Bundesstaat";
 
 "type.place.suburb" = "Stadtteil";
 
@@ -2655,23 +2655,23 @@
 
 "type.place.village" = "Dorf";
 
-"type.power" = "Power";
+"type.power" = "Energie";
 
 "type.power.generator" = "Generator";
 
-"type.power.line" = "Power Line";
+"type.power.line" = "Hochspannungs-Freileitung";
 
-"type.power.line.underground" = "Underground Power Line";
+"type.power.line.underground" = "Unterirdische Hochpannungsleitung";
 
-"type.power.minor_line" = "Minor Power Line";
+"type.power.minor_line" = "Nieder-/Mittelspannungsfreileitung";
 
-"type.power.pole" = "Freileitungsmast";
+"type.power.pole" = "Nieder-/Mittelspannungsmast";
 
-"type.power.station" = "Power Station";
+"type.power.station" = "Umspannwerk";
 
 "type.power.substation" = "Umspannwerk";
 
-"type.power.tower" = "Freileitungsmast";
+"type.power.tower" = "Hochspannungsmast";
 
 "type.psurface" = "psurface";
 
@@ -2683,161 +2683,161 @@
 
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 
-"type.public_transport" = "Public Transport";
+"type.public_transport" = "Öffentlicher Verkehr";
 
 "type.public_transport.platform" = "Platform";
 
-"type.railway" = "Railway";
+"type.railway" = "Eisenbahn";
 
-"type.railway.abandoned" = "Abandoned railway";
+"type.railway.abandoned" = "Ehemalige Eisenbahnstrecke";
 
-"type.railway.abandoned.bridge" = "Abandoned railway";
+"type.railway.abandoned.bridge" = "Ehemalige Eisenbahnbrücke";
 
-"type.railway.abandoned.tunnel" = "Abandoned railway";
+"type.railway.abandoned.tunnel" = "Ehemaliger Eisenbahntunnel";
 
-"type.railway.construction" = "Railway's construction";
+"type.railway.construction" = "Eisenbahnstrecke im Bau";
 
-"type.railway.crossing" = "Railway crossing";
+"type.railway.crossing" = "Bahnübergang";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Stillgelegte Bahnstrecke";
 
-"type.railway.funicular" = "Funicular";
+"type.railway.funicular" = "Standseilbahn";
 
-"type.railway.funicular.bridge" = "Funicular";
+"type.railway.funicular.bridge" = "Standseilbahnbrücke";
 
-"type.railway.funicular.tunnel" = "Funicular";
+"type.railway.funicular.tunnel" = "Standseilbahntunnel";
 
-"type.railway.halt" = "Bahnhof";
+"type.railway.halt" = "Haltepunkt";
 
 "type.railway.level_crossing" = "Eisenbahnüberweg";
 
-"type.railway.light_rail" = "Light Rail";
+"type.railway.light_rail" = "Stadtbahn";
 
-"type.railway.light_rail.bridge" = "Light Rail";
+"type.railway.light_rail.bridge" = "Stadtbahnbrücke";
 
-"type.railway.light_rail.tunnel" = "Light Rail";
+"type.railway.light_rail.tunnel" = "Stadtbahntunnel";
 
 "type.railway.monorail" = "Einschienenbahn";
 
-"type.railway.monorail.bridge" = "Monorail";
+"type.railway.monorail.bridge" = "Einschienenbahnbrücke";
 
-"type.railway.monorail.tunnel" = "Monorail";
+"type.railway.monorail.tunnel" = "Einschienenbahntunnel";
 
-"type.railway.narrow_gauge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge" = "Schmalspurbahn";
 
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.bridge" = "Schmalspurbahnbrücke";
 
-"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.tunnel" = "Schmalspurbahntunnel";
 
-"type.railway.platform" = "Platform";
+"type.railway.platform" = "Bahnsteig";
 
-"type.railway.preserved" = "Preserved Rail";
+"type.railway.preserved" = "Museumsbahn";
 
-"type.railway.preserved.bridge" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Museumsbahnbrücke";
 
-"type.railway.preserved.tunnel" = "Preserved Rail";
+"type.railway.preserved.tunnel" = "Museumsbahntunnel";
 
-"type.railway.rail" = "Eisenbahn";
+"type.railway.rail" = "S-Bahn";
 
-"type.railway.rail.bridge" = "Railway";
+"type.railway.rail.bridge" = "S-Bahn-Brücke";
 
-"type.railway.rail.motor_vehicle" = "Railway";
+"type.railway.rail.motor_vehicle" = "S-Bahn";
 
-"type.railway.rail.tunnel" = "Railway";
+"type.railway.rail.tunnel" = "S-Bahn-Tunnel";
 
-"type.railway.razed" = "Razed Rail";
+"type.railway.razed" = "Stillgelegte Eisenbahnstrecke";
 
-"type.railway.siding" = "Siding Rail";
+"type.railway.siding" = "Ausweich-/Überholgleis";
 
-"type.railway.siding.bridge" = "Siding Rail";
+"type.railway.siding.bridge" = "Ausweich-/Überholgleis";
 
-"type.railway.siding.tunnel" = "Siding Rail";
+"type.railway.siding.tunnel" = "Ausweich-/Überholgleis";
 
-"type.railway.spur" = "Spur Rail";
+"type.railway.spur" = "Anschlussgleis";
 
-"type.railway.spur.bridge" = "Spur Rail";
+"type.railway.spur.bridge" = "Anschlussgleis";
 
-"type.railway.spur.tunnel" = "Spur Rail";
+"type.railway.spur.tunnel" = "Anschlussgleis";
 
 "type.railway.station" = "Bahnhof";
 
-"type.railway.station.light_rail" = "Bahnhof";
+"type.railway.station.light_rail" = "Stadtbahnbahnhof";
 
 "type.railway.station.monorail" = "Bahnhof";
 
-"type.railway.station.subway" = "U-Bahn";
+"type.railway.station.subway" = "U-Bahnstation";
 
-"type.railway.station.subway.barcelona" = "U-Bahn";
+"type.railway.station.subway.barcelona" = "U-Bahnstation";
 
-"type.railway.station.subway.berlin" = "U-Bahn";
+"type.railway.station.subway.berlin" = "U-Bahnstation";
 
-"type.railway.station.subway.kiev" = "U-Bahn";
+"type.railway.station.subway.kiev" = "U-Bahnstation";
 
-"type.railway.station.subway.london" = "U-Bahn";
+"type.railway.station.subway.london" = "U-Bahnstation";
 
-"type.railway.station.subway.madrid" = "U-Bahn";
+"type.railway.station.subway.madrid" = "U-Bahnstation";
 
-"type.railway.station.subway.minsk" = "U-Bahn";
+"type.railway.station.subway.minsk" = "U-Bahnstation";
 
-"type.railway.station.subway.moscow" = "U-Bahn";
+"type.railway.station.subway.moscow" = "U-Bahnstation";
 
-"type.railway.station.subway.newyork" = "U-Bahn";
+"type.railway.station.subway.newyork" = "U-Bahnstation";
 
-"type.railway.station.subway.paris" = "U-Bahn";
+"type.railway.station.subway.paris" = "U-Bahnstation";
 
-"type.railway.station.subway.roma" = "U-Bahn";
+"type.railway.station.subway.roma" = "U-Bahnstation";
 
-"type.railway.station.subway.spb" = "U-Bahn";
+"type.railway.station.subway.spb" = "U-Bahnstation";
 
-"type.railway.subway" = "Subway Line";
+"type.railway.subway" = "U-Bahn";
 
-"type.railway.subway.bridge" = "Subway Line";
+"type.railway.subway.bridge" = "U-Bahn-Brücke";
 
-"type.railway.subway.tunnel" = "Subway Line";
+"type.railway.subway.tunnel" = "U-Bahn-Tunnel";
 
 "type.railway.subway_entrance" = "U-Bahn-Eingang";
 
-"type.railway.subway_entrance.barcelona" = "U-Bahn";
+"type.railway.subway_entrance.barcelona" = "U-Bahn-Eingang";
 
-"type.railway.subway_entrance.berlin" = "U-Bahn";
+"type.railway.subway_entrance.berlin" = "U-Bahn-Eingang";
 
-"type.railway.subway_entrance.kiev" = "U-Bahn";
+"type.railway.subway_entrance.kiev" = "U-Bahn-Eingang";
 
-"type.railway.subway_entrance.london" = "U-Bahn";
+"type.railway.subway_entrance.london" = "U-Bahn-Eingang";
 
-"type.railway.subway_entrance.madrid" = "U-Bahn";
+"type.railway.subway_entrance.madrid" = "U-Bahn-Eingang";
 
-"type.railway.subway_entrance.minsk" = "U-Bahn";
+"type.railway.subway_entrance.minsk" = "U-Bahn-Eingang";
 
-"type.railway.subway_entrance.moscow" = "U-Bahn";
+"type.railway.subway_entrance.moscow" = "U-Bahn-Eingang";
 
-"type.railway.subway_entrance.newyork" = "U-Bahn";
+"type.railway.subway_entrance.newyork" = "U-Bahn-Eingang";
 
-"type.railway.subway_entrance.paris" = "U-Bahn";
+"type.railway.subway_entrance.paris" = "U-Bahn-Eingang";
 
-"type.railway.subway_entrance.roma" = "U-Bahn";
+"type.railway.subway_entrance.roma" = "U-Bahn-Eingang";
 
-"type.railway.subway_entrance.spb" = "U-Bahn";
+"type.railway.subway_entrance.spb" = "U-Bahn-Eingang";
 
-"type.railway.tram" = "Tram Line";
+"type.railway.tram" = "Straßenbahn";
 
-"type.railway.tram.bridge" = "Tram Line";
+"type.railway.tram.bridge" = "Straßenbahnbrücke";
 
-"type.railway.tram.tunnel" = "Tram Line";
+"type.railway.tram.tunnel" = "Straßenbahntunnel";
 
 "type.railway.tram_stop" = "Straßenbahnhaltestelle";
 
-"type.railway.yard" = "Railway Yard";
+"type.railway.yard" = "Abstellgleis";
 
-"type.railway.yard.bridge" = "Railway Yard";
+"type.railway.yard.bridge" = "Abstellgleis";
 
-"type.railway.yard.tunnel" = "Railway Yard";
+"type.railway.yard.tunnel" = "Abstellgleis";
 
-"type.route" = "route";
+"type.route" = "Route";
 
-"type.route.ferry" = "Ferry";
+"type.route.ferry" = "Fähre";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "Shuttlezug";
 
 "type.shop" = "Geschäft";
 
@@ -2881,7 +2881,7 @@
 
 "type.shop.copyshop" = "Kopierladen";
 
-"type.shop.cosmetics" = "Kosmetik";
+"type.shop.cosmetics" = "Kosmetikgeschäft";
 
 "type.shop.department_store" = "Kaufhaus";
 
@@ -2893,7 +2893,7 @@
 
 "type.shop.erotic" = "Erotikladen";
 
-"type.shop.fabric" = "Geschäft";
+"type.shop.fabric" = "Textilgeschäft";
 
 "type.shop.florist" = "Florist";
 
@@ -2967,17 +2967,17 @@
 
 "type.shop.variety_store" = "Billigladen";
 
-"type.shop.video" = "Videoshop";
+"type.shop.video" = "Videothek";
 
 "type.shop.video_games" = "Gameshop";
 
 "type.shop.wine" = "Wein- und Spirituosengeschäft";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
 "type.sport.american_football" = "American Football";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Bogenschießen";
 
 "type.sport.athletics" = "Leichtathletik";
 
@@ -2991,37 +2991,37 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
+"type.sport.curling" = "Curling";
 
-"type.sport.diving" = "Diving";
+"type.sport.diving" = "Tauchen";
 
 "type.sport.equestrian" = "Reiten";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gymnastik";
 
 "type.sport.handball" = "Handball";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "verschiedene Sportarten";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+"type.sport.scuba_diving" = "Sporttauchen";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Sportschießen";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Skisport";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Fußball";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Schwimmen";
 
 "type.sport.tennis" = "Tennisspielfeld";
 
-"type.tourism" = "Tourism";
+"type.tourism" = "Tourismus";
 
 "type.tourism.alpine_hut" = "Berghütte";
 
-"type.tourism.apartment" = "Appartements";
+"type.tourism.apartment" = "Ferienwohnung";
 
 "type.tourism.artwork" = "Kunstwerk";
 
@@ -3033,19 +3033,19 @@
 
 "type.tourism.artwork.statue" = "Statue";
 
-"type.tourism.attraction" = "Attraktion";
+"type.tourism.attraction" = "Sehenswürdigkeit";
 
-"type.tourism.attraction.animal" = "Attraktion";
+"type.tourism.attraction.animal" = "Sehenswürdigkeit";
 
-"type.tourism.attraction.specified" = "Attraktion";
+"type.tourism.attraction.specified" = "Sehenswürdigkeit";
 
 "type.tourism.camp_site" = "Zeltplatz";
 
 "type.tourism.caravan_site" = "Wohnwagenstellplatz";
 
-"type.tourism.chalet" = "Hütte";
+"type.tourism.chalet" = "Ferienhaus";
 
-"type.tourism.gallery" = "Gallerie";
+"type.tourism.gallery" = "Galerie";
 
 "type.tourism.guest_house" = "Gästehaus";
 
@@ -3053,7 +3053,7 @@
 
 "type.tourism.hotel" = "Hotel";
 
-"type.tourism.information" = "Tourist-Information";
+"type.tourism.information" = "Touristeninformation";
 
 "type.tourism.information.board" = "Informationstafel";
 
@@ -3079,33 +3079,33 @@
 
 "type.tourism.zoo" = "Zoo";
 
-"type.traffic_calming" = "Traffic Calming";
+"type.traffic_calming" = "Verkehrsberuhigung";
 
-"type.traffic_calming.bump" = "Traffic Bump";
+"type.traffic_calming.bump" = "kurze Bodenwelle";
 
-"type.traffic_calming.hump" = "Traffic Hump";
+"type.traffic_calming.hump" = "lange Bodenwelle";
 
-"type.waterway" = "Waterway";
+"type.waterway" = "Wasserweg";
 
 "type.waterway.canal" = "Kanal";
 
 "type.waterway.canal.tunnel" = "Kanal";
 
-"type.waterway.dam" = "Damm";
+"type.waterway.dam" = "Staudamm";
 
 "type.waterway.ditch" = "Graben";
 
 "type.waterway.ditch.tunnel" = "Graben";
 
-"type.waterway.dock" = "Waterway Dock";
+"type.waterway.dock" = "Dock";
 
 "type.waterway.drain" = "Abfluss";
 
 "type.waterway.drain.tunnel" = "Abfluss";
 
-"type.waterway.lock" = "Waterway Lock";
+"type.waterway.lock" = "Schleuse";
 
-"type.waterway.lock_gate" = "Schleuse";
+"type.waterway.lock_gate" = "Schleusentor";
 
 "type.waterway.river" = "Fluss";
 
@@ -3115,11 +3115,11 @@
 
 "type.waterway.stream" = "Bach";
 
-"type.waterway.stream.ephemeral" = "Fluss";
+"type.waterway.stream.ephemeral" = "Bach";
 
-"type.waterway.stream.intermittent" = "Fluss";
+"type.waterway.stream.intermittent" = "Bach";
 
-"type.waterway.stream.tunnel" = "Fluss";
+"type.waterway.stream.tunnel" = "Bach";
 
 "type.waterway.waterfall" = "Wasserfall";
 
@@ -3133,37 +3133,37 @@
 
 "type.wheelchair.yes" = "Vollständiger Zugang für Rollstühle";
 
-"type.piste_lift" = "piste:lift";
+"type.piste_lift" = "Lift";
 
-"type.piste_lift.j.bar" = "piste:lift-j-bar";
+"type.piste_lift.j.bar" = "Schlepplift";
 
-"type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
+"type.piste_lift.magic_carpet" = "Laufband";
 
-"type.piste_lift.platter" = "piste:lift-platter";
+"type.piste_lift.platter" = "Tellerlift";
 
-"type.piste_lift.rope_tow" = "piste:lift-rope_tow";
+"type.piste_lift.rope_tow" = "Seillift";
 
-"type.piste_lift.t.bar" = "piste:lift-t-bar";
+"type.piste_lift.t.bar" = "T-Bügel-Lift";
 
-"type.piste_type" = "piste:type";
+"type.piste_type" = "Pistentyp";
 
-"type.piste_type.downhill" = "piste:type-downhill";
+"type.piste_type.downhill" = "Abfahrt";
 
-"type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
+"type.piste_type.downhill.advanced" = "Schwierige Abfahrt";
 
-"type.piste_type.downhill.easy" = "piste:type-downhill-easy";
+"type.piste_type.downhill.easy" = "Leichte Abfahrt";
 
-"type.piste_type.downhill.expert" = "piste:type-downhill-expert";
+"type.piste_type.downhill.expert" = "Profi Abfahrt";
 
 "type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
 
-"type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
+"type.piste_type.downhill.intermediate" = "Mittelschwere Abfahrt";
 
-"type.piste_type.downhill.novice" = "piste:type-downhill-novice";
+"type.piste_type.downhill.novice" = "Anfängerfreundliche Abfahrt";
 
-"type.piste_type.nordic" = "piste:type-nordic";
+"type.piste_type.nordic" = "Langlaufloipe";
 
-"type.piste_type.sled" = "piste:type-sled";
+"type.piste_type.sled" = "Rodelbahn";
 
 "type.building_part" = "Gebäude";
 
@@ -3171,11 +3171,11 @@
 
 "type.area_highway.footway" = "Weg";
 
-"type.area_highway.living_street" = "Street";
+"type.area_highway.living_street" = "Wohnstraße";
 
-"type.area_highway.motorway" = "area:highway-motorway";
+"type.area_highway.motorway" = "Autobahn";
 
-"type.area_highway.path" = "Path";
+"type.area_highway.path" = "Weg";
 
 "type.area_highway.pedestrian" = "Street";
 
