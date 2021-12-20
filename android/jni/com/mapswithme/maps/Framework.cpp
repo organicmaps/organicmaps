@@ -126,7 +126,6 @@ void Framework::OnLocationError(int errorCode)
 
 void Framework::OnLocationUpdated(location::GpsInfo const & info)
 {
-  ASSERT(IsDrapeEngineCreated(), ());
   m_work.OnLocationUpdate(info);
 }
 
