@@ -210,7 +210,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   }
 
 #else
-  GpsInfo rInfo(info);
+  GpsInfo const & rInfo = info;
 #endif
 
   m_routingManager.OnLocationUpdate(rInfo);
@@ -1395,15 +1395,14 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results const & resul
   FillSearchResultsMarks(results.begin(), results.end(), clear);
 }
 
-void Framework::FillSearchResultsMarks(SearchResultsIterT begin, SearchResultsIterT end,
-                                       bool clear, SearchMarkPostProcessing const & fn)
+void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIterT end, bool clear)
 {
   auto editSession = GetBookmarkManager().GetEditSession();
   if (clear)
     editSession.ClearGroup(UserMark::Type::SEARCH);
   editSession.SetIsVisible(UserMark::Type::SEARCH, true);
 
-  for (auto it = begin; it != end; ++it)
+  for (auto it = beg; it != end; ++it)
   {
     auto const & r = *it;
     if (!r.HasPoint())
@@ -1425,9 +1424,6 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT begin, SearchResultsIt
       mark->SetVisited(m_searchMarks.IsVisited(mark->GetFeatureID()));
       mark->SetSelected(m_searchMarks.IsSelected(mark->GetFeatureID()));
     }
-
-    if (fn)
-      fn(*mark);
   }
 }
 

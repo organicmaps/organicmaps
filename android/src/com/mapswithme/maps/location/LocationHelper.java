@@ -97,16 +97,12 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     @Override
     public void onLocationError(int errorCode)
     {
-      mLogger.d(TAG, "onLocationError errorCode = " + errorCode, new Throwable());
+      mLogger.d(TAG, "onLocationError errorCode = " + errorCode +
+          ", current state = " + LocationState.nameOf(getMyPositionMode()));
       mSavedLocation = null;
       nativeOnLocationError(errorCode);
-      mLogger.d(TAG, "nativeOnLocationError errorCode = " + errorCode +
-                ", current state = " + LocationState.nameOf(getMyPositionMode()));
-
-      if (mUiCallback == null)
-        return;
-
-      mUiCallback.onLocationError();
+      if (mUiCallback != null)
+        mUiCallback.onLocationError();
     }
 
     @Override

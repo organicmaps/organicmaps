@@ -490,9 +490,7 @@ public:
   size_t ShowSearchResults(search::Results const & results);
 
   void FillSearchResultsMarks(bool clear, search::Results const & results);
-  using SearchMarkPostProcessing = std::function<void(SearchMarkPoint & mark)>;
-  void FillSearchResultsMarks(SearchResultsIterT begin, SearchResultsIterT end,
-                              bool clear, SearchMarkPostProcessing const & fn = {});
+  void FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIterT end, bool clear);
 
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;
