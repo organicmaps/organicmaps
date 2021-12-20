@@ -101,7 +101,7 @@
     zh-Hans = 缆车车站
     zh-Hant = 纜車站
 
-[type.aeroway]
+  [type.aeroway]
     en = Aeroway
     de = Luftverkehr
     ja = 空路
@@ -112,11 +112,10 @@
 
   [type.aeroway.aerodrome]
     en = Airport
-    de = Flugplatz
     ar = مطار
     cs = Letiště
     da = Lufthavn
-    de = Flughafen
+    de = Flugplatz
     el = Αεροδρόμιο
     es = Aeropuerto
     fa = فرودگاه
@@ -15884,7 +15883,6 @@
 
   [type.railway.station]
     en = Train Station
-    de = Bahnhof
     ar = محطة سكك حديدية
     cs = Železniční stanice
     da = Togstation
@@ -19870,7 +19868,6 @@
     ar = معلومات سياحية
     cs = Infocentrum
     da = Turistinformation
-    de = Tourist-Information
     el = Τουριστικές πληροφορίες
     es = Información
     fa = گردشگری
@@ -19931,7 +19928,6 @@
 
   [type.tourism.information.guidepost]
     en = Tourist Information
-    de = Touristeninformation
     ar = معلومات سياحية
     cs = Infocentrum
     da = Turistinformation
