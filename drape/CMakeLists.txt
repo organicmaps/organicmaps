@@ -164,16 +164,18 @@ if (PLATFORM_LINUX)
 endif()
 
 target_link_libraries(${PROJECT_NAME}
+  PUBLIC
+  Freetype::Freetype
+  vulkan_wrapper
+  PRIVATE
   indexer
   platform
   geometry
   coding
   base
-  freetype
-  vulkan_wrapper
   stb_image
   sdf_image
-  icu
+  ICU::i18n
   expat
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ OpenGL>
   $<$<BOOL:${PLATFORM_LINUX}>:OpenGL::GL>

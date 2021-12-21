@@ -6,11 +6,11 @@
 #include <memory>
 #include <mutex>
 #include <string>
+#include <unicode/uversion.h>
 
-namespace icu
-{
+U_NAMESPACE_BEGIN
 class UnicodeString;
-}  // namespace icu
+U_NAMESPACE_END
 
 class Transliteration
 {

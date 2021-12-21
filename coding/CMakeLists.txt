@@ -93,11 +93,14 @@ set(SRC
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
+  PUBLIC
+  ICU::uc
+  ICU::i18n # For transliteration.
+  PRIVATE
   base
   expat
   jansson
   succinct
-  icu       # For transliteration.
   oauthcpp  # For base64_encode and base64_decode
   minizip
   ${LIBZ}

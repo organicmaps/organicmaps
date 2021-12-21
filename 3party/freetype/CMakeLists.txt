@@ -6,3 +6,4 @@ target_include_directories(freetype
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include/freetype2>
 )
+add_library(Freetype::Freetype ALIAS freetype)

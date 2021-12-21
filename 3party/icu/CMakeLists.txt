@@ -1,8 +1,6 @@
 project(icu)
 
-# set(CMAKE_PREFIX_PATH ./)
-
-set(SRC
+add_library(icuuc
   uconfig_local.h
   icu/icu4c/source/common/appendable.cpp
   icu/icu4c/source/common/bmpset.cpp
@@ -89,6 +87,21 @@ set(SRC
   icu/icu4c/source/common/utrie_swap.cpp
   icu/icu4c/source/common/uvector.cpp
   icu/icu4c/source/common/uvectr32.cpp
+)
+add_library(ICU::uc ALIAS icuuc)
+
+target_include_directories(icuuc
+  PUBLIC
+  ./
+  icu/icu4c/source/common
+)
+
+target_compile_definitions(icuuc
+  PUBLIC
+    UCONFIG_USE_LOCAL
+)
+
+add_library(icui18n
   icu/icu4c/source/i18n/anytrans.cpp
   icu/icu4c/source/i18n/casetrn.cpp
   icu/icu4c/source/i18n/cpdtrans.cpp
@@ -117,17 +130,17 @@ set(SRC
   icu/icu4c/source/i18n/uni2name.cpp
   icu/icu4c/source/stubdata/stubdata.cpp
 )
+add_library(ICU::i18n ALIAS icui18n)
 
-add_library(${PROJECT_NAME} ${SRC})
-
-target_compile_definitions(${PROJECT_NAME}
+target_compile_definitions(icui18n
   PUBLIC
     UCONFIG_USE_LOCAL
 )
 
-target_include_directories(${PROJECT_NAME}
+target_include_directories(icui18n
   PUBLIC
     ./
-    icu/icu4c/source/common
     icu/icu4c/source/i18n
+  PRIVATE
+    icu/icu4c/source/common
 )

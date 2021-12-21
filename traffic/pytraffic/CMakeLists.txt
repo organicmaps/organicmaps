@@ -42,7 +42,7 @@ omim_link_libraries(
   pugixml
   opening_hours
   succinct
-  icu
+  ICU::i18n
   ${Boost_LIBRARIES}
   ${LIBZ}
 )

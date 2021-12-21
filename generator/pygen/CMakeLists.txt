@@ -29,7 +29,7 @@ omim_link_libraries(
   opening_hours
   freetype
   expat
-  icu
+  ICU::i18n
   jansson
   protobuf
   bsdiff
