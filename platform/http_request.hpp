@@ -32,7 +32,7 @@ protected:
   Callback m_onFinish;
   Callback m_onProgress;
 
-  HttpRequest(Callback const & onFinish, Callback const & onProgress);
+  HttpRequest(Callback && onFinish, Callback && onProgress);
 
 public:
   virtual ~HttpRequest() = 0;
@@ -44,20 +44,20 @@ public:
 
   /// Response saved to memory buffer and retrieved with Data()
   static HttpRequest * Get(std::string const & url,
-                           Callback const & onFinish,
-                           Callback const & onProgress = Callback());
+                           Callback && onFinish,
+                           Callback && onProgress = Callback());
 
   /// Content-type for request is always "application/json"
   static HttpRequest * PostJson(std::string const & url, std::string const & postData,
-                                Callback const & onFinish,
-                                Callback const & onProgress = Callback());
+                                Callback && onFinish,
+                                Callback && onProgress = Callback());
 
   /// Download file to filePath.
   /// @param[in]  fileSize  Correct file size (needed for resuming and reserving).
   static HttpRequest * GetFile(std::vector<std::string> const & urls,
                                std::string const & filePath, int64_t fileSize,
-                               Callback const & onFinish,
-                               Callback const & onProgress = Callback(),
+                               Callback && onFinish,
+                               Callback && onProgress = Callback(),
                                int64_t chunkSize = 512 * 1024,
                                bool doCleanOnCancel = true);
 };
