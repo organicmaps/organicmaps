@@ -2,13 +2,12 @@
 
 #include "defines.hpp"
 
-#include "storage/map_files_downloader.hpp"
+#include "storage/downloader.hpp"
 #include "storage/storage.hpp"
 
 #include "platform/downloader_defines.hpp"
 #include "platform/http_request.hpp"
 #include "platform/platform.hpp"
-#include "platform/servers_list.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/reader_streambuf.hpp"
@@ -182,41 +181,28 @@ extern "C"
     env->CallVoidMethod(*listener, methodID, static_cast<jint>(g_totalDownloadedBytes + req.GetProgress().m_bytesDownloaded));
   }
 
-  static void DownloadURLListFinished(HttpRequest const & req, Callback const & onFinish, Callback const & onProgress)
-  {
-    FileToDownload & curFile = g_filesToDownload.back();
-
-    LOG(LINFO, ("Finished URL list download for", curFile.m_fileName));
-
-    GetServersList(req, curFile.m_urls);
-
-    Storage const & storage = g_framework->GetStorage();
-    for (size_t i = 0; i < curFile.m_urls.size(); ++i)
-    {
-      curFile.m_urls[i] = MapFilesDownloader::MakeFullUrlLegacy(curFile.m_urls[i],
-                                                                curFile.m_fileName,
-                                                                storage.GetCurrentDataVersion());
-      LOG(LDEBUG, (curFile.m_urls[i]));
-    }
-
-    g_currentRequest.reset(HttpRequest::GetFile(curFile.m_urls, curFile.m_pathOnSdcard, curFile.m_fileSize, onFinish, onProgress, 512 * 1024, false));
-  }
-
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_DownloadResourcesLegacyActivity_nativeStartNextFileDownload(JNIEnv * env, jclass clazz, jobject listener)
   {
     if (g_filesToDownload.empty())
       return ERR_NO_MORE_FILES;
 
-    FileToDownload & curFile = g_filesToDownload.back();
+    /// @todo One downloader instance with cached servers. All this routine will be refactored some time.
+    static auto downloader = storage::GetDownloader();
+    downloader->SetDataVersion(g_framework->GetStorage().GetCurrentDataVersion());
 
-    LOG(LDEBUG, ("downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
+    downloader->EnsureServersListReady([ptr = jni::make_global_ref(listener)]()
+    {
+      FileToDownload const & curFile = g_filesToDownload.back();
+      LOG(LINFO, ("Downloading file", curFile.m_fileName));
 
-    Callback onFinish(std::bind(&DownloadFileFinished, jni::make_global_ref(listener), _1));
-    Callback onProgress(std::bind(&DownloadFileProgress, jni::make_global_ref(listener), _1));
+      auto const urls = downloader->MakeUrlListLegacy(curFile.m_fileName);
+      g_currentRequest.reset(HttpRequest::GetFile(urls, curFile.m_pathOnSdcard, curFile.m_fileSize,
+                                                  std::bind(&DownloadFileFinished, ptr, _1),
+                                                  std::bind(&DownloadFileProgress, ptr, _1),
+                                                  512 * 1024, false));
+    });
 
-    g_currentRequest.reset(HttpRequest::Get(GetPlatform().MetaServerUrl(),
-                                                 std::bind(&DownloadURLListFinished, _1, onFinish, onProgress)));
     return ERR_FILE_IN_PROGRESS;
   }
 

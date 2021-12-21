@@ -72,21 +72,16 @@ QueueInterface const & MapFilesDownloader::GetQueue() const
   return m_pendingRequests;
 }
 
-// static
-std::string MapFilesDownloader::MakeFullUrlLegacy(std::string const & baseUrl, std::string const & fileName, int64_t dataVersion)
-{
-  return url::Join(baseUrl, downloader::GetFileDownloadUrl(fileName, dataVersion));
-}
-
 void MapFilesDownloader::DownloadAsString(std::string url, std::function<bool (std::string const &)> && callback,
                                           bool forceReset /* = false */)
 {
-  auto doDownload = [this, forceReset, url = std::move(url), callback = std::move(callback)]()
+  EnsureServersListReady([this, forceReset, url = std::move(url), callback = std::move(callback)]()
   {
     if ((m_fileRequest && !forceReset) || m_serversList.empty())
       return;
 
-    m_fileRequest.reset(RequestT::Get(url::Join(m_serversList.back(), url),
+    // Servers are sorted from best to worst.
+    m_fileRequest.reset(RequestT::Get(url::Join(m_serversList.front(), url),
       [this, callback = std::move(callback)](RequestT & request)
       {
         bool deleteRequest = true;
@@ -101,22 +96,30 @@ void MapFilesDownloader::DownloadAsString(std::string url, std::function<bool (s
         if (deleteRequest)
           m_fileRequest.reset();
       }));
-  };
+  });
+}
 
+void MapFilesDownloader::EnsureServersListReady(std::function<void ()> && callback)
+{
   /// @todo Implement logic if m_serversList is "outdated".
   /// Fetch new servers list on each download request?
   if (!m_serversList.empty())
   {
-    doDownload();
+    callback();
   }
   else if (!m_isServersListRequested)
   {
-    RunServersListAsync(std::move(doDownload));
+    RunServersListAsync(std::move(callback));
   }
   else
   {
     // skip this request without callback call
   }
+}
+
+std::vector<std::string> MapFilesDownloader::MakeUrlListLegacy(std::string const & fileName) const
+{
+  return MakeUrlList(downloader::GetFileDownloadUrl(fileName, m_dataVersion));
 }
 
 void MapFilesDownloader::SetServersList(ServersList const & serversList)
@@ -134,7 +137,7 @@ bool MapFilesDownloader::IsDownloadingAllowed() const
   return m_downloadingPolicy == nullptr || m_downloadingPolicy->IsDownloadingAllowed();
 }
 
-std::vector<std::string> MapFilesDownloader::MakeUrlList(std::string const & relativeUrl)
+std::vector<std::string> MapFilesDownloader::MakeUrlList(std::string const & relativeUrl) const
 {
   std::vector<std::string> urls;
   urls.reserve(m_serversList.size());
