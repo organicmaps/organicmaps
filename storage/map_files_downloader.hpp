@@ -45,8 +45,6 @@ public:
   // Parent method must be called into override method.
   virtual QueueInterface const & GetQueue() const;
 
-  static std::string MakeFullUrlLegacy(std::string const & baseUrl, std::string const & fileName, int64_t dataVersion);
-
   /**
    * @brief Async file download as string buffer (for small files only).
    * Request can be skipped if current servers list is empty.
@@ -60,9 +58,15 @@ public:
   void SetDownloadingPolicy(DownloadingPolicy * policy);
   void SetDataVersion(int64_t version) { m_dataVersion = version; }
 
+  /// @name Legacy functions for Android resourses downloading routine.
+  /// @{
+  void EnsureServersListReady(std::function<void ()> && callback);
+  std::vector<std::string> MakeUrlListLegacy(std::string const & fileName) const;
+  /// @}
+
 protected:
   bool IsDownloadingAllowed() const;
-  std::vector<std::string> MakeUrlList(std::string const & relativeUrl);
+  std::vector<std::string> MakeUrlList(std::string const & relativeUrl) const;
 
   // Synchronously loads list of servers by http client.
   ServersList LoadServersList();

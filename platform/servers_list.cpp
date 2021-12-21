@@ -39,10 +39,4 @@ void GetServersList(std::string const & src, std::vector<std::string> & urls)
   VERIFY(ParseServerList(GetPlatform().DefaultUrlsJSON(), urls), ());
   LOG(LWARNING, ("Can't get servers list from request, using default servers:", urls));
 }
-
-void GetServersList(HttpRequest const & request, std::vector<std::string> & urls)
-{
-  auto const src = request.GetStatus() == DownloadStatus::Completed ? request.GetData() : "";
-  GetServersList(src, urls);
-}
 } // namespace downloader
