@@ -818,11 +818,10 @@ void SubwayConverter::PrepareLinesMetadata()
               auto const & [startPoint2, endPoint2] =
                   GetSegmentEdgesOnPolyline(polyline2, segments2[k]);
 
-              CHECK(base::AlmostEqualAbs(startPoint1, startPoint2, kEps) &&
-                            base::AlmostEqualAbs(endPoint1, endPoint2, kEps) ||
-                        base::AlmostEqualAbs(startPoint1, endPoint2, kEps) &&
-                            base::AlmostEqualAbs(endPoint1, startPoint2, kEps),
-                    ());
+              CHECK((base::AlmostEqualAbs(startPoint1, startPoint2, kEps) &&
+                     base::AlmostEqualAbs(endPoint1, endPoint2, kEps)) ||
+                    (base::AlmostEqualAbs(startPoint1, endPoint2, kEps) &&
+                     base::AlmostEqualAbs(endPoint1, startPoint2, kEps)), ());
 
               ShiftSegmentOnShape(segments1[k], shapeLink1);
               ShiftSegmentOnShape(segments2[k], shapeLink2);

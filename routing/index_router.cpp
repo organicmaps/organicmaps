@@ -834,9 +834,9 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
     return result;
 
   vector<Segment> subrouteWithoutPostprocessing;
-  RouterResultCode const leapsResult =
-      ProcessLeapsJoints(routingResult.m_path, delegate, starter.GetGraph().GetMode(), starter,
-                         progress, subrouteWithoutPostprocessing);
+  ASSERT_EQUAL(starter.GetGraph().GetMode(), WorldGraphMode::LeapsOnly, ());
+  RouterResultCode const leapsResult = ProcessLeapsJoints(routingResult.m_path, delegate, starter,
+                                                          progress, subrouteWithoutPostprocessing);
 
   if (leapsResult != RouterResultCode::NoError)
     return leapsResult;
@@ -1206,13 +1206,10 @@ bool IndexRouter::FindBestEdges(m2::PointD const & checkpoint,
 
 RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
                                                  RouterDelegate const & delegate,
-                                                 WorldGraphMode prevMode,
                                                  IndexGraphStarter & starter,
                                                  shared_ptr<AStarProgress> const & progress,
                                                  vector<Segment> & output)
 {
-  CHECK_EQUAL(prevMode, WorldGraphMode::LeapsOnly, ());
-
   CHECK(progress, ());
   SCOPE_GUARD(progressGuard, [&progress]() {
     progress->PushAndDropLastSubProgress();
@@ -1408,7 +1405,6 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         if (prev == 0)
           dropFirstSegment = false;
 
-        CHECK_GREATER_OR_EQUAL(prev, 0, ());
         if (!tryBuildRoute(prev, next, WorldGraphMode::Joints, routingResult))
           return RouterResultCode::RouteNotFound;
       }

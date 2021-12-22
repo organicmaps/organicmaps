@@ -7,8 +7,6 @@
 
 #include "base/base.hpp"
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wshorten-64-to-32"
 #include <QtGui/QPainter>
 #include <QtGui/QImage>
 #include <QtCore/QFileInfo>
@@ -16,7 +14,6 @@
 #include <QtSvg/QSvgRenderer>
 #include <QtXml/QXmlContentHandler>
 #include <QtXml/QXmlDefaultHandler>
-#pragma GCC diagnostic pop
 
 #include <cstdint>
 #include <map>

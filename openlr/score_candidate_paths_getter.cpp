@@ -35,7 +35,6 @@ double constexpr kAnglesInBucket = 360.0 / kNumBuckets;
 
 double ToAngleInDeg(uint32_t angleInBuckets)
 {
-  CHECK_GREATER_OR_EQUAL(angleInBuckets, 0, ());
   CHECK_LESS_OR_EQUAL(angleInBuckets, 255, ());
   return base::Clamp(kAnglesInBucket * static_cast<double>(angleInBuckets), 0.0, 360.0);
 }
@@ -43,16 +42,14 @@ double ToAngleInDeg(uint32_t angleInBuckets)
 uint32_t BearingInDeg(m2::PointD const & a, m2::PointD const & b)
 {
   auto const angle = location::AngleToBearing(base::RadToDeg(ang::AngleTo(a, b)));
-  CHECK_LESS_OR_EQUAL(angle, 360.0, ());
-  CHECK_GREATER_OR_EQUAL(angle, 0.0, ());
+  CHECK(0.0 <= angle && angle <= 360.0, (angle));
   return angle;
 }
 
 double DifferenceInDeg(double a1, double a2)
 {
   auto const diff = 180.0 - abs(abs(a1 - a2) - 180.0);
-  CHECK_LESS_OR_EQUAL(diff, 180.0, ());
-  CHECK_GREATER_OR_EQUAL(diff, 0.0, ());
+  CHECK(0.0 <= diff && diff <= 180.0, (diff));
   return diff;
 }
 

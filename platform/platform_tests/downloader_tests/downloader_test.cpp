@@ -11,16 +11,13 @@
 #include "base/logging.hpp"
 #include "base/std_serialization.hpp"
 
+#include <QtCore/QCoreApplication>
+
 #include <functional>
 #include <memory>
 #include <vector>
 
 #include "defines.hpp"
-
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wshorten-64-to-32"
-#include <QtCore/QCoreApplication>
-#pragma GCC diagnostic pop
 
 using namespace downloader;
 using namespace std::placeholders;

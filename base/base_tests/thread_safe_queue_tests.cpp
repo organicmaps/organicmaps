@@ -85,7 +85,6 @@ UNIT_TEST(ThreadSafeQueue_ExampleWithDataWrapper)
       if (!dw.has_value())
         return;
 
-      ASSERT_GREATER_OR_EQUAL(*dw, 0, ());
       ASSERT_LESS_OR_EQUAL(*dw, kSize, ());
     }
   });

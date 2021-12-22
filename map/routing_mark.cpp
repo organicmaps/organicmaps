@@ -187,8 +187,8 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RouteMarkPoint::GetSymbolNames(
     case RouteMarkType::Finish: name = "route-point-finish"; break;
     case RouteMarkType::Intermediate:
     {
-      // TODO: Properly add icons for other letters/numbers after 20.
-      if (m_markData.m_intermediateIndex >= 0 && m_markData.m_intermediateIndex < 19)
+      /// @todo Draw RouteMarkPoint icons dynamically like SpeedCameraMark.
+      if (m_markData.m_intermediateIndex < 19)
         name = "route-point-" + std::to_string(m_markData.m_intermediateIndex + 1);
       else
         name = "route-point-20";
