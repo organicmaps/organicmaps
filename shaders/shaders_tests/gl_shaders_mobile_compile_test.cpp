@@ -9,6 +9,12 @@
 #include "base/logging.hpp"
 #include "base/thread_pool_delayed.hpp"
 
+#include <QtCore/QTemporaryFile>
+#include <QtCore/QDebug>
+#include <QtCore/QDir>
+#include <QtCore/QProcess>
+#include <QtCore/QTextStream>
+
 #include <atomic>
 #include <chrono>
 #include <functional>
@@ -16,15 +22,6 @@
 #include <string>
 #include <thread>
 #include <vector>
-
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wshorten-64-to-32"
-#include <QtCore/QTemporaryFile>
-#include <QtCore/QDebug>
-#include <QtCore/QDir>
-#include <QtCore/QProcess>
-#include <QtCore/QTextStream>
-#pragma GCC diagnostic pop
 
 std::string const kCompilersDir = "shaders_compiler";
 

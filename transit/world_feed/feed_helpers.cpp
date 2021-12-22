@@ -104,7 +104,6 @@ void FillProjections(std::vector<m2::PointD> & polyline, size_t startIndex, size
 
   auto const move = [&](size_t & i) {
     direction == Direction::Forward ? ++i : --i;
-    CHECK_GREATER_OR_EQUAL(i, 0, ());
     CHECK_LESS_OR_EQUAL(i, polyline.size(), ());
   };
 

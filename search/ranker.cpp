@@ -575,6 +575,8 @@ private:
         m_infoGetter.GetRegionInfo(country, info);
       if (info.IsNotEmpty() && info.m_name == m_ranker.m_params.m_pivotRegion)
         return base::Clamp(static_cast<int>(rank * 1.7), 0, 0xFF);
+
+      // Fall through like "STATE" for cities without info.
     }
     case Model::TYPE_STATE: return rank / 1.5;
     case Model::TYPE_COUNTRY: return rank;

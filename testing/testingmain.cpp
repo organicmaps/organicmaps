@@ -31,8 +31,6 @@
 #endif
 
 #if defined(OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP) && !defined(OMIM_OS_IPHONE)
-  #pragma GCC diagnostic push
-  #pragma GCC diagnostic ignored "-Wshorten-64-to-32"
   #include <QtCore/Qt>
   #ifdef OMIM_OS_MAC // on Mac OS X native run loop works only for QApplication :(
     #include <QtWidgets/QApplication>
@@ -41,7 +39,6 @@
     #include <QtCore/QCoreApplication>
     #define QAPP QCoreApplication
   #endif
-  #pragma GCC diagnostic pop
 #endif
 
 using namespace std;

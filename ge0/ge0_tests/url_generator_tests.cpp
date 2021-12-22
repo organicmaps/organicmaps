@@ -108,7 +108,7 @@ UNIT_TEST(LonToInt_NearOrLess_Rounding)
   // -180    0/|\2
   //         11112
   //        /  |  \
-    //    -135  -90 -45
+  //    -135  -90 -45
 
   TEST_EQUAL(0, LonToInt(-180.0, 3), ());
   TEST_EQUAL(0, LonToInt(-135.1, 3), ());

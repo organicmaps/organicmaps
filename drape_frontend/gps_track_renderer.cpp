@@ -117,8 +117,7 @@ void GpsTrackRenderer::UpdatePoints(std::vector<GpsTrackPoint> const & toAdd,
   if (!toAdd.empty())
   {
     ASSERT(is_sorted(toAdd.begin(), toAdd.end(), GpsPointsSortPredicate), ());
-    if (!m_points.empty())
-      ASSERT(GpsPointsSortPredicate(m_points.back(), toAdd.front()), ());
+    ASSERT(m_points.empty() || GpsPointsSortPredicate(m_points.back(), toAdd.front()), ());
     m_points.insert(m_points.end(), toAdd.begin(), toAdd.end());
     wasChanged = true;
   }
