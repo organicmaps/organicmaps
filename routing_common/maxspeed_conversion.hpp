@@ -296,8 +296,8 @@ MaxspeedConverter const & GetMaxspeedConverter();
 bool HaveSameUnits(SpeedInUnits const & lhs, SpeedInUnits const & rhs);
 bool IsFeatureIdLess(FeatureMaxspeed const & lhs, FeatureMaxspeed const & rhs);
 
-/// \returns false if |speed| is equal to |kInvalidSpeed|, |kNoneMaxSpeed| or
-/// |kWalkMaxSpeed|.
+/// \returns false if \a speed is equal to predefined values
+/// {kInvalidSpeed, kNoneMaxSpeed, kWalkMaxSpeed, kCommonMaxSpeedValue}
 /// \param speed in km per hour or mile per hour.
 bool IsNumeric(MaxspeedType speed);
 
