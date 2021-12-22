@@ -8,7 +8,6 @@
 
 #include "base/logging.hpp"
 
-#include "platform/file_logging.hpp"
 #include "platform/settings.hpp"
 
 namespace
