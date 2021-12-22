@@ -5,6 +5,8 @@
 
 #include "map/framework.hpp"
 
+#include "routing/maxspeeds.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
@@ -287,8 +289,10 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 
   m_framework.ForEachFeatureAtPoint([&](FeatureType & ft)
   {
+    // ID
     addStringFn(DebugPrint(ft.GetID()));
 
+    // Types
     std::string concat;
     auto types = feature::TypesHolder(ft);
     types.SortBySpec();
@@ -296,12 +300,28 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
       concat += type + " ";
     addStringFn(concat);
 
+    // Name
     std::string name;
     ft.GetReadableName(name);
     addStringFn(name);
 
+    // Address
     auto const info = GetFeatureAddressInfo(m_framework, ft);
     addStringFn(info.FormatAddress());
+
+    if (ft.GetGeomType() == feature::GeomType::Line)
+    {
+      // Maxspeed
+      auto const & dataSource = m_framework.GetDataSource();
+      auto const handle = dataSource.GetMwmHandleById(ft.GetID().m_mwmId);
+      auto const speeds = routing::LoadMaxspeeds(dataSource, handle);
+      if (speeds)
+      {
+        auto const speed = speeds->GetMaxspeed(ft.GetID().m_index);
+        if (speed.IsValid())
+          addStringFn(DebugPrint(speed));
+      }
+    }
 
     menu.addSeparator();
   }, m_framework.PtoG(pt));
