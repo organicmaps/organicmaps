@@ -29,14 +29,14 @@ add_library(${PROJECT_NAME} ${SRC})
 
 target_include_directories(${PROJECT_NAME}
   PRIVATE . ../../
-  PUBLIC protobuf/src 
+  PUBLIC protobuf/src
 )
 
 if(NOT PLATFORM_WIN)
   target_compile_definitions(${PROJECT_NAME} PRIVATE HAVE_PTHREAD)
 endif ()
 
-target_compile_options(${PROJECT_NAME}
-  PRIVATE $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32>
+target_compile_options(${PROJECT_NAME} PRIVATE
+  $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32>
+  -Wno-sign-compare
 )
-
