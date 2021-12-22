@@ -14,8 +14,6 @@ set(SRC
   downloader_defines.hpp
   downloader_utils.cpp
   downloader_utils.hpp
-  file_logging.cpp
-  file_logging.hpp
   get_text_by_id.cpp
   get_text_by_id.hpp
   gui_thread.hpp

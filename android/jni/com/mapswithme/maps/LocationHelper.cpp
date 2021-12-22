@@ -1,6 +1,5 @@
 #include "Framework.hpp"
 #include "map/gps_tracker.hpp"
-#include "platform/file_logging.hpp"
 
 extern "C"
 {
@@ -37,7 +36,6 @@ extern "C"
     if (speed > 0.0)
       info.m_speedMpS = speed;
 
-    LOG_MEMORY_INFO();
     if (g_framework)
       g_framework->OnLocationUpdated(info);
     GpsTracker::Instance().OnLocationUpdated(info);
