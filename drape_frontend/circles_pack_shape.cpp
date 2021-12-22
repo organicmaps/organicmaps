@@ -76,13 +76,13 @@ void CirclesPackHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator>
     return;
 
   TOffsetNode const & node = GetOffsetNode(kDynamicStreamID);
-  ASSERT(node.first.GetElementSize() == sizeof(CirclesPackDynamicVertex), ());
-  ASSERT(node.second.m_count == m_buffer.size(), ());
+  ASSERT_EQUAL(node.first.GetElementSize(), sizeof(CirclesPackDynamicVertex), ());
+  ASSERT_EQUAL(node.second.m_count, m_buffer.size(), ());
 
-  uint32_t const byteCount =
+  uint32_t const bytesCount =
       static_cast<uint32_t>(m_buffer.size()) * sizeof(CirclesPackDynamicVertex);
-  void * buffer = mutator->AllocateMutationBuffer(byteCount);
-  memcpy(buffer, m_buffer.data(), byteCount);
+  void * buffer = mutator->AllocateMutationBuffer(bytesCount);
+  memcpy(buffer, m_buffer.data(), bytesCount);
 
   dp::MutateNode mutateNode;
   mutateNode.m_region = node.second;
@@ -117,11 +117,10 @@ void CirclesPackHandle::GetPixelShape(ScreenBase const & screen, bool perspectiv
 void CirclesPackHandle::SetPoint(size_t index, m2::PointD const & position, float radius,
                                  dp::Color const & color)
 {
-  size_t bufferIndex = index * dp::Batcher::VertexPerQuad;
-  ASSERT_GREATER_OR_EQUAL(bufferIndex, 0, ());
-  ASSERT_LESS(bufferIndex, m_buffer.size(), ());
+  size_t const bufferIndex = index * dp::Batcher::VertexPerQuad;
+  ASSERT_LESS_OR_EQUAL(bufferIndex + dp::Batcher::VertexPerQuad, m_buffer.size(), ());
 
-  for (size_t i = 0; i < dp::Batcher::VertexPerQuad; i++)
+  for (size_t i = 0; i < dp::Batcher::VertexPerQuad; ++i)
   {
     m_buffer[bufferIndex + i].m_position = glsl::vec3(position.x, position.y, radius);
     m_buffer[bufferIndex + i].m_color = glsl::ToVec4(color);
@@ -145,11 +144,13 @@ void CirclesPackShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
 {
   ASSERT_NOT_EQUAL(data.m_pointsCount, 0, ());
 
-  uint32_t const kVerticesInPoint = dp::Batcher::VertexPerQuad;
-  uint32_t const kIndicesInPoint = dp::Batcher::IndexPerQuad;
+  uint32_t constexpr kVerticesInPoint = dp::Batcher::VertexPerQuad;
+  uint32_t constexpr kIndicesInPoint = dp::Batcher::IndexPerQuad;
+
   std::vector<CirclesPackStaticVertex> staticVertexData;
   staticVertexData.reserve(data.m_pointsCount * kVerticesInPoint);
-  for (size_t i = 0; i < data.m_pointsCount; i++)
+  static_assert(kVerticesInPoint == 4, "According to the loop below");
+  for (size_t i = 0; i < data.m_pointsCount; ++i)
   {
     staticVertexData.emplace_back(CirclesPackStaticVertex::TNormal(-1.0f, 1.0f, 1.0f));
     staticVertexData.emplace_back(CirclesPackStaticVertex::TNormal(-1.0f, -1.0f, 1.0f));
