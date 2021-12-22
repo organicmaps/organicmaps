@@ -91,8 +91,6 @@ else() # neither iPhone nor Android
     location_service.hpp
     network_policy_dummy.cpp
     platform_qt.cpp
-    wifi_info.hpp
-    wifi_location_service.cpp
   )
 
   if (${PLATFORM_WIN})
@@ -104,7 +102,6 @@ else() # neither iPhone nor Android
       http_uploader_dummy.cpp
       platform_win.cpp
       secure_storage_dummy.cpp
-      wifi_info_windows.cpp
     )
   elseif(${PLATFORM_MAC})
     append(SRC

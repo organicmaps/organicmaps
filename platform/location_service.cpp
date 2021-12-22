@@ -50,7 +50,6 @@ public:
 }  // namespace
 
 extern "C" location::LocationService * CreateAppleLocationService(location::LocationObserver &);
-extern "C" location::LocationService * CreateWiFiLocationService(location::LocationObserver &);
 
 namespace location
 {
@@ -77,10 +76,6 @@ namespace location
     {
 #if defined(OMIM_OS_MAC)
       m_services.push_back(CreateAppleLocationService(*this));
-#endif
-
-#if defined(OMIM_OS_WINDOWS)
-      m_services.push_back(CreateWiFiLocationService(*this));
 #endif
     }
 

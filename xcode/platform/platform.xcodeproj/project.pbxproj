@@ -81,9 +81,6 @@
 		675343D21A3F5D5A00A0A8C3 /* servers_list.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343A71A3F5D5A00A0A8C3 /* servers_list.hpp */; };
 		675343D31A3F5D5A00A0A8C3 /* settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343A81A3F5D5A00A0A8C3 /* settings.cpp */; };
 		675343D41A3F5D5A00A0A8C3 /* settings.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343A91A3F5D5A00A0A8C3 /* settings.hpp */; };
-		675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343AE1A3F5D5A00A0A8C3 /* wifi_info_windows.cpp */; };
-		675343DA1A3F5D5A00A0A8C3 /* wifi_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343AF1A3F5D5A00A0A8C3 /* wifi_info.hpp */; };
-		675343DB1A3F5D5A00A0A8C3 /* wifi_location_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343B01A3F5D5A00A0A8C3 /* wifi_location_service.cpp */; };
 		678338951C6DE59200FD6263 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341141C58C4D8002CF0D9 /* testingmain.cpp */; };
 		678338961C6DE59200FD6263 /* apk_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341001C58C4C9002CF0D9 /* apk_test.cpp */; };
 		678338971C6DE59200FD6263 /* country_file_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341011C58C4C9002CF0D9 /* country_file_tests.cpp */; };
@@ -229,9 +226,6 @@
 		675343A71A3F5D5A00A0A8C3 /* servers_list.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = servers_list.hpp; sourceTree = "<group>"; };
 		675343A81A3F5D5A00A0A8C3 /* settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = settings.cpp; sourceTree = "<group>"; };
 		675343A91A3F5D5A00A0A8C3 /* settings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = settings.hpp; sourceTree = "<group>"; };
-		675343AE1A3F5D5A00A0A8C3 /* wifi_info_windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wifi_info_windows.cpp; sourceTree = "<group>"; };
-		675343AF1A3F5D5A00A0A8C3 /* wifi_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wifi_info.hpp; sourceTree = "<group>"; };
-		675343B01A3F5D5A00A0A8C3 /* wifi_location_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wifi_location_service.cpp; sourceTree = "<group>"; };
 		675E889E1DB7B0F200F8EBDA /* test_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_socket.cpp; sourceTree = "<group>"; };
 		675E889F1DB7B0F200F8EBDA /* test_socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_socket.hpp; sourceTree = "<group>"; };
 		6783387E1C6DE54700FD6263 /* platform_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = platform_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -458,9 +452,6 @@
 				34C624BC1DABCCD100510300 /* socket.hpp */,
 				F6DF73561EC9EAE700D8BA0B /* string_storage_base.cpp */,
 				F6DF73571EC9EAE700D8BA0B /* string_storage_base.hpp */,
-				675343AE1A3F5D5A00A0A8C3 /* wifi_info_windows.cpp */,
-				675343AF1A3F5D5A00A0A8C3 /* wifi_info.hpp */,
-				675343B01A3F5D5A00A0A8C3 /* wifi_location_service.cpp */,
 			);
 			name = platform;
 			path = ../../platform;
@@ -540,7 +531,6 @@
 				F6DF735B1EC9EAE700D8BA0B /* string_storage_base.hpp in Headers */,
 				3D318A072021DD8B007B2607 /* http_uploader.hpp in Headers */,
 				6741250D1B4C00CC00A3E828 /* local_country_file_utils.hpp in Headers */,
-				675343DA1A3F5D5A00A0A8C3 /* wifi_info.hpp in Headers */,
 				671C62071AE9014C00076BD0 /* measurement_utils.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -685,7 +675,6 @@
 				6741250E1B4C00CC00A3E828 /* local_country_file.cpp in Sources */,
 				670E8C761BB318AB00094197 /* platform_ios.mm in Sources */,
 				67A2526A1BB40E100063F8A8 /* platform_qt.cpp in Sources */,
-				675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */,
 				56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */,
 				3D30587F1D880910004AC712 /* http_client_apple.mm in Sources */,
 				3DE28A7524BE01A30009465C /* locale.mm in Sources */,
@@ -706,7 +695,6 @@
 				675343B61A3F5D5A00A0A8C3 /* http_request.cpp in Sources */,
 				675343CC1A3F5D5A00A0A8C3 /* platform.cpp in Sources */,
 				451E32A01F73A8B000964C9F /* secure_storage_ios.mm in Sources */,
-				675343DB1A3F5D5A00A0A8C3 /* wifi_location_service.cpp in Sources */,
 				56EB1EDC1C6B6E6C0022D831 /* file_logging.cpp in Sources */,
 				675343B11A3F5D5A00A0A8C3 /* apple_location_service.mm in Sources */,
 				675343B31A3F5D5A00A0A8C3 /* chunks_download_strategy.cpp in Sources */,
@@ -763,13 +751,11 @@
 					platform_mac.mm,
 					secure_storage_qt.cpp,
 					platform_qt.cpp,
-					"wifi_*",
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
 					platform_mac.mm,
 					secure_storage_qt.cpp,
 					platform_qt.cpp,
-					"wifi_*",
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
 					"ios_*",
@@ -829,13 +815,11 @@
 					platform_mac.mm,
 					secure_storage_qt.cpp,
 					platform_qt.cpp,
-					"wifi_*",
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
 					platform_mac.mm,
 					secure_storage_qt.cpp,
 					platform_qt.cpp,
-					"wifi_*",
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
 					"ios_*",
