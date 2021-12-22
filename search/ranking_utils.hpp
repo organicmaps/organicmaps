@@ -203,7 +203,7 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
     // Highest quality namescore possible for this offset
     NameScore nameScore = NAME_SCORE_SUBSTRING;
     // Prefix & full matches must test starting at the same index. (tokenIndex == i)
-    if (0 == (tokenCount - 1) - offset)
+    if (offset + 1 == tokenCount)
     {
       if (sliceCount == tokenCount)
           nameScore = NAME_SCORE_FULL_MATCH;
@@ -222,19 +222,18 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
     // slice =         foo bar baz bot bop bip bla
     // token = baz bot bop
     //          0   1   2
-    // 
+    //
     // Offset must run to 8 to test all potential matches. (slice + token - 1)
     // Making tokenIndex start at -6 (-sliceSize)
     //                  0   1   2   3   4   5   6
     // slice =         foo bar baz bot bop bip bla
     // token =                                 baz bot bop
     //                 -6  -5  -4  -3  -2  -1   0   1   2
-    for (size_t i = 0; i < sliceCount; ++i)
+    for (size_t i = std::max(0, int(offset) + 1 - int(tokenCount));
+                i < std::min(sliceCount, offset + 1); ++i)
     {
-      size_t const tokenIndex = i + (tokenCount - 1) - offset;
-      // Ensure that tokenIndex is within bounds.
-      if (tokenIndex < 0 || tokenCount <= tokenIndex)
-        continue;
+      size_t const tokenIndex = i + tokenCount - 1 - offset;
+
       // Count the errors. If GetErrorsMade finds a match, count it towards
       // the matched length and check against the prior best.
       auto errorsMade = impl::GetErrorsMade(slice.Get(i), tokens[tokenIndex]);
