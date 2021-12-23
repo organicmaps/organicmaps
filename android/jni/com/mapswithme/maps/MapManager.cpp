@@ -51,9 +51,9 @@ struct TBatchedData
   {}
 };
 
-jmethodID g_listAddMethod;
-jclass g_countryItemClass;
-jobject g_countryChangedListener;
+jmethodID g_listAddMethod = nullptr;
+jclass g_countryItemClass = nullptr;
+jobject g_countryChangedListener = nullptr;
 
 DECLARE_THREAD_CHECKER(g_batchingThreadChecker);
 std::unordered_map<jobject, std::vector<TBatchedData>> g_batchedCallbackData;
@@ -61,11 +61,11 @@ bool g_isBatched;
 
 Storage & GetStorage()
 {
-  CHECK(g_framework != nullptr, ());
+  ASSERT(g_framework != nullptr, ());
   return g_framework->GetStorage();
 }
 
-void PrepareClassRefs(JNIEnv * env)
+void CacheListClassRefs(JNIEnv * env)
 {
   if (g_listAddMethod)
     return;
@@ -268,7 +268,7 @@ static void PutItemsToList(
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jclass clazz, jstring parent, jdouble lat, jdouble lon, jboolean hasLocation, jboolean myMapsMode, jobject result)
 {
-  PrepareClassRefs(env);
+  CacheListClassRefs(env);
 
   if (hasLocation && !myMapsMode)
   {
@@ -291,9 +291,9 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
 
 // static void nativeUpdateItem(CountryItem item);
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeGetAttributes(JNIEnv * env, jclass clazz, jobject item)
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetAttributes(JNIEnv * env, jclass, jobject item)
 {
-  PrepareClassRefs(env);
+  CacheListClassRefs(env);
 
   static jfieldID countryItemFieldId = env->GetFieldID(g_countryItemClass, "id", "Ljava/lang/String;");
   jstring id = static_cast<jstring>(env->GetObjectField(item, countryItemFieldId));
@@ -462,7 +462,7 @@ static void ProgressChangedCallback(std::shared_ptr<jobject> const & listenerRef
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeSubscribe(JNIEnv * env, jclass clazz, jobject listener)
 {
-  PrepareClassRefs(env);
+  CacheListClassRefs(env);
   return GetStorage().Subscribe(std::bind(&StatusChangedCallback, jni::make_global_ref(listener), _1),
                                 std::bind(&ProgressChangedCallback, jni::make_global_ref(listener), _1, _2));
 }

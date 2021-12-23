@@ -15,10 +15,10 @@ using namespace std;
 
 namespace
 {
-class  VehicleModelTest
+class  VehicleModelForCountryTest
 {
 public:
-  VehicleModelTest() { classificator::Load(); }
+  VehicleModelForCountryTest() { classificator::Load(); }
 };
 
 string GetRegionParent(string const & id)
@@ -84,17 +84,17 @@ void ParentTest(string child, string parent)
 }  // namespace
 
 // Test we have default vehicle models for nonexistent(unknown) country
-UNIT_CLASS_TEST(VehicleModelTest, CarModel_Default)
+UNIT_CLASS_TEST(VehicleModelForCountryTest, CarModel_Default)
 {
   TestVehicleModelDefault<CarModel, CarModelFactory>();
 }
 
-UNIT_CLASS_TEST(VehicleModelTest, BicycleModel_Default)
+UNIT_CLASS_TEST(VehicleModelForCountryTest, BicycleModel_Default)
 {
   TestVehicleModelDefault<BicycleModel, BicycleModelFactory>();
 }
 
-UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_Default)
+UNIT_CLASS_TEST(VehicleModelForCountryTest, PedestrianModel_Default)
 {
   TestVehicleModelDefault<PedestrianModel, PedestrianModelFactory>();
 }
@@ -102,7 +102,7 @@ UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_Default)
 // 1. Test we have nondefault car model for Russia
 // 2. Test we can get car model for Moscow using GetRegionParent callback: car model for Moscow equals
 //    car model for Russia and it's not default model.
-UNIT_CLASS_TEST(VehicleModelTest, CarModel_DirectParent)
+UNIT_CLASS_TEST(VehicleModelForCountryTest, CarModel_DirectParent)
 {
   TestHaveNondefaultRestrictionForSelectedCountry<CarModel, CarModelFactory>("Russian Federation");
   ParentTest<CarModel, CarModelFactory>("Moscow", "Russian Federation");
@@ -111,7 +111,7 @@ UNIT_CLASS_TEST(VehicleModelTest, CarModel_DirectParent)
 // 1. Test we have nondefault bicycle model for Russia
 // 2. Test we can get bicycle model for Moscow using GetRegionParent callback: bicycle model for Moscow
 //    equals bicycle model for Russia and it's not default model.
-UNIT_CLASS_TEST(VehicleModelTest, BicycleModel_DirectParent)
+UNIT_CLASS_TEST(VehicleModelForCountryTest, BicycleModel_DirectParent)
 {
   TestHaveNondefaultRestrictionForSelectedCountry<BicycleModel, BicycleModelFactory>(
       "Russian Federation");
@@ -121,7 +121,7 @@ UNIT_CLASS_TEST(VehicleModelTest, BicycleModel_DirectParent)
 // 1. Test we have nondefault pedestrian model for Russia
 // 2. Test we can get pedestrian model for Moscow using GetRegionParent callback: pedestrian model for
 //    Moscow equals pedestrian model for Russia and it's not default model.
-UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_DirectParent)
+UNIT_CLASS_TEST(VehicleModelForCountryTest, PedestrianModel_DirectParent)
 {
   TestHaveNondefaultRestrictionForSelectedCountry<PedestrianModel, PedestrianModelFactory>(
       "Russian Federation");
@@ -129,25 +129,25 @@ UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_DirectParent)
 }
 
 // Test has the same idea as previous one except Germany is not direct parent of Munich
-// in GetRegionParent function: Munich -> Bavaria -> Germany 
-UNIT_CLASS_TEST(VehicleModelTest, CarModel_InirectParent)
+// in GetRegionParent function: Munich -> Bavaria -> Germany
+UNIT_CLASS_TEST(VehicleModelForCountryTest, CarModel_InirectParent)
 {
   TestHaveNondefaultRestrictionForSelectedCountry<CarModel, CarModelFactory>("Germany");
   ParentTest<CarModel, CarModelFactory>("Munich", "Germany");
 }
 
-// Test has the same idea as previous one except United States of America are not direct parent of 
+// Test has the same idea as previous one except United States of America are not direct parent of
 // San Francisco in GetRegionParent function: San Francisco -> California -> United States of America
-UNIT_CLASS_TEST(VehicleModelTest, BicycleModel_IndirectParent)
+UNIT_CLASS_TEST(VehicleModelForCountryTest, BicycleModel_IndirectParent)
 {
   TestHaveNondefaultRestrictionForSelectedCountry<BicycleModel, BicycleModelFactory>(
       "United States of America");
   ParentTest<BicycleModel, BicycleModelFactory>("San Francisco", "United States of America");
 }
 
-// Test has the same idea as previous one except United States of America are not direct parent of 
+// Test has the same idea as previous one except United States of America are not direct parent of
 // San Francisco in GetRegionParent function: San Francisco -> California -> United States of America
-UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_IndirectParent)
+UNIT_CLASS_TEST(VehicleModelForCountryTest, PedestrianModel_IndirectParent)
 {
   TestHaveNondefaultRestrictionForSelectedCountry<PedestrianModel, PedestrianModelFactory>(
       "United States of America");

@@ -1,7 +1,5 @@
 project(icu)
 
-# set(CMAKE_PREFIX_PATH ./)
-
 set(SRC
   uconfig_local.h
   icu/icu4c/source/common/appendable.cpp
@@ -131,3 +129,5 @@ target_include_directories(${PROJECT_NAME}
     icu/icu4c/source/common
     icu/icu4c/source/i18n
 )
+
+set_target_properties(${PROJECT_NAME} PROPERTIES UNITY_BUILD OFF)

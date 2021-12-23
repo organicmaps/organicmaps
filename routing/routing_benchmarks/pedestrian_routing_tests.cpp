@@ -16,9 +16,9 @@ using namespace std;
 
 namespace
 {
-// Test preconditions: files from the kMapFiles set with '.mwm'
+// Test preconditions: files from the kPedestrianMapFiles set with '.mwm'
 // extension must be placed in omim/data folder.
-set<string> const kMapFiles =
+set<string> const kPedestrianMapFiles =
 {
   "UK_England_East Midlands",
   "UK_England_East of England_Essex",
@@ -40,7 +40,7 @@ class PedestrianTest : public RoutingTest
 public:
   PedestrianTest()
     : RoutingTest(routing::IRoadGraph::Mode::IgnoreOnewayTag, routing::VehicleType::Pedestrian,
-                  kMapFiles)
+                  kPedestrianMapFiles)
   {
   }
 

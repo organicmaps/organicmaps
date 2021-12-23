@@ -79,13 +79,10 @@ using platform::ToNativeNetworkPolicy;
 
 static_assert(sizeof(int) >= 4, "Size of jint in less than 4 bytes.");
 
+::Framework * frm() { return g_framework->NativeFramework(); }
+
 namespace
 {
-::Framework * frm()
-{
-  return g_framework->NativeFramework();
-}
-
 jobject g_placePageActivationListener = nullptr;
 
 android::AndroidVulkanContextFactory * CastFactory(drape_ptr<dp::GraphicsContextFactory> const & f)
