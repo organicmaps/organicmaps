@@ -130,7 +130,7 @@ tools/unix/build_omim.sh -d help
 
 The generated binaries appear in `../omim-build-<buildtype>`.
 
-Run `OMaps` binary from `../omim-build-<buildtype>`, for example, for release:
+A desktop app binary is `OMaps`. To run e.g. a release version:
 
 _Linux:_
 
@@ -138,26 +138,11 @@ _Linux:_
 ../omim-build-release/OMaps -data_path ./data
 ```
 
-or create `data` symlink in build dir to `organicmaps/data` directory and run
-
-```bash
-cd ../omim-build-release
-ln -s ../organicmaps/data ./data
-./OMaps -data_path ./data
-```
-
 _macOS:_
 
 ```bash
 ../omim-build-release/OMaps.app/Contents/MacOS/OMaps
 ```
-
-When using a lot of maps, increase open files limit, which is only 256 on Mac OS X.
-Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
-In OS X to increase this limit globally, add `limit maxfiles 2048 2048` to `/etc/launchd.conf`
-and run
-
-    echo 'ulimit -n 2048' | sudo tee -a /etc/profile
 
 ### Testing
 
@@ -194,6 +179,19 @@ ln -s ../data/ data
 Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/issues?q=is%3Aissue+is%3Aopen+label%3ATests).
 
 ### More options
+
+To make the desktop app display maps in a different language supply a `LANGUAGE` environment variable, e.g. for russian language:
+```bash
+LANGUAGE=ru_RU ../omim-build-release/OMaps -data_path ./data
+```
+
+When running the desktop app with a lot of maps increase open files limit, which is only 256 on Mac OS X.
+Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
+In OS X to increase this limit globally, add `limit maxfiles 2048 2048` to `/etc/launchd.conf`
+and run
+```bash
+echo 'ulimit -n 2048' | sudo tee -a /etc/profile
+```
 
 If you have Qt installed in an unusual directory, use `QT_PATH` variable (`SET (QT_PATH "your-path-to-qt")`). You can skip building tests
 with `CMAKE_CONFIG=-DSKIP_TESTS` variable. You would need 1.5 GB of memory
