@@ -103,7 +103,7 @@ sudo dnf install -y \
     sqlite-devel
 ```
 
-_macOS:_ 
+_macOS:_
 
 ```bash
 brew install cmake qt@5
@@ -222,7 +222,7 @@ Install Android SDK and NDK:
 - Select "Android 11.0 (R) / API Level 30" SDK.
 - Switch to "SDK Tools" tab
 - Check "Show Package Details" checkbox.
-- Select "NDK (Side by side)" version **21.4.7075529**.
+- Select "NDK (Side by side)" version **23.1.7779620**.
 - Select "CMake" version **3.18.1**.
 - Click "OK" and wait for downloads and installation to finish.
 
@@ -363,7 +363,7 @@ You can install
 [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
 Android Studio. Please make sure that SDK for API Level 30,
-NDK version **21.4.7075529** and CMake version **3.18.1** are installed.
+NDK version **23.1.7779620** and CMake version **3.18.1** are installed.
 
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
 - in Android Studio enable "File > Power Save Mode";
