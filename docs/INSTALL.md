@@ -135,7 +135,7 @@ A desktop app binary is `OMaps`. To run e.g. a release version:
 _Linux:_
 
 ```bash
-../omim-build-release/OMaps -data_path ./data
+../omim-build-release/OMaps
 ```
 
 _macOS:_
@@ -180,10 +180,14 @@ Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/i
 
 ### More options
 
-To make the desktop app display maps in a different language supply a `LANGUAGE` environment variable, e.g. for russian language:
+To make the desktop app display maps in a different language add a `-lang` option, e.g. for russian language:
 ```bash
-LANGUAGE=ru_RU ../omim-build-release/OMaps -data_path ./data
+../omim-build-release/OMaps -lang ru
 ```
+
+By default `OMaps` expects a repository's `data` folder to be present in the current working dir, add a `-data_path` option to override it.
+
+Check `OMaps -help` for a list of all run-time options.
 
 When running the desktop app with a lot of maps increase open files limit, which is only 256 on Mac OS X.
 Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
