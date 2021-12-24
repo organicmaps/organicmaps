@@ -21,6 +21,7 @@
 #ifndef _ZLIBIOAPI64_H
 #define _ZLIBIOAPI64_H
 
+/* Commented, because it is a manual hack and it fails on Android API < 24
 #if (!defined(_WIN32)) && (!defined(WIN32)) && (!defined(__APPLE__))
 
   // Linux needs this to support file operation on files larger then 4+GB
@@ -40,6 +41,7 @@
         #endif
 
 #endif
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
