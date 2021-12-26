@@ -12792,7 +12792,7 @@
     zh-Hant = 更多評論
 
   [book_button]
-    tags = android,ios
+    tags = ios
     en = Book
     ar = حجز
     be = Забраніраваць
