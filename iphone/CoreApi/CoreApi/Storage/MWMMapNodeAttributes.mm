@@ -73,7 +73,6 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status) {
     _downloadedSize = attributes.m_localMwmSize;
     _downloadingSize = attributes.m_downloadingMwmSize - attributes.m_localMwmSize;
     _nodeName = @(attributes.m_nodeLocalName.c_str());
-    _nodeDescription = @(attributes.m_nodeLocalDescription.c_str());
     _nodeStatus = convertStatus(attributes.m_status);
     _hasChildren = hasChildren;
     _hasParent = hasParent;

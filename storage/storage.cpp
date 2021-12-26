@@ -245,9 +245,9 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
 
     LocalCountryFile const & localFile = *i;
     string const & name = localFile.GetCountryName();
-    CountryId countryId = FindCountryIdByFile(name);
+    CountryId const countryId = FindCountryIdByFile(name);
     if (IsLeaf(countryId))
-      RegisterCountryFiles(countryId, localFile.GetDirectory(), localFile.GetVersion());
+      RegisterCountryFiles(countryId, localFile);
     else
       RegisterFakeCountryFiles(localFile);
 
@@ -257,8 +257,9 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
   }
 
   FindAllDiffs(m_dataDir, m_notAppliedDiffs);
-  if (enableDiffs)
-    LoadDiffScheme();
+  //if (enableDiffs)
+  //  LoadDiffScheme();
+
   // Note: call order is important, diffs loading must be called first.
   // Since diffs info downloading and servers list downloading
   // are working on network thread, consecutive executing is guaranteed.
@@ -701,6 +702,7 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
     ApplyDiff(countryId, fn);
     return;
   }
+  ASSERT_EQUAL(type, MapFileType::Map, ());
 
   CountryFile const countryFile = GetCountryFile(countryId);
   LocalFilePtr localFile = GetLocalFile(countryId, GetCurrentDataVersion());
@@ -708,25 +710,24 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
     localFile = PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, countryFile);
   if (!localFile)
   {
-    LOG(LERROR, ("Local file data structure can't be prepared for downloaded file(", countryFile,
-                 type, ")."));
-    fn(false /* isSuccess */);
+    LOG(LERROR, ("Can't prepare LocalCountryFile for", countryFile, "in folder", m_dataDir));
+    fn(false);
     return;
   }
 
   string const path = GetFileDownloadPath(countryId, type);
   if (!base::RenameFileX(path, localFile->GetPath(type)))
   {
+    /// @todo If localFile already exists (valid), remove it from disk and return false?
     localFile->DeleteFromDisk(type);
     fn(false);
     return;
   }
 
-  static string const kSourceKey = "map";
   if (m_integrityValidationEnabled && !localFile->ValidateIntegrity())
   {
-    base::DeleteFileX(localFile->GetPath(MapFileType::Map));
-    fn(false /* isSuccess */);
+    UNUSED_VALUE(base::DeleteFileX(localFile->GetPath(type)));
+    fn(false);
     return;
   }
 
@@ -860,23 +861,21 @@ void Storage::RegisterCountryFiles(LocalFilePtr localFile)
   }
 }
 
-void Storage::RegisterCountryFiles(CountryId const & countryId, string const & directory,
-                                   int64_t version)
+void Storage::RegisterCountryFiles(CountryId const & countryId, LocalCountryFile const & localFile)
 {
-  LocalFilePtr localFile = GetLocalFile(countryId, version);
-  if (localFile)
-    return;
-
-  CountryFile const & countryFile = GetCountryFile(countryId);
-  localFile = make_shared<LocalCountryFile>(directory, countryFile, version);
-  RegisterCountryFiles(localFile);
+  LocalFilePtr p = GetLocalFile(countryId, localFile.GetVersion());
+  if (!p)
+  {
+    p = make_shared<LocalCountryFile>(localFile);
+    RegisterCountryFiles(p);
+  }
 }
 
-void Storage::RegisterFakeCountryFiles(platform::LocalCountryFile const & localFile)
+void Storage::RegisterFakeCountryFiles(LocalCountryFile const & localFile)
 {
-  LocalFilePtr fakeCountryLocalFile = make_shared<LocalCountryFile>(localFile);
-  fakeCountryLocalFile->SyncWithDisk();
-  m_localFilesForFakeCountries[fakeCountryLocalFile->GetCountryFile()] = fakeCountryLocalFile;
+  LocalFilePtr p = make_shared<LocalCountryFile>(localFile);
+  p->SyncWithDisk();
+  m_localFilesForFakeCountries[p->GetCountryFile()] = p;
 }
 
 void Storage::DeleteCountryFiles(CountryId const & countryId, MapFileType type, bool deferredDelete)
@@ -1046,7 +1045,7 @@ void Storage::ApplyCountries(std::string const & countriesBuffer, Storage & stor
 
   LOG(LDEBUG, ("Version", m_currentVersion, "is applied"));
 
-  LoadDiffScheme();
+  //LoadDiffScheme();
 
   /// @todo Start World and WorldCoasts download ?!
 }
@@ -1074,6 +1073,7 @@ void Storage::GetChildren(CountryId const & parent, CountriesVec & childIds) con
     childIds.emplace_back(parentNode->Child(i).Value().Name());
 }
 
+/*
 void Storage::GetLocalRealMaps(CountriesVec & localMaps) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1084,6 +1084,7 @@ void Storage::GetLocalRealMaps(CountriesVec & localMaps) const
   for (auto const & keyValue : m_localFiles)
     localMaps.push_back(keyValue.first);
 }
+*/
 
 void Storage::GetChildrenInGroups(CountryId const & parent, CountriesVec & downloadedChildren,
                                   CountriesVec & availChildren, bool keepAvailableChildren) const
@@ -1255,6 +1256,7 @@ void Storage::CalcMaxMwmSizeBytes()
   });
 }
 
+/*
 void Storage::LoadDiffScheme()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1284,6 +1286,7 @@ void Storage::LoadDiffScheme()
     OnDiffStatusReceived(move(diffs));
   });
 }
+*/
 
 void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSuccess)> const & fn)
 {
@@ -1315,9 +1318,9 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
   LocalFilePtr & diffFile = params.m_diffFile;
   diffs::ApplyDiff(
       move(params), *emplaceResult.first->second,
-      [this, fn, countryId, diffFile](DiffApplicationResult result) {
+      [this, fn, countryId, diffFile](DiffApplicationResult result)
+      {
         CHECK_THREAD_CHECKER(m_threadChecker, ());
-        static string const kSourceKey = "diff";
         if (result == DiffApplicationResult::Ok && m_integrityValidationEnabled &&
             !diffFile->ValidateIntegrity())
         {
@@ -1379,6 +1382,7 @@ void Storage::AbortDiffScheme()
   m_diffsDataSource->AbortDiffScheme();
 }
 
+/*
 bool Storage::IsPossibleToAutoupdate() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1401,6 +1405,7 @@ bool Storage::IsPossibleToAutoupdate() const
 
   return true;
 }
+*/
 
 void Storage::SetStartDownloadingCallback(StartDownloadingCallback const & cb)
 {
@@ -1518,8 +1523,6 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
   nodeAttrs.m_status = statusAndErr.status;
   nodeAttrs.m_error = statusAndErr.error;
   nodeAttrs.m_nodeLocalName = m_countryNameGetter(countryId);
-  nodeAttrs.m_nodeLocalDescription =
-      m_countryNameGetter.Get(countryId + LOCALIZATION_DESCRIPTION_SUFFIX);
 
   // Progress.
   if (nodeAttrs.m_status == NodeStatus::OnDisk)
@@ -1544,11 +1547,11 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
   nodeAttrs.m_downloadingMwmCounter = 0;
   nodeAttrs.m_downloadingMwmSize = 0;
   CountriesSet visitedLocalNodes;
-  node->ForEachInSubtree([this, &nodeAttrs, &visitedLocalNodes](CountryTree::Node const & d) {
-    CountryId const countryId = d.Value().Name();
-    if (visitedLocalNodes.count(countryId) != 0)
+  node->ForEachInSubtree([this, &nodeAttrs, &visitedLocalNodes](CountryTree::Node const & d)
+  {
+    CountryId const & countryId = d.Value().Name();
+    if (!visitedLocalNodes.insert(countryId).second)
       return;
-    visitedLocalNodes.insert(countryId);
 
     // Downloading mwm information.
     StatusAndError const statusAndErr = GetNodeStatus(d);

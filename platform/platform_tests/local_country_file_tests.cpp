@@ -51,10 +51,7 @@ UNIT_TEST(LocalCountryFile_ParseVersion)
   TEST(ParseVersion("150309", version), ());
   TEST_EQUAL(version, 150309, ());
 
-  TEST(ParseVersion("999999999999999999", version), ());
-  TEST_EQUAL(version, 999999999999999999, ());
-
-  TEST(!ParseVersion("1000000000000000000", version), ());
+  TEST(!ParseVersion("2111225", version), ());  // too many digits
   TEST(!ParseVersion("00000000000000000000000000000000123", version), ());
 
   TEST(!ParseVersion("", version), ());

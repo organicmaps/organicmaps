@@ -72,6 +72,7 @@ namespace feature
 
     table->m_file.Open(cont.GetFileName());
     auto p = cont.GetAbsoluteOffsetAndSize(FEATURE_OFFSETS_FILE_TAG);
+    ASSERT(p.first % 4 == 0, (p.first)); // will get troubles in succinct otherwise
     table->m_handle.Assign(table->m_file.Map(p.first, p.second, FEATURE_OFFSETS_FILE_TAG));
 
     succinct::mapper::map(table->m_table, table->m_handle.GetData<char>());

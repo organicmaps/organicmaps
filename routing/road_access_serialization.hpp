@@ -87,11 +87,7 @@ public:
     }
     default:
     {
-      LOG(LWARNING, ("Wrong roadaccess section header version:", static_cast<int>(readHeader),
-                  ". Mwm name:", mwmPath));
-      if (Platform::IsFileExistsByFullPath(mwmPath))
-        LOG(LWARNING, ("SHA1 is:", coding::SHA1::CalculateBase64(mwmPath)));
-
+      LOG(LERROR, ("Wrong RoadAccessSerializer header in", mwmPath));
       UNREACHABLE();
     }
     }
@@ -99,7 +95,7 @@ public:
 
 private:
   inline static Header const kLatestVersion = Header::WithAccessConditional;
-  
+
   class AccessPosition
   {
   public:
@@ -107,7 +103,7 @@ private:
     {
       return {featureId, 0 /* wildcard pointId for way access */};
     }
-    
+
     static AccessPosition MakePointAccess(uint32_t featureId, uint32_t pointId)
     {
       return {featureId, pointId + 1};
@@ -123,7 +119,7 @@ private:
     {
       return std::tie(m_featureId, m_pointId) < std::tie(rhs.m_featureId, rhs.m_pointId);
     }
-    
+
     uint32_t GetFeatureId() const { return m_featureId; }
     uint32_t GetPointId() const
     {

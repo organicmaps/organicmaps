@@ -6,12 +6,9 @@
 #define DATA_FILE_EXTENSION_TMP ".mwm.tmp"
 #define DIFF_FILE_EXTENSION ".mwmdiff"
 #define DIFF_APPLYING_FILE_EXTENSION ".diff.applying"
-#define FONT_FILE_EXTENSION ".ttf"
 #define OSM2FEATURE_FILE_EXTENSION ".osm2ft"
 #define EXTENSION_TMP ".tmp"
 #define RAW_GEOM_FILE_EXTENSION ".rawgeom"
-#define LOC_IDX_FILE_EXTENSION ".locidx"
-#define LOC_DATA_FILE_EXTENSION ".locdata"
 #define OSM_DATA_FILE_EXTENSION ".osm"
 #define ARCHIVE_TRACKS_FILE_EXTENSION ".track"
 #define ARCHIVE_TRACKS_ZIPPED_FILE_EXTENSION ".track.zip"
@@ -67,15 +64,10 @@
 #define TRANSIT_FILE_EXTENSION ".transit.json"
 
 #define GEOM_INDEX_TMP_EXT ".geomidx.tmp"
-#define CELL2FEATURE_SORTED_EXT ".c2f.sorted"
-#define CELL2FEATURE_TMP_EXT ".c2f.tmp"
-
-#define LOCALITY_INDEX_TMP_EXT ".locidx.tmp"
-#define CELL2LOCALITY_SORTED_EXT ".c2l.sorted"
-#define CELL2LOCALITY_TMP_EXT ".c2l.tmp"
 
 #define COUNTRIES_FILE "countries.txt"
 #define SERVER_DATAVERSION_FILE "data_version.json"
+#define COUNTRIES_ROOT "Countries"
 
 #define COUNTRIES_META_FILE "countries_meta.txt"
 #define LEAP_SPEEDS_FILE "leap_speeds.json"
@@ -119,7 +111,5 @@
 #define REPLACED_TAGS_FILE "replaced_tags.txt"
 #define MIXED_TAGS_FILE "mixed_tags.txt"
 #define MIXED_NODES_FILE "mixed_nodes.txt"
-
-#define LOCALIZATION_DESCRIPTION_SUFFIX " Description"
 
 #define BUILDING_PARTS_MAPPING_FILE "building_parts_mapping.bin"

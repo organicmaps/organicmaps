@@ -257,15 +257,14 @@ public:
 
   std::string GetCountryName(m2::PointD const & pt) const;
 
-  enum class DoAfterUpdate
-  {
-    Nothing,
-    AutoupdateMaps,
-    AskForUpdateMaps,
-    Migrate
-  };
-
-  DoAfterUpdate ToDoAfterUpdate() const;
+//  enum class DoAfterUpdate
+//  {
+//    Nothing,
+//    AutoupdateMaps,
+//    AskForUpdateMaps,
+//    Migrate
+//  };
+//  DoAfterUpdate ToDoAfterUpdate() const;
 
   storage::Storage & GetStorage() { return m_storage; }
   storage::Storage const & GetStorage() const { return m_storage; }
