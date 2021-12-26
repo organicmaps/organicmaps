@@ -774,21 +774,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     refreshPreview(mMapObject);
     refreshDetails(mMapObject);
     refreshViewsInternal(mMapObject);
-
-    //
-    // The view is completely broken after the first call to refreshView():
-    // https://github.com/organicmaps/organicmaps/issues/722
-    // https://github.com/organicmaps/organicmaps/issues/1065
-    //
-    // Force re-layout explicitly on the next event loop after the first call to refreshView().
-    //
-    if (Utils.isAndroid11OrLater()) {
-      post(() -> {
-        mPreview.requestLayout();
-        mDetails.requestLayout();
-        mButtons.getFrame().requestLayout();
-      });
-    }
   }
 
   private void refreshViewsInternal(@NonNull MapObject mapObject)

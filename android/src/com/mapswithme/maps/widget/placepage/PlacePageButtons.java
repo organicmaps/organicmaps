@@ -293,11 +293,6 @@ public final class PlacePageButtons
     mMaxButtons = mPlacePage.getContext().getResources().getInteger(R.integer.pp_buttons_max);
   }
 
-  ViewGroup getFrame()
-  {
-    return mFrame;
-  }
-
   private @NonNull List<PlacePageButtons.PlacePageButton> collectButtons(List<PlacePageButtons.PlacePageButton> items)
   {
     List<PlacePageButtons.PlacePageButton> res = new ArrayList<>(items);
