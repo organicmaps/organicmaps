@@ -12815,6 +12815,11 @@
     zh-Hans = 水上乐园
     zh-Hant = 水上樂園
 
+  [type.leisure.beach_resort]
+    en = Beach Resort
+    ru = Пляжный курорт
+    uk = Пляжний курорт
+
   [type.man_made]
     en = Man Made
     de = künstliche Anlage
@@ -13991,7 +13996,7 @@
     zh-Hant = 火山
 
   [type.natural.water]
-    en = Water body
+    en = Waterbody
     ru = Водоём
     ar = مسطح مائي
     be = Вадаём

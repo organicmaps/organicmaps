@@ -8431,6 +8431,8 @@
     pt = Wikipédia
     pt-BR = Wikipédia
     tr = Vikipedi
+    ru = Википедия
+    uk = Вікіпедія
     zh-Hans = 维基百科
     zh-Hant = 維基百科
 
@@ -16456,9 +16458,9 @@
     pt:other = %d ficheiros encontrados. Pode vê-los depois da conversão.
     ro:one = %d fișier a fost găsit. Veți vedea după conversie.
     ro:other = Au fost găsite %d fișiere. Veți vedea după convertire.
-    ru:few = %d файла были найдены. Вы увидете их после конвертации.
-    ru:one = %d файл был найден. Вы увидете его после конвертации.
-    ru:other = %d файлов было найдено. Вы увидете их после конвертации.
+    ru:few = %d файла были найдены. Вы увидите их после конвертации.
+    ru:one = %d файл был найден. Вы увидите его после конвертации.
+    ru:other = %d файлов было найдено. Вы увидите их после конвертации.
     sk:few = Boli nájdené %d súbory. Uvidíte ich po konverzii.
     sk:one = Bol nájdený %d súbor. Uvidíte to po konverzii.
     sk:other = Bolo nájdených %d súborov. Uvidíte ich po konverzii.
@@ -17276,7 +17278,7 @@
     pt = Para adicionar um favorito, toque num lugar do mapa e em seguida toque no ícone da estrela
     pt-BR = Para adicionar um favorito, toque no mapa e então toque no ícone de estrela
     ro = Pentru a adăuga un nou tag, faceți clic pe pictograma stea în fișa de obiect
-    ru = Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта
+    ru = Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки
     sk = Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdy
     sv = För att lägga till bokmärken, tryck på kartan och sedan på stjärnikonen
     sw = Ili kuongeza ramani, gusa mahali kwenye ramani na kisha gusa ikoni ya nyota
