@@ -1,8 +1,9 @@
 #include "testing/testing.hpp"
 
 #include "routing/mwm_hierarchy_handler.hpp"
-#include "storage/country_parent_getter.hpp"
 
+#include "storage/country_parent_getter.hpp"
+#include "storage/routing_helpers.hpp"
 
 using namespace routing;
 
@@ -17,14 +18,6 @@ UNIT_TEST(CountryParentGetter_Smoke)
 namespace
 {
 
-std::shared_ptr<NumMwmIds> CreateNumMwmIds(storage::CountryParentGetter const & getter)
-{
-  auto mwmIDs = std::make_shared<NumMwmIds>();
-  getter.GetStorageForTesting().ForEachCountryFile(
-      [&mwmIDs](platform::CountryFile const & file) { mwmIDs->RegisterFile(file); });
-  return mwmIDs;
-}
-
 uint16_t GetCountryID(std::shared_ptr<NumMwmIds> mwmIDs, std::string const & mwmName)
 {
   return mwmIDs->GetId(platform::CountryFile(mwmName));
@@ -35,7 +28,7 @@ uint16_t GetCountryID(std::shared_ptr<NumMwmIds> mwmIDs, std::string const & mwm
 UNIT_TEST(MwmHierarchyHandler_Smoke)
 {
   storage::CountryParentGetter getter;
-  auto mwmIDs = CreateNumMwmIds(getter);
+  auto mwmIDs = CreateNumMwmIds(getter.GetStorageForTesting());
   routing::MwmHierarchyHandler handler(mwmIDs, getter);
 
   TEST(!handler.HasCrossBorderPenalty(GetCountryID(mwmIDs, "Belarus_Maglieu Region"),

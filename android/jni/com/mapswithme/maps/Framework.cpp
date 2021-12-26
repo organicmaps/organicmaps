@@ -574,6 +574,7 @@ void Framework::DeactivatePopup()
   m_work.DeactivateMapSelection(false);
 }
 
+/*
 string Framework::GetOutdatedCountriesString()
 {
   vector<Country const *> countries;
@@ -595,6 +596,7 @@ string Framework::GetOutdatedCountriesString()
 
   return res;
 }
+*/
 
 void Framework::SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn)
 {
@@ -702,10 +704,12 @@ void Framework::EnableDownloadOn3g()
   m_work.GetDownloadingPolicy().EnableCellularDownload(true);
 }
 
+/*
 int Framework::ToDoAfterUpdate() const
 {
   return (int) m_work.ToDoAfterUpdate();
 }
+*/
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)
 {
@@ -946,6 +950,7 @@ Java_com_mapswithme_maps_Framework_nativeFormatSpeed(JNIEnv * env, jclass, jdoub
   return jni::ToJavaString(env, measurement_utils::FormatSpeed(speed));
 }
 
+/*
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountriesString(JNIEnv * env, jclass)
 {
@@ -983,6 +988,7 @@ Java_com_mapswithme_maps_Framework_nativeUpdateSavedDataVersion(JNIEnv * env, jc
 {
   frm()->UpdateSavedDataVersion();
 }
+*/
 
 JNIEXPORT jlong JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetDataVersion(JNIEnv * env, jclass)

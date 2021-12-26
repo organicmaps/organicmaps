@@ -186,20 +186,20 @@ public class Framework
 
   public static native void nativeRemovePlacePageActivationListener();
 
-  @UiThread
-  public static native String nativeGetOutdatedCountriesString();
-
-  @UiThread
-  @NonNull
-  public static native String[] nativeGetOutdatedCountries();
-
-  @UiThread
-  @DoAfterUpdate
-  public static native int nativeToDoAfterUpdate();
-
-  public static native boolean nativeIsDataVersionChanged();
-
-  public static native void nativeUpdateSavedDataVersion();
+//  @UiThread
+//  public static native String nativeGetOutdatedCountriesString();
+//
+//  @UiThread
+//  @NonNull
+//  public static native String[] nativeGetOutdatedCountries();
+//
+//  @UiThread
+//  @DoAfterUpdate
+//  public static native int nativeToDoAfterUpdate();
+//
+//  public static native boolean nativeIsDataVersionChanged();
+//
+//  public static native void nativeUpdateSavedDataVersion();
 
   public static native long nativeGetDataVersion();
 
