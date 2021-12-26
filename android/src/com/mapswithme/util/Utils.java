@@ -78,11 +78,6 @@ public class Utils
     return isTargetOrLater(Build.VERSION_CODES.O);
   }
 
-  public static boolean isAndroid11OrLater()
-  {
-    return isTargetOrLater(Build.VERSION_CODES.R);
-  }
-
   private static boolean isTargetOrLater(int target)
   {
     return Build.VERSION.SDK_INT >= target;
