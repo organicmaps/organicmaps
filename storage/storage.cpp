@@ -271,7 +271,10 @@ void Storage::GetLocalMaps(vector<LocalFilePtr> & maps) const
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   for (auto const & p : m_localFiles)
-    maps.push_back(GetLatestLocalFile(p.first));
+  {
+    if (!IsResourceID(p.first))
+      maps.push_back(GetLatestLocalFile(p.first));
+  }
 
   for (auto const & p : m_localFilesForFakeCountries)
     maps.push_back(p.second);
@@ -706,8 +709,15 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
 
   CountryFile const countryFile = GetCountryFile(countryId);
   LocalFilePtr localFile = GetLocalFile(countryId, GetCurrentDataVersion());
-  if (!localFile)
+
+  if (!localFile || localFile->GetDirectoryType() == LocalCountryFile::BUNDLE)
     localFile = PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, countryFile);
+  else
+  {
+    /// @todo If localFile already exists, we will remove it from disk below?
+    LOG(LERROR, ("Downloaded country file for already existing one", *localFile));
+  }
+
   if (!localFile)
   {
     LOG(LERROR, ("Can't prepare LocalCountryFile for", countryFile, "in folder", m_dataDir));
@@ -778,13 +788,9 @@ void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
   for (auto const & p : m_localFiles)
   {
     CountryId const & countryId = p.first;
-    string const name = GetCountryFile(countryId).GetName();
     LocalFilePtr file = GetLatestLocalFile(countryId);
-    if (file && file->GetVersion() != GetCurrentDataVersion() && name != WORLD_COASTS_FILE_NAME
-        && name != WORLD_FILE_NAME)
-    {
+    if (file && file->GetVersion() != GetCurrentDataVersion())
       countries.push_back(&CountryLeafByCountryId(countryId));
-    }
   }
 }
 
@@ -1241,6 +1247,19 @@ bool Storage::IsDisputed(CountryTree::Node const & node) const
   vector<CountryTree::Node const *> found;
   m_countries.Find(node.Value().Name(), found);
   return found.size() > 1;
+}
+
+bool Storage::IsRealCountryLeaf(CountryTree::Node const & node)
+{
+  if (node.ChildrenCount() != 0)
+    return false;
+
+  return !IsResourceID(node.Value().Name());
+}
+
+bool Storage::IsResourceID(CountryId const & countryId)
+{
+  return countryId == RESOURCES_FILE_NAME;
 }
 
 void Storage::CalcMaxMwmSizeBytes()

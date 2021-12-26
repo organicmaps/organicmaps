@@ -19,10 +19,13 @@ public:
   explicit CountryFile(std::string name);
   CountryFile(std::string name, MwmSize size, std::string sha1);
 
+  /// \returns File name with extension (for download url and save on disk) for \a type.
+  /// For example Abkhazia.mwm or Resources.zip
+  std::string GetFileName(MapFileType type) const;
+
   /// \returns Empty (invalid) CountryFile.
   bool IsEmpty() const { return m_name.empty(); }
 
-  /// \returns file name without extensions.
   std::string const & GetName() const { return m_name; }
   MwmSize GetRemoteSize() const { return m_mapSize; }
   std::string const & GetSha1() const { return m_sha1; }
@@ -41,9 +44,5 @@ private:
   std::string m_sha1;
 };
 
-/// \returns This method returns file name with extension. For example Abkhazia.mwm.
-/// \param countryFile is a file name without extension. For example Abkhazia.
-/// \param type is type of map data.
-std::string GetFileName(std::string const & countryFile, MapFileType type);
 std::string DebugPrint(CountryFile const & file);
 }  // namespace platform

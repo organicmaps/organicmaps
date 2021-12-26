@@ -3,6 +3,11 @@
  "id": "Countries",
  "g": [
   {
+   "id": "Resources",
+   "s": 40570432,
+   "sha1_base64": "s5QytYD+VLl4aG4B/53ZHqcfRUw="
+  },
+  {
    "id": "Abkhazia",
    "old": [
     "Georgia"

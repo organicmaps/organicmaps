@@ -515,8 +515,7 @@ UNIT_TEST(StorageTest_Smoke)
   CountryId const georgiaCountryId = storage.FindCountryIdByFile("Georgia");
   TEST(IsCountryIdValid(georgiaCountryId), ());
   CountryFile usaGeorgiaFile = storage.GetCountryFile(georgiaCountryId);
-  TEST_EQUAL(platform::GetFileName(usaGeorgiaFile.GetName(), MapFileType::Map),
-             "Georgia" DATA_FILE_EXTENSION, ());
+  TEST_EQUAL(usaGeorgiaFile.GetFileName(MapFileType::Map), "Georgia" DATA_FILE_EXTENSION, ());
 }
 
 UNIT_CLASS_TEST(StorageTest, CountryDownloading)
@@ -820,12 +819,12 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
 
   storage.GetChildrenInGroups(rootCountryId, downloaded, available);
   TEST_EQUAL(downloaded.size(), 1, (downloaded));
-  TEST_EQUAL(available.size(), 223, ());
+  TEST_EQUAL(available.size(), 225, ());
 
   storage.GetChildrenInGroups(rootCountryId, downloadedWithKeep,
                               availableWithKeep, true /* keepAvailableChildren*/);
   TEST_EQUAL(downloadedWithKeep.size(), 1, (downloadedWithKeep));
-  TEST_EQUAL(availableWithKeep.size(), 224, ());
+  TEST_EQUAL(availableWithKeep.size(), 226, ());
 
   storage.GetChildrenInGroups("Algeria", downloaded, available);
   TEST_EQUAL(downloaded.size(), 2, (downloaded));

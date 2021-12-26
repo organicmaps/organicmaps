@@ -629,6 +629,10 @@ private:
   /// @return true if |node.Value().Name()| is a disputed territory and false otherwise.
   bool IsDisputed(CountryTree::Node const & node) const;
 
+  /// @return true iff \a node is a country MWM leaf of the tree.
+  static bool IsRealCountryLeaf(CountryTree::Node const & node);
+  static bool IsResourceID(CountryId const & countryId);
+
   void CalcMaxMwmSizeBytes();
 
   void OnMapDownloadFailed(CountryId const & countryId);
@@ -708,7 +712,7 @@ void Storage::ForEachCountry(ToDo && toDo) const
 {
   m_countries.GetRoot().ForEachInSubtree([&](CountryTree::Node const & node)
   {
-    if (node.ChildrenCount() == 0)
+    if (IsRealCountryLeaf(node))
       toDo(node.Value());
   });
 }

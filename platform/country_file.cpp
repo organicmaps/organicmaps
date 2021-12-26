@@ -12,9 +12,7 @@ using namespace std;
 
 namespace
 {
-/// \returns file name (m_name) with extension dependent on the file param.
-/// The extension could be .mwm.routing or just .mwm.
-/// The method is used for old (two components) mwm support.
+/// \returns Map's file name with extension depending on the \a file type.
 string GetNameWithExt(string const & countryFile, MapFileType file)
 {
   switch (file)
@@ -42,9 +40,20 @@ CountryFile::CountryFile(std::string name, MwmSize size, std::string sha1)
 {
 }
 
-string GetFileName(string const & countryFile, MapFileType type)
+string CountryFile::GetFileName(MapFileType type) const
 {
-  return GetNameWithExt(countryFile, type);
+  ASSERT(!m_name.empty(), ());
+
+  if (m_name == RESOURCES_FILE_NAME)
+  {
+    std::string res = m_name + RESOURCES_EXTENSION;
+    // Map and Diff should be different to avoid conflicts.
+    if (type == MapFileType::Diff)
+      res += "diff";
+    return res;
+  }
+
+  return GetNameWithExt(m_name, type);
 }
 
 string DebugPrint(CountryFile const & file)

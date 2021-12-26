@@ -1,5 +1,6 @@
 #include "platform/local_country_file_utils.hpp"
 
+#include "platform/constants.hpp"
 #include "platform/country_file.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
@@ -7,6 +8,7 @@
 
 #include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"
+#include "coding/zip_reader.hpp"
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
@@ -33,9 +35,7 @@ char const kBitsExt[] = ".bftsegbits";
 char const kNodesExt[] = ".bftsegnodes";
 char const kOffsetsExt[] = ".offsets";
 
-size_t const kMaxTimestampLength = 18;
-
-string GetSpecialFilesSearchScope()
+string GetAdditionalWorldScope()
 {
   return "r";
 }
@@ -110,10 +110,10 @@ void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diff
   }
 }
 
-string GetFilePath(int64_t version, string const & dataDir, CountryFile const & countryFile,
-                   MapFileType type)
+string GetFilePath(int64_t version, string const & dataDir,
+                   CountryFile const & countryFile, MapFileType type)
 {
-  string const filename = GetFileName(countryFile.GetName(), type);
+  string const filename = countryFile.GetFileName(type);
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
     return base::JoinPath(dir, filename);
@@ -153,8 +153,9 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
   Platform & platform = GetPlatform();
 
   Platform::TFilesWithType fwts;
-  platform.GetFilesByType(directory, Platform::FILE_TYPE_REGULAR | Platform::FILE_TYPE_DIRECTORY,
-                          fwts);
+  platform.GetFilesByType(directory, Platform::FILE_TYPE_REGULAR | Platform::FILE_TYPE_DIRECTORY, fwts);
+
+  char const * resourcesFile = RESOURCES_FILE_NAME RESOURCES_EXTENSION;
 
   unordered_set<string> names;
   for (auto const & fwt : fwts)
@@ -171,15 +172,22 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
       continue;
     }
 
-    if (!strings::EndsWith(name, DATA_FILE_EXTENSION))
-      continue;
+    if (strings::EndsWith(name, DATA_FILE_EXTENSION))
+    {
+      // Remove DATA_FILE_EXTENSION and use base name as a country file name.
+      base::GetNameWithoutExt(name);
+      names.insert(name);
+      localFiles.emplace_back(directory, CountryFile(std::move(name)), version);
+    }
+    else if (name == resourcesFile)
+    {
+      localFiles.emplace_back(directory, CountryFile(RESOURCES_FILE_NAME), version);
 
-    // Remove DATA_FILE_EXTENSION and use base name as a country file name.
-    base::GetNameWithoutExt(name);
-    names.insert(name);
-    LocalCountryFile localFile(directory, CountryFile(name), version);
-
-    localFiles.push_back(localFile);
+      /// @todo Should we check actual MWMs presence in resource container?
+      auto const fullPath = base::JoinPath(directory, name);
+      localFiles.emplace_back(fullPath, CountryFile(WORLD_FILE_NAME), version);
+      localFiles.emplace_back(fullPath, CountryFile(WORLD_COASTS_FILE_NAME), version);
+    }
   }
 
   for (auto const & fwt : fwts)
@@ -241,8 +249,8 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
       LOG(LWARNING, ("Can't remove directory:", fullPath, err));
   }
 
-  // World and WorldCoasts can be stored in app bundle or in resources
-  // directory, thus it's better to get them via Platform.
+  // Check for World and WorldCoasts in app bundle or in resources.
+  Platform & platform = GetPlatform();
   string const world(WORLD_FILE_NAME);
   string const worldCoasts(WORLD_COASTS_FILE_NAME);
   for (string const & file : {world, worldCoasts})
@@ -256,20 +264,20 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
 
     try
     {
-      Platform & platform = GetPlatform();
-      ModelReaderPtr reader(
-          platform.GetReader(file + DATA_FILE_EXTENSION, GetSpecialFilesSearchScope()));
+      ModelReaderPtr reader(platform.GetReader(file + DATA_FILE_EXTENSION, GetAdditionalWorldScope()));
 
-      // Assume that empty path means the resource file.
-      LocalCountryFile worldFile{string(), CountryFile(file), version::ReadVersionDate(reader)};
-      worldFile.m_files[base::Underlying(MapFileType::Map)] = 1;
+      // Empty path means the resource file.
+      LocalCountryFile worldFile(string(), CountryFile(file), version::ReadVersionDate(reader));
+      worldFile.m_files[base::Underlying(MapFileType::Map)] = reader.Size();
+
+      // Replace if newer only.
       if (i != localFiles.end())
       {
-        // Always use resource World files instead of local on disk.
-        *i = worldFile;
+        if (worldFile.GetVersion() > i->GetVersion())
+          *i = std::move(worldFile);
       }
       else
-        localFiles.push_back(worldFile);
+        localFiles.push_back(std::move(worldFile));
     }
     catch (RootException const & ex)
     {
@@ -328,26 +336,25 @@ string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, Map
   return GetFileDownloadPath(version, string(), countryFile, type);
 }
 
-string GetFileDownloadPath(int64_t version, string const & dataDir, CountryFile const & countryFile,
-                           MapFileType type)
+string GetFileDownloadPath(int64_t version, string const & dataDir,
+                           CountryFile const & countryFile, MapFileType type)
 {
-  string const readyFile = GetFileName(countryFile.GetName(), type) + READY_FILE_EXTENSION;
-  string const dir = GetDataDirFullPath(dataDir);
-  if (version == 0)
-    return base::JoinPath(dir, readyFile);
-  return base::JoinPath(dir, strings::to_string(version), readyFile);
+  return GetFilePath(version, dataDir, countryFile, type) + READY_FILE_EXTENSION;
 }
 
-unique_ptr<ModelReader> GetCountryReader(platform::LocalCountryFile const & file, MapFileType type)
+unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, MapFileType type)
 {
   Platform & platform = GetPlatform();
-  // See LocalCountryFile comment for explanation.
-  if (file.GetDirectory().empty())
+  switch (file.GetDirectoryType())
   {
-    return platform.GetReader(file.GetCountryName() + DATA_FILE_EXTENSION,
-                              GetSpecialFilesSearchScope());
+  case LocalCountryFile::BUNDLE:
+    return platform.GetReader(file.GetFileName(type), GetAdditionalWorldScope());
+  case LocalCountryFile::RESOURCE:
+    return make_unique<ZipFileReader>(file.GetDirectory(), file.GetFileName(type),
+                                      READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+  case LocalCountryFile::DISK_PATH:
+    return platform.GetReader(file.GetPath(type), "f");
   }
-  return platform.GetReader(file.GetPath(type), "f");
 }
 
 // static
@@ -417,11 +424,9 @@ string CountryIndexes::IndexesDir(LocalCountryFile const & localFile)
   string dir = localFile.GetDirectory();
   CountryFile const & file = localFile.GetCountryFile();
 
-  /// @todo It's a temporary code until we will put fIndex->fOffset into mwm container.
-  /// IndexesDir should not throw any exceptions.
-  if (dir.empty())
+  if (localFile.GetDirectoryType() == LocalCountryFile::BUNDLE)
   {
-    // Local file is stored in resources. Need to prepare index folder in the writable directory.
+    // Local file is stored in bundle. Need to prepare index folder in the writable directory.
     int64_t const version = localFile.GetVersion();
     ASSERT_GREATER(version, 0, ());
 

@@ -4,17 +4,18 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 
+using namespace platform;
+
 UNIT_TEST(UrlConversionTest)
 {
   {
-    std::string const mwmName = "Luna";
-    std::string const fileName = platform::GetFileName(mwmName, MapFileType::Map);
+    CountryFile mwmCF("Luna");
+    std::string const fileName = mwmCF.GetFileName(MapFileType::Map);
     int64_t const dataVersion = version::FOR_TESTING_MWM1;
     int64_t const diffVersion = 0;
     MapFileType const fileType = MapFileType::Map;
 
-    auto const path =
-        platform::GetFileDownloadPath(dataVersion, platform::CountryFile(mwmName), fileType);
+    auto const path = GetFileDownloadPath(dataVersion, mwmCF, fileType);
 
     auto const url = downloader::GetFileDownloadUrl(fileName, dataVersion, diffVersion);
     auto const resultPath = downloader::GetFilePathByUrl(url);
@@ -22,14 +23,13 @@ UNIT_TEST(UrlConversionTest)
     TEST_EQUAL(path, resultPath, ());
   }
   {
-    std::string const mwmName = "Luna";
-    std::string const fileName = platform::GetFileName(mwmName, MapFileType::Diff);
+    CountryFile mwmCF("Luna");
+    std::string const fileName = mwmCF.GetFileName(MapFileType::Diff);
     int64_t const dataVersion = version::FOR_TESTING_MWM2;
     int64_t const diffVersion = version::FOR_TESTING_MWM1;
     MapFileType const fileType = MapFileType::Diff;
 
-    auto const path =
-        platform::GetFileDownloadPath(dataVersion, platform::CountryFile(mwmName), fileType);
+    auto const path = GetFileDownloadPath(dataVersion, mwmCF, fileType);
 
     auto const url = downloader::GetFileDownloadUrl(fileName, dataVersion, diffVersion);
     auto const resultPath = downloader::GetFilePathByUrl(url);
@@ -40,9 +40,9 @@ UNIT_TEST(UrlConversionTest)
 
 UNIT_TEST(IsUrlSupportedTest)
 {
-  std::string const mwmName = "Luna";
+  CountryFile mwmCF("Luna");
 
-  std::string fileName = platform::GetFileName(mwmName, MapFileType::Map);
+  std::string fileName = mwmCF.GetFileName(MapFileType::Map);
   int64_t dataVersion = version::FOR_TESTING_MWM1;
   int64_t diffVersion = 0;
 
@@ -59,7 +59,7 @@ UNIT_TEST(IsUrlSupportedTest)
   TEST(!downloader::IsUrlSupported("Luna.mwm"), ());
   TEST(!downloader::IsUrlSupported("Luna"), ());
 
-  fileName = platform::GetFileName(mwmName, MapFileType::Diff);
+  fileName = mwmCF.GetFileName(MapFileType::Diff);
   diffVersion = version::FOR_TESTING_MWM1;
   url = downloader::GetFileDownloadUrl(fileName, dataVersion, diffVersion);
   TEST(downloader::IsUrlSupported(url), ());

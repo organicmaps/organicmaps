@@ -96,7 +96,7 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
     TEST(!localFile.OnDisk(MapFileType::Map), ());
     TEST(!localFile.OnDisk(MapFileType::Diff), ());
 
-    string const mapFileName = GetFileName(countryFile.GetName(), MapFileType::Map);
+    string const mapFileName = countryFile.GetFileName(MapFileType::Map);
     string const mapFileContents("map");
     ScopedFile testMapFile(mapFileName, mapFileContents);
 

@@ -10,6 +10,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -56,7 +57,12 @@ void LocalCountryFile::DeleteFromDisk(MapFileType type) const
 
 string LocalCountryFile::GetPath(MapFileType type) const
 {
-  return base::JoinPath(m_directory, GetFileName(m_countryFile.GetName(), type));
+  return base::JoinPath(m_directory, GetFileName(type));
+}
+
+std::string LocalCountryFile::GetFileName(MapFileType type) const
+{
+  return m_countryFile.GetFileName(type);
 }
 
 uint64_t LocalCountryFile::GetSize(MapFileType type) const
@@ -74,9 +80,18 @@ bool LocalCountryFile::HasFiles() const
 
 bool LocalCountryFile::OnDisk(MapFileType type) const
 {
-  ASSERT_LESS(base::Underlying(type), m_files.size(), ());
+  auto const ut = base::Underlying(type);
+  ASSERT_LESS(ut, m_files.size(), ());
+  return m_files[ut].has_value();
+}
 
-  return m_files[base::Underlying(type)].has_value();
+LocalCountryFile::DirectoryType LocalCountryFile::GetDirectoryType() const
+{
+  if (m_directory.empty())
+    return BUNDLE;
+  if (strings::EndsWith(m_directory, RESOURCES_EXTENSION))
+    return RESOURCE;
+  return DISK_PATH;
 }
 
 bool LocalCountryFile::operator<(LocalCountryFile const & rhs) const

@@ -13,6 +13,7 @@
 #define ARCHIVE_TRACKS_FILE_EXTENSION ".track"
 #define ARCHIVE_TRACKS_ZIPPED_FILE_EXTENSION ".track.zip"
 #define STATS_EXTENSION ".stats"
+#define RESOURCES_EXTENSION ".zip"
 
 #define NODES_FILE "nodes.dat"
 #define WAYS_FILE "ways.dat"
@@ -74,6 +75,7 @@
 
 #define WORLD_FILE_NAME "World"
 #define WORLD_COASTS_FILE_NAME "WorldCoasts"
+#define RESOURCES_FILE_NAME "Resources"
 
 #define SETTINGS_FILE_NAME "settings.ini"
 #define MARKETING_SETTINGS_FILE_NAME "marketing_settings.ini"
