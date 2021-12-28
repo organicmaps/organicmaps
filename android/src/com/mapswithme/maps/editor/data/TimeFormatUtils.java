@@ -72,30 +72,6 @@ public class TimeFormatUtils
     return builder.toString();
   }
 
-  public static String formatTimetables(@NonNull Context context,  @NonNull Timetable[] timetables)
-  {
-    final Resources resources = MwmApplication.from(context).getResources();
-
-    if (timetables[0].isFullWeek())
-    {
-      return timetables[0].isFullday ? resources.getString(R.string.twentyfour_seven)
-                                     : resources.getString(R.string.daily) + " " + timetables[0].workingTimespan;
-    }
-
-    final StringBuilder builder = new StringBuilder();
-    for (Timetable tt : timetables)
-    {
-      String workingTime = tt.isFullday ? resources.getString(R.string.editor_time_allday)
-                                        : tt.workingTimespan.toString();
-
-      builder.append(String.format(Locale.getDefault(), "%-21s", formatWeekdays(tt))).append("   ")
-             .append(workingTime)
-             .append("\n");
-    }
-
-    return builder.toString();
-  }
-
   public static String formatNonBusinessTime(Timespan[] closedTimespans, String hoursClosedLabel)
   {
     StringBuilder closedTextBuilder = new StringBuilder();
@@ -111,7 +87,7 @@ public class TimeFormatUtils
     return closedTextBuilder.toString();
   }
 
-  public static String generateCopyText(Resources resources, String ohStr, Timetable[] timetables)
+  public static String formatTimetables(@NonNull Resources resources, String ohStr, Timetable[] timetables)
   {
     if (timetables == null || timetables.length == 0)
       return ohStr;
@@ -122,12 +98,16 @@ public class TimeFormatUtils
       Timetable tt = timetables[0];
       if (tt.isFullday)
         return resources.getString(R.string.twentyfour_seven);
-      return resources.getString(R.string.daily) + " " + tt.workingTimespan.toWideString();
+      if (tt.closedTimespans == null || tt.closedTimespans.length == 0)
+        return resources.getString(R.string.daily) + " " + tt.workingTimespan.toWideString();
+      return resources.getString(R.string.daily) + " " + tt.workingTimespan.toWideString() +
+             "\n" + formatNonBusinessTime(tt.closedTimespans, resources.getString(R.string.editor_hours_closed));
     }
 
     // Generate full week multiline string. E.g.
     // "Mon-Fri HH:MM - HH:MM
-    // Sat HH:MM - HH:MM"
+    // Sat HH:MM - HH:MM
+    // Non-business Hours HH:MM - HH:MM"
     StringBuilder weekSchedule = new StringBuilder();
     boolean firstRow = true;
     for (Timetable tt : timetables)
@@ -141,6 +121,10 @@ public class TimeFormatUtils
                               tt.workingTimespan.toWideString();
 
       weekSchedule.append(weekdays).append(' ').append(openTime);
+      if (tt.closedTimespans != null && tt.closedTimespans.length > 0)
+        weekSchedule.append('\n')
+                    .append(formatNonBusinessTime(tt.closedTimespans, resources.getString(R.string.editor_hours_closed)));
+
       firstRow = false;
     }
 

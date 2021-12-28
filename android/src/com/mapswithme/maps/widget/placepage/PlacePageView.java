@@ -1475,7 +1475,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       case R.id.ll__place_schedule:
         final String ohStr = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
         final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
-        items.add(TimeFormatUtils.generateCopyText(getResources(), ohStr, timetables));
+        items.add(TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
         break;
       case R.id.ll__place_operator:
         items.add(mTvOperator.getText().toString());
