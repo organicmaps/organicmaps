@@ -257,7 +257,7 @@
     ja = 空港ターミナルビル
     pl = Terminal lotniskowy
     pt = Terminal de passageiros
-    pt_BR = Aerogare de passageiros
+    pt-BR = Aerogare de passageiros
     ru = Терминал
     zh-Hans = 航站楼
     uk = Термінал
@@ -3138,7 +3138,7 @@
     de = Toilette
     el = Τουαλέτα
     es = WC
-    fa = دستشویی^
+    fa = دستشویی
     fi = WC
     fr = Toilettes
     hu = Mosdó
@@ -5841,7 +5841,7 @@
     nl = Hotdogs
     pl = Hot-dogi
     pt = Cachorro-quente
-    pt-NR = Cachorro-quente
+    pt-BR = Cachorro-quente
     ro = Hot dog
     ru = Хот-доги
     sk = Párok v rožku
@@ -14019,7 +14019,7 @@
     sk = Voda
     sv = Vatten
     th = แหล่งน้ำ
-    tu = Su
+    tr = Su
     uk = Водоймище
     vi = Thủy vực
     zh-Hans = 水體
