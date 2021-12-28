@@ -128,11 +128,11 @@ def parenthesize(strings):
 
 def write_filtered_strings_txt(filtered, filepath, languages=None):
     logging.info("Writing strings to file {0}".format(filepath))
-    strings_txt = StringsTxt()
+    strings_txt = StringsTxt("{0}/{1}".format(OMIM_ROOT, StringsTxt.STRINGS_TXT_PATH))
     strings_dict = {key : dict(strings_txt.translations[key]) for key in filtered}
     strings_txt.translations = strings_dict
     strings_txt.comments_and_tags = {}
-    strings_txt.write_formatted(filepath, languages=languages)
+    strings_txt.write_formatted(target_file=filepath, langs=languages)
 
 
 def get_args():
@@ -201,7 +201,7 @@ def get_args():
 
     parser.add_argument(
         "-ct", "--categories",
-        dest="hardcoded_cagegories",
+        dest="hardcoded_categories",
         default="{0}/data/hardcoded_categories.txt".format(find_omim()),
         help="""Path to the list of the categories that are displayed in the
         interface, but are not taken from strings.txt"""
@@ -261,13 +261,13 @@ def do_single(args):
     filtered.update(android)
     filtered.update(core)
 
-    strings_txt = StringsTxt()
+    strings_txt = StringsTxt("{0}/{1}".format(OMIM_ROOT, StringsTxt.STRINGS_TXT_PATH))
     strings_txt.translations = {key: dict(strings_txt.translations[key]) for key in filtered}
 
     strings_txt.comments_and_tags = new_comments_and_tags(strings_txt, filtered, new_tags)
 
     path = args.output if isabs(args.output) else "{0}/{1}".format(OMIM_ROOT, args.output)
-    strings_txt.write_formatted(languages=args.langs, target_file=path)
+    strings_txt.write_formatted(target_file=path, langs=args.langs)
 
     if args.generate:
         exec_shell(
@@ -325,7 +325,7 @@ if __name__ == "__main__":
     OMIM_ROOT=args.omim_root
 
     HARDCODED_CATEGORIES = read_hardcoded_categories(
-        args.hardcoded_cagegories
+        args.hardcoded_categories
     )
 
     args.langs = set(args.langs) if args.langs else None
