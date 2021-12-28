@@ -14934,7 +14934,7 @@
     fa = ترجمه به لاتین
     fi = Translitterointi latinaksi
     fr = Translittération en latin
-    fr_CA = Translittération vers l'alphabet latin
+    fr-CA = Translittération vers l'alphabet latin
     he = תעתיק ללטינית
     hi = लैटिन में लिप्यंतरण
     hu = Átírás latin nyelvre
@@ -16312,7 +16312,7 @@
     de = Telefonnummer
     el = Τηλεφωνικό νούμερο
     es = Número de teléfono
-    es_MX = Número de teléfono
+    es-MX = Número de teléfono
     fa = شماره تلفن
     fi = Puhelinnumero
     fr = Numéro de téléphone
@@ -16472,7 +16472,7 @@
     tr = %d dosya bulundu. Dönüşümden sonra onları göreceksiniz.
     uk:one = %d файл був знайдений. Ви побачите його після перетворення.
     uk:other = %d файлів було знайдено. Ви побачите їх після конвертації.
-    uk:two = %d файлу були знайдені. Ви побачите їх після конвертації.
+    uk:few = %d файлу були знайдені. Ви побачите їх після конвертації.
     vi:one = %d dã tìm thấy một tệp. Bạn sẽ thấy nó sau khi chuyển đổi.
     vi:other = %d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.
     zh-Hans = 找到%d个文件。 转换后你会看到它。
@@ -16774,7 +16774,6 @@
     ru:few = %d объекта
     ru:one = %d объект
     ru:other = %d объектов
-    ru:two = %d объекта
     sk = %d miesto
     sv = %d plats
     sw = Eneo %d
@@ -16823,7 +16822,6 @@
     ru:few = %d места
     ru:one = %d место
     ru:other = %d мест
-    ru:two = %d места
     sk = %d miesta
     sv = %d platser
     sw = Maeneo %d
@@ -16871,7 +16869,6 @@
     ru:few = %d трека
     ru:one = %d трек
     ru:other = %d треков
-    ru:two = %d трека
     sk = %d sledovania
     sv = %d spår
     sw = Njia %d
@@ -22044,7 +22041,7 @@
     fa = نقشه های دانلود شده خود را به روز کنید
     fi = Päivitä ladatut kartat
     fr = Mettez à jour vos cartes téléchargées
-    fr_CA = Mettez à jour vos cartes téléchargées
+    fr-CA = Mettez à jour vos cartes téléchargées
     he = עדכן את המפות שהורדת
     hi = अपने डाउनलोड किए गए मानचित्र अपडेट करें
     hu = Frissítse a letöltött térképeit
@@ -22086,7 +22083,7 @@
     fa = به روز رسانی نقشه ها اطلاعات مربوط به اشیا را به روز نگه می دارد
     fi = Karttojen päivittäminen pitää kohteita koskevat tiedot ajan tasalla
     fr = Actualiser les cartes permet d'actualiser également les informations sur les objets
-    fr_CA = La mise à jour des cartes permet d'avoir des informations à jour sur les objets
+    fr-CA = La mise à jour des cartes permet d'avoir des informations à jour sur les objets
     he = עדכון המפות שומר על המידע שבהן עדכני
     hi = मानचित्रों का अपडेट होना ऑब्जेक्ट्स के बारे में जानकारी अप टू डेट रखता है
     hu = A térképek frissítésével naprakészen tarthatja az objektumokra vonatkozó adatokat
@@ -22128,7 +22125,7 @@
     fa = بروزرسانی (%s)
     fi = Päivitä (%s)
     fr = Mettre à jour (%s)
-    fr_CA = Mettre à jour (%s)
+    fr-CA = Mettre à jour (%s)
     he = עדכן (%s)
     hi = (%s) अपडेट करें
     hu = Frissítés (%s)
@@ -22170,7 +22167,7 @@
     fa = بعدا به صورت دستی به روزرسانی کنید
     fi = Päivitä manuaalisesti myöhemmin
     fr = Mettre à jour manuellement plus tard
-    fr_CA = Plus tard (manuel)
+    fr-CA = Plus tard (manuel)
     he = עדכן ידנית מאוחר יותר
     hi = बाद में मैनुअल रूप से अपडेट करें
     hu = Kézi frissítés később
