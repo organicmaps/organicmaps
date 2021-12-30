@@ -30,7 +30,6 @@
 
 #include <utility> // std::pair
 #include <sys/xattr.h>
-#include <TargetConditionals.h> // TARGET_OS_IPHONE
 
 #import <CoreFoundation/CoreFoundation.h>
 #import <CoreFoundation/CFURL.h>

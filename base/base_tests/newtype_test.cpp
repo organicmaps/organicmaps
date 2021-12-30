@@ -6,7 +6,7 @@
 #include <string>
 #include <type_traits>
 
-namespace
+namespace newtype_test
 {
 NEWTYPE(int, Int);
 
@@ -112,4 +112,4 @@ UNIT_TEST(NewType_SimpleOutPut)
   sstr << Int(20);
   TEST_EQUAL(sstr.str(), "20", ());
 }
-}  // namespace
+}  // namespace newtype_test

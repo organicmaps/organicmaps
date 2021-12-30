@@ -22,7 +22,7 @@
 # include "drape/drape_tests/gl_mock_functions.hpp"
 #endif
 
-#ifdef TARGET_OS_IPHONE
+#ifdef OMIM_OS_IPHONE
 # include <CoreFoundation/CoreFoundation.h>
 #endif
 
@@ -41,15 +41,9 @@
   #endif
 #endif
 
-using namespace std;
-
-namespace
-{
-base::Waiter g_waiter;
-}  // namespace
-
 namespace testing
 {
+base::Waiter g_waiter;
 
 void RunEventLoop()
 {
@@ -79,10 +73,7 @@ void Notify()
 {
   g_waiter.Notify();
 }
-}  // namespace testing
 
-namespace
-{
 bool g_lastTestOK = true;
 CommandLineOptions g_testingOptions;
 
@@ -146,7 +137,6 @@ void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
       options.m_listTests = true;
   }
 }
-}  // namespace
 
 CommandLineOptions const & GetTestingOptions()
 {
@@ -307,3 +297,6 @@ int main(int argc, char * argv[])
   LOG(LINFO, ("All tests passed."));
   return STATUS_SUCCESS;
 }
+}  // namespace testing
+
+int main(int argc, char * argv[]) { return testing::main(argc, argv); }

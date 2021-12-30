@@ -5,8 +5,6 @@
 #include <queue>
 #include <utility>
 
-namespace base
-{
 namespace threads
 {
 template <typename T>
@@ -76,4 +74,3 @@ private:
   std::condition_variable m_cond;
 };
 }  // namespace threads
-}  // namespace base

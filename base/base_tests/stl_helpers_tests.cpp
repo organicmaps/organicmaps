@@ -10,7 +10,7 @@
 
 using namespace base;
 
-namespace
+namespace stl_helpers_test
 {
 class Int
 {
@@ -153,7 +153,7 @@ UNIT_TEST(IgnoreFirstArgument)
   }
 }
 
-namespace 
+namespace
 {
   struct EqualZero
   {
@@ -326,4 +326,4 @@ UNIT_TEST(AccumulateIntervals)
     CheckAccumulateIntervals(idTest, arr1, arr2, res);
   }
 }
-}  // namespace
+}  // namespace stl_helpers_test
