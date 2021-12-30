@@ -159,7 +159,6 @@ android {
   ndkVersion '23.1.7779620'
 
   defaultConfig {
-    vectorDrawables.useSupportLibrary = true
     // Default package name is taken from the manifest and should be app.organicmaps
     def ver = getVersion()
     println('Version: ' + ver.first)
