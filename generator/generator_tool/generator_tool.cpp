@@ -215,8 +215,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
   gflags::SetUsageMessage(
       "Takes OSM XML data from stdin and creates data and index files in several passes.");
-  gflags::SetVersionString(std::to_string(omim::build_version::git::kTimestamp) + " " +
-                           omim::build_version::git::kHash);
+  gflags::SetVersionString(build_version::kName);
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   Platform & pl = GetPlatform();

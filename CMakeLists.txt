@@ -8,7 +8,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_EXTENSIONS OFF)
 
-if(NOT (DEFINED ENV{COLORS_DISABLE}) AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+if (NOT (DEFINED ENV{COLORS_DISABLE}) AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   message(STATUS "export COLORS_DISABLE=1 to disable colored compiler output.")
   add_compile_options($<$<CXX_COMPILER_ID:GNU>:-fdiagnostics-color=always> $<$<CXX_COMPILER_ID:Clang,AppleClang>:-fcolor-diagnostics>)
   add_link_options($<$<CXX_COMPILER_ID:GNU>:-fdiagnostics-color=always> $<$<CXX_COMPILER_ID:Clang,AppleClang>:-fcolor-diagnostics>)
@@ -268,6 +268,25 @@ if (USE_PCH)
   )
 endif()
 
+# Generate version header file.
+execute_process(COMMAND tools/unix/version.sh android_name
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  OUTPUT_VARIABLE OM_VERSION
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+execute_process(COMMAND tools/unix/version.sh android_code
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  OUTPUT_VARIABLE OM_VERSION_CODE
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+execute_process(COMMAND tools/unix/version.sh git_hash
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  OUTPUT_VARIABLE OM_GIT_HASH
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+# TODO: Does it run on every build or only on configure step?
+# TODO: Run only when dependent targets are built.
+configure_file(build_version.hpp.in ${CMAKE_SOURCE_DIR}/build_version.hpp @ONLY)
 
 # Include 3party dependencies.
 
@@ -361,12 +380,3 @@ omim_add_test_subdirectory(qt_tstfrm)
 if (PLATFORM_ANDROID)
   add_subdirectory(android/jni)
 endif()
-
-add_custom_target(BuildVersion ALL
-  COMMAND ${CMAKE_COMMAND}
-  ARGS
-  -D OMAPS_CURRENT_PROJECT_ROOT=${OMIM_ROOT}
-  -D PATH_WITH_BUILD_VERSION_HPP=${OMIM_ROOT}
-  -D PROJECT_NAME=${PROJECT_NAME}
-  -P ${OMIM_ROOT}/cmake/BuildVersion.cmake
-)

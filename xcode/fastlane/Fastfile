@@ -45,12 +45,8 @@ platform :ios do
   end
 
   private_lane :generate_version do
-    timestamp = sh('git log -1 --format=%ct').strip
-    date_of_last_commit = sh('date -u -r ' + timestamp + " '+%Y-%m-%d'").strip
-    build_number = sh('git rev-list --count --after="' + date_of_last_commit + 'T00:00:00Z" HEAD').strip
-    version_number = date_of_last_commit.gsub!('-', '.')
-    lane_context[SharedValues::VERSION_NUMBER] = version_number
-    lane_context[SharedValues::BUILD_NUMBER] = build_number
+    lane_context[SharedValues::VERSION_NUMBER] = sh('../tools/unix/version.sh ios_version')
+    lane_context[SharedValues::BUILD_NUMBER] = sh('../tools/unix/version.sh ios_build')
   end
 
   private_lane :generate_testflight_changelog do
