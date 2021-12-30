@@ -20,6 +20,7 @@
 #include "indexer/road_shields_parser.hpp"
 
 #include "geometry/clipping.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/smoothing.hpp"
 
 #include "drape/color.hpp"
@@ -657,10 +658,9 @@ void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD 
 
 int ApplyAreaFeature::GetIndex(m2::PointD const & pt)
 {
-  double constexpr kEps = 1e-7;
   for (size_t i = 0; i < m_points.size(); i++)
   {
-    if (pt.EqualDxDy(m_points[i], kEps))
+    if (pt.EqualDxDy(m_points[i], mercator::kPointEqualityEps))
       return static_cast<int>(i);
   }
   m_points.push_back(pt);
