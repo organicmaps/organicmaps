@@ -76,7 +76,6 @@ iphone/Maps/3party/Carthage/Build/iOS/*.dSYM
 iphone/Maps/3party/Carthage/Build/*.version
 
 # GeneratedFiles
-version/version.hpp
 tools/win/MapsWithMe*
 GeneratedFiles
 

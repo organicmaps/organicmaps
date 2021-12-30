@@ -65,8 +65,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv) {
       "complex_generator is a program that generates complexes on the basis of "
       "the last generation of maps. Complexes are a hierarchy of interesting "
       "geographical features.");
-  gflags::SetVersionString(std::to_string(omim::build_version::git::kTimestamp) + " " +
-                           omim::build_version::git::kHash);
+  gflags::SetVersionString(build_version::kName);
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   Platform & pl = GetPlatform();
