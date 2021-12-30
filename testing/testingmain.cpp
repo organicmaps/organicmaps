@@ -43,6 +43,8 @@
 
 namespace testing
 {
+using namespace std;
+
 base::Waiter g_waiter;
 
 void RunEventLoop()
@@ -94,20 +96,19 @@ enum Status
 
 void DisplayOption(ostream & os, char const * option, char const * description)
 {
-  os << "  " << setw(kOptionFieldWidth) << left << option << " " << description << endl;
+  os << "  " << setw(kOptionFieldWidth) << left << option << " " << description << '\n';
 }
 
 void DisplayOption(ostream & os, char const * option, char const * value, char const * description)
 {
-  os << "  " << setw(kOptionFieldWidth) << left << (string(option) + string(value)) << " "
-     << description << endl;
+  os << "  " << setw(kOptionFieldWidth) << left << (string(option) + value) << " "
+     << description << '\n';
 }
 
 void Usage(char const * name)
 {
-  cerr << "USAGE: " << name << " [options]" << endl;
-  cerr << endl;
-  cerr << "OPTIONS:" << endl;
+  cerr << "USAGE: " << name << " [options]\n\n";
+  cerr << "OPTIONS:\n";
   DisplayOption(cerr, kFilterOption, "<ECMA Regexp>",
                 "Run tests with names corresponding to regexp.");
   DisplayOption(cerr, kSuppressOption, "<ECMA Regexp>",
@@ -160,7 +161,7 @@ int main(int argc, char * argv[])
 
 #ifdef WITH_GL_MOCK
   emul::GLMockFunctions::Init(&argc, argv);
-  SCOPE_GUARD(GLMockScope, std::bind(&emul::GLMockFunctions::Teardown));
+  SCOPE_GUARD(GLMockScope, bind(&emul::GLMockFunctions::Teardown));
 #endif
 
   vector<string> testnames;
@@ -212,7 +213,7 @@ int main(int argc, char * argv[])
   if (GetTestingOptions().m_listTests)
   {
     for (auto const & name : testnames)
-      cout << name << endl;
+      cout << name << '\n';
     return 0;
   }
 
@@ -264,7 +265,7 @@ int main(int argc, char * argv[])
       testResults[testIndex] = false;
       ++numFailedTests;
     }
-    catch (std::exception const & ex)
+    catch (exception const & ex)
     {
       LOG(LERROR, ("FAILED", "<<<Exception thrown [", ex.what(), "].>>>"));
       testResults[testIndex] = false;

@@ -3,10 +3,10 @@
 #include "geometry/point2d.hpp"
 #include "geometry/segment2d.hpp"
 
+namespace segment2d_tests
+{
 using namespace m2;
 
-namespace
-{
 double const kEps = 1e-10;
 
 void TestIntersectionResult(IntersectionResult const & result, IntersectionResult::Type expectedType,
@@ -105,4 +105,4 @@ UNIT_TEST(SegmentIntersection_InfinityIntersectionPoints)
       Intersect(Segment2D({0.0, 0.0}, {2.0, 4.0}), Segment2D({1.0, 2.0}, {2.0, 4.0}), kEps).m_type,
       IntersectionResult::Type::Infinity, ());
 }
-}  // namespace
+}  // namespace segment2d_tests

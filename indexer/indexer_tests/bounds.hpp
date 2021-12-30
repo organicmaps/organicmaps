@@ -1,3 +1,5 @@
+#pragma once
+
 #include "geometry/rect2d.hpp"
 
 template <int MinX, int MinY, int MaxX, int MaxY>

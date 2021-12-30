@@ -20,7 +20,7 @@
 
 using namespace std;
 
-namespace
+namespace style_symbols_consistency_tests
 {
 void UnitTestInitPlatform()
 {
@@ -73,7 +73,6 @@ set<string> GetSymbolsSetFromResourcesFile(string const & density)
   ParseXML(source, dispatcher);
   return symbols;
 }
-}  // namespace
 
 UNIT_TEST(Test_SymbolsConsistency)
 {
@@ -110,3 +109,4 @@ UNIT_TEST(Test_SymbolsConsistency)
 
   TEST(res, ());
 }
+}  // namespace style_symbols_consistency_tests

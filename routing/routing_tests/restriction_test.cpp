@@ -19,6 +19,7 @@ namespace routing_test
 {
 using namespace std;
 using namespace routing;
+using routing::TestRestrictions;
 
 using Algorithm = AStarAlgorithm<Segment, SegmentEdge, RouteWeight>;
 
@@ -1085,4 +1086,3 @@ UNIT_CLASS_TEST(RestrictionTest, RestrictionOnlyWithWayAsVia_1)
   test({start, {0, 0}, {1, 0}, {2, 0}, {3, 1}, finish}, RestrictionVec());
 }
 }  // namespace routing_test
-

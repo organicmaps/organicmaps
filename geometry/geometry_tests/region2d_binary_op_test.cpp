@@ -7,13 +7,11 @@
 
 #include <vector>
 
-using namespace std;
-
-namespace
+namespace region2d_binary_op_test
 {
+using namespace std;
 using P = m2::PointI;
 using R = m2::RegionI;
-}  // namespace
 
 UNIT_TEST(RegionIntersect_Smoke)
 {
@@ -166,3 +164,4 @@ UNIT_TEST(RegionDifference_Data1)
   }
 }
 */
+}  // namespace region2d_binary_op_test

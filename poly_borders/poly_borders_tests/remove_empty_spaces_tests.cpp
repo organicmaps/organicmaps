@@ -13,13 +13,13 @@
 #include <string>
 #include <vector>
 
+namespace remove_empty_spaces_tests
+{
 using namespace platform::tests_support;
 using namespace platform;
 using namespace poly_borders;
 using namespace std;
 
-namespace
-{
 string const kTestDir = "borders_poly_dir";
 auto constexpr kSmallShift = 1e-9;
 auto constexpr kSmallPointShift = m2::PointD(kSmallShift, kSmallShift);
@@ -266,4 +266,4 @@ UNIT_TEST(PolyBordersPostprocessor_RemoveEmptySpaces_6)
   auto const & bordersPolygon2 = bordersData.GetBordersPolygonByName("Second" + BordersData::kBorderExtension + "1");
   TEST(ConsistsOf(bordersPolygon2, {a, d, e}), ());
 }
-}  // namespace
+}  // namespace remove_empty_spaces_tests

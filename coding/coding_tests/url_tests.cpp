@@ -6,10 +6,11 @@
 #include <string>
 #include <utility>
 
-using namespace std;
-
-namespace
+namespace url_tests
 {
+using namespace std;
+using namespace url;
+
 double const kEps = 1e-10;
 
 class TestUrl
@@ -27,7 +28,7 @@ public:
 
   ~TestUrl()
   {
-    url::Url url(m_url);
+    Url url(m_url);
     TEST_EQUAL(url.GetScheme(), m_scheme, ());
     TEST_EQUAL(url.GetPath(), m_path, ());
     TEST(!m_scheme.empty() || !url.IsValid(), ("Scheme is empty if and only if url is invalid!"));
@@ -35,7 +36,7 @@ public:
   }
 
 private:
-  void AddTestValue(url::Param const & param)
+  void AddTestValue(Param const & param)
   {
     TEST(!m_keyValuePairs.empty(), ("Failed for url = ", m_url, "Passed KV = ", param));
     TEST_EQUAL(m_keyValuePairs.front().first, param.m_name, ());
@@ -48,7 +49,6 @@ private:
   string m_path;
   queue<pair<string, string>> m_keyValuePairs;
 };
-}  // namespace
 
 namespace url_encode_testdata
 {
@@ -62,8 +62,6 @@ char const * orig4 = "#$%^&@~[]{}()|*+`\"\'";
 char const * enc4 = "%23%24%25%5E%26%40~%5B%5D%7B%7D%28%29%7C%2A%2B%60%22%27";
 }  // namespace url_encode_testdata
 
-namespace url
-{
 UNIT_TEST(Url_Join)
 {
   TEST_EQUAL("", Join("", ""), ());
@@ -251,4 +249,4 @@ UNIT_TEST(UrlComprehensive)
       .KV("key2", "").KV("key2", "")
       .KV("key3", "value1").KV("key3", "").KV("key3", "value2");
 }
-}  // namespace url
+}  // namespace url_tests

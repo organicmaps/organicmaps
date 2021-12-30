@@ -17,7 +17,7 @@
 // SimplifyXXX() should be used to simplify polyline for a given epsilon.
 // (!) They do not include the last point to the simplification, the calling side should do it.
 
-namespace impl
+namespace simpl
 {
 ///@name This functions take input range NOT like STL does: [first, last].
 //@{
@@ -45,15 +45,15 @@ std::pair<double, Iter> MaxDistance(Iter first, Iter last, DistanceFn & distFn)
 template <typename DistanceFn, typename Iter, typename Out>
 void SimplifyDP(Iter first, Iter last, double epsilon, DistanceFn & distFn, Out & out)
 {
-  std::pair<double, Iter> maxDist = impl::MaxDistance(first, last, distFn);
+  std::pair<double, Iter> maxDist = MaxDistance(first, last, distFn);
   if (maxDist.second == last || maxDist.first < epsilon)
   {
     out(*last);
   }
   else
   {
-    impl::SimplifyDP(first, maxDist.second, epsilon, distFn, out);
-    impl::SimplifyDP(maxDist.second, last, epsilon, distFn, out);
+    simpl::SimplifyDP(first, maxDist.second, epsilon, distFn, out);
+    simpl::SimplifyDP(maxDist.second, last, epsilon, distFn, out);
   }
 }
 //@}
@@ -67,7 +67,7 @@ struct SimplifyOptimalRes
   int32_t m_NextPoint = -1;
   uint32_t m_PointCount = -1U;
 };
-}  // namespace impl
+}  // namespace simpl
 
 // Douglas-Peucker algorithm for STL-like range [beg, end).
 // Iteratively includes the point with max distance from the current simplification.
@@ -78,7 +78,7 @@ void SimplifyDP(Iter beg, Iter end, double epsilon, DistanceFn distFn, Out out)
   if (beg != end)
   {
     out(*beg);
-    impl::SimplifyDP(beg, end - 1, epsilon, distFn, out);
+    simpl::SimplifyDP(beg, end - 1, epsilon, distFn, out);
   }
 }
 
@@ -100,8 +100,8 @@ void SimplifyNearOptimal(int maxFalseLookAhead, Iter beg, Iter end, double epsil
     return;
   }
 
-  std::vector<impl::SimplifyOptimalRes> F(n);
-  F[n - 1] = impl::SimplifyOptimalRes(n, 1);
+  std::vector<simpl::SimplifyOptimalRes> F(n);
+  F[n - 1] = simpl::SimplifyOptimalRes(n, 1);
   for (int32_t i = n - 2; i >= 0; --i)
   {
     for (int32_t falseCount = 0, j = i + 1; j < n && falseCount < maxFalseLookAhead; ++j)
@@ -109,7 +109,7 @@ void SimplifyNearOptimal(int maxFalseLookAhead, Iter beg, Iter end, double epsil
       uint32_t const newPointCount = F[j].m_PointCount + 1;
       if (newPointCount < F[i].m_PointCount)
       {
-        if (impl::MaxDistance(beg + i, beg + j, distFn).first < epsilon)
+        if (simpl::MaxDistance(beg + i, beg + j, distFn).first < epsilon)
         {
           F[i].m_NextPoint = j;
           F[i].m_PointCount = newPointCount;

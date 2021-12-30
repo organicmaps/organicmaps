@@ -9,9 +9,7 @@
 #include <utility>
 #include <vector>
 
-using namespace lightweight;
-
-namespace
+namespace lightweight_matching_tests
 {
 double constexpr kStepInMercator = 1;
 
@@ -26,7 +24,7 @@ struct PointAndCountry
   storage::CountryId m_country;
 };
 
-UNIT_CLASS_TEST(CountryInfoReader, LightweightMatching)
+UNIT_CLASS_TEST(lightweight::CountryInfoReader, LightweightMatching)
 {
   auto const reader = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
 
@@ -48,4 +46,4 @@ UNIT_CLASS_TEST(CountryInfoReader, LightweightMatching)
     TEST_EQUAL(GetRegionCountryId(sample.m_pt), sample.m_country, (sample.m_pt));
   }
 }
-}  // namespace
+}  // namespace lightweight_matching_tests
