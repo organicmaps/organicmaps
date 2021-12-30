@@ -1,5 +1,7 @@
 #pragma once
 
+#include "geometry/mercator.hpp"  // kPointEqualityEps
+
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/math.hpp"
@@ -105,8 +107,8 @@ struct OsmElement
   {
     return m_type == other.m_type
         && m_id == other.m_id
-        && base::AlmostEqualAbs(m_lon, other.m_lon, 1e-7)
-        && base::AlmostEqualAbs(m_lat, other.m_lat, 1e-7)
+        && base::AlmostEqualAbs(m_lon, other.m_lon, mercator::kPointEqualityEps)
+        && base::AlmostEqualAbs(m_lat, other.m_lat, mercator::kPointEqualityEps)
         && m_ref == other.m_ref
         && m_k == other.m_k
         && m_v == other.m_v

@@ -8,6 +8,8 @@
 
 namespace mercator
 {
+// Use to compare/match lat lon coordinates.
+static double constexpr kPointEqualityEps = 1e-7;
 struct Bounds
 {
   static double constexpr kMinX = -180.0;
