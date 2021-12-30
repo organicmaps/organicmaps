@@ -656,7 +656,7 @@
 "clear_search" = "Очистити історію пошуку";
 
 /* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
+"read_in_wikipedia" = "Вікіпедія";
 
 "p2p_your_location" = "Ваше місцезнаходження";
 
@@ -2448,6 +2448,8 @@
 "type.leisure.track" = "Бігова доріжка";
 
 "type.leisure.water_park" = "Аквапарк";
+
+"type.leisure.beach_resort" = "Пляжний курорт";
 
 "type.man_made" = "Штучна споруда";
 

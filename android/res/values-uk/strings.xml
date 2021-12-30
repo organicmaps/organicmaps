@@ -386,6 +386,8 @@
 	<string name="search_history_title">Історія пошуку</string>
 	<string name="search_history_text">Швидкий доступ до недавніх результатів пошуку.</string>
 	<string name="clear_search">Очистити історію пошуку</string>
+	<!-- Place Page link to Wikipedia article (if map object has it). -->
+	<string name="read_in_wikipedia">Вікіпедія</string>
 	<string name="p2p_your_location">Ваше місцезнаходження</string>
 	<string name="p2p_start">Почати рух</string>
 	<string name="p2p_from_here">Звідси</string>
@@ -650,7 +652,7 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d файл був знайдений. Ви побачите його після перетворення.</item>
 	  <item quantity="other">%d файлів було знайдено. Ви побачите їх після конвертації.</item>
-	  <item quantity="two">%d файлу були знайдені. Ви побачите їх після конвертації.</item>
+	  <item quantity="few">%d файлу були знайдені. Ви побачите їх після конвертації.</item>
 	</plurals>
 	<string name="button_convert">Конвертувати</string>
 	<string name="bookmarks_convert_error_title">Помилка</string>
@@ -1266,6 +1268,7 @@
 	<string name="type.leisure.swimming_pool">Басейн для плавання</string>
 	<string name="type.leisure.track">Бігова доріжка</string>
 	<string name="type.leisure.water_park">Аквапарк</string>
+	<string name="type.leisure.beach_resort">Пляжний курорт</string>
 	<string name="type.man_made">Штучна споруда</string>
 	<string name="type.man_made.breakwater">Хвилеріз</string>
 	<string name="type.man_made.cairn">Тур</string>

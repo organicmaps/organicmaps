@@ -1234,6 +1234,7 @@
 	<string name="type.natural.strait">Boğaz</string>
 	<string name="type.natural.tree">Arbre</string>
 	<string name="type.natural.volcano">Volcan</string>
+	<string name="type.natural.water">Su</string>
 	<string name="type.natural.wetland">Sulak alan</string>
 	<string name="type.office">Ofis</string>
 	<string name="type.office.company">Şirket bürosu</string>

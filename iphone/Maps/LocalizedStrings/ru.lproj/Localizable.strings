@@ -656,7 +656,7 @@
 "clear_search" = "Очистить историю поиска";
 
 /* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
+"read_in_wikipedia" = "Википедия";
 
 "p2p_your_location" = "Ваше местоположение";
 
@@ -1183,7 +1183,7 @@
 
 "bookmarks_empty_list_title" = "Список пустой";
 
-"bookmarks_empty_list_message" = "Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта";
+"bookmarks_empty_list_message" = "Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки";
 
 "category_desc_more" = "…еще";
 
@@ -2448,6 +2448,8 @@
 "type.leisure.track" = "Беговая дорожка";
 
 "type.leisure.water_park" = "Аквапарк";
+
+"type.leisure.beach_resort" = "Пляжный курорт";
 
 "type.man_made" = "Искусственное сооружение";
 
