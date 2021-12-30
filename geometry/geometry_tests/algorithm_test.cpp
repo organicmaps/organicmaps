@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "geometry/algorithm.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 
@@ -35,7 +36,7 @@ PointD GetPointOnSurface(vector<PointD> const & points)
 
 bool PointsAlmostEqual(PointD const & p1, PointD const & p2)
 {
-  return p1.EqualDxDy(p2, 1e-7);
+  return p1.EqualDxDy(p2, mercator::kPointEqualityEps);
 }
 }  // namespace
 

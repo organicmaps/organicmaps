@@ -10,6 +10,8 @@
 #include "coding/reader_wrapper.hpp"
 #include "coding/varint.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "indexer/feature_decl.hpp"
 #include "indexer/scales.hpp"
 
@@ -22,8 +24,6 @@
 
 namespace
 {
-double const kPointEqualityEps = 1e-7;
-
 struct MetalineData
 {
   std::vector<FeatureID> m_features;
@@ -31,7 +31,7 @@ struct MetalineData
 };
 
 std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
-{ 
+{
   try
   {
     std::vector<MetalineData> model;
@@ -81,7 +81,7 @@ std::map<FeatureID, std::vector<m2::PointD>> ReadPoints(df::MapDataProvider & mo
     featurePoints.reserve(5);
     ft.ForEachPoint([&featurePoints](m2::PointD const & pt)
     {
-      if (featurePoints.empty() || !featurePoints.back().EqualDxDy(pt, kPointEqualityEps))
+      if (featurePoints.empty() || !featurePoints.back().EqualDxDy(pt, mercator::kPointEqualityEps))
         featurePoints.push_back(pt);
     }, scales::GetUpperScale());
 
@@ -117,7 +117,7 @@ std::vector<m2::PointD> MergePoints(std::map<FeatureID, std::vector<m2::PointD>>
     ASSERT(it != points.cend(), ());
     for (auto const & pt : it->second)
     {
-      if (result.empty() || !result.back().EqualDxDy(pt, kPointEqualityEps))
+      if (result.empty() || !result.back().EqualDxDy(pt, mercator::kPointEqualityEps))
         result.push_back(pt);
     }
   }

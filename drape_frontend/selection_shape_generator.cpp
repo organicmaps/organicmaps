@@ -13,6 +13,8 @@
 #include "indexer/feature.hpp"
 #include "indexer/scales.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/buffer_vector.hpp"
 #include "base/macros.hpp"
 #include "base/math.hpp"
@@ -26,7 +28,6 @@ namespace
 {
 std::string const kTrackSelectedSymbolName = "track_marker_selected";
 df::ColorConstant const kSelectionColor = "Selection";
-double const kPointEqualityEps = 1e-7;
 float const kLeftSide = 1.0f;
 float const kCenter = 0.0f;
 float const kRightSide = -1.0f;
@@ -232,7 +233,7 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionGeometry(ref_ptr
       points.reserve(5);
       ft.ForEachPoint([&points](m2::PointD const & pt)
       {
-       if (points.empty() || !points.back().EqualDxDy(pt, kPointEqualityEps))
+       if (points.empty() || !points.back().EqualDxDy(pt, mercator::kPointEqualityEps))
          points.push_back(pt);
       }, scales::GetUpperScale());
     }, std::vector<FeatureID>{feature});

@@ -1,6 +1,7 @@
 #include "editor/feature_matcher.hpp"
 
 #include "geometry/intersection_score.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
@@ -302,7 +303,7 @@ double ScoreTriangulatedGeometriesByPoints(vector<m2::PointD> const & lhs,
                                         CounterIterator(),
                                         [](m2::PointD const & p1, m2::PointD const & p2)
                                         {
-                                          return p1 < p2 && !p1.EqualDxDy(p2, 1e-7);
+                                          return p1 < p2 && !p1.EqualDxDy(p2, mercator::kPointEqualityEps);
                                         }).GetCount();
 
   return static_cast<double>(matched) / lhs.size();

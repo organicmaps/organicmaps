@@ -22,7 +22,6 @@ namespace topography_generator
 {
 namespace
 {
-double const kEps = 1e-7;
 size_t constexpr kArcSecondsInDegree = 60 * 60;
 int constexpr kAsterTilesLatTop = 60;
 int constexpr kAsterTilesLatBottom = -60;
@@ -111,17 +110,17 @@ private:
       // Try to prevent loading a new tile if the position can be found in the loaded one.
       auto const latDist = pos.m_lat - m_leftBottomOfPreferredTile.m_lat;
       auto const lonDist = pos.m_lon - m_leftBottomOfPreferredTile.m_lon;
-      if (latDist > -kEps && latDist < 1.0 + kEps && lonDist > -kEps && lonDist < 1.0 + kEps)
+      if (latDist > -mercator::kPointEqualityEps && latDist < 1.0 + mercator::kPointEqualityEps && lonDist > -mercator::kPointEqualityEps && lonDist < 1.0 + mercator::kPointEqualityEps)
       {
         ms::LatLon innerPos = pos;
         if (latDist < 0.0)
-          innerPos.m_lat += kEps;
+          innerPos.m_lat += mercator::kPointEqualityEps;
         else if (latDist >= 1.0)
-          innerPos.m_lat -= kEps;
+          innerPos.m_lat -= mercator::kPointEqualityEps;
         if (lonDist < 0.0)
-          innerPos.m_lon += kEps;
+          innerPos.m_lon += mercator::kPointEqualityEps;
         else if (lonDist >= 1.0)
-          innerPos.m_lon -= kEps;
+          innerPos.m_lon -= mercator::kPointEqualityEps;
         return m_preferredTile->GetHeight(innerPos);
       }
     }
@@ -386,8 +385,8 @@ private:
             // for the same position on the border could be returned different altitudes.
             // Force to use altitudes near the srtm/aster border from srtm source,
             // it helps to avoid contours gaps due to different altitudes for equal positions.
-            return fabs(pos.m_lat - kAsterTilesLatTop) < kEps ||
-                   fabs(pos.m_lat - kAsterTilesLatBottom) < kEps;
+            return fabs(pos.m_lat - kAsterTilesLatTop) < mercator::kPointEqualityEps ||
+                   fabs(pos.m_lat - kAsterTilesLatBottom) < mercator::kPointEqualityEps;
           });
       GenerateContours(lat, lon, params, seamlessAltProvider, contours);
     }
