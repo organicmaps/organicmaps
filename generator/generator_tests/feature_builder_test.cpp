@@ -7,7 +7,7 @@
 #include "generator/geometry_holder.hpp"
 #include "generator/osm2type.hpp"
 
-#include "indexer/data_header.cpp"
+#include "indexer/data_header.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_visibility.hpp"
 
@@ -15,8 +15,9 @@
 
 #include <limits>
 
+namespace feature_builder_test
+{
 using namespace feature;
-
 using namespace generator::tests_support;
 using namespace tests;
 
@@ -343,3 +344,4 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessAltName)
     TEST(fb.IsValid(), (fb));
   }
 }
+}  // namespace feature_builder_test

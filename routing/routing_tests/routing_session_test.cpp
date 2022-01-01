@@ -20,7 +20,7 @@
 #include <string>
 #include <vector>
 
-namespace
+namespace routing_session_test
 {
 using namespace routing;
 using namespace std;
@@ -232,10 +232,7 @@ void TestLeavingRoute(RoutingSession & session, location::GpsInfo const & info)
                                     session);
   TestMovingByUpdatingLat(sessionStateTest, latitudes, info, session);
 }
-}  // namespace
 
-namespace routing
-{
 UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteBuilding)
 {
   // Multithreading synchronization note. |counter| and |session| are constructed on the main thread,
@@ -640,4 +637,4 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingError)
     TestMovingByUpdatingLat(sessionStateTest, latitudes, info, *m_session);
   }
 }
-}  // namespace routing
+}  // namespace routing_session_test

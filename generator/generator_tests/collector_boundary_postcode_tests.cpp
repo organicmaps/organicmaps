@@ -20,13 +20,13 @@
 #include <utility>
 #include <vector>
 
+namespace collector_boundary_postcode_tests
+{
 using namespace generator_tests;
 using namespace generator;
 using namespace feature;
 using namespace std;
 
-namespace
-{
 using BoundariesCollector = RoutingCityBoundariesCollector;
 
 string const kDumpFileName = "dump.bin";
@@ -132,7 +132,7 @@ bool CheckPostcodeExists(unordered_map<string, vector<m2::PointD>> const & data,
 
   for (size_t i = 0; i < geometry.size(); ++i)
   {
-    if (!base::AlmostEqualAbs(geometry[i], it->second[i], kMwmPointAccuracy))
+    if (!m2::AlmostEqualAbs(geometry[i], it->second[i], kMwmPointAccuracy))
       return false;
   }
 
@@ -160,7 +160,7 @@ void Check(string const & dumpFilename)
   TEST(CheckPostcodeExists(data, "127003", ConvertIdsToPoints(kPolygon3)), (data));
   TEST(CheckPostcodeExists(data, "127004", ConvertIdsToPoints(kPolygon4)), (data));
 }
-}  // namespace
+
 
 UNIT_TEST(CollectorBoundaryPostcode_1)
 {
@@ -200,3 +200,4 @@ UNIT_TEST(CollectorBoundaryPostcode_2)
 
   Check(kDumpFileName);
 }
+}  // namespace collector_boundary_postcode_tests

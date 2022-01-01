@@ -5,7 +5,7 @@
 #include "routing/routing_tests/index_graph_tools.hpp"
 #include "routing/routing_tests/world_graph_builder.hpp"
 
-namespace routing_test
+namespace uturn_restriction_tests
 {
 using namespace routing;
 
@@ -137,4 +137,4 @@ UNIT_CLASS_TEST(NoUTurnRestrictionTest, CheckOnlyUTurn_2)
 
   TestRouteGeom(start, finish, Algorithm::Result::OK, expectedGeomAfterRestriction);
 }
-}  // namespace routing_test
+}  // namespace uturn_restriction_tests

@@ -137,6 +137,17 @@ void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
     if (strcmp(arg, kListAllTestsOption) == 0)
       options.m_listTests = true;
   }
+#ifndef OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
+  // Setting stored paths from testingmain.cpp
+  Platform & pl = GetPlatform();
+  if (options.m_dataPath)
+    pl.SetWritableDirForTests(options.m_dataPath);
+  if (options.m_resourcePath)
+  {
+    pl.SetResourceDir(options.m_resourcePath);
+    pl.SetSettingsDir(options.m_resourcePath);
+  }
+#endif
 }
 
 CommandLineOptions const & GetTestingOptions()
@@ -182,19 +193,6 @@ int main(int argc, char * argv[])
   regex suppressRegExp;
   if (g_testingOptions.m_suppressRegExp)
     suppressRegExp.assign(g_testingOptions.m_suppressRegExp);
-
-#ifndef OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
-  // Setting stored paths from testingmain.cpp
-  Platform & pl = GetPlatform();
-  CommandLineOptions const & options = GetTestingOptions();
-  if (options.m_dataPath)
-    pl.SetWritableDirForTests(options.m_dataPath);
-  if (options.m_resourcePath)
-  {
-    pl.SetResourceDir(options.m_resourcePath);
-    pl.SetSettingsDir(options.m_resourcePath);
-  }
-#endif
 
   for (TestRegister * test = TestRegister::FirstRegister(); test; test = test->m_next)
   {
@@ -300,4 +298,4 @@ int main(int argc, char * argv[])
 }
 }  // namespace testing
 
-int main(int argc, char * argv[]) { return testing::main(argc, argv); }
+int main(int argc, char * argv[]) { return ::testing::main(argc, argv); }

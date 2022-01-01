@@ -2,6 +2,8 @@
 
 #include "coding/url.hpp"
 
+#include "base/math.hpp"
+
 #include <queue>
 #include <string>
 #include <utility>

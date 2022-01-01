@@ -55,7 +55,9 @@ class Settings
   std::vector<uint32_t> m_soundedDistancesUnits;
   measurement_utils::Units m_lengthUnits;
 
+public:
   // This constructor is for testing only.
+  // TODO: Do not compile it for production. Either use a static method or derive it in tests.
   Settings(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
            uint32_t maxNotificationDistanceUnits, uint32_t startBeforeSeconds,
            uint32_t minStartBeforeMeters, uint32_t maxStartBeforeMeters,
@@ -75,7 +77,6 @@ class Settings
     ASSERT(!m_soundedDistancesUnits.empty(), ());
   }
 
-public:
   Settings(uint32_t startBeforeSecondsVehicle, uint32_t minStartBeforeMetersVehicle,
            uint32_t maxStartBeforeMetersVehicle, uint32_t minDistToSayNotificationMeters,
            uint32_t startBeforeSecondsPedestrian, uint32_t minStartBeforeMetersPedestrian,

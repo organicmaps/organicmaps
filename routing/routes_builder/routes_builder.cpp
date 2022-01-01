@@ -6,7 +6,8 @@
 
 #include "indexer/classificator_loader.hpp"
 
-#include "platform/local_country_file_utils.cpp"
+#include "platform/local_country_file.hpp"
+#include "platform/local_country_file_utils.hpp"
 
 #include "coding/write_to_sink.hpp"
 
@@ -98,7 +99,7 @@ RoutesBuilder::RoutesBuilder(size_t threadsNumber) : m_threadPool(threadsNumber)
   CHECK(m_cpg, ());
 
   classificator::Load();
-  vector<platform::LocalCountryFile> localFiles;
+  std::vector<platform::LocalCountryFile> localFiles;
   platform::FindAllLocalMapsAndCleanup(std::numeric_limits<int64_t>::max(), localFiles);
 
   std::vector<std::unique_ptr<FrozenDataSource>> dataSources;
@@ -261,7 +262,7 @@ void RoutesBuilder::Processor::InitRouter(VehicleType type)
     return cigSharedPtr->GetRegionCountryId(pt);
   };
 
-  auto const getMwmRectByName = [cig](string const & countryId) {
+  auto const getMwmRectByName = [cig](std::string const & countryId) {
     auto const cigSharedPtr = cig.lock();
     return cigSharedPtr->GetLimitRectForLeaf(countryId);
   };

@@ -31,14 +31,14 @@
 #include <string>
 #include <vector>
 
+namespace altitude_test
+{
 using namespace feature;
 using namespace generator;
 using namespace platform;
 using namespace platform::tests_support;
 using namespace routing;
 
-namespace
-{
 // These tests generate mwms with altitude sections and then check if altitudes
 // in the mwms are correct. The mwms are initialized with different sets of features.
 // There are several restrictions for these features:
@@ -254,4 +254,4 @@ UNIT_TEST(AltitudeGenerationTest_FourRoadsWithoutAltitude)
   std::vector<TPoint3DList> const roads = {kRoad1, kRoad2, kRoad3, kRoad4};
   TestBuildingNoFeatureHasAltitude(roads, false /* hasAltitudeExpected */);
 }
-}  // namespace
+}  // namespace altitude_test

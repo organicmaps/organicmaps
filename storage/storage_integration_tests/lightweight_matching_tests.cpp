@@ -24,7 +24,9 @@ struct PointAndCountry
   storage::CountryId m_country;
 };
 
-UNIT_CLASS_TEST(lightweight::CountryInfoReader, LightweightMatching)
+using lightweight::CountryInfoReader;
+
+UNIT_CLASS_TEST(CountryInfoReader, LightweightMatching)
 {
   auto const reader = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
 

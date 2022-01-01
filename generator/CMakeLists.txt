@@ -253,7 +253,13 @@ target_link_libraries(${PROJECT_NAME}
   $<$<BOOL:CMAKE_DL_LIBS>:${CMAKE_DL_LIBS}>  # dladdr from boost::stacktrace
 )
 
-set_target_properties(${PROJECT_NAME} PROPERTIES UNITY_BUILD OFF)
+# Disable unity build to avoid boost::geometry macro errors.
+set_source_files_properties(
+  affiliation.cpp
+  final_processor_country.cpp
+  hierarchy.cpp
+  PROPERTIES SKIP_UNITY_BUILD_INCLUSION TRUE
+)
 
 omim_add_test_subdirectory(generator_tests_support)
 omim_add_test_subdirectory(generator_tests)

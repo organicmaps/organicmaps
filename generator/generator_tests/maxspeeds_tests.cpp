@@ -2,7 +2,7 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/generator_tests/common.hpp"
-#include "generator/generator_tests_support/test_feature.cpp"
+#include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 #include "generator/maxspeeds_builder.hpp"
 #include "generator/maxspeeds_collector.hpp"
@@ -45,9 +45,8 @@
 #include <string>
 #include <vector>
 
-namespace
+namespace maxspeeds_tests
 {
-
 using namespace generator;
 using namespace generator_tests;
 using namespace measurement_utils;
@@ -136,8 +135,6 @@ bool ParseCsv(string const & maxspeedsCsvContent, OsmIdToMaxspeed & mapping)
 
   return ParseMaxspeeds(base::JoinPath(testDirFullPath, kCsv), mapping);
 }
-
-} // namespace
 
 UNIT_TEST(MaxspeedTagValueToSpeedTest)
 {
@@ -438,3 +435,4 @@ UNIT_TEST(MaxspeedCollector_Smoke)
 
   TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(5)].GetForward(), static_cast<MaxspeedType>(20), ());
 }
+} // namespace maxspeeds_tests

@@ -17,12 +17,12 @@
 
 #include <string>
 
+namespace storage_http_tests
+{
 using namespace platform;
 using namespace std;
 using namespace storage;
 
-namespace
-{
 string const kCountryId = "Trinidad and Tobago";
 string const kDisputedCountryId1 = "Jerusalem";
 string const kDisputedCountryId2 = "Crimea";
@@ -88,7 +88,6 @@ protected:
   string const m_version;
   tests_support::ScopedDir const m_cleanupVersionDir;
 };
-}  // namespace
 
 UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
 {
@@ -183,3 +182,4 @@ UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadAndDeleteDisputedNode)
   TEST(!platform.IsFileExistsByFullPath(mwmFullPath3), ());
   TEST(!platform.IsFileExistsByFullPath(mwmFullPathUndisputed), ());
 }
+}  // namespace storage_http_tests

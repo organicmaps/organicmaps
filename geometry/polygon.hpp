@@ -164,7 +164,7 @@ namespace polygon_detail
 
 /// Make single strip for the range of points [beg, end), started with index = i.
 template <typename F>
-void MakeSingleStripFromIndex(size_t i, size_t n, F & f)
+void MakeSingleStripFromIndex(size_t i, size_t n, F && f)
 {
   ASSERT_LESS(i, n, ());
   f(i);

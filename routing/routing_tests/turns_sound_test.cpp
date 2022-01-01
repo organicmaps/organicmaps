@@ -7,21 +7,14 @@
 
 #include <vector>
 
-using namespace std;
-
-namespace
-{
-// A error to compare two double after conversion feet to meters.
-double const kEps = 1.;
-}  // namespace
-
-namespace routing
-{
-namespace turns
-{
-namespace sound
+namespace turns_sound_test
 {
 using namespace location;
+using namespace routing::turns::sound;
+using namespace std;
+
+// An error to compare two double after conversion feet to meters.
+double const kEps = 1.;
 
 UNIT_TEST(TurnNotificationSettingsMetersTest)
 {
@@ -531,6 +524,4 @@ UNIT_TEST(GetJsonBufferTest)
   TEST(GetJsonBuffer(platform::TextSource::TtsSound, localeNameRu, jsonBuffer), ());
   TEST(!jsonBuffer.empty(), ());
 }
-}  // namespace sound
-}  // namespace turns
-}  // namespace routing
+}  // namespace turns_sound_test

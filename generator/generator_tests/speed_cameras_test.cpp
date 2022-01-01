@@ -50,6 +50,8 @@
 #include <utility>
 #include <vector>
 
+namespace speed_cameras_test
+{
 using namespace feature;
 using namespace generator;
 using namespace measurement_utils;
@@ -58,8 +60,6 @@ using namespace platform;
 using namespace routing;
 using namespace std;
 
-namespace
-{
 // Directory name for creating test mwm and temporary files.
 string const kTestDir = "speed_camera_generation_test";
 
@@ -505,4 +505,4 @@ UNIT_TEST(RoadCategoryToSpeedTest)
 
   TEST(!RoadCategoryToSpeed("UNKNOWN:unknown", speed), ());
 }
-}  // namespace
+}  // namespace speed_cameras_test

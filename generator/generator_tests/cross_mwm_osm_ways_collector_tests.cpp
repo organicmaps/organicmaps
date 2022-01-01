@@ -8,7 +8,7 @@
 
 #include "platform/platform.hpp"
 
-#include "indexer/classificator_loader.cpp"
+#include "indexer/classificator_loader.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -23,11 +23,11 @@
 #include <utility>
 #include <vector>
 
+namespace cross_mwm_osm_ways_collector_tests
+{
 using namespace generator;
 using namespace generator_tests;
 
-namespace
-{
 std::string const kTmpDirName = "cross_mwm_ways";
 
 std::vector<std::string> const kHighwayUnclassifiedPath = {"highway", "unclassified"};
@@ -202,4 +202,4 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, TwoCollectorTest)
 
   Checker();
 }
-}  // namespace
+}  // namespace cross_mwm_osm_ways_collector_tests

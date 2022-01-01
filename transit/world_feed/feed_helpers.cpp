@@ -337,7 +337,7 @@ void UpdateLinePart(LineParts & lineParts, LineSegment const & segment,
 std::pair<LineSegments, LineSegments> FindIntersections(std::vector<m2::PointD> const & line1,
                                                         std::vector<m2::PointD> const & line2)
 {
-  double const eps = 1e-5;
+  double constexpr eps = 1e-5;
   size_t constexpr minIntersection = 2;
 
   CHECK_GREATER_OR_EQUAL(line1.size(), minIntersection, ());

@@ -7,7 +7,7 @@
 
 #include "base/math.hpp"
 
-namespace
+namespace position_accumulator_tests
 {
 using namespace routing;
 
@@ -82,4 +82,4 @@ UNIT_CLASS_TEST(PositionAccumulator, LongSegment)
   TEST_EQUAL(GetPointsForTesting().size(), 1, ());
   TEST(m2::AlmostEqualAbs(GetDirection(), m2::PointD(0.0, 0.0), kEps), (GetDirection()));
 }
-}  // namespace
+}  // namespace position_accumulator_tests

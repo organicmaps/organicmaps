@@ -10,11 +10,11 @@
 
 #include "base/geo_object_id.hpp"
 
+namespace hierarchy_entry_tests
+{
 using generator::tests_support::TestWithClassificator;
 using platform::tests_support::ScopedFile;
 
-namespace
-{
 std::string const kCsv1 =
     "13835058055284963881 9223372037111861697;"
     ";"
@@ -146,4 +146,4 @@ UNIT_CLASS_TEST(TestWithClassificator, Complex_LoadHierachy)
              MakeId(9223372036879747192ull, 9223372036879747192ull), ());
   TEST_EQUAL(node->GetChildren().size(), 0, ());
 }
-}  // namespace
+}  // namespace hierarchy_entry_tests
