@@ -12,10 +12,10 @@
 #include <string>
 #include <utility>
 
+namespace pedestrian_routing_tests
+{
 using namespace std;
 
-namespace
-{
 // Test preconditions: files from the kPedestrianMapFiles set with '.mwm'
 // extension must be placed in omim/data folder.
 set<string> const kPedestrianMapFiles =
@@ -61,7 +61,6 @@ protected:
 
   FrozenDataSource m_dataSource;
 };
-}  // namespace
 
 // Tests on features -------------------------------------------------------------------------------
 UNIT_CLASS_TEST(PedestrianTest, UK_Long1)
@@ -292,3 +291,4 @@ UNIT_CLASS_TEST(PedestrianTest, UK_Test18)
   TestTwoPoints(m2::PointD(0.57712, 60.31156), m2::PointD(-1.09911, 59.24341));
 }
 #endif
+}  // namespace pedestrian_routing_tests
