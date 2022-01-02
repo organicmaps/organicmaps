@@ -64,9 +64,9 @@ vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boun
   CitiesBoundariesChecker const checker(citiesBoundaries);
 
   vector<uint32_t> cityRoadFeatureIds;
-  ForEachFeature(dataPath, [&cityRoadFeatureIds, &checker](FeatureType & ft, uint32_t)
+  feature::ForEachFeature(dataPath, [&cityRoadFeatureIds, &checker](FeatureType & ft, uint32_t)
   {
-    TypesHolder types(ft);
+    feature::TypesHolder types(ft);
     if (!routing::IsCarRoad(types) && !routing::IsBicycleRoad(types))
       return;
 

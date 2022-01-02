@@ -10,8 +10,11 @@
 namespace turns_sound_test
 {
 using namespace location;
-using namespace routing::turns::sound;
 using namespace std;
+using routing::turns::CarDirection;
+using routing::turns::TurnItemDist;
+using routing::turns::sound::NotificationManager;
+using routing::turns::sound::Settings;
 
 // An error to compare two double after conversion feet to meters.
 double const kEps = 1.;

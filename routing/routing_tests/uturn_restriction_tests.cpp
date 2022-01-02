@@ -8,6 +8,7 @@
 namespace uturn_restriction_tests
 {
 using namespace routing;
+using namespace routing_test;
 
 using Algorithm = AStarAlgorithm<Segment, SegmentEdge, RouteWeight>;
 

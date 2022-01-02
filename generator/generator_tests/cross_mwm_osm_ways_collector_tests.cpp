@@ -8,6 +8,7 @@
 
 #include "platform/platform.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 
 #include "geometry/mercator.hpp"

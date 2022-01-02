@@ -30,6 +30,8 @@
 
 namespace generator_tests
 {
+using namespace generator;
+
 class Feature : public generator::tests_support::TestFeature
 {
 public:

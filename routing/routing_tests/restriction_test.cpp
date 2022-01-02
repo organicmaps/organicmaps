@@ -17,9 +17,9 @@
 
 namespace restriction_test
 {
-using namespace std;
 using namespace routing;
-using routing_test::TestRestrictions;
+using namespace routing_test;
+using namespace std;
 
 using Algorithm = AStarAlgorithm<Segment, SegmentEdge, RouteWeight>;
 

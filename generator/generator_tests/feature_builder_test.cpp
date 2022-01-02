@@ -19,6 +19,7 @@ namespace feature_builder_test
 {
 using namespace feature;
 using namespace generator::tests_support;
+using namespace std;
 using namespace tests;
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)

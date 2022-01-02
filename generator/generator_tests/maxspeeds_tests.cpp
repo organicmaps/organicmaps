@@ -16,6 +16,7 @@
 
 #include "routing_common/maxspeed_conversion.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
@@ -405,7 +406,7 @@ UNIT_TEST(MaxspeedCollector_Smoke)
   auto const filename = GetFileName();
   SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
 
-  FeatureBuilder builder;
+  feature::FeatureBuilder builder;
 
   auto c1 = std::make_shared<MaxspeedsCollector>(filename);
   c1->CollectFeature(builder, MakeOsmElement(1 /* id */, {{"maxspeed:forward", "50"}} /* tags */, OsmElement::EntityType::Way));
