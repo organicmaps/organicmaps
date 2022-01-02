@@ -16763,8 +16763,8 @@
     it = %d luogo
     ja = %dの場所
     ko = %d 장소
+    nb = %d sted
     nl = %d plaats
-    no = %d sted
     pl = %d miejsce
     pt-BR:one = %d objeto
     pt-BR:other = %d objetos
@@ -16811,8 +16811,8 @@
     it = %d luoghi
     ja = %dの場所
     ko = %d 장소들
+    nb = %d steder
     nl = %d plaatsen
-    no = %d steder
     pl = %d miejsc
     pt-BR:one = %d lugar
     pt-BR:other = %d lugares
@@ -16858,8 +16858,8 @@
     it = %d tracce
     ja = %dの追跡
     ko = %d 추적
+    nb = %d stier
     nl = %d routes
-    no = %d stier
     pl = %d tras
     pt-BR:one = %d percurso
     pt-BR:other = %d percursos
@@ -16899,8 +16899,8 @@
     it = Impostazioni di tracciamento
     ja = 追跡の設定
     ko = 추적 설정
+    nb = Turinnstillinger
     nl = Tracking-instellingen
-    no = Turinnstillinger
     pl = Ustawienia śledzenia
     pt = Configurações de rastreamento
     pt-BR = Configurações de rastreamento
@@ -16936,8 +16936,8 @@
     it = Rapporto incidenti
     ja = クラッシュレポート
     ko = 오류 보고서
+    nb = Krasjrapport
     nl = Crash rapport
-    no = Krasjrapport
     pl = Raport o błędzie
     pt = Relatório de erros
     pt-BR = Relatório de erros
@@ -16973,8 +16973,8 @@
     it = Potremmo utilizzare i tuoi dati per migliorare l'esperienza Organic Maps. Le modifiche avranno effetto dopo il riavvio dell'applicazione.
     ja = Organic Maps体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。
     ko = 당사는 Organic Maps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.
+    nb = Vi kan bruke dine data for å forbedre Organic Maps-opplevelsen. Endringer vil bli aktive når du restarter appen.
     nl = Wij kunnen uw gegevens gebruiken om Organic Maps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.
-    no = Vi kan bruke dine data for å forbedre Organic Maps-opplevelsen. Endringer vil bli aktive når du restarter appen.
     pl = Możemy używać Twoich danych do usprawnienia działania Organic Maps. Zmiany zostaną zastosowane po ponownym uruchomieniu aplikacji.
     pt = Podemos utilizar os seus dados para melhorar a experiência no Organic Maps. As alterações entrarão em vigor quando reiniciar a aplicação.
     pt-BR = Nós podemor utilizar seus dados para melhorar a experiência Organic Maps As mudanças terão efeitos após reiniciar o app.
@@ -17010,8 +17010,8 @@
     it = Politica sulla riservatezza
     ja = 個人情報保護方針
     ko = 개인정보 보호 방침
+    nb = Personvernpolitikk
     nl = Privacy beleid
-    no = Personvernpolitikk
     pl = Polityka prywatności
     pt = Política de privacidade
     pt-BR = Política de privacidade
@@ -17047,8 +17047,8 @@
     it = Condizioni d'uso
     ja = ご利用規約
     ko = 사용 약관
+    nb = Bruksbetingelser
     nl = Gebruiksvoorwaarden
-    no = Bruksbetingelser
     pl = Warunki użytkowania
     pt = Termos de utilização
     pt-BR = Termos de uso
@@ -17084,8 +17084,8 @@
     it = Traffico
     ja = 交通状況
     ko = 트래픽
+    nb = Trafikk
     nl = Verkeer
-    no = Trafikk
     pl = Ruch drogowy
     pt = Tráfego
     pt-BR = Tráfego
@@ -17121,8 +17121,8 @@
     it = Metropolitana
     ja = 地下鉄
     ko = 지하철
+    nb = T-bane
     nl = Metro
-    no = T-bane
     pl = Metro
     pt = Metropolitano
     pt-BR = Metrô
@@ -17158,8 +17158,8 @@
     it = Livelli mappa
     ja = マップレイヤー
     ko = 맵 레이어
+    nb = Kartlag
     nl = Map layers
-    no = Kartlag
     pl = Warstwy map
     pt = Camadas do mapa
     pt-BR = Camadas de mapa
@@ -17195,8 +17195,8 @@
     it = La mappa della metropolitana non è disponibile
     ja = 地下鉄路線図はご利用いただけません
     ko = 지하철 지도가 가용하지 않습니다.
+    nb = T-banekart er utilgjengelig
     nl = Metrokaart is niet beschikbaar
-    no = T-banekart er utilgjengelig
     pl = Mapa metra jest niedostępna
     pt = O mapa de metropolitano não está disponível
     pt-BR = Mapa de metrô está indisponível
@@ -17232,8 +17232,8 @@
     it = Questa lista è vuota
     ja = このリストは空です
     ko = 이 목록은 비어있습니다.
+    nb = Denne listen er tom
     nl = Deze lijst is leeg
-    no = Denne listen er tom
     pl = Lista jest pusta
     pt = Esta lista está vazia
     pt-BR = Esta lista está vazia
@@ -17269,8 +17269,8 @@
     it = Per aggiungere un segnalibro, toccare un punto sulla mappa e successivamente toccare l'icona a forma di stella
     ja = ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップします。
     ko = 북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.
+    nb = For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet
     nl = Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram
-    no = For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet
     pl = Aby dodać zakładkę, dotknij miejsca na mapie, a następnie dotknij ikony gwiazdy.
     pt = Para adicionar um favorito, toque num lugar do mapa e em seguida toque no ícone da estrela
     pt-BR = Para adicionar um favorito, toque no mapa e então toque no ícone de estrela
@@ -17306,8 +17306,8 @@
     it = …altro
     ja = 詳細
     ko = …기타 정보
+    nb = …mer
     nl = …meer
-    no = …mer
     pl = …więcej
     pt = …mais
     pt-BR = …mais
@@ -17343,8 +17343,8 @@
     it = Si è verificato un errore
     ja = エラーが発生しました
     ko = 오류가 발생했습니다.
+    nb = Det oppsto en feil
     nl = Er is een fout opgetreden
-    no = Det oppsto en feil
     pl = Wystąpił błąd
     pt = Surgiu um erro
     pt-BR = Um erro ocorreu
