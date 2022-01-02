@@ -8430,8 +8430,8 @@
     fr = Wikipédia
     pt = Wikipédia
     pt-BR = Wikipédia
-    tr = Vikipedi
     ru = Википедия
+    tr = Vikipedi
     uk = Вікіпедія
     zh-Hans = 维基百科
     zh-Hant = 維基百科
@@ -16470,9 +16470,9 @@
     sw:other = Files %d zimepatikana. Utawaona baada ya uongofu.
     th = %d ไฟล์ที่ค้นพบ คุณจะเห็นพวกเขาหลังจากการแปลง
     tr = %d dosya bulundu. Dönüşümden sonra onları göreceksiniz.
+    uk:few = %d файлу були знайдені. Ви побачите їх після конвертації.
     uk:one = %d файл був знайдений. Ви побачите його після перетворення.
     uk:other = %d файлів було знайдено. Ви побачите їх після конвертації.
-    uk:few = %d файлу були знайдені. Ви побачите їх після конвертації.
     vi:one = %d dã tìm thấy một tệp. Bạn sẽ thấy nó sau khi chuyển đổi.
     vi:other = %d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.
     zh-Hans = 找到%d个文件。 转换后你会看到它。
