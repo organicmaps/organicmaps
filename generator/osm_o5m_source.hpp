@@ -131,16 +131,16 @@ public:
   {
     switch (type)
     {
-      case EntityType::End:       s << "O5M_CMD_END";
-      case EntityType::Node:      s << "O5M_CMD_NODE";
-      case EntityType::Way:       s << "O5M_CMD_WAY";
-      case EntityType::Relation:  s << "O5M_CMD_REL";
-      case EntityType::BBox:      s << "O5M_CMD_BBOX";
-      case EntityType::Timestamp: s << "O5M_CMD_TSTAMP";
-      case EntityType::Header:    s << "O5M_CMD_HEADER";
-      case EntityType::Sync:      s << "O5M_CMD_SYNC";
-      case EntityType::Jump:      s << "O5M_CMD_JUMP";
-      case EntityType::Reset:     s << "O5M_CMD_RESET";
+      case EntityType::End:       s << "O5M_CMD_END"; break;
+      case EntityType::Node:      s << "O5M_CMD_NODE"; break;
+      case EntityType::Way:       s << "O5M_CMD_WAY"; break;
+      case EntityType::Relation:  s << "O5M_CMD_REL"; break;
+      case EntityType::BBox:      s << "O5M_CMD_BBOX"; break;
+      case EntityType::Timestamp: s << "O5M_CMD_TSTAMP"; break;
+      case EntityType::Header:    s << "O5M_CMD_HEADER"; break;
+      case EntityType::Sync:      s << "O5M_CMD_SYNC"; break;
+      case EntityType::Jump:      s << "O5M_CMD_JUMP"; break;
+      case EntityType::Reset:     s << "O5M_CMD_RESET"; break;
       default: return s << "Unknown command: " << std::hex << base::Underlying(type);
     }
     return s;
