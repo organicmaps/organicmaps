@@ -2,8 +2,8 @@
 
   [type.aerialway]
     en = Aerialway
-    el = Τελεφερίκ
     de = Seilbahn
+    el = Τελεφερίκ
     fr = Transport par câble aérien
     ja = 索道
     pl = Transport linowy
@@ -14,8 +14,8 @@
 
   [type.aerialway.cable_car]
     en = Aerialway
-    el = Τελεφερίκ
     de = Pendelbahn
+    el = Τελεφερίκ
     fr = Téléphérique
     ja = ロープウェイ
     pl = Kolej linowa
@@ -27,8 +27,8 @@
 
   [type.aerialway.chair_lift]
     en = Aerialway
-    el = Τελεφερίκ
     de = Sessellift
+    el = Τελεφερίκ
     fr = Télésiège
     ja = チェアリフト
     pl = Wyciąg krzesełkowy
@@ -39,8 +39,8 @@
 
   [type.aerialway.drag_lift]
     en = Aerialway
-    el = Τελεφερίκ
     de = Schlepplift
+    el = Τελεφερίκ
     fr = Téléski
     ja = 牽引リフト
     pl = Wyciąg orczykowy
@@ -50,8 +50,8 @@
 
   [type.aerialway.gondola]
     en = Aerialway
-    el = Τελεφερίκ
     de = Gondelbahn
+    el = Τελεφερίκ
     fr = Télécabine
     ja = ゴンドラ
     pl = Gondola kolejki linowej
@@ -62,8 +62,8 @@
 
   [type.aerialway.mixed_lift]
     en = Aerialway
-    el = Τελεφερίκ
     de = Kombibahn
+    el = Τελεφερίκ
     ja = 混合リフト
     pl = Wyciąg mieszany
     pt = Teleférico híbrido
@@ -183,8 +183,8 @@
     pt = Plataforma de estacionamento de aviões
     pt-BR = Plataforma de estacionamento de aviões
     ru = Перрон
-    zh-Hans = 机场停机坪
     uk = Перон
+    zh-Hans = 机场停机坪
 
   [type.aeroway.gate]
     en = Gate
@@ -194,8 +194,8 @@
     pt = Porta de embarque
     pt-BR = Porta de embarque
     ru = Выход на посадку
-    zh-Hans = 登机口
     uk = Вихід на посадку
+    zh-Hans = 登机口
 
   [type.aeroway.helipad]
     en = Helipad
@@ -236,9 +236,9 @@
     pt = Pista de aeroporto ou aeródromo
     pt-BR = Pista de aeroporto ou aeródromo
     ru = Взлётно-посадочная полоса
+    uk = Злітно-посадкова смуга
     zh-Hans = 机场跑道
     zh-Hant = 機場跑道
-    uk = Злітно-посадкова смуга
 
   [type.aeroway.taxiway]
     en = aeroway-taxiway
@@ -259,8 +259,8 @@
     pt = Terminal de passageiros
     pt-BR = Aerogare de passageiros
     ru = Терминал
-    zh-Hans = 航站楼
     uk = Термінал
+    zh-Hans = 航站楼
 
   [type.amenity]
     en = Amenity
@@ -1282,8 +1282,8 @@
     pt = Praça de alimentação
     pt-BR = Praça de alimentação
     ru = Ресторанный дворик
-    zh-Hans = 美食广场
     uk = Ресторанний двір
+    zh-Hans = 美食广场
 
   [type.amenity.fountain]
     en = Fountain
@@ -2539,8 +2539,8 @@
     pt = Prisão
     pt-BR = Presidiário
     ru = Тюрьма
-    zh-Hans = 监狱
     uk = В'язниця
+    zh-Hans = 监狱
 
   [type.amenity.pub]
     en = Pub
@@ -3502,8 +3502,8 @@
     pt = Barreira
     pt-BR = Barreira
     ru = Преграда
-    zh-Hans = 屏障
     uk = Перешкода
+    zh-Hans = 屏障
 
   [type.barrier.block]
     en = Block
@@ -3603,8 +3603,8 @@
 
   [type.barrier.chain]
     en = Chain
-    de = Kette
     be = Ланцуг
+    de = Kette
     fr = Chaîne
     ru = Цепь
     uk = Ланцюг
@@ -3618,8 +3618,8 @@
     pt = Muralha de cidade
     pt-BR = Muralha de cidade
     ru = Городская стена
-    zh-Hans = 城墙
     uk = Міська стіна
+    zh-Hans = 城墙
 
   [type.barrier.cycle_barrier]
     en = Cycle Barrier
@@ -3672,8 +3672,8 @@
     pt = Vedação
     pt-BR = Cerca
     ru = Забор
-    zh-Hans = 篱笆
     uk = Огорожа
+    zh-Hans = 篱笆
 
   [type.barrier.gate]
     en = Gate
@@ -3868,8 +3868,8 @@
     pt = Muro
     pt-BR = Muro
     ru = Стена
-    zh-Hans = 墙
     uk = Стіна
+    zh-Hans = 墙
 
   [type.boundary]
     en = Boundary
@@ -3879,8 +3879,8 @@
     pt = Fronteira
     pt-BR = Fronteira
     ru = Граница
-    zh-Hans = 边界
     uk = Кордон
+    zh-Hans = 边界
 
   [type.boundary.administrative]
     en = boundary-administrative
@@ -3890,32 +3890,32 @@
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
-    zh-Hans = 行政区域界线
     uk = Адміністративний поділ
+    zh-Hans = 行政区域界线
 
   [type.boundary.administrative.10]
     en = boundary-administrative-10
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
-    zh-Hans = 10级行政区域界线
     uk = Адміністративний поділ
+    zh-Hans = 10级行政区域界线
 
   [type.boundary.administrative.11]
     en = boundary-administrative-11
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
-    zh-Hans = 11级行政区域界线
     uk = Адміністративний поділ
+    zh-Hans = 11级行政区域界线
 
   [type.boundary.administrative.2]
     en = boundary-administrative-2
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
-    zh-Hans = 2级行政区域界线
     uk = Адміністративний поділ
+    zh-Hans = 2级行政区域界线
 
   [type.boundary.administrative.3]
     en = boundary-administrative-3
@@ -3929,56 +3929,56 @@
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
-    zh-Hans = 4级行政区域界线
     uk = Адміністративний поділ
+    zh-Hans = 4级行政区域界线
 
   [type.boundary.administrative.4.state]
     en = boundary-administrative-4-state
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
-    zh-Hans = 4级州省界线
     uk = Адміністративний поділ
+    zh-Hans = 4级州省界线
 
   [type.boundary.administrative.5]
     en = boundary-administrative-5
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
-    zh-Hans = 5级行政区域界线
     uk = Адміністративний поділ
+    zh-Hans = 5级行政区域界线
 
   [type.boundary.administrative.6]
     en = boundary-administrative-6
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
-    zh-Hans = 6级行政区域界线
     uk = Адміністративний поділ
+    zh-Hans = 6级行政区域界线
 
   [type.boundary.administrative.7]
     en = boundary-administrative-7
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
-    zh-Hans = 7级行政区域界线
     uk = Адміністративний поділ
+    zh-Hans = 7级行政区域界线
 
   [type.boundary.administrative.8]
     en = boundary-administrative-8
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
-    zh-Hans = 8级行政区域界线
     uk = Адміністративний поділ
+    zh-Hans = 8级行政区域界线
 
   [type.boundary.administrative.9]
     en = boundary-administrative-9
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
-    zh-Hans = 9级行政区域界线
     uk = Адміністративний поділ
+    zh-Hans = 9级行政区域界线
 
   [type.boundary.administrative.city]
     en = boundary-administrative-city
@@ -3986,8 +3986,8 @@
     pt = Fronteira de cidade
     pt-BR = Fronteira de cidade
     ru = Граница города
-    zh-Hans = 城市行政区域界线
     uk = Межа міста
+    zh-Hans = 城市行政区域界线
 
   [type.boundary.administrative.country]
     en = boundary-administrative-country
@@ -3995,8 +3995,8 @@
     pt = Fronteira de país
     pt-BR = Fronteira de país
     ru = Граница страны
-    zh-Hans = 国家行政区域界线
     uk = Кордон країни
+    zh-Hans = 国家行政区域界线
 
   [type.boundary.administrative.county]
     en = boundary-administrative-county
@@ -4004,8 +4004,8 @@
     pt = Fronteira de condado
     pt-BR = Fronteira de condado
     ru = Граница округа
-    zh-Hans = 县行政区域界线
     uk = Поділ округа
+    zh-Hans = 县行政区域界线
 
   [type.boundary.administrative.municipality]
     en = boundary-administrative-municipality
@@ -4020,8 +4020,8 @@
     pt = Fronteira de nação
     pt-BR = Fronteira de nação
     ru = Национальная граница
-    zh-Hans = 国家行政区域界线
     uk = Національний кордон
+    zh-Hans = 国家行政区域界线
 
   [type.boundary.administrative.region]
     en = boundary-administrative-region
@@ -4029,8 +4029,8 @@
     pt = Fronteira de região
     pt-BR = Fronteira de região
     ru = Граница региона
-    zh-Hans = 1区域行政区域界线
     uk = Областний поділ
+    zh-Hans = 1区域行政区域界线
 
   [type.boundary.administrative.state]
     en = boundary-administrative-state
@@ -4046,8 +4046,8 @@
     pt = Fronteira de subúrbio
     pt-BR = Fronteira de subúrbio
     ru = Граница пригорода
-    zh-Hans = 市郊行政区域界线
     uk = Приміська межа
+    zh-Hans = 市郊行政区域界线
 
   [type.boundary.national_park]
     en = National Park
@@ -4242,8 +4242,8 @@
     pt = Armazém
     pt-BR = Armazém
     ru = Склад
-    zh-Hans = 仓库
     uk = Склад
+    zh-Hans = 仓库
 
   [type.craft]
     en = Craft
@@ -4253,8 +4253,8 @@
     pt = Ofícios
     pt-BR = Ofícios
     ru = Мастерская
-    zh-Hans = 工艺作坊
     uk = Майстерня
+    zh-Hans = 工艺作坊
 
   [type.craft.brewery]
     en = Craft Brewery
@@ -7626,8 +7626,8 @@
     pt = Ciclovia
     pt-BR = Ciclovia
     ru = Велодорожка
-    zh-Hans = 自行车道
     uk = Велодоріжка
+    zh-Hans = 自行车道
 
   [type.highway.cycleway.bridge]
     en = Bike Path
@@ -7638,8 +7638,8 @@
     pt = Ciclovia
     pt-BR = Ciclovia
     ru = Велодорожка
-    zh-Hans = 自行车道
     uk = Велодоріжка
+    zh-Hans = 自行车道
 
   [type.highway.cycleway.permissive]
     en = Bike Path
@@ -7650,8 +7650,8 @@
     pt = Ciclovia
     pt-BR = Ciclovia
     ru = Велодорожка
-    zh-Hans = 自行车道
     uk = Велодоріжка
+    zh-Hans = 自行车道
 
   [type.highway.cycleway.tunnel]
     en = Bike Path
@@ -7662,13 +7662,13 @@
     pt = Ciclovia
     pt-BR = Ciclovia
     ru = Велодорожка
-    zh-Hans = 自行车道
     uk = Велодоріжка
+    zh-Hans = 自行车道
 
   [type.highway.elevator]
     en = Elevator
-    de = Aufzug
     en-GB = Lift
+    de = Aufzug
     fr = Ascenseur
     ru = Лифт
     uk = Ліфт
@@ -10845,8 +10845,8 @@
     pt = Campo de batalha
     pt-BR = Campo de batalha
     ru = Поле боя
-    zh-Hans = 古战场
     uk = Поле битви
+    zh-Hans = 古战场
 
   [type.historic.boundary_stone]
     en = Boundary Stone
@@ -11362,11 +11362,9 @@
 
   [type.landuse.basin]
     en = Basin
-    be = Рэзервуар
-    ru = Резервуар
-    uk = Резервуар
-    bg = Резервоар
     ar = حوض المياه
+    be = Рэзервуар
+    bg = Резервоар
     cs = Vodní nádrž
     da = Vandbassin
     de = Wasserbecken
@@ -11381,17 +11379,19 @@
     it = Bacino d'acqua
     ja = 水地
     ko = 저수지
-    nl = Waterbassin
     nb = Vannvask
+    nl = Waterbassin
     pl = Zbiornik
     pt = Reservatório
     pt-BR = Reservatório
     ro = Bazin de apă
+    ru = Резервуар
     sk = Vodná nádrž
     sv = Vattenbassäng
     sw = Bonde la Maji
     th = อ่างน้ำ
     tr = Bir su havzası
+    uk = Резервуар
     vi = Một chậu nước
     zh-Hans = 水盆地
     zh-Hant = 水庫
@@ -12962,16 +12962,16 @@
 
   [type.man_made.silo]
     en = Silo
-    de = Silo
     be = Сілас
+    de = Silo
     ru = Элеватор
     uk = Силос
 
   [type.man_made.storage_tank]
     en = Storage Tank
+    be = Рэзервуар
     de = Speichertank
     fr = Réservoir
-    be = Рэзервуар
     ru = Резервуар
     uk = Резервуар
 
@@ -13229,9 +13229,9 @@
 
   [type.mountain_pass]
     en = Mountain Pass
+    be = Перавал
     de = Gebirgspass
     fr = Col de montagne
-    be = Перавал
     it = Passo
     ru = Перевал
     uk = Перевал
@@ -13324,15 +13324,15 @@
 
   [type.natural.beach.sand]
     en = Sandy Beach
-    de = Sandstrand
     be = Пяшчаны пляж
+    de = Sandstrand
     ru = Песчаный пляж
     uk = Піщаний пляж
 
   [type.natural.beach.gravel]
     en = Gravel Beach
-    de = Kiesstrand
     be = Галечны пляж
+    de = Kiesstrand
     ru = Галечный пляж
     uk = Гальковий пляж
 
@@ -13619,10 +13619,8 @@
 
   [type.natural.water.reservoir]
     en = Reservoir
-    be = Вадасховішча
-    ru = Водохранилище
-    uk = Водосховище
     ar = خزان
+    be = Вадасховішча
     bg = Резервоар
     cs = Nádrž
     da = Reservoir
@@ -13638,27 +13636,27 @@
     it = Serbatoio
     ja = 貯水池
     ko = 저수지
-    nl = Reservoir
     nb = Reservoar
+    nl = Reservoir
     pl = Zbiornik
     pt = Reservatório
     ro = Rezervor
+    ru = Водохранилище
     sk = Nádrž
     sv = Reservoar
     sw = Hifadhi
     th = อ่างเก็บน้ำ
     tr = Rezervuar
+    uk = Водосховище
     vi = Hồ chứa
     zh-Hans = 水库
     zh-Hant = 水庫
 
   [type.natural.water.basin]
     en = Basin
-    be = Рэзервуар
-    ru = Резервуар
-    uk = Резервуар
-    bg = Резервоар
     ar = حوض المياه
+    be = Рэзервуар
+    bg = Резервоар
     cs = Vodní nádrž
     da = Vandbassin
     de = Wasserbecken
@@ -13673,25 +13671,27 @@
     it = Bacino d'acqua
     ja = 水地
     ko = 저수지
-    nl = Waterbassin
     nb = Vannvask
+    nl = Waterbassin
     pl = Zbiornik
     pt = Reservatório
     pt-BR = Reservatório
     ro = Bazin de apă
+    ru = Резервуар
     sk = Vodná nádrž
     sv = Vattenbassäng
     sw = Bonde la Maji
     th = อ่างน้ำ
     tr = Bir su havzası
+    uk = Резервуар
     vi = Một chậu nước
     zh-Hans = 水盆地
     zh-Hant = 水庫
 
   [type.natural.water.river]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Fluss
@@ -13733,8 +13733,8 @@
 
   [type.natural.meadow]
     en = Meadow
-    de = Wiese
     be = Луг
+    de = Wiese
     ja = 牧草地
     nl = Weiland
     pl = Łąka
@@ -13790,9 +13790,9 @@
 
   [type.natural.saddle]
     en = Mountain Saddle
+    be = Седлавіна
     de = Bergsattel
     fr = Col de montagne
-    be = Седлавіна
     it = Sella
     ru = Седловина
     uk = Сідловина
@@ -13997,7 +13997,6 @@
 
   [type.natural.water]
     en = Waterbody
-    ru = Водоём
     ar = مسطح مائي
     be = Вадаём
     bg = Воден басейн
@@ -14015,12 +14014,13 @@
     it = Corpo d'acqua
     ja = 水地
     ko = 수역
-    nl = Waterlichaam
     nb = Vassmasse
+    nl = Waterlichaam
     pl = Akwen
     pt = Corpo de água
     pt-BR = Corpo de água
     ro = Apă
+    ru = Водоём
     sk = Voda
     sv = Vatten
     th = แหล่งน้ำ
@@ -16369,7 +16369,6 @@
   [type.railway.subway]
     en = Subway Line
     de = U-Bahn
-    fr = Voie de métro
     fr = Ligne de métroo
     pt = Metropolitano
     pt-BR = Metrô
@@ -19845,8 +19844,8 @@
 
   [type.tourism.hotel]
     en = Hotel
-    de = Hotel
     ar = فندق
+    de = Hotel
     el = Ξενοδοχείο
     fa = هتل
     fi = Hotelli
@@ -19869,10 +19868,10 @@
 
   [type.tourism.information]
     en = Tourist Information
-    de = Touristeninformation
     ar = معلومات سياحية
     cs = Infocentrum
     da = Turistinformation
+    de = Touristeninformation
     el = Τουριστικές πληροφορίες
     es = Información
     fa = گردشگری
@@ -20458,8 +20457,8 @@
 
   [type.waterway.river]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Fluss
@@ -20491,8 +20490,8 @@
 
   [type.waterway.river.tunnel]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Fluss
@@ -20524,8 +20523,8 @@
 
   [type.waterway.riverbank]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Flussufer
@@ -20557,8 +20556,8 @@
 
   [type.waterway.stream]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Bach
@@ -20590,8 +20589,8 @@
 
   [type.waterway.stream.ephemeral]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Bach
@@ -20623,8 +20622,8 @@
 
   [type.waterway.stream.intermittent]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Bach
@@ -20656,8 +20655,8 @@
 
   [type.waterway.stream.tunnel]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Bach
