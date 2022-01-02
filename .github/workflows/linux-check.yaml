@@ -27,6 +27,11 @@ jobs:
         CMAKE_BUILD_TYPE: [Debug, RelWithDebInfo]
 
     steps:
+      - name: Free disk space by removing .NET, Android and Haskell
+        shell: bash
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+
       - name: Checkout sources
         uses: actions/checkout@v2
 
