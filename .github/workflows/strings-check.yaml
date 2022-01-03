@@ -1,13 +1,14 @@
-name: strings.txt check
+name: Validate translation strings
 on:
   workflow_dispatch: # Manual trigger
   pull_request:
     paths:
       - 'data/strings/strings.txt'
+      - 'data/strings/types_strings.txt'
 
 jobs:
-  check-strings-txt:
-    name: Check strings.txt format
+  validate-translation-strings:
+    name: Validate translation strings
     runs-on: ubuntu-latest
 
     steps:
@@ -16,8 +17,8 @@ jobs:
         with:
           python-version: '3'
 
-      - name: Check strings.txt
+      - name: Validate strings.txt and types_strings.txt files
         shell: bash
         run: |
-          ./tools/python/clean_strings_txt.py -s
-          git diff --quiet HEAD
+          ./tools/python/strings_utils.py --validate
+          ./tools/python/strings_utils.py --types-strings --validate
