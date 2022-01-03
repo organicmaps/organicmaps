@@ -146,8 +146,16 @@ def get_args():
     )
 
     parser.add_argument(
+        "-v", "--validate",
+        dest="validate",
+        action="store_true",
+        help="""Check for translation definitions/keys which are no longer
+        used in the codebase, exit with error if found"""
+    )
+
+    parser.add_argument(
         "-s", "--single-file",
-        dest="single", default=False,
+        dest="single",
         action="store_true",
         help="""Create single cleaned up file for both platform. All strings
         that are not used in the project will be thrown away. Otherwise, two
@@ -165,7 +173,7 @@ def get_args():
 
     parser.add_argument(
         "-g", "--generate-localizations",
-        dest="generate", default=False,
+        dest="generate",
         action="store_true",
         help="Generate localizations for the platforms."
     )
@@ -179,7 +187,7 @@ def get_args():
 
     parser.add_argument(
         "-m", "--missing-strings",
-        dest="missing", default=False,
+        dest="missing",
         action="store_true",
         help="""Find the keys that are used in iOS, but are not translated
         in strings.txt and exit."""
@@ -187,7 +195,7 @@ def get_args():
 
     parser.add_argument(
         "-c", "--candidates",
-        dest="candidates", default=False,
+        dest="candidates",
         action="store_true",
         help="""Find the strings in iOS that are not in the L() macros, but that
         look like they might be keys."""
@@ -207,7 +215,7 @@ def get_args():
         interface, but are not taken from strings.txt"""
     )
 
-    return parser.parse_args()
+    return parser.prog, parser.parse_args()
 
 
 def do_multiple(args):
@@ -275,6 +283,24 @@ def do_single(args):
             args.output, args.output
         )
 
+def find_unused():
+    core = grep_core()
+    ios = grep_ios()
+    android = grep_android()
+
+    filtered = ios
+    filtered.update(android)
+    filtered.update(core)
+
+    strings_txt = StringsTxt("{0}/{1}".format(OMIM_ROOT, StringsTxt.STRINGS_TXT_PATH))
+    unused = set(strings_txt.translations.keys()) - filtered
+    if len(unused):
+        print("Translation definitions/keys which are no longer used in the codebase:")
+        print(*unused, sep="\n")
+    else:
+        print("There are no unused translation definitions/keys.")
+    return len(unused)
+
 def do_missing(args):
     ios = set(grep_ios())
     strings_txt_keys = set(StringsTxt().translations.keys())
@@ -320,7 +346,7 @@ def read_hardcoded_categories(a_path):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
-    args = get_args()
+    prog_name, args = get_args()
 
     OMIM_ROOT=args.omim_root
 
@@ -329,6 +355,12 @@ if __name__ == "__main__":
     )
 
     args.langs = set(args.langs) if args.langs else None
+
+    if args.validate:
+        if find_unused():
+            print("ERROR: there are unused strings\n(run \"{0} -s\" to delete them)\nTerminating...".format(prog_name))
+            exit(1)
+        exit(0)
 
     if args.missing:
         do_missing(args)
