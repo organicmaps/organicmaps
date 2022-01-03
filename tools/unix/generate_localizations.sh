@@ -42,6 +42,12 @@ if [ ! -f "$TWINE_PATH/$TWINE_GEM" ] || ! gem list -i twine; then
   )
 fi
 
+# Validate and format/sort strings files.
+STRINGS_UTILS="$OMIM_PATH/tools/python/strings_utils.py"
+$STRINGS_UTILS --validate --output
+$STRINGS_UTILS --types-strings --validate --output
+
+# Generate android/iphone/jquery localization files from strings files.
 TWINE="$(gem contents twine | grep -m 1 bin/twine)"
 STRINGS_PATH="$OMIM_PATH/data/strings"
 
