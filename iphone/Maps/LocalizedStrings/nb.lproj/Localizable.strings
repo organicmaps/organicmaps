@@ -1163,31 +1163,31 @@
 
 "restore" = "Restaurere";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "Turinnstillinger";
 
-"crash_reports" = "Crash report";
+"crash_reports" = "Krasjrapport";
 
-"crash_reports_description" = "We may use your data to improve Organic Maps experience. Changes will take effect after you restart the app.";
+"crash_reports_description" = "Vi kan bruke dine data for å forbedre Organic Maps-opplevelsen. Endringer vil bli aktive når du restarter appen.";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "Personvernpolitikk";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "Bruksbetingelser";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "Trafikk";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "T-bane";
 
-"layers_title" = "Map layers";
+"layers_title" = "Kartlag";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "T-banekart er utilgjengelig";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "Denne listen er tom";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…mer";
 
-"title_error_downloading_bookmarks" = "An error occurred";
+"title_error_downloading_bookmarks" = "Det oppsto en feil";
 
 "popular_place" = "Popular";
 
@@ -2448,6 +2448,8 @@
 "type.leisure.track" = "Track";
 
 "type.leisure.water_park" = "Vannpark";
+
+"type.leisure.beach_resort" = "Beach Resort";
 
 "type.man_made" = "Man Made";
 
