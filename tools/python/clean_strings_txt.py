@@ -8,7 +8,7 @@ from collections import defaultdict
 from itertools import chain
 from os.path import abspath, isabs
 
-from find_untranslated_strings import StringsTxt
+from strings_utils import StringsTxt
 
 """
 This script determines which strings are used in the platform code (iOS and
