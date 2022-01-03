@@ -393,6 +393,8 @@
 	<string name="search_history_title">История поиска</string>
 	<string name="search_history_text">Быстрый доступ к последним поисковым запросам.</string>
 	<string name="clear_search">Очистить историю поиска</string>
+	<!-- Place Page link to Wikipedia article (if map object has it). -->
+	<string name="read_in_wikipedia">Википедия</string>
 	<string name="p2p_your_location">Ваше местоположение</string>
 	<string name="p2p_start">Начать</string>
 	<string name="p2p_from_here">Отсюда</string>
@@ -660,9 +662,9 @@
 	<string name="profile">Профиль OpenStreetMap</string>
 	<string name="bookmarks_detect_title">Обнаружены новые файлы</string>
 	<plurals name="bookmarks_detect_message">
-	  <item quantity="few">%d файла были найдены. Вы увидете их после конвертации.</item>
-	  <item quantity="one">%d файл был найден. Вы увидете его после конвертации.</item>
-	  <item quantity="other">%d файлов было найдено. Вы увидете их после конвертации.</item>
+	  <item quantity="few">%d файла были найдены. Вы увидите их после конвертации.</item>
+	  <item quantity="one">%d файл был найден. Вы увидите его после конвертации.</item>
+	  <item quantity="other">%d файлов было найдено. Вы увидите их после конвертации.</item>
 	</plurals>
 	<string name="button_convert">Конвертировать</string>
 	<string name="bookmarks_convert_error_title">Ошибка</string>
@@ -675,19 +677,16 @@
 	  <item quantity="few">%d объекта</item>
 	  <item quantity="one">%d объект</item>
 	  <item quantity="other">%d объектов</item>
-	  <item quantity="two">%d объекта</item>
 	</plurals>
 	<plurals name="places">
 	  <item quantity="few">%d места</item>
 	  <item quantity="one">%d место</item>
 	  <item quantity="other">%d мест</item>
-	  <item quantity="two">%d места</item>
 	</plurals>
 	<plurals name="tracks">
 	  <item quantity="few">%d трека</item>
 	  <item quantity="one">%d трек</item>
 	  <item quantity="other">%d треков</item>
-	  <item quantity="two">%d трека</item>
 	</plurals>
 	<string name="subtittle_opt_out">Настройки сопровождения</string>
 	<string name="crash_reports">Отчеты об ошибках</string>
@@ -699,7 +698,7 @@
 	<string name="layers_title">Слои карты</string>
 	<string name="subway_data_unavailable">Карта метро недоступна</string>
 	<string name="bookmarks_empty_list_title">Список пустой</string>
-	<string name="bookmarks_empty_list_message">Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта</string>
+	<string name="bookmarks_empty_list_message">Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки</string>
 	<string name="category_desc_more">…еще</string>
 	<string name="title_error_downloading_bookmarks">Произошла ошибка</string>
 	<string name="popular_place">Популярно</string>
@@ -1326,6 +1325,7 @@
 	<string name="type.leisure.swimming_pool">Плавательный бассейн</string>
 	<string name="type.leisure.track">Беговая дорожка</string>
 	<string name="type.leisure.water_park">Аквапарк</string>
+	<string name="type.leisure.beach_resort">Пляжный курорт</string>
 	<string name="type.man_made">Искусственное сооружение</string>
 	<string name="type.man_made.breakwater">Волнорез</string>
 	<string name="type.man_made.cairn">Тур</string>

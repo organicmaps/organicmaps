@@ -1515,7 +1515,7 @@
 
 "type.aeroway.taxiway" = "Pista de rolagem";
 
-"type.aeroway.terminal" = "Terminal";
+"type.aeroway.terminal" = "Aerogare de passageiros";
 
 "type.amenity" = "Amenidades";
 
@@ -1917,7 +1917,7 @@
 
 "type.cuisine.heuriger" = "Heuriger";
 
-"type.cuisine.hotdog" = "Hotdog";
+"type.cuisine.hotdog" = "Cachorro-quente";
 
 "type.cuisine.hungarian" = "Cozinha húngara";
 
@@ -2448,6 +2448,8 @@
 "type.leisure.track" = "Pista para esportes não motorizados";
 
 "type.leisure.water_park" = "Parque aquático";
+
+"type.leisure.beach_resort" = "Beach Resort";
 
 "type.man_made" = "Construção humana";
 

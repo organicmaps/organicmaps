@@ -2449,6 +2449,8 @@
 
 "type.leisure.water_park" = "Công Viên Nước";
 
+"type.leisure.beach_resort" = "Beach Resort";
+
 "type.man_made" = "Man Made";
 
 "type.man_made.breakwater" = "Breakwater";

@@ -1143,7 +1143,7 @@
 
 "please_wait" = "Por favor, espere…";
 
-"phone_number" = "Phone number";
+"phone_number" = "Número de teléfono";
 
 "profile" = "OpenStreetMap profile";
 
@@ -2449,6 +2449,8 @@
 
 "type.leisure.water_park" = "Water Park";
 
+"type.leisure.beach_resort" = "Beach Resort";
+
 "type.man_made" = "Man Made";
 
 "type.man_made.breakwater" = "Breakwater";
@@ -2563,7 +2565,7 @@
 
 "type.natural.volcano" = "Volcano";
 
-"type.natural.water" = "Water body";
+"type.natural.water" = "Waterbody";
 
 "type.natural.wetland" = "Tierra pantanosa";
 

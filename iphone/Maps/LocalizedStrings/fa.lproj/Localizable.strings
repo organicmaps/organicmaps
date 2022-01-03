@@ -1703,7 +1703,7 @@
 
 "type.amenity.theatre" = "سرگرمی";
 
-"type.amenity.toilets" = "دستشویی^";
+"type.amenity.toilets" = "دستشویی";
 
 "type.amenity.townhall" = "گردشگری";
 
@@ -2448,6 +2448,8 @@
 "type.leisure.track" = "Track";
 
 "type.leisure.water_park" = "گردشگری";
+
+"type.leisure.beach_resort" = "Beach Resort";
 
 "type.man_made" = "Man Made";
 

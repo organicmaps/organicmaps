@@ -2449,6 +2449,8 @@
 
 "type.leisure.water_park" = "Parque aquático";
 
+"type.leisure.beach_resort" = "Beach Resort";
+
 "type.man_made" = "Construção humana";
 
 "type.man_made.breakwater" = "Molhe";

@@ -2449,6 +2449,8 @@
 
 "type.leisure.water_park" = "ウォーターパーク";
 
+"type.leisure.beach_resort" = "Beach Resort";
+
 "type.man_made" = "構造物";
 
 "type.man_made.breakwater" = "防波堤";

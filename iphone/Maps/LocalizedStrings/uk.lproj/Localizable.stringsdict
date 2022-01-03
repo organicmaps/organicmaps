@@ -34,12 +34,12 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>few</key>
+      <string>%d файлу були знайдені. Ви побачите їх після конвертації.</string>
       <key>one</key>
       <string>%d файл був знайдений. Ви побачите його після перетворення.</string>
       <key>other</key>
       <string>%d файлів було знайдено. Ви побачите їх після конвертації.</string>
-      <key>two</key>
-      <string>%d файлу були знайдені. Ви побачите їх після конвертації.</string>
     </dict>
   </dict>
 

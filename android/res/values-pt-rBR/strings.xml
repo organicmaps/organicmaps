@@ -844,6 +844,7 @@
 	<string name="type.aeroway.helipad">Heliponto</string>
 	<string name="type.aeroway.runway">Pista de aeroporto ou aeródromo</string>
 	<string name="type.aeroway.taxiway">Pista de rolagem</string>
+	<string name="type.aeroway.terminal">Aerogare de passageiros</string>
 	<string name="type.amenity">Amenidades</string>
 	<string name="type.amenity.arts_centre">Centros de arte</string>
 	<string name="type.amenity.atm">Caixa eletrônico</string>
@@ -1043,6 +1044,7 @@
 	<string name="type.cuisine.greek">Cozinha grega</string>
 	<string name="type.cuisine.grill">Grelhada</string>
 	<string name="type.cuisine.heuriger">Heuriger</string>
+	<string name="type.cuisine.hotdog">Cachorro-quente</string>
 	<string name="type.cuisine.hungarian">Cozinha húngara</string>
 	<string name="type.cuisine.ice_cream">Sorvete</string>
 	<string name="type.cuisine.indian">Cozinha indiana</string>

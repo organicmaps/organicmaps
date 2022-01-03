@@ -2449,6 +2449,8 @@
 
 "type.leisure.water_park" = "Centre aquatique";
 
+"type.leisure.beach_resort" = "Beach Resort";
+
 "type.man_made" = "Man Made";
 
 "type.man_made.breakwater" = "Breakwater";
@@ -2563,7 +2565,7 @@
 
 "type.natural.volcano" = "Volcan";
 
-"type.natural.water" = "Water body";
+"type.natural.water" = "Su";
 
 "type.natural.wetland" = "Sulak alan";
 

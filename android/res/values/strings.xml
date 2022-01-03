@@ -1351,6 +1351,7 @@
 	<string name="type.leisure.swimming_pool">Swimming Pool</string>
 	<string name="type.leisure.track">Track</string>
 	<string name="type.leisure.water_park">Water Park</string>
+	<string name="type.leisure.beach_resort">Beach Resort</string>
 	<string name="type.man_made">Man Made</string>
 	<string name="type.man_made.breakwater">Breakwater</string>
 	<string name="type.man_made.cairn">Cairn</string>
@@ -1408,7 +1409,7 @@
 	<string name="type.natural.tree_row">Tree Row</string>
 	<string name="type.natural.vineyard">Vineyard</string>
 	<string name="type.natural.volcano">Volcano</string>
-	<string name="type.natural.water">Water body</string>
+	<string name="type.natural.water">Waterbody</string>
 	<string name="type.natural.wetland">Wetland</string>
 	<string name="type.natural.wetland.bog">Wetland</string>
 	<string name="type.natural.wetland.marsh">Wetland</string>
