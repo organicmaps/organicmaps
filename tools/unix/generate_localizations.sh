@@ -47,6 +47,10 @@ STRINGS_UTILS="$OMIM_PATH/tools/python/strings_utils.py"
 $STRINGS_UTILS --validate --output
 $STRINGS_UTILS --types-strings --validate --output
 
+# Check for unused strings.
+CLEAN_STRINGS="$OMIM_PATH/tools/python/clean_strings_txt.py"
+$CLEAN_STRINGS --validate
+
 # Generate android/iphone/jquery localization files from strings files.
 TWINE="$(gem contents twine | grep -m 1 bin/twine)"
 STRINGS_PATH="$OMIM_PATH/data/strings"
