@@ -7497,6 +7497,8 @@
     zh-Hans = 医学实验室
     zh-Hant = 醫學實驗室
 
+[[Types: Roads]]
+
   [type.highway]
     en = Highway
     de = Straße
@@ -7508,14 +7510,14 @@
     zh-Hans = 公路要素
 
   [type.highway.bridleway]
-    en = Rider's Path
+    en = Bridle Path
     de = Reitweg
     fr = Chemin pour cavalier
     ja = 馬道
     pl = Droga dla koni
     pt = Caminho para cavaleiros
     pt-BR = Caminho para cavaleiros
-    ru = Дорога для всадников
+    ru = Конная дорожка
     zh-Hans = 马道
 
   [type.highway.bridleway.bridge]
@@ -7584,7 +7586,7 @@
     zh-Hant = 巴士站
 
   [type.highway.construction]
-    en = Road under Construction
+    en = Road Under Construction
     ar = طريق تحت الإنشاء
     cs = Silnice v rekonstrukci
     da = Vej under opbygning
@@ -7618,7 +7620,7 @@
     zh-Hant = 在建道路
 
   [type.highway.cycleway]
-    en = Bike Path
+    en = Cycle Path
     de = Radweg
     fr = Piste cyclable
     ja = 自転車道
@@ -7674,7 +7676,7 @@
     uk = Ліфт
 
   [type.highway.footway]
-    en = Path
+    en = Foot Path
     ar = مسار
     cs = Cesta
     da = Sti
@@ -7727,7 +7729,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     ro = Cale
-    ru = Пешеходная дорожка
+    ru = Тропа
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -7738,7 +7740,7 @@
     zh-Hant = 人行步道
 
   [type.highway.footway.area]
-    en = Path
+    en = Pedestrian Zone
     ar = مسار
     cs = Cesta
     da = Sti
@@ -7759,7 +7761,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     ro = Cale
-    ru = Пешеходная дорожка
+    ru = Пешеходная зона
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -7823,7 +7825,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     ro = Cale
-    ru = Пешеходная дорожка
+    ru = Тропа
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -7855,7 +7857,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     ro = Cale
-    ru = Пешеходная дорожка
+    ru = Тропа
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -7887,7 +7889,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     ro = Cale
-    ru = Пешеходная дорожка
+    ru = Тропа
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -7919,7 +7921,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     ro = Cale
-    ru = Пешеходная дорожка
+    ru = Тропа
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -7951,7 +7953,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     ro = Cale
-    ru = Пешеходная дорожка
+    ru = Тропа
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -8059,7 +8061,7 @@
     zh-Hant = 淺灘
 
   [type.highway.living_street]
-    en = Street
+    en = Living Street
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8080,7 +8082,7 @@
     pt = Zona de coexistência
     pt-BR = Zona de coexistência
     ro = Stradă
-    ru = Улица
+    ru = Жилая зона
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -8155,7 +8157,7 @@
     zh-Hant = 路
 
   [type.highway.motorway]
-    en = Street
+    en = Motorway
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8176,7 +8178,7 @@
     pt = Autoestrada
     pt-BR = Rodovia
     ro = Stradă
-    ru = Улица
+    ru = Автомагистраль
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -8281,7 +8283,7 @@
     zh-Hant = 交流道
 
   [type.highway.motorway_link]
-    en = Street
+    en = Motorway Ramp
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8302,7 +8304,7 @@
     pt = Ligação a autoestrada
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Съезд с автомагистрали
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -8398,7 +8400,7 @@
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
-    ru = Дорожка
+    ru = Тропа
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -8441,7 +8443,7 @@
     zh-Hant = 人行步道
 
   [type.highway.path.bicycle]
-    en = Path
+    en = Cycle & Foot Path
     ar = مسار
     cs = Cesta
     da = Sti
@@ -8462,7 +8464,7 @@
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
-    ru = Дорожка
+    ru = Велопешеходная дорожка
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -8633,7 +8635,7 @@
     zh-Hant = 人行步道
 
   [type.highway.path.horse]
-    en = Path
+    en = Bridle Path
     ar = مسار
     cs = Cesta
     da = Sti
@@ -8654,7 +8656,7 @@
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
-    ru = Дорожка
+    ru = Конная тропа
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -8761,7 +8763,7 @@
     zh-Hant = 人行步道
 
   [type.highway.pedestrian]
-    en = Street
+    en = Pedestrian Street
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8782,7 +8784,7 @@
     pt = Rua pedonal
     pt-BR = Rua pedonal
     ro = Stradă
-    ru = Улица
+    ru = Пешеходная улица
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -8793,7 +8795,7 @@
     zh-Hant = 路
 
   [type.highway.pedestrian.area]
-    en = Street
+    en = Pedestrian Zone
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8814,7 +8816,7 @@
     pt = Rua pedonal
     pt-BR = Rua pedonal
     ro = Stradă
-    ru = Улица
+    ru = Пешеходная зона
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -8889,7 +8891,7 @@
     zh-Hant = 路
 
   [type.highway.primary]
-    en = Street
+    en = Primary Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8910,7 +8912,7 @@
     pt = Estrada primária
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Шоссе
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -8985,7 +8987,7 @@
     zh-Hant = 主要道路
 
   [type.highway.primary_link]
-    en = Street
+    en = Primary Road Ramp
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9006,7 +9008,7 @@
     pt = Estrada primária
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Съезд с шоссе
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -9241,7 +9243,7 @@
     zh-Hant = 住宅區道路
 
   [type.highway.rest_area]
-    en = Highway Rest Area
+    en = Rest Area
     ar = استراحة
     cs = Odpočívadlo
     da = Rasteplads
@@ -9261,7 +9263,7 @@
     pt = Área de descanso
     pt-BR = Área de descanso
     ro = Zonă de odihnă
-    ru = Зона отдыха на трассе
+    ru = Зона отдыха
     sk = Odpočívadlo
     sv = Viloplats
     th = บริเวณพักผ่อน
@@ -9272,7 +9274,7 @@
     zh-Hant = 休息區
 
   [type.highway.road]
-    en = Street
+    en = Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9293,7 +9295,7 @@
     pt = Estrada
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Дорога
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -9368,7 +9370,7 @@
     zh-Hant = 道路
 
   [type.highway.secondary]
-    en = Street
+    en = Secondary Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9389,7 +9391,7 @@
     pt = Estrada secundária
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Автодорога
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -9464,7 +9466,7 @@
     zh-Hant = 次要道路
 
   [type.highway.secondary_link]
-    en = Street
+    en = Secondary Road Ramp
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9485,7 +9487,7 @@
     pt = Estrada secundária
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Съезд с автодороги
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -9560,7 +9562,7 @@
     zh-Hant = 次要道路連接路
 
   [type.highway.service]
-    en = Street
+    en = Service Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9581,7 +9583,7 @@
     pt = Estrada de acesso ou serviço
     pt-BR = Estrada de acesso ou serviço
     ro = Stradă
-    ru = Улица
+    ru = Проезд
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -9656,7 +9658,7 @@
     zh-Hant = 輔助道路
 
   [type.highway.service.driveway]
-    en = Street
+    en = Driveway
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9677,7 +9679,7 @@
     pt = Estrada de acesso ou serviço
     pt-BR = Estrada de acesso ou serviço
     ro = Stradă
-    ru = Улица
+    ru = Подъезд
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -9688,7 +9690,7 @@
     zh-Hant = 車道
 
   [type.highway.service.parking_aisle]
-    en = Street
+    en = Parking Aisle
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9709,7 +9711,7 @@
     pt = Estrada de estacionamento
     pt-BR = Estrada de estacionamento
     ro = Stradă
-    ru = Улица
+    ru = Парковочный проезд
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -9752,14 +9754,14 @@
     zh-Hant = 輔助道路
 
   [type.highway.services]
-    en = Service on the Road
+    en = Service Area
     de = Raststätte
     fr = Aire de service
     ja = サービスエリア
     pl = Miejsce obsługi podróżnych
     pt = Área de serviço
     pt-BR = Área de serviços de estrada
-    ru = СТО
+    ru = Зона обслуживания
     zh-Hans = 服务区
     zh-Hant = 服務區
 
@@ -9796,7 +9798,7 @@
     zh-Hant = 測速照相機
 
   [type.highway.steps]
-    en = Path
+    en = Stairs
     ar = مسار
     cs = Cesta
     da = Sti
@@ -9817,7 +9819,7 @@
     pt = Escadas
     pt-BR = Escadas
     ro = Cale
-    ru = Дорожка
+    ru = Лестница
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -9892,7 +9894,7 @@
     zh-Hant = 人行步道
 
   [type.highway.tertiary]
-    en = Street
+    en = Tertiary Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9913,7 +9915,7 @@
     pt = Estrada terciária
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Дорога
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -9988,7 +9990,7 @@
     zh-Hant = 三级道路
 
   [type.highway.tertiary_link]
-    en = Street
+    en = Tertiary Road Ramp
     ar = شارع
     cs = Ulice
     da = Gade
@@ -10009,7 +10011,7 @@
     pt = Estrada terciária
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Съезд с дороги
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -10084,7 +10086,7 @@
     zh-Hant = 三级道路連接路
 
   [type.highway.track]
-    en = Street
+    en = Track
     ar = شارع
     cs = Ulice
     da = Gade
@@ -10105,7 +10107,7 @@
     pt = Carreiro florestal ou agrícola
     pt-BR = Estrada rústica
     ro = Stradă
-    ru = Улица
+    ru = Грунтовка
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -10468,7 +10470,7 @@
     zh-Hant = 紅綠燈
 
   [type.highway.trunk]
-    en = Street
+    en = National Highway
     ar = شارع
     cs = Ulice
     da = Gade
@@ -10489,7 +10491,7 @@
     pt = Via rápida
     pt-BR = Via expressa
     ro = Stradă
-    ru = Улица
+    ru = Трасса
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -10564,7 +10566,7 @@
     zh-Hant = 主幹道
 
   [type.highway.trunk_link]
-    en = Street
+    en = National Highway Ramp
     ar = شارع
     cs = Ulice
     da = Gade
@@ -10585,7 +10587,7 @@
     pt = Via rápida
     pt-BR = Via expressa
     ro = Stradă
-    ru = Улица
+    ru = Съезд с трассы
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -10660,7 +10662,7 @@
     zh-Hant = 主幹道連接路
 
   [type.highway.unclassified]
-    en = Street
+    en = Minor Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -10681,7 +10683,7 @@
     pt = Estrada sem classificação
     pt-BR = Estrada sem classificação
     ro = Stradă
-    ru = Улица
+    ru = Небольшая дорога
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -10792,6 +10794,8 @@
 
   [type.highway.world_towns_level]
     en = highway-world_towns_level
+
+[[Types: Historic]]
 
   [type.historic]
     en = Historic
