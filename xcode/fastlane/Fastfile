@@ -45,8 +45,8 @@ platform :ios do
   end
 
   private_lane :generate_version do
-    lane_context[SharedValues::VERSION_NUMBER] = sh('../tools/unix/version.sh ios_version')
-    lane_context[SharedValues::BUILD_NUMBER] = sh('../tools/unix/version.sh ios_build')
+    lane_context[SharedValues::VERSION_NUMBER] = sh('../../tools/unix/version.sh ios_version')
+    lane_context[SharedValues::BUILD_NUMBER] = sh('../../tools/unix/version.sh ios_build')
   end
 
   private_lane :generate_testflight_changelog do
