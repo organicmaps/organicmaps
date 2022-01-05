@@ -4,7 +4,7 @@ default_platform(:ios)
 platform :ios do
   private_lane :prepare do
     if is_ci
-      xcversion(version: "~> 12")
+      xcversion(version: "~> 13.2.1")
       setup_ci # creates MATCH_KEYCHAIN_NAME on CI
       ensure_env_vars(
         env_vars: ['APPSTORE_CERTIFICATE_PASSWORD']
@@ -58,7 +58,7 @@ platform :ios do
     prepare
     generate_version
     generate_testflight_changelog
-    build_app(
+    build_ios_app(
       workspace: 'omim.xcworkspace',
       scheme: 'OMaps',
       configuration: 'Release',
