@@ -131,7 +131,7 @@ def write_filtered_strings_txt(filtered, filepath, languages=None):
     strings_txt = StringsTxt("{0}/{1}".format(OMIM_ROOT, StringsTxt.STRINGS_TXT_PATH))
     strings_dict = {key : dict(strings_txt.translations[key]) for key in filtered}
     strings_txt.translations = strings_dict
-    strings_txt.comments_and_tags = {}
+    strings_txt.comments_tags_refs = {}
     strings_txt.write_formatted(target_file=filepath, langs=languages)
 
 
@@ -272,7 +272,7 @@ def do_single(args):
     strings_txt = StringsTxt("{0}/{1}".format(OMIM_ROOT, StringsTxt.STRINGS_TXT_PATH))
     strings_txt.translations = {key: dict(strings_txt.translations[key]) for key in filtered}
 
-    strings_txt.comments_and_tags = new_comments_and_tags(strings_txt, filtered, new_tags)
+    strings_txt.comments_tags_refs = new_comments_and_tags(strings_txt, filtered, new_tags)
 
     path = args.output if isabs(args.output) else "{0}/{1}".format(OMIM_ROOT, args.output)
     strings_txt.write_formatted(target_file=path, langs=args.langs)

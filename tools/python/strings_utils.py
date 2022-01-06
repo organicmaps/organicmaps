@@ -14,7 +14,7 @@ class StringsTxt:
     TYPES_STRINGS_TXT_PATH = "data/strings/types_strings.txt"
 
     SECTION = re.compile(r"\[\[\w+.*\]\]")
-    DEFINITION = re.compile(r"\[[\w.]+\]")
+    DEFINITION = re.compile(r"\[\w+.*\]")
     LANG_KEY = re.compile(r"^[a-z]{2}(-[a-zA-Z]{2,4})?(:[a-z]+)?$")
     TRANSLATION = re.compile(r"^\s*\S+\s*=\s*\S+.*$", re.S | re.MULTILINE)
     MANY_DOTS = re.compile(r"\.{4,}")
@@ -33,8 +33,8 @@ class StringsTxt:
         self.translations = defaultdict(lambda: defaultdict(str))
         self.translations_by_language = defaultdict(
             dict)  # dict<lang, dict<key, translation>>
-        self.comments_and_tags = defaultdict(
-            dict)  # dict<lang, dict<key, value>>
+        self.comments_tags_refs = defaultdict(
+            dict)  # dict<key, dict<key, value>>
         self.all_langs = set()  # including plural keys, e.g. en:few
         self.langs = set()  # without plural keys
         self.duplicates = {}  # dict<lang, TransAndKey>
@@ -44,6 +44,7 @@ class StringsTxt:
         self._read_file()
 
     def process_file(self):
+        self._resolve_references()
         self._populate_translations_by_langs()
         self._find_duplicates()
         self.most_duplicated = []
@@ -87,7 +88,7 @@ class StringsTxt:
                     lang, tran = self._parse_lang_and_translation(line)
 
                     if lang == "comment" or lang == "tags" or lang == "ref":
-                        self.comments_and_tags[current_key][lang] = tran
+                        self.comments_tags_refs[current_key][lang] = tran
                         continue
 
                     self.translations[current_key][lang] = tran
@@ -98,7 +99,7 @@ class StringsTxt:
 
                 else:
                     self._print_validation_issue(
-                        "Could't parse line: {0}".format(line))
+                        "Couldn't parse line: {0}".format(line))
 
     def print_languages_stats(self, langs=None):
         self._print_header("Languages statistics")
@@ -235,6 +236,31 @@ class StringsTxt:
                 "4 or more dots in the string: {0}".format(line), warning=True)
         return (lang.strip(), trans.strip())
 
+    def _resolve_references(self):
+        resolved = set()
+        for definition in list(self.comments_tags_refs.keys()):
+            visited = set()
+            self._resolve_ref(definition, visited, resolved)
+
+    def _resolve_ref(self, definition, visited, resolved):
+        visited.add(definition)
+        ref = self.comments_tags_refs[definition].get("ref")
+        if definition not in resolved and ref:
+            ref = "[{0}]".format(ref)
+            if ref not in self.translations:
+                self._print_validation_issue("Couldn't find reference: {0}".format(self.comments_tags_refs[definition]["ref"]))
+                resolved.add(definition)
+                return
+            if ref in visited:
+                self._print_validation_issue("Circular reference: {0} in {1}".format(self.comments_tags_refs[definition]["ref"], visited))
+            else:
+                # resolve nested refs recursively
+                self._resolve_ref(ref, visited, resolved)
+            for lang, trans in self.translations[ref].items():
+                if lang not in self.translations[definition]:
+                    self.translations[definition][lang] = trans
+            resolved.add(definition)
+
     def _populate_translations_by_langs(self):
         for lang in self.all_langs:
             trans_for_lang = {}
@@ -292,7 +318,7 @@ class StringsTxt:
             print("Language: {0} ({1} missing)\n\t{2}\n".format(
                 lang, len(missing_keys), "\n\t".join(missing_keys)))
 
-    def write_formatted(self, target_file=None, langs=None):
+    def write_formatted(self, target_file=None, langs=None, keep_resolved=False):
         before_block = ""
         langs = self._expand_plurals(langs) if langs else self.all_langs
         en_langs = []
@@ -322,15 +348,19 @@ class StringsTxt:
                 outfile.write("{0}  {1}\n".format(before_block, key))
                 before_block = "\n"
 
-                if key in self.comments_and_tags:
-                    for k, v in self.comments_and_tags[key].items():
+                ref_tran = {}
+                if key in self.comments_tags_refs:
+                    for k, v in self.comments_tags_refs[key].items():
                         outfile.write("    {0} = {1}\n".format(k, v))
+                        if not keep_resolved and k == "ref":
+                            ref_tran = self.translations.get("[{0}]".format(v))
 
-                self._write_translations_for_langs(sorted_langs, tran, outfile)
+                self._write_translations_for_langs(outfile, sorted_langs, tran, ref_tran)
 
-    def _write_translations_for_langs(self, langs, tran, outfile):
+    def _write_translations_for_langs(self, outfile, langs, tran, ref_tran):
         for lang in langs:
-            if lang in tran:
+            # don't output translation if it's duplicated in referenced definition
+            if lang in tran and tran[lang] != ref_tran.get(lang):
                 outfile.write("    {0} = {1}\n".format(
                     lang, tran[lang].replace("...", "…")
                 ))
@@ -490,6 +520,14 @@ def get_args():
     )
 
     parser.add_argument(
+        "--keep-resolved-references",
+        dest="keep_resolved",
+        action="store_true",
+        help="""keep resolved translation references when writing output file;
+        used with --output only"""
+    )
+
+    parser.add_argument(
         "-l", "--languages",
         dest="langs", default=None,
         help="a comma-separated list of languages to limit output to, if applicable"
@@ -598,4 +636,4 @@ if __name__ == "__main__":
         else:
             args.output = abspath(args.output)
         print("\nWriting formatted output file: {0}\n".format(args.output))
-        strings.write_formatted(target_file=args.output, langs=args.langs)
+        strings.write_formatted(target_file=args.output, langs=args.langs, keep_resolved=args.keep_resolved)

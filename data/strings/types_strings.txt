@@ -7497,6 +7497,8 @@
     zh-Hans = 医学实验室
     zh-Hant = 醫學實驗室
 
+[[Types: Roads]]
+
   [type.highway]
     en = Highway
     de = Straße
@@ -7508,48 +7510,29 @@
     zh-Hans = 公路要素
 
   [type.highway.bridleway]
-    en = Rider's Path
+    en = Bridle Path
     de = Reitweg
     fr = Chemin pour cavalier
     ja = 馬道
     pl = Droga dla koni
     pt = Caminho para cavaleiros
     pt-BR = Caminho para cavaleiros
-    ru = Дорога для всадников
+    ru = Конная дорожка
     zh-Hans = 马道
 
   [type.highway.bridleway.bridge]
-    en = Rider's Path
-    de = Reitweg
-    fr = Chemin pour cavalier
+    ref = type.highway.bridleway
     ja = 馬道(橋)
     pl = Most drogowy dla koni
-    pt = Caminho para cavaleiros
-    pt-BR = Caminho para cavaleiros
-    ru = Дорога для всадников
-    zh-Hans = 马道
 
   [type.highway.bridleway.permissive]
-    en = Rider's Path
-    de = Reitweg
-    fr = Chemin pour cavalier
-    ja = 馬道
+    ref = type.highway.bridleway
     pl = Droga dla koni ograniczona
-    pt = Caminho para cavaleiros
-    pt-BR = Caminho para cavaleiros
-    ru = Дорога для всадников
-    zh-Hans = 马道
 
   [type.highway.bridleway.tunnel]
-    en = Rider's Path
-    de = Reitweg
-    fr = Chemin pour cavalier
+    ref = type.highway.bridleway
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
-    pt = Caminho para cavaleiros
-    pt-BR = Caminho para cavaleiros
-    ru = Дорога для всадников
-    zh-Hans = 马道
 
   [type.highway.bus_stop]
     en = Bus Stop
@@ -7584,7 +7567,7 @@
     zh-Hant = 巴士站
 
   [type.highway.construction]
-    en = Road under Construction
+    en = Road Under Construction
     ar = طريق تحت الإنشاء
     cs = Silnice v rekonstrukci
     da = Vej under opbygning
@@ -7618,7 +7601,7 @@
     zh-Hant = 在建道路
 
   [type.highway.cycleway]
-    en = Bike Path
+    en = Cycle Path
     de = Radweg
     fr = Piste cyclable
     ja = 自転車道
@@ -7630,40 +7613,18 @@
     zh-Hans = 自行车道
 
   [type.highway.cycleway.bridge]
-    en = Bike Path
-    de = Radweg
-    fr = Piste cyclable
+    ref = type.highway.cycleway
     ja = 自転車道(橋)
     pl = Most drogowy dla rowerów
-    pt = Ciclovia
-    pt-BR = Ciclovia
-    ru = Велодорожка
-    uk = Велодоріжка
-    zh-Hans = 自行车道
 
   [type.highway.cycleway.permissive]
-    en = Bike Path
-    de = Radweg
-    fr = Piste cyclable
-    ja = 自転車道
+    ref = type.highway.cycleway
     pl = Droga rowerowa ograniczona
-    pt = Ciclovia
-    pt-BR = Ciclovia
-    ru = Велодорожка
-    uk = Велодоріжка
-    zh-Hans = 自行车道
 
   [type.highway.cycleway.tunnel]
-    en = Bike Path
-    de = Radweg
-    fr = Piste cyclable
+    ref = type.highway.cycleway
     ja = 自転車道(トンネル)
     pl = Tunel drogowy dla rowerów
-    pt = Ciclovia
-    pt-BR = Ciclovia
-    ru = Велодорожка
-    uk = Велодоріжка
-    zh-Hans = 自行车道
 
   [type.highway.elevator]
     en = Elevator
@@ -7674,7 +7635,7 @@
     uk = Ліфт
 
   [type.highway.footway]
-    en = Path
+    en = Foot Path
     ar = مسار
     cs = Cesta
     da = Sti
@@ -7706,324 +7667,65 @@
     zh-Hant = 人行步道
 
   [type.highway.footway.alpine_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Alpinwanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
     pl = Ścieżka wspinaczkowa
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
     zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.area]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Fußweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
+    ref = type.highway.footway
+    en = Pedestrian Zone
     pl = Obszar chodnika
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 步行道路
-    zh-Hant = 人行步道
+    ru = Пешеходная зона
 
   [type.highway.footway.bridge]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Fußweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
+    ref = type.highway.footway
     pl = Most dla pieszych
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.demanding_alpine_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Anspruchsvoller Alpinwanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
     zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.demanding_mountain_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Anspruchsvoller Bergwanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
     zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.difficult_alpine_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Schwieriger Alpinwanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
     zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Wanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
     zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.mountain_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Bergwanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
     zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.permissive]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Fußweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Chodnik
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 步行道路
-    zh-Hant = 人行步道
+    ref = type.highway.footway
 
   [type.highway.footway.tunnel]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.footway
     de = Fußgängertunnel
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
     pl = Tunel dla pieszych
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.ford]
     en = Ford
@@ -8059,7 +7761,7 @@
     zh-Hant = 淺灘
 
   [type.highway.living_street]
-    en = Street
+    en = Living Street
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8080,7 +7782,7 @@
     pt = Zona de coexistência
     pt-BR = Zona de coexistência
     ro = Stradă
-    ru = Улица
+    ru = Жилая зона
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -8091,71 +7793,15 @@
     zh-Hant = 路
 
   [type.highway.living_street.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Spielstraße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Zone de rencontre
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Zona de coexistência
-    pt-BR = Zona de coexistência
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 生活性街道
-    zh-Hant = 路
+    ref = type.highway.living_street
 
   [type.highway.living_street.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.living_street
     de = Spielstraßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Zone de rencontre
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel ulicy
-    pt = Zona de coexistência
-    pt-BR = Zona de coexistência
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 生活性街道
-    zh-Hant = 路
 
   [type.highway.motorway]
-    en = Street
+    en = Motorway
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8176,7 +7822,7 @@
     pt = Autoestrada
     pt-BR = Rodovia
     ro = Stradă
-    ru = Улица
+    ru = Автомагистраль
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -8187,71 +7833,17 @@
     zh-Hant = 高速公路
 
   [type.highway.motorway.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.motorway
     de = Autobahnbrücke
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Autoroute
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Most drogowy
-    pt = Autoestrada
-    pt-BR = Rodovia
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 高速公路
-    zh-Hant = 高速公路
 
   [type.highway.motorway.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.motorway
     de = Autobahntunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Autoroute
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Autoestrada
-    pt-BR = Rodovia
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 高速公路
-    zh-Hant = 高速公路
 
   [type.highway.motorway_junction]
-    en = Exit
+    en = Road Exit
     ar = مخرج
     cs = Dopravní uzel
     da = Motorvejsafkørsel
@@ -8281,100 +7873,19 @@
     zh-Hant = 交流道
 
   [type.highway.motorway_link]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.motorway
+    en = Motorway Ramp
     de = Autobahnauffahrt
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
     pt = Ligação a autoestrada
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ru = Съезд с автомагистрали
     zh-Hans = 高速公路连接路
     zh-Hant = 高速公路連接路
 
   [type.highway.motorway_link.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Autobahnauffahrt
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Ligação a autoestrada
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 高速公路连接路
-    zh-Hant = 高速公路連接路
+    ref = type.highway.motorway_link
 
   [type.highway.motorway_link.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Autobahnauffahrt
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Ligação a autoestrada
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 高速公路连接路
-    zh-Hant = 高速公路連接路
+    ref = type.highway.motorway_link
 
   [type.highway.path]
     en = Path
@@ -8398,7 +7909,7 @@
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
-    ru = Дорожка
+    ru = Тропа
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -8409,359 +7920,54 @@
     zh-Hant = 人行步道
 
   [type.highway.path.alpine_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Alpinwanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
     pl = Ścieżka wspinaczkowa
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
 
   [type.highway.path.bicycle]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
+    en = Cycle & Foot Path
     de = Radweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
     pl = Ścieżka dla rowerów
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ru = Велопешеходная дорожка
 
   [type.highway.path.bridge]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ref = type.highway.path
 
   [type.highway.path.demanding_alpine_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Anspruchsvoller Alpinwanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
 
   [type.highway.path.demanding_mountain_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Anspruchsvoller Bergwanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
 
   [type.highway.path.difficult_alpine_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Schwieriger Alpinwanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
 
   [type.highway.path.hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Wanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
 
   [type.highway.path.horse]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
+    en = Bridle Path
     de = Reitweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ru = Конная тропа
 
   [type.highway.path.mountain_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Bergwanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
 
   [type.highway.path.permissive]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ref = type.highway.path
 
   [type.highway.path.tunnel]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Tunnel
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ref = type.highway.path
 
   [type.highway.pedestrian]
-    en = Street
+    en = Pedestrian Street
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8782,7 +7988,7 @@
     pt = Rua pedonal
     pt-BR = Rua pedonal
     ro = Stradă
-    ru = Улица
+    ru = Пешеходная улица
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -8793,103 +7999,22 @@
     zh-Hant = 路
 
   [type.highway.pedestrian.area]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Fußgängerzone
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue piétonne
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Pasaż pieszy
-    pt = Rua pedonal
-    pt-BR = Rua pedonal
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ref = type.highway.pedestrian
+    en = Pedestrian Zone
+    ru = Пешеходная зона
     zh-Hans = 步行区域
-    zh-Hant = 路
 
   [type.highway.pedestrian.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Fußgängerzone
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue piétonne
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
+    ref = type.highway.pedestrian
     pl = Most pasażu pieszego
-    pt = Rua pedonal
-    pt-BR = Rua pedonal
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 步行街
-    zh-Hant = 路
 
   [type.highway.pedestrian.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.pedestrian
     de = Fußgängertunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue piétonne
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel pasażu pieszego
-    pt = Rua pedonal
-    pt-BR = Rua pedonal
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 步行街
-    zh-Hant = 路
 
   [type.highway.primary]
-    en = Street
+    en = Primary Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8910,7 +8035,7 @@
     pt = Estrada primária
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Шоссе
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -8921,164 +8046,25 @@
     zh-Hant = 主要道路
 
   [type.highway.primary.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Hauptstraße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada primária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 主要道路
-    zh-Hant = 主要道路
+    ref = type.highway.primary
 
   [type.highway.primary.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.primary
     de = Hauptstraßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada primária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 主要道路
-    zh-Hant = 主要道路
 
   [type.highway.primary_link]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada primária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ref = type.highway.primary
+    en = Primary Road Ramp
+    ru = Съезд с шоссе
     zh-Hans = 主要道路连接路
     zh-Hant = 主要道路連接路
 
   [type.highway.primary_link.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada primária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 主要道路连接路
-    zh-Hant = 主要道路連接路
+    ref = type.highway.primary_link
 
   [type.highway.primary_link.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada primária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 主要道路连接路
-    zh-Hant = 主要道路連接路
+    ref = type.highway.primary_link
 
   [type.highway.raceway]
     en = Racetrack
@@ -9145,103 +8131,17 @@
     zh-Hant = 住宅區道路
 
   [type.highway.residential.area]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Wohnstraße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Rua residencial
-    pt-BR = Rua residencial
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 住宅区道路
-    zh-Hant = 住宅區道路
+    ref = type.highway.residential
 
   [type.highway.residential.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Wohnstraße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Rua residencial
-    pt-BR = Rua residencial
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 住宅区道路
-    zh-Hant = 住宅區道路
+    ref = type.highway.residential
 
   [type.highway.residential.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.residential
     de = Wohnstraßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Rua residencial
-    pt-BR = Rua residencial
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 住宅区道路
-    zh-Hant = 住宅區道路
 
   [type.highway.rest_area]
-    en = Highway Rest Area
+    en = Rest Area
     ar = استراحة
     cs = Odpočívadlo
     da = Rasteplads
@@ -9261,7 +8161,7 @@
     pt = Área de descanso
     pt-BR = Área de descanso
     ro = Zonă de odihnă
-    ru = Зона отдыха на трассе
+    ru = Зона отдыха
     sk = Odpočívadlo
     sv = Viloplats
     th = บริเวณพักผ่อน
@@ -9272,7 +8172,7 @@
     zh-Hant = 休息區
 
   [type.highway.road]
-    en = Street
+    en = Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9293,7 +8193,7 @@
     pt = Estrada
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Дорога
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -9304,71 +8204,15 @@
     zh-Hant = 道路
 
   [type.highway.road.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 道路
-    zh-Hant = 道路
+    ref = type.highway.road
 
   [type.highway.road.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.road
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 道路
-    zh-Hant = 道路
 
   [type.highway.secondary]
-    en = Street
+    en = Secondary Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9389,7 +8233,7 @@
     pt = Estrada secundária
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Автодорога
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -9400,167 +8244,30 @@
     zh-Hant = 次要道路
 
   [type.highway.secondary.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 次要道路
-    zh-Hant = 次要道路
+    ref = type.highway.secondary
 
   [type.highway.secondary.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.secondary
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 次要道路
-    zh-Hant = 次要道路
 
   [type.highway.secondary_link]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ref = type.highway.secondary
+    en = Secondary Road Ramp
+    ru = Съезд с автодороги
     zh-Hans = 次要道路连接路
     zh-Hant = 次要道路連接路
 
   [type.highway.secondary_link.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 次要道路连接路
-    zh-Hant = 次要道路連接路
+    ref = type.highway.secondary_link
 
   [type.highway.secondary_link.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.secondary_link
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 次要道路连接路
-    zh-Hant = 次要道路連接路
 
   [type.highway.service]
-    en = Street
+    en = Service Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9581,7 +8288,7 @@
     pt = Estrada de acesso ou serviço
     pt-BR = Estrada de acesso ou serviço
     ro = Stradă
-    ru = Улица
+    ru = Проезд
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -9592,174 +8299,45 @@
     zh-Hant = 輔助道路
 
   [type.highway.service.area]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada de acesso ou serviço
-    pt-BR = Estrada de acesso ou serviço
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 辅助道路
-    zh-Hant = 輔助道路
+    ref = type.highway.service
 
   [type.highway.service.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
+    ref = type.highway.service
     pl = Most drogowy
-    pt = Estrada de acesso ou serviço
-    pt-BR = Estrada de acesso ou serviço
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 辅助道路
-    zh-Hant = 輔助道路
 
   [type.highway.service.driveway]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.service
+    en = Driveway
     de = Zufahrt
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada de acesso ou serviço
-    pt-BR = Estrada de acesso ou serviço
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ru = Подъезд
     zh-Hans = 车道
     zh-Hant = 車道
 
   [type.highway.service.parking_aisle]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
+    ref = type.highway.service
+    en = Parking Aisle
     fr = Allée
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Miejsca parkingowe
     pt = Estrada de estacionamento
     pt-BR = Estrada de estacionamento
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ru = Парковочный проезд
     zh-Hans = 停车场通道
     zh-Hant = 停車場通道
 
   [type.highway.service.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.service
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada de acesso ou serviço
-    pt-BR = Estrada de acesso ou serviço
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 辅助道路
-    zh-Hant = 輔助道路
 
   [type.highway.services]
-    en = Service on the Road
+    en = Service Area
     de = Raststätte
     fr = Aire de service
     ja = サービスエリア
     pl = Miejsce obsługi podróżnych
     pt = Área de serviço
     pt-BR = Área de serviços de estrada
-    ru = СТО
+    ru = Зона обслуживания
     zh-Hans = 服务区
     zh-Hant = 服務區
 
@@ -9796,7 +8374,7 @@
     zh-Hant = 測速照相機
 
   [type.highway.steps]
-    en = Path
+    en = Stairs
     ar = مسار
     cs = Cesta
     da = Sti
@@ -9817,7 +8395,7 @@
     pt = Escadas
     pt-BR = Escadas
     ro = Cale
-    ru = Дорожка
+    ru = Лестница
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
@@ -9828,71 +8406,13 @@
     zh-Hant = 人行步道
 
   [type.highway.steps.bridge]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Stufen
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Escaliers
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Schody
-    pt = Escadas
-    pt-BR = Escadas
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 阶梯
-    zh-Hant = 人行步道
+    ref = type.highway.steps
 
   [type.highway.steps.tunnel]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Stufen
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Escaliers
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Schody
-    pt = Escadas
-    pt-BR = Escadas
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 阶梯
-    zh-Hant = 人行步道
+    ref = type.highway.steps
 
   [type.highway.tertiary]
-    en = Street
+    en = Tertiary Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9913,7 +8433,7 @@
     pt = Estrada terciária
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Дорога
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -9924,167 +8444,30 @@
     zh-Hant = 三级道路
 
   [type.highway.tertiary.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 三级道路
-    zh-Hant = 三级道路
+    ref = type.highway.tertiary
 
   [type.highway.tertiary.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.tertiary
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 三级道路
-    zh-Hant = 三级道路
 
   [type.highway.tertiary_link]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ref = type.highway.tertiary
+    en = Tertiary Road Ramp
+    ru = Съезд с дороги
     zh-Hans = 三级道路连接路
     zh-Hant = 三级道路連接路
 
   [type.highway.tertiary_link.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 三级道路连接路
-    zh-Hant = 三级道路連接路
+    ref = type.highway.tertiary_link
 
   [type.highway.tertiary_link.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.tertiary_link
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 三级道路连接路
-    zh-Hant = 三级道路連接路
 
   [type.highway.track]
-    en = Street
+    en = Track
     ar = شارع
     cs = Ulice
     da = Gade
@@ -10105,7 +8488,7 @@
     pt = Carreiro florestal ou agrícola
     pt-BR = Estrada rústica
     ro = Stradă
-    ru = Улица
+    ru = Грунтовка
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -10116,324 +8499,36 @@
     zh-Hant = 土路
 
   [type.highway.track.area]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.grade1]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.grade2]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.grade3]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.grade4]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.grade5]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.no.access]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.permissive]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.track
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
 
   [type.highway.traffic_signals]
     en = Traffic Lights
@@ -10468,7 +8563,7 @@
     zh-Hant = 紅綠燈
 
   [type.highway.trunk]
-    en = Street
+    en = National Highway
     ar = شارع
     cs = Ulice
     da = Gade
@@ -10489,7 +8584,7 @@
     pt = Via rápida
     pt-BR = Via expressa
     ro = Stradă
-    ru = Улица
+    ru = Трасса
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -10500,167 +8595,28 @@
     zh-Hant = 主幹道
 
   [type.highway.trunk.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Schnellstraße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Voie rapide
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Via rápida
-    pt-BR = Via expressa
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 干线道路
-    zh-Hant = 主幹道
+    ref = type.highway.trunk
 
   [type.highway.trunk.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.trunk
     de = Schnellstraßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Voie rapide
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Via rápida
-    pt-BR = Via expressa
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 干线道路
-    zh-Hant = 主幹道
 
   [type.highway.trunk_link]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Via rápida
-    pt-BR = Via expressa
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ref = type.highway.trunk
+    en = National Highway Ramp
+    ru = Съезд с трассы
     zh-Hans = 干线道路连接路
     zh-Hant = 主幹道連接路
 
   [type.highway.trunk_link.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Via rápida
-    pt-BR = Via expressa
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 干线道路连接路
-    zh-Hant = 主幹道連接路
+    ref = type.highway.trunk_link
 
   [type.highway.trunk_link.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.trunk_link
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Via rápida
-    pt-BR = Via expressa
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 干线道路连接路
-    zh-Hant = 主幹道連接路
 
   [type.highway.unclassified]
-    en = Street
+    en = Minor Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -10681,7 +8637,7 @@
     pt = Estrada sem classificação
     pt-BR = Estrada sem classificação
     ro = Stradă
-    ru = Улица
+    ru = Небольшая дорога
     sk = Ulica
     sv = Gata
     th = ถนน
@@ -10692,106 +8648,78 @@
     zh-Hant = 道路
 
   [type.highway.unclassified.area]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada sem classificação
-    pt-BR = Estrada sem classificação
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 道路
-    zh-Hant = 道路
+    ref = type.highway.unclassified
 
   [type.highway.unclassified.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada sem classificação
-    pt-BR = Estrada sem classificação
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 道路
-    zh-Hant = 道路
+    ref = type.highway.unclassified
 
   [type.highway.unclassified.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.unclassified
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada sem classificação
-    pt-BR = Estrada sem classificação
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 道路
-    zh-Hant = 道路
+
+  [type.area_highway.cycleway]
+    ref = type.highway.cycleway
+    fi = Pyörätie
+
+  [type.area_highway.footway]
+    ref = type.highway.footway
+    de = Weg
+    fi = Kävelytie
+
+  [type.area_highway.living_street]
+    ref = type.highway.living_street
+    de = Wohnstraße
+
+  [type.area_highway.motorway]
+    ref = type.highway.motorway
+    fi = Moottoritie
+
+  [type.area_highway.path]
+    ref = type.highway.path
+
+  [type.area_highway.pedestrian]
+    ref = type.highway.pedestrian
+    fi = Kävelykatu
+
+  [type.area_highway.primary]
+    ref = type.highway.primary
+
+  [type.area_highway.residential]
+    ref = type.highway.residential
+
+  [type.area_highway.secondary]
+    ref = type.highway.secondary
+
+  [type.area_highway.service]
+    ref = type.highway.service
+
+  [type.area_highway.tertiary]
+    ref = type.highway.tertiary
+
+  [type.area_highway.steps]
+    ref = type.highway.steps
+    fi = Portaat
+
+  [type.area_highway.track]
+    ref = type.highway.track
+    pt = Pista para desportos não motorizados
+    pt-BR = Pista para desportos não motorizados
+
+  [type.area_highway.trunk]
+    ref = type.highway.trunk
+
+  [type.area_highway.unclassified]
+    ref = type.highway.unclassified
+    en = area:highway-unclassified
 
   [type.highway.world_level]
     en = highway-world_level
 
   [type.highway.world_towns_level]
     en = highway-world_towns_level
+
+[[Types: Historic]]
 
   [type.historic]
     en = Historic
@@ -20983,118 +18911,3 @@
     vi = Tòa nhà
     zh-Hans = 建筑部分
     zh-Hant = 建築物
-
-  [type.area_highway.cycleway]
-    en = Bike Path
-    de = Radweg
-    fi = Pyörätie
-    fr = Piste cyclable
-    pt = Ciclovia
-    pt-BR = Ciclovia
-    ru = Велодорожка
-
-  [type.area_highway.footway]
-    en = Path
-    de = Weg
-    fi = Kävelytie
-    fr = Chemin
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    ru = Дорожка
-
-  [type.area_highway.living_street]
-    en = Street
-    de = Wohnstraße
-    fr = Zone de rencontre
-    pt = Zona de coexistência
-    pt-BR = Zona de coexistência
-    ru = Улица
-
-  [type.area_highway.motorway]
-    en = area:highway-motorway
-    de = Autobahn
-    fi = Moottoritie
-    fr = Autoroute
-    pt = Autoestrada
-    pt-BR = Rodovia
-    ru = Автомагистраль
-
-  [type.area_highway.path]
-    en = Path
-    de = Weg
-    fi = Polku
-    fr = Chemin
-    pt = Caminho
-    pt-BR = Caminho
-    ru = Дорожка
-
-  [type.area_highway.pedestrian]
-    en = Street
-    fi = Kävelykatu
-    fr = Rue piétonne
-    pt = Rua pedonal
-    pt-BR = Rua pedonal
-    ru = Улица
-
-  [type.area_highway.primary]
-    en = Street
-    fr = Rue
-    pt = Estrada primária
-    pt-BR = Estrada
-    ru = Улица
-
-  [type.area_highway.residential]
-    en = Street
-    fi = Katu
-    fr = Rue
-    pt = Rua residencial
-    pt-BR = Rua residencial
-    ru = Улица
-
-  [type.area_highway.secondary]
-    en = Street
-    fr = Rue
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ru = Улица
-
-  [type.area_highway.service]
-    en = Street
-    fr = Rue
-    pt = Estrada de acesso ou serviço
-    pt-BR = Estrada de acesso ou serviço
-    ru = Улица
-
-  [type.area_highway.tertiary]
-    en = Street
-    fr = Rue
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ru = Улица
-
-  [type.area_highway.steps]
-    en = Steps
-    fi = Portaat
-    fr = Escaliers
-    pt = Escadas
-    pt-BR = Escadas
-    ru = Лестница
-
-  [type.area_highway.track]
-    en = area:highway-track
-    pt = Pista para desportos não motorizados
-    pt-BR = Pista para desportos não motorizados
-    ru = Грунтовая дорога
-
-  [type.area_highway.trunk]
-    en = area:highway-trunk
-    fr = Voie rapide
-    pt = Via rápida
-    pt-BR = Via expressa
-    ru = Автомобильная трасса
-
-  [type.area_highway.unclassified]
-    en = area:highway-unclassified
-    fr = Rue
-    pt = Estrada sem classificação
-    pt-BR = Estrada sem classificação
