@@ -8659,119 +8659,59 @@
     pl = Tunel drogowy
 
   [type.area_highway.cycleway]
-    en = Bike Path
-    de = Radweg
+    ref = type.highway.cycleway
     fi = Pyörätie
-    fr = Piste cyclable
-    pt = Ciclovia
-    pt-BR = Ciclovia
-    ru = Велодорожка
 
   [type.area_highway.footway]
-    en = Path
+    ref = type.highway.footway
     de = Weg
     fi = Kävelytie
-    fr = Chemin
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    ru = Дорожка
 
   [type.area_highway.living_street]
-    en = Street
+    ref = type.highway.living_street
     de = Wohnstraße
-    fr = Zone de rencontre
-    pt = Zona de coexistência
-    pt-BR = Zona de coexistência
-    ru = Улица
 
   [type.area_highway.motorway]
-    en = area:highway-motorway
-    de = Autobahn
+    ref = type.highway.motorway
     fi = Moottoritie
-    fr = Autoroute
-    pt = Autoestrada
-    pt-BR = Rodovia
-    ru = Автомагистраль
 
   [type.area_highway.path]
-    en = Path
-    de = Weg
-    fi = Polku
-    fr = Chemin
-    pt = Caminho
-    pt-BR = Caminho
-    ru = Дорожка
+    ref = type.highway.path
 
   [type.area_highway.pedestrian]
-    en = Street
+    ref = type.highway.pedestrian
     fi = Kävelykatu
-    fr = Rue piétonne
-    pt = Rua pedonal
-    pt-BR = Rua pedonal
-    ru = Улица
 
   [type.area_highway.primary]
-    en = Street
-    fr = Rue
-    pt = Estrada primária
-    pt-BR = Estrada
-    ru = Улица
+    ref = type.highway.primary
 
   [type.area_highway.residential]
-    en = Street
-    fi = Katu
-    fr = Rue
-    pt = Rua residencial
-    pt-BR = Rua residencial
-    ru = Улица
+    ref = type.highway.residential
 
   [type.area_highway.secondary]
-    en = Street
-    fr = Rue
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ru = Улица
+    ref = type.highway.secondary
 
   [type.area_highway.service]
-    en = Street
-    fr = Rue
-    pt = Estrada de acesso ou serviço
-    pt-BR = Estrada de acesso ou serviço
-    ru = Улица
+    ref = type.highway.service
 
   [type.area_highway.tertiary]
-    en = Street
-    fr = Rue
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ru = Улица
+    ref = type.highway.tertiary
 
   [type.area_highway.steps]
-    en = Steps
+    ref = type.highway.steps
     fi = Portaat
-    fr = Escaliers
-    pt = Escadas
-    pt-BR = Escadas
-    ru = Лестница
 
   [type.area_highway.track]
-    en = area:highway-track
+    ref = type.highway.track
     pt = Pista para desportos não motorizados
     pt-BR = Pista para desportos não motorizados
-    ru = Грунтовая дорога
 
   [type.area_highway.trunk]
-    en = area:highway-trunk
-    fr = Voie rapide
-    pt = Via rápida
-    pt-BR = Via expressa
-    ru = Автомобильная трасса
+    ref = type.highway.trunk
 
   [type.area_highway.unclassified]
+    ref = type.highway.unclassified
     en = area:highway-unclassified
-    fr = Rue
-    pt = Estrada sem classificação
-    pt-BR = Estrada sem classificação
 
   [type.highway.world_level]
     en = highway-world_level
