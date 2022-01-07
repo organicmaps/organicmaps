@@ -58,14 +58,16 @@ def exec_shell(test, *flags):
 
 
 def grep_ios():
-    logging.info("Grepping ios")
+    logging.info("Grepping iOS...")
     grep = "grep -r -I 'L(\|localizedText\|localizedPlaceholder' {0}/iphone/*".format(OMIM_ROOT)
     ret = exec_shell(grep)
+    logging.info("Found in iOS: {0}".format(len(ret)))
+
     return filter_ios_grep(ret)
 
 
 def grep_android():
-    logging.info("Grepping android")
+    logging.info("Grepping android...")
     grep = "grep -r -I 'R.string.' {0}/android/src".format(OMIM_ROOT)
     ret = android_grep_wrapper(grep, ANDROID_JAVA_RE)
     grep = "grep -r -I 'R.plurals.' {0}/android/src".format(OMIM_ROOT)
@@ -74,19 +76,23 @@ def grep_android():
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
     grep = "grep -r -I '@string/' {0}/android/AndroidManifest.xml".format(OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
+    logging.info("Found in android: {0}".format(len(ret)))
 
     return parenthesize(ret)
 
 def grep_core():
-    logging.info("Grepping core")
+    logging.info("Grepping core...")
     grep = "grep -r -I --exclude-dir {0}/3party 'GetLocalizedString' {0}/*".format(OMIM_ROOT)
     ret = android_grep_wrapper(grep, CORE_RE)
+    logging.info("Found in core: {0}".format(len(ret)))
+
     return parenthesize(ret)
 
 def grep_ios_candidates():
-    logging.info("Grepping ios candidates")
+    logging.info("Grepping iOS candidates...")
     grep = "grep -nr -I '@\"' {0}/iphone/*".format(OMIM_ROOT)
     ret = exec_shell(grep)
+    logging.info("Found in iOS candidates: {0}".format(len(ret)))
 
     strs = strings_from_grepped(ret, IOS_CANDIDATES_RE)
     return strs
@@ -245,16 +251,13 @@ def generate_auto_tags(ios, android, core):
         new_tags[c].add("ios")
         new_tags[c].add("android")
 
-    for key in new_tags:
-        new_tags[key] = ", ".join(sorted(new_tags[key]))
-
     return new_tags
 
 
 def new_comments_and_tags(strings_txt, filtered, new_tags):
-    comments_and_tags = {key: strings_txt.comments_and_tags[key] for key in filtered}
+    comments_and_tags = {key: strings_txt.comments_tags_refs[key] for key in filtered}
     for key in comments_and_tags:
-        comments_and_tags[key]["tags"] = new_tags[key]
+        comments_and_tags[key]["tags"] = ",".join(sorted(new_tags[key]))
     return comments_and_tags
 
 
@@ -268,8 +271,14 @@ def do_single(args):
     filtered = ios
     filtered.update(android)
     filtered.update(core)
+    n_android = sum([1 for tags in new_tags.values() if "android" in tags])
+    n_ios = sum([1 for tags in new_tags.values() if "ios" in tags])
+
+    logging.info("Total strings grepped: {0}\tiOS: {1}\tandroid: {2}".format(len(filtered), n_android, n_ios))
 
     strings_txt = StringsTxt("{0}/{1}".format(OMIM_ROOT, StringsTxt.STRINGS_TXT_PATH))
+    logging.info("Total strings in strings.txt: {0}".format(len(strings_txt.translations)))
+
     strings_txt.translations = {key: dict(strings_txt.translations[key]) for key in filtered}
 
     strings_txt.comments_tags_refs = new_comments_and_tags(strings_txt, filtered, new_tags)
