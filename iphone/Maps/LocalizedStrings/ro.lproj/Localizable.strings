@@ -2023,27 +2023,30 @@
 
 "type.healthcare.laboratory" = "Laborator medical";
 
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 
-"type.highway.bridleway" = "Rider's Path";
+"type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Rider's Path";
+"type.highway.bridleway.bridge" = "Bridle Path";
 
-"type.highway.bridleway.permissive" = "Rider's Path";
+"type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Rider's Path";
+"type.highway.bridleway.tunnel" = "Bridle Path";
 
 "type.highway.bus_stop" = "Stație de autobuz";
 
 "type.highway.construction" = "Drum în construcție";
 
-"type.highway.cycleway" = "Bike Path";
+"type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Bike Path";
+"type.highway.cycleway.bridge" = "Cycle Path";
 
-"type.highway.cycleway.permissive" = "Bike Path";
+"type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Bike Path";
+"type.highway.cycleway.tunnel" = "Cycle Path";
 
 "type.highway.elevator" = "Elevator";
 
@@ -2177,7 +2180,7 @@
 
 "type.highway.service.tunnel" = "Stradă";
 
-"type.highway.services" = "Service on the Road";
+"type.highway.services" = "Service Area";
 
 "type.highway.speed_camera" = "Detector de viteză";
 
@@ -2243,9 +2246,42 @@
 
 "type.highway.unclassified.tunnel" = "Stradă";
 
+"type.area_highway.cycleway" = "Cycle Path";
+
+"type.area_highway.footway" = "Cale";
+
+"type.area_highway.living_street" = "Stradă";
+
+"type.area_highway.motorway" = "Stradă";
+
+"type.area_highway.path" = "Cale";
+
+"type.area_highway.pedestrian" = "Stradă";
+
+"type.area_highway.primary" = "Stradă";
+
+"type.area_highway.residential" = "Stradă";
+
+"type.area_highway.secondary" = "Stradă";
+
+"type.area_highway.service" = "Stradă";
+
+"type.area_highway.tertiary" = "Stradă";
+
+"type.area_highway.steps" = "Cale";
+
+"type.area_highway.track" = "Stradă";
+
+"type.area_highway.trunk" = "Stradă";
+
+"type.area_highway.unclassified" = "Stradă";
+
 "type.highway.world_level" = "highway-world_level";
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
 
 "type.historic" = "Historic";
 
@@ -3168,33 +3204,3 @@
 "type.piste_type.sled" = "piste:type-sled";
 
 "type.building_part" = "Clădire";
-
-"type.area_highway.cycleway" = "Bike Path";
-
-"type.area_highway.footway" = "Path";
-
-"type.area_highway.living_street" = "Street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "Path";
-
-"type.area_highway.pedestrian" = "Street";
-
-"type.area_highway.primary" = "Street";
-
-"type.area_highway.residential" = "Street";
-
-"type.area_highway.secondary" = "Street";
-
-"type.area_highway.service" = "Street";
-
-"type.area_highway.tertiary" = "Street";
-
-"type.area_highway.steps" = "Steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";

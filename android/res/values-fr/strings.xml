@@ -1078,6 +1078,8 @@
 	<string name="type.emergency.phone">Téléphone d\'urgence</string>
 	<string name="type.entrance">Entrée</string>
 	<string name="type.healthcare.laboratory">Laboratoire médical</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bridleway">Chemin pour cavalier</string>
 	<string name="type.highway.bridleway.bridge">Chemin pour cavalier</string>
 	<string name="type.highway.bridleway.permissive">Chemin pour cavalier</string>
@@ -1108,9 +1110,9 @@
 	<string name="type.highway.motorway.bridge">Autoroute</string>
 	<string name="type.highway.motorway.tunnel">Autoroute</string>
 	<string name="type.highway.motorway_junction">Sortie</string>
-	<string name="type.highway.motorway_link">Rue</string>
-	<string name="type.highway.motorway_link.bridge">Rue</string>
-	<string name="type.highway.motorway_link.tunnel">Rue</string>
+	<string name="type.highway.motorway_link">Autoroute</string>
+	<string name="type.highway.motorway_link.bridge">Autoroute</string>
+	<string name="type.highway.motorway_link.tunnel">Autoroute</string>
 	<string name="type.highway.path">Chemin</string>
 	<string name="type.highway.path.alpine_hiking">Chemin</string>
 	<string name="type.highway.path.bicycle">Chemin</string>
@@ -1180,13 +1182,30 @@
 	<string name="type.highway.trunk">Voie rapide</string>
 	<string name="type.highway.trunk.bridge">Voie rapide</string>
 	<string name="type.highway.trunk.tunnel">Voie rapide</string>
-	<string name="type.highway.trunk_link">Rue</string>
-	<string name="type.highway.trunk_link.bridge">Rue</string>
-	<string name="type.highway.trunk_link.tunnel">Rue</string>
+	<string name="type.highway.trunk_link">Voie rapide</string>
+	<string name="type.highway.trunk_link.bridge">Voie rapide</string>
+	<string name="type.highway.trunk_link.tunnel">Voie rapide</string>
 	<string name="type.highway.unclassified">Rue</string>
 	<string name="type.highway.unclassified.area">Rue</string>
 	<string name="type.highway.unclassified.bridge">Rue</string>
 	<string name="type.highway.unclassified.tunnel">Rue</string>
+	<string name="type.area_highway.cycleway">Piste cyclable</string>
+	<string name="type.area_highway.footway">Chemin</string>
+	<string name="type.area_highway.living_street">Zone de rencontre</string>
+	<string name="type.area_highway.motorway">Autoroute</string>
+	<string name="type.area_highway.path">Chemin</string>
+	<string name="type.area_highway.pedestrian">Rue piétonne</string>
+	<string name="type.area_highway.primary">Rue</string>
+	<string name="type.area_highway.residential">Rue</string>
+	<string name="type.area_highway.secondary">Rue</string>
+	<string name="type.area_highway.service">Rue</string>
+	<string name="type.area_highway.tertiary">Rue</string>
+	<string name="type.area_highway.steps">Escaliers</string>
+	<string name="type.area_highway.track">Piste</string>
+	<string name="type.area_highway.trunk">Voie rapide</string>
+	<string name="type.area_highway.unclassified">Rue</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Site archéologique</string>
 	<string name="type.historic.battlefield">Champ de bataille</string>
 	<string name="type.historic.castle">Château</string>
@@ -1506,18 +1525,4 @@
 	<string name="type.wheelchair.no">Non équipé pour l\'usage des fauteuils roulants</string>
 	<string name="type.wheelchair.yes">Équipé pour l\'usage des fauteuils roulants</string>
 	<string name="type.building_part">Bâtiment</string>
-	<string name="type.area_highway.cycleway">Piste cyclable</string>
-	<string name="type.area_highway.footway">Chemin</string>
-	<string name="type.area_highway.living_street">Zone de rencontre</string>
-	<string name="type.area_highway.motorway">Autoroute</string>
-	<string name="type.area_highway.path">Chemin</string>
-	<string name="type.area_highway.pedestrian">Rue piétonne</string>
-	<string name="type.area_highway.primary">Rue</string>
-	<string name="type.area_highway.residential">Rue</string>
-	<string name="type.area_highway.secondary">Rue</string>
-	<string name="type.area_highway.service">Rue</string>
-	<string name="type.area_highway.tertiary">Rue</string>
-	<string name="type.area_highway.steps">Escaliers</string>
-	<string name="type.area_highway.trunk">Voie rapide</string>
-	<string name="type.area_highway.unclassified">Rue</string>
 </resources>

@@ -1097,6 +1097,8 @@
 	<string name="type.emergency.phone">Telefone de emergência</string>
 	<string name="type.entrance">Entrada</string>
 	<string name="type.healthcare.laboratory">Laboratório médico</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Rodovia</string>
 	<string name="type.highway.bridleway">Caminho para cavaleiros</string>
 	<string name="type.highway.bridleway.bridge">Caminho para cavaleiros</string>
@@ -1127,9 +1129,9 @@
 	<string name="type.highway.motorway.bridge">Rodovia</string>
 	<string name="type.highway.motorway.tunnel">Rodovia</string>
 	<string name="type.highway.motorway_junction">Saída de rodovia</string>
-	<string name="type.highway.motorway_link">Estrada</string>
-	<string name="type.highway.motorway_link.bridge">Estrada</string>
-	<string name="type.highway.motorway_link.tunnel">Estrada</string>
+	<string name="type.highway.motorway_link">Rodovia</string>
+	<string name="type.highway.motorway_link.bridge">Rodovia</string>
+	<string name="type.highway.motorway_link.tunnel">Rodovia</string>
 	<string name="type.highway.path">Caminho</string>
 	<string name="type.highway.path.alpine_hiking">Caminho</string>
 	<string name="type.highway.path.bicycle">Caminho</string>
@@ -1206,6 +1208,23 @@
 	<string name="type.highway.unclassified.area">Estrada sem classificação</string>
 	<string name="type.highway.unclassified.bridge">Estrada sem classificação</string>
 	<string name="type.highway.unclassified.tunnel">Estrada sem classificação</string>
+	<string name="type.area_highway.cycleway">Ciclovia</string>
+	<string name="type.area_highway.footway">Caminho pedonal</string>
+	<string name="type.area_highway.living_street">Zona de coexistência</string>
+	<string name="type.area_highway.motorway">Rodovia</string>
+	<string name="type.area_highway.path">Caminho</string>
+	<string name="type.area_highway.pedestrian">Rua pedonal</string>
+	<string name="type.area_highway.primary">Estrada</string>
+	<string name="type.area_highway.residential">Rua residencial</string>
+	<string name="type.area_highway.secondary">Estrada</string>
+	<string name="type.area_highway.service">Estrada de acesso ou serviço</string>
+	<string name="type.area_highway.tertiary">Estrada</string>
+	<string name="type.area_highway.steps">Escadas</string>
+	<string name="type.area_highway.track">Pista para desportos não motorizados</string>
+	<string name="type.area_highway.trunk">Via expressa</string>
+	<string name="type.area_highway.unclassified">Estrada sem classificação</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Histórico</string>
 	<string name="type.historic.archaeological_site">Sítio arqueológico</string>
 	<string name="type.historic.battlefield">Campo de batalha</string>
@@ -1639,19 +1658,4 @@
 	<string name="type.piste_type.nordic">Pista tipo nórdico</string>
 	<string name="type.piste_type.sled">Pista para trenós</string>
 	<string name="type.building_part">Parte de edifício</string>
-	<string name="type.area_highway.cycleway">Ciclovia</string>
-	<string name="type.area_highway.footway">Caminho pedonal</string>
-	<string name="type.area_highway.living_street">Zona de coexistência</string>
-	<string name="type.area_highway.motorway">Rodovia</string>
-	<string name="type.area_highway.path">Caminho</string>
-	<string name="type.area_highway.pedestrian">Rua pedonal</string>
-	<string name="type.area_highway.primary">Estrada</string>
-	<string name="type.area_highway.residential">Rua residencial</string>
-	<string name="type.area_highway.secondary">Estrada</string>
-	<string name="type.area_highway.service">Estrada de acesso ou serviço</string>
-	<string name="type.area_highway.tertiary">Estrada</string>
-	<string name="type.area_highway.steps">Escadas</string>
-	<string name="type.area_highway.track">Pista para desportos não motorizados</string>
-	<string name="type.area_highway.trunk">Via expressa</string>
-	<string name="type.area_highway.unclassified">Estrada sem classificação</string>
 </resources>

@@ -735,6 +735,8 @@
 
 	<!-- SECTION: Types -->
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.landuse.basin">Резервоар</string>
 	<string name="type.leisure.picnic_table">Маса за пикник</string>
 	<string name="type.natural.water.reservoir">Резервоар</string>

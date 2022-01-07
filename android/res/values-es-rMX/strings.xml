@@ -263,8 +263,12 @@
 	<string name="type.recycling.small_appliances">Desechos electrónicos</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de billetes de transporte público</string>
 	<string name="type.boundary.national_park">Parque nacional</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.construction">Carretera en construcción</string>
 	<string name="type.highway.ford">Vado (de lugar)</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.landuse.churchyard">Camposanto</string>
 	<string name="type.landuse.farmland">Terreno agrícola</string>
 	<string name="type.landuse.grass">Césped</string>

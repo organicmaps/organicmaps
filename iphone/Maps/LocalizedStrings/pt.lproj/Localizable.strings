@@ -2023,6 +2023,9 @@
 
 "type.healthcare.laboratory" = "Laboratório médico";
 
+
+/********** Types: Roads **********/
+
 "type.highway" = "Rodovia";
 
 "type.highway.bridleway" = "Caminho para cavaleiros";
@@ -2243,9 +2246,42 @@
 
 "type.highway.unclassified.tunnel" = "Estrada sem classificação";
 
+"type.area_highway.cycleway" = "Ciclovia";
+
+"type.area_highway.footway" = "Caminho pedonal";
+
+"type.area_highway.living_street" = "Zona de coexistência";
+
+"type.area_highway.motorway" = "Autoestrada";
+
+"type.area_highway.path" = "Caminho";
+
+"type.area_highway.pedestrian" = "Rua pedonal";
+
+"type.area_highway.primary" = "Estrada primária";
+
+"type.area_highway.residential" = "Rua residencial";
+
+"type.area_highway.secondary" = "Estrada secundária";
+
+"type.area_highway.service" = "Estrada de acesso ou serviço";
+
+"type.area_highway.tertiary" = "Estrada terciária";
+
+"type.area_highway.steps" = "Escadas";
+
+"type.area_highway.track" = "Pista para desportos não motorizados";
+
+"type.area_highway.trunk" = "Via rápida";
+
+"type.area_highway.unclassified" = "Estrada sem classificação";
+
 "type.highway.world_level" = "highway-world_level";
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
 
 "type.historic" = "Histórico";
 
@@ -3168,33 +3204,3 @@
 "type.piste_type.sled" = "Pista para trenós";
 
 "type.building_part" = "Parte de edifício";
-
-"type.area_highway.cycleway" = "Ciclovia";
-
-"type.area_highway.footway" = "Caminho pedonal";
-
-"type.area_highway.living_street" = "Zona de coexistência";
-
-"type.area_highway.motorway" = "Autoestrada";
-
-"type.area_highway.path" = "Caminho";
-
-"type.area_highway.pedestrian" = "Rua pedonal";
-
-"type.area_highway.primary" = "Estrada primária";
-
-"type.area_highway.residential" = "Rua residencial";
-
-"type.area_highway.secondary" = "Estrada secundária";
-
-"type.area_highway.service" = "Estrada de acesso ou serviço";
-
-"type.area_highway.tertiary" = "Estrada terciária";
-
-"type.area_highway.steps" = "Escadas";
-
-"type.area_highway.track" = "Pista para desportos não motorizados";
-
-"type.area_highway.trunk" = "Via rápida";
-
-"type.area_highway.unclassified" = "Estrada sem classificação";

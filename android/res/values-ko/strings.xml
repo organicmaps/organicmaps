@@ -1035,6 +1035,8 @@
 	<string name="type.emergency.phone">긴급 전화</string>
 	<string name="type.entrance">입구</string>
 	<string name="type.healthcare.laboratory">의료 연구실</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">버스 정류장</string>
 	<string name="type.highway.construction">공사 중 도로</string>
 	<string name="type.highway.footway">길</string>
@@ -1133,6 +1135,22 @@
 	<string name="type.highway.unclassified.area">거리</string>
 	<string name="type.highway.unclassified.bridge">거리</string>
 	<string name="type.highway.unclassified.tunnel">거리</string>
+	<string name="type.area_highway.footway">길</string>
+	<string name="type.area_highway.living_street">거리</string>
+	<string name="type.area_highway.motorway">거리</string>
+	<string name="type.area_highway.path">길</string>
+	<string name="type.area_highway.pedestrian">거리</string>
+	<string name="type.area_highway.primary">거리</string>
+	<string name="type.area_highway.residential">거리</string>
+	<string name="type.area_highway.secondary">거리</string>
+	<string name="type.area_highway.service">거리</string>
+	<string name="type.area_highway.tertiary">거리</string>
+	<string name="type.area_highway.steps">길</string>
+	<string name="type.area_highway.track">거리</string>
+	<string name="type.area_highway.trunk">거리</string>
+	<string name="type.area_highway.unclassified">거리</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">발굴</string>
 	<string name="type.historic.castle">성</string>
 	<string name="type.historic.castle.defensive">성</string>

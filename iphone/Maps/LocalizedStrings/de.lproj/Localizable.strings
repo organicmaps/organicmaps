@@ -2023,6 +2023,9 @@
 
 "type.healthcare.laboratory" = "Medizinisches Labor";
 
+
+/********** Types: Roads **********/
+
 "type.highway" = "Straße";
 
 "type.highway.bridleway" = "Reitweg";
@@ -2129,11 +2132,11 @@
 
 "type.highway.primary.tunnel" = "Hauptstraßentunnel";
 
-"type.highway.primary_link" = "Straße";
+"type.highway.primary_link" = "Hauptstraße";
 
-"type.highway.primary_link.bridge" = "Straße";
+"type.highway.primary_link.bridge" = "Hauptstraße";
 
-"type.highway.primary_link.tunnel" = "Straße";
+"type.highway.primary_link.tunnel" = "Hauptstraße";
 
 "type.highway.raceway" = "Rennbahn";
 
@@ -2229,9 +2232,9 @@
 
 "type.highway.trunk.tunnel" = "Schnellstraßentunnel";
 
-"type.highway.trunk_link" = "Straße";
+"type.highway.trunk_link" = "Schnellstraße";
 
-"type.highway.trunk_link.bridge" = "Straße";
+"type.highway.trunk_link.bridge" = "Schnellstraße";
 
 "type.highway.trunk_link.tunnel" = "Straßentunnel";
 
@@ -2243,9 +2246,42 @@
 
 "type.highway.unclassified.tunnel" = "Straßentunnel";
 
+"type.area_highway.cycleway" = "Radweg";
+
+"type.area_highway.footway" = "Weg";
+
+"type.area_highway.living_street" = "Wohnstraße";
+
+"type.area_highway.motorway" = "Autobahn";
+
+"type.area_highway.path" = "Weg";
+
+"type.area_highway.pedestrian" = "Fußgängerzone";
+
+"type.area_highway.primary" = "Hauptstraße";
+
+"type.area_highway.residential" = "Wohnstraße";
+
+"type.area_highway.secondary" = "Straße";
+
+"type.area_highway.service" = "Straße";
+
+"type.area_highway.tertiary" = "Straße";
+
+"type.area_highway.steps" = "Stufen";
+
+"type.area_highway.track" = "Straße";
+
+"type.area_highway.trunk" = "Schnellstraße";
+
+"type.area_highway.unclassified" = "Straße";
+
 "type.highway.world_level" = "highway-world_level";
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
 
 "type.historic" = "Historisches Objekt";
 
@@ -3168,33 +3204,3 @@
 "type.piste_type.sled" = "Rodelbahn";
 
 "type.building_part" = "Gebäude";
-
-"type.area_highway.cycleway" = "Radweg";
-
-"type.area_highway.footway" = "Weg";
-
-"type.area_highway.living_street" = "Wohnstraße";
-
-"type.area_highway.motorway" = "Autobahn";
-
-"type.area_highway.path" = "Weg";
-
-"type.area_highway.pedestrian" = "Street";
-
-"type.area_highway.primary" = "Street";
-
-"type.area_highway.residential" = "Street";
-
-"type.area_highway.secondary" = "Street";
-
-"type.area_highway.service" = "Street";
-
-"type.area_highway.tertiary" = "Street";
-
-"type.area_highway.steps" = "Steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";

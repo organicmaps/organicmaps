@@ -1030,6 +1030,8 @@
 	<string name="type.emergency.phone">Nødtelefon</string>
 	<string name="type.entrance">Indgang</string>
 	<string name="type.healthcare.laboratory">Medicinsk laboratorium</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Busstoppested</string>
 	<string name="type.highway.construction">Vej under opbygning</string>
 	<string name="type.highway.footway">Sti</string>
@@ -1129,6 +1131,22 @@
 	<string name="type.highway.unclassified.area">Gade</string>
 	<string name="type.highway.unclassified.bridge">Gade</string>
 	<string name="type.highway.unclassified.tunnel">Gade</string>
+	<string name="type.area_highway.footway">Sti</string>
+	<string name="type.area_highway.living_street">Gade</string>
+	<string name="type.area_highway.motorway">Gade</string>
+	<string name="type.area_highway.path">Sti</string>
+	<string name="type.area_highway.pedestrian">Gade</string>
+	<string name="type.area_highway.primary">Gade</string>
+	<string name="type.area_highway.residential">Gade</string>
+	<string name="type.area_highway.secondary">Gade</string>
+	<string name="type.area_highway.service">Gade</string>
+	<string name="type.area_highway.tertiary">Gade</string>
+	<string name="type.area_highway.steps">Sti</string>
+	<string name="type.area_highway.track">Gade</string>
+	<string name="type.area_highway.trunk">Gade</string>
+	<string name="type.area_highway.unclassified">Gade</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Arkæologisk sted</string>
 	<string name="type.historic.castle">Slot</string>
 	<string name="type.historic.castle.defensive">Slot</string>

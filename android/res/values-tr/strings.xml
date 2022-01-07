@@ -1062,6 +1062,8 @@
 	<string name="type.emergency.phone">Acil telefon</string>
 	<string name="type.entrance">Entrée</string>
 	<string name="type.healthcare.laboratory">Tıbbi laboratuvar</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Otobüs durağı</string>
 	<string name="type.highway.construction">Yol yapım aşamasında</string>
 	<string name="type.highway.footway">Yol</string>
@@ -1161,6 +1163,22 @@
 	<string name="type.highway.unclassified.area">Cadde</string>
 	<string name="type.highway.unclassified.bridge">Cadde</string>
 	<string name="type.highway.unclassified.tunnel">Cadde</string>
+	<string name="type.area_highway.footway">Yol</string>
+	<string name="type.area_highway.living_street">Cadde</string>
+	<string name="type.area_highway.motorway">Cadde</string>
+	<string name="type.area_highway.path">Yol</string>
+	<string name="type.area_highway.pedestrian">Cadde</string>
+	<string name="type.area_highway.primary">Cadde</string>
+	<string name="type.area_highway.residential">Cadde</string>
+	<string name="type.area_highway.secondary">Cadde</string>
+	<string name="type.area_highway.service">Cadde</string>
+	<string name="type.area_highway.tertiary">Cadde</string>
+	<string name="type.area_highway.steps">Yol</string>
+	<string name="type.area_highway.track">Cadde</string>
+	<string name="type.area_highway.trunk">Cadde</string>
+	<string name="type.area_highway.unclassified">Cadde</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Arkeolojik alan</string>
 	<string name="type.historic.castle">Kale</string>
 	<string name="type.historic.castle.defensive">Kale</string>

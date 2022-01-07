@@ -1025,6 +1025,8 @@
 	<string name="type.emergency.phone">Telefon de urgență</string>
 	<string name="type.entrance">Intrare</string>
 	<string name="type.healthcare.laboratory">Laborator medical</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Stație de autobuz</string>
 	<string name="type.highway.construction">Drum în construcție</string>
 	<string name="type.highway.footway">Cale</string>
@@ -1124,6 +1126,22 @@
 	<string name="type.highway.unclassified.area">Stradă</string>
 	<string name="type.highway.unclassified.bridge">Stradă</string>
 	<string name="type.highway.unclassified.tunnel">Stradă</string>
+	<string name="type.area_highway.footway">Cale</string>
+	<string name="type.area_highway.living_street">Stradă</string>
+	<string name="type.area_highway.motorway">Stradă</string>
+	<string name="type.area_highway.path">Cale</string>
+	<string name="type.area_highway.pedestrian">Stradă</string>
+	<string name="type.area_highway.primary">Stradă</string>
+	<string name="type.area_highway.residential">Stradă</string>
+	<string name="type.area_highway.secondary">Stradă</string>
+	<string name="type.area_highway.service">Stradă</string>
+	<string name="type.area_highway.tertiary">Stradă</string>
+	<string name="type.area_highway.steps">Cale</string>
+	<string name="type.area_highway.track">Stradă</string>
+	<string name="type.area_highway.trunk">Stradă</string>
+	<string name="type.area_highway.unclassified">Stradă</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Sit arheologic</string>
 	<string name="type.historic.castle">Castel</string>
 	<string name="type.historic.castle.defensive">Castel</string>

@@ -2023,6 +2023,9 @@
 
 "type.healthcare.laboratory" = "Laboratoire médical";
 
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 
 "type.highway.bridleway" = "Chemin pour cavalier";
@@ -2085,11 +2088,11 @@
 
 "type.highway.motorway_junction" = "Sortie";
 
-"type.highway.motorway_link" = "Rue";
+"type.highway.motorway_link" = "Autoroute";
 
-"type.highway.motorway_link.bridge" = "Rue";
+"type.highway.motorway_link.bridge" = "Autoroute";
 
-"type.highway.motorway_link.tunnel" = "Rue";
+"type.highway.motorway_link.tunnel" = "Autoroute";
 
 "type.highway.path" = "Chemin";
 
@@ -2229,11 +2232,11 @@
 
 "type.highway.trunk.tunnel" = "Voie rapide";
 
-"type.highway.trunk_link" = "Rue";
+"type.highway.trunk_link" = "Voie rapide";
 
-"type.highway.trunk_link.bridge" = "Rue";
+"type.highway.trunk_link.bridge" = "Voie rapide";
 
-"type.highway.trunk_link.tunnel" = "Rue";
+"type.highway.trunk_link.tunnel" = "Voie rapide";
 
 "type.highway.unclassified" = "Rue";
 
@@ -2243,9 +2246,42 @@
 
 "type.highway.unclassified.tunnel" = "Rue";
 
+"type.area_highway.cycleway" = "Piste cyclable";
+
+"type.area_highway.footway" = "Chemin";
+
+"type.area_highway.living_street" = "Zone de rencontre";
+
+"type.area_highway.motorway" = "Autoroute";
+
+"type.area_highway.path" = "Chemin";
+
+"type.area_highway.pedestrian" = "Rue piétonne";
+
+"type.area_highway.primary" = "Rue";
+
+"type.area_highway.residential" = "Rue";
+
+"type.area_highway.secondary" = "Rue";
+
+"type.area_highway.service" = "Rue";
+
+"type.area_highway.tertiary" = "Rue";
+
+"type.area_highway.steps" = "Escaliers";
+
+"type.area_highway.track" = "Piste";
+
+"type.area_highway.trunk" = "Voie rapide";
+
+"type.area_highway.unclassified" = "Rue";
+
 "type.highway.world_level" = "highway-world_level";
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
 
 "type.historic" = "Historic";
 
@@ -3168,33 +3204,3 @@
 "type.piste_type.sled" = "piste:type-sled";
 
 "type.building_part" = "Bâtiment";
-
-"type.area_highway.cycleway" = "Piste cyclable";
-
-"type.area_highway.footway" = "Chemin";
-
-"type.area_highway.living_street" = "Zone de rencontre";
-
-"type.area_highway.motorway" = "Autoroute";
-
-"type.area_highway.path" = "Chemin";
-
-"type.area_highway.pedestrian" = "Rue piétonne";
-
-"type.area_highway.primary" = "Rue";
-
-"type.area_highway.residential" = "Rue";
-
-"type.area_highway.secondary" = "Rue";
-
-"type.area_highway.service" = "Rue";
-
-"type.area_highway.tertiary" = "Rue";
-
-"type.area_highway.steps" = "Escaliers";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "Voie rapide";
-
-"type.area_highway.unclassified" = "Rue";

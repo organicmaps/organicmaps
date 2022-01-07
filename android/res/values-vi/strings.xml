@@ -1035,6 +1035,8 @@
 	<string name="type.emergency.phone">Điện thoại khẩn cấp</string>
 	<string name="type.entrance">Lối vào</string>
 	<string name="type.healthcare.laboratory">Phòng thí nghiệm y tế</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Bến xe buýt</string>
 	<string name="type.highway.construction">Đường đang thi công</string>
 	<string name="type.highway.footway">Đường</string>
@@ -1134,6 +1136,22 @@
 	<string name="type.highway.unclassified.area">Phố</string>
 	<string name="type.highway.unclassified.bridge">Phố</string>
 	<string name="type.highway.unclassified.tunnel">Phố</string>
+	<string name="type.area_highway.footway">Đường</string>
+	<string name="type.area_highway.living_street">Phố</string>
+	<string name="type.area_highway.motorway">Phố</string>
+	<string name="type.area_highway.path">Đường</string>
+	<string name="type.area_highway.pedestrian">Phố</string>
+	<string name="type.area_highway.primary">Phố</string>
+	<string name="type.area_highway.residential">Phố</string>
+	<string name="type.area_highway.secondary">Phố</string>
+	<string name="type.area_highway.service">Phố</string>
+	<string name="type.area_highway.tertiary">Phố</string>
+	<string name="type.area_highway.steps">Đường</string>
+	<string name="type.area_highway.track">Phố</string>
+	<string name="type.area_highway.trunk">Phố</string>
+	<string name="type.area_highway.unclassified">Phố</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Điểm khảo cổ</string>
 	<string name="type.historic.castle">Pháo đài</string>
 	<string name="type.historic.castle.defensive">Pháo đài</string>

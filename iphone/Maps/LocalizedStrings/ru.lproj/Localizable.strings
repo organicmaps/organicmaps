@@ -2023,15 +2023,18 @@
 
 "type.healthcare.laboratory" = "Медицинская лаборатория";
 
+
+/********** Types: Roads **********/
+
 "type.highway" = "Дорога";
 
-"type.highway.bridleway" = "Дорога для всадников";
+"type.highway.bridleway" = "Конная дорожка";
 
-"type.highway.bridleway.bridge" = "Дорога для всадников";
+"type.highway.bridleway.bridge" = "Конная дорожка";
 
-"type.highway.bridleway.permissive" = "Дорога для всадников";
+"type.highway.bridleway.permissive" = "Конная дорожка";
 
-"type.highway.bridleway.tunnel" = "Дорога для всадников";
+"type.highway.bridleway.tunnel" = "Конная дорожка";
 
 "type.highway.bus_stop" = "Остановка";
 
@@ -2049,21 +2052,21 @@
 
 "type.highway.footway" = "Пешеходная дорожка";
 
-"type.highway.footway.alpine_hiking" = "Пешеходная дорожка";
+"type.highway.footway.alpine_hiking" = "Тропа";
 
-"type.highway.footway.area" = "Пешеходная дорожка";
+"type.highway.footway.area" = "Пешеходная зона";
 
 "type.highway.footway.bridge" = "Пешеходная дорожка";
 
-"type.highway.footway.demanding_alpine_hiking" = "Пешеходная дорожка";
+"type.highway.footway.demanding_alpine_hiking" = "Тропа";
 
-"type.highway.footway.demanding_mountain_hiking" = "Пешеходная дорожка";
+"type.highway.footway.demanding_mountain_hiking" = "Тропа";
 
-"type.highway.footway.difficult_alpine_hiking" = "Пешеходная дорожка";
+"type.highway.footway.difficult_alpine_hiking" = "Тропа";
 
-"type.highway.footway.hiking" = "Пешеходная дорожка";
+"type.highway.footway.hiking" = "Тропа";
 
-"type.highway.footway.mountain_hiking" = "Пешеходная дорожка";
+"type.highway.footway.mountain_hiking" = "Тропа";
 
 "type.highway.footway.permissive" = "Пешеходная дорожка";
 
@@ -2071,69 +2074,69 @@
 
 "type.highway.ford" = "Брод";
 
-"type.highway.living_street" = "Улица";
+"type.highway.living_street" = "Жилая зона";
 
-"type.highway.living_street.bridge" = "Улица";
+"type.highway.living_street.bridge" = "Жилая зона";
 
-"type.highway.living_street.tunnel" = "Улица";
+"type.highway.living_street.tunnel" = "Жилая зона";
 
-"type.highway.motorway" = "Улица";
+"type.highway.motorway" = "Автомагистраль";
 
-"type.highway.motorway.bridge" = "Улица";
+"type.highway.motorway.bridge" = "Автомагистраль";
 
-"type.highway.motorway.tunnel" = "Улица";
+"type.highway.motorway.tunnel" = "Автомагистраль";
 
 "type.highway.motorway_junction" = "Съезд";
 
-"type.highway.motorway_link" = "Улица";
+"type.highway.motorway_link" = "Съезд с автомагистрали";
 
-"type.highway.motorway_link.bridge" = "Улица";
+"type.highway.motorway_link.bridge" = "Съезд с автомагистрали";
 
-"type.highway.motorway_link.tunnel" = "Улица";
+"type.highway.motorway_link.tunnel" = "Съезд с автомагистрали";
 
-"type.highway.path" = "Дорожка";
+"type.highway.path" = "Тропа";
 
-"type.highway.path.alpine_hiking" = "Дорожка";
+"type.highway.path.alpine_hiking" = "Тропа";
 
-"type.highway.path.bicycle" = "Дорожка";
+"type.highway.path.bicycle" = "Велопешеходная дорожка";
 
-"type.highway.path.bridge" = "Дорожка";
+"type.highway.path.bridge" = "Тропа";
 
-"type.highway.path.demanding_alpine_hiking" = "Дорожка";
+"type.highway.path.demanding_alpine_hiking" = "Тропа";
 
-"type.highway.path.demanding_mountain_hiking" = "Дорожка";
+"type.highway.path.demanding_mountain_hiking" = "Тропа";
 
-"type.highway.path.difficult_alpine_hiking" = "Дорожка";
+"type.highway.path.difficult_alpine_hiking" = "Тропа";
 
-"type.highway.path.hiking" = "Дорожка";
+"type.highway.path.hiking" = "Тропа";
 
-"type.highway.path.horse" = "Дорожка";
+"type.highway.path.horse" = "Конная тропа";
 
-"type.highway.path.mountain_hiking" = "Дорожка";
+"type.highway.path.mountain_hiking" = "Тропа";
 
-"type.highway.path.permissive" = "Дорожка";
+"type.highway.path.permissive" = "Тропа";
 
-"type.highway.path.tunnel" = "Дорожка";
+"type.highway.path.tunnel" = "Тропа";
 
-"type.highway.pedestrian" = "Улица";
+"type.highway.pedestrian" = "Пешеходная улица";
 
-"type.highway.pedestrian.area" = "Улица";
+"type.highway.pedestrian.area" = "Пешеходная зона";
 
-"type.highway.pedestrian.bridge" = "Улица";
+"type.highway.pedestrian.bridge" = "Пешеходная улица";
 
-"type.highway.pedestrian.tunnel" = "Улица";
+"type.highway.pedestrian.tunnel" = "Пешеходная улица";
 
-"type.highway.primary" = "Улица";
+"type.highway.primary" = "Шоссе";
 
-"type.highway.primary.bridge" = "Улица";
+"type.highway.primary.bridge" = "Шоссе";
 
-"type.highway.primary.tunnel" = "Улица";
+"type.highway.primary.tunnel" = "Шоссе";
 
-"type.highway.primary_link" = "Улица";
+"type.highway.primary_link" = "Съезд с шоссе";
 
-"type.highway.primary_link.bridge" = "Улица";
+"type.highway.primary_link.bridge" = "Съезд с шоссе";
 
-"type.highway.primary_link.tunnel" = "Улица";
+"type.highway.primary_link.tunnel" = "Съезд с шоссе";
 
 "type.highway.raceway" = "Гоночный трек";
 
@@ -2145,107 +2148,140 @@
 
 "type.highway.residential.tunnel" = "Улица";
 
-"type.highway.rest_area" = "Зона отдыха на трассе";
+"type.highway.rest_area" = "Зона отдыха";
 
-"type.highway.road" = "Улица";
+"type.highway.road" = "Дорога";
 
-"type.highway.road.bridge" = "Улица";
+"type.highway.road.bridge" = "Дорога";
 
-"type.highway.road.tunnel" = "Улица";
+"type.highway.road.tunnel" = "Дорога";
 
-"type.highway.secondary" = "Улица";
+"type.highway.secondary" = "Автодорога";
 
-"type.highway.secondary.bridge" = "Улица";
+"type.highway.secondary.bridge" = "Автодорога";
 
-"type.highway.secondary.tunnel" = "Улица";
+"type.highway.secondary.tunnel" = "Автодорога";
 
-"type.highway.secondary_link" = "Улица";
+"type.highway.secondary_link" = "Съезд с автодороги";
 
-"type.highway.secondary_link.bridge" = "Улица";
+"type.highway.secondary_link.bridge" = "Съезд с автодороги";
 
-"type.highway.secondary_link.tunnel" = "Улица";
+"type.highway.secondary_link.tunnel" = "Съезд с автодороги";
 
-"type.highway.service" = "Улица";
+"type.highway.service" = "Проезд";
 
-"type.highway.service.area" = "Улица";
+"type.highway.service.area" = "Проезд";
 
-"type.highway.service.bridge" = "Улица";
+"type.highway.service.bridge" = "Проезд";
 
-"type.highway.service.driveway" = "Улица";
+"type.highway.service.driveway" = "Подъезд";
 
-"type.highway.service.parking_aisle" = "Улица";
+"type.highway.service.parking_aisle" = "Парковочный проезд";
 
-"type.highway.service.tunnel" = "Улица";
+"type.highway.service.tunnel" = "Проезд";
 
-"type.highway.services" = "СТО";
+"type.highway.services" = "Зона обслуживания";
 
 "type.highway.speed_camera" = "Камера скорости";
 
-"type.highway.steps" = "Дорожка";
+"type.highway.steps" = "Лестница";
 
-"type.highway.steps.bridge" = "Дорожка";
+"type.highway.steps.bridge" = "Лестница";
 
-"type.highway.steps.tunnel" = "Дорожка";
+"type.highway.steps.tunnel" = "Лестница";
 
-"type.highway.tertiary" = "Улица";
+"type.highway.tertiary" = "Дорога";
 
-"type.highway.tertiary.bridge" = "Улица";
+"type.highway.tertiary.bridge" = "Дорога";
 
-"type.highway.tertiary.tunnel" = "Улица";
+"type.highway.tertiary.tunnel" = "Дорога";
 
-"type.highway.tertiary_link" = "Улица";
+"type.highway.tertiary_link" = "Съезд с дороги";
 
-"type.highway.tertiary_link.bridge" = "Улица";
+"type.highway.tertiary_link.bridge" = "Съезд с дороги";
 
-"type.highway.tertiary_link.tunnel" = "Улица";
+"type.highway.tertiary_link.tunnel" = "Съезд с дороги";
 
-"type.highway.track" = "Улица";
+"type.highway.track" = "Грунтовка";
 
-"type.highway.track.area" = "Улица";
+"type.highway.track.area" = "Грунтовка";
 
-"type.highway.track.bridge" = "Улица";
+"type.highway.track.bridge" = "Грунтовка";
 
-"type.highway.track.grade1" = "Улица";
+"type.highway.track.grade1" = "Грунтовка";
 
-"type.highway.track.grade2" = "Улица";
+"type.highway.track.grade2" = "Грунтовка";
 
-"type.highway.track.grade3" = "Улица";
+"type.highway.track.grade3" = "Грунтовка";
 
-"type.highway.track.grade4" = "Улица";
+"type.highway.track.grade4" = "Грунтовка";
 
-"type.highway.track.grade5" = "Улица";
+"type.highway.track.grade5" = "Грунтовка";
 
-"type.highway.track.no.access" = "Улица";
+"type.highway.track.no.access" = "Грунтовка";
 
-"type.highway.track.permissive" = "Улица";
+"type.highway.track.permissive" = "Грунтовка";
 
-"type.highway.track.tunnel" = "Улица";
+"type.highway.track.tunnel" = "Грунтовка";
 
 "type.highway.traffic_signals" = "Светофор";
 
-"type.highway.trunk" = "Улица";
+"type.highway.trunk" = "Трасса";
 
-"type.highway.trunk.bridge" = "Улица";
+"type.highway.trunk.bridge" = "Трасса";
 
-"type.highway.trunk.tunnel" = "Улица";
+"type.highway.trunk.tunnel" = "Трасса";
 
-"type.highway.trunk_link" = "Улица";
+"type.highway.trunk_link" = "Съезд с трассы";
 
-"type.highway.trunk_link.bridge" = "Улица";
+"type.highway.trunk_link.bridge" = "Съезд с трассы";
 
-"type.highway.trunk_link.tunnel" = "Улица";
+"type.highway.trunk_link.tunnel" = "Съезд с трассы";
 
-"type.highway.unclassified" = "Улица";
+"type.highway.unclassified" = "Небольшая дорога";
 
-"type.highway.unclassified.area" = "Улица";
+"type.highway.unclassified.area" = "Небольшая дорога";
 
-"type.highway.unclassified.bridge" = "Улица";
+"type.highway.unclassified.bridge" = "Небольшая дорога";
 
-"type.highway.unclassified.tunnel" = "Улица";
+"type.highway.unclassified.tunnel" = "Небольшая дорога";
+
+"type.area_highway.cycleway" = "Велодорожка";
+
+"type.area_highway.footway" = "Пешеходная дорожка";
+
+"type.area_highway.living_street" = "Жилая зона";
+
+"type.area_highway.motorway" = "Автомагистраль";
+
+"type.area_highway.path" = "Тропа";
+
+"type.area_highway.pedestrian" = "Пешеходная улица";
+
+"type.area_highway.primary" = "Шоссе";
+
+"type.area_highway.residential" = "Улица";
+
+"type.area_highway.secondary" = "Автодорога";
+
+"type.area_highway.service" = "Проезд";
+
+"type.area_highway.tertiary" = "Дорога";
+
+"type.area_highway.steps" = "Лестница";
+
+"type.area_highway.track" = "Грунтовка";
+
+"type.area_highway.trunk" = "Трасса";
+
+"type.area_highway.unclassified" = "Небольшая дорога";
 
 "type.highway.world_level" = "highway-world_level";
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
 
 "type.historic" = "Исторический объект";
 
@@ -3168,33 +3204,3 @@
 "type.piste_type.sled" = "Трасса для саней";
 
 "type.building_part" = "Здание";
-
-"type.area_highway.cycleway" = "Велодорожка";
-
-"type.area_highway.footway" = "Дорожка";
-
-"type.area_highway.living_street" = "Улица";
-
-"type.area_highway.motorway" = "Автомагистраль";
-
-"type.area_highway.path" = "Дорожка";
-
-"type.area_highway.pedestrian" = "Улица";
-
-"type.area_highway.primary" = "Улица";
-
-"type.area_highway.residential" = "Улица";
-
-"type.area_highway.secondary" = "Улица";
-
-"type.area_highway.service" = "Улица";
-
-"type.area_highway.tertiary" = "Улица";
-
-"type.area_highway.steps" = "Лестница";
-
-"type.area_highway.track" = "Грунтовая дорога";
-
-"type.area_highway.trunk" = "Автомобильная трасса";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";

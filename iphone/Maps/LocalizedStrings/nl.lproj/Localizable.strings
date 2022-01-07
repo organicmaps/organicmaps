@@ -2023,27 +2023,30 @@
 
 "type.healthcare.laboratory" = "Medisch laboratorium";
 
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 
-"type.highway.bridleway" = "Rider's Path";
+"type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Rider's Path";
+"type.highway.bridleway.bridge" = "Bridle Path";
 
-"type.highway.bridleway.permissive" = "Rider's Path";
+"type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Rider's Path";
+"type.highway.bridleway.tunnel" = "Bridle Path";
 
 "type.highway.bus_stop" = "Bushalte";
 
 "type.highway.construction" = "Baan in aanbouw";
 
-"type.highway.cycleway" = "Bike Path";
+"type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Bike Path";
+"type.highway.cycleway.bridge" = "Cycle Path";
 
-"type.highway.cycleway.permissive" = "Bike Path";
+"type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Bike Path";
+"type.highway.cycleway.tunnel" = "Cycle Path";
 
 "type.highway.elevator" = "Elevator";
 
@@ -2113,7 +2116,7 @@
 
 "type.highway.path.permissive" = "Pad";
 
-"type.highway.path.tunnel" = "Tunnel";
+"type.highway.path.tunnel" = "Pad";
 
 "type.highway.pedestrian" = "Straat";
 
@@ -2177,7 +2180,7 @@
 
 "type.highway.service.tunnel" = "Straat";
 
-"type.highway.services" = "Service on the Road";
+"type.highway.services" = "Service Area";
 
 "type.highway.speed_camera" = "Flitspaal";
 
@@ -2243,9 +2246,42 @@
 
 "type.highway.unclassified.tunnel" = "Straat";
 
+"type.area_highway.cycleway" = "Cycle Path";
+
+"type.area_highway.footway" = "Pad";
+
+"type.area_highway.living_street" = "Straat";
+
+"type.area_highway.motorway" = "Straat";
+
+"type.area_highway.path" = "Pad";
+
+"type.area_highway.pedestrian" = "Straat";
+
+"type.area_highway.primary" = "Straat";
+
+"type.area_highway.residential" = "Straat";
+
+"type.area_highway.secondary" = "Straat";
+
+"type.area_highway.service" = "Straat";
+
+"type.area_highway.tertiary" = "Straat";
+
+"type.area_highway.steps" = "Pad";
+
+"type.area_highway.track" = "Straat";
+
+"type.area_highway.trunk" = "Straat";
+
+"type.area_highway.unclassified" = "Straat";
+
 "type.highway.world_level" = "highway-world_level";
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
 
 "type.historic" = "Historic";
 
@@ -3168,33 +3204,3 @@
 "type.piste_type.sled" = "piste:type-sled";
 
 "type.building_part" = "Gebouw";
-
-"type.area_highway.cycleway" = "Bike Path";
-
-"type.area_highway.footway" = "Path";
-
-"type.area_highway.living_street" = "Street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "Path";
-
-"type.area_highway.pedestrian" = "Street";
-
-"type.area_highway.primary" = "Street";
-
-"type.area_highway.residential" = "Street";
-
-"type.area_highway.secondary" = "Street";
-
-"type.area_highway.service" = "Street";
-
-"type.area_highway.tertiary" = "Street";
-
-"type.area_highway.steps" = "Steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";

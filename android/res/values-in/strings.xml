@@ -1032,6 +1032,8 @@
 	<string name="type.emergency.phone">Telepon darurat</string>
 	<string name="type.entrance">Pintu masuk</string>
 	<string name="type.healthcare.laboratory">Laboratorium medis</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Halte bus</string>
 	<string name="type.highway.construction">Jalan sedang dibangun</string>
 	<string name="type.highway.footway">Jalur</string>
@@ -1131,6 +1133,22 @@
 	<string name="type.highway.unclassified.area">Jalan</string>
 	<string name="type.highway.unclassified.bridge">Jalan</string>
 	<string name="type.highway.unclassified.tunnel">Jalan</string>
+	<string name="type.area_highway.footway">Jalur</string>
+	<string name="type.area_highway.living_street">Jalan</string>
+	<string name="type.area_highway.motorway">Jalan</string>
+	<string name="type.area_highway.path">Jalur</string>
+	<string name="type.area_highway.pedestrian">Jalan</string>
+	<string name="type.area_highway.primary">Jalan</string>
+	<string name="type.area_highway.residential">Jalan</string>
+	<string name="type.area_highway.secondary">Jalan</string>
+	<string name="type.area_highway.service">Jalan</string>
+	<string name="type.area_highway.tertiary">Jalan</string>
+	<string name="type.area_highway.steps">Jalur</string>
+	<string name="type.area_highway.track">Jalan</string>
+	<string name="type.area_highway.trunk">Jalan</string>
+	<string name="type.area_highway.unclassified">Jalan</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Situs arkeologi</string>
 	<string name="type.historic.castle">Kastel</string>
 	<string name="type.historic.castle.defensive">Kastel</string>

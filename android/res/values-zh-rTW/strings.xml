@@ -1068,6 +1068,8 @@
 	<string name="type.emergency.phone">緊急電話</string>
 	<string name="type.entrance">入口</string>
 	<string name="type.healthcare.laboratory">醫學實驗室</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">巴士站</string>
 	<string name="type.highway.construction">在建道路</string>
 	<string name="type.highway.footway">人行步道</string>
@@ -1168,6 +1170,22 @@
 	<string name="type.highway.unclassified.area">道路</string>
 	<string name="type.highway.unclassified.bridge">道路</string>
 	<string name="type.highway.unclassified.tunnel">道路</string>
+	<string name="type.area_highway.footway">人行步道</string>
+	<string name="type.area_highway.living_street">路</string>
+	<string name="type.area_highway.motorway">高速公路</string>
+	<string name="type.area_highway.path">人行步道</string>
+	<string name="type.area_highway.pedestrian">路</string>
+	<string name="type.area_highway.primary">主要道路</string>
+	<string name="type.area_highway.residential">住宅區道路</string>
+	<string name="type.area_highway.secondary">次要道路</string>
+	<string name="type.area_highway.service">輔助道路</string>
+	<string name="type.area_highway.tertiary">三级道路</string>
+	<string name="type.area_highway.steps">人行步道</string>
+	<string name="type.area_highway.track">土路</string>
+	<string name="type.area_highway.trunk">主幹道</string>
+	<string name="type.area_highway.unclassified">道路</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">考古遺址</string>
 	<string name="type.historic.castle">城堡</string>
 	<string name="type.historic.castle.defensive">城堡</string>
