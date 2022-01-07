@@ -19,27 +19,25 @@ run this script with the -h option.
 
 OMIM_ROOT = ""
 
-CORE_RE = re.compile(r'GetLocalizedString\(\"(.*?)\"\)')
+CORE_RE = re.compile(r'GetLocalizedString\("(.*?)"\)')
 
 # max 2 matches in L(). Tried to make ()+ group, but no luck ..
-IOS_RE = re.compile(r'L\(.*?\"(\w+)\".*?(?:\"(\w+)\")?\)')
-IOS_XML_RE = re.compile(r"value=\"(.*?)\"")
+IOS_RE = re.compile(r'L\(.*?"(\w+)".*?(?:"(\w+)")?\)')
+IOS_NS_RE = re.compile(r'NSLocalizedString\(\s*?"(\w+)"')
+IOS_XML_RE = re.compile(r'value=\"(.*?)\"')
 
-ANDROID_JAVA_RE = re.compile(r"R\.string\.([\w_]*)")
-ANDROID_JAVA_PLURAL_RE = re.compile(r"R\.plurals\.([\w_]*)")
-ANDROID_XML_RE = re.compile(r"@string/(.*?)\W")
+ANDROID_JAVA_RE = re.compile(r'R\.string\.([\w_]*)')
+ANDROID_JAVA_PLURAL_RE = re.compile(r'R\.plurals\.([\w_]*)')
+ANDROID_XML_RE = re.compile(r'@string/(.*?)\W')
 
-IOS_CANDIDATES_RE = re.compile(r"(.*?):[^L\(]@\"([a-z0-9_]*?)\"")
+IOS_CANDIDATES_RE = re.compile(r'(.*?):[^L\(]@"([a-z0-9_]*?)"')
 
 HARDCODED_CATEGORIES = None
 
 HARDCODED_COLORS = [
     # titleForBookmarkColor
     "red", "blue", "purple", "yellow", "pink", "brown", "green", "orange", "deep_purple", "light_blue",
-    "cyan", "teal", "lime", "deep_orange", "gray", "blue_gray",
-
-    # NSLocalizedString
-    "placepage_distance"
+    "cyan", "teal", "lime", "deep_orange", "gray", "blue_gray"
 ]
 
 
@@ -59,12 +57,13 @@ def exec_shell(test, *flags):
 
 def grep_ios():
     logging.info("Grepping iOS...")
-    grep = "grep -r -I 'L(\|localizedText\|localizedPlaceholder' {0}/iphone/*".format(OMIM_ROOT)
+    grep = "grep -r -I 'L(\|localizedText\|localizedPlaceholder\|NSLocalizedString(' {0}/iphone/*".format(OMIM_ROOT)
     ret = exec_shell(grep)
+    ret = filter_ios_grep(ret)
     logging.info("Found in iOS: {0}".format(len(ret)))
+    ret.update(get_hardcoded())
 
-    return filter_ios_grep(ret)
-
+    return ret
 
 def grep_android():
     logging.info("Grepping android...")
@@ -76,9 +75,12 @@ def grep_android():
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
     grep = "grep -r -I '@string/' {0}/android/AndroidManifest.xml".format(OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
-    logging.info("Found in android: {0}".format(len(ret)))
+    ret = parenthesize(ret)
 
-    return parenthesize(ret)
+    logging.info("Found in android: {0}".format(len(ret)))
+    ret.update(get_hardcoded())
+
+    return ret
 
 def grep_core():
     logging.info("Grepping core...")
@@ -97,6 +99,11 @@ def grep_ios_candidates():
     strs = strings_from_grepped(ret, IOS_CANDIDATES_RE)
     return strs
 
+def get_hardcoded():
+    ret = parenthesize(HARDCODED_CATEGORIES)
+    ret.update(parenthesize(HARDCODED_COLORS))
+    logging.info("Hardcoded colors and categories: {0}".format(len(ret)))
+    return ret
 
 def android_grep_wrapper(grep, regex):
     grepped = exec_shell(grep)
@@ -106,9 +113,8 @@ def android_grep_wrapper(grep, regex):
 def filter_ios_grep(strings):
     filtered = strings_from_grepped_tuple(strings, IOS_RE)
     filtered = parenthesize(process_ternary_operators(filtered))
+    filtered.update(parenthesize(strings_from_grepped(strings, IOS_NS_RE)))
     filtered.update(parenthesize(strings_from_grepped(strings, IOS_XML_RE)))
-    filtered.update(parenthesize(HARDCODED_CATEGORIES))
-    filtered.update(parenthesize(HARDCODED_COLORS))
     return filtered
 
 
@@ -349,6 +355,7 @@ def find_omim():
 
 
 def read_hardcoded_categories(a_path):
+    logging.info("Loading harcoded categories from: {0}".format(a_path))
     with open(a_path) as infile:
         return [s.strip() for s in infile if s]
 
@@ -359,6 +366,8 @@ if __name__ == "__main__":
 
     OMIM_ROOT=args.omim_root
 
+    # TODO: switch to a single source of hardcoded categories,
+    # see https://github.com/organicmaps/organicmaps/issues/1795
     HARDCODED_CATEGORIES = read_hardcoded_categories(
         args.hardcoded_categories
     )

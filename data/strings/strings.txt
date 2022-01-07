@@ -2045,7 +2045,7 @@
 
   [transport]
     comment = Search category
-    tags = ios
+    tags = android,ios
     en = Transport
     ar = نقل
     be = Транспарт
@@ -2157,7 +2157,7 @@
 
   [shopping]
     comment = Search category for clothes/shoes/gifts/jewellery/sport shops
-    tags = ios
+    tags = android,ios
     en = Shopping
     ar = التسوق
     be = Закупы
@@ -2194,7 +2194,7 @@
 
   [hotel]
     comment = Search category
-    tags = ios
+    tags = android,ios
     en = Hotel
     ar = فندق
     be = Гатэль
@@ -2231,7 +2231,7 @@
 
   [tourism]
     comment = Search category
-    tags = ios
+    tags = android,ios
     en = Sights
     ar = سياحة
     be = Славутасці
@@ -2342,7 +2342,7 @@
 
   [nightlife]
     comment = Search category for nightclubs/bars
-    tags = ios
+    tags = android,ios
     en = Nightlife
     ar = أنشطة ترفيه ليلية
     be = Начное жыццё
@@ -2379,7 +2379,7 @@
 
   [children]
     comment = Search category for water park/disneyland/playground/toys store
-    tags = ios
+    tags = android,ios
     en = Family holiday
     ar = عطلة عائلية
     be = Сямейны адпачынак
@@ -2416,7 +2416,7 @@
 
   [bank]
     comment = Search category
-    tags = ios
+    tags = android,ios
     en = Bank
     ar = بنك
     be = Банк
@@ -2453,7 +2453,7 @@
 
   [pharmacy]
     comment = Search category
-    tags = ios
+    tags = android,ios
     en = Pharmacy
     ar = صيدلية
     be = Аптэка
@@ -2490,7 +2490,7 @@
 
   [hospital]
     comment = Search category
-    tags = ios
+    tags = android,ios
     en = Hospital
     ar = مستشفى
     be = Лякарня
@@ -2528,7 +2528,7 @@
 
   [toilet]
     comment = Search category
-    tags = ios
+    tags = android,ios
     en = Toilet
     ar = حمام
     be = Прыбіральня
@@ -2565,7 +2565,7 @@
 
   [post]
     comment = Search category
-    tags = ios
+    tags = android,ios
     en = Post
     ar = بريد
     be = Пошта
@@ -2602,7 +2602,7 @@
 
   [police]
     comment = Search category
-    tags = ios
+    tags = android,ios
     en = Police
     ar = شرطة
     be = Паліцыя
@@ -6008,7 +6008,7 @@
 
   [red]
     comment = red color
-    tags = ios
+    tags = android,ios
     en = Red
     ar = أحمر
     be = Чырвоны
@@ -6045,7 +6045,7 @@
 
   [yellow]
     comment = yellow color
-    tags = ios
+    tags = android,ios
     en = Yellow
     ar = أصفر
     be = Жоўты
@@ -6082,7 +6082,7 @@
 
   [blue]
     comment = blue color
-    tags = ios
+    tags = android,ios
     en = Blue
     ar = أزرق
     be = Сіні
@@ -6119,7 +6119,7 @@
 
   [green]
     comment = green color
-    tags = ios
+    tags = android,ios
     en = Green
     ar = أخضر
     be = Зялёны
@@ -6156,7 +6156,7 @@
 
   [purple]
     comment = purple color
-    tags = ios
+    tags = android,ios
     en = Purple
     ar = أرجواني
     be = Пурпурны
@@ -6193,7 +6193,7 @@
 
   [orange]
     comment = orange color
-    tags = ios
+    tags = android,ios
     en = Orange
     ar = برتقالي
     be = Аранжавы
@@ -6230,7 +6230,7 @@
 
   [brown]
     comment = brown color
-    tags = ios
+    tags = android,ios
     en = Brown
     ar = بني
     be = Карычневы
@@ -6267,7 +6267,7 @@
 
   [pink]
     comment = pink color
-    tags = ios
+    tags = android,ios
     en = Pink
     ar = وردي
     be = Ружовы
@@ -6304,7 +6304,7 @@
 
   [deep_purple]
     comment = deep purple color
-    tags = ios
+    tags = android,ios
     en = Deep Purple
     ar = أرجواني داكن
     be = Цёмна-пурпурны
@@ -6341,7 +6341,7 @@
 
   [light_blue]
     comment = light blue color
-    tags = ios
+    tags = android,ios
     en = Light Blue
     ar = أزرق فاتح
     be = Блакітны
@@ -6378,7 +6378,7 @@
 
   [cyan]
     comment = cyan color
-    tags = ios
+    tags = android,ios
     en = Cyan
     ar = أزرق سماوي
     be = Сіне-зялёны
@@ -6415,7 +6415,7 @@
 
   [teal]
     comment = teal color
-    tags = ios
+    tags = android,ios
     en = Teal
     ar = أخضر فاتح
     be = Смарагдавы
@@ -6452,7 +6452,7 @@
 
   [lime]
     comment = lime color
-    tags = ios
+    tags = android,ios
     en = Lime
     ar = ليموني
     be = Лайм
@@ -6489,7 +6489,7 @@
 
   [deep_orange]
     comment = deep orange color
-    tags = ios
+    tags = android,ios
     en = Deep Orange
     ar = برتقالي داكن
     be = Цёмна-аранжавы
@@ -6526,7 +6526,7 @@
 
   [gray]
     comment = gray color
-    tags = ios
+    tags = android,ios
     en = Gray
     ar = رمادي
     be = Шэры
@@ -6563,7 +6563,7 @@
 
   [blue_gray]
     comment = blue gray color
-    tags = ios
+    tags = android,ios
     en = Blue Gray
     ar = رمادي أزرق
     be = Блакітна-шэры
