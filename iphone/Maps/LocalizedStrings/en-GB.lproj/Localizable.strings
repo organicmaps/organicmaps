@@ -2023,37 +2023,40 @@
 
 "type.healthcare.laboratory" = "Medical Laboratory";
 
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 
-"type.highway.bridleway" = "Rider's Path";
+"type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Rider's Path";
+"type.highway.bridleway.bridge" = "Bridle Path";
 
-"type.highway.bridleway.permissive" = "Rider's Path";
+"type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Rider's Path";
+"type.highway.bridleway.tunnel" = "Bridle Path";
 
 "type.highway.bus_stop" = "Bus Stop";
 
-"type.highway.construction" = "Road under Construction";
+"type.highway.construction" = "Road Under Construction";
 
-"type.highway.cycleway" = "Bike Path";
+"type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Bike Path";
+"type.highway.cycleway.bridge" = "Cycle Path";
 
-"type.highway.cycleway.permissive" = "Bike Path";
+"type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Bike Path";
+"type.highway.cycleway.tunnel" = "Cycle Path";
 
 "type.highway.elevator" = "Lift";
 
-"type.highway.footway" = "Path";
+"type.highway.footway" = "Foot Path";
 
 "type.highway.footway.alpine_hiking" = "Path";
 
-"type.highway.footway.area" = "Path";
+"type.highway.footway.area" = "Foot Path";
 
-"type.highway.footway.bridge" = "Path";
+"type.highway.footway.bridge" = "Foot Path";
 
 "type.highway.footway.demanding_alpine_hiking" = "Path";
 
@@ -2065,31 +2068,31 @@
 
 "type.highway.footway.mountain_hiking" = "Path";
 
-"type.highway.footway.permissive" = "Path";
+"type.highway.footway.permissive" = "Foot Path";
 
-"type.highway.footway.tunnel" = "Path";
+"type.highway.footway.tunnel" = "Foot Path";
 
 "type.highway.ford" = "Ford";
 
-"type.highway.living_street" = "Street";
+"type.highway.living_street" = "Living Street";
 
-"type.highway.living_street.bridge" = "Street";
+"type.highway.living_street.bridge" = "Living Street";
 
-"type.highway.living_street.tunnel" = "Street";
+"type.highway.living_street.tunnel" = "Living Street";
 
-"type.highway.motorway" = "Street";
+"type.highway.motorway" = "Motorway";
 
-"type.highway.motorway.bridge" = "Street";
+"type.highway.motorway.bridge" = "Motorway";
 
-"type.highway.motorway.tunnel" = "Street";
+"type.highway.motorway.tunnel" = "Motorway";
 
-"type.highway.motorway_junction" = "Exit";
+"type.highway.motorway_junction" = "Road Exit";
 
-"type.highway.motorway_link" = "Street";
+"type.highway.motorway_link" = "Motorway";
 
-"type.highway.motorway_link.bridge" = "Street";
+"type.highway.motorway_link.bridge" = "Motorway";
 
-"type.highway.motorway_link.tunnel" = "Street";
+"type.highway.motorway_link.tunnel" = "Motorway";
 
 "type.highway.path" = "Path";
 
@@ -2115,25 +2118,25 @@
 
 "type.highway.path.tunnel" = "Path";
 
-"type.highway.pedestrian" = "Street";
+"type.highway.pedestrian" = "Pedestrian Street";
 
-"type.highway.pedestrian.area" = "Street";
+"type.highway.pedestrian.area" = "Pedestrian Street";
 
-"type.highway.pedestrian.bridge" = "Street";
+"type.highway.pedestrian.bridge" = "Pedestrian Street";
 
-"type.highway.pedestrian.tunnel" = "Street";
+"type.highway.pedestrian.tunnel" = "Pedestrian Street";
 
-"type.highway.primary" = "Street";
+"type.highway.primary" = "Primary Road";
 
-"type.highway.primary.bridge" = "Street";
+"type.highway.primary.bridge" = "Primary Road";
 
-"type.highway.primary.tunnel" = "Street";
+"type.highway.primary.tunnel" = "Primary Road";
 
-"type.highway.primary_link" = "Street";
+"type.highway.primary_link" = "Primary Road";
 
-"type.highway.primary_link.bridge" = "Street";
+"type.highway.primary_link.bridge" = "Primary Road";
 
-"type.highway.primary_link.tunnel" = "Street";
+"type.highway.primary_link.tunnel" = "Primary Road";
 
 "type.highway.raceway" = "Racetrack";
 
@@ -2145,107 +2148,140 @@
 
 "type.highway.residential.tunnel" = "Street";
 
-"type.highway.rest_area" = "Highway Rest Area";
+"type.highway.rest_area" = "Rest Area";
 
-"type.highway.road" = "Street";
+"type.highway.road" = "Road";
 
-"type.highway.road.bridge" = "Street";
+"type.highway.road.bridge" = "Road";
 
-"type.highway.road.tunnel" = "Street";
+"type.highway.road.tunnel" = "Road";
 
-"type.highway.secondary" = "Street";
+"type.highway.secondary" = "Secondary Road";
 
-"type.highway.secondary.bridge" = "Street";
+"type.highway.secondary.bridge" = "Secondary Road";
 
-"type.highway.secondary.tunnel" = "Street";
+"type.highway.secondary.tunnel" = "Secondary Road";
 
-"type.highway.secondary_link" = "Street";
+"type.highway.secondary_link" = "Secondary Road";
 
-"type.highway.secondary_link.bridge" = "Street";
+"type.highway.secondary_link.bridge" = "Secondary Road";
 
-"type.highway.secondary_link.tunnel" = "Street";
+"type.highway.secondary_link.tunnel" = "Secondary Road";
 
-"type.highway.service" = "Street";
+"type.highway.service" = "Service Road";
 
-"type.highway.service.area" = "Street";
+"type.highway.service.area" = "Service Road";
 
-"type.highway.service.bridge" = "Street";
+"type.highway.service.bridge" = "Service Road";
 
-"type.highway.service.driveway" = "Street";
+"type.highway.service.driveway" = "Service Road";
 
-"type.highway.service.parking_aisle" = "Street";
+"type.highway.service.parking_aisle" = "Service Road";
 
-"type.highway.service.tunnel" = "Street";
+"type.highway.service.tunnel" = "Service Road";
 
-"type.highway.services" = "Service on the Road";
+"type.highway.services" = "Service Area";
 
 "type.highway.speed_camera" = "Speed Camera";
 
-"type.highway.steps" = "Path";
+"type.highway.steps" = "Stairs";
 
-"type.highway.steps.bridge" = "Path";
+"type.highway.steps.bridge" = "Stairs";
 
-"type.highway.steps.tunnel" = "Path";
+"type.highway.steps.tunnel" = "Stairs";
 
-"type.highway.tertiary" = "Street";
+"type.highway.tertiary" = "Tertiary Road";
 
-"type.highway.tertiary.bridge" = "Street";
+"type.highway.tertiary.bridge" = "Tertiary Road";
 
-"type.highway.tertiary.tunnel" = "Street";
+"type.highway.tertiary.tunnel" = "Tertiary Road";
 
-"type.highway.tertiary_link" = "Street";
+"type.highway.tertiary_link" = "Tertiary Road";
 
-"type.highway.tertiary_link.bridge" = "Street";
+"type.highway.tertiary_link.bridge" = "Tertiary Road";
 
-"type.highway.tertiary_link.tunnel" = "Street";
+"type.highway.tertiary_link.tunnel" = "Tertiary Road";
 
-"type.highway.track" = "Street";
+"type.highway.track" = "Track";
 
-"type.highway.track.area" = "Street";
+"type.highway.track.area" = "Track";
 
-"type.highway.track.bridge" = "Street";
+"type.highway.track.bridge" = "Track";
 
-"type.highway.track.grade1" = "Street";
+"type.highway.track.grade1" = "Track";
 
-"type.highway.track.grade2" = "Street";
+"type.highway.track.grade2" = "Track";
 
-"type.highway.track.grade3" = "Street";
+"type.highway.track.grade3" = "Track";
 
-"type.highway.track.grade4" = "Street";
+"type.highway.track.grade4" = "Track";
 
-"type.highway.track.grade5" = "Street";
+"type.highway.track.grade5" = "Track";
 
-"type.highway.track.no.access" = "Street";
+"type.highway.track.no.access" = "Track";
 
-"type.highway.track.permissive" = "Street";
+"type.highway.track.permissive" = "Track";
 
-"type.highway.track.tunnel" = "Street";
+"type.highway.track.tunnel" = "Track";
 
 "type.highway.traffic_signals" = "Traffic Lights";
 
-"type.highway.trunk" = "Street";
+"type.highway.trunk" = "National Highway";
 
-"type.highway.trunk.bridge" = "Street";
+"type.highway.trunk.bridge" = "National Highway";
 
-"type.highway.trunk.tunnel" = "Street";
+"type.highway.trunk.tunnel" = "National Highway";
 
-"type.highway.trunk_link" = "Street";
+"type.highway.trunk_link" = "National Highway";
 
-"type.highway.trunk_link.bridge" = "Street";
+"type.highway.trunk_link.bridge" = "National Highway";
 
-"type.highway.trunk_link.tunnel" = "Street";
+"type.highway.trunk_link.tunnel" = "National Highway";
 
-"type.highway.unclassified" = "Street";
+"type.highway.unclassified" = "Minor Road";
 
-"type.highway.unclassified.area" = "Street";
+"type.highway.unclassified.area" = "Minor Road";
 
-"type.highway.unclassified.bridge" = "Street";
+"type.highway.unclassified.bridge" = "Minor Road";
 
-"type.highway.unclassified.tunnel" = "Street";
+"type.highway.unclassified.tunnel" = "Minor Road";
+
+"type.area_highway.cycleway" = "Cycle Path";
+
+"type.area_highway.footway" = "Foot Path";
+
+"type.area_highway.living_street" = "Living Street";
+
+"type.area_highway.motorway" = "Motorway";
+
+"type.area_highway.path" = "Path";
+
+"type.area_highway.pedestrian" = "Pedestrian Street";
+
+"type.area_highway.primary" = "Primary Road";
+
+"type.area_highway.residential" = "Street";
+
+"type.area_highway.secondary" = "Secondary Road";
+
+"type.area_highway.service" = "Service Road";
+
+"type.area_highway.tertiary" = "Tertiary Road";
+
+"type.area_highway.steps" = "Stairs";
+
+"type.area_highway.track" = "Track";
+
+"type.area_highway.trunk" = "National Highway";
+
+"type.area_highway.unclassified" = "Minor Road";
 
 "type.highway.world_level" = "highway-world_level";
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
 
 "type.historic" = "Historic";
 
@@ -3168,33 +3204,3 @@
 "type.piste_type.sled" = "piste:type-sled";
 
 "type.building_part" = "Building";
-
-"type.area_highway.cycleway" = "Bike Path";
-
-"type.area_highway.footway" = "Path";
-
-"type.area_highway.living_street" = "Street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "Path";
-
-"type.area_highway.pedestrian" = "Street";
-
-"type.area_highway.primary" = "Street";
-
-"type.area_highway.residential" = "Street";
-
-"type.area_highway.secondary" = "Street";
-
-"type.area_highway.service" = "Street";
-
-"type.area_highway.tertiary" = "Street";
-
-"type.area_highway.steps" = "Steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";

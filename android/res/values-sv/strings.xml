@@ -1030,6 +1030,8 @@
 	<string name="type.emergency.phone">Nödtelefon</string>
 	<string name="type.entrance">Entré</string>
 	<string name="type.healthcare.laboratory">Medicinskt laboratorium</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Busshållplats</string>
 	<string name="type.highway.construction">Väg under uppförande</string>
 	<string name="type.highway.footway">Gångväg</string>
@@ -1129,6 +1131,22 @@
 	<string name="type.highway.unclassified.area">Gata</string>
 	<string name="type.highway.unclassified.bridge">Gata</string>
 	<string name="type.highway.unclassified.tunnel">Gata</string>
+	<string name="type.area_highway.footway">Gångväg</string>
+	<string name="type.area_highway.living_street">Gata</string>
+	<string name="type.area_highway.motorway">Gata</string>
+	<string name="type.area_highway.path">Gångväg</string>
+	<string name="type.area_highway.pedestrian">Gata</string>
+	<string name="type.area_highway.primary">Gata</string>
+	<string name="type.area_highway.residential">Gata</string>
+	<string name="type.area_highway.secondary">Gata</string>
+	<string name="type.area_highway.service">Gata</string>
+	<string name="type.area_highway.tertiary">Gata</string>
+	<string name="type.area_highway.steps">Gångväg</string>
+	<string name="type.area_highway.track">Gata</string>
+	<string name="type.area_highway.trunk">Gata</string>
+	<string name="type.area_highway.unclassified">Gata</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Arkeologisk plats</string>
 	<string name="type.historic.castle">Slott</string>
 	<string name="type.historic.castle.defensive">Slott</string>

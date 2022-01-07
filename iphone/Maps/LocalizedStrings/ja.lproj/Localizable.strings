@@ -2023,6 +2023,9 @@
 
 "type.healthcare.laboratory" = "医療研究所";
 
+
+/********** Types: Roads **********/
+
 "type.highway" = "道路";
 
 "type.highway.bridleway" = "馬道";
@@ -2243,9 +2246,42 @@
 
 "type.highway.unclassified.tunnel" = "ストリート";
 
+"type.area_highway.cycleway" = "自転車道";
+
+"type.area_highway.footway" = "歩道";
+
+"type.area_highway.living_street" = "ストリート";
+
+"type.area_highway.motorway" = "ストリート";
+
+"type.area_highway.path" = "歩道";
+
+"type.area_highway.pedestrian" = "ストリート";
+
+"type.area_highway.primary" = "ストリート";
+
+"type.area_highway.residential" = "ストリート";
+
+"type.area_highway.secondary" = "ストリート";
+
+"type.area_highway.service" = "ストリート";
+
+"type.area_highway.tertiary" = "ストリート";
+
+"type.area_highway.steps" = "歩道";
+
+"type.area_highway.track" = "ストリート";
+
+"type.area_highway.trunk" = "ストリート";
+
+"type.area_highway.unclassified" = "ストリート";
+
 "type.highway.world_level" = "highway-world_level";
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
 
 "type.historic" = "史跡";
 
@@ -3168,33 +3204,3 @@
 "type.piste_type.sled" = "piste:type-sled";
 
 "type.building_part" = "建物";
-
-"type.area_highway.cycleway" = "Bike Path";
-
-"type.area_highway.footway" = "Path";
-
-"type.area_highway.living_street" = "Street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "Path";
-
-"type.area_highway.pedestrian" = "Street";
-
-"type.area_highway.primary" = "Street";
-
-"type.area_highway.residential" = "Street";
-
-"type.area_highway.secondary" = "Street";
-
-"type.area_highway.service" = "Street";
-
-"type.area_highway.tertiary" = "Street";
-
-"type.area_highway.steps" = "Steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";

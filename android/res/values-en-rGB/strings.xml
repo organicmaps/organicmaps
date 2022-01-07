@@ -13,6 +13,6 @@
 	<!-- Search category -->
 	<string name="fuel">Petrol</string>
 
-	<!-- SECTION: Types -->
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.elevator">Lift</string>
 </resources>

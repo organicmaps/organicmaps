@@ -2023,27 +2023,30 @@
 
 "type.healthcare.laboratory" = "ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ";
 
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 
-"type.highway.bridleway" = "Rider's Path";
+"type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Rider's Path";
+"type.highway.bridleway.bridge" = "Bridle Path";
 
-"type.highway.bridleway.permissive" = "Rider's Path";
+"type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Rider's Path";
+"type.highway.bridleway.tunnel" = "Bridle Path";
 
 "type.highway.bus_stop" = "حمل و نقل";
 
 "type.highway.construction" = "جاده در دست ساخت است";
 
-"type.highway.cycleway" = "Bike Path";
+"type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Bike Path";
+"type.highway.cycleway.bridge" = "Cycle Path";
 
-"type.highway.cycleway.permissive" = "Bike Path";
+"type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Bike Path";
+"type.highway.cycleway.tunnel" = "Cycle Path";
 
 "type.highway.elevator" = "Elevator";
 
@@ -2145,7 +2148,7 @@
 
 "type.highway.residential.tunnel" = "جاده";
 
-"type.highway.rest_area" = "Highway Rest Area";
+"type.highway.rest_area" = "Rest Area";
 
 "type.highway.road" = "جاده";
 
@@ -2177,7 +2180,7 @@
 
 "type.highway.service.tunnel" = "جاده";
 
-"type.highway.services" = "Service on the Road";
+"type.highway.services" = "Service Area";
 
 "type.highway.speed_camera" = "دوربین سرعت سنج";
 
@@ -2243,9 +2246,42 @@
 
 "type.highway.unclassified.tunnel" = "جاده";
 
+"type.area_highway.cycleway" = "Cycle Path";
+
+"type.area_highway.footway" = "مسیر";
+
+"type.area_highway.living_street" = "جاده";
+
+"type.area_highway.motorway" = "جاده";
+
+"type.area_highway.path" = "مسیر";
+
+"type.area_highway.pedestrian" = "جاده";
+
+"type.area_highway.primary" = "جاده";
+
+"type.area_highway.residential" = "جاده";
+
+"type.area_highway.secondary" = "جاده";
+
+"type.area_highway.service" = "جاده";
+
+"type.area_highway.tertiary" = "جاده";
+
+"type.area_highway.steps" = "مسیر";
+
+"type.area_highway.track" = "جاده";
+
+"type.area_highway.trunk" = "جاده";
+
+"type.area_highway.unclassified" = "جاده";
+
 "type.highway.world_level" = "highway-world_level";
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
 
 "type.historic" = "Historic";
 
@@ -3168,33 +3204,3 @@
 "type.piste_type.sled" = "piste:type-sled";
 
 "type.building_part" = "ساختما";
-
-"type.area_highway.cycleway" = "Bike Path";
-
-"type.area_highway.footway" = "Path";
-
-"type.area_highway.living_street" = "Street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "Path";
-
-"type.area_highway.pedestrian" = "Street";
-
-"type.area_highway.primary" = "Street";
-
-"type.area_highway.residential" = "Street";
-
-"type.area_highway.secondary" = "Street";
-
-"type.area_highway.service" = "Street";
-
-"type.area_highway.tertiary" = "Street";
-
-"type.area_highway.steps" = "Steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";

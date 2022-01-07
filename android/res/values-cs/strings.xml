@@ -1036,6 +1036,8 @@
 	<string name="type.emergency.phone">Tísňového volání</string>
 	<string name="type.entrance">Vchod</string>
 	<string name="type.healthcare.laboratory">Lékařská laboratoř</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Autobusová zastávka</string>
 	<string name="type.highway.construction">Silnice v rekonstrukci</string>
 	<string name="type.highway.footway">Cesta</string>
@@ -1135,6 +1137,22 @@
 	<string name="type.highway.unclassified.area">Ulice</string>
 	<string name="type.highway.unclassified.bridge">Ulice</string>
 	<string name="type.highway.unclassified.tunnel">Ulice</string>
+	<string name="type.area_highway.footway">Cesta</string>
+	<string name="type.area_highway.living_street">Ulice</string>
+	<string name="type.area_highway.motorway">Ulice</string>
+	<string name="type.area_highway.path">Cesta</string>
+	<string name="type.area_highway.pedestrian">Ulice</string>
+	<string name="type.area_highway.primary">Ulice</string>
+	<string name="type.area_highway.residential">Ulice</string>
+	<string name="type.area_highway.secondary">Ulice</string>
+	<string name="type.area_highway.service">Ulice</string>
+	<string name="type.area_highway.tertiary">Ulice</string>
+	<string name="type.area_highway.steps">Cesta</string>
+	<string name="type.area_highway.track">Ulice</string>
+	<string name="type.area_highway.trunk">Ulice</string>
+	<string name="type.area_highway.unclassified">Ulice</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Vykopávky</string>
 	<string name="type.historic.castle">Zámek</string>
 	<string name="type.historic.castle.defensive">Zámek</string>

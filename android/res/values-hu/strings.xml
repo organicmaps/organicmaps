@@ -1034,6 +1034,8 @@
 	<string name="type.emergency.phone">Sürgősségi telefon</string>
 	<string name="type.entrance">Bejárat</string>
 	<string name="type.healthcare.laboratory">Orvosi laboratórium</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Buszmegálló</string>
 	<string name="type.highway.construction">Útépítés</string>
 	<string name="type.highway.footway">Ösvény</string>
@@ -1133,6 +1135,22 @@
 	<string name="type.highway.unclassified.area">Utca</string>
 	<string name="type.highway.unclassified.bridge">Utca</string>
 	<string name="type.highway.unclassified.tunnel">Utca</string>
+	<string name="type.area_highway.footway">Ösvény</string>
+	<string name="type.area_highway.living_street">Utca</string>
+	<string name="type.area_highway.motorway">Utca</string>
+	<string name="type.area_highway.path">Ösvény</string>
+	<string name="type.area_highway.pedestrian">Utca</string>
+	<string name="type.area_highway.primary">Utca</string>
+	<string name="type.area_highway.residential">Utca</string>
+	<string name="type.area_highway.secondary">Utca</string>
+	<string name="type.area_highway.service">Utca</string>
+	<string name="type.area_highway.tertiary">Utca</string>
+	<string name="type.area_highway.steps">Ösvény</string>
+	<string name="type.area_highway.track">Utca</string>
+	<string name="type.area_highway.trunk">Utca</string>
+	<string name="type.area_highway.unclassified">Utca</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Ásatás</string>
 	<string name="type.historic.castle">Kastély</string>
 	<string name="type.historic.castle.defensive">Kastély</string>

@@ -1058,6 +1058,8 @@
 	<string name="type.emergency.phone">緊急電話</string>
 	<string name="type.entrance">エントランス</string>
 	<string name="type.healthcare.laboratory">医療研究所</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">道路</string>
 	<string name="type.highway.bridleway">馬道</string>
 	<string name="type.highway.bridleway.bridge">馬道(橋)</string>
@@ -1167,6 +1169,23 @@
 	<string name="type.highway.unclassified.area">ストリート</string>
 	<string name="type.highway.unclassified.bridge">ストリート</string>
 	<string name="type.highway.unclassified.tunnel">ストリート</string>
+	<string name="type.area_highway.cycleway">自転車道</string>
+	<string name="type.area_highway.footway">歩道</string>
+	<string name="type.area_highway.living_street">ストリート</string>
+	<string name="type.area_highway.motorway">ストリート</string>
+	<string name="type.area_highway.path">歩道</string>
+	<string name="type.area_highway.pedestrian">ストリート</string>
+	<string name="type.area_highway.primary">ストリート</string>
+	<string name="type.area_highway.residential">ストリート</string>
+	<string name="type.area_highway.secondary">ストリート</string>
+	<string name="type.area_highway.service">ストリート</string>
+	<string name="type.area_highway.tertiary">ストリート</string>
+	<string name="type.area_highway.steps">歩道</string>
+	<string name="type.area_highway.track">ストリート</string>
+	<string name="type.area_highway.trunk">ストリート</string>
+	<string name="type.area_highway.unclassified">ストリート</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">史跡</string>
 	<string name="type.historic.archaeological_site">考古遺跡</string>
 	<string name="type.historic.battlefield">古戦場</string>

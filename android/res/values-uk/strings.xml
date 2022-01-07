@@ -1084,6 +1084,8 @@
 	<string name="type.emergency.phone">Аварійний телефон</string>
 	<string name="type.entrance">Вхід</string>
 	<string name="type.healthcare.laboratory">Медична лабораторія</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Зупинка</string>
 	<string name="type.highway.construction">Дорога, що будується</string>
 	<string name="type.highway.cycleway">Велодоріжка</string>
@@ -1188,6 +1190,23 @@
 	<string name="type.highway.unclassified.area">Вулиця</string>
 	<string name="type.highway.unclassified.bridge">Вулиця</string>
 	<string name="type.highway.unclassified.tunnel">Вулиця</string>
+	<string name="type.area_highway.cycleway">Велодоріжка</string>
+	<string name="type.area_highway.footway">Пішохідна доріжка</string>
+	<string name="type.area_highway.living_street">Вулиця</string>
+	<string name="type.area_highway.motorway">Вулиця</string>
+	<string name="type.area_highway.path">Пішохідна доріжка</string>
+	<string name="type.area_highway.pedestrian">Вулиця</string>
+	<string name="type.area_highway.primary">Вулиця</string>
+	<string name="type.area_highway.residential">Вулиця</string>
+	<string name="type.area_highway.secondary">Вулиця</string>
+	<string name="type.area_highway.service">Вулиця</string>
+	<string name="type.area_highway.tertiary">Вулиця</string>
+	<string name="type.area_highway.steps">Пішохідна доріжка</string>
+	<string name="type.area_highway.track">Вулиця</string>
+	<string name="type.area_highway.trunk">Вулиця</string>
+	<string name="type.area_highway.unclassified">Вулиця</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Історичний об\'єкт</string>
 	<string name="type.historic.archaeological_site">Пам\'ятка археології</string>
 	<string name="type.historic.battlefield">Поле битви</string>

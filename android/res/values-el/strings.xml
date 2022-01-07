@@ -1034,6 +1034,8 @@
 	<string name="type.emergency.phone">Τηλέφωνο έκτακτης ανάγκης</string>
 	<string name="type.entrance">Είσοδος</string>
 	<string name="type.healthcare.laboratory">Ιατρικό Εργαστήριο</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Στάση λεωφορείου</string>
 	<string name="type.highway.construction">Οδός υπό κατασκευή</string>
 	<string name="type.highway.footway">Διαδρομή</string>
@@ -1133,6 +1135,22 @@
 	<string name="type.highway.unclassified.area">Οδός</string>
 	<string name="type.highway.unclassified.bridge">Οδός</string>
 	<string name="type.highway.unclassified.tunnel">Οδός</string>
+	<string name="type.area_highway.footway">Διαδρομή</string>
+	<string name="type.area_highway.living_street">Οδός</string>
+	<string name="type.area_highway.motorway">Οδός</string>
+	<string name="type.area_highway.path">Διαδρομή</string>
+	<string name="type.area_highway.pedestrian">Οδός</string>
+	<string name="type.area_highway.primary">Οδός</string>
+	<string name="type.area_highway.residential">Οδός</string>
+	<string name="type.area_highway.secondary">Οδός</string>
+	<string name="type.area_highway.service">Οδός</string>
+	<string name="type.area_highway.tertiary">Οδός</string>
+	<string name="type.area_highway.steps">Διαδρομή</string>
+	<string name="type.area_highway.track">Οδός</string>
+	<string name="type.area_highway.trunk">Οδός</string>
+	<string name="type.area_highway.unclassified">Οδός</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Αρχαιολογικός χώρος</string>
 	<string name="type.historic.castle">Κάστρο</string>
 	<string name="type.historic.castle.defensive">Κάστρο</string>

@@ -943,6 +943,8 @@
 	<string name="type.emergency.phone">تلفن اضطراری</string>
 	<string name="type.entrance">ورودی</string>
 	<string name="type.healthcare.laboratory">ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">حمل و نقل</string>
 	<string name="type.highway.construction">جاده در دست ساخت است</string>
 	<string name="type.highway.footway">مسیر</string>
@@ -1041,6 +1043,22 @@
 	<string name="type.highway.unclassified.area">جاده</string>
 	<string name="type.highway.unclassified.bridge">جاده</string>
 	<string name="type.highway.unclassified.tunnel">جاده</string>
+	<string name="type.area_highway.footway">مسیر</string>
+	<string name="type.area_highway.living_street">جاده</string>
+	<string name="type.area_highway.motorway">جاده</string>
+	<string name="type.area_highway.path">مسیر</string>
+	<string name="type.area_highway.pedestrian">جاده</string>
+	<string name="type.area_highway.primary">جاده</string>
+	<string name="type.area_highway.residential">جاده</string>
+	<string name="type.area_highway.secondary">جاده</string>
+	<string name="type.area_highway.service">جاده</string>
+	<string name="type.area_highway.tertiary">جاده</string>
+	<string name="type.area_highway.steps">مسیر</string>
+	<string name="type.area_highway.track">جاده</string>
+	<string name="type.area_highway.trunk">جاده</string>
+	<string name="type.area_highway.unclassified">جاده</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">گردشگری</string>
 	<string name="type.historic.castle">گردشگری</string>
 	<string name="type.historic.castle.defensive">گردشگری</string>

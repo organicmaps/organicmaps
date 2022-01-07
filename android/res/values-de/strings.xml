@@ -1077,6 +1077,8 @@
 	<string name="type.emergency.phone">Notruftelefon</string>
 	<string name="type.entrance">Eingang</string>
 	<string name="type.healthcare.laboratory">Medizinisches Labor</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Straße</string>
 	<string name="type.highway.bridleway">Reitweg</string>
 	<string name="type.highway.bridleway.bridge">Reitweg</string>
@@ -1130,9 +1132,9 @@
 	<string name="type.highway.primary">Hauptstraße</string>
 	<string name="type.highway.primary.bridge">Hauptstraße</string>
 	<string name="type.highway.primary.tunnel">Hauptstraßentunnel</string>
-	<string name="type.highway.primary_link">Straße</string>
-	<string name="type.highway.primary_link.bridge">Straße</string>
-	<string name="type.highway.primary_link.tunnel">Straße</string>
+	<string name="type.highway.primary_link">Hauptstraße</string>
+	<string name="type.highway.primary_link.bridge">Hauptstraße</string>
+	<string name="type.highway.primary_link.tunnel">Hauptstraße</string>
 	<string name="type.highway.raceway">Rennbahn</string>
 	<string name="type.highway.residential">Wohnstraße</string>
 	<string name="type.highway.residential.area">Wohnstraße</string>
@@ -1180,13 +1182,30 @@
 	<string name="type.highway.trunk">Schnellstraße</string>
 	<string name="type.highway.trunk.bridge">Schnellstraße</string>
 	<string name="type.highway.trunk.tunnel">Schnellstraßentunnel</string>
-	<string name="type.highway.trunk_link">Straße</string>
-	<string name="type.highway.trunk_link.bridge">Straße</string>
+	<string name="type.highway.trunk_link">Schnellstraße</string>
+	<string name="type.highway.trunk_link.bridge">Schnellstraße</string>
 	<string name="type.highway.trunk_link.tunnel">Straßentunnel</string>
 	<string name="type.highway.unclassified">Straße</string>
 	<string name="type.highway.unclassified.area">Straße</string>
 	<string name="type.highway.unclassified.bridge">Straße</string>
 	<string name="type.highway.unclassified.tunnel">Straßentunnel</string>
+	<string name="type.area_highway.cycleway">Radweg</string>
+	<string name="type.area_highway.footway">Weg</string>
+	<string name="type.area_highway.living_street">Wohnstraße</string>
+	<string name="type.area_highway.motorway">Autobahn</string>
+	<string name="type.area_highway.path">Weg</string>
+	<string name="type.area_highway.pedestrian">Fußgängerzone</string>
+	<string name="type.area_highway.primary">Hauptstraße</string>
+	<string name="type.area_highway.residential">Wohnstraße</string>
+	<string name="type.area_highway.secondary">Straße</string>
+	<string name="type.area_highway.service">Straße</string>
+	<string name="type.area_highway.tertiary">Straße</string>
+	<string name="type.area_highway.steps">Stufen</string>
+	<string name="type.area_highway.track">Straße</string>
+	<string name="type.area_highway.trunk">Schnellstraße</string>
+	<string name="type.area_highway.unclassified">Straße</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Historisches Objekt</string>
 	<string name="type.historic.archaeological_site">Ausgrabungsstätte</string>
 	<string name="type.historic.battlefield">Schlachtfeld</string>
@@ -1613,9 +1632,4 @@
 	<string name="type.piste_type.nordic">Langlaufloipe</string>
 	<string name="type.piste_type.sled">Rodelbahn</string>
 	<string name="type.building_part">Gebäude</string>
-	<string name="type.area_highway.cycleway">Radweg</string>
-	<string name="type.area_highway.footway">Weg</string>
-	<string name="type.area_highway.living_street">Wohnstraße</string>
-	<string name="type.area_highway.motorway">Autobahn</string>
-	<string name="type.area_highway.path">Weg</string>
 </resources>

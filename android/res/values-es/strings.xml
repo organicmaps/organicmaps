@@ -1058,6 +1058,8 @@
 	<string name="type.emergency.phone">Teléfono de emergencia</string>
 	<string name="type.entrance">Entrada</string>
 	<string name="type.healthcare.laboratory">Laboratorio médico</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Parada de autobús</string>
 	<string name="type.highway.construction">Carretera en construcción</string>
 	<string name="type.highway.footway">Camino</string>
@@ -1157,6 +1159,22 @@
 	<string name="type.highway.unclassified.area">Calle</string>
 	<string name="type.highway.unclassified.bridge">Calle</string>
 	<string name="type.highway.unclassified.tunnel">Calle</string>
+	<string name="type.area_highway.footway">Camino</string>
+	<string name="type.area_highway.living_street">Calle</string>
+	<string name="type.area_highway.motorway">Calle</string>
+	<string name="type.area_highway.path">Camino</string>
+	<string name="type.area_highway.pedestrian">Calle</string>
+	<string name="type.area_highway.primary">Calle</string>
+	<string name="type.area_highway.residential">Calle</string>
+	<string name="type.area_highway.secondary">Calle</string>
+	<string name="type.area_highway.service">Calle</string>
+	<string name="type.area_highway.tertiary">Calle</string>
+	<string name="type.area_highway.steps">Camino</string>
+	<string name="type.area_highway.track">Calle</string>
+	<string name="type.area_highway.trunk">Calle</string>
+	<string name="type.area_highway.unclassified">Calle</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Yacimiento arqueológico</string>
 	<string name="type.historic.castle">Castillo</string>
 	<string name="type.historic.castle.defensive">Castillo</string>

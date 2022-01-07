@@ -284,7 +284,11 @@
 	<string name="type.boundary.national_park">Hifadhi ya taifa</string>
 	<string name="type.cuisine.coffee_shop">Kahawa</string>
 	<string name="type.healthcare.laboratory">Maabara ya Matibabu</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.construction">Barabara inatengenezwa</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.landuse.basin">Bonde la Maji</string>
 	<string name="type.landuse.churchyard">Sehemu ya kanisa</string>
 	<string name="type.landuse.farmland">Shamba</string>

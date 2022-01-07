@@ -1040,6 +1040,8 @@
 	<string name="type.emergency.phone">هاتف الطوارئ</string>
 	<string name="type.entrance">مدخل</string>
 	<string name="type.healthcare.laboratory">ﺔﻴﺒﻄﻟﺍ ﺕﺍﺮﺒﺘﺨﻤﻟﺍ</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">موقف حافلة</string>
 	<string name="type.highway.construction">طريق تحت الإنشاء</string>
 	<string name="type.highway.footway">مسار</string>
@@ -1139,6 +1141,22 @@
 	<string name="type.highway.unclassified.area">شارع</string>
 	<string name="type.highway.unclassified.bridge">شارع</string>
 	<string name="type.highway.unclassified.tunnel">شارع</string>
+	<string name="type.area_highway.footway">مسار</string>
+	<string name="type.area_highway.living_street">شارع</string>
+	<string name="type.area_highway.motorway">شارع</string>
+	<string name="type.area_highway.path">مسار</string>
+	<string name="type.area_highway.pedestrian">شارع</string>
+	<string name="type.area_highway.primary">شارع</string>
+	<string name="type.area_highway.residential">شارع</string>
+	<string name="type.area_highway.secondary">شارع</string>
+	<string name="type.area_highway.service">شارع</string>
+	<string name="type.area_highway.tertiary">شارع</string>
+	<string name="type.area_highway.steps">مسار</string>
+	<string name="type.area_highway.track">شارع</string>
+	<string name="type.area_highway.trunk">شارع</string>
+	<string name="type.area_highway.unclassified">شارع</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">موقع أثري</string>
 	<string name="type.historic.castle">قلعة</string>
 	<string name="type.historic.castle.defensive">قلعة</string>

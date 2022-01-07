@@ -1031,6 +1031,8 @@
 	<string name="type.emergency.phone">Praatpaal</string>
 	<string name="type.entrance">Ingang</string>
 	<string name="type.healthcare.laboratory">Medisch laboratorium</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Bushalte</string>
 	<string name="type.highway.construction">Baan in aanbouw</string>
 	<string name="type.highway.footway">Pad</string>
@@ -1066,7 +1068,7 @@
 	<string name="type.highway.path.horse">Pad</string>
 	<string name="type.highway.path.mountain_hiking">Pad</string>
 	<string name="type.highway.path.permissive">Pad</string>
-	<string name="type.highway.path.tunnel">Tunnel</string>
+	<string name="type.highway.path.tunnel">Pad</string>
 	<string name="type.highway.pedestrian">Straat</string>
 	<string name="type.highway.pedestrian.area">Straat</string>
 	<string name="type.highway.pedestrian.bridge">Straat</string>
@@ -1130,6 +1132,22 @@
 	<string name="type.highway.unclassified.area">Straat</string>
 	<string name="type.highway.unclassified.bridge">Straat</string>
 	<string name="type.highway.unclassified.tunnel">Straat</string>
+	<string name="type.area_highway.footway">Pad</string>
+	<string name="type.area_highway.living_street">Straat</string>
+	<string name="type.area_highway.motorway">Straat</string>
+	<string name="type.area_highway.path">Pad</string>
+	<string name="type.area_highway.pedestrian">Straat</string>
+	<string name="type.area_highway.primary">Straat</string>
+	<string name="type.area_highway.residential">Straat</string>
+	<string name="type.area_highway.secondary">Straat</string>
+	<string name="type.area_highway.service">Straat</string>
+	<string name="type.area_highway.tertiary">Straat</string>
+	<string name="type.area_highway.steps">Pad</string>
+	<string name="type.area_highway.track">Straat</string>
+	<string name="type.area_highway.trunk">Straat</string>
+	<string name="type.area_highway.unclassified">Straat</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Archeologische site</string>
 	<string name="type.historic.castle">Kasteel</string>
 	<string name="type.historic.castle.defensive">Kasteel</string>

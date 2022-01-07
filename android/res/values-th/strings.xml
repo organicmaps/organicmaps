@@ -1038,6 +1038,8 @@
 	<string name="type.emergency.phone">โทรศัพท์ฉุกเฉิน</string>
 	<string name="type.entrance">ทางเข้า</string>
 	<string name="type.healthcare.laboratory">ห้องปฏิบัติการทางการแพทย์</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">ป้ายรถเมล์</string>
 	<string name="type.highway.construction">ทางกำลังอยู่ในการก่อสร้าง</string>
 	<string name="type.highway.footway">เส้นทาง</string>
@@ -1137,6 +1139,22 @@
 	<string name="type.highway.unclassified.area">ถนน</string>
 	<string name="type.highway.unclassified.bridge">ถนน</string>
 	<string name="type.highway.unclassified.tunnel">ถนน</string>
+	<string name="type.area_highway.footway">เส้นทาง</string>
+	<string name="type.area_highway.living_street">ถนน</string>
+	<string name="type.area_highway.motorway">ถนน</string>
+	<string name="type.area_highway.path">เส้นทาง</string>
+	<string name="type.area_highway.pedestrian">ถนน</string>
+	<string name="type.area_highway.primary">ถนน</string>
+	<string name="type.area_highway.residential">ถนน</string>
+	<string name="type.area_highway.secondary">ถนน</string>
+	<string name="type.area_highway.service">ถนน</string>
+	<string name="type.area_highway.tertiary">ถนน</string>
+	<string name="type.area_highway.steps">เส้นทาง</string>
+	<string name="type.area_highway.track">ถนน</string>
+	<string name="type.area_highway.trunk">ถนน</string>
+	<string name="type.area_highway.unclassified">ถนน</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">โบราณสถาน</string>
 	<string name="type.historic.castle">ปราสาท</string>
 	<string name="type.historic.castle.defensive">ปราสาท</string>

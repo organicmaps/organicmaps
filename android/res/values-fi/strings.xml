@@ -1052,6 +1052,8 @@
 	<string name="type.emergency.phone">Hätäpuhelin</string>
 	<string name="type.entrance">Sisäänkäynti</string>
 	<string name="type.healthcare.laboratory">Lääketieteellinen laboratorio</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Bussipysäkki</string>
 	<string name="type.highway.construction">Rakenteilla oleva tie</string>
 	<string name="type.highway.footway">Polku</string>
@@ -1151,6 +1153,23 @@
 	<string name="type.highway.unclassified.area">Katu</string>
 	<string name="type.highway.unclassified.bridge">Katu</string>
 	<string name="type.highway.unclassified.tunnel">Katu</string>
+	<string name="type.area_highway.cycleway">Pyörätie</string>
+	<string name="type.area_highway.footway">Kävelytie</string>
+	<string name="type.area_highway.living_street">Katu</string>
+	<string name="type.area_highway.motorway">Moottoritie</string>
+	<string name="type.area_highway.path">Polku</string>
+	<string name="type.area_highway.pedestrian">Kävelykatu</string>
+	<string name="type.area_highway.primary">Katu</string>
+	<string name="type.area_highway.residential">Katu</string>
+	<string name="type.area_highway.secondary">Katu</string>
+	<string name="type.area_highway.service">Katu</string>
+	<string name="type.area_highway.tertiary">Katu</string>
+	<string name="type.area_highway.steps">Portaat</string>
+	<string name="type.area_highway.track">Katu</string>
+	<string name="type.area_highway.trunk">Katu</string>
+	<string name="type.area_highway.unclassified">Katu</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Arkeologinen kohde</string>
 	<string name="type.historic.castle">Linna</string>
 	<string name="type.historic.castle.defensive">Linna</string>
@@ -1436,11 +1455,4 @@
 	<string name="type.piste_type.downhill">Laskettelurinne</string>
 	<string name="type.piste_type.nordic">Latu</string>
 	<string name="type.building_part">Rakennus</string>
-	<string name="type.area_highway.cycleway">Pyörätie</string>
-	<string name="type.area_highway.footway">Kävelytie</string>
-	<string name="type.area_highway.motorway">Moottoritie</string>
-	<string name="type.area_highway.path">Polku</string>
-	<string name="type.area_highway.pedestrian">Kävelykatu</string>
-	<string name="type.area_highway.residential">Katu</string>
-	<string name="type.area_highway.steps">Portaat</string>
 </resources>

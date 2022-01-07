@@ -1091,6 +1091,8 @@
 	<string name="type.emergency.phone">紧急电话</string>
 	<string name="type.entrance">入口</string>
 	<string name="type.healthcare.laboratory">医学实验室</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">公路要素</string>
 	<string name="type.highway.bridleway">马道</string>
 	<string name="type.highway.bridleway.bridge">马道</string>
@@ -1200,6 +1202,23 @@
 	<string name="type.highway.unclassified.area">道路</string>
 	<string name="type.highway.unclassified.bridge">道路</string>
 	<string name="type.highway.unclassified.tunnel">道路</string>
+	<string name="type.area_highway.cycleway">自行车道</string>
+	<string name="type.area_highway.footway">步行道路</string>
+	<string name="type.area_highway.living_street">生活性街道</string>
+	<string name="type.area_highway.motorway">高速公路</string>
+	<string name="type.area_highway.path">小道</string>
+	<string name="type.area_highway.pedestrian">步行街</string>
+	<string name="type.area_highway.primary">主要道路</string>
+	<string name="type.area_highway.residential">住宅区道路</string>
+	<string name="type.area_highway.secondary">次要道路</string>
+	<string name="type.area_highway.service">辅助道路</string>
+	<string name="type.area_highway.tertiary">三级道路</string>
+	<string name="type.area_highway.steps">阶梯</string>
+	<string name="type.area_highway.track">土路</string>
+	<string name="type.area_highway.trunk">干线道路</string>
+	<string name="type.area_highway.unclassified">道路</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">历史地点</string>
 	<string name="type.historic.archaeological_site">考古地点</string>
 	<string name="type.historic.battlefield">古战场</string>
