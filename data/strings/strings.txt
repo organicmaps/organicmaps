@@ -39,7 +39,7 @@
 
   [cancel]
     comment = Button text (should be short)
-    tags = android, ios
+    tags = android,ios
     en = Cancel
     ar = إلغاء
     be = Адмяніць
@@ -113,7 +113,7 @@
 
   [delete]
     comment = Button which deletes downloaded country
-    tags = android, ios
+    tags = android,ios
     en = Delete
     ar = حذف
     be = Выдаліць
@@ -149,7 +149,7 @@
     zh-Hant = 刪除
 
   [download_maps]
-    tags = android, ios
+    tags = android,ios
     en = Download Maps
     ar = تنزيل الخرائط
     be = Спампаваць мапы
@@ -223,7 +223,7 @@
 
   [downloading]
     comment = Settings/Downloader - info for country which started downloading
-    tags = android, ios
+    tags = android,ios
     en = Downloading…
     ar = جاري التنزيل…
     be = Спампоўваецца…
@@ -260,7 +260,7 @@
 
   [kilometres]
     comment = Choose measurement on first launch alert - choose metric system button
-    tags = android, ios
+    tags = android,ios
     en = Kilometers
     en-GB = Kilometres
     ar = كيلومتر
@@ -335,7 +335,7 @@
 
   [maps]
     comment = View and button titles for accessibility
-    tags = android, ios
+    tags = android,ios
     en = Maps
     ar = الخرائط
     be = Мапы
@@ -400,7 +400,7 @@
 
   [miles]
     comment = Choose measurement on first launch alert - choose imperial system button
-    tags = android, ios
+    tags = android,ios
     en = Miles
     ar = ميل
     be = Мілі
@@ -437,7 +437,7 @@
 
   [core_my_position]
     comment = View and button titles for accessibility
-    tags = android, ios
+    tags = android,ios
     en = My Position
     ar = موقعي
     be = Маё месцазнаходжанне
@@ -474,7 +474,7 @@
 
   [later]
     comment = Update maps later/Buy pro version later button text
-    tags = android, ios
+    tags = android,ios
     en = Later
     ar = لاحقا
     be = Потым
@@ -510,7 +510,7 @@
 
   [search]
     comment = View and button titles for accessibility
-    tags = android, ios
+    tags = android,ios
     en = Search
     ar = البحث
     be = Шукаць
@@ -657,7 +657,7 @@
 
   [zoom_to_country]
     comment = View and button titles for accessibility
-    tags = android, ios
+    tags = android,ios
     en = Show on the map
     ar = عرض على الخريطة
     be = Паказаць на мапе
@@ -730,7 +730,7 @@
 
   [country_status_download_failed]
     comment = Message to display at the center of the screen when the country download has failed
-    tags = android, ios
+    tags = android,ios
     en = Download has failed
     ar = فشلت عملية تنزيل
     be = Спампоўка не атрымалася
@@ -875,7 +875,7 @@
     zh-Hant = 連線設定
 
   [close]
-    tags = android, ios
+    tags = android,ios
     en = Close
     ar = اغلاق
     be = Зачыніць
@@ -947,7 +947,7 @@
     zh-Hant = 需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！
 
   [download]
-    tags = android, ios
+    tags = android,ios
     en = Download
     ar = تنزيل
     be = Спампаваць
@@ -1307,7 +1307,7 @@
 
   [continue_download]
     comment = REMOVE THIS STRING AFTER REFACTORING
-    tags = android, ios
+    tags = android,ios
     en = Continue
     ar = استمرار
     be = Працягнуць
@@ -1381,7 +1381,7 @@
 
   [add_new_set]
     comment = "Add new bookmark list" dialog title
-    tags = android, ios
+    tags = android,ios
     en = Add New List
     ar = إضافة مجموعة جديدة
     be = Дадаць новую групу
@@ -1418,7 +1418,7 @@
 
   [bookmark_color]
     comment = Bookmark Color dialog title
-    tags = android, ios
+    tags = android,ios
     en = Bookmark Color
     en-GB = Bookmark Colour
     ar = لون الإشارة المرجعية
@@ -1456,7 +1456,7 @@
 
   [bookmark_set_name]
     comment = Add Bookmark list dialog - hint when the list name is empty
-    tags = android, ios
+    tags = android,ios
     en = Bookmark List Name
     ar = اسم مجموعة الإشارات المرجعية
     be = Назва групы закладак
@@ -1527,7 +1527,7 @@
 
   [bookmarks]
     comment = "Bookmarks" dialog title
-    tags = android, ios
+    tags = android,ios
     en = Bookmarks
     ar = الإشارات المرجعية
     be = Закладкі
@@ -1564,7 +1564,7 @@
 
   [core_my_places]
     comment = Default bookmark list name
-    tags = android, ios
+    tags = android,ios
     en = My Places
     ar = أماكني
     be = Мае месцы
@@ -1637,7 +1637,7 @@
 
   [address]
     comment = Editor title above street and house number
-    tags = android, ios
+    tags = android,ios
     en = Address
     ar = العنوان
     be = Адрас
@@ -1711,7 +1711,7 @@
 
   [settings]
     comment = Settings button in system menu
-    tags = android, ios
+    tags = android,ios
     en = Settings
     ar = الإعدادات
     be = Налады
@@ -1896,7 +1896,7 @@
 
   [measurement_units]
     comment = Measurement units title in settings activity
-    tags = android, ios
+    tags = android,ios
     en = Measurement units
     ar = وحدات القياس.
     be = Адзінкі вымярэння
@@ -1971,7 +1971,7 @@
 
   [eat]
     comment = Search category for cafes, bars, restaurants
-    tags = android, ios
+    tags = android,ios
     en = Where to eat
     ar = مكان لتناول الطعام
     be = Дзе паесці
@@ -2008,7 +2008,7 @@
 
   [food]
     comment = Search category for grocery stores
-    tags = android, ios
+    tags = android,ios
     en = Groceries
     ar = المشتريات
     be = Прадукты
@@ -2082,7 +2082,7 @@
 
   [fuel]
     comment = Search category
-    tags = android, ios
+    tags = android,ios
     en = Gas
     en-GB = Petrol
     ar = غاز
@@ -2120,7 +2120,7 @@
 
   [parking]
     comment = Search category
-    tags = android, ios
+    tags = android,ios
     en = Parking
     ar = الاصطفاف
     be = Паркоўка
@@ -2268,7 +2268,7 @@
 
   [entertainment]
     comment = Search category
-    tags = android, ios
+    tags = android,ios
     en = Entertainment
     ar = التسلية
     be = Забавы
@@ -2305,7 +2305,7 @@
 
   [atm]
     comment = Search category
-    tags = android, ios
+    tags = android,ios
     en = ATM
     ar = ماكينة الصراف الآلي
     be = Банкамат
@@ -2711,7 +2711,7 @@
     zh-Hant = 已分享 Organic Maps 書籤
 
   [share_bookmarks_email_body]
-    tags = android, ios
+    tags = android,ios
     en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
     be = Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
     es = Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábrelos si tienes instalado Organic Maps. O, si no lo tienes, descarga la aplicación para tu dispositivo iOS o Android siguiendo este link: https://omaps.app/get?kmz\n¡Disfruta viajando con Organic Maps!
@@ -2726,7 +2726,7 @@
 
   [load_kmz_title]
     comment = message title of loading file
-    tags = android, ios
+    tags = android,ios
     en = Loading Bookmarks
     ar = تحميل الإشارات المرجعية
     be = Загрузка закладак
@@ -2763,7 +2763,7 @@
 
   [load_kmz_successful]
     comment = Kmz file successful loading
-    tags = android, ios
+    tags = android,ios
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
     ar = تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.
     be = Закладкі паспяхова загружаны! Вы можаце іх убачыць на мапе альбо ў захаваных закладках.
@@ -2800,7 +2800,7 @@
 
   [load_kmz_failed]
     comment = Kml file loading failed
-    tags = android, ios
+    tags = android,ios
     en = Bookmarks upload failed. The file may be corrupted or defective.
     ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف.
     be = Не атрамалася запампаваць закладкі. Файл можа быць пашкоджаны альбо дэфектыўны.
@@ -2837,7 +2837,7 @@
 
   [edit]
     comment = resource for context menu
-    tags = android, ios
+    tags = android,ios
     en = Edit
     ar = تعديل
     be = Правіць
@@ -2873,7 +2873,7 @@
 
   [unknown_current_position]
     comment = Warning message when doing search around current position
-    tags = android, ios
+    tags = android,ios
     en = Your location hasn't been determined yet
     ar = لم يتم التعرف على موقعك بعد.
     be = Ваша месцазнаходжанне пакуль не вызначана
@@ -3020,7 +3020,7 @@
 
   [bookmark_share_email_subject]
     comment = Subject for emailed bookmark
-    tags = android, ios
+    tags = android,ios
     en = Hey, check out my pin in Organic Maps!
     ar = هاي، تفقد الدبوس الخاص بي على خريطة Organic Maps!
     be = Гэй, глядзі маю метку на Organic Maps!
@@ -3056,7 +3056,7 @@
 
   [my_position_share_email_subject]
     comment = Subject for emailed position
-    tags = android, ios
+    tags = android,ios
     en = Hey, check out my current location on the Organic Maps map!
     ar = يا هلا، تحقق من موقعي الحالي على خريطة Organic Maps!
     be = Гэй, глядзі дзе я зараз на мапе Organic Maps!
@@ -3128,7 +3128,7 @@
 
   [share]
     comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
-    tags = android, ios
+    tags = android,ios
     en = Share
     ar = مشاركة
     be = Падзяліцца
@@ -3165,7 +3165,7 @@
 
   [email]
     comment = Share by email button text, also used in editor.
-    tags = android, ios
+    tags = android,ios
     en = Email
     ar = البريد الالكتروني
     be = Email
@@ -3275,7 +3275,7 @@
 
   [done]
     comment = Used for bookmark editing
-    tags = android, ios
+    tags = android,ios
     en = Done
     ar = تم
     be = Гатова
@@ -3349,7 +3349,7 @@
 
   [data_version]
     comment = Data version in «About» screen
-    tags = android, ios
+    tags = android,ios
     en = Data version: %d
     be = Версія дадзеных: %d
     bg = Версия на данните: %d
@@ -3406,7 +3406,7 @@
 
   [tracks_title]
     comment = Title for tracks category in bookmarks manager
-    tags = android, ios
+    tags = android,ios
     en = Tracks
     ar = المسارات
     be = Сцежкі
@@ -3443,7 +3443,7 @@
 
   [length]
     comment = Length of track in cell that describes route
-    tags = android, ios
+    tags = android,ios
     en = Length
     ar = الطول
     be = Даўжыня
@@ -3479,7 +3479,7 @@
     zh-Hant = 長度
 
   [share_my_location]
-    tags = android, ios
+    tags = android,ios
     en = Share My Location
     ar = مشاركة موقعي
     be = Падзяліцца месцазнаходжаннем
@@ -3555,7 +3555,7 @@
     zh-Hant = 資訊
 
   [prefs_group_route]
-    tags = android, ios
+    tags = android,ios
     en = Navigation
     ar = الملاحة
     be = Навігацыя
@@ -3590,7 +3590,7 @@
     zh-Hant = 導航
 
   [pref_zoom_title]
-    tags = android, ios
+    tags = android,ios
     en = Zoom buttons
     ar = أزرار التكبير
     be = Кнопкі маштаба
@@ -3663,7 +3663,7 @@
 
   [pref_map_style_title]
     comment = Settings «Map» category: «Night style» title
-    tags = android, ios
+    tags = android,ios
     en = Night Mode
     ar = الوضع الليلي
     be = Начны рэжым
@@ -3699,7 +3699,7 @@
 
   [pref_map_style_default]
     comment = «Map style» entry value
-    tags = android, ios
+    tags = android,ios
     en = Off
     ar = إغلاق
     be = Выключаны
@@ -3735,7 +3735,7 @@
 
   [pref_map_style_night]
     comment = «Map style» entry value
-    tags = android, ios
+    tags = android,ios
     en = On
     ar = تشغيل
     be = Уключаны
@@ -3771,7 +3771,7 @@
 
   [pref_map_style_auto]
     comment = «Map style» entry value
-    tags = android, ios
+    tags = android,ios
     en = Auto
     ar = تلقائي
     be = Аўтаматычна
@@ -3807,7 +3807,7 @@
 
   [pref_map_3d_title]
     comment = Settings «Map» category: «Perspective view» title
-    tags = android, ios
+    tags = android,ios
     en = Perspective view
     ar = العرض المنظوري
     be = Перспектыўны выгляд
@@ -3843,7 +3843,7 @@
 
   [pref_map_3d_buildings_title]
     comment = Settings «Map» category: «3D buildings» title
-    tags = android, ios
+    tags = android,ios
     en = 3D buildings
     ar = مباني ثلاثية الأبعاد
     be = 3D будынкі
@@ -3879,7 +3879,7 @@
 
   [pref_tts_enable_title]
     comment = Settings «Route» category: «Tts enabled» title
-    tags = android, ios
+    tags = android,ios
     en = Voice Instructions
     ar = تعليمات صوتية
     be = Галасавыя інструкцыі
@@ -3915,7 +3915,7 @@
 
   [pref_tts_language_title]
     comment = Settings «Route» category: «Tts language» title
-    tags = android, ios
+    tags = android,ios
     en = Voice Language
     ar = لغة الصوت
     be = Мова агучвання
@@ -4058,7 +4058,7 @@
     zh-Hant = 最近的軌跡
 
   [pref_map_auto_zoom]
-    tags = android, ios
+    tags = android,ios
     en = Auto zoom
     ar = تكبير تلقائي
     be = Аўтаматычны маштаб
@@ -4093,7 +4093,7 @@
     zh-Hant = 自動縮放
 
   [duration_disabled]
-    tags = android, ios
+    tags = android,ios
     en = Off
     ar = لا يعمل
     be = Выключана
@@ -4128,7 +4128,7 @@
     zh-Hant = 關閉
 
   [duration_1_hour]
-    tags = android, ios
+    tags = android,ios
     en = 1 hour
     ar = 1 ساعة
     be = 1 гадзіна
@@ -4163,7 +4163,7 @@
     zh-Hant = 1小時
 
   [duration_2_hours]
-    tags = android, ios
+    tags = android,ios
     en = 2 hours
     ar = 2 ساعة
     be = 2 гадзіны
@@ -4198,7 +4198,7 @@
     zh-Hant = 2小時
 
   [duration_6_hours]
-    tags = android, ios
+    tags = android,ios
     en = 6 hours
     ar = 6 ساعات
     be = 6 гадзін
@@ -4233,7 +4233,7 @@
     zh-Hant = 6小時
 
   [duration_12_hours]
-    tags = android, ios
+    tags = android,ios
     en = 12 hours
     ar = 12 ساعة
     be = 12 гадзін
@@ -4268,7 +4268,7 @@
     zh-Hant = 12小時
 
   [duration_1_day]
-    tags = android, ios
+    tags = android,ios
     en = 1 day
     ar = 1 يوم
     be = 1 дзень
@@ -4373,7 +4373,7 @@
     zh-Hant = 距离
 
   [search_show_on_map]
-    tags = android, ios
+    tags = android,ios
     en = View on map
     ar = مشاهدة على الخريطة
     be = Паглядзець на мапе
@@ -4410,7 +4410,7 @@
 
   [website]
     comment = Text in menu
-    tags = android, ios
+    tags = android,ios
     en = Website
     ar = الموقع الإلكتروني
     be = Вэб-сайт
@@ -4446,31 +4446,31 @@
 
   [github]
     comment = Text in menu
-    tags = android, ios
+    tags = android,ios
     en = GitHub
 
   [telegram]
     comment = Text in menu
-    tags = android, ios
+    tags = android,ios
     en = Telegram
 
   [facebook]
     comment = Text in menu
-    tags = android, ios
+    tags = android,ios
     en = Facebook
     zh-Hans = 脸书
     zh-Hant = 臉書
 
   [twitter]
     comment = Text in menu
-    tags = android, ios
+    tags = android,ios
     en = Twitter
     zh-Hans = 推特
     zh-Hant = 推特
 
   [instagram]
     comment = Text in menu
-    tags = android, ios
+    tags = android,ios
     en = Instagram
 
   [vk]
@@ -4485,13 +4485,13 @@
 
   [openstreetmap]
     comment = Text in menu
-    tags = android, ios
+    tags = android,ios
     en = OpenStreetMap
     zh-Hant = 開放街圖
 
   [feedback]
     comment = Settings: Send feedback button and dialog title
-    tags = android, ios
+    tags = android,ios
     en = Feedback
     ar = تعقيب
     be = Водгук
@@ -4527,7 +4527,7 @@
 
   [rate_the_app]
     comment = Text in menu
-    tags = android, ios
+    tags = android,ios
     en = Rate the app
     ar = تقييم التطبيق
     be = Ацаніць дадатак
@@ -4564,7 +4564,7 @@
 
   [help]
     comment = Text in menu
-    tags = android, ios
+    tags = android,ios
     en = Help
     ar = مساعدة
     be = Дапамога
@@ -4676,7 +4676,7 @@
 
   [copyright]
     comment = Button in the main Help dialog
-    tags = android, ios
+    tags = android,ios
     en = Copyright
     ar = حقوق الطبع والنشر
     be = Капірайт
@@ -4713,7 +4713,7 @@
 
   [report_a_bug]
     comment = Text in menu + Button in the main Help dialog
-    tags = android, ios
+    tags = android,ios
     en = Report a bug
     ar = الإبلاغ عن خطأ
     be = Паведаміць аб памылцы
@@ -4861,7 +4861,7 @@
 
   [wifi]
     comment = Search category
-    tags = android, ios
+    tags = android,ios
     en = WiFi
     ar = واي-فاي
     be = WiFi
@@ -4896,7 +4896,7 @@
 
   [downloader_update_all_button]
     comment = Update all button text
-    tags = android, ios
+    tags = android,ios
     en = Update All
     ar = تحديث الكل
     be = Абнавіць усё
@@ -4969,7 +4969,7 @@
 
   [downloader_downloaded_subtitle]
     comment = Downloaded maps category
-    tags = android, ios
+    tags = android,ios
     en = Downloaded
     ar = تم تنزيلها
     be = Спампаваныя
@@ -5040,7 +5040,7 @@
 
   [downloader_queued]
     comment = Country queued for download
-    tags = android, ios
+    tags = android,ios
     en = Queued
     ar = مَصْفوف
     be = У чарзе
@@ -5076,7 +5076,7 @@
     zh-Hant = 已佇列
 
   [downloader_near_me_subtitle]
-    tags = android, ios
+    tags = android,ios
     en = Near me
     ar = بالقرب مني
     be = Каля мяне
@@ -5111,7 +5111,7 @@
     zh-Hant = 在我附近
 
   [downloader_status_maps]
-    tags = android, ios
+    tags = android,ios
     en = Maps
     ar = الخرائط
     be = Мапы
@@ -5146,7 +5146,7 @@
     zh-Hant = 地圖
 
   [downloader_download_all_button]
-    tags = android, ios
+    tags = android,ios
     en = Download All
     ar = تنزيل الكل
     be = Спампаваць усё
@@ -5181,7 +5181,7 @@
     zh-Hant = 下載全部
 
   [downloader_downloading]
-    tags = android, ios
+    tags = android,ios
     en = Downloading:
     ar = يتم تنزيل:
     be = Спампоўваецца:
@@ -5325,7 +5325,7 @@
 
   [downloader_delete_map_while_routing_dialog]
     comment = Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode
-    tags = android, ios
+    tags = android,ios
     en = To delete map, please stop navigation.
     ar = لحذف الخريطة يرجى إيقاف الملاحة.
     be = Каб выдаліць мапу, спыніце навігацыю.
@@ -5361,7 +5361,7 @@
 
   [routing_failed_cross_mwm_building]
     comment = PointsInDifferentMWM
-    tags = android, ios
+    tags = android,ios
     en = Routes can only be created that are fully contained within a map of a single region.
     ar = يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة واحدة.
     be = Маршруты могуць быць пракладзены толькі ў межах карты аднаго рэгіёна.
@@ -5398,7 +5398,7 @@
 
   [downloader_download_map]
     comment = Context menu item for downloader.
-    tags = android, ios
+    tags = android,ios
     en = Download map
     ar = تنزيل الخريطة
     be = Спампаваць мапу
@@ -5435,7 +5435,7 @@
 
   [downloader_retry]
     comment = Item status in downloader.
-    tags = android, ios
+    tags = android,ios
     en = Retry
     ar = تكرار
     be = Паспрабаваць зноў
@@ -5471,7 +5471,7 @@
 
   [downloader_delete_map]
     comment = Item in context menu.
-    tags = android, ios
+    tags = android,ios
     en = Delete Map
     ar = حذف الخريطة
     be = Выдаліць мапу
@@ -5724,7 +5724,7 @@
 
   [routing_download_maps_along]
     comment = Text for routing error dialog
-    tags = android, ios
+    tags = android,ios
     en = Download all of the maps along your route
     ar = تنزيل الخرائط على طول الطريق
     be = Спампаваць усе мапы на вашым шляху
@@ -5760,7 +5760,7 @@
 
   [routing_requires_all_map]
     comment = Text for routing error dialog
-    tags = android, ios
+    tags = android,ios
     en = In order to create a route, we need to download and update all the maps from your location to your destination.
     ar = Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.
     be = Каб пракласці маршрут, трэба спампаваць і абнавіць усе мапы на на вашым шляху.
@@ -5903,7 +5903,7 @@
     zh-Hant = 請啟用定位服務
 
   [save]
-    tags = android, ios
+    tags = android,ios
     en = Save
     ar = حفظ
     be = Захаваць
@@ -5972,7 +5972,7 @@
     zh-Hant = 您的描述（文字或 html）
 
   [create]
-    tags = android, ios
+    tags = android,ios
     en = create
     ar = إنشاء
     be = стварыць
@@ -6600,7 +6600,7 @@
 
   [WiFi_available]
     comment = Wi-Fi available
-    tags = android, ios
+    tags = android,ios
     en = Yes
     ar = نعم
     be = Так
@@ -6638,7 +6638,7 @@
 [[Routing dialogs strings]]
 
   [dialog_routing_disclaimer_title]
-    tags = android, ios
+    tags = android,ios
     en = When following the route, please keep in mind:
     ar = عند اتباع المسار، يُرجى وضع ما يلي في الاعتبار:
     be = Рухаючыся па маршруце, майце на ўвазе:
@@ -6674,7 +6674,7 @@
     zh-Hant = 依照路線行進時，請牢記：
 
   [dialog_routing_disclaimer_priority]
-    tags = android, ios
+    tags = android,ios
     en = — Road conditions, traffic laws, and road signs always take priority over the navigation hints;
     ar = — دائمًا ما يكون لظروف الطريق وقوانين وإشارات المرور الأولوية على المشورة الملاحية;
     be = — Дарожныя абставіны, правілы дарожнага руху і дарожныя знакі заўсёды маюць прыярытэт над падказкамі навігацыі;
@@ -6710,7 +6710,7 @@
     zh-Hant = — 路況、交通規則及號誌優先於導航意見；
 
   [dialog_routing_disclaimer_precision]
-    tags = android, ios
+    tags = android,ios
     en = — The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;
     ar = — قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;
     be = — Мапа можа быць недакладнай, а прапанаваны маршрут не заўжды найлепшым;
@@ -6746,7 +6746,7 @@
     zh-Hant = — 地圖可能不準確，建議的路線不盡然是最佳選擇；
 
   [dialog_routing_disclaimer_recommendations]
-    tags = android, ios
+    tags = android,ios
     en = — Suggested routes should only be understood as recommendations;
     ar = — يتم التعامل مع المسارات المقترحة كتوصيات فقط;
     be = — Прапанаваныя маршруты трэба ўспрымаць толькі як рэкамендацыі;
@@ -6782,7 +6782,7 @@
     zh-Hant = — 建議的路線僅供推薦參考；
 
   [dialog_routing_disclaimer_borders]
-    tags = android, ios
+    tags = android,ios
     en = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.
     ar = — تحذير بشأن مسارات في منطقة حدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر حدود الدولة في أماكن غير مصرح بها في بعض الأحيان;
     be = — Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты пракладзеныя нашым дадаткам часамі могуць перасякаць мяжу ў недазволеных месцах.
@@ -6817,7 +6817,7 @@
     zh-Hant = — 小心對待國界區的路線：我們應用程式建立的路線有時會在未經授權的地方跨越國界；
 
   [dialog_routing_disclaimer_beware]
-    tags = android, ios
+    tags = android,ios
     en = Please stay alert and safe on the roads!
     ar = يجب أن تظل يقظًا وآمنًا على الطريق!
     be = Будзьце пільнымі і паводзьце сябе бяспечна на дарозе!
@@ -6853,7 +6853,7 @@
     zh-Hant = 請保持警戒，一路平安！
 
   [dialog_routing_check_gps]
-    tags = android, ios
+    tags = android,ios
     en = Check GPS signal
     ar = تحقق من إشارة نظام تحديد المواقع العالمي "GPS"
     be = Праверце сігнал GPS
@@ -6889,7 +6889,7 @@
     zh-Hant = 查看 GPS 訊號
 
   [dialog_routing_error_location_not_found]
-    tags = android, ios
+    tags = android,ios
     en = Unable to create route. Current GPS coordinates could not be identified.
     ar = تعذر إنشاء مسار. لا يمكن تحديد إحداثيات GPS الحالية.
     be = Не атрымалася пракласци маршрут. Каардынаты GPS не вызначаны.
@@ -6925,7 +6925,7 @@
     zh-Hant = 無法產生路線。 無法定位目前 GPS 座標。
 
   [dialog_routing_location_turn_wifi]
-    tags = android, ios
+    tags = android,ios
     en = Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.
     ar = يُرجى التحقق من إشارة GPS لديك. ويساعد تمكين خدمة Wi-Fi في تحسين دقة تحديد موقعك.
     be = Калі ласка, праверце сігнал GPS. Для больш дакладнага вызначэння месцазнаходжання уключыце Wi-Fi.
@@ -6961,7 +6961,7 @@
     zh-Hant = 請確認您的 GPS 訊號。啟用無線網路將提升地理位置定位準確度。
 
   [dialog_routing_location_turn_on]
-    tags = android, ios
+    tags = android,ios
     en = Enable location services
     ar = تمكين خدمات المواقع
     be = Уключыць геалагацыю
@@ -6997,7 +6997,7 @@
     zh-Hant = 啟用定位服務
 
   [dialog_routing_location_unknown_turn_on]
-    tags = android, ios
+    tags = android,ios
     en = Unable to locate current GPS coordinates. Enable location services to calculate route.
     ar = تعذر تحديد إحداثيات نظام تحديد المواقع العالمي GPS الحالية. قم بتمكين خدمات المواقع لحساب المسار.
     be = Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю каб пракласці маршрут.
@@ -7104,7 +7104,7 @@
     zh-Hant = 若要產生路線，請下載並更新所有地圖及沿路線的路線檔案。
 
   [dialog_routing_unable_locate_route]
-    tags = android, ios
+    tags = android,ios
     en = Unable to locate route
     ar = تعذر تحديد موقع المسار
     be = Не атрымалася знайсці маршрут
@@ -7176,7 +7176,7 @@
     zh-Hant = 無法產生路線。
 
   [dialog_routing_change_start_or_end]
-    tags = android, ios
+    tags = android,ios
     en = Please adjust your starting point or your destination.
     ar = برجاء تعديل نقطة بدء وجهتك.
     be = Калі ласка, змяніце пункт адпраўлення альбо прызначэння.
@@ -7212,7 +7212,7 @@
     zh-Hant = 請變更起點或最終目的地。
 
   [dialog_routing_change_start]
-    tags = android, ios
+    tags = android,ios
     en = Adjust starting point
     ar = تعديل نقطة البدء
     be = Змяніце пункт адпраўлення
@@ -7248,7 +7248,7 @@
     zh-Hant = 變更起點
 
   [dialog_routing_start_not_determined]
-    tags = android, ios
+    tags = android,ios
     en = Route was not created. Unable to locate starting point.
     ar = لم يتم إنشاء المسار. تعذر تحديد موقع نقطة البدء.
     be = Маршрут не пракладзены. Не знойдзены пункт адпраўлення.
@@ -7284,7 +7284,7 @@
     zh-Hant = 此路線尚未產生。無法定位起點。
 
   [dialog_routing_select_closer_start]
-    tags = android, ios
+    tags = android,ios
     en = Please select a starting point closer to a road.
     ar = يُرجى تحديد نقطة بدء أكثر قربًا للطريق.
     be = Выберыце пункт адпраўлення бліжэй да дарогі.
@@ -7320,7 +7320,7 @@
     zh-Hant = 請選擇更接近道路的起點。
 
   [dialog_routing_change_end]
-    tags = android, ios
+    tags = android,ios
     en = Adjust destination
     ar = تعديل الوجهة
     be = Змяніце пункт прызначэння
@@ -7356,7 +7356,7 @@
     zh-Hant = 變更目的地
 
   [dialog_routing_end_not_determined]
-    tags = android, ios
+    tags = android,ios
     en = Route was not created. Unable to locate the destination.
     ar = لم يتم إنشاء المسار. تعذر تحديد موقع الوجهة.
     be = Маршрут не пракладзены. Не знойдзены пункт прызначэння.
@@ -7392,7 +7392,7 @@
     zh-Hant = 未產生路線。無法定位目的地。
 
   [dialog_routing_select_closer_end]
-    tags = android, ios
+    tags = android,ios
     en = Please select a destination point located closer to a road.
     ar = يُرجى تحديد نقطة وجهة تقع أكثر قربًا من الطريق.
     be = Выберыце пункт прызначэння бліжэй да дарогі.
@@ -7428,7 +7428,7 @@
     zh-Hant = 請選擇更接近道路的目的地。
 
   [dialog_routing_change_intermediate]
-    tags = android, ios
+    tags = android,ios
     en = Unable to locate the intermediate point.
     ar = تعذر تحديد مكان النقطة الوسيطة.
     be = Не знойдзена прамежкавая кропка маршрута.
@@ -7463,7 +7463,7 @@
     zh-Hant = 找不到中途休息站。
 
   [dialog_routing_intermediate_not_determined]
-    tags = android, ios
+    tags = android,ios
     en = Please adjust your intermediate point.
     ar = الرجاء ضبط النقطة الوسيطة الخاصة بك.
     be = Змяніце прамежкавы пункт.
@@ -7499,7 +7499,7 @@
     zh-Hant = 請調整您的中途休息站。
 
   [dialog_routing_system_error]
-    tags = android, ios
+    tags = android,ios
     en = System error
     ar = خطأ في النظام
     be = Памылка сістэмы
@@ -7535,7 +7535,7 @@
     zh-Hant = 系統錯誤
 
   [dialog_routing_application_error]
-    tags = android, ios
+    tags = android,ios
     en = Unable to create route due to an application error.
     ar = تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.
     be = Не атрымалася пракласці маршрут з-за памылкі дадатка.
@@ -7571,7 +7571,7 @@
     zh-Hant = 由於此錯誤，尚未建立路線。
 
   [dialog_routing_try_again]
-    tags = android, ios
+    tags = android,ios
     en = Please try again
     ar = برجاء إعادة المحاولة
     be = Паспрабуйце зноў
@@ -7643,7 +7643,7 @@
     zh-Hant = 現在不要
 
   [dialog_routing_download_and_build_cross_route]
-    tags = android, ios
+    tags = android,ios
     en = Would you like to download the map and create a more optimal route spanning more than one map?
     ar = هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟
     be = Спампаваць мапу і пракласці лепшы маршрут праз некалькі мапаў?
@@ -7679,7 +7679,7 @@
     zh-Hant = 您是否要下載地圖，產生跨越邊界的更好路線？
 
   [dialog_routing_download_cross_route]
-    tags = android, ios
+    tags = android,ios
     en = Download additional maps to create a better route that crosses the boundaries of this map.
     ar = تنزيل الخريطة لإنشاء مسار أفضل يعبر حافة هذه الخريطة.
     be = Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, каторы перасякае межы гэтай мапы.
@@ -7790,7 +7790,7 @@
 
   [show]
     comment = «Show» context menu
-    tags = android, ios
+    tags = android,ios
     en = Show
     ar = عرض
     be = Паказаць
@@ -7826,7 +7826,7 @@
 
   [hide]
     comment = «Hide» context menu
-    tags = android, ios
+    tags = android,ios
     en = Hide
     ar = إخفاء
     be = Схаваць
@@ -7898,7 +7898,7 @@
 
   [routing_arrive]
     comment = Arrive routing message in navigation view
-    tags = android, ios
+    tags = android,ios
     en = Arrival at %s
     ar = الوصول: %s
     be = Прыбыццё а %s
@@ -8141,7 +8141,7 @@
     zh-Hant = 有沒有想法我們能怎麽把它變得更好？
 
   [categories]
-    tags = android, ios
+    tags = android,ios
     en = Categories
     ar = التصنيفات
     be = Катэгорыі
@@ -8176,7 +8176,7 @@
     zh-Hant = 類別
 
   [history]
-    tags = android, ios
+    tags = android,ios
     en = History
     ar = السجل
     be = Гісторыя
@@ -8211,7 +8211,7 @@
     zh-Hant = 記錄
 
   [closed]
-    tags = android, ios
+    tags = android,ios
     en = Closed
     ar = مغلق
     be = Зачынена
@@ -8246,7 +8246,7 @@
     zh-Hant = 已關閉
 
   [search_not_found]
-    tags = android, ios
+    tags = android,ios
     en = Oops, no results found.
     ar = المعذرة، لم أعثر على أي شيء.
     be = Нічога не знойдзена.
@@ -8281,7 +8281,7 @@
     zh-Hant = 很抱歉，找不到任何東西。
 
   [search_not_found_query]
-    tags = android, ios
+    tags = android,ios
     en = Try changing your search criteria.
     ar = يرجى تجربة استعلام آخر.
     be = Паспрабуйце змяніць умовы пошуку.
@@ -8316,7 +8316,7 @@
     zh-Hant = 請嘗試其他搜尋字詞。
 
   [search_history_title]
-    tags = android, ios
+    tags = android,ios
     en = Search History
     ar = سجل البحث
     be = Гісторыя пошуку
@@ -8351,7 +8351,7 @@
     zh-Hant = 搜尋歷史紀錄
 
   [search_history_text]
-    tags = android, ios
+    tags = android,ios
     en = View recent searches.
     ar = الوصول إلى استعلامات البحث الحديثة بسرعة.
     be = Праглядзець нядаўныя пошукі.
@@ -8386,7 +8386,7 @@
     zh-Hant = 檢視最近的搜尋。
 
   [clear_search]
-    tags = android, ios
+    tags = android,ios
     en = Clear Search History
     ar = مسح تاريخ البحث
     be = Ачысціць гісторыю пошуку
@@ -8437,7 +8437,7 @@
     zh-Hant = 維基百科
 
   [p2p_your_location]
-    tags = android, ios
+    tags = android,ios
     en = Your Location
     ar = موقعك
     be = Ваша месцазнаходжанне
@@ -8472,7 +8472,7 @@
     zh-Hant = 您的位置
 
   [p2p_start]
-    tags = android, ios
+    tags = android,ios
     en = Start
     ar = البداية
     be = Пачаць
@@ -8507,7 +8507,7 @@
     zh-Hant = 開始
 
   [p2p_from_here]
-    tags = android, ios
+    tags = android,ios
     en = Route from
     ar = من
     be = Адсюль
@@ -8542,7 +8542,7 @@
     zh-Hant = 從
 
   [p2p_to_here]
-    tags = android, ios
+    tags = android,ios
     en = Route to
     ar = الطريق إلى
     be = Дасюль
@@ -8577,7 +8577,7 @@
     zh-Hant = 路線終點
 
   [p2p_only_from_current]
-    tags = android, ios
+    tags = android,ios
     en = Navigation is available only from your current location.
     ar = تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟
     be = Навігацыя магчыма толькі ад цяперашняга месцазнаходжання.
@@ -8612,7 +8612,7 @@
     zh-Hant = 導航只能從您目前的位置開始。
 
   [p2p_reroute_from_current]
-    tags = android, ios
+    tags = android,ios
     en = Do you want us to plan a route from your current location?
     ar = هل ترغب في أن نرسم مسار لك من موقعك الحالي؟
     be = Хочаце перапракласці маршрут ад цяперашняга месцазнаходжання?
@@ -8683,7 +8683,7 @@
     zh-Hant = 下一頁
 
   [editor_time_add]
-    tags = android, ios
+    tags = android,ios
     en = Add Schedule
     ar = إضافة جدول
     be = Дадаць расклад
@@ -8718,7 +8718,7 @@
     zh-Hant = 新增排程
 
   [editor_time_delete]
-    tags = android, ios
+    tags = android,ios
     en = Delete Schedule
     ar = حذف جدول
     be = Выдаліць расклад
@@ -8754,7 +8754,7 @@
 
   [editor_time_allday]
     comment = Text for allday switch.
-    tags = android, ios
+    tags = android,ios
     en = All Day (24 hours)
     ar = طوال اليوم (24 ساعة)
     be = Цэлы дзень (24 гадзіны)
@@ -8789,7 +8789,7 @@
     zh-Hant = 全天 (24 小時)
 
   [editor_time_open]
-    tags = android, ios
+    tags = android,ios
     en = Open
     ar = مفتوح
     be = Адчынена
@@ -8824,7 +8824,7 @@
     zh-Hant = 營業中
 
   [editor_time_close]
-    tags = android, ios
+    tags = android,ios
     en = Closed
     ar = مغلق
     be = Зачынена
@@ -8859,7 +8859,7 @@
     zh-Hant = 休息時間
 
   [editor_time_add_closed]
-    tags = android, ios
+    tags = android,ios
     en = Add Non-Business Hours
     ar = إضافة ساعات راحة
     be = Дадаць час, калі зачынена
@@ -8894,7 +8894,7 @@
     zh-Hant = 新增休息時間
 
   [editor_time_title]
-    tags = android, ios
+    tags = android,ios
     en = Business Hours
     ar = ساعات العمل
     be = Час працы
@@ -8929,7 +8929,7 @@
     zh-Hant = 營業時間
 
   [editor_time_advanced]
-    tags = android, ios
+    tags = android,ios
     en = Advanced Mode
     ar = الوضع المتقدم
     be = Расшыраны рэжым
@@ -8964,7 +8964,7 @@
     zh-Hant = 進階模式
 
   [editor_time_simple]
-    tags = android, ios
+    tags = android,ios
     en = Simple Mode
     ar = الوضع البسيط
     be = Просты рэжым
@@ -8999,7 +8999,7 @@
     zh-Hant = 簡易模式
 
   [editor_hours_closed]
-    tags = android, ios
+    tags = android,ios
     en = Non-Business Hours
     ar = ساعات الراحة
     be = Час, калі зачынена
@@ -9034,7 +9034,7 @@
     zh-Hant = 休息時間
 
   [editor_example_values]
-    tags = android, ios
+    tags = android,ios
     en = Example Values
     ar = أمثلة على القيم
     be = Прыклады значэнняў
@@ -9104,7 +9104,7 @@
     zh-Hant = 修正錯誤
 
   [editor_add_select_location]
-    tags = android, ios
+    tags = android,ios
     en = Location
     ar = الموقع
     be = Месцазнаходжанне
@@ -9279,7 +9279,7 @@
     zh-Hant = 或者在 https://www.openstreetmap.org/ 上親自修復此錯誤
 
   [editor_report_problem_send_button]
-    tags = android, ios
+    tags = android,ios
     en = Send
     ar = إرسال
     be = Адправіць
@@ -9454,7 +9454,7 @@
     zh-Hant = 重複的地點
 
   [autodownload]
-    tags = android, ios
+    tags = android,ios
     en = Auto-download
     ar = التنزيل التلقائي
     be = Аўтаматычная спампоўка
@@ -9526,7 +9526,7 @@
 
   [daily]
     comment = Place Page opening hours text
-    tags = android, ios
+    tags = android,ios
     en = Daily
     ar = يوميا
     be = Штодзённа
@@ -9561,7 +9561,7 @@
     zh-Hant = 每天
 
   [twentyfour_seven]
-    tags = android, ios
+    tags = android,ios
     en = 24/7
     ar = ليلا ونهارا
     be = 24/7
@@ -9597,7 +9597,7 @@
     zh-Hant = 全天候
 
   [day_off_today]
-    tags = android, ios
+    tags = android,ios
     en = Closed today
     ar = مغلق اليوم
     be = Сёння зачынена
@@ -9632,7 +9632,7 @@
     zh-Hant = 今天沒有營業
 
   [day_off]
-    tags = android, ios
+    tags = android,ios
     en = Closed
     ar = مغلق
     be = Зачынена
@@ -9667,7 +9667,7 @@
     zh-Hant = 沒有營業
 
   [today]
-    tags = android, ios
+    tags = android,ios
     en = Today
     ar = اليوم
     be = Сёння
@@ -9772,7 +9772,7 @@
     zh-Hant = 編輯營業時間
 
   [no_osm_account]
-    tags = android, ios
+    tags = android,ios
     en = Don't have an OpenStreetMap account?
     ar = ليس لديك حساب في OpenStreetMap؟
     be = Не зарэгістраваныя на OpenStreetMap?
@@ -9807,7 +9807,7 @@
     zh-Hant = 沒有 OpenStreeMap 帳號嗎？
 
   [register_at_openstreetmap]
-    tags = android, ios
+    tags = android,ios
     en = Register at OSM
     ar = التسجيل
     be = Зарэгістравацца на OpenStreetMap
@@ -9912,7 +9912,7 @@
     zh-Hant = 無效的使用者名稱或密碼。
 
   [login]
-    tags = android, ios
+    tags = android,ios
     en = Log In
     ar = تسجيل الدخول
     be = Увайсці
@@ -9982,7 +9982,7 @@
     zh-Hant = 密碼
 
   [forgot_password]
-    tags = android, ios
+    tags = android,ios
     en = Forgot your password?
     ar = هل نسيت كلمة المرور؟
     be = Забылі пароль?
@@ -10052,7 +10052,7 @@
     zh-Hant = OSM 帳號
 
   [logout]
-    tags = android, ios
+    tags = android,ios
     en = Log Out
     ar = تسجيل الخروج
     be = Выйсці
@@ -10123,7 +10123,7 @@
     zh-Hant = 上次上傳
 
   [thank_you]
-    tags = android, ios
+    tags = android,ios
     en = Thank You
     ar = شكرا لك
     be = Дзякуй
@@ -10158,7 +10158,7 @@
     zh-Hant = 謝謝您
 
   [edit_place]
-    tags = android, ios
+    tags = android,ios
     en = Edit Place
     ar = تعديل المكان
     be = Правіць месца
@@ -10228,7 +10228,7 @@
     zh-Hant = 地點名稱
 
   [add_language]
-    tags = android, ios
+    tags = android,ios
     en = Add a language
     ar = إضافة لغة
     be = Дадаць мову
@@ -10299,7 +10299,7 @@
 
   [house_number]
     comment = Editable House Number text field (in address block).
-    tags = android, ios
+    tags = android,ios
     en = Building number
     ar = رقم المنزل
     be = Нумар будынка
@@ -10334,7 +10334,7 @@
     zh-Hant = 門牌號碼
 
   [details]
-    tags = android, ios
+    tags = android,ios
     en = Details
     ar = التفاصيل
     be = Падрабязнасці
@@ -10370,7 +10370,7 @@
 
   [add_street]
     comment = Text field to enter non-existing street name, below list of known streets around
-    tags = android, ios
+    tags = android,ios
     en = Add a street
     ar = إضافة شارع
     be = Дадаць вуліцу
@@ -10422,7 +10422,7 @@
     uk = Введіть назву вулиці
 
   [choose_language]
-    tags = android, ios
+    tags = android,ios
     en = Choose a language
     ar = اختر اللغة
     be = Выбраць мову
@@ -10457,7 +10457,7 @@
     zh-Hant = 選擇語言
 
   [choose_street]
-    tags = android, ios
+    tags = android,ios
     en = Choose a street
     ar = اختر الشارع
     be = Выбраць вуліцу
@@ -10492,7 +10492,7 @@
     zh-Hant = 選擇街道
 
   [postal_code]
-    tags = android, ios
+    tags = android,ios
     en = Postal Code
     ar = الرمز البريدي
     be = Паштовы індэкс
@@ -10526,7 +10526,7 @@
     zh-Hant = 郵遞區號
 
   [cuisine]
-    tags = android, ios
+    tags = android,ios
     en = Cuisine
     ar = المطبخ
     be = Кухня
@@ -10561,7 +10561,7 @@
     zh-Hant = 料理
 
   [select_cuisine]
-    tags = android, ios
+    tags = android,ios
     en = Select cuisine
     ar = اختر المطبخ
     be = Выбраць кухню
@@ -10597,7 +10597,7 @@
 
   [email_or_username]
     comment = login text field
-    tags = android, ios
+    tags = android,ios
     en = Email or username
     ar = البريد الإلكتروني أو اسم المستخدم
     be = Email альбо імя карыстальніка
@@ -10712,7 +10712,7 @@
     zh-Hant = 請註意
 
   [downloader_delete_map_dialog]
-    tags = android, ios
+    tags = android,ios
     en = All of your map edits will be deleted together with the map.
     ar = سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.
     be = Усе вашы праўкі мапы будуць выдаленыя разам з мапай.
@@ -10747,7 +10747,7 @@
     zh-Hant = 所有對地圖的修改都將與地圖一起被刪除。
 
   [downloader_update_maps]
-    tags = android, ios
+    tags = android,ios
     en = Update Maps
     ar = تحديث الخرائط
     be = Абнавіць мапы
@@ -10817,7 +10817,7 @@
     zh-Hant = 為了建立路線，您需要更新全部地圖並重新規劃路線。
 
   [downloader_search_field_hint]
-    tags = android, ios
+    tags = android,ios
     en = Find map
     ar = اعثر على الخريطة
     be = Знайсці мапу
@@ -10887,7 +10887,7 @@
     zh-Hant = 下載錯誤
 
   [common_check_internet_connection_dialog]
-    tags = android, ios
+    tags = android,ios
     en = Please check your settings and make sure your device is connected to the Internet.
     ar = يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.
     be = Праверце налады і ўпэўніцеся, што прылада падключана да інтэрнэту.
@@ -10922,7 +10922,7 @@
     zh-Hant = 請檢查您的設定並確保您的設備已連接至網路。
 
   [downloader_no_space_title]
-    tags = android, ios
+    tags = android,ios
     en = Not enough space
     ar = مساحة غير كافية
     be = Не хапае месца
@@ -10957,7 +10957,7 @@
     zh-Hant = 無足夠的空間
 
   [downloader_no_space_message]
-    tags = android, ios
+    tags = android,ios
     en = Please delete any unnecessary data
     ar = من فضلك، قم بإزالة البيانات غير الضرورية
     be = Выдаліце непатрэбныя дадзеныя
@@ -11027,7 +11027,7 @@
     zh-Hant = 登入錯誤。
 
   [editor_profile_changes]
-    tags = android, ios
+    tags = android,ios
     en = Verified Changes
     ar = التغييرات التي تم التحقق منها
     be = Правераныя змены
@@ -11062,7 +11062,7 @@
     zh-Hant = 已驗證的變更
 
   [editor_focus_map_on_location]
-    tags = android, ios
+    tags = android,ios
     en = Drag the map to select the correct location of the object.
     ar = اسحب الخريطة لتحدد الموقع الصحيح للهدف.
     be = Перацягніце мапу каб выбраць правільнае месцазнаходжанне аб'екта.
@@ -11202,7 +11202,7 @@
     zh-Hant = 所有類別
 
   [editor_edit_place_title]
-    tags = android, ios
+    tags = android,ios
     en = Editing
     ar = تعديل
     be = Праўка
@@ -11237,7 +11237,7 @@
     zh-Hant = 編輯中
 
   [editor_add_place_title]
-    tags = android, ios
+    tags = android,ios
     en = Adding
     ar = إٍضافة
     be = Даданне
@@ -11272,7 +11272,7 @@
     zh-Hant = 新增中
 
   [editor_edit_place_name_hint]
-    tags = android, ios
+    tags = android,ios
     en = Name of the place
     ar = اسم المكان
     be = Назва месца
@@ -11307,7 +11307,7 @@
     zh-Hant = 該地點的名稱
 
   [editor_edit_place_category_title]
-    tags = android, ios
+    tags = android,ios
     en = Category
     ar = الفئة
     be = Катэгорыя
@@ -11517,7 +11517,7 @@
     zh-Hant = 改變位置
 
   [message_invalid_feature_position]
-    tags = android, ios
+    tags = android,ios
     en = No object can be located here
     ar = لا يمكن تحديد موقع الكائن هنا
     be = Аб'ект не можа знаходзіцца тут
@@ -11552,7 +11552,7 @@
     zh-Hant = 物件無法設置在這裡
 
   [login_to_make_edits_visible]
-    tags = android, ios
+    tags = android,ios
     en = Log in so other users can see the changes that you have made
     ar = قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.
     be = Аўтарызуйцеся, каб іншыя карыстальнікі бачылі вашыя змены.
@@ -11659,7 +11659,7 @@
 
   [downloader_of]
     comment = Downloaded 10 **of** 20 <- it is that "of"
-    tags = android, ios
+    tags = android,ios
     en = %1$d of %2$d
     ar = %1$d من%2$d
     be = %1$d з %2$d
@@ -11694,7 +11694,7 @@
     zh-Hant = %1$d個/共%2$d個
 
   [download_over_mobile_header]
-    tags = android, ios
+    tags = android,ios
     en = Download over a cellular network connection?
     ar = تنزيل باستخدام اتصال الشبكة الخلوية؟
     be = Спампаваць праз мабільны інтэрнэт?
@@ -11728,7 +11728,7 @@
     zh-Hant = 用手機網路連線下載嗎？
 
   [download_over_mobile_message]
-    tags = android, ios
+    tags = android,ios
     en = This could be considerably expensive with some plans or if roaming.
     ar = قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.
     be = Гэта можа быць даволі дорага з некаторымі тарыфнымі планамі альбо ў роўмінгу.
@@ -11762,7 +11762,7 @@
     zh-Hant = 用某些方案或漫遊的話這可能相當昂貴。
 
   [error_enter_correct_house_number]
-    tags = android, ios
+    tags = android,ios
     en = Enter a valid building number
     ar = أدخل رقم منزل صحيح
     be = Увядзіце нумар дома правільна
@@ -11797,7 +11797,7 @@
     zh-Hant = 輸入正確的門牌號碼
 
   [editor_storey_number]
-    tags = android, ios
+    tags = android,ios
     en = Number of floors (maximum of %d)
     ar = عدد الطوابق (بحد أقصى %d)
     be = Колькасць паверхаў (максімум %d)
@@ -11833,7 +11833,7 @@
 
   [error_enter_correct_storey_number]
     comment = Error message in Editor when a user tries to set the number of floors for a building higher than 25
-    tags = android, ios
+    tags = android,ios
     en = The number of floors must non exceed 25
     ar = تحرير المبنى بحد أقصى 25 طابقًا
     be = Колькасць паверхаў павінна быць не больш за 25
@@ -11868,7 +11868,7 @@
     zh-Hant = 編輯最多 25 層的建築
 
   [editor_zip_code]
-    tags = android, ios
+    tags = android,ios
     en = ZIP Code
     ar = الرمز البريدي
     be = Паштовы індэкс
@@ -11903,7 +11903,7 @@
     zh-Hant = 郵遞區號
 
   [error_enter_correct_zip_code]
-    tags = android, ios
+    tags = android,ios
     en = Enter a valid ZIP code
     ar = أدخل الرمز البريدي الصحيح
     be = Увядзіце паштовы індэкс правільна
@@ -11939,7 +11939,7 @@
 
   [core_placepage_unknown_place]
     comment = Place Page title for long tap
-    tags = android, ios
+    tags = android,ios
     en = Unknown Place
     ar = مكان غير معروف
     be = Невядомае месца
@@ -11974,7 +11974,7 @@
     zh-Hant = 未知的位置
 
   [editor_other_info]
-    tags = android, ios
+    tags = android,ios
     en = Send a note to OSM editors
     ar = ارسل ملاحظة إلى محرري OSM
     be = Адправіць нататку рэдактарам OSM
@@ -12011,7 +12011,7 @@
     zh-Hant = 給OSM編輯器發送標記
 
   [editor_detailed_description_hint]
-    tags = android, ios
+    tags = android,ios
     en = Detailed comment
     ar = تعليق مفصل
     be = Падрабязны каментар
@@ -12046,7 +12046,7 @@
     zh-Hant = 詳細註釋
 
   [editor_detailed_description]
-    tags = android, ios
+    tags = android,ios
     en = Your suggested map changes will be sent to the OpenStreetMap community. Describe any additional details that cannot be edited in Organic Maps.
     ar = سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps
     be = Запрапанаваныя вамі змены будуць дасланыя суполцы OpenStreetMap. Апішыце любыя іншыя падрабязнасці, каторыя нельга паправіць у Organic Maps.
@@ -12081,7 +12081,7 @@
     zh-Hant = 您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 Organic Maps 中編輯的詳細資料。
 
   [editor_more_about_osm]
-    tags = android, ios
+    tags = android,ios
     en = More about OpenStreetMap
     ar = المزيد عن OpenStreetMap
     be = Падрабязней пра OpenStreetMap
@@ -12116,7 +12116,7 @@
     zh-Hant = 關於 OpenStreetMap 的更多資訊
 
   [editor_operator]
-    tags = android, ios
+    tags = android,ios
     en = Owner
     ar = معامل
     be = Уладальнік
@@ -12185,7 +12185,7 @@
     zh-Hant = 我的地圖
 
   [downloader_no_downloaded_maps_title]
-    tags = android, ios
+    tags = android,ios
     en = You haven't downloaded any maps
     ar = لم تقم بتنزيل أية خرائط
     be = Вы не спампавалі ніводнай мапы
@@ -12220,7 +12220,7 @@
     zh-Hant = 您尚未下載任何地圖
 
   [downloader_no_downloaded_maps_message]
-    tags = android, ios
+    tags = android,ios
     en = Download maps to search for a location and use navigation offline.
     ar = قم بتنزيل خرائط للبحث عن مكان والتنقل بدون اتصال بالإنترنت.
     be = Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.
@@ -12256,7 +12256,7 @@
 
   [current_location_unknown_title]
     comment = Error title that appears after certain time without location.
-    tags = android, ios
+    tags = android,ios
     en = Continue detecting your current location?
     ar = هل تريد متابعة اكتشاف موقعك الحالي؟
     be = Працягнуць вызначэнне месцазнаходжання?
@@ -12292,7 +12292,7 @@
 
   [current_location_unknown_message]
     comment = Error that appears after certain time without location.
-    tags = android, ios
+    tags = android,ios
     en = Current location is unknown. Maybe you are in a building or in a tunnel.
     ar = الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.
     be = Месцазнаходжанне невядома. Магчыма вы ў будынку альбо ў танэлі.
@@ -12327,7 +12327,7 @@
     zh-Hant = 目前位置未知，可能您在建築物內或隧道內。
 
   [current_location_unknown_continue_button]
-    tags = android, ios
+    tags = android,ios
     en = Continue
     ar = استمرار
     be = Працягнуць
@@ -12362,7 +12362,7 @@
     zh-Hant = 繼續
 
   [current_location_unknown_stop_button]
-    tags = android, ios
+    tags = android,ios
     en = Stop
     ar = إيقاف
     be = Спыніць
@@ -12644,7 +12644,7 @@
     zh-Hant = 3. 使用應用時選擇
 
   [meter]
-    tags = android, ios
+    tags = android,ios
     en = m
     ar = م
     be = м
@@ -12678,7 +12678,7 @@
     zh-Hant = 公尺
 
   [kilometer]
-    tags = android, ios
+    tags = android,ios
     en = km
     ar = كم
     be = км
@@ -12712,7 +12712,7 @@
     zh-Hant = 公里
 
   [kilometers_per_hour]
-    tags = android, ios
+    tags = android,ios
     en = km/h
     ar = كم/ساعة
     be = км/г
@@ -12745,7 +12745,7 @@
     zh-Hant = 公里每小時
 
   [mile]
-    tags = android, ios
+    tags = android,ios
     en = mi
     ar = ميل
     be = міля
@@ -12779,7 +12779,7 @@
     zh-Hant = 英哩
 
   [foot]
-    tags = android, ios
+    tags = android,ios
     en = ft
     ar = قدم
     be = фут
@@ -12813,7 +12813,7 @@
     zh-Hant = 英尺
 
   [miles_per_hour]
-    tags = android, ios
+    tags = android,ios
     en = mph
     ar = ميل/ساعة
     be = міль/г
@@ -12914,7 +12914,7 @@
     zh-Hant = 分鐘
 
   [placepage_place_description]
-    tags = android, ios
+    tags = android,ios
     en = Description
     ar = الوصف
     be = Апісанне
@@ -12948,7 +12948,7 @@
     zh-Hant = 說明
 
   [placepage_more_button]
-    tags = android, ios
+    tags = android,ios
     en = More
     ar = المزيد
     be = Яшчэ
@@ -13020,7 +13020,7 @@
     zh-Hant = 更多評論
 
   [book_button]
-    tags = android, ios
+    tags = android,ios
     en = Book
     ar = حجز
     be = Забраніраваць
@@ -13054,7 +13054,7 @@
     zh-Hant = 預約
 
   [placepage_call_button]
-    tags = android, ios
+    tags = android,ios
     en = Call
     ar = اتصال
     be = Патэлефанаваць
@@ -13089,7 +13089,7 @@
     zh-Hant = 呼叫
 
   [placepage_edit_bookmark_button]
-    tags = android, ios
+    tags = android,ios
     en = Edit Bookmark
     ar = تحرير العلامة المرجعية
     be = Правіць закладку
@@ -13262,7 +13262,7 @@
     zh-Hant = 您的建議已傳送
 
   [editor_comment_hint]
-    tags = android, ios
+    tags = android,ios
     en = Comment…
     ar = تعليق…
     be = Каментар…
@@ -13297,7 +13297,7 @@
     zh-Hant = 註解…
 
   [editor_reset_edits_message]
-    tags = android, ios
+    tags = android,ios
     en = Discard all local changes?
     ar = هل تريد مسح كافة التغييرات المحلية؟
     be = Скінуць усе лакальныя змены?
@@ -13332,7 +13332,7 @@
     zh-Hant = 重設所有本機變更？
 
   [editor_reset_edits_button]
-    tags = android, ios
+    tags = android,ios
     en = Discard
     ar = مسح
     be = Скінуць
@@ -13367,7 +13367,7 @@
     zh-Hant = 重設
 
   [editor_remove_place_message]
-    tags = android, ios
+    tags = android,ios
     en = Delete added place?
     ar = إزالة مكان تمت إضافته؟
     be = Выдаліць даданае месца?
@@ -13402,7 +13402,7 @@
     zh-Hant = 移除已新增的位置？
 
   [editor_remove_place_button]
-    tags = android, ios
+    tags = android,ios
     en = Delete
     ar = إزالة
     be = Выдаліць
@@ -13437,7 +13437,7 @@
     zh-Hant = 移除
 
   [editor_place_doesnt_exist]
-    tags = android, ios
+    tags = android,ios
     en = Place does not exist
     ar = المكان غير موجود
     be = Месца не існуе
@@ -13517,7 +13517,7 @@
 
   [error_enter_correct_phone]
     comment = Phone number error message
-    tags = android, ios
+    tags = android,ios
     en = Enter a valid phone number
     ar = أدخل رقم هاتف صحيح
     be = Увядзіце нумар тэлефона правільна
@@ -13552,7 +13552,7 @@
     zh-Hant = 輸入正確的電話號碼
 
   [error_enter_correct_web]
-    tags = android, ios
+    tags = android,ios
     en = Enter a valid web address
     ar = أدخل عنوان ويب صالح
     be = Увядзіце web-адрас правільна
@@ -13587,7 +13587,7 @@
     zh-Hant = 輸入有效網址
 
   [error_enter_correct_email]
-    tags = android, ios
+    tags = android,ios
     en = Enter a valid email
     ar = أدخل بريدا إلكترونيا صالحا
     be = Увядзіце email правільна
@@ -13713,7 +13713,7 @@
     zh-Hant = 更新
 
   [placepage_add_place_button]
-    tags = android, ios
+    tags = android,ios
     en = Add a place to the map
     ar = إضافة مكان ما للخريطة
     be = Дадаць месца на мапу
@@ -13749,7 +13749,7 @@
 
   [editor_share_to_all_dialog_title]
     comment = Displayed when saving some edits to the map to warn against publishing personal data
-    tags = android, ios
+    tags = android,ios
     en = Do you want to send it to all users?
     ar = هل ترغب في إرساله لجميع المستخدمين؟
     be = Хочаце адправіць усім карыстальнікам?
@@ -13785,7 +13785,7 @@
 
   [editor_share_to_all_dialog_message_1]
     comment = iOS Dialog before publishing the modifications to the public map.
-    tags = android, ios
+    tags = android,ios
     en = Make sure you did not enter any personal data.
     ar = تأكد من أنك لم تقم بإدخال أي بيانات شخصية.
     be = Упэўніцеся, што вы не ўвялі ніякіх асабістых дадзеных.
@@ -13820,7 +13820,7 @@
     zh-Hant = 確保您沒有輸入任何個人資料。
 
   [editor_share_to_all_dialog_message_2]
-    tags = android, ios
+    tags = android,ios
     en = We will check the changes. If we have any questions we will contact you via email.
     ar = سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسوف نتصل بك عبر البريد الإلكتروني.
     be = Мы праверым змены. Калі ў нас з'явяцца пытанні, мы з вамі звяжамся праз email.
@@ -14031,7 +14031,7 @@
 
   [about_description]
     comment = Text under the version number in the Help dialog.
-    tags = android, ios
+    tags = android,ios
     en = Organic Maps is a free and open-source offline maps application. No ads. No tracking. If you see an error on the map, please fix it in OpenStreetMap. The project is created by enthusiasts in our free time, so we need your feedback and support.
     ar = Organic Maps هي تطبيق خرائط مجاني ومفتوح المصدر بلا اتصال بالإنترنت. لا اعلانات. لا تتبع. إذا رأيت خطأً على الخريطة ، فيرجى إصلاحه في OpenStreetMap. تم إنشاء المشروع بواسطة المتحمسين في أوقات فراغنا ، لذلك نحتاج إلى ملاحظاتك ودعمك.
     be = Organic Maps – бясплатныя мапы з адкрытым зыходным кодам, якія працуюць без інтэрнэту. Ніякай рэкламы. Ніякага адсочвання. Калі вы бачыце памылку на карце, выпраўце яе ў OpenStreetMap. Праект ствараецца энтузіястамі ў вольны час, таму нам патрэбны вашы водгукі і падтрымка.
@@ -14104,7 +14104,7 @@
 
   [accept]
     comment = For the first routing
-    tags = android, ios
+    tags = android,ios
     en = Accept
     ar = قبول
     be = Прыняць
@@ -14140,7 +14140,7 @@
 
   [decline]
     comment = For the first routing
-    tags = android, ios
+    tags = android,ios
     en = Decline
     ar = رفض
     be = Адхіліць
@@ -14176,7 +14176,7 @@
 
   [search_in_table]
     comment = noun
-    tags = android, ios
+    tags = android,ios
     en = List
     ar = قائمة
     be = Спіс
@@ -14211,7 +14211,7 @@
     zh-Hant = 清單
 
   [mobile_data_dialog]
-    tags = android, ios
+    tags = android,ios
     en = Use mobile internet to show detailed information?
     ar = استخدام إنترنت المحمول لإظهار المعلومات التفصيلية؟
     be = Ужываць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?
@@ -14246,7 +14246,7 @@
     zh-Hant = 使用手機網路顯示詳細資訊？
 
   [mobile_data_option_always]
-    tags = android, ios
+    tags = android,ios
     en = Use Always
     ar = استخدام دائمًا
     be = Заўсёды
@@ -14281,7 +14281,7 @@
     zh-Hant = 一律使用
 
   [mobile_data_option_today]
-    tags = android, ios
+    tags = android,ios
     en = Only Today
     ar = اليوم فقط
     be = Толькі сёння
@@ -14316,7 +14316,7 @@
     zh-Hant = 僅限今天
 
   [mobile_data_option_not_today]
-    tags = android, ios
+    tags = android,ios
     en = Do not Use Today
     ar = عدم الاستخدام اليوم
     be = Не сёння
@@ -14351,7 +14351,7 @@
     zh-Hant = 今天不使用
 
   [mobile_data]
-    tags = android, ios
+    tags = android,ios
     en = Mobile Internet
     ar = انترنت المحمول
     be = Мабільны інтэрнэт
@@ -14386,7 +14386,7 @@
     zh-Hant = 手機網路
 
   [mobile_data_description]
-    tags = android, ios
+    tags = android,ios
     en = Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.
     ar = الإنترنت المحمول مطلوب لعرض معلومات تفصيلية عن الأماكن مثل الصور الفوتوغرافية والأسعار والمراجعات.
     be = Мабільны інтэрнэт патрэбны каб паказваць падрабязную інфармацыю пра месцы, такую як фотаздымкі, цэны і водгукі.
@@ -14421,7 +14421,7 @@
     zh-Hant = 需有手機網路才能顯示相片、價格與評論等詳細資訊和地點。
 
   [mobile_data_option_never]
-    tags = android, ios
+    tags = android,ios
     en = Never Use
     ar = عدم الاستخدام مطلقًا
     be = Ніколі не ужываць
@@ -14456,7 +14456,7 @@
     zh-Hant = 絕不使用
 
   [mobile_data_option_ask]
-    tags = android, ios
+    tags = android,ios
     en = Always Ask
     ar = السؤال دوماً
     be = Заўсёды пытаць
@@ -14491,7 +14491,7 @@
     zh-Hant = 一律詢問
 
   [traffic_update_maps_text]
-    tags = android, ios
+    tags = android,ios
     en = To display traffic data, maps must be updated.
     ar = لعرض البيانات المرورية، يجب تحديث الخرائط.
     be = Для паказу інфармацыі пра рух, трэба абнавіць мапы.
@@ -14526,7 +14526,7 @@
     zh-Hant = 若要顯示交通資料，必須更新地圖。
 
   [big_font]
-    tags = android, ios
+    tags = android,ios
     en = Increase font size on the map
     ar = زيادة حجم الخط على الخريطة
     be = Павялічыць шрыфт мапы
@@ -14633,7 +14633,7 @@
 
   [traffic_data_unavailable]
     comment = "traffic" as in "road congestion"
-    tags = android, ios
+    tags = android,ios
     en = Traffic data is not available
     ar = البيانات المرورية غير متاحة
     be = Інфармацыі пра рух няма
@@ -14704,7 +14704,7 @@
 
   [feedback_general]
     comment = Settings: "Send general feedback" button
-    tags = android, ios
+    tags = android,ios
     en = General Feedback
     ar = تعقيب عام
     be = Агульны водгук
@@ -14740,7 +14740,7 @@
     zh-Hant = 一般反應
 
   [on]
-    tags = android, ios
+    tags = android,ios
     en = On
     ar = تشغيل
     be = Укл.
@@ -14776,7 +14776,7 @@
     zh-Hant = 開
 
   [off]
-    tags = android, ios
+    tags = android,ios
     en = Off
     ar = إيقاف
     be = Выкл.
@@ -14919,7 +14919,7 @@
     zh-Hant = 如需更多資訊，請參閱本指南。
 
   [transliteration_title]
-    tags = android, ios
+    tags = android,ios
     en = Transliteration into Latin
     af = Transliterasie na Latynse alfabet
     ar = كتابة بالحروف اللاتينية
@@ -14996,7 +14996,7 @@
     zh-Hant = 瞭解更多資訊
 
   [core_exit]
-    tags = android, ios
+    tags = android,ios
     en = Exit
     ar = خروج
     be = Выхад
@@ -15032,7 +15032,7 @@
     zh-Hant = 退出
 
   [routing_add_start_point]
-    tags = android, ios
+    tags = android,ios
     en = Add a starting point to plan a route
     ar = أضف نقطة البداية لتخطيط المسار
     be = Дадайце пункт адпраўлення каб пракласці маршрут
@@ -15068,7 +15068,7 @@
     zh-Hant = 新增起點以計劃路線
 
   [routing_add_finish_point]
-    tags = android, ios
+    tags = android,ios
     en = Add a destination to plan a route
     ar = أضف النهاية لتخطيط المسار
     be = Дадайце пункт прызначэння каб пракласці маршрут
@@ -15212,7 +15212,7 @@
     zh-Hant = 計畫
 
   [placepage_remove_stop]
-    tags = android, ios
+    tags = android,ios
     en = Remove
     ar = إزالة
     be = Выдаліць
@@ -15284,7 +15284,7 @@
     zh-Hant = 在此拖曳以移除
 
   [placepage_add_stop]
-    tags = android, ios
+    tags = android,ios
     en = Add Stop
     ar = إضافة نقطة توقف
     be = Дадаць прыпынак
@@ -15502,7 +15502,7 @@
     zh-Hant = 模擬不良儲存空間
 
   [core_entrance]
-    tags = android, ios
+    tags = android,ios
     en = Entrance
     ar = المدخل
     be = Уваход
@@ -15539,7 +15539,7 @@
     zh-Hant = 入口
 
   [error_enter_correct_name]
-    tags = android, ios
+    tags = android,ios
     en = Please, enter a correct name
     ar = الرجاء إدخال اسم صحيح
     be = Калі ласка, увядзіце назву правільна
@@ -15576,7 +15576,7 @@
     zh-Hant = 請輸入正確的名稱
 
   [bookmark_lists]
-    tags = android, ios
+    tags = android,ios
     en = Lists
     ar = قوائم
     be = Спісы
@@ -15614,7 +15614,7 @@
 
   [bookmark_lists_hide_all]
     comment = Do not display all bookmark lists on the map
-    tags = android, ios
+    tags = android,ios
     en = Hide all
     ar = إخفاء الكل
     be = Схаваць усе
@@ -15651,7 +15651,7 @@
     zh-Hant = 隱藏全部
 
   [bookmark_lists_show_all]
-    tags = android, ios
+    tags = android,ios
     en = Show all
     ar = إظهار الكل
     be = Паказаць усе
@@ -15732,7 +15732,7 @@
     zh-Hant = %d 個書籤
 
   [bookmarks_create_new_group]
-    tags = android, ios
+    tags = android,ios
     en = Create new list
     ar = إنشاء قائمة جديدة
     be = Стварыць новы спіс
@@ -15934,7 +15934,7 @@
     zh-Hant = 應用 %s 中……
 
   [bookmarks_error_message_share_general]
-    tags = android, ios
+    tags = android,ios
     en = Unable to share due to an application error
     ar = تعذرت المشاركة بسبب خطأ في التطبيق
     be = Не атрымалася падзяліцца з-за памылкі дадатка
@@ -15971,7 +15971,7 @@
     zh-Hant = 由於 app 出錯而無法分享
 
   [bookmarks_error_title_share_empty]
-    tags = android, ios
+    tags = android,ios
     en = Sharing error
     ar = خطأ في المشاركة
     be = Памылка пры спробе падзяліцца
@@ -16008,7 +16008,7 @@
     zh-Hant = 分享錯誤
 
   [bookmarks_error_message_share_empty]
-    tags = android, ios
+    tags = android,ios
     en = Cannot share an empty list
     ar = لا يمكن مشاركة قائمة فارغة
     be = Нельга падзяліцца пустым спісам
@@ -16082,7 +16082,7 @@
     zh-Hant = 名字不能為空
 
   [bookmarks_error_message_empty_list_name]
-    tags = android, ios
+    tags = android,ios
     en = Please enter the list name
     ar = يرجى إدخال اسم القائمة
     be = Увядзіце назву спіса
@@ -16156,7 +16156,7 @@
     zh-Hant = 新的列表
 
   [bookmarks_error_title_list_name_already_taken]
-    tags = android, ios
+    tags = android,ios
     en = This name is already taken
     ar = هذا الاسم أخذ سابقا
     be = Гэтая назва ўжо занятая
@@ -16339,7 +16339,7 @@
     zh-Hant = 電話號碼
 
   [profile]
-    tags = android, ios
+    tags = android,ios
     en = OpenStreetMap profile
     ar = الملف الشخصي OpenStreetMap
     be = Профіль OpenStreetMap
@@ -16411,7 +16411,7 @@
     zh-Hant = 檢測到新文件
 
   [bookmarks_detect_message]
-    tags = android, ios
+    tags = android,ios
     en:one = %d file was found. You can see it after conversion.
     en:other = %d files were found. You can see them after conversion.
     ar = تم العثور على %d ملفات. سوف تراهم بعد التحويل.
@@ -16738,7 +16738,7 @@
     zh-Hant = 恢復
 
   [objects]
-    tags = android, ios
+    tags = android,ios
     en:one = %d object
     en:other = %d objects
     ar = المكان %d
@@ -16833,7 +16833,7 @@
     zh-Hant = %d 地點
 
   [tracks]
-    tags = android, ios
+    tags = android,ios
     en:one = %d track
     en:other = %d tracks
     ar = المسارات %d
@@ -16991,7 +16991,7 @@
     zh-Hant = 我們可以使用您的數據來開發和改進Organic Maps。更改將再重新啟動 app 後生效。
 
   [privacy_policy]
-    tags = android, ios
+    tags = android,ios
     en = Privacy policy
     ar = سياسة الخصوصية
     be = Палітыка прыватнасці
@@ -17028,7 +17028,7 @@
     zh-Hant = 隱私政策
 
   [terms_of_use]
-    tags = android, ios
+    tags = android,ios
     en = Terms of use
     ar = شروط الاستخدام
     be = Умовы выкарыстання
@@ -17065,7 +17065,7 @@
     zh-Hant = 使用條款
 
   [button_layer_traffic]
-    tags = android, ios
+    tags = android,ios
     en = Traffic
     ar = حركة مرور
     be = Рух
@@ -17102,7 +17102,7 @@
     zh-Hant = 路況
 
   [button_layer_subway]
-    tags = android, ios
+    tags = android,ios
     en = Subway
     ar = مترو الانفاق
     be = Метро
@@ -17139,7 +17139,7 @@
     zh-Hant = 捷運
 
   [layers_title]
-    tags = android, ios
+    tags = android,ios
     en = Map layers
     ar = طبقات الخريطة
     be = Слаі карты
@@ -17176,7 +17176,7 @@
     zh-Hant = 地圖圖層
 
   [subway_data_unavailable]
-    tags = android, ios
+    tags = android,ios
     en = Subway map is unavailable
     ar = خريطة مترو الانفاق غير متوفرة
     be = Мапа метро недасягальная
@@ -17376,7 +17376,7 @@
     zh-Hant = 受歡迎的
 
   [export_file]
-    tags = android, ios
+    tags = android,ios
     en = Export file
     ar = ملف التصدير
     be = Экспартаваць файл
@@ -17413,7 +17413,7 @@
     zh-Hant = 導出文件
 
   [list_settings]
-    tags = android, ios
+    tags = android,ios
     en = List Settings
     ar = قائمة الإعدادات
     be = Налады спіса
@@ -17450,7 +17450,7 @@
     zh-Hant = 列表設定
 
   [delete_list]
-    tags = android, ios
+    tags = android,ios
     en = Delete list
     ar = حذف القائمة
     be = Выдаліць спіс
@@ -17597,7 +17597,7 @@
     zh-Hant = 私人空間
 
   [bookmark_list_description_hint]
-    tags = android, ios
+    tags = android,ios
     en = Type a description (text or html)
     ar = اكتب وصفًا (نص أو html)
     be = Дабаўце апісанне (тэкст альбо html)
@@ -17744,7 +17744,7 @@
     zh-Hant = 下載
 
   [speedcams_alert_title]
-    tags = android, ios
+    tags = android,ios
     en = Speed cameras
     ar = كاميرات السرعة
     be = Камеры хуткасці
@@ -17781,7 +17781,7 @@
     zh-Hant = 超速照相機
 
   [speedcam_option_auto]
-    tags = android, ios
+    tags = android,ios
     en = Auto
     ar = السيارات
     be = Аўтаматычна
@@ -17818,7 +17818,7 @@
     zh-Hant = 自動
 
   [speedcam_option_always]
-    tags = android, ios
+    tags = android,ios
     en = Always
     ar = دائما
     be = Заўсёды
@@ -17855,7 +17855,7 @@
     zh-Hant = 總是
 
   [speedcam_option_never]
-    tags = android, ios
+    tags = android,ios
     en = Never
     ar = مطلقا
     be = Ніколі
@@ -17892,7 +17892,7 @@
     zh-Hant = 從不
 
   [place_description_title]
-    tags = android, ios
+    tags = android,ios
     en = Place Description
     ar = وصف المكان
     be = Апісанне месца
@@ -18004,7 +18004,7 @@
     zh-Hant = 自動 - 如果存在超出速度限制的風險，則對速度照相機發出警告\n總是 - 始終提醒照相機\n從不 - 永遠不會對照相機發出警告
 
   [power_managment_title]
-    tags = android, ios
+    tags = android,ios
     en = Power saving mode
     ar = وضع توفير الطاقة
     be = Рэжым захавання энергіі
@@ -18041,7 +18041,7 @@
     zh-Hant = 省電模式
 
   [power_managment_description]
-    tags = android, ios
+    tags = android,ios
     en = When automatic mode is selected the application starts to disable battery draining features depending on the current battery charge level
     ar = عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية
     be = Калі ўключаны рэжым захавання энергіі, дадатак пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі
@@ -18078,7 +18078,7 @@
     zh-Hant = 如果開啟省電模式，應用程序將根據手機的當前電量關閉耗電功能
 
   [power_managment_setting_never]
-    tags = android, ios
+    tags = android,ios
     en = Never
     ar = أبدًا
     be = Ніколі
@@ -18115,7 +18115,7 @@
     zh-Hant = 從不
 
   [power_managment_setting_auto]
-    tags = android, ios
+    tags = android,ios
     en = Automatic
     ar = تلقائي
     be = Аўтаматычна
@@ -18152,7 +18152,7 @@
     zh-Hant = 自動
 
   [power_managment_setting_manual_max]
-    tags = android, ios
+    tags = android,ios
     en = Maximum power saving
     ar = توفير الطاقة القصوى
     be = Максімальнае захаванне энергіі
@@ -18263,7 +18263,7 @@
     zh-Hant = 線上編輯
 
   [driving_options_title]
-    tags = android, ios
+    tags = android,ios
     en = Routing options
     ar = خيارات قيادة
     be = Налады пракладкі маршрута
@@ -18300,7 +18300,7 @@
     zh-Hant = 繞行設定
 
   [driving_options_subheader]
-    tags = android, ios
+    tags = android,ios
     en = Avoid on every route
     ar = تجنب على كل الطرق
     be = Пазбягаць на кожным маршруце
@@ -18337,7 +18337,7 @@
     zh-Hant = 在每條線路上規避
 
   [avoid_tolls]
-    tags = android, ios
+    tags = android,ios
     en = Toll roads
     ar = نقطة تحصيل رسوم
     be = Платныя дарогі
@@ -18374,7 +18374,7 @@
     zh-Hant = 收費公路
 
   [avoid_unpaved]
-    tags = android, ios
+    tags = android,ios
     en = Unpaved roads
     ar = طرق غير ممهدة
     be = Грунтовыя дарогі
@@ -18411,7 +18411,7 @@
     zh-Hant = 土路
 
   [avoid_ferry]
-    tags = android, ios
+    tags = android,ios
     en = Ferry crossings
     ar = تقاطع عبارات
     be = Паромныя пераправы
@@ -18448,7 +18448,7 @@
     zh-Hant = 渡輪渡口
 
   [avoid_motorways]
-    tags = android, ios
+    tags = android,ios
     en = Motorways
     ar = طرق سريعة
     be = Аўтамагістралі
@@ -18485,7 +18485,7 @@
     zh-Hant = 高速公路
 
   [unable_to_calc_alert_title]
-    tags = android, ios
+    tags = android,ios
     en = Unable to calculate route
     ar = لا يمكن حساب الطريق
     be = Не атрымалася пракласці маршрут
@@ -18522,7 +18522,7 @@
     zh-Hant = 無法規劃路線
 
   [unable_to_calc_alert_subtitle]
-    tags = android, ios
+    tags = android,ios
     en = Unfortunately, we couldn't find a route, probably due to the options you have chosen. Please change the settings and try again.
     ar = نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الاعدادات والمحاولة مجددًا
     be = Нажаль, мы не змаглі пракласці маршрут, магчыма з-за абраных вамі налад. Змяніце налады і паспрабуйце зноў.
@@ -18559,7 +18559,7 @@
     zh-Hant = 很遺憾，我們無法使用所選選項規劃路線。請更改設定，然後重試
 
   [define_to_avoid_btn]
-    tags = android, ios
+    tags = android,ios
     en = Define roads to avoid
     ar = حدد الطرق التي يجب تجنبها
     be = Задаць дарогі, якіх пазбягаць
@@ -18596,7 +18596,7 @@
     zh-Hant = 設定繞行路徑
 
   [change_driving_options_btn]
-    tags = android, ios
+    tags = android,ios
     en = Routing options enabled
     ar = تم تفعيل خيارات الطريق
     be = Налады пракладкі маршрута ўключаны
@@ -18633,7 +18633,7 @@
     zh-Hant = 繞行設定已開啟
 
   [toll_road]
-    tags = android, ios
+    tags = android,ios
     en = Toll road
     ar = نقطة تحصيل رسوم
     be = Платная дарога
@@ -18669,7 +18669,7 @@
     zh-Hant = 收費公路
 
   [unpaved_road]
-    tags = android, ios
+    tags = android,ios
     en = Unpaved road
     ar = طريق غير ممهدة
     be = Грунтовая дарога
@@ -18705,7 +18705,7 @@
     zh-Hant = 土路
 
   [ferry_crossing]
-    tags = android, ios
+    tags = android,ios
     en = Ferry crossing
     ar = تقاطع عبارة
     be = Паромная пераправа
@@ -18741,7 +18741,7 @@
     zh-Hant = 渡輪
 
   [avoid_toll_roads_placepage]
-    tags = android, ios
+    tags = android,ios
     en = Avoid toll roads
     ar = تجنب نقاط تحصيل الرسوم
     be = Пазбягаць платных дарог
@@ -18778,7 +18778,7 @@
     zh-Hant = 規避收費公路
 
   [avoid_unpaved_roads_placepage]
-    tags = android, ios
+    tags = android,ios
     en = Avoid unpaved roads
     ar = تجنب الطرق الغير ممهدة
     be = Пазбягаць грунтовых дарог
@@ -18815,7 +18815,7 @@
     zh-Hant = 規避土路
 
   [avoid_ferry_crossing_placepage]
-    tags = android, ios
+    tags = android,ios
     en = Avoid ferry crossings
     ar = تجنب تقاطع العبارات
     be = Пазбягаць паромных перапраў
@@ -19500,7 +19500,7 @@
     zh-Hant = 該路線將改為汽車（路線）
 
   [ok]
-    tags = android, ios
+    tags = android,ios
     en = Ok
     ar = موافق
     be = Ок
@@ -19898,7 +19898,7 @@
 
   [sort]
     comment = max. 10 symbols, both iOS and Android
-    tags = android, ios
+    tags = android,ios
     en = Sort…
     ar = تريتب…
     be = Сартаваць…
@@ -20270,7 +20270,7 @@
     zh-Hant = 按時間
 
   [week_ago_sorttype]
-    tags = android, ios
+    tags = android,ios
     en = A week ago
     ar = منذ أسبوع
     be = Тыдзень таму
@@ -20306,7 +20306,7 @@
     zh-Hant = 一週前
 
   [month_ago_sorttype]
-    tags = android, ios
+    tags = android,ios
     en = A month ago
     ar = منذ شهر
     be = Месяц таму
@@ -20342,7 +20342,7 @@
     zh-Hant = 一個月前
 
   [moremonth_ago_sorttype]
-    tags = android, ios
+    tags = android,ios
     en = More than a month ago
     ar = منذ أكثر من شهر
     be = Больш за месяц таму
@@ -20378,7 +20378,7 @@
     zh-Hant = 一個多月前
 
   [moreyear_ago_sorttype]
-    tags = android, ios
+    tags = android,ios
     en = More than a year ago
     ar = منذ أكثر من سنة
     be = Больш за год таму
@@ -20414,7 +20414,7 @@
     zh-Hant = 一年多以前
 
   [near_me_sorttype]
-    tags = android, ios
+    tags = android,ios
     en = Near me
     ar = قريب مني
     be = Каля мяне
@@ -20450,7 +20450,7 @@
     zh-Hant = 附近
 
   [others_sorttype]
-    tags = android, ios
+    tags = android,ios
     en = Others
     ar = أخرى
     be = Іншыя
@@ -20486,7 +20486,7 @@
     zh-Hant = 其他
 
   [food_places]
-    tags = android, ios
+    tags = android,ios
     en = Food
     ar = طعام
     be = Ежа
@@ -20522,7 +20522,7 @@
     zh-Hant = 食物
 
   [tourist_places]
-    tags = android, ios
+    tags = android,ios
     en = Sights
     ar = مشاهد
     be = Славутасці
@@ -20558,7 +20558,7 @@
     zh-Hant = 觀光景點
 
   [museums]
-    tags = android, ios
+    tags = android,ios
     en = Museums
     ar = متاحف
     be = Музеі
@@ -20594,7 +20594,7 @@
     zh-Hant = 博物館
 
   [parks]
-    tags = android, ios
+    tags = android,ios
     en = Parks
     ar = حدائق
     be = Паркі
@@ -20630,7 +20630,7 @@
     zh-Hant = 公園
 
   [swim_places]
-    tags = android, ios
+    tags = android,ios
     en = Swim
     ar = سباحة
     be = Плаванне
@@ -20666,7 +20666,7 @@
     zh-Hant = 游泳
 
   [mountains]
-    tags = android, ios
+    tags = android,ios
     en = Mountains
     ar = جبال
     be = Горы
@@ -20702,7 +20702,7 @@
     zh-Hant = 山峰
 
   [animals]
-    tags = android, ios
+    tags = android,ios
     en = Animals
     ar = حيوانات
     be = Жывёлы
@@ -20738,7 +20738,7 @@
     zh-Hant = 動物園
 
   [hotels]
-    tags = android, ios
+    tags = android,ios
     en = Hotels
     ar = فنادق
     be = Гатэлі
@@ -20774,7 +20774,7 @@
     zh-Hant = 旅館
 
   [buildings]
-    tags = android, ios
+    tags = android,ios
     en = Buildings
     ar = بنايات
     be = Будынкі
@@ -20810,7 +20810,7 @@
     zh-Hant = 建築物
 
   [money]
-    tags = android, ios
+    tags = android,ios
     en = Money
     ar = نقود
     be = Грошы
@@ -20846,7 +20846,7 @@
     zh-Hant = 貨幣
 
   [shops]
-    tags = android, ios
+    tags = android,ios
     en = Shops
     ar = متاجر
     be = Крамы
@@ -20882,7 +20882,7 @@
     zh-Hant = 商店
 
   [parkings]
-    tags = android, ios
+    tags = android,ios
     en = Parkings
     ar = مواقف سيارات
     be = Паркоўкі
@@ -20918,7 +20918,7 @@
     zh-Hant = 停車場
 
   [fuel_places]
-    tags = android, ios
+    tags = android,ios
     en = Gas stations
     ar = محطات وقود
     be = Запраўкі
@@ -20954,7 +20954,7 @@
     zh-Hant = 加油站
 
   [water]
-    tags = android, ios
+    tags = android,ios
     en = Water
     ar = ماء
     be = Вада
@@ -20990,7 +20990,7 @@
     zh-Hant = 水
 
   [medicine]
-    tags = android, ios
+    tags = android,ios
     en = Medicine
     ar = دواء
     be = Медыцына
@@ -21026,7 +21026,7 @@
     zh-Hant = 醫療
 
   [search_in_the_list]
-    tags = android, ios
+    tags = android,ios
     en = Search in the list
     ar = بحث في القائمة
     be = Шукаць у спіце
@@ -21063,7 +21063,7 @@
     zh-Hant = 在列表中搜尋
 
   [religious_places]
-    tags = android, ios
+    tags = android,ios
     en = Religious places
     ar = أماكن دينية
     be = Святыя месцы
@@ -21136,7 +21136,7 @@
     zh-Hant = 選擇列表
 
   [transit_not_found]
-    tags = android, ios
+    tags = android,ios
     en = Subway navigation in this region is not available yet
     ar = التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن
     be = Навігацыі па метро для гэтага рэгіёна пакуль няма
@@ -21173,7 +21173,7 @@
     zh-Hant = 本區域的地鐵導航目前不可用
 
   [dialog_pedestrian_route_is_long_header]
-    tags = android, ios
+    tags = android,ios
     en = Subway route is not found
     ar = لم يتم العثور على مترو الانفاق
     be = Маршрут на метро не знойдзены
@@ -21210,7 +21210,7 @@
     zh-Hant = 未找到捷運路線圖
 
   [dialog_pedestrian_route_is_long_message]
-    tags = android, ios
+    tags = android,ios
     en = Please choose a start or end point closer to a subway station
     ar = يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة المترو
     be = Выберыце пункт адпраўлення альбо прызначэння бліжэй да станцыі метро
@@ -21247,7 +21247,7 @@
     zh-Hant = 選擇捷運站附近的起點和終點
 
   [button_layer_isolines]
-    tags = android, ios
+    tags = android,ios
     en = Terrain
     ar = تضاريس
     be = Рэльеф
@@ -21284,7 +21284,7 @@
     zh-Hant = 高度
 
   [isolines_activation_error_dialog]
-    tags = android, ios
+    tags = android,ios
     en = To activate and use the topographic layer please update or download the map of the area
     ar = لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أوتنزيل خريطة المنطقة
     be = Каб карыстацца мапай рэльефа, абнавіце альбо спампуйце мапу патрэбнай мясцовасці
@@ -21321,7 +21321,7 @@
     zh-Hant = 如需使用等高線，請更新或下載所需區域的地圖
 
   [isolines_location_error_dialog]
-    tags = android, ios
+    tags = android,ios
     en = The topographic layer is not yet available in this area
     ar = الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة
     be = Мапы рэльефа для гэтай мясцовасці пакуль што няма
@@ -21503,7 +21503,7 @@
     zh-Hant = 困難
 
   [elevation_profile_ascent]
-    tags = android, ios
+    tags = android,ios
     en = Ascent
     ar = تصاعدي
     be = Пад'ём
@@ -21540,7 +21540,7 @@
     zh-Hant = 上坡
 
   [elevation_profile_descent]
-    tags = android, ios
+    tags = android,ios
     en = Descent
     ar = تنازلي
     be = Спуск
@@ -21577,7 +21577,7 @@
     zh-Hant = 下坡
 
   [elevation_profile_minaltitude]
-    tags = android, ios
+    tags = android,ios
     en = Min. altitude
     ar = الحد الأدنى للارتفاع
     be = Мін. вышыня
@@ -21614,7 +21614,7 @@
     zh-Hant = 最小高度
 
   [elevation_profile_maxaltitude]
-    tags = android, ios
+    tags = android,ios
     en = Max. altitude
     ar = الحد الأقصى للارتفاع
     be = Макс. вышыня
@@ -21651,7 +21651,7 @@
     zh-Hant = 最大高度
 
   [elevation_profile_difficulty]
-    tags = android, ios
+    tags = android,ios
     en = Difficulty
     ar = درجة الصعوبة
     be = Складанасць
@@ -21725,7 +21725,7 @@
     zh-Hant = 距離：
 
   [elevation_profile_time]
-    tags = android, ios
+    tags = android,ios
     en = Time:
     ar = مدة:
     be = Час:
@@ -21762,7 +21762,7 @@
     zh-Hant = 時間：
 
   [isolines_toast_zooms_1_10]
-    tags = android, ios
+    tags = android,ios
     en = Zoom in to explore isolines
     ar = قرب لتكتشف خطوط الكنتور
     be = Павялічце маштаб, каб пабачыць рэльеф
