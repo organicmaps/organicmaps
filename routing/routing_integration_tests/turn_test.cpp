@@ -56,6 +56,8 @@ UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
+  /// @todo Current algorithm starts from private service road (it's closer)
+  /// but not from Leningradskiy prospekt (it's more correct), so it adds 1 additional turn.
   integration::TestTurnCount(route, 3 /* expectedTurnCount */);
 
   integration::GetNthTurn(route, 0)
