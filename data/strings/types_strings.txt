@@ -10,6 +10,7 @@
     pt = Transporte aéreo
     pt-BR = Transporte aéreo
     ru = Канатная дорога
+    uk = Канатна дорога
     zh-Hans = 缆车要素
 
   [type.aerialway.cable_car]
@@ -22,6 +23,7 @@
     pt = Teleférico
     pt-BR = Teleférico
     ru = Канатная дорога
+    uk = Канатна дорога
     zh-Hans = 缆车
     zh-Hant = 纜車
 
@@ -35,6 +37,7 @@
     pt = Telecadeira
     pt-BR = Telecadeira
     ru = Кресельная канатная дорога
+    uk = Канатна дорога
     zh-Hans = 登山吊椅
 
   [type.aerialway.drag_lift]
@@ -47,6 +50,7 @@
     pt = Telesquis
     pt-BR = Telesquis
     ru = Бугельная канатная дорога
+    uk = Канатна дорога
 
   [type.aerialway.gondola]
     en = Aerialway
@@ -58,6 +62,7 @@
     pt = Telecabine
     pt-BR = Telecabine
     ru = Канатная дорога
+    uk = Канатна дорога
     zh-Hans = 循环式索道
 
   [type.aerialway.mixed_lift]
@@ -69,6 +74,7 @@
     pt = Teleférico híbrido
     pt-BR = Teleférico híbrido
     ru = Канатная дорога
+    uk = Канатна дорога
 
   [type.aerialway.station]
     en = Aerialway Station
@@ -108,6 +114,7 @@
     pt = Via aérea
     pt-BR = Via aérea
     ru = Аэропорт
+    uk = Аеропорт
     zh-Hans = 机场要素
 
   [type.aeroway.aerodrome]
@@ -249,6 +256,7 @@
     pt = Faixa de manobras
     pt-BR = Pista de rolagem
     ru = Рулёжная дорожка
+    uk = Рульова дорiжка
     zh-Hans = 滑行道
 
   [type.aeroway.terminal]
@@ -9161,6 +9169,7 @@
     pt = Cruzeiro
     pt-BR = Cruzeiro
     ru = Христианский крест
+    uk = Християнський хрест
     zh-Hans = 路旁十字架
 
   [type.historic.wayside_shrine]
@@ -9274,6 +9283,7 @@
     pt = Uso do solo
     pt-BR = Uso do solo
     ru = Землепользование
+    uk = Землевикористання
     zh-Hans = 土地利用要素
 
   [type.landuse.allotments]
@@ -9333,6 +9343,7 @@
     pt = Terreno industrial devoluto
     pt-BR = Terreno industrial devoluto
     ru = Земля для застройки
+    uk = Земля для будiвництва
     zh-Hans = 棕土
 
   [type.landuse.cemetery]
@@ -9394,7 +9405,7 @@
     sv = Begravningsplats
     th = สุสาน
     tr = Mezarlık
-    uk = Цвинтар
+    uk = Християнський цвинтар
     vi = Bãi tha ma
     zh-Hans = 基督教墓地
     zh-Hant = 基督教墓地
@@ -9465,6 +9476,7 @@
     pt = Quinta
     pt-BR = Fazenda
     ru = Ферма
+    uk = Ферма
     zh-Hans = 农田
 
   [type.landuse.farmland]
@@ -9510,6 +9522,7 @@
     pt = Pátio de quinta
     pt-BR = Pátio de fazenda
     ru = Сельскохозяйственная земля
+    uk = Сільськогосподарська земля
     zh-Hans = 农庄
 
   [type.landuse.field]
@@ -9704,6 +9717,7 @@
     pt = Terreno com construção planeada
     pt-BR = Terreno com construção planeada
     ru = Земля для застройки
+    uk = Земля для будiвництва
     zh-Hans = 待开发荒地
 
   [type.landuse.greenhouse_horticulture]
@@ -9853,6 +9867,7 @@
     pt = Área de lazer
     pt-BR = Área de lazer
     ru = База отдыха
+    uk = База вiдпочинку
     zh-Hans = 康体场地
 
   [type.landuse.reservoir]
@@ -9960,6 +9975,7 @@
     pt = Terreno baldio
     pt-BR = Terreno baldio
     ru = Общественная земля
+    uk = Громадська земля
     zh-Hans = 公共用地
 
   [type.leisure.dog_park]
@@ -11173,6 +11189,7 @@
     pt = Natureza
     pt-BR = Natureza
     ru = Природа
+    uk = Природа
     zh-Hans = 自然
 
   [type.natural.bare_rock]
@@ -11185,6 +11202,7 @@
     pt = Zona rochosa
     pt-BR = Zona rochosa
     ru = Скалы
+    uk = Скелi
     zh-Hans = 岩石
 
   [type.natural.bay]
@@ -11340,6 +11358,7 @@
     pt = Falésia
     pt-BR = Falésia
     ru = Обрыв
+    uk = Обрив
     zh-Hans = 峭壁
 
   [type.natural.coastline]
@@ -11352,6 +11371,7 @@
     pt = Linha costeira
     pt-BR = Linha costeira
     ru = Береговая линия
+    uk = Берегова лiнiя
     zh-Hans = 海岸线
 
   [type.natural.geyser]
@@ -11466,6 +11486,7 @@
     pt = Charneca
     pt-BR = Charneca
     ru = Пустошь
+    uk = Пустище
     zh-Hans = 荒野
 
   [type.natural.hot_spring]
@@ -11478,6 +11499,7 @@
     pt = Nascente de água quente
     pt-BR = Nascente de água quente
     ru = Горячий источник
+    uk = Горяче джерело
     zh-Hans = 温泉
 
   [type.natural.water.lake]
@@ -11735,6 +11757,7 @@
     pt = Rochedo
     pt-BR = Rochedo
     ru = Камень
+    uk = Камiнь
     zh-Hans = 岩石
 
   [type.natural.scrub]
@@ -11879,6 +11902,7 @@
     pt = Linha de árvores
     pt-BR = Linha de árvores
     ru = Ряд деревьев
+    uk = Ряд дерев
     zh-Hans = 树列
 
   [type.natural.vineyard]
@@ -11890,6 +11914,7 @@
     pt = Vinha
     pt-BR = Vinha
     ru = Виноградник
+    uk = Виноградник
 
   [type.natural.volcano]
     en = Volcano
@@ -12002,6 +12027,7 @@
     pt = Zona úmida
     pt-BR = Zona úmida
     ru = Торфяное болото
+    uk = Торф'яне болото
     zh-Hans = 泥炭地
 
   [type.natural.wetland.marsh]
@@ -12014,6 +12040,7 @@
     pt = Zona úmida
     pt-BR = Zona úmida
     ru = Болотистая местность
+    uk = Болотиста мiсцевiсть
     zh-Hans = 沼泽地
 
   [type.noexit]
@@ -12023,6 +12050,7 @@
     pt = Via sem saída
     pt-BR = Via sem saída
     ru = Тупик
+    uk = Тупик
 
   [type.noexit.motor_vehicle]
     en = noexit-motor_vehicle
@@ -12123,7 +12151,7 @@
     sv = Fastighetsmäklare
     th = นายหน้าอสังหาริมทรัพย์
     tr = Agent immobilier
-    uk = Агенція нерухомості/ріелтор
+    uk = Агенція нерухомості
     vi = Đại Lý Bất Động Sản
     zh-Hans = 地产中介
     zh-Hant = 地產代理
@@ -12296,6 +12324,7 @@
     pt = Local
     pt-BR = Local
     ru = Место
+    uk = Мicце
     zh-Hans = 地点
 
   [type.place.city]
@@ -12901,6 +12930,7 @@
     pt = Habitação isolada
     pt-BR = Habitação isolada
     ru = Жилище
+    uk = Житло
     zh-Hans = 孤立居所
 
   [type.place.locality]
@@ -12943,6 +12973,7 @@
     pt = Bairro
     pt-BR = Bairro
     ru = Микрорайон
+    uk = Мiкрорайон
     zh-Hans = 街坊社区/小区
 
   [type.place.ocean]
@@ -13040,6 +13071,7 @@
     pt = Praça ou largo
     pt-BR = Praça ou largo
     ru = Площадь
+    uk = Площа
     zh-Hans = 广场
 
   [type.place.state]
@@ -13208,6 +13240,7 @@
     pt = Energia
     pt-BR = Energia
     ru = Энергетика
+    uk = Енергія
     zh-Hans = 电力要素
 
   [type.power.generator]
@@ -13216,7 +13249,8 @@
     ja = 発電機
     pt = Gerador de energia
     pt-BR = Gerador de energia
-    ru = Генератор энергии
+    ru = Генератор
+    uk = Генератор
     zh-Hans = 发电机
 
   [type.power.line]
@@ -13227,6 +13261,7 @@
     pt = Linha de transmissão de energia
     pt-BR = Linha de transmissão de energia
     ru = Линия электропередач
+    uk = Лінія електропередач
     zh-Hans = 超高压输电线
 
   [type.power.line.underground]
@@ -13237,6 +13272,7 @@
     pt = Linha de transmissão de energia subterrânea
     pt-BR = Linha de transmissão de energia subterrânea
     ru = Подземная линия электропередач
+    uk = Підземна лінія електропередач
     zh-Hans = 超高压输电线
 
   [type.power.minor_line]
@@ -13247,6 +13283,7 @@
     pt = Linha de transmissão de energia de baixa tensão
     pt-BR = Linha de transmissão de energia de baixa tensão
     ru = Линия электропередачи низкого напряжения
+    uk = Лінія електропередач низької напруги
     zh-Hans = 超高压输电线
 
   [type.power.pole]
@@ -13289,6 +13326,7 @@
     pt = Subestação elétrica
     pt-BR = Subestação elétrica
     ru = Электростанция
+    uk = Електростанція
 
   [type.power.substation]
     en = Substation
@@ -13380,6 +13418,7 @@
     pt = Transporte público
     pt-BR = Transporte público
     ru = Общественный транспорт
+    uk = Громадський транспорт
     zh-Hans = 公共交通要素
 
   [type.public_transport.platform]
@@ -13400,6 +13439,7 @@
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Ж/Д
+    uk = Залізниця
     zh-Hans = 铁路要素
 
   [type.railway.abandoned]
@@ -13409,6 +13449,7 @@
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенная железная дорога
+    uk = Закинута залізниця
     zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.bridge]
@@ -13418,33 +13459,37 @@
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенный железнодорожный мост
+    uk = Закинутий залізничний міст
     zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.tunnel]
-    en = Abandoned railway
+    en = Abandoned Railway
     de = Ehemaliger Eisenbahntunnel
     ja = 廃線(トンネル)
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенный железнодорожный туннель
+    uk = Закинутий залізничний тунель
     zh-Hans = 铁路遗迹
 
   [type.railway.construction]
-    en = Railway's construction
+    en = Railway's Construction
     de = Eisenbahnstrecke im Bau
     ja = 建設中の鉄道
     pt = Ferrovia em construção
     pt-BR = Ferrovia em construção
     ru = Строящаяся железная дорога
+    uk = Будівництво залізниці
     zh-Hans = 在建铁路
 
   [type.railway.crossing]
-    en = Railway crossing
+    en = Railway Crossing
     de = Bahnübergang
     ja = 歩行者用踏切
     pt = Passagem pedestre
     pt-BR = Passagem pedestre
     ru = Пешеходный переход
+    uk = Пішохідний перехід
 
   [type.railway.disused]
     en = Disused railway
@@ -13453,6 +13498,7 @@
     pt = Ferrovia em desuso
     pt-BR = Ferrovia em desuso
     ru = Неиспользуемая железная дорога
+    uk = Недійсна залізниця
     zh-Hans = 废弃铁路
 
   [type.railway.funicular]
@@ -13463,6 +13509,7 @@
     pt = Funicular
     pt-BR = Funicular
     ru = Фуникулер
+    uk = Фунікулер
     zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.bridge]
@@ -13473,6 +13520,7 @@
     pt = Funicular
     pt-BR = Funicular
     ru = Фуникулер
+    uk = Фунікулер
     zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.tunnel]
@@ -13483,6 +13531,7 @@
     pt = Funicular
     pt-BR = Funicular
     ru = Фуникулер
+    uk = Фунікулер
     zh-Hans = 缆索铁路轨道
 
   [type.railway.halt]
@@ -13558,6 +13607,7 @@
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
+    uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.bridge]
@@ -13567,6 +13617,7 @@
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
+    uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.tunnel]
@@ -13576,6 +13627,7 @@
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
+    uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
 
   [type.railway.monorail]
@@ -13620,6 +13672,7 @@
     pt = Monocarril
     pt-BR = Monotrilho
     ru = Монорельсовая железная дорога
+    uk = Монорейкова залізниця
     zh-Hans = 单轨轨道
     zh-Hant = 單軌軌道
 
@@ -13631,6 +13684,7 @@
     pt = Monocarril
     pt-BR = Monotrilho
     ru = Монорельсовая железная дорога
+    uk = Монорейкова залізниця
     zh-Hans = 单轨轨道
     zh-Hant = 單軌軌道
 
@@ -13641,6 +13695,7 @@
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
+    uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.bridge]
@@ -13650,6 +13705,7 @@
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
+    uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.tunnel]
@@ -13659,6 +13715,7 @@
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
+    uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.platform]
@@ -13668,6 +13725,7 @@
     pt = Plataforma ferroviária
     pt-BR = Plataforma ferroviária
     ru = Железнодорожная платформа
+    uk = Залізнична платформа
     zh-Hans = 火车站台
 
   [type.railway.preserved]
@@ -13677,6 +13735,7 @@
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
+    uk = Законсервована залізниця
 
   [type.railway.preserved.bridge]
     en = Preserved Rail
@@ -13685,6 +13744,7 @@
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
+    uk = Законсервована залізниця
 
   [type.railway.preserved.tunnel]
     en = Preserved Rail
@@ -13693,6 +13753,7 @@
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
+    uk = Законсервована залізниця
 
   [type.railway.rail]
     en = Railway
@@ -13723,7 +13784,7 @@
     sw = Njia ya Reli
     th = รถไฟ
     tr = Demiryolu
-    uk = Залізна дорога
+    uk = Залізнична дорога
     vi = Đường sắt
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
@@ -13735,6 +13796,7 @@
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Железнодорожный мост
+    uk = Залізничний міст
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
@@ -13745,6 +13807,7 @@
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Железная дорога
+    uk = Залізниця
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
@@ -13755,6 +13818,7 @@
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Железнодорожный туннель
+    uk = Залізничний тунель
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
@@ -13765,6 +13829,7 @@
     pt = Ferrovia removida
     pt-BR = Ferrovia removida
     ru = Заброшенная Ж/Д
+    uk = Закинута залізниця
 
   [type.railway.siding]
     en = Siding Rail
@@ -13773,6 +13838,7 @@
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
     ru = Ветка Ж/Д
+    uk = Гілка залізниці
 
   [type.railway.siding.bridge]
     en = Siding Rail
@@ -13781,6 +13847,7 @@
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
     ru = Ветка Ж/Д
+    uk = Гілка залізниці
 
   [type.railway.siding.tunnel]
     en = Siding Rail
@@ -13789,6 +13856,7 @@
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
     ru = Ветка Ж/Д
+    uk = Гілка залізниці
 
   [type.railway.spur]
     en = Spur Rail
@@ -13797,6 +13865,7 @@
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
     ru = Подъездная Ж/Д
+    uk = Під'їздна залізниця
 
   [type.railway.spur.bridge]
     en = Spur Rail
@@ -13805,6 +13874,7 @@
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
     ru = Подъездная Ж/Д
+    uk = Під'їздна залізниця
 
   [type.railway.spur.tunnel]
     en = Spur Rail
@@ -13813,6 +13883,7 @@
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
     ru = Подъездная Ж/Д
+    uk = Під'їздна залізниця
 
   [type.railway.station]
     en = Train Station
@@ -14301,6 +14372,7 @@
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
+    uk = Лінія метро
 
   [type.railway.subway.bridge]
     en = Subway Line
@@ -14309,6 +14381,7 @@
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
+    uk = Лінія метро
 
   [type.railway.subway.tunnel]
     en = Subway Line
@@ -14317,6 +14390,7 @@
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
+    uk = Лінія метро
 
   [type.railway.subway_entrance]
     en = Subway Entrance
@@ -14712,6 +14786,7 @@
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
+    uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
 
@@ -14723,6 +14798,7 @@
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
+    uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
 
@@ -14734,6 +14810,7 @@
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
+    uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
 
@@ -14776,6 +14853,7 @@
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     ru = Ж/Д площадка
+    uk = Залізнична ділянка
     zh-Hans = 铁路货场
 
   [type.railway.yard.bridge]
@@ -14785,6 +14863,7 @@
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     ru = Ж/Д площадка
+    uk = Залізнична ділянка
     zh-Hans = 铁路货场
 
   [type.railway.yard.tunnel]
@@ -14794,6 +14873,7 @@
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     ru = Ж/Д площадка
+    uk = Залізнична ділянка
     zh-Hans = 铁路货场
 
   [type.route]
@@ -14803,6 +14883,7 @@
     pt = Rota
     pt-BR = Rota
     ru = Маршрут
+    uk = Маршрут
     zh-Hans = 线路
 
   [type.route.ferry]
@@ -14813,6 +14894,7 @@
     pt = Rota de ferry
     pt-BR = Rota de balsa
     ru = Паромная переправа
+    uk = Паромна переправа
     zh-Hans = 航线
 
   [type.route.shuttle_train]
@@ -15009,7 +15091,7 @@
     sv = Cykelaffär
     th = จักรยาน
     tr = Bisiklet
-    uk = Веломагазін
+    uk = Веломагазин
     vi = Cửa hàng xe đạp
     zh-Hans = 自行车店
     zh-Hant = 自行車店
@@ -15578,7 +15660,7 @@
     sv = Järnhandel
     th = ร้านขายฮาร์ดแวร์
     tr = Hırdavatçı
-    uk = Будматеріали
+    uk = Господарськi товари
     vi = Cửa hàng phần cứng
     zh-Hans = 家居用品店
     zh-Hant = 五金行
@@ -15642,7 +15724,7 @@
     sv = Elektronik
     th = ร้านขายอุปกรณ์อิเล็กทรอนิกส์
     tr = Elektronik mağazası
-    uk = Електротехнічний магазин
+    uk = Електротехнiка
     vi = Cửa hàng điện
     zh-Hans = 电子产品商店
     zh-Hant = 電子產品
@@ -15898,7 +15980,7 @@
     sv = Grönsakshandlare
     th = ร้านขายผัด
     tr = Manav
-    uk = Магазин овочів
+    uk = Овочі та фрукти
     vi = Cửa hàng rau củ
     zh-Hans = 蔬果零售店
     zh-Hant = 蔬果零售店
@@ -16498,7 +16580,7 @@
     sv = Fiskhandlare
     th = ร้านขายปลา
     tr = Poissonnier
-    uk = Рибна крамниця
+    uk = Рибна лавка
     vi = Người bán cá
     zh-Hans = 鱼商
     zh-Hant = 魚販
@@ -16594,7 +16676,7 @@
     sv = Pappershandel
     th = ร้านขายเครื่องเขียน
     tr = Kırtasiye Dükkanı
-    uk = Магазин канцелярських товарів
+    uk = Канцелярськi товари
     vi = Cửa hàng văn phòng phẩm
     zh-Hans = 文具店
     zh-Hant = 文具用品店
@@ -16717,7 +16799,7 @@
     sv = Biljettkontor
     th = จุดจำหน่ายตั๋ว
     tr = Billetterie
-    uk = Білетна каса
+    uk = Квитковий кiоск
     vi = Phòng vé
     zh-Hans = 售票处
     zh-Hant = 售票處
@@ -16845,7 +16927,7 @@
     sv = Diverseaffär
     th = ร้านค้าปลีกอิสระ
     tr = Ucuz Ürünler Mağazası
-    uk = Магазин господарських товарів
+    uk = Магазин корисних товарів
     vi = Cửa hàng tiện lợi
     zh-Hans = 杂货店
     zh-Hant = 雜貨店
@@ -16958,6 +17040,7 @@
     pt = Desporto
     pt-BR = Esporte
     ru = Спорт
+    uk = Спорт
 
   [type.sport.american_football]
     en = American Football
@@ -16968,6 +17051,7 @@
     pt = Futebol americano
     pt-BR = Futebol americano
     ru = Американский футбол
+    uk = Американський футбол
 
   [type.sport.archery]
     en = Archery
@@ -16979,6 +17063,7 @@
     pt = Tiro com arco
     pt-BR = Tiro com arco
     ru = Стрельба из лука
+    uk = Стрiльба з лука
 
   [type.sport.athletics]
     en = Athletics
@@ -17021,6 +17106,7 @@
     pt = Futebol australiano
     pt-BR = Futebol australiano
     ru = Регби
+    uk = Регбi
 
   [type.sport.baseball]
     en = Baseball
@@ -17030,6 +17116,7 @@
     pt = Beisebol
     pt-BR = Beisebol
     ru = Бейсбол
+    uk = Бейсбол
     zh-Hans = 棒球
 
   [type.sport.basketball]
@@ -17075,6 +17162,7 @@
     pt = Bowls
     pt-BR = Bowls
     ru = Кегли
+    uk = Кеглi
     zh-Hans = 保龄球
 
   [type.sport.cricket]
@@ -17086,6 +17174,7 @@
     pt = Críquete
     pt-BR = Críquete
     ru = Крикет
+    uk = Крикет
     zh-Hans = 板球
 
   [type.sport.curling]
@@ -17096,6 +17185,7 @@
     pt = Curling
     pt-BR = Curling
     ru = Керлинг
+    uk = Керлiнг
 
   [type.sport.diving]
     en = Diving
@@ -17104,6 +17194,7 @@
     pt = Mergulho
     pt-BR = Mergulho
     ru = Подводное плавание
+    uk = Пiдводне плавання
     zh-Hans = 跳水
 
   [type.sport.equestrian]
@@ -17149,6 +17240,7 @@
     pt = Golfe
     pt-BR = Golfe
     ru = Гольф
+    uk = Гольф
     zh-Hans = 高尔夫球
 
   [type.sport.gymnastics]
@@ -17161,6 +17253,7 @@
     pt = Ginástica
     pt-BR = Ginástica
     ru = Гимнастика
+    uk = Гiмнастика
     zh-Hans = 体操
 
   [type.sport.handball]
@@ -17172,6 +17265,7 @@
     pt = Andebol
     pt-BR = Andebol
     ru = Гандбол
+    uk = Гандбол
     zh-Hans = 手球
 
   [type.sport.multi]
@@ -17181,6 +17275,7 @@
     pt = Vários desportos
     pt-BR = Vários desportos
     ru = Различные виды спорта
+    uk = Рiзноманiтнi типи спорту
     zh-Hans = 多元
 
   [type.sport.scuba_diving]
@@ -17192,6 +17287,7 @@
     pt = Mergulho autónomo
     pt-BR = Mergulho autônomo
     ru = Акваланг
+    uk = Акваланг
 
   [type.sport.shooting]
     en = Shooting
@@ -17203,6 +17299,7 @@
     pt = Tiro desportivo
     pt-BR = Tiro esportivo
     ru = Стрельба
+    uk = Стрiльба
     zh-Hans = 射击
 
   [type.sport.skiing]
@@ -17214,6 +17311,7 @@
     pt = Esqui
     pt-BR = Esqui
     ru = Лыжи
+    uk = Лижi
 
   [type.sport.soccer]
     en = Soccer (Football)
@@ -17224,6 +17322,7 @@
     pt = Futebol
     pt-BR = Futebol
     ru = Футбол
+    uk = Футбол
     zh-Hans = 足球
 
   [type.sport.swimming]
@@ -17236,6 +17335,7 @@
     pt = Natação desportiva
     pt-BR = Natação esportiva
     ru = Плавание
+    uk = Плавання
     zh-Hans = 游泳
 
   [type.sport.tennis]
@@ -17281,6 +17381,7 @@
     pt = Turismo
     pt-BR = Turismo
     ru = Туризм
+    uk = Туризм
     zh-Hans = 旅游要素
 
   [type.tourism.alpine_hut]
@@ -17373,7 +17474,7 @@
     sv = Konstverk
     th = งานศิลปะ
     tr = Turizm
-    uk = Твір мистецтва
+    uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 艺术品
     zh-Hant = 藝術品
@@ -17405,7 +17506,7 @@
     sv = Konstverk
     th = งานศิลปะ
     tr = Turizm
-    uk = Твір мистецтва
+    uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 艺术品
     zh-Hant = 藝術品
@@ -17437,7 +17538,7 @@
     sv = Konstverk
     th = งานศิลปะ
     tr = Turizm
-    uk = Твір мистецтва
+    uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 油画
     zh-Hant = 藝術品
@@ -17469,7 +17570,7 @@
     sv = Konstverk
     th = งานศิลปะ
     tr = Turizm
-    uk = Твір мистецтва
+    uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 雕塑
     zh-Hant = 藝術品
@@ -17501,7 +17602,7 @@
     sv = Konstverk
     th = งานศิลปะ
     tr = Turizm
-    uk = Твір мистецтва
+    uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 雕像
     zh-Hant = 藝術品
@@ -18089,7 +18190,7 @@
     sv = Attraktion
     th = สถานที่ท่องเที่ยว
     tr = Görülecek yerler
-    uk = Пам’ятні місця
+    uk = Парк розваг
     vi = Diểm tham quan
     zh-Hans = 主题公园
     zh-Hant = 旅遊景點
@@ -18193,6 +18294,7 @@
     pt = Redutor de velocidade
     pt-BR = Redutor de velocidade
     ru = Лежачий полицейский
+    uk = Лежачий полiцейський
 
   [type.traffic_calming.bump]
     en = Traffic Bump
@@ -18204,6 +18306,7 @@
     pt = Lomba
     pt-BR = Quebra-molas
     ru = Лежачий полицейский
+    uk = Лежачий полiцейський
 
   [type.traffic_calming.hump]
     en = Traffic Hump
@@ -18214,6 +18317,7 @@
     pt = Lomba longa
     pt-BR = Quebra-molas longa
     ru = Лежачий полицейский
+    uk = Лежачий полiцейський
 
   [type.waterway]
     en = Waterway
@@ -18223,6 +18327,7 @@
     pt = Curso de água
     pt-BR = Curso de água
     ru = Водный путь
+    uk = Водяний шлях
     zh-Hans = 航道要素
 
   [type.waterway.canal]
@@ -18291,7 +18396,8 @@
     ja = ダム
     pt = Barragem
     pt-BR = Usina
-    ru = Плотина
+    ru = Дамба
+    uk = Дамба
     zh-Hans = 水坝
 
   [type.waterway.ditch]
@@ -18303,6 +18409,7 @@
     pt = Vala
     pt-BR = Vala
     ru = Канава
+    uk = Канава
     zh-Hans = 水沟
 
   [type.waterway.ditch.tunnel]
@@ -18313,6 +18420,7 @@
     pt = Vala
     pt-BR = Vala
     ru = Канава
+    uk = Канава
     zh-Hans = 水沟
 
   [type.waterway.dock]
@@ -18324,6 +18432,7 @@
     pt = Doca
     pt-BR = Doca
     ru = Причал
+    uk = Причал
     zh-Hans = 船坞
 
   [type.waterway.drain]
@@ -18333,6 +18442,7 @@
     pt = Valeta de drenagem
     pt-BR = Valeta de drenagem
     ru = Водоотвод
+    uk = Водовiдвiд
     zh-Hans = 渠
 
   [type.waterway.drain.tunnel]
@@ -18342,6 +18452,7 @@
     pt = Valeta de drenagem
     pt-BR = Valeta de drenagem
     ru = Водоотвод
+    uk = Водовiдвiд
     zh-Hans = 渠
 
   [type.waterway.lock]
@@ -18351,6 +18462,7 @@
     pt = Eclusa
     pt-BR = Eclusa
     ru = Шлюз
+    uk = Шлюз
 
   [type.waterway.lock_gate]
     en = Lock Gate
@@ -18653,6 +18765,7 @@
     pt = Represa
     pt-BR = Açude
     ru = Плотина
+    uk = Гребля
     zh-Hans = 堰
 
   [type.wheelchair]
@@ -18663,6 +18776,7 @@
     pt = Cadeiras de rodas
     pt-BR = Cadeiras de rodas
     ru = Инвалидная коляска
+    uk = Iнвалiдний вiзок
     zh-Hans = 轮椅
 
   [type.wheelchair.limited]
@@ -18773,6 +18887,7 @@
     pt = Telesqui
     pt-BR = Telesqui
     ru = Подъёмник
+    uk = Пiдйомник
 
   [type.piste_lift.j.bar]
     en = piste:lift-j-bar
@@ -18780,6 +18895,7 @@
     pt = Telesqui de barra em J
     pt-BR = Telesqui de barra em J
     ru = Подъёмник
+    uk = Пiдйомник
 
   [type.piste_lift.magic_carpet]
     en = piste:lift-magic_carpet
@@ -18787,6 +18903,7 @@
     pt = Tapete deslizante
     pt-BR = Tapete deslizante
     ru = Ленточный конвейер
+    uk = Стрiчковий конвеєр
 
   [type.piste_lift.platter]
     en = piste:lift-platter
@@ -18794,6 +18911,7 @@
     pt = Telesqui de disco
     pt-BR = Telesqui de disco
     ru = Подъёмник
+    uk = Пiдйомник
 
   [type.piste_lift.rope_tow]
     en = piste:lift-rope_tow
@@ -18801,6 +18919,7 @@
     pt = Telesqui de corda
     pt-BR = Telesqui de corda
     ru = Подъёмник
+    uk = Пiдйомник
 
   [type.piste_lift.t.bar]
     en = piste:lift-t-bar
@@ -18808,6 +18927,7 @@
     pt = Telesqui de barra em T
     pt-BR = Telesqui de barra em T
     ru = Подъёмник
+    uk = Пiдйомник
 
   [type.piste_type]
     en = piste:type
@@ -18815,6 +18935,7 @@
     pt = Tipo de pista
     pt-BR = Tipo de pista
     ru = Тип трассы
+    uk = Тип дороги
 
   [type.piste_type.downhill]
     en = piste:type-downhill
@@ -18823,6 +18944,7 @@
     pt = Esqui alpino
     pt-BR = Esqui alpino
     ru = Горнолыжная трасса
+    uk = Гірськолижна траса
 
   [type.piste_type.downhill.advanced]
     en = piste:type-downhill-advanced
@@ -18830,6 +18952,7 @@
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
     ru = Продвинутая горнолыжная трасса
+    uk = Доповнена гірськолижна траса
 
   [type.piste_type.downhill.easy]
     en = piste:type-downhill-easy
@@ -18837,6 +18960,7 @@
     pt = Esqui alpino fácil
     pt-BR = Esqui alpino fácil
     ru = Лёгкая горнолыжная трасса
+    uk = Легка гірськолижна траса
 
   [type.piste_type.downhill.expert]
     en = piste:type-downhill-expert
@@ -18844,12 +18968,14 @@
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
     ru = Горнолыжная трасса для экспертов
+    uk = Гірськолижна траса для експертів
 
   [type.piste_type.downhill.freeride]
     en = piste:type-downhill-freeride
     pt = Esqui alpino livre
     pt-BR = Esqui alpino livre
     ru = Горнолыжная трасса для фрирайда
+    uk = Гірськолижна траса вільного спуска
 
   [type.piste_type.downhill.intermediate]
     en = piste:type-downhill-intermediate
@@ -18857,6 +18983,7 @@
     pt = Esqui alpino intermédio
     pt-BR = Esqui alpino intermédio
     ru = Горнолыжная трасса средней сложности
+    uk = Гірськолижна траса середнього рівня
 
   [type.piste_type.downhill.novice]
     en = piste:type-downhill-novice
@@ -18864,6 +18991,7 @@
     pt = Esqui alpino iniciante
     pt-BR = Esqui alpino iniciante
     ru = Горнолыжная трасса для новичков
+    uk = Гірськолижна траса для новеньких
 
   [type.piste_type.nordic]
     en = piste:type-nordic
@@ -18872,6 +19000,7 @@
     pt = Pista tipo nórdico
     pt-BR = Pista tipo nórdico
     ru = Трасса для скандинавской ходьбы
+    uk = Траса для скандинавської ходьби
 
   [type.piste_type.sled]
     en = piste:type-sled
@@ -18879,6 +19008,7 @@
     pt = Pista para trenós
     pt-BR = Pista para trenós
     ru = Трасса для саней
+    uk = Траса для санок
 
   [type.building_part]
     en = Building
