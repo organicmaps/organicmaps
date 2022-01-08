@@ -8,8 +8,6 @@
 	<string name="back">Wróć</string>
 	<!-- Button text (should be short) -->
 	<string name="cancel">Anuluj</string>
-	<!-- Button which interrupts country download -->
-	<string name="cancel_download">Anuluj pobieranie</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Usuń</string>
 	<string name="download_maps">Pobierz mapy</string>
@@ -19,8 +17,6 @@
 	<string name="downloading">Pobieranie…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometry</string>
-	<!-- Leave Review dialog - Review button -->
-	<string name="leave_a_review">Napisz recenzję</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Mapy</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -33,19 +29,14 @@
 	<string name="search">Wyszukaj</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Wyszukaj mapy</string>
-	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
-	<string name="use_cellular_data">Tak</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Usługi lokalizacji są aktualnie wyłączone dla tego urządzenia lub aplikacji. Proszę włączyć je w ustawieniach.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Wyświetl na mapie</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
-	<string name="country_status_download_without_size">Pobierz mapę</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Nie udało się pobrać</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Spróbuj ponownie</string>
-	<string name="about_menu_title">O aplikacji Organic Maps</string>
 	<string name="connection_settings">Ustawienia połączenia</string>
 	<string name="close">Zamknij</string>
 	<string name="unsupported_phone">Wymagana jest sprzętowa akceleracja OpenGL. Aktualne urządzenie nie jest obsługiwane.</string>
@@ -70,8 +61,6 @@
 	<string name="bookmark_color">Kolor zakładki</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Nazwa zestawu zakładek</string>
-	<!-- "Bookmark Lists" dialog title -->
-	<string name="bookmark_sets">Zestawy zakładek</string>
 	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Zakładki</string>
 	<!-- Default bookmark list name -->
@@ -165,12 +154,8 @@
 	<string name="email">Email</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Skopiowano do schowka: %1$s</string>
-	<!-- place preview title -->
-	<string name="info">Informacje</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Gotowe</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Wersja: %s</string>
 	<!-- Data version in «About» screen -->
 	<string name="data_version">Wersja danych: %d</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -205,10 +190,6 @@
 	<string name="pref_tts_language_title">Język komunikatów</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Niedostępne</string>
-	<!-- Title for "Other" section in TTS settings. -->
-	<string name="pref_tts_other_section_title">Inny</string>
-	<!-- Settings «Map» category: «Record track» title -->
-	<string name="pref_track_record_title">Ostatnia trasa</string>
 	<string name="pref_map_auto_zoom">Automatyczne powiększanie</string>
 	<string name="duration_disabled">Wyłączona</string>
 	<string name="duration_1_hour">1 godzina</string>
@@ -216,8 +197,6 @@
 	<string name="duration_6_hours">6 godzin</string>
 	<string name="duration_12_hours">12 godzin</string>
 	<string name="duration_1_day">1 dzień</string>
-	<string name="recent_track_help_text">Umożliwia na pewien okres zapisanie przebytej trasy i obejrzenie jej na mapie. Uwaga: włączenie tej funkcji spowoduje większe zużycie baterii. Trasa zostanie usunięta z mapy automatycznie po upływie określonego czasu.</string>
-	<string name="placepage_distance">Dystans</string>
 	<string name="search_show_on_map">Wyświetl na mapie</string>
 	<!-- Text in menu -->
 	<string name="website">Strona internetowa</string>
@@ -235,12 +214,6 @@
 	<string name="copyright">Prawa autorskie</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Zgłoś błąd</string>
-	<!-- Alert text -->
-	<string name="email_error_body">Email klienta nie został założony. Proszę skonfigurować adres email, bądź skorzystać z innych opcji, aby się z nami skontaktować na %s</string>
-	<!-- Alert title -->
-	<string name="email_error_title">Błąd wysyłania wiadomości</string>
-	<!-- Settings item title -->
-	<string name="pref_calibration_title">Kalibracja kompasu</string>
 	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
@@ -249,19 +222,12 @@
 	<string name="downloader_cancel_all">Anuluj wszystko</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Pobrane</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_available_maps">Dostępne</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">W kolejce</string>
 	<string name="downloader_near_me_subtitle">Blisko mnie</string>
 	<string name="downloader_status_maps">Mapy</string>
 	<string name="downloader_download_all_button">Pobierz wszystkie</string>
 	<string name="downloader_downloading">Pobieranie:</string>
-	<string name="downloader_search_results">Znaleziono</string>
-	<!-- Status of outdated country in the list -->
-	<string name="downloader_status_outdated">Aktualizacja</string>
-	<!-- Status of failed country in the list -->
-	<string name="downloader_status_failed">Nieudane</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
 	<string name="downloader_delete_map_while_routing_dialog">Aby usunąć mapę, zatrzymaj nawigację.</string>
 	<!-- PointsInDifferentMWM -->
@@ -276,22 +242,12 @@
 	<string name="downloader_update_map">Aktualizuj mapę</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Używa usług Google Play do ustalenia aktualnego położenia</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_just_rated">Właśnie oceniłem Waszą aplikację</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_thanks">Dziękujemy!</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_share_ideas">Podziel się z nami pomysłami lub problemami, a pozwoli to nam usprawnić aplikację.</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_send_feedback">Wyślij opinię</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Pobierz mapy wzdłuż trasy</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Tworzenie tras wymaga pobrania i zaktualizowania wszystkich map od Twojej lokalizacji do celu podróży.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Brak wolnego miejsca</string>
-	<!-- bookmark button text -->
-	<string name="bookmark">zakładka</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Proszę włączyć usługi lokalizacji</string>
 	<string name="save">Zapisz</string>
@@ -344,8 +300,6 @@
 	<string name="dialog_routing_location_turn_wifi">Sprawdź sygnał GPS. Aktywacja Wi-Fi pomoże w precyzyjnym określeniu położenia.</string>
 	<string name="dialog_routing_location_turn_on">Włącz usługi określania lokalizacji</string>
 	<string name="dialog_routing_location_unknown_turn_on">Nie można ustalić współrzędnych GPS. Włącz usługi określania lokalizacji, aby wyznaczyć trasę.</string>
-	<string name="dialog_routing_download_files">Pobierz wymagane pliki</string>
-	<string name="dialog_routing_download_and_update_all">Pobierz i zaktualizuj dane mapy i wyznaczania trasy wzdłuż planowanej drogi, aby wyznaczyć trasę.</string>
 	<string name="dialog_routing_unable_locate_route">Nie można zlokalizować trasy</string>
 	<string name="dialog_routing_cant_build_route">Nie można wyznaczyć trasy.</string>
 	<string name="dialog_routing_change_start_or_end">Zmień punkt początkowy lub docelowy.</string>
@@ -360,7 +314,6 @@
 	<string name="dialog_routing_system_error">Błąd systemowy</string>
 	<string name="dialog_routing_application_error">Nie można wyznaczyć trasy z powodu błędu aplikacji.</string>
 	<string name="dialog_routing_try_again">Spróbuj ponownie</string>
-	<string name="not_now">Nie teraz</string>
 	<string name="dialog_routing_download_and_build_cross_route">Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?</string>
 	<string name="dialog_routing_download_cross_route">Pobierz mapę i wyznacz lepszą trasę, wykraczającą poza granice bieżącej mapy.</string>
 
@@ -371,17 +324,8 @@
 	<string name="show">Pokaż</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Ukryj</string>
-	<!-- Failed planning route message in navigation view -->
-	<string name="routing_planning_error">Planowanie trasy nieudane</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Przybycie: %s</string>
-	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
-	<string name="dialog_routing_download_and_update_maps">Aby utworzyć trasę, pobierz i zaktualizuj wszystkie właściwe dla niej mapy.</string>
-	<string name="rate_alert_title">Lubisz tę aplikację?</string>
-	<string name="rate_alert_default_message">Dziękujemy za korzystanie z Organic Maps. Prosimy wystawić aplikacji ocenę. Twoja opinia pozwoli nam udoskonalać nasze produkty.</string>
-	<string name="rate_alert_five_star_message">Hurra! My też Cię uwielbiamy!</string>
-	<string name="rate_alert_four_star_message">Dziękujemy, zrobimy co w naszej mocy!</string>
-	<string name="rate_alert_less_than_four_star_message">Czy masz pomysł, w jaki sposób możemy dokonać ulepszeń?</string>
 	<string name="categories">Kategorie</string>
 	<string name="history">Historia</string>
 	<string name="closed">Zamknięte</string>
@@ -412,8 +356,6 @@
 	<string name="editor_example_values">Przykładowe wartości</string>
 	<string name="editor_correct_mistake">Popraw błąd</string>
 	<string name="editor_add_select_location">Lokalizacja</string>
-	<string name="editor_done_dialog_1">Dokonałeś zmian na mapie świata. Nie kryj się z tym! Powiadom znajomych i edytujcie mapę razem.</string>
-	<string name="share_with_friends">Udostępnij znajomym</string>
 	<string name="editor_report_problem_desription_1">Prosimy o szczegółowe opisanie problemu, aby użytkownicy OpenStreetMap mogli naprawić błąd.</string>
 	<string name="editor_report_problem_desription_2">Albo zrób to sam na https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Wyślij</string>
@@ -423,29 +365,20 @@
 	<string name="editor_report_problem_duplicate_place_title">Powielone miejsce</string>
 	<string name="autodownload">Automatyczne pobieranie</string>
 	<!-- Place Page opening hours text -->
-	<string name="closed_now">Nieczynne</string>
-	<!-- Place Page opening hours text -->
 	<string name="daily">Codziennie</string>
 	<string name="twentyfour_seven">Dzień i noc</string>
 	<string name="day_off_today">Dziś nieczynne</string>
 	<string name="day_off">Nieczynne</string>
 	<string name="today">Dzisiaj</string>
-	<string name="add_opening_hours">Dodaj godziny otwarcia</string>
 	<string name="edit_opening_hours">Edytuj godziny otwarcia</string>
 	<string name="no_osm_account">Nie masz konta w OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Zarejestruj się</string>
-	<string name="password_8_chars_min">Hasło (minimum 8 znaków)</string>
-	<string name="invalid_username_or_password">Nieprawidłowa nazwa użytkownika lub hasło.</string>
 	<string name="login">Zaloguj się</string>
 	<string name="password">Hasło</string>
 	<string name="forgot_password">Nie pamiętasz hasła?</string>
-	<string name="osm_account">Konto OSM</string>
 	<string name="logout">Wyloguj</string>
-	<!-- Information text: "Last upload 11.01.2016" -->
-	<string name="last_upload">Ostatnio przesłane</string>
 	<string name="thank_you">Dziękujemy</string>
 	<string name="edit_place">Edytuj miejsce</string>
-	<string name="place_name">Nazwa miejsca</string>
 	<string name="add_language">Dodaj język</string>
 	<string name="street">Ulica</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -460,23 +393,17 @@
 	<string name="select_cuisine">Wybierz kuchnię</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email lub nazwa użytkownika</string>
-	<string name="phone">Telefon</string>
 	<string name="editor_add_phone">Dodaj numer telefonu</string>
-	<string name="please_note">Uwaga!</string>
 	<string name="downloader_delete_map_dialog">Wszystkie zmiany dotyczące mapy zostaną usunięte wraz z nią.</string>
 	<string name="downloader_update_maps">Aktualizuj mapy</string>
 	<string name="downloader_mwm_migration_dialog">Aby utworzyć trasę, należy zaktualizować wszystkie mapy, a następnie ponownie zaplanować trasę.</string>
 	<string name="downloader_search_field_hint">Znajdź mapę</string>
-	<string name="migration_download_error_dialog">Błąd pobierania</string>
 	<string name="common_check_internet_connection_dialog">Sprawdź swoje ustawienia i upewnij się, że urządzenie ma połączenie z Internetem.</string>
 	<string name="downloader_no_space_title">Brak wolnego miejsca</string>
 	<string name="downloader_no_space_message">Usuń niepotrzebne dane</string>
 	<string name="editor_login_error_dialog">Błąd logowania.</string>
 	<string name="editor_profile_changes">Zmiany zweryfikowane</string>
 	<string name="editor_focus_map_on_location">Przeciągnij mapę, aby wybrać poprawną lokalizację obiektu.</string>
-	<string name="editor_add_select_category">Wybierz kategorię</string>
-	<string name="editor_add_select_category_popular_subtitle">Popularne</string>
-	<string name="editor_add_select_category_all_subtitle">Wszystkie kategorie</string>
 	<string name="editor_edit_place_title">Edycja</string>
 	<string name="editor_add_place_title">Dodawanie</string>
 	<string name="editor_edit_place_name_hint">Nazwa miejsca</string>
@@ -484,13 +411,8 @@
 	<string name="detailed_problem_description">Szczegółowy opis problemu</string>
 	<string name="editor_report_problem_other_title">Inny problem</string>
 	<string name="placepage_add_business_button">Dodaj organizację</string>
-	<string name="whatsnew_editor_message_1">Dodawaj nowe miejsca do mapy i edytuj już istniejące bezpośrednio z poziomu aplikacji.</string>
-	<string name="dialog_incorrect_feature_position">Zmień lokalizację</string>
 	<string name="message_invalid_feature_position">Obiekt nie może znajdować się tutaj</string>
 	<string name="login_to_make_edits_visible">Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.</string>
-	<!-- Error dialog no space -->
-	<string name="migration_no_space_message">Aby pobrać, potrzebujesz więcej miejsca. Usuń niepotrzebne dane.</string>
-	<string name="editor_sharing_title">Dokonałem poprawek map na Organic Maps</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
 	<string name="download_over_mobile_header">Czy pobrać, używając połączenia z siecią komórkową?</string>
@@ -508,7 +430,6 @@
 	<string name="editor_detailed_description">Twoje sugestie zmian zostaną wysłane do społeczności OpenStreetMap. Opisz szczegóły, których nie można edytować w Organic Maps.</string>
 	<string name="editor_more_about_osm">Więcej o OpenStreetMap</string>
 	<string name="editor_operator">Operator</string>
-	<string name="downloader_my_maps_title">Moje mapy</string>
 	<string name="downloader_no_downloaded_maps_title">Nie pobrano żadnych map</string>
 	<string name="downloader_no_downloaded_maps_message">Aby znajdować miejsca i nawigować bez połączenia z internetem, musisz pobrać mapy.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -517,14 +438,6 @@
 	<string name="current_location_unknown_message">Aktualna lokalizacja jest nieznana. Może znajdujesz się w budynku lub tunelu.</string>
 	<string name="current_location_unknown_continue_button">Kontynuuj</string>
 	<string name="current_location_unknown_stop_button">Stop</string>
-	<string name="current_location_unknown_error_title">Aktualna lokalizacja jest nieznana.</string>
-	<string name="current_location_unknown_error_message">Podczas szukania twojej lokalizacji wystąpił błąd. Sprawdź czy twoje urządzenie działa poprawnie i spróbuj ponownie później.</string>
-	<string name="location_services_disabled_header">Identyfikacja lokalizacji jest wyłączona</string>
-	<string name="location_services_disabled_message">Włącz dostęp do geolokalizacji w ustawieniach urządzenia</string>
-	<string name="location_services_disabled_1">1. Uruchom ustawienia</string>
-	<string name="location_services_disabled_2">2. Dotknij „Lokalizacja”</string>
-	<!-- iOS Dialog for the case when the location permission is not granted -->
-	<string name="location_services_disabled_3">3. Zaznacz Podczas korzystania z aplikacji</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
@@ -539,17 +452,12 @@
 	<string name="book_button">Zarezerwuj</string>
 	<string name="placepage_call_button">Zadzwoń</string>
 	<string name="placepage_edit_bookmark_button">Edytuj zakładkę</string>
-	<string name="placepage_bookmark_name_hint">Nazwa zakładki</string>
-	<string name="placepage_personal_notes_hint">Notatki osobiste</string>
-	<string name="placepage_delete_bookmark_button">Usuń zakładkę</string>
-	<string name="editor_edits_sent_message">Twoje sugestie zostały wysłane</string>
 	<string name="editor_comment_hint">Komentarz…</string>
 	<string name="editor_reset_edits_message">Usunąć wszystkie lokalne zmiany?</string>
 	<string name="editor_reset_edits_button">Usuń</string>
 	<string name="editor_remove_place_message">Usunąć dodane miejsce?</string>
 	<string name="editor_remove_place_button">Usuń</string>
 	<string name="editor_place_doesnt_exist">Takie miejsce nie istnieje</string>
-	<string name="text_more_button">…więcej</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Wprowadź poprawny numer telefonu</string>
 	<string name="error_enter_correct_web">Wpisz prawidłowy adres strony internetowej</string>
@@ -558,23 +466,14 @@
 	<string name="error_enter_correct_instagram_page">Wprowadź poprawny link lub nazwę konta na Instagramie</string>
 	<string name="error_enter_correct_twitter_page">Wprowadź poprawny adres lub nazwę konta na Twitterze</string>
 	<string name="error_enter_correct_vk_page">Wprowadź poprawny adres lub nazwę konta na VK</string>
-	<string name="refresh">Uaktualnić</string>
 	<string name="placepage_add_place_button">Dodaj miejsce do mapy</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Czy chcesz wysłać je wszystkim użytkownikom?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Upewnij się, że nie podałeś osobistych danych.</string>
 	<string name="editor_share_to_all_dialog_message_2">Zapoznamy się ze zmianami. W przypadku pytań skontaktujemy się z Tobą przez email.</string>
-	<string name="navigation_stop_button">stop</string>
-	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-	<string name="recent_track_background_dialog_title">Wyłączyć rejestrowanie niedawno przebytej trasy?</string>
-	<string name="off_recent_track_background_button">Wyłącz</string>
-	<!-- For sharing via SMS and so on -->
-	<string name="sharing_call_action_look">Sprawdź</string>
-	<string name="recent_track_background_dialog_message">Organic Maps używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.</string>
 	<!-- Text under the version number in the Help dialog. -->
 	<string name="about_description">Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, napraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.</string>
-	<string name="general_settings">Ustawienia ogólne</string>
 	<!-- For the first routing -->
 	<string name="accept">Zaakceptuj</string>
 	<!-- For the first routing -->
@@ -592,8 +491,6 @@
 	<string name="traffic_update_maps_text">Aby wyświetlić dane o ruchu, muszą zostać zaktualizowane mapy.</string>
 	<string name="big_font">Powiększ rozmiar czcionki na mapie</string>
 	<string name="traffic_update_app">Zaktualizuj Organic Maps</string>
-	<!-- "traffic" as in road congestion -->
-	<string name="traffic_update_app_message">Aby wyświetlić dane o ruchu, należy zaktualizować aplikację.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Dane o ruchu są niedostępne</string>
 	<string name="enable_logging">Włącz logowanie</string>
@@ -610,13 +507,8 @@
 	<string name="routing_add_start_point">Aby zaplanować trasę, dodaj punkt początkowy</string>
 	<string name="routing_add_finish_point">Aby zaplanować trasę, dodaj punkt końcowy</string>
 	<string name="button_exit">Wyjdź</string>
-	<string name="planning_route_manage_route">Zarządzaj trasą</string>
-	<string name="button_plan">Zaplanuj</string>
 	<string name="placepage_remove_stop">Usuń</string>
-	<string name="planning_route_remove_title">Przeciągnij tu, aby usunąć</string>
 	<string name="placepage_add_stop">Dodaj postój</string>
-	<string name="start_from_my_position">Zacznij od</string>
-	<string name="profile_authorization_error">Ups, nastąpił błąd. Spróbuj zalogować się ponownie.</string>
 	<string name="dialog_error_storage_title">Problem z dostępem do pamięci masowej</string>
 	<string name="dialog_error_storage_message">Zewnętrzny nośnik pamięci masowej jest niedostępny. Prawdopodobnie usunięto lub uszkodzono kartę SD bądź jej system plików służy tylko do odczytu. Zweryfikuj to i skontaktuj się z nami pod adresem support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emuluj wadliwą pamięć masową</string>
@@ -626,16 +518,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Ukryj wszystkie</string>
 	<string name="bookmark_lists_show_all">Pokaż wszystkie</string>
-	<plurals name="bookmarks_places">
-	  <item quantity="other">Zakładki: %d</item>
-	</plurals>
 	<string name="bookmarks_create_new_group">Utwórz nową listę</string>
 	<!-- Bookmark categories screen -->
 	<string name="bookmarks_import">Import zakładek</string>
-	<string name="downloader_hide_screen">Ukryj ekran</string>
-	<string name="downloader_percent">%1$s (%2$s z %3$s)</string>
-	<string name="downloader_process">Pobieranie %s…</string>
-	<string name="downloader_applying">Stosowanie zmian %s…</string>
 	<string name="bookmarks_error_message_share_general">Nie można udostępnić z powodu błędu aplikacji</string>
 	<string name="bookmarks_error_title_share_empty">Błąd udostępniania</string>
 	<string name="bookmarks_error_message_share_empty">Nie można udostępnić pustej listy</string>
@@ -644,23 +529,15 @@
 	<string name="bookmarks_new_list_hint">Nowa lista</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Ta nazwa jest już zajęta</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Wybierz inną nazwę</string>
-	<string name="bookmarks_error_title_list_name_too_long">Ta nazwa jest za długa</string>
 	<string name="please_wait">Proszę czekać…</string>
 	<string name="phone_number">Numer telefonu</string>
 	<string name="profile">Profil OpenStreetMap</string>
-	<string name="bookmarks_detect_title">Wykryto nowe pliki</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">Znaleziono %d plik. Zobaczysz to po konwersji.</item>
 	  <item quantity="other">Znaleziono %d plików. Zobaczysz je po konwersji.</item>
 	  <item quantity="two">Znaleziono %d pliki. Zobaczysz je po konwersji.</item>
 	</plurals>
-	<string name="button_convert">konwertować</string>
-	<string name="bookmarks_convert_error_title">błąd</string>
-	<string name="bookmarks_convert_error_message">Sommige bestanden waren niet geconverteerd.</string>
-	<string name="bookmarks_restore_title">Przywróć tę wersję?</string>
 	<string name="common_check_internet_connection_dialog_title">Brak połączenia z internetem</string>
-	<string name="error_system_message">Wystąpił nieznany błąd</string>
-	<string name="restore">Przywracać</string>
 	<plurals name="objects">
 	  <item quantity="other">%d miejsce</item>
 	</plurals>
@@ -682,18 +559,13 @@
 	<string name="bookmarks_empty_list_title">Lista jest pusta</string>
 	<string name="bookmarks_empty_list_message">Aby dodać zakładkę, dotknij miejsca na mapie, a następnie dotknij ikony gwiazdy.</string>
 	<string name="category_desc_more">…więcej</string>
-	<string name="title_error_downloading_bookmarks">Wystąpił błąd</string>
-	<string name="popular_place">Popularne</string>
 	<string name="export_file">Eksportuj plik</string>
 	<string name="list_settings">Ustawienia listy</string>
 	<string name="delete_list">Usuń listę</string>
-	<string name="hide_from_map">Ukryj mapy</string>
 	<string name="public_access">Dostęp publiczny</string>
 	<string name="limited_access">Dostęp prywatny</string>
 	<string name="bookmark_list_description_hint">Dodaj opis (tekst lub html)</string>
 	<string name="not_shared">Osobisty</string>
-	<string name="tags_loading_error_subtitle">Wystąpił błąd podczas pobierania tagów, spróbuj ponownie</string>
-	<string name="download_button">Pobierz</string>
 	<string name="speedcams_alert_title">Fotoradary</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Zawsze</string>
@@ -701,7 +573,6 @@
 	<string name="place_description_title">Opis miejsca</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Pobieranie map</string>
-	<string name="speedcams_notice_message">Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach</string>
 	<string name="power_managment_title">Tryb oszczędzania energii</string>
 	<string name="power_managment_description">Jeśli jest włączony tryb oszczędzania energii, wtedy aplikacja wyłączy funkcje energochłonne, zależnie od bieżącego poziomu załadowania telefonu</string>
 	<string name="power_managment_setting_never">Nigdy</string>
@@ -725,44 +596,11 @@
 	<string name="avoid_toll_roads_placepage">Unikać dróg płatnych</string>
 	<string name="avoid_unpaved_roads_placepage">Unikać dróg gruntowych</string>
 	<string name="avoid_ferry_crossing_placepage">Unikać przepraw promowych</string>
-	<string name="trip_start">Jedźmy</string>
-	<string name="pick_destination">Meta</string>
-	<string name="follow_my_position">Wyśrodkuj</string>
-	<string name="search_results">Wyniki wyszukiwania</string>
-	<string name="then_turn">Dalej</string>
-	<string name="redirect_route_alert">Czy chcesz przebudować trasę?</string>
-	<string name="redirect_route_yes">Tak</string>
-	<string name="redirect_route_no">Nie</string>
-	<string name="trip_finished">Jesteś na miejscu!</string>
-	<string name="keyboard_availability_alert">Klawiatura nie jest dostępna podczas ruchu</string>
-	<string name="dialog_routing_change_start_carplay">Brak możliwości zbudowania trasy od bieżącej lokalizacji</string>
-	<string name="dialog_routing_change_end_carplay">Brak możliwości zbudowania trasy do punktu końcowego. Wybierz inny</string>
-	<string name="dialog_routing_check_gps_carplay">Brak sygnału GPS. Dostań się do terenu otwartego</string>
-	<string name="dialog_routing_unable_locate_route_carplay">Brak możliwości zbudowania trasy. Wybierz inne punkty trasy</string>
-	<string name="dialog_routing_download_files_carplay">Aby wyznaczyć trasę, pobierz brakujące mapy na Twoim urządzeniu</string>
-	<string name="dialog_routing_system_error_carplay">Wystąpił błąd. Uruchom aplikację ponownie</string>
-	<string name="dialog_routing_rebuild_from_current_location_carplay">Trasa zostanie przebudowana z Twojej bieżącej lokalizacji</string>
-	<string name="dialog_routing_rebuild_for_vehicle_carplay">Trasa zostanie zmieniona na samochodową</string>
 	<string name="ok">Ok</string>
-	<string name="avoid_unpaved_carplay_1">Bez gruntow.</string>
-	<string name="avoid_unpaved_carplay_2">Bez gruntowych</string>
-	<string name="avoid_ferry_carplay_1">Bez promów</string>
-	<string name="avoid_ferry_carplay_2">Bez promów</string>
-	<string name="avoid_tolls_carplay_1">Wył. płatne</string>
-	<string name="avoid_tolls_carplay_2">Wyłącz płatne</string>
-	<string name="speedcams_alert_title_carplay_1">Kamery</string>
-	<string name="speedcams_alert_title_carplay_2">Info o kamerach</string>
-	<string name="download_map_carplay">Pobierz mapy do aplikacji Organic Maps na swoje urządzenie</string>
-	<string name="carplay_roundabout_exit">%s zjazd</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortuj…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Sortuj znaczniki</string>
-	<!-- iOS -->
-	<string name="sort_default">Sortuj domyślnie</string>
-	<string name="sort_type">Sortuj wg rodzaju</string>
-	<string name="sort_distance">Sortuj wg odległości</string>
-	<string name="sort_date">Sortuj wg daty</string>
 	<!-- Android -->
 	<string name="by_default">Domyślnie</string>
 	<!-- Android -->
@@ -801,10 +639,6 @@
 	<string name="button_layer_isolines">Wysokości</string>
 	<string name="isolines_activation_error_dialog">Do skorzystania z linii wysokości, zaktualizuj lub pobierz mapę obszaru, który potrzebujesz</string>
 	<string name="isolines_location_error_dialog">W tej chwili nie są dostępne linie wysokości w tym regionie</string>
-	<string name="elevation_profile_diff_level">Poziom trudności</string>
-	<string name="elevation_profile_diff_level_easy">Łatwy</string>
-	<string name="elevation_profile_diff_level_moderate">Umiarkowany</string>
-	<string name="elevation_profile_diff_level_hard">Skomplikowany</string>
 	<string name="elevation_profile_ascent">Wejście</string>
 	<string name="elevation_profile_descent">Zejście</string>
 	<string name="elevation_profile_minaltitude">Min. wysokość</string>
@@ -813,31 +647,12 @@
 	<string name="elevation_profile_distance">Odległ.:</string>
 	<string name="elevation_profile_time">Trasa:</string>
 	<string name="isolines_toast_zooms_1_10">Powiększ mapę, aby zobaczyć izolinie</string>
-	<string name="downloader_updating_ios">Aktualizacja</string>
-	<string name="downloader_loading_ios">Pobieranie</string>
-	<string name="key_information_title">Kluczowe informacje</string>
 	<string name="download_map_title">Pobierz mapę świata</string>
 	<string name="connection_failure">Błąd połączenia</string>
 	<string name="disconnect_usb_cable_title">Odłącz kabel USB</string>
 	<string name="enable_screen_sleep">Pozwól ekranowi spać</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Po włączeniu ekran będzie mógł spać po okresie bezczynności.</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">Zaktualizuj pobrane mapy</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">Aktualizacja map umożliwia uzyskanie bieżących informacji o obiektach</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_size">Zaktualizuj (%s)</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_later">Zaktualizuj ręcznie później</string>
-	<!-- Delete track button on track edit screen -->
-	<string name="placepage_delete_track_button">Usuwanie trasy</string>
-	<!-- Placeholder for track name input on track edit screen -->
-	<string name="placepage_track_name_hint">Nazwa trasy</string>
-	<!-- move track or bookmark from the list button text -->
-	<string name="move">Przenieś</string>
-	<!-- edit track screen title -->
-	<string name="track_title">Trasa</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Transport linowy</string>

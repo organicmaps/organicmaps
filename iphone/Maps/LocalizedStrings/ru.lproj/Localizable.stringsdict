@@ -66,25 +66,6 @@
     </dict>
   </dict>
 
-  <key>places</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>few</key>
-      <string>%d места</string>
-      <key>one</key>
-      <string>%d место</string>
-      <key>other</key>
-      <string>%d мест</string>
-    </dict>
-  </dict>
-
   <key>tracks</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>

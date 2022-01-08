@@ -7,9 +7,6 @@
 /********** Strings **********/
 
 /* Button text (should be short) */
-"back" = "Vissza";
-
-/* Button text (should be short) */
 "cancel" = "Mégse";
 
 /* Button which interrupts country download */
@@ -19,9 +16,6 @@
 "delete" = "Törlés";
 
 "download_maps" = "Térképek letöltése";
-
-/* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "Letöltés sikertelen. Kérjük próbálja újra!";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Letöltés…";
@@ -35,11 +29,6 @@
 /* View and button titles for accessibility */
 "maps" = "Térképek";
 
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"mb" = "MB";
-
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mérföld";
 
@@ -52,14 +41,8 @@
 /* View and button titles for accessibility */
 "search" = "Keresés";
 
-/* Search box placeholder text */
-"search_map" = "Keresés a térképen";
-
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Igen";
-
-/* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "Ezen az eszközön jelenleg minden helyzetmeghatározó szolgáltatás ki van kapcsolva. Kérjük kapcsolja be ezeket a Beállítások között.";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Megjelenítés a térképen";
@@ -70,43 +53,14 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Letöltése sikertelen";
 
-/* Button text for the button under the country_status_download_failed message */
-"try_again" = "Újrapróbálkozás";
-
 "about_menu_title" = "A Organic Maps programról";
-
-"connection_settings" = "Kapcsolat beállítások";
 
 "close" = "Bezár";
 
-"unsupported_phone" = "Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.";
-
 "download" = "Letöltés";
-
-"disconnect_usb_cable" = "Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a Organic Maps használatához";
-
-"not_enough_free_space_on_sdcard" = "Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!";
-
-"not_enough_memory" = "Nincs elegendő memória az alkalmazás futtatásához";
-
-"download_resources" = "Első használat előtt letöltjük a világtérképet.\n%@ tárolóhely szükséges.";
-
-"download_resources_continue" = "Térképhez ugrás";
-
-"downloading_country_can_proceed" = "%@ letöltése. Mos továbbléphet\na térképhez.";
-
-"download_country_ask" = "Letöltsem %@-t?";
-
-"update_country_ask" = "Frissítsem %@-t?";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"pause" = "Szünet";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Folytatás";
-
-/* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "%@ letöltése sikertelen";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Új csoport létrehozása";
@@ -126,35 +80,14 @@
 /* Default bookmark list name */
 "core_my_places" = "Saját helyeim";
 
-/* Add bookmark dialog - bookmark name */
-"name" = "Név";
-
 /* Editor title above street and house number */
 "address" = "Cím";
-
-/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
-"list" = "Csoport";
 
 /* Settings button in system menu */
 "settings" = "Beállítások";
 
-/* Header of settings activity where user defines storage path */
-"maps_storage" = "Térképek mentése ide:";
-
-/* Detailed description of Maps Storage settings button */
-"maps_storage_summary" = "Válassza ki, hogy hova töltsük le a térképeket";
-
-/* Question dialog for transferring maps from one storage to another */
-"move_maps" = "Áthelyezzük a térképeket?";
-
-/* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Ez több percig is eltarthat.\nKérjük várjon…";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "Mértékegységek";
-
-/* Detailed description of Measurement Units settings button */
-"measurement_units_summary" = "Válasszon kilométer és mérföld között";
 
 /* Search category for cafes, bars, restaurants */
 "eat" = "Hol lehet enni valamit";
@@ -210,12 +143,6 @@
 /* Search category */
 "police" = "Rendőrség";
 
-/* Notes field in Bookmarks view */
-"description" = "Jegyzetek";
-
-/* Email Subject when sharing bookmark list */
-"share_bookmarks_email_subject" = "Egy Organic Maps könyvjelzőt osztottak meg Önnel";
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -233,32 +160,17 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Még nem határoztuk meg az aktuális helyzetét";
 
-/* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "Sajnáljuk, a térképek tárolása jelenleg ki van kapcsolva.";
-
-/* Alert message that downloading is in progress. */
-"downloading_is_active" = "Országletöltés folyamatban.";
-
-/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "Nézd meg a Organic Maps helyzetemet! %1$@ vagy %2$@ A program letöltése: https://omaps.app/get";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Nézze meg a Organic Maps jelzőmet";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Nézze meg a helyzetemet a Organic Maps térképen!";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
-"my_position_share_email" = "Üdvözlöm!\n\nJelenleg itt vagyok: %1$@ Kattintson erre a hivatkozásra %2$@ vagy erre %3$@, hogy lássa a helyet a térképen.\n\nKöszönöm.";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Megosztás";
 
 /* Share by email button text, also used in editor. */
 "email" = "Email";
-
-/* Text for message when used successfully copied something */
-"copied_to_clipboard" = "A vágólapra másolva: %1$@";
 
 /* place preview title */
 "info" = "Info";
@@ -272,9 +184,6 @@
 /* Data version in «About» screen */
 "data_version" = "Data version: %d";
 
-/* Confirmation in downloading countries dialog */
-"are_you_sure" = "Valóban folytatni akarja?";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Csoportok";
 
@@ -283,17 +192,9 @@
 
 "share_my_location" = "Helyzetem megosztása";
 
-/* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
-
-/* Settings information group in settings screen */
-"prefs_group_information" = "Information";
-
 "prefs_group_route" = "Navigáció";
 
 "pref_zoom_title" = "Nagyítás/kicsinyítés gombok";
-
-"pref_zoom_summary" = "Mutassa a kijelzőn";
 
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Éjszakai üzemmód";
@@ -318,9 +219,6 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "A hang nyelve";
-
-/* Settings «Route» category: «Tts unavailable» subtitle */
-"pref_tts_unavailable" = "Nem áll rendelkezésre";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Egyéb";
@@ -366,12 +264,6 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in the editor */
-"editor_line_social_network" = "LINE";
-
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
@@ -383,12 +275,6 @@
 
 /* Text in menu */
 "help" = "Segítség";
-
-/* Button in the main Help dialog */
-"faq" = "Kérdések és válaszok";
-
-/* Button in the main Help dialog */
-"how_to_support_us" = "Hogyan támogat minket?";
 
 /* Button in the main Help dialog */
 "copyright" = "Szerzői jog";
@@ -410,9 +296,6 @@
 
 /* Update all button text */
 "downloader_update_all_button" = "Mindegyik frissítése";
-
-/* Cancel all button text */
-"downloader_cancel_all" = "Mindent visszavon";
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Letöltve";
@@ -454,12 +337,6 @@
 /* Item in context menu. */
 "downloader_delete_map" = "Térkép törlése";
 
-/* Item in context menu. */
-"downloader_update_map" = "Térkép frissítése";
-
-/* Preference text */
-"pref_use_google_play" = "Használja a Google Play szolgáltatást, hogy szert tegyen aktuális helyszínéről";
-
 /* Text for rating dialog */
 "rating_just_rated" = "Most értékeltem az alkalmazásodat";
 
@@ -478,18 +355,10 @@
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Útvonal tervezéséhez a kiindulási pont és a célútvonal összes térképét szükséges letölteni és frissíteni.";
 
-/* Text for routing error dialog */
-"routing_not_enough_space" = "Nincs elég hely";
-
 /* bookmark button text */
 "bookmark" = "könyvjelző";
 
-/* location service disabled */
-"enable_location_services" = "Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást";
-
 "save" = "Simpan";
-
-"edit_description_hint" = "Az ön leírásai (sima szöveg vagy html)";
 
 "create" = "létrehoz";
 
@@ -575,8 +444,6 @@
 
 "dialog_routing_unable_locate_route" = "Nem sikerült meghatározni az útvonalat";
 
-"dialog_routing_cant_build_route" = "Nem sikerült létrehozni az útvonalat.";
-
 "dialog_routing_change_start_or_end" = "Kérjük, pontosítsa indulási helyét, vagy célállomását.";
 
 "dialog_routing_change_start" = "Pontosítsa indulási helyét";
@@ -609,10 +476,6 @@
 
 
 /********** Strings for downloading map from search **********/
-
-"search_without_internet_advertisement" = "Útvonalak kereséséhez és létrehozásához, kérjük, töltsd le a térképet és többé nem lesz szükséged internetkapcsolatra.";
-
-"search_select_map" = "Jelöld ki a térképet";
 
 /* «Show» context menu */
 "show" = "Mutat";
@@ -655,9 +518,6 @@
 
 "clear_search" = "A keresési előzmények törlése";
 
-/* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "Az Ön helyzete";
 
 "p2p_start" = "Indítás";
@@ -669,9 +529,6 @@
 "p2p_only_from_current" = "A navigáció csak a jelenlegi helyzetéből érhető el.";
 
 "p2p_reroute_from_current" = "Szeretne útvonaltervet készíttetni a jelenlegi pozíciójától?";
-
-/* Edit open hours/set time and minutes dialog */
-"next_button" = "Következő";
 
 "editor_time_add" = "Időrend felvitele";
 
@@ -696,27 +553,13 @@
 
 "editor_example_values" = "Példa értékek";
 
-"editor_correct_mistake" = "Hiba javítása";
-
 "editor_add_select_location" = "Elhelyezkedés";
 
 "editor_done_dialog_1" = "Megváltoztattad a világ térképét. Ne titkold el mások elől! Mondd el a barátaidnak, és szerkesszétek közösen!";
 
 "share_with_friends" = "Oszd meg az ismerőseiddel";
 
-"editor_report_problem_desription_1" = "Kérjük, írd le részletesen a problémát, hogy az OpenStreeMap csapata kijavíthassa.";
-
-"editor_report_problem_desription_2" = "Vagy végezd el te magad a javítást itt: https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "Küldés";
-
-"editor_report_problem_title" = "Probléma";
-
-"editor_report_problem_no_place_title" = "A hely nem létezik";
-
-"editor_report_problem_under_construction_title" = "Karbantartás miatt nem elérhető";
-
-"editor_report_problem_duplicate_place_title" = "Duplikált hely";
 
 "autodownload" = "Automatikus letöltés";
 
@@ -736,8 +579,6 @@
 
 "add_opening_hours" = "Nyitvatartás hozzáadása";
 
-"edit_opening_hours" = "Nyitvatartás szerkesztése";
-
 "no_osm_account" = "Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?";
 
 "register_at_openstreetmap" = "Regisztráció";
@@ -747,8 +588,6 @@
 "invalid_username_or_password" = "Érvénytelen felhasználónév vagy jelszó.";
 
 "login" = "Bejelentkezés";
-
-"password" = "Jelszó";
 
 "forgot_password" = "Elfelejtett jelszó?";
 
@@ -767,8 +606,6 @@
 
 "add_language" = "Nyelv hozzáadása";
 
-"street" = "Utca";
-
 /* Editable House Number text field (in address block). */
 "house_number" = "Házszám";
 
@@ -776,9 +613,6 @@
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Utca hozzáadása";
-
-/* Error to display when a new street name is not entered in the New street dialog */
-"empty_street_name_error" = "Please enter a street name";
 
 "choose_language" = "Nyelv kiválasztása";
 
@@ -795,15 +629,11 @@
 
 "phone" = "Telefonszám";
 
-"editor_add_phone" = "Add Phone";
-
 "please_note" = "Megjegyzés";
 
 "downloader_delete_map_dialog" = "A térképekkel együtt minden rajtuk végzett módosítás is törlésre kerül.";
 
 "downloader_update_maps" = "Térképek frissítése";
-
-"downloader_mwm_migration_dialog" = "Útvonal létrehozásához frissítsd az összes térképet, majd tervezd meg újra az útvonalat.";
 
 "downloader_search_field_hint" = "Térkép keresése";
 
@@ -814,8 +644,6 @@
 "downloader_no_space_title" = "Nincs elegendő tárhely";
 
 "downloader_no_space_message" = "Kérjük, töröld a szükségtelen adatokat";
-
-"editor_login_error_dialog" = "Bejelentkezési hiba.";
 
 "editor_profile_changes" = "Jóváhagyott változtatások";
 
@@ -834,12 +662,6 @@
 "editor_edit_place_name_hint" = "Hely neve";
 
 "editor_edit_place_category_title" = "Kategória";
-
-"detailed_problem_description" = "A probléma részletes leírása";
-
-"editor_report_problem_other_title" = "Különböző probléma";
-
-"placepage_add_business_button" = "Szervezet hozzáadása";
 
 "whatsnew_editor_message_1" = "Adj hozzá új helyeket a térképhez, és szerkeszd a meglévőket közvetlenül az alkalmazásból.";
 
@@ -928,15 +750,9 @@
 
 "miles_per_hour" = "mph";
 
-"hour" = "ó";
-
-"minute" = "p";
-
 "placepage_place_description" = "Leírás";
 
 "placepage_more_button" = "Még";
-
-"placepage_more_reviews_button" = "További vélemények";
 
 "book_button" = "Foglalás";
 
@@ -964,9 +780,6 @@
 
 "editor_place_doesnt_exist" = "A hely nem létezik";
 
-/* Error message for "Place doesn't exist" dialog when comment is empty */
-"delete_place_empty_comment_error" = "Please indicate the reason for deleting the place";
-
 "text_more_button" = "…tovább";
 
 /* Phone number error message */
@@ -975,16 +788,6 @@
 "error_enter_correct_web" = "Adj meg egy érvényes weboldalcímet";
 
 "error_enter_correct_email" = "Adj meg egy érvényes email-címet";
-
-"error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-
-"error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-
-"error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-
-"error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
-
-"error_enter_correct_line_page" = "Enter a valid LINE web address or LINE ID";
 
 "refresh" = "Frissítés";
 
@@ -1044,15 +847,11 @@
 
 "big_font" = "Betűméret növelése a térképen";
 
-"traffic_update_app" = "Kérjük, frissítse a Organic Maps alkalmazást";
-
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "A forgalmi adatok megjelenítéséhez frissíteni kell az alkalmazást.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Forgalmi adatok nem állnak rendelkezésre";
-
-"enable_logging" = "Naplózás engedélyezése";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Általános visszajelzés";
@@ -1061,23 +860,13 @@
 
 "off" = "Ki";
 
-"prefs_languages_information" = "TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
-"prefs_languages_information_off" = "Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play Market, Samsung Apps). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.";
-
-"prefs_languages_information_off_link" = "További tájékoztatást találhat még ebben az útmutatóban.";
-
 "transliteration_title" = "Átírás latin nyelvre";
-
-"learn_more" = "Tudjon meg többet";
 
 "core_exit" = "Kilépés";
 
 "routing_add_start_point" = "Adjon hozzá kiindulási pontot az útvonal megtervezéséhez";
 
 "routing_add_finish_point" = "Adjon hozzá végpontot az útvonal tervezéséhez";
-
-"button_exit" = "Kilépés";
 
 "planning_route_manage_route" = "Útvonal kezelése";
 
@@ -1093,12 +882,6 @@
 
 "profile_authorization_error" = "Hoppá, volt egy hiba. Próbáljon meg újra bejelentkezni.";
 
-"dialog_error_storage_title" = "Tároló hozzáférési hiba";
-
-"dialog_error_storage_message" = "Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support@organicmaps.app címen";
-
-"setting_emulate_bad_storage" = "Sérült tároló emulálása";
-
 "core_entrance" = "Bejárat";
 
 "error_enter_correct_name" = "Kérjük adja meg a helyes nevet";
@@ -1111,9 +894,6 @@
 "bookmark_lists_show_all" = "Összes megjelenítése";
 
 "bookmarks_create_new_group" = "Új lista létrehozása";
-
-/* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
 
 "downloader_hide_screen" = "Képernyő elrejtése";
 
@@ -1129,21 +909,11 @@
 
 "bookmarks_error_message_share_empty" = "Üres lista nem osztható meg";
 
-"bookmarks_error_title_empty_list_name" = "A név nem lehet üres";
-
 "bookmarks_error_message_empty_list_name" = "Adja meg a lista nevét";
-
-"bookmarks_new_list_hint" = "Új lista";
 
 "bookmarks_error_title_list_name_already_taken" = "Ez a név már foglalt";
 
-"bookmarks_error_message_list_name_already_taken" = "Kérjük, válasszon másik nevet";
-
 "bookmarks_error_title_list_name_too_long" = "Ez a név túl hosszú";
-
-"please_wait" = "Kérlek várj…";
-
-"phone_number" = "Telefonszám";
 
 "profile" = "OpenStreetMap profil";
 
@@ -1157,17 +927,9 @@
 
 "bookmarks_restore_title" = "A verzió visszaállítása?";
 
-"common_check_internet_connection_dialog_title" = "Nincs internetkapcsolat";
-
 "error_system_message" = "Ismeretlen hiba történt";
 
 "restore" = "Visszaállítás";
-
-"subtittle_opt_out" = "Követési beállítások";
-
-"crash_reports" = "Hibajelentés";
-
-"crash_reports_description" = "A Organic Maps fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.";
 
 "privacy_policy" = "Adatvédelmi irányelvek";
 
@@ -1181,12 +943,6 @@
 
 "subway_data_unavailable" = "A metrótérkép nem elérhető";
 
-"bookmarks_empty_list_title" = "A lista üres";
-
-"bookmarks_empty_list_message" = "A könyvjelző hozzáadásához, érintsen meg a térképen egy helyet majd érintse meg a csillag ikont";
-
-"category_desc_more" = "…tovább";
-
 "title_error_downloading_bookmarks" = "Hiba történt";
 
 "popular_place" = "Popular";
@@ -1199,13 +955,7 @@
 
 "hide_from_map" = "Lefedés a térképen";
 
-"public_access" = "Nyílt hozzáférés";
-
-"limited_access" = "Személyes hozzáférés";
-
 "bookmark_list_description_hint" = "Leírás hozzáadása (szöveg vagy html)";
-
-"not_shared" = "Privát";
 
 "tags_loading_error_subtitle" = "A tag-ek feltöltésekor hiba történt, kérjük próbálja meg még egyszer";
 
@@ -1221,9 +971,6 @@
 
 "place_description_title" = "A hely ismertetése";
 
-/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Kártyák letöltése";
-
 "speedcams_notice_message" = "Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról";
 
 "power_managment_title" = "Energiatakarékos mód";
@@ -1235,10 +982,6 @@
 "power_managment_setting_auto" = "Automatikus";
 
 "power_managment_setting_manual_max" = "Maximális energiatakarékosság";
-
-"enable_logging_warning_message" = "Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a Organic Maps support kérésére kapcsold be ezt az opciót.";
-
-"access_rules_author_only" = "Online szerkesztés";
 
 "driving_options_title" = "Vezetési lehetőségek";
 
@@ -1333,9 +1076,6 @@
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Rendezd…";
 
-/* Android, title, max 20-22 symbols */
-"sort_bookmarks" = "Könyvelzők rendezése";
-
 /* iOS */
 "sort_default" = "Alapértelmezés szerint";
 
@@ -1344,18 +1084,6 @@
 "sort_distance" = "Távolság szerint";
 
 "sort_date" = "Dátum szerint";
-
-/* Android */
-"by_default" = "Alapértelmezés szerint";
-
-/* Android */
-"by_type" = "Típus szerint";
-
-/* Android */
-"by_distance" = "Távolság szerint";
-
-/* Android */
-"by_date" = "Dátum szerint";
 
 "week_ago_sorttype" = "Egy hete";
 
@@ -1403,8 +1131,6 @@
 
 "religious_places" = "Vallási helyek";
 
-"select_list" = "Lista kiválasztása";
-
 "transit_not_found" = "Metró navigáció ebben a régióban még nem érhető el";
 
 "dialog_pedestrian_route_is_long_header" = "Metró útvonal nem található";
@@ -1435,8 +1161,6 @@
 
 "elevation_profile_difficulty" = "Nehézség";
 
-"elevation_profile_distance" = "Táv.:";
-
 "elevation_profile_time" = "Idő";
 
 "isolines_toast_zooms_1_10" = "Nagyítás az isovonalak felfedezéséhez";
@@ -1446,17 +1170,6 @@
 "downloader_loading_ios" = "Letöltés";
 
 "key_information_title" = "Kulcs információ";
-
-"download_map_title" = "Download the world map";
-
-"connection_failure" = "Connection failure";
-
-"disconnect_usb_cable_title" = "Disconnect USB cable";
-
-"enable_screen_sleep" = "Hagyja aludni a képernyőt";
-
-/* Description in preferences */
-"enable_screen_sleep_description" = "Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Frissítse a letöltött térképeit";
@@ -2731,11 +2444,11 @@
 
 "type.railway.abandoned.bridge" = "Abandoned railway";
 
-"type.railway.abandoned.tunnel" = "Abandoned railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway";
 
-"type.railway.construction" = "Railway's construction";
+"type.railway.construction" = "Railway's Construction";
 
-"type.railway.crossing" = "Railway crossing";
+"type.railway.crossing" = "Railway Crossing";
 
 "type.railway.disused" = "Disused railway";
 

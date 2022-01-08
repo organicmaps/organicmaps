@@ -60,23 +60,6 @@
     </dict>
   </dict>
 
-  <key>places</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>one</key>
-      <string>%d مکان</string>
-      <key>other</key>
-      <string>%d مکان</string>
-    </dict>
-  </dict>
-
   <key>tracks</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>

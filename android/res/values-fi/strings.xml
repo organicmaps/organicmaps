@@ -8,8 +8,6 @@
 	<string name="back">Takaisin</string>
 	<!-- Button text (should be short) -->
 	<string name="cancel">Peruuta</string>
-	<!-- Button which interrupts country download -->
-	<string name="cancel_download">Peruuta lataus</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Poista</string>
 	<string name="download_maps">Lataa karttoja</string>
@@ -19,8 +17,6 @@
 	<string name="downloading">Ladataan…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometrit</string>
-	<!-- Leave Review dialog - Review button -->
-	<string name="leave_a_review">Jätä arviointi</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Kartat</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
@@ -35,19 +31,14 @@
 	<string name="search">Haku</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Hae kartalta</string>
-	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
-	<string name="use_cellular_data">Kyllä</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Näytä kartalla</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
-	<string name="country_status_download_without_size">Lataa kartta</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Lataus epäonnistui</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Yritä uudelleen</string>
-	<string name="about_menu_title">Tietoa Organic Maps:stä</string>
 	<string name="connection_settings">Yhteysasetukset</string>
 	<string name="close">Sulje</string>
 	<string name="unsupported_phone">Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.</string>
@@ -72,8 +63,6 @@
 	<string name="bookmark_color">Kirjanmerkin väri</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Kirjanmerkkivalikoiman nimi</string>
-	<!-- "Bookmark Lists" dialog title -->
-	<string name="bookmark_sets">Kirjanmerkkivalikoimat</string>
 	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Kirjanmerkit</string>
 	<!-- Default bookmark list name -->
@@ -166,12 +155,8 @@
 	<string name="email">Sähköposti</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Kopioitu leikepöydälle: %1$s</string>
-	<!-- place preview title -->
-	<string name="info">Tietoa</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Valmis</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Versio: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Oletko varma että haluat jatkaa?</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -204,10 +189,6 @@
 	<string name="pref_tts_language_title">Äänen kieli</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Ei saatavilla</string>
-	<!-- Title for "Other" section in TTS settings. -->
-	<string name="pref_tts_other_section_title">Muu</string>
-	<!-- Settings «Map» category: «Record track» title -->
-	<string name="pref_track_record_title">Viimeisin reitti</string>
 	<string name="pref_map_auto_zoom">Automaattinen zoomaus</string>
 	<string name="duration_disabled">Pois päältä</string>
 	<string name="duration_1_hour">1 tunti</string>
@@ -215,8 +196,6 @@
 	<string name="duration_6_hours">6 tuntia</string>
 	<string name="duration_12_hours">12 tuntia</string>
 	<string name="duration_1_day">1 päivä</string>
-	<string name="recent_track_help_text">Toiminnon avulla voit tallentaa kuljetun reitin tietyltä ajalta ja nähdä sen kartalla: Huomautus: tämän toiminnon aktivoiminen lisää akun käyttöä. Reitti poistetaan kartalta automaattisesti ajanjakson päätyttyä.</string>
-	<string name="placepage_distance">Etäisyys</string>
 	<string name="search_show_on_map">Näytä kartalla</string>
 	<!-- Text in menu -->
 	<string name="website">Kotisivut</string>
@@ -234,12 +213,6 @@
 	<string name="copyright">Tekijänoikeudet</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Ilmoita virheestä</string>
-	<!-- Alert text -->
-	<string name="email_error_body">Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %s</string>
-	<!-- Alert title -->
-	<string name="email_error_title">Virhe lähetettäessä viestiä</string>
-	<!-- Settings item title -->
-	<string name="pref_calibration_title">Kompassin kalibrointi</string>
 	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
@@ -248,19 +221,12 @@
 	<string name="downloader_cancel_all">Peruuta kaikki</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Ladatut</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_available_maps">Saatavilla</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Jonossa</string>
 	<string name="downloader_near_me_subtitle">Lähelläni</string>
 	<string name="downloader_status_maps">Kartat</string>
 	<string name="downloader_download_all_button">Lataa kaikki</string>
 	<string name="downloader_downloading">Ladataan:</string>
-	<string name="downloader_search_results">Löytyi</string>
-	<!-- Status of outdated country in the list -->
-	<string name="downloader_status_outdated">Päivitä</string>
-	<!-- Status of failed country in the list -->
-	<string name="downloader_status_failed">Epäonnistunut</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
 	<string name="downloader_delete_map_while_routing_dialog">Pysäytä navigointi poistaaksesi kartan.</string>
 	<!-- PointsInDifferentMWM -->
@@ -275,22 +241,12 @@
 	<string name="downloader_update_map">Päivitä kartta</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Käytä Google Play -palveluita sijaintisi selvittämiseksi</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_just_rated">Olen juuri arvostellut sovelluksesi.</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_thanks">Kiitos!</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_share_ideas">Jaathan ideasi ja kohtaamasi ongelmat, jotta voimme parantaa sovellusta sinua varten.</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_send_feedback">Lähetä palautetta</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Lataa karttoja matkalla</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Reitin luominen vaatii karttojen lataamisen ja päivityksen oman sijaintisi ja kohteeen väliltä.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Ei tarpeeksi tilaa</string>
-	<!-- bookmark button text -->
-	<string name="bookmark">kirjanmerkki</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Ota sijaintipalvelut käyttöön</string>
 	<string name="save">Tallenna</string>
@@ -343,8 +299,6 @@
 	<string name="dialog_routing_location_turn_wifi">Tarkista GPS-signaali. Wi-Fi-signaalin käyttöönotto parantaa sijainnin tarkkuutta.</string>
 	<string name="dialog_routing_location_turn_on">Ota sijaintipalvelut käyttöön</string>
 	<string name="dialog_routing_location_unknown_turn_on">Tämänhetkisiä GPS-koordinaatteja ei löydy. Ota sijaintipalvelut käyttöön reitin laskemista varten.</string>
-	<string name="dialog_routing_download_files">Lataa tarvittavat tiedostot</string>
-	<string name="dialog_routing_download_and_update_all">Lataa ja päivitä kaikki suunnitellun reitin kartta- ja reititystiedot, jotta reitin voi laskea.</string>
 	<string name="dialog_routing_unable_locate_route">Reitin paikannus ei onnistu</string>
 	<string name="dialog_routing_cant_build_route">Reitin luonti ei onnistu.</string>
 	<string name="dialog_routing_change_start_or_end">Muuta aloituskohtaa tai määränpäätä.</string>
@@ -359,7 +313,6 @@
 	<string name="dialog_routing_system_error">Järjestelmävirhe</string>
 	<string name="dialog_routing_application_error">Reittiä ei voi luoda sovellusvirheen vuoksi.</string>
 	<string name="dialog_routing_try_again">Yritä uudelleen</string>
-	<string name="not_now">Ei nyt</string>
 	<string name="dialog_routing_download_and_build_cross_route">Haluatko ladata kartan ja luoda paremman reitin, joka ylettyy usealle kartalle?</string>
 	<string name="dialog_routing_download_cross_route">Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.</string>
 
@@ -370,17 +323,8 @@
 	<string name="show">Näytä</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Piilota</string>
-	<!-- Failed planning route message in navigation view -->
-	<string name="routing_planning_error">Reitin suunnittelu epäonnistui</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Saavut: %s</string>
-	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
-	<string name="dialog_routing_download_and_update_maps">Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.</string>
-	<string name="rate_alert_title">Pidätkö sovelluksesta?</string>
-	<string name="rate_alert_default_message">Kiitos kun käytät Organic Maps:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.</string>
-	<string name="rate_alert_five_star_message">Hurraa! Mekin rakastamme sinua!</string>
-	<string name="rate_alert_four_star_message">Kiitos, teemme parhaamme!</string>
-	<string name="rate_alert_less_than_four_star_message">Kertoisitko missä voisimme parantaa?</string>
 	<string name="categories">Luokat</string>
 	<string name="history">Historia</string>
 	<string name="closed">Suljettu</string>
@@ -411,8 +355,6 @@
 	<string name="editor_example_values">Esimerkkiarvot</string>
 	<string name="editor_correct_mistake">Korjaa virhe</string>
 	<string name="editor_add_select_location">Sijainti</string>
-	<string name="editor_done_dialog_1">Olet muuttanut maailmankarttaa. Älä piilota tätä! Kerro ystävillesi ja muokatkaa sitä yhdessä.</string>
-	<string name="share_with_friends">Jaa kavereille</string>
 	<string name="editor_report_problem_desription_1">Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.</string>
 	<string name="editor_report_problem_desription_2">Tai tee se itse osoitteessa https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Lähetä</string>
@@ -422,29 +364,20 @@
 	<string name="editor_report_problem_duplicate_place_title">Paikan kaksoiskappale</string>
 	<string name="autodownload">Lataa automaattisesti</string>
 	<!-- Place Page opening hours text -->
-	<string name="closed_now">Suljettu nyt</string>
-	<!-- Place Page opening hours text -->
 	<string name="daily">Päivittäin</string>
 	<string name="twentyfour_seven">Päivin ja öin</string>
 	<string name="day_off_today">Suljettu tänään</string>
 	<string name="day_off">Suljettu</string>
 	<string name="today">Tänään</string>
-	<string name="add_opening_hours">Lisää aukioloajat</string>
 	<string name="edit_opening_hours">Muokkaa aukioloaikoja</string>
 	<string name="no_osm_account">Eikö sinulla ole OpenStreetMap tiliä?</string>
 	<string name="register_at_openstreetmap">Rekisteröidy</string>
-	<string name="password_8_chars_min">Salasana (vähintään 8 merkkiä)</string>
-	<string name="invalid_username_or_password">Virheellinen käyttäjätunnus tai salasana</string>
 	<string name="login">Kirjaudu sisään</string>
 	<string name="password">Salasana</string>
 	<string name="forgot_password">Unohtuiko salasana?</string>
-	<string name="osm_account">OSM-tili</string>
 	<string name="logout">Kirjaudu ulos</string>
-	<!-- Information text: "Last upload 11.01.2016" -->
-	<string name="last_upload">Viimeisin lisäys</string>
 	<string name="thank_you">Kiitos</string>
 	<string name="edit_place">Muokkaa kohdetta</string>
-	<string name="place_name">Paikan nimi</string>
 	<string name="add_language">Lisää kieli</string>
 	<string name="street">Katu</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -459,22 +392,16 @@
 	<string name="select_cuisine">Valitse ruokalaji</string>
 	<!-- login text field -->
 	<string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
-	<string name="phone">Puhelinnumero</string>
-	<string name="please_note">Huomaathan, että</string>
 	<string name="downloader_delete_map_dialog">Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.</string>
 	<string name="downloader_update_maps">Päivitä kartat</string>
 	<string name="downloader_mwm_migration_dialog">Sinun täytyy päivittää kaikki kartat ja suunnitella reitti uudelleen luodaksesi uuden reitin.</string>
 	<string name="downloader_search_field_hint">Etsi kartta</string>
-	<string name="migration_download_error_dialog">Latausvirhe</string>
 	<string name="common_check_internet_connection_dialog">Tarkista asetuksesi ja varmista, että laitteesi on yhteydessä Internetiin.</string>
 	<string name="downloader_no_space_title">Ei tarpeeksi tilaa</string>
 	<string name="downloader_no_space_message">Poista tarpeeton data</string>
 	<string name="editor_login_error_dialog">Kirjautumisvirhe.</string>
 	<string name="editor_profile_changes">Vahvistetut karttamuutokset</string>
 	<string name="editor_focus_map_on_location">Vedä karttaa valitaksesi kohteelle oikean sijainnin.</string>
-	<string name="editor_add_select_category">Valitse kategoria</string>
-	<string name="editor_add_select_category_popular_subtitle">Suositut</string>
-	<string name="editor_add_select_category_all_subtitle">Kaikki kategoriat</string>
 	<string name="editor_edit_place_title">Muokkaus</string>
 	<string name="editor_add_place_title">Lisääminen</string>
 	<string name="editor_edit_place_name_hint">Paikan nimi</string>
@@ -482,13 +409,8 @@
 	<string name="detailed_problem_description">Ongelman tarkka kuvaus</string>
 	<string name="editor_report_problem_other_title">Eri ongelma</string>
 	<string name="placepage_add_business_button">Lisää organisaatio</string>
-	<string name="whatsnew_editor_message_1">Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.</string>
-	<string name="dialog_incorrect_feature_position">Vaihda sijaintia</string>
 	<string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
 	<string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
-	<!-- Error dialog no space -->
-	<string name="migration_no_space_message">Tarvitset lisää tilaa ladataksesi. Poista tarpeeton data.</string>
-	<string name="editor_sharing_title">Paransin Organic Maps-karttoja</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
 	<string name="download_over_mobile_header">Lataa käyttämällä puhelinverkkoyhteyttä?</string>
@@ -506,7 +428,6 @@
 	<string name="editor_detailed_description">Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata Organic Maps:ssä.</string>
 	<string name="editor_more_about_osm">Lisätietoja OpenStreetMap:ista</string>
 	<string name="editor_operator">Operaattori</string>
-	<string name="downloader_my_maps_title">Omat kartat</string>
 	<string name="downloader_no_downloaded_maps_title">Et ole ladannut yhtään karttaa</string>
 	<string name="downloader_no_downloaded_maps_message">Lataa kartattoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -515,14 +436,6 @@
 	<string name="current_location_unknown_message">Nykyistä sijaintiasi ei voitu määrittää. Kenties olet rakennuksessa tai tunnelissa.</string>
 	<string name="current_location_unknown_continue_button">Jatka</string>
 	<string name="current_location_unknown_stop_button">Seis</string>
-	<string name="current_location_unknown_error_title">Nykyinen sijainti on tuntematon.</string>
-	<string name="current_location_unknown_error_message">Tapahtui virhe määritettäessä sijaintiasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.</string>
-	<string name="location_services_disabled_header">Sijaintipalvelut on poistettu käytöstä</string>
-	<string name="location_services_disabled_message">Schakel de toegang tot geolocaties in in de instellingen van het apparaat</string>
-	<string name="location_services_disabled_1">1. Avaa asetukset</string>
-	<string name="location_services_disabled_2">2. Tik op locatie</string>
-	<!-- iOS Dialog for the case when the location permission is not granted -->
-	<string name="location_services_disabled_3">3. Valitse sovellusta käytettäessä</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
@@ -537,38 +450,24 @@
 	<string name="book_button">Varaa</string>
 	<string name="placepage_call_button">Soita</string>
 	<string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
-	<string name="placepage_bookmark_name_hint">Kirjanmerkin nimi</string>
-	<string name="placepage_personal_notes_hint">Henkilökohtaiset merkinnät</string>
-	<string name="placepage_delete_bookmark_button">Poista kirjanmerkki</string>
-	<string name="editor_edits_sent_message">Ehdottamasi muutokset on lähetetty</string>
 	<string name="editor_comment_hint">Kommentti…</string>
 	<string name="editor_reset_edits_message">Nollataanko kaikki paikalliset muutokset?</string>
 	<string name="editor_reset_edits_button">Nollaa</string>
 	<string name="editor_remove_place_message">Poistetaanko lisätty paikka?</string>
 	<string name="editor_remove_place_button">Poista</string>
 	<string name="editor_place_doesnt_exist">Paikkaa ei ole olemassa</string>
-	<string name="text_more_button">…Näytä</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Syötä kelvollinen puhelinnumero</string>
 	<string name="error_enter_correct_web">Syötä kelvollinen verkko-osoite</string>
 	<string name="error_enter_correct_email">Syötä kelvollinen sähköpostiosoite</string>
-	<string name="refresh">Päivitä</string>
 	<string name="placepage_add_place_button">Lisää paikka kartalle</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Haluatko lähettää sen kaikille käyttäjille?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Varmistat, ettet syöttänyt henkilökohtaisia tietojasi.</string>
 	<string name="editor_share_to_all_dialog_message_2">Tarkistamme muutokset. Otamme sinuun yhteyttä sähköpostitse, jos meillä on kysyttävää.</string>
-	<string name="navigation_stop_button">lopeta</string>
-	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-	<string name="recent_track_background_dialog_title">Poistetaanko viimeisen matkareitin tallennus?</string>
-	<string name="off_recent_track_background_button">Poista</string>
-	<!-- For sharing via SMS and so on -->
-	<string name="sharing_call_action_look">Tarkastele</string>
-	<string name="recent_track_background_dialog_message">MAPS.SE käyttää taustalla geosijaintia sinun viimeisen matkareitin tallentamiseksi.</string>
 	<!-- Text under the version number in the Help dialog. -->
 	<string name="about_description">Organic Maps on ilmainen ja avoimen lähdekoodin offline-karttasovellus. Ei mainoksia. Ei seurantaa. Jos näet virheen kartalla, korjaa se OpenStreetMapissa. Hankkeen ovat luoneet harrastajat vapaa-ajallamme, joten tarvitsemme palautettasi ja tukeasi.</string>
-	<string name="general_settings">Yleiset asetukset</string>
 	<!-- For the first routing -->
 	<string name="accept">Hyväksy</string>
 	<!-- For the first routing -->
@@ -586,8 +485,6 @@
 	<string name="traffic_update_maps_text">Liikennetietojen näyttämiseksi kartat on päivitettävä.</string>
 	<string name="big_font">Suurenna fonttikokoa kartalla</string>
 	<string name="traffic_update_app">Päivitä Organic Maps</string>
-	<!-- "traffic" as in road congestion -->
-	<string name="traffic_update_app_message">Liikennetietojen näyttämiseksi sovellus on päivitettävä.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Liikennetietoja ei ole saatavilla</string>
 	<string name="enable_logging">Ota loki käyttöön</string>
@@ -604,13 +501,8 @@
 	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten</string>
 	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten</string>
 	<string name="button_exit">Poistu</string>
-	<string name="planning_route_manage_route">Hallitse reittiä</string>
-	<string name="button_plan">Suunnittele</string>
 	<string name="placepage_remove_stop">Poista</string>
-	<string name="planning_route_remove_title">Vedä tähän poistaaksesi</string>
 	<string name="placepage_add_stop">Lisää pysähdys</string>
-	<string name="start_from_my_position">Aloita kohdasta</string>
-	<string name="profile_authorization_error">Tapahtui virhe. Yritä kirjautua sisään uudelleen.</string>
 	<string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
 	<string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Jäljittele virheellistä tallennustilaa</string>
@@ -620,16 +512,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Piilota kaikki</string>
 	<string name="bookmark_lists_show_all">Näytä kaikki</string>
-	<plurals name="bookmarks_places">
-	  <item quantity="other">%d kirjanmerkkiä</item>
-	</plurals>
 	<string name="bookmarks_create_new_group">Luo uusi luettelo</string>
 	<!-- Bookmark categories screen -->
 	<string name="bookmarks_import">Tuo kirjamerkit</string>
-	<string name="downloader_hide_screen">Piilota näyttö</string>
-	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
-	<string name="downloader_process">Ladataan %s…</string>
-	<string name="downloader_applying">%s otetaan käyttöön…</string>
 	<string name="bookmarks_error_message_share_general">Ei voitu jakaa sovellusvirheen vuoksi</string>
 	<string name="bookmarks_error_title_share_empty">Jakamisvirhe</string>
 	<string name="bookmarks_error_message_share_empty">Tyhjää listaa ei voi jakaa</string>
@@ -638,22 +523,14 @@
 	<string name="bookmarks_new_list_hint">Uusi lista</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Nimi on jo käytössä</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Valitse toinen nimi</string>
-	<string name="bookmarks_error_title_list_name_too_long">Tämä nimi on liian pitkä</string>
 	<string name="please_wait">Odota…</string>
 	<string name="phone_number">Puhelinnumero</string>
 	<string name="profile">OpenStreetMap-profiili</string>
-	<string name="bookmarks_detect_title">Uusia tiedostoja havaittiin</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d tiedosto löydettiin. Näet sen muunnoksen jälkeen.</item>
 	  <item quantity="other">%d tiedostoa on löytynyt. Näet heidät muuntamisen jälkeen.</item>
 	</plurals>
-	<string name="button_convert">Muuntaa</string>
-	<string name="bookmarks_convert_error_title">Virhe</string>
-	<string name="bookmarks_convert_error_message">Joitakin tiedostoja ei muutettu.</string>
-	<string name="bookmarks_restore_title">Palauta tämä versio?</string>
 	<string name="common_check_internet_connection_dialog_title">Ei Internet-yhteyttä</string>
-	<string name="error_system_message">Tuntematon virhe tapahtui</string>
-	<string name="restore">Palauttaa</string>
 	<plurals name="objects">
 	  <item quantity="other">%d paikka</item>
 	</plurals>
@@ -675,17 +552,13 @@
 	<string name="bookmarks_empty_list_title">Lista on tyhjä</string>
 	<string name="bookmarks_empty_list_message">Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa</string>
 	<string name="category_desc_more">…lisää</string>
-	<string name="title_error_downloading_bookmarks">Tapahtui virhe</string>
 	<string name="export_file">Viedä tiedosto</string>
 	<string name="list_settings">Listan asetukset</string>
 	<string name="delete_list">Poista lista</string>
-	<string name="hide_from_map">Piilota kartalta</string>
 	<string name="public_access">Julkinen pääsy</string>
 	<string name="limited_access">Yksityinen pääsy</string>
 	<string name="bookmark_list_description_hint">Lisää kuvaus (teksti tai html)</string>
 	<string name="not_shared">Henkilökohtainen</string>
-	<string name="tags_loading_error_subtitle">Tunnisteiden lataamisen aikana tapahtui virhe, yritä uudelleen</string>
-	<string name="download_button">Ladata</string>
 	<string name="speedcams_alert_title">Nopeuskamerat</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Aina</string>
@@ -693,7 +566,6 @@
 	<string name="place_description_title">Paikan kuvaus</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Karttojen lataaminen</string>
-	<string name="speedcams_notice_message">Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista</string>
 	<string name="power_managment_title">Virransäästötila</string>
 	<string name="power_managment_description">Kun olet valinnut automaattisen tilan, sovellus alkaa sammuttamaan virtaa vieviä ominaisuuksia riippuen kulloisestakin akun latauksesta</string>
 	<string name="power_managment_setting_never">Ei koskaan</string>
@@ -717,44 +589,11 @@
 	<string name="avoid_toll_roads_placepage">Vältä maksullisia teitä</string>
 	<string name="avoid_unpaved_roads_placepage">Vältä maanteitä</string>
 	<string name="avoid_ferry_crossing_placepage">Vältä lautan käyttöä</string>
-	<string name="trip_start">Mennään</string>
-	<string name="pick_destination">Kohde</string>
-	<string name="follow_my_position">Kohdista</string>
-	<string name="search_results">Hakutulokset</string>
-	<string name="then_turn">Sitten</string>
-	<string name="redirect_route_alert">Haluatko luoda reitin uudelleen?</string>
-	<string name="redirect_route_yes">Kyllä</string>
-	<string name="redirect_route_no">Ei</string>
-	<string name="trip_finished">Olet saapunut!</string>
-	<string name="keyboard_availability_alert">Näppäimistö ei ole käytettävissä ajon aikana</string>
-	<string name="dialog_routing_change_start_carplay">Reittiä ei ole mahdollista luoda nykyisestä sijainnista</string>
-	<string name="dialog_routing_change_end_carplay">Reittiä ei ole mahdollista luoda loppupisteeseen. Valitse toinen</string>
-	<string name="dialog_routing_check_gps_carplay">Ei ole GPS-signaalia. Siirry avaralle alueelle</string>
-	<string name="dialog_routing_unable_locate_route_carplay">Reittiä ei ole mahdollista luoda. Valitse muut reittipisteet</string>
-	<string name="dialog_routing_download_files_carplay">Luodaksesi reitin lataa puuttuvat kartat</string>
-	<string name="dialog_routing_system_error_carplay">On tapahtunut virhe. Käynnistä sovellus uudelleen</string>
-	<string name="dialog_routing_rebuild_from_current_location_carplay">Reitti luodaan nykyisestä sijainnista</string>
-	<string name="dialog_routing_rebuild_for_vehicle_carplay">Reitti muutetaan autoilijan reitiksi</string>
 	<string name="ok">Ok</string>
-	<string name="avoid_unpaved_carplay_1">Päällyste</string>
-	<string name="avoid_unpaved_carplay_2">Vain päällyste</string>
-	<string name="avoid_ferry_carplay_1">Ei lauttoja</string>
-	<string name="avoid_ferry_carplay_2">Ei lauttoja</string>
-	<string name="avoid_tolls_carplay_1">Ei maksua</string>
-	<string name="avoid_tolls_carplay_2">Ei maksua</string>
-	<string name="speedcams_alert_title_carplay_1">Nopeuskamera</string>
-	<string name="speedcams_alert_title_carplay_2">Nopeuskamerat</string>
-	<string name="download_map_carplay">Lataa kartat laitteesi Organic Maps-sovelluksessa</string>
-	<string name="carplay_roundabout_exit">Poistumisramppi %s</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Järjestä…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Järjestä kirjanmerkit</string>
-	<!-- iOS -->
-	<string name="sort_default">Järjestä: oletus</string>
-	<string name="sort_type">Järjestä: tyyppi</string>
-	<string name="sort_distance">Järjestä: etäisyys</string>
-	<string name="sort_date">Järjestä: päivämäärä</string>
 	<!-- Android -->
 	<string name="by_default">Oletus</string>
 	<!-- Android -->
@@ -793,10 +632,6 @@
 	<string name="button_layer_isolines">Maasto</string>
 	<string name="isolines_activation_error_dialog">Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuskäyriä</string>
 	<string name="isolines_location_error_dialog">Korkeuskäyrät eivät ole vielä saatavilla tällä alueella</string>
-	<string name="elevation_profile_diff_level">Vaikeustaso</string>
-	<string name="elevation_profile_diff_level_easy">Helppo</string>
-	<string name="elevation_profile_diff_level_moderate">Kohtuullinen</string>
-	<string name="elevation_profile_diff_level_hard">Vaikea</string>
 	<string name="elevation_profile_ascent">Nousua</string>
 	<string name="elevation_profile_descent">Laskua</string>
 	<string name="elevation_profile_minaltitude">Min. korkeus</string>
@@ -805,31 +640,12 @@
 	<string name="elevation_profile_distance">Etäisyys:</string>
 	<string name="elevation_profile_time">Aika:</string>
 	<string name="isolines_toast_zooms_1_10">Suurenna kartta nähdäksesi korkeuskäyrät</string>
-	<string name="downloader_updating_ios">Päivitys</string>
-	<string name="downloader_loading_ios">Lataus</string>
-	<string name="key_information_title">Avaintietoa</string>
 	<string name="download_map_title">Lataa maailmankartta</string>
 	<string name="connection_failure">Yhteysvirhe</string>
 	<string name="disconnect_usb_cable_title">Irrota USB-kaapeli</string>
 	<string name="enable_screen_sleep">Salli näytön lepotila</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Kun tämä asetus on käytössä, näyttö menee lepotilaan käyttämättömyyden jälkeen.</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">Päivitä ladatut kartat</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">Karttojen päivittäminen pitää kohteita koskevat tiedot ajan tasalla</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_size">Päivitä (%s)</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_later">Päivitä manuaalisesti myöhemmin</string>
-	<!-- Delete track button on track edit screen -->
-	<string name="placepage_delete_track_button">Poista reitti</string>
-	<!-- Placeholder for track name input on track edit screen -->
-	<string name="placepage_track_name_hint">Reitin nimi</string>
-	<!-- move track or bookmark from the list button text -->
-	<string name="move">Siirrä</string>
-	<!-- edit track screen title -->
-	<string name="track_title">Reitti</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>
