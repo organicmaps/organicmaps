@@ -580,9 +580,12 @@ UNIT_TEST(NoTurnOnForkingRoad2)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
+  // Unfortunatelly, we don't have SlightRight for pedestrians, but current turns are OK.
+  // https://www.openstreetmap.org/directions?engine=graphhopper_foot&route=55.68336%2C37.49492%3B55.68488%2C37.49789
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
-  TEST_EQUAL(t.size(), 2, ());
+  TEST_EQUAL(t.size(), 3, (t));
 
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
 }
