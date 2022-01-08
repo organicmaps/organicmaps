@@ -186,6 +186,7 @@ std::ostream & operator<<(std::ostream & ost, TimeEvent::Event const event)
   {
     case TimeEvent::Event::None:
       ost << "None";
+      break;
     case TimeEvent::Event::Sunrise:
       ost << "sunrise";
       break;
