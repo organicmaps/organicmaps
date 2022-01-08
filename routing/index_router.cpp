@@ -722,14 +722,14 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
                                                 vector<Segment> & subroute,
                                                 bool guidesActive /* = false */)
 {
-  CHECK(progress, (checkpoints));
   subroute.clear();
 
   SetupAlgorithmMode(starter, guidesActive);
-  LOG(LINFO, ("Routing in mode:", starter.GetGraph().GetMode()));
+
+  WorldGraphMode const mode = starter.GetGraph().GetMode();
+  LOG(LINFO, ("Routing in mode:", mode));
 
   base::ScopedTimerWithLog timer("Route build");
-  WorldGraphMode const mode = starter.GetGraph().GetMode();
   switch (mode)
   {
   case WorldGraphMode::Joints:
@@ -770,6 +770,7 @@ RouterResultCode IndexRouter::CalculateSubrouteJointsMode(
   if (result != RouterResultCode::NoError)
     return result;
 
+  LOG(LDEBUG, ("Result route weight:", routingResult.m_distance));
   subroute = ProcessJoints(routingResult.m_path, jointStarter);
   return result;
 }
@@ -1210,7 +1211,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
                                                  shared_ptr<AStarProgress> const & progress,
                                                  vector<Segment> & output)
 {
-  CHECK(progress, ());
+  LOG(LDEBUG, ("Leaps path:", input));
+
   SCOPE_GUARD(progressGuard, [&progress]() {
     progress->PushAndDropLastSubProgress();
   });
