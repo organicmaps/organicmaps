@@ -16299,7 +16299,7 @@
 
   [please_wait]
     tags = android
-    en = Please wait�
+    en = Please wait…
     ar = أرجو الإنتظار…
     be = Калі ласка, пачакайце…
     bg = Моля, изчакайте…
@@ -16314,21 +16314,21 @@
     fr = S'il vous plaît, attendez…
     hu = Kérlek várj…
     id = Mohon tunggu…
-    it = Attendere�
+    it = Attendere…
     ja = お待ちください…
     ko = 잠시만 기다려주십시오…
     nb = Vennligst vent…
     nl = Even geduld aub…
     pl = Proszę czekać…
-    pt = Por favor aguarde�
-    pt-BR = Espere, por favor�
-    ro = Așteaptă�
+    pt = Por favor aguarde…
+    pt-BR = Espere, por favor…
+    ro = Așteaptă…
     ru = Пожалуйста, подождите…
     sk = Prosím čakajte…
     sv = Vänligen vänta…
     sw = Tafadhali subiri…
     th = โปรดรอสักครู่ …
-    tr = Lütfen bekleyin�
+    tr = Lütfen bekleyin…
     uk = Будь ласка, зачекайте…
     vi = Vui lòng chờ…
     zh-Hans = 请稍候…
@@ -16797,7 +16797,7 @@
     ja = %dの場所
     ko = %d 장소
     nl = %d plaats
-    no = %d sted
+    nb = %d sted
     pl = %d miejsce
     pt-BR:one = %d objeto
     pt-BR:other = %d objetos
@@ -16847,7 +16847,7 @@
     ja = %dの場所
     ko = %d 장소들
     nl = %d plaatsen
-    no = %d steder
+    nb = %d steder
     pl = %d miejsc
     pt-BR:one = %d lugar
     pt-BR:other = %d lugares
@@ -16896,7 +16896,7 @@
     ja = %dの追跡
     ko = %d 추적
     nl = %d routes
-    no = %d stier
+    nb = %d stier
     pl = %d tras
     pt-BR:one = %d percurso
     pt-BR:other = %d percursos
@@ -16938,7 +16938,7 @@
     ja = 追跡の設定
     ko = 추적 설정
     nl = Tracking-instellingen
-    no = Turinnstillinger
+    nb = Turinnstillinger
     pl = Ustawienia śledzenia
     pt = Configurações de rastreamento
     pt-BR = Configurações de rastreamento
@@ -16975,7 +16975,7 @@
     ja = クラッシュレポート
     ko = 오류 보고서
     nl = Crash rapport
-    no = Krasjrapport
+    nb = Krasjrapport
     pl = Raport o błędzie
     pt = Relatório de erros
     pt-BR = Relatório de erros
@@ -17012,7 +17012,7 @@
     ja = Organic Maps体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。
     ko = 당사는 Organic Maps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.
     nl = Wij kunnen uw gegevens gebruiken om Organic Maps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.
-    no = Vi kan bruke dine data for å forbedre Organic Maps-opplevelsen. Endringer vil bli aktive når du restarter appen.
+    nb = Vi kan bruke dine data for å forbedre Organic Maps-opplevelsen. Endringer vil bli aktive når du restarter appen.
     pl = Możemy używać Twoich danych do usprawnienia działania Organic Maps. Zmiany zostaną zastosowane po ponownym uruchomieniu aplikacji.
     pt = Podemos utilizar os seus dados para melhorar a experiência no Organic Maps. As alterações entrarão em vigor quando reiniciar a aplicação.
     pt-BR = Nós podemor utilizar seus dados para melhorar a experiência Organic Maps As mudanças terão efeitos após reiniciar o app.
@@ -17049,7 +17049,7 @@
     ja = 個人情報保護方針
     ko = 개인정보 보호 방침
     nl = Privacy beleid
-    no = Personvernpolitikk
+    nb = Personvernpolitikk
     pl = Polityka prywatności
     pt = Política de privacidade
     pt-BR = Política de privacidade
@@ -17086,7 +17086,7 @@
     ja = ご利用規約
     ko = 사용 약관
     nl = Gebruiksvoorwaarden
-    no = Bruksbetingelser
+    nb = Bruksbetingelser
     pl = Warunki użytkowania
     pt = Termos de utilização
     pt-BR = Termos de uso
@@ -17123,7 +17123,7 @@
     ja = 交通状況
     ko = 트래픽
     nl = Verkeer
-    no = Trafikk
+    nb = Trafikk
     pl = Ruch drogowy
     pt = Tráfego
     pt-BR = Tráfego
@@ -17160,7 +17160,7 @@
     ja = 地下鉄
     ko = 지하철
     nl = Metro
-    no = T-bane
+    nb = T-bane
     pl = Metro
     pt = Metropolitano
     pt-BR = Metrô
@@ -17197,7 +17197,7 @@
     ja = マップレイヤー
     ko = 맵 레이어
     nl = Map layers
-    no = Kartlag
+    nb = Kartlag
     pl = Warstwy map
     pt = Camadas do mapa
     pt-BR = Camadas de mapa
@@ -17234,7 +17234,7 @@
     ja = 地下鉄路線図はご利用いただけません
     ko = 지하철 지도가 가용하지 않습니다.
     nl = Metrokaart is niet beschikbaar
-    no = T-banekart er utilgjengelig
+    nb = T-banekart er utilgjengelig
     pl = Mapa metra jest niedostępna
     pt = O mapa de metropolitano não está disponível
     pt-BR = Mapa de metrô está indisponível
@@ -17271,7 +17271,7 @@
     ja = このリストは空です
     ko = 이 목록은 비어있습니다.
     nl = Deze lijst is leeg
-    no = Denne listen er tom
+    nb = Denne listen er tom
     pl = Lista jest pusta
     pt = Esta lista está vazia
     pt-BR = Esta lista está vazia
@@ -17308,7 +17308,7 @@
     ja = ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップします。
     ko = 북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.
     nl = Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram
-    no = For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet
+    nb = For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet
     pl = Aby dodać zakładkę, dotknij miejsca na mapie, a następnie dotknij ikony gwiazdy.
     pt = Para adicionar um favorito, toque num lugar do mapa e em seguida toque no ícone da estrela
     pt-BR = Para adicionar um favorito, toque no mapa e então toque no ícone de estrela
@@ -17345,7 +17345,7 @@
     ja = 詳細
     ko = …기타 정보
     nl = …meer
-    no = …mer
+    nb = …mer
     pl = …więcej
     pt = …mais
     pt-BR = …mais
@@ -17382,7 +17382,7 @@
     ja = エラーが発生しました
     ko = 오류가 발생했습니다.
     nl = Er is een fout opgetreden
-    no = Det oppsto en feil
+    nb = Det oppsto en feil
     pl = Wystąpił błąd
     pt = Surgiu um erro
     pt-BR = Um erro ocorreu
