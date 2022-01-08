@@ -50,7 +50,6 @@ UNIT_TEST(CountriesNamesTest)
                                    "Transnistria",
                                    "Nagorno-Karabakh Republic",
                                    "Republic of Artsakh",
-                                   "Republic of Pandora", /// @todo https://www.openstreetmap.org/way/495525351
                                    };
 
   auto const features = cache.Get(mwmContext);
