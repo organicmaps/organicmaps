@@ -5,12 +5,4 @@
 <resources>
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="transliteration_title">Translittération vers l\'alphabet latin</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">Mettez à jour vos cartes téléchargées</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">La mise à jour des cartes permet d\'avoir des informations à jour sur les objets</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_size">Mettre à jour (%s)</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_later">Plus tard (manuel)</string>
 </resources>

@@ -7,9 +7,6 @@
 /********** Strings **********/
 
 /* Button text (should be short) */
-"back" = "Wróć";
-
-/* Button text (should be short) */
 "cancel" = "Anuluj";
 
 /* Button which interrupts country download */
@@ -19,9 +16,6 @@
 "delete" = "Usuń";
 
 "download_maps" = "Pobierz mapy";
-
-/* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "Nie udało się pobrać. Proszę nacisnąć, aby spróbować ponownie.";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Pobieranie…";
@@ -35,11 +29,6 @@
 /* View and button titles for accessibility */
 "maps" = "Mapy";
 
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"mb" = "MB";
-
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mile";
 
@@ -52,14 +41,8 @@
 /* View and button titles for accessibility */
 "search" = "Wyszukaj";
 
-/* Search box placeholder text */
-"search_map" = "Wyszukaj mapy";
-
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Tak";
-
-/* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "Usługi lokalizacji są aktualnie wyłączone dla tego urządzenia lub aplikacji. Proszę włączyć je w ustawieniach.";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Wyświetl na mapie";
@@ -70,43 +53,14 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Nie udało się pobrać";
 
-/* Button text for the button under the country_status_download_failed message */
-"try_again" = "Spróbuj ponownie";
-
 "about_menu_title" = "O aplikacji Organic Maps";
-
-"connection_settings" = "Ustawienia połączenia";
 
 "close" = "Zamknij";
 
-"unsupported_phone" = "Wymagana jest sprzętowa akceleracja OpenGL. Aktualne urządzenie nie jest obsługiwane.";
-
 "download" = "Pobierz";
-
-"disconnect_usb_cable" = "Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z Organic Maps";
-
-"not_enough_free_space_on_sdcard" = "Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji";
-
-"not_enough_memory" = "Za mało pamięci, aby uruchomić aplikację";
-
-"download_resources" = "Przed rozpoczęciem prosimy o pobranie ogólnej mapy świata na urządzenie.\nWymaga to %@ danych.";
-
-"download_resources_continue" = "Przejdź do mapy";
-
-"downloading_country_can_proceed" = "Pobieranie %@. Można teraz\nprzejść do mapy.";
-
-"download_country_ask" = "Pobrać %@?";
-
-"update_country_ask" = "Uaktualnić %@?";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"pause" = "Wstrzymaj";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Kontynuuj";
-
-/* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "Nie udało się pobrać %@";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Dodaj nowy zestaw";
@@ -126,35 +80,14 @@
 /* Default bookmark list name */
 "core_my_places" = "Moje miejsca";
 
-/* Add bookmark dialog - bookmark name */
-"name" = "Nazwa";
-
 /* Editor title above street and house number */
 "address" = "Adres";
-
-/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
-"list" = "Zestaw";
 
 /* Settings button in system menu */
 "settings" = "Ustawienia";
 
-/* Header of settings activity where user defines storage path */
-"maps_storage" = "Zapisz mapy do";
-
-/* Detailed description of Maps Storage settings button */
-"maps_storage_summary" = "Określa położenie przechowywania pobranych map";
-
-/* Question dialog for transferring maps from one storage to another */
-"move_maps" = "Przenieść mapy?";
-
-/* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "To może zająć kilka minut.\nProszę czekać…";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "Jednostki miary";
-
-/* Detailed description of Measurement Units settings button */
-"measurement_units_summary" = "Wybiera pomiędzy milami, a kilometrami";
 
 /* Search category for cafes, bars, restaurants */
 "eat" = "Gdzie zjeść";
@@ -210,12 +143,6 @@
 /* Search category */
 "police" = "Policja";
 
-/* Notes field in Bookmarks view */
-"description" = "Notatki";
-
-/* Email Subject when sharing bookmark list */
-"share_bookmarks_email_subject" = "Udostępnione zakładki z Organic Maps";
-
 "share_bookmarks_email_body" = "Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!";
 
 /* message title of loading file */
@@ -233,32 +160,17 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Nie określono jeszcze aktualnego położenia";
 
-/* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "Przepraszamy, ustawienia pamięci mapy są aktualnie wyłączone.";
-
-/* Alert message that downloading is in progress. */
-"downloading_is_active" = "Trwa pobieranie mapy kraju.";
-
-/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "Zobacz gdzie jestem. Link %1$@ lub %2$@";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Obejrzyj mój znacznik na mapie w Organic Maps";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
-"my_position_share_email" = "Cześć,\n\nJestem teraz tutaj: %1$@. Naciśnij na ten link %2$@ lub ten %3$@, aby zobaczyć to miejsce na mapie.\n\nDziękuję.";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Udostępnij";
 
 /* Share by email button text, also used in editor. */
 "email" = "Email";
-
-/* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Skopiowano do schowka: %1$@";
 
 /* place preview title */
 "info" = "Informacje";
@@ -272,9 +184,6 @@
 /* Data version in «About» screen */
 "data_version" = "Wersja danych: %d";
 
-/* Confirmation in downloading countries dialog */
-"are_you_sure" = "Kontynuować?";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Trasy";
 
@@ -283,17 +192,9 @@
 
 "share_my_location" = "Udostępnij aktualne położenie";
 
-/* Settings general group in settings screen */
-"prefs_group_general" = "Ustawienia ogólne";
-
-/* Settings information group in settings screen */
-"prefs_group_information" = "Informacje";
-
 "prefs_group_route" = "Nawigacja";
 
 "pref_zoom_title" = "Przyciski przybliżania";
-
-"pref_zoom_summary" = "Wyświetla na ekranie";
 
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Tryb nocny";
@@ -318,9 +219,6 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Język komunikatów";
-
-/* Settings «Route» category: «Tts unavailable» subtitle */
-"pref_tts_unavailable" = "Niedostępne";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Inny";
@@ -366,12 +264,6 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in the editor */
-"editor_line_social_network" = "LINE";
-
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
@@ -383,12 +275,6 @@
 
 /* Text in menu */
 "help" = "Pomoc";
-
-/* Button in the main Help dialog */
-"faq" = "Pytania i odpowiedzi";
-
-/* Button in the main Help dialog */
-"how_to_support_us" = "Jak nas wspierać?";
 
 /* Button in the main Help dialog */
 "copyright" = "Prawa autorskie";
@@ -410,9 +296,6 @@
 
 /* Update all button text */
 "downloader_update_all_button" = "Aktualizuj wszystkie";
-
-/* Cancel all button text */
-"downloader_cancel_all" = "Anuluj wszystko";
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Pobrane";
@@ -454,12 +337,6 @@
 /* Item in context menu. */
 "downloader_delete_map" = "Usuń mapę";
 
-/* Item in context menu. */
-"downloader_update_map" = "Aktualizuj mapę";
-
-/* Preference text */
-"pref_use_google_play" = "Używa usług Google Play do ustalenia aktualnego położenia";
-
 /* Text for rating dialog */
 "rating_just_rated" = "Właśnie oceniłem Waszą aplikację";
 
@@ -478,18 +355,10 @@
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Tworzenie tras wymaga pobrania i zaktualizowania wszystkich map od Twojej lokalizacji do celu podróży.";
 
-/* Text for routing error dialog */
-"routing_not_enough_space" = "Brak wolnego miejsca";
-
 /* bookmark button text */
 "bookmark" = "zakładka";
 
-/* location service disabled */
-"enable_location_services" = "Proszę włączyć usługi lokalizacji";
-
 "save" = "Zapisz";
-
-"edit_description_hint" = "Twoje opisy (tekst lub html)";
 
 "create" = "utwórz";
 
@@ -575,8 +444,6 @@
 
 "dialog_routing_unable_locate_route" = "Nie można zlokalizować trasy";
 
-"dialog_routing_cant_build_route" = "Nie można wyznaczyć trasy.";
-
 "dialog_routing_change_start_or_end" = "Zmień punkt początkowy lub docelowy.";
 
 "dialog_routing_change_start" = "Zmień punkt początkowy";
@@ -609,10 +476,6 @@
 
 
 /********** Strings for downloading map from search **********/
-
-"search_without_internet_advertisement" = "Aby rozpocząć wyszukiwanie i tworzenie tras, pobierz mapę, a nie będzie ci już potrzebne połączenie z Internetem.";
-
-"search_select_map" = "Wybierz mapę";
 
 /* «Show» context menu */
 "show" = "Pokaż";
@@ -655,9 +518,6 @@
 
 "clear_search" = "Wyczyść historię wyszukiwania";
 
-/* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "Twoja lokalizacja";
 
 "p2p_start" = "Start";
@@ -669,9 +529,6 @@
 "p2p_only_from_current" = "Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.";
 
 "p2p_reroute_from_current" = "Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?";
-
-/* Edit open hours/set time and minutes dialog */
-"next_button" = "Dalej";
 
 "editor_time_add" = "Dodaj harmonogram";
 
@@ -696,27 +553,13 @@
 
 "editor_example_values" = "Przykładowe wartości";
 
-"editor_correct_mistake" = "Popraw błąd";
-
 "editor_add_select_location" = "Lokalizacja";
 
 "editor_done_dialog_1" = "Dokonałeś zmian na mapie świata. Nie kryj się z tym! Powiadom znajomych i edytujcie mapę razem.";
 
 "share_with_friends" = "Udostępnij znajomym";
 
-"editor_report_problem_desription_1" = "Prosimy o szczegółowe opisanie problemu, aby użytkownicy OpenStreetMap mogli naprawić błąd.";
-
-"editor_report_problem_desription_2" = "Albo zrób to sam na https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "Wyślij";
-
-"editor_report_problem_title" = "Problem";
-
-"editor_report_problem_no_place_title" = "To miejsce nie istnieje";
-
-"editor_report_problem_under_construction_title" = "Zamknięte z powodu prac konserwacyjnych";
-
-"editor_report_problem_duplicate_place_title" = "Powielone miejsce";
 
 "autodownload" = "Automatyczne pobieranie";
 
@@ -736,8 +579,6 @@
 
 "add_opening_hours" = "Dodaj godziny otwarcia";
 
-"edit_opening_hours" = "Edytuj godziny otwarcia";
-
 "no_osm_account" = "Nie masz konta w OpenStreetMap?";
 
 "register_at_openstreetmap" = "Zarejestruj się";
@@ -747,8 +588,6 @@
 "invalid_username_or_password" = "Nieprawidłowa nazwa użytkownika lub hasło.";
 
 "login" = "Zaloguj się";
-
-"password" = "Hasło";
 
 "forgot_password" = "Nie pamiętasz hasła?";
 
@@ -767,8 +606,6 @@
 
 "add_language" = "Dodaj język";
 
-"street" = "Ulica";
-
 /* Editable House Number text field (in address block). */
 "house_number" = "Numer domu";
 
@@ -776,9 +613,6 @@
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Dodaj ulicę";
-
-/* Error to display when a new street name is not entered in the New street dialog */
-"empty_street_name_error" = "Please enter a street name";
 
 "choose_language" = "Wybierz język";
 
@@ -795,15 +629,11 @@
 
 "phone" = "Telefon";
 
-"editor_add_phone" = "Dodaj numer telefonu";
-
 "please_note" = "Uwaga!";
 
 "downloader_delete_map_dialog" = "Wszystkie zmiany dotyczące mapy zostaną usunięte wraz z nią.";
 
 "downloader_update_maps" = "Aktualizuj mapy";
-
-"downloader_mwm_migration_dialog" = "Aby utworzyć trasę, należy zaktualizować wszystkie mapy, a następnie ponownie zaplanować trasę.";
 
 "downloader_search_field_hint" = "Znajdź mapę";
 
@@ -814,8 +644,6 @@
 "downloader_no_space_title" = "Brak wolnego miejsca";
 
 "downloader_no_space_message" = "Usuń niepotrzebne dane";
-
-"editor_login_error_dialog" = "Błąd logowania.";
 
 "editor_profile_changes" = "Zmiany zweryfikowane";
 
@@ -834,12 +662,6 @@
 "editor_edit_place_name_hint" = "Nazwa miejsca";
 
 "editor_edit_place_category_title" = "Kategoria";
-
-"detailed_problem_description" = "Szczegółowy opis problemu";
-
-"editor_report_problem_other_title" = "Inny problem";
-
-"placepage_add_business_button" = "Dodaj organizację";
 
 "whatsnew_editor_message_1" = "Dodawaj nowe miejsca do mapy i edytuj już istniejące bezpośrednio z poziomu aplikacji.";
 
@@ -928,15 +750,9 @@
 
 "miles_per_hour" = "mph";
 
-"hour" = "godz";
-
-"minute" = "min";
-
 "placepage_place_description" = "Opis";
 
 "placepage_more_button" = "Więcej";
-
-"placepage_more_reviews_button" = "Więcej opinii";
 
 "book_button" = "Zarezerwuj";
 
@@ -964,9 +780,6 @@
 
 "editor_place_doesnt_exist" = "Takie miejsce nie istnieje";
 
-/* Error message for "Place doesn't exist" dialog when comment is empty */
-"delete_place_empty_comment_error" = "Please indicate the reason for deleting the place";
-
 "text_more_button" = "…więcej";
 
 /* Phone number error message */
@@ -975,16 +788,6 @@
 "error_enter_correct_web" = "Wpisz prawidłowy adres strony internetowej";
 
 "error_enter_correct_email" = "Wpisz prawidłowy email";
-
-"error_enter_correct_facebook_page" = "Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku";
-
-"error_enter_correct_instagram_page" = "Wprowadź poprawny link lub nazwę konta na Instagramie";
-
-"error_enter_correct_twitter_page" = "Wprowadź poprawny adres lub nazwę konta na Twitterze";
-
-"error_enter_correct_vk_page" = "Wprowadź poprawny adres lub nazwę konta na VK";
-
-"error_enter_correct_line_page" = "Enter a valid LINE web address or LINE ID";
 
 "refresh" = "Uaktualnić";
 
@@ -1044,15 +847,11 @@
 
 "big_font" = "Powiększ rozmiar czcionki na mapie";
 
-"traffic_update_app" = "Zaktualizuj Organic Maps";
-
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Aby wyświetlić dane o ruchu, należy zaktualizować aplikację.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Dane o ruchu są niedostępne";
-
-"enable_logging" = "Włącz logowanie";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Ogólne uwagi";
@@ -1061,23 +860,13 @@
 
 "off" = "Wył.";
 
-"prefs_languages_information" = "Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
-"prefs_languages_information_off" = "W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play Market, Samsung Apps). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.";
-
-"prefs_languages_information_off_link" = "Aby uzyskać więcej informacji, sprawdź ten poradnik.";
-
 "transliteration_title" = "Transkrypcja na alfabet łaciński";
-
-"learn_more" = "Dowiedz się więcej";
 
 "core_exit" = "Wyjdź";
 
 "routing_add_start_point" = "Aby zaplanować trasę, dodaj punkt początkowy";
 
 "routing_add_finish_point" = "Aby zaplanować trasę, dodaj punkt końcowy";
-
-"button_exit" = "Wyjdź";
 
 "planning_route_manage_route" = "Zarządzaj trasą";
 
@@ -1093,12 +882,6 @@
 
 "profile_authorization_error" = "Ups, nastąpił błąd. Spróbuj zalogować się ponownie.";
 
-"dialog_error_storage_title" = "Problem z dostępem do pamięci masowej";
-
-"dialog_error_storage_message" = "Zewnętrzny nośnik pamięci masowej jest niedostępny. Prawdopodobnie usunięto lub uszkodzono kartę SD bądź jej system plików służy tylko do odczytu. Zweryfikuj to i skontaktuj się z nami pod adresem support@organicmaps.app";
-
-"setting_emulate_bad_storage" = "Emuluj wadliwą pamięć masową";
-
 "core_entrance" = "Wejście";
 
 "error_enter_correct_name" = "Wprowadź poprawną nazwę";
@@ -1111,9 +894,6 @@
 "bookmark_lists_show_all" = "Pokaż wszystkie";
 
 "bookmarks_create_new_group" = "Utwórz nową listę";
-
-/* Bookmark categories screen */
-"bookmarks_import" = "Import zakładek";
 
 "downloader_hide_screen" = "Ukryj ekran";
 
@@ -1129,21 +909,11 @@
 
 "bookmarks_error_message_share_empty" = "Nie można udostępnić pustej listy";
 
-"bookmarks_error_title_empty_list_name" = "Nazwa nie może być pusta";
-
 "bookmarks_error_message_empty_list_name" = "Wprowadź nazwę listy";
-
-"bookmarks_new_list_hint" = "Nowa lista";
 
 "bookmarks_error_title_list_name_already_taken" = "Ta nazwa jest już zajęta";
 
-"bookmarks_error_message_list_name_already_taken" = "Wybierz inną nazwę";
-
 "bookmarks_error_title_list_name_too_long" = "Ta nazwa jest za długa";
-
-"please_wait" = "Proszę czekać…";
-
-"phone_number" = "Numer telefonu";
 
 "profile" = "Profil OpenStreetMap";
 
@@ -1157,17 +927,9 @@
 
 "bookmarks_restore_title" = "Przywróć tę wersję?";
 
-"common_check_internet_connection_dialog_title" = "Brak połączenia z internetem";
-
 "error_system_message" = "Wystąpił nieznany błąd";
 
 "restore" = "Przywracać";
-
-"subtittle_opt_out" = "Ustawienia śledzenia";
-
-"crash_reports" = "Raport o błędzie";
-
-"crash_reports_description" = "Możemy używać Twoich danych do usprawnienia działania Organic Maps. Zmiany zostaną zastosowane po ponownym uruchomieniu aplikacji.";
 
 "privacy_policy" = "Polityka prywatności";
 
@@ -1181,12 +943,6 @@
 
 "subway_data_unavailable" = "Mapa metra jest niedostępna";
 
-"bookmarks_empty_list_title" = "Lista jest pusta";
-
-"bookmarks_empty_list_message" = "Aby dodać zakładkę, dotknij miejsca na mapie, a następnie dotknij ikony gwiazdy.";
-
-"category_desc_more" = "…więcej";
-
 "title_error_downloading_bookmarks" = "Wystąpił błąd";
 
 "popular_place" = "Popularne";
@@ -1199,13 +955,7 @@
 
 "hide_from_map" = "Ukryj mapy";
 
-"public_access" = "Dostęp publiczny";
-
-"limited_access" = "Dostęp prywatny";
-
 "bookmark_list_description_hint" = "Dodaj opis (tekst lub html)";
-
-"not_shared" = "Osobisty";
 
 "tags_loading_error_subtitle" = "Wystąpił błąd podczas pobierania tagów, spróbuj ponownie";
 
@@ -1221,9 +971,6 @@
 
 "place_description_title" = "Opis miejsca";
 
-/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Pobieranie map";
-
 "speedcams_notice_message" = "Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach";
 
 "power_managment_title" = "Tryb oszczędzania energii";
@@ -1235,10 +982,6 @@
 "power_managment_setting_auto" = "Auto";
 
 "power_managment_setting_manual_max" = "Maksymalna oszczędność energii";
-
-"enable_logging_warning_message" = "Ta opcja zostaje włączona do logowania działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.";
-
-"access_rules_author_only" = "Edytowane online";
 
 "driving_options_title" = "Ustawienia objazdu";
 
@@ -1333,9 +1076,6 @@
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sortuj…";
 
-/* Android, title, max 20-22 symbols */
-"sort_bookmarks" = "Sortuj znaczniki";
-
 /* iOS */
 "sort_default" = "Sortuj domyślnie";
 
@@ -1344,18 +1084,6 @@
 "sort_distance" = "Sortuj wg odległości";
 
 "sort_date" = "Sortuj wg daty";
-
-/* Android */
-"by_default" = "Domyślnie";
-
-/* Android */
-"by_type" = "Wg rodzaju";
-
-/* Android */
-"by_distance" = "Wg odległości";
-
-/* Android */
-"by_date" = "Wg daty";
 
 "week_ago_sorttype" = "Tydzień wstecz";
 
@@ -1403,8 +1131,6 @@
 
 "religious_places" = "Święte miejsca";
 
-"select_list" = "Wybierz listę";
-
 "transit_not_found" = "Nawigacja metrem nie jest jeszcze tutaj dostępna";
 
 "dialog_pedestrian_route_is_long_header" = "Nie znaleziono trasy metra";
@@ -1435,8 +1161,6 @@
 
 "elevation_profile_difficulty" = "Trudność";
 
-"elevation_profile_distance" = "Odległ.:";
-
 "elevation_profile_time" = "Trasa:";
 
 "isolines_toast_zooms_1_10" = "Powiększ mapę, aby zobaczyć izolinie";
@@ -1446,17 +1170,6 @@
 "downloader_loading_ios" = "Pobieranie";
 
 "key_information_title" = "Kluczowe informacje";
-
-"download_map_title" = "Pobierz mapę świata";
-
-"connection_failure" = "Błąd połączenia";
-
-"disconnect_usb_cable_title" = "Odłącz kabel USB";
-
-"enable_screen_sleep" = "Pozwól ekranowi spać";
-
-/* Description in preferences */
-"enable_screen_sleep_description" = "Po włączeniu ekran będzie mógł spać po okresie bezczynności.";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Zaktualizuj pobrane mapy";
@@ -2731,11 +2444,11 @@
 
 "type.railway.abandoned.bridge" = "Abandoned railway";
 
-"type.railway.abandoned.tunnel" = "Abandoned railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway";
 
-"type.railway.construction" = "Railway's construction";
+"type.railway.construction" = "Railway's Construction";
 
-"type.railway.crossing" = "Railway crossing";
+"type.railway.crossing" = "Railway Crossing";
 
 "type.railway.disused" = "Disused railway";
 

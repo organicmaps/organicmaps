@@ -8,8 +8,6 @@
 	<string name="back">Назад</string>
 	<!-- Button text (should be short) -->
 	<string name="cancel">Скасувати</string>
-	<!-- Button which interrupts country download -->
-	<string name="cancel_download">Вiдмiнити завантаження</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Видалити</string>
 	<string name="download_maps">Завантажити мапи</string>
@@ -19,8 +17,6 @@
 	<string name="downloading">Завантажується…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Кілометри</string>
-	<!-- Leave Review dialog - Review button -->
-	<string name="leave_a_review">Написати відгук</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Мапи</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
@@ -36,19 +32,14 @@
 	<string name="search">Пошук</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Пошук на мапі</string>
-	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
-	<string name="use_cellular_data">Так</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Показати на мапі</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
-	<string name="country_status_download_without_size">Завантажити мапу</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Помилка завантаження</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Спробуйте ще раз</string>
-	<string name="about_menu_title">Про програму</string>
 	<string name="connection_settings">Налаштування підключення</string>
 	<string name="close">Закрити</string>
 	<string name="unsupported_phone">Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.</string>
@@ -73,8 +64,6 @@
 	<string name="bookmark_color">Колір мiтки</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Назва групи</string>
-	<!-- "Bookmark Lists" dialog title -->
-	<string name="bookmark_sets">Групи мiток</string>
 	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Мітки</string>
 	<!-- Default bookmark list name -->
@@ -167,12 +156,8 @@
 	<string name="email">Ел. пошта</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Скопіювати в буфер обміну: %1$s</string>
-	<!-- place preview title -->
-	<string name="info">Інфо</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Готово</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">Версія: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Продовжити?</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -201,10 +186,6 @@
 	<string name="pref_tts_language_title">Мова підказок</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Не доступнi</string>
-	<!-- Title for "Other" section in TTS settings. -->
-	<string name="pref_tts_other_section_title">Інша</string>
-	<!-- Settings «Map» category: «Record track» title -->
-	<string name="pref_track_record_title">Недавній маршрут</string>
 	<string name="pref_map_auto_zoom">Автозум</string>
 	<string name="duration_disabled">Вимкнуто</string>
 	<string name="duration_1_hour">1 година</string>
@@ -212,8 +193,6 @@
 	<string name="duration_6_hours">6 годин</string>
 	<string name="duration_12_hours">12 годин</string>
 	<string name="duration_1_day">1 день</string>
-	<string name="recent_track_help_text">Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на мапі. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з мапи.</string>
-	<string name="placepage_distance">Відстань</string>
 	<string name="search_show_on_map">Подивитись на мапі</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
@@ -231,12 +210,6 @@
 	<string name="copyright">Копірайт</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Сповістити про помилку</string>
-	<!-- Alert text -->
-	<string name="email_error_body">Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв\'язку. Наша адреса – %s.</string>
-	<!-- Alert title -->
-	<string name="email_error_title">Помилка при відправленні листа</string>
-	<!-- Settings item title -->
-	<string name="pref_calibration_title">Калібрування компаса</string>
 	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
@@ -245,19 +218,12 @@
 	<string name="downloader_cancel_all">Скасувати всі</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Завантажено</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_available_maps">Доступні</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">В черзі</string>
 	<string name="downloader_near_me_subtitle">Поблизу</string>
 	<string name="downloader_status_maps">Мапи</string>
 	<string name="downloader_download_all_button">Завантажити всі</string>
 	<string name="downloader_downloading">Завантажується:</string>
-	<string name="downloader_search_results">Знайдено</string>
-	<!-- Status of outdated country in the list -->
-	<string name="downloader_status_outdated">Oновити</string>
-	<!-- Status of failed country in the list -->
-	<string name="downloader_status_failed">Помилка</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
 	<string name="downloader_delete_map_while_routing_dialog">Щоб видалити мапу, будь ласка, зупините навiгацiю.</string>
 	<!-- PointsInDifferentMWM -->
@@ -272,22 +238,12 @@
 	<string name="downloader_update_map">Оновити мапу</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Щоб визначити ваше поточне місцезнаходження, використовуйте сервіси Google Play</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_just_rated">Я щойно оцінив вашу програму</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_thanks">Дякуємо!</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_share_ideas">Діліться будь-якими ідеями чи проблемами, щоб ми могли удосконалюватись.</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_send_feedback">Надіслати відгук</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Завантажити мапи з дороги</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Для створення маршруту необхідно щоб всі мапи, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Недостатньо місця</string>
-	<!-- bookmark button text -->
-	<string name="bookmark">мітка</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Будь ласка, увімкніть геолокацію</string>
 	<string name="save">Зберегти</string>
@@ -340,8 +296,6 @@
 	<string name="dialog_routing_location_turn_wifi">Будь ласка, перевірте сигнал GPS. Для покращання точності геопозиції увімкніть Wi-Fi.</string>
 	<string name="dialog_routing_location_turn_on">Увімкніть режим визначення геопозиції</string>
 	<string name="dialog_routing_location_unknown_turn_on">Поточну геопозицію не визначено. Для побудови маршруту увімкніть режим визначення геопозиції.</string>
-	<string name="dialog_routing_download_files">Завантажте необхідні файли</string>
-	<string name="dialog_routing_download_and_update_all">Для побудови маршруту завантажте і обновіть всі мапи і файли маршрутів на шляху руху.</string>
 	<string name="dialog_routing_unable_locate_route">Маршрут не знайдено</string>
 	<string name="dialog_routing_cant_build_route">Не вдалося побудувати маршрут.</string>
 	<string name="dialog_routing_change_start_or_end">Будь ласка, змініть початкову або кінцеву точку маршруту.</string>
@@ -356,7 +310,6 @@
 	<string name="dialog_routing_system_error">Системна помилка</string>
 	<string name="dialog_routing_application_error">Не вдалося прокласти маршрут через помилки програми.</string>
 	<string name="dialog_routing_try_again">Спробуйте знову</string>
-	<string name="not_now">Не зараз</string>
 	<string name="dialog_routing_download_and_build_cross_route">Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?</string>
 	<string name="dialog_routing_download_cross_route">Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.</string>
 
@@ -367,17 +320,8 @@
 	<string name="show">Показати</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Приховати</string>
-	<!-- Failed planning route message in navigation view -->
-	<string name="routing_planning_error">Збій планування маршруту</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Прибуття в %s</string>
-	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
-	<string name="dialog_routing_download_and_update_maps">Для створення маршруту, будь ласка, скачайте та обновіть всі карти за ним.</string>
-	<string name="rate_alert_title">Подобається програма?</string>
-	<string name="rate_alert_default_message">Дякуємо за використання Organic Maps. Будь ласка, дайте їй оцінку. Ваш відгук допоможе нам стати краще.</string>
-	<string name="rate_alert_five_star_message">Ура! Ми теж вас любимо!</string>
-	<string name="rate_alert_four_star_message">Дякуємо, ми зробимо все можливе!</string>
-	<string name="rate_alert_less_than_four_star_message">Є пропозиції щодо того, як ми можемо її вдосконалити?</string>
 	<string name="categories">Категорії</string>
 	<string name="history">Історія</string>
 	<string name="closed">Зачинено</string>
@@ -410,8 +354,6 @@
 	<string name="editor_example_values">Приклади значень</string>
 	<string name="editor_correct_mistake">Виправте помилку</string>
 	<string name="editor_add_select_location">Місцезнаходження</string>
-	<string name="editor_done_dialog_1">Ви змінили карту світу. Не приховуйте це! Розкажіть своїм друзям і редагуйте разом.</string>
-	<string name="share_with_friends">Поділитися з друзями</string>
 	<string name="editor_report_problem_desription_1">Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.</string>
 	<string name="editor_report_problem_desription_2">Або зробіть це самостійно на сайті https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Надіслати</string>
@@ -421,29 +363,20 @@
 	<string name="editor_report_problem_duplicate_place_title">Дубльовані місця</string>
 	<string name="autodownload">Автоматичне завантаження</string>
 	<!-- Place Page opening hours text -->
-	<string name="closed_now">Зараз закрито</string>
-	<!-- Place Page opening hours text -->
 	<string name="daily">Щоденно</string>
 	<string name="twentyfour_seven">Цілодобово</string>
 	<string name="day_off_today">Сьогодні зачинено</string>
 	<string name="day_off">Зачинено</string>
 	<string name="today">Сьогодні</string>
-	<string name="add_opening_hours">Додати години роботи</string>
 	<string name="edit_opening_hours">Редагувати години роботи</string>
 	<string name="no_osm_account">Не зареєстровані в OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Зареєструватися</string>
-	<string name="password_8_chars_min">Пароль (мінімум 8 символів)</string>
-	<string name="invalid_username_or_password">Невірне ім\'я користувача або пароль.</string>
 	<string name="login">Увійти</string>
 	<string name="password">Пароль</string>
 	<string name="forgot_password">Забули пароль?</string>
-	<string name="osm_account">Обліковий запис OSM</string>
 	<string name="logout">Вийти</string>
-	<!-- Information text: "Last upload 11.01.2016" -->
-	<string name="last_upload">Остання вiдправка</string>
 	<string name="thank_you">Дякуємо</string>
 	<string name="edit_place">Редагувати місце</string>
-	<string name="place_name">Назва</string>
 	<string name="add_language">Додати мову</string>
 	<string name="street">Вулиця</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -460,22 +393,16 @@
 	<string name="select_cuisine">Вибрати кухню</string>
 	<!-- login text field -->
 	<string name="email_or_username">Ел. пошта або ім\'я користувача</string>
-	<string name="phone">Телефон</string>
-	<string name="please_note">Будь ласка, зверніть увагу</string>
 	<string name="downloader_delete_map_dialog">Разом з мапою будуть видалені й внесені Вами правки на цій мапі.</string>
 	<string name="downloader_update_maps">Оновити мапи</string>
 	<string name="downloader_mwm_migration_dialog">Для побудови маршруту необхідно оновити усі мапи та побудувати маршрут заново.</string>
 	<string name="downloader_search_field_hint">Знайти мапу</string>
-	<string name="migration_download_error_dialog">Помилка завантаження</string>
 	<string name="common_check_internet_connection_dialog">Будь ласка, перевірте свої налаштування і переконайтеся, що ваш пристрій підлючено до Інтернету.</string>
 	<string name="downloader_no_space_title">Недостатньо місця</string>
 	<string name="downloader_no_space_message">Видаліть непотрібні дані</string>
 	<string name="editor_login_error_dialog">Виникла помилка при авторизації.</string>
 	<string name="editor_profile_changes">Виправлення, що ураховані</string>
 	<string name="editor_focus_map_on_location">Потягніть мапу, щоб вибрати правильне місцезнаходження об’єкту.</string>
-	<string name="editor_add_select_category">Вибрати категорію</string>
-	<string name="editor_add_select_category_popular_subtitle">Популярні</string>
-	<string name="editor_add_select_category_all_subtitle">Усі категорії</string>
 	<string name="editor_edit_place_title">Редагування</string>
 	<string name="editor_add_place_title">Додовання</string>
 	<string name="editor_edit_place_name_hint">Назва місця</string>
@@ -483,13 +410,8 @@
 	<string name="detailed_problem_description">Детальний опис проблеми</string>
 	<string name="editor_report_problem_other_title">Інші проблема</string>
 	<string name="placepage_add_business_button">Додати організацію</string>
-	<string name="whatsnew_editor_message_1">Додати нові місця до мапи і редагувати існуючі місця прямо з програми.</string>
-	<string name="dialog_incorrect_feature_position">Змініть розташування</string>
 	<string name="message_invalid_feature_position">Об\'єкт не може перебувати в цьому місцезнаходженні</string>
 	<string name="login_to_make_edits_visible">Увійдіть, щоб ваші зміни побачили інші користувачі.</string>
-	<!-- Error dialog no space -->
-	<string name="migration_no_space_message">Для завантаження потрібно більше вільного місця. Будь ласка, видаліть непотрібні дані.</string>
-	<string name="editor_sharing_title">Я покращив мапи Organic Maps</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d з %2$d</string>
 	<string name="download_over_mobile_header">Завантажити за допомогою мобільної мережі?</string>
@@ -507,7 +429,6 @@
 	<string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\'єкт, які не можна редагувати у Organic Maps.</string>
 	<string name="editor_more_about_osm">Більше про OpenStreetMap</string>
 	<string name="editor_operator">Власник</string>
-	<string name="downloader_my_maps_title">Мої мапи</string>
 	<string name="downloader_no_downloaded_maps_title">Ви не маєте завантажених мап</string>
 	<string name="downloader_no_downloaded_maps_message">Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -516,14 +437,6 @@
 	<string name="current_location_unknown_message">Місцезнаходження не знайдено. Можливо, ви знаходитесь у приміщенні або тунелі.</string>
 	<string name="current_location_unknown_continue_button">Продовжити</string>
 	<string name="current_location_unknown_stop_button">Зупинити</string>
-	<string name="current_location_unknown_error_title">Місцезнаходження не знайдено.</string>
-	<string name="current_location_unknown_error_message">Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.</string>
-	<string name="location_services_disabled_header">Ідентифікацію місцезнаходження відключено</string>
-	<string name="location_services_disabled_message">Увімкніть доступ до геолокації в налаштуваннях цього пристрою</string>
-	<string name="location_services_disabled_1">1. Відкрийте «Налаштування»</string>
-	<string name="location_services_disabled_2">2. Клацніть «Місцезнаходження»</string>
-	<!-- iOS Dialog for the case when the location permission is not granted -->
-	<string name="location_services_disabled_3">3. Оберіть \"Під час роботи програми\"</string>
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
 	<string name="kilometers_per_hour">км/год</string>
@@ -538,10 +451,6 @@
 	<string name="book_button">Забронювати</string>
 	<string name="placepage_call_button">Подзвонити</string>
 	<string name="placepage_edit_bookmark_button">Редагувати мiтку</string>
-	<string name="placepage_bookmark_name_hint">Назва мiтки</string>
-	<string name="placepage_personal_notes_hint">Примітка</string>
-	<string name="placepage_delete_bookmark_button">Видалити мiтку</string>
-	<string name="editor_edits_sent_message">Зміни, що ви запропонували, відправлено</string>
 	<string name="editor_comment_hint">Коментар…</string>
 	<string name="editor_reset_edits_message">Скинути всі локальні виправлення?</string>
 	<string name="editor_reset_edits_button">Скинути</string>
@@ -550,7 +459,6 @@
 	<string name="editor_place_doesnt_exist">Місце не існує</string>
 	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
 	<string name="delete_place_empty_comment_error">Будь ласка, вкажіть причину видалення</string>
-	<string name="text_more_button">…більше</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Введіть правильний номер телефону</string>
 	<string name="error_enter_correct_web">Введіть вірну адресу веб-сайту</string>
@@ -560,23 +468,14 @@
 	<string name="error_enter_correct_twitter_page">Введіть вірну веб-адресу Twitter сторінки або і\'мя користувача</string>
 	<string name="error_enter_correct_vk_page">Введіть вірну веб-адресу VK сторінки або і\'мя користувача</string>
 	<string name="error_enter_correct_line_page">Введіть вірну веб-адресу LINE сторінки або LINE ID</string>
-	<string name="refresh">Оновити</string>
 	<string name="placepage_add_place_button">Додати на мапу</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Надіслати усім користувачам?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Переконайтеся, що ви не ввели особисті дані.</string>
 	<string name="editor_share_to_all_dialog_message_2">Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.</string>
-	<string name="navigation_stop_button">стоп</string>
-	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-	<string name="recent_track_background_dialog_title">Вимкнути запис нещодавно пройденого шляху?</string>
-	<string name="off_recent_track_background_button">Вимкнути</string>
-	<!-- For sharing via SMS and so on -->
-	<string name="sharing_call_action_look">Подивись,</string>
-	<string name="recent_track_background_dialog_message">Organic Maps використовує вашу геопозицію у фоновому режимі для запису нещодавно пройденого шляху.</string>
 	<!-- Text under the version number in the Help dialog. -->
 	<string name="about_description">Organic Maps – це безкоштовні офлайнові карти із відкритим вихідним кодом. Без реклами. Без відстеження. Якщо ви бачите помилку на карті, виправте її в OpenStreetMap. Проект створюється ентузіастами у вільний час, тому нам потрібні ваші відгуки та підтримка.</string>
-	<string name="general_settings">Загальні налаштування</string>
 	<!-- For the first routing -->
 	<string name="accept">Прийняти</string>
 	<!-- For the first routing -->
@@ -594,8 +493,6 @@
 	<string name="traffic_update_maps_text">Для відображення інформації про трафік необхідно оновити мапи.</string>
 	<string name="big_font">Збільшити розмір шрифту на мапі</string>
 	<string name="traffic_update_app">Будь ласка, встановіть оновлення Organic Maps</string>
-	<!-- "traffic" as in road congestion -->
-	<string name="traffic_update_app_message">Для відображення даних про трафік оновіть додаток.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Дані про трафік недоступні</string>
 	<string name="enable_logging">Включити логіювання</string>
@@ -612,13 +509,8 @@
 	<string name="routing_add_start_point">Вкажіть початкову точку для побудови маршруту</string>
 	<string name="routing_add_finish_point">Вкажіть кінцеву точку для побудови маршруту</string>
 	<string name="button_exit">Вихід</string>
-	<string name="planning_route_manage_route">Редагування маршруту</string>
-	<string name="button_plan">Прокласти маршрут</string>
 	<string name="placepage_remove_stop">Видалити</string>
-	<string name="planning_route_remove_title">Перетягніть сюди, щоб видалити</string>
 	<string name="placepage_add_stop">Додати зупинку</string>
-	<string name="start_from_my_position">Почати з</string>
-	<string name="profile_authorization_error">Ой, трапилася помилка. Спробуйте увійти знову.</string>
 	<string name="dialog_error_storage_title">Не вдалося отримати доступ до сховища</string>
 	<string name="dialog_error_storage_message">Зовнішнє сховище не доступно. Ймовірно, SD-картку пам\'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв\'яжіться з нами, написавши на адресу електронну пошту support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Емулювати проблемне сховище</string>
@@ -628,14 +520,7 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Приховати всі</string>
 	<string name="bookmark_lists_show_all">Показати всі</string>
-	<plurals name="bookmarks_places">
-	  <item quantity="other">%d закладок</item>
-	</plurals>
 	<string name="bookmarks_create_new_group">Створити новий список</string>
-	<string name="downloader_hide_screen">Приховати екран</string>
-	<string name="downloader_percent">%1$s (%2$s з %3$s)</string>
-	<string name="downloader_process">Завантаження %s…</string>
-	<string name="downloader_applying">Застосування %s…</string>
 	<string name="bookmarks_error_message_share_general">Неможливо поділитися через помилку програми</string>
 	<string name="bookmarks_error_title_share_empty">Помилка обміну</string>
 	<string name="bookmarks_error_message_share_empty">Неможливо поділитися пустим списком</string>
@@ -644,23 +529,15 @@
 	<string name="bookmarks_new_list_hint">Новий список</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Це ім\'я вже зайнято</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Виберіть інше ім\'я</string>
-	<string name="bookmarks_error_title_list_name_too_long">Це ім\'я задовге</string>
 	<string name="please_wait">Будь ласка, зачекайте…</string>
 	<string name="phone_number">Номер телефону</string>
 	<string name="profile">Профіль OpenStreetMap</string>
-	<string name="bookmarks_detect_title">Виявлено нові файли</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="few">%d файлу були знайдені. Ви побачите їх після конвертації.</item>
 	  <item quantity="one">%d файл був знайдений. Ви побачите його після перетворення.</item>
 	  <item quantity="other">%d файлів було знайдено. Ви побачите їх після конвертації.</item>
 	</plurals>
-	<string name="button_convert">Конвертувати</string>
-	<string name="bookmarks_convert_error_title">Помилка</string>
-	<string name="bookmarks_convert_error_message">Деякі файли не конвертувалися.</string>
-	<string name="bookmarks_restore_title">Відновити цю версію?</string>
 	<string name="common_check_internet_connection_dialog_title">Нема інтернет з\'єднання</string>
-	<string name="error_system_message">Виникла невідома помилка</string>
-	<string name="restore">Відновити</string>
 	<plurals name="objects">
 	  <item quantity="other">%d місце</item>
 	</plurals>
@@ -682,17 +559,13 @@
 	<string name="bookmarks_empty_list_title">Список порожній</string>
 	<string name="bookmarks_empty_list_message">Щоб додати нову позначку, натисніть на значок зірочки в картці об’єкта</string>
 	<string name="category_desc_more">…ще</string>
-	<string name="title_error_downloading_bookmarks">Виникла помилка</string>
 	<string name="export_file">Експортувати файл</string>
 	<string name="list_settings">Налаштування списку</string>
 	<string name="delete_list">Видалити список</string>
-	<string name="hide_from_map">Приховати з карти</string>
 	<string name="public_access">Публічний доступ</string>
 	<string name="limited_access">Приватний доступ</string>
 	<string name="bookmark_list_description_hint">Додайте опис (текст чи html)</string>
 	<string name="not_shared">Особистий</string>
-	<string name="tags_loading_error_subtitle">Під час завантаження тегів сталася помилка, будь ласка, спробуйте ще раз</string>
-	<string name="download_button">Завантажити</string>
 	<string name="speedcams_alert_title">Камери швидкості</string>
 	<string name="speedcam_option_auto">Авто</string>
 	<string name="speedcam_option_always">Завжди</string>
@@ -700,7 +573,6 @@
 	<string name="place_description_title">Опис місця</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Завантаження мап</string>
-	<string name="speedcams_notice_message">Авто - Попереджати про камери швидкості, якщо є ризик перевищення швидкісного ліміту\nЗавжди - Завжди попереджати про камери\nНіколи - Ніколи не попереджати про камери</string>
 	<string name="power_managment_title">Режим енергозбереження</string>
 	<string name="power_managment_description">Якщо увімкнено режим енергозбереження, додаток буде відключати енерговитратні функції в залежності від поточного заряду телефону</string>
 	<string name="power_managment_setting_never">Ніколи</string>
@@ -724,44 +596,11 @@
 	<string name="avoid_toll_roads_placepage">Уникати платних доріг</string>
 	<string name="avoid_unpaved_roads_placepage">Уникати ґрунтових доріг</string>
 	<string name="avoid_ferry_crossing_placepage">Уникати поромних переправ</string>
-	<string name="trip_start">Поїхали</string>
-	<string name="pick_destination">Ціль</string>
-	<string name="follow_my_position">Відцентрувати</string>
-	<string name="search_results">Результати пошуку</string>
-	<string name="then_turn">Далі</string>
-	<string name="redirect_route_alert">Бажаєте перебудувати маршрут?</string>
-	<string name="redirect_route_yes">Так</string>
-	<string name="redirect_route_no">Ні</string>
-	<string name="trip_finished">Ви прибули!</string>
-	<string name="keyboard_availability_alert">Клавіатура недоступна під час руху</string>
-	<string name="dialog_routing_change_start_carplay">Неможливо побудувати маршрут від поточного місця розташування</string>
-	<string name="dialog_routing_change_end_carplay">Неможливо побудувати маршрут до кінцевої точки. Оберіть іншу</string>
-	<string name="dialog_routing_check_gps_carplay">Немає сигналу GPS. Перейдіть на відкриту місцевість</string>
-	<string name="dialog_routing_unable_locate_route_carplay">Неможливо побудувати маршрут. Оберіть інші точки маршруту</string>
-	<string name="dialog_routing_download_files_carplay">Щоб побудувати маршрут, завантажте відсутні карти на своєму пристрої</string>
-	<string name="dialog_routing_system_error_carplay">Виникла помилка. Перезапустіть додаток</string>
-	<string name="dialog_routing_rebuild_from_current_location_carplay">Маршрут буде перебудовано від вашого поточного місця розташування</string>
-	<string name="dialog_routing_rebuild_for_vehicle_carplay">Маршрут буде змінено на автомобільний</string>
 	<string name="ok">Ок</string>
-	<string name="avoid_unpaved_carplay_1">Без ґрунт.</string>
-	<string name="avoid_unpaved_carplay_2">Без ґрунтових</string>
-	<string name="avoid_ferry_carplay_1">Без поромів</string>
-	<string name="avoid_ferry_carplay_2">Без поромів</string>
-	<string name="avoid_tolls_carplay_1">Без платних</string>
-	<string name="avoid_tolls_carplay_2">Без платних</string>
-	<string name="speedcams_alert_title_carplay_1">Камери</string>
-	<string name="speedcams_alert_title_carplay_2">Інфо о камерах</string>
-	<string name="download_map_carplay">Завантажте карти в додатку Organic Maps на своєму пристрої</string>
-	<string name="carplay_roundabout_exit">%s з’їзд</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортувати</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Сортувати мітки</string>
-	<!-- iOS -->
-	<string name="sort_default">Сортувати за промовчанням</string>
-	<string name="sort_type">Сортувати за типом</string>
-	<string name="sort_distance">Сортувати за відстанню</string>
-	<string name="sort_date">Сортувати за датою</string>
 	<!-- Android -->
 	<string name="by_default">Усталено</string>
 	<!-- Android -->
@@ -800,10 +639,6 @@
 	<string name="button_layer_isolines">Висоти</string>
 	<string name="isolines_activation_error_dialog">Щоб скористатися лініями висот, оновіть чи завантажте карту потрібної місцевості</string>
 	<string name="isolines_location_error_dialog">Лінії висот ще недоступні в цьому регіоні</string>
-	<string name="elevation_profile_diff_level">Рівень складності</string>
-	<string name="elevation_profile_diff_level_easy">Простий</string>
-	<string name="elevation_profile_diff_level_moderate">Помірний</string>
-	<string name="elevation_profile_diff_level_hard">Складний</string>
 	<string name="elevation_profile_ascent">Підйом</string>
 	<string name="elevation_profile_descent">Спуск</string>
 	<string name="elevation_profile_minaltitude">Мін. висота</string>
@@ -812,31 +647,26 @@
 	<string name="elevation_profile_distance">Відст.:</string>
 	<string name="elevation_profile_time">Шлях:</string>
 	<string name="isolines_toast_zooms_1_10">Збільште мапу, щоб побачити ізолінії</string>
-	<string name="downloader_updating_ios">Оновлення</string>
-	<string name="downloader_loading_ios">Завантаження</string>
-	<string name="key_information_title">Ключова інформація</string>
 	<string name="enable_screen_sleep">Дозволити екрану вимкнутись</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">При включенні екран може переходити в сплячий режим після певного періоду бездіяльності</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">Оновити завантажені мапи</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">Оновлення мап дозволяє підтримувати інформацію про об\'єкти в актуальному стані</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_size">Оновити (%s)</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_later">Оновити вручну пізніше</string>
-	<!-- edit track screen title -->
-	<string name="track_title">Маршрут</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.aerialway">Канатна дорога</string>
+	<string name="type.aerialway.cable_car">Канатна дорога</string>
+	<string name="type.aerialway.chair_lift">Канатна дорога</string>
+	<string name="type.aerialway.drag_lift">Канатна дорога</string>
+	<string name="type.aerialway.gondola">Канатна дорога</string>
+	<string name="type.aerialway.mixed_lift">Канатна дорога</string>
 	<string name="type.aerialway.station">Канатна дорога</string>
+	<string name="type.aeroway">Аеропорт</string>
 	<string name="type.aeroway.aerodrome">Аеропорт</string>
 	<string name="type.aeroway.aerodrome.international">Міжнародний аеропорт</string>
 	<string name="type.aeroway.apron">Перон</string>
 	<string name="type.aeroway.gate">Вихід на посадку</string>
 	<string name="type.aeroway.helipad">Майданчик для гелікоптерів</string>
 	<string name="type.aeroway.runway">Злітно-посадкова смуга</string>
+	<string name="type.aeroway.taxiway">Рульова дорiжка</string>
 	<string name="type.aeroway.terminal">Термінал</string>
 	<string name="type.amenity">Об’єкти інфраструктури</string>
 	<string name="type.amenity.arts_centre">Центр мистецтв</string>
@@ -1224,19 +1054,24 @@
 	<string name="type.historic.ruins">Руїни</string>
 	<string name="type.historic.ship">Корабель</string>
 	<string name="type.historic.tomb">Гробниця</string>
+	<string name="type.historic.wayside_cross">Християнський хрест</string>
 	<string name="type.historic.wayside_shrine">Святиня</string>
 	<string name="type.internet_access">Інтернет</string>
 	<string name="type.internet_access.wlan">Інтернет</string>
 	<string name="type.junction">Перехрестя</string>
 	<string name="type.junction.roundabout">Кільце</string>
+	<string name="type.landuse">Землевикористання</string>
 	<string name="type.landuse.allotments">Земельні ділянки</string>
 	<string name="type.landuse.basin">Резервуар</string>
+	<string name="type.landuse.brownfield">Земля для будiвництва</string>
 	<string name="type.landuse.cemetery">Цвинтар</string>
-	<string name="type.landuse.cemetery.christian">Цвинтар</string>
+	<string name="type.landuse.cemetery.christian">Християнський цвинтар</string>
 	<string name="type.landuse.churchyard">Церковний двір</string>
 	<string name="type.landuse.commercial">Комерційні ділянки</string>
 	<string name="type.landuse.construction">Будівництво</string>
+	<string name="type.landuse.farm">Ферма</string>
 	<string name="type.landuse.farmland">Сільськогосподарська земля</string>
+	<string name="type.landuse.farmyard">Сільськогосподарська земля</string>
 	<string name="type.landuse.field">Поле</string>
 	<string name="type.landuse.forest">Ліс</string>
 	<string name="type.landuse.forest.coniferous">Хвойний ліс</string>
@@ -1244,6 +1079,7 @@
 	<string name="type.landuse.forest.mixed">Змішаний ліс</string>
 	<string name="type.landuse.garages">Гаражі</string>
 	<string name="type.landuse.grass">Газон</string>
+	<string name="type.landuse.greenfield">Земля для будiвництва</string>
 	<string name="type.landuse.greenhouse_horticulture">Теплиці</string>
 	<string name="type.landuse.industrial">Промзона</string>
 	<string name="type.landuse.landfill">Звалище</string>
@@ -1252,6 +1088,7 @@
 	<string name="type.landuse.orchard">Сад</string>
 	<string name="type.landuse.quarry">Кар\'єр</string>
 	<string name="type.landuse.railway">Залізничні споруди</string>
+	<string name="type.landuse.recreation_ground">База вiдпочинку</string>
 	<string name="type.landuse.reservoir">Водоймище</string>
 	<string name="type.landuse.residential">Житлова зона</string>
 	<string name="type.landuse.retail">Зона торгівлі</string>
@@ -1259,6 +1096,7 @@
 	<string name="type.landuse.village_green">Парк</string>
 	<string name="type.landuse.vineyard">Виноградник</string>
 	<string name="type.leisure">Місце відпочинку</string>
+	<string name="type.leisure.common">Громадська земля</string>
 	<string name="type.leisure.dog_park">Місце для вигулу собак</string>
 	<string name="type.leisure.fitness_centre">Фітнес-зал</string>
 	<string name="type.leisure.fitness_station">Спортивні знаряддя</string>
@@ -1308,15 +1146,21 @@
 	<string name="type.man_made.works">Промислове виробництво</string>
 	<string name="type.military.bunker">Бункер</string>
 	<string name="type.mountain_pass">Перевал</string>
+	<string name="type.natural">Природа</string>
+	<string name="type.natural.bare_rock">Скелi</string>
 	<string name="type.natural.bay">Затока</string>
 	<string name="type.natural.beach">Пляж</string>
 	<string name="type.natural.beach.sand">Піщаний пляж</string>
 	<string name="type.natural.beach.gravel">Гальковий пляж</string>
 	<string name="type.natural.cape">Мис</string>
 	<string name="type.natural.cave_entrance">Печера</string>
+	<string name="type.natural.cliff">Обрив</string>
+	<string name="type.natural.coastline">Берегова лiнiя</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Льодовик</string>
 	<string name="type.natural.grassland">Поле</string>
+	<string name="type.natural.heath">Пустище</string>
+	<string name="type.natural.hot_spring">Горяче джерело</string>
 	<string name="type.natural.water.lake">Озеро</string>
 	<string name="type.natural.water.pond">Ставок</string>
 	<string name="type.natural.water.reservoir">Водосховище</string>
@@ -1327,21 +1171,28 @@
 	<string name="type.natural.orchard">Сад</string>
 	<string name="type.natural.peak">Гора</string>
 	<string name="type.natural.saddle">Сідловина</string>
+	<string name="type.natural.rock">Камiнь</string>
 	<string name="type.natural.scrub">Зарості</string>
 	<string name="type.natural.spring">Джерело</string>
 	<string name="type.natural.strait">Протока</string>
 	<string name="type.natural.tree">Дерево</string>
+	<string name="type.natural.tree_row">Ряд дерев</string>
+	<string name="type.natural.vineyard">Виноградник</string>
 	<string name="type.natural.volcano">Вулкан</string>
 	<string name="type.natural.water">Водоймище</string>
 	<string name="type.natural.wetland">Болотиста місцевість</string>
+	<string name="type.natural.wetland.bog">Торф\'яне болото</string>
+	<string name="type.natural.wetland.marsh">Болотиста мiсцевiсть</string>
+	<string name="type.noexit">Тупик</string>
 	<string name="type.office">Офіс</string>
 	<string name="type.office.company">Організація</string>
-	<string name="type.office.estate_agent">Агенція нерухомості/ріелтор</string>
+	<string name="type.office.estate_agent">Агенція нерухомості</string>
 	<string name="type.office.government">Держустанова</string>
 	<string name="type.office.insurance">Офіс страхової компанії</string>
 	<string name="type.office.lawyer">Адвокат</string>
 	<string name="type.office.ngo">Офіс громадської організації</string>
 	<string name="type.office.telecommunication">Мобільний оператор</string>
+	<string name="type.place">Мicце</string>
 	<string name="type.place.city">Місто</string>
 	<string name="type.place.city.capital">Столиця</string>
 	<string name="type.place.city.capital.10">Столиця</string>
@@ -1361,22 +1212,64 @@
 	<string name="type.place.hamlet">Поселення</string>
 	<string name="type.place.island">Острів</string>
 	<string name="type.place.islet">Острів</string>
+	<string name="type.place.isolated_dwelling">Житло</string>
 	<string name="type.place.locality">Місцевість</string>
+	<string name="type.place.neighbourhood">Мiкрорайон</string>
 	<string name="type.place.ocean">Океан</string>
 	<string name="type.place.region">Район</string>
 	<string name="type.place.sea">Море</string>
+	<string name="type.place.square">Площа</string>
 	<string name="type.place.state">Штат</string>
 	<string name="type.place.state.USA">Штат</string>
 	<string name="type.place.suburb">Район</string>
 	<string name="type.place.town">Місто</string>
 	<string name="type.place.village">Село</string>
+	<string name="type.power">Енергія</string>
+	<string name="type.power.generator">Генератор</string>
+	<string name="type.power.line">Лінія електропередач</string>
+	<string name="type.power.line.underground">Підземна лінія електропередач</string>
+	<string name="type.power.minor_line">Лінія електропередач низької напруги</string>
 	<string name="type.power.pole">Стовп ЛЕП</string>
+	<string name="type.power.station">Електростанція</string>
 	<string name="type.power.substation">Підстанція</string>
 	<string name="type.power.tower">Стовп ЛЕП</string>
+	<string name="type.public_transport">Громадський транспорт</string>
+	<string name="type.railway">Залізниця</string>
+	<string name="type.railway.abandoned">Закинута залізниця</string>
+	<string name="type.railway.abandoned.bridge">Закинутий залізничний міст</string>
+	<string name="type.railway.abandoned.tunnel">Закинутий залізничний тунель</string>
+	<string name="type.railway.construction">Будівництво залізниці</string>
+	<string name="type.railway.crossing">Пішохідний перехід</string>
+	<string name="type.railway.disused">Недійсна залізниця</string>
+	<string name="type.railway.funicular">Фунікулер</string>
+	<string name="type.railway.funicular.bridge">Фунікулер</string>
+	<string name="type.railway.funicular.tunnel">Фунікулер</string>
 	<string name="type.railway.halt">Залізничний вокзал</string>
 	<string name="type.railway.level_crossing">Залізничний переїзд</string>
+	<string name="type.railway.light_rail">Швидкістний трамвай</string>
+	<string name="type.railway.light_rail.bridge">Швидкістний трамвай</string>
+	<string name="type.railway.light_rail.tunnel">Швидкістний трамвай</string>
 	<string name="type.railway.monorail">Монорейкова залізниця</string>
-	<string name="type.railway.rail">Залізна дорога</string>
+	<string name="type.railway.monorail.bridge">Монорейкова залізниця</string>
+	<string name="type.railway.monorail.tunnel">Монорейкова залізниця</string>
+	<string name="type.railway.narrow_gauge">Вузькоколійка</string>
+	<string name="type.railway.narrow_gauge.bridge">Вузькоколійка</string>
+	<string name="type.railway.narrow_gauge.tunnel">Вузькоколійка</string>
+	<string name="type.railway.platform">Залізнична платформа</string>
+	<string name="type.railway.preserved">Законсервована залізниця</string>
+	<string name="type.railway.preserved.bridge">Законсервована залізниця</string>
+	<string name="type.railway.preserved.tunnel">Законсервована залізниця</string>
+	<string name="type.railway.rail">Залізнична дорога</string>
+	<string name="type.railway.rail.bridge">Залізничний міст</string>
+	<string name="type.railway.rail.motor_vehicle">Залізниця</string>
+	<string name="type.railway.rail.tunnel">Залізничний тунель</string>
+	<string name="type.railway.razed">Закинута залізниця</string>
+	<string name="type.railway.siding">Гілка залізниці</string>
+	<string name="type.railway.siding.bridge">Гілка залізниці</string>
+	<string name="type.railway.siding.tunnel">Гілка залізниці</string>
+	<string name="type.railway.spur">Під\'їздна залізниця</string>
+	<string name="type.railway.spur.bridge">Під\'їздна залізниця</string>
+	<string name="type.railway.spur.tunnel">Під\'їздна залізниця</string>
 	<string name="type.railway.station">Залізничний вокзал</string>
 	<string name="type.railway.station.light_rail">Залізничний вокзал</string>
 	<string name="type.railway.station.monorail">Залізничний вокзал</string>
@@ -1392,6 +1285,9 @@
 	<string name="type.railway.station.subway.paris">Метро</string>
 	<string name="type.railway.station.subway.roma">Метро</string>
 	<string name="type.railway.station.subway.spb">Метро</string>
+	<string name="type.railway.subway">Лінія метро</string>
+	<string name="type.railway.subway.bridge">Лінія метро</string>
+	<string name="type.railway.subway.tunnel">Лінія метро</string>
 	<string name="type.railway.subway_entrance">Вхід до метро</string>
 	<string name="type.railway.subway_entrance.barcelona">Метро</string>
 	<string name="type.railway.subway_entrance.berlin">Метро</string>
@@ -1404,13 +1300,21 @@
 	<string name="type.railway.subway_entrance.paris">Метро</string>
 	<string name="type.railway.subway_entrance.roma">Метро</string>
 	<string name="type.railway.subway_entrance.spb">Метро</string>
+	<string name="type.railway.tram">Трамвай</string>
+	<string name="type.railway.tram.bridge">Трамвай</string>
+	<string name="type.railway.tram.tunnel">Трамвай</string>
 	<string name="type.railway.tram_stop">Зупинка</string>
+	<string name="type.railway.yard">Залізнична ділянка</string>
+	<string name="type.railway.yard.bridge">Залізнична ділянка</string>
+	<string name="type.railway.yard.tunnel">Залізнична ділянка</string>
+	<string name="type.route">Маршрут</string>
+	<string name="type.route.ferry">Паромна переправа</string>
 	<string name="type.shop">Крамниця</string>
 	<string name="type.shop.alcohol">Винний магазин</string>
 	<string name="type.shop.bakery">Пекарня</string>
 	<string name="type.shop.beauty">Салон краси</string>
 	<string name="type.shop.beverages">Напої</string>
-	<string name="type.shop.bicycle">Веломагазін</string>
+	<string name="type.shop.bicycle">Веломагазин</string>
 	<string name="type.shop.bookmaker">Букмекерська контора</string>
 	<string name="type.shop.books">Книгарня</string>
 	<string name="type.shop.butcher">М\'ясний магазин</string>
@@ -1428,9 +1332,9 @@
 	<string name="type.shop.copyshop">Копіювальний центр</string>
 	<string name="type.shop.cosmetics">Косметика</string>
 	<string name="type.shop.department_store">Універмаг</string>
-	<string name="type.shop.doityourself">Будматеріали</string>
+	<string name="type.shop.doityourself">Господарськi товари</string>
 	<string name="type.shop.dry_cleaning">Хімчистка</string>
-	<string name="type.shop.electronics">Електротехнічний магазин</string>
+	<string name="type.shop.electronics">Електротехнiка</string>
 	<string name="type.shop.erotic">Секс-шоп</string>
 	<string name="type.shop.fabric">Крамниця</string>
 	<string name="type.shop.florist">Магазин квітів</string>
@@ -1438,7 +1342,7 @@
 	<string name="type.shop.furniture">Магазин меблів</string>
 	<string name="type.shop.garden_centre">Товари для саду</string>
 	<string name="type.shop.gift">Магазин сувенірів</string>
-	<string name="type.shop.greengrocer">Магазин овочів</string>
+	<string name="type.shop.greengrocer">Овочі та фрукти</string>
 	<string name="type.shop.hairdresser">Перукарня</string>
 	<string name="type.shop.hardware">Будматеріали</string>
 	<string name="type.shop.jewelry">Ювелірний магазин</string>
@@ -1457,32 +1361,51 @@
 	<string name="type.shop.pawnbroker">Ломбард</string>
 	<string name="type.shop.pet">Зоотовари</string>
 	<string name="type.shop.photo">Фототовари</string>
-	<string name="type.shop.seafood">Рибна крамниця</string>
+	<string name="type.shop.seafood">Рибна лавка</string>
 	<string name="type.shop.shoes">Магазин взуття</string>
 	<string name="type.shop.sports">Спортивні товари</string>
-	<string name="type.shop.stationery">Магазин канцелярських товарів</string>
+	<string name="type.shop.stationery">Канцелярськi товари</string>
 	<string name="type.shop.supermarket">Супермаркет</string>
 	<string name="type.shop.tattoo">Тату-салон</string>
 	<string name="type.shop.tea">Крамниця</string>
-	<string name="type.shop.ticket">Білетна каса</string>
+	<string name="type.shop.ticket">Квитковий кiоск</string>
 	<string name="type.shop.toys">Магазин іграшок</string>
 	<string name="type.shop.travel_agency">Турагентство</string>
 	<string name="type.shop.tyres">Магазин шин</string>
-	<string name="type.shop.variety_store">Магазин господарських товарів</string>
+	<string name="type.shop.variety_store">Магазин корисних товарів</string>
 	<string name="type.shop.video">Магазин відео</string>
 	<string name="type.shop.video_games">Магазин відеоігор</string>
 	<string name="type.shop.wine">Винна крамниця</string>
+	<string name="type.sport">Спорт</string>
+	<string name="type.sport.american_football">Американський футбол</string>
+	<string name="type.sport.archery">Стрiльба з лука</string>
 	<string name="type.sport.athletics">Легка атлетика</string>
+	<string name="type.sport.australian_football">Регбi</string>
+	<string name="type.sport.baseball">Бейсбол</string>
 	<string name="type.sport.basketball">Баскетбол</string>
+	<string name="type.sport.bowls">Кеглi</string>
+	<string name="type.sport.cricket">Крикет</string>
+	<string name="type.sport.curling">Керлiнг</string>
+	<string name="type.sport.diving">Пiдводне плавання</string>
 	<string name="type.sport.equestrian">Кінний спорт</string>
+	<string name="type.sport.golf">Гольф</string>
+	<string name="type.sport.gymnastics">Гiмнастика</string>
+	<string name="type.sport.handball">Гандбол</string>
+	<string name="type.sport.multi">Рiзноманiтнi типи спорту</string>
+	<string name="type.sport.scuba_diving">Акваланг</string>
+	<string name="type.sport.shooting">Стрiльба</string>
+	<string name="type.sport.skiing">Лижi</string>
+	<string name="type.sport.soccer">Футбол</string>
+	<string name="type.sport.swimming">Плавання</string>
 	<string name="type.sport.tennis">Тенісний корт</string>
+	<string name="type.tourism">Туризм</string>
 	<string name="type.tourism.alpine_hut">Гірський готель</string>
 	<string name="type.tourism.apartment">Апартаменти</string>
-	<string name="type.tourism.artwork">Твір мистецтва</string>
-	<string name="type.tourism.artwork.architecture">Твір мистецтва</string>
-	<string name="type.tourism.artwork.painting">Твір мистецтва</string>
-	<string name="type.tourism.artwork.sculpture">Твір мистецтва</string>
-	<string name="type.tourism.artwork.statue">Твір мистецтва</string>
+	<string name="type.tourism.artwork">Витвір мистецтва</string>
+	<string name="type.tourism.artwork.architecture">Витвір мистецтва</string>
+	<string name="type.tourism.artwork.painting">Витвір мистецтва</string>
+	<string name="type.tourism.artwork.sculpture">Витвір мистецтва</string>
+	<string name="type.tourism.artwork.statue">Витвір мистецтва</string>
 	<string name="type.tourism.attraction">Пам’ятка</string>
 	<string name="type.tourism.attraction.animal">Пам’ятка</string>
 	<string name="type.tourism.attraction.specified">Пам’ятка</string>
@@ -1502,12 +1425,23 @@
 	<string name="type.tourism.museum">Музей</string>
 	<string name="type.tourism.picnic_site">Пікнік</string>
 	<string name="type.tourism.resort">Будинок відпочинку</string>
-	<string name="type.tourism.theme_park">Пам’ятні місця</string>
+	<string name="type.tourism.theme_park">Парк розваг</string>
 	<string name="type.tourism.viewpoint">Оглядний майданчик</string>
 	<string name="type.tourism.wilderness_hut">Хибара</string>
 	<string name="type.tourism.zoo">Зоопарк</string>
+	<string name="type.traffic_calming">Лежачий полiцейський</string>
+	<string name="type.traffic_calming.bump">Лежачий полiцейський</string>
+	<string name="type.traffic_calming.hump">Лежачий полiцейський</string>
+	<string name="type.waterway">Водяний шлях</string>
 	<string name="type.waterway.canal">Канал</string>
 	<string name="type.waterway.canal.tunnel">Канал</string>
+	<string name="type.waterway.dam">Дамба</string>
+	<string name="type.waterway.ditch">Канава</string>
+	<string name="type.waterway.ditch.tunnel">Канава</string>
+	<string name="type.waterway.dock">Причал</string>
+	<string name="type.waterway.drain">Водовiдвiд</string>
+	<string name="type.waterway.drain.tunnel">Водовiдвiд</string>
+	<string name="type.waterway.lock">Шлюз</string>
 	<string name="type.waterway.lock_gate">Шлюз</string>
 	<string name="type.waterway.river">Річка</string>
 	<string name="type.waterway.river.tunnel">Річка</string>
@@ -1517,8 +1451,26 @@
 	<string name="type.waterway.stream.intermittent">Річка</string>
 	<string name="type.waterway.stream.tunnel">Річка</string>
 	<string name="type.waterway.waterfall">Водоспад</string>
+	<string name="type.waterway.weir">Гребля</string>
+	<string name="type.wheelchair">Iнвалiдний вiзок</string>
 	<string name="type.wheelchair.limited">Частково обладнано для інвалідів</string>
 	<string name="type.wheelchair.no">Не обладнано для інвалідів</string>
 	<string name="type.wheelchair.yes">Обладнано для інвалідів</string>
+	<string name="type.piste_lift">Пiдйомник</string>
+	<string name="type.piste_lift.j.bar">Пiдйомник</string>
+	<string name="type.piste_lift.magic_carpet">Стрiчковий конвеєр</string>
+	<string name="type.piste_lift.platter">Пiдйомник</string>
+	<string name="type.piste_lift.rope_tow">Пiдйомник</string>
+	<string name="type.piste_lift.t.bar">Пiдйомник</string>
+	<string name="type.piste_type">Тип дороги</string>
+	<string name="type.piste_type.downhill">Гірськолижна траса</string>
+	<string name="type.piste_type.downhill.advanced">Доповнена гірськолижна траса</string>
+	<string name="type.piste_type.downhill.easy">Легка гірськолижна траса</string>
+	<string name="type.piste_type.downhill.expert">Гірськолижна траса для експертів</string>
+	<string name="type.piste_type.downhill.freeride">Гірськолижна траса вільного спуска</string>
+	<string name="type.piste_type.downhill.intermediate">Гірськолижна траса середнього рівня</string>
+	<string name="type.piste_type.downhill.novice">Гірськолижна траса для новеньких</string>
+	<string name="type.piste_type.nordic">Траса для скандинавської ходьби</string>
+	<string name="type.piste_type.sled">Траса для санок</string>
 	<string name="type.building_part">Будівля</string>
 </resources>

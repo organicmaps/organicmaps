@@ -18,7 +18,6 @@
 	<string name="children">Mapumziko ya familia</string>
 	<!-- Search category -->
 	<string name="hospital">Hospitali</string>
-	<string name="recent_track_help_text">Inakuwezesha kurekodi njia uliyosafiria kwa kipindi fulani na uione kwenye ramani. Tafadhali kumbuka: ukiwezesha utendaji huu betri itatumika zaidi. Njia hiyo itaondolewa kiotomatiki kwenye ramani baada ya mpishano wa muda kuisha.</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Maswali na majibu</string>
 	<!-- Button in the main Help dialog -->
@@ -62,13 +61,8 @@
 	<string name="routing_add_start_point">Ongeza eneo la kuanzia ili kupanga njia ya kufuata</string>
 	<string name="routing_add_finish_point">Ongeza eneo la kumalizia ili kupanga njia ya kufuata</string>
 	<string name="button_exit">Toka</string>
-	<string name="planning_route_manage_route">Dhibiti njia ya kufuata</string>
-	<string name="button_plan">Panga</string>
 	<string name="placepage_remove_stop">Ondoa</string>
-	<string name="planning_route_remove_title">Vuta hapa ili kuondoa</string>
 	<string name="placepage_add_stop">Ongeza eneo la kusimama</string>
-	<string name="start_from_my_position">Anzia</string>
-	<string name="profile_authorization_error">Lo, kumekuwa na hitilafu. Jaribu tena kuingia ndani.</string>
 	<string name="dialog_error_storage_title">Tatizo la kufikia hifadhi</string>
 	<string name="dialog_error_storage_message">Hifadhi ya nje haipatikani, pengine Kadi ya SD imeondolewa, imeharibika au mfumo wa faili ni wa kusoma pekee. Tafadhali ikague na uwasiliane nasi kwa kutumia support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Onyeshana hifadhi mbaya</string>
@@ -78,14 +72,7 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Ficha zote</string>
 	<string name="bookmark_lists_show_all">Onyesha zote</string>
-	<plurals name="bookmarks_places">
-	  <item quantity="other">Alamisho %d</item>
-	</plurals>
 	<string name="bookmarks_create_new_group">Unda orodha mpya</string>
-	<string name="downloader_hide_screen">Ficha skrini</string>
-	<string name="downloader_percent">%1$s (%2$s kati ya %3$s)</string>
-	<string name="downloader_process">Inapakua %s…</string>
-	<string name="downloader_applying">Inatekeleza %s…</string>
 	<string name="bookmarks_error_message_share_general">Haiwezekani kushiriki kutokana na hitilafu ya programu</string>
 	<string name="bookmarks_error_title_share_empty">Hitilafu ya kushiriki</string>
 	<string name="bookmarks_error_message_share_empty">Haiwezekani kushiriki orodha tupu</string>
@@ -94,21 +81,13 @@
 	<string name="bookmarks_new_list_hint">Orodha mpya</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Jina hili tayari limechukuliwa</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Tafadhali chagua jina lingine</string>
-	<string name="bookmarks_error_title_list_name_too_long">Jina hili ni muda mrefu sana</string>
 	<string name="please_wait">Tafadhali subiri…</string>
 	<string name="phone_number">Nambari ya simu</string>
-	<string name="bookmarks_detect_title">Faili mpya zimegunduliwa</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">Faili %d ilipatikana. Utaiona baada ya uongofu.</item>
 	  <item quantity="other">Files %d zimepatikana. Utawaona baada ya uongofu.</item>
 	</plurals>
-	<string name="button_convert">Badilisha</string>
-	<string name="bookmarks_convert_error_title">Hitilafu</string>
-	<string name="bookmarks_convert_error_message">Baadhi ya faili hazibadilishwa.</string>
-	<string name="bookmarks_restore_title">Rejesha toleo hili?</string>
 	<string name="common_check_internet_connection_dialog_title">Hakuna uhusiano wa internet</string>
-	<string name="error_system_message">Hitilafu isiyojulikana ilitokea</string>
-	<string name="restore">Rejesha</string>
 	<plurals name="objects">
 	  <item quantity="other">Eneo %d</item>
 	</plurals>
@@ -130,17 +109,13 @@
 	<string name="bookmarks_empty_list_title">Orodha hii ni tupu</string>
 	<string name="bookmarks_empty_list_message">Ili kuongeza ramani, gusa mahali kwenye ramani na kisha gusa ikoni ya nyota</string>
 	<string name="category_desc_more">…zaidi</string>
-	<string name="title_error_downloading_bookmarks">Kosa limetokea</string>
 	<string name="export_file">Tuma faili</string>
 	<string name="list_settings">Mipangilio ya Orodhesha</string>
 	<string name="delete_list">Futa Orodha</string>
-	<string name="hide_from_map">Ficha kwenye ramani</string>
 	<string name="public_access">Matumizi ya umma</string>
 	<string name="limited_access">Matumizi yenye ukomo</string>
 	<string name="bookmark_list_description_hint">Andika maelezo (maneno au html)</string>
 	<string name="not_shared">Faragha</string>
-	<string name="tags_loading_error_subtitle">Kosa limetokea wakati wa kupakua vibandiko, tafadhali jaribu tena</string>
-	<string name="download_button">Pakua</string>
 	<string name="speedcams_alert_title">Kamera za mwendo-kasi</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Mara kwa Mara</string>
@@ -148,7 +123,6 @@
 	<string name="place_description_title">Maelezo ya Eneo</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kipakua Ramani</string>
-	<string name="speedcams_notice_message">Auto - Onyo la kuhusu kamera ya mwendo-kasi iwapo kuna hatari yoyote ya kuzidi ukomo wa mwendo-kasi\nMara kwa Mara - Daima onya kuhusu kamera za mwendo-kasi\nKamwe - Kamwe usionye kuhusu kamera za mwendo-kasi</string>
 	<string name="power_managment_title">Mtindo wa kuokoa nishati</string>
 	<string name="power_managment_description">Pindi mtindo wa kiotomatiki unapochaguliwa programu tumizi inaanza kuzima sifa za kumaliza betri kulingana na kiwango cha chaji cha sasa cha betri</string>
 	<string name="power_managment_setting_never">Kamwe</string>
@@ -172,44 +146,11 @@
 	<string name="avoid_toll_roads_placepage">Epuka barabara za kulipia</string>
 	<string name="avoid_unpaved_roads_placepage">Epuka barabara za vumbi</string>
 	<string name="avoid_ferry_crossing_placepage">Epuka vivuko vya feri</string>
-	<string name="trip_start">Twende zetu</string>
-	<string name="pick_destination">Mahali</string>
-	<string name="follow_my_position">Weka kati tena</string>
-	<string name="search_results">Matokeo ya utafutaji</string>
-	<string name="then_turn">Kisha</string>
-	<string name="redirect_route_alert">Je, unataka kuunda upya njia?</string>
-	<string name="redirect_route_yes">Ndio</string>
-	<string name="redirect_route_no">Hapana</string>
-	<string name="trip_finished">Umefika!</string>
-	<string name="keyboard_availability_alert">Mbao-bonye haipatikani wakati wa kuendesha gari</string>
-	<string name="dialog_routing_change_start_carplay">Haiwezi kuunda njia kutokea kwenye eneo lako la sasa</string>
-	<string name="dialog_routing_change_end_carplay">Haiwezi kuunda njia kwenda uendako. Tafadhali chagua sehemu nyingine</string>
-	<string name="dialog_routing_check_gps_carplay">Hakuna ishara ya GPS. Tafadhali sogea katika eneo jingine la wazi</string>
-	<string name="dialog_routing_unable_locate_route_carplay">Haiwezi kuunda njia. Tafadhali taja kituo kingine cha njia</string>
-	<string name="dialog_routing_download_files_carplay">Kuunda njia, pakua ramani zilizokosekana kwenye kifaa chako</string>
-	<string name="dialog_routing_system_error_carplay">Hitilafu imetokea. Tafadhali iwashe tena programu</string>
-	<string name="dialog_routing_rebuild_from_current_location_carplay">Njia itaundwa upya kutokea kwenye sehemu yako la sasa</string>
-	<string name="dialog_routing_rebuild_for_vehicle_carplay">Njia itaboreshwa kuwa ya gari</string>
 	<string name="ok">Sawa</string>
-	<string name="avoid_unpaved_carplay_1">Hamna za vum</string>
-	<string name="avoid_unpaved_carplay_2">Epuka za vumbi</string>
-	<string name="avoid_ferry_carplay_1">Hamna feri</string>
-	<string name="avoid_ferry_carplay_2">Epuka feri</string>
-	<string name="avoid_tolls_carplay_1">Hamna za ada</string>
-	<string name="avoid_tolls_carplay_2">Epuka njia-kodi</string>
-	<string name="speedcams_alert_title_carplay_1">Kam za kasi</string>
-	<string name="speedcams_alert_title_carplay_2">Onyo la kasi</string>
-	<string name="download_map_carplay">Tafadhali pakua ramani katika programu tumizi ya Organic Maps kwenye kifaa chako</string>
-	<string name="carplay_roundabout_exit">Kutoka kwa %s</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ainisha…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Ainisha alamisho</string>
-	<!-- iOS -->
-	<string name="sort_default">Ainisha kwa chaguo-msingi</string>
-	<string name="sort_type">Ainisha kwa aina</string>
-	<string name="sort_distance">Ainisha kwa umbali</string>
-	<string name="sort_date">Ainisha kwa tarehe</string>
 	<!-- Android -->
 	<string name="by_default">Kwa chaguo-msingi</string>
 	<!-- Android -->
@@ -248,10 +189,6 @@
 	<string name="button_layer_isolines">Topografia</string>
 	<string name="isolines_activation_error_dialog">Kuamilisha na kutumia tabaka la nchi tafadhali sasisha au pakua ramani ya eneo hilo</string>
 	<string name="isolines_location_error_dialog">Tabaka la sura ya nchi bado haipatikani katika eneo hili</string>
-	<string name="elevation_profile_diff_level">Usawa mgumu</string>
-	<string name="elevation_profile_diff_level_easy">Rahisi</string>
-	<string name="elevation_profile_diff_level_moderate">Wastani</string>
-	<string name="elevation_profile_diff_level_hard">Ngumu</string>
 	<string name="elevation_profile_ascent">Upandaji</string>
 	<string name="elevation_profile_descent">Ushukaji</string>
 	<string name="elevation_profile_minaltitude">Mwinuko wa chini kabisa</string>
@@ -260,17 +197,6 @@
 	<string name="elevation_profile_distance">Umbali:</string>
 	<string name="elevation_profile_time">Muda:</string>
 	<string name="isolines_toast_zooms_1_10">Vuta karibu kutalii mistari ya kontua</string>
-	<string name="downloader_updating_ios">Inasasisha</string>
-	<string name="downloader_loading_ios">Inapakua</string>
-	<string name="key_information_title">Habari muhimu</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">Sasisha ramani zako ulizopakua</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">Kusasisha ramani kunaweka taarifa kuhusu vipengee ikiwa ya hivi sasa zaidi</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_size">Sasisha (%s)</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_later">Sasisha mwenyewe baadaye</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.amenity">Kistawishi</string>

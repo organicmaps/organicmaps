@@ -19,8 +19,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d preferat</string>
       <key>other</key>
-      <string>%d semne de carte</string>
+      <string>%d preferate</string>
     </dict>
   </dict>
 
@@ -35,9 +37,9 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>one</key>
-      <string>%d fișier a fost găsit. Veți vedea după conversie.</string>
+      <string>A fost găsit %d fișier. Îl vei vedea după conversiune.</string>
       <key>other</key>
-      <string>Au fost găsite %d fișiere. Veți vedea după convertire.</string>
+      <string>Au fost găsite %d fișiere. Le vei vedea după conversiune.</string>
     </dict>
   </dict>
 
@@ -51,23 +53,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d obiect</string>
       <key>other</key>
-      <string>%d localitate</string>
-    </dict>
-  </dict>
-
-  <key>places</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>other</key>
-      <string>%d localităti</string>
+      <string>%d obiecte</string>
     </dict>
   </dict>
 
@@ -81,8 +70,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d traseu</string>
       <key>other</key>
-      <string>%d bande</string>
+      <string>%d trasee</string>
     </dict>
   </dict>
 </dict>

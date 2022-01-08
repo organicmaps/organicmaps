@@ -8,8 +8,6 @@
 	<string name="back">กลับ</string>
 	<!-- Button text (should be short) -->
 	<string name="cancel">ยกเลิก</string>
-	<!-- Button which interrupts country download -->
-	<string name="cancel_download">ยกเลิกการดาวน์โหลด</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">ลบ</string>
 	<string name="download_maps">ดาวน์โหลดแผนที่</string>
@@ -19,8 +17,6 @@
 	<string name="downloading">กำลังดาวน์โหลด…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">กิโลเมตร</string>
-	<!-- Leave Review dialog - Review button -->
-	<string name="leave_a_review">ให้คำวิจารณ์</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">แผนที่</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
@@ -35,19 +31,14 @@
 	<string name="search">ค้นหา</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">ค้นหาแผนที่</string>
-	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
-	<string name="use_cellular_data">ใช่</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">แสดงบนแผนที่</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
-	<string name="country_status_download_without_size">ดาวน์โหลดแผนที่</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">การดาวน์โหลดล้มเหลว</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">ลองอีกครั้ง</string>
-	<string name="about_menu_title">เกี่ยวกับ Organic Maps</string>
 	<string name="connection_settings">การตั้งค่าการเชื่อมต่อ</string>
 	<string name="close">ปิด</string>
 	<string name="unsupported_phone">จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ</string>
@@ -72,8 +63,6 @@
 	<string name="bookmark_color">สีของบุ๊กมาร์ก</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">ชื่อของชุดบุ๊กมาร์ก</string>
-	<!-- "Bookmark Lists" dialog title -->
-	<string name="bookmark_sets">ชุดของบุ๊กมาร์ก</string>
 	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">บุ๊กมาร์ก</string>
 	<!-- Default bookmark list name -->
@@ -166,12 +155,8 @@
 	<string name="email">อีเมล</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ด: %1$s</string>
-	<!-- place preview title -->
-	<string name="info">ข้อมูล</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">เสร็จแล้ว</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">เวอร์ชัน: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">คุณแน่ใจหรือไม่ว่าคุณต้องการดำเนินการต่อ?</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -200,10 +185,6 @@
 	<string name="pref_tts_language_title">ภาษาสำหรับเสียง</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">ไม่สามารถใช้ได้</string>
-	<!-- Title for "Other" section in TTS settings. -->
-	<string name="pref_tts_other_section_title">อื่น ๆ</string>
-	<!-- Settings «Map» category: «Record track» title -->
-	<string name="pref_track_record_title">เส้นทางล่าสุด</string>
 	<string name="pref_map_auto_zoom">ซูมอัตโนมัติ</string>
 	<string name="duration_disabled">ปิด</string>
 	<string name="duration_1_hour">1 ชั่วโมง</string>
@@ -211,8 +192,6 @@
 	<string name="duration_6_hours">6 ชั่วโมง</string>
 	<string name="duration_12_hours">12 ชั่วโมง</string>
 	<string name="duration_1_day">1 วัน</string>
-	<string name="recent_track_help_text">ช่วยให้คุณบันทึกเส้นทางที่คุณเดินทางในช่วงระยะเวลาหนึ่งแล้วดูบนแผนที่ได้ โปรดทราบว่า: การเปิดใช้งานฟังก์ชั่นนี้จะทำให้การใช้งานแบตเตอรี่เพิ่มมากขึ้น การติดตามจะถูกเอาออกไปโดยอัตโนมัติจากแผนที่หลังจากผ่านช่วงเวลาที่กำหนด</string>
-	<string name="placepage_distance">ระยะห่าง</string>
 	<string name="search_show_on_map">ดูบนแผนที่</string>
 	<!-- Text in menu -->
 	<string name="website">เว็บไซต์</string>
@@ -230,12 +209,6 @@
 	<string name="copyright">ลิขสิทธิ์</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">แจ้งข้อผิดพลาด</string>
-	<!-- Alert text -->
-	<string name="email_error_body">อีเมลลูกค้ายังไม่ได้รับการจัดตั้งขึ้น กรุณาตั้งค่าหรือใช้วิธีอื่นที่จะติดต่อเราที่ %s</string>
-	<!-- Alert title -->
-	<string name="email_error_title">จดหมายที่ส่งเกิดความผิดพลาด</string>
-	<!-- Settings item title -->
-	<string name="pref_calibration_title">การปรับเทียบเข็มทิศ</string>
 	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
@@ -244,19 +217,12 @@
 	<string name="downloader_cancel_all">ยกเลิกทั้งหมด</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">ดาวน์โหลดแล้ว</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_available_maps">มีให้ใช้</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">ต่อแถว</string>
 	<string name="downloader_near_me_subtitle">ใกล้ฉัน</string>
 	<string name="downloader_status_maps">แผนที่</string>
 	<string name="downloader_download_all_button">ดาวน์โหลดทั้งหมด</string>
 	<string name="downloader_downloading">กำลังดาวน์โหลด:</string>
-	<string name="downloader_search_results">พบ</string>
-	<!-- Status of outdated country in the list -->
-	<string name="downloader_status_outdated">ปรับปรุง</string>
-	<!-- Status of failed country in the list -->
-	<string name="downloader_status_failed">ล้มเหลว</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
 	<string name="downloader_delete_map_while_routing_dialog">เพื่อลบแผนที่ โปรดหยุดใช้การนำทาง</string>
 	<!-- PointsInDifferentMWM -->
@@ -271,22 +237,12 @@
 	<string name="downloader_update_map">อัปเดตแผนที่</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_just_rated">ฉันเพิ่งให้คะแนนแอปของคุณ</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_thanks">ขอบคุณ!</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_share_ideas">แชร์ความคิดเห็นหรือปัญหาใด ๆ เพื่อให้เราสามารถปรับปรุงแอปสำหรับคุณได้</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_send_feedback">ส่งข้อเสนอแนะ</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">ดาวน์โหลดแผนที่ตามเส้นทาง</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">การสร้างเส้นทางจำเป็นต้องใช้แผนที่จากสถานที่ตั้งของคุณไปยังปลายทางที่มีการดาวน์โหลดและอัปเดต</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">มีพื้นที่ไม่เพียงพอ</string>
-	<!-- bookmark button text -->
-	<string name="bookmark">บุ๊กมาร์ก</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง</string>
 	<string name="save">บันทึก</string>
@@ -339,8 +295,6 @@
 	<string name="dialog_routing_location_turn_wifi">กรุณาตรวจสอบสัญญาณ GPS ของคุณ การเปิดใช้ Wi-Fi จะช่วยเพิ่มความแม่นยำในการระบุตำแหน่งของคุณ</string>
 	<string name="dialog_routing_location_turn_on">เปิดใช้บริการหาตำแหน่ง</string>
 	<string name="dialog_routing_location_unknown_turn_on">ไม่สามารถหาตำแหน่งพิกัด GPS ปัจจุบันได้ เปิดใช้บริการหาตำแหน่งเพื่อคำนวณเส้นทาง</string>
-	<string name="dialog_routing_download_files">ดาวน์โหลดไฟล์ที่จำเป็น</string>
-	<string name="dialog_routing_download_and_update_all">ดาวน์โหลดและอัปเดตแผนที่กับข้อมูลเส้นทางทั้งหมดตามเส้นทางที่คาดหมายเพื่อคำนวณเส้นทาง</string>
 	<string name="dialog_routing_unable_locate_route">ไม่สามารถหาเส้นทางได้</string>
 	<string name="dialog_routing_cant_build_route">ไม่สามารถสร้างเส้นทางได้</string>
 	<string name="dialog_routing_change_start_or_end">กรุณาปรับจุดเริ่มต้นหรือที่หมายของคุณ</string>
@@ -355,7 +309,6 @@
 	<string name="dialog_routing_system_error">ระบบเกิดข้อผิดพลาด</string>
 	<string name="dialog_routing_application_error">ไม่สามารถสร้างเส้นทางได้เนื่องจากเกิดข้อผิดพลาดของแอปพลิเคชัน</string>
 	<string name="dialog_routing_try_again">กรุณาลองอีกครั้ง</string>
-	<string name="not_now">ไว้คราวหลัง</string>
 	<string name="dialog_routing_download_and_build_cross_route">คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?</string>
 	<string name="dialog_routing_download_cross_route">ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้</string>
 
@@ -366,17 +319,8 @@
 	<string name="show">แสดง</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">ซ่อน</string>
-	<!-- Failed planning route message in navigation view -->
-	<string name="routing_planning_error">การวางแผนเส้นทางล้มเหลว</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">มาถึง: %s</string>
-	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
-	<string name="dialog_routing_download_and_update_maps">เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง</string>
-	<string name="rate_alert_title">ชอบแอปหรือไม่?</string>
-	<string name="rate_alert_default_message">ขอบพระคุณสำหรับการใช้ Organic Maps โปรดให้คะแนนแอป ข้อเสนอแนะของคุณจะช่วยทำให้เราทำได้ดียิ่งขึ้น</string>
-	<string name="rate_alert_five_star_message">ฮูเร่! เราก็รักคุณเช่นกัน!</string>
-	<string name="rate_alert_four_star_message">ขอบพระคุณ เราจะทำให้ดีที่สุด!</string>
-	<string name="rate_alert_less_than_four_star_message">มีไอเดียถึงวิธีที่จะทำให้เราสามารถทำให้มันดีขึ้นหรือไม่?</string>
 	<string name="categories">หมวดหมู่</string>
 	<string name="history">ประวัติ</string>
 	<string name="closed">ปิด</string>
@@ -407,8 +351,6 @@
 	<string name="editor_example_values">ตัวอย่างของค่าที่ตั้งไว้</string>
 	<string name="editor_correct_mistake">แก้ไขข้อผิดพลาด</string>
 	<string name="editor_add_select_location">ตำแหน่ง</string>
-	<string name="editor_done_dialog_1">คุณได้เปลี่ยนแผนที่โลก อย่าซ่อนมันไว้! บอกเพื่อนคุณ แล้วมาแก้ไขมันไปด้วยกัน</string>
-	<string name="share_with_friends">แชร์กับเพื่อน</string>
 	<string name="editor_report_problem_desription_1">กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreeMap จะสามารถแก้ไขข้อผิดพลาดได้</string>
 	<string name="editor_report_problem_desription_2">หรือทำด้วยตัวคุณเองที่ https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">ส่ง</string>
@@ -418,29 +360,20 @@
 	<string name="editor_report_problem_duplicate_place_title">สถานที่ซ้ำ</string>
 	<string name="autodownload">ดาวน์โหลดอัตโนมัติ</string>
 	<!-- Place Page opening hours text -->
-	<string name="closed_now">ปิดตอนนี้</string>
-	<!-- Place Page opening hours text -->
 	<string name="daily">ทุกวัน</string>
 	<string name="twentyfour_seven">ทั้งกลางวันและกลางคืน</string>
 	<string name="day_off_today">วันนี้ปิด</string>
 	<string name="day_off">ปิด</string>
 	<string name="today">วันนี้</string>
-	<string name="add_opening_hours">เพิ่มชั่วโมงทำการ</string>
 	<string name="edit_opening_hours">แก้ไขชั่วโมงทำการ</string>
 	<string name="no_osm_account">ไม่มีบัญชีใน OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">ลงทะเบียน</string>
-	<string name="password_8_chars_min">รหัสผ่าน (อย่างน้อย 8 ตัวอักษร)</string>
-	<string name="invalid_username_or_password">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
 	<string name="login">ล็อกอิน</string>
 	<string name="password">รหัสผ่าน</string>
 	<string name="forgot_password">ลืมรหัสผ่าน?</string>
-	<string name="osm_account">บัญชี OSM</string>
 	<string name="logout">ออกจากระบบ</string>
-	<!-- Information text: "Last upload 11.01.2016" -->
-	<string name="last_upload">อัปโหลดครั้งสุดท้าย</string>
 	<string name="thank_you">ขอบพระคุณ</string>
 	<string name="edit_place">แก้ไขสถานที่</string>
-	<string name="place_name">ชื่อสถานที่</string>
 	<string name="add_language">เพิ่มภาษา</string>
 	<string name="street">ถนน</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -455,22 +388,16 @@
 	<string name="select_cuisine">เลือกประเภทอาหาร</string>
 	<!-- login text field -->
 	<string name="email_or_username">อีเมลหรือชื่อผู้ใช้</string>
-	<string name="phone">โทรศัพท์</string>
-	<string name="please_note">โปรดทราบ</string>
 	<string name="downloader_delete_map_dialog">การเปลี่ยนแปลงแผนที่ทั้งหมดจะถูกลบไปพร้อมกับแผนที่</string>
 	<string name="downloader_update_maps">อัปเดตแผนที่</string>
 	<string name="downloader_mwm_migration_dialog">ในการสร้างเส้นทาง คุณต้องอัปเดตแผนที่ทั้งหมดแล้ววางแผนเส้นทางอีกครั้ง</string>
 	<string name="downloader_search_field_hint">ค้นหาแผนที่</string>
-	<string name="migration_download_error_dialog">ข้อผิดพลาดในการดาวน์โหลด</string>
 	<string name="common_check_internet_connection_dialog">กรุณาตรวจสอบการตั้งค่าของคุณแล้วทำให้แน่ใจว่าอุปกรณ์ของคุณได้รับการเชื่อมต่ออินเทอร์เน็ต</string>
 	<string name="downloader_no_space_title">มีพื้นที่ไม่เพียงพอ</string>
 	<string name="downloader_no_space_message">กรุณาลบข้อมูลที่ไม่จำเป็น</string>
 	<string name="editor_login_error_dialog">ข้อผิดพลาดในการล็อกอิน</string>
 	<string name="editor_profile_changes">การเปลี่ยนแปลงที่อนุมัติแล้ว</string>
 	<string name="editor_focus_map_on_location">ดึงแผนที่เพื่อเลือกตำแหน่งวัตถุที่ถูกต้อง</string>
-	<string name="editor_add_select_category">เลือกหมวดหมู่</string>
-	<string name="editor_add_select_category_popular_subtitle">ยอดนิยม</string>
-	<string name="editor_add_select_category_all_subtitle">หมวดหมูทั้งหมด</string>
 	<string name="editor_edit_place_title">กำลังแก้ไข</string>
 	<string name="editor_add_place_title">กำลังเพิ่ม</string>
 	<string name="editor_edit_place_name_hint">ชื่อสถานที่</string>
@@ -478,13 +405,8 @@
 	<string name="detailed_problem_description">คำอธิบายปัญหาอย่างละเอียด</string>
 	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
 	<string name="placepage_add_business_button">เพิ่มองค์กร</string>
-	<string name="whatsnew_editor_message_1">เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง</string>
-	<string name="dialog_incorrect_feature_position">เปลี่ยนสถานที่ตั้ง</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
-	<!-- Error dialog no space -->
-	<string name="migration_no_space_message">ในการดาวน์โหลด คุณต้องมีพื้นที่มากขึ้น กรุณาลบเนื้อหาที่ไม่จำเป็นออกไป</string>
-	<string name="editor_sharing_title">ฉันได้ปรับปรุงแผนที่ Organic Maps</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d จาก %2$d</string>
 	<string name="download_over_mobile_header">ดาวน์โหลดโดยใช้การเชื่อมต่อเครือข่ายมือถือ?</string>
@@ -502,7 +424,6 @@
 	<string name="editor_detailed_description">คำแนะนำการเปลี่ยนแปลงของคุณจะถูกส่งไปยังกลุ่ม OpenStreetMap โปรดอธิบายรายละเอียดที่ Organic Maps ไม่สามารถแก้ไขได้</string>
 	<string name="editor_more_about_osm">ข้อมูลเพิ่มเติมเกี่ยวกับ OpenStreetMap</string>
 	<string name="editor_operator">เจ้าของ</string>
-	<string name="downloader_my_maps_title">แผนที่ของฉัน</string>
 	<string name="downloader_no_downloaded_maps_title">คุณยังไม่ได้ดาวน์โหลดแผนที่</string>
 	<string name="downloader_no_downloaded_maps_message">ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -511,14 +432,6 @@
 	<string name="current_location_unknown_message">ไม่ทราบชื่อสถานที่ปัจจุบัน คุณอาจจะอยู่ในอาคาร หรือ ในอุโมงค์</string>
 	<string name="current_location_unknown_continue_button">ดำเนินการต่อ</string>
 	<string name="current_location_unknown_stop_button">หยุด</string>
-	<string name="current_location_unknown_error_title">ไม่ทราบชื่อของที่ตั้งปัจจุบัน</string>
-	<string name="current_location_unknown_error_message">มีข้อผิดพลาดเกิดขึ้นในขณะที่กำลังหาที่ตั้งที่คุณอยู่ โปรดตรวจสอบอุปกรณ์ของคุณว่าทำงานถูกต้อง และลองใหม่อีกครั้ง</string>
-	<string name="location_services_disabled_header">ปิดการใช้งานการระบุตำแหน่งที่ตั้งแล้ว</string>
-	<string name="location_services_disabled_message">เปิดใช้งานการเข้าถึงตำแหน่งภูมิศาสตร์ในการตั้งค่าอุปกรณ์</string>
-	<string name="location_services_disabled_1">1. เปิดการตั้งค่า</string>
-	<string name="location_services_disabled_2">2. แตะตำแหน่งที่ตั้ง</string>
-	<!-- iOS Dialog for the case when the location permission is not granted -->
-	<string name="location_services_disabled_3">3. เลือกในขณะใช้แอป</string>
 	<string name="meter">ม.</string>
 	<string name="kilometer">กม.</string>
 	<string name="kilometers_per_hour">กม./ชม.</string>
@@ -533,38 +446,24 @@
 	<string name="book_button">จอง</string>
 	<string name="placepage_call_button">โทร</string>
 	<string name="placepage_edit_bookmark_button">แก้ไข Bookmark</string>
-	<string name="placepage_bookmark_name_hint">ชื่อของ Bookmark</string>
-	<string name="placepage_personal_notes_hint">ข้อความส่วนตัว</string>
-	<string name="placepage_delete_bookmark_button">ลบ Bookmark</string>
-	<string name="editor_edits_sent_message">คำแนะนำการเปลี่ยนแปลงของคุณถูกส่งไปแล้ว</string>
 	<string name="editor_comment_hint">ข้อคิดเห็น</string>
 	<string name="editor_reset_edits_message">ตั้งค่าการเปลี่ยนแปลงท้องถิ่นทั้งหมด</string>
 	<string name="editor_reset_edits_button">ตั้งค่าใหม่</string>
 	<string name="editor_remove_place_message">ลบที่ที่เพิ่มออก</string>
 	<string name="editor_remove_place_button">ลบออก</string>
 	<string name="editor_place_doesnt_exist">ไม่พบสถานที่นี้</string>
-	<string name="text_more_button">…เพิ่มเติม</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">กรอกหมายเลขโทรศัพท์ที่ถูกต้อง</string>
 	<string name="error_enter_correct_web">กรอกที่อยู่เว็บที่ถูกต้อง</string>
 	<string name="error_enter_correct_email">กรอกอีเมลที่ถูกต้อง</string>
-	<string name="refresh">อัปเดต</string>
 	<string name="placepage_add_place_button">เพิ่มสถานที่ไปยังแผนที่</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">คุณต้องการส่งมันให้ผู้ใช้ทั้งหมดหรือไม่?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ</string>
 	<string name="editor_share_to_all_dialog_message_2">เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล</string>
-	<string name="navigation_stop_button">หยุด</string>
-	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-	<string name="recent_track_background_dialog_title">ปิดการใช้งานการบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้?</string>
-	<string name="off_recent_track_background_button">ปิดการใช้งาน</string>
-	<!-- For sharing via SMS and so on -->
-	<string name="sharing_call_action_look">ตรวจชม</string>
-	<string name="recent_track_background_dialog_message">Organic Maps ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้</string>
 	<!-- Text under the version number in the Help dialog. -->
 	<string name="about_description">Organic Maps เป็นแอปพลิเคชันแผนที่ออฟไลน์แบบโอเพนซอร์สฟรี ไม่มีโฆษณา ไม่มีการติดตาม. หากคุณเห็นข้อผิดพลาดบนแผนที่ โปรดแก้ไขใน OpenStreetMap โครงการนี้สร้างขึ้นโดยผู้ที่ชื่นชอบในเวลาว่าง เราจึงต้องการความคิดเห็นและการสนับสนุนจากคุณ</string>
-	<string name="general_settings">การตั้งค่าทั่วไป</string>
 	<!-- For the first routing -->
 	<string name="accept">ยอมรับ</string>
 	<!-- For the first routing -->
@@ -582,8 +481,6 @@
 	<string name="traffic_update_maps_text">ต้องอัปเดตแผนที่เพื่อแสดงข้อมูลการจราจร</string>
 	<string name="big_font">เพิ่มขนาดฟอนต์บนแผนที่</string>
 	<string name="traffic_update_app">กรุณาอัปเดต Organic Maps</string>
-	<!-- "traffic" as in road congestion -->
-	<string name="traffic_update_app_message">ในการแสดงข้อมูลการจราจร แอปพลิเคชั่นจะต้องอัปเดตก่อน</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">ไม่มีข้อมูลการจราจร</string>
 	<string name="enable_logging">เปิดใช้งานการเก็บล็อก</string>
@@ -600,13 +497,8 @@
 	<string name="routing_add_start_point">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
 	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>
 	<string name="button_exit">ออก</string>
-	<string name="planning_route_manage_route">จัดการเส้นทาง</string>
-	<string name="button_plan">วางแผน</string>
 	<string name="placepage_remove_stop">เอาออก</string>
-	<string name="planning_route_remove_title">ลากมาที่นี่เพื่อเอาออก</string>
 	<string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
-	<string name="start_from_my_position">เริ่มจาก</string>
-	<string name="profile_authorization_error">โอ๊ะ มีข้อผิดพลาดเกิดขึ้น ลองลงชื่อเข้าใช้อีกครั้ง</string>
 	<string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>
 	<string name="dialog_error_storage_message">ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">จำลองแบบที่เก็บข้อมูลที่ไม่ดี</string>
@@ -616,14 +508,7 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">ซ่อนทั้งหมด</string>
 	<string name="bookmark_lists_show_all">แสดงทั้งหมด</string>
-	<plurals name="bookmarks_places">
-	  <item quantity="other">%d บุ๊กมาร์ก</item>
-	</plurals>
 	<string name="bookmarks_create_new_group">สร้างรายการใหม่</string>
-	<string name="downloader_hide_screen">ซ่อนหน้าจอ</string>
-	<string name="downloader_percent">%1$s (%2$s จาก %3$s)</string>
-	<string name="downloader_process">กำลังดาวน์โหลด %s…</string>
-	<string name="downloader_applying">กำลังนำ %s ไปใช้งาน…</string>
 	<string name="bookmarks_error_message_share_general">ไม่สามารถแชร์ได้เนื่องจากเกิดข้อผิดพลาดในแอปพลิเคชัน</string>
 	<string name="bookmarks_error_title_share_empty">ข้อผิดพลาดในการแชร์</string>
 	<string name="bookmarks_error_message_share_empty">ไม่สามารถแชร์รายการที่ว่างเปล่าได้</string>
@@ -632,21 +517,13 @@
 	<string name="bookmarks_new_list_hint">รายการใหม่</string>
 	<string name="bookmarks_error_title_list_name_already_taken">ชื่อนี้ถูกนำมาใช้แล้ว</string>
 	<string name="bookmarks_error_message_list_name_already_taken">โปรดเลือกชื่ออื่น</string>
-	<string name="bookmarks_error_title_list_name_too_long">ชื่อนี้ยาวเกินไป</string>
 	<string name="please_wait">โปรดรอสักครู่ …</string>
 	<string name="phone_number">หมายเลขโทรศัพท์</string>
 	<string name="profile">โปรไฟล์ OpenStreetMap</string>
-	<string name="bookmarks_detect_title">พบไฟล์ใหม่แล้ว</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d ไฟล์ที่ค้นพบ คุณจะเห็นพวกเขาหลังจากการแปลง</item>
 	</plurals>
-	<string name="button_convert">แปลง</string>
-	<string name="bookmarks_convert_error_title">ความผิดพลาด</string>
-	<string name="bookmarks_convert_error_message">ไฟล์บางไฟล์ไม่ได้รับการแปลง</string>
-	<string name="bookmarks_restore_title">เรียกคืนเวอร์ชันนี้หรือไม่?</string>
 	<string name="common_check_internet_connection_dialog_title">ไม่มีการเชื่อมต่ออินเทอร์เน็ต</string>
-	<string name="error_system_message">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
-	<string name="restore">ฟื้นฟู</string>
 	<plurals name="objects">
 	  <item quantity="other">%d สถานที่</item>
 	</plurals>
@@ -668,17 +545,13 @@
 	<string name="bookmarks_empty_list_title">รายการนี้ว่างเปล่า</string>
 	<string name="bookmarks_empty_list_message">เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว</string>
 	<string name="category_desc_more">…เพิ่มเติม</string>
-	<string name="title_error_downloading_bookmarks">มีข้อผิดพลาดเกิดขึ้น</string>
 	<string name="export_file">ส่งออกไฟล์</string>
 	<string name="list_settings">การตั้งค่ารายการ</string>
 	<string name="delete_list">ลบรายการ</string>
-	<string name="hide_from_map">ซ่อนจากแผนที่</string>
 	<string name="public_access">เข้าถึงได้โดยสาธารณะ</string>
 	<string name="limited_access">จำกัดการเข้าถึง</string>
 	<string name="bookmark_list_description_hint">พิมพ์รายละเอียด (ข้อความหรือ html)</string>
 	<string name="not_shared">ส่วนตัว</string>
-	<string name="tags_loading_error_subtitle">เกิดข้อผิดพลาดขณะโหลดแท็ก โปรดลองใหม่อีกครั้ง</string>
-	<string name="download_button">ดาวน์โหลด</string>
 	<string name="speedcams_alert_title">กล้องตรวจจับความเร็ว</string>
 	<string name="speedcam_option_auto">อัตโนมัติ</string>
 	<string name="speedcam_option_always">ทุกครั้ง</string>
@@ -686,7 +559,6 @@
 	<string name="place_description_title">รายละเอียดของสถานที่</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">ตัวดาวน์โหลดแผนที่</string>
-	<string name="speedcams_notice_message">อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว</string>
 	<string name="power_managment_title">โหมดประหยัดพลังงาน</string>
 	<string name="power_managment_description">เมื่อโหมดอัตโนมัตินั้นถูกเลือก แอปพลิเคชันจะเริ่มหยุดการใช้พลังงานจากแบตเตอรีขึ้นอยู่กับจำนวนไฟในแบตเตอรีว่าเหลือเท่าไร</string>
 	<string name="power_managment_setting_never">ไม่ใช้</string>
@@ -710,44 +582,11 @@
 	<string name="avoid_toll_roads_placepage">เลี่ยงทางที่ต้องเสียเงินทั้งหมด</string>
 	<string name="avoid_unpaved_roads_placepage">เลี่ยงถนนดินทั้งหมด</string>
 	<string name="avoid_ferry_crossing_placepage">เลี่ยงการข้ามฟากด้วยเรือ</string>
-	<string name="trip_start">ไปกันเลย</string>
-	<string name="pick_destination">จุดหมาย</string>
-	<string name="follow_my_position">รีเซ็นเตอร์</string>
-	<string name="search_results">ผลการค้นหา</string>
-	<string name="then_turn">จากนั้น</string>
-	<string name="redirect_route_alert">ต้องการสร้างเส้นทางใหม่หรือไม่</string>
-	<string name="redirect_route_yes">ใช่</string>
-	<string name="redirect_route_no">ไม่ใช่</string>
-	<string name="trip_finished">คุณมาถึงแล้ว!</string>
-	<string name="keyboard_availability_alert">คีย์บอร์ดไม่สามารถใช้งานได้ขณะขับขี่</string>
-	<string name="dialog_routing_change_start_carplay">ไม่สามารถสร้างเส้นทางจากตำแหน่งปัจจุบันของคุณ</string>
-	<string name="dialog_routing_change_end_carplay">ไม่สามารถสร้างเส้นทางไปยังจุดหมายของคุณ โปรดเลือกจุดหมายใหม่</string>
-	<string name="dialog_routing_check_gps_carplay">ไม่มีสัญญาณจีพีเอส โปรดไปในที่โล่งเพื่อหาสัญญาณ</string>
-	<string name="dialog_routing_unable_locate_route_carplay">ไม่สามารถคำนวณเส้นทาง โปรดระบุตำแหน่งของเส้นทางอื่น</string>
-	<string name="dialog_routing_download_files_carplay">เพื่อสร้างเส้นทาง โปรดดาวน์โหลดแผนที่บนอุปกรณ์ของคุณ</string>
-	<string name="dialog_routing_system_error_carplay">พบข้อผิดพลาด โปรดปิดและเปิดแอปพลิเคชันใหม่อีกครั้ง</string>
-	<string name="dialog_routing_rebuild_from_current_location_carplay">เส้นทางจะถูกสร้างอีกครั้งจากตำแหน่งปัจจุบันของคุณ</string>
-	<string name="dialog_routing_rebuild_for_vehicle_carplay">เส้นทางของรถยนต์อาจถูกปรับเปลี่ยน</string>
 	<string name="ok">โอเค</string>
-	<string name="avoid_unpaved_carplay_1">ไม่มีลูกรัง</string>
-	<string name="avoid_unpaved_carplay_2">หลีกเลี่ยงทาง</string>
-	<string name="avoid_ferry_carplay_1">ไม่มีเรือ</string>
-	<string name="avoid_ferry_carplay_2">หลีกเลี่ยงเรือ</string>
-	<string name="avoid_tolls_carplay_1">ไม่มีค่าผ่าน</string>
-	<string name="avoid_tolls_carplay_2">เลี่ยงทางด่วน</string>
-	<string name="speedcams_alert_title_carplay_1">จับความเร็ว</string>
-	<string name="speedcams_alert_title_carplay_2">เตือนความเร็ว</string>
-	<string name="download_map_carplay">โปรดดาวน์โหลดแผนที่ในแอพฯ Organic Maps บนอุปกรณ์ของคุณ</string>
-	<string name="carplay_roundabout_exit">ทางออกที่ %s</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">เรียง…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">เรียงบุ๊กมาร์ก</string>
-	<!-- iOS -->
-	<string name="sort_default">เรียงตามค่าเริ่มต้น</string>
-	<string name="sort_type">เรียงตามประเภท</string>
-	<string name="sort_distance">เรียงตามระยะทาง</string>
-	<string name="sort_date">เรียงตามวันที่</string>
 	<!-- Android -->
 	<string name="by_default">ตามค่าเริ่มต้น</string>
 	<!-- Android -->
@@ -786,10 +625,6 @@
 	<string name="button_layer_isolines">ความสูง</string>
 	<string name="isolines_activation_error_dialog">ในการเปิดใช้งานเลเยอร์แผนที่ภูมิประเทศโปรดอัปเดตหรือดาวน์โหลดแผนที่ของบริเวณนั้น</string>
 	<string name="isolines_location_error_dialog">เลเยอร์แผนที่ภูมิประเทศยังใช้งานไม่ได้ในพื้นที่นี้</string>
-	<string name="elevation_profile_diff_level">ระดับความยาก</string>
-	<string name="elevation_profile_diff_level_easy">ง่าย</string>
-	<string name="elevation_profile_diff_level_moderate">ปานกลาง</string>
-	<string name="elevation_profile_diff_level_hard">ยาก</string>
 	<string name="elevation_profile_ascent">การขึ้น</string>
 	<string name="elevation_profile_descent">การลง</string>
 	<string name="elevation_profile_minaltitude">ระดับความสูงต่ำสุด</string>
@@ -798,22 +633,9 @@
 	<string name="elevation_profile_distance">ระยะทาง</string>
 	<string name="elevation_profile_time">เวลา:</string>
 	<string name="isolines_toast_zooms_1_10">ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง</string>
-	<string name="downloader_updating_ios">การอัปเดต</string>
-	<string name="downloader_loading_ios">การดาวน์โหลด</string>
-	<string name="key_information_title">ข้อมูลหลัก</string>
 	<string name="enable_screen_sleep">อนุญาตให้หน้าจอเข้าสู่โหมดสลีป</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">เมื่อเปิดใช้งานหน้าจอจะได้รับอนุญาตให้เข้าสู่โหมดสลีปหลังจากไม่มีการใช้งานเป็นระยะเวลาหนึ่ง</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">อัปเดตแผนที่ที่คุณดาวน์โหลดมา</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">การอัปเดตแผนที่จะคงข้อมูลเกี่ยวกับจุดหมายต่าง ๆ ให้ล่าสุดอยู่เสมอ</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_size">อัปเดต (%s)</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_later">อัปเดตด้วยตนเองภายหลัง</string>
-	<!-- edit track screen title -->
-	<string name="track_title">ติดตาม</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

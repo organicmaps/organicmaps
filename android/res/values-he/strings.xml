@@ -8,8 +8,6 @@
 	<string name="back">חזור</string>
 	<!-- Button text (should be short) -->
 	<string name="cancel">בטל</string>
-	<!-- Button which interrupts country download -->
-	<string name="cancel_download">בטל  הורדת הקובץ</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">מחק</string>
 	<string name="download_maps">הורד קבצי מפות</string>
@@ -19,8 +17,6 @@
 	<string name="downloading">מוריד….</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">ק\"מ</string>
-	<!-- Leave Review dialog - Review button -->
-	<string name="leave_a_review">הבע דעתך</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">מפות</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -31,17 +27,12 @@
 	<string name="later">מאוחר יותר</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">חפש במפה</string>
-	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
-	<string name="use_cellular_data">כן</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">שרותי המיקום של מכשיר או ישום זה זה כבויים. הכנס ל \"הגדרות\" Settings)) כדי להדליקם.</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
-	<string name="country_status_download_without_size">הורידו מפה</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">הורדנכשלה</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">נסה שוב</string>
-	<string name="about_menu_title">Organic Maps אודות</string>
 	<string name="connection_settings">הגדרות תקשורת</string>
 	<string name="close">סגור</string>
 	<string name="unsupported_phone">נדרש מאיץ חומרה OpenGL. לצערינו מכשיר זה אינו נתמך.</string>
@@ -66,8 +57,6 @@
 	<string name="bookmark_color">צבע רשימת האתרים</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">שם רשימת האתרים</string>
-	<!-- "Bookmark Lists" dialog title -->
-	<string name="bookmark_sets">רשימות אתרים</string>
 	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">רשימות אתרים</string>
 	<!-- Default bookmark list name -->
@@ -146,12 +135,8 @@
 	<string name="share">הפץ</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">הועתקו לזכרון זמני %1$s</string>
-	<!-- place preview title -->
-	<string name="info">מידע</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">בוצע</string>
-	<!-- Prints version number in About dialog -->
-	<string name="version">%s וורסיה</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">האם הנך בטוח שרצונך להמשיך?</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -161,7 +146,6 @@
 	<string name="share_my_location">שתף את מקומי</string>
 	<string name="pref_zoom_title">כפתורי זום</string>
 	<string name="pref_zoom_summary">הצג על המסך</string>
-	<string name="placepage_distance">מרחק</string>
 	<string name="search_show_on_map">ראה במפה</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">דרגו את האפליקציה</string>
@@ -175,20 +159,10 @@
 	<string name="copyright">זכויות יוצרים</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">דווחו על באג</string>
-	<!-- Alert text -->
-	<string name="email_error_body">יישום הדוא\"ל לא הוגדר. אנא קבעו את תצורתו או השתמשו בכל דרך אחרת על מנת ליצור עמנו קשר בכתובת %s</string>
-	<!-- Alert title -->
-	<string name="email_error_title">שגיאה בשליחת דוא\"ל</string>
-	<!-- Settings item title -->
-	<string name="pref_calibration_title">כיול המצפן</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">בטל הכול</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">נוסף/ו לתור</string>
-	<!-- Status of outdated country in the list -->
-	<string name="downloader_status_outdated">לְעַדְכֵּן</string>
-	<!-- Status of failed country in the list -->
-	<string name="downloader_status_failed">נכשלה</string>
 	<!-- PointsInDifferentMWM -->
 	<string name="routing_failed_cross_mwm_building">ניתן ליצור רק מסלולים שמוכלים במלואם בתוך מפה אחת.</string>
 	<!-- Context menu item for downloader. -->
@@ -197,8 +171,6 @@
 	<string name="downloader_delete_map">מחק מפה</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">עדכן מפה</string>
-	<!-- bookmark button text -->
-	<string name="bookmark">סימניה</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">כן</string>
 
@@ -213,8 +185,6 @@
 	<string name="dialog_routing_location_turn_wifi">בדוק את אות ה-GPS שלך. הפעלת ה-Wi-Fi תשפר את הדיוק בזיהוי המיקום שלך.</string>
 	<string name="dialog_routing_location_turn_on">הפעל שירותי מיקום</string>
 	<string name="dialog_routing_location_unknown_turn_on">לא ניתן לאתר קואורדינטות GPS נוכחיות. הפעל שירותי מיקום כדי לחשב מסלול.</string>
-	<string name="dialog_routing_download_files">הורד את הקבצים הדרושים</string>
-	<string name="dialog_routing_download_and_update_all">הורד ועדכן את כל מידע המפות ויצירת המסלולים לאורך הנתיב הצפוי, כדי לחשב מסלול.</string>
 	<string name="dialog_routing_unable_locate_route">לא ניתן לאתר מסלול</string>
 	<string name="dialog_routing_cant_build_route">לא ניתן ליצור מסלול.</string>
 	<string name="dialog_routing_change_start_or_end">כוונן את נקודת ההתחלה או היעד שלך.</string>
@@ -227,7 +197,6 @@
 	<string name="dialog_routing_system_error">שגיאת מערכת</string>
 	<string name="dialog_routing_application_error">לא ניתן ליצור מסלול עקב שגיאת אפליקציה.</string>
 	<string name="dialog_routing_try_again">נסה שוב</string>
-	<string name="not_now">לא עכשיו</string>
 	<string name="dialog_routing_download_and_build_cross_route">האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?</string>
 	<string name="dialog_routing_download_cross_route">הורד את המפה כדי ליצור מסלול מיטבי יותר, החוצה את הגבול של מפה זו.</string>
 
@@ -235,26 +204,12 @@
 	<string name="search_without_internet_advertisement">על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה ולא תזדקקו יותר לחיבור לאינטרנט.</string>
 	<string name="search_select_map">בחרו את המפה</string>
 	<string name="twentyfour_seven">יום ולילה</string>
-	<string name="location_services_disabled_header">זיהוי המיקום אינו מופעל</string>
-	<string name="location_services_disabled_message">אפשרו גישה לגאולוקיישן בהגדרות המכשיר</string>
-	<string name="location_services_disabled_1">1. פתחו את \"הגדרות\" (Settings)</string>
-	<string name="location_services_disabled_2">2. געו ב\"מיקום\" (Location)</string>
 	<!-- Text under the version number in the Help dialog. -->
 	<string name="about_description">Organic Maps היא אפליקציית מפות לא מקוונות בחינם ובקוד פתוח. ללא פרסומות. אין מעקב. אם אתה רואה שגיאה במפה, אנא תקן אותה ב-OpenStreetMap. הפרויקט נוצר על ידי חובבים בזמננו הפנוי, אז אנו זקוקים למשוב ולתמיכה שלכם.</string>
 	<string name="transliteration_title">תעתיק ללטינית</string>
 	<string name="enable_screen_sleep">אפשר למסך לישון</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">כאשר מופעל המסך יורשה לישון לאחר תקופה של חוסר פעילות.</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">עדכן את המפות שהורדת</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">עדכון המפות שומר על המידע שבהן עדכני</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_size">עדכן (%s)</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_later">עדכן ידנית מאוחר יותר</string>
-	<!-- edit track screen title -->
-	<string name="track_title">מַסלוּל</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.cuisine.african">מטבח אפריקאי</string>

@@ -7,9 +7,6 @@
 /********** Strings **********/
 
 /* Button text (should be short) */
-"back" = "返回";
-
-/* Button text (should be short) */
 "cancel" = "取消";
 
 /* Button which interrupts country download */
@@ -19,9 +16,6 @@
 "delete" = "删除";
 
 "download_maps" = "下载地图";
-
-/* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "下载失败，重新轻触再试一次";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "下载…";
@@ -35,11 +29,6 @@
 /* View and button titles for accessibility */
 "maps" = "地图";
 
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"mb" = "MB";
-
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "英里";
 
@@ -52,14 +41,8 @@
 /* View and button titles for accessibility */
 "search" = "搜索";
 
-/* Search box placeholder text */
-"search_map" = "搜索地图";
-
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "是";
-
-/* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "您目前有此设备的所有位置服务或应用已禁用。请在设置中启用它们。";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "在地图上显示";
@@ -70,43 +53,14 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "下载失败";
 
-/* Button text for the button under the country_status_download_failed message */
-"try_again" = "重试";
-
 "about_menu_title" = "关于 Organic Maps";
-
-"connection_settings" = "连接设置";
 
 "close" = "关闭";
 
-"unsupported_phone" = "硬件加速的 OpenGL 是必需的。遗憾的是您的设备不支持此功能。";
-
 "download" = "下载";
-
-"disconnect_usb_cable" = "请断开 USB 线或插入存储卡以使用 Organic Maps";
-
-"not_enough_free_space_on_sdcard" = "请在存储卡/ USB 储存设备上释放一些空间以 使用此应用";
-
-"not_enough_memory" = "没有足够的内存来启动应用程序";
-
-"download_resources" = "在您开始前请让我们下载通用世界地图至您的设备中。\n它需要%@的 数据。";
-
-"download_resources_continue" = "前往地图";
-
-"downloading_country_can_proceed" = "下载 %@。您现在可\n前往地图。";
-
-"download_country_ask" = "下载 %@?";
-
-"update_country_ask" = "更新 %@?";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"pause" = "暂停";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "继续";
-
-/* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "%@下载失败";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "添加新的集合";
@@ -126,35 +80,14 @@
 /* Default bookmark list name */
 "core_my_places" = "我的位置";
 
-/* Add bookmark dialog - bookmark name */
-"name" = "名字";
-
 /* Editor title above street and house number */
 "address" = "地址";
-
-/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
-"list" = "集合";
 
 /* Settings button in system menu */
 "settings" = "设置";
 
-/* Header of settings activity where user defines storage path */
-"maps_storage" = "将地图保存到";
-
-/* Detailed description of Maps Storage settings button */
-"maps_storage_summary" = "选取地图应该下载的位置";
-
-/* Question dialog for transferring maps from one storage to another */
-"move_maps" = "移动地图？";
-
-/* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "这可能需要几分钟的时间。\n请稍候…";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "测量单位";
-
-/* Detailed description of Measurement Units settings button */
-"measurement_units_summary" = "选择英里或公里";
 
 /* Search category for cafes, bars, restaurants */
 "eat" = "在哪儿吃";
@@ -210,12 +143,6 @@
 /* Search category */
 "police" = "警察";
 
-/* Notes field in Bookmarks view */
-"description" = "注释";
-
-/* Email Subject when sharing bookmark list */
-"share_bookmarks_email_subject" = "Organic Maps 书签已与您共享";
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -233,32 +160,17 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "您的位置尚未确定";
 
-/* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "抱歉，地图存储设置目前被禁用";
-
-/* Alert message that downloading is in progress. */
-"downloading_is_active" = "地图下载进行中。";
-
-/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "嘿，在 Organic Maps 上查看我目前的位置吧!%1$@ 或%2$@ 未安装离线地图？在此下载: https://omaps.app/get";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "嘿，在 Organic Maps 上查看我标注的图钉吧！";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "嗨，到 Organic Maps 查看我的当前位置！";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
-"my_position_share_email" = "嗨，\n\n我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的位置。\n\n谢谢。";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "分享";
 
 /* Share by email button text, also used in editor. */
 "email" = "邮件";
-
-/* Text for message when used successfully copied something */
-"copied_to_clipboard" = "复制到剪贴板:%1$@";
 
 /* place preview title */
 "info" = "信息";
@@ -272,9 +184,6 @@
 /* Data version in «About» screen */
 "data_version" = "资料版本： %d";
 
-/* Confirmation in downloading countries dialog */
-"are_you_sure" = "您确定要继续吗？";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "轨迹";
 
@@ -283,17 +192,9 @@
 
 "share_my_location" = "共享我的位置";
 
-/* Settings general group in settings screen */
-"prefs_group_general" = "常规设置";
-
-/* Settings information group in settings screen */
-"prefs_group_information" = "信息";
-
 "prefs_group_route" = "导航";
 
 "pref_zoom_title" = "缩放按钮";
-
-"pref_zoom_summary" = "在屏幕上显示";
 
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "夜间模式";
@@ -318,9 +219,6 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "语音语言";
-
-/* Settings «Route» category: «Tts unavailable» subtitle */
-"pref_tts_unavailable" = "无法使用";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "其他";
@@ -366,12 +264,6 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in the editor */
-"editor_line_social_network" = "LINE";
-
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
@@ -383,12 +275,6 @@
 
 /* Text in menu */
 "help" = "帮助";
-
-/* Button in the main Help dialog */
-"faq" = "问题和解答";
-
-/* Button in the main Help dialog */
-"how_to_support_us" = "如何支持我们？";
 
 /* Button in the main Help dialog */
 "copyright" = "版权";
@@ -410,9 +296,6 @@
 
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";
-
-/* Cancel all button text */
-"downloader_cancel_all" = "全部取消";
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "已下载";
@@ -454,12 +337,6 @@
 /* Item in context menu. */
 "downloader_delete_map" = "删除地图";
 
-/* Item in context menu. */
-"downloader_update_map" = "更新地图";
-
-/* Preference text */
-"pref_use_google_play" = "使用Google Play服务以获取您的当前位置。";
-
 /* Text for rating dialog */
 "rating_just_rated" = "我刚刚评价了您的应用";
 
@@ -478,18 +355,10 @@
 /* Text for routing error dialog */
 "routing_requires_all_map" = "创建路线需要下载并更新好所有从您的位置到目的地的地图。";
 
-/* Text for routing error dialog */
-"routing_not_enough_space" = "空间不足";
-
 /* bookmark button text */
 "bookmark" = "书签";
 
-/* location service disabled */
-"enable_location_services" = "请启用位置服务";
-
 "save" = "保存";
-
-"edit_description_hint" = "您的描述（文本或html）";
 
 "create" = "创建";
 
@@ -575,8 +444,6 @@
 
 "dialog_routing_unable_locate_route" = "无法定位路线";
 
-"dialog_routing_cant_build_route" = "无法创建路线。";
-
 "dialog_routing_change_start_or_end" = "请调整您的起点或目的地。";
 
 "dialog_routing_change_start" = "调整出发点";
@@ -609,10 +476,6 @@
 
 
 /********** Strings for downloading map from search **********/
-
-"search_without_internet_advertisement" = "要开始搜索和创建路线，请下载地图，那您就不再需要网络连接了。";
-
-"search_select_map" = "选择地图";
 
 /* «Show» context menu */
 "show" = "显示";
@@ -655,9 +518,6 @@
 
 "clear_search" = "清除历史搜索";
 
-/* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "维基百科";
-
 "p2p_your_location" = "您的位置";
 
 "p2p_start" = "开始";
@@ -669,9 +529,6 @@
 "p2p_only_from_current" = "导航只能从您目前的位置开始。";
 
 "p2p_reroute_from_current" = "你是否想要规划当前位置的路线？";
-
-/* Edit open hours/set time and minutes dialog */
-"next_button" = "下一页";
 
 "editor_time_add" = "添加计划";
 
@@ -696,27 +553,13 @@
 
 "editor_example_values" = "示例值";
 
-"editor_correct_mistake" = "纠正错误";
-
 "editor_add_select_location" = "位置";
 
 "editor_done_dialog_1" = "您已经改变了世界地图。请不要隐藏这一点！告诉您的朋友们并一起编辑它。";
 
 "share_with_friends" = "与朋友分享";
 
-"editor_report_problem_desription_1" = "请详细描述此问题以便OpenStreeMap社区能够修复此错误。";
-
-"editor_report_problem_desription_2" = "或者在https://www.openstreetmap.org/上亲自修复此错误。";
-
 "editor_report_problem_send_button" = "发送";
-
-"editor_report_problem_title" = "问题";
-
-"editor_report_problem_no_place_title" = "该地点不存在";
-
-"editor_report_problem_under_construction_title" = "因维护而关闭";
-
-"editor_report_problem_duplicate_place_title" = "重复的地点";
 
 "autodownload" = "自动下载";
 
@@ -736,8 +579,6 @@
 
 "add_opening_hours" = "添加工作时间";
 
-"edit_opening_hours" = "编辑工作时间";
-
 "no_osm_account" = "在OpenStreetMap上没有账户吗？";
 
 "register_at_openstreetmap" = "注册";
@@ -747,8 +588,6 @@
 "invalid_username_or_password" = "无效的用户名或密码。";
 
 "login" = "登录";
-
-"password" = "密码";
 
 "forgot_password" = "忘记密码";
 
@@ -767,8 +606,6 @@
 
 "add_language" = "添加语言";
 
-"street" = "街道";
-
 /* Editable House Number text field (in address block). */
 "house_number" = "门牌号码";
 
@@ -776,9 +613,6 @@
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "添加街道";
-
-/* Error to display when a new street name is not entered in the New street dialog */
-"empty_street_name_error" = "Please enter a street name";
 
 "choose_language" = "选择语言";
 
@@ -795,15 +629,11 @@
 
 "phone" = "电话";
 
-"editor_add_phone" = "Add Phone";
-
 "please_note" = "请注意";
 
 "downloader_delete_map_dialog" = "所有对地图的修改都将与地图一起被删除。";
 
 "downloader_update_maps" = "更新地图";
-
-"downloader_mwm_migration_dialog" = "为了创建路线，您需要更新全部地图并重新规划路线。";
 
 "downloader_search_field_hint" = "找到地图";
 
@@ -814,8 +644,6 @@
 "downloader_no_space_title" = "无足够的空间";
 
 "downloader_no_space_message" = "请删除不必要的数据";
-
-"editor_login_error_dialog" = "登录错误。";
 
 "editor_profile_changes" = "已验证的更改";
 
@@ -834,12 +662,6 @@
 "editor_edit_place_name_hint" = "该地点的名称";
 
 "editor_edit_place_category_title" = "类别";
-
-"detailed_problem_description" = "问题的详细描述";
-
-"editor_report_problem_other_title" = "一个不同的问题";
-
-"placepage_add_business_button" = "添加组织";
 
 "whatsnew_editor_message_1" = "添加新地点到该地图，并直接通过此应用编辑已存在的地点。";
 
@@ -928,15 +750,9 @@
 
 "miles_per_hour" = "英里每小时";
 
-"hour" = "小時";
-
-"minute" = "分鐘";
-
 "placepage_place_description" = "说明";
 
 "placepage_more_button" = "更多";
-
-"placepage_more_reviews_button" = "更多评论";
 
 "book_button" = "预約";
 
@@ -964,9 +780,6 @@
 
 "editor_place_doesnt_exist" = "位置不存在";
 
-/* Error message for "Place doesn't exist" dialog when comment is empty */
-"delete_place_empty_comment_error" = "Please indicate the reason for deleting the place";
-
 "text_more_button" = "…更多";
 
 /* Phone number error message */
@@ -975,16 +788,6 @@
 "error_enter_correct_web" = "输入有效网址";
 
 "error_enter_correct_email" = "输入有效电子邮箱";
-
-"error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-
-"error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-
-"error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-
-"error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
-
-"error_enter_correct_line_page" = "Enter a valid LINE web address or LINE ID";
 
 "refresh" = "更新";
 
@@ -1044,15 +847,11 @@
 
 "big_font" = "增大地图上的字体大小";
 
-"traffic_update_app" = "请更新 Organic Maps";
-
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "要显示交通数据，必须更新应用。";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "交通数据不可用";
-
-"enable_logging" = "启用记录";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "一般反馈";
@@ -1061,23 +860,13 @@
 
 "off" = "关";
 
-"prefs_languages_information" = "我们为语音指令使用“文字转语音”系统。许多 Android 设备使用 Google 文字转语音，您可以从 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下载或更新这一功能";
-
-"prefs_languages_information_off" = "对于某些语言，您需要从应用商店（Google Play Market、Samsung Apps）中安装其他语音合成器或语言包。\n打开您的设备的设置 → 语言和输入法 → 语音 → 文字转语音 (TTS) 输出。\n您可以在这里管理语音合成的设置（例如，下载语言包供离线使用）和选择其他文字转语音引擎。";
-
-"prefs_languages_information_off_link" = "如需了解更多信息，请查阅此指南。";
-
 "transliteration_title" = "直译成拉丁文";
-
-"learn_more" = "了解更多";
 
 "core_exit" = "退出";
 
 "routing_add_start_point" = "添加起点以规划路线";
 
 "routing_add_finish_point" = "添加终点以规划路线";
-
-"button_exit" = "退出";
 
 "planning_route_manage_route" = "管理路线";
 
@@ -1093,12 +882,6 @@
 
 "profile_authorization_error" = "糟糕，出错了。请尝试重新登录。";
 
-"dialog_error_storage_title" = "存储空间访问问题";
-
-"dialog_error_storage_message" = "外部存储空间不可用，可能是存储卡已移除、损坏，或者文件系统为只读。请检查，然后通过以下方式联系我们：support@organicmaps.app";
-
-"setting_emulate_bad_storage" = "模拟不良存储空间";
-
 "core_entrance" = "入口";
 
 "error_enter_correct_name" = "请输入正确的名称";
@@ -1111,9 +894,6 @@
 "bookmark_lists_show_all" = "全部顯示";
 
 "bookmarks_create_new_group" = "创建新的列表";
-
-/* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
 
 "downloader_hide_screen" = "隱藏屏幕";
 
@@ -1129,21 +909,11 @@
 
 "bookmarks_error_message_share_empty" = "无法分享空列表";
 
-"bookmarks_error_title_empty_list_name" = "名字不能为空";
-
 "bookmarks_error_message_empty_list_name" = "请输入列表名称";
-
-"bookmarks_new_list_hint" = "新的列表";
 
 "bookmarks_error_title_list_name_already_taken" = "这个名字已经被使用了";
 
-"bookmarks_error_message_list_name_already_taken" = "请选择其他名称";
-
 "bookmarks_error_title_list_name_too_long" = "这个名字太长了";
-
-"please_wait" = "请稍候…";
-
-"phone_number" = "电话号码";
 
 "profile" = "OpenStreetMap 资料";
 
@@ -1157,17 +927,9 @@
 
 "bookmarks_restore_title" = "还原这个版本？";
 
-"common_check_internet_connection_dialog_title" = "没有互联网连接";
-
 "error_system_message" = "出现未知错误";
 
 "restore" = "恢复";
-
-"subtittle_opt_out" = "支持设置";
-
-"crash_reports" = "错误报告";
-
-"crash_reports_description" = "我们可以使用您的数据来开发和改进Organic Maps。更改将在重新启动应用程序后生效。";
 
 "privacy_policy" = "隐私政策";
 
@@ -1181,12 +943,6 @@
 
 "subway_data_unavailable" = "地铁地图不可用";
 
-"bookmarks_empty_list_title" = "该列表为空";
-
-"bookmarks_empty_list_message" = "要添加新标签，请单击对象卡中的星形图标";
-
-"category_desc_more" = "…更多";
-
 "title_error_downloading_bookmarks" = "发生错误";
 
 "popular_place" = "Popular";
@@ -1199,13 +955,7 @@
 
 "hide_from_map" = "从卡中隐藏";
 
-"public_access" = "公共访问";
-
-"limited_access" = "私人访问";
-
 "bookmark_list_description_hint" = "请添加说明（文字或html）";
-
-"not_shared" = "私人";
 
 "tags_loading_error_subtitle" = "加载标签时出错，请重试";
 
@@ -1221,9 +971,6 @@
 
 "place_description_title" = "地点说明";
 
-/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "加载地图";
-
 "speedcams_notice_message" = "自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告";
 
 "power_managment_title" = "省电模式";
@@ -1235,10 +982,6 @@
 "power_managment_setting_auto" = "自动";
 
 "power_managment_setting_manual_max" = "最大程度省电";
-
-"enable_logging_warning_message" = "此选项启用以记录操作来进行诊断。这有助于团队识别应用程序的问题。请仅在Organic Maps支持请求时开启该选项。";
-
-"access_rules_author_only" = "在线编辑";
 
 "driving_options_title" = "绕行设置";
 
@@ -1333,9 +1076,6 @@
 /* max. 10 symbols, both iOS and Android */
 "sort" = "分类……";
 
-/* Android, title, max 20-22 symbols */
-"sort_bookmarks" = "分类标签";
-
 /* iOS */
 "sort_default" = "默认排序";
 
@@ -1344,18 +1084,6 @@
 "sort_distance" = "按距离排序";
 
 "sort_date" = "按日期排序";
-
-/* Android */
-"by_default" = "默认情况下";
-
-/* Android */
-"by_type" = "按类型";
-
-/* Android */
-"by_distance" = "按距离";
-
-/* Android */
-"by_date" = "按时间";
 
 "week_ago_sorttype" = "一周前";
 
@@ -1403,8 +1131,6 @@
 
 "religious_places" = "圣地";
 
-"select_list" = "选择列表";
-
 "transit_not_found" = "本区域的地铁导航目前不可用";
 
 "dialog_pedestrian_route_is_long_header" = "地铁路线图未找到";
@@ -1435,8 +1161,6 @@
 
 "elevation_profile_difficulty" = "难度";
 
-"elevation_profile_distance" = "距离：";
-
 "elevation_profile_time" = "在路上：";
 
 "isolines_toast_zooms_1_10" = "放大地图以查看等高线";
@@ -1446,17 +1170,6 @@
 "downloader_loading_ios" = "加载";
 
 "key_information_title" = "关键信息";
-
-"download_map_title" = "Download the world map";
-
-"connection_failure" = "Connection failure";
-
-"disconnect_usb_cable_title" = "Disconnect USB cable";
-
-"enable_screen_sleep" = "允许屏幕进入休眠状态";
-
-/* Description in preferences */
-"enable_screen_sleep_description" = "启用后，屏幕将在一段时间不活动后进入休眠状态。";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "更新已下载的地图";
@@ -2735,7 +2448,7 @@
 
 "type.railway.construction" = "在建铁路";
 
-"type.railway.crossing" = "Railway crossing";
+"type.railway.crossing" = "Railway Crossing";
 
 "type.railway.disused" = "废弃铁路";
 

@@ -7,9 +7,6 @@
 /********** Strings **********/
 
 /* Button text (should be short) */
-"back" = "Zpět";
-
-/* Button text (should be short) */
 "cancel" = "Zrušit";
 
 /* Button which interrupts country download */
@@ -19,9 +16,6 @@
 "delete" = "Smazat";
 
 "download_maps" = "Stáhnout mapy";
-
-/* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "Stahování selhalo, zkuste to znovu.";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Stahování…";
@@ -35,11 +29,6 @@
 /* View and button titles for accessibility */
 "maps" = "Mapy";
 
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"mb" = "MB";
-
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Míle";
 
@@ -52,14 +41,8 @@
 /* View and button titles for accessibility */
 "search" = "Hledat";
 
-/* Search box placeholder text */
-"search_map" = "Prohledat mapu";
-
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ano";
-
-/* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Ukázat na mapě";
@@ -70,43 +53,14 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Stahování selhalo";
 
-/* Button text for the button under the country_status_download_failed message */
-"try_again" = "Zkusit znovu";
-
 "about_menu_title" = "O aplikaci Organic Maps";
-
-"connection_settings" = "Nastavení připojení";
 
 "close" = "Zavřít";
 
-"unsupported_phone" = "Je vyžadována hardwarová akcelerace OpenGL. Bohužel, vaše zařízení není podporováno.";
-
 "download" = "Stáhnout";
-
-"disconnect_usb_cable" = "Prosím, odpojte USB kabel nebo vložte paměťovou kartu pro použití s Organic Maps";
-
-"not_enough_free_space_on_sdcard" = "Prosím, uvolněte nejprve místo na SD kartě/USB uložišti";
-
-"not_enough_memory" = "Nedostatek paměti ke spuštění aplikace";
-
-"download_resources" = "Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %@.";
-
-"download_resources_continue" = "Přejít na mapu";
-
-"downloading_country_can_proceed" = "Stahování %@. Nyní můžete\npřejít na mapu.";
-
-"download_country_ask" = "Stáhnout %@?";
-
-"update_country_ask" = "Aktualizovat %@?";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"pause" = "Pauza";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Pokračovat";
-
-/* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "Stahování selhalo: %@";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Přidat novou skupinu záložek";
@@ -126,35 +80,14 @@
 /* Default bookmark list name */
 "core_my_places" = "Moje místa";
 
-/* Add bookmark dialog - bookmark name */
-"name" = "Název";
-
 /* Editor title above street and house number */
 "address" = "Adresa";
-
-/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
-"list" = "Skupina";
 
 /* Settings button in system menu */
 "settings" = "Nastavení";
 
-/* Header of settings activity where user defines storage path */
-"maps_storage" = "Uložit mapy na";
-
-/* Detailed description of Maps Storage settings button */
-"maps_storage_summary" = "Vyberte místo, kam by měly být mapy stahovány";
-
-/* Question dialog for transferring maps from one storage to another */
-"move_maps" = "Přesunout mapy?";
-
-/* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Tato akce může trvat několik minut.\nProsím čekejte…";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "Měřicí jednotky";
-
-/* Detailed description of Measurement Units settings button */
-"measurement_units_summary" = "Vyberte si míle nebo kilometry";
 
 /* Search category for cafes, bars, restaurants */
 "eat" = "Kde se najíst";
@@ -210,12 +143,6 @@
 /* Search category */
 "police" = "Policie";
 
-/* Notes field in Bookmarks view */
-"description" = "Poznámky";
-
-/* Email Subject when sharing bookmark list */
-"share_bookmarks_email_subject" = "Sdílené záložky Organic Maps";
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -233,32 +160,17 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Vaše poloha zatím nebyla určena";
 
-/* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "Omlouváme se, nastavení uložení map je dočasně nedostupné.";
-
-/* Alert message that downloading is in progress. */
-"downloading_is_active" = "Právě probíhá stahování země.";
-
-/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Koukni na moji značku na mapě v Organic Maps";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Podívej se na mou aktuální polohu na mapě na Organic Maps";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
-"my_position_share_email" = "Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Sdílet";
 
 /* Share by email button text, also used in editor. */
 "email" = "Email";
-
-/* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Zkopírováno do schránky: %1$@";
 
 /* place preview title */
 "info" = "Více informací";
@@ -272,9 +184,6 @@
 /* Data version in «About» screen */
 "data_version" = "Data version: %d";
 
-/* Confirmation in downloading countries dialog */
-"are_you_sure" = "Opravdu chcete pokračovat?";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Stopy";
 
@@ -283,17 +192,9 @@
 
 "share_my_location" = "Sdílet mé umístění";
 
-/* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
-
-/* Settings information group in settings screen */
-"prefs_group_information" = "Information";
-
 "prefs_group_route" = "Navigace";
 
 "pref_zoom_title" = "Tlačítka přiblížení/oddálení";
-
-"pref_zoom_summary" = "Zobrazit na obrazovce";
 
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Noční režim";
@@ -318,9 +219,6 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Jazyk hlasu";
-
-/* Settings «Route» category: «Tts unavailable» subtitle */
-"pref_tts_unavailable" = "Není dostupná";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Ostatní";
@@ -366,12 +264,6 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in the editor */
-"editor_line_social_network" = "LINE";
-
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
@@ -383,12 +275,6 @@
 
 /* Text in menu */
 "help" = "Nápověda";
-
-/* Button in the main Help dialog */
-"faq" = "Otázky a odpovědi";
-
-/* Button in the main Help dialog */
-"how_to_support_us" = "Jak nás podpořit?";
 
 /* Button in the main Help dialog */
 "copyright" = "Autorská práva";
@@ -410,9 +296,6 @@
 
 /* Update all button text */
 "downloader_update_all_button" = "Aktualizovat vše";
-
-/* Cancel all button text */
-"downloader_cancel_all" = "Zrušit vše";
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Staženo";
@@ -454,12 +337,6 @@
 /* Item in context menu. */
 "downloader_delete_map" = "Smazat mapu";
 
-/* Item in context menu. */
-"downloader_update_map" = "Aktualizovat mapu";
-
-/* Preference text */
-"pref_use_google_play" = "Používat Služby Google Play pro získání aktuální polohy";
-
 /* Text for rating dialog */
 "rating_just_rated" = "Právě jsem ohodnotil(a) vaši aplikaci";
 
@@ -478,18 +355,10 @@
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Naplánování trasy vyžaduje stažení a aktualizaci všech map z vašeho umístění do cílového umístění.";
 
-/* Text for routing error dialog */
-"routing_not_enough_space" = "Nedostatek místa";
-
 /* bookmark button text */
 "bookmark" = "uložit";
 
-/* location service disabled */
-"enable_location_services" = "Prosím, povolte Služby určování polohy";
-
 "save" = "Uložit";
-
-"edit_description_hint" = "Popis (HTML nebo text)";
 
 "create" = "vytvořit";
 
@@ -575,8 +444,6 @@
 
 "dialog_routing_unable_locate_route" = "Trasu se nepodařilo zjistit";
 
-"dialog_routing_cant_build_route" = "Trasu se nepodařilo vytvořit.";
-
 "dialog_routing_change_start_or_end" = "Upravte výchozí nebo cílový bod.";
 
 "dialog_routing_change_start" = "Upravte výchozí bod";
@@ -609,10 +476,6 @@
 
 
 /********** Strings for downloading map from search **********/
-
-"search_without_internet_advertisement" = "Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.";
-
-"search_select_map" = "Vybrat mapu";
 
 /* «Show» context menu */
 "show" = "Ukázat";
@@ -655,9 +518,6 @@
 
 "clear_search" = "Vymazat historii vyhledávání";
 
-/* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "Vaše umístění";
 
 "p2p_start" = "Start";
@@ -669,9 +529,6 @@
 "p2p_only_from_current" = "Navigovat lze pouze z současného umístění.";
 
 "p2p_reroute_from_current" = "Máme naplánovat trasu z vašeho současného umístění?";
-
-/* Edit open hours/set time and minutes dialog */
-"next_button" = "Další";
 
 "editor_time_add" = "Přidat rozvrh";
 
@@ -696,27 +553,13 @@
 
 "editor_example_values" = "Vzorové hodnoty";
 
-"editor_correct_mistake" = "Opravit chybu";
-
 "editor_add_select_location" = "Umístění";
 
 "editor_done_dialog_1" = "Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.";
 
 "share_with_friends" = "Sdílejte s kamarády";
 
-"editor_report_problem_desription_1" = "Popište prosím detailně problém, aby vám komunita OpenStreeMap mohla pomoct opravit chybu.";
-
-"editor_report_problem_desription_2" = "Nebo to udělejte sami na https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "Odeslat";
-
-"editor_report_problem_title" = "Problém";
-
-"editor_report_problem_no_place_title" = "Místo neexistuje";
-
-"editor_report_problem_under_construction_title" = "Zavřeno kvůli údržbě";
-
-"editor_report_problem_duplicate_place_title" = "Duplicitní místo";
 
 "autodownload" = "Automaticky stahovat";
 
@@ -736,8 +579,6 @@
 
 "add_opening_hours" = "Přidat otevírací dobu";
 
-"edit_opening_hours" = "Upravit otevírací dobu";
-
 "no_osm_account" = "Nemáte účet u OpenStreetMap?";
 
 "register_at_openstreetmap" = "Registrace";
@@ -747,8 +588,6 @@
 "invalid_username_or_password" = "Neplatné uživatelské jméno nebo heslo.";
 
 "login" = "Přihlásit se";
-
-"password" = "Heslo";
 
 "forgot_password" = "Zapomenuté heslo?";
 
@@ -767,8 +606,6 @@
 
 "add_language" = "Přidat jazyk";
 
-"street" = "Ulice";
-
 /* Editable House Number text field (in address block). */
 "house_number" = "Číslo domu";
 
@@ -776,9 +613,6 @@
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Přidat ulici";
-
-/* Error to display when a new street name is not entered in the New street dialog */
-"empty_street_name_error" = "Zadejte název ulice";
 
 "choose_language" = "Zvolit jazyk";
 
@@ -795,15 +629,11 @@
 
 "phone" = "Telefon";
 
-"editor_add_phone" = "Add Phone";
-
 "please_note" = "Vezměte prosím na vědomí";
 
 "downloader_delete_map_dialog" = "Zároveň s touto mapou budou odstraněny také všechny změny na této mapě.";
 
 "downloader_update_maps" = "Aktualizujte mapy";
-
-"downloader_mwm_migration_dialog" = "Chcete-li vytvořit trasu, pak musíte aktualizovat všechny mapy a poté trasu naplánovat znovu.";
 
 "downloader_search_field_hint" = "Najít mapu";
 
@@ -814,8 +644,6 @@
 "downloader_no_space_title" = "Nedostatek místa";
 
 "downloader_no_space_message" = "Odstraňte prosím nepotřebná data";
-
-"editor_login_error_dialog" = "Chyba při přihlašování.";
 
 "editor_profile_changes" = "Oveřené změny";
 
@@ -834,12 +662,6 @@
 "editor_edit_place_name_hint" = "Název místa";
 
 "editor_edit_place_category_title" = "Kategorie";
-
-"detailed_problem_description" = "Detailní popis problému";
-
-"editor_report_problem_other_title" = "Jiný problém";
-
-"placepage_add_business_button" = "Přidat organizaci";
 
 "whatsnew_editor_message_1" = "Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.";
 
@@ -928,15 +750,9 @@
 
 "miles_per_hour" = "mil/h";
 
-"hour" = "hod";
-
-"minute" = "min";
-
 "placepage_place_description" = "Popis";
 
 "placepage_more_button" = "Více";
-
-"placepage_more_reviews_button" = "Více recenzí";
 
 "book_button" = "Rezervace";
 
@@ -964,9 +780,6 @@
 
 "editor_place_doesnt_exist" = "Místo neexistuje";
 
-/* Error message for "Place doesn't exist" dialog when comment is empty */
-"delete_place_empty_comment_error" = "Please indicate the reason for deleting the place";
-
 "text_more_button" = "…dále";
 
 /* Phone number error message */
@@ -975,16 +788,6 @@
 "error_enter_correct_web" = "Zadat platnou webovou adresu";
 
 "error_enter_correct_email" = "Zadat platný email";
-
-"error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-
-"error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-
-"error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-
-"error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
-
-"error_enter_correct_line_page" = "Enter a valid LINE web address or LINE ID";
 
 "refresh" = "Aktualizovat";
 
@@ -1044,15 +847,11 @@
 
 "big_font" = "Zvětšit velikost písma na mapě";
 
-"traffic_update_app" = "Aktualizujte Organic Maps";
-
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Ke zobrazení dat o provozu je nutné aplikaci aktualizovat.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Data o provozu nejsou k dispozici";
-
-"enable_logging" = "Povolit protokolování";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Všeobecné připomínky";
@@ -1061,23 +860,13 @@
 
 "off" = "Vypnout";
 
-"prefs_languages_information" = "Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
-"prefs_languages_information_off" = "U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Samsung Apps).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.";
-
-"prefs_languages_information_off_link" = "Více informací najdete v tomto návodu.";
-
 "transliteration_title" = "Přepis do latinky";
-
-"learn_more" = "Zjistit více";
 
 "core_exit" = "Ukončit";
 
 "routing_add_start_point" = "Zadejte výchozí bod pro plánování trasy";
 
 "routing_add_finish_point" = "Zadejte cílový bod pro plánování trasy";
-
-"button_exit" = "Ukončit";
 
 "planning_route_manage_route" = "Spravovat trasu";
 
@@ -1093,12 +882,6 @@
 
 "profile_authorization_error" = "Jejda, došlo k chybě. Zkuste se přihlásit znovu.";
 
-"dialog_error_storage_title" = "Problém s přístupem k úložišti";
-
-"dialog_error_storage_message" = "Externí úložiště není k dispozici, pravděpodobně byla vyjmuta nebo poškozena SD karta, nebo je systém souborů pouze pro čtení. Zkontrolujte to prosím a kontaktujte nás na support@organicmaps.app";
-
-"setting_emulate_bad_storage" = "Emulovat špatné úložiště";
-
 "core_entrance" = "Vstup";
 
 "error_enter_correct_name" = "Zadejte prosím správný název";
@@ -1111,9 +894,6 @@
 "bookmark_lists_show_all" = "Zobrazit vše";
 
 "bookmarks_create_new_group" = "Vytvořte nový seznam";
-
-/* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
 
 "downloader_hide_screen" = "Skrýt obrazovku";
 
@@ -1129,21 +909,11 @@
 
 "bookmarks_error_message_share_empty" = "Nelze sdílet s prázdným seznamem";
 
-"bookmarks_error_title_empty_list_name" = "Jméno nemůže být prázdné";
-
 "bookmarks_error_message_empty_list_name" = "Zadejte název seznamu";
-
-"bookmarks_new_list_hint" = "Nový seznam";
 
 "bookmarks_error_title_list_name_already_taken" = "Toto jméno již bylo provedeno";
 
-"bookmarks_error_message_list_name_already_taken" = "Zvolte jiný název";
-
 "bookmarks_error_title_list_name_too_long" = "Tento název je příliš dlouhý";
-
-"please_wait" = "Prosím, čekejte…";
-
-"phone_number" = "Telefonní číslo";
 
 "profile" = "Profil OpenStreetMap";
 
@@ -1157,17 +927,9 @@
 
 "bookmarks_restore_title" = "Obnovit tuto verzi?";
 
-"common_check_internet_connection_dialog_title" = "Žádné internetové připojení";
-
 "error_system_message" = "Nastala neznámá chyba";
 
 "restore" = "Obnovit";
-
-"subtittle_opt_out" = "Natavení doprovodu";
-
-"crash_reports" = "Zprávy o chybách";
-
-"crash_reports_description" = "Můžeme používat vaše údaje pro vývoj a zlepšení Organic Maps. Změny se projeví po restartování aplikace.";
 
 "privacy_policy" = "Politika důvěrnosti";
 
@@ -1181,12 +943,6 @@
 
 "subway_data_unavailable" = "Mapa metra není dostupná";
 
-"bookmarks_empty_list_title" = "Seznam je prázdný";
-
-"bookmarks_empty_list_message" = "Pro přidání nové značky klikněte na symbol hvězdičky na obrázku objektu";
-
-"category_desc_more" = "…ještě";
-
 "title_error_downloading_bookmarks" = "Někde se stala chyba";
 
 "popular_place" = "Popular";
@@ -1199,13 +955,7 @@
 
 "hide_from_map" = "Neukazovat na mapě";
 
-"public_access" = "Veřejně přístupné";
-
-"limited_access" = "Soukromé";
-
 "bookmark_list_description_hint" = "Přidejte popis (text nebo html)";
-
-"not_shared" = "Osobní účet";
 
 "tags_loading_error_subtitle" = "Během nahrávání tagů se stala chyba, zkuste to prosím ještě jednou";
 
@@ -1221,9 +971,6 @@
 
 "place_description_title" = "Popis místa";
 
-/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Nahrávání map";
-
 "speedcams_notice_message" = "Automaticky - Upozorňovat na rychlostní radary, pokud hrozí riziko překročení rychlosti\nVždy - Vždy upozorňovat na rychlostní radary\nNikdy - Nikdy neupozorňovat na rychlostní radary";
 
 "power_managment_title" = "Nízkoenergetický režim";
@@ -1235,10 +982,6 @@
 "power_managment_setting_auto" = "Auto";
 
 "power_managment_setting_manual_max" = "Maximální šetření energií";
-
-"enable_logging_warning_message" = "Daná možnost se zapojuje pro protokolování činností za účelem diagnostiky. To pomáhá týmu odhalit problémy s přílohou. Zapojujte možnost jenom na požádání podržení Organic Maps.";
-
-"access_rules_author_only" = "Upravujte on-line";
 
 "driving_options_title" = "Možnosti řízení";
 
@@ -1333,9 +1076,6 @@
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Třídit…";
 
-/* Android, title, max 20-22 symbols */
-"sort_bookmarks" = "Třídit záložky";
-
 /* iOS */
 "sort_default" = "Třídit ve výchozím nastavení";
 
@@ -1344,18 +1084,6 @@
 "sort_distance" = "Třídit dle vzdálenosti";
 
 "sort_date" = "Třídit dle data";
-
-/* Android */
-"by_default" = "Podle výchozího stavu";
-
-/* Android */
-"by_type" = "Podle typu";
-
-/* Android */
-"by_distance" = "Podle vzdálenosti";
-
-/* Android */
-"by_date" = "Podle data";
 
 "week_ago_sorttype" = "Před týdnem";
 
@@ -1403,8 +1131,6 @@
 
 "religious_places" = "Posvátná místa";
 
-"select_list" = "Vybrat seznam";
-
 "transit_not_found" = "Navigace metra v této oblasti zatím není k dispozici";
 
 "dialog_pedestrian_route_is_long_header" = "Trasa metra nebyla nalezena";
@@ -1435,8 +1161,6 @@
 
 "elevation_profile_difficulty" = "Obtížnost";
 
-"elevation_profile_distance" = "Vzdál.:";
-
 "elevation_profile_time" = "Čas:";
 
 "isolines_toast_zooms_1_10" = "Přiblížit pro prozkoumání izolinií";
@@ -1446,17 +1170,6 @@
 "downloader_loading_ios" = "Probíhá stahování";
 
 "key_information_title" = "Klíčové informace";
-
-"download_map_title" = "Download the world map";
-
-"connection_failure" = "Connection failure";
-
-"disconnect_usb_cable_title" = "Disconnect USB cable";
-
-"enable_screen_sleep" = "Nechte obrazovku spát";
-
-/* Description in preferences */
-"enable_screen_sleep_description" = "Je-li tato možnost povolena, bude obrazovka po určité době nečinnosti umožněna usnout.";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Aktualizujte své stažené mapy";
@@ -2731,11 +2444,11 @@
 
 "type.railway.abandoned.bridge" = "Abandoned railway";
 
-"type.railway.abandoned.tunnel" = "Abandoned railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway";
 
-"type.railway.construction" = "Railway's construction";
+"type.railway.construction" = "Railway's Construction";
 
-"type.railway.crossing" = "Railway crossing";
+"type.railway.crossing" = "Railway Crossing";
 
 "type.railway.disused" = "Disused railway";
 

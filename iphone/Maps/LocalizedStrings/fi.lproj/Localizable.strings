@@ -7,9 +7,6 @@
 /********** Strings **********/
 
 /* Button text (should be short) */
-"back" = "Takaisin";
-
-/* Button text (should be short) */
 "cancel" = "Peruuta";
 
 /* Button which interrupts country download */
@@ -19,9 +16,6 @@
 "delete" = "Poista";
 
 "download_maps" = "Lataa karttoja";
-
-/* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "Lataus epäonnistui, yritä uudelleen koskettamalla";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Ladataan…";
@@ -35,11 +29,6 @@
 /* View and button titles for accessibility */
 "maps" = "Kartat";
 
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"mb" = "Mt";
-
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mailit";
 
@@ -52,14 +41,8 @@
 /* View and button titles for accessibility */
 "search" = "Haku";
 
-/* Search box placeholder text */
-"search_map" = "Hae kartalta";
-
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Kyllä";
-
-/* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Näytä kartalla";
@@ -70,43 +53,14 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Lataus epäonnistui";
 
-/* Button text for the button under the country_status_download_failed message */
-"try_again" = "Yritä uudelleen";
-
 "about_menu_title" = "Tietoa Organic Maps:stä";
-
-"connection_settings" = "Yhteysasetukset";
 
 "close" = "Sulje";
 
-"unsupported_phone" = "Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.";
-
 "download" = "Lataa";
-
-"disconnect_usb_cable" = "Irrota USB-kaapeli tai syötä muistikortti käyttääksesi Organic Maps -sovellusta";
-
-"not_enough_free_space_on_sdcard" = "Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta";
-
-"not_enough_memory" = "Ei tarpeeksi muistia sovelluksen avaamiseksi";
-
-"download_resources" = "Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %@ dataa.";
-
-"download_resources_continue" = "Siirry karttaan";
-
-"downloading_country_can_proceed" = "Ladataan %@. Voit nyt jatkaa kartalle.";
-
-"download_country_ask" = "Ladataanko %@?";
-
-"update_country_ask" = "Päivitetäänkö %@?";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"pause" = "Pysäytä";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Jatka";
-
-/* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "%@ lataus epäonnistui";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Lisää uusi valikoima";
@@ -126,35 +80,14 @@
 /* Default bookmark list name */
 "core_my_places" = "Paikkani";
 
-/* Add bookmark dialog - bookmark name */
-"name" = "Nimi";
-
 /* Editor title above street and house number */
 "address" = "Osoite";
-
-/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
-"list" = "Aseta";
 
 /* Settings button in system menu */
 "settings" = "Asetukset";
 
-/* Header of settings activity where user defines storage path */
-"maps_storage" = "Tallenna kartat kohteeseen";
-
-/* Detailed description of Maps Storage settings button */
-"maps_storage_summary" = "Valitse karttojen latauskohde";
-
-/* Question dialog for transferring maps from one storage to another */
-"move_maps" = "Siirrä karttoja?";
-
-/* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Tämä voi kestää useita minuutteja.\nOdota hetki…";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "Mittayksiköt";
-
-/* Detailed description of Measurement Units settings button */
-"measurement_units_summary" = "Valitse mailit tai kilometrit";
 
 /* Search category for cafes, bars, restaurants */
 "eat" = "Missä syödä";
@@ -210,12 +143,6 @@
 /* Search category */
 "police" = "Poliisi";
 
-/* Notes field in Bookmarks view */
-"description" = "Muistiinpanot";
-
-/* Email Subject when sharing bookmark list */
-"share_bookmarks_email_subject" = "Jaetut Organic Maps-kirjanmerkit";
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -233,32 +160,17 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Sijaintiasi ei ole vielä määritetty";
 
-/* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "Valitettavasti karttatallennusasetukset ovat pois päältä.";
-
-/* Alert message that downloading is in progress. */
-"downloading_is_active" = "Maata ladataan parhaillaan.";
-
-/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "Hei, katso sijaintini Organic Maps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hei, katso merkintäni Organic Maps-kartalla";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
-"my_position_share_email" = "Hei,n\nOlen nyt täällä: %1$@. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. Kiitos.";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Jaa";
 
 /* Share by email button text, also used in editor. */
 "email" = "Sähköposti";
-
-/* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Kopioitu leikepöydälle: %1$@";
 
 /* place preview title */
 "info" = "Tietoa";
@@ -272,9 +184,6 @@
 /* Data version in «About» screen */
 "data_version" = "Data version: %d";
 
-/* Confirmation in downloading countries dialog */
-"are_you_sure" = "Oletko varma että haluat jatkaa?";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Reitit";
 
@@ -283,17 +192,9 @@
 
 "share_my_location" = "Jaa sijaintini";
 
-/* Settings general group in settings screen */
-"prefs_group_general" = "Yleiset asetukset";
-
-/* Settings information group in settings screen */
-"prefs_group_information" = "Tietoja";
-
 "prefs_group_route" = "Navigaatio";
 
 "pref_zoom_title" = "Zoomauspainikkeet";
-
-"pref_zoom_summary" = "Näytä ruudulla";
 
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Yötila";
@@ -318,9 +219,6 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Äänen kieli";
-
-/* Settings «Route» category: «Tts unavailable» subtitle */
-"pref_tts_unavailable" = "Ei saatavilla";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Muu";
@@ -366,12 +264,6 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in the editor */
-"editor_line_social_network" = "LINE";
-
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
@@ -383,12 +275,6 @@
 
 /* Text in menu */
 "help" = "Ohje";
-
-/* Button in the main Help dialog */
-"faq" = "Kysymykset ja vastaukset";
-
-/* Button in the main Help dialog */
-"how_to_support_us" = "Kuinka tukea meitä?";
 
 /* Button in the main Help dialog */
 "copyright" = "Tekijänoikeudet";
@@ -410,9 +296,6 @@
 
 /* Update all button text */
 "downloader_update_all_button" = "Päivitä kaikki";
-
-/* Cancel all button text */
-"downloader_cancel_all" = "Peruuta kaikki";
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Ladatut";
@@ -454,12 +337,6 @@
 /* Item in context menu. */
 "downloader_delete_map" = "Poista kartta";
 
-/* Item in context menu. */
-"downloader_update_map" = "Päivitä kartta";
-
-/* Preference text */
-"pref_use_google_play" = "Käytä Google Play -palveluita sijaintisi selvittämiseksi";
-
 /* Text for rating dialog */
 "rating_just_rated" = "Olen juuri arvostellut sovelluksesi.";
 
@@ -478,18 +355,10 @@
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Reitin luominen vaatii karttojen lataamisen ja päivityksen oman sijaintisi ja kohteeen väliltä.";
 
-/* Text for routing error dialog */
-"routing_not_enough_space" = "Ei tarpeeksi tilaa";
-
 /* bookmark button text */
 "bookmark" = "kirjanmerkki";
 
-/* location service disabled */
-"enable_location_services" = "Ota sijaintipalvelut käyttöön";
-
 "save" = "Tallenna";
-
-"edit_description_hint" = "Kuvauksesi (teksti tai html)";
 
 "create" = "luo";
 
@@ -575,8 +444,6 @@
 
 "dialog_routing_unable_locate_route" = "Reitin paikannus ei onnistu";
 
-"dialog_routing_cant_build_route" = "Reitin luonti ei onnistu.";
-
 "dialog_routing_change_start_or_end" = "Muuta aloituskohtaa tai määränpäätä.";
 
 "dialog_routing_change_start" = "Muuta aloituskohtaa";
@@ -609,10 +476,6 @@
 
 
 /********** Strings for downloading map from search **********/
-
-"search_without_internet_advertisement" = "Lataa kartta jotta voit käyttää hakua ja luoda reittejä. Tämän jälkeen et tarvitse enää Internet-yhteyttä.";
-
-"search_select_map" = "Valitse kartta";
 
 /* «Show» context menu */
 "show" = "Näytä";
@@ -655,9 +518,6 @@
 
 "clear_search" = "Poista hakuhistoria";
 
-/* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "Sijaintisi";
 
 "p2p_start" = "Aloita";
@@ -669,9 +529,6 @@
 "p2p_only_from_current" = "Navigointi onnistuu vain nykyisestä sijainnistasi.";
 
 "p2p_reroute_from_current" = "Haluatko valita vaihtoehtoisen reitin?";
-
-/* Edit open hours/set time and minutes dialog */
-"next_button" = "Seuraava";
 
 "editor_time_add" = "Lisää aikataulu";
 
@@ -696,27 +553,13 @@
 
 "editor_example_values" = "Esimerkkiarvot";
 
-"editor_correct_mistake" = "Korjaa virhe";
-
 "editor_add_select_location" = "Sijainti";
 
 "editor_done_dialog_1" = "Olet muuttanut maailmankarttaa. Älä piilota tätä! Kerro ystävillesi ja muokatkaa sitä yhdessä.";
 
 "share_with_friends" = "Jaa kavereille";
 
-"editor_report_problem_desription_1" = "Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.";
-
-"editor_report_problem_desription_2" = "Tai tee se itse osoitteessa https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "Lähetä";
-
-"editor_report_problem_title" = "Ongelma";
-
-"editor_report_problem_no_place_title" = "Paikkaa ei ole olemassa";
-
-"editor_report_problem_under_construction_title" = "Suljettu huoltoa varten";
-
-"editor_report_problem_duplicate_place_title" = "Paikan kaksoiskappale";
 
 "autodownload" = "Lataa automaattisesti";
 
@@ -736,8 +579,6 @@
 
 "add_opening_hours" = "Lisää aukioloajat";
 
-"edit_opening_hours" = "Muokkaa aukioloaikoja";
-
 "no_osm_account" = "Eikö sinulla ole OpenStreetMap tiliä?";
 
 "register_at_openstreetmap" = "Rekisteröidy";
@@ -747,8 +588,6 @@
 "invalid_username_or_password" = "Virheellinen käyttäjätunnus tai salasana";
 
 "login" = "Kirjaudu sisään";
-
-"password" = "Salasana";
 
 "forgot_password" = "Unohtuiko salasana?";
 
@@ -767,8 +606,6 @@
 
 "add_language" = "Lisää kieli";
 
-"street" = "Katu";
-
 /* Editable House Number text field (in address block). */
 "house_number" = "Talon numero";
 
@@ -776,9 +613,6 @@
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Lisää katu";
-
-/* Error to display when a new street name is not entered in the New street dialog */
-"empty_street_name_error" = "Please enter a street name";
 
 "choose_language" = "Valitse kieli";
 
@@ -795,15 +629,11 @@
 
 "phone" = "Puhelinnumero";
 
-"editor_add_phone" = "Add Phone";
-
 "please_note" = "Huomaathan, että";
 
 "downloader_delete_map_dialog" = "Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.";
 
 "downloader_update_maps" = "Päivitä kartat";
-
-"downloader_mwm_migration_dialog" = "Sinun täytyy päivittää kaikki kartat ja suunnitella reitti uudelleen luodaksesi uuden reitin.";
 
 "downloader_search_field_hint" = "Etsi kartta";
 
@@ -814,8 +644,6 @@
 "downloader_no_space_title" = "Ei tarpeeksi tilaa";
 
 "downloader_no_space_message" = "Poista tarpeeton data";
-
-"editor_login_error_dialog" = "Kirjautumisvirhe.";
 
 "editor_profile_changes" = "Vahvistetut karttamuutokset";
 
@@ -834,12 +662,6 @@
 "editor_edit_place_name_hint" = "Paikan nimi";
 
 "editor_edit_place_category_title" = "Kategoria";
-
-"detailed_problem_description" = "Ongelman tarkka kuvaus";
-
-"editor_report_problem_other_title" = "Eri ongelma";
-
-"placepage_add_business_button" = "Lisää organisaatio";
 
 "whatsnew_editor_message_1" = "Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.";
 
@@ -928,15 +750,9 @@
 
 "miles_per_hour" = "mph";
 
-"hour" = "t";
-
-"minute" = "min";
-
 "placepage_place_description" = "Kuvaus";
 
 "placepage_more_button" = "Lisää";
-
-"placepage_more_reviews_button" = "Lisää arvosteluja";
 
 "book_button" = "Varaa";
 
@@ -964,9 +780,6 @@
 
 "editor_place_doesnt_exist" = "Paikkaa ei ole olemassa";
 
-/* Error message for "Place doesn't exist" dialog when comment is empty */
-"delete_place_empty_comment_error" = "Please indicate the reason for deleting the place";
-
 "text_more_button" = "…Näytä";
 
 /* Phone number error message */
@@ -975,16 +788,6 @@
 "error_enter_correct_web" = "Syötä kelvollinen verkko-osoite";
 
 "error_enter_correct_email" = "Syötä kelvollinen sähköpostiosoite";
-
-"error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-
-"error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-
-"error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-
-"error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
-
-"error_enter_correct_line_page" = "Enter a valid LINE web address or LINE ID";
 
 "refresh" = "Päivitä";
 
@@ -1044,15 +847,11 @@
 
 "big_font" = "Suurenna fonttikokoa kartalla";
 
-"traffic_update_app" = "Päivitä Organic Maps";
-
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Liikennetietojen näyttämiseksi sovellus on päivitettävä.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Liikennetietoja ei ole saatavilla";
-
-"enable_logging" = "Ota loki käyttöön";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Yleinen palaute";
@@ -1061,23 +860,13 @@
 
 "off" = "Ei käytössä";
 
-"prefs_languages_information" = "Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
-"prefs_languages_information_off" = "Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play Market, Samsung Apps). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.";
-
-"prefs_languages_information_off_link" = "Lisätietoja saat tästä oppaasta.";
-
 "transliteration_title" = "Translitterointi latinaksi";
-
-"learn_more" = "Lisätietoja";
 
 "core_exit" = "Poistu";
 
 "routing_add_start_point" = "Lisää alkupiste reitin suunnittelua varten";
 
 "routing_add_finish_point" = "Lisää määränpää reitin suunnittelua varten";
-
-"button_exit" = "Poistu";
 
 "planning_route_manage_route" = "Hallitse reittiä";
 
@@ -1093,12 +882,6 @@
 
 "profile_authorization_error" = "Tapahtui virhe. Yritä kirjautua sisään uudelleen.";
 
-"dialog_error_storage_title" = "Ongelma tallennustilan käyttämisessä";
-
-"dialog_error_storage_message" = "Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support@organicmaps.app";
-
-"setting_emulate_bad_storage" = "Jäljittele virheellistä tallennustilaa";
-
 "core_entrance" = "Sisäänkäynti";
 
 "error_enter_correct_name" = "Anna oikea nimi";
@@ -1111,9 +894,6 @@
 "bookmark_lists_show_all" = "Näytä kaikki";
 
 "bookmarks_create_new_group" = "Luo uusi luettelo";
-
-/* Bookmark categories screen */
-"bookmarks_import" = "Tuo kirjamerkit";
 
 "downloader_hide_screen" = "Piilota näyttö";
 
@@ -1129,21 +909,11 @@
 
 "bookmarks_error_message_share_empty" = "Tyhjää listaa ei voi jakaa";
 
-"bookmarks_error_title_empty_list_name" = "Nimi ei voinut olla tyhjä";
-
 "bookmarks_error_message_empty_list_name" = "Anna luettelon nimi";
-
-"bookmarks_new_list_hint" = "Uusi lista";
 
 "bookmarks_error_title_list_name_already_taken" = "Nimi on jo käytössä";
 
-"bookmarks_error_message_list_name_already_taken" = "Valitse toinen nimi";
-
 "bookmarks_error_title_list_name_too_long" = "Tämä nimi on liian pitkä";
-
-"please_wait" = "Odota…";
-
-"phone_number" = "Puhelinnumero";
 
 "profile" = "OpenStreetMap-profiili";
 
@@ -1157,17 +927,9 @@
 
 "bookmarks_restore_title" = "Palauta tämä versio?";
 
-"common_check_internet_connection_dialog_title" = "Ei Internet-yhteyttä";
-
 "error_system_message" = "Tuntematon virhe tapahtui";
 
 "restore" = "Palauttaa";
-
-"subtittle_opt_out" = "Paikannusasetukset";
-
-"crash_reports" = "Kaatumisraportti";
-
-"crash_reports_description" = "Me saatamme käyttää tietojasi parantaaksemme Organic Maps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.";
 
 "privacy_policy" = "Yksityisyyskäytäntö";
 
@@ -1181,12 +943,6 @@
 
 "subway_data_unavailable" = "Metrokartta ei ole saatavilla";
 
-"bookmarks_empty_list_title" = "Lista on tyhjä";
-
-"bookmarks_empty_list_message" = "Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa";
-
-"category_desc_more" = "…lisää";
-
 "title_error_downloading_bookmarks" = "Tapahtui virhe";
 
 "popular_place" = "Popular";
@@ -1199,13 +955,7 @@
 
 "hide_from_map" = "Piilota kartalta";
 
-"public_access" = "Julkinen pääsy";
-
-"limited_access" = "Yksityinen pääsy";
-
 "bookmark_list_description_hint" = "Lisää kuvaus (teksti tai html)";
-
-"not_shared" = "Henkilökohtainen";
 
 "tags_loading_error_subtitle" = "Tunnisteiden lataamisen aikana tapahtui virhe, yritä uudelleen";
 
@@ -1221,9 +971,6 @@
 
 "place_description_title" = "Paikan kuvaus";
 
-/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Karttojen lataaminen";
-
 "speedcams_notice_message" = "Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista";
 
 "power_managment_title" = "Virransäästötila";
@@ -1235,10 +982,6 @@
 "power_managment_setting_auto" = "Automaattinen";
 
 "power_managment_setting_manual_max" = "Täysi virransäästö";
-
-"enable_logging_warning_message" = "Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.";
-
-"access_rules_author_only" = "Nettimuokkaus";
 
 "driving_options_title" = "Kiertotien asetukset";
 
@@ -1333,9 +1076,6 @@
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Järjestä…";
 
-/* Android, title, max 20-22 symbols */
-"sort_bookmarks" = "Järjestä kirjanmerkit";
-
 /* iOS */
 "sort_default" = "Järjestä: oletus";
 
@@ -1344,18 +1084,6 @@
 "sort_distance" = "Järjestä: etäisyys";
 
 "sort_date" = "Järjestä: päivämäärä";
-
-/* Android */
-"by_default" = "Oletus";
-
-/* Android */
-"by_type" = "Tyyppi";
-
-/* Android */
-"by_distance" = "Etäisyys";
-
-/* Android */
-"by_date" = "Päivämäärä";
 
 "week_ago_sorttype" = "Viikko sitten";
 
@@ -1403,8 +1131,6 @@
 
 "religious_places" = "Pyhät paikat";
 
-"select_list" = "Valitse luettelo";
-
 "transit_not_found" = "Metron reittiohjeet eivät ole vielä saatavilla tällä alueella";
 
 "dialog_pedestrian_route_is_long_header" = "Metroreittiä ei löytynyt";
@@ -1435,8 +1161,6 @@
 
 "elevation_profile_difficulty" = "Vaikeus";
 
-"elevation_profile_distance" = "Etäisyys:";
-
 "elevation_profile_time" = "Aika:";
 
 "isolines_toast_zooms_1_10" = "Suurenna kartta nähdäksesi korkeuskäyrät";
@@ -1446,17 +1170,6 @@
 "downloader_loading_ios" = "Lataus";
 
 "key_information_title" = "Avaintietoa";
-
-"download_map_title" = "Lataa maailmankartta";
-
-"connection_failure" = "Yhteysvirhe";
-
-"disconnect_usb_cable_title" = "Irrota USB-kaapeli";
-
-"enable_screen_sleep" = "Salli näytön lepotila";
-
-/* Description in preferences */
-"enable_screen_sleep_description" = "Kun tämä asetus on käytössä, näyttö menee lepotilaan käyttämättömyyden jälkeen.";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Päivitä ladatut kartat";
@@ -2731,11 +2444,11 @@
 
 "type.railway.abandoned.bridge" = "Abandoned railway";
 
-"type.railway.abandoned.tunnel" = "Abandoned railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway";
 
-"type.railway.construction" = "Railway's construction";
+"type.railway.construction" = "Railway's Construction";
 
-"type.railway.crossing" = "Railway crossing";
+"type.railway.crossing" = "Railway Crossing";
 
 "type.railway.disused" = "Disused railway";
 
