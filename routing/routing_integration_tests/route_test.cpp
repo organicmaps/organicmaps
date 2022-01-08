@@ -582,4 +582,13 @@ namespace
         mercator::FromLatLon(49.512076, 8.284476), {0., 0.},
         mercator::FromLatLon(49.523783, 8.288701), 2014.);
   }
+
+  // https://github.com/organicmaps/organicmaps/issues/821
+  UNIT_TEST(Ukraine_UmanOdessa)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(48.7498, 30.2203), {0., 0.},
+        mercator::FromLatLon(46.4859, 30.6837), 265163.);
+  }
 }  // namespace
