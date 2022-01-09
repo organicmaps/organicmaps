@@ -12166,40 +12166,6 @@
     zh-Hans = 运营者
     zh-Hant = 營運者
 
-  [downloader_my_maps_title]
-    tags = ios
-    en = My maps
-    ar = خرائطي
-    be = Мае мапы
-    cs = Mé mapy
-    da = Mine kort
-    de = Meine Karten
-    el = Οι χάρτες μου
-    es = Mis mapas
-    fa = نقشه های من
-    fi = Omat kartat
-    fr = Mes cartes
-    hu = Térképeim
-    id = Peta saya
-    it = Le mie mappe
-    ja = マイマップ
-    ko = 내 지도
-    nb = Mine kart
-    nl = Mijn kaarten
-    pl = Moje mapy
-    pt = Os meus mapas
-    pt-BR = Meus mapas
-    ro = Hărțile mele
-    ru = Мои карты
-    sk = Moje mapy
-    sv = Mina kartor
-    th = แผนที่ของฉัน
-    tr = Haritalarım
-    uk = Мої мапи
-    vi = Bản đồ của tôi
-    zh-Hans = 我的地图
-    zh-Hant = 我的地圖
-
   [downloader_no_downloaded_maps_title]
     tags = android,ios
     en = You haven't downloaded any maps
