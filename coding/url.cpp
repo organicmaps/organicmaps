@@ -174,7 +174,83 @@ private:
   regex m_regexp;
   int m_latPriority;
   int m_lonPriority;
-};
+}; // class LatLongParser
+
+
+bool MatchLatLonZoom(const string & s, const regex & re, size_t lati, size_t loni, size_t zoomi, url::GeoURLInfo & info)
+{
+  std::smatch m;
+  if (!std::regex_search(s, m, re) || m.size() != 4)
+    return false;
+
+  double lat;
+  double lon;
+  double zoom;
+  VERIFY(strings::to_double(m[lati].str(), lat), ());
+  VERIFY(strings::to_double(m[loni].str(), lon), ());
+  VERIFY(strings::to_double(m[zoomi].str(), zoom), ());
+  if (!info.SetLat(lat) || !info.SetLon(lon))
+    return false;
+  info.SetZoom(zoom);
+  return true;
+}
+
+class DoubleGISParser
+{
+public:
+  DoubleGISParser()
+    : m_pathRe("/(\\d+\\.?\\d*),(\\d+\\.?\\d*)/zoom/(\\d+\\.?\\d*)"),
+      m_paramRe("(\\d+\\.?\\d*),(\\d+\\.?\\d*)/(\\d+\\.?\\d*)")
+  {
+  }
+
+  bool Parse(url::Url const & url, url::GeoURLInfo & info)
+  {
+    // Try m=$lon,$lat/$zoom first
+    for (auto const & param : url.Params())
+    {
+      if (param.m_name == "m")
+      {
+        if (MatchLatLonZoom(param.m_value, m_paramRe, 2, 1, 3, info))
+          return true;
+        break;
+      }
+    }
+
+    // Parse /$lon,$lat/zoom/$zoom from path next
+    if (MatchLatLonZoom(url.GetPath(), m_pathRe, 2, 1, 3, info))
+      return true;
+
+    return false;
+  }
+
+private:
+  regex m_pathRe;
+  regex m_paramRe;
+}; // Class DoubleGISParser
+
+class OpenStreetMapParser
+{
+public:
+  OpenStreetMapParser()
+    : m_regex("#map=(\\d+\\.?\\d*)/(\\d+\\.\\d+)/(\\d+\\.\\d+)")
+  {
+  }
+
+  bool Parse(url::Url const & url, url::GeoURLInfo & info)
+  {
+    if (MatchLatLonZoom(url.GetPath(), m_regex, 2, 3, 1, info))
+      return true;
+    // Check if "#map=" fragment is attached to the last param in Url
+    if (!url.Params().empty() && MatchLatLonZoom(url.Params().back().m_value, m_regex, 2, 3, 1, info))
+      return true;
+    return false;
+  }
+
+private:
+  regex m_regex;
+}; // Class OpenStreetMapParser
+
 }  // namespace
 
 namespace url
@@ -375,6 +451,22 @@ GeoURLInfo::GeoURLInfo(string const & s)
   Url url(s);
   if (!url.IsValid())
     return;
+
+  if (url.GetScheme() == "https" || url.GetScheme() == "http")
+  {
+    if (url.GetWebDomain().find("2gis") != string::npos)
+    {
+      DoubleGISParser parser;
+      if (parser.Parse(url, *this))
+        return;
+    }
+    else if (url.GetWebDomain().find("openstreetmap.org") != string::npos)
+    {
+      OpenStreetMapParser parser;
+      if (parser.Parse(url, *this))
+        return;
+    }
+  }
 
   LatLonParser parser(url, *this);
   parser(url::Param(string(), url.GetPath()));

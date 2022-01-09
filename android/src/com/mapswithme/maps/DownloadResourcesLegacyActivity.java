@@ -92,7 +92,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
       Factory.createGeoIntentProcessor(),
       Factory.createHttpGeoIntentProcessor(),
       Factory.createMapsWithMeIntentProcessor(),
-      Factory.createGoogleMapsIntentProcessor(),
+      Factory.createHttpMapsIntentProcessor(),
       Factory.createOldLeadUrlProcessor(),
       Factory.createOldCoreLinkAdapterProcessor(),
       Factory.createOpenCountryTaskProcessor(),

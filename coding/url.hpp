@@ -37,6 +37,7 @@ public:
   std::string GetWebPath() const;
   bool IsValid() const { return !m_scheme.empty(); }
   void ForEachParam(Callback const & callback) const;
+  const std::vector<Param> & Params() const { return m_params; }
 
 private:
   bool Parse(std::string const & url);
