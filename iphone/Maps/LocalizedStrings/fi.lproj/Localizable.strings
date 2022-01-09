@@ -707,8 +707,6 @@
 
 "editor_operator" = "Operaattori";
 
-"downloader_my_maps_title" = "Omat kartat";
-
 "downloader_no_downloaded_maps_title" = "Et ole ladannut yhtään karttaa";
 
 "downloader_no_downloaded_maps_message" = "Lataa kartattoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.";

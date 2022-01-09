@@ -707,8 +707,6 @@
 
 "editor_operator" = "معامل";
 
-"downloader_my_maps_title" = "خرائطي";
-
 "downloader_no_downloaded_maps_title" = "لم تقم بتنزيل أية خرائط";
 
 "downloader_no_downloaded_maps_message" = "قم بتنزيل خرائط للبحث عن مكان والتنقل بدون اتصال بالإنترنت.";

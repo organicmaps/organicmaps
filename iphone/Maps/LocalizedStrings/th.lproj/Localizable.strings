@@ -707,8 +707,6 @@
 
 "editor_operator" = "เจ้าของ";
 
-"downloader_my_maps_title" = "แผนที่ของฉัน";
-
 "downloader_no_downloaded_maps_title" = "คุณยังไม่ได้ดาวน์โหลดแผนที่";
 
 "downloader_no_downloaded_maps_message" = "ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์";

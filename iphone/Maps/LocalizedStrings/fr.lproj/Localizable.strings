@@ -707,8 +707,6 @@
 
 "editor_operator" = "Opérateur";
 
-"downloader_my_maps_title" = "Mes cartes";
-
 "downloader_no_downloaded_maps_title" = "Vous n'avez téléchargé aucune carte";
 
 "downloader_no_downloaded_maps_message" = "Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne";

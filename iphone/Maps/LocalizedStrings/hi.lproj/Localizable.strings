@@ -707,8 +707,6 @@
 
 "editor_operator" = "Owner";
 
-"downloader_my_maps_title" = "My maps";
-
 "downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
 
 "downloader_no_downloaded_maps_message" = "Download maps to search for a location and use navigation offline.";

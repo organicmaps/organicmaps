@@ -707,8 +707,6 @@
 
 "editor_operator" = "Власник";
 
-"downloader_my_maps_title" = "Мої мапи";
-
 "downloader_no_downloaded_maps_title" = "Ви не маєте завантажених мап";
 
 "downloader_no_downloaded_maps_message" = "Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.";

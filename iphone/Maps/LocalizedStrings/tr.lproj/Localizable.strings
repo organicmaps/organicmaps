@@ -707,8 +707,6 @@
 
 "editor_operator" = "İşletmeci";
 
-"downloader_my_maps_title" = "Haritalarım";
-
 "downloader_no_downloaded_maps_title" = "Hiç harita indirmediniz";
 
 "downloader_no_downloaded_maps_message" = "Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.";

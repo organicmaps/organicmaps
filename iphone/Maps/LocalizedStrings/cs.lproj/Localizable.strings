@@ -707,8 +707,6 @@
 
 "editor_operator" = "Operátor";
 
-"downloader_my_maps_title" = "Mé mapy";
-
 "downloader_no_downloaded_maps_title" = "Nemáte stažené žádné mapy";
 
 "downloader_no_downloaded_maps_message" = "Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.";

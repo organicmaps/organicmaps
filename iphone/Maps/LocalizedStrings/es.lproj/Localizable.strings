@@ -707,8 +707,6 @@
 
 "editor_operator" = "Operador";
 
-"downloader_my_maps_title" = "Mis mapas";
-
 "downloader_no_downloaded_maps_title" = "No ha descargado ningún mapa";
 
 "downloader_no_downloaded_maps_message" = "Descargue mapas para encontrar la ubicación y navegar sin conexión.";

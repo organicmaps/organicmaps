@@ -707,8 +707,6 @@
 
 "editor_operator" = "Operador";
 
-"downloader_my_maps_title" = "Meus mapas";
-
 "downloader_no_downloaded_maps_title" = "Você não fez o download de nenhum mapa";
 
 "downloader_no_downloaded_maps_message" = "Baixe mapas para pesquisar locais e usar navegação offline.";

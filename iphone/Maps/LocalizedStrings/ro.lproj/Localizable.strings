@@ -707,8 +707,6 @@
 
 "editor_operator" = "Proprietar";
 
-"downloader_my_maps_title" = "Hărțile mele";
-
 "downloader_no_downloaded_maps_title" = "Nu ai descărcat nicio hartă";
 
 "downloader_no_downloaded_maps_message" = "Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.";
