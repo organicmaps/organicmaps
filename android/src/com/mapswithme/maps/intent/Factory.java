@@ -83,9 +83,9 @@ public class Factory
   }
 
   @NonNull
-  public static IntentProcessor createGoogleMapsIntentProcessor()
+  public static IntentProcessor createHttpMapsIntentProcessor()
   {
-    return new GoogleMapsIntentProcessor();
+    return new HttpMapsIntentProcessor();
   }
 
   @NonNull
@@ -250,20 +250,24 @@ public class Factory
     }
   }
 
-  private static class GoogleMapsIntentProcessor extends BaseOpenUrlProcessor
+  private static class HttpMapsIntentProcessor extends BaseOpenUrlProcessor
   {
     @Override
     public boolean isSupported(@NonNull Intent intent)
     {
+      final String scheme = intent.getScheme();
       final Uri data = intent.getData();
-      return (data != null && "maps.google.com".equals(data.getHost()));
+      if (data == null || (!"http".equalsIgnoreCase(scheme) && !"https".equalsIgnoreCase(scheme)))
+        return false;
+      final String host = data.getHost();
+      return host.contains("google") || host.contains("2gis") || host.contains("openstreetmap");
     }
 
     @NonNull
     @Override
     MapTask createMapTask(@NonNull String uri)
     {
-      return new OpenUrlTask(uri);
+      return new OpenHttpMapsUrlTask(uri);
     }
   }
 
@@ -534,6 +538,20 @@ public class Factory
     String getUrl()
     {
       return mUrl;
+    }
+  }
+
+  public static class OpenHttpMapsUrlTask extends UrlTaskWithStatistics
+  {
+    OpenHttpMapsUrlTask(@NonNull String url)
+    {
+      super(url);
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      return MapFragment.nativeShowMapForUrl(getUrl());
     }
   }
 
