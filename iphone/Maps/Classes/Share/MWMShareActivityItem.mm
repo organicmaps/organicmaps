@@ -58,7 +58,7 @@ NSString * httpGe0Url(NSString * shortUrl)
   auto const title = ^NSString *(PlacePageData *data)
   {
     if (!data || data.isMyPosition)
-      return L(@"core_my_position");
+      return L(@"share_my_position");
     else if (data.previewData.title.length > 0)
       return data.previewData.title;
     else if (data.previewData.subtitle.length)
@@ -109,7 +109,7 @@ NSString * httpGe0Url(NSString * shortUrl)
 {
   NSString * shortUrl = [self url:YES];
   return [NSString stringWithFormat:@"%@\n%@", httpGe0Url(shortUrl),
-                                    self.isMyPosition ? L(@"my_position_share_email_subject")
+                                    self.isMyPosition ? L(@"share_my_position")
                                                       : self.data.previewData.title];
 }
 
@@ -121,23 +121,21 @@ NSString * httpGe0Url(NSString * shortUrl)
   {
     BOOL const hasSubject = [activityType isEqualToString:UIActivityTypeMail];
     if (hasSubject)
-      return [NSString stringWithFormat:@"%@ %@", url, ge0Url];
+      return url;
     return [NSString
-        stringWithFormat:@"%@ %@\n%@", L(@"my_position_share_email_subject"), url, ge0Url];
+        stringWithFormat:@"%@ %@", L(@"share_my_position"), url];
   }
 
-  NSMutableString * result = [L(@"sharing_call_action_look") mutableCopy];
-  std::vector<NSString *> strings{self.data.previewData.title,
-                                 self.data.previewData.subtitle,
-                                 self.data.previewData.address,
-                                 self.data.infoData.phone,
-                                 url,
-                                 ge0Url};
-
-  for (auto const & str : strings)
+  NSMutableString * result = [@"" mutableCopy];
+  PlacePagePreviewData * pd = self.data.previewData;
+  for (NSString * str in @[pd.title, pd.subtitle, pd.address, self.data.infoData.phone, url])
   {
     if (str.length)
-      [result appendString:[NSString stringWithFormat:@"\n%@", str]];
+    {
+      if (result.length)
+        [result appendString:@"\n"];
+      [result appendString:str];
+    }
   }
 
   return result;
@@ -147,8 +145,8 @@ NSString * httpGe0Url(NSString * shortUrl)
 
 - (NSString *)subjectDefault
 {
-  return self.isMyPosition ? L(@"my_position_share_email_subject")
-                           : L(@"bookmark_share_email_subject");
+  return self.isMyPosition ? L(@"share_my_position")
+                           : L(@"share_coords_subject_default");
 }
 
 @end
