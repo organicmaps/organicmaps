@@ -1,3 +1,5 @@
+import UIKit
+
 @objc(MWMDownloadMapsViewController)
 class DownloadMapsViewController: MWMViewController {
   // MARK: - Types
@@ -20,14 +22,12 @@ class DownloadMapsViewController: MWMViewController {
   // MARK: - Outlets
 
   @IBOutlet var tableView: UITableView!
-  @IBOutlet var searchBar: UISearchBar!
-  @IBOutlet var statusBarBackground: UIView!
   @IBOutlet var noMapsContainer: UIView!
-  @IBOutlet var searchBarTopOffset: NSLayoutConstraint!
   @IBOutlet var downloadAllViewContainer: UIView!
 
   // MARK: - Properties
 
+  private var searchBar: UISearchBar = UISearchBar()
   var dataSource: IDownloaderDataSource!
   @objc var mode: MWMMapDownloaderMode = .downloaded
   private var skipCountryEvent = false
@@ -36,7 +36,7 @@ class DownloadMapsViewController: MWMViewController {
 
   lazy var noSerchResultViewController: SearchNoResultsViewController = {
     let vc = storyboard!.instantiateViewController(ofType: SearchNoResultsViewController.self)
-    view.insertSubview(vc.view, belowSubview: statusBarBackground)
+    view.insertSubview(vc.view, aboveSubview: tableView)
     vc.view.alignToSuperview()
     vc.view.isHidden = true
     addChild(vc)
@@ -77,10 +77,12 @@ class DownloadMapsViewController: MWMViewController {
       navigationItem.rightBarButtonItem = addMapsButton
     }
     noMapsContainer.isHidden = !dataSource.isEmpty || Storage.shared().downloadInProgress()
-    if !dataSource.isRoot {
-      searchBarTopOffset.constant = -searchBar.frame.height
-    } else {
+
+    if dataSource.isRoot {
       searchBar.placeholder = L("downloader_search_field_hint")
+      searchBar.delegate = self
+      // TODO: Fix the height and centering of the searchBar, it's very tricky.
+      navigationItem.titleView = searchBar
     }
     configButtons()
   }
@@ -434,22 +436,6 @@ extension DownloadMapsViewController: StorageObserver {
 // MARK: - UISearchBarDelegate
 
 extension DownloadMapsViewController: UISearchBarDelegate {
-  func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-    searchBar.setShowsCancelButton(true, animated: true)
-    navigationController?.setNavigationBarHidden(true, animated: true)
-    tableView.contentInset = .zero
-    tableView.scrollIndicatorInsets = .zero
-    return true
-  }
-
-  func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-    searchBar.setShowsCancelButton(false, animated: true)
-    navigationController?.setNavigationBarHidden(false, animated: true)
-    tableView.contentInset = .zero
-    tableView.scrollIndicatorInsets = .zero
-    return true
-  }
-
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     searchBar.text = nil
     searchBar.resignFirstResponder()
