@@ -14,6 +14,7 @@ import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.widget.placepage.CoordinatesFormat;
 
 public class SharingUtils
 {
@@ -25,68 +26,59 @@ public class SharingUtils
   {
   }
 
-  public static void shareLocation(@NonNull Context context, @NonNull Location loc)
+  public static void shareMyLocation(@NonNull Context context, @NonNull Location loc)
   {
-    Intent intent = new Intent(Intent.ACTION_SEND);
-    intent.setType(TEXT_MIME_TYPE);
-
-    final String subject = context.getString(R.string.share);
-    intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-
-    final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework
-        .nativeGetDrawScale(), "");
-    final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework
-        .nativeGetDrawScale(), "");
-    final String text = context.getString(R.string.my_position_share_sms, geoUrl, httpUrl);
-    intent.putExtra(Intent.EXTRA_TEXT, text);
-
-    context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
+    // TODO: try to obtain the address of the current position.
+    shareLocation(context, loc.getLatitude(), loc.getLongitude(), Framework.nativeGetDrawScale(), true, "", "");
   }
 
   public static void shareMapObject(@NonNull Context context, @NonNull MapObject object)
   {
-    Intent intent = new Intent(Intent.ACTION_SEND);
-    intent.setType(TEXT_MIME_TYPE);
-
-    final String subject = MapObject.isOfType(MapObject.MY_POSITION, object) ?
-                           context.getString(R.string.my_position_share_email_subject) :
-                           context.getString(R.string.bookmark_share_email_subject);
-    intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-
-    final String geoUrl = Framework.nativeGetGe0Url(object.getLat(), object.getLon(),
-                                                    object.getScale(), object.getName());
-    final String httpUrl = Framework.getHttpGe0Url(object.getLat(), object.getLon(),
-                                                   object.getScale(), object.getName());
-    final String address = TextUtils.isEmpty(object.getAddress()) ? object.getName() : object.getAddress();
-    final String text = context.getString(R.string.my_position_share_email, address, geoUrl, httpUrl);
-    intent.putExtra(Intent.EXTRA_TEXT, text);
-
-    context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
+    shareLocation(context, object.getLat(), object.getLon(), object.getScale(),
+                  MapObject.isOfType(MapObject.MY_POSITION, object), object.getName(), object.getAddress());
   }
 
   public static void shareBookmark(@NonNull Context context, @NonNull BookmarkInfo bookmark)
   {
+    shareLocation(context, bookmark.getLat(), bookmark.getLon(), bookmark.getScale(),
+                  false, bookmark.getName(), bookmark.getAddress());
+  }
+
+  public static void shareLocation(@NonNull Context context, double lat, double lon, double zoomLevel,
+                                   boolean isMyPosition, @NonNull String name, @NonNull String address)
+  {
     Intent intent = new Intent(Intent.ACTION_SEND);
     intent.setType(TEXT_MIME_TYPE);
 
-    final String subject = context.getString(R.string.bookmark_share_email_subject);
+    String subject = "";
+    if (isMyPosition)
+    {
+      subject = context.getString(R.string.share_my_position);
+      name = subject;
+    }
+    else
+    {
+      if (TextUtils.isEmpty(name) || TextUtils.equals(name, context.getString(R.string.core_placepage_unknown_place)))
+      {
+        name = address;
+        address = "";
+      }
+      subject = TextUtils.isEmpty(name) ? context.getString(R.string.share_coords_subject_default)
+                                        : context.getString(R.string.share_coords_subject, name);
+    }
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
-    final String geoUrl = Framework.nativeGetGe0Url(bookmark.getLat(), bookmark.getLon(),
-                                                    bookmark.getScale(), bookmark.getName());
-    final String httpUrl = Framework.getHttpGe0Url(bookmark.getLat(), bookmark.getLon(),
-                                                   bookmark.getScale(), bookmark.getName());
     StringBuilder text = new StringBuilder();
-    text.append(bookmark.getName());
-    if (!TextUtils.isEmpty(bookmark.getAddress()))
+    text.append(name);
+    if (!TextUtils.isEmpty(address))
     {
-      text.append(UiUtils.NEW_STRING_DELIMITER);
-      text.append(bookmark.getAddress());
+      if (text.length() > 0) text.append(UiUtils.NEW_STRING_DELIMITER);
+      text.append(address);
     }
+    if (text.length() > 0) text.append(UiUtils.NEW_STRING_DELIMITER);
+    text.append(Framework.getHttpGe0Url(lat, lon, zoomLevel, name));
     text.append(UiUtils.NEW_STRING_DELIMITER);
-    text.append(geoUrl);
-    text.append(UiUtils.NEW_STRING_DELIMITER);
-    text.append(httpUrl);
+    text.append(Framework.nativeFormatLatLon(lat, lon, CoordinatesFormat.LatLonDecimal.getId()).replace(" ", ""));
     intent.putExtra(Intent.EXTRA_TEXT, text.toString());
 
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));

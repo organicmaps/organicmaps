@@ -316,7 +316,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final Location loc = LocationHelper.INSTANCE.getSavedLocation();
     if (loc != null)
     {
-      SharingUtils.shareLocation(this, loc);
+      SharingUtils.shareMyLocation(this, loc);
       return;
     }
 
