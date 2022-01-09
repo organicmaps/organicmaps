@@ -1072,6 +1072,15 @@
 	<string name="type.office.ngo">Sede de ONG</string>
 	<string name="type.office.telecommunication">Operadora de telefonía móvil</string>
 	<string name="type.place.city">Ciudad</string>
+	<string name="type.place.city.capital.10">Ciudad</string>
+	<string name="type.place.city.capital.11">Ciudad</string>
+	<string name="type.place.city.capital.3">Ciudad</string>
+	<string name="type.place.city.capital.4">Ciudad</string>
+	<string name="type.place.city.capital.5">Ciudad</string>
+	<string name="type.place.city.capital.6">Ciudad</string>
+	<string name="type.place.city.capital.7">Ciudad</string>
+	<string name="type.place.city.capital.8">Ciudad</string>
+	<string name="type.place.city.capital.9">Ciudad</string>
 	<string name="type.place.continent">Continente</string>
 	<string name="type.place.country">País</string>
 	<string name="type.place.county">Municipio</string>
