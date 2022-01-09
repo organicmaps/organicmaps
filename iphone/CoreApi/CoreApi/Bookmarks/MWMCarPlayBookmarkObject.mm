@@ -21,7 +21,7 @@
     self.prefferedName = @(bookmark->GetPreferredName().c_str());
     auto const pivot = bookmark->GetPivot();
     self.mercatorPoint = CGPointMake(pivot.x, pivot.y);
-    auto const & address = GetFramework().GetAddressAtPoint(pivot);
+    auto const address = GetFramework().GetAddressAtPoint(pivot);
     self.address = @(address.FormatAddress().c_str());
     auto const location = mercator::ToLatLon(pivot);
     self.coordinate = CLLocationCoordinate2DMake(location.m_lat, location.m_lon);
