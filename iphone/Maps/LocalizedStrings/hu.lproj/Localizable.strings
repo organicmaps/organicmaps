@@ -707,8 +707,6 @@
 
 "editor_operator" = "Üzemeltető";
 
-"downloader_my_maps_title" = "Térképeim";
-
 "downloader_no_downloaded_maps_title" = "Még nem töltött le térképet";
 
 "downloader_no_downloaded_maps_message" = "Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.";

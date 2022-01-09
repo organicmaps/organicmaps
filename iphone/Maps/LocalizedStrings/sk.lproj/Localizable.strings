@@ -707,8 +707,6 @@
 
 "editor_operator" = "Prevádzkovateľ";
 
-"downloader_my_maps_title" = "Moje mapy";
-
 "downloader_no_downloaded_maps_title" = "Neprevzali ste žiadne mapy";
 
 "downloader_no_downloaded_maps_message" = "Prevziať mapy na nájdenie pozície a navigovanie off-line.";

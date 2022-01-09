@@ -707,8 +707,6 @@
 
 "editor_operator" = "Eier";
 
-"downloader_my_maps_title" = "Mine kart";
-
 "downloader_no_downloaded_maps_title" = "Du har ikke lastet ned noen kart";
 
 "downloader_no_downloaded_maps_message" = "Last ned kart for å finne plasseringen og navigere frakoblet.";

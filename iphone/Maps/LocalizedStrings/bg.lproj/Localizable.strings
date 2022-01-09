@@ -707,8 +707,6 @@
 
 "editor_operator" = "Собственик";
 
-"downloader_my_maps_title" = "My maps";
-
 "downloader_no_downloaded_maps_title" = "Не сте изтеглили никакви карти";
 
 "downloader_no_downloaded_maps_message" = "Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.";

@@ -707,8 +707,6 @@
 
 "editor_operator" = "运营者";
 
-"downloader_my_maps_title" = "我的地图";
-
 "downloader_no_downloaded_maps_title" = "您尚未下载任何地图";
 
 "downloader_no_downloaded_maps_message" = "下载地图来查找位置和离线浏览";
