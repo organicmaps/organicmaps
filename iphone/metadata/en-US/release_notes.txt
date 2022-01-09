@@ -1,5 +1,6 @@
-• New OSM maps data as of November 22
-• Fixed routing between map regions, please test and report to us any issues!
-• Type "water" or "drinking water" in search to find it around yourself
-• Fixed opening of https://omaps.app/ and om:// links on the cold start
-• Updated Russian, Finnish, German, French, Spanish, Ukrainian, Belarusian and Chinese translations
+• New OSM maps data as of 2021-01-03
+• Add rd/st/ct=road/street/court synonyms to the search
+• Do not stop music when announcing directions
+• Improve roads classification
+• Fix non-working FAQ on Android 5 and 6
+• Update localizations
