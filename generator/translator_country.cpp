@@ -84,8 +84,9 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
                                      std::shared_ptr<cache::IntermediateData> const & cache,
                                      feature::GenerateInfo const & info, bool needMixTags)
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache->GetCache()))
+  /// @todo Looks like ways.csv was in some MM proprietary generator routine?!
   , m_tagAdmixer(std::make_shared<TagAdmixer>(info.GetIntermediateFileName("ways", ".csv"),
-                                              info.GetIntermediateFileName("towns", ".csv")))
+                                              info.GetIntermediateFileName(TOWNS_FILE)))
   , m_tagReplacer(std::make_shared<TagReplacer>(
         base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
 {
