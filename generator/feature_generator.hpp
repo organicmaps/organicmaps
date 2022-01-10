@@ -27,10 +27,6 @@ public:
   /// \brief Serializes |f|.
   /// \returns Feature id of serialized feature.
   virtual uint32_t Collect(FeatureBuilder const & f);
-  virtual uint32_t Collect(FeatureBuilder & f)
-  {
-    return Collect(const_cast<FeatureBuilder const &>(f));
-  }
   virtual void Finish() {}
 
 protected:
