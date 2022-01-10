@@ -5,28 +5,25 @@
 
 #include "base/logging.hpp"
 
-#include <cstddef>
-#include <cstdint>
+#include <fstream>
 #include <string>
 #include <vector>
 
-using namespace std;
-
-namespace
+namespace file_data_test
 {
-  string const name1 = "test1.file";
-  string const name2 = "test2.file";
+  std::string const name1 = "test1.file";
+  std::string const name2 = "test2.file";
 
-  void MakeFile(string const & name)
+  void MakeFile(std::string const & name)
   {
     base::FileData f(name, base::FileData::OP_WRITE_TRUNCATE);
     f.Write(name.c_str(), name.size());
   }
 
-  void MakeFile(string const & name, size_t const size, const char c)
+  void MakeFile(std::string const & name, size_t const size, const char c)
   {
     base::FileData f(name, base::FileData::OP_WRITE_TRUNCATE);
-    f.Write(string(size, c).c_str(), size);
+    f.Write(std::string(size, c).c_str(), size);
   }
 
 #ifdef OMIM_OS_WINDOWS
@@ -42,7 +39,6 @@ namespace
     TEST ( equal(name.begin(), name.end(), buffer.begin()), () );
   }
 #endif
-}
 
 UNIT_TEST(FileData_ApiSmoke)
 {
@@ -222,3 +218,35 @@ UNIT_TEST(EmptyFile)
   // Delete copy file.
   TEST(DeleteFileX(copy), ());
 }
+
+// Made this 'obvious' test for getline. I had (or not?) behaviour when 'while (getline)' loop
+// didn't get last string in file without trailing '\n'.
+UNIT_TEST(File_StdGetLine)
+{
+  std::string const fName = "test.txt";
+
+  for (std::string buffer : { "x\nxy\nxyz\nxyzk", "x\nxy\nxyz\nxyzk\n" })
+  {
+    {
+      base::FileData f(fName, base::FileData::OP_WRITE_TRUNCATE);
+      f.Write(buffer.c_str(), buffer.size());
+    }
+
+    {
+      std::ifstream ifs(fName);
+      std::string line;
+      size_t count = 0;
+      while (std::getline(ifs, line))
+      {
+        ++count;
+        TEST_EQUAL(line.size(), count, ());
+      }
+
+      TEST_EQUAL(count, 4, ());
+    }
+
+    TEST(base::DeleteFileX(fName), ());
+  }
+}
+
+} // namespace file_data_test
