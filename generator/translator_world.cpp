@@ -27,7 +27,7 @@ TranslatorWorld::TranslatorWorld(std::shared_ptr<FeatureProcessorInterface> cons
                                  feature::GenerateInfo const & info, bool needMixTags)
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache->GetCache()))
   , m_tagAdmixer(std::make_shared<TagAdmixer>(info.GetIntermediateFileName("ways", ".csv"),
-                                              info.GetIntermediateFileName("towns", ".csv")))
+                                              info.GetIntermediateFileName(TOWNS_FILE)))
   , m_tagReplacer(std::make_shared<TagReplacer>(
         base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
 {

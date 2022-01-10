@@ -4,18 +4,13 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "generator/osm_element.hpp"
-
-#include "base/string_utils.hpp"
-
 #include <string>
 #include <vector>
 
+struct OsmElement;
 class TownsDumper
 {
 public:
-  TownsDumper();
-
   void CheckElement(OsmElement const & em);
 
   void Dump(std::string const & filePath);
@@ -38,7 +33,8 @@ private:
     bool operator<(Town const & rhs) const { return population < rhs.population; }
     m2::RectD GetLimitRect() const
     {
-      return m2::RectD(mercator::FromLatLon(point), mercator::FromLatLon(point));
+      auto const mercPt = mercator::FromLatLon(point);
+      return m2::RectD(mercPt, mercPt);
     }
   };
 
