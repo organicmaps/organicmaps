@@ -23,7 +23,7 @@ public:
   void ParseStream(std::istream & input)
   {
     std::string oneLine;
-    while (std::getline(input, oneLine, '\n'))
+    while (std::getline(input, oneLine))
     {
       // String format: <<id;tag>>.
       auto pos = oneLine.find(';');
@@ -48,7 +48,7 @@ public:
   void ParseStream(std::istream & input)
   {
     std::string oneLine;
-    while (std::getline(input, oneLine, '\n'))
+    while (std::getline(input, oneLine))
     {
       // String format: <<lat;lon;id;is_capital>>.
       // First ';'.
