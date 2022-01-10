@@ -59,25 +59,25 @@
     <script>
       "use strict";
       function getLanguage() {
-        let lang = navigator.language || navigator.userLanguage;
-        const found = location.href.indexOf("?");
+        var lang = navigator.language || navigator.userLanguage;
+        var found = location.href.indexOf("?");
         if (found != -1) {
-          const urlParams = new URLSearchParams(location.href.substr(found));
-          const queryLang = urlParams.get("lang");
+          var urlParams = new URLSearchParams(location.href.substr(found));
+          var queryLang = urlParams.get("lang");
           if (queryLang) lang = queryLang;
         }
         return lang;
       }
 
       // TODO: Update this list with a new translation.
-      const translations = ['en', 'ru', 'de', 'es', 'fr', 'pt', 'pt', 'pl'];
+      var translations = ['en', 'ru', 'de', 'es', 'fr', 'pt', 'pt', 'pl'];
       // Show Russian for browsers with this language codes.
-      const canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uk', 'uz'];
+      var canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uk', 'uz'];
 
       // TODO: Properly handle be-EN, he-RU or similar cases.
       function showLanguage() {
-        let lang = getLanguage();
-        const iso6391 = lang.substring(0, 2);
+        var lang = getLanguage();
+        var iso6391 = lang.substring(0, 2);
         if (canReadRussian.indexOf(iso6391) >= 0)  // Array.includes is not supported in Android 5 and 6.
           lang = 'ru';
         else if (translations.indexOf(iso6391) >= 0) {
@@ -86,9 +86,9 @@
         } else
           lang = 'en';
 
-        let elems = document.querySelectorAll('[lang="' + lang + '"]');
+        var elems = document.querySelectorAll('[lang="' + lang + '"]');
         // Make them visible.
-        for (let i = 0; i < elems.length; ++i) elems[i].style.display = "block";
+        for (var i = 0; i < elems.length; ++i) elems[i].style.display = "block";
       }
     </script>
   </head>
