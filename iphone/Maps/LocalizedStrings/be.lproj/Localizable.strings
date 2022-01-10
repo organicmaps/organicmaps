@@ -63,16 +63,16 @@
 "continue_download" = "Працягнуць";
 
 /* "Add new bookmark list" dialog title */
-"add_new_set" = "Дадаць новую групу";
+"add_new_set" = "Дадаць новы спіс";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Колер закладкі";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
-"bookmark_set_name" = "Назва групы закладак";
+"bookmark_set_name" = "Назва спісу закладак";
 
 /* "Bookmark Lists" dialog title */
-"bookmark_sets" = "Групы закладак";
+"bookmark_sets" = "Спісы закладак";
 
 /* "Bookmarks" dialog title */
 "bookmarks" = "Закладкі";
@@ -822,7 +822,7 @@
 /* For the first routing */
 "decline" = "Адхіліць";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "Спіс";
 
 "mobile_data_dialog" = "Ужываць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?";

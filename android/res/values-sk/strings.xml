@@ -69,8 +69,8 @@
 	<string name="name">Názov</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adresa</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">Skupina</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">Zoznam</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Nastavenia</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -464,7 +464,7 @@
 	<string name="accept">Prijať</string>
 	<!-- For the first routing -->
 	<string name="decline">Odmietnuť</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">Zoznam</string>
 	<string name="mobile_data_dialog">Použiť mobilný internet na zobrazenie podrobnejších informácií?</string>
 	<string name="mobile_data_option_always">Vždy použiť</string>

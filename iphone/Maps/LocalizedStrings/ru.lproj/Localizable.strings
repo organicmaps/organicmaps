@@ -63,16 +63,16 @@
 "continue_download" = "Продолжить";
 
 /* "Add new bookmark list" dialog title */
-"add_new_set" = "Добавить группу";
+"add_new_set" = "Добавить список";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Цвет метки";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
-"bookmark_set_name" = "Название группы";
+"bookmark_set_name" = "Название списка меток";
 
 /* "Bookmark Lists" dialog title */
-"bookmark_sets" = "Группы меток";
+"bookmark_sets" = "Списки меток";
 
 /* "Bookmarks" dialog title */
 "bookmarks" = "Метки";
@@ -822,7 +822,7 @@
 /* For the first routing */
 "decline" = "Отклонить";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "Список";
 
 "mobile_data_dialog" = "Загружать дополнительную информацию через мобильный интернет?";

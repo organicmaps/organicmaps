@@ -69,8 +69,8 @@
 	<string name="name">이름</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">주소</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">집합</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">목록</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">설정</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -466,7 +466,7 @@
 	<string name="accept">동의</string>
 	<!-- For the first routing -->
 	<string name="decline">거부</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">목록</string>
 	<string name="mobile_data_dialog">모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?</string>
 	<string name="mobile_data_option_always">항상 사용</string>

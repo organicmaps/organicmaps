@@ -69,8 +69,8 @@
 	<string name="name">Namn</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adress</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">Samling</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">Lista</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Inställningar</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -464,7 +464,7 @@
 	<string name="accept">Acceptera</string>
 	<!-- For the first routing -->
 	<string name="decline">Neka</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">Lista</string>
 	<string name="mobile_data_dialog">Använd mobilt nätverk för att visa detaljerad information?</string>
 	<string name="mobile_data_option_always">Använd alltid</string>

@@ -822,7 +822,7 @@
 /* For the first routing */
 "decline" = "Hylkää";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "Luettelo";
 
 "mobile_data_dialog" = "Näytetäänkö lisätiedot mobiili-internetillä?";

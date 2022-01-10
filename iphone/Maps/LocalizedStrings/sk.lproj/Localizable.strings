@@ -822,7 +822,7 @@
 /* For the first routing */
 "decline" = "Odmietnuť";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "Zoznam";
 
 "mobile_data_dialog" = "Použiť mobilný internet na zobrazenie podrobnejších informácií?";

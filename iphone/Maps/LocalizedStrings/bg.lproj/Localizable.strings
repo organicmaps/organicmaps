@@ -822,7 +822,7 @@
 /* For the first routing */
 "decline" = "Отказване";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "Списък";
 
 "mobile_data_dialog" = "Използване на мобилни данни за подробна информация?";

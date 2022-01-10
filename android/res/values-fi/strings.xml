@@ -71,8 +71,8 @@
 	<string name="name">Nimi</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Osoite</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">Aseta</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">Luettelo</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Asetukset</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -472,7 +472,7 @@
 	<string name="accept">Hyväksy</string>
 	<!-- For the first routing -->
 	<string name="decline">Hylkää</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">Luettelo</string>
 	<string name="mobile_data_dialog">Näytetäänkö lisätiedot mobiili-internetillä?</string>
 	<string name="mobile_data_option_always">Käytä aina</string>

@@ -63,16 +63,16 @@
 "continue_download" = "Продовжити";
 
 /* "Add new bookmark list" dialog title */
-"add_new_set" = "Додати групу";
+"add_new_set" = "Додати список";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Колір мiтки";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
-"bookmark_set_name" = "Назва групи";
+"bookmark_set_name" = "Назва списка мiток";
 
 /* "Bookmark Lists" dialog title */
-"bookmark_sets" = "Групи мiток";
+"bookmark_sets" = "Списки мiток";
 
 /* "Bookmarks" dialog title */
 "bookmarks" = "Мітки";
@@ -822,7 +822,7 @@
 /* For the first routing */
 "decline" = "Відхилити";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "Список";
 
 "mobile_data_dialog" = "Використовувати мобільні дані для перегляду докладної інформації?";
