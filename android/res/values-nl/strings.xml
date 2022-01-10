@@ -66,8 +66,8 @@
 	<string name="name">Naam</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adres</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">Groep</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">Lijst</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Instellingen</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -470,7 +470,7 @@
 	<string name="accept">Aanvaarden</string>
 	<!-- For the first routing -->
 	<string name="decline">Weigeren</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">Lijst</string>
 	<string name="mobile_data_dialog">Mobiel internet gebruiken om gedetailleerde informatie weer te geven?</string>
 	<string name="mobile_data_option_always">Altijd Gebruiken</string>

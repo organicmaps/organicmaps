@@ -65,7 +65,7 @@
 	<string name="name">שם</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">כתובת</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">קבוצה</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">הגדרות</string>

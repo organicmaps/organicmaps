@@ -71,8 +71,8 @@
 	<string name="name">ชื่อ</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">ที่อยู่</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">ชุด</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">รายการ</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">การตั้งค่า</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -468,7 +468,7 @@
 	<string name="accept">ยอมรับ</string>
 	<!-- For the first routing -->
 	<string name="decline">ปฏิเสธ</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">รายการ</string>
 	<string name="mobile_data_dialog">ใช้อินเทอร์เน็ตมือถือแสดงข้อมูลโดยรายละเอียดหรือไม่?</string>
 	<string name="mobile_data_option_always">ใช้เสมอ</string>

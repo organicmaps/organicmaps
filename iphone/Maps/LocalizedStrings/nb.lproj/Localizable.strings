@@ -822,7 +822,7 @@
 /* For the first routing */
 "decline" = "Avvis";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "Liste";
 
 "mobile_data_dialog" = "Bruke mobilt Internett til å vise detaljert informasjon?";

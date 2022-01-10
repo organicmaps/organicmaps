@@ -59,11 +59,11 @@
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Не удалось загрузить %s</string>
 	<!-- "Add new bookmark list" dialog title -->
-	<string name="add_new_set">Добавить группу</string>
+	<string name="add_new_set">Добавить список</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Цвет метки</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
-	<string name="bookmark_set_name">Название группы</string>
+	<string name="bookmark_set_name">Название списка меток</string>
 	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Метки</string>
 	<!-- Default bookmark list name -->
@@ -72,8 +72,8 @@
 	<string name="name">Название</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Адрес</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">Группа</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">Список</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Настройки</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -488,7 +488,7 @@
 	<string name="accept">Принять</string>
 	<!-- For the first routing -->
 	<string name="decline">Отклонить</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">Список</string>
 	<string name="mobile_data_dialog">Загружать дополнительную информацию через мобильный интернет?</string>
 	<string name="mobile_data_option_always">Всегда</string>

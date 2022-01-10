@@ -822,7 +822,7 @@
 /* For the first routing */
 "decline" = "Διαφωνώ";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "Λίστα";
 
 "mobile_data_dialog" = "Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;";

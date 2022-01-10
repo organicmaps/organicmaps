@@ -70,8 +70,8 @@
 	<string name="name">Όνομα</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Διεύθυνση</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">Σύνολο</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">Λίστα</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ρυθμίσεις</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -462,7 +462,7 @@
 	<string name="accept">Συμφωνώ</string>
 	<!-- For the first routing -->
 	<string name="decline">Διαφωνώ</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">Λίστα</string>
 	<string name="mobile_data_dialog">Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;</string>
 	<string name="mobile_data_option_always">Να χρησιμοποιείται πάντα</string>

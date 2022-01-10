@@ -72,7 +72,7 @@
 	<string name="name">Name</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Address</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">List</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Settings</string>
@@ -504,7 +504,7 @@
 	<string name="accept">Accept</string>
 	<!-- For the first routing -->
 	<string name="decline">Decline</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">List</string>
 	<string name="mobile_data_dialog">Use mobile internet to show detailed information?</string>
 	<string name="mobile_data_option_always">Use Always</string>

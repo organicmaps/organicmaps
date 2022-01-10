@@ -71,7 +71,7 @@
 	<string name="name">Adı</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adres</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Liste</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ayarlar</string>
@@ -487,7 +487,7 @@
 	<string name="accept">Kabul et</string>
 	<!-- For the first routing -->
 	<string name="decline">Reddet</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">Liste</string>
 	<string name="mobile_data_dialog">Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?</string>
 	<string name="mobile_data_option_always">Her zaman kullan</string>

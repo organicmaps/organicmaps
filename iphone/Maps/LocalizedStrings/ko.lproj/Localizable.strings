@@ -822,7 +822,7 @@
 /* For the first routing */
 "decline" = "거부";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "목록";
 
 "mobile_data_dialog" = "모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?";

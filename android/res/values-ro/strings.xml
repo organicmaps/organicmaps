@@ -69,7 +69,7 @@
 	<string name="name">Nume</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adresa</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Listă</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Preferințe</string>
@@ -485,7 +485,7 @@
 	<string name="accept">Acceptă</string>
 	<!-- For the first routing -->
 	<string name="decline">Refuză</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">Listă</string>
 	<string name="mobile_data_dialog">Folosești internetul mobil pentru a vedea informaţii detaliate?</string>
 	<string name="mobile_data_option_always">Folosește mereu</string>

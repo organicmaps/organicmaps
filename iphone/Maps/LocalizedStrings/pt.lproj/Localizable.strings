@@ -822,7 +822,7 @@
 /* For the first routing */
 "decline" = "Recusar";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "Lista";
 
 "mobile_data_dialog" = "Utilizar os dados móveis para mostrar informações detalhadas?";

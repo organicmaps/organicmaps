@@ -822,7 +822,7 @@
 /* For the first routing */
 "decline" = "拒否";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "一覧";
 
 "mobile_data_dialog" = "モバイルインターネットを使用して詳細な情報を表示しますか？";
