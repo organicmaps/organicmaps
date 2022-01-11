@@ -82,8 +82,8 @@ sw:Sehemu ya kula
 fa:غذا|کجا غذا بخوریم
 
 @food
-en:Groceries|Food|Shop
-ru:Продукты|Еда|Магазин
+en:4Groceries|Food|Shop
+ru:4Продукты|Еда|4Магазин
 be:Прадукты|Ежа|Магазін
 bg:Продукти|Храна|Магазин
 ar:طعام|متجر|المشتريات
@@ -95,18 +95,18 @@ fr:Les courses|Nourriture|Magasin
 de:Lebensmittel|Essen|Geschäft|Laden
 hu:Élelmiszer|Ennivaló|Bolt|Üzlet
 id:Toserba|Makanan|Toko
-it:Alimentari|Cibo|Negozio
+it:4Alimentari|Cibo|Negozio
 ja:食料雑貨|飲食|買い物
 ko:식료품들|음식|쇼핑
 nb:Dagligvarer|Mat|Butikk
 pl:Produkty|Jedzenie|Sklep
 pt:Mercearias|Minimercados|Supermercados|Hipermercados|Comida|Alimentos|Loja
 pt-BR:Mercados|Alimentação|Loja
-ro:Produse|Alimentație|Magazin
+ro:4Alimentare|Produse|Alimentație|Magazin
 es:Productos|Comer|Tienda
 sv:Produkter|Mat|Butik|Affär
 th:ซื้อของกินของใช้|อาหาร|ร้านค้า
-tr:Bakkaliye|Yemek|Mağaza
+tr:4Market|Bakkaliye|Yemek|Mağaza
 uk:Продукти|Їжа|Крамниця|магазин
 vi:Cửa hàng tạp hóa|ẩm thực|Cửa hàng
 zh-Hans:食品|食物|商店
@@ -166,14 +166,14 @@ fr:3Essence
 de:3Tankstelle
 hu:Benzinkút
 id:Bahan bakar
-it:3Stazione di rifornimento
+it:4Benzinaio|3Stazione di rifornimento
 ja:1ガソリンスタンド
 ko:연료|주유소
 nb:Drivstoff
 pl:3Stacja benzynowa
 pt:3Combustível
 pt-BR:Combustível
-ro:Benzină
+ro:4Benzinărie|Benzină
 es:3Gasolinera
 sv:3Bensin
 th:ก๊าซ
@@ -308,7 +308,7 @@ fr:Tourisme|Attraction|Sites touristiques
 de:Attraktion|Tourismus|Touristenattraktion|Sehenswürdigkeit
 hu:Túrizmus|Látnivaló
 id:Pemandangan
-it:Turistico
+it:Luoghi turistici|Turistico
 ja:観光
 ko:관광
 nb:Severdigheter
@@ -327,7 +327,7 @@ zh-Hant:旅遊景點
 el:Αξιοθέατο
 he:נקודות עיניין
 sk:Pamätihodnosť
-fa:گردشگری
+fa:منظره|گردشگری
 
 @entertainment
 en:Entertainment
@@ -413,14 +413,14 @@ fr:Vacances en famille
 de:Freizeit mit Kindern
 hu:Pihenés a gyerekekkel
 id:Liburan keluarga
-it:Vacanze bambini
+it:Tempo libero|Vacanze bambini
 ja:家族の休日
 ko:가족 기념일|명절
 nb:Familieferie
 pl:Wypoczynek z dziećmi
 pt:Atividades com crianças
 pt-BR:Feriados em família
-ro:Odihnă cu copii
+ro:Timp liber|Odihnă cu copii
 es:Descanso con niños
 sv:Semester med barn
 th:วันหยุดสำหรับครอบครัว
@@ -468,7 +468,7 @@ el:ATM
 he:כספומט
 sk:3Bankomat
 sw:Benki|fedha
-fa:خودپرداز
+fa:خود پرداز
 
 amenity-atm|@atm
 en:money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -793,7 +793,7 @@ pt-BR:3Posto de combustível|3gasolina
 ro:3Benzinărie
 sv:3Bensinstation|3bränsle|2gas
 th:3ปั๊มน้ำมัน|เชื้อเพลิง
-tr:3Benzin istasyonu|2gaz
+tr:3Yakıt|3Benzin istasyonu|2gaz
 uk:3бензин|газ
 vi:Trạm xăng
 zh-Hans:1加油站|燃料
