@@ -2,11 +2,12 @@
 
 #include "map/features_fetcher.hpp"
 
-#include "indexer/data_header.hpp"
-#include "indexer/scales.hpp"
-#include "indexer/feature_visibility.hpp"
-#include "indexer/feature_processor.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/feature_processor.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/map_style_reader.hpp"
+#include "indexer/scales.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 
@@ -22,14 +23,27 @@
 
 using namespace std;
 
-namespace
+namespace mwm_for_each_test
 {
 using Cont = vector<uint32_t>;
 
 bool IsDrawable(FeatureType & f, int scale)
 {
-  // Feature that doesn't have any geometry for m_scale returns empty DebugString().
-  return (!f.IsEmptyGeometry(scale) && feature::IsDrawableForIndex(f, scale));
+  if (f.IsEmptyGeometry(scale))
+    return false;
+
+  if (feature::IsDrawableForIndex(f, scale))
+    return true;
+
+  // Scale index ends on GetUpperScale(), but the actual visibility goes until GetUpperStyleScale().
+  if (scale != scales::GetUpperScale())
+    return false;
+
+  while (++scale <= scales::GetUpperStyleScale())
+    if (feature::IsDrawableForIndex(f, scale))
+      return true;
+
+  return false;
 }
 
 class AccumulatorBase
@@ -248,67 +262,69 @@ public:
   }
 };
 
-// void RunTest(string const & countryFileName)
-// {
-//   FeaturesFetcher src1;
-//   src1.InitClassificator();
+void RunTest(string const & countryFileName)
+{
+  FeaturesFetcher src1;
+  src1.InitClassificator();
 
-//   platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeForTesting(countryFileName));
-//   // Clean indexes to prevent mwm and indexes versions mismatch error.
-//   platform::CountryIndexes::DeleteFromDisk(localFile);
-//   UNUSED_VALUE(src1.RegisterMap(localFile));
+  platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeForTesting(countryFileName));
+  // Clean indexes to prevent mwm and indexes versions mismatch error.
+  platform::CountryIndexes::DeleteFromDisk(localFile);
+  UNUSED_VALUE(src1.RegisterMap(localFile));
 
-//   vector<m2::RectD> rects;
-//   rects.push_back(src1.GetWorldRect());
+  vector<m2::RectD> rects;
+  rects.push_back(src1.GetWorldRect());
 
-//   ModelReaderPtr reader = platform::GetCountryReader(localFile, MapFileType::Map);
+  ModelReaderPtr reader = platform::GetCountryReader(localFile, MapFileType::Map);
 
-//   while (!rects.empty())
-//   {
-//     m2::RectD const r = rects.back();
-//     rects.pop_back();
+  while (!rects.empty())
+  {
+    m2::RectD const r = rects.back();
+    rects.pop_back();
 
-//     int const scale = scales::GetScaleLevel(r);
+    int const scale = max(scales::GetUpperCountryScale(), scales::GetScaleLevel(r));
 
-//     Cont v1, v2;
-//     {
-//       AccumulatorBase acc(scale, v1);
-//       src1.ForEachFeature(r, acc, scale);
-//       sort(v1.begin(), v1.end(), FeatureIDCmp());
-//     }
-//     {
-//       AccumulatorEtalon acc(r, scale, v2);
-//       feature::ForEachFeature(reader, acc);
-//       sort(v2.begin(), v2.end(), FeatureIDCmp());
-//     }
+    Cont v1, v2;
+    {
+      AccumulatorBase acc(scale, v1);
+      src1.ForEachFeature(r, acc, scale);
+      sort(v1.begin(), v1.end(), FeatureIDCmp());
+    }
+    {
+      AccumulatorEtalon acc(r, scale, v2);
+      feature::ForEachFeature(reader, acc);
+      sort(v2.begin(), v2.end(), FeatureIDCmp());
+    }
 
-//     size_t const emptyInd = size_t(-1);
-//     size_t errInd = emptyInd;
-//     if (!compare_sequence(v2, v1, FeatureIDCmp(), errInd))
-//     {
-//       if (errInd != emptyInd)
-//       {
-//         FindOffset doFind(scale, v2[errInd]);
-//         feature::ForEachFeature(reader, doFind);
-//       }
+    size_t const emptyInd = size_t(-1);
+    size_t errInd = emptyInd;
+    if (!compare_sequence(v2, v1, FeatureIDCmp(), errInd))
+    {
+      if (errInd != emptyInd)
+      {
+        FindOffset doFind(scale, v2[errInd]);
+        feature::ForEachFeature(reader, doFind);
+      }
 
-//       TEST(false, ("Failed for rect:", r, "; Scale level:", scale, "; Etalon size:", v2.size(), "; Index size:", v1.size()));
-//     }
+      TEST(false, ("Failed for rect:", r, "; Scale level:", scale, "; Etalon size:", v2.size(), "; Index size:", v1.size()));
+    }
 
-//     if (!v2.empty() && (scale < scales::GetUpperScale()))
-//     {
-//       m2::RectD r1, r2;
-//       r.DivideByGreaterSize(r1, r2);
-//       rects.push_back(r1);
-//       rects.push_back(r2);
-//     }
-//   }
-// }
+    if (!v2.empty() && (scale < scales::GetUpperScale()))
+    {
+      m2::RectD r1, r2;
+      r.DivideByGreaterSize(r1, r2);
+      rects.push_back(r1);
+      rects.push_back(r2);
+    }
+  }
+}
 
+/// @todo The concept of this test became invalid after POI filtering when overlap in geometry index.
+/// Probably, will restore it with a new idea someday. Like build and check separate index without filtering.
 //UNIT_TEST(ForEach_QueryResults)
 //{
+//  GetStyleReader().SetCurrentStyle(MapStyleMerged);
 //  RunTest("minsk-pass");
-//  //RunTestForChoice("london-center");
 //}
 
-}  // namespace
+} // namespace mwm_for_each_test

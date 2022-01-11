@@ -71,9 +71,8 @@ UNIT_TEST(ForEachFeatureID_Test)
 {
   classificator::Load();
 
-  /// @todo Uncomment World* checking after next map data update.
-  // TEST(RunTest("World", 0, scales::GetUpperWorldScale()), ());
-  // TEST(RunTest("WorldCoasts.mwm", 0, scales::GetUpperWorldScale()), ());
+  TEST(RunTest("World", 0, scales::GetUpperWorldScale()), ());
+  TEST(RunTest("WorldCoasts", 0, scales::GetUpperWorldScale()), ());
   // TEST(RunTest("Belarus", scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale()), ());
   TEST(RunTest("minsk-pass", scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale()), ());
 }
