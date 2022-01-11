@@ -1970,8 +1970,9 @@
     zh-Hans = 选择英里或公里
     zh-Hant = 請選擇公里或英哩
 
+[[Search categories]]
   [eat]
-    comment = Search category for cafes, bars, restaurants
+    comment = Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat!
     tags = android,ios
     en = Where to eat
     ar = مكان لتناول الطعام
@@ -2008,7 +2009,7 @@
     zh-Hant = 在哪兒吃
 
   [food]
-    comment = Search category for grocery stores
+    comment = Search category for grocery stores; any changes should be duplicated in categories.txt @food!
     tags = android,ios
     en = Groceries
     ar = المشتريات
@@ -2045,7 +2046,7 @@
     zh-Hant = 食物
 
   [transport]
-    comment = Search category
+    comment = Search category for public transport; any changes should be duplicated in categories.txt @transport!
     tags = android,ios
     en = Transport
     ar = نقل
@@ -2082,7 +2083,7 @@
     zh-Hant = 運輸
 
   [fuel]
-    comment = Search category
+    comment = Search category for fuel stations; any changes should be duplicated in categories.txt @fuel!
     tags = android,ios
     en = Gas
     en-GB = Petrol
@@ -2120,7 +2121,7 @@
     zh-Hant = 加油站
 
   [parking]
-    comment = Search category
+    comment = Search category for parking lots; any changes should be duplicated in categories.txt @parking!
     tags = android,ios
     en = Parking
     ar = الاصطفاف
@@ -2157,7 +2158,7 @@
     zh-Hant = 停車場
 
   [shopping]
-    comment = Search category for clothes/shoes/gifts/jewellery/sport shops
+    comment = Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping!
     tags = android,ios
     en = Shopping
     ar = التسوق
@@ -2194,7 +2195,7 @@
     zh-Hant = 購物
 
   [hotel]
-    comment = Search category
+    comment = Search category for places to stay; any changes should be duplicated in categories.txt @hotel!
     tags = android,ios
     en = Hotel
     ar = فندق
@@ -2231,7 +2232,7 @@
     zh-Hant = 旅館
 
   [tourism]
-    comment = Search category
+    comment = Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism!
     tags = android,ios
     en = Sights
     ar = سياحة
@@ -2268,7 +2269,7 @@
     zh-Hant = 旅遊景點
 
   [entertainment]
-    comment = Search category
+    comment = Search category for entertainment; any changes should be duplicated in categories.txt @entertainment!
     tags = android,ios
     en = Entertainment
     ar = التسلية
@@ -2305,7 +2306,7 @@
     zh-Hant = 娛樂
 
   [atm]
-    comment = Search category
+    comment = Search category for ATMs; any changes should be duplicated in categories.txt @atm!
     tags = android,ios
     en = ATM
     ar = ماكينة الصراف الآلي
@@ -2342,7 +2343,7 @@
     zh-Hant = 自動櫃員機
 
   [nightlife]
-    comment = Search category for nightclubs/bars
+    comment = Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife!
     tags = android,ios
     en = Nightlife
     ar = أنشطة ترفيه ليلية
@@ -2379,7 +2380,7 @@
     zh-Hant = 夜生活
 
   [children]
-    comment = Search category for water park/disneyland/playground/toys store
+    comment = Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children!
     tags = android,ios
     en = Family holiday
     ar = عطلة عائلية
@@ -2416,7 +2417,7 @@
     zh-Hant = 親子休閒
 
   [bank]
-    comment = Search category
+    comment = Search category for banks; any changes should be duplicated in categories.txt @bank!
     tags = android,ios
     en = Bank
     ar = بنك
@@ -2453,7 +2454,7 @@
     zh-Hant = 銀行
 
   [pharmacy]
-    comment = Search category
+    comment = Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy!
     tags = android,ios
     en = Pharmacy
     ar = صيدلية
@@ -2490,7 +2491,7 @@
     zh-Hant = 藥局
 
   [hospital]
-    comment = Search category
+    comment = Search category for hospitals; any changes should be duplicated in categories.txt @hospital!
     tags = android,ios
     en = Hospital
     ar = مستشفى
@@ -2528,7 +2529,7 @@
     zh-Hant = 醫院
 
   [toilet]
-    comment = Search category
+    comment = Search category for toilets; any changes should be duplicated in categories.txt @toilet!
     tags = android,ios
     en = Toilet
     ar = حمام
@@ -2565,7 +2566,7 @@
     zh-Hant = 廁所
 
   [post]
-    comment = Search category
+    comment = Search category for post offices; any changes should be duplicated in categories.txt @post!
     tags = android,ios
     en = Post
     ar = بريد
@@ -2602,7 +2603,7 @@
     zh-Hant = 郵局
 
   [police]
-    comment = Search category
+    comment = Search category for police; any changes should be duplicated in categories.txt @police!
     tags = android,ios
     en = Police
     ar = شرطة
