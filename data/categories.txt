@@ -48,6 +48,7 @@
 @eat
 en:Where to eat|eat|Food
 ru:Где поесть|Поесть|Еда
+be:Дзе паесці|паесці|ежа
 bg:Места за хапване|ядене|храна
 ar:طعام|مكان لتناول الطعام
 cs:Kde se najíst|Jídlo
@@ -83,6 +84,7 @@ fa:غذا|کجا غذا بخوریم
 @food
 en:Groceries|Food|Shop
 ru:Продукты|Еда|Магазин
+be:Прадукты|Ежа|Магазін
 bg:Продукти|Храна|Магазин
 ar:طعام|متجر|المشتريات
 cs:Potraviny|Jídlo|Obchod
@@ -118,6 +120,7 @@ fa:غذا|فروشگاه|عطاری
 @transport
 en:Transport
 ru:Транспорт
+be:Транспарт
 bg:Транспорт
 ar:مواصلات|نقل
 cs:Doprava
@@ -151,7 +154,8 @@ fa:حمل و نقل
 
 @fuel
 en:2Gas
-ru:3Заправка
+ru:3Заправка|3бензин
+be:3Запраўка|3бензін
 bg:Гориво|Бензиностанция
 ar:1وقود|بنزين|سولار|ديزل|غاز
 cs:2Čerpací stanice|Benzinová pumpa|benzinka
@@ -174,7 +178,7 @@ es:3Gasolinera
 sv:3Bensin
 th:ก๊าซ
 tr:Benzin
-uk:Заправка
+uk:Заправка|бензин
 vi:Khí đốt
 zh-Hans:汽油
 zh-Hant:加油站
@@ -185,8 +189,9 @@ sw:Sheli
 fa:سوخت|بنزین|دیزل|گازوئیل
 
 @parking
-en:Parking
-ru:Парковка
+en:4Parking
+ru:4Парковка
+be:4Паркоўка
 bg:Паркинг
 ar:موقف سيارات
 cs:Parkoviště
@@ -221,6 +226,7 @@ fa:پارکینگ
 @shopping
 en:Shopping|Shop
 ru:Шоппинг|Магазин
+be:4Закупы|магазін
 bg:Шопинг|Магазин
 ar:متجر|التسوق
 cs:Nákupy|Obchod
@@ -256,6 +262,7 @@ fa:فروشگاه|خرید کردن
 @hotel
 en:Hotel|hotels
 ru:Гостиница|гостиницы|отель|отели
+be:Гатель|гателі
 bg:Хотел|хотели
 ar:فندق|الفنادق
 cs:Hotel|Hotely
@@ -290,6 +297,7 @@ fa:هتل|هتل ها
 @tourism
 en:Attractions|3Tourism|Sights
 ru:Туризм|Достопримечательность|достопримечательности
+be:Славутасці|турызм
 bg:Туризъм|Забележителности
 ar:سياحة
 cs:Pamětihodnost
@@ -324,6 +332,7 @@ fa:گردشگری
 @entertainment
 en:Entertainment
 ru:Развлечения
+be:Забавы
 bg:Развлечение
 ar:ترفيه وتسلية
 cs:Zábava
@@ -357,7 +366,8 @@ fa:سرگرمی
 
 @nightlife
 en:Nightlife
-ru:Ночная жизнь|С друзьями|Вечер с друзьями
+ru:Ночная жизнь|С друзьями|Вечер с друзьями|потусить
+be:Начное жыццё|патусіць
 bg:Нощен живот|С приятели
 ar:أنشطة ترفيه ليلية
 cs:Noční život
@@ -392,6 +402,7 @@ fa:تفریحات شبانه
 @children
 en:Family holiday
 ru:Отдых с детьми
+be:Сямейны адпачынак
 bg:Семейна почивка
 ar:عطلة عائلية
 cs:Dovolená s dětmi
@@ -426,6 +437,7 @@ fa:تعطیلات خانوادگی
 @atm
 en:ATM|Cash machine
 ru:3Банкомат
+be:3Банкамат
 bg:Банкомат
 ar:ماكينة صرافة آلية|صراف|صراف آلي
 cs:3Bankomat
@@ -494,6 +506,7 @@ fa:دستگاه خودپرداز
 @bank
 en:3Bank
 ru:3Банк
+be:3Банк
 bg:3Банка
 ar:بنك
 cs:3Banka
@@ -560,6 +573,7 @@ fa:بانک
 @recycling
 en:Recycling|Waste utilization|Recyclables|Separate garbage collection|Waste sorting|Reuse
 ru:Переработка|Переработка отходов|Утилизация отходов|Прием вторсырья|Раздельный сбор мусора|Сортировка мусора|Повторное использование|утиль
+be:Перапрацоўка|Перапрацоўка адходаў|Утылізацыя адходаў|Прыём другаснай сыравіны|Паасобны збор смецця|Сартаванне смецця|Паўторнае выкарыстанне|утыль
 bg:Рециклиране|Преизползване|Разделно събиране|Сепаратор
 ar:إعادة تدوير|استغلال المخلفات|المواد القابلة لإعادة التدوير|جمع القمامة بشكل منفصل|فرز النفايات|إعادة الاستخدام
 cs:Recyklace|Využití odpadu|Recyklovatelné|Oddělený sběr odpadků|Třídění odpadu|Opětovné použití
@@ -3357,6 +3371,7 @@ fa:قبرستان
 @hospital
 en:4Hospital
 ru:4Больница
+be:4Бальніца
 bg:Болница
 ar:مستشفى
 cs:4Nemocnice
@@ -3677,6 +3692,7 @@ el:Στάθμευση
 @pharmacy
 en:3Pharmacy
 ru:3Аптека
+be:3Аптэка
 bg:Аптека|лекарства|дрогерия
 ar:صيدلية
 cs:3Lékárna
@@ -3770,6 +3786,7 @@ fa:صندوق پست
 @post
 en:3Post
 ru:3Почта
+be:3Пошта
 bg:Поща|пощенска кутия
 ar:بريد
 cs:3Pošta
@@ -4304,7 +4321,8 @@ fa:تلفن خانه
 
 @toilet
 en:3Toilet
-ru:3Туалет
+ru:3Туалет|4уборная
+be:4Прыбіральня|3Туалет
 bg:Тоалетна
 ar:حمام
 cs:3Záchody
@@ -5690,6 +5708,7 @@ fa:ساختمان
 @police
 en:4Police
 ru:4Полиция
+be:4Паліцыя
 bg:Полиция
 ar:شرطة
 cs:4Policie
@@ -5826,7 +5845,7 @@ fa:خلیج
 @water
 en:3Water|water source
 ru:3Вода|источник воды
-be:3Вада
+be:3Вада|крыніца
 bg:3Вода
 ar:ماء
 cs:3Voda
@@ -6041,6 +6060,7 @@ fa:شیراب
 # as they are quite big and obvious terrain features on the map anyway.
 @waterbody
 en:Water body|water surface
+be:Вадаём
 ru:Водоём
 ar:مسطح مائي
 be:Вадаём
@@ -6891,6 +6911,7 @@ fa:اقیانوس
 @wifi
 en:WiFi|Wi-Fi
 ru:WiFi|Wi-Fi
+be:WiFi|Wi-Fi
 bg:WiFi|Wi-Fi
 ar:وايفاي|واي-فاي
 cs:WiFi|Wi-Fi
