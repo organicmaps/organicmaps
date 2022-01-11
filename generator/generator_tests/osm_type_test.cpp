@@ -375,8 +375,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Capital)
 {
   {
     Tags const tags = {
-      { "admin_level", "6" },
-      { "capital", "yes" },
+      { "capital", "6" },
       { "place", "city" },
     };
 
@@ -413,6 +412,47 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Capital)
     TEST(params.IsTypeExist(GetType({"place", "city", "capital", "2"})), (params));
     TEST(params.IsTypeExist(GetType({"boundary", "administrative", "4"})), (params));
     TEST(params.IsTypeExist(GetType({"place", "city", "capital", "4"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      {"capital", "yes"},
+      {"place", "town"},
+      {"admin_level", "7"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"place", "city", "capital", "2"})), (params));
+    TEST(params.IsTypeExist(GetType({"place", "city", "capital", "7"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      {"capital", "yes"},
+      {"admin_level", "7"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 0, (params));
+  }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_DePlace)
+{
+  {
+    Tags const tags = {
+      {"de:place", "town"},
+      {"name", "xyz"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"place", "town"})), (params));
+    TEST(!params.IsEmptyNames(), ());
   }
 }
 

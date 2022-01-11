@@ -618,6 +618,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
   bool isLightRail = false;
   bool isBus = false;
   bool isTram = false;
+  bool isCapital = false;
 
   TagProcessor(p).ApplyRules({
       {"bridge", "yes", [&layer] { layer = "1"; }},
@@ -632,8 +633,9 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
       /// @todo Unfortunately, it's not working in many cases (route=subway, transport=subway).
       /// Actually, it's better to process subways after feature types assignment.
       {"station", "subway", [&isSubway] { isSubway = true; }},
-
       {"station", "light_rail", [&isLightRail] { isLightRail = true; }},
+
+      {"capital", "yes", [&isCapital] { isCapital = true; }},
   });
 
   if (!hasLayer && layer)
@@ -667,7 +669,8 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
     }
   }
 
-  p->UpdateTag("attraction", [](string & value) {
+  p->UpdateTag("attraction", [](string & value)
+  {
     // "specified" is a special value which means we have the "attraction" tag,
     // but its value is not "animal".
     if (!value.empty() && value != "animal")
@@ -680,7 +683,8 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
   {
     strings::MakeLowerCaseInplace(cuisines);
     strings::SimpleTokenizer iter(cuisines, ",;");
-    auto const collapse = [](char c, string & str) {
+    auto const collapse = [](char c, string & str)
+    {
       auto const comparator = [c](char lhs, char rhs) { return lhs == rhs && lhs == c; };
       str.erase(unique(str.begin(), str.end(), comparator), str.end());
     };
@@ -738,18 +742,6 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
     }
   }
 
-  // We replace a value of 'place' with a value of 'de: place' because most people regard
-  // places names as 'de: place' defines it.
-  // TODO(@m.andrianov): A better solution for the future is writing this rule in replaced_tags.txt
-  // file. But syntax for this isn't supported by relace tags mechanism.
-  auto const dePlace = p->GetTag("de:place");
-  if (!dePlace.empty())
-  {
-    p->UpdateTag("place", [&](auto & value) {
-      value = dePlace;
-    });
-  }
-
   class CountriesLoader
   {
     std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
@@ -782,8 +774,19 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
 
   static CountriesLoader s_countriesChecker;
 
+  auto const dePlace = p->GetTag("de:place");
   p->UpdateTag("place", [&](string & value)
   {
+    // 1. Replace a value of 'place' with a value of 'de:place' because most people regard
+    // places names as 'de:place' defines it.
+    if (!dePlace.empty())
+      value = dePlace;
+
+    // 2. Check valid capital. We support only place-city-capital-2 (not town, village, etc).
+    if (isCapital && !value.empty())
+      value = "city";
+
+    // 3. Replace 'province' with 'state'.
     if (value != "province")
       return;
 
@@ -792,6 +795,9 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
     if (org && s_countriesChecker.IsTransformToState(*org))
       value = "state";
   });
+
+  if (isCapital)
+    p->UpdateTag("capital", [&](string & value) { value = "2"; });
 }
 
 void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
