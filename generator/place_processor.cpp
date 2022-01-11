@@ -19,15 +19,16 @@ using namespace feature;
 
 namespace generator
 {
+
 uint32_t GetPlaceType(generator::FeaturePlace const & place)
 {
   return GetPlaceType(place.GetFb());
 }
-}  // namespace generator
 
-namespace
+bool IsRealCapital(generator::FeaturePlace const & place)
 {
-using namespace generator;
+  return IsRealCapital(place.GetFb());
+}
 
 double GetRadiusM(ftypes::LocalityType const & type)
 {
@@ -46,6 +47,11 @@ double GetRadiusM(ftypes::LocalityType const & type)
 template <typename T>
 bool IsWorsePlace(T const & left, T const & right)
 {
+  bool const lCapital = IsRealCapital(left);
+  bool const rCapital = IsRealCapital(right);
+  if (lCapital != rCapital)
+    return rCapital;
+
   double constexpr kRankCoeff = 1.0;
   double constexpr kLangsCountCoeff = 1.0;
   double constexpr kAreaCoeff = 0.05;
@@ -141,10 +147,7 @@ std::vector<std::vector<FeaturePlace>> FindClusters(std::vector<FeaturePlace> &&
   };
   return GetClusters(std::move(places), func, IsTheSamePlace<FeaturePlace>);
 }
-}  // namespace
 
-namespace generator
-{
 bool NeedProcessPlace(feature::FeatureBuilder const & fb)
 {
   if (fb.GetMultilangName().IsEmpty())
@@ -289,4 +292,5 @@ void PlaceProcessor::Add(FeatureBuilder const & fb)
   // implemented in the function ProcessPlaces().
   m_nameToPlaces[GetKey(fb)][fb.GetMostGenericOsmId()].Append(fb);
 }
+
 }  // namespace generator
