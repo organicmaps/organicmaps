@@ -7515,6 +7515,7 @@
     pt = Rodovia
     pt-BR = Rodovia
     ru = Дорога
+    uk = Дорога
     zh-Hans = 公路要素
 
   [type.highway.bridleway]
@@ -7526,6 +7527,7 @@
     pt = Caminho para cavaleiros
     pt-BR = Caminho para cavaleiros
     ru = Конная дорожка
+    uk = Кінна доріжка
     zh-Hans = 马道
 
   [type.highway.bridleway.bridge]
@@ -7687,6 +7689,7 @@
     en = Pedestrian Zone
     pl = Obszar chodnika
     ru = Пешеходная зона
+    uk = Пішохідна зона
 
   [type.highway.footway.bridge]
     ref = type.highway.footway
@@ -7795,7 +7798,7 @@
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Житлова зона
     vi = Phố
     zh-Hans = 生活性街道
     zh-Hant = 路
@@ -7835,7 +7838,7 @@
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Автомагістраль
     vi = Phố
     zh-Hans = 高速公路
     zh-Hant = 高速公路
@@ -7886,6 +7889,7 @@
     de = Autobahnauffahrt
     pt = Ligação a autoestrada
     ru = Съезд с автомагистрали
+    uk = З'їзд з автомагістралі
     zh-Hans = 高速公路连接路
     zh-Hant = 高速公路連接路
 
@@ -7922,7 +7926,7 @@
     sv = Gångväg
     th = เส้นทาง
     tr = Yol
-    uk = Пішохідна доріжка
+    uk = Стежка
     vi = Đường
     zh-Hans = 小道
     zh-Hant = 人行步道
@@ -7938,6 +7942,7 @@
     de = Radweg
     pl = Ścieżka dla rowerów
     ru = Велопешеходная дорожка
+    uk = Велопішохідна доріжка
 
   [type.highway.path.bridge]
     ref = type.highway.path
@@ -7963,6 +7968,7 @@
     en = Bridle Path
     de = Reitweg
     ru = Конная тропа
+    uk = Кінна стежка
 
   [type.highway.path.mountain_hiking]
     ref = type.highway.path
@@ -8001,7 +8007,7 @@
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Пішохідна вулиця
     vi = Phố
     zh-Hans = 步行街
     zh-Hant = 路
@@ -8010,6 +8016,7 @@
     ref = type.highway.pedestrian
     en = Pedestrian Zone
     ru = Пешеходная зона
+    uk = Пішохідна зона
     zh-Hans = 步行区域
 
   [type.highway.pedestrian.bridge]
@@ -8048,7 +8055,7 @@
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Шосе
     vi = Phố
     zh-Hans = 主要道路
     zh-Hant = 主要道路
@@ -8065,6 +8072,7 @@
     ref = type.highway.primary
     en = Primary Road Ramp
     ru = Съезд с шоссе
+    uk = З'їзд з шосе
     zh-Hans = 主要道路连接路
     zh-Hant = 主要道路連接路
 
@@ -8101,7 +8109,7 @@
     sv = Racerbana
     th = สนามแข่ง
     tr = Koşu yolu
-    uk = Автодром
+    uk = Гоночний трек
     vi = Đường đua
     zh-Hans = 赛车场
     zh-Hant = 跑道
@@ -8206,7 +8214,7 @@
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Дорога
     vi = Phố
     zh-Hans = 道路
     zh-Hant = 道路
@@ -8246,7 +8254,7 @@
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Автодорога
     vi = Phố
     zh-Hans = 次要道路
     zh-Hant = 次要道路
@@ -8263,6 +8271,7 @@
     ref = type.highway.secondary
     en = Secondary Road Ramp
     ru = Съезд с автодороги
+    uk = З'їзд з автодороги
     zh-Hans = 次要道路连接路
     zh-Hant = 次要道路連接路
 
@@ -8301,7 +8310,7 @@
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Проїзд
     vi = Phố
     zh-Hans = 辅助道路
     zh-Hant = 輔助道路
@@ -8318,6 +8327,7 @@
     en = Driveway
     de = Zufahrt
     ru = Подъезд
+    uk = Під'їзд
     zh-Hans = 车道
     zh-Hant = 車道
 
@@ -8329,6 +8339,7 @@
     pt = Estrada de estacionamento
     pt-BR = Estrada de estacionamento
     ru = Парковочный проезд
+    uk = Паркувальний проїзд
     zh-Hans = 停车场通道
     zh-Hant = 停車場通道
 
@@ -8346,6 +8357,7 @@
     pt = Área de serviço
     pt-BR = Área de serviços de estrada
     ru = Зона обслуживания
+    uk = Зона обслуговування
     zh-Hans = 服务区
     zh-Hant = 服務區
 
@@ -8408,7 +8420,7 @@
     sv = Gångväg
     th = เส้นทาง
     tr = Yol
-    uk = Пішохідна доріжка
+    uk = Сходи
     vi = Đường
     zh-Hans = 阶梯
     zh-Hant = 人行步道
@@ -8446,7 +8458,7 @@
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Дорога
     vi = Phố
     zh-Hans = 三级道路
     zh-Hant = 三级道路
@@ -8463,6 +8475,7 @@
     ref = type.highway.tertiary
     en = Tertiary Road Ramp
     ru = Съезд с дороги
+    uk = З'їзд з дороги
     zh-Hans = 三级道路连接路
     zh-Hant = 三级道路連接路
 
@@ -8501,7 +8514,7 @@
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Ґрунтівка
     vi = Phố
     zh-Hans = 土路
     zh-Hant = 土路
@@ -8597,7 +8610,7 @@
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Траса
     vi = Phố
     zh-Hans = 干线道路
     zh-Hant = 主幹道
@@ -8613,6 +8626,7 @@
     ref = type.highway.trunk
     en = National Highway Ramp
     ru = Съезд с трассы
+    uk = З'їзд з траси
     zh-Hans = 干线道路连接路
     zh-Hant = 主幹道連接路
 
@@ -8650,7 +8664,7 @@
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Невелика дорога
     vi = Phố
     zh-Hans = 道路
     zh-Hant = 道路
