@@ -166,7 +166,6 @@
       android:key="@string/pref_help"
       android:title="@string/help"
       android:order="1">
-      <intent android:action="com.mapswithme.maps.help.HelpActivity"/>
     </Preference>
   </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>
