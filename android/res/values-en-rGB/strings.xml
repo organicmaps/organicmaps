@@ -10,7 +10,9 @@
 	<string name="bookmark_color">Bookmark Colour</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Choose between miles and kilometres</string>
-	<!-- Search category -->
+
+	<!-- SECTION: Search categories -->
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
 	<string name="fuel">Petrol</string>
 
 	<!-- SECTION: Types: Roads -->
