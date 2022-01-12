@@ -1,6 +1,8 @@
 • New OSM maps data as of January 3, 2022
 • Improved search results ranking
 • Fixed invalid inter-region routes
+• Fixed hundreds of "capitals" on the World map
 • Search recognizes rd/st/ct=road/street/court synonyms
+• Consistent naming/translations for Bookmark Lists
 • Added Belarusian, Persian, incomplete Hebrew and Swahili translations
-• Updated de, it, ro, ru, uk, tr translations
+• Updated German, Italian, Romanian, Russian, Ukrainian, Turkish translations

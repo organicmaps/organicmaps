@@ -1,9 +1,11 @@
 • New OSM maps data as of January 3, 2022
 • Improved search results ranking
 • Fixed invalid inter-region routes
+• Fixed hundreds of "capitals" on the World map
 • Search recognizes rd/st/ct=road/street/court synonyms
 • Do not stop music when announcing directions
-• Copy most of POI info (name, phone, website...) via single long tap
+• Copy most of the POI info using long tap
 • Fix non-working FAQ on Android 5 and 6
+• Consistent naming for Bookmark Lists
 • Added Bulgarian, incomplete Hebrew and Swahili translations
 • Updated de, it, ro, ru, uk, tr translations
