@@ -89,58 +89,61 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Měřicí jednotky";
 
-/* Search category for cafes, bars, restaurants */
+
+/********** Search categories **********/
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
 "eat" = "Kde se najíst";
 
-/* Search category for grocery stores */
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
 "food" = "Potraviny";
 
-/* Search category */
+/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "Doprava";
 
-/* Search category */
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
 "fuel" = "Čerpací stanice";
 
-/* Search category */
+/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Parkoviště";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Nákupy";
 
-/* Search category */
+/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotel";
 
-/* Search category */
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
 "tourism" = "Pamětihodnost";
 
-/* Search category */
+/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
 "entertainment" = "Zábava";
 
-/* Search category */
+/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
 "atm" = "Bankomat";
 
-/* Search category for nightclubs/bars */
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
 "nightlife" = "Noční život";
 
-/* Search category for water park/disneyland/playground/toys store */
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
 "children" = "Dovolená s dětmi";
 
-/* Search category */
+/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "Banka";
 
-/* Search category */
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
 "pharmacy" = "Lékárna";
 
-/* Search category */
+/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
 "hospital" = "Nemocnice";
 
-/* Search category */
+/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
 "toilet" = "Záchody";
 
-/* Search category */
+/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
 "post" = "Pošta";
 
-/* Search category */
+/* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Policie";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
@@ -1166,8 +1169,6 @@
 "downloader_updating_ios" = "Probíhá aktualizace";
 
 "downloader_loading_ios" = "Probíhá stahování";
-
-"key_information_title" = "Klíčové informace";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Aktualizujte své stažené mapy";

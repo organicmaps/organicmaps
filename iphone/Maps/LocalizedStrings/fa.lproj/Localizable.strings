@@ -89,58 +89,61 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "واحد اندازه گیری";
 
-/* Search category for cafes, bars, restaurants */
+
+/********** Search categories **********/
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
 "eat" = "کجا غذا بخوریم";
 
-/* Search category for grocery stores */
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
 "food" = "عطاری";
 
-/* Search category */
+/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "حمل و نقل";
 
-/* Search category */
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
 "fuel" = "سوخت";
 
-/* Search category */
+/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "پارکینگ";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "خرید کردن";
 
-/* Search category */
+/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "هتل";
 
-/* Search category */
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
 "tourism" = "منظره";
 
-/* Search category */
+/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
 "entertainment" = "سرگرمی";
 
-/* Search category */
+/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
 "atm" = "خود پرداز";
 
-/* Search category for nightclubs/bars */
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
 "nightlife" = "تفریحات شبانه";
 
-/* Search category for water park/disneyland/playground/toys store */
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
 "children" = "تعطیلات خانوادگی";
 
-/* Search category */
+/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "بانک";
 
-/* Search category */
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
 "pharmacy" = "داروخانه";
 
-/* Search category */
+/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
 "hospital" = "بیمارستان";
 
-/* Search category */
+/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
 "toilet" = "توالت";
 
-/* Search category */
+/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
 "post" = "صندوق پست";
 
-/* Search category */
+/* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "پلیس";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
@@ -1166,8 +1169,6 @@
 "downloader_updating_ios" = "در حال بروزرسانی";
 
 "downloader_loading_ios" = "در حال دانلود";
-
-"key_information_title" = "اطلاعات کلیدی";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "نقشه های دانلود شده خود را به روز کنید";

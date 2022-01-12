@@ -79,31 +79,33 @@
 	<string name="measurement_units">יחידות  מדידה</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">בחר בין מיילים לקילומטרים</string>
-	<!-- Search category -->
+
+	<!-- SECTION: Search categories -->
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">תחבורה</string>
-	<!-- Search category -->
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
 	<string name="fuel">גז</string>
-	<!-- Search category -->
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">חניה</string>
-	<!-- Search category -->
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">מלון</string>
-	<!-- Search category -->
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
 	<string name="tourism">נקודות עיניין</string>
-	<!-- Search category -->
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
 	<string name="entertainment">בידור</string>
-	<!-- Search category -->
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
 	<string name="atm">כספומט</string>
-	<!-- Search category -->
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
 	<string name="bank">בנק</string>
-	<!-- Search category -->
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
 	<string name="pharmacy">בית מרקחת</string>
-	<!-- Search category -->
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">בית חולים</string>
-	<!-- Search category -->
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
 	<string name="toilet">שירותים</string>
-	<!-- Search category -->
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
 	<string name="post">דואר</string>
-	<!-- Search category -->
+	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">משטרה</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">הערות</string>

@@ -89,58 +89,61 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Afstandseenheid";
 
-/* Search category for cafes, bars, restaurants */
+
+/********** Search categories **********/
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
 "eat" = "Waar iets gaan eten";
 
-/* Search category for grocery stores */
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
 "food" = "Kruidenierswinkels";
 
-/* Search category */
+/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "Transport";
 
-/* Search category */
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
 "fuel" = "Benzine";
 
-/* Search category */
+/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Parkeerplaats";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Winkelen";
 
-/* Search category */
+/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotel";
 
-/* Search category */
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
 "tourism" = "Bezienswaardigheden";
 
-/* Search category */
+/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
 "entertainment" = "Amusement";
 
-/* Search category */
+/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
 "atm" = "Geldautomaat";
 
-/* Search category for nightclubs/bars */
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
 "nightlife" = "Nachtleven";
 
-/* Search category for water park/disneyland/playground/toys store */
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
 "children" = "Gezinsvakantie";
 
-/* Search category */
+/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "Bank";
 
-/* Search category */
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
 "pharmacy" = "Apotheek";
 
-/* Search category */
+/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
 "hospital" = "Ziekenhuis";
 
-/* Search category */
+/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
 "toilet" = "Toilet";
 
-/* Search category */
+/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
 "post" = "Post";
 
-/* Search category */
+/* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Politie";
 
 "share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!";
@@ -1166,8 +1169,6 @@
 "downloader_updating_ios" = "Updaten";
 
 "downloader_loading_ios" = "Downloaden";
-
-"key_information_title" = "Belangrijke informatie";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Werk uw gedownloade kaarten bij";

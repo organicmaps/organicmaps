@@ -89,58 +89,61 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Единицы измерения";
 
-/* Search category for cafes, bars, restaurants */
+
+/********** Search categories **********/
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
 "eat" = "Где поесть";
 
-/* Search category for grocery stores */
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
 "food" = "Продукты";
 
-/* Search category */
+/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "Транспорт";
 
-/* Search category */
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
 "fuel" = "Заправка";
 
-/* Search category */
+/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Парковка";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Шоппинг";
 
-/* Search category */
+/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Гостиница";
 
-/* Search category */
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
 "tourism" = "Достопримечательность";
 
-/* Search category */
+/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
 "entertainment" = "Развлечения";
 
-/* Search category */
+/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
 "atm" = "Банкомат";
 
-/* Search category for nightclubs/bars */
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
 "nightlife" = "Ночная жизнь";
 
-/* Search category for water park/disneyland/playground/toys store */
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
 "children" = "Отдых с детьми";
 
-/* Search category */
+/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "Банк";
 
-/* Search category */
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
 "pharmacy" = "Аптека";
 
-/* Search category */
+/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
 "hospital" = "Больница";
 
-/* Search category */
+/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
 "toilet" = "Туалет";
 
-/* Search category */
+/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
 "post" = "Почта";
 
-/* Search category */
+/* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Полиция";
 
 "share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!";
@@ -1166,8 +1169,6 @@
 "downloader_updating_ios" = "Обновление";
 
 "downloader_loading_ios" = "Загрузка";
-
-"key_information_title" = "Ключевая информация";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Обновите ваши загруженные карты";

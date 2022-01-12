@@ -87,41 +87,43 @@
 	<string name="measurement_units">Unités de mesure</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Choisir entre miles et kilomètres</string>
-	<!-- Search category for cafes, bars, restaurants -->
+
+	<!-- SECTION: Search categories -->
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
 	<string name="eat">Un endroit pour manger</string>
-	<!-- Search category for grocery stores -->
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
 	<string name="food">Les courses</string>
-	<!-- Search category -->
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Transport</string>
-	<!-- Search category -->
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
 	<string name="fuel">Essence</string>
-	<!-- Search category -->
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">Stationnement</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Shopping</string>
-	<!-- Search category -->
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hôtel</string>
-	<!-- Search category -->
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
 	<string name="tourism">Site touristique</string>
-	<!-- Search category -->
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
 	<string name="entertainment">Divertissement</string>
-	<!-- Search category -->
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
 	<string name="atm">DAB</string>
-	<!-- Search category for nightclubs/bars -->
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
 	<string name="nightlife">Vie nocturne</string>
-	<!-- Search category for water park/disneyland/playground/toys store -->
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
 	<string name="children">Vacances en famille</string>
-	<!-- Search category -->
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
 	<string name="bank">Banque</string>
-	<!-- Search category -->
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
 	<string name="pharmacy">Pharmacie</string>
-	<!-- Search category -->
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">Hôpital</string>
-	<!-- Search category -->
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
 	<string name="toilet">Toilettes</string>
-	<!-- Search category -->
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
 	<string name="post">Poste</string>
-	<!-- Search category -->
+	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Police</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notes</string>

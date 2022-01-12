@@ -85,41 +85,43 @@
 	<string name="measurement_units">Đơn vị đo</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Chọn giữa dặm và kilômét</string>
-	<!-- Search category for cafes, bars, restaurants -->
+
+	<!-- SECTION: Search categories -->
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
 	<string name="eat">Ăn ở đâu</string>
-	<!-- Search category for grocery stores -->
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
 	<string name="food">Cửa hàng tạp hóa</string>
-	<!-- Search category -->
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Giao thông</string>
-	<!-- Search category -->
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
 	<string name="fuel">Khí đốt</string>
-	<!-- Search category -->
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">đỗ xe</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Đi mua sắm</string>
-	<!-- Search category -->
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Khách sạn</string>
-	<!-- Search category -->
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
 	<string name="tourism">Diểm tham quan</string>
-	<!-- Search category -->
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
 	<string name="entertainment">Giải trí</string>
-	<!-- Search category -->
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
 	<string name="atm">ATM</string>
-	<!-- Search category for nightclubs/bars -->
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
 	<string name="nightlife">Cuộc sống về đêm</string>
-	<!-- Search category for water park/disneyland/playground/toys store -->
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
 	<string name="children">Kỳ nghỉ gia đình</string>
-	<!-- Search category -->
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
 	<string name="bank">Ngân hàng</string>
-	<!-- Search category -->
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
 	<string name="pharmacy">Hiệu thuốc</string>
-	<!-- Search category -->
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">Bệnh viện</string>
-	<!-- Search category -->
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
 	<string name="toilet">Nhà vệ sinh</string>
-	<!-- Search category -->
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
 	<string name="post">Bưu điện</string>
-	<!-- Search category -->
+	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Cảnh sát</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Ghi chú</string>

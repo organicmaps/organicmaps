@@ -6,17 +6,19 @@
 	<!-- SECTION: Strings -->
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Hifadhi ramani kwenye</string>
-	<!-- Search category for cafes, bars, restaurants -->
+
+	<!-- SECTION: Search categories -->
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
 	<string name="eat">Sehemu ya kula</string>
-	<!-- Search category for grocery stores -->
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
 	<string name="food">Migahawani</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Manunuzi</string>
-	<!-- Search category for nightclubs/bars -->
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
 	<string name="nightlife">Shughuli za usiku</string>
-	<!-- Search category for water park/disneyland/playground/toys store -->
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
 	<string name="children">Mapumziko ya familia</string>
-	<!-- Search category -->
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">Hospitali</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Maswali na majibu</string>

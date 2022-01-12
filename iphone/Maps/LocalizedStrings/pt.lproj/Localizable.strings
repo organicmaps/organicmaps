@@ -89,58 +89,61 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Unidades de medida";
 
-/* Search category for cafes, bars, restaurants */
+
+/********** Search categories **********/
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
 "eat" = "Onde comer";
 
-/* Search category for grocery stores */
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
 "food" = "Lojas alimentares";
 
-/* Search category */
+/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "Transporte";
 
-/* Search category */
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
 "fuel" = "Combustível";
 
-/* Search category */
+/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Estacionamento";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Compras";
 
-/* Search category */
+/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotel";
 
-/* Search category */
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
 "tourism" = "Atrações turísticas";
 
-/* Search category */
+/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
 "entertainment" = "Entretenimento";
 
-/* Search category */
+/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
 "atm" = "Multibanco";
 
-/* Search category for nightclubs/bars */
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
 "nightlife" = "Vida noturna";
 
-/* Search category for water park/disneyland/playground/toys store */
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
 "children" = "Passeios com crianças";
 
-/* Search category */
+/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "Banco";
 
-/* Search category */
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
 "pharmacy" = "Farmácia";
 
-/* Search category */
+/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
 "hospital" = "Hospital";
 
-/* Search category */
+/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
 "toilet" = "Casas de banho";
 
-/* Search category */
+/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
 "post" = "Correios";
 
-/* Search category */
+/* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Polícia";
 
 "share_bookmarks_email_body" = "Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!";
@@ -1166,8 +1169,6 @@
 "downloader_updating_ios" = "A atualizar";
 
 "downloader_loading_ios" = "A descarregar";
-
-"key_information_title" = "Informação importante";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Atualize os seus mapas descarregados";
