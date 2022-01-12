@@ -163,13 +163,16 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Yeriniz henüz belirlenmedi";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hey, Organic Maps haritasında pinimi incele!";
+/* Subject for emailed map point / poi / bookmark coordinates */
+"share_coords_subject_default" = "Hey, Organic Maps haritasında pinimi incele!";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, Organic Maps’te geçerli konumumu incele!";
+/* Subject for emailed map point / poi / bookmark coordinates, %1$@ is point's name or address */
+"share_coords_subject" = "%1$@ on Organic Maps";
 
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+/* Text preceding shared "my position" coordinates */
+"share_my_position" = "Hey, Organic Maps’te geçerli konumumu incele";
+
+/* Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. */
 "share" = "Paylaş";
 
 /* Share by email button text, also used in editor. */
@@ -808,9 +811,6 @@
 "recent_track_background_dialog_title" = "En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?";
 
 "off_recent_track_background_button" = "Devre Dışı Bırak";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "İncele";
 
 "recent_track_background_dialog_message" = "Organic Maps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
 

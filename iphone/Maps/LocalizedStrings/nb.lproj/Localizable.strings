@@ -163,13 +163,16 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Posisjonen din har ikke blitt fastslått enda";
 
-/* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hei, se merket mitt på Organic Maps-kartet";
+/* Subject for emailed map point / poi / bookmark coordinates */
+"share_coords_subject_default" = "Hei, se merket mitt på Organic Maps-kartet";
 
-/* Subject for emailed position */
-"my_position_share_email_subject" = "Hei, se posisjonen min på Organic Maps-kartet!";
+/* Subject for emailed map point / poi / bookmark coordinates, %1$@ is point's name or address */
+"share_coords_subject" = "%1$@ on Organic Maps";
 
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+/* Text preceding shared "my position" coordinates */
+"share_my_position" = "Hei, se posisjonen min på Organic Maps-kartet";
+
+/* Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. */
 "share" = "Del";
 
 /* Share by email button text, also used in editor. */
@@ -808,9 +811,6 @@
 "recent_track_background_dialog_title" = "Deaktivere opptak av nylig reiste rute?";
 
 "off_recent_track_background_button" = "Deaktiver";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Sjekk ut";
 
 "recent_track_background_dialog_message" = "Organic Maps bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.";
 

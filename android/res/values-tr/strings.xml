@@ -144,15 +144,11 @@
 	<string name="cant_change_this_setting">Üzgünüz, Harita Depolama ayarları şu anda devre dışı.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Harita indirme işlemi şu anda sürüyor.</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Hey, Organic Maps’te geçerli konumumu incele! %1$s veya %2$s Çevrimdışı haritalar sende yok mu? Buradan indir: https://omaps.app/get</string>
-	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hey, Organic Maps haritasında pinimi incele!</string>
-	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hey, Organic Maps’te geçerli konumumu incele!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Merhaba,\n\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için bu bağlantıya %2$s veya şuna %3$s tıkla.\n\nTeşekkürler.</string>
-	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<!-- Subject for emailed map point / poi / bookmark coordinates -->
+	<string name="share_coords_subject_default">Hey, Organic Maps haritasında pinimi incele!</string>
+	<!-- Text preceding shared "my position" coordinates -->
+	<string name="share_my_position">Hey, Organic Maps’te geçerli konumumu incele</string>
+	<!-- Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. -->
 	<string name="share">Paylaş</string>
 	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-posta</string>

@@ -145,15 +145,13 @@
 	<string name="cant_change_this_setting">Прабачце, налады сховішча мапаў зараз недасягальныя.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Мапы спампоўваюцца.</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Гэй, глядзі дзе я зараз на мапе! %1$s альбо %2$s Няма офлайн-мапаў? Спампуй тут: https://omaps.app/get</string>
-	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Гэй, глядзі маю метку на Organic Maps!</string>
-	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Гэй, глядзі дзе я зараз на мапе Organic Maps!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Прывітанне,\n\nЯ зараз тут: %1$s. Перайдзі па гэтай %2$s альбо гэтай %3$s спасылцы каб убачыць месца на мапе.\n\nДзякуй.</string>
-	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<!-- Subject for emailed map point / poi / bookmark coordinates -->
+	<string name="share_coords_subject_default">Каардынаты ў Organic Maps</string>
+	<!-- Subject for emailed map point / poi / bookmark coordinates, %1$@ is point's name or address -->
+	<string name="share_coords_subject">%1$s ў Organic Maps</string>
+	<!-- Text preceding shared "my position" coordinates -->
+	<string name="share_my_position">Я зараз тут на мапе Organic Maps</string>
+	<!-- Location share button text and a title for the respective pop up menu with share options like Message, EMail, Facebook etc. -->
 	<string name="share">Падзяліцца</string>
 	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Email</string>
