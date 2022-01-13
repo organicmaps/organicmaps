@@ -208,7 +208,7 @@ bool Matcher::Matches(strings::UniString const & query, Sample::Result const & g
   {
     if (ft.GetGeomType() == feature::GeomType::Line)
     {
-      nameMatches = StreetMatches(ft.GetParams().ref, queryTokens);
+      nameMatches = StreetMatches(ft.GetRoadNumber(), queryTokens);
     }
     else
     {
