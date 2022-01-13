@@ -771,7 +771,7 @@ void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, string 
   ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit, name);
 }
 
-string FeatureType::GetHouseNumber()
+string const & FeatureType::GetHouseNumber()
 {
   ParseCommon();
   return m_params.house.Get();
@@ -794,7 +794,7 @@ uint8_t FeatureType::GetRank()
 
 uint64_t FeatureType::GetPopulation() { return feature::RankToPopulation(GetRank()); }
 
-string FeatureType::GetRoadNumber()
+string const & FeatureType::GetRoadNumber()
 {
   ParseCommon();
   return m_params.ref;
@@ -816,7 +816,7 @@ std::string FeatureType::GetMetadata(feature::Metadata::EType type)
   if (it == m_metaIds.end())
     return {};
 
-  auto const value = m_metadataDeserializer->GetMetaById(it->second);
+  auto value = m_metadataDeserializer->GetMetaById(it->second);
   m_metadata.Set(type, value);
   return value;
 }
