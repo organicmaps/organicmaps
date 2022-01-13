@@ -616,9 +616,10 @@ void Framework::FillTrackInfo(Track const & track, m2::PointD const & trackPoint
   info.SetMercator(trackPoint);
 }
 
-search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt) const
+search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt,
+                                                              double distanceThresholdMeters) const
 {
-  return m_addressGetter.GetAddressAtPoint(m_featuresFetcher.GetDataSource(), pt);
+  return m_addressGetter.GetAddressAtPoint(m_featuresFetcher.GetDataSource(), pt, distanceThresholdMeters);
 }
 
 void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const

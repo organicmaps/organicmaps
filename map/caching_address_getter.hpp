@@ -9,17 +9,17 @@ class CachingAddressGetter
 {
 public:
   search::ReverseGeocoder::Address GetAddressAtPoint(DataSource const & dataSource,
-                                                     m2::PointD const & pt) const
+                                                     m2::PointD const & pt,
+                                                     double distanceThresholdMeters) const
   {
     if (pt.EqualDxDy(m_cache.m_point, kMwmPointAccuracy))
       return m_cache.m_address;
 
-    double const kDistanceThresholdMeters = 0.5;
     m_cache.m_point = pt;
     m_cache.m_address = {};
 
     search::ReverseGeocoder const coder(dataSource);
-    coder.GetNearbyAddress(pt, kDistanceThresholdMeters, m_cache.m_address);
+    coder.GetNearbyAddress(pt, distanceThresholdMeters, m_cache.m_address);
 
     return m_cache.m_address;
   }
