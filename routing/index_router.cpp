@@ -825,6 +825,13 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
       AStarLengthChecker(starter));
 
+  params.m_badReducedWeight = [](Weight const &, Weight const &)
+  {
+    /// @see CrossMwmConnector::GetTransition comment.
+    /// Unfortunately, reduced weight invariant in LeapsOnly mode doesn't work with the workaround above.
+    return false;
+  };
+
   RoutingResult<Vertex, Weight> routingResult;
   RouterResultCode const result =
       FindPath<Vertex, Edge, Weight>(params, {} /* mwmIds */, routingResult);

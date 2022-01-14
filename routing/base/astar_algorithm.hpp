@@ -669,7 +669,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
       {
         // Break in Debug, log in Release and safe continue: std::max(reducedWeight, kZeroDistance).
         LOG(LERROR, ("Invariant violated for:", "v =", stateV.vertex, "w =", stateW.vertex,
-                     "Start =", startVertex, "End =", finalVertex));
+                     "reduced weight =", reducedWeight));
       }
 
       stateW.distance = stateV.distance + std::max(reducedWeight, kZeroDistance);

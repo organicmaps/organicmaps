@@ -591,4 +591,48 @@ namespace
         mercator::FromLatLon(48.7498, 30.2203), {0., 0.},
         mercator::FromLatLon(46.4859, 30.6837), 265163.);
   }
+
+  // https://github.com/organicmaps/organicmaps/issues/1736
+  UNIT_TEST(Belgium_LiegeBrugge)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(50.645205, 5.573507), {0., 0.},
+        mercator::FromLatLon(51.208479, 3.225558), 193436.);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/1627
+  UNIT_TEST(Spain_MadridSevilla)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(40.415322, -3.703517), {0., 0.},
+        mercator::FromLatLon(37.388667, -5.995355), 528667.);
+  }
+
+  UNIT_TEST(Belarus_Lithuania_MinskVilnius)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(53.902837, 27.562144), {0., 0.},
+        mercator::FromLatLon(54.686821, 25.283189), 183231.);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/338
+  UNIT_TEST(Russia_MendeleevoReutov)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(56.036866, 37.232630), {0., 0.},
+        mercator::FromLatLon(55.762128, 37.856665), 66261.9);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/1721
+  UNIT_TEST(Austria_Croatia_SalzburgZagreb)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(47.795928, 13.047597), {0., 0.},
+        mercator::FromLatLon(45.812822, 15.977049), 414275);
+  }
 }  // namespace
