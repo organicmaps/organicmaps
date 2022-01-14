@@ -1916,7 +1916,7 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
     }
   }, mercator);
 
-  return fullMatch.IsValid() ? fullMatch : (poi.IsValid() ? poi : (area.IsValid() ? area : line));
+  return fullMatch.IsValid() ? fullMatch : (poi.IsValid() ? poi : (line.IsValid() ? line : area));
 }
 
 osm::MapObject Framework::GetMapObjectByID(FeatureID const & fid) const
