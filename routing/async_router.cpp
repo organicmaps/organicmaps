@@ -177,10 +177,10 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
 
   ResetDelegate();
 
-  m_delegateProxy = 
+  m_delegateProxy =
       make_shared<RouterDelegateProxy>(readyCallback, needMoreMapsCallback, removeRouteCallback,
                                        m_pointCheckCallback, progressCallback, timeoutSec);
-  
+
   m_hasRequest = true;
   m_threadCondVar.notify_one();
 }
@@ -380,7 +380,10 @@ void AsyncRouter::CalculateRoute()
 
   absent.insert(route->GetAbsentCountries().cbegin(), route->GetAbsentCountries().cend());
   if (!absent.empty())
+  {
     code = RouterResultCode::NeedMoreMaps;
+    LOG(LDEBUG, ("Absent regions:", absent));
+  }
 
   elapsedSec = timer.ElapsedSeconds(); // routing time + absents fetch time
   LogCode(code, elapsedSec);

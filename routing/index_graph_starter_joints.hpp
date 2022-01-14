@@ -533,19 +533,16 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(
     for (size_t i = 0; i < edges.size(); ++i)
     {
       // Saving weight of current edges for returning in the next iterations.
-      /// @todo By VNG. The logic with m_savedWeight 'cache' looks very strange for me.
-      /// Looks like we shoud store previously accumulated weight for each queued state in A*.
-
       auto const & w = edges[i].GetWeight();
       auto const & t = edges[i].GetTarget();
-      //if (w.GetWeight() > 7000)
-      //  LOG_SHORT(LDEBUG, ("Big weight =", w, "for target =", t, "and parent =", vertex));
 
       auto res = m_savedWeight.insert(std::make_pair(t, w));
       if (!res.second)
       {
-        //LOG_SHORT(LDEBUG, ("Override weight =", w, " for target =", t, "and parent =", vertex));
-        res.first->second = std::max(res.first->second, w);
+        /// @todo By VNG: This invariant doesn't work for transit MWM features and I can't say for
+        /// sure is it right or wrong. Test on Minsk-Vilnius route.
+        //ASSERT_EQUAL(res.first->second, w, (t, vertex));
+        res.first->second = w;
       }
 
       // For parent JointSegment we know its weight without last segment, because for each child
