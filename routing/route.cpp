@@ -44,7 +44,8 @@ Route::Route(string const & router, vector<m2::PointD> const & points, uint64_t 
 
 void Route::AddAbsentCountry(string const & name)
 {
-  if (!name.empty()) m_absentCountries.insert(name);
+  if (!name.empty())
+    m_absentCountries.insert(name);
 }
 
 double Route::GetTotalDistanceMeters() const
