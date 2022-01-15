@@ -1477,43 +1477,43 @@
 
 "type.boundary.administrative" = "行政境界";
 
-"type.boundary.administrative.10" = "boundary-administrative-10";
+"type.boundary.administrative.10" = "行政境界";
 
-"type.boundary.administrative.11" = "boundary-administrative-11";
+"type.boundary.administrative.11" = "行政境界";
 
-"type.boundary.administrative.2" = "boundary-administrative-2";
+"type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "boundary-administrative-3";
+"type.boundary.administrative.3" = "行政境界";
 
-"type.boundary.administrative.4" = "boundary-administrative-4";
+"type.boundary.administrative.4" = "行政境界";
 
-"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
+"type.boundary.administrative.4.state" = "行政境界";
 
-"type.boundary.administrative.5" = "boundary-administrative-5";
+"type.boundary.administrative.5" = "行政境界";
 
-"type.boundary.administrative.6" = "boundary-administrative-6";
+"type.boundary.administrative.6" = "行政境界";
 
-"type.boundary.administrative.7" = "boundary-administrative-7";
+"type.boundary.administrative.7" = "行政境界";
 
-"type.boundary.administrative.8" = "boundary-administrative-8";
+"type.boundary.administrative.8" = "行政境界";
 
-"type.boundary.administrative.9" = "boundary-administrative-9";
+"type.boundary.administrative.9" = "行政境界";
 
-"type.boundary.administrative.city" = "boundary-administrative-city";
+"type.boundary.administrative.city" = "City Boundary";
 
-"type.boundary.administrative.country" = "boundary-administrative-country";
+"type.boundary.administrative.country" = "National Border";
 
-"type.boundary.administrative.county" = "boundary-administrative-county";
+"type.boundary.administrative.county" = "County Boundary";
 
-"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+"type.boundary.administrative.municipality" = "Municipality Boundary";
 
-"type.boundary.administrative.nation" = "boundary-administrative-nation";
+"type.boundary.administrative.nation" = "National Border";
 
-"type.boundary.administrative.region" = "boundary-administrative-region";
+"type.boundary.administrative.region" = "Regional Boundary";
 
-"type.boundary.administrative.state" = "boundary-administrative-state";
+"type.boundary.administrative.state" = "State Boundary";
 
-"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
+"type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "国立公園";
 
@@ -2883,36 +2883,37 @@
 
 "type.wheelchair.yes" = "車椅子でのアクセスあり";
 
-"type.piste_lift" = "piste:lift";
+/* en.wikipedia.org/wiki/Surface_lift */
+"type.piste_lift" = "Surface Lift";
 
-"type.piste_lift.j.bar" = "piste:lift-j-bar";
+"type.piste_lift.j.bar" = "J-bar Lift";
 
-"type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
+"type.piste_lift.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.platter" = "piste:lift-platter";
+"type.piste_lift.platter" = "Platter Lift";
 
-"type.piste_lift.rope_tow" = "piste:lift-rope_tow";
+"type.piste_lift.rope_tow" = "Rope Tow";
 
-"type.piste_lift.t.bar" = "piste:lift-t-bar";
+"type.piste_lift.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "piste:type";
+"type.piste_type" = "Piste Type";
 
-"type.piste_type.downhill" = "piste:type-downhill";
+"type.piste_type.downhill" = "Downhill Ski Run";
 
-"type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
+"type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
-"type.piste_type.downhill.easy" = "piste:type-downhill-easy";
+"type.piste_type.downhill.easy" = "Downhill Ski Run";
 
-"type.piste_type.downhill.expert" = "piste:type-downhill-expert";
+"type.piste_type.downhill.expert" = "Downhill Ski Run";
 
-"type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
+"type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
-"type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
+"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
-"type.piste_type.downhill.novice" = "piste:type-downhill-novice";
+"type.piste_type.downhill.novice" = "Downhill Ski Run";
 
-"type.piste_type.nordic" = "piste:type-nordic";
+"type.piste_type.nordic" = "Nordic Ski Trail";
 
-"type.piste_type.sled" = "piste:type-sled";
+"type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "建物";

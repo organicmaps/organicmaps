@@ -1481,7 +1481,7 @@
 
 "type.boundary.administrative.11" = "Fronteira administrativa";
 
-"type.boundary.administrative.2" = "Fronteira administrativa";
+"type.boundary.administrative.2" = "Fronteira de país";
 
 "type.boundary.administrative.3" = "Fronteira administrativa";
 
@@ -2323,7 +2323,7 @@
 
 "type.noexit" = "Via sem saída";
 
-"type.noexit.motor_vehicle" = "Via sem saída para veículos a motor";
+"type.noexit.motor_vehicle" = "Via sem saída";
 
 "type.office" = "Escritório";
 
@@ -2883,6 +2883,7 @@
 
 "type.wheelchair.yes" = "Acesso total para cadeira de rodas";
 
+/* en.wikipedia.org/wiki/Surface_lift */
 "type.piste_lift" = "Telesqui";
 
 "type.piste_lift.j.bar" = "Telesqui de barra em J";

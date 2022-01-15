@@ -1211,7 +1211,7 @@
 
 "type.aerialway.station" = "Канатная дорога";
 
-"type.aeroway" = "Аэропорт";
+"type.aeroway" = "Аэрокосмическая инфраструктура";
 
 "type.aeroway.aerodrome" = "Аэропорт";
 
@@ -1481,7 +1481,7 @@
 
 "type.boundary.administrative.11" = "Административная граница";
 
-"type.boundary.administrative.2" = "Административная граница";
+"type.boundary.administrative.2" = "Граница страны";
 
 "type.boundary.administrative.3" = "Административная граница";
 
@@ -1507,7 +1507,7 @@
 
 "type.boundary.administrative.municipality" = "Граница муниципалитета";
 
-"type.boundary.administrative.nation" = "Национальная граница";
+"type.boundary.administrative.nation" = "Граница страны";
 
 "type.boundary.administrative.region" = "Граница региона";
 
@@ -2323,7 +2323,7 @@
 
 "type.noexit" = "Тупик";
 
-"type.noexit.motor_vehicle" = "Тупик для моторного транспорта";
+"type.noexit.motor_vehicle" = "Тупик";
 
 "type.office" = "Офис";
 
@@ -2883,17 +2883,18 @@
 
 "type.wheelchair.yes" = "Оборудовано для инвалидов";
 
-"type.piste_lift" = "Подъёмник";
+/* en.wikipedia.org/wiki/Surface_lift */
+"type.piste_lift" = "Бугельный подъёмник";
 
-"type.piste_lift.j.bar" = "Подъёмник";
+"type.piste_lift.j.bar" = "Бугельный подъёмник";
 
 "type.piste_lift.magic_carpet" = "Ленточный конвейер";
 
-"type.piste_lift.platter" = "Подъёмник";
+"type.piste_lift.platter" = "Бугельный подъёмник";
 
-"type.piste_lift.rope_tow" = "Подъёмник";
+"type.piste_lift.rope_tow" = "Бугельный подъёмник";
 
-"type.piste_lift.t.bar" = "Подъёмник";
+"type.piste_lift.t.bar" = "Бугельный подъёмник";
 
 "type.piste_type" = "Тип трассы";
 
@@ -2911,7 +2912,7 @@
 
 "type.piste_type.downhill.novice" = "Горнолыжная трасса для новичков";
 
-"type.piste_type.nordic" = "Трасса для скандинавской ходьбы";
+"type.piste_type.nordic" = "Лыжня";
 
 "type.piste_type.sled" = "Трасса для саней";
 

@@ -1211,7 +1211,7 @@
 
 "type.aerialway.station" = "Канатна дорога";
 
-"type.aeroway" = "Аеропорт";
+"type.aeroway" = "Аерокосмічна інфраструктура";
 
 "type.aeroway.aerodrome" = "Аеропорт";
 
@@ -1481,9 +1481,9 @@
 
 "type.boundary.administrative.11" = "Адміністративний поділ";
 
-"type.boundary.administrative.2" = "Адміністративний поділ";
+"type.boundary.administrative.2" = "Кордон країни";
 
-"type.boundary.administrative.3" = "boundary-administrative-3";
+"type.boundary.administrative.3" = "Адміністративний поділ";
 
 "type.boundary.administrative.4" = "Адміністративний поділ";
 
@@ -1505,13 +1505,13 @@
 
 "type.boundary.administrative.county" = "Поділ округа";
 
-"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+"type.boundary.administrative.municipality" = "Municipality Boundary";
 
-"type.boundary.administrative.nation" = "Національний кордон";
+"type.boundary.administrative.nation" = "Кордон країни";
 
 "type.boundary.administrative.region" = "Областний поділ";
 
-"type.boundary.administrative.state" = "boundary-administrative-state";
+"type.boundary.administrative.state" = "State Boundary";
 
 "type.boundary.administrative.suburb" = "Приміська межа";
 
@@ -2323,7 +2323,7 @@
 
 "type.noexit" = "Тупик";
 
-"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
+"type.noexit.motor_vehicle" = "Тупик";
 
 "type.office" = "Офіс";
 
@@ -2883,19 +2883,20 @@
 
 "type.wheelchair.yes" = "Обладнано для інвалідів";
 
-"type.piste_lift" = "Пiдйомник";
+/* en.wikipedia.org/wiki/Surface_lift */
+"type.piste_lift" = "Бугельний витяг";
 
-"type.piste_lift.j.bar" = "Пiдйомник";
+"type.piste_lift.j.bar" = "Бугельний витяг";
 
 "type.piste_lift.magic_carpet" = "Стрiчковий конвеєр";
 
-"type.piste_lift.platter" = "Пiдйомник";
+"type.piste_lift.platter" = "Бугельний витяг";
 
-"type.piste_lift.rope_tow" = "Пiдйомник";
+"type.piste_lift.rope_tow" = "Бугельний витяг";
 
-"type.piste_lift.t.bar" = "Пiдйомник";
+"type.piste_lift.t.bar" = "Бугельний витяг";
 
-"type.piste_type" = "Тип дороги";
+"type.piste_type" = "Тип траси";
 
 "type.piste_type.downhill" = "Гірськолижна траса";
 
@@ -2911,7 +2912,7 @@
 
 "type.piste_type.downhill.novice" = "Гірськолижна траса для новеньких";
 
-"type.piste_type.nordic" = "Траса для скандинавської ходьби";
+"type.piste_type.nordic" = "Лижня";
 
 "type.piste_type.sled" = "Траса для санок";
 

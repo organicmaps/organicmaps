@@ -680,7 +680,7 @@
 	<string name="type.aerialway.gondola">Канатная дорога</string>
 	<string name="type.aerialway.mixed_lift">Канатная дорога</string>
 	<string name="type.aerialway.station">Канатная дорога</string>
-	<string name="type.aeroway">Аэропорт</string>
+	<string name="type.aeroway">Аэрокосмическая инфраструктура</string>
 	<string name="type.aeroway.aerodrome">Аэропорт</string>
 	<string name="type.aeroway.aerodrome.international">Международный аэропорт</string>
 	<string name="type.aeroway.apron">Перрон</string>
@@ -815,7 +815,7 @@
 	<string name="type.boundary.administrative">Административная граница</string>
 	<string name="type.boundary.administrative.10">Административная граница</string>
 	<string name="type.boundary.administrative.11">Административная граница</string>
-	<string name="type.boundary.administrative.2">Административная граница</string>
+	<string name="type.boundary.administrative.2">Граница страны</string>
 	<string name="type.boundary.administrative.3">Административная граница</string>
 	<string name="type.boundary.administrative.4">Административная граница</string>
 	<string name="type.boundary.administrative.4.state">Административная граница</string>
@@ -828,7 +828,7 @@
 	<string name="type.boundary.administrative.country">Граница страны</string>
 	<string name="type.boundary.administrative.county">Граница округа</string>
 	<string name="type.boundary.administrative.municipality">Граница муниципалитета</string>
-	<string name="type.boundary.administrative.nation">Национальная граница</string>
+	<string name="type.boundary.administrative.nation">Граница страны</string>
 	<string name="type.boundary.administrative.region">Граница региона</string>
 	<string name="type.boundary.administrative.state">Граница штата</string>
 	<string name="type.boundary.administrative.suburb">Граница пригорода</string>
@@ -1220,7 +1220,7 @@
 	<string name="type.natural.wetland.bog">Торфяное болото</string>
 	<string name="type.natural.wetland.marsh">Болотистая местность</string>
 	<string name="type.noexit">Тупик</string>
-	<string name="type.noexit.motor_vehicle">Тупик для моторного транспорта</string>
+	<string name="type.noexit.motor_vehicle">Тупик</string>
 	<string name="type.office">Офис</string>
 	<string name="type.office.company">Организация</string>
 	<string name="type.office.estate_agent">Агентство недвижимости</string>
@@ -1500,12 +1500,13 @@
 	<string name="type.wheelchair.limited">Частично оборудовано для инвалидов</string>
 	<string name="type.wheelchair.no">Не оборудовано для инвалидов</string>
 	<string name="type.wheelchair.yes">Оборудовано для инвалидов</string>
-	<string name="type.piste_lift">Подъёмник</string>
-	<string name="type.piste_lift.j.bar">Подъёмник</string>
+	<!-- en.wikipedia.org/wiki/Surface_lift -->
+	<string name="type.piste_lift">Бугельный подъёмник</string>
+	<string name="type.piste_lift.j.bar">Бугельный подъёмник</string>
 	<string name="type.piste_lift.magic_carpet">Ленточный конвейер</string>
-	<string name="type.piste_lift.platter">Подъёмник</string>
-	<string name="type.piste_lift.rope_tow">Подъёмник</string>
-	<string name="type.piste_lift.t.bar">Подъёмник</string>
+	<string name="type.piste_lift.platter">Бугельный подъёмник</string>
+	<string name="type.piste_lift.rope_tow">Бугельный подъёмник</string>
+	<string name="type.piste_lift.t.bar">Бугельный подъёмник</string>
 	<string name="type.piste_type">Тип трассы</string>
 	<string name="type.piste_type.downhill">Горнолыжная трасса</string>
 	<string name="type.piste_type.downhill.advanced">Продвинутая горнолыжная трасса</string>
@@ -1514,7 +1515,7 @@
 	<string name="type.piste_type.downhill.freeride">Горнолыжная трасса для фрирайда</string>
 	<string name="type.piste_type.downhill.intermediate">Горнолыжная трасса средней сложности</string>
 	<string name="type.piste_type.downhill.novice">Горнолыжная трасса для новичков</string>
-	<string name="type.piste_type.nordic">Трасса для скандинавской ходьбы</string>
+	<string name="type.piste_type.nordic">Лыжня</string>
 	<string name="type.piste_type.sled">Трасса для саней</string>
 	<string name="type.building_part">Здание</string>
 </resources>

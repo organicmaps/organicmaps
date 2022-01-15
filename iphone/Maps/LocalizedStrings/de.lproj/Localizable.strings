@@ -1477,43 +1477,43 @@
 
 "type.boundary.administrative" = "Verwaltungsgrenze";
 
-"type.boundary.administrative.10" = "boundary-administrative-10";
+"type.boundary.administrative.10" = "Verwaltungsgrenze";
 
-"type.boundary.administrative.11" = "boundary-administrative-11";
+"type.boundary.administrative.11" = "Verwaltungsgrenze";
 
-"type.boundary.administrative.2" = "boundary-administrative-2";
+"type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "boundary-administrative-3";
+"type.boundary.administrative.3" = "Verwaltungsgrenze";
 
-"type.boundary.administrative.4" = "boundary-administrative-4";
+"type.boundary.administrative.4" = "Verwaltungsgrenze";
 
-"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
+"type.boundary.administrative.4.state" = "Verwaltungsgrenze";
 
-"type.boundary.administrative.5" = "boundary-administrative-5";
+"type.boundary.administrative.5" = "Verwaltungsgrenze";
 
-"type.boundary.administrative.6" = "boundary-administrative-6";
+"type.boundary.administrative.6" = "Verwaltungsgrenze";
 
-"type.boundary.administrative.7" = "boundary-administrative-7";
+"type.boundary.administrative.7" = "Verwaltungsgrenze";
 
-"type.boundary.administrative.8" = "boundary-administrative-8";
+"type.boundary.administrative.8" = "Verwaltungsgrenze";
 
-"type.boundary.administrative.9" = "boundary-administrative-9";
+"type.boundary.administrative.9" = "Verwaltungsgrenze";
 
-"type.boundary.administrative.city" = "boundary-administrative-city";
+"type.boundary.administrative.city" = "City Boundary";
 
-"type.boundary.administrative.country" = "boundary-administrative-country";
+"type.boundary.administrative.country" = "National Border";
 
-"type.boundary.administrative.county" = "boundary-administrative-county";
+"type.boundary.administrative.county" = "County Boundary";
 
-"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+"type.boundary.administrative.municipality" = "Municipality Boundary";
 
-"type.boundary.administrative.nation" = "boundary-administrative-nation";
+"type.boundary.administrative.nation" = "National Border";
 
-"type.boundary.administrative.region" = "boundary-administrative-region";
+"type.boundary.administrative.region" = "Regional Boundary";
 
-"type.boundary.administrative.state" = "boundary-administrative-state";
+"type.boundary.administrative.state" = "State Boundary";
 
-"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
+"type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "Nationalpark";
 
@@ -2321,9 +2321,9 @@
 
 "type.natural.wetland.marsh" = "Sumpf";
 
-"type.noexit" = "noexit";
+"type.noexit" = "Dead End";
 
-"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
+"type.noexit.motor_vehicle" = "Dead End";
 
 "type.office" = "Büro";
 
@@ -2883,6 +2883,7 @@
 
 "type.wheelchair.yes" = "Vollständiger Zugang für Rollstühle";
 
+/* en.wikipedia.org/wiki/Surface_lift */
 "type.piste_lift" = "Lift";
 
 "type.piste_lift.j.bar" = "Schlepplift";
@@ -2905,7 +2906,7 @@
 
 "type.piste_type.downhill.expert" = "Profi Abfahrt";
 
-"type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
+"type.piste_type.downhill.freeride" = "Abfahrt";
 
 "type.piste_type.downhill.intermediate" = "Mittelschwere Abfahrt";
 
