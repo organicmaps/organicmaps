@@ -32,18 +32,18 @@
 	<!-- Search box placeholder text -->
 	<string name="search_map">Haritada Ara</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">Şu anda bu cihaz için tüm Yer Hizmetleri veya uygulama devre dışı bırakılmış. Lütfen Ayarlar bölümünden etkinleştirin.</string>
+	<string name="location_is_disabled_long_text">Şu anda bu cihaz veya uygulama için tüm Konum Hizmetleri devre dışı bırakılmış. Lütfen bunu ayarlardan etkinleştirin.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Haritada göster</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Indirme işlemi başarısız oldu</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Tekrar Dene</string>
-	<string name="connection_settings">Bağlantı Ayarları</string>
+	<string name="connection_settings">Konum Ayarları</string>
 	<string name="close">Kapat</string>
 	<string name="unsupported_phone">Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.</string>
 	<string name="download">İndir</string>
-	<string name="disconnect_usb_cable">Organic Maps’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
+	<string name="disconnect_usb_cable">Organic Maps’i kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
 	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
 	<string name="not_enough_memory">Uygulamayı başlatmak için yeterli hafıza yok</string>
 	<string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %s’si gerekli.</string>
@@ -96,7 +96,7 @@
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Ulaşım</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Yakıt</string>
+	<string name="fuel">Benzinlik</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">Otopark</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
@@ -139,7 +139,7 @@
 	<!-- resource for context menu -->
 	<string name="edit">Düzenle</string>
 	<!-- Warning message when doing search around current position -->
-	<string name="unknown_current_position">Yeriniz henüz belirlenmedi</string>
+	<string name="unknown_current_position">Konumunuz henüz belirlenmedi</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Üzgünüz, Harita Depolama ayarları şu anda devre dışı.</string>
 	<!-- Alert message that downloading is in progress. -->
@@ -185,11 +185,11 @@
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_auto">Otomatik</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
-	<string name="pref_map_3d_title">Perspektif görünüm</string>
+	<string name="pref_map_3d_title">Perspektif görünüş</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D yapılar</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
-	<string name="pref_tts_enable_title">Sesli Talimatlar</string>
+	<string name="pref_tts_enable_title">Sesli Yönlendirme</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Ses Dili</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
@@ -293,33 +293,33 @@
 	<string name="WiFi_available">Evet</string>
 
 	<!-- SECTION: Routing dialogs strings -->
-	<string name="dialog_routing_disclaimer_title">Güzergahınızı takip ederken şunları lütfen unutmayın:</string>
+	<string name="dialog_routing_disclaimer_title">Rotanızı takip ederken şunları lütfen unutmayın:</string>
 	<string name="dialog_routing_disclaimer_priority">— Yol durumları, trafik kuralları ve trafik işaretleri, her zaman navigasyon tavsiyelerinden önceliklidir;</string>
-	<string name="dialog_routing_disclaimer_precision">— Harita doğru olmayabilir, önerilen güzergah da hedefinize ulaşmak için en uygun yol olmayabilir;</string>
-	<string name="dialog_routing_disclaimer_recommendations">— Önerilen güzergahlar yalnızca tavsiye olarak kabul edilmelidir;</string>
+	<string name="dialog_routing_disclaimer_precision">— Harita doğru olmayabilir, önerilen rota da hedefinize ulaşmak için en uygun yol olmayabilir;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— Önerilen rotalar yalnızca tavsiye olarak kabul edilmelidir;</string>
 	<string name="dialog_routing_disclaimer_borders">— Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamız tarafından oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarını geçebilir;</string>
 	<string name="dialog_routing_disclaimer_beware">Lütfen yolda dikkatli ve emniyetli olun!</string>
 	<string name="dialog_routing_check_gps">GPS sinyalini kontrol edin</string>
-	<string name="dialog_routing_error_location_not_found">Güzergah oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.</string>
+	<string name="dialog_routing_error_location_not_found">Rota oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.</string>
 	<string name="dialog_routing_location_turn_wifi">Lütfen GPS sinyalinizi kontrol edin. Wi-Fi\'ı etkinleştirmek konum isabetini arttırır.</string>
 	<string name="dialog_routing_location_turn_on">Konum hizmetlerini etkinleştirin</string>
-	<string name="dialog_routing_location_unknown_turn_on">Mevcut GPS koordinatları belirlenemiyor. Güzergah hesaplamak için konum hizmetlerini etkinleştirin.</string>
-	<string name="dialog_routing_unable_locate_route">Güzergah belirlenemiyor</string>
-	<string name="dialog_routing_cant_build_route">Güzergah oluşturulamıyor.</string>
+	<string name="dialog_routing_location_unknown_turn_on">Mevcut GPS koordinatları belirlenemiyor. Rota hesaplamak için konum hizmetlerini etkinleştirin.</string>
+	<string name="dialog_routing_unable_locate_route">Rota belirlenemiyor</string>
+	<string name="dialog_routing_cant_build_route">Rota oluşturulamıyor.</string>
 	<string name="dialog_routing_change_start_or_end">Lütfen başlangıç noktanızı veya hedefinizi ayarlayın.</string>
 	<string name="dialog_routing_change_start">Başlangıç noktasını ayarlayın</string>
-	<string name="dialog_routing_start_not_determined">Güzergah oluşturulamadı. Başlangıç noktası belirlenemiyor.</string>
+	<string name="dialog_routing_start_not_determined">Rota oluşturulamadı. Başlangıç noktası belirlenemiyor.</string>
 	<string name="dialog_routing_select_closer_start">Lütfen yola daha yakın bir başlangıç noktası seçin.</string>
 	<string name="dialog_routing_change_end">Hedefinizi ayarlayın</string>
-	<string name="dialog_routing_end_not_determined">Güzergah oluşturulamadı. Hedef belirlenemiyor.</string>
+	<string name="dialog_routing_end_not_determined">Rota oluşturulamadı. Hedef belirlenemiyor.</string>
 	<string name="dialog_routing_select_closer_end">Lütfen yola daha yakın bir hedef noktası seçin.</string>
 	<string name="dialog_routing_change_intermediate">Ara nokta bulunamadı.</string>
 	<string name="dialog_routing_intermediate_not_determined">Lütfen ara noktanızı ayarlayın.</string>
 	<string name="dialog_routing_system_error">Sistem hatası</string>
-	<string name="dialog_routing_application_error">Uygulama hatası nedeniyle güzergah oluşturulamadı.</string>
+	<string name="dialog_routing_application_error">Uygulama hatası nedeniyle rota oluşturulamadı.</string>
 	<string name="dialog_routing_try_again">Lütfen daha sonra tekrar deneyin</string>
-	<string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden fazla haritaya uzanan daha uygun bir güzergah oluşturmak ister misiniz?</string>
-	<string name="dialog_routing_download_cross_route">Bu haritanın bir kısmından geçen daha uygun bir güzergah oluşturmak için haritayı indirin.</string>
+	<string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden fazla haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?</string>
+	<string name="dialog_routing_download_cross_route">Bu haritanın bir kısmından geçen daha uygun bir rota oluşturmak için haritayı indirin.</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">Rotaları aramak ve oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra artık internet bağlantısına ihtiyacınız olmayacak.</string>
@@ -336,8 +336,8 @@
 	<string name="search_not_found">Üzgünüz, hiç bir şey bulamadık.</string>
 	<string name="search_not_found_query">Lütfen başka bir sorgu girin.</string>
 	<string name="search_history_title">Arama Geçmişi</string>
-	<string name="search_history_text">En son yapılan arama sorgularını görüntüle.</string>
-	<string name="clear_search">Arama Geçmişini temizle</string>
+	<string name="search_history_text">Son aramaları görüntüleyin.</string>
+	<string name="clear_search">Arama Geçmişini Temizle</string>
 	<!-- Place Page link to Wikipedia article (if map object has it). -->
 	<string name="read_in_wikipedia">Vikipedi</string>
 	<string name="p2p_your_location">Konumunuz</string>
@@ -492,7 +492,7 @@
 	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">Liste</string>
 	<string name="mobile_data_dialog">Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?</string>
-	<string name="mobile_data_option_always">Her zaman kullan</string>
+	<string name="mobile_data_option_always">Her Zaman Kullan</string>
 	<string name="mobile_data_option_today">Sadece Bugün</string>
 	<string name="mobile_data_option_not_today">Bugün Kullanma</string>
 	<string name="mobile_data">Mobil İnternet</string>
@@ -512,7 +512,7 @@
 	<string name="prefs_languages_information">Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS\'yi kullanıyor. Uygulamayı, Google Play\'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play Market, Samsung Apps) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma sekmelerini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
 	<string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
-	<string name="transliteration_title">Latin alfabesine çevirme</string>
+	<string name="transliteration_title">Latin harf çevirisi</string>
 	<string name="learn_more">Daha fazla bilgi edinin</string>
 	<string name="core_exit">Çık</string>
 	<string name="routing_add_start_point">Güzergâhı planlamak için bir başlangıç noktası ekleyin</string>
@@ -645,7 +645,7 @@
 	<string name="transit_not_found">Metro navigasyonu bu bölgede henüz mevcut değil</string>
 	<string name="dialog_pedestrian_route_is_long_header">Metro güzergahı bulunamadı</string>
 	<string name="dialog_pedestrian_route_is_long_message">Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin</string>
-	<string name="button_layer_isolines">Yükseklikler</string>
+	<string name="button_layer_isolines">Arazi</string>
 	<string name="isolines_activation_error_dialog">Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin</string>
 	<string name="isolines_location_error_dialog">Bu bölgede henüz yükseklik çizgileri mevcut değil</string>
 	<string name="elevation_profile_ascent">Tırmanış</string>
