@@ -102,7 +102,7 @@
 "transport" = "Ulaşım";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Yakıt";
+"fuel" = "Benzinlik";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Otopark";
@@ -161,7 +161,7 @@
 "edit" = "Düzenle";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "Yeriniz henüz belirlenmedi";
+"unknown_current_position" = "Konumunuz henüz belirlenmedi";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, Organic Maps haritasında pinimi incele!";
@@ -212,13 +212,13 @@
 "pref_map_style_auto" = "Otomatik";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Perspektif görünüm";
+"pref_map_3d_title" = "Perspektif görünüş";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D yapılar";
 
 /* Settings «Route» category: «Tts enabled» title */
-"pref_tts_enable_title" = "Sesli Talimatlar";
+"pref_tts_enable_title" = "Sesli Yönlendirme";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Ses Dili";
@@ -419,13 +419,13 @@
 
 /********** Routing dialogs strings **********/
 
-"dialog_routing_disclaimer_title" = "Güzergahınızı takip ederken şunları lütfen unutmayın:";
+"dialog_routing_disclaimer_title" = "Rotanızı takip ederken şunları lütfen unutmayın:";
 
 "dialog_routing_disclaimer_priority" = "— Yol durumları, trafik kuralları ve trafik işaretleri, her zaman navigasyon tavsiyelerinden önceliklidir;";
 
-"dialog_routing_disclaimer_precision" = "— Harita doğru olmayabilir, önerilen güzergah da hedefinize ulaşmak için en uygun yol olmayabilir;";
+"dialog_routing_disclaimer_precision" = "— Harita doğru olmayabilir, önerilen rota da hedefinize ulaşmak için en uygun yol olmayabilir;";
 
-"dialog_routing_disclaimer_recommendations" = "— Önerilen güzergahlar yalnızca tavsiye olarak kabul edilmelidir;";
+"dialog_routing_disclaimer_recommendations" = "— Önerilen rotalar yalnızca tavsiye olarak kabul edilmelidir;";
 
 "dialog_routing_disclaimer_borders" = "— Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamız tarafından oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarını geçebilir;";
 
@@ -433,31 +433,31 @@
 
 "dialog_routing_check_gps" = "GPS sinyalini kontrol edin";
 
-"dialog_routing_error_location_not_found" = "Güzergah oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.";
+"dialog_routing_error_location_not_found" = "Rota oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.";
 
 "dialog_routing_location_turn_wifi" = "Lütfen GPS sinyalinizi kontrol edin. Wi-Fi'ı etkinleştirmek konum isabetini arttırır.";
 
 "dialog_routing_location_turn_on" = "Konum hizmetlerini etkinleştirin";
 
-"dialog_routing_location_unknown_turn_on" = "Mevcut GPS koordinatları belirlenemiyor. Güzergah hesaplamak için konum hizmetlerini etkinleştirin.";
+"dialog_routing_location_unknown_turn_on" = "Mevcut GPS koordinatları belirlenemiyor. Rota hesaplamak için konum hizmetlerini etkinleştirin.";
 
 "dialog_routing_download_files" = "Gerekli dosyaları indirin";
 
-"dialog_routing_download_and_update_all" = "Planlanan yoldaki tüm harita ve güzergah bilgilerini indirip güncelleyerek güzergahı hesaplayın.";
+"dialog_routing_download_and_update_all" = "Planlanan yoldaki tüm harita ve rota bilgilerini indirip güncelleyerek rotayı hesaplayın.";
 
-"dialog_routing_unable_locate_route" = "Güzergah belirlenemiyor";
+"dialog_routing_unable_locate_route" = "Rota belirlenemiyor";
 
 "dialog_routing_change_start_or_end" = "Lütfen başlangıç noktanızı veya hedefinizi ayarlayın.";
 
 "dialog_routing_change_start" = "Başlangıç noktasını ayarlayın";
 
-"dialog_routing_start_not_determined" = "Güzergah oluşturulamadı. Başlangıç noktası belirlenemiyor.";
+"dialog_routing_start_not_determined" = "Rota oluşturulamadı. Başlangıç noktası belirlenemiyor.";
 
 "dialog_routing_select_closer_start" = "Lütfen yola daha yakın bir başlangıç noktası seçin.";
 
 "dialog_routing_change_end" = "Hedefinizi ayarlayın";
 
-"dialog_routing_end_not_determined" = "Güzergah oluşturulamadı. Hedef belirlenemiyor.";
+"dialog_routing_end_not_determined" = "Rota oluşturulamadı. Hedef belirlenemiyor.";
 
 "dialog_routing_select_closer_end" = "Lütfen yola daha yakın bir hedef noktası seçin.";
 
@@ -467,15 +467,15 @@
 
 "dialog_routing_system_error" = "Sistem hatası";
 
-"dialog_routing_application_error" = "Uygulama hatası nedeniyle güzergah oluşturulamadı.";
+"dialog_routing_application_error" = "Uygulama hatası nedeniyle rota oluşturulamadı.";
 
 "dialog_routing_try_again" = "Lütfen daha sonra tekrar deneyin";
 
 "not_now" = "Şimdi Değil";
 
-"dialog_routing_download_and_build_cross_route" = "Haritayı indirerek birden fazla haritaya uzanan daha uygun bir güzergah oluşturmak ister misiniz?";
+"dialog_routing_download_and_build_cross_route" = "Haritayı indirerek birden fazla haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?";
 
-"dialog_routing_download_cross_route" = "Bu haritanın bir kısmından geçen daha uygun bir güzergah oluşturmak için haritayı indirin.";
+"dialog_routing_download_cross_route" = "Bu haritanın bir kısmından geçen daha uygun bir rota oluşturmak için haritayı indirin.";
 
 
 /********** Strings for downloading map from search **********/
@@ -517,9 +517,9 @@
 
 "search_history_title" = "Arama Geçmişi";
 
-"search_history_text" = "En son yapılan arama sorgularını görüntüle.";
+"search_history_text" = "Son aramaları görüntüleyin.";
 
-"clear_search" = "Arama Geçmişini temizle";
+"clear_search" = "Arama Geçmişini Temizle";
 
 "p2p_your_location" = "Konumunuz";
 
@@ -830,7 +830,7 @@
 
 "mobile_data_dialog" = "Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?";
 
-"mobile_data_option_always" = "Her zaman kullan";
+"mobile_data_option_always" = "Her Zaman Kullan";
 
 "mobile_data_option_today" = "Sadece Bugün";
 
@@ -861,7 +861,7 @@
 
 "off" = "Kapat";
 
-"transliteration_title" = "Latin alfabesine çevirme";
+"transliteration_title" = "Latin harf çevirisi";
 
 "core_exit" = "Çık";
 
@@ -1138,7 +1138,7 @@
 
 "dialog_pedestrian_route_is_long_message" = "Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin";
 
-"button_layer_isolines" = "Yükseklikler";
+"button_layer_isolines" = "Arazi";
 
 "isolines_activation_error_dialog" = "Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin";
 
