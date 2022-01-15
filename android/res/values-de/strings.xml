@@ -791,6 +791,16 @@
 	<string name="type.barrier.wall">Mauer</string>
 	<string name="type.boundary">Grenze</string>
 	<string name="type.boundary.administrative">Verwaltungsgrenze</string>
+	<string name="type.boundary.administrative.10">Verwaltungsgrenze</string>
+	<string name="type.boundary.administrative.11">Verwaltungsgrenze</string>
+	<string name="type.boundary.administrative.3">Verwaltungsgrenze</string>
+	<string name="type.boundary.administrative.4">Verwaltungsgrenze</string>
+	<string name="type.boundary.administrative.4.state">Verwaltungsgrenze</string>
+	<string name="type.boundary.administrative.5">Verwaltungsgrenze</string>
+	<string name="type.boundary.administrative.6">Verwaltungsgrenze</string>
+	<string name="type.boundary.administrative.7">Verwaltungsgrenze</string>
+	<string name="type.boundary.administrative.8">Verwaltungsgrenze</string>
+	<string name="type.boundary.administrative.9">Verwaltungsgrenze</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
 	<string name="type.building">Gebäude</string>
 	<string name="type.building.address">Gebäude</string>
@@ -1437,6 +1447,7 @@
 	<string name="type.wheelchair.limited">Eingeschränkter Rollstuhlzugang</string>
 	<string name="type.wheelchair.no">Kein Rollstuhlzugang</string>
 	<string name="type.wheelchair.yes">Vollständiger Zugang für Rollstühle</string>
+	<!-- en.wikipedia.org/wiki/Surface_lift -->
 	<string name="type.piste_lift">Lift</string>
 	<string name="type.piste_lift.j.bar">Schlepplift</string>
 	<string name="type.piste_lift.magic_carpet">Laufband</string>
@@ -1448,6 +1459,7 @@
 	<string name="type.piste_type.downhill.advanced">Schwierige Abfahrt</string>
 	<string name="type.piste_type.downhill.easy">Leichte Abfahrt</string>
 	<string name="type.piste_type.downhill.expert">Profi Abfahrt</string>
+	<string name="type.piste_type.downhill.freeride">Abfahrt</string>
 	<string name="type.piste_type.downhill.intermediate">Mittelschwere Abfahrt</string>
 	<string name="type.piste_type.downhill.novice">Anfängerfreundliche Abfahrt</string>
 	<string name="type.piste_type.nordic">Langlaufloipe</string>

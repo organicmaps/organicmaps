@@ -792,7 +792,7 @@
 	<string name="type.boundary.administrative">Fronteira administrativa</string>
 	<string name="type.boundary.administrative.10">Fronteira administrativa</string>
 	<string name="type.boundary.administrative.11">Fronteira administrativa</string>
-	<string name="type.boundary.administrative.2">Fronteira administrativa</string>
+	<string name="type.boundary.administrative.2">Fronteira de país</string>
 	<string name="type.boundary.administrative.3">Fronteira administrativa</string>
 	<string name="type.boundary.administrative.4">Fronteira administrativa</string>
 	<string name="type.boundary.administrative.4.state">Fronteira administrativa</string>
@@ -1188,7 +1188,7 @@
 	<string name="type.natural.wetland.bog">Zona úmida</string>
 	<string name="type.natural.wetland.marsh">Zona úmida</string>
 	<string name="type.noexit">Via sem saída</string>
-	<string name="type.noexit.motor_vehicle">Via sem saída para veículos a motor</string>
+	<string name="type.noexit.motor_vehicle">Via sem saída</string>
 	<string name="type.office">Escritório</string>
 	<string name="type.office.company">Escritório de empresa</string>
 	<string name="type.office.estate_agent">Corretor imobiliário</string>
@@ -1463,6 +1463,7 @@
 	<string name="type.wheelchair.limited">Acesso limitado para cadeira de rodas</string>
 	<string name="type.wheelchair.no">Sem acesso para cadeira de rodas</string>
 	<string name="type.wheelchair.yes">Acesso total para cadeira de rodas</string>
+	<!-- en.wikipedia.org/wiki/Surface_lift -->
 	<string name="type.piste_lift">Telesqui</string>
 	<string name="type.piste_lift.j.bar">Telesqui de barra em J</string>
 	<string name="type.piste_lift.magic_carpet">Tapete deslizante</string>

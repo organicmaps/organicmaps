@@ -788,7 +788,7 @@
 	<string name="type.boundary.administrative">行政区域界线</string>
 	<string name="type.boundary.administrative.10">10级行政区域界线</string>
 	<string name="type.boundary.administrative.11">11级行政区域界线</string>
-	<string name="type.boundary.administrative.2">2级行政区域界线</string>
+	<string name="type.boundary.administrative.2">国家行政区域界线</string>
 	<string name="type.boundary.administrative.3">3级行政区域界线</string>
 	<string name="type.boundary.administrative.4">4级行政区域界线</string>
 	<string name="type.boundary.administrative.4.state">4级州省界线</string>
