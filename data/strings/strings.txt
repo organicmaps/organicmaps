@@ -649,7 +649,7 @@
     sk = Aktuálne máte všetky možnosti pre určovanie polohy vypnuté. Prosím, povoľte ich v Nastaveniach.
     sv = Du har inaktiverat alla platstjänster för denna enhet eller program. Vänligen aktivera dem i Inställningar.
     th = ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า
-    tr = Şu anda bu cihaz için tüm Yer Hizmetleri veya uygulama devre dışı bırakılmış. Lütfen Ayarlar bölümünden etkinleştirin.
+    tr = Şu anda bu cihaz veya uygulama için tüm Konum Hizmetleri devre dışı bırakılmış. Lütfen bunu ayarlardan etkinleştirin.
     uk = Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.
     vi = Bạn hiện đang tắt tất cả Dịch vụ Định vị cho thiết bị hoặc ứng dụng này. Bạn vui lòng bật lại chúng trong Thiết lập.
     zh-Hans = 您目前有此设备的所有位置服务或应用已禁用。请在设置中启用它们。
@@ -868,7 +868,7 @@
     sk = Nastavenie pripojenia
     sv = Anslutningsinställningar
     th = การตั้งค่าการเชื่อมต่อ
-    tr = Bağlantı Ayarları
+    tr = Konum Ayarları
     uk = Налаштування підключення
     vi = Thiết lập Kết nối
     zh-Hans = 连接设置
@@ -2115,7 +2115,7 @@
     sk = Čerpacia stanica
     sv = Bensin
     th = ก๊าซ
-    tr = Yakıt
+    tr = Benzinlik
     uk = Заправка
     vi = Khí đốt
     zh-Hans = 汽油
@@ -3846,7 +3846,7 @@
     sk = Perspektívne zobrazenie
     sv = Perspektivvy
     th = มุมมองเพอร์สเปกทีฟ
-    tr = Perspektif görünüm
+    tr = Perspektif görünüş
     uk = Перспективний вид
     vi = Góc nhìn phối cảnh
     zh-Hans = 透视图
@@ -3918,7 +3918,7 @@
     sk = Hlasové povely
     sv = Röstinstruktioner
     th = คำแนะนำด้วยเสียง
-    tr = Sesli Talimatlar
+    tr = Sesli Yönlendirme
     uk = Голосові інструкції
     vi = Hướng dẫn bằng Giọng nói
     zh-Hans = 语音指导
@@ -6679,7 +6679,7 @@
     sk = Pri sledovaní trasy majte na pamäti nasledujúce:
     sv = När du följer vägen, kom ihåg att:
     th = ขณะกำลังเดินทางตามเส้นทาง โปรดจำไว้ว่า:
-    tr = Güzergahınızı takip ederken şunları lütfen unutmayın:
+    tr = Rotanızı takip ederken şunları lütfen unutmayın:
     uk = Під час руху за маршрутом пам'ятайте:
     vi = Khi đi theo tuyến đường, hãy lưu ý:
     zh-Hans = 按照路线行进时，请谨记：
@@ -6751,7 +6751,7 @@
     sk = — Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;
     sv = — Kartan kan vara felaktig och den föreslagna vägen inte alltid är det optimala sättet att ta sig till destinationen;
     th = — แผนที่อาจมีความคลาดเคลื่อนและเส้นทางที่แนะนำอาจไม่ใช่เส้นทางที่เหมาะสมที่สุดเสมอไปสำหรับการไปยังที่หมาย;
-    tr = — Harita doğru olmayabilir, önerilen güzergah da hedefinize ulaşmak için en uygun yol olmayabilir;
+    tr = — Harita doğru olmayabilir, önerilen rota da hedefinize ulaşmak için en uygun yol olmayabilir;
     uk = — Мапа може бути неточною, а запропонований маршрут не завжди оптимальний;
     vi = — Bản đồ có thể không chính xác và tuyến đường được đề xuất có thể không luôn là cách tối ưu nhất để đi đến đích;
     zh-Hans = — 地图可能不准确，建议的路线可能并非总是去往目的地的最佳路径；
@@ -6787,7 +6787,7 @@
     sk = — Navrhované trasy by sa mali brať len ako odporúčania;
     sv = — Föreslagna vägar endast är rekommendationer;
     th = — เส้นทางที่แนะนำเป็นเพียงคำแนะนำเท่านั้น;
-    tr = — Önerilen güzergahlar yalnızca tavsiye olarak kabul edilmelidir;
+    tr = — Önerilen rotalar yalnızca tavsiye olarak kabul edilmelidir;
     uk = — Запропоновані маршрути — лише рекомендації;
     vi = — Các tuyến đường được đề nghị chỉ nên được coi là các khuyến nghị;
     zh-Hans = — 建议的路线仅作为推荐路线供您采纳；
@@ -6930,7 +6930,7 @@
     sk = Nedá sa vytvoriť trasa. Aktuálne súradnice GPS sa nedajú identifikovať.
     sv = Kan inte skapa väg. Nuvarande GPS-koordinater kan inte identifieras.
     th = ไม่สามารถสร้างเส้นทางได้ ไม่สามารถระบุพิกัด GPS ปัจจุบันได้
-    tr = Güzergah oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.
+    tr = Rota oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.
     uk = Маршрут не побудовано. Поточну геопозицію не визначено.
     vi = Không thể tạo tuyến đường. Không xác định được tọa độ GPS hiện tại.
     zh-Hans = 无法创建路线。当前 GPS 坐标无法识别。
@@ -7038,7 +7038,7 @@
     sk = Aktuálne súradnice GPS sa nedajú lokalizovať. Aktivujte lokalizačné služby na výpočet trasy.
     sv = Kan inte lokalisera nuvarande GPS-koordinater. Aktivera platstjänster för att beräkna väg.
     th = ไม่สามารถหาตำแหน่งพิกัด GPS ปัจจุบันได้ เปิดใช้บริการหาตำแหน่งเพื่อคำนวณเส้นทาง
-    tr = Mevcut GPS koordinatları belirlenemiyor. Güzergah hesaplamak için konum hizmetlerini etkinleştirin.
+    tr = Mevcut GPS koordinatları belirlenemiyor. Rota hesaplamak için konum hizmetlerini etkinleştirin.
     uk = Поточну геопозицію не визначено. Для побудови маршруту увімкніть режим визначення геопозиції.
     vi = Không thể xác định vị trí tọa độ GPS hiện tại. Bật các dịch vụ định vị để tính toán tuyến đường.
     zh-Hans = 无法定位当前 GPS 坐标。请启用定位服务以计算路线。
@@ -7109,7 +7109,7 @@
     sk = Prevezmite si a aktualizujte všetky mapy a informácie o trase pozdĺž naplánovanej trasy na výpočet trasy.
     sv = Ladda ned och uppdatera all kart- och väginformation längs den beräknade vägbanan för att beräkna vägen.
     th = ดาวน์โหลดและอัปเดตแผนที่กับข้อมูลเส้นทางทั้งหมดตามเส้นทางที่คาดหมายเพื่อคำนวณเส้นทาง
-    tr = Planlanan yoldaki tüm harita ve güzergah bilgilerini indirip güncelleyerek güzergahı hesaplayın.
+    tr = Planlanan yoldaki tüm harita ve rota bilgilerini indirip güncelleyerek rotayı hesaplayın.
     uk = Для побудови маршруту завантажте і обновіть всі мапи і файли маршрутів на шляху руху.
     vi = Tải về và cập nhật tất cả các bản đồ và các thông tin tuyến đường dọc theo lộ trình dự kiến để tính toán tuyến đường.
     zh-Hans = 下载和更新所有地图和预定路径沿途的路线信息，以计算路线。
@@ -7145,7 +7145,7 @@
     sk = Trasa sa nedá lokalizovať
     sv = Kan inte lokalisera väg
     th = ไม่สามารถหาเส้นทางได้
-    tr = Güzergah belirlenemiyor
+    tr = Rota belirlenemiyor
     uk = Маршрут не знайдено
     vi = Không thể xác định tuyến đường
     zh-Hans = 无法定位路线
@@ -7181,7 +7181,7 @@
     sk = Trasa sa nedá vytvoriť.
     sv = Kan inte skapa väg.
     th = ไม่สามารถสร้างเส้นทางได้
-    tr = Güzergah oluşturulamıyor.
+    tr = Rota oluşturulamıyor.
     uk = Не вдалося побудувати маршрут.
     vi = Không thể tạo tuyến đường.
     zh-Hans = 无法创建路线。
@@ -7289,7 +7289,7 @@
     sk = Trasa nebola vytvorená. Nedá sa lokalizovať východiskový bod.
     sv = Ingen väg skapades. Kan inte lokalisera startpunkt.
     th = ไม่มีการสร้างเส้นทาง ไม่สามารถหาจุดเริ่มต้นได้
-    tr = Güzergah oluşturulamadı. Başlangıç noktası belirlenemiyor.
+    tr = Rota oluşturulamadı. Başlangıç noktası belirlenemiyor.
     uk = Маршрут не побудовано. Не визначено початкову точку маршруту.
     vi = Tuyến đường chưa được tạo. Không thể xác định vị trí điểm bắt đầu.
     zh-Hans = 路线未创建。无法定位起点。
@@ -7397,7 +7397,7 @@
     sk = Trasa nebola vytvorená. Nedá sa lokalizovať cieľové miesto.
     sv = Ingen väg skapades. Kan inte lokalisera destination.
     th = ไม่มีการสร้างเส้นทาง ไม่สามารถหาที่หมายได้
-    tr = Güzergah oluşturulamadı. Hedef belirlenemiyor.
+    tr = Rota oluşturulamadı. Hedef belirlenemiyor.
     uk = Маршрут не побудовано. Не визначено кінцеву точку маршруту.
     vi = Tuyến đường chưa được tạo. Không thể xác định vị trí điểm đến.
     zh-Hans = 路线未创建。无法定位目的地。
@@ -7576,7 +7576,7 @@
     sk = Nedá sa vytvoriť trasa z dôvodu aplikačnej chyby.
     sv = Kan inte skapa väg på grund av ett programfel.
     th = ไม่สามารถสร้างเส้นทางได้เนื่องจากเกิดข้อผิดพลาดของแอปพลิเคชัน
-    tr = Uygulama hatası nedeniyle güzergah oluşturulamadı.
+    tr = Uygulama hatası nedeniyle rota oluşturulamadı.
     uk = Не вдалося прокласти маршрут через помилки програми.
     vi = Không thể tạo tuyến đường do lỗi ứng dụng.
     zh-Hans = 由于应用程序错误，无法创建路线。
@@ -7684,7 +7684,7 @@
     sk = Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?
     sv = Vill du ladda ned kartan och skapa en optimalare väg som sträcker sig över fler än en karta?
     th = คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?
-    tr = Haritayı indirerek birden fazla haritaya uzanan daha uygun bir güzergah oluşturmak ister misiniz?
+    tr = Haritayı indirerek birden fazla haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?
     uk = Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?
     vi = Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?
     zh-Hans = 您是否要下载地图并创建一条跨越多张地图的更佳路线？
@@ -7720,7 +7720,7 @@
     sk = Prevezmite si mapu na vytvorenie optimálnejšej trasy, ktorá prekračuje okraje tejto mapy.
     sv = Ladda ned kartan för att skapa en optimalare väg som sträcker sig utanför den här kartan.
     th = ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้
-    tr = Bu haritanın bir kısmından geçen daha uygun bir güzergah oluşturmak için haritayı indirin.
+    tr = Bu haritanın bir kısmından geçen daha uygun bir rota oluşturmak için haritayı indirin.
     uk = Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.
     vi = Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.
     zh-Hans = 下载地图，创建一条跨越此地图边缘的更佳路线。
@@ -8391,7 +8391,7 @@
     sk = Rýchlo pristupujte k nedávnym hľadaným výrazom.
     sv = Få snabbare åtkomst till senaste sökförfrågan.
     th = เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว
-    tr = En son yapılan arama sorgularını görüntüle.
+    tr = Son aramaları görüntüleyin.
     uk = Швидкий доступ до недавніх результатів пошуку.
     vi = Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.
     zh-Hans = 快速访问最近的搜索查询。
@@ -8426,7 +8426,7 @@
     sk = Vymazať históriu vyhľadávania
     sv = Rensa sökhistorik
     th = ล้างการค้นหาประวัติ
-    tr = Arama Geçmişini temizle
+    tr = Arama Geçmişini Temizle
     uk = Очистити історію пошуку
     vi = Xóa Lịch sử Tìm kiếm
     zh-Hans = 清除历史搜索
@@ -14270,7 +14270,7 @@
     sk = Vždy použiť
     sv = Använd alltid
     th = ใช้เสมอ
-    tr = Her zaman kullan
+    tr = Her Zaman Kullan
     uk = Завжди
     vi = Luôn Sử dụng
     zh-Hans = 始终使用
@@ -14949,7 +14949,7 @@
     sv = Transkribering till latin
     sw = Tafsiri kwa lugha ya Kilatini
     th = การทับศัพท์เป็นภาษาละติน
-    tr = Latin alfabesine çevirme
+    tr = Latin harf çevirisi
     uk = Транслітерація латинськими літерами
     vi = Chuyển ngữ sang chữ Latinh
     zh-Hans = 直译成拉丁文
@@ -21285,7 +21285,7 @@
     sv = Terräng
     sw = Topografia
     th = ความสูง
-    tr = Yükseklikler
+    tr = Arazi
     uk = Висоти
     vi = Độ cao
     zh-Hans = 高度
