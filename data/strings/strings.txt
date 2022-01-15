@@ -2907,7 +2907,7 @@
     sk = Vaša poloha zatiaľ nebola určená
     sv = Din position har inte bestämts ännu
     th = ตำแหน่งที่ตั้งของคุณยังไม่ได้รับการกำหนด
-    tr = Yeriniz henüz belirlenmedi
+    tr = Konumunuz henüz belirlenmedi
     uk = Ваше місце розташування не визначено
     vi = Chưa xác định được vị trí của bạn
     zh-Hans = 您的位置尚未确定
