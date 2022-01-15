@@ -1,7 +1,15 @@
 package com.mapswithme.maps.settings;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
+import android.provider.DocumentsContract;
+import android.content.Intent;
+import android.content.UriPermission;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +18,41 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.documentfile.provider.DocumentFile;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.bookmarks.BookmarkCategoriesFragment;
+import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Locale;
 
 public class StoragePathFragment extends BaseSettingsFragment
                               implements StoragePathManager.MoveFilesListener,
-                                         OnBackPressListener
+                                         OnBackPressListener,
+                                         View.OnClickListener,
+                                         View.OnLongClickListener
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
+  private static final String TAG = "SAF test";
+
   private TextView mHeader;
   private ListView mList;
 
@@ -45,6 +71,8 @@ public class StoragePathFragment extends BaseSettingsFragment
     View root = super.onCreateView(inflater, container, savedInstanceState);
 
     mHeader = root.findViewById(R.id.header);
+    mHeader.setOnClickListener(this);
+    mHeader.setOnLongClickListener(this);
     mList = root.findViewById(R.id.list);
     mList.setOnItemClickListener(new AdapterView.OnItemClickListener()
     {
@@ -106,6 +134,125 @@ public class StoragePathFragment extends BaseSettingsFragment
 
     if (mAdapter != null)
       mAdapter.update(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), dirSize);
+  }
+
+  @Override
+  public void onClick(View v)
+  {
+    // Choose a directory using the system's file picker.
+    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+
+    // Optionally, specify a URI for the directory that should be opened in
+    // the system file picker when it loads.
+    intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, "content://com.android.externalstorage.documents/tree/primary:OrganicMaps");
+
+    // Enable "Show SD card option"
+    // http://stackoverflow.com/a/31334967/1615876
+    //intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
+
+    intent.putExtra(DocumentsContract.EXTRA_EXCLUDE_SELF, true);
+    startActivityForResult(intent, 333);
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode,
+                               Intent resultData) {
+    final Context context = getActivity();
+    final ContentResolver resolver = context.getContentResolver();
+
+    if (requestCode == 333
+        && resultCode == Activity.RESULT_OK) {
+      // The result data contains a URI for the document or directory that
+      // the user selected.
+      if (resultData != null) {
+        final Uri treeUri = resultData.getData();
+        LOGGER.i(TAG, "Persisting user selected uri: " + treeUri);
+
+        final int takeFlags = resultData.getFlags()
+                              & (Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                 | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        resolver.takePersistableUriPermission(treeUri, takeFlags);
+      }
+    }
+  }
+
+  @Override
+  public boolean onLongClick(View v)
+  {
+    final Context context = getActivity();
+    final ContentResolver resolver = context.getContentResolver();
+
+    List<UriPermission> permissions = resolver.getPersistedUriPermissions();
+    if (permissions != null && permissions.size() > 0)
+    {
+      DocumentFile pickedDir = null;
+      for (UriPermission uriPerm : permissions)
+      {
+        LOGGER.i(TAG, "Persisted uri: " + uriPerm.toString());
+        DocumentFile testDir = DocumentFile.fromTreeUri(context, uriPerm.getUri());
+        if (testDir != null && testDir.exists() && testDir.isDirectory()) {
+          pickedDir = testDir;
+        } else {
+          LOGGER.i(TAG, "Something wrong with: " + uriPerm.toString());
+        }
+      }
+
+      String ftime = "file-" + System.currentTimeMillis() + ".txt";
+      LOGGER.i(TAG, "Creating new file: " + ftime);
+      DocumentFile newFile = pickedDir.createFile("text/plain", ftime);
+      try
+      {
+        ParcelFileDescriptor pfd = resolver.openFileDescriptor(newFile.getUri(), "w");
+        FileOutputStream fileOutputStream = new FileOutputStream(pfd.getFileDescriptor());
+        fileOutputStream.write(ftime.getBytes());
+        fileOutputStream.close();
+        pfd.close();
+      }
+      catch (IOException e)
+      {
+        e.printStackTrace();
+      }
+
+      LOGGER.i(TAG, "Scanning uri: " + pickedDir.getUri());
+      for (DocumentFile file : pickedDir.listFiles())
+      {
+        LOGGER.i(TAG, "Found file: " + file.getName());
+        try
+        {
+          ParcelFileDescriptor pfd = resolver.openFileDescriptor(file.getUri(), "r");
+          FileInputStream fis = new FileInputStream(pfd.getFileDescriptor());
+          InputStreamReader inputStreamReader = new InputStreamReader(fis);
+          BufferedReader reader = new BufferedReader(inputStreamReader);
+          String line = reader.readLine();
+          LOGGER.i(TAG, "  contents: " + line);
+          fis.close();
+          pfd.close();
+
+          String contents = "overwritten-" + System.currentTimeMillis();
+          LOGGER.i(TAG, "Overwriting with a current timestamp: " + contents);
+          pfd = resolver.openFileDescriptor(file.getUri(), "w");
+          FileOutputStream fos = new FileOutputStream(pfd.getFileDescriptor());
+          //fos.getChannel().truncate(0); // doesn't work on Android 5.0
+          fos.write(contents.getBytes());
+          fos.close();
+          pfd.close();
+        }
+        catch (FileNotFoundException e)
+        {
+          e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+          e.printStackTrace();
+        }
+      }
+    }
+    else
+    {
+      LOGGER.i(TAG, "No persisted uris found! Select a dir");
+    }
+
+    return true;
   }
 
   @Override
