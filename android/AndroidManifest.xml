@@ -64,7 +64,7 @@
     <activity
       android:name="com.mapswithme.maps.SplashActivity"
       android:label="@string/app_name"
-      android:exported="false">
+      android:exported="true">
 
       <!-- standard "geo" scheme -->
       <intent-filter>
