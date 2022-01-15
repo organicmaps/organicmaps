@@ -108,13 +108,13 @@
     zh-Hant = 纜車站
 
   [type.aeroway]
-    en = Aeroway
+    en = Airspace Infrastructure
     de = Luftverkehr
     ja = 空路
     pt = Via aérea
     pt-BR = Via aérea
-    ru = Аэропорт
-    uk = Аеропорт
+    ru = Аэрокосмическая инфраструктура
+    uk = Аерокосмічна інфраструктура
     zh-Hans = 机场要素
 
   [type.aeroway.aerodrome]
@@ -150,7 +150,7 @@
     zh-Hant = 機場
 
   [type.aeroway.aerodrome.international]
-    en = Airport
+    en = International Airport
     ar = مطار
     cs = Letiště
     da = Lufthavn
@@ -182,7 +182,7 @@
     zh-Hant = 機場
 
   [type.aeroway.apron]
-    en = aeroway-apron
+    en = Apron
     de = Vorfeld
     fr = Aire de stationnement pour aéronefs
     ja = エプロン
@@ -235,7 +235,7 @@
     zh-Hant = 直升機場
 
   [type.aeroway.runway]
-    en = aeroway-runway
+    en = Runway
     de = Start-/Landebahn
     fr = Piste d'aviation
     ja = 滑走路
@@ -248,7 +248,7 @@
     zh-Hant = 機場跑道
 
   [type.aeroway.taxiway]
-    en = aeroway-taxiway
+    en = Taxiway
     de = Rollweg
     fr = Taxiway
     ja = 誘導路
@@ -3891,7 +3891,7 @@
     zh-Hans = 边界
 
   [type.boundary.administrative]
-    en = boundary-administrative
+    en = Administrative Boundary
     de = Verwaltungsgrenze
     ja = 行政境界
     pl = Granica administracyjna
@@ -3902,94 +3902,50 @@
     zh-Hans = 行政区域界线
 
   [type.boundary.administrative.10]
-    en = boundary-administrative-10
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
-    uk = Адміністративний поділ
+    ref = type.boundary.administrative
     zh-Hans = 10级行政区域界线
 
   [type.boundary.administrative.11]
-    en = boundary-administrative-11
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
-    uk = Адміністративний поділ
+    ref = type.boundary.administrative
     zh-Hans = 11级行政区域界线
 
   [type.boundary.administrative.2]
-    en = boundary-administrative-2
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
-    uk = Адміністративний поділ
-    zh-Hans = 2级行政区域界线
+    ref = type.boundary.administrative.country
 
   [type.boundary.administrative.3]
-    en = boundary-administrative-3
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
+    ref = type.boundary.administrative
     zh-Hans = 3级行政区域界线
 
   [type.boundary.administrative.4]
-    en = boundary-administrative-4
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
-    uk = Адміністративний поділ
+    ref = type.boundary.administrative
     zh-Hans = 4级行政区域界线
 
   [type.boundary.administrative.4.state]
-    en = boundary-administrative-4-state
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
-    uk = Адміністративний поділ
+    ref = type.boundary.administrative
     zh-Hans = 4级州省界线
 
   [type.boundary.administrative.5]
-    en = boundary-administrative-5
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
-    uk = Адміністративний поділ
+    ref = type.boundary.administrative
     zh-Hans = 5级行政区域界线
 
   [type.boundary.administrative.6]
-    en = boundary-administrative-6
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
-    uk = Адміністративний поділ
+    ref = type.boundary.administrative
     zh-Hans = 6级行政区域界线
 
   [type.boundary.administrative.7]
-    en = boundary-administrative-7
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
-    uk = Адміністративний поділ
+    ref = type.boundary.administrative
     zh-Hans = 7级行政区域界线
 
   [type.boundary.administrative.8]
-    en = boundary-administrative-8
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
-    uk = Адміністративний поділ
+    ref = type.boundary.administrative
     zh-Hans = 8级行政区域界线
 
   [type.boundary.administrative.9]
-    en = boundary-administrative-9
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
-    uk = Адміністративний поділ
+    ref = type.boundary.administrative
     zh-Hans = 9级行政区域界线
 
   [type.boundary.administrative.city]
-    en = boundary-administrative-city
+    en = City Boundary
     pl = Granica miasta
     pt = Fronteira de cidade
     pt-BR = Fronteira de cidade
@@ -3998,7 +3954,7 @@
     zh-Hans = 城市行政区域界线
 
   [type.boundary.administrative.country]
-    en = boundary-administrative-country
+    en = National Border
     pl = Granica państwa
     pt = Fronteira de país
     pt-BR = Fronteira de país
@@ -4007,7 +3963,7 @@
     zh-Hans = 国家行政区域界线
 
   [type.boundary.administrative.county]
-    en = boundary-administrative-county
+    en = County Boundary
     pl = Granica hrabstwa
     pt = Fronteira de condado
     pt-BR = Fronteira de condado
@@ -4016,7 +3972,7 @@
     zh-Hans = 县行政区域界线
 
   [type.boundary.administrative.municipality]
-    en = boundary-administrative-municipality
+    en = Municipality Boundary
     pl = Granica gminy
     pt = Fronteira de município
     pt-BR = Fronteira de município
@@ -4024,15 +3980,12 @@
     zh-Hans = 自治市行政区域界线
 
   [type.boundary.administrative.nation]
-    en = boundary-administrative-nation
+    ref = type.boundary.administrative.country
     pt = Fronteira de nação
     pt-BR = Fronteira de nação
-    ru = Национальная граница
-    uk = Національний кордон
-    zh-Hans = 国家行政区域界线
 
   [type.boundary.administrative.region]
-    en = boundary-administrative-region
+    en = Regional Boundary
     pl = Granica regionu
     pt = Fronteira de região
     pt-BR = Fronteira de região
@@ -4041,7 +3994,7 @@
     zh-Hans = 1区域行政区域界线
 
   [type.boundary.administrative.state]
-    en = boundary-administrative-state
+    en = State Boundary
     pl = Granica województwa
     pt = Fronteira de estado
     pt-BR = Fronteira de estado
@@ -4049,7 +4002,7 @@
     zh-Hans = 州省行政区域界线
 
   [type.boundary.administrative.suburb]
-    en = boundary-administrative-suburb
+    en = Suburb Boundary
     pl = Granica przedmieść
     pt = Fronteira de subúrbio
     pt-BR = Fronteira de subúrbio
@@ -8733,7 +8686,6 @@
 
   [type.area_highway.unclassified]
     ref = type.highway.unclassified
-    en = area:highway-unclassified
 
   [type.highway.world_level]
     en = highway-world_level
@@ -9983,7 +9935,8 @@
     zh-Hans = 休闲要素
 
   [type.leisure.common]
-    en = leisure-common
+    en = Public Land
+    en-GB = Common Land
     de = öffentliche Grünfläche
     ja = レジャー(共有地)
     pt = Terreno baldio
@@ -12058,7 +12011,7 @@
     zh-Hans = 沼泽地
 
   [type.noexit]
-    en = noexit
+    en = Dead End
     ja = 行き止まり
     pl = Ślepy koniec drogi
     pt = Via sem saída
@@ -12067,12 +12020,7 @@
     uk = Тупик
 
   [type.noexit.motor_vehicle]
-    en = noexit-motor_vehicle
-    ja = 行き止まり
-    pl = Ślepy koniec drogi dla pojazdów mechanicznych
-    pt = Via sem saída para veículos a motor
-    pt-BR = Via sem saída para veículos a motor
-    ru = Тупик для моторного транспорта
+    ref = type.noexit
 
   [type.office]
     en = Office
@@ -18616,23 +18564,24 @@
     zh-Hant = 配備殘疾人專用
 
   [type.piste_lift]
-    en = piste:lift
+    comment = en.wikipedia.org/wiki/Surface_lift
+    en = Surface Lift
     de = Lift
     pt = Telesqui
     pt-BR = Telesqui
-    ru = Подъёмник
-    uk = Пiдйомник
+    ru = Бугельный подъёмник
+    uk = Бугельний витяг
 
   [type.piste_lift.j.bar]
-    en = piste:lift-j-bar
+    en = J-bar Lift
     de = Schlepplift
     pt = Telesqui de barra em J
     pt-BR = Telesqui de barra em J
-    ru = Подъёмник
-    uk = Пiдйомник
+    ru = Бугельный подъёмник
+    uk = Бугельний витяг
 
   [type.piste_lift.magic_carpet]
-    en = piste:lift-magic_carpet
+    en = Magic Carpet
     de = Laufband
     pt = Tapete deslizante
     pt-BR = Tapete deslizante
@@ -18640,39 +18589,39 @@
     uk = Стрiчковий конвеєр
 
   [type.piste_lift.platter]
-    en = piste:lift-platter
+    en = Platter Lift
     de = Tellerlift
     pt = Telesqui de disco
     pt-BR = Telesqui de disco
-    ru = Подъёмник
-    uk = Пiдйомник
+    ru = Бугельный подъёмник
+    uk = Бугельний витяг
 
   [type.piste_lift.rope_tow]
-    en = piste:lift-rope_tow
+    en = Rope Tow
     de = Seillift
     pt = Telesqui de corda
     pt-BR = Telesqui de corda
-    ru = Подъёмник
-    uk = Пiдйомник
+    ru = Бугельный подъёмник
+    uk = Бугельний витяг
 
   [type.piste_lift.t.bar]
-    en = piste:lift-t-bar
+    en = T-bar Lift
     de = T-Bügel-Lift
     pt = Telesqui de barra em T
     pt-BR = Telesqui de barra em T
-    ru = Подъёмник
-    uk = Пiдйомник
+    ru = Бугельный подъёмник
+    uk = Бугельний витяг
 
   [type.piste_type]
-    en = piste:type
+    en = Piste Type
     de = Pistentyp
     pt = Tipo de pista
     pt-BR = Tipo de pista
     ru = Тип трассы
-    uk = Тип дороги
+    uk = Тип траси
 
   [type.piste_type.downhill]
-    en = piste:type-downhill
+    en = Downhill Ski Run
     de = Abfahrt
     fi = Laskettelurinne
     pt = Esqui alpino
@@ -18681,7 +18630,7 @@
     uk = Гірськолижна траса
 
   [type.piste_type.downhill.advanced]
-    en = piste:type-downhill-advanced
+    ref = type.piste_type.downhill
     de = Schwierige Abfahrt
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
@@ -18689,7 +18638,7 @@
     uk = Доповнена гірськолижна траса
 
   [type.piste_type.downhill.easy]
-    en = piste:type-downhill-easy
+    ref = type.piste_type.downhill
     de = Leichte Abfahrt
     pt = Esqui alpino fácil
     pt-BR = Esqui alpino fácil
@@ -18697,7 +18646,7 @@
     uk = Легка гірськолижна траса
 
   [type.piste_type.downhill.expert]
-    en = piste:type-downhill-expert
+    ref = type.piste_type.downhill
     de = Profi Abfahrt
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
@@ -18705,14 +18654,14 @@
     uk = Гірськолижна траса для експертів
 
   [type.piste_type.downhill.freeride]
-    en = piste:type-downhill-freeride
+    ref = type.piste_type.downhill
     pt = Esqui alpino livre
     pt-BR = Esqui alpino livre
     ru = Горнолыжная трасса для фрирайда
     uk = Гірськолижна траса вільного спуска
 
   [type.piste_type.downhill.intermediate]
-    en = piste:type-downhill-intermediate
+    ref = type.piste_type.downhill
     de = Mittelschwere Abfahrt
     pt = Esqui alpino intermédio
     pt-BR = Esqui alpino intermédio
@@ -18720,7 +18669,7 @@
     uk = Гірськолижна траса середнього рівня
 
   [type.piste_type.downhill.novice]
-    en = piste:type-downhill-novice
+    ref = type.piste_type.downhill
     de = Anfängerfreundliche Abfahrt
     pt = Esqui alpino iniciante
     pt-BR = Esqui alpino iniciante
@@ -18728,16 +18677,16 @@
     uk = Гірськолижна траса для новеньких
 
   [type.piste_type.nordic]
-    en = piste:type-nordic
+    en = Nordic Ski Trail
     de = Langlaufloipe
     fi = Latu
     pt = Pista tipo nórdico
     pt-BR = Pista tipo nórdico
-    ru = Трасса для скандинавской ходьбы
-    uk = Траса для скандинавської ходьби
+    ru = Лыжня
+    uk = Лижня
 
   [type.piste_type.sled]
-    en = piste:type-sled
+    en = Sledding Piste
     de = Rodelbahn
     pt = Pista para trenós
     pt-BR = Pista para trenós
