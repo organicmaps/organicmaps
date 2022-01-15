@@ -671,7 +671,6 @@
     fi = Näytä kartalla
     fr = Voir sur la carte
     hu = Megjelenítés a térképen
-    id = Tampilkan di peta
     it = Mostra sulla mappa
     ja = 地図に表示
     ko = 지도에 표시
@@ -1010,7 +1009,7 @@
     sk = Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s Organic Maps
     sv = Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda Organic Maps
     th = โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ Organic Maps
-    tr = Organic Maps’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın
+    tr = Organic Maps’i kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın
     uk = Вимкніть USB кабель або вставте SD-карту
     vi = Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng Organic Maps
     zh-Hans = 请断开 USB 线或插入存储卡以使用 Organic Maps
