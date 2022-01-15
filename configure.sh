@@ -129,7 +129,7 @@ if [ ! -d "$BASE_PATH/3party/boost/tools" ]; then
   echo "Try 'git submodule update --init --recursive'"
   exit 1
 fi
-cd $BASE_PATH/3party/boost/
+cd "$BASE_PATH/3party/boost/"
 ./bootstrap.sh
 ./b2 headers
-cd $BASE_PATH
+cd "$BASE_PATH"
