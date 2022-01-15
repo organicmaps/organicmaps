@@ -177,7 +177,7 @@ ro:4Benzinărie|Benzină
 es:3Gasolinera
 sv:3Bensin
 th:ก๊าซ
-tr:Benzin
+tr:Benzinlik
 uk:Заправка|бензин
 vi:Khí đốt
 zh-Hans:汽油
