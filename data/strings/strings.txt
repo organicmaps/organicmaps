@@ -671,6 +671,7 @@
     fi = Näytä kartalla
     fr = Voir sur la carte
     hu = Megjelenítés a térképen
+    id = Tampilkan di peta
     it = Mostra sulla mappa
     ja = 地図に表示
     ko = 지도에 표시
