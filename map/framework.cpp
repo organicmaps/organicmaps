@@ -698,16 +698,9 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   info.SetPopularity(m_popularityLoader.Get(ft.GetID()));
 
   // Fill countryId for place page info
-  uint32_t const placeContinentType = classif().GetTypeByPath({"place", "continent"});
-  if (info.GetTypes().Has(placeContinentType))
-    return;
-
-  uint32_t const placeCountryType = classif().GetTypeByPath({"place", "country"});
-  uint32_t const placeStateType = classif().GetTypeByPath({"place", "state"});
-
-  bool const isState = info.GetTypes().Has(placeStateType);
-  bool const isCountry = info.GetTypes().Has(placeCountryType);
-  if (isCountry || isState)
+  auto const & types = info.GetTypes();
+  bool const isState = ftypes::IsStateChecker::Instance()(types);
+  if (isState || ftypes::IsCountryChecker::Instance()(types))
   {
     size_t const level = isState ? 1 : 0;
     CountriesVec countries;
@@ -1872,6 +1865,7 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
   auto haveBuilding = false;
   auto closestDistanceToCenter = numeric_limits<double>::max();
   auto currentDistance = numeric_limits<double>::max();
+
   indexer::ForEachFeatureAtPoint(m_featuresFetcher.GetDataSource(), [&](FeatureType & ft)
   {
     if (fullMatch.IsValid())
@@ -1895,21 +1889,27 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
       line = ft.GetID();
       break;
     case feature::GeomType::Area:
+    {
       // Buildings have higher priority over other types.
       if (haveBuilding)
         return;
+
       // Skip/ignore coastlines.
-      if (feature::TypesHolder(ft).Has(classif().GetCoastType()))
+      feature::TypesHolder types(ft);
+      if (ftypes::IsCoastlineChecker::Instance()(types))
         return;
-      haveBuilding = ftypes::IsBuildingChecker::Instance()(ft);
+
+      haveBuilding = ftypes::IsBuildingChecker::Instance()(types);
       currentDistance = mercator::DistanceOnEarth(mercator, feature::GetCenter(ft));
       // Choose the first matching building or, if no buildings are matched,
       // the first among the closest matching non-buildings.
       if (!haveBuilding && currentDistance >= closestDistanceToCenter)
         return;
+
       area = ft.GetID();
       closestDistanceToCenter = currentDistance;
       break;
+    }
     case feature::GeomType::Undefined:
       ASSERT(false, ("case feature::Undefined"));
       break;

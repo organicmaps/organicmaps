@@ -85,10 +85,9 @@ size_t const kLangCount = StringUtf8Multilang::GetSupportedLanguages().size();
 string GetReadableType(FeatureType & f)
 {
   string result;
-  auto const & poiChecker = ftypes::IsPoiChecker::Instance();
-  auto const & placeChecker = ftypes::IsPlaceChecker::Instance();
-  f.ForEachType([&](uint32_t type) {
-    if (poiChecker(type) || placeChecker(type))
+  f.ForEachType([&](uint32_t type)
+  {
+    if (ftypes::IsPoiChecker::Instance()(type) || ftypes::IsPlaceChecker::Instance()(type))
       result = classif().GetReadableObjectName(type);
   });
   return result;
