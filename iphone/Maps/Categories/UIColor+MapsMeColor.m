@@ -55,11 +55,6 @@ static NSDictionary<NSString *, UIColor *> *night;
     @"toastBackground" : [UIColor colorWithWhite:1. alpha:alpha87],
     @"statusBarBackground" : [UIColor colorWithWhite:1. alpha:alpha36],
     @"border" : [UIColor colorWithWhite:0. alpha:alpha04],
-    @"discountBackground" : [UIColor colorWithRed:scaled(240) green:scaled(100) blue:scaled(60) alpha:alpha100],
-    @"discountText" : [UIColor colorWithRed:scaled(60) green:scaled(64) blue:scaled(68) alpha:alpha100],
-    @"bookmarkSubscriptionBackground" : [UIColor colorWithRed:scaled(240) green:scaled(252) blue:scaled(255) alpha:alpha100],
-    @"bookmarkSubscriptionScrollBackground" : [UIColor colorWithRed:scaled(137) green:scaled(217) blue:scaled(255) alpha:alpha100],
-    @"bookmarkSubscriptionFooterBackground" : [UIColor colorWithRed:scaled(47) green:scaled(58) blue:scaled(73) alpha:alpha100],
   };
 
   night = @{
@@ -109,11 +104,6 @@ static NSDictionary<NSString *, UIColor *> *night;
     @"toastBackground": [UIColor colorWithWhite:0. alpha:alpha87],
     @"statusBarBackground": [UIColor colorWithWhite:0. alpha:alpha32],
     @"border" : [UIColor colorWithWhite:1. alpha:alpha04],
-    @"discountBackground" : [UIColor colorWithRed:scaled(240) green:scaled(100) blue:scaled(60) alpha:alpha100],
-    @"discountText" : [UIColor colorWithRed:scaled(60) green:scaled(64) blue:scaled(68) alpha:alpha100],
-    @"bookmarkSubscriptionBackground" : [UIColor colorWithRed:scaled(60.) green:scaled(64.) blue:scaled(68.) alpha:alpha100],
-    @"bookmarkSubscriptionScrollBackground" : [UIColor colorWithRed:scaled(137) green:scaled(217) blue:scaled(255) alpha:alpha100],
-    @"bookmarkSubscriptionFooterBackground" : [UIColor colorWithRed:scaled(47) green:scaled(58) blue:scaled(73) alpha:alpha100],
   };
 }
 

@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 
 @class PlacePageScheduleData;
-@class UgcSummaryRating;
 
 typedef NS_ENUM(NSInteger, PlacePageDataHotelType) {
   PlacePageDataHotelTypeHotel,

@@ -59,7 +59,7 @@
 
   self.webView = [[WKWebView alloc] initWithFrame:CGRectZero];
   self.webView.backgroundColor = UIColor.clearColor;
-  self.webView.opaque = false;
+  self.webView.opaque = NO;
   self.webView.navigationDelegate = self;
   [view addSubview:self.webView];
 

@@ -68,10 +68,6 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNg-zA-Jne" customClass="GuidesNavigationBarArea" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="44" y="0.0" width="808" height="393"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
                                     <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awj-9E-eBS" customClass="PlacePageArea" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="44" y="0.0" width="808" height="393"/>
                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
@@ -195,7 +191,6 @@
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="TdT-ia-GP9" secondAttribute="trailing" id="Rsb-fB-8bn"/>
                             <constraint firstItem="jio-3T-E6G" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="SAj-bF-qrr"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xJx-UU-IdV" secondAttribute="bottom" id="SDX-4J-Jz5"/>
-                            <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="QNg-zA-Jne" secondAttribute="bottom" id="TGG-JD-3dN"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="FFY-Dy-Wou" secondAttribute="bottom" id="TZk-MH-pMV"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="xJx-UU-IdV" secondAttribute="bottom" priority="100" id="VfU-Zk-8IU"/>
                             <constraint firstItem="rbx-Oj-jeo" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" constant="8" id="W0l-NG-7lt"/>
@@ -203,7 +198,6 @@
                             <constraint firstItem="aPn-pa-nCx" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" id="YFX-ma-vAf"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FFY-Dy-Wou" secondAttribute="bottom" id="YUs-MJ-9w8"/>
                             <constraint firstItem="rL1-9E-4b7" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" id="Z1s-Q9-zX6"/>
-                            <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="QNg-zA-Jne" secondAttribute="trailing" id="Zbf-l3-Uhw"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="awj-9E-eBS" secondAttribute="bottom" priority="100" id="aqR-pe-LgT"/>
                             <constraint firstItem="at1-V1-pzl" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="dVq-df-YMe"/>
                             <constraint firstItem="QKu-4A-UgP" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="f2R-LX-JVU"/>
@@ -225,11 +219,9 @@
                             <constraint firstAttribute="trailing" secondItem="jio-3T-E6G" secondAttribute="trailing" id="t9l-Ud-h6j"/>
                             <constraint firstAttribute="bottom" secondItem="aPn-pa-nCx" secondAttribute="bottom" id="tB3-eX-gUV"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rbx-Oj-jeo" secondAttribute="bottom" constant="70" id="u9s-KY-yCt"/>
-                            <constraint firstItem="QNg-zA-Jne" firstAttribute="top" secondItem="utd-Jy-pE5" secondAttribute="top" id="vCA-75-hd4"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="xJx-UU-IdV" secondAttribute="bottom" id="veF-Rn-BEm"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="top" secondItem="65S-M4-TnM" secondAttribute="top" priority="100" id="vfQ-ZT-Dlc"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="awj-9E-eBS" secondAttribute="trailing" id="wGo-EW-X9f"/>
-                            <constraint firstItem="QNg-zA-Jne" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="wPh-dY-Ufn"/>
                             <constraint firstAttribute="trailing" secondItem="rL1-9E-4b7" secondAttribute="trailing" priority="100" id="xUq-Vo-ETR"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="65S-M4-TnM" secondAttribute="trailing" id="xyN-jr-oU5"/>
                         </constraints>

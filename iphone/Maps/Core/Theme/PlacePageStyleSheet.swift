@@ -1,10 +1,5 @@
 class PlacePageStyleSheet: IStyleSheet {
   static func register(theme: Theme, colors: IColors, fonts: IFonts) {
-    theme.add(styleName: "PPReviewDiscountView") { (s) -> (Void) in
-      s.backgroundColor = colors.linkBlue
-      s.round = true
-    }
-
     theme.add(styleName: "PPTitlePopularView") { (s) -> (Void) in
       s.backgroundColor = colors.linkBlueHighlighted
       s.cornerRadius = 10
