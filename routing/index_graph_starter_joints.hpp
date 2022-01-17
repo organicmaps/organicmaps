@@ -539,10 +539,12 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(
       auto res = m_savedWeight.insert(std::make_pair(t, w));
       if (!res.second)
       {
-        /// @todo By VNG: This invariant doesn't work for transit MWM features and I can't say for
-        /// sure is it right or wrong. Test on Minsk-Vilnius route.
-        //ASSERT_EQUAL(res.first->second, w, (t, vertex));
-        res.first->second = w;
+        // Actually, the edge's weight should be an invariant, no matter how we reached it.
+        // This is true, except for the case in Cross MWM routing with GetCrossBorderPenalty.
+        // We add this penalty if its parent edge is in another MWM. Also, after that, we can
+        // reach the edge from within its current MWM and the penalty will be overwritten.
+        // So keep *max* weight here. Check CrossCountry_XXX tests.
+        res.first->second = std::max(res.first->second, w);
       }
 
       // For parent JointSegment we know its weight without last segment, because for each child
