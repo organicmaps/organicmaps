@@ -1262,6 +1262,32 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_CuisineType)
   }
 }
 
+/// @todo We don't have drawing rules for 'noexit' now.
+/*
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_NoExit)
+{
+  {
+    Tags const tags = { {"noexit", "yes" } };
+    auto const params = GetFeatureBuilderParams(tags);
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"noexit"})), (params));
+  }
+
+  {
+    Tags const tags = { {"noexit", "motor_vehicle" } };
+    auto const params = GetFeatureBuilderParams(tags);
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"noexit"})), (params));
+  }
+
+  {
+    Tags const tags = { {"noexit", "no" } };
+    auto const params = GetFeatureBuilderParams(tags);
+    TEST_EQUAL(params.m_types.size(), 0, (params));
+  }
+}
+*/
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Junctions)
 {
   for (char const * value : { "yes", "circular", "jughandle" })
@@ -1332,7 +1358,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     // {"natural", "tree"},
     // {"natural", "tree_row"},
     // {"natural", "vineyard"},
-    // {"noexit", "motor_vehicle"},
+    // {"noexit"},
     // {"place", "county"},
     // {"power", "generator"},
     // {"power", "minor_line"},
