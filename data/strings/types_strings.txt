@@ -3901,10 +3901,6 @@
     ref = type.boundary.administrative
     zh-Hans = 4级行政区域界线
 
-  [type.boundary.administrative.4.state]
-    ref = type.boundary.administrative
-    zh-Hans = 4级州省界线
-
   [type.boundary.administrative.5]
     ref = type.boundary.administrative
     zh-Hans = 5级行政区域界线

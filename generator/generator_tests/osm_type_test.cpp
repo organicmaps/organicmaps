@@ -1946,7 +1946,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"amenity"}, {{"amenity", "any_value"}}},
     {{"boundary", "administrative", "2"}, {{"boundary", "administrative"}, {"admin_level", "2"}}},
     {{"boundary", "administrative", "3"}, {{"boundary", "administrative"}, {"admin_level", "3"}}},
-    {{"boundary", "administrative", "4", "state"}, {{"boundary", "administrative"}, {"admin_level", "4"}, {"border_type", "state"}}},
     {{"boundary", "administrative", "4"}, {{"boundary", "administrative"}, {"admin_level", "4"}}},
     {{"building", "garage"}, {{"building", "garage"}}},
     {{"building", "garage"}, {{"building", "yes"}, {"garage", "any_value"}}},
