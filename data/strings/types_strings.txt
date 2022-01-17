@@ -11943,9 +11943,6 @@
     ru = Тупик
     uk = Тупик
 
-  [type.noexit.motor_vehicle]
-    ref = type.noexit
-
   [type.office]
     en = Office
     ar = مكتب

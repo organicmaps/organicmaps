@@ -411,7 +411,7 @@ deprecated|deprecated;410;x
 deprecated|deprecated;411;x
 leisure|park|private;[leisure=park][access=private];;name;int_name;412;
 deprecated|deprecated;413;x
-noexit|motor_vehicle;414;
+noexit;[noexit?];;name;int_name;414;
 healthcare|laboratory;415;
 highway|motorway|tunnel;[highway=motorway][tunnel?];;name;int_name;416;
 railway|light_rail|tunnel;[railway=light_rail][tunnel?];;name;int_name;417;
