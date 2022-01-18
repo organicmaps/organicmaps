@@ -1,4 +1,3 @@
-
 • 3 Ocak 2022 itibarıyla yeni OSM harita verileri
 • İyileştirilmiş arama sonuçları sıralaması
 • Dünya haritasında yüzlerce "başkent" düzeltildi
