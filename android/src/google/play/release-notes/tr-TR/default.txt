@@ -5,7 +5,7 @@
 • Geçersiz bölgeler arası rotalar düzeltildi
 • Arama bölümü, İngilizce'deki rd/st/ct=road/street/court kısaltmalarını tanır
 • Müzik açıksa ses; sesli yönerge verilirken kısılır, sonra tekrar açılır
-• İÇN (POI) bilgilerinin çoğunu basılı tutarak kopyalayın
+• İÇN (POI) bilgilerinin çoğunu basılı tutarak kopyalama
 • Android 5 ve 6'da çalışmayan SSS düzeltildi
 • Yer İşareti Listeleri için Tutarlı Adlandırma
 • Bulgarca, yarım İbranice ve Svahili çevirileri eklendi
