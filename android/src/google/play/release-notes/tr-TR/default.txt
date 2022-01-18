@@ -1,0 +1,11 @@
+• 3 Ocak 2022 itibarıyla yeni OSM harita verileri
+• İyileştirilmiş arama sonuçları sıralaması
+• Dünya haritasında yüzlerce "başkent" düzeltildi
+• Geçersiz bölgeler arası rotalar düzeltildi
+• Arama bölümü, İngilizce'deki rd/st/ct=road/street/court kısaltmalarını tanır
+• Müzik açıksa ses; sesli yönerge verilirken kısılır, sonra tekrar açılır
+• İÇN (POI) bilgilerinin çoğunu basılı tutarak kopyalama
+• Android 5 ve 6'da çalışmayan SSS düzeltildi
+• Yer İşareti Listeleri için Tutarlı Adlandırma
+• Bulgarca, yarım İbranice ve Svahili çevirileri eklendi
+• de, it, ro, ru, uk, tr çevirileri güncellendi
