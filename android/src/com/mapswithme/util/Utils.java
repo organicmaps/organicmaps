@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.text.format.DateUtils;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -619,6 +620,19 @@ public class Utils
       LOGGER.e(TAG, "Failed to get value for string '" + key + "'", e);
     }
     return key;
+  }
+
+  /**
+   * Returns a name for a new bookmark created off the current GPS location.
+   * The name includes current time and date in locale-specific format.
+   *
+   * @return bookmark name with time and date.
+   */
+  @NonNull
+  public static String getMyPositionBookmarkName(@NonNull Context context)
+  {
+    return DateUtils.formatDateTime(context, System.currentTimeMillis(),
+                                    DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR);
   }
 
   @NonNull
