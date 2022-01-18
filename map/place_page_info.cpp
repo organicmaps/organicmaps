@@ -14,6 +14,7 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
+#include "platform/localization.hpp"
 
 #include "base/assert.hpp"
 
@@ -261,7 +262,10 @@ kml::LocalizableString Info::FormatNewBookmarkName() const
   }
   else if (!m_uiTitle.empty())
   {
-    kml::SetDefaultStr(bookmarkName, m_uiTitle);
+    if (IsMyPosition())
+      kml::SetDefaultStr(bookmarkName, platform::GetLocalizedMyPositionBookmarkName());
+    else
+      kml::SetDefaultStr(bookmarkName, m_uiTitle);
   }
 
   return bookmarkName;

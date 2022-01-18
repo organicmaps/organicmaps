@@ -60,4 +60,15 @@ std::string GetCurrencySymbol(std::string const & currencyCode)
       env, env->CallStaticObjectMethod(g_utilsClazz, methodId, currencyCodeRef.get()));
   return jni::ToNativeString(env, static_cast<jstring>(localizedStrRef.get()));
 }
+
+std::string GetLocalizedMyPositionBookmarkName()
+{
+  JNIEnv * env = jni::GetEnv();
+  static auto const methodId = jni::GetStaticMethodID(env, g_utilsClazz, "getMyPositionBookmarkName",
+                                                      "(Landroid/content/Context;)Ljava/lang/String;");
+
+  jobject context = android::Platform::Instance().GetContext();
+  jni::TScopedLocalRef localizedStrRef(env, env->CallStaticObjectMethod(g_utilsClazz, methodId, context));
+  return jni::ToNativeString(env, static_cast<jstring>(localizedStrRef.get()));
+}
 }  // namespace platform
