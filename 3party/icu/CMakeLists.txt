@@ -1,6 +1,6 @@
 project(icu)
 
-set(SRC
+add_library(icuuc
   uconfig_local.h
   icu/icu4c/source/common/appendable.cpp
   icu/icu4c/source/common/bmpset.cpp
@@ -170,6 +170,21 @@ set(SRC
   icu/icu4c/source/common/uvectr32.cpp
   icu/icu4c/source/common/uvectr64.h
   icu/icu4c/source/common/wintz.h
+)
+
+target_include_directories(icuuc
+  PUBLIC
+    ./
+    icu/icu4c/source/common
+)
+
+target_compile_definitions(icuuc PUBLIC UCONFIG_USE_LOCAL)
+
+set_target_properties(icuuc PROPERTIES UNITY_BUILD OFF)
+
+add_library(ICU::uc ALIAS icuuc)
+
+add_library(icui18n
   icu/icu4c/source/i18n/anytrans.cpp
   icu/icu4c/source/i18n/anytrans.h
   icu/icu4c/source/i18n/astro.h
@@ -375,18 +390,18 @@ set(SRC
   icu/icu4c/source/stubdata/stubdata.cpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+target_compile_definitions(icui18n PUBLIC UCONFIG_USE_LOCAL)
 
-target_compile_definitions(${PROJECT_NAME}
-  PUBLIC
-    UCONFIG_USE_LOCAL
-)
-
-target_include_directories(${PROJECT_NAME}
+target_include_directories(icui18n
   PUBLIC
     ./
-    icu/icu4c/source/common
     icu/icu4c/source/i18n
+  PRIVATE
+    icu/icu4c/source/common
 )
 
-set_target_properties(${PROJECT_NAME} PROPERTIES UNITY_BUILD OFF)
+target_link_libraries(icui18n PRIVATE icuuc)
+
+set_target_properties(icui18n PROPERTIES UNITY_BUILD OFF)
+
+add_library(ICU::i18n ALIAS icui18n)

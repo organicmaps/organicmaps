@@ -24,7 +24,7 @@ omim_link_libraries(
   coding
   base
   bsdiff
-  icu
+  ICU::i18n
   jansson
   oauthcpp
   opening_hours

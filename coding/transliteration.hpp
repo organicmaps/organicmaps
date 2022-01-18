@@ -7,10 +7,12 @@
 #include <mutex>
 #include <string>
 
-namespace icu
-{
+// From ICU library, either 3party/icu or from the system's package.
+#include <unicode/uversion.h>
+
+U_NAMESPACE_BEGIN
 class UnicodeString;
-}  // namespace icu
+U_NAMESPACE_END
 
 class Transliteration
 {

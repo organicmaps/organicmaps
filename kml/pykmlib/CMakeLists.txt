@@ -19,7 +19,7 @@ omim_link_libraries(
   coding
   geometry
   base
-  icu
+  ICU::i18n
   jansson
   oauthcpp
   protobuf
