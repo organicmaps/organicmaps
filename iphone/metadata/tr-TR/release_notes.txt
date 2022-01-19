@@ -3,6 +3,5 @@
 • Dünya haritasında birçok "başkent" düzeltildi
 • Geçersiz bölgeler arası rotalar düzeltildi
 • Arama bölümü, İngilizce'deki rd/st/ct=road/street/court kısaltmalarını tanır
-• Yer İşareti Listeleri için Tutarlı Adlandırma
 • Belarusça, Farsça, yarım İbranice ve Svahili çevirileri eklendi
 • Almanca, İtalyanca, Rumence, Rusça, Ukraynaca, Türkçe çevirileri güncellendi
