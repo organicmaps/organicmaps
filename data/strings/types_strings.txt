@@ -1358,8 +1358,10 @@
     zh-Hant = 加氣站
 
   [type.amenity.grave_yard]
+    comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
     en = Graveyard
     ar = مقبرة
+    be = Могілкі
     cs = Hřbitov
     da = Kirkegård
     de = Friedhof
@@ -1390,36 +1392,15 @@
     zh-Hant = 墓地
 
   [type.amenity.grave_yard.christian]
-    en = Graveyard
-    ar = مقبرة
-    cs = Hřbitov
-    da = Kirkegård
-    de = Friedhof
-    el = Νεκροταφείο
-    es = Cementerio
-    fa = قبرستان
-    fi = Hautausmaa
-    fr = Cimetière
-    hu = Temető
-    id = Pemakaman
-    it = Cimitero
+    ref = type.amenity.grave_yard
+    en = Christian Graveyard
+    be = Хрысціянскія могілкі
     ja = キリスト教墓地
-    ko = 묘소
-    nb = Gravplass
-    nl = Begraafplaats
     pl = Cmentarz chrześcijański
     pt = Cemitério cristão
     pt-BR = Cemitério cristão
-    ro = Cimitir
-    ru = Кладбище
-    sk = Cintorín
-    sv = Begravningsplats
-    th = สุสาน
-    tr = Mezarlık
-    uk = Цвинтар
-    vi = Bãi tha ma
-    zh-Hans = 墓地
-    zh-Hant = 墓地
+    ru = Христианское кладбище
+    uk = Християнський цвинтар
 
   [type.amenity.hospital]
     en = Hospital
@@ -9313,66 +9294,13 @@
     zh-Hans = 棕土
 
   [type.landuse.cemetery]
-    en = Graveyard
-    ar = مقبرة
-    cs = Hřbitov
-    da = Kirkegård
-    de = Friedhof
-    el = Νεκροταφείο
-    es = Cementerio
-    fa = قبرستان
-    fi = Hautausmaa
-    fr = Cimetière
-    hu = Temető
-    id = Pemakaman
-    it = Cimitero
-    ja = 墓地
-    ko = 묘소
-    nb = Gravplass
-    nl = Begraafplaats
-    pl = Cmentarz
-    pt = Cemitério
-    pt-BR = Cemitério
-    ro = Cimitir
-    ru = Кладбище
-    sk = Cintorín
-    sv = Begravningsplats
-    th = สุสาน
-    tr = Mezarlık
-    uk = Цвинтар
-    vi = Bãi tha ma
-    zh-Hans = 墓地
-    zh-Hant = 墓地
+    comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
+    ref = type.amenity.grave_yard
+    en = Cemetery
 
   [type.landuse.cemetery.christian]
-    en = Christian Graveyard
-    ar = مقبرة
-    cs = Hřbitov
-    da = Kirkegård
-    de = Friedhof
-    el = Νεκροταφείο
-    es = Cementerio
-    fa = قبرستان
-    fi = Hautausmaa
-    fr = Cimetière
-    hu = Temető
-    id = Pemakaman
-    it = Cimitero
-    ja = キリスト教墓地
-    ko = 묘소
-    nb = Gravplass
-    nl = Begraafplaats
-    pl = Cmentarz chrześcijański
-    pt = Cemitério cristão
-    pt-BR = Cemitério cristão
-    ro = Cimitir
-    ru = Христианское кладбище
-    sk = Cintorín
-    sv = Begravningsplats
-    th = สุสาน
-    tr = Mezarlık
-    uk = Християнський цвинтар
-    vi = Bãi tha ma
+    ref = type.amenity.grave_yard.christian
+    en = Christian Cemetery
     zh-Hans = 基督教墓地
     zh-Hant = 基督教墓地
 
@@ -15511,6 +15439,7 @@
   [type.shop.funeral_directors]
     en = Funeral Directors
     ar = منظموا الجنازات
+    be = Рытуальныя паслугі
     cs = Pohřební služba
     da = Bedemand
     de = Bestattungsinstitut
@@ -15535,7 +15464,7 @@
     sv = Begravningsentreprenörer
     th = สัปเหร่อ
     tr = Cenaze Levazımcısı
-    uk = Ритуальна служба
+    uk = Ритуальні послуги
     vi = Tổ chức tang lễ
     zh-Hans = 殡仪馆
     zh-Hant = 葬儀社
