@@ -14,6 +14,7 @@ on:
       - android/**
       - docs/**
       - generator/**
+      - iphone/metadata/**
       - packaging/**
       - pyhelpers/**
       - qt*/**
@@ -57,13 +58,3 @@ jobs:
             'generic/platform=iOS' \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
-
-  ios-check-metadata:
-    name: Check app metadata
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Check metadata
-        run: ./tools/python/check_store_metadata.py ios

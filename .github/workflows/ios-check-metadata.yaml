@@ -1,0 +1,17 @@
+name: iOS Check
+on:
+  workflow_dispatch: # Manual trigger
+  pull_request:
+    paths:
+      - iphone/metadata/**
+
+jobs:
+  ios-check-metadata:
+    name: Check app metadata
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Check metadata
+        run: ./tools/python/check_store_metadata.py ios
