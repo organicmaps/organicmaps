@@ -687,7 +687,9 @@
 	<string name="type.amenity.fire_station">Paloasema</string>
 	<string name="type.amenity.fountain">Suihkulähde</string>
 	<string name="type.amenity.fuel">Huoltoasema</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Hautausmaa</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Hautausmaa</string>
 	<string name="type.amenity.hospital">Sairaala</string>
 	<string name="type.amenity.hunting_stand">Metsästyspaikka</string>
@@ -1001,7 +1003,9 @@
 	<string name="type.historic.ship">Nähtävyydet</string>
 	<string name="type.historic.tomb">Nähtävyydet</string>
 	<string name="type.landuse.basin">Vesisäiliö</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Hautausmaa</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Hautausmaa</string>
 	<string name="type.landuse.churchyard">Kirkon piha</string>
 	<string name="type.landuse.farmland">Maatalousmaa</string>

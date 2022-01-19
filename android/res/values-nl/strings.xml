@@ -678,7 +678,9 @@
 	<string name="type.amenity.fire_station">Brandweer</string>
 	<string name="type.amenity.fountain">Fontein</string>
 	<string name="type.amenity.fuel">Tankstation</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Begraafplaats</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Begraafplaats</string>
 	<string name="type.amenity.hospital">Ziekenhuis</string>
 	<string name="type.amenity.hunting_stand">Jaagplek</string>
@@ -984,7 +986,9 @@
 	<string name="type.historic.ship">Toerisme</string>
 	<string name="type.historic.tomb">Toerisme</string>
 	<string name="type.landuse.basin">Waterbassin</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Begraafplaats</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Begraafplaats</string>
 	<string name="type.landuse.churchyard">Kerkhof</string>
 	<string name="type.landuse.farmland">Landbouwgrond</string>

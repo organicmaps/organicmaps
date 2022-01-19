@@ -706,8 +706,10 @@
 	<string name="type.amenity.food_court">Ресторанний двір</string>
 	<string name="type.amenity.fountain">Фонтан</string>
 	<string name="type.amenity.fuel">Заправка</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Цвинтар</string>
-	<string name="type.amenity.grave_yard.christian">Цвинтар</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+	<string name="type.amenity.grave_yard.christian">Християнський цвинтар</string>
 	<string name="type.amenity.hospital">Лікарня</string>
 	<string name="type.amenity.hunting_stand">Мисливська башта</string>
 	<string name="type.amenity.ice_cream">Кіоск з морозивом</string>
@@ -1073,7 +1075,9 @@
 	<string name="type.landuse.allotments">Земельні ділянки</string>
 	<string name="type.landuse.basin">Резервуар</string>
 	<string name="type.landuse.brownfield">Земля для будiвництва</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Цвинтар</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Християнський цвинтар</string>
 	<string name="type.landuse.churchyard">Церковний двір</string>
 	<string name="type.landuse.commercial">Комерційні ділянки</string>
@@ -1348,7 +1352,7 @@
 	<string name="type.shop.erotic">Секс-шоп</string>
 	<string name="type.shop.fabric">Крамниця</string>
 	<string name="type.shop.florist">Магазин квітів</string>
-	<string name="type.shop.funeral_directors">Ритуальна служба</string>
+	<string name="type.shop.funeral_directors">Ритуальні послуги</string>
 	<string name="type.shop.furniture">Магазин меблів</string>
 	<string name="type.shop.garden_centre">Товари для саду</string>
 	<string name="type.shop.gift">Магазин сувенірів</string>

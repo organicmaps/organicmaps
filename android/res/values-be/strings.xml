@@ -663,6 +663,10 @@
 	<string name="enable_screen_sleep_description">Дазваляе экрану засынаць пасля перыяда бездзеяння.</string>
 
 	<!-- SECTION: Types -->
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+	<string name="type.amenity.grave_yard">Могілкі</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+	<string name="type.amenity.grave_yard.christian">Хрысціянскія могілкі</string>
 	<string name="type.barrier.chain">Ланцуг</string>
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
@@ -670,6 +674,10 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.landuse.basin">Рэзервуар</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+	<string name="type.landuse.cemetery">Могілкі</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+	<string name="type.landuse.cemetery.christian">Хрысціянскія могілкі</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
 	<string name="type.man_made.silo">Сілас</string>
 	<string name="type.man_made.storage_tank">Рэзервуар</string>
@@ -687,6 +695,7 @@
 	<string name="type.natural.saddle">Седлавіна</string>
 	<string name="type.natural.water">Вадаём</string>
 	<string name="type.railway.platform">Чыгуначная платформа</string>
+	<string name="type.shop.funeral_directors">Рытуальныя паслугі</string>
 	<string name="type.waterway.river">Рака</string>
 	<string name="type.waterway.river.tunnel">Рака</string>
 	<string name="type.waterway.riverbank">Рака</string>

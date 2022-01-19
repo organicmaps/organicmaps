@@ -700,7 +700,9 @@
 	<string name="type.amenity.fire_station">Itfaiye</string>
 	<string name="type.amenity.fountain">Çeşme</string>
 	<string name="type.amenity.fuel">Benzin istasyonu</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Mezarlık</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Mezarlık</string>
 	<string name="type.amenity.hospital">Hastane</string>
 	<string name="type.amenity.hunting_stand">Avlanma alanı</string>
@@ -1011,7 +1013,9 @@
 	<string name="type.historic.ship">Görülecek yerler</string>
 	<string name="type.historic.tomb">Görülecek yerler</string>
 	<string name="type.landuse.basin">Bir su havzası</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Mezarlık</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Mezarlık</string>
 	<string name="type.landuse.churchyard">Kilise Bölgesi</string>
 	<string name="type.landuse.farmland">Tarım arazileri</string>

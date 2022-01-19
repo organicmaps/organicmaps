@@ -1301,9 +1301,11 @@
 
 "type.amenity.fuel" = "Gas Station";
 
-"type.amenity.grave_yard" = "Graveyard";
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard" = "Могілкі";
 
-"type.amenity.grave_yard.christian" = "Graveyard";
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "Хрысціянскія могілкі";
 
 "type.amenity.hospital" = "Hospital";
 
@@ -2075,9 +2077,11 @@
 
 "type.landuse.brownfield" = "Brownfield";
 
-"type.landuse.cemetery" = "Graveyard";
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery" = "Могілкі";
 
-"type.landuse.cemetery.christian" = "Christian Graveyard";
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery.christian" = "Хрысціянскія могілкі";
 
 "type.landuse.churchyard" = "Churchyard";
 
@@ -2647,7 +2651,7 @@
 
 "type.shop.florist" = "Florist’s";
 
-"type.shop.funeral_directors" = "Funeral Directors";
+"type.shop.funeral_directors" = "Рытуальныя паслугі";
 
 "type.shop.furniture" = "Furniture Store";
 

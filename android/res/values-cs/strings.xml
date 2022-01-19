@@ -678,7 +678,9 @@
 	<string name="type.amenity.fire_station">Hasiči</string>
 	<string name="type.amenity.fountain">Kašna</string>
 	<string name="type.amenity.fuel">Čerpací stanice</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Hřbitov</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Hřbitov</string>
 	<string name="type.amenity.hospital">Nemocnice</string>
 	<string name="type.amenity.hunting_stand">Lovecké stanoviště</string>
@@ -990,7 +992,9 @@
 	<string name="type.historic.ship">Pamětihodnost</string>
 	<string name="type.historic.tomb">Pamětihodnost</string>
 	<string name="type.landuse.basin">Vodní nádrž</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Hřbitov</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Hřbitov</string>
 	<string name="type.landuse.churchyard">Nádvoří kostela</string>
 	<string name="type.landuse.farmland">Orná půda</string>

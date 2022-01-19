@@ -700,7 +700,9 @@
 	<string name="type.amenity.fire_station">Unitate de pompieri</string>
 	<string name="type.amenity.fountain">Fântână</string>
 	<string name="type.amenity.fuel">Benzinărie</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Cimitir</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Cimitir</string>
 	<string name="type.amenity.hospital">Spital</string>
 	<string name="type.amenity.hunting_stand">Stand de vânătoare</string>
@@ -1006,7 +1008,9 @@
 	<string name="type.historic.ship">Obiective turistice</string>
 	<string name="type.historic.tomb">Obiective turistice</string>
 	<string name="type.landuse.basin">Bazin de apă</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Cimitir</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Cimitir</string>
 	<string name="type.landuse.churchyard">Curtea Bisericii</string>
 	<string name="type.landuse.farmland">Teren arabil</string>

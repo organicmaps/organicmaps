@@ -679,7 +679,9 @@
 	<string name="type.amenity.fire_station">สถานีดับเพลิง</string>
 	<string name="type.amenity.fountain">น้ำพุ</string>
 	<string name="type.amenity.fuel">ปั๊มน้ำมัน</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">สุสาน</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">สุสาน</string>
 	<string name="type.amenity.hospital">คลินิก</string>
 	<string name="type.amenity.hunting_stand">จุดล่าสัตว์</string>
@@ -994,7 +996,9 @@
 	<string name="type.internet_access">อินเทอร์เน็ต</string>
 	<string name="type.internet_access.wlan">อินเทอร์เน็ต</string>
 	<string name="type.landuse.basin">อ่างน้ำ</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">สุสาน</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">สุสาน</string>
 	<string name="type.landuse.churchyard">บริเวณโบสถ์</string>
 	<string name="type.landuse.farmland">พื้นที่ทำการเกษตร</string>

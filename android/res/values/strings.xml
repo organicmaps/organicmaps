@@ -737,8 +737,10 @@
 	<string name="type.amenity.food_court">Food Court</string>
 	<string name="type.amenity.fountain">Fountain</string>
 	<string name="type.amenity.fuel">Gas Station</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Graveyard</string>
-	<string name="type.amenity.grave_yard.christian">Graveyard</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+	<string name="type.amenity.grave_yard.christian">Christian Graveyard</string>
 	<string name="type.amenity.hospital">Hospital</string>
 	<string name="type.amenity.hunting_stand">Hunting Stand</string>
 	<string name="type.amenity.ice_cream">Ice Cream Stand</string>
@@ -1125,8 +1127,10 @@
 	<string name="type.landuse.allotments">Allotments</string>
 	<string name="type.landuse.basin">Basin</string>
 	<string name="type.landuse.brownfield">Brownfield</string>
-	<string name="type.landuse.cemetery">Graveyard</string>
-	<string name="type.landuse.cemetery.christian">Christian Graveyard</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+	<string name="type.landuse.cemetery">Cemetery</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+	<string name="type.landuse.cemetery.christian">Christian Cemetery</string>
 	<string name="type.landuse.churchyard">Churchyard</string>
 	<string name="type.landuse.commercial">Commercial Area</string>
 	<string name="type.landuse.construction">Construction</string>

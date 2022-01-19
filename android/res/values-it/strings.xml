@@ -701,7 +701,9 @@
 	<string name="type.amenity.fire_station">Scuadra antincendio</string>
 	<string name="type.amenity.fountain">Fontana</string>
 	<string name="type.amenity.fuel">Stazione di rifornimento</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Cimitero</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Cimitero</string>
 	<string name="type.amenity.hospital">Ospedale</string>
 	<string name="type.amenity.hunting_stand">Torre di caccio</string>
@@ -1009,7 +1011,9 @@
 	<string name="type.historic.ship">Turistico</string>
 	<string name="type.historic.tomb">Turistico</string>
 	<string name="type.landuse.basin">Bacino d\'acqua</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Cimitero</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Cimitero</string>
 	<string name="type.landuse.churchyard">Sagrato della chiesa</string>
 	<string name="type.landuse.farmland">Terreno agricolo</string>

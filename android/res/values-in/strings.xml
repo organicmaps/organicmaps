@@ -676,7 +676,9 @@
 	<string name="type.amenity.fire_station">Kantor pemadam kebakaran</string>
 	<string name="type.amenity.fountain">Air mancur</string>
 	<string name="type.amenity.fuel">Pompa bensin</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Pemakaman</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Pemakaman</string>
 	<string name="type.amenity.hospital">Rumahsakit</string>
 	<string name="type.amenity.hunting_stand">Lokasi berburu</string>
@@ -986,7 +988,9 @@
 	<string name="type.historic.ship">Pemandangan</string>
 	<string name="type.historic.tomb">Pemandangan</string>
 	<string name="type.landuse.basin">Sebuah baskom air</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Pemakaman</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Pemakaman</string>
 	<string name="type.landuse.churchyard">Halaman gereja</string>
 	<string name="type.landuse.farmland">Lahan pertanian</string>

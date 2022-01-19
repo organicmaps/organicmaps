@@ -709,7 +709,9 @@
 	<string name="type.amenity.food_court">Aire de restauration</string>
 	<string name="type.amenity.fountain">Fontaine</string>
 	<string name="type.amenity.fuel">Station-service</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Cimetière</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Cimetière</string>
 	<string name="type.amenity.hospital">Hôpital</string>
 	<string name="type.amenity.hunting_stand">Mirador</string>
@@ -1044,7 +1046,9 @@
 	<string name="type.landuse.allotments">Jardins familiaux</string>
 	<string name="type.landuse.basin">Réservoir</string>
 	<string name="type.landuse.brownfield">Friche industrielle</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Cimetière</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Cimetière</string>
 	<string name="type.landuse.churchyard">Cour d\'église</string>
 	<string name="type.landuse.commercial">Zone commerciale</string>
