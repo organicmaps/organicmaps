@@ -3333,10 +3333,10 @@ el:Συντριβάνι
 sk:Fontána
 fa:فواره
 
-# landuse-cemetery skipped if empty name
 amenity-grave_yard|landuse-cemetery
-en:Graveyard|cemetery
+en:Graveyard|Cemetery|Burial Ground
 ru:Кладбище
+be:Могілкі
 bg:Гробище
 ar:مقبرة
 cs:Hřbitov
@@ -3367,6 +3367,39 @@ el:Νεκροταφείο|κοιμητήριο
 sk:Cintorín
 sw:Makabulini
 fa:قبرستان
+
+shop-funeral_directors
+en:4Funeral Directors|Undertakers|Mortician|Funeral Parlor|Funeral Home
+ar:منظموا الجنازات
+be:4Рытуальныя паслугі|Пахавальнае бюро
+cs:Pohřební služba
+da:Bedemand
+de:Bestattungsinstitut
+el:Γραφεία τελετών
+es:Funeraria
+fa:مسئول تشییع جنازه
+fi:Hautaustoimisto
+fr:Pompes funèbres
+hu:Temetkezési vállalkozó
+id:Direktur Pemakaman
+it:Pompe funebri
+ja:葬儀屋
+ko:장의사
+nb:Begravelsebyrå
+nl:Begrafenisondernemer
+pl:Celebranci pogrzebowi
+pt:Funerária
+pt-BR:Funerária
+ro:Pompe funebre
+ru:4Ритуальные услуги|Похоронные услуги|Похоронное бюро
+sk:Pohrebníctvo
+sv:Begravningsentreprenörer
+th:สัปเหร่อ
+tr:Cenaze Levazımcısı
+uk:4Ритуальні послуги|Похоронне бюро
+vi:Tổ chức tang lễ
+zh-Hans:殡仪馆
+zh-Hant:葬儀社
 
 @hospital
 en:4Hospital
