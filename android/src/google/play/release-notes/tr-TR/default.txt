@@ -5,6 +5,6 @@
 • Müzik açıksa ses; sesli yönerge verilirken kısılır, sonra tekrar açılır
 • POI bilgilerinin çoğunu basılı tutarak kopyalama
 • Android 5 ve 6da çalışmayan SSS düzeltildi
-• Yer İşareti Listeleri için Tutarlı Adlandırma
+• Yer İşareti Listeleri için tutarlı adlandırma
 • Bulgarca, yarım İbranice ve Svahili çevirileri eklendi
 • de, it, ro, ru, uk, tr çevirileri güncellendi
