@@ -465,7 +465,7 @@
     pl = Za pięćdziesiąt metrów
     pt = A cinquenta metros
     ro = După cincizeci de metri
-    ru = Через пятьсот метров
+    ru = Через пятьдесят метров
     sk = Po päťdesiatich metroch
     sv = Om femtio meter
     sw = Kabla ya mita hamsini
