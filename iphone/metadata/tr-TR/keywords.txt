@@ -1,1 +1,1 @@
-harita,çevrimdışı,seyahat,navigasyon,GPS,yönlendirme,rota,yürüyüş,bisiklet,haritalar,openstreetmap,osm,yollar,navi
+harita,çevrimdışı,seyahat,navigasyon,GPS,yönlendirme,rota,yürüyüş,bisiklet,haritalar,openstreetmap
