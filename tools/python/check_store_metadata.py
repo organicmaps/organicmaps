@@ -108,6 +108,7 @@ def check_ios():
         ok = check_text(locale + "keywords.txt", 100) and ok
         ok = check_url(locale + "support_url.txt") and ok
         ok = check_url(locale + "marketing_url.txt") and ok
+        ok = check_url(locale + "privacy_url.txt") and ok
     return ok
 
 if __name__ == "__main__":
