@@ -129,7 +129,6 @@ copy_resources(
   unicode_blocks.txt
   World.mwm
   WorldCoasts.mwm
-  icudt70l.dat
 
   00_NotoNaskhArabic-Regular.ttf
   00_NotoSansThai-Regular.ttf
@@ -142,11 +141,16 @@ copy_resources(
   07_roboto_medium.ttf
 )
 
+if (NOT PLATFORM_LINUX)
+  # On Linux, ICU data is loaded from the shared library.
+  copy_resources(icudt70l.dat)
+endif()
+
 if (PLATFORM_MAC)
   execute_process(
     COMMAND cp -r ${OMIM_ROOT}/tools/shaders_compiler/macos ${RESOURCES_FOLDER}/shaders_compiler
   )
-elseif(PLATFORM_LINUX)
+elseif (PLATFORM_LINUX)
   execute_process(
     COMMAND cp -r ${OMIM_ROOT}/tools/shaders_compiler/linux ${RESOURCES_FOLDER}/shaders_compiler
   )

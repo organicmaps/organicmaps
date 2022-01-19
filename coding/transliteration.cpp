@@ -13,6 +13,8 @@
 #include <unicode/utrans.h>
 #include <unicode/utypes.h>
 
+#include "std/target_os.hpp"
+
 #include <cstring>
 #include <mutex>
 
@@ -58,8 +60,12 @@ void Transliteration::Init(std::string const & icuDataDir)
     return;
 
   // This function should be called before the first ICU operation that will require the loading of
-  // an ICU data file.
+  // an ICU data file. On Linux, data file is loaded automatically from the shared library.
+#ifndef OMIM_OS_LINUX
   u_setDataDirectory(icuDataDir.c_str());
+#else
+  UNUSED_VALUE(icuDataDir);
+#endif
 
   for (auto const & lang : StringUtf8Multilang::GetSupportedLanguages())
   {
