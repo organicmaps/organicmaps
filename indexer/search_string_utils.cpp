@@ -5,8 +5,6 @@
 
 #include "coding/transliteration.hpp"
 
-#include "coding/transliteration.hpp"
-
 #include "base/assert.hpp"
 #include "base/dfa_helpers.hpp"
 #include "base/macros.hpp"

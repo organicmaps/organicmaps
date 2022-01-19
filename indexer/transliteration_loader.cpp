@@ -12,23 +12,24 @@
 
 void InitTransliterationInstanceWithDefaultDirs()
 {
+  Platform const & pl = GetPlatform();
+
 #if defined(OMIM_OS_ANDROID)
   char const kICUDataFile[] = "icudt70l.dat";
-  if (!GetPlatform().IsFileExistsByFullPath(GetPlatform().WritableDir() + kICUDataFile))
+  if (!pl.IsFileExistsByFullPath(pl.WritableDir() + kICUDataFile))
   {
     try
     {
-      ZipFileReader::UnzipFile(GetPlatform().ResourcesDir(), std::string("assets/") + kICUDataFile,
-                               GetPlatform().WritableDir() + kICUDataFile);
+      ZipFileReader::UnzipFile(pl.ResourcesDir(), std::string("assets/") + kICUDataFile,
+                               pl.WritableDir() + kICUDataFile);
     }
     catch (RootException const & e)
     {
-      LOG(LWARNING,
-          ("Can't get transliteration data file \"", kICUDataFile, "\", reason:", e.Msg()));
+      LOG(LWARNING, ("Can't get transliteration data file \"", kICUDataFile, "\", reason:", e.Msg()));
     }
   }
-  Transliteration::Instance().Init(GetPlatform().WritableDir());
+  Transliteration::Instance().Init(pl.WritableDir());
 #else
-  Transliteration::Instance().Init(GetPlatform().ResourcesDir());
+  Transliteration::Instance().Init(pl.ResourcesDir());
 #endif
 }
