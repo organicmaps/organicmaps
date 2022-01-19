@@ -28,7 +28,7 @@
     sv = Håll höger.
     sw = Kaa kuria.
     th = ชิดขวาไว้
-    tr = Sağdan git
+    tr = Sağdan gidin.
     uk = Тримайтеся правіше.
     vi = Đi về phía phải.
     zh-Hans = 向右走。
@@ -96,7 +96,7 @@
     sv = Skarpt höger.
     sw = Fanya kulia mkali.
     th = หักมุมขวา
-    tr = Tam sağa.
+    tr = Tam sağa dönün.
     uk = Різко вправо.
     vi = Rẽ ngoặt bên phải.
     zh-Hans = 向右急转。
@@ -164,7 +164,7 @@
     sv = Lämna rondellen.
     sw = Toka kwenye mzunguko wa barabara.
     th = ออกจากวงเวียน
-    tr = Kavşaktan çık.
+    tr = Kavşaktan çıkın.
     uk = З'їзд з кільцевої транспортної розв'язки.
     vi = Ra khỏi vòng xoay.
     zh-Hans = 退出环岛。
@@ -198,7 +198,7 @@
     sv = Håll vänster.
     sw = Kaa kushoto.
     th = ชิดซ้ายไว้
-    tr = Soldan git.
+    tr = Soldan gidin.
     uk = Тримайтеся лівіше.
     vi = Đi về phía trái.
     zh-Hans = 向左走。
@@ -266,7 +266,7 @@
     sv = Skarpt vänster.
     sw = Fanya kushoto mkali.
     th = หักมุมซ้าย
-    tr = Tam sola.
+    tr = Tam sola dönün.
     uk = Різкий поворот наліво.
     vi = Rẽ ngoặt bên trái.
     zh-Hans = 向左急转。
