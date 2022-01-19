@@ -700,7 +700,9 @@
 	<string name="type.amenity.food_court">美食广场</string>
 	<string name="type.amenity.fountain">喷泉</string>
 	<string name="type.amenity.fuel">加油站</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">墓地</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">墓地</string>
 	<string name="type.amenity.hospital">医院</string>
 	<string name="type.amenity.hunting_stand">狩猎站</string>
@@ -1070,7 +1072,9 @@
 	<string name="type.landuse.allotments">市民农园</string>
 	<string name="type.landuse.basin">水盆地</string>
 	<string name="type.landuse.brownfield">棕土</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">墓地</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">基督教墓地</string>
 	<string name="type.landuse.churchyard">教堂庭院</string>
 	<string name="type.landuse.commercial">商务办公用地</string>

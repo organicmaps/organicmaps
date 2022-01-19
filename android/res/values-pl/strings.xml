@@ -706,7 +706,9 @@
 	<string name="type.amenity.food_court">Sekcja gastronomiczna</string>
 	<string name="type.amenity.fountain">Fontanna</string>
 	<string name="type.amenity.fuel">Stacja benzynowa</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Cmentarz</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Cmentarz chrześcijański</string>
 	<string name="type.amenity.hospital">Szpital</string>
 	<string name="type.amenity.hunting_stand">Ambona myśliwska</string>
@@ -1070,7 +1072,9 @@
 	<string name="type.landuse.allotments">Działki</string>
 	<string name="type.landuse.basin">Zbiornik</string>
 	<string name="type.landuse.brownfield">Teren do zabudowy</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Cmentarz</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Cmentarz chrześcijański</string>
 	<string name="type.landuse.churchyard">Teren kościelny</string>
 	<string name="type.landuse.commercial">Teren handlu i usług</string>

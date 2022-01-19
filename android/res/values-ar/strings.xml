@@ -681,7 +681,9 @@
 	<string name="type.amenity.fire_station">محطة إطفاء</string>
 	<string name="type.amenity.fountain">نافورة</string>
 	<string name="type.amenity.fuel">محطة وقود</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">مقبرة</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">مقبرة</string>
 	<string name="type.amenity.hospital">عيادة</string>
 	<string name="type.amenity.hunting_stand">منصة صيد</string>
@@ -996,7 +998,9 @@
 	<string name="type.internet_access">واي فاي</string>
 	<string name="type.internet_access.wlan">واي فاي</string>
 	<string name="type.landuse.basin">حوض المياه</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">مقبرة</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">مقبرة</string>
 	<string name="type.landuse.churchyard">فناء الكنيسة</string>
 	<string name="type.landuse.farmland">حقل</string>

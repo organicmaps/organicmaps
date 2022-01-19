@@ -1301,9 +1301,11 @@
 
 "type.amenity.fuel" = "Заправка";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard" = "Кладбище";
 
-"type.amenity.grave_yard.christian" = "Кладбище";
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "Христианское кладбище";
 
 "type.amenity.hospital" = "Больница";
 
@@ -2075,8 +2077,10 @@
 
 "type.landuse.brownfield" = "Земля для застройки";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "Кладбище";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Христианское кладбище";
 
 "type.landuse.churchyard" = "Церковный двор";

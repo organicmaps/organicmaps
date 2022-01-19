@@ -676,7 +676,9 @@
 	<string name="type.amenity.fire_station">소방서</string>
 	<string name="type.amenity.fountain">분수</string>
 	<string name="type.amenity.fuel">주유소</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">묘소</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">묘소</string>
 	<string name="type.amenity.hospital">병원</string>
 	<string name="type.amenity.hunting_stand">사냥 스탠드</string>
@@ -990,7 +992,9 @@
 	<string name="type.internet_access">인터넷</string>
 	<string name="type.internet_access.wlan">인터넷</string>
 	<string name="type.landuse.basin">저수지</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">묘소</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">묘소</string>
 	<string name="type.landuse.churchyard">교회 마당</string>
 	<string name="type.landuse.farmland">농지</string>

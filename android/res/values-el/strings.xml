@@ -679,7 +679,9 @@
 	<string name="type.amenity.fire_station">Σταθμός πυρόσβεσης</string>
 	<string name="type.amenity.fountain">Συντριβάνι</string>
 	<string name="type.amenity.fuel">Βενζινάδικο</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Νεκροταφείο</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Νεκροταφείο</string>
 	<string name="type.amenity.hospital">Νοσοκομείο</string>
 	<string name="type.amenity.hunting_stand">Βάση σκόπευσης</string>
@@ -994,7 +996,9 @@
 	<string name="type.internet_access">Ίντερνετ</string>
 	<string name="type.internet_access.wlan">Ίντερνετ</string>
 	<string name="type.landuse.basin">Μια λεκάνη νερού</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Νεκροταφείο</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Νεκροταφείο</string>
 	<string name="type.landuse.churchyard">Αυλόγυρος εκκλησίας</string>
 	<string name="type.landuse.farmland">Αγροτική γη</string>
