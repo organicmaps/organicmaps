@@ -412,7 +412,7 @@ Framework::Framework(FrameworkParams const & params)
 
   m_featuresFetcher.GetDataSource().AddObserver(editor);
 
-  LOG(LINFO, ("Editor initialized"));
+  LOG(LDEBUG, ("Editor initialized"));
 
   m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
   m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());

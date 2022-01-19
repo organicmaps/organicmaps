@@ -118,10 +118,7 @@ bool Transliteration::Transliterate(std::string const & transID, icu::UnicodeStr
 
   it->second->m_transliterator->transliterate(ustr);
 
-  if (ustr.isEmpty())
-    return false;
-
-  return true;
+  return !ustr.isEmpty();
 }
 
 bool Transliteration::TransliterateForce(std::string const & str, std::string const & transliteratorId,
