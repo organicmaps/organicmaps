@@ -41,7 +41,6 @@ public class TimeFormatUtils
 
   public static String formatWeekdays(@NonNull Timetable timetable)
   {
-    refreshWithCurrentLocale();
     return formatWeekdays(timetable.weekdays);
   }
 
@@ -50,6 +49,7 @@ public class TimeFormatUtils
     if (weekdays.length == 0)
       return "";
 
+    refreshWithCurrentLocale();
     final StringBuilder builder = new StringBuilder(sShortWeekdays[weekdays[0]]);
     boolean iteratingRange;
     for (int i = 1; i < weekdays.length; )
