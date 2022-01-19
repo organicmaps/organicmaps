@@ -13401,7 +13401,8 @@
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.platform]
-    en = Platform
+    en = Railway Platform
+    be = Чыгуначная платформа
     de = Bahnsteig
     ja = プラットホーム
     pt = Plataforma ferroviária
