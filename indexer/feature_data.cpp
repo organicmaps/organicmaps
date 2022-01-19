@@ -137,6 +137,7 @@ private:
         {"amenity", "shelter"},
         {"amenity", "toilets"},
         {"amenity", "drinking_water"},
+        {"public_transport", "platform"},
         {"building", "address"},
         {"building", "has_parts"},
     };
