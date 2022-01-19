@@ -37,7 +37,7 @@ for lang in "${LANGUAGES[@]}"; do
     zh-TW) lang="zh-Hant" ;;
     pt-PT) lang="pt"      ;;
   esac
-  echo "$lang:$(tr '[:lower:]' '[:upper:]' <<< "${TRANSLATION:0:1}")${TRANSLATION:1}"
+  echo "$lang${DELIM}$(tr '[:lower:]' '[:upper:]' <<< "${TRANSLATION:0:1}")${TRANSLATION:1}"
   # To avoid quota limits.
   sleep 1
 done
