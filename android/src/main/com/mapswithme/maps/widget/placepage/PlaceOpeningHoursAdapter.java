@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import static com.mapswithme.maps.editor.data.TimeFormatUtils.formatWeekdays;
+import static com.mapswithme.maps.editor.data.TimeFormatUtils.formatWeekdaysRange;
 import static com.mapswithme.maps.editor.data.TimeFormatUtils.formatNonBusinessTime;
 
 import com.mapswithme.maps.editor.data.Timespan;
@@ -16,9 +18,12 @@ import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningHoursAdapter.ViewHolder>
 {
@@ -45,41 +50,35 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     for (int idx=0; idx < weekDays.length; idx++)
     {
       int weekDay = weekDays[idx];
+
       Timetable tt = findScheduleForWeekDay(timetables, weekDay);
       if (tt != null)
       {
-        scheduleData.add(new WeekScheduleData(tt.weekdays, false, tt));
+        int startWeekDay = weekDays[idx];
         while(idx < weekDays.length && tt.containsWeekday(weekDays[idx]))
           idx++;
 
         idx--;
+        int endWeekDay = weekDays[idx];
+        scheduleData.add(new WeekScheduleData(startWeekDay, endWeekDay, false, tt));
       }
       else
       {
-        int endDate = weekDays[idx];
-        idx ++;
-        while (idx < weekDays.length)
+        int startIdx = idx;
+        while (idx+1 < weekDays.length)
         {
-          endDate = weekDays[idx];
-          Timetable tt2 = findScheduleForWeekDay(timetables, endDate);
+          Timetable tt2 = findScheduleForWeekDay(timetables, weekDays[idx+1]);
           if (tt2 != null)
-          {
-            idx --;
-            endDate = weekDays[idx];
             break;
-          }
           idx ++;
         }
 
-        int[] closedDatesRange = createRange(weekDay, endDate);
-        scheduleData.add(new WeekScheduleData(closedDatesRange, true, null));
+        scheduleData.add(new WeekScheduleData(weekDays[startIdx], weekDays[idx], true, null));
       }
     }
 
     mWeekSchedule = scheduleData;
 
-    //mTimetables = timetables;
-    //findUnhandledDays(timetables);
     notifyDataSetChanged();
   }
 
@@ -118,7 +117,7 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
 
     if (schedule.isClosed)
     {
-      holder.setWeekdays(formatWeekdays(schedule.weekDays));
+      holder.setWeekdays(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
       holder.setOpenTime(holder.itemView.getResources().getString(R.string.day_off));
       holder.hideNonBusinessTime();
       return;
@@ -126,11 +125,10 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
 
     final Timetable tt = schedule.timetable;
 
-    final String weekdays = formatWeekdays(tt);
     String workingTime = tt.isFullday ? holder.itemView.getResources().getString(R.string.editor_time_allday)
                                       : tt.workingTimespan.toWideString();
 
-    holder.setWeekdays(weekdays);
+    holder.setWeekdays(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
     holder.setOpenTime(workingTime);
 
     final Timespan[] closedTime = tt.closedTimespans;
@@ -151,18 +149,20 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     return (mWeekSchedule != null ? mWeekSchedule.size() : 0);
   }
 
-  private static class WeekScheduleData
+  public static class WeekScheduleData
   {
-    public final int[] weekDays;
+    public final int startWeekDay;
+    public final int endWeekDay;
     public final boolean isClosed;
     public final Timetable timetable;
 
-    public WeekScheduleData(int[] weekDays, boolean isClosed, Timetable timetable)
+    public WeekScheduleData(int startWeekDay, int endWeekDay, boolean isClosed, Timetable timetable)
     {
       if(!isClosed && timetable == null)
         throw new IllegalArgumentException("timetable parameter is null while isClosed = false");
 
-      this.weekDays = weekDays;
+      this.startWeekDay = startWeekDay;
+      this.endWeekDay = endWeekDay;
       this.isClosed = isClosed;
       this.timetable = timetable;
     }
