@@ -7291,7 +7291,42 @@ cont {
   }
 }
 cont {
-  name: "amenity-recycling_container"
+  name: "amenity-recycling-centre"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling-m"
+      priority: 16622
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling-m"
+      priority: 16622
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling-m"
+      priority: 16622
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+}
+cont {
+  name: "amenity-recycling-container"
   element {
     scale: 17
     symbol {
@@ -7407,6 +7442,94 @@ cont {
         is_optional: true
       }
       priority: 15744
+    }
+  }
+}
+cont {
+  name: "amenity-sanitary_dump_station"
+  element {
+    scale: 15
+    symbol {
+      name: "dump-station-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15622
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "dump-station-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15622
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "dump-station-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15622
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dump-station-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15622
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dump-station-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15622
     }
   }
 }
@@ -8342,7 +8465,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "recycling-m"
+      name: "waste-basket-m"
       priority: 16612
     }
     caption {
@@ -8357,7 +8480,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "recycling-m"
+      name: "waste-basket-m"
       priority: 16612
     }
     caption {
@@ -8367,6 +8490,41 @@ cont {
         offset_y: 1
       }
       priority: 15612
+    }
+  }
+}
+cont {
+  name: "amenity-waste_transfer_station"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling-m"
+      priority: 16622
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling-m"
+      priority: 16622
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling-m"
+      priority: 16622
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15622
     }
   }
 }
@@ -9794,208 +9952,6 @@ cont {
 }
 cont {
   name: "boundary-administrative-4"
-  element {
-    scale: 5
-    lines {
-      width: 0.7
-      color: 863203947
-      dashdot {
-        dd: 1.35
-        dd: 1.0
-      }
-      priority: 1214
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 6
-    lines {
-      width: 0.8
-      color: 7565931
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1214
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.9
-      color: 7565931
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1214
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.9
-      color: 7565931
-      dashdot {
-        dd: 1.44
-        dd: 1.44
-      }
-      priority: 1214
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 1.0
-      color: 7565931
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1214
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 1.2
-      color: 7565931
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1214
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 1.2
-      color: 7565931
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1214
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1.2
-      color: 7565931
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1214
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.2
-      color: 7565931
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1214
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.2
-      color: 7565931
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1214
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.2
-      color: 7565931
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1214
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.2
-      color: 7565931
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1214
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.2
-      color: 7565931
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1214
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.2
-      color: 7565931
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1214
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 1.2
-      color: 7565931
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1214
-    }
-  }
-}
-cont {
-  name: "boundary-administrative-4-state"
   element {
     scale: 5
     lines {
@@ -32669,7 +32625,7 @@ cont {
       priority: -15337
     }
     symbol {
-      name: "recycling-m"
+      name: "waste-basket-m"
       priority: 16663
     }
     caption {
@@ -32688,7 +32644,7 @@ cont {
       priority: -15337
     }
     symbol {
-      name: "recycling-m"
+      name: "waste-basket-m"
       priority: 16663
     }
     caption {
@@ -32707,7 +32663,7 @@ cont {
       priority: -15337
     }
     symbol {
-      name: "recycling-m"
+      name: "waste-basket-m"
       priority: 16663
     }
     caption {
@@ -32726,7 +32682,7 @@ cont {
       priority: -15337
     }
     symbol {
-      name: "recycling-m"
+      name: "waste-basket-m"
       priority: 16663
     }
     caption {
@@ -32745,7 +32701,7 @@ cont {
       priority: -15337
     }
     symbol {
-      name: "recycling-m"
+      name: "waste-basket-m"
       priority: 16663
     }
     caption {
@@ -37183,6 +37139,49 @@ cont {
   }
 }
 cont {
+  name: "man_made-flagpole"
+  element {
+    scale: 15
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "man_made-lighthouse"
   element {
     scale: 14
@@ -37273,6 +37272,41 @@ cont {
         offset_y: 1
       }
       priority: 15693
+    }
+  }
+}
+cont {
+  name: "man_made-mast"
+  element {
+    scale: 16
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
     }
   }
 }
@@ -57904,286 +57938,6 @@ cont {
         dd: 8.1
       }
       priority: 1367
-    }
-  }
-}
-cont {
-  name: "recycling-clothes"
-  element {
-    scale: 17
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15622
-    }
-  }
-}
-cont {
-  name: "recycling-glass_bottles"
-  element {
-    scale: 17
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15622
-    }
-  }
-}
-cont {
-  name: "recycling-paper"
-  element {
-    scale: 17
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15622
-    }
-  }
-}
-cont {
-  name: "recycling-plastic"
-  element {
-    scale: 17
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15622
-    }
-  }
-}
-cont {
-  name: "recycling-plastic_bottles"
-  element {
-    scale: 17
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15622
-    }
-  }
-}
-cont {
-  name: "recycling-scrap_metal"
-  element {
-    scale: 17
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15622
-    }
-  }
-}
-cont {
-  name: "recycling-small_appliances"
-  element {
-    scale: 17
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15622
-    }
-  }
-}
-cont {
-  name: "recycling-toxic"
-  element {
-    scale: 17
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "recycling-m"
-      priority: 16622
-      min_distance: 30
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15622
     }
   }
 }

@@ -106,7 +106,7 @@ mapswithme
 *sport|soccer
 *boundary|administrative|4
 *amenity|cafe
-*amenity|recycling
+*amenity|recycling|container
 *leisure|garden
 *landuse|commercial
 *railway|station
@@ -208,10 +208,10 @@ mapswithme
 *railway|disused
 *aeroway|runway
 *railway|halt
-mapswithme
+*man_made|mast
 *railway|rail|tunnel
 *man_made|wastewater_plant
-mapswithme
+*man_made|flagpole
 *place|county
 mapswithme
 mapswithme
@@ -233,8 +233,8 @@ mapswithme
 *amenity|parking|permissive
 *boundary|administrative|5
 *highway|unclassified|tunnel
-mapswithme
-mapswithme
+*amenity|recycling|centre
+*amenity|recycling
 *highway|residential|tunnel
 *aeroway|helipad
 *highway|path|permissive
@@ -411,7 +411,7 @@ mapswithme
 mapswithme
 *leisure|park|private
 mapswithme
-*noexit|motor_vehicle
+*noexit
 *healthcare|laboratory
 *highway|motorway|tunnel
 *railway|light_rail|tunnel
@@ -428,9 +428,9 @@ mapswithme
 *area:highway|path
 *railway|siding
 *highway|track|area
-mapswithme
+*amenity|sanitary_dump_station
 *railway|funicular
-mapswithme
+*amenity|waste_transfer_station
 *historic|battlefield
 mapswithme
 *sport|australian_football
@@ -733,7 +733,7 @@ mapswithme
 *tourism|museum
 *tourism|guest_house
 *tourism|motel
-*boundary|administrative|4|state
+boundary|administrative|4
 *place|state|USA
 *building|address
 *amenity|parking|no-access
@@ -1335,7 +1335,7 @@ mapswithme
 *isoline|step_10
 *isoline|zero
 *complex_entry
-*recycling|toxic
+*recycling|batteries
 *recycling|clothes
 *recycling|glass_bottles
 *recycling|paper
@@ -1343,7 +1343,12 @@ mapswithme
 *recycling|plastic_bottles
 *recycling|scrap_metal
 *recycling|small_appliances
-*amenity|recycling_container
+amenity|recycling|container
 *hwtag|onedir_bicycle
 *shop|video_games
 *natural|strait
+*recycling|cardboard
+*recycling|cans
+*recycling|shoes
+*recycling|green_waste
+*recycling|cartons
