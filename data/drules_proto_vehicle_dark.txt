@@ -3052,6 +3052,33 @@ cont {
   }
 }
 cont {
+  name: "amenity-police"
+  element {
+    scale: 17
+    symbol {
+      name: "police-m"
+      priority: 16000
+      min_distance: 15
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "police-m"
+      priority: 16000
+      min_distance: 10
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "police-m"
+      priority: 16000
+      min_distance: 10
+    }
+  }
+}
+cont {
   name: "amenity-restaurant"
   element {
     scale: 16
@@ -3115,6 +3142,89 @@ cont {
         offset_y: 1
       }
       priority: 15717
+    }
+  }
+}
+cont {
+  name: "amenity-sanitary_dump_station"
+  element {
+    scale: 15
+    symbol {
+      name: "dump-station-m"
+      priority: 16000
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15300
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "dump-station-m"
+      priority: 16000
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15300
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "dump-station-m"
+      priority: 16000
+      min_distance: 15
+    }
+    caption {
+      primary {
+        height: 13
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15300
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dump-station-m"
+      priority: 16000
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15300
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dump-station-m"
+      priority: 16000
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6710886
+        offset_y: 1
+      }
+      priority: 15300
     }
   }
 }
@@ -4207,208 +4317,6 @@ cont {
 }
 cont {
   name: "boundary-administrative-4"
-  element {
-    scale: 5
-    lines {
-      width: 0.7
-      color: 861690972
-      dashdot {
-        dd: 1.35
-        dd: 1.0
-      }
-      priority: 1235
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 6
-    lines {
-      width: 0.8
-      color: 6052956
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1235
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.9
-      color: 6052956
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1235
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.9
-      color: 6052956
-      dashdot {
-        dd: 1.44
-        dd: 1.44
-      }
-      priority: 1235
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 1.0
-      color: 6052956
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1235
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 1.2
-      color: 6052956
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1235
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 1.2
-      color: 6052956
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1235
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1.2
-      color: 6052956
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1235
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.2
-      color: 6052956
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1235
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.2
-      color: 6052956
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1235
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.2
-      color: 6052956
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1235
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.2
-      color: 6052956
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1235
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.2
-      color: 6052956
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1235
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.2
-      color: 6052956
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1235
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 1.2
-      color: 6052956
-      dashdot {
-        dd: 1.8
-        dd: 1.0
-      }
-      priority: 1235
-    }
-  }
-}
-cont {
-  name: "boundary-administrative-4-state"
   element {
     scale: 5
     lines {

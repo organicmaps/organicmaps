@@ -99,9 +99,12 @@ world  +
         prison  -
         pub  -
         public_bookcase  -
-        recycling  -
-        recycling_container  -
+        recycling  +
+            centre  -
+            container  -
+            {}
         restaurant  -
+        sanitary_dump_station  -
         school  -
         shelter  -
         shower  -
@@ -120,6 +123,7 @@ world  +
         veterinary  -
         waste_basket  -
         waste_disposal  -
+        waste_transfer_station  -
         water_point  -
         {}
     area:highway  +
@@ -163,9 +167,7 @@ world  +
             11  -
             2  -
             3  -
-            4  +
-                state  -
-                {}
+            4  -
             5  -
             6  -
             7  -
@@ -566,7 +568,9 @@ world  +
         cairn  -
         chimney  -
         cutline  -
+        flagpole  -
         lighthouse  -
+        mast  -
         pier  -
         pipeline  +
             overground  -
@@ -627,9 +631,7 @@ world  +
             marsh  -
             {}
         {}
-    noexit  +
-        motor_vehicle  -
-        {}
+    noexit  -
     office  +
         company  -
         diplomatic  -
@@ -805,14 +807,19 @@ world  +
             {}
         {}
     recycling  +
+        batteries  -
+        cans  -
+        cardboard  -
+        cartons  -
         clothes  -
         glass_bottles  -
+        green_waste  -
         paper  -
         plastic  -
         plastic_bottles  -
         scrap_metal  -
+        shoes  -
         small_appliances  -
-        toxic  -
         {}
     route  +
         ferry  -
