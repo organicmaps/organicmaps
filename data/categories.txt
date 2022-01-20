@@ -3910,7 +3910,7 @@ he:במכולה|הפשא
 sk:Odpadky|kôš
 fa:زباله دانی
 
-amenity-recycling|@recycling
+amenity-recycling-centre|@recycling
 en:Recycling Centre|U+1F6AE|U+267B
 en-US:Recycling Center|U+1F6AE|U+267B
 ru:Приём вторсырья|утиль|сырьё|сбор сырья
@@ -3944,7 +3944,7 @@ el:Κέντρο ανακύκλωσης
 sk:Zberné suroviny
 fa:مرکز بازیافت
 
-amenity-recycling_container|@recycling
+amenity-recycling-container|amenity-recycling|@recycling
 en:Recycling container|U+1F6AE|U+267B
 ru:Контейнер для вторсырья
 bg:Контейнер|разделно|събиране
@@ -3978,39 +3978,42 @@ zh-Hans:回收箱
 zh-Hant:回收箱
 fa:ظرف بازیافت
 
-recycling-toxic|@recycling
-en:Toxic waste|Battery disposal|Batteries disposal|Hazardous waste
-ru:Ядовитые отходы|Сбор батареек|Утилизация батареек|Опасные отходы
-bg:Опасни отпадъци
-ar:النفايات الخطرة|البطاريات المستهلكة|نفايات سامة
-cs:Toxický odpad|Likvidace baterií|Nebezpečný odpad
-da:Giftigt affald|Bortskaffelse af batterier|Farligt affald
-nl:Giftig afval|Afvoer van batterijen|Gevaarlijk afval
-fi:Myrkkyjäte|Paristojen keräys|Vaaralliset jätteet
-fr:Déchets toxiques|Recyclage de piles|Déchets dangereux
-de:Giftmüll|Batterierecycling|Gefahrabfälle
-hu:Mérgező hulladék|Akkumulátor ártalmatlanítás|Veszélyes hulladék
-id:Limbah beracun|Pembuangan baterai|Limbah berbahaya
-it:Rifiuti tossici|Riciclo delle batterie|Rifiuti pericolosi
-ja:有毒廃棄物|電池廃棄物|危険廃棄物
-ko:위험폐기물|배터리 폐기장|위험물 폐기장|유독성 폐기물|배터리 처|유해성 폐기물
-nb:Giftig avfall|Batterigjenvinning|Farlig avfall
-pl:Odpady toksyczne|Utylizacja akumulatorów|Odpady niebezpieczne
-pt:Resíduos tóxicos|Reciclagem de pilhas|Resíduos perigosos
-pt-BR:Lixo tóxico|Descarte da baterias e pilhas|Lixo perigosos
-ro:Deșeuri toxice|Eliminarea bateriilor|Deșeuri periculoase
-es:Residuos tóxicos|Eliminación de pilas|Residuos peligrosos
-es-MX:Desechos tóxicos|Eliminación de pilas|Desechos peligrosos
-sv:Giftigt avfall|Kassering av batterier|Farligt avfall
-th:ขยะสารพิษ|การกำจัดแบตเตอรี่|ขยะอันตราย
-tr:Zehirli atık|Pil geri dönüşüm|Tehlikeli atık
-uk:Отруйні відходи|ЗБір отруйних відходів|Утилізація батарейок|Небезпечні відходи
-vi:Chất thải độc hại|Sử dụng pin|Rác thải nguy hiểm
-el:Τοξικά απόβλητα|Ανακύκλωση μπαταριών|Επικίνδυνα απόβλητα
-sk:Toxický odpad|Likvidácia batérií|Nebezpečný odpad
-zh-Hans:有毒垃圾|废弃电池处理|有害垃圾
-zh-Hant:有毒垃圾|廢棄電池處理|有害垃圾
-fa:پسماند خطرناک|بازیافت باتری|پسماند سمی
+recycling-batteries|@recycling
+en:Batteries disposal
+ru:Сбор батареек|Утилизация батареек
+ar:ﺕﺎﻳﺭﺎﻄﺑ
+be:Батарэйкі
+bg:Батерии
+cs:Baterie
+da:Batterier
+de:Batterien
+el:Μπαταρίες
+es:Baterías
+fa:ﺎﻫ ﯼﺮﺗﺎﺑ
+fi:Paristot
+fr:Batteries
+he:תוללוס
+hu:Elemek
+id:Baterai
+it:Batterie
+ja:バッテリー
+ko:배터리
+nb:Batterier
+nl:Batterijen
+pl:Baterie
+pt:Baterias
+pt-BR:Baterias
+ro:Baterii
+ru:Батарейки
+sk:Batérie
+sv:Batterier
+sw:Betri
+th:แบตเตอรี่
+tr:Piller
+uk:Батарейки
+vi:Ắc quy
+zh-Hans:电池
+zh-Hant:電池
 
 recycling-clothes|@recycling
 en:Clothes Recycling
@@ -4249,6 +4252,36 @@ sk:Elektronický odpad
 zh-Hans:电子垃圾
 zh-Hant:電子垃圾
 fa:پسماند الکترونیکی
+
+recycling-cardboard|@recycling
+en:Cardboard Recycling
+be:Збор кардона
+ru:Сбор картона
+uk:Збір картону
+
+recycling-cans|@recycling
+en:Cans Recycling|Tin Cans|Tins|Tincans
+be:Бляшаныя банкі
+ru:Жестяные банки|Консервные банки
+uk:Бляшані банки
+
+recycling-shoes|@recycling
+en:Shoes Recycling
+be:Абутак|Прыём абутку|Здаць абутак
+ru:Обувь|Прием обуви|Сдать обувь
+uk:Взуття|Прийом взуття|Здати взуття
+
+recycling-green_waste|@recycling
+en:Organic Waste|Green Waste|Food Waste|Garden Waste
+be:Арганічныя адходы|Адходы ежы
+ru:Органические отходы|Отходы еды
+uk:Органічні відходи | Відходи їжі
+
+recycling-cartons|@recycling
+en:Cartons Recycling
+be:Тэтрапак|Перапрацоўка тэтрапака|Утылізацыя тэтрапака
+ru:Тетрапак|Переработка тетрапака|Утилизация тетрапака
+uk:Тетрапак | Переробка тетрапака | Утилізація тетрапака
 
 amenity-school
 en:3School|U+1F392|U+1F3EB

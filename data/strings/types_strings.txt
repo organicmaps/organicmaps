@@ -2587,7 +2587,7 @@
     zh-Hans = 公共书架
     zh-Hant = 書架
 
-  [type.amenity.recycling]
+  [type.amenity.recycling.centre]
     en = Recycling Center
     ar = مركز إعادة تدوير
     cs = Recyklační středisko
@@ -2619,7 +2619,7 @@
     zh-Hans = 资源回收设施
     zh-Hant = 回收中心
 
-  [type.amenity.recycling_container]
+  [type.amenity.recycling]
     en = Recycling Container
     ar = حاوية لإعادة التدوير
     cs = Recyklační nádoba
@@ -2652,38 +2652,44 @@
     zh-Hans = 回收容器
     zh-Hant = 回收箱
 
-  [type.recycling.toxic]
-    en = Toxic Waste
-    ar = نفايات سامة
-    cs = Toxický odpad
-    da = Giftigt affald
-    de = Giftmüll
-    el = Τοξικά απόβλητα
-    es = Residuos tóxicos
-    es-MX = Desechos tóxicos
-    fa = پسماند سمی
-    fi = Myrkkyjäte
-    fr = Déchets toxiques
-    hu = Mérgező hulladék
-    id = Limbah beracun
-    it = Rifiuti tossici
-    ja = 有毒廃棄物
-    ko = 유독성 폐기물
-    nb = Giftig avfall
-    nl = Giftig afval
-    pl = Odpady toksyczne
-    pt = Resíduos tóxicos
-    pt-BR = Lixo tóxico
-    ro = Deșeuri toxice
-    ru = Ядовитые отходы
-    sk = Toxický odpad
-    sv = Giftigt avfall
-    th = ขยะสารพิษ
-    tr = Zehirli atık
-    uk = Отруйні відходи
-    vi = Chất thải độc hại
-    zh-Hans = 有毒垃圾
-    zh-Hant = 有毒垃圾
+  [type.amenity.recycling.container]
+    ref = type.amenity.recycling
+
+  [type.recycling.batteries]
+    en = Batteries
+    ar = ﺕﺎﻳﺭﺎﻄﺑ
+    be = Батарэйкі
+    bg = Батерии
+    cs = Baterie
+    da = Batterier
+    de = Batterien
+    el = Μπαταρίες
+    es = Baterías
+    fa = ﺎﻫ ﯼﺮﺗﺎﺑ
+    fi = Paristot
+    fr = Batteries
+    he = תוללוס
+    hu = Elemek
+    id = Baterai
+    it = Batterie
+    ja = バッテリー
+    ko = 배터리
+    nb = Batterier
+    nl = Batterijen
+    pl = Baterie
+    pt = Baterias
+    pt-BR = Baterias
+    ro = Baterii
+    ru = Батарейки
+    sk = Batérie
+    sv = Batterier
+    sw = Betri
+    th = แบตเตอรี่
+    tr = Piller
+    uk = Батарейки
+    vi = Ắc quy
+    zh-Hans = 电池
+    zh-Hant = 電池
 
   [type.recycling.clothes]
     en = Old Clothes
@@ -2915,6 +2921,36 @@
     vi = Chất thải đồ điện
     zh-Hans = 电子垃圾
     zh-Hant = 電子垃圾
+
+  [type.recycling.cardboard]
+    en = Cardboard
+    be = Кардон
+    ru = Картон
+    uk = Картон
+
+  [type.recycling.cans]
+    en = Cans
+    be = Бляшаныя банкі
+    ru = Жестяные банки
+    uk = Бляшані банки
+
+  [type.recycling.shoes]
+    en = Shoes
+    be = Абутак
+    ru = Обувь
+    uk = Взуття
+
+  [type.recycling.green_waste]
+    en = Green/Organic Waste
+    be = Арганічныя адходы
+    ru = Органические отходы
+    uk = Органічні відходи
+
+  [type.recycling.cartons]
+    en = Cartons
+    be = Тэтрапак і аналагі
+    ru = Тетрапак и аналоги
+    uk = Тетрапак та аналоги
 
   [type.amenity.restaurant]
     en = Restaurant

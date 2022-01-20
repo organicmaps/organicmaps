@@ -1297,6 +1297,56 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Junctions)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Recycling)
+{
+  {
+    Tags const tags = {
+      {"amenity", "recycling" },
+      {"recycling:glass_bottles", "yes"},
+      {"recycling:green_waste", "yes"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 3, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "recycling"})), (params));
+    TEST(params.IsTypeExist(GetType({"recycling", "glass_bottles"})), (params));
+    TEST(params.IsTypeExist(GetType({"recycling", "green_waste"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      {"amenity", "recycling" },
+      {"recycling_type", "centre"},
+      {"recycling:garden_waste", "no"},
+      {"recycling:organic", "no"},
+      {"recycling:glass", "yes"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "recycling", "centre"})), (params));
+    TEST(params.IsTypeExist(GetType({"recycling", "glass_bottles"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      {"amenity", "recycling" },
+      {"recycling_type", "container"},
+      {"recycling:metal", "yes"},
+      {"recycling:batteries", "yes"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 3, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "recycling", "container"})), (params));
+    TEST(params.IsTypeExist(GetType({"recycling", "scrap_metal"})), (params));
+    TEST(params.IsTypeExist(GetType({"recycling", "batteries"})), (params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 {
   Tags const oneTypes = {
@@ -1945,9 +1995,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"amenity", "place_of_worship", "muslim"}, {{"amenity", "place_of_worship"}, {"religion", "muslim"}}},
     {{"amenity", "place_of_worship", "shinto"}, {{"amenity", "place_of_worship"}, {"religion", "shinto"}}},
     {{"amenity", "place_of_worship", "taoist"}, {{"amenity", "place_of_worship"}, {"religion", "taoist"}}},
-    {{"amenity", "recycling"}, {{"amenity", "recycling"}, {"recycling_type","centre"}}},
-    {{"amenity", "recycling_container"}, {{"amenity", "recycling"}, {"recycling_type","container"}}},
-    {{"amenity", "recycling_container"}, {{"amenity", "recycling"}}},
+    {{"amenity", "recycling", "centre"}, {{"amenity", "recycling"}, {"recycling_type","centre"}}},
+    {{"amenity", "recycling", "container"}, {{"amenity", "recycling"}, {"recycling_type","container"}}},
+    {{"amenity", "recycling"}, {{"amenity", "recycling"}}},
     {{"amenity", "vending_machine", "cigarettes"}, {{"amenity", "vending_machine"}, {"vending", "cigarettes"}}},
     {{"amenity", "vending_machine", "drinks"}, {{"amenity", "vending_machine"}, {"vending", "drinks"}}},
     {{"amenity", "vending_machine", "parking_tickets"}, {{"amenity", "vending_machine"}, {"vending", "parking_tickets"}}},

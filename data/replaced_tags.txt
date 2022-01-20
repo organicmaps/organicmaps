@@ -62,9 +62,22 @@ place=allotments : place=neighbourhood
 crossing=traffic_signals : highway=traffic_signals
 
 
+# Replace top tags from here https://taginfo.openstreetmap.org/search?q=recycling on the common ones.
+recycling:electrical_appliances=yes       : recycling:small_appliances=yes
 recycling:small_electrical_appliances=yes : recycling:small_appliances=yes
-recycling:PET=yes : recycling:plastic_bottles=yes
-recycling:plastic_packaging=yes : recycling:plastic=yes
-recycling:glass=yes : recycling:glass_bottles=yes
-recycling:metal=yes : recycling:scrap_metal=yes
+recycling:electrical_items=yes            : recycling:small_appliances=yes
+
+recycling:metal=yes       : recycling:scrap_metal=yes
 recycling:sheet_metal=yes : recycling:scrap_metal=yes
+recycling:aluminium=yes   : recycling:scrap_metal=yes
+
+recycling:PET=yes               : recycling:plastic_bottles=yes
+recycling:plastic_packaging=yes : recycling:plastic=yes
+recycling:glass=yes             : recycling:glass_bottles=yes
+recycling:organic=yes           : recycling:green_waste=yes
+recycling:garden_waste=yes      : recycling:green_waste=yes
+
+recycling:paper_packaging=yes   : recycling:paper=yes
+recycling:newspaper=yes         : recycling:paper=yes
+recycling:magazines=yes         : recycling:paper=yes
+recycling:beverage_cartons=yes  : recycling:cartons=yes

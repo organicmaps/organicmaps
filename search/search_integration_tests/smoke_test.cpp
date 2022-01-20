@@ -218,7 +218,15 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     string const countryName = "Wonderland";
 
     TestPOI poi(m2::PointD(1.0, 1.0), "poi", "en");
-    poi.SetTypes({strings::Tokenize(classif().GetFullObjectName(type), "|")});
+
+    auto typeTokens = strings::Tokenize(classif().GetFullObjectName(type), "|");
+    if (ftypes::IsRecyclingTypeChecker::Instance()(type))
+    {
+      // recycling=XXX types are not drawable/visible alone.
+      poi.SetTypes({{"amenity", "recycling", "container"}, std::move(typeTokens)});
+    }
+    else
+      poi.SetTypes({std::move(typeTokens)});
 
     auto id = BuildMwm(countryName, DataHeader::MapType::Country,
                        [&](TestMwmBuilder & builder) { builder.Add(poi); });
@@ -227,7 +235,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     {
       Rules rules = {ExactMatch(id, poi)};
       auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode) + " ";
-      TEST(ResultsMatch(query, categoryIsSearchable ? rules : Rules{}), ());
+      TEST(ResultsMatch(query, categoryIsSearchable ? rules : Rules{}), (query));
     }
     DeregisterMap(countryName);
   };
