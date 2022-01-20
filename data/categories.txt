@@ -571,9 +571,9 @@ sk:peniaze
 fa:بانک
 
 @recycling
-en:Recycling|Waste utilization|Recyclables|Separate garbage collection|Waste sorting|Reuse
-ru:Переработка|Переработка отходов|Утилизация отходов|Прием вторсырья|Раздельный сбор мусора|Сортировка мусора|Повторное использование|утиль
-be:Перапрацоўка|Перапрацоўка адходаў|Утылізацыя адходаў|Прыём другаснай сыравіны|Паасобны збор смецця|Сартаванне смецця|Паўторнае выкарыстанне|утыль
+en:4Recycling|Waste utilization|Waste disposal|Recyclables|Separate garbage collection|Waste sorting|Reuse
+ru:Переработка|5Переработка отходов|Утилизация отходов|5Приём вторсырья|5Сдать вторсырьё|4Сбор вторсырья|5Раздельный сбор мусора|Сортировка мусора|Повторное использование|Утиль|Ресайклинг|Рециклинг|Вторичное сырьё
+be:Перапрацоўка|5Перапрацоўка адходаў|Утылізацыя адходаў|5Прыём другаснай сыравіны|5Здаць другсыравіну|Паасобны збор смецця|Сартаванне смецця|Паўторнае выкарыстанне|Утыль
 bg:Рециклиране|Преизползване|Разделно събиране|Сепаратор
 ar:إعادة تدوير|استغلال المخلفات|المواد القابلة لإعادة التدوير|جمع القمامة بشكل منفصل|فرز النفايات|إعادة الاستخدام
 cs:Recyklace|Využití odpadu|Recyklovatelné|Oddělený sběr odpadků|Třídění odpadu|Opětovné použití
@@ -597,7 +597,7 @@ es-MX:Reciclaje de desechos|Eliminación de desechos|Materiales reciclables|Reco
 sv:Återvinning av avfall|Avfallsbehandling|Återvinningsbart avfall|Separat sopinsamling|Sopsortering|Återanvändning
 th:การรีไซเคิล|การใช้ประโยชน์จากขยะ|รีไซเคิลได้|ที่รวบรวมขยะแยกประเภท|การแยกขยะ|รียูส
 tr:Geri dönüşüm|Atık kullanımı|Geri dönüştürülebilir nesneler|Ayrı çöp toplama|Atık ayırma|Yeniden kullanım
-uk:Переробка відходів|Утилізація відходів|Прийом вторсировини|Роздільний збір сміття|Сортування сміття|Повторне використання
+uk:5Переробка відходів|Утилізація відходів|5Прийом вторсировини|5Здати вторсировину|5Роздільний збір сміття|Сортування сміття|Повторне використання
 vi:Tái chế rác thải|Sử dụng rác thải|Tái chế|Thu gom rác riêng|Phân loại rác|Sử dụng lại
 el:Ανακύκλωση|Ανακύκλωση απορριμμάτων|Ανακυκλώσιμα|Ξεχωριστή συλλογή απορριμμάτων|Διαλογή απορριμμάτων|Επαναχρησιμοποίηση
 sk:Recyklácia|Využitie odpadu|Recyklovateľné|Separovaný zber odpadu|Triedenie odpadu|Opätovné použitie
@@ -1211,8 +1211,9 @@ sk:Obuvníctvo
 fa:کفش فروشی
 
 shop-electronics
-en:Electronics|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1
-ru:Электротехника
+en:6Electronics|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1
+ru:Электротехника|Электроника
+be:Электратэхніка|Электроніка
 bg:Електроника
 ar:متجر إلكترونيات|متجر
 cs:Elektronika
@@ -1235,7 +1236,7 @@ es:Electrónica
 sv:Elektronik|elektronikaffär
 th:ร้านขายอุปกรณ์อิเล็กทรอนิกส์
 tr:Elektronik mağazası
-uk:Електротехнічний магазин
+uk:Електротехніка|Електроніка
 vi:Cửa hàng điện
 zh-Hans:电子产品|商店
 zh-Hant:電子產品|電器店|1購物|店鋪|商店|雜貨店|便利商店
@@ -3911,10 +3912,11 @@ sk:Odpadky|kôš
 fa:زباله دانی
 
 amenity-recycling-centre|@recycling
-en:Recycling Centre|U+1F6AE|U+267B
-en-US:Recycling Center|U+1F6AE|U+267B
-ru:Приём вторсырья|утиль|сырьё|сбор сырья
-bg:Рециклиране|разделно събиране|
+en:4Recycling Centre|U+1F6AE|U+267B
+en-US:4Recycling Center|U+1F6AE|U+267B
+be:5Пункт прыёму другаснай сыравіны
+ru:5Пункт приёма вторсырья
+bg:Рециклиране|разделно събиране
 ar:مركز إعادة تدوير
 cs:Recyklační středisko
 da:Genbrugsplads
@@ -3936,7 +3938,7 @@ es:Centro de reciclaje|punto limpio
 sv:Återvinningscentral
 th:ศูนย์รีไซเคิล
 tr:Geri dönüşüm merkezi
-uk:Прийом вторсировини
+uk:5Пункт прийому вторинної сировини
 vi:Trung tâm tái sinh
 zh-Hans:回收中心
 zh-Hant:回收中心|回收站
@@ -3945,8 +3947,9 @@ sk:Zberné suroviny
 fa:مرکز بازیافت
 
 amenity-recycling-container|amenity-recycling|@recycling
-en:Recycling container|U+1F6AE|U+267B
+en:Recycling Container|U+1F6AE|U+267B
 ru:Контейнер для вторсырья
+be:Кантэйнер для другаснай сыравіны
 bg:Контейнер|разделно|събиране
 ar:حاوية لإعادة التدوير
 cs:Recyklační nádoba
@@ -3979,10 +3982,10 @@ zh-Hant:回收箱
 fa:ظرف بازیافت
 
 recycling-batteries|@recycling
-en:Batteries disposal
-ru:Сбор батареек|Утилизация батареек
+en:4Recycling of Batteries|Household Batteries Disposal|4Batteries Disposal|Batteries Recycling
+ru:5Приём батареек|Утилизация батареек|5Переработка батареек|5Сдать батарейки|4Сбор батареек|5Батарейки
 ar:ﺕﺎﻳﺭﺎﻄﺑ
-be:Батарэйкі
+be:5Прыём батарэек|Утылізацыя батарэек|5Перапрацоўка батарэек|5Здаць батарэйкі|4Збор батарэек|5Батарэйкі
 bg:Батерии
 cs:Baterie
 da:Batterier
@@ -4004,20 +4007,20 @@ pl:Baterie
 pt:Baterias
 pt-BR:Baterias
 ro:Baterii
-ru:Батарейки
 sk:Batérie
 sv:Batterier
 sw:Betri
 th:แบตเตอรี่
 tr:Piller
-uk:Батарейки
+uk:5Прийом батарейок|Утилізація батарей|5Переробка батарей|5Здати батареї|4Збір батарейок|5Батарейки
 vi:Ắc quy
 zh-Hans:电池
 zh-Hant:電池
 
 recycling-clothes|@recycling
-en:Clothes Recycling
-ru:Старая одежда|Сдать ненужные вещи|сдать вещи|сдать одежду
+en:4Recycling of Clothes|Clothes Recycling|Textile Recycling|Donate Clothes|Clothes Collection Bin
+ru:5Приём одежды|Старая одежда|Сдать ненужные вещи|Сдать вещи|5Сдать одежду
+be:5Прыём адзення|Старае адзенне|Здаць непатрэбныя рэчы|Здаць рэчы|5Здаць адзенне
 bg:Стари дрехи|рециклиране|
 ar:إعادة تدوير الملابس القديم|ملابس قديمة
 cs:Staré oblečení|Recyklujte staré oblečení
@@ -4041,7 +4044,7 @@ es-MX:Ropa vieja|Reciclaje de cosas innecesarias
 sv:Gamla kläder|Överlämna onödiga saker
 th:เสื้อผ้าเก่า|รีไซเคิลเสื้อผ้าเก่า
 tr:Eski kıyafetler|Eski kıyafetlerin geri dönüşümü
-uk:Старий одяг|Здати непотрібні речі
+uk:5Прийом одягу|Старий одяг|Здати непотрібні речі|Здати речі|5Здати одяг
 vi:Quần áo cũ|Chuyển giao những thứ không cần thiết
 el:Παλιά ρούχα|Ανακύκλωση παλαιών ρούχων
 sk:Staré oblečenie|Recyklácia starých šiat
@@ -4050,8 +4053,9 @@ zh-Hant:舊衣物|回收舊衣物
 fa:بازیافت لباسهای قدیمی|لباسهای قدیمی
 
 recycling-glass_bottles|@recycling
-en:Glass Waste
-ru:Стеклотара
+en:4Recycling of Glass Bottles|4Glass Bottles Recycling|Glass Waste
+ru:5Приём стеклотары|Приём стекла|5Переработка стекла|5Сдать cтеклотару|Сдать бутылки|4Сбор стеклотары|5Стеклотара|Стеклобой|Стеклянные бутылки
+be:5Прыём шклатары|Прыём шкла|5Перапрацоўка шкла|5Здаць шклатару|Здаць бутэлькі|4Збор шклотары|5Шклатара|Шклабало|Шкляныя бутэлькі
 bg:Стъкло|шише|рециклиране
 ar:زجاجات زجاجية
 cs:Skleněné lahve
@@ -4075,7 +4079,7 @@ es-MX:Envase de vidrio
 sv:Returglas
 th:ขวดแก้ว
 tr:Cam şişeler
-uk:Склотара
+uk:5Прийом склотари|Прийом скла|5Переробка скла|5Здати склотару|Здати пляшки|4Збір склотари|5Склотара|Склобой|Скляні пляшки
 vi:Chai lọ thủy tinh
 el:Γυάλινα μπουκάλια
 sk:Sklenené fľaše
@@ -4084,8 +4088,9 @@ zh-Hant:玻璃瓶
 fa:بطریهای شیشهای
 
 recycling-paper|@recycling
-en:Paper Waste
-ru:Макулатура
+en:4Recycling of Paper|4Paper Recycling|Paper Waste
+ru:5Приём бумаги|Приём макулатуры|5Переработка бумаги|5Сдать бумагу|Сдать макулатуру|4Сбор бумаги|Сбор макулатуры|5Макулатура
+be:5Прыём паперы|Прыём макулатуры|5Перапрацоўка паперы|5Здаць паперу|Здаць макулатуру|4Збор паперы|Збор макулатуры|5Макулатура
 bg:хартия|рециклиране|кашон
 ar:نفايات ورقية
 cs:Papírový odpad
@@ -4109,7 +4114,7 @@ es-MX:Desechos de papel
 sv:Returpapper
 th:ขยะกระดาษ
 tr:Kağıt atıkları
-uk:Макулатура
+uk:5Прийом паперу|Прийом макулатури|5Переробка паперу|5Здати папір|Здати макулатуру|4Збір паперу|Збір макулатури|5Макулатура
 vi:Giấy phế liệu
 el:Απορρίμματα χαρτιού
 sk:Papierový odpad
@@ -4118,9 +4123,10 @@ zh-Hant:廢紙
 fa:پسماند کاغذ
 
 recycling-plastic|@recycling
-en:Plastic Waste
-ru:Пластиковый мусор
-bg:Пластмаса|рециклиране|отпадък|полимер|
+en:4Recycling of Plastic|5Plastic Recycling|Plastic Waste
+ru:5Приём пластика|5Переработка пластика|5Сдать пластик|4Сбор пластика|5Пластик
+be:5Прыём пластыка|5Перапрацоўка пластыка|5Здаць пластык|4Збор пластыка|5Пластык
+bg:Пластмаса|рециклиране|отпадък|полимер
 ar:نفايات بلاستيكية
 cs:Plastový odpad
 da:Plastaffald
@@ -4143,7 +4149,7 @@ es-MX:Desechos de plástico
 sv:Plastavfall
 th:ขยะพลาสติก
 tr:Plastik atıklar
-uk:Пластикове сміття
+uk:5Прийом пластику|5Переробка пластику|5Здати пластик|4Збір пластику|5Пластик
 vi:Rác thải nhựa
 el:Πλαστικά απορρίμματα
 sk:Plastový odpad
@@ -4152,8 +4158,9 @@ zh-Hant:廢塑料
 fa:پسماند پلاستیک
 
 recycling-plastic_bottles|@recycling
-en:Plastic Bottles
-ru:Сбор пластиковых бутылок
+en:4Recycling of Plastic Bottles|5Plastic Bottles Recycling
+ru:5Приём пластиковых бутылок|5Переработка пластиковых бутылок|5Сдать пластиковые бутылки|4Сбор пластиковых бутылок|5Пластиковые бутылки
+be:5Прыём пластыкавых бутэлек|5Перапрацоўка пластыкавых бутэлек|5Здаць пластыкавыя бутэлькі|4Збор пластыкавых бутэлек|5Пластыкавыя бутэлькі
 bg:Пластмасови бутилки|пластмаса|бутилки|шишета|рециклиране
 ar:زجاجات بلاستيكية
 cs:Plastové lahve
@@ -4177,7 +4184,7 @@ es-MX:Botellas de plástico
 sv:Samling av plastflaskor
 th:ขวดพลาสติก
 tr:Plastik şişeler
-uk:Збір пластикових пляшок
+uk:5Прийом пластикових пляшок|5Переробка пластикових пляшок|5Здати пластикові пляшки|4Збір пластикових пляшок|5Пластикові пляшки
 vi:Bộ chai lọ nhựa
 el:Πλαστικά μπουκάλια
 sk:Plastové fľaše
@@ -4186,8 +4193,9 @@ zh-Hant:塑料瓶
 fa:بطریهای پلاستیک
 
 recycling-scrap_metal|@recycling
-en:Scrap Metal
-ru:Металлолом
+en:4Recycling of Scrap Metal|4Scrap Metal Recycling
+ru:5Приём металлолома|5Переработка металлолома|Утилизация металлолома|5Сдать металлолом|4Сбор металлолома|5Металлолом
+be:5Прыём металалому|5Перапрацоўка металалому|Утылізацыя металалому|5Здаць металалом|4Збор металалому|5Металалом
 bg:скрап|метал|стари|рециклиране
 ar:نفايات معدنية
 cs:Kovový šrot
@@ -4211,7 +4219,7 @@ es-MX:Desechos de metal
 sv:Metallskrap
 th:โลหะมีคม
 tr:Metal hurdalar
-uk:Металобрухт|Металолом
+uk:5Прийом металобрухту|5Переробка металобрухту|Утилізація металобрухту|5Здати металобрухт|4Збір металобрухту|5Металолом
 vi:Phế liệu kim loại
 el:Παλιοσίδερα
 sk:Kovový šrot
@@ -4220,8 +4228,9 @@ zh-Hant:廢金屬
 fa:ضایعات فلزی
 
 recycling-small_appliances|@recycling
-en:Electronic Waste
-ru:Электроотходы
+en:4Recycling of Electronics|Electronics Recycling|3E-Waste|Appliances Recycling
+ru:5Приём электроники|5Переработка электроники|Утилизация электроники|5Сдать электронику|4Сбор электроники|Электроотходы
+be:5Прыём электронікі|5Перапрацоўка электронікі|Утылізацыя электронікі|5Здаць электроніку|4Збор электронікі|Электраадходы
 bg:Електроника|рециклиране|боклук
 ar:نفايات الكترونية
 cs:Elektronický odpad
@@ -4245,7 +4254,7 @@ es-MX:Desechos electrónicos
 sv:Elektriskt avfall
 th:ขยะอิเล็กทรอนิกส์
 tr:Elektronik atık
-uk:Електровідходи
+uk:5Прийом електроніки|5Переробка електроніки|Утилізація електроніки|5Здати електроніку|4Збір електроніки|Електровідходи
 vi:Chất thải đồ điện
 el:Ηλεκτρονικά απορρίμματα
 sk:Elektronický odpad
@@ -4254,43 +4263,43 @@ zh-Hant:電子垃圾
 fa:پسماند الکترونیکی
 
 recycling-cardboard|@recycling
-en:Cardboard Recycling
-be:Збор кардона
-ru:Сбор картона
-uk:Збір картону
+en:4Recycling of Cardboard|5Cardboard Recycling|Cardboard Waste
+ru:5Приём картона|Приём макулатуры|5Переработка картона|5Сдать картон|Сдать макулатуру|4Сбор картона|Сбор макулатуры|5Макулатура
+be:5Прыём кардона|Прыём макулатуры|5Перапрацоўка кардона|5Здаць кардон|Здаць макулатуру|4Збор кардона|Збор макулатуры|5Макулатура
+uk:5Прийом картону|Прийом макулатури|5Переробка картону|5Здати картон|Здати макулатуру|4Збір картону|Збір макулатури|5Макулатура
 
 recycling-cans|@recycling
-en:Cans Recycling|Tin Cans|Tins|Tincans
-be:Бляшаныя банкі
-ru:Жестяные банки|Консервные банки
-uk:Бляшані банки
+en:4Recycling of Cans|4Cans Recycling|4Aluminium Cans Recycling|3Tin Cans Recycling
+ru:5Приём жестяных и алюминиевых банок|5Переработка жестяных и алюминиевых банок|5Сдать жестяные и алюминиевые банки|4Сбор жестяных и алюминиевых банок|6Консервные банки|5Жестяные банки|5Алюминиевые банки|Пивные банки
+be:5Прыём бляшаных і алюмініевых слоікаў|5Перапрацоўка бляшаных і алюмініевых слоікаў|5Здаць бляшаныя і алюмініевыя банкі|4Збор бляшаных і алюмініевых слоікаў|6Кансервовыя банкі|5Бляшаныя банкі|5Алюмініевыя банкі|Піўныя банкі
+uk:5Прийом жерстяних та алюмінієвих банок|5Переробка жерстяних та алюмінієвих банок|5Здати жерстяні та алюмінієві банки|4Збір жерстяних та алюмінієвих банок|6Консервні банки|5Жерстяні банки|5Алюмінієві банки|Пивні банки
 
 recycling-shoes|@recycling
-en:Shoes Recycling
-be:Абутак|Прыём абутку|Здаць абутак
-ru:Обувь|Прием обуви|Сдать обувь
-uk:Взуття|Прийом взуття|Здати взуття
+en:4Recycling of Shoes|Shoes Recycling|Donate Shoes
+be:5Прыём абутку|Стары абутак|5Здаць абутак
+ru:5Приём обуви|Старая обувь|5Сдать обувь
+uk:5Прийом взуття|Старе взуття|5Здати взуття
 
 recycling-green_waste|@recycling
-en:Organic Waste|Green Waste|Food Waste|Garden Waste
-be:Арганічныя адходы|Адходы ежы
-ru:Органические отходы|Отходы еды
-uk:Органічні відходи | Відходи їжі
+en:4Recycling of Green Waste|5Organic Waste Recycling|5Green Waste Recycling|Food Waste|Garden Waste
+be:5Прыём арганічных адходаў|8Прыём харчовых адходаў|5Здаць арганічныя адходы|4Збор арганічных адходаў|7Збор харчовых адходаў|5Харчовыя адходы|6Садовыя адходы
+ru:5Приём органических отходов|8Приём пищевых отходов|5Сдать органические отходы|4Сбор органических отходов|7Сбор пищевых отходов|5Пищевые отходы|6Садовые отходы
+uk:5Прийом органічних відходів|8Прийом харчових відходів|5Здати органічні відходи|4Збір органічних відходів|7Збір харчових відходів|5Харчові відходи|6Садові відходи
 
 recycling-cartons|@recycling
-en:Cartons Recycling
-be:Тэтрапак|Перапрацоўка тэтрапака|Утылізацыя тэтрапака
-ru:Тетрапак|Переработка тетрапака|Утилизация тетрапака
-uk:Тетрапак | Переробка тетрапака | Утилізація тетрапака
+en:4Recycling of Bewerage Cartons|5Cartons Recycling|5Bewerage Cartons Recycling
+be:5Прыём тетрапака|5Здаць тетрапак|4Збор тетрапака|5Тетрапак
+ru:5Приём тетрапака|5Сдать тетрапак|4Сбор тетрапака|5Тетрапак
+uk:5Прийом тетрапака|5Здати тетрапак|4Збір тетрапака|5Тетрапак
 
 amenity-sanitary_dump_station
-en:4Dump Station|2RV Dump Station|sanitary dump station|sewage|RV waste|5motorhome dump station|4camper dump station
-be:4Зліў нечыстотаў|нечыстоты|каналізація|аўтадом
+en:5Holding Tank Dump Station|4Dump Station|2RV Dump Station|sanitary dump station|sewage|RV waste|5motorhome dump station|4camper dump station|4caravan dump station
+be:4Зліў нечыстотаў для аўтадамоў|сліў прыбіральні|сліў для туалета|нечыстоты|каналізація|5аўтадом
 de:3VE-Station|4Entsorgungsstation|4Versorgungsstation|2RV Dump
-fr:vidange
+fr:Station de vidange|4Vidange
 it:4Camper service
-ru:4Слив нечистот|нечистоты|канализация|автодом
-uk:4Злив нечистот|нечистоти|каналізація|автобудинок|автодім
+ru:4Слив нечистот|слив туалета|слив для туалета|нечистоты|канализация|5автодом
+uk:4Злив нечистот|слив туалету|слив для туалету|нечистоти|каналізація|автобудинок|5автодім
 
 amenity-school
 en:3School|U+1F392|U+1F3EB
@@ -6059,8 +6068,8 @@ fa:چاه اب
 
 amenity-water_point|@water
 en:Water Point|water for rv|water for campervan|water for caravan
-ru:Заправка водой|вода для трейлера|вода для дома на колёсах
-be:Запраўка вадой|вада для каравану
+ru:Заправка водой|вода для трейлера|вода для дома на колёсах|вода для автодома
+be:Запраўка вадой|вада для каравану|вада для аўтадома
 bg:водна точка|вода за каравана
 ar:نقطة مائية|الماء للقافلة
 cs:Vodní zdroj|voda pro karavanu
@@ -6087,7 +6096,7 @@ sv:Vattenpost
 sw:Kituo cha Maji
 th:จุดเติมน้ำ
 tr:Su Noktası
-uk:Заправка водою|вода для каравану
+uk:Заправка водою|вода для каравану|вода для автобудинку
 vi:Điểm cấp nước
 zh-Hans:取水点
 zh-Hant:飲水站
