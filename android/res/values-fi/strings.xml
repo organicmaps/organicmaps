@@ -728,9 +728,10 @@
 	<string name="type.amenity.post_office">Postitoimisto</string>
 	<string name="type.amenity.pub">Pubi</string>
 	<string name="type.amenity.public_bookcase">Kirjahylly</string>
-	<string name="type.amenity.recycling">Kierrätyskeskus</string>
-	<string name="type.amenity.recycling_container">Kierrätysjäteastia</string>
-	<string name="type.recycling.toxic">Myrkkyjäte</string>
+	<string name="type.amenity.recycling.centre">Kierrätyskeskus</string>
+	<string name="type.amenity.recycling">Kierrätysjäteastia</string>
+	<string name="type.amenity.recycling.container">Kierrätysjäteastia</string>
+	<string name="type.recycling.batteries">Paristot</string>
 	<string name="type.recycling.clothes">Vanhat vaatteet</string>
 	<string name="type.recycling.glass_bottles">Lasipullot</string>
 	<string name="type.recycling.paper">Paperi- ja kartonkijäte</string>

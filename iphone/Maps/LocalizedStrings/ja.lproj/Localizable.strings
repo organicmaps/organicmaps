@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "街角文庫";
 
-"type.amenity.recycling" = "リサイクルセンター";
+"type.amenity.recycling.centre" = "リサイクルセンター";
 
-"type.amenity.recycling_container" = "リサイクルボックス";
+"type.amenity.recycling" = "リサイクルボックス";
 
-"type.recycling.toxic" = "有毒廃棄物";
+"type.amenity.recycling.container" = "リサイクルボックス";
+
+"type.recycling.batteries" = "バッテリー";
 
 "type.recycling.clothes" = "古着";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "電子廃棄物";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "レストラン";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "学校";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "ゴミ箱";
 
 "type.amenity.waste_disposal" = "ゴミ";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "給水所";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "行政境界";
 
 "type.boundary.administrative.4" = "行政境界";
-
-"type.boundary.administrative.4.state" = "行政境界";
 
 "type.boundary.administrative.5" = "行政境界";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "森林の切れ目";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "灯台";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "桟橋";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "沼地";
 
 "type.noexit" = "行き止まり";
-
-"type.noexit.motor_vehicle" = "行き止まり";
 
 "type.office" = "オフィス";
 

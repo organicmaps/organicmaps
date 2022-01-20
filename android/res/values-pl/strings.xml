@@ -745,9 +745,10 @@
 	<string name="type.amenity.post_office">Urząd Pocztowy</string>
 	<string name="type.amenity.prison">Więzienie</string>
 	<string name="type.amenity.public_bookcase">Wymiana książek</string>
-	<string name="type.amenity.recycling">Centrum przetwórstwa odpadów</string>
-	<string name="type.amenity.recycling_container">Pojemnik do recyklingu</string>
-	<string name="type.recycling.toxic">Odpady toksyczne</string>
+	<string name="type.amenity.recycling.centre">Centrum przetwórstwa odpadów</string>
+	<string name="type.amenity.recycling">Pojemnik do recyklingu</string>
+	<string name="type.amenity.recycling.container">Pojemnik do recyklingu</string>
+	<string name="type.recycling.batteries">Baterie</string>
 	<string name="type.recycling.clothes">Stare ubrania</string>
 	<string name="type.recycling.glass_bottles">Szkło</string>
 	<string name="type.recycling.paper">Makulatura</string>
@@ -797,7 +798,6 @@
 	<string name="type.boundary.administrative.2">Granica państwa</string>
 	<string name="type.boundary.administrative.3">Granica administracyjna</string>
 	<string name="type.boundary.administrative.4">Granica administracyjna</string>
-	<string name="type.boundary.administrative.4.state">Granica administracyjna</string>
 	<string name="type.boundary.administrative.5">Granica administracyjna</string>
 	<string name="type.boundary.administrative.6">Granica administracyjna</string>
 	<string name="type.boundary.administrative.7">Granica administracyjna</string>
@@ -1182,7 +1182,6 @@
 	<string name="type.natural.wetland.bog">Torfowisko</string>
 	<string name="type.natural.wetland.marsh">Moczary</string>
 	<string name="type.noexit">Ślepy koniec drogi</string>
-	<string name="type.noexit.motor_vehicle">Ślepy koniec drogi</string>
 	<string name="type.office">Biuro</string>
 	<string name="type.office.company">Biuro przedsiębiorstwa</string>
 	<string name="type.office.estate_agent">Pośrednik handlu nieruchomościami</string>

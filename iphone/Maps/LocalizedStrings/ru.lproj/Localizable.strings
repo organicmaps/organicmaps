@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "Книгообмен";
 
-"type.amenity.recycling" = "Приём вторсырья";
+"type.amenity.recycling.centre" = "Приём вторсырья";
 
-"type.amenity.recycling_container" = "Контейнер для вторсырья";
+"type.amenity.recycling" = "Контейнер для вторсырья";
 
-"type.recycling.toxic" = "Ядовитые отходы";
+"type.amenity.recycling.container" = "Контейнер для вторсырья";
+
+"type.recycling.batteries" = "Батарейки";
 
 "type.recycling.clothes" = "Старая одежда";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "Электроотходы";
 
+"type.recycling.cardboard" = "Картон";
+
+"type.recycling.cans" = "Жестяные банки";
+
+"type.recycling.shoes" = "Обувь";
+
+"type.recycling.green_waste" = "Органические отходы";
+
+"type.recycling.cartons" = "Тетрапак и аналоги";
+
 "type.amenity.restaurant" = "Ресторан";
+
+"type.amenity.sanitary_dump_station" = "Слив нечистот";
 
 "type.amenity.school" = "Школа";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "Урна";
 
 "type.amenity.waste_disposal" = "Мусорный контейнер";
+
+"type.amenity.waste_transfer_station" = "Станция перевалки отходов";
 
 "type.amenity.water_point" = "Заправка водой";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Административная граница";
 
 "type.boundary.administrative.4" = "Административная граница";
-
-"type.boundary.administrative.4.state" = "Административная граница";
 
 "type.boundary.administrative.5" = "Административная граница";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Просека";
 
+"type.man_made.flagpole" = "Флагшток";
+
 "type.man_made.lighthouse" = "Маяк";
+
+"type.man_made.mast" = "Столб-мачта";
 
 "type.man_made.pier" = "Пирс";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Болотистая местность";
 
 "type.noexit" = "Тупик";
-
-"type.noexit.motor_vehicle" = "Тупик";
 
 "type.office" = "Офис";
 

@@ -719,9 +719,10 @@
 	<string name="type.amenity.post_office">Pošta</string>
 	<string name="type.amenity.pub">Hospoda</string>
 	<string name="type.amenity.public_bookcase">Knihovna</string>
-	<string name="type.amenity.recycling">Recyklační středisko</string>
-	<string name="type.amenity.recycling_container">Recyklační nádoba</string>
-	<string name="type.recycling.toxic">Toxický odpad</string>
+	<string name="type.amenity.recycling.centre">Recyklační středisko</string>
+	<string name="type.amenity.recycling">Recyklační nádoba</string>
+	<string name="type.amenity.recycling.container">Recyklační nádoba</string>
+	<string name="type.recycling.batteries">Baterie</string>
 	<string name="type.recycling.clothes">Staré oblečení</string>
 	<string name="type.recycling.glass_bottles">Skleněné lahve</string>
 	<string name="type.recycling.paper">Papírový odpad</string>

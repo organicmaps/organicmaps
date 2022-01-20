@@ -208,6 +208,7 @@
 	<string name="type.amenity.parking_space.private">Sehemu ya maegesho</string>
 	<string name="type.amenity.parking_space.underground">Sehemu ya maegesho</string>
 	<string name="type.amenity.post_office">Ofisi ya posta</string>
+	<string name="type.recycling.batteries">Betri</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Mashine ya kuuzia tiketi za usafiri wa umma</string>
 	<string name="type.boundary.national_park">Hifadhi ya taifa</string>
 	<string name="type.cuisine.coffee_shop">Kahawa</string>

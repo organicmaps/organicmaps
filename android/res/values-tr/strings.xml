@@ -740,9 +740,10 @@
 	<string name="type.amenity.post_box">Posta kutusu</string>
 	<string name="type.amenity.post_office">Postane</string>
 	<string name="type.amenity.public_bookcase">Kütüphane</string>
-	<string name="type.amenity.recycling">Geri dönüşüm merkezi</string>
-	<string name="type.amenity.recycling_container">Atık toplama merkezi</string>
-	<string name="type.recycling.toxic">Zehirli atık</string>
+	<string name="type.amenity.recycling.centre">Geri dönüşüm merkezi</string>
+	<string name="type.amenity.recycling">Atık toplama merkezi</string>
+	<string name="type.amenity.recycling.container">Atık toplama merkezi</string>
+	<string name="type.recycling.batteries">Piller</string>
 	<string name="type.recycling.clothes">Eski kıyafetler</string>
 	<string name="type.recycling.glass_bottles">Cam şişeler</string>
 	<string name="type.recycling.paper">Kağıt atıkları</string>

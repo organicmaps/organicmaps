@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "公共书架";
 
-"type.amenity.recycling" = "资源回收设施";
+"type.amenity.recycling.centre" = "资源回收设施";
 
-"type.amenity.recycling_container" = "回收容器";
+"type.amenity.recycling" = "回收容器";
 
-"type.recycling.toxic" = "有毒垃圾";
+"type.amenity.recycling.container" = "回收容器";
+
+"type.recycling.batteries" = "电池";
 
 "type.recycling.clothes" = "旧衣物";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "电子垃圾";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "餐馆";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "学校";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "垃圾篓";
 
 "type.amenity.waste_disposal" = "大型垃圾箱";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "取水点";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "3级行政区域界线";
 
 "type.boundary.administrative.4" = "4级行政区域界线";
-
-"type.boundary.administrative.4.state" = "4级州省界线";
 
 "type.boundary.administrative.5" = "5级行政区域界线";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "树林分界线";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "灯塔";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "码头";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "沼泽地";
 
 "type.noexit" = "Dead End";
-
-"type.noexit.motor_vehicle" = "Dead End";
 
 "type.office" = "办公地点";
 

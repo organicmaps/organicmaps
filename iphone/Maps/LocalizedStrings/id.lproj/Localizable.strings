@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "Rak Buku";
 
-"type.amenity.recycling" = "TPA";
+"type.amenity.recycling.centre" = "TPA";
 
-"type.amenity.recycling_container" = "Wadah daur ulang";
+"type.amenity.recycling" = "Wadah daur ulang";
 
-"type.recycling.toxic" = "Limbah beracun";
+"type.amenity.recycling.container" = "Wadah daur ulang";
+
+"type.recycling.batteries" = "Baterai";
 
 "type.recycling.clothes" = "Pakaian lama";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "Limbah elektronik";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "Restoran";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "Sekolah";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "Kotak sampah";
 
 "type.amenity.waste_disposal" = "Sampah";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "Titik Air";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Administrative Boundary";
 
 "type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.4.state" = "Administrative Boundary";
 
 "type.boundary.administrative.5" = "Administrative Boundary";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "Mercusuar";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "Pier";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Wetland";
 
 "type.noexit" = "Dead End";
-
-"type.noexit.motor_vehicle" = "Dead End";
 
 "type.office" = "Kantor";
 

@@ -720,9 +720,10 @@
 	<string name="type.amenity.post_office">Ταχυδρομείο</string>
 	<string name="type.amenity.pub">Παμπ</string>
 	<string name="type.amenity.public_bookcase">Ανταλλαγή βιβλίων</string>
-	<string name="type.amenity.recycling">Κέντρο ανακύκλωσης</string>
-	<string name="type.amenity.recycling_container">Κάδος ανακύκλωσης</string>
-	<string name="type.recycling.toxic">Τοξικά απόβλητα</string>
+	<string name="type.amenity.recycling.centre">Κέντρο ανακύκλωσης</string>
+	<string name="type.amenity.recycling">Κάδος ανακύκλωσης</string>
+	<string name="type.amenity.recycling.container">Κάδος ανακύκλωσης</string>
+	<string name="type.recycling.batteries">Μπαταρίες</string>
 	<string name="type.recycling.clothes">Παλιά ρούχα</string>
 	<string name="type.recycling.glass_bottles">Γυάλινα μπουκάλια</string>
 	<string name="type.recycling.paper">Απορρίμματα χαρτιού</string>

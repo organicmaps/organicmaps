@@ -729,9 +729,10 @@
 	<string name="type.amenity.prison">刑務所</string>
 	<string name="type.amenity.pub">バー</string>
 	<string name="type.amenity.public_bookcase">街角文庫</string>
-	<string name="type.amenity.recycling">リサイクルセンター</string>
-	<string name="type.amenity.recycling_container">リサイクルボックス</string>
-	<string name="type.recycling.toxic">有毒廃棄物</string>
+	<string name="type.amenity.recycling.centre">リサイクルセンター</string>
+	<string name="type.amenity.recycling">リサイクルボックス</string>
+	<string name="type.amenity.recycling.container">リサイクルボックス</string>
+	<string name="type.recycling.batteries">バッテリー</string>
 	<string name="type.recycling.clothes">古着</string>
 	<string name="type.recycling.glass_bottles">ガラス瓶</string>
 	<string name="type.recycling.paper">紙くず</string>
@@ -780,7 +781,6 @@
 	<string name="type.boundary.administrative.11">行政境界</string>
 	<string name="type.boundary.administrative.3">行政境界</string>
 	<string name="type.boundary.administrative.4">行政境界</string>
-	<string name="type.boundary.administrative.4.state">行政境界</string>
 	<string name="type.boundary.administrative.5">行政境界</string>
 	<string name="type.boundary.administrative.6">行政境界</string>
 	<string name="type.boundary.administrative.7">行政境界</string>
@@ -1164,7 +1164,6 @@
 	<string name="type.natural.wetland.bog">泥炭地</string>
 	<string name="type.natural.wetland.marsh">沼地</string>
 	<string name="type.noexit">行き止まり</string>
-	<string name="type.noexit.motor_vehicle">行き止まり</string>
 	<string name="type.office">オフィス</string>
 	<string name="type.office.company">会社事務所</string>
 	<string name="type.office.estate_agent">不動産業者</string>

@@ -716,9 +716,10 @@
 	<string name="type.amenity.post_box">Kotak pos</string>
 	<string name="type.amenity.post_office">Kantor pos</string>
 	<string name="type.amenity.public_bookcase">Rak Buku</string>
-	<string name="type.amenity.recycling">TPA</string>
-	<string name="type.amenity.recycling_container">Wadah daur ulang</string>
-	<string name="type.recycling.toxic">Limbah beracun</string>
+	<string name="type.amenity.recycling.centre">TPA</string>
+	<string name="type.amenity.recycling">Wadah daur ulang</string>
+	<string name="type.amenity.recycling.container">Wadah daur ulang</string>
+	<string name="type.recycling.batteries">Baterai</string>
 	<string name="type.recycling.clothes">Pakaian lama</string>
 	<string name="type.recycling.glass_bottles">Botol kaca</string>
 	<string name="type.recycling.paper">Limbah kertas</string>

@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "مكتبة، تبادل كتب";
 
-"type.amenity.recycling" = "مركز إعادة تدوير";
+"type.amenity.recycling.centre" = "مركز إعادة تدوير";
 
-"type.amenity.recycling_container" = "حاوية لإعادة التدوير";
+"type.amenity.recycling" = "حاوية لإعادة التدوير";
 
-"type.recycling.toxic" = "نفايات سامة";
+"type.amenity.recycling.container" = "حاوية لإعادة التدوير";
+
+"type.recycling.batteries" = "ﺕﺎﻳﺭﺎﻄﺑ";
 
 "type.recycling.clothes" = "ملابس قديمة";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "نفايات الكترونية";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "مطعم";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "مدرسة";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "صندوق قمامة";
 
 "type.amenity.waste_disposal" = "قمامة";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "نقطة مائية";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Administrative Boundary";
 
 "type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.4.state" = "Administrative Boundary";
 
 "type.boundary.administrative.5" = "Administrative Boundary";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "منارة";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "Pier";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Wetland";
 
 "type.noexit" = "Dead End";
-
-"type.noexit.motor_vehicle" = "Dead End";
 
 "type.office" = "مكتب";
 

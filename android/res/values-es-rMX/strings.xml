@@ -184,8 +184,8 @@
 	<string name="type.amenity.parking_space.private">Plaza de aparcamiento</string>
 	<string name="type.amenity.parking_space.underground">Plaza de aparcamiento</string>
 	<string name="type.amenity.post_office">Oficina de correos</string>
-	<string name="type.amenity.recycling_container">Contenedor de reciclaje</string>
-	<string name="type.recycling.toxic">Desechos tóxicos</string>
+	<string name="type.amenity.recycling">Contenedor de reciclaje</string>
+	<string name="type.amenity.recycling.container">Contenedor de reciclaje</string>
 	<string name="type.recycling.clothes">Ropa vieja</string>
 	<string name="type.recycling.glass_bottles">Envase de vidrio</string>
 	<string name="type.recycling.paper">Desechos de papel</string>

@@ -742,9 +742,10 @@
 	<string name="type.amenity.prison">监狱</string>
 	<string name="type.amenity.pub">酒馆</string>
 	<string name="type.amenity.public_bookcase">公共书架</string>
-	<string name="type.amenity.recycling">资源回收设施</string>
-	<string name="type.amenity.recycling_container">回收容器</string>
-	<string name="type.recycling.toxic">有毒垃圾</string>
+	<string name="type.amenity.recycling.centre">资源回收设施</string>
+	<string name="type.amenity.recycling">回收容器</string>
+	<string name="type.amenity.recycling.container">回收容器</string>
+	<string name="type.recycling.batteries">电池</string>
 	<string name="type.recycling.clothes">旧衣物</string>
 	<string name="type.recycling.glass_bottles">玻璃瓶</string>
 	<string name="type.recycling.paper">废纸</string>
@@ -793,7 +794,6 @@
 	<string name="type.boundary.administrative.2">国家行政区域界线</string>
 	<string name="type.boundary.administrative.3">3级行政区域界线</string>
 	<string name="type.boundary.administrative.4">4级行政区域界线</string>
-	<string name="type.boundary.administrative.4.state">4级州省界线</string>
 	<string name="type.boundary.administrative.5">5级行政区域界线</string>
 	<string name="type.boundary.administrative.6">6级行政区域界线</string>
 	<string name="type.boundary.administrative.7">7级行政区域界线</string>

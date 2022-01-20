@@ -722,9 +722,10 @@
 	<string name="type.amenity.post_office">مكتب بريد</string>
 	<string name="type.amenity.pub">بار</string>
 	<string name="type.amenity.public_bookcase">مكتبة، تبادل كتب</string>
-	<string name="type.amenity.recycling">مركز إعادة تدوير</string>
-	<string name="type.amenity.recycling_container">حاوية لإعادة التدوير</string>
-	<string name="type.recycling.toxic">نفايات سامة</string>
+	<string name="type.amenity.recycling.centre">مركز إعادة تدوير</string>
+	<string name="type.amenity.recycling">حاوية لإعادة التدوير</string>
+	<string name="type.amenity.recycling.container">حاوية لإعادة التدوير</string>
+	<string name="type.recycling.batteries">ﺕﺎﻳﺭﺎﻄﺑ</string>
 	<string name="type.recycling.clothes">ملابس قديمة</string>
 	<string name="type.recycling.glass_bottles">زجاجات زجاجية</string>
 	<string name="type.recycling.paper">نفايات ورقية</string>

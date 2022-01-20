@@ -719,9 +719,10 @@
 	<string name="type.amenity.post_box">صندوق پست</string>
 	<string name="type.amenity.post_office">دفتر پست</string>
 	<string name="type.amenity.pub">میکده</string>
-	<string name="type.amenity.recycling">مرکز بازیافت</string>
-	<string name="type.amenity.recycling_container">ظرف بازیافت</string>
-	<string name="type.recycling.toxic">پسماند سمی</string>
+	<string name="type.amenity.recycling.centre">مرکز بازیافت</string>
+	<string name="type.amenity.recycling">ظرف بازیافت</string>
+	<string name="type.amenity.recycling.container">ظرف بازیافت</string>
+	<string name="type.recycling.batteries">ﺎﻫ ﯼﺮﺗﺎﺑ</string>
 	<string name="type.recycling.clothes">لباسهای قدیمی</string>
 	<string name="type.recycling.glass_bottles">بطریهای شیشهای</string>
 	<string name="type.recycling.paper">پسماند کاغذ</string>

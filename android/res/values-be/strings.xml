@@ -667,6 +667,14 @@
 	<string name="type.amenity.grave_yard">Могілкі</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Хрысціянскія могілкі</string>
+	<string name="type.recycling.batteries">Батарэйкі</string>
+	<string name="type.recycling.cardboard">Кардон</string>
+	<string name="type.recycling.cans">Бляшаныя банкі</string>
+	<string name="type.recycling.shoes">Абутак</string>
+	<string name="type.recycling.green_waste">Арганічныя адходы</string>
+	<string name="type.recycling.cartons">Тэтрапак і аналагі</string>
+	<string name="type.amenity.sanitary_dump_station">Зліў нечыстотаў</string>
+	<string name="type.amenity.waste_transfer_station">Станцыя перавалкі адходаў</string>
 	<string name="type.barrier.chain">Ланцуг</string>
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
@@ -679,6 +687,8 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Хрысціянскія могілкі</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
+	<string name="type.man_made.flagpole">Флагшток</string>
+	<string name="type.man_made.mast">Слуп-шчогла</string>
 	<string name="type.man_made.silo">Сілас</string>
 	<string name="type.man_made.storage_tank">Рэзервуар</string>
 	<string name="type.mountain_pass">Перавал</string>

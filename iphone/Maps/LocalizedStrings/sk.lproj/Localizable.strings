@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "Knižnica";
 
-"type.amenity.recycling" = "Zberné suroviny";
+"type.amenity.recycling.centre" = "Zberné suroviny";
 
-"type.amenity.recycling_container" = "Recyklačný odpad";
+"type.amenity.recycling" = "Recyklačný odpad";
 
-"type.recycling.toxic" = "Toxický odpad";
+"type.amenity.recycling.container" = "Recyklačný odpad";
+
+"type.recycling.batteries" = "Batérie";
 
 "type.recycling.clothes" = "Staré oblečenie";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "Elektronický odpad";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "Reštaurácia";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "Škola";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "Odpadkový kôš";
 
 "type.amenity.waste_disposal" = "Odpadky";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "Voda";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Administrative Boundary";
 
 "type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.4.state" = "Administrative Boundary";
 
 "type.boundary.administrative.5" = "Administrative Boundary";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "Maják";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "Pier";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Wetland";
 
 "type.noexit" = "Dead End";
-
-"type.noexit.motor_vehicle" = "Dead End";
 
 "type.office" = "Kancelária";
 

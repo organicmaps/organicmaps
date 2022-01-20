@@ -715,9 +715,10 @@
 	<string name="type.amenity.post_box">Postboks</string>
 	<string name="type.amenity.post_office">Postkontor</string>
 	<string name="type.amenity.public_bookcase">Bokhylle</string>
-	<string name="type.amenity.recycling">Resirkuleringssenter</string>
-	<string name="type.amenity.recycling_container">Gjenvinningsbeholder</string>
-	<string name="type.recycling.toxic">Giftig avfall</string>
+	<string name="type.amenity.recycling.centre">Resirkuleringssenter</string>
+	<string name="type.amenity.recycling">Gjenvinningsbeholder</string>
+	<string name="type.amenity.recycling.container">Gjenvinningsbeholder</string>
+	<string name="type.recycling.batteries">Batterier</string>
 	<string name="type.recycling.clothes">Gamle klær</string>
 	<string name="type.recycling.glass_bottles">Glassemballasje</string>
 	<string name="type.recycling.paper">Papiravfall</string>

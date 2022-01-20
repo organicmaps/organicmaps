@@ -779,9 +779,10 @@
 	<string name="type.amenity.prison">Prison</string>
 	<string name="type.amenity.pub">Pub</string>
 	<string name="type.amenity.public_bookcase">Book Exchange</string>
-	<string name="type.amenity.recycling">Recycling Center</string>
-	<string name="type.amenity.recycling_container">Recycling Container</string>
-	<string name="type.recycling.toxic">Toxic Waste</string>
+	<string name="type.amenity.recycling.centre">Recycling Center</string>
+	<string name="type.amenity.recycling">Recycling Container</string>
+	<string name="type.amenity.recycling.container">Recycling Container</string>
+	<string name="type.recycling.batteries">Batteries</string>
 	<string name="type.recycling.clothes">Old Clothes</string>
 	<string name="type.recycling.glass_bottles">Glass Bottles</string>
 	<string name="type.recycling.paper">Paper Waste</string>
@@ -789,7 +790,13 @@
 	<string name="type.recycling.plastic_bottles">Plastic Bottles</string>
 	<string name="type.recycling.scrap_metal">Scrap Metal</string>
 	<string name="type.recycling.small_appliances">Electronic Waste</string>
+	<string name="type.recycling.cardboard">Cardboard</string>
+	<string name="type.recycling.cans">Cans</string>
+	<string name="type.recycling.shoes">Shoes</string>
+	<string name="type.recycling.green_waste">Green/Organic Waste</string>
+	<string name="type.recycling.cartons">Cartons</string>
 	<string name="type.amenity.restaurant">Restaurant</string>
+	<string name="type.amenity.sanitary_dump_station">Holding Tank Dump Station</string>
 	<string name="type.amenity.school">School</string>
 	<string name="type.amenity.shelter">Shelter</string>
 	<string name="type.amenity.shower">Shower</string>
@@ -807,6 +814,7 @@
 	<string name="type.amenity.veterinary">Veterinary Doctor</string>
 	<string name="type.amenity.waste_basket">Trash Bin</string>
 	<string name="type.amenity.waste_disposal">Dumpster</string>
+	<string name="type.amenity.waste_transfer_station">Waste Transfer Station</string>
 	<string name="type.amenity.water_point">Water Point</string>
 	<string name="type.barrier">Barrier</string>
 	<string name="type.barrier.block">Block</string>
@@ -832,7 +840,6 @@
 	<string name="type.boundary.administrative.2">National Border</string>
 	<string name="type.boundary.administrative.3">Administrative Boundary</string>
 	<string name="type.boundary.administrative.4">Administrative Boundary</string>
-	<string name="type.boundary.administrative.4.state">Administrative Boundary</string>
 	<string name="type.boundary.administrative.5">Administrative Boundary</string>
 	<string name="type.boundary.administrative.6">Administrative Boundary</string>
 	<string name="type.boundary.administrative.7">Administrative Boundary</string>
@@ -1196,7 +1203,9 @@
 	<string name="type.man_made.cairn">Cairn</string>
 	<string name="type.man_made.chimney">Factory Chimney</string>
 	<string name="type.man_made.cutline">Cutline</string>
+	<string name="type.man_made.flagpole">Flagpole</string>
 	<string name="type.man_made.lighthouse">Lighthouse</string>
+	<string name="type.man_made.mast">Pole mast</string>
 	<string name="type.man_made.pier">Pier</string>
 	<string name="type.man_made.pipeline">Pipeline</string>
 	<string name="type.man_made.pipeline.overground">Overground Pipeline</string>
@@ -1253,7 +1262,6 @@
 	<string name="type.natural.wetland.bog">Wetland</string>
 	<string name="type.natural.wetland.marsh">Wetland</string>
 	<string name="type.noexit">Dead End</string>
-	<string name="type.noexit.motor_vehicle">Dead End</string>
 	<string name="type.office">Office</string>
 	<string name="type.office.company">Company Office</string>
 	<string name="type.office.estate_agent">Estate Agent</string>
