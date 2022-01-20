@@ -10780,6 +10780,12 @@
     uk = Просіка
     zh-Hans = 树林分界线
 
+  [type.man_made.flagpole]
+    en = Flagpole
+    be = Флагшток
+    ru = Флагшток
+    uk = Флагшток
+
   [type.man_made.lighthouse]
     en = Lighthouse
     ar = منارة
@@ -10811,6 +10817,12 @@
     vi = Hải đăng
     zh-Hans = 灯塔
     zh-Hant = 燈塔
+
+  [type.man_made.mast]
+    en = Pole mast
+    be = Слуп-шчогла
+    ru = Столб-мачта
+    uk = Стовп-щогла
 
   [type.man_made.pier]
     en = Pier
