@@ -686,6 +686,7 @@
 	<string name="type.natural.peak">Вяршыня</string>
 	<string name="type.natural.saddle">Седлавіна</string>
 	<string name="type.natural.water">Вадаём</string>
+	<string name="type.railway.platform">Чыгуначная платформа</string>
 	<string name="type.waterway.river">Рака</string>
 	<string name="type.waterway.river.tunnel">Рака</string>
 	<string name="type.waterway.riverbank">Рака</string>

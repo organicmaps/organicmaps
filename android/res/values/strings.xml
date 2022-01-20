@@ -1327,7 +1327,7 @@
 	<string name="type.railway.narrow_gauge">Narrow Gauge Rail</string>
 	<string name="type.railway.narrow_gauge.bridge">Narrow Gauge Rail</string>
 	<string name="type.railway.narrow_gauge.tunnel">Narrow Gauge Rail</string>
-	<string name="type.railway.platform">Platform</string>
+	<string name="type.railway.platform">Railway Platform</string>
 	<string name="type.railway.preserved">Preserved Rail</string>
 	<string name="type.railway.preserved.bridge">Preserved Rail</string>
 	<string name="type.railway.preserved.tunnel">Preserved Rail</string>
