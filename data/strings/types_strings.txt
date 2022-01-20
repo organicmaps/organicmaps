@@ -2587,9 +2587,12 @@
     zh-Hans = 公共书架
     zh-Hant = 書架
 
+[[Types: Recycling]]
+
   [type.amenity.recycling.centre]
     en = Recycling Center
     ar = مركز إعادة تدوير
+    be = Прыём другсыравіны
     cs = Recyklační středisko
     da = Genbrugsplads
     de = Recyclinghof
@@ -2622,6 +2625,7 @@
   [type.amenity.recycling]
     en = Recycling Container
     ar = حاوية لإعادة التدوير
+    be = Кантэйнер для другаснай сыравіны
     cs = Recyklační nádoba
     da = Genbrugscontainer
     de = Wertstoffcontainer
@@ -2656,7 +2660,7 @@
     ref = type.amenity.recycling
 
   [type.recycling.batteries]
-    en = Batteries
+    en = Household Batteries
     ar = ﺕﺎﻳﺭﺎﻄﺑ
     be = Батарэйкі
     bg = Батерии
@@ -2692,8 +2696,9 @@
     zh-Hant = 電池
 
   [type.recycling.clothes]
-    en = Old Clothes
+    en = Clothes
     ar = ملابس قديمة
+    be = Адзенне
     cs = Staré oblečení
     da = Gammelt tøj
     de = Altkleider
@@ -2714,12 +2719,12 @@
     pt = Roupas velhas
     pt-BR = Roupas velhas
     ro = Haine vechi
-    ru = Старая одежда
+    ru = Одежда
     sk = Staré oblečenie
     sv = Gamla kläder
     th = เสื้อผ้าเก่า
     tr = Eski kıyafetler
-    uk = Старий одяг
+    uk = Одяг
     vi = Quần áo cũ
     zh-Hans = 旧衣物
     zh-Hant = 舊衣物
@@ -2727,6 +2732,7 @@
   [type.recycling.glass_bottles]
     en = Glass Bottles
     ar = زجاجات زجاجية
+    be = Шклатара
     cs = Skleněné lahve
     da = Glasflasker
     de = Glas
@@ -2758,8 +2764,9 @@
     zh-Hant = 玻璃瓶
 
   [type.recycling.paper]
-    en = Paper Waste
+    en = Paper
     ar = نفايات ورقية
+    be = Папера
     cs = Papírový odpad
     da = Papiraffald
     de = Papier
@@ -2780,19 +2787,20 @@
     pt = Papel
     pt-BR = Lixo de papel
     ro = Deșeuri de hârtie
-    ru = Макулатура
+    ru = Бумага
     sk = Papierový odpad
     sv = Returpapper
     th = ขยะกระดาษ
     tr = Kağıt atıkları
-    uk = Макулатура
+    uk = Папір
     vi = Giấy phế liệu
     zh-Hans = 废纸
     zh-Hant = 廢紙
 
   [type.recycling.plastic]
-    en = Plastic Waste
+    en = Plastic
     ar = نفايات بلاستيكية
+    be = Пластык
     cs = Plastový odpad
     da = Plastaffald
     de = Kunststoff
@@ -2813,12 +2821,12 @@
     pt = Plásticos
     pt-BR = Lixo plástico
     ro = Deșeuri de plastic
-    ru = Пластиковый мусор
+    ru = Пластик
     sk = Plastový odpad
     sv = Plastavfall
     th = ขยะพลาสติก
     tr = Plastik atıklar
-    uk = Пластикове сміття
+    uk = Пластик
     vi = Rác thải nhựa
     zh-Hans = 废塑料
     zh-Hant = 廢塑料
@@ -2826,6 +2834,7 @@
   [type.recycling.plastic_bottles]
     en = Plastic Bottles
     ar = زجاجات بلاستيكية
+    be = Пластыкавыя бутэлькі
     cs = Plastové lahve
     da = Plastik flasker
     de = Plastikflaschen
@@ -2846,12 +2855,12 @@
     pt = Garrafas de plástico
     pt-BR = Garrafas plasticas
     ro = Sticle de plastic
-    ru = Сбор пластиковых бутылок
+    ru = Пластиковые бутылки
     sk = Plastové fľaše
     sv = Samling av plastflaskor
     th = ขวดพลาสติก
     tr = Plastik şişeler
-    uk = Збір пластикових пляшок
+    uk = Пластикові бутилки
     vi = Bộ chai lọ nhựa
     zh-Hans = 塑料瓶
     zh-Hant = 塑料瓶
@@ -2859,6 +2868,7 @@
   [type.recycling.scrap_metal]
     en = Scrap Metal
     ar = نفايات معدنية
+    be = Металалом
     cs = Kovový šrot
     da = Skrot metal
     de = Altmetall
@@ -2930,9 +2940,9 @@
 
   [type.recycling.cans]
     en = Cans
-    be = Бляшаныя банкі
-    ru = Жестяные банки
-    uk = Бляшані банки
+    be = Бляшаныя і алюмініевыя слоікі
+    ru = Жестяные и алюминиевые банки
+    uk = Бляшані та алюмінієві банки
 
   [type.recycling.shoes]
     en = Shoes
@@ -2942,12 +2952,12 @@
 
   [type.recycling.green_waste]
     en = Green/Organic Waste
-    be = Арганічныя адходы
-    ru = Органические отходы
-    uk = Органічні відходи
+    be = Арганіка / Харчовыя адходы
+    ru = Органика / Пищевые отходы
+    uk = Органіка / Харчові відходи
 
   [type.recycling.cartons]
-    en = Cartons
+    en = Bewerage Cartons
     be = Тэтрапак і аналагі
     ru = Тетрапак и аналоги
     uk = Тетрапак та аналоги
@@ -2980,12 +2990,12 @@
 
   [type.amenity.sanitary_dump_station]
     en = Holding Tank Dump Station
-    be = Зліў нечыстотаў
+    be = Зліў для прыбіральняў транспартных сродкаў
     de = VE-Station
     fr = Station de vidange
     it = Camper service
-    ru = Слив нечистот
-    uk = Злив нечистот
+    ru = Слив для туалетов транспортных средств
+    uk = Злив для туалетів транспортних засобів
 
   [type.amenity.school]
     en = School
@@ -10819,10 +10829,10 @@
     zh-Hant = 燈塔
 
   [type.man_made.mast]
-    en = Pole mast
-    be = Слуп-шчогла
-    ru = Столб-мачта
-    uk = Стовп-щогла
+    en = Mast
+    be = Мачта/вышка
+    ru = Мачта/вышка
+    uk = Щогла/вишка
 
   [type.man_made.pier]
     en = Pier
