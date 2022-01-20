@@ -21,6 +21,8 @@ ruins=yes : historic=ruins
 drinkable=yes : amenity=drinking_water
 drinking_water=yes : amenity=drinking_water
 water_point=yes : amenity=water_point
+sanitary_dump_station=yes : amenity=sanitary_dump_station
+waterway=sanitary_dump_station : amenity=sanitary_dump_station
 building=entrance : entrance=yes
 
 ice_road=yes : highway=ice_road
@@ -29,9 +31,9 @@ highway=turning_loop : highway=mini_roundabout
 
 highway=platform : highway=pedestrian
 
-natural=marsh : natural=wetland, wetland=marsh
+natural=marsh     : natural=wetland, wetland=marsh
 natural=waterfall : waterway=waterfall
-natural = forest : natural = wood
+natural=forest    : natural=wood
 # TODO
 # natural = ridge + cliff=yes -> natural=cliff
 

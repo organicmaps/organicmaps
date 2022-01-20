@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="24"
+   height="24"
+   id="svg4460">
+  <defs
+     id="defs4462" />
+  <metadata
+     id="metadata4465">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     d="M 19,8 C 19,7.5 18.4664,6.9917766 18,7 l -4,0 0,2 3,0 0,9 L 4,18 4,9 7,9 7,7 3,7 C 2.4767,7.0000524 2.0001,7.4764155 2,8 l 0,11 c 1e-4,0.523584 0.4767,0.999948 1,1 l 15,0 c 0.5233,-5.2e-5 0.9999,-0.476416 1,-1 L 19,8 z m -4,3.5 C 15.028097,11.208007 14.78125,11 14.5,11 L 12,11 12,4.5 C 12,3.6716736 11.3275,3 10.5,3 9.6725,3 8.9998,3.6716736 9,4.5 L 9,11 6.5,11 c -0.3582,0.0052 -0.639,0.48479 -0.4375,0.78125 l 4.03125,5 c 0.1741,0.263953 0.6189,0.281053 0.8125,0.03125 l 3.96875,-5 C 14.9531,11.699117 14.990634,11.597331 15,11.5 z"
+     id="path5585"
+     style="opacity:0.3;fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+  <path
+     d="M 19,8 C 19,7.5 18.4664,6.9917766 18,7 l -4,0 0,2 3,0 0,9 L 4,18 4,9 7,9 7,7 3,7 C 2.4767,7.0000524 2.0001,7.4764155 2,8 l 0,11 c 1e-4,0.523584 0.4767,0.999948 1,1 l 15,0 c 0.5233,-5.2e-5 0.9999,-0.476416 1,-1 L 19,8 z m -4,3.5 C 15.028097,11.208007 14.78125,11 14.5,11 L 12,11 12,4.5 C 12,3.6716736 11.3275,3 10.5,3 9.6725,3 8.9998,3.6716736 9,4.5 L 9,11 6.5,11 c -0.3582,0.0052 -0.639,0.48479 -0.4375,0.78125 l 4.03125,5 c 0.1741,0.263953 0.6189,0.281053 0.8125,0.03125 l 3.96875,-5 C 14.9531,11.699117 14.990634,11.597331 15,11.5 z"
+     id="path3826"
+     style="fill:#444444;fill-opacity:1;stroke:none" />
+  <rect
+     width="24"
+     height="24"
+     x="0"
+     y="-24"
+     transform="matrix(0,1,-1,0,0,0)"
+     id="canvas"
+     style="fill:none;stroke:none;visibility:hidden" />
+</svg>

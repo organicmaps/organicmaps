@@ -428,9 +428,9 @@ highway|ford;427;
 area:highway|path;428;
 railway|siding;429;
 highway|track|area;[highway=track][area?];;name;int_name;430;
-deprecated|deprecated;431;x
+amenity|sanitary_dump_station;431;
 railway|funicular;432;
-deprecated|deprecated;433;x
+amenity|waste_transfer_station;433;
 historic|battlefield;434;
 deprecated|deprecated;435;x
 sport|australian_football;436;
