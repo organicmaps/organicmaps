@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "Kirjahylly";
 
-"type.amenity.recycling" = "Kierrätyskeskus";
+"type.amenity.recycling.centre" = "Kierrätyskeskus";
 
-"type.amenity.recycling_container" = "Kierrätysjäteastia";
+"type.amenity.recycling" = "Kierrätysjäteastia";
 
-"type.recycling.toxic" = "Myrkkyjäte";
+"type.amenity.recycling.container" = "Kierrätysjäteastia";
+
+"type.recycling.batteries" = "Paristot";
 
 "type.recycling.clothes" = "Vanhat vaatteet";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "Kodinkonejäte";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "Ravintola";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "Koulu";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "Roska-astia";
 
 "type.amenity.waste_disposal" = "Roska";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "Vesipiste";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Administrative Boundary";
 
 "type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.4.state" = "Administrative Boundary";
 
 "type.boundary.administrative.5" = "Administrative Boundary";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "Majakka";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "Pier";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Wetland";
 
 "type.noexit" = "Dead End";
-
-"type.noexit.motor_vehicle" = "Dead End";
 
 "type.office" = "Toimisto";
 

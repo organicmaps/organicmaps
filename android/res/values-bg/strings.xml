@@ -614,6 +614,7 @@
 	<string name="enable_screen_sleep_description">Когато е разрешено, екранът ще бъде оставен да заспи след определен период на неактивност.</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.recycling.batteries">Батерии</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
 
 	<!-- SECTION: Types: Historic -->

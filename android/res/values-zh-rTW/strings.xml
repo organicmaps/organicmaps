@@ -743,9 +743,10 @@
 	<string name="type.amenity.post_office">郵局</string>
 	<string name="type.amenity.pub">酒館</string>
 	<string name="type.amenity.public_bookcase">書架</string>
-	<string name="type.amenity.recycling">回收中心</string>
-	<string name="type.amenity.recycling_container">回收箱</string>
-	<string name="type.recycling.toxic">有毒垃圾</string>
+	<string name="type.amenity.recycling.centre">回收中心</string>
+	<string name="type.amenity.recycling">回收箱</string>
+	<string name="type.amenity.recycling.container">回收箱</string>
+	<string name="type.recycling.batteries">電池</string>
 	<string name="type.recycling.clothes">舊衣物</string>
 	<string name="type.recycling.glass_bottles">玻璃瓶</string>
 	<string name="type.recycling.paper">廢紙</string>

@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ";
 
-"type.amenity.recycling" = "ศูนย์รีไซเคิล";
+"type.amenity.recycling.centre" = "ศูนย์รีไซเคิล";
 
-"type.amenity.recycling_container" = "บรรจุภัณฑ์รีไซเคิล";
+"type.amenity.recycling" = "บรรจุภัณฑ์รีไซเคิล";
 
-"type.recycling.toxic" = "ขยะสารพิษ";
+"type.amenity.recycling.container" = "บรรจุภัณฑ์รีไซเคิล";
+
+"type.recycling.batteries" = "แบตเตอรี่";
 
 "type.recycling.clothes" = "เสื้อผ้าเก่า";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "ขยะอิเล็กทรอนิกส์";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "ร้านอาหาร";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "โรงเรียน";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "ถังขยะ";
 
 "type.amenity.waste_disposal" = "ขยะ";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "จุดเติมน้ำ";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Administrative Boundary";
 
 "type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.4.state" = "Administrative Boundary";
 
 "type.boundary.administrative.5" = "Administrative Boundary";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "ประภาคาร";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "Pier";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Wetland";
 
 "type.noexit" = "Dead End";
-
-"type.noexit.motor_vehicle" = "Dead End";
 
 "type.office" = "สำนักงาน";
 

@@ -717,9 +717,10 @@
 	<string name="type.amenity.post_office">우체국</string>
 	<string name="type.amenity.pub">술집</string>
 	<string name="type.amenity.public_bookcase">도서 교환</string>
-	<string name="type.amenity.recycling">재활용센터</string>
-	<string name="type.amenity.recycling_container">재활용 쓰레기통</string>
-	<string name="type.recycling.toxic">유독성 폐기물</string>
+	<string name="type.amenity.recycling.centre">재활용센터</string>
+	<string name="type.amenity.recycling">재활용 쓰레기통</string>
+	<string name="type.amenity.recycling.container">재활용 쓰레기통</string>
+	<string name="type.recycling.batteries">배터리</string>
 	<string name="type.recycling.clothes">낡은 옷</string>
 	<string name="type.recycling.glass_bottles">유리병</string>
 	<string name="type.recycling.paper">종이 쓰레기</string>

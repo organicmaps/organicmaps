@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "Kệ sách";
 
-"type.amenity.recycling" = "Trung tâm tái sinh";
+"type.amenity.recycling.centre" = "Trung tâm tái sinh";
 
-"type.amenity.recycling_container" = "Thùng rác";
+"type.amenity.recycling" = "Thùng rác";
 
-"type.recycling.toxic" = "Chất thải độc hại";
+"type.amenity.recycling.container" = "Thùng rác";
+
+"type.recycling.batteries" = "Ắc quy";
 
 "type.recycling.clothes" = "Quần áo cũ";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "Chất thải đồ điện";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "Quán ăn";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "Trường học";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "Thùng rác";
 
 "type.amenity.waste_disposal" = "Xử lý chất thải";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "Điểm cấp nước";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Administrative Boundary";
 
 "type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.4.state" = "Administrative Boundary";
 
 "type.boundary.administrative.5" = "Administrative Boundary";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "Hải đăng";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "Pier";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Wetland";
 
 "type.noexit" = "Dead End";
-
-"type.noexit.motor_vehicle" = "Dead End";
 
 "type.office" = "Văn phòng";
 

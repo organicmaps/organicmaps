@@ -740,9 +740,10 @@
 	<string name="type.amenity.post_box">Casella</string>
 	<string name="type.amenity.post_office">Ufficio postale</string>
 	<string name="type.amenity.public_bookcase">Libreria</string>
-	<string name="type.amenity.recycling">Centro di riciclaggio</string>
-	<string name="type.amenity.recycling_container">Contenitore per materiali riciclabili</string>
-	<string name="type.recycling.toxic">Rifiuti tossici</string>
+	<string name="type.amenity.recycling.centre">Centro di riciclaggio</string>
+	<string name="type.amenity.recycling">Contenitore per materiali riciclabili</string>
+	<string name="type.amenity.recycling.container">Contenitore per materiali riciclabili</string>
+	<string name="type.recycling.batteries">Batterie</string>
 	<string name="type.recycling.clothes">Vestiti usati</string>
 	<string name="type.recycling.glass_bottles">Contenitori in vetro</string>
 	<string name="type.recycling.paper">Rifiuti in carta e cartone</string>
@@ -751,6 +752,7 @@
 	<string name="type.recycling.scrap_metal">Rifiuti metallici</string>
 	<string name="type.recycling.small_appliances">Rifiuti di apparecchiature elettriche ed elettroniche</string>
 	<string name="type.amenity.restaurant">Ristorante</string>
+	<string name="type.amenity.sanitary_dump_station">Camper service</string>
 	<string name="type.amenity.school">Scuola</string>
 	<string name="type.amenity.shelter">Riparo</string>
 	<string name="type.amenity.shower">Doccia</string>

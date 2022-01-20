@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "Книгообмін";
 
-"type.amenity.recycling" = "Прийом вторсировини";
+"type.amenity.recycling.centre" = "Прийом вторсировини";
 
-"type.amenity.recycling_container" = "Контейнер для вторсировини";
+"type.amenity.recycling" = "Контейнер для вторсировини";
 
-"type.recycling.toxic" = "Отруйні відходи";
+"type.amenity.recycling.container" = "Контейнер для вторсировини";
+
+"type.recycling.batteries" = "Батарейки";
 
 "type.recycling.clothes" = "Старий одяг";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "Електровідходи";
 
+"type.recycling.cardboard" = "Картон";
+
+"type.recycling.cans" = "Бляшані банки";
+
+"type.recycling.shoes" = "Взуття";
+
+"type.recycling.green_waste" = "Органічні відходи";
+
+"type.recycling.cartons" = "Тетрапак та аналоги";
+
 "type.amenity.restaurant" = "Ресторан";
+
+"type.amenity.sanitary_dump_station" = "Злив нечистот";
 
 "type.amenity.school" = "Школа";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "Бак для сміття";
 
 "type.amenity.waste_disposal" = "Сміттєвий контейнер";
+
+"type.amenity.waste_transfer_station" = "Станція передачі сміття";
 
 "type.amenity.water_point" = "Заправка водою";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Адміністративний поділ";
 
 "type.boundary.administrative.4" = "Адміністративний поділ";
-
-"type.boundary.administrative.4.state" = "Адміністративний поділ";
 
 "type.boundary.administrative.5" = "Адміністративний поділ";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Просіка";
 
+"type.man_made.flagpole" = "Флагшток";
+
 "type.man_made.lighthouse" = "Маяк";
+
+"type.man_made.mast" = "Стовп-щогла";
 
 "type.man_made.pier" = "Пірс";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Болотиста мiсцевiсть";
 
 "type.noexit" = "Тупик";
-
-"type.noexit.motor_vehicle" = "Тупик";
 
 "type.office" = "Офіс";
 

@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "Biblioteca livre";
 
-"type.amenity.recycling" = "Centro de reciclagem";
+"type.amenity.recycling.centre" = "Centro de reciclagem";
 
-"type.amenity.recycling_container" = "Contentor de reciclagem";
+"type.amenity.recycling" = "Contentor de reciclagem";
 
-"type.recycling.toxic" = "Resíduos tóxicos";
+"type.amenity.recycling.container" = "Contentor de reciclagem";
+
+"type.recycling.batteries" = "Baterias";
 
 "type.recycling.clothes" = "Roupas velhas";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "Pequenos eletrodomésticos";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "Restaurante";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "Escola";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "Caixote do lixo";
 
 "type.amenity.waste_disposal" = "Contentor do lixo";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "Ponto de água";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Fronteira administrativa";
 
 "type.boundary.administrative.4" = "Fronteira administrativa";
-
-"type.boundary.administrative.4.state" = "Fronteira administrativa";
 
 "type.boundary.administrative.5" = "Fronteira administrativa";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Atalhada";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "Farol";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "Pontão";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Zona úmida";
 
 "type.noexit" = "Via sem saída";
-
-"type.noexit.motor_vehicle" = "Via sem saída";
 
 "type.office" = "Escritório";
 

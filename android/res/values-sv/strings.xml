@@ -715,9 +715,10 @@
 	<string name="type.amenity.post_office">Postkontor</string>
 	<string name="type.amenity.pub">Krog</string>
 	<string name="type.amenity.public_bookcase">Bokskåp</string>
-	<string name="type.amenity.recycling">Återvinningscentral</string>
-	<string name="type.amenity.recycling_container">Behållare för återvinningsbart avfall</string>
-	<string name="type.recycling.toxic">Giftigt avfall</string>
+	<string name="type.amenity.recycling.centre">Återvinningscentral</string>
+	<string name="type.amenity.recycling">Behållare för återvinningsbart avfall</string>
+	<string name="type.amenity.recycling.container">Behållare för återvinningsbart avfall</string>
+	<string name="type.recycling.batteries">Batterier</string>
 	<string name="type.recycling.clothes">Gamla kläder</string>
 	<string name="type.recycling.glass_bottles">Returglas</string>
 	<string name="type.recycling.paper">Returpapper</string>

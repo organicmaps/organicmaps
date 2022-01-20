@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "Microbibliothèque";
 
-"type.amenity.recycling" = "Centre de recyclage";
+"type.amenity.recycling.centre" = "Centre de recyclage";
 
-"type.amenity.recycling_container" = "Conteneur de recyclage";
+"type.amenity.recycling" = "Conteneur de recyclage";
 
-"type.recycling.toxic" = "Déchets toxiques";
+"type.amenity.recycling.container" = "Conteneur de recyclage";
+
+"type.recycling.batteries" = "Batteries";
 
 "type.recycling.clothes" = "Vêtement usagés";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "Déchets d'équipements électriques";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "Restaurant";
+
+"type.amenity.sanitary_dump_station" = "Station de vidange";
 
 "type.amenity.school" = "École";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "Poubelle";
 
 "type.amenity.waste_disposal" = "Déchets";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "Point d’eau";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Administrative Boundary";
 
 "type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.4.state" = "Administrative Boundary";
 
 "type.boundary.administrative.5" = "Administrative Boundary";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "Phare";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "Jetée";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Marais";
 
 "type.noexit" = "Dead End";
-
-"type.noexit.motor_vehicle" = "Dead End";
 
 "type.office" = "Bureau";
 

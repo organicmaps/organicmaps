@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "Ανταλλαγή βιβλίων";
 
-"type.amenity.recycling" = "Κέντρο ανακύκλωσης";
+"type.amenity.recycling.centre" = "Κέντρο ανακύκλωσης";
 
-"type.amenity.recycling_container" = "Κάδος ανακύκλωσης";
+"type.amenity.recycling" = "Κάδος ανακύκλωσης";
 
-"type.recycling.toxic" = "Τοξικά απόβλητα";
+"type.amenity.recycling.container" = "Κάδος ανακύκλωσης";
+
+"type.recycling.batteries" = "Μπαταρίες";
 
 "type.recycling.clothes" = "Παλιά ρούχα";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "Ηλεκτρονικά απορρίμματα";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "Εστιατόριο";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "Σχολείο";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "Κάδος απορριμμάτων";
 
 "type.amenity.waste_disposal" = "Διαχείριση απορριμμάτων";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "Παροχή νερού";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Administrative Boundary";
 
 "type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.4.state" = "Administrative Boundary";
 
 "type.boundary.administrative.5" = "Administrative Boundary";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "Φάρος";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "Pier";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Wetland";
 
 "type.noexit" = "Dead End";
-
-"type.noexit.motor_vehicle" = "Dead End";
 
 "type.office" = "Γραφείο";
 

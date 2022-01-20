@@ -749,9 +749,10 @@
 	<string name="type.amenity.prison">Prisão</string>
 	<string name="type.amenity.pub">Pub ou taberna</string>
 	<string name="type.amenity.public_bookcase">Biblioteca livre</string>
-	<string name="type.amenity.recycling">Centro de reciclagem</string>
-	<string name="type.amenity.recycling_container">Contentor de reciclagem</string>
-	<string name="type.recycling.toxic">Resíduos tóxicos</string>
+	<string name="type.amenity.recycling.centre">Centro de reciclagem</string>
+	<string name="type.amenity.recycling">Contentor de reciclagem</string>
+	<string name="type.amenity.recycling.container">Contentor de reciclagem</string>
+	<string name="type.recycling.batteries">Baterias</string>
 	<string name="type.recycling.clothes">Roupas velhas</string>
 	<string name="type.recycling.glass_bottles">Garrafas de vidro</string>
 	<string name="type.recycling.paper">Papel</string>
@@ -801,7 +802,6 @@
 	<string name="type.boundary.administrative.2">Fronteira de país</string>
 	<string name="type.boundary.administrative.3">Fronteira administrativa</string>
 	<string name="type.boundary.administrative.4">Fronteira administrativa</string>
-	<string name="type.boundary.administrative.4.state">Fronteira administrativa</string>
 	<string name="type.boundary.administrative.5">Fronteira administrativa</string>
 	<string name="type.boundary.administrative.6">Fronteira administrativa</string>
 	<string name="type.boundary.administrative.7">Fronteira administrativa</string>
@@ -1197,7 +1197,6 @@
 	<string name="type.natural.wetland.bog">Zona úmida</string>
 	<string name="type.natural.wetland.marsh">Zona úmida</string>
 	<string name="type.noexit">Via sem saída</string>
-	<string name="type.noexit.motor_vehicle">Via sem saída</string>
 	<string name="type.office">Escritório</string>
 	<string name="type.office.company">Empresa</string>
 	<string name="type.office.estate_agent">Imobiliária</string>

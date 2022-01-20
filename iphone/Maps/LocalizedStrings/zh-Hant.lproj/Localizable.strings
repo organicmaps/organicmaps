@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "書架";
 
-"type.amenity.recycling" = "回收中心";
+"type.amenity.recycling.centre" = "回收中心";
 
-"type.amenity.recycling_container" = "回收箱";
+"type.amenity.recycling" = "回收箱";
 
-"type.recycling.toxic" = "有毒垃圾";
+"type.amenity.recycling.container" = "回收箱";
+
+"type.recycling.batteries" = "電池";
 
 "type.recycling.clothes" = "舊衣物";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "電子垃圾";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "餐廳";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "學校";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "垃圾箱";
 
 "type.amenity.waste_disposal" = "垃圾";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "飲水站";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Administrative Boundary";
 
 "type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.4.state" = "Administrative Boundary";
 
 "type.boundary.administrative.5" = "Administrative Boundary";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "燈塔";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "Pier";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Wetland";
 
 "type.noexit" = "Dead End";
-
-"type.noexit.motor_vehicle" = "Dead End";
 
 "type.office" = "辦公室";
 

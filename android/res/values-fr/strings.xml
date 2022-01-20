@@ -745,9 +745,10 @@
 	<string name="type.amenity.post_office">Bureau de poste</string>
 	<string name="type.amenity.pub">Pub</string>
 	<string name="type.amenity.public_bookcase">Microbibliothèque</string>
-	<string name="type.amenity.recycling">Centre de recyclage</string>
-	<string name="type.amenity.recycling_container">Conteneur de recyclage</string>
-	<string name="type.recycling.toxic">Déchets toxiques</string>
+	<string name="type.amenity.recycling.centre">Centre de recyclage</string>
+	<string name="type.amenity.recycling">Conteneur de recyclage</string>
+	<string name="type.amenity.recycling.container">Conteneur de recyclage</string>
+	<string name="type.recycling.batteries">Batteries</string>
 	<string name="type.recycling.clothes">Vêtement usagés</string>
 	<string name="type.recycling.glass_bottles">Verre</string>
 	<string name="type.recycling.paper">Papier usagé</string>
@@ -755,6 +756,7 @@
 	<string name="type.recycling.plastic_bottles">Collecte de bouteilles en plastique</string>
 	<string name="type.recycling.scrap_metal">Ferraille</string>
 	<string name="type.recycling.small_appliances">Déchets d\'équipements électriques</string>
+	<string name="type.amenity.sanitary_dump_station">Station de vidange</string>
 	<string name="type.amenity.school">École</string>
 	<string name="type.amenity.shelter">Abri</string>
 	<string name="type.amenity.shower">Douche</string>

@@ -748,9 +748,10 @@
 	<string name="type.amenity.prison">В\'язниця</string>
 	<string name="type.amenity.pub">Паб</string>
 	<string name="type.amenity.public_bookcase">Книгообмін</string>
-	<string name="type.amenity.recycling">Прийом вторсировини</string>
-	<string name="type.amenity.recycling_container">Контейнер для вторсировини</string>
-	<string name="type.recycling.toxic">Отруйні відходи</string>
+	<string name="type.amenity.recycling.centre">Прийом вторсировини</string>
+	<string name="type.amenity.recycling">Контейнер для вторсировини</string>
+	<string name="type.amenity.recycling.container">Контейнер для вторсировини</string>
+	<string name="type.recycling.batteries">Батарейки</string>
 	<string name="type.recycling.clothes">Старий одяг</string>
 	<string name="type.recycling.glass_bottles">Склотара</string>
 	<string name="type.recycling.paper">Макулатура</string>
@@ -758,7 +759,13 @@
 	<string name="type.recycling.plastic_bottles">Збір пластикових пляшок</string>
 	<string name="type.recycling.scrap_metal">Металобрухт</string>
 	<string name="type.recycling.small_appliances">Електровідходи</string>
+	<string name="type.recycling.cardboard">Картон</string>
+	<string name="type.recycling.cans">Бляшані банки</string>
+	<string name="type.recycling.shoes">Взуття</string>
+	<string name="type.recycling.green_waste">Органічні відходи</string>
+	<string name="type.recycling.cartons">Тетрапак та аналоги</string>
 	<string name="type.amenity.restaurant">Ресторан</string>
+	<string name="type.amenity.sanitary_dump_station">Злив нечистот</string>
 	<string name="type.amenity.school">Школа</string>
 	<string name="type.amenity.shelter">Укриття</string>
 	<string name="type.amenity.shower">Душ</string>
@@ -775,6 +782,7 @@
 	<string name="type.amenity.veterinary">Ветеринарна клініка</string>
 	<string name="type.amenity.waste_basket">Бак для сміття</string>
 	<string name="type.amenity.waste_disposal">Сміттєвий контейнер</string>
+	<string name="type.amenity.waste_transfer_station">Станція передачі сміття</string>
 	<string name="type.amenity.water_point">Заправка водою</string>
 	<string name="type.barrier">Перешкода</string>
 	<string name="type.barrier.block">Блок</string>
@@ -798,7 +806,6 @@
 	<string name="type.boundary.administrative.2">Кордон країни</string>
 	<string name="type.boundary.administrative.3">Адміністративний поділ</string>
 	<string name="type.boundary.administrative.4">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.4.state">Адміністративний поділ</string>
 	<string name="type.boundary.administrative.5">Адміністративний поділ</string>
 	<string name="type.boundary.administrative.6">Адміністративний поділ</string>
 	<string name="type.boundary.administrative.7">Адміністративний поділ</string>
@@ -1144,7 +1151,9 @@
 	<string name="type.man_made.cairn">Тур</string>
 	<string name="type.man_made.chimney">Заводська труба</string>
 	<string name="type.man_made.cutline">Просіка</string>
+	<string name="type.man_made.flagpole">Флагшток</string>
 	<string name="type.man_made.lighthouse">Маяк</string>
+	<string name="type.man_made.mast">Стовп-щогла</string>
 	<string name="type.man_made.pier">Пірс</string>
 	<string name="type.man_made.pipeline">Трубопровід</string>
 	<string name="type.man_made.silo">Силос</string>
@@ -1197,7 +1206,6 @@
 	<string name="type.natural.wetland.bog">Торф\'яне болото</string>
 	<string name="type.natural.wetland.marsh">Болотиста мiсцевiсть</string>
 	<string name="type.noexit">Тупик</string>
-	<string name="type.noexit.motor_vehicle">Тупик</string>
 	<string name="type.office">Офіс</string>
 	<string name="type.office.company">Організація</string>
 	<string name="type.office.estate_agent">Агенція нерухомості</string>

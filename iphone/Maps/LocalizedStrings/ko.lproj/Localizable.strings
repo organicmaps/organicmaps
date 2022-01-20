@@ -1383,11 +1383,13 @@
 
 "type.amenity.public_bookcase" = "도서 교환";
 
-"type.amenity.recycling" = "재활용센터";
+"type.amenity.recycling.centre" = "재활용센터";
 
-"type.amenity.recycling_container" = "재활용 쓰레기통";
+"type.amenity.recycling" = "재활용 쓰레기통";
 
-"type.recycling.toxic" = "유독성 폐기물";
+"type.amenity.recycling.container" = "재활용 쓰레기통";
+
+"type.recycling.batteries" = "배터리";
 
 "type.recycling.clothes" = "낡은 옷";
 
@@ -1403,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "전자제품 쓰레기";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "레스토랑";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "학교";
 
@@ -1438,6 +1452,8 @@
 "type.amenity.waste_basket" = "쓰레기통";
 
 "type.amenity.waste_disposal" = "휴지통";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "상수도";
 
@@ -1488,8 +1504,6 @@
 "type.boundary.administrative.3" = "Administrative Boundary";
 
 "type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.4.state" = "Administrative Boundary";
 
 "type.boundary.administrative.5" = "Administrative Boundary";
 
@@ -2213,7 +2227,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "등대";
+
+"type.man_made.mast" = "Pole mast";
 
 "type.man_made.pier" = "Pier";
 
@@ -2326,8 +2344,6 @@
 "type.natural.wetland.marsh" = "Wetland";
 
 "type.noexit" = "Dead End";
-
-"type.noexit.motor_vehicle" = "Dead End";
 
 "type.office" = "사무실";
 

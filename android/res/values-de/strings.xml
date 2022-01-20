@@ -747,9 +747,10 @@
 	<string name="type.amenity.prison">Gefängnis</string>
 	<string name="type.amenity.pub">Kneipe</string>
 	<string name="type.amenity.public_bookcase">Bücherschrank</string>
-	<string name="type.amenity.recycling">Recyclinghof</string>
-	<string name="type.amenity.recycling_container">Wertstoffcontainer</string>
-	<string name="type.recycling.toxic">Giftmüll</string>
+	<string name="type.amenity.recycling.centre">Recyclinghof</string>
+	<string name="type.amenity.recycling">Wertstoffcontainer</string>
+	<string name="type.amenity.recycling.container">Wertstoffcontainer</string>
+	<string name="type.recycling.batteries">Batterien</string>
 	<string name="type.recycling.clothes">Altkleider</string>
 	<string name="type.recycling.glass_bottles">Glas</string>
 	<string name="type.recycling.paper">Papier</string>
@@ -757,6 +758,7 @@
 	<string name="type.recycling.plastic_bottles">Plastikflaschen</string>
 	<string name="type.recycling.scrap_metal">Altmetall</string>
 	<string name="type.recycling.small_appliances">Elektroschrott</string>
+	<string name="type.amenity.sanitary_dump_station">VE-Station</string>
 	<string name="type.amenity.school">Schule</string>
 	<string name="type.amenity.shelter">Schutzhütte</string>
 	<string name="type.amenity.shower">Dusche</string>
@@ -797,7 +799,6 @@
 	<string name="type.boundary.administrative.11">Verwaltungsgrenze</string>
 	<string name="type.boundary.administrative.3">Verwaltungsgrenze</string>
 	<string name="type.boundary.administrative.4">Verwaltungsgrenze</string>
-	<string name="type.boundary.administrative.4.state">Verwaltungsgrenze</string>
 	<string name="type.boundary.administrative.5">Verwaltungsgrenze</string>
 	<string name="type.boundary.administrative.6">Verwaltungsgrenze</string>
 	<string name="type.boundary.administrative.7">Verwaltungsgrenze</string>

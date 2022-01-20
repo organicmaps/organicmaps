@@ -719,9 +719,10 @@
 	<string name="type.amenity.post_office">Postkantoor</string>
 	<string name="type.amenity.pub">Kroeg</string>
 	<string name="type.amenity.public_bookcase">Boekenkast</string>
-	<string name="type.amenity.recycling">Milieustraat</string>
-	<string name="type.amenity.recycling_container">Recycling container</string>
-	<string name="type.recycling.toxic">Giftig afval</string>
+	<string name="type.amenity.recycling.centre">Milieustraat</string>
+	<string name="type.amenity.recycling">Recycling container</string>
+	<string name="type.amenity.recycling.container">Recycling container</string>
+	<string name="type.recycling.batteries">Batterijen</string>
 	<string name="type.recycling.clothes">Oude kleding</string>
 	<string name="type.recycling.glass_bottles">Glazen flessen</string>
 	<string name="type.recycling.paper">Papierafval</string>

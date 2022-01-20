@@ -718,9 +718,10 @@
 	<string name="type.amenity.post_office">Bưu cục</string>
 	<string name="type.amenity.pub">Quán rượu</string>
 	<string name="type.amenity.public_bookcase">Kệ sách</string>
-	<string name="type.amenity.recycling">Trung tâm tái sinh</string>
-	<string name="type.amenity.recycling_container">Thùng rác</string>
-	<string name="type.recycling.toxic">Chất thải độc hại</string>
+	<string name="type.amenity.recycling.centre">Trung tâm tái sinh</string>
+	<string name="type.amenity.recycling">Thùng rác</string>
+	<string name="type.amenity.recycling.container">Thùng rác</string>
+	<string name="type.recycling.batteries">Ắc quy</string>
 	<string name="type.recycling.clothes">Quần áo cũ</string>
 	<string name="type.recycling.glass_bottles">Chai lọ thủy tinh</string>
 	<string name="type.recycling.paper">Giấy phế liệu</string>
