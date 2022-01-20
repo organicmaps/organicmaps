@@ -1837,7 +1837,9 @@ line|z16-[barrier=stile],
 {icon-image: dot-m.svg;font-size: 11;}
 
 node|z16-[highway=ford],
-node|z16-[power=tower]
+node|z16-[power=tower],
+node|z15-[man_made=flagpole],
+node|z16-[man_made=mast],
 {icon-image: dot-m.svg;}
 
 node|z16-[amenity=taxi],

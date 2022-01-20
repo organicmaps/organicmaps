@@ -208,10 +208,10 @@ amenity|doctors;207;
 railway|disused;208;
 aeroway|runway;209;
 railway|halt;210;
-deprecated|deprecated;211;x
+man_made|mast;211;
 railway|rail|tunnel;[railway=rail][tunnel?];;name;int_name;212;
 man_made|wastewater_plant;213;
-deprecated|deprecated;214;x
+man_made|flagpole;214;
 place|county;215;
 deprecated|deprecated;216;x
 deprecated|deprecated;217;x
