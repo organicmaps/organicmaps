@@ -2978,6 +2978,15 @@
     zh-Hans = 餐馆
     zh-Hant = 餐廳
 
+  [type.amenity.sanitary_dump_station]
+    en = Holding Tank Dump Station
+    be = Зліў нечыстотаў
+    de = VE-Station
+    fr = Station de vidange
+    it = Camper service
+    ru = Слив нечистот
+    uk = Злив нечистот
+
   [type.amenity.school]
     en = School
     ar = مدرسة
@@ -3485,6 +3494,12 @@
     vi = Xử lý chất thải
     zh-Hans = 大型垃圾箱
     zh-Hant = 垃圾
+
+  [type.amenity.waste_transfer_station]
+    en = Waste Transfer Station
+    be = Станцыя перавалкі адходаў
+    ru = Станция перевалки отходов
+    uk = Станція передачі сміття
 
   [type.amenity.water_point]
     en = Water Point

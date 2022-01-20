@@ -782,7 +782,6 @@ area|z18-[amenity=place_of_worship][religion=hindu]
 
 /* 5.5 Others */
 
-
 node|z17[amenity=bank],
 area|z17[amenity=bank]
 {icon-image: bank-m.svg;font-size: 13.75; icon-min-distance: 15;}
@@ -790,6 +789,12 @@ node|z18-[amenity=bank],
 area|z18-[amenity=bank]
 {icon-image: bank-m.svg;font-size: 14.5; icon-min-distance: 10;}
 
+node|z17[amenity=police],
+area|z17[amenity=police]
+{icon-image: police-m.svg; font-size: 13.75; icon-min-distance: 15;}
+node|z18-[amenity=police],
+area|z18-[amenity=police]
+{icon-image: police-m.svg; font-size: 14.5; icon-min-distance: 10;}
 
 node|z12-14[barrier=toll_booth],
 area|z12-14[barrier=toll_booth]
@@ -806,7 +811,6 @@ node|z15-[barrier=border_control]
 node|z17-[barrier=border_control]
 {icon-image:bcontrol-m.svg;}
 
-
 node|z16-[barrier=lift_gate],
 area|z16-[barrier=lift_gate]
 {icon-image: lift_gate-m.svg;icon-min-distance: 30;}
@@ -816,7 +820,6 @@ area|z17-[barrier=lift_gate]
 node|z18-[barrier=lift_gate],
 area|z18-[barrier=lift_gate]
 {icon-image: lift_gate-m.svg;}
-
 
 node|z17-[amenity=vending_machine],
 area|z17-[amenity=vending_machine]
@@ -920,6 +923,8 @@ node|z12-[amenity=fuel],
 area|z12-[amenity=fuel],
 node|z14-[amenity=charging_station],
 area|z14-[amenity=charging_station],
+node|z15-[amenity=sanitary_dump_station],
+area|z15-[amenity=sanitary_dump_station],
 node|z17-[amenity=car_wash],
 area|z17-[amenity=car_wash],
 node|z16-[amenity=parking],
@@ -972,15 +977,8 @@ area|z18-[amenity=charging_station]
 
 node|z13[highway=speed_camera]
 {icon-image: speedcam-s.svg; z-index: 75000;}
-node|z14[highway=speed_camera]
+node|z14-[highway=speed_camera]
 {icon-image: speedcam-m.svg; z-index: 75000;}
-node|z15[highway=speed_camera]
-{icon-image: speedcam-m.svg; z-index: 75000;}
-node|z16-[highway=speed_camera]
-{icon-image: speedcam-m.svg; z-index: 75000;}
-node|z18-[highway=speed_camera]
-{icon-image: speedcam-m.svg; z-index: 75000;}
-
 
 node|z17[amenity=car_wash],
 area|z17[amenity=car_wash]
@@ -996,6 +994,16 @@ area|z18-[amenity=car_rental]
 node|z18-[amenity=car_sharing],
 area|z18-[amenity=car_sharing]
 {icon-image: car_sharing-m.svg;text-offset: 1;font-size: 14.5;}
+
+node|z15-[amenity=sanitary_dump_station],
+area|z15-[amenity=sanitary_dump_station],
+{icon-image: dump-station-m.svg; font-size: 12.5; icon-min-distance: 20;}
+node|z17-[amenity=sanitary_dump_station],
+area|z17-[amenity=sanitary_dump_station]
+{font-size: 13.75; icon-min-distance: 15;}
+node|z18-[amenity=sanitary_dump_station],
+area|z18-[amenity=sanitary_dump_station]
+{font-size: 14.5; icon-min-distance: 10;}
 
 /* 7.1 Parking */
 

@@ -4283,6 +4283,15 @@ be:Тэтрапак|Перапрацоўка тэтрапака|Утылізац
 ru:Тетрапак|Переработка тетрапака|Утилизация тетрапака
 uk:Тетрапак | Переробка тетрапака | Утилізація тетрапака
 
+amenity-sanitary_dump_station
+en:4Dump Station|2RV Dump Station|sanitary dump station|sewage|RV waste|5motorhome dump station|4camper dump station
+be:4Зліў нечыстотаў|нечыстоты|каналізація|аўтадом
+de:3VE-Station|4Entsorgungsstation|4Versorgungsstation|2RV Dump
+fr:vidange
+it:4Camper service
+ru:4Слив нечистот|нечистоты|канализация|автодом
+uk:4Злив нечистот|нечистоти|каналізація|автобудинок|автодім
+
 amenity-school
 en:3School|U+1F392|U+1F3EB
 ru:3Школа
