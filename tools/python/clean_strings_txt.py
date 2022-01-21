@@ -37,7 +37,9 @@ HARDCODED_CATEGORIES = None
 HARDCODED_COLORS = [
     # titleForBookmarkColor
     "red", "blue", "purple", "yellow", "pink", "brown", "green", "orange", "deep_purple", "light_blue",
-    "cyan", "teal", "lime", "deep_orange", "gray", "blue_gray"
+    "cyan", "teal", "lime", "deep_orange", "gray", "blue_gray",
+    # Used in About
+    "matrix"
 ]
 
 
@@ -57,13 +59,15 @@ def exec_shell(test, *flags):
 
 def grep_ios():
     logging.info("Grepping iOS...")
-    grep = "grep -r -I 'L(\|localizedText\|localizedPlaceholder\|NSLocalizedString(' {0}/iphone/*".format(OMIM_ROOT)
+    grep = "grep -r -I 'L(\|localizedText\|localizedPlaceholder\|NSLocalizedString(' {0}/iphone/*".format(
+        OMIM_ROOT)
     ret = exec_shell(grep)
     ret = filter_ios_grep(ret)
     logging.info("Found in iOS: {0}".format(len(ret)))
     ret.update(get_hardcoded())
 
     return ret
+
 
 def grep_android():
     logging.info("Grepping android...")
@@ -73,7 +77,8 @@ def grep_android():
     ret.update(android_grep_wrapper(grep, ANDROID_JAVA_PLURAL_RE))
     grep = "grep -r -I '@string/' {0}/android/res".format(OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
-    grep = "grep -r -I '@string/' {0}/android/AndroidManifest.xml".format(OMIM_ROOT)
+    grep = "grep -r -I '@string/' {0}/android/AndroidManifest.xml".format(
+        OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
     ret = parenthesize(ret)
 
@@ -82,13 +87,16 @@ def grep_android():
 
     return ret
 
+
 def grep_core():
     logging.info("Grepping core...")
-    grep = "grep -r -I --exclude-dir {0}/3party 'GetLocalizedString' {0}/*".format(OMIM_ROOT)
+    grep = "grep -r -I --exclude-dir {0}/3party 'GetLocalizedString' {0}/*".format(
+        OMIM_ROOT)
     ret = android_grep_wrapper(grep, CORE_RE)
     logging.info("Found in core: {0}".format(len(ret)))
 
     return parenthesize(ret)
+
 
 def grep_ios_candidates():
     logging.info("Grepping iOS candidates...")
@@ -99,11 +107,13 @@ def grep_ios_candidates():
     strs = strings_from_grepped(ret, IOS_CANDIDATES_RE)
     return strs
 
+
 def get_hardcoded():
     ret = parenthesize(HARDCODED_CATEGORIES)
     ret.update(parenthesize(HARDCODED_COLORS))
     logging.info("Hardcoded colors and categories: {0}".format(len(ret)))
     return ret
+
 
 def android_grep_wrapper(grep, regex):
     grepped = exec_shell(grep)
@@ -121,8 +131,10 @@ def filter_ios_grep(strings):
 def process_ternary_operators(filtered):
     return chain(*(s.split('" : @"') for s in filtered))
 
+
 def strings_from_grepped(grepped, regexp):
     return set(chain(*(regexp.findall(s) for s in grepped if s)))
+
 
 def strings_from_grepped_tuple(grepped, regexp):
     res = set()
@@ -140,8 +152,10 @@ def parenthesize(strings):
 
 def write_filtered_strings_txt(filtered, filepath, languages=None):
     logging.info("Writing strings to file {0}".format(filepath))
-    strings_txt = StringsTxt("{0}/{1}".format(OMIM_ROOT, StringsTxt.STRINGS_TXT_PATH))
-    strings_dict = {key : dict(strings_txt.translations[key]) for key in filtered}
+    strings_txt = StringsTxt(
+        "{0}/{1}".format(OMIM_ROOT, StringsTxt.STRINGS_TXT_PATH))
+    strings_dict = {
+        key: dict(strings_txt.translations[key]) for key in filtered}
     strings_txt.translations = strings_dict
     strings_txt.comments_tags_refs = {}
     strings_txt.write_formatted(target_file=filepath, langs=languages)
@@ -261,7 +275,8 @@ def generate_auto_tags(ios, android, core):
 
 
 def new_comments_and_tags(strings_txt, filtered, new_tags):
-    comments_and_tags = {key: strings_txt.comments_tags_refs[key] for key in filtered}
+    comments_and_tags = {
+        key: strings_txt.comments_tags_refs[key] for key in filtered}
     for key in comments_and_tags:
         comments_and_tags[key]["tags"] = ",".join(sorted(new_tags[key]))
     return comments_and_tags
@@ -280,16 +295,22 @@ def do_single(args):
     n_android = sum([1 for tags in new_tags.values() if "android" in tags])
     n_ios = sum([1 for tags in new_tags.values() if "ios" in tags])
 
-    logging.info("Total strings grepped: {0}\tiOS: {1}\tandroid: {2}".format(len(filtered), n_android, n_ios))
+    logging.info("Total strings grepped: {0}\tiOS: {1}\tandroid: {2}".format(
+        len(filtered), n_android, n_ios))
 
-    strings_txt = StringsTxt("{0}/{1}".format(OMIM_ROOT, StringsTxt.STRINGS_TXT_PATH))
-    logging.info("Total strings in strings.txt: {0}".format(len(strings_txt.translations)))
+    strings_txt = StringsTxt(
+        "{0}/{1}".format(OMIM_ROOT, StringsTxt.STRINGS_TXT_PATH))
+    logging.info("Total strings in strings.txt: {0}".format(
+        len(strings_txt.translations)))
 
-    strings_txt.translations = {key: dict(strings_txt.translations[key]) for key in filtered}
+    strings_txt.translations = {
+        key: dict(strings_txt.translations[key]) for key in filtered}
 
-    strings_txt.comments_tags_refs = new_comments_and_tags(strings_txt, filtered, new_tags)
+    strings_txt.comments_tags_refs = new_comments_and_tags(
+        strings_txt, filtered, new_tags)
 
-    path = args.output if isabs(args.output) else "{0}/{1}".format(OMIM_ROOT, args.output)
+    path = args.output if isabs(
+        args.output) else "{0}/{1}".format(OMIM_ROOT, args.output)
     strings_txt.write_formatted(target_file=path, langs=args.langs)
 
     if args.generate:
@@ -297,6 +318,7 @@ def do_single(args):
             "{}/unix/generate_localizations.sh".format(OMIM_ROOT),
             args.output, args.output
         )
+
 
 def find_unused():
     core = grep_core()
@@ -307,7 +329,8 @@ def find_unused():
     filtered.update(android)
     filtered.update(core)
 
-    strings_txt = StringsTxt("{0}/{1}".format(OMIM_ROOT, StringsTxt.STRINGS_TXT_PATH))
+    strings_txt = StringsTxt(
+        "{0}/{1}".format(OMIM_ROOT, StringsTxt.STRINGS_TXT_PATH))
     unused = set(strings_txt.translations.keys()) - filtered
     if len(unused):
         print("Translation definitions/keys which are no longer used in the codebase:")
@@ -315,6 +338,7 @@ def find_unused():
     else:
         print("There are no unused translation definitions/keys.")
     return len(unused)
+
 
 def do_missing(args):
     ios = set(grep_ios())
@@ -364,7 +388,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     prog_name, args = get_args()
 
-    OMIM_ROOT=args.omim_root
+    OMIM_ROOT = args.omim_root
 
     # TODO: switch to a single source of hardcoded categories,
     # see https://github.com/organicmaps/organicmaps/issues/1795
@@ -376,7 +400,8 @@ if __name__ == "__main__":
 
     if args.validate:
         if find_unused():
-            print("ERROR: there are unused strings\n(run \"{0} -s\" to delete them)\nTerminating...".format(prog_name))
+            print(
+                "ERROR: there are unused strings\n(run \"{0} -s\" to delete them)\nTerminating...".format(prog_name))
             exit(1)
         exit(0)
 
