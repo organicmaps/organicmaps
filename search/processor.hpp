@@ -16,6 +16,8 @@
 #include "search/token_slice.hpp"
 #include "search/utils.hpp"
 
+#include "ge0/geo_url_parser.hpp"
+
 #include "indexer/string_slice.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
@@ -182,5 +184,7 @@ protected:
   Geocoder m_geocoder;
 
   bookmarks::Processor m_bookmarksProcessor;
+
+  geo::GeoURLInfo m_geoUrlParser;
 };
 }  // namespace search

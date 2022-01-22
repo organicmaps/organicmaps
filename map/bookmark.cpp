@@ -1,8 +1,6 @@
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
 
-#include "coding/url.hpp"
-
 #include "base/string_utils.hpp"
 
 #include <sstream>
