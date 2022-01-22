@@ -1048,7 +1048,7 @@
     sv = Efter det
     sw = Kisha
     th = จากนั้น
-    tr = Sonra
+    tr = Ardından
     uk = Потім
     vi = Sau đó
     zh-Hans = 然后
@@ -1082,7 +1082,7 @@
     sv = Ta första avfarten.
     sw = Ingia barabara ya kwanza ya kutoka.
     th = ออกทางออกที่หนึ่ง
-    tr = İlk çıkıştan çıkın.
+    tr = Birinci çıkıştan çıkın.
     uk = Рухайтесь через перший з'їзд.
     vi = Đi theo lối ra đầu tiên.
     zh-Hans = 取道第一个出口。
