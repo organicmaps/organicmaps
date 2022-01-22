@@ -13066,7 +13066,7 @@
     sk = Zavolať
     sv = Ring
     th = โทร
-    tr = Çağrı
+    tr = Ara
     uk = Подзвонити
     vi = Gọi
     zh-Hans = 呼叫
