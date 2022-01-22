@@ -1788,8 +1788,7 @@ bool Framework::ShowMapForURL(string const & url)
   }
   else  // Actually, we can parse any geo url scheme with correct coordinates.
   {
-    geo::GeoURLInfo info;
-    info.Parse(url);
+    geo::GeoURLInfo const info = geo::UnifiedParser().Parse(url);
     if (info.IsValid())
     {
       point = mercator::FromLatLon(info.m_lat, info.m_lon);

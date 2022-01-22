@@ -191,21 +191,19 @@ void NormalizeDigits(UniString & us)
   }
 }
 
-namespace
+void AsciiToLower(std::string & s)
 {
-char ascii_to_lower(char in)
-{
-  char const diff = 'z' - 'Z';
-  static_assert(diff == 'a' - 'A', "");
-  static_assert(diff > 0, "");
+  std::transform(s.begin(), s.end(), s.begin(), [](char in)
+  {
+    char constexpr diff = 'z' - 'Z';
+    static_assert(diff == 'a' - 'A', "");
+    static_assert(diff > 0, "");
 
-  if (in >= 'A' && in <= 'Z')
-    return (in + diff);
-  return in;
+    if (in >= 'A' && in <= 'Z')
+      return char(in + diff);
+    return in;
+  });
 }
-}  // namespace
-
-void AsciiToLower(std::string & s) { transform(s.begin(), s.end(), s.begin(), &ascii_to_lower); }
 
 std::string & TrimLeft(std::string & s)
 {

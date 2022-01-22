@@ -111,12 +111,6 @@ string Url::GetWebPath() const
   return {};
 }
 
-void Url::ForEachParam(Callback const & callback) const
-{
-  for (auto const & param : m_params)
-    callback(param);
-}
-
 string Make(string const & baseUrl, Params const & params)
 {
   ostringstream os;

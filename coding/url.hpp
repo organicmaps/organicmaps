@@ -26,8 +26,6 @@ using Params = std::vector<Param>;
 class Url
 {
 public:
-  using Callback = std::function<void(Param const & param)>;
-
   explicit Url(std::string const & url);
   static Url FromString(std::string const & url);
 
@@ -36,8 +34,20 @@ public:
   std::string GetWebDomain() const;
   std::string GetWebPath() const;
   bool IsValid() const { return !m_scheme.empty(); }
-  void ForEachParam(Callback const & callback) const;
-  const std::vector<Param> & Params() const { return m_params; }
+  template <class FnT> void ForEachParam(FnT && fn) const
+  {
+    for (auto const & p : m_params)
+      fn(p);
+  }
+
+  Param const * GetLastParam() const { return m_params.empty() ? nullptr : &m_params.back(); }
+  std::string const * GetParamValue(std::string const & name) const
+  {
+    for (auto const & p : m_params)
+      if (p.m_name == name)
+        return &p.m_value;
+    return nullptr;
+  }
 
 private:
   bool Parse(std::string const & url);
