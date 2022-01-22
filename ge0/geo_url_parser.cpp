@@ -38,9 +38,9 @@ bool MatchLatLonZoom(const string & s, const regex & re, size_t lati, size_t lon
   return true;
 }
 
-bool EqualWebDomain(url::Url const & url, char const * domain)
+bool MatchHost(url::Url const & url, char const * host)
 {
-  return url.GetWebDomain().find(domain) != std::string::npos;
+  return url.GetHost().find(host) != std::string::npos;
 }
 } // namespace
 
@@ -95,7 +95,7 @@ void LatLonParser::operator()(url::Param const & param)
         return;
       VERIFY(strings::to_double(token.substr(n, token.size() - n), lon), ());
 
-      if (EqualWebDomain(*m_url, "2gis") || EqualWebDomain(*m_url, "yandex"))
+      if (MatchHost(*m_url, "2gis") || MatchHost(*m_url, "yandex"))
         std::swap(lat, lon);
 
       if (m_info->SetLat(lat) && m_info->SetLon(lon))
@@ -161,7 +161,7 @@ bool DoubleGISParser::Parse(url::Url const & url, GeoURLInfo & info) const
     return true;
 
   // Parse /$lon,$lat/zoom/$zoom from path next
-  return MatchLatLonZoom(url.GetPath(), m_pathRe, 2, 1, 3, info);
+  return MatchLatLonZoom(url.GetHostAndPath(), m_pathRe, 2, 1, 3, info);
 }
 
 OpenStreetMapParser::OpenStreetMapParser()
@@ -171,7 +171,7 @@ OpenStreetMapParser::OpenStreetMapParser()
 
 bool OpenStreetMapParser::Parse(url::Url const & url, GeoURLInfo & info) const
 {
-  if (MatchLatLonZoom(url.GetPath(), m_regex, 2, 3, 1, info))
+  if (MatchLatLonZoom(url.GetHostAndPath(), m_regex, 2, 3, 1, info))
     return true;
 
   // Check if "#map=" fragment is attached to the last param in Url
@@ -231,12 +231,12 @@ GeoURLInfo UnifiedParser::Parse(string const & s)
 
   if (url.GetScheme() == "https" || url.GetScheme() == "http")
   {
-    if (EqualWebDomain(url, "2gis"))
+    if (MatchHost(url, "2gis"))
     {
       if (m_dgParser.Parse(url, res))
         return res;
     }
-    else if (EqualWebDomain(url, "openstreetmap"))
+    else if (MatchHost(url, "openstreetmap"))
     {
       if (m_osmParser.Parse(url, res))
         return res;
@@ -244,7 +244,7 @@ GeoURLInfo UnifiedParser::Parse(string const & s)
   }
 
   m_llParser.Reset(url, res);
-  m_llParser({{}, url.GetPath()});
+  m_llParser({{}, url.GetHostAndPath()});
   url.ForEachParam(m_llParser);
 
   if (!m_llParser.IsValid())

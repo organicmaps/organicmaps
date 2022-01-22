@@ -21,7 +21,7 @@ Url::Url(std::string const & url)
 {
   if (!Parse(url))
   {
-    ASSERT(m_scheme.empty() && m_path.empty() && !IsValid(), ());
+    ASSERT(m_scheme.empty() && m_host.empty() && m_path.empty() && !IsValid(), ());
   }
 }
 
@@ -34,37 +34,48 @@ Url Url::FromString(std::string const & url)
 bool Url::Parse(std::string const & url)
 {
   // Get url scheme.
-  size_t pathStart = url.find(':');
-  if (pathStart == string::npos || pathStart == 0)
+  size_t start = url.find(':');
+  if (start == string::npos || start == 0)
     return false;
-  m_scheme.assign(url, 0, pathStart);
+  m_scheme = url.substr(0, start);
 
   // Skip slashes.
-  while (++pathStart < url.size() && url[pathStart] == '/')
-  {
-  }
+  start = url.find_first_not_of('/', start + 1);
+  if (start == std::string::npos)
+    return true;
 
-  // Find query starting point for (key, value) parsing.
-  size_t queryStart = url.find('?', pathStart);
-  size_t pathLength;
-  if (queryStart == string::npos)
+  // Get host.
+  size_t end = url.find_first_of("?/", start);
+  if (end == string::npos)
   {
-    queryStart = url.size();
-    pathLength = queryStart - pathStart;
+    m_host = url.substr(start);
+    return true;
   }
   else
+    m_host = url.substr(start, end - start);
+
+  // Get path.
+  if (url[end] == '/')
   {
-    pathLength = queryStart - pathStart;
-    ++queryStart;
+    // Skip slashes.
+    start = url.find_first_not_of('/', end);
+    if (start == std::string::npos)
+      return true;
+
+    end = url.find('?', start);
+    if (end == string::npos)
+    {
+      m_path = url.substr(start);
+      return true;
+    }
+    else
+      m_path = url.substr(start, end - start);
   }
 
-  // Get path (url without query).
-  m_path.assign(url, pathStart, pathLength);
-
   // Parse query for keys and values.
-  for (size_t start = queryStart; start < url.size();)
+  for (start = end + 1; start < url.size();)
   {
-    size_t end = url.find('&', start);
+    end = url.find('&', start);
     if (end == string::npos)
       end = url.size();
 
@@ -92,23 +103,6 @@ bool Url::Parse(std::string const & url)
   }
 
   return true;
-}
-
-string Url::GetWebDomain() const
-{
-  auto const found = m_path.find('/');
-  if (found != string::npos)
-    return m_path.substr(0, found);
-  return m_path;
-}
-
-string Url::GetWebPath() const
-{
-  // Return everything after the domain name.
-  auto const found = m_path.find('/');
-  if (found != string::npos && m_path.size() > found + 1)
-    return m_path.substr(found + 1);
-  return {};
 }
 
 string Make(string const & baseUrl, Params const & params)

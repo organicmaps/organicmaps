@@ -33,7 +33,7 @@ struct CampaignDescription
   }
 
   bool IsValid() const { return !m_from.empty() && !m_type.empty() && !m_name.empty(); }
-  
+
   string m_from;
   string m_type;
   string m_name;
@@ -85,7 +85,7 @@ ParsedMapApi::UrlType GetUrlType(url::Url const & url)
   if (std::find(kAvailableSchemes.begin(), kAvailableSchemes.end(), url.GetScheme()) == kAvailableSchemes.end())
     return ParsedMapApi::UrlType::Incorrect;
 
-  auto const path = url.GetPath();
+  auto const path = url.GetHost();
   if (path == "map")
     return ParsedMapApi::UrlType::Map;
   if (path == "route")
@@ -198,7 +198,7 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
       });
       if (request.m_query.empty())
         return false;
-      
+
       m_request = request;
       return true;
     }
