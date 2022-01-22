@@ -16,13 +16,14 @@ using namespace url;
 class TestUrl
 {
 public:
-  explicit TestUrl(string const & url) : m_url(url) {}
+  explicit TestUrl(string && url) : m_url(std::move(url)) {}
 
-  TestUrl & Scheme(string const & scheme) { m_scheme = scheme; return *this; }
-  TestUrl & Path(string const & path) { m_path = path; return *this; }
-  TestUrl & KV(string const & key, string const & value)
+  TestUrl & Scheme(string && scheme) { m_scheme = std::move(scheme); return *this; }
+  TestUrl & Host(string && host) { m_host = std::move(host); return *this; }
+  TestUrl & Path(string && path) { m_path = std::move(path); return *this; }
+  TestUrl & KV(string && key, string && value)
   {
-    m_keyValuePairs.push(make_pair(key, value));
+    m_keyValuePairs.emplace(std::move(key), std::move(value));
     return *this;
   }
 
@@ -30,6 +31,7 @@ public:
   {
     Url url(m_url);
     TEST_EQUAL(url.GetScheme(), m_scheme, ());
+    TEST_EQUAL(url.GetHost(), m_host, ());
     TEST_EQUAL(url.GetPath(), m_path, ());
     TEST(!m_scheme.empty() || !url.IsValid(), ("Scheme is empty if and only if url is invalid!"));
     url.ForEachParam(bind(&TestUrl::AddTestValue, this, placeholders::_1));
@@ -44,9 +46,7 @@ private:
     m_keyValuePairs.pop();
   }
 
-  string m_url;
-  string m_scheme;
-  string m_path;
+  string m_url, m_scheme, m_host, m_path;
   queue<pair<string, string>> m_keyValuePairs;
 };
 
@@ -99,10 +99,25 @@ UNIT_TEST(Url_Decode)
   TEST_EQUAL(UrlDecode(enc4), orig4, ());
 }
 
-UNIT_TEST(UrlScheme_Valid)
+UNIT_TEST(Url_Valid)
 {
-  Url url("mapswithme://map?ll=10.3,12.3223&n=Hello%20World");
-  TEST_EQUAL(url.GetScheme(), "mapswithme", ());
+  TestUrl("mapswithme://map?ll=10.3,12.3223&n=Hello%20World")
+      .Scheme("mapswithme")
+      .Host("map")
+      .KV("ll", "10.3,12.3223")
+      .KV("n", "Hello World");
+
+  TestUrl("om:M&M/path?q=q&w=w")
+      .Scheme("om")
+      .Host("M&M")
+      .Path("path")
+      .KV("q", "q")
+      .KV("w", "w");
+
+  TestUrl("http://www.sandwichparlour.com.au/")
+      .Scheme("http")
+      .Host("www.sandwichparlour.com.au")
+      .Path("");
 }
 
 UNIT_TEST(UrlScheme_NoColon)
@@ -110,52 +125,42 @@ UNIT_TEST(UrlScheme_NoColon)
   TEST_EQUAL(Url("mapswithme:").GetScheme(), "mapswithme", ());
 }
 
-UNIT_TEST(UrlScheme_Valid2)
-{
-  TestUrl("mapswithme://map?ll=10.3,12.3223&n=Hello%20World")
-      .Scheme("mapswithme")
-      .Path("map")
-      .KV("ll", "10.3,12.3223")
-      .KV("n", "Hello World");
-}
-
 UNIT_TEST(UrlScheme_Comprehensive)
 {
   TestUrl("");
-  TestUrl("scheme:").Scheme("scheme");
-  TestUrl("scheme:/").Scheme("scheme");
-  TestUrl("scheme://").Scheme("scheme");
+  TestUrl("scheme:").Scheme("scheme").Host("").Path("");
+  TestUrl("scheme:/").Scheme("scheme").Host("").Path("");
+  TestUrl("scheme://").Scheme("scheme").Host("").Path("");
   TestUrl("sometext");
   TestUrl(":noscheme");
   TestUrl("://noscheme?");
-  TestUrl("mwm://?").Scheme("mwm");
-  TestUrl("http://path/to/something").Scheme("http").Path("path/to/something");
-  TestUrl("http://path?").Scheme("http").Path("path");
-  TestUrl("maps://path?&&key=&").Scheme("maps").Path("path").KV("key", "");
-  TestUrl("mapswithme://map?ll=1.2,3.4&z=15").Scheme("mapswithme").Path("map")
+  TestUrl("mwm://?").Scheme("mwm").Host("").Path("");
+  TestUrl("http://host/path/to/something").Scheme("http").Host("host").Path("path/to/something");
+  TestUrl("http://host?").Scheme("http").Host("host").Path("");
+  TestUrl("maps://host?&&key=&").Scheme("maps").Host("host").KV("key", "");
+  TestUrl("mapswithme://map?ll=1.2,3.4&z=15").Scheme("mapswithme").Host("map").Path("")
       .KV("ll", "1.2,3.4").KV("z", "15");
-  TestUrl("nopathnovalues://?key1&key2=val2").Scheme("nopathnovalues").Path("")
+  TestUrl("nopathnovalues://?key1&key2=val2").Scheme("nopathnovalues").Host("").Path("")
       .KV("key1", "").KV("key2", "val2");
-  TestUrl("s://?key1&key2").Scheme("s").Path("").KV("key1", "").KV("key2", "");
-  TestUrl("g://p?key1=val1&key2=").Scheme("g").Path("p").KV("key1", "val1").KV("key2", "");
-  TestUrl("g://p?=val1&key2=").Scheme("g").Path("p").KV("", "val1").KV("key2", "");
-  TestUrl("g://?k&key2").Scheme("g").KV("k", "").KV("key2", "");
-  TestUrl("m:?%26Amp%26%3D%26Amp%26&name=%31%20%30").Scheme("m")
+  TestUrl("s://?key1&key2").Scheme("s").Host("").Path("").KV("key1", "").KV("key2", "");
+  TestUrl("g://h/p?key1=val1&key2=").Scheme("g").Host("h").Path("p").KV("key1", "val1").KV("key2", "");
+  TestUrl("g://h?=val1&key2=").Scheme("g").Host("h").Path("").KV("", "val1").KV("key2", "");
+  TestUrl("g://?k&key2").Scheme("g").Host("").Path("").KV("k", "").KV("key2", "");
+  TestUrl("m:?%26Amp%26%3D%26Amp%26&name=%31%20%30").Scheme("m").Host("").Path("")
       .KV("&Amp&=&Amp&", "").KV("name", "1 0");
   TestUrl("s://?key1=value1&key1=value2&key1=value3&key2&key2&key3=value1&key3&key3=value2")
-      .Scheme("s")
+      .Scheme("s").Host("").Path("")
       .KV("key1", "value1").KV("key1", "value2").KV("key1", "value3")
       .KV("key2", "").KV("key2", "")
       .KV("key3", "value1").KV("key3", "").KV("key3", "value2");
 }
 
-UNIT_TEST(UrlApi_Smoke)
+UNIT_TEST(Url_2Gis)
 {
   url::Url url("https://2gis.ru/moscow/firm/4504127908589159?m=37.618632%2C55.760069%2F15.232");
   TEST_EQUAL(url.GetScheme(), "https", ());
-  TEST_EQUAL(url.GetPath(), "2gis.ru/moscow/firm/4504127908589159", ());
-  TEST_EQUAL(url.GetWebDomain(), "2gis.ru", ());
-  TEST_EQUAL(url.GetWebPath(), "moscow/firm/4504127908589159", ());
+  TEST_EQUAL(url.GetHost(), "2gis.ru", ());
+  TEST_EQUAL(url.GetPath(), "moscow/firm/4504127908589159", ());
 
   TEST(url.GetLastParam(), ());
   TEST(url.GetParamValue("m"), ());

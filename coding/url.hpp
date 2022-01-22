@@ -22,18 +22,20 @@ std::string DebugPrint(Param const & param);
 
 using Params = std::vector<Param>;
 
-// Url in format: 'scheme://path?key1=value1&key2&key3=&key4=value4'
+// Url in format: 'scheme://host/path?key1=value1&key2&key3=&key4=value4'
 class Url
 {
 public:
   explicit Url(std::string const & url);
   static Url FromString(std::string const & url);
 
-  std::string const & GetScheme() const { return m_scheme; }
-  std::string const & GetPath() const { return m_path; }
-  std::string GetWebDomain() const;
-  std::string GetWebPath() const;
   bool IsValid() const { return !m_scheme.empty(); }
+
+  std::string const & GetScheme() const { return m_scheme; }
+  std::string const & GetHost() const { return m_host; }
+  std::string const & GetPath() const { return m_path; }
+  std::string GetHostAndPath() const { return m_host + m_path; }
+
   template <class FnT> void ForEachParam(FnT && fn) const
   {
     for (auto const & p : m_params)
@@ -52,8 +54,7 @@ public:
 private:
   bool Parse(std::string const & url);
 
-  std::string m_scheme;
-  std::string m_path;
+  std::string m_scheme, m_host, m_path;
   std::vector<Param> m_params;
 };
 
