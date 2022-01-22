@@ -62,21 +62,4 @@ std::string Join(std::string const & lhs, std::string const & rhs, Args &&... ar
 std::string UrlEncode(std::string const & rawUrl);
 std::string UrlDecode(std::string const & encodedUrl);
 
-struct GeoURLInfo
-{
-  GeoURLInfo() { Reset(); }
-
-  explicit GeoURLInfo(std::string const & s);
-
-  bool IsValid() const;
-  void Reset();
-
-  void SetZoom(double x);
-  bool SetLat(double x);
-  bool SetLon(double x);
-
-  double m_lat;
-  double m_lon;
-  double m_zoom;
-};
 }  // namespace url

@@ -16,7 +16,6 @@
 
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
-#include "coding/url.hpp"
 
 #include "base/exception.hpp"
 #include "base/file_name_utils.hpp"

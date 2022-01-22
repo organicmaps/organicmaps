@@ -6,6 +6,7 @@
 #include "map/user_mark.hpp"
 #include "map/viewport_search_params.hpp"
 
+#include "ge0/geo_url_parser.hpp"
 #include "ge0/parser.hpp"
 #include "ge0/url_generator.hpp"
 
@@ -1787,7 +1788,8 @@ bool Framework::ShowMapForURL(string const & url)
   }
   else  // Actually, we can parse any geo url scheme with correct coordinates.
   {
-    url::GeoURLInfo info(url);
+    geo::GeoURLInfo info;
+    info.Parse(url);
     if (info.IsValid())
     {
       point = mercator::FromLatLon(info.m_lat, info.m_lon);

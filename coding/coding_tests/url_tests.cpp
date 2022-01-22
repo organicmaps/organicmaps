@@ -13,8 +13,6 @@ namespace url_tests
 using namespace std;
 using namespace url;
 
-double const kEps = 1e-10;
-
 class TestUrl
 {
 public:
@@ -52,8 +50,6 @@ private:
   queue<pair<string, string>> m_keyValuePairs;
 };
 
-namespace url_encode_testdata
-{
 char const * orig1 = "http://google.com/main_index.php";
 char const * enc1 = "http%3A%2F%2Fgoogle.com%2Fmain_index.php";
 char const * orig2 = "Some File Name.ext";
@@ -62,7 +58,6 @@ char const * orig3 = "Wow,  two spaces?!";
 char const * enc3 = "Wow%2C%20%20two%20spaces%3F%21";
 char const * orig4 = "#$%^&@~[]{}()|*+`\"\'";
 char const * enc4 = "%23%24%25%5E%26%40~%5B%5D%7B%7D%28%29%7C%2A%2B%60%22%27";
-}  // namespace url_encode_testdata
 
 UNIT_TEST(Url_Join)
 {
@@ -78,10 +73,8 @@ UNIT_TEST(Url_Join)
   TEST_EQUAL("../omim/strings", Join("../", "", "/omim/", "/strings"), ());
 }
 
-UNIT_TEST(UrlEncode)
+UNIT_TEST(Url_Encode)
 {
-  using namespace url_encode_testdata;
-
   TEST_EQUAL(UrlEncode(""), "", ());
   TEST_EQUAL(UrlEncode(" "), "%20", ());
   TEST_EQUAL(UrlEncode("%% "), "%25%25%20", ());
@@ -93,10 +86,8 @@ UNIT_TEST(UrlEncode)
   TEST_EQUAL(UrlEncode(orig4), enc4, ());
 }
 
-UNIT_TEST(UrlDecode)
+UNIT_TEST(Url_Decode)
 {
-  using namespace url_encode_testdata;
-
   TEST_EQUAL(UrlDecode(""), "", ());
   TEST_EQUAL(UrlDecode("%20"), " ", ());
   TEST_EQUAL(UrlDecode("%25%25%20"), "%% ", ());
@@ -108,166 +99,18 @@ UNIT_TEST(UrlDecode)
   TEST_EQUAL(UrlDecode(enc4), orig4, ());
 }
 
-UNIT_TEST(ProcessURL_Smoke)
-{
-  {
-    GeoURLInfo info("geo:53.666,27.666");
-    TEST(info.IsValid(), ());
-    TEST_ALMOST_EQUAL_ABS(info.m_lat, 53.666, kEps, ());
-    TEST_ALMOST_EQUAL_ABS(info.m_lon, 27.666, kEps, ());
-  }
-
-  {
-    GeoURLInfo info("geo://point/?lon=27.666&lat=53.666&zoom=10");
-    TEST(info.IsValid(), ());
-    TEST_ALMOST_EQUAL_ABS(info.m_lat, 53.666, kEps, ());
-    TEST_ALMOST_EQUAL_ABS(info.m_lon, 27.666, kEps, ());
-    TEST_ALMOST_EQUAL_ABS(info.m_zoom, 10.0, kEps, ());
-  }
-
-  {
-    GeoURLInfo info("geo:53.666");
-    TEST(!info.IsValid(), ());
-  }
-
-  {
-    GeoURLInfo info("mapswithme:123.33,32.22/showmethemagic");
-    TEST(!info.IsValid(), ());
-  }
-
-  {
-    GeoURLInfo info("mapswithme:32.22, 123.33/showmethemagic");
-    TEST(info.IsValid(), ());
-    TEST_ALMOST_EQUAL_ABS(info.m_lat, 32.22, kEps, ());
-    TEST_ALMOST_EQUAL_ABS(info.m_lon, 123.33, kEps, ());
-  }
-
-  {
-    GeoURLInfo info("model: iphone 7,1");
-    TEST(!info.IsValid(), ());
-  }
-}
-
-UNIT_TEST(ProcessURL_Instagram)
-{
-  GeoURLInfo info("geo:0,0?z=14&q=54.683486138,25.289361259 (Forto%20dvaras)");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 54.683486138, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 25.289361259, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 14.0, kEps, ());
-}
-
-UNIT_TEST(ProcessURL_GoogleMaps)
-{
-  GeoURLInfo info("https://maps.google.com/maps?z=16&q=Mezza9%401.3067198,103.83282");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 1.3067198, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 103.83282, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
-
-  info = GeoURLInfo("https://maps.google.com/maps?z=16&q=House+of+Seafood+%40+180%401.356706,103.87591");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 1.356706, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 103.87591, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
-
-  info = GeoURLInfo("https://www.google.com/maps/place/Falafel+M.+Sahyoun/@33.8904447,35.5044618,16z");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 33.8904447, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 35.5044618, kEps, ());
-  // Sic: zoom is not parsed
-  //TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
-
-  info = GeoURLInfo("https://www.google.com/maps?q=55.751809,37.6130029");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 55.751809, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 37.6130029, kEps, ());
-}
-
-UNIT_TEST(ProcessURL_2GIS)
-{
-  GeoURLInfo info("https://2gis.ru/moscow/firm/4504127908589159/center/37.6186,55.7601/zoom/15.9764");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 55.7601, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 37.6186, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 15.9764, kEps, ());
-
-  info = GeoURLInfo("https://2gis.ru/moscow/firm/4504127908589159/center/37,55/zoom/15");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 55.0, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 37.0, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 15.0, kEps, ());
-
-  info = GeoURLInfo("https://2gis.ru/moscow/firm/4504127908589159?m=37.618632%2C55.760069%2F15.232");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 55.760069, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 37.618632, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 15.232, kEps, ());
-
-  info = GeoURLInfo("https://2gis.ru/moscow/firm/4504127908589159?m=37.618632%2C55.760069%2F15");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 55.760069, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 37.618632, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 15.0, kEps, ());
-}
-
-UNIT_TEST(ProcessURL_OpenStreetMap)
-{
-  GeoURLInfo info("https://www.openstreetmap.org/#map=16/33.89041/35.50664");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 33.89041, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 35.50664, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
-
-  info = GeoURLInfo("https://www.openstreetmap.org/search?query=Falafel%20Sahyoun#map=16/33.89041/35.50664");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 33.89041, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 35.50664, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
-}
-
-UNIT_TEST(ProcessURL_CaseInsensitive)
-{
-  GeoURLInfo info("geo:52.23405,21.01547?Z=10");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 10.0, kEps, ());
-}
-
-UNIT_TEST(ProcessURL_BadZoom)
-{
-  GeoURLInfo info("geo:52.23405,21.01547?Z=19");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 17.0, kEps, ());
-
-  info = GeoURLInfo("geo:52.23405,21.01547?Z=nineteen");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 17.0, kEps, ());
-
-  info = GeoURLInfo("geo:52.23405,21.01547?Z=-1");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 0.0, kEps, ());
-}
-
-UNIT_TEST(UrlValidScheme)
+UNIT_TEST(UrlScheme_Valid)
 {
   Url url("mapswithme://map?ll=10.3,12.3223&n=Hello%20World");
   TEST_EQUAL(url.GetScheme(), "mapswithme", ());
 }
 
-UNIT_TEST(UrlInvalidSchemeNoColon)
+UNIT_TEST(UrlScheme_NoColon)
 {
   TEST_EQUAL(Url("mapswithme:").GetScheme(), "mapswithme", ());
 }
 
-UNIT_TEST(UrlTestValidScheme2)
+UNIT_TEST(UrlScheme_Valid2)
 {
   TestUrl("mapswithme://map?ll=10.3,12.3223&n=Hello%20World")
       .Scheme("mapswithme")
@@ -276,7 +119,7 @@ UNIT_TEST(UrlTestValidScheme2)
       .KV("n", "Hello World");
 }
 
-UNIT_TEST(UrlComprehensive)
+UNIT_TEST(UrlScheme_Comprehensive)
 {
   TestUrl("");
   TestUrl("scheme:").Scheme("scheme");

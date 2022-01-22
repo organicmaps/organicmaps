@@ -5,8 +5,6 @@
 #include "platform/downloader_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 
-#include "coding/url.hpp"
-
 #include "base/assert.hpp"
 
 namespace storage
