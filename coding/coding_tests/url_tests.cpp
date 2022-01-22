@@ -148,4 +148,17 @@ UNIT_TEST(UrlScheme_Comprehensive)
       .KV("key2", "").KV("key2", "")
       .KV("key3", "value1").KV("key3", "").KV("key3", "value2");
 }
+
+UNIT_TEST(UrlApi_Smoke)
+{
+  url::Url url("https://2gis.ru/moscow/firm/4504127908589159?m=37.618632%2C55.760069%2F15.232");
+  TEST_EQUAL(url.GetScheme(), "https", ());
+  TEST_EQUAL(url.GetPath(), "2gis.ru/moscow/firm/4504127908589159", ());
+  TEST_EQUAL(url.GetWebDomain(), "2gis.ru", ());
+  TEST_EQUAL(url.GetWebPath(), "moscow/firm/4504127908589159", ());
+
+  TEST(url.GetLastParam(), ());
+  TEST(url.GetParamValue("m"), ());
+}
+
 }  // namespace url_tests

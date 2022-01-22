@@ -185,6 +185,6 @@ protected:
 
   bookmarks::Processor m_bookmarksProcessor;
 
-  geo::GeoURLInfo m_geoUrlParser;
+  geo::UnifiedParser m_geoUrlParser;
 };
 }  // namespace search
