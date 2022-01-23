@@ -311,6 +311,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         mPreferenceScreen.removePreference(tracking);
     }
     initScreenSleepEnabledPrefsCallbacks();
+    initShowOnLockScreenPrefsCallbacks();
     updateTts();
   }
 
@@ -770,6 +771,27 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
             Utils.keepScreenOn(!newVal, getActivity().getWindow());
           return true;
         });
+  }
+
+  private void initShowOnLockScreenPrefsCallbacks()
+  {
+    Preference pref = findPreference(getString(R.string.pref_show_on_lock_screen));
+    if (pref == null)
+      return;
+
+    final boolean isShowOnLockScreenEnabled = Config.isShowOnLockScreenEnabled();
+    ((TwoStatePreference) pref).setChecked(isShowOnLockScreenEnabled);
+    pref.setOnPreferenceChangeListener(
+            (preference, newValue) ->
+            {
+              boolean newVal = (Boolean) newValue;
+              if (isShowOnLockScreenEnabled != newVal)
+              {
+                Config.setShowOnLockScreenEnabled(newVal);
+                Utils.showOnLockScreen(newVal, getActivity());
+              }
+              return true;
+            });
   }
 
   private void removePreference(@NonNull String categoryKey, @NonNull Preference preference)

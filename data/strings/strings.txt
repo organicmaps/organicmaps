@@ -22001,6 +22001,17 @@
     zh-Hans = 启用后，屏幕将在一段时间不活动后进入休眠状态。
     zh-Hant = 啟用後，螢幕將在一段時間不活動後進入休眠狀態。
 
+  [enable_show_on_lock_screen]
+    tags = android
+    en = Show application on lock screen
+    pl = Pokazuj aplikację na ekranie blokady
+
+  [enable_show_on_lock_screen_description]
+    tags = android
+    comment = Description in preferences
+    en = When enabled the application will be shown without phone unlocking.
+    pl = Po włączeniu aplikacja będzie pokazana bez odblokowania telefonu.
+
   [whats_new_auto_update_title]
     comment = Autoupdate dialog on start
     tags = ios

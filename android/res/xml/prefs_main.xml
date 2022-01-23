@@ -76,6 +76,13 @@
       android:summary="@string/enable_screen_sleep_description"
       android:defaultValue="false"
       android:order="16"/>
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_show_on_lock_screen"
+        android:title="@string/enable_show_on_lock_screen"
+        android:summary="@string/enable_show_on_lock_screen_description"
+        android:defaultValue="false"
+        android:order="17"/>
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory

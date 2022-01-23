@@ -655,6 +655,9 @@
 	<string name="enable_screen_sleep">Pozwól ekranowi spać</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Po włączeniu ekran będzie mógł spać po okresie bezczynności.</string>
+	<string name="enable_show_on_lock_screen">Pokazuj aplikację na ekranie blokady</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Po włączeniu aplikacja będzie pokazana bez odblokowania telefonu.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Transport linowy</string>

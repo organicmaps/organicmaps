@@ -683,6 +683,9 @@
 	<string name="enable_screen_sleep">Allow screen to sleep</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">When enabled the screen will be allowed to sleep after a period of inactivity.</string>
+	<string name="enable_show_on_lock_screen">Show application on lock screen</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">When enabled the application will be shown without phone unlocking.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Aerialway</string>

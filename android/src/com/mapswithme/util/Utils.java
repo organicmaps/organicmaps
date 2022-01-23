@@ -18,6 +18,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.util.AndroidRuntimeException;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,6 +104,16 @@ public class Utils
       w.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     else
       w.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+  }
+
+  public static void showOnLockScreen(boolean enable, Activity activity)
+  {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
+      activity.setShowWhenLocked(enable);
+    else if (enable)
+      activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+    else
+      activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
   }
 
   public static void showSnackbar(@NonNull View view, @NonNull String message)

@@ -39,6 +39,7 @@ public final class Config
   private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
   private static final String KEY_MISC_AD_FORBIDDEN = "AdForbidden";
   private static final String KEY_MISC_ENABLE_SCREEN_SLEEP = "EnableScreenSleep";
+  private static final String KEY_MISC_SHOW_ON_LOCK_SCREEN = "ShowOnLockScreen";
 
   private Config() {}
 
@@ -184,6 +185,16 @@ public final class Config
   public static void setScreenSleepEnabled(boolean enabled)
   {
     setBool(KEY_MISC_ENABLE_SCREEN_SLEEP, enabled);
+  }
+
+  public static boolean isShowOnLockScreenEnabled()
+  {
+    return getBool(KEY_MISC_SHOW_ON_LOCK_SCREEN, false);
+  }
+
+  public static void setShowOnLockScreenEnabled(boolean enabled)
+  {
+    setBool(KEY_MISC_SHOW_ON_LOCK_SCREEN, enabled);
   }
 
   public static boolean useGoogleServices()
