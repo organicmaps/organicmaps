@@ -111,7 +111,8 @@ public:
   /// For types parsed from OSM get corresponding OSM tag to MetadataTagProcessor::TypeFromString().
   enum EType : int8_t
   {
-    FMD_CUISINE = 1,
+    // Defined by classifier types now.
+    //FMD_CUISINE = 1,
     FMD_OPEN_HOURS = 2,
     FMD_PHONE_NUMBER = 3,
     FMD_FAX_NUMBER = 4,

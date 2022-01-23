@@ -19,7 +19,6 @@ namespace
 map<Metadata::EType, string> const kKeyValues =
 {
   {Metadata::FMD_ELE, "12345"},
-  {Metadata::FMD_CUISINE, "greek;mediterranean"},
   {Metadata::FMD_EMAIL, "cool@email.at"},
   // This string is longer than 255 bytes.
   {Metadata::FMD_URL, "http://rskxmkjwnikfnjqhyv"
