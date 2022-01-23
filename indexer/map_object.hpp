@@ -188,6 +188,7 @@ std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
     case Metadata::FMD_AIRPORT_IATA:
     case Metadata::FMD_BRAND:
     case Metadata::FMD_DURATION:
+    case Metadata::FMD_DESCRIPTION:
     case Metadata::FMD_COUNT:
       break;
       // Please add new cases when compiler issues an "unhandled switch case" warning here.

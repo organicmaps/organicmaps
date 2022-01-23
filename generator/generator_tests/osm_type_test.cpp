@@ -1347,6 +1347,26 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Recycling)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Metadata)
+{
+  {
+    Tags const tags = {
+      {"amenity", "restaurant" },
+      {"description:ru", "Хорошие настойки"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "restaurant"})), (params));
+
+    std::string buffer, desc;
+    TEST(params.GetMetadata().Get(feature::Metadata::FMD_DESCRIPTION, buffer), ());
+    StringUtf8Multilang::FromBuffer(std::move(buffer)).GetString(StringUtf8Multilang::GetLangIndex("ru"), desc);
+    TEST_EQUAL(desc, "Хорошие настойки", ());
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 {
   Tags const oneTypes = {
