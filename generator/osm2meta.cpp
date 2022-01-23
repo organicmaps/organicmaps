@@ -461,8 +461,6 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
   case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
   case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
-  // Used for old data compatibility only and should not be set:
-  case Metadata::FMD_CUISINE:
   // Metadata types we do not get from OSM.
   case Metadata::FMD_BRAND:
   case Metadata::FMD_DESCRIPTION:   // processed separately

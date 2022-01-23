@@ -98,8 +98,9 @@ bool TestFeature::Matches(FeatureType & feature) const
 void TestFeature::Serialize(FeatureBuilder & fb) const
 {
   using feature::Metadata;
-  // Metadata::EType::FMD_CUISINE is the first enum value.
-  size_t i = static_cast<size_t>(Metadata::EType::FMD_CUISINE);
+
+  // Iterate [1, FMD_COUNT). Absent types don't matter here.
+  size_t i = 1;
   size_t const count = static_cast<size_t>(Metadata::EType::FMD_COUNT);
   for (; i < count; ++i)
   {
