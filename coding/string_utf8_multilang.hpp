@@ -181,7 +181,7 @@ public:
       }
     }
     return false;
-  };
+  }
 
   bool GetString(int8_t lang, std::string & utf8s) const;
   bool GetString(std::string const & lang, std::string & utf8s) const
@@ -198,6 +198,8 @@ public:
   int8_t FindString(std::string const & utf8s) const;
   size_t CountLangs() const;
 
+  /// @name Used for serdes.
+  /// @{
   template <class TSink>
   void Write(TSink & sink) const
   {
@@ -209,6 +211,10 @@ public:
   {
     utils::ReadString(src, m_s);
   }
+
+  std::string const & GetBuffer() const { return m_s; }
+  static StringUtf8Multilang FromBuffer(std::string && s);
+  /// @}
 
 private:
   TranslationPositions GenerateTranslationPositions() const;

@@ -12,8 +12,8 @@ namespace
 // several data releases.
 // Note that it's not feasible to increase languages number here due to current encoding (6 bit to
 // store language code).
-array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguages> const kLanguages = {
-    {{"default", "Native for each country", {"Any-Latin"}},
+array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguages> const kLanguages = {{
+     {"default", "Native for each country", {"Any-Latin"}},
      {"en", "English", {}},
      {"ja", "日本語", {}},
      {"fr", "Français", {}},
@@ -76,7 +76,8 @@ array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguages> co
      {"mn", "Mongolian", {"Mongolian-Latin/BGN"}},
      {"mk", "Македонски", {"Macedonian-Latin/BGN"}},
      {"lv", "Latviešu", {}},
-     {"hi", "हिन्दी", {"Any-Latin"}}}};
+     {"hi", "हिन्दी", {"Any-Latin"}}
+}};
 
 static_assert(
     kLanguages.size() == StringUtf8Multilang::kMaxSupportedLanguages,
@@ -322,4 +323,13 @@ string DebugPrint(StringUtf8Multilang const & s)
   });
 
   return result;
+}
+
+StringUtf8Multilang StringUtf8Multilang::FromBuffer(std::string && s)
+{
+  ASSERT(!s.empty(), ());
+  StringUtf8Multilang res;
+  res.m_s = std::move(s);
+  ASSERT_GREATER(res.CountLangs(), 0, ());
+  return res;
 }

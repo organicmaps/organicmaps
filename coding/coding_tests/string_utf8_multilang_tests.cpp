@@ -252,3 +252,16 @@ UNIT_TEST(MultilangString_RemoveString)
   testRemove(strings, {0, 1, 2, 9, 17, 27, 37});
   testRemove(strings, {39});
 }
+
+UNIT_TEST(MultilangString_Buffers)
+{
+  StringUtf8Multilang s;
+  s.AddString(StringUtf8Multilang::kInternationalCode, "blabla");
+
+  StringUtf8Multilang const ss = StringUtf8Multilang::FromBuffer(std::string(s.GetBuffer()));
+
+  std::string test;
+  TEST_EQUAL(ss.CountLangs(), 1, ());
+  TEST(ss.GetString(StringUtf8Multilang::kInternationalCode, test), ());
+  TEST_EQUAL(test, "blabla", ());
+}

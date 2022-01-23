@@ -189,6 +189,7 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_EMAIL: return "email";
   case Metadata::FMD_POSTCODE: return "addr:postcode";
   case Metadata::FMD_WIKIPEDIA: return "wikipedia";
+  case Metadata::FMD_DESCRIPTION: return "description";
   case Metadata::FMD_FLATS: return "addr:flats";
   case Metadata::FMD_HEIGHT: return "height";
   case Metadata::FMD_MIN_HEIGHT: return "min_height";
