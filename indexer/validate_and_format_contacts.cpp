@@ -210,13 +210,8 @@ string ValidateAndFormat_contactLine(string const & linePage)
     {
       // Parse https://line.me/R/home/public/main?id={LINE ID without @}
       // and https://line.me/R/home/public/profile?id={LINE ID without @}
-      string lineId = {};
-      url.ForEachParam([&lineId](url::Param const & param) {
-        if (param.m_name == "id")
-          lineId = param.m_value;
-      });
-
-      return lineId;
+      std::string const * id = url.GetParamValue("id");
+      return (id? *id : std::string());
     }
     else
     {

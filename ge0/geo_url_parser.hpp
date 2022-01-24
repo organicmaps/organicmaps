@@ -53,7 +53,7 @@ public:
   void Reset(url::Url const & url, GeoURLInfo & info);
 
   bool IsValid() const;
-  void operator()(url::Param const & param);
+  void operator()(std::string name, std::string const & value);
 
 private:
   // Usually (lat, lon), but some providers use (lon, lat).
@@ -70,7 +70,7 @@ private:
   static int GetCoordinatesPriority(std::string const & token);
 
   GeoURLInfo * m_info;
-  url::Url const * m_url;
+  bool m_swapLatLon;
   std::regex m_regexp;
   int m_latPriority;
   int m_lonPriority;

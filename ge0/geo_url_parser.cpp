@@ -3,6 +3,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 namespace geo
@@ -11,49 +12,62 @@ using namespace std;
 
 namespace
 {
-double const kInvalidCoord = -1000.0;
+double constexpr kInvalidCoord = -1000.0;
 
 // Same as scales::GetUpperScale() from indexer/scales.hpp.
 // 1. Duplicated here to avoid a dependency on indexer/.
 // 2. The value is arbitrary anyway: we want to parse a "z=%f" pair
 //    from a URL parameter, and different map providers may have different
 //    maximal zoom levels.
-double const kMaxZoom = 17.0;
+double constexpr kMaxZoom = 17.0;
+double constexpr kDefaultZoom = 15.0;
 
-bool MatchLatLonZoom(const string & s, const regex & re, size_t lati, size_t loni, size_t zoomi, GeoURLInfo & info)
+bool MatchLatLonZoom(string const & s, regex const & re,
+                     size_t lati, size_t loni, size_t zoomi,
+                     GeoURLInfo & info)
 {
   std::smatch m;
   if (!std::regex_search(s, m, re) || m.size() != 4)
     return false;
 
-  double lat;
-  double lon;
-  double zoom;
+  double lat, lon, zoom;
   VERIFY(strings::to_double(m[lati].str(), lat), ());
   VERIFY(strings::to_double(m[loni].str(), lon), ());
   VERIFY(strings::to_double(m[zoomi].str(), zoom), ());
-  if (!info.SetLat(lat) || !info.SetLon(lon))
-    return false;
-  info.SetZoom(zoom);
-  return true;
+  if (info.SetLat(lat) && info.SetLon(lon))
+  {
+    info.SetZoom(zoom);
+    return true;
+  }
+
+  LOG(LWARNING, ("Bad coordinates url:", s));
+  return false;
 }
 
 bool MatchHost(url::Url const & url, char const * host)
 {
   return url.GetHost().find(host) != std::string::npos;
 }
+
+// Canonical parsing is float-only coordinates and int-only scale.
+std::string const kFloatCoord = R"(([+-]?\d+\.\d+))";
+std::string const kIntScale = R"((\d+))";
+
+// 2gis can accept float or int coordinates and scale.
+std::string const kFloatIntCoord = R"(([+-]?\d+\.?\d*))";
+std::string const kFloatIntScale = R"((\d+\.?\d*))";
 } // namespace
 
 LatLonParser::LatLonParser()
-: m_info(nullptr), m_url(nullptr)
-, m_regexp("-?\\d+\\.{1}\\d*, *-?\\d+\\.{1}\\d*")
+: m_info(nullptr)
+, m_regexp(kFloatCoord + ", *" + kFloatCoord)
 {
 }
 
 void LatLonParser::Reset(url::Url const & url, GeoURLInfo & info)
 {
   m_info = &info;
-  m_url = &url;
+  m_swapLatLon = MatchHost(url, "2gis") || MatchHost(url, "yandex");
   m_latPriority = m_lonPriority = -1;
 }
 
@@ -62,14 +76,13 @@ bool LatLonParser::IsValid() const
   return m_latPriority == m_lonPriority && m_latPriority != -1;
 }
 
-void LatLonParser::operator()(url::Param const & param)
+void LatLonParser::operator()(std::string name, std::string const & value)
 {
-  auto name = param.m_name;
   strings::AsciiToLower(name);
   if (name == "z" || name == "zoom")
   {
     double x;
-    if (strings::to_double(param.m_value, x))
+    if (strings::to_double(value, x))
       m_info->SetZoom(x);
     return;
   }
@@ -80,22 +93,14 @@ void LatLonParser::operator()(url::Param const & param)
 
   if (priority != kXYPriority && priority != kLatLonPriority)
   {
-    strings::ForEachMatched(param.m_value, m_regexp, [this, priority](string const & token)
+    std::smatch m;
+    if (std::regex_search(value, m, m_regexp) && m.size() == 3)
     {
-      double lat;
-      double lon;
+      double lat, lon;
+      VERIFY(strings::to_double(m[1].str(), lat), ());
+      VERIFY(strings::to_double(m[2].str(), lon), ());
 
-      size_t n = token.find(',');
-      if (n == string::npos)
-        return;
-      VERIFY(strings::to_double(token.substr(0, n), lat), ());
-
-      n = token.find_first_not_of(", ", n);
-      if (n == string::npos)
-        return;
-      VERIFY(strings::to_double(token.substr(n, token.size() - n), lon), ());
-
-      if (MatchHost(*m_url, "2gis") || MatchHost(*m_url, "yandex"))
+      if (m_swapLatLon)
         std::swap(lat, lon);
 
       if (m_info->SetLat(lat) && m_info->SetLon(lon))
@@ -103,13 +108,13 @@ void LatLonParser::operator()(url::Param const & param)
         m_latPriority = priority;
         m_lonPriority = priority;
       }
-    });
+    }
 
     return;
   }
 
   double x;
-  if (strings::to_double(param.m_value, x))
+  if (strings::to_double(value, x))
   {
     if (name == "lat" || name == "y")
     {
@@ -118,7 +123,7 @@ void LatLonParser::operator()(url::Param const & param)
     }
     else
     {
-      ASSERT(name == "lon" || name == "x", (param.m_name, name));
+      ASSERT(name == "lon" || name == "x", (name));
       if (m_info->SetLon(x))
         m_lonPriority = priority;
     }
@@ -148,8 +153,8 @@ int LatLonParser::GetCoordinatesPriority(string const & token)
 }
 
 DoubleGISParser::DoubleGISParser()
-: m_pathRe("/(\\d+\\.?\\d*),(\\d+\\.?\\d*)/zoom/(\\d+\\.?\\d*)")
-, m_paramRe("(\\d+\\.?\\d*),(\\d+\\.?\\d*)/(\\d+\\.?\\d*)")
+: m_pathRe("/" + kFloatIntCoord + "," + kFloatIntCoord + "/zoom/" + kFloatIntScale)
+, m_paramRe(kFloatIntCoord + "," + kFloatIntCoord + "/" + kFloatIntScale)
 {
 }
 
@@ -165,18 +170,14 @@ bool DoubleGISParser::Parse(url::Url const & url, GeoURLInfo & info) const
 }
 
 OpenStreetMapParser::OpenStreetMapParser()
-: m_regex("#map=(\\d+\\.?\\d*)/(\\d+\\.\\d+)/(\\d+\\.\\d+)")
+: m_regex(kIntScale + "/" + kFloatCoord + "/" + kFloatCoord)
 {
 }
 
 bool OpenStreetMapParser::Parse(url::Url const & url, GeoURLInfo & info) const
 {
-  if (MatchLatLonZoom(url.GetHostAndPath(), m_regex, 2, 3, 1, info))
-    return true;
-
-  // Check if "#map=" fragment is attached to the last param in Url
-  auto const * last = url.GetLastParam();
-  return (last && MatchLatLonZoom(last->m_value, m_regex, 2, 3, 1, info));
+  auto const * mapV = url.GetParamValue("map");
+  return (mapV && MatchLatLonZoom(*mapV, m_regex, 2, 3, 1, info));
 }
 
 GeoURLInfo::GeoURLInfo()
@@ -198,7 +199,12 @@ void GeoURLInfo::Reset()
 
 void GeoURLInfo::SetZoom(double x)
 {
-  m_zoom = clamp(x, 0.0, kMaxZoom);
+  if (x < 1.0)
+    m_zoom = kDefaultZoom;
+  else if (x > kMaxZoom)
+    m_zoom = kMaxZoom;
+  else
+    m_zoom = x;
 }
 
 bool GeoURLInfo::SetLat(double x)
@@ -244,7 +250,7 @@ GeoURLInfo UnifiedParser::Parse(string const & s)
   }
 
   m_llParser.Reset(url, res);
-  m_llParser({{}, url.GetHostAndPath()});
+  m_llParser({}, url.GetHostAndPath());
   url.ForEachParam(m_llParser);
 
   if (!m_llParser.IsValid())
