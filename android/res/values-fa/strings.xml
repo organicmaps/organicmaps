@@ -719,6 +719,8 @@
 	<string name="type.amenity.post_box">صندوق پست</string>
 	<string name="type.amenity.post_office">دفتر پست</string>
 	<string name="type.amenity.pub">میکده</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">مرکز بازیافت</string>
 	<string name="type.amenity.recycling">ظرف بازیافت</string>
 	<string name="type.amenity.recycling.container">ظرف بازیافت</string>

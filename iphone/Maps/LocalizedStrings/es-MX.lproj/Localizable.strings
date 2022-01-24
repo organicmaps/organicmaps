@@ -1383,13 +1383,16 @@
 
 "type.amenity.public_bookcase" = "Book Exchange";
 
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Recycling Center";
 
 "type.amenity.recycling" = "Contenedor de reciclaje";
 
 "type.amenity.recycling.container" = "Contenedor de reciclaje";
 
-"type.recycling.batteries" = "Batteries";
+"type.recycling.batteries" = "Household Batteries";
 
 "type.recycling.clothes" = "Ropa vieja";
 
@@ -1413,7 +1416,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Cartons";
+"type.recycling.cartons" = "Bewerage Cartons";
 
 "type.amenity.restaurant" = "Restaurant";
 
@@ -2231,7 +2234,7 @@
 
 "type.man_made.lighthouse" = "Lighthouse";
 
-"type.man_made.mast" = "Pole mast";
+"type.man_made.mast" = "Mast";
 
 "type.man_made.pier" = "Pier";
 

@@ -715,6 +715,8 @@
 	<string name="type.amenity.post_office">Postkontor</string>
 	<string name="type.amenity.pub">Krog</string>
 	<string name="type.amenity.public_bookcase">Bokskåp</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Återvinningscentral</string>
 	<string name="type.amenity.recycling">Behållare för återvinningsbart avfall</string>
 	<string name="type.amenity.recycling.container">Behållare för återvinningsbart avfall</string>

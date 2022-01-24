@@ -729,6 +729,8 @@
 	<string name="type.amenity.prison">刑務所</string>
 	<string name="type.amenity.pub">バー</string>
 	<string name="type.amenity.public_bookcase">街角文庫</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">リサイクルセンター</string>
 	<string name="type.amenity.recycling">リサイクルボックス</string>
 	<string name="type.amenity.recycling.container">リサイクルボックス</string>

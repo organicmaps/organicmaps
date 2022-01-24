@@ -779,14 +779,16 @@
 	<string name="type.amenity.prison">Prison</string>
 	<string name="type.amenity.pub">Pub</string>
 	<string name="type.amenity.public_bookcase">Book Exchange</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Recycling Center</string>
 	<string name="type.amenity.recycling">Recycling Container</string>
 	<string name="type.amenity.recycling.container">Recycling Container</string>
-	<string name="type.recycling.batteries">Batteries</string>
-	<string name="type.recycling.clothes">Old Clothes</string>
+	<string name="type.recycling.batteries">Household Batteries</string>
+	<string name="type.recycling.clothes">Clothes</string>
 	<string name="type.recycling.glass_bottles">Glass Bottles</string>
-	<string name="type.recycling.paper">Paper Waste</string>
-	<string name="type.recycling.plastic">Plastic Waste</string>
+	<string name="type.recycling.paper">Paper</string>
+	<string name="type.recycling.plastic">Plastic</string>
 	<string name="type.recycling.plastic_bottles">Plastic Bottles</string>
 	<string name="type.recycling.scrap_metal">Scrap Metal</string>
 	<string name="type.recycling.small_appliances">Electronic Waste</string>
@@ -794,7 +796,7 @@
 	<string name="type.recycling.cans">Cans</string>
 	<string name="type.recycling.shoes">Shoes</string>
 	<string name="type.recycling.green_waste">Green/Organic Waste</string>
-	<string name="type.recycling.cartons">Cartons</string>
+	<string name="type.recycling.cartons">Bewerage Cartons</string>
 	<string name="type.amenity.restaurant">Restaurant</string>
 	<string name="type.amenity.sanitary_dump_station">Holding Tank Dump Station</string>
 	<string name="type.amenity.school">School</string>
@@ -1205,7 +1207,7 @@
 	<string name="type.man_made.cutline">Cutline</string>
 	<string name="type.man_made.flagpole">Flagpole</string>
 	<string name="type.man_made.lighthouse">Lighthouse</string>
-	<string name="type.man_made.mast">Pole mast</string>
+	<string name="type.man_made.mast">Mast</string>
 	<string name="type.man_made.pier">Pier</string>
 	<string name="type.man_made.pipeline">Pipeline</string>
 	<string name="type.man_made.pipeline.overground">Overground Pipeline</string>

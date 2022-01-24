@@ -745,6 +745,8 @@
 	<string name="type.amenity.prison">Presidiário</string>
 	<string name="type.amenity.pub">Pub ou buteco</string>
 	<string name="type.amenity.public_bookcase">Biblioteca livre</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Centro de reciclagem</string>
 	<string name="type.amenity.recycling">Recipiente de reciclagem</string>
 	<string name="type.amenity.recycling.container">Recipiente de reciclagem</string>

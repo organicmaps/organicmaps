@@ -767,24 +767,26 @@
 	<string name="type.amenity.prison">Тюрьма</string>
 	<string name="type.amenity.pub">Паб</string>
 	<string name="type.amenity.public_bookcase">Книгообмен</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Приём вторсырья</string>
 	<string name="type.amenity.recycling">Контейнер для вторсырья</string>
 	<string name="type.amenity.recycling.container">Контейнер для вторсырья</string>
 	<string name="type.recycling.batteries">Батарейки</string>
-	<string name="type.recycling.clothes">Старая одежда</string>
+	<string name="type.recycling.clothes">Одежда</string>
 	<string name="type.recycling.glass_bottles">Стеклотара</string>
-	<string name="type.recycling.paper">Макулатура</string>
-	<string name="type.recycling.plastic">Пластиковый мусор</string>
-	<string name="type.recycling.plastic_bottles">Сбор пластиковых бутылок</string>
+	<string name="type.recycling.paper">Бумага</string>
+	<string name="type.recycling.plastic">Пластик</string>
+	<string name="type.recycling.plastic_bottles">Пластиковые бутылки</string>
 	<string name="type.recycling.scrap_metal">Металлолом</string>
 	<string name="type.recycling.small_appliances">Электроотходы</string>
 	<string name="type.recycling.cardboard">Картон</string>
-	<string name="type.recycling.cans">Жестяные банки</string>
+	<string name="type.recycling.cans">Жестяные и алюминиевые банки</string>
 	<string name="type.recycling.shoes">Обувь</string>
-	<string name="type.recycling.green_waste">Органические отходы</string>
+	<string name="type.recycling.green_waste">Органика / Пищевые отходы</string>
 	<string name="type.recycling.cartons">Тетрапак и аналоги</string>
 	<string name="type.amenity.restaurant">Ресторан</string>
-	<string name="type.amenity.sanitary_dump_station">Слив нечистот</string>
+	<string name="type.amenity.sanitary_dump_station">Слив для туалетов транспортных средств</string>
 	<string name="type.amenity.school">Школа</string>
 	<string name="type.amenity.shelter">Укрытие</string>
 	<string name="type.amenity.shower">Душ</string>
@@ -1178,7 +1180,7 @@
 	<string name="type.man_made.cutline">Просека</string>
 	<string name="type.man_made.flagpole">Флагшток</string>
 	<string name="type.man_made.lighthouse">Маяк</string>
-	<string name="type.man_made.mast">Столб-мачта</string>
+	<string name="type.man_made.mast">Мачта/вышка</string>
 	<string name="type.man_made.pier">Пирс</string>
 	<string name="type.man_made.pipeline">Трубопровод</string>
 	<string name="type.man_made.pipeline.overground">Наземный трубопровод</string>

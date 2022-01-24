@@ -718,6 +718,8 @@
 	<string name="type.amenity.post_office">Posta</string>
 	<string name="type.amenity.pub">Kocsma</string>
 	<string name="type.amenity.public_bookcase">Nyilvános könyvespolc</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Újrahasznosító központ</string>
 	<string name="type.amenity.recycling">Újrahasznosító tartály</string>
 	<string name="type.amenity.recycling.container">Újrahasznosító tartály</string>

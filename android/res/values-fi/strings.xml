@@ -728,6 +728,8 @@
 	<string name="type.amenity.post_office">Postitoimisto</string>
 	<string name="type.amenity.pub">Pubi</string>
 	<string name="type.amenity.public_bookcase">Kirjahylly</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Kierrätyskeskus</string>
 	<string name="type.amenity.recycling">Kierrätysjäteastia</string>
 	<string name="type.amenity.recycling.container">Kierrätysjäteastia</string>

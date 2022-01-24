@@ -743,6 +743,8 @@
 	<string name="type.amenity.post_office">郵局</string>
 	<string name="type.amenity.pub">酒館</string>
 	<string name="type.amenity.public_bookcase">書架</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">回收中心</string>
 	<string name="type.amenity.recycling">回收箱</string>
 	<string name="type.amenity.recycling.container">回收箱</string>

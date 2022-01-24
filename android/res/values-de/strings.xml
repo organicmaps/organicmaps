@@ -747,6 +747,8 @@
 	<string name="type.amenity.prison">Gefängnis</string>
 	<string name="type.amenity.pub">Kneipe</string>
 	<string name="type.amenity.public_bookcase">Bücherschrank</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Recyclinghof</string>
 	<string name="type.amenity.recycling">Wertstoffcontainer</string>
 	<string name="type.amenity.recycling.container">Wertstoffcontainer</string>
