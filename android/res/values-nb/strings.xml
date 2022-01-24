@@ -715,6 +715,8 @@
 	<string name="type.amenity.post_box">Postboks</string>
 	<string name="type.amenity.post_office">Postkontor</string>
 	<string name="type.amenity.public_bookcase">Bokhylle</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Resirkuleringssenter</string>
 	<string name="type.amenity.recycling">Gjenvinningsbeholder</string>
 	<string name="type.amenity.recycling.container">Gjenvinningsbeholder</string>

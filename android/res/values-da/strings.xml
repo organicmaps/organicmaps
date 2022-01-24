@@ -717,6 +717,8 @@
 	<string name="type.amenity.post_office">Postkontor</string>
 	<string name="type.amenity.pub">Værtshus</string>
 	<string name="type.amenity.public_bookcase">Bog udveksling</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Genbrugsplads</string>
 	<string name="type.amenity.recycling">Genbrugscontainer</string>
 	<string name="type.amenity.recycling.container">Genbrugscontainer</string>

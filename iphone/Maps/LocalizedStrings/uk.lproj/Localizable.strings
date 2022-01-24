@@ -1383,6 +1383,9 @@
 
 "type.amenity.public_bookcase" = "Книгообмін";
 
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Прийом вторсировини";
 
 "type.amenity.recycling" = "Контейнер для вторсировини";
@@ -1391,15 +1394,15 @@
 
 "type.recycling.batteries" = "Батарейки";
 
-"type.recycling.clothes" = "Старий одяг";
+"type.recycling.clothes" = "Одяг";
 
 "type.recycling.glass_bottles" = "Склотара";
 
-"type.recycling.paper" = "Макулатура";
+"type.recycling.paper" = "Папір";
 
-"type.recycling.plastic" = "Пластикове сміття";
+"type.recycling.plastic" = "Пластик";
 
-"type.recycling.plastic_bottles" = "Збір пластикових пляшок";
+"type.recycling.plastic_bottles" = "Пластикові бутилки";
 
 "type.recycling.scrap_metal" = "Металобрухт";
 
@@ -1407,17 +1410,17 @@
 
 "type.recycling.cardboard" = "Картон";
 
-"type.recycling.cans" = "Бляшані банки";
+"type.recycling.cans" = "Бляшані та алюмінієві банки";
 
 "type.recycling.shoes" = "Взуття";
 
-"type.recycling.green_waste" = "Органічні відходи";
+"type.recycling.green_waste" = "Органіка / Харчові відходи";
 
 "type.recycling.cartons" = "Тетрапак та аналоги";
 
 "type.amenity.restaurant" = "Ресторан";
 
-"type.amenity.sanitary_dump_station" = "Злив нечистот";
+"type.amenity.sanitary_dump_station" = "Злив для туалетів транспортних засобів";
 
 "type.amenity.school" = "Школа";
 
@@ -2231,7 +2234,7 @@
 
 "type.man_made.lighthouse" = "Маяк";
 
-"type.man_made.mast" = "Стовп-щогла";
+"type.man_made.mast" = "Щогла/вишка";
 
 "type.man_made.pier" = "Пірс";
 

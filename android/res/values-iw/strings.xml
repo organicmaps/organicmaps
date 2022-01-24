@@ -213,7 +213,7 @@
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">כאשר מופעל המסך יורשה לישון לאחר תקופה של חוסר פעילות.</string>
 
-	<!-- SECTION: Types -->
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>
 	<string name="type.cuisine.african">מטבח אפריקאי</string>
 	<string name="type.cuisine.american">מטבח אמריקאי</string>

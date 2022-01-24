@@ -1383,6 +1383,9 @@
 
 "type.amenity.public_bookcase" = "公共书架";
 
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "资源回收设施";
 
 "type.amenity.recycling" = "回收容器";
@@ -1413,7 +1416,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Cartons";
+"type.recycling.cartons" = "Bewerage Cartons";
 
 "type.amenity.restaurant" = "餐馆";
 
@@ -2231,7 +2234,7 @@
 
 "type.man_made.lighthouse" = "灯塔";
 
-"type.man_made.mast" = "Pole mast";
+"type.man_made.mast" = "Mast";
 
 "type.man_made.pier" = "码头";
 

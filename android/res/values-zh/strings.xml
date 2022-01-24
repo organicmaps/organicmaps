@@ -742,6 +742,8 @@
 	<string name="type.amenity.prison">监狱</string>
 	<string name="type.amenity.pub">酒馆</string>
 	<string name="type.amenity.public_bookcase">公共书架</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">资源回收设施</string>
 	<string name="type.amenity.recycling">回收容器</string>
 	<string name="type.amenity.recycling.container">回收容器</string>

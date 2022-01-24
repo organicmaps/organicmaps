@@ -1383,6 +1383,9 @@
 
 "type.amenity.public_bookcase" = "Book Exchange";
 
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Recycling Center";
 
 "type.amenity.recycling" = "Recycling Container";
@@ -1391,13 +1394,13 @@
 
 "type.recycling.batteries" = "Батерии";
 
-"type.recycling.clothes" = "Old Clothes";
+"type.recycling.clothes" = "Clothes";
 
 "type.recycling.glass_bottles" = "Glass Bottles";
 
-"type.recycling.paper" = "Paper Waste";
+"type.recycling.paper" = "Paper";
 
-"type.recycling.plastic" = "Plastic Waste";
+"type.recycling.plastic" = "Plastic";
 
 "type.recycling.plastic_bottles" = "Plastic Bottles";
 
@@ -1413,7 +1416,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Cartons";
+"type.recycling.cartons" = "Bewerage Cartons";
 
 "type.amenity.restaurant" = "Restaurant";
 
@@ -2231,7 +2234,7 @@
 
 "type.man_made.lighthouse" = "Lighthouse";
 
-"type.man_made.mast" = "Pole mast";
+"type.man_made.mast" = "Mast";
 
 "type.man_made.pier" = "Pier";
 

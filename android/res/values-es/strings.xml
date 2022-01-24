@@ -735,6 +735,8 @@
 	<string name="type.amenity.post_box">Buzón</string>
 	<string name="type.amenity.post_office">Oficina de correos</string>
 	<string name="type.amenity.public_bookcase">Intercambio de libros</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Centro de reciclaje</string>
 	<string name="type.amenity.recycling">Contenedor de reciclaje</string>
 	<string name="type.amenity.recycling.container">Contenedor de reciclaje</string>

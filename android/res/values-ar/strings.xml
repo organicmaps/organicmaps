@@ -722,6 +722,8 @@
 	<string name="type.amenity.post_office">مكتب بريد</string>
 	<string name="type.amenity.pub">بار</string>
 	<string name="type.amenity.public_bookcase">مكتبة، تبادل كتب</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">مركز إعادة تدوير</string>
 	<string name="type.amenity.recycling">حاوية لإعادة التدوير</string>
 	<string name="type.amenity.recycling.container">حاوية لإعادة التدوير</string>

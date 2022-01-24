@@ -1383,6 +1383,9 @@
 
 "type.amenity.public_bookcase" = "Knižnica";
 
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Zberné suroviny";
 
 "type.amenity.recycling" = "Recyklačný odpad";
@@ -1413,7 +1416,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Cartons";
+"type.recycling.cartons" = "Bewerage Cartons";
 
 "type.amenity.restaurant" = "Reštaurácia";
 
@@ -2231,7 +2234,7 @@
 
 "type.man_made.lighthouse" = "Maják";
 
-"type.man_made.mast" = "Pole mast";
+"type.man_made.mast" = "Mast";
 
 "type.man_made.pier" = "Pier";
 

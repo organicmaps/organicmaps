@@ -1383,41 +1383,44 @@
 
 "type.amenity.public_bookcase" = "Book Exchange";
 
-"type.amenity.recycling.centre" = "Recycling Center";
 
-"type.amenity.recycling" = "Recycling Container";
+/********** Types: Recycling **********/
 
-"type.amenity.recycling.container" = "Recycling Container";
+"type.amenity.recycling.centre" = "Прыём другсыравіны";
+
+"type.amenity.recycling" = "Кантэйнер для другаснай сыравіны";
+
+"type.amenity.recycling.container" = "Кантэйнер для другаснай сыравіны";
 
 "type.recycling.batteries" = "Батарэйкі";
 
-"type.recycling.clothes" = "Old Clothes";
+"type.recycling.clothes" = "Адзенне";
 
-"type.recycling.glass_bottles" = "Glass Bottles";
+"type.recycling.glass_bottles" = "Шклатара";
 
-"type.recycling.paper" = "Paper Waste";
+"type.recycling.paper" = "Папера";
 
-"type.recycling.plastic" = "Plastic Waste";
+"type.recycling.plastic" = "Пластык";
 
-"type.recycling.plastic_bottles" = "Plastic Bottles";
+"type.recycling.plastic_bottles" = "Пластыкавыя бутэлькі";
 
-"type.recycling.scrap_metal" = "Scrap Metal";
+"type.recycling.scrap_metal" = "Металалом";
 
 "type.recycling.small_appliances" = "Electronic Waste";
 
 "type.recycling.cardboard" = "Кардон";
 
-"type.recycling.cans" = "Бляшаныя банкі";
+"type.recycling.cans" = "Бляшаныя і алюмініевыя слоікі";
 
 "type.recycling.shoes" = "Абутак";
 
-"type.recycling.green_waste" = "Арганічныя адходы";
+"type.recycling.green_waste" = "Арганіка / Харчовыя адходы";
 
 "type.recycling.cartons" = "Тэтрапак і аналагі";
 
 "type.amenity.restaurant" = "Restaurant";
 
-"type.amenity.sanitary_dump_station" = "Зліў нечыстотаў";
+"type.amenity.sanitary_dump_station" = "Зліў для прыбіральняў транспартных сродкаў";
 
 "type.amenity.school" = "School";
 
@@ -2231,7 +2234,7 @@
 
 "type.man_made.lighthouse" = "Lighthouse";
 
-"type.man_made.mast" = "Слуп-шчогла";
+"type.man_made.mast" = "Мачта/вышка";
 
 "type.man_made.pier" = "Pier";
 

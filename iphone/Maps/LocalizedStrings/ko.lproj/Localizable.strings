@@ -1383,6 +1383,9 @@
 
 "type.amenity.public_bookcase" = "도서 교환";
 
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "재활용센터";
 
 "type.amenity.recycling" = "재활용 쓰레기통";
@@ -1413,7 +1416,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Cartons";
+"type.recycling.cartons" = "Bewerage Cartons";
 
 "type.amenity.restaurant" = "레스토랑";
 
@@ -2231,7 +2234,7 @@
 
 "type.man_made.lighthouse" = "등대";
 
-"type.man_made.mast" = "Pole mast";
+"type.man_made.mast" = "Mast";
 
 "type.man_made.pier" = "Pier";
 

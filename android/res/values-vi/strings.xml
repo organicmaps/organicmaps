@@ -718,6 +718,8 @@
 	<string name="type.amenity.post_office">Bưu cục</string>
 	<string name="type.amenity.pub">Quán rượu</string>
 	<string name="type.amenity.public_bookcase">Kệ sách</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Trung tâm tái sinh</string>
 	<string name="type.amenity.recycling">Thùng rác</string>
 	<string name="type.amenity.recycling.container">Thùng rác</string>

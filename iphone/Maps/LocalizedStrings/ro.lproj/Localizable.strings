@@ -1383,6 +1383,9 @@
 
 "type.amenity.public_bookcase" = "Bibliotecă";
 
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Centru de reciclare";
 
 "type.amenity.recycling" = "Containere pentru reciclare";
@@ -1413,7 +1416,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Cartons";
+"type.recycling.cartons" = "Bewerage Cartons";
 
 "type.amenity.restaurant" = "Restaurant";
 
@@ -2231,7 +2234,7 @@
 
 "type.man_made.lighthouse" = "Far";
 
-"type.man_made.mast" = "Pole mast";
+"type.man_made.mast" = "Mast";
 
 "type.man_made.pier" = "Pier";
 

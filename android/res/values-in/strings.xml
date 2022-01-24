@@ -716,6 +716,8 @@
 	<string name="type.amenity.post_box">Kotak pos</string>
 	<string name="type.amenity.post_office">Kantor pos</string>
 	<string name="type.amenity.public_bookcase">Rak Buku</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">TPA</string>
 	<string name="type.amenity.recycling">Wadah daur ulang</string>
 	<string name="type.amenity.recycling.container">Wadah daur ulang</string>

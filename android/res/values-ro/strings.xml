@@ -739,6 +739,8 @@
 	<string name="type.amenity.post_box">Cutie poștală</string>
 	<string name="type.amenity.post_office">Oficiu poștal</string>
 	<string name="type.amenity.public_bookcase">Bibliotecă</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Centru de reciclare</string>
 	<string name="type.amenity.recycling">Containere pentru reciclare</string>
 	<string name="type.amenity.recycling.container">Containere pentru reciclare</string>

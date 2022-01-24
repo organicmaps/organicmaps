@@ -717,6 +717,8 @@
 	<string name="type.amenity.post_office">Pošta</string>
 	<string name="type.amenity.pub">Pohostinstvo</string>
 	<string name="type.amenity.public_bookcase">Knižnica</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Zberné suroviny</string>
 	<string name="type.amenity.recycling">Recyklačný odpad</string>
 	<string name="type.amenity.recycling.container">Recyklačný odpad</string>

@@ -717,6 +717,8 @@
 	<string name="type.amenity.post_office">우체국</string>
 	<string name="type.amenity.pub">술집</string>
 	<string name="type.amenity.public_bookcase">도서 교환</string>
+
+	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">재활용센터</string>
 	<string name="type.amenity.recycling">재활용 쓰레기통</string>
 	<string name="type.amenity.recycling.container">재활용 쓰레기통</string>
