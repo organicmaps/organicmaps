@@ -5,17 +5,11 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <sstream>
 #include <vector>
 
 namespace url
 {
 using namespace std;
-
-std::string DebugPrint(Param const & param)
-{
-  return "UrlParam [" + param.m_name + "=" + param.m_value + "]";
-}
 
 Url::Url(std::string const & url)
 {
@@ -45,7 +39,7 @@ bool Url::Parse(std::string const & url)
     return true;
 
   // Get host.
-  size_t end = url.find_first_of("?/", start);
+  size_t end = url.find_first_of("/?#", start);
   if (end == string::npos)
   {
     m_host = url.substr(start);
@@ -62,7 +56,7 @@ bool Url::Parse(std::string const & url)
     if (start == std::string::npos)
       return true;
 
-    end = url.find('?', start);
+    end = url.find_first_of("?#", start);
     if (end == string::npos)
     {
       m_path = url.substr(start);
@@ -72,10 +66,10 @@ bool Url::Parse(std::string const & url)
       m_path = url.substr(start, end - start);
   }
 
-  // Parse query for keys and values.
+  // Parse query/fragment for keys and values.
   for (start = end + 1; start < url.size();)
   {
-    end = url.find('&', start);
+    end = url.find_first_of("&#", start);
     if (end == string::npos)
       end = url.size();
 
@@ -103,30 +97,6 @@ bool Url::Parse(std::string const & url)
   }
 
   return true;
-}
-
-string Make(string const & baseUrl, Params const & params)
-{
-  ostringstream os;
-  os << baseUrl;
-
-  bool firstParam = baseUrl.find('?') == string::npos;
-  for (auto const & param : params)
-  {
-    if (firstParam)
-    {
-      firstParam = false;
-      os << "?";
-    }
-    else
-    {
-      os << "&";
-    }
-
-    os << param.m_name << "=" << param.m_value;
-  }
-
-  return os.str();
 }
 
 string Join(string const & lhs, string const & rhs)

@@ -55,7 +55,7 @@ public:
     Route,
     Search,
   };
-  
+
   struct ParsingResult
   {
     UrlType m_type = UrlType::Incorrect;
@@ -88,9 +88,13 @@ private:
   ///  - all mandatory parameters for url type |type| are provided;
   ///  - the order of params is correct (for UrlType::Map)
   bool Parse(url::Url const & url, UrlType type);
-  void ParseMapParam(url::Param const & param, std::vector<ApiPoint> & points, bool & correctOrder);
-  void ParseRouteParam(url::Param const & param, std::vector<std::string> & pattern);
-  void ParseSearchParam(url::Param const & param, SearchRequest & request) const;
+
+  void ParseMapParam(std::string const & key, std::string const & value,
+                     std::vector<ApiPoint> & points, bool & correctOrder);
+  void ParseRouteParam(std::string const & key, std::string const & value,
+                       std::vector<std::string> & pattern);
+  void ParseSearchParam(std::string const & key, std::string const & value,
+                        SearchRequest & request) const;
 
   BookmarkManager * m_bmManager = nullptr;
   std::vector<RoutePoint> m_routePoints;

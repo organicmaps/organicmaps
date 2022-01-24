@@ -33,19 +33,19 @@ public:
     TEST_EQUAL(url.GetScheme(), m_scheme, ());
     TEST_EQUAL(url.GetHost(), m_host, ());
     TEST_EQUAL(url.GetPath(), m_path, ());
+
     TEST(!m_scheme.empty() || !url.IsValid(), ("Scheme is empty if and only if url is invalid!"));
-    url.ForEachParam(bind(&TestUrl::AddTestValue, this, placeholders::_1));
+
+    url.ForEachParam([this](string const & name, string const & value)
+    {
+      TEST(!m_keyValuePairs.empty(), ("Failed for url = ", m_url));
+      TEST_EQUAL(m_keyValuePairs.front().first, name, ());
+      TEST_EQUAL(m_keyValuePairs.front().second, value, ());
+      m_keyValuePairs.pop();
+    });
   }
 
 private:
-  void AddTestValue(Param const & param)
-  {
-    TEST(!m_keyValuePairs.empty(), ("Failed for url = ", m_url, "Passed KV = ", param));
-    TEST_EQUAL(m_keyValuePairs.front().first, param.m_name, ());
-    TEST_EQUAL(m_keyValuePairs.front().second, param.m_value, ());
-    m_keyValuePairs.pop();
-  }
-
   string m_url, m_scheme, m_host, m_path;
   queue<pair<string, string>> m_keyValuePairs;
 };
@@ -99,6 +99,13 @@ UNIT_TEST(Url_Decode)
   TEST_EQUAL(UrlDecode(enc4), orig4, ());
 }
 
+UNIT_TEST(Url_Invalid)
+{
+  TEST(!Url("").IsValid(), ());
+  TEST(!Url(":/").IsValid(), ());
+  TEST(!Url("//").IsValid(), ());
+}
+
 UNIT_TEST(Url_Valid)
 {
   TestUrl("mapswithme://map?ll=10.3,12.3223&n=Hello%20World")
@@ -107,7 +114,7 @@ UNIT_TEST(Url_Valid)
       .KV("ll", "10.3,12.3223")
       .KV("n", "Hello World");
 
-  TestUrl("om:M&M/path?q=q&w=w")
+  TestUrl("om:M&M//path?q=q&w=w")
       .Scheme("om")
       .Host("M&M")
       .Path("path")
@@ -118,11 +125,25 @@ UNIT_TEST(Url_Valid)
       .Scheme("http")
       .Host("www.sandwichparlour.com.au")
       .Path("");
+
+  TestUrl("om:/&test").Scheme("om").Host("&test").Path("");
 }
 
-UNIT_TEST(UrlScheme_NoColon)
+UNIT_TEST(Url_Fragment)
 {
-  TEST_EQUAL(Url("mapswithme:").GetScheme(), "mapswithme", ());
+  TestUrl("https://www.openstreetmap.org/way/179409926#map=19/46.34998/48.03213&layers=N")
+      .Scheme("https")
+      .Host("www.openstreetmap.org")
+      .Path("way/179409926")
+      .KV("map", "19/46.34998/48.03213")
+      .KV("layers", "N");
+
+  TestUrl("https://www.openstreetmap.org/search?query=Falafel%20Sahyoun#map=16/33.89041/35.50664")
+      .Scheme("https")
+      .Host("www.openstreetmap.org")
+      .Path("search")
+      .KV("query", "Falafel Sahyoun")
+      .KV("map", "16/33.89041/35.50664");
 }
 
 UNIT_TEST(UrlScheme_Comprehensive)
@@ -155,12 +176,13 @@ UNIT_TEST(UrlScheme_Comprehensive)
       .KV("key3", "value1").KV("key3", "").KV("key3", "value2");
 }
 
-UNIT_TEST(Url_2Gis)
+UNIT_TEST(UrlApi_Smoke)
 {
   url::Url url("https://2gis.ru/moscow/firm/4504127908589159?m=37.618632%2C55.760069%2F15.232");
   TEST_EQUAL(url.GetScheme(), "https", ());
   TEST_EQUAL(url.GetHost(), "2gis.ru", ());
   TEST_EQUAL(url.GetPath(), "moscow/firm/4504127908589159", ());
+  TEST_EQUAL(url.GetHostAndPath(), "2gis.ru/moscow/firm/4504127908589159", ());
 
   TEST(url.GetLastParam(), ());
   TEST(url.GetParamValue("m"), ());
