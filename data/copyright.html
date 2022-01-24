@@ -6,12 +6,34 @@
   <meta name='viewport' content='width=device-width; initial-scale=1.0; maximum-scale=1.0;'>
   <title>Copyright</title>
   <style type="text/css">
+    /* Dark mode support. */
+    :root {
+      color-scheme: light dark;
+      --primary-color: black;
+      --secondary-color: #555555;
+      --link-color: #1e96f0;
+      --internal-link-color: black;
+      --background-color: white;
+      --separator-color: #0e0e0e;
+    }
+    @media screen and (prefers-color-scheme: dark) {
+      :root {
+        --primary-color: #b5b5b5;
+        --secondary-color: #858585;
+        --link-color: #2ea6ff;
+        --internal-link-color: darkgrey;
+        --background-color: black;
+        --separator-color: #0a0a0a;
+      }
+    }
+    html { color: var(--secondary-color); background-color: var(--background-color); }
     body { font-family: sans-serif; }
-    .section { border-bottom: thin solid black; }
+    h2, h3 { color: var(--primary-color); }
+    .section { border-bottom: thin solid var(--separator-color); }
     .android { display: none; }
     .license-list li { margin-bottom: 0.3em; }
-    .license, .license:visited { color: black; }
-    a:visited { color: blue; }
+    .license, .license:visited { color: var(--internal-link-color); }
+    a, a:visited { color: var(--link-color); }
 
     /* Translated elements are invisible by default */
     [lang = "en"], [lang = "ru"], [lang = "vi"], [lang = "tr"], [lang = "th"],

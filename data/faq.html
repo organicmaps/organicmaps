@@ -7,15 +7,32 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
     />
     <style>
-      /* All langs are invisible by default */
+      /* All langs are invisible by default. */
       [lang] {
         display: none;
+      }
+      /* Dark mode support. */
+      :root {
+        color-scheme: light dark;
+        --primary-color: black;
+        --secondary-color: #555555;
+        --link-color: #1e96f0;
+        --background-color: white;
+        --separator-color: #0e0e0e;
+      }
+      @media screen and (prefers-color-scheme: dark) {
+        :root {
+          --primary-color: #b5b5b5;
+          --secondary-color: #858585;
+          --link-color: #2ea6ff;
+          --background-color: black;
+          --separator-color: #0a0a0a;
+        }
       }
       h3 {
         font-style: normal;
         font-weight: bold;
         font-size: 18px;
-
         line-height: 1.4;
       }
       dd {
@@ -24,18 +41,22 @@
         margin-left: 0;
         margin-bottom: 16px;
         font-size: 16px;
-        color: #757575;
+        color: var(--secondary-color);
         line-height: 1.4;
         padding-bottom: 24px;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid var(--separator-color);
       }
 
       .faq {
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid var(--separator-color);
       }
 
       dl {
         margin: 0 0 2em 0;
+      }
+      html {
+        color: var(--primary-color);
+        background-color: var(--background-color);
       }
       body {
         margin-right: 16px;
@@ -43,7 +64,6 @@
         margin-bottom: 16px;
         font-size: 16px;
         font-family: "Helvetica Neue", "Roboto", "Arial", "sans-serif";
-        color: #000000;
       }
 
       html {
@@ -51,7 +71,7 @@
       }
 
       a {
-        color: #1e96f0;
+        color: var(--link-color);
         text-decoration: none;
       }
     </style>
