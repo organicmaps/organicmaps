@@ -189,7 +189,7 @@ line[railway=light_rail][!tunnel]::dash,
 line[railway=yard]::dash
 {z-index: 690;}
 
-line[highway=unclassified],
+line[highway=residential],
 line[highway=road],
 line[highway=living_street]
 {z-index: 700;}
@@ -198,7 +198,7 @@ line[highway=residential_link],
 line[highway=tertiary_link]
 {z-index: 740;}
 
-line[highway=residential],
+line[highway=unclassified],
 line[highway=tertiary],
 {z-index: 750;}
 
@@ -301,8 +301,8 @@ line|z9[highway=world_level]
 
 line|z7-[highway=trunk],
 line|z7-[highway=motorway],
-line|z13-[highway=motorway_link],
-line|z13-[highway=trunk_link]
+line|z10-[highway=motorway_link],
+line|z10-[highway=trunk_link]
 {color: @trunk_orange_light;opacity: 1;}
 line|z12-[highway=motorway][tunnel?],
 line|z12-[highway=trunk][tunnel?],
@@ -334,24 +334,33 @@ line|z9[highway=motorway]
 line|z10[highway=trunk],
 line|z10[highway=motorway]
 {color: @trunk_orange_medium; width: 1.5;}
+line|z10[highway=motorway_link],
+line|z10[highway=trunk_link]
+{width: 0.8;}
 line|z11[highway=trunk],
 line|z11[highway=motorway]
 {width: 1.7;}
+line|z11[highway=motorway_link],
+line|z11[highway=trunk_link]
+{width: 1.0;}
 line|z12[highway=trunk],
 line|z12[highway=motorway]
 {color: @trunk_orange_medium; width: 1.9;}
+line|z12[highway=motorway_link],
+line|z12[highway=trunk_link]
+{width: 1.2;}
 line|z13[highway=trunk],
 line|z13[highway=motorway],
 {width: 2.8;}
 line|z13[highway=motorway_link],
 line|z13[highway=trunk_link]
-{width: 1.4;}
+{width: 1.8;}
 line|z14[highway=trunk],
 line|z14[highway=motorway],
 {width: 3.8;}
 line|z14[highway=motorway_link],
 line|z14[highway=trunk_link]
-{width: 1.8;}
+{width: 2.0;}
 line|z15[highway=trunk],
 line|z15[highway=motorway],
 {width: 4.8;}
@@ -464,11 +473,14 @@ line|z9[highway=primary]
 {width: 0.8;}
 line|z10[highway=primary]
 {width: 1.2;}
-line|z11[highway=primary]
+line|z11[highway=primary],
+line|z11[highway=primary_link]
 {width: 1.5;}
-line|z12[highway=primary]
+line|z12[highway=primary],
+line|z12[highway=primary_link]
 {width: 1.7;}
-line|z13[highway=primary]
+line|z13[highway=primary],
+line|z13[highway=primary_link]
 {width: 2.4;}
 line|z14[highway=primary],
 line|z14[highway=primary_link]
@@ -523,7 +535,7 @@ line|z18-[highway=primary_link][bridge?]::bridgeblack,
 /* 5.SECONDARY 10-22 ZOOM */
 
 line|z10-[highway=secondary],
-line|z14-[highway=secondary_link]
+line|z13-[highway=secondary_link]
 {color: @secondary;opacity: 1;}
 line|z16-[highway=secondary][tunnel?],
 line|z16-[highway=secondary_link][tunnel?]
@@ -543,7 +555,8 @@ line|z11[highway=secondary]
 {width: 1.3;}
 line|z12[highway=secondary]
 {width: 1.6;}
-line|z13[highway=secondary]
+line|z13[highway=secondary],
+line|z14[highway=secondary_link]
 {width: 2.2;}
 line|z14[highway=secondary],
 line|z14[highway=secondary_link]
@@ -597,10 +610,10 @@ line|z18-[highway=secondary_link][bridge?]::bridgeblack
 
 /* 6.RESIDENTAL & TERTIARY 11-22 ZOOM */
 
-line|z11-[highway=residential],
+line|z12-[highway=residential],
 line|z11-[highway=tertiary],
 line|z15-[highway=residential_link],
-line|z15-[highway=tertiary_link],
+line|z14-[highway=tertiary_link],
 {color: @residential; opacity: 1;}
 line|z16-[highway=tertiary][tunnel?],
 line|z16-[highway=residential][tunnel?],
@@ -618,14 +631,14 @@ line|z14-[highway=tertiary_link][bridge?]::bridgeblack
 
 /* 6.1 Residential & Tertiary 11-22 ZOOM */
 
-line|z11[highway=residential],
 line|z11[highway=tertiary]
 {width: 0.8;}
 line|z12-13[highway=residential],
 line|z12-13[highway=tertiary]
 {width: 1.2;}
 line|z14[highway=residential],
-line|z14[highway=tertiary]
+line|z14[highway=tertiary],
+line|z15[highway=tertiary_link]
 {width: 1.8;}
 line|z15[highway=residential],
 line|z15[highway=tertiary],
@@ -691,7 +704,7 @@ line|z18-[highway=residential][bridge?]::bridgeblack,
 
 /* 7.ROAD, STREETS, UNCLASSIFIED & SERVICE 12-22 ZOOM */
 
-line|z12-[highway=unclassified],
+line|z11-[highway=unclassified],
 line|z12-[highway=road],
 line|z12-[highway=living_street],
 line|z12-[aeroway=runway],
@@ -707,6 +720,8 @@ line|z14-[highway=unclassified][bridge?]::bridgeblack,
 {casing-linecap: butt;casing-color:@bridge_casing;}
 
 /* 7.1 Road, Street, Unclassified 12-22 ZOOM */
+line|z11[highway=unclassified]
+{width: 0.8;}
 line|z12[highway=unclassified],
 line|z12[highway=road],
 line|z12[highway=living_street]
@@ -714,7 +729,7 @@ line|z12[highway=living_street]
 line|z13[highway=unclassified],
 line|z13[highway=road],
 line|z13[highway=living_street]
-{width: 1;}
+{width: 1.2;}
 line|z14[highway=unclassified],
 line|z14[highway=road],
 line|z14[highway=living_street]
