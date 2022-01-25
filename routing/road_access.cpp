@@ -32,43 +32,43 @@ void PrintKV(ostringstream & oss, KV const & kvs, size_t maxKVToShow)
 
 namespace routing
 {
-// RoadAccess --------------------------------------------------------------------------------------
-// @TODO(bykoinako) It's a fast fix for release. The idea behind it is to remember the time of
-// creation RoadAccess instance and return it instread of getting time when m_currentTimeGetter() is
-// called. But it's not understadbale now why m_currentTimeGetter() is called when
-// cross_mwm section is built.
-RoadAccess::RoadAccess() : m_currentTimeGetter([time = GetCurrentTimestamp()]() { return time; }) {}
+/** RoadAccess --------------------------------------------------------------------------------------
+ * @todo (bykoinako) It's a fast fix for release. The idea behind it is to remember the time of
+ * creation RoadAccess instance and return it instead of getting time when m_currentTimeGetter() is
+ * called. But it's not understandable now why m_currentTimeGetter() is called when
+ * cross_mwm section is built.
+ *
+ * @todo (vng) Return back lazy time calculation.
+ * It's called in cross_mwm_section via IndexGraph::CalculateEdgeWeight.
+ * Fixed by setting custom time getter in BuildRoutingCrossMwmSection -> FillWeights.
+ */
+RoadAccess::RoadAccess() : m_currentTimeGetter([]() { return GetCurrentTimestamp(); }) {}
 
 pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
     uint32_t featureId, RouteWeight const & weightToFeature) const
 {
-  return GetAccess(featureId, m_currentTimeGetter() + weightToFeature.GetWeight());
+  return GetAccess(featureId, weightToFeature.GetWeight());
 }
 
 pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
     RoadPoint const & point, RouteWeight const & weightToPoint) const
 {
-  return GetAccess(point, m_currentTimeGetter() + weightToPoint.GetWeight());
+  return GetAccess(point, weightToPoint.GetWeight());
 }
 
 pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32_t featureId,
-                                                                     time_t momentInTime) const
+                                                                     double weight) const
 {
   auto const itConditional = m_wayToAccessConditional.find(featureId);
-  // @TODO This check should be removed when access:conditional is switch on.
-  CHECK(m_pointToAccessConditional.empty(),
-        ("access:conditional is switched off now but m_pointToAccessConditional is not empty.",
-            m_pointToAccessConditional.size()));
   if (itConditional != m_wayToAccessConditional.cend())
   {
+    auto const time = m_currentTimeGetter();
     auto const & conditional = itConditional->second;
     for (auto const & access : conditional.GetAccesses())
     {
-      auto const op = GetConfidenceForAccessConditional(momentInTime, access.m_openingHours);
-      if (!op)
-        continue;
-
-      return {access.m_type, *op};
+      auto const op = GetConfidenceForAccessConditional(time + weight, access.m_openingHours);
+      if (op)
+        return {access.m_type, *op};
     }
   }
 
@@ -76,23 +76,18 @@ pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32_t fe
 }
 
 pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPoint const & point,
-                                                                     time_t momentInTime) const
+                                                                     double weight) const
 {
   auto const itConditional = m_pointToAccessConditional.find(point);
-  // @TODO This check should be removed when access:conditional is switch on.
-  CHECK(m_pointToAccessConditional.empty(),
-        ("access:conditional is switched off now but m_pointToAccessConditional is not empty.",
-         m_pointToAccessConditional.size()));
   if (itConditional != m_pointToAccessConditional.cend())
   {
+    auto const time = m_currentTimeGetter();
     auto const & conditional = itConditional->second;
     for (auto const & access : conditional.GetAccesses())
     {
-      auto const op = GetConfidenceForAccessConditional(momentInTime, access.m_openingHours);
-      if (!op)
-        continue;
-
-      return {access.m_type, *op};
+      auto const op = GetConfidenceForAccessConditional(time + weight, access.m_openingHours);
+      if (op)
+        return {access.m_type, *op};
     }
   }
 
