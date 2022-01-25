@@ -129,7 +129,7 @@ private:
   std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;
   std::unique_ptr<IndexGraphLoader> m_loader;
   std::shared_ptr<EdgeEstimator> m_estimator;
-  RoutingOptions m_avoidRoutingOptions = RoutingOptions();
+  RoutingOptions m_avoidRoutingOptions;
   WorldGraphMode m_mode = WorldGraphMode::NoLeaps;
 
   template <typename Vertex>

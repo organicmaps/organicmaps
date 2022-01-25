@@ -954,12 +954,9 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 
 unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
-  RoutingOptions routingOptions;
-  if (m_vehicleType == VehicleType::Car)
-  {
-    routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
-    LOG(LINFO, ("Avoid next roads:", routingOptions));
-  }
+  // Use saved routing options for all types (car, bicycle, pedestrian).
+  RoutingOptions const routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
+  LOG(LINFO, ("Avoid next roads:", routingOptions));
 
   auto crossMwmGraph = make_unique<CrossMwmGraph>(
       m_numMwmIds, m_numMwmTree, m_vehicleModelFactory,
