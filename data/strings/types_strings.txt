@@ -14864,7 +14864,7 @@
     zh-Hant = 肉商
 
   [type.shop.car]
-    en = Car Shop
+    en = Car Dealership
     ar = متجر سيارات
     cs = Obchod s auty
     da = Bilforhandler
@@ -14990,6 +14990,12 @@
     vi = Vá Lốp
     zh-Hans = 轮胎修理
     zh-Hant = 輪胎修補
+
+  [type.shop.caravan]
+    en = RV Dealership
+    be = Продаж аўтадамоў
+    ru = Продажа автодомов
+    uk = Продаж автобудинків
 
   [type.shop.chemist]
     en = Chemist Shop

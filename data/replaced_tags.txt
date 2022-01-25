@@ -22,6 +22,8 @@ drinkable=yes : amenity=drinking_water
 drinking_water=yes : amenity=drinking_water
 water_point=yes : amenity=water_point
 sanitary_dump_station=yes : amenity=sanitary_dump_station
+sanitary_dump_station=customers : amenity=sanitary_dump_station
+sanitary_dump_station=public : amenity=sanitary_dump_station
 waterway=sanitary_dump_station : amenity=sanitary_dump_station
 building=entrance : entrance=yes
 

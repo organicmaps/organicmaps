@@ -268,6 +268,8 @@ node[shop=supermarket],
 area[shop=supermarket],
 node[shop=car_repair][service=tyres],
 area[shop=car_repair][service=tyres],
+node[shop=caravan],
+area[shop=caravan],
 node[highway=services],
 area[highway=services],
 node[amenity=clinic],
@@ -2126,6 +2128,9 @@ area|z16[shop=butcher]
 node|z16[shop=car],
 area|z16[shop=car]
 {icon-image: car_shop-m.svg;}
+node|z16[shop=caravan],
+area|z16[shop=caravan]
+{icon-image: caravan-shop-m.svg;}
 node|z16[shop=motorcycle],
 area|z16[shop=motorcycle]
 {icon-image: motorcycle_shop-m.svg;}
@@ -2289,6 +2294,9 @@ area|z17-[shop=butcher]
 node|z17-[shop=car],
 area|z17-[shop=car]
 {icon-image: car_shop-m.svg;icon-min-distance: 24;text-optional: true;}
+node|z17-[shop=caravan],
+area|z17-[shop=caravan]
+{icon-image: caravan-shop-m.svg;icon-min-distance: 24;text-optional: true;}
 node|z17-[shop=motorcycle],
 area|z17-[shop=motorcycle]
 {icon-image: motorcycle_shop-m.svg;icon-min-distance: 24;text-optional: true;}

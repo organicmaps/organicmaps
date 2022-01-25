@@ -1815,10 +1815,17 @@ sk:Oblečenie
 sw:Duka la nguo|nguo
 fa:لباس فروشی|بوتیک
 
+shop-caravan
+en:RV dealership|Caravan dealership|Motorhome dealership
+be:Продаж аўтадамоў
+ru:Продажа автодомов
+uk:Продаж автобудинків
+
 shop-car
-en:Auto Dealer|U+1F697|U+1F698|U+1F699
-en-GB:Car Dealer|Car showroom|U+1F697|U+1F698|U+1F699
-en-AU:Car Dealer|Car showroom|U+1F697|U+1F698|U+1F699
+en:3Car Dealership|Auto Dealer|U+1F697|U+1F698|U+1F699
+en-GB:3Car Dealership|Car showroom|U+1F697|U+1F698|U+1F699
+en-AU:3Car Dealership|Car showroom|U+1F697|U+1F698|U+1F699
+be:Аўтасалон
 ru:Автосалон
 bg:Майстор|автомонтьор|механик|автосалон
 ar:متجر سيارات|متجر
@@ -8196,7 +8203,7 @@ sk:Vinotéka
 fa:مشروب فروشی
 
 shop-car_parts
-en:Car Parts|Auto Parts
+en:3Car Parts|Auto Parts
 ru:Автомобильные запчасти|Автозапчасти
 bg:Автомобил|части|авточасти
 ar:ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ
