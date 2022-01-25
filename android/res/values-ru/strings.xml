@@ -1380,6 +1380,7 @@
 	<string name="type.shop.car_parts">Автомобильные запчасти</string>
 	<string name="type.shop.car_repair">СТО</string>
 	<string name="type.shop.car_repair.tyres">Шиномонтаж</string>
+	<string name="type.shop.caravan">Продажа автодомов</string>
 	<string name="type.shop.chemist">Бытовая химия</string>
 	<string name="type.shop.chocolate">Магазин</string>
 	<string name="type.shop.clothes">Магазин одежды</string>

@@ -1346,6 +1346,7 @@
 	<string name="type.shop.car_parts">Автозапчастини</string>
 	<string name="type.shop.car_repair">СТО</string>
 	<string name="type.shop.car_repair.tyres">Шиномонтаж</string>
+	<string name="type.shop.caravan">Продаж автобудинків</string>
 	<string name="type.shop.chemist">Магазин побутової хімії</string>
 	<string name="type.shop.chocolate">Крамниця</string>
 	<string name="type.shop.clothes">Магазин одягу</string>

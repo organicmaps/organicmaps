@@ -757,7 +757,7 @@
 
 "book_button" = "Rezervasyon";
 
-"placepage_call_button" = "Çağrı";
+"placepage_call_button" = "Ara";
 
 "placepage_edit_bookmark_button" = "Yer İmini Düzenle";
 
@@ -2637,6 +2637,8 @@
 "type.shop.car_repair" = "Oto tamir dükkanı";
 
 "type.shop.car_repair.tyres" = "Réparation de pneus";
+
+"type.shop.caravan" = "RV Dealership";
 
 "type.shop.chemist" = "Temizlik Ürünleri Mağazası";
 

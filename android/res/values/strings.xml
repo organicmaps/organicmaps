@@ -1405,10 +1405,11 @@
 	<string name="type.shop.bookmaker">Bookmaker</string>
 	<string name="type.shop.books">Bookstore</string>
 	<string name="type.shop.butcher">Butcher’s</string>
-	<string name="type.shop.car">Car Shop</string>
+	<string name="type.shop.car">Car Dealership</string>
 	<string name="type.shop.car_parts">Car Parts</string>
 	<string name="type.shop.car_repair">Car Repair Shop</string>
 	<string name="type.shop.car_repair.tyres">Tyre Repair</string>
+	<string name="type.shop.caravan">RV Dealership</string>
 	<string name="type.shop.chemist">Chemist Shop</string>
 	<string name="type.shop.chocolate">Shop</string>
 	<string name="type.shop.clothes">Clothes Shop</string>
