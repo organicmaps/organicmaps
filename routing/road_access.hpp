@@ -153,8 +153,8 @@ private:
   static std::optional<Confidence> GetConfidenceForAccessConditional(
       time_t momentInTime, osmoh::OpeningHours const & openingHours);
 
-  std::pair<Type, Confidence> GetAccess(uint32_t featureId, time_t momentInTime) const;
-  std::pair<Type, Confidence> GetAccess(RoadPoint const & point, time_t momentInTime) const;
+  std::pair<Type, Confidence> GetAccess(uint32_t featureId, double weight) const;
+  std::pair<Type, Confidence> GetAccess(RoadPoint const & point, double weight) const;
 
   std::function<time_t()> m_currentTimeGetter;
 
