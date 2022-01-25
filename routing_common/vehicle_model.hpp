@@ -284,13 +284,15 @@ public:
   VehicleModel(Classificator const & c, LimitsInitList const & featureTypeLimits,
                SurfaceInitList const & featureTypeSurface, HighwayBasedInfo const & info);
 
-  /// VehicleModelInterface overrides:
+  /// @name VehicleModelInterface overrides.
+  /// @{
   SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
   HighwayType GetHighwayType(FeatureType & f) const override;
   double GetMaxWeightSpeed() const override;
   bool IsOneWay(FeatureType & f) const override;
   bool IsRoad(FeatureType & f) const override;
   bool IsPassThroughAllowed(FeatureType & f) const override;
+  /// @}
 
 public:
   /// @returns true if |m_highwayTypes| or |m_addRoadTypes| contains |type| and false otherwise.
@@ -318,8 +320,8 @@ protected:
   virtual RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const;
 
   /// Used in derived class constructors only. Not for public use.
-  void SetAdditionalRoadTypes(Classificator const & c,
-                              std::vector<AdditionalRoadTags> const & additionalTags);
+  using AdditionalTagsT = std::vector<AdditionalRoadTags>;
+  void AddAdditionalRoadTypes(Classificator const & c, AdditionalTagsT const & tags);
 
   static uint32_t PrepareToMatchType(uint32_t type);
 
@@ -343,12 +345,10 @@ protected:
 private:
   struct AdditionalRoadType final
   {
-    AdditionalRoadType(Classificator const & c, AdditionalRoadTags const & tag);
-
     bool operator==(AdditionalRoadType const & rhs) const { return m_type == rhs.m_type; }
 
-    uint32_t const m_type;
-    InOutCitySpeedKMpH const m_speed;
+    uint32_t m_type;
+    InOutCitySpeedKMpH m_speed;
   };
 
   class RoadType final
@@ -359,7 +359,7 @@ private:
     {
     }
 
-    bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; };
+    bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; }
     HighwayType GetHighwayType() const { return m_highwayType; }
     bool operator==(RoadType const & rhs) const
     {
@@ -396,6 +396,7 @@ private:
   // Note. It's an array (not map or unordered_map) because of perfomance reasons.
   std::array<TypeFactor, 4> m_surfaceFactors;
 
+  /// @todo Do we really need a separate vector of road types or can merge with the m_roadTypes map?
   std::vector<AdditionalRoadType> m_addRoadTypes;
   uint32_t m_onewayType;
 

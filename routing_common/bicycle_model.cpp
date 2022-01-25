@@ -49,7 +49,8 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwayCycleway, InOutCitySpeedKMpH(SpeedKMpH(30.0, 20.0))},
     {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(8.0, 10.0))},
     {HighwayType::HighwayLivingStreet, InOutCitySpeedKMpH(SpeedKMpH(7.0, 8.0))},
-    {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
+    // Steps have obvious inconvenience of a bike in hands.
+    {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(1.0, 1.0))},
     {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
     {HighwayType::HighwayFootway, InOutCitySpeedKMpH(SpeedKMpH(7.0, 5.0))},
     {HighwayType::ManMadePier, InOutCitySpeedKMpH(SpeedKMpH(7.0))},
@@ -400,16 +401,33 @@ void BicycleModel::Init()
 {
   initializer_list<char const *> hwtagYesBicycle = {"hwtag", "yesbicycle"};
 
-  m_noBicycleType = classif().GetTypeByPath({"hwtag", "nobicycle"});
-  m_yesBicycleType = classif().GetTypeByPath(hwtagYesBicycle);
-  m_bidirBicycleType = classif().GetTypeByPath({"hwtag", "bidir_bicycle"});
-  m_onedirBicycleType = classif().GetTypeByPath({"hwtag", "onedir_bicycle"});
-  vector<AdditionalRoadTags> const additionalTags = {
-      {hwtagYesBicycle, m_maxModelSpeed},
-      {{"route", "ferry"}, bicycle_model::kDefaultSpeeds.at(HighwayType::RouteFerry)},
-      {{"man_made", "pier"}, bicycle_model::kDefaultSpeeds.at(HighwayType::ManMadePier)}};
+  auto const & cl = classif();
+  m_noBicycleType = cl.GetTypeByPath({"hwtag", "nobicycle"});
+  m_yesBicycleType = cl.GetTypeByPath(hwtagYesBicycle);
+  m_bidirBicycleType = cl.GetTypeByPath({"hwtag", "bidir_bicycle"});
+  m_onedirBicycleType = cl.GetTypeByPath({"hwtag", "onedir_bicycle"});
 
-  SetAdditionalRoadTypes(classif(), additionalTags);
+  {
+    vector<AdditionalRoadTags> const tags = {
+        {hwtagYesBicycle, m_maxModelSpeed},
+        {{"route", "ferry"}, bicycle_model::kDefaultSpeeds.at(HighwayType::RouteFerry)},
+        {{"man_made", "pier"}, bicycle_model::kDefaultSpeeds.at(HighwayType::ManMadePier)}};
+
+    AddAdditionalRoadTypes(cl, tags);
+  }
+
+  {
+    // Small dismount speed with obvious inconvenience of a bike in hands.
+    InOutCitySpeedKMpH const dismountSpeed(SpeedKMpH(2.0, 2.0));
+
+    vector<AdditionalRoadTags> const tags = {
+        {hwtagYesBicycle, m_maxModelSpeed},
+        {{"highway", "footway"}, dismountSpeed},
+        {{"highway", "pedestrian"}, dismountSpeed},
+        {{"highway", "steps"}, dismountSpeed}};
+
+    AddAdditionalRoadTypes(cl, tags);
+  }
 }
 
 VehicleModelInterface::RoadAvailability BicycleModel::GetRoadAvailability(feature::TypesHolder const & types) const

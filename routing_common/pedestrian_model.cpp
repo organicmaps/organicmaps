@@ -52,8 +52,9 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(3.0))},
     {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
     {HighwayType::HighwayFootway, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
-    {HighwayType::ManMadePier, InOutCitySpeedKMpH(SpeedKMpH(7.0))},
-    {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(1.0, 20.0))},
+    {HighwayType::ManMadePier, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
+    /// @todo Set the same speed as a ferry for bicycle. At the same time, a car ferry has {10, 10}.
+    {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(3.0, 20.0))},
 };
 
 SpeedKMpH constexpr kSpeedOffroadKMpH = {3.0 /* weight */, 3.0 /* eta */};
@@ -300,7 +301,7 @@ void PedestrianModel::Init()
       {{"route", "ferry"}, pedestrian_model::kDefaultSpeeds.at(HighwayType::RouteFerry)},
       {{"man_made", "pier"}, pedestrian_model::kDefaultSpeeds.at(HighwayType::ManMadePier)}};
 
-  SetAdditionalRoadTypes(classif(), additionalTags);
+  AddAdditionalRoadTypes(classif(), additionalTags);
 }
 
 VehicleModelInterface::RoadAvailability PedestrianModel::GetRoadAvailability(feature::TypesHolder const & types) const

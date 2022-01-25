@@ -178,7 +178,7 @@ void CarModel::Init()
   m_noCarType = classif().GetTypeByPath({"hwtag", "nocar"});
   m_yesCarType = classif().GetTypeByPath({"hwtag", "yescar"});
 
-  SetAdditionalRoadTypes(classif(), car_model::kAdditionalTags);
+  AddAdditionalRoadTypes(classif(), car_model::kAdditionalTags);
 }
 
 VehicleModelInterface::RoadAvailability CarModel::GetRoadAvailability(feature::TypesHolder const & types) const
