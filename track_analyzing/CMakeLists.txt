@@ -26,4 +26,4 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 add_subdirectory(track_analyzer)
-add_subdirectory(track_analyzing_tests)
+omim_add_test_subdirectory(track_analyzing_tests)
