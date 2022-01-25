@@ -2638,6 +2638,8 @@
 
 "type.shop.car_repair.tyres" = "Gumiszerviz";
 
+"type.shop.caravan" = "RV Dealership";
+
 "type.shop.chemist" = "Drogéria";
 
 "type.shop.chocolate" = "Bolt";

@@ -2638,6 +2638,8 @@
 
 "type.shop.car_repair.tyres" = "Wulkanizacja";
 
+"type.shop.caravan" = "RV Dealership";
+
 "type.shop.chemist" = "Drogeria";
 
 "type.shop.chocolate" = "Sklep z czekoladą";

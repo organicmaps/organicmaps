@@ -2630,13 +2630,15 @@
 
 "type.shop.butcher" = "Butcher’s";
 
-"type.shop.car" = "Car Shop";
+"type.shop.car" = "Car Dealership";
 
 "type.shop.car_parts" = "Car Parts";
 
 "type.shop.car_repair" = "Car Repair Shop";
 
 "type.shop.car_repair.tyres" = "Tyre Repair";
+
+"type.shop.caravan" = "RV Dealership";
 
 "type.shop.chemist" = "Chemist Shop";
 

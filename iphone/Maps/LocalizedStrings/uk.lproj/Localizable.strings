@@ -2638,6 +2638,8 @@
 
 "type.shop.car_repair.tyres" = "Шиномонтаж";
 
+"type.shop.caravan" = "Продаж автобудинків";
+
 "type.shop.chemist" = "Магазин побутової хімії";
 
 "type.shop.chocolate" = "Крамниця";

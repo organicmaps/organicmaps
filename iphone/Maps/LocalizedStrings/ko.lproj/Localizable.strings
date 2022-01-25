@@ -2638,6 +2638,8 @@
 
 "type.shop.car_repair.tyres" = "타이어수리점";
 
+"type.shop.caravan" = "RV Dealership";
+
 "type.shop.chemist" = "화학물질 가게";
 
 "type.shop.chocolate" = "가게";

@@ -2638,6 +2638,8 @@
 
 "type.shop.car_repair.tyres" = "Däckverkstad";
 
+"type.shop.caravan" = "RV Dealership";
+
 "type.shop.chemist" = "Hushållskemikalier";
 
 "type.shop.chocolate" = "Butik";

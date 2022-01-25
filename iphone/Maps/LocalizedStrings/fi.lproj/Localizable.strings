@@ -2638,6 +2638,8 @@
 
 "type.shop.car_repair.tyres" = "Rengashuolto";
 
+"type.shop.caravan" = "RV Dealership";
+
 "type.shop.chemist" = "Kosmetiikkamyymälä";
 
 "type.shop.chocolate" = "Kauppa";

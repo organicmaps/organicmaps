@@ -2638,6 +2638,8 @@
 
 "type.shop.car_repair.tyres" = "Vulcanizare";
 
+"type.shop.caravan" = "RV Dealership";
+
 "type.shop.chemist" = "Mercerie";
 
 "type.shop.chocolate" = "Magazin";

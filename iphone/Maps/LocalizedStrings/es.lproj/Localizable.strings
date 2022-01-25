@@ -2638,6 +2638,8 @@
 
 "type.shop.car_repair.tyres" = "Reparación de neumáticos";
 
+"type.shop.caravan" = "RV Dealership";
+
 "type.shop.chemist" = "Droguería";
 
 "type.shop.chocolate" = "Tienda";

@@ -2638,6 +2638,8 @@
 
 "type.shop.car_repair.tyres" = "Шиномонтаж";
 
+"type.shop.caravan" = "Продажа автодомов";
+
 "type.shop.chemist" = "Бытовая химия";
 
 "type.shop.chocolate" = "Магазин";
