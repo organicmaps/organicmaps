@@ -298,15 +298,14 @@ public:
     if (skipIndex.SkipAlways(types))
       return;
 
-    auto const isCountryOrState = [](auto types) {
-      auto const & isLocalityChecker = ftypes::IsLocalityChecker::Instance();
-      auto const localityType = isLocalityChecker.GetType(types);
+    auto const isCountryOrState = [](auto types)
+    {
+      auto const localityType = ftypes::IsLocalityChecker::Instance().GetType(types);
       return localityType == ftypes::LocalityType::Country ||
              localityType == ftypes::LocalityType::State;
     };
 
-    auto const & streetChecker = ftypes::IsStreetOrSquareChecker::Instance();
-    bool const hasStreetType = streetChecker(types);
+    bool const hasStreetType = ftypes::IsStreetOrSquareChecker::Instance()(types);
 
     // Init inserter with serialized value.
     // Insert synonyms only for countries and states (maybe will add cities in future).

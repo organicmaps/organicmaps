@@ -21,6 +21,8 @@ TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
                           {"building", "train_station"},
                           {"emergency", "defibrillator"},
                           {"emergency", "fire_hydrant"},
+                          {"emergency", "phone"},
+                          {"healthcare", "laboratory"},
                           {"highway", "bus_stop"},
                           {"highway", "ford"},
                           {"highway", "raceway"},
@@ -31,15 +33,10 @@ TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
                           {"natural", "cave_entrance"},
                           {"natural", "spring"},
                           {"natural", "volcano"},
-                          {"office", "estate_agent"},
-                          {"office", "government"},
-                          {"office", "insurance"},
-                          {"office", "lawyer"},
-                          {"office", "telecommunication"},
                           {"waterway", "waterfall"}};
 
-  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-    m_types.push_back(c.GetTypeByPath(arr[i]));
+  for (auto const & path : arr)
+    m_types.push_back(c.GetTypeByPath(path));
 }
 
 namespace
@@ -61,8 +58,6 @@ public:
 class IsPoiChecker
 {
 public:
-  IsPoiChecker() {}
-
   static IsPoiChecker const & Instance()
   {
     static const IsPoiChecker inst;
@@ -131,9 +126,6 @@ public:
   {
     return !ft.GetHouseNumber().empty() || IsBuildingChecker::Instance()(ft);
   }
-
-private:
-  CustomIsBuildingChecker() {}
 };
 }  // namespace
 

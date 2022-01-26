@@ -1,7 +1,7 @@
 #include "search/types_skipper.hpp"
+#include "search/model.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature_data.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/stl_helpers.hpp"
@@ -18,10 +18,9 @@ TypesSkipper::TypesSkipper()
 
   StringIL const typesLengthOne[] = {{"building"}, {"highway"}, {"landuse"}, {"natural"},
                                      {"office"}, {"waterway"}, {"area:highway"}};
+
   for (auto const & e : typesLengthOne)
-  {
     m_skipIfEmptyName[0].push_back(c.GetTypeByPath(e));
-  }
 
   StringIL const typesLengthTwo[] = {{"man_made", "chimney"},
                                      {"place", "country"},
@@ -33,10 +32,9 @@ TypesSkipper::TypesSkipper()
                                      {"place", "suburb"},
                                      {"place", "neighbourhood"},
                                      {"place", "square"}};
+
   for (auto const & e : typesLengthTwo)
-  {
     m_skipIfEmptyName[1].push_back(c.GetTypeByPath(e));
-  }
 
   m_skipAlways[0].push_back(c.GetTypeByPath({"isoline"}));
 }
@@ -44,7 +42,8 @@ TypesSkipper::TypesSkipper()
 void TypesSkipper::SkipEmptyNameTypes(feature::TypesHolder & types) const
 {
   static const TwoLevelPOIChecker dontSkip;
-  auto shouldBeRemoved = [this](uint32_t type)
+
+  types.RemoveIf([this](uint32_t type)
   {
     if (dontSkip.IsMatched(type))
       return false;
@@ -58,9 +57,7 @@ void TypesSkipper::SkipEmptyNameTypes(feature::TypesHolder & types) const
       return true;
 
     return false;
-  };
-
-  types.RemoveIf(shouldBeRemoved);
+  });
 }
 
 bool TypesSkipper::SkipAlways(feature::TypesHolder const & types) const
