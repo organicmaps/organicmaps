@@ -4,7 +4,7 @@
     <xs:documentation>
       This XML Schema document defines validation rules for editor.xml and other OMaps configurations XMLs.
       Run it with:
-      xmllint --noount --schema config.xsd editor.xml
+      xmllint --noout --schema config.xsd editor.xml
     </xs:documentation>
   </xs:annotation>
 
