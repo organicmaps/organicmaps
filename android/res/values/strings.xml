@@ -463,6 +463,10 @@
 	<string name="current_location_unknown_message">Current location is unknown. Maybe you are in a building or in a tunnel.</string>
 	<string name="current_location_unknown_continue_button">Continue</string>
 	<string name="current_location_unknown_stop_button">Stop</string>
+	<string name="stop_navigation_title">Stop navigation?</string>
+	<string name="stop_navigation_message">Current route will be lost.</string>
+	<string name="stop_navigation_stop_button">Stop</string>
+	<string name="stop_navigation_cancel_button">Cancel</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>

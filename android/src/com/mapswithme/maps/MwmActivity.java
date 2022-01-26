@@ -1053,6 +1053,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       hideBookmarkCategoryToolbar();
       return;
     }
+
+    if (RoutingController.get().isNavigating())
+    {
+      showCancelNavigationDialog();
+      return;
+    }
+
     boolean isRoutingCancelled = RoutingController.get().cancel();
     if (!closePlacePage() && !closeSidePanel() && !isRoutingCancelled
         && !closePositionChooser())
@@ -1860,6 +1867,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setPositiveButton(R.string.current_location_unknown_continue_button, continueClickListener)
         .setCancelable(false)
         .show();
+  }
+
+  private void showCancelNavigationDialog()
+  {
+    new AlertDialog.Builder(this)
+            .setTitle(R.string.stop_navigation_title)
+            .setMessage(R.string.stop_navigation_message)
+            .setNegativeButton(R.string.stop_navigation_cancel_button, null)
+            .setPositiveButton(R.string.stop_navigation_stop_button, (dialog, which) -> RoutingController.get().cancel()).show();
   }
 
   @Override
