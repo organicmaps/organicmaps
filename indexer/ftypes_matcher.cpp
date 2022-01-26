@@ -2,7 +2,6 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/feature_data.hpp"
 
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
