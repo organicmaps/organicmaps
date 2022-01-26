@@ -110,7 +110,7 @@ struct UserPointVertex : public gpu::BaseVertex
     offset += dp::FillDecl<TNormalAndAnimateOrZ, UserPointVertex>(1, "a_normalAndAnimateOrZ", info,
                                                                   offset);
     offset += dp::FillDecl<TTexCoord, UserPointVertex>(2, "a_texCoords", info, offset);
-    offset += dp::FillDecl<TColor, UserPointVertex>(3, "a_color", info, offset);
+    /*offset += */dp::FillDecl<TColor, UserPointVertex>(3, "a_color", info, offset);
 
     return info;
   }

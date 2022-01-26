@@ -39,7 +39,7 @@ dp::BindingInfo GetBindingInfo()
   uint8_t offset = 0;
   offset += dp::FillDecl<glsl::vec2, RulerVertex>(0, "a_position", info, offset);
   offset += dp::FillDecl<glsl::vec2, RulerVertex>(1, "a_normal", info, offset);
-  offset += dp::FillDecl<glsl::vec2, RulerVertex>(2, "a_colorTexCoords", info, offset);
+  /*offset += */dp::FillDecl<glsl::vec2, RulerVertex>(2, "a_colorTexCoords", info, offset);
 
   return info;
 }
