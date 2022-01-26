@@ -114,7 +114,7 @@ RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(string const 
     auto const vehicleType = static_cast<VehicleType>(i);
     LoadRoadAccess(mwmFullPath, vehicleType, roadAccessFromMwm[i]);
   }
-  RoadAccessCollector const collector(mwmFullPath, roadAccessFullPath, mappingFullPath);
+  RoadAccessCollector const collector(roadAccessFullPath, mappingFullPath);
   TEST(collector.IsValid(), ());
   TEST_EQUAL(roadAccessFromMwm, collector.GetRoadAccessAllTypes(), ());
   return roadAccessFromMwm;

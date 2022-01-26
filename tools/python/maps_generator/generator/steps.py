@@ -378,7 +378,6 @@ def step_routing(env: Env, country: AnyStr, **kwargs):
         generate_maxspeed=True,
         make_city_roads=True,
         make_cross_mwm=True,
-        disable_cross_mwm_progress=True,
         generate_cameras=True,
         make_routing_index=True,
         generate_traffic_keys=True,

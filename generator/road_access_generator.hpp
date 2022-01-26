@@ -114,7 +114,7 @@ class RoadAccessCollector
 public:
   using RoadAccessByVehicleType = std::array<RoadAccess, static_cast<size_t>(VehicleType::Count)>;
 
-  RoadAccessCollector(std::string const & dataFilePath, std::string const & roadAccessPath,
+  RoadAccessCollector(std::string const & roadAccessPath,
                       std::string const & osmIdsToFeatureIdsPath);
 
   RoadAccessByVehicleType const & GetRoadAccessAllTypes() const

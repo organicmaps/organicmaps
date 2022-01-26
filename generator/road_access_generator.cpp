@@ -690,7 +690,7 @@ void RoadAccessWriter::MergeInto(RoadAccessWriter & collector) const
 }
 
 // RoadAccessCollector ----------------------------------------------------------
-RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string const & roadAccessPath,
+RoadAccessCollector::RoadAccessCollector(string const & roadAccessPath,
                                          string const & osmIdsToFeatureIdsPath)
 {
   OsmIdToFeatureIds osmIdToFeatureIds;
@@ -846,7 +846,7 @@ bool BuildRoadAccessInfo(string const & dataFilePath, string const & roadAccessP
 {
   LOG(LINFO, ("Generating road access info for", dataFilePath));
 
-  RoadAccessCollector collector(dataFilePath, roadAccessPath, osmIdsToFeatureIdsPath);
+  RoadAccessCollector collector(roadAccessPath, osmIdsToFeatureIdsPath);
 
   if (!collector.IsValid())
   {
