@@ -132,8 +132,6 @@ DEFINE_bool(make_transit_cross_mwm, false, "Make section for cross mwm transit r
 DEFINE_bool(make_transit_cross_mwm_experimental, false,
             "Experimental parameter. If set the new version of transit cross-mwm section will be "
             "generated. Makes section for cross mwm transit routing.");
-DEFINE_bool(disable_cross_mwm_progress, false,
-            "Disable log of cross mwm section building progress.");
 DEFINE_string(srtm_path, "",
               "Path to srtm directory. If set, generates a section with altitude information "
               "about roads.");
@@ -543,8 +541,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       if (FLAGS_make_cross_mwm)
       {
         BuildRoutingCrossMwmSection(path, dataFile, country, genInfo.m_intermediateDir,
-                                    *countryParentGetter, osmToFeatureFilename,
-                                    FLAGS_disable_cross_mwm_progress);
+                                    *countryParentGetter, osmToFeatureFilename);
       }
 
       if (FLAGS_make_transit_cross_mwm_experimental)
