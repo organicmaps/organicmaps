@@ -10668,6 +10668,9 @@
     zh-Hans = 游泳池
     zh-Hant = 游泳池
 
+  [type.leisure.swimming_pool.private]
+    ref = type.leisure.swimming_pool
+
   [type.leisure.track]
     en = Track
     de = Laufbahn
