@@ -48,7 +48,7 @@
               android:textAppearance="@style/MwmTextAppearance.Body2"
               android:textIsSelectable="true"
               android:selectAllOnFocus="true"
-              tools:text="Data: 151215" />
+              tools:text="OpenStreetMap Data: 3 January 2022" />
         </LinearLayout>
       </LinearLayout>
 
