@@ -2640,6 +2640,90 @@
     zh-Hans = 警察
     zh-Hant = 警察局
 
+  [recycling]
+    comment = Search category for recycling; any changes should be duplicated in categories.txt @recycling!
+    tags = android,ios
+    en = Recycling
+    ar = إعادة تدوير
+    be = Перапрацоўка
+    bg = Рециклиране
+    cs = Recyklace
+    da = Genbrug
+    de = Recycling
+    el = Ανακύκλωση
+    es = Reciclaje
+    es-MX = Reciclaje
+    fa = بازیافت
+    fi = Kierrätys
+    fr = Recyclage
+    hu = Újrahasznosítás
+    id = Mendaur ulang
+    it = Riciclo
+    ja = リサイクル
+    ko = 재활용
+    nb = Resirkulering
+    nl = Recycling
+    pl = Recykling
+    pt = Reciclagem
+    pt-BR = Reciclagem
+    ro = Reciclare
+    ru = Переработка
+    sk = Recyklácia
+    sv = Återvinning
+    th = การรีไซเคิล
+    tr = Geri dönüşüm
+    uk = Переробка відходів
+    vi = Tái chế rác thải
+    zh-Hans = 回收
+    zh-Hant = 回收
+
+  [water]
+    comment = Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type
+    tags = android,ios
+    en = Water
+    ar = ماء
+    be = Вада
+    bg = Вода
+    cs = Voda
+    da = Vand
+    de = Wasser
+    el = Νερό
+    es = Agua
+    es-MX = Agua
+    fa = اب
+    fi = Vesi
+    fr = Eau
+    he = מים
+    hu = Víz
+    id = Air
+    it = Acqua
+    ja = 水
+    ko = 물
+    nb = Vann
+    nl = Water
+    pl = Woda
+    pt = Água
+    pt-BR = Água
+    ro = Apă
+    ru = Вода
+    sk = Voda
+    sv = Vatten
+    sw = Maji
+    th = น้ำ
+    tr = Su
+    uk = Вода
+    vi = Nước
+    zh-Hans = 水
+    zh-Hant = 水
+
+  [rv]
+    comment = Search category for RV facilities; any changes should be duplicated in categories.txt @rv!
+    tags = android,ios
+    en = RV Facilities
+    be = Для аўтадамоў
+    ru = Для автодомов
+    uk = Для автобудинків
+
   [description]
     comment = Notes field in Bookmarks view
     tags = android
@@ -20493,6 +20577,8 @@
     zh-Hans = 其他
     zh-Hant = 其他
 
+[[Bookmark types used for sorting]]
+
   [food_places]
     tags = android,ios
     en = Food
@@ -20960,42 +21046,6 @@
     vi = Trạm xăng dầu
     zh-Hans = 加油站
     zh-Hant = 加油站
-
-  [water]
-    tags = android,ios
-    en = Water
-    ar = ماء
-    be = Вада
-    cs = Voda
-    da = Vand
-    de = Wasser
-    el = Νερό
-    es = Agua
-    es-MX = Agua
-    fa = آب
-    fi = Vesi
-    fr = Eau
-    hu = Víz
-    id = Air
-    it = Acqua
-    ja = 水
-    ko = 물
-    nb = Vann
-    nl = Water
-    pl = Woda
-    pt = Água
-    pt-BR = Água
-    ro = Apă
-    ru = Вода
-    sk = Voda
-    sv = Vatten
-    sw = Maji
-    th = น้ำ
-    tr = Su
-    uk = Вода
-    vi = Nước
-    zh-Hans = 水
-    zh-Hant = 水
 
   [medicine]
     tags = android,ios

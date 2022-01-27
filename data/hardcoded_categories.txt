@@ -1,6 +1,6 @@
 eat
-food
 hotel
+food
 tourism
 wifi
 transport
@@ -12,8 +12,11 @@ nightlife
 children
 bank
 entertainment
+water
 hospital
 pharmacy
+recycling
+rv
 police
 toilet
 post

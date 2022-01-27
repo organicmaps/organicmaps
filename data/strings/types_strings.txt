@@ -3512,8 +3512,9 @@
     uk = Станція передачі сміття
 
   [type.amenity.water_point]
-    en = Water Point
+    en = RV Water Point
     ar = نقطة مائية
+    be = Вада для аўтадомаў
     cs = Vodní zdroj
     da = Vandstation
     de = Wasseranschluss
@@ -3533,12 +3534,12 @@
     pt = Ponto de água
     pt-BR = Ponto de água
     ro = Punct de alimentare cu apă
-    ru = Заправка водой
+    ru = Вода для автодомов
     sk = Voda
     sv = Vattenpost
     th = จุดเติมน้ำ
     tr = Su Noktası
-    uk = Заправка водою
+    uk = Вода для автобудинків
     vi = Điểm cấp nước
     zh-Hans = 取水点
     zh-Hant = 飲水站
@@ -17411,8 +17412,9 @@
     zh-Hant = 露營
 
   [type.tourism.caravan_site]
-    en = Caravan Site
+    en = RV Park
     ar = موقع البيت المتنقل
+    be = Кемпінг для аўтадамоў
     cs = Kemp pro obytné přívěsy
     da = Autocamperplads
     de = Wohnwagenstellplatz
@@ -17431,12 +17433,12 @@
     pt = Parque de caravanas
     pt-BR = Área de trailers
     ro = Teren pentru campare
-    ru = Автокемпинг
+    ru = Кемпинг для автодомов
     sk = Kemp pre karavany
     sv = Husvagnsplats
     th = ขบวนนักเดินทาง
     tr = Karavan alanı
-    uk = Автокемпінг
+    uk = Кемпінг для автобудинків
     vi = Khu lễ hội hóa trang
     zh-Hans = 房车宿营地
     zh-Hant = 營區
