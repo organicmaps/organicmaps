@@ -22,8 +22,11 @@ DisplayedCategories::DisplayedCategories(CategoriesHolder const & holder) : m_ho
             "children",
             "bank",
             "entertainment",
+            "water",
             "hospital",
             "pharmacy",
+            "recycling",
+            "rv",
             "police",
             "toilet",
             "post"};
