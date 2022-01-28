@@ -14210,7 +14210,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.2
       color: 16316664
       priority: 1377
       cap: BUTTCAP
@@ -14330,7 +14330,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.2
       color: 16316664
       priority: 1377
       cap: BUTTCAP
@@ -14450,7 +14450,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.2
       color: 16316664
       priority: 1377
       cap: BUTTCAP
@@ -15630,6 +15630,13 @@ cont {
   name: "highway-motorway_link"
   element {
     scale: 10
+    lines {
+      width: 0.8
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -15637,10 +15644,23 @@ cont {
         stroke_color: 871230427
       }
       priority: 16459
+    }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 85
     }
   }
   element {
     scale: 11
+    lines {
+      width: 1.0
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -15649,9 +15669,22 @@ cont {
       }
       priority: 16459
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 90
+    }
   }
   element {
     scale: 12
+    lines {
+      width: 1.2
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 12
@@ -15660,11 +15693,17 @@ cont {
       }
       priority: 16459
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 90
+    }
   }
   element {
     scale: 13
     lines {
-      width: 1.4
+      width: 1.8
       color: 16742950
       priority: 1459
       cap: BUTTCAP
@@ -15687,7 +15726,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.8
+      width: 2.0
       color: 16742950
       priority: 1459
       cap: BUTTCAP
@@ -15823,6 +15862,13 @@ cont {
   name: "highway-motorway_link-bridge"
   element {
     scale: 10
+    lines {
+      width: 0.8
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -15830,10 +15876,23 @@ cont {
         stroke_color: 871230427
       }
       priority: 16459
+    }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 85
     }
   }
   element {
     scale: 11
+    lines {
+      width: 1.0
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -15842,9 +15901,22 @@ cont {
       }
       priority: 16459
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 90
+    }
   }
   element {
     scale: 12
+    lines {
+      width: 1.2
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 12
@@ -15853,11 +15925,17 @@ cont {
       }
       priority: 16459
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 90
+    }
   }
   element {
     scale: 13
     lines {
-      width: 1.4
+      width: 1.8
       color: 16742950
       priority: 1459
       cap: BUTTCAP
@@ -15880,13 +15958,13 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.8
+      width: 2.0
       color: 16742950
       priority: 1459
       cap: BUTTCAP
     }
     lines {
-      width: 3.6
+      width: 4.0
       color: 15592411
       dashdot {
       }
@@ -15894,7 +15972,7 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 4.4
+      width: 4.8
       color: 8421504
       dashdot {
       }
@@ -16112,6 +16190,13 @@ cont {
   name: "highway-motorway_link-tunnel"
   element {
     scale: 10
+    lines {
+      width: 0.8
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -16119,10 +16204,23 @@ cont {
         stroke_color: 871230427
       }
       priority: 16459
+    }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 85
     }
   }
   element {
     scale: 11
+    lines {
+      width: 1.0
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -16131,9 +16229,30 @@ cont {
       }
       priority: 16459
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 90
+    }
   }
   element {
     scale: 12
+    lines {
+      width: 3.2
+      color: 8421504
+      dashdot {
+      }
+      priority: 1458
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 12
@@ -16142,11 +16261,17 @@ cont {
       }
       priority: 16459
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 90
+    }
   }
   element {
     scale: 13
     lines {
-      width: 3.4
+      width: 3.8
       color: 8421504
       dashdot {
         dd: 5.0
@@ -16156,7 +16281,7 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 1.4
+      width: 1.8
       color: 16557154
       priority: 1459
       cap: BUTTCAP
@@ -16179,7 +16304,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 3.8
+      width: 4.0
       color: 8421504
       dashdot {
         dd: 5.0
@@ -16189,7 +16314,7 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 1.8
+      width: 2.0
       color: 16557154
       priority: 1459
       cap: BUTTCAP
@@ -19476,6 +19601,13 @@ cont {
   }
   element {
     scale: 11
+    lines {
+      width: 1.5
+      color: 16749632
+      priority: 1438
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -19484,9 +19616,22 @@ cont {
       }
       priority: 16438
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16438
+      min_distance: 90
+    }
   }
   element {
     scale: 12
+    lines {
+      width: 1.7
+      color: 16749632
+      priority: 1438
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -19495,9 +19640,21 @@ cont {
       }
       priority: 16438
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16438
+      min_distance: 90
+    }
   }
   element {
     scale: 13
+    lines {
+      width: 2.4
+      color: 16749632
+      priority: 1438
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -19505,6 +19662,12 @@ cont {
         stroke_color: 451800027
       }
       priority: 16438
+    }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16438
+      min_distance: 120
     }
   }
   element {
@@ -19657,6 +19820,13 @@ cont {
   }
   element {
     scale: 11
+    lines {
+      width: 1.5
+      color: 16749632
+      priority: 1438
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -19665,9 +19835,22 @@ cont {
       }
       priority: 16438
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16438
+      min_distance: 90
+    }
   }
   element {
     scale: 12
+    lines {
+      width: 1.7
+      color: 16749632
+      priority: 1438
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -19676,9 +19859,21 @@ cont {
       }
       priority: 16438
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16438
+      min_distance: 90
+    }
   }
   element {
     scale: 13
+    lines {
+      width: 2.4
+      color: 16749632
+      priority: 1438
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -19686,6 +19881,12 @@ cont {
         stroke_color: 451800027
       }
       priority: 16438
+    }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16438
+      min_distance: 120
     }
   }
   element {
@@ -19934,6 +20135,13 @@ cont {
   }
   element {
     scale: 11
+    lines {
+      width: 1.5
+      color: 16749632
+      priority: 1438
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -19942,9 +20150,22 @@ cont {
       }
       priority: 16438
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16438
+      min_distance: 90
+    }
   }
   element {
     scale: 12
+    lines {
+      width: 1.7
+      color: 16749632
+      priority: 1438
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -19953,9 +20174,21 @@ cont {
       }
       priority: 16438
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16438
+      min_distance: 90
+    }
   }
   element {
     scale: 13
+    lines {
+      width: 2.4
+      color: 16749632
+      priority: 1438
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -19963,6 +20196,12 @@ cont {
         stroke_color: 451800027
       }
       priority: 16438
+    }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16438
+      min_distance: 120
     }
   }
   element {
@@ -20248,16 +20487,6 @@ cont {
 cont {
   name: "highway-residential"
   element {
-    scale: 11
-    lines {
-      width: 0.8
-      color: 16316664
-      priority: 1397
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1.2
@@ -20265,14 +20494,6 @@ cont {
       priority: 1397
       join: BEVELJOIN
       cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 452984831
-      }
-      priority: 16397
     }
     shield {
       height: 9
@@ -20442,16 +20663,6 @@ cont {
 cont {
   name: "highway-residential-area"
   element {
-    scale: 11
-    lines {
-      width: 0.8
-      color: 16316664
-      priority: 1397
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1.2
@@ -20459,14 +20670,6 @@ cont {
       priority: 1397
       join: BEVELJOIN
       cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 452984831
-      }
-      priority: 16397
     }
     shield {
       height: 9
@@ -20636,16 +20839,6 @@ cont {
 cont {
   name: "highway-residential-bridge"
   element {
-    scale: 11
-    lines {
-      width: 0.8
-      color: 16316664
-      priority: 1397
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1.2
@@ -20653,14 +20846,6 @@ cont {
       priority: 1397
       join: BEVELJOIN
       cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 452984831
-      }
-      priority: 16397
     }
     shield {
       height: 9
@@ -20926,16 +21111,6 @@ cont {
 cont {
   name: "highway-residential-tunnel"
   element {
-    scale: 11
-    lines {
-      width: 0.8
-      color: 16316664
-      priority: 1397
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1.2
@@ -20943,14 +21118,6 @@ cont {
       priority: 1397
       join: BEVELJOIN
       cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 452984831
-      }
-      priority: 16397
     }
     shield {
       height: 9
@@ -21239,7 +21406,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.2
       color: 16316664
       priority: 1377
       cap: BUTTCAP
@@ -21359,7 +21526,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.2
       color: 16316664
       priority: 1377
       cap: BUTTCAP
@@ -21543,7 +21710,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.2
       color: 16316664
       priority: 1377
       cap: BUTTCAP
@@ -27089,6 +27256,13 @@ cont {
   name: "highway-trunk_link"
   element {
     scale: 10
+    lines {
+      width: 0.8
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -27096,10 +27270,23 @@ cont {
         stroke_color: 871230427
       }
       priority: 16459
+    }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 85
     }
   }
   element {
     scale: 11
+    lines {
+      width: 1.0
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -27108,9 +27295,22 @@ cont {
       }
       priority: 16459
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 90
+    }
   }
   element {
     scale: 12
+    lines {
+      width: 1.2
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 12
@@ -27119,11 +27319,17 @@ cont {
       }
       priority: 16459
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 90
+    }
   }
   element {
     scale: 13
     lines {
-      width: 1.4
+      width: 1.8
       color: 16742950
       priority: 1459
       cap: BUTTCAP
@@ -27146,7 +27352,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.8
+      width: 2.0
       color: 16742950
       priority: 1459
       cap: BUTTCAP
@@ -27282,6 +27488,13 @@ cont {
   name: "highway-trunk_link-bridge"
   element {
     scale: 10
+    lines {
+      width: 0.8
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -27289,10 +27502,23 @@ cont {
         stroke_color: 871230427
       }
       priority: 16459
+    }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 85
     }
   }
   element {
     scale: 11
+    lines {
+      width: 1.0
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -27301,9 +27527,22 @@ cont {
       }
       priority: 16459
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 90
+    }
   }
   element {
     scale: 12
+    lines {
+      width: 1.2
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 12
@@ -27312,11 +27551,17 @@ cont {
       }
       priority: 16459
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 90
+    }
   }
   element {
     scale: 13
     lines {
-      width: 1.4
+      width: 1.8
       color: 16742950
       priority: 1459
       cap: BUTTCAP
@@ -27339,13 +27584,13 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.8
+      width: 2.0
       color: 16742950
       priority: 1459
       cap: BUTTCAP
     }
     lines {
-      width: 3.6
+      width: 4.0
       color: 15592411
       dashdot {
       }
@@ -27353,7 +27598,7 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 4.4
+      width: 4.8
       color: 8421504
       dashdot {
       }
@@ -27571,6 +27816,13 @@ cont {
   name: "highway-trunk_link-tunnel"
   element {
     scale: 10
+    lines {
+      width: 0.8
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -27578,10 +27830,23 @@ cont {
         stroke_color: 871230427
       }
       priority: 16459
+    }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 85
     }
   }
   element {
     scale: 11
+    lines {
+      width: 1.0
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 10
@@ -27590,9 +27855,30 @@ cont {
       }
       priority: 16459
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 90
+    }
   }
   element {
     scale: 12
+    lines {
+      width: 3.2
+      color: 8421504
+      dashdot {
+      }
+      priority: 1458
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.2
+      color: 16742950
+      priority: 1459
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     path_text {
       primary {
         height: 12
@@ -27601,11 +27887,17 @@ cont {
       }
       priority: 16459
     }
+    shield {
+      height: 9
+      color: 16777215
+      priority: 16459
+      min_distance: 90
+    }
   }
   element {
     scale: 13
     lines {
-      width: 3.4
+      width: 3.8
       color: 8421504
       dashdot {
         dd: 5.0
@@ -27615,7 +27907,7 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 1.4
+      width: 1.8
       color: 16557154
       priority: 1459
       cap: BUTTCAP
@@ -27638,7 +27930,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 3.8
+      width: 4.0
       color: 8421504
       dashdot {
         dd: 5.0
@@ -27648,7 +27940,7 @@ cont {
       cap: BUTTCAP
     }
     lines {
-      width: 1.8
+      width: 2.0
       color: 16557154
       priority: 1459
       cap: BUTTCAP
@@ -27833,6 +28125,16 @@ cont {
 cont {
   name: "highway-unclassified"
   element {
+    scale: 11
+    lines {
+      width: 0.8
+      color: 16316664
+      priority: 1377
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 12
     lines {
       width: 1.2
@@ -27845,10 +28147,18 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.2
       color: 16316664
       priority: 1377
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 452984831
+      }
+      priority: 16377
     }
   }
   element {
@@ -27953,6 +28263,16 @@ cont {
 cont {
   name: "highway-unclassified-area"
   element {
+    scale: 11
+    lines {
+      width: 0.8
+      color: 16316664
+      priority: 1377
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 12
     lines {
       width: 1.2
@@ -27965,10 +28285,18 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.2
       color: 16316664
       priority: 1377
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 452984831
+      }
+      priority: 16377
     }
   }
   element {
@@ -28073,6 +28401,16 @@ cont {
 cont {
   name: "highway-unclassified-bridge"
   element {
+    scale: 11
+    lines {
+      width: 0.8
+      color: 16316664
+      priority: 1377
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 12
     lines {
       width: 1.2
@@ -28085,10 +28423,18 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.2
       color: 16316664
       priority: 1377
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 452984831
+      }
+      priority: 16377
     }
   }
   element {
@@ -28289,6 +28635,16 @@ cont {
 cont {
   name: "highway-unclassified-tunnel"
   element {
+    scale: 11
+    lines {
+      width: 0.8
+      color: 16316664
+      priority: 1377
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 12
     lines {
       width: 1.2
@@ -28301,10 +28657,18 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.2
       color: 16316664
       priority: 1377
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 452984831
+      }
+      priority: 16377
     }
   }
   element {
@@ -64957,43 +65321,80 @@ cont {
 cont {
   name: "tourism-attraction"
   element {
-    scale: 15
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16846
+      min_distance: 12
+    }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
         is_optional: true
       }
-      priority: 15632
+      priority: 15846
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16846
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15846
     }
   }
   element {
     scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16846
+      min_distance: 36
+    }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
         is_optional: true
       }
-      priority: 15632
+      priority: 15846
     }
   }
   element {
     scale: 17
+    symbol {
+      name: "tourism-m"
+      priority: 16846
+      min_distance: 36
+    }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
         is_optional: true
       }
-      priority: 15632
+      priority: 15846
     }
   }
   element {
     scale: 18
+    symbol {
+      name: "tourism-m"
+      priority: 16846
+      min_distance: 36
+    }
     caption {
       primary {
         height: 11
@@ -65001,11 +65402,16 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15632
+      priority: 15846
     }
   }
   element {
     scale: 19
+    symbol {
+      name: "tourism-m"
+      priority: 16846
+      min_distance: 36
+    }
     caption {
       primary {
         height: 11
@@ -65013,26 +65419,61 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15632
+      priority: 15846
     }
   }
 }
 cont {
   name: "tourism-attraction-animal"
   element {
+    scale: 14
+    symbol {
+      name: "tourism-s"
+      priority: 16846
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15846
+    }
+  }
+  element {
     scale: 15
     symbol {
-      name: "zoo-m"
+      name: "tourism-m"
       priority: 16846
-      min_distance: 24
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15846
     }
   }
   element {
     scale: 16
     symbol {
-      name: "zoo-m"
+      name: "tourism-m"
       priority: 16846
-      min_distance: 24
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15846
     }
   }
   element {
@@ -65041,6 +65482,15 @@ cont {
       name: "zoo-m"
       priority: 16846
       min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15846
     }
   }
   element {

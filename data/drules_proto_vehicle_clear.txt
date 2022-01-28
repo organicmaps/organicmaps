@@ -9726,16 +9726,6 @@ cont {
 cont {
   name: "highway-residential"
   element {
-    scale: 11
-    lines {
-      width: 0.3
-      color: 4294769916
-      priority: 1423
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 0.8
@@ -9960,16 +9950,6 @@ cont {
 cont {
   name: "highway-residential-area"
   element {
-    scale: 11
-    lines {
-      width: 0.3
-      color: 4294769916
-      priority: 1423
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 0.8
@@ -10193,16 +10173,6 @@ cont {
 }
 cont {
   name: "highway-residential-bridge"
-  element {
-    scale: 11
-    lines {
-      width: 0.3
-      color: 4294769916
-      priority: 1423
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
   element {
     scale: 12
     lines {
@@ -10523,16 +10493,6 @@ cont {
 }
 cont {
   name: "highway-residential-tunnel"
-  element {
-    scale: 11
-    lines {
-      width: 0.3
-      color: 4294769916
-      priority: 1423
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
   element {
     scale: 12
     lines {
@@ -16283,6 +16243,16 @@ cont {
 cont {
   name: "highway-unclassified"
   element {
+    scale: 11
+    lines {
+      width: 0.85
+      color: 16579836
+      priority: 1400
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 12
     lines {
       width: 0.85
@@ -16403,6 +16373,16 @@ cont {
 cont {
   name: "highway-unclassified-area"
   element {
+    scale: 11
+    lines {
+      width: 0.85
+      color: 16579836
+      priority: 1400
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 12
     lines {
       width: 0.85
@@ -16522,6 +16502,16 @@ cont {
 }
 cont {
   name: "highway-unclassified-bridge"
+  element {
+    scale: 11
+    lines {
+      width: 0.85
+      color: 16579836
+      priority: 1400
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 12
     lines {
@@ -16738,6 +16728,16 @@ cont {
 }
 cont {
   name: "highway-unclassified-tunnel"
+  element {
+    scale: 11
+    lines {
+      width: 0.85
+      color: 16579836
+      priority: 1400
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 12
     lines {
