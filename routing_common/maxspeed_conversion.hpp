@@ -177,7 +177,17 @@ public:
   measurement_utils::Units GetUnits() const { return m_units; }
 
   bool operator==(SpeedInUnits const & rhs) const;
-  bool operator<(SpeedInUnits const & rhs) const;
+
+  /// @note Used as map keys compare. Doesn't make real speed comparison.
+  struct Less
+  {
+    bool operator()(SpeedInUnits const & l, SpeedInUnits const & r) const
+    {
+      if (l.m_units == r.m_units)
+        return l.m_speed < r.m_speed;
+      return l.m_units < r.m_units;
+    }
+  };
 
   bool IsNumeric() const;
   bool IsValid() const { return m_speed != kInvalidSpeed; }
@@ -257,11 +267,16 @@ private:
   Maxspeed m_maxspeed;
 };
 
+/// \brief Generator converts real speed (SpeedInUnits) into 1-byte values for serialization (SpeedMacro),
+/// based on most used speeds (see MaxspeedConverter ctor).
+/// If you make any manipulation with speeds and want to save it, consider using ClosestValidMacro.
 class MaxspeedConverter
 {
 public:
   SpeedInUnits MacroToSpeed(SpeedMacro macro) const;
   SpeedMacro SpeedToMacro(SpeedInUnits const & speed) const;
+
+  SpeedInUnits ClosestValidMacro(SpeedInUnits const & speed) const;
 
   /// \returns true if |macro| can be cast to a valid value of SpeedMacro emum class.
   /// \note SpeedMacro::Undefined value and all values from 1 to 256 which are not present
@@ -274,7 +289,7 @@ private:
   MaxspeedConverter();
 
   std::array<SpeedInUnits, std::numeric_limits<uint8_t>::max()> m_macroToSpeed;
-  std::map<SpeedInUnits, SpeedMacro> m_speedToMacro;
+  std::map<SpeedInUnits, SpeedMacro, SpeedInUnits::Less> m_speedToMacro;
 };
 
 MaxspeedConverter const & GetMaxspeedConverter();
