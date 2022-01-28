@@ -40204,6 +40204,31 @@ cont {
   }
 }
 cont {
+  name: "shop-caravan"
+  element {
+    scale: 17
+    symbol {
+      name: "caravan-shop-m"
+      priority: 16000
+      min_distance: 24
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "caravan-shop-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "caravan-shop-m"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "shop-mall"
   element {
     scale: 14
