@@ -18,11 +18,6 @@ bool SpeedInUnits::operator==(SpeedInUnits const & rhs) const
   return m_speed == rhs.m_speed && m_units == rhs.m_units;
 }
 
-bool SpeedInUnits::operator<(SpeedInUnits const & rhs) const
-{
-  return ToSpeedKmPH(m_speed, m_units) < ToSpeedKmPH(rhs.m_speed, rhs.m_units);
-}
-
 bool SpeedInUnits::IsNumeric() const
 {
   return routing::IsNumeric(m_speed);
@@ -238,21 +233,21 @@ MaxspeedConverter::MaxspeedConverter()
   for (auto const & e : table)
     m_macroToSpeed[static_cast<uint8_t>(get<0>(e))] = SpeedInUnits(get<1>(e), get<2>(e));
 
-  CHECK_EQUAL(static_cast<uint8_t>(SpeedMacro::Undefined), 0, ());
+  ASSERT_EQUAL(static_cast<uint8_t>(SpeedMacro::Undefined), 0, ());
   m_speedToMacro.insert(make_pair(SpeedInUnits(kInvalidSpeed, Units::Metric), SpeedMacro::Undefined));
   for (size_t i = 1; i < numeric_limits<uint8_t>::max(); ++i)
   {
     auto const & speed = m_macroToSpeed[i];
-    if (!speed.IsValid())
-      continue;
-
-    m_speedToMacro.insert(make_pair(speed, static_cast<SpeedMacro>(i)));
+    if (speed.IsValid())
+      m_speedToMacro.insert(make_pair(speed, static_cast<SpeedMacro>(i)));
   }
 }
 
 SpeedInUnits MaxspeedConverter::MacroToSpeed(SpeedMacro macro) const
 {
-  return m_macroToSpeed[static_cast<uint8_t>(macro)];
+  uint8_t const m = static_cast<uint8_t>(macro);
+  ASSERT_LESS(m, m_macroToSpeed.size(), ());
+  return m_macroToSpeed[m];
 }
 
 SpeedMacro MaxspeedConverter::SpeedToMacro(SpeedInUnits const & speed) const
@@ -279,9 +274,40 @@ SpeedMacro MaxspeedConverter::SpeedToMacro(SpeedInUnits const & speed) const
   return it->second;
 }
 
+SpeedInUnits MaxspeedConverter::ClosestValidMacro(SpeedInUnits const & speed) const
+{
+  auto it = m_speedToMacro.lower_bound(speed);
+  if (it == m_speedToMacro.end())
+  {
+    --it;
+  }
+  else if (speed == it->first)
+  {
+    return speed;
+  }
+  else if (it != m_speedToMacro.begin())
+  {
+    auto it2 = it;
+    --it2;
+
+    ASSERT(speed.GetUnits() == it->first.GetUnits() || speed.GetUnits() == it2->first.GetUnits(), ());
+    auto const Diff = [&speed](SpeedInUnits const & rhs)
+    {
+      if (speed.GetUnits() != rhs.GetUnits())
+        return std::numeric_limits<int>::max();
+      return abs(int(rhs.GetSpeed()) - int(speed.GetSpeed()));
+    };
+
+    if (Diff(it2->first) < Diff(it->first))
+      it = it2;
+  }
+
+  return it->first;
+}
+
 bool MaxspeedConverter::IsValidMacro(uint8_t macro) const
 {
-  CHECK_LESS(macro, numeric_limits<uint8_t>::max(), ());
+  ASSERT_LESS(macro, m_macroToSpeed.size(), ());
   return m_macroToSpeed[macro].IsValid();
 }
 
