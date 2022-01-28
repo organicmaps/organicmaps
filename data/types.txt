@@ -718,7 +718,7 @@ office|diplomatic
 *historic|monument
 *historic|castle
 *historic|archaeological_site
-mapswithme
+*shop|caravan
 *man_made|cutline
 *natural|bay
 *natural|spring

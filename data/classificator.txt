@@ -839,6 +839,7 @@ world  +
         car_repair  +
             tyres  -
             {}
+        caravan  -
         chemist  -
         chocolate  -
         clothes  -

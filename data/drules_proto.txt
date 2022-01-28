@@ -59405,6 +59405,76 @@ cont {
   }
 }
 cont {
+  name: "shop-caravan"
+  element {
+    scale: 16
+    symbol {
+      name: "caravan-shop-m"
+      priority: 16683
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15683
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "caravan-shop-m"
+      priority: 16683
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15683
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "caravan-shop-m"
+      priority: 16683
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15683
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "caravan-shop-m"
+      priority: 16683
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15683
+    }
+  }
+}
+cont {
   name: "shop-chemist"
   element {
     scale: 16
