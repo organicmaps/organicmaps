@@ -287,7 +287,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   _hidden = hidden;
   self.sideButtonsHidden = _sideButtonsHidden;
   self.trafficButtonHidden = _trafficButtonHidden;
-  self.menuState = _menuState;
+  self.menuState = _menuState = hidden ? MWMBottomMenuStateHidden : MWMBottomMenuStateInactive;
 }
 
 - (void)setZoomHidden:(BOOL)zoomHidden {
