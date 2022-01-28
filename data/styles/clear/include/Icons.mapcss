@@ -400,8 +400,8 @@ area[amenity=place_of_worship]
 node[amenity=community_centre],
 area[amenity=community_centre],
 {z-index: 2870;}
-node[tourism=attraction][attraction=specified],
-area[tourism=attraction][attraction=specified],
+node[tourism=attraction],
+area[tourism=attraction],
 area[place=square],
 node|z16-[tourism=attraction][attraction=animal],
 area|z16-[tourism=attraction][attraction=animal],
@@ -958,8 +958,8 @@ node|z13-[tourism=zoo],
 area|z13-[tourism=zoo],
 node|z14-[amenity=theatre],
 area|z14-[amenity=theatre],
-node|z14-[tourism=attraction][attraction=specified],
-area|z14-[tourism=attraction][attraction=specified],
+node|z14-[tourism=attraction],
+area|z14-[tourism=attraction],
 area|z14-[place=square],
 node|z14-[tourism=theme_park],
 area|z14-[tourism=theme_park],
@@ -1119,22 +1119,22 @@ area|z15[tourism=artwork],
 area|z16-[tourism=artwork],
 {icon-image: tourism-m.svg;icon-min-distance: 24;}
 
-node|z14[tourism=attraction][attraction=specified],
-area|z14[tourism=attraction][attraction=specified],
+node|z14[tourism=attraction],
+area|z14[tourism=attraction],
 area|z14[place=square]
 {icon-image: tourism-s.svg;icon-min-distance: 12;}
 node|z14[tourism=theme_park],
 area|z14[tourism=theme_park]
 {icon-image: theme_park-s.svg;icon-min-distance: 12;}
-node|z15[tourism=attraction][attraction=specified],
-area|z15[tourism=attraction][attraction=specified],
+node|z15[tourism=attraction],
+area|z15[tourism=attraction],
 area|z15[place=square]
 {icon-image: tourism-m.svg;icon-min-distance: 36;}
 node|z15[tourism=theme_park],
 area|z15[tourism=theme_park]
 {icon-image: theme_park-m.svg;icon-min-distance: 36;}
-node|z16-[tourism=attraction][attraction=specified],
-area|z16-[tourism=attraction][attraction=specified]
+node|z16-[tourism=attraction],
+area|z16-[tourism=attraction]
 {icon-image: tourism-m.svg;icon-min-distance: 36;}
 node|z16-[tourism=theme_park],
 area|z16-[tourism=theme_park]
