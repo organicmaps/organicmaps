@@ -214,7 +214,7 @@ es:Aparcamiento
 sv:Parkering
 th:ที่จอดรถ
 tr:Otopark
-uk:Парковка
+uk:4Парковка
 vi:đỗ xe
 zh-Hans:停车
 zh-Hant:停車場
@@ -1589,10 +1589,11 @@ sk:Obchodný dom
 fa:مرکز خرید|پاساژ
 
 shop-beverages|@food
-en:Beverages|drinks|U+1F379
-en-GB:Drinks|U+1F379
-en-AU:Drinks|U+1F379
-ru:Напитки|соки
+en:4Beverages|4drinks|U+1F379
+en-GB:4Drinks|U+1F379
+en-AU:4Drinks|U+1F379
+ru:4Напитки|3соки
+be:4Напоі|3сокі
 bg:напитки|питиета
 ar:مشروبات|عصائر
 cs:Nápoje|nápoje
@@ -1615,7 +1616,7 @@ es:Bebidas
 sv:Drinkar|drycker
 th:เครื่องดื่ม
 tr:Içecek
-uk:Напої
+uk:4Напої|3соки
 vi:Đồ uống
 zh-Hans:饮料|商店
 zh-Hant:飲料|飲料店|購物
@@ -3716,7 +3717,8 @@ fa:کتابخانه
 
 amenity-parking|@parking
 en:U+1F697|U+1F17F|U+1F698|U+1F699
-ru:Автостоянка|парковка
+ru:Автостоянка
+be:Аўтастаянка
 bg:Паркинг|престой
 ar:موقف سيارات
 da:3Parkeringsplads
@@ -3728,7 +3730,7 @@ pt:3Estacionamento
 pt-BR:3Estacionamento
 es:3aparcamiento
 sv:Parkering
-uk:автостоянка|паркінг
+uk:автостоянка
 vi:Đỗ xe
 zh-Hans:1停车
 zh-Hant:1停車場|停車|泊車
@@ -7876,9 +7878,23 @@ el:Δικαστικό μέγαρο
 sk:Súd
 fa:دادگاه
 
+amenity-vending_machine
+en:4Vending Machine|Dispenser
+ru:Торговый автомат|Торгомат
+be:Гандлёвы аўтамат
+de:Verkaufsautomat
+fr:Distributeur automatique
+ja:自動販売機
+pl:Automat sprzedający
+pt:Máquina de venda automática
+pt-BR:Máquina de venda automática
+uk:Торговий автомат
+zh-Hans:自动售货机
+
 amenity-vending_machine-cigarettes
-en:Cigarette Dispenser
-ru:Сигаретный автомат
+en:4Cigarette Dispenser
+ru:Автомат с сигаретами|Сигаретный автомат|4Сигареты
+be:Аўтамат з цыгарэтамі|Цыгарэтны аўтамат|4Цыгарэты
 bg:Цигари|диспенсер|машина
 ar:ماكينة بيع سجائر
 cs:Automat na cigarety
@@ -7901,7 +7917,7 @@ es:Máquina expendedora de tabaco
 sv:Cigarettmaskin|cigarettautomat
 th:เครื่องขายบุหรี่
 tr:Distributeur de cigarettes
-uk:Автомат з продажу сигарет
+uk:Автомат з цигарками|4Цигарки
 vi:Máy bán thuốc lá
 zh-Hans:自动售烟机
 zh-Hant:香菸自動販賣機
@@ -7910,8 +7926,9 @@ sk:Automat na cigarety
 fa:ماشین سیگار فروشی
 
 amenity-vending_machine-drinks
-en:Drink Dispenser
-ru:Автомат с напитками
+en:4Drinks Dispenser|4Beverages
+ru:Автомат с напитками|Газировка|4Напитки|3Соки
+be:Аўтамат з напоямі|Газіроўка|4Напоі|3Сокі
 bg:Диспенсър|напитки|машина
 ar:ماكينة بيع مشروبات
 cs:Automat na nápoje
@@ -7934,13 +7951,82 @@ es:Máquina expendedora de bebidas
 sv:Läskautomat
 th:เครื่องขายเครื่องดื่มอัตโนมัติ
 tr:Distributeur de boissons
-uk:Автомат з напоями
+uk:Автомат з напоями|Газування|4Напої|3Соки
 vi:Máy bán thức uống
 zh-Hans:饮料售卖机
 zh-Hant:飲料自動販賣機
 el:Αυτόματος πωλητής ποτών
 sk:Nápojový automat
 fa:ماشین فروش نوشیدنی
+
+amenity-vending_machine-parking_tickets|@parking
+en:4Parking Tickets|Pay and Display|Parkomat|Parking Meter
+ru:4Паркомат|Оплата парковки
+ar:ماكينة دفع تذاكر الموقف
+be:4Паркамат|Аплата паркоўкі
+bg:паркинг|машина|билет|Билети за паркиране
+cs:Parkovací automat
+da:Parkeringsbilletmaskine
+de:Parkautomat
+el:Εισιτήρια στάθμευσης
+es:Máquina de pago de tique de aparcamiento
+fa:پارکو متر
+fi:Pysäköintimaksuautomaatti
+fr:Horodateur
+hu:Parkolóautomata
+id:Mesin pembayaran tiket parkir
+it:Parcometro
+ja:駐車券支払機
+ko:주차티켓판매기|주차 티켓
+nb:Parkeringsautomat
+nl:Parkeerautomaat|Betaalautomaat parkeergarage
+pl:Parkometr|Parkomat
+pt:Máquina de pagamento de estacionamento|Máquina de bilhetes de estacionamento|bilhete de estacionamento|talão de estacionamento|Parcómetro|Parquíntemo
+pt-BR:Máquina venda de tíquetes de estacionamento
+ro:Parcomat
+sk:Automat na výdaj parkovacích lístkov
+sv:Parkeringsautomat
+th:เครื่องชำระค่าที่จอดรถอัตโนมัติ
+tr:Horodateur
+uk:4Паркомат|Оплата паркування
+vi:Máy trả tiền vé đậu xe
+zh-Hans:停车场付费机
+zh-Hant:違規停車罰單繳費機
+
+amenity-vending_machine-public_transport_tickets|@transport
+en:Ticket Machine|Transport Tickets|Tickets
+ar:آلة بيع تذاكر النقل العام
+be:Автомат по продаже билетов
+cs:Prodejní automat lístků na městskou dopravu
+da:Billetautomat for offentlig transport
+de:Fahrkartenautomat
+el:Μηχάνημα αυτόματης πώλησης εισιτηρίων για τα μέσα μαζικής μεταφοράς
+es:Máquina expendedora de boletos para el transporte público
+es-MX:Máquina expendedora de billetes de transporte público
+fa:دستگاه فروش خودکار بلیط های حمل و نقل عمومی
+fi:Julkisen liikenteen lippuautomaatti
+fr:Distributeur de billets de transport en commun
+hu:Automata jegykiadó tömegközlekedési eszközökhöz
+id:Mesin penjual otomatis tiket transportasi umum
+it:Distributore automatico biglietti di trasporto
+ja:公共交通機関の券売機
+ko:대중교통표 자동판매기
+nb:Billettmaskin for offentlig transport
+nl:Kaartjesautomaat voor openbaar vervoer
+pl:Automat biletowy do transportu publicznego
+pt:Máquina venda de bilhetes de transporte público
+pt-BR:Máquinas automáticas de venda de passagens de transporte público
+ro:Automat de vânzare a biletelor pentru transportul public
+ru:Автомат по продаже билетов
+sk:Predajný automat na lístky verejnej dopravy
+sv:Biljettautomat
+sw:Mashine ya kuuzia tiketi za usafiri wa umma
+th:เครื่องขายของหรือตั๋วขนส่งมวลชนอัตโนมัติ
+tr:Toplu taşıma biletleri için otomatlar
+uk:Автомат з продажу квитків
+vi:Máy bán vé phương tiện công cộng tự động
+zh-Hans:公共交通售票机
+zh-Hant:公共交通售票機
 
 # Skipped if empty name
 building-garage
@@ -8144,8 +8230,9 @@ sk:Obchodník s rybami
 fa:فروشگاه غذای دریایی
 
 shop-ticket
-en:Ticket Shop|tickets|ticket hub|ticket office|ticket center|booking office|box office|ticket agency|ticket booth|pay box
-ru:Билетная касса|билет|театральная касса|билетный центр|городской билетный центр|городская касса|продажа билетов|бронирование билетов
+en:4Ticket Shop|tickets|ticket hub|ticket office|ticket center|booking office|box office|ticket agency|ticket booth|pay box
+ru:4Билетная касса|билет|театральная касса|билетный центр|городская касса|продажа билетов|бронирование билетов
+be:4Білетная каса|білет|тэатральная каса|білетны цэнтр|гарадская каса|продаж білетаў|браніраванне білетаў
 bg:билети|каса
 ar:مكتب تذاكر
 cs:Prodej vstupenek
@@ -8168,7 +8255,7 @@ es:Venta de entradas
 sv:Biljettkontor
 th:จุดจำหน่ายตั๋ว
 tr:Billetterie
-uk:Білетна каса
+uk:4Квиткова каса|квиток|театральна каса|квитковий центр|продаж квитків|бронювання квитків
 vi:Phòng vé
 zh-Hans:售票处
 zh-Hant:售票處
@@ -8406,39 +8493,6 @@ zh-Hant:直升機停機坪
 el:Ελικοδρόμιο
 sk:Pristávacia plocha pre vrtuľníky
 fa:پد فرود بالگرد
-
-amenity-vending_machine-parking_tickets
-en:Parking Tickets
-ru:Паркомат
-bg:паркинг|машина|билет|Билети за паркиране
-ar:ماكينة دفع تذاكر الموقف
-cs:Parkovací automat
-da:Parkeringsbilletmaskine
-nl:Parkeerautomaat|Betaalautomaat parkeergarage
-fi:Pysäköintimaksuautomaatti
-fr:Horodateur
-de:Parkautomat
-hu:Parkolóautomata
-id:Mesin pembayaran tiket parkir
-it:Parcometro
-ja:駐車券支払機
-ko:주차티켓판매기|주차 티켓
-nb:Parkeringsautomat
-pl:Parkomat
-pt:Máquina de pagamento de estacionamento|Máquina de bilhetes de estacionamento|bilhete de estacionamento|talão de estacionamento|Parcómetro|Parquíntemo
-pt-BR:Máquina venda de tíquetes de estacionamento
-ro:Parcomat
-es:Máquina de pago de tique de aparcamiento
-sv:Parkeringsautomat
-th:เครื่องชำระค่าที่จอดรถอัตโนมัติ
-tr:Horodateur
-uk:Паркомат
-vi:Máy trả tiền vé đậu xe
-zh-Hans:停车场付费机
-zh-Hant:違規停車罰單繳費機
-el:Εισιτήρια στάθμευσης
-sk:Automat na výdaj parkovacích lístkov
-fa:پارکو متر
 
 barrier-border_control
 en:Border Control
