@@ -10058,3 +10058,14 @@ sk:Brod
 zh-Hans:浅滩
 zh-Hant:淺灘
 fa:گدار
+
+leisure-marina
+en:3Marina
+be:Прычал|Марына
+de:Jachthafen
+ja:マリーナ
+pt:Marina
+pt-BR:Marina
+ru:Причал|Марина
+uk:Пристань|Марина
+zh-Hans:游艇码头
