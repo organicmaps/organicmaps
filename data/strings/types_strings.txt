@@ -3416,6 +3416,24 @@
     zh-Hans = 公共交通售票机
     zh-Hant = 公共交通售票機
 
+  [type.amenity.vending_machine.excrement_bags]
+    en = Excrement Bags
+    be = Мяшкі дзеля экскрыментаў
+    ru = Пакеты для экскрементов
+    uk = Мішки для екскрементів
+
+  [type.amenity.vending_machine.parcel_pickup]
+    en = Parcel Pickup
+    be = Атрыманне пасылак
+    ru = Получение посылок
+    uk = Отримання посилок
+
+  [type.amenity.vending_machine.fuel]
+    en = Fuel Dispenser
+    be = Паліўны аўтамат
+    ru = Топливный автомат
+    uk = Паливний автомат
+
   [type.amenity.veterinary]
     en = Veterinary Doctor
     ar = طبيب بيطري
