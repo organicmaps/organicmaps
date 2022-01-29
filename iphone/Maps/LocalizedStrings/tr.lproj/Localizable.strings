@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Paylaş";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "E-posta";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "Sürüm: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Veri sürümü: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "OpenStreetMap verileri: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Kayıtlar";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "Yardım";
+
+/* Button in the main Help dialog */
+"faq" = "Sıkça Sorulan Sorular";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Sizi nasıl destekleyebilirim?";
 
 /* Button in the main Help dialog */
 "copyright" = "Telif hakkı";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "Haritayı Sil";
-
-/* Text for rating dialog */
-"rating_just_rated" = "Uygulamanıza az önce puan verdim";
-
-/* Text for rating dialog */
-"rating_thanks" = "Teşekkürler!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "Uygulamayı geliştirebilmemiz için fikirlerinizi veya sorunlarınızı paylaşın.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "Geribildirim gönder";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Rota üzerindeki haritaları indir";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Bir rota oluşturmak için lütfen rota üzerindeki tüm haritaları indirin ve güncelleyin.";
-
-"rate_alert_title" = "Uygulamayı beğendiniz mi?";
-
-"rate_alert_default_message" = "Organic Maps’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.";
-
-"rate_alert_five_star_message" = "Yaşasın! Biz de sizi seviyoruz!";
-
-"rate_alert_four_star_message" = "Teşekkür ederiz, elimizden geleni yapacağız!";
-
-"rate_alert_less_than_four_star_message" = "Daha iyi hale getirebilmemiz için herhangi bir fikriniz var mı?";
 
 "categories" = "Kategoriler";
 

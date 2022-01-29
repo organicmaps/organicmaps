@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Поделиться";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "Email";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "Версия: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Версия данных: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "Данные OpenStreetMap: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Треки";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "Справка";
+
+/* Button in the main Help dialog */
+"faq" = "Вопросы и ответы";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Как наc поддержать?";
 
 /* Button in the main Help dialog */
 "copyright" = "Копирайт";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "Удалить карту";
-
-/* Text for rating dialog */
-"rating_just_rated" = "Я только что оценил Organic Maps";
-
-/* Text for rating dialog */
-"rating_thanks" = "Спасибо!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "Что-то не так?  Расскажите, что бы мы могли исправить или улучшить в приложении.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "Напишите нам";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Загрузите все карты по пути следования";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Для построения маршрута загрузите и обновите все карты по пути следования.";
-
-"rate_alert_title" = "Нравится приложение?";
-
-"rate_alert_default_message" = "Спасибо что пользуетесь картами Organic Maps. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.";
-
-"rate_alert_five_star_message" = "Ура! Мы вас тоже любим!";
-
-"rate_alert_four_star_message" = "Спасибо, мы будем стараться!";
-
-"rate_alert_less_than_four_star_message" = "Расскажите, что мы могли бы улучшить?";
 
 "categories" = "Категории";
 

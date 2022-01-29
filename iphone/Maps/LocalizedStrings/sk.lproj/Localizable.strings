@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Zdielať";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "Email";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "Verzia: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "Údaje OpenStreetMap: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Stopy";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "Nápoveda";
+
+/* Button in the main Help dialog */
+"faq" = "Otázky a odpovede";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Ako nás podporiť?";
 
 /* Button in the main Help dialog */
 "copyright" = "Autorské práva";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "Zmazať mapu";
-
-/* Text for rating dialog */
-"rating_just_rated" = "Práve som hodnotil vašu aplikáciu";
-
-/* Text for rating dialog */
-"rating_thanks" = "Ďakujeme vám!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "Podeľte sa o svoje nápady alebo problémy, aby sme pre vás mohli vylepšiť aplikáciu.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "Odoslať spätnú väzbu";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Stiahnite si mapy pozdĺž trasy";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Prosím, pre vytvorenie trasy si stiahnite a aktualizujte všetky mapy pozdĺž trasy.";
-
-"rate_alert_title" = "Páči sa vám aplikácia?";
-
-"rate_alert_default_message" = "Ďakujeme, že používate Organic Maps. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.";
-
-"rate_alert_five_star_message" = "Hurá! Aj my vás taky páči!";
-
-"rate_alert_four_star_message" = "Ďakujeme vám, urobíme, čo bude v našich silách!";
-
-"rate_alert_less_than_four_star_message" = "Nejaký nápad, ako ju môžeme vylepšiť?";
 
 "categories" = "Kategórie";
 

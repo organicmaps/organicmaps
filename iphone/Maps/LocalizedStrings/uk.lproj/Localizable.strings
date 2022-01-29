@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Подiлитись";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "Ел. пошта";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "Версія: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "Дані OpenStreetMap: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Маршрути";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "Допомога";
+
+/* Button in the main Help dialog */
+"faq" = "Питання та відповіді";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Як нас підтримати?";
 
 /* Button in the main Help dialog */
 "copyright" = "Копірайт";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "Видалити мапу";
-
-/* Text for rating dialog */
-"rating_just_rated" = "Я щойно оцінив вашу програму";
-
-/* Text for rating dialog */
-"rating_thanks" = "Дякуємо!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "Діліться будь-якими ідеями чи проблемами, щоб ми могли удосконалюватись.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "Надіслати відгук";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Завантажити мапи з дороги";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Для створення маршруту, будь ласка, скачайте та обновіть всі карти за ним.";
-
-"rate_alert_title" = "Подобається програма?";
-
-"rate_alert_default_message" = "Дякуємо за використання Organic Maps. Будь ласка, дайте їй оцінку. Ваш відгук допоможе нам стати краще.";
-
-"rate_alert_five_star_message" = "Ура! Ми теж вас любимо!";
-
-"rate_alert_four_star_message" = "Дякуємо, ми зробимо все можливе!";
-
-"rate_alert_less_than_four_star_message" = "Є пропозиції щодо того, як ми можемо її вдосконалити?";
 
 "categories" = "Категорії";
 

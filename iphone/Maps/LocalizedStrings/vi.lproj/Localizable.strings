@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Chia sẻ";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "Email";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "Phiên bản: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "Dữ liệu OpenStreetMap: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Dấu vết";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "Trợ giúp";
+
+/* Button in the main Help dialog */
+"faq" = "Câu hỏi và trả lời";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Làm thế nào để hỗ trợ chúng tôi?";
 
 /* Button in the main Help dialog */
 "copyright" = "Bản quyền";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "Xóa Bản đồ";
-
-/* Text for rating dialog */
-"rating_just_rated" = "Tôi vừa đánh giá ứng dụng của bạn";
-
-/* Text for rating dialog */
-"rating_thanks" = "Xin cám ơn!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "Hãy chia sẻ bất kỳ ý tưởng hay vấn đề nào, để chúng tôi cải tiến ứng dụng tốt hơn.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "Gửi phản hồi";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Tải xuống bản đồ theo tuyến đường";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.";
-
-"rate_alert_title" = "Bạn thích ứng dụng chứ?";
-
-"rate_alert_default_message" = "Cám ơn bạn đã sử dụng Organic Maps. Vui lòng đánh giá ứng dụng. Phản hồi của bạn giúp chúng tôi trở nên tốt hơn.";
-
-"rate_alert_five_star_message" = "Hoan hô! Chúng tôi cũng yêu bạn!";
-
-"rate_alert_four_star_message" = "Cám ơn, chúng tôi sẽ nỗ lực hết mình!";
-
-"rate_alert_less_than_four_star_message" = "Có bất kỳ ý tưởng nào về cách chúng tôi có thể giúp ứng dụng tốt hơn?";
 
 "categories" = "Thể loại";
 

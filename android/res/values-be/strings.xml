@@ -161,14 +161,16 @@
 	<string name="my_position_share_email">Прывітанне,\n\nЯ зараз тут: %1$s. Перайдзі па гэтай %2$s альбо гэтай %3$s спасылцы каб убачыць месца на мапе.\n\nДзякуй.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Падзяліцца</string>
-	<!-- Share by email button text, also used in editor. -->
-	<string name="email">Email</string>
+	<!-- Share by email button text, also used in editor and About. -->
+	<string name="email">Электронная пошта</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Скапіравана ў буфер абмена: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Гатова</string>
-	<!-- Data version in «About» screen -->
-	<string name="data_version">Версія дадзеных: %d</string>
+	<!-- Prints version number in About dialog -->
+	<string name="version">Версія: %s</string>
+	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+	<string name="data_version">Дадзеныя OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Сапраўды хочаце працягнуць?</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -512,7 +514,7 @@
 	<string name="on">Укл.</string>
 	<string name="off">Выкл.</string>
 	<string name="prefs_languages_information">Мы ужываем сістэмны сінтэзатар маўлення (TTS). Многія прылады на Android ужываюць Google TTS, вы можаце спампаваць альбо абнавіць яго праз Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы дадаткаў (Google Play Market, Samsung Apps).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.</string>
+	<string name="prefs_languages_information_off">Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення альбо дадатковы моўны пакет з крамы дадаткаў (Google Play, Samsung Apps, App Gallery, FDroid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) альбо выбраць іншы сінтэзатар маўлення.</string>
 	<string name="prefs_languages_information_off_link">Больш падрабязная інфармацыя знаходзіцца ў гэтым кіраўніцтве.</string>
 	<string name="transliteration_title">Транслітарацыя лацінкай</string>
 	<string name="learn_more">Даведацца больш</string>

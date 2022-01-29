@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "分享";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "邮件";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "版本:%@";
 
-/* Data version in «About» screen */
-"data_version" = "资料版本： %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "OpenStreetMap 数据：%@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "轨迹";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "脸书";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "帮助";
+
+/* Button in the main Help dialog */
+"faq" = "问题和解答";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "如何支持我们？";
 
 /* Button in the main Help dialog */
 "copyright" = "版权";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "删除地图";
-
-/* Text for rating dialog */
-"rating_just_rated" = "我刚刚评价了您的应用";
-
-/* Text for rating dialog */
-"rating_thanks" = "谢谢您！";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "分享任何主意或问题，这样我们可以为您改善应用。";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "发送反馈";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "下载沿线地图";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "要创建路线，请下载并更新所有沿路线的地图。";
-
-"rate_alert_title" = "喜欢这个应用吗？";
-
-"rate_alert_default_message" = "感谢您使用 Organic Maps。请评价此应用。您的反馈帮助我们改善我们的产品。";
-
-"rate_alert_five_star_message" = "太棒了！我们也爱您！";
-
-"rate_alert_four_star_message" = "谢谢您，我们会尽可能做好！";
-
-"rate_alert_less_than_four_star_message" = "有没有想法我们能怎么把它变得更好？";
 
 "categories" = "类别";
 

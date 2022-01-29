@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "แชร์";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "อีเมล";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "เวอร์ชัน: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "ข้อมูล OpenStreetMap: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "การติดตาม";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "ความช่วยเหลือ";
+
+/* Button in the main Help dialog */
+"faq" = "คำถามและคำตอบ";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "วิธีการสนับสนุนเรา";
 
 /* Button in the main Help dialog */
 "copyright" = "ลิขสิทธิ์";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "ลบแผนที่";
-
-/* Text for rating dialog */
-"rating_just_rated" = "ฉันเพิ่งให้คะแนนแอปของคุณ";
-
-/* Text for rating dialog */
-"rating_thanks" = "ขอบคุณ!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "แชร์ความคิดเห็นหรือปัญหาใด ๆ เพื่อให้เราสามารถปรับปรุงแอปสำหรับคุณได้";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "ส่งข้อเสนอแนะ";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "ดาวน์โหลดแผนที่ตามเส้นทาง";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง";
-
-"rate_alert_title" = "ชอบแอปหรือไม่?";
-
-"rate_alert_default_message" = "ขอบพระคุณสำหรับการใช้ Organic Maps โปรดให้คะแนนแอป ข้อเสนอแนะของคุณจะช่วยทำให้เราทำได้ดียิ่งขึ้น";
-
-"rate_alert_five_star_message" = "ฮูเร่! เราก็รักคุณเช่นกัน!";
-
-"rate_alert_four_star_message" = "ขอบพระคุณ เราจะทำให้ดีที่สุด!";
-
-"rate_alert_less_than_four_star_message" = "มีไอเดียถึงวิธีที่จะทำให้เราสามารถทำให้มันดีขึ้นหรือไม่?";
 
 "categories" = "หมวดหมู่";
 

@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Compartir";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "Email";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "Versión: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Versión de datos: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "Datos de OpenStreetMap: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Rutas";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "Ayuda";
+
+/* Button in the main Help dialog */
+"faq" = "Preguntas frecuentes";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "¿Cómo apoyarnos?";
 
 /* Button in the main Help dialog */
 "copyright" = "Derechos de autor";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "Eliminar mapa";
-
-/* Text for rating dialog */
-"rating_just_rated" = "Acabo de calificar tu aplicación";
-
-/* Text for rating dialog */
-"rating_thanks" = "¡Gracias!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "Comparte ideas o informa de problemas para que podamos mejorar la aplicación para ti.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "Enviar comentarios";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Descargue todos los mapas de su ruta";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Descargue y actualice todos los mapas a lo largo del camino proyectado para calcular la ruta.";
-
-"rate_alert_title" = "¿Te gusta la aplicación?";
-
-"rate_alert_default_message" = "Gracias por usar Organic Maps. Por favor, califica la aplicación. Tus comentarios nos ayudan a mejorar.";
-
-"rate_alert_five_star_message" = "¡Genial! ¡Nosotros también te queremos!";
-
-"rate_alert_four_star_message" = "¡Gracias, haremos todo lo posible!";
-
-"rate_alert_less_than_four_star_message" = "¿Alguna idea de cómo podemos mejorarla?";
 
 "categories" = "Categorías";
 

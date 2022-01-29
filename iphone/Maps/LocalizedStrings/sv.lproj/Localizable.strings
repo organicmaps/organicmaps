@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Dela";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "E-post";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "Version: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "OpenStreetMap-data: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Rutter";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "Hjälp";
+
+/* Button in the main Help dialog */
+"faq" = "Frågor och svar";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Hur stöder vi oss?";
 
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "Radera karta";
-
-/* Text for rating dialog */
-"rating_just_rated" = "Jag har precis betygsatt er app";
-
-/* Text for rating dialog */
-"rating_thanks" = "Tack!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "Dela med dig av dina idéer eller problem så att vi kan förbättra appen åt dig.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "Skicka återkoppling";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Ladda ned kartor längs vägen";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.";
-
-"rate_alert_title" = "Gillar du appen?";
-
-"rate_alert_default_message" = "Tack för att du använder Organic Maps. Betygsätt gärna appen. Din feedback hjälper oss att bli bättre.";
-
-"rate_alert_five_star_message" = "Hurra! Vi älskar dig också!";
-
-"rate_alert_four_star_message" = "Tack, vi ska göra vårt bästa!";
-
-"rate_alert_less_than_four_star_message" = "Har du någon idé om hur vi ska bli bättre?";
 
 "categories" = "Kategorier";
 

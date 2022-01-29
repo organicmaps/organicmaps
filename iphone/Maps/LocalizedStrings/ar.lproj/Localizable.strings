@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "مشاركة";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "البريد الالكتروني";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "الاصدار: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "OpenStreetMap: %@ ﺕﺎﻧﺎﻴﺑ";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "المسارات";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "مساعدة";
+
+/* Button in the main Help dialog */
+"faq" = "ﺔﺑﻮﺟﺃﻭ ﺔﻠﺌﺳﺃ";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "كيف تدعم لنا؟";
 
 /* Button in the main Help dialog */
 "copyright" = "حقوق الطبع والنشر";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "حذف الخريطة";
-
-/* Text for rating dialog */
-"rating_just_rated" = "لقد قمت بتقييم تطبيقك للتو";
-
-/* Text for rating dialog */
-"rating_thanks" = "شكرا لك!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "شارك أي أفكار أو مشاكل، حتى نتمكن من تحسين التطبيق من أجلك.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "إرسال التعليق";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "تنزيل الخرائط على طول الطريق";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.";
-
-"rate_alert_title" = "يعجبك التطبيق؟";
-
-"rate_alert_default_message" = "شكرا لاستخدامك Organic Maps. من فضلك، أَعْطِ تقييمك للتطبيق. ملاحظاتك تساعدنا على أن نصبح أفضل.";
-
-"rate_alert_five_star_message" = "مرحا! نحن أيضا نحبك!";
-
-"rate_alert_four_star_message" = "شكرا لك، سوف نبذل قصارى جهدنا!";
-
-"rate_alert_less_than_four_star_message" = "لديك أي فكرة حول كيف يمكننا أن نجعله أفضل؟";
 
 "categories" = "التصنيفات";
 

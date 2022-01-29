@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Jaa";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "Sähköposti";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "Versio: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "OpenStreetMap-tiedot: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Reitit";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "Ohje";
+
+/* Button in the main Help dialog */
+"faq" = "Kysymykset ja vastaukset";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Kuinka tukea meitä?";
 
 /* Button in the main Help dialog */
 "copyright" = "Tekijänoikeudet";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "Poista kartta";
-
-/* Text for rating dialog */
-"rating_just_rated" = "Olen juuri arvostellut sovelluksesi.";
-
-/* Text for rating dialog */
-"rating_thanks" = "Kiitos!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "Jaathan ideasi ja kohtaamasi ongelmat, jotta voimme parantaa sovellusta sinua varten.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "Lähetä palautetta";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Lataa karttoja matkalla";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.";
-
-"rate_alert_title" = "Pidätkö sovelluksesta?";
-
-"rate_alert_default_message" = "Kiitos kun käytät Organic Maps:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.";
-
-"rate_alert_five_star_message" = "Hurraa! Mekin rakastamme sinua!";
-
-"rate_alert_four_star_message" = "Kiitos, teemme parhaamme!";
-
-"rate_alert_less_than_four_star_message" = "Kertoisitko missä voisimme parantaa?";
 
 "categories" = "Luokat";
 

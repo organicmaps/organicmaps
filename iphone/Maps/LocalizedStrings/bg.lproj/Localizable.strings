@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Споделяне";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "Имейл";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "Версия: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Версия на данните: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "Данни на OpenStreetMap: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Пътеки";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "Помощ";
+
+/* Button in the main Help dialog */
+"faq" = "Въпроси и отговори";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Как да ни подкрепите?";
 
 /* Button in the main Help dialog */
 "copyright" = "Авторски права";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "Изтриване на карта";
-
-/* Text for rating dialog */
-"rating_just_rated" = "Току-що оцених приложението ви";
-
-/* Text for rating dialog */
-"rating_thanks" = "Благодаря!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "Споделете идеи или проблеми, за да можем да подобрим приложението за вас.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "Изпращане на обратна връзка";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Изтегляне на всички карти по вашия маршрут";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
-
-"rate_alert_title" = "Харесвате ли приложението?";
-
-"rate_alert_default_message" = "Благодарим ви, че използвате Organic Maps. Моля, дайте оценка на приложението. Вашите отзиви ни помагат да подобрим нашия продукт.";
-
-"rate_alert_five_star_message" = "Ура! Ние също ви обичаме!";
-
-"rate_alert_four_star_message" = "Благодарим ви, ще се постараем!";
-
-"rate_alert_less_than_four_star_message" = "Някакви идеи как да го подобрим?";
 
 "categories" = "Категории";
 

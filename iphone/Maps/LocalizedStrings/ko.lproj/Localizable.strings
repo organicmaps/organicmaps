@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "공유";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "이메일";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "버전: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "OpenStreetMap 데이터: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "트랙";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "도움말";
+
+/* Button in the main Help dialog */
+"faq" = "질문과 답변";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "우리를 지원하는 방법?";
 
 /* Button in the main Help dialog */
 "copyright" = "저작권";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "지도 삭제";
-
-/* Text for rating dialog */
-"rating_just_rated" = "앱 평가 완료";
-
-/* Text for rating dialog */
-"rating_thanks" = "감사합니다!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "모든 아이디어나 문제를 공유하여, 사용자를 위한 앱을 향상시킬 수 있습니다.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "의견 보내기";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "경로를 따라 지도 다운로드";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.";
-
-"rate_alert_title" = "앱을 좋아하나요?";
-
-"rate_alert_default_message" = "Organic Maps를 사용해 주셔서 감사합니다. 이 앱을 평가해 주십시오. 당신의 피드백은 이 앱을 더 낫게 만드는데 도움을 줍니다.";
-
-"rate_alert_five_star_message" = "야호! 저희는 당신도 사랑합니다!";
-
-"rate_alert_four_star_message" = "감사합니다. 최선을 다할 것입니다!";
-
-"rate_alert_less_than_four_star_message" = "더 낫게 만드는 아이디어가 있습니까?";
 
 "categories" = "범주";
 

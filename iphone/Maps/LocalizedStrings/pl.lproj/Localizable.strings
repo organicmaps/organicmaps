@@ -181,7 +181,7 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Udostępnij";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "Email";
 
 /* place preview title */
@@ -193,8 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "Wersja: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Wersja danych: %d";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "Dane OpenStreetMap: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Trasy";
@@ -268,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -287,6 +290,12 @@
 
 /* Text in menu */
 "help" = "Pomoc";
+
+/* Button in the main Help dialog */
+"faq" = "Pytania i odpowiedzi";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Jak nas wspierać?";
 
 /* Button in the main Help dialog */
 "copyright" = "Prawa autorskie";
@@ -348,18 +357,6 @@
 
 /* Item in context menu. */
 "downloader_delete_map" = "Usuń mapę";
-
-/* Text for rating dialog */
-"rating_just_rated" = "Właśnie oceniłem Waszą aplikację";
-
-/* Text for rating dialog */
-"rating_thanks" = "Dziękujemy!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "Podziel się z nami pomysłami lub problemami, a pozwoli to nam usprawnić aplikację.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "Wyślij opinię";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Pobierz mapy wzdłuż trasy";
@@ -503,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Aby utworzyć trasę, pobierz i zaktualizuj wszystkie właściwe dla niej mapy.";
-
-"rate_alert_title" = "Lubisz tę aplikację?";
-
-"rate_alert_default_message" = "Dziękujemy za korzystanie z Organic Maps. Prosimy wystawić aplikacji ocenę. Twoja opinia pozwoli nam udoskonalać nasze produkty.";
-
-"rate_alert_five_star_message" = "Hurra! My też Cię uwielbiamy!";
-
-"rate_alert_four_star_message" = "Dziękujemy, zrobimy co w naszej mocy!";
-
-"rate_alert_less_than_four_star_message" = "Czy masz pomysł, w jaki sposób możemy dokonać ulepszeń?";
 
 "categories" = "Kategorie";
 
