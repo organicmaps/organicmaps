@@ -101,8 +101,6 @@ enum class CompilationType : uint8_t
   Category = 0,
   Collection,
   Day,
-
-  Count
 };
 
 inline std::string DebugPrint(CompilationType compilationType)
@@ -112,7 +110,6 @@ inline std::string DebugPrint(CompilationType compilationType)
   case CompilationType::Category: return "Category";
   case CompilationType::Collection: return "Collection";
   case CompilationType::Day: return "Day";
-  case CompilationType::Count: return {};
   }
   UNREACHABLE();
 }
