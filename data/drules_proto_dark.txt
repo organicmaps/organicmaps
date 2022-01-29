@@ -8165,6 +8165,57 @@ cont {
   }
 }
 cont {
+  name: "amenity-vending_machine"
+  element {
+    scale: 17
+    symbol {
+      name: "vending-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "vending-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "vending-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+}
+cont {
   name: "amenity-vending_machine-cigarettes"
   element {
     scale: 17
@@ -8217,6 +8268,159 @@ cont {
 }
 cont {
   name: "amenity-vending_machine-drinks"
+  element {
+    scale: 17
+    symbol {
+      name: "vending-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "vending-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "vending-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+}
+cont {
+  name: "amenity-vending_machine-excrement_bags"
+  element {
+    scale: 17
+    symbol {
+      name: "vending-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "vending-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "vending-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+}
+cont {
+  name: "amenity-vending_machine-fuel"
+  element {
+    scale: 17
+    symbol {
+      name: "vending-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "vending-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "vending-m"
+      priority: 16622
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15622
+    }
+  }
+}
+cont {
+  name: "amenity-vending_machine-parcel_pickup"
   element {
     scale: 17
     symbol {
@@ -35034,34 +35238,68 @@ cont {
 cont {
   name: "leisure-marina"
   element {
-    scale: 17
+    scale: 16
+    symbol {
+      name: "marina-m"
+      priority: 16122
+      min_distance: 30
+    }
     caption {
       primary {
         height: 10
         color: 5592405
         offset_y: 1
+      }
+      priority: 15122
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "marina-m"
+      priority: 16051
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
       }
       priority: 15051
     }
   }
   element {
     scale: 18
+    symbol {
+      name: "marina-m"
+      priority: 16051
+      min_distance: 20
+    }
     caption {
       primary {
         height: 10
         color: 5592405
         offset_y: 1
+        is_optional: true
       }
       priority: 15051
     }
   }
   element {
     scale: 19
+    symbol {
+      name: "marina-m"
+      priority: 16051
+      min_distance: 20
+    }
     caption {
       primary {
         height: 10
         color: 5592405
         offset_y: 1
+        is_optional: true
       }
       priority: 15051
     }
