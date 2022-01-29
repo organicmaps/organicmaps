@@ -1460,6 +1460,12 @@
 
 "type.amenity.vending_machine.public_transport_tickets" = "آلة بيع تذاكر النقل العام";
 
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags";
+
+"type.amenity.vending_machine.parcel_pickup" = "Parcel Pickup";
+
+"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+
 "type.amenity.veterinary" = "طبيب بيطري";
 
 "type.amenity.waste_basket" = "صندوق قمامة";

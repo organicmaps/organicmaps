@@ -1460,6 +1460,12 @@
 
 "type.amenity.vending_machine.public_transport_tickets" = "Automat de vânzare a biletelor pentru transportul public";
 
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags";
+
+"type.amenity.vending_machine.parcel_pickup" = "Parcel Pickup";
+
+"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+
 "type.amenity.veterinary" = "Cabinet veterinar";
 
 "type.amenity.waste_basket" = "Pubelă";

@@ -1321,7 +1321,7 @@
 
 "type.amenity.hunting_stand" = "Мисливська башта";
 
-"type.amenity.ice_cream" = "Кіоск з морозивом";
+"type.amenity.ice_cream" = "Морозиво";
 
 "type.amenity.internet_cafe" = "Інтернет-кафе";
 
@@ -1450,15 +1450,21 @@
 
 "type.amenity.university" = "Університет";
 
-"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine" = "Торговий автомат";
 
-"type.amenity.vending_machine.cigarettes" = "Автомат з продажу сигарет";
+"type.amenity.vending_machine.cigarettes" = "Автомат з цигарками";
 
 "type.amenity.vending_machine.drinks" = "Автомат з напоями";
 
 "type.amenity.vending_machine.parking_tickets" = "Паркомат";
 
-"type.amenity.vending_machine.public_transport_tickets" = "Автомат з продажу квитків на громадський транспорт";
+"type.amenity.vending_machine.public_transport_tickets" = "Автомат з продажу квитків";
+
+"type.amenity.vending_machine.excrement_bags" = "Мішки для екскрементів";
+
+"type.amenity.vending_machine.parcel_pickup" = "Отримання посилок";
+
+"type.amenity.vending_machine.fuel" = "Паливний автомат";
 
 "type.amenity.veterinary" = "Ветеринарна клініка";
 

@@ -1460,6 +1460,12 @@
 
 "type.amenity.vending_machine.public_transport_tickets" = "Billetautomat for offentlig transport";
 
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags";
+
+"type.amenity.vending_machine.parcel_pickup" = "Parcel Pickup";
+
+"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+
 "type.amenity.veterinary" = "Dyrlæge";
 
 "type.amenity.waste_basket" = "Skraldespand";
