@@ -460,7 +460,7 @@ string DetermineSurface(OsmElement * p)
       "robust_wheels", "high_clearance", "off_road_wheels", "rough"
   };
 
-  static base::StringIL goodSmoothness = { "excellent", "good", "intermediate" };
+  static base::StringIL goodSmoothness = { "excellent", "good" };
 
   auto const Has = [](base::StringIL const & il, std::string const & v)
   {
