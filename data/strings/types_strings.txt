@@ -10117,6 +10117,7 @@
 
   [type.leisure.marina]
     en = Marina
+    be = Прычал
     de = Jachthafen
     ja = マリーナ
     pt = Marina

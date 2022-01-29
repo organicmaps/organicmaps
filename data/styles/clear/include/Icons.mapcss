@@ -1353,6 +1353,8 @@ node|z16-[amenity=veterinary],
 area|z16-[amenity=veterinary],
 node|z16-[amenity=fountain],
 area|z16-[amenity=fountain],
+node|z16-[leisure=marina],
+area|z16-[leisure=marina],
 node|z16-[leisure=water_park],
 area|z16-[leisure=water_park],
 line|z16-[barrier=block],
@@ -1371,8 +1373,6 @@ node|z16-[amenity=taxi],
 area|z16-[amenity=taxi],
 node|z16-[leisure=dog_park],
 area|z16-[leisure=dog_park],
-node|z16-[leisure=water_park],
-area|z16-[leisure=water_park],
 node|z16-[man_made=windmill],
 area|z16-[man_made=windmill],
 node|z17-[amenity=pharmacy],
@@ -1807,7 +1807,17 @@ area|z15-[landuse=landfill]
 
 node|z16-[leisure=water_park],
 area|z16-[leisure=water_park]
-{icon-image: swimming-m.svg;icon-min-distance: 10;}
+{icon-image: swimming-m.svg;icon-min-distance: 30;}
+node|z17-[leisure=water_park],
+area|z17-[leisure=water_park]
+{icon-min-distance: 20;text-optional: true;}
+
+node|z16-[leisure=marina],
+area|z16-[leisure=marina]
+{icon-image: marina-m.svg;icon-min-distance: 30;}
+node|z17-[leisure=marina],
+area|z17-[leisure=marina]
+{icon-min-distance: 20;text-optional: true;}
 
 node|z16-[amenity=fountain],
 area|z16-[amenity=fountain]
@@ -1863,13 +1873,6 @@ area|z16-[leisure=dog_park]
 {icon-image: dog_park-m.svg;icon-min-distance: 30;}
 node|z17-[leisure=dog_park],
 area|z17-[leisure=dog_park]
-{icon-min-distance: 20;text-optional: true;}
-
-node|z16-[leisure=water_park],
-area|z16-[leisure=water_park]
-{icon-image: swimming-m.svg;icon-min-distance: 30;}
-node|z17-[leisure=water_park],
-area|z17-[leisure=water_park]
 {icon-min-distance: 20;text-optional: true;}
 
 node|z16-[man_made=windmill],
