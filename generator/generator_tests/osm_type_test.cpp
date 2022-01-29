@@ -1369,6 +1369,21 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Metadata)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Vending)
+{
+  {
+    Tags const tags = {
+      {"amenity", "vending_machine" },
+      {"vending", "parcel_pickup;parcel_mail_in"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "vending_machine", "parcel_pickup" })), (params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 {
   Tags const oneTypes = {

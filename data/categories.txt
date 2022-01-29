@@ -7878,19 +7878,6 @@ el:Δικαστικό μέγαρο
 sk:Súd
 fa:دادگاه
 
-amenity-vending_machine
-en:4Vending Machine|Dispenser
-ru:Торговый автомат|Торгомат
-be:Гандлёвы аўтамат
-de:Verkaufsautomat
-fr:Distributeur automatique
-ja:自動販売機
-pl:Automat sprzedający
-pt:Máquina de venda automática
-pt-BR:Máquina de venda automática
-uk:Торговий автомат
-zh-Hans:自动售货机
-
 amenity-vending_machine-cigarettes
 en:4Cigarette Dispenser
 ru:Автомат с сигаретами|Сигаретный автомат|4Сигареты
@@ -8027,6 +8014,24 @@ uk:Автомат з продажу квитків
 vi:Máy bán vé phương tiện công cộng tự động
 zh-Hans:公共交通售票机
 zh-Hant:公共交通售票機
+
+amenity-vending_machine-excrement_bags
+en:5Excrement Bags
+be:5Мяшкі дзеля экскрыментаў
+ru:5Пакеты для экскрементов|Какашки
+uk:5Мішки для екскрементів
+
+amenity-vending_machine-parcel_pickup
+en:5Parcel Pickup
+be:5Атрыманне пасылак
+ru:5Получение посылки|Постамат
+uk:5Отримання посилок
+
+amenity-vending_machine-fuel|@fuel
+en:Fuel Dispenser
+be:Паліўны аўтамат
+ru:Топливный автомат
+uk:Паливний автомат
 
 # Skipped if empty name
 building-garage
