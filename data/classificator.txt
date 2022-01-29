@@ -117,6 +117,9 @@ world  +
         vending_machine  +
             cigarettes  -
             drinks  -
+            excrement_bags  -
+            fuel  -
+            parcel_pickup  -
             parking_tickets  -
             public_transport_tickets  -
             {}
