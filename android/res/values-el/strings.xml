@@ -124,6 +124,10 @@
 	<string name="post">Ταχυδρομείο</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Αστυνομία</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Ανακύκλωση</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Νερό</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Σημειώσεις</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -598,6 +602,8 @@
 	<string name="moreyear_ago_sorttype">Περισσότερο από ένα έτος πριν</string>
 	<string name="near_me_sorttype">Δίπλα μου</string>
 	<string name="others_sorttype">Άλλα</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Εστίαση</string>
 	<string name="tourist_places">Αξιοθέατα</string>
 	<string name="museums">Μουσεία</string>
@@ -611,7 +617,6 @@
 	<string name="shops">Καταστήματα</string>
 	<string name="parkings">Χώροι στάθμευσης</string>
 	<string name="fuel_places">Πρατήρια βενζίνης</string>
-	<string name="water">Νερό</string>
 	<string name="medicine">Γιατρική βοήθεια</string>
 	<string name="search_in_the_list">Αναζήτηση στη λίστα</string>
 	<string name="religious_places">Άγιοι τόποι</string>
@@ -1034,6 +1039,7 @@
 	<string name="type.leisure.sports_centre.yoga">Στούντιο γιόγκα</string>
 	<string name="type.leisure.stadium">Γήπεδο</string>
 	<string name="type.leisure.swimming_pool">Πισίνα</string>
+	<string name="type.leisure.swimming_pool.private">Πισίνα</string>
 	<string name="type.leisure.water_park">Υδάτινο πάρκο</string>
 	<string name="type.man_made.chimney">Καμινάδα εργοστασίου</string>
 	<string name="type.man_made.lighthouse">Φάρος</string>

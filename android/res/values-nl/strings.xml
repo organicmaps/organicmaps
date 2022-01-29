@@ -120,6 +120,10 @@
 	<string name="post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Politie</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Recycling</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Water</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notities</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -606,6 +610,8 @@
 	<string name="moreyear_ago_sorttype">Meer dan een jaar geleden</string>
 	<string name="near_me_sorttype">Naast mij</string>
 	<string name="others_sorttype">Andere</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Eten</string>
 	<string name="tourist_places">Bezienswaardigheden</string>
 	<string name="museums">Musea</string>
@@ -619,7 +625,6 @@
 	<string name="shops">Winkels</string>
 	<string name="parkings">Parkeerplaatsen</string>
 	<string name="fuel_places">Benzinestations</string>
-	<string name="water">Water</string>
 	<string name="medicine">Geneeskunde</string>
 	<string name="search_in_the_list">In de lijst zoeken</string>
 	<string name="religious_places">Religieuze plaatsen</string>
@@ -1022,6 +1027,7 @@
 	<string name="type.leisure.sports_centre.swimming">Zwembad</string>
 	<string name="type.leisure.sports_centre.yoga">Yogastudio</string>
 	<string name="type.leisure.swimming_pool">Zwembad</string>
+	<string name="type.leisure.swimming_pool.private">Zwembad</string>
 	<string name="type.leisure.water_park">Waterpark</string>
 	<string name="type.man_made.chimney">Fabrieksschoorsteen</string>
 	<string name="type.man_made.lighthouse">Vuurtoren</string>

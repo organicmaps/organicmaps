@@ -123,6 +123,10 @@
 	<string name="post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Polis</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Återvinning</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Vatten</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Anteckningar</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -600,6 +604,8 @@
 	<string name="moreyear_ago_sorttype">För över ett år sedan</string>
 	<string name="near_me_sorttype">Bredvid mig</string>
 	<string name="others_sorttype">Andra</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Mat</string>
 	<string name="tourist_places">Sevärdheter</string>
 	<string name="museums">Museer</string>
@@ -613,7 +619,6 @@
 	<string name="shops">Butiker</string>
 	<string name="parkings">Parkeringsplatser</string>
 	<string name="fuel_places">Bensinstationer</string>
-	<string name="water">Vatten</string>
 	<string name="medicine">Medicin</string>
 	<string name="search_in_the_list">Söka i listan</string>
 	<string name="religious_places">Heliga platser</string>
@@ -1023,6 +1028,7 @@
 	<string name="type.leisure.sports_centre.yoga">Yogastudio</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Simbassäng</string>
+	<string name="type.leisure.swimming_pool.private">Simbassäng</string>
 	<string name="type.leisure.water_park">Äventyrspark</string>
 	<string name="type.man_made.chimney">Fabriksskorsten</string>
 	<string name="type.man_made.lighthouse">Fyr</string>

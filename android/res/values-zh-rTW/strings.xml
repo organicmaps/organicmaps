@@ -123,6 +123,10 @@
 	<string name="post">郵局</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">警察局</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">回收</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">水</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">描述說明</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -623,6 +627,8 @@
 	<string name="moreyear_ago_sorttype">一年多以前</string>
 	<string name="near_me_sorttype">附近</string>
 	<string name="others_sorttype">其他</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">食物</string>
 	<string name="tourist_places">觀光景點</string>
 	<string name="museums">博物館</string>
@@ -636,7 +642,6 @@
 	<string name="shops">商店</string>
 	<string name="parkings">停車場</string>
 	<string name="fuel_places">加油站</string>
-	<string name="water">水</string>
 	<string name="medicine">醫療</string>
 	<string name="search_in_the_list">在列表中搜尋</string>
 	<string name="religious_places">宗教聖地</string>
@@ -1058,6 +1063,7 @@
 	<string name="type.leisure.sports_centre.yoga">瑜伽工作室</string>
 	<string name="type.leisure.stadium">體育場</string>
 	<string name="type.leisure.swimming_pool">游泳池</string>
+	<string name="type.leisure.swimming_pool.private">游泳池</string>
 	<string name="type.leisure.water_park">水上樂園</string>
 	<string name="type.man_made.chimney">工廠煙囪</string>
 	<string name="type.man_made.lighthouse">燈塔</string>

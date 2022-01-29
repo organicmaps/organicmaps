@@ -125,6 +125,10 @@
 	<string name="post">Pos</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Polisi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Mendaur ulang</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Air</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Catatan</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -604,6 +608,8 @@
 	<string name="moreyear_ago_sorttype">Lebih dari setahun yang lalu</string>
 	<string name="near_me_sorttype">Dekat dengan saya</string>
 	<string name="others_sorttype">Lainnya</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Makanan</string>
 	<string name="tourist_places">Tempat Rekreasi</string>
 	<string name="museums">Museum</string>
@@ -617,7 +623,6 @@
 	<string name="shops">Pusat perbelanjaan</string>
 	<string name="parkings">Parkir</string>
 	<string name="fuel_places">SPBU</string>
-	<string name="water">Air</string>
 	<string name="medicine">Obat</string>
 	<string name="search_in_the_list">Cari dalam daftar</string>
 	<string name="religious_places">Tempat ibadah</string>
@@ -1026,6 +1031,7 @@
 	<string name="type.leisure.sports_centre.yoga">Studio Yoga</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Kolam renang</string>
+	<string name="type.leisure.swimming_pool.private">Kolam renang</string>
 	<string name="type.leisure.water_park">Taman air</string>
 	<string name="type.man_made.chimney">Cerobong asap pabrik</string>
 	<string name="type.man_made.lighthouse">Mercusuar</string>

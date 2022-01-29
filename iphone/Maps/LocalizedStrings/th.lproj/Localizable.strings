@@ -146,6 +146,15 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "ตำรวจ";
 
+/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
+"recycling" = "การรีไซเคิล";
+
+/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
+"water" = "น้ำ";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
+"rv" = "RV Facilities";
+
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -1098,6 +1107,9 @@
 
 "others_sorttype" = "อื่นๆ";
 
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "อาหาร";
 
 "tourist_places" = "ที่ท่องเที่ยว";
@@ -1123,8 +1135,6 @@
 "parkings" = "ที่จอดรถ";
 
 "fuel_places" = "ปั๊มน้ำมัน/แก๊ส";
-
-"water" = "น้ำ";
 
 "medicine" = "ยา";
 
@@ -2213,6 +2223,8 @@
 "type.leisure.stadium" = "สนามกีฬา";
 
 "type.leisure.swimming_pool" = "สระว่ายน้ำ";
+
+"type.leisure.swimming_pool.private" = "สระว่ายน้ำ";
 
 "type.leisure.track" = "Track";
 

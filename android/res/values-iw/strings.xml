@@ -107,6 +107,8 @@
 	<string name="post">דואר</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">משטרה</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">מים</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">הערות</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -209,6 +211,8 @@
 	<!-- Text under the version number in the Help dialog. -->
 	<string name="about_description">Organic Maps היא אפליקציית מפות לא מקוונות בחינם ובקוד פתוח. ללא פרסומות. אין מעקב. אם אתה רואה שגיאה במפה, אנא תקן אותה ב-OpenStreetMap. הפרויקט נוצר על ידי חובבים בזמננו הפנוי, אז אנו זקוקים למשוב ולתמיכה שלכם.</string>
 	<string name="transliteration_title">תעתיק ללטינית</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="enable_screen_sleep">אפשר למסך לישון</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">כאשר מופעל המסך יורשה לישון לאחר תקופה של חוסר פעילות.</string>

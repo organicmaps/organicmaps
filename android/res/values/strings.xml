@@ -126,6 +126,12 @@
 	<string name="post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Police</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Recycling</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Water</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">RV Facilities</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notes</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -645,6 +651,8 @@
 	<string name="moreyear_ago_sorttype">More than a year ago</string>
 	<string name="near_me_sorttype">Near me</string>
 	<string name="others_sorttype">Others</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Food</string>
 	<string name="tourist_places">Sights</string>
 	<string name="museums">Museums</string>
@@ -658,7 +666,6 @@
 	<string name="shops">Shops</string>
 	<string name="parkings">Parkings</string>
 	<string name="fuel_places">Gas stations</string>
-	<string name="water">Water</string>
 	<string name="medicine">Medicine</string>
 	<string name="search_in_the_list">Search in the list</string>
 	<string name="religious_places">Religious places</string>
@@ -817,7 +824,7 @@
 	<string name="type.amenity.waste_basket">Trash Bin</string>
 	<string name="type.amenity.waste_disposal">Dumpster</string>
 	<string name="type.amenity.waste_transfer_station">Waste Transfer Station</string>
-	<string name="type.amenity.water_point">Water Point</string>
+	<string name="type.amenity.water_point">RV Water Point</string>
 	<string name="type.barrier">Barrier</string>
 	<string name="type.barrier.block">Block</string>
 	<string name="type.barrier.bollard">Pillar</string>
@@ -1197,6 +1204,7 @@
 	<string name="type.leisure.sports_centre.yoga">Yoga Studio</string>
 	<string name="type.leisure.stadium">Stadium</string>
 	<string name="type.leisure.swimming_pool">Swimming Pool</string>
+	<string name="type.leisure.swimming_pool.private">Swimming Pool</string>
 	<string name="type.leisure.track">Track</string>
 	<string name="type.leisure.water_park">Water Park</string>
 	<string name="type.leisure.beach_resort">Beach Resort</string>
@@ -1498,7 +1506,7 @@
 	<string name="type.tourism.attraction.animal">Attraction</string>
 	<string name="type.tourism.attraction.specified">Attraction</string>
 	<string name="type.tourism.camp_site">Camping</string>
-	<string name="type.tourism.caravan_site">Caravan Site</string>
+	<string name="type.tourism.caravan_site">RV Park</string>
 	<string name="type.tourism.chalet">Chalet</string>
 	<string name="type.tourism.gallery">Gallery</string>
 	<string name="type.tourism.guest_house">Guest House</string>

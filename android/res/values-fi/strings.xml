@@ -125,6 +125,10 @@
 	<string name="post">Posti</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Poliisi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Kierrätys</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Vesi</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Muistiinpanot</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -610,6 +614,8 @@
 	<string name="moreyear_ago_sorttype">Yli vuosi sitten</string>
 	<string name="near_me_sorttype">Lähelläni</string>
 	<string name="others_sorttype">Muut</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Ruoka</string>
 	<string name="tourist_places">Nähtävyydet</string>
 	<string name="museums">Museot</string>
@@ -623,7 +629,6 @@
 	<string name="shops">Kaupat</string>
 	<string name="parkings">Pysäköinti</string>
 	<string name="fuel_places">Huoltoasemat</string>
-	<string name="water">Vesi</string>
 	<string name="medicine">Apteekki</string>
 	<string name="search_in_the_list">Etsi listalta</string>
 	<string name="religious_places">Pyhät paikat</string>
@@ -1041,6 +1046,7 @@
 	<string name="type.leisure.sports_centre.yoga">Joogastudio</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Uima-allas</string>
+	<string name="type.leisure.swimming_pool.private">Uima-allas</string>
 	<string name="type.leisure.water_park">Vesipuisto</string>
 	<string name="type.man_made.chimney">Tehtaan piippu</string>
 	<string name="type.man_made.lighthouse">Majakka</string>

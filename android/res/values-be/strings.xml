@@ -126,6 +126,12 @@
 	<string name="post">Пошта</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Паліцыя</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Перапрацоўка</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Вада</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Для аўтадамоў</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Нататкі</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -623,6 +629,8 @@
 	<string name="moreyear_ago_sorttype">Больш за год таму</string>
 	<string name="near_me_sorttype">Каля мяне</string>
 	<string name="others_sorttype">Іншыя</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Ежа</string>
 	<string name="tourist_places">Славутасці</string>
 	<string name="museums">Музеі</string>
@@ -636,7 +644,6 @@
 	<string name="shops">Крамы</string>
 	<string name="parkings">Паркоўкі</string>
 	<string name="fuel_places">Запраўкі</string>
-	<string name="water">Вада</string>
 	<string name="medicine">Медыцына</string>
 	<string name="search_in_the_list">Шукаць у спіце</string>
 	<string name="religious_places">Святыя месцы</string>
@@ -686,6 +693,7 @@
 	<string name="type.recycling.cartons">Тэтрапак і аналагі</string>
 	<string name="type.amenity.sanitary_dump_station">Зліў для прыбіральняў транспартных сродкаў</string>
 	<string name="type.amenity.waste_transfer_station">Станцыя перавалкі адходаў</string>
+	<string name="type.amenity.water_point">Вада для аўтадомаў</string>
 	<string name="type.barrier.chain">Ланцуг</string>
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
@@ -718,6 +726,7 @@
 	<string name="type.railway.platform">Чыгуначная платформа</string>
 	<string name="type.shop.caravan">Продаж аўтадамоў</string>
 	<string name="type.shop.funeral_directors">Рытуальныя паслугі</string>
+	<string name="type.tourism.caravan_site">Кемпінг для аўтадамоў</string>
 	<string name="type.waterway.river">Рака</string>
 	<string name="type.waterway.river.tunnel">Рака</string>
 	<string name="type.waterway.riverbank">Рака</string>

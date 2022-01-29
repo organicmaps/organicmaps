@@ -123,6 +123,10 @@
 	<string name="post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Politi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Genbrug</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Vand</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Noter</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -604,6 +608,8 @@
 	<string name="moreyear_ago_sorttype">Mere end et år siden</string>
 	<string name="near_me_sorttype">I nærheden</string>
 	<string name="others_sorttype">Andre</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Mad</string>
 	<string name="tourist_places">Seværdigheder</string>
 	<string name="museums">Museer</string>
@@ -617,7 +623,6 @@
 	<string name="shops">Butikker</string>
 	<string name="parkings">Parkering</string>
 	<string name="fuel_places">Benzintankstationer</string>
-	<string name="water">Vand</string>
 	<string name="medicine">Medicin</string>
 	<string name="search_in_the_list">Søg i listen</string>
 	<string name="religious_places">Religiøse steder</string>
@@ -1022,6 +1027,7 @@
 	<string name="type.leisure.sports_centre.swimming">Svømmecenter</string>
 	<string name="type.leisure.sports_centre.yoga">Yoga center</string>
 	<string name="type.leisure.swimming_pool">Svømmebassin</string>
+	<string name="type.leisure.swimming_pool.private">Svømmebassin</string>
 	<string name="type.leisure.water_park">Vandpark</string>
 	<string name="type.man_made.chimney">Fabriksskorsten</string>
 	<string name="type.man_made.lighthouse">Fyrtårn</string>

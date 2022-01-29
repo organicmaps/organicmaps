@@ -146,6 +146,15 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "치안대";
 
+/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
+"recycling" = "재활용";
+
+/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
+"water" = "물";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
+"rv" = "RV Facilities";
+
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -1098,6 +1107,9 @@
 
 "others_sorttype" = "기타";
 
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "음식";
 
 "tourist_places" = "명소";
@@ -1123,8 +1135,6 @@
 "parkings" = "주차장";
 
 "fuel_places" = "주유소";
-
-"water" = "물";
 
 "medicine" = "의료";
 
@@ -2213,6 +2223,8 @@
 "type.leisure.stadium" = "경기장";
 
 "type.leisure.swimming_pool" = "수영장";
+
+"type.leisure.swimming_pool.private" = "수영장";
 
 "type.leisure.track" = "Track";
 

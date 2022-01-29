@@ -123,6 +123,10 @@
 	<string name="post">صندوق پست</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">پلیس</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">بازیافت</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">اب</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">یادداشت ها</string>
 	<!-- message title of loading file -->
@@ -605,6 +609,8 @@
 	<string name="moreyear_ago_sorttype">بیش از یک سال قبل</string>
 	<string name="near_me_sorttype">نزدیک من</string>
 	<string name="others_sorttype">دیگران</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">غذا</string>
 	<string name="tourist_places">مناظر</string>
 	<string name="museums">موزهها</string>
@@ -618,7 +624,6 @@
 	<string name="shops">مراکز خرید</string>
 	<string name="parkings">پارکینگها</string>
 	<string name="fuel_places">پمپ بنزین</string>
-	<string name="water">آب</string>
 	<string name="medicine">پزشکی</string>
 	<string name="search_in_the_list">جستجو در لیست</string>
 	<string name="religious_places">اماکن مقدس</string>
@@ -945,6 +950,7 @@
 	<string name="type.leisure.sports_centre.yoga">سالن یوگا</string>
 	<string name="type.leisure.stadium">استادیوم</string>
 	<string name="type.leisure.swimming_pool">استخرشنا</string>
+	<string name="type.leisure.swimming_pool.private">استخرشنا</string>
 	<string name="type.leisure.water_park">گردشگری</string>
 	<string name="type.man_made.lighthouse">گردشگری</string>
 	<string name="type.man_made.surveillance">دوربین نظارتی</string>

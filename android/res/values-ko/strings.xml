@@ -123,6 +123,10 @@
 	<string name="post">우편</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">치안대</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">재활용</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">물</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">메모</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -601,6 +605,8 @@
 	<string name="moreyear_ago_sorttype">1년 그 이상 전</string>
 	<string name="near_me_sorttype">나와 가까운 곳</string>
 	<string name="others_sorttype">기타</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">음식</string>
 	<string name="tourist_places">명소</string>
 	<string name="museums">박물관</string>
@@ -614,7 +620,6 @@
 	<string name="shops">상점</string>
 	<string name="parkings">주차장</string>
 	<string name="fuel_places">주유소</string>
-	<string name="water">물</string>
 	<string name="medicine">의료</string>
 	<string name="search_in_the_list">리스트에서 검색</string>
 	<string name="religious_places">종교적 장소</string>
@@ -1030,6 +1035,7 @@
 	<string name="type.leisure.sports_centre.yoga">요가 스튜디오</string>
 	<string name="type.leisure.stadium">경기장</string>
 	<string name="type.leisure.swimming_pool">수영장</string>
+	<string name="type.leisure.swimming_pool.private">수영장</string>
 	<string name="type.leisure.water_park">워터파크</string>
 	<string name="type.man_made.chimney">공장 굴뚝</string>
 	<string name="type.man_made.lighthouse">등대</string>

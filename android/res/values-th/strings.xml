@@ -125,6 +125,10 @@
 	<string name="post">ไปรษณีย์</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">ตำรวจ</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">การรีไซเคิล</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">น้ำ</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">บันทึก</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -603,6 +607,8 @@
 	<string name="moreyear_ago_sorttype">มากกว่าหนึ่งปีที่ผ่านมา</string>
 	<string name="near_me_sorttype">ใกล้ฉัน</string>
 	<string name="others_sorttype">อื่นๆ</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">อาหาร</string>
 	<string name="tourist_places">ที่ท่องเที่ยว</string>
 	<string name="museums">พิพิธภัณฑ์</string>
@@ -616,7 +622,6 @@
 	<string name="shops">ร้านค้า</string>
 	<string name="parkings">ที่จอดรถ</string>
 	<string name="fuel_places">ปั๊มน้ำมัน/แก๊ส</string>
-	<string name="water">น้ำ</string>
 	<string name="medicine">ยา</string>
 	<string name="search_in_the_list">ค้นหาในรายการ</string>
 	<string name="religious_places">สถานที่ทางศาสนา</string>
@@ -1034,6 +1039,7 @@
 	<string name="type.leisure.sports_centre.yoga">โยคะสตูดิโอ</string>
 	<string name="type.leisure.stadium">สนามกีฬา</string>
 	<string name="type.leisure.swimming_pool">สระว่ายน้ำ</string>
+	<string name="type.leisure.swimming_pool.private">สระว่ายน้ำ</string>
 	<string name="type.leisure.water_park">สวนน้ำ</string>
 	<string name="type.man_made.chimney">ปล่องควันโรงงาน</string>
 	<string name="type.man_made.lighthouse">ประภาคาร</string>

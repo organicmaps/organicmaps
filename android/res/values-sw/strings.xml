@@ -20,6 +20,8 @@
 	<string name="children">Mapumziko ya familia</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">Hospitali</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Maji</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Maswali na majibu</string>
 	<!-- Button in the main Help dialog -->
@@ -167,6 +169,8 @@
 	<string name="moreyear_ago_sorttype">Zaidi ya mwaka mmoja uliopita</string>
 	<string name="near_me_sorttype">Karibu yangu</string>
 	<string name="others_sorttype">Nyingine</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Chakula</string>
 	<string name="tourist_places">Vivutio</string>
 	<string name="museums">Makumbusho</string>
@@ -180,7 +184,6 @@
 	<string name="shops">Maduka</string>
 	<string name="parkings">Maegesho</string>
 	<string name="fuel_places">Kituo cha gesi</string>
-	<string name="water">Maji</string>
 	<string name="medicine">Dawa</string>
 	<string name="search_in_the_list">Tafuta kwenye orodha</string>
 	<string name="religious_places">Sehemu za ibada</string>

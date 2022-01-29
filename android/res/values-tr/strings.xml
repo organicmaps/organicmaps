@@ -125,6 +125,10 @@
 	<string name="post">Posta</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Polis</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Geri dönüşüm</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Su</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notlar</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -624,6 +628,8 @@
 	<string name="moreyear_ago_sorttype">Bir yıldan daha önce</string>
 	<string name="near_me_sorttype">Bana yakınlarda</string>
 	<string name="others_sorttype">Diğerleri</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Yiyecek</string>
 	<string name="tourist_places">Görülecek yerler</string>
 	<string name="museums">Müzeler</string>
@@ -637,7 +643,6 @@
 	<string name="shops">Mağazalar</string>
 	<string name="parkings">Otoparklar</string>
 	<string name="fuel_places">Benzin istasyonları</string>
-	<string name="water">Su</string>
 	<string name="medicine">İlaç</string>
 	<string name="search_in_the_list">Listede ara</string>
 	<string name="religious_places">Dini yerler</string>
@@ -1051,6 +1056,7 @@
 	<string name="type.leisure.sports_centre.yoga">Yoga Stüdyosu</string>
 	<string name="type.leisure.stadium">Stadyum</string>
 	<string name="type.leisure.swimming_pool">Yüzme havuzu</string>
+	<string name="type.leisure.swimming_pool.private">Yüzme havuzu</string>
 	<string name="type.leisure.water_park">Centre aquatique</string>
 	<string name="type.man_made.chimney">Cheminée d\'usine</string>
 	<string name="type.man_made.lighthouse">Deniz Feneri</string>
