@@ -146,6 +146,15 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Cảnh sát";
 
+/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
+"recycling" = "Tái chế rác thải";
+
+/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
+"water" = "Nước";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
+"rv" = "RV Facilities";
+
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -1098,6 +1107,9 @@
 
 "others_sorttype" = "Khác";
 
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "Đồ ăn";
 
 "tourist_places" = "Danh lam thắng cảnh";
@@ -1123,8 +1135,6 @@
 "parkings" = "Bãi đậu xe";
 
 "fuel_places" = "Trạm xăng dầu";
-
-"water" = "Nước";
 
 "medicine" = "Y tế";
 
@@ -2213,6 +2223,8 @@
 "type.leisure.stadium" = "Sân vận động";
 
 "type.leisure.swimming_pool" = "Bể bơi";
+
+"type.leisure.swimming_pool.private" = "Bể bơi";
 
 "type.leisure.track" = "Track";
 

@@ -146,6 +146,15 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Police";
 
+/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
+"recycling" = "Reciclaje";
+
+/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
+"water" = "Agua";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
+"rv" = "RV Facilities";
+
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -1098,6 +1107,9 @@
 
 "others_sorttype" = "Otros";
 
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "Comida";
 
 "tourist_places" = "Sitios de interés";
@@ -1123,8 +1135,6 @@
 "parkings" = "Aparcamientos";
 
 "fuel_places" = "Gasolinería";
-
-"water" = "Agua";
 
 "medicine" = "Medicina";
 
@@ -1458,7 +1468,7 @@
 
 "type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
-"type.amenity.water_point" = "Water Point";
+"type.amenity.water_point" = "RV Water Point";
 
 "type.barrier" = "Barrier";
 
@@ -2214,6 +2224,8 @@
 
 "type.leisure.swimming_pool" = "Swimming Pool";
 
+"type.leisure.swimming_pool.private" = "Swimming Pool";
+
 "type.leisure.track" = "Track";
 
 "type.leisure.water_park" = "Water Park";
@@ -2816,7 +2828,7 @@
 
 "type.tourism.camp_site" = "Camping";
 
-"type.tourism.caravan_site" = "Caravan Site";
+"type.tourism.caravan_site" = "RV Park";
 
 "type.tourism.chalet" = "Chalet";
 

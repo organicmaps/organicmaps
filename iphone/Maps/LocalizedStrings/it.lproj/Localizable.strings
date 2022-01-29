@@ -146,6 +146,15 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Polizia";
 
+/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
+"recycling" = "Riciclo";
+
+/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
+"water" = "Acqua";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
+"rv" = "RV Facilities";
+
 "share_bookmarks_email_body" = "Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!";
 
 /* message title of loading file */
@@ -1098,6 +1107,9 @@
 
 "others_sorttype" = "Altro";
 
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "Cibo";
 
 "tourist_places" = "Luoghi d'interesse";
@@ -1123,8 +1135,6 @@
 "parkings" = "Parcheggi";
 
 "fuel_places" = "Stazione di servizio";
-
-"water" = "Acqua";
 
 "medicine" = "Farmacia";
 
@@ -2213,6 +2223,8 @@
 "type.leisure.stadium" = "Stadio";
 
 "type.leisure.swimming_pool" = "Piscina";
+
+"type.leisure.swimming_pool.private" = "Piscina";
 
 "type.leisure.track" = "Track";
 

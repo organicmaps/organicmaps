@@ -123,6 +123,10 @@
 	<string name="post">Bưu điện</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Cảnh sát</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Tái chế rác thải</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Nước</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Ghi chú</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -602,6 +606,8 @@
 	<string name="moreyear_ago_sorttype">Hơn một năm trước</string>
 	<string name="near_me_sorttype">Ở gần tôi</string>
 	<string name="others_sorttype">Khác</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Đồ ăn</string>
 	<string name="tourist_places">Danh lam thắng cảnh</string>
 	<string name="museums">Bảo tàng</string>
@@ -615,7 +621,6 @@
 	<string name="shops">Cửa hàng</string>
 	<string name="parkings">Bãi đậu xe</string>
 	<string name="fuel_places">Trạm xăng dầu</string>
-	<string name="water">Nước</string>
 	<string name="medicine">Y tế</string>
 	<string name="search_in_the_list">Tìm trong danh sách</string>
 	<string name="religious_places">Những nơi tôn nghiêm</string>
@@ -1029,6 +1034,7 @@
 	<string name="type.leisure.sports_centre.yoga">Phòng tập yoga</string>
 	<string name="type.leisure.stadium">Sân vận động</string>
 	<string name="type.leisure.swimming_pool">Bể bơi</string>
+	<string name="type.leisure.swimming_pool.private">Bể bơi</string>
 	<string name="type.leisure.water_park">Công Viên Nước</string>
 	<string name="type.man_made.chimney">Ống Khói Nhà Máy</string>
 	<string name="type.man_made.lighthouse">Hải đăng</string>

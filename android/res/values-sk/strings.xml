@@ -123,6 +123,10 @@
 	<string name="post">Pošta</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Polícia</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Recyklácia</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Voda</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Poznámky</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -601,6 +605,8 @@
 	<string name="moreyear_ago_sorttype">Pred viac ako rokom</string>
 	<string name="near_me_sorttype">Blízko mňa</string>
 	<string name="others_sorttype">Iné</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Jedlo</string>
 	<string name="tourist_places">Pamiatky</string>
 	<string name="museums">Múzeá</string>
@@ -614,7 +620,6 @@
 	<string name="shops">Obchody</string>
 	<string name="parkings">Parkovanie</string>
 	<string name="fuel_places">Čerpacie stanice</string>
-	<string name="water">Voda</string>
 	<string name="medicine">Medicína</string>
 	<string name="search_in_the_list">Vyhľadať v zozname</string>
 	<string name="religious_places">Náboženské miesta</string>
@@ -1028,6 +1033,7 @@
 	<string name="type.leisure.sports_centre.yoga">Štúdio jogy</string>
 	<string name="type.leisure.stadium">Štadión</string>
 	<string name="type.leisure.swimming_pool">Kúpalisko</string>
+	<string name="type.leisure.swimming_pool.private">Kúpalisko</string>
 	<string name="type.leisure.water_park">Vodný park</string>
 	<string name="type.man_made.chimney">Komín</string>
 	<string name="type.man_made.lighthouse">Maják</string>

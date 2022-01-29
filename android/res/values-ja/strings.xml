@@ -123,6 +123,10 @@
 	<string name="post">郵便局</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">警察</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">リサイクル</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">水</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">メモ</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -599,6 +603,8 @@
 	<string name="moreyear_ago_sorttype">1年以上前</string>
 	<string name="near_me_sorttype">近隣</string>
 	<string name="others_sorttype">その他</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">食べ物</string>
 	<string name="tourist_places">観光地</string>
 	<string name="museums">博物館</string>
@@ -612,7 +618,6 @@
 	<string name="shops">ショップ</string>
 	<string name="parkings">駐車場</string>
 	<string name="fuel_places">ガソリンスタンド</string>
-	<string name="water">水</string>
 	<string name="medicine">医薬品</string>
 	<string name="search_in_the_list">リスト内で検索</string>
 	<string name="religious_places">宗教に関連した場所</string>
@@ -1110,6 +1115,7 @@
 	<string name="type.leisure.sports_centre.yoga">ヨガスタジオ</string>
 	<string name="type.leisure.stadium">スタジアム</string>
 	<string name="type.leisure.swimming_pool">プール</string>
+	<string name="type.leisure.swimming_pool.private">プール</string>
 	<string name="type.leisure.track">トラック</string>
 	<string name="type.leisure.water_park">ウォーターパーク</string>
 	<string name="type.man_made">構造物</string>

@@ -126,6 +126,12 @@
 	<string name="post">Почта</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Полиция</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Переработка</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Вода</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Для автодомов</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Примечание</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -633,6 +639,8 @@
 	<string name="moreyear_ago_sorttype">Больше года назад</string>
 	<string name="near_me_sorttype">Рядом со мной</string>
 	<string name="others_sorttype">Другие</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Еда</string>
 	<string name="tourist_places">Достопримечательности</string>
 	<string name="museums">Музеи</string>
@@ -646,7 +654,6 @@
 	<string name="shops">Магазины</string>
 	<string name="parkings">Парковки</string>
 	<string name="fuel_places">Заправки</string>
-	<string name="water">Вода</string>
 	<string name="medicine">Медицина</string>
 	<string name="search_in_the_list">Искать в списке</string>
 	<string name="religious_places">Святые места</string>
@@ -805,7 +812,7 @@
 	<string name="type.amenity.waste_basket">Урна</string>
 	<string name="type.amenity.waste_disposal">Мусорный контейнер</string>
 	<string name="type.amenity.waste_transfer_station">Станция перевалки отходов</string>
-	<string name="type.amenity.water_point">Заправка водой</string>
+	<string name="type.amenity.water_point">Вода для автодомов</string>
 	<string name="type.barrier">Преграда</string>
 	<string name="type.barrier.block">Блок</string>
 	<string name="type.barrier.bollard">Столбик</string>
@@ -1170,6 +1177,7 @@
 	<string name="type.leisure.sports_centre.yoga">Йога-центр</string>
 	<string name="type.leisure.stadium">Стадион</string>
 	<string name="type.leisure.swimming_pool">Плавательный бассейн</string>
+	<string name="type.leisure.swimming_pool.private">Плавательный бассейн</string>
 	<string name="type.leisure.track">Беговая дорожка</string>
 	<string name="type.leisure.water_park">Аквапарк</string>
 	<string name="type.leisure.beach_resort">Пляжный курорт</string>
@@ -1469,7 +1477,7 @@
 	<string name="type.tourism.attraction.animal">Достопримечательность</string>
 	<string name="type.tourism.attraction.specified">Достопримечательность</string>
 	<string name="type.tourism.camp_site">Кемпинг</string>
-	<string name="type.tourism.caravan_site">Автокемпинг</string>
+	<string name="type.tourism.caravan_site">Кемпинг для автодомов</string>
 	<string name="type.tourism.chalet">Шале</string>
 	<string name="type.tourism.gallery">Галерея</string>
 	<string name="type.tourism.guest_house">Гостевой дом</string>

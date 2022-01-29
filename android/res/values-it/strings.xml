@@ -123,6 +123,10 @@
 	<string name="post">Posta</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Polizia</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Riciclo</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Acqua</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Informazioni</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -626,6 +630,8 @@
 	<string name="moreyear_ago_sorttype">Più di un anno fa</string>
 	<string name="near_me_sorttype">Vicino a me</string>
 	<string name="others_sorttype">Altro</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Cibo</string>
 	<string name="tourist_places">Luoghi d\'interesse</string>
 	<string name="museums">Musei</string>
@@ -639,7 +645,6 @@
 	<string name="shops">Negozi</string>
 	<string name="parkings">Parcheggi</string>
 	<string name="fuel_places">Stazione di servizio</string>
-	<string name="water">Acqua</string>
 	<string name="medicine">Farmacia</string>
 	<string name="search_in_the_list">Cerca nell\'elenco</string>
 	<string name="religious_places">Luoghi di culto</string>
@@ -1050,6 +1055,7 @@
 	<string name="type.leisure.sports_centre.yoga">Centro Yoga</string>
 	<string name="type.leisure.stadium">Stadio</string>
 	<string name="type.leisure.swimming_pool">Piscina</string>
+	<string name="type.leisure.swimming_pool.private">Piscina</string>
 	<string name="type.leisure.water_park">Parco acquatico</string>
 	<string name="type.man_made.chimney">Ciminiera industriale</string>
 	<string name="type.man_made.lighthouse">Faro</string>

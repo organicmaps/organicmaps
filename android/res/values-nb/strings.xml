@@ -125,6 +125,10 @@
 	<string name="post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Politi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Resirkulering</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Vann</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Merknader</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -602,6 +606,8 @@
 	<string name="moreyear_ago_sorttype">Mer enn ett år siden</string>
 	<string name="near_me_sorttype">Nær meg</string>
 	<string name="others_sorttype">Andre</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Mat</string>
 	<string name="tourist_places">Severdigheter</string>
 	<string name="museums">Museer</string>
@@ -615,7 +621,6 @@
 	<string name="shops">Butikker</string>
 	<string name="parkings">Parkeringer</string>
 	<string name="fuel_places">Bensinstasjoner</string>
-	<string name="water">Vann</string>
 	<string name="medicine">Medisin</string>
 	<string name="search_in_the_list">Søk på lista</string>
 	<string name="religious_places">Hellige steder</string>
@@ -1025,6 +1030,7 @@
 	<string name="type.leisure.sports_centre.yoga">Yogastudio</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Svømmebasseng</string>
+	<string name="type.leisure.swimming_pool.private">Svømmebasseng</string>
 	<string name="type.leisure.water_park">Vannpark</string>
 	<string name="type.man_made.chimney">Fabrikkpipe</string>
 	<string name="type.man_made.lighthouse">Fyr</string>

@@ -146,6 +146,15 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Politie";
 
+/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
+"recycling" = "Recycling";
+
+/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
+"water" = "Water";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
+"rv" = "RV Facilities";
+
 "share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!";
 
 /* message title of loading file */
@@ -1098,6 +1107,9 @@
 
 "others_sorttype" = "Andere";
 
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "Eten";
 
 "tourist_places" = "Bezienswaardigheden";
@@ -1123,8 +1135,6 @@
 "parkings" = "Parkeerplaatsen";
 
 "fuel_places" = "Benzinestations";
-
-"water" = "Water";
 
 "medicine" = "Geneeskunde";
 
@@ -2213,6 +2223,8 @@
 "type.leisure.stadium" = "Stadium";
 
 "type.leisure.swimming_pool" = "Zwembad";
+
+"type.leisure.swimming_pool.private" = "Zwembad";
 
 "type.leisure.track" = "Track";
 

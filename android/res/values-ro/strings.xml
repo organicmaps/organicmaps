@@ -123,6 +123,10 @@
 	<string name="post">Poştă</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Poliția</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Reciclare</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Apă</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Detalii</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -626,6 +630,8 @@
 	<string name="moreyear_ago_sorttype">Cu peste un an în urmă</string>
 	<string name="near_me_sorttype">Lîngă mine</string>
 	<string name="others_sorttype">Altele</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Mîncare</string>
 	<string name="tourist_places">Obiective turistice</string>
 	<string name="museums">Muzee</string>
@@ -639,7 +645,6 @@
 	<string name="shops">Magazine</string>
 	<string name="parkings">Parcări</string>
 	<string name="fuel_places">Benzinării</string>
-	<string name="water">Apă</string>
 	<string name="medicine">Farmacii</string>
 	<string name="search_in_the_list">Caută în listă</string>
 	<string name="religious_places">Locuri sfinte</string>
@@ -1046,6 +1051,7 @@
 	<string name="type.leisure.sports_centre.yoga">Studio yoga</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Piscină</string>
+	<string name="type.leisure.swimming_pool.private">Piscină</string>
 	<string name="type.leisure.water_park">Parc acvatic</string>
 	<string name="type.man_made.chimney">Coș de fabrică</string>
 	<string name="type.man_made.lighthouse">Far</string>

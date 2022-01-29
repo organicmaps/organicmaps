@@ -146,6 +146,15 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Polícia";
 
+/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
+"recycling" = "Recyklácia";
+
+/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
+"water" = "Voda";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
+"rv" = "RV Facilities";
+
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -1098,6 +1107,9 @@
 
 "others_sorttype" = "Iné";
 
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "Jedlo";
 
 "tourist_places" = "Pamiatky";
@@ -1123,8 +1135,6 @@
 "parkings" = "Parkovanie";
 
 "fuel_places" = "Čerpacie stanice";
-
-"water" = "Voda";
 
 "medicine" = "Medicína";
 
@@ -2213,6 +2223,8 @@
 "type.leisure.stadium" = "Štadión";
 
 "type.leisure.swimming_pool" = "Kúpalisko";
+
+"type.leisure.swimming_pool.private" = "Kúpalisko";
 
 "type.leisure.track" = "Track";
 

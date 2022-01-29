@@ -146,6 +146,15 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Поліція";
 
+/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
+"recycling" = "Переробка відходів";
+
+/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
+"water" = "Вода";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
+"rv" = "Для автобудинків";
+
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -1098,6 +1107,9 @@
 
 "others_sorttype" = "Інші";
 
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "Їжа";
 
 "tourist_places" = "Пам’ятки";
@@ -1123,8 +1135,6 @@
 "parkings" = "Парковки";
 
 "fuel_places" = "Заправки";
-
-"water" = "Вода";
 
 "medicine" = "Медицина";
 
@@ -1458,7 +1468,7 @@
 
 "type.amenity.waste_transfer_station" = "Станція передачі сміття";
 
-"type.amenity.water_point" = "Заправка водою";
+"type.amenity.water_point" = "Вода для автобудинків";
 
 "type.barrier" = "Перешкода";
 
@@ -2214,6 +2224,8 @@
 
 "type.leisure.swimming_pool" = "Басейн для плавання";
 
+"type.leisure.swimming_pool.private" = "Басейн для плавання";
+
 "type.leisure.track" = "Бігова доріжка";
 
 "type.leisure.water_park" = "Аквапарк";
@@ -2816,7 +2828,7 @@
 
 "type.tourism.camp_site" = "Кемпінг";
 
-"type.tourism.caravan_site" = "Автокемпінг";
+"type.tourism.caravan_site" = "Кемпінг для автобудинків";
 
 "type.tourism.chalet" = "Шале";
 

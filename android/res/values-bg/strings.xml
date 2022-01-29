@@ -126,6 +126,10 @@
 	<string name="post">Поща</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Полиция</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Рециклиране</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Вода</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Бележки</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -590,6 +594,8 @@
 	<string name="by_distance">По разстояние</string>
 	<!-- Android -->
 	<string name="by_date">По дата</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="search_in_the_list">Търсене в списъка</string>
 	<string name="select_list">Избор на списък</string>
 	<string name="transit_not_found">Навигацията за метро все още не е налична в региона</string>
