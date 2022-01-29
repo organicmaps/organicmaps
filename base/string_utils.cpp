@@ -2,6 +2,8 @@
 
 #include "base/assert.hpp"
 
+#include "3party/fast_double_parser/include/fast_double_parser.h"
+
 #include <algorithm>
 #include <cmath>
 #include <iomanip>
@@ -38,13 +40,23 @@ bool IsFinite(T t)
 template <typename T>
 bool ToReal(char const * start, T & result)
 {
-  char * stop;
-  auto const tmp = RealConverter<T>(start, &stop);
-
-  if (*stop != 0 || start == stop || !IsFinite(tmp))
+  // Try faster implementation first.
+  double d;
+  const char * endptr = fast_double_parser::parse_number(start, &d);
+  if (endptr == nullptr)
+  {
+    // Fallback to our implementation, it supports numbers like "1."
+    char * stop;
+    d = RealConverter<T>(start, &stop);
+    if (*stop != 0 || start == stop || !IsFinite(d))
+      return false;
+  }
+  else if (*endptr != 0)
+  {
+    // Do not parse strings that contain additional non-number characters.
     return false;
-
-  result = tmp;
+  }
+  result = static_cast<T>(d);
   return true;
 }
 
