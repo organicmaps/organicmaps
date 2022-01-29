@@ -2,6 +2,8 @@
 
 #include "base/assert.hpp"
 
+#include "3party/fast_double_parser/include/fast_double_parser.h"
+
 #include <algorithm>
 #include <cmath>
 #include <iomanip>
@@ -20,12 +22,14 @@ T RealConverter(char const * start, char ** stop);
 template <>
 float RealConverter<float>(char const * start, char ** stop)
 {
+  // . or , parsing depends on locale!
   return std::strtof(start, stop);
 }
 
 template <>
 double RealConverter<double>(char const * start, char ** stop)
 {
+  // . or , parsing depends on locale!
   return std::strtod(start, stop);
 }
 
@@ -38,14 +42,24 @@ bool IsFinite(T t)
 template <typename T>
 bool ToReal(char const * start, T & result)
 {
-  char * stop;
-  auto const tmp = RealConverter<T>(start, &stop);
-
-  if (*stop != 0 || start == stop || !IsFinite(tmp))
-    return false;
-
-  result = tmp;
-  return true;
+  // Try faster implementation first.
+  double d;
+  char const * endptr = fast_double_parser::parse_number(start, &d);
+  if (endptr == nullptr)
+  {
+    // Fallback to our implementation, it supports numbers like "1."
+    char * stop;
+    result = RealConverter<T>(start, &stop);
+    if (*stop == 0 && start != stop && IsFinite(result))
+      return true;
+  }
+  else if (*endptr == 0)
+  {
+    result = static_cast<T>(d);
+    return true;
+  }
+  // Do not parse strings that contain additional non-number characters.
+  return false;
 }
 
 }  // namespace
