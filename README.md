@@ -125,7 +125,7 @@ and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)
 - **Star us on GitHub**.
 - Report bugs or issues to [the issue tracker](https://github.com/organicmaps/organicmaps/issues).
 - [Discuss](https://github.com/organicmaps/organicmaps/discussions/categories/ideas) ideas or propose feature requests.
-- Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) for updates.
+- Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) or to the [[matrix] space](https://matrix.to/#/#organicmaps:matrix.org) for updates.
 - Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
 - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/OrganicMapsRu) для обратной связи и помощи.
 - Contact us by [email](mailto:hello@organicmaps.app).
