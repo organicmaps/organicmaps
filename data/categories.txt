@@ -9074,15 +9074,16 @@ zh-Hant:駕訓班
 fa:اموزشگاه رانندگی
 
 amenity-ice_cream
-en:Ice Cream
-ru:Мороженое
+en:3Ice Cream
+ru:4Мороженое
+be:4Марозіва
 bg:Сладолед
 ar:كشك أيس كريم
 cs:Stánek se zmrzlinou
 da:Isbod
-de:Eisstand
+de:3Eis|Eisstand
 el:Παγωτατζίδικο
-es:Heladería
+es:5Heladería
 fi:Jäätelökioski
 fr:Stand de crème glacée
 hu:Fagylaltárus
@@ -9090,10 +9091,10 @@ id:Kios Es Krim
 it:Chiosco gelati
 ja:アイスクリーム屋
 ko:아이스크림 스탠드|아이스크림 가판대
-nb:Iskrem
-nl:Ijskraam|Ijsstand
+nb:4Iskrem
+nl:4Ijskraam|Ijsstand
 pl:Stoisko z lodami|lody
-pt:Gelados|gelataria|geladaria|3banca de gelados
+pt:4Gelados|gelataria|geladaria|3banca de gelados
 pt-BR:Sorveteria
 ro:Chioșc cu înghețată
 sk:Zmrzlinový stánok
@@ -9101,7 +9102,7 @@ sv:Glasstånd
 sw:Duka la Aiskrimu
 th:แผงขายไอศกรีม
 tr:Dondurma Standı
-uk:Кіоск з морозивом
+uk:4Морозиво
 vi:Quầy kem
 zh-Hans:冰淇淋摊
 zh-Hant:冰淇淋攤

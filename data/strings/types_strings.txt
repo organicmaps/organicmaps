@@ -1465,8 +1465,9 @@
     zh-Hant = 狩獵場
 
   [type.amenity.ice_cream]
-    en = Ice Cream Stand
+    en = Ice Cream
     ar = كشك أيس كريم
+    be = Марозіва
     cs = Stánek se zmrzlinou
     da = Isbod
     de = Eisstand
@@ -1491,7 +1492,7 @@
     sv = Glasstånd
     th = แผงขายไอศกรีม
     tr = Dondurma Standı
-    uk = Кіоск з морозивом
+    uk = Морозиво
     vi = Quầy kem
     zh-Hans = 冰淇淋店
     zh-Hant = 冰淇淋攤
