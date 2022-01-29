@@ -522,10 +522,12 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("asphalt", "", "", "paved_good");
   TestSurfaceTypes("asphalt", "bad", "", "paved_bad");
   TestSurfaceTypes("asphalt", "", "0", "paved_bad");
+
   TestSurfaceTypes("fine_gravel", "intermediate", "", "paved_bad");
   TestSurfaceTypes("gravel", "intermediate", "", "unpaved_bad");
   TestSurfaceTypes("paved", "intermediate", "", "paved_good");
-  TestSurfaceTypes("", "intermediate", "", "paved_good");
+  TestSurfaceTypes("", "intermediate", "", "unpaved_good");
+
   TestSurfaceTypes("paved", "", "2", "paved_good");
   TestSurfaceTypes("", "excellent", "", "paved_good");
   TestSurfaceTypes("wood", "", "", "paved_bad");
