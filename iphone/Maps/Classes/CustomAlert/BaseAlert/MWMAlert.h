@@ -3,7 +3,6 @@
 
 @property(weak, nonatomic) MWMAlertViewController *alertController;
 
-+ (MWMAlert *)rateAlert;
 + (MWMAlert *)authErrorAlertWithRetryBlock:(MWMVoidBlock)retryBlock;
 + (MWMAlert *)locationAlertWithCancelBlock:(MWMVoidBlock)cancelBlock;
 + (MWMAlert *)routingDisclaimerAlertWithOkBlock:(MWMVoidBlock)block;

@@ -10,14 +10,8 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
-namespace
-{
-std::string const kCountryCodeKey = "CountryCode";
-}  // namespace
-
 @interface AppInfo ()
 
-@property(nonatomic) NSString * countryCode;
 @property(nonatomic) NSString * bundleVersion;
 @property(nonatomic) NSString * buildNumber;
 @property(nonatomic) NSString * deviceModel;
@@ -43,39 +37,6 @@ std::string const kCountryCodeKey = "CountryCode";
 }
 
 #pragma mark - Properties
-
-- (NSString *)countryCode
-{
-  if (!_countryCode)
-  {
-    CTTelephonyNetworkInfo * networkInfo = [[CTTelephonyNetworkInfo alloc] init];
-    CTCarrier * carrier = networkInfo.subscriberCellularProvider;
-    if ([carrier.isoCountryCode length])  // if device can access sim card info
-      _countryCode = [carrier.isoCountryCode uppercaseString];
-    else  // else, getting system country code
-      _countryCode = [[NSLocale.currentLocale objectForKey:NSLocaleCountryCode] uppercaseString];
-
-    std::string codeString;
-    if (settings::Get(kCountryCodeKey, codeString))  // if country code stored in settings
-    {
-      if (carrier.isoCountryCode)  // if device can access sim card info
-        settings::Set(kCountryCodeKey,
-                      std::string(_countryCode.UTF8String));  // then save new code instead
-      else
-        _countryCode =
-            @(codeString.c_str());  // if device can NOT access sim card info then using saved code
-    }
-    else
-    {
-      if (_countryCode)
-        settings::Set(kCountryCodeKey,
-                      std::string(_countryCode.UTF8String));  // saving code first time
-      else
-        _countryCode = @"";
-    }
-  }
-  return _countryCode;
-}
 
 - (NSString *)bundleVersion
 {
@@ -133,9 +94,14 @@ std::string const kCountryCodeKey = "CountryCode";
   NSURL * telURL = [NSURL URLWithString:@"tel://"];
   if (![UIApplication.sharedApplication canOpenURL:telURL])
     return NO;
-  NSString * networkCode =
-      [[CTTelephonyNetworkInfo alloc] init].subscriberCellularProvider.mobileNetworkCode;
-  return networkCode != nil && networkCode.length > 0 && ![networkCode isEqualToString:@"65535"];
+  NSDictionary<NSString *,CTCarrier *> * dict = [[CTTelephonyNetworkInfo alloc] init].serviceSubscriberCellularProviders;
+  for (id key in dict)
+  {
+    NSString * networkCode = [dict objectForKey:key].mobileNetworkCode;
+    if (networkCode != nil && networkCode.length > 0 && ![networkCode isEqualToString:@"65535"])
+      return YES;
+  }
+  return NO;
 }
 
 @end

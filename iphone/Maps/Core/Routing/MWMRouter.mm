@@ -325,7 +325,6 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
   if (removeRoutePoints)
     GetFramework().GetRoutingManager().DeleteSavedRoutePoints();
   [MWMThemeManager setAutoUpdates:NO];
-  [[MapsAppDelegate theApp] showAlertIfRequired];
 }
 
 - (void)updateFollowingInfo {

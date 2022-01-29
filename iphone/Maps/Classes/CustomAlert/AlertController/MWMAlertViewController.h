@@ -9,7 +9,6 @@
 @property(weak, nonatomic, readonly) UIViewController *_Null_unspecified ownerViewController;
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
-- (void)presentRateAlert;
 - (void)presentAuthErrorAlertWithRetryBlock:(nonnull MWMVoidBlock)retryBlock;
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
 - (void)presentRoutingDisclaimerAlertWithOkBlock:(nonnull nonnull MWMVoidBlock)block;
