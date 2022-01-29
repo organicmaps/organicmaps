@@ -34,6 +34,8 @@ highway=turning_loop : highway=mini_roundabout
 
 highway=platform : highway=pedestrian
 
+man_made=quay : man_made=pier
+
 natural=marsh     : natural=wetland, wetland=marsh
 natural=waterfall : waterway=waterfall
 natural=forest    : natural=wood
