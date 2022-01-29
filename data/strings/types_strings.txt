@@ -3271,6 +3271,7 @@
 
   [type.amenity.vending_machine]
     en = Vending Machine
+    be = Гандлёвы аўтамат
     de = Verkaufsautomat
     fr = Distributeur automatique
     ja = 自動販売機
@@ -3278,11 +3279,13 @@
     pt = Máquina de venda automática
     pt-BR = Máquina de venda automática
     ru = Торговый автомат
+    uk = Торговий автомат
     zh-Hans = 自动售货机
 
   [type.amenity.vending_machine.cigarettes]
     en = Cigarette Dispenser
     ar = ماكينة بيع سجائر
+    be = Аўтамат з цыгарэтамі
     cs = Automat na cigarety
     da = Cigaretautomat
     de = Zigarettenautomat
@@ -3302,19 +3305,20 @@
     pt = Máquina de venda de cigarros
     pt-BR = Máquina de venda de cigarros
     ro = Automat de țigări
-    ru = Сигаретный автомат
+    ru = Автомат с сигаретами
     sk = Automat na cigarety
     sv = Cigarettmaskin
     th = เครื่องขายบุหรี่
     tr = Distributeur de cigarettes
-    uk = Автомат з продажу сигарет
+    uk = Автомат з цигарками
     vi = Máy bán thuốc lá
     zh-Hans = 香烟售货机
     zh-Hant = 香菸自動販賣機
 
   [type.amenity.vending_machine.drinks]
-    en = Drink Dispenser
+    en = Drinks Dispenser
     ar = ماكينة بيع مشروبات
+    be = Аўтамат з напоямі
     cs = Automat na nápoje
     da = Automat for drikkevarer
     de = Getränkeautomat
@@ -3347,6 +3351,7 @@
   [type.amenity.vending_machine.parking_tickets]
     en = Parking Tickets
     ar = ماكينة دفع تذاكر الموقف
+    be = Паркамат
     cs = Parkovací automat
     da = Parkeringsbilletmaskine
     de = Parkautomat
@@ -3377,8 +3382,9 @@
     zh-Hant = 違規停車罰單繳費機
 
   [type.amenity.vending_machine.public_transport_tickets]
-    en = Vending Machine for Public Transport Tickets
+    en = Ticket Machine
     ar = آلة بيع تذاكر النقل العام
+    be = Аўтамат па продажы білетаў
     cs = Prodejní automat lístků na městskou dopravu
     da = Billetautomat for offentlig transport
     de = Fahrkartenautomat
@@ -3399,13 +3405,13 @@
     pt = Máquina venda de bilhetes de transporte público
     pt-BR = Máquinas automáticas de venda de passagens de transporte público
     ro = Automat de vânzare a biletelor pentru transportul public
-    ru = Автомат по продаже билетов на общественный транспорт
+    ru = Автомат по продаже билетов
     sk = Predajný automat na lístky verejnej dopravy
     sv = Biljettautomat
     sw = Mashine ya kuuzia tiketi za usafiri wa umma
     th = เครื่องขายของหรือตั๋วขนส่งมวลชนอัตโนมัติ
     tr = Toplu taşıma biletleri için otomatlar
-    uk = Автомат з продажу квитків на громадський транспорт
+    uk = Автомат з продажу квитків
     vi = Máy bán vé phương tiện công cộng tự động
     zh-Hans = 公共交通售票机
     zh-Hant = 公共交通售票機
@@ -14718,6 +14724,7 @@
   [type.shop.beverages]
     en = Beverages
     ar = مشروبات
+    be = Напоі
     cs = Nápoje
     da = Drikkevarer
     de = Getränke
