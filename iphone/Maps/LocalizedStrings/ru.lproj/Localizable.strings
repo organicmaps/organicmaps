@@ -1452,13 +1452,19 @@
 
 "type.amenity.vending_machine" = "Торговый автомат";
 
-"type.amenity.vending_machine.cigarettes" = "Сигаретный автомат";
+"type.amenity.vending_machine.cigarettes" = "Автомат с сигаретами";
 
 "type.amenity.vending_machine.drinks" = "Автомат с напитками";
 
 "type.amenity.vending_machine.parking_tickets" = "Паркомат";
 
-"type.amenity.vending_machine.public_transport_tickets" = "Автомат по продаже билетов на общественный транспорт";
+"type.amenity.vending_machine.public_transport_tickets" = "Автомат по продаже билетов";
+
+"type.amenity.vending_machine.excrement_bags" = "Пакеты для экскрементов";
+
+"type.amenity.vending_machine.parcel_pickup" = "Получение посылок";
+
+"type.amenity.vending_machine.fuel" = "Топливный автомат";
 
 "type.amenity.veterinary" = "Ветеринарная клиника";
 

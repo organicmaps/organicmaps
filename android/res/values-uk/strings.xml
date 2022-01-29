@@ -719,7 +719,7 @@
 	<string name="type.amenity.grave_yard.christian">Християнський цвинтар</string>
 	<string name="type.amenity.hospital">Лікарня</string>
 	<string name="type.amenity.hunting_stand">Мисливська башта</string>
-	<string name="type.amenity.ice_cream">Кіоск з морозивом</string>
+	<string name="type.amenity.ice_cream">Морозиво</string>
 	<string name="type.amenity.internet_cafe">Інтернет-кафе</string>
 	<string name="type.amenity.kindergarten">Дитячий садок</string>
 	<string name="type.amenity.library">Бібліотека</string>
@@ -784,10 +784,14 @@
 	<string name="type.amenity.toilets">Туалет</string>
 	<string name="type.amenity.townhall">Ратуша</string>
 	<string name="type.amenity.university">Університет</string>
-	<string name="type.amenity.vending_machine.cigarettes">Автомат з продажу сигарет</string>
+	<string name="type.amenity.vending_machine">Торговий автомат</string>
+	<string name="type.amenity.vending_machine.cigarettes">Автомат з цигарками</string>
 	<string name="type.amenity.vending_machine.drinks">Автомат з напоями</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Паркомат</string>
-	<string name="type.amenity.vending_machine.public_transport_tickets">Автомат з продажу квитків на громадський транспорт</string>
+	<string name="type.amenity.vending_machine.public_transport_tickets">Автомат з продажу квитків</string>
+	<string name="type.amenity.vending_machine.excrement_bags">Мішки для екскрементів</string>
+	<string name="type.amenity.vending_machine.parcel_pickup">Отримання посилок</string>
+	<string name="type.amenity.vending_machine.fuel">Паливний автомат</string>
 	<string name="type.amenity.veterinary">Ветеринарна клініка</string>
 	<string name="type.amenity.waste_basket">Бак для сміття</string>
 	<string name="type.amenity.waste_disposal">Сміттєвий контейнер</string>

@@ -1321,7 +1321,7 @@
 
 "type.amenity.hunting_stand" = "Hunting Stand";
 
-"type.amenity.ice_cream" = "Ice Cream Stand";
+"type.amenity.ice_cream" = "Марозіва";
 
 "type.amenity.internet_cafe" = "Internet Cafe";
 
@@ -1450,15 +1450,21 @@
 
 "type.amenity.university" = "University";
 
-"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine" = "Гандлёвы аўтамат";
 
-"type.amenity.vending_machine.cigarettes" = "Cigarette Dispenser";
+"type.amenity.vending_machine.cigarettes" = "Аўтамат з цыгарэтамі";
 
-"type.amenity.vending_machine.drinks" = "Drink Dispenser";
+"type.amenity.vending_machine.drinks" = "Аўтамат з напоямі";
 
-"type.amenity.vending_machine.parking_tickets" = "Parking Tickets";
+"type.amenity.vending_machine.parking_tickets" = "Паркамат";
 
-"type.amenity.vending_machine.public_transport_tickets" = "Vending Machine for Public Transport Tickets";
+"type.amenity.vending_machine.public_transport_tickets" = "Аўтамат па продажы білетаў";
+
+"type.amenity.vending_machine.excrement_bags" = "Мяшкі дзеля экскрыментаў";
+
+"type.amenity.vending_machine.parcel_pickup" = "Атрыманне пасылак";
+
+"type.amenity.vending_machine.fuel" = "Паліўны аўтамат";
 
 "type.amenity.veterinary" = "Veterinary Doctor";
 
@@ -2186,7 +2192,7 @@
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
 
-"type.leisure.marina" = "Marina";
+"type.leisure.marina" = "Прычал";
 
 "type.leisure.nature_reserve" = "Nature Reserve";
 
@@ -2632,7 +2638,7 @@
 
 "type.shop.beauty" = "Beauty Shop";
 
-"type.shop.beverages" = "Beverages";
+"type.shop.beverages" = "Напоі";
 
 "type.shop.bicycle" = "Bicycle Shop";
 

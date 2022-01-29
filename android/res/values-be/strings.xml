@@ -674,6 +674,7 @@
 	<string name="type.amenity.grave_yard">Могілкі</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Хрысціянскія могілкі</string>
+	<string name="type.amenity.ice_cream">Марозіва</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Прыём другсыравіны</string>
@@ -692,6 +693,14 @@
 	<string name="type.recycling.green_waste">Арганіка / Харчовыя адходы</string>
 	<string name="type.recycling.cartons">Тэтрапак і аналагі</string>
 	<string name="type.amenity.sanitary_dump_station">Зліў для прыбіральняў транспартных сродкаў</string>
+	<string name="type.amenity.vending_machine">Гандлёвы аўтамат</string>
+	<string name="type.amenity.vending_machine.cigarettes">Аўтамат з цыгарэтамі</string>
+	<string name="type.amenity.vending_machine.drinks">Аўтамат з напоямі</string>
+	<string name="type.amenity.vending_machine.parking_tickets">Паркамат</string>
+	<string name="type.amenity.vending_machine.public_transport_tickets">Аўтамат па продажы білетаў</string>
+	<string name="type.amenity.vending_machine.excrement_bags">Мяшкі дзеля экскрыментаў</string>
+	<string name="type.amenity.vending_machine.parcel_pickup">Атрыманне пасылак</string>
+	<string name="type.amenity.vending_machine.fuel">Паліўны аўтамат</string>
 	<string name="type.amenity.waste_transfer_station">Станцыя перавалкі адходаў</string>
 	<string name="type.amenity.water_point">Вада для аўтадомаў</string>
 	<string name="type.barrier.chain">Ланцуг</string>
@@ -705,6 +714,7 @@
 	<string name="type.landuse.cemetery">Могілкі</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Хрысціянскія могілкі</string>
+	<string name="type.leisure.marina">Прычал</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
 	<string name="type.man_made.flagpole">Флагшток</string>
 	<string name="type.man_made.mast">Мачта/вышка</string>
@@ -724,6 +734,7 @@
 	<string name="type.natural.saddle">Седлавіна</string>
 	<string name="type.natural.water">Вадаём</string>
 	<string name="type.railway.platform">Чыгуначная платформа</string>
+	<string name="type.shop.beverages">Напоі</string>
 	<string name="type.shop.caravan">Продаж аўтадамоў</string>
 	<string name="type.shop.funeral_directors">Рытуальныя паслугі</string>
 	<string name="type.tourism.caravan_site">Кемпінг для аўтадамоў</string>
