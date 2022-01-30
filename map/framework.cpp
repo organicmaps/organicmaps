@@ -1584,8 +1584,6 @@ void Framework::OnRecoverSurface(int width, int height, bool recreateContextDepe
 
     InvalidateUserMarks();
 
-    UpdatePlacePageInfoForCurrentSelection();
-
     m_drapeApi.Invalidate();
   }
 
