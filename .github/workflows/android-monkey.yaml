@@ -89,7 +89,7 @@ jobs:
         run: |
           cmake --version
           ninja --version
-          ./gradlew -Parm64 -Parm32 -Pfirebase assembleGoogleDebug
+          gradle -Parm64 -Parm32 -Pfirebase assembleGoogleDebug
 
       - name: Run monkey
         run: |
