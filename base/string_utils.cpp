@@ -53,7 +53,7 @@ bool ToReal(char const * start, T & result)
     if (*stop == 0 && start != stop && IsFinite(result))
       return true;
   }
-  else if (*endptr == 0)
+  else if (*endptr == 0 && IsFinite(d))
   {
     result = static_cast<T>(d);
     return true;
