@@ -105,7 +105,7 @@
     sk = Zrušiť sťahovanie
     sv = Avbryt nedladdning
     th = ยกเลิกการดาวน์โหลด
-    tr = İndirme İşlemini İptal Et
+    tr = İndirmeyi İptal Et
     uk = Вiдмiнити завантаження
     vi = Huỷ bỏ Tải xuống
     zh-Hans = 取消下载
@@ -178,7 +178,7 @@
     sk = Stiahnuť mapy
     sv = Ladda ner kartor
     th = ดาวน์โหลดแผนที่
-    tr = Haritaları İndir
+    tr = Harita indir
     uk = Завантажити мапи
     vi = Tải xuống Bản đồ
     zh-Hans = 下载地图
@@ -215,7 +215,7 @@
     sk = Sťahovanie zlyhalo, skúste to znova.
     sv = Nedladdningen misslyckades, tryck för att försöka igen
     th = การดาวน์โหลดล้มเหลว แตะอีกครั้งเพื่อลองใหม่
-    tr = İndirme işlemi başarısız oldu, bir kez daha denemek için tekrar dokunun
+    tr = İndirme başarısız oldu. Tekrar denemek için dokunun.
     uk = Помилка завантаження. Натисніть, щоб повторити спробу
     vi = Tải xuống thất bại, hãy chạm lại để thử một lần nữa
     zh-Hans = 下载失败，重新轻触再试一次
@@ -575,7 +575,7 @@
     sk = Prehľadať mapu
     sv = Sök karta
     th = ค้นหาแผนที่
-    tr = Haritada Ara
+    tr = Harita Ara
     uk = Пошук на мапі
     vi = Tìm kiếm Bản đồ
     zh-Hans = 搜索地图
@@ -759,7 +759,7 @@
     sk = Sťahovanie zlyhalo
     sv = Downloading har misslyckats
     th = การดาวน์โหลดล้มเหลว
-    tr = Indirme işlemi başarısız oldu
+    tr = İndirme başarısız oldu
     uk = Помилка завантаження
     vi = Tải xuống đã thất bại
     zh-Hans = 下载失败
@@ -5114,7 +5114,7 @@
     sk = Stiahnuté
     sv = Nedladdade
     th = ดาวน์โหลดแล้ว
-    tr = İndirildi
+    tr = İndirilenler
     uk = Завантажено
     vi = Đã tải xuống
     zh-Hans = 已下载
@@ -5690,7 +5690,7 @@
     sk = Pomocou Google Play služieb získajte svoju aktuálnu polohu
     sv = Använd Google Play Services för att bestämma din aktuella position
     th = ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ
-    tr = Şu anki konumunuzu almak için Google Play hizmetlerini kullanın
+    tr = Mevcut konumunuzu belirlemek için Google Play Hizmetlerini kullanın
     uk = Щоб визначити ваше поточне місцезнаходження, використовуйте сервіси Google Play
     vi = Sử dụng Dịch vụ Google Play để có được vị trí hiện tại của bạn
     zh-Hans = 使用Google Play服务以获取您的当前位置。
@@ -5761,7 +5761,7 @@
     ru = Для создания маршрута необходимо загрузить и обновить все карты на пути следования.
     sv = Att kunna skapa en navigeringsväg kräver att alla kartorna från din plats till din destination är nerladdade och uppdaterade.
     th = การสร้างเส้นทางจำเป็นต้องใช้แผนที่จากสถานที่ตั้งของคุณไปยังปลายทางที่มีการดาวน์โหลดและอัปเดต
-    tr = Konumunuzdan bir rota oluşturmak bölgenizdeki tüm haritaların indirilmesini ve güncellenmesini gerektirir.
+    tr = Rota oluşturabilmemiz için bulunduğunuz yerden hedefinize kadar olan tüm haritaları indirmemiz ve güncellememiz gerekiyor.
     uk = Для створення маршруту необхідно щоб всі мапи, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.
     vi = Tạo một tuyến đường đòi hỏi tất cả các bản đồ từ vị trí của bạn đến điểm đến phải được tải xuống và cập nhật.
     zh-Hans = 创建路线需要下载并更新好所有从您的位置到目的地的地图。
@@ -5870,7 +5870,7 @@
     sk = Prosím, povoľte Služby určovania polohy
     sv = Vänligen aktivera platstjänster
     th = โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง
-    tr = Lütfen Konum Hizmetlerini etkinleştirin
+    tr = Lütfen konum hizmetlerini etkinleştirin
     uk = Будь ласка, увімкніть геолокацію
     vi = Bạn vui lòng bật Dịch vụ Định vị
     zh-Hans = 请启用位置服务
