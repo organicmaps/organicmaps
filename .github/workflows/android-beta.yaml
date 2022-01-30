@@ -80,7 +80,7 @@ jobs:
         run: |
           cmake --version
           ninja --version
-          ./gradlew -x lint -x lintVitalGoogleBeta assembleGoogleBeta uploadCrashlyticsMappingFileGoogleRelease
+          gradle -x lint -x lintVitalGoogleBeta assembleGoogleBeta uploadCrashlyticsMappingFileGoogleRelease
 
       - name: Upload beta apk to App Distribution
         shell: bash
