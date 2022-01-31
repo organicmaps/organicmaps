@@ -461,7 +461,6 @@
 	<string name="placepage_place_description">Descrizione</string>
 	<string name="placepage_more_button">Di più</string>
 	<string name="placepage_more_reviews_button">Altre recensioni</string>
-	<string name="book_button">Prenota</string>
 	<string name="placepage_call_button">Chiama</string>
 	<string name="placepage_edit_bookmark_button">Modifica luogo preferito</string>
 	<string name="editor_comment_hint">Commento…</string>

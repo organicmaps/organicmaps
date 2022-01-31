@@ -451,7 +451,6 @@
 	<string name="placepage_place_description">Mô tả</string>
 	<string name="placepage_more_button">Bổ sung</string>
 	<string name="placepage_more_reviews_button">Thêm nhận xét</string>
-	<string name="book_button">Đặt trước</string>
 	<string name="placepage_call_button">Gọi</string>
 	<string name="placepage_edit_bookmark_button">Sửa Dấu Trang</string>
 	<string name="editor_comment_hint">Nhận xét…</string>

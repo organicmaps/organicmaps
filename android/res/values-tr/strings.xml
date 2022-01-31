@@ -10,9 +10,9 @@
 	<string name="cancel">İptal</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Sil</string>
-	<string name="download_maps">Haritaları İndir</string>
+	<string name="download_maps">Harita indir</string>
 	<!-- Settings/Downloader - info for country when download fails -->
-	<string name="download_has_failed">İndirme işlemi başarısız oldu, bir kez daha denemek için tekrar dokunun</string>
+	<string name="download_has_failed">İndirme başarısız oldu. Tekrar denemek için dokunun.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">İndiriliyor…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,13 +30,13 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Ara</string>
 	<!-- Search box placeholder text -->
-	<string name="search_map">Haritada Ara</string>
+	<string name="search_map">Harita Ara</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Şu anda bu cihaz veya uygulama için tüm Konum Hizmetleri devre dışı bırakılmış. Lütfen bunu ayarlardan etkinleştirin.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Haritada göster</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Indirme işlemi başarısız oldu</string>
+	<string name="country_status_download_failed">İndirme başarısız oldu</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Tekrar Dene</string>
 	<string name="connection_settings">Konum Ayarları</string>
@@ -231,7 +231,7 @@
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Tümünü İptal Et</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_subtitle">İndirildi</string>
+	<string name="downloader_downloaded_subtitle">İndirilenler</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Sıraya alındı</string>
 	<string name="downloader_near_me_subtitle">Yakınlarımda</string>
@@ -251,15 +251,15 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Haritayı Güncelle</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Şu anki konumunuzu almak için Google Play hizmetlerini kullanın</string>
+	<string name="pref_use_google_play">Mevcut konumunuzu belirlemek için Google Play Hizmetlerini kullanın</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Rota üzerindeki haritaları indir</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_requires_all_map">Konumunuzdan bir rota oluşturmak bölgenizdeki tüm haritaların indirilmesini ve güncellenmesini gerektirir.</string>
+	<string name="routing_requires_all_map">Rota oluşturabilmemiz için bulunduğunuz yerden hedefinize kadar olan tüm haritaları indirmemiz ve güncellememiz gerekiyor.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Yeterli alan yok</string>
 	<!-- location service disabled -->
-	<string name="enable_location_services">Lütfen Konum Hizmetlerini etkinleştirin</string>
+	<string name="enable_location_services">Lütfen konum hizmetlerini etkinleştirin</string>
 	<string name="save">Kaydet</string>
 	<string name="edit_description_hint">Açıklamalarınız (metin veya html)</string>
 	<string name="create">oluştur</string>
@@ -463,7 +463,6 @@
 	<string name="placepage_place_description">Açıklama</string>
 	<string name="placepage_more_button">Diğer</string>
 	<string name="placepage_more_reviews_button">Diğer yorumlar</string>
-	<string name="book_button">Rezervasyon</string>
 	<string name="placepage_call_button">Ara</string>
 	<string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
 	<string name="editor_comment_hint">Yorum…</string>

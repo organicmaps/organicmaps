@@ -461,7 +461,6 @@
 	<string name="placepage_place_description">Descriere</string>
 	<string name="placepage_more_button">Mai mult</string>
 	<string name="placepage_more_reviews_button">Mai multe recenzii</string>
-	<string name="book_button">Rezervare</string>
 	<string name="placepage_call_button">Apelează</string>
 	<string name="placepage_edit_bookmark_button">Modifică locul preferat</string>
 	<string name="editor_comment_hint">Comentariu…</string>

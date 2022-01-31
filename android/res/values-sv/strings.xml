@@ -449,7 +449,6 @@
 	<string name="placepage_place_description">Beskrivning</string>
 	<string name="placepage_more_button">Mer</string>
 	<string name="placepage_more_reviews_button">Fler recensioner</string>
-	<string name="book_button">Boka</string>
 	<string name="placepage_call_button">Ring</string>
 	<string name="placepage_edit_bookmark_button">Redigera bokmärke</string>
 	<string name="editor_comment_hint">kommentar…</string>

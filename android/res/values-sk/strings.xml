@@ -449,7 +449,6 @@
 	<string name="placepage_place_description">Popis</string>
 	<string name="placepage_more_button">Viac</string>
 	<string name="placepage_more_reviews_button">Ďalšie recenzie</string>
-	<string name="book_button">Rezervovať</string>
 	<string name="placepage_call_button">Zavolať</string>
 	<string name="placepage_edit_bookmark_button">Upraviť záložku</string>
 	<string name="editor_comment_hint">Poznámka…</string>

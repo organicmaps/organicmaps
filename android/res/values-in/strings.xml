@@ -453,7 +453,6 @@
 	<string name="placepage_place_description">Deskripsi</string>
 	<string name="placepage_more_button">Lainnya</string>
 	<string name="placepage_more_reviews_button">Ulasan Lainnya</string>
-	<string name="book_button">Pesan</string>
 	<string name="placepage_call_button">Hubungi</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
 	<string name="editor_comment_hint">Komentar…</string>

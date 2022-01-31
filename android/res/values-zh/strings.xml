@@ -461,7 +461,6 @@
 	<string name="placepage_place_description">说明</string>
 	<string name="placepage_more_button">更多</string>
 	<string name="placepage_more_reviews_button">更多评论</string>
-	<string name="book_button">预約</string>
 	<string name="placepage_call_button">呼叫</string>
 	<string name="placepage_edit_bookmark_button">编辑书签</string>
 	<string name="editor_comment_hint">备注…</string>

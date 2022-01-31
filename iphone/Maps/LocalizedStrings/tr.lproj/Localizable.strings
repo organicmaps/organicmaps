@@ -10,12 +10,12 @@
 "cancel" = "İptal";
 
 /* Button which interrupts country download */
-"cancel_download" = "İndirme İşlemini İptal Et";
+"cancel_download" = "İndirmeyi İptal Et";
 
 /* Button which deletes downloaded country */
 "delete" = "Sil";
 
-"download_maps" = "Haritaları İndir";
+"download_maps" = "Harita indir";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "İndiriliyor…";
@@ -51,7 +51,7 @@
 "country_status_download_without_size" = "Haritayı İndir";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Indirme işlemi başarısız oldu";
+"country_status_download_failed" = "İndirme başarısız oldu";
 
 "about_menu_title" = "Organic Maps Hakkında";
 
@@ -319,7 +319,7 @@
 "downloader_update_all_button" = "Hepsini güncelle";
 
 /* Downloaded maps category */
-"downloader_downloaded_subtitle" = "İndirildi";
+"downloader_downloaded_subtitle" = "İndirilenler";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Mevcut";
@@ -362,7 +362,7 @@
 "routing_download_maps_along" = "Rota üzerindeki haritaları indir";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "Konumunuzdan bir rota oluşturmak bölgenizdeki tüm haritaların indirilmesini ve güncellenmesini gerektirir.";
+"routing_requires_all_map" = "Rota oluşturabilmemiz için bulunduğunuz yerden hedefinize kadar olan tüm haritaları indirmemiz ve güncellememiz gerekiyor.";
 
 /* bookmark button text */
 "bookmark" = "yer i̇mi";

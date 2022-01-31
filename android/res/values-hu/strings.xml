@@ -451,7 +451,6 @@
 	<string name="placepage_place_description">Leírás</string>
 	<string name="placepage_more_button">Még</string>
 	<string name="placepage_more_reviews_button">További vélemények</string>
-	<string name="book_button">Foglalás</string>
 	<string name="placepage_call_button">Hívás</string>
 	<string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
 	<string name="editor_comment_hint">Megjegyzés…</string>

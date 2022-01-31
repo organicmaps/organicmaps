@@ -461,7 +461,6 @@
 	<string name="placepage_place_description">Description</string>
 	<string name="placepage_more_button">Plus</string>
 	<string name="placepage_more_reviews_button">Plus d\'avis</string>
-	<string name="book_button">Réserver</string>
 	<string name="placepage_call_button">Appeler</string>
 	<string name="placepage_edit_bookmark_button">Éditer le signet</string>
 	<string name="editor_comment_hint">Commentaire…</string>

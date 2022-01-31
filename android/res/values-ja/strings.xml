@@ -449,7 +449,6 @@
 	<string name="placepage_place_description">説明</string>
 	<string name="placepage_more_button">さらに詳しく</string>
 	<string name="placepage_more_reviews_button">レビューを更に表示</string>
-	<string name="book_button">予約</string>
 	<string name="placepage_call_button">コール</string>
 	<string name="placepage_edit_bookmark_button">ブックマークを編集</string>
 	<string name="editor_comment_hint">コメント…</string>
