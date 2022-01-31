@@ -453,7 +453,6 @@
 	<string name="placepage_place_description">Beschrijving</string>
 	<string name="placepage_more_button">Meer</string>
 	<string name="placepage_more_reviews_button">Meer reacties</string>
-	<string name="book_button">Boeken</string>
 	<string name="placepage_call_button">Bellen</string>
 	<string name="placepage_edit_bookmark_button">Bladwijzer bewerken</string>
 	<string name="editor_comment_hint">Reactie…</string>

@@ -455,7 +455,6 @@
 	<string name="placepage_place_description">الوصف</string>
 	<string name="placepage_more_button">المزيد</string>
 	<string name="placepage_more_reviews_button">المزيد من المراجعات</string>
-	<string name="book_button">حجز</string>
 	<string name="placepage_call_button">اتصال</string>
 	<string name="placepage_edit_bookmark_button">تحرير العلامة المرجعية</string>
 	<string name="editor_comment_hint">تعليق…</string>

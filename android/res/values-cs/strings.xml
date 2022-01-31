@@ -453,7 +453,6 @@
 	<string name="placepage_place_description">Popis</string>
 	<string name="placepage_more_button">Více</string>
 	<string name="placepage_more_reviews_button">Více recenzí</string>
-	<string name="book_button">Rezervace</string>
 	<string name="placepage_call_button">Volat</string>
 	<string name="placepage_edit_bookmark_button">Upravit záložku</string>
 	<string name="editor_comment_hint">Poznámka…</string>

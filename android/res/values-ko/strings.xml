@@ -451,7 +451,6 @@
 	<string name="placepage_place_description">설명</string>
 	<string name="placepage_more_button">자세히</string>
 	<string name="placepage_more_reviews_button">더 많은 리뷰</string>
-	<string name="book_button">예약</string>
 	<string name="placepage_call_button">전화</string>
 	<string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
 	<string name="editor_comment_hint">설명…</string>

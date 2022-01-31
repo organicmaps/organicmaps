@@ -484,7 +484,6 @@
 	<string name="placepage_place_description">Description</string>
 	<string name="placepage_more_button">More</string>
 	<string name="placepage_more_reviews_button">More Reviews</string>
-	<string name="book_button">Book</string>
 	<string name="placepage_call_button">Call</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
 	<string name="editor_comment_hint">Comment…</string>

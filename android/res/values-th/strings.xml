@@ -453,7 +453,6 @@
 	<string name="placepage_place_description">คำอธิบาย</string>
 	<string name="placepage_more_button">เพิ่มเติม</string>
 	<string name="placepage_more_reviews_button">รีวิวอื่น ๆ</string>
-	<string name="book_button">จอง</string>
 	<string name="placepage_call_button">โทร</string>
 	<string name="placepage_edit_bookmark_button">แก้ไข Bookmark</string>
 	<string name="editor_comment_hint">ข้อคิดเห็น</string>

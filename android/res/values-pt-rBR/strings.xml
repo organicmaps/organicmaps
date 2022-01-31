@@ -455,7 +455,6 @@
 	<string name="placepage_place_description">Descrição</string>
 	<string name="placepage_more_button">Mais</string>
 	<string name="placepage_more_reviews_button">Mais avaliações</string>
-	<string name="book_button">Reservar</string>
 	<string name="placepage_call_button">Ligar</string>
 	<string name="placepage_edit_bookmark_button">Editar favorito</string>
 	<string name="editor_comment_hint">Comentar…</string>

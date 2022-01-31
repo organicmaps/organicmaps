@@ -460,7 +460,6 @@
 	<string name="placepage_place_description">Опис</string>
 	<string name="placepage_more_button">Ще</string>
 	<string name="placepage_more_reviews_button">Ще відгуки</string>
-	<string name="book_button">Забронювати</string>
 	<string name="placepage_call_button">Подзвонити</string>
 	<string name="placepage_edit_bookmark_button">Редагувати мiтку</string>
 	<string name="editor_comment_hint">Коментар…</string>

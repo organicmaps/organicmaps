@@ -449,7 +449,6 @@
 	<string name="placepage_place_description">توضیحات</string>
 	<string name="placepage_more_button">بیشتر</string>
 	<string name="placepage_more_reviews_button">نقدهای دیگر</string>
-	<string name="book_button">رزرو</string>
 	<string name="placepage_call_button">تماس</string>
 	<string name="placepage_edit_bookmark_button">ویرایش نشانه ها</string>
 	<string name="editor_comment_hint">اظهار نظر</string>
