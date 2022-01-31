@@ -10359,7 +10359,18 @@ cont {
 cont {
   name: "boundary-national_park"
   element {
+    scale: 10
+    area {
+      color: 3425648640
+      priority: -15307
+    }
+  }
+  element {
     scale: 11
+    area {
+      color: 3425648640
+      priority: -15307
+    }
     symbol {
       name: "nparkf-s"
       priority: 16693
@@ -10368,6 +10379,10 @@ cont {
   }
   element {
     scale: 12
+    area {
+      color: 3425648640
+      priority: -15307
+    }
     symbol {
       name: "nparkf-s"
       priority: 16693
@@ -10385,6 +10400,10 @@ cont {
   }
   element {
     scale: 13
+    area {
+      color: 3425648640
+      priority: -15307
+    }
     symbol {
       name: "nparkf-s"
       priority: 16693
@@ -10403,7 +10422,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 1844736
+      color: 3425648640
       priority: -15307
     }
     symbol {
@@ -10423,7 +10442,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 1844736
+      color: 3425648640
       priority: -15307
     }
     symbol {
@@ -10443,7 +10462,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 1844736
+      color: 3425648640
       priority: -15307
     }
     symbol {
@@ -10463,7 +10482,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 1844736
+      color: 3425648640
       priority: -15307
     }
     symbol {
@@ -10483,7 +10502,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 1844736
+      color: 3425648640
       priority: -15307
     }
     symbol {
@@ -10504,7 +10523,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 1844736
+      color: 3425648640
       priority: -15307
     }
     symbol {
@@ -33520,23 +33539,37 @@ cont {
 cont {
   name: "landuse-military"
   element {
+    scale: 12
+    area {
+      color: 2159483932
+      priority: -15500
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 2159483932
+      priority: -15500
+    }
+  }
+  element {
     scale: 14
     area {
-      color: 12000284
+      color: 2159483932
       priority: -15500
     }
   }
   element {
     scale: 15
     area {
-      color: 12000284
+      color: 2159483932
       priority: -15500
     }
   }
   element {
     scale: 16
     area {
-      color: 12000284
+      color: 2159483932
       priority: -15500
     }
     symbol {
@@ -33548,7 +33581,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 12000284
+      color: 2159483932
       priority: -15500
     }
     symbol {
@@ -33567,7 +33600,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 12000284
+      color: 2159483932
       priority: -15500
     }
     symbol {
@@ -33586,7 +33619,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 12000284
+      color: 2159483932
       priority: -15500
     }
     symbol {
@@ -35308,7 +35341,18 @@ cont {
 cont {
   name: "leisure-nature_reserve"
   element {
+    scale: 10
+    area {
+      color: 3425648640
+      priority: -15307
+    }
+  }
+  element {
     scale: 11
+    area {
+      color: 3425648640
+      priority: -15307
+    }
     symbol {
       name: "nparkf-s"
       priority: 16693
@@ -35317,6 +35361,10 @@ cont {
   }
   element {
     scale: 12
+    area {
+      color: 3425648640
+      priority: -15307
+    }
     symbol {
       name: "nparkf-s"
       priority: 16693
@@ -35334,6 +35382,10 @@ cont {
   }
   element {
     scale: 13
+    area {
+      color: 3425648640
+      priority: -15307
+    }
     symbol {
       name: "nparkf-s"
       priority: 16693
@@ -35352,7 +35404,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 1844736
+      color: 3425648640
       priority: -15307
     }
     symbol {
@@ -35372,7 +35424,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 1844736
+      color: 3425648640
       priority: -15307
     }
     symbol {
@@ -35392,7 +35444,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 1844736
+      color: 3425648640
       priority: -15307
     }
     symbol {
@@ -35412,7 +35464,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 1844736
+      color: 3425648640
       priority: -15307
     }
     symbol {
@@ -35432,7 +35484,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 1844736
+      color: 3425648640
       priority: -15307
     }
     symbol {
@@ -35453,7 +35505,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 1844736
+      color: 3425648640
       priority: -15307
     }
     symbol {
