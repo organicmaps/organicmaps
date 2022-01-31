@@ -1760,8 +1760,21 @@ bool Framework::ShowMapForURL(string const & url)
   enum ResultT { FAILED, NEED_CLICK, NO_NEED_CLICK };
   ResultT result = FAILED;
 
-  if (strings::StartsWith(url, "om") || strings::StartsWith(url, "ge0"))
+  // It's an API request, parsed in parseAndSetApiURL and nativeParseAndSetApiUrl.
+  if (m_parsedMapApi.IsValid())
   {
+    if (!m_parsedMapApi.GetViewportParams(point, scale))
+    {
+      point = {0, 0};
+      scale = 0;
+    }
+
+    apiMark = m_parsedMapApi.GetSinglePoint();
+    result = apiMark ? NEED_CLICK : NO_NEED_CLICK;
+  }
+  else if (strings::StartsWith(url, "om") || strings::StartsWith(url, "ge0"))
+  {
+    // Note that om scheme is used to encode both API and ge0 links.
     ge0::Ge0Parser parser;
     ge0::Ge0Parser::Result parseResult;
 
@@ -1772,17 +1785,6 @@ bool Framework::ShowMapForURL(string const & url)
       name = move(parseResult.m_name);
       result = NEED_CLICK;
     }
-  }
-  else if (m_parsedMapApi.IsValid())
-  {
-    if (!m_parsedMapApi.GetViewportParams(point, scale))
-    {
-      point = {0, 0};
-      scale = 0;
-    }
-
-    apiMark = m_parsedMapApi.GetSinglePoint();
-    result = apiMark ? NEED_CLICK : NO_NEED_CLICK;
   }
   else  // Actually, we can parse any geo url scheme with correct coordinates.
   {
