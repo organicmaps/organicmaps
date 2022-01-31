@@ -107,7 +107,7 @@
 @green3: #C6D9AB;
 @green4: #C6D9AB;
 @green5: #C6D9AB;
-@green6: #9EB360;
+@green6: #888C38;
 
 /* BUILDINGS */
 @housename: #65655E;
