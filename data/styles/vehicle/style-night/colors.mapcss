@@ -44,7 +44,7 @@
 @beach: #28281A;
 @barerock: #302A2A;
 
-/*3.2 Vegeration*/
+/*3.2 Vegetation*/
 
 @forest: #090F0A;
 @green0: #090F0A;
@@ -53,7 +53,7 @@
 @green3: #090F0A;
 @green4: #090F0A;
 @green5: #090F0A;
-@green6: #1C2600;
+@green6: #2F4000;
 
 /* 4.LANDUSE */
 /*4.1 Main landuse*/
