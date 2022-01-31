@@ -8,7 +8,7 @@ final class FaqController: MWMViewController {
     let path = Bundle.main.path(forResource: "faq", ofType: "html")!
     let html = try! String(contentsOfFile: path, encoding: String.Encoding.utf8)
     let webViewController = WebViewController.init(html: html, baseUrl: nil, title: nil)!
-    webViewController.openInSafari = false
+    webViewController.openInSafari = true
     addChild(webViewController)
     let aboutView = webViewController.view!
     view.addSubview(aboutView)
