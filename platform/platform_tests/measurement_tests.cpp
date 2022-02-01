@@ -144,6 +144,11 @@ UNIT_TEST(FormatOsmLink)
   TEST_EQUAL(FormatOsmLink(48.85825, 2.29450, 15), "https://osm.org/go/0BOdUs9e--?m=", ());
   //Buenos Aires
   TEST_EQUAL(FormatOsmLink(-34.6061, -58.4360, 10), "https://osm.org/go/Mnx6SB?m=", ());
+
+  // Formally, lat = -90 and lat = 90 are the same for OSM links, but Mercator is valid until 85.
+  auto const link = FormatOsmLink(-90, -180, 10);
+  TEST_EQUAL(link, "https://osm.org/go/AAAAAA?m=", ());
+  TEST_EQUAL(link, FormatOsmLink(90, 180, 10), ());
 }
 
 UNIT_TEST(FormatAltitude)
