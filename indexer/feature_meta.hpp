@@ -247,12 +247,13 @@ public:
     MetadataBase::Set(Type::RD_LEAP_WEIGHT_SPEED, strValue);
   }
 
-  double GetLeapWeightSpeed(double defaultValue) const
-  {
-    if (Has(Type::RD_LEAP_WEIGHT_SPEED))
-      return std::stod(Get(Type::RD_LEAP_WEIGHT_SPEED));
-    return defaultValue;
-  }
+  /// @see EdgeEstimator::GetLeapWeightSpeed
+//  double GetLeapWeightSpeed(double defaultValue) const
+//  {
+//    if (Has(Type::RD_LEAP_WEIGHT_SPEED))
+//      return std::stod(Get(Type::RD_LEAP_WEIGHT_SPEED));
+//    return defaultValue;
+//  }
 };
 
 // Prints types in osm-friendly format.
