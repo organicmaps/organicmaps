@@ -671,11 +671,13 @@
 	<string name="enable_screen_sleep_description">Дазваляе экрану засынаць пасля перыяда бездзеяння.</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.amenity.fuel">АЗС</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Могілкі</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Хрысціянскія могілкі</string>
 	<string name="type.amenity.ice_cream">Марозіва</string>
+	<string name="type.amenity.post_box">Паштовая скрыня</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Прыём другсыравіны</string>
@@ -700,8 +702,8 @@
 	<string name="type.amenity.vending_machine.parking_tickets">Паркамат</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Аўтамат па продажы білетаў</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Мяшкі дзеля экскрыментаў</string>
-	<string name="type.amenity.vending_machine.parcel_pickup">Атрыманне пасылак</string>
-	<string name="type.amenity.vending_machine.fuel">Паліўны аўтамат</string>
+	<string name="type.amenity.vending_machine.parcel_pickup">Паштамат</string>
+	<string name="type.amenity.vending_machine.fuel">Паліўная калонка</string>
 	<string name="type.amenity.waste_transfer_station">Станцыя перавалкі адходаў</string>
 	<string name="type.amenity.water_point">Вада для аўтадомаў</string>
 	<string name="type.barrier.chain">Ланцуг</string>

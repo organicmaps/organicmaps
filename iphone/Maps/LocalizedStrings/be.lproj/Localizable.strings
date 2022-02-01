@@ -1296,7 +1296,7 @@
 
 "type.amenity.fountain" = "Fountain";
 
-"type.amenity.fuel" = "Gas Station";
+"type.amenity.fuel" = "АЗС";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard" = "Могілкі";
@@ -1370,7 +1370,7 @@
 
 "type.amenity.police" = "Police";
 
-"type.amenity.post_box" = "Postbox";
+"type.amenity.post_box" = "Паштовая скрыня";
 
 "type.amenity.post_office" = "Post Office";
 
@@ -1449,9 +1449,9 @@
 
 "type.amenity.vending_machine.excrement_bags" = "Мяшкі дзеля экскрыментаў";
 
-"type.amenity.vending_machine.parcel_pickup" = "Атрыманне пасылак";
+"type.amenity.vending_machine.parcel_pickup" = "Паштамат";
 
-"type.amenity.vending_machine.fuel" = "Паліўны аўтамат";
+"type.amenity.vending_machine.fuel" = "Паліўная калонка";
 
 "type.amenity.veterinary" = "Veterinary Doctor";
 

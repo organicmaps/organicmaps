@@ -784,7 +784,7 @@
 	<string name="type.amenity.place_of_worship.shinto">Shrine</string>
 	<string name="type.amenity.place_of_worship.taoist">Temple</string>
 	<string name="type.amenity.police">Police</string>
-	<string name="type.amenity.post_box">Postbox</string>
+	<string name="type.amenity.post_box">Post Box</string>
 	<string name="type.amenity.post_office">Post Office</string>
 	<string name="type.amenity.prison">Prison</string>
 	<string name="type.amenity.pub">Pub</string>
@@ -823,8 +823,8 @@
 	<string name="type.amenity.vending_machine.drinks">Drinks Dispenser</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parking Tickets</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Ticket Machine</string>
-	<string name="type.amenity.vending_machine.excrement_bags">Excrement Bags</string>
-	<string name="type.amenity.vending_machine.parcel_pickup">Parcel Pickup</string>
+	<string name="type.amenity.vending_machine.excrement_bags">Excrement Bags Dispenser</string>
+	<string name="type.amenity.vending_machine.parcel_pickup">Parcel Locker</string>
 	<string name="type.amenity.vending_machine.fuel">Fuel Dispenser</string>
 	<string name="type.amenity.veterinary">Veterinary Doctor</string>
 	<string name="type.amenity.waste_basket">Trash Bin</string>

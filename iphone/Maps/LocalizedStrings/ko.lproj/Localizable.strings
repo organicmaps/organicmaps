@@ -1447,9 +1447,9 @@
 
 "type.amenity.vending_machine.public_transport_tickets" = "대중교통표 자동판매기";
 
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags";
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
-"type.amenity.vending_machine.parcel_pickup" = "Parcel Pickup";
+"type.amenity.vending_machine.parcel_pickup" = "Parcel Locker";
 
 "type.amenity.vending_machine.fuel" = "Fuel Dispenser";
 
