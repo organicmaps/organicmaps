@@ -635,4 +635,13 @@ namespace
         mercator::FromLatLon(47.795928, 13.047597), {0., 0.},
         mercator::FromLatLon(45.812822, 15.977049), 414275);
   }
+
+  // https://github.com/organicmaps/organicmaps/issues/1071
+  UNIT_TEST(Russia_MoscowDesnogorsk)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(55.715208, 37.396528), {0., 0.},
+        mercator::FromLatLon(54.151853, 33.287128), 355887);
+  }
 }  // namespace

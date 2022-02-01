@@ -138,9 +138,13 @@ double EdgeEstimator::CalcHeuristic(ms::LatLon const & from, ms::LatLon const & 
 
 double EdgeEstimator::ComputeDefaultLeapWeightSpeed() const
 {
-  // Scale coefficient computed as average ratio of escape/enter speed
-  // to max MWM speed across all MWMs.
-  return m_maxWeightSpeedMpS / 1.76;
+  // 1.76 factor was computed as an average ratio of escape/enter speed to max MWM speed across all MWMs.
+  //return m_maxWeightSpeedMpS / 1.76;
+
+  /// @todo By VNG: Current m_maxWeightSpeedMpS is > 120 km/h, so estimating speed was > 60km/h
+  /// for start/end fake edges by straight line! I strongly believe that this is very! optimistic.
+  /// Set factor to 2.5, see a good example here https://github.com/organicmaps/organicmaps/issues/1071.
+  return m_maxWeightSpeedMpS / 2.5;
 }
 
 /*
