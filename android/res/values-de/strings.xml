@@ -780,6 +780,7 @@
 	<string name="type.amenity.vending_machine.drinks">Getränkeautomat</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parkautomat</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Fahrkartenautomat</string>
+	<string name="type.amenity.vending_machine.fuel">Tankautomat</string>
 	<string name="type.amenity.veterinary">Tierarzt</string>
 	<string name="type.amenity.waste_basket">Abfalleimer</string>
 	<string name="type.amenity.waste_disposal">Müllcontainer</string>

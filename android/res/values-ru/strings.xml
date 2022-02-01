@@ -732,7 +732,7 @@
 	<string name="type.amenity.fire_station">Пожарная часть</string>
 	<string name="type.amenity.food_court">Ресторанный дворик</string>
 	<string name="type.amenity.fountain">Фонтан</string>
-	<string name="type.amenity.fuel">Заправка</string>
+	<string name="type.amenity.fuel">АЗС</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Кладбище</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -810,8 +810,8 @@
 	<string name="type.amenity.vending_machine.parking_tickets">Паркомат</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Автомат по продаже билетов</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Пакеты для экскрементов</string>
-	<string name="type.amenity.vending_machine.parcel_pickup">Получение посылок</string>
-	<string name="type.amenity.vending_machine.fuel">Топливный автомат</string>
+	<string name="type.amenity.vending_machine.parcel_pickup">Почтомат</string>
+	<string name="type.amenity.vending_machine.fuel">Топливная колонка</string>
 	<string name="type.amenity.veterinary">Ветеринарная клиника</string>
 	<string name="type.amenity.waste_basket">Урна</string>
 	<string name="type.amenity.waste_disposal">Мусорный контейнер</string>

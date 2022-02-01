@@ -1447,11 +1447,11 @@
 
 "type.amenity.vending_machine.public_transport_tickets" = "Fahrkartenautomat";
 
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags";
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
-"type.amenity.vending_machine.parcel_pickup" = "Parcel Pickup";
+"type.amenity.vending_machine.parcel_pickup" = "Parcel Locker";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "Tankautomat";
 
 "type.amenity.veterinary" = "Tierarzt";
 

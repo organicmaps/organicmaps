@@ -15,6 +15,9 @@
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
 	<string name="fuel">Petrol</string>
 
+	<!-- SECTION: Types -->
+	<string name="type.amenity.fuel">Petrol Station</string>
+
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.elevator">Lift</string>
 
