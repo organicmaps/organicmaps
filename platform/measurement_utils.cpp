@@ -250,8 +250,11 @@ string FormatSpeedUnits(Units units)
 string FormatOsmLink(double lat, double lon, int zoom)
 {
   static char char_array[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_~";
-  uint32_t const x = round((lon + 180.0) / 360.0 * (1UL<<32));
-  uint32_t const y = round((lat + 90.0) / 180.0 * (1UL<<32));
+
+  // Same as (lon + 180) / 360 * 1UL << 32, but without warnings.
+  double constexpr factor = (1 << 30) / 90.0;
+  uint32_t const x = round((lon + 180.0) * factor);
+  uint32_t const y = round((lat + 90.0) * factor * 2.0);
   uint64_t const code = bits::BitwiseMerge(y, x);
   string osmUrl = "https://osm.org/go/";
 
