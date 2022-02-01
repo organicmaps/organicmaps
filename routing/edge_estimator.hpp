@@ -67,13 +67,13 @@ private:
   double const m_maxWeightSpeedMpS;
   SpeedKMpH const m_offroadSpeedKMpH;
 
-  DataSource * m_dataSourcePtr;
+  //DataSource * m_dataSourcePtr;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
-  std::unordered_map<NumMwmId, double> m_leapWeightSpeedMpS;
+  //std::unordered_map<NumMwmId, double> m_leapWeightSpeedMpS;
 
   double ComputeDefaultLeapWeightSpeed() const;
   double GetLeapWeightSpeed(NumMwmId mwmId);
-  double LoadLeapWeightSpeed(NumMwmId mwmId);
+  //double LoadLeapWeightSpeed(NumMwmId mwmId);
 };
 
 double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,

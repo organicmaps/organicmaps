@@ -117,10 +117,10 @@ double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangen
 
 // EdgeEstimator -----------------------------------------------------------------------------------
 EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
-                             DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds> numMwmIds)
+                             DataSource * /*dataSourcePtr*/, std::shared_ptr<NumMwmIds> numMwmIds)
   : m_maxWeightSpeedMpS(KMPH2MPS(maxWeightSpeedKMpH))
   , m_offroadSpeedKMpH(offroadSpeedKMpH)
-  , m_dataSourcePtr(dataSourcePtr)
+  //, m_dataSourcePtr(dataSourcePtr)
   , m_numMwmIds(numMwmIds)
 {
   CHECK_GREATER(m_offroadSpeedKMpH.m_weight, 0.0, ());
@@ -143,6 +143,7 @@ double EdgeEstimator::ComputeDefaultLeapWeightSpeed() const
   return m_maxWeightSpeedMpS / 1.76;
 }
 
+/*
 double EdgeEstimator::LoadLeapWeightSpeed(NumMwmId mwmId)
 {
   double leapWeightSpeed = ComputeDefaultLeapWeightSpeed();
@@ -163,19 +164,21 @@ double EdgeEstimator::LoadLeapWeightSpeed(NumMwmId mwmId)
 
   return leapWeightSpeed;
 }
+*/
 
-double EdgeEstimator::GetLeapWeightSpeed(NumMwmId mwmId)
+double EdgeEstimator::GetLeapWeightSpeed(NumMwmId /*mwmId*/)
 {
   double defaultSpeed = ComputeDefaultLeapWeightSpeed();
 
-  if (mwmId != kFakeNumMwmId)
-  {
-    auto [speedIt, inserted] = m_leapWeightSpeedMpS.emplace(mwmId, defaultSpeed);
-    if (inserted)
-      speedIt->second = LoadLeapWeightSpeed(mwmId);
-
-    return speedIt->second;
-  }
+  /// @todo By VNG: We don't have LEAP_SPEEDS_FILE to assign RegionData::SetLeapWeightSpeed
+  /// unique for each MWM, so this is useless now. And what about possible races here?
+//  if (mwmId != kFakeNumMwmId)
+//  {
+//    auto [speedIt, inserted] = m_leapWeightSpeedMpS.emplace(mwmId, defaultSpeed);
+//    if (inserted)
+//      speedIt->second = LoadLeapWeightSpeed(mwmId);
+//    return speedIt->second;
+//  }
 
   return defaultSpeed;
 }
