@@ -56,13 +56,9 @@ double Checkpoints::GetSummaryLengthBetweenPointsMeters() const
 std::string DebugPrint(Checkpoints const & checkpoints)
 {
   std::ostringstream out;
-  out << std::fixed << std::setprecision(6);
   out << "Checkpoints(";
-  for (auto const & point : checkpoints.GetPoints())
-  {
-    auto const latlon = mercator::ToLatLon(point);
-    out << latlon.m_lat << ", " << latlon.m_lon << "; ";
-  }
+  for (auto const & pt : checkpoints.GetPoints())
+    out << DebugPrint(mercator::ToLatLon(pt)) << "; ";
   out << "passed: " << checkpoints.GetPassedIdx() << ")";
   return out.str();
 }
