@@ -1053,6 +1053,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       hideBookmarkCategoryToolbar();
       return;
     }
+
+    if (RoutingController.get().isNavigating())
+    {
+      RoutingController.get().resetToPlanningState();
+      return;
+    }
+
     boolean isRoutingCancelled = RoutingController.get().cancel();
     if (!closePlacePage() && !closeSidePanel() && !isRoutingCancelled
         && !closePositionChooser())
@@ -1672,6 +1679,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Override
   public void onRemovedStop()
+  {
+    closePlacePage();
+  }
+
+  @Override
+  public void onResetToPlanningState()
   {
     closePlacePage();
   }
