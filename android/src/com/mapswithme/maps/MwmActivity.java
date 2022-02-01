@@ -1054,15 +1054,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (RoutingController.get().isNavigating())
+    if (closePlacePage() || closeSidePanel() || closePositionChooser())
     {
-      RoutingController.get().resetToPlanningState();
       return;
     }
 
-    boolean isRoutingCancelled = RoutingController.get().cancel();
-    if (!closePlacePage() && !closeSidePanel() && !isRoutingCancelled
-        && !closePositionChooser())
+    RoutingController routingController = RoutingController.get();
+    if (routingController.isNavigating())
+    {
+      routingController.resetToPlanningState();
+      return;
+    }
+
+    if (!routingController.cancel())
     {
       try
       {
