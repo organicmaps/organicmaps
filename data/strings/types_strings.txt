@@ -1327,7 +1327,9 @@
 
   [type.amenity.fuel]
     en = Gas Station
+    en-GB = Petrol Station
     ar = محطة وقود
+    be = АЗС
     cs = Čerpací stanice
     da = Tankstation
     de = Tankstelle
@@ -1347,12 +1349,12 @@
     pt = Posto de combustível
     pt-BR = Posto de combustível
     ro = Benzinărie
-    ru = Заправка
+    ru = АЗС
     sk = Benzínová pumpa
     sv = Bensinstation
     th = ปั๊มน้ำมัน
     tr = Benzin istasyonu
-    uk = Заправка
+    uk = АЗС
     vi = Trạm xăng
     zh-Hans = 加油站
     zh-Hant = 加氣站
@@ -2456,8 +2458,9 @@
     zh-Hant = 警察局
 
   [type.amenity.post_box]
-    en = Postbox
+    en = Post Box
     ar = صندوق بريد
+    be = Паштовая скрыня
     cs = Poštovní schránka
     da = Postboks
     de = Briefkasten
@@ -3417,22 +3420,23 @@
     zh-Hant = 公共交通售票機
 
   [type.amenity.vending_machine.excrement_bags]
-    en = Excrement Bags
+    en = Excrement Bags Dispenser
     be = Мяшкі дзеля экскрыментаў
     ru = Пакеты для экскрементов
     uk = Мішки для екскрементів
 
   [type.amenity.vending_machine.parcel_pickup]
-    en = Parcel Pickup
-    be = Атрыманне пасылак
-    ru = Получение посылок
-    uk = Отримання посилок
+    en = Parcel Locker
+    be = Паштамат
+    ru = Почтомат
+    uk = Поштомат
 
   [type.amenity.vending_machine.fuel]
     en = Fuel Dispenser
-    be = Паліўны аўтамат
-    ru = Топливный автомат
-    uk = Паливний автомат
+    be = Паліўная калонка
+    de = Tankautomat
+    ru = Топливная колонка
+    uk = Паливна колонка
 
   [type.amenity.veterinary]
     en = Veterinary Doctor
