@@ -810,7 +810,7 @@
 
 "recent_track_background_dialog_message" = "Organic Maps folosește poziția ta geografică pentru a înregistra cel mai recent traseu urmat.";
 
-/* Text under the version number in the Help dialog. */
+/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
 "about_description" = "Organic Maps este o aplicație gratuită și cod sursă public care permite descărcarea hărților și navigare fără internet. Fără reclame. Fără urmărire. Dacă vezi o eroare pe hartă, te rugăm să o corectezi în OpenStreetMap. Proiectul este creat de entuziaști în timpul nostru liber, așa că avem nevoie de părerea și sprijinul tău.";
 
 "general_settings" = "Opțiuni generale";

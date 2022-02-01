@@ -810,7 +810,7 @@
 
 "recent_track_background_dialog_message" = "Organic Maps使用背景中的地理位置记录您最近去过的路径。";
 
-/* Text under the version number in the Help dialog. */
+/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
 "about_description" = "Organic Maps 是一款免费的开源离线地图应用程序。无广告。没有跟踪。如果您在地图上看到错误，请在 OpenStreetMap 中修复它。该项目由爱好者在我们的空闲时间创建，因此我们需要您的反馈和支持。";
 
 "general_settings" = "常规设置";

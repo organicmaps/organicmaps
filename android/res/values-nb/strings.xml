@@ -469,7 +469,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Sørg for at du ikke har skrevet noe personlig informasjon.</string>
 	<string name="editor_share_to_all_dialog_message_2">Vi vil sjekke endringene. Vi kontakter deg via e-post dersom vi har spørsmål.</string>
-	<!-- Text under the version number in the Help dialog. -->
+	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps er en gratis og åpen kildekode-app for offline kart. Ingen annonser. Ingen sporing. Hvis du ser en feil på kartet, må du rette den i OpenStreetMap. Prosjektet er laget av entusiaster på fritiden vår, så vi trenger din tilbakemelding og støtte.</string>
 	<!-- For the first routing -->
 	<string name="accept">Godta</string>

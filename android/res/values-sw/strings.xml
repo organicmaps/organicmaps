@@ -54,7 +54,7 @@
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
 	<string name="placepage_more_reviews_button">Maoni Zaidi</string>
-	<!-- Text under the version number in the Help dialog. -->
+	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps ni programu huria na ya chanzo huria ya ramani za nje ya mtandao. Hakuna matangazo. Hakuna ufuatiliaji. Ukiona hitilafu kwenye ramani, tafadhali irekebishe katika OpenStreetMap. Mradi huu umeundwa na wapendaji katika wakati wetu wa bure, kwa hivyo tunahitaji maoni na usaidizi wako.</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Maoni Jumla</string>

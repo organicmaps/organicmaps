@@ -810,7 +810,7 @@
 
 "recent_track_background_dialog_message" = "Organic Maps bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.";
 
-/* Text under the version number in the Help dialog. */
+/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
 "about_description" = "Organic Maps er en gratis og åpen kildekode-app for offline kart. Ingen annonser. Ingen sporing. Hvis du ser en feil på kartet, må du rette den i OpenStreetMap. Prosjektet er laget av entusiaster på fritiden vår, så vi trenger din tilbakemelding og støtte.";
 
 "general_settings" = "Generelle innstillinger";

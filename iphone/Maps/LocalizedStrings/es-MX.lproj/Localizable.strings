@@ -810,8 +810,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps uses your geoposition in the background for recording your recently traveled route.";
 
-/* Text under the version number in the Help dialog. */
-"about_description" = "Organic Maps is a free and open-source offline maps application. No ads. No tracking. If you see an error on the map, please fix it in OpenStreetMap. The project is created by enthusiasts in our free time, so we need your feedback and support.";
+/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
+"about_description" = "Organic Maps is a fast and free offline maps app without ads and tracking. Maps are based on crowd-sourced OpenStreetMap.org data, so you can fix mapping errors and add features there yourself. Organic Maps is an open-source project created by enthusiasts in their spare time. Your feedback and support are much appreciated!";
 
 "general_settings" = "General settings";
 
