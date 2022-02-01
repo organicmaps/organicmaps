@@ -550,7 +550,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setFullscreen(true);
     Framework.nativeTurnOnChoosePositionMode(isBusiness, applyPosition);
     closePlacePage();
-    mSearchController.hide();
+    mSearchController.cancelSearchApiAndHide(false);
     hideBookmarkCategoryToolbar();
   }
 
@@ -1043,8 +1043,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mSearchController.hide())
     {
-      SearchEngine.INSTANCE.cancelInteractiveSearch();
-      mSearchController.clear();
+      mSearchController.cancelSearchApiAndHide(true);
       return;
     }
 
@@ -1507,7 +1506,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Context context = getApplicationContext();
     if (show)
     {
-      mSearchController.hide();
+      mSearchController.cancelSearchApiAndHide(false);
       hideBookmarkCategoryToolbar();
       if (mIsTabletLayout)
       {
@@ -1614,8 +1613,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.updateState(false);
     if (show)
     {
-      mSearchController.clear();
-      mSearchController.hide();
+      mSearchController.cancelSearchApiAndHide(true);
       if (mFilterController != null)
         mFilterController.show(false);
     }
