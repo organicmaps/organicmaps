@@ -153,9 +153,9 @@ sk:Doprava
 fa:حمل و نقل
 
 @fuel
-en:2Gas
-ru:3Заправка|3бензин
-be:3Запраўка|3бензін
+en:2Gas|Gasoline|3Petrol|4Diesel|3Fuel
+ru:3бензин|3дизель|4топливо|газ
+be:3бензін|3дызель|4паліва|газ
 bg:Гориво|Бензиностанция
 ar:1وقود|بنزين|سولار|ديزل|غاز
 cs:2Čerpací stanice|Benzinová pumpa|benzinka
@@ -178,7 +178,7 @@ es:3Gasolinera
 sv:3Bensin
 th:ก๊าซ
 tr:3Benzinlik|Yakıt
-uk:Заправка|бензин
+uk:3бензин|3дызель|4паліва|газ
 vi:Khí đốt
 zh-Hans:汽油
 zh-Hant:加油站
@@ -780,8 +780,9 @@ sw:Hoteli|restorenti|mgahawa|chakula
 fa:رستوران
 
 amenity-fuel|@fuel
-en:Gas Station|3fuel|petrol|petrol station|U+26FD
-ru:Бензин|топливо|азс
+en:Gas Station|Petrol Station|3Filling Station|U+26FD
+ru:азс|агзс|агнкс|бензоколонка|бензозаправка|4автозаправка|3заправка
+be:азс|агзс|агнкс|бензакалонка|бензазапраўка|4аўтазапраўка|3запраўка
 bg:Бензиностанция|Гориво|бензин|дизел|газ
 ar:محطة وقود|بترول
 cs:2pumpa
@@ -800,7 +801,7 @@ ro:3Benzinărie
 sv:3Bensinstation|3bränsle|2gas
 th:3ปั๊มน้ำมัน|เชื้อเพลิง
 tr:3Yakıt|3Benzin istasyonu|2gaz
-uk:3бензин|газ
+uk:азс|агзс|агнкс|бензоколонка|бензозаправка|4автозаправка|3заправка
 vi:Trạm xăng
 zh-Hans:1加油站|燃料
 zh-Hant:2加氣站|汽油|加油|天然氣
@@ -3798,9 +3799,10 @@ zh-Hant:成藥
 el:φαρμακείο|φαρμακοποιός|χορήγηση φαρμάκων
 fa:داروخانه
 
-amenity-post_box
-en:3Postbox|post|U+2709|U+1F4E8|U+1F4E9|U+1F4EA|U+1F4EB|U+1F4EE|U+1F4EC|U+1F4ED
+amenity-post_box|@post
+en:3Post Box|Postbox|4Mailbox|Drop Box|U+2709|U+1F4E8|U+1F4E9|U+1F4EA|U+1F4EB|U+1F4EE|U+1F4EC|U+1F4ED
 ru:3Почтовый ящик
+be:3Паштовая скрыня
 bg:Поща|пощенска кутия
 ar:صندوق بريد|البريد
 cs:3Poštovní schránka|3schránka
@@ -3823,7 +3825,7 @@ es:3Buzón
 sv:3Postlåda|brevlåda|post
 th:3ตู้จดหมาย|ไปรษณีย์
 tr:3Posta kutusu|posta
-uk:3Поштова скринька|пошта
+uk:3Поштова скринька
 vi:Hòm thư|Bưu điện
 zh-Hans:1邮箱|邮政
 zh-Hant:1郵筒|郵件
@@ -3869,7 +3871,10 @@ sw:Posta
 fa:پست
 
 amenity-post_office|@post
-en:U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
+en:3Post Office|U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
+ru:3Почтовое отделение
+be:3Паштовае аддзяленне
+uk:3Поштове відділення
 bg:Поща
 ar:مكتب بريد
 da:3Postkontor|posthus
@@ -8016,22 +8021,23 @@ zh-Hans:公共交通售票机
 zh-Hant:公共交通售票機
 
 amenity-vending_machine-excrement_bags
-en:5Excrement Bags
-be:5Мяшкі дзеля экскрыментаў
-ru:5Пакеты для экскрементов|Какашки
-uk:5Мішки для екскрементів
+en:5Excrement Bags Dispenser|4Poop Bags|3Dog Poop Bags|Animal Waste
+be:5Мяшкі дзеля экскрыментаў|Какашкі|5Пакеты для какашак
+ru:5Пакеты для экскрементов|Какашки|Пакеты для какашек
+uk:5Мішки для екскрементів|Какашки|5Пакети для какашок
 
-amenity-vending_machine-parcel_pickup
-en:5Parcel Pickup
-be:5Атрыманне пасылак
-ru:5Получение посылки|Постамат
-uk:5Отримання посилок
+amenity-vending_machine-parcel_pickup|@post
+en:4Parcel Locker|4Parcel Pickup
+be:3Паштамат|5Атрыманне пасылак
+ru:3Почтомат|Постамат|5Получение посылок
+uk:3Поштомат|5Отримання посилок
 
 amenity-vending_machine-fuel|@fuel
-en:Fuel Dispenser
-be:Паліўны аўтамат
-ru:Топливный автомат
-uk:Паливний автомат
+en:Fuel Dispenser|Gas Pump
+be:Паліўная калонка|бензакалонка|палівараздатачная калонка
+de:Tankautomat
+ru:Топливная колонка|бензоколонка|топливораздаточная колонка
+uk:Паливна колонка|бензоколонка|пальнороздавальна колонка
 
 # Skipped if empty name
 building-garage
