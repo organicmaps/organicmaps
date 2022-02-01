@@ -67,6 +67,7 @@ public class RoutingController implements Initializable<Void>
     void onNavigationStarted();
     void onAddedStop();
     void onRemovedStop();
+    void onResetToPlanningState();
     void onBuiltRoute();
     void onDrivingOptionsWarning();
     boolean isSubwayEnabled();
@@ -518,6 +519,14 @@ public class RoutingController implements Initializable<Void>
     build();
     if (mContainer != null)
       mContainer.onRemovedStop();
+    backToPlaningStateIfNavigating();
+  }
+
+  public void resetToPlanningState()
+  {
+    build();
+    if (mContainer != null)
+      mContainer.onResetToPlanningState();
     backToPlaningStateIfNavigating();
   }
 
