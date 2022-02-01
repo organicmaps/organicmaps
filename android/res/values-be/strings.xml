@@ -486,8 +486,8 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Упэўніцеся, што вы не ўвялі ніякіх асабістых дадзеных.</string>
 	<string name="editor_share_to_all_dialog_message_2">Мы праверым змены. Калі ў нас з\'явяцца пытанні, мы з вамі звяжамся праз email.</string>
-	<!-- Text under the version number in the Help dialog. -->
-	<string name="about_description">Organic Maps – бясплатныя мапы з адкрытым зыходным кодам, якія працуюць без інтэрнэту. Ніякай рэкламы. Ніякага адсочвання. Калі вы бачыце памылку на карце, выпраўце яе ў OpenStreetMap. Праект ствараецца энтузіястамі ў вольны час, таму нам патрэбны вашы водгукі і падтрымка.</string>
+	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
+	<string name="about_description">Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без Інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя дадзеныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб\'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!</string>
 	<!-- For the first routing -->
 	<string name="accept">Прыняць</string>
 	<!-- For the first routing -->
