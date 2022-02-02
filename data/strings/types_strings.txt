@@ -13245,34 +13245,10 @@
     zh-Hans = 缆索铁路轨道
 
   [type.railway.halt]
-    en = Train Station
-    ar = محطة سكك حديدية
-    cs = Železniční stanice
-    da = Togstation
+    ref = type.railway.station
     de = Haltepunkt
-    el = Σιδηροδρομικός σταθμός
-    es = Estación de tren
-    fa = ایستگاه قطار
-    fi = Rautatieasema
-    fr = Gare
-    hu = Vonatmegálló
-    id = Rel kereta api
-    it = Stazione ferroviaria
-    ja = 鉄道駅
-    ko = 기차역
-    nb = Togstasjon
-    nl = Station
     pl = Przystanek kolejowy
     pt = Apeadeiro
-    pt-BR = Estação de trem
-    ro = Feroviar
-    ru = Ж/д станция
-    sk = Železničná stanica
-    sv = Tågstation
-    th = สถานีรถไฟ
-    tr = Gar
-    uk = Залізничний вокзал
-    vi = Đường tàu hỏa
     zh-Hans = 小站
     zh-Hant = 小站
 
@@ -13629,66 +13605,13 @@
     zh-Hant = 火車站
 
   [type.railway.station.light_rail]
-    en = Train Station
-    ar = محطة سكك حديدية
-    cs = Železniční stanice
-    da = Togstation
+    ref = type.railway.station
     de = Stadtbahnbahnhof
-    el = Σιδηροδρομικός σταθμός
-    es = Estación de tren
-    fa = ایستگاه قطار
-    fi = Rautatieasema
-    fr = Gare
-    hu = Vonatmegálló
-    id = Rel kereta api
-    it = Stazione ferroviaria
-    ja = 鉄道駅
-    ko = 기차역
-    nb = Togstasjon
-    nl = Station
-    pl = Dworzec kolejowy
-    pt = Estação de comboios
-    pt-BR = Estação de trem
-    ro = Feroviar
-    ru = Ж/д станция
-    sk = Železničná stanica
-    sv = Tågstation
-    th = สถานีรถไฟ
-    tr = Gar
-    uk = Залізничний вокзал
-    vi = Đường tàu hỏa
     zh-Hans = 轻轨车站
     zh-Hant = 輕軌車站
 
   [type.railway.station.monorail]
-    en = Train Station
-    ar = محطة سكك حديدية
-    cs = Železniční stanice
-    da = Togstation
-    de = Bahnhof
-    el = Σιδηροδρομικός σταθμός
-    es = Estación de tren
-    fa = ایستگاه قطار
-    fi = Rautatieasema
-    fr = Gare
-    hu = Vonatmegálló
-    id = Rel kereta api
-    it = Stazione ferroviaria
-    ja = 鉄道駅
-    ko = 기차역
-    nb = Togstasjon
-    nl = Station
-    pl = Dworzec kolejowy
-    pt = Estação de comboios
-    pt-BR = Estação de trem
-    ro = Feroviar
-    ru = Ж/д станция
-    sk = Železničná stanica
-    sv = Tågstation
-    th = สถานีรถไฟ
-    tr = Gar
-    uk = Залізничний вокзал
-    vi = Đường tàu hỏa
+    ref = type.railway.station
     zh-Hans = 单轨车站
     zh-Hant = 單軌車站
 

@@ -69,7 +69,7 @@ node|z17-[railway=station][transport=subway][city=bangkok] {icon-image: subway-b
 node|z17[railway=subway_entrance][city=bangkok] {icon-image: subway-bangkok-s.svg;text-optional: true;}
 node|z18-[railway=subway_entrance][city=bangkok] {icon-image: subway-bangkok-m.svg;text-optional: true;}
 
-/* Barselona Subway Station */
+/* Barcelona Subway Station */
 node|z13[railway=station][transport=subway][city=barcelona] {icon-image: subway-barcelona-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=barcelona] {icon-image: subway-barcelona-s.svg;}
 node|z15-16[railway=station][transport=subway][city=barcelona] {icon-image: subway-barcelona-m.svg;}
