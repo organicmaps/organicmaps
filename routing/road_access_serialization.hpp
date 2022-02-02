@@ -60,8 +60,7 @@ public:
   }
 
   template <class Source>
-  static void Deserialize(Source & src, VehicleType vehicleType, RoadAccess & roadAccess,
-                          std::string const & mwmPath)
+  static void Deserialize(Source & src, VehicleType vehicleType, RoadAccess & roadAccess)
   {
     auto const readHeader = ReadPrimitiveFromSource<uint32_t>(src);
     auto const header = static_cast<Header>(readHeader);
@@ -71,12 +70,9 @@ public:
     case Header::TheFirstVersionRoadAccess:
       break; // Version of 2017. Unsupported.
     case Header::WithoutAccessConditional:
-    {
       DeserializeAccess(src, vehicleType, roadAccess);
       break;
-    }
     case Header::WithAccessConditional:
-    {
       DeserializeAccess(src, vehicleType, roadAccess);
       // access:conditional should be switch off for release 10.0 and probably for the next one.
       // It means that they should be switch off for cross_mwm section generation and for runtime.
@@ -85,21 +81,11 @@ public:
       // DeserializeAccessConditional(src, vehicleType, roadAccess);
       break;
     }
-    default:
-    {
-      LOG(LWARNING, ("Wrong roadaccess section header version:", static_cast<int>(readHeader),
-                  ". Mwm name:", mwmPath));
-      if (Platform::IsFileExistsByFullPath(mwmPath))
-        LOG(LWARNING, ("SHA1 is:", coding::SHA1::CalculateBase64(mwmPath)));
-
-      UNREACHABLE();
-    }
-    }
   }
 
 private:
   inline static Header const kLatestVersion = Header::WithAccessConditional;
-  
+
   class AccessPosition
   {
   public:
@@ -107,7 +93,7 @@ private:
     {
       return {featureId, 0 /* wildcard pointId for way access */};
     }
-    
+
     static AccessPosition MakePointAccess(uint32_t featureId, uint32_t pointId)
     {
       return {featureId, pointId + 1};
@@ -123,7 +109,7 @@ private:
     {
       return std::tie(m_featureId, m_pointId) < std::tie(rhs.m_featureId, rhs.m_pointId);
     }
-    
+
     uint32_t GetFeatureId() const { return m_featureId; }
     uint32_t GetPointId() const
     {

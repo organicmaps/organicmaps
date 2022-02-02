@@ -126,8 +126,8 @@ bool RestrictionCollector::ParseRestrictions(std::string const & path)
 Joint::Id RestrictionCollector::GetFirstCommonJoint(uint32_t firstFeatureId,
                                                     uint32_t secondFeatureId) const
 {
-  uint32_t const firstLen = m_indexGraph.GetGeometry().GetRoad(firstFeatureId).GetPointsCount();
-  uint32_t const secondLen = m_indexGraph.GetGeometry().GetRoad(secondFeatureId).GetPointsCount();
+  uint32_t const firstLen = m_indexGraph.GetRoadGeometry(firstFeatureId).GetPointsCount();
+  uint32_t const secondLen = m_indexGraph.GetRoadGeometry(secondFeatureId).GetPointsCount();
 
   auto const firstRoad = m_indexGraph.GetRoad(firstFeatureId);
   auto const secondRoad = m_indexGraph.GetRoad(secondFeatureId);
@@ -151,7 +151,7 @@ Joint::Id RestrictionCollector::GetFirstCommonJoint(uint32_t firstFeatureId,
 bool RestrictionCollector::FeatureHasPointWithCoords(uint32_t featureId,
                                                      m2::PointD const & coords) const
 {
-  auto const & roadGeometry = m_indexGraph.GetGeometry().GetRoad(featureId);
+  auto const & roadGeometry = m_indexGraph.GetRoadGeometry(featureId);
   uint32_t const pointsCount = roadGeometry.GetPointsCount();
   for (uint32_t i = 0; i < pointsCount; ++i)
   {
@@ -241,7 +241,7 @@ bool RestrictionCollector::CheckAndProcessUTurn(Restriction::Type & restrictionT
 
     uint32_t & featureId = featureIds.back();
 
-    auto const & road = m_indexGraph.GetGeometry().GetRoad(featureId);
+    auto const & road = m_indexGraph.GetRoadGeometry(featureId);
     // Can not do UTurn from feature to the same feature if it is one way.
     if (road.IsOneWay())
       return false;

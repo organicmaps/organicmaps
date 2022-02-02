@@ -76,7 +76,7 @@ FakeEnding MakeFakeEnding(vector<Segment> const & segments, m2::PointD const & p
 
 FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, IndexGraph & graph)
 {
-  auto const & road = graph.GetGeometry().GetRoad(segment.GetFeatureId());
+  auto const & road = graph.GetRoadGeometry(segment.GetFeatureId());
   bool const oneWay = road.IsOneWay();
   auto const & frontJunction = road.GetJunction(segment.GetPointId(true /* front */));
   auto const & backJunction = road.GetJunction(segment.GetPointId(false /* front */));

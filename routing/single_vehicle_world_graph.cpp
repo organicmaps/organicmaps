@@ -119,7 +119,7 @@ void SingleVehicleWorldGraph::GetEdgeList(
 
   ASSERT(m_parentsForJoints.forward && m_parentsForJoints.backward,
          ("m_parentsForJoints was not initialized in SingleVehicleWorldGraph."));
-  auto & parents = isOutgoing ? *m_parentsForJoints.forward : *m_parentsForJoints.backward;
+  auto const & parents = isOutgoing ? *m_parentsForJoints.forward : *m_parentsForJoints.backward;
   auto & indexGraph = GetIndexGraph(parent.GetMwmId());
   indexGraph.GetEdgeList(parentVertexData, parent, isOutgoing, jointEdges, parentWeights, parents);
 
@@ -211,7 +211,7 @@ vector<RouteSegment::SpeedCamera> SingleVehicleWorldGraph::GetSpeedCamInfo(Segme
 
 RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)
 {
-  return m_loader->GetGeometry(mwmId).GetRoad(featureId);
+  return m_loader->GetIndexGraph(mwmId).GetRoadGeometry(featureId);
 }
 
 void SingleVehicleWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing,

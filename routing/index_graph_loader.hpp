@@ -21,7 +21,6 @@ class IndexGraphLoader
 public:
   virtual ~IndexGraphLoader() = default;
 
-  virtual Geometry & GetGeometry(NumMwmId numMwmId) = 0;
   virtual IndexGraph & GetIndexGraph(NumMwmId mwmId) = 0;
 
   // Because several cameras can lie on one segment we return vector of them.

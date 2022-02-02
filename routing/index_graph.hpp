@@ -41,7 +41,7 @@ public:
 
   template <typename VertexType>
   using Parents = typename AStarGraph<VertexType, void, void>::Parents;
-  
+
   using Restrictions = std::unordered_map<uint32_t, std::vector<std::vector<uint32_t>>>;
 
   using SegmentEdgeListT = SmallList<SegmentEdge>;
@@ -57,32 +57,31 @@ public:
   // Put outgoing (or ingoing) egdes for segment to the 'edges' vector.
   void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
                    bool useRoutingOptions, SegmentEdgeListT & edges,
-                   Parents<Segment> const & parents = {});
+                   Parents<Segment> const & parents = {}) const;
   void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                    SegmentEdgeListT & edges,
-                   Parents<Segment> const & parents = {});
+                   Parents<Segment> const & parents = {}) const;
 
   void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
                    Segment const & parent, bool isOutgoing, JointEdgeListT & edges,
-                   WeightListT & parentWeights, Parents<JointSegment> & parents);
+                   WeightListT & parentWeights, Parents<JointSegment> const & parents) const;
   void GetEdgeList(JointSegment const & parentJoint, Segment const & parent, bool isOutgoing,
                    JointEdgeListT & edges, WeightListT & parentWeights,
-                   Parents<JointSegment> & parents);
+                   Parents<JointSegment> const & parents) const;
 
   std::optional<JointEdge> GetJointEdgeByLastPoint(Segment const & parent,
                                                    Segment const & firstChild, bool isOutgoing,
-                                                   uint32_t lastPoint);
+                                                   uint32_t lastPoint) const;
 
   Joint::Id GetJointId(RoadPoint const & rp) const { return m_roadIndex.GetJointId(rp); }
 
-  Geometry & GetGeometry() { return *m_geometry; }
   bool IsRoad(uint32_t featureId) const { return m_roadIndex.IsRoad(featureId); }
   RoadJointIds const & GetRoad(uint32_t featureId) const { return m_roadIndex.GetRoad(featureId); }
+  RoadGeometry const & GetRoadGeometry(uint32_t featureId) const { return m_geometry->GetRoad(featureId); }
 
   RoadAccess::Type GetAccessType(Segment const & segment) const
   {
-    auto [type, _] = m_roadAccess.GetAccessWithoutConditional(segment.GetFeatureId());
-    return type;
+    return m_roadAccess.GetAccessWithoutConditional(segment.GetFeatureId()).first;
   }
 
   uint32_t GetNumRoads() const { return m_roadIndex.GetSize(); }
@@ -114,14 +113,14 @@ public:
   }
 
   bool IsJoint(RoadPoint const & roadPoint) const;
-  bool IsJointOrEnd(Segment const & segment, bool fromStart);
+  bool IsJointOrEnd(Segment const & segment, bool fromStart) const;
   void GetLastPointsForJoint(SegmentListT const & children, bool isOutgoing,
-                             PointIdListT & lastPoints);
+                             PointIdListT & lastPoints) const;
 
   WorldGraphMode GetMode() const;
-  ms::LatLon const & GetPoint(Segment const & segment, bool front)
+  ms::LatLon const & GetPoint(Segment const & segment, bool front) const
   {
-    return GetGeometry().GetRoad(segment.GetFeatureId()).GetPoint(segment.GetPointId(front));
+    return GetRoadGeometry(segment.GetFeatureId()).GetPoint(segment.GetPointId(front));
   }
 
   /// \brief Check, that we can go to |currentFeatureId|.
@@ -137,7 +136,7 @@ public:
 
   RouteWeight CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing,
                                   Segment const & from, Segment const & to,
-                                  std::optional<RouteWeight const> const & prevWeight = std::nullopt);
+                                  std::optional<RouteWeight const> const & prevWeight = std::nullopt) const;
 
   template <typename T>
   void SetCurrentTimeGetter(T && t) { m_currentTimeGetter = std::forward<T>(t); }
@@ -145,20 +144,20 @@ public:
 private:
   void GetEdgeListImpl(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
                        bool useRoutingOptions, bool useAccessConditional,
-                       SegmentEdgeListT & edges, Parents<Segment> const & parents);
+                       SegmentEdgeListT & edges, Parents<Segment> const & parents) const;
 
   void GetEdgeListImpl(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
                        Segment const & parent, bool isOutgoing, bool useAccessConditional,
                        JointEdgeListT & edges, WeightListT & parentWeights,
-                       Parents<JointSegment> & parents);
+                       Parents<JointSegment> const & parents) const;
 
   void GetNeighboringEdges(astar::VertexData<Segment, RouteWeight> const & fromVertexData,
                            RoadPoint const & rp, bool isOutgoing, bool useRoutingOptions,
                            SegmentEdgeListT & edges, Parents<Segment> const & parents,
-                           bool useAccessConditional);
+                           bool useAccessConditional) const;
   void GetNeighboringEdge(astar::VertexData<Segment, RouteWeight> const & fromVertexData,
                           Segment const & to, bool isOutgoing, SegmentEdgeListT & edges,
-                          Parents<Segment> const & parents, bool useAccessConditional);
+                          Parents<Segment> const & parents, bool useAccessConditional) const;
 
   struct PenaltyData
   {
@@ -170,18 +169,18 @@ private:
     bool m_isFerry;
   };
 
-  PenaltyData GetRoadPenaltyData(Segment const & segment);
+  PenaltyData GetRoadPenaltyData(Segment const & segment) const;
 
   /// \brief Calculates penalties for moving from |u| to |v|.
   /// \param |prevWeight| uses for fetching access:conditional. In fact it is time when user
   /// will be at |u|. This time is based on start time of route building and weight of calculated
   /// path until |u|.
   RouteWeight GetPenalties(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v,
-                           std::optional<RouteWeight> const & prevWeight);
+                           std::optional<RouteWeight> const & prevWeight) const;
 
   void GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId numMwmId,
-                                       bool isOutgoing, SegmentListT & children);
-  void GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing, SegmentListT & children);
+                                       bool isOutgoing, SegmentListT & children) const;
+  void GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing, SegmentListT & children) const;
   void ReconstructJointSegment(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
                                Segment const & parent,
                                SegmentListT const & firstChildren,
@@ -189,7 +188,7 @@ private:
                                bool isOutgoing,
                                JointEdgeListT & jointEdges,
                                WeightListT & parentWeights,
-                               Parents<JointSegment> const & parents);
+                               Parents<JointSegment> const & parents) const;
 
   template <typename AccessPositionType>
   bool IsAccessNoForSure(AccessPositionType const & accessPositionType,
