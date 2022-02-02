@@ -304,9 +304,6 @@ node[office=lawyer],
 area[office=lawyer]
 {z-index: 2600;}
 
-node[amenity=bus_station],
-area[amenity=bus_station],
-node[amenity=ferry_terminal],
 node[man_made=lighthouse],
 area[man_made=lighthouse],
 node[barrier=border_control],
@@ -347,11 +344,6 @@ node[amenity=biergarten],
 area[amenity=biergarten]
 {z-index: 2782;}
 
-node[railway=halt],
-node[railway=station],
-area[building=train_station],
-node[railway=tram_stop],
-area[railway=tram_stop],
 node[historic=monument],
 area[historic=monument],
 node[historic=memorial],
@@ -454,12 +446,30 @@ node[shop=mall],
 area[shop=mall]
 {z-index: 2930;}
 
-node[public_transport=station],
-area[public_transport=station],
 node[railway=subway_entrance],
-node[railway=station][transport=subway],
 node[highway=bus_stop],
 area[highway=bus_stop]
+{z-index: 2950;}
+
+node[railway=halt],
+node[railway=tram_stop],
+area[railway=tram_stop]
+{z-index: 2960;}
+
+node[amenity=bus_station],
+node[public_transport=station],
+{z-index: 2970;}
+
+area[amenity=bus_station],
+area[public_transport=station]
+{z-index: 2980;}
+
+node[railway=station],
+node[amenity=ferry_terminal],
+node[railway=station][transport=subway]
+{z-index: 2990;}
+
+area[building=train_station],
 {z-index: 3000;}
 
 /* 2. NATURAL */
@@ -645,13 +655,17 @@ area|z15-[amenity=water_point]
 
 /* 3. TRANSPORT */
 
-node|z12-[railway=halt],
-node|z14-[railway=station],
-node|z16-[railway=subway_entrance]
+area|z11-[building=train_station],
+node|z12-[railway=station][!transport],
+node|z13-[railway=halt],
+node|z14-[railway=station][transport=subway],
+node|z16-[railway=subway_entrance],
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;text-optional: true;}
-node|z12-[railway=halt]::int_name,
-node|z14-[railway=station]::int_name,
-node|z16-[railway=subway_entrance]::int_name
+area|z11-[building=train_station]::int_name,
+node|z12-[railway=station][!transport]::int_name,
+node|z13-[railway=halt]::int_name,
+node|z14-[railway=station][transport=subway]::int_name,
+node|z16-[railway=subway_entrance]::int_name,
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;text-optional: true;}
 
 node|z12-[railway=station][transport=subway][city=moscow],
@@ -708,11 +722,13 @@ node|z12-[aeroway=aerodrome]::int_name,
 
 /*check offset int_name*/
 
-node|z11[railway=halt]
+area|z11[building=train_station],
 {icon-image: train-s.svg;icon-min-distance: 10;text-optional: true;}
-node|z12[railway=halt]
+area|z12[building=train_station],
+node|z12[railway=station][!transport],
 {icon-image: train-s.svg;text-offset: 1;font-size: 9;text-optional: true;}
-node|z12[railway=halt]::int_name
+area|z12[building=train_station]::int_name,
+node|z12[railway=station][!transport]::int_name,
 {text-offset: 1;font-size: 8;text-optional: true;}
 node|z13[railway=station],
 node|z13[railway=halt],
@@ -804,8 +820,8 @@ area|z18-[railway=tram_stop]
 
 /* 3.4 Bus Station */
 
-node|z12-13[amenity=bus_station],
-area|z12-13[amenity=bus_station]
+node|z13[amenity=bus_station],
+area|z13[amenity=bus_station]
 {icon-image: bus-s.svg;icon-min-distance: 1;text-optional: true;}
 node|z14[amenity=bus_station],
 area|z14[amenity=bus_station]
