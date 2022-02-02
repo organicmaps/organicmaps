@@ -93,7 +93,7 @@ public:
     };
     auto const GetRoad = [&](uint32_t fid) -> routing::RoadGeometry const &
     {
-      return graph->GetGeometry().GetRoad(fid);
+      return graph->GetRoadGeometry(fid);
     };
     auto const GetLastIndex = [&](uint32_t fid)
     {

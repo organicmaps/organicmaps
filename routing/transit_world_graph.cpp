@@ -217,7 +217,7 @@ void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing,
 RoadGeometry const & TransitWorldGraph::GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId)
 {
   CHECK(!TransitGraph::IsTransitFeature(featureId), ("GetRealRoadGeometry not designed for transit."));
-  return m_indexLoader->GetGeometry(mwmId).GetRoad(featureId);
+  return m_indexLoader->GetIndexGraph(mwmId).GetRoadGeometry(featureId);
 }
 
 void TransitWorldGraph::AddRealEdges(astar::VertexData<Segment, RouteWeight> const & vertexData,

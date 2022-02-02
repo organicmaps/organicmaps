@@ -64,17 +64,14 @@ void BuildTestMwmWithRoads(LocalCountryFile & country)
 
 void LoadRoadAccess(string const & mwmFilePath, VehicleType vehicleType, RoadAccess & roadAccess)
 {
-  FilesContainerR const cont(mwmFilePath);
-  TEST(cont.IsExist(ROAD_ACCESS_FILE_TAG), ());
-
   try
   {
+    FilesContainerR const cont(mwmFilePath);
     FilesContainerR::TReader const reader = cont.GetReader(ROAD_ACCESS_FILE_TAG);
     ReaderSource<FilesContainerR::TReader> src(reader);
-
-    RoadAccessSerializer::Deserialize(src, vehicleType, roadAccess, mwmFilePath);
+    RoadAccessSerializer::Deserialize(src, vehicleType, roadAccess);
   }
-  catch (Reader::OpenException const & e)
+  catch (Reader::Exception const & e)
   {
     TEST(false, ("Error while reading", ROAD_ACCESS_FILE_TAG, "section.", e.Msg()));
   }
