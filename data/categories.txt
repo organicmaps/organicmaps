@@ -823,7 +823,7 @@ fr:3Boulangerie
 de:3Bäckerei|Bäckerladen|Bäcker
 hu:3Pékség
 id:Toko roti|Roti
-it:3Panetteria
+it:3Panetteria|Panificio|Forno
 ja:1パン屋|ベーカリー|パン|軽食|持ち帰り
 ko:1베이커리|빵집
 nb:3Bakeri
