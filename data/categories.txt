@@ -131,7 +131,7 @@ fr:Transport
 de:Verkehr
 hu:Közlekedés
 id:Transportasi
-it:Transporto
+it:Trasporto
 ja:交通機関
 ko:수송|교통
 nb:Transport
@@ -996,7 +996,7 @@ fr:Magasin de téléphonie|magasin d'électronique
 de:Handyladen|Eletronikgeschäft|Funktelefone|Mobiltelefone
 hu:Mobiltelefon üzlet|elektronikai szaküzlet
 id:Toko telepon
-it:Negozio di telefonia mobile|negozio di elettronica
+it:Negozio di telefonia mobile|negozio di elettronica|Negozio di cellulari
 ja:携帯ショップ
 ko:휴대폰 대리점|핸드폰|전자제품 상점|전자제품
 nb:Mobiltelefonbutikk|elektronikkbutikk
@@ -1534,7 +1534,7 @@ fr:Centre commercial|Galerie marchande
 de:Einkaufszentrum|Ladenstraße|Einkaufsgalerie|Einkaufen|Einkaufspassage|Kaufhalle|Vergnügungszentrum|Einzelhandel
 hu:Bevásárlóközpont
 id:Mall
-it:Il centro commerciale
+it:Centro commerciale
 ja:モール
 ko:몰|상점|쇼핑몰|쇼핑센터
 nb:Kjøpesenteret
@@ -2282,7 +2282,7 @@ fr:4Belvédère|4point de vue|4panorama
 de:3Panorama|Ausblick|Aussichtspunkt
 hu:4Kilátó|Panoráma
 id:Titik pandang
-it:3Panorama
+it:3Panorama|Punto panoramico
 ja:1観光スポット|見どころ|名所|観光名所
 ko:전망대|관점|뷰포인트|견해|포토 스팟|관망대
 nb:3Utsiktspunkt
