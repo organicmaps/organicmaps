@@ -55,32 +55,16 @@ public class FloatingSearchToolbarController extends SearchToolbarController
     cancelSearchApiAndHide(false);
   }
 
-  public void refreshToolbar()
+  public void refreshQuery()
   {
     showProgress(false);
+    CharSequence query = ParsedMwmRequest.hasRequest() ?
+            ParsedMwmRequest.getCurrentRequest().getTitle()
+            : SearchEngine.INSTANCE.getQuery();
 
-    if (ParsedMwmRequest.hasRequest())
+    if (!TextUtils.isEmpty(query))
     {
-      UiUtils.show(getToolbar());
-
-      if (mVisibilityListener != null)
-        mVisibilityListener.onSearchVisibilityChanged(true);
-
-      setQuery(ParsedMwmRequest.getCurrentRequest().getTitle());
-    }
-    else if (!TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
-    {
-      UiUtils.show(getToolbar());
-
-      if (mVisibilityListener != null)
-        mVisibilityListener.onSearchVisibilityChanged(true);
-
-      setQuery(SearchEngine.INSTANCE.getQuery());
-    }
-    else
-    {
-      hide();
-      clear();
+      setQuery(query);
     }
   }
 
@@ -92,6 +76,13 @@ public class FloatingSearchToolbarController extends SearchToolbarController
       clear();
 
     hide();
+  }
+
+  public void show()
+  {
+    UiUtils.show(getToolbar());
+    if (mVisibilityListener != null)
+      mVisibilityListener.onSearchVisibilityChanged(true);
   }
 
   public boolean hide()
