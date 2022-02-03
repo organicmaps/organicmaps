@@ -5102,18 +5102,18 @@ cont {
     scale: 15
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
   }
   element {
     scale: 16
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-s"
-      priority: 16048
+      priority: 16126
       min_distance: 25
     }
   }
@@ -5121,22 +5121,22 @@ cont {
     scale: 17
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
   }
   element {
     scale: 18
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5152,11 +5152,11 @@ cont {
     scale: 19
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5175,18 +5175,18 @@ cont {
     scale: 15
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
   }
   element {
     scale: 16
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-s"
-      priority: 16048
+      priority: 16126
       min_distance: 25
     }
   }
@@ -5194,22 +5194,22 @@ cont {
     scale: 17
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
   }
   element {
     scale: 18
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5225,11 +5225,11 @@ cont {
     scale: 19
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5248,18 +5248,18 @@ cont {
     scale: 15
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
   }
   element {
     scale: 16
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-s"
-      priority: 16048
+      priority: 16126
       min_distance: 25
     }
   }
@@ -5267,22 +5267,22 @@ cont {
     scale: 17
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
   }
   element {
     scale: 18
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5298,11 +5298,11 @@ cont {
     scale: 19
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5321,18 +5321,18 @@ cont {
     scale: 15
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
   }
   element {
     scale: 16
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-s"
-      priority: 16048
+      priority: 16126
       min_distance: 25
     }
   }
@@ -5340,22 +5340,22 @@ cont {
     scale: 17
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
   }
   element {
     scale: 18
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5371,11 +5371,11 @@ cont {
     scale: 19
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5394,18 +5394,18 @@ cont {
     scale: 15
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
   }
   element {
     scale: 16
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-s"
-      priority: 16048
+      priority: 16126
       min_distance: 25
     }
   }
@@ -5413,22 +5413,22 @@ cont {
     scale: 17
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
   }
   element {
     scale: 18
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5444,11 +5444,11 @@ cont {
     scale: 19
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5467,18 +5467,18 @@ cont {
     scale: 15
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
   }
   element {
     scale: 16
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "zero-icon"
-      priority: 16048
+      priority: 16126
       min_distance: 25
     }
   }
@@ -5486,22 +5486,22 @@ cont {
     scale: 17
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "zero-icon"
-      priority: 16048
+      priority: 16126
     }
   }
   element {
     scale: 18
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5517,11 +5517,11 @@ cont {
     scale: 19
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5540,18 +5540,18 @@ cont {
     scale: 15
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
   }
   element {
     scale: 16
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "zero-icon"
-      priority: 16048
+      priority: 16126
       min_distance: 25
     }
   }
@@ -5559,22 +5559,22 @@ cont {
     scale: 17
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "zero-icon"
-      priority: 16048
+      priority: 16126
     }
   }
   element {
     scale: 18
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5590,11 +5590,11 @@ cont {
     scale: 19
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5613,18 +5613,18 @@ cont {
     scale: 15
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
   }
   element {
     scale: 16
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-s"
-      priority: 16048
+      priority: 16126
       min_distance: 25
     }
   }
@@ -5632,22 +5632,22 @@ cont {
     scale: 17
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
   }
   element {
     scale: 18
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5663,11 +5663,11 @@ cont {
     scale: 19
     area {
       color: 2038555
-      priority: -15952
+      priority: -15874
     }
     symbol {
       name: "parking-m"
-      priority: 16048
+      priority: 16126
     }
     caption {
       primary {
@@ -5686,7 +5686,7 @@ cont {
     scale: 16
     symbol {
       name: "parking-s"
-      priority: 16048
+      priority: 16000
       min_distance: 25
     }
   }
@@ -5736,7 +5736,7 @@ cont {
     scale: 16
     symbol {
       name: "zero-icon"
-      priority: 16048
+      priority: 16000
       min_distance: 25
     }
   }
@@ -5786,7 +5786,7 @@ cont {
     scale: 16
     symbol {
       name: "zero-icon"
-      priority: 16048
+      priority: 16000
       min_distance: 25
     }
   }
@@ -5836,7 +5836,7 @@ cont {
     scale: 16
     symbol {
       name: "zero-icon"
-      priority: 16048
+      priority: 16000
       min_distance: 25
     }
   }
@@ -37877,7 +37877,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 2.0
+      width: 1.5
       priority: 1475
       cap: BUTTCAP
     }
@@ -37899,7 +37899,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.0
+      width: 3.0
       priority: 1475
     }
     area {
@@ -37909,7 +37909,7 @@ cont {
   element {
     scale: 17
     lines {
-      width: 2.0
+      width: 4.5
       priority: 1475
     }
     area {
@@ -37926,7 +37926,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 2.0
+      width: 6.0
       priority: 1475
     }
     area {
@@ -37943,7 +37943,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 8.0
       priority: 1475
     }
     area {
@@ -38010,7 +38010,8 @@ cont {
   element {
     scale: 14
     lines {
-      width: 2.0
+      width: 1.0
+      color: 1712264192
       priority: 1194
       cap: BUTTCAP
     }
@@ -38018,7 +38019,8 @@ cont {
   element {
     scale: 15
     lines {
-      width: 2.0
+      width: 1.5
+      color: 1712264192
       priority: 1194
       cap: BUTTCAP
     }
@@ -38027,27 +38029,31 @@ cont {
     scale: 16
     lines {
       width: 2.0
+      color: 1712264192
       priority: 1194
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.0
+      width: 3.0
+      color: 1712264192
       priority: 1194
     }
   }
   element {
     scale: 18
     lines {
-      width: 2.0
+      width: 4.5
+      color: 1712264192
       priority: 1194
     }
   }
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 6.0
+      color: 1712264192
       priority: 1194
     }
   }
@@ -38241,7 +38247,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 2.0
+      width: 1.5
       priority: 1475
       cap: BUTTCAP
     }
@@ -38263,7 +38269,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.0
+      width: 3.0
       priority: 1475
     }
     area {
@@ -38273,7 +38279,7 @@ cont {
   element {
     scale: 17
     lines {
-      width: 2.0
+      width: 4.5
       priority: 1475
     }
     area {
@@ -38290,7 +38296,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 2.0
+      width: 6.0
       priority: 1475
     }
     area {
@@ -38307,7 +38313,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 8.0
       priority: 1475
     }
     area {
@@ -67615,12 +67621,29 @@ cont {
 cont {
   name: "waterway-dam"
   element {
-    scale: 15
+    scale: 14
     lines {
-      width: 1.0
-      color: 4473924
+      width: 1.5
+      color: 1295201075
       priority: 1970
       cap: BUTTCAP
+    }
+    area {
+      color: 2149720610
+      priority: 1971
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 2.0
+      color: 1295201075
+      priority: 1970
+      cap: BUTTCAP
+    }
+    area {
+      color: 2236962
+      priority: 1971
     }
     path_text {
       primary {
@@ -67633,9 +67656,25 @@ cont {
   element {
     scale: 16
     lines {
-      width: 1.0
-      color: 4473924
+      width: 5.0
+      color: 3158064
+      dashdot {
+      }
+      priority: 1969
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 1295201075
       priority: 1970
+    }
+    area {
+      color: 2236962
+      border {
+        width: 1.0
+        color: 3158064
+      }
+      priority: 1971
     }
     path_text {
       primary {
@@ -67648,9 +67687,25 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 4473924
+      width: 6.5
+      color: 4671303
+      dashdot {
+      }
+      priority: 1969
+      cap: BUTTCAP
+    }
+    lines {
+      width: 4.5
+      color: 439563059
       priority: 1970
+    }
+    area {
+      color: 3355443
+      border {
+        width: 1.0
+        color: 4671303
+      }
+      priority: 1971
     }
     path_text {
       primary {
@@ -67663,9 +67718,25 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.0
-      color: 4473924
+      width: 8.0
+      color: 4671303
+      dashdot {
+      }
+      priority: 1969
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.0
+      color: 3355443
       priority: 1970
+    }
+    area {
+      color: 3355443
+      border {
+        width: 1.0
+        color: 4671303
+      }
+      priority: 1971
     }
     path_text {
       primary {
@@ -67678,9 +67749,25 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.0
-      color: 4473924
+      width: 10.0
+      color: 4671303
+      dashdot {
+      }
+      priority: 1969
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 3355443
       priority: 1970
+    }
+    area {
+      color: 3355443
+      border {
+        width: 1.0
+        color: 4671303
+      }
+      priority: 1971
     }
     path_text {
       primary {
@@ -68912,10 +68999,19 @@ cont {
 cont {
   name: "waterway-weir"
   element {
+    scale: 14
+    lines {
+      width: 1.5
+      color: 1295201075
+      priority: 1970
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 15
     lines {
-      width: 1.0
-      color: 4473924
+      width: 2.0
+      color: 1295201075
       priority: 1475
       cap: BUTTCAP
     }
@@ -68930,8 +69026,8 @@ cont {
   element {
     scale: 16
     lines {
-      width: 1.0
-      color: 4473924
+      width: 3.0
+      color: 1295201075
       priority: 1475
     }
     path_text {
@@ -68945,8 +69041,8 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 4473924
+      width: 4.5
+      color: 1295201075
       priority: 1475
     }
     path_text {
@@ -68960,8 +69056,8 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.0
-      color: 4473924
+      width: 6.0
+      color: 1295201075
       priority: 1475
     }
     path_text {
@@ -68975,8 +69071,8 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.0
-      color: 4473924
+      width: 8.0
+      color: 1295201075
       priority: 1475
     }
     path_text {
