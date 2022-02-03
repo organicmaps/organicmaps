@@ -1253,6 +1253,7 @@
   [type.amenity.fire_station]
     en = Fire Station
     ar = محطة إطفاء
+    be = Пажарная частка
     cs = Hasiči
     da = Brandstation
     de = Feuerwehr
@@ -7367,6 +7368,7 @@
   [type.emergency.defibrillator]
     en = Defibrillator
     ar = مزيل الرجفان
+    be = Дэфібрылятар
     cs = Defibrilátor
     da = Hjertestarter
     de = Defibrillator
@@ -7397,6 +7399,7 @@
   [type.emergency.fire_hydrant]
     en = Fire Hydrant
     ar = صنبور الإطفاء
+    be = Пажарны гідрант
     cs = Požární hydrant
     da = Brandhane
     de = Hydrant
@@ -7416,12 +7419,12 @@
     pt = Boca de incêndio
     pt-BR = Hidrante
     ro = Hidrant
-    ru = Гидрант
+    ru = Пожарный гидрант
     sk = Požiarny hydrant
     sv = Brandpost
     th = หัวจ่ายน้ำดับเพลิง
     tr = Yangın Söndürme Musluğu
-    uk = Пожежний кран
+    uk = Пожежний гідрант
     vi = Vòi chữa cháy
     zh-Hans = 消防栓
     zh-Hant = 消防栓
