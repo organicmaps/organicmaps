@@ -149,10 +149,12 @@ namespace
 
   UNIT_TEST(RussiaMoscowGerPanfilovtsev22SolodchaPravdiRouteTest)
   {
+    // OSRM agrees here to use motorways instead of city roads.
+    // https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=55.858%2C37.410%3B54.794%2C39.837
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents(VehicleType::Car),
         mercator::FromLatLon(55.85792, 37.40992), {0., 0.},
-        mercator::FromLatLon(54.79390, 39.83656), 239426.);
+        mercator::FromLatLon(54.79390, 39.83656), 263920.);
   }
 
   UNIT_TEST(RussiaMoscowBelarusMinsk)
