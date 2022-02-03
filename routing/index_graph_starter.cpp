@@ -22,12 +22,6 @@ Segment GetReverseSegment(Segment const & segment)
   return Segment(segment.GetMwmId(), segment.GetFeatureId(), segment.GetSegmentIdx(),
                  !segment.IsForward());
 }
-
-void FillNumMwmIds(set<Segment> const & segments, set<NumMwmId> & mwms)
-{
-  for (auto const & s : segments)
-    mwms.insert(s.GetMwmId());
-}
 }  // namespace
 
 namespace routing
@@ -170,22 +164,8 @@ RoutingOptions IndexGraphStarter::GetRoutingOptions(Segment const & segment) con
 set<NumMwmId> IndexGraphStarter::GetMwms() const
 {
   set<NumMwmId> mwms;
-  FillNumMwmIds(m_start.m_real, mwms);
-  FillNumMwmIds(m_finish.m_real, mwms);
-  return mwms;
-}
-
-set<NumMwmId> IndexGraphStarter::GetStartMwms() const
-{
-  set<NumMwmId> mwms;
-  FillNumMwmIds(m_start.m_real, mwms);
-  return mwms;
-}
-
-set<NumMwmId> IndexGraphStarter::GetFinishMwms() const
-{
-  set<NumMwmId> mwms;
-  FillNumMwmIds(m_finish.m_real, mwms);
+  mwms.insert(m_start.m_mwmIds.begin(), m_start.m_mwmIds.end());
+  mwms.insert(m_finish.m_mwmIds.begin(), m_finish.m_mwmIds.end());
   return mwms;
 }
 

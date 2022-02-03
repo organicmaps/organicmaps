@@ -98,8 +98,8 @@ public:
   }
 
   std::set<NumMwmId> GetMwms() const;
-  std::set<NumMwmId> GetStartMwms() const;
-  std::set<NumMwmId> GetFinishMwms() const;
+  std::set<NumMwmId> const & GetStartMwms() const { return m_start.m_mwmIds; }
+  std::set<NumMwmId> const & GetFinishMwms() const { return m_finish.m_mwmIds; }
 
   // Checks whether |weight| meets non-pass-through crossing restrictions according to placement of
   // start and finish in pass-through/non-pass-through area and number of non-pass-through crosses.
@@ -205,9 +205,6 @@ public:
     // Mwm ids of connected segments to the ending.
     std::set<NumMwmId> m_mwmIds;
   };
-
-  Ending const & GetStartEnding() const { return m_start; }
-  Ending const & GetFinishEnding() const { return m_finish; }
 
   uint32_t GetFakeNumerationStart() const { return m_fakeNumerationStart; }
 

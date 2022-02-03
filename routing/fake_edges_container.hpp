@@ -18,7 +18,7 @@ class FakeEdgesContainer final
 
 public:
   FakeEdgesContainer(IndexGraphStarter && starter)
-    : m_finish(starter.m_finish)
+    : m_finish(std::move(starter.m_finish))
     , m_fake(std::move(starter.m_fake))
   {
   }
