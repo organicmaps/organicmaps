@@ -106,7 +106,7 @@ ro:4Alimentare|Produse|Alimentație|Magazin
 es:Productos|Comer|Tienda
 sv:Produkter|Mat|Butik|Affär
 th:ซื้อของกินของใช้|อาหาร|ร้านค้า
-tr:4Market|Bakkaliye|Yemek|Mağaza
+tr:4Market|Bakkal|Yiyecek
 uk:Продукти|Їжа|Крамниця|магазин
 vi:Cửa hàng tạp hóa|ẩm thực|Cửa hàng
 zh-Hans:食品|食物|商店
@@ -177,7 +177,7 @@ ro:4Benzinărie|Benzină
 es:3Gasolinera
 sv:3Bensin
 th:ก๊าซ
-tr:3Benzinlik|Yakıt
+tr:3Benzinlik|3Yakıt|3Akaryakıt|2Dizel|2Gaz
 uk:3бензин|3дызель|4паліва|газ
 vi:Khí đốt
 zh-Hans:汽油
@@ -319,7 +319,7 @@ ro:Obiective turistice
 es:Turismo
 sv:Attraktion|Turism|Sevärdheter
 th:สถานที่ท่องเที่ยว
-tr:Görülecek yerler
+tr:Görülecek yerler|3Turizm
 uk:Пам’ятні місця
 vi:Diểm tham quan
 zh-Hans:景点
@@ -459,7 +459,7 @@ ro:3Bancomat
 es:Cajero|cajero automático
 sv:3Bankomat
 th:2เอทีเอ็ม
-tr:3Bankamatik
+tr:3Bankamatik|ATM
 uk:3Банкомат
 vi:ATM
 zh-Hans:自动取款机
@@ -474,6 +474,7 @@ fa:خود پرداز
 en:2RV Facilities|4Caravan|Vanlife|5Campervan|5Motorhome
 be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Дом на колах
 ru:Для автодомов|5Автодом|5Трейлер|Дом на колёсах
+tr:4Karavan|5Karavan Tesisleri
 uk:Для автобудинків|5Автодім|5Автобудинок|5Трейлер|5Караван|Будинок на колесах
 
 amenity-atm|@atm
@@ -500,7 +501,7 @@ ro:bani
 es:dinero
 sv:pengar
 th:เงิน|atm
-tr:atm|3para
+tr:atm|3para|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 uk:гроші
 vi:2Máy atm|tiền
 zh-Hans:钱|atm
@@ -567,7 +568,7 @@ ro:bani
 es:dinero
 sv:pengar
 th:เงิน
-tr:3para
+tr:3para|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 uk:гроші
 vi:tiền
 zh-Hans:钱
@@ -602,7 +603,7 @@ es:Reciclaje de residuos|Eliminación de residuos|Materiales reciclables|Recogid
 es-MX:Reciclaje de desechos|Eliminación de desechos|Materiales reciclables|Recogida separada de basura|Clasificación de desechos|Reutilización
 sv:Återvinning av avfall|Avfallsbehandling|Återvinningsbart avfall|Separat sopinsamling|Sopsortering|Återanvändning
 th:การรีไซเคิล|การใช้ประโยชน์จากขยะ|รีไซเคิลได้|ที่รวบรวมขยะแยกประเภท|การแยกขยะ|รียูส
-tr:Geri dönüşüm|Atık kullanımı|Geri dönüştürülebilir nesneler|Ayrı çöp toplama|Atık ayırma|Yeniden kullanım
+tr:4Geri dönüşüm|4Atık kullanımı|Geri dönüştürülebilir nesneler|Ayrı çöp toplama|Atık ayırma|Yeniden kullanım
 uk:5Переробка відходів|Утилізація відходів|5Прийом вторсировини|5Здати вторсировину|5Роздільний збір сміття|Сортування сміття|Повторне використання
 vi:Tái chế rác thải|Sử dụng rác thải|Tái chế|Thu gom rác riêng|Phân loại rác|Sử dụng lại
 el:Ανακύκλωση|Ανακύκλωση απορριμμάτων|Ανακυκλώσιμα|Ξεχωριστή συλλογή απορριμμάτων|Διαλογή απορριμμάτων|Επαναχρησιμοποίηση
@@ -635,7 +636,7 @@ ro:3Schimb valutar|schimb
 es:3Cambio de divisas|dinero
 sv:3Valutaväxling|3växling|pengar
 th:1แลกเปลี่ยนเงินตรา|หลักสูตร|เงิน
-tr:3Döviz bürosu|3para
+tr:3Döviz bürosu|3para|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 uk:3Обмін валют|валюта|гроші
 vi:2Tỉ giá hiện tại|tỉ giá
 zh-Hans:1货币兑换|兑换|钱|换钱
@@ -668,7 +669,7 @@ ro:2Bar|2cârciumă|băutură
 es:2Bar|2pub
 sv:2Bar|2pub|krog|öl|drink
 th:2บาร์|ผับ|เบียร์|เครื่องดื่ม
-tr:2Bar|2bira|pub|içki
+tr:2Bar|3bira|pub|içki|U+1F37A|U+1F37B|U+1F376
 uk:2Бар|2паб|пиво|напої
 vi:2Quán bar|quán rượu|đồ uống
 zh-Hans:1酒吧|酒馆์|啤酒|饮料|食物
@@ -702,7 +703,7 @@ ro:3Cafenea|3restaurant
 es:3Café|3restaurante
 sv:3Café|3restaurang
 th:3 คาเฟ่|ร้านอาหาร่
-tr:3Kafeterya่|restoran
+tr:4Kafeterya|restoran|2Cafe|Bistro|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375
 uk:3Кафе|3ресторан|2їжа|2їсти
 vi:Cà phê|quán ăn
 zh-Hans:1咖啡馆่|餐厅|食物
@@ -736,7 +737,7 @@ ro:Fast food|3restaurant
 es:4Comida rápida|restaurante|café
 sv:4Snabbmat|3restaurang|3café|takeaway
 th:1อาหารจานด่วน|ร้านอาหาร|คาเฟ่|นำกลับ
-tr:4Fast food|3restoran|3kafeterya
+tr:4Fast food|3restoran|3kafeterya|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374
 uk:3Фастфуд|3ресторан|3кафе|2їжа|2їсти
 vi:Thức ăn nhanh|quán ăn
 zh-Hans:1快餐|餐厅|外卖|食物
@@ -769,7 +770,7 @@ ro:3Restaurant|3cafenea
 es:3Restaurante|3café
 sv:3Restaurang|3café
 th:3ร้านอาหาร
-tr:3Restoran|3kafeterya
+tr:3Restoran|3kafeterya|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
 uk:3Ресторан|3кафе|2їжа|2їсти
 vi:Quán ăn|cà phê
 zh-Hans:1餐厅|咖啡馆|食物
@@ -800,7 +801,7 @@ pt-BR:3Posto de combustível|3gasolina
 ro:3Benzinărie
 sv:3Bensinstation|3bränsle|2gas
 th:3ปั๊มน้ำมัน|เชื้อเพลิง
-tr:3Yakıt|3Benzin istasyonu|2gaz
+tr:3Yakıt|3Benzin istasyonu|2gaz|U+26FD
 uk:азс|агзс|агнкс|бензоколонка|бензозаправка|4автозаправка|3заправка
 vi:Trạm xăng
 zh-Hans:1加油站|燃料
@@ -834,7 +835,7 @@ ro:3Brutărie
 es:3Panadería
 sv:3Bageri
 th:3เบเกอรี่
-tr:3Fırın
+tr:3Fırın|U+1F35E
 uk:3Пекарня
 vi:Hiệu bánh
 zh-Hans:1面包店|商店
@@ -873,7 +874,7 @@ sk:Obchod
 sv:Butik|Affär
 sw:Duka
 th:ร้านค้า
-tr:Mağaza
+tr:Mağaza|U+1F3EA|U+1F3EC
 uk:2Магазин|Крамниця
 zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
@@ -902,7 +903,7 @@ ro:Cosmetică|centru de îngrijire
 es:4Productos cosméticos
 sv:Kosmetika
 th:เครื่องสำอาง
-tr:Bakım ürünleri|güzellik merkezi
+tr:Bakım ürünleri|güzellik merkezi|U+1F3EC|U+1F3EA
 uk:4Косметика
 vi:Mỹ phẩm
 zh-Hans:化妝品|商店
@@ -937,7 +938,7 @@ ro:4Magazin mixt
 es:Tienda de barrio
 sv:Närbutik
 th:ร้านสะดวกซื้อ
-tr:Bakkal
+tr:Bakkal|U+1F3EC|U+1F3EA
 uk:4Міні-маркет|Продуктовий
 vi:Cửa hàng tạp hóa
 zh-Hans:便利店|商店
@@ -972,7 +973,7 @@ ro:Pepinieră|magazin cu articole de grădinărit
 es:Vivero|tienda de jardinería
 sv:Plantskola|trädgårdsbutik
 th:สถานรับเลี้ยงเด็ก|เนอร์สเซอรี่
-tr:Çocuk yuvası|kreş
+tr:Çocuk yuvası|kreş|Anasınıfı|Anaokulu|U+1F3EC|U+1F3EA|U+1F3E1
 uk:Товари для саду
 vi:Nhà trẻ
 zh-Hans:幼儿园|商店
@@ -1007,7 +1008,7 @@ ro:Magazin de telefoane mobile|magazin de electronice
 es:Móviles|Tienda de telefonía móvil|tienda de aparatos electrónicos
 sv:Mobilbutik|elektronikaffär
 th:ร้านขายโทรศัพท์มือถือ|ร้านขายอุปกรณ์อิเล็กโทรนิก
-tr:Cep telefonu mağazası|elektronik mağazası
+tr:3Cep telefonu mağazası|3elektronik mağazası|telefon|cep telefonu|U+1F3EC|U+1F3EA|U+1F4F1|U+1F4F2
 uk:Мобільні телефони|салон мобільного зв'язку|салон мобільних телефонів
 vi:Cửa hàng điện thoại di động|cửa hàng ĐTDĐ
 zh-Hans:手机商店|商店
@@ -1041,7 +1042,7 @@ ro:Florărie
 es:Floristería|tienda de flores
 sv:Blomsteraffär
 th:ร้านดอกไม้
-tr:Çiçekçi
+tr:Çiçekçi|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E
 uk:Магазин квітів
 vi:Cửa hàng hoa|tiệm hoa
 zh-Hans:花店|商店
@@ -1074,7 +1075,7 @@ ro:Măcelărie
 es:Carnicería
 sv:Slaktare
 th:ร้านขายเนื้อ
-tr:Kasap
+tr:Kasap|U+1F356|U+1F357
 uk:М'ясний магазин
 vi:Cửa hàng thịt
 zh-Hans:肉商|商店
@@ -1142,7 +1143,7 @@ ro:Băuturi alcoolice
 es:Licorería|licor
 sv:Spritaffär|alkohol
 th:ร้านขายเหล้า
-tr:Içki dükkanı
+tr:İçki dükkanı|U+1F377
 uk:Винний магазин|крамниця спиртних напоїв
 vi:Cửa hàng rượu|rượu
 zh-Hans:烈酒|商店
@@ -1175,7 +1176,7 @@ ro:Librărie
 es:Librería
 sv:Bokaffär
 th:ร้านหนังสือ
-tr:Kitapçı
+tr:Kitapçı|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5
 uk:Книгарня
 vi:Hiệu sách
 zh-Hans:书店|商店
@@ -1208,7 +1209,7 @@ ro:Magazin de încălțăminte
 es:Zapatería
 sv:Skobutik
 th:ร้านขายรองเท้า
-tr:Ayakkabı mağazası
+tr:Ayakkabı mağazası|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F
 uk:Магазин взуття
 vi:Cửa hàng giày
 zh-Hans:鞋店|商店
@@ -1242,7 +1243,7 @@ ro:Electronice
 es:Electrónica
 sv:Elektronik|elektronikaffär
 th:ร้านขายอุปกรณ์อิเล็กทรอนิกส์
-tr:Elektronik mağazası
+tr:Elektronik mağazası|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1
 uk:Електротехніка|Електроніка
 vi:Cửa hàng điện
 zh-Hans:电子产品|商店
@@ -1275,7 +1276,7 @@ ro:Magazin de bricolaj|hardware
 es:Ferretería|bricolaje
 sv:Järnhandel
 th:ร้านขายฮาร์ดแวร์|ร้านขายวัสดุอุปกรณ์
-tr:Hırdavatçı|Nalbur
+tr:Hırdavatçı|Nalbur|U+1F3EC|U+1F3EA|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614
 uk:Будматеріали|господарський
 vi:Cửa hàng phần cứng
 zh-Hans:硬件店|自助商店|商店
@@ -1309,7 +1310,7 @@ ro:Bijutier
 es:Joyería
 sv:Smycken|juvelerare|guldsmed
 th:ร้านขายเครื่องประดับ
-tr:Kuyumcu
+tr:Kuyumcu|U+1F48D
 uk:Ювелірний магазин
 vi:Đồ trang sức
 zh-Hans:珠宝店|商店
@@ -1343,7 +1344,7 @@ ro:Optică
 es:Óptica
 sv:Optiker|glasögonaffär
 th:ร้านแว่น
-tr:Gözlükçü
+tr:Gözlükçü|2Optik|U+1F453
 uk:Оптика
 vi:Cửa hàng mắt kính
 zh-Hans:眼镜店|商店
@@ -1444,7 +1445,7 @@ ro:Băcănie
 es:Frutería
 sv:Grönsakshandlare
 th:ร้านขายผัด
-tr:Manav
+tr:Manav|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
 uk:Магазин овочів|овочі|фрукти
 vi:Cửa hàng rau củ
 zh-Hans:蔬果零售店|商店
@@ -1477,7 +1478,7 @@ ro:Articole sportive
 es:Artículos de deporte
 sv:Sportaffär
 th:สินค้ากีฬา
-tr:Spor ürünleri
+tr:Spor ürünleri|U+1F3BF|U+1F3A3|U+1F3C2|U+1F6B4|U+26BD|U+1F3C0|U+1F3C8|U+26BE|U+1F3BE|U+1F3C9|U+26F3
 uk:Спортивні товари
 vi:Đồ dùng thể thao
 zh-Hans:运动商品店|商店
@@ -1510,7 +1511,7 @@ ro:3Supermarket
 es:3Supermercado
 sv:3Stormarknad|dagligvaruhandel
 th:3ซูเปอร์มาร์เก็ต
-tr:3Süpermarket
+tr:3Süpermarket|U+1F3EA|U+1F3EC
 uk:3Супермаркет|3універсам
 vi:Siêu thị
 zh-Hans:超市|商店
@@ -1545,7 +1546,7 @@ ro:Mall-ul
 es:Centro comercial
 sv:Galleria|köpcentrum
 th:เดอะมอลล์
-tr:Alışveriş merkezi
+tr:Alışveriş merkezi|AVM
 uk:Торговий центр
 vi:Khu mua sắm
 zh-Hans:商场|商店
@@ -1580,7 +1581,7 @@ ro:Magazin universal
 es:Grandes almacenes
 sv:Varuhus
 th:ห้างสรรพสินค้า
-tr:Alışveriş merkezi
+tr:Alışveriş merkezi|U+1F3EC|U+1F3EA
 uk:Універмаг
 vi:Cửa hàng bách hóa
 zh-Hans:百货商店|商店
@@ -1616,7 +1617,7 @@ ro:Băuturi
 es:Bebidas
 sv:Drinkar|drycker
 th:เครื่องดื่ม
-tr:Içecek
+tr:İçecek|U+1F379
 uk:4Напої|3соки
 vi:Đồ uống
 zh-Hans:饮料|商店
@@ -1649,7 +1650,7 @@ ro:Magazin de calculatoare
 es:Tienda de informática|tienda de ordenadores
 sv:Datorbutik
 th:ร้านขายคอมพิวเตอร์
-tr:Bilgisayar mağazası
+tr:Bilgisayar mağazası|U+1F4BB
 uk:Комп'ютерний магазин|комп'ютерна техніка
 vi:Cửa hàng máy tính
 zh-Hans:电脑商店|商店
@@ -1683,7 +1684,7 @@ ro:Cofetărie
 es:Confitería|confitería
 sv:Konditori|godisbutik
 th:ร้านขายขนมหวาน|ร้านขายลูกกวาด
-tr:Şekerci|tatlıcı
+tr:Şekerci|tatlıcı|U+1F36C|U+1F36D
 uk:Кондитерська
 vi:Cửa hàng kẹo
 zh-Hans:糖果店|商店
@@ -1749,7 +1750,7 @@ ro:Magazin de jucării
 es:Tienda de juguetes|juguetería
 sv:Leksaksaffär
 th:ร้านขายของเล่น
-tr:Oyuncakçı
+tr:Oyuncakçı|Oyuncak Mağazası|Oyuncak|Çocuklar
 uk:Магазин іграшок
 vi:Cửa hàng đồ chơi
 zh-Hans:玩具店|商店
@@ -1813,7 +1814,7 @@ ro:Magazin de haine
 es:Tienda de ropa|3ropa
 sv:Klädbutik|klädaffär|4kläder
 th:ร้านขายเสื้อผ้า|ร้าน
-tr:Giyim mağazası
+tr:Giyim mağazası|Giysi Mağazası|U+1F45A|U+1F457|U+1F456|U+1F455
 uk:Магазин одягу|речі|4одяг
 vi:Cửa hàng quần áo
 zh-Hans:服装店|商店
@@ -1827,6 +1828,7 @@ shop-caravan|@rv
 en:2RV dealership|4Caravan dealership|Motorhome dealership
 be:Продаж аўтадамоў
 ru:Продажа автодомов
+tr:Karavan galerisi
 uk:Продаж автобудинків
 
 shop-car
@@ -1856,7 +1858,7 @@ ro:Magazin auto
 es:Venta de coches
 sv:Bilåterförsäljare
 th:ร้านค้ารถยนต์
-tr:Otomobil mağazası
+tr:Otomobil mağazası|Araba mağazası|Araba showroomu|Otomobil showroomu|Araba galerisi|Otomobil galerisi|U+1F697|U+1F698|U+1F699
 uk:Автосалон
 vi:Cửa hàng xe
 zh-Hans:车店|商店
@@ -1890,7 +1892,7 @@ ro:3Bicicletă|Magazin biciclete
 es:Tienda de bicicletas|bicicleta|bici
 sv:4Cykelaffär|cykel
 th:4จักรยาน|ร้าน
-tr:Bisiklet
+tr:Bisikletçi|Bisiklet|U+1F6B2|U+1F6B4|U+1F6B5
 uk:4Веломагазін|велосипед
 vi:3Cửa hàng xe đạp
 zh-Hans:自行车店|商店
@@ -1921,6 +1923,7 @@ pt-BR:Quiosque
 es:Quiosco
 sv:Kiosk
 th:ร้าน
+tr:Büfe|U+1F4F0
 uk:Кіоск
 zh-Hans:商店
 zh-Hant:1小舖|小店|購物|商店|小攤|攤子|攤販
@@ -1953,7 +1956,7 @@ ro:3Stație de autobuz
 es:Parada de autobús
 sv:Busshållplats|3buss|hållplats
 th:ป้ายรถเมล์|รถเมล์|ขนส่ง
-tr:Otobüs durağı|3otobüs
+tr:Otobüs durağı|3otobüs|3dolmuş|U+1F68C|U+1F68F|U+1F68E|U+1F690
 uk:4Зупинка|4автобус|4траспорт
 vi:3Bến xe buýt
 zh-Hans:1公交车站|公交车|运输|交通
@@ -1987,7 +1990,7 @@ ro:3Stație de tramvai
 es:Parada de tranvía
 sv:Spårvagnshållplats|3spårvagn|hållplats
 th:ป้ายรถราง|ขนส่ง
-tr:3Tramvay durağı
+tr:3Tramvay durağı|Tramvay|U+1F683
 uk:4Зупинка|4трамвай|4транспорт
 vi:Bến tàu điện
 zh-Hans:1电车站|运输|交通
@@ -2020,7 +2023,7 @@ ro:3Gara de autobuz
 es:Estación de autobuses
 sv:Busstation|2buss|station
 th:สถานีขนส่ง|ขนส่ง|สถานี
-tr:4Otobüs terminali|3Otobüs durağı|3otobüs
+tr:4Otobüs terminali|3Otobüs durağı|3otobüs|U+1F68C|U+1F68F|U+1F68D
 uk:Автовокзал|Автостанція|4автобус|4зупинка|4транспорт
 vi:Trạm xe buýt|2Bến xe buýt
 zh-Hans:1公车站|公交车|运输|交通
@@ -2054,7 +2057,7 @@ ro:Feroviar
 es:3Estación de tren|3tren
 sv:3Tågstation|4järnväg|järnväg|3tåg|4station
 th:3สถานีรถไฟ|รถไฟ|สถานี|ขนส่ง
-tr:2Gar|3demiryolları
+tr:2Gar|3demiryolları|İstasyon|Tren|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A|U+1F68B
 uk:Залізничний вокзал|3поїзд|залізниця|3станція|4транспорт
 vi:Đường tàu hỏa
 zh-Hans:1火车站ี|铁路ี|站ี|运输|交通
@@ -2089,7 +2092,7 @@ ro:3Metrou
 es:3Metro
 sv:3Tunnelbana|3tunnelbana|3metro|3tunnelbana
 th:3รถไฟ|สถานีรถไฟใต้ดิน|ท่อ|เมโทร|ใต้ดิน
-tr:2Metro|3yer altı metrosu
+tr:2Metro|3yer altı metrosu|U+1F687
 uk:3Метро|транспорт
 vi:3Ngầm
 zh-Hans:地铁|地铁|地铁|地铁|交通
@@ -2123,7 +2126,7 @@ ro:3Feribot|terminal
 es:3Transbordador|terminal
 sv:3Färja|färjeläge|terminal
 th:2เฟอร์รี่|สถานี
-tr:3Feribot|terminal
+tr:3Feribot|terminal|U+1F6A2|U+1F6A4|U+2693
 uk:3Пором|транспорт
 vi:Phà|bến tàu xe
 zh-Hans:1渡轮|终点站|交通
@@ -2157,7 +2160,7 @@ ro:3Taxi
 es:3Taxi
 sv:3Taxi
 th:3แท็กซี่
-tr:3Taksi
+tr:3Taksi|U+1F695|U+1F696
 uk:3Таксі|транспорт
 vi:3Taxi
 zh-Hans:出租车|交通
@@ -2225,7 +2228,7 @@ ro:3Punct de atracție|obiective turistice
 es:3Atracción turística|3turismo
 sv:3Attraktion|3turism|3sevärdheter
 th:3การท่องเที่ยว|แหล่งท่องเที่ยว|สถานที่ท่องเที่ยว
-tr:3Cazibe merkezleri|3görülecek yerler
+tr:3Cazibe merkezleri|3görülecek yerler|U+1F3A0|U+1F3A1|U+1F3A2|U+1F3AA
 uk:3Пам’ятка|визначна річ|3туризм|пам’ятні місця
 vi:3Hấp dẫn|diểm tham quan
 zh-Hans:1景点|旅游|景点
@@ -2259,7 +2262,7 @@ ro:3Turism
 es:3Obras de arte
 sv:3Konstverk|3turism
 th:งานศิลปะ|3การท่องเที่ยว
-tr:3Turizm
+tr:3Resim|3Sanat|U+1F3A8
 uk:3Твір мистецтва|визначна річ|3туризм|3скульптура|пам’ятні місця
 vi:3Du lịch
 zh-Hans:1旅游|景点
@@ -2327,7 +2330,7 @@ ro:3Informații turistice
 es:4Información
 sv:4Turistinformation|4information
 th:4ข้อมูลการท่องเที่ยว|ข้อมูล
-tr:4Turist bilgileri
+tr:4Turist bilgileri|4Bilgi|U+1F481
 uk:4Турінформація|інформація|пам’ятка|пам’ятні місця
 vi:Thông tin du lịch
 zh-Hans:1旅游信息|信息|景点
@@ -2395,7 +2398,7 @@ ro:3Loc de cult|3templu
 es:4Lugar de culto|templo
 sv:4Plats för tillbedjan|gudstjänstplats|helgedom|3tempel
 th:2สถานที่ประกอบพิธีกรรม
-tr:4Ibadet yerleri|3tapınak
+tr:4Ibadet yerleri|3tapınak|U+1F64F
 uk:3Храм|пам’ятка|алтарь|пам’ятні місця
 vi:Chùa
 zh-Hans:1礼拜场所|庙|景点
@@ -2429,7 +2432,7 @@ ro:Biserică|loc de cult|templu
 es:Iglesia|templo|lugar de culto|basílica
 sv:Kyrka|plats för tillbedjan|tempel
 th:โบสถ์|สถานที่ประกอบพิธีกรรม
-tr:Kilise|ibadet yerleri|tapınak
+tr:Kilise|katedral|bazilika|ibadet yerleri|tapınak|U+1F64F|U+26EA|U+271D|U+2626
 uk:Церква|пам’ятні місця|собор
 vi:Chùa|nhà thờ
 zh-Hans:教堂|礼拜场所|庙|景点
@@ -2462,7 +2465,7 @@ ro:Moschee|loc de cult|templu
 es:Mezquita|templo|lugar de culto
 sv:Moské|plats för tillbedjan|tempel
 th:มัสยิด|สถานที่ประกอบพิธีกรรม
-tr:Cami|ibadet yerleri|tapınak
+tr:Cami|ibadet yerleri|tapınak|U+1F64F|U+262A|U+1F54B|U+1F54C|U+262A
 uk:Мечеть|пам’ятні місця
 vi:Nhà thờ Hồi Giáo|chùa
 zh-Hans:清真寺|礼拜场所|庙|景点
@@ -2495,7 +2498,7 @@ ro:Templu|loc de cult
 es:Templo|lugar de culto
 sv:Tempel|plats för tillbedjan
 th:วัด|สถานที่ประกอบพิธีกรรม
-tr:Tapınak|ibadet yerleri
+tr:Tapınak|ibadet yerleri|U+1F64F|U+26EA|U+2638
 uk:Храм|пам’ятні місця
 vi:Đền|chùa
 zh-Hans:寺庙|礼拜场所|庙|景点
@@ -2528,7 +2531,7 @@ ro:Templu|loc de cult
 es:Templo|lugar de culto
 sv:Tempel|plats för tillbedjan
 th:วัด|สถานที่ประกอบพิธีกรรม
-tr:Tapınak|ibadet yerleri
+tr:Tapınak|ibadet yerleri|U+1F64F|U+1F549
 uk:Храм|пам’ятні місця
 vi:Đền|chùa
 zh-Hans:寺庙|礼拜场所|庙|景点
@@ -2561,7 +2564,7 @@ ro:Sanctuar|templu|loc de cult
 es:Ermita|templo|lugar de culto
 sv:Altare|plats för tillbedjan|tempel
 th:ศาลเจ้า|สถานที่ประกอบพิธีกรรม
-tr:Mabet|ibadet yerleri|tapınak
+tr:Mabet|ibadet yerleri|tapınak|U+1F64F|U+26E9
 uk:Святиня|пам’ятні місця
 vi:Miếu thờ|chùa
 zh-Hans:圣殿|礼拜场所|庙|景点
@@ -2594,7 +2597,7 @@ ro:Sinagogă|templu|loc de cult
 es:Sinagoga|templo|lugar de culto
 sv:Synagoga|plats för tillbedjan|tempel
 th:มัสยิดยิว|สถานที่ประกอบพิธีกรรม
-tr:Sinagog|ibadet yerleri|tapınak
+tr:Sinagog|ibadet yerleri|tapınak|U+1F64F|U+1F54D|U+2721
 uk:Синагога|пам’ятні місця
 vi:Giáo đường Do Thái|chùa
 zh-Hans:犹太教堂|礼拜场所|庙|景点
@@ -2627,7 +2630,7 @@ ro:Templu|loc de cult
 es:Templo|lugar de culto
 sv:Tempel|plats för tillbedjan
 th:วัด|สถานที่ประกอบพิธีกรรม
-tr:Tapınak|ibadet yerleri
+tr:Tapınak|ibadet yerleri|U+1F64F|U+262F
 uk:Храм|пам’ятні місця
 vi:Đền|chùa
 zh-Hans:寺庙|礼拜场所|庙|景点
@@ -2728,7 +2731,7 @@ ro:Sit arheologic
 es:Yacimiento arqueológico
 sv:Arkeologisk plats|fornminne
 th:โบราณสถาน|แหล่งท่องเที่ยว|การท่องเที่ยว
-tr:Arkeolojik alan|cazibe merkezleri
+tr:Arkeolojik alan|Kazı alanı
 uk:Розкопки|історична пам'ятка|туризм|пам’ятні місця
 vi:Điểm khảo cổ
 zh-Hans:考古遗址|旅游|景点
@@ -2762,7 +2765,7 @@ ro:Castel
 es:Castillo
 sv:Slott
 th:ปราสาท|การท่องเที่ยว
-tr:Kale|cazibe merkezleri
+tr:Kale|Saray|Şato|U+1F3EF|U+1F3F0|U+1F451|U+1F478
 uk:Замок|фортеця|мури|туризм|пам'ятка|пам’ятні місця
 vi:Pháo đài
 zh-Hans:城堡|景点|旅游
@@ -2796,7 +2799,7 @@ ro:3Comemorare
 es:Memorial
 sv:3Minnesmärke|monument
 th:ที่ระลึก
-tr:Anıt|abide|cazibe merkezleri
+tr:Anıt|abide|U+1F5FC|U+1F5FD|U+1F5FF
 uk:Меморіал|монумент|пам'ятка|туризм|статуя|пам'ятник|пам’ятні місця
 vi:3Đài tưởng niệm
 zh-Hans:纪念馆|景点
@@ -2830,7 +2833,7 @@ ro:Monument
 es:Monumento
 sv:Monument
 th:3อนุสาวรีย์|การท่องเที่ยว
-tr:Abide|cazibe merkezleri
+tr:Abide|U+1F5FD|U+1F5FF
 uk:Пам'ятник|монумент|статуя|пам'ятка|туризм|пам’ятні місця
 vi:Tượng đài
 zh-Hans:纪念碑|景点
@@ -2864,7 +2867,7 @@ ro:Ruine
 es:Ruinas
 sv:Ruiner
 th:ซากปรักหักพัง|การท่องเที่ยว
-tr:Harabeler|cazibe merkezleri
+tr:Harabeler|U+1F5FF
 uk:Руїни|розвалини|древність|історична пам'ятка|туризм|пам’ятні місця
 vi:Phế tích
 zh-Hans:废墟|景点
@@ -2884,6 +2887,7 @@ ko:배|보트
 pl:Łódź|okręt
 pt:2Barco|2Navio
 pt-BR:2Barco|2Navio
+tr:Gemi|Tekne|Bot
 de:Schiff|Boot
 
 historic-tomb|@tourism
@@ -2896,6 +2900,7 @@ ko:무덤|묘지
 pl:Grób|grobowiec
 pt:Túmulo|2Sepultura|memorial
 pt-BR:Túmulo|2Sepultura|memorial
+tr:Türbe|mezar|lahit|kabir
 de:Grab|Gedenkstätte
 
 leisure-dog_park
@@ -2909,6 +2914,7 @@ ko:개 놀이 공원|도그 파크
 pl:Park dla psów|Wyprowadzanie psów
 pt:Parque canino|Parque para cães
 pt-BR:Parque canino|Parque para cães|Parque para cachorros
+tr:Köpek parkı
 de:4Hundezone|Hundeauslaufzone|Hundeauslauffläche
 fi:Koirapuisto
 he:גינת כלבים
@@ -3006,7 +3012,7 @@ ro:Închiriere de biciclete|Bicicletă
 es:Alquiler de bicicletas|4bicicleta|3alquiler
 sv:4Cykeluthyrning|cykel|cykel|3uthyrning
 th:4จักรยานให้เช่า|4จักรยาน|บริการรถเช่า
-tr:Bisiklet kiralama|4Bisiklet
+tr:Bisiklet kiralama|4Bisiklet|U+1F6B2|U+1F6B4|U+1F6B5
 uk:4Велопрокат|велосипед|3прокат
 vi:Cho thuê xe đạp
 zh-Hans:1自行车租赁
@@ -3043,7 +3049,7 @@ sk:Zdieľanie automobilov
 sv:Samåkning
 sw:Kushiriki Gari
 th:การใช้รถร่วมกัน
-tr:Araç Paylaşımı
+tr:Araç Paylaşımı|Araç kiralama|U+1F697|U+1F698|U+1F699
 uk:Каршерінг
 vi:Chia sẻ Xe
 zh-Hans:拼车点
@@ -3073,7 +3079,7 @@ ro:Închiriere mașini
 es:3Coche de alquiler|alquiler
 sv:3Biluthyrning|bilpool|bil|uthyrning|delning
 th:3รถยนต์|บริการรถเช่า
-tr:3Araç kiralama|araba
+tr:3Araç kiralama|araba|U+1F697|U+1F698|U+1F699
 uk:4Прокат авто|3авто|3машина|прокат
 vi:Ô tô
 zh-Hans:1汽车出租์|汽车์
@@ -3107,7 +3113,7 @@ ro:Cinema
 es:3Cine
 sv:3Bio|biograf
 th:3โรงภาพยนตร์
-tr:3Sinema
+tr:3Sinema|U+1F3A6|U+1F3AC
 uk:3Кіно|кінотеатр
 vi:Rạp chiếu phim
 zh-Hans:1电影院
@@ -3142,7 +3148,7 @@ ro:Teatru
 es:3Teatro
 sv:3Teater|teater
 th:3โรงละคร
-tr:3Tiyatro
+tr:3Tiyatro|U+1F3AD
 uk:3Театр
 vi:Điểm trú ẩn
 zh-Hans:1剧院
@@ -3176,7 +3182,7 @@ ro:Club de noapte
 es:3Discoteca
 sv:3Nattklubb|3disco|dans
 th:3ไนต์คลับ|การเต้นรำ
-tr:3Gece kulübü|dans
+tr:3Gece kulübü|dans|U+1F378|U+1F379|U+1F46F|U+1F483
 uk:3Нічний клуб|3дискотека
 vi:Câu lạc bộ đêm
 zh-Hans:3夜总会
@@ -3208,7 +3214,7 @@ pt-BR:Bordel
 es:Burdel
 sv:Bordell
 th:ซ่อง
-tr:Genelev
+tr:Genelev|U+1F3E9
 uk:Бордель|Будинок розпусти|публiчний будинок
 zh-Hans:妓院
 zh-Hant:妓院
@@ -3239,7 +3245,7 @@ pt-BR:Cassino
 es:Casino
 sv:Kasino
 th:คาสิโน
-tr:Casino
+tr:Casino|U+1F3B0|U+1F3B2|U+1F3B4
 uk:Казино
 zh-Hans:赌场
 zh-Hant:賭場
@@ -3272,7 +3278,7 @@ ro:Colegiu
 es:Colegio
 sv:Högskola
 th:วิทยาลัย
-tr:Kolej
+tr:Kolej|U+1F3EB
 uk:Коледж
 vi:Trường đại học
 zh-Hans:学院
@@ -3306,7 +3312,7 @@ ro:Unitate de pompieri
 es:Parque de bomberos
 sv:Brandstation
 th:2สถานีดับเพลิง
-tr:Itfaiye
+tr:İtfaiye|U+1F692
 uk:Пожежна частина
 vi:Trạm cứu hỏa
 zh-Hans:1消防局
@@ -3340,7 +3346,7 @@ ro:Fântână
 es:Fuente
 sv:Fontän
 th:น้ำพุ
-tr:Çeşme
+tr:Çeşme|U+26F2
 uk:Фонтан
 vi:Đài phun nước
 zh-Hans:1喷泉
@@ -3470,7 +3476,7 @@ pt:3Hospital|2Clínica|3médico|serviços de saúde|primeiros socorros
 pt-BR:Hospital|3clínica|3médico|saúde|serviços de saúde|primeiros socorros
 sv:klinik|3läkare
 th:3โรงพยาบาล|แพทย์
-tr:3klinik|doktor
+tr:hastane|3klinik|doktor|U+1F691|U+1F3E5|U+1F489|U+1F48A|sağlık merkezi|sağlık hizmetleri|ilk yardım
 uk:клініка|лікар|травмпункт
 zh-Hans:诊所|医生
 zh-Hant:醫生|診所|醫療|診療
@@ -3502,7 +3508,7 @@ ro:Clinică|spital
 es:Clínica|centro de salud|hospital
 sv:Klinik|sjukhus
 th:คลินิก|โรงพยาบาล
-tr:Klinik|hastane
+tr:Klinik|hastane|U+1F3E5|U+1F489
 uk:Поліклініка|клініка|лікарня
 vi:Phòng khám|bịnh viện|dưỡng đường|Bệnh viện|BV
 zh-Hans:诊所|医院
@@ -3534,7 +3540,7 @@ ro:Doctor|medic|Cabinet medical|Clinică|spital
 es:Consulta del médico|Clínica|hospital
 sv:Läkarmottagning|klinik|sjukhus
 th:ห้องแพทย์|โรงพยาบาล|คลินิก
-tr:Doktor muayenehanesi|Klinik|hastane
+tr:Doktor muayenehanesi|Klinik|hastane|U+1F489|U+1F3E5|U+1F691
 uk:Лікар|Поліклініка|клініка|лікарня
 vi:Bác sĩ|Phòng khám|bịnh viện|dưỡng đường|BVbệnh viện
 zh-Hans:医师办公室|诊所|医院
@@ -3672,7 +3678,7 @@ ro:Grădiniță
 es:Guardería
 sv:Förskola|dagis
 th:4โรงเรียนอนุบาล
-tr:4Anaokulu
+tr:4Anaokulu|U+1F476|U+1F37C|U+1F6BC
 uk:Дитячий садок|ясла
 vi:Mẫu giáo
 zh-Hans:幼儿园
@@ -3706,7 +3712,7 @@ ro:Bibliotecă
 es:3Biblioteca
 sv:3Bibliotek
 th:3ห้องสมุด
-tr:3Kütüphane
+tr:3Kütüphane|U+1F4D6
 uk:3Бібліотека|книгарня
 vi:Thư viện
 zh-Hans:图书馆
@@ -3729,6 +3735,7 @@ de:3Parkplatz|Parking|Parkhaus|Tiefgarage
 ja:パーキング|コインパーキング
 pt:3Estacionamento
 pt-BR:3Estacionamento
+tr:U+1F697|U+1F17F|U+1F698|U+1F699
 es:3aparcamiento
 sv:Parkering
 uk:автостоянка
@@ -3790,6 +3797,7 @@ ko:약물 매장|약종상
 pl:Apteka
 pt:Parafarmácia
 pt-BR:3Drogaria
+tr:eczane|U+1F489|U+1F48A
 es:3Farmacia
 sv:apotekare
 th:เภสัชกร
@@ -3824,7 +3832,7 @@ ro:Cutie poștală
 es:3Buzón
 sv:3Postlåda|brevlåda|post
 th:3ตู้จดหมาย|ไปรษณีย์
-tr:3Posta kutusu|posta
+tr:3Posta kutusu|posta|U+2709|U+1F4E8|U+1F4E9|U+1F4EA|U+1F4EB|U+1F4EE|U+1F4EC|U+1F4ED
 uk:3Поштова скринька
 vi:Hòm thư|Bưu điện
 zh-Hans:1邮箱|邮政
@@ -3888,7 +3896,7 @@ pt-BR:3Correios
 ro:Oficiul postal
 es:4Oficina de correos|3post
 sv:Postkontor
-tr:3Postane
+tr:3Postane|U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
 vi:Bưu điện
 zh-Hant:郵筒
 sk:poštový úrad
@@ -3921,7 +3929,7 @@ ro:Gunoi
 es:Basura
 sv:Avfallscontainer|Soptunna|skräp|avfall
 th:ขยะ|ถังขยะ
-tr:Çöplüğü|Çöp|çöplük
+tr:Çöplüğü|Çöp|çöplük|U+1F6AE
 uk:Сміттєвий контейнер|сміття|смітник
 vi:Xử lý chất thải|Rác
 zh-Hans:垃圾
@@ -3957,7 +3965,7 @@ ro:Centru de reciclare
 es:Centro de reciclaje|punto limpio
 sv:Återvinningscentral
 th:ศูนย์รีไซเคิล
-tr:Geri dönüşüm merkezi
+tr:Geri dönüşüm merkezi|U+1F6AE|U+267B
 uk:5Пункт прийому вторинної сировини
 vi:Trung tâm tái sinh
 zh-Hans:回收中心
@@ -3992,7 +4000,7 @@ es:Contenedor de reciclaje
 es-MX:Contenedor de reciclaje
 sv:Behållare för återvinningsbart avfall
 th:บรรจุภัณฑ์รีไซเคิล
-tr:Atık toplama merkezi
+tr:Atık toplama merkezi|U+1F6AE|U+267B
 uk:Контейнер для вторсировини
 vi:Thùng rác
 el:Κάδος ανακύκλωσης
