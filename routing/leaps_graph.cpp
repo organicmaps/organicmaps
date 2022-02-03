@@ -81,9 +81,9 @@ void LeapsGraph::GetEdgesList(Segment const & segment, bool isOutgoing,
     crossMwmGraph.GetIngoingEdgeList(segment, edges);
 }
 
-void LeapsGraph::GetEdgesListFromStart(Segment const & segment, EdgeListT & edges)
+void LeapsGraph::GetEdgesListFromStart(Segment const & /*segment*/, EdgeListT & edges)
 {
-  for (auto const mwmId : m_starter.GetStartEnding().m_mwmIds)
+  for (auto const mwmId : m_starter.GetStartMwms())
   {
     // Connect start to all exits (|isEnter| == false).
     auto const & exits = m_starter.GetGraph().GetTransitions(mwmId, false /* isEnter */);
@@ -97,9 +97,9 @@ void LeapsGraph::GetEdgesListFromStart(Segment const & segment, EdgeListT & edge
   }
 }
 
-void LeapsGraph::GetEdgesListToFinish(Segment const & segment, EdgeListT & edges)
+void LeapsGraph::GetEdgesListToFinish(Segment const & /*segment*/, EdgeListT & edges)
 {
-  for (auto const mwmId : m_starter.GetFinishEnding().m_mwmIds)
+  for (auto const mwmId : m_starter.GetFinishMwms())
   {
     // Connect finish to all enters (|isEnter| == true).
     auto const & enters = m_starter.GetGraph().GetTransitions(mwmId, true /* isEnter */);
