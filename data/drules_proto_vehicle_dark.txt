@@ -4881,7 +4881,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -4900,7 +4900,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -4919,7 +4919,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -5030,7 +5030,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -5049,7 +5049,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -5068,7 +5068,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -5112,7 +5112,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -5131,7 +5131,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -5150,7 +5150,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -5223,7 +5223,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -5247,7 +5247,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -5271,7 +5271,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -5309,7 +5309,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -5320,7 +5320,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -5331,7 +5331,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -20405,7 +20405,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -20416,7 +20416,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -20427,7 +20427,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 1644825
+      color: 1931024665
       border {
         width: 1.0
         color: 1842204
@@ -22726,82 +22726,77 @@ cont {
 cont {
   name: "man_made-breakwater"
   element {
-    scale: 12
-    area {
-      color: 328965
-      priority: -15471
-    }
-  }
-  element {
     scale: 13
     area {
-      color: 328965
+      color: 1292174597
       priority: -15471
     }
   }
   element {
     scale: 14
     area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
+      color: 1292174597
       priority: -15471
     }
   }
   element {
     scale: 15
+    lines {
+      width: 2.0
+      color: 1292174597
+      priority: 1529
+      cap: BUTTCAP
+    }
     area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
+      color: 1292174597
       priority: -15471
     }
   }
   element {
     scale: 16
+    lines {
+      width: 3.0
+      color: 1292174597
+      priority: 1529
+    }
     area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
+      color: 1292174597
       priority: -15471
     }
   }
   element {
     scale: 17
+    lines {
+      width: 4.5
+      color: 1292174597
+      priority: 1529
+    }
     area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
+      color: 1292174597
       priority: -15471
     }
   }
   element {
     scale: 18
+    lines {
+      width: 6.0
+      color: 1292174597
+      priority: 1529
+    }
     area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
+      color: 1292174597
       priority: -15471
     }
   }
   element {
     scale: 19
+    lines {
+      width: 8.0
+      color: 1292174597
+      priority: 1529
+    }
     area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
+      color: 1292174597
       priority: -15471
     }
   }
@@ -22809,151 +22804,121 @@ cont {
 cont {
   name: "man_made-cutline"
   element {
-    scale: 14
-    area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
-      priority: -15777
-    }
-  }
-  element {
     scale: 15
-    area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
-      priority: -15777
+    lines {
+      width: 1.5
+      color: 2567507722
+      priority: 1223
+      cap: BUTTCAP
     }
   }
   element {
     scale: 16
-    area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
-      priority: -15777
+    lines {
+      width: 2.0
+      color: 2567507722
+      priority: 1223
     }
   }
   element {
     scale: 17
-    area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
-      priority: -15777
+    lines {
+      width: 3.0
+      color: 2567507722
+      priority: 1223
     }
   }
   element {
     scale: 18
-    area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
-      priority: -15777
+    lines {
+      width: 4.5
+      color: 2567507722
+      priority: 1223
     }
   }
   element {
     scale: 19
-    area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
-      priority: -15777
+    lines {
+      width: 6.0
+      color: 2567507722
+      priority: 1223
     }
   }
 }
 cont {
   name: "man_made-pier"
   element {
-    scale: 12
-    area {
-      color: 328965
-      priority: -15471
-    }
-  }
-  element {
     scale: 13
     area {
-      color: 328965
+      color: 1292174597
       priority: -15471
     }
   }
   element {
     scale: 14
     area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
+      color: 1292174597
       priority: -15471
     }
   }
   element {
     scale: 15
+    lines {
+      width: 2.0
+      color: 1292174597
+      priority: 1529
+      cap: BUTTCAP
+    }
     area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
+      color: 1292174597
       priority: -15471
     }
   }
   element {
     scale: 16
+    lines {
+      width: 3.0
+      color: 1292174597
+      priority: 1529
+    }
     area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
+      color: 1292174597
       priority: -15471
     }
   }
   element {
     scale: 17
+    lines {
+      width: 4.5
+      color: 1292174597
+      priority: 1529
+    }
     area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
+      color: 1292174597
       priority: -15471
     }
   }
   element {
     scale: 18
+    lines {
+      width: 6.0
+      color: 1292174597
+      priority: 1529
+    }
     area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
+      color: 1292174597
       priority: -15471
     }
   }
   element {
     scale: 19
+    lines {
+      width: 8.0
+      color: 1292174597
+      priority: 1529
+    }
     area {
-      color: 328965
-      border {
-        width: 2.0
-        color: 328965
-      }
+      color: 1292174597
       priority: -15471
     }
   }
@@ -42544,42 +42509,122 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.0
-      color: 855309
+      width: 4.0
+      color: 1842204
+      dashdot {
+      }
+      priority: 1928
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.0
+      color: 2149128473
       priority: 1929
       cap: BUTTCAP
+    }
+    area {
+      color: 1511594265
+      border {
+        width: 1.0
+        color: 1842204
+      }
+      priority: 1930
     }
   }
   element {
     scale: 16
     lines {
-      width: 1.0
-      color: 855309
+      width: 5.0
+      color: 1842204
+      dashdot {
+      }
+      priority: 1928
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.0
+      color: 2149128473
       priority: 1929
+    }
+    area {
+      color: 1931024665
+      border {
+        width: 1.0
+        color: 1842204
+      }
+      priority: 1930
     }
   }
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 855309
+      width: 6.5
+      color: 1842204
+      dashdot {
+      }
+      priority: 1928
+      cap: BUTTCAP
+    }
+    lines {
+      width: 4.5
+      color: 2149128473
       priority: 1929
+    }
+    area {
+      color: 1931024665
+      border {
+        width: 1.0
+        color: 1842204
+      }
+      priority: 1930
     }
   }
   element {
     scale: 18
     lines {
-      width: 1.0
-      color: 855309
+      width: 8.0
+      color: 1842204
+      dashdot {
+      }
+      priority: 1928
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.0
+      color: 2149128473
       priority: 1929
+    }
+    area {
+      color: 1931024665
+      border {
+        width: 1.0
+        color: 1842204
+      }
+      priority: 1930
     }
   }
   element {
     scale: 19
     lines {
-      width: 1.0
-      color: 855309
+      width: 10.0
+      color: 1842204
+      dashdot {
+      }
+      priority: 1928
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 2149128473
       priority: 1929
+    }
+    area {
+      color: 1931024665
+      border {
+        width: 1.0
+        color: 1842204
+      }
+      priority: 1930
     }
   }
 }
@@ -43390,8 +43435,8 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.0
-      color: 855309
+      width: 2.0
+      color: 2149128473
       priority: 1929
       cap: BUTTCAP
     }
@@ -43399,32 +43444,32 @@ cont {
   element {
     scale: 16
     lines {
-      width: 1.0
-      color: 855309
+      width: 3.0
+      color: 2149128473
       priority: 1929
     }
   }
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 855309
+      width: 4.5
+      color: 2149128473
       priority: 1929
     }
   }
   element {
     scale: 18
     lines {
-      width: 1.0
-      color: 855309
+      width: 6.0
+      color: 2149128473
       priority: 1929
     }
   }
   element {
     scale: 19
     lines {
-      width: 1.0
-      color: 855309
+      width: 8.0
+      color: 2149128473
       priority: 1929
     }
   }
