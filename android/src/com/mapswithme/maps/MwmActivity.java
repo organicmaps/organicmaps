@@ -383,8 +383,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     args.putBoolean(DownloaderActivity.EXTRA_OPEN_DOWNLOADED, openDownloaded);
     if (mIsTabletLayout)
     {
-      SearchEngine.INSTANCE.cancel();
-      mSearchController.refreshToolbar();
+      closeSearchToolbar(false);
       replaceFragment(DownloaderFragment.class, args, null);
     }
     else
@@ -544,14 +543,26 @@ public class MwmActivity extends BaseMwmFragmentActivity
     UiUtils.hide(mPositionChooser);
   }
 
+  private void refreshSearchToolbar()
+  {
+    mSearchController.refreshQuery();
+    if (!TextUtils.isEmpty(mSearchController.getQuery()))
+    {
+      closeFloatingToolbarsAndPanelsButSearch();
+      mSearchController.show();
+    }
+    else
+    {
+      closeSearchToolbar(true);
+    }
+  }
+
   public void showPositionChooser(boolean isBusiness, boolean applyPosition)
   {
+    closeFloatingToolbarsAndPanels(false);
     UiUtils.show(mPositionChooser);
     setFullscreen(true);
     Framework.nativeTurnOnChoosePositionMode(isBusiness, applyPosition);
-    closePlacePage();
-    mSearchController.cancelSearchApiAndHide(false);
-    hideBookmarkCategoryToolbar();
   }
 
   private void hidePositionChooser()
@@ -587,8 +598,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean onFadeViewTouch()
   {
-    if (!getMainMenuController().isClosed())
-      getMainMenuController().close();
+    closeMenu();
     return getCurrentMenu().close(true);
   }
 
@@ -650,7 +660,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  private void closeAllFloatingPanels()
+  private void closeAllFloatingPanelsTablet()
   {
     if (!mIsTabletLayout)
       return;
@@ -663,12 +673,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public void closeMenu(@Nullable Runnable procAfterClose)
+  public boolean closeMenu()
   {
-    mFadeView.fadeOut();
-    getMainMenuController().close();
+    if (!getMainMenuController().isClosed())
+    {
+      mFadeView.fadeOut();
+      getMainMenuController().close();
+      return true;
+    }
+    return false;
+  }
+
+  public boolean closeMenu(@Nullable Runnable procAfterClose)
+  {
+    boolean closed = closeMenu();
     if (procAfterClose != null)
       procAfterClose.run();
+    return closed;
   }
 
   private boolean closePositionChooser()
@@ -678,8 +699,41 @@ public class MwmActivity extends BaseMwmFragmentActivity
       hidePositionChooser();
       return true;
     }
-
     return false;
+  }
+
+  private boolean closeSearchToolbar(boolean clearText)
+  {
+    if (UiUtils.isVisible(mSearchController.getToolbar()))
+    {
+      mSearchController.cancelSearchApiAndHide(clearText);
+      return true;
+    }
+    return false;
+  }
+
+  private boolean closeBookmarkCategoryToolbar()
+  {
+    if (UiUtils.isVisible(mBookmarkCategoryToolbar))
+    {
+      hideBookmarkCategoryToolbar();
+      return true;
+    }
+    return false;
+  }
+
+  private void closeFloatingToolbarsAndPanelsButSearch()
+  {
+    closeMenu();
+    closePlacePage();
+    closeBookmarkCategoryToolbar();
+    closePositionChooser();
+  }
+
+  private void closeFloatingToolbarsAndPanels(boolean clearSearchText)
+  {
+    closeFloatingToolbarsAndPanelsButSearch();
+    closeSearchToolbar(clearSearchText);
   }
 
   public void startLocationToPoint(final @Nullable MapObject endPoint,
@@ -939,7 +993,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onResume()
   {
     super.onResume();
-    mSearchController.refreshToolbar();
+    refreshSearchToolbar();
     mMainMenu.onResume(null);
     if (Framework.nativeIsInChoosePositionMode())
     {
@@ -1035,15 +1089,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (!getMainMenuController().isClosed())
+    if (closeMenu())
     {
-      getMainMenuController().close();
       return;
     }
 
-    if (mSearchController.hide())
+    if (closeSearchToolbar(true))
     {
-      mSearchController.cancelSearchApiAndHide(true);
       return;
     }
 
@@ -1280,7 +1332,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (removeCurrentFragment(true))
     {
       InputUtils.hideKeyboard(mMainMenu.getFrame());
-      mSearchController.refreshToolbar();
+      refreshSearchToolbar();
     }
   }
 
@@ -1517,8 +1569,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Context context = getApplicationContext();
     if (show)
     {
-      mSearchController.cancelSearchApiAndHide(false);
-      hideBookmarkCategoryToolbar();
+      closeFloatingToolbarsAndPanels(false);
       if (mIsTabletLayout)
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
@@ -1553,13 +1604,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
         mRoutingPlanInplaceController.show(false);
       }
 
-      closeAllFloatingPanels();
+      closeAllFloatingPanelsTablet();
       mNavigationController.resetSearchWheel();
 
       if (completionListener != null)
         completionListener.run();
 
-      updateSearchBar();
+      refreshSearchToolbar();
     }
   }
 
@@ -1589,6 +1640,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mNavAnimationController == null)
       return;
+
+    if (visible) {
+      closeFloatingToolbarsAndPanelsButSearch();
+    }
 
     adjustCompassAndTraffic(visible ? calcFloatingViewsOffset()
                                     : UiUtils.getStatusBarHeight(getApplicationContext()));
@@ -1624,7 +1679,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.updateState(false);
     if (show)
     {
-      mSearchController.cancelSearchApiAndHide(true);
+      closeFloatingToolbarsAndPanels(true);
       if (mFilterController != null)
         mFilterController.show(false);
     }
@@ -1657,7 +1712,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationCancelled()
   {
-    updateSearchBar();
+    refreshSearchToolbar();
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     if (mRoutingPlanInplaceController == null)
       return;
@@ -1739,11 +1794,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     dialog.show(this, ERROR_DRIVING_OPTIONS_DIALOG_TAG);
   }
 
-  private void updateSearchBar()
-  {
-    if (!TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
-      mSearchController.refreshToolbar();
-  }
 
   @Override
   public void onMyPositionModeChanged(int newMode)
