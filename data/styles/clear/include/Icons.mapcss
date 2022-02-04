@@ -39,10 +39,6 @@ area[man_made],
 {-x-me-min-text-priority: 15300;}
 
 node|z17-[leisure],
-node|z16[amenity=parking],
-area|z16[amenity=parking],
-node|z16[amenity=parking_space],
-area|z16[amenity=parking_space]
 {z-index: 6;}
 
 node|z17-[leisure=golf_course],
