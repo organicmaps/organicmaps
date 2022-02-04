@@ -5749,6 +5749,7 @@ pl:Jazda konna
 fr:Sport équestre
 hu:Lovassportok
 de:Pferdesport
+it:Equitazione
 es:Deportes ecuestres
 pt:Desportos equestres
 pt-BR:Esportes equestres
