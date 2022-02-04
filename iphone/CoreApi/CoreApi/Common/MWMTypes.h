@@ -27,7 +27,7 @@ typedef NSArray<NSNumber *> *MWMMarkIDCollection;
 typedef NSArray<NSNumber *> *MWMTrackIDCollection;
 typedef NSArray<NSNumber *> *MWMGroupIDCollection;
 
-typedef NS_ENUM(NSUInteger, MWMBookmarksShareStatus) {
+typedef NS_CLOSED_ENUM(NSUInteger, MWMBookmarksShareStatus) {
   MWMBookmarksShareStatusSuccess,
   MWMBookmarksShareStatusEmptyCategory,
   MWMBookmarksShareStatusArchiveError,
