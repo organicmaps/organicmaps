@@ -106,10 +106,7 @@ LatLonWithAltitude const & IndexGraphStarter::GetFinishJunction() const
 
 bool IndexGraphStarter::ConvertToReal(Segment & segment) const
 {
-  if (!IsFakeSegment(segment))
-    return true;
-
-  return m_fake.FindReal(Segment(segment), segment);
+  return IsFakeSegment(segment) ? m_fake.FindReal(segment, segment) : true;
 }
 
 LatLonWithAltitude const & IndexGraphStarter::GetJunction(Segment const & segment, bool front) const

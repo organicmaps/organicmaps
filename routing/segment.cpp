@@ -42,6 +42,12 @@ bool Segment::IsInverse(Segment const & seg) const
          m_mwmId == seg.m_mwmId && m_forward != seg.m_forward;
 }
 
+bool Segment::IsFakeCreated() const
+{
+  return m_featureId == FakeFeatureIds::kIndexGraphStarterId;
+  //return m_mwmId == kFakeNumMwmId;
+}
+
 bool Segment::IsRealSegment() const
 {
   return m_mwmId != kFakeNumMwmId && !FakeFeatureIds::IsTransitFeature(m_featureId);
