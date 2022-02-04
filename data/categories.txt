@@ -20,7 +20,7 @@
 # @   - indicates the beginning of the group of searh terms translations
 # :   - used to separate the name of the language and translated search synonims.
 # |   - used to separate several categories/groups or translated synonyms.
-# 1-9 - digits in front of a synonym indicate the number of symbols than need to be
+# 1-9 - digits in front of a synonym indicate the number of symbols that need to be
 #       typed in a search query to make this synonym appear in the list of suggestions.
 #       Located immediately after the separating characters ':' or '|'. At most one
 #       digit per synonym is allowed.
