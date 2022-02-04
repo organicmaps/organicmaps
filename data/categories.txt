@@ -5749,6 +5749,7 @@ pl:Jazda konna
 fr:Sport équestre
 hu:Lovassportok
 de:Pferdesport
+it:Equitazione
 es:Deportes ecuestres
 pt:Desportos equestres
 pt-BR:Esportes equestres
@@ -7365,6 +7366,17 @@ zh-Hant:輪胎店|商店
 el:Βουλκανιζατέρ|κατάστημα ελαστικών
 sk:Obchod s pneumatikami
 fa:فروشگاه لاستیک
+
+shop-haberdashery
+en:Haberdashey|Sewing shop
+ru:Галантерея
+de:Kurzwaren
+it:Merceria|Negozio di cucito
+se:Sybehör
+
+shop-sewing
+en:Sewing shop|Haberdashery
+it:Negozio di cucito|Merceria
 
 amenity-car_wash
 en:Car Wash
