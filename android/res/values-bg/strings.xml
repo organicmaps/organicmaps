@@ -473,6 +473,7 @@
 	<string name="mobile_data_option_today">Само днес</string>
 	<string name="mobile_data_option_not_today">Без днес</string>
 	<string name="mobile_data">Мобилни данни</string>
+	<!-- NOTE to translators: please synchronize your translation with the English one. -->
 	<string name="mobile_data_description">Мобилните данни са необходими за показване на подробна информация за местата, като например снимки, цени и отзиви.</string>
 	<string name="mobile_data_option_never">Никога</string>
 	<string name="mobile_data_option_ask">Винаги питай</string>

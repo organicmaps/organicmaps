@@ -834,6 +834,7 @@
 
 "mobile_data" = "อินเทอร์เน็ตมือถือ";
 
+/* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "จำเป็นต้องใช้อินเทอร์เน็ตมือถือในการแสดงข้อมูลโดยรายละเอียดเกี่ยวกับสถานที่ เช่น รูปถ่าย ราคา และรีวิว";
 
 "mobile_data_option_never" = "ไม่ใช้เลย";

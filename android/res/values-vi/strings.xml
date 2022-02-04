@@ -482,6 +482,7 @@
 	<string name="mobile_data_option_today">Chỉ Hôm nay</string>
 	<string name="mobile_data_option_not_today">Không Sử dụng Hôm nay</string>
 	<string name="mobile_data">Internet Di động</string>
+	<!-- NOTE to translators: please synchronize your translation with the English one. -->
 	<string name="mobile_data_description">Internet di động là cần thiết để hiển thị thông tin chi tiết về các nơi, ví dụ như ảnh chụp, giá cả và đánh giá.</string>
 	<string name="mobile_data_option_never">Không bao giờ sử dụng</string>
 	<string name="mobile_data_option_ask">Luôn Hỏi</string>

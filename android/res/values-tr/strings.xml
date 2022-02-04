@@ -30,7 +30,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Ara</string>
 	<!-- Search box placeholder text -->
-	<string name="search_map">Harita Ara</string>
+	<string name="search_map">Haritada Ara</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Şu anda bu cihaz veya uygulama için tüm Konum Hizmetleri devre dışı bırakılmış. Lütfen bunu ayarlardan etkinleştirin.</string>
 	<!-- View and button titles for accessibility -->
@@ -46,7 +46,7 @@
 	<string name="disconnect_usb_cable">Organic Maps’i kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
 	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
 	<string name="not_enough_memory">Uygulamayı başlatmak için yeterli hafıza yok</string>
-	<string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %s’si gerekli.</string>
+	<string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\n%s alan gerekli.</string>
 	<string name="download_resources_continue">Haritaya Git</string>
 	<string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya\ngidebilirsiniz.</string>
 	<string name="download_country_ask">%s indir?</string>
@@ -58,7 +58,7 @@
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s indirme işlemi başarısız oldu</string>
 	<!-- "Add new bookmark list" dialog title -->
-	<string name="add_new_set">Yeni Ayar ekle</string>
+	<string name="add_new_set">Yeni Liste Ekle</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Yer İmi Rengi</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
@@ -129,6 +129,8 @@
 	<string name="recycling">Geri dönüşüm</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Su</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Karavan Tesisleri</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notlar</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -151,17 +153,17 @@
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Hey, Organic Maps’te geçerli konumumu incele! %1$s veya %2$s Çevrimdışı haritalar sende yok mu? Buradan indir: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hey, Organic Maps haritasında pinimi incele!</string>
+	<string name="bookmark_share_email_subject">Hey, Organic Maps haritasında raptiyemi incele!</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hey, Organic Maps’te geçerli konumumu incele!</string>
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Merhaba,\n\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için bu bağlantıya %2$s veya şuna %3$s tıkla.\n\nTeşekkürler.</string>
+	<string name="my_position_share_email">Merhaba,\n\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için bu %2$s veya şu %3$s bağlantıya tıkla.\n\nTeşekkürler.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Paylaş</string>
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">E-posta</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">Panoya Kopyalandı: %1$s</string>
+	<string name="copied_to_clipboard">Panoya kopyalandı: %1$s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Bitti</string>
 	<!-- Prints version number in About dialog -->
@@ -174,7 +176,7 @@
 	<string name="tracks_title">Kayıtlar</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Uzunluk</string>
-	<string name="share_my_location">Yerimi paylaş</string>
+	<string name="share_my_location">Konumumu Paylaş</string>
 	<!-- Settings general group in settings screen -->
 	<string name="prefs_group_general">Genel ayarlar</string>
 	<!-- Settings information group in settings screen -->
@@ -199,7 +201,7 @@
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Ses Dili</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
-	<string name="pref_tts_unavailable">Mevcut değil</string>
+	<string name="pref_tts_unavailable">Mevcut Değil</string>
 	<string name="pref_map_auto_zoom">Otomatik yakınlaştırma</string>
 	<string name="duration_disabled">Kapalı</string>
 	<string name="duration_1_hour">1 saat</string>
@@ -227,7 +229,7 @@
 	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all_button">Hepsini güncelle</string>
+	<string name="downloader_update_all_button">Tümünü güncelle</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Tümünü İptal Et</string>
 	<!-- Downloaded maps category -->
@@ -236,7 +238,7 @@
 	<string name="downloader_queued">Sıraya alındı</string>
 	<string name="downloader_near_me_subtitle">Yakınlarımda</string>
 	<string name="downloader_status_maps">Haritalar</string>
-	<string name="downloader_download_all_button">Hepsini indir</string>
+	<string name="downloader_download_all_button">Hepsini İndir</string>
 	<string name="downloader_downloading">İndiriliyor:</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
 	<string name="downloader_delete_map_while_routing_dialog">Haritayı silmek için lütfen navigasyonu durdurun.</string>
@@ -253,7 +255,7 @@
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Mevcut konumunuzu belirlemek için Google Play Hizmetlerini kullanın</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_maps_along">Rota üzerindeki haritaları indir</string>
+	<string name="routing_download_maps_along">Rota üzerindeki tüm haritaları indir</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Rota oluşturabilmemiz için bulunduğunuz yerden hedefinize kadar olan tüm haritaları indirmemiz ve güncellememiz gerekiyor.</string>
 	<!-- Text for routing error dialog -->
@@ -300,10 +302,10 @@
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Rotanızı takip ederken şunları lütfen unutmayın:</string>
-	<string name="dialog_routing_disclaimer_priority">— Yol durumları, trafik kuralları ve trafik işaretleri, her zaman navigasyon tavsiyelerinden önceliklidir;</string>
+	<string name="dialog_routing_disclaimer_priority">— Yol durumları, trafik kuralları ve trafik işaretleri her zaman navigasyon tavsiyelerinden önceliklidir;</string>
 	<string name="dialog_routing_disclaimer_precision">— Harita doğru olmayabilir, önerilen rota da hedefinize ulaşmak için en uygun yol olmayabilir;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Önerilen rotalar yalnızca tavsiye olarak kabul edilmelidir;</string>
-	<string name="dialog_routing_disclaimer_borders">— Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamız tarafından oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarını geçebilir;</string>
+	<string name="dialog_routing_disclaimer_borders">— Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamız tarafından oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarını geçebilir.</string>
 	<string name="dialog_routing_disclaimer_beware">Lütfen yolda dikkatli ve emniyetli olun!</string>
 	<string name="dialog_routing_check_gps">GPS sinyalini kontrol edin</string>
 	<string name="dialog_routing_error_location_not_found">Rota oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.</string>
@@ -323,12 +325,12 @@
 	<string name="dialog_routing_intermediate_not_determined">Lütfen ara noktanızı ayarlayın.</string>
 	<string name="dialog_routing_system_error">Sistem hatası</string>
 	<string name="dialog_routing_application_error">Uygulama hatası nedeniyle rota oluşturulamadı.</string>
-	<string name="dialog_routing_try_again">Lütfen daha sonra tekrar deneyin</string>
+	<string name="dialog_routing_try_again">Lütfen tekrar deneyin</string>
 	<string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden fazla haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?</string>
 	<string name="dialog_routing_download_cross_route">Bu haritanın bir kısmından geçen daha uygun bir rota oluşturmak için haritayı indirin.</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
-	<string name="search_without_internet_advertisement">Rotaları aramak ve oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra artık internet bağlantısına ihtiyacınız olmayacak.</string>
+	<string name="search_without_internet_advertisement">Aramak ve rota oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra artık internet bağlantısına ihtiyacınız olmayacak.</string>
 	<string name="search_select_map">Haritayı Seçin</string>
 	<!-- «Show» context menu -->
 	<string name="show">Göster</string>
@@ -338,7 +340,7 @@
 	<string name="routing_arrive">Varış: %s</string>
 	<string name="categories">Kategoriler</string>
 	<string name="history">Geçmiş</string>
-	<string name="closed">Kapatıldı</string>
+	<string name="closed">Kapalı</string>
 	<string name="search_not_found">Üzgünüz, hiç bir şey bulamadık.</string>
 	<string name="search_not_found_query">Lütfen başka bir sorgu girin.</string>
 	<string name="search_history_title">Arama Geçmişi</string>
@@ -357,7 +359,7 @@
 	<string name="editor_time_add">Plan Ekle</string>
 	<string name="editor_time_delete">Planı Sil</string>
 	<!-- Text for allday switch. -->
-	<string name="editor_time_allday">Tüm gün (24 saat)</string>
+	<string name="editor_time_allday">Tüm Gün (24 saat)</string>
 	<string name="editor_time_open">Açık</string>
 	<string name="editor_time_close">Kapalı</string>
 	<string name="editor_time_add_closed">Kapalı olduğu saatleri ekle</string>
@@ -371,14 +373,14 @@
 	<string name="editor_report_problem_desription_1">OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde açıklayın.</string>
 	<string name="editor_report_problem_desription_2">Veya bunu https://www.openstreetmap.org/ adresinden kendiniz yapın</string>
 	<string name="editor_report_problem_send_button">Gönder</string>
-	<string name="editor_report_problem_title">Problem</string>
+	<string name="editor_report_problem_title">Sorun</string>
 	<string name="editor_report_problem_no_place_title">Yer mevcut değil</string>
 	<string name="editor_report_problem_under_construction_title">Bakım için kapalı</string>
 	<string name="editor_report_problem_duplicate_place_title">Kopyalanmış yer</string>
 	<string name="autodownload">Otomatik indir</string>
 	<!-- Place Page opening hours text -->
 	<string name="daily">Günlük</string>
-	<string name="twentyfour_seven">Gündüz ve gece</string>
+	<string name="twentyfour_seven">7/24</string>
 	<string name="day_off_today">Bugün kapalı</string>
 	<string name="day_off">Kapalı</string>
 	<string name="today">Bugün</string>
@@ -390,7 +392,7 @@
 	<string name="forgot_password">Şifreni mi unuttun?</string>
 	<string name="logout">Oturumu kapat</string>
 	<string name="thank_you">Teşekkür ederiz</string>
-	<string name="edit_place">Yeri düzenle</string>
+	<string name="edit_place">Yeri Düzenle</string>
 	<string name="add_language">Bir dil ekle</string>
 	<string name="street">Sokak</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -423,7 +425,7 @@
 	<string name="editor_edit_place_name_hint">Yerin adı</string>
 	<string name="editor_edit_place_category_title">Kategori</string>
 	<string name="detailed_problem_description">Sorunun ayrıntılı açıklaması</string>
-	<string name="editor_report_problem_other_title">Farklı bir problem</string>
+	<string name="editor_report_problem_other_title">Farklı bir sorun</string>
 	<string name="placepage_add_business_button">Kuruluş ekle</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
 	<string name="login_to_make_edits_visible">Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için oturum açın</string>
@@ -462,7 +464,7 @@
 	<string name="minute">dk</string>
 	<string name="placepage_place_description">Açıklama</string>
 	<string name="placepage_more_button">Diğer</string>
-	<string name="placepage_more_reviews_button">Diğer yorumlar</string>
+	<string name="placepage_more_reviews_button">Diğer Yorumlar</string>
 	<string name="placepage_call_button">Ara</string>
 	<string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
 	<string name="editor_comment_hint">Yorum…</string>
@@ -481,7 +483,7 @@
 	<string name="error_enter_correct_instagram_page">Geçerli bir İnstagram web adresi veya hesap adı girin</string>
 	<string name="error_enter_correct_twitter_page">Geçerli bir Twitter web adresi veya kullanıcı adı girin</string>
 	<string name="error_enter_correct_vk_page">Geçerli bir VK web adresi veya hesap adı girin</string>
-	<string name="error_enter_correct_line_page">Geçerli bir Line web adresi veya Line ID\'si girin</string>
+	<string name="error_enter_correct_line_page">Geçerli bir LINE web adresi veya LINE ID\'si girin</string>
 	<string name="placepage_add_place_button">Haritaya bir yer ekleyin</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bunu tüm kullanıcılara göndermek ister misiniz?</string>
@@ -501,27 +503,28 @@
 	<string name="mobile_data_option_today">Sadece Bugün</string>
 	<string name="mobile_data_option_not_today">Bugün Kullanma</string>
 	<string name="mobile_data">Mobil İnternet</string>
-	<string name="mobile_data_description">Mobil internet, fotoğraflar, fiyatlar ve yorumlar gibi mekanlarla ilgili ayrıntılı bilgileri görüntülemek için gereklidir.</string>
+	<!-- NOTE to translators: please synchronize your translation with the English one. -->
+	<string name="mobile_data_description">Mobil internet; mekanlarla ilgili ayrıntılı bilgileri, yer imlerinizi ve harita güncelleme bildirimlerini görüntülemek için gereklidir.</string>
 	<string name="mobile_data_option_never">Asla Kullanma</string>
 	<string name="mobile_data_option_ask">Her Zaman Sor</string>
 	<string name="traffic_update_maps_text">Trafik verilerini görüntülemek için haritaların güncellenmesi gerekiyor.</string>
 	<string name="big_font">Harita üzerindeki yazı tipi boyutunu artır</string>
-	<string name="traffic_update_app">Lütfen Organic Maps uygulamasını güncelleyin</string>
+	<string name="traffic_update_app">Lütfen Organic Maps\'i güncelleyin</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafik verileri kullanılamıyor</string>
 	<string name="enable_logging">Günlüğü etkinleştir</string>
 	<!-- Settings: "Send general feedback" button -->
-	<string name="feedback_general">Genel Geribildirim</string>
+	<string name="feedback_general">Genel Geri Bildirim</string>
 	<string name="on">Aç</string>
 	<string name="off">Kapat</string>
-	<string name="prefs_languages_information">Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS\'yi kullanıyor. Uygulamayı, Google Play\'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play, Samsung Apps, App Gallery, FDroid) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma sekmelerini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
+	<string name="prefs_languages_information">Sesli yönlendirme için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS\'yi kullanıyor. Uygulamayı, Google Play\'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play, Samsung Apps, App Gallery, FDroid) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma seçeneğini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
 	<string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
 	<string name="transliteration_title">Latin harf çevirisi</string>
 	<string name="learn_more">Daha fazla bilgi edinin</string>
 	<string name="core_exit">Çık</string>
-	<string name="routing_add_start_point">Güzergâhı planlamak için bir başlangıç noktası ekleyin</string>
-	<string name="routing_add_finish_point">Güzergâhı planlamak için bir varış noktası ekleyin</string>
+	<string name="routing_add_start_point">Rotayı planlamak için bir başlangıç noktası ekleyin</string>
+	<string name="routing_add_finish_point">Rotayı planlamak için bir varış noktası ekleyin</string>
 	<string name="button_exit">Çık</string>
 	<string name="placepage_remove_stop">Kaldır</string>
 	<string name="placepage_add_stop">Ara nokta ekle</string>
@@ -529,7 +532,7 @@
 	<string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin veya support\@organicmaps.app adresinden bizimle iletişime geçin</string>
 	<string name="setting_emulate_bad_storage">Bozuk depolama alanını taklit et</string>
 	<string name="core_entrance">Giriş</string>
-	<string name="error_enter_correct_name">Lütfen, doğru bir isim girin</string>
+	<string name="error_enter_correct_name">Lütfen doğru bir isim girin</string>
 	<string name="bookmark_lists">Listeler</string>
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Tümünü gizle</string>
@@ -562,7 +565,7 @@
 	  <item quantity="other">%d kayıt</item>
 	</plurals>
 	<string name="subtittle_opt_out">Kayıt ayarları</string>
-	<string name="crash_reports">Kilitlenme raporu</string>
+	<string name="crash_reports">Çökme raporu</string>
 	<string name="crash_reports_description">Organic Maps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.</string>
 	<string name="privacy_policy">Gizlilik politikası</string>
 	<string name="terms_of_use">Kullanım koşulları</string>
@@ -586,7 +589,7 @@
 	<string name="speedcam_option_never">Asla</string>
 	<string name="place_description_title">Yer Açıklaması</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
-	<string name="notification_channel_downloader">Harita indiricisi</string>
+	<string name="notification_channel_downloader">Harita indirici</string>
 	<string name="power_managment_title">Güç tasarrufu modu</string>
 	<string name="power_managment_description">Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar</string>
 	<string name="power_managment_setting_never">Asla</string>
@@ -594,7 +597,7 @@
 	<string name="power_managment_setting_manual_max">Maksimum güç tasarrufu</string>
 	<string name="enable_logging_warning_message">Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.</string>
 	<string name="access_rules_author_only">Çevrimiçi düzenleme</string>
-	<string name="driving_options_title">Sürüş seçenekleri</string>
+	<string name="driving_options_title">Yönlendirme seçenekleri</string>
 	<string name="driving_options_subheader">Her rotada kaçının</string>
 	<string name="avoid_tolls">Paralı yollar</string>
 	<string name="avoid_unpaved">Asfaltsız yollar</string>
@@ -649,11 +652,11 @@
 	<string name="religious_places">Dini yerler</string>
 	<string name="select_list">Liste seç</string>
 	<string name="transit_not_found">Metro navigasyonu bu bölgede henüz mevcut değil</string>
-	<string name="dialog_pedestrian_route_is_long_header">Metro güzergahı bulunamadı</string>
+	<string name="dialog_pedestrian_route_is_long_header">Metro rotası bulunamadı</string>
 	<string name="dialog_pedestrian_route_is_long_message">Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin</string>
 	<string name="button_layer_isolines">Arazi</string>
-	<string name="isolines_activation_error_dialog">Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin</string>
-	<string name="isolines_location_error_dialog">Bu bölgede henüz yükseklik çizgileri mevcut değil</string>
+	<string name="isolines_activation_error_dialog">Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin</string>
+	<string name="isolines_location_error_dialog">Arazi katmanı henüz bu bölgede mevcut değil</string>
 	<string name="elevation_profile_ascent">Tırmanış</string>
 	<string name="elevation_profile_descent">İniş</string>
 	<string name="elevation_profile_minaltitude">Min. rakım</string>
@@ -661,7 +664,7 @@
 	<string name="elevation_profile_difficulty">Zorluk</string>
 	<string name="elevation_profile_distance">Mesafe:</string>
 	<string name="elevation_profile_time">Süre:</string>
-	<string name="isolines_toast_zooms_1_10">Konturları görmek için haritayı büyütün</string>
+	<string name="isolines_toast_zooms_1_10">İzohipsleri görmek için haritayı büyütün</string>
 	<string name="download_map_title">Dünya haritasını indir</string>
 	<string name="connection_failure">Bağlantı hatası</string>
 	<string name="disconnect_usb_cable_title">USB kablosunu çıkarın</string>

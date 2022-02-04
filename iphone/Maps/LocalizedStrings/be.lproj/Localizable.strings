@@ -834,7 +834,8 @@
 
 "mobile_data" = "Мабільны інтэрнэт";
 
-"mobile_data_description" = "Мабільны інтэрнэт патрэбны каб паказваць падрабязную інфармацыю пра месцы, такую як фотаздымкі, цэны і водгукі.";
+/* NOTE to translators: please synchronize your translation with the English one. */
+"mobile_data_description" = "Мабільны інтэрнэт неабходны для апавяшчэнняў аб абнаўленні мапы і для адлюстравання падрабязнай інфармацыі аб месцах і закладках.";
 
 "mobile_data_option_never" = "Ніколі не ужываць";
 

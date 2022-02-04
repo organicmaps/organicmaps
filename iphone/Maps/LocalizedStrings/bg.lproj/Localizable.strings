@@ -834,6 +834,7 @@
 
 "mobile_data" = "Мобилни данни";
 
+/* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "Мобилните данни са необходими за показване на подробна информация за местата, като например снимки, цени и отзиви.";
 
 "mobile_data_option_never" = "Никога";

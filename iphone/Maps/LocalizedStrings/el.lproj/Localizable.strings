@@ -834,6 +834,7 @@
 
 "mobile_data" = "Ίντερνετ μέσω δικτύου κινητής";
 
+/* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "Απαιτείται πρόσβαση στο Ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.";
 
 "mobile_data_option_never" = "Να μην χρησιμοποιείται ποτέ";

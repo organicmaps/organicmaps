@@ -834,6 +834,7 @@
 
 "mobile_data" = "移动网络";
 
+/* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。";
 
 "mobile_data_option_never" = "从不使用";

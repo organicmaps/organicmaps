@@ -484,6 +484,7 @@
 	<string name="mobile_data_option_today">วันนี้เท่านั้น</string>
 	<string name="mobile_data_option_not_today">ไม่ใช้วันนี้</string>
 	<string name="mobile_data">อินเทอร์เน็ตมือถือ</string>
+	<!-- NOTE to translators: please synchronize your translation with the English one. -->
 	<string name="mobile_data_description">จำเป็นต้องใช้อินเทอร์เน็ตมือถือในการแสดงข้อมูลโดยรายละเอียดเกี่ยวกับสถานที่ เช่น รูปถ่าย ราคา และรีวิว</string>
 	<string name="mobile_data_option_never">ไม่ใช้เลย</string>
 	<string name="mobile_data_option_ask">ถามก่อนเสมอ</string>

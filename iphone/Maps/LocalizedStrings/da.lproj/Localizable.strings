@@ -834,6 +834,7 @@
 
 "mobile_data" = "Mobilt internet";
 
+/* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "Mobile internet er nødvendigt til visning af detaljerede oplysninger om steder, såsom fotos, priser og anmeldelser.";
 
 "mobile_data_option_never" = "Brug aldrig";
