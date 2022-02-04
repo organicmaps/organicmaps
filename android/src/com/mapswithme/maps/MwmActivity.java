@@ -383,7 +383,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     args.putBoolean(DownloaderActivity.EXTRA_OPEN_DOWNLOADED, openDownloaded);
     if (mIsTabletLayout)
     {
-      closeSearchToolbar(false);
+      closeSearchToolbar(false, true);
       replaceFragment(DownloaderFragment.class, args, null);
     }
     else
@@ -558,7 +558,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      closeSearchToolbar(true);
+      closeSearchToolbar(true, true);
     }
   }
 
@@ -707,18 +707,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  private boolean closeSearchToolbar(boolean clearText)
-  {
-    return closeSearchToolbar(clearText, true);
-  }
-
   private boolean closeSearchToolbar(boolean clearText, boolean stopSearch)
   {
-    if (UiUtils.isVisible(mSearchController.getToolbar()) || mSearchController.hasQuery())
+    if (UiUtils.isVisible(mSearchController.getToolbar()) || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
     {
       if (stopSearch)
       {
         mSearchController.cancelSearchApiAndHide(clearText);
+        mNavigationController.resetSearchWheel();
       }
       else
       {
@@ -1115,7 +1111,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (closeSearchToolbar(true))
+    if (closeSearchToolbar(true, true))
     {
       return;
     }
@@ -1627,7 +1623,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       }
 
       closeAllFloatingPanelsTablet();
-      mNavigationController.resetSearchWheel();
 
       if (completionListener != null)
         completionListener.run();
@@ -1695,7 +1690,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.updateState(false);
     if (show)
     {
-      closeFloatingToolbarsAndPanels(true, false);
+      closeFloatingToolbarsAndPanels(false, false);
       if (mFilterController != null)
         mFilterController.show(false);
     }
@@ -1768,7 +1763,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!RoutingController.get().isPlanning())
       return;
 
-    mNavigationController.resetSearchWheel();
+    closeSearchToolbar(true, true);
   }
 
   @Override
@@ -1959,7 +1954,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onSearchRoutePoint(@RoutePointInfo.RouteMarkType int pointType)
   {
     RoutingController.get().waitForPoiPick(pointType);
-    mNavigationController.resetSearchWheel();
+    closeSearchToolbar(true, true);
     showSearch("");
   }
 
