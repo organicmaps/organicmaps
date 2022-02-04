@@ -834,6 +834,7 @@
 
 "mobile_data" = "Internet Di động";
 
+/* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "Internet di động là cần thiết để hiển thị thông tin chi tiết về các nơi, ví dụ như ảnh chụp, giá cả và đánh giá.";
 
 "mobile_data_option_never" = "Không bao giờ sử dụng";

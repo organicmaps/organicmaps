@@ -834,6 +834,7 @@
 
 "mobile_data" = "Internet mobile";
 
+/* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "L'Internet mobile è necessario per visualizzare informazioni dettagliate sulle località, ad esempio foto, prezzi e recensioni.";
 
 "mobile_data_option_never" = "Non usare mai";

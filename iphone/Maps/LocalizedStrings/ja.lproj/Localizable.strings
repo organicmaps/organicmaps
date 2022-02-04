@@ -834,6 +834,7 @@
 
 "mobile_data" = "モバイルインターネット";
 
+/* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "モバイルインターネットは場所、写真、価格やレビューのような詳細情報を表示するのに必要です。";
 
 "mobile_data_option_never" = "使用しない";

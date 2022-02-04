@@ -495,6 +495,7 @@
 	<string name="mobile_data_option_today">Nur heute</string>
 	<string name="mobile_data_option_not_today">Heute nicht verwenden</string>
 	<string name="mobile_data">Mobiles Internet</string>
+	<!-- NOTE to translators: please synchronize your translation with the English one. -->
 	<string name="mobile_data_description">Mobiles Internet wird benötigt, um genauere Informationen über Orte anzuzeigen, wie Fotos, Preise und Bewertungen.</string>
 	<string name="mobile_data_option_never">Nie verwenden</string>
 	<string name="mobile_data_option_ask">Immer fragen</string>

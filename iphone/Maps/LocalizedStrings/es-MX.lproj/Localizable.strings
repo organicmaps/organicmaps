@@ -834,7 +834,8 @@
 
 "mobile_data" = "Mobile Internet";
 
-"mobile_data_description" = "Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.";
+/* NOTE to translators: please synchronize your translation with the English one. */
+"mobile_data_description" = "Mobile internet is required for map update notifications and for displaying detailed information about places and bookmarks.";
 
 "mobile_data_option_never" = "Never Use";
 

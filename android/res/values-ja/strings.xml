@@ -480,6 +480,7 @@
 	<string name="mobile_data_option_today">今日だけ</string>
 	<string name="mobile_data_option_not_today">今日は使用しない</string>
 	<string name="mobile_data">モバイルインターネット</string>
+	<!-- NOTE to translators: please synchronize your translation with the English one. -->
 	<string name="mobile_data_description">モバイルインターネットは場所、写真、価格やレビューのような詳細情報を表示するのに必要です。</string>
 	<string name="mobile_data_option_never">使用しない</string>
 	<string name="mobile_data_option_ask">常に確認</string>

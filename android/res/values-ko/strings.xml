@@ -482,6 +482,7 @@
 	<string name="mobile_data_option_today">오늘만</string>
 	<string name="mobile_data_option_not_today">오늘 사용 안 함</string>
 	<string name="mobile_data">모바일 인터넷</string>
+	<!-- NOTE to translators: please synchronize your translation with the English one. -->
 	<string name="mobile_data_description">모바일 인터넷은 사진, 가격, 리뷰 등 장소에 대한 자세한 정보를 표시하는 데 필요합니다.</string>
 	<string name="mobile_data_option_never">전혀 사용 안 함</string>
 	<string name="mobile_data_option_ask">항상 표시</string>
