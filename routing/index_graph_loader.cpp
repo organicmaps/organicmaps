@@ -84,7 +84,7 @@ IndexGraphLoaderImpl::IndexGraphLoaderImpl(
 
 IndexGraph & IndexGraphLoaderImpl::GetIndexGraph(NumMwmId numMwmId)
 {
-  auto res = m_graphs.insert({numMwmId, GraphPtrT{}});
+  auto res = m_graphs.try_emplace(numMwmId, GraphPtrT{});
   if (res.second)
     res.first->second = CreateIndexGraph(numMwmId);
   return *(res.first->second);
@@ -92,7 +92,7 @@ IndexGraph & IndexGraphLoaderImpl::GetIndexGraph(NumMwmId numMwmId)
 
 IndexGraphLoaderImpl::CamerasMapT const & IndexGraphLoaderImpl::ReceiveSpeedCamsFromMwm(NumMwmId numMwmId)
 {
-  auto res = m_cachedCameras.insert({numMwmId, {}});
+  auto res = m_cachedCameras.try_emplace(numMwmId, CamerasMapT{});
   if (res.second)
   {
     auto const & file = m_numMwmIds->GetFile(numMwmId);

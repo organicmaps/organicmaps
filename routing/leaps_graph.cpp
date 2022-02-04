@@ -39,8 +39,7 @@ RouteWeight LeapsGraph::HeuristicCostEstimate(Segment const & from, Segment cons
   return m_starter.HeuristicCostEstimate(from, toPoint);
 }
 
-void LeapsGraph::GetEdgesList(Segment const & segment, bool isOutgoing,
-                              EdgeListT & edges)
+void LeapsGraph::GetEdgesList(Segment const & segment, bool isOutgoing, EdgeListT & edges)
 {
   edges.clear();
 
@@ -48,14 +47,14 @@ void LeapsGraph::GetEdgesList(Segment const & segment, bool isOutgoing,
   {
     CHECK(isOutgoing, ("Only forward wave of A* should get edges from start. Backward wave should "
                        "stop when first time visit the |m_startSegment|."));
-    return GetEdgesListFromStart(segment, edges);
+    return GetEdgesListFromStart(edges);
   }
 
   if (segment == m_finishSegment)
   {
     CHECK(!isOutgoing, ("Only backward wave of A* should get edges to finish. Forward wave should "
                         "stop when first time visit the |m_finishSegment|."));
-    return GetEdgesListToFinish(segment, edges);
+    return GetEdgesListToFinish(edges);
   }
 
   if (!m_starter.IsRoutingOptionsGood(segment))
@@ -81,7 +80,7 @@ void LeapsGraph::GetEdgesList(Segment const & segment, bool isOutgoing,
     crossMwmGraph.GetIngoingEdgeList(segment, edges);
 }
 
-void LeapsGraph::GetEdgesListFromStart(Segment const & /*segment*/, EdgeListT & edges)
+void LeapsGraph::GetEdgesListFromStart(EdgeListT & edges) const
 {
   for (auto const mwmId : m_starter.GetStartMwms())
   {
@@ -97,7 +96,7 @@ void LeapsGraph::GetEdgesListFromStart(Segment const & /*segment*/, EdgeListT & 
   }
 }
 
-void LeapsGraph::GetEdgesListToFinish(Segment const & /*segment*/, EdgeListT & edges)
+void LeapsGraph::GetEdgesListToFinish(EdgeListT & edges) const
 {
   for (auto const mwmId : m_starter.GetFinishMwms())
   {
@@ -116,16 +115,6 @@ void LeapsGraph::GetEdgesListToFinish(Segment const & /*segment*/, EdgeListT & e
 ms::LatLon const & LeapsGraph::GetPoint(Segment const & segment, bool front) const
 {
   return m_starter.GetPoint(segment, front);
-}
-
-Segment const & LeapsGraph::GetStartSegment() const
-{
-  return m_startSegment;
-}
-
-Segment const & LeapsGraph::GetFinishSegment() const
-{
-  return m_finishSegment;
 }
 
 RouteWeight LeapsGraph::GetAStarWeightEpsilon()

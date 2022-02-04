@@ -293,7 +293,7 @@ RouteWeight IndexGraphStarterJoints<Graph>::HeuristicCostEstimate(JointSegment c
   Segment fromSegment;
   if (from.IsFake() || IsInvisible(from))
   {
-    auto it = m_reconstructedFakeJoints.find(from);
+    auto const it = m_reconstructedFakeJoints.find(from);
     CHECK(it != m_reconstructedFakeJoints.end(), ("No such fake joint:", from));
     fromSegment = it->second.m_path.back();
   }
@@ -313,7 +313,7 @@ IndexGraphStarterJoints<Graph>::GetPoint(JointSegment const & jointSegment, bool
   Segment segment;
   if (jointSegment.IsFake())
   {
-    auto it = m_fakeJointSegments.find(jointSegment);
+    auto const it = m_fakeJointSegments.find(jointSegment);
     CHECK(it != m_fakeJointSegments.end(), ("No such fake joint:", jointSegment));
     segment = it->second.GetSegment(start);
   }
