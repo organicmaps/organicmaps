@@ -575,7 +575,7 @@
     sk = Prehľadať mapu
     sv = Sök karta
     th = ค้นหาแผนที่
-    tr = Harita Ara
+    tr = Haritada Ara
     uk = Пошук на мапі
     vi = Tìm kiếm Bản đồ
     zh-Hans = 搜索地图
@@ -1118,7 +1118,7 @@
     sk = Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %@.
     sv = Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %@ data.
     th = ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %@ ของข้อมูล
-    tr = Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %@’si gerekli.
+    tr = Başlamadan önce cihazınıza genel dünya haritasını indirelim.\n%@ alan gerekli.
     uk = Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.\nВона потребує %@ даних.
     vi = Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %@ dữ liệu.
     zh-Hans = 在您开始前请让我们下载通用世界地图至您的设备中。\n它需要%@的 数据。
@@ -1410,7 +1410,7 @@
     sk = Pridať novú skupinu záložiek
     sv = Lägg till ny samling
     th = เพิ่มชุดใหม่
-    tr = Yeni Ayar ekle
+    tr = Yeni Liste Ekle
     uk = Додати список
     vi = Thêm Bộ Mới
     zh-Hans = 添加新的集合
@@ -2722,6 +2722,7 @@
     en = RV Facilities
     be = Для аўтадамоў
     ru = Для автодомов
+    tr = Karavan Tesisleri
     uk = Для автобудинків
 
   [description]
@@ -3137,7 +3138,7 @@
     sk = Pozri na moju značku na mape Organic Maps
     sv = Hej, kolla på min pin på Organic Maps kartan
     th = เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ Organic Maps!
-    tr = Hey, Organic Maps haritasında pinimi incele!
+    tr = Hey, Organic Maps haritasında raptiyemi incele!
     uk = Поглянь на мою мiтку на мапі Organic Maps
     vi = Này, hãy xem ghim của tôi tại Organic Maps map
     zh-Hans = 嘿，在 Organic Maps 上查看我标注的图钉吧！
@@ -3209,7 +3210,7 @@
     sk = Ahoj,\n\nPráve som tu: %1$@. Stlačte jeden z týchto odkazov %2$@, %3$@ a uvidíte toto miesto na mape.\n\nVďaka
     sv = Hej,\n\nJag är här nu: %1$@. Klicka på denna länk %2$@ eller denna %3$@ för att se platsen på kartan.\n\nTack.
     th = หวัดดี\n\nฉันอยู่ที่นี่ตอนนี้: %1$@. คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ
-    tr = Merhaba,\n\nŞu anda bulunduğum yer: %1$@. Yeri haritada görmek için bu bağlantıya %2$@ veya şuna %3$@ tıkla.\n\nTeşekkürler.
+    tr = Merhaba,\n\nŞu anda bulunduğum yer: %1$@. Yeri haritada görmek için bu %2$@ veya şu %3$@ bağlantıya tıkla.\n\nTeşekkürler.
     uk = Привіт,\n\nЯ зараз тут: %1$@. Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на мапі.\n\nДякую.
     vi = Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.
     zh-Hans = 嗨，\n\n我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的位置。\n\n谢谢。
@@ -3319,7 +3320,7 @@
     sk = Skopírované do schránky: %1$@
     sv = Kopierat till urklippsbordet: %1$@
     th = คัดลอกไปยังคลิปบอร์ด: %1$@
-    tr = Panoya Kopyalandı: %1$@
+    tr = Panoya kopyalandı: %1$@
     uk = Скопіювати в буфер обміну: %1$@
     vi = Đã sao chép vào Bảng tạm: %1$@
     zh-Hans = 复制到剪贴板:%1$@
@@ -3616,7 +3617,7 @@
     sk = Zdielať moje umiestnenie
     sv = Dela Min Plats
     th = แชร์ตำแหน่งที่ตั้งของฉัน
-    tr = Yerimi paylaş
+    tr = Konumumu Paylaş
     uk = Поділитися моїм місцезнаходженням
     vi = Chia sẻ Vị trí của tôi
     zh-Hans = 共享我的位置
@@ -4091,7 +4092,7 @@
     sk = Nie je k dispozícii
     sv = Inte tillgängligt
     th = ไม่สามารถใช้ได้
-    tr = Mevcut değil
+    tr = Mevcut Değil
     uk = Не доступнi
     vi = Không có sẵn
     zh-Hans = 无法使用
@@ -5041,7 +5042,7 @@
     sk = Aktualizovať všetko
     sv = Uppdatera alla
     th = อัปเดตทั้งหมด
-    tr = Hepsini güncelle
+    tr = Tümünü güncelle
     uk = Оновити всі
     vi = Cập nhật tất cả
     zh-Hans = 更新全部
@@ -5291,7 +5292,7 @@
     sk = Stiahnuť všetko
     sv = Ladda ned alla
     th = ดาวน์โหลดทั้งหมด
-    tr = Hepsini indir
+    tr = Hepsini İndir
     uk = Завантажити всі
     vi = Tải xuống tất cả
     zh-Hans = 下载全部
@@ -5726,7 +5727,7 @@
     sk = Stiahnite si mapy pozdĺž trasy
     sv = Ladda ned kartor längs vägen
     th = ดาวน์โหลดแผนที่ตามเส้นทาง
-    tr = Rota üzerindeki haritaları indir
+    tr = Rota üzerindeki tüm haritaları indir
     uk = Завантажити мапи з дороги
     vi = Tải xuống bản đồ theo tuyến đường
     zh-Hans = 下载沿线地图
@@ -6678,7 +6679,7 @@
     sk = — Podmienky na ceste, dopravné predpisy a značenie majú vždy prednosť pred pokynmi z navigácie;
     sv = — Vägförhållanden, trafiklagar och vägskyltar alltid ska prioriteras över navigeringsråd;
     th = — สภาพถนน กฎจราจร และสัญลักษณ์บนถนนย่อมมีความสำคัญกว่าคำแนะนำเพื่อบอกทางเสมอ;
-    tr = — Yol durumları, trafik kuralları ve trafik işaretleri, her zaman navigasyon tavsiyelerinden önceliklidir;
+    tr = — Yol durumları, trafik kuralları ve trafik işaretleri her zaman navigasyon tavsiyelerinden önceliklidir;
     uk = — Дорожня обстановка, правила дорожнього руху і знаки пріоритетніші, ніж поради програми;
     vi = — Điều kiện đường, luật giao thông và biển báo đường bộ luôn được ưu tiên hơn lời khuyên định hướng;
     zh-Hans = — 路况、交通法规和路标始终优先于导航建议；
@@ -6785,7 +6786,7 @@
     sk = — Buďte opatrní na cestách v pohraničných oblastiach: trasy vytvorené aplikáciou môžu prekročiť hranice štátov na nepovolených miestach;
     sv = — Iakttag försiktighet med rutter i gränszoner: rutterna som vår app skapat kan ibland korsa landsgränser på otillåtna platser;
     th = — โปรดระมัดระวังเมื่อใช้เส้นทางในพื้นที่ชายแดน: บางครั้งเส้นทางที่สร้างขึ้นโดยแอปของเรานั้นอาจข้ามผ่านชายแดนประเทศในพื้นที่ที่ไม่ได้รับการอนุญา;
-    tr = — Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamız tarafından oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarını geçebilir;
+    tr = — Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamız tarafından oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarını geçebilir.
     uk = — Дотримуйтеся обережності з маршрутами у прикордонних зонах: маршрути, створені нашою програмою, іноді можуть перетинати кордони країн у несанкціонованих місцях;
     vi = — Chú ý khi thể dục theo những con đường gần đường biên giới: những con đường do ứng dụng của chúng tôi tạo ra đôi khi có khả năng vượt ra khỏi biên giới vào những địa điểm không được phép;
     zh-Hans = — 小心对待国界区的路线：我们应用创造的路线有时会在未经授权的地方跨越国界;
@@ -7575,7 +7576,7 @@
     sk = Skúste znova, prosím
     sv = Försök igen
     th = กรุณาลองอีกครั้ง
-    tr = Lütfen daha sonra tekrar deneyin
+    tr = Lütfen tekrar deneyin
     uk = Спробуйте знову
     vi = Vui lòng thử lại
     zh-Hans = 请重试
@@ -7721,7 +7722,7 @@
     sk = Stiahnutím mapy už nebudete potrebovať pripojenie k internetu a môžete si začať vyhľadávať a vytvárať trasy.
     sv = För att börja söka och skapa rutter, ladda ner kartan, och du behöver inte Internet-anslutning längre.
     th = เพื่อเริ่มต้นการค้นหาและสร้างเส้นทาง โปรดดาวน์โหลดแผนที่ และคุณจะไม่จำเป็นต้องทำการเชื่อมต่ออินเทอร์เน็ตอีกต่อไป
-    tr = Rotaları aramak ve oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra artık internet bağlantısına ihtiyacınız olmayacak.
+    tr = Aramak ve rota oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra artık internet bağlantısına ihtiyacınız olmayacak.
     uk = Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте мапу і вам більше ніколи не знадобиться інтернет-з’єднання.
     vi = Để bắt đầu tìm kiếm và tạo đường đi, vui lòng tải về bản đồ, và bạn sẽ không cần đến kết nối Internet nữa.
     zh-Hans = 要开始搜索和创建路线，请下载地图，那您就不再需要网络连接了。
@@ -8039,7 +8040,7 @@
     sk = Zatvorené
     sv = Stängt
     th = ปิด
-    tr = Kapatıldı
+    tr = Kapalı
     uk = Зачинено
     vi = Đã đóng
     zh-Hans = 已关闭
@@ -8584,7 +8585,7 @@
     sk = Nepretržite (24 hodín)
     sv = Alla dagar (24 timmar)
     th = ตลอดวัน (24 ชั่วโมง)
-    tr = Tüm gün (24 saat)
+    tr = Tüm Gün (24 saat)
     uk = Весь день (24 години)
     vi = Cả ngày (24 giờ)
     zh-Hans = 全天（24小时）
@@ -9144,7 +9145,7 @@
     sk = Problém
     sv = Problem
     th = ปัญหา
-    tr = Problem
+    tr = Sorun
     uk = Проблема
     vi = Vấn đề
     zh-Hans = 问题
@@ -9392,7 +9393,7 @@
     sk = Deň a noc
     sv = dag och natt
     th = ทั้งกลางวันและกลางคืน
-    tr = Gündüz ve gece
+    tr = 7/24
     uk = Цілодобово
     vi = ngày và đêm
     zh-Hans = 全天候
@@ -9532,7 +9533,7 @@
     sk = Pridať otváracie hodiny
     sv = Lägg till öppettider
     th = เพิ่มชั่วโมงทำการ
-    tr = İş saatlerini ekle
+    tr = Açılış saatlerini ekle
     uk = Додати години роботи
     vi = Thêm giờ làm việc
     zh-Hans = 添加工作时间
@@ -9988,7 +9989,7 @@
     sk = Upraviť miesto
     sv = Ändra platsen
     th = แก้ไขสถานที่
-    tr = Yeri düzenle
+    tr = Yeri Düzenle
     uk = Редагувати місце
     vi = Chỉnh sửa địa điểm
     zh-Hans = 编辑地点
@@ -11211,7 +11212,7 @@
     sk = Iný problém
     sv = Ett annat problem
     th = ปัญหาอีกอย่างหนึ่ง
-    tr = Farklı bir problem
+    tr = Farklı bir sorun
     uk = Інші проблема
     vi = Một vấn đề khác
     zh-Hans = 一个不同的问题
@@ -12267,7 +12268,7 @@
     sk = Identifikácia lokality je zablokovaná
     sv = Platsidentifiering avaktiverad
     th = ปิดการใช้งานการระบุตำแหน่งที่ตั้งแล้ว
-    tr = Konum servisleri devre dışı bırakıldı
+    tr = Konum hizmetleri devre dışı bırakıldı
     uk = Ідентифікацію місцезнаходження відключено
     vi = Chức năng nhận biết địa điểm bị tắt
     zh-Hans = 地点定位被禁用
@@ -12303,7 +12304,7 @@
     sk = Povoliť prístup ku geolokalizácii v nastaveniach prístroja
     sv = Aktivera tillgång till geografisk plats i enhetens inställningar
     th = เปิดใช้งานการเข้าถึงตำแหน่งภูมิศาสตร์ในการตั้งค่าอุปกรณ์
-    tr = Cihaz ayarlarında coğrafi konuma erişimi etkinleştirin
+    tr = Cihaz ayarlarında coğrafi konuma erişim izni verin
     uk = Увімкніть доступ до геолокації в налаштуваннях цього пристрою
     vi = Bật truy cập định vị địa lý trong thiết lập thiết bị
     zh-Hans = 启用设备设置中的地理位置定位
@@ -12785,7 +12786,7 @@
     sv = Fler recensioner
     sw = Maoni Zaidi
     th = รีวิวอื่น ๆ
-    tr = Diğer yorumlar
+    tr = Diğer Yorumlar
     uk = Ще відгуки
     vi = Thêm nhận xét
     zh-Hans = 更多评论
@@ -13458,7 +13459,7 @@
     it = Inserisca un indirizzo web LINE valido o un ID LINE
     ro = Introdu o adresă web LINE valabilă sau un ID LINE
     ru = Введите корректный веб-адрес LINE страницы или LINE ID
-    tr = Geçerli bir Line web adresi veya Line ID'si girin
+    tr = Geçerli bir LINE web adresi veya LINE ID'si girin
     uk = Введіть вірну веб-адресу LINE сторінки або LINE ID
 
   [refresh]
@@ -13490,7 +13491,7 @@
     sk = Aktualizovať
     sv = Uppdatera
     th = อัปเดต
-    tr = Güncelleştirme
+    tr = Yenile
     uk = Оновити
     vi = Cập nhật
     zh-Hans = 更新
@@ -14171,7 +14172,7 @@
 
   [mobile_data_description]
     tags = android,ios
-    en = Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.
+    en = Mobile internet is required for displaying detailed information about places, your bookmarks, and map update notifications.
     ar = الإنترنت المحمول مطلوب لعرض معلومات تفصيلية عن الأماكن مثل الصور الفوتوغرافية والأسعار والمراجعات.
     be = Мабільны інтэрнэт патрэбны каб паказваць падрабязную інфармацыю пра месцы, такую як фотаздымкі, цэны і водгукі.
     bg = Мобилните данни са необходими за показване на подробна информация за местата, като например снимки, цени и отзиви.
@@ -14198,7 +14199,7 @@
     sk = Na zobrazenie podrobnejších informácií o miestach, napríklad fotografií, cien a recenzií, sa vyžaduje mobilný internet.
     sv = Mobil internet krävs för att visa detaljerad information om platser, som t. ex. fotografier, priser och omdömen.
     th = จำเป็นต้องใช้อินเทอร์เน็ตมือถือในการแสดงข้อมูลโดยรายละเอียดเกี่ยวกับสถานที่ เช่น รูปถ่าย ราคา และรีวิว
-    tr = Mobil internet, fotoğraflar, fiyatlar ve yorumlar gibi mekanlarla ilgili ayrıntılı bilgileri görüntülemek için gereklidir.
+    tr = Mobil internet; mekanlarla ilgili ayrıntılı bilgileri, yer imlerinizi ve harita güncelleme bildirimlerini görüntülemek için gereklidir.
     uk = Використання мобільних даних необхідно для відображення докладної інформації про місця (наприклад, фотографій, цін та відгуків).
     vi = Internet di động là cần thiết để hiển thị thông tin chi tiết về các nơi, ví dụ như ảnh chụp, giá cả và đánh giá.
     zh-Hans = 要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。
@@ -14373,7 +14374,7 @@
     sk = Aktualizujte si aplikáciu Organic Maps
     sv = Uppdatera Organic Maps
     th = กรุณาอัปเดต Organic Maps
-    tr = Lütfen Organic Maps uygulamasını güncelleyin
+    tr = Lütfen Organic Maps'i güncelleyin
     uk = Будь ласка, встановіть оновлення Organic Maps
     vi = Vui lòng cập nhật Organic Maps
     zh-Hans = 请更新 Organic Maps
@@ -14517,7 +14518,7 @@
     sv = Allmän feedback
     sw = Maoni Jumla
     th = ข้อเสนอแนะทั่วไป
-    tr = Genel Geribildirim
+    tr = Genel Geri Bildirim
     uk = Загальний відгук
     vi = Phản hồi chung
     zh-Hans = 一般反馈
@@ -14625,7 +14626,7 @@
     sv = Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     sw = Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     th = เราใช้ระบบ TTS สำหรับคำแนะนำด้วยเสียงพูด เครื่องแอนดรอยด์จำนวนมากใช้งาน Google TTS คุณสามารถดาวน์โหลดหรืออัปเดตได้จาก Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
-    tr = Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS'yi kullanıyor. Uygulamayı, Google Play'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    tr = Sesli yönlendirme için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS'yi kullanıyor. Uygulamayı, Google Play'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)
     uk = Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     vi = Chúng tôi sử dụng TTS hệ thống để hướng dẫn bằng giọng nói. Rất nhiều thiết bị Android sử dụng Google TTS, bạn có thể tải về hoặc cập nhật nó từ Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     zh-Hans = 我们为语音指令使用“文字转语音”系统。许多 Android 设备使用 Google 文字转语音，您可以从 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下载或更新这一功能
@@ -14660,7 +14661,7 @@
     sv = För vissa språk måste du installera en annan talsyntes eller ett annat språkpaket från appbutiken (Google Play Market, Samsung-appar).\nÖppna inställningarna på enheten → Språk och inmatning → Tal → Text till tal-uppspelning.\nHär kan du hantera inställningarna för talsyntes (till exempel, ladda ned språkpaket för användning offline) och välja en annan text till tal-motor.
     sw = Kwa baadhi ya lugha, utahitaji kusakinisha programu nyingine ya kusanidi usemi au kifurushi cha ziada cha lugha kutoka kwenye duka la programu-tumizi (Google Play, Samsung Apps, App Gallery, FDroid).\nFungua mipangilio ya kifaa chako → Lugha na Ingizo → Usemi → Tokeo la maandishi kuwa usemi.\nHapa unaweza kusimamia usanidi wa usemi (kwa mfano, kupakua kifurushi cha lugha ili utumie nje ya mtandao) na uchague injini nyingine ya maandishi-kuwa-usemi.
     th = สำหรับบางภาษาคุณจำเป็นต้องติดตั้งตัวสังเคราะห์เสียงหรือชุดภาษาเพิ่มเติมจากแอปสโตร์ (Google Play, Samsung Apps, App Gallery, FDroid)\nเปิดการตั้งค่าของเครื่องคุณ → ภาษาและการป้อนข้อมูล → คำพูด → เอาต์พุตการอ่านออกเสียง\nที่นี่คุณสามารถจัดการการตั้งค่าสำหรับการสังเคราะห์เสียง (ตัวอย่างเช่น ดาวน์โหลดชุดภาษาสำหรับใช้งานออฟไลน์) และเลือกเครื่องมืออ่านออกเสียงข้อความตัวอื่นได้
-    tr = Bazı diller için uygulama mağazasından (Google Play, Samsung Apps, App Gallery, FDroid) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma sekmelerini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.
+    tr = Bazı diller için uygulama mağazasından (Google Play, Samsung Apps, App Gallery, FDroid) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma seçeneğini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.
     uk = Для деяких мов вам знадобиться встановити інший додаток для синтезу мовлення або додатковий мовний пакет з магазину додатків (Google Play, Samsung Apps, App Gallery, FDroid).\nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.\nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.
     vi = Đối với một số ngôn ngữ, bạn sẽ cần cài đặt một trình tổng hợp lời nói khác hoặc một gói ngôn ngữ bổ sung từ cửa hàng ứng dụng (Google Play, Samsung Apps, App Gallery, FDroid).\nMở cài đặt của thiết bị → Ngôn ngữ và nhập liệu → Lời nói → Đầu ra văn bản sang lời nói.\nTại đây bạn có thể quản lý các cài đặt tổng hợp lời nói (ví dụ, tải về các gói ngôn ngữ để sử dụng ngoại tuyến) và chọn một công cụ chuyển đổi văn bản sang lời nói khác.
     zh-Hans = 对于某些语言，您需要从应用商店（Google Play Market、Samsung Apps）中安装其他语音合成器或语言包。\n打开您的设备的设置 → 语言和输入法 → 语音 → 文字转语音 (TTS) 输出。\n您可以在这里管理语音合成的设置（例如，下载语言包供离线使用）和选择其他文字转语音引擎。
@@ -14845,7 +14846,7 @@
     sv = Lägg till startpunkt för att planera en rutt
     sw = Ongeza eneo la kuanzia ili kupanga njia ya kufuata
     th = เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง
-    tr = Güzergâhı planlamak için bir başlangıç noktası ekleyin
+    tr = Rotayı planlamak için bir başlangıç noktası ekleyin
     uk = Вкажіть початкову точку для побудови маршруту
     vi = Bổ sung điểm bắt đầu để lập kế hoạch lộ trình
     zh-Hans = 添加起点以规划路线
@@ -14881,7 +14882,7 @@
     sv = Lägg till slutpunkt för att planera en rutt
     sw = Ongeza eneo la kumalizia ili kupanga njia ya kufuata
     th = เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง
-    tr = Güzergâhı planlamak için bir varış noktası ekleyin
+    tr = Rotayı planlamak için bir varış noktası ekleyin
     uk = Вкажіть кінцеву точку для побудови маршруту
     vi = Bổ sung điểm kết thúc để lập kế hoạch lộ trình
     zh-Hans = 添加终点以规划路线
@@ -14953,7 +14954,7 @@
     sv = Hantera rutt
     sw = Dhibiti njia ya kufuata
     th = จัดการเส้นทาง
-    tr = Güzergâhı yönet
+    tr = Rotayı yönet
     uk = Редагування маршруту
     vi = Quản lý lộ trình
     zh-Hans = 管理路线
@@ -15353,7 +15354,7 @@
     sv = Ange ett korrekt namn
     sw = Tafadhali, weka jina sahihi
     th = กรุณาใส่ชื่อที่ถูกต้อง
-    tr = Lütfen, doğru bir isim girin
+    tr = Lütfen doğru bir isim girin
     uk = Будь ласка, введіть коректне ім'я
     vi = Vui lòng nhập một tên chính xác
     zh-Hans = 请输入正确的名称
@@ -16741,7 +16742,7 @@
     sv = Olycksrapport
     sw = Ripoti ya kuharibika
     th = รายงานข้อขัดข้อง
-    tr = Kilitlenme raporu
+    tr = Çökme raporu
     uk = Звіти про помилки
     vi = Báo cáo sự cố
     zh-Hans = 错误报告
@@ -17756,7 +17757,7 @@
     sv = Kartladdning
     sw = Kipakua Ramani
     th = ตัวดาวน์โหลดแผนที่
-    tr = Harita indiricisi
+    tr = Harita indirici
     uk = Завантаження мап
     vi = Trình tải xuống bản đồ
     zh-Hans = 加载地图
@@ -17793,7 +17794,7 @@
     sv = Auto - Varna om fartkameror om det finns risk att överskrida hastighetsgränsen\nAlltid - Varna alltid om kameror\nAldrig - Varna aldrig om kameror
     sw = Auto - Onyo la kuhusu kamera ya mwendo-kasi iwapo kuna hatari yoyote ya kuzidi ukomo wa mwendo-kasi\nMara kwa Mara - Daima onya kuhusu kamera za mwendo-kasi\nKamwe - Kamwe usionye kuhusu kamera za mwendo-kasi
     th = อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว
-    tr = Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiçbir zaman uyarma
+    tr = Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiç bir zaman uyarma
     uk = Авто - Попереджати про камери швидкості, якщо є ризик перевищення швидкісного ліміту\nЗавжди - Завжди попереджати про камери\nНіколи - Ніколи не попереджати про камери
     vi = Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams
     zh-Hans = 自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告
@@ -18089,7 +18090,7 @@
     sv = Omvägsinställningar
     sw = Machaguo ya njia
     th = ทางเลือกเส้นทางขับขี่
-    tr = Sürüş seçenekleri
+    tr = Yönlendirme seçenekleri
     uk = Налаштування об’їзду
     vi = Thiết lập đi vòng
     zh-Hans = 绕行设置
@@ -19001,7 +19002,7 @@
     sv = Tangentbordet är inte tillgängligt vid rörelsen
     sw = Mbao-bonye haipatikani wakati wa kuendesha gari
     th = คีย์บอร์ดไม่สามารถใช้งานได้ขณะขับขี่
-    tr = Klavye, sürüş sırasında kullanılamaz
+    tr = Klavye sürüş sırasında kullanılamaz
     uk = Клавіатура недоступна під час руху
     vi = Bàn phím không khả dụng trong thời gian di chuyển
     zh-Hans = 移动时键盘不可用
@@ -19398,7 +19399,7 @@
     sv = Utan kärrvägar
     sw = Epuka za vumbi
     th = หลีกเลี่ยงทาง
-    tr = Asfaltsız hariç
+    tr = Asfaltsız yoldan kaçın
     uk = Без ґрунтових
     vi = Trừ khôg trnhựa
     zh-Hans = 无土路路段
@@ -19434,7 +19435,7 @@
     sv = Utan färjor
     sw = Hamna feri
     th = ไม่มีเรือ
-    tr = Feribotsuz
+    tr = Feribot yok
     uk = Без поромів
     vi = Không có phà
     zh-Hans = 无渡船
@@ -19470,7 +19471,7 @@
     sv = Utan färjor
     sw = Epuka feri
     th = หลีกเลี่ยงเรือ
-    tr = Feribot hariç
+    tr = Feribottan kaçın
     uk = Без поромів
     vi = Trừ phà
     zh-Hans = 无渡船
@@ -19506,7 +19507,7 @@
     sv = Utan betalda
     sw = Hamna za ada
     th = ไม่มีค่าผ่าน
-    tr = Paralı yok
+    tr = Paralı yol yok
     uk = Без платних
     vi = Khôg đgcóphí
     zh-Hans = 无付费路段
@@ -19542,7 +19543,7 @@
     sv = Utan betalda
     sw = Epuka njia-kodi
     th = เลี่ยงทางด่วน
-    tr = Paralı hariç
+    tr = Paralı yoldan kaçın
     uk = Без платних
     vi = Trừ đg có phí
     zh-Hans = 无付费路段
@@ -19578,7 +19579,7 @@
     sv = Kameror
     sw = Kam za kasi
     th = จับความเร็ว
-    tr = Hız kamerası
+    tr = Hız kameraları
     uk = Камери
     vi = Сam tốc độ
     zh-Hans = 摄像头
@@ -20965,7 +20966,7 @@
     sv = Metro rutt hittades inte
     sw = Njia ya chini kwa chini haipatikani
     th = ไม่พบเส้นทางของทางรถไฟใต้ดิน
-    tr = Metro güzergahı bulunamadı
+    tr = Metro rotası bulunamadı
     uk = Маршрут метро не знайдено
     vi = Không tìm thấy tuyến Metro
     zh-Hans = 地铁路线图未找到
@@ -21076,7 +21077,7 @@
     sv = Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område
     sw = Kuamilisha na kutumia tabaka la nchi tafadhali sasisha au pakua ramani ya eneo hilo
     th = ในการเปิดใช้งานเลเยอร์แผนที่ภูมิประเทศโปรดอัปเดตหรือดาวน์โหลดแผนที่ของบริเวณนั้น
-    tr = Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin
+    tr = Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin
     uk = Щоб скористатися лініями висот, оновіть чи завантажте карту потрібної місцевості
     vi = Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn
     zh-Hans = 如需使用高度线，请更新或下载所需区域的地图
@@ -21113,7 +21114,7 @@
     sv = Höjningslinjer är ännu inte tillgängligt i den här regionen
     sw = Tabaka la sura ya nchi bado haipatikani katika eneo hili
     th = เลเยอร์แผนที่ภูมิประเทศยังใช้งานไม่ได้ในพื้นที่นี้
-    tr = Bu bölgede henüz yükseklik çizgileri mevcut değil
+    tr = Arazi katmanı henüz bu bölgede mevcut değil
     uk = Лінії висот ще недоступні в цьому регіоні
     vi = Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này
     zh-Hans = 暂时无法获取该地区的高低线
@@ -21258,7 +21259,7 @@
     sv = Svår
     sw = Ngumu
     th = ยาก
-    tr = Karmaşık
+    tr = Zor
     uk = Складний
     vi = Khó
     zh-Hans = 困难
@@ -21554,7 +21555,7 @@
     sv = Förstora kartan för att se isolinjer
     sw = Vuta karibu kutalii mistari ya kontua
     th = ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง
-    tr = Konturları görmek için haritayı büyütün
+    tr = İzohipsleri görmek için haritayı büyütün
     uk = Збільште мапу, щоб побачити ізолінії
     vi = Phóng bản đồ để nhìn rõ đường đồng mức
     zh-Hans = 放大地图以查看等高线
@@ -21590,7 +21591,7 @@
     sv = Uppdatering
     sw = Inasasisha
     th = การอัปเดต
-    tr = Güncelleme
+    tr = Güncelleniyor
     uk = Оновлення
     vi = Cập nhật
     zh-Hans = 更新
@@ -21626,7 +21627,7 @@
     sv = Nedladdning
     sw = Inapakua
     th = การดาวน์โหลด
-    tr = İndir
+    tr = İndiriliyor
     uk = Завантаження
     vi = Tải xuống
     zh-Hans = 加载
@@ -21833,7 +21834,7 @@
     sv = Uppdatering av kartor håller information om objekt uppdaterade
     sw = Kusasisha ramani kunaweka taarifa kuhusu vipengee ikiwa ya hivi sasa zaidi
     th = การอัปเดตแผนที่จะคงข้อมูลเกี่ยวกับจุดหมายต่าง ๆ ให้ล่าสุดอยู่เสมอ
-    tr = Haritaları güncellemek, nesnelerle ilgili bilgilerin güncel kalmasını sağlar
+    tr = Haritaları güncellemek, objelerle ilgili bilgilerin güncel kalmasını sağlar
     uk = Оновлення мап дозволяє підтримувати інформацію про об'єкти в актуальному стані
     vi = Cập nhật bản đồ để cập nhật thông tin về các đối tượng trên đó
     zh-Hans = 更新地图可以让对象的信息保持最新状态
@@ -21917,7 +21918,7 @@
     sv = Uppdatera senare manuellt
     sw = Sasisha mwenyewe baadaye
     th = อัปเดตด้วยตนเองภายหลัง
-    tr = Daha sonra manüel olarak güncelle
+    tr = Daha sonra elle güncelle
     uk = Оновити вручну пізніше
     vi = Cập nhật thủ công sau
     zh-Hans = 稍后手动更新
@@ -21966,6 +21967,7 @@
     pl = Przenieś
     ro = Mută
     ru = Переместить
+    tr = Taşı
     zh-Hant = 移動
 
   [track_title]
@@ -21999,7 +22001,7 @@
     sk = Šľapaj Stopy
     sv = Rutt
     th = ติดตาม
-    tr = Rota
+    tr = Kayıt
     uk = Маршрут
     vi = Dấu chân
     zh-Hans = 追踪
