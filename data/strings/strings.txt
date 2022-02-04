@@ -14171,10 +14171,11 @@
     zh-Hant = 手機網路
 
   [mobile_data_description]
+    comment = NOTE to translators: please synchronize your translation with the English one.
     tags = android,ios
-    en = Mobile internet is required for displaying detailed information about places, your bookmarks, and map update notifications.
+    en = Mobile internet is required for map update notifications and for displaying detailed information about places and bookmarks.
     ar = الإنترنت المحمول مطلوب لعرض معلومات تفصيلية عن الأماكن مثل الصور الفوتوغرافية والأسعار والمراجعات.
-    be = Мабільны інтэрнэт патрэбны каб паказваць падрабязную інфармацыю пра месцы, такую як фотаздымкі, цэны і водгукі.
+    be = Мабільны інтэрнэт неабходны для апавяшчэнняў аб абнаўленні мапы і для адлюстравання падрабязнай інфармацыі аб месцах і закладках.
     bg = Мобилните данни са необходими за показване на подробна информация за местата, като например снимки, цени и отзиви.
     cs = Ke zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze, je třeba mobilní internet.
     da = Mobile internet er nødvendigt til visning af detaljerede oplysninger om steder, såsom fotos, priser og anmeldelser.
@@ -14195,12 +14196,12 @@
     pt = Para visualizar informações detalhadas sobre os locais, tais como fotografias, preços e avaliações, é necessário acesso à internet móvel.
     pt-BR = Para visualizar informações detalhadas sobre os locais, tais como fotos, preços e análises, é necessário acesso à internet móvel.
     ro = Internetul mobil este necesar pentru afişarea de informaţii detaliate despre locuri, precum fotografii, preţuri şi recenzii.
-    ru = Мобильный интернет требуется для отображения более детальной информации о местах: фотографий, цен, отзывов.
+    ru = Мобильный интернет требуется для уведомлений об обновлении карты и для отображения более подробной информации о местах и метках.
     sk = Na zobrazenie podrobnejších informácií o miestach, napríklad fotografií, cien a recenzií, sa vyžaduje mobilný internet.
     sv = Mobil internet krävs för att visa detaljerad information om platser, som t. ex. fotografier, priser och omdömen.
     th = จำเป็นต้องใช้อินเทอร์เน็ตมือถือในการแสดงข้อมูลโดยรายละเอียดเกี่ยวกับสถานที่ เช่น รูปถ่าย ราคา และรีวิว
     tr = Mobil internet; mekanlarla ilgili ayrıntılı bilgileri, yer imlerinizi ve harita güncelleme bildirimlerini görüntülemek için gereklidir.
-    uk = Використання мобільних даних необхідно для відображення докладної інформації про місця (наприклад, фотографій, цін та відгуків).
+    uk = Використання мобільних даних необхідно для сповіщень про оновлення карти та для відображення докладної інформації про місця та мітки.
     vi = Internet di động là cần thiết để hiển thị thông tin chi tiết về các nơi, ví dụ như ảnh chụp, giá cả và đánh giá.
     zh-Hans = 要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。
     zh-Hant = 需有手機網路才能顯示相片、價格與評論等詳細資訊和地點。
@@ -15513,7 +15514,9 @@
     sw = Alamisho %d
     th = %d บุ๊กมาร์ก
     tr = %d yer imi
-    uk = %d закладок
+    uk:few = %d мітки
+    uk:one = %d мітка
+    uk:other = %d міток
     vi = %d dấu trang
     zh-Hans = %d 個書籤
     zh-Hant = %d 個書籤
@@ -17076,7 +17079,7 @@
     sw = Ili kuongeza ramani, gusa mahali kwenye ramani na kisha gusa ikoni ya nyota
     th = เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว
     tr = Yer imi eklemek için önce haritadaki bir yere sonrasında ise yıldız simgesine dokunun
-    uk = Щоб додати нову позначку, натисніть на значок зірочки в картці об’єкта
+    uk = Щоб додати нову мітку, натисніть на значок зірочки в картці об’єкта
     vi = Để thêm dấu trang, hãy nhấn vào một địa điểm trên bản đồ và sau đó nhấn vào biểu tượng dấu sao
     zh-Hans = 要添加新标签，请单击对象卡中的星形图标
     zh-Hant = 要增加新標籤，請點一下對象卡片中的星型圖標
