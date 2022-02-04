@@ -50,7 +50,12 @@ public:
   bool IsInverse(Segment const & seg) const;
   void Inverse() { m_forward = !m_forward; }
 
+  /// @todo Logically, this functions should be equal, but keep existing logic,
+  /// and investigate possible enhancements in future.
+  /// @{
+  bool IsFakeCreated() const;
   bool IsRealSegment() const;
+  /// @}
 
   void Next(bool forward) { forward ? ++m_segmentIdx : --m_segmentIdx; }
 
