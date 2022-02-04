@@ -1695,7 +1695,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.updateState(false);
     if (show)
     {
-      closeFloatingToolbarsAndPanels(true, true);
+      closeFloatingToolbarsAndPanels(true, false);
       if (mFilterController != null)
         mFilterController.show(false);
     }
