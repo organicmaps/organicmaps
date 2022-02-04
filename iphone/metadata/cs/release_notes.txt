@@ -1,0 +1,8 @@
+- Nová data map OSM k 3. lednu 2022
+- Vylepšené řazení výsledků vyhledávání
+- Opraveny stovky "hlavních měst" na mapě světa
+- Opraveny neplatné meziregionální trasy
+- Vyhledávání rozpoznává synonyma rd/st/ct=road/street/court
+- Konzistentní pojmenování/překlady pro seznamy záložek
+- Přidány běloruské, perské, neúplné hebrejské a svahilské překlady
+- Aktualizovány německé, italské, rumunské, ruské, ukrajinské a turecké překlady
