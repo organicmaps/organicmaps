@@ -45,7 +45,6 @@ bool Segment::IsInverse(Segment const & seg) const
 bool Segment::IsFakeCreated() const
 {
   return m_featureId == FakeFeatureIds::kIndexGraphStarterId;
-  //return m_mwmId == kFakeNumMwmId;
 }
 
 bool Segment::IsRealSegment() const
