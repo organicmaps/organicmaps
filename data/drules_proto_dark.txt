@@ -51312,37 +51312,37 @@ cont {
       primary {
         height: 10
         color: 10066329
-        stroke_color: 1292964096
+        stroke_color: 856756480
       }
       secondary {
         height: 9
         color: 10066329
-        stroke_color: 1292964096
+        stroke_color: 856756480
         offset_y: 1
         text: "int_name"
       }
       priority: 15524
     }
-    apply_if: "population<20000"
+    apply_if: "population>=0"
   }
   element {
     scale: 11
     caption {
       primary {
-        height: 10
-        color: 7829367
+        height: 11
+        color: 10066329
         stroke_color: 856756480
       }
       secondary {
         height: 10
-        color: 7829367
+        color: 10066329
         stroke_color: 856756480
         offset_y: 1
         text: "int_name"
       }
       priority: 15524
     }
-    apply_if: "population<20000"
+    apply_if: "population>=0"
   }
   element {
     scale: 12

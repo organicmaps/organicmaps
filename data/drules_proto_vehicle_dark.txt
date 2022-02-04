@@ -33676,14 +33676,14 @@ cont {
         color: 10066329
       }
       secondary {
-        height: 10
+        height: 9
         color: 10066329
         offset_y: 1
         text: "int_name"
       }
       priority: 15588
     }
-    apply_if: "population>=30000"
+    apply_if: "population>=40000"
   }
   element {
     scale: 9
@@ -33708,37 +33708,37 @@ cont {
       primary {
         height: 10
         color: 10066329
-        stroke_color: 1292964096
+        stroke_color: 856756480
       }
       secondary {
         height: 9
         color: 10066329
-        stroke_color: 1292964096
+        stroke_color: 856756480
         offset_y: 1
         text: "int_name"
       }
       priority: 15588
     }
-    apply_if: "population<20000"
+    apply_if: "population>=0"
   }
   element {
     scale: 11
     caption {
       primary {
-        height: 10
-        color: 9211020
+        height: 11
+        color: 10066329
         stroke_color: 856756480
       }
       secondary {
         height: 10
-        color: 9211020
+        color: 10066329
         stroke_color: 856756480
         offset_y: 1
         text: "int_name"
       }
       priority: 15588
     }
-    apply_if: "population<20000"
+    apply_if: "population>=0"
   }
   element {
     scale: 12
