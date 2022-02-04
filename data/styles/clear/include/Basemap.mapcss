@@ -66,9 +66,6 @@ area[sport=multi],
 area[sport=soccer],
 {z-index: 5;}
 
-area[amenity=parking]
-{z-index: 6;}
-
 area[landuse=forest]
 {z-index: 30;}
 
@@ -101,6 +98,7 @@ area[leisure=marina],
 line[waterway=stream][intermittent=yes]
 {z-index: 43;}
 
+area[amenity=parking],
 area[landuse=cemetery],
 area[amenity=grave_yard]
 {z-index: 44;}
