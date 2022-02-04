@@ -45,7 +45,7 @@ fi
 # Parameter $3 - resource name (mdpi, hdpi, ...)
 # Parameter $4 - symbol size
 # Parameter $5 - style suffix (none, _dark, _clear)
-# Parameter $6 - symbols folder (symbols, symbols-ad)
+# Parameter $6 - symbols folder (symbols)
 # Parameter $7 - symbols suffix (none, -ad)
 function BuildSkin() {
   styleType=$1
@@ -92,20 +92,6 @@ BuildSkin clear  clear xhdpi   36 _clear symbols
 BuildSkin clear  clear xxhdpi  54 _clear symbols
 BuildSkin clear  clear 6plus   54 _clear symbols
 BuildSkin clear  clear xxxhdpi 64 _clear symbols
-
-BuildSkin clear  night mdpi    22 _dark symbols-ad -ad
-BuildSkin clear  night hdpi    34 _dark symbols-ad -ad
-BuildSkin clear  night xhdpi   44 _dark symbols-ad -ad
-BuildSkin clear  night xxhdpi  68 _dark symbols-ad -ad
-BuildSkin clear  night 6plus   68 _dark symbols-ad -ad
-BuildSkin clear  night xxxhdpi 78 _dark symbols-ad -ad
-
-BuildSkin clear  clear mdpi    22 _clear symbols-ad -ad
-BuildSkin clear  clear hdpi    34 _clear symbols-ad -ad
-BuildSkin clear  clear xhdpi   44 _clear symbols-ad -ad
-BuildSkin clear  clear xxhdpi  68 _clear symbols-ad -ad
-BuildSkin clear  clear 6plus   68 _clear symbols-ad -ad
-BuildSkin clear  clear xxxhdpi 78 _clear symbols-ad -ad
 
 rm -rf "$OMIM_PATH"/data/resources-{*}
 
