@@ -548,8 +548,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.refreshQuery();
     if (!TextUtils.isEmpty(mSearchController.getQuery()))
     {
-      closeFloatingToolbarsAndPanelsButSearch();
-      mSearchController.show();
+      // Close all panels and tool bars (including search) but do not stop search backend
+      closeFloatingToolbarsAndPanels(false, false);
+      // Do not show the search tool bar if we are planning or navigating
+      if (!RoutingController.get().isNavigating() && !RoutingController.get().isPlanning())
+      {
+        mSearchController.show();
+      }
     }
     else
     {
@@ -704,9 +709,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean closeSearchToolbar(boolean clearText)
   {
-    if (UiUtils.isVisible(mSearchController.getToolbar()))
+    return closeSearchToolbar(clearText, true);
+  }
+
+  private boolean closeSearchToolbar(boolean clearText, boolean stopSearch)
+  {
+    if (UiUtils.isVisible(mSearchController.getToolbar()) || mSearchController.hasQuery())
     {
-      mSearchController.cancelSearchApiAndHide(clearText);
+      if (stopSearch)
+      {
+        mSearchController.cancelSearchApiAndHide(clearText);
+      }
+      else
+      {
+        mSearchController.hide();
+        if (clearText)
+        {
+          mSearchController.clear();
+        }
+      }
       return true;
     }
     return false;
@@ -722,18 +743,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  private void closeFloatingToolbarsAndPanelsButSearch()
+  private void closeFloatingToolbarsAndPanels(boolean clearSearchText)
+  {
+    closeFloatingToolbarsAndPanels(clearSearchText, true);
+  }
+
+  private void closeFloatingToolbarsAndPanels(boolean clearSearchText, boolean stopSearch)
   {
     closeMenu();
     closePlacePage();
     closeBookmarkCategoryToolbar();
     closePositionChooser();
-  }
-
-  private void closeFloatingToolbarsAndPanels(boolean clearSearchText)
-  {
-    closeFloatingToolbarsAndPanelsButSearch();
-    closeSearchToolbar(clearSearchText);
+    closeSearchToolbar(clearSearchText, stopSearch);
   }
 
   public void startLocationToPoint(final @Nullable MapObject endPoint,
@@ -1569,7 +1590,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Context context = getApplicationContext();
     if (show)
     {
-      closeFloatingToolbarsAndPanels(false);
+      closeFloatingToolbarsAndPanels(false, false);
       if (mIsTabletLayout)
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
@@ -1593,6 +1614,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
+      closeFloatingToolbarsAndPanels(true, true);
       if (mIsTabletLayout)
       {
         adjustCompassAndTraffic(UiUtils.getStatusBarHeight(getApplicationContext()));
@@ -1609,8 +1631,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       if (completionListener != null)
         completionListener.run();
-
-      refreshSearchToolbar();
     }
   }
 
@@ -1640,10 +1660,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mNavAnimationController == null)
       return;
-
-    if (visible) {
-      closeFloatingToolbarsAndPanelsButSearch();
-    }
 
     adjustCompassAndTraffic(visible ? calcFloatingViewsOffset()
                                     : UiUtils.getStatusBarHeight(getApplicationContext()));
@@ -1679,7 +1695,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.updateState(false);
     if (show)
     {
-      closeFloatingToolbarsAndPanels(true);
+      closeFloatingToolbarsAndPanels(true, true);
       if (mFilterController != null)
         mFilterController.show(false);
     }
@@ -1712,7 +1728,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationCancelled()
   {
-    refreshSearchToolbar();
+    closeFloatingToolbarsAndPanels(true, true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     if (mRoutingPlanInplaceController == null)
       return;
