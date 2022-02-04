@@ -1,7 +1,0 @@
-<!DOCTYPE skin>
-<root>
- <file width="16" height="8">
-  <symbol minX="0" maxX="7" minY="0" maxY="7" name="00000_keep"/>
-  <symbol minX="7" maxX="12" minY="0" maxY="5" name="keep"/>
- </file>
-</root>

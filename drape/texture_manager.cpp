@@ -41,8 +41,7 @@ size_t const kReservedColors = 20;
 float const kGlyphAreaMultiplier = 1.2f;
 float const kGlyphAreaCoverage = 0.9f;
 
-std::string const kDefaultSymbolsTexture = "symbols";
-std::string const kSymbolTextures[] = { kDefaultSymbolsTexture, "symbols-ad" };
+std::string const kSymbolTextures[] = { "symbols" };
 uint32_t const kDefaultSymbolsIndex = 0;
 
 namespace
@@ -253,7 +252,7 @@ void TextureManager::Release()
   m_glyphManager.reset();
 
   m_glyphGenerator->FinishGeneration();
-  
+
   m_isInitialized = false;
   m_nothingToUpload.test_and_set();
 }
@@ -276,7 +275,7 @@ bool TextureManager::UpdateDynamicTextures(ref_ptr<dp::GraphicsContext> context)
 
     CHECK(false, ("Unsupported API version."));
   }
-  
+
   CHECK(m_isInitialized, ());
 
   m_uploadTimer.Reset();
@@ -427,7 +426,7 @@ size_t TextureManager::FindHybridGlyphsGroup(TMultilineText const & text, int fi
 void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & params)
 {
   CHECK(!m_isInitialized, ());
-  
+
   m_resPostfix = params.m_resPostfix;
   m_textureAllocator = CreateAllocator(context);
 
@@ -505,7 +504,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
 void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
 {
   CHECK(m_isInitialized, ());
-  
+
   // Here we need invalidate only textures which can be changed in map style switch.
   // Now we update only symbol textures, if we need update other textures they must be added here.
   // For Vulkan we use m_texturesToCleanup to defer textures destroying.
