@@ -1,1 +1,8 @@
-../en-US/release_notes.txt
+• Datos cartográficos de OSM al 3 de enero de 2022
+• Mejor clasificación jerárquica de resultados de búsqueda
+• Cientos de «capitales» corregidas en el mapamundi
+• Rutas interregionales corregidas
+• La búsqueda reconoce abreviaturas rd/st/ct
+• Terminología coherente en las listas de marcadores
+• Añadidas traducciones bielorrusa, persa, hebrea (parcial) y suajili
+• Actualizadas traducciones alemana, italiana, rumana, rusa, ucraniana y turca

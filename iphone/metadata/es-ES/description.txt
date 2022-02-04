@@ -1,37 +1,37 @@
-- Mapas detallados fuera de línea con lugares que no existen en otros mapas
-- Rutas ciclistas, rutas de senderismo y senderos
-- Curvas de nivel, perfiles de elevación, picos y pendientes
-- Navegación paso a paso a pie, en bicicleta y en coche con guía de voz
-- Búsqueda rápida fuera de línea en el mapa y marcadores
-- Modo oscuro para proteger tus ojos
+• Mapas detallados sin conexión con lugares que no existen en otros mapas
+• Rutas ciclistas, rutas de senderismo y de caminata
+• Curvas de nivel, perfiles de elevación, picos y pendientes
+• Navegación paso a paso a pie, en bicicleta y en coche con guía de voz
+• Búsqueda rápida sin conexión en el mapa y marcadores
+• Modo oscuro para proteger sus ojos
 
 Organic Maps es puro y orgánico, hecho con amor:
 
-- Respeta tu privacidad
-- Ahorra batería
-- No hay cargos inesperados de datos móviles
+• Respeta su privacidad
+• Ahorra batería
+• No hay cargos inesperados de datos móviles
 
 Organic Maps está libre de rastreadores y otras cosas malas:
 
-- Sin anuncios
-- Sin rastreadores
-- Sin recogida de datos
-- Sin llamar a nuestros servidores
-- Sin registros molestos
-- No hay tutoriales obligatorios
-- No hay spam de correo electrónico ruidoso
-- Sin notificaciones push
-- Sin crapware
-- Sin pesticidas
+• Sin anuncios
+• Sin rastreadores
+• Sin recogida de datos
+• Sin llamar a nuestros servidores
+• Sin registros molestos
+• Sin tutoriales obligatorios
+• Sin molesto correo basura
+• Sin notificaciones push
+• Sin crapware
+• Sin pesticidas
 
 En Organic Maps creemos que la privacidad es un derecho humano fundamental:
 
-- Organic Maps es un proyecto independiente impulsado por la comunidad
-- Es de código abierto
-- Los datos de los mapas están tomados de OpenStreetMap, también un proyecto impulsado por la comunidad
-- Protegemos tu privacidad de las miradas indiscretas de las grandes tecnológicas
-- Mantente seguro estés donde estés
+• Organic Maps es un proyecto independiente impulsado por la comunidad
+• Es de código abierto
+• Los datos de los mapas están tomados de OpenStreetMap, también un proyecto comunitario
+• Protegemos su privacidad de las miradas indiscretas de las grandes tecnológicas
+• Manténgase a salvo esté donde esté
 
-Rechaza la vigilancia, abraza tu libertad y apoya a la comunidad.
+Rechace la vigilancia, abrace su libertad y apoye a la comunidad.
 
-¡Prueba Organic Maps!
+¡Pruebe Organic Maps!
