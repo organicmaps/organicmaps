@@ -691,7 +691,7 @@ void Processor::SearchCoordinates()
     if (parser.Parse(token, r))
       results.emplace_back(r.m_lat, r.m_lon);
 
-    url::GeoURLInfo info(token);
+    geo::GeoURLInfo const info = m_geoUrlParser.Parse(token);
     if (info.IsValid())
       results.emplace_back(info.m_lat, info.m_lon);
   }

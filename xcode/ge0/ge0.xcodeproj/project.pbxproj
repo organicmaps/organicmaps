@@ -17,6 +17,9 @@
 		39C29BD123E19B3C009ECB47 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C29BCD23E19B3C009ECB47 /* parser.cpp */; };
 		39C29BD223E19B3C009ECB47 /* url_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39C29BCE23E19B3C009ECB47 /* url_generator.hpp */; };
 		39C29BD323E19B3C009ECB47 /* url_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C29BCF23E19B3C009ECB47 /* url_generator.cpp */; };
+		AC3F14BF279C6D8C00AFEC02 /* geo_url_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC3F14BA279C524D00AFEC02 /* geo_url_parser.cpp */; };
+		AC3F14C0279C6D9500AFEC02 /* geo_url_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC3F14B9279C524D00AFEC02 /* geo_url_parser.hpp */; };
+		AC3F14C2279C6DEB00AFEC02 /* geo_url_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC3F14C1279C6DEB00AFEC02 /* geo_url_tests.cpp */; };
 		FACB76A526B8939C00810C9C /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB76A426B8939C00810C9C /* testingmain.cpp */; };
 		FACB76A626B893A000810C9C /* url_generator_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB76A226B8937800810C9C /* url_generator_tests.cpp */; };
 		FACB76A726B893A300810C9C /* parser_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB76A326B8937800810C9C /* parser_tests.cpp */; };
@@ -36,6 +39,9 @@
 		39C29BCE23E19B3C009ECB47 /* url_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = url_generator.hpp; path = ../../ge0/url_generator.hpp; sourceTree = "<group>"; };
 		39C29BCF23E19B3C009ECB47 /* url_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = url_generator.cpp; path = ../../ge0/url_generator.cpp; sourceTree = "<group>"; };
 		675347171A40577A00A0A8C3 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC3F14B9279C524D00AFEC02 /* geo_url_parser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = geo_url_parser.hpp; path = ../../ge0/geo_url_parser.hpp; sourceTree = "<group>"; };
+		AC3F14BA279C524D00AFEC02 /* geo_url_parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = geo_url_parser.cpp; path = ../../ge0/geo_url_parser.cpp; sourceTree = "<group>"; };
+		AC3F14C1279C6DEB00AFEC02 /* geo_url_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geo_url_tests.cpp; sourceTree = "<group>"; };
 		FACB76A226B8937800810C9C /* url_generator_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = url_generator_tests.cpp; sourceTree = "<group>"; };
 		FACB76A326B8937800810C9C /* parser_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parser_tests.cpp; sourceTree = "<group>"; };
 		FACB76A426B8939C00810C9C /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
@@ -80,6 +86,8 @@
 		6753470E1A40577A00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				AC3F14BA279C524D00AFEC02 /* geo_url_parser.cpp */,
+				AC3F14B9279C524D00AFEC02 /* geo_url_parser.hpp */,
 				FACB76A026B8937800810C9C /* ge0_tests */,
 				39C29BCD23E19B3C009ECB47 /* parser.cpp */,
 				39C29BCC23E19B3C009ECB47 /* parser.hpp */,
@@ -104,6 +112,7 @@
 		FACB76A026B8937800810C9C /* ge0_tests */ = {
 			isa = PBXGroup;
 			children = (
+				AC3F14C1279C6DEB00AFEC02 /* geo_url_tests.cpp */,
 				FACB76A426B8939C00810C9C /* testingmain.cpp */,
 				FACB76A226B8937800810C9C /* url_generator_tests.cpp */,
 				FACB76A326B8937800810C9C /* parser_tests.cpp */,
@@ -121,6 +130,7 @@
 			files = (
 				39C29BD223E19B3C009ECB47 /* url_generator.hpp in Headers */,
 				39C29BD023E19B3C009ECB47 /* parser.hpp in Headers */,
+				AC3F14C0279C6D9500AFEC02 /* geo_url_parser.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FACB76A526B8939C00810C9C /* testingmain.cpp in Sources */,
+				AC3F14C2279C6DEB00AFEC02 /* geo_url_tests.cpp in Sources */,
 				FACB76A726B893A300810C9C /* parser_tests.cpp in Sources */,
 				FACB76A626B893A000810C9C /* url_generator_tests.cpp in Sources */,
 			);
@@ -223,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				39C29BD123E19B3C009ECB47 /* parser.cpp in Sources */,
+				AC3F14BF279C6D8C00AFEC02 /* geo_url_parser.cpp in Sources */,
 				39C29BD323E19B3C009ECB47 /* url_generator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

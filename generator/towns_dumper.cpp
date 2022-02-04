@@ -1,21 +1,19 @@
 #include "towns_dumper.hpp"
 
+#include "generator/osm_element.hpp"
+
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/tree4d.hpp"
 
 #include "base/logging.hpp"
 
 #include <fstream>
-#include <limits>
-#include <string>
-#include <vector>
 
 namespace
 {
 uint64_t constexpr kTownsEqualityMeters = 500000;
 }  // namespace
 
-TownsDumper::TownsDumper() {}
 void TownsDumper::FilterTowns()
 {
   LOG(LINFO, ("Preprocessing started. Have", m_records.size(), "towns."));
@@ -31,7 +29,7 @@ void TownsDumper::FilterTowns()
   }
   sort(towns.begin(), towns.end());
 
-  LOG(LINFO, ("Tree of capitals has size", resultTree.GetSize(), "towns has size:", towns.size()));
+  LOG(LINFO, ("Capital's tree size =", resultTree.GetSize(), "; Town's vector size =", towns.size()));
   m_records.clear();
 
   while (!towns.empty())
@@ -42,9 +40,12 @@ void TownsDumper::FilterTowns()
         mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(top.point), kTownsEqualityMeters),
         [&top, &isUniq](Town const & candidate)
         {
+          // The idea behind that is to collect all capitals and unique major cities in 500 km radius
+          // for upgrading in World map visibility. See TOWNS_FILE usage.
           if (ms::DistanceOnEarth(top.point, candidate.point) < kTownsEqualityMeters)
             isUniq = false;
         });
+
     if (isUniq)
       resultTree.Add(top);
     towns.pop_back();
@@ -65,7 +66,11 @@ void TownsDumper::CheckElement(OsmElement const & em)
   uint64_t population = 1;
   bool town = false;
   bool capital = false;
-  int admin_level = std::numeric_limits<int>::max();
+
+  // OSM goes to moving admin_level tag into boundary=administrative relation only.
+  // So capital=yes should be enough for country capital.
+  int admin_level = -1;
+
   for (auto const & tag : em.Tags())
   {
     auto const & key = tag.m_key;

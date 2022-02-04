@@ -14,6 +14,8 @@
 
 #include "build_style/build_style.h"
 
+#include "build_version.hpp"
+
 #include <cstdio>
 #include <cstdlib>
 #include <sstream>
@@ -118,6 +120,7 @@ int main(int argc, char * argv[])
   (void)::setenv("LC_NUMERIC", "C", 1);
 
   gflags::SetUsageMessage("Desktop application.");
+  gflags::SetVersionString(build_version::kName);
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   Platform & platform = GetPlatform();

@@ -20,10 +20,6 @@ final class PlacePagePreviewViewController: UIViewController {
       addReviewButton.setTitle("+ \(L("leave_a_review"))", for: .normal)
     }
   }
-  @IBOutlet var priceLabel: UILabel!
-  @IBOutlet var discountView: UIView!
-  @IBOutlet var discountLabel: UILabel!
-  @IBOutlet var ugcContainerView: UIStackView!
   @IBOutlet var addressLabel: UILabel!
   @IBOutlet var addressContainerView: UIStackView!
   @IBOutlet var scheduleContainerView: UIStackView!

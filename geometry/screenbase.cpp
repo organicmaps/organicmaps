@@ -20,7 +20,7 @@ double constexpr kEndPerspectiveScale2 = 0.13e-5;
 ScreenBase::ScreenBase()
   : m_Org(320, 240)
   , m_GlobalRect(m_Org, ang::AngleD(0), m2::RectD(-320, -240, 320, 240))
-  , m_ClipRect(m2::RectD(0, 0, 640, 480))
+  , m_ClipRect(m_GlobalRect.GetGlobalRect())
   , m_ViewportRect(0, 0, 640, 480)
   , m_PixelRect(m_ViewportRect)
   , m_Scale(0.1)
@@ -70,14 +70,15 @@ void ScreenBase::UpdateDependentParameters()
   m_GtoP = math::Inverse(m_PtoG);
 
   m2::PointD const pxC = m_PixelRect.Center();
-  double const szX = PtoG(m2::PointD(m_PixelRect.maxX(), pxC.y)).Length(PtoG(m2::PointD(pxC)));
-  double const szY = PtoG(m2::PointD(pxC.x, m_PixelRect.minY())).Length(PtoG(m2::PointD(pxC)));
+  m2::PointD const glbC = PtoG(pxC);
+  double const szX = PtoG(m2::PointD(m_PixelRect.maxX(), pxC.y)).Length(glbC);
+  double const szY = PtoG(m2::PointD(pxC.x, m_PixelRect.minY())).Length(glbC);
 
   m_GlobalRect = m2::AnyRectD(m_Org, m_Angle, m2::RectD(-szX, -szY, szX, szY));
   m_ClipRect = m_GlobalRect.GetGlobalRect();
 
-  double const kEps = 1e-5;
-  double angle = CalculatePerspectiveAngle(m_Scale);
+  double constexpr kEps = 1.0E-5;
+  double const angle = CalculatePerspectiveAngle(m_Scale);
   m_isPerspective = angle > 0.0;
   if (fabs(angle - m_3dAngleX) > kEps)
   {

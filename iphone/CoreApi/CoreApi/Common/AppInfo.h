@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sharedInfo;
 - (instancetype)init __attribute__((unavailable("init is not available")));
 
-@property(nonatomic, readonly) NSString * countryCode;
 @property(nonatomic, readonly) NSString * bundleVersion;
 @property(nonatomic, readonly) NSString * buildNumber;
 @property(nonatomic, readonly) NSString * languageId;

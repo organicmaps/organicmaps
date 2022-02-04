@@ -38,7 +38,6 @@ public:
   FeatureType(osm::MapObject const & emo);
 
   feature::GeomType GetGeomType() const;
-  FeatureParamsBase & GetParams() { return m_params; }
 
   uint8_t GetTypesCount() const { return (m_header & feature::HEADER_MASK_TYPE) + 1; }
 
@@ -134,7 +133,7 @@ public:
 
   std::string DebugString(int scale);
 
-  std::string GetHouseNumber();
+  std::string const & GetHouseNumber();
 
   /// @name Get names for feature.
   /// @param[out] defaultName corresponds to osm tag "name"
@@ -153,7 +152,7 @@ public:
 
   uint8_t GetRank();
   uint64_t GetPopulation();
-  std::string GetRoadNumber();
+  std::string const & GetRoadNumber();
 
   feature::Metadata const & GetMetadata();
 

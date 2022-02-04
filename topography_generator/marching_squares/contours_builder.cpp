@@ -4,8 +4,6 @@
 
 namespace topography_generator
 {
-double constexpr kEps = 1e-7;
-
 ContoursBuilder::ContoursBuilder(size_t levelsCount, std::string const & debugId)
   : m_levelsCount(levelsCount)
   , m_finalizedContours(levelsCount)
@@ -15,7 +13,7 @@ ContoursBuilder::ContoursBuilder(size_t levelsCount, std::string const & debugId
 
 void ContoursBuilder::AddSegment(size_t levelInd, ms::LatLon const & beginPos, ms::LatLon const & endPos)
 {
-  if (beginPos.EqualDxDy(endPos, kEps))
+  if (beginPos.EqualDxDy(endPos, mercator::kPointEqualityEps))
     return;
 
   CHECK_LESS(levelInd, m_levelsCount, (m_debugId));
@@ -83,7 +81,7 @@ ContoursBuilder::ActiveContourIter ContoursBuilder::FindContourWithStartPoint(si
   auto & contours = m_activeContours[levelInd];
   for (auto it = contours.begin(); it != contours.end(); ++it)
   {
-    if (it->m_countour.front().EqualDxDy(pos, kEps))
+    if (it->m_countour.front().EqualDxDy(pos, mercator::kPointEqualityEps))
       return it;
   }
   return contours.end();
@@ -94,7 +92,7 @@ ContoursBuilder::ActiveContourIter ContoursBuilder::FindContourWithEndPoint(size
   auto & contours = m_activeContours[levelInd];
   for (auto it = contours.begin(); it != contours.end(); ++it)
   {
-    if (it->m_countour.back().EqualDxDy(pos, kEps))
+    if (it->m_countour.back().EqualDxDy(pos, mercator::kPointEqualityEps))
       return it;
   }
   return contours.end();

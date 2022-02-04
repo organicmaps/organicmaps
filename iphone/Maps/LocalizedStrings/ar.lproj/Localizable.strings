@@ -7,9 +7,6 @@
 /********** Strings **********/
 
 /* Button text (should be short) */
-"back" = "رجوع";
-
-/* Button text (should be short) */
 "cancel" = "إلغاء";
 
 /* Button which interrupts country download */
@@ -19,9 +16,6 @@
 "delete" = "حذف";
 
 "download_maps" = "تنزيل الخرائط";
-
-/* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "فشلت عملية التنزيل، انقر مرة أخرى لإعداة المحاولة";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "جاري التنزيل…";
@@ -35,11 +29,6 @@
 /* View and button titles for accessibility */
 "maps" = "الخرائط";
 
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"mb" = "م.ب.";
-
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "ميل";
 
@@ -52,14 +41,8 @@
 /* View and button titles for accessibility */
 "search" = "البحث";
 
-/* Search box placeholder text */
-"search_map" = "ابحث في الخريطة";
-
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "نعم";
-
-/* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "عرض على الخريطة";
@@ -70,43 +53,14 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "فشلت عملية تنزيل";
 
-/* Button text for the button under the country_status_download_failed message */
-"try_again" = "محاولة مرة أخرى";
-
 "about_menu_title" = "حول Organic Maps";
-
-"connection_settings" = "اعدادات الاتصال";
 
 "close" = "اغلاق";
 
-"unsupported_phone" = "أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.";
-
 "download" = "تنزيل";
-
-"disconnect_usb_cable" = "الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.";
-
-"not_enough_free_space_on_sdcard" = "الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.";
-
-"not_enough_memory" = "لا يوجد ذاكرة كافية لتشغيل التطبيق.";
-
-"download_resources" = "قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %@ من البيانات.";
-
-"download_resources_continue" = "الذهاب الى الخريطة";
-
-"downloading_country_can_proceed" = "تنزيل %@. يمكنك الآن\nالمتابعة الى الخريطة.";
-
-"download_country_ask" = "هل تريد تنزيل %@؟";
-
-"update_country_ask" = "هل تريد تحديث %@ ؟";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"pause" = "توقف مؤقت";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "استمرار";
-
-/* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "فشلت عملية تنزيل %@";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "إضافة مجموعة جديدة";
@@ -126,95 +80,80 @@
 /* Default bookmark list name */
 "core_my_places" = "أماكني";
 
-/* Add bookmark dialog - bookmark name */
-"name" = "الاسم";
-
 /* Editor title above street and house number */
 "address" = "العنوان";
-
-/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
-"list" = "المجموعة";
 
 /* Settings button in system menu */
 "settings" = "الإعدادات";
 
-/* Header of settings activity where user defines storage path */
-"maps_storage" = "تخزين الخرائط";
-
-/* Detailed description of Maps Storage settings button */
-"maps_storage_summary" = "اختر المكان الذي ينبغي تنزيل الخرائط  فيه.";
-
-/* Question dialog for transferring maps from one storage to another */
-"move_maps" = "هل تريد نقل الخرائط؟";
-
-/* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "يمكن أن تستغرق هذه العملية عدة دقائق.\nالرجاء الانتظار…";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "وحدات القياس.";
 
-/* Detailed description of Measurement Units settings button */
-"measurement_units_summary" = "اختر من بين الأميال و الكيلو مترات.";
 
-/* Search category for cafes, bars, restaurants */
+/********** Search categories **********/
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
 "eat" = "مكان لتناول الطعام";
 
-/* Search category for grocery stores */
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
 "food" = "المشتريات";
 
-/* Search category */
+/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "نقل";
 
-/* Search category */
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
 "fuel" = "غاز";
 
-/* Search category */
+/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "الاصطفاف";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "التسوق";
 
-/* Search category */
+/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "فندق";
 
-/* Search category */
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
 "tourism" = "سياحة";
 
-/* Search category */
+/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
 "entertainment" = "التسلية";
 
-/* Search category */
+/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
 "atm" = "ماكينة الصراف الآلي";
 
-/* Search category for nightclubs/bars */
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
 "nightlife" = "أنشطة ترفيه ليلية";
 
-/* Search category for water park/disneyland/playground/toys store */
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
 "children" = "عطلة عائلية";
 
-/* Search category */
+/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "بنك";
 
-/* Search category */
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
 "pharmacy" = "صيدلية";
 
-/* Search category */
+/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
 "hospital" = "مستشفى";
 
-/* Search category */
+/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
 "toilet" = "حمام";
 
-/* Search category */
+/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
 "post" = "بريد";
 
-/* Search category */
+/* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "شرطة";
 
-/* Notes field in Bookmarks view */
-"description" = "ملاحظات";
+/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
+"recycling" = "إعادة تدوير";
 
-/* Email Subject when sharing bookmark list */
-"share_bookmarks_email_subject" = "تم مشاركة اشارات Organic Maps المرجعية معك";
+/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
+"water" = "ماء";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
+"rv" = "RV Facilities";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
@@ -233,32 +172,17 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "لم يتم التعرف على موقعك بعد.";
 
-/* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "نأسف، اعدادات تخزين الخرائط معطلة حالياً.";
-
-/* Alert message that downloading is in progress. */
-"downloading_is_active" = "جاري الآن تنزيل الدولة";
-
-/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "هاي، تفقد الموقع الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "هاي، تفقد الدبوس الخاص بي على خريطة Organic Maps!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "يا هلا، تحقق من موقعي الحالي على خريطة Organic Maps!";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
-"my_position_share_email" = "مرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكرا لك.";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "مشاركة";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "البريد الالكتروني";
-
-/* Text for message when used successfully copied something */
-"copied_to_clipboard" = "تم النسخ الى الحافظة: %1$@";
 
 /* place preview title */
 "info" = "المعلومات";
@@ -269,11 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "الاصدار: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
-
-/* Confirmation in downloading countries dialog */
-"are_you_sure" = "هل أنت واثق أنك تريد الاستمرار؟";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "OpenStreetMap: %@ ﺕﺎﻧﺎﻴﺑ";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "المسارات";
@@ -283,17 +204,9 @@
 
 "share_my_location" = "مشاركة موقعي";
 
-/* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
-
-/* Settings information group in settings screen */
-"prefs_group_information" = "Information";
-
 "prefs_group_route" = "الملاحة";
 
 "pref_zoom_title" = "أزرار التكبير";
-
-"pref_zoom_summary" = "عرض على الشاشة";
 
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "الوضع الليلي";
@@ -318,9 +231,6 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "لغة الصوت";
-
-/* Settings «Route» category: «Tts unavailable» subtitle */
-"pref_tts_unavailable" = "غير متاح";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "آخر";
@@ -358,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -365,12 +278,6 @@
 
 /* Text in menu */
 "instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in the editor */
-"editor_line_social_network" = "LINE";
 
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
@@ -410,9 +317,6 @@
 
 /* Update all button text */
 "downloader_update_all_button" = "تحديث الكل";
-
-/* Cancel all button text */
-"downloader_cancel_all" = "إلغاء الكل";
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "تم تنزيلها";
@@ -454,42 +358,16 @@
 /* Item in context menu. */
 "downloader_delete_map" = "حذف الخريطة";
 
-/* Item in context menu. */
-"downloader_update_map" = "تحديث الخريطة";
-
-/* Preference text */
-"pref_use_google_play" = "استخدم خدمات جوجل بلاي لتتعرف على موقعك الحالي";
-
-/* Text for rating dialog */
-"rating_just_rated" = "لقد قمت بتقييم تطبيقك للتو";
-
-/* Text for rating dialog */
-"rating_thanks" = "شكرا لك!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "شارك أي أفكار أو مشاكل، حتى نتمكن من تحسين التطبيق من أجلك.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "إرسال التعليق";
-
 /* Text for routing error dialog */
 "routing_download_maps_along" = "تنزيل الخرائط على طول الطريق";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.";
 
-/* Text for routing error dialog */
-"routing_not_enough_space" = "Spazio non sufficiente";
-
 /* bookmark button text */
 "bookmark" = "إشارة مرجعية";
 
-/* location service disabled */
-"enable_location_services" = "الرجاء تفعيل خدمة تحديد المواقع";
-
 "save" = "حفظ";
-
-"edit_description_hint" = "أوصافك (نصّ أو html)";
 
 "create" = "إنشاء";
 
@@ -575,8 +453,6 @@
 
 "dialog_routing_unable_locate_route" = "تعذر تحديد موقع المسار";
 
-"dialog_routing_cant_build_route" = "تعذر إنشاء مسار.";
-
 "dialog_routing_change_start_or_end" = "برجاء تعديل نقطة بدء وجهتك.";
 
 "dialog_routing_change_start" = "تعديل نقطة البدء";
@@ -610,10 +486,6 @@
 
 /********** Strings for downloading map from search **********/
 
-"search_without_internet_advertisement" = "لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، وسوف لن تحتاج إلى اتصال بالإنترنت بعد الآن.";
-
-"search_select_map" = "اختيار الخريطة";
-
 /* «Show» context menu */
 "show" = "عرض";
 
@@ -628,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.";
-
-"rate_alert_title" = "يعجبك التطبيق؟";
-
-"rate_alert_default_message" = "شكرا لاستخدامك Organic Maps. من فضلك، أَعْطِ تقييمك للتطبيق. ملاحظاتك تساعدنا على أن نصبح أفضل.";
-
-"rate_alert_five_star_message" = "مرحا! نحن أيضا نحبك!";
-
-"rate_alert_four_star_message" = "شكرا لك، سوف نبذل قصارى جهدنا!";
-
-"rate_alert_less_than_four_star_message" = "لديك أي فكرة حول كيف يمكننا أن نجعله أفضل؟";
 
 "categories" = "التصنيفات";
 
@@ -655,9 +517,6 @@
 
 "clear_search" = "مسح تاريخ البحث";
 
-/* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "موقعك";
 
 "p2p_start" = "البداية";
@@ -669,9 +528,6 @@
 "p2p_only_from_current" = "تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟";
 
 "p2p_reroute_from_current" = "هل ترغب في أن نرسم مسار لك من موقعك الحالي؟";
-
-/* Edit open hours/set time and minutes dialog */
-"next_button" = "التالي";
 
 "editor_time_add" = "إضافة جدول";
 
@@ -696,27 +552,13 @@
 
 "editor_example_values" = "أمثلة على القيم";
 
-"editor_correct_mistake" = "تصحيح الخطأ";
-
 "editor_add_select_location" = "الموقع";
 
 "editor_done_dialog_1" = "لقد غيرت خريطة العالم. لا تخفي ذلك! اخبر أصدقاءك، وغيروها معا.";
 
 "share_with_friends" = "شارك مع الأصدقاء";
 
-"editor_report_problem_desription_1" = "يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreeMap إصلاح الخطأ.";
-
-"editor_report_problem_desription_2" = "أو افعل ذلك بنفسك من خلال الموقع https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "إرسال";
-
-"editor_report_problem_title" = "مشكلة";
-
-"editor_report_problem_no_place_title" = "المكان غير موجودٍ";
-
-"editor_report_problem_under_construction_title" = "مغلق للصيانة";
-
-"editor_report_problem_duplicate_place_title" = "مكان متكرر";
 
 "autodownload" = "التنزيل التلقائي";
 
@@ -736,8 +578,6 @@
 
 "add_opening_hours" = "اضف ساعات عمل";
 
-"edit_opening_hours" = "حرر ساعات عمل";
-
 "no_osm_account" = "ليس لديك حساب في OpenStreetMap؟";
 
 "register_at_openstreetmap" = "التسجيل";
@@ -747,8 +587,6 @@
 "invalid_username_or_password" = "اسم المستخدم أو كلمة المرور غير صالحة.";
 
 "login" = "تسجيل الدخول";
-
-"password" = "كلمة المرور";
 
 "forgot_password" = "هل نسيت كلمة المرور؟";
 
@@ -767,8 +605,6 @@
 
 "add_language" = "إضافة لغة";
 
-"street" = "الشارع";
-
 /* Editable House Number text field (in address block). */
 "house_number" = "رقم المنزل";
 
@@ -776,9 +612,6 @@
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "إضافة شارع";
-
-/* Error to display when a new street name is not entered in the New street dialog */
-"empty_street_name_error" = "ﻉﺭﺎﺷ ﻢﺳﺍ ﻞﺧﺩﺃ";
 
 "choose_language" = "اختر اللغة";
 
@@ -795,15 +628,11 @@
 
 "phone" = "الهاتف";
 
-"editor_add_phone" = "Add Phone";
-
 "please_note" = "يرجى العلم أنه،";
 
 "downloader_delete_map_dialog" = "سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.";
 
 "downloader_update_maps" = "تحديث الخرائط";
-
-"downloader_mwm_migration_dialog" = "لإنشاء مسار، فأنت تحتاج إلى تحديث كافة الخرائط ثم إعادة تخطيط المسار مرة أخرى.";
 
 "downloader_search_field_hint" = "اعثر على الخريطة";
 
@@ -814,8 +643,6 @@
 "downloader_no_space_title" = "مساحة غير كافية";
 
 "downloader_no_space_message" = "من فضلك، قم بإزالة البيانات غير الضرورية";
-
-"editor_login_error_dialog" = "خطأ في تسجيل الدخول.";
 
 "editor_profile_changes" = "التغييرات التي تم التحقق منها";
 
@@ -834,12 +661,6 @@
 "editor_edit_place_name_hint" = "اسم المكان";
 
 "editor_edit_place_category_title" = "الفئة";
-
-"detailed_problem_description" = "وصف مفصل للمشكلة";
-
-"editor_report_problem_other_title" = "مشكلة مختلفة";
-
-"placepage_add_business_button" = "إضافة مؤسسة";
 
 "whatsnew_editor_message_1" = "قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.";
 
@@ -885,8 +706,6 @@
 
 "editor_operator" = "معامل";
 
-"downloader_my_maps_title" = "خرائطي";
-
 "downloader_no_downloaded_maps_title" = "لم تقم بتنزيل أية خرائط";
 
 "downloader_no_downloaded_maps_message" = "قم بتنزيل خرائط للبحث عن مكان والتنقل بدون اتصال بالإنترنت.";
@@ -928,15 +747,9 @@
 
 "miles_per_hour" = "ميل/ساعة";
 
-"hour" = "س";
-
-"minute" = "د";
-
 "placepage_place_description" = "الوصف";
 
 "placepage_more_button" = "المزيد";
-
-"placepage_more_reviews_button" = "المزيد من المراجعات";
 
 "book_button" = "حجز";
 
@@ -964,9 +777,6 @@
 
 "editor_place_doesnt_exist" = "المكان غير موجود";
 
-/* Error message for "Place doesn't exist" dialog when comment is empty */
-"delete_place_empty_comment_error" = "Please indicate the reason for deleting the place";
-
 "text_more_button" = "…المزيد";
 
 /* Phone number error message */
@@ -975,16 +785,6 @@
 "error_enter_correct_web" = "أدخل عنوان ويب صالح";
 
 "error_enter_correct_email" = "أدخل بريدا إلكترونيا صالحا";
-
-"error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-
-"error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-
-"error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-
-"error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
-
-"error_enter_correct_line_page" = "Enter a valid LINE web address or LINE ID";
 
 "refresh" = "تحديث";
 
@@ -1010,7 +810,7 @@
 
 "recent_track_background_dialog_message" = "يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.";
 
-/* Text under the version number in the Help dialog. */
+/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
 "about_description" = "Organic Maps هي تطبيق خرائط مجاني ومفتوح المصدر بلا اتصال بالإنترنت. لا اعلانات. لا تتبع. إذا رأيت خطأً على الخريطة ، فيرجى إصلاحه في OpenStreetMap. تم إنشاء المشروع بواسطة المتحمسين في أوقات فراغنا ، لذلك نحتاج إلى ملاحظاتك ودعمك.";
 
 "general_settings" = "إعدادات عامة";
@@ -1021,7 +821,7 @@
 /* For the first routing */
 "decline" = "رفض";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "قائمة";
 
 "mobile_data_dialog" = "استخدام إنترنت المحمول لإظهار المعلومات التفصيلية؟";
@@ -1044,15 +844,11 @@
 
 "big_font" = "زيادة حجم الخط على الخريطة";
 
-"traffic_update_app" = "الرجاء تحديث Organic Maps";
-
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "لعرض البيانات المرورية، يجب تحديث التطبيق.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "البيانات المرورية غير متاحة";
-
-"enable_logging" = "تمكين التسجيل";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "تعقيب عام";
@@ -1061,23 +857,13 @@
 
 "off" = "إيقاف";
 
-"prefs_languages_information" = "نحن نستخدم نظام النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة Android نظام Google TTS، يمكنك تنزيله من أو تحديثه من Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
-"prefs_languages_information_off" = "(TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –> اللغة والإدخال –> الكلام –> إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.";
-
-"prefs_languages_information_off_link" = "لمزيد من المعلومات الرجاء مراجعة هذا الدليل.";
-
 "transliteration_title" = "كتابة بالحروف اللاتينية";
-
-"learn_more" = "تعلم المزيد";
 
 "core_exit" = "خروج";
 
 "routing_add_start_point" = "أضف نقطة البداية لتخطيط المسار";
 
 "routing_add_finish_point" = "أضف النهاية لتخطيط المسار";
-
-"button_exit" = "خروج";
 
 "planning_route_manage_route" = "إدارة المسار";
 
@@ -1093,12 +879,6 @@
 
 "profile_authorization_error" = "عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.";
 
-"dialog_error_storage_title" = "مشكلة الوصول للتخزين";
-
-"dialog_error_storage_message" = "التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو ملف النظام للقراءة فقط. افحصه واتصل بنا على support@organicmaps.app";
-
-"setting_emulate_bad_storage" = "محاكاة التخزين السيء";
-
 "core_entrance" = "المدخل";
 
 "error_enter_correct_name" = "الرجاء إدخال اسم صحيح";
@@ -1111,9 +891,6 @@
 "bookmark_lists_show_all" = "إظهار الكل";
 
 "bookmarks_create_new_group" = "إنشاء قائمة جديدة";
-
-/* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
 
 "downloader_hide_screen" = "إخفاء الشاشة";
 
@@ -1129,21 +906,11 @@
 
 "bookmarks_error_message_share_empty" = "لا يمكن مشاركة قائمة فارغة";
 
-"bookmarks_error_title_empty_list_name" = "الاسم لا يمكن أن يكون فارغًا";
-
 "bookmarks_error_message_empty_list_name" = "يرجى إدخال اسم القائمة";
-
-"bookmarks_new_list_hint" = "قائمة جديدة";
 
 "bookmarks_error_title_list_name_already_taken" = "هذا الاسم أخذ سابقا";
 
-"bookmarks_error_message_list_name_already_taken" = "يرجى اختيار اسم آخر";
-
 "bookmarks_error_title_list_name_too_long" = "هذا الاسم طويل للغاية";
-
-"please_wait" = "أرجو الإنتظار…";
-
-"phone_number" = "رقم الهاتف";
 
 "profile" = "الملف الشخصي OpenStreetMap";
 
@@ -1157,17 +924,9 @@
 
 "bookmarks_restore_title" = "استعادة هذا الإصدار؟";
 
-"common_check_internet_connection_dialog_title" = "لا يوجد اتصال بالإنترنت";
-
 "error_system_message" = "حدث خطأ غير معروف";
 
 "restore" = "استعادة";
-
-"subtittle_opt_out" = "إعدادات التتبع";
-
-"crash_reports" = "تقرير الحادث";
-
-"crash_reports_description" = "قد نستخدم بياناتك لتحسين تجربة Organic Maps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.";
 
 "privacy_policy" = "سياسة الخصوصية";
 
@@ -1181,12 +940,6 @@
 
 "subway_data_unavailable" = "خريطة مترو الانفاق غير متوفرة";
 
-"bookmarks_empty_list_title" = "هذه اللائحة شاغرة";
-
-"bookmarks_empty_list_message" = "لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر فوق رمز النجمة";
-
-"category_desc_more" = "…المزيد";
-
 "title_error_downloading_bookmarks" = "حدث خطأ";
 
 "popular_place" = "Popular";
@@ -1199,13 +952,7 @@
 
 "hide_from_map" = "إخفاء من الخريطة";
 
-"public_access" = "إطلاع الجمهور";
-
-"limited_access" = "محدودية فرص حصول";
-
 "bookmark_list_description_hint" = "اكتب وصفًا (نص أو html)";
-
-"not_shared" = "خاص";
 
 "tags_loading_error_subtitle" = "حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى";
 
@@ -1221,9 +968,6 @@
 
 "place_description_title" = "وصف المكان";
 
-/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "محمل الخريطة";
-
 "speedcams_notice_message" = "السيارات- تحذير على الرادارات إذا كان هناك خطر تجاوز الحد الأقصى للسرعة\nدائما - احذر دائما من كاميرات السرعة\nمطلقا - أبدا تحذير من كاميرات السرعة";
 
 "power_managment_title" = "وضع توفير الطاقة";
@@ -1235,10 +979,6 @@
 "power_managment_setting_auto" = "تلقائي";
 
 "power_managment_setting_manual_max" = "توفير الطاقة القصوى";
-
-"enable_logging_warning_message" = "يتحول الخيار إلى التسجيل لإغراض التشخيص. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا الذين يعملون على استكشاف أخطاء التطبيق وإصلاحها. قم بتفعيل هذا الخيار فقط في حالة طلب الدعم من Organic Maps.";
-
-"access_rules_author_only" = "التحرير على الإنترنت";
 
 "driving_options_title" = "خيارات قيادة";
 
@@ -1333,9 +1073,6 @@
 /* max. 10 symbols, both iOS and Android */
 "sort" = "تريتب…";
 
-/* Android, title, max 20-22 symbols */
-"sort_bookmarks" = "رتب العلامات المرجعية";
-
 /* iOS */
 "sort_default" = "رتب افتراضي";
 
@@ -1344,18 +1081,6 @@
 "sort_distance" = "رتب حسب المسافة";
 
 "sort_date" = "رتب حسب التاريخ";
-
-/* Android */
-"by_default" = "افتراضي";
-
-/* Android */
-"by_type" = "حسب النوع";
-
-/* Android */
-"by_distance" = "حسب المسافة";
-
-/* Android */
-"by_date" = "حسب التاريخ";
 
 "week_ago_sorttype" = "منذ أسبوع";
 
@@ -1368,6 +1093,9 @@
 "near_me_sorttype" = "قريب مني";
 
 "others_sorttype" = "أخرى";
+
+
+/********** Bookmark types used for sorting **********/
 
 "food_places" = "طعام";
 
@@ -1395,15 +1123,11 @@
 
 "fuel_places" = "محطات وقود";
 
-"water" = "ماء";
-
 "medicine" = "دواء";
 
 "search_in_the_list" = "بحث في القائمة";
 
 "religious_places" = "أماكن دينية";
-
-"select_list" = "اختر القائمة";
 
 "transit_not_found" = "التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن";
 
@@ -1435,8 +1159,6 @@
 
 "elevation_profile_difficulty" = "درجة الصعوبة";
 
-"elevation_profile_distance" = "المسافة:";
-
 "elevation_profile_time" = "مدة:";
 
 "isolines_toast_zooms_1_10" = "قرب لتكتشف خطوط الكنتور";
@@ -1444,19 +1166,6 @@
 "downloader_updating_ios" = "جار التحديث";
 
 "downloader_loading_ios" = "جار التحميل";
-
-"key_information_title" = "معلومات رئيسية";
-
-"download_map_title" = "Download the world map";
-
-"connection_failure" = "Connection failure";
-
-"disconnect_usb_cable_title" = "Disconnect USB cable";
-
-"enable_screen_sleep" = "اسمح للشاشة بالنوم";
-
-/* Description in preferences */
-"enable_screen_sleep_description" = "عند التمكين ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "قم بتحديث الخرائط التي قمت بنتزيلها";
@@ -1499,21 +1208,21 @@
 
 "type.aerialway.station" = "محطة تلفريك";
 
-"type.aeroway" = "Aeroway";
+"type.aeroway" = "Airspace Infrastructure";
 
 "type.aeroway.aerodrome" = "مطار";
 
 "type.aeroway.aerodrome.international" = "مطار";
 
-"type.aeroway.apron" = "aeroway-apron";
+"type.aeroway.apron" = "Apron";
 
 "type.aeroway.gate" = "Gate";
 
 "type.aeroway.helipad" = "مهبط مروحيات";
 
-"type.aeroway.runway" = "aeroway-runway";
+"type.aeroway.runway" = "Runway";
 
-"type.aeroway.taxiway" = "aeroway-taxiway";
+"type.aeroway.taxiway" = "Taxiway";
 
 "type.aeroway.terminal" = "Terminal";
 
@@ -1589,8 +1298,10 @@
 
 "type.amenity.fuel" = "محطة وقود";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard" = "مقبرة";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "مقبرة";
 
 "type.amenity.hospital" = "عيادة";
@@ -1669,11 +1380,16 @@
 
 "type.amenity.public_bookcase" = "مكتبة، تبادل كتب";
 
-"type.amenity.recycling" = "مركز إعادة تدوير";
 
-"type.amenity.recycling_container" = "حاوية لإعادة التدوير";
+/********** Types: Recycling **********/
 
-"type.recycling.toxic" = "نفايات سامة";
+"type.amenity.recycling.centre" = "مركز إعادة تدوير";
+
+"type.amenity.recycling" = "حاوية لإعادة التدوير";
+
+"type.amenity.recycling.container" = "حاوية لإعادة التدوير";
+
+"type.recycling.batteries" = "ﺕﺎﻳﺭﺎﻄﺑ";
 
 "type.recycling.clothes" = "ملابس قديمة";
 
@@ -1689,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "نفايات الكترونية";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Bewerage Cartons";
+
 "type.amenity.restaurant" = "مطعم";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "مدرسة";
 
@@ -1719,11 +1447,19 @@
 
 "type.amenity.vending_machine.public_transport_tickets" = "آلة بيع تذاكر النقل العام";
 
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+
+"type.amenity.vending_machine.parcel_pickup" = "Parcel Locker";
+
+"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+
 "type.amenity.veterinary" = "طبيب بيطري";
 
 "type.amenity.waste_basket" = "صندوق قمامة";
 
 "type.amenity.waste_disposal" = "قمامة";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "نقطة مائية";
 
@@ -1763,45 +1499,43 @@
 
 "type.boundary" = "Boundary";
 
-"type.boundary.administrative" = "boundary-administrative";
+"type.boundary.administrative" = "Administrative Boundary";
 
-"type.boundary.administrative.10" = "boundary-administrative-10";
+"type.boundary.administrative.10" = "Administrative Boundary";
 
-"type.boundary.administrative.11" = "boundary-administrative-11";
+"type.boundary.administrative.11" = "Administrative Boundary";
 
-"type.boundary.administrative.2" = "boundary-administrative-2";
+"type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "boundary-administrative-3";
+"type.boundary.administrative.3" = "Administrative Boundary";
 
-"type.boundary.administrative.4" = "boundary-administrative-4";
+"type.boundary.administrative.4" = "Administrative Boundary";
 
-"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
+"type.boundary.administrative.5" = "Administrative Boundary";
 
-"type.boundary.administrative.5" = "boundary-administrative-5";
+"type.boundary.administrative.6" = "Administrative Boundary";
 
-"type.boundary.administrative.6" = "boundary-administrative-6";
+"type.boundary.administrative.7" = "Administrative Boundary";
 
-"type.boundary.administrative.7" = "boundary-administrative-7";
+"type.boundary.administrative.8" = "Administrative Boundary";
 
-"type.boundary.administrative.8" = "boundary-administrative-8";
+"type.boundary.administrative.9" = "Administrative Boundary";
 
-"type.boundary.administrative.9" = "boundary-administrative-9";
+"type.boundary.administrative.city" = "City Boundary";
 
-"type.boundary.administrative.city" = "boundary-administrative-city";
+"type.boundary.administrative.country" = "National Border";
 
-"type.boundary.administrative.country" = "boundary-administrative-country";
+"type.boundary.administrative.county" = "County Boundary";
 
-"type.boundary.administrative.county" = "boundary-administrative-county";
+"type.boundary.administrative.municipality" = "Municipality Boundary";
 
-"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+"type.boundary.administrative.nation" = "National Border";
 
-"type.boundary.administrative.nation" = "boundary-administrative-nation";
+"type.boundary.administrative.region" = "Regional Boundary";
 
-"type.boundary.administrative.region" = "boundary-administrative-region";
+"type.boundary.administrative.state" = "State Boundary";
 
-"type.boundary.administrative.state" = "boundary-administrative-state";
-
-"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
+"type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "منتزه وطني";
 
@@ -2023,27 +1757,30 @@
 
 "type.healthcare.laboratory" = "ﺔﻴﺒﻄﻟﺍ ﺕﺍﺮﺒﺘﺨﻤﻟﺍ";
 
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 
-"type.highway.bridleway" = "Rider's Path";
+"type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Rider's Path";
+"type.highway.bridleway.bridge" = "Bridle Path";
 
-"type.highway.bridleway.permissive" = "Rider's Path";
+"type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Rider's Path";
+"type.highway.bridleway.tunnel" = "Bridle Path";
 
 "type.highway.bus_stop" = "موقف حافلة";
 
 "type.highway.construction" = "طريق تحت الإنشاء";
 
-"type.highway.cycleway" = "Bike Path";
+"type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Bike Path";
+"type.highway.cycleway.bridge" = "Cycle Path";
 
-"type.highway.cycleway.permissive" = "Bike Path";
+"type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Bike Path";
+"type.highway.cycleway.tunnel" = "Cycle Path";
 
 "type.highway.elevator" = "Elevator";
 
@@ -2177,7 +1914,7 @@
 
 "type.highway.service.tunnel" = "شارع";
 
-"type.highway.services" = "Service on the Road";
+"type.highway.services" = "Service Area";
 
 "type.highway.speed_camera" = "كاميرا لرصد السرعة";
 
@@ -2243,9 +1980,42 @@
 
 "type.highway.unclassified.tunnel" = "شارع";
 
+"type.area_highway.cycleway" = "Cycle Path";
+
+"type.area_highway.footway" = "مسار";
+
+"type.area_highway.living_street" = "شارع";
+
+"type.area_highway.motorway" = "شارع";
+
+"type.area_highway.path" = "مسار";
+
+"type.area_highway.pedestrian" = "شارع";
+
+"type.area_highway.primary" = "شارع";
+
+"type.area_highway.residential" = "شارع";
+
+"type.area_highway.secondary" = "شارع";
+
+"type.area_highway.service" = "شارع";
+
+"type.area_highway.tertiary" = "شارع";
+
+"type.area_highway.steps" = "مسار";
+
+"type.area_highway.track" = "شارع";
+
+"type.area_highway.trunk" = "شارع";
+
+"type.area_highway.unclassified" = "شارع";
+
 "type.highway.world_level" = "highway-world_level";
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
 
 "type.historic" = "Historic";
 
@@ -2327,8 +2097,10 @@
 
 "type.landuse.brownfield" = "Brownfield";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "مقبرة";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "مقبرة";
 
 "type.landuse.churchyard" = "فناء الكنيسة";
@@ -2391,7 +2163,7 @@
 
 "type.leisure" = "Leisure";
 
-"type.leisure.common" = "leisure-common";
+"type.leisure.common" = "Public Land";
 
 "type.leisure.dog_park" = "منطقة كلاب";
 
@@ -2445,9 +2217,13 @@
 
 "type.leisure.swimming_pool" = "حوض سباحة";
 
+"type.leisure.swimming_pool.private" = "حوض سباحة";
+
 "type.leisure.track" = "Track";
 
 "type.leisure.water_park" = "ملاهي مائية";
+
+"type.leisure.beach_resort" = "Beach Resort";
 
 "type.man_made" = "Man Made";
 
@@ -2459,7 +2235,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "منارة";
+
+"type.man_made.mast" = "Mast";
 
 "type.man_made.pier" = "Pier";
 
@@ -2571,9 +2351,7 @@
 
 "type.natural.wetland.marsh" = "Wetland";
 
-"type.noexit" = "noexit";
-
-"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
+"type.noexit" = "Dead End";
 
 "type.office" = "مكتب";
 
@@ -2597,25 +2375,25 @@
 
 "type.place.city.capital" = "عاصمة";
 
-"type.place.city.capital.10" = "عاصمة";
+"type.place.city.capital.10" = "مدينة";
 
-"type.place.city.capital.11" = "عاصمة";
+"type.place.city.capital.11" = "مدينة";
 
 "type.place.city.capital.2" = "عاصمة";
 
-"type.place.city.capital.3" = "عاصمة";
+"type.place.city.capital.3" = "مدينة";
 
-"type.place.city.capital.4" = "عاصمة";
+"type.place.city.capital.4" = "مدينة";
 
-"type.place.city.capital.5" = "عاصمة";
+"type.place.city.capital.5" = "مدينة";
 
-"type.place.city.capital.6" = "عاصمة";
+"type.place.city.capital.6" = "مدينة";
 
-"type.place.city.capital.7" = "عاصمة";
+"type.place.city.capital.7" = "مدينة";
 
-"type.place.city.capital.8" = "عاصمة";
+"type.place.city.capital.8" = "مدينة";
 
-"type.place.city.capital.9" = "عاصمة";
+"type.place.city.capital.9" = "مدينة";
 
 "type.place.continent" = "قارة";
 
@@ -2693,11 +2471,11 @@
 
 "type.railway.abandoned.bridge" = "Abandoned railway";
 
-"type.railway.abandoned.tunnel" = "Abandoned railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway";
 
-"type.railway.construction" = "Railway's construction";
+"type.railway.construction" = "Railway's Construction";
 
-"type.railway.crossing" = "Railway crossing";
+"type.railway.crossing" = "Railway Crossing";
 
 "type.railway.disused" = "Disused railway";
 
@@ -2729,7 +2507,7 @@
 
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
 
-"type.railway.platform" = "Platform";
+"type.railway.platform" = "Railway Platform";
 
 "type.railway.preserved" = "Preserved Rail";
 
@@ -2864,6 +2642,8 @@
 "type.shop.car_repair" = "محل صيانة السيارات";
 
 "type.shop.car_repair.tyres" = "إصلاح إطارات";
+
+"type.shop.caravan" = "RV Dealership";
 
 "type.shop.chemist" = "متجر كيماويات";
 
@@ -3133,66 +2913,37 @@
 
 "type.wheelchair.yes" = "دعم كامل لكراسي المعاقين";
 
-"type.piste_lift" = "piste:lift";
+/* en.wikipedia.org/wiki/Surface_lift */
+"type.piste_lift" = "Surface Lift";
 
-"type.piste_lift.j.bar" = "piste:lift-j-bar";
+"type.piste_lift.j.bar" = "J-bar Lift";
 
-"type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
+"type.piste_lift.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.platter" = "piste:lift-platter";
+"type.piste_lift.platter" = "Platter Lift";
 
-"type.piste_lift.rope_tow" = "piste:lift-rope_tow";
+"type.piste_lift.rope_tow" = "Rope Tow";
 
-"type.piste_lift.t.bar" = "piste:lift-t-bar";
+"type.piste_lift.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "piste:type";
+"type.piste_type" = "Piste Type";
 
-"type.piste_type.downhill" = "piste:type-downhill";
+"type.piste_type.downhill" = "Downhill Ski Run";
 
-"type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
+"type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
-"type.piste_type.downhill.easy" = "piste:type-downhill-easy";
+"type.piste_type.downhill.easy" = "Downhill Ski Run";
 
-"type.piste_type.downhill.expert" = "piste:type-downhill-expert";
+"type.piste_type.downhill.expert" = "Downhill Ski Run";
 
-"type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
+"type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
-"type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
+"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
-"type.piste_type.downhill.novice" = "piste:type-downhill-novice";
+"type.piste_type.downhill.novice" = "Downhill Ski Run";
 
-"type.piste_type.nordic" = "piste:type-nordic";
+"type.piste_type.nordic" = "Nordic Ski Trail";
 
-"type.piste_type.sled" = "piste:type-sled";
+"type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "مبنى";
-
-"type.area_highway.cycleway" = "Bike Path";
-
-"type.area_highway.footway" = "Path";
-
-"type.area_highway.living_street" = "Street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "Path";
-
-"type.area_highway.pedestrian" = "Street";
-
-"type.area_highway.primary" = "Street";
-
-"type.area_highway.residential" = "Street";
-
-"type.area_highway.secondary" = "Street";
-
-"type.area_highway.service" = "Street";
-
-"type.area_highway.tertiary" = "Street";
-
-"type.area_highway.steps" = "Steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";

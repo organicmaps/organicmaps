@@ -722,14 +722,14 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
                                                 vector<Segment> & subroute,
                                                 bool guidesActive /* = false */)
 {
-  CHECK(progress, (checkpoints));
   subroute.clear();
 
   SetupAlgorithmMode(starter, guidesActive);
-  LOG(LINFO, ("Routing in mode:", starter.GetGraph().GetMode()));
+
+  WorldGraphMode const mode = starter.GetGraph().GetMode();
+  LOG(LINFO, ("Routing in mode:", mode));
 
   base::ScopedTimerWithLog timer("Route build");
-  WorldGraphMode const mode = starter.GetGraph().GetMode();
   switch (mode)
   {
   case WorldGraphMode::Joints:
@@ -770,6 +770,7 @@ RouterResultCode IndexRouter::CalculateSubrouteJointsMode(
   if (result != RouterResultCode::NoError)
     return result;
 
+  LOG(LDEBUG, ("Result route weight:", routingResult.m_distance));
   subroute = ProcessJoints(routingResult.m_path, jointStarter);
   return result;
 }
@@ -824,6 +825,13 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
       AStarLengthChecker(starter));
 
+  params.m_badReducedWeight = [](Weight const &, Weight const &)
+  {
+    /// @see CrossMwmConnector::GetTransition comment.
+    /// Unfortunately, reduced weight invariant in LeapsOnly mode doesn't work with the workaround above.
+    return false;
+  };
+
   RoutingResult<Vertex, Weight> routingResult;
   RouterResultCode const result =
       FindPath<Vertex, Edge, Weight>(params, {} /* mwmIds */, routingResult);
@@ -834,9 +842,9 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
     return result;
 
   vector<Segment> subrouteWithoutPostprocessing;
-  RouterResultCode const leapsResult =
-      ProcessLeapsJoints(routingResult.m_path, delegate, starter.GetGraph().GetMode(), starter,
-                         progress, subrouteWithoutPostprocessing);
+  ASSERT_EQUAL(starter.GetGraph().GetMode(), WorldGraphMode::LeapsOnly, ());
+  RouterResultCode const leapsResult = ProcessLeapsJoints(routingResult.m_path, delegate, starter,
+                                                          progress, subrouteWithoutPostprocessing);
 
   if (leapsResult != RouterResultCode::NoError)
     return leapsResult;
@@ -946,12 +954,9 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 
 unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
-  RoutingOptions routingOptions;
-  if (m_vehicleType == VehicleType::Car)
-  {
-    routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
-    LOG(LINFO, ("Avoid next roads:", routingOptions));
-  }
+  // Use saved routing options for all types (car, bicycle, pedestrian).
+  RoutingOptions const routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
+  LOG(LINFO, ("Avoid next roads:", routingOptions));
 
   auto crossMwmGraph = make_unique<CrossMwmGraph>(
       m_numMwmIds, m_numMwmTree, m_vehicleModelFactory,
@@ -1206,14 +1211,12 @@ bool IndexRouter::FindBestEdges(m2::PointD const & checkpoint,
 
 RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
                                                  RouterDelegate const & delegate,
-                                                 WorldGraphMode prevMode,
                                                  IndexGraphStarter & starter,
                                                  shared_ptr<AStarProgress> const & progress,
                                                  vector<Segment> & output)
 {
-  CHECK_EQUAL(prevMode, WorldGraphMode::LeapsOnly, ());
+  LOG(LDEBUG, ("Leaps path:", input));
 
-  CHECK(progress, ());
   SCOPE_GUARD(progressGuard, [&progress]() {
     progress->PushAndDropLastSubProgress();
   });
@@ -1239,6 +1242,10 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
   // To avoid this behavior we collapse all leaps from start to  last occurrence of startId to one leap and
   // use WorldGraph with NoLeaps mode to proccess these leap. Unlike SingleMwm mode used to process ordinary leaps
   // NoLeaps allows to use all mwms so if we really need to visit other mwm we will.
+  /// @todo By VNG: This workaround doesn't work on issues below. Comment it and check unneeded loops again.
+  /// https://github.com/organicmaps/organicmaps/issues/821
+
+  /*
   auto const firstMwmId = input[1].GetMwmId();
   auto const startLeapEndReverseIt = find_if(input.rbegin() + 2, input.rend(),
                                              [firstMwmId](Segment const & s) { return s.GetMwmId() == firstMwmId; });
@@ -1250,6 +1257,10 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
   auto const finishLeapStartIt = find_if(startLeapEndIt, input.end(),
                                          [lastMwmId](Segment const & s) { return s.GetMwmId() == lastMwmId; });
   auto const finishLeapStart = static_cast<size_t>(distance(input.begin(), finishLeapStartIt));
+  */
+
+  auto const startLeapEnd = 1;
+  auto const finishLeapStart = input.size() - 2;
 
   auto fillMwmIds = [&](size_t start, size_t end, set<NumMwmId> & mwmIds)
   {
@@ -1408,7 +1419,6 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         if (prev == 0)
           dropFirstSegment = false;
 
-        CHECK_GREATER_OR_EQUAL(prev, 0, ());
         if (!tryBuildRoute(prev, next, WorldGraphMode::Joints, routingResult))
           return RouterResultCode::RouteNotFound;
       }

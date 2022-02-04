@@ -35,14 +35,10 @@
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
 
-// Alert keys.
-extern NSString *const kUDAlreadyRatedKey = @"UserAlreadyRatedApp";
-
 namespace {
 NSString *const kUDLastLaunchDateKey = @"LastLaunchDate";
 NSString *const kUDSessionsCountKey = @"SessionsCount";
 NSString *const kUDFirstVersionKey = @"FirstVersion";
-NSString *const kUDLastRateRequestDate = @"LastRateRequestDate";
 NSString *const kUDLastShareRequstDate = @"LastShareRequestDate";
 NSString *const kUDAutoNightModeOff = @"AutoNightModeOff";
 NSString *const kIOSIDFA = @"IFA";
@@ -99,11 +95,6 @@ using namespace osm_auth_ios;
                                    forInputLocale:[MWMSettings spotlightLocaleLanguageId]];
 }
 
-- (void)incrementSessionsCountAndCheckForAlert {
-  [self incrementSessionCount];
-  [self showAlertIfRequired];
-}
-
 - (void)commonInit {
   [HttpThreadImpl setDownloadIndicatorProtocol:self];
   InitLocalizedStrings();
@@ -130,7 +121,7 @@ using namespace osm_auth_ios;
   if ([FirstSession isFirstSession]) {
     [self firstLaunchSetup];
   } else {
-    [self incrementSessionsCountAndCheckForAlert];
+    [self incrementSessionCount];
   }
   [self enableTTSForTheFirstTime];
 
@@ -401,53 +392,7 @@ using namespace osm_auth_ios;
   }
 }
 
-- (void)showAlertIfRequired {
-  if ([self shouldShowRateAlert]) {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showRateAlert) object:nil];
-    [self performSelector:@selector(showRateAlert) withObject:nil afterDelay:30.0];
-  }
-}
-
 #pragma mark - Rate
-
-- (void)showRateAlert {
-  if (!Platform::IsConnected() || [MWMRouter isRoutingActive])
-    return;
-
-  [[MWMAlertViewController activeAlertController] presentRateAlert];
-  [NSUserDefaults.standardUserDefaults setObject:NSDate.date forKey:kUDLastRateRequestDate];
-}
-
-- (BOOL)shouldShowRateAlert {
-  /// @todo Uncomment in follow-up release.
-  /*
-  NSUInteger const kMaximumSessionCountForShowingAlert = 21;
-  NSUserDefaults const *const standartDefaults = NSUserDefaults.standardUserDefaults;
-  if ([standartDefaults boolForKey:kUDAlreadyRatedKey])
-    return NO;
-
-  NSUInteger const sessionCount = [standartDefaults integerForKey:kUDSessionsCountKey];
-  if (sessionCount > kMaximumSessionCountForShowingAlert)
-    return NO;
-
-  NSDate *const lastRateRequestDate = [standartDefaults objectForKey:kUDLastRateRequestDate];
-  NSInteger const daysFromLastRateRequest = lastRateRequestDate.daysToNow;
-  // Do not show more than one alert per day.
-  if (lastRateRequestDate != nil && daysFromLastRateRequest == 0)
-    return NO;
-
-  if (self.userIsNew) {
-    // It's new user.
-    if (sessionCount == 3 || sessionCount == 10 || sessionCount == kMaximumSessionCountForShowingAlert)
-      return YES;
-  } else {
-    // User just got updated. Show alert, if it first session or if 90 days spent.
-    if (daysFromLastRateRequest >= 90 || daysFromLastRateRequest == 0)
-      return YES;
-  }
-  */
-  return NO;
-}
 
 - (BOOL)userIsNew {
   NSString *currentVersion = [NSBundle.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];

@@ -39,19 +39,20 @@ string FormatDistanceImpl(Units units, double m, string const & low, string cons
   case Units::Metric: highF = 1000.0; lowF = 1.0; break;
   }
 
-  double const lowV = m / lowF;
-  if (lowV < 1.0)
-    return string("0 ") + low;
+  double lowV = round(m / lowF);
+  // Round distances over 100 units to 10 units, e.g. 112 -> 110, 998 -> 1000
+  lowV = lowV <= 100.0 ? lowV : round(lowV / 10) * 10;
 
-  // To display any lower units only if < 1000
-  if (m >= 1000.0 * lowF)
+  // Use high units for distances of 1000 units and over,
+  // e.g. 1000m -> 1.0km, 1290m -> 1.3km, 1000ft -> 0.2mi
+  if (lowV >= 1000.0)
   {
-    double const v = m / highF;
-    return ToStringPrecision(v, v >= 10.0 ? 0 : 1) + " " + high;
+    double const highV = m / highF;
+    // For distances of 10.0 high units and over round to a whole number, e.g. 9.98 -> 10, 10.9 -> 11
+    return ToStringPrecision(highV, round(highV * 10) / 10 >= 10.0 ? 0 : 1) + " " + high;
   }
 
-  // To display unit number only if <= 100.
-  return ToStringPrecision(lowV <= 100.0 ? lowV : round(lowV / 10) * 10, 0) + " " + low;
+  return ToStringPrecision(lowV, 0) + " " + low;
 }
 
 string FormatAltitudeImpl(Units units, double altitude, string const & localizedUnits)
@@ -249,8 +250,8 @@ string FormatSpeedUnits(Units units)
 string FormatOsmLink(double lat, double lon, int zoom)
 {
   static char char_array[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_~";
-  uint32_t const x = round((lon + 180.0) / 360.0 * (1L<<32));
-  uint32_t const y = round((lat + 90.0) / 180.0 * (1L<<32));
+  uint32_t const x = round((lon + 180.0) / 360.0 * (1UL<<32));
+  uint32_t const y = round((lat + 90.0) / 180.0 * (1UL<<32));
   uint64_t const code = bits::BitwiseMerge(y, x);
   string osmUrl = "https://osm.org/go/";
 

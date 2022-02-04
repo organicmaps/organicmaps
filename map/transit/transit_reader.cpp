@@ -198,7 +198,7 @@ void ReadTransitTask::FillLinesAndRoutes(::transit::experimental::TransitData co
 
   for (auto const & line : transitData.GetLines())
   {
-    transit::TransitId const routeId = line.GetRouteId();
+    ::transit::TransitId const routeId = line.GetRouteId();
     auto const itRoute = ::transit::FindById(routes, routeId);
     auto const itLineMetadata = ::transit::FindById(linesMeta, line.GetId(), false /*exists*/);
 

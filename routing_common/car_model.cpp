@@ -12,7 +12,7 @@
 using namespace std;
 using namespace routing;
 
-namespace
+namespace car_model
 {
 // See model specifics in different countries here:
 //   https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
@@ -154,31 +154,31 @@ std::unordered_map<char const *, VehicleModel::LimitsInitList> const kCarOptions
     {"Slovakia", kCarOptionsNoPassThroughLivingStreet},
     {"Ukraine", kCarOptionsNoPassThroughLivingStreetAndService}
 };
-}  // namespace
+}  // namespace car_model
 
 namespace routing
 {
 CarModel::CarModel()
-  : VehicleModel(classif(), kCarOptionsDefault, kCarSurface,
+  : VehicleModel(classif(), car_model::kCarOptionsDefault, car_model::kCarSurface,
                  {kHighwayBasedSpeeds, kHighwayBasedFactors})
 {
   Init();
 }
 
 CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits, HighwayBasedInfo const & info)
-  : VehicleModel(classif(), roadLimits, kCarSurface, info)
+  : VehicleModel(classif(), roadLimits, car_model::kCarSurface, info)
 {
   Init();
 }
 
-SpeedKMpH const & CarModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
+SpeedKMpH const & CarModel::GetOffroadSpeed() const { return car_model::kSpeedOffroadKMpH; }
 
 void CarModel::Init()
 {
   m_noCarType = classif().GetTypeByPath({"hwtag", "nocar"});
   m_yesCarType = classif().GetTypeByPath({"hwtag", "yescar"});
 
-  SetAdditionalRoadTypes(classif(), kAdditionalTags);
+  AddAdditionalRoadTypes(classif(), car_model::kAdditionalTags);
 }
 
 VehicleModelInterface::RoadAvailability CarModel::GetRoadAvailability(feature::TypesHolder const & types) const
@@ -200,25 +200,25 @@ CarModel const & CarModel::AllLimitsInstance()
 }
 
 // static
-routing::VehicleModel::LimitsInitList const & CarModel::GetOptions() { return kCarOptionsDefault; }
+routing::VehicleModel::LimitsInitList const & CarModel::GetOptions() { return car_model::kCarOptionsDefault; }
 
 // static
 vector<routing::VehicleModel::AdditionalRoadTags> const & CarModel::GetAdditionalTags()
 {
-  return kAdditionalTags;
+  return car_model::kAdditionalTags;
 }
 
 // static
-VehicleModel::SurfaceInitList const & CarModel::GetSurfaces() { return kCarSurface; }
+VehicleModel::SurfaceInitList const & CarModel::GetSurfaces() { return car_model::kCarSurface; }
 
 CarModelFactory::CarModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn)
   : VehicleModelFactory(countryParentNameGetterFn)
 {
   m_models[""] = make_shared<CarModel>(
-      kCarOptionsDefault,
+      car_model::kCarOptionsDefault,
       HighwayBasedInfo(kHighwayBasedSpeeds, kHighwayBasedFactors));
 
-  for (auto const & kv : kCarOptionsByCountries)
+  for (auto const & kv : car_model::kCarOptionsByCountries)
   {
     auto const * country = kv.first;
     auto const & limit = kv.second;

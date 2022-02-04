@@ -294,9 +294,7 @@ void MainModel::OnUpdate(View::ResultType type, size_t sampleIndex,
 {
   using Type = ResultsEdits::Update::Type;
 
-  CHECK_GREATER_OR_EQUAL(sampleIndex, 0, ());
-  CHECK_LESS(static_cast<size_t>(sampleIndex), m_contexts.Size(), ());
-
+  CHECK_LESS(sampleIndex, m_contexts.Size(), ());
   auto & context = m_contexts[sampleIndex];
 
   if (update.m_type == Type::Add)

@@ -5,20 +5,15 @@
 #include "base/base.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <algorithm>
 #include <array>
-#include <cstdint>
 #include <functional>
-#include <initializer_list>
+#include <limits>
 #include <optional>
 #include <set>
 #include <string>
 #include <type_traits>
 #include <utility>
 #include <vector>
-
-namespace feature { class TypesHolder; }
-class FeatureType;
 
 #define DECLARE_CHECKER_INSTANCE(CheckerType) static CheckerType const & Instance() { \
                                               static CheckerType const inst; return inst; }

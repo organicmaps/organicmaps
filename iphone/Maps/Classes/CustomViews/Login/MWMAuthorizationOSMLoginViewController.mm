@@ -173,7 +173,7 @@ using namespace osm;
 - (IBAction)cancel { [self.navigationController popViewControllerAnimated:YES]; }
 - (IBAction)forgotPassword
 {
-  [self openUrl:[NSURL URLWithString:@(OsmOAuth::ServerAuth().GetResetPasswordURL().c_str())]];
+  [self openUrl:@(OsmOAuth::ServerAuth().GetResetPasswordURL().c_str())];
 }
 
 #pragma mark - Properties

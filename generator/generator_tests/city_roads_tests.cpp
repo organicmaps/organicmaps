@@ -32,14 +32,14 @@
 
 #include "defines.hpp"
 
+namespace city_roads_tests
+{
 using namespace coding;
 using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
 using namespace std;
 
-namespace
-{
 // Directory name for creating test mwm and temporary files.
 string const kTestDir = "city_roads_generation_test";
 // Temporary mwm name for testing.
@@ -173,4 +173,4 @@ UNIT_TEST(CityRoadsGenerationTest_UnsortedIds3)
        182452, 303265, 73616, 262562, 62935, 294606, 466803, 215791, 468825, 76934, 18187,
        194429, 32913}));
 }
-}  // namespace
+}  // namespace city_roads_tests

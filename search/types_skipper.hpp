@@ -1,6 +1,6 @@
 #pragma once
 
-#include "search/model.hpp"
+#include "indexer/feature_data.hpp"
 
 #include "base/buffer_vector.hpp"
 

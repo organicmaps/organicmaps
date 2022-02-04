@@ -33,7 +33,7 @@ struct CampaignDescription
   }
 
   bool IsValid() const { return !m_from.empty() && !m_type.empty() && !m_name.empty(); }
-  
+
   string m_from;
   string m_type;
   string m_name;
@@ -85,22 +85,20 @@ ParsedMapApi::UrlType GetUrlType(url::Url const & url)
   if (std::find(kAvailableSchemes.begin(), kAvailableSchemes.end(), url.GetScheme()) == kAvailableSchemes.end())
     return ParsedMapApi::UrlType::Incorrect;
 
-  auto const path = url.GetPath();
-  if (path == "map")
+  auto const & type = url.GetHost();
+  if (type == "map")
     return ParsedMapApi::UrlType::Map;
-  if (path == "route")
+  if (type == "route")
     return ParsedMapApi::UrlType::Route;
-  if (path == "search")
+  if (type == "search")
     return ParsedMapApi::UrlType::Search;
 
   return ParsedMapApi::UrlType::Incorrect;
 }
 
-bool ParseLatLon(url::Param const & param, double & lat, double & lon)
+bool ParseLatLon(std::string const & key, std::string const & value,
+                 double & lat, double & lon)
 {
-  string const & key = param.m_name;
-  string const & value = param.m_value;
-
   size_t const firstComma = value.find(',');
   if (firstComma == string::npos)
   {
@@ -150,8 +148,9 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
     {
       vector<ApiPoint> points;
       bool correctOrder = true;
-      url.ForEachParam([&points, &correctOrder, this](url::Param const & param) {
-        ParseMapParam(param, points, correctOrder);
+      url.ForEachParam([&points, &correctOrder, this](auto const & key, auto const & value)
+      {
+        ParseMapParam(key, value, points, correctOrder);
       });
 
       if (points.empty() || !correctOrder)
@@ -175,8 +174,9 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
       m_routePoints.clear();
       using namespace route;
       vector<string> pattern{kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
-      url.ForEachParam([&pattern, this](url::Param const & param) {
-        ParseRouteParam(param, pattern);
+      url.ForEachParam([&pattern, this](auto const & key, auto const & value)
+      {
+        ParseRouteParam(key, value, pattern);
       });
 
       if (pattern.size() != 0)
@@ -193,12 +193,13 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
     case UrlType::Search:
     {
       SearchRequest request;
-      url.ForEachParam([&request, this](url::Param const & param) {
-        ParseSearchParam(param, request);
+      url.ForEachParam([&request, this](auto const & key, auto const & value)
+      {
+        ParseSearchParam(key, value, request);
       });
       if (request.m_query.empty())
         return false;
-      
+
       m_request = request;
       return true;
     }
@@ -206,18 +207,16 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
   UNREACHABLE();
 }
 
-void ParsedMapApi::ParseMapParam(url::Param const & param, vector<ApiPoint> & points, bool & correctOrder)
+void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & value,
+                                 vector<ApiPoint> & points, bool & correctOrder)
 {
   using namespace map;
-
-  string const & key = param.m_name;
-  string const & value = param.m_value;
 
   if (key == kLatLon)
   {
     double lat = 0.0;
     double lon = 0.0;
-    if (!ParseLatLon(param, lat, lon))
+    if (!ParseLatLon(key, value, lat, lon))
       return;
 
     ApiPoint pt{.m_lat = lat, .m_lon = lon};
@@ -289,12 +288,10 @@ void ParsedMapApi::ParseMapParam(url::Param const & param, vector<ApiPoint> & po
   }
 }
 
-void ParsedMapApi::ParseRouteParam(url::Param const & param, vector<string> & pattern)
+void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & value,
+                                   vector<string> & pattern)
 {
   using namespace route;
-
-  string const & key = param.m_name;
-  string const & value = param.m_value;
 
   if (pattern.empty() || key != pattern.front())
     return;
@@ -303,7 +300,7 @@ void ParsedMapApi::ParseRouteParam(url::Param const & param, vector<string> & pa
   {
     double lat = 0.0;
     double lon = 0.0;
-    if (!ParseLatLon(param, lat, lon))
+    if (!ParseLatLon(key, value, lat, lon))
       return;
 
     RoutePoint p;
@@ -332,12 +329,10 @@ void ParsedMapApi::ParseRouteParam(url::Param const & param, vector<string> & pa
   pattern.erase(pattern.begin());
 }
 
-void ParsedMapApi::ParseSearchParam(url::Param const & param, SearchRequest & request) const
+void ParsedMapApi::ParseSearchParam(std::string const & key, std::string const & value,
+                                    SearchRequest & request) const
 {
   using namespace search;
-
-  string const & key = param.m_name;
-  string const & value = param.m_value;
 
   if (key == kQuery)
   {
@@ -347,7 +342,7 @@ void ParsedMapApi::ParseSearchParam(url::Param const & param, SearchRequest & re
   {
     double lat = 0.0;
     double lon = 0.0;
-    if (ParseLatLon(param, lat, lon))
+    if (ParseLatLon(key, value, lat, lon))
     {
       request.m_centerLat = lat;
       request.m_centerLon = lon;

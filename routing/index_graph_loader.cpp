@@ -64,7 +64,7 @@ private:
   unordered_map<NumMwmId, map<SegmentCoord, vector<RouteSegment::SpeedCamera>>> m_cachedCameras;
   decltype(m_cachedCameras)::iterator ReceiveSpeedCamsFromMwm(NumMwmId numMwmId);
 
-  RoutingOptions m_avoidRoutingOptions = RoutingOptions();
+  RoutingOptions m_avoidRoutingOptions;
   std::function<time_t()> m_currentTimeGetter = [time = GetCurrentTimestamp()]() {
     return time;
   };

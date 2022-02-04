@@ -33,6 +33,8 @@
 
 #include "3party/opening_hours/opening_hours.hpp"
 
+namespace routing
+{
 using namespace feature;
 using namespace routing;
 using namespace generator;
@@ -40,8 +42,6 @@ using namespace std;
 
 namespace
 {
-char constexpr kDelim[] = " \t\r\n";
-
 using TagMapping = routing::RoadAccessTagProcessor::TagMapping;
 using ConditionalTagsList = routing::RoadAccessTagProcessor::ConditionalTagsList;
 
@@ -205,7 +205,7 @@ bool ParseRoadAccess(string const & roadAccessPath, OsmIdToFeatureIds const & os
     if (!getline(stream, line))
       break;
 
-    strings::SimpleTokenizer iter(line, kDelim);
+    strings::SimpleTokenizer iter(line, " \t\r\n");
 
     if (!iter)
     {
@@ -403,8 +403,6 @@ string GetVehicleTypeForAccessConditional(string const & accessConditionalTag)
 }
 }  // namespace
 
-namespace routing
-{
 // RoadAccessTagProcessor --------------------------------------------------------------------------
 RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
     : m_vehicleType(vehicleType)

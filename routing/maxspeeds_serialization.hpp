@@ -67,6 +67,8 @@ public:
     uint32_t maxForwardFeatureId = 0;
     GetForwardMaxspeedStats(speeds, forwardNumber, maxForwardFeatureId);
 
+    auto const & converter = GetMaxspeedConverter();
+
     // Keeping forward (one direction) maxspeeds.
     if (forwardNumber > 0)
     {
@@ -76,16 +78,19 @@ public:
       forwardMaxspeeds.reserve(forwardNumber);
       for (auto const & s : speeds)
       {
-        CHECK(s.IsValid(), ());
+        ASSERT(s.IsValid(), ());
         if (s.IsBidirectional())
           continue;
 
-        auto forwardSpeedInUnits = s.GetForwardSpeedInUnits();
-        CHECK(forwardSpeedInUnits.IsValid(), ());
+        auto const forwardSpeedInUnits = s.GetForwardSpeedInUnits();
+        ASSERT(forwardSpeedInUnits.IsValid(), ());
 
-        auto const macro = GetMaxspeedConverter().SpeedToMacro(forwardSpeedInUnits);
+        auto const macro = converter.SpeedToMacro(forwardSpeedInUnits);
         if (macro == SpeedMacro::Undefined)
-          continue; // No appropriate speed for |forwardSpeedInUnits| in SpeedMacro enum.
+        {
+          LOG(LWARNING, ("Undefined speed", forwardSpeedInUnits));
+          continue;
+        }
 
         forwardMaxspeeds.push_back(static_cast<uint8_t>(macro));
         builder.push_back(s.GetFeatureId());
@@ -115,10 +120,18 @@ public:
       if (!s.IsBidirectional())
         continue;
 
-      auto const forwardMacro = GetMaxspeedConverter().SpeedToMacro(s.GetForwardSpeedInUnits());
-      auto const backwardMacro = GetMaxspeedConverter().SpeedToMacro(s.GetBackwardSpeedInUnits());
+      auto const forwardSpeedInUnits = s.GetForwardSpeedInUnits();
+      ASSERT(forwardSpeedInUnits.IsValid(), ());
+      auto const backwardSpeedInUnits = s.GetBackwardSpeedInUnits();
+      ASSERT(forwardSpeedInUnits.IsValid(), ());
+
+      auto const forwardMacro = converter.SpeedToMacro(forwardSpeedInUnits);
+      auto const backwardMacro = converter.SpeedToMacro(backwardSpeedInUnits);
       if (forwardMacro == SpeedMacro::Undefined || backwardMacro == SpeedMacro::Undefined)
-        continue; // No appropriate speed for |s| in SpeedMacro enum.
+      {
+        LOG(LWARNING, ("Undefined speed", forwardSpeedInUnits, backwardSpeedInUnits));
+        continue;
+      }
 
       ++header.m_bidirectionalMaxspeedNumber;
       // Note. |speeds| sorted by feature ids and they are unique. So the first item in |speed|

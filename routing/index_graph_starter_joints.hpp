@@ -533,18 +533,17 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(
     for (size_t i = 0; i < edges.size(); ++i)
     {
       // Saving weight of current edges for returning in the next iterations.
-      /// @todo By VNG. The logic with m_savedWeight 'cache' looks very strange for me.
-      /// Looks like we shoud store previously accumulated weight for each queued state in A*.
-
       auto const & w = edges[i].GetWeight();
       auto const & t = edges[i].GetTarget();
-      //if (w.GetWeight() > 7000)
-      //  LOG_SHORT(LDEBUG, ("Big weight =", w, "for target =", t, "and parent =", vertex));
 
       auto res = m_savedWeight.insert(std::make_pair(t, w));
       if (!res.second)
       {
-        //LOG_SHORT(LDEBUG, ("Override weight =", w, " for target =", t, "and parent =", vertex));
+        // Actually, the edge's weight should be an invariant, no matter how we reached it.
+        // This is true, except for the case in Cross MWM routing with GetCrossBorderPenalty.
+        // We add this penalty if its parent edge is in another MWM. Also, after that, we can
+        // reach the edge from within its current MWM and the penalty will be overwritten.
+        // So keep *max* weight here. Check CrossCountry_XXX tests.
         res.first->second = std::max(res.first->second, w);
       }
 

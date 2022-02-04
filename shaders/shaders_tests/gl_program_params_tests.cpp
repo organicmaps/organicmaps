@@ -8,6 +8,8 @@
 #include "drape/drape_tests/testing_graphics_context.hpp"
 #include "drape/gl_functions.hpp"
 
+#include "std/target_os.hpp"
+
 #include <functional>
 
 using namespace std::placeholders;

@@ -1,4 +1,4 @@
-typedef NS_ENUM(NSUInteger, MWMRouterTransitType) {
+typedef NS_CLOSED_ENUM(NSUInteger, MWMRouterTransitType) {
   MWMRouterTransitTypeIntermediatePoint,
   MWMRouterTransitTypePedestrian,
   MWMRouterTransitTypeSubway,

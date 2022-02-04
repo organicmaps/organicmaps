@@ -4,10 +4,10 @@
 #include "geometry/point2d.hpp"
 #include "geometry/segment2d.hpp"
 
+namespace line2d_tests
+{
 using namespace m2;
 
-namespace
-{
 double const kEps = 1e-12;
 
 using Result = IntersectionResult;
@@ -45,4 +45,4 @@ UNIT_TEST(LineIntersection_Smoke)
     TEST(AlmostEqualAbs(result.m_point, PointD(0, 100), kEps), (result.m_point));
   }
 }
-}  // namespace
+}  // namespace line2d_tests

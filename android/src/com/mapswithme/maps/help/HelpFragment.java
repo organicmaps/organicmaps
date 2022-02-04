@@ -1,10 +1,8 @@
 package com.mapswithme.maps.help;
 
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +20,8 @@ import com.mapswithme.util.Constants;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.Utils;
 
+import java.text.SimpleDateFormat;
+
 public class HelpFragment extends BaseMwmFragment implements View.OnClickListener
 {
   private void setupItem(@IdRes int id, boolean tint, @NonNull View frame)
@@ -30,6 +30,20 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     view.setOnClickListener(this);
     if (tint)
       Graphics.tint(view);
+  }
+
+  // Converts 220131 to locale-dependent date (e.g. 31 January 2022),
+  private String localDate(long v)
+  {
+    final SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
+    final String strVersion = String.valueOf(v);
+    try {
+      final java.util.Date date = format.parse(strVersion);
+      return java.text.DateFormat.getDateInstance().format(date);
+    } catch (java.text.ParseException e) {
+      e.printStackTrace();
+      return strVersion;
+    }
   }
 
   @Override
@@ -41,7 +55,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
         .setText(BuildConfig.VERSION_NAME);
 
     ((TextView) root.findViewById(R.id.data_version))
-        .setText(getString(R.string.data_version, Framework.nativeGetDataVersion()));
+        .setText(getString(R.string.data_version, localDate(Framework.nativeGetDataVersion())));
 
     setupItem(R.id.web, true, root);
     setupItem(R.id.github, false, root);

@@ -4,7 +4,7 @@
 #include "generator/feature_builder.hpp"
 #include "generator/osm_element.hpp"
 
-#include <strstream>
+#include <fstream>
 #include <memory>
 #include <string>
 

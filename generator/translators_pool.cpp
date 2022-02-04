@@ -31,7 +31,7 @@ bool TranslatorsPool::Finish()
 {
   m_threadPool.WaitingStop();
   using TranslatorPtr = std::shared_ptr<TranslatorInterface>;
-  base::threads::ThreadSafeQueue<std::future<TranslatorPtr>> queue;
+  threads::ThreadSafeQueue<std::future<TranslatorPtr>> queue;
   while (!m_translators.Empty())
   {
     std::promise<TranslatorPtr> p;

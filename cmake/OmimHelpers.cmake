@@ -25,7 +25,7 @@ endfunction()
 # Functions for using in subdirectories
 function(omim_add_executable executable)
   add_executable(${executable} ${ARGN})
-  add_dependencies(${executable} BuildVersion)
+
   # Enable warnings for all our binaries.
   target_compile_options(${executable} PRIVATE ${OMIM_WARNING_FLAGS})
   target_include_directories(${executable} PRIVATE ${OMIM_INCLUDE_DIRS})
@@ -71,7 +71,7 @@ endfunction()
 
 function(omim_add_library library)
   add_library(${library} ${ARGN})
-  add_dependencies(${library} BuildVersion)
+
   # Enable warnings for all our libraries.
   target_compile_options(${library} PRIVATE ${OMIM_WARNING_FLAGS})
   target_include_directories(${library} PRIVATE ${OMIM_INCLUDE_DIRS})

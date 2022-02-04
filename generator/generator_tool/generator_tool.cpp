@@ -12,7 +12,7 @@
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
-#include "generator/isolines_section_builder.cpp"
+#include "generator/isolines_section_builder.hpp"
 #include "generator/maxspeeds_builder.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
@@ -54,7 +54,6 @@
 #include "platform/platform.hpp"
 
 #include "coding/endianness.hpp"
-#include "coding/transliteration.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/timer.hpp"
@@ -215,8 +214,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
   gflags::SetUsageMessage(
       "Takes OSM XML data from stdin and creates data and index files in several passes.");
-  gflags::SetVersionString(std::to_string(omim::build_version::git::kTimestamp) + " " +
-                           omim::build_version::git::kHash);
+  gflags::SetVersionString(build_version::kName);
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   Platform & pl = GetPlatform();

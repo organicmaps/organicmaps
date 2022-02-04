@@ -20,18 +20,8 @@
 
 using namespace std;
 
-namespace
+namespace style_symbols_consistency_tests
 {
-void UnitTestInitPlatform()
-{
-  Platform & pl = GetPlatform();
-  CommandLineOptions const & options = GetTestingOptions();
-  if (options.m_dataPath)
-    pl.SetWritableDirForTests(options.m_dataPath);
-  if (options.m_resourcePath)
-    pl.SetResourceDir(options.m_resourcePath);
-}
-
 class SdfParsingDispatcher
 {
 public:
@@ -73,14 +63,10 @@ set<string> GetSymbolsSetFromResourcesFile(string const & density)
   ParseXML(source, dispatcher);
   return symbols;
 }
-}  // namespace
 
+// Tests that all symbols specified in drawing rules have corresponding symbols in resources
 UNIT_TEST(Test_SymbolsConsistency)
 {
-  UnitTestInitPlatform();
-
-  // Tests that all symbols specified in drawing rules have corresponding symbols in resources
-
   bool res = true;
 
   string const densities[] = { "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi", "6plus" };
@@ -110,3 +96,4 @@ UNIT_TEST(Test_SymbolsConsistency)
 
   TEST(res, ());
 }
+}  // namespace style_symbols_consistency_tests

@@ -16,11 +16,10 @@
 #include <string>
 #include <vector>
 
+namespace gps_track_storage_test
+{
 using namespace std;
 using namespace std::chrono;
-
-namespace
-{
 
 location::GpsInfo Make(double timestamp, ms::LatLon const & ll, double speed)
 {
@@ -37,8 +36,6 @@ inline string GetGpsTrackFilePath()
 {
   return base::JoinPath(GetPlatform().WritableDir(), "gpstrack_test.bin");
 }
-
-} // namespace
 
 UNIT_TEST(GpsTrackStorage_WriteReadWithoutTrunc)
 {
@@ -189,3 +186,4 @@ UNIT_TEST(GpsTrackStorage_WriteReadWithTrunc)
     TEST_EQUAL(i, 0, ());
   }
 }
+} // namespace gps_track_storage_test

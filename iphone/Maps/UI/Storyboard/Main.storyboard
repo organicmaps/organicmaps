@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
     <device id="retina6_1" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -67,10 +67,6 @@
                                                 <include reference="aj4-lb-h52"/>
                                             </mask>
                                         </variation>
-                                    </view>
-                                    <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNg-zA-Jne" customClass="GuidesNavigationBarArea" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="44" y="0.0" width="808" height="393"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awj-9E-eBS" customClass="PlacePageArea" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="44" y="0.0" width="808" height="393"/>
@@ -195,7 +191,6 @@
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="TdT-ia-GP9" secondAttribute="trailing" id="Rsb-fB-8bn"/>
                             <constraint firstItem="jio-3T-E6G" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="SAj-bF-qrr"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xJx-UU-IdV" secondAttribute="bottom" id="SDX-4J-Jz5"/>
-                            <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="QNg-zA-Jne" secondAttribute="bottom" id="TGG-JD-3dN"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="FFY-Dy-Wou" secondAttribute="bottom" id="TZk-MH-pMV"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="xJx-UU-IdV" secondAttribute="bottom" priority="100" id="VfU-Zk-8IU"/>
                             <constraint firstItem="rbx-Oj-jeo" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" constant="8" id="W0l-NG-7lt"/>
@@ -203,7 +198,6 @@
                             <constraint firstItem="aPn-pa-nCx" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" id="YFX-ma-vAf"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FFY-Dy-Wou" secondAttribute="bottom" id="YUs-MJ-9w8"/>
                             <constraint firstItem="rL1-9E-4b7" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" id="Z1s-Q9-zX6"/>
-                            <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="QNg-zA-Jne" secondAttribute="trailing" id="Zbf-l3-Uhw"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="awj-9E-eBS" secondAttribute="bottom" priority="100" id="aqR-pe-LgT"/>
                             <constraint firstItem="at1-V1-pzl" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="dVq-df-YMe"/>
                             <constraint firstItem="QKu-4A-UgP" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="f2R-LX-JVU"/>
@@ -225,11 +219,9 @@
                             <constraint firstAttribute="trailing" secondItem="jio-3T-E6G" secondAttribute="trailing" id="t9l-Ud-h6j"/>
                             <constraint firstAttribute="bottom" secondItem="aPn-pa-nCx" secondAttribute="bottom" id="tB3-eX-gUV"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rbx-Oj-jeo" secondAttribute="bottom" constant="70" id="u9s-KY-yCt"/>
-                            <constraint firstItem="QNg-zA-Jne" firstAttribute="top" secondItem="utd-Jy-pE5" secondAttribute="top" id="vCA-75-hd4"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="xJx-UU-IdV" secondAttribute="bottom" id="veF-Rn-BEm"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="top" secondItem="65S-M4-TnM" secondAttribute="top" priority="100" id="vfQ-ZT-Dlc"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="awj-9E-eBS" secondAttribute="trailing" id="wGo-EW-X9f"/>
-                            <constraint firstItem="QNg-zA-Jne" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="wPh-dY-Ufn"/>
                             <constraint firstAttribute="trailing" secondItem="rL1-9E-4b7" secondAttribute="trailing" priority="100" id="xUq-Vo-ETR"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="65S-M4-TnM" secondAttribute="trailing" id="xyN-jr-oU5"/>
                         </constraints>
@@ -670,7 +662,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListCellIdentifier" textLabel="JcK-nR-UGw" detailTextLabel="Cmi-x5-6Vt" style="IBUITableViewCellStyleSubtitle" id="RXe-xp-xlR" customClass="MWMTableViewCell">
-                                <rect key="frame" x="0.0" y="24.5" width="896" height="44"/>
+                                <rect key="frame" x="0.0" y="44.5" width="896" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RXe-xp-xlR" id="g0x-Vt-1FI">
                                     <rect key="frame" x="44" y="0.0" width="808" height="44"/>
@@ -873,7 +865,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="CwW-x8-G3j">
-                                <rect key="frame" x="0.0" y="51" width="896" height="342"/>
+                                <rect key="frame" x="0.0" y="0.0" width="896" height="393"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
@@ -884,29 +876,8 @@
                                     <outlet property="delegate" destination="h4a-ne-bSJ" id="3jT-yg-FQv"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xxz-fq-71r" userLabel="Status Bar Background">
-                                <rect key="frame" x="0.0" y="-57" width="896" height="108"/>
-                                <color key="backgroundColor" red="0.1215686275" green="0.59999999999999998" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="108" id="9ZH-dO-Jna"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchStatusBarView"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <searchBar contentMode="redraw" text="" translatesAutoresizingMaskIntoConstraints="NO" id="DPt-gs-efn">
-                                <rect key="frame" x="44" y="0.0" width="808" height="51"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="9M7-y1-RSU"/>
-                                </constraints>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="h4a-ne-bSJ" id="k3P-rj-vcL"/>
-                                </connections>
-                            </searchBar>
                             <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kXO-Oh-2vO" userLabel="No Maps Container View">
-                                <rect key="frame" x="44" y="51" width="808" height="342"/>
+                                <rect key="frame" x="44" y="0.0" width="808" height="393"/>
                                 <connections>
                                     <segue destination="b8o-rZ-x0k" kind="embed" identifier="MapDownloaderNoResultsEmbedViewControllerSegue" id="ish-dC-mkH"/>
                                 </connections>
@@ -926,21 +897,15 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Xxz-fq-71r" secondAttribute="trailing" id="5qb-GL-Rgv"/>
+                            <constraint firstItem="CwW-x8-G3j" firstAttribute="top" secondItem="dlW-OQ-WMO" secondAttribute="top" id="5wV-Dv-sjS"/>
                             <constraint firstAttribute="trailing" secondItem="CwW-x8-G3j" secondAttribute="trailing" id="6QL-v4-rNy"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="kXO-Oh-2vO" secondAttribute="bottom" id="8Tl-19-ReF"/>
-                            <constraint firstItem="DPt-gs-efn" firstAttribute="top" secondItem="dlW-OQ-WMO" secondAttribute="top" id="DaT-3k-Xu4"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="CDj-ol-HRP" secondAttribute="trailing" id="FLZ-Kr-4dV"/>
                             <constraint firstItem="kXO-Oh-2vO" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" id="M0m-98-7Ev"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="CwW-x8-G3j" secondAttribute="bottom" id="QPk-e4-hZs"/>
-                            <constraint firstItem="DPt-gs-efn" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" id="VJj-Tp-SDf"/>
                             <constraint firstItem="CwW-x8-G3j" firstAttribute="leading" secondItem="XQZ-0V-SyR" secondAttribute="leading" id="Wvb-0M-kQl"/>
-                            <constraint firstItem="Xxz-fq-71r" firstAttribute="bottom" secondItem="DPt-gs-efn" secondAttribute="bottom" id="ZX5-1D-Odx"/>
-                            <constraint firstItem="Xxz-fq-71r" firstAttribute="leading" secondItem="XQZ-0V-SyR" secondAttribute="leading" id="d6U-js-Akg"/>
-                            <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="DPt-gs-efn" secondAttribute="trailing" id="dqa-6i-25A"/>
+                            <constraint firstItem="CwW-x8-G3j" firstAttribute="top" secondItem="kXO-Oh-2vO" secondAttribute="top" id="eFX-ON-3aD"/>
                             <constraint firstItem="CDj-ol-HRP" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" id="mwH-aX-jCV"/>
-                            <constraint firstItem="kXO-Oh-2vO" firstAttribute="top" secondItem="DPt-gs-efn" secondAttribute="bottom" id="nAx-dp-QrX"/>
-                            <constraint firstItem="CwW-x8-G3j" firstAttribute="top" secondItem="Xxz-fq-71r" secondAttribute="bottom" id="nLg-Zb-DT9"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="CDj-ol-HRP" secondAttribute="bottom" id="tp7-f9-Sw5"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="kXO-Oh-2vO" secondAttribute="trailing" id="yMA-25-2pq"/>
                         </constraints>
@@ -951,9 +916,6 @@
                     <connections>
                         <outlet property="downloadAllViewContainer" destination="CDj-ol-HRP" id="GL3-3D-JAQ"/>
                         <outlet property="noMapsContainer" destination="kXO-Oh-2vO" id="fpe-Gj-ZmD"/>
-                        <outlet property="searchBar" destination="DPt-gs-efn" id="HS1-0c-JX8"/>
-                        <outlet property="searchBarTopOffset" destination="DaT-3k-Xu4" id="8gw-DU-okf"/>
-                        <outlet property="statusBarBackground" destination="Xxz-fq-71r" id="W1o-7P-C8n"/>
                         <outlet property="tableView" destination="CwW-x8-G3j" id="uIf-Yj-DiC"/>
                     </connections>
                 </viewController>
@@ -966,17 +928,17 @@
             <objects>
                 <viewController storyboardIdentifier="MWMNoMapsViewController" id="3el-Zi-2E4" customClass="MWMNoMapsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4WP-vj-Alg">
-                        <rect key="frame" x="0.0" y="0.0" width="808" height="342"/>
+                        <rect key="frame" x="0.0" y="0.0" width="808" height="393"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gmw-e3-n53" userLabel="Container" customClass="MWMNoMapsView">
-                                <rect key="frame" x="222.5" y="0.0" width="407" height="342"/>
+                                <rect key="frame" x="222.5" y="0.0" width="407" height="393"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCZ-PN-2Ob" userLabel="BoundsView">
-                                        <rect key="frame" x="16" y="0.0" width="375" height="238"/>
+                                        <rect key="frame" x="16" y="0.0" width="375" height="289"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87G-jh-N8H" userLabel="CenteredView">
-                                                <rect key="frame" x="0.0" y="64.5" width="375" height="109"/>
+                                                <rect key="frame" x="0.0" y="90" width="375" height="109"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="У вас нет загруженных карт" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abh-G0-Alr" userLabel="Title">
                                                         <rect key="frame" x="0.0" y="40" width="375" height="24"/>
@@ -1026,7 +988,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Moj-UK-oyl" userLabel="DownloadMaps" customClass="MWMButton">
-                                        <rect key="frame" x="83.5" y="258" width="240" height="44"/>
+                                        <rect key="frame" x="83.5" y="309" width="240" height="44"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="49x-bx-JJj"/>
@@ -1118,6 +1080,9 @@
                             <constraint firstItem="EbW-Mp-c6s" firstAttribute="centerX" secondItem="yK4-pW-Ads" secondAttribute="centerX" id="xbz-FB-nZl"/>
                             <constraint firstItem="EbW-Mp-c6s" firstAttribute="width" secondItem="9jm-RW-DZK" secondAttribute="width" priority="750" id="zcx-oD-0Uk"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="container" destination="EbW-Mp-c6s" id="T6K-0M-IAe"/>

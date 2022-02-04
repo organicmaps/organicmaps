@@ -4,10 +4,9 @@
 
 #include <functional>
 
-using namespace std;
-
-namespace
+namespace tree_test
 {
+using namespace std;
 using R = m2::RectD;
 
 struct traits_t
@@ -28,7 +27,6 @@ bool RFalse(T const &, T const &)
 {
   return false;
 }
-}  // namespace
 
 UNIT_TEST(Tree4D_Smoke)
 {
@@ -139,8 +137,6 @@ UNIT_TEST(Tree4D_ForEachInRect)
   CheckInRect(arr, ARRAY_SIZE(arr), R(-5.5, -5.5, -0.5, -0.5), 2);
 }
 
-namespace
-{
 struct TestObj : public m2::RectD
 {
   int m_id;
@@ -152,7 +148,6 @@ struct TestObj : public m2::RectD
 
   bool operator==(TestObj const & r) const { return m_id == r.m_id; }
 };
-}
 
 UNIT_TEST(Tree4D_ReplaceEqual)
 {
@@ -189,3 +184,4 @@ UNIT_TEST(Tree4D_ReplaceEqual)
   i = find(test.begin(), test.end(), T(1, 1, 2, 2, 2));
   TEST_EQUAL(R(*i), R(0, 0, 3, 3), ());
 }
+}  // namespace tree_test

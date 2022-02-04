@@ -189,7 +189,7 @@ line[railway=light_rail][!tunnel]::dash,
 line[railway=yard]::dash
 {z-index: 690;}
 
-line[highway=unclassified],
+line[highway=residential],
 line[highway=road],
 line[highway=living_street]
 {z-index: 700;}
@@ -198,7 +198,7 @@ line[highway=residential_link],
 line[highway=tertiary_link]
 {z-index: 740;}
 
-line[highway=residential],
+line[highway=unclassified],
 line[highway=tertiary],
 {z-index: 750;}
 
@@ -600,10 +600,10 @@ line|z18-[highway=secondary_link][bridge?]::bridgeblack
 
 /* 6.RESIDENTAL & TERTIARY 11-22 ZOOM */
 
-line|z11-[highway=residential],
+line|z12-[highway=residential],
 line|z11-[highway=tertiary],
 line|z15-[highway=residential_link],
-line|z15-[highway=tertiary_link],
+line|z14-[highway=tertiary_link],
 {color: @residential; opacity: 1;casing-linecap: butt; casing-color:@casing_road;}
 line|z16-[highway=tertiary][tunnel?],
 line|z16-[highway=residential][tunnel?],
@@ -627,7 +627,8 @@ line|z12[highway=tertiary]
 {width: 1.22;}
 line|z13[highway=tertiary]
 {width: 1.85;}
-line|z14[highway=tertiary]
+line|z14[highway=tertiary],
+line|z15[highway=tertiary_link]
 {width: 3.3;}
 line|z15[highway=tertiary],
 line|z15[highway=tertiary_link]
@@ -646,9 +647,6 @@ line|z19-[highway=tertiary_link]
 {width: 21;casing-width: 1.1;}
 
 
-
-line|z11[highway=residential],
-{width: 0.3; opacity: 0;}
 line|z12[highway=residential],
 {width: 0.8;}
 line|z13[highway=residential],
@@ -709,7 +707,7 @@ line|z18-[highway=residential][bridge?]::bridgeblack,
 
 /* 7.ROAD, STREETS, UNCLASSIFIED & SERVICE 12-22 ZOOM */
 
-line|z12-13[highway=unclassified],
+line|z11-13[highway=unclassified],
 line|z12-13[highway=road],
 line|z12-13[highway=living_street],
 line|z12-13[aeroway=runway],
@@ -730,7 +728,7 @@ line|z14-[highway=unclassified][bridge?]::bridgeblack,
 {casing-linecap: butt;casing-color:@bridge_casing;}
 
 /* 7.1 Road, Street, Unclassified 12-22 ZOOM */
-line|z12[highway=unclassified],
+line|z11-12[highway=unclassified],
 line|z12[highway=road],
 line|z12[highway=living_street]
 {color: @residential;width: 0.85;}

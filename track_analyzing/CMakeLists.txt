@@ -21,8 +21,9 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
   generator
+  tracking
   platform
 )
 
 add_subdirectory(track_analyzer)
-add_subdirectory(track_analyzing_tests)
+omim_add_test_subdirectory(track_analyzing_tests)

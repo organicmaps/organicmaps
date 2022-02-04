@@ -195,7 +195,7 @@ final class CarPlayService: NSObject {
     if let locationName = trip.destination.name {
       subtitle = locationName
     }
-    if let address = trip.destination.placemark.addressDictionary?[CNPostalAddressStreetKey] as? String {
+    if let address = trip.destination.placemark.postalAddress?.street {
       subtitle = subtitle + "\n" + address
     }
     

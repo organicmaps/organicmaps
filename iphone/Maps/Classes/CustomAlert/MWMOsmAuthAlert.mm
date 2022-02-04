@@ -44,8 +44,7 @@ extern NSString * const kMap2GoogleLoginSegue;
 - (IBAction)signUpTap
 {
   [self close:^{
-    NSURL * url = [NSURL URLWithString:@(osm::OsmOAuth::ServerAuth().GetRegistrationURL().c_str())];
-    [self.alertController.ownerViewController openUrl:url];
+    [self.alertController.ownerViewController openUrl:@(osm::OsmOAuth::ServerAuth().GetRegistrationURL().c_str())];
   }];
 }
 

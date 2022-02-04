@@ -17,7 +17,7 @@
 #include <memory>
 #include <unordered_map>
 
-namespace
+namespace collector_building_parts_tests
 {
 using namespace generator::tests_support;
 
@@ -241,4 +241,4 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorBuildingParts_Case2)
   TestCollector(file.GetFullPath(), fb2, *intermediateReader,
                 IntermediateDataReaderTest::kTopRelationId2);
 }
-}  // namespace
+}  // namespace collector_building_parts_tests

@@ -665,7 +665,7 @@ RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds con
   FixupTurns(junctions, turnsDir);
 
 #ifdef DEBUG
-  for (auto t : turnsDir)
+  for (auto const & t : turnsDir)
   {
     LOG(LDEBUG, (GetTurnString(t.m_turn), ":", t.m_index, t.m_sourceName, "-",
                  t.m_targetName, "exit:", t.m_exitNum));

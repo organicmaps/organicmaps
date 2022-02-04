@@ -1,7 +1,7 @@
 protocol BottomTabBarInteractorProtocol: AnyObject {
   func openSearch()
   func openPoint2Point()
-  func openDiscovery()
+  func openHelp()
   func openBookmarks()
   func openMenu()
 }
@@ -11,16 +11,11 @@ class BottomTabBarInteractor {
   private weak var viewController: UIViewController?
   private weak var mapViewController: MapViewController?
   private weak var controlsManager: MWMMapViewControlsManager?
-  
   private weak var searchManager = MWMSearchManager.manager()
   
   private var isPoint2PointSelected = false
-  
-  
-  
-  init(viewController: UIViewController,
-       mapViewController: MapViewController,
-       controlsManager: MWMMapViewControlsManager) {
+
+  init(viewController: UIViewController, mapViewController: MapViewController, controlsManager: MWMMapViewControlsManager) {
     self.viewController = viewController
     self.mapViewController = mapViewController
     self.controlsManager = controlsManager
@@ -35,7 +30,7 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
       searchManager?.state = .hidden
     }
   }
-  
+
   func openPoint2Point() {
     isPoint2PointSelected.toggle()
     MWMRouter.enableAutoAddLastLocation(false)
@@ -46,11 +41,8 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
     }
   }
   
-  func openDiscovery() {
-//    NetworkPolicy.shared().callOnlineApi { (canUseNetwork) in
-//      let vc = MWMDiscoveryController.instance(withConnection: canUseNetwork)
-//      MapViewController.shared()?.navigationController?.pushViewController(vc!, animated: true)
-//    }
+  func openHelp() {
+    MapViewController.shared()?.navigationController?.pushViewController(AboutController(), animated: true)
   }
   
   func openBookmarks() {

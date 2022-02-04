@@ -28,6 +28,8 @@
 #include "platform/platform.hpp"
 #include "platform/socket.hpp"
 
+#include "geometry/mercator.hpp"  // kPointEqualityEps
+
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/string_utf8_multilang.hpp"
@@ -178,7 +180,7 @@ vector<RouteMarkData> DeserializeRoutePoints(string const & data)
         continue;
 
       auto point = DeserializeRoutePoint(pointNode);
-      if (point.m_position.EqualDxDy(m2::PointD::Zero(), 1e-7))
+      if (point.m_position.EqualDxDy(m2::PointD::Zero(), mercator::kPointEqualityEps))
         continue;
 
       result.push_back(move(point));
@@ -989,12 +991,11 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   }
 
   // Check for equal points.
-  double const kEps = 1e-7;
   for (size_t i = 0; i < routePoints.size(); i++)
   {
     for (size_t j = i + 1; j < routePoints.size(); j++)
     {
-      if (routePoints[i].m_position.EqualDxDy(routePoints[j].m_position, kEps))
+      if (routePoints[i].m_position.EqualDxDy(routePoints[j].m_position, mercator::kPointEqualityEps))
       {
         CallRouteBuilded(RouterResultCode::Cancelled, storage::CountriesSet());
         CloseRouting(false /* remove route points */);

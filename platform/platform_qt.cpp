@@ -15,13 +15,10 @@
 #include <regex>
 #include <string>
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wshorten-64-to-32"
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QLocale>
-#pragma GCC diagnostic pop
 
 using namespace std;
 

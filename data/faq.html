@@ -7,15 +7,32 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
     />
     <style>
-      /* All langs are invisible by default */
+      /* All langs are invisible by default. */
       [lang] {
         display: none;
+      }
+      /* Dark mode support. */
+      :root {
+        color-scheme: light dark;
+        --primary-color: black;
+        --secondary-color: #555555;
+        --link-color: #1e96f0;
+        --background-color: white;
+        --separator-color: #0e0e0e;
+      }
+      @media screen and (prefers-color-scheme: dark) {
+        :root {
+          --primary-color: #b5b5b5;
+          --secondary-color: #858585;
+          --link-color: #2ea6ff;
+          --background-color: black;
+          --separator-color: #0a0a0a;
+        }
       }
       h3 {
         font-style: normal;
         font-weight: bold;
         font-size: 18px;
-
         line-height: 1.4;
       }
       dd {
@@ -24,18 +41,22 @@
         margin-left: 0;
         margin-bottom: 16px;
         font-size: 16px;
-        color: #757575;
+        color: var(--secondary-color);
         line-height: 1.4;
         padding-bottom: 24px;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid var(--separator-color);
       }
 
       .faq {
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid var(--separator-color);
       }
 
       dl {
         margin: 0 0 2em 0;
+      }
+      html {
+        color: var(--primary-color);
+        background-color: var(--background-color);
       }
       body {
         margin-right: 16px;
@@ -43,7 +64,6 @@
         margin-bottom: 16px;
         font-size: 16px;
         font-family: "Helvetica Neue", "Roboto", "Arial", "sans-serif";
-        color: #000000;
       }
 
       html {
@@ -51,43 +71,44 @@
       }
 
       a {
-        color: #1e96f0;
+        color: var(--link-color);
         text-decoration: none;
       }
     </style>
 
     <script>
+      "use strict";
       function getLanguage() {
-        let lang = navigator.language || navigator.userLanguage;
-        const found = location.href.indexOf("?");
+        var lang = navigator.language || navigator.userLanguage;
+        var found = location.href.indexOf("?");
         if (found != -1) {
-          const urlParams = new URLSearchParams(location.href.substr(found));
-          const queryLang = urlParams.get("lang");
+          var urlParams = new URLSearchParams(location.href.substr(found));
+          var queryLang = urlParams.get("lang");
           if (queryLang) lang = queryLang;
         }
         return lang;
       }
 
       // TODO: Update this list with a new translation.
-      const translations = ['en', 'ru', 'de', 'es', 'fr', 'pt', 'pt', 'pl'];
+      var translations = ['en', 'ru', 'de', 'es', 'fr', 'pt', 'pt', 'pl'];
       // Show Russian for browsers with this language codes.
-      const canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uk', 'uz'];
+      var canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uk', 'uz'];
 
       // TODO: Properly handle be-EN, he-RU or similar cases.
       function showLanguage() {
-        let lang = getLanguage();
-        const iso6391 = lang.substring(0, 2);
-        if (canReadRussian.includes(iso6391))
+        var lang = getLanguage();
+        var iso6391 = lang.substring(0, 2);
+        if (canReadRussian.indexOf(iso6391) >= 0)  // Array.includes is not supported in Android 5 and 6.
           lang = 'ru';
-        else if (translations.includes(iso6391)) {
+        else if (translations.indexOf(iso6391) >= 0) {
           if (lang != 'pt-BR')
             lang = iso6391;
         } else
           lang = 'en';
 
         var elems = document.querySelectorAll('[lang="' + lang + '"]');
-        // Make them visible
-        for (i = 0; i < elems.length; ++i) elems[i].style.display = "block";
+        // Make them visible.
+        for (var i = 0; i < elems.length; ++i) elems[i].style.display = "block";
       }
     </script>
   </head>
@@ -102,6 +123,7 @@
       <h2 lang="pt">Perguntas frequentes</h2>
       <h2 lang="pt-BR">Perguntas frequentes</h2>
       <h2 lang="pl">FAQ</h2>
+      <h2 lang="tr">SSS</h2>
 
       <ul>
         <li>
@@ -130,6 +152,9 @@
           <a lang="pl" href="#osm"
             >Brakuje niektórych miejsc na mapie lub mają nieprawidłowe nazwy</a
           >
+          <a lang="tr" href="#osm"
+            >Haritada bazı yerler eksik veya yanlış adlara sahip</a
+          >
         </li>
         <li>
           <a href="#no_location" class="link" lang="en"
@@ -155,6 +180,9 @@
           >
           <a lang="pl" href="#no_location"
             >Aplikacja nie może określić mojej lokalizacji</a
+          >
+          <a lang="tr" href="#no_location"
+            >Uygulama konumumu haritada bulamıyor</a
           >
         </li>
         <li>
@@ -182,6 +210,9 @@
           <a lang="pl" href="#cant_download_maps"
             >Nie mogę pobrać (zaktualizować) map</a
           >
+          <a lang="tr" href="#cant_download_maps"
+            >Haritaları indiremiyorum/güncelleyemiyorum</a
+          >
         </li>
         <li>
           <a href="#cant_find_a_place" class="link" lang="en"
@@ -207,6 +238,9 @@
           >
           <a lang="pl" href="#cant_find_a_place"
             >Wyszukiwanie nie może znaleźć miejsca na mapie</a
+          >
+          <a lang="tr" href="#cant_find_a_place"
+            >Arama, haritada bir yer bulamıyor</a
           >
         </li>
         <li>
@@ -234,6 +268,9 @@
           <a lang="pl" href="#crash"
             >Co zrobić, jeśli aplikacja przestała działać (uległa awarii)</a
           >
+          <a lang="tr" href="#crash"
+            >Uygulama çalışmayı durdurduysa (çöktüyse) ne yapmalıyım</a
+          >
         </li>
         <li>
           <a href="#create_route" class="link" lang="en"
@@ -246,6 +283,7 @@
           <a lang="pt" href="#create_route">Como criar uma rota</a>
           <a lang="pt-BR" href="#create_route">Como criar uma rota</a>
           <a lang="pl" href="#create_route">Jak utworzyć trasę</a>
+          <a lang="tr" href="#create_route">Nasıl rota oluşturulur</a>
         </li>
         <li>
           <a href="#no_voice" class="link" lang="en"
@@ -260,6 +298,7 @@
           <a lang="pt" href="#no_voice">Não consigo ouvir as instruções de voz</a>
           <a lang="pt-BR" href="#no_voice">Não consigo ouvir instruções de voz</a>
           <a lang="pl" href="#no_voice">Nie słyszę instrukcji głosowych</a>
+          <a lang="tr" href="#no_voice">Sesli yönergeleri duyamıyorum</a>
         </li>
         <li>
           <a lang="en" href="#bookmarks_export" class="link"
@@ -274,6 +313,7 @@
           <a lang="pt" href="#bookmarks_export">Como exportar favoritos</a>
           <a lang="pt-BR" href="#bookmarks_export">Como exportar favoritos</a>
           <a lang="pl" href="#bookmarks_export">Jak eksportować zakładki</a>
+          <a lang="tr" href="#bookmarks_export">Yer imleri nasıl dışa aktarılır</a>
         </li>
         <li>
           <a lang="en" href="#bookmarks_import" class="link"
@@ -288,6 +328,7 @@
           <a lang="pt" href="#bookmarks_import">Como importar favoritos</a>
           <a lang="pt-BR" href="#bookmarks_import">Como importar favoritos</a>
           <a lang="pl" href="#bookmarks_import">Jak importować zakładki</a>
+          <a lang="tr" href="#bookmarks_export">Yer imleri nasıl içe aktarılır</a>
         </li>
       </ul>
 
@@ -323,6 +364,10 @@
         Aby uzyskać więcej informacji, odwiedź naszą stronę internetową
         <a href="https://organicmaps.app/">organicmaps.app</a>.
       </h4>
+      <h4 lang="tr">
+        Daha fazla bilgi için lütfen web sitemizi ziyaret edin
+        <a href="https://organicmaps.app/">organicmaps.app</a>.
+      </h4>
     </div>
 
     <dl id="osm">
@@ -350,6 +395,9 @@
         </h3>
         <h3 lang="pl">
           Brakuje niektórych miejsc na mapie lub mają nieprawidłowe nazwy
+        </h3>
+        <h3 lang="tr">
+          Haritada bazı yerler eksik veya yanlış adlara sahip
         </h3>
       </dt>
 
@@ -731,6 +779,53 @@
         </ul>
       </dd>
     </dl>
+	  
+      <dd lang="tr">
+        <p>
+          Harita veri kaynağımız
+          <a href="https://welcome.openstreetmap.org/">OpenStreetMap'tir</a> (OSM).
+          OpenStreetMap, herkesin harita oluşturabildiği ve düzenleyebildiği 
+	  Vikipedi'ye benzer bir haritalama projesidir.
+        </p>
+
+        <p>
+          Haritada yanlış bir bilgi görürseniz ya da eksik bir nesne fark ederseniz,
+          OSM editörleri için <a href="https://www.openstreetmap.org/note/new">bir not bırakabilir</a>
+          veya 
+          <a href="https://www.openstreetmap.org/user/new">kaydolup</a> haritayı
+          düzenleyebilirsiniz.
+        </p>
+
+        <p>
+          Ne kadar çok insan katkıda bulunursa, o kadar ayrıntılı haritalar elde ederiz.
+	  Açık topluluk tarafından oluşturulan tüm dünyanın en ayrıntılı haritasının 
+	  sadece bir zaman meselesi olduğuna inanıyoruz.
+        </p>
+
+        <p><b>Notlar:</b></p>
+
+        <ul>
+          <li>
+            <p>
+              Ayrıca doğrudan Organic Maps ile yeni yerler ekleyebilir, mevcut 
+	      POI (İÇN) ve yapı bilgilerini (adresler, çalışma saatleri, isimler)
+              düzenleyebilirsiniz. Bir seferlik OSM hesabınızla giriş yaptığınızda
+	      düzenlemeleriniz otomatik olarak OSM'ye yüklenecektir. 
+	      Düzenlemeleriniz diğer tüm kullanıcılar tarafından görülebileceği
+	      için lütfen düzenleme yaparken dikkatli olun.
+            </p>
+          </li>
+          <li>
+            <p>
+              OpenStreetMap veritabanı her dakika güncellenir. Ayda 1-4 kez
+	      uygulamadaki haritayı güncellemeyi hedefliyoruz. Eğer OSM'de
+	      herhangi bir değişiklik yaptıysanız, düzenlemeleriniz gelecekteki
+	      harita güncellemelerinde görünecektir.
+            </p>
+          </li>
+        </ul>
+      </dd>
+
 
     <dl id="no_location">
       <dt>
@@ -742,6 +837,7 @@
         <h3 lang="pt">A aplicação não consegue determinar a minha localização</h3>
         <h3 lang="pt-BR">O aplicativo não pode determinar minha localização</h3>
         <h3 lang="pl">Aplikacja nie może określić mojej lokalizacji</h3>
+        <h3 lang="tr">Uygulama konumumu haritada bulamıyor</h3>
       </dt>
 
       <dt></dt>
@@ -1264,6 +1360,58 @@
         </ul>
       </dd>
     </dl>
+	  
+      <dd lang="tr">
+        Lütfen cihazınızın GPS'i olduğundan ve konum ayarlarının açık olduğundan
+        emin olun.
+        <p><b>Android</b></p>
+        Cihazınızda Ayarlar → Konum'u açın. Yüksek doğruluk moduna geçmek daha
+        iyi olacaktır.
+        <p>
+          GPS ile konumunuzu belirlemekte zorluk çekiyorsanız, uygulama ayarlarından
+          “Google Play Services”ı etkinleştirin (etkinse kapatıp tekrar etkinleştirin).
+        </p>
+        <p>
+          Not: bunu yalnızca Android cihazınızda Google Play hizmetleri yüklüyse 
+	  (etkinse) görebilirsiniz. Google Play hizmetleri konumunuzu daha net olarak
+	  belirlemenizi sağlar. Eğer bu seçeneği kapattıktan sonra konum doğruluğu
+	  ile ilgili sorun yaşıyorsanız bu ayarı açın.
+        </p>
+        <p><b>iOS</b></p>
+        Bir iPhone veya iPad kullanıcısıysanız, lütfen iOS ayarları → Gizlilik →
+        Konum hizmetlerini kontrol edin. Organic Maps için coğrafi konum veri 
+	paylaşımı etkinleştirilmelidir.
+        <p><b>Notlar:</b></p>
+        <ul>
+          <li>
+            <p>
+	      Dolaşımdayken istenmeyen verileri önlemek için tüm mobil veriyi
+	      kapatabilir, uçak modunu açabilir veya cihaz ayarlarında Organic Maps
+	      için mobil veriyi devre dışı bırakabilirsiniz. Android ve iOS
+	      cihazlar uçak modunda GPS kullanabilir.
+            </p>
+          </li>
+          <li>
+            <p>
+	      iPod Touch, sadece Wi-Fi destekli iPad, Amazon Kindle Fire/Kindle
+	      Fire HD 7 ve bazı Android tabletler gibi bazı mobil cihazlar 
+	      dahili GPS alıcılarına sahip değildir. Bu cihazlarda siz internete
+	      bağlanana kadar uygulamamız yaklaşık konumunuzu gösterecektir.
+            </p>
+          </li>
+          <li>
+            <p>
+	      Son olarak, lütfen GPS (WiFi ile ve Mobil Ağ kapalı) ile konumunuzu
+	      tespit etmenin biraz zaman alabileceğini unutmayın. GPS uzun süre
+	      kullanılmazsa bu daha fazla zaman alır. Konumunuzu tespit etme hızı
+	      uygulamaya değil, cihazınıza bağlıdır. GPS'in çalışması hava
+	      koşullarından da etkilenir – en iyi hava açıkken dışarıda çalışır.
+	      Sorunlar kendizi kapalı alanda bulmaya çalışırken, dar bir sokakta
+	      veya araba sürerken meydana gelebilir.
+            </p>
+          </li>
+        </ul>
+      </dd>
 
     <dl id="cant_download_maps">
       <dt>
@@ -1275,6 +1423,7 @@
         <h3 lang="pt">Não consigo descarregar (atualizar) mapas</h3>
         <h3 lang="pt-BR">Não consigo baixar (atualizar) mapas</h3>
         <h3 lang="pl">Nie mogę pobrać (zaktualizować) map</h3>
+        <h3 lang="tr">Haritaları indiremiyorum/güncelleyemiyorum</h3>
       </dt>
 
       <dd lang="en">
@@ -1440,6 +1589,26 @@
         </p>
       </dd>
     </dl>
+	  
+      <dd lang="tr">
+        <p>
+          İndirme işleminiz geçici bir ağ hatası veya belirli ağ 
+	  sağlayıcısı/yönlendirici ayarları nedeniyle başarısız olabilir. Lütfen
+	  daha sonra tekrar deneyin veya farklı bir WiFi erişim noktası kullanın. 
+	  Ayrıca, haritaları indirmek için yeterli boş alana sahip olduğunuzdan 
+	  emin olun.
+        </p>
+
+        <p>
+          Android'de lütfen Organic Maps ve sistem İndirme Yöneticisi 
+	  (İndirme Sağlayıcısı) için ağ erişimi verdiğinizden emin olun.
+        </p>
+
+        <p>
+          Ayrıca, haritalarınız çok eskiyse ve uygulama bunları güncelleyemiyorsa, 
+	  eski haritaları silip yeniden indirmek yardımcı olabilir.
+        </p>
+      </dd>
 
     <dl id="cant_find_a_place">
       <h3 lang="en">Search cannot find a place on the map</h3>
@@ -1450,6 +1619,7 @@
       <h3 lang="pt">A pesquisa não encontrou um lugar no mapa</h3>
       <h3 lang="pt-BR">A pesquisa não pode encontrar um lugar no mapa</h3>
       <h3 lang="pl">Wyszukiwanie nie może znaleźć miejsca na mapie</h3>
+      <h3 lang="tr">Arama, haritada bir yer bulamıyor</h3>
 
       <dd lang="en">
         Remember that to search for a place in a specific area, you will need to
@@ -1654,6 +1824,30 @@
         </p>
       </dd>
     </dl>
+	  
+      <dd lang="tr">
+        Belirli bir bölgedeki bir yeri aramak için, ilgili yerin haritasını
+	indirmeniz ve o bölgeye haritayı yakınlaştırmanız veya aramaya 
+	başlamadan önce bulunduğunuz yerin o bölgeye yakın olması gerektiğini 
+	unutmayın. Örneğin, Vietnam'da bir yer bulmak istiyorsanız ve konumunuz 
+	başka bir yerdeyse, önce Vietnam haritasını indirip açmalısınız.
+
+        <p>
+          Ayrıca, aradığınız yer henüz bizim harita veri kaynağımız olan 
+	  <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>'da
+	  haritaya eklenmemiş olabilir. Yardım etmek ve haritayı geliştirmek 
+	  istiyorsanız,
+          <a href="https://wiki.openstreetmap.org/wiki/Contribute_map_data"
+            >bu kılavuza</a
+          > göz atın.
+        </p>
+
+        <p>
+          Yer, Organic Maps'te haritada görüntüleniyorsa ama arama sistemimiz
+          onu bulamıyorsa, yerin koordinatlarını ve aramanızın bir örneğini
+          <a href="mailto:support@organicmaps.app">bize bildirin</a>.
+        </p>
+      </dd>
 
     <dl id="crash">
       <dt>
@@ -1671,6 +1865,7 @@
         <h3 lang="pl">
           Co mogę zrobić, jeśli aplikacja przestała/uległa awarii
         </h3>
+	<h3 lang="tr">Uygulama durdurulursa/çökerse ne yapabilirim</h3>
       </dt>
 
       <dd lang="en">
@@ -1902,6 +2097,31 @@
         </ul>
       </dd>
     </dl>
+	  
+      <dd lang="tr">
+        <p>
+          Bu muhtemelen bizim hatamız ve bir sonraki güncellemede bunu düzeltmekten
+	  mutluluk duyacağız.
+        </p>
+
+        <p>
+          Android'de, haritalarınızı bir SD kartta saklarsanız, bunun en olası nedeni
+	  hatalı bir SD karttır. SD kartınızı biçimlendirebilir veya daha iyisi yenisiyle
+	  değiştirebilirsiniz. Uygulamayı SD karta taşıdıysanız, lütfen tekrar dahili
+	  (cihaz) depolama alanına taşıyın.
+        </p>
+
+        <p>
+          Sorun devam ederse, lütfen
+          <a href="mailto:support@organicmaps.app">bizimle iletişime geçin</a> ve şunları ekleyin:
+        </p>
+
+        <ul>
+          <li>sorunun kısa açıklaması</li>
+          <li>Organic Maps sürümü</li>
+          <li>cihaz modeli ve İşletim Sistemi sürümü (Android veya iOS).</li>
+        </ul>
+      </dd>
 
     <dl id="create_route">
       <dt>
@@ -1913,6 +2133,7 @@
         <h3 lang="pt">Como criar uma rota</h3>
         <h3 lang="pt-BR">Como criar uma rota</h3>
         <h3 lang="pl">Jak utworzyć trasę</h3>
+        <h3 lang="tr">Nasıl rota oluşturulur</h3>
       </dt>
 
       <dd lang="en">
@@ -2292,6 +2513,48 @@
         </p>
       </dd>
     </dl>
+	  
+      <dd lang="tr">
+        <p>
+          Haritada konumunuz belirlendikten sonra hedefinizi seçin. Aşağıdaki 
+	  yollardan birini kullanabilirsiniz:
+        </p>
+
+        <ul>
+          <li>arama düğmesine dokunun</li>
+          <li>yer imleri düğmesine dokunun</li>
+          <li>haritada herhangi bir yere dokunun (boş alanlar için basılı tutun)</li>
+        </ul>
+
+        <p>
+          Varış noktasını seçtikten sonra, yer bilgileri sayfasındaki “Varış Yeri” 
+	  düğmesine basın. Rota oluşturulacak ve mesafeyi ve tahmini seyahat süresini
+	  göreceksiniz. Ekranın üst kısmındaki Araba, Yaya, Metro, Bisiklet veya Taksi
+	  simgesine basarak rota türünü değiştirebilirsiniz. Rotayı başlatmak için “Başla”
+	  düğmesine dokunun. Rotayı bitirmek için ekranın sağ alt köşesindeki ok işaretine
+	  basın ve Durdur'a dokunun.
+        </p>
+
+        <p>
+          Alternatif olarak bir rota planlamak için alt menü panelindeki “Rota” simgesine
+	  basabilirsiniz. Bir rotayı önizlemek için farklı bir başlangıç noktası 
+	  (Başlangıç Yeri düğmesi) seçebilirsiniz, ancak navigasyon yalnızca mevcut konumunuzdan
+	  kullanılabilir.
+        </p>
+
+        <p>
+          Bir rotaya en fazla 3 ara nokta ekleyebilirsiniz. Bir ara nokta eklemek için: 
+	  başlangıç ve hedef arasında bir rota oluşturun → ardından haritada bir yere
+	  dokunun ve “Ara Nokta Ekle”ye dokunun.
+        </p>
+
+        <p>
+          Araba rotasının ayarlarını değiştirebilir ve kaçınmak istediğiniz yol türlerini
+	  seçebilirsiniz (paralı yollar, asfaltsız yollar, otoyollar, feribotlar). Uygulama 
+	  ayarlarını açın → Sürüş seçenekleri → gerekli seçenekleri açın.
+        </p>
+      </dd>
+
 
     <dl id="no_voice">
       <dt>
@@ -2303,6 +2566,7 @@
         <h3 lang="pt">Não consigo ouvir as instruções de voz</h3>
         <h3 lang="pt-BR">Não consigo ouvir instruções de voz</h3>
         <h3 lang="pl">Nie słyszę instrukcji głosowych</h3>
+        <h3 lang="tr">Sesli yönlendirmeyi duyamıyorum</h3>
       </dt>
 
       <dd lang="en">
@@ -2639,6 +2903,67 @@
         </ul>
       </dd>
     </dl>
+	  
+      <dd lang="tr">
+        <p>
+          <b>Not:</b> Araba ve bisiklet yolları için sesli yönlendirme mevcuttur. 
+	  Şimdilik sesli yönlendirmeyi yalnızca sürüş sırasında ve ekran açıkken 
+	  duyabilirsiniz.
+        </p>
+
+        <p>Sesli yönlendirmeyi duyamıyorsanız:</p>
+
+        <ul>
+          <li>
+            <p>
+              Lütfen cihazınızın sesinin kapalı olmadığından emin olun. Cihazınızın
+	      ses düğmeleri ile ses seviyesini değiştirebilirsiniz. Bunu yapmak için,
+	      cihaz ayarları → Sesler'de "Düğmelerle Değiştir" seçeneğini 
+	      (etkinleştirilmişse) devre dışı bırakmanız gerekebilir.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              Bluetooth'u açtığınızda, sesli yönlendirmeyi aktarmamalıdır. Ancak 
+	      sesli yönlendirmeyi araç sesiyle test etmedik, bazı sorunlar olabilir. 
+	      Bu durumda Bluetooth'u kapatabilirsiniz.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              Android kullanıcısıysanız ve sesli yönlendirme seçeneği devre dışıysa
+	      (veya desteklenen dillerden bazıları kullanılamıyorsa), lütfen sistem 
+	      TTS ayarlarını kontrol edin.
+            </p>
+          </li>
+        </ul>
+
+        <p>
+          Android'de sesli yönlendirme 27 dilde mevcuttur: Türkçe, Almanca, Arapça, 
+	  Çekçe, Çince (Geleneksel ve Basitleştirilmiş), Danca, Endonezyaca, Farsça, 
+	  Felemenkçe, Fince, Fransızca, Hintçe, İngilizce, İspanyolca, İtalyanca, Japonca,
+	  Korece, Lehçe, Macarca, Portekizce, Rumence, Rusça, Tayca, Ukraynaca, Vietnamca,
+	  Yunanca.
+        </p>
+
+        <p>
+          Google TTS, Arapça ve Farsça (Farsça) dışında listelenen tüm dilleri destekler.
+	  Bu diller için üçüncü taraf TTS (örneğin, eSpeak TTS, Vocalizer TTS veya 
+	  SVOX Classic TTS) uygulama mağazasından (Google Play Store, Samsung Apps, vb.) 
+	  bir dil paketi yüklemeniz gerekebilir.
+        </p>
+
+        <p>
+          iOS'te sesli yönlendirme 26 dilde mevcuttur: Türkçe, Almanca, Arapça, 
+	  Çince (Geleneksel ve Basitleştirilmiş), Çekçe, Danca, Endonezyaca, 
+	  Felemenkçe, Fince, Fransızca, Hintçe, İngilizce, İspanyolca, İsveççe, 
+	  İtalyanca, Japonca, Korece, Lehçe, Macarca, Portekizce, Rumence, Rusça, 
+	  Slovakça, Tayca, Yunanca.
+        </p>
+      </dd>
+
 
     <dl id="bookmarks_export">
       <dt>
@@ -2650,6 +2975,7 @@
         <h3 lang="pt">Como partilhar (exportar) favoritos</h3>
         <h3 lang="pt-BR">Como compartilhar (exportar) favoritos</h3>
         <h3 lang="pl">Jak udostępniać (eksportować) zakładki</h3>
+        <h3 lang="tr">Yer imleri nasıl paylaşılır/dışa aktarılır</h3>
       </dt>
 
       <dd lang="en">
@@ -2726,6 +3052,13 @@
         Eksportuj plik w wyskakującym okienku okno.
       </dd>
     </dl>
+	  
+      <dd lang="tr">
+        Haritada bir yer imi seçin, ona dokunun ve ardından yer bilgileri sayfasındaki
+	"Paylaş" düğmesine dokunun. Bir listedeki tüm yer imlerini bir kerede paylaşmak 
+	için, ana ekranda yıldız simgesine dokunun, yer imlerinin bulunduğu listenin adının
+	önündeki üç noktaya dokunun ve açılır pencereden Dosyayı Dışa Aktar'a dokunun.
+      </dd>
 
     <dl id="bookmarks_import">
       <dt>
@@ -2737,6 +3070,7 @@
         <h3 lang="pt">Como importar favoritos</h3>
         <h3 lang="pt-BR">Como importar favoritos</h3>
         <h3 lang="pl">Jak importować zakładki</h3>
+        <h3 lang="tr">Yer imleri nasıl içe aktarılır</h3>
       </dt>
 
       <dd lang="en">
@@ -3087,6 +3421,50 @@
         </ol>
       </dd>
     </dl>
+	  
+      <dd lang="tr">
+        Organic Maps'ten veya yer imlerini KML biçiminde dışa aktarıyorsa üçüncü 
+	taraf uygulamalardan gönderilen yer imlerini içe aktarabilirsiniz:
+
+        <ol>
+          <li>
+            <p>
+              Android'de, klasörlerden ve uygulamalardan (Maps.Me dahil) yer imlerini
+	      içe aktarabilirsiniz. Yer imlerini açmak için yıldız düğmesine basın, 
+	      "Yer imlerini içe aktar"a basın ve KML/KMZ dosyalarının bulunduğu
+	      sürücü veya klasörü seçin.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              E-posta, anlık mesajlaşma veya iCloud veya Google Drive gibi bulut 
+	      depolama yoluyla gönderilen yer işaretleriyle paylaşılan KML/KMZ 
+	      dosyasını açma
+            </p>
+          </li>
+
+          <li>
+            <p>
+              Yer imleri içeren KML/KMZ dosyasına bir kez dokunun veya basılı tutun
+	      ve açılır pencerede Organic Maps ile Aç (Android) veya "Organic Maps 
+	      ile İçe Aktar" (iOS) öğesini seçin.
+            </p>
+
+            <!--<p>Alternatif olarak, KML dosyalarını uygulama klasörüne kopyalayabilirsiniz. Ardından, yer imleri
+		menüsünü açmalı ve açılır pencerede "Dönüştür" düğmesine basmalısınız. Lütfen unutmayın: KMZ 
+		sıkıştırılmış bir KML dosyasıdır, uygulama klasörüne kopyalamadan önce paketi çıkartmalısınız.</p></li>-->
+          </li>
+
+          <li>
+            <p>
+              Organic Maps açılacak ve 'Yer imleri başarıyla yüklendi!' ifadesini
+	      göreceksiniz. Bunları haritada veya Yer İmleri Menüsü ekranında 
+	      bulabilirsiniz.
+            </p>
+          </li>
+        </ol>
+      </dd>
 
     <a href="#" lang="en">Go to Top</a>
     <a href="#" lang="ru">Наверх</a>
@@ -3096,5 +3474,6 @@
     <a href="#" lang="pt">Ir para o início</a>
     <a href="#" lang="pt-BR">Ir para o início</a>
     <a href="#" lang="pl">Idź na górę</a>
+    <a href="#" lang="tr">Başa Git</a>
   </body>
 </html>

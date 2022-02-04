@@ -19,7 +19,7 @@
 #include <string>
 #include <vector>
 
-namespace
+namespace locality_finder_test
 {
 class LocalityFinderTest : public generator::tests_support::TestWithClassificator
 {
@@ -81,7 +81,6 @@ public:
 
   void ClearCaches() { m_finder.ClearCache(); }
 };
-} // namespace
 
 UNIT_CLASS_TEST(LocalityFinderTest, Smoke)
 {
@@ -138,3 +137,4 @@ UNIT_CLASS_TEST(LocalityFinderTest, Moscow)
 
   RunTests(input, results);
 }
+} // namespace locality_finder_test

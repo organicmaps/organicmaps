@@ -103,7 +103,7 @@ sudo dnf install -y \
     sqlite-devel
 ```
 
-_macOS:_ 
+_macOS:_
 
 ```bash
 brew install cmake qt@5
@@ -111,14 +111,14 @@ brew install cmake qt@5
 
 ### Building
 
-To build a debug version of the desktop app:
+To build a desktop app:
 ```bash
-tools/unix/build_omim.sh -d desktop
+tools/unix/build_omim.sh -r desktop
 ```
 
-The output binary will go into `../omim-build-debug`.
+The output binary will go into `../omim-build-release`.
 
-Check `tools/unix/build_omim.sh -h` for more build options, e.g. to build a release.
+Check `tools/unix/build_omim.sh -h` for more build options, e.g. to build a debug version.
 
 Besides _desktop_ there are other targets like _generator_tool_, to see a full list execute:
 
@@ -130,20 +130,12 @@ tools/unix/build_omim.sh -d help
 
 The generated binaries appear in `../omim-build-<buildtype>`.
 
-Run `OMaps` binary from `../omim-build-<buildtype>`, for example, for release:
+A desktop app binary is `OMaps`. To run e.g. a release version:
 
 _Linux:_
 
 ```bash
-../omim-build-release/OMaps -data_path ./data
-```
-
-or create `data` symlink in build dir to `organicmaps/data` directory and run
-
-```bash
-cd ../omim-build-release
-ln -s ../organicmaps/data ./data
-./OMaps -data_path ./data
+../omim-build-release/OMaps
 ```
 
 _macOS:_
@@ -151,13 +143,6 @@ _macOS:_
 ```bash
 ../omim-build-release/OMaps.app/Contents/MacOS/OMaps
 ```
-
-When using a lot of maps, increase open files limit, which is only 256 on Mac OS X.
-Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
-In OS X to increase this limit globally, add `limit maxfiles 2048 2048` to `/etc/launchd.conf`
-and run
-
-    echo 'ulimit -n 2048' | sudo tee -a /etc/profile
 
 ### Testing
 
@@ -195,6 +180,23 @@ Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/i
 
 ### More options
 
+To make the desktop app display maps in a different language add a `-lang` option, e.g. for russian language:
+```bash
+../omim-build-release/OMaps -lang ru
+```
+
+By default `OMaps` expects a repository's `data` folder to be present in the current working dir, add a `-data_path` option to override it.
+
+Check `OMaps -help` for a list of all run-time options.
+
+When running the desktop app with a lot of maps increase open files limit, which is only 256 on Mac OS X.
+Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
+In OS X to increase this limit globally, add `limit maxfiles 2048 2048` to `/etc/launchd.conf`
+and run
+```bash
+echo 'ulimit -n 2048' | sudo tee -a /etc/profile
+```
+
 If you have Qt installed in an unusual directory, use `QT_PATH` variable (`SET (QT_PATH "your-path-to-qt")`). You can skip building tests
 with `CMAKE_CONFIG=-DSKIP_TESTS` variable. You would need 1.5 GB of memory
 to compile the `stats` module.
@@ -222,7 +224,7 @@ Install Android SDK and NDK:
 - Select "Android 11.0 (R) / API Level 30" SDK.
 - Switch to "SDK Tools" tab
 - Check "Show Package Details" checkbox.
-- Select "NDK (Side by side)" version **21.4.7075529**.
+- Select "NDK (Side by side)" version **23.1.7779620**.
 - Select "CMake" version **3.18.1**.
 - Click "OK" and wait for downloads and installation to finish.
 
@@ -351,9 +353,11 @@ To create separate apks for all target arches add a `-PsplitApk` option (by defa
 
 Adding a `-Ppch` (use precompiled headers) option makes builds ~15% faster.
 
-If a running build makes your computer slow and laggish then try lowering the priority of the build process by adding a `--priority=low` option.
+If a running build makes your computer slow and laggish then try lowering the priority of the build process by adding a `--priority=low` option and/or add a `-Pnjobs=<N>` option to limit number of parallel processes.
 
 See also https://developer.android.com/studio/build/building-cmdline.
+
+To add any of those options to in-studio builds list them in "Command-line Options" in "File > Settings... > Build, Execution, Deployment > Compiler"
 
 #### Reduce resource usage
 
@@ -361,7 +365,7 @@ You can install
 [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
 Android Studio. Please make sure that SDK for API Level 30,
-NDK version **21.4.7075529** and CMake version **3.18.1** are installed.
+NDK version **23.1.7779620** and CMake version **3.18.1** are installed.
 
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
 - in Android Studio enable "File > Power Save Mode";

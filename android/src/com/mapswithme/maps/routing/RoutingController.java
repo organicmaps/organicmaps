@@ -67,6 +67,7 @@ public class RoutingController implements Initializable<Void>
     void onNavigationStarted();
     void onAddedStop();
     void onRemovedStop();
+    void onResetToPlanningState();
     void onBuiltRoute();
     void onDrivingOptionsWarning();
     boolean isSubwayEnabled();
@@ -518,6 +519,14 @@ public class RoutingController implements Initializable<Void>
     build();
     if (mContainer != null)
       mContainer.onRemovedStop();
+    backToPlaningStateIfNavigating();
+  }
+
+  public void resetToPlanningState()
+  {
+    build();
+    if (mContainer != null)
+      mContainer.onResetToPlanningState();
     backToPlaningStateIfNavigating();
   }
 
@@ -1042,7 +1051,7 @@ public class RoutingController implements Initializable<Void>
                                                               String.valueOf(hours), hour);
     SpannableStringBuilder displayedM = Utils.formatUnitsText(context, textSize, unitsSize,
                                                               String.valueOf(minutes), min);
-    return hours == 0 ? displayedM : TextUtils.concat(displayedH + " ", displayedM);
+    return hours == 0 ? displayedM : TextUtils.concat(displayedH + "\u00A0", displayedM);
   }
 
   static String formatArrivalTime(int seconds)

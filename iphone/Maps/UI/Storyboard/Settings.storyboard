@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,11 +18,11 @@
                         <sections>
                             <tableViewSection id="eZf-AO-B39">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="yh8-cr-14c" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="yh8-cr-14c" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="10" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yh8-cr-14c" id="MYm-HI-oOR">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Профиль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8jb-wX-P4h">
@@ -33,7 +32,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="igortomko" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gix-nv-IcA">
-                                                    <rect key="frame" x="306.5" y="12" width="78" height="20"/>
+                                                    <rect key="frame" x="307.5" y="12" width="78" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -58,21 +57,21 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="ОБЩИЕ НАСТРОЙКИ" id="Swo-3Q-lWx">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="Igk-BI-aHN" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="Igk-BI-aHN" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="96" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Igk-BI-aHN" id="Qae-gb-v0B">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Единицы измерения" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RB1-Nr-K3T">
-                                                    <rect key="frame" x="16" y="12" width="268.5" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="269.5" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="Километры " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZzK-qL-wC4">
-                                                    <rect key="frame" x="288.5" y="12" width="96" height="20"/>
+                                                    <rect key="frame" x="289.5" y="12" width="96" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -93,7 +92,7 @@
                                             <outlet property="title" destination="RB1-Nr-K3T" id="qLp-eT-hWj"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="LYi-oF-eGj" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="LYi-oF-eGj" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="140" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LYi-oF-eGj" id="6SA-kx-JeG">
@@ -127,7 +126,7 @@
                                             <outlet property="title" destination="OM9-RZ-sca" id="Zoz-kD-Jq9"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="0Lf-xU-P2U" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="0Lf-xU-P2U" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="184" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Lf-xU-P2U" id="3Q1-iE-5pP">
@@ -161,7 +160,7 @@
                                             <outlet property="title" destination="tU0-tQ-usy" id="DLR-0f-D2j"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="eE4-OC-9uX" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="eE4-OC-9uX" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="228" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eE4-OC-9uX" id="xJx-2K-AIP">
@@ -195,21 +194,21 @@
                                             <outlet property="title" destination="6ZU-5V-v0J" id="o2Z-fX-Ivz"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="6NC-QX-WiF" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="6NC-QX-WiF" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="272" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6NC-QX-WiF" id="gGY-3t-Lik">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мобильный интернет" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjW-GA-wVI">
-                                                    <rect key="frame" x="16" y="12" width="297.5" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="298.5" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="Никогда" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d32-tz-eSW">
-                                                    <rect key="frame" x="317.5" y="12" width="67" height="20"/>
+                                                    <rect key="frame" x="318.5" y="12" width="67" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -230,21 +229,21 @@
                                             <outlet property="title" destination="wjW-GA-wVI" id="9DP-zL-FLr"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="MN2-YK-AUo" userLabel="Power Managment Cell" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="MN2-YK-AUo" userLabel="Power Managment Cell" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="316" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MN2-YK-AUo" id="n6P-oZ-gz7">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Энергопотребление" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihs-G4-eJW">
-                                                    <rect key="frame" x="16" y="12" width="297.5" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="298.5" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="Никогда" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ze-dx-apc">
-                                                    <rect key="frame" x="317.5" y="12" width="67" height="20"/>
+                                                    <rect key="frame" x="318.5" y="12" width="67" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -265,21 +264,21 @@
                                             <outlet property="title" destination="ihs-G4-eJW" id="ppH-B2-8cU"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="VyW-Wh-2QX" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="VyW-Wh-2QX" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="360" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VyW-Wh-2QX" id="ihq-PO-ic8">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Недавно пройденый путь" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ew-eh-kVT">
-                                                    <rect key="frame" x="16" y="12" width="291.5" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="292.5" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="12 часов " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E18-yq-nve">
-                                                    <rect key="frame" x="311.5" y="12" width="73" height="20"/>
+                                                    <rect key="frame" x="312.5" y="12" width="73" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -300,7 +299,7 @@
                                             <outlet property="title" destination="3ew-eh-kVT" id="69S-4H-yeg"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="pri-6G-9Zb" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="pri-6G-9Zb" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="404" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pri-6G-9Zb" id="Zp6-d6-V6o">
@@ -334,7 +333,7 @@
                                             <outlet property="title" destination="uNY-c3-bGX" id="4uS-f6-Gre"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="f8Z-Jk-JIR" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="f8Z-Jk-JIR" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="448" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f8Z-Jk-JIR" id="1QF-6L-hJp">
@@ -368,7 +367,7 @@
                                             <outlet property="title" destination="NQ0-0Q-Y8K" id="aCm-zk-ZTn"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="P5e-67-f4k" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="P5e-67-f4k" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="492" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P5e-67-f4k" id="RlB-hW-A2l">
@@ -406,21 +405,21 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="НАВИГАЦИЯ" id="E4E-hs-9xW">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="QNt-XC-xma" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="QNt-XC-xma" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="578" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QNt-XC-xma" id="fBV-aJ-Mo8">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ночной режим" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7P-cj-3tZ">
-                                                    <rect key="frame" x="16" y="12" width="240.5" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="241.5" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="Автоматически" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5c-Yk-svX">
-                                                    <rect key="frame" x="260.5" y="12" width="124" height="20"/>
+                                                    <rect key="frame" x="261.5" y="12" width="124" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -441,7 +440,7 @@
                                             <outlet property="title" destination="q7P-cj-3tZ" id="3sG-Xy-G0r"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="X5R-fv-yd7" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="X5R-fv-yd7" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="622" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X5R-fv-yd7" id="s7y-Nu-Y01">
@@ -475,7 +474,7 @@
                                             <outlet property="title" destination="tmn-CU-6EB" id="OMB-Ug-n6a"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="veW-Fm-2Hl" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="veW-Fm-2Hl" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="666" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="veW-Fm-2Hl" id="AP7-jd-F4b">
@@ -509,21 +508,21 @@
                                             <outlet property="title" destination="qL3-bA-5tn" id="erU-oe-Lg5"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="nED-2n-gN6" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="nED-2n-gN6" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="710" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nED-2n-gN6" id="2oQ-0g-poj">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Голосовые инструкции" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2v2-mU-aWi">
-                                                    <rect key="frame" x="16" y="12" width="276.5" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="277.5" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="Nederlands" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQG-mX-mR7">
-                                                    <rect key="frame" x="296.5" y="12" width="88" height="20"/>
+                                                    <rect key="frame" x="297.5" y="12" width="88" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -544,15 +543,15 @@
                                             <outlet property="title" destination="2v2-mU-aWi" id="Zp1-zJ-xDM"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="KrE-Sc-fI1" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="KrE-Sc-fI1" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="754" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KrE-Sc-fI1" id="AKJ-VB-Pzr">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drivinig options" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Svw-vb-P42">
-                                                    <rect key="frame" x="16" y="12" width="364.5" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="365.5" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -561,7 +560,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wC1-f8-Br8">
-                                                    <rect key="frame" x="384.5" y="12" width="0.0" height="20"/>
+                                                    <rect key="frame" x="385.5" y="12" width="0.0" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -584,84 +583,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="ИНФОРМАЦИЯ" id="i4H-WV-BaS">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="JTZ-K9-RVv" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="840" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JTZ-K9-RVv" id="mHA-wn-hse">
-                                            <rect key="frame" x="0.0" y="0.0" width="396.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Справочный центр" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ty-Jh-0Rp">
-                                                    <rect key="frame" x="16" y="12" width="376.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlu-iM-vCC">
-                                                    <rect key="frame" x="396.5" y="12" width="0.0" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="vlu-iM-vCC" secondAttribute="bottom" constant="12" id="9Ud-vK-qsL"/>
-                                                <constraint firstItem="7ty-Jh-0Rp" firstAttribute="top" secondItem="mHA-wn-hse" secondAttribute="top" constant="12" id="AMe-NV-Ved"/>
-                                                <constraint firstAttribute="bottom" secondItem="7ty-Jh-0Rp" secondAttribute="bottom" constant="12" id="J65-Bz-2GH"/>
-                                                <constraint firstAttribute="trailing" secondItem="vlu-iM-vCC" secondAttribute="trailing" id="S5J-OF-5pJ"/>
-                                                <constraint firstItem="7ty-Jh-0Rp" firstAttribute="leading" secondItem="mHA-wn-hse" secondAttribute="leading" constant="16" id="XTm-r1-9pS"/>
-                                                <constraint firstItem="vlu-iM-vCC" firstAttribute="top" secondItem="mHA-wn-hse" secondAttribute="top" constant="12" id="boE-vl-fNZ"/>
-                                                <constraint firstItem="vlu-iM-vCC" firstAttribute="leading" secondItem="7ty-Jh-0Rp" secondAttribute="trailing" constant="4" id="dFN-xS-NgI"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="info" destination="vlu-iM-vCC" id="4OC-0x-RyY"/>
-                                            <outlet property="title" destination="7ty-Jh-0Rp" id="5ls-qT-ZNd"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="Kv3-pO-jV5" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="884" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kv3-pO-jV5" id="8mJ-wm-9uJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="396.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="О приложении" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cS1-Lw-pFx">
-                                                    <rect key="frame" x="16" y="12" width="376.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="about_menu_title"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxV-a4-ylD">
-                                                    <rect key="frame" x="396.5" y="12" width="0.0" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="FxV-a4-ylD" secondAttribute="bottom" constant="12" id="47K-7V-rBb"/>
-                                                <constraint firstItem="cS1-Lw-pFx" firstAttribute="leading" secondItem="8mJ-wm-9uJ" secondAttribute="leading" constant="16" id="5Uc-bQ-8tB"/>
-                                                <constraint firstItem="cS1-Lw-pFx" firstAttribute="top" secondItem="8mJ-wm-9uJ" secondAttribute="top" constant="12" id="Ahq-cJ-F3G"/>
-                                                <constraint firstItem="FxV-a4-ylD" firstAttribute="top" secondItem="8mJ-wm-9uJ" secondAttribute="top" constant="12" id="C0n-Xf-cRI"/>
-                                                <constraint firstAttribute="trailing" secondItem="FxV-a4-ylD" secondAttribute="trailing" id="b4S-iB-ff5"/>
-                                                <constraint firstItem="FxV-a4-ylD" firstAttribute="leading" secondItem="cS1-Lw-pFx" secondAttribute="trailing" constant="4" id="gFM-hr-GJG"/>
-                                                <constraint firstAttribute="bottom" secondItem="cS1-Lw-pFx" secondAttribute="bottom" constant="12" id="u83-F1-nPx"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="info" destination="FxV-a4-ylD" id="gBN-aE-bD7"/>
-                                            <outlet property="title" destination="cS1-Lw-pFx" id="Ca5-KM-OSc"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="Rr6-uj-G5f" id="G2K-XC-asx"/>
@@ -671,13 +592,11 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="aboutCell" destination="Kv3-pO-jV5" id="7QD-bU-KQz"/>
                         <outlet property="autoDownloadCell" destination="eE4-OC-9uX" id="c2A-dX-VMy"/>
                         <outlet property="autoZoomCell" destination="veW-Fm-2Hl" id="zbI-m2-mDP"/>
                         <outlet property="compassCalibrationCell" destination="P5e-67-f4k" id="KcB-EC-S2y"/>
                         <outlet property="drivingOptionsCell" destination="KrE-Sc-fI1" id="XOl-eI-xJX"/>
                         <outlet property="fontScaleCell" destination="pri-6G-9Zb" id="rHJ-ZT-lwM"/>
-                        <outlet property="helpCell" destination="JTZ-K9-RVv" id="FcU-iF-pKx"/>
                         <outlet property="is3dCell" destination="0Lf-xU-P2U" id="obI-bL-FLh"/>
                         <outlet property="mobileInternetCell" destination="6NC-QX-WiF" id="L1V-gS-sTe"/>
                         <outlet property="nightModeCell" destination="QNt-XC-xma" id="nSn-Jr-KuZ"/>
@@ -694,8 +613,6 @@
                         <segue destination="kBJ-ZO-Mca" kind="custom" identifier="SettingsToNightMode" customClass="MWMSegue" id="dd2-uc-aSe"/>
                         <segue destination="fxB-8Y-C2b" kind="custom" identifier="SettingsToProfileSegue" customClass="MWMSegue" id="p4d-e8-VbB"/>
                         <segue destination="Ww0-88-Jrd" kind="custom" identifier="SettingsToUnits" customClass="MWMSegue" id="qTg-HA-klp"/>
-                        <segue destination="WyW-ez-gUy" kind="custom" identifier="SettingsToAbout" customClass="MWMSegue" id="GJ9-7y-RKR"/>
-                        <segue destination="f2i-mO-skH" kind="custom" identifier="SettingsToHelp" customClass="MWMSegue" id="PSn-ic-YWl"/>
                         <segue destination="4XX-qH-r6x" kind="custom" identifier="SettingsToMobileInternetSegue" customClass="MWMSegue" id="wBF-fV-zWQ"/>
                         <segue destination="vni-Mo-vH1" kind="custom" identifier="SettingsToPowerManagementSegue" customClass="MWMSegue" id="arI-ZG-u4b"/>
                         <segue destination="CoS-Kv-RlQ" kind="custom" identifier="settingsToDrivingOptionsSegue" customClass="MWMSegue" id="sdV-0Y-OKf"/>
@@ -716,18 +633,15 @@
                         <sections>
                             <tableViewSection id="XFW-hZ-fJo">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="Hgm-jL-Gnn" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="Hgm-jL-Gnn" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="18" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="Hgm-jL-Gnn" id="LeE-yP-Eoi">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hgm-jL-Gnn" id="LeE-yP-Eoi">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHx-XL-o9h">
-                                                    <rect key="frame" x="16" y="12" width="333" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="333" id="QHn-fH-2P1"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="16" y="12" width="368" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -747,7 +661,7 @@
                                             <outlet property="title" destination="sHx-XL-o9h" id="gfO-dz-iqf"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="WyO-qs-a7i" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="WyO-qs-a7i" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="62" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WyO-qs-a7i" id="q2k-AU-VdG">
@@ -775,7 +689,7 @@
                                             <outlet property="title" destination="um4-D2-sR5" id="ysd-Sz-e53"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="HHw-BT-UeJ" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="HHw-BT-UeJ" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="106" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HHw-BT-UeJ" id="WD5-kW-BlC">
@@ -832,7 +746,7 @@
                         <sections>
                             <tableViewSection id="0dw-og-Sit">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="HL5-jQ-yNK" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="HL5-jQ-yNK" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="18" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HL5-jQ-yNK" id="DYw-KH-oDU">
@@ -860,7 +774,7 @@
                                             <outlet property="title" destination="2i3-c9-tdU" id="enq-hG-Uv3"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="8Cq-dm-roX" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="8Cq-dm-roX" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="62" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Cq-dm-roX" id="62b-vT-xng">
@@ -888,7 +802,7 @@
                                             <outlet property="title" destination="J1O-iW-GF3" id="aMM-LR-032"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="DIL-q2-mUp" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="DIL-q2-mUp" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="106" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DIL-q2-mUp" id="IqW-Xu-xVP">
@@ -916,7 +830,7 @@
                                             <outlet property="title" destination="55i-C3-b9S" id="BqS-iD-fzu"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="1Mm-WA-eyt" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="1Mm-WA-eyt" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="150" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Mm-WA-eyt" id="lNb-wL-PFo">
@@ -944,7 +858,7 @@
                                             <outlet property="title" destination="QrP-xT-fcM" id="UYW-6c-FWG"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="JLY-Qt-y88" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="JLY-Qt-y88" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="194" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JLY-Qt-y88" id="jPr-Kt-mLi">
@@ -972,7 +886,7 @@
                                             <outlet property="title" destination="HyC-if-zpD" id="BMT-M4-hk7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="mbv-1J-wSI" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="mbv-1J-wSI" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="238" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mbv-1J-wSI" id="oPS-HW-hfW">
@@ -1030,7 +944,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="hb3-Fe-677" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="hb3-Fe-677" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="49.5" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hb3-Fe-677" id="gQB-q8-5c8">
@@ -1064,7 +978,7 @@
                                     <outlet property="title" destination="1JE-c4-BGG" id="umA-FF-qdh"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="79I-kz-hl4" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="79I-kz-hl4" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="93.5" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="79I-kz-hl4" id="gBB-ji-big">
@@ -1089,21 +1003,21 @@
                                     <outlet property="title" destination="FSn-fP-n3e" id="CKZ-Gb-7Wa"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="lO6-zb-qb8" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="lO6-zb-qb8" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="137.5" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lO6-zb-qb8" id="35k-Nb-XSD">
-                                    <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="385.5" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arm-Sx-diY">
-                                            <rect key="frame" x="16" y="12" width="364.5" height="20"/>
+                                            <rect key="frame" x="16" y="12" width="365.5" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8HI-p3-Ef4">
-                                            <rect key="frame" x="384.5" y="12" width="0.0" height="20"/>
+                                            <rect key="frame" x="385.5" y="12" width="0.0" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -1149,7 +1063,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="6Px-TO-sMc" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="6Px-TO-sMc" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="49.5" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Px-TO-sMc" id="aqp-aV-B3y">
@@ -1199,7 +1113,7 @@
                         <sections>
                             <tableViewSection id="YbY-TG-Fq9">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="233-Ku-OFh" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="233-Ku-OFh" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="18" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="233-Ku-OFh" id="Tig-SC-0oN">
@@ -1227,7 +1141,7 @@
                                             <outlet property="title" destination="m0T-TK-aex" id="TJz-l6-62M"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="XGu-p4-IVy" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="XGu-p4-IVy" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="62" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XGu-p4-IVy" id="c5A-yh-Pec">
@@ -1275,416 +1189,6 @@
             </objects>
             <point key="canvasLocation" x="1881" y="-2397"/>
         </scene>
-        <!--Help Controller-->
-        <scene sceneID="CFe-Xn-BqX">
-            <objects>
-                <viewController id="f2i-mO-skH" customClass="MWMHelpController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="tkX-wI-s7n">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Eg-lz-6TT">
-                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="l2j-bd-ouL"/>
-                                </constraints>
-                                <state key="normal" title="Сообщить о проблеме">
-                                    <color key="titleColor" red="0.11764705882352941" green="0.58823529411764708" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="feedback"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="reportBug" destination="f2i-mO-skH" eventType="touchUpInside" id="vzf-gV-Yag"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kpm-mR-y8b">
-                                <rect key="frame" x="0.0" y="817" width="414" height="1"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="ban-XF-pOT"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="bw2-Gt-U9p"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="5Eg-lz-6TT" firstAttribute="top" secondItem="Kpm-mR-y8b" secondAttribute="bottom" id="ADY-Nc-qy2"/>
-                            <constraint firstItem="Kpm-mR-y8b" firstAttribute="trailing" secondItem="5Eg-lz-6TT" secondAttribute="trailing" id="REe-oS-uoD"/>
-                            <constraint firstItem="Kpm-mR-y8b" firstAttribute="leading" secondItem="5Eg-lz-6TT" secondAttribute="leading" id="apK-iq-Zfb"/>
-                            <constraint firstItem="bw2-Gt-U9p" firstAttribute="bottom" secondItem="5Eg-lz-6TT" secondAttribute="bottom" id="lbe-Eb-49I"/>
-                            <constraint firstItem="bw2-Gt-U9p" firstAttribute="trailing" secondItem="5Eg-lz-6TT" secondAttribute="trailing" id="q4u-RQ-qZ0"/>
-                            <constraint firstItem="5Eg-lz-6TT" firstAttribute="leading" secondItem="bw2-Gt-U9p" secondAttribute="leading" id="tsw-6B-trX"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="separatorView" destination="Kpm-mR-y8b" id="SSQ-e1-3xo"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OFF-Nc-CEU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1881" y="-3828"/>
-        </scene>
-        <!--About Controller-->
-        <scene sceneID="ClH-b6-nnf">
-            <objects>
-                <tableViewController id="WyW-ez-gUy" customClass="MWMAboutController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="sUF-VC-Odx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
-                        <sections>
-                            <tableViewSection id="Fph-fY-iFA">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="waQ-Cw-wiB" userLabel="Telegram Cell" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="18" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="waQ-Cw-wiB" id="eXl-GU-bbm">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Telegram" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zh7-TH-zR6">
-                                                    <rect key="frame" x="16" y="12" width="350.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="telegram"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="zh7-TH-zR6" secondAttribute="bottom" constant="12" id="IZn-Af-yRb"/>
-                                                <constraint firstItem="zh7-TH-zR6" firstAttribute="leading" secondItem="eXl-GU-bbm" secondAttribute="leading" constant="16" id="Omv-7F-lh4"/>
-                                                <constraint firstItem="zh7-TH-zR6" firstAttribute="top" secondItem="eXl-GU-bbm" secondAttribute="top" constant="12" id="Z8P-iM-NSz"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="zh7-TH-zR6" secondAttribute="trailing" constant="10" id="rbu-jv-Mfs"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="title" destination="zh7-TH-zR6" id="VDt-bc-Vak"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="aNn-cN-xEJ" userLabel="Github Cell" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="62" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aNn-cN-xEJ" id="G9l-Na-d74">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GitHub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUg-Uo-mbp">
-                                                    <rect key="frame" x="16" y="12" width="350.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="github"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="MUg-Uo-mbp" secondAttribute="bottom" constant="12" id="dE7-bE-847"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="MUg-Uo-mbp" secondAttribute="trailing" constant="10" id="iib-ps-EQ8"/>
-                                                <constraint firstItem="MUg-Uo-mbp" firstAttribute="top" secondItem="G9l-Na-d74" secondAttribute="top" constant="12" id="qHl-Pa-ogI"/>
-                                                <constraint firstItem="MUg-Uo-mbp" firstAttribute="leading" secondItem="G9l-Na-d74" secondAttribute="leading" constant="16" id="vSp-Dh-L8f"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="title" destination="MUg-Uo-mbp" id="bPp-ir-O1y"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="WfS-iR-EYh" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="106" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WfS-iR-EYh" id="pud-iP-cPv">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Веб-сайт" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRQ-jj-BMn">
-                                                    <rect key="frame" x="16" y="12" width="350.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="website"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="dRQ-jj-BMn" firstAttribute="top" secondItem="pud-iP-cPv" secondAttribute="top" constant="12" id="0hi-IL-Z1m"/>
-                                                <constraint firstAttribute="bottom" secondItem="dRQ-jj-BMn" secondAttribute="bottom" constant="12" id="C4C-AJ-6gf"/>
-                                                <constraint firstItem="dRQ-jj-BMn" firstAttribute="leading" secondItem="pud-iP-cPv" secondAttribute="leading" constant="16" id="Fli-vC-k8V"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="dRQ-jj-BMn" secondAttribute="trailing" constant="10" id="g79-4i-uXm"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="title" destination="dRQ-jj-BMn" id="rXq-ie-1BA"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="AwY-rw-AMm" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="150" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AwY-rw-AMm" id="AUp-Ql-usV">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRr-XH-vvX">
-                                                    <rect key="frame" x="16" y="12" width="350.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="facebook"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="VRr-XH-vvX" firstAttribute="leading" secondItem="AUp-Ql-usV" secondAttribute="leading" constant="16" id="Ita-uo-kMI"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="VRr-XH-vvX" secondAttribute="trailing" constant="10" id="dVQ-G8-RjX"/>
-                                                <constraint firstItem="VRr-XH-vvX" firstAttribute="top" secondItem="AUp-Ql-usV" secondAttribute="top" constant="12" id="gm9-z7-doF"/>
-                                                <constraint firstAttribute="bottom" secondItem="VRr-XH-vvX" secondAttribute="bottom" constant="12" id="jS1-RB-3Zq"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="title" destination="VRr-XH-vvX" id="1RC-qM-3D2"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="PYl-5B-hBB" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="194" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PYl-5B-hBB" id="99g-g6-dgY">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="snB-CD-ffn">
-                                                    <rect key="frame" x="16" y="12" width="350.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="twitter"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="snB-CD-ffn" firstAttribute="leading" secondItem="99g-g6-dgY" secondAttribute="leading" constant="16" id="241-uI-JrM"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="snB-CD-ffn" secondAttribute="trailing" constant="10" id="TRb-qk-L6W"/>
-                                                <constraint firstItem="snB-CD-ffn" firstAttribute="top" secondItem="99g-g6-dgY" secondAttribute="top" constant="12" id="WRY-OG-rfG"/>
-                                                <constraint firstAttribute="bottom" secondItem="snB-CD-ffn" secondAttribute="bottom" constant="12" id="dRY-9A-WEK"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="title" destination="snB-CD-ffn" id="Gds-tD-RIY"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="tf0-t8-N5C" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="238" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tf0-t8-N5C" id="rkq-T5-e7x">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instagram" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5S-Nt-cFL">
-                                                    <rect key="frame" x="16" y="12" width="350.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="instagram"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="f5S-Nt-cFL" firstAttribute="top" secondItem="rkq-T5-e7x" secondAttribute="top" constant="12" id="IQ8-Zw-NL6"/>
-                                                <constraint firstAttribute="bottom" secondItem="f5S-Nt-cFL" secondAttribute="bottom" constant="12" id="K8P-oJ-br3"/>
-                                                <constraint firstItem="f5S-Nt-cFL" firstAttribute="leading" secondItem="rkq-T5-e7x" secondAttribute="leading" constant="16" id="b6O-eA-mia"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="f5S-Nt-cFL" secondAttribute="trailing" constant="10" id="uYL-j6-1mn"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="title" destination="f5S-Nt-cFL" id="beW-Kr-1td"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8n2-Bc-3lW" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="282" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8n2-Bc-3lW" id="swd-n3-rgq">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OpenStreetMap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LsV-5e-JVw">
-                                                    <rect key="frame" x="16" y="12" width="350.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="openstreetmap"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="LsV-5e-JVw" secondAttribute="trailing" constant="10" id="Fm5-b6-Vkf"/>
-                                                <constraint firstItem="LsV-5e-JVw" firstAttribute="leading" secondItem="swd-n3-rgq" secondAttribute="leading" constant="16" id="LOC-Yi-lzd"/>
-                                                <constraint firstAttribute="bottom" secondItem="LsV-5e-JVw" secondAttribute="bottom" constant="12" id="V2z-KU-qVG"/>
-                                                <constraint firstItem="LsV-5e-JVw" firstAttribute="top" secondItem="swd-n3-rgq" secondAttribute="top" constant="12" id="kvM-Iy-fzm"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <outlet property="title" destination="LsV-5e-JVw" id="DTL-Pc-adt"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="wsr-ZV-X15">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="jhU-Ha-kE2" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="362" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jhU-Ha-kE2" id="BJb-8F-OEp">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Оценить приложение" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spi-mD-g8U">
-                                                    <rect key="frame" x="16" y="12" width="350.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="rate_the_app"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Spi-mD-g8U" secondAttribute="trailing" constant="10" id="Ah4-nc-ger"/>
-                                                <constraint firstItem="Spi-mD-g8U" firstAttribute="top" secondItem="BJb-8F-OEp" secondAttribute="top" constant="12" id="Uzp-ac-4YK"/>
-                                                <constraint firstAttribute="bottom" secondItem="Spi-mD-g8U" secondAttribute="bottom" constant="12" id="nJT-66-FzO"/>
-                                                <constraint firstItem="Spi-mD-g8U" firstAttribute="leading" secondItem="BJb-8F-OEp" secondAttribute="leading" constant="16" id="rYe-4r-bep"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <outlet property="title" destination="Spi-mD-g8U" id="e5c-XR-WlR"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="Vce-Ld-skc">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Phw-kU-YR4" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="442" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Phw-kU-YR4" id="aSD-aJ-PPx">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Inh-j5-jJX">
-                                                    <rect key="frame" x="16" y="12" width="350.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="privacy_policy"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Inh-j5-jJX" secondAttribute="trailing" constant="10" id="2L2-Sg-uCC"/>
-                                                <constraint firstItem="Inh-j5-jJX" firstAttribute="leading" secondItem="aSD-aJ-PPx" secondAttribute="leading" constant="16" id="YdO-HY-FdR"/>
-                                                <constraint firstItem="Inh-j5-jJX" firstAttribute="top" secondItem="aSD-aJ-PPx" secondAttribute="top" constant="12" id="aQn-9v-rHK"/>
-                                                <constraint firstAttribute="bottom" secondItem="Inh-j5-jJX" secondAttribute="bottom" constant="12" id="q1s-JR-chp"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <outlet property="title" destination="Inh-j5-jJX" id="pfY-ci-ic6"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="HL5-l3-1jg" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="486" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HL5-l3-1jg" id="8Wj-Aa-vPE">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms of Use" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VN8-6g-ffS">
-                                                    <rect key="frame" x="16" y="12" width="350.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="terms_of_use"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="VN8-6g-ffS" firstAttribute="top" secondItem="8Wj-Aa-vPE" secondAttribute="top" constant="12" id="7x9-UI-KBc"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="VN8-6g-ffS" secondAttribute="trailing" constant="10" id="DO0-GM-jSo"/>
-                                                <constraint firstItem="VN8-6g-ffS" firstAttribute="leading" secondItem="8Wj-Aa-vPE" secondAttribute="leading" constant="16" id="G5m-YC-ccM"/>
-                                                <constraint firstAttribute="bottom" secondItem="VN8-6g-ffS" secondAttribute="bottom" constant="12" id="zdQ-w3-dhu"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <outlet property="title" destination="VN8-6g-ffS" id="nkz-HK-pVs"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="VXa-CM-OXP" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="530" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VXa-CM-OXP" id="Vot-vJ-3MU">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhV-at-6HM">
-                                                    <rect key="frame" x="16" y="12" width="350.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="copyright"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="uhV-at-6HM" firstAttribute="leading" secondItem="Vot-vJ-3MU" secondAttribute="leading" constant="16" id="5L0-oD-BQh"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="uhV-at-6HM" secondAttribute="trailing" constant="10" id="5W9-Uh-Rec"/>
-                                                <constraint firstAttribute="bottom" secondItem="uhV-at-6HM" secondAttribute="bottom" constant="12" id="baO-uu-7bc"/>
-                                                <constraint firstItem="uhV-at-6HM" firstAttribute="top" secondItem="Vot-vJ-3MU" secondAttribute="top" constant="12" id="dIb-Qa-JLE"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <outlet property="title" destination="uhV-at-6HM" id="mr0-zp-Q3F"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="WyW-ez-gUy" id="iUz-tt-2Fe"/>
-                            <outlet property="delegate" destination="WyW-ez-gUy" id="kgS-n4-P4a"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="copyrightCell" destination="VXa-CM-OXP" id="FpT-Rr-yha"/>
-                        <outlet property="facebookCell" destination="AwY-rw-AMm" id="NUh-p9-2t4"/>
-                        <outlet property="githubCell" destination="aNn-cN-xEJ" id="b7O-Di-25L"/>
-                        <outlet property="instagramCell" destination="tf0-t8-N5C" id="zFo-hU-vng"/>
-                        <outlet property="osmCell" destination="8n2-Bc-3lW" id="igH-Nf-uX5"/>
-                        <outlet property="privacyPolicyCell" destination="Phw-kU-YR4" id="een-ap-TWn"/>
-                        <outlet property="rateCell" destination="jhU-Ha-kE2" id="qi9-Y9-9BP"/>
-                        <outlet property="telegramCell" destination="waQ-Cw-wiB" id="SM0-4U-TfW"/>
-                        <outlet property="termsOfUseCell" destination="HL5-l3-1jg" id="IAB-Aq-PTS"/>
-                        <outlet property="twitterCell" destination="PYl-5B-hBB" id="mep-Pn-aCd"/>
-                        <outlet property="websiteCell" destination="WfS-iR-EYh" id="ZHY-xI-uq1"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="X5h-rk-z46" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1881" y="-3103"/>
-        </scene>
         <!--AuthorizationLoginViewController-->
         <scene sceneID="Uoe-yB-Kdk">
             <objects>
@@ -1715,7 +1219,7 @@
 
 Приложение не использует мобильный интернет в роуминге.</string>
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="gS7-2k-8yw" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="gS7-2k-8yw" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="18" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gS7-2k-8yw" id="1pg-RV-MG8">
@@ -1743,7 +1247,7 @@
                                             <outlet property="title" destination="vX5-wa-tBM" id="KIZ-8U-XsY"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="lTE-DT-aCE" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="lTE-DT-aCE" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="62" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lTE-DT-aCE" id="N6p-8U-90b">
@@ -1771,7 +1275,7 @@
                                             <outlet property="title" destination="cOW-yT-WYH" id="3si-Gj-sn7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="9uV-jg-h2A" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="9uV-jg-h2A" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="106" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9uV-jg-h2A" id="z0N-m2-ums">
@@ -1828,7 +1332,7 @@
                         <sections>
                             <tableViewSection footerTitle="Когда автоматический режим выбран, приложение может отключать энергопотребляющую функциональность при снижении уровня заряда" id="JOr-Xh-pe0">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="E3v-HX-t4T" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="E3v-HX-t4T" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="18" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E3v-HX-t4T" id="3Lz-ko-Zz4">
@@ -1857,7 +1361,7 @@
                                             <outlet property="title" destination="qmx-xQ-ZWp" id="hmJ-gO-2q6"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="ZIh-Ok-kbn" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="ZIh-Ok-kbn" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="62" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZIh-Ok-kbn" id="Ev7-bM-Auy">
@@ -1886,7 +1390,7 @@
                                             <outlet property="title" destination="kwv-qP-M40" id="IUE-JV-ghM"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="L0p-Ud-RNv" customClass="SettingsTableViewSelectableCell" customModule="OMaps" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="L0p-Ud-RNv" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="106" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="L0p-Ud-RNv" id="ZKy-q3-B0i">
@@ -1934,9 +1438,4 @@
             <point key="canvasLocation" x="1881" y="1173"/>
         </scene>
     </scenes>
-    <resources>
-        <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-    </resources>
 </document>

@@ -21,6 +21,11 @@ ruins=yes : historic=ruins
 drinkable=yes : amenity=drinking_water
 drinking_water=yes : amenity=drinking_water
 water_point=yes : amenity=water_point
+waterway=water_point : amenity=water_point
+sanitary_dump_station=yes : amenity=sanitary_dump_station
+sanitary_dump_station=customers : amenity=sanitary_dump_station
+sanitary_dump_station=public : amenity=sanitary_dump_station
+waterway=sanitary_dump_station : amenity=sanitary_dump_station
 building=entrance : entrance=yes
 
 ice_road=yes : highway=ice_road
@@ -29,9 +34,11 @@ highway=turning_loop : highway=mini_roundabout
 
 highway=platform : highway=pedestrian
 
-natural=marsh : natural=wetland, wetland=marsh
+man_made=quay : man_made=pier
+
+natural=marsh     : natural=wetland, wetland=marsh
 natural=waterfall : waterway=waterfall
-natural = forest : natural = wood
+natural=forest    : natural=wood
 # TODO
 # natural = ridge + cliff=yes -> natural=cliff
 
@@ -50,6 +57,9 @@ diet:vegan=yes : cuisine=vegan
 diet:vegan=only : cuisine=vegan
 diet=vegan : cuisine=vegan
 
+shop=ice_cream : amenity=ice_cream
+ice_cream=yes : amenity=ice_cream
+
 amenity=parking_entrance : amenity=parking
 
 historic=cannon : historic=memorial
@@ -61,10 +71,24 @@ place=allotments : place=neighbourhood
 
 crossing=traffic_signals : highway=traffic_signals
 
+vending=parcel_pickup;parcel_mail_in : vending=parcel_pickup
 
+# Replace top tags from here https://taginfo.openstreetmap.org/search?q=recycling on the common ones.
+recycling:electrical_appliances=yes       : recycling:small_appliances=yes
 recycling:small_electrical_appliances=yes : recycling:small_appliances=yes
-recycling:PET=yes : recycling:plastic_bottles=yes
-recycling:plastic_packaging=yes : recycling:plastic=yes
-recycling:glass=yes : recycling:glass_bottles=yes
-recycling:metal=yes : recycling:scrap_metal=yes
+recycling:electrical_items=yes            : recycling:small_appliances=yes
+
+recycling:metal=yes       : recycling:scrap_metal=yes
 recycling:sheet_metal=yes : recycling:scrap_metal=yes
+recycling:aluminium=yes   : recycling:scrap_metal=yes
+
+recycling:PET=yes               : recycling:plastic_bottles=yes
+recycling:plastic_packaging=yes : recycling:plastic=yes
+recycling:glass=yes             : recycling:glass_bottles=yes
+recycling:organic=yes           : recycling:green_waste=yes
+recycling:garden_waste=yes      : recycling:green_waste=yes
+
+recycling:paper_packaging=yes   : recycling:paper=yes
+recycling:newspaper=yes         : recycling:paper=yes
+recycling:magazines=yes         : recycling:paper=yes
+recycling:beverage_cartons=yes  : recycling:cartons=yes

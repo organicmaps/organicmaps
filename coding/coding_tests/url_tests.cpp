@@ -2,56 +2,54 @@
 
 #include "coding/url.hpp"
 
+#include "base/math.hpp"
+
 #include <queue>
 #include <string>
 #include <utility>
 
-using namespace std;
-
-namespace
+namespace url_tests
 {
-double const kEps = 1e-10;
+using namespace std;
+using namespace url;
 
 class TestUrl
 {
 public:
-  explicit TestUrl(string const & url) : m_url(url) {}
+  explicit TestUrl(string && url) : m_url(std::move(url)) {}
 
-  TestUrl & Scheme(string const & scheme) { m_scheme = scheme; return *this; }
-  TestUrl & Path(string const & path) { m_path = path; return *this; }
-  TestUrl & KV(string const & key, string const & value)
+  TestUrl & Scheme(string && scheme) { m_scheme = std::move(scheme); return *this; }
+  TestUrl & Host(string && host) { m_host = std::move(host); return *this; }
+  TestUrl & Path(string && path) { m_path = std::move(path); return *this; }
+  TestUrl & KV(string && key, string && value)
   {
-    m_keyValuePairs.push(make_pair(key, value));
+    m_keyValuePairs.emplace(std::move(key), std::move(value));
     return *this;
   }
 
   ~TestUrl()
   {
-    url::Url url(m_url);
+    Url url(m_url);
     TEST_EQUAL(url.GetScheme(), m_scheme, ());
+    TEST_EQUAL(url.GetHost(), m_host, ());
     TEST_EQUAL(url.GetPath(), m_path, ());
+
     TEST(!m_scheme.empty() || !url.IsValid(), ("Scheme is empty if and only if url is invalid!"));
-    url.ForEachParam(bind(&TestUrl::AddTestValue, this, placeholders::_1));
+
+    url.ForEachParam([this](string const & name, string const & value)
+    {
+      TEST(!m_keyValuePairs.empty(), ("Failed for url = ", m_url));
+      TEST_EQUAL(m_keyValuePairs.front().first, name, ());
+      TEST_EQUAL(m_keyValuePairs.front().second, value, ());
+      m_keyValuePairs.pop();
+    });
   }
 
 private:
-  void AddTestValue(url::Param const & param)
-  {
-    TEST(!m_keyValuePairs.empty(), ("Failed for url = ", m_url, "Passed KV = ", param));
-    TEST_EQUAL(m_keyValuePairs.front().first, param.m_name, ());
-    TEST_EQUAL(m_keyValuePairs.front().second, param.m_value, ());
-    m_keyValuePairs.pop();
-  }
-
-  string m_url;
-  string m_scheme;
-  string m_path;
+  string m_url, m_scheme, m_host, m_path;
   queue<pair<string, string>> m_keyValuePairs;
 };
-}  // namespace
 
-namespace url_encode_testdata
-{
 char const * orig1 = "http://google.com/main_index.php";
 char const * enc1 = "http%3A%2F%2Fgoogle.com%2Fmain_index.php";
 char const * orig2 = "Some File Name.ext";
@@ -60,10 +58,7 @@ char const * orig3 = "Wow,  two spaces?!";
 char const * enc3 = "Wow%2C%20%20two%20spaces%3F%21";
 char const * orig4 = "#$%^&@~[]{}()|*+`\"\'";
 char const * enc4 = "%23%24%25%5E%26%40~%5B%5D%7B%7D%28%29%7C%2A%2B%60%22%27";
-}  // namespace url_encode_testdata
 
-namespace url
-{
 UNIT_TEST(Url_Join)
 {
   TEST_EQUAL("", Join("", ""), ());
@@ -78,10 +73,8 @@ UNIT_TEST(Url_Join)
   TEST_EQUAL("../omim/strings", Join("../", "", "/omim/", "/strings"), ());
 }
 
-UNIT_TEST(UrlEncode)
+UNIT_TEST(Url_Encode)
 {
-  using namespace url_encode_testdata;
-
   TEST_EQUAL(UrlEncode(""), "", ());
   TEST_EQUAL(UrlEncode(" "), "%20", ());
   TEST_EQUAL(UrlEncode("%% "), "%25%25%20", ());
@@ -93,10 +86,8 @@ UNIT_TEST(UrlEncode)
   TEST_EQUAL(UrlEncode(orig4), enc4, ());
 }
 
-UNIT_TEST(UrlDecode)
+UNIT_TEST(Url_Decode)
 {
-  using namespace url_encode_testdata;
-
   TEST_EQUAL(UrlDecode(""), "", ());
   TEST_EQUAL(UrlDecode("%20"), " ", ());
   TEST_EQUAL(UrlDecode("%25%25%20"), "%% ", ());
@@ -108,147 +99,93 @@ UNIT_TEST(UrlDecode)
   TEST_EQUAL(UrlDecode(enc4), orig4, ());
 }
 
-UNIT_TEST(ProcessURL_Smoke)
+UNIT_TEST(Url_Invalid)
 {
-  {
-    GeoURLInfo info("geo:53.666,27.666");
-    TEST(info.IsValid(), ());
-    TEST_ALMOST_EQUAL_ABS(info.m_lat, 53.666, kEps, ());
-    TEST_ALMOST_EQUAL_ABS(info.m_lon, 27.666, kEps, ());
-  }
-
-  {
-    GeoURLInfo info("geo://point/?lon=27.666&lat=53.666&zoom=10");
-    TEST(info.IsValid(), ());
-    TEST_ALMOST_EQUAL_ABS(info.m_lat, 53.666, kEps, ());
-    TEST_ALMOST_EQUAL_ABS(info.m_lon, 27.666, kEps, ());
-    TEST_ALMOST_EQUAL_ABS(info.m_zoom, 10.0, kEps, ());
-  }
-
-  {
-    GeoURLInfo info("geo:53.666");
-    TEST(!info.IsValid(), ());
-  }
-
-  {
-    GeoURLInfo info("mapswithme:123.33,32.22/showmethemagic");
-    TEST(!info.IsValid(), ());
-  }
-
-  {
-    GeoURLInfo info("mapswithme:32.22, 123.33/showmethemagic");
-    TEST(info.IsValid(), ());
-    TEST_ALMOST_EQUAL_ABS(info.m_lat, 32.22, kEps, ());
-    TEST_ALMOST_EQUAL_ABS(info.m_lon, 123.33, kEps, ());
-  }
-
-  {
-    GeoURLInfo info("model: iphone 7,1");
-    TEST(!info.IsValid(), ());
-  }
+  TEST(!Url("").IsValid(), ());
+  TEST(!Url(":/").IsValid(), ());
+  TEST(!Url("//").IsValid(), ());
 }
 
-UNIT_TEST(ProcessURL_Instagram)
-{
-  GeoURLInfo info("geo:0,0?z=14&q=54.683486138,25.289361259 (Forto%20dvaras)");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 54.683486138, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 25.289361259, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 14.0, kEps, ());
-}
-
-UNIT_TEST(ProcessURL_GoogleMaps)
-{
-  GeoURLInfo info("https://maps.google.com/maps?z=16&q=Mezza9%401.3067198,103.83282");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 1.3067198, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 103.83282, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
-
-  info = GeoURLInfo("https://maps.google.com/maps?z=16&q=House+of+Seafood+%40+180%401.356706,103.87591");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 1.356706, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 103.87591, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
-}
-
-UNIT_TEST(ProcessURL_CaseInsensitive)
-{
-  GeoURLInfo info("geo:52.23405,21.01547?Z=10");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 10.0, kEps, ());
-}
-
-UNIT_TEST(ProcessURL_BadZoom)
-{
-  GeoURLInfo info("geo:52.23405,21.01547?Z=19");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 17.0, kEps, ());
-
-  info = GeoURLInfo("geo:52.23405,21.01547?Z=nineteen");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 17.0, kEps, ());
-
-  info = GeoURLInfo("geo:52.23405,21.01547?Z=-1");
-  TEST(info.IsValid(), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 0.0, kEps, ());
-}
-
-UNIT_TEST(UrlValidScheme)
-{
-  Url url("mapswithme://map?ll=10.3,12.3223&n=Hello%20World");
-  TEST_EQUAL(url.GetScheme(), "mapswithme", ());
-}
-
-UNIT_TEST(UrlInvalidSchemeNoColon)
-{
-  TEST_EQUAL(Url("mapswithme:").GetScheme(), "mapswithme", ());
-}
-
-UNIT_TEST(UrlTestValidScheme2)
+UNIT_TEST(Url_Valid)
 {
   TestUrl("mapswithme://map?ll=10.3,12.3223&n=Hello%20World")
       .Scheme("mapswithme")
-      .Path("map")
+      .Host("map")
       .KV("ll", "10.3,12.3223")
       .KV("n", "Hello World");
+
+  TestUrl("om:M&M//path?q=q&w=w")
+      .Scheme("om")
+      .Host("M&M")
+      .Path("path")
+      .KV("q", "q")
+      .KV("w", "w");
+
+  TestUrl("http://www.sandwichparlour.com.au/")
+      .Scheme("http")
+      .Host("www.sandwichparlour.com.au")
+      .Path("");
+
+  TestUrl("om:/&test").Scheme("om").Host("&test").Path("");
 }
 
-UNIT_TEST(UrlComprehensive)
+UNIT_TEST(Url_Fragment)
+{
+  TestUrl("https://www.openstreetmap.org/way/179409926#map=19/46.34998/48.03213&layers=N")
+      .Scheme("https")
+      .Host("www.openstreetmap.org")
+      .Path("way/179409926")
+      .KV("map", "19/46.34998/48.03213")
+      .KV("layers", "N");
+
+  TestUrl("https://www.openstreetmap.org/search?query=Falafel%20Sahyoun#map=16/33.89041/35.50664")
+      .Scheme("https")
+      .Host("www.openstreetmap.org")
+      .Path("search")
+      .KV("query", "Falafel Sahyoun")
+      .KV("map", "16/33.89041/35.50664");
+}
+
+UNIT_TEST(UrlScheme_Comprehensive)
 {
   TestUrl("");
-  TestUrl("scheme:").Scheme("scheme");
-  TestUrl("scheme:/").Scheme("scheme");
-  TestUrl("scheme://").Scheme("scheme");
+  TestUrl("scheme:").Scheme("scheme").Host("").Path("");
+  TestUrl("scheme:/").Scheme("scheme").Host("").Path("");
+  TestUrl("scheme://").Scheme("scheme").Host("").Path("");
   TestUrl("sometext");
   TestUrl(":noscheme");
   TestUrl("://noscheme?");
-  TestUrl("mwm://?").Scheme("mwm");
-  TestUrl("http://path/to/something").Scheme("http").Path("path/to/something");
-  TestUrl("http://path?").Scheme("http").Path("path");
-  TestUrl("maps://path?&&key=&").Scheme("maps").Path("path").KV("key", "");
-  TestUrl("mapswithme://map?ll=1.2,3.4&z=15").Scheme("mapswithme").Path("map")
+  TestUrl("mwm://?").Scheme("mwm").Host("").Path("");
+  TestUrl("http://host/path/to/something").Scheme("http").Host("host").Path("path/to/something");
+  TestUrl("http://host?").Scheme("http").Host("host").Path("");
+  TestUrl("maps://host?&&key=&").Scheme("maps").Host("host").KV("key", "");
+  TestUrl("mapswithme://map?ll=1.2,3.4&z=15").Scheme("mapswithme").Host("map").Path("")
       .KV("ll", "1.2,3.4").KV("z", "15");
-  TestUrl("nopathnovalues://?key1&key2=val2").Scheme("nopathnovalues").Path("")
+  TestUrl("nopathnovalues://?key1&key2=val2").Scheme("nopathnovalues").Host("").Path("")
       .KV("key1", "").KV("key2", "val2");
-  TestUrl("s://?key1&key2").Scheme("s").Path("").KV("key1", "").KV("key2", "");
-  TestUrl("g://p?key1=val1&key2=").Scheme("g").Path("p").KV("key1", "val1").KV("key2", "");
-  TestUrl("g://p?=val1&key2=").Scheme("g").Path("p").KV("", "val1").KV("key2", "");
-  TestUrl("g://?k&key2").Scheme("g").KV("k", "").KV("key2", "");
-  TestUrl("m:?%26Amp%26%3D%26Amp%26&name=%31%20%30").Scheme("m")
+  TestUrl("s://?key1&key2").Scheme("s").Host("").Path("").KV("key1", "").KV("key2", "");
+  TestUrl("g://h/p?key1=val1&key2=").Scheme("g").Host("h").Path("p").KV("key1", "val1").KV("key2", "");
+  TestUrl("g://h?=val1&key2=").Scheme("g").Host("h").Path("").KV("", "val1").KV("key2", "");
+  TestUrl("g://?k&key2").Scheme("g").Host("").Path("").KV("k", "").KV("key2", "");
+  TestUrl("m:?%26Amp%26%3D%26Amp%26&name=%31%20%30").Scheme("m").Host("").Path("")
       .KV("&Amp&=&Amp&", "").KV("name", "1 0");
   TestUrl("s://?key1=value1&key1=value2&key1=value3&key2&key2&key3=value1&key3&key3=value2")
-      .Scheme("s")
+      .Scheme("s").Host("").Path("")
       .KV("key1", "value1").KV("key1", "value2").KV("key1", "value3")
       .KV("key2", "").KV("key2", "")
       .KV("key3", "value1").KV("key3", "").KV("key3", "value2");
 }
-}  // namespace url
+
+UNIT_TEST(UrlApi_Smoke)
+{
+  url::Url url("https://2gis.ru/moscow/firm/4504127908589159?m=37.618632%2C55.760069%2F15.232");
+  TEST_EQUAL(url.GetScheme(), "https", ());
+  TEST_EQUAL(url.GetHost(), "2gis.ru", ());
+  TEST_EQUAL(url.GetPath(), "moscow/firm/4504127908589159", ());
+  TEST_EQUAL(url.GetHostAndPath(), "2gis.ru/moscow/firm/4504127908589159", ());
+
+  TEST(url.GetLastParam(), ());
+  TEST(url.GetParamValue("m"), ());
+}
+
+}  // namespace url_tests

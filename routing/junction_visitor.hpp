@@ -18,6 +18,9 @@ inline void DebugRoutingState(...) {}
 
 class JointSegment;
 class RouteWeight;
+class Segment;
+void DebugRoutingState(Segment const & vertex, std::optional<Segment> const & parent,
+                       RouteWeight const & heuristic, RouteWeight const & distance);
 void DebugRoutingState(JointSegment const & vertex, std::optional<JointSegment> const & parent,
                        RouteWeight const & heuristic, RouteWeight const & distance);
 #endif

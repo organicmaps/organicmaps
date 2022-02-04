@@ -97,7 +97,8 @@ target_link_libraries(${PROJECT_NAME}
   expat
   jansson
   succinct
-  icu       # For transliteration.
+  ICU::uc
+  ICU::i18n # For transliteration.
   oauthcpp  # For base64_encode and base64_decode
   minizip
   ${LIBZ}

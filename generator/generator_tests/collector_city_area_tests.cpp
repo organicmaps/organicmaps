@@ -20,10 +20,10 @@
 #include <memory>
 #include <vector>
 
+namespace collector_city_area_tests
+{
 using namespace generator_tests;
 
-namespace
-{
 feature::FeatureBuilder MakeFbForTest(OsmElement element)
 {
   feature::FeatureBuilder result;
@@ -45,7 +45,6 @@ auto const o1 = MakeOsmElement(1 /* id */, {{"place", "city"}} /* tags */, OsmEl
 auto const o2 = MakeOsmElement(2 /* id */, {{"place", "town"}} /* tags */, OsmElement::EntityType::Relation);
 auto const o3 = MakeOsmElement(3 /* id */, {{"place", "village"}} /* tags */, OsmElement::EntityType::Relation);
 auto const o4 = MakeOsmElement(4 /* id */, {{"place", "country"}} /* tags */, OsmElement::EntityType::Relation);
-}  // namespace
 
 UNIT_TEST(CollectorCityArea_Merge)
 {
@@ -70,3 +69,4 @@ UNIT_TEST(CollectorCityArea_Merge)
   TEST(HasRelationWithId(fbs, 2 /* id */), ());
   TEST(HasRelationWithId(fbs, 3 /* id */), ());
 }
+}  // namespace collector_city_area_tests

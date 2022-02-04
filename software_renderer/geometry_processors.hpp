@@ -296,7 +296,7 @@ template <class TBase> class filter_screenpts_adapter : public TBase
   }
   static bool empty_scr_rect(m2::RectD const & r)
   {
-    double const eps = 1.0;
+    double constexpr eps = 1.0;
     return (r.SizeX() < eps && r.SizeY() < eps);
   }
 

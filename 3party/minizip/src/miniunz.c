@@ -12,6 +12,7 @@
          Copyright (C) 2009-2010 Mathias Svensson ( http://result42.com )
 */
 
+/* Commented, because it is a manual hack and it fails on Android API < 24
 #if (!defined(_WIN32)) && (!defined(WIN32)) && (!defined(__APPLE__))
         #ifndef __USE_FILE_OFFSET64
                 #define __USE_FILE_OFFSET64
@@ -26,6 +27,7 @@
                 #define _FILE_OFFSET_BIT 64
         #endif
 #endif
+*/
 
 #ifdef __APPLE__
 // In darwin and perhaps other BSD variants off_t is a 64 bit value, hence no need for specific 64 bit functions

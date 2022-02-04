@@ -53,7 +53,7 @@ feature::FeatureBuilder::PointSeq::iterator GetIterOnRoad(m2::PointD const & poi
                                                           feature::FeatureBuilder::PointSeq & road)
 {
   return base::FindIf(road, [&point](m2::PointD const & pointOnRoad) {
-    return base::AlmostEqualAbs(pointOnRoad, point, kMwmPointAccuracy);
+    return m2::AlmostEqualAbs(pointOnRoad, point, kMwmPointAccuracy);
   });
 }
 }
@@ -188,7 +188,7 @@ feature::FeatureBuilder::PointSeq MiniRoundaboutTransformer::CreateSurrogateRoad
       *itPointOnSurrogateRoad /* source */, roundaboutOnRoad.m_location /* target */,
       m_radiusMercator /* dist */);
 
-  if (AlmostEqualAbs(nextPointOnSurrogateRoad, *itPointOnSurrogateRoad, kMwmPointAccuracy))
+  if (m2::AlmostEqualAbs(nextPointOnSurrogateRoad, *itPointOnSurrogateRoad, kMwmPointAccuracy))
     return {};
 
   AddPointToCircle(roundaboutCircle, nextPointOnSurrogateRoad);
@@ -214,7 +214,7 @@ bool MiniRoundaboutTransformer::AddRoundaboutToRoad(RoundaboutUnit const & round
       GetPointAtDistFromTarget(*itPointNearRoundabout /* source */, roundaboutCenter /* target */,
                                m_radiusMercator /* dist */);
 
-  if (AlmostEqualAbs(nextPointOnRoad, *itPointNearRoundabout, kMwmPointAccuracy))
+  if (m2::AlmostEqualAbs(nextPointOnRoad, *itPointNearRoundabout, kMwmPointAccuracy))
     return false;
 
   if (isMiddlePoint)
@@ -403,7 +403,7 @@ void AddPointToCircle(std::vector<m2::PointD> & circle, m2::PointD const & point
 
   if (iDist1 > iDist2)
     std::swap(iDist1, iDist2);
-  
+
   if (iDist1 == 0 && iDist2 == circle.size() - 1)
     circle.push_back(point);
   else

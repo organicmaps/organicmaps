@@ -16,17 +16,4 @@ OsmElement MakeOsmElement(uint64_t id, Tags const & tags, OsmElement::EntityType
 std::string GetFileName(std::string const & filename = std::string());
 
 bool MakeFakeBordersFile(std::string const & intemediatePath, std::string const & filename);
-
-struct TagValue
-{
-  std::string m_key;
-  std::string m_value;
-};
-
-struct Tag
-{
-  TagValue operator=(std::string const & value) const { return {m_name, value}; }
-
-  std::string m_name;
-};
 }  // namespace generator_tests

@@ -8,8 +8,14 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_EXTENSIONS OFF)
 
-if(NOT (DEFINED ENV{COLORS_DISABLE}) AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-  message(STATUS "export COLORS_DISABLE=1 to disable colored compiler output.")
+if (NOT (DEFINED ENV{UNITY_DISABLE}))
+  message("Using unity builds, export UNITY_DISABLE=1 to disable it.")
+  set(CMAKE_UNITY_BUILD ON)
+  set(CMAKE_UNITY_BUILD_BATCH_SIZE 50)
+endif()
+
+if (NOT (DEFINED ENV{COLORS_DISABLE}) AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+  message("export COLORS_DISABLE=1 to disable colored compiler output.")
   add_compile_options($<$<CXX_COMPILER_ID:GNU>:-fdiagnostics-color=always> $<$<CXX_COMPILER_ID:Clang,AppleClang>:-fcolor-diagnostics>)
   add_link_options($<$<CXX_COMPILER_ID:GNU>:-fdiagnostics-color=always> $<$<CXX_COMPILER_ID:Clang,AppleClang>:-fcolor-diagnostics>)
 endif()
@@ -95,6 +101,15 @@ option(SKIP_DESKTOP "Skip building of desktop application" OFF)
 # TODO: Fix mapshot, it doesn't work without our old FreeType hack.
 option(BUILD_MAPSHOT "Build mapshot tool" OFF)
 option(USE_PCH "Use precompiled headers" OFF)
+option(NJOBS "Number of parallel processes" OFF)
+
+if (NJOBS)
+  message("Number of parallel processes: ${NJOBS}")
+  set(CMAKE_JOB_POOLS custom=${NJOBS})
+  set(CMAKE_JOB_POOL_COMPILE custom)
+  set(CMAKE_JOB_POOL_LINK custom)
+  set(CMAKE_JOB_POOL_PRECOMPILE_HEADER custom)
+endif()
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.0)
   message(FATAL_ERROR "Minimum supported g++ version is 7.0 yours is ${CMAKE_CXX_COMPILER_VERSION}")
@@ -146,7 +161,7 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 if (NOT (DEFINED ENV{CCACHE_DISABLE}))
   find_program(CCACHE_PROGRAM ccache HINTS /usr/local/bin/)
   if (CCACHE_PROGRAM)
-    message(STATUS "Using ccache, export CCACHE_DISABLE=1 to disable it.")
+    message("Using ccache, export CCACHE_DISABLE=1 to disable it.")
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
     set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CCACHE_PROGRAM}")
     set(CMAKE_C_COMPILER_LAUNCHER   "${CCACHE_PROGRAM}")
@@ -155,10 +170,16 @@ if (NOT (DEFINED ENV{CCACHE_DISABLE}))
 endif()
 
 if (PLATFORM_LINUX OR PLATFORM_ANDROID)
-  find_program(GOLD_FOUND ld.gold)
-  if (GOLD_FOUND)
-    message(STATUS "Using ld.gold")
-    set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=gold")
+  find_program(LLD_FOUND ld.lld)
+  if (LLD_FOUND)
+    message(STATUS "Using ld.ldd linker")
+    set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=lld")
+  else()
+    find_program(GOLD_FOUND ld.gold)
+    if (GOLD_FOUND)
+      message(STATUS "Using ld.gold")
+      set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=gold")
+    endif()
   endif()
 endif()
 
@@ -253,6 +274,25 @@ if (USE_PCH)
   )
 endif()
 
+# Generate version header file.
+execute_process(COMMAND tools/unix/version.sh android_name
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  OUTPUT_VARIABLE OM_VERSION
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+execute_process(COMMAND tools/unix/version.sh android_code
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  OUTPUT_VARIABLE OM_VERSION_CODE
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+execute_process(COMMAND tools/unix/version.sh git_hash
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  OUTPUT_VARIABLE OM_GIT_HASH
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+# TODO: Does it run on every build or only on configure step?
+# TODO: Run only when dependent targets are built.
+configure_file(build_version.hpp.in ${CMAKE_SOURCE_DIR}/build_version.hpp @ONLY)
 
 # Include 3party dependencies.
 
@@ -270,9 +310,14 @@ set(EXPAT_SHARED_LIBS OFF)
 add_subdirectory(3party/expat/expat)
 add_subdirectory(3party/agg)
 add_subdirectory(3party/bsdiff-courgette)
-add_subdirectory(3party/freetype)
 add_subdirectory(3party/gflags)
-add_subdirectory(3party/icu)
+if (LINUX_DETECTED)
+  find_package(ICU COMPONENTS uc i18n data REQUIRED)
+  find_package(Freetype REQUIRED)
+else()
+  add_subdirectory(3party/freetype)
+  add_subdirectory(3party/icu)
+endif()
 add_subdirectory(3party/jansson)
 add_subdirectory(3party/liboauthcpp)
 add_subdirectory(3party/minizip)
@@ -346,12 +391,3 @@ omim_add_test_subdirectory(qt_tstfrm)
 if (PLATFORM_ANDROID)
   add_subdirectory(android/jni)
 endif()
-
-add_custom_target(BuildVersion ALL
-  COMMAND ${CMAKE_COMMAND}
-  ARGS
-  -D OMAPS_CURRENT_PROJECT_ROOT=${OMIM_ROOT}
-  -D PATH_WITH_BUILD_VERSION_HPP=${OMIM_ROOT}
-  -D PROJECT_NAME=${PROJECT_NAME}
-  -P ${OMIM_ROOT}/cmake/BuildVersion.cmake
-)

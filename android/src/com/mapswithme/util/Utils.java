@@ -78,11 +78,6 @@ public class Utils
     return isTargetOrLater(Build.VERSION_CODES.O);
   }
 
-  public static boolean isAndroid11OrLater()
-  {
-    return isTargetOrLater(Build.VERSION_CODES.R);
-  }
-
   private static boolean isTargetOrLater(int target)
   {
     return Build.VERSION.SDK_INT >= target;
@@ -355,7 +350,7 @@ public class Utils
 
   public static SpannableStringBuilder formatUnitsText(Context context, @DimenRes int size, @DimenRes int units, String dimension, String unitText)
   {
-    final SpannableStringBuilder res = new SpannableStringBuilder(dimension).append(" ").append(unitText);
+    final SpannableStringBuilder res = new SpannableStringBuilder(dimension).append("\u00A0").append(unitText);
     res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(context, size), false), 0, dimension.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(context, units), false), dimension.length(), res.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     return res;
@@ -609,6 +604,21 @@ public class Utils
   public static String getDeviceModel()
   {
     return Build.MODEL;
+  }
+
+  @NonNull
+  public static String getVersion()
+  {
+    return BuildConfig.VERSION_NAME;
+  }
+
+  @NonNull
+  public static int getIntVersion()
+  {
+    // Please sync with getVersion() in build.gradle
+    // - % 100000000 removes prefix for special markets, e.g Huawei.
+    // - / 100 removes the number of commits in the current day.
+    return (BuildConfig.VERSION_CODE % 1_00_00_00_00) / 100;
   }
 
   @NonNull

@@ -26,12 +26,9 @@ class WorldFeedIntegrationTests
 {
 public:
   WorldFeedIntegrationTests()
-    : m_mwmMatcher(GetTestingOptions().m_resourcePath, false /* haveBordersForWholeWorld */)
+    : m_mwmMatcher(GetPlatform().ResourcesDir(), false /* haveBordersForWholeWorld */)
     , m_globalFeed(m_generator, m_generatorEdges, m_colorPicker, m_mwmMatcher)
   {
-    auto const & options = GetTestingOptions();
-
-    GetPlatform().SetResourceDir(options.m_resourcePath);
     m_testPath = base::JoinPath(GetPlatform().WritableDir(), kFeedsSubdir);
     CHECK(GetPlatform().IsFileExistsByFullPath(m_testPath), ());
 

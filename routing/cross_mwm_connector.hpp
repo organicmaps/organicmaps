@@ -39,6 +39,7 @@ enum class WeightsLoadState
 std::string DebugPrint(WeightsLoadState state);
 }  // namespace connector
 
+/// @param CrossMwmId Encoded OSM feature (way) ID that should be equal and unique in all MWMs.
 template <typename CrossMwmId>
 class CrossMwmConnector final
 {
@@ -132,9 +133,21 @@ public:
 
     uint32_t const featureId = fIt->second;
 
-    auto const tIt = m_transitions.find(Key(featureId, segmentIdx));
+    auto tIt = m_transitions.find(Key(featureId, segmentIdx));
     if (tIt == m_transitions.cend())
-      return nullptr;
+    {
+      /// @todo By VNG: Workaround until cross-mwm transitions generator investigation.
+      /// https://github.com/organicmaps/organicmaps/issues/1736
+      /// Actually, the fix is valid, because transition features can have segment = 1 when leaving MWM
+      /// and segment = 2 when entering MWM due to *not precise* packed MWM borders.
+      if (isEnter)
+        tIt = m_transitions.find(Key(featureId, segmentIdx + 1));
+      else if (segmentIdx > 0)
+        tIt = m_transitions.find(Key(featureId, segmentIdx - 1));
+
+      if (tIt == m_transitions.cend())
+        return nullptr;
+    }
 
     auto const & transition = tIt->second;
     CHECK_EQUAL(transition.m_crossMwmId, crossMwmId, ("fId:", featureId, ", segId:", segmentIdx));
@@ -176,7 +189,7 @@ public:
   }
 
   std::vector<Segment> const & GetEnters() const { return m_enters; }
-  std::vector<Segment> const & GetExits() const { return m_exits; }  
+  std::vector<Segment> const & GetExits() const { return m_exits; }
 
   Segment const & GetEnter(size_t i) const
   {

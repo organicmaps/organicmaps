@@ -14,6 +14,7 @@ on:
       - android/**
       - docs/**
       - generator/**
+      - iphone/metadata/**
       - packaging/**
       - pyhelpers/**
       - qt*/**
@@ -24,7 +25,12 @@ on:
 jobs:
   ios-check:
     name: Build iOS
-    runs-on: macos-latest
+    runs-on: macos-11
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
+      LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
+      LANGUAGE: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
     strategy:
       fail-fast: false
       matrix:
@@ -52,13 +58,3 @@ jobs:
             'generic/platform=iOS' \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
-
-  ios-check-metadata:
-    name: Check app metadata
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Check metadata
-        run: ./tools/python/check_store_metadata.py ios

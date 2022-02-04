@@ -229,10 +229,7 @@ using namespace storage;
 }
 
 - (void)openWebsite:(PlacePageData *)data {
-  NSURL *url = [NSURL URLWithString:data.infoData.website];
-  if (url) {
-    [self.ownerViewController openUrl:url];
-  }
+  [self.ownerViewController openUrl:data.infoData.website];
 }
 
 - (void)openElevationDifficultPopup:(PlacePageData *)data {

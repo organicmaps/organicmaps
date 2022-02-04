@@ -75,6 +75,13 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y ninja-build
+          # Hack needed to make ninja visible to cmake during NDK builds.
+          # See https://issuetracker.google.com/issues/206099937
+          CMAKE_DIR=$(dirname $(which cmake))
+          NINJA_DIR=$(dirname $(which ninja))
+          if [ "$CMAKE_DIR" != "$NINJA_DIR" ]; then
+            ln -s "$(which ninja)" "$CMAKE_DIR/ninja"
+          fi
 
       - name: Set up JDK 11
         uses: actions/setup-java@v1
@@ -128,22 +135,22 @@ jobs:
         shell: bash
         working-directory: android
         run: |
-          ./gradlew bundleGoogleRelease publishGoogleReleaseBundle
+          gradle bundleGoogleRelease publishGoogleReleaseBundle
         if: ${{ matrix.flavor == 'google' }}
 
       - name: Compile and upload to Huawei AppGallery
         shell: bash
         working-directory: android
         run: |
-          ./gradlew bundleHuaweiRelease
-          ./gradlew publishHuaweiAppGalleryHuaweiRelease
+          gradle bundleHuaweiRelease
+          gradle publishHuaweiAppGalleryHuaweiRelease
         if: ${{ matrix.flavor == 'huawei' }}
 
       - name: Compile universal APK
         shell: bash
         working-directory: android
         run: |
-          ./gradlew assembleWebRelease
+          gradle assembleWebRelease
         if: ${{ matrix.flavor == 'web' }}
 
       - name: Prepare release notes

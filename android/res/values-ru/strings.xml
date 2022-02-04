@@ -8,8 +8,6 @@
 	<string name="back">Назад</string>
 	<!-- Button text (should be short) -->
 	<string name="cancel">Отмена</string>
-	<!-- Button which interrupts country download -->
-	<string name="cancel_download">Отменить загрузку</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Удалить</string>
 	<string name="download_maps">Загрузить карты</string>
@@ -19,8 +17,6 @@
 	<string name="downloading">Загружается…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Километры</string>
-	<!-- Leave Review dialog - Review button -->
-	<string name="leave_a_review">Написать отзыв</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Карты</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
@@ -36,19 +32,14 @@
 	<string name="search">Поиск</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Поиск на карте</string>
-	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
-	<string name="use_cellular_data">Да</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Геолокация выключена в настройках устройства. Пожалуйста, включите её для удобного использования программы.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Показать на карте</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
-	<string name="country_status_download_without_size">Загрузить карту</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Ошибка загрузки</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Попробуйте еще раз</string>
-	<string name="about_menu_title">О программе</string>
 	<string name="connection_settings">Настройки подключения</string>
 	<string name="close">Закрыть</string>
 	<string name="unsupported_phone">Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.</string>
@@ -68,13 +59,11 @@
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Не удалось загрузить %s</string>
 	<!-- "Add new bookmark list" dialog title -->
-	<string name="add_new_set">Добавить группу</string>
+	<string name="add_new_set">Добавить список</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Цвет метки</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
-	<string name="bookmark_set_name">Название группы</string>
-	<!-- "Bookmark Lists" dialog title -->
-	<string name="bookmark_sets">Группы меток</string>
+	<string name="bookmark_set_name">Название списка меток</string>
 	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Метки</string>
 	<!-- Default bookmark list name -->
@@ -83,8 +72,8 @@
 	<string name="name">Название</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Адрес</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">Группа</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">Список</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Настройки</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -99,42 +88,50 @@
 	<string name="measurement_units">Единицы измерения</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Использовать километры или мили</string>
-	<!-- Search category for cafes, bars, restaurants -->
+
+	<!-- SECTION: Search categories -->
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
 	<string name="eat">Где поесть</string>
-	<!-- Search category for grocery stores -->
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
 	<string name="food">Продукты</string>
-	<!-- Search category -->
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Транспорт</string>
-	<!-- Search category -->
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
 	<string name="fuel">Заправка</string>
-	<!-- Search category -->
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">Парковка</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Шоппинг</string>
-	<!-- Search category -->
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Гостиница</string>
-	<!-- Search category -->
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
 	<string name="tourism">Достопримечательность</string>
-	<!-- Search category -->
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
 	<string name="entertainment">Развлечения</string>
-	<!-- Search category -->
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
 	<string name="atm">Банкомат</string>
-	<!-- Search category for nightclubs/bars -->
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
 	<string name="nightlife">Ночная жизнь</string>
-	<!-- Search category for water park/disneyland/playground/toys store -->
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
 	<string name="children">Отдых с детьми</string>
-	<!-- Search category -->
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
 	<string name="bank">Банк</string>
-	<!-- Search category -->
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
 	<string name="pharmacy">Аптека</string>
-	<!-- Search category -->
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">Больница</string>
-	<!-- Search category -->
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
 	<string name="toilet">Туалет</string>
-	<!-- Search category -->
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
 	<string name="post">Почта</string>
-	<!-- Search category -->
+	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Полиция</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Переработка</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Вода</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Для автодомов</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Примечание</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -164,18 +161,16 @@
 	<string name="my_position_share_email">Привет!\n\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$s или эту %3$s\n\nСпасибо.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Поделиться</string>
-	<!-- Share by email button text, also used in editor. -->
+	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">Email</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Скопировано в буфер обмена: %1$s</string>
-	<!-- place preview title -->
-	<string name="info">Информация</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Готово</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Версия: %s</string>
-	<!-- Data version in «About» screen -->
-	<string name="data_version">Версия данных: %d</string>
+	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+	<string name="data_version">Данные OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Вы уверены, что хотите продолжить?</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -208,10 +203,6 @@
 	<string name="pref_tts_language_title">Язык подсказок</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Не доступны</string>
-	<!-- Title for "Other" section in TTS settings. -->
-	<string name="pref_tts_other_section_title">Другой</string>
-	<!-- Settings «Map» category: «Record track» title -->
-	<string name="pref_track_record_title">Недавний путь</string>
 	<string name="pref_map_auto_zoom">Автозум</string>
 	<string name="duration_disabled">Выключено</string>
 	<string name="duration_1_hour">1 час</string>
@@ -219,8 +210,6 @@
 	<string name="duration_6_hours">6 часов</string>
 	<string name="duration_12_hours">12 часов</string>
 	<string name="duration_1_day">1 сутки</string>
-	<string name="recent_track_help_text">Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.</string>
-	<string name="placepage_distance">Расстояние</string>
 	<string name="search_show_on_map">Посмотреть на карте</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
@@ -238,12 +227,6 @@
 	<string name="copyright">Копирайт</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Сообщить о проблеме</string>
-	<!-- Alert text -->
-	<string name="email_error_body">Почтовый клиент не настроен. Настройте его или используйте другие способы для связи. Наш адрес - %s.</string>
-	<!-- Alert title -->
-	<string name="email_error_title">Ошибка при отправлении письма</string>
-	<!-- Settings item title -->
-	<string name="pref_calibration_title">Калибровка компаса</string>
 	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
@@ -252,19 +235,12 @@
 	<string name="downloader_cancel_all">Отменить все</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Загруженные</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_available_maps">Доступные</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">В очереди</string>
 	<string name="downloader_near_me_subtitle">Возле меня</string>
 	<string name="downloader_status_maps">Карт</string>
 	<string name="downloader_download_all_button">Загрузить все</string>
 	<string name="downloader_downloading">Загружается:</string>
-	<string name="downloader_search_results">Найдено</string>
-	<!-- Status of outdated country in the list -->
-	<string name="downloader_status_outdated">Обновить</string>
-	<!-- Status of failed country in the list -->
-	<string name="downloader_status_failed">Ошибка</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
 	<string name="downloader_delete_map_while_routing_dialog">Чтобы удалить карту, пожалуйста, остановите навигацию.</string>
 	<!-- PointsInDifferentMWM -->
@@ -279,22 +255,12 @@
 	<string name="downloader_update_map">Обновить карту</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Использовать Google Play Services для определения позиции</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_just_rated">Я только что оценил Organic Maps</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_thanks">Спасибо!</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_share_ideas">Что-то не так?  Расскажите, что бы мы могли исправить или улучшить в приложении.</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_send_feedback">Напишите нам</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Загрузите все карты по пути следования</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Для создания маршрута необходимо загрузить и обновить все карты на пути следования.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Недостаточно места</string>
-	<!-- bookmark button text -->
-	<string name="bookmark">метка</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Пожалуйста, включите геолокацию</string>
 	<string name="save">Сохранить</string>
@@ -347,8 +313,6 @@
 	<string name="dialog_routing_location_turn_wifi">Пожалуйста, проверьте сигнал GPS. Для улучшения точности геопозиции включите Wi-Fi.</string>
 	<string name="dialog_routing_location_turn_on">Включите режим определения геопозиции</string>
 	<string name="dialog_routing_location_unknown_turn_on">Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.</string>
-	<string name="dialog_routing_download_files">Загрузите необходимые файлы</string>
-	<string name="dialog_routing_download_and_update_all">Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.</string>
 	<string name="dialog_routing_unable_locate_route">Маршрут не найден</string>
 	<string name="dialog_routing_cant_build_route">Не получилось построить маршрут.</string>
 	<string name="dialog_routing_change_start_or_end">Пожалуйста, измените начальную или конечную точку маршрута.</string>
@@ -363,7 +327,6 @@
 	<string name="dialog_routing_system_error">Системная ошибка</string>
 	<string name="dialog_routing_application_error">Не удалось проложить маршрут из-за ошибки приложения.</string>
 	<string name="dialog_routing_try_again">Попробуйте снова</string>
-	<string name="not_now">Не сейчас</string>
 	<string name="dialog_routing_download_and_build_cross_route">Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?</string>
 	<string name="dialog_routing_download_cross_route">Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.</string>
 
@@ -374,17 +337,8 @@
 	<string name="show">Показать</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Скрыть</string>
-	<!-- Failed planning route message in navigation view -->
-	<string name="routing_planning_error">Ошибка построения маршрута</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Прибытие в %s</string>
-	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
-	<string name="dialog_routing_download_and_update_maps">Для построения маршрута загрузите и обновите все карты по пути следования.</string>
-	<string name="rate_alert_title">Нравится приложение?</string>
-	<string name="rate_alert_default_message">Спасибо что пользуетесь картами Organic Maps. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.</string>
-	<string name="rate_alert_five_star_message">Ура! Мы вас тоже любим!</string>
-	<string name="rate_alert_four_star_message">Спасибо, мы будем стараться!</string>
-	<string name="rate_alert_less_than_four_star_message">Расскажите, что мы могли бы улучшить?</string>
 	<string name="categories">Категории</string>
 	<string name="history">История</string>
 	<string name="closed">Закрыто</string>
@@ -393,6 +347,8 @@
 	<string name="search_history_title">История поиска</string>
 	<string name="search_history_text">Быстрый доступ к последним поисковым запросам.</string>
 	<string name="clear_search">Очистить историю поиска</string>
+	<!-- Place Page link to Wikipedia article (if map object has it). -->
+	<string name="read_in_wikipedia">Википедия</string>
 	<string name="p2p_your_location">Ваше местоположение</string>
 	<string name="p2p_start">Начать</string>
 	<string name="p2p_from_here">Отсюда</string>
@@ -415,8 +371,6 @@
 	<string name="editor_example_values">Примеры значений</string>
 	<string name="editor_correct_mistake">Исправьте ошибку</string>
 	<string name="editor_add_select_location">Местоположение</string>
-	<string name="editor_done_dialog_1">Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.</string>
-	<string name="share_with_friends">Поделиться с друзьями</string>
 	<string name="editor_report_problem_desription_1">Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.</string>
 	<string name="editor_report_problem_desription_2">Или сделайте это самостоятельно на сайте https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Отправить</string>
@@ -426,29 +380,20 @@
 	<string name="editor_report_problem_duplicate_place_title">Повторяющееся место</string>
 	<string name="autodownload">Автоматическая загрузка</string>
 	<!-- Place Page opening hours text -->
-	<string name="closed_now">Сейчас закрыто</string>
-	<!-- Place Page opening hours text -->
 	<string name="daily">Ежедневно</string>
 	<string name="twentyfour_seven">Круглосуточно</string>
 	<string name="day_off_today">Сегодня закрыто</string>
 	<string name="day_off">Закрыто</string>
 	<string name="today">Сегодня</string>
-	<string name="add_opening_hours">Добавить время работы</string>
 	<string name="edit_opening_hours">Редактировать время работы</string>
 	<string name="no_osm_account">Не зарегистрированы в OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Зарегистрироваться</string>
-	<string name="password_8_chars_min">Пароль (минимум 8 символов)</string>
-	<string name="invalid_username_or_password">Неверное имя пользователя или пароль.</string>
 	<string name="login">Войти</string>
 	<string name="password">Пароль</string>
 	<string name="forgot_password">Забыли пароль?</string>
-	<string name="osm_account">OSM Аккаунт</string>
 	<string name="logout">Выйти</string>
-	<!-- Information text: "Last upload 11.01.2016" -->
-	<string name="last_upload">Последняя отправка</string>
 	<string name="thank_you">Спасибо</string>
 	<string name="edit_place">Редактировать место</string>
-	<string name="place_name">Название</string>
 	<string name="add_language">Добавить язык</string>
 	<string name="street">Улица</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -465,23 +410,17 @@
 	<string name="select_cuisine">Выбрать кухню</string>
 	<!-- login text field -->
 	<string name="email_or_username">Эл. почта или имя пользователя</string>
-	<string name="phone">Телефон</string>
 	<string name="editor_add_phone">Добавить телефон</string>
-	<string name="please_note">Обратите внимание</string>
 	<string name="downloader_delete_map_dialog">Вместе с картой удалятся и внесенные вами правки на этой карте.</string>
 	<string name="downloader_update_maps">Обновите карты</string>
 	<string name="downloader_mwm_migration_dialog">Для построения маршрутов необходимо обновить все карты и построить маршрут заново.</string>
 	<string name="downloader_search_field_hint">Найти карту</string>
-	<string name="migration_download_error_dialog">Ошибка загрузки</string>
 	<string name="common_check_internet_connection_dialog">Проверьте настройки и убедитесь, что устройство подключено к интернету.</string>
 	<string name="downloader_no_space_title">Недостаточно места</string>
 	<string name="downloader_no_space_message">Удалите ненужные данные</string>
 	<string name="editor_login_error_dialog">Произошла ошибка при авторизации.</string>
 	<string name="editor_profile_changes">Учтённые правки</string>
 	<string name="editor_focus_map_on_location">Потяните карту, чтобы выбрать правильное местоположение объекта.</string>
-	<string name="editor_add_select_category">Выбрать категорию</string>
-	<string name="editor_add_select_category_popular_subtitle">Популярные</string>
-	<string name="editor_add_select_category_all_subtitle">Все категории</string>
 	<string name="editor_edit_place_title">Редактирование</string>
 	<string name="editor_add_place_title">Добавление</string>
 	<string name="editor_edit_place_name_hint">Название места</string>
@@ -489,13 +428,8 @@
 	<string name="detailed_problem_description">Подробное описание проблемы</string>
 	<string name="editor_report_problem_other_title">Другая проблема</string>
 	<string name="placepage_add_business_button">Добавить организацию</string>
-	<string name="whatsnew_editor_message_1">Добавляйте новые объекты и редактируйте старые прямо из приложения.</string>
-	<string name="dialog_incorrect_feature_position">Измените местоположение</string>
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
 	<string name="login_to_make_edits_visible">Войдите, чтобы ваши изменения увидели другие пользователи.</string>
-	<!-- Error dialog no space -->
-	<string name="migration_no_space_message">Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.</string>
-	<string name="editor_sharing_title">Я улучшил карты Organic Maps</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d из %2$d</string>
 	<string name="download_over_mobile_header">Загрузить через сотовую связь?</string>
@@ -513,7 +447,6 @@
 	<string name="editor_detailed_description">Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые Organic Maps не позволяет отредактировать.</string>
 	<string name="editor_more_about_osm">Подробнее об OpenStreetMap</string>
 	<string name="editor_operator">Владелец</string>
-	<string name="downloader_my_maps_title">Мои карты</string>
 	<string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>
 	<string name="downloader_no_downloaded_maps_message">Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -522,14 +455,6 @@
 	<string name="current_location_unknown_message">Местоположение не найдено. Возможно, вы находитесь в помещении или в туннеле.</string>
 	<string name="current_location_unknown_continue_button">Продолжить</string>
 	<string name="current_location_unknown_stop_button">Стоп</string>
-	<string name="current_location_unknown_error_title">Местоположение не найдено.</string>
-	<string name="current_location_unknown_error_message">При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.</string>
-	<string name="location_services_disabled_header">Определение местоположения отключено</string>
-	<string name="location_services_disabled_message">Разрешите доступ к геопозиции в настройках устройства.</string>
-	<string name="location_services_disabled_1">1. Откройте Настройки</string>
-	<string name="location_services_disabled_2">2. Нажмите Геопозиция</string>
-	<!-- iOS Dialog for the case when the location permission is not granted -->
-	<string name="location_services_disabled_3">3. Выберите «При использовании программы»</string>
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
 	<string name="kilometers_per_hour">км/ч</string>
@@ -541,13 +466,8 @@
 	<string name="placepage_place_description">Описание</string>
 	<string name="placepage_more_button">Ещё</string>
 	<string name="placepage_more_reviews_button">Ещё отзывы</string>
-	<string name="book_button">Забронировать</string>
 	<string name="placepage_call_button">Позвонить</string>
 	<string name="placepage_edit_bookmark_button">Редактировать метку</string>
-	<string name="placepage_bookmark_name_hint">Название метки</string>
-	<string name="placepage_personal_notes_hint">Примечание</string>
-	<string name="placepage_delete_bookmark_button">Удалить метку</string>
-	<string name="editor_edits_sent_message">Предложенные вами изменения отправлены</string>
 	<string name="editor_comment_hint">Коментарий…</string>
 	<string name="editor_reset_edits_message">Сбросить все локальные правки?</string>
 	<string name="editor_reset_edits_button">Сбросить</string>
@@ -556,7 +476,6 @@
 	<string name="editor_place_doesnt_exist">Места не существует</string>
 	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
 	<string name="delete_place_empty_comment_error">Пожалуйста, укажите причину удаления</string>
-	<string name="text_more_button">…ещё</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Введите корректный номер телефона</string>
 	<string name="error_enter_correct_web">Введите корректный веб-адрес</string>
@@ -566,28 +485,19 @@
 	<string name="error_enter_correct_twitter_page">Введите корректный веб-адрес Twitter страницы или имя пользователя</string>
 	<string name="error_enter_correct_vk_page">Введите корректный веб-адрес VK страницы или имя пользователя</string>
 	<string name="error_enter_correct_line_page">Введите корректный веб-адрес LINE страницы или LINE ID</string>
-	<string name="refresh">Обновить</string>
 	<string name="placepage_add_place_button">Добавить место на карту</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Отправить всем пользователям?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
 	<string name="editor_share_to_all_dialog_message_2">Если при проверке изменений возникнут вопросы, мы напишем вам на email.</string>
-	<string name="navigation_stop_button">стоп</string>
-	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-	<string name="recent_track_background_dialog_title">Выключить запись недавно пройденого пути?</string>
-	<string name="off_recent_track_background_button">Выключить</string>
-	<!-- For sharing via SMS and so on -->
-	<string name="sharing_call_action_look">Посмотри</string>
-	<string name="recent_track_background_dialog_message">Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.</string>
-	<!-- Text under the version number in the Help dialog. -->
-	<string name="about_description">Organic Maps — бесплатные офлайновые карты с открытым исходным кодом, без рекламы и без сбора ваших персональных данных, созданные энтузиастами в свободное от основной работы время. Так как все данные мы берём из OpenStreetMap, то ошибки на карте нужно исправлять именно там. Будем рады вашей поддержке и обратной связи.</string>
-	<string name="general_settings">Общие настройки</string>
+	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
+	<string name="about_description">Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора пресональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!</string>
 	<!-- For the first routing -->
 	<string name="accept">Принять</string>
 	<!-- For the first routing -->
 	<string name="decline">Отклонить</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">Список</string>
 	<string name="mobile_data_dialog">Загружать дополнительную информацию через мобильный интернет?</string>
 	<string name="mobile_data_option_always">Всегда</string>
@@ -600,8 +510,6 @@
 	<string name="traffic_update_maps_text">Для отображения пробок необходимо обновить карты.</string>
 	<string name="big_font">Увеличить шрифт на карте</string>
 	<string name="traffic_update_app">Обновите Organic Maps</string>
-	<!-- "traffic" as in road congestion -->
-	<string name="traffic_update_app_message">Для отображения пробок необходимо обновить приложение.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Данные о пробках недоступны</string>
 	<string name="enable_logging">Включить запись логов</string>
@@ -610,7 +518,7 @@
 	<string name="on">Вкл.</string>
 	<string name="off">Выкл.</string>
 	<string name="prefs_languages_information">Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
+	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play, Samsung Apps, App Gallery, FDroid).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
 	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
 	<string name="transliteration_title">Латинская транслитерация</string>
 	<string name="learn_more">Узнать больше</string>
@@ -618,13 +526,8 @@
 	<string name="routing_add_start_point">Добавьте стартовую точку, чтобы построить маршрут</string>
 	<string name="routing_add_finish_point">Добавьте конечную точку, чтобы построить маршрут</string>
 	<string name="button_exit">Выход</string>
-	<string name="planning_route_manage_route">Изменить маршрут</string>
-	<string name="button_plan">Построить</string>
 	<string name="placepage_remove_stop">Удалить</string>
-	<string name="planning_route_remove_title">Перетяните сюда, чтобы удалить</string>
 	<string name="placepage_add_stop">Заехать</string>
-	<string name="start_from_my_position">Начать от</string>
-	<string name="profile_authorization_error">Упс, произошла ошибка. Попробуйте авторизоваться повторно.</string>
 	<string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>
 	<string name="dialog_error_storage_message">Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Эмуляция ошибки с внешней памятью</string>
@@ -634,18 +537,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Спрятать все</string>
 	<string name="bookmark_lists_show_all">Показать все</string>
-	<plurals name="bookmarks_places">
-	  <item quantity="few">%d метки</item>
-	  <item quantity="one">%d метка</item>
-	  <item quantity="other">%d меток</item>
-	</plurals>
 	<string name="bookmarks_create_new_group">Создать новый список</string>
 	<!-- Bookmark categories screen -->
 	<string name="bookmarks_import">Импортировать метки</string>
-	<string name="downloader_hide_screen">Скрыть</string>
-	<string name="downloader_percent">%1$s (%2$s из %3$s)</string>
-	<string name="downloader_process">Загрузка %s…</string>
-	<string name="downloader_applying">Применение %s…</string>
 	<string name="bookmarks_error_message_share_general">Не удалось поделиться из-за ошибки приложения</string>
 	<string name="bookmarks_error_title_share_empty">Ошибка при попытке поделиться</string>
 	<string name="bookmarks_error_message_share_empty">Нельзя делиться пустыми списками</string>
@@ -654,40 +548,29 @@
 	<string name="bookmarks_new_list_hint">Новый список</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Такое имя уже занято</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Выберите, пожалуйста, другое имя</string>
-	<string name="bookmarks_error_title_list_name_too_long">Слишком длинное название</string>
 	<string name="please_wait">Пожалуйста, подождите…</string>
 	<string name="phone_number">Номер телефона</string>
 	<string name="profile">Профиль OpenStreetMap</string>
-	<string name="bookmarks_detect_title">Обнаружены новые файлы</string>
 	<plurals name="bookmarks_detect_message">
-	  <item quantity="few">%d файла были найдены. Вы увидете их после конвертации.</item>
-	  <item quantity="one">%d файл был найден. Вы увидете его после конвертации.</item>
-	  <item quantity="other">%d файлов было найдено. Вы увидете их после конвертации.</item>
+	  <item quantity="few">%d файла были найдены. Вы увидите их после конвертации.</item>
+	  <item quantity="one">%d файл был найден. Вы увидите его после конвертации.</item>
+	  <item quantity="other">%d файлов было найдено. Вы увидите их после конвертации.</item>
 	</plurals>
-	<string name="button_convert">Конвертировать</string>
-	<string name="bookmarks_convert_error_title">Ошибка</string>
-	<string name="bookmarks_convert_error_message">Некоторые файлы не конвертировались.</string>
-	<string name="bookmarks_restore_title">Восстановить эту версию?</string>
 	<string name="common_check_internet_connection_dialog_title">Нет интернет соединения</string>
-	<string name="error_system_message">Произошла неизвестная ошибка</string>
-	<string name="restore">Восстановить</string>
 	<plurals name="objects">
 	  <item quantity="few">%d объекта</item>
 	  <item quantity="one">%d объект</item>
 	  <item quantity="other">%d объектов</item>
-	  <item quantity="two">%d объекта</item>
 	</plurals>
 	<plurals name="places">
 	  <item quantity="few">%d места</item>
 	  <item quantity="one">%d место</item>
 	  <item quantity="other">%d мест</item>
-	  <item quantity="two">%d места</item>
 	</plurals>
 	<plurals name="tracks">
 	  <item quantity="few">%d трека</item>
 	  <item quantity="one">%d трек</item>
 	  <item quantity="other">%d треков</item>
-	  <item quantity="two">%d трека</item>
 	</plurals>
 	<string name="subtittle_opt_out">Настройки сопровождения</string>
 	<string name="crash_reports">Отчеты об ошибках</string>
@@ -699,20 +582,15 @@
 	<string name="layers_title">Слои карты</string>
 	<string name="subway_data_unavailable">Карта метро недоступна</string>
 	<string name="bookmarks_empty_list_title">Список пустой</string>
-	<string name="bookmarks_empty_list_message">Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта</string>
+	<string name="bookmarks_empty_list_message">Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки</string>
 	<string name="category_desc_more">…еще</string>
-	<string name="title_error_downloading_bookmarks">Произошла ошибка</string>
-	<string name="popular_place">Популярно</string>
 	<string name="export_file">Экспортировать файл</string>
 	<string name="list_settings">Настройки списка</string>
 	<string name="delete_list">Удалить список</string>
-	<string name="hide_from_map">Скрыть с карты</string>
 	<string name="public_access">Публичный доступ</string>
 	<string name="limited_access">Ограниченный доступ</string>
 	<string name="bookmark_list_description_hint">Добавьте описание (текст или html)</string>
 	<string name="not_shared">Личный</string>
-	<string name="tags_loading_error_subtitle">Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз</string>
-	<string name="download_button">Скачать</string>
 	<string name="speedcams_alert_title">Камеры скорости</string>
 	<string name="speedcam_option_auto">Авто</string>
 	<string name="speedcam_option_always">Всегда</string>
@@ -720,7 +598,6 @@
 	<string name="place_description_title">Описание места</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Загрузка карт</string>
-	<string name="speedcams_notice_message">Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах</string>
 	<string name="power_managment_title">Режим энергосбережения</string>
 	<string name="power_managment_description">Если режим энергосбережения включен, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона</string>
 	<string name="power_managment_setting_never">Никогда</string>
@@ -744,44 +621,11 @@
 	<string name="avoid_toll_roads_placepage">Избегать платных дорог</string>
 	<string name="avoid_unpaved_roads_placepage">Избегать грунтовых дорог</string>
 	<string name="avoid_ferry_crossing_placepage">Избегать паромных переправ</string>
-	<string name="trip_start">Поехали</string>
-	<string name="pick_destination">Цель</string>
-	<string name="follow_my_position">Отцентровать</string>
-	<string name="search_results">Результаты поиска</string>
-	<string name="then_turn">Затем</string>
-	<string name="redirect_route_alert">Хотите перестроить маршрут?</string>
-	<string name="redirect_route_yes">Да</string>
-	<string name="redirect_route_no">Нет</string>
-	<string name="trip_finished">Вы прибыли!</string>
-	<string name="keyboard_availability_alert">Клавиатура недоступна во время движения</string>
-	<string name="dialog_routing_change_start_carplay">Невозможно построить маршрут от текущего местоположения</string>
-	<string name="dialog_routing_change_end_carplay">Невозможно построить маршрут до конечной точки. Выберите другую</string>
-	<string name="dialog_routing_check_gps_carplay">Нет сигнала GPS. Проследуйте на открытую местность</string>
-	<string name="dialog_routing_unable_locate_route_carplay">Невозможно построить маршрут. Выберите другие точки маршрута</string>
-	<string name="dialog_routing_download_files_carplay">Чтобы построить маршрут, загрузите недостающие карты на своем устройстве</string>
-	<string name="dialog_routing_system_error_carplay">Произошла ошибка. Перезапустите приложение</string>
-	<string name="dialog_routing_rebuild_from_current_location_carplay">Маршрут будет перестроен от вашего текущего местоположения</string>
-	<string name="dialog_routing_rebuild_for_vehicle_carplay">Маршрут будет изменен на автомобильный</string>
 	<string name="ok">Ок</string>
-	<string name="avoid_unpaved_carplay_1">Без грунт.</string>
-	<string name="avoid_unpaved_carplay_2">Без грунтовых</string>
-	<string name="avoid_ferry_carplay_1">Без паромов</string>
-	<string name="avoid_ferry_carplay_2">Без паромов</string>
-	<string name="avoid_tolls_carplay_1">Без платных</string>
-	<string name="avoid_tolls_carplay_2">Без платных</string>
-	<string name="speedcams_alert_title_carplay_1">Камеры</string>
-	<string name="speedcams_alert_title_carplay_2">Инфо о камерах</string>
-	<string name="download_map_carplay">Скачайте карты в приложении Organic Maps на своем устройстве</string>
-	<string name="carplay_roundabout_exit">%s съезд</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортировать…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Сортировать метки</string>
-	<!-- iOS -->
-	<string name="sort_default">Сортировать по умолчанию</string>
-	<string name="sort_type">Сортировать по типу</string>
-	<string name="sort_distance">Сортировать по расстоянию</string>
-	<string name="sort_date">Сортировать по дате</string>
 	<!-- Android -->
 	<string name="by_default">По умолчанию</string>
 	<!-- Android -->
@@ -796,6 +640,8 @@
 	<string name="moreyear_ago_sorttype">Больше года назад</string>
 	<string name="near_me_sorttype">Рядом со мной</string>
 	<string name="others_sorttype">Другие</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Еда</string>
 	<string name="tourist_places">Достопримечательности</string>
 	<string name="museums">Музеи</string>
@@ -809,7 +655,6 @@
 	<string name="shops">Магазины</string>
 	<string name="parkings">Парковки</string>
 	<string name="fuel_places">Заправки</string>
-	<string name="water">Вода</string>
 	<string name="medicine">Медицина</string>
 	<string name="search_in_the_list">Искать в списке</string>
 	<string name="religious_places">Святые места</string>
@@ -820,10 +665,6 @@
 	<string name="button_layer_isolines">Высоты</string>
 	<string name="isolines_activation_error_dialog">Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности</string>
 	<string name="isolines_location_error_dialog">Линии высот пока не доступны в этом регионе</string>
-	<string name="elevation_profile_diff_level">Уровень сложности</string>
-	<string name="elevation_profile_diff_level_easy">Лёгкий</string>
-	<string name="elevation_profile_diff_level_moderate">Умеренный</string>
-	<string name="elevation_profile_diff_level_hard">Сложный</string>
 	<string name="elevation_profile_ascent">Подъём</string>
 	<string name="elevation_profile_descent">Спуск</string>
 	<string name="elevation_profile_minaltitude">Мин. высота</string>
@@ -832,31 +673,12 @@
 	<string name="elevation_profile_distance">Расст.:</string>
 	<string name="elevation_profile_time">В пути:</string>
 	<string name="isolines_toast_zooms_1_10">Увеличьте карту, чтобы увидеть изолинии</string>
-	<string name="downloader_updating_ios">Обновление</string>
-	<string name="downloader_loading_ios">Загрузка</string>
-	<string name="key_information_title">Ключевая информация</string>
 	<string name="download_map_title">Скачать карту мира</string>
 	<string name="connection_failure">Ошибка подключения</string>
 	<string name="disconnect_usb_cable_title">Отсоедините USB кабель</string>
 	<string name="enable_screen_sleep">Разрешить экрану спать</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">При включении экран может переходить в спящий режим после периода бездействия.</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">Обновите ваши загруженные карты</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">Обновление карт поддерживает информацию об объектах в актуальном состоянии</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_size">Обновить (%s)</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_later">Обновить вручную позже</string>
-	<!-- Delete track button on track edit screen -->
-	<string name="placepage_delete_track_button">Удалить трек</string>
-	<!-- Placeholder for track name input on track edit screen -->
-	<string name="placepage_track_name_hint">Название трека</string>
-	<!-- move track or bookmark from the list button text -->
-	<string name="move">Переместить</string>
-	<!-- edit track screen title -->
-	<string name="track_title">Трек</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Канатная дорога</string>
@@ -866,7 +688,7 @@
 	<string name="type.aerialway.gondola">Канатная дорога</string>
 	<string name="type.aerialway.mixed_lift">Канатная дорога</string>
 	<string name="type.aerialway.station">Канатная дорога</string>
-	<string name="type.aeroway">Аэропорт</string>
+	<string name="type.aeroway">Аэрокосмическая инфраструктура</string>
 	<string name="type.aeroway.aerodrome">Аэропорт</string>
 	<string name="type.aeroway.aerodrome.international">Международный аэропорт</string>
 	<string name="type.aeroway.apron">Перрон</string>
@@ -910,9 +732,11 @@
 	<string name="type.amenity.fire_station">Пожарная часть</string>
 	<string name="type.amenity.food_court">Ресторанный дворик</string>
 	<string name="type.amenity.fountain">Фонтан</string>
-	<string name="type.amenity.fuel">Заправка</string>
+	<string name="type.amenity.fuel">АЗС</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Кладбище</string>
-	<string name="type.amenity.grave_yard.christian">Кладбище</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+	<string name="type.amenity.grave_yard.christian">Христианское кладбище</string>
 	<string name="type.amenity.hospital">Больница</string>
 	<string name="type.amenity.hunting_stand">Охотничья вышка</string>
 	<string name="type.amenity.ice_cream">Мороженое</string>
@@ -951,17 +775,26 @@
 	<string name="type.amenity.prison">Тюрьма</string>
 	<string name="type.amenity.pub">Паб</string>
 	<string name="type.amenity.public_bookcase">Книгообмен</string>
-	<string name="type.amenity.recycling">Приём вторсырья</string>
-	<string name="type.amenity.recycling_container">Контейнер для вторсырья</string>
-	<string name="type.recycling.toxic">Ядовитые отходы</string>
-	<string name="type.recycling.clothes">Старая одежда</string>
+
+	<!-- SECTION: Types: Recycling -->
+	<string name="type.amenity.recycling.centre">Приём вторсырья</string>
+	<string name="type.amenity.recycling">Контейнер для вторсырья</string>
+	<string name="type.amenity.recycling.container">Контейнер для вторсырья</string>
+	<string name="type.recycling.batteries">Батарейки</string>
+	<string name="type.recycling.clothes">Одежда</string>
 	<string name="type.recycling.glass_bottles">Стеклотара</string>
-	<string name="type.recycling.paper">Макулатура</string>
-	<string name="type.recycling.plastic">Пластиковый мусор</string>
-	<string name="type.recycling.plastic_bottles">Сбор пластиковых бутылок</string>
+	<string name="type.recycling.paper">Бумага</string>
+	<string name="type.recycling.plastic">Пластик</string>
+	<string name="type.recycling.plastic_bottles">Пластиковые бутылки</string>
 	<string name="type.recycling.scrap_metal">Металлолом</string>
 	<string name="type.recycling.small_appliances">Электроотходы</string>
+	<string name="type.recycling.cardboard">Картон</string>
+	<string name="type.recycling.cans">Жестяные и алюминиевые банки</string>
+	<string name="type.recycling.shoes">Обувь</string>
+	<string name="type.recycling.green_waste">Органика / Пищевые отходы</string>
+	<string name="type.recycling.cartons">Тетрапак и аналоги</string>
 	<string name="type.amenity.restaurant">Ресторан</string>
+	<string name="type.amenity.sanitary_dump_station">Слив для туалетов транспортных средств</string>
 	<string name="type.amenity.school">Школа</string>
 	<string name="type.amenity.shelter">Укрытие</string>
 	<string name="type.amenity.shower">Душ</string>
@@ -972,14 +805,18 @@
 	<string name="type.amenity.townhall">Ратуша</string>
 	<string name="type.amenity.university">Университет</string>
 	<string name="type.amenity.vending_machine">Торговый автомат</string>
-	<string name="type.amenity.vending_machine.cigarettes">Сигаретный автомат</string>
+	<string name="type.amenity.vending_machine.cigarettes">Автомат с сигаретами</string>
 	<string name="type.amenity.vending_machine.drinks">Автомат с напитками</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Паркомат</string>
-	<string name="type.amenity.vending_machine.public_transport_tickets">Автомат по продаже билетов на общественный транспорт</string>
+	<string name="type.amenity.vending_machine.public_transport_tickets">Автомат по продаже билетов</string>
+	<string name="type.amenity.vending_machine.excrement_bags">Пакеты для экскрементов</string>
+	<string name="type.amenity.vending_machine.parcel_pickup">Почтомат</string>
+	<string name="type.amenity.vending_machine.fuel">Топливная колонка</string>
 	<string name="type.amenity.veterinary">Ветеринарная клиника</string>
 	<string name="type.amenity.waste_basket">Урна</string>
 	<string name="type.amenity.waste_disposal">Мусорный контейнер</string>
-	<string name="type.amenity.water_point">Заправка водой</string>
+	<string name="type.amenity.waste_transfer_station">Станция перевалки отходов</string>
+	<string name="type.amenity.water_point">Вода для автодомов</string>
 	<string name="type.barrier">Преграда</string>
 	<string name="type.barrier.block">Блок</string>
 	<string name="type.barrier.bollard">Столбик</string>
@@ -1001,10 +838,9 @@
 	<string name="type.boundary.administrative">Административная граница</string>
 	<string name="type.boundary.administrative.10">Административная граница</string>
 	<string name="type.boundary.administrative.11">Административная граница</string>
-	<string name="type.boundary.administrative.2">Административная граница</string>
+	<string name="type.boundary.administrative.2">Граница страны</string>
 	<string name="type.boundary.administrative.3">Административная граница</string>
 	<string name="type.boundary.administrative.4">Административная граница</string>
-	<string name="type.boundary.administrative.4.state">Административная граница</string>
 	<string name="type.boundary.administrative.5">Административная граница</string>
 	<string name="type.boundary.administrative.6">Административная граница</string>
 	<string name="type.boundary.administrative.7">Административная граница</string>
@@ -1014,7 +850,7 @@
 	<string name="type.boundary.administrative.country">Граница страны</string>
 	<string name="type.boundary.administrative.county">Граница округа</string>
 	<string name="type.boundary.administrative.municipality">Граница муниципалитета</string>
-	<string name="type.boundary.administrative.nation">Национальная граница</string>
+	<string name="type.boundary.administrative.nation">Граница страны</string>
 	<string name="type.boundary.administrative.region">Граница региона</string>
 	<string name="type.boundary.administrative.state">Граница штата</string>
 	<string name="type.boundary.administrative.suburb">Граница пригорода</string>
@@ -1128,11 +964,13 @@
 	<string name="type.emergency.phone">Телефон для экстренных вызовов</string>
 	<string name="type.entrance">Вход</string>
 	<string name="type.healthcare.laboratory">Медицинская лаборатория</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Дорога</string>
-	<string name="type.highway.bridleway">Дорога для всадников</string>
-	<string name="type.highway.bridleway.bridge">Дорога для всадников</string>
-	<string name="type.highway.bridleway.permissive">Дорога для всадников</string>
-	<string name="type.highway.bridleway.tunnel">Дорога для всадников</string>
+	<string name="type.highway.bridleway">Конная дорожка</string>
+	<string name="type.highway.bridleway.bridge">Конная дорожка</string>
+	<string name="type.highway.bridleway.permissive">Конная дорожка</string>
+	<string name="type.highway.bridleway.tunnel">Конная дорожка</string>
 	<string name="type.highway.bus_stop">Остановка</string>
 	<string name="type.highway.construction">Строящаяся дорога</string>
 	<string name="type.highway.cycleway">Велодорожка</string>
@@ -1141,103 +979,120 @@
 	<string name="type.highway.cycleway.tunnel">Велодорожка</string>
 	<string name="type.highway.elevator">Лифт</string>
 	<string name="type.highway.footway">Пешеходная дорожка</string>
-	<string name="type.highway.footway.alpine_hiking">Пешеходная дорожка</string>
-	<string name="type.highway.footway.area">Пешеходная дорожка</string>
+	<string name="type.highway.footway.alpine_hiking">Тропа</string>
+	<string name="type.highway.footway.area">Пешеходная зона</string>
 	<string name="type.highway.footway.bridge">Пешеходная дорожка</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Пешеходная дорожка</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Пешеходная дорожка</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Пешеходная дорожка</string>
-	<string name="type.highway.footway.hiking">Пешеходная дорожка</string>
-	<string name="type.highway.footway.mountain_hiking">Пешеходная дорожка</string>
+	<string name="type.highway.footway.demanding_alpine_hiking">Тропа</string>
+	<string name="type.highway.footway.demanding_mountain_hiking">Тропа</string>
+	<string name="type.highway.footway.difficult_alpine_hiking">Тропа</string>
+	<string name="type.highway.footway.hiking">Тропа</string>
+	<string name="type.highway.footway.mountain_hiking">Тропа</string>
 	<string name="type.highway.footway.permissive">Пешеходная дорожка</string>
 	<string name="type.highway.footway.tunnel">Пешеходная дорожка</string>
 	<string name="type.highway.ford">Брод</string>
-	<string name="type.highway.living_street">Улица</string>
-	<string name="type.highway.living_street.bridge">Улица</string>
-	<string name="type.highway.living_street.tunnel">Улица</string>
-	<string name="type.highway.motorway">Улица</string>
-	<string name="type.highway.motorway.bridge">Улица</string>
-	<string name="type.highway.motorway.tunnel">Улица</string>
+	<string name="type.highway.living_street">Жилая зона</string>
+	<string name="type.highway.living_street.bridge">Жилая зона</string>
+	<string name="type.highway.living_street.tunnel">Жилая зона</string>
+	<string name="type.highway.motorway">Автомагистраль</string>
+	<string name="type.highway.motorway.bridge">Автомагистраль</string>
+	<string name="type.highway.motorway.tunnel">Автомагистраль</string>
 	<string name="type.highway.motorway_junction">Съезд</string>
-	<string name="type.highway.motorway_link">Улица</string>
-	<string name="type.highway.motorway_link.bridge">Улица</string>
-	<string name="type.highway.motorway_link.tunnel">Улица</string>
-	<string name="type.highway.path">Дорожка</string>
-	<string name="type.highway.path.alpine_hiking">Дорожка</string>
-	<string name="type.highway.path.bicycle">Дорожка</string>
-	<string name="type.highway.path.bridge">Дорожка</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Дорожка</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Дорожка</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Дорожка</string>
-	<string name="type.highway.path.hiking">Дорожка</string>
-	<string name="type.highway.path.horse">Дорожка</string>
-	<string name="type.highway.path.mountain_hiking">Дорожка</string>
-	<string name="type.highway.path.permissive">Дорожка</string>
-	<string name="type.highway.path.tunnel">Дорожка</string>
-	<string name="type.highway.pedestrian">Улица</string>
-	<string name="type.highway.pedestrian.area">Улица</string>
-	<string name="type.highway.pedestrian.bridge">Улица</string>
-	<string name="type.highway.pedestrian.tunnel">Улица</string>
-	<string name="type.highway.primary">Улица</string>
-	<string name="type.highway.primary.bridge">Улица</string>
-	<string name="type.highway.primary.tunnel">Улица</string>
-	<string name="type.highway.primary_link">Улица</string>
-	<string name="type.highway.primary_link.bridge">Улица</string>
-	<string name="type.highway.primary_link.tunnel">Улица</string>
+	<string name="type.highway.motorway_link">Съезд с автомагистрали</string>
+	<string name="type.highway.motorway_link.bridge">Съезд с автомагистрали</string>
+	<string name="type.highway.motorway_link.tunnel">Съезд с автомагистрали</string>
+	<string name="type.highway.path">Тропа</string>
+	<string name="type.highway.path.alpine_hiking">Тропа</string>
+	<string name="type.highway.path.bicycle">Велопешеходная дорожка</string>
+	<string name="type.highway.path.bridge">Тропа</string>
+	<string name="type.highway.path.demanding_alpine_hiking">Тропа</string>
+	<string name="type.highway.path.demanding_mountain_hiking">Тропа</string>
+	<string name="type.highway.path.difficult_alpine_hiking">Тропа</string>
+	<string name="type.highway.path.hiking">Тропа</string>
+	<string name="type.highway.path.horse">Конная тропа</string>
+	<string name="type.highway.path.mountain_hiking">Тропа</string>
+	<string name="type.highway.path.permissive">Тропа</string>
+	<string name="type.highway.path.tunnel">Тропа</string>
+	<string name="type.highway.pedestrian">Пешеходная улица</string>
+	<string name="type.highway.pedestrian.area">Пешеходная зона</string>
+	<string name="type.highway.pedestrian.bridge">Пешеходная улица</string>
+	<string name="type.highway.pedestrian.tunnel">Пешеходная улица</string>
+	<string name="type.highway.primary">Шоссе</string>
+	<string name="type.highway.primary.bridge">Шоссе</string>
+	<string name="type.highway.primary.tunnel">Шоссе</string>
+	<string name="type.highway.primary_link">Съезд с шоссе</string>
+	<string name="type.highway.primary_link.bridge">Съезд с шоссе</string>
+	<string name="type.highway.primary_link.tunnel">Съезд с шоссе</string>
 	<string name="type.highway.raceway">Гоночный трек</string>
 	<string name="type.highway.residential">Улица</string>
 	<string name="type.highway.residential.area">Улица</string>
 	<string name="type.highway.residential.bridge">Улица</string>
 	<string name="type.highway.residential.tunnel">Улица</string>
-	<string name="type.highway.rest_area">Зона отдыха на трассе</string>
-	<string name="type.highway.road">Улица</string>
-	<string name="type.highway.road.bridge">Улица</string>
-	<string name="type.highway.road.tunnel">Улица</string>
-	<string name="type.highway.secondary">Улица</string>
-	<string name="type.highway.secondary.bridge">Улица</string>
-	<string name="type.highway.secondary.tunnel">Улица</string>
-	<string name="type.highway.secondary_link">Улица</string>
-	<string name="type.highway.secondary_link.bridge">Улица</string>
-	<string name="type.highway.secondary_link.tunnel">Улица</string>
-	<string name="type.highway.service">Улица</string>
-	<string name="type.highway.service.area">Улица</string>
-	<string name="type.highway.service.bridge">Улица</string>
-	<string name="type.highway.service.driveway">Улица</string>
-	<string name="type.highway.service.parking_aisle">Улица</string>
-	<string name="type.highway.service.tunnel">Улица</string>
-	<string name="type.highway.services">СТО</string>
+	<string name="type.highway.rest_area">Зона отдыха</string>
+	<string name="type.highway.road">Дорога</string>
+	<string name="type.highway.road.bridge">Дорога</string>
+	<string name="type.highway.road.tunnel">Дорога</string>
+	<string name="type.highway.secondary">Автодорога</string>
+	<string name="type.highway.secondary.bridge">Автодорога</string>
+	<string name="type.highway.secondary.tunnel">Автодорога</string>
+	<string name="type.highway.secondary_link">Съезд с автодороги</string>
+	<string name="type.highway.secondary_link.bridge">Съезд с автодороги</string>
+	<string name="type.highway.secondary_link.tunnel">Съезд с автодороги</string>
+	<string name="type.highway.service">Проезд</string>
+	<string name="type.highway.service.area">Проезд</string>
+	<string name="type.highway.service.bridge">Проезд</string>
+	<string name="type.highway.service.driveway">Подъезд</string>
+	<string name="type.highway.service.parking_aisle">Парковочный проезд</string>
+	<string name="type.highway.service.tunnel">Проезд</string>
+	<string name="type.highway.services">Зона обслуживания</string>
 	<string name="type.highway.speed_camera">Камера скорости</string>
-	<string name="type.highway.steps">Дорожка</string>
-	<string name="type.highway.steps.bridge">Дорожка</string>
-	<string name="type.highway.steps.tunnel">Дорожка</string>
-	<string name="type.highway.tertiary">Улица</string>
-	<string name="type.highway.tertiary.bridge">Улица</string>
-	<string name="type.highway.tertiary.tunnel">Улица</string>
-	<string name="type.highway.tertiary_link">Улица</string>
-	<string name="type.highway.tertiary_link.bridge">Улица</string>
-	<string name="type.highway.tertiary_link.tunnel">Улица</string>
-	<string name="type.highway.track">Улица</string>
-	<string name="type.highway.track.area">Улица</string>
-	<string name="type.highway.track.bridge">Улица</string>
-	<string name="type.highway.track.grade1">Улица</string>
-	<string name="type.highway.track.grade2">Улица</string>
-	<string name="type.highway.track.grade3">Улица</string>
-	<string name="type.highway.track.grade4">Улица</string>
-	<string name="type.highway.track.grade5">Улица</string>
-	<string name="type.highway.track.no.access">Улица</string>
-	<string name="type.highway.track.permissive">Улица</string>
-	<string name="type.highway.track.tunnel">Улица</string>
+	<string name="type.highway.steps">Лестница</string>
+	<string name="type.highway.steps.bridge">Лестница</string>
+	<string name="type.highway.steps.tunnel">Лестница</string>
+	<string name="type.highway.tertiary">Дорога</string>
+	<string name="type.highway.tertiary.bridge">Дорога</string>
+	<string name="type.highway.tertiary.tunnel">Дорога</string>
+	<string name="type.highway.tertiary_link">Съезд с дороги</string>
+	<string name="type.highway.tertiary_link.bridge">Съезд с дороги</string>
+	<string name="type.highway.tertiary_link.tunnel">Съезд с дороги</string>
+	<string name="type.highway.track">Грунтовка</string>
+	<string name="type.highway.track.area">Грунтовка</string>
+	<string name="type.highway.track.bridge">Грунтовка</string>
+	<string name="type.highway.track.grade1">Грунтовка</string>
+	<string name="type.highway.track.grade2">Грунтовка</string>
+	<string name="type.highway.track.grade3">Грунтовка</string>
+	<string name="type.highway.track.grade4">Грунтовка</string>
+	<string name="type.highway.track.grade5">Грунтовка</string>
+	<string name="type.highway.track.no.access">Грунтовка</string>
+	<string name="type.highway.track.permissive">Грунтовка</string>
+	<string name="type.highway.track.tunnel">Грунтовка</string>
 	<string name="type.highway.traffic_signals">Светофор</string>
-	<string name="type.highway.trunk">Улица</string>
-	<string name="type.highway.trunk.bridge">Улица</string>
-	<string name="type.highway.trunk.tunnel">Улица</string>
-	<string name="type.highway.trunk_link">Улица</string>
-	<string name="type.highway.trunk_link.bridge">Улица</string>
-	<string name="type.highway.trunk_link.tunnel">Улица</string>
-	<string name="type.highway.unclassified">Улица</string>
-	<string name="type.highway.unclassified.area">Улица</string>
-	<string name="type.highway.unclassified.bridge">Улица</string>
-	<string name="type.highway.unclassified.tunnel">Улица</string>
+	<string name="type.highway.trunk">Трасса</string>
+	<string name="type.highway.trunk.bridge">Трасса</string>
+	<string name="type.highway.trunk.tunnel">Трасса</string>
+	<string name="type.highway.trunk_link">Съезд с трассы</string>
+	<string name="type.highway.trunk_link.bridge">Съезд с трассы</string>
+	<string name="type.highway.trunk_link.tunnel">Съезд с трассы</string>
+	<string name="type.highway.unclassified">Небольшая дорога</string>
+	<string name="type.highway.unclassified.area">Небольшая дорога</string>
+	<string name="type.highway.unclassified.bridge">Небольшая дорога</string>
+	<string name="type.highway.unclassified.tunnel">Небольшая дорога</string>
+	<string name="type.area_highway.cycleway">Велодорожка</string>
+	<string name="type.area_highway.footway">Пешеходная дорожка</string>
+	<string name="type.area_highway.living_street">Жилая зона</string>
+	<string name="type.area_highway.motorway">Автомагистраль</string>
+	<string name="type.area_highway.path">Тропа</string>
+	<string name="type.area_highway.pedestrian">Пешеходная улица</string>
+	<string name="type.area_highway.primary">Шоссе</string>
+	<string name="type.area_highway.residential">Улица</string>
+	<string name="type.area_highway.secondary">Автодорога</string>
+	<string name="type.area_highway.service">Проезд</string>
+	<string name="type.area_highway.tertiary">Дорога</string>
+	<string name="type.area_highway.steps">Лестница</string>
+	<string name="type.area_highway.track">Грунтовка</string>
+	<string name="type.area_highway.trunk">Трасса</string>
+	<string name="type.area_highway.unclassified">Небольшая дорога</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Исторический объект</string>
 	<string name="type.historic.archaeological_site">Археологический памятник</string>
 	<string name="type.historic.battlefield">Поле боя</string>
@@ -1265,7 +1120,9 @@
 	<string name="type.landuse.allotments">Земельные участки</string>
 	<string name="type.landuse.basin">Резервуар</string>
 	<string name="type.landuse.brownfield">Земля для застройки</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Кладбище</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Христианское кладбище</string>
 	<string name="type.landuse.churchyard">Церковный двор</string>
 	<string name="type.landuse.commercial">Коммерческая застройка</string>
@@ -1324,14 +1181,18 @@
 	<string name="type.leisure.sports_centre.yoga">Йога-центр</string>
 	<string name="type.leisure.stadium">Стадион</string>
 	<string name="type.leisure.swimming_pool">Плавательный бассейн</string>
+	<string name="type.leisure.swimming_pool.private">Плавательный бассейн</string>
 	<string name="type.leisure.track">Беговая дорожка</string>
 	<string name="type.leisure.water_park">Аквапарк</string>
+	<string name="type.leisure.beach_resort">Пляжный курорт</string>
 	<string name="type.man_made">Искусственное сооружение</string>
 	<string name="type.man_made.breakwater">Волнорез</string>
 	<string name="type.man_made.cairn">Тур</string>
 	<string name="type.man_made.chimney">Заводская труба</string>
 	<string name="type.man_made.cutline">Просека</string>
+	<string name="type.man_made.flagpole">Флагшток</string>
 	<string name="type.man_made.lighthouse">Маяк</string>
+	<string name="type.man_made.mast">Мачта/вышка</string>
 	<string name="type.man_made.pier">Пирс</string>
 	<string name="type.man_made.pipeline">Трубопровод</string>
 	<string name="type.man_made.pipeline.overground">Наземный трубопровод</string>
@@ -1386,7 +1247,6 @@
 	<string name="type.natural.wetland.bog">Торфяное болото</string>
 	<string name="type.natural.wetland.marsh">Болотистая местность</string>
 	<string name="type.noexit">Тупик</string>
-	<string name="type.noexit.motor_vehicle">Тупик для моторного транспорта</string>
 	<string name="type.office">Офис</string>
 	<string name="type.office.company">Организация</string>
 	<string name="type.office.estate_agent">Агентство недвижимости</string>
@@ -1398,16 +1258,16 @@
 	<string name="type.place">Место</string>
 	<string name="type.place.city">Город</string>
 	<string name="type.place.city.capital">Столица</string>
-	<string name="type.place.city.capital.10">Столица</string>
-	<string name="type.place.city.capital.11">Столица</string>
+	<string name="type.place.city.capital.10">Город</string>
+	<string name="type.place.city.capital.11">Город</string>
 	<string name="type.place.city.capital.2">Столица</string>
-	<string name="type.place.city.capital.3">Столица</string>
-	<string name="type.place.city.capital.4">Столица</string>
-	<string name="type.place.city.capital.5">Столица</string>
-	<string name="type.place.city.capital.6">Столица</string>
-	<string name="type.place.city.capital.7">Столица</string>
-	<string name="type.place.city.capital.8">Столица</string>
-	<string name="type.place.city.capital.9">Столица</string>
+	<string name="type.place.city.capital.3">Город</string>
+	<string name="type.place.city.capital.4">Город</string>
+	<string name="type.place.city.capital.5">Город</string>
+	<string name="type.place.city.capital.6">Город</string>
+	<string name="type.place.city.capital.7">Город</string>
+	<string name="type.place.city.capital.8">Город</string>
+	<string name="type.place.city.capital.9">Город</string>
 	<string name="type.place.continent">Континент</string>
 	<string name="type.place.country">Страна</string>
 	<string name="type.place.county">Округ</string>
@@ -1428,7 +1288,7 @@
 	<string name="type.place.town">Город</string>
 	<string name="type.place.village">Деревня</string>
 	<string name="type.power">Энергетика</string>
-	<string name="type.power.generator">Генератор энергии</string>
+	<string name="type.power.generator">Генератор</string>
 	<string name="type.power.line">Линия электропередач</string>
 	<string name="type.power.line.underground">Подземная линия электропередач</string>
 	<string name="type.power.minor_line">Линия электропередачи низкого напряжения</string>
@@ -1532,6 +1392,7 @@
 	<string name="type.shop.car_parts">Автомобильные запчасти</string>
 	<string name="type.shop.car_repair">СТО</string>
 	<string name="type.shop.car_repair.tyres">Шиномонтаж</string>
+	<string name="type.shop.caravan">Продажа автодомов</string>
 	<string name="type.shop.chemist">Бытовая химия</string>
 	<string name="type.shop.chocolate">Магазин</string>
 	<string name="type.shop.clothes">Магазин одежды</string>
@@ -1620,7 +1481,7 @@
 	<string name="type.tourism.attraction.animal">Достопримечательность</string>
 	<string name="type.tourism.attraction.specified">Достопримечательность</string>
 	<string name="type.tourism.camp_site">Кемпинг</string>
-	<string name="type.tourism.caravan_site">Автокемпинг</string>
+	<string name="type.tourism.caravan_site">Кемпинг для автодомов</string>
 	<string name="type.tourism.chalet">Шале</string>
 	<string name="type.tourism.gallery">Галерея</string>
 	<string name="type.tourism.guest_house">Гостевой дом</string>
@@ -1645,7 +1506,7 @@
 	<string name="type.waterway">Водный путь</string>
 	<string name="type.waterway.canal">Канал</string>
 	<string name="type.waterway.canal.tunnel">Канал</string>
-	<string name="type.waterway.dam">Плотина</string>
+	<string name="type.waterway.dam">Дамба</string>
 	<string name="type.waterway.ditch">Канава</string>
 	<string name="type.waterway.ditch.tunnel">Канава</string>
 	<string name="type.waterway.dock">Причал</string>
@@ -1666,12 +1527,13 @@
 	<string name="type.wheelchair.limited">Частично оборудовано для инвалидов</string>
 	<string name="type.wheelchair.no">Не оборудовано для инвалидов</string>
 	<string name="type.wheelchair.yes">Оборудовано для инвалидов</string>
-	<string name="type.piste_lift">Подъёмник</string>
-	<string name="type.piste_lift.j.bar">Подъёмник</string>
+	<!-- en.wikipedia.org/wiki/Surface_lift -->
+	<string name="type.piste_lift">Бугельный подъёмник</string>
+	<string name="type.piste_lift.j.bar">Бугельный подъёмник</string>
 	<string name="type.piste_lift.magic_carpet">Ленточный конвейер</string>
-	<string name="type.piste_lift.platter">Подъёмник</string>
-	<string name="type.piste_lift.rope_tow">Подъёмник</string>
-	<string name="type.piste_lift.t.bar">Подъёмник</string>
+	<string name="type.piste_lift.platter">Бугельный подъёмник</string>
+	<string name="type.piste_lift.rope_tow">Бугельный подъёмник</string>
+	<string name="type.piste_lift.t.bar">Бугельный подъёмник</string>
 	<string name="type.piste_type">Тип трассы</string>
 	<string name="type.piste_type.downhill">Горнолыжная трасса</string>
 	<string name="type.piste_type.downhill.advanced">Продвинутая горнолыжная трасса</string>
@@ -1680,21 +1542,7 @@
 	<string name="type.piste_type.downhill.freeride">Горнолыжная трасса для фрирайда</string>
 	<string name="type.piste_type.downhill.intermediate">Горнолыжная трасса средней сложности</string>
 	<string name="type.piste_type.downhill.novice">Горнолыжная трасса для новичков</string>
-	<string name="type.piste_type.nordic">Трасса для скандинавской ходьбы</string>
+	<string name="type.piste_type.nordic">Лыжня</string>
 	<string name="type.piste_type.sled">Трасса для саней</string>
 	<string name="type.building_part">Здание</string>
-	<string name="type.area_highway.cycleway">Велодорожка</string>
-	<string name="type.area_highway.footway">Дорожка</string>
-	<string name="type.area_highway.living_street">Улица</string>
-	<string name="type.area_highway.motorway">Автомагистраль</string>
-	<string name="type.area_highway.path">Дорожка</string>
-	<string name="type.area_highway.pedestrian">Улица</string>
-	<string name="type.area_highway.primary">Улица</string>
-	<string name="type.area_highway.residential">Улица</string>
-	<string name="type.area_highway.secondary">Улица</string>
-	<string name="type.area_highway.service">Улица</string>
-	<string name="type.area_highway.tertiary">Улица</string>
-	<string name="type.area_highway.steps">Лестница</string>
-	<string name="type.area_highway.track">Грунтовая дорога</string>
-	<string name="type.area_highway.trunk">Автомобильная трасса</string>
 </resources>

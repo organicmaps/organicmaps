@@ -29,11 +29,11 @@
 BOOST_GEOMETRY_REGISTER_POINT_2D(m2::PointD, double, boost::geometry::cs::cartesian, x, y)
 BOOST_GEOMETRY_REGISTER_RING(std::vector<m2::PointD>)
 
+namespace generator
+{
 using namespace base::thread_pool::computational;
 using namespace feature;
 
-namespace generator
-{
 CountryFinalProcessor::CountryFinalProcessor(std::string const & borderPath,
                                              std::string const & temporaryMwmPath,
                                              std::string const & intermediateDir,

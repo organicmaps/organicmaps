@@ -4,7 +4,7 @@
 
 #include "routing/index_graph_loader.hpp"
 
-#include "routing_common/car_model.cpp"
+#include "routing_common/car_model.hpp"
 #include "routing_common/vehicle_model.hpp"
 
 #include "platform/country_file.hpp"

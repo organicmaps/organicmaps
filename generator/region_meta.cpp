@@ -29,6 +29,7 @@ namespace feature
 {
 bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
 {
+  /// @todo How LEAP_SPEEDS_FILE was generated before? It's always absent now.
   if (Platform::IsFileExistsByFullPath(LEAP_SPEEDS_FILE))
   {
     try

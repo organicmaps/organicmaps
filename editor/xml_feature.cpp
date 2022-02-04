@@ -566,11 +566,12 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
       return;
 
     uint32_t type = 0;
-    if (k == "amenity" && v == "recycling")
+    if (k == "amenity" && v == "recycling" && xml.HasTag("recycling_type"))
     {
-      if (xml.HasTag("recycling_type") && xml.GetTagValue("recycling_type") == "centre")
+      auto const typeValue = xml.GetTagValue("recycling_type");
+      if (typeValue == "centre")
         type = ftypes::IsRecyclingCentreChecker::Instance().GetType();
-      else
+      else if (typeValue == "container")
         type = ftypes::IsRecyclingContainerChecker::Instance().GetType();
     }
 

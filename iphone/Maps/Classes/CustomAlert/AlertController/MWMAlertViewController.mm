@@ -46,10 +46,6 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
 
 #pragma mark - Actions
 
-- (void)presentRateAlert {
-  [self displayAlert:[MWMAlert rateAlert]];
-}
-
 - (void)presentAuthErrorAlertWithRetryBlock:(nonnull MWMVoidBlock)retryBlock {
   [self displayAlert:[MWMAlert authErrorAlertWithRetryBlock:retryBlock]];
 }

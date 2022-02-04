@@ -8,6 +8,8 @@
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
+#include "search/types_skipper.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature_meta.hpp"
 
@@ -25,8 +27,7 @@ using namespace std;
 
 namespace search
 {
-namespace
-{
+
 class IncorrectCountry : public TestCountry
 {
 public:
@@ -145,69 +146,90 @@ UNIT_CLASS_TEST(SmokeTest, DeepCategoryTest)
   }
 }
 
+UNIT_CLASS_TEST(SmokeTest, TypesSkipperTest)
+{
+  TypesSkipper skipper;
+
+  base::StringIL const arr[] = {
+    {"barrier", "block"},
+    {"barrier", "toll_booth"},
+    {"entrance"}
+  };
+
+  auto const & cl = classif();
+  for (auto const & path : arr)
+  {
+    feature::TypesHolder types;
+    types.Add(cl.GetTypeByPath(path));
+
+    TEST(!skipper.SkipAlways(types), (path));
+    skipper.SkipEmptyNameTypes(types);
+    TEST_EQUAL(types.Size(), 1, ());
+  }
+}
+
 UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
 {
+  auto const & cl = classif();
+
   // todo(@t.yan): fix some or delete category.
-  vector<vector<string>> const invisibleAsPointTags = {{"waterway", "canal"},
-                                                       {"waterway", "river"},
-                                                       {"waterway", "riverbank"},
-                                                       {"waterway", "stream"},
-                                                       {"landuse", "basin"},
-                                                       {"place", "county"},
-                                                       {"place", "islet"},
-                                                       {"highway", "footway"},
-                                                       {"highway", "cycleway"},
-                                                       {"highway", "living_street"},
-                                                       {"highway", "motorway"},
-                                                       {"highway", "motorway_link"},
-                                                       {"highway", "path"},
-                                                       {"highway", "pedestrian"},
-                                                       {"highway", "primary"},
-                                                       {"highway", "primary_link"},
-                                                       {"highway", "raceway"},
-                                                       {"highway", "residential"},
-                                                       {"highway", "road"},
-                                                       {"highway", "secondary"},
-                                                       {"highway", "secondary_link"},
-                                                       {"highway", "service"},
-                                                       {"highway", "steps"},
-                                                       {"area:highway", "steps"},
-                                                       {"highway", "tertiary"},
-                                                       {"highway", "tertiary_link"},
-                                                       {"highway", "track"},
-                                                       {"highway", "traffic_signals"},
-                                                       {"highway", "trunk"},
-                                                       {"highway", "trunk_link"},
-                                                       {"highway", "unclassified"},
-                                                       {"man_made", "tower"},
-                                                       {"man_made", "water_tower"},
-                                                       {"man_made", "water_well"},
-                                                       {"natural", "glacier"},
-                                                       {"natural", "water", "pond"},
-                                                       {"natural", "tree"}};
+  base::StringIL const invisibleAsPointTags[] = {
+      {"waterway", "canal"},
+      {"waterway", "river"},
+      {"waterway", "riverbank"},
+      {"waterway", "stream"},
+      {"landuse", "basin"},
+      {"place", "county"},
+      {"place", "islet"},
+      {"highway", "footway"},
+      {"highway", "cycleway"},
+      {"highway", "living_street"},
+      {"highway", "motorway"},
+      {"highway", "motorway_link"},
+      {"highway", "path"},
+      {"highway", "pedestrian"},
+      {"highway", "primary"},
+      {"highway", "primary_link"},
+      {"highway", "raceway"},
+      {"highway", "residential"},
+      {"highway", "road"},
+      {"highway", "secondary"},
+      {"highway", "secondary_link"},
+      {"highway", "service"},
+      {"highway", "steps"},
+      {"area:highway", "steps"},
+      {"highway", "tertiary"},
+      {"highway", "tertiary_link"},
+      {"highway", "track"},
+      {"highway", "traffic_signals"},
+      {"highway", "trunk"},
+      {"highway", "trunk_link"},
+      {"highway", "unclassified"},
+      {"man_made", "tower"},
+      {"man_made", "water_tower"},
+      {"man_made", "water_well"},
+      {"natural", "glacier"},
+      {"natural", "water", "pond"},
+      {"natural", "tree"}
+  };
   set<uint32_t> invisibleTypes;
   for (auto const & tags : invisibleAsPointTags)
-    invisibleTypes.insert(classif().GetTypeByPath(tags));
+    invisibleTypes.insert(cl.GetTypeByPath(tags));
 
-  vector<vector<string>> const notSupportedTags = {// Not visible because excluded by TypesSkipper.
-                                                   {"barrier", "block"},
-                                                   {"barrier", "bollard"},
-                                                   {"barrier", "entrance"},
-                                                   {"barrier", "gate"},
-                                                   {"barrier", "lift_gate"},
-                                                   {"barrier", "stile"},
-                                                   {"barrier", "toll_booth"},
-                                                   {"building", "address"},
-                                                   {"entrance"},
-                                                   // Not visible for country scale range.
-                                                   {"place", "continent"},
-                                                   {"place", "region"}};
+  base::StringIL const notSupportedTags[] = {
+      // Not visible because excluded by TypesSkipper.
+      {"building", "address"},
+      // Not visible for country scale range.
+      {"place", "continent"},
+      {"place", "region"}
+  };
   set<uint32_t> notSupportedTypes;
   for (auto const & tags : notSupportedTags)
-    notSupportedTypes.insert(classif().GetTypeByPath(tags));
+    notSupportedTypes.insert(cl.GetTypeByPath(tags));
 
   auto const & holder = GetDefaultCategories();
-  auto testCategory = [&](uint32_t type, CategoriesHolder::Category const &) {
+  auto testCategory = [&](uint32_t type, CategoriesHolder::Category const &)
+  {
     if (invisibleTypes.find(type) != invisibleTypes.end())
       return;
 
@@ -218,7 +240,15 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     string const countryName = "Wonderland";
 
     TestPOI poi(m2::PointD(1.0, 1.0), "poi", "en");
-    poi.SetTypes({strings::Tokenize(classif().GetFullObjectName(type), "|")});
+
+    auto typeTokens = strings::Tokenize(classif().GetFullObjectName(type), "|");
+    if (ftypes::IsRecyclingTypeChecker::Instance()(type))
+    {
+      // recycling=XXX types are not drawable/visible alone.
+      poi.SetTypes({{"amenity", "recycling", "container"}, std::move(typeTokens)});
+    }
+    else
+      poi.SetTypes({std::move(typeTokens)});
 
     auto id = BuildMwm(countryName, DataHeader::MapType::Country,
                        [&](TestMwmBuilder & builder) { builder.Add(poi); });
@@ -227,7 +257,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     {
       Rules rules = {ExactMatch(id, poi)};
       auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode) + " ";
-      TEST(ResultsMatch(query, categoryIsSearchable ? rules : Rules{}), ());
+      TEST(ResultsMatch(query, categoryIsSearchable ? rules : Rules{}), (query));
     }
     DeregisterMap(countryName);
   };
@@ -302,5 +332,5 @@ UNIT_CLASS_TEST(SmokeTest, PoiWithAddress)
     TEST(ResultsMatch("Starbucks Main street 27 ", rules), ());
   }
 }
-}  // namespace
+
 }  // namespace search

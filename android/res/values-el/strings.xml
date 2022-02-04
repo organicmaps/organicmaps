@@ -8,8 +8,6 @@
 	<string name="back">Πίσω</string>
 	<!-- Button text (should be short) -->
 	<string name="cancel">Άκυρο</string>
-	<!-- Button which interrupts country download -->
-	<string name="cancel_download">Ακύρωση λήψης</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Διαγραφή</string>
 	<string name="download_maps">Λήψη χαρτών</string>
@@ -19,8 +17,6 @@
 	<string name="downloading">Λήψη…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Χιλιόμετρα</string>
-	<!-- Leave Review dialog - Review button -->
-	<string name="leave_a_review">Αφήστε μια κριτική</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Χάρτες</string>
 	<string name="gb">GB</string>
@@ -34,19 +30,14 @@
 	<string name="search">Αναζήτηση</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Αναζήτηση χάρτη</string>
-	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
-	<string name="use_cellular_data">Ναι</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τις από τις Ρυθμίσεις.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Εμφάνιση στο χάρτη</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
-	<string name="country_status_download_without_size">Λήψη χάρτη</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Η λήψη απέτυχε</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Δοκιμάστε ξανά</string>
-	<string name="about_menu_title">Σχετικά με το Organic Maps</string>
 	<string name="connection_settings">Ρυθμίσεις σύνδεσης</string>
 	<string name="close">Κλείσιμο</string>
 	<string name="unsupported_phone">Η εφαρμογή απαιτεί OpenGL με επιτάχυνση υλικού. Δυστυχώς, η συσκευή σας δεν το υποστηρίζει.</string>
@@ -71,8 +62,6 @@
 	<string name="bookmark_color">Χρώμα αγαπημένου</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Όνομα συνόλου αγαπημένων</string>
-	<!-- "Bookmark Lists" dialog title -->
-	<string name="bookmark_sets">Σύνολα αγαπημένων</string>
 	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Αγαπημένα</string>
 	<!-- Default bookmark list name -->
@@ -81,8 +70,8 @@
 	<string name="name">Όνομα</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Διεύθυνση</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">Σύνολο</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">Λίστα</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ρυθμίσεις</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -97,42 +86,48 @@
 	<string name="measurement_units">Μονάδες μέτρησης</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Επιλέξετε ανάμεσα σε μίλια και χιλιόμετρα</string>
-	<!-- Search category for cafes, bars, restaurants -->
+
+	<!-- SECTION: Search categories -->
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
 	<string name="eat">Πού να φάμε</string>
-	<!-- Search category for grocery stores -->
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
 	<string name="food">Παντοπωλεία</string>
-	<!-- Search category -->
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Συγκοινωνία</string>
-	<!-- Search category -->
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
 	<string name="fuel">Βενζίνη</string>
-	<!-- Search category -->
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">Χώρος στάθμευσης</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Ψώνια</string>
-	<!-- Search category -->
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Ξενοδοχείο</string>
-	<!-- Search category -->
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
 	<string name="tourism">Αξιοθέατα</string>
-	<!-- Search category -->
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
 	<string name="entertainment">Ψυχαγωγία</string>
-	<!-- Search category -->
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
 	<string name="atm">ATM</string>
-	<!-- Search category for nightclubs/bars -->
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
 	<string name="nightlife">Νυχτερινή Ζωή</string>
-	<!-- Search category for water park/disneyland/playground/toys store -->
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
 	<string name="children">Οικογενειακές Διακοπές</string>
-	<!-- Search category -->
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
 	<string name="bank">Τράπεζα</string>
-	<!-- Search category -->
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
 	<string name="pharmacy">Φαρμακείο</string>
-	<!-- Search category -->
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">Νοσοκομείο</string>
-	<!-- Search category -->
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
 	<string name="toilet">Τουαλέτα</string>
-	<!-- Search category -->
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
 	<string name="post">Ταχυδρομείο</string>
-	<!-- Search category -->
+	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Αστυνομία</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Ανακύκλωση</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Νερό</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Σημειώσεις</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -161,18 +156,16 @@
 	<string name="my_position_share_email">Γεια,\n\nείμαι εδώ τώρα: %1$s. Κάνε κλικ σε αυτό το σύνδεσμο %2$s ή σε αυτόν %3$s για να δεις την τοποθεσία στο χάρτη.\n\nΕυχαριστώ.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Κοινοποίηση</string>
-	<!-- Share by email button text, also used in editor. -->
+	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">Email</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Αντιγράφηκε στο Πρόχειρο: %1$s</string>
-	<!-- place preview title -->
-	<string name="info">Πληροφορίες</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Ολοκληρώθηκε</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Έκδοση: %s</string>
-	<!-- Data version in «About» screen -->
-	<string name="data_version">Ημερομηνία έκδοσης: %d</string>
+	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+	<string name="data_version">Δεδομένα OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Θέλετε σίγουρα να συνεχίσετε?</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -201,10 +194,6 @@
 	<string name="pref_tts_language_title">Γλώσσα φωνής</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Δεν είναι διαθέσιμη</string>
-	<!-- Title for "Other" section in TTS settings. -->
-	<string name="pref_tts_other_section_title">Άλλα</string>
-	<!-- Settings «Map» category: «Record track» title -->
-	<string name="pref_track_record_title">Πρόσφατη διαδρομή</string>
 	<string name="pref_map_auto_zoom">Αυτόματη μεγέθυνση</string>
 	<string name="duration_disabled">Απενεργ.</string>
 	<string name="duration_1_hour">1 ώρα</string>
@@ -212,7 +201,6 @@
 	<string name="duration_6_hours">6 ώρες</string>
 	<string name="duration_12_hours">12 ώρες</string>
 	<string name="duration_1_day">1 ημέρα</string>
-	<string name="recent_track_help_text">Σας επιτρέπει να καταγράψετε τη διαδρομή που έχει διανυθεί για συγκεκριμένο χρονικό διάστημα και να την δείτε στο χάρτη. Λάβετε υπόψη: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας. Το τμήμα θα αφαιρεθεί αυτόματα από το χάρτη μετά τη λήξη του μεσοδιαστήματος.</string>
 	<string name="search_show_on_map">Προβολή στο χάρτη</string>
 	<!-- Text in menu -->
 	<string name="website">Ιστότοπος</string>
@@ -230,12 +218,6 @@
 	<string name="copyright">Πνευματικά δικαιώματα</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Αναφορά σφάλματος</string>
-	<!-- Alert text -->
-	<string name="email_error_body">Το πρόγραμμα-client ηλεκτρονικού ταχυδρομείου έχει δεν έχει ρυθμιστεί. Ρυθμίστε το ή χρησιμοποιήστε άλλο τρόπο να επικοινωνήσετε μαζί μας στη διεύθυνση %s</string>
-	<!-- Alert title -->
-	<string name="email_error_title">Αποστολή σφάλματος αλληλογραφίας</string>
-	<!-- Settings item title -->
-	<string name="pref_calibration_title">Βαθμονόμηση πυξίδας</string>
 	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
@@ -244,19 +226,12 @@
 	<string name="downloader_cancel_all">Ακύρωση όλων</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Έγινε λήψη</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_available_maps">Διαθέσιμη</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">στην ουρά</string>
 	<string name="downloader_near_me_subtitle">Κοντά μου</string>
 	<string name="downloader_status_maps">Χάρτες</string>
 	<string name="downloader_download_all_button">Λήψη όλων</string>
 	<string name="downloader_downloading">Λήψη:</string>
-	<string name="downloader_search_results">Βρέθηκαν</string>
-	<!-- Status of outdated country in the list -->
-	<string name="downloader_status_outdated">Ενημέρωση</string>
-	<!-- Status of failed country in the list -->
-	<string name="downloader_status_failed">Απέτυχε</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
 	<string name="downloader_delete_map_while_routing_dialog">Για να διαγράψετε το χάρτη, σταματήστε την πλοήγηση.</string>
 	<!-- PointsInDifferentMWM -->
@@ -271,22 +246,12 @@
 	<string name="downloader_update_map">Ενημέρωση χάρτη</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Χρησιμοποιήστε υπηρεσίες Google Play για να προσδιορίσετε την τρέχουσα τοποθεσία σας</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_just_rated">Μόλις βαθμολόγησα την εφαρμογή σας</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_thanks">Σας ευχαριστούμε!</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_share_ideas">Μοιραστείτε ιδέες ή προβλήματα για να βελτιώσουμε την εφαρμογή.</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_send_feedback">Αποστολή σχολίου</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Κατεβάστε όλους τους χάρτες για ολόκληρο το μήκος της διαδρομής σας</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Για να δημιουργήσετε μια διαδρομή, πρέπει να κατεβάσετε και να ενημερώσετε όλους τους χάρτες από τη θέση σας στον προορισμό σας.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Δεν υπάρχει αρκετός χώρος</string>
-	<!-- bookmark button text -->
-	<string name="bookmark">αγαπημένο</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας</string>
 	<string name="save">Αποθήκευση</string>
@@ -339,8 +304,6 @@
 	<string name="dialog_routing_location_turn_wifi">Ελέγξτε το σήμα GPS. Η ενεργοποίηση του Wi-Fi θα βελτιώσει την ακρίβεια της τοποθεσίας σας.</string>
 	<string name="dialog_routing_location_turn_on">Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας</string>
 	<string name="dialog_routing_location_unknown_turn_on">Δεν είναι δυνατός ο εντοπισμός των τρεχουσών συντεταγμένων GPS. Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας για τον υπολογισμό της διαδρομής.</string>
-	<string name="dialog_routing_download_files">Κατεβάστε τα απαιτούμενα αρχεία</string>
-	<string name="dialog_routing_download_and_update_all">Κατεβάσετε και να ενημερώσετε όλους τους χάρτες και τις πληροφορίες δρομολόγησης για όλη την απόσταση της προβαλλόμενης διαδρομής για τον υπολογισμό της.</string>
 	<string name="dialog_routing_unable_locate_route">Δε μπορεί να εντοπιστεί η διαδρομή</string>
 	<string name="dialog_routing_cant_build_route">Δε μπορεί να δημιουργηθεί η διαδρομή.</string>
 	<string name="dialog_routing_change_start_or_end">Ρυθμίστε το σημείο εκκίνησης ή τον προορισμό σας.</string>
@@ -355,7 +318,6 @@
 	<string name="dialog_routing_system_error">Σφάλμα συστήματος</string>
 	<string name="dialog_routing_application_error">Δεν είναι δυνατή η δημιουργία διαδρομής εξαιτίας σφάλματος εφαρμογής.</string>
 	<string name="dialog_routing_try_again">Προσπαθήστε ξανά</string>
-	<string name="not_now">Όχι τώρα</string>
 	<string name="dialog_routing_download_and_build_cross_route">Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνονται σε περισσότερους από έναν χάρτη;</string>
 	<string name="dialog_routing_download_cross_route">Κατεβάσετε επιπλέον χάρτες για να δημιουργήσετε μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.</string>
 
@@ -366,15 +328,8 @@
 	<string name="show">Εμφάνιση</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Απόκρυψη</string>
-	<!-- Failed planning route message in navigation view -->
-	<string name="routing_planning_error">Ο σχεδιασμός διαδρομής απέτυχε</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Άφιξη στις %s</string>
-	<string name="rate_alert_title">Σας αρέσει η εφαρμογή;</string>
-	<string name="rate_alert_default_message">Σας ευχαριστούμε που χρησιμοποιείτε το Organic Maps. Βαθμολογήστε την εφαρμογή. Τα σχόλιά σας μας βοηθάνε να βελτιώσουμε το προϊόν μας.</string>
-	<string name="rate_alert_five_star_message">Ζήτω! Σας ευχαριστούμε πάρα πολύ!</string>
-	<string name="rate_alert_four_star_message">Σας ευχαριστούμε, θα κάνουμε το καλύτερο δυνατό!</string>
-	<string name="rate_alert_less_than_four_star_message">Έχετε κάποια ιδέα για το πώς μπορούμε να το κάνουμε καλύτερο;</string>
 	<string name="categories">Κατηγορίες</string>
 	<string name="history">Ιστορικό</string>
 	<string name="closed">Κλειστό</string>
@@ -407,8 +362,6 @@
 	<string name="editor_example_values">Παράδειγμα τιμών</string>
 	<string name="editor_correct_mistake">Διόρθωση λάθους</string>
 	<string name="editor_add_select_location">Τοποθεσία</string>
-	<string name="editor_done_dialog_1">Έχετε αλλάξει τον παγκόμιο χάρτη. Μην το κρατάτε για τον εαυτό σας! Πείτε το στους φίλους σας και κάντε τις αλλαγές μαζί.</string>
-	<string name="share_with_friends">Μοιραστείτε με φίλους</string>
 	<string name="editor_report_problem_desription_1">Περιγράψτε το πρόβλημα αναλυτικά ώστε η Κοινότητα OpenStreeMap να διορθώσει το σφάλμα.</string>
 	<string name="editor_report_problem_desription_2">Ή κάντε το μόνοι σας στη διεύθυνση https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Αποστολή</string>
@@ -418,29 +371,20 @@
 	<string name="editor_report_problem_duplicate_place_title">Διπλότυπη τοποθεσία</string>
 	<string name="autodownload">Αυτόματη λήψη</string>
 	<!-- Place Page opening hours text -->
-	<string name="closed_now">Τώρα είναι κλειστό</string>
-	<!-- Place Page opening hours text -->
 	<string name="daily">Καθημερινά</string>
 	<string name="twentyfour_seven">24/7</string>
 	<string name="day_off_today">Κλειστό σήμερα</string>
 	<string name="day_off">Κλειστό</string>
 	<string name="today">Σήμερα</string>
-	<string name="add_opening_hours">Προσθέστε ώρες λειτουργίας</string>
 	<string name="edit_opening_hours">Επεξεργαστείτε τις ώρες λειτουργίας</string>
 	<string name="no_osm_account">Δεν έχετε λογαριασμό OpenStreetMap;</string>
 	<string name="register_at_openstreetmap">Εγγραφείτε στο OSM</string>
-	<string name="password_8_chars_min">Κωδικός πρόσβασης (8 χαρακτήρες ελάχιστο)</string>
-	<string name="invalid_username_or_password">Μη έγκυρο όνομα χρήστη ή κωδικός πρόσβασης.</string>
 	<string name="login">Σύνδεση</string>
 	<string name="password">Κωδικός πρόσβασης</string>
 	<string name="forgot_password">Ξαχάσατε τον κωδικό πρόσβασης;</string>
-	<string name="osm_account">Λογαριασμός OSM\u0020\u0020</string>
 	<string name="logout">Αποσύνδεση</string>
-	<!-- Information text: "Last upload 11.01.2016" -->
-	<string name="last_upload">Τελευταία μεταφόρτωση</string>
 	<string name="thank_you">Σας ευχαριστούμε</string>
 	<string name="edit_place">Επεξεργασία μέρους</string>
-	<string name="place_name">Όνομα μέρους</string>
 	<string name="add_language">Προσθήκη γλώσσας</string>
 	<string name="street">Οδός</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -456,22 +400,16 @@
 	<string name="select_cuisine">Επιλέξτε κουζίνα</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email ή όνομα χρήστη</string>
-	<string name="phone">Τηλέφωνο</string>
-	<string name="please_note">Λάβετε υπόψη</string>
 	<string name="downloader_delete_map_dialog">Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.</string>
 	<string name="downloader_update_maps">Ενημέρωση χαρτών</string>
 	<string name="downloader_mwm_migration_dialog">Για να δημιουργήσετε μια διαδρομή, πρέπει να ενημερώσετε όλους τους χάρτες και στη συνέχεια να σχεδιάσετε τη διαδρομή ξανά.</string>
 	<string name="downloader_search_field_hint">Ανεύρεση χάρτη</string>
-	<string name="migration_download_error_dialog">Σφάλμα λήψης</string>
 	<string name="common_check_internet_connection_dialog">Ελέγξτε τις ρυθμίσεις σας και βεβαιωθείτε ότι η συσκευή σας είναι συνδεδεμένη στο Internet.</string>
 	<string name="downloader_no_space_title">Δεν υπάρχει αρκετός χώρος</string>
 	<string name="downloader_no_space_message">Διαγράψτε τυχόν μη απαραίτητα δεδομένα</string>
 	<string name="editor_login_error_dialog">Σφάλμα σύνδεσης.</string>
 	<string name="editor_profile_changes">Επαληθευμένες αλλαγές</string>
 	<string name="editor_focus_map_on_location">Σύρετε τον χάρτη για να επιλέξετε τη σωστή θέση του αντικειμένου.</string>
-	<string name="editor_add_select_category">Επιλέξτε κατηγορία</string>
-	<string name="editor_add_select_category_popular_subtitle">Δημοφιλή</string>
-	<string name="editor_add_select_category_all_subtitle">Όλες οι κατηγορίες</string>
 	<string name="editor_edit_place_title">Επεξεργασία</string>
 	<string name="editor_add_place_title">Προσθήκη</string>
 	<string name="editor_edit_place_name_hint">Το όνομα του τόπου</string>
@@ -479,13 +417,8 @@
 	<string name="detailed_problem_description">Λεπτομερή περιγραφή του θέματος</string>
 	<string name="editor_report_problem_other_title">Διαφορετικό πρόβλημα</string>
 	<string name="placepage_add_business_button">Προσθήκη επιχείρησης</string>
-	<string name="whatsnew_editor_message_1">Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.</string>
-	<string name="dialog_incorrect_feature_position">Αλλαγή τοποθεσίας</string>
 	<string name="message_invalid_feature_position">Δε μπορεί να εντοπιστεί αντικείμενο εδώ</string>
 	<string name="login_to_make_edits_visible">Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει</string>
-	<!-- Error dialog no space -->
-	<string name="migration_no_space_message">Για να το κατεβάσετε, χρειάζεστε περισσότερο χώρο. Διαγράψτε τυχόν μη απαραίτητα δεδομένα.</string>
-	<string name="editor_sharing_title">Βελτίωσα τους χάρτες Organic Maps</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d από %2$d</string>
 	<string name="download_over_mobile_header">Να γίνει λήψη μέσω δικτύου κινητής τηλεφωνίας;</string>
@@ -503,7 +436,6 @@
 	<string name="editor_detailed_description">Οι προτεινόμενες αλλαγές χάρτη θα σταλούν στην Κοινότητα του OpenStreetMap. Περιγράψτε τυχόν πρόσθετα στοιχεία που δεν μπορείτε να επεξεργαστείτε στο Organic Maps.</string>
 	<string name="editor_more_about_osm">Περισσότερα σχετικά με το OpenStreetMap</string>
 	<string name="editor_operator">Ιδιοκτήτης</string>
-	<string name="downloader_my_maps_title">Οι χάρτες μου</string>
 	<string name="downloader_no_downloaded_maps_title">Δεν έχετε κατεβάσει χάρτες</string>
 	<string name="downloader_no_downloaded_maps_message">Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -512,54 +444,33 @@
 	<string name="current_location_unknown_message">Η τρέχουσα τοποθεσία είναι άγνωστη. Ίσως είστε σε ένα κτίριο ή σε μια σήραγγα.</string>
 	<string name="current_location_unknown_continue_button">Συνέχεια</string>
 	<string name="current_location_unknown_stop_button">Στοπ</string>
-	<string name="current_location_unknown_error_title">Η τρέχουσα τοποθεσία είναι άγνωστη.</string>
-	<string name="current_location_unknown_error_message">Παρουσιάστηκε σφάλμα κατά την αναζήτηση της τοποθεσίας σας. Ελέγξτε αν η συσκευή σας λειτουργεί κανονικά και δοκιμάστε ξανά αργότερα.</string>
-	<string name="location_services_disabled_header">Οι υπηρεσίες εντοπισμού τοποθεσίας είναι απενεργοποιημένες</string>
-	<string name="location_services_disabled_message">Ενεργοποίηση πρόσβασης γεωγραφικού εντοπισμού τοποθεσίας στις ρυθμίσεις της συσκευής</string>
-	<string name="location_services_disabled_1">1. Ανοίξτε τις ρυθμίσεις</string>
-	<string name="location_services_disabled_2">2. Πατήστε τοποθεσία</string>
-	<!-- iOS Dialog for the case when the location permission is not granted -->
-	<string name="location_services_disabled_3">3. Επιλέξτε ενώ χρησιμοποιείτε την εφαρμογή</string>
 	<string name="placepage_more_button">Περισσότερα</string>
 	<string name="placepage_more_reviews_button">Περισσότερα σχόλια</string>
 	<string name="placepage_call_button">Κλήση</string>
 	<string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
-	<string name="placepage_bookmark_name_hint">Όνομα αγαπημένου</string>
-	<string name="placepage_personal_notes_hint">Προσωπικές σημειώσεις</string>
-	<string name="placepage_delete_bookmark_button">Διαγραφή αγαπημένου</string>
-	<string name="editor_edits_sent_message">Οι προτεινόμενες αλλαγές σας έχουν σταλεί</string>
 	<string name="editor_comment_hint">Σχόλιο…</string>
 	<string name="editor_reset_edits_message">Απόρριψη όλων των τοπικών αλλαγών;</string>
 	<string name="editor_reset_edits_button">Απόρριψη</string>
 	<string name="editor_remove_place_message">Διαγραφή της τοποθεσίας που προστέθηκε;</string>
 	<string name="editor_remove_place_button">Διαγραφή</string>
 	<string name="editor_place_doesnt_exist">Η τοποθεσία δεν υπάρχει</string>
-	<string name="text_more_button">…περισσότερα</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Εισάγετε έναν έγκυρο αριθμό τηλεφώνου</string>
 	<string name="error_enter_correct_web">Εισάγετε μια έγκυρη διεύθυνση ιστοτόπου</string>
 	<string name="error_enter_correct_email">Εισάγετε ένα έγκυρο email</string>
-	<string name="refresh">Ενημέρωση</string>
 	<string name="placepage_add_place_button">Να προστεθεί η τοποθεσία στο χάρτη</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Θέλετε να το στείλετε σε όλους τους χρήστες;</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.</string>
 	<string name="editor_share_to_all_dialog_message_2">Θα ελέγξουμε τις αλλαγές. Εάν έχουμε οποιαδήποτε απορία θα επικοινωνήσουμε μαζί σας μέσω email.</string>
-	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-	<string name="recent_track_background_dialog_title">Θέλετε να απενεργοποιήσετε την καταγραφή της πρόσφατης διαδρομής σας;</string>
-	<string name="off_recent_track_background_button">Απενεργοποίηση</string>
-	<!-- For sharing via SMS and so on -->
-	<string name="sharing_call_action_look">Αναχώρηση</string>
-	<string name="recent_track_background_dialog_message">Το Organic Maps χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.</string>
-	<!-- Text under the version number in the Help dialog. -->
+	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Οι Organic Maps είναι μια δωρεάν και ανοιχτού κώδικα εφαρμογή χαρτών εκτός σύνδεσης. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Εάν δείτε κάποιο σφάλμα στον χάρτη, διορθώστε το στο OpenStreetMap. Το έργο δημιουργείται από λάτρεις στον ελεύθερο χρόνο μας, επομένως χρειαζόμαστε τα σχόλια και την υποστήριξή σας.</string>
-	<string name="general_settings">Γενικές ρυθμίσεις</string>
 	<!-- For the first routing -->
 	<string name="accept">Συμφωνώ</string>
 	<!-- For the first routing -->
 	<string name="decline">Διαφωνώ</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">Λίστα</string>
 	<string name="mobile_data_dialog">Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;</string>
 	<string name="mobile_data_option_always">Να χρησιμοποιείται πάντα</string>
@@ -572,8 +483,6 @@
 	<string name="traffic_update_maps_text">Για να εμφανίσετε πληροφορίες για την κίνηση, πρέπει να ενημερωθούν οι χάρτες.</string>
 	<string name="big_font">Αύξηση μεγέθους γραμματοσειράς στο χάρτη</string>
 	<string name="traffic_update_app">Κάντε ενημέρωση του Organic Maps</string>
-	<!-- "traffic" as in road congestion -->
-	<string name="traffic_update_app_message">Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες</string>
 	<string name="enable_logging">Ενεργοποίηση δυνατότητας καταγραφής</string>
@@ -582,7 +491,7 @@
 	<string name="on">Ενεργ.</string>
 	<string name="off">Απενεργ.</string>
 	<string name="prefs_languages_information">Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play Market, Samsung Apps).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
+	<string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play, Samsung Apps, App Gallery, FDroid).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
 	<string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
 	<string name="transliteration_title">Μεταγραφή στα Λατινικά</string>
 	<string name="learn_more">Μάθετε περισσότερα</string>
@@ -590,13 +499,8 @@
 	<string name="routing_add_start_point">Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή</string>
 	<string name="routing_add_finish_point">Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή</string>
 	<string name="button_exit">Έξοδος</string>
-	<string name="planning_route_manage_route">Διαχείριση διαδρομής</string>
-	<string name="button_plan">Σχέδιο</string>
 	<string name="placepage_remove_stop">Κατάργηση</string>
-	<string name="planning_route_remove_title">Σύρετε εδώ για κατάργηση</string>
 	<string name="placepage_add_stop">Προσθήκη στάσης</string>
-	<string name="start_from_my_position">Έναρξη από</string>
-	<string name="profile_authorization_error">Ωχ, παρουσιάστηκε σφάλμα. Προσπαθήστε να συνδεθείτε ξανά.</string>
 	<string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>
 	<string name="dialog_error_storage_message">Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Εξομείωση κακού αποθηκευτικού χώρου</string>
@@ -606,14 +510,7 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Απόκρυψη όλων</string>
 	<string name="bookmark_lists_show_all">Εμφάνιση όλων</string>
-	<plurals name="bookmarks_places">
-	  <item quantity="other">%d αγαπημένα</item>
-	</plurals>
 	<string name="bookmarks_create_new_group">Δημιουργία νέας λίστας</string>
-	<string name="downloader_hide_screen">Απόκρυψη οθόνης</string>
-	<string name="downloader_percent">%1$s (%2$s από %3$s)</string>
-	<string name="downloader_process">Λήψη %s…</string>
-	<string name="downloader_applying">Εφαρμογή %s…</string>
 	<string name="bookmarks_error_message_share_general">Αδυναμία κοινής χρήσης λόγω σφάλματος εφαρμογής</string>
 	<string name="bookmarks_error_title_share_empty">Σφάλμα κοινής χρήσης</string>
 	<string name="bookmarks_error_message_share_empty">Αδύνατη η κοινή χρήση κενής λίστας</string>
@@ -622,22 +519,14 @@
 	<string name="bookmarks_new_list_hint">Νέα λίστα</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Αυτό το όνομα έχει ήδη ληφθεί</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Επιλέξτε άλλο όνομα</string>
-	<string name="bookmarks_error_title_list_name_too_long">Αυτό το όνομα είναι πολύ μεγάλο</string>
 	<string name="please_wait">Παρακαλώ περιμένετε…</string>
 	<string name="phone_number">Τηλεφωνικό νούμερο</string>
 	<string name="profile">Προφίλ OpenStreetMap</string>
-	<string name="bookmarks_detect_title">Εντοπίστηκαν νέα αρχεία</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">Βρέθηκε %d αρχείο. Θα το δείτε μετά τη μετατροπή.</item>
 	  <item quantity="other">έχουν βρεθεί %d αρχεία. Θα τα δείτε μετά τη μετατροπή.</item>
 	</plurals>
-	<string name="button_convert">Μετατρέπω</string>
-	<string name="bookmarks_convert_error_title">Λάθος</string>
-	<string name="bookmarks_convert_error_message">Ορισμένα αρχεία δεν μετατράπηκαν.</string>
-	<string name="bookmarks_restore_title">Επαναφορά αυτής της έκδοσης;</string>
 	<string name="common_check_internet_connection_dialog_title">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
-	<string name="error_system_message">Συνέβη ένα άγνωστο σφάλμα</string>
-	<string name="restore">Επαναφορά</string>
 	<plurals name="objects">
 	  <item quantity="other">%d μέρος</item>
 	</plurals>
@@ -659,17 +548,13 @@
 	<string name="bookmarks_empty_list_title">Η λίστα είναι άδεια</string>
 	<string name="bookmarks_empty_list_message">Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι</string>
 	<string name="category_desc_more">…περισσότερα</string>
-	<string name="title_error_downloading_bookmarks">Συνέβη σφάλμα</string>
 	<string name="export_file">Αρχείο Εξαγωγής</string>
 	<string name="list_settings">Ρυθμίσεις Λίστας</string>
 	<string name="delete_list">Διαγραφή λίστας</string>
-	<string name="hide_from_map">Κρύψε από τον χάρτη</string>
 	<string name="public_access">Δημόσια πρόσβαση</string>
 	<string name="limited_access">Περιορισμένη πρόσβαση</string>
 	<string name="bookmark_list_description_hint">Πληκτρολογήστε μια περιγραφή (κείμενο ή html)</string>
 	<string name="not_shared">Προσωπικός</string>
-	<string name="tags_loading_error_subtitle">Ένα σφάλμα συνέβη στο φόρτωμα των ετικετών, παρακαλώ ξαναπροσπαθήστε</string>
-	<string name="download_button">Κατέβασμα</string>
 	<string name="speedcams_alert_title">Κάμερες Ταχύτητας</string>
 	<string name="speedcam_option_auto">Αυτόματο</string>
 	<string name="speedcam_option_always">Πάντα</string>
@@ -677,7 +562,6 @@
 	<string name="place_description_title">Περιγραφή μέρους</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Κατέβασμα χαρτών</string>
-	<string name="speedcams_notice_message">Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες</string>
 	<string name="power_managment_title">Λειτουργία εξοικονόμησης ενέργειας</string>
 	<string name="power_managment_description">Εάν η λειτουργία εξοικονόμησης ενέργειας είναι ενεργοποιημένη, η εφαρμογή θα κλείνει τις λειτουργίες που καταναλώνουν ενέργεια ανάλογα με την τρέχουσα φόρτιση του τηλεφώνου</string>
 	<string name="power_managment_setting_never">Ποτέ</string>
@@ -701,44 +585,11 @@
 	<string name="avoid_toll_roads_placepage">Αποφυγή των δρόμων με διόδια</string>
 	<string name="avoid_unpaved_roads_placepage">Αποφυγή των χωματόδρομων</string>
 	<string name="avoid_ferry_crossing_placepage">Αποφυγή των πορθμείων</string>
-	<string name="trip_start">Πάμε</string>
-	<string name="pick_destination">Προορισμός</string>
-	<string name="follow_my_position">Επανατοποθέτηση</string>
-	<string name="search_results">Αποτελέσματα αναζήτησης</string>
-	<string name="then_turn">Μετά</string>
-	<string name="redirect_route_alert">Θα θέλατε να τροποποιήσετε τη διαδρομή;</string>
-	<string name="redirect_route_yes">Ναι</string>
-	<string name="redirect_route_no">Όχι</string>
-	<string name="trip_finished">Έχετε φτάσει!</string>
-	<string name="keyboard_availability_alert">Το πληκτρολόγιο δεν είναι διαθέσιμο κατά τη διάρκεια οδήγησης</string>
-	<string name="dialog_routing_change_start_carplay">Δεν είναι δυνατή η δημιουργία διαδρομής από την τρέχουσα τοποθεσία σας</string>
-	<string name="dialog_routing_change_end_carplay">Δεν είναι δυνατή η δημιουργία διαδρομής μέχρι τον προορισμό σας. Επιλέξτε ένα άλλο σημείο</string>
-	<string name="dialog_routing_check_gps_carplay">Δεν υπάρχει σήμα GPS. Μετακινήστε σε μια ανοικτή τοποθεσία</string>
-	<string name="dialog_routing_unable_locate_route_carplay">Δεν είναι δυνατή η δημιουργία διαδρομής. Επιλέξτε άλλα σημεία διαδρομής</string>
-	<string name="dialog_routing_download_files_carplay">Για να χτίσετε διαδρομή, κατεβάστε χάρτες που λείπουν στη συσκευή</string>
-	<string name="dialog_routing_system_error_carplay">Παρουσιάστηκε σφάλμα. Κάντε επανεκκίνηση της εφαρμογής</string>
-	<string name="dialog_routing_rebuild_from_current_location_carplay">Η διαδρομή θα ξαναδημιουργηθεί από την τρέχουσα τοποθεσία σας</string>
-	<string name="dialog_routing_rebuild_for_vehicle_carplay">Η διαδρομή θα αντικατασταθεί με τη διαδρομή με αυτοκίνητο</string>
 	<string name="ok">Καλώς</string>
-	<string name="avoid_unpaved_carplay_1">Χ/χωματόδρ.</string>
-	<string name="avoid_unpaved_carplay_2">Χ/χωματόδρομους</string>
-	<string name="avoid_ferry_carplay_1">Χ/πορθμεία</string>
-	<string name="avoid_ferry_carplay_2">Χωρίς πορθμεία</string>
-	<string name="avoid_tolls_carplay_1">Χωρίς διόδια</string>
-	<string name="avoid_tolls_carplay_2">Χωρίς διόδια</string>
-	<string name="speedcams_alert_title_carplay_1">Κάμερες</string>
-	<string name="speedcams_alert_title_carplay_2">Πληροφ. γιαόρια</string>
-	<string name="download_map_carplay">Κάντε λήψη χαρτών στην εφαρμογή Organic Maps στη συσκευή σας</string>
-	<string name="carplay_roundabout_exit">%s έξοδος</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ταξινόμηση</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Ταξινόμηση σελιδοδ/τών</string>
-	<!-- iOS -->
-	<string name="sort_default">Ταξινόμηση κατά προεπιλογή</string>
-	<string name="sort_type">Ταξινόμηση ανά τύπο</string>
-	<string name="sort_distance">Ταξινόμηση κατά απόσταση</string>
-	<string name="sort_date">Ταξινόμηση κατά ημερομηνία</string>
 	<!-- Android -->
 	<string name="by_default">Προεπιλογή</string>
 	<!-- Android -->
@@ -753,6 +604,8 @@
 	<string name="moreyear_ago_sorttype">Περισσότερο από ένα έτος πριν</string>
 	<string name="near_me_sorttype">Δίπλα μου</string>
 	<string name="others_sorttype">Άλλα</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Εστίαση</string>
 	<string name="tourist_places">Αξιοθέατα</string>
 	<string name="museums">Μουσεία</string>
@@ -766,7 +619,6 @@
 	<string name="shops">Καταστήματα</string>
 	<string name="parkings">Χώροι στάθμευσης</string>
 	<string name="fuel_places">Πρατήρια βενζίνης</string>
-	<string name="water">Νερό</string>
 	<string name="medicine">Γιατρική βοήθεια</string>
 	<string name="search_in_the_list">Αναζήτηση στη λίστα</string>
 	<string name="religious_places">Άγιοι τόποι</string>
@@ -777,10 +629,6 @@
 	<string name="button_layer_isolines">Υψόμετρα</string>
 	<string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε τοπογραφικά στρώματα, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
 	<string name="isolines_location_error_dialog">Τα τοπογραφικά στρώματα δεν είναι ακόμα διαθέσιμα σε αυτή την περιοχή</string>
-	<string name="elevation_profile_diff_level">Επίπεδο δυσκολίας</string>
-	<string name="elevation_profile_diff_level_easy">Εύκολο</string>
-	<string name="elevation_profile_diff_level_moderate">Μέτριο</string>
-	<string name="elevation_profile_diff_level_hard">Δύσκολο</string>
 	<string name="elevation_profile_ascent">Άνοδος</string>
 	<string name="elevation_profile_descent">Κάθοδος</string>
 	<string name="elevation_profile_minaltitude">Ελ. υψόμετρο</string>
@@ -789,25 +637,18 @@
 	<string name="elevation_profile_distance">Απόστ.:</string>
 	<string name="elevation_profile_time">Διαρκ:</string>
 	<string name="isolines_toast_zooms_1_10">Μεγεθύνετε για να δείτε περιγράμματα</string>
-	<string name="downloader_updating_ios">Ενημέρωση</string>
-	<string name="downloader_loading_ios">Φόρτωση</string>
-	<string name="key_information_title">Βασικές πληροφορίες</string>
 	<string name="enable_screen_sleep">Αφήστε την οθόνη να κοιμηθεί</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Όταν είναι ενεργοποιημένη, η οθόνη θα αφεθεί να κοιμηθεί μετά από περίοδο αδράνειας.</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">Θα πρέπει να ενημερώστε τους χάρτες που έχετε κατεβάσει</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">Η ενημέρωση των χαρτών διατηρεί τις πληροφορίες των στοιχείων επικαιροποιημένες</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_size">Ενημέρωση (%s)</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_later">Χειροκίνητη ενημέρωση αργότερα</string>
-	<!-- edit track screen title -->
-	<string name="track_title">Τροχιά</string>
 
 	<!-- SECTION: Types -->
-	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>
+	<string name="type.aerialway">Τελεφερίκ</string>
+	<string name="type.aerialway.cable_car">Τελεφερίκ</string>
+	<string name="type.aerialway.chair_lift">Τελεφερίκ</string>
+	<string name="type.aerialway.drag_lift">Τελεφερίκ</string>
+	<string name="type.aerialway.gondola">Τελεφερίκ</string>
+	<string name="type.aerialway.mixed_lift">Τελεφερίκ</string>
+	<string name="type.aerialway.station">Σταθμός τελεφερίκ</string>
 	<string name="type.aeroway.aerodrome">Αεροδρόμιο</string>
 	<string name="type.aeroway.aerodrome.international">Αεροδρόμιο</string>
 	<string name="type.aeroway.helipad">Ελικοδρόμιο</string>
@@ -845,7 +686,9 @@
 	<string name="type.amenity.fire_station">Σταθμός πυρόσβεσης</string>
 	<string name="type.amenity.fountain">Συντριβάνι</string>
 	<string name="type.amenity.fuel">Βενζινάδικο</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Νεκροταφείο</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Νεκροταφείο</string>
 	<string name="type.amenity.hospital">Νοσοκομείο</string>
 	<string name="type.amenity.hunting_stand">Βάση σκόπευσης</string>
@@ -884,9 +727,12 @@
 	<string name="type.amenity.post_office">Ταχυδρομείο</string>
 	<string name="type.amenity.pub">Παμπ</string>
 	<string name="type.amenity.public_bookcase">Ανταλλαγή βιβλίων</string>
-	<string name="type.amenity.recycling">Κέντρο ανακύκλωσης</string>
-	<string name="type.amenity.recycling_container">Κάδος ανακύκλωσης</string>
-	<string name="type.recycling.toxic">Τοξικά απόβλητα</string>
+
+	<!-- SECTION: Types: Recycling -->
+	<string name="type.amenity.recycling.centre">Κέντρο ανακύκλωσης</string>
+	<string name="type.amenity.recycling">Κάδος ανακύκλωσης</string>
+	<string name="type.amenity.recycling.container">Κάδος ανακύκλωσης</string>
+	<string name="type.recycling.batteries">Μπαταρίες</string>
 	<string name="type.recycling.clothes">Παλιά ρούχα</string>
 	<string name="type.recycling.glass_bottles">Γυάλινα μπουκάλια</string>
 	<string name="type.recycling.paper">Απορρίμματα χαρτιού</string>
@@ -1028,6 +874,8 @@
 	<string name="type.emergency.phone">Τηλέφωνο έκτακτης ανάγκης</string>
 	<string name="type.entrance">Είσοδος</string>
 	<string name="type.healthcare.laboratory">Ιατρικό Εργαστήριο</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Στάση λεωφορείου</string>
 	<string name="type.highway.construction">Οδός υπό κατασκευή</string>
 	<string name="type.highway.footway">Διαδρομή</string>
@@ -1127,6 +975,22 @@
 	<string name="type.highway.unclassified.area">Οδός</string>
 	<string name="type.highway.unclassified.bridge">Οδός</string>
 	<string name="type.highway.unclassified.tunnel">Οδός</string>
+	<string name="type.area_highway.footway">Διαδρομή</string>
+	<string name="type.area_highway.living_street">Οδός</string>
+	<string name="type.area_highway.motorway">Οδός</string>
+	<string name="type.area_highway.path">Διαδρομή</string>
+	<string name="type.area_highway.pedestrian">Οδός</string>
+	<string name="type.area_highway.primary">Οδός</string>
+	<string name="type.area_highway.residential">Οδός</string>
+	<string name="type.area_highway.secondary">Οδός</string>
+	<string name="type.area_highway.service">Οδός</string>
+	<string name="type.area_highway.tertiary">Οδός</string>
+	<string name="type.area_highway.steps">Διαδρομή</string>
+	<string name="type.area_highway.track">Οδός</string>
+	<string name="type.area_highway.trunk">Οδός</string>
+	<string name="type.area_highway.unclassified">Οδός</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Αρχαιολογικός χώρος</string>
 	<string name="type.historic.castle">Κάστρο</string>
 	<string name="type.historic.castle.defensive">Κάστρο</string>
@@ -1142,7 +1006,9 @@
 	<string name="type.internet_access">Ίντερνετ</string>
 	<string name="type.internet_access.wlan">Ίντερνετ</string>
 	<string name="type.landuse.basin">Μια λεκάνη νερού</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Νεκροταφείο</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Νεκροταφείο</string>
 	<string name="type.landuse.churchyard">Αυλόγυρος εκκλησίας</string>
 	<string name="type.landuse.farmland">Αγροτική γη</string>
@@ -1175,6 +1041,7 @@
 	<string name="type.leisure.sports_centre.yoga">Στούντιο γιόγκα</string>
 	<string name="type.leisure.stadium">Γήπεδο</string>
 	<string name="type.leisure.swimming_pool">Πισίνα</string>
+	<string name="type.leisure.swimming_pool.private">Πισίνα</string>
 	<string name="type.leisure.water_park">Υδάτινο πάρκο</string>
 	<string name="type.man_made.chimney">Καμινάδα εργοστασίου</string>
 	<string name="type.man_made.lighthouse">Φάρος</string>
@@ -1215,16 +1082,16 @@
 	<string name="type.office.telecommunication">Εταιρεία κινητής τηλεφωνίας</string>
 	<string name="type.place.city">Πόλη</string>
 	<string name="type.place.city.capital">Πρωτεύουσα</string>
-	<string name="type.place.city.capital.10">Πρωτεύουσα</string>
-	<string name="type.place.city.capital.11">Πρωτεύουσα</string>
+	<string name="type.place.city.capital.10">Πόλη</string>
+	<string name="type.place.city.capital.11">Πόλη</string>
 	<string name="type.place.city.capital.2">Πρωτεύουσα</string>
-	<string name="type.place.city.capital.3">Πρωτεύουσα</string>
-	<string name="type.place.city.capital.4">Πρωτεύουσα</string>
-	<string name="type.place.city.capital.5">Πρωτεύουσα</string>
-	<string name="type.place.city.capital.6">Πρωτεύουσα</string>
-	<string name="type.place.city.capital.7">Πρωτεύουσα</string>
-	<string name="type.place.city.capital.8">Πρωτεύουσα</string>
-	<string name="type.place.city.capital.9">Πρωτεύουσα</string>
+	<string name="type.place.city.capital.3">Πόλη</string>
+	<string name="type.place.city.capital.4">Πόλη</string>
+	<string name="type.place.city.capital.5">Πόλη</string>
+	<string name="type.place.city.capital.6">Πόλη</string>
+	<string name="type.place.city.capital.7">Πόλη</string>
+	<string name="type.place.city.capital.8">Πόλη</string>
+	<string name="type.place.city.capital.9">Πόλη</string>
 	<string name="type.place.continent">Ήπειρος</string>
 	<string name="type.place.country">Χώρα</string>
 	<string name="type.place.county">Δήμος</string>

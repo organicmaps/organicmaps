@@ -7,9 +7,6 @@
 /********** Strings **********/
 
 /* Button text (should be short) */
-"back" = "返回";
-
-/* Button text (should be short) */
 "cancel" = "取消";
 
 /* Button which interrupts country download */
@@ -19,9 +16,6 @@
 "delete" = "刪除";
 
 "download_maps" = "下載地圖";
-
-/* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "下載失敗，輕觸以再試一次";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "下載中…";
@@ -35,11 +29,6 @@
 /* View and button titles for accessibility */
 "maps" = "地圖";
 
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"mb" = "MB";
-
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "英哩";
 
@@ -52,14 +41,8 @@
 /* View and button titles for accessibility */
 "search" = "搜尋";
 
-/* Search box placeholder text */
-"search_map" = "搜尋地圖";
-
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "是";
-
-/* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "您目前裝置所有的定位服務或相關應用程式是處於停用的狀態，請從系統設定中選擇啟用。";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "在地圖上顯示";
@@ -70,43 +53,14 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "下載失敗";
 
-/* Button text for the button under the country_status_download_failed message */
-"try_again" = "再試一次";
-
 "about_menu_title" = "關於 Organic Maps";
-
-"connection_settings" = "連線設定";
 
 "close" = "關閉";
 
-"unsupported_phone" = "需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！";
-
 "download" = "下載";
-
-"disconnect_usb_cable" = "請拔除 USB 線或插入 SD 卡以使用 Organic Maps";
-
-"not_enough_free_space_on_sdcard" = "如要繼續使用，請先釋放一些 SD 卡/ USB 儲存空間";
-
-"not_enough_memory" = "沒有足夠的記憶體以啟動應用程式";
-
-"download_resources" = "在您開始之前，先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %@。";
-
-"download_resources_continue" = "跳到地圖";
-
-"downloading_country_can_proceed" = "正在下載 %@。您現在 可以繼續使用地圖了";
-
-"download_country_ask" = "下載 %@?";
-
-"update_country_ask" = "更新 %@？";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"pause" = "暫停";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "繼續";
-
-/* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "%@ 下載失敗";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "新增收藏夾";
@@ -126,95 +80,80 @@
 /* Default bookmark list name */
 "core_my_places" = "我的地點";
 
-/* Add bookmark dialog - bookmark name */
-"name" = "名稱";
-
 /* Editor title above street and house number */
 "address" = "地址";
-
-/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
-"list" = "收藏夾";
 
 /* Settings button in system menu */
 "settings" = "設定";
 
-/* Header of settings activity where user defines storage path */
-"maps_storage" = "將地圖儲存至";
-
-/* Detailed description of Maps Storage settings button */
-"maps_storage_summary" = "請選擇下載地圖後要放的位置";
-
-/* Question dialog for transferring maps from one storage to another */
-"move_maps" = "移動地圖？";
-
-/* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "這可能需要幾分鐘\n請稍候…";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "測量單位";
 
-/* Detailed description of Measurement Units settings button */
-"measurement_units_summary" = "請選擇公里或英哩";
 
-/* Search category for cafes, bars, restaurants */
+/********** Search categories **********/
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
 "eat" = "在哪兒吃";
 
-/* Search category for grocery stores */
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
 "food" = "食物";
 
-/* Search category */
+/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "運輸";
 
-/* Search category */
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
 "fuel" = "加油站";
 
-/* Search category */
+/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "停車場";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "購物";
 
-/* Search category */
+/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "旅館";
 
-/* Search category */
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
 "tourism" = "旅遊景點";
 
-/* Search category */
+/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
 "entertainment" = "娛樂";
 
-/* Search category */
+/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
 "atm" = "自動櫃員機";
 
-/* Search category for nightclubs/bars */
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
 "nightlife" = "夜生活";
 
-/* Search category for water park/disneyland/playground/toys store */
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
 "children" = "親子休閒";
 
-/* Search category */
+/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "銀行";
 
-/* Search category */
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
 "pharmacy" = "藥局";
 
-/* Search category */
+/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
 "hospital" = "醫院";
 
-/* Search category */
+/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
 "toilet" = "廁所";
 
-/* Search category */
+/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
 "post" = "郵局";
 
-/* Search category */
+/* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "警察局";
 
-/* Notes field in Bookmarks view */
-"description" = "描述說明";
+/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
+"recycling" = "回收";
 
-/* Email Subject when sharing bookmark list */
-"share_bookmarks_email_subject" = "已分享 Organic Maps 書籤";
+/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
+"water" = "水";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
+"rv" = "RV Facilities";
 
 "share_bookmarks_email_body" = "你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps!";
 
@@ -233,32 +172,17 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "您的位置尚未定位完成";
 
-/* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "很抱歉，地圖儲存設定目前已停用。";
-
-/* Alert message that downloading is in progress. */
-"downloading_is_active" = "地圖下載中。";
-
-/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "嘿，在 Organic Maps 查看我的目前位置吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: https://omaps.app/get";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "嘿，看看我在 Organic Maps 地圖上的圖釘！";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "嗨，到 Organic Maps 地圖查看我的目前位置！";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
-"my_position_share_email" = "嗨，\n\n我現在在這：%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來查看在地圖上的位置。\n\n謝謝。";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "分享";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "電子郵件";
-
-/* Text for message when used successfully copied something */
-"copied_to_clipboard" = "已複製到剪貼簿：%1$@";
 
 /* place preview title */
 "info" = "簡介";
@@ -269,11 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "版本： %@";
 
-/* Data version in «About» screen */
-"data_version" = "資料版本： %d";
-
-/* Confirmation in downloading countries dialog */
-"are_you_sure" = "確定要繼續嗎？";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "OpenStreetMap 數據：%@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "軌跡";
@@ -283,17 +204,9 @@
 
 "share_my_location" = "分享我的位置";
 
-/* Settings general group in settings screen */
-"prefs_group_general" = "一般設定";
-
-/* Settings information group in settings screen */
-"prefs_group_information" = "資訊";
-
 "prefs_group_route" = "導航";
 
 "pref_zoom_title" = "縮放按鈕";
-
-"pref_zoom_summary" = "在螢幕上顯示";
 
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "夜間模式";
@@ -318,9 +231,6 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "語音語言";
-
-/* Settings «Route» category: «Tts unavailable» subtitle */
-"pref_tts_unavailable" = "無法使用";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "其他";
@@ -358,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "臉書";
 
 /* Text in menu */
@@ -365,12 +278,6 @@
 
 /* Text in menu */
 "instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in the editor */
-"editor_line_social_network" = "LINE";
 
 /* Text in menu */
 "openstreetmap" = "開放街圖";
@@ -410,9 +317,6 @@
 
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";
-
-/* Cancel all button text */
-"downloader_cancel_all" = "全部取消";
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "已下載";
@@ -454,42 +358,16 @@
 /* Item in context menu. */
 "downloader_delete_map" = "刪除地圖";
 
-/* Item in context menu. */
-"downloader_update_map" = "更新地圖";
-
-/* Preference text */
-"pref_use_google_play" = "使用 Google Play 服務來獲得您的目前位置";
-
-/* Text for rating dialog */
-"rating_just_rated" = "我剛剛評價了您的應用程式";
-
-/* Text for rating dialog */
-"rating_thanks" = "謝謝您！";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "分享任何主意或問題，這樣我們可以為您改善應用程式。";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "發送回饋";
-
 /* Text for routing error dialog */
 "routing_download_maps_along" = "下載沿線地圖";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "建立路線需要下載並更新好所有從您的位置到目的地的地圖。";
 
-/* Text for routing error dialog */
-"routing_not_enough_space" = "空間不足";
-
 /* bookmark button text */
 "bookmark" = "書籤";
 
-/* location service disabled */
-"enable_location_services" = "請啟用定位服務";
-
 "save" = "儲存";
-
-"edit_description_hint" = "您的描述（文字或 html）";
 
 "create" = "建立";
 
@@ -575,8 +453,6 @@
 
 "dialog_routing_unable_locate_route" = "路線未找到";
 
-"dialog_routing_cant_build_route" = "無法產生路線。";
-
 "dialog_routing_change_start_or_end" = "請變更起點或最終目的地。";
 
 "dialog_routing_change_start" = "變更起點";
@@ -610,10 +486,6 @@
 
 /********** Strings for downloading map from search **********/
 
-"search_without_internet_advertisement" = "要開始搜索和建立路線，請下載地圖，那您就不再需要網絡連接了。";
-
-"search_select_map" = "選擇地圖";
-
 /* «Show» context menu */
 "show" = "顯示";
 
@@ -628,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "要建立路線，請下載並更新所有沿線的地圖。";
-
-"rate_alert_title" = "喜歡這個應用程式嗎？";
-
-"rate_alert_default_message" = "感謝您使用 Organic Maps。請評價此應用程式。您的回饋幫助我們改善我們的產品。";
-
-"rate_alert_five_star_message" = "太棒了！我們也愛您！";
-
-"rate_alert_four_star_message" = "謝謝您，我們會盡可能做好!";
-
-"rate_alert_less_than_four_star_message" = "有沒有想法我們能怎麽把它變得更好？";
 
 "categories" = "類別";
 
@@ -655,9 +517,6 @@
 
 "clear_search" = "清除搜尋記錄";
 
-/* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "維基百科";
-
 "p2p_your_location" = "您的位置";
 
 "p2p_start" = "開始";
@@ -669,9 +528,6 @@
 "p2p_only_from_current" = "導航只能從您目前的位置開始。";
 
 "p2p_reroute_from_current" = "你是否想要規劃目前位置的路線？";
-
-/* Edit open hours/set time and minutes dialog */
-"next_button" = "下一頁";
 
 "editor_time_add" = "新增排程";
 
@@ -696,27 +552,13 @@
 
 "editor_example_values" = "範例值";
 
-"editor_correct_mistake" = "修正錯誤";
-
 "editor_add_select_location" = "位置";
 
 "editor_done_dialog_1" = "您已經改變了世界地圖。別藏私！告訴您的朋友們一起來編輯。";
 
 "share_with_friends" = "和朋友分享";
 
-"editor_report_problem_desription_1" = "請詳細描述此問題以便 OpenStreeMap 社群修復此錯誤。";
-
-"editor_report_problem_desription_2" = "或者在 https://www.openstreetmap.org/ 上親自修復此錯誤";
-
 "editor_report_problem_send_button" = "發送";
-
-"editor_report_problem_title" = "問題";
-
-"editor_report_problem_no_place_title" = "該地點不存在";
-
-"editor_report_problem_under_construction_title" = "因維護而關閉";
-
-"editor_report_problem_duplicate_place_title" = "重複的地點";
 
 "autodownload" = "自動下載";
 
@@ -736,8 +578,6 @@
 
 "add_opening_hours" = "新增營業時間";
 
-"edit_opening_hours" = "編輯營業時間";
-
 "no_osm_account" = "沒有 OpenStreeMap 帳號嗎？";
 
 "register_at_openstreetmap" = "註冊";
@@ -747,8 +587,6 @@
 "invalid_username_or_password" = "無效的使用者名稱或密碼。";
 
 "login" = "登入";
-
-"password" = "密碼";
 
 "forgot_password" = "忘記密碼";
 
@@ -767,8 +605,6 @@
 
 "add_language" = "新增語言";
 
-"street" = "街道";
-
 /* Editable House Number text field (in address block). */
 "house_number" = "門牌號碼";
 
@@ -776,9 +612,6 @@
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "新增街道";
-
-/* Error to display when a new street name is not entered in the New street dialog */
-"empty_street_name_error" = "Please enter a street name";
 
 "choose_language" = "選擇語言";
 
@@ -795,15 +628,11 @@
 
 "phone" = "電話";
 
-"editor_add_phone" = "新增電話";
-
 "please_note" = "請註意";
 
 "downloader_delete_map_dialog" = "所有對地圖的修改都將與地圖一起被刪除。";
 
 "downloader_update_maps" = "更新地圖";
-
-"downloader_mwm_migration_dialog" = "為了建立路線，您需要更新全部地圖並重新規劃路線。";
 
 "downloader_search_field_hint" = "尋找地圖";
 
@@ -814,8 +643,6 @@
 "downloader_no_space_title" = "無足夠的空間";
 
 "downloader_no_space_message" = "請刪除不必要的資料";
-
-"editor_login_error_dialog" = "登入錯誤。";
 
 "editor_profile_changes" = "已驗證的變更";
 
@@ -834,12 +661,6 @@
 "editor_edit_place_name_hint" = "該地點的名稱";
 
 "editor_edit_place_category_title" = "類別";
-
-"detailed_problem_description" = "問題的詳細描述";
-
-"editor_report_problem_other_title" = "不同的問題";
-
-"placepage_add_business_button" = "添加組織";
 
 "whatsnew_editor_message_1" = "新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。";
 
@@ -885,8 +706,6 @@
 
 "editor_operator" = "營運者";
 
-"downloader_my_maps_title" = "我的地圖";
-
 "downloader_no_downloaded_maps_title" = "您尚未下載任何地圖";
 
 "downloader_no_downloaded_maps_message" = "下載地圖來尋找位置和離線瀏覽。";
@@ -928,15 +747,9 @@
 
 "miles_per_hour" = "英哩每小時";
 
-"hour" = "小時";
-
-"minute" = "分鐘";
-
 "placepage_place_description" = "說明";
 
 "placepage_more_button" = "更多";
-
-"placepage_more_reviews_button" = "更多評論";
 
 "book_button" = "預約";
 
@@ -964,9 +777,6 @@
 
 "editor_place_doesnt_exist" = "位置不存在";
 
-/* Error message for "Place doesn't exist" dialog when comment is empty */
-"delete_place_empty_comment_error" = "Please indicate the reason for deleting the place";
-
 "text_more_button" = "…更多";
 
 /* Phone number error message */
@@ -975,16 +785,6 @@
 "error_enter_correct_web" = "輸入有效網址";
 
 "error_enter_correct_email" = "輸入有效電子郵件";
-
-"error_enter_correct_facebook_page" = "輸入有效臉書網址、帳號或粉絲頁名稱";
-
-"error_enter_correct_instagram_page" = "輸入有效 Instagram 網址或帳號名稱";
-
-"error_enter_correct_twitter_page" = "輸入有效推特網址或使用者名稱";
-
-"error_enter_correct_vk_page" = "輸入有效 VK 網益止或帳號名稱";
-
-"error_enter_correct_line_page" = "Enter a valid LINE web address or LINE ID";
 
 "refresh" = "更新";
 
@@ -1010,7 +810,7 @@
 
 "recent_track_background_dialog_message" = "Organic Maps使用背景中的地理位置記錄您最近去過的路徑。";
 
-/* Text under the version number in the Help dialog. */
+/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
 "about_description" = "Organic Maps 是一款免費的開源離線地圖 app。沒有廣告，不會追蹤。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復吧。這個專案由愛好者在我們的空閒時間創建，因此我們需要您的回饋和支援。";
 
 "general_settings" = "一般設定";
@@ -1021,7 +821,7 @@
 /* For the first routing */
 "decline" = "拒絕";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "清單";
 
 "mobile_data_dialog" = "使用手機網路顯示詳細資訊？";
@@ -1044,15 +844,11 @@
 
 "big_font" = "增加地圖上的字體大小";
 
-"traffic_update_app" = "請更新 Organic Maps";
-
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "若要顯示交通資訊，必須更新 app。";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "無法使用交通資訊";
-
-"enable_logging" = "啟用記錄";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "一般反應";
@@ -1061,23 +857,13 @@
 
 "off" = "關";
 
-"prefs_languages_information" = "我們使用系統 TTS 提供語音指示。許多 Android 裝置使用 Google TTS，您可從 Google Play 下載或更新 (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
-"prefs_languages_information_off" = "對於某些語言，您將需要從 App 商店 (Google Play 商店, Samsung Apps) 安裝其他語音合成器或額外的語言套件。\n開啟您裝置的設定 → 語言與輸入 → 語音 → 文字轉換語音輸出。\n在這裡，您可以管理語音合成器的設定（例如，下載語言套件以供離線使用），並選取其他文字轉換語音引擎。";
-
-"prefs_languages_information_off_link" = "如需更多資訊，請參閱本指南。";
-
 "transliteration_title" = "音譯為拉丁文";
-
-"learn_more" = "瞭解更多資訊";
 
 "core_exit" = "退出";
 
 "routing_add_start_point" = "新增起點以計劃路線";
 
 "routing_add_finish_point" = "新增終點以計劃路線";
-
-"button_exit" = "退出";
 
 "planning_route_manage_route" = "管理路線";
 
@@ -1093,12 +879,6 @@
 
 "profile_authorization_error" = "噢，發生錯誤。請嘗試再次登入。";
 
-"dialog_error_storage_title" = "儲存空間存取問題";
-
-"dialog_error_storage_message" = "外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support@organicmaps.app 方式聯繫我們";
-
-"setting_emulate_bad_storage" = "模擬不良儲存空間";
-
 "core_entrance" = "入口";
 
 "error_enter_correct_name" = "請輸入正確的名稱";
@@ -1111,9 +891,6 @@
 "bookmark_lists_show_all" = "顯示全部";
 
 "bookmarks_create_new_group" = "創建新列表";
-
-/* Bookmark categories screen */
-"bookmarks_import" = "匯入書籤";
 
 "downloader_hide_screen" = "隱藏畫面";
 
@@ -1129,21 +906,11 @@
 
 "bookmarks_error_message_share_empty" = "無法分享空的列表";
 
-"bookmarks_error_title_empty_list_name" = "名字不能為空";
-
 "bookmarks_error_message_empty_list_name" = "請輸入列表名稱";
-
-"bookmarks_new_list_hint" = "新的列表";
 
 "bookmarks_error_title_list_name_already_taken" = "這個名字已經被使用了";
 
-"bookmarks_error_message_list_name_already_taken" = "請選擇其他名稱";
-
 "bookmarks_error_title_list_name_too_long" = "這個名字太長了";
-
-"please_wait" = "請稍候…";
-
-"phone_number" = "電話號碼";
 
 "profile" = "OpenStreetMap 資料";
 
@@ -1157,17 +924,9 @@
 
 "bookmarks_restore_title" = "還原這個版本？";
 
-"common_check_internet_connection_dialog_title" = "沒有網路連線";
-
 "error_system_message" = "出現未知錯誤";
 
 "restore" = "恢復";
-
-"subtittle_opt_out" = "跟蹤設置";
-
-"crash_reports" = "錯誤報告";
-
-"crash_reports_description" = "我們可以使用您的數據來開發和改進Organic Maps。更改將再重新啟動 app 後生效。";
 
 "privacy_policy" = "隱私政策";
 
@@ -1181,12 +940,6 @@
 
 "subway_data_unavailable" = "捷運圖層不可用";
 
-"bookmarks_empty_list_title" = "列表為空";
-
-"bookmarks_empty_list_message" = "要增加新標籤，請點一下對象卡片中的星型圖標";
-
-"category_desc_more" = "…更多";
-
 "title_error_downloading_bookmarks" = "發生錯誤";
 
 "popular_place" = "受歡迎的";
@@ -1199,13 +952,7 @@
 
 "hide_from_map" = "從卡中隱藏";
 
-"public_access" = "開放空間";
-
-"limited_access" = "私人空間";
-
 "bookmark_list_description_hint" = "增加說明(文字或html)";
-
-"not_shared" = "私人";
 
 "tags_loading_error_subtitle" = "載入標籤時出錯，請重試";
 
@@ -1221,9 +968,6 @@
 
 "place_description_title" = "地點說明";
 
-/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "載入地圖";
-
 "speedcams_notice_message" = "自動 - 如果存在超出速度限制的風險，則對速度照相機發出警告\n總是 - 始終提醒照相機\n從不 - 永遠不會對照相機發出警告";
 
 "power_managment_title" = "省電模式";
@@ -1235,10 +979,6 @@
 "power_managment_setting_auto" = "自動";
 
 "power_managment_setting_manual_max" = "最大程度省電";
-
-"enable_logging_warning_message" = "此選項啟用以記錄操作來進行診斷。這有助於團隊辨別 app 的問題。請僅在Organic Maps支援請求時開啟該選項。";
-
-"access_rules_author_only" = "線上編輯";
 
 "driving_options_title" = "繞行設定";
 
@@ -1333,9 +1073,6 @@
 /* max. 10 symbols, both iOS and Android */
 "sort" = "分類……";
 
-/* Android, title, max 20-22 symbols */
-"sort_bookmarks" = "分類書籤";
-
 /* iOS */
 "sort_default" = "按預設值排序";
 
@@ -1344,18 +1081,6 @@
 "sort_distance" = "按距離排序";
 
 "sort_date" = "按日期排序";
-
-/* Android */
-"by_default" = "採用預設值";
-
-/* Android */
-"by_type" = "按類型";
-
-/* Android */
-"by_distance" = "按距離";
-
-/* Android */
-"by_date" = "按時間";
 
 "week_ago_sorttype" = "一週前";
 
@@ -1368,6 +1093,9 @@
 "near_me_sorttype" = "附近";
 
 "others_sorttype" = "其他";
+
+
+/********** Bookmark types used for sorting **********/
 
 "food_places" = "食物";
 
@@ -1395,15 +1123,11 @@
 
 "fuel_places" = "加油站";
 
-"water" = "水";
-
 "medicine" = "醫療";
 
 "search_in_the_list" = "在列表中搜尋";
 
 "religious_places" = "宗教聖地";
-
-"select_list" = "選擇列表";
 
 "transit_not_found" = "本區域的地鐵導航目前不可用";
 
@@ -1435,8 +1159,6 @@
 
 "elevation_profile_difficulty" = "難易度";
 
-"elevation_profile_distance" = "距離：";
-
 "elevation_profile_time" = "時間：";
 
 "isolines_toast_zooms_1_10" = "放大地圖以查看等高線";
@@ -1444,19 +1166,6 @@
 "downloader_updating_ios" = "更新";
 
 "downloader_loading_ios" = "載入";
-
-"key_information_title" = "關鍵資訊";
-
-"download_map_title" = "Download the world map";
-
-"connection_failure" = "Connection failure";
-
-"disconnect_usb_cable_title" = "拔除 USB 線";
-
-"enable_screen_sleep" = "允许螢幕進入休眠狀態";
-
-/* Description in preferences */
-"enable_screen_sleep_description" = "啟用後，螢幕將在一段時間不活動後進入休眠狀態。";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "更新您下載的地圖";
@@ -1499,13 +1208,13 @@
 
 "type.aerialway.station" = "纜車站";
 
-"type.aeroway" = "Aeroway";
+"type.aeroway" = "Airspace Infrastructure";
 
 "type.aeroway.aerodrome" = "機場";
 
 "type.aeroway.aerodrome.international" = "機場";
 
-"type.aeroway.apron" = "aeroway-apron";
+"type.aeroway.apron" = "Apron";
 
 "type.aeroway.gate" = "Gate";
 
@@ -1513,7 +1222,7 @@
 
 "type.aeroway.runway" = "機場跑道";
 
-"type.aeroway.taxiway" = "aeroway-taxiway";
+"type.aeroway.taxiway" = "Taxiway";
 
 "type.aeroway.terminal" = "Terminal";
 
@@ -1589,8 +1298,10 @@
 
 "type.amenity.fuel" = "加氣站";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard" = "墓地";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "墓地";
 
 "type.amenity.hospital" = "醫院";
@@ -1669,11 +1380,16 @@
 
 "type.amenity.public_bookcase" = "書架";
 
-"type.amenity.recycling" = "回收中心";
 
-"type.amenity.recycling_container" = "回收箱";
+/********** Types: Recycling **********/
 
-"type.recycling.toxic" = "有毒垃圾";
+"type.amenity.recycling.centre" = "回收中心";
+
+"type.amenity.recycling" = "回收箱";
+
+"type.amenity.recycling.container" = "回收箱";
+
+"type.recycling.batteries" = "電池";
 
 "type.recycling.clothes" = "舊衣物";
 
@@ -1689,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "電子垃圾";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Bewerage Cartons";
+
 "type.amenity.restaurant" = "餐廳";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "學校";
 
@@ -1719,11 +1447,19 @@
 
 "type.amenity.vending_machine.public_transport_tickets" = "公共交通售票機";
 
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+
+"type.amenity.vending_machine.parcel_pickup" = "Parcel Locker";
+
+"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+
 "type.amenity.veterinary" = "獸醫";
 
 "type.amenity.waste_basket" = "垃圾箱";
 
 "type.amenity.waste_disposal" = "垃圾";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "飲水站";
 
@@ -1763,45 +1499,43 @@
 
 "type.boundary" = "Boundary";
 
-"type.boundary.administrative" = "boundary-administrative";
+"type.boundary.administrative" = "Administrative Boundary";
 
-"type.boundary.administrative.10" = "boundary-administrative-10";
+"type.boundary.administrative.10" = "Administrative Boundary";
 
-"type.boundary.administrative.11" = "boundary-administrative-11";
+"type.boundary.administrative.11" = "Administrative Boundary";
 
-"type.boundary.administrative.2" = "boundary-administrative-2";
+"type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "boundary-administrative-3";
+"type.boundary.administrative.3" = "Administrative Boundary";
 
-"type.boundary.administrative.4" = "boundary-administrative-4";
+"type.boundary.administrative.4" = "Administrative Boundary";
 
-"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
+"type.boundary.administrative.5" = "Administrative Boundary";
 
-"type.boundary.administrative.5" = "boundary-administrative-5";
+"type.boundary.administrative.6" = "Administrative Boundary";
 
-"type.boundary.administrative.6" = "boundary-administrative-6";
+"type.boundary.administrative.7" = "Administrative Boundary";
 
-"type.boundary.administrative.7" = "boundary-administrative-7";
+"type.boundary.administrative.8" = "Administrative Boundary";
 
-"type.boundary.administrative.8" = "boundary-administrative-8";
+"type.boundary.administrative.9" = "Administrative Boundary";
 
-"type.boundary.administrative.9" = "boundary-administrative-9";
+"type.boundary.administrative.city" = "City Boundary";
 
-"type.boundary.administrative.city" = "boundary-administrative-city";
+"type.boundary.administrative.country" = "National Border";
 
-"type.boundary.administrative.country" = "boundary-administrative-country";
+"type.boundary.administrative.county" = "County Boundary";
 
-"type.boundary.administrative.county" = "boundary-administrative-county";
+"type.boundary.administrative.municipality" = "Municipality Boundary";
 
-"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+"type.boundary.administrative.nation" = "National Border";
 
-"type.boundary.administrative.nation" = "boundary-administrative-nation";
+"type.boundary.administrative.region" = "Regional Boundary";
 
-"type.boundary.administrative.region" = "boundary-administrative-region";
+"type.boundary.administrative.state" = "State Boundary";
 
-"type.boundary.administrative.state" = "boundary-administrative-state";
-
-"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
+"type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "國家公園";
 
@@ -2023,27 +1757,30 @@
 
 "type.healthcare.laboratory" = "醫學實驗室";
 
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 
-"type.highway.bridleway" = "Rider's Path";
+"type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Rider's Path";
+"type.highway.bridleway.bridge" = "Bridle Path";
 
-"type.highway.bridleway.permissive" = "Rider's Path";
+"type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Rider's Path";
+"type.highway.bridleway.tunnel" = "Bridle Path";
 
 "type.highway.bus_stop" = "巴士站";
 
 "type.highway.construction" = "在建道路";
 
-"type.highway.cycleway" = "Bike Path";
+"type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Bike Path";
+"type.highway.cycleway.bridge" = "Cycle Path";
 
-"type.highway.cycleway.permissive" = "Bike Path";
+"type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Bike Path";
+"type.highway.cycleway.tunnel" = "Cycle Path";
 
 "type.highway.elevator" = "Elevator";
 
@@ -2243,9 +1980,42 @@
 
 "type.highway.unclassified.tunnel" = "道路";
 
+"type.area_highway.cycleway" = "Cycle Path";
+
+"type.area_highway.footway" = "人行步道";
+
+"type.area_highway.living_street" = "路";
+
+"type.area_highway.motorway" = "高速公路";
+
+"type.area_highway.path" = "人行步道";
+
+"type.area_highway.pedestrian" = "路";
+
+"type.area_highway.primary" = "主要道路";
+
+"type.area_highway.residential" = "住宅區道路";
+
+"type.area_highway.secondary" = "次要道路";
+
+"type.area_highway.service" = "輔助道路";
+
+"type.area_highway.tertiary" = "三级道路";
+
+"type.area_highway.steps" = "人行步道";
+
+"type.area_highway.track" = "土路";
+
+"type.area_highway.trunk" = "主幹道";
+
+"type.area_highway.unclassified" = "道路";
+
 "type.highway.world_level" = "highway-world_level";
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
 
 "type.historic" = "Historic";
 
@@ -2327,8 +2097,10 @@
 
 "type.landuse.brownfield" = "Brownfield";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "墓地";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "基督教墓地";
 
 "type.landuse.churchyard" = "教堂庭院";
@@ -2391,7 +2163,7 @@
 
 "type.leisure" = "Leisure";
 
-"type.leisure.common" = "leisure-common";
+"type.leisure.common" = "Public Land";
 
 "type.leisure.dog_park" = "遛狗區";
 
@@ -2445,9 +2217,13 @@
 
 "type.leisure.swimming_pool" = "游泳池";
 
+"type.leisure.swimming_pool.private" = "游泳池";
+
 "type.leisure.track" = "Track";
 
 "type.leisure.water_park" = "水上樂園";
+
+"type.leisure.beach_resort" = "Beach Resort";
 
 "type.man_made" = "Man Made";
 
@@ -2459,7 +2235,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "燈塔";
+
+"type.man_made.mast" = "Mast";
 
 "type.man_made.pier" = "Pier";
 
@@ -2571,9 +2351,7 @@
 
 "type.natural.wetland.marsh" = "Wetland";
 
-"type.noexit" = "noexit";
-
-"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
+"type.noexit" = "Dead End";
 
 "type.office" = "辦公室";
 
@@ -2597,25 +2375,25 @@
 
 "type.place.city.capital" = "首府";
 
-"type.place.city.capital.10" = "首府";
+"type.place.city.capital.10" = "城市";
 
-"type.place.city.capital.11" = "首府";
+"type.place.city.capital.11" = "城市";
 
-"type.place.city.capital.2" = "首都";
+"type.place.city.capital.2" = "首府";
 
-"type.place.city.capital.3" = "首都";
+"type.place.city.capital.3" = "城市";
 
-"type.place.city.capital.4" = "首府";
+"type.place.city.capital.4" = "城市";
 
-"type.place.city.capital.5" = "首府";
+"type.place.city.capital.5" = "城市";
 
-"type.place.city.capital.6" = "首府";
+"type.place.city.capital.6" = "城市";
 
-"type.place.city.capital.7" = "首府";
+"type.place.city.capital.7" = "城市";
 
-"type.place.city.capital.8" = "首府";
+"type.place.city.capital.8" = "城市";
 
-"type.place.city.capital.9" = "首府";
+"type.place.city.capital.9" = "城市";
 
 "type.place.continent" = "大陸";
 
@@ -2693,11 +2471,11 @@
 
 "type.railway.abandoned.bridge" = "Abandoned railway";
 
-"type.railway.abandoned.tunnel" = "Abandoned railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway";
 
-"type.railway.construction" = "Railway's construction";
+"type.railway.construction" = "Railway's Construction";
 
-"type.railway.crossing" = "Railway crossing";
+"type.railway.crossing" = "Railway Crossing";
 
 "type.railway.disused" = "Disused railway";
 
@@ -2729,7 +2507,7 @@
 
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
 
-"type.railway.platform" = "Platform";
+"type.railway.platform" = "Railway Platform";
 
 "type.railway.preserved" = "Preserved Rail";
 
@@ -2864,6 +2642,8 @@
 "type.shop.car_repair" = "汽車維修";
 
 "type.shop.car_repair.tyres" = "輪胎修補";
+
+"type.shop.caravan" = "RV Dealership";
 
 "type.shop.chemist" = "藥妝店";
 
@@ -3133,66 +2913,37 @@
 
 "type.wheelchair.yes" = "配備殘疾人專用";
 
-"type.piste_lift" = "piste:lift";
+/* en.wikipedia.org/wiki/Surface_lift */
+"type.piste_lift" = "Surface Lift";
 
-"type.piste_lift.j.bar" = "piste:lift-j-bar";
+"type.piste_lift.j.bar" = "J-bar Lift";
 
-"type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
+"type.piste_lift.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.platter" = "piste:lift-platter";
+"type.piste_lift.platter" = "Platter Lift";
 
-"type.piste_lift.rope_tow" = "piste:lift-rope_tow";
+"type.piste_lift.rope_tow" = "Rope Tow";
 
-"type.piste_lift.t.bar" = "piste:lift-t-bar";
+"type.piste_lift.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "piste:type";
+"type.piste_type" = "Piste Type";
 
-"type.piste_type.downhill" = "piste:type-downhill";
+"type.piste_type.downhill" = "Downhill Ski Run";
 
-"type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
+"type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
-"type.piste_type.downhill.easy" = "piste:type-downhill-easy";
+"type.piste_type.downhill.easy" = "Downhill Ski Run";
 
-"type.piste_type.downhill.expert" = "piste:type-downhill-expert";
+"type.piste_type.downhill.expert" = "Downhill Ski Run";
 
-"type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
+"type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
-"type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
+"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
-"type.piste_type.downhill.novice" = "piste:type-downhill-novice";
+"type.piste_type.downhill.novice" = "Downhill Ski Run";
 
-"type.piste_type.nordic" = "piste:type-nordic";
+"type.piste_type.nordic" = "Nordic Ski Trail";
 
-"type.piste_type.sled" = "piste:type-sled";
+"type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "建築物";
-
-"type.area_highway.cycleway" = "Bike Path";
-
-"type.area_highway.footway" = "Path";
-
-"type.area_highway.living_street" = "Street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "Path";
-
-"type.area_highway.pedestrian" = "Street";
-
-"type.area_highway.primary" = "Street";
-
-"type.area_highway.residential" = "Street";
-
-"type.area_highway.secondary" = "Street";
-
-"type.area_highway.service" = "Street";
-
-"type.area_highway.tertiary" = "Street";
-
-"type.area_highway.steps" = "Steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";

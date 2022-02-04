@@ -34,13 +34,13 @@ string ValidateAndFormat_facebook(string const & facebookPage)
     return {};
 
   url::Url const url = url::Url::FromString(facebookPage);
-  string const domain = strings::MakeLowerCase(url.GetWebDomain());
+  string const domain = strings::MakeLowerCase(url.GetHost());
   // Check Facebook domain name.
   if (strings::EndsWith(domain, "facebook.com") || strings::EndsWith(domain, "fb.com")
       || strings::EndsWith(domain, "fb.me") || strings::EndsWith(domain, "facebook.de")
       || strings::EndsWith(domain, "facebook.fr"))
   {
-    auto webPath = url.GetWebPath();
+    auto webPath = url.GetPath();
     // Strip last '/' symbol
     webPath.erase(webPath.find_last_not_of('/') + 1);
     return webPath;
@@ -65,11 +65,11 @@ string ValidateAndFormat_instagram(string const & instagramPage)
     return {};
 
   url::Url const url = url::Url::FromString(instagramPage);
-  string const domain = strings::MakeLowerCase(url.GetWebDomain());
+  string const domain = strings::MakeLowerCase(url.GetHost());
   // Check Instagram domain name.
   if (domain == "instagram.com" || strings::EndsWith(domain, ".instagram.com"))
   {
-    auto webPath = url.GetWebPath();
+    auto webPath = url.GetPath();
     // Strip last '/' symbol.
     webPath.erase(webPath.find_last_not_of('/') + 1);
     return webPath;
@@ -94,11 +94,11 @@ string ValidateAndFormat_twitter(string const & twitterPage)
     return {};
 
   url::Url const url = url::Url::FromString(twitterPage);
-  string const domain = strings::MakeLowerCase(url.GetWebDomain());
+  string const domain = strings::MakeLowerCase(url.GetHost());
   // Check Twitter domain name.
   if (domain == "twitter.com" || strings::EndsWith(domain, ".twitter.com"))
   {
-    auto webPath = url.GetWebPath();
+    auto webPath = url.GetPath();
 
     // Strip last '/' symbol and first '@' symbol
     webPath.erase(webPath.find_last_not_of('/') + 1);
@@ -135,12 +135,12 @@ string ValidateAndFormat_vk(string const & vkPage)
     return {};
 
   url::Url const url = url::Url::FromString(vkPage);
-  string const domain = strings::MakeLowerCase(url.GetWebDomain());
+  string const domain = strings::MakeLowerCase(url.GetHost());
   // Check VK domain name.
   if (domain == "vk.com" || strings::EndsWith(domain, ".vk.com") ||
       domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru"))
   {
-    auto webPath = url.GetWebPath();
+    auto webPath = url.GetPath();
     // Strip last '/' symbol.
     webPath.erase(webPath.find_last_not_of('/') + 1);
     return webPath;
@@ -183,17 +183,17 @@ string ValidateAndFormat_contactLine(string const & linePage)
 
   // URL schema documentation: https://developers.line.biz/en/docs/messaging-api/using-line-url-scheme/
   url::Url const url = url::Url::FromString(linePage);
-  string const domain = strings::MakeLowerCase(url.GetWebDomain());
+  string const domain = strings::MakeLowerCase(url.GetHost());
   // Check Line domain name.
   if (domain == "page.line.me")
   {
     // Parse https://page.line.me/{LINE ID}
-    string lineId = url.GetWebPath();
+    string lineId = url.GetPath();
     return stripAtSymbol(lineId);
   }
   else if (domain == "line.me" || strings::EndsWith(domain, ".line.me"))
   {
-    auto webPath = url.GetWebPath();
+    auto webPath = url.GetPath();
     if (strings::StartsWith(webPath, "R/ti/p/"))
     {
       // Parse https://line.me/R/ti/p/{LINE ID}
@@ -210,13 +210,8 @@ string ValidateAndFormat_contactLine(string const & linePage)
     {
       // Parse https://line.me/R/home/public/main?id={LINE ID without @}
       // and https://line.me/R/home/public/profile?id={LINE ID without @}
-      string lineId = {};
-      url.ForEachParam([&lineId](url::Param const & param) {
-        if (param.m_name == "id")
-          lineId = param.m_value;
-      });
-
-      return lineId;
+      std::string const * id = url.GetParamValue("id");
+      return (id? *id : std::string());
     }
     else
     {
@@ -242,7 +237,7 @@ bool ValidateFacebookPage(string const & page)
   if (!EditableMapObject::ValidateWebsite(page))
     return false;
 
-  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
+  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
   return (strings::StartsWith(domain, "facebook.") || strings::StartsWith(domain, "fb.") ||
           domain.find(".facebook.") != string::npos || domain.find(".fb.") != string::npos);
 }
@@ -259,7 +254,7 @@ bool ValidateInstagramPage(string const & page)
   if (!EditableMapObject::ValidateWebsite(page))
     return false;
 
-  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
+  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
   return domain == "instagram.com" || strings::EndsWith(domain, ".instagram.com");
 }
 
@@ -271,7 +266,7 @@ bool ValidateTwitterPage(string const & page)
   if (!EditableMapObject::ValidateWebsite(page))
     return regex_match(page, s_twitterRegex); // Rules are defined here: https://stackoverflow.com/q/11361044
 
-  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
+  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
   return domain == "twitter.com" || strings::EndsWith(domain, ".twitter.com");
 }
 
@@ -304,7 +299,7 @@ bool ValidateVkPage(string const & page)
   if (!EditableMapObject::ValidateWebsite(page))
     return false;
 
-  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
+  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
   return domain == "vk.com" || strings::EndsWith(domain, ".vk.com")
          || domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru");
 }
@@ -327,7 +322,7 @@ bool ValidateLinePage(string const & page)
   if (!EditableMapObject::ValidateWebsite(page))
     return false;
 
-  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
+  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
   // Check Line domain name.
   return (domain == "line.me" || strings::EndsWith(domain, ".line.me"));
 }

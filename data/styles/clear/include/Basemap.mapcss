@@ -12,17 +12,18 @@
   6.2 Line water(river,canal etc.)
 7.LANDUSE
   7.1 Industrial
-  7.2 Hostital
+  7.2 Hospital
   7.3 University & Sport
-  7.4 Cemetry
+  7.4 Cemetery
   7.5 Pedestrian areas
   7.6 Airports
   7.7 Religion
   7.8 Agricultural
 8.BUILDINGS
-  8.1 Pier
+  8.1 Pier, dam, cutline
   8.2 Building
   8.3 Barrier
+9.ISOLINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
@@ -65,9 +66,6 @@ area[sport=multi],
 area[sport=soccer],
 {z-index: 5;}
 
-area[amenity=parking]
-{z-index: 6;}
-
 area[landuse=forest]
 {z-index: 30;}
 
@@ -100,6 +98,7 @@ area[leisure=marina],
 line[waterway=stream][intermittent=yes]
 {z-index: 43;}
 
+area[amenity=parking],
 area[landuse=cemetery],
 area[amenity=grave_yard]
 {z-index: 44;}
@@ -298,12 +297,12 @@ area|z12-13[landuse=village_green],
 area|z12-13[landuse=field],
 {fill-color: @green0;}
 
-area|z14-[leisure=nature_reserve],
-area|z14-[boundary=national_park],
-{fill-position: background; fill-opacity: 1; fill-color: @green6;}
-
-area|z14-[landuse=military]
-{fill-position: background; fill-opacity: 1; fill-color: @military;}
+/* These 3 types are hardcoded to have a hatching-style fill, see drape_frontend/stylist.cpp */
+area|z10-[leisure=nature_reserve],
+area|z10-[boundary=national_park],
+{fill-position: background; fill-opacity: 0.2; fill-color: @green6;}
+area|z12-[landuse=military]
+{fill-position: background; fill-opacity: 0.5; fill-color: @military;}
 
 area|z14[landuse=forest],
 area|z14[leisure=park],
@@ -414,10 +413,6 @@ line|z15-[natural=strait],
 {width: 1.6;}
 line|z15-[waterway=stream][intermittent=yes]
 {width: 1.4;dashes: 4.95,4.95;}
-area|z15-[waterway=dam],
-line|z15-[waterway=dam],
-line|z15-[waterway=weir],
-{width: 1;opacity: 1;color: @bridge_casing;}
 
 line|z16-[waterway=lock],
 {width: 1.5;}
@@ -476,7 +471,7 @@ area|z15-[landuse=railway],
 area|z15-[landuse=quarry]
 {fill-color: @industrial;}
 
-/* 7.2 Hostital */
+/* 7.2 Hospital */
 
 area|z14-[amenity=hospital],
 area|z14-[amenity=doctors]
@@ -494,7 +489,7 @@ area|z17-[sport=multi],
 area|z16-[sport=soccer],
 {fill-color: @sport;}
 
-/* 7.4 Cemetry */
+/* 7.4 Cemetery */
 
 area|z14[landuse=cemetery],
 area|z14[amenity=grave_yard]
@@ -577,24 +572,73 @@ area|z15-[amenity=parking]
 
 /* 8.BUILDINGS */
 
-/* 8.1 Pier */
+/* 8.1 Pier, dam, cutline */
+
 area|z12-[man_made=pier],
 area|z12-[man_made=breakwater],
 {fill-position: background; fill-opacity: 1; fill-color: @background;casing-color: @background;}
 
 line|z14-[man_made=pier],
 line|z14-[man_made=breakwater],
-line|z14-[man_made=cutline]
-{width: 2;color: @background;opacity: 1;}
+{width: 1.5;color: @background;opacity: 1;}
+
+line|z14-[waterway=dam],
+line|z14-[waterway=weir],
+{width: 1.5;color: @building_dark;opacity: 0.7;}
+
+line|z15[man_made=pier],
+line|z15[man_made=breakwater],
+line|z15[waterway=dam],
+line|z15[waterway=weir],
+{width: 2;}
+
+line|z16[man_made=pier],
+line|z16[man_made=breakwater],
+line|z16[waterway=dam],
+line|z16[waterway=weir],
+{width: 3;}
+
+line|z17[man_made=pier],
+line|z17[man_made=breakwater],
+line|z17[waterway=dam],
+line|z17[waterway=weir],
+{width: 4.5;}
+
+line|z18[man_made=pier],
+line|z18[man_made=breakwater],
+line|z18[waterway=dam],
+line|z18[waterway=weir],
+{width: 6;}
+
+line|z19-[man_made=pier],
+line|z19-[man_made=breakwater],
+line|z19-[waterway=dam],
+line|z19-[waterway=weir],
+{width: 8;}
+
+line|z14-[man_made=cutline],
+{width: 1;color: @green0;opacity: 0.6;}
+line|z15[man_made=cutline],
+{width: 1.5;}
+line|z16[man_made=cutline],
+{width: 2;}
+line|z17[man_made=cutline],
+{width: 3;}
+line|z18[man_made=cutline],
+{width: 4.5;}
+line|z19-[man_made=cutline],
+{width: 6;}
 
 /* 8.2 Building */
 
 area|z14[building],
+area|z14[waterway=dam],
 area|z14[landuse=garages],
 area|z14[building=train_station],
 {fill-color: @building;fill-opacity: 0.5;casing-width: 0;}
 
 area|z15[building],
+area|z15[waterway=dam],
 area|z15[landuse=garages],
 area|z15[building=train_station],
 {fill-color: @building;fill-opacity: 0.6;casing-width: 0;}
@@ -602,6 +646,7 @@ area|z15[building=train_station],
 area|z14-15[aeroway=terminal],
 area|z16[building],
 area|z16[building:part],
+area|z16[waterway=dam],
 area|z16[landuse=garages],
 area|z16[building=train_station],
 {fill-color: @building;fill-opacity: 0.8;casing-width: 1;casing-color: @building_border;}
@@ -609,6 +654,7 @@ area|z16[building=train_station],
 area|z16[aeroway=terminal],
 area|z17[building],
 area|z17[building:part],
+area|z17[waterway=dam],
 area|z17[landuse=garages],
 area|z17[building=train_station],
 {fill-color: @building_dark;opacity: 0.9;casing-width: 1;casing-color: @building_dark_border;}
@@ -616,6 +662,7 @@ area|z17[building=train_station],
 area|z17-[aeroway=terminal],
 area|z18-[building],
 area|z18-[building:part],
+area|z18-[waterway=dam],
 area|z18-[landuse=garages],
 area|z18-[building=train_station],
 {fill-color: @building_dark;opacity: 1;casing-width: 1;casing-color: @building_dark_border;}

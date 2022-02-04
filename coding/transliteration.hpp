@@ -7,10 +7,12 @@
 #include <mutex>
 #include <string>
 
-namespace icu
-{
+// From ICU library, either 3party/icu or from the system's package.
+#include <unicode/uversion.h>
+
+U_NAMESPACE_BEGIN
 class UnicodeString;
-}  // namespace icu
+U_NAMESPACE_END
 
 class Transliteration
 {
@@ -41,7 +43,7 @@ private:
 
   Transliteration();
 
-  bool Transliterate(std::string transliteratorId, icu::UnicodeString & ustr) const;
+  bool Transliterate(std::string const & transID, icu::UnicodeString & ustr) const;
 
   std::mutex m_initializationMutex;
   std::atomic<bool> m_inited;

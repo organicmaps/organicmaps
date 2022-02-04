@@ -4,16 +4,6 @@
 
 #include <chrono>
 
-namespace
-{
-
-::Framework * frm()
-{
-  return (g_framework ? g_framework->NativeFramework() : nullptr);
-}
-
-}  // namespace
-
 extern "C"
 {
   JNIEXPORT void JNICALL

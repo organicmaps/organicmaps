@@ -60,7 +60,7 @@ bool IsSuitablePlaceType(ftypes::LocalityType localityType)
   }
 }
 
-ftypes::LocalityType GetPlaceType(FeatureBuilder const & feature)
+ftypes::LocalityType GetPlaceLocalityType(FeatureBuilder const & feature)
 {
   return ftypes::IsLocalityChecker::Instance().GetType(feature.GetTypesHolder());
 }
@@ -156,7 +156,7 @@ RoutingCityBoundariesCollector::RoutingCityBoundariesCollector(
 std::shared_ptr<CollectorInterface> RoutingCityBoundariesCollector::Clone(
     std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache) const
 {
-  return std::make_shared<RoutingCityBoundariesCollector>(GetFilename(), m_dumpFilename, 
+  return std::make_shared<RoutingCityBoundariesCollector>(GetFilename(), m_dumpFilename,
                                                           cache ? cache : m_cache);
 }
 
@@ -181,7 +181,7 @@ void RoutingCityBoundariesCollector::Process(feature::FeatureBuilder & feature,
 {
   ASSERT(FilterOsmElement(osmElement), ());
 
-  if (feature.IsArea() && IsSuitablePlaceType(::GetPlaceType(feature)))
+  if (feature.IsArea() && IsSuitablePlaceType(GetPlaceLocalityType(feature)))
   {
     if (feature.PreSerialize())
       m_writer->Process(feature);
@@ -208,7 +208,7 @@ void RoutingCityBoundariesCollector::Process(feature::FeatureBuilder & feature,
   }
   else if (feature.IsPoint())
   {
-    auto const placeType = ::GetPlaceType(feature);
+    auto const placeType = GetPlaceLocalityType(feature);
 
     // Elements which have multiple place tags i.e. "place=country" + "place=city" will pass FilterOsmElement()
     // but can have bad placeType here. As we do not know what's the real place type let's skip such places.

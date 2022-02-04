@@ -30,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)enableDownloadIndicator;
 
 - (void)showMap;
-- (void)showAlertIfRequired;
 
 - (NSUInteger)badgeNumber;
 

@@ -10,7 +10,7 @@
 using namespace routing;
 using namespace std;
 
-namespace
+namespace bicycle_model
 {
 // See model specifics in different countries here:
 //   https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
@@ -49,7 +49,8 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwayCycleway, InOutCitySpeedKMpH(SpeedKMpH(30.0, 20.0))},
     {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(8.0, 10.0))},
     {HighwayType::HighwayLivingStreet, InOutCitySpeedKMpH(SpeedKMpH(7.0, 8.0))},
-    {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
+    // Steps have obvious inconvenience of a bike in hands.
+    {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(1.0, 1.0))},
     {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
     {HighwayType::HighwayFootway, InOutCitySpeedKMpH(SpeedKMpH(7.0, 5.0))},
     {HighwayType::ManMadePier, InOutCitySpeedKMpH(SpeedKMpH(7.0))},
@@ -379,19 +380,19 @@ VehicleModel::SurfaceInitList const kBicycleSurface = {
   {{"psurface", "unpaved_good"}, {1.0, 1.0}},
   {{"psurface", "unpaved_bad"}, {0.3, 0.3}}
 };
-}  // namespace
+}  // namespace bicycle_model
 
 namespace routing
 {
 BicycleModel::BicycleModel()
-  : VehicleModel(classif(), kBicycleOptionsDefault, kBicycleSurface,
-                 {kDefaultSpeeds, kDefaultFactors})
+  : VehicleModel(classif(), bicycle_model::kBicycleOptionsDefault, bicycle_model::kBicycleSurface,
+                 {bicycle_model::kDefaultSpeeds, bicycle_model::kDefaultFactors})
 {
   Init();
 }
 
 BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & speedLimits)
-  : VehicleModel(classif(), speedLimits, kBicycleSurface, {kDefaultSpeeds, kDefaultFactors})
+  : VehicleModel(classif(), speedLimits, bicycle_model::kBicycleSurface, {bicycle_model::kDefaultSpeeds, bicycle_model::kDefaultFactors})
 {
   Init();
 }
@@ -400,16 +401,33 @@ void BicycleModel::Init()
 {
   initializer_list<char const *> hwtagYesBicycle = {"hwtag", "yesbicycle"};
 
-  m_noBicycleType = classif().GetTypeByPath({"hwtag", "nobicycle"});
-  m_yesBicycleType = classif().GetTypeByPath(hwtagYesBicycle);
-  m_bidirBicycleType = classif().GetTypeByPath({"hwtag", "bidir_bicycle"});
-  m_onedirBicycleType = classif().GetTypeByPath({"hwtag", "onedir_bicycle"});
-  vector<AdditionalRoadTags> const additionalTags = {
-      {hwtagYesBicycle, m_maxModelSpeed},
-      {{"route", "ferry"}, kDefaultSpeeds.at(HighwayType::RouteFerry)},
-      {{"man_made", "pier"}, kDefaultSpeeds.at(HighwayType::ManMadePier)}};
+  auto const & cl = classif();
+  m_noBicycleType = cl.GetTypeByPath({"hwtag", "nobicycle"});
+  m_yesBicycleType = cl.GetTypeByPath(hwtagYesBicycle);
+  m_bidirBicycleType = cl.GetTypeByPath({"hwtag", "bidir_bicycle"});
+  m_onedirBicycleType = cl.GetTypeByPath({"hwtag", "onedir_bicycle"});
 
-  SetAdditionalRoadTypes(classif(), additionalTags);
+  {
+    vector<AdditionalRoadTags> const tags = {
+        {hwtagYesBicycle, m_maxModelSpeed},
+        {{"route", "ferry"}, bicycle_model::kDefaultSpeeds.at(HighwayType::RouteFerry)},
+        {{"man_made", "pier"}, bicycle_model::kDefaultSpeeds.at(HighwayType::ManMadePier)}};
+
+    AddAdditionalRoadTypes(cl, tags);
+  }
+
+  {
+    // Small dismount speed with obvious inconvenience of a bike in hands.
+    InOutCitySpeedKMpH const dismountSpeed(SpeedKMpH(2.0, 2.0));
+
+    vector<AdditionalRoadTags> const tags = {
+        {hwtagYesBicycle, m_maxModelSpeed},
+        {{"highway", "footway"}, dismountSpeed},
+        {{"highway", "pedestrian"}, dismountSpeed},
+        {{"highway", "steps"}, dismountSpeed}};
+
+    AddAdditionalRoadTypes(cl, tags);
+  }
 }
 
 VehicleModelInterface::RoadAvailability BicycleModel::GetRoadAvailability(feature::TypesHolder const & types) const
@@ -451,14 +469,14 @@ bool BicycleModel::IsOneWay(FeatureType & f) const
   return VehicleModel::IsOneWay(f);
 }
 
-SpeedKMpH const & BicycleModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
+SpeedKMpH const & BicycleModel::GetOffroadSpeed() const { return bicycle_model::kSpeedOffroadKMpH; }
 
 // If one of feature types will be disabled for bicycles, features of this type will be simplified
 // in generator. Look FeatureBuilder1::IsRoad() for more details.
 // static
 BicycleModel const & BicycleModel::AllLimitsInstance()
 {
-  static BicycleModel const instance(kBicycleOptionsAll);
+  static BicycleModel const instance(bicycle_model::kBicycleOptionsAll);
   return instance;
 }
 
@@ -466,6 +484,7 @@ BicycleModelFactory::BicycleModelFactory(
     CountryParentNameGetterFn const & countryParentNameGetterFn)
   : VehicleModelFactory(countryParentNameGetterFn)
 {
+  using namespace bicycle_model;
   // Names must be the same with country names from countries.txt
   m_models[""] = make_shared<BicycleModel>(kBicycleOptionsDefault);
   m_models["Australia"] = make_shared<BicycleModel>(kBicycleOptionsAustralia);

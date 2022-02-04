@@ -15,10 +15,10 @@
 #include <array>
 #include <vector>
 
+namespace mini_roundabout_tests
+{
 using namespace generator;
 
-namespace
-{
 OsmElement MiniRoundabout(uint64_t id, double lat, double lon)
 {
   OsmElement miniRoundabout;
@@ -49,15 +49,13 @@ OsmElement RoadNode(uint64_t id, double lat, double lon)
   return node;
 }
 
-}  // namespace
-
 void TestRunCmpPoints(std::vector<m2::PointD> const & pointsFact,
                       std::vector<m2::PointD> const & pointsPlan, double r)
 {
   TEST_EQUAL(pointsFact.size(), pointsPlan.size(), ());
   TEST_GREATER(pointsFact.size(), 2, ());
   for (size_t i = 0; i < pointsFact.size(); ++i)
-    TEST(AlmostEqualAbs(pointsFact[i], pointsPlan[i], kMwmPointAccuracy), ());
+    TEST(m2::AlmostEqualAbs(pointsFact[i], pointsPlan[i], kMwmPointAccuracy), ());
 }
 
 void TestRunCmpNumbers(double val1, double val2)
@@ -99,7 +97,7 @@ UNIT_TEST(TrimSegment_Vertical)
   double const dist = 1.0;
   m2::PointD const point = GetPointAtDistFromTarget(a /* source */, b /* target */, dist);
   m2::PointD const pointPlan(2.0, 2.0);
-  TEST(AlmostEqualAbs(point, pointPlan, kMwmPointAccuracy), ());
+  TEST(m2::AlmostEqualAbs(point, pointPlan, kMwmPointAccuracy), ());
 }
 
 UNIT_TEST(TrimSegment_VerticalNegative)
@@ -109,7 +107,7 @@ UNIT_TEST(TrimSegment_VerticalNegative)
   double const dist = 4.0;
   m2::PointD const point = GetPointAtDistFromTarget(a /* source */, b /* target */, dist);
   m2::PointD const pointPlan(-3.0, 2.0);
-  TEST(AlmostEqualAbs(point, pointPlan, kMwmPointAccuracy), ());
+  TEST(m2::AlmostEqualAbs(point, pointPlan, kMwmPointAccuracy), ());
 }
 
 UNIT_TEST(TrimSegment_ExceptionalCase)
@@ -118,7 +116,7 @@ UNIT_TEST(TrimSegment_ExceptionalCase)
   m2::PointD const b(2.0, 3.0);
   double const dist = 10.0;
   m2::PointD const point = GetPointAtDistFromTarget(a /* source */, b /* target */, dist);
-  TEST(AlmostEqualAbs(point, a, kMwmPointAccuracy), ());
+  TEST(m2::AlmostEqualAbs(point, a, kMwmPointAccuracy), ());
 }
 
 UNIT_TEST(PointToCircle_ZeroMeridian)
@@ -278,3 +276,4 @@ UNIT_TEST(Manage_MiniRoundabout_EqualPoints)
   AddPointToCircle(circlePlain, circlePlain[0]);
   TEST_EQUAL(circlePlain.size(), 16, ());
 }
+}  // namespace mini_roundabout_tests

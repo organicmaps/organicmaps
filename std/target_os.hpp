@@ -1,6 +1,6 @@
 #pragma once
 
-#if defined(ANDROID)
+#if defined(ANDROID) || defined(__ANDROID__)
   #define OMIM_OS_ANDROID
   #define OMIM_OS_NAME "android"
   #define OMIM_OS_MOBILE

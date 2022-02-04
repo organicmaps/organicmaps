@@ -8,8 +8,6 @@
 	<string name="back">رجوع</string>
 	<!-- Button text (should be short) -->
 	<string name="cancel">إلغاء</string>
-	<!-- Button which interrupts country download -->
-	<string name="cancel_download">إلغاء التنزيل</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">حذف</string>
 	<string name="download_maps">تنزيل الخرائط</string>
@@ -19,8 +17,6 @@
 	<string name="downloading">جاري التنزيل…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">كيلومتر</string>
-	<!-- Leave Review dialog - Review button -->
-	<string name="leave_a_review">اترك تعليق</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">الخرائط</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
@@ -35,19 +31,14 @@
 	<string name="search">البحث</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">ابحث في الخريطة</string>
-	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
-	<string name="use_cellular_data">نعم</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">عرض على الخريطة</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
-	<string name="country_status_download_without_size">تحميل الخريطة</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">فشلت عملية تنزيل</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">محاولة مرة أخرى</string>
-	<string name="about_menu_title">حول Organic Maps</string>
 	<string name="connection_settings">اعدادات الاتصال</string>
 	<string name="close">اغلاق</string>
 	<string name="unsupported_phone">أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.</string>
@@ -72,8 +63,6 @@
 	<string name="bookmark_color">لون الإشارة المرجعية</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">اسم مجموعة الإشارات المرجعية</string>
-	<!-- "Bookmark Lists" dialog title -->
-	<string name="bookmark_sets">مجموعات الإشارات المرجعية</string>
 	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">الإشارات المرجعية</string>
 	<!-- Default bookmark list name -->
@@ -82,8 +71,8 @@
 	<string name="name">الاسم</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">العنوان</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">المجموعة</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">قائمة</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">الإعدادات</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -98,42 +87,48 @@
 	<string name="measurement_units">وحدات القياس.</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">اختر من بين الأميال و الكيلو مترات.</string>
-	<!-- Search category for cafes, bars, restaurants -->
+
+	<!-- SECTION: Search categories -->
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
 	<string name="eat">مكان لتناول الطعام</string>
-	<!-- Search category for grocery stores -->
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
 	<string name="food">المشتريات</string>
-	<!-- Search category -->
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">نقل</string>
-	<!-- Search category -->
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
 	<string name="fuel">غاز</string>
-	<!-- Search category -->
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">الاصطفاف</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">التسوق</string>
-	<!-- Search category -->
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">فندق</string>
-	<!-- Search category -->
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
 	<string name="tourism">سياحة</string>
-	<!-- Search category -->
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
 	<string name="entertainment">التسلية</string>
-	<!-- Search category -->
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
 	<string name="atm">ماكينة الصراف الآلي</string>
-	<!-- Search category for nightclubs/bars -->
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
 	<string name="nightlife">أنشطة ترفيه ليلية</string>
-	<!-- Search category for water park/disneyland/playground/toys store -->
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
 	<string name="children">عطلة عائلية</string>
-	<!-- Search category -->
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
 	<string name="bank">بنك</string>
-	<!-- Search category -->
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
 	<string name="pharmacy">صيدلية</string>
-	<!-- Search category -->
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">مستشفى</string>
-	<!-- Search category -->
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
 	<string name="toilet">حمام</string>
-	<!-- Search category -->
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
 	<string name="post">بريد</string>
-	<!-- Search category -->
+	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">شرطة</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">إعادة تدوير</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">ماء</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">ملاحظات</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -162,16 +157,16 @@
 	<string name="my_position_share_email">مرحبا،\n\nأنا هنا الآن: %1$s. انقر على هذا الرابط %2$s أو ذلك الرابط %3$s لمشاهدة المكان على الخريطة.\n\nشكرا لك.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">مشاركة</string>
-	<!-- Share by email button text, also used in editor. -->
+	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">البريد الالكتروني</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">تم النسخ الى الحافظة: %1$s</string>
-	<!-- place preview title -->
-	<string name="info">المعلومات</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">تم</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">الاصدار: %s</string>
+	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+	<string name="data_version">OpenStreetMap: %s ﺕﺎﻧﺎﻴﺑ</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">هل أنت واثق أنك تريد الاستمرار؟</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -200,10 +195,6 @@
 	<string name="pref_tts_language_title">لغة الصوت</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">غير متاح</string>
-	<!-- Title for "Other" section in TTS settings. -->
-	<string name="pref_tts_other_section_title">آخر</string>
-	<!-- Settings «Map» category: «Record track» title -->
-	<string name="pref_track_record_title">المسار الأخير</string>
 	<string name="pref_map_auto_zoom">تكبير تلقائي</string>
 	<string name="duration_disabled">لا يعمل</string>
 	<string name="duration_1_hour">1 ساعة</string>
@@ -211,8 +202,6 @@
 	<string name="duration_6_hours">6 ساعات</string>
 	<string name="duration_12_hours">12 ساعة</string>
 	<string name="duration_1_day">1 يوم</string>
-	<string name="recent_track_help_text">يتيح لك تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.</string>
-	<string name="placepage_distance">المسافة</string>
 	<string name="search_show_on_map">مشاهدة على الخريطة</string>
 	<!-- Text in menu -->
 	<string name="website">الموقع الإلكتروني</string>
@@ -230,12 +219,6 @@
 	<string name="copyright">حقوق الطبع والنشر</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">الإبلاغ عن خطأ</string>
-	<!-- Alert text -->
-	<string name="email_error_body">لم يتم تعيين البريد الإلكتروني للعميل. يرجى تكوينه أو استخدام أي وسيلة أخرى للاتصال بنا على %s</string>
-	<!-- Alert title -->
-	<string name="email_error_title">هناك خطأ في إرسال البريد الإلكتروني</string>
-	<!-- Settings item title -->
-	<string name="pref_calibration_title">معايرة البوصلة</string>
 	<!-- Search category -->
 	<string name="wifi">واي-فاي</string>
 	<!-- Update all button text -->
@@ -244,19 +227,12 @@
 	<string name="downloader_cancel_all">إلغاء الكل</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">تم تنزيلها</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_available_maps">متاح</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">مَصْفوف</string>
 	<string name="downloader_near_me_subtitle">بالقرب مني</string>
 	<string name="downloader_status_maps">الخرائط</string>
 	<string name="downloader_download_all_button">تنزيل الكل</string>
 	<string name="downloader_downloading">يتم تنزيل:</string>
-	<string name="downloader_search_results">تم العثور على</string>
-	<!-- Status of outdated country in the list -->
-	<string name="downloader_status_outdated">تحديث</string>
-	<!-- Status of failed country in the list -->
-	<string name="downloader_status_failed">فشل</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
 	<string name="downloader_delete_map_while_routing_dialog">لحذف الخريطة يرجى إيقاف الملاحة.</string>
 	<!-- PointsInDifferentMWM -->
@@ -271,22 +247,12 @@
 	<string name="downloader_update_map">تحديث الخريطة</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">استخدم خدمات جوجل بلاي لتتعرف على موقعك الحالي</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_just_rated">لقد قمت بتقييم تطبيقك للتو</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_thanks">شكرا لك!</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_share_ideas">شارك أي أفكار أو مشاكل، حتى نتمكن من تحسين التطبيق من أجلك.</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_send_feedback">إرسال التعليق</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">تنزيل الخرائط على طول الطريق</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Spazio non sufficiente</string>
-	<!-- bookmark button text -->
-	<string name="bookmark">إشارة مرجعية</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">الرجاء تفعيل خدمة تحديد المواقع</string>
 	<string name="save">حفظ</string>
@@ -339,8 +305,6 @@
 	<string name="dialog_routing_location_turn_wifi">يُرجى التحقق من إشارة GPS لديك. ويساعد تمكين خدمة Wi-Fi في تحسين دقة تحديد موقعك.</string>
 	<string name="dialog_routing_location_turn_on">تمكين خدمات المواقع</string>
 	<string name="dialog_routing_location_unknown_turn_on">تعذر تحديد إحداثيات نظام تحديد المواقع العالمي GPS الحالية. قم بتمكين خدمات المواقع لحساب المسار.</string>
-	<string name="dialog_routing_download_files">تنزيل الملفات المطلوبة</string>
-	<string name="dialog_routing_download_and_update_all">قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.</string>
 	<string name="dialog_routing_unable_locate_route">تعذر تحديد موقع المسار</string>
 	<string name="dialog_routing_cant_build_route">تعذر إنشاء مسار.</string>
 	<string name="dialog_routing_change_start_or_end">برجاء تعديل نقطة بدء وجهتك.</string>
@@ -355,7 +319,6 @@
 	<string name="dialog_routing_system_error">خطأ في النظام</string>
 	<string name="dialog_routing_application_error">تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.</string>
 	<string name="dialog_routing_try_again">برجاء إعادة المحاولة</string>
-	<string name="not_now">ليس الآن</string>
 	<string name="dialog_routing_download_and_build_cross_route">هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟</string>
 	<string name="dialog_routing_download_cross_route">تنزيل الخريطة لإنشاء مسار أفضل يعبر حافة هذه الخريطة.</string>
 
@@ -366,17 +329,8 @@
 	<string name="show">عرض</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">إخفاء</string>
-	<!-- Failed planning route message in navigation view -->
-	<string name="routing_planning_error">فشل في تخطيط المسار</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">الوصول: %s</string>
-	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
-	<string name="dialog_routing_download_and_update_maps">لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.</string>
-	<string name="rate_alert_title">يعجبك التطبيق؟</string>
-	<string name="rate_alert_default_message">شكرا لاستخدامك Organic Maps. من فضلك، أَعْطِ تقييمك للتطبيق. ملاحظاتك تساعدنا على أن نصبح أفضل.</string>
-	<string name="rate_alert_five_star_message">مرحا! نحن أيضا نحبك!</string>
-	<string name="rate_alert_four_star_message">شكرا لك، سوف نبذل قصارى جهدنا!</string>
-	<string name="rate_alert_less_than_four_star_message">لديك أي فكرة حول كيف يمكننا أن نجعله أفضل؟</string>
 	<string name="categories">التصنيفات</string>
 	<string name="history">السجل</string>
 	<string name="closed">مغلق</string>
@@ -407,8 +361,6 @@
 	<string name="editor_example_values">أمثلة على القيم</string>
 	<string name="editor_correct_mistake">تصحيح الخطأ</string>
 	<string name="editor_add_select_location">الموقع</string>
-	<string name="editor_done_dialog_1">لقد غيرت خريطة العالم. لا تخفي ذلك! اخبر أصدقاءك، وغيروها معا.</string>
-	<string name="share_with_friends">شارك مع الأصدقاء</string>
 	<string name="editor_report_problem_desription_1">يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreeMap إصلاح الخطأ.</string>
 	<string name="editor_report_problem_desription_2">أو افعل ذلك بنفسك من خلال الموقع https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">إرسال</string>
@@ -418,29 +370,20 @@
 	<string name="editor_report_problem_duplicate_place_title">مكان متكرر</string>
 	<string name="autodownload">التنزيل التلقائي</string>
 	<!-- Place Page opening hours text -->
-	<string name="closed_now">مغلق الآن</string>
-	<!-- Place Page opening hours text -->
 	<string name="daily">يوميا</string>
 	<string name="twentyfour_seven">ليلا ونهارا</string>
 	<string name="day_off_today">مغلق اليوم</string>
 	<string name="day_off">مغلق</string>
 	<string name="today">اليوم</string>
-	<string name="add_opening_hours">اضف ساعات عمل</string>
 	<string name="edit_opening_hours">حرر ساعات عمل</string>
 	<string name="no_osm_account">ليس لديك حساب في OpenStreetMap؟</string>
 	<string name="register_at_openstreetmap">التسجيل</string>
-	<string name="password_8_chars_min">كلمة المرور (8 أحرف بحد أدنى)</string>
-	<string name="invalid_username_or_password">اسم المستخدم أو كلمة المرور غير صالحة.</string>
 	<string name="login">تسجيل الدخول</string>
 	<string name="password">كلمة المرور</string>
 	<string name="forgot_password">هل نسيت كلمة المرور؟</string>
-	<string name="osm_account">حساب OSM</string>
 	<string name="logout">تسجيل الخروج</string>
-	<!-- Information text: "Last upload 11.01.2016" -->
-	<string name="last_upload">آخر تحميل</string>
 	<string name="thank_you">شكرا لك</string>
 	<string name="edit_place">تعديل المكان</string>
-	<string name="place_name">اسم المكان</string>
 	<string name="add_language">إضافة لغة</string>
 	<string name="street">الشارع</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -457,22 +400,16 @@
 	<string name="select_cuisine">اختر المطبخ</string>
 	<!-- login text field -->
 	<string name="email_or_username">البريد الإلكتروني أو اسم المستخدم</string>
-	<string name="phone">الهاتف</string>
-	<string name="please_note">يرجى العلم أنه،</string>
 	<string name="downloader_delete_map_dialog">سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.</string>
 	<string name="downloader_update_maps">تحديث الخرائط</string>
 	<string name="downloader_mwm_migration_dialog">لإنشاء مسار، فأنت تحتاج إلى تحديث كافة الخرائط ثم إعادة تخطيط المسار مرة أخرى.</string>
 	<string name="downloader_search_field_hint">اعثر على الخريطة</string>
-	<string name="migration_download_error_dialog">خطأ بالتنزيل</string>
 	<string name="common_check_internet_connection_dialog">يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.</string>
 	<string name="downloader_no_space_title">مساحة غير كافية</string>
 	<string name="downloader_no_space_message">من فضلك، قم بإزالة البيانات غير الضرورية</string>
 	<string name="editor_login_error_dialog">خطأ في تسجيل الدخول.</string>
 	<string name="editor_profile_changes">التغييرات التي تم التحقق منها</string>
 	<string name="editor_focus_map_on_location">اسحب الخريطة لتحدد الموقع الصحيح للهدف.</string>
-	<string name="editor_add_select_category">اختر الفئة</string>
-	<string name="editor_add_select_category_popular_subtitle">شائع</string>
-	<string name="editor_add_select_category_all_subtitle">جميع الفئات</string>
 	<string name="editor_edit_place_title">تعديل</string>
 	<string name="editor_add_place_title">إٍضافة</string>
 	<string name="editor_edit_place_name_hint">اسم المكان</string>
@@ -480,13 +417,8 @@
 	<string name="detailed_problem_description">وصف مفصل للمشكلة</string>
 	<string name="editor_report_problem_other_title">مشكلة مختلفة</string>
 	<string name="placepage_add_business_button">إضافة مؤسسة</string>
-	<string name="whatsnew_editor_message_1">قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.</string>
-	<string name="dialog_incorrect_feature_position">تغيير الموقع</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
 	<string name="login_to_make_edits_visible">قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.</string>
-	<!-- Error dialog no space -->
-	<string name="migration_no_space_message">للتنزيل، فأنت تحتاج إلى توفير مساحة أكبر. من فضلك، احذف البيانات غير الضرورية.</string>
-	<string name="editor_sharing_title">لقد قمت بتحديث خرائط تطبيق Organic Maps</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d من%2$d</string>
 	<string name="download_over_mobile_header">تنزيل باستخدام اتصال الشبكة الخلوية؟</string>
@@ -504,7 +436,6 @@
 	<string name="editor_detailed_description">سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps</string>
 	<string name="editor_more_about_osm">المزيد عن OpenStreetMap</string>
 	<string name="editor_operator">معامل</string>
-	<string name="downloader_my_maps_title">خرائطي</string>
 	<string name="downloader_no_downloaded_maps_title">لم تقم بتنزيل أية خرائط</string>
 	<string name="downloader_no_downloaded_maps_message">قم بتنزيل خرائط للبحث عن مكان والتنقل بدون اتصال بالإنترنت.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -513,14 +444,6 @@
 	<string name="current_location_unknown_message">الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.</string>
 	<string name="current_location_unknown_continue_button">استمرار</string>
 	<string name="current_location_unknown_stop_button">إيقاف</string>
-	<string name="current_location_unknown_error_title">الموقع الحالي غير معروف.</string>
-	<string name="current_location_unknown_error_message">حدث خطأ أثناء البحث عن موقعك. تأكد من أن جهازك يعمل بشكل صحيح وأعد المحاولة لاحقًا.</string>
-	<string name="location_services_disabled_header">تم تعطيل تحديد الموقع</string>
-	<string name="location_services_disabled_message">قم بتفعيل الوصول إلى الموقع الجغرافي في إعدادات الجهاز</string>
-	<string name="location_services_disabled_1">1. افتح الإعدادات</string>
-	<string name="location_services_disabled_2">2. انقر على الموقع</string>
-	<!-- iOS Dialog for the case when the location permission is not granted -->
-	<string name="location_services_disabled_3">3. اختيار أثناء استخدام التطبيق</string>
 	<string name="meter">م</string>
 	<string name="kilometer">كم</string>
 	<string name="kilometers_per_hour">كم/ساعة</string>
@@ -532,46 +455,31 @@
 	<string name="placepage_place_description">الوصف</string>
 	<string name="placepage_more_button">المزيد</string>
 	<string name="placepage_more_reviews_button">المزيد من المراجعات</string>
-	<string name="book_button">حجز</string>
 	<string name="placepage_call_button">اتصال</string>
 	<string name="placepage_edit_bookmark_button">تحرير العلامة المرجعية</string>
-	<string name="placepage_bookmark_name_hint">اسم العلامة المرجعية</string>
-	<string name="placepage_personal_notes_hint">ملاحظات شخصية</string>
-	<string name="placepage_delete_bookmark_button">حذف العلامة المرجعية</string>
-	<string name="editor_edits_sent_message">لقد تم إرسال التغييرات التي اقترحتها</string>
 	<string name="editor_comment_hint">تعليق…</string>
 	<string name="editor_reset_edits_message">هل تريد مسح كافة التغييرات المحلية؟</string>
 	<string name="editor_reset_edits_button">مسح</string>
 	<string name="editor_remove_place_message">إزالة مكان تمت إضافته؟</string>
 	<string name="editor_remove_place_button">إزالة</string>
 	<string name="editor_place_doesnt_exist">المكان غير موجود</string>
-	<string name="text_more_button">…المزيد</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">أدخل رقم هاتف صحيح</string>
 	<string name="error_enter_correct_web">أدخل عنوان ويب صالح</string>
 	<string name="error_enter_correct_email">أدخل بريدا إلكترونيا صالحا</string>
-	<string name="refresh">تحديث</string>
 	<string name="placepage_add_place_button">إضافة مكان ما للخريطة</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">هل ترغب في إرساله لجميع المستخدمين؟</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">تأكد من أنك لم تقم بإدخال أي بيانات شخصية.</string>
 	<string name="editor_share_to_all_dialog_message_2">سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسوف نتصل بك عبر البريد الإلكتروني.</string>
-	<string name="navigation_stop_button">توقف</string>
-	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-	<string name="recent_track_background_dialog_title">تريد تعطيل التسجيل الخاص بمسار سفرك الأخير؟</string>
-	<string name="off_recent_track_background_button">تعطيل</string>
-	<!-- For sharing via SMS and so on -->
-	<string name="sharing_call_action_look">انظر</string>
-	<string name="recent_track_background_dialog_message">يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.</string>
-	<!-- Text under the version number in the Help dialog. -->
+	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps هي تطبيق خرائط مجاني ومفتوح المصدر بلا اتصال بالإنترنت. لا اعلانات. لا تتبع. إذا رأيت خطأً على الخريطة ، فيرجى إصلاحه في OpenStreetMap. تم إنشاء المشروع بواسطة المتحمسين في أوقات فراغنا ، لذلك نحتاج إلى ملاحظاتك ودعمك.</string>
-	<string name="general_settings">إعدادات عامة</string>
 	<!-- For the first routing -->
 	<string name="accept">قبول</string>
 	<!-- For the first routing -->
 	<string name="decline">رفض</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">قائمة</string>
 	<string name="mobile_data_dialog">استخدام إنترنت المحمول لإظهار المعلومات التفصيلية؟</string>
 	<string name="mobile_data_option_always">استخدام دائمًا</string>
@@ -584,8 +492,6 @@
 	<string name="traffic_update_maps_text">لعرض البيانات المرورية، يجب تحديث الخرائط.</string>
 	<string name="big_font">زيادة حجم الخط على الخريطة</string>
 	<string name="traffic_update_app">الرجاء تحديث Organic Maps</string>
-	<!-- "traffic" as in road congestion -->
-	<string name="traffic_update_app_message">لعرض البيانات المرورية، يجب تحديث التطبيق.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">البيانات المرورية غير متاحة</string>
 	<string name="enable_logging">تمكين التسجيل</string>
@@ -602,13 +508,8 @@
 	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار</string>
 	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار</string>
 	<string name="button_exit">خروج</string>
-	<string name="planning_route_manage_route">إدارة المسار</string>
-	<string name="button_plan">خطة</string>
 	<string name="placepage_remove_stop">إزالة</string>
-	<string name="planning_route_remove_title">اسحب هنا للإزالة</string>
 	<string name="placepage_add_stop">إضافة نقطة توقف</string>
-	<string name="start_from_my_position">بدء من</string>
-	<string name="profile_authorization_error">عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.</string>
 	<string name="dialog_error_storage_title">مشكلة الوصول للتخزين</string>
 	<string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو ملف النظام للقراءة فقط. افحصه واتصل بنا على support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">محاكاة التخزين السيء</string>
@@ -618,14 +519,7 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">إخفاء الكل</string>
 	<string name="bookmark_lists_show_all">إظهار الكل</string>
-	<plurals name="bookmarks_places">
-	  <item quantity="other">%d من الإشارات المرجعية</item>
-	</plurals>
 	<string name="bookmarks_create_new_group">إنشاء قائمة جديدة</string>
-	<string name="downloader_hide_screen">إخفاء الشاشة</string>
-	<string name="downloader_percent">%1$s (%2$s من %3$s)</string>
-	<string name="downloader_process">جار تنزيل %s…</string>
-	<string name="downloader_applying">جار تطبيق %s…</string>
 	<string name="bookmarks_error_message_share_general">تعذرت المشاركة بسبب خطأ في التطبيق</string>
 	<string name="bookmarks_error_title_share_empty">خطأ في المشاركة</string>
 	<string name="bookmarks_error_message_share_empty">لا يمكن مشاركة قائمة فارغة</string>
@@ -634,21 +528,13 @@
 	<string name="bookmarks_new_list_hint">قائمة جديدة</string>
 	<string name="bookmarks_error_title_list_name_already_taken">هذا الاسم أخذ سابقا</string>
 	<string name="bookmarks_error_message_list_name_already_taken">يرجى اختيار اسم آخر</string>
-	<string name="bookmarks_error_title_list_name_too_long">هذا الاسم طويل للغاية</string>
 	<string name="please_wait">أرجو الإنتظار…</string>
 	<string name="phone_number">رقم الهاتف</string>
 	<string name="profile">الملف الشخصي OpenStreetMap</string>
-	<string name="bookmarks_detect_title">تم اكتشاف ملفات جديدة</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">تم العثور على %d ملفات. سوف تراهم بعد التحويل.</item>
 	</plurals>
-	<string name="button_convert">تحول</string>
-	<string name="bookmarks_convert_error_title">خطأ</string>
-	<string name="bookmarks_convert_error_message">لم يتم تحويل بعض الملفات.</string>
-	<string name="bookmarks_restore_title">استعادة هذا الإصدار؟</string>
 	<string name="common_check_internet_connection_dialog_title">لا يوجد اتصال بالإنترنت</string>
-	<string name="error_system_message">حدث خطأ غير معروف</string>
-	<string name="restore">استعادة</string>
 	<plurals name="objects">
 	  <item quantity="other">المكان %d</item>
 	</plurals>
@@ -670,17 +556,13 @@
 	<string name="bookmarks_empty_list_title">هذه اللائحة شاغرة</string>
 	<string name="bookmarks_empty_list_message">لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر فوق رمز النجمة</string>
 	<string name="category_desc_more">…المزيد</string>
-	<string name="title_error_downloading_bookmarks">حدث خطأ</string>
 	<string name="export_file">ملف التصدير</string>
 	<string name="list_settings">قائمة الإعدادات</string>
 	<string name="delete_list">حذف القائمة</string>
-	<string name="hide_from_map">إخفاء من الخريطة</string>
 	<string name="public_access">إطلاع الجمهور</string>
 	<string name="limited_access">محدودية فرص حصول</string>
 	<string name="bookmark_list_description_hint">اكتب وصفًا (نص أو html)</string>
 	<string name="not_shared">خاص</string>
-	<string name="tags_loading_error_subtitle">حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى</string>
-	<string name="download_button">تحميل</string>
 	<string name="speedcams_alert_title">كاميرات السرعة</string>
 	<string name="speedcam_option_auto">السيارات</string>
 	<string name="speedcam_option_always">دائما</string>
@@ -688,7 +570,6 @@
 	<string name="place_description_title">وصف المكان</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">محمل الخريطة</string>
-	<string name="speedcams_notice_message">السيارات- تحذير على الرادارات إذا كان هناك خطر تجاوز الحد الأقصى للسرعة\nدائما - احذر دائما من كاميرات السرعة\nمطلقا - أبدا تحذير من كاميرات السرعة</string>
 	<string name="power_managment_title">وضع توفير الطاقة</string>
 	<string name="power_managment_description">عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية</string>
 	<string name="power_managment_setting_never">أبدًا</string>
@@ -712,44 +593,11 @@
 	<string name="avoid_toll_roads_placepage">تجنب نقاط تحصيل الرسوم</string>
 	<string name="avoid_unpaved_roads_placepage">تجنب الطرق الغير ممهدة</string>
 	<string name="avoid_ferry_crossing_placepage">تجنب تقاطع العبارات</string>
-	<string name="trip_start">هيا بنا</string>
-	<string name="pick_destination">جهة الوصول</string>
-	<string name="follow_my_position">العودة إلى الوسط</string>
-	<string name="search_results">نتائج البحث</string>
-	<string name="then_turn">ثم</string>
-	<string name="redirect_route_alert">هل تريد إعادة تحديد الطريق?</string>
-	<string name="redirect_route_yes">نعم</string>
-	<string name="redirect_route_no">لا</string>
-	<string name="trip_finished">لقد وصلت!</string>
-	<string name="keyboard_availability_alert">لوحة الكتابة غير متاحة أثناء القيادة</string>
-	<string name="dialog_routing_change_start_carplay">لا يمكن تحديد طريق من موقعك الحالي</string>
-	<string name="dialog_routing_change_end_carplay">لا يمكن تحديد طريق لجهة الوصول. يرجي اختيار مكان آخر</string>
-	<string name="dialog_routing_check_gps_carplay">لا وجد إشارة GPS. يرجى التحرك لمكان مفتوح</string>
-	<string name="dialog_routing_unable_locate_route_carplay">لا يمكن تحديد طريق. يرجى تحديد أماكن أخرى على الطريق</string>
-	<string name="dialog_routing_download_files_carplay">كي تُنشئ مساراً، يجب أن تحمل الخرائط المفقودة على جهازك</string>
-	<string name="dialog_routing_system_error_carplay">حدث خطأ. يرجى إعادة تشغيل التطبيق</string>
-	<string name="dialog_routing_rebuild_from_current_location_carplay">سيتم اعادة تحديد الطريق من موقعك الحالي</string>
-	<string name="dialog_routing_rebuild_for_vehicle_carplay">سيتم تعديل الطريق لتكون خاصة بالسيارة</string>
 	<string name="ok">موافق</string>
-	<string name="avoid_unpaved_carplay_1">غير ترابي</string>
-	<string name="avoid_unpaved_carplay_2">تجنب غير الممهد</string>
-	<string name="avoid_ferry_carplay_1">بدون عبََارة</string>
-	<string name="avoid_ferry_carplay_2">تجنب العبََارة</string>
-	<string name="avoid_tolls_carplay_1">بدون رسوم</string>
-	<string name="avoid_tolls_carplay_2">تجنب الرسوم</string>
-	<string name="speedcams_alert_title_carplay_1">كاميرا سريعة</string>
-	<string name="speedcams_alert_title_carplay_2">تحذير سريع</string>
-	<string name="download_map_carplay">يُرجى تحميل الخرائط في تطبيق Organic Maps على جهازك</string>
-	<string name="carplay_roundabout_exit">المخرج رقم %s</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">تريتب…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">رتب العلامات المرجعية</string>
-	<!-- iOS -->
-	<string name="sort_default">رتب افتراضي</string>
-	<string name="sort_type">رتب حسب النوع</string>
-	<string name="sort_distance">رتب حسب المسافة</string>
-	<string name="sort_date">رتب حسب التاريخ</string>
 	<!-- Android -->
 	<string name="by_default">افتراضي</string>
 	<!-- Android -->
@@ -764,6 +612,8 @@
 	<string name="moreyear_ago_sorttype">منذ أكثر من سنة</string>
 	<string name="near_me_sorttype">قريب مني</string>
 	<string name="others_sorttype">أخرى</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">طعام</string>
 	<string name="tourist_places">مشاهد</string>
 	<string name="museums">متاحف</string>
@@ -777,7 +627,6 @@
 	<string name="shops">متاجر</string>
 	<string name="parkings">مواقف سيارات</string>
 	<string name="fuel_places">محطات وقود</string>
-	<string name="water">ماء</string>
 	<string name="medicine">دواء</string>
 	<string name="search_in_the_list">بحث في القائمة</string>
 	<string name="religious_places">أماكن دينية</string>
@@ -788,10 +637,6 @@
 	<string name="button_layer_isolines">تضاريس</string>
 	<string name="isolines_activation_error_dialog">لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أوتنزيل خريطة المنطقة</string>
 	<string name="isolines_location_error_dialog">الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة</string>
-	<string name="elevation_profile_diff_level">مستوى الصعوبة</string>
-	<string name="elevation_profile_diff_level_easy">سهل</string>
-	<string name="elevation_profile_diff_level_moderate">معتدل</string>
-	<string name="elevation_profile_diff_level_hard">صعب</string>
 	<string name="elevation_profile_ascent">تصاعدي</string>
 	<string name="elevation_profile_descent">تنازلي</string>
 	<string name="elevation_profile_minaltitude">الحد الأدنى للارتفاع</string>
@@ -800,22 +645,9 @@
 	<string name="elevation_profile_distance">المسافة:</string>
 	<string name="elevation_profile_time">مدة:</string>
 	<string name="isolines_toast_zooms_1_10">قرب لتكتشف خطوط الكنتور</string>
-	<string name="downloader_updating_ios">جار التحديث</string>
-	<string name="downloader_loading_ios">جار التحميل</string>
-	<string name="key_information_title">معلومات رئيسية</string>
 	<string name="enable_screen_sleep">اسمح للشاشة بالنوم</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">عند التمكين ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">قم بتحديث الخرائط التي قمت بنتزيلها</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_size">تحديث (%s)</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_later">تحديث يدوياً في وقت لاحق</string>
-	<!-- edit track screen title -->
-	<string name="track_title">مسار</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>
@@ -857,7 +689,9 @@
 	<string name="type.amenity.fire_station">محطة إطفاء</string>
 	<string name="type.amenity.fountain">نافورة</string>
 	<string name="type.amenity.fuel">محطة وقود</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">مقبرة</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">مقبرة</string>
 	<string name="type.amenity.hospital">عيادة</string>
 	<string name="type.amenity.hunting_stand">منصة صيد</string>
@@ -896,9 +730,12 @@
 	<string name="type.amenity.post_office">مكتب بريد</string>
 	<string name="type.amenity.pub">بار</string>
 	<string name="type.amenity.public_bookcase">مكتبة، تبادل كتب</string>
-	<string name="type.amenity.recycling">مركز إعادة تدوير</string>
-	<string name="type.amenity.recycling_container">حاوية لإعادة التدوير</string>
-	<string name="type.recycling.toxic">نفايات سامة</string>
+
+	<!-- SECTION: Types: Recycling -->
+	<string name="type.amenity.recycling.centre">مركز إعادة تدوير</string>
+	<string name="type.amenity.recycling">حاوية لإعادة التدوير</string>
+	<string name="type.amenity.recycling.container">حاوية لإعادة التدوير</string>
+	<string name="type.recycling.batteries">ﺕﺎﻳﺭﺎﻄﺑ</string>
 	<string name="type.recycling.clothes">ملابس قديمة</string>
 	<string name="type.recycling.glass_bottles">زجاجات زجاجية</string>
 	<string name="type.recycling.paper">نفايات ورقية</string>
@@ -1040,6 +877,8 @@
 	<string name="type.emergency.phone">هاتف الطوارئ</string>
 	<string name="type.entrance">مدخل</string>
 	<string name="type.healthcare.laboratory">ﺔﻴﺒﻄﻟﺍ ﺕﺍﺮﺒﺘﺨﻤﻟﺍ</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">موقف حافلة</string>
 	<string name="type.highway.construction">طريق تحت الإنشاء</string>
 	<string name="type.highway.footway">مسار</string>
@@ -1139,6 +978,22 @@
 	<string name="type.highway.unclassified.area">شارع</string>
 	<string name="type.highway.unclassified.bridge">شارع</string>
 	<string name="type.highway.unclassified.tunnel">شارع</string>
+	<string name="type.area_highway.footway">مسار</string>
+	<string name="type.area_highway.living_street">شارع</string>
+	<string name="type.area_highway.motorway">شارع</string>
+	<string name="type.area_highway.path">مسار</string>
+	<string name="type.area_highway.pedestrian">شارع</string>
+	<string name="type.area_highway.primary">شارع</string>
+	<string name="type.area_highway.residential">شارع</string>
+	<string name="type.area_highway.secondary">شارع</string>
+	<string name="type.area_highway.service">شارع</string>
+	<string name="type.area_highway.tertiary">شارع</string>
+	<string name="type.area_highway.steps">مسار</string>
+	<string name="type.area_highway.track">شارع</string>
+	<string name="type.area_highway.trunk">شارع</string>
+	<string name="type.area_highway.unclassified">شارع</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">موقع أثري</string>
 	<string name="type.historic.castle">قلعة</string>
 	<string name="type.historic.castle.defensive">قلعة</string>
@@ -1154,7 +1009,9 @@
 	<string name="type.internet_access">واي فاي</string>
 	<string name="type.internet_access.wlan">واي فاي</string>
 	<string name="type.landuse.basin">حوض المياه</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">مقبرة</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">مقبرة</string>
 	<string name="type.landuse.churchyard">فناء الكنيسة</string>
 	<string name="type.landuse.farmland">حقل</string>
@@ -1187,6 +1044,7 @@
 	<string name="type.leisure.sports_centre.yoga">نادي يوغا</string>
 	<string name="type.leisure.stadium">استاد</string>
 	<string name="type.leisure.swimming_pool">حوض سباحة</string>
+	<string name="type.leisure.swimming_pool.private">حوض سباحة</string>
 	<string name="type.leisure.water_park">ملاهي مائية</string>
 	<string name="type.man_made.chimney">مدخنة مصنع</string>
 	<string name="type.man_made.lighthouse">منارة</string>
@@ -1227,16 +1085,16 @@
 	<string name="type.office.telecommunication">شركة اتصالات</string>
 	<string name="type.place.city">مدينة</string>
 	<string name="type.place.city.capital">عاصمة</string>
-	<string name="type.place.city.capital.10">عاصمة</string>
-	<string name="type.place.city.capital.11">عاصمة</string>
+	<string name="type.place.city.capital.10">مدينة</string>
+	<string name="type.place.city.capital.11">مدينة</string>
 	<string name="type.place.city.capital.2">عاصمة</string>
-	<string name="type.place.city.capital.3">عاصمة</string>
-	<string name="type.place.city.capital.4">عاصمة</string>
-	<string name="type.place.city.capital.5">عاصمة</string>
-	<string name="type.place.city.capital.6">عاصمة</string>
-	<string name="type.place.city.capital.7">عاصمة</string>
-	<string name="type.place.city.capital.8">عاصمة</string>
-	<string name="type.place.city.capital.9">عاصمة</string>
+	<string name="type.place.city.capital.3">مدينة</string>
+	<string name="type.place.city.capital.4">مدينة</string>
+	<string name="type.place.city.capital.5">مدينة</string>
+	<string name="type.place.city.capital.6">مدينة</string>
+	<string name="type.place.city.capital.7">مدينة</string>
+	<string name="type.place.city.capital.8">مدينة</string>
+	<string name="type.place.city.capital.9">مدينة</string>
 	<string name="type.place.continent">قارة</string>
 	<string name="type.place.country">دولة</string>
 	<string name="type.place.county">مقاطعة</string>

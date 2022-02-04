@@ -13,16 +13,21 @@ OPT_PATH=
 OPT_STANDALONE=
 OPT_COMPILE_DATABASE=
 OPT_LAUNCH_BINARY=
-while getopts ":cdrstagjlp:" opt; do
+OPT_NJOBS=
+while getopts ":cdrxstagjlpn:" opt; do
   case $opt in
     a) OPT_STANDALONE=1 ;;
     c) OPT_CLEAN=1 ;;
     d) OPT_DEBUG=1 ;;
+    x) CMAKE_CONFIG="${CMAKE_CONFIG:-} -DUSE_PCH=YES" ;;
     g) OPT_GCC=1 ;;
     j) OPT_COMPILE_DATABASE=1
        CMAKE_CONFIG="${CMAKE_CONFIG:-} -DCMAKE_EXPORT_COMPILE_COMMANDS=YES"
       ;;
     l) OPT_LAUNCH_BINARY=1 ;;
+    n) OPT_NJOBS="$OPTARG"
+       CMAKE_CONFIG="${CMAKE_CONFIG:-} -DNJOBS=${OPT_NJOBS}"
+      ;;
     p) OPT_PATH="$OPTARG" ;;
     r) OPT_RELEASE=1 ;;
     s) OPT_SKIP_DESKTOP=1
@@ -31,21 +36,22 @@ while getopts ":cdrstagjlp:" opt; do
     t) OPT_DESIGNER=1 ;;
     *)
       echo "This tool builds Organic Maps"
-      echo "Usage: $0 [-d] [-r] [-c] [-s] [-t] [-a] [-g] [-j] [-l] [-p PATH] [target1 target2 ...]"
+      echo "Usage: $0 [-d] [-r] [-c] [-x] [-s] [-t] [-a] [-g] [-j] [-l] [-p PATH] [-n NUM] [target1 target2 ...]"
       echo
-      echo "By default both debug and release versions are built"
-      echo "and binaries are put into ../omim-build-<buildtype> dir."
+      echo "By default both debug and release versions are built in ../omim-build-<buildtype> dir."
       echo
-      echo -e "-d\tBuild debug version"
-      echo -e "-r\tBuild release version"
-      echo -e "-c\tClean before building"
-      echo -e "-s\tSkip desktop app building"
-      echo -e "-t\tBuild designer tool (only for MacOS X platform)"
-      echo -e "-a\tBuild standalone desktop app (only for MacOS X platform)"
-      echo -e "-g\tForce use GCC (only for MacOS X platform)"
-      echo -e "-p\tDirectory for built binaries"
-      echo -e "-j\tGenerate compile_commands.json"
-      echo -e "-l\tLaunches built binary(ies), useful for tests"
+      echo -e "-d  Build debug version"
+      echo -e "-r  Build release version"
+      echo -e "-x  Use precompiled headers"
+      echo -e "-c  Clean before building"
+      echo -e "-s  Skip desktop app building"
+      echo -e "-t  Build designer tool (only for MacOS X platform)"
+      echo -e "-a  Build standalone desktop app (only for MacOS X platform)"
+      echo -e "-g  Force use GCC (only for MacOS X platform)"
+      echo -e "-p  Directory for built binaries"
+      echo -e "-n  Number of parallel processes"
+      echo -e "-j  Generate compile_commands.json"
+      echo -e "-l  Launches built binary(ies), useful for tests"
       exit 1
       ;;
   esac
@@ -103,6 +109,10 @@ else
   [ -n "$OPT_STANDALONE" ] \
   && echo "Standalone desktop app supported only on MacOS X platform" && exit 2
   PROCESSES=$(nproc)
+fi
+
+if [ -n "$OPT_NJOBS" ]; then
+  PROCESSES="$OPT_NJOBS"
 fi
 
 build()

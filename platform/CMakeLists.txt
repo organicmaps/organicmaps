@@ -14,8 +14,6 @@ set(SRC
   downloader_defines.hpp
   downloader_utils.cpp
   downloader_utils.hpp
-  file_logging.cpp
-  file_logging.hpp
   get_text_by_id.cpp
   get_text_by_id.hpp
   gui_thread.hpp
@@ -91,8 +89,6 @@ else() # neither iPhone nor Android
     location_service.hpp
     network_policy_dummy.cpp
     platform_qt.cpp
-    wifi_info.hpp
-    wifi_location_service.cpp
   )
 
   if (${PLATFORM_WIN})
@@ -104,7 +100,6 @@ else() # neither iPhone nor Android
       http_uploader_dummy.cpp
       platform_win.cpp
       secure_storage_dummy.cpp
-      wifi_info_windows.cpp
     )
   elseif(${PLATFORM_MAC})
     append(SRC
@@ -160,3 +155,20 @@ target_link_libraries(${PROJECT_NAME}
 
 omim_add_test_subdirectory(platform_tests_support)
 omim_add_test_subdirectory(platform_tests)
+
+set_property(
+  SOURCE
+    preferred_languages.cpp
+    apple_location_service.mm
+    gui_thread_apple.mm
+    http_client_apple.mm
+    http_thread_apple.mm
+    http_uploader_apple.mm
+    http_uploader_background_dummy.cpp
+    locale.mm
+    platform_mac.mm
+    socket_apple.mm
+    http_session_manager.mm
+  PROPERTY
+    SKIP_UNITY_BUILD_INCLUSION ON
+)

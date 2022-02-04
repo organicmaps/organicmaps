@@ -8,8 +8,6 @@
 	<string name="back">Tillbaka</string>
 	<!-- Button text (should be short) -->
 	<string name="cancel">Avbryt</string>
-	<!-- Button which interrupts country download -->
-	<string name="cancel_download">Avbryt nedladdning</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Ta bort</string>
 	<string name="download_maps">Ladda ner kartor</string>
@@ -19,8 +17,6 @@
 	<string name="downloading">Laddar ner…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometer</string>
-	<!-- Leave Review dialog - Review button -->
-	<string name="leave_a_review">Skriv en recension</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Kartor</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -33,19 +29,14 @@
 	<string name="search">Sök</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Sök karta</string>
-	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
-	<string name="use_cellular_data">Ja</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Du har inaktiverat alla platstjänster för denna enhet eller program. Vänligen aktivera dem i Inställningar.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Visa på kartan</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
-	<string name="country_status_download_without_size">Ladda ner karta</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Downloading har misslyckats</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Försök igen</string>
-	<string name="about_menu_title">Om Organic Maps</string>
 	<string name="connection_settings">Anslutningsinställningar</string>
 	<string name="close">Stäng</string>
 	<string name="unsupported_phone">Hårdvaruaccelererad OpenGL krävs. Din enhet stöds tyvärr inte.</string>
@@ -70,8 +61,6 @@
 	<string name="bookmark_color">Bokmärkesfärg</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">Bokmärkessamlingens namn</string>
-	<!-- "Bookmark Lists" dialog title -->
-	<string name="bookmark_sets">Bokmärkessamlingar</string>
 	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Bokmärken</string>
 	<!-- Default bookmark list name -->
@@ -80,8 +69,8 @@
 	<string name="name">Namn</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adress</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">Samling</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">Lista</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Inställningar</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -96,42 +85,48 @@
 	<string name="measurement_units">Längdenheter</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Välj mellan mil och kilometer</string>
-	<!-- Search category for cafes, bars, restaurants -->
+
+	<!-- SECTION: Search categories -->
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
 	<string name="eat">Var att äta</string>
-	<!-- Search category for grocery stores -->
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
 	<string name="food">Produkter</string>
-	<!-- Search category -->
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Transport</string>
-	<!-- Search category -->
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
 	<string name="fuel">Bensin</string>
-	<!-- Search category -->
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">Parkering</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">Shopping</string>
-	<!-- Search category -->
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hotell</string>
-	<!-- Search category -->
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
 	<string name="tourism">Sevärdheter</string>
-	<!-- Search category -->
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
 	<string name="entertainment">Underhållning</string>
-	<!-- Search category -->
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
 	<string name="atm">Bankomat</string>
-	<!-- Search category for nightclubs/bars -->
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
 	<string name="nightlife">Nattliv</string>
-	<!-- Search category for water park/disneyland/playground/toys store -->
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
 	<string name="children">Semester med barn</string>
-	<!-- Search category -->
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
 	<string name="bank">Bank</string>
-	<!-- Search category -->
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
 	<string name="pharmacy">Apotek</string>
-	<!-- Search category -->
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">Sjukhus</string>
-	<!-- Search category -->
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
 	<string name="toilet">Toalett</string>
-	<!-- Search category -->
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
 	<string name="post">Post</string>
-	<!-- Search category -->
+	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Polis</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">Återvinning</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">Vatten</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Anteckningar</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -160,16 +155,16 @@
 	<string name="my_position_share_email">Hej,\n\nJag är här nu: %1$s. Klicka på denna länk %2$s eller denna %3$s för att se platsen på kartan.\n\nTack.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Dela</string>
-	<!-- Share by email button text, also used in editor. -->
+	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">E-post</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Kopierat till urklippsbordet: %1$s</string>
-	<!-- place preview title -->
-	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Klar</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Version: %s</string>
+	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+	<string name="data_version">OpenStreetMap-data: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Är du säker på att du vill fortsätta?</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -198,10 +193,6 @@
 	<string name="pref_tts_language_title">Röstspråk</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Inte tillgängligt</string>
-	<!-- Title for "Other" section in TTS settings. -->
-	<string name="pref_tts_other_section_title">Övrigt</string>
-	<!-- Settings «Map» category: «Record track» title -->
-	<string name="pref_track_record_title">Senaste resväg</string>
 	<string name="pref_map_auto_zoom">Automatisk zoom</string>
 	<string name="duration_disabled">Av</string>
 	<string name="duration_1_hour">1 timme</string>
@@ -209,8 +200,6 @@
 	<string name="duration_6_hours">6 timmar</string>
 	<string name="duration_12_hours">12 timmar</string>
 	<string name="duration_1_day">1 dag</string>
-	<string name="recent_track_help_text">Detta gör att du kan spara en resväg för en viss tidsperiod och visa den på kartan. Obs: aktivering av den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när tidsintervallet slutar gälla.</string>
-	<string name="placepage_distance">Avstånd</string>
 	<string name="search_show_on_map">Visa på kartan</string>
 	<!-- Text in menu -->
 	<string name="website">Webbplats</string>
@@ -228,31 +217,18 @@
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Rapportera en bugg</string>
-	<!-- Alert text -->
-	<string name="email_error_body">Emailklienten har inte konfigurerats. Konfigurera den eller använd ett annat sätt att kontakta oss på %s</string>
-	<!-- Alert title -->
-	<string name="email_error_title">Fel när mailet skulle skickas</string>
-	<!-- Settings item title -->
-	<string name="pref_calibration_title">Kompasskalibrering</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Uppdatera alla</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Avbryt alla</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Nedladdade</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_available_maps">Tillgänglig</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Köade</string>
 	<string name="downloader_near_me_subtitle">Nära mig</string>
 	<string name="downloader_status_maps">Kartor</string>
 	<string name="downloader_download_all_button">Ladda ned alla</string>
 	<string name="downloader_downloading">Ladda ner:</string>
-	<string name="downloader_search_results">Hittat</string>
-	<!-- Status of outdated country in the list -->
-	<string name="downloader_status_outdated">Uppdatera</string>
-	<!-- Status of failed country in the list -->
-	<string name="downloader_status_failed">Misslyckades</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
 	<string name="downloader_delete_map_while_routing_dialog">Avsluta navigering för att radera kartan.</string>
 	<!-- PointsInDifferentMWM -->
@@ -267,22 +243,12 @@
 	<string name="downloader_update_map">Uppdatera karta</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Använd Google Play Services för att bestämma din aktuella position</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_just_rated">Jag har precis betygsatt er app</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_thanks">Tack!</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_share_ideas">Dela med dig av dina idéer eller problem så att vi kan förbättra appen åt dig.</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_send_feedback">Skicka återkoppling</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Ladda ned kartor längs vägen</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Att kunna skapa en navigeringsväg kräver att alla kartorna från din plats till din destination är nerladdade och uppdaterade.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">För lite utrymme kvar</string>
-	<!-- bookmark button text -->
-	<string name="bookmark">bokmärke</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Vänligen aktivera platstjänster</string>
 	<string name="save">Spara</string>
@@ -335,8 +301,6 @@
 	<string name="dialog_routing_location_turn_wifi">Kontrollera din GPS-signal. Aktivera Wi-Fi-anslutning för att förbättra platsprecisionen.</string>
 	<string name="dialog_routing_location_turn_on">Aktivera platstjänster</string>
 	<string name="dialog_routing_location_unknown_turn_on">Kan inte lokalisera nuvarande GPS-koordinater. Aktivera platstjänster för att beräkna väg.</string>
-	<string name="dialog_routing_download_files">Ladda ned nödvändiga filer</string>
-	<string name="dialog_routing_download_and_update_all">Ladda ned och uppdatera all kart- och väginformation längs den beräknade vägbanan för att beräkna vägen.</string>
 	<string name="dialog_routing_unable_locate_route">Kan inte lokalisera väg</string>
 	<string name="dialog_routing_cant_build_route">Kan inte skapa väg.</string>
 	<string name="dialog_routing_change_start_or_end">Justera din startpunkt eller din destination.</string>
@@ -351,7 +315,6 @@
 	<string name="dialog_routing_system_error">Systemfel</string>
 	<string name="dialog_routing_application_error">Kan inte skapa väg på grund av ett programfel.</string>
 	<string name="dialog_routing_try_again">Försök igen</string>
-	<string name="not_now">Inte nu</string>
 	<string name="dialog_routing_download_and_build_cross_route">Vill du ladda ned kartan och skapa en optimalare väg som sträcker sig över fler än en karta?</string>
 	<string name="dialog_routing_download_cross_route">Ladda ned kartan för att skapa en optimalare väg som sträcker sig utanför den här kartan.</string>
 
@@ -362,17 +325,8 @@
 	<string name="show">Visa</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Göm</string>
-	<!-- Failed planning route message in navigation view -->
-	<string name="routing_planning_error">Ruttplanering misslyckades</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Ankomst: %s</string>
-	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
-	<string name="dialog_routing_download_and_update_maps">För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.</string>
-	<string name="rate_alert_title">Gillar du appen?</string>
-	<string name="rate_alert_default_message">Tack för att du använder Organic Maps. Betygsätt gärna appen. Din feedback hjälper oss att bli bättre.</string>
-	<string name="rate_alert_five_star_message">Hurra! Vi älskar dig också!</string>
-	<string name="rate_alert_four_star_message">Tack, vi ska göra vårt bästa!</string>
-	<string name="rate_alert_less_than_four_star_message">Har du någon idé om hur vi ska bli bättre?</string>
 	<string name="categories">Kategorier</string>
 	<string name="history">Historik</string>
 	<string name="closed">Stängt</string>
@@ -403,8 +357,6 @@
 	<string name="editor_example_values">Exempelvärden</string>
 	<string name="editor_correct_mistake">Korrigera fel</string>
 	<string name="editor_add_select_location">Plats</string>
-	<string name="editor_done_dialog_1">Du har ändrat världskartan. Dölj inte detta! Berätta för dina vänner och redigera den tillsammans.</string>
-	<string name="share_with_friends">Dela med vänner</string>
 	<string name="editor_report_problem_desription_1">Beskriv problemet i detalj så att OpenStreeMaps community kan lösa felet.</string>
 	<string name="editor_report_problem_desription_2">Eller gör det själv på https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Skicka</string>
@@ -414,29 +366,20 @@
 	<string name="editor_report_problem_duplicate_place_title">Duplicerad plats</string>
 	<string name="autodownload">Automatisk nedladdning</string>
 	<!-- Place Page opening hours text -->
-	<string name="closed_now">Stängt just nu</string>
-	<!-- Place Page opening hours text -->
 	<string name="daily">Dagligen</string>
 	<string name="twentyfour_seven">dag och natt</string>
 	<string name="day_off_today">Stängt idag</string>
 	<string name="day_off">Stängt</string>
 	<string name="today">Idag</string>
-	<string name="add_opening_hours">Lägg till öppettider</string>
 	<string name="edit_opening_hours">Redigera öppettider</string>
 	<string name="no_osm_account">Inget konto hos OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registrera</string>
-	<string name="password_8_chars_min">Lösenord (minst 8 tecken)</string>
-	<string name="invalid_username_or_password">Fel användarnamn eller lösenord.</string>
 	<string name="login">Logga in</string>
 	<string name="password">Lösenord</string>
 	<string name="forgot_password">Glömt lösenord?</string>
-	<string name="osm_account">OSM-konto</string>
 	<string name="logout">Logga ut</string>
-	<!-- Information text: "Last upload 11.01.2016" -->
-	<string name="last_upload">Senast uppladdad</string>
 	<string name="thank_you">Tack</string>
 	<string name="edit_place">Ändra platsen</string>
-	<string name="place_name">Platsens namn</string>
 	<string name="add_language">Lägg till ett språk</string>
 	<string name="street">Gata</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -451,22 +394,16 @@
 	<string name="select_cuisine">Välj kök</string>
 	<!-- login text field -->
 	<string name="email_or_username">E-postadress eller användarnamn</string>
-	<string name="phone">Telefon</string>
-	<string name="please_note">Observera</string>
 	<string name="downloader_delete_map_dialog">Alla kartändringar kommer att raderas tillsammans med kartan.</string>
 	<string name="downloader_update_maps">Uppdatera kartor</string>
 	<string name="downloader_mwm_migration_dialog">För att skapa en rutt måste du uppdatera alla kartor och sedan planera rutten igen.</string>
 	<string name="downloader_search_field_hint">Hitta kartan</string>
-	<string name="migration_download_error_dialog">Nedladdningsfel</string>
 	<string name="common_check_internet_connection_dialog">Kontrollera dina inställningar och se till att din enhet är ansluten till internet.</string>
 	<string name="downloader_no_space_title">Ej tillräckligt utrymme</string>
 	<string name="downloader_no_space_message">Ta bort onödig data</string>
 	<string name="editor_login_error_dialog">Inloggningsfel.</string>
 	<string name="editor_profile_changes">Verifierade ändringar</string>
 	<string name="editor_focus_map_on_location">Dra på kartan för att välja objektets rätta plats.</string>
-	<string name="editor_add_select_category">Välj kategori</string>
-	<string name="editor_add_select_category_popular_subtitle">Populära</string>
-	<string name="editor_add_select_category_all_subtitle">Alla kategorier</string>
 	<string name="editor_edit_place_title">Redigerar</string>
 	<string name="editor_add_place_title">Lägger till</string>
 	<string name="editor_edit_place_name_hint">Namn på platsen</string>
@@ -474,13 +411,8 @@
 	<string name="detailed_problem_description">Detaljerad beskrivning av ett problem</string>
 	<string name="editor_report_problem_other_title">Ett annat problem</string>
 	<string name="placepage_add_business_button">Lägg till organisation</string>
-	<string name="whatsnew_editor_message_1">Lägg till nya platser till kartan och redigera de befintliga direkt från appen.</string>
-	<string name="dialog_incorrect_feature_position">Ändra placering</string>
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
 	<string name="login_to_make_edits_visible">Logga in så att andra användare kan se de ändringar du gjort.</string>
-	<!-- Error dialog no space -->
-	<string name="migration_no_space_message">Du behöver mer utrymme för att ladda ned. Radera onödig data.</string>
-	<string name="editor_sharing_title">Jag förbättrade kartorna hos Organic Maps</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d av %2$d</string>
 	<string name="download_over_mobile_header">Ladda ned med mobildata?</string>
@@ -498,7 +430,6 @@
 	<string name="editor_detailed_description">Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i Organic Maps.</string>
 	<string name="editor_more_about_osm">Mer om OpenStreetMap</string>
 	<string name="editor_operator">Användare</string>
-	<string name="downloader_my_maps_title">Mina kartor</string>
 	<string name="downloader_no_downloaded_maps_title">Du har inte laddat ner några kartor</string>
 	<string name="downloader_no_downloaded_maps_message">Ladda ner kartor för att hitta platsen och navigera offline.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -507,14 +438,6 @@
 	<string name="current_location_unknown_message">Nuvarande plats okänd. Du kanske är i en byggnad eller tunnel.</string>
 	<string name="current_location_unknown_continue_button">Fortsätt</string>
 	<string name="current_location_unknown_stop_button">Stopp</string>
-	<string name="current_location_unknown_error_title">Den nuvarande platsen är okänd.</string>
-	<string name="current_location_unknown_error_message">Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.</string>
-	<string name="location_services_disabled_header">Platsidentifiering avaktiverad</string>
-	<string name="location_services_disabled_message">Aktivera tillgång till geografisk plats i enhetens inställningar</string>
-	<string name="location_services_disabled_1">1. Öppna inställningar</string>
-	<string name="location_services_disabled_2">2. Tryck på Plats</string>
-	<!-- iOS Dialog for the case when the location permission is not granted -->
-	<string name="location_services_disabled_3">3. Välj Medan appen används</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
@@ -526,46 +449,31 @@
 	<string name="placepage_place_description">Beskrivning</string>
 	<string name="placepage_more_button">Mer</string>
 	<string name="placepage_more_reviews_button">Fler recensioner</string>
-	<string name="book_button">Boka</string>
 	<string name="placepage_call_button">Ring</string>
 	<string name="placepage_edit_bookmark_button">Redigera bokmärke</string>
-	<string name="placepage_bookmark_name_hint">Namn bokmärke</string>
-	<string name="placepage_personal_notes_hint">Personlig anteckning</string>
-	<string name="placepage_delete_bookmark_button">Radera bokmärke</string>
-	<string name="editor_edits_sent_message">Dina föreslagna ändringar har skickats</string>
 	<string name="editor_comment_hint">kommentar…</string>
 	<string name="editor_reset_edits_message">Återställ alla lokala ändringar?</string>
 	<string name="editor_reset_edits_button">Återställ</string>
 	<string name="editor_remove_place_message">Ta bort en tillagd plats?</string>
 	<string name="editor_remove_place_button">Ta bort</string>
 	<string name="editor_place_doesnt_exist">Platsen finns inte</string>
-	<string name="text_more_button">…mer</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Ange korrekt telefonnummer</string>
 	<string name="error_enter_correct_web">Ange en giltig webadress</string>
 	<string name="error_enter_correct_email">Ange en giltig e-postadress</string>
-	<string name="refresh">Uppdatera</string>
 	<string name="placepage_add_place_button">Lägg till en plats på kartan</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vill du skicka det till alla användare?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Se till att du inte angett någon personinformation</string>
 	<string name="editor_share_to_all_dialog_message_2">Vi kommer att kontrollera ändringar. Om vi har några frågor kontaktar vi dig via e-post.</string>
-	<string name="navigation_stop_button">stopp</string>
-	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-	<string name="recent_track_background_dialog_title">Avaktivera inspelning av din senaste resta rutt?</string>
-	<string name="off_recent_track_background_button">Avaktivera</string>
-	<!-- For sharing via SMS and so on -->
-	<string name="sharing_call_action_look">Kolla in</string>
-	<string name="recent_track_background_dialog_message">Organic Maps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.</string>
-	<!-- Text under the version number in the Help dialog. -->
+	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps är en gratis offlinekartapplikation med öppen källkod. Inga annonser. Ingen spårning. Om du ser ett fel på kartan, åtgärda det i OpenStreetMap. Projektet skapas av entusiaster på vår fritid, så vi behöver din feedback och support.</string>
-	<string name="general_settings">Allmänna inställningar</string>
 	<!-- For the first routing -->
 	<string name="accept">Acceptera</string>
 	<!-- For the first routing -->
 	<string name="decline">Neka</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">Lista</string>
 	<string name="mobile_data_dialog">Använd mobilt nätverk för att visa detaljerad information?</string>
 	<string name="mobile_data_option_always">Använd alltid</string>
@@ -578,8 +486,6 @@
 	<string name="traffic_update_maps_text">Kartor måste uppdateras för att visa trafikdata.</string>
 	<string name="big_font">Öka teckenstorlek på kartan</string>
 	<string name="traffic_update_app">Uppdatera Organic Maps</string>
-	<!-- "traffic" as in road congestion -->
-	<string name="traffic_update_app_message">Applikationen måste uppdateras för att trafikdata ska kunna visas.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafikdata är inte tillgänglig</string>
 	<string name="enable_logging">Aktivera loggning</string>
@@ -596,13 +502,8 @@
 	<string name="routing_add_start_point">Lägg till startpunkt för att planera en rutt</string>
 	<string name="routing_add_finish_point">Lägg till slutpunkt för att planera en rutt</string>
 	<string name="button_exit">Avsluta</string>
-	<string name="planning_route_manage_route">Hantera rutt</string>
-	<string name="button_plan">Planera</string>
 	<string name="placepage_remove_stop">Ta bort</string>
-	<string name="planning_route_remove_title">Dra här för att ta bort</string>
 	<string name="placepage_add_stop">Lägg till stopp</string>
-	<string name="start_from_my_position">Starta från</string>
-	<string name="profile_authorization_error">Hoppsan, ett fel har inträffat. Försök att logga in igen.</string>
 	<string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>
 	<string name="dialog_error_storage_message">Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet är skrivskyddat. Kontrollera det och kontakta oss på support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulera dålig lagring</string>
@@ -612,14 +513,7 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Dölj alla</string>
 	<string name="bookmark_lists_show_all">Visa alla</string>
-	<plurals name="bookmarks_places">
-	  <item quantity="other">%d bokmärken</item>
-	</plurals>
 	<string name="bookmarks_create_new_group">Skapa ny lista</string>
-	<string name="downloader_hide_screen">Dölj skärm</string>
-	<string name="downloader_percent">%1$s (%2$s av %3$s)</string>
-	<string name="downloader_process">Ladda ned %s…</string>
-	<string name="downloader_applying">Tillämpar %s…</string>
 	<string name="bookmarks_error_message_share_general">Kunde inte delas på grund av ett applikationsfel</string>
 	<string name="bookmarks_error_title_share_empty">Delningsfel</string>
 	<string name="bookmarks_error_message_share_empty">Kan inte dela en tom lista</string>
@@ -628,22 +522,14 @@
 	<string name="bookmarks_new_list_hint">Ny lista</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Det här namnet är redan taget</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Vänligen välj ett annat namn</string>
-	<string name="bookmarks_error_title_list_name_too_long">Det här namnet är för långt</string>
 	<string name="please_wait">Vänligen vänta…</string>
 	<string name="phone_number">Telefonnummer</string>
 	<string name="profile">OpenStreetMap profil</string>
-	<string name="bookmarks_detect_title">Nya filer upptäcktes</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d fil hittades. Du kommer att se den efter omvandlingen.</item>
 	  <item quantity="other">%d filer har hittats. Du kommer att se dem efter omvandlingen.</item>
 	</plurals>
-	<string name="button_convert">Konvertera</string>
-	<string name="bookmarks_convert_error_title">Fel</string>
-	<string name="bookmarks_convert_error_message">Vissa filer konverterades inte.</string>
-	<string name="bookmarks_restore_title">Återställ den här versionen?</string>
 	<string name="common_check_internet_connection_dialog_title">Ingen internetanslutning</string>
-	<string name="error_system_message">Ett okänt fel uppstod</string>
-	<string name="restore">Återställa</string>
 	<plurals name="objects">
 	  <item quantity="other">%d plats</item>
 	</plurals>
@@ -665,17 +551,13 @@
 	<string name="bookmarks_empty_list_title">Listan är tom</string>
 	<string name="bookmarks_empty_list_message">För att lägga till bokmärken, tryck på kartan och sedan på stjärnikonen</string>
 	<string name="category_desc_more">…mer</string>
-	<string name="title_error_downloading_bookmarks">Ett fel har uppstått</string>
 	<string name="export_file">Exportera fil</string>
 	<string name="list_settings">Listinställningar</string>
 	<string name="delete_list">Radera listan</string>
-	<string name="hide_from_map">Dölj från kort</string>
 	<string name="public_access">Allmänhetens åtkomst</string>
 	<string name="limited_access">Privat åtkomst</string>
 	<string name="bookmark_list_description_hint">Lägg till en beskrivning (text eller html)</string>
 	<string name="not_shared">Personlig</string>
-	<string name="tags_loading_error_subtitle">Ett fel uppstod när du laddar taggarna, försök igen</string>
-	<string name="download_button">Nedladdning</string>
 	<string name="speedcams_alert_title">Hastighetskameror</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Alltid</string>
@@ -683,7 +565,6 @@
 	<string name="place_description_title">Beskrivning av platsen</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kartladdning</string>
-	<string name="speedcams_notice_message">Auto - Varna om fartkameror om det finns risk att överskrida hastighetsgränsen\nAlltid - Varna alltid om kameror\nAldrig - Varna aldrig om kameror</string>
 	<string name="power_managment_title">Energisparläge</string>
 	<string name="power_managment_description">Om energisparläget är på, ska appen stänga av energikrävande funktioner beroende på telefonens nuvarande laddning</string>
 	<string name="power_managment_setting_never">Aldrig</string>
@@ -707,44 +588,11 @@
 	<string name="avoid_toll_roads_placepage">Undvik betalvägar</string>
 	<string name="avoid_unpaved_roads_placepage">Undvik kärrvägar</string>
 	<string name="avoid_ferry_crossing_placepage">Undvik färjetrafik</string>
-	<string name="trip_start">Kom igen</string>
-	<string name="pick_destination">Målet</string>
-	<string name="follow_my_position">Placera i mitten</string>
-	<string name="search_results">Sökresultat</string>
-	<string name="then_turn">Vidare</string>
-	<string name="redirect_route_alert">Räknar om rutten?</string>
-	<string name="redirect_route_yes">Ja</string>
-	<string name="redirect_route_no">Nej</string>
-	<string name="trip_finished">Du är framme!</string>
-	<string name="keyboard_availability_alert">Tangentbordet är inte tillgängligt vid rörelsen</string>
-	<string name="dialog_routing_change_start_carplay">Det gick inte att bygga rutten från nuvarande plats</string>
-	<string name="dialog_routing_change_end_carplay">Det går inte att bygga rutten till slutpunkten. Välj en annan</string>
-	<string name="dialog_routing_check_gps_carplay">Ingen GPS-signal. Följ till öppna området</string>
-	<string name="dialog_routing_unable_locate_route_carplay">Det går inte att bygga ruten. Välj andra rutenspunkter</string>
-	<string name="dialog_routing_download_files_carplay">För att skapa en rutt, ladda ner saknade kartor på din enhet</string>
-	<string name="dialog_routing_system_error_carplay">Ett fel uppstod. Starta om appen</string>
-	<string name="dialog_routing_rebuild_from_current_location_carplay">Ruten kommer att byggas om från din nuvarande plats</string>
-	<string name="dialog_routing_rebuild_for_vehicle_carplay">Ruten kommer att ändras till bil</string>
 	<string name="ok">Ok</string>
-	<string name="avoid_unpaved_carplay_1">Utan kärrväg</string>
-	<string name="avoid_unpaved_carplay_2">Utan kärrvägar</string>
-	<string name="avoid_ferry_carplay_1">Utan färjor</string>
-	<string name="avoid_ferry_carplay_2">Utan färjor</string>
-	<string name="avoid_tolls_carplay_1">Utan betalda</string>
-	<string name="avoid_tolls_carplay_2">Utan betalda</string>
-	<string name="speedcams_alert_title_carplay_1">Kameror</string>
-	<string name="speedcams_alert_title_carplay_2">Info om kameror</string>
-	<string name="download_map_carplay">Ladda ner kartor i applikation Organic Maps på din enhet</string>
-	<string name="carplay_roundabout_exit">%s utgången</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortera…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Sortera bokmärken</string>
-	<!-- iOS -->
-	<string name="sort_default">Sortera som standard</string>
-	<string name="sort_type">Sortera efter typ</string>
-	<string name="sort_distance">Sortera efter avstånd</string>
-	<string name="sort_date">Sortera efter datum</string>
 	<!-- Android -->
 	<string name="by_default">Som standard</string>
 	<!-- Android -->
@@ -759,6 +607,8 @@
 	<string name="moreyear_ago_sorttype">För över ett år sedan</string>
 	<string name="near_me_sorttype">Bredvid mig</string>
 	<string name="others_sorttype">Andra</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Mat</string>
 	<string name="tourist_places">Sevärdheter</string>
 	<string name="museums">Museer</string>
@@ -772,7 +622,6 @@
 	<string name="shops">Butiker</string>
 	<string name="parkings">Parkeringsplatser</string>
 	<string name="fuel_places">Bensinstationer</string>
-	<string name="water">Vatten</string>
 	<string name="medicine">Medicin</string>
 	<string name="search_in_the_list">Söka i listan</string>
 	<string name="religious_places">Heliga platser</string>
@@ -783,10 +632,6 @@
 	<string name="button_layer_isolines">Terräng</string>
 	<string name="isolines_activation_error_dialog">Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område</string>
 	<string name="isolines_location_error_dialog">Höjningslinjer är ännu inte tillgängligt i den här regionen</string>
-	<string name="elevation_profile_diff_level">Svårighetsgrad</string>
-	<string name="elevation_profile_diff_level_easy">Lätt</string>
-	<string name="elevation_profile_diff_level_moderate">Måttlig</string>
-	<string name="elevation_profile_diff_level_hard">Svår</string>
 	<string name="elevation_profile_ascent">Stigning</string>
 	<string name="elevation_profile_descent">Backe</string>
 	<string name="elevation_profile_minaltitude">Min. höjd</string>
@@ -795,22 +640,9 @@
 	<string name="elevation_profile_distance">Avst.:</string>
 	<string name="elevation_profile_time">Tid:</string>
 	<string name="isolines_toast_zooms_1_10">Förstora kartan för att se isolinjer</string>
-	<string name="downloader_updating_ios">Uppdatering</string>
-	<string name="downloader_loading_ios">Nedladdning</string>
-	<string name="key_information_title">Nyckelinformation</string>
 	<string name="enable_screen_sleep">Låt skärmen sova</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">När den är aktiverad får skärmen sova efter en period av inaktivitet.</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">Uppdatera dina nedladdade kartor</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">Uppdatering av kartor håller information om objekt uppdaterade</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_size">Uppdatera (%s)</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_later">Uppdatera senare manuellt</string>
-	<!-- edit track screen title -->
-	<string name="track_title">Rutt</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>
@@ -850,7 +682,9 @@
 	<string name="type.amenity.fire_station">Brandstation</string>
 	<string name="type.amenity.fountain">Fontän</string>
 	<string name="type.amenity.fuel">Bensinstation</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Begravningsplats</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">Begravningsplats</string>
 	<string name="type.amenity.hospital">Sjukhus</string>
 	<string name="type.amenity.hunting_stand">Jakttorn</string>
@@ -889,9 +723,12 @@
 	<string name="type.amenity.post_office">Postkontor</string>
 	<string name="type.amenity.pub">Krog</string>
 	<string name="type.amenity.public_bookcase">Bokskåp</string>
-	<string name="type.amenity.recycling">Återvinningscentral</string>
-	<string name="type.amenity.recycling_container">Behållare för återvinningsbart avfall</string>
-	<string name="type.recycling.toxic">Giftigt avfall</string>
+
+	<!-- SECTION: Types: Recycling -->
+	<string name="type.amenity.recycling.centre">Återvinningscentral</string>
+	<string name="type.amenity.recycling">Behållare för återvinningsbart avfall</string>
+	<string name="type.amenity.recycling.container">Behållare för återvinningsbart avfall</string>
+	<string name="type.recycling.batteries">Batterier</string>
 	<string name="type.recycling.clothes">Gamla kläder</string>
 	<string name="type.recycling.glass_bottles">Returglas</string>
 	<string name="type.recycling.paper">Returpapper</string>
@@ -1030,6 +867,8 @@
 	<string name="type.emergency.phone">Nödtelefon</string>
 	<string name="type.entrance">Entré</string>
 	<string name="type.healthcare.laboratory">Medicinskt laboratorium</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bus_stop">Busshållplats</string>
 	<string name="type.highway.construction">Väg under uppförande</string>
 	<string name="type.highway.footway">Gångväg</string>
@@ -1129,6 +968,22 @@
 	<string name="type.highway.unclassified.area">Gata</string>
 	<string name="type.highway.unclassified.bridge">Gata</string>
 	<string name="type.highway.unclassified.tunnel">Gata</string>
+	<string name="type.area_highway.footway">Gångväg</string>
+	<string name="type.area_highway.living_street">Gata</string>
+	<string name="type.area_highway.motorway">Gata</string>
+	<string name="type.area_highway.path">Gångväg</string>
+	<string name="type.area_highway.pedestrian">Gata</string>
+	<string name="type.area_highway.primary">Gata</string>
+	<string name="type.area_highway.residential">Gata</string>
+	<string name="type.area_highway.secondary">Gata</string>
+	<string name="type.area_highway.service">Gata</string>
+	<string name="type.area_highway.tertiary">Gata</string>
+	<string name="type.area_highway.steps">Gångväg</string>
+	<string name="type.area_highway.track">Gata</string>
+	<string name="type.area_highway.trunk">Gata</string>
+	<string name="type.area_highway.unclassified">Gata</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Arkeologisk plats</string>
 	<string name="type.historic.castle">Slott</string>
 	<string name="type.historic.castle.defensive">Slott</string>
@@ -1141,7 +996,9 @@
 	<string name="type.historic.ship">Attraktion</string>
 	<string name="type.historic.tomb">Attraktion</string>
 	<string name="type.landuse.basin">Vattenbassäng</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Begravningsplats</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Begravningsplats</string>
 	<string name="type.landuse.churchyard">Kyrkogård</string>
 	<string name="type.landuse.farmland">Jordbruksmark</string>
@@ -1174,6 +1031,7 @@
 	<string name="type.leisure.sports_centre.yoga">Yogastudio</string>
 	<string name="type.leisure.stadium">Stadion</string>
 	<string name="type.leisure.swimming_pool">Simbassäng</string>
+	<string name="type.leisure.swimming_pool.private">Simbassäng</string>
 	<string name="type.leisure.water_park">Äventyrspark</string>
 	<string name="type.man_made.chimney">Fabriksskorsten</string>
 	<string name="type.man_made.lighthouse">Fyr</string>
@@ -1213,16 +1071,16 @@
 	<string name="type.office.telecommunication">Mobiloperatör</string>
 	<string name="type.place.city">Stad</string>
 	<string name="type.place.city.capital">Huvudstad</string>
-	<string name="type.place.city.capital.10">Huvudstad</string>
-	<string name="type.place.city.capital.11">Huvudstad</string>
+	<string name="type.place.city.capital.10">Stad</string>
+	<string name="type.place.city.capital.11">Stad</string>
 	<string name="type.place.city.capital.2">Huvudstad</string>
-	<string name="type.place.city.capital.3">Huvudstad</string>
-	<string name="type.place.city.capital.4">Huvudstad</string>
-	<string name="type.place.city.capital.5">Huvudstad</string>
-	<string name="type.place.city.capital.6">Huvudstad</string>
-	<string name="type.place.city.capital.7">Huvudstad</string>
-	<string name="type.place.city.capital.8">Huvudstad</string>
-	<string name="type.place.city.capital.9">Huvudstad</string>
+	<string name="type.place.city.capital.3">Stad</string>
+	<string name="type.place.city.capital.4">Stad</string>
+	<string name="type.place.city.capital.5">Stad</string>
+	<string name="type.place.city.capital.6">Stad</string>
+	<string name="type.place.city.capital.7">Stad</string>
+	<string name="type.place.city.capital.8">Stad</string>
+	<string name="type.place.city.capital.9">Stad</string>
 	<string name="type.place.continent">Kontinent</string>
 	<string name="type.place.country">Land</string>
 	<string name="type.place.county">Län</string>

@@ -7,9 +7,6 @@
 /********** Strings **********/
 
 /* Button text (should be short) */
-"back" = "Tilbage";
-
-/* Button text (should be short) */
 "cancel" = "Afbryd";
 
 /* Button which interrupts country download */
@@ -19,9 +16,6 @@
 "delete" = "Slet";
 
 "download_maps" = "Download kort";
-
-/* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "Der skete en fejl ved download, tryk for at prøve igen.";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Downloader…";
@@ -35,11 +29,6 @@
 /* View and button titles for accessibility */
 "maps" = "Kort";
 
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"mb" = "MB";
-
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mil";
 
@@ -52,14 +41,8 @@
 /* View and button titles for accessibility */
 "search" = "Søg";
 
-/* Search box placeholder text */
-"search_map" = "Søg kort";
-
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ja";
-
-/* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Vis på kortet";
@@ -70,43 +53,14 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Download mislykket";
 
-/* Button text for the button under the country_status_download_failed message */
-"try_again" = "Prøv igen";
-
 "about_menu_title" = "Om Organic Maps";
-
-"connection_settings" = "Forbindelsesindstillinger";
 
 "close" = "Luk";
 
-"unsupported_phone" = "En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.";
-
 "download" = "Download";
-
-"disconnect_usb_cable" = "Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge Organic Maps";
-
-"not_enough_free_space_on_sdcard" = "Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app";
-
-"not_enough_memory" = "Ikke nok hukommelse til at åbne app";
-
-"download_resources" = "Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %@ af data.";
-
-"download_resources_continue" = "Gå til kort";
-
-"downloading_country_can_proceed" = "Downloader %@. Du kan nu\nfortsætte til kortet.";
-
-"download_country_ask" = "Download %@?";
-
-"update_country_ask" = "Opdater %@?";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"pause" = "Pause";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Fortsæt";
-
-/* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "%@ download mislykkedes";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Tilføj nyt sæt";
@@ -126,95 +80,80 @@
 /* Default bookmark list name */
 "core_my_places" = "Mine Steder";
 
-/* Add bookmark dialog - bookmark name */
-"name" = "Navn";
-
 /* Editor title above street and house number */
 "address" = "Adresse";
-
-/* Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. */
-"list" = "Sæt";
 
 /* Settings button in system menu */
 "settings" = "Indstillinger";
 
-/* Header of settings activity where user defines storage path */
-"maps_storage" = "Gem kort på";
-
-/* Detailed description of Maps Storage settings button */
-"maps_storage_summary" = "Vælg destination hvor dine kort skal downloades til";
-
-/* Question dialog for transferring maps from one storage to another */
-"move_maps" = "Flyt kort?";
-
-/* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Dette kan tage flere minutter.\nVent venligst…";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "Måleenhed";
 
-/* Detailed description of Measurement Units settings button */
-"measurement_units_summary" = "Vælg mellem mil eller kilometer";
 
-/* Search category for cafes, bars, restaurants */
+/********** Search categories **********/
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
 "eat" = "Spisesteder";
 
-/* Search category for grocery stores */
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
 "food" = "Dagligvarer";
 
-/* Search category */
+/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "Transport";
 
-/* Search category */
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
 "fuel" = "Benzin";
 
-/* Search category */
+/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Parkering";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Indkøb";
 
-/* Search category */
+/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotel";
 
-/* Search category */
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
 "tourism" = "Seværdigheder";
 
-/* Search category */
+/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
 "entertainment" = "Underholdning";
 
-/* Search category */
+/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
 "atm" = "Hæveautomat";
 
-/* Search category for nightclubs/bars */
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
 "nightlife" = "Natteliv";
 
-/* Search category for water park/disneyland/playground/toys store */
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
 "children" = "Familieferie";
 
-/* Search category */
+/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "Bank";
 
-/* Search category */
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
 "pharmacy" = "Apotek";
 
-/* Search category */
+/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
 "hospital" = "Hospital";
 
-/* Search category */
+/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
 "toilet" = "Toilet";
 
-/* Search category */
+/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
 "post" = "Post";
 
-/* Search category */
+/* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Politi";
 
-/* Notes field in Bookmarks view */
-"description" = "Noter";
+/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
+"recycling" = "Genbrug";
 
-/* Email Subject when sharing bookmark list */
-"share_bookmarks_email_subject" = "Organic Maps bogmærker er blevet delt med dig";
+/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
+"water" = "Vand";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
+"rv" = "RV Facilities";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
@@ -233,32 +172,17 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Din lokation er ikke blevet bestemt endnu";
 
-/* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "Beklager, Kort Lagring er ikke slået til i indstillinger.";
-
-/* Alert message that downloading is in progress. */
-"downloading_is_active" = "Download af kort over land er i gang nu.";
-
-/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "Hey, tjek min nuværende lokation ud på Organic Maps! %1$@ or %2$@. Har du ikke offline kort? Download her: https://omaps.app/get";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, tjek min knappenål på Organic Maps kortet ud!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hey, tjek min nuværende lokation ud på Organic Maps kortet!";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
-"my_position_share_email" = "Hey, her er jeg nu: %1$@. Tryk på dette link %2$@ eller dette %3$@ for at se stedet på kortet. Tak.";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Del";
 
-/* Share by email button text, also used in editor. */
+/* Share by email button text, also used in editor and About. */
 "email" = "Email";
-
-/* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Kopieret til udklipsholderen: %1$@";
 
 /* place preview title */
 "info" = "Info";
@@ -269,11 +193,8 @@
 /* Prints version number in About dialog */
 "version" = "Version: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
-
-/* Confirmation in downloading countries dialog */
-"are_you_sure" = "Er du sikker på, at du vil fortsætte?";
+/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
+"data_version" = "OpenStreetMap-data: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Ruter";
@@ -283,17 +204,9 @@
 
 "share_my_location" = "Del min lokation";
 
-/* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
-
-/* Settings information group in settings screen */
-"prefs_group_information" = "Information";
-
 "prefs_group_route" = "Navigation";
 
 "pref_zoom_title" = "Zoom knapper";
-
-"pref_zoom_summary" = "Vis på skærmen";
 
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Nattilstand";
@@ -318,9 +231,6 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Stemmesprog";
-
-/* Settings «Route» category: «Tts unavailable» subtitle */
-"pref_tts_unavailable" = "Ikke til rådighed";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Andet";
@@ -358,6 +268,9 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
+"matrix" = "[matrix]";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -365,12 +278,6 @@
 
 /* Text in menu */
 "instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in the editor */
-"editor_line_social_network" = "LINE";
 
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
@@ -410,9 +317,6 @@
 
 /* Update all button text */
 "downloader_update_all_button" = "Opdatér alle";
-
-/* Cancel all button text */
-"downloader_cancel_all" = "Aflys Alt";
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Downloadet";
@@ -454,42 +358,16 @@
 /* Item in context menu. */
 "downloader_delete_map" = "Slet kort";
 
-/* Item in context menu. */
-"downloader_update_map" = "Opdater kort";
-
-/* Preference text */
-"pref_use_google_play" = "Anvend Google Play Services til at få din aktuelle placering";
-
-/* Text for rating dialog */
-"rating_just_rated" = "Jeg har netop bedømt jeres app";
-
-/* Text for rating dialog */
-"rating_thanks" = "Mange tak!";
-
-/* Text for rating dialog */
-"rating_share_ideas" = "Del dine ideer eller problemer med os, så vi kan forbedre appen for dig.";
-
-/* Text for rating dialog */
-"rating_send_feedback" = "Send feedback";
-
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Download kort på vejen";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Ved at oprette en rute kræver det, at alle kort fra din placering til destination er downloadede og opdaterede.";
 
-/* Text for routing error dialog */
-"routing_not_enough_space" = "Ikke nok plads";
-
 /* bookmark button text */
 "bookmark" = "bogmærke";
 
-/* location service disabled */
-"enable_location_services" = "Aktiver venligst lokationstjenester";
-
 "save" = "Gem";
-
-"edit_description_hint" = "Dine beskrivelser (tekst eller html)";
 
 "create" = "skabe";
 
@@ -575,8 +453,6 @@
 
 "dialog_routing_unable_locate_route" = "Der blev ikke fundet en rute";
 
-"dialog_routing_cant_build_route" = "Der blev ikke planlagt en rute.";
-
 "dialog_routing_change_start_or_end" = "Prøv at angive et andet startpunkt eller en anden destination.";
 
 "dialog_routing_change_start" = "Vælg et andet startpunkt";
@@ -610,10 +486,6 @@
 
 /********** Strings for downloading map from search **********/
 
-"search_without_internet_advertisement" = "For at begynde at søge efter og oprette ruter bedes du downloade kortet, så du ikke længere har behov for en internetforbindelse.";
-
-"search_select_map" = "Vælk kortet";
-
 /* «Show» context menu */
 "show" = "Vis";
 
@@ -628,16 +500,6 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "For at oprette en rute skal du hente og opdatere alle kort langs ruten.";
-
-"rate_alert_title" = "Kan du lide appen?";
-
-"rate_alert_default_message" = "Tak for at du bruger Organic Maps. Venligst bedøm appen. Din feedback hjælper os med at blive bedre.";
-
-"rate_alert_five_star_message" = "Hurra! Vi elsker også dig!";
-
-"rate_alert_four_star_message" = "Mange tak, vi vil gøre vores bedste!";
-
-"rate_alert_less_than_four_star_message" = "Har du en idé om, hvordan vi kan gøre den bedre?";
 
 "categories" = "Kategorier";
 
@@ -655,9 +517,6 @@
 
 "clear_search" = "Ryd historiksøgning";
 
-/* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "Din lokalitet";
 
 "p2p_start" = "Start";
@@ -669,9 +528,6 @@
 "p2p_only_from_current" = "Navigation er kun tilgængelig fra din nuværende lokalitet.";
 
 "p2p_reroute_from_current" = "Ønsker du, at vi planlægger en rute fra din nuværende placering?";
-
-/* Edit open hours/set time and minutes dialog */
-"next_button" = "Næste";
 
 "editor_time_add" = "Tilføj tidsplan";
 
@@ -696,27 +552,13 @@
 
 "editor_example_values" = "Eksempelværdier";
 
-"editor_correct_mistake" = "Ret fejl";
-
 "editor_add_select_location" = "Sted";
 
 "editor_done_dialog_1" = "Du har ændret verdenskortet. Lad andre det vide! Fortæl dine venner og redigér det sammen.";
 
 "share_with_friends" = "Del med venner";
 
-"editor_report_problem_desription_1" = "Beskriv problemet i detaljer, så OpenStreetMap-fællesskabet kan løse fejlen.";
-
-"editor_report_problem_desription_2" = "Eller gør det selv på https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "Send";
-
-"editor_report_problem_title" = "Problem";
-
-"editor_report_problem_no_place_title" = "Stedet findes ikke";
-
-"editor_report_problem_under_construction_title" = "Lukket for vedligeholdelse";
-
-"editor_report_problem_duplicate_place_title" = "Duplikeret sted";
 
 "autodownload" = "Automatisk download";
 
@@ -736,8 +578,6 @@
 
 "add_opening_hours" = "Tilføj arbejdstid";
 
-"edit_opening_hours" = "Rediger arbejdstid";
-
 "no_osm_account" = "Ingen konto på OpenStreetMap?";
 
 "register_at_openstreetmap" = "Tilmeld dig";
@@ -747,8 +587,6 @@
 "invalid_username_or_password" = "Ugyldigt brugernavn eller adgangskode.";
 
 "login" = "Log ind";
-
-"password" = "Adgangskode";
 
 "forgot_password" = "Glemt adgangskode?";
 
@@ -767,8 +605,6 @@
 
 "add_language" = "Tilføj et sprog";
 
-"street" = "Gade";
-
 /* Editable House Number text field (in address block). */
 "house_number" = "Et husnummer";
 
@@ -776,9 +612,6 @@
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Tilføj en gade";
-
-/* Error to display when a new street name is not entered in the New street dialog */
-"empty_street_name_error" = "Indtast et gadenavn";
 
 "choose_language" = "Vælg et sprog";
 
@@ -795,15 +628,11 @@
 
 "phone" = "Telefon";
 
-"editor_add_phone" = "Add Phone";
-
 "please_note" = "Bemærk venligst";
 
 "downloader_delete_map_dialog" = "Alle kortændringer vil blive slettet sammen med kortet.";
 
 "downloader_update_maps" = "Opdatér kort";
-
-"downloader_mwm_migration_dialog" = "For at oprette en rute skal du opdatere alle kort og så planlægge ruten igen.";
 
 "downloader_search_field_hint" = "Find kortet";
 
@@ -814,8 +643,6 @@
 "downloader_no_space_title" = "Ikke nok plads";
 
 "downloader_no_space_message" = "Fjern unødvendig data";
-
-"editor_login_error_dialog" = "Login-fejl.";
 
 "editor_profile_changes" = "Bekræftede ændringer";
 
@@ -834,12 +661,6 @@
 "editor_edit_place_name_hint" = "Stedets navn";
 
 "editor_edit_place_category_title" = "Kategori";
-
-"detailed_problem_description" = "Detaljeret beskrivelse af problemet";
-
-"editor_report_problem_other_title" = "Et anderledes problem";
-
-"placepage_add_business_button" = "Tilføj organisationen";
 
 "whatsnew_editor_message_1" = "Tilføj nye steder til kortet og redigér eksisterende direkte fra app'en.";
 
@@ -885,8 +706,6 @@
 
 "editor_operator" = "Bruger";
 
-"downloader_my_maps_title" = "Mine kort";
-
 "downloader_no_downloaded_maps_title" = "Du har ikke hentet alle kort";
 
 "downloader_no_downloaded_maps_message" = "Download kort for at finde position og navigere offline.";
@@ -928,15 +747,9 @@
 
 "miles_per_hour" = "mph";
 
-"hour" = "time";
-
-"minute" = "min";
-
 "placepage_place_description" = "Beskrivelse";
 
 "placepage_more_button" = "Mere";
-
-"placepage_more_reviews_button" = "Flere anmeldelser";
 
 "book_button" = "Book";
 
@@ -964,9 +777,6 @@
 
 "editor_place_doesnt_exist" = "Stedet eksisterer ikke";
 
-/* Error message for "Place doesn't exist" dialog when comment is empty */
-"delete_place_empty_comment_error" = "Please indicate the reason for deleting the place";
-
 "text_more_button" = "…mere";
 
 /* Phone number error message */
@@ -975,16 +785,6 @@
 "error_enter_correct_web" = "Indtast en gyldig webadresse";
 
 "error_enter_correct_email" = "Indtast en gyldig emailadresse";
-
-"error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-
-"error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-
-"error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-
-"error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
-
-"error_enter_correct_line_page" = "Enter a valid LINE web address or LINE ID";
 
 "refresh" = "Opdater";
 
@@ -1010,7 +810,7 @@
 
 "recent_track_background_dialog_message" = "Organic Maps anvender din geoposition i baggrunden til at gemme din seneste rejserute.";
 
-/* Text under the version number in the Help dialog. */
+/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
 "about_description" = "Organic Maps er en gratis og open source offline kortapplikation. Ingen annoncer. Ingen sporing. Hvis du ser en fejl på kortet, skal du rette den i OpenStreetMap. Projektet er skabt af entusiaster i vores fritid, så vi har brug for din feedback og support.";
 
 "general_settings" = "Generelle indstillinger";
@@ -1021,7 +821,7 @@
 /* For the first routing */
 "decline" = "Afvis";
 
-/* noun */
+/* A noun - a button name used to show search results in list form */
 "search_in_table" = "Liste";
 
 "mobile_data_dialog" = "Skal mobilt internet bruges til at vise detaljerede oplysninger?";
@@ -1044,15 +844,11 @@
 
 "big_font" = "Forøg skriftstørrelsen på kortet";
 
-"traffic_update_app" = "Opdater Organic Maps";
-
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Appen skal opdateres for at kunne vise trafikdata.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafikdata er ikke tilgængelige";
-
-"enable_logging" = "Aktiver logføring";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Generel feedback";
@@ -1061,23 +857,13 @@
 
 "off" = "Fra";
 
-"prefs_languages_information" = "Vi bruger systemets TTS til stemmevejledning. Mange Android-enheder bruger Google TTS, du kan hente eller opdatere det via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
-"prefs_languages_information_off" = "For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play Market, Samsung Apps).\nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. Her kan du administrere indstillingerne for talesyntese (f. eks downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.";
-
-"prefs_languages_information_off_link" = "Se denne vejledning for flere oplysninger.";
-
 "transliteration_title" = "Translitteration til latinsk";
-
-"learn_more" = "Flere oplysninger";
 
 "core_exit" = "Afslut";
 
 "routing_add_start_point" = "Tilføj startpunkt for at planlægge en rute";
 
 "routing_add_finish_point" = "Tilføj slutpunkt for at planlægge en rute";
-
-"button_exit" = "Afslut";
 
 "planning_route_manage_route" = "Administrer rute";
 
@@ -1093,12 +879,6 @@
 
 "profile_authorization_error" = "Ups, der skete en fejl. Prøv at logge på igen.";
 
-"dialog_error_storage_title" = "Problem med lageradgang";
-
-"dialog_error_storage_message" = "Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support@organicmaps.app";
-
-"setting_emulate_bad_storage" = "Emulere beskadiget lager";
-
 "core_entrance" = "Indgang";
 
 "error_enter_correct_name" = "Angiv et korrekt navn";
@@ -1111,9 +891,6 @@
 "bookmark_lists_show_all" = "Vis alle";
 
 "bookmarks_create_new_group" = "Opret ny liste";
-
-/* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
 
 "downloader_hide_screen" = "Skjul skærm";
 
@@ -1129,21 +906,11 @@
 
 "bookmarks_error_message_share_empty" = "Kan ikke dele en tom liste";
 
-"bookmarks_error_title_empty_list_name" = "Navnet kunne ikke være tomt";
-
 "bookmarks_error_message_empty_list_name" = "Indtast venligst listen navn";
-
-"bookmarks_new_list_hint" = "Ny liste";
 
 "bookmarks_error_title_list_name_already_taken" = "Dette navn er allerede taget";
 
-"bookmarks_error_message_list_name_already_taken" = "Vælg venligst et andet navn";
-
 "bookmarks_error_title_list_name_too_long" = "Dette navn er for langt";
-
-"please_wait" = "Vent venligst…";
-
-"phone_number" = "Telefonnummer";
 
 "profile" = "OpenStreetMap profil";
 
@@ -1157,17 +924,9 @@
 
 "bookmarks_restore_title" = "Gendan denne version?";
 
-"common_check_internet_connection_dialog_title" = "Ingen internetforbindelse";
-
 "error_system_message" = "Der opstod en ukendt fejl";
 
 "restore" = "Gendan";
-
-"subtittle_opt_out" = "Tracking-indstillinger";
-
-"crash_reports" = "Nedbrudsrapport";
-
-"crash_reports_description" = "Vi kan anvende dine data til at forbedre brugeroplevelsen på Organic Maps. Ændringerne træder i kraft, når du har genstartet appen.";
 
 "privacy_policy" = "Privatlivspolitik";
 
@@ -1181,12 +940,6 @@
 
 "subway_data_unavailable" = "Kort over undergrundsbaner er ikke tilgængeligt";
 
-"bookmarks_empty_list_title" = "Listen er tom";
-
-"bookmarks_empty_list_message" = "For at tilføje et bogmærke, så tryk et sted på kort og så på stjerneikonet";
-
-"category_desc_more" = "…mere";
-
 "title_error_downloading_bookmarks" = "Der er opstået en fejl";
 
 "popular_place" = "Popular";
@@ -1199,13 +952,7 @@
 
 "hide_from_map" = "Skjul på kort";
 
-"public_access" = "Offentlig adgang";
-
-"limited_access" = "Begrænset adgang";
-
 "bookmark_list_description_hint" = "Lav en beskrivelse (tekst eller html)";
-
-"not_shared" = "Privat";
 
 "tags_loading_error_subtitle" = "Der skete en fejl under hentning af tags, prøv igen";
 
@@ -1221,9 +968,6 @@
 
 "place_description_title" = "Beskrivelse af sted";
 
-/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Korthenter";
-
 "speedcams_notice_message" = "Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer";
 
 "power_managment_title" = "Strømsparetilstand";
@@ -1235,10 +979,6 @@
 "power_managment_setting_auto" = "Automatisk";
 
 "power_managment_setting_manual_max" = "Maksimum strømbesparelse";
-
-"enable_logging_warning_message" = "Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra Organic Maps support.";
-
-"access_rules_author_only" = "Online redigering";
 
 "driving_options_title" = "Køre muligheder";
 
@@ -1333,9 +1073,6 @@
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sort…";
 
-/* Android, title, max 20-22 symbols */
-"sort_bookmarks" = "Sort (bookmaarks)";
-
 /* iOS */
 "sort_default" = "Sortér (std)";
 
@@ -1344,18 +1081,6 @@
 "sort_distance" = "Sort (Afs)";
 
 "sort_date" = "Sort (dato)";
-
-/* Android */
-"by_default" = "Som standard";
-
-/* Android */
-"by_type" = "Efter type";
-
-/* Android */
-"by_distance" = "Efter afstand";
-
-/* Android */
-"by_date" = "Efter dato";
 
 "week_ago_sorttype" = "En uge siden";
 
@@ -1368,6 +1093,9 @@
 "near_me_sorttype" = "I nærheden";
 
 "others_sorttype" = "Andre";
+
+
+/********** Bookmark types used for sorting **********/
 
 "food_places" = "Mad";
 
@@ -1395,15 +1123,11 @@
 
 "fuel_places" = "Benzintankstationer";
 
-"water" = "Vand";
-
 "medicine" = "Medicin";
 
 "search_in_the_list" = "Søg i listen";
 
 "religious_places" = "Religiøse steder";
-
-"select_list" = "Væg liste";
 
 "transit_not_found" = "Metro-navigation er endnu ikke tilgængelig i denne region";
 
@@ -1435,8 +1159,6 @@
 
 "elevation_profile_difficulty" = "Vanskelighed";
 
-"elevation_profile_distance" = "Afs.:";
-
 "elevation_profile_time" = "Tid:";
 
 "isolines_toast_zooms_1_10" = "Zoom ind for at udforske isolinjekort";
@@ -1444,19 +1166,6 @@
 "downloader_updating_ios" = "Opdaterer";
 
 "downloader_loading_ios" = "Downloader";
-
-"key_information_title" = "Central information";
-
-"download_map_title" = "Download the world map";
-
-"connection_failure" = "Connection failure";
-
-"disconnect_usb_cable_title" = "Disconnect USB cable";
-
-"enable_screen_sleep" = "Lad skærmen sove";
-
-/* Description in preferences */
-"enable_screen_sleep_description" = "Når den er aktiveret, får skærmen lov til at sove efter en periode med inaktivitet.";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Opdater dine downloadede kort";
@@ -1499,21 +1208,21 @@
 
 "type.aerialway.station" = "Kabelbanestation";
 
-"type.aeroway" = "Aeroway";
+"type.aeroway" = "Airspace Infrastructure";
 
 "type.aeroway.aerodrome" = "Lufthavn";
 
 "type.aeroway.aerodrome.international" = "Lufthavn";
 
-"type.aeroway.apron" = "aeroway-apron";
+"type.aeroway.apron" = "Apron";
 
 "type.aeroway.gate" = "Gate";
 
 "type.aeroway.helipad" = "Helikopterlandingsplads";
 
-"type.aeroway.runway" = "aeroway-runway";
+"type.aeroway.runway" = "Runway";
 
-"type.aeroway.taxiway" = "aeroway-taxiway";
+"type.aeroway.taxiway" = "Taxiway";
 
 "type.aeroway.terminal" = "Terminal";
 
@@ -1589,8 +1298,10 @@
 
 "type.amenity.fuel" = "Tankstation";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard" = "Kirkegård";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "Kirkegård";
 
 "type.amenity.hospital" = "Hospital";
@@ -1669,11 +1380,16 @@
 
 "type.amenity.public_bookcase" = "Bog udveksling";
 
-"type.amenity.recycling" = "Genbrugsplads";
 
-"type.amenity.recycling_container" = "Genbrugscontainer";
+/********** Types: Recycling **********/
 
-"type.recycling.toxic" = "Giftigt affald";
+"type.amenity.recycling.centre" = "Genbrugsplads";
+
+"type.amenity.recycling" = "Genbrugscontainer";
+
+"type.amenity.recycling.container" = "Genbrugscontainer";
+
+"type.recycling.batteries" = "Batterier";
 
 "type.recycling.clothes" = "Gammelt tøj";
 
@@ -1689,7 +1405,19 @@
 
 "type.recycling.small_appliances" = "Elektronik affald";
 
+"type.recycling.cardboard" = "Cardboard";
+
+"type.recycling.cans" = "Cans";
+
+"type.recycling.shoes" = "Shoes";
+
+"type.recycling.green_waste" = "Green/Organic Waste";
+
+"type.recycling.cartons" = "Bewerage Cartons";
+
 "type.amenity.restaurant" = "Restaurant";
+
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
 
 "type.amenity.school" = "Skole";
 
@@ -1719,11 +1447,19 @@
 
 "type.amenity.vending_machine.public_transport_tickets" = "Billetautomat for offentlig transport";
 
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+
+"type.amenity.vending_machine.parcel_pickup" = "Parcel Locker";
+
+"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+
 "type.amenity.veterinary" = "Dyrlæge";
 
 "type.amenity.waste_basket" = "Skraldespand";
 
 "type.amenity.waste_disposal" = "Bortskaffelse af affald";
+
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
 "type.amenity.water_point" = "Vandstation";
 
@@ -1763,45 +1499,43 @@
 
 "type.boundary" = "Boundary";
 
-"type.boundary.administrative" = "boundary-administrative";
+"type.boundary.administrative" = "Administrative Boundary";
 
-"type.boundary.administrative.10" = "boundary-administrative-10";
+"type.boundary.administrative.10" = "Administrative Boundary";
 
-"type.boundary.administrative.11" = "boundary-administrative-11";
+"type.boundary.administrative.11" = "Administrative Boundary";
 
-"type.boundary.administrative.2" = "boundary-administrative-2";
+"type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "boundary-administrative-3";
+"type.boundary.administrative.3" = "Administrative Boundary";
 
-"type.boundary.administrative.4" = "boundary-administrative-4";
+"type.boundary.administrative.4" = "Administrative Boundary";
 
-"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
+"type.boundary.administrative.5" = "Administrative Boundary";
 
-"type.boundary.administrative.5" = "boundary-administrative-5";
+"type.boundary.administrative.6" = "Administrative Boundary";
 
-"type.boundary.administrative.6" = "boundary-administrative-6";
+"type.boundary.administrative.7" = "Administrative Boundary";
 
-"type.boundary.administrative.7" = "boundary-administrative-7";
+"type.boundary.administrative.8" = "Administrative Boundary";
 
-"type.boundary.administrative.8" = "boundary-administrative-8";
+"type.boundary.administrative.9" = "Administrative Boundary";
 
-"type.boundary.administrative.9" = "boundary-administrative-9";
+"type.boundary.administrative.city" = "City Boundary";
 
-"type.boundary.administrative.city" = "boundary-administrative-city";
+"type.boundary.administrative.country" = "National Border";
 
-"type.boundary.administrative.country" = "boundary-administrative-country";
+"type.boundary.administrative.county" = "County Boundary";
 
-"type.boundary.administrative.county" = "boundary-administrative-county";
+"type.boundary.administrative.municipality" = "Municipality Boundary";
 
-"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+"type.boundary.administrative.nation" = "National Border";
 
-"type.boundary.administrative.nation" = "boundary-administrative-nation";
+"type.boundary.administrative.region" = "Regional Boundary";
 
-"type.boundary.administrative.region" = "boundary-administrative-region";
+"type.boundary.administrative.state" = "State Boundary";
 
-"type.boundary.administrative.state" = "boundary-administrative-state";
-
-"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
+"type.boundary.administrative.suburb" = "Suburb Boundary";
 
 "type.boundary.national_park" = "National park";
 
@@ -2023,27 +1757,30 @@
 
 "type.healthcare.laboratory" = "Medicinsk laboratorium";
 
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 
-"type.highway.bridleway" = "Rider's Path";
+"type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Rider's Path";
+"type.highway.bridleway.bridge" = "Bridle Path";
 
-"type.highway.bridleway.permissive" = "Rider's Path";
+"type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Rider's Path";
+"type.highway.bridleway.tunnel" = "Bridle Path";
 
 "type.highway.bus_stop" = "Busstoppested";
 
 "type.highway.construction" = "Vej under opbygning";
 
-"type.highway.cycleway" = "Bike Path";
+"type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Bike Path";
+"type.highway.cycleway.bridge" = "Cycle Path";
 
-"type.highway.cycleway.permissive" = "Bike Path";
+"type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Bike Path";
+"type.highway.cycleway.tunnel" = "Cycle Path";
 
 "type.highway.elevator" = "Elevator";
 
@@ -2177,7 +1914,7 @@
 
 "type.highway.service.tunnel" = "Gade";
 
-"type.highway.services" = "Service on the Road";
+"type.highway.services" = "Service Area";
 
 "type.highway.speed_camera" = "Automatisk Trafikkontrol";
 
@@ -2243,9 +1980,42 @@
 
 "type.highway.unclassified.tunnel" = "Gade";
 
+"type.area_highway.cycleway" = "Cycle Path";
+
+"type.area_highway.footway" = "Sti";
+
+"type.area_highway.living_street" = "Gade";
+
+"type.area_highway.motorway" = "Gade";
+
+"type.area_highway.path" = "Sti";
+
+"type.area_highway.pedestrian" = "Gade";
+
+"type.area_highway.primary" = "Gade";
+
+"type.area_highway.residential" = "Gade";
+
+"type.area_highway.secondary" = "Gade";
+
+"type.area_highway.service" = "Gade";
+
+"type.area_highway.tertiary" = "Gade";
+
+"type.area_highway.steps" = "Sti";
+
+"type.area_highway.track" = "Gade";
+
+"type.area_highway.trunk" = "Gade";
+
+"type.area_highway.unclassified" = "Gade";
+
 "type.highway.world_level" = "highway-world_level";
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
 
 "type.historic" = "Historic";
 
@@ -2327,8 +2097,10 @@
 
 "type.landuse.brownfield" = "Brownfield";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "Kirkegård";
 
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Kirkegård";
 
 "type.landuse.churchyard" = "Kirkegård";
@@ -2391,7 +2163,7 @@
 
 "type.leisure" = "Leisure";
 
-"type.leisure.common" = "leisure-common";
+"type.leisure.common" = "Public Land";
 
 "type.leisure.dog_park" = "Hundepark";
 
@@ -2445,9 +2217,13 @@
 
 "type.leisure.swimming_pool" = "Svømmebassin";
 
+"type.leisure.swimming_pool.private" = "Svømmebassin";
+
 "type.leisure.track" = "Track";
 
 "type.leisure.water_park" = "Vandpark";
+
+"type.leisure.beach_resort" = "Beach Resort";
 
 "type.man_made" = "Man Made";
 
@@ -2459,7 +2235,11 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "Fyrtårn";
+
+"type.man_made.mast" = "Mast";
 
 "type.man_made.pier" = "Pier";
 
@@ -2571,9 +2351,7 @@
 
 "type.natural.wetland.marsh" = "Wetland";
 
-"type.noexit" = "noexit";
-
-"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
+"type.noexit" = "Dead End";
 
 "type.office" = "Kontor";
 
@@ -2597,25 +2375,25 @@
 
 "type.place.city.capital" = "Kapital";
 
-"type.place.city.capital.10" = "Kapital";
+"type.place.city.capital.10" = "By";
 
-"type.place.city.capital.11" = "Kapital";
+"type.place.city.capital.11" = "By";
 
 "type.place.city.capital.2" = "Kapital";
 
-"type.place.city.capital.3" = "Kapital";
+"type.place.city.capital.3" = "By";
 
-"type.place.city.capital.4" = "Kapital";
+"type.place.city.capital.4" = "By";
 
-"type.place.city.capital.5" = "Kapital";
+"type.place.city.capital.5" = "By";
 
-"type.place.city.capital.6" = "Kapital";
+"type.place.city.capital.6" = "By";
 
-"type.place.city.capital.7" = "Kapital";
+"type.place.city.capital.7" = "By";
 
-"type.place.city.capital.8" = "Kapital";
+"type.place.city.capital.8" = "By";
 
-"type.place.city.capital.9" = "Kapital";
+"type.place.city.capital.9" = "By";
 
 "type.place.continent" = "Kontinent";
 
@@ -2693,11 +2471,11 @@
 
 "type.railway.abandoned.bridge" = "Abandoned railway";
 
-"type.railway.abandoned.tunnel" = "Abandoned railway";
+"type.railway.abandoned.tunnel" = "Abandoned Railway";
 
-"type.railway.construction" = "Railway's construction";
+"type.railway.construction" = "Railway's Construction";
 
-"type.railway.crossing" = "Railway crossing";
+"type.railway.crossing" = "Railway Crossing";
 
 "type.railway.disused" = "Disused railway";
 
@@ -2729,7 +2507,7 @@
 
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
 
-"type.railway.platform" = "Platform";
+"type.railway.platform" = "Railway Platform";
 
 "type.railway.preserved" = "Preserved Rail";
 
@@ -2864,6 +2642,8 @@
 "type.shop.car_repair" = "Garage";
 
 "type.shop.car_repair.tyres" = "Dækreparation";
+
+"type.shop.caravan" = "RV Dealership";
 
 "type.shop.chemist" = "Materialist";
 
@@ -3133,66 +2913,37 @@
 
 "type.wheelchair.yes" = "Fuld tilgængelighed for kørestol";
 
-"type.piste_lift" = "piste:lift";
+/* en.wikipedia.org/wiki/Surface_lift */
+"type.piste_lift" = "Surface Lift";
 
-"type.piste_lift.j.bar" = "piste:lift-j-bar";
+"type.piste_lift.j.bar" = "J-bar Lift";
 
-"type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
+"type.piste_lift.magic_carpet" = "Magic Carpet";
 
-"type.piste_lift.platter" = "piste:lift-platter";
+"type.piste_lift.platter" = "Platter Lift";
 
-"type.piste_lift.rope_tow" = "piste:lift-rope_tow";
+"type.piste_lift.rope_tow" = "Rope Tow";
 
-"type.piste_lift.t.bar" = "piste:lift-t-bar";
+"type.piste_lift.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "piste:type";
+"type.piste_type" = "Piste Type";
 
-"type.piste_type.downhill" = "piste:type-downhill";
+"type.piste_type.downhill" = "Downhill Ski Run";
 
-"type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
+"type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
-"type.piste_type.downhill.easy" = "piste:type-downhill-easy";
+"type.piste_type.downhill.easy" = "Downhill Ski Run";
 
-"type.piste_type.downhill.expert" = "piste:type-downhill-expert";
+"type.piste_type.downhill.expert" = "Downhill Ski Run";
 
-"type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
+"type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
-"type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
+"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
-"type.piste_type.downhill.novice" = "piste:type-downhill-novice";
+"type.piste_type.downhill.novice" = "Downhill Ski Run";
 
-"type.piste_type.nordic" = "piste:type-nordic";
+"type.piste_type.nordic" = "Nordic Ski Trail";
 
-"type.piste_type.sled" = "piste:type-sled";
+"type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Bygning";
-
-"type.area_highway.cycleway" = "Bike Path";
-
-"type.area_highway.footway" = "Path";
-
-"type.area_highway.living_street" = "Street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "Path";
-
-"type.area_highway.pedestrian" = "Street";
-
-"type.area_highway.primary" = "Street";
-
-"type.area_highway.residential" = "Street";
-
-"type.area_highway.secondary" = "Street";
-
-"type.area_highway.service" = "Street";
-
-"type.area_highway.tertiary" = "Street";
-
-"type.area_highway.steps" = "Steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";

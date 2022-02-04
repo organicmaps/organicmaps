@@ -64,7 +64,7 @@ import UIKit
     case .closed:
       navigationController.popToRootViewController(animated: true)
       bookmarksControllers = nil
-    case let .hidden(categoryId):
+    case .hidden(_):
       UIView.transition(with: self.navigationController!.view,
                         duration: kDefaultAnimationDuration,
                         options: [.curveEaseInOut, .transitionCrossDissolve],

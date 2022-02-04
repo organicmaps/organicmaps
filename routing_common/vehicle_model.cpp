@@ -44,30 +44,25 @@ HighwayType GetHighwayTypeKey(HighwayType type)
 
 namespace routing
 {
-VehicleModel::AdditionalRoadType::AdditionalRoadType(Classificator const & c,
-                                                     AdditionalRoadTags const & tag)
-  : m_type(c.GetTypeByPath(tag.m_hwtag))
-  , m_speed(tag.m_speed)
-{
-}
 
 VehicleModel::VehicleModel(Classificator const & c, LimitsInitList const & featureTypeLimits,
                            SurfaceInitList const & featureTypeSurface,
                            HighwayBasedInfo const & info)
   : m_onewayType(c.GetTypeByPath({"hwtag", "oneway"})), m_highwayBasedInfo(info)
 {
-  CHECK_EQUAL(m_surfaceFactors.size(), 4,
+  ASSERT_EQUAL(m_surfaceFactors.size(), 4,
               ("If you want to change the size of the container please take into account that it's "
                "used with algorithm find() with linear complexity."));
-  CHECK_EQUAL(featureTypeSurface.size(), m_surfaceFactors.size(), ());
+  ASSERT_EQUAL(featureTypeSurface.size(), m_surfaceFactors.size(), ());
 
   for (auto const & v : featureTypeLimits)
   {
     auto const classificatorType = c.GetTypeByPath(v.m_types);
     auto const highwayType = static_cast<HighwayType>(c.GetIndexForType(classificatorType));
     auto const speedIt = info.m_speeds.find(highwayType);
-    CHECK(speedIt != info.m_speeds.cend(), ("Can't found speed for", highwayType));
-    // TODO: Consider using not only highway class speed but max sped * max speed factor.
+    ASSERT(speedIt != info.m_speeds.cend(), ("Can't found speed for", highwayType));
+
+    /// @todo Consider using not only highway class speed but max_speed * max_speed_factor.
     m_maxModelSpeed = Max(m_maxModelSpeed, speedIt->second);
     m_roadTypes.emplace(classificatorType, RoadType(highwayType, v.m_isPassThroughAllowed));
   }
@@ -76,21 +71,24 @@ VehicleModel::VehicleModel(Classificator const & c, LimitsInitList const & featu
   for (auto const & v : featureTypeSurface)
   {
     auto const & speedFactor = v.m_factor;
-    CHECK_LESS_OR_EQUAL(speedFactor.m_weight, 1.0, ());
-    CHECK_LESS_OR_EQUAL(speedFactor.m_eta, 1.0, ());
-    CHECK_GREATER(speedFactor.m_weight, 0.0, ());
-    CHECK_GREATER(speedFactor.m_eta, 0.0, ());
+    ASSERT_LESS_OR_EQUAL(speedFactor.m_weight, 1.0, ());
+    ASSERT_LESS_OR_EQUAL(speedFactor.m_eta, 1.0, ());
+    ASSERT_GREATER(speedFactor.m_weight, 0.0, ());
+    ASSERT_GREATER(speedFactor.m_eta, 0.0, ());
     m_surfaceFactors[i++] = {c.GetTypeByPath(v.m_types), v.m_factor};
   }
 }
 
-void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
-                                          vector<AdditionalRoadTags> const & additionalTags)
+void VehicleModel::AddAdditionalRoadTypes(Classificator const & c, AdditionalTagsT const & tags)
 {
-  for (auto const & tag : additionalTags)
+  for (auto const & tag : tags)
   {
-    m_addRoadTypes.emplace_back(c, tag);
-    m_maxModelSpeed = Max(m_maxModelSpeed, tag.m_speed);
+    uint32_t const type = c.GetTypeByPath(tag.m_hwtag);
+    if (m_roadTypes.find(type) == m_roadTypes.end())
+    {
+      m_addRoadTypes.emplace_back(AdditionalRoadType{type, tag.m_speed});
+      m_maxModelSpeed = Max(m_maxModelSpeed, tag.m_speed);
+    }
   }
 }
 

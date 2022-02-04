@@ -20,7 +20,7 @@
   7.7 Religion
   7.8 Agricultural
 8.BUILDINGS
-  8.1 Pier
+  8.1 Pier, dam, cutline
   8.2 Building
   8.3 Barrier
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -384,10 +384,6 @@ line|z15-[natural=strait],
 {width: 1.6;}
 line|z15-[waterway=stream][intermittent=yes]
 {width: 1.4;dashes: 4.95,4.95;}*/
-area|z15-[waterway=dam],
-line|z15-[waterway=dam],
-line|z15-[waterway=weir],
-{width: 1;opacity: 1;color: @bridge_casing;}
 
 line|z16-[waterway=lock],
 {width: 1.5;}
@@ -526,51 +522,71 @@ area|z17-[amenity=parking_space]
 
 /* 8.BUILDINGS */
 
-area|z12-[man_made=pier],
-area|z12-[man_made=breakwater],
-line|z14-[man_made=pier],
-line|z14-[man_made=breakwater],
-line|z14-[man_made=cutline]
-{fill-position: background;	fill-opacity: 1;}
+/* 8.1 Pier, dam, cutline */
 
-/* 8.1 Pier */
-area|z12-[man_made=pier],
-area|z12-[man_made=breakwater],
- {fill-color: @background;casing-color: @background;}
+area|z13-[man_made=pier],
+area|z13-[man_made=breakwater],
+{fill-position: background; fill-opacity: 0.7; fill-color: @background;casing-color: @background;}
 
-line|z14-[man_made=pier],
-line|z14-[man_made=breakwater],
-line|z14-[man_made=cutline]
-{casing-width: 2;casing-color: @background;fill-color: @background;}
+line|z15-[man_made=pier],
+line|z15-[man_made=breakwater],
+{width: 2;color: @background;opacity: 0.7;}
+
+line|z15-[waterway=dam],
+line|z15-[waterway=weir],
+{width: 2;color: @building_dark;opacity: 0.5;}
+
+line|z16[man_made=pier],
+line|z16[man_made=breakwater],
+line|z16[waterway=dam],
+line|z16[waterway=weir],
+{width: 3;}
+
+line|z17[man_made=pier],
+line|z17[man_made=breakwater],
+line|z17[waterway=dam],
+line|z17[waterway=weir],
+{width: 4.5;}
+
+line|z18[man_made=pier],
+line|z18[man_made=breakwater],
+line|z18[waterway=dam],
+line|z18[waterway=weir],
+{width: 6;}
+
+line|z19-[man_made=pier],
+line|z19-[man_made=breakwater],
+line|z19-[waterway=dam],
+line|z19-[waterway=weir],
+{width: 8;}
+
+line|z15-[man_made=cutline],
+{width: 1.5;color: @green0;opacity: 0.4;}
+line|z16[man_made=cutline],
+{width: 2;}
+line|z17[man_made=cutline],
+{width: 3;}
+line|z18[man_made=cutline],
+{width: 4.5;}
+line|z19-[man_made=cutline],
+{width: 6;}
 
 /* 8.2 Building */
 
 
 area|z15[building],
+area|z15[waterway=dam],
 area|z15[landuse=garages],
 area|z15[building=train_station],
 {fill-color: @building;fill-opacity: 0.65;casing-width: 1;casing-color: @building_border;}
 
-area|z14-15[aeroway=terminal],
-area|z16[building],
-area|z16[building:part],
-area|z16[landuse=garages],
-area|z16[building=train_station],
+area|z14-[aeroway=terminal],
+area|z16-[building],
+area|z16-[building:part],
+area|z16-[waterway=dam],
+area|z16-[landuse=garages],
+area|z16-[building=train_station],
 {fill-color: @building;fill-opacity: 0.55;casing-width: 1;casing-color: @building_border;}
-
-area|z16[aeroway=terminal],
-area|z17[building],
-area|z17[building:part],
-area|z17[landuse=garages],
-area|z17[building=train_station],
-{fill-color: @building;opacity: 0.55;casing-width: 1;casing-color: @building_border;}
-
-area|z17-[aeroway=terminal],
-area|z18-[building],
-area|z18-[building:part],
-area|z18-[landuse=garages],
-area|z18-[building=train_station]
-{fill-color: @building;opacity: 0.55;casing-width: 1;casing-color: @building_border;}
 
 /* 8.3 Barrier */
 

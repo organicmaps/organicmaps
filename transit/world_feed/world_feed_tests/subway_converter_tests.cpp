@@ -35,11 +35,8 @@ class SubwayConverterTests
 {
 public:
   SubwayConverterTests()
-    : m_mwmMatcher(GetTestingOptions().m_resourcePath, false /* haveBordersForWholeWorld */)
+    : m_mwmMatcher(GetPlatform().ResourcesDir(), false /* haveBordersForWholeWorld */)
   {
-    auto const & options = GetTestingOptions();
-    GetPlatform().SetResourceDir(options.m_resourcePath);
-
     CHECK(Platform::MkDirChecked(kSubwayTestsDir),
           ("Could not create directory for test data:", kSubwayTestsDir));
     m_generator = transit::IdGenerator(base::JoinPath(kSubwayTestsDir, kMappingFile));

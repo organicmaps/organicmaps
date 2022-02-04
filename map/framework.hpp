@@ -312,8 +312,8 @@ public:
 public:
   // SearchAPI::Delegate overrides:
   void RunUITask(std::function<void()> fn) override;
-  void ShowViewportSearchResults(search::Results::ConstIter begin,
-                                 search::Results::ConstIter end, bool clear) override;
+  using SearchResultsIterT = SearchAPI::Delegate::ResultsIterT;
+  void ShowViewportSearchResults(SearchResultsIterT begin, SearchResultsIterT end, bool clear) override;
   void ClearViewportSearchResults() override;
   // PositionProvider, SearchApi::Delegate and TipsApi::Delegate override.
   std::optional<m2::PointD> GetCurrentPosition() const override;
@@ -489,11 +489,8 @@ public:
 
   size_t ShowSearchResults(search::Results const & results);
 
-  using SearchMarkPostProcessing = std::function<void(SearchMarkPoint & mark)>;
-
   void FillSearchResultsMarks(bool clear, search::Results const & results);
-  void FillSearchResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end,
-                                bool clear, SearchMarkPostProcessing fn = nullptr);
+  void FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIterT end, bool clear);
 
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;

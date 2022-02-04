@@ -48,10 +48,10 @@ private:
 
   void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                       MarksIDGroups const & indexesGroups, ref_ptr<dp::TextureManager> textures,
-                      dp::Batcher & batcher);
+                      dp::Batcher & batcher) const;
   void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                       MarksIDGroups const & indexesGroups, ref_ptr<dp::TextureManager> textures,
-                      dp::Batcher & batcher);
+                      dp::Batcher & batcher) const;
 
   std::unordered_set<kml::MarkGroupId> m_groupsVisibility;
   MarksIDGroups m_groups;

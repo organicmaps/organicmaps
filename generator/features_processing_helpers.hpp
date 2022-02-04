@@ -25,5 +25,5 @@ struct ProcessedData
 };
 
 using FeatureProcessorChunk = std::optional<std::vector<ProcessedData>>;
-using FeatureProcessorQueue = base::threads::ThreadSafeQueue<FeatureProcessorChunk>;
+using FeatureProcessorQueue = threads::ThreadSafeQueue<FeatureProcessorChunk>;
 }  // namespace generator

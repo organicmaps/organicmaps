@@ -550,7 +550,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setFullscreen(true);
     Framework.nativeTurnOnChoosePositionMode(isBusiness, applyPosition);
     closePlacePage();
-    mSearchController.hide();
+    mSearchController.cancelSearchApiAndHide(false);
     hideBookmarkCategoryToolbar();
   }
 
@@ -1043,8 +1043,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mSearchController.hide())
     {
-      SearchEngine.INSTANCE.cancelInteractiveSearch();
-      mSearchController.clear();
+      mSearchController.cancelSearchApiAndHide(true);
       return;
     }
 
@@ -1053,9 +1052,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
       hideBookmarkCategoryToolbar();
       return;
     }
-    boolean isRoutingCancelled = RoutingController.get().cancel();
-    if (!closePlacePage() && !closeSidePanel() && !isRoutingCancelled
-        && !closePositionChooser())
+
+    if (closePlacePage() || closeSidePanel() || closePositionChooser())
+    {
+      return;
+    }
+
+    RoutingController routingController = RoutingController.get();
+    if (routingController.isNavigating())
+    {
+      routingController.resetToPlanningState();
+      return;
+    }
+
+    if (!routingController.cancel())
     {
       try
       {
@@ -1507,7 +1517,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Context context = getApplicationContext();
     if (show)
     {
-      mSearchController.hide();
+      mSearchController.cancelSearchApiAndHide(false);
       hideBookmarkCategoryToolbar();
       if (mIsTabletLayout)
       {
@@ -1614,8 +1624,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.updateState(false);
     if (show)
     {
-      mSearchController.clear();
-      mSearchController.hide();
+      mSearchController.cancelSearchApiAndHide(true);
       if (mFilterController != null)
         mFilterController.show(false);
     }
@@ -1672,6 +1681,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Override
   public void onRemovedStop()
+  {
+    closePlacePage();
+  }
+
+  @Override
+  public void onResetToPlanningState()
   {
     closePlacePage();
   }

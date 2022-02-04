@@ -8,8 +8,6 @@
 	<string name="back">返回</string>
 	<!-- Button text (should be short) -->
 	<string name="cancel">取消</string>
-	<!-- Button which interrupts country download -->
-	<string name="cancel_download">取消下载</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">删除</string>
 	<string name="download_maps">下载地图</string>
@@ -19,8 +17,6 @@
 	<string name="downloading">下载…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">千米</string>
-	<!-- Leave Review dialog - Review button -->
-	<string name="leave_a_review">发表评论</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">地图</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -33,19 +29,14 @@
 	<string name="search">搜索</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">搜索地图</string>
-	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
-	<string name="use_cellular_data">是</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">您目前有此设备的所有位置服务或应用已禁用。请在设置中启用它们。</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">在地图上显示</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
-	<string name="country_status_download_without_size">下载地图</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">下载失败</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">重试</string>
-	<string name="about_menu_title">关于 Organic Maps</string>
 	<string name="connection_settings">连接设置</string>
 	<string name="close">关闭</string>
 	<string name="unsupported_phone">硬件加速的 OpenGL 是必需的。遗憾的是您的设备不支持此功能。</string>
@@ -70,8 +61,6 @@
 	<string name="bookmark_color">书签颜色</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
 	<string name="bookmark_set_name">书签集名称</string>
-	<!-- "Bookmark Lists" dialog title -->
-	<string name="bookmark_sets">书签集</string>
 	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">书签</string>
 	<!-- Default bookmark list name -->
@@ -80,8 +69,8 @@
 	<string name="name">名字</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">地址</string>
-	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. TODO: sync with [search_in_table] if all languages will be renamed consistently. -->
-	<string name="list">集合</string>
+	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+	<string name="list">列表</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">设置</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -96,42 +85,48 @@
 	<string name="measurement_units">测量单位</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">选择英里或公里</string>
-	<!-- Search category for cafes, bars, restaurants -->
+
+	<!-- SECTION: Search categories -->
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
 	<string name="eat">在哪儿吃</string>
-	<!-- Search category for grocery stores -->
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
 	<string name="food">食品</string>
-	<!-- Search category -->
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">交通</string>
-	<!-- Search category -->
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
 	<string name="fuel">汽油</string>
-	<!-- Search category -->
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">停车</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
 	<string name="shopping">购物</string>
-	<!-- Search category -->
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">旅店</string>
-	<!-- Search category -->
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
 	<string name="tourism">景点</string>
-	<!-- Search category -->
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
 	<string name="entertainment">娱乐</string>
-	<!-- Search category -->
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
 	<string name="atm">自动取款机</string>
-	<!-- Search category for nightclubs/bars -->
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
 	<string name="nightlife">夜生活</string>
-	<!-- Search category for water park/disneyland/playground/toys store -->
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
 	<string name="children">亲子休闲</string>
-	<!-- Search category -->
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
 	<string name="bank">银行</string>
-	<!-- Search category -->
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
 	<string name="pharmacy">药店</string>
-	<!-- Search category -->
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">医院</string>
-	<!-- Search category -->
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
 	<string name="toilet">厕所</string>
-	<!-- Search category -->
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
 	<string name="post">邮政</string>
-	<!-- Search category -->
+	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">警察</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<string name="recycling">回收</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<string name="water">水</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">注释</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -160,18 +155,16 @@
 	<string name="my_position_share_email">嗨，\n\n我现在在这:%1$s。点击此链 接%2$s或此链接 %3$s来查看在地图上的位置。\n\n谢谢。</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">分享</string>
-	<!-- Share by email button text, also used in editor. -->
+	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">邮件</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">复制到剪贴板:%1$s</string>
-	<!-- place preview title -->
-	<string name="info">信息</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">完成</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">版本:%s</string>
-	<!-- Data version in «About» screen -->
-	<string name="data_version">资料版本： %d</string>
+	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+	<string name="data_version">OpenStreetMap 数据：%s</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">您确定要继续吗？</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -204,10 +197,6 @@
 	<string name="pref_tts_language_title">语音语言</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">无法使用</string>
-	<!-- Title for "Other" section in TTS settings. -->
-	<string name="pref_tts_other_section_title">其他</string>
-	<!-- Settings «Map» category: «Record track» title -->
-	<string name="pref_track_record_title">最近的路径</string>
 	<string name="pref_map_auto_zoom">自动缩放</string>
 	<string name="duration_disabled">关闭</string>
 	<string name="duration_1_hour">1小时</string>
@@ -215,8 +204,6 @@
 	<string name="duration_6_hours">6小时</string>
 	<string name="duration_12_hours">12小时</string>
 	<string name="duration_1_day">1天</string>
-	<string name="recent_track_help_text">它允许您记录一定时间段内的旅行路径，并在地图上查看。请注意：激活此功能会导致电量消耗加快。过期后，轨迹将从地图中自动移除。</string>
-	<string name="placepage_distance">距离</string>
 	<string name="search_show_on_map">在地图上查看</string>
 	<!-- Text in menu -->
 	<string name="website">网站</string>
@@ -238,12 +225,6 @@
 	<string name="copyright">版权</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">报告漏洞</string>
-	<!-- Alert text -->
-	<string name="email_error_body">电子邮件客户端尚未建立。请配置或使用任何其他方式与我们联系%s</string>
-	<!-- Alert title -->
-	<string name="email_error_title">电子邮件发送错误</string>
-	<!-- Settings item title -->
-	<string name="pref_calibration_title">指南针校准</string>
 	<!-- Search category -->
 	<string name="wifi">无线网络</string>
 	<!-- Update all button text -->
@@ -252,19 +233,12 @@
 	<string name="downloader_cancel_all">全部取消</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">已下载</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_available_maps">可用</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">已排队</string>
 	<string name="downloader_near_me_subtitle">在我附近</string>
 	<string name="downloader_status_maps">地图</string>
 	<string name="downloader_download_all_button">下载全部</string>
 	<string name="downloader_downloading">正在下载：</string>
-	<string name="downloader_search_results">找到</string>
-	<!-- Status of outdated country in the list -->
-	<string name="downloader_status_outdated">更新</string>
-	<!-- Status of failed country in the list -->
-	<string name="downloader_status_failed">失败</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
 	<string name="downloader_delete_map_while_routing_dialog">要删除地图，请停止导航。</string>
 	<!-- PointsInDifferentMWM -->
@@ -279,22 +253,12 @@
 	<string name="downloader_update_map">更新地图</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">使用Google Play服务以获取您的当前位置。</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_just_rated">我刚刚评价了您的应用</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_thanks">谢谢您！</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_share_ideas">分享任何主意或问题，这样我们可以为您改善应用。</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_send_feedback">发送反馈</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">下载沿线地图</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">创建路线需要下载并更新好所有从您的位置到目的地的地图。</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">空间不足</string>
-	<!-- bookmark button text -->
-	<string name="bookmark">书签</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">请启用位置服务</string>
 	<string name="save">保存</string>
@@ -347,8 +311,6 @@
 	<string name="dialog_routing_location_turn_wifi">请检查您的 GPS 信号。启用无线网络将改善您的定位精度。</string>
 	<string name="dialog_routing_location_turn_on">启用定位服务</string>
 	<string name="dialog_routing_location_unknown_turn_on">无法定位当前 GPS 坐标。请启用定位服务以计算路线。</string>
-	<string name="dialog_routing_download_files">下载所需文件</string>
-	<string name="dialog_routing_download_and_update_all">下载和更新所有地图和预定路径沿途的路线信息，以计算路线。</string>
 	<string name="dialog_routing_unable_locate_route">无法定位路线</string>
 	<string name="dialog_routing_cant_build_route">无法创建路线。</string>
 	<string name="dialog_routing_change_start_or_end">请调整您的起点或目的地。</string>
@@ -363,7 +325,6 @@
 	<string name="dialog_routing_system_error">系统错误</string>
 	<string name="dialog_routing_application_error">由于应用程序错误，无法创建路线。</string>
 	<string name="dialog_routing_try_again">请重试</string>
-	<string name="not_now">现在不用</string>
 	<string name="dialog_routing_download_and_build_cross_route">您是否要下载地图并创建一条跨越多张地图的更佳路线？</string>
 	<string name="dialog_routing_download_cross_route">下载地图，创建一条跨越此地图边缘的更佳路线。</string>
 
@@ -374,17 +335,8 @@
 	<string name="show">显示</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">隐藏</string>
-	<!-- Failed planning route message in navigation view -->
-	<string name="routing_planning_error">路线计划失败</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">抵達:%s</string>
-	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
-	<string name="dialog_routing_download_and_update_maps">要创建路线，请下载并更新所有沿路线的地图。</string>
-	<string name="rate_alert_title">喜欢这个应用吗？</string>
-	<string name="rate_alert_default_message">感谢您使用 Organic Maps。请评价此应用。您的反馈帮助我们改善我们的产品。</string>
-	<string name="rate_alert_five_star_message">太棒了！我们也爱您！</string>
-	<string name="rate_alert_four_star_message">谢谢您，我们会尽可能做好！</string>
-	<string name="rate_alert_less_than_four_star_message">有没有想法我们能怎么把它变得更好？</string>
 	<string name="categories">类别</string>
 	<string name="history">历史</string>
 	<string name="closed">已关闭</string>
@@ -417,8 +369,6 @@
 	<string name="editor_example_values">示例值</string>
 	<string name="editor_correct_mistake">纠正错误</string>
 	<string name="editor_add_select_location">位置</string>
-	<string name="editor_done_dialog_1">您已经改变了世界地图。请不要隐藏这一点！告诉您的朋友们并一起编辑它。</string>
-	<string name="share_with_friends">与朋友分享</string>
 	<string name="editor_report_problem_desription_1">请详细描述此问题以便OpenStreeMap社区能够修复此错误。</string>
 	<string name="editor_report_problem_desription_2">或者在https://www.openstreetmap.org/上亲自修复此错误。</string>
 	<string name="editor_report_problem_send_button">发送</string>
@@ -428,29 +378,20 @@
 	<string name="editor_report_problem_duplicate_place_title">重复的地点</string>
 	<string name="autodownload">自动下载</string>
 	<!-- Place Page opening hours text -->
-	<string name="closed_now">现在关门</string>
-	<!-- Place Page opening hours text -->
 	<string name="daily">每天</string>
 	<string name="twentyfour_seven">全天候</string>
 	<string name="day_off_today">今天没有营业</string>
 	<string name="day_off">没有营业</string>
 	<string name="today">今天</string>
-	<string name="add_opening_hours">添加工作时间</string>
 	<string name="edit_opening_hours">编辑工作时间</string>
 	<string name="no_osm_account">在OpenStreetMap上没有账户吗？</string>
 	<string name="register_at_openstreetmap">注册</string>
-	<string name="password_8_chars_min">密码（最少8个字符）</string>
-	<string name="invalid_username_or_password">无效的用户名或密码。</string>
 	<string name="login">登录</string>
 	<string name="password">密码</string>
 	<string name="forgot_password">忘记密码</string>
-	<string name="osm_account">OSM账户</string>
 	<string name="logout">登出</string>
-	<!-- Information text: "Last upload 11.01.2016" -->
-	<string name="last_upload">上次上传</string>
 	<string name="thank_you">谢谢您</string>
 	<string name="edit_place">编辑地点</string>
-	<string name="place_name">地点名</string>
 	<string name="add_language">添加语言</string>
 	<string name="street">街道</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -465,22 +406,16 @@
 	<string name="select_cuisine">选择菜肴</string>
 	<!-- login text field -->
 	<string name="email_or_username">邮箱或用户名</string>
-	<string name="phone">电话</string>
-	<string name="please_note">请注意</string>
 	<string name="downloader_delete_map_dialog">所有对地图的修改都将与地图一起被删除。</string>
 	<string name="downloader_update_maps">更新地图</string>
 	<string name="downloader_mwm_migration_dialog">为了创建路线，您需要更新全部地图并重新规划路线。</string>
 	<string name="downloader_search_field_hint">找到地图</string>
-	<string name="migration_download_error_dialog">下载错误</string>
 	<string name="common_check_internet_connection_dialog">请检查您的设置并确保您的设备已连接至网络。</string>
 	<string name="downloader_no_space_title">无足够的空间</string>
 	<string name="downloader_no_space_message">请删除不必要的数据</string>
 	<string name="editor_login_error_dialog">登录错误。</string>
 	<string name="editor_profile_changes">已验证的更改</string>
 	<string name="editor_focus_map_on_location">拖动地图以选择此对象的正确位置。</string>
-	<string name="editor_add_select_category">选择类别</string>
-	<string name="editor_add_select_category_popular_subtitle">受欢迎的</string>
-	<string name="editor_add_select_category_all_subtitle">所有类别</string>
 	<string name="editor_edit_place_title">编辑中</string>
 	<string name="editor_add_place_title">添加中</string>
 	<string name="editor_edit_place_name_hint">该地点的名称</string>
@@ -488,13 +423,8 @@
 	<string name="detailed_problem_description">问题的详细描述</string>
 	<string name="editor_report_problem_other_title">一个不同的问题</string>
 	<string name="placepage_add_business_button">添加组织</string>
-	<string name="whatsnew_editor_message_1">添加新地点到该地图，并直接通过此应用编辑已存在的地点。</string>
-	<string name="dialog_incorrect_feature_position">改变位置</string>
 	<string name="message_invalid_feature_position">对象无法设置在这里</string>
 	<string name="login_to_make_edits_visible">登录，让其他用户能看到您所作出的修改。</string>
-	<!-- Error dialog no space -->
-	<string name="migration_no_space_message">为了下载，您需要更多的空间。请删除不必要的数据。</string>
-	<string name="editor_sharing_title">我改进了Organic Maps地图</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d个/共%2$d个</string>
 	<string name="download_over_mobile_header">用手机网络连接下载吗？</string>
@@ -512,7 +442,6 @@
 	<string name="editor_detailed_description">您建议的更改将发送至 OpenStreetMap 社区。说明无法在 Organic Maps 编辑的详情。</string>
 	<string name="editor_more_about_osm">关于 OpenStreetMap 的更多信息</string>
 	<string name="editor_operator">运营者</string>
-	<string name="downloader_my_maps_title">我的地图</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下载任何地图</string>
 	<string name="downloader_no_downloaded_maps_message">下载地图来查找位置和离线浏览</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -521,14 +450,6 @@
 	<string name="current_location_unknown_message">当前位置未知，可能您在建筑内或隧道内。</string>
 	<string name="current_location_unknown_continue_button">继续</string>
 	<string name="current_location_unknown_stop_button">停止</string>
-	<string name="current_location_unknown_error_title">当前位置未知</string>
-	<string name="current_location_unknown_error_message">搜索您的位置时发生错误。请检查您的设备是否工作正常，然后重试。</string>
-	<string name="location_services_disabled_header">地点定位被禁用</string>
-	<string name="location_services_disabled_message">启用设备设置中的地理位置定位</string>
-	<string name="location_services_disabled_1">1. 打开设置</string>
-	<string name="location_services_disabled_2">2. 点击位置</string>
-	<!-- iOS Dialog for the case when the location permission is not granted -->
-	<string name="location_services_disabled_3">3. 使用应用时选择</string>
 	<string name="meter">米</string>
 	<string name="kilometer">公里</string>
 	<string name="kilometers_per_hour">公里每小时</string>
@@ -540,46 +461,31 @@
 	<string name="placepage_place_description">说明</string>
 	<string name="placepage_more_button">更多</string>
 	<string name="placepage_more_reviews_button">更多评论</string>
-	<string name="book_button">预約</string>
 	<string name="placepage_call_button">呼叫</string>
 	<string name="placepage_edit_bookmark_button">编辑书签</string>
-	<string name="placepage_bookmark_name_hint">书签名称</string>
-	<string name="placepage_personal_notes_hint">个人备注</string>
-	<string name="placepage_delete_bookmark_button">删除书签</string>
-	<string name="editor_edits_sent_message">您的建议已发送</string>
 	<string name="editor_comment_hint">备注…</string>
 	<string name="editor_reset_edits_message">重置所有本地更改？</string>
 	<string name="editor_reset_edits_button">重置</string>
 	<string name="editor_remove_place_message">删除已添加的位置？</string>
 	<string name="editor_remove_place_button">删除</string>
 	<string name="editor_place_doesnt_exist">位置不存在</string>
-	<string name="text_more_button">…更多</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">输入正确的电话号码</string>
 	<string name="error_enter_correct_web">输入有效网址</string>
 	<string name="error_enter_correct_email">输入有效电子邮箱</string>
-	<string name="refresh">更新</string>
 	<string name="placepage_add_place_button">添加地点到地图上</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">您想要发给所有用户吗？</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">确保您没有输入任何个人数据。</string>
 	<string name="editor_share_to_all_dialog_message_2">我们会检查更改。如果我们有任何问题，我们会邮件与您联系。</string>
-	<string name="navigation_stop_button">停止</string>
-	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-	<string name="recent_track_background_dialog_title">禁止记录您最近去过的路径？</string>
-	<string name="off_recent_track_background_button">禁用</string>
-	<!-- For sharing via SMS and so on -->
-	<string name="sharing_call_action_look">来看看</string>
-	<string name="recent_track_background_dialog_message">Organic Maps使用背景中的地理位置记录您最近去过的路径。</string>
-	<!-- Text under the version number in the Help dialog. -->
+	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps 是一款免费的开源离线地图应用程序。无广告。没有跟踪。如果您在地图上看到错误，请在 OpenStreetMap 中修复它。该项目由爱好者在我们的空闲时间创建，因此我们需要您的反馈和支持。</string>
-	<string name="general_settings">常规设置</string>
 	<!-- For the first routing -->
 	<string name="accept">接受</string>
 	<!-- For the first routing -->
 	<string name="decline">拒绝</string>
-	<!-- noun -->
+	<!-- A noun - a button name used to show search results in list form -->
 	<string name="search_in_table">列表</string>
 	<string name="mobile_data_dialog">使用移动网络显示详细信息？</string>
 	<string name="mobile_data_option_always">始终使用</string>
@@ -592,8 +498,6 @@
 	<string name="traffic_update_maps_text">要显示交通数据，必须更新地图。</string>
 	<string name="big_font">增大地图上的字体大小</string>
 	<string name="traffic_update_app">请更新 Organic Maps</string>
-	<!-- "traffic" as in road congestion -->
-	<string name="traffic_update_app_message">要显示交通数据，必须更新应用。</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">交通数据不可用</string>
 	<string name="enable_logging">启用记录</string>
@@ -610,13 +514,8 @@
 	<string name="routing_add_start_point">添加起点以规划路线</string>
 	<string name="routing_add_finish_point">添加终点以规划路线</string>
 	<string name="button_exit">退出</string>
-	<string name="planning_route_manage_route">管理路线</string>
-	<string name="button_plan">规划</string>
 	<string name="placepage_remove_stop">移除</string>
-	<string name="planning_route_remove_title">拖动到此处以移除</string>
 	<string name="placepage_add_stop">添加经停点</string>
-	<string name="start_from_my_position">起点</string>
-	<string name="profile_authorization_error">糟糕，出错了。请尝试重新登录。</string>
 	<string name="dialog_error_storage_title">存储空间访问问题</string>
 	<string name="dialog_error_storage_message">外部存储空间不可用，可能是存储卡已移除、损坏，或者文件系统为只读。请检查，然后通过以下方式联系我们：support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">模拟不良存储空间</string>
@@ -626,14 +525,7 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">全部隱藏</string>
 	<string name="bookmark_lists_show_all">全部顯示</string>
-	<plurals name="bookmarks_places">
-	  <item quantity="other">%d 個書籤</item>
-	</plurals>
 	<string name="bookmarks_create_new_group">创建新的列表</string>
-	<string name="downloader_hide_screen">隱藏屏幕</string>
-	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
-	<string name="downloader_process">正在下載 %s…</string>
-	<string name="downloader_applying">正在套用 %s…</string>
 	<string name="bookmarks_error_message_share_general">由于应用程序出错而无法分享</string>
 	<string name="bookmarks_error_title_share_empty">分享错误</string>
 	<string name="bookmarks_error_message_share_empty">无法分享空列表</string>
@@ -642,21 +534,13 @@
 	<string name="bookmarks_new_list_hint">新的列表</string>
 	<string name="bookmarks_error_title_list_name_already_taken">这个名字已经被使用了</string>
 	<string name="bookmarks_error_message_list_name_already_taken">请选择其他名称</string>
-	<string name="bookmarks_error_title_list_name_too_long">这个名字太长了</string>
 	<string name="please_wait">请稍候…</string>
 	<string name="phone_number">电话号码</string>
 	<string name="profile">OpenStreetMap 资料</string>
-	<string name="bookmarks_detect_title">检测到新文件</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">找到%d个文件。 转换后你会看到它。</item>
 	</plurals>
-	<string name="button_convert">兑换</string>
-	<string name="bookmarks_convert_error_title">错误</string>
-	<string name="bookmarks_convert_error_message">有些文件未被转换。</string>
-	<string name="bookmarks_restore_title">还原这个版本？</string>
 	<string name="common_check_internet_connection_dialog_title">没有互联网连接</string>
-	<string name="error_system_message">出现未知错误</string>
-	<string name="restore">恢复</string>
 	<plurals name="objects">
 	  <item quantity="other">%d 地点</item>
 	</plurals>
@@ -678,17 +562,13 @@
 	<string name="bookmarks_empty_list_title">该列表为空</string>
 	<string name="bookmarks_empty_list_message">要添加新标签，请单击对象卡中的星形图标</string>
 	<string name="category_desc_more">…更多</string>
-	<string name="title_error_downloading_bookmarks">发生错误</string>
 	<string name="export_file">导出文件</string>
 	<string name="list_settings">列表设置</string>
 	<string name="delete_list">删除列表</string>
-	<string name="hide_from_map">从卡中隐藏</string>
 	<string name="public_access">公共访问</string>
 	<string name="limited_access">私人访问</string>
 	<string name="bookmark_list_description_hint">请添加说明（文字或html）</string>
 	<string name="not_shared">私人</string>
-	<string name="tags_loading_error_subtitle">加载标签时出错，请重试</string>
-	<string name="download_button">下载</string>
 	<string name="speedcams_alert_title">高速摄像机</string>
 	<string name="speedcam_option_auto">自动</string>
 	<string name="speedcam_option_always">总是</string>
@@ -696,7 +576,6 @@
 	<string name="place_description_title">地点说明</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">加载地图</string>
-	<string name="speedcams_notice_message">自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告</string>
 	<string name="power_managment_title">省电模式</string>
 	<string name="power_managment_description">如果开启省电模式，应用程序将根据手机的当前电量关耗电功能</string>
 	<string name="power_managment_setting_never">从不</string>
@@ -720,44 +599,11 @@
 	<string name="avoid_toll_roads_placepage">规避收费公路</string>
 	<string name="avoid_unpaved_roads_placepage">规避土路</string>
 	<string name="avoid_ferry_crossing_placepage">规避渡輪渡口</string>
-	<string name="trip_start">前往</string>
-	<string name="pick_destination">目标</string>
-	<string name="follow_my_position">定好中心</string>
-	<string name="search_results">搜索结果</string>
-	<string name="then_turn">接下来</string>
-	<string name="redirect_route_alert">想重建路线?</string>
-	<string name="redirect_route_yes">是</string>
-	<string name="redirect_route_no">否</string>
-	<string name="trip_finished">您已到达!</string>
-	<string name="keyboard_availability_alert">移动时键盘不可用</string>
-	<string name="dialog_routing_change_start_carplay">无法从当前位置构建路线</string>
-	<string name="dialog_routing_change_end_carplay">无法建立到终点的路线。请选择其他（路线）</string>
-	<string name="dialog_routing_check_gps_carplay">无GPS信号。请沿着空旷区域行驶</string>
-	<string name="dialog_routing_unable_locate_route_carplay">无法建立路线。请选择其他路线点</string>
-	<string name="dialog_routing_download_files_carplay">为了创建线路，请在您的设备中下载所缺少的地图</string>
-	<string name="dialog_routing_system_error_carplay">发生了错误。请重新启动程序</string>
-	<string name="dialog_routing_rebuild_from_current_location_carplay">该路线将从您的当前位置重建</string>
-	<string name="dialog_routing_rebuild_for_vehicle_carplay">该路线将改为汽车（路线）</string>
 	<string name="ok">好的</string>
-	<string name="avoid_unpaved_carplay_1">无土路路段</string>
-	<string name="avoid_unpaved_carplay_2">无土路路段</string>
-	<string name="avoid_ferry_carplay_1">无渡船</string>
-	<string name="avoid_ferry_carplay_2">无渡船</string>
-	<string name="avoid_tolls_carplay_1">无付费路段</string>
-	<string name="avoid_tolls_carplay_2">无付费路段</string>
-	<string name="speedcams_alert_title_carplay_1">摄像头</string>
-	<string name="speedcams_alert_title_carplay_2">摄像头信息</string>
-	<string name="download_map_carplay">将Organic Maps软件中的地图下载至个人设备中</string>
-	<string name="carplay_roundabout_exit">%s号坡道</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">分类……</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">分类标签</string>
-	<!-- iOS -->
-	<string name="sort_default">默认排序</string>
-	<string name="sort_type">按类型排序</string>
-	<string name="sort_distance">按距离排序</string>
-	<string name="sort_date">按日期排序</string>
 	<!-- Android -->
 	<string name="by_default">默认情况下</string>
 	<!-- Android -->
@@ -772,6 +618,8 @@
 	<string name="moreyear_ago_sorttype">一年多以前</string>
 	<string name="near_me_sorttype">在我旁边</string>
 	<string name="others_sorttype">其他</string>
+
+	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">美食</string>
 	<string name="tourist_places">名胜</string>
 	<string name="museums">博物馆</string>
@@ -785,7 +633,6 @@
 	<string name="shops">商店</string>
 	<string name="parkings">停车场</string>
 	<string name="fuel_places">加油站</string>
-	<string name="water">水</string>
 	<string name="medicine">医疗</string>
 	<string name="search_in_the_list">在列表中搜索</string>
 	<string name="religious_places">圣地</string>
@@ -796,10 +643,6 @@
 	<string name="button_layer_isolines">高度</string>
 	<string name="isolines_activation_error_dialog">如需使用高度线，请更新或下载所需区域的地图</string>
 	<string name="isolines_location_error_dialog">暂时无法获取该地区的高低线</string>
-	<string name="elevation_profile_diff_level">难度等级</string>
-	<string name="elevation_profile_diff_level_easy">容易</string>
-	<string name="elevation_profile_diff_level_moderate">中等</string>
-	<string name="elevation_profile_diff_level_hard">困难</string>
 	<string name="elevation_profile_ascent">上坡</string>
 	<string name="elevation_profile_descent">下坡</string>
 	<string name="elevation_profile_minaltitude">最小高度</string>
@@ -808,22 +651,9 @@
 	<string name="elevation_profile_distance">距离：</string>
 	<string name="elevation_profile_time">在路上：</string>
 	<string name="isolines_toast_zooms_1_10">放大地图以查看等高线</string>
-	<string name="downloader_updating_ios">更新</string>
-	<string name="downloader_loading_ios">加载</string>
-	<string name="key_information_title">关键信息</string>
 	<string name="enable_screen_sleep">允许屏幕进入休眠状态</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">启用后，屏幕将在一段时间不活动后进入休眠状态。</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">更新已下载的地图</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">更新地图可以让对象的信息保持最新状态</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_size">更新 (%s)</string>
-	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_button_later">稍后手动更新</string>
-	<!-- edit track screen title -->
-	<string name="track_title">追踪</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">缆车要素</string>
@@ -876,7 +706,9 @@
 	<string name="type.amenity.food_court">美食广场</string>
 	<string name="type.amenity.fountain">喷泉</string>
 	<string name="type.amenity.fuel">加油站</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">墓地</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard.christian">墓地</string>
 	<string name="type.amenity.hospital">医院</string>
 	<string name="type.amenity.hunting_stand">狩猎站</string>
@@ -916,9 +748,12 @@
 	<string name="type.amenity.prison">监狱</string>
 	<string name="type.amenity.pub">酒馆</string>
 	<string name="type.amenity.public_bookcase">公共书架</string>
-	<string name="type.amenity.recycling">资源回收设施</string>
-	<string name="type.amenity.recycling_container">回收容器</string>
-	<string name="type.recycling.toxic">有毒垃圾</string>
+
+	<!-- SECTION: Types: Recycling -->
+	<string name="type.amenity.recycling.centre">资源回收设施</string>
+	<string name="type.amenity.recycling">回收容器</string>
+	<string name="type.amenity.recycling.container">回收容器</string>
+	<string name="type.recycling.batteries">电池</string>
 	<string name="type.recycling.clothes">旧衣物</string>
 	<string name="type.recycling.glass_bottles">玻璃瓶</string>
 	<string name="type.recycling.paper">废纸</string>
@@ -964,10 +799,9 @@
 	<string name="type.boundary.administrative">行政区域界线</string>
 	<string name="type.boundary.administrative.10">10级行政区域界线</string>
 	<string name="type.boundary.administrative.11">11级行政区域界线</string>
-	<string name="type.boundary.administrative.2">2级行政区域界线</string>
+	<string name="type.boundary.administrative.2">国家行政区域界线</string>
 	<string name="type.boundary.administrative.3">3级行政区域界线</string>
 	<string name="type.boundary.administrative.4">4级行政区域界线</string>
-	<string name="type.boundary.administrative.4.state">4级州省界线</string>
 	<string name="type.boundary.administrative.5">5级行政区域界线</string>
 	<string name="type.boundary.administrative.6">6级行政区域界线</string>
 	<string name="type.boundary.administrative.7">7级行政区域界线</string>
@@ -1091,6 +925,8 @@
 	<string name="type.emergency.phone">紧急电话</string>
 	<string name="type.entrance">入口</string>
 	<string name="type.healthcare.laboratory">医学实验室</string>
+
+	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">公路要素</string>
 	<string name="type.highway.bridleway">马道</string>
 	<string name="type.highway.bridleway.bridge">马道</string>
@@ -1200,6 +1036,23 @@
 	<string name="type.highway.unclassified.area">道路</string>
 	<string name="type.highway.unclassified.bridge">道路</string>
 	<string name="type.highway.unclassified.tunnel">道路</string>
+	<string name="type.area_highway.cycleway">自行车道</string>
+	<string name="type.area_highway.footway">步行道路</string>
+	<string name="type.area_highway.living_street">生活性街道</string>
+	<string name="type.area_highway.motorway">高速公路</string>
+	<string name="type.area_highway.path">小道</string>
+	<string name="type.area_highway.pedestrian">步行街</string>
+	<string name="type.area_highway.primary">主要道路</string>
+	<string name="type.area_highway.residential">住宅区道路</string>
+	<string name="type.area_highway.secondary">次要道路</string>
+	<string name="type.area_highway.service">辅助道路</string>
+	<string name="type.area_highway.tertiary">三级道路</string>
+	<string name="type.area_highway.steps">阶梯</string>
+	<string name="type.area_highway.track">土路</string>
+	<string name="type.area_highway.trunk">干线道路</string>
+	<string name="type.area_highway.unclassified">道路</string>
+
+	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">历史地点</string>
 	<string name="type.historic.archaeological_site">考古地点</string>
 	<string name="type.historic.battlefield">古战场</string>
@@ -1227,7 +1080,9 @@
 	<string name="type.landuse.allotments">市民农园</string>
 	<string name="type.landuse.basin">水盆地</string>
 	<string name="type.landuse.brownfield">棕土</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">墓地</string>
+	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">基督教墓地</string>
 	<string name="type.landuse.churchyard">教堂庭院</string>
 	<string name="type.landuse.commercial">商务办公用地</string>
@@ -1281,6 +1136,7 @@
 	<string name="type.leisure.sports_centre.yoga">瑜伽工作室</string>
 	<string name="type.leisure.stadium">体育场</string>
 	<string name="type.leisure.swimming_pool">游泳池</string>
+	<string name="type.leisure.swimming_pool.private">游泳池</string>
 	<string name="type.leisure.track">賽道</string>
 	<string name="type.leisure.water_park">水上乐园</string>
 	<string name="type.man_made">人造要素</string>
@@ -1342,16 +1198,16 @@
 	<string name="type.place">地点</string>
 	<string name="type.place.city">城市</string>
 	<string name="type.place.city.capital">首府</string>
-	<string name="type.place.city.capital.10">首府</string>
-	<string name="type.place.city.capital.11">首府</string>
-	<string name="type.place.city.capital.2">首都</string>
-	<string name="type.place.city.capital.3">首都</string>
-	<string name="type.place.city.capital.4">首府</string>
-	<string name="type.place.city.capital.5">首府</string>
-	<string name="type.place.city.capital.6">首府</string>
-	<string name="type.place.city.capital.7">首府</string>
-	<string name="type.place.city.capital.8">首府</string>
-	<string name="type.place.city.capital.9">首府</string>
+	<string name="type.place.city.capital.10">城市</string>
+	<string name="type.place.city.capital.11">城市</string>
+	<string name="type.place.city.capital.2">首府</string>
+	<string name="type.place.city.capital.3">城市</string>
+	<string name="type.place.city.capital.4">城市</string>
+	<string name="type.place.city.capital.5">城市</string>
+	<string name="type.place.city.capital.6">城市</string>
+	<string name="type.place.city.capital.7">城市</string>
+	<string name="type.place.city.capital.8">城市</string>
+	<string name="type.place.city.capital.9">城市</string>
 	<string name="type.place.continent">大陆</string>
 	<string name="type.place.country">国家/地区</string>
 	<string name="type.place.county">县</string>

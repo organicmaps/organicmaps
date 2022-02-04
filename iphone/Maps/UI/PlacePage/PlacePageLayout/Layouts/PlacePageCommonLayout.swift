@@ -44,20 +44,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   } ()
 
-  lazy var descriptionDividerViewController: PlacePageDividerViewController = {
-    let vc = storyboard.instantiateViewController(ofType: PlacePageDividerViewController.self)
-    vc.view.isHidden = true
-    vc.titleText = L("placepage_place_description").uppercased()
-    return vc
-  } ()
-
-  lazy var keyInformationDividerViewController: PlacePageDividerViewController = {
-    let vc = storyboard.instantiateViewController(ofType: PlacePageDividerViewController.self)
-    vc.view.isHidden = true
-    vc.titleText = L("key_information_title").uppercased()
-    return vc
-  } ()
-
   lazy var bookmarkViewController: PlacePageBookmarkViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePageBookmarkViewController.self)
     vc.view.isHidden = true
@@ -106,13 +92,11 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
     viewControllers.append(previewViewController)
-    viewControllers.append(descriptionDividerViewController)
     viewControllers.append(wikiDescriptionViewController)
     if let wikiDescriptionHtml = placePageData.wikiDescriptionHtml {
       wikiDescriptionViewController.descriptionHtml = wikiDescriptionHtml
       if placePageData.bookmarkData?.bookmarkDescription == nil {
         wikiDescriptionViewController.view.isHidden = false
-        descriptionDividerViewController.view.isHidden = false
       }
     }
 
@@ -120,14 +104,9 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     if let bookmarkData = placePageData.bookmarkData {
       bookmarkViewController.bookmarkData = bookmarkData
       bookmarkViewController.view.isHidden = false
-      if let description = bookmarkData.bookmarkDescription, description.isEmpty == false {
-        descriptionDividerViewController.view.isHidden = false
-      }
     }
 
     if placePageData.infoData != nil {
-      viewControllers.append(keyInformationDividerViewController)
-      keyInformationDividerViewController.view.isHidden = false
       viewControllers.append(infoViewController)
     }
 

@@ -15,15 +15,15 @@
 
 namespace
 {
-// Test preconditions: files from the kMapFiles set with '.mwm'
+// Test preconditions: files from the kBicycleMapFiles set with '.mwm'
 // extension must be placed in omim/data folder.
-std::set<std::string> const kMapFiles = {"Russia_Moscow"};
+std::set<std::string> const kBicycleMapFiles = {"Russia_Moscow"};
 
 class BicycleTest : public RoutingTest
 {
 public:
   BicycleTest()
-    : RoutingTest(routing::IRoadGraph::Mode::ObeyOnewayTag, routing::VehicleType::Bicycle, kMapFiles)
+    : RoutingTest(routing::IRoadGraph::Mode::ObeyOnewayTag, routing::VehicleType::Bicycle, kBicycleMapFiles)
   {
   }
 

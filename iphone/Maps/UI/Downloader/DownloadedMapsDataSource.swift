@@ -38,10 +38,10 @@ extension DownloadedMapsDataSource: IDownloaderDataSource {
   var isEmpty: Bool {
     return searching ? searchDataSource.isEmpty : countryIds.isEmpty
   }
-  
+
   var title: String {
     guard let parentCountryId = parentCountryId else {
-      return L("downloader_my_maps_title")
+      return ""  // Root Downloader dialog displays UISearchBar instead of title.
     }
     return Storage.shared().name(forCountry: parentCountryId)
   }

@@ -64,7 +64,13 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 
 @interface UIViewController (Safari)
 
-- (void)openUrl:(NSURL *)url;
+// Opens http(s) urls in SFSafariViewController.
+// Does nothing and returns NO (false) if the url is invalid.
+- (BOOL)openUrl:(NSString *)urlString;
+
+// Pass safari = YES (true) to open url externally, and NO (false) to open
+// in SFSafariViewController (see the method above).
+- (BOOL)openUrl:(NSString *)urlString inSafari:(BOOL)safari;
 
 @end
 

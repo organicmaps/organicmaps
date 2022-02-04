@@ -1,10 +1,11 @@
-• New OSM maps data as of November 22
-• Fixed routing between map regions, please test and report to us any issues!
-• Type "water" or "drinking water" in search to find it around yourself
-• Long tap on a POI/bookmark name/address to copy them into clipboard
-• Reworked opening hours UI
-• Restored "maps update is available" indicator
-• Added LINE contacts to the place page
-• Reduced APK size
-• Updated Vulkan driver libraries
-• Updated be, de, es, fi, ru, ua and zh translations
+• New OSM maps data as of January 3, 2022
+• Improved search results ranking
+• Fixed hundreds of "capitals" on the World map
+• Fixed invalid inter-region routes
+• Search recognizes rd/st/ct=road/street/court synonyms
+• Duck played music when announcing directions
+• Copy most of the POI info using a long tap
+• Fix non-working FAQ on Android 5 and 6
+• Consistent naming for Bookmark Lists
+• Added Bulgarian, incomplete Hebrew, and Swahili translations
+• Updated de, it, ro, ru, uk, tr translations

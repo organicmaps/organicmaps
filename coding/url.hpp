@@ -10,44 +10,44 @@
 // order to simplify the usage.
 namespace url
 {
-struct Param
-{
-  Param(std::string const & name, std::string const & value) : m_name(name), m_value(value) {}
 
-  std::string m_name;
-  std::string m_value;
-};
-
-std::string DebugPrint(Param const & param);
-
-using Params = std::vector<Param>;
-
-// Url in format: 'scheme://path?key1=value1&key2&key3=&key4=value4'
+// Url in format: 'scheme://host/path?key1=value1&key2&key3=&key4=value4'
+// host - any string ('omaps.app' or 'search'), without any valid domain check
 class Url
 {
 public:
-  using Callback = std::function<void(Param const & param)>;
-
   explicit Url(std::string const & url);
   static Url FromString(std::string const & url);
 
-  std::string const & GetScheme() const { return m_scheme; }
-  std::string const & GetPath() const { return m_path; }
-  std::string GetWebDomain() const;
-  std::string GetWebPath() const;
   bool IsValid() const { return !m_scheme.empty(); }
-  void ForEachParam(Callback const & callback) const;
+
+  std::string const & GetScheme() const { return m_scheme; }
+  std::string const & GetHost() const { return m_host; }
+  std::string const & GetPath() const { return m_path; }
+  std::string GetHostAndPath() const { return m_host + '/' + m_path; }
+
+  template <class FnT> void ForEachParam(FnT && fn) const
+  {
+    for (auto const & p : m_params)
+      fn(p.first, p.second);
+  }
+
+  using Param = std::pair<std::string, std::string>;
+  Param const * GetLastParam() const { return m_params.empty() ? nullptr : &m_params.back(); }
+  std::string const * GetParamValue(std::string const & name) const
+  {
+    for (auto const & p : m_params)
+      if (p.first == name)
+        return &p.second;
+    return nullptr;
+  }
 
 private:
   bool Parse(std::string const & url);
 
-  std::string m_scheme;
-  std::string m_path;
+  std::string m_scheme, m_host, m_path;
   std::vector<Param> m_params;
 };
-
-// Make URL by using base url and vector of params.
-std::string Make(std::string const & baseUrl, Params const & params);
 
 // Joins URL, appends/removes slashes if needed.
 std::string Join(std::string const & lhs, std::string const & rhs);
@@ -61,21 +61,4 @@ std::string Join(std::string const & lhs, std::string const & rhs, Args &&... ar
 std::string UrlEncode(std::string const & rawUrl);
 std::string UrlDecode(std::string const & encodedUrl);
 
-struct GeoURLInfo
-{
-  GeoURLInfo() { Reset(); }
-
-  explicit GeoURLInfo(std::string const & s);
-
-  bool IsValid() const;
-  void Reset();
-
-  void SetZoom(double x);
-  bool SetLat(double x);
-  bool SetLon(double x);
-
-  double m_lat;
-  double m_lon;
-  double m_zoom;
-};
 }  // namespace url

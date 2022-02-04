@@ -1,5 +1,8 @@
-• New OSM maps data as of November 22
-• Fixed routing between map regions, please test and report to us any issues!
-• Type "water" or "drinking water" in search to find it around yourself
-• Fixed opening of https://omaps.app/ and om:// links on the cold start
-• Updated Russian, Finnish, German, French, Spanish, Ukrainian, Belarusian and Chinese translations
+• New OSM maps data as of January 3, 2022
+• Improved search results ranking
+• Fixed hundreds of "capitals" on the World map
+• Fixed invalid inter-region routes
+• Search recognizes rd/st/ct=road/street/court synonyms
+• Consistent naming/translations for Bookmark Lists
+• Added Belarusian, Persian, incomplete Hebrew, and Swahili translations
+• Updated German, Italian, Romanian, Russian, Ukrainian, Turkish translations

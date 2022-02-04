@@ -16,13 +16,13 @@
 
 namespace
 {
-std::set<std::string> const kMapFiles = {"Russia_Moscow"};
+std::set<std::string> const kCarMapFiles = {"Russia_Moscow"};
 
 class CarTest : public RoutingTest
 {
 public:
   CarTest()
-    : RoutingTest(routing::IRoadGraph::Mode::ObeyOnewayTag, routing::VehicleType::Car, kMapFiles)
+    : RoutingTest(routing::IRoadGraph::Mode::ObeyOnewayTag, routing::VehicleType::Car, kCarMapFiles)
   {
   }
 

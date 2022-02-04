@@ -15,7 +15,7 @@
 using namespace std;
 using namespace std::chrono;
 
-namespace
+namespace pinger
 {
 auto constexpr kTimeoutInSeconds = 4.0;
 int64_t constexpr kInvalidPing = -1;
@@ -56,14 +56,14 @@ Pinger::Endpoints Pinger::ExcludeUnavailableAndSortEndpoints(Endpoints const & u
   CHECK_GREATER(size, 0, ());
 
   using EntryT = std::pair<int64_t, size_t>;
-  std::vector<EntryT> timeUrls(size, {kInvalidPing, 0});
+  std::vector<EntryT> timeUrls(size, {pinger::kInvalidPing, 0});
   {
     ThreadPool pool(size, ThreadPool::Exit::ExecPending);
     for (size_t i = 0; i < size; ++i)
     {
       pool.Push([&urls, &timeUrls, i]
       {
-        timeUrls[i] = { DoPing(urls[i]), i };
+        timeUrls[i] = { pinger::DoPing(urls[i]), i };
       });
     }
   }

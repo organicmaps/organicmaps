@@ -2,69 +2,87 @@
 
   [type.aerialway]
     en = Aerialway
+    de = Seilbahn
+    el = Τελεφερίκ
     fr = Transport par câble aérien
     ja = 索道
     pl = Transport linowy
     pt = Transporte aéreo
     pt-BR = Transporte aéreo
     ru = Канатная дорога
+    uk = Канатна дорога
     zh-Hans = 缆车要素
 
   [type.aerialway.cable_car]
     en = Aerialway
+    de = Pendelbahn
+    el = Τελεφερίκ
     fr = Téléphérique
     ja = ロープウェイ
     pl = Kolej linowa
     pt = Teleférico
     pt-BR = Teleférico
     ru = Канатная дорога
+    uk = Канатна дорога
     zh-Hans = 缆车
     zh-Hant = 纜車
 
   [type.aerialway.chair_lift]
     en = Aerialway
+    de = Sessellift
+    el = Τελεφερίκ
     fr = Télésiège
     ja = チェアリフト
     pl = Wyciąg krzesełkowy
     pt = Telecadeira
     pt-BR = Telecadeira
     ru = Кресельная канатная дорога
+    uk = Канатна дорога
     zh-Hans = 登山吊椅
 
   [type.aerialway.drag_lift]
     en = Aerialway
+    de = Schlepplift
+    el = Τελεφερίκ
     fr = Téléski
     ja = 牽引リフト
     pl = Wyciąg orczykowy
     pt = Telesquis
     pt-BR = Telesquis
     ru = Бугельная канатная дорога
+    uk = Канатна дорога
 
   [type.aerialway.gondola]
     en = Aerialway
+    de = Gondelbahn
+    el = Τελεφερίκ
     fr = Télécabine
     ja = ゴンドラ
     pl = Gondola kolejki linowej
     pt = Telecabine
     pt-BR = Telecabine
     ru = Канатная дорога
+    uk = Канатна дорога
     zh-Hans = 循环式索道
 
   [type.aerialway.mixed_lift]
     en = Aerialway
+    de = Kombibahn
+    el = Τελεφερίκ
     ja = 混合リフト
     pl = Wyciąg mieszany
     pt = Teleférico híbrido
     pt-BR = Teleférico híbrido
     ru = Канатная дорога
+    uk = Канатна дорога
 
   [type.aerialway.station]
     en = Aerialway Station
     ar = محطة تلفريك
     cs = Stanice lanové dráhy
     da = Kabelbanestation
-    de = Seilbahn
-    el = Σταθμός αερομεταφοράς
+    de = Liftstation
+    el = Σταθμός τελεφερίκ
     es = Estación de teleférico
     fi = Köysirata-asema
     fr = Remontées mécaniques
@@ -90,11 +108,13 @@
     zh-Hant = 纜車站
 
   [type.aeroway]
-    en = Aeroway
+    en = Airspace Infrastructure
+    de = Luftverkehr
     ja = 空路
     pt = Via aérea
     pt-BR = Via aérea
-    ru = Аэропорт
+    ru = Аэрокосмическая инфраструктура
+    uk = Аерокосмічна інфраструктура
     zh-Hans = 机场要素
 
   [type.aeroway.aerodrome]
@@ -102,7 +122,7 @@
     ar = مطار
     cs = Letiště
     da = Lufthavn
-    de = Flughafen
+    de = Flugplatz
     el = Αεροδρόμιο
     es = Aeropuerto
     fa = فرودگاه
@@ -130,7 +150,7 @@
     zh-Hant = 機場
 
   [type.aeroway.aerodrome.international]
-    en = Airport
+    en = International Airport
     ar = مطار
     cs = Letiště
     da = Lufthavn
@@ -162,15 +182,16 @@
     zh-Hant = 機場
 
   [type.aeroway.apron]
-    en = aeroway-apron
+    en = Apron
+    de = Vorfeld
     fr = Aire de stationnement pour aéronefs
     ja = エプロン
     pl = Płyta postojowa samolotów
     pt = Plataforma de estacionamento de aviões
     pt-BR = Plataforma de estacionamento de aviões
     ru = Перрон
-    zh-Hans = 机场停机坪
     uk = Перон
+    zh-Hans = 机场停机坪
 
   [type.aeroway.gate]
     en = Gate
@@ -180,8 +201,8 @@
     pt = Porta de embarque
     pt-BR = Porta de embarque
     ru = Выход на посадку
-    zh-Hans = 登机口
     uk = Вихід на посадку
+    zh-Hans = 登机口
 
   [type.aeroway.helipad]
     en = Helipad
@@ -214,36 +235,40 @@
     zh-Hant = 直升機場
 
   [type.aeroway.runway]
-    en = aeroway-runway
+    en = Runway
+    de = Start-/Landebahn
     fr = Piste d'aviation
     ja = 滑走路
     pl = Droga startowa
     pt = Pista de aeroporto ou aeródromo
     pt-BR = Pista de aeroporto ou aeródromo
     ru = Взлётно-посадочная полоса
+    uk = Злітно-посадкова смуга
     zh-Hans = 机场跑道
     zh-Hant = 機場跑道
-    uk = Злітно-посадкова смуга
 
   [type.aeroway.taxiway]
-    en = aeroway-taxiway
+    en = Taxiway
+    de = Rollweg
     fr = Taxiway
     ja = 誘導路
     pl = Droga kołowania
     pt = Faixa de manobras
     pt-BR = Pista de rolagem
     ru = Рулёжная дорожка
+    uk = Рульова дорiжка
     zh-Hans = 滑行道
 
   [type.aeroway.terminal]
     en = Terminal
+    de = Terminal
     ja = 空港ターミナルビル
     pl = Terminal lotniskowy
     pt = Terminal de passageiros
-    pt_BR = Aerogare de passageiros
+    pt-BR = Aerogare de passageiros
     ru = Терминал
-    zh-Hans = 航站楼
     uk = Термінал
+    zh-Hans = 航站楼
 
   [type.amenity]
     en = Amenity
@@ -1265,8 +1290,8 @@
     pt = Praça de alimentação
     pt-BR = Praça de alimentação
     ru = Ресторанный дворик
-    zh-Hans = 美食广场
     uk = Ресторанний двір
+    zh-Hans = 美食广场
 
   [type.amenity.fountain]
     en = Fountain
@@ -1302,7 +1327,9 @@
 
   [type.amenity.fuel]
     en = Gas Station
+    en-GB = Petrol Station
     ar = محطة وقود
+    be = АЗС
     cs = Čerpací stanice
     da = Tankstation
     de = Tankstelle
@@ -1322,19 +1349,21 @@
     pt = Posto de combustível
     pt-BR = Posto de combustível
     ro = Benzinărie
-    ru = Заправка
+    ru = АЗС
     sk = Benzínová pumpa
     sv = Bensinstation
     th = ปั๊มน้ำมัน
     tr = Benzin istasyonu
-    uk = Заправка
+    uk = АЗС
     vi = Trạm xăng
     zh-Hans = 加油站
     zh-Hant = 加氣站
 
   [type.amenity.grave_yard]
+    comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
     en = Graveyard
     ar = مقبرة
+    be = Могілкі
     cs = Hřbitov
     da = Kirkegård
     de = Friedhof
@@ -1365,36 +1394,15 @@
     zh-Hant = 墓地
 
   [type.amenity.grave_yard.christian]
-    en = Graveyard
-    ar = مقبرة
-    cs = Hřbitov
-    da = Kirkegård
-    de = Friedhof
-    el = Νεκροταφείο
-    es = Cementerio
-    fa = قبرستان
-    fi = Hautausmaa
-    fr = Cimetière
-    hu = Temető
-    id = Pemakaman
-    it = Cimitero
+    ref = type.amenity.grave_yard
+    en = Christian Graveyard
+    be = Хрысціянскія могілкі
     ja = キリスト教墓地
-    ko = 묘소
-    nb = Gravplass
-    nl = Begraafplaats
     pl = Cmentarz chrześcijański
     pt = Cemitério cristão
     pt-BR = Cemitério cristão
-    ro = Cimitir
-    ru = Кладбище
-    sk = Cintorín
-    sv = Begravningsplats
-    th = สุสาน
-    tr = Mezarlık
-    uk = Цвинтар
-    vi = Bãi tha ma
-    zh-Hans = 墓地
-    zh-Hant = 墓地
+    ru = Христианское кладбище
+    uk = Християнський цвинтар
 
   [type.amenity.hospital]
     en = Hospital
@@ -1459,8 +1467,9 @@
     zh-Hant = 狩獵場
 
   [type.amenity.ice_cream]
-    en = Ice Cream Stand
+    en = Ice Cream
     ar = كشك أيس كريم
+    be = Марозіва
     cs = Stánek se zmrzlinou
     da = Isbod
     de = Eisstand
@@ -1485,7 +1494,7 @@
     sv = Glasstånd
     th = แผงขายไอศกรีม
     tr = Dondurma Standı
-    uk = Кіоск з морозивом
+    uk = Морозиво
     vi = Quầy kem
     zh-Hans = 冰淇淋店
     zh-Hant = 冰淇淋攤
@@ -2449,8 +2458,9 @@
     zh-Hant = 警察局
 
   [type.amenity.post_box]
-    en = Postbox
+    en = Post Box
     ar = صندوق بريد
+    be = Паштовая скрыня
     cs = Poštovní schránka
     da = Postboks
     de = Briefkasten
@@ -2522,8 +2532,8 @@
     pt = Prisão
     pt-BR = Presidiário
     ru = Тюрьма
-    zh-Hans = 监狱
     uk = В'язниця
+    zh-Hans = 监狱
 
   [type.amenity.pub]
     en = Pub
@@ -2581,9 +2591,12 @@
     zh-Hans = 公共书架
     zh-Hant = 書架
 
-  [type.amenity.recycling]
+[[Types: Recycling]]
+
+  [type.amenity.recycling.centre]
     en = Recycling Center
     ar = مركز إعادة تدوير
+    be = Прыём другсыравіны
     cs = Recyklační středisko
     da = Genbrugsplads
     de = Recyclinghof
@@ -2613,9 +2626,10 @@
     zh-Hans = 资源回收设施
     zh-Hant = 回收中心
 
-  [type.amenity.recycling_container]
+  [type.amenity.recycling]
     en = Recycling Container
     ar = حاوية لإعادة التدوير
+    be = Кантэйнер для другаснай сыравіны
     cs = Recyklační nádoba
     da = Genbrugscontainer
     de = Wertstoffcontainer
@@ -2646,42 +2660,49 @@
     zh-Hans = 回收容器
     zh-Hant = 回收箱
 
-  [type.recycling.toxic]
-    en = Toxic Waste
-    ar = نفايات سامة
-    cs = Toxický odpad
-    da = Giftigt affald
-    de = Giftmüll
-    el = Τοξικά απόβλητα
-    es = Residuos tóxicos
-    es-MX = Desechos tóxicos
-    fa = پسماند سمی
-    fi = Myrkkyjäte
-    fr = Déchets toxiques
-    hu = Mérgező hulladék
-    id = Limbah beracun
-    it = Rifiuti tossici
-    ja = 有毒廃棄物
-    ko = 유독성 폐기물
-    nb = Giftig avfall
-    nl = Giftig afval
-    pl = Odpady toksyczne
-    pt = Resíduos tóxicos
-    pt-BR = Lixo tóxico
-    ro = Deșeuri toxice
-    ru = Ядовитые отходы
-    sk = Toxický odpad
-    sv = Giftigt avfall
-    th = ขยะสารพิษ
-    tr = Zehirli atık
-    uk = Отруйні відходи
-    vi = Chất thải độc hại
-    zh-Hans = 有毒垃圾
-    zh-Hant = 有毒垃圾
+  [type.amenity.recycling.container]
+    ref = type.amenity.recycling
+
+  [type.recycling.batteries]
+    en = Household Batteries
+    ar = ﺕﺎﻳﺭﺎﻄﺑ
+    be = Батарэйкі
+    bg = Батерии
+    cs = Baterie
+    da = Batterier
+    de = Batterien
+    el = Μπαταρίες
+    es = Baterías
+    fa = ﺎﻫ ﯼﺮﺗﺎﺑ
+    fi = Paristot
+    fr = Batteries
+    he = תוללוס
+    hu = Elemek
+    id = Baterai
+    it = Batterie
+    ja = バッテリー
+    ko = 배터리
+    nb = Batterier
+    nl = Batterijen
+    pl = Baterie
+    pt = Baterias
+    pt-BR = Baterias
+    ro = Baterii
+    ru = Батарейки
+    sk = Batérie
+    sv = Batterier
+    sw = Betri
+    th = แบตเตอรี่
+    tr = Piller
+    uk = Батарейки
+    vi = Ắc quy
+    zh-Hans = 电池
+    zh-Hant = 電池
 
   [type.recycling.clothes]
-    en = Old Clothes
+    en = Clothes
     ar = ملابس قديمة
+    be = Адзенне
     cs = Staré oblečení
     da = Gammelt tøj
     de = Altkleider
@@ -2702,12 +2723,12 @@
     pt = Roupas velhas
     pt-BR = Roupas velhas
     ro = Haine vechi
-    ru = Старая одежда
+    ru = Одежда
     sk = Staré oblečenie
     sv = Gamla kläder
     th = เสื้อผ้าเก่า
     tr = Eski kıyafetler
-    uk = Старий одяг
+    uk = Одяг
     vi = Quần áo cũ
     zh-Hans = 旧衣物
     zh-Hant = 舊衣物
@@ -2715,6 +2736,7 @@
   [type.recycling.glass_bottles]
     en = Glass Bottles
     ar = زجاجات زجاجية
+    be = Шклатара
     cs = Skleněné lahve
     da = Glasflasker
     de = Glas
@@ -2746,8 +2768,9 @@
     zh-Hant = 玻璃瓶
 
   [type.recycling.paper]
-    en = Paper Waste
+    en = Paper
     ar = نفايات ورقية
+    be = Папера
     cs = Papírový odpad
     da = Papiraffald
     de = Papier
@@ -2768,19 +2791,20 @@
     pt = Papel
     pt-BR = Lixo de papel
     ro = Deșeuri de hârtie
-    ru = Макулатура
+    ru = Бумага
     sk = Papierový odpad
     sv = Returpapper
     th = ขยะกระดาษ
     tr = Kağıt atıkları
-    uk = Макулатура
+    uk = Папір
     vi = Giấy phế liệu
     zh-Hans = 废纸
     zh-Hant = 廢紙
 
   [type.recycling.plastic]
-    en = Plastic Waste
+    en = Plastic
     ar = نفايات بلاستيكية
+    be = Пластык
     cs = Plastový odpad
     da = Plastaffald
     de = Kunststoff
@@ -2801,12 +2825,12 @@
     pt = Plásticos
     pt-BR = Lixo plástico
     ro = Deșeuri de plastic
-    ru = Пластиковый мусор
+    ru = Пластик
     sk = Plastový odpad
     sv = Plastavfall
     th = ขยะพลาสติก
     tr = Plastik atıklar
-    uk = Пластикове сміття
+    uk = Пластик
     vi = Rác thải nhựa
     zh-Hans = 废塑料
     zh-Hant = 廢塑料
@@ -2814,6 +2838,7 @@
   [type.recycling.plastic_bottles]
     en = Plastic Bottles
     ar = زجاجات بلاستيكية
+    be = Пластыкавыя бутэлькі
     cs = Plastové lahve
     da = Plastik flasker
     de = Plastikflaschen
@@ -2834,12 +2859,12 @@
     pt = Garrafas de plástico
     pt-BR = Garrafas plasticas
     ro = Sticle de plastic
-    ru = Сбор пластиковых бутылок
+    ru = Пластиковые бутылки
     sk = Plastové fľaše
     sv = Samling av plastflaskor
     th = ขวดพลาสติก
     tr = Plastik şişeler
-    uk = Збір пластикових пляшок
+    uk = Пластикові бутилки
     vi = Bộ chai lọ nhựa
     zh-Hans = 塑料瓶
     zh-Hant = 塑料瓶
@@ -2847,6 +2872,7 @@
   [type.recycling.scrap_metal]
     en = Scrap Metal
     ar = نفايات معدنية
+    be = Металалом
     cs = Kovový šrot
     da = Skrot metal
     de = Altmetall
@@ -2910,6 +2936,36 @@
     zh-Hans = 电子垃圾
     zh-Hant = 電子垃圾
 
+  [type.recycling.cardboard]
+    en = Cardboard
+    be = Кардон
+    ru = Картон
+    uk = Картон
+
+  [type.recycling.cans]
+    en = Cans
+    be = Бляшаныя і алюмініевыя слоікі
+    ru = Жестяные и алюминиевые банки
+    uk = Бляшані та алюмінієві банки
+
+  [type.recycling.shoes]
+    en = Shoes
+    be = Абутак
+    ru = Обувь
+    uk = Взуття
+
+  [type.recycling.green_waste]
+    en = Green/Organic Waste
+    be = Арганіка / Харчовыя адходы
+    ru = Органика / Пищевые отходы
+    uk = Органіка / Харчові відходи
+
+  [type.recycling.cartons]
+    en = Bewerage Cartons
+    be = Тэтрапак і аналагі
+    ru = Тетрапак и аналоги
+    uk = Тетрапак та аналоги
+
   [type.amenity.restaurant]
     en = Restaurant
     ar = مطعم
@@ -2935,6 +2991,15 @@
     vi = Quán ăn
     zh-Hans = 餐馆
     zh-Hant = 餐廳
+
+  [type.amenity.sanitary_dump_station]
+    en = Holding Tank Dump Station
+    be = Зліў для прыбіральняў транспартных сродкаў
+    de = VE-Station
+    fr = Station de vidange
+    it = Camper service
+    ru = Слив для туалетов транспортных средств
+    uk = Злив для туалетів транспортних засобів
 
   [type.amenity.school]
     en = School
@@ -3121,7 +3186,7 @@
     de = Toilette
     el = Τουαλέτα
     es = WC
-    fa = دستشویی^
+    fa = دستشویی
     fi = WC
     fr = Toilettes
     hu = Mosdó
@@ -3209,17 +3274,21 @@
 
   [type.amenity.vending_machine]
     en = Vending Machine
+    be = Гандлёвы аўтамат
+    de = Verkaufsautomat
     fr = Distributeur automatique
     ja = 自動販売機
     pl = Automat sprzedający
     pt = Máquina de venda automática
     pt-BR = Máquina de venda automática
     ru = Торговый автомат
+    uk = Торговий автомат
     zh-Hans = 自动售货机
 
   [type.amenity.vending_machine.cigarettes]
     en = Cigarette Dispenser
     ar = ماكينة بيع سجائر
+    be = Аўтамат з цыгарэтамі
     cs = Automat na cigarety
     da = Cigaretautomat
     de = Zigarettenautomat
@@ -3239,19 +3308,20 @@
     pt = Máquina de venda de cigarros
     pt-BR = Máquina de venda de cigarros
     ro = Automat de țigări
-    ru = Сигаретный автомат
+    ru = Автомат с сигаретами
     sk = Automat na cigarety
     sv = Cigarettmaskin
     th = เครื่องขายบุหรี่
     tr = Distributeur de cigarettes
-    uk = Автомат з продажу сигарет
+    uk = Автомат з цигарками
     vi = Máy bán thuốc lá
     zh-Hans = 香烟售货机
     zh-Hant = 香菸自動販賣機
 
   [type.amenity.vending_machine.drinks]
-    en = Drink Dispenser
+    en = Drinks Dispenser
     ar = ماكينة بيع مشروبات
+    be = Аўтамат з напоямі
     cs = Automat na nápoje
     da = Automat for drikkevarer
     de = Getränkeautomat
@@ -3284,6 +3354,7 @@
   [type.amenity.vending_machine.parking_tickets]
     en = Parking Tickets
     ar = ماكينة دفع تذاكر الموقف
+    be = Паркамат
     cs = Parkovací automat
     da = Parkeringsbilletmaskine
     de = Parkautomat
@@ -3314,8 +3385,9 @@
     zh-Hant = 違規停車罰單繳費機
 
   [type.amenity.vending_machine.public_transport_tickets]
-    en = Vending Machine for Public Transport Tickets
+    en = Ticket Machine
     ar = آلة بيع تذاكر النقل العام
+    be = Аўтамат па продажы білетаў
     cs = Prodejní automat lístků na městskou dopravu
     da = Billetautomat for offentlig transport
     de = Fahrkartenautomat
@@ -3336,16 +3408,35 @@
     pt = Máquina venda de bilhetes de transporte público
     pt-BR = Máquinas automáticas de venda de passagens de transporte público
     ro = Automat de vânzare a biletelor pentru transportul public
-    ru = Автомат по продаже билетов на общественный транспорт
+    ru = Автомат по продаже билетов
     sk = Predajný automat na lístky verejnej dopravy
     sv = Biljettautomat
     sw = Mashine ya kuuzia tiketi za usafiri wa umma
     th = เครื่องขายของหรือตั๋วขนส่งมวลชนอัตโนมัติ
     tr = Toplu taşıma biletleri için otomatlar
-    uk = Автомат з продажу квитків на громадський транспорт
+    uk = Автомат з продажу квитків
     vi = Máy bán vé phương tiện công cộng tự động
     zh-Hans = 公共交通售票机
     zh-Hant = 公共交通售票機
+
+  [type.amenity.vending_machine.excrement_bags]
+    en = Excrement Bags Dispenser
+    be = Мяшкі дзеля экскрыментаў
+    ru = Пакеты для экскрементов
+    uk = Мішки для екскрементів
+
+  [type.amenity.vending_machine.parcel_pickup]
+    en = Parcel Locker
+    be = Паштамат
+    ru = Почтомат
+    uk = Поштомат
+
+  [type.amenity.vending_machine.fuel]
+    en = Fuel Dispenser
+    be = Паліўная калонка
+    de = Tankautomat
+    ru = Топливная колонка
+    uk = Паливна колонка
 
   [type.amenity.veterinary]
     en = Veterinary Doctor
@@ -3443,9 +3534,16 @@
     zh-Hans = 大型垃圾箱
     zh-Hant = 垃圾
 
+  [type.amenity.waste_transfer_station]
+    en = Waste Transfer Station
+    be = Станцыя перавалкі адходаў
+    ru = Станция перевалки отходов
+    uk = Станція передачі сміття
+
   [type.amenity.water_point]
-    en = Water Point
+    en = RV Water Point
     ar = نقطة مائية
+    be = Вада для аўтадомаў
     cs = Vodní zdroj
     da = Vandstation
     de = Wasseranschluss
@@ -3465,32 +3563,34 @@
     pt = Ponto de água
     pt-BR = Ponto de água
     ro = Punct de alimentare cu apă
-    ru = Заправка водой
+    ru = Вода для автодомов
     sk = Voda
     sv = Vattenpost
     th = จุดเติมน้ำ
     tr = Su Noktası
-    uk = Заправка водою
+    uk = Вода для автобудинків
     vi = Điểm cấp nước
     zh-Hans = 取水点
     zh-Hant = 飲水站
 
   [type.barrier]
     en = Barrier
+    de = Barriere
     fr = Barrière
     ja = 障害物
     pl = Bariera
     pt = Barreira
     pt-BR = Barreira
     ru = Преграда
-    zh-Hans = 屏障
     uk = Перешкода
+    zh-Hans = 屏障
 
   [type.barrier.block]
     en = Block
     ar = حاجز
     cs = Blok
     da = Blokering
+    de = Block
     el = Εμπόδιο
     es = Bloque
     fa = بلوک
@@ -3583,8 +3683,8 @@
 
   [type.barrier.chain]
     en = Chain
-    de = Kette
     be = Ланцуг
+    de = Kette
     fr = Chaîne
     ru = Цепь
     uk = Ланцюг
@@ -3598,11 +3698,12 @@
     pt = Muralha de cidade
     pt-BR = Muralha de cidade
     ru = Городская стена
-    zh-Hans = 城墙
     uk = Міська стіна
+    zh-Hans = 城墙
 
   [type.barrier.cycle_barrier]
     en = Cycle Barrier
+    de = Umlaufschranke
     ja = バリカー
     pl = Bariera rowerowa
     pt = Barreira de bicicletas
@@ -3644,14 +3745,15 @@
 
   [type.barrier.fence]
     en = Fence
+    de = Zaun
     fr = Clôture
     ja = フェンス
     pl = Płot
     pt = Vedação
     pt-BR = Cerca
     ru = Забор
-    zh-Hans = 篱笆
     uk = Огорожа
+    zh-Hans = 篱笆
 
   [type.barrier.gate]
     en = Gate
@@ -3846,8 +3948,8 @@
     pt = Muro
     pt-BR = Muro
     ru = Стена
-    zh-Hans = 墙
     uk = Стіна
+    zh-Hans = 墙
 
   [type.boundary]
     en = Boundary
@@ -3857,135 +3959,88 @@
     pt = Fronteira
     pt-BR = Fronteira
     ru = Граница
-    zh-Hans = 边界
     uk = Кордон
+    zh-Hans = 边界
 
   [type.boundary.administrative]
-    en = boundary-administrative
+    en = Administrative Boundary
+    de = Verwaltungsgrenze
     ja = 行政境界
     pl = Granica administracyjna
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
-    zh-Hans = 行政区域界线
     uk = Адміністративний поділ
+    zh-Hans = 行政区域界线
 
   [type.boundary.administrative.10]
-    en = boundary-administrative-10
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
+    ref = type.boundary.administrative
     zh-Hans = 10级行政区域界线
-    uk = Адміністративний поділ
 
   [type.boundary.administrative.11]
-    en = boundary-administrative-11
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
+    ref = type.boundary.administrative
     zh-Hans = 11级行政区域界线
-    uk = Адміністративний поділ
 
   [type.boundary.administrative.2]
-    en = boundary-administrative-2
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
-    zh-Hans = 2级行政区域界线
-    uk = Адміністративний поділ
+    ref = type.boundary.administrative.country
 
   [type.boundary.administrative.3]
-    en = boundary-administrative-3
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
+    ref = type.boundary.administrative
     zh-Hans = 3级行政区域界线
 
   [type.boundary.administrative.4]
-    en = boundary-administrative-4
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
+    ref = type.boundary.administrative
     zh-Hans = 4级行政区域界线
-    uk = Адміністративний поділ
-
-  [type.boundary.administrative.4.state]
-    en = boundary-administrative-4-state
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
-    zh-Hans = 4级州省界线
-    uk = Адміністративний поділ
 
   [type.boundary.administrative.5]
-    en = boundary-administrative-5
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
+    ref = type.boundary.administrative
     zh-Hans = 5级行政区域界线
-    uk = Адміністративний поділ
 
   [type.boundary.administrative.6]
-    en = boundary-administrative-6
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
+    ref = type.boundary.administrative
     zh-Hans = 6级行政区域界线
-    uk = Адміністративний поділ
 
   [type.boundary.administrative.7]
-    en = boundary-administrative-7
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
+    ref = type.boundary.administrative
     zh-Hans = 7级行政区域界线
-    uk = Адміністративний поділ
 
   [type.boundary.administrative.8]
-    en = boundary-administrative-8
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
+    ref = type.boundary.administrative
     zh-Hans = 8级行政区域界线
-    uk = Адміністративний поділ
 
   [type.boundary.administrative.9]
-    en = boundary-administrative-9
-    pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
-    ru = Административная граница
+    ref = type.boundary.administrative
     zh-Hans = 9级行政区域界线
-    uk = Адміністративний поділ
 
   [type.boundary.administrative.city]
-    en = boundary-administrative-city
+    en = City Boundary
     pl = Granica miasta
     pt = Fronteira de cidade
     pt-BR = Fronteira de cidade
     ru = Граница города
-    zh-Hans = 城市行政区域界线
     uk = Межа міста
+    zh-Hans = 城市行政区域界线
 
   [type.boundary.administrative.country]
-    en = boundary-administrative-country
+    en = National Border
     pl = Granica państwa
     pt = Fronteira de país
     pt-BR = Fronteira de país
     ru = Граница страны
-    zh-Hans = 国家行政区域界线
     uk = Кордон країни
+    zh-Hans = 国家行政区域界线
 
   [type.boundary.administrative.county]
-    en = boundary-administrative-county
+    en = County Boundary
     pl = Granica hrabstwa
     pt = Fronteira de condado
     pt-BR = Fronteira de condado
     ru = Граница округа
-    zh-Hans = 县行政区域界线
     uk = Поділ округа
+    zh-Hans = 县行政区域界线
 
   [type.boundary.administrative.municipality]
-    en = boundary-administrative-municipality
+    en = Municipality Boundary
     pl = Granica gminy
     pt = Fronteira de município
     pt-BR = Fronteira de município
@@ -3993,24 +4048,21 @@
     zh-Hans = 自治市行政区域界线
 
   [type.boundary.administrative.nation]
-    en = boundary-administrative-nation
+    ref = type.boundary.administrative.country
     pt = Fronteira de nação
     pt-BR = Fronteira de nação
-    ru = Национальная граница
-    zh-Hans = 国家行政区域界线
-    uk = Національний кордон
 
   [type.boundary.administrative.region]
-    en = boundary-administrative-region
+    en = Regional Boundary
     pl = Granica regionu
     pt = Fronteira de região
     pt-BR = Fronteira de região
     ru = Граница региона
-    zh-Hans = 1区域行政区域界线
     uk = Областний поділ
+    zh-Hans = 1区域行政区域界线
 
   [type.boundary.administrative.state]
-    en = boundary-administrative-state
+    en = State Boundary
     pl = Granica województwa
     pt = Fronteira de estado
     pt-BR = Fronteira de estado
@@ -4018,13 +4070,13 @@
     zh-Hans = 州省行政区域界线
 
   [type.boundary.administrative.suburb]
-    en = boundary-administrative-suburb
+    en = Suburb Boundary
     pl = Granica przedmieść
     pt = Fronteira de subúrbio
     pt-BR = Fronteira de subúrbio
     ru = Граница пригорода
-    zh-Hans = 市郊行政区域界线
     uk = Приміська межа
+    zh-Hans = 市郊行政区域界线
 
   [type.boundary.national_park]
     en = National Park
@@ -4219,8 +4271,8 @@
     pt = Armazém
     pt-BR = Armazém
     ru = Склад
-    zh-Hans = 仓库
     uk = Склад
+    zh-Hans = 仓库
 
   [type.craft]
     en = Craft
@@ -4230,8 +4282,8 @@
     pt = Ofícios
     pt-BR = Ofícios
     ru = Мастерская
-    zh-Hans = 工艺作坊
     uk = Майстерня
+    zh-Hans = 工艺作坊
 
   [type.craft.brewery]
     en = Craft Brewery
@@ -5818,7 +5870,7 @@
     nl = Hotdogs
     pl = Hot-dogi
     pt = Cachorro-quente
-    pt-NR = Cachorro-quente
+    pt-BR = Cachorro-quente
     ro = Hot dog
     ru = Хот-доги
     sk = Párok v rožku
@@ -7317,6 +7369,7 @@
     ar = مزيل الرجفان
     cs = Defibrilátor
     da = Hjertestarter
+    de = Defibrillator
     el = Πρώτες βοήθειες
     es = Desfibrilador
     fa = دستگاه شوک
@@ -7473,55 +7526,44 @@
     zh-Hans = 医学实验室
     zh-Hant = 醫學實驗室
 
+[[Types: Roads]]
+
   [type.highway]
     en = Highway
-    de = Autobahn
+    de = Straße
     ja = 道路
     pl = Droga
     pt = Rodovia
     pt-BR = Rodovia
     ru = Дорога
+    uk = Дорога
     zh-Hans = 公路要素
 
   [type.highway.bridleway]
-    en = Rider's Path
+    en = Bridle Path
+    de = Reitweg
     fr = Chemin pour cavalier
     ja = 馬道
     pl = Droga dla koni
     pt = Caminho para cavaleiros
     pt-BR = Caminho para cavaleiros
-    ru = Дорога для всадников
+    ru = Конная дорожка
+    uk = Кінна доріжка
     zh-Hans = 马道
 
   [type.highway.bridleway.bridge]
-    en = Rider's Path
-    fr = Chemin pour cavalier
+    ref = type.highway.bridleway
     ja = 馬道(橋)
     pl = Most drogowy dla koni
-    pt = Caminho para cavaleiros
-    pt-BR = Caminho para cavaleiros
-    ru = Дорога для всадников
-    zh-Hans = 马道
 
   [type.highway.bridleway.permissive]
-    en = Rider's Path
-    fr = Chemin pour cavalier
-    ja = 馬道
+    ref = type.highway.bridleway
     pl = Droga dla koni ograniczona
-    pt = Caminho para cavaleiros
-    pt-BR = Caminho para cavaleiros
-    ru = Дорога для всадников
-    zh-Hans = 马道
 
   [type.highway.bridleway.tunnel]
-    en = Rider's Path
-    fr = Chemin pour cavalier
+    ref = type.highway.bridleway
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
-    pt = Caminho para cavaleiros
-    pt-BR = Caminho para cavaleiros
-    ru = Дорога для всадников
-    zh-Hans = 马道
 
   [type.highway.bus_stop]
     en = Bus Stop
@@ -7556,7 +7598,7 @@
     zh-Hant = 巴士站
 
   [type.highway.construction]
-    en = Road under Construction
+    en = Road Under Construction
     ar = طريق تحت الإنشاء
     cs = Silnice v rekonstrukci
     da = Vej under opbygning
@@ -7590,58 +7632,41 @@
     zh-Hant = 在建道路
 
   [type.highway.cycleway]
-    en = Bike Path
+    en = Cycle Path
+    de = Radweg
     fr = Piste cyclable
     ja = 自転車道
     pl = Droga rowerowa
     pt = Ciclovia
     pt-BR = Ciclovia
     ru = Велодорожка
-    zh-Hans = 自行车道
     uk = Велодоріжка
+    zh-Hans = 自行车道
 
   [type.highway.cycleway.bridge]
-    en = Bike Path
-    fr = Piste cyclable
+    ref = type.highway.cycleway
     ja = 自転車道(橋)
     pl = Most drogowy dla rowerów
-    pt = Ciclovia
-    pt-BR = Ciclovia
-    ru = Велодорожка
-    zh-Hans = 自行车道
-    uk = Велодоріжка
 
   [type.highway.cycleway.permissive]
-    en = Bike Path
-    fr = Piste cyclable
-    ja = 自転車道
+    ref = type.highway.cycleway
     pl = Droga rowerowa ograniczona
-    pt = Ciclovia
-    pt-BR = Ciclovia
-    ru = Велодорожка
-    zh-Hans = 自行车道
-    uk = Велодоріжка
 
   [type.highway.cycleway.tunnel]
-    en = Bike Path
-    fr = Piste cyclable
+    ref = type.highway.cycleway
     ja = 自転車道(トンネル)
     pl = Tunel drogowy dla rowerów
-    pt = Ciclovia
-    pt-BR = Ciclovia
-    ru = Велодорожка
-    zh-Hans = 自行车道
-    uk = Велодоріжка
 
   [type.highway.elevator]
     en = Elevator
     en-GB = Lift
+    de = Aufzug
     fr = Ascenseur
     ru = Лифт
     uk = Ліфт
 
   [type.highway.footway]
-    en = Path
+    en = Foot Path
     ar = مسار
     cs = Cesta
     da = Sti
@@ -7673,324 +7698,66 @@
     zh-Hant = 人行步道
 
   [type.highway.footway.alpine_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Fußweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
+    ref = type.highway.path
+    de = Alpinwanderweg
     pl = Ścieżka wspinaczkowa
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
     zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.area]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Fußweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
+    ref = type.highway.footway
+    en = Pedestrian Zone
     pl = Obszar chodnika
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 步行道路
-    zh-Hant = 人行步道
+    ru = Пешеходная зона
+    uk = Пішохідна зона
 
   [type.highway.footway.bridge]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Fußweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
+    ref = type.highway.footway
     pl = Most dla pieszych
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.demanding_alpine_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Wanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
+    ref = type.highway.path
+    de = Anspruchsvoller Alpinwanderweg
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
     zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.demanding_mountain_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Wanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
+    ref = type.highway.path
+    de = Anspruchsvoller Bergwanderweg
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
     zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.difficult_alpine_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Wanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
+    ref = type.highway.path
+    de = Schwieriger Alpinwanderweg
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
     zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.path
     de = Wanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
     zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.mountain_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Wanderweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
+    ref = type.highway.path
+    de = Bergwanderweg
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
     zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.footway.permissive]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Fußweg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Chodnik
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 步行道路
-    zh-Hant = 人行步道
+    ref = type.highway.footway
 
   [type.highway.footway.tunnel]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
+    ref = type.highway.footway
     de = Fußgängertunnel
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
     pl = Tunel dla pieszych
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    ro = Cale
-    ru = Пешеходная дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 步行道路
-    zh-Hant = 人行步道
 
   [type.highway.ford]
     en = Ford
@@ -8026,7 +7793,7 @@
     zh-Hant = 淺灘
 
   [type.highway.living_street]
-    en = Street
+    en = Living Street
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8047,82 +7814,26 @@
     pt = Zona de coexistência
     pt-BR = Zona de coexistência
     ro = Stradă
-    ru = Улица
+    ru = Жилая зона
     sk = Ulica
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Житлова зона
     vi = Phố
     zh-Hans = 生活性街道
     zh-Hant = 路
 
   [type.highway.living_street.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Spielstraße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Zone de rencontre
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Zona de coexistência
-    pt-BR = Zona de coexistência
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 生活性街道
-    zh-Hant = 路
+    ref = type.highway.living_street
 
   [type.highway.living_street.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.living_street
     de = Spielstraßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Zone de rencontre
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel ulicy
-    pt = Zona de coexistência
-    pt-BR = Zona de coexistência
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 生活性街道
-    zh-Hant = 路
 
   [type.highway.motorway]
-    en = Street
+    en = Motorway
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8143,86 +7854,32 @@
     pt = Autoestrada
     pt-BR = Rodovia
     ro = Stradă
-    ru = Улица
+    ru = Автомагистраль
     sk = Ulica
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Автомагістраль
     vi = Phố
     zh-Hans = 高速公路
     zh-Hant = 高速公路
 
   [type.highway.motorway.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Autobahn
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Autoroute
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
+    ref = type.highway.motorway
+    de = Autobahnbrücke
     pl = Most drogowy
-    pt = Autoestrada
-    pt-BR = Rodovia
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 高速公路
-    zh-Hant = 高速公路
 
   [type.highway.motorway.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.motorway
     de = Autobahntunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Autoroute
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Autoestrada
-    pt-BR = Rodovia
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 高速公路
-    zh-Hant = 高速公路
 
   [type.highway.motorway_junction]
-    en = Exit
+    en = Road Exit
     ar = مخرج
     cs = Dopravní uzel
     da = Motorvejsafkørsel
-    de = Ausfahrt
+    de = Autobahnausfahrt
     el = Έξοδος
     es = Salida
     fa = تقاطع
@@ -8248,100 +7905,20 @@
     zh-Hant = 交流道
 
   [type.highway.motorway_link]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Auffahrt
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
+    ref = type.highway.motorway
+    en = Motorway Ramp
+    de = Autobahnauffahrt
     pt = Ligação a autoestrada
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ru = Съезд с автомагистрали
+    uk = З'їзд з автомагістралі
     zh-Hans = 高速公路连接路
     zh-Hant = 高速公路連接路
 
   [type.highway.motorway_link.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Auffahrt
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Ligação a autoestrada
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 高速公路连接路
-    zh-Hant = 高速公路連接路
+    ref = type.highway.motorway_link
 
   [type.highway.motorway_link.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Auffahrt
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Ligação a autoestrada
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 高速公路连接路
-    zh-Hant = 高速公路連接路
+    ref = type.highway.motorway_link
 
   [type.highway.path]
     en = Path
@@ -8365,370 +7942,67 @@
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
-    ru = Дорожка
+    ru = Тропа
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
     tr = Yol
-    uk = Пішохідна доріжка
+    uk = Стежка
     vi = Đường
     zh-Hans = 小道
     zh-Hant = 人行步道
 
   [type.highway.path.alpine_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
+    ref = type.highway.path
+    de = Alpinwanderweg
     pl = Ścieżka wspinaczkowa
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
 
   [type.highway.path.bicycle]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
+    ref = type.highway.path
+    en = Cycle & Foot Path
+    de = Radweg
     pl = Ścieżka dla rowerów
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ru = Велопешеходная дорожка
+    uk = Велопішохідна доріжка
 
   [type.highway.path.bridge]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ref = type.highway.path
 
   [type.highway.path.demanding_alpine_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ref = type.highway.path
+    de = Anspruchsvoller Alpinwanderweg
 
   [type.highway.path.demanding_mountain_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ref = type.highway.path
+    de = Anspruchsvoller Bergwanderweg
 
   [type.highway.path.difficult_alpine_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ref = type.highway.path
+    de = Schwieriger Alpinwanderweg
 
   [type.highway.path.hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ref = type.highway.path
+    de = Wanderweg
 
   [type.highway.path.horse]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ref = type.highway.path
+    en = Bridle Path
+    de = Reitweg
+    ru = Конная тропа
+    uk = Кінна стежка
 
   [type.highway.path.mountain_hiking]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ref = type.highway.path
+    de = Bergwanderweg
 
   [type.highway.path.permissive]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ref = type.highway.path
 
   [type.highway.path.tunnel]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Weg
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Chemin
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Tunnel
-    pl = Ścieżka
-    pt = Caminho
-    pt-BR = Caminho
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 小道
-    zh-Hant = 人行步道
+    ref = type.highway.path
 
   [type.highway.pedestrian]
-    en = Street
+    en = Pedestrian Street
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8749,114 +8023,34 @@
     pt = Rua pedonal
     pt-BR = Rua pedonal
     ro = Stradă
-    ru = Улица
+    ru = Пешеходная улица
     sk = Ulica
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Пішохідна вулиця
     vi = Phố
     zh-Hans = 步行街
     zh-Hant = 路
 
   [type.highway.pedestrian.area]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Fußgängerzone
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue piétonne
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Pasaż pieszy
-    pt = Rua pedonal
-    pt-BR = Rua pedonal
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ref = type.highway.pedestrian
+    en = Pedestrian Zone
+    ru = Пешеходная зона
+    uk = Пішохідна зона
     zh-Hans = 步行区域
-    zh-Hant = 路
 
   [type.highway.pedestrian.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Fußgängerzone
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue piétonne
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
+    ref = type.highway.pedestrian
     pl = Most pasażu pieszego
-    pt = Rua pedonal
-    pt-BR = Rua pedonal
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 步行街
-    zh-Hant = 路
 
   [type.highway.pedestrian.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.pedestrian
     de = Fußgängertunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue piétonne
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel pasażu pieszego
-    pt = Rua pedonal
-    pt-BR = Rua pedonal
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 步行街
-    zh-Hant = 路
 
   [type.highway.primary]
-    en = Street
+    en = Primary Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -8877,175 +8071,37 @@
     pt = Estrada primária
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Шоссе
     sk = Ulica
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Шосе
     vi = Phố
     zh-Hans = 主要道路
     zh-Hant = 主要道路
 
   [type.highway.primary.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Hauptstraße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada primária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 主要道路
-    zh-Hant = 主要道路
+    ref = type.highway.primary
 
   [type.highway.primary.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.primary
     de = Hauptstraßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada primária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 主要道路
-    zh-Hant = 主要道路
 
   [type.highway.primary_link]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada primária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ref = type.highway.primary
+    en = Primary Road Ramp
+    ru = Съезд с шоссе
+    uk = З'їзд з шосе
     zh-Hans = 主要道路连接路
     zh-Hant = 主要道路連接路
 
   [type.highway.primary_link.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada primária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 主要道路连接路
-    zh-Hant = 主要道路連接路
+    ref = type.highway.primary_link
 
   [type.highway.primary_link.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada primária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 主要道路连接路
-    zh-Hant = 主要道路連接路
+    ref = type.highway.primary_link
 
   [type.highway.raceway]
     en = Racetrack
@@ -9074,7 +8130,7 @@
     sv = Racerbana
     th = สนามแข่ง
     tr = Koşu yolu
-    uk = Автодром
+    uk = Гоночний трек
     vi = Đường đua
     zh-Hans = 赛车场
     zh-Hant = 跑道
@@ -9112,103 +8168,17 @@
     zh-Hant = 住宅區道路
 
   [type.highway.residential.area]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Wohnstraße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Rua residencial
-    pt-BR = Rua residencial
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 住宅区道路
-    zh-Hant = 住宅區道路
+    ref = type.highway.residential
 
   [type.highway.residential.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Wohnstraße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Rua residencial
-    pt-BR = Rua residencial
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 住宅区道路
-    zh-Hant = 住宅區道路
+    ref = type.highway.residential
 
   [type.highway.residential.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.residential
     de = Wohnstraßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Rua residencial
-    pt-BR = Rua residencial
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 住宅区道路
-    zh-Hant = 住宅區道路
 
   [type.highway.rest_area]
-    en = Highway Rest Area
+    en = Rest Area
     ar = استراحة
     cs = Odpočívadlo
     da = Rasteplads
@@ -9228,7 +8198,7 @@
     pt = Área de descanso
     pt-BR = Área de descanso
     ro = Zonă de odihnă
-    ru = Зона отдыха на трассе
+    ru = Зона отдыха
     sk = Odpočívadlo
     sv = Viloplats
     th = บริเวณพักผ่อน
@@ -9239,7 +8209,7 @@
     zh-Hant = 休息區
 
   [type.highway.road]
-    en = Street
+    en = Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9260,82 +8230,26 @@
     pt = Estrada
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Дорога
     sk = Ulica
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Дорога
     vi = Phố
     zh-Hans = 道路
     zh-Hant = 道路
 
   [type.highway.road.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 道路
-    zh-Hant = 道路
+    ref = type.highway.road
 
   [type.highway.road.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.road
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 道路
-    zh-Hant = 道路
 
   [type.highway.secondary]
-    en = Street
+    en = Secondary Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9356,178 +8270,42 @@
     pt = Estrada secundária
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Автодорога
     sk = Ulica
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Автодорога
     vi = Phố
     zh-Hans = 次要道路
     zh-Hant = 次要道路
 
   [type.highway.secondary.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 次要道路
-    zh-Hant = 次要道路
+    ref = type.highway.secondary
 
   [type.highway.secondary.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.secondary
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 次要道路
-    zh-Hant = 次要道路
 
   [type.highway.secondary_link]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ref = type.highway.secondary
+    en = Secondary Road Ramp
+    ru = Съезд с автодороги
+    uk = З'їзд з автодороги
     zh-Hans = 次要道路连接路
     zh-Hant = 次要道路連接路
 
   [type.highway.secondary_link.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 次要道路连接路
-    zh-Hant = 次要道路連接路
+    ref = type.highway.secondary_link
 
   [type.highway.secondary_link.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.secondary_link
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 次要道路连接路
-    zh-Hant = 次要道路連接路
 
   [type.highway.service]
-    en = Street
+    en = Service Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9548,184 +8326,59 @@
     pt = Estrada de acesso ou serviço
     pt-BR = Estrada de acesso ou serviço
     ro = Stradă
-    ru = Улица
+    ru = Проезд
     sk = Ulica
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Проїзд
     vi = Phố
     zh-Hans = 辅助道路
     zh-Hant = 輔助道路
 
   [type.highway.service.area]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada de acesso ou serviço
-    pt-BR = Estrada de acesso ou serviço
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 辅助道路
-    zh-Hant = 輔助道路
+    ref = type.highway.service
 
   [type.highway.service.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
+    ref = type.highway.service
     pl = Most drogowy
-    pt = Estrada de acesso ou serviço
-    pt-BR = Estrada de acesso ou serviço
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 辅助道路
-    zh-Hant = 輔助道路
 
   [type.highway.service.driveway]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.service
+    en = Driveway
     de = Zufahrt
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada de acesso ou serviço
-    pt-BR = Estrada de acesso ou serviço
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ru = Подъезд
+    uk = Під'їзд
     zh-Hans = 车道
     zh-Hant = 車道
 
   [type.highway.service.parking_aisle]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
+    ref = type.highway.service
+    en = Parking Aisle
     fr = Allée
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Miejsca parkingowe
     pt = Estrada de estacionamento
     pt-BR = Estrada de estacionamento
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ru = Парковочный проезд
+    uk = Паркувальний проїзд
     zh-Hans = 停车场通道
     zh-Hant = 停車場通道
 
   [type.highway.service.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.service
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada de acesso ou serviço
-    pt-BR = Estrada de acesso ou serviço
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 辅助道路
-    zh-Hant = 輔助道路
 
   [type.highway.services]
-    en = Service on the Road
+    en = Service Area
+    de = Raststätte
     fr = Aire de service
     ja = サービスエリア
     pl = Miejsce obsługi podróżnych
     pt = Área de serviço
     pt-BR = Área de serviços de estrada
-    ru = СТО
+    ru = Зона обслуживания
+    uk = Зона обслуговування
     zh-Hans = 服务区
     zh-Hant = 服務區
 
@@ -9762,7 +8415,7 @@
     zh-Hant = 測速照相機
 
   [type.highway.steps]
-    en = Path
+    en = Stairs
     ar = مسار
     cs = Cesta
     da = Sti
@@ -9783,82 +8436,24 @@
     pt = Escadas
     pt-BR = Escadas
     ro = Cale
-    ru = Дорожка
+    ru = Лестница
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
     tr = Yol
-    uk = Пішохідна доріжка
+    uk = Сходи
     vi = Đường
     zh-Hans = 阶梯
     zh-Hant = 人行步道
 
   [type.highway.steps.bridge]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Stufen
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Escaliers
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Schody
-    pt = Escadas
-    pt-BR = Escadas
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 阶梯
-    zh-Hant = 人行步道
+    ref = type.highway.steps
 
   [type.highway.steps.tunnel]
-    en = Path
-    ar = مسار
-    cs = Cesta
-    da = Sti
-    de = Stufen
-    el = Διαδρομή
-    es = Camino
-    fa = مسیر
-    fi = Polku
-    fr = Escaliers
-    hu = Ösvény
-    id = Jalur
-    it = Sentiero
-    ja = 歩道
-    ko = 길
-    nb = Sti
-    nl = Pad
-    pl = Schody
-    pt = Escadas
-    pt-BR = Escadas
-    ro = Cale
-    ru = Дорожка
-    sk = Cesta
-    sv = Gångväg
-    th = เส้นทาง
-    tr = Yol
-    uk = Пішохідна доріжка
-    vi = Đường
-    zh-Hans = 阶梯
-    zh-Hant = 人行步道
+    ref = type.highway.steps
 
   [type.highway.tertiary]
-    en = Street
+    en = Tertiary Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -9879,178 +8474,42 @@
     pt = Estrada terciária
     pt-BR = Estrada
     ro = Stradă
-    ru = Улица
+    ru = Дорога
     sk = Ulica
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Дорога
     vi = Phố
     zh-Hans = 三级道路
     zh-Hant = 三级道路
 
   [type.highway.tertiary.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 三级道路
-    zh-Hant = 三级道路
+    ref = type.highway.tertiary
 
   [type.highway.tertiary.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.tertiary
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 三级道路
-    zh-Hant = 三级道路
 
   [type.highway.tertiary_link]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ref = type.highway.tertiary
+    en = Tertiary Road Ramp
+    ru = Съезд с дороги
+    uk = З'їзд з дороги
     zh-Hans = 三级道路连接路
     zh-Hant = 三级道路連接路
 
   [type.highway.tertiary_link.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 三级道路连接路
-    zh-Hant = 三级道路連接路
+    ref = type.highway.tertiary_link
 
   [type.highway.tertiary_link.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.tertiary_link
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 三级道路连接路
-    zh-Hant = 三级道路連接路
 
   [type.highway.track]
-    en = Street
+    en = Track
     ar = شارع
     cs = Ulice
     da = Gade
@@ -10071,335 +8530,47 @@
     pt = Carreiro florestal ou agrícola
     pt-BR = Estrada rústica
     ro = Stradă
-    ru = Улица
+    ru = Грунтовка
     sk = Ulica
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Ґрунтівка
     vi = Phố
     zh-Hans = 土路
     zh-Hant = 土路
 
   [type.highway.track.area]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.grade1]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.grade2]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.grade3]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.grade4]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.grade5]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.no.access]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.permissive]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
+    ref = type.highway.track
 
   [type.highway.track.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.track
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Piste
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Carreiro florestal ou agrícola
-    pt-BR = Estrada rústica
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 土路
-    zh-Hant = 土路
 
   [type.highway.traffic_signals]
     en = Traffic Lights
@@ -10434,7 +8605,7 @@
     zh-Hant = 紅綠燈
 
   [type.highway.trunk]
-    en = Street
+    en = National Highway
     ar = شارع
     cs = Ulice
     da = Gade
@@ -10455,178 +8626,40 @@
     pt = Via rápida
     pt-BR = Via expressa
     ro = Stradă
-    ru = Улица
+    ru = Трасса
     sk = Ulica
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Траса
     vi = Phố
     zh-Hans = 干线道路
     zh-Hant = 主幹道
 
   [type.highway.trunk.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Schnellstraße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Voie rapide
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Via rápida
-    pt-BR = Via expressa
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 干线道路
-    zh-Hant = 主幹道
+    ref = type.highway.trunk
 
   [type.highway.trunk.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.trunk
     de = Schnellstraßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Voie rapide
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Via rápida
-    pt-BR = Via expressa
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 干线道路
-    zh-Hant = 主幹道
 
   [type.highway.trunk_link]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Via rápida
-    pt-BR = Via expressa
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
+    ref = type.highway.trunk
+    en = National Highway Ramp
+    ru = Съезд с трассы
+    uk = З'їзд з траси
     zh-Hans = 干线道路连接路
     zh-Hant = 主幹道連接路
 
   [type.highway.trunk_link.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Via rápida
-    pt-BR = Via expressa
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 干线道路连接路
-    zh-Hant = 主幹道連接路
+    ref = type.highway.trunk_link
 
   [type.highway.trunk_link.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.trunk_link
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Via rápida
-    pt-BR = Via expressa
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 干线道路连接路
-    zh-Hant = 主幹道連接路
 
   [type.highway.unclassified]
-    en = Street
+    en = Minor Road
     ar = شارع
     cs = Ulice
     da = Gade
@@ -10647,111 +8680,80 @@
     pt = Estrada sem classificação
     pt-BR = Estrada sem classificação
     ro = Stradă
-    ru = Улица
+    ru = Небольшая дорога
     sk = Ulica
     sv = Gata
     th = ถนน
     tr = Cadde
-    uk = Вулиця
+    uk = Невелика дорога
     vi = Phố
     zh-Hans = 道路
     zh-Hant = 道路
 
   [type.highway.unclassified.area]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada sem classificação
-    pt-BR = Estrada sem classificação
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 道路
-    zh-Hant = 道路
+    ref = type.highway.unclassified
 
   [type.highway.unclassified.bridge]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
-    de = Straße
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
-    pl = Ulica
-    pt = Estrada sem classificação
-    pt-BR = Estrada sem classificação
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 道路
-    zh-Hant = 道路
+    ref = type.highway.unclassified
 
   [type.highway.unclassified.tunnel]
-    en = Street
-    ar = شارع
-    cs = Ulice
-    da = Gade
+    ref = type.highway.unclassified
     de = Straßentunnel
-    el = Οδός
-    es = Calle
-    fa = جاده
-    fi = Katu
-    fr = Rue
-    hu = Utca
-    id = Jalan
-    it = Via
-    ja = ストリート
-    ko = 거리
-    nb = Gate
-    nl = Straat
     pl = Tunel drogowy
-    pt = Estrada sem classificação
-    pt-BR = Estrada sem classificação
-    ro = Stradă
-    ru = Улица
-    sk = Ulica
-    sv = Gata
-    th = ถนน
-    tr = Cadde
-    uk = Вулиця
-    vi = Phố
-    zh-Hans = 道路
-    zh-Hant = 道路
+
+  [type.area_highway.cycleway]
+    ref = type.highway.cycleway
+    fi = Pyörätie
+
+  [type.area_highway.footway]
+    ref = type.highway.footway
+    de = Weg
+    fi = Kävelytie
+
+  [type.area_highway.living_street]
+    ref = type.highway.living_street
+    de = Wohnstraße
+
+  [type.area_highway.motorway]
+    ref = type.highway.motorway
+    fi = Moottoritie
+
+  [type.area_highway.path]
+    ref = type.highway.path
+
+  [type.area_highway.pedestrian]
+    ref = type.highway.pedestrian
+    fi = Kävelykatu
+
+  [type.area_highway.primary]
+    ref = type.highway.primary
+
+  [type.area_highway.residential]
+    ref = type.highway.residential
+
+  [type.area_highway.secondary]
+    ref = type.highway.secondary
+
+  [type.area_highway.service]
+    ref = type.highway.service
+
+  [type.area_highway.tertiary]
+    ref = type.highway.tertiary
+
+  [type.area_highway.steps]
+    ref = type.highway.steps
+    fi = Portaat
+
+  [type.area_highway.track]
+    ref = type.highway.track
+    pt = Pista para desportos não motorizados
+    pt-BR = Pista para desportos não motorizados
+
+  [type.area_highway.trunk]
+    ref = type.highway.trunk
+
+  [type.area_highway.unclassified]
+    ref = type.highway.unclassified
 
   [type.highway.world_level]
     en = highway-world_level
@@ -10759,8 +8761,11 @@
   [type.highway.world_towns_level]
     en = highway-world_towns_level
 
+[[Types: Historic]]
+
   [type.historic]
     en = Historic
+    de = Historisches Objekt
     ja = 史跡
     pl = Historyczne
     pt = Histórico
@@ -10810,8 +8815,8 @@
     pt = Campo de batalha
     pt-BR = Campo de batalha
     ru = Поле боя
-    zh-Hans = 古战场
     uk = Поле битви
+    zh-Hans = 古战场
 
   [type.historic.boundary_stone]
     en = Boundary Stone
@@ -11198,6 +9203,7 @@
     pt = Cruzeiro
     pt-BR = Cruzeiro
     ru = Христианский крест
+    uk = Християнський хрест
     zh-Hans = 路旁十字架
 
   [type.historic.wayside_shrine]
@@ -11293,6 +9299,7 @@
 
   [type.junction.roundabout]
     en = Roundabout
+    de = Kreisverkehr
     fr = Rond-point
     ja = ラウンドアバウト
     pl = Rondo
@@ -11304,11 +9311,13 @@
 
   [type.landuse]
     en = Landuse
+    de = Landnutzung
     ja = 土地利用
     pl = Zagospodarowanie ziemi
     pt = Uso do solo
     pt-BR = Uso do solo
     ru = Землепользование
+    uk = Землевикористання
     zh-Hans = 土地利用要素
 
   [type.landuse.allotments]
@@ -11325,11 +9334,9 @@
 
   [type.landuse.basin]
     en = Basin
-    be = Рэзервуар
-    ru = Резервуар
-    uk = Резервуар
-    bg = Резервоар
     ar = حوض المياه
+    be = Рэзервуар
+    bg = Резервоар
     cs = Vodní nádrž
     da = Vandbassin
     de = Wasserbecken
@@ -11344,17 +9351,19 @@
     it = Bacino d'acqua
     ja = 水地
     ko = 저수지
-    nl = Waterbassin
     nb = Vannvask
+    nl = Waterbassin
     pl = Zbiornik
     pt = Reservatório
     pt-BR = Reservatório
     ro = Bazin de apă
+    ru = Резервуар
     sk = Vodná nádrž
     sv = Vattenbassäng
     sw = Bonde la Maji
     th = อ่างน้ำ
     tr = Bir su havzası
+    uk = Резервуар
     vi = Một chậu nước
     zh-Hans = 水盆地
     zh-Hant = 水庫
@@ -11368,69 +9377,17 @@
     pt = Terreno industrial devoluto
     pt-BR = Terreno industrial devoluto
     ru = Земля для застройки
+    uk = Земля для будiвництва
     zh-Hans = 棕土
 
   [type.landuse.cemetery]
-    en = Graveyard
-    ar = مقبرة
-    cs = Hřbitov
-    da = Kirkegård
-    de = Friedhof
-    el = Νεκροταφείο
-    es = Cementerio
-    fa = قبرستان
-    fi = Hautausmaa
-    fr = Cimetière
-    hu = Temető
-    id = Pemakaman
-    it = Cimitero
-    ja = 墓地
-    ko = 묘소
-    nb = Gravplass
-    nl = Begraafplaats
-    pl = Cmentarz
-    pt = Cemitério
-    pt-BR = Cemitério
-    ro = Cimitir
-    ru = Кладбище
-    sk = Cintorín
-    sv = Begravningsplats
-    th = สุสาน
-    tr = Mezarlık
-    uk = Цвинтар
-    vi = Bãi tha ma
-    zh-Hans = 墓地
-    zh-Hant = 墓地
+    comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
+    ref = type.amenity.grave_yard
+    en = Cemetery
 
   [type.landuse.cemetery.christian]
-    en = Christian Graveyard
-    ar = مقبرة
-    cs = Hřbitov
-    da = Kirkegård
-    de = Friedhof
-    el = Νεκροταφείο
-    es = Cementerio
-    fa = قبرستان
-    fi = Hautausmaa
-    fr = Cimetière
-    hu = Temető
-    id = Pemakaman
-    it = Cimitero
-    ja = キリスト教墓地
-    ko = 묘소
-    nb = Gravplass
-    nl = Begraafplaats
-    pl = Cmentarz chrześcijański
-    pt = Cemitério cristão
-    pt-BR = Cemitério cristão
-    ro = Cimitir
-    ru = Христианское кладбище
-    sk = Cintorín
-    sv = Begravningsplats
-    th = สุสาน
-    tr = Mezarlık
-    uk = Цвинтар
-    vi = Bãi tha ma
+    ref = type.amenity.grave_yard.christian
+    en = Christian Cemetery
     zh-Hans = 基督教墓地
     zh-Hant = 基督教墓地
 
@@ -11500,6 +9457,7 @@
     pt = Quinta
     pt-BR = Fazenda
     ru = Ферма
+    uk = Ферма
     zh-Hans = 农田
 
   [type.landuse.farmland]
@@ -11538,12 +9496,14 @@
 
   [type.landuse.farmyard]
     en = Farmyard
+    de = Landwirtschaftlich genutzte Fläche
     fr = Ferme
     ja = 農地
     pl = Obejście gospodarskie
     pt = Pátio de quinta
     pt-BR = Pátio de fazenda
     ru = Сельскохозяйственная земля
+    uk = Сільськогосподарська земля
     zh-Hans = 农庄
 
   [type.landuse.field]
@@ -11738,6 +9698,7 @@
     pt = Terreno com construção planeada
     pt-BR = Terreno com construção planeada
     ru = Земля для застройки
+    uk = Земля для будiвництва
     zh-Hans = 待开发荒地
 
   [type.landuse.greenhouse_horticulture]
@@ -11887,6 +9848,7 @@
     pt = Área de lazer
     pt-BR = Área de lazer
     ru = База отдыха
+    uk = База вiдпочинку
     zh-Hans = 康体场地
 
   [type.landuse.reservoir]
@@ -11956,6 +9918,7 @@
 
   [type.landuse.village_green]
     en = Land
+    de = Dorfplatz
     ja = 村の中心
     pl = Nawsie
     pt = Espaço verde de um vilarejo
@@ -11977,6 +9940,7 @@
 
   [type.leisure]
     en = Leisure
+    de = Freizeit
     ja = レジャー
     pl = Wypoczynek
     pt = Lazer
@@ -11986,11 +9950,14 @@
     zh-Hans = 休闲要素
 
   [type.leisure.common]
-    en = leisure-common
+    en = Public Land
+    en-GB = Common Land
+    de = öffentliche Grünfläche
     ja = レジャー(共有地)
     pt = Terreno baldio
     pt-BR = Terreno baldio
     ru = Общественная земля
+    uk = Громадська земля
     zh-Hans = 公共用地
 
   [type.leisure.dog_park]
@@ -12178,6 +10145,8 @@
 
   [type.leisure.marina]
     en = Marina
+    be = Прычал
+    de = Jachthafen
     ja = マリーナ
     pt = Marina
     pt-BR = Marina
@@ -12456,6 +10425,7 @@
 
   [type.leisure.recreation_ground]
     en = Recreation Ground
+    de = Freizeitgelände
     pl = Teren rekreacji
     pt = Zona recreativa
     pt-BR = Zona recreativa
@@ -12545,7 +10515,7 @@
     ar = مركز تسلق
     cs = Horolezecké centrum
     da = Klatrecenter
-    de = Kletterzentrum
+    de = Kletterhalle
     el = Κέντρο αναρρίχησης
     es = Centro de escalada
     fa = مرکز صعود
@@ -12729,6 +10699,9 @@
     zh-Hans = 游泳池
     zh-Hant = 游泳池
 
+  [type.leisure.swimming_pool.private]
+    ref = type.leisure.swimming_pool
+
   [type.leisure.track]
     en = Track
     de = Laufbahn
@@ -12772,8 +10745,14 @@
     zh-Hans = 水上乐园
     zh-Hant = 水上樂園
 
+  [type.leisure.beach_resort]
+    en = Beach Resort
+    ru = Пляжный курорт
+    uk = Пляжний курорт
+
   [type.man_made]
     en = Man Made
+    de = künstliche Anlage
     ja = 構造物
     pt = Construção humana
     pt-BR = Construção humana
@@ -12845,6 +10824,12 @@
     uk = Просіка
     zh-Hans = 树林分界线
 
+  [type.man_made.flagpole]
+    en = Flagpole
+    be = Флагшток
+    ru = Флагшток
+    uk = Флагшток
+
   [type.man_made.lighthouse]
     en = Lighthouse
     ar = منارة
@@ -12876,6 +10861,12 @@
     vi = Hải đăng
     zh-Hans = 灯塔
     zh-Hant = 燈塔
+
+  [type.man_made.mast]
+    en = Mast
+    be = Мачта/вышка
+    ru = Мачта/вышка
+    uk = Щогла/вишка
 
   [type.man_made.pier]
     en = Pier
@@ -12914,14 +10905,15 @@
   [type.man_made.silo]
     en = Silo
     be = Сілас
+    de = Silo
     ru = Элеватор
     uk = Силос
 
   [type.man_made.storage_tank]
     en = Storage Tank
+    be = Рэзервуар
     de = Speichertank
     fr = Réservoir
-    be = Рэзервуар
     ru = Резервуар
     uk = Резервуар
 
@@ -13147,6 +11139,7 @@
 
   [type.military]
     en = Military
+    de = Militärisches Objekt
     ja = 軍事
     pl = Wojskowe
     pt = Militar
@@ -13158,6 +11151,7 @@
     en = Bunker
     ar = مأوى
     cs = Bunkr
+    de = Bunker
     el = Στρατιωτική αποθήκη
     es = Búnker
     fa = پناهگاه
@@ -13177,21 +11171,23 @@
 
   [type.mountain_pass]
     en = Mountain Pass
+    be = Перавал
     de = Gebirgspass
     fr = Col de montagne
-    be = Перавал
     it = Passo
     ru = Перевал
     uk = Перевал
 
   [type.natural]
     en = Natural
+    de = Natur
     ja = 自然
     nl = Natuurlijk
     pl = Natura
     pt = Natureza
     pt-BR = Natureza
     ru = Природа
+    uk = Природа
     zh-Hans = 自然
 
   [type.natural.bare_rock]
@@ -13204,6 +11200,7 @@
     pt = Zona rochosa
     pt-BR = Zona rochosa
     ru = Скалы
+    uk = Скелi
     zh-Hans = 岩石
 
   [type.natural.bay]
@@ -13271,15 +11268,15 @@
 
   [type.natural.beach.sand]
     en = Sandy Beach
-    de = Sandstrand
     be = Пяшчаны пляж
+    de = Sandstrand
     ru = Песчаный пляж
     uk = Піщаний пляж
 
   [type.natural.beach.gravel]
     en = Gravel Beach
-    de = Kiesstrand
     be = Галечны пляж
+    de = Kiesstrand
     ru = Галечный пляж
     uk = Гальковий пляж
 
@@ -13359,6 +11356,7 @@
     pt = Falésia
     pt-BR = Falésia
     ru = Обрыв
+    uk = Обрив
     zh-Hans = 峭壁
 
   [type.natural.coastline]
@@ -13371,6 +11369,7 @@
     pt = Linha costeira
     pt-BR = Linha costeira
     ru = Береговая линия
+    uk = Берегова лiнiя
     zh-Hans = 海岸线
 
   [type.natural.geyser]
@@ -13485,6 +11484,7 @@
     pt = Charneca
     pt-BR = Charneca
     ru = Пустошь
+    uk = Пустище
     zh-Hans = 荒野
 
   [type.natural.hot_spring]
@@ -13497,6 +11497,7 @@
     pt = Nascente de água quente
     pt-BR = Nascente de água quente
     ru = Горячий источник
+    uk = Горяче джерело
     zh-Hans = 温泉
 
   [type.natural.water.lake]
@@ -13566,10 +11567,8 @@
 
   [type.natural.water.reservoir]
     en = Reservoir
-    be = Вадасховішча
-    ru = Водохранилище
-    uk = Водосховище
     ar = خزان
+    be = Вадасховішча
     bg = Резервоар
     cs = Nádrž
     da = Reservoir
@@ -13585,27 +11584,27 @@
     it = Serbatoio
     ja = 貯水池
     ko = 저수지
-    nl = Reservoir
     nb = Reservoar
+    nl = Reservoir
     pl = Zbiornik
     pt = Reservatório
     ro = Rezervor
+    ru = Водохранилище
     sk = Nádrž
     sv = Reservoar
     sw = Hifadhi
     th = อ่างเก็บน้ำ
     tr = Rezervuar
+    uk = Водосховище
     vi = Hồ chứa
     zh-Hans = 水库
     zh-Hant = 水庫
 
   [type.natural.water.basin]
     en = Basin
-    be = Рэзервуар
-    ru = Резервуар
-    uk = Резервуар
-    bg = Резервоар
     ar = حوض المياه
+    be = Рэзервуар
+    bg = Резервоар
     cs = Vodní nádrž
     da = Vandbassin
     de = Wasserbecken
@@ -13620,25 +11619,27 @@
     it = Bacino d'acqua
     ja = 水地
     ko = 저수지
-    nl = Waterbassin
     nb = Vannvask
+    nl = Waterbassin
     pl = Zbiornik
     pt = Reservatório
     pt-BR = Reservatório
     ro = Bazin de apă
+    ru = Резервуар
     sk = Vodná nádrž
     sv = Vattenbassäng
     sw = Bonde la Maji
     th = อ่างน้ำ
     tr = Bir su havzası
+    uk = Резервуар
     vi = Một chậu nước
     zh-Hans = 水盆地
     zh-Hant = 水庫
 
   [type.natural.water.river]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Fluss
@@ -13681,6 +11682,7 @@
   [type.natural.meadow]
     en = Meadow
     be = Луг
+    de = Wiese
     ja = 牧草地
     nl = Weiland
     pl = Łąka
@@ -13692,6 +11694,7 @@
   [type.natural.orchard]
     en = Orchard
     be = Сад
+    de = Garten
     ja = 果樹園
     nl = Boomgaard
     pl = Sad
@@ -13735,9 +11738,9 @@
 
   [type.natural.saddle]
     en = Mountain Saddle
+    be = Седлавіна
     de = Bergsattel
     fr = Col de montagne
-    be = Седлавіна
     it = Sella
     ru = Седловина
     uk = Сідловина
@@ -13752,6 +11755,7 @@
     pt = Rochedo
     pt-BR = Rochedo
     ru = Камень
+    uk = Камiнь
     zh-Hans = 岩石
 
   [type.natural.scrub]
@@ -13896,6 +11900,7 @@
     pt = Linha de árvores
     pt-BR = Linha de árvores
     ru = Ряд деревьев
+    uk = Ряд дерев
     zh-Hans = 树列
 
   [type.natural.vineyard]
@@ -13907,6 +11912,7 @@
     pt = Vinha
     pt-BR = Vinha
     ru = Виноградник
+    uk = Виноградник
 
   [type.natural.volcano]
     en = Volcano
@@ -13941,8 +11947,7 @@
     zh-Hant = 火山
 
   [type.natural.water]
-    en = Water body
-    ru = Водоём
+    en = Waterbody
     ar = مسطح مائي
     be = Вадаём
     bg = Воден басейн
@@ -13960,16 +11965,17 @@
     it = Corpo d'acqua
     ja = 水地
     ko = 수역
-    nl = Waterlichaam
     nb = Vassmasse
+    nl = Waterlichaam
     pl = Akwen
     pt = Corpo de água
     pt-BR = Corpo de água
     ro = Apă
+    ru = Водоём
     sk = Voda
     sv = Vatten
     th = แหล่งน้ำ
-    tu = Su
+    tr = Su
     uk = Водоймище
     vi = Thủy vực
     zh-Hans = 水體
@@ -13980,7 +11986,7 @@
     ar = منطقة رطبة
     cs = Mokřadní oblast
     da = Vådområde
-    de = Moorgegend
+    de = Feuchtgebiet
     el = Υγρότοπος
     es = Terreno pantanoso
     es-MX = Tierra pantanosa
@@ -14019,6 +12025,7 @@
     pt = Zona úmida
     pt-BR = Zona úmida
     ru = Торфяное болото
+    uk = Торф'яне болото
     zh-Hans = 泥炭地
 
   [type.natural.wetland.marsh]
@@ -14031,23 +12038,17 @@
     pt = Zona úmida
     pt-BR = Zona úmida
     ru = Болотистая местность
+    uk = Болотиста мiсцевiсть
     zh-Hans = 沼泽地
 
   [type.noexit]
-    en = noexit
+    en = Dead End
     ja = 行き止まり
     pl = Ślepy koniec drogi
     pt = Via sem saída
     pt-BR = Via sem saída
     ru = Тупик
-
-  [type.noexit.motor_vehicle]
-    en = noexit-motor_vehicle
-    ja = 行き止まり
-    pl = Ślepy koniec drogi dla pojazdów mechanicznych
-    pt = Via sem saída para veículos a motor
-    pt-BR = Via sem saída para veículos a motor
-    ru = Тупик для моторного транспорта
+    uk = Тупик
 
   [type.office]
     en = Office
@@ -14140,7 +12141,7 @@
     sv = Fastighetsmäklare
     th = นายหน้าอสังหาริมทรัพย์
     tr = Agent immobilier
-    uk = Агенція нерухомості/ріелтор
+    uk = Агенція нерухомості
     vi = Đại Lý Bất Động Sản
     zh-Hans = 地产中介
     zh-Hant = 地產代理
@@ -14278,7 +12279,7 @@
     ar = شركة اتصالات
     cs = Mobilní operátor
     da = Mobiloperatør
-    de = Mobilbetreiber
+    de = Mobilfunkbetreiber
     el = Εταιρεία κινητής τηλεφωνίας
     es = Operadora de telefonía móvil
     fa = اپراتور تلفن همراه
@@ -14307,11 +12308,13 @@
 
   [type.place]
     en = place
+    de = Ort
     ja = 地名
     pl = Miejsce
     pt = Local
     pt-BR = Local
     ru = Место
+    uk = Мicце
     zh-Hans = 地点
 
   [type.place.city]
@@ -14378,314 +12381,34 @@
     zh-Hant = 首府
 
   [type.place.city.capital.10]
-    en = Capital
-    ar = عاصمة
-    cs = Hlavní město
-    da = Kapital
-    de = Hauptstadt
-    el = Πρωτεύουσα
-    fa = پایتخت
-    fi = Pääkaupunki
-    fr = Capitale
-    hu = Főváros
-    id = Ibu kota
-    it = Capitale
-    ja = 首都
-    ko = 수도
-    nb = Hovedstad
-    nl = Hoofdstad
-    pl = Stolica
-    pt = Capital
-    pt-BR = Capital
-    ro = Capitală
-    ru = Столица
-    sk = Hlavné mesto
-    sv = Huvudstad
-    th = เมือง
-    tr = Başkent
-    uk = Столиця
-    vi = Thủ đô
-    zh-Hans = 首府
-    zh-Hant = 首府
+    ref = type.place.city
 
   [type.place.city.capital.11]
-    en = Capital
-    ar = عاصمة
-    cs = Hlavní město
-    da = Kapital
-    de = Hauptstadt
-    el = Πρωτεύουσα
-    fa = پایتخت
-    fi = Pääkaupunki
-    fr = Capitale
-    hu = Főváros
-    id = Ibu kota
-    it = Capitale
-    ja = 首都
-    ko = 수도
-    nb = Hovedstad
-    nl = Hoofdstad
-    pl = Stolica
-    pt = Capital
-    pt-BR = Capital
-    ro = Capitală
-    ru = Столица
-    sk = Hlavné mesto
-    sv = Huvudstad
-    th = เมือง
-    tr = Başkent
-    uk = Столиця
-    vi = Thủ đô
-    zh-Hans = 首府
-    zh-Hant = 首府
+    ref = type.place.city
 
   [type.place.city.capital.2]
-    en = Capital
-    ar = عاصمة
-    cs = Hlavní město
-    da = Kapital
-    de = Hauptstadt
-    el = Πρωτεύουσα
-    fa = پایتخت
-    fi = Pääkaupunki
-    fr = Capitale
-    hu = Főváros
-    id = Ibu kota
-    it = Capitale
-    ja = 首都
-    ko = 수도
-    nb = Hovedstad
-    nl = Hoofdstad
-    pl = Stolica
-    pt = Capital
-    pt-BR = Capital
-    ro = Capitală
-    ru = Столица
-    sk = Hlavné mesto
-    sv = Huvudstad
-    th = เมือง
-    tr = Başkent
-    uk = Столиця
-    vi = Thủ đô
-    zh-Hans = 首都
-    zh-Hant = 首都
+    ref = type.place.city.capital
 
   [type.place.city.capital.3]
-    en = Capital
-    ar = عاصمة
-    cs = Hlavní město
-    da = Kapital
-    de = Hauptstadt
-    el = Πρωτεύουσα
-    fa = پایتخت
-    fi = Pääkaupunki
-    fr = Capitale
-    hu = Főváros
-    id = Ibu kota
-    it = Capitale
-    ja = 首都
-    ko = 수도
-    nb = Hovedstad
-    nl = Hoofdstad
-    pl = Stolica
-    pt = Capital
-    pt-BR = Capital
-    ro = Capitală
-    ru = Столица
-    sk = Hlavné mesto
-    sv = Huvudstad
-    th = เมือง
-    tr = Başkent
-    uk = Столиця
-    vi = Thủ đô
-    zh-Hans = 首都
-    zh-Hant = 首都
+    ref = type.place.city
 
   [type.place.city.capital.4]
-    en = Capital
-    ar = عاصمة
-    cs = Hlavní město
-    da = Kapital
-    de = Hauptstadt
-    el = Πρωτεύουσα
-    fa = پایتخت
-    fi = Pääkaupunki
-    fr = Capitale
-    hu = Főváros
-    id = Ibu kota
-    it = Capitale
-    ja = 首都
-    ko = 수도
-    nb = Hovedstad
-    nl = Hoofdstad
-    pl = Stolica
-    pt = Capital de região autónoma
-    pt-BR = Capital
-    ro = Capitală
-    ru = Столица
-    sk = Hlavné mesto
-    sv = Huvudstad
-    th = เมือง
-    tr = Başkent
-    uk = Столиця
-    vi = Thủ đô
-    zh-Hans = 首府
-    zh-Hant = 首府
+    ref = type.place.city
 
   [type.place.city.capital.5]
-    en = Capital
-    ar = عاصمة
-    cs = Hlavní město
-    da = Kapital
-    de = Kreisstadt
-    el = Πρωτεύουσα
-    fa = پایتخت
-    fi = Pääkaupunki
-    fr = Capitale
-    hu = Főváros
-    id = Ibu kota
-    it = Capitale
-    ja = 首都
-    ko = 수도
-    nb = Hovedstad
-    nl = Hoofdstad
-    pl = Stolica
-    pt = Capital
-    pt-BR = Capital
-    ro = Capitală
-    ru = Столица
-    sk = Hlavné mesto
-    sv = Huvudstad
-    th = เมือง
-    tr = Başkent
-    uk = Столиця
-    vi = Thủ đô
-    zh-Hans = 首府
-    zh-Hant = 首府
+    ref = type.place.city
 
   [type.place.city.capital.6]
-    en = Capital
-    ar = عاصمة
-    cs = Hlavní město
-    da = Kapital
-    de = Hauptstadt
-    el = Πρωτεύουσα
-    fa = پایتخت
-    fi = Pääkaupunki
-    fr = Capitale
-    hu = Főváros
-    id = Ibu kota
-    it = Capitale
-    ja = 首都
-    ko = 수도
-    nb = Hovedstad
-    nl = Hoofdstad
-    pl = Stolica
-    pt = Sede de distrito
-    pt-BR = Capital
-    ro = Capitală
-    ru = Столица
-    sk = Hlavné mesto
-    sv = Huvudstad
-    th = เมือง
-    tr = Başkent
-    uk = Столиця
-    vi = Thủ đô
-    zh-Hans = 首府
-    zh-Hant = 首府
+    ref = type.place.city
 
   [type.place.city.capital.7]
-    en = Capital
-    ar = عاصمة
-    cs = Hlavní město
-    da = Kapital
-    de = Hauptstadt
-    el = Πρωτεύουσα
-    fa = پایتخت
-    fi = Pääkaupunki
-    fr = Capitale
-    hu = Főváros
-    id = Ibu kota
-    it = Capitale
-    ja = 首都
-    ko = 수도
-    nb = Hovedstad
-    nl = Hoofdstad
-    pl = Stolica
-    pt = Sede de município
-    pt-BR = Capital
-    ro = Capitală
-    ru = Столица
-    sk = Hlavné mesto
-    sv = Huvudstad
-    th = เมือง
-    tr = Başkent
-    uk = Столиця
-    vi = Thủ đô
-    zh-Hans = 首府
-    zh-Hant = 首府
+    ref = type.place.city
 
   [type.place.city.capital.8]
-    en = Capital
-    ar = عاصمة
-    cs = Hlavní město
-    da = Kapital
-    de = Hauptstadt
-    el = Πρωτεύουσα
-    fa = پایتخت
-    fi = Pääkaupunki
-    fr = Capitale
-    hu = Főváros
-    id = Ibu kota
-    it = Capitale
-    ja = 首都
-    ko = 수도
-    nb = Hovedstad
-    nl = Hoofdstad
-    pl = Stolica
-    pt = Sede de freguesia
-    pt-BR = Capital
-    ro = Capitală
-    ru = Столица
-    sk = Hlavné mesto
-    sv = Huvudstad
-    th = เมือง
-    tr = Başkent
-    uk = Столиця
-    vi = Thủ đô
-    zh-Hans = 首府
-    zh-Hant = 首府
+    ref = type.place.city
 
   [type.place.city.capital.9]
-    en = Capital
-    ar = عاصمة
-    cs = Hlavní město
-    da = Kapital
-    de = Hauptstadt
-    el = Πρωτεύουσα
-    fa = پایتخت
-    fi = Pääkaupunki
-    fr = Capitale
-    hu = Főváros
-    id = Ibu kota
-    it = Capitale
-    ja = 首都
-    ko = 수도
-    nb = Hovedstad
-    nl = Hoofdstad
-    pl = Stolica
-    pt = Capital
-    pt-BR = Capital
-    ro = Capitală
-    ru = Столица
-    sk = Hlavné mesto
-    sv = Huvudstad
-    th = เมือง
-    tr = Başkent
-    uk = Столиця
-    vi = Thủ đô
-    zh-Hans = 首府
-    zh-Hant = 首府
+    ref = type.place.city
 
   [type.place.continent]
     en = Continent
@@ -14721,7 +12444,7 @@
     ar = دولة
     cs = Země
     da = Land
-    de = Land
+    de = Staat
     el = Χώρα
     es = País
     fa = کشور
@@ -14881,7 +12604,7 @@
     ar = جزيرة
     cs = Ostrov
     da = Ø
-    de = Insel
+    de = kleine Insel
     el = Νησί
     es = Isla
     fa = جزیره
@@ -14910,12 +12633,14 @@
 
   [type.place.isolated_dwelling]
     en = Dwelling
+    de = Kleinstsiedlung
     fr = Lieu-dit
     ja = 小規模な村
     pl = Mała osada
     pt = Habitação isolada
     pt-BR = Habitação isolada
     ru = Жилище
+    uk = Житло
     zh-Hans = 孤立居所
 
   [type.place.locality]
@@ -14952,11 +12677,13 @@
 
   [type.place.neighbourhood]
     en = Neighbourhood
+    de = Stadtviertel
     ja = 地域
     pl = Sąsiedztwo
     pt = Bairro
     pt-BR = Bairro
     ru = Микрорайон
+    uk = Мiкрорайон
     zh-Hans = 街坊社区/小区
 
   [type.place.ocean]
@@ -14990,6 +12717,7 @@
   [type.place.region]
     en = Region
     ar = منطقة
+    de = Region
     el = Περιοχή
     es = Región
     fa = منطقه
@@ -15047,11 +12775,13 @@
 
   [type.place.square]
     en = Square
+    de = Platz
     ja = 広場
     pl = Plac
     pt = Praça ou largo
     pt-BR = Praça ou largo
     ru = Площадь
+    uk = Площа
     zh-Hans = 广场
 
   [type.place.state]
@@ -15059,7 +12789,7 @@
     ar = محافظة
     cs = Země
     da = Stat
-    de = Staat
+    de = Bundesland
     el = Πολιτεία
     es = Estado
     fa = ایالت
@@ -15091,7 +12821,7 @@
     ar = محافظة
     cs = Země
     da = Stat
-    de = Staat
+    de = Bundesstaat
     el = Πολιτεία
     es = Estado
     fa = ایالت
@@ -15215,45 +12945,55 @@
 
   [type.power]
     en = Power
+    de = Energie
     ja = 電力
     pt = Energia
     pt-BR = Energia
     ru = Энергетика
+    uk = Енергія
     zh-Hans = 电力要素
 
   [type.power.generator]
     en = Generator
+    de = Generator
     ja = 発電機
     pt = Gerador de energia
     pt-BR = Gerador de energia
-    ru = Генератор энергии
+    ru = Генератор
+    uk = Генератор
     zh-Hans = 发电机
 
   [type.power.line]
     en = Power Line
+    de = Hochspannungs-Freileitung
     ja = 電力線
     pl = Linia wysokiego napięcia
     pt = Linha de transmissão de energia
     pt-BR = Linha de transmissão de energia
     ru = Линия электропередач
+    uk = Лінія електропередач
     zh-Hans = 超高压输电线
 
   [type.power.line.underground]
     en = Underground Power Line
+    de = Unterirdische Hochpannungsleitung
     ja = 地下電力線
     pl = Podziemna linia wysokiego napięcia
     pt = Linha de transmissão de energia subterrânea
     pt-BR = Linha de transmissão de energia subterrânea
     ru = Подземная линия электропередач
+    uk = Підземна лінія електропередач
     zh-Hans = 超高压输电线
 
   [type.power.minor_line]
     en = Minor Power Line
+    de = Nieder-/Mittelspannungsfreileitung
     ja = 低圧電力線
     pl = Linia niskiego napięcia
     pt = Linha de transmissão de energia de baixa tensão
     pt-BR = Linha de transmissão de energia de baixa tensão
     ru = Линия электропередачи низкого напряжения
+    uk = Лінія електропередач низької напруги
     zh-Hans = 超高压输电线
 
   [type.power.pole]
@@ -15261,7 +13001,7 @@
     ar = عمود كهرباء
     cs = Sloup elektrického vedení
     da = El-pol
-    de = Freileitungsmast
+    de = Nieder-/Mittelspannungsmast
     el = Πυλώνες μεταφοράς ρεύματος
     es = Poste eléctrico
     fa = برج قدرت
@@ -15290,11 +13030,13 @@
 
   [type.power.station]
     en = Power Station
+    de = Umspannwerk
     ja = 変電所
     pl = Elektrownia
     pt = Subestação elétrica
     pt-BR = Subestação elétrica
     ru = Электростанция
+    uk = Електростанція
 
   [type.power.substation]
     en = Substation
@@ -15331,7 +13073,7 @@
     ar = عمود كهرباء
     cs = Sloup elektrického vedení
     da = El-pol
-    de = Freileitungsmast
+    de = Hochspannungsmast
     el = Πυλώνες μεταφοράς ρεύματος
     es = Poste eléctrico
     fa = برج قدرت
@@ -15380,11 +13122,13 @@
 
   [type.public_transport]
     en = Public Transport
+    de = Öffentlicher Verkehr
     ja = 公共交通機関
     pl = Transport publiczny
     pt = Transporte público
     pt-BR = Transporte público
     ru = Общественный транспорт
+    uk = Громадський транспорт
     zh-Hans = 公共交通要素
 
   [type.public_transport.platform]
@@ -15398,117 +13142,113 @@
 
   [type.railway]
     en = Railway
+    de = Eisenbahn
     fr = Chemin de fer
     ja = 鉄道
     pl = Kolej
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Ж/Д
+    uk = Залізниця
     zh-Hans = 铁路要素
 
   [type.railway.abandoned]
     en = Abandoned railway
+    de = Ehemalige Eisenbahnstrecke
     ja = 廃線
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенная железная дорога
+    uk = Закинута залізниця
     zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.bridge]
     en = Abandoned railway
+    de = Ehemalige Eisenbahnbrücke
     ja = 廃線(橋)
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенный железнодорожный мост
+    uk = Закинутий залізничний міст
     zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.tunnel]
-    en = Abandoned railway
+    en = Abandoned Railway
+    de = Ehemaliger Eisenbahntunnel
     ja = 廃線(トンネル)
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенный железнодорожный туннель
+    uk = Закинутий залізничний тунель
     zh-Hans = 铁路遗迹
 
   [type.railway.construction]
-    en = Railway's construction
+    en = Railway's Construction
+    de = Eisenbahnstrecke im Bau
     ja = 建設中の鉄道
     pt = Ferrovia em construção
     pt-BR = Ferrovia em construção
     ru = Строящаяся железная дорога
+    uk = Будівництво залізниці
     zh-Hans = 在建铁路
 
   [type.railway.crossing]
-    en = Railway crossing
+    en = Railway Crossing
+    de = Bahnübergang
     ja = 歩行者用踏切
     pt = Passagem pedestre
     pt-BR = Passagem pedestre
     ru = Пешеходный переход
+    uk = Пішохідний перехід
 
   [type.railway.disused]
     en = Disused railway
+    de = Stillgelegte Bahnstrecke
     ja = 休止線
     pt = Ferrovia em desuso
     pt-BR = Ferrovia em desuso
     ru = Неиспользуемая железная дорога
+    uk = Недійсна залізниця
     zh-Hans = 废弃铁路
 
   [type.railway.funicular]
     en = Funicular
+    de = Standseilbahn
     fr = Funiculaire
     ja = ケーブルカー
     pt = Funicular
     pt-BR = Funicular
     ru = Фуникулер
+    uk = Фунікулер
     zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.bridge]
     en = Funicular
+    de = Standseilbahnbrücke
     fr = Funiculaire
     ja = ケーブルカー(橋)
     pt = Funicular
     pt-BR = Funicular
     ru = Фуникулер
+    uk = Фунікулер
     zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.tunnel]
     en = Funicular
+    de = Standseilbahntunnel
     fr = Funiculaire
     ja = ケーブルカー(トンネル)
     pt = Funicular
     pt-BR = Funicular
     ru = Фуникулер
+    uk = Фунікулер
     zh-Hans = 缆索铁路轨道
 
   [type.railway.halt]
-    en = Train Station
-    ar = محطة سكك حديدية
-    cs = Železniční stanice
-    da = Togstation
-    de = Bahnhof
-    el = Σιδηροδρομικός σταθμός
-    es = Estación de tren
-    fa = ایستگاه قطار
-    fi = Rautatieasema
-    fr = Gare
-    hu = Vonatmegálló
-    id = Rel kereta api
-    it = Stazione ferroviaria
-    ja = 鉄道駅
-    ko = 기차역
-    nb = Togstasjon
-    nl = Station
+    ref = type.railway.station
+    de = Haltepunkt
     pl = Przystanek kolejowy
     pt = Apeadeiro
-    pt-BR = Estação de trem
-    ro = Feroviar
-    ru = Ж/д станция
-    sk = Železničná stanica
-    sv = Tågstation
-    th = สถานีรถไฟ
-    tr = Gar
-    uk = Залізничний вокзал
-    vi = Đường tàu hỏa
     zh-Hans = 小站
     zh-Hant = 小站
 
@@ -15548,26 +13288,32 @@
 
   [type.railway.light_rail]
     en = Light Rail
+    de = Stadtbahn
     ja = ライトレール
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
+    uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.bridge]
     en = Light Rail
+    de = Stadtbahnbrücke
     ja = ライトレール(橋)
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
+    uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.tunnel]
     en = Light Rail
+    de = Stadtbahntunnel
     ja = ライトレール(トンネル)
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
+    uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
 
   [type.railway.monorail]
@@ -15606,83 +13352,102 @@
 
   [type.railway.monorail.bridge]
     en = Monorail
+    de = Einschienenbahnbrücke
     fr = Monorail
     ja = モノレール(橋)
     pt = Monocarril
     pt-BR = Monotrilho
     ru = Монорельсовая железная дорога
+    uk = Монорейкова залізниця
     zh-Hans = 单轨轨道
     zh-Hant = 單軌軌道
 
   [type.railway.monorail.tunnel]
     en = Monorail
+    de = Einschienenbahntunnel
     fr = Monorail
     ja = モノレール(トンネル)
     pt = Monocarril
     pt-BR = Monotrilho
     ru = Монорельсовая железная дорога
+    uk = Монорейкова залізниця
     zh-Hans = 单轨轨道
     zh-Hant = 單軌軌道
 
   [type.railway.narrow_gauge]
     en = Narrow Gauge Rail
+    de = Schmalspurbahn
     ja = 狭軌鉄道
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
+    uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.bridge]
     en = Narrow Gauge Rail
+    de = Schmalspurbahnbrücke
     ja = 狭軌鉄道(橋)
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
+    uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.tunnel]
     en = Narrow Gauge Rail
+    de = Schmalspurbahntunnel
     ja = ja = 狭軌鉄道(トンネル)
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
+    uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.platform]
-    en = Platform
+    en = Railway Platform
+    be = Чыгуначная платформа
+    de = Bahnsteig
     ja = プラットホーム
     pt = Plataforma ferroviária
     pt-BR = Plataforma ferroviária
     ru = Железнодорожная платформа
+    uk = Залізнична платформа
     zh-Hans = 火车站台
 
   [type.railway.preserved]
     en = Preserved Rail
+    de = Museumsbahn
     ja = 保存鉄道
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
+    uk = Законсервована залізниця
 
   [type.railway.preserved.bridge]
     en = Preserved Rail
+    de = Museumsbahnbrücke
     ja = 保存鉄道(橋)
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
+    uk = Законсервована залізниця
 
   [type.railway.preserved.tunnel]
     en = Preserved Rail
+    de = Museumsbahntunnel
     ja = 保存鉄道(トンネル)
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
+    uk = Законсервована залізниця
 
   [type.railway.rail]
     en = Railway
     ar = خط سكة حديد
     cs = Železnice
     da = Jernbane
-    de = Eisenbahn
+    de = S-Bahn
     el = Σιδηρόδρομος
     es = Ferrocarril
     es-MX = Línea de ferrocarril
@@ -15706,86 +13471,106 @@
     sw = Njia ya Reli
     th = รถไฟ
     tr = Demiryolu
-    uk = Залізна дорога
+    uk = Залізнична дорога
     vi = Đường sắt
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
   [type.railway.rail.bridge]
     en = Railway
+    de = S-Bahn-Brücke
     ja = 鉄道(橋)
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Железнодорожный мост
+    uk = Залізничний міст
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
   [type.railway.rail.motor_vehicle]
     en = Railway
+    de = S-Bahn
     ja = 鉄道
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Железная дорога
+    uk = Залізниця
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
   [type.railway.rail.tunnel]
     en = Railway
+    de = S-Bahn-Tunnel
     ja = 鉄道(鉄道)
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Железнодорожный туннель
+    uk = Залізничний тунель
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
   [type.railway.razed]
     en = Razed Rail
+    de = Stillgelegte Eisenbahnstrecke
     ja = 撤去済の鉄道
     pt = Ferrovia removida
     pt-BR = Ferrovia removida
     ru = Заброшенная Ж/Д
+    uk = Закинута залізниця
 
   [type.railway.siding]
     en = Siding Rail
+    de = Ausweich-/Überholgleis
     ja = 側線
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
     ru = Ветка Ж/Д
+    uk = Гілка залізниці
 
   [type.railway.siding.bridge]
     en = Siding Rail
+    de = Ausweich-/Überholgleis
     ja = 側線(橋)
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
     ru = Ветка Ж/Д
+    uk = Гілка залізниці
 
   [type.railway.siding.tunnel]
     en = Siding Rail
+    de = Ausweich-/Überholgleis
     ja = 側線(トンネル)
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
     ru = Ветка Ж/Д
+    uk = Гілка залізниці
 
   [type.railway.spur]
     en = Spur Rail
+    de = Anschlussgleis
     ja = 引き込み線
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
     ru = Подъездная Ж/Д
+    uk = Під'їздна залізниця
 
   [type.railway.spur.bridge]
     en = Spur Rail
+    de = Anschlussgleis
     ja = 引き込み線(橋)
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
     ru = Подъездная Ж/Д
+    uk = Під'їздна залізниця
 
   [type.railway.spur.tunnel]
     en = Spur Rail
+    de = Anschlussgleis
     ja = 引き込み線(トンネル)
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
     ru = Подъездная Ж/Д
+    uk = Під'їздна залізниця
 
   [type.railway.station]
     en = Train Station
@@ -15820,66 +13605,13 @@
     zh-Hant = 火車站
 
   [type.railway.station.light_rail]
-    en = Train Station
-    ar = محطة سكك حديدية
-    cs = Železniční stanice
-    da = Togstation
-    de = Bahnhof
-    el = Σιδηροδρομικός σταθμός
-    es = Estación de tren
-    fa = ایستگاه قطار
-    fi = Rautatieasema
-    fr = Gare
-    hu = Vonatmegálló
-    id = Rel kereta api
-    it = Stazione ferroviaria
-    ja = 鉄道駅
-    ko = 기차역
-    nb = Togstasjon
-    nl = Station
-    pl = Dworzec kolejowy
-    pt = Estação de comboios
-    pt-BR = Estação de trem
-    ro = Feroviar
-    ru = Ж/д станция
-    sk = Železničná stanica
-    sv = Tågstation
-    th = สถานีรถไฟ
-    tr = Gar
-    uk = Залізничний вокзал
-    vi = Đường tàu hỏa
+    ref = type.railway.station
+    de = Stadtbahnbahnhof
     zh-Hans = 轻轨车站
     zh-Hant = 輕軌車站
 
   [type.railway.station.monorail]
-    en = Train Station
-    ar = محطة سكك حديدية
-    cs = Železniční stanice
-    da = Togstation
-    de = Bahnhof
-    el = Σιδηροδρομικός σταθμός
-    es = Estación de tren
-    fa = ایستگاه قطار
-    fi = Rautatieasema
-    fr = Gare
-    hu = Vonatmegálló
-    id = Rel kereta api
-    it = Stazione ferroviaria
-    ja = 鉄道駅
-    ko = 기차역
-    nb = Togstasjon
-    nl = Station
-    pl = Dworzec kolejowy
-    pt = Estação de comboios
-    pt-BR = Estação de trem
-    ro = Feroviar
-    ru = Ж/д станция
-    sk = Železničná stanica
-    sv = Tågstation
-    th = สถานีรถไฟ
-    tr = Gar
-    uk = Залізничний вокзал
-    vi = Đường tàu hỏa
+    ref = type.railway.station
     zh-Hans = 单轨车站
     zh-Hant = 單軌車站
 
@@ -15888,7 +13620,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahnstation
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -15920,7 +13652,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahnstation
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -15952,7 +13684,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahnstation
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -15984,7 +13716,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahnstation
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16016,7 +13748,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahnstation
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16048,7 +13780,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahnstation
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16080,7 +13812,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahnstation
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16112,7 +13844,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahnstation
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16144,7 +13876,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahnstation
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16176,7 +13908,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahnstation
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16208,7 +13940,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahnstation
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16240,7 +13972,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahnstation
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16269,25 +14001,30 @@
 
   [type.railway.subway]
     en = Subway Line
-    fr = Voie de métro
+    de = U-Bahn
     fr = Ligne de métroo
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
+    uk = Лінія метро
 
   [type.railway.subway.bridge]
     en = Subway Line
+    de = U-Bahn-Brücke
     fr = Voie de métro
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
+    uk = Лінія метро
 
   [type.railway.subway.tunnel]
     en = Subway Line
+    de = U-Bahn-Tunnel
     fr = Voie de métro
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
+    uk = Лінія метро
 
   [type.railway.subway_entrance]
     en = Subway Entrance
@@ -16328,7 +14065,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16360,7 +14097,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16392,7 +14129,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16424,7 +14161,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16456,7 +14193,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16488,7 +14225,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16520,7 +14257,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16552,7 +14289,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16584,7 +14321,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16616,7 +14353,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16648,7 +14385,7 @@
     ar = محطة مترو
     cs = Metro
     da = Metro
-    de = U-Bahn
+    de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
     fa = حمل و نقل
@@ -16677,31 +14414,37 @@
 
   [type.railway.tram]
     en = Tram Line
+    de = Straßenbahn
     fr = Voie de tramway
     ja = トラム
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
+    uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
 
   [type.railway.tram.bridge]
     en = Tram Line
+    de = Straßenbahnbrücke
     fr = Voie de tramway
     ja = トラム(橋)
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
+    uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
 
   [type.railway.tram.tunnel]
     en = Tram Line
+    de = Straßenbahntunnel
     fr = Voie de tramway
     ja = トラム(トンネル)
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
+    uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
 
@@ -16739,47 +14482,58 @@
 
   [type.railway.yard]
     en = Railway Yard
+    de = Abstellgleis
     ja = ヤード
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     ru = Ж/Д площадка
+    uk = Залізнична ділянка
     zh-Hans = 铁路货场
 
   [type.railway.yard.bridge]
     en = Railway Yard
+    de = Abstellgleis
     ja = ヤード(橋)
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     ru = Ж/Д площадка
+    uk = Залізнична ділянка
     zh-Hans = 铁路货场
 
   [type.railway.yard.tunnel]
     en = Railway Yard
+    de = Abstellgleis
     ja = ヤード(トンネル)
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     ru = Ж/Д площадка
+    uk = Залізнична ділянка
     zh-Hans = 铁路货场
 
   [type.route]
     en = route
+    de = Route
     ja = ルート
     pt = Rota
     pt-BR = Rota
     ru = Маршрут
+    uk = Маршрут
     zh-Hans = 线路
 
   [type.route.ferry]
     en = Ferry
+    de = Fähre
     fr = Trajet de ferry
     ja = フェリー航路
     pt = Rota de ferry
     pt-BR = Rota de balsa
     ru = Паромная переправа
+    uk = Паромна переправа
     zh-Hans = 航线
 
   [type.route.shuttle_train]
     en = Shuttle Train
+    de = Shuttlezug
     pt = Rota de comboio vaivem
     pt-BR = Rota de trem vaivem
     ru = Челночная линия
@@ -16915,6 +14669,7 @@
   [type.shop.beverages]
     en = Beverages
     ar = مشروبات
+    be = Напоі
     cs = Nápoje
     da = Drikkevarer
     de = Getränke
@@ -16971,7 +14726,7 @@
     sv = Cykelaffär
     th = จักรยาน
     tr = Bisiklet
-    uk = Веломагазін
+    uk = Веломагазин
     vi = Cửa hàng xe đạp
     zh-Hans = 自行车店
     zh-Hant = 自行車店
@@ -17067,7 +14822,7 @@
     zh-Hant = 肉商
 
   [type.shop.car]
-    en = Car Shop
+    en = Car Dealership
     ar = متجر سيارات
     cs = Obchod s auty
     da = Bilforhandler
@@ -17193,6 +14948,12 @@
     vi = Vá Lốp
     zh-Hans = 轮胎修理
     zh-Hant = 輪胎修補
+
+  [type.shop.caravan]
+    en = RV Dealership
+    be = Продаж аўтадамоў
+    ru = Продажа автодомов
+    uk = Продаж автобудинків
 
   [type.shop.chemist]
     en = Chemist Shop
@@ -17454,7 +15215,7 @@
     ar = مستحضرات تجميل
     cs = Kosmetika
     da = Kosmetik
-    de = Kosmetik
+    de = Kosmetikgeschäft
     el = Καλλυντικά
     es = Productos cosméticos
     fa = فروشگاه
@@ -17540,7 +15301,7 @@
     sv = Järnhandel
     th = ร้านขายฮาร์ดแวร์
     tr = Hırdavatçı
-    uk = Будматеріали
+    uk = Господарськi товари
     vi = Cửa hàng phần cứng
     zh-Hans = 家居用品店
     zh-Hant = 五金行
@@ -17604,7 +15365,7 @@
     sv = Elektronik
     th = ร้านขายอุปกรณ์อิเล็กทรอนิกส์
     tr = Elektronik mağazası
-    uk = Електротехнічний магазин
+    uk = Електротехнiка
     vi = Cửa hàng điện
     zh-Hans = 电子产品商店
     zh-Hant = 電子產品
@@ -17646,7 +15407,7 @@
     ar = متجر
     cs = Obchod
     da = Butik
-    de = Geschäft
+    de = Textilgeschäft
     el = Κατάστημα
     es = Tienda
     fa = فروشگاه
@@ -17708,6 +15469,7 @@
   [type.shop.funeral_directors]
     en = Funeral Directors
     ar = منظموا الجنازات
+    be = Рытуальныя паслугі
     cs = Pohřební služba
     da = Bedemand
     de = Bestattungsinstitut
@@ -17732,7 +15494,7 @@
     sv = Begravningsentreprenörer
     th = สัปเหร่อ
     tr = Cenaze Levazımcısı
-    uk = Ритуальна служба
+    uk = Ритуальні послуги
     vi = Tổ chức tang lễ
     zh-Hans = 殡仪馆
     zh-Hant = 葬儀社
@@ -17860,7 +15622,7 @@
     sv = Grönsakshandlare
     th = ร้านขายผัด
     tr = Manav
-    uk = Магазин овочів
+    uk = Овочі та фрукти
     vi = Cửa hàng rau củ
     zh-Hans = 蔬果零售店
     zh-Hant = 蔬果零售店
@@ -18460,7 +16222,7 @@
     sv = Fiskhandlare
     th = ร้านขายปลา
     tr = Poissonnier
-    uk = Рибна крамниця
+    uk = Рибна лавка
     vi = Người bán cá
     zh-Hans = 鱼商
     zh-Hant = 魚販
@@ -18556,7 +16318,7 @@
     sv = Pappershandel
     th = ร้านขายเครื่องเขียน
     tr = Kırtasiye Dükkanı
-    uk = Магазин канцелярських товарів
+    uk = Канцелярськi товари
     vi = Cửa hàng văn phòng phẩm
     zh-Hans = 文具店
     zh-Hant = 文具用品店
@@ -18679,7 +16441,7 @@
     sv = Biljettkontor
     th = จุดจำหน่ายตั๋ว
     tr = Billetterie
-    uk = Білетна каса
+    uk = Квитковий кiоск
     vi = Phòng vé
     zh-Hans = 售票处
     zh-Hant = 售票處
@@ -18807,7 +16569,7 @@
     sv = Diverseaffär
     th = ร้านค้าปลีกอิสระ
     tr = Ucuz Ürünler Mağazası
-    uk = Магазин господарських товарів
+    uk = Магазин корисних товарів
     vi = Cửa hàng tiện lợi
     zh-Hans = 杂货店
     zh-Hant = 雜貨店
@@ -18817,7 +16579,7 @@
     ar = متجر فيديو
     cs = Videopůjčovna
     da = Videobutik
-    de = Videoshop
+    de = Videothek
     el = Βίντεο Κλαμπ
     es = Tienda de vídeo
     es-MX = Tienda de vídeo
@@ -18914,23 +16676,28 @@
 
   [type.sport]
     en = sport
+    de = Sport
     fi = Urheilu
     ja = スポーツ
     pt = Desporto
     pt-BR = Esporte
     ru = Спорт
+    uk = Спорт
 
   [type.sport.american_football]
     en = American Football
+    de = American Football
     fi = Amerikkalainen jalkapallo
     ja = アメリカンフットボール
     pl = Futbol amerykański
     pt = Futebol americano
     pt-BR = Futebol americano
     ru = Американский футбол
+    uk = Американський футбол
 
   [type.sport.archery]
     en = Archery
+    de = Bogenschießen
     fi = Jousiammunta
     fr = Tir à l'arc
     ja = アーチェリー
@@ -18938,6 +16705,7 @@
     pt = Tiro com arco
     pt-BR = Tiro com arco
     ru = Стрельба из лука
+    uk = Стрiльба з лука
 
   [type.sport.athletics]
     en = Athletics
@@ -18975,18 +16743,22 @@
 
   [type.sport.australian_football]
     en = Rugby
+    de = Rugby
     ja = オーストラリアンフットボール
     pt = Futebol australiano
     pt-BR = Futebol australiano
     ru = Регби
+    uk = Регбi
 
   [type.sport.baseball]
     en = Baseball
+    de = Baseball
     ja = 野球
     pl = Baseball
     pt = Beisebol
     pt-BR = Beisebol
     ru = Бейсбол
+    uk = Бейсбол
     zh-Hans = 棒球
 
   [type.sport.basketball]
@@ -19025,38 +16797,46 @@
 
   [type.sport.bowls]
     en = Bowls
+    de = Bowls
     fi = Bowls
     ja = ローンボウルズ
     pl = Kręgle
     pt = Bowls
     pt-BR = Bowls
     ru = Кегли
+    uk = Кеглi
     zh-Hans = 保龄球
 
   [type.sport.cricket]
     en = Cricket
+    de = Cricket
     fi = Kriketti
     ja = クリケット
     pl = Krykiet
     pt = Críquete
     pt-BR = Críquete
     ru = Крикет
+    uk = Крикет
     zh-Hans = 板球
 
   [type.sport.curling]
     en = Сurling
+    de = Curling
     fi = Curling
     ja = カーリング
     pt = Curling
     pt-BR = Curling
     ru = Керлинг
+    uk = Керлiнг
 
   [type.sport.diving]
     en = Diving
+    de = Tauchen
     ja = ダイビング
     pt = Mergulho
     pt-BR = Mergulho
     ru = Подводное плавание
+    uk = Пiдводне плавання
     zh-Hans = 跳水
 
   [type.sport.equestrian]
@@ -19095,16 +16875,19 @@
 
   [type.sport.golf]
     en = Golf
+    de = Golf
     fi = Golf
     ja = ゴルフ
     pl = Golf
     pt = Golfe
     pt-BR = Golfe
     ru = Гольф
+    uk = Гольф
     zh-Hans = 高尔夫球
 
   [type.sport.gymnastics]
     en = Gymnastics
+    de = Gymnastik
     fi = Voimistelu
     fr = Gymnastique
     ja = 体操競技
@@ -19112,37 +16895,45 @@
     pt = Ginástica
     pt-BR = Ginástica
     ru = Гимнастика
+    uk = Гiмнастика
     zh-Hans = 体操
 
   [type.sport.handball]
     en = Handball
+    de = Handball
     fi = Käsipallo
     ja = ハンドボール
     pl = Piłka ręczna
     pt = Andebol
     pt-BR = Andebol
     ru = Гандбол
+    uk = Гандбол
     zh-Hans = 手球
 
   [type.sport.multi]
     en = Various Sport
+    de = verschiedene Sportarten
     ja = 複数
     pt = Vários desportos
     pt-BR = Vários desportos
     ru = Различные виды спорта
+    uk = Рiзноманiтнi типи спорту
     zh-Hans = 多元
 
   [type.sport.scuba_diving]
     en = Scuba Diving
+    de = Sporttauchen
     fr = Plongée sous-marine
     ja = スクーバダイビング
     pl = Nurkowanie
     pt = Mergulho autónomo
     pt-BR = Mergulho autônomo
     ru = Акваланг
+    uk = Акваланг
 
   [type.sport.shooting]
     en = Shooting
+    de = Sportschießen
     fi = Ammunta
     fr = Sports de tir
     ja = 射撃競技
@@ -19150,29 +16941,35 @@
     pt = Tiro desportivo
     pt-BR = Tiro esportivo
     ru = Стрельба
+    uk = Стрiльба
     zh-Hans = 射击
 
   [type.sport.skiing]
     en = Skiing
+    de = Skisport
     fi = Hiihto
     fr = Ski
     ja = スキー
     pt = Esqui
     pt-BR = Esqui
     ru = Лыжи
+    uk = Лижi
 
   [type.sport.soccer]
     en = Soccer (Football)
+    de = Fußball
     fi = Jalkapallo
     fr = Football
     ja = サッカー
     pt = Futebol
     pt-BR = Futebol
     ru = Футбол
+    uk = Футбол
     zh-Hans = 足球
 
   [type.sport.swimming]
     en = Swimming
+    de = Schwimmen
     fi = Uinti
     fr = Natation
     ja = 水泳
@@ -19180,6 +16977,7 @@
     pt = Natação desportiva
     pt-BR = Natação esportiva
     ru = Плавание
+    uk = Плавання
     zh-Hans = 游泳
 
   [type.sport.tennis]
@@ -19218,12 +17016,14 @@
 
   [type.tourism]
     en = Tourism
+    de = Tourismus
     fi = Turismi
     ja = 観光
     pl = Turystyka
     pt = Turismo
     pt-BR = Turismo
     ru = Туризм
+    uk = Туризм
     zh-Hans = 旅游要素
 
   [type.tourism.alpine_hut]
@@ -19262,7 +17062,7 @@
     ar = شُقَق
     cs = Byty
     da = Lejligheder
-    de = Appartements
+    de = Ferienwohnung
     el = Διαμερίσματα
     es = Apartamentos
     fa = اپارتمان
@@ -19316,7 +17116,7 @@
     sv = Konstverk
     th = งานศิลปะ
     tr = Turizm
-    uk = Твір мистецтва
+    uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 艺术品
     zh-Hant = 藝術品
@@ -19348,7 +17148,7 @@
     sv = Konstverk
     th = งานศิลปะ
     tr = Turizm
-    uk = Твір мистецтва
+    uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 艺术品
     zh-Hant = 藝術品
@@ -19380,7 +17180,7 @@
     sv = Konstverk
     th = งานศิลปะ
     tr = Turizm
-    uk = Твір мистецтва
+    uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 油画
     zh-Hant = 藝術品
@@ -19412,7 +17212,7 @@
     sv = Konstverk
     th = งานศิลปะ
     tr = Turizm
-    uk = Твір мистецтва
+    uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 雕塑
     zh-Hant = 藝術品
@@ -19444,7 +17244,7 @@
     sv = Konstverk
     th = งานศิลปะ
     tr = Turizm
-    uk = Твір мистецтва
+    uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 雕像
     zh-Hant = 藝術品
@@ -19454,7 +17254,7 @@
     ar = أماكن جذابة
     cs = Atrakce
     da = Attraktioner
-    de = Attraktion
+    de = Sehenswürdigkeit
     el = Αξιοθέατα
     es = Atracción turística
     fa = گردشگری
@@ -19485,7 +17285,7 @@
     ar = أماكن جذابة
     cs = Atrakce
     da = Attraktioner
-    de = Attraktion
+    de = Sehenswürdigkeit
     el = Αξιοθέατα
     es = Atracción turística
     fa = گردشگری
@@ -19516,7 +17316,7 @@
     ar = أماكن جذابة
     cs = Atrakce
     da = Attraktioner
-    de = Attraktion
+    de = Sehenswürdigkeit
     el = Αξιοθέατα
     es = Atracción turística
     fa = گردشگری
@@ -19569,8 +17369,9 @@
     zh-Hant = 露營
 
   [type.tourism.caravan_site]
-    en = Caravan Site
+    en = RV Park
     ar = موقع البيت المتنقل
+    be = Кемпінг для аўтадамоў
     cs = Kemp pro obytné přívěsy
     da = Autocamperplads
     de = Wohnwagenstellplatz
@@ -19589,12 +17390,12 @@
     pt = Parque de caravanas
     pt-BR = Área de trailers
     ro = Teren pentru campare
-    ru = Автокемпинг
+    ru = Кемпинг для автодомов
     sk = Kemp pre karavany
     sv = Husvagnsplats
     th = ขบวนนักเดินทาง
     tr = Karavan alanı
-    uk = Автокемпінг
+    uk = Кемпінг для автобудинків
     vi = Khu lễ hội hóa trang
     zh-Hans = 房车宿营地
     zh-Hant = 營區
@@ -19603,7 +17404,7 @@
     en = Chalet
     ar = شاليه
     da = Hytte
-    de = Hütte
+    de = Ferienhaus
     el = Σαλέ
     es = Chalé
     fa = هتل
@@ -19630,7 +17431,7 @@
     ar = سياحة
     cs = Pamětihodnost
     da = Turisme
-    de = Gallerie
+    de = Galerie
     el = Αξιοθέατο
     es = Turismo
     fa = گالری
@@ -19716,6 +17517,7 @@
   [type.tourism.hotel]
     en = Hotel
     ar = فندق
+    de = Hotel
     el = Ξενοδοχείο
     fa = هتل
     fi = Hotelli
@@ -19738,11 +17540,10 @@
 
   [type.tourism.information]
     en = Tourist Information
-    de = Touristeninformation
     ar = معلومات سياحية
     cs = Infocentrum
     da = Turistinformation
-    de = Tourist-Information
+    de = Touristeninformation
     el = Τουριστικές πληροφορίες
     es = Información
     fa = گردشگری
@@ -19803,7 +17604,6 @@
 
   [type.tourism.information.guidepost]
     en = Tourist Information
-    de = Touristeninformation
     ar = معلومات سياحية
     cs = Infocentrum
     da = Turistinformation
@@ -19901,6 +17701,7 @@
   [type.tourism.motel]
     en = Motel
     ar = فندق رخيص
+    de = Motel
     el = Μοτέλ
     fa = هتل
     fi = Motelli
@@ -19921,6 +17722,7 @@
     en = Museum
     ar = متحف
     cs = Muzeum
+    de = Museum
     el = Μουσείο
     es = Museo
     fa = گردشگری
@@ -19979,6 +17781,7 @@
     en = Resort
     ar = منتج
     cs = Letovisko
+    de = Resort
     el = Θέρετρο
     fa = هتل
     fi = Lomakohteet
@@ -20030,7 +17833,7 @@
     sv = Attraktion
     th = สถานที่ท่องเที่ยว
     tr = Görülecek yerler
-    uk = Пам’ятні місця
+    uk = Парк розваг
     vi = Diểm tham quan
     zh-Hans = 主题公园
     zh-Hant = 旅遊景點
@@ -20103,6 +17906,7 @@
     en = Zoo
     ar = حديقة حيوان
     cs = zoologická zahrada
+    de = Zoo
     el = Ζωολογικός κήπος
     fa = گردشگری
     fi = Eläintarha
@@ -20127,14 +17931,17 @@
 
   [type.traffic_calming]
     en = Traffic Calming
+    de = Verkehrsberuhigung
     ja = 交通静穏化
     pl = Uspokojenie ruchu drogowego
     pt = Redutor de velocidade
     pt-BR = Redutor de velocidade
     ru = Лежачий полицейский
+    uk = Лежачий полiцейський
 
   [type.traffic_calming.bump]
     en = Traffic Bump
+    de = kurze Bodenwelle
     fi = Hidastetöyssy
     fr = Ralentisseur
     ja = スピードバンプ
@@ -20142,23 +17949,28 @@
     pt = Lomba
     pt-BR = Quebra-molas
     ru = Лежачий полицейский
+    uk = Лежачий полiцейський
 
   [type.traffic_calming.hump]
     en = Traffic Hump
+    de = lange Bodenwelle
     fr = Ralentisseur
     ja = スピードハンプ
     pl = Długi próg zwalniający
     pt = Lomba longa
     pt-BR = Quebra-molas longa
     ru = Лежачий полицейский
+    uk = Лежачий полiцейський
 
   [type.waterway]
     en = Waterway
+    de = Wasserweg
     fi = Vesiväylä
     ja = 水域
     pt = Curso de água
     pt-BR = Curso de água
     ru = Водный путь
+    uk = Водяний шлях
     zh-Hans = 航道要素
 
   [type.waterway.canal]
@@ -20221,13 +18033,14 @@
 
   [type.waterway.dam]
     en = Dam
-    de = Damm
+    de = Staudamm
     fi = Pato
     fr = Dam
     ja = ダム
     pt = Barragem
     pt-BR = Usina
-    ru = Плотина
+    ru = Дамба
+    uk = Дамба
     zh-Hans = 水坝
 
   [type.waterway.ditch]
@@ -20239,6 +18052,7 @@
     pt = Vala
     pt-BR = Vala
     ru = Канава
+    uk = Канава
     zh-Hans = 水沟
 
   [type.waterway.ditch.tunnel]
@@ -20249,16 +18063,19 @@
     pt = Vala
     pt-BR = Vala
     ru = Канава
+    uk = Канава
     zh-Hans = 水沟
 
   [type.waterway.dock]
     en = Waterway Dock
+    de = Dock
     fi = Telakka
     fr = Cale
     ja = ドック
     pt = Doca
     pt-BR = Doca
     ru = Причал
+    uk = Причал
     zh-Hans = 船坞
 
   [type.waterway.drain]
@@ -20268,6 +18085,7 @@
     pt = Valeta de drenagem
     pt-BR = Valeta de drenagem
     ru = Водоотвод
+    uk = Водовiдвiд
     zh-Hans = 渠
 
   [type.waterway.drain.tunnel]
@@ -20277,21 +18095,24 @@
     pt = Valeta de drenagem
     pt-BR = Valeta de drenagem
     ru = Водоотвод
+    uk = Водовiдвiд
     zh-Hans = 渠
 
   [type.waterway.lock]
     en = Waterway Lock
+    de = Schleuse
     fr = Écluse
     pt = Eclusa
     pt-BR = Eclusa
     ru = Шлюз
+    uk = Шлюз
 
   [type.waterway.lock_gate]
     en = Lock Gate
     ar = بوابة هويس
     cs = Stavidlo
     da = Låseport
-    de = Schleuse
+    de = Schleusentor
     el = Φράγμα
     es = Compuerta
     fi = Kanavasulku
@@ -20319,8 +18140,8 @@
 
   [type.waterway.river]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Fluss
@@ -20352,8 +18173,8 @@
 
   [type.waterway.river.tunnel]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Fluss
@@ -20385,8 +18206,8 @@
 
   [type.waterway.riverbank]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Flussufer
@@ -20418,8 +18239,8 @@
 
   [type.waterway.stream]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
     de = Bach
@@ -20451,11 +18272,11 @@
 
   [type.waterway.stream.ephemeral]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
-    de = Fluss
+    de = Bach
     el = Ποταμός
     es = Río
     fa = رودخانه
@@ -20484,11 +18305,11 @@
 
   [type.waterway.stream.intermittent]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
-    de = Fluss
+    de = Bach
     el = Ποταμός
     es = Río
     fa = رودخانه
@@ -20517,11 +18338,11 @@
 
   [type.waterway.stream.tunnel]
     en = River
-    be = Рака
     ar = نهر
+    be = Рака
     cs = Řeka
     da = Flod
-    de = Fluss
+    de = Bach
     el = Ποταμός
     es = Río
     fa = رودخانه
@@ -20587,6 +18408,7 @@
     pt = Represa
     pt-BR = Açude
     ru = Плотина
+    uk = Гребля
     zh-Hans = 堰
 
   [type.wheelchair]
@@ -20597,6 +18419,7 @@
     pt = Cadeiras de rodas
     pt-BR = Cadeiras de rodas
     ru = Инвалидная коляска
+    uk = Iнвалiдний вiзок
     zh-Hans = 轮椅
 
   [type.wheelchair.limited]
@@ -20702,102 +18525,134 @@
     zh-Hant = 配備殘疾人專用
 
   [type.piste_lift]
-    en = piste:lift
+    comment = en.wikipedia.org/wiki/Surface_lift
+    en = Surface Lift
+    de = Lift
     pt = Telesqui
     pt-BR = Telesqui
-    ru = Подъёмник
+    ru = Бугельный подъёмник
+    uk = Бугельний витяг
 
   [type.piste_lift.j.bar]
-    en = piste:lift-j-bar
+    en = J-bar Lift
+    de = Schlepplift
     pt = Telesqui de barra em J
     pt-BR = Telesqui de barra em J
-    ru = Подъёмник
+    ru = Бугельный подъёмник
+    uk = Бугельний витяг
 
   [type.piste_lift.magic_carpet]
-    en = piste:lift-magic_carpet
+    en = Magic Carpet
+    de = Laufband
     pt = Tapete deslizante
     pt-BR = Tapete deslizante
     ru = Ленточный конвейер
+    uk = Стрiчковий конвеєр
 
   [type.piste_lift.platter]
-    en = piste:lift-platter
+    en = Platter Lift
+    de = Tellerlift
     pt = Telesqui de disco
     pt-BR = Telesqui de disco
-    ru = Подъёмник
+    ru = Бугельный подъёмник
+    uk = Бугельний витяг
 
   [type.piste_lift.rope_tow]
-    en = piste:lift-rope_tow
+    en = Rope Tow
+    de = Seillift
     pt = Telesqui de corda
     pt-BR = Telesqui de corda
-    ru = Подъёмник
+    ru = Бугельный подъёмник
+    uk = Бугельний витяг
 
   [type.piste_lift.t.bar]
-    en = piste:lift-t-bar
+    en = T-bar Lift
+    de = T-Bügel-Lift
     pt = Telesqui de barra em T
     pt-BR = Telesqui de barra em T
-    ru = Подъёмник
+    ru = Бугельный подъёмник
+    uk = Бугельний витяг
 
   [type.piste_type]
-    en = piste:type
+    en = Piste Type
+    de = Pistentyp
     pt = Tipo de pista
     pt-BR = Tipo de pista
     ru = Тип трассы
+    uk = Тип траси
 
   [type.piste_type.downhill]
-    en = piste:type-downhill
+    en = Downhill Ski Run
+    de = Abfahrt
     fi = Laskettelurinne
     pt = Esqui alpino
     pt-BR = Esqui alpino
     ru = Горнолыжная трасса
+    uk = Гірськолижна траса
 
   [type.piste_type.downhill.advanced]
-    en = piste:type-downhill-advanced
+    ref = type.piste_type.downhill
+    de = Schwierige Abfahrt
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
     ru = Продвинутая горнолыжная трасса
+    uk = Доповнена гірськолижна траса
 
   [type.piste_type.downhill.easy]
-    en = piste:type-downhill-easy
+    ref = type.piste_type.downhill
+    de = Leichte Abfahrt
     pt = Esqui alpino fácil
     pt-BR = Esqui alpino fácil
     ru = Лёгкая горнолыжная трасса
+    uk = Легка гірськолижна траса
 
   [type.piste_type.downhill.expert]
-    en = piste:type-downhill-expert
+    ref = type.piste_type.downhill
+    de = Profi Abfahrt
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
     ru = Горнолыжная трасса для экспертов
+    uk = Гірськолижна траса для експертів
 
   [type.piste_type.downhill.freeride]
-    en = piste:type-downhill-freeride
+    ref = type.piste_type.downhill
     pt = Esqui alpino livre
     pt-BR = Esqui alpino livre
     ru = Горнолыжная трасса для фрирайда
+    uk = Гірськолижна траса вільного спуска
 
   [type.piste_type.downhill.intermediate]
-    en = piste:type-downhill-intermediate
+    ref = type.piste_type.downhill
+    de = Mittelschwere Abfahrt
     pt = Esqui alpino intermédio
     pt-BR = Esqui alpino intermédio
     ru = Горнолыжная трасса средней сложности
+    uk = Гірськолижна траса середнього рівня
 
   [type.piste_type.downhill.novice]
-    en = piste:type-downhill-novice
+    ref = type.piste_type.downhill
+    de = Anfängerfreundliche Abfahrt
     pt = Esqui alpino iniciante
     pt-BR = Esqui alpino iniciante
     ru = Горнолыжная трасса для новичков
+    uk = Гірськолижна траса для новеньких
 
   [type.piste_type.nordic]
-    en = piste:type-nordic
+    en = Nordic Ski Trail
+    de = Langlaufloipe
     fi = Latu
     pt = Pista tipo nórdico
     pt-BR = Pista tipo nórdico
-    ru = Трасса для скандинавской ходьбы
+    ru = Лыжня
+    uk = Лижня
 
   [type.piste_type.sled]
-    en = piste:type-sled
+    en = Sledding Piste
+    de = Rodelbahn
     pt = Pista para trenós
     pt-BR = Pista para trenós
     ru = Трасса для саней
+    uk = Траса для санок
 
   [type.building_part]
     en = Building
@@ -20830,115 +18685,3 @@
     vi = Tòa nhà
     zh-Hans = 建筑部分
     zh-Hant = 建築物
-
-  [type.area_highway.cycleway]
-    en = Bike Path
-    de = Radweg
-    fi = Pyörätie
-    fr = Piste cyclable
-    pt = Ciclovia
-    pt-BR = Ciclovia
-    ru = Велодорожка
-
-  [type.area_highway.footway]
-    en = Path
-    de = Weg
-    fi = Kävelytie
-    fr = Chemin
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    ru = Дорожка
-
-  [type.area_highway.living_street]
-    en = Street
-    fr = Zone de rencontre
-    pt = Zona de coexistência
-    pt-BR = Zona de coexistência
-    ru = Улица
-
-  [type.area_highway.motorway]
-    en = area:highway-motorway
-    fi = Moottoritie
-    fr = Autoroute
-    pt = Autoestrada
-    pt-BR = Rodovia
-    ru = Автомагистраль
-
-  [type.area_highway.path]
-    en = Path
-    fi = Polku
-    fr = Chemin
-    pt = Caminho
-    pt-BR = Caminho
-    ru = Дорожка
-
-  [type.area_highway.pedestrian]
-    en = Street
-    fi = Kävelykatu
-    fr = Rue piétonne
-    pt = Rua pedonal
-    pt-BR = Rua pedonal
-    ru = Улица
-
-  [type.area_highway.primary]
-    en = Street
-    fr = Rue
-    pt = Estrada primária
-    pt-BR = Estrada
-    ru = Улица
-
-  [type.area_highway.residential]
-    en = Street
-    fi = Katu
-    fr = Rue
-    pt = Rua residencial
-    pt-BR = Rua residencial
-    ru = Улица
-
-  [type.area_highway.secondary]
-    en = Street
-    fr = Rue
-    pt = Estrada secundária
-    pt-BR = Estrada
-    ru = Улица
-
-  [type.area_highway.service]
-    en = Street
-    fr = Rue
-    pt = Estrada de acesso ou serviço
-    pt-BR = Estrada de acesso ou serviço
-    ru = Улица
-
-  [type.area_highway.tertiary]
-    en = Street
-    fr = Rue
-    pt = Estrada terciária
-    pt-BR = Estrada
-    ru = Улица
-
-  [type.area_highway.steps]
-    en = Steps
-    fi = Portaat
-    fr = Escaliers
-    pt = Escadas
-    pt-BR = Escadas
-    ru = Лестница
-
-  [type.area_highway.track]
-    en = area:highway-track
-    pt = Pista para desportos não motorizados
-    pt-BR = Pista para desportos não motorizados
-    ru = Грунтовая дорога
-
-  [type.area_highway.trunk]
-    en = area:highway-trunk
-    fr = Voie rapide
-    pt = Via rápida
-    pt-BR = Via expressa
-    ru = Автомобильная трасса
-
-  [type.area_highway.unclassified]
-    en = area:highway-unclassified
-    fr = Rue
-    pt = Estrada sem classificação
-    pt-BR = Estrada sem classificação

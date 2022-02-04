@@ -4,7 +4,7 @@ default_platform(:ios)
 platform :ios do
   private_lane :prepare do
     if is_ci
-      xcversion(version: "~> 12")
+      xcversion(version: "~> 13.2.1")
       setup_ci # creates MATCH_KEYCHAIN_NAME on CI
       ensure_env_vars(
         env_vars: ['APPSTORE_CERTIFICATE_PASSWORD']
@@ -45,12 +45,8 @@ platform :ios do
   end
 
   private_lane :generate_version do
-    timestamp = sh('git log -1 --format=%ct').strip
-    date_of_last_commit = sh('date -u -r ' + timestamp + " '+%Y-%m-%d'").strip
-    build_number = sh('git rev-list --count --after="' + date_of_last_commit + 'T00:00:00Z" HEAD').strip
-    version_number = date_of_last_commit.gsub!('-', '.')
-    lane_context[SharedValues::VERSION_NUMBER] = version_number
-    lane_context[SharedValues::BUILD_NUMBER] = build_number
+    lane_context[SharedValues::VERSION_NUMBER] = sh('../../tools/unix/version.sh ios_version').strip
+    lane_context[SharedValues::BUILD_NUMBER] = sh('../../tools/unix/version.sh ios_build').strip
   end
 
   private_lane :generate_testflight_changelog do
@@ -62,10 +58,11 @@ platform :ios do
     prepare
     generate_version
     generate_testflight_changelog
-    build_app(
+    build_ios_app(
       workspace: 'omim.xcworkspace',
       scheme: 'OMaps',
       configuration: 'Release',
+      silent: false,
       clean: false,
       include_symbols: true,
       include_bitcode: true,

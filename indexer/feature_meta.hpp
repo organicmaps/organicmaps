@@ -111,7 +111,8 @@ public:
   /// For types parsed from OSM get corresponding OSM tag to MetadataTagProcessor::TypeFromString().
   enum EType : int8_t
   {
-    FMD_CUISINE = 1,
+    // Defined by classifier types now.
+    //FMD_CUISINE = 1,
     FMD_OPEN_HOURS = 2,
     FMD_PHONE_NUMBER = 3,
     FMD_FAX_NUMBER = 4,
@@ -127,7 +128,7 @@ public:
     FMD_EMAIL = 14,
     FMD_POSTCODE = 15,
     FMD_WIKIPEDIA = 16,
-    // FMD_MAXSPEED used to be 17 but now it is stored in a section of its own.
+    FMD_DESCRIPTION = 17,
     FMD_FLATS = 18,
     FMD_HEIGHT = 19,
     FMD_MIN_HEIGHT = 20,

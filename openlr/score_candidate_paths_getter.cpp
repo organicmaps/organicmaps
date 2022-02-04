@@ -28,14 +28,13 @@ using namespace std;
 
 namespace openlr
 {
-namespace
+namespace scpg
 {
 int constexpr kNumBuckets = 256;
 double constexpr kAnglesInBucket = 360.0 / kNumBuckets;
 
 double ToAngleInDeg(uint32_t angleInBuckets)
 {
-  CHECK_GREATER_OR_EQUAL(angleInBuckets, 0, ());
   CHECK_LESS_OR_EQUAL(angleInBuckets, 255, ());
   return base::Clamp(kAnglesInBucket * static_cast<double>(angleInBuckets), 0.0, 360.0);
 }
@@ -43,16 +42,14 @@ double ToAngleInDeg(uint32_t angleInBuckets)
 uint32_t BearingInDeg(m2::PointD const & a, m2::PointD const & b)
 {
   auto const angle = location::AngleToBearing(base::RadToDeg(ang::AngleTo(a, b)));
-  CHECK_LESS_OR_EQUAL(angle, 360.0, ());
-  CHECK_GREATER_OR_EQUAL(angle, 0.0, ());
+  CHECK(0.0 <= angle && angle <= 360.0, (angle));
   return angle;
 }
 
 double DifferenceInDeg(double a1, double a2)
 {
   auto const diff = 180.0 - abs(abs(a1 - a2) - 180.0);
-  CHECK_LESS_OR_EQUAL(diff, 180.0, ());
-  CHECK_GREATER_OR_EQUAL(diff, 0.0, ());
+  CHECK(0.0 <= diff && diff <= 180.0, (diff));
   return diff;
 }
 
@@ -69,7 +66,7 @@ void EdgeSortUniqueByStartAndEndPoints(Graph::EdgeListT & edges)
         return e1.GetStartPoint() == e2.GetStartPoint() && e1.GetEndPoint() == e2.GetEndPoint();
       });
 }
-}  // namespace
+}  // namespace scpg
 
 // ScoreCandidatePathsGetter::Link ----------------------------------------------------------------------
 Graph::Edge ScoreCandidatePathsGetter::Link::GetStartEdge() const
@@ -194,7 +191,7 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
     // It's possible that road edges are duplicated a lot of times. It's a error but
     // a mapper may do that. To prevent a combinatorial explosion while matching
     // duplicated edges should be removed.
-    EdgeSortUniqueByStartAndEndPoints(edges);
+    scpg::EdgeSortUniqueByStartAndEndPoints(edges);
 
     for (auto const & e : edges)
     {
@@ -325,9 +322,9 @@ bool ScoreCandidatePathsGetter::GetBearingScore(BearingPointsSelector const & po
 {
   auto const bearEndPoint = pointsSelector.GetEndPoint(part.m_edge, part.m_distanceM);
 
-  auto const bearingDeg = BearingInDeg(bearStartPoint, bearEndPoint);
-  double const requiredBearingDeg = ToAngleInDeg(requiredBearing);
-  double const angleDeviationDeg = DifferenceInDeg(bearingDeg, requiredBearingDeg);
+  auto const bearingDeg = scpg::BearingInDeg(bearStartPoint, bearEndPoint);
+  double const requiredBearingDeg = scpg::ToAngleInDeg(requiredBearing);
+  double const angleDeviationDeg = scpg::DifferenceInDeg(bearingDeg, requiredBearingDeg);
 
   // If the bearing according to osm segments (|bearingDeg|) is significantly different
   // from the bearing set in openlr (|requiredBearingDeg|) the candidate should be skipped.

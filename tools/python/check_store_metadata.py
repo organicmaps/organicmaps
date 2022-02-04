@@ -10,6 +10,27 @@ from urllib.parse import urlparse
 
 os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", ".."))
 
+# https://support.google.com/googleplay/android-developer/answer/9844778?visit_id=637740303439369859-3116807078&rd=1#zippy=%2Cview-list-of-available-languages
+GPLAY_LOCALES = [
+    "af", "am", "ar", "hy-AM", "az-AZ", "eu-ES", "be", "bn-BD", "bg", "my-MM",
+    "ca", "zh-HK", "zh-CN", "zh-TW", "hr", "cs-CZ", "da-DK", "nl-NL", "en-AU",
+    "en-CA", "en-IN", "en-SG", "en-GB", "en-US", "et", "fil", "fi-FI", "fr-FR",
+    "fr-CA", "gl-ES", "ka-GE", "de-DE", "el-GR", "iw-IL", "hi-IN", "hu-HU",
+    "is-IS", "id", "it-IT", "ja-JP", "kn-IN", "km-KH", "ko-KR", "ky-KG",
+    "lo-LA", "lv", "lt", "mk-MK", "ms", "ml-IN", "mr-IN", "mn-MN", "ne-NP",
+    "no-NO", "fa", "pl-PL", "pt-BR", "pt-PT", "ro", "rm", "ru-RU", "sr",
+    "si-LK", "sk", "sl", "es-419", "es-ES", "es-US", "sw", "sv-SE", "ta-IN",
+    "te-IN", "th", "tr-TR", "uk", "vi", "zu",
+]
+
+# From a Fastline error message
+APPSTORE_LOCALES = [
+    "ar-SA", "ca", "cs", "da", "de-DE", "el", "en-AU", "en-CA",
+    "en-GB", "en-US", "es-ES", "es-MX", "fi", "fr-CA", "fr-FR",
+    "he", "hi", "hr", "hu", "id", "it", "ja", "ko", "ms", "nl-NL",
+    "no", "pl", "pt-BR", "pt-PT", "ro", "ru", "sk", "sv", "th", "tr",
+    "uk", "vi", "zh-Hans", "zh-Hant"
+]
 
 def error(path, message, *args, **kwargs):
     print("❌", path + ":", message.format(*args, **kwargs), file=sys.stderr)
@@ -62,7 +83,10 @@ def check_android():
         ok = check_email(flavor + "contact-email.txt") and ok
         ok = check_exact(flavor + "default-language.txt", "en-US") and ok
         maxTitle = 30 if 'google' in flavor else 50
-        for locale in glob.glob(flavor + 'listings/??-??/'):
+        for locale in glob.glob(flavor + 'listings/*/'):
+            if locale.split('/')[-2] not in GPLAY_LOCALES:
+                ok = error(locale, "unsupported locale") and ok
+                continue
             ok = check_text(locale + "title.txt", maxTitle) and ok
             ok = check_text(locale + "short-description.txt", 80) and ok
             ok = check_text(locale + "full-description.txt", 4000) and ok
@@ -72,7 +96,10 @@ def check_android():
 
 def check_ios():
     ok = True
-    for locale in glob.glob('iphone/metadata/??-??/'):
+    for locale in glob.glob('iphone/metadata/*/'):
+        if locale.split('/')[-2] not in APPSTORE_LOCALES:
+            ok = error(locale, "unsupported locale") and ok
+            continue
         ok = check_text(locale + "name.txt", 30) and ok
         ok = check_text(locale + "subtitle.txt", 30) and ok
         ok = check_text(locale + "promotional_text.txt", 170) and ok
@@ -81,6 +108,7 @@ def check_ios():
         ok = check_text(locale + "keywords.txt", 100) and ok
         ok = check_url(locale + "support_url.txt") and ok
         ok = check_url(locale + "marketing_url.txt") and ok
+        ok = check_url(locale + "privacy_url.txt") and ok
     return ok
 
 if __name__ == "__main__":

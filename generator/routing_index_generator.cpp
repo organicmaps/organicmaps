@@ -400,15 +400,15 @@ void CalcCrossMwmTransitionsExperimental(
     }
     auto reader = cont.GetReader(TRANSIT_FILE_TAG);
 
-    transit::experimental::TransitData transitData;
+    ::transit::experimental::TransitData transitData;
     transitData.DeserializeForCrossMwm(*reader.GetPtr());
     auto const & stops = transitData.GetStops();
     auto const & edges = transitData.GetEdges();
 
-    auto const getStopIdPoint = [&stops](transit::TransitId stopId) {
+    auto const getStopIdPoint = [&stops](::transit::TransitId stopId) {
       auto const it = find_if(
           stops.begin(), stops.end(),
-          [stopId](transit::experimental::Stop const & stop) { return stop.GetId() == stopId; });
+          [stopId](::transit::experimental::Stop const & stop) { return stop.GetId() == stopId; });
 
       CHECK(it != stops.end(),
             ("stopId:", stopId, "is not found in stops. Size of stops:", stops.size()));
@@ -542,6 +542,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
                                                            nullptr /* trafficStash */,
                                                            nullptr /* dataSource */,
                                                            nullptr /* numMvmIds */));
+  graph.SetCurrentTimeGetter([time = routing::GetCurrentTimestamp()] { return time; });
   DeserializeIndexGraph(mwmValue, routing::VehicleType::Car, graph);
 
   map<routing::Segment, map<routing::Segment, routing::RouteWeight>> weights;
@@ -561,8 +562,8 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     Algorithm astar;
     IndexGraphWrapper indexGraphWrapper(graph, enter);
     DijkstraWrapperJoints wrapper(indexGraphWrapper, enter);
-    routing::AStarAlgorithm<routing::JointSegment, routing::JointEdge,
-                            routing::RouteWeight>::Context context(wrapper);
+    Algorithm::Context context(wrapper);
+
     unordered_map<uint32_t, vector<routing::JointSegment>> visitedVertexes;
     astar.PropagateWave(
         wrapper, wrapper.GetStartJoint(),
@@ -622,7 +623,6 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
           routing::Segment const & firstChild = jointSegment.GetSegment(true /* start */);
           uint32_t const lastPoint = exit.GetPointId(true /* front */);
 
-          static map<routing::JointSegment, routing::JointSegment> kEmptyParents;
           auto optionalEdge =  graph.GetJointEdgeByLastPoint(parentSegment, firstChild,
                                                              true /* isOutgoing */, lastPoint);
 

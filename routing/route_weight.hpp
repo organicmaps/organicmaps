@@ -75,6 +75,14 @@ public:
 
   friend RouteWeight operator*(double lhs, RouteWeight const & rhs);
 
+  /// @name Penalties in seconds. Actual value see in cpp.
+  /// Made as public-static to change values in routing index generator.
+  /// @todo Consider put this settings in some "configure" profile.
+  /// @{
+  static int s_PassThroughPenaltyS;
+  static int s_AccessPenaltyS;
+  /// @}
+
 private:
   // Regular weight (seconds).
   double m_weight = 0.0;

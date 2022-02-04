@@ -174,8 +174,7 @@ std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
     case Metadata::FMD_FLATS: res.push_back(Props::Flats); break;
     case Metadata::FMD_BUILDING_LEVELS: res.push_back(Props::BuildingLevels); break;
     case Metadata::FMD_LEVEL: res.push_back(Props::Level); break;
-    // Cuisines should be processed sepatately since release 10.0.
-    case Metadata::FMD_CUISINE:
+
     case Metadata::FMD_TURN_LANES:
     case Metadata::FMD_TURN_LANES_FORWARD:
     case Metadata::FMD_TURN_LANES_BACKWARD:
@@ -188,6 +187,7 @@ std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
     case Metadata::FMD_AIRPORT_IATA:
     case Metadata::FMD_BRAND:
     case Metadata::FMD_DURATION:
+    case Metadata::FMD_DESCRIPTION:
     case Metadata::FMD_COUNT:
       break;
       // Please add new cases when compiler issues an "unhandled switch case" warning here.

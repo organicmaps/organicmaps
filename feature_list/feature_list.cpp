@@ -85,10 +85,9 @@ size_t const kLangCount = StringUtf8Multilang::GetSupportedLanguages().size();
 string GetReadableType(FeatureType & f)
 {
   string result;
-  auto const & poiChecker = ftypes::IsPoiChecker::Instance();
-  auto const & placeChecker = ftypes::IsPlaceChecker::Instance();
-  f.ForEachType([&](uint32_t type) {
-    if (poiChecker(type) || placeChecker(type))
+  f.ForEachType([&](uint32_t type)
+  {
+    if (ftypes::IsPoiChecker::Instance()(type) || ftypes::IsPlaceChecker::Instance()(type))
       result = classif().GetReadableObjectName(type);
   });
   return result;
@@ -262,8 +261,6 @@ public:
     string const & contact_twitter = meta.Get(feature::Metadata::FMD_CONTACT_TWITTER);
     string const & contact_vk = meta.Get(feature::Metadata::FMD_CONTACT_VK);
     string const & contact_line = meta.Get(feature::Metadata::FMD_CONTACT_LINE);
-    string cuisine = meta.Get(feature::Metadata::FMD_CUISINE);
-    replace(cuisine.begin(), cuisine.end(), ';', ',');
     string const & stars = meta.Get(feature::Metadata::FMD_STARS);
     string const & internet = meta.Get(feature::Metadata::FMD_INTERNET);
     string const & denomination = meta.Get(feature::Metadata::FMD_DENOMINATION);
@@ -276,7 +273,7 @@ public:
 
     vector<string> columns = {
         osmId,             uid,             lat,           lon,       mwmName, category, name,    city,
-        addrStreet,        addrHouse,       phone,         website,   cuisine, stars,    operatr, internet,
+        addrStreet,        addrHouse,       phone,         website,   stars,    operatr, internet,
         denomination,      wheelchair,      opening_hours, wikipedia, floor,   fee,      atm,     contact_facebook,
         contact_instagram, contact_twitter, contact_vk,    contact_line};
     AppendNames(f, columns);

@@ -30,6 +30,7 @@
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"
 #import "MWMLocationModeListener.h"
+#import "MWMMailViewController.h"
 #import "MWMMapDownloaderButtonTableViewCell.h"
 #import "MWMMapDownloaderCellHeader.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"

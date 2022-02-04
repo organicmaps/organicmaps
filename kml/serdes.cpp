@@ -160,7 +160,7 @@ std::string GetStyleForPredefinedColor(PredefinedColor color)
   }
   UNREACHABLE();
 }
-  
+
 BookmarkIcon GetIcon(std::string const & iconName)
 {
   for (size_t i = 0; i < static_cast<size_t>(BookmarkIcon::Count); ++i)
@@ -596,10 +596,7 @@ bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt,
 
       double rawAltitude;
       if (++iter && strings::to_double(*iter, rawAltitude))
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wconditional-uninitialized"
         altitude = static_cast<geometry::Altitude>(round(rawAltitude));
-#pragma clang diagnostic pop
 
       return true;
     }
@@ -1075,7 +1072,7 @@ void KmlParser::CharData(std::string value)
       {
         // Bookmark draw style.
         m_predefinedColor = ExtractPlacemarkPredefinedColor(value);
-        
+
         // Here we support old-style hotel placemarks.
         if (value == "#placemark-hotel")
         {

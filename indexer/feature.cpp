@@ -601,20 +601,37 @@ string FeatureType::DebugString(int scale)
   m2::PointD keyPoint;
   switch (GetGeomType())
   {
-  case GeomType::Point: keyPoint = m_center; break;
-  case GeomType::Line: keyPoint = m_points.front(); break;
+  case GeomType::Point:
+    keyPoint = m_center;
+    break;
+
+  case GeomType::Line:
+    if (m_points.empty())
+    {
+      ASSERT(scale != FeatureType::WORST_GEOMETRY && scale != FeatureType::BEST_GEOMETRY, (scale));
+      return res;
+    }
+    keyPoint = m_points.front();
+    break;
+
   case GeomType::Area:
+    if (m_triangles.empty())
+    {
+      ASSERT(scale != FeatureType::WORST_GEOMETRY && scale != FeatureType::BEST_GEOMETRY, (scale));
+      return res;
+    }
+
     ASSERT_GREATER(m_triangles.size(), 2, ());
     keyPoint = (m_triangles[0] + m_triangles[1] + m_triangles[2]) / 3.0;
     break;
+
   case GeomType::Undefined:
-    ASSERT(false, ("Assume that we have valid feature always"));
+    ASSERT(false, ());
     break;
   }
 
   // Print coordinates in (lat,lon) for better investigation capabilities.
-  res += "Key point: ";
-  res += DebugPrint(mercator::ToLatLon(keyPoint));
+  res += "Key point: " + DebugPrint(keyPoint) + "; " + DebugPrint(mercator::ToLatLon(keyPoint));
   return res;
 }
 
@@ -754,7 +771,7 @@ void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, string 
   ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit, name);
 }
 
-string FeatureType::GetHouseNumber()
+string const & FeatureType::GetHouseNumber()
 {
   ParseCommon();
   return m_params.house.Get();
@@ -777,7 +794,7 @@ uint8_t FeatureType::GetRank()
 
 uint64_t FeatureType::GetPopulation() { return feature::RankToPopulation(GetRank()); }
 
-string FeatureType::GetRoadNumber()
+string const & FeatureType::GetRoadNumber()
 {
   ParseCommon();
   return m_params.ref;
@@ -799,7 +816,7 @@ std::string FeatureType::GetMetadata(feature::Metadata::EType type)
   if (it == m_metaIds.end())
     return {};
 
-  auto const value = m_metadataDeserializer->GetMetaById(it->second);
+  auto value = m_metadataDeserializer->GetMetaById(it->second);
   m_metadata.Set(type, value);
   return value;
 }

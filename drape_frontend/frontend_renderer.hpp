@@ -71,7 +71,7 @@ struct TapInfo
   static m2::AnyRectD GetBookmarkTapRect(m2::PointD const & mercator, ScreenBase const & screen);
   static m2::AnyRectD GetRoutingPointTapRect(m2::PointD const & mercator, ScreenBase const & screen);
   static m2::AnyRectD GetGuideTapRect(m2::PointD const & mercator, ScreenBase const & screen);
-  static m2::AnyRectD GetPreciseTapRect(m2::PointD const & mercator, double const eps);
+  static m2::AnyRectD GetPreciseTapRect(m2::PointD const & mercator, double eps);
 };
 
 class FrontendRenderer : public BaseRenderer,
@@ -153,9 +153,9 @@ public:
 protected:
   void AcceptMessage(ref_ptr<Message> message) override;
   std::unique_ptr<threads::IRoutine> CreateRoutine() override;
-  
+
   void RenderFrame() override;
-  
+
   void OnContextCreate() override;
   void OnContextDestroy() override;
 

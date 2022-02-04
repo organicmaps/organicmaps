@@ -22,7 +22,7 @@
 
 - (IBAction)osmTap
 {
-  [self.controller openUrl:[NSURL URLWithString:@"https://wiki.openstreetmap.org/wiki/Main_Page"]];
+  [self.controller openUrl:@"https://wiki.openstreetmap.org/wiki/Main_Page"];
 }
 
 @end

@@ -37,7 +37,7 @@ enum class DateTimeRelation
   Equal
 };
 
-DateTimeRelation GetDatesRelation(transit::Date const & date1, transit::Date const & date2)
+DateTimeRelation GetDatesRelation(::transit::Date const & date1, ::transit::Date const & date2)
 {
   if (date1.m_year < date2.m_year)
     return DateTimeRelation::Earlier;
@@ -57,7 +57,7 @@ DateTimeRelation GetDatesRelation(transit::Date const & date1, transit::Date con
   return DateTimeRelation::Equal;
 }
 
-DateTimeRelation GetTimesRelation(transit::Time const & time1, transit::Time const & time2)
+DateTimeRelation GetTimesRelation(::transit::Time const & time1, ::transit::Time const & time2)
 {
   if (time1.m_hour < time2.m_hour)
     return DateTimeRelation::Earlier;
@@ -77,14 +77,14 @@ DateTimeRelation GetTimesRelation(transit::Time const & time1, transit::Time con
   return DateTimeRelation::Equal;
 }
 
-transit::Date GetDate(std::tm const & tm)
+::transit::Date GetDate(std::tm const & tm)
 {
-  return transit::Date(tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
+  return ::transit::Date(tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
 }
 
-transit::Time GetTime(std::tm const & tm)
+::transit::Time GetTime(std::tm const & tm)
 {
-  return transit::Time(tm.tm_hour, tm.tm_min, tm.tm_sec);
+  return ::transit::Time(tm.tm_hour, tm.tm_min, tm.tm_sec);
 }
 }  // namespace
 

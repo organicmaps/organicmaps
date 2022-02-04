@@ -28,6 +28,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.OnmapDownloader;
 import com.mapswithme.maps.editor.ProfileActivity;
+import com.mapswithme.maps.help.HelpActivity;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationProviderFactory;
 import com.mapswithme.maps.sound.LanguageData;
@@ -375,6 +376,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_osm_profile)))
     {
       startActivity(new Intent(getActivity(), ProfileActivity.class));
+    }
+    else if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_help)))
+    {
+      startActivity(new Intent(getActivity(), HelpActivity.class));
     }
     return super.onPreferenceTreeClick(preference);
   }

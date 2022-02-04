@@ -13,7 +13,7 @@ using namespace base::thread_pool::delayed;
 
 UNIT_TEST(ThreadSafeQueue_ThreadSafeQueue)
 {
-  base::threads::ThreadSafeQueue<size_t> queue;
+  threads::ThreadSafeQueue<size_t> queue;
 
   TEST(queue.Empty(), ());
   TEST_EQUAL(queue.Size(), 0, ());
@@ -22,7 +22,7 @@ UNIT_TEST(ThreadSafeQueue_ThreadSafeQueue)
 UNIT_TEST(ThreadSafeQueue_Push)
 {
   size_t const kSize = 100;
-  base::threads::ThreadSafeQueue<size_t> queue;
+  threads::ThreadSafeQueue<size_t> queue;
   ThreadPool pool(2, ThreadPool::Exit::ExecPending);
   for (size_t i = 0; i < kSize; ++i)
   {
@@ -39,7 +39,7 @@ UNIT_TEST(ThreadSafeQueue_Push)
 UNIT_TEST(ThreadSafeQueue_WaitAndPop)
 {
   using namespace std::chrono_literals;
-  base::threads::ThreadSafeQueue<size_t> queue;
+  threads::ThreadSafeQueue<size_t> queue;
   size_t const value = 101;
   size_t result;
   auto thread = std::thread([&]() {
@@ -57,7 +57,7 @@ UNIT_TEST(ThreadSafeQueue_WaitAndPop)
 UNIT_TEST(ThreadSafeQueue_TryPop)
 {
   using namespace std::chrono_literals;
-  base::threads::ThreadSafeQueue<size_t> queue;
+  threads::ThreadSafeQueue<size_t> queue;
   size_t const value = 101;
   size_t result;
   auto thread = std::thread([&]() {
@@ -75,7 +75,7 @@ UNIT_TEST(ThreadSafeQueue_TryPop)
 UNIT_TEST(ThreadSafeQueue_ExampleWithDataWrapper)
 {
   size_t const kSize = 100000;
-  base::threads::ThreadSafeQueue<std::optional<size_t>> queue;
+  threads::ThreadSafeQueue<std::optional<size_t>> queue;
 
   auto thread = std::thread([&]() {
     while (true)
@@ -85,7 +85,6 @@ UNIT_TEST(ThreadSafeQueue_ExampleWithDataWrapper)
       if (!dw.has_value())
         return;
 
-      ASSERT_GREATER_OR_EQUAL(*dw, 0, ());
       ASSERT_LESS_OR_EQUAL(*dw, kSize, ());
     }
   });
