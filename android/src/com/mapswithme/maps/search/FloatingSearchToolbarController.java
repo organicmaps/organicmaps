@@ -34,7 +34,6 @@ public class FloatingSearchToolbarController extends SearchToolbarController
   {
     if (mListener != null)
       mListener.onSearchUpClick(getQuery());
-    cancelSearchApiAndHide(true);
   }
 
   @Override
@@ -52,7 +51,6 @@ public class FloatingSearchToolbarController extends SearchToolbarController
     super.onClearClick();
     if (mListener != null)
       mListener.onSearchClearClick();
-    cancelSearchApiAndHide(false);
   }
 
   public void refreshQuery()
