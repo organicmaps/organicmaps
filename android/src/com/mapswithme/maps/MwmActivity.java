@@ -549,7 +549,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!TextUtils.isEmpty(mSearchController.getQuery()))
     {
       // Close all panels and tool bars (including search) but do not stop search backend
-      closeFloatingToolbarsAndPanels(false, false);
+      closeFloatingToolbars(false, false);
       // Do not show the search tool bar if we are planning or navigating
       if (!RoutingController.get().isNavigating() && !RoutingController.get().isPlanning())
       {
@@ -564,7 +564,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void showPositionChooser(boolean isBusiness, boolean applyPosition)
   {
-    closeFloatingToolbarsAndPanels(false);
+    closeFloatingToolbarsAndPanels(false, true);
     UiUtils.show(mPositionChooser);
     setFullscreen(true);
     Framework.nativeTurnOnChoosePositionMode(isBusiness, applyPosition);
@@ -739,15 +739,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  private void closeFloatingToolbarsAndPanels(boolean clearSearchText)
+  private void closeFloatingToolbarsAndPanels(boolean clearSearchText, boolean stopSearch)
   {
-    closeFloatingToolbarsAndPanels(clearSearchText, true);
+    closeFloatingPanels();
+    closeFloatingToolbars(clearSearchText, stopSearch);
   }
 
-  private void closeFloatingToolbarsAndPanels(boolean clearSearchText, boolean stopSearch)
+  private void closeFloatingPanels()
   {
     closeMenu();
     closePlacePage();
+  }
+
+  private void closeFloatingToolbars(boolean clearSearchText, boolean stopSearch)
+  {
     closeBookmarkCategoryToolbar();
     closePositionChooser();
     closeSearchToolbar(clearSearchText, stopSearch);
@@ -1586,7 +1591,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Context context = getApplicationContext();
     if (show)
     {
-      closeFloatingToolbarsAndPanels(false, false);
       if (mIsTabletLayout)
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
@@ -1610,7 +1614,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      closeFloatingToolbarsAndPanels(true, true);
       if (mIsTabletLayout)
       {
         adjustCompassAndTraffic(UiUtils.getStatusBarHeight(getApplicationContext()));
@@ -1690,7 +1693,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.updateState(false);
     if (show)
     {
-      closeFloatingToolbarsAndPanels(false, false);
       if (mFilterController != null)
         mFilterController.show(false);
     }
@@ -1735,8 +1737,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationStarted()
   {
+    closeFloatingToolbarsAndPanels(true, true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     mNavigationController.start(this);
+  }
+
+  @Override
+  public void onPlanningCancelled()
+  {
+    closeFloatingToolbarsAndPanels(true, true);
+  }
+
+  @Override
+  public void onPlanningStarted()
+  {
+    closeFloatingToolbarsAndPanels(true, true);
   }
 
   @Override
