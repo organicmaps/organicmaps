@@ -423,7 +423,7 @@
   es = Buenos Aires — Norte
   sv = Buenos Aires — Nord
   th = รัฐบัวโนสไอเรส — เหนือ
-  tr = Buenos Aires eyaleti — Kuzey
+  tr = Buenos Aires Eyaleti — Kuzey
   uk = Буенос-Айрес — Північ
   vi = Buenos Aires — Bắc
   zh-Hans = 布宜诺斯艾利斯省 - 北部
@@ -454,7 +454,7 @@
   es = Buenos Aires — Sur
   sv = Buenos Aires — Syd
   th = รัฐบัวโนสไอเรส — ใต้
-  tr = Buenos Aires eyaleti — Güney
+  tr = Buenos Aires Eyaleti — Güney
   uk = Буенос-Айрес — Південь
   vi = Buenos Aires — Nam
   zh-Hans = 布宜诺斯艾利斯省 - 南部
@@ -516,7 +516,7 @@
   es = Mesopotamia argentina
   sv = Mesopotamien
   th = เมโสโปเตเมีย
-  tr = Mesopotamia
+  tr = Mezopotamya
   uk = Месопотамія
   vi = Mesopotamia
   zh-Hans = 美索不达米亚地区 (阿根廷)
@@ -53086,22 +53086,23 @@
   sk = Tunis
 
 [Turkey_Aegean Region Description]
-  en = Izmir, Manisa, Muğla
-  ru = Измир, Маниса, Мугла
+  en = Izmir, Denizli, Muğla
+  ru = Измир, Денизли, Мугла
   de = Izmir
   hu = Manisa, Muğla
   pt = Esmirna
-  uk = Ізмір
+  tr = İzmir, Denizli, Muğla
+  uk = Ізмір, Денізлі
   el = Σμύρνη, Μανίσα, Μούγλα
   he = איזמיר
 
 [Turkey_Black Sea Region Description]
-  en = Düzce, Kastamonu, Bolu
-  ru = Дюздже, Кастамону, Болу
-  hu = Düzce, Bolu
-  tr = Kastamonu
-  uk = Дюздже
-  el = Ντίζσε, Κασταμονή, Μπόλου
+  en = Bolu, Samsun, Trabzon
+  ru = Болу, Самсун, Трабзон
+  hu = Bolu, Samsun, Trabzon
+  tr = Bolu, Samsun, Trabzon
+  uk = Самсун
+  el = Μπόλου, Σαμψούντα, Τραπεζούντα
 
 [Turkey_Central Anatolia Region_Ankara Description]
   en = Ankara, Eskişehir, Konya
@@ -53127,8 +53128,8 @@
   el = Κιρσέχιρ, Σίβας, Νεβσεχίρ
 
 [Turkey_Eastern Anatolia Region Description]
-  en = Muş, Ağrı, Bitlis
-  ru = Муш, Агри, Битлис
+  en = Muş, Ağrı, Van
+  ru = Муш, Агри, Ван
   el = Μους, Αγρί, Μπιτλίς
 
 [Turkey_Marmara Region_Bursa Description]
@@ -53151,6 +53152,7 @@
   pt = Istambul
   es = Estambul
   sv = Istanbul
+  tr = İstanbul, Edirne, Tekirdağ
   uk = Стамбул, Едірне
   el = Κωνσταντινούπολη, Αδριανούπολη, Τεκιρντάγκ
   he = אדירנה
@@ -53162,6 +53164,7 @@
   fr = Antioche
   hu = Burdur, Antakya
   pt = Antália
+  tr = Antalya, Burdur, Hatay
   es = Antioquía
   uk = Бурдур
   el = Αντάλια, Μπουρντούρ, Αντιόχεια
