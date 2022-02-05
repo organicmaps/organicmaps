@@ -2022,13 +2022,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onSearchClearClick()
   {
-    closePlacePage();
+    closeSearchToolbar(true, true);
   }
 
   @Override
   public void onSearchUpClick(@Nullable String query)
   {
-    closePlacePage();
+    closeFloatingToolbarsAndPanels(true, true);
     showSearch(query);
   }
 
