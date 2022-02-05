@@ -811,7 +811,7 @@
 "recent_track_background_dialog_message" = "Organic Maps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps, ücretsiz ve açık kaynaklı bir çevrimdışı harita uygulamasıdır. Reklamsız. İzleme yok. Haritada bir hata görürseniz, lütfen OpenStreetMap'te düzeltin. Proje meraklıları tarafından boş zamanlarımızda oluşturulduğundan geri bildiriminize ve desteğinize ihtiyacımız var.";
+"about_description" = "Organic Maps, reklam ve izleyici içermeyen hızlı ve ücretsiz bir çevrimdışı harita uygulamasıdır. Haritalar kitle kaynaklı OpenStreetMap.org verilerine dayanmaktadır, böylece kendiniz harita hatalarını düzeltebilir ve haritaya yeni nesneler ekleyebilirsiniz. Organic Maps, teknoloji tutkunlarının boş zamanlarında oluşturduğu açık kaynaklı bir projedir. Geri bildirim ve desteğinize çok değer veriyoruz!";
 
 "general_settings" = "Genel ayarlar";
 
@@ -835,7 +835,7 @@
 "mobile_data" = "Mobil İnternet";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Mobil internet; mekanlarla ilgili ayrıntılı bilgileri, yer imlerinizi ve harita güncelleme bildirimlerini görüntülemek için gereklidir.";
+"mobile_data_description" = "Mekanlar ve yer imlerinizle ilgili ayrıntılı bilgileri görüntülemek ve harita güncelleme bildirimleri için mobil internet gereklidir.";
 
 "mobile_data_option_never" = "Asla Kullanma";
 
