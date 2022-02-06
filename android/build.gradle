@@ -72,7 +72,7 @@ dependencies {
 
   // Google Mobile Services
   if (googleMobileServicesEnabled) {
-    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
   }
 
   // Google Firebase Services
