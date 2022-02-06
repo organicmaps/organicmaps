@@ -18,8 +18,6 @@ import java.util.Objects;
 class AndroidNativeProvider extends BaseLocationProvider
 {
   private final static String TAG = AndroidNativeProvider.class.getSimpleName();
-  private final static String[] TRUSTED_PROVIDERS = { LocationManager.NETWORK_PROVIDER,
-                                                      LocationManager.GPS_PROVIDER };
 
   @NonNull
   private final LocationManager mLocationManager;
@@ -42,7 +40,7 @@ class AndroidNativeProvider extends BaseLocationProvider
     if (isActive())
       return;
 
-    List<String> providers = getAvailableProviders(mLocationManager);
+    List<String> providers = mLocationManager.getProviders(true);
     if (providers.isEmpty())
     {
       setActive(false);
@@ -62,7 +60,7 @@ class AndroidNativeProvider extends BaseLocationProvider
 
     LocationHelper.INSTANCE.startSensors();
 
-    Location location = findBestLocation(mLocationManager, providers);
+    Location location = findBestLocation(mLocationManager);
     if (location != null && !getLocationFixChecker().isLocationBetterThanLast(location))
       location = LocationHelper.INSTANCE.getSavedLocation();
 
@@ -98,16 +96,16 @@ class AndroidNativeProvider extends BaseLocationProvider
   static Location findBestLocation(@NonNull Context context)
   {
     final LocationManager manager = (LocationManager) MwmApplication.from(context).getSystemService(Context.LOCATION_SERVICE);
-    return findBestLocation(manager, getAvailableProviders(manager));
+    return findBestLocation(manager);
   }
 
   @Nullable
-  private static Location findBestLocation(LocationManager manager, List<String> providers)
+  private static Location findBestLocation(LocationManager manager)
   {
     Location res = null;
     try
     {
-      for (final String pr : providers)
+      for (final String pr : manager.getProviders(true))
       {
         final Location last = manager.getLastKnownLocation(pr);
         if (last == null)
@@ -121,18 +119,6 @@ class AndroidNativeProvider extends BaseLocationProvider
     {
       LOGGER.e(TAG, "Dynamic permission ACCESS_COARSE_LOCATION/ACCESS_FINE_LOCATION is not granted",
                e);
-    }
-    return res;
-  }
-
-  @NonNull
-  private static List<String> getAvailableProviders(@NonNull LocationManager locationManager)
-  {
-    final List<String> res = new ArrayList<>();
-    for (String provider : TRUSTED_PROVIDERS)
-    {
-      if (locationManager.isProviderEnabled(provider))
-        res.add(provider);
     }
     return res;
   }
