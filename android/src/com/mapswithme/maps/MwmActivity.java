@@ -1135,20 +1135,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (closeMenu() || closePlacePage() || closeSearchToolbar(true, true) ||
-            closeBookmarkCategoryToolbar() || closeSidePanel() || closePositionChooser())
-    {
-      return;
-    }
-
     RoutingController routingController = RoutingController.get();
-    if (routingController.isNavigating())
-    {
-      routingController.resetToPlanningState();
-      return;
-    }
-
-    if (!routingController.cancel())
+    if (!closeMenu() && !closePlacePage() && !closeSearchToolbar(true, true) &&
+            !closeBookmarkCategoryToolbar() && !closeSidePanel() && !closePositionChooser() &&
+            !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
     {
       try
       {
