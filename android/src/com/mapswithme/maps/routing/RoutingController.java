@@ -514,12 +514,20 @@ public class RoutingController implements Initializable<Void>
     backToPlaningStateIfNavigating();
   }
 
-  public void resetToPlanningState()
+  /**
+   * @return False if not navigating, true otherwise
+   */
+  public boolean resetToPlanningStateIfNavigating()
   {
-    build();
-    if (mContainer != null)
-      mContainer.onResetToPlanningState();
-    backToPlaningStateIfNavigating();
+    if (isNavigating())
+    {
+      build();
+      if (mContainer != null)
+        mContainer.onResetToPlanningState();
+      backToPlaningStateIfNavigating();
+      return true;
+    }
+    return false;
   }
 
   private void backToPlaningStateIfNavigating()
