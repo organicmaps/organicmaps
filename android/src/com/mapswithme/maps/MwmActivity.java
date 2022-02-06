@@ -564,7 +564,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void showPositionChooser(boolean isBusiness, boolean applyPosition)
   {
-    closeFloatingToolbarsAndPanels(false, true);
+    closeFloatingToolbarsAndPanels(false);
     UiUtils.show(mPositionChooser);
     setFullscreen(true);
     Framework.nativeTurnOnChoosePositionMode(isBusiness, applyPosition);
@@ -641,6 +641,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mToggleMapLayerController.attachCore();
   }
 
+  /**
+   * @return False if the place page was already closed, true otherwise
+   */
   public boolean closePlacePage()
   {
     if (mPlacePageController.isClosed())
@@ -650,6 +653,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return true;
   }
 
+  /**
+   * @return False if the side panel was already closed, true otherwise
+   */
   public boolean closeSidePanel()
   {
     if (interceptBackPress())
@@ -678,6 +684,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
+  /**
+   * @return False if the menu was already closed, true otherwise
+   */
   public boolean closeMenu()
   {
     if (!getMainMenuController().isClosed())
@@ -689,14 +698,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  public boolean closeMenu(@Nullable Runnable procAfterClose)
+  /**
+   * Tries to close the main menu then runs the given runnable
+   *
+   * @param procAfterClose The runnable to run after closing the menu
+   */
+  public void closeMenu(@Nullable Runnable procAfterClose)
   {
-    boolean closed = closeMenu();
+    closeMenu();
     if (procAfterClose != null)
       procAfterClose.run();
-    return closed;
   }
 
+  /**
+   * @return False if the position chooser was already closed, true otherwise
+   */
   private boolean closePositionChooser()
   {
     if (UiUtils.isVisible(mPositionChooser))
@@ -707,6 +723,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
+  /**
+   * @param clearText True to clear the search query
+   * @param stopSearch True to stop the search engine
+   * @return False if the search toolbar was already closed and the search query was empty, true otherwise
+   */
   private boolean closeSearchToolbar(boolean clearText, boolean stopSearch)
   {
     if (UiUtils.isVisible(mSearchController.getToolbar()) || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
@@ -729,20 +750,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  private boolean closeBookmarkCategoryToolbar()
+  private void closeBookmarkCategoryToolbar()
   {
     if (UiUtils.isVisible(mBookmarkCategoryToolbar))
     {
       hideBookmarkCategoryToolbar();
-      return true;
     }
-    return false;
   }
 
-  private void closeFloatingToolbarsAndPanels(boolean clearSearchText, boolean stopSearch)
+  private void closeFloatingToolbarsAndPanels(boolean clearSearchText)
   {
     closeFloatingPanels();
-    closeFloatingToolbars(clearSearchText, stopSearch);
+    closeFloatingToolbars(clearSearchText, true);
   }
 
   private void closeFloatingPanels()
@@ -1725,7 +1744,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationCancelled()
   {
-    closeFloatingToolbarsAndPanels(true, true);
+    closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     if (mRoutingPlanInplaceController == null)
       return;
@@ -1737,7 +1756,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationStarted()
   {
-    closeFloatingToolbarsAndPanels(true, true);
+    closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     mNavigationController.start(this);
   }
@@ -1745,13 +1764,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlanningCancelled()
   {
-    closeFloatingToolbarsAndPanels(true, true);
+    closeFloatingToolbarsAndPanels(true);
   }
 
   @Override
   public void onPlanningStarted()
   {
-    closeFloatingToolbarsAndPanels(true, true);
+    closeFloatingToolbarsAndPanels(true);
   }
 
   @Override
@@ -2028,7 +2047,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onSearchUpClick(@Nullable String query)
   {
-    closeFloatingToolbarsAndPanels(true, true);
+    closeFloatingToolbarsAndPanels(true);
     showSearch(query);
   }
 
