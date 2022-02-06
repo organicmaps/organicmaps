@@ -10,7 +10,7 @@ abstract class BaseLocationProvider
   static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
   private static final String TAG = BaseLocationProvider.class.getSimpleName();
   @NonNull
-  private final LocationFixChecker mLocationFixChecker;
+  protected final LocationFixChecker mLocationFixChecker;
   private boolean mActive;
   @NonNull
   LocationFixChecker getLocationFixChecker()
