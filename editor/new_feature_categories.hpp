@@ -21,12 +21,10 @@ public:
   using TypeName = std::string;
   using TypeNames = std::vector<TypeName>;
 
+  NewFeatureCategories() = default;
   explicit NewFeatureCategories(editor::EditorConfig const & config);
 
   NewFeatureCategories(NewFeatureCategories && other);
-
-  NewFeatureCategories() = default;
-
   NewFeatureCategories & operator=(NewFeatureCategories && other) = default;
 
   // Adds all known synonyms in language |lang| for all categories that
@@ -46,11 +44,10 @@ public:
   // types corresponding to these names. The language must have been added before.
   // If |lang| is not supported, "en" is used.
   // The returned list is sorted.
-  TypeNames const & GetAllCreatableTypeNames() const;
+  TypeNames const & GetAllCreatableTypeNames() const { return m_types; }
 
 private:
-  using Langs =
-      base::SmallSet<static_cast<uint64_t>(CategoriesHolder::kLocaleMapping.size()) + 1>;
+  using Langs = base::SmallSet<CategoriesHolder::kLocaleMapping.size() + 1>;
 
   indexer::CategoriesIndex m_index;
   Langs m_addedLangs;

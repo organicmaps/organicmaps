@@ -34,6 +34,7 @@ NewFeatureCategories::NewFeatureCategories(editor::EditorConfig const & config)
 NewFeatureCategories::NewFeatureCategories(NewFeatureCategories && other)
   : m_index(std::move(other.m_index)), m_types(std::move(other.m_types))
 {
+  // Do not move m_addedLangs, see Framework::GetEditorCategories() usage.
 }
 
 void NewFeatureCategories::AddLanguage(std::string lang)
@@ -71,8 +72,4 @@ NewFeatureCategories::TypeNames NewFeatureCategories::Search(std::string const &
   return result;
 }
 
-NewFeatureCategories::TypeNames const & NewFeatureCategories::GetAllCreatableTypeNames() const
-{
-  return m_types;
-}
 }  // namespace osm
