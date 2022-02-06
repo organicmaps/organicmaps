@@ -338,7 +338,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mIsTabletLayout)
     {
-      mSearchController.hide();
+      closeSearchToolbar(false, false);
 
       final Bundle args = new Bundle();
       args.putString(SearchActivity.EXTRA_QUERY, query);
@@ -467,10 +467,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (item.getItemId() == R.id.close)
     {
-      hideBookmarkCategoryToolbar();
+      closeBookmarkCategoryToolbar();
       return true;
     }
-
     return false;
   }
 
@@ -530,11 +529,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final Toolbar toolbar = mPositionChooser.findViewById(R.id.toolbar_position_chooser);
     UiUtils.extendViewWithStatusBar(toolbar);
     UiUtils.showHomeUpButton(toolbar);
-    toolbar.setNavigationOnClickListener(v -> hidePositionChooser());
+    toolbar.setNavigationOnClickListener(v -> closePositionChooser());
     mPositionChooser.findViewById(R.id.done).setOnClickListener(
         v ->
         {
-          hidePositionChooser();
+          closePositionChooser();
           if (Framework.nativeIsDownloadedMapAtScreenCenter())
             startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
           else
@@ -808,7 +807,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mIsTabletLayout)
     {
       mPanelAnimator = new PanelAnimator(this);
-      return;
     }
   }
 
@@ -915,7 +913,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void toggleRouteSettings(@NonNull RoadType roadType)
   {
-    mPlacePageController.close(true);
+    closePlacePage();
     RoutingOptions.addOption(roadType);
     rebuildLastRouteInternal();
   }
@@ -1249,7 +1247,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      mPlacePageController.close(true);
+      closePlacePage();
     }
   }
 
@@ -1431,7 +1429,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (RoutingController.get().isNavigating())
     {
       mNavigationController.show(true);
-      mSearchController.hide();
+      closeSearchToolbar(false, false);
       mMainMenu.setState(MainMenu.State.NAVIGATION, mIsFullscreen);
       return;
     }
@@ -2107,7 +2105,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     UiUtils.setupNavigationIcon(mBookmarkCategoryToolbar, v -> {
       BookmarkCategoriesActivity.start(MwmActivity.this, category);
       closePlacePage();
-      hideBookmarkCategoryToolbar();
+      closeBookmarkCategoryToolbar();
     });
 
     showBookmarkCategoryToolbar();
@@ -2276,7 +2274,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onAddPlaceOptionSelected()
     {
-      closePlacePage();
       closeMenu(() -> showPositionChooser(false, false));
     }
 
