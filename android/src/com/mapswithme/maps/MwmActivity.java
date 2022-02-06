@@ -750,12 +750,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  private void closeBookmarkCategoryToolbar()
+  /**
+   * @return False if the bookmark category toolbar was already closed, true otherwise
+   */
+  private boolean closeBookmarkCategoryToolbar()
   {
     if (UiUtils.isVisible(mBookmarkCategoryToolbar))
     {
       hideBookmarkCategoryToolbar();
+      return true;
     }
+    return false;
   }
 
   private void closeFloatingToolbarsAndPanels(boolean clearSearchText)
@@ -1130,23 +1135,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (closeMenu())
-    {
-      return;
-    }
-
-    if (closeSearchToolbar(true, true))
-    {
-      return;
-    }
-
-    if (UiUtils.isVisible(mBookmarkCategoryToolbar) && mPlacePageController.isClosed())
-    {
-      hideBookmarkCategoryToolbar();
-      return;
-    }
-
-    if (closePlacePage() || closeSidePanel() || closePositionChooser())
+    if (closeMenu() || closePlacePage() || closeSearchToolbar(true, true) ||
+            closeBookmarkCategoryToolbar() || closeSidePanel() || closePositionChooser())
     {
       return;
     }
