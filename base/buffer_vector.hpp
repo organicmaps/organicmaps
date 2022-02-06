@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <cstring>       // for memcpy
+#include <iterator>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -47,9 +48,9 @@ public:
     resize(n, c);
   }
 
-  buffer_vector(std::initializer_list<T> const & initList) : m_size(0)
+  buffer_vector(std::initializer_list<T> init) : m_size(0)
   {
-    assign(initList.begin(), initList.end());
+    assign(std::make_move_iterator(init.begin()), std::make_move_iterator(init.end()));
   }
 
   template <typename TIt>
