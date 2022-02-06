@@ -38,7 +38,7 @@ private:
     // VehicleModelInterface overrides:
     SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
     HighwayType GetHighwayType(FeatureType & f) const override;
-    double GetMaxWeightSpeed() const override { return m_maxSpeed; };
+    double GetMaxWeightSpeed() const override { return m_maxSpeed; }
     SpeedKMpH const & GetOffroadSpeed() const override;
     bool IsOneWay(FeatureType & f) const override;
     bool IsRoad(FeatureType & f) const override;

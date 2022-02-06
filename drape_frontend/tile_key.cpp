@@ -22,12 +22,12 @@ uint32_t constexpr GetMask(uint8_t bitsCount)
 
 TileKey::TileKey()
   : m_x(-1), m_y(-1),
-    m_zoomLevel(-1),
+    m_zoomLevel(0),
     m_generation(0),
     m_userMarksGeneration(0)
 {}
 
-TileKey::TileKey(int x, int y, int zoomLevel)
+TileKey::TileKey(int x, int y, uint8_t zoomLevel)
   : m_x(x), m_y(y),
     m_zoomLevel(zoomLevel),
     m_generation(0),
@@ -131,8 +131,8 @@ uint64_t TileKey::GetHashValue(BatcherBucket bucket) const
   auto const x = static_cast<uint64_t>(m_x + kCoordsOffset) & kCoordsMask;
   auto const y = static_cast<uint64_t>(m_y + kCoordsOffset) & kCoordsMask;
 
-  CHECK(m_zoomLevel >= 0 && m_zoomLevel <= kZoomMask, (m_zoomLevel));
-  auto const zoom = static_cast<uint64_t>(m_zoomLevel) & kZoomMask;
+  CHECK(m_zoomLevel <= kZoomMask, (m_zoomLevel));
+  uint64_t const zoom = static_cast<uint64_t>(m_zoomLevel) & kZoomMask;
 
   auto const umg = static_cast<uint64_t>(m_userMarksGeneration % kGenerationMod);
   auto const g = static_cast<uint64_t>(m_generation % kGenerationMod);
@@ -153,7 +153,7 @@ std::string DebugPrint(TileKey const & key)
 {
   std::ostringstream out;
   out << "[x = " << key.m_x << ", y = " << key.m_y << ", zoomLevel = "
-      << key.m_zoomLevel << ", gen = " << key.m_generation
+      << (int)key.m_zoomLevel << ", gen = " << key.m_generation
       << ", user marks gen = " << key.m_userMarksGeneration << "]";
   return out.str();
 }
