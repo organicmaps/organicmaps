@@ -9814,7 +9814,7 @@ zh-Hant:雜貨店
 fa:خرازی
 
 shop-video
-en:Video shop
+en:Video shop|DVD store
 ru:Магазин видео
 bg:Видео магазин|Видео
 ar:متجر فيديو
@@ -9826,7 +9826,7 @@ fr:Boutique de vidéos
 de:Videoshop
 hu:Videotéka
 id:Toko video
-it:Videoteca
+it:Videoteca|Negozio di DVD
 ja:ビデオショップ
 ko:비디오 가게
 nb:Videobutikken
