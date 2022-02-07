@@ -1079,7 +1079,7 @@ highway|rest_area;1080;
 highway|traffic_signals;1081;
 leisure|fitness_centre;[leisure=fitness_centre],[leisure=sports_centre][sport=fitness],[amenity=gym];;name;int_name;1082;
 amenity|vending_machine|excrement_bags;[amenity=vending_machine][vending=excrement_bags];;name;int_name;1083;
-amenity|vending_machine|parcel_pickup;[amenity=vending_machine][vending=parcel_pickup];;name;int_name;1084;
+amenity|parcel_locker;1084;
 leisure|sauna;[leisure=sauna],[amenity=sauna];;name;int_name;1085;
 amenity|vending_machine|fuel;[amenity=vending_machine][vending=fuel];;name;int_name;1086;
 man_made|chimney;1087;
