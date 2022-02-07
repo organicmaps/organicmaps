@@ -4888,14 +4888,6 @@ cont {
       }
       priority: 1177
     }
-    caption {
-      primary {
-        height: 15
-        color: 6381914
-        text: "addr:housenumber"
-      }
-      priority: 15176
-    }
   }
   element {
     scale: 18
@@ -4909,7 +4901,7 @@ cont {
     }
     caption {
       primary {
-        height: 16
+        height: 13
         color: 6381914
         text: "addr:housenumber"
       }
@@ -4928,7 +4920,7 @@ cont {
     }
     caption {
       primary {
-        height: 17
+        height: 14
         color: 6381914
         text: "addr:housenumber"
       }
@@ -4939,46 +4931,14 @@ cont {
 cont {
   name: "building-address"
   element {
-    scale: 16
-    caption {
-      primary {
-        height: 12
-        color: 6645086
-      }
-      secondary {
-        height: 10
-        color: 6381914
-        offset_y: 1
-        text: "int_name"
-      }
-      priority: 15176
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 15
-        color: 6381914
-      }
-      secondary {
-        height: 14
-        color: 6381914
-        offset_y: 1
-        text: "int_name"
-      }
-      priority: 15176
-    }
-  }
-  element {
     scale: 18
     caption {
       primary {
-        height: 16
+        height: 13
         color: 6381914
       }
       secondary {
-        height: 15
+        height: 12
         color: 6381914
         offset_y: 1
         text: "int_name"
@@ -4990,11 +4950,11 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 17
+        height: 14
         color: 6381914
       }
       secondary {
-        height: 17
+        height: 13
         color: 6381914
         offset_y: 1
         text: "int_name"
@@ -5037,14 +4997,6 @@ cont {
       }
       priority: 1177
     }
-    caption {
-      primary {
-        height: 15
-        color: 6381914
-        text: "addr:housenumber"
-      }
-      priority: 15176
-    }
   }
   element {
     scale: 18
@@ -5058,7 +5010,7 @@ cont {
     }
     caption {
       primary {
-        height: 16
+        height: 13
         color: 6381914
         text: "addr:housenumber"
       }
@@ -5077,7 +5029,7 @@ cont {
     }
     caption {
       primary {
-        height: 17
+        height: 14
         color: 6381914
         text: "addr:housenumber"
       }
@@ -5119,14 +5071,6 @@ cont {
       }
       priority: 1177
     }
-    caption {
-      primary {
-        height: 15
-        color: 6381914
-        text: "addr:housenumber"
-      }
-      priority: 15176
-    }
   }
   element {
     scale: 18
@@ -5140,7 +5084,7 @@ cont {
     }
     caption {
       primary {
-        height: 16
+        height: 13
         color: 6381914
         text: "addr:housenumber"
       }
@@ -5159,7 +5103,7 @@ cont {
     }
     caption {
       primary {
-        height: 17
+        height: 14
         color: 6381914
         text: "addr:housenumber"
       }
@@ -5228,20 +5172,11 @@ cont {
         width: 1.0
         color: 13947850
       }
-      priority: 1177
+      priority: 1953
     }
     symbol {
       name: "train-m"
-      priority: 16176
-    }
-    caption {
-      primary {
-        height: 15
-        color: 6381914
-        offset_y: 1
-        text: "addr:housenumber"
-      }
-      priority: 15176
+      priority: 16952
     }
   }
   element {
@@ -5260,7 +5195,7 @@ cont {
     }
     caption {
       primary {
-        height: 16
+        height: 13
         color: 6381914
         offset_y: 1
         text: "addr:housenumber"
@@ -5284,7 +5219,7 @@ cont {
     }
     caption {
       primary {
-        height: 17
+        height: 14
         color: 6381914
         offset_y: 1
         text: "addr:housenumber"
