@@ -1,10 +1,14 @@
 # Format:
-# <replacement>           ::= <original tag> ' : ' <replacement tags list>
+# <replacement>           ::= <original tag> ' : ' <replacement tags list> [' | ' flag]
 # <original tag>          ::= <tag>
 # <replacement tags list> ::= <tag>[', ' <replacement tags list>]
 # <tag>                   ::= <key> '=' <value>
-# <key>                   ::= string without spaces, '=' and ',' symbols
-# <value>                 ::= string without spaces, '=' and ',' symbols
+# <key>                   ::= string without spaces, '=', ',', '|' symbols
+# <value>                 ::= string without spaces, '=', ',', '|' symbols
+# <flag>                  ::= control flag {'u'}
+#     'u' - update/replace existing tag with the same key, if any, e.g. for a feature {amenity=vending, vending=parcel}
+#      we'd like to convert vending=parcel into amenity=parcel, so we'll end up with {amenity=vending, amenity=parcel},
+#      but we don't need amenity=vending, 'u' replaces it with a newly converted amenity=parcel.
 
 atm=yes : amenity=atm
 bench=yes : amenity=bench

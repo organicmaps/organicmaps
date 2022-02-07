@@ -15,26 +15,17 @@ using platform::tests_support::ScopedFile;
 namespace
 {
 void TestReplacer(std::string const & source,
-                  TagReplacer::Replacements const & expectedReplacements)
+                  std::map<TagReplacer::Tag, std::vector<TagReplacer::Tag>> const & expected)
 {
   auto const filename = "test.txt";
   ScopedFile sf(filename, source);
   TagReplacer replacer(sf.GetFullPath());
-  auto const & replacements = replacer.GetReplacementsForTesting();
-  TEST_EQUAL(replacements.size(), expectedReplacements.size(),
-             (source, replacements, expectedReplacements));
-  for (auto const & replacement : replacements)
+
+  for (auto const & r : expected)
   {
-    auto const it = expectedReplacements.find(replacement.first);
-    TEST(it != expectedReplacements.end(),
-         ("Unexpected replacement for key", replacement.first, ":", replacement.second));
-    TEST_EQUAL(replacement.second.size(), it->second.size(),
-               ("Different rules number for tag", replacement.first));
-    for (auto const & tag : replacement.second)
-    {
-      auto const tagIt = std::find(it->second.begin(), it->second.end(), tag);
-      TEST(tagIt != it->second.end(), ("Unexpected rule for tag", replacement.first));
-    }
+    auto const * tags = replacer.GetTagsForTests(r.first);
+    TEST(tags, ());
+    TEST_EQUAL(*tags, r.second, ());
   }
 }
 }  // namespace
@@ -70,38 +61,31 @@ UNIT_TEST(TagsReplacer_Smoke)
 {
   {
     std::string const source = "";
-    TagReplacer::Replacements replacements = {};
-    TestReplacer(source, replacements);
+    TestReplacer(source, {});
   }
   {
     std::string const source = "aerodrome:type=international : aerodrome=international";
-    TagReplacer::Replacements replacements = {
-        {{"aerodrome:type", "international"}, {{"aerodrome", "international"}}}};
-    TestReplacer(source, replacements);
+    TestReplacer(source, {{{"aerodrome:type", "international"}, {{"aerodrome", "international"}}}});
   }
   {
     std::string const source =
         "  aerodrome:type   =   international   :    aerodrome   =  international   ";
-    TagReplacer::Replacements replacements = {
-        {{"aerodrome:type", "international"}, {{"aerodrome", "international"}}}};
-    TestReplacer(source, replacements);
+    TestReplacer(source, {{{"aerodrome:type", "international"}, {{"aerodrome", "international"}}}});
   }
   {
     std::string const source = "natural=marsh : natural=wetland, wetland=marsh";
-    TagReplacer::Replacements replacements = {
-        {{"natural", "marsh"}, {{"natural", "wetland"}, {"wetland", "marsh"}}}};
-    TestReplacer(source, replacements);
+    TestReplacer(source, {{{"natural", "marsh"}, {{"natural", "wetland"}, {"wetland", "marsh"}}}});
   }
   {
     std::string const source =
         "natural = forest : natural = wood\n"
         "# TODO\n"
-        "# natural = ridge + cliff=yes -> natural=cliff\n"
+        "cliff=yes : natural=cliff | u\n"
         "\n"
         "office=travel_agent : shop=travel_agency";
-    TagReplacer::Replacements replacements = {
+    TestReplacer(source, {
+        {{"cliff", "yes"}, {{"natural", "cliff"}}},
         {{"natural", "forest"}, {{"natural", "wood"}}},
-        {{"office", "travel_agent"}, {{"shop", "travel_agency"}}}};
-    TestReplacer(source, replacements);
+        {{"office", "travel_agent"}, {{"shop", "travel_agency"}}}});
   }
 }
