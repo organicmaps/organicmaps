@@ -672,6 +672,7 @@
 	<string name="enable_screen_sleep_description">Дазваляе экрану засынаць пасля перыяда бездзеяння.</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.amenity.fire_station">Пажарная частка</string>
 	<string name="type.amenity.fuel">АЗС</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">Могілкі</string>
@@ -710,6 +711,8 @@
 	<string name="type.barrier.chain">Ланцуг</string>
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
+	<string name="type.emergency.defibrillator">Дэфібрылятар</string>
+	<string name="type.emergency.fire_hydrant">Пажарны гідрант</string>
 	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
 
 	<!-- SECTION: Types: Historic -->
