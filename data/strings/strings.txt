@@ -22003,14 +22003,20 @@
 
   [enable_show_on_lock_screen]
     tags = android
-    en = Show application on lock screen
-    pl = Pokazuj aplikację na ekranie blokady
+    en = Show Organic Maps on the lock screen
+    be = Паказваць Organic Maps на экране блакіроўкі
+    pl = Pokazuj Organic Maps na ekranie blokady
+    ru = Показывать Organic Maps на экране блокировки
+    uk = Показувати Organic Maps на заблокованому екрані
 
   [enable_show_on_lock_screen_description]
     tags = android
     comment = Description in preferences
-    en = When enabled the application will be shown without phone unlocking.
-    pl = Po włączeniu aplikacja będzie pokazana bez odblokowania telefonu.
+    en = When enabled, you don't need to unlock your device every time while the app is running.
+    be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.
+    pl = Po włączeniu nie musisz odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.
+    ru = Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.
+    uk = Якщо ввімкнено, вам не потрібно щоразу розблоковувати пристрій під час роботи програми.
 
   [whats_new_auto_update_title]
     comment = Autoupdate dialog on start
