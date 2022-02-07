@@ -319,6 +319,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     String key = getString(R.string.pref_speed_cameras);
     final ListPreference pref = findPreference(key);
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
     pref.setSummary(pref.getEntry());
@@ -413,6 +414,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initLargeFontSizePrefsCallbacks()
   {
     Preference pref = findPreference(getString(R.string.pref_large_fonts_size));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -435,6 +437,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initTransliterationPrefsCallbacks()
   {
     Preference pref = findPreference(getString(R.string.pref_transliteration));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -503,6 +506,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initLoggingEnabledPrefsCallbacks()
   {
     Preference pref = findPreference(getString(R.string.pref_enable_logging));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -521,6 +525,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initEmulationBadStorage()
   {
     Preference pref = findPreference(getString(R.string.pref_emulate_bad_external_storage));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -531,6 +536,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initAutoZoomPrefsCallbacks()
   {
     final TwoStatePreference pref = findPreference(getString(R.string.pref_auto_zoom));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -550,6 +556,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private boolean initPlayServicesPrefsCallbacks()
   {
     Preference pref = findPreference(getString(R.string.pref_play_services));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return false;
 
@@ -583,6 +590,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void init3dModePrefsCallbacks()
   {
     final TwoStatePreference pref = findPreference(getString(R.string.pref_3d_buildings));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -605,6 +613,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initPerspectivePrefsCallbacks()
   {
     final TwoStatePreference pref = findPreference(getString(R.string.pref_3d));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -627,6 +636,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initAutoDownloadPrefsCallbacks()
   {
     TwoStatePreference pref = findPreference(getString(R.string.pref_autodownload));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -650,6 +660,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initMapStylePrefsCallbacks()
   {
     final ListPreference pref = findPreference(getString(R.string.pref_map_style));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -677,6 +688,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initZoomPrefsCallbacks()
   {
     Preference pref = findPreference(getString(R.string.pref_show_zoom_buttons));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -695,6 +707,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initMeasureUnitsPrefsCallbacks()
   {
     Preference pref = findPreference(getString(R.string.pref_munits));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -740,6 +753,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     String key = getString(R.string.pref_crash_reports);
     Preference pref = findPreference(key);
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return false;
 
@@ -757,6 +771,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initScreenSleepEnabledPrefsCallbacks()
   {
     Preference pref = findPreference(getString(R.string.pref_screen_sleep));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -776,6 +791,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initShowOnLockScreenPrefsCallbacks()
   {
     Preference pref = findPreference(getString(R.string.pref_show_on_lock_screen));
+    // TODO: check whether it's needed #2049
     if (pref == null)
       return;
 
@@ -797,6 +813,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void removePreference(@NonNull String categoryKey, @NonNull Preference preference)
   {
     PreferenceCategory category = findPreference(categoryKey);
+    // TODO: check whether it's needed #2049
     if (category == null)
       return;
 
