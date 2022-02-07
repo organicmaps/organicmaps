@@ -1380,7 +1380,23 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Vending)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
-    TEST(params.IsTypeExist(GetType({"amenity", "vending_machine", "parcel_pickup" })), (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "parcel_locker"})), (params));
+  }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cliff)
+{
+  {
+    Tags const tags = {
+      {"cliff", "yes"},
+      {"natural", "ridge" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    /// @todo natural=cliff is not drawable now ..
+    TEST_EQUAL(params.m_types.size(), 0, (params));
+    //TEST(params.IsTypeExist(GetType({"natural", "cliff"})), (params));
   }
 }
 
@@ -2035,6 +2051,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"amenity", "recycling", "centre"}, {{"amenity", "recycling"}, {"recycling_type","centre"}}},
     {{"amenity", "recycling", "container"}, {{"amenity", "recycling"}, {"recycling_type","container"}}},
     {{"amenity", "recycling"}, {{"amenity", "recycling"}}},
+    {{"amenity", "parcel_locker"}, {{"amenity", "parcel_locker"}}},
     {{"amenity", "vending_machine", "cigarettes"}, {{"amenity", "vending_machine"}, {"vending", "cigarettes"}}},
     {{"amenity", "vending_machine", "drinks"}, {{"amenity", "vending_machine"}, {"vending", "drinks"}}},
     {{"amenity", "vending_machine", "parking_tickets"}, {{"amenity", "vending_machine"}, {"vending", "parking_tickets"}}},

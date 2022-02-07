@@ -671,6 +671,10 @@ node|z17-[vending=parking_tickets],
 area|z17-[vending=parking_tickets],
 node|z17-[amenity=vending_machine],
 area|z17-[amenity=vending_machine],
+node|z17-[amenity=parcel_locker],
+area|z17-[amenity=parcel_locker],
+node|z17-[amenity=post_office],
+area|z17-[amenity=post_office],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 11;text-min-distance: 14;}
 
 /* POI */
@@ -814,18 +818,22 @@ area|z18-[barrier=lift_gate]
 {icon-image: lift_gate-m.svg;}
 
 node|z17-[amenity=vending_machine],
-area|z17-[amenity=vending_machine]
+area|z17-[amenity=vending_machine],
 {icon-image: vending-m.svg;icon-min-distance: 20;}
 node|z17-[amenity=vending_machine][vending=parking_tickets],
 area|z17-[amenity=vending_machine][vending=parking_tickets]
 {icon-image: parking-meter-m.svg;font-size: 13.5;}
-node|z18-[amenity=vending_machine],
-area|z18-[amenity=vending_machine]
-{icon-image: vending-m.svg;}
-node|z18-[vending=parking_tickets],
-area|z18-[vending=parking_tickets]
-{icon-image: parking-meter-m.svg;}
 
+node|z17-[amenity=parcel_locker],
+area|z17-[amenity=parcel_locker],
+{icon-image: mail-m.svg;icon-min-distance: 20;}
+
+node|z17-[amenity=post_office],
+area|z17-[amenity=post_office],
+{icon-image: mail-m.svg;text-optional: true;}
+node|z18-[amenity=post_office],
+area|z18-[amenity=post_office],
+{font-size: 11;text-optional: true;}
 
 /* 6. SHOP */
 

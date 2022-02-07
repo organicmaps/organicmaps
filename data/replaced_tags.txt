@@ -15,13 +15,16 @@ bench=yes : amenity=bench
 shelter=yes : amenity=shelter
 toilets=yes : amenity=toilets
 restaurant=yes : amenity=restaurant
+shop=ice_cream : amenity=ice_cream
+ice_cream=yes : amenity=ice_cream
+
 ford=boat : highway=ford
 ford=intermittent : highway=ford
 ford=seasonal : highway=ford
 ford=stream : highway=ford
 ford=stepping_stones : highway=ford
 ford=yes : highway=ford
-ruins=yes : historic=ruins
+
 drinkable=yes : amenity=drinking_water
 drinking_water=yes : amenity=drinking_water
 water_point=yes : amenity=water_point
@@ -30,12 +33,16 @@ sanitary_dump_station=yes : amenity=sanitary_dump_station
 sanitary_dump_station=customers : amenity=sanitary_dump_station
 sanitary_dump_station=public : amenity=sanitary_dump_station
 waterway=sanitary_dump_station : amenity=sanitary_dump_station
+amenity=monastery : amenity=place_of_worship
+amenity=parking_entrance : amenity=parking
+vending=parcel_pickup;parcel_mail_in : amenity=parcel_locker | u
+vending=parcel_pickup : amenity=parcel_locker | u
+
 building=entrance : entrance=yes
 
 ice_road=yes : highway=ice_road
 winter_road=yes : highway=ice_road
 highway=turning_loop : highway=mini_roundabout
-
 highway=platform : highway=pedestrian
 
 man_made=quay : man_made=pier
@@ -43,13 +50,11 @@ man_made=quay : man_made=pier
 natural=marsh     : natural=wetland, wetland=marsh
 natural=waterfall : waterway=waterfall
 natural=forest    : natural=wood
-# TODO
-# natural = ridge + cliff=yes -> natural=cliff
+cliff=yes         : natural=cliff
 
 office=notary : office=lawyer
 office=administrative : office=government
 
-amenity=monastery : amenity=place_of_worship
 cycleway=opposite_lane : oneway:bicycle=no
 
 power = transformer : power = substation
@@ -61,11 +66,7 @@ diet:vegan=yes : cuisine=vegan
 diet:vegan=only : cuisine=vegan
 diet=vegan : cuisine=vegan
 
-shop=ice_cream : amenity=ice_cream
-ice_cream=yes : amenity=ice_cream
-
-amenity=parking_entrance : amenity=parking
-
+ruins=yes : historic=ruins
 historic=cannon : historic=memorial
 historic=technical_monument : historic=memorial
 historic=shield : historic=memorial
@@ -74,8 +75,6 @@ historic=war_memorial : historic=memorial
 place=allotments : place=neighbourhood
 
 crossing=traffic_signals : highway=traffic_signals
-
-vending=parcel_pickup;parcel_mail_in : vending=parcel_pickup
 
 # Replace top tags from here https://taginfo.openstreetmap.org/search?q=recycling on the common ones.
 recycling:electrical_appliances=yes       : recycling:small_appliances=yes

@@ -3426,7 +3426,7 @@
     ru = Пакеты для экскрементов
     uk = Мішки для екскрементів
 
-  [type.amenity.vending_machine.parcel_pickup]
+  [type.amenity.parcel_locker]
     en = Parcel Locker
     be = Паштамат
     ru = Почтомат

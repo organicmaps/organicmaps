@@ -106,6 +106,8 @@ node[amenity=waste_transfer_station],
 area[amenity=waste_transfer_station],
 node[amenity=vending_machine],
 area[amenity=vending_machine],
+node[amenity=parcel_locker],
+area[amenity=parcel_locker],
 node[aeroway=gate],
 area[aeroway=gate],
 node[amenity=hunting_stand],
@@ -1437,6 +1439,8 @@ node|z17-[power=station],
 area|z17-[power=station],
 node|z17-[amenity=vending_machine],
 area|z17-[amenity=vending_machine],
+node|z17-[amenity=parcel_locker],
+area|z17-[amenity=parcel_locker],
 node|z17-[amenity=events_venue],
 area|z17-[amenity=events_venue],
 node|z17-[aeroway=gate],
@@ -1990,11 +1994,14 @@ node|z17-[amenity=payment_terminal],
 area|z17-[amenity=payment_terminal]
 {icon-image: vending-m.svg;icon-min-distance: 20;}
 node|z17-[amenity=vending_machine],
-area|z17-[amenity=vending_machine]
+area|z17-[amenity=vending_machine],
 {icon-image: vending-m.svg;icon-min-distance: 20;}
 node|z17-[amenity=vending_machine][vending=parking_tickets],
 area|z17-[amenity=vending_machine][vending=parking_tickets]
 {icon-image: parking-meter-m.svg;font-size: 11;}
+node|z17-[amenity=parcel_locker],
+area|z17-[amenity=parcel_locker],
+{icon-image: mail-m.svg;icon-min-distance: 20;}
 
 node|z17-[aeroway=gate],
 area|z17-[aeroway=gate]
