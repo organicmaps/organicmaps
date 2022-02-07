@@ -961,7 +961,7 @@
 	<string name="type.cuisine.vietnamese">Вьетнамская кухня</string>
 	<string name="type.emergency">Экстренная служба</string>
 	<string name="type.emergency.defibrillator">Дефибриллятор</string>
-	<string name="type.emergency.fire_hydrant">Гидрант</string>
+	<string name="type.emergency.fire_hydrant">Пожарный гидрант</string>
 	<string name="type.emergency.phone">Телефон для экстренных вызовов</string>
 	<string name="type.entrance">Вход</string>
 	<string name="type.healthcare.laboratory">Медицинская лаборатория</string>

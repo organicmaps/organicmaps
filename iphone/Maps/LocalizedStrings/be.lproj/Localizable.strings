@@ -1291,7 +1291,7 @@
 
 "type.amenity.ferry_terminal" = "Ferry";
 
-"type.amenity.fire_station" = "Fire Station";
+"type.amenity.fire_station" = "Пажарная частка";
 
 "type.amenity.food_court" = "Food Court";
 
@@ -1748,9 +1748,9 @@
 
 "type.emergency" = "Emergency";
 
-"type.emergency.defibrillator" = "Defibrillator";
+"type.emergency.defibrillator" = "Дэфібрылятар";
 
-"type.emergency.fire_hydrant" = "Fire Hydrant";
+"type.emergency.fire_hydrant" = "Пажарны гідрант";
 
 "type.emergency.phone" = "Emergency Phone";
 

@@ -939,7 +939,7 @@
 	<string name="type.cuisine.vegetarian">Вегетаріанська кухня</string>
 	<string name="type.cuisine.vietnamese">В\'єтнамська кухня</string>
 	<string name="type.emergency.defibrillator">Дефібрилятор</string>
-	<string name="type.emergency.fire_hydrant">Пожежний кран</string>
+	<string name="type.emergency.fire_hydrant">Пожежний гідрант</string>
 	<string name="type.emergency.phone">Аварійний телефон</string>
 	<string name="type.entrance">Вхід</string>
 	<string name="type.healthcare.laboratory">Медична лабораторія</string>

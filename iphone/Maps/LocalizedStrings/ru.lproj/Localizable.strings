@@ -1750,7 +1750,7 @@
 
 "type.emergency.defibrillator" = "Дефибриллятор";
 
-"type.emergency.fire_hydrant" = "Гидрант";
+"type.emergency.fire_hydrant" = "Пожарный гидрант";
 
 "type.emergency.phone" = "Телефон для экстренных вызовов";
 
