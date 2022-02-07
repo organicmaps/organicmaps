@@ -743,7 +743,11 @@ area|z16-[aeroway=terminal]
 
 /* 8.4 Platforms */
 area|z16-[railway=platform],
-area|z16-[public_transport=platform],
+/*
+ Patch to avoid conflicts with highway=bus_stop icon on z16.
+ Unfortunatelly, we can't disable text for nodes only.
+*/
+area|z17-[public_transport=platform],
 {text: name; font-size: 9; fill-opacity: 1; text-color: @building_label; text-position: center;}
 
 /* 9. ISOLINES */
