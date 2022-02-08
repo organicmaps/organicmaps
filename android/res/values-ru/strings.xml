@@ -814,7 +814,7 @@
 	<string name="type.amenity.vending_machine.parking_tickets">Паркомат</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Автомат по продаже билетов</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Пакеты для экскрементов</string>
-	<string name="type.amenity.vending_machine.parcel_pickup">Почтомат</string>
+	<string name="type.amenity.parcel_locker">Почтомат</string>
 	<string name="type.amenity.vending_machine.fuel">Топливная колонка</string>
 	<string name="type.amenity.veterinary">Ветеринарная клиника</string>
 	<string name="type.amenity.waste_basket">Урна</string>

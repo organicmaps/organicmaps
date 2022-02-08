@@ -1450,7 +1450,7 @@
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
-"type.amenity.vending_machine.parcel_pickup" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Parcel Locker";
 
 "type.amenity.vending_machine.fuel" = "Fuel Dispenser";
 

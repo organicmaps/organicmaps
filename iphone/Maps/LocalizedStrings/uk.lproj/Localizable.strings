@@ -1450,7 +1450,7 @@
 
 "type.amenity.vending_machine.excrement_bags" = "Мішки для екскрементів";
 
-"type.amenity.vending_machine.parcel_pickup" = "Поштомат";
+"type.amenity.parcel_locker" = "Поштомат";
 
 "type.amenity.vending_machine.fuel" = "Паливна колонка";
 
