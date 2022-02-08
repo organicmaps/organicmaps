@@ -694,6 +694,9 @@
 	<string name="enable_screen_sleep">Allow screen to sleep</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">When enabled the screen will be allowed to sleep after a period of inactivity.</string>
+	<string name="enable_show_on_lock_screen">Show Organic Maps on the lock screen</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">When enabled, you don\'t need to unlock your device every time while the app is running.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Aerialway</string>
