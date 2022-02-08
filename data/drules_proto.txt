@@ -5131,6 +5131,57 @@ cont {
   }
 }
 cont {
+  name: "amenity-parcel_locker"
+  element {
+    scale: 17
+    symbol {
+      name: "mail-m"
+      priority: 16592
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15592
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "mail-m"
+      priority: 16592
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15592
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "mail-m"
+      priority: 16592
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15592
+    }
+  }
+}
+cont {
   name: "amenity-parking"
   element {
     scale: 15
@@ -8428,57 +8479,6 @@ cont {
 }
 cont {
   name: "amenity-vending_machine-fuel"
-  element {
-    scale: 17
-    symbol {
-      name: "vending-m"
-      priority: 16592
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15592
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "vending-m"
-      priority: 16592
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15592
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "vending-m"
-      priority: 16592
-      min_distance: 20
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15592
-    }
-  }
-}
-cont {
-  name: "amenity-vending_machine-parcel_pickup"
   element {
     scale: 17
     symbol {
@@ -52008,13 +52008,6 @@ cont {
     area {
       color: 15591638
       priority: -15865
-    }
-    caption {
-      primary {
-        height: 9
-        color: 6381914
-      }
-      priority: 15135
     }
   }
   element {
