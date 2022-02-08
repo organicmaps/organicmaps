@@ -68,6 +68,7 @@ world  +
         motorcycle_parking  -
         nightclub  -
         nursing_home  -
+        parcel_locker  -
         parking  +
             fee  -
             multi-storey  -
@@ -119,7 +120,6 @@ world  +
             drinks  -
             excrement_bags  -
             fuel  -
-            parcel_pickup  -
             parking_tickets  -
             public_transport_tickets  -
             {}
