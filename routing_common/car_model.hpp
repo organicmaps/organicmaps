@@ -11,15 +11,15 @@ class CarModel : public VehicleModel
 {
 public:
   CarModel();
-  CarModel(VehicleModel::LimitsInitList const & roadLimits, HighwayBasedInfo const & info);
+  CarModel(LimitsInitList const & roadLimits, HighwayBasedInfo const & info);
 
   // VehicleModelInterface overrides:
   SpeedKMpH const & GetOffroadSpeed() const override;
 
   static CarModel const & AllLimitsInstance();
   static LimitsInitList const & GetOptions();
-  static std::vector<AdditionalRoadTags> const & GetAdditionalTags();
-  static VehicleModel::SurfaceInitList const & GetSurfaces();
+  static AdditionalRoadsList const & GetAdditionalRoads();
+  static SurfaceInitList const & GetSurfaces();
 
   uint32_t GetNoCarTypeForTesting() const { return m_noCarType; }
   uint32_t GetYesCarTypeForTesting() const { return m_yesCarType; }

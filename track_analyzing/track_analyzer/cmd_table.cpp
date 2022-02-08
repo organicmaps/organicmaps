@@ -90,14 +90,16 @@ class CarModelTypes final
 public:
   CarModelTypes()
   {
-    for (auto const & additionalTag : CarModel::GetAdditionalTags())
-      m_hwtags.push_back(classif().GetTypeByPath(additionalTag.m_hwtag));
+    auto const & cl = classif();
 
-    for (auto const & speedForType : CarModel::GetOptions())
-      m_hwtags.push_back(classif().GetTypeByPath(speedForType.m_types));
+    for (auto const & road : CarModel::GetAdditionalRoads())
+      m_hwtags.push_back(cl.GetTypeByPath(road.m_type));
+
+    for (auto const & speed : CarModel::GetOptions())
+      m_hwtags.push_back(cl.GetTypeByPath(speed.m_type));
 
     for (auto const & surface : CarModel::GetSurfaces())
-      m_surfaceTags.push_back(classif().GetTypeByPath(surface.m_types));
+      m_surfaceTags.push_back(cl.GetTypeByPath(surface.m_type));
   }
 
   struct Type

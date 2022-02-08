@@ -140,9 +140,9 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_MaxSpeed)
 UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_Speed)
 {
   {
-    CheckSpeed({GetType("highway", "secondary", "bridge")}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
-    CheckSpeed({GetType("highway", "secondary", "tunnel")}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
-    CheckSpeed({GetType("highway", "secondary")}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
+    CheckSpeed({GetType("highway", "secondary", "bridge")}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
+    CheckSpeed({GetType("highway", "secondary", "tunnel")}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
+    CheckSpeed({GetType("highway", "secondary")}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
   }
 
   CheckSpeed({GetType("highway", "trunk")},
@@ -158,9 +158,9 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_Speed_MultiTypes)
   uint32_t const typeSecondary = GetType("highway", "secondary");
   uint32_t const typeHighway = GetType("highway");
 
-  CheckSpeed({typeTunnel, typeSecondary}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
-  CheckSpeed({typeTunnel, typeHighway}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
-  CheckSpeed({typeHighway, typeTunnel}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
+  CheckSpeed({typeTunnel, typeSecondary}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
+  CheckSpeed({typeTunnel, typeHighway}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
+  CheckSpeed({typeHighway, typeTunnel}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
 }
 
 UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_OneWay)
@@ -168,9 +168,9 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_OneWay)
   uint32_t const typeBridge = GetType("highway", "secondary", "bridge");
   uint32_t const typeOneway = GetOnewayType();
 
-  CheckSpeed({typeBridge, typeOneway}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
+  CheckSpeed({typeBridge, typeOneway}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
   CheckOneWay({typeBridge, typeOneway}, true);
-  CheckSpeed({typeOneway, typeBridge}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
+  CheckSpeed({typeOneway, typeBridge}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
   CheckOneWay({typeOneway, typeBridge}, true);
 
   CheckOneWay({typeOneway}, true);
@@ -182,9 +182,9 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_DifferentSpeeds)
   uint32_t const typePrimary = GetType("highway", "primary");
   uint32_t const typeOneway = GetOnewayType();
 
-  CheckSpeed({typeSecondary, typePrimary}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
+  CheckSpeed({typeSecondary, typePrimary}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
 
-  CheckSpeed({typeSecondary, typePrimary, typeOneway}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
+  CheckSpeed({typeSecondary, typePrimary, typeOneway}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
   CheckOneWay({typePrimary, typeOneway, typeSecondary}, true);
 }
 
@@ -279,13 +279,13 @@ UNIT_TEST(VehicleModel_CarModelValidation)
 
   for (auto const hwType : carRoadTypes)
   {
-    auto const factorIt = kHighwayBasedFactors.find(hwType);
-    TEST(factorIt != kHighwayBasedFactors.cend(), (hwType));
-    TEST(factorIt->second.IsValid(), (hwType, factorIt->second));
+    auto const * factor = kHighwayBasedFactors.Find(hwType);
+    TEST(factor, (hwType));
+    TEST(factor->IsValid(), (hwType, *factor));
 
-    auto const speedIt = kHighwayBasedSpeeds.find(hwType);
-    TEST(speedIt != kHighwayBasedSpeeds.cend(), (hwType));
-    TEST(speedIt->second.IsValid(), (hwType, speedIt->second));
+    auto const * speed = kHighwayBasedSpeeds.Find(hwType);
+    TEST(speed, (hwType));
+    TEST(speed->IsValid(), (hwType, *speed));
   }
 }
 }  // namespace vehicle_model_test

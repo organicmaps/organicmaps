@@ -9,11 +9,11 @@
 #include <array>
 #include <unordered_map>
 
+namespace car_model
+{
 using namespace std;
 using namespace routing;
 
-namespace car_model
-{
 // See model specifics in different countries here:
 //   https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
 
@@ -127,12 +127,12 @@ VehicleModel::LimitsInitList const kCarOptionsGermany = {
     {{"highway", "road"}, true},
     {{"highway", "track"}, false}};
 
-vector<VehicleModel::AdditionalRoadTags> const kAdditionalTags = {
+VehicleModel::AdditionalRoadsList const kAdditionalRoads = {
     // {{highway tags}, {weightSpeed, etaSpeed}}
-    {{"railway", "rail", "motor_vehicle"}, kHighwayBasedSpeeds.at(HighwayType::RailwayRailMotorVehicle)},
-    {{"route", "shuttle_train"}, kHighwayBasedSpeeds.at(HighwayType::RouteShuttleTrain)},
-    {{"route", "ferry"}, kHighwayBasedSpeeds.at(HighwayType::RouteFerry)},
-    {{"man_made", "pier"}, kHighwayBasedSpeeds.at(HighwayType::ManMadePier)}};
+    {{"railway", "rail", "motor_vehicle"}, kHighwayBasedSpeeds.Get(HighwayType::RailwayRailMotorVehicle)},
+    {{"route", "shuttle_train"}, kHighwayBasedSpeeds.Get(HighwayType::RouteShuttleTrain)},
+    {{"route", "ferry"}, kHighwayBasedSpeeds.Get(HighwayType::RouteFerry)},
+    {{"man_made", "pier"}, kHighwayBasedSpeeds.Get(HighwayType::ManMadePier)}};
 
 VehicleModel::SurfaceInitList const kCarSurface = {
   // {{surfaceType, surfaceType}, {weightFactor, etaFactor}}
@@ -178,7 +178,7 @@ void CarModel::Init()
   m_noCarType = classif().GetTypeByPath({"hwtag", "nocar"});
   m_yesCarType = classif().GetTypeByPath({"hwtag", "yescar"});
 
-  AddAdditionalRoadTypes(classif(), car_model::kAdditionalTags);
+  AddAdditionalRoadTypes(classif(), car_model::kAdditionalRoads);
 }
 
 VehicleModelInterface::RoadAvailability CarModel::GetRoadAvailability(feature::TypesHolder const & types) const
@@ -200,12 +200,12 @@ CarModel const & CarModel::AllLimitsInstance()
 }
 
 // static
-routing::VehicleModel::LimitsInitList const & CarModel::GetOptions() { return car_model::kCarOptionsDefault; }
+VehicleModel::LimitsInitList const & CarModel::GetOptions() { return car_model::kCarOptionsDefault; }
 
 // static
-vector<routing::VehicleModel::AdditionalRoadTags> const & CarModel::GetAdditionalTags()
+VehicleModel::AdditionalRoadsList const & CarModel::GetAdditionalRoads()
 {
-  return car_model::kAdditionalTags;
+  return car_model::kAdditionalRoads;
 }
 
 // static

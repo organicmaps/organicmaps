@@ -399,7 +399,7 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & speedLimits)
 
 void BicycleModel::Init()
 {
-  initializer_list<char const *> hwtagYesBicycle = {"hwtag", "yesbicycle"};
+  std::vector<std::string> hwtagYesBicycle = {"hwtag", "yesbicycle"};
 
   auto const & cl = classif();
   m_noBicycleType = cl.GetTypeByPath({"hwtag", "nobicycle"});
@@ -407,27 +407,21 @@ void BicycleModel::Init()
   m_bidirBicycleType = cl.GetTypeByPath({"hwtag", "bidir_bicycle"});
   m_onedirBicycleType = cl.GetTypeByPath({"hwtag", "onedir_bicycle"});
 
-  {
-    vector<AdditionalRoadTags> const tags = {
-        {hwtagYesBicycle, m_maxModelSpeed},
-        {{"route", "ferry"}, bicycle_model::kDefaultSpeeds.at(HighwayType::RouteFerry)},
-        {{"man_made", "pier"}, bicycle_model::kDefaultSpeeds.at(HighwayType::ManMadePier)}};
+  AddAdditionalRoadTypes(cl, {
+      {std::move(hwtagYesBicycle), m_maxModelSpeed},
+      {{"route", "ferry"}, bicycle_model::kDefaultSpeeds.Get(HighwayType::RouteFerry)},
+      {{"man_made", "pier"}, bicycle_model::kDefaultSpeeds.Get(HighwayType::ManMadePier)}
+  });
 
-    AddAdditionalRoadTypes(cl, tags);
-  }
+  // Small dismount speed with obvious inconvenience of a bike in hands.
+  InOutCitySpeedKMpH const dismountSpeed(SpeedKMpH(2.0, 2.0));
 
-  {
-    // Small dismount speed with obvious inconvenience of a bike in hands.
-    InOutCitySpeedKMpH const dismountSpeed(SpeedKMpH(2.0, 2.0));
-
-    vector<AdditionalRoadTags> const tags = {
-        {hwtagYesBicycle, m_maxModelSpeed},
-        {{"highway", "footway"}, dismountSpeed},
-        {{"highway", "pedestrian"}, dismountSpeed},
-        {{"highway", "steps"}, dismountSpeed}};
-
-    AddAdditionalRoadTypes(cl, tags);
-  }
+  /// @todo I suspect that 'highway-footway-bridge/tunnel' will not be processed properly ...
+  AddAdditionalRoadTypes(cl, {
+      {{"highway", "footway"}, dismountSpeed},
+      {{"highway", "pedestrian"}, dismountSpeed},
+      {{"highway", "steps"}, dismountSpeed}
+  });
 }
 
 VehicleModelInterface::RoadAvailability BicycleModel::GetRoadAvailability(feature::TypesHolder const & types) const
