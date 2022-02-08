@@ -21763,7 +21763,9 @@
     tags = android
     en = Show Organic Maps on the lock screen
     be = Паказваць Organic Maps на экране блакіроўкі
+    it = Mostra Organic Maps sulla schermata di blocco
     pl = Pokazuj Organic Maps na ekranie blokady
+    ro = Arată Organic Maps pe ecranul blocat
     ru = Показывать Organic Maps на экране блокировки
     uk = Показувати Organic Maps на заблокованому екрані
 
@@ -21772,7 +21774,9 @@
     comment = Description in preferences
     en = When enabled, you don't need to unlock your device every time while the app is running.
     be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.
+    it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
     pl = Po włączeniu nie musisz odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.
+    ro = Cînd este activată, nu trebuie să deblochezi telefonul de fiecare dată cînd aplicația este în funcțiune.
     ru = Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.
     uk = Якщо ввімкнено, вам не потрібно щоразу розблоковувати пристрій під час роботи програми.
 
