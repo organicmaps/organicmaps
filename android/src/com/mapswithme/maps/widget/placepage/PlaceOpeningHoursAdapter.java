@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import static com.mapswithme.maps.editor.data.TimeFormatUtils.formatWeekdays;
+import static com.mapswithme.maps.editor.data.TimeFormatUtils.formatWeekdaysRange;
 import static com.mapswithme.maps.editor.data.TimeFormatUtils.formatNonBusinessTime;
 
 import com.mapswithme.maps.editor.data.Timespan;
@@ -17,46 +19,84 @@ import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningHoursAdapter.ViewHolder>
 {
-  private Timetable[] mTimetables = {};
-  private int[] closedDays = null;
+  private List<WeekScheduleData> mWeekSchedule = Collections.emptyList();
 
   public PlaceOpeningHoursAdapter() {}
 
-  public PlaceOpeningHoursAdapter(Timetable[] timetables)
+  public PlaceOpeningHoursAdapter(Timetable[] timetables, int firstDayOfWeek)
   {
-    setTimetables(timetables);
+    setTimetables(timetables, firstDayOfWeek);
   }
 
-  public void setTimetables(Timetable[] timetables)
+  public void setTimetables(Timetable[] timetables, int firstDayOfWeek)
   {
-    mTimetables = timetables;
-    closedDays = findUnhandledDays(timetables);
-    notifyDataSetChanged();
-  }
+    int[] weekDays = null;
+    if (firstDayOfWeek == Calendar.SUNDAY)
+      weekDays = new int[]{1, 2, 3, 4, 5, 6, 7};
+    else
+      weekDays = new int[]{2, 3, 4, 5, 6, 7, 1};
 
-  private int[] findUnhandledDays(Timetable[] timetables)
-  {
-    List<Integer> unhandledDays = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+    final List<WeekScheduleData> scheduleData = new ArrayList<>();
 
-    for (Timetable tt : timetables) {
-      for (int weekDay : tt.weekdays) {
-        unhandledDays.remove(Integer.valueOf(weekDay));
+    // timetables array contains only working days. We need to fill non working gaps
+    for (int idx=0; idx < weekDays.length; idx++)
+    {
+      int weekDay = weekDays[idx];
+
+      Timetable tt = findScheduleForWeekDay(timetables, weekDay);
+      if (tt != null)
+      {
+        int startWeekDay = weekDays[idx];
+        while(idx < weekDays.length && tt.containsWeekday(weekDays[idx]))
+          idx++;
+
+        idx--;
+        int endWeekDay = weekDays[idx];
+        scheduleData.add(new WeekScheduleData(startWeekDay, endWeekDay, false, tt));
+      }
+      else
+      {
+        int startIdx = idx;
+        while (idx+1 < weekDays.length)
+        {
+          Timetable tt2 = findScheduleForWeekDay(timetables, weekDays[idx+1]);
+          if (tt2 != null)
+            break;
+          idx ++;
+        }
+
+        scheduleData.add(new WeekScheduleData(weekDays[startIdx], weekDays[idx], true, null));
       }
     }
 
-    if (unhandledDays.isEmpty())
-      return null;
+    mWeekSchedule = scheduleData;
 
-    // Convert List<Integer> to int[].
-    int[] days = new int[unhandledDays.size()];
-    for (int i = 0; i < days.length; i++)
-      days[i] = unhandledDays.get(i);
+    notifyDataSetChanged();
+  }
 
-    return days;
+  public static Timetable findScheduleForWeekDay(Timetable[] tables, int weekDay)
+  {
+    for(Timetable tt : tables)
+      if (tt.containsWeekday(weekDay))
+        return tt;
+
+    return null;
+  }
+
+  public static int[] createRange(int start, int end)
+  {
+    int[] result = new int[end-start+1];
+    for (int i=start; i <= end; i++)
+      result[i-start] = i;
+    return result;
   }
 
   @NonNull
@@ -70,26 +110,25 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position)
   {
-    if (mTimetables == null || position > mTimetables.length || position < 0)
+    if (mWeekSchedule == null || position >= mWeekSchedule.size() || position < 0)
       return;
 
-    if (position == mTimetables.length)
+    final WeekScheduleData schedule = mWeekSchedule.get(position);
+
+    if (schedule.isClosed)
     {
-      if (closedDays == null)
-        return;
-      holder.setWeekdays(formatWeekdays(closedDays));
+      holder.setWeekdays(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
       holder.setOpenTime(holder.itemView.getResources().getString(R.string.day_off));
       holder.hideNonBusinessTime();
       return;
     }
 
-    final Timetable tt = mTimetables[position];
+    final Timetable tt = schedule.timetable;
 
-    final String weekdays = formatWeekdays(tt);
     String workingTime = tt.isFullday ? holder.itemView.getResources().getString(R.string.editor_time_allday)
                                       : tt.workingTimespan.toWideString();
 
-    holder.setWeekdays(weekdays);
+    holder.setWeekdays(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
     holder.setOpenTime(workingTime);
 
     final Timespan[] closedTime = tt.closedTimespans;
@@ -107,7 +146,26 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
   @Override
   public int getItemCount()
   {
-    return (mTimetables != null ? mTimetables.length : 0) + (closedDays == null ? 0 : 1);
+    return (mWeekSchedule != null ? mWeekSchedule.size() : 0);
+  }
+
+  public static class WeekScheduleData
+  {
+    public final int startWeekDay;
+    public final int endWeekDay;
+    public final boolean isClosed;
+    public final Timetable timetable;
+
+    public WeekScheduleData(int startWeekDay, int endWeekDay, boolean isClosed, Timetable timetable)
+    {
+      if(!isClosed && timetable == null)
+        throw new IllegalArgumentException("timetable parameter is null while isClosed = false");
+
+      this.startWeekDay = startWeekDay;
+      this.endWeekDay = endWeekDay;
+      this.isClosed = isClosed;
+      this.timetable = timetable;
+    }
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder

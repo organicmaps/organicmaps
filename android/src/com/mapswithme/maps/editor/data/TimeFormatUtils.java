@@ -39,9 +39,17 @@ public class TimeFormatUtils
     return sShortWeekdays[day];
   }
 
-  public static String formatWeekdays(@NonNull Timetable timetable)
+  public static String formatWeekdaysRange(int startWeekDay, int endWeekDay)
   {
     refreshWithCurrentLocale();
+    if (startWeekDay == endWeekDay)
+      return sShortWeekdays[startWeekDay];
+    else
+      return sShortWeekdays[startWeekDay] + "-" + sShortWeekdays[endWeekDay];
+  }
+
+  public static String formatWeekdays(@NonNull Timetable timetable)
+  {
     return formatWeekdays(timetable.weekdays);
   }
 
@@ -50,6 +58,7 @@ public class TimeFormatUtils
     if (weekdays.length == 0)
       return "";
 
+    refreshWithCurrentLocale();
     final StringBuilder builder = new StringBuilder(sShortWeekdays[weekdays[0]]);
     boolean iteratingRange;
     for (int i = 1; i < weekdays.length; )
