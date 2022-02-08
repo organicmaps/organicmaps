@@ -277,7 +277,8 @@ PedestrianModel::PedestrianModel()
 }
 
 PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & speedLimits)
-  : VehicleModel(classif(), speedLimits, pedestrian_model::kPedestrianSurface, {pedestrian_model::kDefaultSpeeds, pedestrian_model::kDefaultFactors})
+  : VehicleModel(classif(), speedLimits, pedestrian_model::kPedestrianSurface,
+                {pedestrian_model::kDefaultSpeeds, pedestrian_model::kDefaultFactors})
 {
   Init();
 }
@@ -291,17 +292,16 @@ SpeedKMpH const & PedestrianModel::GetOffroadSpeed() const { return pedestrian_m
 
 void PedestrianModel::Init()
 {
-  initializer_list<char const *> hwtagYesFoot = {"hwtag", "yesfoot"};
+  std::vector<std::string> hwtagYesFoot = {"hwtag", "yesfoot"};
 
   m_noFootType = classif().GetTypeByPath({ "hwtag", "nofoot" });
   m_yesFootType = classif().GetTypeByPath(hwtagYesFoot);
 
-  vector<AdditionalRoadTags> const additionalTags = {
-      {hwtagYesFoot, m_maxModelSpeed},
-      {{"route", "ferry"}, pedestrian_model::kDefaultSpeeds.at(HighwayType::RouteFerry)},
-      {{"man_made", "pier"}, pedestrian_model::kDefaultSpeeds.at(HighwayType::ManMadePier)}};
-
-  AddAdditionalRoadTypes(classif(), additionalTags);
+  AddAdditionalRoadTypes(classif(), {
+      {std::move(hwtagYesFoot), m_maxModelSpeed},
+      {{"route", "ferry"}, pedestrian_model::kDefaultSpeeds.Get(HighwayType::RouteFerry)},
+      {{"man_made", "pier"}, pedestrian_model::kDefaultSpeeds.Get(HighwayType::ManMadePier)}
+  });
 }
 
 VehicleModelInterface::RoadAvailability PedestrianModel::GetRoadAvailability(feature::TypesHolder const & types) const

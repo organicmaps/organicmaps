@@ -2,6 +2,7 @@
 
 #include "routing_common/maxspeed_conversion.hpp"
 
+#include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <array>
@@ -30,7 +31,7 @@ struct InOutCityFactor;
 struct InOutCitySpeedKMpH;
 
 // Each value is equal to the corresponding type index from types.txt.
-// The ascending order is strict.
+// The ascending order is strict. Check for static_cast<HighwayType> in vehicle_model.cpp
 enum class HighwayType : uint32_t
 {
   HighwayResidential = 1,
@@ -61,8 +62,8 @@ enum class HighwayType : uint32_t
   RouteShuttleTrain = 1054,
 };
 
-using HighwayBasedFactors = std::unordered_map<HighwayType, InOutCityFactor, base::EnumClassHash>;
-using HighwayBasedSpeeds = std::unordered_map<HighwayType, InOutCitySpeedKMpH, base::EnumClassHash>;
+using HighwayBasedFactors = base::SmallMap<HighwayType, InOutCityFactor>;
+using HighwayBasedSpeeds = base::SmallMap<HighwayType, InOutCitySpeedKMpH>;
 
 /// \brief Params for calculation of an approximate speed on a feature.
 struct SpeedParams
@@ -245,43 +246,29 @@ public:
 class VehicleModel : public VehicleModelInterface
 {
 public:
-  struct FeatureTypeLimits final
+  struct FeatureTypeLimits
   {
-    FeatureTypeLimits(std::vector<std::string> const & types, bool isPassThroughAllowed)
-      : m_types(types), m_isPassThroughAllowed(isPassThroughAllowed)
-    {
-    }
-
-    std::vector<std::string> m_types;
-    bool m_isPassThroughAllowed;  // Pass through this road type is allowed.
+    std::vector<std::string> m_type;
+    bool m_isPassThroughAllowed;      // pass through this road type is allowed
   };
 
-  // Structure for keeping surface tags: psurface|paved_good, psurface|paved_bad,
-  // psurface|unpaved_good and psurface|unpaved_bad.
   struct FeatureTypeSurface
   {
-    std::vector<std::string> m_types;  // 2-arity road type
+    std::vector<std::string> m_type;  // road surface type 'psurface=*'
     SpeedFactor m_factor;
   };
 
-  struct AdditionalRoadTags final
+  struct AdditionalRoad
   {
-    AdditionalRoadTags() = default;
-
-    AdditionalRoadTags(std::initializer_list<char const *> const & hwtag,
-                       InOutCitySpeedKMpH const & speed)
-      : m_hwtag(hwtag.begin(), hwtag.end()), m_speed(speed)
-    {
-    }
-
-    std::vector<std::string> m_hwtag;
+    std::vector<std::string> m_type;
     InOutCitySpeedKMpH m_speed;
   };
 
+  using AdditionalRoadsList = std::initializer_list<AdditionalRoad>;
   using LimitsInitList = std::initializer_list<FeatureTypeLimits>;
   using SurfaceInitList = std::initializer_list<FeatureTypeSurface>;
 
-  VehicleModel(Classificator const & c, LimitsInitList const & featureTypeLimits,
+  VehicleModel(Classificator const & classif, LimitsInitList const & featureTypeLimits,
                SurfaceInitList const & featureTypeSurface, HighwayBasedInfo const & info);
 
   /// @name VehicleModelInterface overrides.
@@ -319,9 +306,7 @@ protected:
   /// @returns a special restriction which is set to the feature.
   virtual RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const;
 
-  /// Used in derived class constructors only. Not for public use.
-  using AdditionalTagsT = std::vector<AdditionalRoadTags>;
-  void AddAdditionalRoadTypes(Classificator const & c, AdditionalTagsT const & tags);
+  void AddAdditionalRoadTypes(Classificator const & classif, AdditionalRoadsList const & roads);
 
   static uint32_t PrepareToMatchType(uint32_t type);
 
@@ -343,41 +328,6 @@ protected:
   InOutCitySpeedKMpH m_maxModelSpeed;
 
 private:
-  struct AdditionalRoadType final
-  {
-    bool operator==(AdditionalRoadType const & rhs) const { return m_type == rhs.m_type; }
-
-    uint32_t m_type;
-    InOutCitySpeedKMpH m_speed;
-  };
-
-  class RoadType final
-  {
-  public:
-    RoadType(HighwayType hwtype, bool isPassThroughAllowed)
-      : m_highwayType(hwtype), m_isPassThroughAllowed(isPassThroughAllowed)
-    {
-    }
-
-    bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; }
-    HighwayType GetHighwayType() const { return m_highwayType; }
-    bool operator==(RoadType const & rhs) const
-    {
-      return m_highwayType == rhs.m_highwayType &&
-             m_isPassThroughAllowed == rhs.m_isPassThroughAllowed;
-    }
-
-  private:
-    HighwayType const m_highwayType;
-    bool const m_isPassThroughAllowed;
-  };
-
-  struct TypeFactor
-  {
-    uint32_t m_type = 0;
-    SpeedFactor m_factor;
-  };
-
   std::optional<HighwayType> GetHighwayType(uint32_t type) const;
   void GetSurfaceFactor(uint32_t type, SpeedFactor & factor) const;
   void GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad,
@@ -388,19 +338,17 @@ private:
   SpeedKMpH GetSpeedOnFeatureWithMaxspeed(HighwayType const & type,
                                           SpeedParams const & speedParams) const;
 
-  std::vector<AdditionalRoadType>::const_iterator FindAdditionalRoadType(uint32_t type) const;
-
-  std::unordered_map<uint32_t, RoadType> m_roadTypes;
-  // Mapping surface types (psurface|paved_good, psurface|paved_bad, psurface|unpaved_good,
-  // psurface|unpaved_bad) to surface speed factors.
-  // Note. It's an array (not map or unordered_map) because of perfomance reasons.
-  std::array<TypeFactor, 4> m_surfaceFactors;
-
-  /// @todo Do we really need a separate vector of road types or can merge with the m_roadTypes map?
-  std::vector<AdditionalRoadType> m_addRoadTypes;
+  // HW type -> speed and factor.
+  HighwayBasedInfo m_highwayBasedInfo;
   uint32_t m_onewayType;
 
-  HighwayBasedInfo const m_highwayBasedInfo;
+  // HW type -> allow pass through.
+  base::SmallMap<uint32_t, bool> m_roadTypes;
+  // Mapping surface types psurface={paved_good/paved_bad/unpaved_good/unpaved_bad} to surface speed factors.
+  base::SmallMapBase<uint32_t, SpeedFactor> m_surfaceFactors;
+
+  /// @todo Do we really need a separate map here or can merge with the m_roadTypes map?
+  base::SmallMapBase<uint32_t, InOutCitySpeedKMpH> m_addRoadTypes;
 };
 
 class VehicleModelFactory : public VehicleModelFactoryInterface
