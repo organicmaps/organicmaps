@@ -5026,7 +5026,7 @@ fr:Circuit
 de:Rennbahn
 hu:Versenypálya
 id:Lintasan balap
-it:Pista
+it:Pista|Circuito
 ja:1レース場|レース
 ko:경주로|경마장
 nb:Løpebane
