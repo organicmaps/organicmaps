@@ -46,34 +46,34 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
 
     final List<WeekScheduleData> scheduleData = new ArrayList<>();
 
-    // timetables array contains only working days. We need to fill non working gaps
-    for (int idx=0; idx < weekDays.length; idx++)
+    // Timetables array contains only working days. We need to fill non working gaps
+    for (int i=0; i < weekDays.length; i++)
     {
-      int weekDay = weekDays[idx];
+      int weekDay = weekDays[i];
 
       Timetable tt = findScheduleForWeekDay(timetables, weekDay);
       if (tt != null)
       {
-        int startWeekDay = weekDays[idx];
-        while(idx < weekDays.length && tt.containsWeekday(weekDays[idx]))
-          idx++;
+        int startWeekDay = weekDays[i];
+        while (i < weekDays.length && tt.containsWeekday(weekDays[i]))
+          i++;
 
-        idx--;
-        int endWeekDay = weekDays[idx];
-        scheduleData.add(new WeekScheduleData(startWeekDay, endWeekDay, false, tt));
+        i--;
+        int endWeekDay = weekDays[i];
+        scheduleData.add(new WeekScheduleData(startWeekDay, endWeekDay, tt));
       }
       else
       {
-        int startIdx = idx;
-        while (idx+1 < weekDays.length)
+        int startWeekDay = weekDays[i];
+        // Search next working day in timetables
+        while (i+1 < weekDays.length)
         {
-          Timetable tt2 = findScheduleForWeekDay(timetables, weekDays[idx+1]);
-          if (tt2 != null)
+          if (findScheduleForWeekDay(timetables, weekDays[i+1]) != null)
             break;
-          idx ++;
+          i++;
         }
 
-        scheduleData.add(new WeekScheduleData(weekDays[startIdx], weekDays[idx], true, null));
+        scheduleData.add(new WeekScheduleData(startWeekDay, weekDays[i], null));
       }
     }
 
@@ -89,14 +89,6 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
         return tt;
 
     return null;
-  }
-
-  public static int[] createRange(int start, int end)
-  {
-    int[] result = new int[end-start+1];
-    for (int i=start; i <= end; i++)
-      result[i-start] = i;
-    return result;
   }
 
   @NonNull
@@ -156,14 +148,11 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     public final boolean isClosed;
     public final Timetable timetable;
 
-    public WeekScheduleData(int startWeekDay, int endWeekDay, boolean isClosed, Timetable timetable)
+    public WeekScheduleData(int startWeekDay, int endWeekDay, Timetable timetable)
     {
-      if(!isClosed && timetable == null)
-        throw new IllegalArgumentException("timetable parameter is null while isClosed = false");
-
       this.startWeekDay = startWeekDay;
       this.endWeekDay = endWeekDay;
-      this.isClosed = isClosed;
+      this.isClosed = timetable == null;
       this.timetable = timetable;
     }
   }
