@@ -31,7 +31,6 @@ class BindingInfo
 public:
   BindingInfo();
   explicit BindingInfo(uint8_t count, uint8_t id = 0);
-  ~BindingInfo() = default;
 
   uint8_t GetCount() const;
   uint8_t GetID() const;
