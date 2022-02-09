@@ -340,7 +340,7 @@ bool UserEventStream::OnSetScale(ref_ptr<ScaleEvent> scaleEvent)
       ResetAnimations(Animation::Type::MapFollow);
       ResetAnimations(Animation::Type::Parallel, kParallelFollowAnim);
     }
-    
+
     m2::PointD glbScaleCenter = m_navigator.PtoG(m_navigator.P3dtoP(scaleCenter));
     if (m_listener)
       m_listener->CorrectGlobalScalePoint(glbScaleCenter);
@@ -467,7 +467,7 @@ bool UserEventStream::SetAngle(double azimuth, bool isAnim, TAnimationCreator co
   GetTargetScreen(screen);
   m2::PointD pt = m_visibleViewport.Center();
   m2::PointD gPt = screen.PtoG(screen.P3dtoP(pt));
-  
+
   if (screen.isPerspective())
   {
     return SetFollowAndRotate(gPt, pt,
@@ -749,7 +749,7 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
 {
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
-  
+
   // Interrupt kinetic scroll on touch down.
   m_animationSystem.FinishAnimations(Animation::Type::KineticScroll, false /* rewind */, true /* finishAll */);
 
@@ -1052,9 +1052,8 @@ bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
 
   CheckAutoRotate();
 
-  auto const ms = static_cast<uint64_t>(
-              m_kineticTimer.TimeElapsedAs<std::chrono::milliseconds>().count());
-  if (!cancelled && m_kineticScrollEnabled && m_scroller.IsActive() && ms >= kKineticDelayMs)
+  if (!cancelled && m_kineticScrollEnabled && m_scroller.IsActive() &&
+      m_kineticTimer.ElapsedMilliseconds() >= kKineticDelayMs)
   {
     drape_ptr<Animation> anim = m_scroller.CreateKineticAnimation(m_navigator.Screen());
     if (anim != nullptr)
@@ -1143,9 +1142,7 @@ void UserEventStream::DetectShortTap(Touch const & touch)
   if (DetectForceTap(touch))
     return;
 
-  auto const ms = static_cast<uint64_t>(
-              m_touchTimer.TimeElapsedAs<std::chrono::milliseconds>().count());
-  if (ms > kDoubleTapPauseMs)
+  if (m_touchTimer.ElapsedMilliseconds() > kDoubleTapPauseMs)
   {
     m_state = STATE_EMPTY;
     if (m_listener)
@@ -1160,9 +1157,7 @@ void UserEventStream::DetectLongTap(Touch const & touch)
   if (DetectForceTap(touch))
     return;
 
-  auto const ms = static_cast<uint64_t>(
-              m_touchTimer.TimeElapsedAs<std::chrono::milliseconds>().count());
-  if (ms > kLongTouchMs)
+  if (m_touchTimer.ElapsedMilliseconds() > kLongTouchMs)
   {
     TEST_CALL(LONG_TAP_DETECTED);
     m_state = STATE_EMPTY;
@@ -1173,16 +1168,13 @@ void UserEventStream::DetectLongTap(Touch const & touch)
 
 bool UserEventStream::DetectDoubleTap(Touch const & touch)
 {
-  auto const ms = static_cast<uint64_t>(
-              m_touchTimer.TimeElapsedAs<std::chrono::milliseconds>().count());
-  if (m_state != STATE_WAIT_DOUBLE_TAP || ms > kDoubleTapPauseMs)
+  if (m_state != STATE_WAIT_DOUBLE_TAP || m_touchTimer.ElapsedMilliseconds() > kDoubleTapPauseMs)
     return false;
 
   m_state = STATE_WAIT_DOUBLE_TAP_HOLD;
-
   return true;
 }
-  
+
 void UserEventStream::PerformDoubleTap(Touch const & touch)
 {
   ASSERT_EQUAL(m_state, STATE_WAIT_DOUBLE_TAP_HOLD, ());
@@ -1249,7 +1241,7 @@ void UserEventStream::CancelFilter(Touch const & t)
   if (m_listener)
     m_listener->OnSingleTouchFiltrate(m2::PointD(t.m_location), TouchEvent::TOUCH_CANCEL);
 }
-  
+
 void UserEventStream::StartDoubleTapAndHold(Touch const & touch)
 {
   TEST_CALL(BEGIN_DOUBLE_TAP_AND_HOLD);

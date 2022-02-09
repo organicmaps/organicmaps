@@ -353,8 +353,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
         times[i] = t1 - t0;
       }
 
-      avgTimeByCountry[countryId] =
-          base::AverageStats<double>(times.begin(), times.end()).GetAverage();
+      avgTimeByCountry[countryId] = base::AverageStats<double>(times).GetAverage();
 
       if (longest.empty() || avgTimeByCountry[longest] < avgTimeByCountry[countryId])
         longest = countryId;
@@ -396,8 +395,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
         times[i] = t1 - t0;
       }
 
-      avgTimeByCountry[countryId] =
-          base::AverageStats<double>(times.begin(), times.end()).GetAverage();
+      avgTimeByCountry[countryId] = base::AverageStats<double>(times).GetAverage();
 
       if (longest.empty() || avgTimeByCountry[longest] < avgTimeByCountry[countryId])
         longest = countryId;
