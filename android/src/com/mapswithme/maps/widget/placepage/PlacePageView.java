@@ -919,7 +919,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
     }
 
     // Show whole week time table.
-    mOpeningHoursAdapter.setTimetables(timetables, getFirstDayOfWeek());
+    Locale locale = getResources().getConfiguration().locale;
+    int firstDayOfWeek = Calendar.getInstance(locale).getFirstDayOfWeek();
+    mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
     UiUtils.show(mFullWeekOpeningHours);
 
     // Show today's open time + non-business time.
@@ -955,12 +957,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       refreshTodayOpeningHours(resources.getString(R.string.day_off_today), resources.getColor(R.color.base_red));
       UiUtils.hide(mTodayNonBusinessTime);
     }
-  }
-
-  private int getFirstDayOfWeek()
-  {
-    Locale locale = getResources().getConfiguration().locale;
-    return Calendar.getInstance(locale).getFirstDayOfWeek();
   }
 
   private void refreshTodayNonBusinessTime(Timespan[] closedTimespans)
