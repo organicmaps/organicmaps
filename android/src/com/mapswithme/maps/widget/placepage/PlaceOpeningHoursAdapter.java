@@ -1,6 +1,5 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,21 +8,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
-import static com.mapswithme.maps.editor.data.TimeFormatUtils.formatWeekdays;
-import static com.mapswithme.maps.editor.data.TimeFormatUtils.formatWeekdaysRange;
-import static com.mapswithme.maps.editor.data.TimeFormatUtils.formatNonBusinessTime;
-
 import com.mapswithme.maps.editor.data.Timespan;
 import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import static com.mapswithme.maps.editor.data.TimeFormatUtils.formatNonBusinessTime;
+import static com.mapswithme.maps.editor.data.TimeFormatUtils.formatWeekdaysRange;
 
 public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningHoursAdapter.ViewHolder>
 {
@@ -38,11 +32,7 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
 
   public void setTimetables(Timetable[] timetables, int firstDayOfWeek)
   {
-    int[] weekDays = null;
-    if (firstDayOfWeek == Calendar.SUNDAY)
-      weekDays = new int[]{1, 2, 3, 4, 5, 6, 7};
-    else
-      weekDays = new int[]{2, 3, 4, 5, 6, 7, 1};
+    int[] weekDays = buildWeekByFirstDay(firstDayOfWeek);
 
     final List<WeekScheduleData> scheduleData = new ArrayList<>();
 
@@ -80,6 +70,21 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     mWeekSchedule = scheduleData;
 
     notifyDataSetChanged();
+  }
+
+  public static int[] buildWeekByFirstDay(int firstDayOfWeek)
+  {
+    if (firstDayOfWeek < 1 || firstDayOfWeek > 7)
+      throw new IllegalArgumentException("First day of week "+firstDayOfWeek+" is out of range [1..7]");
+
+    int[] weekDays = new int[7];
+    for (int i=0; i<7; i++)
+    {
+      weekDays[i] = (i + firstDayOfWeek);
+      if (weekDays[i] > 7)
+        weekDays[i] -= 7;
+    }
+    return weekDays;
   }
 
   public static Timetable findScheduleForWeekDay(Timetable[] tables, int weekDay)
