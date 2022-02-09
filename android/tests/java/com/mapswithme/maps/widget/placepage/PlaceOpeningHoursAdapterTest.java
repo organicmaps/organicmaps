@@ -8,9 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.spy;
@@ -33,6 +35,42 @@ public class PlaceOpeningHoursAdapterTest {
 
     mWeekScheduleField = PlaceOpeningHoursAdapter.class.getDeclaredField("mWeekSchedule");
     mWeekScheduleField.setAccessible(true);
+  }
+
+  @Test
+  public void test_build_week_from_sunday()
+  {
+    int[] weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.SUNDAY);
+    assertArrayEquals(weekDays, new int[]{1, 2, 3, 4, 5, 6, 7});
+  }
+
+  @Test
+  public void test_build_week_from_monday()
+  {
+    int[] weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.MONDAY);
+    assertArrayEquals(weekDays, new int[]{2, 3, 4, 5, 6, 7, 1});
+  }
+
+  @Test
+  public void test_build_week_from_saturday()
+  {
+    int[] weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.SATURDAY);
+    assertArrayEquals(weekDays, new int[]{7, 1, 2, 3, 4, 5, 6});
+  }
+
+  @Test
+  public void test_build_week_from_friday()
+  {
+    int[] weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.FRIDAY);
+    assertArrayEquals(weekDays, new int[]{6, 7, 1, 2, 3, 4, 5});
+  }
+
+  @Test
+  public void test_build_week_errors()
+  {
+    assertThrows(IllegalArgumentException.class, () -> PlaceOpeningHoursAdapter.buildWeekByFirstDay(-1));
+    assertThrows(IllegalArgumentException.class, () -> PlaceOpeningHoursAdapter.buildWeekByFirstDay(0));
+    assertThrows(IllegalArgumentException.class, () -> PlaceOpeningHoursAdapter.buildWeekByFirstDay(8));
   }
 
   @Test
