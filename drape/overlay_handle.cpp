@@ -38,36 +38,16 @@ OverlayHandle::OverlayHandle(OverlayID const & id, dp::Anchor anchor,
   , m_minVisibleScale(minVisibleScale)
   , m_isBillboard(isBillboard)
   , m_isVisible(false)
-  , m_enableCaching(false)
+  , m_caching(false)
   , m_extendedShapeDirty(true)
   , m_extendedRectDirty(true)
 {}
 
-void OverlayHandle::SetCachingEnable(bool enable)
+void OverlayHandle::EnableCaching(bool enable)
 {
-  m_enableCaching = enable;
+  m_caching = enable;
   m_extendedShapeDirty = true;
   m_extendedRectDirty = true;
-}
-
-bool OverlayHandle::IsVisible() const
-{
-  return m_isVisible;
-}
-
-void OverlayHandle::SetIsVisible(bool isVisible)
-{
-  m_isVisible = isVisible;
-}
-
-int OverlayHandle::GetMinVisibleScale() const
-{
-  return m_minVisibleScale;
-}
-
-bool OverlayHandle::IsBillboard() const
-{
-  return m_isBillboard;
 }
 
 m2::PointD OverlayHandle::GetPivot(ScreenBase const & screen, bool perspective) const
@@ -133,31 +113,19 @@ bool OverlayHandle::HasDynamicAttributes() const
 void OverlayHandle::AddDynamicAttribute(BindingInfo const & binding, uint32_t offset, uint32_t count)
 {
   ASSERT(binding.IsDynamic(), ());
-  ASSERT(std::find_if(m_offsets.begin(), m_offsets.end(),
-                      OffsetNodeFinder(binding.GetID())) == m_offsets.end(), ());
-  m_offsets.insert(std::make_pair(binding, MutateRegion(offset, count)));
-}
-
-OverlayID const & OverlayHandle::GetOverlayID() const
-{
-  return m_id;
-}
-
-uint64_t const & OverlayHandle::GetPriority() const
-{
-  return m_priority;
+  VERIFY(m_offsets.emplace(binding, MutateRegion(offset, count)).second, ());
 }
 
 OverlayHandle::TOffsetNode const & OverlayHandle::GetOffsetNode(uint8_t bufferID) const
 {
-  auto const it = std::find_if(m_offsets.begin(), m_offsets.end(), OffsetNodeFinder(bufferID));
+  auto const it = m_offsets.find(bufferID);
   ASSERT(it != m_offsets.end(), ());
   return *it;
 }
 
 m2::RectD OverlayHandle::GetExtendedPixelRect(ScreenBase const & screen) const
 {
-  if (m_enableCaching && !m_extendedRectDirty)
+  if (m_caching && !m_extendedRectDirty)
     return m_extendedRectCache;
 
   m_extendedRectCache = GetPixelRect(screen, screen.isPerspective());
@@ -168,7 +136,7 @@ m2::RectD OverlayHandle::GetExtendedPixelRect(ScreenBase const & screen) const
 
 OverlayHandle::Rects const & OverlayHandle::GetExtendedPixelShape(ScreenBase const & screen) const
 {
-  if (m_enableCaching && !m_extendedShapeDirty)
+  if (m_caching && !m_extendedShapeDirty)
     return m_extendedShapeCache;
 
   m_extendedShapeCache.clear();
