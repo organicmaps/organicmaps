@@ -1351,7 +1351,8 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
       m_selectionShape->Hide();
     if (!m_myPositionController->IsModeChangeViewport())
     {
-      if (m2::PointD startPosition; m_selectionShape->IsVisible(modelView, startPosition))
+      m2::PointD startPosition;
+      if (m_selectionShape->IsVisible(modelView, startPosition))
         m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
     }
 

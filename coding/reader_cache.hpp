@@ -28,8 +28,8 @@ struct ReaderCacheStats<true>
   {
     std::ostringstream out;
     out << "LogPageSize: " << logPageSize << " PageCount: " << pageCount;
-    out << " ReadSize(" << m_ReadSize.GetStatsStr() << ")";
-    out << " CacheHit(" << m_CacheHit.GetStatsStr() << ")";
+    out << " ReadSize(" << m_ReadSize.ToString() << ")";
+    out << " CacheHit(" << m_CacheHit.ToString() << ")";
     double const bytesAsked = m_ReadSize.GetAverage() * m_ReadSize.GetCount();
     double const callsMade = (1.0 - m_CacheHit.GetAverage()) * m_CacheHit.GetCount();
     double const bytesRead = callsMade * (1 << logPageSize);
