@@ -62,8 +62,8 @@ node[man_made=water_tap],
 area[man_made=water_tap],
 node[amenity=water_point],
 area[amenity=water_point],
-node[amenity=water_point],
-area[amenity=water_point],
+node[man_made=water_well],
+area[man_made=water_well],
 node[amenity=waste_basket],
 node[amenity=waste_disposal],
 area[amenity=waste_disposal],
@@ -647,8 +647,8 @@ node|z15-[amenity=drinking_water],
 area|z15-[amenity=drinking_water],
 node|z15-[man_made=water_tap],
 area|z15-[man_made=water_tap],
-node|z15-[amenity=water_point] ,
-area|z15-[amenity=water_point]
+node|z15-[man_made=water_well],
+area|z15-[man_made=water_well],
 {icon-image: drinking-water-m.svg;icon-min-distance: 36;text-optional: true;}
 
 /* 3. TRANSPORT */
