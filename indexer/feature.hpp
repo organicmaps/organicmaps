@@ -190,14 +190,15 @@ public:
 private:
   struct ParsedFlags
   {
-    bool m_types = false;
-    bool m_common = false;
-    bool m_header2 = false;
-    bool m_points = false;
-    bool m_triangles = false;
-    bool m_metadata = false;
-    bool m_metaIds = false;
+    bool m_types : 1;
+    bool m_common : 1;
+    bool m_header2 : 1;
+    bool m_points : 1;
+    bool m_triangles : 1;
+    bool m_metadata : 1;
+    bool m_metaIds : 1;
 
+    ParsedFlags() { Reset(); }
     void Reset()
     {
       m_types = m_common = m_header2 = m_points = m_triangles = m_metadata = m_metaIds = false;
