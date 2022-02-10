@@ -45,7 +45,7 @@ struct CommonOverlayViewParams : public CommonViewParams
 {
   SpecialDisplacement m_specialDisplacement = SpecialDisplacement::None;
   uint16_t m_specialPriority = std::numeric_limits<uint16_t>::max();
-  int m_startOverlayRank = 0;
+  uint8_t m_startOverlayRank = 0;
 
   FeatureID m_featureId;
   kml::MarkId m_markId = kml::kInvalidMarkId;

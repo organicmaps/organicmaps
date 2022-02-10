@@ -28,19 +28,22 @@ private:
 };
 
 OverlayHandle::OverlayHandle(OverlayID const & id, dp::Anchor anchor,
-                             uint64_t priority, int minVisibleScale, bool isBillboard)
+                             uint64_t priority, uint8_t minVisibleScale, bool isBillboard)
   : m_id(id)
   , m_anchor(anchor)
   , m_priority(priority)
-  , m_overlayRank(OverlayRank0)
   , m_extendingSize(0.0)
   , m_pivotZ(0.0)
+  , m_overlayRank(OverlayRank0)
   , m_minVisibleScale(minVisibleScale)
   , m_isBillboard(isBillboard)
   , m_isVisible(false)
   , m_caching(false)
   , m_extendedShapeDirty(true)
   , m_extendedRectDirty(true)
+  , m_isReady(false)
+  , m_isSpecialLayerOverlay(false)
+  , m_displayFlag(false)
 {}
 
 void OverlayHandle::EnableCaching(bool enable)
