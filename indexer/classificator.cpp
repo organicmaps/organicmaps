@@ -364,6 +364,7 @@ void Classificator::ReadClassificator(istream & s)
   m_root.Sort();
 
   m_coastType = GetTypeByPath({ "natural", "coastline" });
+  m_stubType = GetTypeByPath({ "mapswithme" });
 }
 
 template <typename Iter>
