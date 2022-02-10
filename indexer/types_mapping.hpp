@@ -14,11 +14,11 @@ public:
   void Load(std::istream & s);
   bool IsLoaded() const { return !m_types.empty(); }
 
-  // Throws std::out_of_range exception.
+  static constexpr uint32_t INVALID_TYPE = 0;
+  /// @return INVALID_TYPE If \a ind is out of bounds.
   uint32_t GetType(uint32_t ind) const
   {
-    ASSERT_LESS ( ind, m_types.size(), () );
-    return m_types.at(ind);
+    return ind < m_types.size() ? m_types[ind] : INVALID_TYPE;
   }
 
   uint32_t GetIndex(uint32_t t) const;
