@@ -127,7 +127,7 @@ world  00000000000000000000  +
         waste_basket  00000000000000000000  -
         waste_disposal  00000000000000000000  -
         waste_transfer_station  00000000000000000000  -
-        water_point  00000000000000000000  -
+        water_point  00000000000000001111  -
         {}
     area:highway  00000000000000000000  +
         cycleway  00000000000000000000  -
