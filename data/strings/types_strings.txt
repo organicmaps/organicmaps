@@ -12,6 +12,7 @@
     ru = Канатная дорога
     uk = Канатна дорога
     zh-Hans = 缆车要素
+    zh-Hant = 纜車要素
 
   [type.aerialway.cable_car]
     en = Aerialway
@@ -51,6 +52,8 @@
     pt-BR = Telesquis
     ru = Бугельная канатная дорога
     uk = Канатна дорога
+    zh-Hans = 缆车要素
+    zh-Hant = 纜車要素
 
   [type.aerialway.gondola]
     en = Aerialway
@@ -64,6 +67,7 @@
     ru = Канатная дорога
     uk = Канатна дорога
     zh-Hans = 循环式索道
+    zh-Hant = 循環式索道 
 
   [type.aerialway.mixed_lift]
     en = Aerialway
@@ -75,6 +79,8 @@
     pt-BR = Teleférico híbrido
     ru = Канатная дорога
     uk = Канатна дорога
+    zh-Hans = 缆车
+    zh-Hant = 纜車
 
   [type.aerialway.station]
     en = Aerialway Station
@@ -116,6 +122,7 @@
     ru = Аэрокосмическая инфраструктура
     uk = Аерокосмічна інфраструктура
     zh-Hans = 机场要素
+    zh-Hant = 機場要素
 
   [type.aeroway.aerodrome]
     en = Airport
@@ -192,6 +199,7 @@
     ru = Перрон
     uk = Перон
     zh-Hans = 机场停机坪
+    zh-Hant = 機場停機坪
 
   [type.aeroway.gate]
     en = Gate
@@ -203,6 +211,7 @@
     ru = Выход на посадку
     uk = Вихід на посадку
     zh-Hans = 登机口
+    zh-Hant = 登機口
 
   [type.aeroway.helipad]
     en = Helipad
@@ -258,6 +267,7 @@
     ru = Рулёжная дорожка
     uk = Рульова дорiжка
     zh-Hans = 滑行道
+    zh-Hant = 滑行道
 
   [type.aeroway.terminal]
     en = Terminal
@@ -269,6 +279,7 @@
     ru = Терминал
     uk = Термінал
     zh-Hans = 航站楼
+    zh-Hant = 航站楼
 
   [type.amenity]
     en = Amenity
@@ -1404,6 +1415,8 @@
     pt-BR = Cemitério cristão
     ru = Христианское кладбище
     uk = Християнський цвинтар
+    zh-Hans = 基督教墓地
+    zh-Hant = 基督教墓地
 
   [type.amenity.hospital]
     en = Hospital
@@ -2236,7 +2249,7 @@
     uk = Храм
     vi = Đền
     zh-Hans = 佛教寺庙
-    zh-Hant = 寺廟
+    zh-Hant = 佛教寺廟
 
   [type.amenity.place_of_worship.christian]
     en = Church
@@ -2268,7 +2281,7 @@
     uk = Церква
     vi = Chùa
     zh-Hans = 基督教堂
-    zh-Hant = 教堂
+    zh-Hant = 基督教堂
 
   [type.amenity.place_of_worship.hindu]
     en = Temple
@@ -2299,7 +2312,7 @@
     uk = Храм
     vi = Đền
     zh-Hans = 印度教寺庙
-    zh-Hant = 寺廟
+    zh-Hant = 印度教寺廟
 
   [type.amenity.place_of_worship.jewish]
     en = Synagogue
@@ -2425,7 +2438,7 @@
     uk = Храм
     vi = Đền
     zh-Hans = 道教宫观
-    zh-Hant = 寺廟
+    zh-Hant = 道教宮觀
 
   [type.amenity.police]
     en = Police
@@ -2535,6 +2548,7 @@
     ru = Тюрьма
     uk = В'язниця
     zh-Hans = 监狱
+    zh-Hant = 監獄
 
   [type.amenity.pub]
     en = Pub
@@ -2940,30 +2954,35 @@
   [type.recycling.cardboard]
     en = Cardboard
     be = Кардон
+    de = Karton
     ru = Картон
     uk = Картон
 
   [type.recycling.cans]
     en = Cans
     be = Бляшаныя і алюмініевыя слоікі
+    de = Dosen
     ru = Жестяные и алюминиевые банки
     uk = Бляшані та алюмінієві банки
 
   [type.recycling.shoes]
     en = Shoes
     be = Абутак
+    de = Schuhe
     ru = Обувь
     uk = Взуття
 
   [type.recycling.green_waste]
     en = Green/Organic Waste
     be = Арганіка / Харчовыя адходы
+    de = Bio-Müll
     ru = Органика / Пищевые отходы
     uk = Органіка / Харчові відходи
 
   [type.recycling.cartons]
     en = Bewerage Cartons
     be = Тэтрапак і аналагі
+    de = Getränkekarton
     ru = Тетрапак и аналоги
     uk = Тетрапак та аналоги
 
@@ -8776,6 +8795,7 @@
     ru = Исторический объект
     uk = Історичний об'єкт
     zh-Hans = 历史地点
+    zh-Hant = 歷史地點
 
   [type.historic.archaeological_site]
     en = Archaeological Site
@@ -8820,6 +8840,7 @@
     ru = Поле боя
     uk = Поле битви
     zh-Hans = 古战场
+    zh-Hant = 古戰場
 
   [type.historic.boundary_stone]
     en = Boundary Stone
@@ -8831,6 +8852,7 @@
     ru = Пограничный камень
     uk = Прикордонний камінь
     zh-Hans = 界碑
+    zh-Hant = 界碑
 
   [type.historic.castle]
     en = Castle
@@ -8925,8 +8947,8 @@
     tr = Kale
     uk = Замок
     vi = Pháo đài
-    zh-Hans = 城堡
-    zh-Hant = 城堡
+    zh-Hans = 宫殿
+    zh-Hant = 宮殿
 
   [type.historic.citywalls]
     en = City Wall
@@ -8939,6 +8961,7 @@
     ru = Городская стена
     uk = Міська стіна
     zh-Hans = 历史城墙
+    zh-Hant = 歷史城牆
 
   [type.historic.fort]
     en = Fort
@@ -8951,6 +8974,7 @@
     ru = Форт
     uk = Форт
     zh-Hans = 历史要塞
+    zh-Hant = 歷史要塞
 
   [type.historic.memorial]
     en = Memorial
@@ -9011,8 +9035,8 @@
     tr = Anıt
     uk = Дошка пам'яті
     vi = Đài tưởng niệm
-    zh-Hans = 纪念物
-    zh-Hant = 紀念館
+    zh-Hans = 纪念牌匾
+    zh-Hant = 紀念牌匾 
 
   [type.historic.memorial.sculpture]
     en = Sculpture
@@ -9043,7 +9067,7 @@
     uk = Скульптура
     vi = Đài tưởng niệm
     zh-Hans = 雕塑
-    zh-Hant = 紀念館
+    zh-Hant = 雕塑
 
   [type.historic.memorial.statue]
     en = Statue
@@ -9074,7 +9098,7 @@
     uk = Статуя
     vi = Đài tưởng niệm
     zh-Hans = 塑像
-    zh-Hant = 紀念館
+    zh-Hant = 塑像
 
   [type.historic.monument]
     en = Monument
@@ -9163,7 +9187,7 @@
     uk = Корабель
     vi = Diểm tham quan
     zh-Hans = 历史船
-    zh-Hant = 旅遊景點
+    zh-Hant = 歷史船
 
   [type.historic.tomb]
     en = Tomb
@@ -9195,7 +9219,7 @@
     uk = Гробниця
     vi = Diểm tham quan
     zh-Hans = 陵墓
-    zh-Hant = 旅遊景點
+    zh-Hant = 陵墓
 
   [type.historic.wayside_cross]
     en = Christian Cross
@@ -9208,6 +9232,7 @@
     ru = Христианский крест
     uk = Християнський хрест
     zh-Hans = 路旁十字架
+    zh-Hant = 路旁十字架
 
   [type.historic.wayside_shrine]
     en = Shrine
@@ -9220,6 +9245,7 @@
     ru = Святыня
     uk = Святиня
     zh-Hans = 路旁神龛
+    zh-Hant = 路旁神龕
 
   [type.hwtag]
     en = hwtag
