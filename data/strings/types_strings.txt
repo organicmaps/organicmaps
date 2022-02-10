@@ -7627,7 +7627,7 @@
     zh-Hans = 马道
 
   [type.highway.bridleway.bridge]
-    ref = type.highway.bridleway
+    ref = type.highway.road.bridge
     ja = 馬道(橋)
     pl = Most drogowy dla koni
 
@@ -7636,7 +7636,7 @@
     pl = Droga dla koni ograniczona
 
   [type.highway.bridleway.tunnel]
-    ref = type.highway.bridleway
+    ref = type.highway.road.tunnel
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
 
@@ -7720,7 +7720,7 @@
     zh-Hans = 自行车道
 
   [type.highway.cycleway.bridge]
-    ref = type.highway.cycleway
+    ref = type.highway.road.bridge
     ja = 自転車道(橋)
     pl = Most drogowy dla rowerów
 
@@ -7729,7 +7729,7 @@
     pl = Droga rowerowa ograniczona
 
   [type.highway.cycleway.tunnel]
-    ref = type.highway.cycleway
+    ref = type.highway.road.tunnel
     ja = 自転車道(トンネル)
     pl = Tunel drogowy dla rowerów
 
@@ -7791,8 +7791,10 @@
     uk = Пішохідна зона
 
   [type.highway.footway.bridge]
-    ref = type.highway.footway
+    ref = type.highway.road.bridge
+    en = Pedestrian Bridge
     pl = Most dla pieszych
+    ru = Пешеходный мост
 
   [type.highway.footway.demanding_alpine_hiking]
     ref = type.highway.path
@@ -7833,9 +7835,11 @@
     ref = type.highway.footway
 
   [type.highway.footway.tunnel]
-    ref = type.highway.footway
+    ref = type.highway.road.tunnel
+    en = Pedestrian Tunnel
     de = Fußgängertunnel
     pl = Tunel dla pieszych
+    ru = Пешеходный тоннель
 
   [type.highway.ford]
     en = Ford
@@ -7903,10 +7907,10 @@
     zh-Hant = 路
 
   [type.highway.living_street.bridge]
-    ref = type.highway.living_street
+    ref = type.highway.road.bridge
 
   [type.highway.living_street.tunnel]
-    ref = type.highway.living_street
+    ref = type.highway.road.tunnel
     de = Spielstraßentunnel
     pl = Tunel ulicy
 
@@ -7943,14 +7947,18 @@
     zh-Hant = 高速公路
 
   [type.highway.motorway.bridge]
-    ref = type.highway.motorway
+    ref = type.highway.road.bridge
+    en = Motorway Bridge
     de = Autobahnbrücke
     pl = Most drogowy
+    ru = Автомобильный мост
 
   [type.highway.motorway.tunnel]
-    ref = type.highway.motorway
+    ref = type.highway.road.tunnel
+    en = Motorway Tunnel
     de = Autobahntunnel
     pl = Tunel drogowy
+    ru = Автомобильный тоннель
 
   [type.highway.motorway_junction]
     en = Road Exit
@@ -7994,10 +8002,10 @@
     zh-Hant = 高速公路連接路
 
   [type.highway.motorway_link.bridge]
-    ref = type.highway.motorway_link
+    ref = type.highway.road.bridge
 
   [type.highway.motorway_link.tunnel]
-    ref = type.highway.motorway_link
+    ref = type.highway.road.tunnel
 
   [type.highway.path]
     en = Path
@@ -8046,7 +8054,7 @@
     uk = Велопішохідна доріжка
 
   [type.highway.path.bridge]
-    ref = type.highway.path
+    ref = type.highway.road.bridge
 
   [type.highway.path.demanding_alpine_hiking]
     ref = type.highway.path
@@ -8080,7 +8088,7 @@
     ref = type.highway.path
 
   [type.highway.path.tunnel]
-    ref = type.highway.path
+    ref = type.highway.road.tunnel
 
   [type.highway.pedestrian]
     en = Pedestrian Street
@@ -8123,13 +8131,17 @@
     zh-Hans = 步行区域
 
   [type.highway.pedestrian.bridge]
-    ref = type.highway.pedestrian
+    ref = type.highway.road.bridge
+    en = Pedestrian Bridge
     pl = Most pasażu pieszego
+    ru = Пешеходный мост
 
   [type.highway.pedestrian.tunnel]
-    ref = type.highway.pedestrian
+    ref = type.highway.road.tunnel
+    en = Pedestrian Tunnel
     de = Fußgängertunnel
     pl = Tunel pasażu pieszego
+    ru = Пешеходный тоннель
 
   [type.highway.primary]
     en = Primary Road
@@ -8164,10 +8176,10 @@
     zh-Hant = 主要道路
 
   [type.highway.primary.bridge]
-    ref = type.highway.primary
+    ref = type.highway.road.bridge
 
   [type.highway.primary.tunnel]
-    ref = type.highway.primary
+    ref = type.highway.road.tunnel
     de = Hauptstraßentunnel
     pl = Tunel drogowy
 
@@ -8180,10 +8192,10 @@
     zh-Hant = 主要道路連接路
 
   [type.highway.primary_link.bridge]
-    ref = type.highway.primary_link
+    ref = type.highway.road.bridge
 
   [type.highway.primary_link.tunnel]
-    ref = type.highway.primary_link
+    ref = type.highway.road.tunnel
 
   [type.highway.raceway]
     en = Racetrack
@@ -8253,10 +8265,10 @@
     ref = type.highway.residential
 
   [type.highway.residential.bridge]
-    ref = type.highway.residential
+    ref = type.highway.road.bridge
 
   [type.highway.residential.tunnel]
-    ref = type.highway.residential
+    ref = type.highway.road.tunnel
     de = Wohnstraßentunnel
 
   [type.highway.rest_area]
@@ -8323,12 +8335,80 @@
     zh-Hant = 道路
 
   [type.highway.road.bridge]
-    ref = type.highway.road
+    comment = These translations are used for all type.highway.*.bridge.
+    en = Bridge
+    ar = كوبري
+    be = Мост
+    bg = Мост
+    cs = Most
+    da = Bro
+    de = Brücke
+    el = Γέφυρα
+    es = Puente
+    es-MX = Puente
+    fa = پل
+    fi = Silta
+    fr = Pont
+    he = לְגַשֵׁר
+    hu = Híd
+    id = Menjembatani
+    it = Ponte
+    ja = 橋
+    ko = 다리
+    nb = Bridge
+    nl = Brug
+    pl = Most
+    pt = Ponte
+    pt-BR = Ponte
+    ro = Pod
+    ru = Мост
+    sk = Most
+    sv = Bro
+    sw = Daraja
+    th = สะพาน
+    tr = Köprü
+    uk = Міст
+    vi = Cầu
+    zh-Hans = 桥
+    zh-Hant = 橋
 
   [type.highway.road.tunnel]
-    ref = type.highway.road
-    de = Straßentunnel
-    pl = Tunel drogowy
+    comment = These translations are used for all type.highway.*.tunnel.
+    en = Tunnel
+    ar = نفق
+    be = Тунэль
+    bg = Тунел
+    cs = Tunel
+    da = Tunnel
+    de = Tunnel
+    el = Σήραγγα
+    es = Túnel
+    es-MX = Túnel
+    fa = تونل
+    fi = Tunneli
+    fr = Tunnel
+    he = מִנהָרָה
+    hu = Alagút
+    id = Terowongan
+    it = Tunnel
+    ja = トンネル
+    ko = 터널
+    nb = Tunnel
+    nl = Tunnel
+    pl = Tunel
+    pt = Túnel
+    pt-BR = Túnel
+    ro = Tunel
+    ru = Тоннель
+    sk = Tunel
+    sv = Tunnel
+    sw = Mtaro
+    th = อุโมงค์
+    tr = Tünel
+    uk = Тунель
+    vi = Đường hầm
+    zh-Hans = 隧道
+    zh-Hant = 隧道
 
   [type.highway.secondary]
     en = Secondary Road
@@ -8363,10 +8443,10 @@
     zh-Hant = 次要道路
 
   [type.highway.secondary.bridge]
-    ref = type.highway.secondary
+    ref = type.highway.road.bridge
 
   [type.highway.secondary.tunnel]
-    ref = type.highway.secondary
+    ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
 
@@ -8379,10 +8459,10 @@
     zh-Hant = 次要道路連接路
 
   [type.highway.secondary_link.bridge]
-    ref = type.highway.secondary_link
+    ref = type.highway.road.bridge
 
   [type.highway.secondary_link.tunnel]
-    ref = type.highway.secondary_link
+    ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
 
@@ -8422,7 +8502,7 @@
     ref = type.highway.service
 
   [type.highway.service.bridge]
-    ref = type.highway.service
+    ref = type.highway.road.bridge
     pl = Most drogowy
 
   [type.highway.service.driveway]
@@ -8448,7 +8528,7 @@
     zh-Hant = 停車場通道
 
   [type.highway.service.tunnel]
-    ref = type.highway.service
+    ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
 
@@ -8531,10 +8611,10 @@
     zh-Hant = 人行步道
 
   [type.highway.steps.bridge]
-    ref = type.highway.steps
+    ref = type.highway.road.bridge
 
   [type.highway.steps.tunnel]
-    ref = type.highway.steps
+    ref = type.highway.road.tunnel
 
   [type.highway.tertiary]
     en = Tertiary Road
@@ -8569,10 +8649,10 @@
     zh-Hant = 三级道路
 
   [type.highway.tertiary.bridge]
-    ref = type.highway.tertiary
+    ref = type.highway.road.bridge
 
   [type.highway.tertiary.tunnel]
-    ref = type.highway.tertiary
+    ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
 
@@ -8586,10 +8666,10 @@
     zh-Hant = 三级道路連接路
 
   [type.highway.tertiary_link.bridge]
-    ref = type.highway.tertiary_link
+    ref = type.highway.road.bridge
 
   [type.highway.tertiary_link.tunnel]
-    ref = type.highway.tertiary_link
+    ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
 
@@ -8629,7 +8709,7 @@
     ref = type.highway.track
 
   [type.highway.track.bridge]
-    ref = type.highway.track
+    ref = type.highway.road.bridge
 
   [type.highway.track.grade1]
     ref = type.highway.track
@@ -8653,7 +8733,7 @@
     ref = type.highway.track
 
   [type.highway.track.tunnel]
-    ref = type.highway.track
+    ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
 
@@ -8722,10 +8802,10 @@
     zh-Hant = 主幹道
 
   [type.highway.trunk.bridge]
-    ref = type.highway.trunk
+    ref = type.highway.road.bridge
 
   [type.highway.trunk.tunnel]
-    ref = type.highway.trunk
+    ref = type.highway.road.tunnel
     de = Schnellstraßentunnel
 
   [type.highway.trunk_link]
@@ -8737,10 +8817,10 @@
     zh-Hant = 主幹道連接路
 
   [type.highway.trunk_link.bridge]
-    ref = type.highway.trunk_link
+    ref = type.highway.road.bridge
 
   [type.highway.trunk_link.tunnel]
-    ref = type.highway.trunk_link
+    ref = type.highway.road.tunnel
     de = Straßentunnel
 
   [type.highway.unclassified]
@@ -8779,10 +8859,10 @@
     ref = type.highway.unclassified
 
   [type.highway.unclassified.bridge]
-    ref = type.highway.unclassified
+    ref = type.highway.road.bridge
 
   [type.highway.unclassified.tunnel]
-    ref = type.highway.unclassified
+    ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
 
