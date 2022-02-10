@@ -189,7 +189,7 @@ public final class Config
 
   public static boolean isShowOnLockScreenEnabled()
   {
-    return getBool(KEY_MISC_SHOW_ON_LOCK_SCREEN, false);
+    return getBool(KEY_MISC_SHOW_ON_LOCK_SCREEN, true);
   }
 
   public static void setShowOnLockScreenEnabled(boolean enabled)
