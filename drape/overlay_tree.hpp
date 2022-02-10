@@ -69,7 +69,7 @@ public:
   bool IsNeedUpdate() const;
   void InvalidateOnNextFrame();
 
-  void StartOverlayPlacing(ScreenBase const & screen, int zoomLevel);
+  void StartOverlayPlacing(ScreenBase const & screen, uint8_t zoomLevel);
   void Add(ref_ptr<OverlayHandle> handle);
   //! \return true if tree completely invalidated and next call has no sense
   bool Remove(ref_ptr<OverlayHandle> handle);
@@ -138,6 +138,6 @@ private:
 
   HandlesCache m_displacers;
   uint32_t m_frameUpdatePeriod;
-  int m_zoomLevel = 1;
+  uint8_t m_zoomLevel = 1;
 };
 }  // namespace dp

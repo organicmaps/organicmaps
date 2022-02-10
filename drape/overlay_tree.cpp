@@ -144,7 +144,7 @@ void OverlayTree::InvalidateOnNextFrame()
   m_frameCounter = kInvalidFrame;
 }
 
-void OverlayTree::StartOverlayPlacing(ScreenBase const & screen, int zoomLevel)
+void OverlayTree::StartOverlayPlacing(ScreenBase const & screen, uint8_t zoomLevel)
 {
   ASSERT(IsNeedUpdate(), ());
   TBase::Clear();
