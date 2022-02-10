@@ -172,22 +172,29 @@ public:
 
   bool HasTypesMapping() const { return m_mapping.IsLoaded(); }
 
-  /// @return 0 in case of nonexisting type
+  static constexpr uint32_t INVALID_TYPE = IndexAndTypeMapping::INVALID_TYPE;
+
+  /// @name Type by \a path in classificator tree, for example {"natural", "caostline"}.
+  ///@{
+  /// @return INVALID_TYPE in case of nonexisting type
   uint32_t GetTypeByPathSafe(std::vector<std::string> const & path) const;
   /// Invokes ASSERT in case of nonexisting type
   uint32_t GetTypeByPath(std::vector<std::string> const & path) const;
   uint32_t GetTypeByPath(std::initializer_list<char const *> const & lst) const;
+  ///@}
+
   /// @see GetReadableObjectName().
-  /// @returns 0 in case of nonexisting type.
+  /// @returns INVALID_TYPE in case of nonexisting type.
   uint32_t GetTypeByReadableObjectName(std::string const & name) const;
-  //@}
 
   uint32_t GetIndexForType(uint32_t t) const { return m_mapping.GetIndex(t); }
-  // Throws std::out_of_range exception.
+
+  /// @return INVALID_TYPE if \a ind is out of bounds.
   uint32_t GetTypeForIndex(uint32_t i) const { return m_mapping.GetType(i); }
   bool IsTypeValid(uint32_t t) const { return m_mapping.HasIndex(t); }
 
   inline uint32_t GetCoastType() const { return m_coastType; }
+  inline uint32_t GetStubType() const { return m_stubType; }
 
   /// @name used in osm2type.cpp, not for public use.
   //@{
@@ -228,15 +235,13 @@ private:
   static ClassifObject * AddV(ClassifObject * parent, std::string const & key,
                               std::string const & value);
 
-  /// Return type by path in classificator tree, for example
-  /// path = ["natural", "caostline"].
-  //@{
   template <typename Iter>
   uint32_t GetTypeByPathImpl(Iter beg, Iter end) const;
 
   ClassifObject m_root;
   IndexAndTypeMapping m_mapping;
   uint32_t m_coastType = 0;
+  uint32_t m_stubType = 0;
 
   DISALLOW_COPY_AND_MOVE(Classificator);
 };

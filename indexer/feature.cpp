@@ -275,21 +275,20 @@ void FeatureType::ParseTypes()
   ArrayByteSource source(m_data.data() + typesOffset);
 
   size_t const count = GetTypesCount();
-  uint32_t index = 0;
-  try
+  for (size_t i = 0; i < count; ++i)
   {
-    for (size_t i = 0; i < count; ++i)
+    uint32_t index = ReadVarUint<uint32_t>(source);
+    uint32_t const type = c.GetTypeForIndex(index);
+    if (type > 0)
+      m_types[i] = type;
+    else
     {
-      index = ReadVarUint<uint32_t>(source);
-      m_types[i] = c.GetTypeForIndex(index);
+      // Possible for newer MWMs with added types.
+      LOG(LWARNING, ("Incorrect type index for feature. FeatureID:", m_id, ". Incorrect index:", index,
+                   ". Loaded feature types:", m_types, ". Total count of types:", count));
+
+      m_types[i] = c.GetStubType();
     }
-  }
-  catch (std::out_of_range const & ex)
-  {
-    LOG(LERROR, ("Incorrect type index for feature.FeatureID:", m_id, ". Incorrect index:", index,
-                 ". Loaded feature types:", m_types, ". Total count of types:", count,
-                 ". Header:", m_header));
-    throw;
   }
 
   m_offsets.m_common = CalcOffset(source, m_data.data());
