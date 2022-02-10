@@ -646,4 +646,13 @@ namespace
         mercator::FromLatLon(55.715208, 37.396528), {0., 0.},
         mercator::FromLatLon(54.151853, 33.287128), 355887);
   }
+
+  // https://github.com/organicmaps/organicmaps/issues/1271
+  UNIT_TEST(USA_DontLeaveHighway)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(34.1801345, -118.885005), {0., 0.},
+        mercator::FromLatLon(34.1767471, -118.869327), 1523);
+  }
 }  // namespace
