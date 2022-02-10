@@ -21761,11 +21761,12 @@
 
   [enable_show_on_lock_screen]
     tags = android
-    en = Show Organic Maps on the lock screen
-    be = Паказваць Organic Maps на экране блакіроўкі
-    pl = Pokazuj Organic Maps na ekranie blokady
-    ru = Показывать Organic Maps на экране блокировки
-    uk = Показувати Organic Maps на заблокованому екрані
+    comment = A preference title; keep short!
+    en = Show on the lock screen
+    be = Паказваць на экране блакіроўкі
+    pl = Pokazuj na ekranie blokady
+    ru = Показывать на экране блокировки
+    uk = Показувати на заблокованому екрані
 
   [enable_show_on_lock_screen_description]
     tags = android
