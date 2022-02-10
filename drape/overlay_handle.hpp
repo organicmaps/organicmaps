@@ -25,7 +25,7 @@
 
 namespace dp
 {
-enum OverlayRank
+enum OverlayRank : uint8_t
 {
   OverlayRank0 = 0,
   OverlayRank1,
@@ -108,14 +108,14 @@ public:
   using Rects = std::vector<m2::RectF>;
 
   OverlayHandle(OverlayID const & id, dp::Anchor anchor,
-                uint64_t priority, int minVisibleScale, bool isBillboard);
+                uint64_t priority, uint8_t minVisibleScale, bool isBillboard);
 
   virtual ~OverlayHandle() = default;
 
   bool IsVisible() const { return m_isVisible; }
   void SetIsVisible(bool isVisible) { m_isVisible = isVisible; }
 
-  int GetMinVisibleScale() const { return m_minVisibleScale; }
+  uint8_t GetMinVisibleScale() const { return m_minVisibleScale; }
   bool IsBillboard() const { return m_isBillboard; }
 
   virtual m2::PointD GetPivot(ScreenBase const & screen, bool perspective) const;
@@ -154,8 +154,9 @@ public:
 
   virtual bool Enable3dExtention() const { return true; }
 
-  int GetOverlayRank() const { return m_overlayRank; }
-  void SetOverlayRank(int overlayRank) { m_overlayRank = overlayRank; }
+  using RankT = uint8_t;  // Same as OverlayRank
+  RankT GetOverlayRank() const { return m_overlayRank; }
+  void SetOverlayRank(RankT overlayRank) { m_overlayRank = overlayRank; }
 
   void EnableCaching(bool enable);
   bool IsCachingEnabled() const { return m_caching; }
@@ -178,9 +179,9 @@ protected:
   dp::Anchor const m_anchor;
   uint64_t const m_priority;
 
-  int m_overlayRank;
   double m_extendingSize;
   double m_pivotZ;
+  RankT m_overlayRank;
 
   using TOffsetNode = std::pair<BindingInfo, MutateRegion>;
   TOffsetNode const & GetOffsetNode(uint8_t bufferID) const;
@@ -189,9 +190,7 @@ protected:
   m2::RectD GetPixelRectPerspective(ScreenBase const & screen) const;
 
 private:
-  int m_minVisibleScale;
-  bool const m_isBillboard;
-  bool m_isVisible;
+  uint8_t m_minVisibleScale;
 
   dp::IndexStorage m_indexes;
   struct LessOffsetNode
@@ -216,15 +215,19 @@ private:
 
   std::set<TOffsetNode, LessOffsetNode> m_offsets;
 
-  bool m_caching;
   mutable Rects m_extendedShapeCache;
-  mutable bool m_extendedShapeDirty;
   mutable m2::RectD m_extendedRectCache;
-  mutable bool m_extendedRectDirty;
 
-  bool m_isReady = false;
-  bool m_isSpecialLayerOverlay = false;
-  bool m_displayFlag = false;
+  bool const m_isBillboard : 1;
+  bool m_isVisible : 1;
+
+  bool m_caching : 1;
+  mutable bool m_extendedShapeDirty : 1;
+  mutable bool m_extendedRectDirty : 1;
+
+  bool m_isReady : 1;
+  bool m_isSpecialLayerOverlay : 1;
+  bool m_displayFlag : 1;
 };
 
 class SquareHandle : public OverlayHandle
