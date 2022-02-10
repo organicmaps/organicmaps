@@ -929,10 +929,10 @@ node|z14-[amenity=charging_station],
 area|z14-[amenity=charging_station],
 node|z15-[amenity=sanitary_dump_station],
 area|z15-[amenity=sanitary_dump_station],
-node|z17-[amenity=car_wash],
-area|z17-[amenity=car_wash],
 node|z16-[amenity=parking],
 area|z16-[amenity=parking],
+node|z17-[amenity=car_wash],
+area|z17-[amenity=car_wash],
 node|z18-[amenity=car_rental],
 area|z18-[amenity=car_rental],
 node|z18-[amenity=car_sharing],
@@ -1006,6 +1006,10 @@ area|z17-[amenity=sanitary_dump_station]
 node|z18-[amenity=sanitary_dump_station],
 area|z18-[amenity=sanitary_dump_station]
 {font-size: 14.5; icon-min-distance: 10;}
+
+node|z16-[amenity=water_point],
+area|z16-[amenity=water_point],
+{icon-image: drinking-water-m.svg; icon-min-distance: 20;}
 
 /* 7.1 Parking */
 
