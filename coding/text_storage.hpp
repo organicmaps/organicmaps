@@ -262,7 +262,7 @@ public:
         CHECK_GREATER_OR_EQUAL(sub.m_offset + sub.m_length, sub.m_offset, ());
         offset += sub.m_length;
       }
-      BWTCoder::ReadAndDecodeBlock(source, std::back_inserter(entry.m_value));
+      entry.m_value = BWTCoder::ReadAndDecodeBlock(source);
     }
 
     ASSERT_GREATER_OR_EQUAL(stringIx, bi.From(), ());
@@ -274,7 +274,8 @@ public:
     auto const & si = entry.m_subs[stringIx];
     auto const & value = entry.m_value;
     ASSERT_LESS_OR_EQUAL(si.m_offset + si.m_length, value.size(), ());
-    return value.substr(static_cast<size_t>(si.m_offset), static_cast<size_t>(si.m_length));
+    auto const beg = value.begin() + si.m_offset;
+    return std::string(beg, beg + si.m_length);
   }
 
 private:
@@ -289,8 +290,8 @@ private:
 
   struct CacheEntry
   {
-    std::string m_value;             // concatenation of the strings
-    std::vector<StringInfo> m_subs;  // indices of individual strings
+    BWTCoder::BufferT m_value;        // concatenation of the strings
+    std::vector<StringInfo> m_subs;   // indices of individual strings
   };
 
   BlockedTextStorageIndex m_index;
