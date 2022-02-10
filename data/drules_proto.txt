@@ -38512,6 +38512,49 @@ cont {
   }
 }
 cont {
+  name: "man_made-water_well"
+  element {
+    scale: 15
+    symbol {
+      name: "drinking-water-m"
+      priority: 16582
+      min_distance: 36
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "drinking-water-m"
+      priority: 16582
+      min_distance: 36
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "drinking-water-m"
+      priority: 16582
+      min_distance: 36
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-m"
+      priority: 16582
+      min_distance: 36
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "drinking-water-m"
+      priority: 16582
+      min_distance: 36
+    }
+  }
+}
+cont {
   name: "man_made-windmill"
   element {
     scale: 16

@@ -3685,6 +3685,41 @@ cont {
   }
 }
 cont {
+  name: "amenity-water_point"
+  element {
+    scale: 16
+    symbol {
+      name: "drinking-water-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "drinking-water-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "drinking-water-m"
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
   name: "barrier-border_control"
   element {
     scale: 15
