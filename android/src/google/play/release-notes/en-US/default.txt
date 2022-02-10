@@ -1,11 +1,12 @@
-• New OSM maps data as of January 3, 2022
-• Improved search results ranking
-• Fixed hundreds of "capitals" on the World map
-• Fixed invalid inter-region routes
-• Search recognizes rd/st/ct=road/street/court synonyms
-• Duck played music when announcing directions
-• Copy most of the POI info using a long tap
-• Fix non-working FAQ on Android 5 and 6
-• Consistent naming for Bookmark Lists
-• Added Bulgarian, incomplete Hebrew, and Swahili translations
-• Updated de, it, ro, ru, uk, tr translations
+• New OSM maps data as of February 9, 2022
+• Show application on lock screen 
+• Fixed some cyclist routing bugs
+• Adjusted highways visibility
+• Improved rendering of train stations, piers, dams
+• Improved search for fuel stations, posts, recycling and dump stations
+• Improved house numbers display in navigation mode
+• Made national park & military fills less obtrusive
+• Fixed some capitals incorrectly marked as cities on a World map
+• Added handler for openstreetmap.org, maps.google.com and 2gis.ru links
+• Improved GPS accuracy without Google Services
+• Updated ru, uk, tr translations
