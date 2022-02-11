@@ -1406,15 +1406,15 @@
 
 "type.recycling.small_appliances" = "Elektroschrott";
 
-"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cardboard" = "Karton";
 
-"type.recycling.cans" = "Cans";
+"type.recycling.cans" = "Dosen";
 
-"type.recycling.shoes" = "Shoes";
+"type.recycling.shoes" = "Schuhe";
 
-"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.green_waste" = "Bio-Müll";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Getränkekarton";
 
 "type.amenity.restaurant" = "Restaurant";
 

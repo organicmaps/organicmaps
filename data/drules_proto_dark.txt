@@ -5734,48 +5734,12 @@ cont {
 cont {
   name: "amenity-parking_space"
   element {
-    scale: 16
-    symbol {
-      name: "parking-s"
-      priority: 16000
-      min_distance: 25
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "parking-m"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "parking-m"
-      priority: 16000
-    }
-    caption {
-      primary {
-        height: 11
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15300
-    }
-  }
-  element {
     scale: 19
-    symbol {
-      name: "parking-m"
-      priority: 16000
-    }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 1
-        is_optional: true
       }
       priority: 15300
     }
@@ -5784,48 +5748,12 @@ cont {
 cont {
   name: "amenity-parking_space-permissive"
   element {
-    scale: 16
-    symbol {
-      name: "zero-icon"
-      priority: 16000
-      min_distance: 25
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "parking-m"
-      priority: 16000
-    }
-    caption {
-      primary {
-        height: 11
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15300
-    }
-  }
-  element {
     scale: 19
-    symbol {
-      name: "parking-m"
-      priority: 16000
-    }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 1
-        is_optional: true
       }
       priority: 15300
     }
@@ -5834,48 +5762,12 @@ cont {
 cont {
   name: "amenity-parking_space-private"
   element {
-    scale: 16
-    symbol {
-      name: "zero-icon"
-      priority: 16000
-      min_distance: 25
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "parking-m"
-      priority: 16000
-    }
-    caption {
-      primary {
-        height: 11
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15300
-    }
-  }
-  element {
     scale: 19
-    symbol {
-      name: "parking-m"
-      priority: 16000
-    }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 1
-        is_optional: true
       }
       priority: 15300
     }
@@ -5884,48 +5776,12 @@ cont {
 cont {
   name: "amenity-parking_space-underground"
   element {
-    scale: 16
-    symbol {
-      name: "zero-icon"
-      priority: 16000
-      min_distance: 25
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "zero-icon"
-      priority: 16000
-    }
-    caption {
-      primary {
-        height: 11
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15300
-    }
-  }
-  element {
     scale: 19
-    symbol {
-      name: "zero-icon"
-      priority: 16000
-    }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 5592405
         offset_y: 1
-        is_optional: true
       }
       priority: 15300
     }
@@ -38424,6 +38280,49 @@ cont {
 }
 cont {
   name: "man_made-water_tap"
+  element {
+    scale: 15
+    symbol {
+      name: "drinking-water-m"
+      priority: 16582
+      min_distance: 36
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "drinking-water-m"
+      priority: 16582
+      min_distance: 36
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "drinking-water-m"
+      priority: 16582
+      min_distance: 36
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-m"
+      priority: 16582
+      min_distance: 36
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "drinking-water-m"
+      priority: 16582
+      min_distance: 36
+    }
+  }
+}
+cont {
+  name: "man_made-water_well"
   element {
     scale: 15
     symbol {

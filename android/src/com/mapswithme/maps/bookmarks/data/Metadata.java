@@ -15,7 +15,8 @@ public class Metadata implements Parcelable
   // Values must correspond to definitions from feature_meta.hpp.
   public enum MetadataType
   {
-    FMD_CUISINE(1),
+    // Defined by classifier types now.
+    //FMD_CUISINE = 1,
     FMD_OPEN_HOURS(2),
     FMD_PHONE_NUMBER(3),
     FMD_FAX_NUMBER(4),
@@ -32,7 +33,8 @@ public class Metadata implements Parcelable
     FMD_POSTCODE(15),
     // TODO: It is hacked in jni and returns full Wikipedia url. Should use separate getter instead.
     FMD_WIKIPEDIA(16),
-    // FMD_MAXSPEED(17),
+    // TODO: Skipped now.
+    FMD_DESCRIPTION(17),
     FMD_FLATS(18),
     FMD_HEIGHT(19),
     FMD_MIN_HEIGHT(20),

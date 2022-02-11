@@ -767,6 +767,11 @@
 	<string name="type.recycling.plastic_bottles">Plastikflaschen</string>
 	<string name="type.recycling.scrap_metal">Altmetall</string>
 	<string name="type.recycling.small_appliances">Elektroschrott</string>
+	<string name="type.recycling.cardboard">Karton</string>
+	<string name="type.recycling.cans">Dosen</string>
+	<string name="type.recycling.shoes">Schuhe</string>
+	<string name="type.recycling.green_waste">Bio-Müll</string>
+	<string name="type.recycling.cartons">Getränkekarton</string>
 	<string name="type.amenity.sanitary_dump_station">VE-Station</string>
 	<string name="type.amenity.school">Schule</string>
 	<string name="type.amenity.shelter">Schutzhütte</string>
