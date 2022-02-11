@@ -12057,7 +12057,7 @@
     sk = Pokračovať v mazaní vašej súčasnej pozície?
     sv = Fortsätt detektera din nuvarande plats?
     th = ค้นหาที่ตั้งปัจจุบันต่อไปหรือไม่?
-    tr = Geçerli konumunuzuz izlenmeye devam edilsin mi?
+    tr = Geçerli konumunuz izlenmeye devam edilsin mi?
     uk = Продовжити пошук місцезнаходження?
     vi = Tiếp tục phát hiện địa điểm hiện tại của bạn?
     zh-Hans = 继续检测您的当前位置？
@@ -12093,7 +12093,7 @@
     sk = Súčasná pozícia je neznáma. Možno sa nachádzate v budove alebo v tuneli.
     sv = Nuvarande plats okänd. Du kanske är i en byggnad eller tunnel.
     th = ไม่ทราบชื่อสถานที่ปัจจุบัน คุณอาจจะอยู่ในอาคาร หรือ ในอุโมงค์
-    tr = Geçerli konum bilinmiyor. Muhtemelen bir binanın içinde veya tüneldesiniz.
+    tr = Geçerli konum bilinmiyor. Muhtemelen bir bina veya tünelin içindesiniz.
     uk = Місцезнаходження не знайдено. Можливо, ви знаходитесь у приміщенні або тунелі.
     vi = Chưa biết địa điểm hiện tại. Có thể bạn đang ở trong một tòa nhà hoặc đường hầm.
     zh-Hans = 当前位置未知，可能您在建筑内或隧道内。
