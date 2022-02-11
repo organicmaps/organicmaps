@@ -1,12 +1,10 @@
-• New OSM maps data as of February 9, 2022
-• Show application on lock screen 
-• Fixed some cyclist routing bugs
-• Adjusted highways visibility
-• Improved rendering of train stations, piers, dams
-• Improved search for fuel stations, posts, recycling and dump stations
-• Improved house numbers display in navigation mode
-• Made national park & military fills less obtrusive
-• Fixed some capitals incorrectly marked as cities on a World map
-• Added handler for openstreetmap.org, maps.google.com and 2gis.ru links
-• Improved GPS accuracy without Google Services
-• Updated ru, uk, tr translations
+• New OSM maps data as of Feb 4, 2022
+• Fixed a broken place page on Android 11
+• Fixed invalid routes for car&bike
+• Respect "Avoid" setting for bike/walking routes
+• Skip unlock gesture when app is active
+• Search categories for Water, RV Facilities and Recycling
+• Added parcel pickup, excrement bags, quay, marina, caravan, dump station, mast, flag pole, funeral directors
+• Improved translations, FAQ in Turkish
+
+…and many other improvements in the full Release log at https://organicmaps.app
