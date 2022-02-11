@@ -31,11 +31,10 @@ BoundaryPostcodesEnricher::BoundaryPostcodesEnricher(std::string const & boundar
 
 void BoundaryPostcodesEnricher::Enrich(feature::FeatureBuilder & fb) const
 {
-  if (!ftypes::IsAddressObjectChecker::Instance()(fb.GetTypes()))
+  if (fb.HasPostcode() || !ftypes::IsAddressObjectChecker::Instance()(fb.GetTypes()))
     return;
 
   auto const hasName = !fb.GetMultilangName().IsEmpty();
-
   auto const hasHouseNumber = !fb.GetParams().house.Get().empty();
 
   // We do not save postcodes for unnamed features without house number to reduce amount of data.
@@ -45,12 +44,13 @@ void BoundaryPostcodesEnricher::Enrich(feature::FeatureBuilder & fb) const
     return;
 
   auto const center = fb.GetKeyPoint();
-  m_boundariesTree.ForAnyInRect(m2::RectD(center, center), [&](size_t i) {
+  m_boundariesTree.ForAnyInRect(m2::RectD(center, center), [&](size_t i)
+  {
     CHECK_LESS(i, m_boundaryPostcodes.size(), ());
     if (!m_boundaryPostcodes[i].second.Contains(center))
       return false;
 
-    fb.GetMetadata().Set(feature::Metadata::FMD_POSTCODE, m_boundaryPostcodes[i].first);
+    fb.SetPostcode(m_boundaryPostcodes[i].first);
     return true;
   });
 }

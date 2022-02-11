@@ -242,13 +242,17 @@ public:
 
       featureId = WriteFeatureBase(buffer.m_buffer, fb);
 
+      // Order is important here:
+
+      // 1. Update postcode info.
+      m_boundaryPostcodesEnricher.Enrich(fb);
+
+      // 2. Write address to a file (with possible updated postcode above).
       fb.GetAddressData().SerializeForMwmTmp(*m_addrFile);
 
+      // 3. Save metadata.
       if (!fb.GetMetadata().Empty())
-      {
-        m_boundaryPostcodesEnricher.Enrich(fb);
         m_metadataBuilder.Put(featureId, fb.GetMetadata());
-      }
 
       if (fb.HasOsmIds())
         m_osm2ft.AddIds(generator::MakeCompositeId(fb), featureId);
