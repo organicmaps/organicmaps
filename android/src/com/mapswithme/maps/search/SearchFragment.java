@@ -1,6 +1,5 @@
 package com.mapswithme.maps.search;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -294,7 +293,7 @@ public class SearchFragment extends BaseMwmFragment
         updateResultsPlaceholder();
       }
     });
-    mShowOnMapFab = root.findViewById(R.id.fabViewOnMap);
+    mShowOnMapFab = root.findViewById(R.id.show_on_map_fab);
     mShowOnMapFab.setOnClickListener(v -> showAllResultsOnMap());
 
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
