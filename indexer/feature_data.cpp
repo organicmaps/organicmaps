@@ -428,6 +428,8 @@ bool FeatureParams::FinishAddingTypes()
   {
     UselessTypesChecker::Instance().SortUselessToEnd(m_types);
 
+    LOG(LWARNING, ("Exceeded max types count:", TypesToString(m_types)));
+
     m_types.resize(kMaxTypesCount);
     sort(m_types.begin(), m_types.end());
   }
@@ -435,7 +437,7 @@ bool FeatureParams::FinishAddingTypes()
   // Patch fix that removes house number from localities.
   if (!house.IsEmpty() && ftypes::IsLocalityChecker::Instance()(m_types))
   {
-    LOG(LINFO, ("Locality with house number", *this));
+    LOG(LWARNING, ("Locality with house number", *this));
     house.Clear();
   }
 
