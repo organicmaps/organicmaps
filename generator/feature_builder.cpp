@@ -186,6 +186,17 @@ void FeatureBuilder::ResetGeometry()
   m_limitRect.MakeEmpty();
 }
 
+bool FeatureBuilder::HasPostcode() const
+{
+  return m_params.GetMetadata().Has(Metadata::FMD_POSTCODE);
+}
+
+void FeatureBuilder::SetPostcode(std::string const & postcode)
+{
+  m_params.GetMetadata().Set(Metadata::FMD_POSTCODE, postcode);
+  m_params.AddPostcode(postcode);
+}
+
 bool FeatureBuilder::RemoveInvalidTypes()
 {
   if (!m_params.FinishAddingTypes())
