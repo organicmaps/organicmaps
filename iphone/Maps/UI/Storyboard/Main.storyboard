@@ -1058,11 +1058,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EbW-Mp-c6s">
-                                <rect key="frame" x="0.0" y="0.0" width="896" height="393"/>
+                                <rect key="frame" x="44" y="0.0" width="808" height="393"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="EbW-Mp-c6s" secondAttribute="height" multiplier="1:1" id="tBC-sb-Q3g"/>
-                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                 </userDefinedRuntimeAttributes>
@@ -1071,14 +1068,10 @@
                         <viewLayoutGuide key="safeArea" id="yK4-pW-Ads"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="centerY" secondItem="9jm-RW-DZK" secondAttribute="centerY" priority="250" id="BHf-cB-UbU"/>
-                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="height" relation="lessThanOrEqual" secondItem="9jm-RW-DZK" secondAttribute="height" id="JtV-po-tD6"/>
-                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9jm-RW-DZK" secondAttribute="top" id="O71-EO-9LT"/>
-                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="width" relation="lessThanOrEqual" secondItem="9jm-RW-DZK" secondAttribute="width" id="aCG-RN-DSJ"/>
-                            <constraint firstItem="yK4-pW-Ads" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="EbW-Mp-c6s" secondAttribute="bottom" id="i0h-xR-pPI"/>
-                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="height" secondItem="9jm-RW-DZK" secondAttribute="height" priority="750" id="r08-2f-jwK"/>
-                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="centerX" secondItem="yK4-pW-Ads" secondAttribute="centerX" id="xbz-FB-nZl"/>
-                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="width" secondItem="9jm-RW-DZK" secondAttribute="width" priority="750" id="zcx-oD-0Uk"/>
+                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="bottom" secondItem="yK4-pW-Ads" secondAttribute="bottom" id="BHf-cB-UbU"/>
+                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="top" secondItem="yK4-pW-Ads" secondAttribute="top" id="O71-EO-9LT"/>
+                            <constraint firstItem="yK4-pW-Ads" firstAttribute="trailing" secondItem="EbW-Mp-c6s" secondAttribute="trailing" id="Tqg-dZ-SaB"/>
+                            <constraint firstItem="EbW-Mp-c6s" firstAttribute="leading" secondItem="yK4-pW-Ads" secondAttribute="leading" id="xbz-FB-nZl"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
@@ -1086,7 +1079,6 @@
                     </view>
                     <connections>
                         <outlet property="container" destination="EbW-Mp-c6s" id="T6K-0M-IAe"/>
-                        <outlet property="containerBottomOffset" destination="i0h-xR-pPI" id="TpT-gj-gr2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxe-Bw-br6" userLabel="First Responder" sceneMemberID="firstResponder"/>

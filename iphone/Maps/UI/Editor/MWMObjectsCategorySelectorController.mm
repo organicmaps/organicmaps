@@ -2,7 +2,6 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMObjectsCategorySelectorDataSource.h"
 #import "MWMEditorViewController.h"
-#import "MWMKeyboard.h"
 #import "MWMTableViewCell.h"
 #import "SwiftBridge.h"
 
@@ -16,7 +15,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 }  // namespace
 
 @interface MWMObjectsCategorySelectorController ()<UISearchBarDelegate, UITableViewDelegate,
-                                                   UITableViewDataSource, MWMKeyboardObserver>
+                                                   UITableViewDataSource>
 {
 }
 
@@ -43,7 +42,6 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   [self configTable];
   [self configNavBar];
   [self configSearchBar];
-  [MWMKeyboard addObserver:self];
   self.dataSource = [[MWMObjectsCategorySelectorDataSource alloc] init];
 }
 
@@ -88,15 +86,6 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   dest.isCreating = YES;
   auto const object = self.createdObject;
   [dest setEditableMapObject:object];
-}
-
-#pragma mark - MWMKeyboard
-
-- (void)onKeyboardAnimation
-{
-  UIEdgeInsets const contentInsets = {.bottom = [MWMKeyboard keyboardHeight]};
-  self.tableView.contentInset = contentInsets;
-  self.tableView.scrollIndicatorInsets = contentInsets;
 }
 
 #pragma mark - Create object

@@ -15,15 +15,5 @@ final class SearchNoResultsViewController: MWMViewController {
     container.addSubview(MWMSearchNoResults.view(with: nil,
                                                  title: L("search_not_found"),
                                                  text: L("search_not_found_query")))
-    MWMKeyboard.add(self)
-    onKeyboardAnimation()
-  }
-}
-
-extension SearchNoResultsViewController: MWMKeyboardObserver {
-
-  func onKeyboardAnimation() {
-    containerBottomOffset.constant = MWMKeyboard.keyboardHeight()
-    view.layoutIfNeeded()
   }
 }

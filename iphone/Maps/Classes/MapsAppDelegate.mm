@@ -224,7 +224,6 @@ using namespace osm_auth_ios;
   }
   [MWMLocationManager applicationDidBecomeActive];
   [MWMSearch addCategoriesToSpotlight];
-  [MWMKeyboard applicationDidBecomeActive];
   [MWMTextToSpeech applicationDidBecomeActive];
   LOG(LINFO, ("applicationDidBecomeActive - end"));
 }

@@ -17,7 +17,6 @@
 		337F98B821D3D67E00C8AC27 /* SearchHistoryQueryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F98B721D3D67E00C8AC27 /* SearchHistoryQueryCell.swift */; };
 		340416481E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */; };
 		3404164C1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404164A1E7BF42D00E2B6D6 /* UIView+Coordinates.swift */; };
-		3404754D1E081A4600C92850 /* MWMKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 340475191E081A4600C92850 /* MWMKeyboard.m */; };
 		340475591E081A4600C92850 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 340475271E081A4600C92850 /* WebViewController.m */; };
 		3404755C1E081A4600C92850 /* MWMLocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404752C1E081A4600C92850 /* MWMLocationManager.mm */; };
 		3404755F1E081A4600C92850 /* MWMLocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404752F1E081A4600C92850 /* MWMLocationPredictor.mm */; };
@@ -703,9 +702,6 @@
 		337F98B721D3D67E00C8AC27 /* SearchHistoryQueryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryQueryCell.swift; sourceTree = "<group>"; };
 		340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Snapshot.swift"; sourceTree = "<group>"; };
 		3404164A1E7BF42D00E2B6D6 /* UIView+Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Coordinates.swift"; sourceTree = "<group>"; };
-		340475181E081A4600C92850 /* MWMKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMKeyboard.h; sourceTree = "<group>"; };
-		340475191E081A4600C92850 /* MWMKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMKeyboard.m; sourceTree = "<group>"; };
-		3404751A1E081A4600C92850 /* MWMKeyboardObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMKeyboardObserver.h; sourceTree = "<group>"; };
 		3404751C1E081A4600C92850 /* MWMMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMacros.h; sourceTree = "<group>"; };
 		340475261E081A4600C92850 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		340475271E081A4600C92850 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
@@ -1841,23 +1837,12 @@
 			isa = PBXGroup;
 			children = (
 				34845DB51E166084003D55B9 /* Common.swift */,
-				340475171E081A4600C92850 /* Keyboard */,
 				3404751C1E081A4600C92850 /* MWMMacros.h */,
 				340475261E081A4600C92850 /* WebViewController.h */,
 				340475271E081A4600C92850 /* WebViewController.m */,
 				3427AF0B1E49E3A500D466DB /* MWMConsts.h */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		340475171E081A4600C92850 /* Keyboard */ = {
-			isa = PBXGroup;
-			children = (
-				340475181E081A4600C92850 /* MWMKeyboard.h */,
-				340475191E081A4600C92850 /* MWMKeyboard.m */,
-				3404751A1E081A4600C92850 /* MWMKeyboardObserver.h */,
-			);
-			path = Keyboard;
 			sourceTree = "<group>";
 		};
 		340475281E081A4600C92850 /* Core */ = {
@@ -4290,7 +4275,6 @@
 				993DF0C923F6BD0600AC231A /* ElevationDetailsBuilder.swift in Sources */,
 				674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */,
 				34AB66291FC5AA330078E451 /* RouteManagerViewController.swift in Sources */,
-				3404754D1E081A4600C92850 /* MWMKeyboard.m in Sources */,
 				993DF10C23F6BDB100AC231A /* MWMTableViewCellRenderer.swift in Sources */,
 				3457C4261F680F1900028233 /* String+BoundingRect.swift in Sources */,
 				34EF94291C05A6F30050B714 /* MWMSegue.m in Sources */,

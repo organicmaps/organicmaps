@@ -39,12 +39,10 @@ final class BCCreateCategoryAlert: MWMAlert {
     alert.callback = callback
     alert.process(state: .tooFewSymbols)
     alert.formatCharactersCountText()
-    MWMKeyboard.add(alert)
     return alert
   }
 
   @IBAction private func leftButtonTap() {
-    MWMKeyboard.remove(self)
     close(nil)
   }
 
@@ -55,7 +53,6 @@ final class BCCreateCategoryAlert: MWMAlert {
     }
 
     if callback(text) {
-      MWMKeyboard.remove(self)
       close(nil)
     } else {
       process(state: .nameAlreadyExists)
@@ -136,16 +133,5 @@ extension BCCreateCategoryAlert: UITextFieldDelegate {
     }
 
     return true
-  }
-}
-
-extension BCCreateCategoryAlert: MWMKeyboardObserver {
-  func onKeyboardAnimation() {
-    centerHorizontaly.constant = -MWMKeyboard.keyboardHeight() / 2
-    layoutIfNeeded()
-  }
-
-  func onKeyboardWillAnimate() {
-    setNeedsLayout()
   }
 }

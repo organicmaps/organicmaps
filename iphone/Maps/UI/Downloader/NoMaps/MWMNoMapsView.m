@@ -1,7 +1,6 @@
 #import "MWMNoMapsView.h"
-#import "MWMKeyboard.h"
 
-@interface MWMNoMapsView ()<MWMKeyboardObserver>
+@interface MWMNoMapsView ()
 
 @property(weak, nonatomic) IBOutlet UIImageView * image;
 @property(weak, nonatomic) IBOutlet UILabel * title;
@@ -33,7 +32,6 @@
   {
     self.containerTopOffset.active = NO;
   }
-  [MWMKeyboard addObserver:self];
 }
 
 - (void)layoutSubviews
@@ -68,14 +66,4 @@
     self.containerHeight.constant = height;
   }
 }
-
-#pragma mark - MWMKeyboard
-
-- (void)onKeyboardAnimation
-{
-  self.containerBottomOffset.constant = [MWMKeyboard keyboardHeight];
-  [self.superview layoutIfNeeded];
-}
-
-- (void)onKeyboardWillAnimate { [self.superview layoutIfNeeded]; }
 @end

@@ -1,8 +1,7 @@
 #import "MWMSearchTableView.h"
-#import "MWMKeyboard.h"
 #import "MWMSearchNoResults.h"
 
-@interface MWMSearchTableView ()<MWMKeyboardObserver>
+@interface MWMSearchTableView ()
 
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * noResultsBottomOffset;
 
@@ -20,7 +19,6 @@
   CALayer * sl = self.layer;
   sl.shouldRasterize = YES;
   sl.rasterizationScale = UIScreen.mainScreen.scale;
-  [MWMKeyboard addObserver:self];
 }
 
 - (void)hideNoResultsView:(BOOL)hide
@@ -34,27 +32,7 @@
   {
     self.noResultsContainer.hidden = NO;
     [self.noResultsWrapper addSubview:self.noResultsView];
-    [self onKeyboardAnimation];
   }
-}
-
-#pragma mark - MWMKeyboard
-
-- (void)onKeyboardAnimation
-{
-  CGFloat const keyboardHeight = [MWMKeyboard keyboardHeight];
-  if (keyboardHeight >= self.height)
-    return;
-
-  self.noResultsBottomOffset.constant = keyboardHeight;
-  if (self.superview)
-    [self layoutIfNeeded];
-}
-
-- (void)onKeyboardWillAnimate
-{
-  if (self.superview)
-    [self layoutIfNeeded];
 }
 
 - (MWMSearchNoResults *)noResultsView

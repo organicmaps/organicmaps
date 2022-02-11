@@ -1,7 +1,6 @@
 #import "MWMPlaceDoesntExistAlert.h"
-#import "MWMKeyboard.h"
 
-@interface MWMPlaceDoesntExistAlert ()<MWMKeyboardObserver>
+@interface MWMPlaceDoesntExistAlert()
 
 @property(weak, nonatomic) IBOutlet UITextField * textField;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * centerHorizontaly;
@@ -16,7 +15,6 @@
   MWMPlaceDoesntExistAlert * alert =
       [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   alert.block = block;
-  [MWMKeyboard addObserver:alert];
   return alert;
 }
 
@@ -34,13 +32,4 @@
   [self close:nil];
 }
 
-#pragma mark - MWMKeyboard
-
-- (void)onKeyboardAnimation
-{
-  self.centerHorizontaly.constant = -[MWMKeyboard keyboardHeight] / 2;
-  [self layoutIfNeeded];
-}
-
-- (void)onKeyboardWillAnimate { [self setNeedsLayout]; }
 @end

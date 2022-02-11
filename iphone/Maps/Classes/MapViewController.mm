@@ -67,7 +67,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 @end
 
 @interface MapViewController () <MWMFrameworkDrapeObserver,
-                                 MWMKeyboardObserver,
                                  MWMBookmarksObserver>
 
 @property(nonatomic, readwrite) MWMMapViewControlsManager *controlsManager;
@@ -320,7 +319,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [MWMRouter restoreRouteIfNeeded];
 
   self.view.clipsToBounds = YES;
-  [MWMKeyboard addObserver:self];
 
   if ([FirstSession isFirstSession])
   {
@@ -608,19 +606,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   }
 }
 
-#pragma mark - MWMKeyboard
-
-- (void)onKeyboardWillAnimate {
-  [self.view setNeedsLayout];
-}
-- (void)onKeyboardAnimation {
-  auto const kbHeight = [MWMKeyboard keyboardHeight];
-  self.sideButtonsAreaKeyboard.constant = kbHeight;
-  if (IPAD) {
-    self.visibleAreaKeyboard.constant = kbHeight;
-    self.placePageAreaKeyboard.constant = kbHeight;
-  }
-}
 #pragma mark - Properties
 
 - (MWMMapViewControlsManager *)controlsManager {

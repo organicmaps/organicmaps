@@ -1,5 +1,4 @@
 #import "MWMCuisineEditorViewController.h"
-#import "MWMKeyboard.h"
 #import "MWMTableViewCell.h"
 #import "SwiftBridge.h"
 
@@ -19,7 +18,7 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
 }
 }  // namespace
 
-@interface MWMCuisineEditorViewController ()<UISearchBarDelegate, MWMKeyboardObserver>
+@interface MWMCuisineEditorViewController ()<UISearchBarDelegate>
 {
   osm::AllCuisines m_allCuisines;
   std::vector<std::string> m_selectedCuisines;
@@ -42,21 +41,11 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
   [self configSearchBar];
   [self configData];
   [self configTable];
-  [MWMKeyboard addObserver:self];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
   return UIStatusBarStyleLightContent;
-}
-
-#pragma mark - MWMKeyboard
-
-- (void)onKeyboardAnimation
-{
-  UIEdgeInsets const contentInsets = {.bottom = [MWMKeyboard keyboardHeight]};
-  self.tableView.contentInset = contentInsets;
-  self.tableView.scrollIndicatorInsets = contentInsets;
 }
 
 #pragma mark - UISearchBarDelegate
