@@ -14340,7 +14340,7 @@
     sk = Zväčšiť veľkosť písma na mape
     sv = Öka teckenstorlek på kartan
     th = เพิ่มขนาดฟอนต์บนแผนที่
-    tr = Harita üzerindeki yazı tipi boyutunu artır
+    tr = Haritadaki yazı tipi boyutunu artır
     uk = Збільшити розмір шрифту на мапі
     vi = Tăng kích cỡ phông chữ trên bản đồ
     zh-Hans = 增大地图上的字体大小
