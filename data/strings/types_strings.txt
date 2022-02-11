@@ -67,7 +67,7 @@
     ru = Канатная дорога
     uk = Канатна дорога
     zh-Hans = 循环式索道
-    zh-Hant = 循環式索道 
+    zh-Hant = 循環式索道
 
   [type.aerialway.mixed_lift]
     en = Aerialway
@@ -9036,7 +9036,7 @@
     uk = Дошка пам'яті
     vi = Đài tưởng niệm
     zh-Hans = 纪念牌匾
-    zh-Hant = 紀念牌匾 
+    zh-Hant = 紀念牌匾
 
   [type.historic.memorial.sculpture]
     en = Sculpture
@@ -9417,8 +9417,6 @@
   [type.landuse.cemetery.christian]
     ref = type.amenity.grave_yard.christian
     en = Christian Cemetery
-    zh-Hans = 基督教墓地
-    zh-Hant = 基督教墓地
 
   [type.landuse.churchyard]
     en = Churchyard

@@ -1201,11 +1201,11 @@
 
 "type.aerialway.chair_lift" = "登山吊椅";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "缆车要素";
 
 "type.aerialway.gondola" = "循环式索道";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "缆车";
 
 "type.aerialway.station" = "缆车车站";
 
@@ -1303,7 +1303,7 @@
 "type.amenity.grave_yard" = "墓地";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.amenity.grave_yard.christian" = "墓地";
+"type.amenity.grave_yard.christian" = "基督教墓地";
 
 "type.amenity.hospital" = "医院";
 
@@ -2030,7 +2030,7 @@
 
 "type.historic.castle.defensive" = "城堡";
 
-"type.historic.castle.stately" = "城堡";
+"type.historic.castle.stately" = "宫殿";
 
 "type.historic.citywalls" = "历史城墙";
 
@@ -2038,7 +2038,7 @@
 
 "type.historic.memorial" = "纪念物";
 
-"type.historic.memorial.plaque" = "纪念物";
+"type.historic.memorial.plaque" = "纪念牌匾";
 
 "type.historic.memorial.sculpture" = "雕塑";
 

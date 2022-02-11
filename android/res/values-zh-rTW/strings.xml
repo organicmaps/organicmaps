@@ -668,12 +668,21 @@
 	<string name="enable_screen_sleep_description">啟用後，螢幕將在一段時間不活動後進入休眠狀態。</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.aerialway">纜車要素</string>
 	<string name="type.aerialway.cable_car">纜車</string>
+	<string name="type.aerialway.drag_lift">纜車要素</string>
+	<string name="type.aerialway.gondola">循環式索道</string>
+	<string name="type.aerialway.mixed_lift">纜車</string>
 	<string name="type.aerialway.station">纜車站</string>
+	<string name="type.aeroway">機場要素</string>
 	<string name="type.aeroway.aerodrome">機場</string>
 	<string name="type.aeroway.aerodrome.international">機場</string>
+	<string name="type.aeroway.apron">機場停機坪</string>
+	<string name="type.aeroway.gate">登機口</string>
 	<string name="type.aeroway.helipad">直升機場</string>
 	<string name="type.aeroway.runway">機場跑道</string>
+	<string name="type.aeroway.taxiway">滑行道</string>
+	<string name="type.aeroway.terminal">航站楼</string>
 	<string name="type.amenity">設施</string>
 	<string name="type.amenity.arts_centre">藝術中心</string>
 	<string name="type.amenity.atm">自動櫃員機</string>
@@ -712,7 +721,7 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.amenity.grave_yard">墓地</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-	<string name="type.amenity.grave_yard.christian">墓地</string>
+	<string name="type.amenity.grave_yard.christian">基督教墓地</string>
 	<string name="type.amenity.hospital">醫院</string>
 	<string name="type.amenity.hunting_stand">狩獵場</string>
 	<string name="type.amenity.ice_cream">冰淇淋攤</string>
@@ -738,16 +747,17 @@
 	<string name="type.amenity.payment_terminal">付款終端</string>
 	<string name="type.amenity.pharmacy">藥局</string>
 	<string name="type.amenity.place_of_worship">寺廟</string>
-	<string name="type.amenity.place_of_worship.buddhist">寺廟</string>
-	<string name="type.amenity.place_of_worship.christian">教堂</string>
-	<string name="type.amenity.place_of_worship.hindu">寺廟</string>
+	<string name="type.amenity.place_of_worship.buddhist">佛教寺廟</string>
+	<string name="type.amenity.place_of_worship.christian">基督教堂</string>
+	<string name="type.amenity.place_of_worship.hindu">印度教寺廟</string>
 	<string name="type.amenity.place_of_worship.jewish">猶太教堂</string>
 	<string name="type.amenity.place_of_worship.muslim">清真寺</string>
 	<string name="type.amenity.place_of_worship.shinto">聖殿</string>
-	<string name="type.amenity.place_of_worship.taoist">寺廟</string>
+	<string name="type.amenity.place_of_worship.taoist">道教宮觀</string>
 	<string name="type.amenity.police">警察局</string>
 	<string name="type.amenity.post_box">郵筒</string>
 	<string name="type.amenity.post_office">郵局</string>
+	<string name="type.amenity.prison">監獄</string>
 	<string name="type.amenity.pub">酒館</string>
 	<string name="type.amenity.public_bookcase">書架</string>
 
@@ -1015,18 +1025,25 @@
 	<string name="type.area_highway.unclassified">道路</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic">歷史地點</string>
 	<string name="type.historic.archaeological_site">考古遺址</string>
+	<string name="type.historic.battlefield">古戰場</string>
+	<string name="type.historic.boundary_stone">界碑</string>
 	<string name="type.historic.castle">城堡</string>
 	<string name="type.historic.castle.defensive">城堡</string>
-	<string name="type.historic.castle.stately">城堡</string>
+	<string name="type.historic.castle.stately">宮殿</string>
+	<string name="type.historic.citywalls">歷史城牆</string>
+	<string name="type.historic.fort">歷史要塞</string>
 	<string name="type.historic.memorial">紀念館</string>
-	<string name="type.historic.memorial.plaque">紀念館</string>
-	<string name="type.historic.memorial.sculpture">紀念館</string>
-	<string name="type.historic.memorial.statue">紀念館</string>
+	<string name="type.historic.memorial.plaque">紀念牌匾</string>
+	<string name="type.historic.memorial.sculpture">雕塑</string>
+	<string name="type.historic.memorial.statue">塑像</string>
 	<string name="type.historic.monument">紀念碑</string>
 	<string name="type.historic.ruins">廢墟</string>
-	<string name="type.historic.ship">旅遊景點</string>
-	<string name="type.historic.tomb">旅遊景點</string>
+	<string name="type.historic.ship">歷史船</string>
+	<string name="type.historic.tomb">陵墓</string>
+	<string name="type.historic.wayside_cross">路旁十字架</string>
+	<string name="type.historic.wayside_shrine">路旁神龕</string>
 	<string name="type.internet_access">互聯網</string>
 	<string name="type.internet_access.wlan">互聯網</string>
 	<string name="type.landuse.basin">水庫</string>
