@@ -214,7 +214,7 @@ VehicleModel::SurfaceInitList const & CarModel::GetSurfaces() { return car_model
 CarModelFactory::CarModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn)
   : VehicleModelFactory(countryParentNameGetterFn)
 {
-  m_models[""] = make_shared<CarModel>(
+  m_models[""] = std::make_shared<CarModel>(
       car_model::kCarOptionsDefault,
       HighwayBasedInfo(kHighwayBasedSpeeds, kHighwayBasedFactors));
 
@@ -223,7 +223,7 @@ CarModelFactory::CarModelFactory(CountryParentNameGetterFn const & countryParent
     auto const * country = kv.first;
     auto const & limit = kv.second;
     m_models[country] =
-        make_shared<CarModel>(limit, HighwayBasedInfo(kHighwayBasedSpeeds, kHighwayBasedFactors));
+        std::make_shared<CarModel>(limit, HighwayBasedInfo(kHighwayBasedSpeeds, kHighwayBasedFactors));
   }
 }
 }  // namespace routing
