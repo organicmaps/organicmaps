@@ -671,6 +671,10 @@
 	<string name="enable_screen_sleep">Consenti allo schermo di dormire</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Quando è abilitato, lo schermo si spegnerà dopo un periodo di inattività.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Mostra sulla schermata di blocco</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l\'app è in esecuzione.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Funivia</string>

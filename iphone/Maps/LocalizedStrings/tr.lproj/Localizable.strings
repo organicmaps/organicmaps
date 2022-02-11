@@ -711,10 +711,10 @@
 "downloader_no_downloaded_maps_message" = "Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.";
 
 /* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Geçerli konumunuzuz izlenmeye devam edilsin mi?";
+"current_location_unknown_title" = "Geçerli konumunuz izlenmeye devam edilsin mi?";
 
 /* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Geçerli konum bilinmiyor. Muhtemelen bir binanın içinde veya tüneldesiniz.";
+"current_location_unknown_message" = "Geçerli konum bilinmiyor. Muhtemelen bir bina veya tünelin içindesiniz.";
 
 "current_location_unknown_continue_button" = "Devam";
 
@@ -843,7 +843,7 @@
 
 "traffic_update_maps_text" = "Trafik verilerini görüntülemek için haritaların güncellenmesi gerekiyor.";
 
-"big_font" = "Harita üzerindeki yazı tipi boyutunu artır";
+"big_font" = "Haritadaki yazı tipi boyutunu artır";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Trafik verilerini görüntülemek için uygulamanın güncellenmesi gerekiyor.";

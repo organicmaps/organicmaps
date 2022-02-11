@@ -671,6 +671,10 @@
 	<string name="enable_screen_sleep">Lasă ecranul să se stingă</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Cînd este activat, ecranul se va stinge după o perioadă de inactivitate.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Arată pe ecranul blocat</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Cînd este activată, nu trebuie să deblochezi telefonul de fiecare dată cînd aplicația este în funcțiune.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>
