@@ -24,7 +24,6 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:layout_scrollFlags="scroll|enterAlways"/>
-      <include layout="@layout/search_filter_panel"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
@@ -87,6 +86,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     </FrameLayout>
+
+    <include
+      layout="@layout/show_on_map_fab"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:layout_margin="@dimen/margin_base"
+      app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
+
     <com.mapswithme.maps.widget.FadeView
       android:id="@+id/fade_view"
       android:layout_width="match_parent"

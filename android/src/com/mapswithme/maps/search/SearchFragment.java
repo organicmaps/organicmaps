@@ -14,6 +14,7 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
@@ -72,7 +75,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     public ToolbarController(View root)
     {
-      super(root, SearchFragment.this.getActivity());
+      super(root, SearchFragment.this.requireActivity());
     }
 
     @Override
@@ -144,13 +147,9 @@ public class SearchFragment extends BaseMwmFragment
     }
   }
 
-  private View mTabFrame;
   private View mResultsFrame;
   private PlaceholderView mResultsPlaceholder;
-  private RecyclerView mResults;
-  private AppBarLayout mAppBarLayout;
-  @Nullable
-  private SearchFilterController mFilterController;
+  private FloatingActionButton mShowOnMapFab;
 
   private SearchToolbarController mToolbarController;
 
@@ -162,7 +161,7 @@ public class SearchFragment extends BaseMwmFragment
   private final RecyclerView.OnScrollListener mRecyclerListener = new RecyclerView.OnScrollListener()
   {
     @Override
-    public void onScrollStateChanged(RecyclerView recyclerView, int newState)
+    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState)
     {
       if (newState == RecyclerView.SCROLL_STATE_DRAGGING)
         mToolbarController.deactivate();
@@ -188,19 +187,6 @@ public class SearchFragment extends BaseMwmFragment
     }
   };
 
-  private final AppBarLayout.OnOffsetChangedListener mOffsetListener =
-      new AppBarLayout.OnOffsetChangedListener() {
-        @Override
-        public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset)
-        {
-          if (mFilterController == null)
-            return;
-
-          boolean show = !(Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange());
-          mFilterController.showDivider(show);
-        }
-      };
-
   private static boolean doShowDownloadSuggest()
   {
     return (MapManager.nativeGetDownloadedCount() == 0 && !MapManager.nativeIsDownloading());
@@ -214,7 +200,7 @@ public class SearchFragment extends BaseMwmFragment
 
     if (fragment == null || fragment.isDetached() || fragment.isRemoving())
     {
-      fragment = Fragment.instantiate(getActivity(), fragmentName, null);
+      fragment = Fragment.instantiate(requireActivity(), fragmentName, null);
       fm.beginTransaction()
         .add(R.id.download_suggest_frame, fragment, fragmentName)
         .commit();
@@ -237,15 +223,21 @@ public class SearchFragment extends BaseMwmFragment
   private void updateFrames()
   {
     final boolean hasQuery = mToolbarController.hasQuery();
-    UiUtils.showIf(hasQuery, mResultsFrame);
     Toolbar toolbar = mToolbarController.getToolbar();
     AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
     lp.setScrollFlags(hasQuery ? AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
                                  | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL : 0);
     toolbar.setLayoutParams(lp);
-    if (mFilterController != null)
-      mFilterController.show(hasQuery);
 
+    CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mShowOnMapFab.getLayoutParams();
+    HideBottomViewOnScrollBehavior<View> behavior = (HideBottomViewOnScrollBehavior<View>) params.getBehavior();
+    if (behavior != null && !hasQuery && !UiUtils.isVisible(mShowOnMapFab))
+    {
+      // Reset fab in up position on hiding
+      behavior.slideUp(mShowOnMapFab);
+    }
+    UiUtils.showIf(hasQuery, mResultsFrame);
+    UiUtils.showIf(hasQuery, mShowOnMapFab);
     if (hasQuery)
       hideDownloadSuggest();
     else if (doShowDownloadSuggest())
@@ -256,13 +248,14 @@ public class SearchFragment extends BaseMwmFragment
 
   private void updateResultsPlaceholder()
   {
-    final boolean show = !mSearchRunning
+    final boolean showPlaceholder = !mSearchRunning
                          && mSearchAdapter.getItemCount() == 0
                          && mToolbarController.hasQuery();
+    final boolean showFab = mSearchRunning
+            || mSearchAdapter.getItemCount() > 0;
 
-    UiUtils.showIf(show, mResultsPlaceholder);
-    if (mFilterController != null)
-      mFilterController.showPopulateButton(!isTabletSearch());
+    UiUtils.showIf(showFab, mShowOnMapFab);
+    UiUtils.showIf(showPlaceholder, mResultsPlaceholder);
   }
 
   @Override
@@ -280,8 +273,7 @@ public class SearchFragment extends BaseMwmFragment
     readArguments();
 
     ViewGroup root = (ViewGroup) view;
-    mAppBarLayout = root.findViewById(R.id.app_bar);
-    mTabFrame = root.findViewById(R.id.tab_frame);
+    View mTabFrame = root.findViewById(R.id.tab_frame);
     ViewPager pager = mTabFrame.findViewById(R.id.pages);
 
     mToolbarController = new ToolbarController(view);
@@ -289,20 +281,10 @@ public class SearchFragment extends BaseMwmFragment
     final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
 
     mResultsFrame = root.findViewById(R.id.results_frame);
-    mResults = mResultsFrame.findViewById(R.id.recycler);
+    RecyclerView mResults = mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(mResults);
     mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
     mResultsPlaceholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
-    mFilterController = new SearchFilterController(root.findViewById(R.id.filter_frame),
-                                                   new SearchFilterController.DefaultFilterListener()
-    {
-      @Override
-      public void onShowOnMapClick()
-      {
-        showAllResultsOnMap();
-      }
-
-    }, R.string.search_show_on_map);
     mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
 
   {
@@ -312,6 +294,8 @@ public class SearchFragment extends BaseMwmFragment
         updateResultsPlaceholder();
       }
     });
+    mShowOnMapFab = root.findViewById(R.id.fabViewOnMap);
+    mShowOnMapFab.setOnClickListener(v -> showAllResultsOnMap());
 
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
@@ -347,7 +331,6 @@ public class SearchFragment extends BaseMwmFragment
   {
     super.onResume();
     LocationHelper.INSTANCE.addListener(mLocationListener);
-    mAppBarLayout.addOnOffsetChangedListener(mOffsetListener);
   }
 
   @Override
@@ -355,7 +338,6 @@ public class SearchFragment extends BaseMwmFragment
   {
     LocationHelper.INSTANCE.removeListener(mLocationListener);
     super.onPause();
-    mAppBarLayout.removeOnOffsetChangedListener(mOffsetListener);
   }
 
   @Override
@@ -429,7 +411,7 @@ public class SearchFragment extends BaseMwmFragment
     {
       SearchResult.Description description = result.description;
       String subtitle = description != null
-                        ? Utils.getLocalizedFeatureType(getContext(), description.featureType)
+                        ? Utils.getLocalizedFeatureType(requireContext(), description.featureType)
                         : "";
       String title = TextUtils.isEmpty(result.name) ? subtitle : "";
 
@@ -566,9 +548,6 @@ public class SearchFragment extends BaseMwmFragment
   {
     super.onActivityResult(requestCode, resultCode, data);
     mToolbarController.onActivityResult(requestCode, resultCode, data);
-
-    if (resultCode != Activity.RESULT_OK)
-      return;
   }
 
   @Override
@@ -597,8 +576,8 @@ public class SearchFragment extends BaseMwmFragment
 
   private void closeSearch()
   {
-    getActivity().finish();
-    getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    requireActivity().finish();
+    requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)

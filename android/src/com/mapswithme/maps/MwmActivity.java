@@ -79,7 +79,6 @@ import com.mapswithme.maps.routing.RoutingPlanInplaceController;
 import com.mapswithme.maps.search.FloatingSearchToolbarController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
-import com.mapswithme.maps.search.SearchFilterController;
 import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.settings.DrivingOptionsActivity;
 import com.mapswithme.maps.settings.RoadType;
@@ -197,8 +196,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NullableProblems")
   @NonNull
   private MapLayerCompositeController mToggleMapLayerController;
-  @Nullable
-  private SearchFilterController mFilterController;
 
   private boolean mIsTabletLayout;
   private boolean mIsFullscreen;
@@ -324,14 +321,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void showBookmarks()
   {
     BookmarkCategoriesActivity.start(this);
-  }
-
-  private void showTabletSearch(@Nullable Intent data, @NonNull String query)
-  {
-    if (mFilterController == null || data == null)
-      return;
-
-    showSearch(query);
   }
 
   public void showSearch(String query)
@@ -500,24 +489,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initMainMenu();
     initOnmapDownloader();
     initPositionChooser();
-    initFilterViews();
-  }
-
-  private void initFilterViews()
-  {
-    View frame = findViewById(R.id.filter_frame);
-    if (frame != null)
-    {
-      mFilterController = new SearchFilterController(frame, new SearchFilterController
-          .DefaultFilterListener()
-      {
-        @Override
-        public void onShowOnMapClick()
-        {
-          showSearch(mSearchController.getQuery());
-        }
-      }, R.string.search_in_table);
-    }
   }
 
   private void initPositionChooser()
@@ -1662,13 +1633,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                     : UiUtils.getStatusBarHeight(getApplicationContext()));
     int toolbarHeight = mSearchController.getToolbar().getHeight();
     setNavButtonsTopLimit(visible ? toolbarHeight : 0);
-    if (mFilterController != null)
-    {
-      boolean show = visible && !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery())
-                     && !RoutingController.get().isNavigating();
-      mFilterController.show(show);
-      mMainMenu.show(!show);
-    }
+
+    boolean show = visible && !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery())
+                   && !RoutingController.get().isNavigating();
+    mMainMenu.show(!show);
   }
 
   private int calcFloatingViewsOffset()
@@ -1690,11 +1658,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     refreshFade();
     if (mOnmapDownloader != null)
       mOnmapDownloader.updateState(false);
-    if (show)
-    {
-      if (mFilterController != null)
-        mFilterController.show(false);
-    }
   }
 
   @Override
