@@ -20795,7 +20795,7 @@
     tags = android,ios
     en = Search in the list
     ar = بحث في القائمة
-    be = Шукаць у спіце
+    be = Шукаць у спісе
     bg = Търсене в списъка
     cs = Vyhledat v seznamu
     da = Søg i listen
