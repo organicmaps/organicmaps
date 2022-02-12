@@ -228,13 +228,6 @@ public class SearchFragment extends BaseMwmFragment
                                  | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL : 0);
     toolbar.setLayoutParams(lp);
 
-    CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mShowOnMapFab.getLayoutParams();
-    HideBottomViewOnScrollBehavior<View> behavior = (HideBottomViewOnScrollBehavior<View>) params.getBehavior();
-    if (behavior != null && !hasQuery && !UiUtils.isVisible(mShowOnMapFab))
-    {
-      // Reset fab in up position on hiding
-      behavior.slideUp(mShowOnMapFab);
-    }
     UiUtils.showIf(hasQuery, mResultsFrame);
     UiUtils.showIf(hasQuery, mShowOnMapFab);
     if (hasQuery)
