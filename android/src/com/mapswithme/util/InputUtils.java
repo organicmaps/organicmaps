@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+
 import com.mapswithme.util.concurrency.UiThread;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class InputUtils
 
   private InputUtils() { /* static class */ }
 
-  public static boolean isVoiceInputSupported(Context context)
+  public static boolean isVoiceInputSupported(@NonNull Context context)
   {
     if (mVoiceInputSupported == null)
       mVoiceInputSupported = Utils.isIntentSupported(context, new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH));

@@ -1850,23 +1850,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationError()
   {
-    if (mLocationErrorDialogAnnoying)
+    if (mLocationErrorDialogAnnoying || (mLocationErrorDialog != null && mLocationErrorDialog.isShowing()))
       return;
 
-    Intent intent = makeAppSettingsLocationIntent();
-    if (intent == null)
-      return;
-    showLocationErrorDialog(intent);
-  }
-
-  private Intent makeAppSettingsLocationIntent()
-  {
-    Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-    if (intent.resolveActivity(getPackageManager()) != null)
-      return intent;
-
-    intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
-    return intent.resolveActivity(getPackageManager()) == null ? null : intent;
+    AlertDialog.Builder builder = new AlertDialog.Builder(this)
+        .setTitle(R.string.enable_location_services)
+        .setMessage(R.string.location_is_disabled_long_text)
+        .setOnCancelListener(dialog -> mLocationErrorDialogAnnoying = true)
+        .setNegativeButton(R.string.close, (dialog, which) -> mLocationErrorDialogAnnoying = true);
+    final Intent intent = Utils.makeSystemLocationSettingIntent(this);
+    if (intent != null)
+    {
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+      intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+      builder.setPositiveButton(R.string.connection_settings, (dialog, which) -> startActivity(intent));
+    }
+    mLocationErrorDialog = builder.show();
   }
 
   @Override
@@ -1892,26 +1892,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       else
         mNavigationController.fadeOutSearchButtons();
     }
-  }
-
-  private void showLocationErrorDialog(@NonNull final Intent intent)
-  {
-    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
-      return;
-
-    mLocationErrorDialog = new AlertDialog.Builder(this)
-        .setTitle(R.string.enable_location_services)
-        .setMessage(R.string.location_is_disabled_long_text)
-        .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            mLocationErrorDialogAnnoying = true;
-          }
-        })
-        .setOnCancelListener(dialog -> mLocationErrorDialogAnnoying = true)
-        .setPositiveButton(R.string.connection_settings, (dialog, which) -> startActivity(intent)).show();
   }
 
   @Override
