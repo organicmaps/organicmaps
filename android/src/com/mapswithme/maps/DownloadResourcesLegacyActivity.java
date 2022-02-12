@@ -235,7 +235,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   {
     super.onResume();
     if (!isFinishing())
-      LocationHelper.INSTANCE.addListener(mLocationListener, true);
+      LocationHelper.INSTANCE.addListener(mLocationListener);
   }
 
   @Override

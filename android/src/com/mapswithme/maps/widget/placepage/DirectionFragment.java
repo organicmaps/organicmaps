@@ -98,7 +98,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
   public void onResume()
   {
     super.onResume();
-    LocationHelper.INSTANCE.addListener(this, true);
+    LocationHelper.INSTANCE.addListener(this);
     refreshViews();
   }
 

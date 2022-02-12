@@ -346,7 +346,7 @@ public class SearchFragment extends BaseMwmFragment
   public void onResume()
   {
     super.onResume();
-    LocationHelper.INSTANCE.addListener(mLocationListener, true);
+    LocationHelper.INSTANCE.addListener(mLocationListener);
     mAppBarLayout.addOnOffsetChangedListener(mOffsetListener);
   }
 

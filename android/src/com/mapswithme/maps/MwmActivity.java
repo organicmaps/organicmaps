@@ -1848,8 +1848,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onLocationError()
+  public void onLocationError(int errorCode)
   {
+    if (errorCode == LocationHelper.ERROR_DENIED)
+    {
+      PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
+      return;
+    }
+
     if (mLocationErrorDialogAnnoying || (mLocationErrorDialog != null && mLocationErrorDialog.isShowing()))
       return;
 
@@ -1913,6 +1919,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     DialogInterface.OnClickListener stopClickListener = (dialog, which) ->
     {
       LocationHelper.INSTANCE.setStopLocationUpdateByUser(true);
+      LocationHelper.INSTANCE.stop();
     };
 
     DialogInterface.OnClickListener continueClickListener = (dialog, which) ->

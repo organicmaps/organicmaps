@@ -1,10 +1,14 @@
 package com.mapswithme.maps.location;
 
+import static com.mapswithme.maps.location.LocationHelper.ERROR_GPS_OFF;
+import static com.mapswithme.maps.location.LocationHelper.ERROR_NOT_SUPPORTED;
+
 import android.content.Context;
 import android.location.Location;
 import android.os.Looper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
@@ -18,6 +22,7 @@ import com.google.android.gms.location.SettingsClient;
 class GoogleFusedLocationProvider extends BaseLocationProvider
 {
   private final static String TAG = GoogleFusedLocationProvider.class.getSimpleName();
+
   @NonNull
   private final FusedLocationProviderClient mFusedLocationClient;
   @NonNull
@@ -29,27 +34,30 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     public void onLocationResult(@NonNull LocationResult result)
     {
       final Location location = result.getLastLocation();
-      LOGGER.d(TAG, "onLocationResult, location = " + location);
+      // Documentation is inconsistent with the code: "returns null if no locations are available".
+      // https://developers.google.com/android/reference/com/google/android/gms/location/LocationResult#getLastLocation()
+      //noinspection ConstantConditions
       if (location == null)
         return;
-      onLocationChanged(location);
+      mListener.onLocationChanged(location);
     }
 
     @Override
     public void onLocationAvailability(@NonNull LocationAvailability availability)
     {
-      LOGGER.d(TAG, "Location is " + (availability.isLocationAvailable() ? "available" : "unavailable"));
-      setActive(availability.isLocationAvailable());
+      if (!availability.isLocationAvailable())
+        mListener.onLocationError(ERROR_GPS_OFF);
     }
   }
 
-  @NonNull
-  private final GoogleLocationCallback mCallback;
+  @Nullable
+  private final GoogleLocationCallback mCallback = new GoogleLocationCallback();
 
-  GoogleFusedLocationProvider(@NonNull LocationFixChecker locationFixChecker, @NonNull Context context)
+  private boolean mActive = false;
+
+  GoogleFusedLocationProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener)
   {
-    super(locationFixChecker);
-    mCallback = new GoogleLocationCallback();
+    super(listener);
     mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
     mSettingsClient = LocationServices.getSettingsClient(context);
   }
@@ -57,17 +65,15 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @SuppressWarnings("MissingPermission")
   // A permission is checked externally
   @Override
-  protected void start()
+  public void start(long interval)
   {
-    if (isActive())
-      return;
-
-    LOGGER.d(TAG, "Starting");
-    setActive(true);
+    LOGGER.d(TAG, "start()");
+    if (mActive)
+      throw new IllegalStateException("Already subscribed");
+    mActive = true;
 
     final LocationRequest locationRequest = LocationRequest.create();
     locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-    long interval = LocationHelper.INSTANCE.getInterval();
     locationRequest.setInterval(interval);
     LOGGER.d(TAG, "Request Google fused provider to provide locations at this interval = "
         + interval + " ms");
@@ -80,12 +86,9 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     mSettingsClient.checkLocationSettings(locationSettingsRequest).addOnSuccessListener(locationSettingsResponse -> {
       LOGGER.d(TAG, "Service is available");
       mFusedLocationClient.requestLocationUpdates(locationRequest, mCallback, Looper.myLooper());
-      LocationHelper.INSTANCE.startSensors();
     }).addOnFailureListener(e -> {
-      setActive(false);
       LOGGER.e(TAG, "Service is not available: " + e);
-      LocationHelper.INSTANCE.initNativeProvider();
-      LocationHelper.INSTANCE.start();
+      mListener.onLocationError(ERROR_NOT_SUPPORTED);
     });
 
     // onLocationResult() may not always be called regularly, however the device location is known.
@@ -93,37 +96,15 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
       LOGGER.d(TAG, "onLastLocation, location = " + location);
       if (location == null)
         return;
-      GoogleFusedLocationProvider.this.onLocationChanged(location);
+      mListener.onLocationChanged(location);
     });
   }
 
   @Override
   protected void stop()
   {
-    LOGGER.d(TAG, "Stopping");
+    LOGGER.d(TAG, "stop()");
     mFusedLocationClient.removeLocationUpdates(mCallback);
-
-    setActive(false);
-  }
-
-  private void onLocationChanged(@NonNull Location location)
-  {
-    if (!mLocationFixChecker.isAccuracySatisfied(location))
-      return;
-
-    if (mLocationFixChecker.isLocationBetterThanLast(location))
-    {
-      LocationHelper.INSTANCE.onLocationUpdated(location);
-      LocationHelper.INSTANCE.notifyLocationUpdated();
-    }
-    else
-    {
-      Location last = LocationHelper.INSTANCE.getSavedLocation();
-      if (last != null)
-      {
-        LOGGER.d(TAG, "The new location from '" + location.getProvider()
-            + "' is worse than the last one from '" + last.getProvider() + "'");
-      }
-    }
+    mActive = false;
   }
 }
