@@ -1,6 +1,6 @@
 • Yeni OSM harita verileri (4 Şubat 2022)
 • Ana ekranda yeni Yardım/Hakkında seçeneği
-• Boş haritaya dokunarak alttaki araç çubuğunu gizleme
+• Haritada boş bir yere dokunarak alttaki araç çubuğunu gizleme
 • Şeffaf alt araç çubuğu arka planı
 
 Rota:
@@ -11,7 +11,7 @@ Rota:
 
 Harita:
 • Arama kısmına Su, Karavan Tesisleri ve Geri Dönüşüm kategorileri eklendi
-• Yeni obje türleri eklendi (koli toplama, dışkı torbaları, rıhtım, marina, karavan, çöp istasyonu, direk, bayrak direği, cenaze müdürlüğü )
+• Yeni obje türleri eklendi (koli toplama, dışkı torbaları, rıhtım, marina, karavan, çöp istasyonu, direk, bayrak direği, cenaze müdürlüğü)
 • Navigasyonda daha iyi daire numaraları
 • Basılı tutarak alan nesneleri yerine doğrusal nesneleri seçin
 • Kasabalar ve şehirler, 10-11 yakınlaştırma seviyelerinde uygun şekilde önceliklendirilir
