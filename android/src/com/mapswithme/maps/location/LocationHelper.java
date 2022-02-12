@@ -27,7 +27,9 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-public enum LocationHelper implements Initializable<Context>, AppBackgroundTracker.OnTransitionListener
+import org.jetbrains.annotations.NotNull;
+
+public enum LocationHelper implements Initializable<Context>, AppBackgroundTracker.OnTransitionListener, BaseLocationProvider.Listener
 {
   INSTANCE;
 
@@ -105,7 +107,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       mSavedLocation = null;
       nativeOnLocationError(errorCode);
       if (mUiCallback != null)
-        mUiCallback.onLocationError();
+        mUiCallback.onLocationError(errorCode);
     }
 
     @Override
@@ -123,15 +125,18 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   private Location mSavedLocation;
   private MapObject mMyPosition;
   private long mSavedLocationTime;
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private SensorHelper mSensorHelper;
-  @Nullable
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
   private BaseLocationProvider mLocationProvider;
   @Nullable
   private UiCallback mUiCallback;
   private long mInterval;
   private CompassData mCompassData;
   private boolean mInFirstRun;
+  private boolean mActive;
   private boolean mLocationUpdateStoppedByUser;
 
   @SuppressWarnings("FieldCanBeLocal")
@@ -158,38 +163,21 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       };
 
   @Override
-  public void initialize(@Nullable Context context)
+  public void initialize(@NotNull Context context)
   {
     mContext = context;
     mSensorHelper = new SensorHelper(context);
-    initProvider();
+    mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
     LocationState.nativeSetListener(mMyPositionModeListener);
     LocationState.nativeSetLocationPendingTimeoutListener(mLocationPendingTimeoutListener);
     MwmApplication.backgroundTracker(context).addListener(this);
+    addListener(mCoreLocationListener);
   }
 
   @Override
   public void destroy()
   {
     // No op.
-  }
-
-  private void initProvider()
-  {
-    mLocationProvider = LocationProviderFactory.getProvider(mContext);
-  }
-
-  void initNativeProvider()
-  {
-    mLogger.d(TAG, "Use native provider");
-    mLocationProvider = new AndroidNativeProvider(new DefaultLocationFixChecker(), mContext);
-  }
-
-  public void onLocationUpdated(@NonNull Location location)
-  {
-    mSavedLocation = location;
-    mMyPosition = null;
-    mSavedLocationTime = System.currentTimeMillis();
   }
 
   /**
@@ -232,11 +220,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   /**
    * Indicates about whether a location provider is polling location updates right now or not.
-   * @see BaseLocationProvider#isActive()
    */
   public boolean isActive()
   {
-    return mLocationProvider != null && mLocationProvider.isActive();
+    return mActive;
   }
 
   public void setStopLocationUpdateByUser(boolean isStopped)
@@ -290,13 +277,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     mListeners.finishIterate();
   }
 
-  void notifyLocationUpdated()
+  private void notifyLocationUpdated()
   {
     if (mSavedLocation == null)
-    {
-      mLogger.d(TAG, "No saved location - skip");
-      return;
-    }
+      throw new IllegalStateException("No saved location");
 
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mSavedLocation);
@@ -316,22 +300,37 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
   }
 
-  private void notifyLocationUpdated(LocationListener listener)
+  @Override
+  public void onLocationChanged(@NonNull Location location)
   {
-    mLogger.d(TAG, "notifyLocationUpdated(), listener: " + listener);
+    mLogger.d(TAG, "onLocationChanged, location = " + location);
 
-    if (mSavedLocation == null)
+    if (!LocationUtils.isAccuracySatisfied(location))
+      return;
+
+    if (mSavedLocation != null && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
     {
-      mLogger.d(TAG, "No saved location - skip");
+      mLogger.d(TAG, "The new " + location + " is worse than the last " +  mSavedLocation);
       return;
     }
 
-    listener.onLocationUpdated(mSavedLocation);
+    mSavedLocation = location;
+    mMyPosition = null;
+    mSavedLocationTime = System.currentTimeMillis();
+    notifyLocationUpdated();
   }
 
-  private void notifyLocationError(int errCode)
+  @Override
+  public void onLocationError(int errCode)
   {
-    mLogger.d(TAG, "notifyLocationError(): " + errCode);
+    mLogger.d(TAG, "onLocationError(): " + errCode);
+    if (errCode == ERROR_NOT_SUPPORTED && !(mLocationProvider instanceof AndroidNativeProvider))
+    {
+      // Try to downgrade to native provider first before notifying the user.
+      mLogger.d(TAG, "Downgrading to use native provider");
+      mLocationProvider = new AndroidNativeProvider(mContext, this);
+      return;
+    }
 
     for (LocationListener listener : mListeners)
       listener.onLocationError(errCode);
@@ -357,29 +356,16 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
    * Registers listener to obtain location updates.
    *
    * @param listener    listener to be registered.
-   * @param forceUpdate instantly notify given listener about available location, if any.
-   */
-  @UiThread
-  public void addListener(@NonNull LocationListener listener, boolean forceUpdate)
-  {
-    mLogger.d(TAG, "addListener(): " + listener + ", forceUpdate: " + forceUpdate);
-    mLogger.d(TAG, " - listener count was: " + mListeners.getSize());
-
-    mListeners.register(listener);
-
-    if (forceUpdate)
-      notifyLocationUpdated(listener);
-  }
-
-  /**
-   * Registers listener to obtain location updates.
-   *
-   * @param listener listener to be registered.
    */
   @UiThread
   public void addListener(@NonNull LocationListener listener)
   {
-    addListener(listener, false);
+    mLogger.d(TAG, "addListener(): " + listener);
+    mLogger.d(TAG, " - listener count was: " + mListeners.getSize());
+
+    mListeners.register(listener);
+    if (mSavedLocation != null)
+      listener.onLocationUpdated(mSavedLocation);
   }
 
   @UiThread
@@ -392,11 +378,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     mLogger.d(TAG, "removeListener(), listener: " + listener);
     mLogger.d(TAG, " - listener count was: " + mListeners.getSize());
     mListeners.unregister(listener);
-  }
-
-  void startSensors()
-  {
-    mSensorHelper.start();
   }
 
   private void calcLocationUpdatesInterval()
@@ -449,11 +430,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
   }
 
-  long getInterval()
-  {
-    return mInterval;
-  }
-
   /**
    * Stops the current provider. Then initialize the location provider again,
    * because location settings could be changed and a new location provider can be used,
@@ -465,10 +441,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
    */
   public void restart()
   {
-    mLogger.d(TAG, "restart()");
-    checkProviderInitialization();
-    stopInternal();
-    initProvider();
+    mLogger.i(TAG, "restart()");
+    stop();
     start();
   }
 
@@ -480,98 +454,52 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
    */
   public void start()
   {
-    if (isLocationUpdateStoppedByUser())
-    {
-      mLogger.d(TAG, "Location updates are stopped by the user manually, so skip provider start"
-                     + " until the user starts it manually.");
-      return;
-    }
-
-    checkProviderInitialization();
-    //noinspection ConstantConditions
-    if (mLocationProvider.isActive())
+    if (mActive)
     {
       mLogger.i(TAG, "Provider '" + mLocationProvider + "' is already started");
       return;
     }
 
-    addListener(mCoreLocationListener, true);
-
-    if (!LocationUtils.checkProvidersAvailability(mContext))
+    if (isLocationUpdateStoppedByUser())
     {
-      // No need to notify about an error in first run mode
-      if (!mInFirstRun)
-        notifyLocationError(ERROR_DENIED);
+      mLogger.d(TAG, "Location updates are stopped by the user manually, so skip provider start"
+                          + " until the user starts it manually.");
+      onLocationError(ERROR_GPS_OFF);
       return;
     }
 
     long oldInterval = mInterval;
     mLogger.d(TAG, "Old time interval (ms): " + oldInterval);
     calcLocationUpdatesInterval();
-    mLogger.d(TAG, "start(), params: " + mInterval);
-    startInternal();
+    if (!PermissionsUtils.isLocationGranted(mContext))
+    {
+      mLogger.w(TAG, "Dynamic permission ACCESS_COARSE_LOCATION/ACCESS_FINE_LOCATION is not granted");
+      onLocationError(ERROR_DENIED);
+      return;
+    }
+    mLogger.i(TAG, "start(): interval = " + mInterval + " provider = '" + mLocationProvider + "' mInFirstRun = " + mInFirstRun);
+    checkForAgpsUpdates();
+    mLocationProvider.start(mInterval);
+    mSensorHelper.start();
+    mActive = true;
   }
 
   /**
    * Stops the polling location updates, i.e. removes the {@link #mCoreLocationListener} and stops
    * the current active provider.
    */
-  private void stop()
+  public void stop()
   {
-    mLogger.d(TAG, "stop()");
-    checkProviderInitialization();
-    //noinspection ConstantConditions
-    if (!mLocationProvider.isActive())
+    mLogger.i(TAG, "stop()");
+    if (!mActive)
     {
       mLogger.i(TAG, "Provider '" + mLocationProvider + "' is already stopped");
       return;
     }
 
-    removeListener(mCoreLocationListener);
-    stopInternal();
-  }
-
-  /**
-   * Actually starts location polling.
-   */
-  private void startInternal()
-  {
-    mLogger.d(TAG, "startInternal(), current provider is '" + mLocationProvider
-                   + "' , my position mode = " + LocationState.nameOf(getMyPositionMode())
-                   + ", mInFirstRun = " + mInFirstRun);
-    if (!PermissionsUtils.isLocationGranted(mContext))
-    {
-      mLogger.w(TAG, "Dynamic permission ACCESS_COARSE_LOCATION/ACCESS_FINE_LOCATION is not granted",
-                new Throwable());
-      return;
-    }
-    checkForAgpsUpdates();
-    checkProviderInitialization();
-    //noinspection ConstantConditions
-    mLocationProvider.start();
-    mLogger.d(TAG, mLocationProvider.isActive() ? "SUCCESS" : "FAILURE");
-  }
-
-  private void checkProviderInitialization()
-  {
-    if (mLocationProvider == null)
-    {
-      String error = "A location provider must be initialized!";
-      mLogger.e(TAG, error, new Throwable());
-      throw new AssertionError(error);
-    }
-  }
-
-  /**
-   * Actually stops location polling.
-   */
-  private void stopInternal()
-  {
-    mLogger.d(TAG, "stopInternal()");
-    checkProviderInitialization();
-    //noinspection ConstantConditions
     mLocationProvider.stop();
     mSensorHelper.stop();
+    mActive = false;
   }
 
   private void checkForAgpsUpdates()
@@ -618,12 +546,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     if (mCompassData != null)
       mUiCallback.onCompassUpdated(mCompassData);
 
-    checkProviderInitialization();
-    //noinspection ConstantConditions
-    if (mLocationProvider.isActive())
+    if (mActive)
     {
       mLogger.d(TAG, "attach() provider '" + mLocationProvider + "' is active, just add the listener");
-      addListener(mCoreLocationListener, true);
+      if (mSavedLocation != null)
+        mCoreLocationListener.onLocationUpdated(mSavedLocation);
     }
     else
     {
@@ -676,8 +603,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
     // If there is a location we need just to pass it to the listeners, so that
     // my position state machine will be switched to the FOLLOW state.
-    Location location = getSavedLocation();
-    if (location != null)
+    if (mSavedLocation != null)
     {
       notifyLocationUpdated();
       mLogger.d(TAG, "Current location is available, so play the nice zoom animation");
@@ -685,11 +611,9 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       return;
     }
 
-    checkProviderInitialization();
     // If the location hasn't been obtained yet we need to switch to the next mode and wait for locations.
     // Otherwise, try to restart location updates polling.
-    // noinspection ConstantConditions
-    if (mLocationProvider.isActive())
+    if (mActive)
       switchToNextMode();
     else
       restart();
@@ -702,10 +626,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @Nullable
   public Location getLastKnownLocation()
   {
-    if (mSavedLocation != null)
-      return mSavedLocation;
-
-    return AndroidNativeProvider.findBestLocation(mContext);
+    return mSavedLocation;
   }
 
   @Nullable
@@ -730,7 +651,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     void onMyPositionModeChanged(int newMode);
     void onLocationUpdated(@NonNull Location location);
     void onCompassUpdated(@NonNull CompassData compass);
-    void onLocationError();
+    void onLocationError(int errorCode);
     void onLocationNotFound();
     void onRoutingFinish();
   }

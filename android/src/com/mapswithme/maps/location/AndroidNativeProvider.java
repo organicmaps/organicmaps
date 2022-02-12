@@ -6,120 +6,96 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
 
-import java.util.ArrayList;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Objects;
 
 class AndroidNativeProvider extends BaseLocationProvider
 {
-  private final static String TAG = AndroidNativeProvider.class.getSimpleName();
+  protected String TAG = AndroidNativeProvider.class.getSimpleName();
+
+  private class NativeLocationListener implements LocationListener {
+    @Override
+    public void onLocationChanged(@NonNull Location location)
+    {
+      mListener.onLocationChanged(location);
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider)
+    {
+      LOGGER.d(TAG, "Disabled location provider: " + provider);
+      mProviderCount--;
+      if (mProviderCount < MIN_PROVIDER_COUNT)
+        mListener.onLocationError(LocationHelper.ERROR_GPS_OFF);
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider)
+    {
+      LOGGER.d(TAG, "Enabled location provider: " + provider);
+      mProviderCount++;
+    }
+  };
 
   @NonNull
   private final LocationManager mLocationManager;
-  @NonNull
-  private final List<LocationListener> mListeners = new ArrayList<>();
+  private int mProviderCount = 0;
+  private boolean mActive = false;
+  static private int MIN_PROVIDER_COUNT = 2; // PASSIVE is always available
 
-  AndroidNativeProvider(@NonNull LocationFixChecker locationFixChecker, @NonNull Context context)
+  @NotNull
+  final private NativeLocationListener mNativeLocationListener = new NativeLocationListener();
+
+  AndroidNativeProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener)
   {
-    super(locationFixChecker);
-    Objects.requireNonNull(context, "Context should be passed!");
+    super(listener);
     mLocationManager = (LocationManager) MwmApplication.from(context).getSystemService(Context.LOCATION_SERVICE);
+    // This service is always available on all versions of Android
+    if (mLocationManager == null)
+      throw new IllegalStateException("Can't get LOCATION_SERVICE");
   }
 
   @SuppressWarnings("MissingPermission")
   // A permission is checked externally
   @Override
-  protected void start()
+  public void start(long interval)
   {
-    LOGGER.d(TAG, "Android native provider is started");
-    if (isActive())
-      return;
+    LOGGER.d(TAG, "start()");
+    if (mActive)
+      throw new IllegalStateException("Already started");
+    mActive = true;
 
-    List<String> providers = mLocationManager.getProviders(true);
-    if (providers.isEmpty())
+    final List<String> providers = mLocationManager.getProviders(true);
+    mProviderCount = providers.size();
+    if (mProviderCount < MIN_PROVIDER_COUNT)
     {
-      setActive(false);
-      return;
+      mListener.onLocationError(LocationHelper.ERROR_GPS_OFF);
     }
 
-    setActive(true);
     for (String provider : providers)
     {
-      LocationListener listener = new BaseLocationListener(getLocationFixChecker());
-      long interval = LocationHelper.INSTANCE.getInterval();
       LOGGER.d(TAG, "Request Android native provider '" + provider
                     + "' to get locations at this interval = " + interval + " ms");
-      mLocationManager.requestLocationUpdates(provider, interval, 0, listener);
-      mListeners.add(listener);
+      mLocationManager.requestLocationUpdates(provider, interval, 0, mNativeLocationListener);
+
+      final Location location = mLocationManager.getLastKnownLocation(provider);
+      LOGGER.d(TAG, "provider = '" + provider + "' last location = " + location);
+      if (location != null)
+        mListener.onLocationChanged(location);
+
+      mProviderCount++;
     }
-
-    LocationHelper.INSTANCE.startSensors();
-
-    Location location = findBestLocation(mLocationManager);
-    if (location != null && !getLocationFixChecker().isLocationBetterThanLast(location))
-      location = LocationHelper.INSTANCE.getSavedLocation();
-
-    if (location != null)
-      onLocationChanged(location);
-  }
-
-  private void onLocationChanged(@NonNull Location location)
-  {
-    ListIterator<LocationListener> iterator = mListeners.listIterator();
-    // All listeners have to be notified only through safe list iterator interface,
-    // otherwise ConcurrentModificationException will be obtained, because each listener can
-    // cause 'stop' method calling and modifying the collection during this iteration.
-    // noinspection WhileLoopReplaceableByForEach
-    while (iterator.hasNext())
-      iterator.next().onLocationChanged(location);
   }
 
   @Override
-  protected void stop()
+  public void stop()
   {
-    LOGGER.d(TAG, "Android native provider is stopped");
-    ListIterator<LocationListener> iterator = mListeners.listIterator();
-    // noinspection WhileLoopReplaceableByForEach
-    while (iterator.hasNext())
-      mLocationManager.removeUpdates(iterator.next());
-
-    mListeners.clear();
-    setActive(false);
-  }
-
-  @Nullable
-  static Location findBestLocation(@NonNull Context context)
-  {
-    final LocationManager manager = (LocationManager) MwmApplication.from(context).getSystemService(Context.LOCATION_SERVICE);
-    return findBestLocation(manager);
-  }
-
-  @Nullable
-  private static Location findBestLocation(LocationManager manager)
-  {
-    Location res = null;
-    try
-    {
-      for (final String pr : manager.getProviders(true))
-      {
-        final Location last = manager.getLastKnownLocation(pr);
-        if (last == null)
-          continue;
-
-        if (res == null || res.getAccuracy() > last.getAccuracy())
-          res = last;
-      }
-    }
-    catch (SecurityException e)
-    {
-      LOGGER.e(TAG, "Dynamic permission ACCESS_COARSE_LOCATION/ACCESS_FINE_LOCATION is not granted",
-               e);
-    }
-    return res;
+    LOGGER.d(TAG, "stop()");
+    mLocationManager.removeUpdates(mNativeLocationListener);
+    mActive = false;
   }
 }

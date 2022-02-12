@@ -11,8 +11,8 @@ public class LocationProviderFactory
     return false;
   }
 
-  public static BaseLocationProvider getProvider(@NonNull Context context)
+  public static BaseLocationProvider getProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener)
   {
-    return new AndroidNativeProvider(new DefaultLocationFixChecker(), context);
+    return new AndroidNativeProvider(context, listener);
   }
 }
