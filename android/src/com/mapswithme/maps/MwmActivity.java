@@ -109,7 +109,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.permissions.PermissionsResult;
 
 import java.util.Objects;
 import java.util.Stack;
@@ -154,6 +153,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private static final String EXTRA_LOCATION_DIALOG_IS_ANNOYING = "LOCATION_DIALOG_IS_ANNOYING";
   private static final int REQ_CODE_LOCATION_PERMISSION = 1;
+  private static final int REQ_CODE_LOCATION_PERMISSION_ON_CLICK = 2;
   public static final int REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG = 5;
   public static final int REQ_CODE_DRIVING_OPTIONS = 6;
   private static final int REQ_CODE_ISOLINES_ERROR = 8;
@@ -781,11 +781,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeSearchToolbar(clearSearchText, stopSearch);
   }
 
-  public void startLocationToPoint(final @Nullable MapObject endPoint,
-                                   final boolean canUseMyPositionAsStart)
+  public void startLocationToPoint(final @Nullable MapObject endPoint)
   {
     closeMenu(() -> {
-      RoutingController.get().prepare(canUseMyPositionAsStart, endPoint);
+      if (!PermissionsUtils.isFineLocationGranted(MwmActivity.this))
+        PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
+
+      MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
+      RoutingController.get().prepare(startPoint, endPoint);
 
       // TODO: check for tablet.
       closePlacePage();
@@ -923,19 +926,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                          @NonNull int[] grantResults)
   {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    if (requestCode != REQ_CODE_LOCATION_PERMISSION || grantResults.length == 0)
+    if (requestCode != REQ_CODE_LOCATION_PERMISSION && requestCode != REQ_CODE_LOCATION_PERMISSION_ON_CLICK)
       return;
 
-    PermissionsResult result = PermissionsUtils.computePermissionsResult(permissions, grantResults);
-    if (result.isLocationGranted())
-    {
-      myPositionClick();
-    }
-    else
+    if (!PermissionsUtils.isLocationGranted(this))
     {
       Utils.showSnackbar(getActivity(), findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
           R.string.location_is_disabled_long_text);
+      return;
     }
+
+    if (requestCode == REQ_CODE_LOCATION_PERMISSION_ON_CLICK)
+      myPositionClick();
   }
 
   @Override
@@ -2117,9 +2119,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onClick(View v)
     {
-      if (!PermissionsUtils.isLocationGranted(getApplicationContext()))
+      if (!PermissionsUtils.isFineLocationGranted(getApplicationContext()))
       {
-        PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
+        PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION_ON_CLICK);
         return;
       }
 
