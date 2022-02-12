@@ -11,10 +11,12 @@ on:
       - README.md
       - android/**
       - iphone/**
-      - xcode/**
+      - data/strings/**
       - docs/**
       - packaging/**
       - pyhelpers/**
+      - tools/**
+      - xcode/**
 
 jobs:
   linux-debug:
