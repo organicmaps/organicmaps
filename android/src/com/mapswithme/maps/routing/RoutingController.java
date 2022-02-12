@@ -389,24 +389,6 @@ public class RoutingController implements Initializable<Void>
     prepare(getStartPoint(), getEndPoint(), false);
   }
 
-  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint)
-  {
-    prepare(canUseMyPositionAsStart, endPoint, false);
-  }
-
-  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint, boolean fromApi)
-  {
-    MapObject startPoint = canUseMyPositionAsStart ? LocationHelper.INSTANCE.getMyPosition() : null;
-    prepare(startPoint, endPoint, fromApi);
-  }
-
-  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint,
-                      @Framework.RouterType int type, boolean fromApi)
-  {
-    MapObject startPoint = canUseMyPositionAsStart ? LocationHelper.INSTANCE.getMyPosition() : null;
-    prepare(startPoint, endPoint, type, fromApi);
-  }
-
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
     prepare(startPoint, endPoint, false);

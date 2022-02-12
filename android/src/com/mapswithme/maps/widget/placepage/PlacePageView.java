@@ -3,7 +3,6 @@ package com.mapswithme.maps.widget.placepage;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.location.Location;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -564,7 +563,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     }
     else
     {
-      getActivity().startLocationToPoint(getMapObject(), true);
+      getActivity().startLocationToPoint(getMapObject());
     }
   }
 

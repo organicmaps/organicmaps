@@ -2,6 +2,7 @@ package com.mapswithme.maps.intent;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,6 +27,7 @@ import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
@@ -804,13 +806,15 @@ public class Factory
       }
       else if (routerType > 0)
       {
-        RoutingController.get().prepare(true /* canUseMyPositionAsStart */,
+        MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
+        RoutingController.get().prepare(startPoint,
                                         fromLatLon(mLatTo, mLonTo, mDaddr), routerType,
                                         true /* fromApi */);
       }
       else
       {
-        RoutingController.get().prepare(true /* canUseMyPositionAsStart */,
+        MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
+        RoutingController.get().prepare(startPoint,
                                         fromLatLon(mLatTo, mLonTo, mDaddr), true /* fromApi */);
       }
       return true;

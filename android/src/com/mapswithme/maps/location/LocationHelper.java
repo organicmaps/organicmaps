@@ -473,7 +473,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     calcLocationUpdatesInterval();
     if (!PermissionsUtils.isLocationGranted(mContext))
     {
-      mLogger.w(TAG, "Dynamic permission ACCESS_COARSE_LOCATION/ACCESS_FINE_LOCATION is not granted");
+      mLogger.w(TAG, "Dynamic permissions ACCESS_COARSE_LOCATION and/or ACCESS_FINE_LOCATION are granted");
       onLocationError(ERROR_DENIED);
       return;
     }
