@@ -803,7 +803,6 @@
                             <constraint firstItem="A9s-da-nap" firstAttribute="leading" secondItem="2IW-oU-HLV" secondAttribute="leading" id="2E9-CD-9Tw"/>
                             <constraint firstItem="EVy-Wt-5En" firstAttribute="centerY" secondItem="A9s-da-nap" secondAttribute="centerY" id="2O4-Ge-lKN"/>
                             <constraint firstAttribute="trailing" secondItem="43E-TR-OSz" secondAttribute="trailing" id="ORJ-zz-5Od"/>
-                            <constraint firstItem="A9s-da-nap" firstAttribute="centerY" secondItem="2IW-oU-HLV" secondAttribute="centerYWithinMargins" id="SP4-I9-BrL"/>
                             <constraint firstAttribute="trailing" secondItem="EVy-Wt-5En" secondAttribute="trailing" constant="8" id="VCX-dn-JVo"/>
                             <constraint firstAttribute="bottom" secondItem="43E-TR-OSz" secondAttribute="bottom" id="YIW-PC-dgZ"/>
                             <constraint firstItem="43E-TR-OSz" firstAttribute="leading" secondItem="A9s-da-nap" secondAttribute="trailing" id="bpy-jU-MhU"/>
