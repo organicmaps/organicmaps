@@ -11,9 +11,6 @@ namespace {
 NSString *const kRoutePreviewIPhoneXibName = @"MWMiPhoneRoutePreview";
 NSString *const kNavigationInfoViewXibName = @"MWMNavigationInfoView";
 NSString *const kNavigationControlViewXibName = @"NavigationControlView";
-
-using Observer = id<MWMNavigationDashboardObserver>;
-using Observers = NSHashTable<Observer>;
 }  // namespace
 
 @interface MWMMapViewControlsManager ()
@@ -35,7 +32,6 @@ using Observers = NSHashTable<Observer>;
 @property(nonatomic) IBOutletCollection(MWMRouteStartButton) NSArray *goButtons;
 @property(nonatomic) MWMNavigationDashboardEntity *entity;
 @property(nonatomic) MWMRouteManagerTransitioningManager *routeManagerTransitioningManager;
-@property(nonatomic) Observers *observers;
 @property(weak, nonatomic) IBOutlet UIButton *showRouteManagerButton;
 @property(weak, nonatomic) IBOutlet UIView *goButtonsContainer;
 @property(weak, nonatomic) UIView *ownerView;
@@ -52,7 +48,6 @@ using Observers = NSHashTable<Observer>;
   self = [super init];
   if (self) {
     _ownerView = view;
-    _observers = [Observers weakObjectsHashTable];
   }
   return self;
 }
@@ -235,23 +230,6 @@ using Observers = NSHashTable<Observer>;
   [MWMRouter stopRouting];
 }
 
-#pragma mark - Add/Remove Observers
-
-+ (void)addObserver:(id<MWMNavigationDashboardObserver>)observer {
-  [[self sharedManager].observers addObject:observer];
-}
-
-+ (void)removeObserver:(id<MWMNavigationDashboardObserver>)observer {
-  [[self sharedManager].observers removeObject:observer];
-}
-
-#pragma mark - MWMNavigationDashboardObserver
-
-- (void)onNavigationDashboardStateChanged {
-  for (Observer observer in self.observers)
-    [observer onNavigationDashboardStateChanged];
-}
-
 #pragma mark - MWMSearchManagerObserver
 
 - (void)onSearchManagerStateChanged {
@@ -314,7 +292,9 @@ using Observers = NSHashTable<Observer>;
   }
   _state = state;
   [[MapViewController sharedController] updateStatusBarStyle];
-  [self onNavigationDashboardStateChanged];
+  // Restore bottom buttons only if they were not already hidden by tapping anywhere on an empty map.
+  if (!MWMMapViewControlsManager.manager.hidden)
+    BottomTabBarViewController.controller.isHidden = state != MWMNavigationDashboardStateHidden;
 }
 
 @synthesize routePreview = _routePreview;

@@ -1,5 +1,3 @@
-#import "MWMNavigationDashboardObserver.h"
-
 typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
   MWMNavigationDashboardStateHidden,
   MWMNavigationDashboardStatePrepare,
@@ -12,8 +10,6 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 @interface MWMNavigationDashboardManager : NSObject
 
 + (nonnull MWMNavigationDashboardManager *)sharedManager;
-+ (void)addObserver:(id<MWMNavigationDashboardObserver>_Nonnull)observer;
-+ (void)removeObserver:(id<MWMNavigationDashboardObserver>_Nonnull)observer;
 
 @property(nonatomic, readonly) MWMNavigationDashboardState state;
 
