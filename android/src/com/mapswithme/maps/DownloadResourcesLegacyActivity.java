@@ -3,9 +3,9 @@ package com.mapswithme.maps;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,7 +28,7 @@ import com.mapswithme.maps.intent.MapTask;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.Counters;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -89,17 +89,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
 
   @NonNull
   private final IntentProcessor[] mIntentProcessors = {
-      Factory.createGeoIntentProcessor(),
-      Factory.createHttpGeoIntentProcessor(),
-      Factory.createMapsWithMeIntentProcessor(),
-      Factory.createHttpMapsIntentProcessor(),
-      Factory.createOldLeadUrlProcessor(),
-      Factory.createOldCoreLinkAdapterProcessor(),
-      Factory.createOpenCountryTaskProcessor(),
-      Factory.createMapsmeProcessor(),
-      Factory.createKmzKmlProcessor(this),
-      Factory.createShowOnMapProcessor(),
-      Factory.createBuildRouteProcessor()
+      new Factory.GeoIntentProcessor(),
+      new Factory.HttpGeoIntentProcessor(),
+      new Factory.MapsWithMeIntentProcessor(),
+      new Factory.HttpMapsIntentProcessor(),
+      new Factory.OpenCountryTaskProcessor(),
+      new Factory.KmzKmlProcessor(this),
+      new Factory.ShowOnMapProcessor(),
+      new Factory.BuildRouteProcessor(),
   };
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
@@ -443,20 +440,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
     if (intent == null)
       return null;
 
-    boolean isFirstLaunch = Counters.isFirstLaunch(this);
-    intent.putExtra(Factory.EXTRA_IS_FIRST_LAUNCH, isFirstLaunch);
-    if (intent.getData() == null)
-    {
-      /* Sic: the deep link library has been removed */
-      String firstLaunchDeeplink = null;
-      if (!TextUtils.isEmpty(firstLaunchDeeplink))
-        intent.setData(Uri.parse(firstLaunchDeeplink));
-    }
+    String msg = "Incoming intent uri: " + intent;
+    LOGGER.i(TAG, msg);
+    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
 
     MapTask mapTaskToForward;
     for (IntentProcessor ip : mIntentProcessors)
     {
-      if (ip.isSupported(intent) && (mapTaskToForward = ip.process(intent)) != null)
+      if ((mapTaskToForward = ip.process(intent)) != null)
         return mapTaskToForward;
     }
 
