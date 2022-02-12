@@ -2731,7 +2731,7 @@ ro:Sit arheologic
 es:Yacimiento arqueológico
 sv:Arkeologisk plats|fornminne
 th:โบราณสถาน|แหล่งท่องเที่ยว|การท่องเที่ยว
-tr:Arkeolojik alan|Kazı alanı
+tr:Arkeolojik alan|Kazı alanı|Sit alanı|ören yeri
 uk:Розкопки|історична пам'ятка|туризм|пам’ятні місця
 vi:Điểm khảo cổ
 zh-Hans:考古遗址|旅游|景点
