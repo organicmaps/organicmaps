@@ -29,6 +29,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -224,6 +225,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private Toolbar mBookmarkCategoryToolbar;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private FloatingActionButton mShowInListFab;
 
   public interface LeftAnimationTrackListener
   {
@@ -434,6 +438,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mBookmarkCategoryToolbar.setOnMenuItemClickListener(this::onBookmarkToolbarMenuClicked);
     UiUtils.extendViewWithStatusBar(mBookmarkCategoryToolbar);
 
+    mShowInListFab = findViewById(R.id.show_in_list_fab);
+
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
 
@@ -523,13 +529,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
       // Do not show the search tool bar if we are planning or navigating
       if (!RoutingController.get().isNavigating() && !RoutingController.get().isPlanning())
       {
-        mSearchController.show();
+        showSearchToolbar();
       }
     }
     else
     {
       closeSearchToolbar(true, true);
     }
+  }
+
+  private void showSearchToolbar()
+  {
+    mSearchController.show();
+    UiUtils.show(mShowInListFab);
+    mShowInListFab.setOnClickListener(v -> mSearchController.onUpClick());
   }
 
   public void showPositionChooser(boolean isBusiness, boolean applyPosition)
@@ -715,6 +728,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           mSearchController.clear();
         }
       }
+      UiUtils.hide(mShowInListFab);
       return true;
     }
     return false;
@@ -2054,18 +2068,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(categoryId);
     mBookmarkCategoryToolbar.setTitle(category.getName());
-    UiUtils.setupNavigationIcon(mBookmarkCategoryToolbar, v -> {
-      BookmarkCategoriesActivity.start(MwmActivity.this, category);
-      closePlacePage();
-      closeBookmarkCategoryToolbar();
-    });
+    UiUtils.setupNavigationIcon(mBookmarkCategoryToolbar, v -> showBookmarkCategoriesActivity(category));
+    mShowInListFab.setOnClickListener(v -> showBookmarkCategoriesActivity(category));
 
     showBookmarkCategoryToolbar();
+  }
+
+  private void showBookmarkCategoriesActivity(BookmarkCategory category)
+  {
+    BookmarkCategoriesActivity.start(MwmActivity.this, category);
+    closeFloatingToolbarsAndPanels(false);
   }
 
   private void showBookmarkCategoryToolbar()
   {
     UiUtils.show(mBookmarkCategoryToolbar);
+    UiUtils.show(mShowInListFab);
     adjustCompassAndTraffic(mBookmarkCategoryToolbar.getHeight());
     adjustMenuLineFrameVisibility();
   }
@@ -2073,6 +2091,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void hideBookmarkCategoryToolbar()
   {
     UiUtils.hide(mBookmarkCategoryToolbar);
+    UiUtils.hide(mShowInListFab);
     adjustCompassAndTraffic(UiUtils.getStatusBarHeight(MwmActivity.this));
     adjustMenuLineFrameVisibility();
   }

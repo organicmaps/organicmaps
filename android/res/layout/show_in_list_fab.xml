@@ -2,11 +2,11 @@
 <com.google.android.material.floatingactionbutton.FloatingActionButton
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/show_on_map_fab"
+  android:id="@+id/show_in_list_fab"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:contentDescription="@string/search_show_on_map"
-  android:src="?attr/showOnMapFab"
+  android:contentDescription="@string/search_in_the_list"
+  android:src="?showInListFab"
   android:clickable="true"
   android:focusable="true"
   app:fabSize="normal"/>

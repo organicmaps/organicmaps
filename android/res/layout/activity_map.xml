@@ -66,6 +66,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"/>
+
+  <include layout="@layout/show_in_list_fab_container"/>
 </RelativeLayout>
   <com.mapswithme.maps.widget.placepage.PlacePageView
     android:id="@+id/placepage"
