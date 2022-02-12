@@ -18,13 +18,14 @@ import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.Config;
 
 public enum LocationHelper implements Initializable<Context>, AppBackgroundTracker.OnTransitionListener
 {
@@ -45,6 +46,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   // TODO (trashkalmar): Correct value
   private static final long INTERVAL_NAVIGATION_BICYCLE_MS = 1000;
   private static final long INTERVAL_NAVIGATION_PEDESTRIAN_MS = 1000;
+
+  private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -542,6 +545,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
                 new Throwable());
       return;
     }
+    checkForAgpsUpdates();
     checkProviderInitialization();
     //noinspection ConstantConditions
     mLocationProvider.start();
@@ -568,6 +572,26 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     //noinspection ConstantConditions
     mLocationProvider.stop();
     mSensorHelper.stop();
+  }
+
+  private void checkForAgpsUpdates()
+  {
+    if (!NetworkPolicy.getCurrentNetworkUsageStatus())
+      return;
+
+    long previousTimestamp = Config.getAgpsTimestamp();
+    long currentTimestamp = System.currentTimeMillis();
+    if (previousTimestamp + AGPS_EXPIRATION_TIME_MS > currentTimestamp)
+    {
+      mLogger.d(TAG, "A-GPS should be up to date");
+      return;
+    }
+
+    mLogger.d(TAG, "Requesting new A-GPS data");
+    Config.setAgpsTimestamp(currentTimestamp);
+    final LocationManager manager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+    manager.sendExtraCommand(LocationManager.GPS_PROVIDER, "force_xtra_injection", null);
+    manager.sendExtraCommand(LocationManager.GPS_PROVIDER, "force_time_injection", null);
   }
 
   /**
