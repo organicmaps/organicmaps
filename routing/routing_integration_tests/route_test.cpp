@@ -655,4 +655,13 @@ namespace
         mercator::FromLatLon(34.1801345, -118.885005), {0., 0.},
         mercator::FromLatLon(34.1767471, -118.869327), 1523);
   }
+
+  // https://github.com/organicmaps/organicmaps/issues/2085
+  UNIT_TEST(USA_NorthCarolina_CrossMWMs)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(35.6233244, -78.3917262), {0., 0.},
+        mercator::FromLatLon(36.0081839, -81.5245347), 333425);
+  }
 }  // namespace

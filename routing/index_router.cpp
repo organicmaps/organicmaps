@@ -1242,199 +1242,223 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
   // To avoid this behavior we collapse all leaps from start to  last occurrence of startId to one leap and
   // use WorldGraph with NoLeaps mode to proccess these leap. Unlike SingleMwm mode used to process ordinary leaps
   // NoLeaps allows to use all mwms so if we really need to visit other mwm we will.
-  /// @todo By VNG: This workaround doesn't work on issues below. Comment it and check unneeded loops again.
-  /// https://github.com/organicmaps/organicmaps/issues/821
 
-  /*
-  auto const firstMwmId = input[1].GetMwmId();
-  auto const startLeapEndReverseIt = find_if(input.rbegin() + 2, input.rend(),
-                                             [firstMwmId](Segment const & s) { return s.GetMwmId() == firstMwmId; });
-  auto const startLeapEndIt = startLeapEndReverseIt.base() - 1;
-  auto const startLeapEnd = static_cast<size_t>(distance(input.begin(), startLeapEndIt));
+  /// @todo By VNG: Have a feeling that this routine can be simplified.
+  // Stable solution here is to calculate all (max = 4) routes with and without loops, and choose the best one.
+  // https://github.com/organicmaps/organicmaps/issues/821
+  // https://github.com/organicmaps/organicmaps/issues/2085
 
-  // The last leap processed the same way. See the comment above.
-  auto const lastMwmId = input[input.size() - 2].GetMwmId();
-  auto const finishLeapStartIt = find_if(startLeapEndIt, input.end(),
-                                         [lastMwmId](Segment const & s) { return s.GetMwmId() == lastMwmId; });
-  auto const finishLeapStart = static_cast<size_t>(distance(input.begin(), finishLeapStartIt));
-  */
-
-  auto const startLeapEnd = 1;
-  auto const finishLeapStart = input.size() - 2;
-
-  auto fillMwmIds = [&](size_t start, size_t end, set<NumMwmId> & mwmIds)
+  buffer_vector<std::pair<size_t, size_t>, 4> arrBegEnd;
+  arrBegEnd.emplace_back(1, input.size() - 2);
   {
-    CHECK_LESS(start, input.size(), ());
-    CHECK_LESS(end, input.size(), ());
-    mwmIds.clear();
+    auto const firstMwmId = input[1].GetMwmId();
+    auto const startLeapEndReverseIt = find_if(input.rbegin() + 2, input.rend(),
+                                               [firstMwmId](Segment const & s) { return s.GetMwmId() == firstMwmId; });
+    auto const startLeapEndIt = startLeapEndReverseIt.base() - 1;
+    auto const startLeapEnd = static_cast<size_t>(distance(input.begin(), startLeapEndIt));
+    if (startLeapEnd != arrBegEnd[0].first)
+      arrBegEnd.emplace_back(startLeapEnd, arrBegEnd[0].second);
 
-    if (start == startLeapEnd)
-      mwmIds = starter.GetStartMwms();
+    // The last leap processed the same way. See the comment above.
+    auto const lastMwmId = input[input.size() - 2].GetMwmId();
+    auto const finishLeapStartIt = find_if(startLeapEndIt, input.end(),
+                                           [lastMwmId](Segment const & s) { return s.GetMwmId() == lastMwmId; });
+    auto const finishLeapStart = static_cast<size_t>(distance(input.begin(), finishLeapStartIt));
+    if (finishLeapStart != arrBegEnd[0].second)
+      arrBegEnd.emplace_back(arrBegEnd[0].first, finishLeapStart);
 
-    if (end == finishLeapStart)
-      mwmIds = starter.GetFinishMwms();
-
-    for (size_t i = start; i <= end; ++i)
-    {
-      if (input[i].GetMwmId() != kFakeNumMwmId)
-        mwmIds.insert(input[i].GetMwmId());
-    }
-  };
-
-  set<NumMwmId> mwmIds;
-  IndexGraphStarterJoints<IndexGraphStarter> jointStarter(starter);
-  size_t maxStart = 0;
-
-  auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraphMode mode,
-                                     RoutingResult<JointSegment, RouteWeight> & routingResult)
-  {
-    // Clear previous loaded graphs to not spend too much memory at one time.
-    worldGraph.ClearCachedGraphs();
-
-    // Clear previous info about route.
-    routingResult.Clear();
-    jointStarter.Reset();
-
-    worldGraph.SetMode(mode);
-    jointStarter.Init(input[start], input[end]);
-
-    fillMwmIds(start, end, mwmIds);
-
-    using JointsStarter = IndexGraphStarterJoints<IndexGraphStarter>;
-
-    using Vertex = JointsStarter::Vertex;
-    using Edge = JointsStarter::Edge;
-    using Weight = JointsStarter::Weight;
-
-    maxStart = max(maxStart, start);
-    auto const contribCoef = static_cast<double>(end - maxStart + 1) / (input.size());
-    auto const startPoint = starter.GetPoint(input[start], true /* front */);
-    auto const endPoint = starter.GetPoint(input[end], true /* front */);
-    progress->AppendSubProgress({startPoint, endPoint, contribCoef});
-
-    RouterResultCode resultCode = RouterResultCode::NoError;
-    SCOPE_GUARD(progressGuard, [&]() {
-      if (resultCode == RouterResultCode::NoError)
-        progress->PushAndDropLastSubProgress();
-      else
-        progress->DropLastSubProgress();
-    });
-
-    using Visitor = JunctionVisitor<JointsStarter>;
-    Visitor visitor(jointStarter, delegate, kVisitPeriod, progress);
-
-    AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
-        jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
-        nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
-        AStarLengthChecker(starter));
-
-    resultCode = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult);
-    return resultCode;
-  };
-
-  deque<vector<Segment>> paths;
-  size_t prevStart = numeric_limits<size_t>::max();
-  auto const tryBuildRoute = [&](size_t start, size_t end, WorldGraphMode mode,
-                                 RoutingResult<JointSegment, RouteWeight> & routingResult)
-  {
-    RouterResultCode const result = runAStarAlgorithm(start, end, mode, routingResult);
-    if (result == RouterResultCode::NoError)
-    {
-      vector<Segment> subroute = ProcessJoints(routingResult.m_path, jointStarter);
-
-      CHECK(!subroute.empty(), ());
-      if (start == prevStart && !paths.empty())
-        paths.pop_back();
-
-      ASSERT(!subroute.empty(), ());
-      paths.emplace_back(vector<Segment>(dropFirstSegment ? subroute.cbegin() + 1
-                                                          : subroute.cbegin(), subroute.cend()));
-
-      dropFirstSegment = true;
-      prevStart = start;
-      return true;
-    }
-
-    LOG(LINFO, ("Can not find path",
-      "from:", starter.GetPoint(input[start], input[start].IsForward()),
-      "to:", starter.GetPoint(input[end], input[end].IsForward())));
-
-    return false;
-  };
-
-  size_t lastPrev = 0;
-  size_t prev = 0;
-  size_t next = 0;
-  RoutingResult<JointSegment, RouteWeight> routingResult;
-
-  for (size_t i = startLeapEnd; i <= finishLeapStart; ++i)
-  {
-    if (i == startLeapEnd)
-    {
-      prev = 0;
-      next = i;
-    }
-    else if (i == finishLeapStart)
-    {
-      prev = i;
-      next = input.size() - 1;
-    }
-    else
-    {
-      prev = i;
-      next = i + 1;
-    }
-
-    if (!tryBuildRoute(prev, next, WorldGraphMode::JointSingleMwm, routingResult))
-    {
-      auto const prevPoint = starter.GetPoint(input[next], true);
-      // |next + 1| - is the twin of |next|
-      // |next + 2| - is the next exit.
-      while (next + 2 < finishLeapStart && next != finishLeapStart)
-      {
-        auto const point = starter.GetPoint(input[next + 2], true);
-        double const distBetweenExistsMeters = ms::DistanceOnEarth(point, prevPoint);
-
-        static double constexpr kMinDistBetweenExitsM = 100000;  // 100 km
-        if (distBetweenExistsMeters > kMinDistBetweenExitsM)
-          break;
-
-        LOG(LINFO, ("Exit:", point,
-                    "too close(", distBetweenExistsMeters / 1000, "km ), try get next."));
-        next += 2;
-      }
-
-      if (next + 2 > finishLeapStart || next == finishLeapStart)
-        next = input.size() - 1;
-      else
-        next += 2;
-
-      if (!tryBuildRoute(prev, next, WorldGraphMode::Joints, routingResult))
-      {
-        // Already in start
-        if (prev == 0)
-          return RouterResultCode::RouteNotFound;
-
-        prev = lastPrev;
-        if (prev == 0)
-          dropFirstSegment = false;
-
-        if (!tryBuildRoute(prev, next, WorldGraphMode::Joints, routingResult))
-          return RouterResultCode::RouteNotFound;
-      }
-    }
-
-    lastPrev = prev;
-    i = next;
+    if (arrBegEnd.size() == 3)
+      arrBegEnd.emplace_back(startLeapEnd, finishLeapStart);
   }
 
-  while (!paths.empty())
+  RouteWeight finalWeight = GetAStarWeightMax<RouteWeight>();
+  for (auto const & eBegEnd : arrBegEnd)
   {
-    using Iterator = vector<Segment>::iterator;
-    output.insert(output.end(),
-                  move_iterator<Iterator>(paths.front().begin()),
-                  move_iterator<Iterator>(paths.front().end()));
-    paths.pop_front();
+    size_t const startLeapEnd = eBegEnd.first;
+    size_t const finishLeapStart = eBegEnd.second;
+
+    auto fillMwmIds = [&](size_t start, size_t end, set<NumMwmId> & mwmIds)
+    {
+      mwmIds.clear();
+
+      if (start == startLeapEnd)
+        mwmIds = starter.GetStartMwms();
+
+      if (end == finishLeapStart)
+        mwmIds = starter.GetFinishMwms();
+
+      for (size_t i = start; i <= end; ++i)
+      {
+        if (input[i].GetMwmId() != kFakeNumMwmId)
+          mwmIds.insert(input[i].GetMwmId());
+      }
+    };
+
+    set<NumMwmId> mwmIds;
+    IndexGraphStarterJoints<IndexGraphStarter> jointStarter(starter);
+    size_t maxStart = 0;
+
+    auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraphMode mode,
+                                       RoutingResult<JointSegment, RouteWeight> & routingResult)
+    {
+      ASSERT_LESS(start, input.size(), ());
+      ASSERT_LESS(end, input.size(), ());
+
+      // Clear previous loaded graphs to not spend too much memory at one time.
+      worldGraph.ClearCachedGraphs();
+
+      // Clear previous info about route.
+      routingResult.Clear();
+      jointStarter.Reset();
+
+      worldGraph.SetMode(mode);
+      jointStarter.Init(input[start], input[end]);
+
+      fillMwmIds(start, end, mwmIds);
+
+      using JointsStarter = IndexGraphStarterJoints<IndexGraphStarter>;
+
+      using Vertex = JointsStarter::Vertex;
+      using Edge = JointsStarter::Edge;
+      using Weight = JointsStarter::Weight;
+
+      maxStart = max(maxStart, start);
+      auto const contribCoef = static_cast<double>(end - maxStart + 1) / input.size() / arrBegEnd.size();
+      auto const startPoint = starter.GetPoint(input[start], true /* front */);
+      auto const endPoint = starter.GetPoint(input[end], true /* front */);
+      progress->AppendSubProgress({startPoint, endPoint, contribCoef});
+
+      RouterResultCode resultCode = RouterResultCode::NoError;
+      SCOPE_GUARD(progressGuard, [&]() {
+        if (resultCode == RouterResultCode::NoError)
+          progress->PushAndDropLastSubProgress();
+        else
+          progress->DropLastSubProgress();
+      });
+
+      using Visitor = JunctionVisitor<JointsStarter>;
+      Visitor visitor(jointStarter, delegate, kVisitPeriod, progress);
+
+      AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
+          jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
+          nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
+          AStarLengthChecker(starter));
+
+      resultCode = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult);
+      return resultCode;
+    };
+
+    deque<vector<Segment>> paths;
+    size_t prevStart = numeric_limits<size_t>::max();
+    auto const tryBuildRoute = [&](size_t start, size_t end, WorldGraphMode mode,
+                                   RoutingResult<JointSegment, RouteWeight> & routingResult)
+    {
+      RouterResultCode const result = runAStarAlgorithm(start, end, mode, routingResult);
+      if (result == RouterResultCode::NoError)
+      {
+        vector<Segment> subroute = ProcessJoints(routingResult.m_path, jointStarter);
+        CHECK(!subroute.empty(), ());
+
+        if (start == prevStart && !paths.empty())
+          paths.pop_back();
+
+        auto begIter = subroute.cbegin();
+        if (dropFirstSegment)
+          ++begIter;
+        paths.emplace_back(begIter, subroute.cend());
+
+        dropFirstSegment = true;
+        prevStart = start;
+        return true;
+      }
+
+      LOG(LINFO, ("Can not find path",
+        "from:", starter.GetPoint(input[start], input[start].IsForward()),
+        "to:", starter.GetPoint(input[end], input[end].IsForward())));
+
+      return false;
+    };
+
+    size_t lastPrev = 0;
+    size_t prev = 0;
+    size_t next = 0;
+    RoutingResult<JointSegment, RouteWeight> routingResult;
+    RouteWeight currentWeight = GetAStarWeightZero<RouteWeight>();
+
+    for (size_t i = startLeapEnd; i <= finishLeapStart; ++i)
+    {
+      if (i == startLeapEnd)
+      {
+        prev = 0;
+        next = i;
+      }
+      else if (i == finishLeapStart)
+      {
+        prev = i;
+        next = input.size() - 1;
+      }
+      else
+      {
+        prev = i;
+        next = i + 1;
+      }
+
+      if (!tryBuildRoute(prev, next, WorldGraphMode::JointSingleMwm, routingResult))
+      {
+        auto const prevPoint = starter.GetPoint(input[next], true);
+        // |next + 1| - is the twin of |next|
+        // |next + 2| - is the next exit.
+        while (next + 2 < finishLeapStart && next != finishLeapStart)
+        {
+          auto const point = starter.GetPoint(input[next + 2], true);
+          double const distBetweenExistsMeters = ms::DistanceOnEarth(point, prevPoint);
+
+          static double constexpr kMinDistBetweenExitsM = 100000;  // 100 km
+          if (distBetweenExistsMeters > kMinDistBetweenExitsM)
+            break;
+
+          LOG(LINFO, ("Exit:", point, "too close(", distBetweenExistsMeters / 1000, "km ), try get next."));
+          next += 2;
+        }
+
+        if (next + 2 > finishLeapStart || next == finishLeapStart)
+          next = input.size() - 1;
+        else
+          next += 2;
+
+        if (!tryBuildRoute(prev, next, WorldGraphMode::Joints, routingResult))
+        {
+          // Already in start
+          if (prev == 0)
+            return RouterResultCode::RouteNotFound;
+
+          prev = lastPrev;
+          if (prev == 0)
+            dropFirstSegment = false;
+
+          if (!tryBuildRoute(prev, next, WorldGraphMode::Joints, routingResult))
+            return RouterResultCode::RouteNotFound;
+        }
+      }
+
+      lastPrev = prev;
+      i = next;
+
+      currentWeight += routingResult.m_distance;
+    }
+
+    if (currentWeight < finalWeight)
+    {
+      output.clear();
+      while (!paths.empty())
+      {
+        output.insert(output.end(),
+                      make_move_iterator(paths.front().begin()),
+                      make_move_iterator(paths.front().end()));
+        paths.pop_front();
+      }
+      finalWeight = currentWeight;
+    }
   }
 
   return RouterResultCode::NoError;
