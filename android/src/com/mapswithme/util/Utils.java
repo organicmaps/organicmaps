@@ -147,9 +147,25 @@ public class Utils
       showSnackbarAbove(view, viewAbove, message);
   }
 
-  public static boolean isIntentSupported(Context context, Intent intent)
+  public static boolean isIntentSupported(@NonNull Context context, @NonNull Intent intent)
   {
     return context.getPackageManager().resolveActivity(intent, 0) != null;
+  }
+
+  public static @Nullable Intent makeSystemLocationSettingIntent(@NonNull Context context)
+  {
+    Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+    if (isIntentSupported(context, intent))
+      return intent;
+    intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
+    if (isIntentSupported(context, intent))
+      return intent;
+    intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+    Uri uri = Uri.fromParts("package", context.getPackageName(), null);
+    intent.setData(uri);
+    if (isIntentSupported(context, intent))
+      return intent;
+    return null;
   }
 
   public static void checkNotNull(Object object)
