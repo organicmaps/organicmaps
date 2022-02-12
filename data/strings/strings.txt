@@ -2722,7 +2722,7 @@
     en = RV Facilities
     be = Для аўтадамоў
     ru = Для автодомов
-    tr = Karavan Tesisleri
+    tr = Karavan tesisleri
     uk = Для автобудинків
 
   [description]
