@@ -162,7 +162,7 @@ void ConvertRestrictionsOnlyUTurnToNo(IndexGraph & graph,
     if (!graph.IsRoad(featureId))
       continue;
 
-    uint32_t const n = graph.GetGeometry().GetRoad(featureId).GetPointsCount();
+    uint32_t const n = graph.GetRoadGeometry(featureId).GetPointsCount();
     RoadJointIds const & joints = graph.GetRoad(uTurnRestriction.m_featureId);
     Joint::Id const joint = uTurnRestriction.m_viaIsFirstPoint ? joints.GetJointId(0)
                                                                : joints.GetJointId(n - 1);

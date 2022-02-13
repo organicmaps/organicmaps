@@ -2,6 +2,7 @@ package com.mapswithme.maps.intent;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,12 +27,14 @@ import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.StorageUtils;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UTM;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.ThreadPool;
@@ -44,177 +47,40 @@ import java.util.Locale;
 
 public class Factory
 {
-  public static final String EXTRA_IS_FIRST_LAUNCH = "extra_is_first_launch";
-
-  @NonNull
-  public static IntentProcessor createBuildRouteProcessor()
+  public static class GeoIntentProcessor implements IntentProcessor
   {
-    return new BuildRouteProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createShowOnMapProcessor()
-  {
-    return new ShowOnMapProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createKmzKmlProcessor(@NonNull DownloadResourcesLegacyActivity activity)
-  {
-    return new KmzKmlProcessor(activity);
-  }
-
-  @NonNull
-  public static IntentProcessor createOpenCountryTaskProcessor()
-  {
-    return new OpenCountryTaskProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createOldCoreLinkAdapterProcessor()
-  {
-    return new OldCoreLinkAdapterProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createOldLeadUrlProcessor()
-  {
-    return new OldLeadUrlIntentProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createHttpMapsIntentProcessor()
-  {
-    return new HttpMapsIntentProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createMapsWithMeIntentProcessor()
-  {
-    return new MapsWithMeIntentProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createHttpGeoIntentProcessor()
-  {
-    return new HttpGeoIntentProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createGeoIntentProcessor()
-  {
-    return new GeoIntentProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createMapsmeProcessor()
-  {
-    return new MapsmeProcessor();
-  }
-
-  @NonNull
-  private static String convertUrlToGuidesPageDeeplink(@NonNull String url)
-  {
-    String baseCatalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl(UTM.UTM_NONE);
-    String relativePath = Uri.parse(url).getQueryParameter("url");
-    return Uri.parse(baseCatalogUrl)
-              .buildUpon().appendEncodedPath(relativePath).toString();
-  }
-
-  private static abstract class LogIntentProcessor implements IntentProcessor
-  {
-    private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-    private boolean mFirstLaunch;
-    @NonNull
-    @Override
-    public final MapTask process(@NonNull Intent intent)
-    {
-      mFirstLaunch = intent.getBooleanExtra(Factory.EXTRA_IS_FIRST_LAUNCH, false);
-      Uri data = intent.getData();
-      if (data == null)
-        throw new AssertionError("Data must be non-null!");
-
-      final String uri = data.toString();
-      String msg = this.getClass().getSimpleName() + ": incoming intent uri: " + uri;
-      LOGGER.i(this.getClass().getSimpleName(), msg);
-      CrashlyticsUtils.INSTANCE.log(Log.INFO, getClass().getSimpleName(), msg);
-      return createMapTask(uri);
-    }
-
-    final boolean isFirstLaunch()
-    {
-      return mFirstLaunch;
-    }
-
-    @NonNull
-    abstract MapTask createMapTask(@NonNull String uri);
-  }
-
-  private static abstract class BaseOpenUrlProcessor extends LogIntentProcessor
-  {
-    @NonNull
-    @Override
-    MapTask createMapTask(@NonNull String uri)
-    {
-      return BackUrlMapTaskWrapper.wrap(new OpenUrlTask(uri), uri);
-    }
-  }
-
-  private static class GeoIntentProcessor extends BaseOpenUrlProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      final String scheme = intent.getScheme();
-      if (intent.getData() != null && scheme != null)
-        return "geo".equals(scheme) || "ge0".equals(scheme) || "om".equals(scheme);
-
-      return false;
-    }
-
-    @NonNull
-    @Override
-    MapTask createMapTask(@NonNull String uri)
-    {
-      return new OpenUrlTask(uri);
-    }
-  }
-
-  private static class MapsmeProcessor extends BaseOpenUrlProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      return "mapsme".equals(intent.getScheme());
-    }
-
-    @NonNull
-    @Override
-    MapTask createMapTask(@NonNull String uri)
-    {
-      return new OpenUrlTask(uri);
-    }
-  }
-
-  private static class HttpGeoIntentProcessor implements IntentProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      final String scheme = intent.getScheme();
-      final Uri data = intent.getData();
-      if (data != null && ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme)))
-        return "omaps.app".equals(data.getHost()) || "ge0.me".equals(data.getHost());
-
-      return false;
-    }
-
-    @NonNull
+    @Nullable
     @Override
     public MapTask process(@NonNull Intent intent)
     {
-      final Uri data = intent.getData();
-      final String ge0Url = "om:/" + data.getPath();
+      final Uri uri = intent.getData();
+      if (uri == null)
+        return null;
+      final String scheme = intent.getScheme();
+      if (!"geo".equals(scheme) && !"ge0".equals(scheme) && !"om".equals(scheme) && !"mapsme".equals(scheme))
+        return null;
+      return new OpenUrlTask(uri.toString());
+    }
+  }
+
+  public static class HttpGeoIntentProcessor implements IntentProcessor
+  {
+    @Nullable
+    @Override
+    public MapTask process(@NonNull Intent intent)
+    {
+      final Uri uri = intent.getData();
+      if (uri == null)
+        return null;
+      final String scheme = intent.getScheme();
+      if (!"http".equalsIgnoreCase(scheme) && !"https".equalsIgnoreCase(scheme))
+        return null;
+      final String host = uri.getHost();
+      if (!"omaps.app".equalsIgnoreCase(host) && !"ge0.me".equalsIgnoreCase(host))
+        return null;
+      if (uri.getPath() == null)
+        return null;
+      final String ge0Url = "om:/" + uri.getPath();
       return new OpenUrlTask(ge0Url);
     }
   }
@@ -222,18 +88,15 @@ public class Factory
   /**
    * Use this to invoke API task.
    */
-  private static class MapsWithMeIntentProcessor implements IntentProcessor
+  public static class MapsWithMeIntentProcessor implements IntentProcessor
   {
+    @Nullable
     @Override
-    public boolean isSupported(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
-      return Const.ACTION_MWM_REQUEST.equals(intent.getAction());
-    }
+      if (!Const.ACTION_MWM_REQUEST.equals(intent.getAction()))
+        return null;
 
-    @NonNull
-    @Override
-    public MapTask process(@NonNull final Intent intent)
-    {
       final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
       if (apiUrl != null)
       {
@@ -250,203 +113,89 @@ public class Factory
     }
   }
 
-  private static class HttpMapsIntentProcessor extends BaseOpenUrlProcessor
+  public static class HttpMapsIntentProcessor implements IntentProcessor
   {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      final String scheme = intent.getScheme();
-      final Uri data = intent.getData();
-      if (data == null || (!"http".equalsIgnoreCase(scheme) && !"https".equalsIgnoreCase(scheme)))
-        return false;
-      final String host = data.getHost();
-      return host.contains("google") || host.contains("2gis") || host.contains("openstreetmap");
-    }
-
-    @NonNull
-    @Override
-    MapTask createMapTask(@NonNull String uri)
-    {
-      return new OpenHttpMapsUrlTask(uri);
-    }
-  }
-
-  private static class OldLeadUrlIntentProcessor extends BaseOpenUrlProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      final Uri data = intent.getData();
-
-      if (data == null)
-        return false;
-
-      String scheme = intent.getScheme();
-      String host = data.getHost();
-      if (TextUtils.isEmpty(scheme) || TextUtils.isEmpty(host))
-        return false;
-
-      return (scheme.equals("mapsme") || scheme.equals("mapswithme")) && "lead".equals(host);
-    }
-
-    @NonNull
-    @Override
-    MapTask createMapTask(@NonNull String uri)
-    {
-      return new OpenUrlTask(uri);
-    }
-  }
-
-  private static class OldCoreLinkAdapterProcessor extends DlinkIntentProcessor
-  {
-    private static final String SCHEME_CORE = "mapsme";
-
-    @NonNull
-    @Override
-    protected MapTask createTargetTask(@NonNull String url)
-    {
-      // Transform deeplink to the core expected format,
-      // i.e https://host/path?query -> mapsme:///path?query.
-      Uri uri = Uri.parse(url);
-      Uri coreUri = uri.buildUpon()
-                       .scheme(SCHEME_CORE)
-                       .authority("").build();
-
-      String query = coreUri.getLastPathSegment();
-      return BackUrlMapTaskWrapper.wrap(new OpenUrlTask(coreUri.toString()), url);
-    }
-
-    @Override
-    boolean isLinkSupported(@NonNull Uri data)
-    {
-      return true;
-    }
-
     @Nullable
-    @Override
-    MapTask createIntroductionTask(@NonNull String url)
-    {
-      return null;
-    }
-  }
-
-  private static abstract class DlinkIntentProcessor extends LogIntentProcessor
-  {
-    static final String SCHEME_HTTPS = "https";
-    static final String HOST = "dlink.maps.me";
-    static final String HOST_DEV = "dlink.mapsme.devmail.ru";
-
-    @Override
-    public final boolean isSupported(@NonNull Intent intent)
-    {
-      final Uri data = intent.getData();
-
-      if (data == null)
-        return false;
-
-      String scheme = intent.getScheme();
-      String host = data.getHost();
-
-      return SCHEME_HTTPS.equals(scheme) && (HOST.equals(host) || HOST_DEV.equals(host)) &&
-          isLinkSupported(data);
-    }
-
-    abstract boolean isLinkSupported(@NonNull Uri data);
-
-    @NonNull
-    @Override
-    final MapTask createMapTask(@NonNull String url)
-    {
-      if (isFirstLaunch())
-      {
-        /*
-        MapTask introductionTask = createIntroductionTask(url);
-        if (introductionTask != null)
-          return introductionTask;
-        */
-      }
-
-      return createTargetTask(url);
-    }
-
-    @Nullable
-    abstract MapTask createIntroductionTask(@NonNull String url);
-    @NonNull
-    abstract MapTask createTargetTask(@NonNull String url);
-  }
-
-  private static class OpenCountryTaskProcessor implements IntentProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      return intent.hasExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY);
-    }
-
-    @NonNull
     @Override
     public MapTask process(@NonNull Intent intent)
     {
+      final Uri uri = intent.getData();
+      if (uri == null)
+        return null;
+      final String scheme = intent.getScheme();
+      if (!"http".equalsIgnoreCase(scheme) && !"https".equalsIgnoreCase(scheme))
+        return null;
+      if (uri.getHost() == null)
+        return null;
+      final String host = uri.getHost().toLowerCase();
+      if (!host.contains("google") && !host.contains("2gis") && !host.contains("openstreetmap"))
+        return null;
+      return new OpenHttpMapsUrlTask(uri.toString());
+    }
+  }
+
+  public static class OpenCountryTaskProcessor implements IntentProcessor
+  {
+    @Nullable
+    @Override
+    public MapTask process(@NonNull Intent intent)
+    {
+      if (!intent.hasExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY))
+        return null;
       String countryId = intent.getStringExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY);
       return new ShowCountryTask(countryId);
     }
   }
 
-  private static class KmzKmlProcessor implements IntentProcessor
+  public static class KmzKmlProcessor implements IntentProcessor
   {
-    private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-    private static final String TAG = KmzKmlProcessor.class.getSimpleName();
-    private Uri mData;
     @NonNull
     private final DownloadResourcesLegacyActivity mActivity;
 
-    KmzKmlProcessor(@NonNull DownloadResourcesLegacyActivity activity)
+    public KmzKmlProcessor(@NonNull DownloadResourcesLegacyActivity activity)
     {
       mActivity = activity;
-    }
-
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      // See KML/KMZ/KMB intent filters in manifest.
-      if (intent.getAction() == Intent.ACTION_VIEW)
-        mData = intent.getData();
-      else if (intent.getAction() == Intent.ACTION_SEND)
-        mData = intent.getParcelableExtra(Intent.EXTRA_STREAM);
-      return mData != null;
     }
 
     @Nullable
     @Override
     public MapTask process(@NonNull Intent intent)
     {
+      // See KML/KMZ/KMB intent filters in manifest.
+      final Uri uri;
+      if (Intent.ACTION_VIEW.equals(intent.getAction()))
+        uri = intent.getData();
+      else if (Intent.ACTION_SEND.equals(intent.getAction()))
+        uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+      else
+        uri = null;
+      if (uri == null)
+        return null;
+
       MwmApplication app = MwmApplication.from(mActivity);
       final File tempDir = new File(StorageUtils.getTempPath(app));
       final ContentResolver resolver = mActivity.getContentResolver();
       ThreadPool.getStorage().execute(() -> {
-        BookmarkManager.INSTANCE.importBookmarksFile(resolver, mData, tempDir);
+        BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir);
         mActivity.runOnUiThread(mActivity::showMap);
       });
       return null;
     }
   }
 
-  private static class ShowOnMapProcessor implements IntentProcessor
+  public static class ShowOnMapProcessor implements IntentProcessor
   {
     private static final String ACTION_SHOW_ON_MAP = "com.mapswithme.maps.pro.action.SHOW_ON_MAP";
     private static final String EXTRA_LAT = "lat";
     private static final String EXTRA_LON = "lon";
 
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      return ACTION_SHOW_ON_MAP.equals(intent.getAction());
-    }
-
-    @NonNull
+    @Nullable
     @Override
     public MapTask process(@NonNull Intent intent)
     {
+      if (!ACTION_SHOW_ON_MAP.equals(intent.getAction()))
+        return null;
+
       if (!intent.hasExtra(EXTRA_LAT) || !intent.hasExtra(EXTRA_LON))
         throw new AssertionError("Extra lat/lon must be provided!");
 
@@ -457,7 +206,7 @@ public class Factory
     }
   }
 
-  private static class BuildRouteProcessor implements IntentProcessor
+  public static class BuildRouteProcessor implements IntentProcessor
   {
     private static final String ACTION_BUILD_ROUTE = "com.mapswithme.maps.pro.action.BUILD_ROUTE";
     private static final String EXTRA_LAT_TO = "lat_to";
@@ -468,16 +217,13 @@ public class Factory
     private static final String EXTRA_DADDR = "daddr";
     private static final String EXTRA_ROUTER = "router";
 
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      return ACTION_BUILD_ROUTE.equals(intent.getAction());
-    }
-
-    @NonNull
+    @Nullable
     @Override
     public MapTask process(@NonNull Intent intent)
     {
+      if (!ACTION_BUILD_ROUTE.equals(intent.getAction()))
+        return null;
+
       if (!intent.hasExtra(EXTRA_LAT_TO) || !intent.hasExtra(EXTRA_LON_TO))
         throw new AssertionError("Extra lat/lon must be provided!");
 
@@ -804,13 +550,15 @@ public class Factory
       }
       else if (routerType > 0)
       {
-        RoutingController.get().prepare(true /* canUseMyPositionAsStart */,
+        MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
+        RoutingController.get().prepare(startPoint,
                                         fromLatLon(mLatTo, mLonTo, mDaddr), routerType,
                                         true /* fromApi */);
       }
       else
       {
-        RoutingController.get().prepare(true /* canUseMyPositionAsStart */,
+        MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
+        RoutingController.get().prepare(startPoint,
                                         fromLatLon(mLatTo, mLonTo, mDaddr), true /* fromApi */);
       }
       return true;

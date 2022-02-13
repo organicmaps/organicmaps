@@ -147,7 +147,13 @@ private:
 class TagReplacer
 {
 public:
-  using Replacements = std::map<OsmElement::Tag, std::vector<OsmElement::Tag>>;
+  using Tag = OsmElement::Tag;
+  struct ReplaceValue
+  {
+    std::vector<Tag> m_tags;
+    bool m_update;
+  };
+  using Replacements = std::map<Tag, ReplaceValue>;
 
   TagReplacer() = default;
 
@@ -164,68 +170,76 @@ public:
       if (line.empty() || line[0] == '#')
         continue;
 
-      auto keyPos = line.find("=");
+      // find key
+      auto keyPos = line.find('=');
       CHECK(keyPos != std::string::npos, ("Cannot find source tag key in", line));
       auto key = line.substr(0, keyPos);
       strings::Trim(key);
 
-      // Skip '='.
-      ++keyPos;
-      auto valuePos = line.find(" : ", keyPos);
+      // find value
+      auto valuePos = line.find(':', ++keyPos);
       CHECK(valuePos != std::string::npos, ("Cannot find source tag value in", line));
       auto value = line.substr(keyPos, valuePos - keyPos);
       strings::Trim(value);
 
-      // Skip ' : '.
-      valuePos += 3;
-
-      auto rawReplacements = line.substr(valuePos);
-      strings::Trim(rawReplacements);
-      CHECK(!rawReplacements.empty(), ("Empty replacement in", line));
-
-      auto const replacements = strings::Tokenize(rawReplacements, ",");
-      for (auto const & replacement : replacements)
+      // find trailing flag
+      auto endPos = line.find('|', ++valuePos);
+      bool isUpdate = false;
+      if (endPos != std::string::npos)
       {
-        auto kv = strings::Tokenize(replacement, "=");
-        CHECK_EQUAL(kv.size(), 2,
-                    ("Cannot parse replacement tag:", replacement, "in line", lineNumber));
+        // Can check flag value, but no need now ..
+        isUpdate = true;
+      }
+      else
+        endPos = line.size();
+
+      // process replacement pairs
+      CHECK(valuePos != std::string::npos, ("Cannot find source tag value in", line));
+      auto res = m_replacements.emplace(Tag{key, value}, ReplaceValue{{}, isUpdate});
+      CHECK(res.second, ());
+
+      strings::Tokenize(line.substr(valuePos, endPos - valuePos), ",", [&](std::string const & token)
+      {
+        auto kv = strings::Tokenize(token, "=");
+        CHECK_EQUAL(kv.size(), 2, ("Cannot parse replacement tag:", token, "in line", lineNumber));
         strings::Trim(kv[0]);
         strings::Trim(kv[1]);
-        m_replacements[{key, value}].emplace_back(kv[0], kv[1]);
-      }
+        res.first->second.m_tags.emplace_back(std::move(kv[0]), std::move(kv[1]));
+      });
     }
-  }
-
-  TagReplacer(TagReplacer const & other) : m_replacements(other.m_replacements) {}
-
-  TagReplacer & operator=(TagReplacer const & other)
-  {
-    if (this != &other)
-      m_replacements = other.m_replacements;
-
-    return *this;
   }
 
   void Process(OsmElement & element) const
   {
-    std::vector<OsmElement::Tag> add;
+    std::vector<ReplaceValue const *> replace;
     base::EraseIf(element.m_tags, [&](auto const & tag)
     {
       auto const it = m_replacements.find(tag);
       if (it != m_replacements.end())
       {
-        for (auto const & replacement : it->second)
-          add.push_back(replacement);
+        replace.push_back(&(it->second));
         return true;
       }
       return false;
     });
 
-    for (auto const & tag : add)
-      element.AddTag(tag);
+    for (auto const & r : replace)
+    {
+      for (auto const & tag : r->m_tags)
+      {
+        if (r->m_update)
+          element.UpdateTag(tag.m_key, [&tag](std::string & value) { value = tag.m_value; });
+        else
+          element.AddTag(tag);
+      }
+    }
   }
 
-  Replacements const & GetReplacementsForTesting() const { return m_replacements; }
+  std::vector<Tag> const * GetTagsForTests(Tag const & key) const
+  {
+    auto const it = m_replacements.find(key);
+    return (it != m_replacements.end() ? &(it->second.m_tags) : nullptr);
+  }
 
 private:
   Replacements m_replacements;

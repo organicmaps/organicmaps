@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.mapswithme.util.Config;
 import com.mapswithme.util.CrashlyticsUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.ViewServer;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
@@ -77,6 +78,7 @@ public class BaseActivityDelegate
   {
     logLifecycleMethod("onResume()");
     ViewServer.get(mActivity.get()).setFocusedWindow(mActivity.get());
+    Utils.showOnLockScreen(Config.isShowOnLockScreenEnabled(), mActivity.get());
   }
 
   public void onPause()

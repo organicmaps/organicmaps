@@ -18,6 +18,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.util.AndroidRuntimeException;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -100,6 +101,16 @@ public class Utils
       w.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
   }
 
+  public static void showOnLockScreen(boolean enable, Activity activity)
+  {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
+      activity.setShowWhenLocked(enable);
+    else if (enable)
+      activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+    else
+      activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+  }
+
   public static void showSnackbar(@NonNull View view, @NonNull String message)
   {
     Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
@@ -136,9 +147,25 @@ public class Utils
       showSnackbarAbove(view, viewAbove, message);
   }
 
-  public static boolean isIntentSupported(Context context, Intent intent)
+  public static boolean isIntentSupported(@NonNull Context context, @NonNull Intent intent)
   {
     return context.getPackageManager().resolveActivity(intent, 0) != null;
+  }
+
+  public static @Nullable Intent makeSystemLocationSettingIntent(@NonNull Context context)
+  {
+    Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+    if (isIntentSupported(context, intent))
+      return intent;
+    intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
+    if (isIntentSupported(context, intent))
+      return intent;
+    intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+    Uri uri = Uri.fromParts("package", context.getPackageName(), null);
+    intent.setData(uri);
+    if (isIntentSupported(context, intent))
+      return intent;
+    return null;
   }
 
   public static void checkNotNull(Object object)

@@ -109,7 +109,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.permissions.PermissionsResult;
 
 import java.util.Objects;
 import java.util.Stack;
@@ -154,6 +153,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private static final String EXTRA_LOCATION_DIALOG_IS_ANNOYING = "LOCATION_DIALOG_IS_ANNOYING";
   private static final int REQ_CODE_LOCATION_PERMISSION = 1;
+  private static final int REQ_CODE_LOCATION_PERMISSION_ON_CLICK = 2;
   public static final int REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG = 5;
   public static final int REQ_CODE_DRIVING_OPTIONS = 6;
   private static final int REQ_CODE_ISOLINES_ERROR = 8;
@@ -338,7 +338,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mIsTabletLayout)
     {
-      mSearchController.hide();
+      closeSearchToolbar(false, false);
 
       final Bundle args = new Bundle();
       args.putString(SearchActivity.EXTRA_QUERY, query);
@@ -383,8 +383,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     args.putBoolean(DownloaderActivity.EXTRA_OPEN_DOWNLOADED, openDownloaded);
     if (mIsTabletLayout)
     {
-      SearchEngine.INSTANCE.cancel();
-      mSearchController.refreshToolbar();
+      closeSearchToolbar(false, true);
       replaceFragment(DownloaderFragment.class, args, null);
     }
     else
@@ -468,10 +467,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (item.getItemId() == R.id.close)
     {
-      hideBookmarkCategoryToolbar();
+      closeBookmarkCategoryToolbar();
       return true;
     }
-
     return false;
   }
 
@@ -531,11 +529,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final Toolbar toolbar = mPositionChooser.findViewById(R.id.toolbar_position_chooser);
     UiUtils.extendViewWithStatusBar(toolbar);
     UiUtils.showHomeUpButton(toolbar);
-    toolbar.setNavigationOnClickListener(v -> hidePositionChooser());
+    toolbar.setNavigationOnClickListener(v -> closePositionChooser());
     mPositionChooser.findViewById(R.id.done).setOnClickListener(
         v ->
         {
-          hidePositionChooser();
+          closePositionChooser();
           if (Framework.nativeIsDownloadedMapAtScreenCenter())
             startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
           else
@@ -544,14 +542,31 @@ public class MwmActivity extends BaseMwmFragmentActivity
     UiUtils.hide(mPositionChooser);
   }
 
+  private void refreshSearchToolbar()
+  {
+    mSearchController.refreshQuery();
+    if (!TextUtils.isEmpty(mSearchController.getQuery()))
+    {
+      // Close all panels and tool bars (including search) but do not stop search backend
+      closeFloatingToolbars(false, false);
+      // Do not show the search tool bar if we are planning or navigating
+      if (!RoutingController.get().isNavigating() && !RoutingController.get().isPlanning())
+      {
+        mSearchController.show();
+      }
+    }
+    else
+    {
+      closeSearchToolbar(true, true);
+    }
+  }
+
   public void showPositionChooser(boolean isBusiness, boolean applyPosition)
   {
+    closeFloatingToolbarsAndPanels(false);
     UiUtils.show(mPositionChooser);
     setFullscreen(true);
     Framework.nativeTurnOnChoosePositionMode(isBusiness, applyPosition);
-    closePlacePage();
-    mSearchController.cancelSearchApiAndHide(false);
-    hideBookmarkCategoryToolbar();
   }
 
   private void hidePositionChooser()
@@ -587,8 +602,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean onFadeViewTouch()
   {
-    if (!getMainMenuController().isClosed())
-      getMainMenuController().close();
+    closeMenu();
     return getCurrentMenu().close(true);
   }
 
@@ -626,6 +640,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mToggleMapLayerController.attachCore();
   }
 
+  /**
+   * @return False if the place page was already closed, true otherwise
+   */
   public boolean closePlacePage()
   {
     if (mPlacePageController.isClosed())
@@ -635,6 +652,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return true;
   }
 
+  /**
+   * @return False if the side panel was already closed, true otherwise
+   */
   public boolean closeSidePanel()
   {
     if (interceptBackPress())
@@ -650,7 +670,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  private void closeAllFloatingPanels()
+  private void closeAllFloatingPanelsTablet()
   {
     if (!mIsTabletLayout)
       return;
@@ -663,14 +683,35 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
+  /**
+   * @return False if the menu was already closed, true otherwise
+   */
+  public boolean closeMenu()
+  {
+    if (!getMainMenuController().isClosed())
+    {
+      mFadeView.fadeOut();
+      getMainMenuController().close();
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Tries to close the main menu then runs the given runnable
+   *
+   * @param procAfterClose The runnable to run after closing the menu
+   */
   public void closeMenu(@Nullable Runnable procAfterClose)
   {
-    mFadeView.fadeOut();
-    getMainMenuController().close();
+    closeMenu();
     if (procAfterClose != null)
       procAfterClose.run();
   }
 
+  /**
+   * @return False if the position chooser was already closed, true otherwise
+   */
   private boolean closePositionChooser()
   {
     if (UiUtils.isVisible(mPositionChooser))
@@ -678,15 +719,76 @@ public class MwmActivity extends BaseMwmFragmentActivity
       hidePositionChooser();
       return true;
     }
-
     return false;
   }
 
-  public void startLocationToPoint(final @Nullable MapObject endPoint,
-                                   final boolean canUseMyPositionAsStart)
+  /**
+   * @param clearText True to clear the search query
+   * @param stopSearch True to stop the search engine
+   * @return False if the search toolbar was already closed and the search query was empty, true otherwise
+   */
+  private boolean closeSearchToolbar(boolean clearText, boolean stopSearch)
+  {
+    if (UiUtils.isVisible(mSearchController.getToolbar()) || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
+    {
+      if (stopSearch)
+      {
+        mSearchController.cancelSearchApiAndHide(clearText);
+        mNavigationController.resetSearchWheel();
+      }
+      else
+      {
+        mSearchController.hide();
+        if (clearText)
+        {
+          mSearchController.clear();
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @return False if the bookmark category toolbar was already closed, true otherwise
+   */
+  private boolean closeBookmarkCategoryToolbar()
+  {
+    if (UiUtils.isVisible(mBookmarkCategoryToolbar))
+    {
+      hideBookmarkCategoryToolbar();
+      return true;
+    }
+    return false;
+  }
+
+  private void closeFloatingToolbarsAndPanels(boolean clearSearchText)
+  {
+    closeFloatingPanels();
+    closeFloatingToolbars(clearSearchText, true);
+  }
+
+  private void closeFloatingPanels()
+  {
+    closeMenu();
+    closePlacePage();
+  }
+
+  private void closeFloatingToolbars(boolean clearSearchText, boolean stopSearch)
+  {
+    closeBookmarkCategoryToolbar();
+    closePositionChooser();
+    closeSearchToolbar(clearSearchText, stopSearch);
+  }
+
+  public void startLocationToPoint(final @Nullable MapObject endPoint)
   {
     closeMenu(() -> {
-      RoutingController.get().prepare(canUseMyPositionAsStart, endPoint);
+      if (!PermissionsUtils.isFineLocationGranted(MwmActivity.this))
+        PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
+
+      MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
+      RoutingController.get().prepare(startPoint, endPoint);
 
       // TODO: check for tablet.
       closePlacePage();
@@ -708,7 +810,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mIsTabletLayout)
     {
       mPanelAnimator = new PanelAnimator(this);
-      return;
     }
   }
 
@@ -815,7 +916,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void toggleRouteSettings(@NonNull RoadType roadType)
   {
-    mPlacePageController.close(true);
+    closePlacePage();
     RoutingOptions.addOption(roadType);
     rebuildLastRouteInternal();
   }
@@ -825,19 +926,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                          @NonNull int[] grantResults)
   {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    if (requestCode != REQ_CODE_LOCATION_PERMISSION || grantResults.length == 0)
+    if (requestCode != REQ_CODE_LOCATION_PERMISSION && requestCode != REQ_CODE_LOCATION_PERMISSION_ON_CLICK)
       return;
 
-    PermissionsResult result = PermissionsUtils.computePermissionsResult(permissions, grantResults);
-    if (result.isLocationGranted())
-    {
-      myPositionClick();
-    }
-    else
+    if (!PermissionsUtils.isLocationGranted(this))
     {
       Utils.showSnackbar(getActivity(), findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
           R.string.location_is_disabled_long_text);
+      return;
     }
+
+    if (requestCode == REQ_CODE_LOCATION_PERMISSION_ON_CLICK)
+      myPositionClick();
   }
 
   @Override
@@ -939,7 +1039,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onResume()
   {
     super.onResume();
-    mSearchController.refreshToolbar();
+    refreshSearchToolbar();
     mMainMenu.onResume(null);
     if (Framework.nativeIsInChoosePositionMode())
     {
@@ -1035,37 +1135,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (!getMainMenuController().isClosed())
-    {
-      getMainMenuController().close();
-      return;
-    }
-
-    if (mSearchController.hide())
-    {
-      mSearchController.cancelSearchApiAndHide(true);
-      return;
-    }
-
-    if (UiUtils.isVisible(mBookmarkCategoryToolbar) && mPlacePageController.isClosed())
-    {
-      hideBookmarkCategoryToolbar();
-      return;
-    }
-
-    if (closePlacePage() || closeSidePanel() || closePositionChooser())
-    {
-      return;
-    }
-
     RoutingController routingController = RoutingController.get();
-    if (routingController.isNavigating())
-    {
-      routingController.resetToPlanningState();
-      return;
-    }
-
-    if (!routingController.cancel())
+    if (!closeMenu() && !closePlacePage() && !closeSearchToolbar(true, true) &&
+            !closeBookmarkCategoryToolbar() && !closeSidePanel() && !closePositionChooser() &&
+            !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
     {
       try
       {
@@ -1176,7 +1249,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      mPlacePageController.close(true);
+      closePlacePage();
     }
   }
 
@@ -1280,7 +1353,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (removeCurrentFragment(true))
     {
       InputUtils.hideKeyboard(mMainMenu.getFrame());
-      mSearchController.refreshToolbar();
+      refreshSearchToolbar();
     }
   }
 
@@ -1358,7 +1431,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (RoutingController.get().isNavigating())
     {
       mNavigationController.show(true);
-      mSearchController.hide();
+      closeSearchToolbar(false, false);
       mMainMenu.setState(MainMenu.State.NAVIGATION, mIsFullscreen);
       return;
     }
@@ -1517,8 +1590,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Context context = getApplicationContext();
     if (show)
     {
-      mSearchController.cancelSearchApiAndHide(false);
-      hideBookmarkCategoryToolbar();
       if (mIsTabletLayout)
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
@@ -1553,13 +1624,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         mRoutingPlanInplaceController.show(false);
       }
 
-      closeAllFloatingPanels();
-      mNavigationController.resetSearchWheel();
+      closeAllFloatingPanelsTablet();
 
       if (completionListener != null)
         completionListener.run();
-
-      updateSearchBar();
     }
   }
 
@@ -1624,7 +1692,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.updateState(false);
     if (show)
     {
-      mSearchController.cancelSearchApiAndHide(true);
       if (mFilterController != null)
         mFilterController.show(false);
     }
@@ -1657,7 +1724,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationCancelled()
   {
-    updateSearchBar();
+    closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     if (mRoutingPlanInplaceController == null)
       return;
@@ -1669,8 +1736,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationStarted()
   {
+    closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     mNavigationController.start(this);
+  }
+
+  @Override
+  public void onPlanningCancelled()
+  {
+    closeFloatingToolbarsAndPanels(true);
+  }
+
+  @Override
+  public void onPlanningStarted()
+  {
+    closeFloatingToolbarsAndPanels(true);
   }
 
   @Override
@@ -1697,7 +1777,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!RoutingController.get().isPlanning())
       return;
 
-    mNavigationController.resetSearchWheel();
+    closeSearchToolbar(true, true);
   }
 
   @Override
@@ -1739,11 +1819,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     dialog.show(this, ERROR_DRIVING_OPTIONS_DIALOG_TAG);
   }
 
-  private void updateSearchBar()
-  {
-    if (!TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
-      mSearchController.refreshToolbar();
-  }
 
   @Override
   public void onMyPositionModeChanged(int newMode)
@@ -1775,25 +1850,31 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onLocationError()
+  public void onLocationError(int errorCode)
   {
-    if (mLocationErrorDialogAnnoying)
+    if (errorCode == LocationHelper.ERROR_DENIED)
+    {
+      PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
+      return;
+    }
+
+    if (mLocationErrorDialogAnnoying || (mLocationErrorDialog != null && mLocationErrorDialog.isShowing()))
       return;
 
-    Intent intent = makeAppSettingsLocationIntent();
-    if (intent == null)
-      return;
-    showLocationErrorDialog(intent);
-  }
-
-  private Intent makeAppSettingsLocationIntent()
-  {
-    Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-    if (intent.resolveActivity(getPackageManager()) != null)
-      return intent;
-
-    intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
-    return intent.resolveActivity(getPackageManager()) == null ? null : intent;
+    AlertDialog.Builder builder = new AlertDialog.Builder(this)
+        .setTitle(R.string.enable_location_services)
+        .setMessage(R.string.location_is_disabled_long_text)
+        .setOnCancelListener(dialog -> mLocationErrorDialogAnnoying = true)
+        .setNegativeButton(R.string.close, (dialog, which) -> mLocationErrorDialogAnnoying = true);
+    final Intent intent = Utils.makeSystemLocationSettingIntent(this);
+    if (intent != null)
+    {
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+      intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+      builder.setPositiveButton(R.string.connection_settings, (dialog, which) -> startActivity(intent));
+    }
+    mLocationErrorDialog = builder.show();
   }
 
   @Override
@@ -1821,26 +1902,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private void showLocationErrorDialog(@NonNull final Intent intent)
-  {
-    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
-      return;
-
-    mLocationErrorDialog = new AlertDialog.Builder(this)
-        .setTitle(R.string.enable_location_services)
-        .setMessage(R.string.location_is_disabled_long_text)
-        .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            mLocationErrorDialogAnnoying = true;
-          }
-        })
-        .setOnCancelListener(dialog -> mLocationErrorDialogAnnoying = true)
-        .setPositiveButton(R.string.connection_settings, (dialog, which) -> startActivity(intent)).show();
-  }
-
   @Override
   public void onLocationNotFound()
   {
@@ -1860,6 +1921,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     DialogInterface.OnClickListener stopClickListener = (dialog, which) ->
     {
       LocationHelper.INSTANCE.setStopLocationUpdateByUser(true);
+      LocationHelper.INSTANCE.stop();
     };
 
     DialogInterface.OnClickListener continueClickListener = (dialog, which) ->
@@ -1893,7 +1955,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onSearchRoutePoint(@RoutePointInfo.RouteMarkType int pointType)
   {
     RoutingController.get().waitForPoiPick(pointType);
-    mNavigationController.resetSearchWheel();
+    closeSearchToolbar(true, true);
     showSearch("");
   }
 
@@ -1946,13 +2008,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onSearchClearClick()
   {
-    closePlacePage();
+    closeSearchToolbar(true, true);
   }
 
   @Override
   public void onSearchUpClick(@Nullable String query)
   {
-    closePlacePage();
+    closeFloatingToolbarsAndPanels(true);
     showSearch(query);
   }
 
@@ -2032,7 +2094,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     UiUtils.setupNavigationIcon(mBookmarkCategoryToolbar, v -> {
       BookmarkCategoriesActivity.start(MwmActivity.this, category);
       closePlacePage();
-      hideBookmarkCategoryToolbar();
+      closeBookmarkCategoryToolbar();
     });
 
     showBookmarkCategoryToolbar();
@@ -2057,9 +2119,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onClick(View v)
     {
-      if (!PermissionsUtils.isLocationGranted(getApplicationContext()))
+      if (!PermissionsUtils.isFineLocationGranted(getApplicationContext()))
       {
-        PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
+        PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION_ON_CLICK);
         return;
       }
 
@@ -2201,7 +2263,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onAddPlaceOptionSelected()
     {
-      closePlacePage();
       closeMenu(() -> showPositionChooser(false, false));
     }
 

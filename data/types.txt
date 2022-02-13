@@ -1081,7 +1081,7 @@ mapswithme
 *highway|traffic_signals
 *leisure|fitness_centre
 *amenity|vending_machine|excrement_bags
-*amenity|vending_machine|parcel_pickup
+*amenity|parcel_locker
 *leisure|sauna
 *amenity|vending_machine|fuel
 *man_made|chimney

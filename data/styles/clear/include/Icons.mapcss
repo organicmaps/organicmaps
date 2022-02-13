@@ -62,8 +62,8 @@ node[man_made=water_tap],
 area[man_made=water_tap],
 node[amenity=water_point],
 area[amenity=water_point],
-node[amenity=water_point],
-area[amenity=water_point],
+node[man_made=water_well],
+area[man_made=water_well],
 node[amenity=waste_basket],
 node[amenity=waste_disposal],
 area[amenity=waste_disposal],
@@ -106,6 +106,8 @@ node[amenity=waste_transfer_station],
 area[amenity=waste_transfer_station],
 node[amenity=vending_machine],
 area[amenity=vending_machine],
+node[amenity=parcel_locker],
+area[amenity=parcel_locker],
 node[aeroway=gate],
 area[aeroway=gate],
 node[amenity=hunting_stand],
@@ -645,8 +647,8 @@ node|z15-[amenity=drinking_water],
 area|z15-[amenity=drinking_water],
 node|z15-[man_made=water_tap],
 area|z15-[man_made=water_tap],
-node|z15-[amenity=water_point] ,
-area|z15-[amenity=water_point]
+node|z15-[man_made=water_well],
+area|z15-[man_made=water_well],
 {icon-image: drinking-water-m.svg;icon-min-distance: 36;text-optional: true;}
 
 /* 3. TRANSPORT */
@@ -1437,6 +1439,8 @@ node|z17-[power=station],
 area|z17-[power=station],
 node|z17-[amenity=vending_machine],
 area|z17-[amenity=vending_machine],
+node|z17-[amenity=parcel_locker],
+area|z17-[amenity=parcel_locker],
 node|z17-[amenity=events_venue],
 area|z17-[amenity=events_venue],
 node|z17-[aeroway=gate],
@@ -1990,11 +1994,14 @@ node|z17-[amenity=payment_terminal],
 area|z17-[amenity=payment_terminal]
 {icon-image: vending-m.svg;icon-min-distance: 20;}
 node|z17-[amenity=vending_machine],
-area|z17-[amenity=vending_machine]
+area|z17-[amenity=vending_machine],
 {icon-image: vending-m.svg;icon-min-distance: 20;}
 node|z17-[amenity=vending_machine][vending=parking_tickets],
 area|z17-[amenity=vending_machine][vending=parking_tickets]
 {icon-image: parking-meter-m.svg;font-size: 11;}
+node|z17-[amenity=parcel_locker],
+area|z17-[amenity=parcel_locker],
+{icon-image: mail-m.svg;icon-min-distance: 20;}
 
 node|z17-[aeroway=gate],
 area|z17-[aeroway=gate]
@@ -2464,8 +2471,6 @@ node|z17-[amenity=car_wash],
 area|z17-[amenity=car_wash],
 node|z18-[amenity=parking],
 area|z18-[amenity=parking],
-node|z18-[amenity=parking_space],
-area|z18-[amenity=parking_space],
 node|z18-[amenity=car_rental],
 area|z18-[amenity=car_rental],
 node|z18-[amenity=car_sharing],
@@ -2523,35 +2528,21 @@ area|z15-[amenity=sanitary_dump_station]
 /* 7.1 Parking */
 
 node|z16[amenity=parking],
-area|z16[amenity=parking],
-node|z16[amenity=parking_space],
-area|z16[amenity=parking_space]
+area|z16[amenity=parking]
 {icon-image: parking-s.svg;icon-min-distance: 25;}
 node|z16[amenity=parking][access=permissive],
-node|z16[amenity=parking][access=private],
-node|z16[amenity=parking_space][access=permissive],
-area|z16[amenity=parking_space][access=permissive],
-node|z16[amenity=parking_space][access=private],
-area|z16[amenity=parking_space][access=private]
+node|z16[amenity=parking][access=private]
 {icon-image: zero-icon.svg;}
 
 node|z17[amenity=parking],
-area|z17[amenity=parking],
-node|z17[amenity=parking_space],
-area|z17[amenity=parking_space]
+area|z17[amenity=parking]
 {icon-image: parking-m.svg;}
 node|z17[amenity=parking][access=permissive],
-node|z17[amenity=parking][access=private],
-node|z17[amenity=parking_space][access=permissive],
-area|z17[amenity=parking_space][access=permissive],
-node|z17[amenity=parking_space][access=private],
-area|z17[amenity=parking_space][access=private]
+node|z17[amenity=parking][access=private]
 {icon-image: zero-icon.svg;}
 
 node|z18-[amenity=parking],
-area|z18-[amenity=parking],
-node|z18-[amenity=parking_space],
-area|z18-[amenity=parking_space]
+area|z18-[amenity=parking]
 {icon-image: parking-m.svg;font-size: 11;text-optional: true;}
 
 node|z17-[amenity=bicycle_parking],
@@ -2569,7 +2560,3 @@ area|z18-[amenity=bicycle_parking]
 node|z18-[amenity=motorcycle_parking],
 area|z18-[amenity=motorcycle_parking]
 {icon-image: motorcycle-parking-m.svg;icon-min-distance: 20;text-optional: true;}
-
-node|z16-[amenity=parking_space][parking=underground],
-area|z16-[amenity=parking_space][parking=underground]
-{icon-image: zero-icon.svg;}

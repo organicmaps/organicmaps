@@ -65,6 +65,8 @@ public class RoutingController implements Initializable<Void>
     void updateMenu();
     void onNavigationCancelled();
     void onNavigationStarted();
+    void onPlanningCancelled();
+    void onPlanningStarted();
     void onAddedStop();
     void onRemovedStop();
     void onResetToPlanningState();
@@ -249,15 +251,20 @@ public class RoutingController implements Initializable<Void>
 
   private void showRoutePlan()
   {
+    showRoutePlan(null, null);
+  }
+
+  private void showRoutePlan(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint)
+  {
     if (mContainer != null)
-      mContainer.showRoutePlan(true, new Runnable()
-      {
-        @Override
-        public void run()
-        {
+    {
+      mContainer.showRoutePlan(true, () -> {
+        if (startPoint == null || endPoint == null)
           updatePlan();
-        }
+        else
+          build();
       });
+    }
   }
 
   public void attach(@NonNull Container container)
@@ -382,24 +389,6 @@ public class RoutingController implements Initializable<Void>
     prepare(getStartPoint(), getEndPoint(), false);
   }
 
-  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint)
-  {
-    prepare(canUseMyPositionAsStart, endPoint, false);
-  }
-
-  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint, boolean fromApi)
-  {
-    MapObject startPoint = canUseMyPositionAsStart ? LocationHelper.INSTANCE.getMyPosition() : null;
-    prepare(startPoint, endPoint, fromApi);
-  }
-
-  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint,
-                      @Framework.RouterType int type, boolean fromApi)
-  {
-    MapObject startPoint = canUseMyPositionAsStart ? LocationHelper.INSTANCE.getMyPosition() : null;
-    prepare(startPoint, endPoint, type, fromApi);
-  }
-
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
     prepare(startPoint, endPoint, false);
@@ -456,18 +445,7 @@ public class RoutingController implements Initializable<Void>
     if (startPoint != null || endPoint != null)
       setPointsInternal(startPoint, endPoint);
 
-    if (mContainer != null)
-      mContainer.showRoutePlan(true, new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          if (startPoint == null || endPoint == null)
-            updatePlan();
-          else
-            build();
-        }
-      });
+    startPlanning(startPoint, endPoint);
   }
 
   public void start()
@@ -488,12 +466,8 @@ public class RoutingController implements Initializable<Void>
 
     setState(State.NAVIGATION);
 
-    if (mContainer != null)
-    {
-      mContainer.showRoutePlan(false, null);
-      mContainer.showNavigation(true);
-      mContainer.onNavigationStarted();
-    }
+    cancelPlanning();
+    startNavigation();
 
     Framework.nativeFollowRoute();
     LocationHelper.INSTANCE.restart();
@@ -522,12 +496,20 @@ public class RoutingController implements Initializable<Void>
     backToPlaningStateIfNavigating();
   }
 
-  public void resetToPlanningState()
+  /**
+   * @return False if not navigating, true otherwise
+   */
+  public boolean resetToPlanningStateIfNavigating()
   {
-    build();
-    if (mContainer != null)
-      mContainer.onResetToPlanningState();
-    backToPlaningStateIfNavigating();
+    if (isNavigating())
+    {
+      build();
+      if (mContainer != null)
+        mContainer.onResetToPlanningState();
+      backToPlaningStateIfNavigating();
+      return true;
+    }
+    return false;
   }
 
   private void backToPlaningStateIfNavigating()
@@ -536,12 +518,11 @@ public class RoutingController implements Initializable<Void>
       return;
 
     setState(State.PREPARE);
+    cancelNavigation();
+    startPlanning();
     if (mContainer != null)
     {
-      mContainer.showNavigation(false);
-      mContainer.showRoutePlan(true, null);
       mContainer.updateMenu();
-      mContainer.onNavigationCancelled();
     }
   }
 
@@ -638,8 +619,7 @@ public class RoutingController implements Initializable<Void>
       mLogger.d(TAG, "cancel: planning");
 
       cancelInternal();
-      if (mContainer != null)
-        mContainer.showRoutePlan(false, null);
+      cancelPlanning();
       return true;
     }
 
@@ -648,18 +628,61 @@ public class RoutingController implements Initializable<Void>
       mLogger.d(TAG, "cancel: navigating");
 
       cancelInternal();
+      cancelNavigation();
       if (mContainer != null)
       {
-        mContainer.showNavigation(false);
         mContainer.updateMenu();
       }
-      if (mContainer != null)
-        mContainer.onNavigationCancelled();
       return true;
     }
 
     mLogger.d(TAG, "cancel: none");
     return false;
+  }
+
+  public void startPlanning()
+  {
+    if (mContainer != null)
+    {
+      showRoutePlan();
+      mContainer.onPlanningStarted();
+    }
+  }
+
+  public void startPlanning(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint)
+  {
+    if (mContainer != null)
+    {
+      showRoutePlan(startPoint, endPoint);
+      mContainer.onPlanningStarted();
+    }
+  }
+
+  public void cancelPlanning()
+  {
+    if (mContainer != null)
+    {
+      mContainer.showRoutePlan(false, null);
+      mContainer.onPlanningCancelled();
+    }
+  }
+
+  public void startNavigation()
+  {
+    if (mContainer != null)
+    {
+      mContainer.showNavigation(true);
+      mContainer.onNavigationStarted();
+    }
+  }
+
+  public void cancelNavigation()
+  {
+    if (mContainer != null)
+    {
+      mContainer.showNavigation(false);
+      mContainer.onNavigationCancelled();
+    }
   }
 
   public boolean isPlanning()

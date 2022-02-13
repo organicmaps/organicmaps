@@ -50,7 +50,7 @@ public:
 
   static bool IsFakeSegment(Segment const & segment)
   {
-    return segment.GetFeatureId() == kFakeFeatureId;
+    return segment.IsFakeCreated();
   }
 
   static bool IsGuidesSegment(Segment const & segment)
@@ -91,15 +91,12 @@ public:
 
   uint32_t GetNumFakeSegments() const
   {
-    // Maximal number of fake segments in fake graph is numeric_limits<uint32_t>::max()
-    // because segment idx type is uint32_t.
-    CHECK_LESS_OR_EQUAL(m_fake.GetSize(), std::numeric_limits<uint32_t>::max(), ());
-    return static_cast<uint32_t>(m_fake.GetSize());
+    return base::checked_cast<uint32_t>(m_fake.GetSize());
   }
 
   std::set<NumMwmId> GetMwms() const;
-  std::set<NumMwmId> GetStartMwms() const;
-  std::set<NumMwmId> GetFinishMwms() const;
+  std::set<NumMwmId> const & GetStartMwms() const { return m_start.m_mwmIds; }
+  std::set<NumMwmId> const & GetFinishMwms() const { return m_finish.m_mwmIds; }
 
   // Checks whether |weight| meets non-pass-through crossing restrictions according to placement of
   // start and finish in pass-through/non-pass-through area and number of non-pass-through crosses.
@@ -206,9 +203,6 @@ public:
     std::set<NumMwmId> m_mwmIds;
   };
 
-  Ending const & GetStartEnding() const { return m_start; }
-  Ending const & GetFinishEnding() const { return m_finish; }
-
   uint32_t GetFakeNumerationStart() const { return m_fakeNumerationStart; }
 
   // Creates fake edges for guides fake ending and adds them to the fake graph.
@@ -217,8 +211,6 @@ public:
   void ConnectLoopToGuideSegments(FakeVertex const & loop, Segment const & realSegment,
                                   LatLonWithAltitude realFrom, LatLonWithAltitude realTo,
                                   std::vector<std::pair<FakeVertex, Segment>> const & partsOfReal);
-
-  ~IndexGraphStarter() override = default;
 
 private:
   // Creates fake edges for fake ending and adds it to fake graph. |otherEnding| is used to
@@ -231,7 +223,7 @@ private:
     // We currently ignore |isForward| and use FakeGraph to get ingoing/outgoing.
     // But all fake segments are oneway and placement of segment head and tail
     // correspond forward direction.
-    return Segment(kFakeNumMwmId, kFakeFeatureId, segmentIdx, true /* isForward */);
+    return Segment(kFakeNumMwmId, FakeFeatureIds::kIndexGraphStarterId, segmentIdx, true /* isForward */);
   }
 
   Segment GetFakeSegmentAndIncr();
@@ -250,7 +242,6 @@ private:
   // Checks whether ending belongs to non-pass-through zone (service, living street, etc).
   bool HasNoPassThroughAllowed(Ending const & ending) const;
 
-  static uint32_t constexpr kFakeFeatureId = FakeFeatureIds::kIndexGraphStarterId;
   WorldGraph & m_graph;
   // Start segment id
   Ending m_start;

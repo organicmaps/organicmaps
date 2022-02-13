@@ -1126,7 +1126,7 @@
 
 "medicine" = "Медыцына";
 
-"search_in_the_list" = "Шукаць у спіце";
+"search_in_the_list" = "Шукаць у спісе";
 
 "religious_places" = "Святыя месцы";
 
@@ -1291,7 +1291,7 @@
 
 "type.amenity.ferry_terminal" = "Ferry";
 
-"type.amenity.fire_station" = "Fire Station";
+"type.amenity.fire_station" = "Пажарная частка";
 
 "type.amenity.food_court" = "Food Court";
 
@@ -1450,7 +1450,7 @@
 
 "type.amenity.vending_machine.excrement_bags" = "Мяшкі дзеля экскрыментаў";
 
-"type.amenity.vending_machine.parcel_pickup" = "Паштамат";
+"type.amenity.parcel_locker" = "Паштамат";
 
 "type.amenity.vending_machine.fuel" = "Паліўная калонка";
 
@@ -1748,9 +1748,9 @@
 
 "type.emergency" = "Emergency";
 
-"type.emergency.defibrillator" = "Defibrillator";
+"type.emergency.defibrillator" = "Дэфібрылятар";
 
-"type.emergency.fire_hydrant" = "Fire Hydrant";
+"type.emergency.fire_hydrant" = "Пажарны гідрант";
 
 "type.emergency.phone" = "Emergency Phone";
 

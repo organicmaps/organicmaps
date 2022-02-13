@@ -2722,7 +2722,7 @@
     en = RV Facilities
     be = Для аўтадамоў
     ru = Для автодомов
-    tr = Karavan Tesisleri
+    tr = Karavan tesisleri
     uk = Для автобудинків
 
   [description]
@@ -12057,7 +12057,7 @@
     sk = Pokračovať v mazaní vašej súčasnej pozície?
     sv = Fortsätt detektera din nuvarande plats?
     th = ค้นหาที่ตั้งปัจจุบันต่อไปหรือไม่?
-    tr = Geçerli konumunuzuz izlenmeye devam edilsin mi?
+    tr = Geçerli konumunuz izlenmeye devam edilsin mi?
     uk = Продовжити пошук місцезнаходження?
     vi = Tiếp tục phát hiện địa điểm hiện tại của bạn?
     zh-Hans = 继续检测您的当前位置？
@@ -12093,7 +12093,7 @@
     sk = Súčasná pozícia je neznáma. Možno sa nachádzate v budove alebo v tuneli.
     sv = Nuvarande plats okänd. Du kanske är i en byggnad eller tunnel.
     th = ไม่ทราบชื่อสถานที่ปัจจุบัน คุณอาจจะอยู่ในอาคาร หรือ ในอุโมงค์
-    tr = Geçerli konum bilinmiyor. Muhtemelen bir binanın içinde veya tüneldesiniz.
+    tr = Geçerli konum bilinmiyor. Muhtemelen bir bina veya tünelin içindesiniz.
     uk = Місцезнаходження не знайдено. Можливо, ви знаходитесь у приміщенні або тунелі.
     vi = Chưa biết địa điểm hiện tại. Có thể bạn đang ở trong một tòa nhà hoặc đường hầm.
     zh-Hans = 当前位置未知，可能您在建筑内或隧道内。
@@ -13846,7 +13846,7 @@
     sv = Organic Maps är en gratis offlinekartapplikation med öppen källkod. Inga annonser. Ingen spårning. Om du ser ett fel på kartan, åtgärda det i OpenStreetMap. Projektet skapas av entusiaster på vår fritid, så vi behöver din feedback och support.
     sw = Organic Maps ni programu huria na ya chanzo huria ya ramani za nje ya mtandao. Hakuna matangazo. Hakuna ufuatiliaji. Ukiona hitilafu kwenye ramani, tafadhali irekebishe katika OpenStreetMap. Mradi huu umeundwa na wapendaji katika wakati wetu wa bure, kwa hivyo tunahitaji maoni na usaidizi wako.
     th = Organic Maps เป็นแอปพลิเคชันแผนที่ออฟไลน์แบบโอเพนซอร์สฟรี ไม่มีโฆษณา ไม่มีการติดตาม. หากคุณเห็นข้อผิดพลาดบนแผนที่ โปรดแก้ไขใน OpenStreetMap โครงการนี้สร้างขึ้นโดยผู้ที่ชื่นชอบในเวลาว่าง เราจึงต้องการความคิดเห็นและการสนับสนุนจากคุณ
-    tr = Organic Maps, ücretsiz ve açık kaynaklı bir çevrimdışı harita uygulamasıdır. Reklamsız. İzleme yok. Haritada bir hata görürseniz, lütfen OpenStreetMap'te düzeltin. Proje meraklıları tarafından boş zamanlarımızda oluşturulduğundan geri bildiriminize ve desteğinize ihtiyacımız var.
+    tr = Organic Maps, reklam ve izleyici içermeyen hızlı ve ücretsiz bir çevrimdışı harita uygulamasıdır. Haritalar kitle kaynaklı OpenStreetMap.org verilerine dayanmaktadır, böylece kendiniz harita hatalarını düzeltebilir ve haritaya yeni nesneler ekleyebilirsiniz. Organic Maps, teknoloji tutkunlarının boş zamanlarında oluşturduğu açık kaynaklı bir projedir. Geri bildirim ve desteğinize çok değer veriyoruz!
     uk = Organic Maps – це швидкі та безкоштовні карти, які не потребують доступу до Інтернету. Карти засновані на даних проекта OpenStreetMap.org, саме там Ви можете виправити помилки та додати відсутні дані. Реклама та збір особистої інформації відсутні. Organic Maps це проект з відкритим вихідним кодом, створюється ентузіастами у вільний час, тому нам потрібні Ваші відгуки та підтримку!
     vi = Organic Maps là một ứng dụng bản đồ ngoại tuyến mã nguồn mở và miễn phí. Không quảng cáo. Không theo dõi. Nếu bạn thấy lỗi trên bản đồ, hãy sửa lỗi đó trong OpenStreetMap. Dự án được tạo ra bởi những người đam mê trong thời gian rảnh của chúng tôi, vì vậy chúng tôi cần phản hồi và hỗ trợ của bạn.
     zh-Hans = Organic Maps 是一款免费的开源离线地图应用程序。无广告。没有跟踪。如果您在地图上看到错误，请在 OpenStreetMap 中修复它。该项目由爱好者在我们的空闲时间创建，因此我们需要您的反馈和支持。
@@ -14200,7 +14200,7 @@
     sk = Na zobrazenie podrobnejších informácií o miestach, napríklad fotografií, cien a recenzií, sa vyžaduje mobilný internet.
     sv = Mobil internet krävs för att visa detaljerad information om platser, som t. ex. fotografier, priser och omdömen.
     th = จำเป็นต้องใช้อินเทอร์เน็ตมือถือในการแสดงข้อมูลโดยรายละเอียดเกี่ยวกับสถานที่ เช่น รูปถ่าย ราคา และรีวิว
-    tr = Mobil internet; mekanlarla ilgili ayrıntılı bilgileri, yer imlerinizi ve harita güncelleme bildirimlerini görüntülemek için gereklidir.
+    tr = Mekanlar ve yer imlerinizle ilgili ayrıntılı bilgileri görüntülemek ve harita güncelleme bildirimleri için mobil internet gereklidir.
     uk = Використання мобільних даних необхідно для сповіщень про оновлення карти та для відображення докладної інформації про місця та мітки.
     vi = Internet di động là cần thiết để hiển thị thông tin chi tiết về các nơi, ví dụ như ảnh chụp, giá cả và đánh giá.
     zh-Hans = 要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。
@@ -14340,7 +14340,7 @@
     sk = Zväčšiť veľkosť písma na mape
     sv = Öka teckenstorlek på kartan
     th = เพิ่มขนาดฟอนต์บนแผนที่
-    tr = Harita üzerindeki yazı tipi boyutunu artır
+    tr = Haritadaki yazı tipi boyutunu artır
     uk = Збільшити розмір шрифту на мапі
     vi = Tăng kích cỡ phông chữ trên bản đồ
     zh-Hans = 增大地图上的字体大小
@@ -20795,7 +20795,7 @@
     tags = android,ios
     en = Search in the list
     ar = بحث في القائمة
-    be = Шукаць у спіце
+    be = Шукаць у спісе
     bg = Търсене в списъка
     cs = Vyhledat v seznamu
     da = Søg i listen
@@ -21758,6 +21758,30 @@
     vi = Khi được bật, màn hình sẽ được phép ở chế độ ngủ sau một thời gian không hoạt động.
     zh-Hans = 启用后，屏幕将在一段时间不活动后进入休眠状态。
     zh-Hant = 啟用後，螢幕將在一段時間不活動後進入休眠狀態。
+
+  [enable_show_on_lock_screen]
+    tags = android
+    comment = A preference title; keep short!
+    en = Show on the lock screen
+    be = Паказваць на экране блакіроўкі
+    it = Mostra sulla schermata di blocco
+    pl = Pokazuj na ekranie blokady
+    ro = Arată pe ecranul blocat
+    ru = Показывать на экране блокировки
+    tr = Kilit ekranında göster
+    uk = Показувати на заблокованому екрані
+
+  [enable_show_on_lock_screen_description]
+    tags = android
+    comment = Description in preferences
+    en = When enabled, you don't need to unlock your device every time while the app is running.
+    be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.
+    it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
+    pl = Po włączeniu nie musisz odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.
+    ro = Cînd este activată, nu trebuie să deblochezi telefonul de fiecare dată cînd aplicația este în funcțiune.
+    ru = Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.
+    tr = Etkinleştirildiğinde, uygulama çalışırken her seferinde cihazınızın kilidini açmanıza gerek kalmaz.
+    uk = Якщо ввімкнено, вам не потрібно щоразу розблоковувати пристрій під час роботи програми.
 
   [whats_new_auto_update_title]
     comment = Autoupdate dialog on start

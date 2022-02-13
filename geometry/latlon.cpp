@@ -20,7 +20,7 @@ bool LatLon::EqualDxDy(LatLon const & p, double eps) const
 std::string DebugPrint(LatLon const & t)
 {
   std::ostringstream out;
-  out.precision(20);
+  out.precision(9); // <3>.<6> digits is enough here
   out << "ms::LatLon(" << t.m_lat << ", " << t.m_lon << ")";
   return out.str();
 }

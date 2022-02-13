@@ -694,6 +694,10 @@
 	<string name="enable_screen_sleep">Allow screen to sleep</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">When enabled the screen will be allowed to sleep after a period of inactivity.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Show on the lock screen</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">When enabled, you don\'t need to unlock your device every time while the app is running.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Aerialway</string>
@@ -825,7 +829,7 @@
 	<string name="type.amenity.vending_machine.parking_tickets">Parking Tickets</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Ticket Machine</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Excrement Bags Dispenser</string>
-	<string name="type.amenity.vending_machine.parcel_pickup">Parcel Locker</string>
+	<string name="type.amenity.parcel_locker">Parcel Locker</string>
 	<string name="type.amenity.vending_machine.fuel">Fuel Dispenser</string>
 	<string name="type.amenity.veterinary">Veterinary Doctor</string>
 	<string name="type.amenity.waste_basket">Trash Bin</string>

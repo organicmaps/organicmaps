@@ -10,8 +10,10 @@
     pt = Transporte aéreo
     pt-BR = Transporte aéreo
     ru = Канатная дорога
+    tr = Teleferik
     uk = Канатна дорога
     zh-Hans = 缆车要素
+    zh-Hant = 纜車要素
 
   [type.aerialway.cable_car]
     en = Aerialway
@@ -23,6 +25,7 @@
     pt = Teleférico
     pt-BR = Teleférico
     ru = Канатная дорога
+    tr = Teleferik
     uk = Канатна дорога
     zh-Hans = 缆车
     zh-Hant = 纜車
@@ -37,6 +40,7 @@
     pt = Telecadeira
     pt-BR = Telecadeira
     ru = Кресельная канатная дорога
+    tr = Telesiyej
     uk = Канатна дорога
     zh-Hans = 登山吊椅
 
@@ -50,7 +54,10 @@
     pt = Telesquis
     pt-BR = Telesquis
     ru = Бугельная канатная дорога
+    tr = Teleferik hattı
     uk = Канатна дорога
+    zh-Hans = 缆车要素
+    zh-Hant = 纜車要素
 
   [type.aerialway.gondola]
     en = Aerialway
@@ -62,8 +69,10 @@
     pt = Telecabine
     pt-BR = Telecabine
     ru = Канатная дорога
+    tr = Teleferik
     uk = Канатна дорога
     zh-Hans = 循环式索道
+    zh-Hant = 循環式索道
 
   [type.aerialway.mixed_lift]
     en = Aerialway
@@ -74,7 +83,10 @@
     pt = Teleférico híbrido
     pt-BR = Teleférico híbrido
     ru = Канатная дорога
+    tr = Teleferik
     uk = Канатна дорога
+    zh-Hans = 缆车
+    zh-Hant = 纜車
 
   [type.aerialway.station]
     en = Aerialway Station
@@ -101,7 +113,7 @@
     sk = Lanovka
     sv = Linbanestation
     th = สถานีกระเช้าลอยฟ้า
-    tr = Remontées mécaniques
+    tr = Havayolu İstasyonu
     uk = Канатна дорога
     vi = Trạm Cáp Treo
     zh-Hans = 缆车车站
@@ -114,8 +126,10 @@
     pt = Via aérea
     pt-BR = Via aérea
     ru = Аэрокосмическая инфраструктура
+    tr = Hava Sahası Altyapısı
     uk = Аерокосмічна інфраструктура
     zh-Hans = 机场要素
+    zh-Hant = 機場要素
 
   [type.aeroway.aerodrome]
     en = Airport
@@ -143,7 +157,7 @@
     sk = Letisko
     sv = Flygplats
     th = สนามบิน
-    tr = Havaalanıuçak
+    tr = Havaalanı
     uk = Аеропорт
     vi = Sân bay
     zh-Hans = 机场
@@ -175,7 +189,7 @@
     sk = Letisko
     sv = Flygplats
     th = สนามบิน
-    tr = Havaalanıuçak
+    tr = Uluslararası Havalimanı
     uk = Міжнародний аеропорт
     vi = Sân bay
     zh-Hans = 机场
@@ -190,8 +204,10 @@
     pt = Plataforma de estacionamento de aviões
     pt-BR = Plataforma de estacionamento de aviões
     ru = Перрон
+    tr = Peron
     uk = Перон
     zh-Hans = 机场停机坪
+    zh-Hant = 機場停機坪
 
   [type.aeroway.gate]
     en = Gate
@@ -201,8 +217,10 @@
     pt = Porta de embarque
     pt-BR = Porta de embarque
     ru = Выход на посадку
+    tr = Geçit
     uk = Вихід на посадку
     zh-Hans = 登机口
+    zh-Hant = 登機口
 
   [type.aeroway.helipad]
     en = Helipad
@@ -228,7 +246,7 @@
     sk = Pristávacia plocha pre vrtuľníky
     sv = Helikopterplatta
     th = ที่จอดเฮลิคอปเตอร์
-    tr = Hélisurface
+    tr = Helikopter pisti
     uk = Майданчик для гелікоптерів
     vi = Bãi đỗ trực thăng
     zh-Hans = 直升机场
@@ -243,6 +261,7 @@
     pt = Pista de aeroporto ou aeródromo
     pt-BR = Pista de aeroporto ou aeródromo
     ru = Взлётно-посадочная полоса
+    tr = Koşu yolu
     uk = Злітно-посадкова смуга
     zh-Hans = 机场跑道
     zh-Hant = 機場跑道
@@ -256,8 +275,10 @@
     pt = Faixa de manobras
     pt-BR = Pista de rolagem
     ru = Рулёжная дорожка
+    tr = Taksi yolu
     uk = Рульова дорiжка
     zh-Hans = 滑行道
+    zh-Hant = 滑行道
 
   [type.aeroway.terminal]
     en = Terminal
@@ -267,8 +288,10 @@
     pt = Terminal de passageiros
     pt-BR = Aerogare de passageiros
     ru = Терминал
+    tr = Terminal
     uk = Термінал
     zh-Hans = 航站楼
+    zh-Hant = 航站楼
 
   [type.amenity]
     en = Amenity
@@ -332,7 +355,7 @@
     sv = Kulturcenter
     sw = Kituo cha sanaa
     th = ศูนย์งานศิลปะ
-    tr = Sanat merkezi
+    tr = Sanat Merkezi
     uk = Центр мистецтв
     vi = Trung tâm nghệ thuật
     zh-Hans = 艺术中心
@@ -402,6 +425,7 @@
     pt-BR = Drinqueria
     ru = Бар
     th = บาร์
+    tr = Bar
     uk = Бар
     vi = Quán bar
     zh-Hans = 酒吧
@@ -433,7 +457,7 @@
     sk = Piknik
     sv = Picknickplatser
     th = เว็บไซต์ปิกนิก
-    tr = Piknik alanı
+    tr = Piknik Alanı
     uk = Пікнік
     vi = Điểm cắm trại
     zh-Hans = 野餐地点
@@ -497,7 +521,7 @@
     sk = Stojan na bicykle
     sv = Cykelparkering
     th = ที่จอดจักรยาน
-    tr = Parking à vélo
+    tr = Bisiklet Park Yeri
     uk = Велостоянка
     vi = Chỗ Đậu Xe Đạp
     zh-Hans = 自行车停车处
@@ -529,7 +553,7 @@
     sk = Požičovňa bicyklov
     sv = Cykeluthyrning
     th = จักรยานให้เช่า
-    tr = Bisiklet kiralama
+    tr = Bisiklet Kiralama
     uk = Велопрокат
     vi = Cho thuê xe đạp
     zh-Hans = 自行车出租点
@@ -553,6 +577,7 @@
     sk = Piváreň
     sv = Ölservering
     th = ลานเบียร์
+    tr = Bira Bahçesi
     uk = Пивна під відкритим небом
     vi = Vườn bia
     zh-Hans = 啤酒花园
@@ -616,7 +641,7 @@
     sk = Zmenáreň
     sv = Valutaväxling
     th = แลกเปลี่ยนเงินตรา
-    tr = Döviz bürosu
+    tr = Döviz Bürosu
     uk = Обмін валют
     vi = Tỉ giá hiện tại
     zh-Hans = 货币兑换
@@ -648,7 +673,7 @@
     sk = Autobusové nástupište
     sv = Busstation
     th = สถานีขนส่ง
-    tr = Otobüs terminali
+    tr = Otogar
     uk = Автовокзал
     vi = Trạm xe buýt
     zh-Hans = 公交车站
@@ -680,7 +705,7 @@
     sk = Kaviareň
     sv = Café
     th = คาเฟ่
-    tr = Kafeterya่
+    tr = Kafe
     uk = Кафе
     vi = Cà phê
     zh-Hans = 咖啡馆่
@@ -712,7 +737,7 @@
     sk = Autopožičovňa
     sv = Biluthyrning
     th = รถยนต์
-    tr = Araç kiralama
+    tr = Araç Kiralama
     uk = Прокат авто
     vi = Ô tô
     zh-Hans = 汽车出租์
@@ -802,6 +827,7 @@
     sk = Kasíno
     sv = Kasino
     th = คาสิโน
+    tr = Kumarhane
     uk = Казино
     vi = Giải trí
     zh-Hans = 赌场
@@ -865,7 +891,7 @@
     sk = Jasle
     sv = Barnomsorg
     th = สถานรับเลี้ยงเด็ก
-    tr = Çocuk Yuvası
+    tr = Kreş
     uk = Дитяча кімната
     vi = Nhà trẻ
     zh-Hans = 托儿所
@@ -990,7 +1016,7 @@
     sk = Dom kultúry
     sv = Stadshus
     th = ศูนย์ชุมชน
-    tr = Centre communautaire
+    tr = Toplum Merkezi
     uk = Центр культури та дозвілля, Дім культури
     vi = Trung Tâm Cộng Đồng
     zh-Hans = 社区活动中心
@@ -1022,7 +1048,7 @@
     sk = Súd
     sv = Domstol
     th = ศาล
-    tr = Palais de justice
+    tr = Adliye
     uk = Суд
     vi = Tòa án
     zh-Hans = 法院
@@ -1053,7 +1079,7 @@
     sk = Zubár
     sv = Tandläkare
     th = ทันตแพทย์
-    tr = Diş hekimi
+    tr = Dişçi
     uk = Стоматологія
     vi = Nha sĩ
     zh-Hans = 牙科医生
@@ -1084,7 +1110,7 @@
     sk = Ambulancia
     sv = Läkarmottagning
     th = ห้องแพทย์
-    tr = Doktor muayenehanesi
+    tr = Doktor
     uk = Лікар
     vi = Bác sĩ
     zh-Hans = 医师办公室
@@ -1116,7 +1142,7 @@
     sk = Pitná voda
     sv = Dricksvatten
     th = น้ำดื่ม
-    tr = Içme suyu
+    tr = İçme Suyu
     uk = Питна вода
     vi = Nước uống
     zh-Hans = 饮用水
@@ -1212,7 +1238,7 @@
     sk = Rýchle občerstvenie
     sv = Snabbmat
     th = อาหารจานด่วน
-    tr = Fast food
+    tr = Hazır Yemek
     uk = Фастфуд
     vi = Thức ăn nhanh
     zh-Hans = 快餐店
@@ -1253,6 +1279,7 @@
   [type.amenity.fire_station]
     en = Fire Station
     ar = محطة إطفاء
+    be = Пажарная частка
     cs = Hasiči
     da = Brandstation
     de = Feuerwehr
@@ -1276,7 +1303,7 @@
     sk = Hasičská stanica
     sv = Brandstation
     th = สถานีดับเพลิง
-    tr = Itfaiye
+    tr = İtfaiye
     uk = Пожежна частина
     vi = Trạm cứu hỏa
     zh-Hans = 消防局
@@ -1290,6 +1317,7 @@
     pt = Praça de alimentação
     pt-BR = Praça de alimentação
     ru = Ресторанный дворик
+    tr = Yemek katı
     uk = Ресторанний двір
     zh-Hans = 美食广场
 
@@ -1353,7 +1381,7 @@
     sk = Benzínová pumpa
     sv = Bensinstation
     th = ปั๊มน้ำมัน
-    tr = Benzin istasyonu
+    tr = Benzinlik
     uk = АЗС
     vi = Trạm xăng
     zh-Hans = 加油站
@@ -1402,7 +1430,10 @@
     pt = Cemitério cristão
     pt-BR = Cemitério cristão
     ru = Христианское кладбище
+    tr = Hristiyan Mezarlığı
     uk = Християнський цвинтар
+    zh-Hans = 基督教墓地
+    zh-Hant = 基督教墓地
 
   [type.amenity.hospital]
     en = Hospital
@@ -1460,7 +1491,7 @@
     sk = Lovecké stanovisko
     sv = Jakttorn
     th = จุดล่าสัตว์
-    tr = Avlanma alanı
+    tr = Avlanma Alanı
     uk = Мисливська башта
     vi = Điểm săn bắn
     zh-Hans = 狩猎站
@@ -1523,7 +1554,7 @@
     sk = Internetová kaviareň
     sv = Internetkafé
     th = อินเทอร์เน็ตคาเฟ่
-    tr = İnternet Cafe
+    tr = İnternet Kafe
     uk = Інтернет-кафе
     vi = Quán Internet
     zh-Hans = 网吧
@@ -1682,7 +1713,7 @@
     sk = Nočný klub
     sv = Nattklubb
     th = ไนต์คลับ
-    tr = Gece kulübü
+    tr = Gece Kulübü
     uk = Нічний клуб
     vi = Câu lạc bộ đêm
     zh-Hans = 夜总会
@@ -2002,7 +2033,7 @@
     sv = Parkeringsplats
     sw = Sehemu ya maegesho
     th = พื้นที่จอดรถ
-    tr = Park alanı
+    tr = Park Alanı
     uk = Паркувальне місце
     vi = Chỗ để xe
     zh-Hans = 停车位
@@ -2036,7 +2067,7 @@
     sv = Parkeringsplats
     sw = Sehemu ya maegesho
     th = พื้นที่จอดรถ
-    tr = Park alanı
+    tr = Park Alanı
     uk = Паркувальне місце
     vi = Chỗ để xe
     zh-Hans = 停车位
@@ -2070,7 +2101,7 @@
     sv = Parkeringsplats
     sw = Sehemu ya maegesho
     th = พื้นที่จอดรถ
-    tr = Park alanı
+    tr = Park Alanı
     uk = Паркувальне місце
     vi = Chỗ để xe
     zh-Hans = 停车位
@@ -2104,7 +2135,7 @@
     sv = Parkeringsplats
     sw = Sehemu ya maegesho
     th = พื้นที่จอดรถ
-    tr = Park alanı
+    tr = Park Alanı
     uk = Паркувальне місце
     vi = Chỗ để xe
     zh-Hans = 停车位
@@ -2200,7 +2231,7 @@
     sk = Svätyňa
     sv = Plats för tillbedjan
     th = สถานที่ประกอบพิธีกรรม
-    tr = Ibadet yerleri
+    tr = İbadet Yerleri
     uk = Храм
     vi = Chùa
     zh-Hans = 礼拜场所
@@ -2235,7 +2266,7 @@
     uk = Храм
     vi = Đền
     zh-Hans = 佛教寺庙
-    zh-Hant = 寺廟
+    zh-Hant = 佛教寺廟
 
   [type.amenity.place_of_worship.christian]
     en = Church
@@ -2267,7 +2298,7 @@
     uk = Церква
     vi = Chùa
     zh-Hans = 基督教堂
-    zh-Hant = 教堂
+    zh-Hant = 基督教堂
 
   [type.amenity.place_of_worship.hindu]
     en = Temple
@@ -2298,7 +2329,7 @@
     uk = Храм
     vi = Đền
     zh-Hans = 印度教寺庙
-    zh-Hant = 寺廟
+    zh-Hant = 印度教寺廟
 
   [type.amenity.place_of_worship.jewish]
     en = Synagogue
@@ -2424,7 +2455,7 @@
     uk = Храм
     vi = Đền
     zh-Hans = 道教宫观
-    zh-Hant = 寺廟
+    zh-Hant = 道教宮觀
 
   [type.amenity.police]
     en = Police
@@ -2484,7 +2515,7 @@
     sk = Poštová schránka
     sv = Postlåda
     th = ตู้จดหมาย
-    tr = Posta kutusu
+    tr = Posta Kutusu
     uk = Поштова скринька
     vi = Hòm thư
     zh-Hans = 邮箱
@@ -2532,8 +2563,10 @@
     pt = Prisão
     pt-BR = Presidiário
     ru = Тюрьма
+    tr = Hapishane
     uk = В'язниця
     zh-Hans = 监狱
+    zh-Hant = 監獄
 
   [type.amenity.pub]
     en = Pub
@@ -2555,6 +2588,7 @@
     sk = Pohostinstvo
     sv = Krog
     th = ผับ
+    tr = Bar
     uk = Паб
     vi = Quán rượu
     zh-Hans = 酒馆
@@ -2585,7 +2619,7 @@
     sk = Knižnica
     sv = Bokskåp
     th = ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ
-    tr = Kütüphane
+    tr = Kitap Değişimi
     uk = Книгообмін
     vi = Kệ sách
     zh-Hans = 公共书架
@@ -2620,7 +2654,7 @@
     sk = Zberné suroviny
     sv = Återvinningscentral
     th = ศูนย์รีไซเคิล
-    tr = Geri dönüşüm merkezi
+    tr = Geri Dönüşüm Merkezi
     uk = Прийом вторсировини
     vi = Trung tâm tái sinh
     zh-Hans = 资源回收设施
@@ -2654,7 +2688,7 @@
     sk = Recyklačný odpad
     sv = Behållare för återvinningsbart avfall
     th = บรรจุภัณฑ์รีไซเคิล
-    tr = Atık toplama merkezi
+    tr = Atık Toplama Merkezi
     uk = Контейнер для вторсировини
     vi = Thùng rác
     zh-Hans = 回收容器
@@ -2727,7 +2761,7 @@
     sk = Staré oblečenie
     sv = Gamla kläder
     th = เสื้อผ้าเก่า
-    tr = Eski kıyafetler
+    tr = Kıyafet
     uk = Одяг
     vi = Quần áo cũ
     zh-Hans = 旧衣物
@@ -2761,7 +2795,7 @@
     sk = Sklenené fľaše
     sv = Returglas
     th = ขวดแก้ว
-    tr = Cam şişeler
+    tr = Cam Şişeler
     uk = Склотара
     vi = Chai lọ thủy tinh
     zh-Hans = 玻璃瓶
@@ -2795,7 +2829,7 @@
     sk = Papierový odpad
     sv = Returpapper
     th = ขยะกระดาษ
-    tr = Kağıt atıkları
+    tr = Kağıt Atıklar
     uk = Папір
     vi = Giấy phế liệu
     zh-Hans = 废纸
@@ -2829,7 +2863,7 @@
     sk = Plastový odpad
     sv = Plastavfall
     th = ขยะพลาสติก
-    tr = Plastik atıklar
+    tr = Plastik Atıklar
     uk = Пластик
     vi = Rác thải nhựa
     zh-Hans = 废塑料
@@ -2863,7 +2897,7 @@
     sk = Plastové fľaše
     sv = Samling av plastflaskor
     th = ขวดพลาสติก
-    tr = Plastik şişeler
+    tr = Plastik Şişeler
     uk = Пластикові бутилки
     vi = Bộ chai lọ nhựa
     zh-Hans = 塑料瓶
@@ -2897,7 +2931,7 @@
     sk = Kovový šrot
     sv = Metallskrap
     th = โลหะมีคม
-    tr = Metal hurdalar
+    tr = Hurda Metaller
     uk = Металобрухт
     vi = Phế liệu kim loại
     zh-Hans = 废金属
@@ -2930,7 +2964,7 @@
     sk = Elektronický odpad
     sv = Elektriskt avfall
     th = ขยะอิเล็กทรอนิกส์
-    tr = Elektronik atık
+    tr = Elektronik Atıklar
     uk = Електровідходи
     vi = Chất thải đồ điện
     zh-Hans = 电子垃圾
@@ -2939,31 +2973,41 @@
   [type.recycling.cardboard]
     en = Cardboard
     be = Кардон
+    de = Karton
     ru = Картон
+    tr = Karton
     uk = Картон
 
   [type.recycling.cans]
     en = Cans
     be = Бляшаныя і алюмініевыя слоікі
+    de = Dosen
     ru = Жестяные и алюминиевые банки
+    tr = Teneke ve alüminyum kutular
     uk = Бляшані та алюмінієві банки
 
   [type.recycling.shoes]
     en = Shoes
     be = Абутак
+    de = Schuhe
     ru = Обувь
+    tr = Ayakkabılar
     uk = Взуття
 
   [type.recycling.green_waste]
     en = Green/Organic Waste
     be = Арганіка / Харчовыя адходы
+    de = Bio-Müll
     ru = Органика / Пищевые отходы
+    tr = Yeşil/Organik Atık
     uk = Органіка / Харчові відходи
 
   [type.recycling.cartons]
     en = Bewerage Cartons
     be = Тэтрапак і аналагі
+    de = Getränkekarton
     ru = Тетрапак и аналоги
+    tr = İçecek Kartonları
     uk = Тетрапак та аналоги
 
   [type.amenity.restaurant]
@@ -2999,6 +3043,7 @@
     fr = Station de vidange
     it = Camper service
     ru = Слив для туалетов транспортных средств
+    tr = Tank Boşaltma İstasyonu
     uk = Злив для туалетів транспортних засобів
 
   [type.amenity.school]
@@ -3234,7 +3279,7 @@
     sk = Radnica
     sv = Rådhus
     th = ศาลากลางจังหวัด
-    tr = Belediye binası
+    tr = Belediye Binası
     uk = Ратуша
     vi = Trung tâm thành phố
     zh-Hans = 市政府
@@ -3282,6 +3327,7 @@
     pt = Máquina de venda automática
     pt-BR = Máquina de venda automática
     ru = Торговый автомат
+    tr = Otomat
     uk = Торговий автомат
     zh-Hans = 自动售货机
 
@@ -3312,7 +3358,7 @@
     sk = Automat na cigarety
     sv = Cigarettmaskin
     th = เครื่องขายบุหรี่
-    tr = Distributeur de cigarettes
+    tr = Sigara Dağıtıcı
     uk = Автомат з цигарками
     vi = Máy bán thuốc lá
     zh-Hans = 香烟售货机
@@ -3345,7 +3391,7 @@
     sk = Nápojový automat
     sv = Läskautomat
     th = เครื่องขายเครื่องดื่มอัตโนมัติ
-    tr = Distributeur de boissons
+    tr = İçecek Dağıtıcı
     uk = Автомат з напоями
     vi = Máy bán thức uống
     zh-Hans = 饮料售货机
@@ -3378,7 +3424,7 @@
     sk = Automat na výdaj parkovacích lístkov
     sv = Parkeringsautomat
     th = เครื่องชำระค่าที่จอดรถอัตโนมัติ
-    tr = Horodateur
+    tr = Otopark Fişi
     uk = Паркомат
     vi = Máy trả tiền vé đậu xe
     zh-Hans = 停车缴费机
@@ -3413,7 +3459,7 @@
     sv = Biljettautomat
     sw = Mashine ya kuuzia tiketi za usafiri wa umma
     th = เครื่องขายของหรือตั๋วขนส่งมวลชนอัตโนมัติ
-    tr = Toplu taşıma biletleri için otomatlar
+    tr = Toplu Taşıma Biletleri için Otomatlar
     uk = Автомат з продажу квитків
     vi = Máy bán vé phương tiện công cộng tự động
     zh-Hans = 公共交通售票机
@@ -3423,12 +3469,14 @@
     en = Excrement Bags Dispenser
     be = Мяшкі дзеля экскрыментаў
     ru = Пакеты для экскрементов
+    tr = Dışkı Torbası Dağıtıcı
     uk = Мішки для екскрементів
 
-  [type.amenity.vending_machine.parcel_pickup]
+  [type.amenity.parcel_locker]
     en = Parcel Locker
     be = Паштамат
     ru = Почтомат
+    tr = Posta Kutusu
     uk = Поштомат
 
   [type.amenity.vending_machine.fuel]
@@ -3436,6 +3484,7 @@
     be = Паліўная калонка
     de = Tankautomat
     ru = Топливная колонка
+    tr = Yakıt Dağıtıcı
     uk = Паливна колонка
 
   [type.amenity.veterinary]
@@ -3496,7 +3545,7 @@
     sk = Odpadkový kôš
     sv = Papperskorg
     th = ถังขยะ
-    tr = Poubelle
+    tr = Çöp Kutusu
     uk = Бак для сміття
     vi = Thùng rác
     zh-Hans = 垃圾篓
@@ -3528,7 +3577,7 @@
     sk = Odpadky
     sv = Avfallscontainer
     th = ขยะ
-    tr = Çöplüğü
+    tr = Çöp Kutusu
     uk = Сміттєвий контейнер
     vi = Xử lý chất thải
     zh-Hans = 大型垃圾箱
@@ -3538,6 +3587,7 @@
     en = Waste Transfer Station
     be = Станцыя перавалкі адходаў
     ru = Станция перевалки отходов
+    tr = Atık Transfer İstasyonu
     uk = Станція передачі сміття
 
   [type.amenity.water_point]
@@ -3567,7 +3617,7 @@
     sk = Voda
     sv = Vattenpost
     th = จุดเติมน้ำ
-    tr = Su Noktası
+    tr = Karavanlar için Su Noktası
     uk = Вода для автобудинків
     vi = Điểm cấp nước
     zh-Hans = 取水点
@@ -3582,6 +3632,7 @@
     pt = Barreira
     pt-BR = Barreira
     ru = Преграда
+    tr = Bariyer
     uk = Перешкода
     zh-Hans = 屏障
 
@@ -3611,7 +3662,7 @@
     sk = Blok
     sv = Blockering
     th = บล็อก
-    tr = Bloc
+    tr = Blok
     uk = Блок
     vi = Khối
     zh-Hans = 路障
@@ -3643,7 +3694,7 @@
     sk = Pilier
     sv = Stolpe
     th = เสา
-    tr = Pilier
+    tr = Direk
     uk = Стовпчик
     vi = Trụ
     zh-Hans = 护柱
@@ -3675,7 +3726,7 @@
     sk = Hraničná kontrola
     sv = Gränskontroll
     th = ด่านตรวจคนเข้าเมือง
-    tr = Contrôle aux frontières
+    tr = Sınır Kontrolü
     uk = Прикордонний контроль
     vi = Biên Phòng
     zh-Hans = 边境检查站
@@ -3687,6 +3738,7 @@
     de = Kette
     fr = Chaîne
     ru = Цепь
+    tr = Zincir
     uk = Ланцюг
 
   [type.barrier.city_wall]
@@ -3698,6 +3750,7 @@
     pt = Muralha de cidade
     pt-BR = Muralha de cidade
     ru = Городская стена
+    tr = Şehir Duvarı
     uk = Міська стіна
     zh-Hans = 城墙
 
@@ -3709,6 +3762,7 @@
     pt = Barreira de bicicletas
     pt-BR = Barreira de bicicletas
     ru = Велосипедный барьер
+    tr = Bisiklet Bariyeri
     uk = Велосипедна перешкода
 
   [type.barrier.entrance]
@@ -3737,7 +3791,7 @@
     sk = Vstup
     sv = Ingång
     th = ทางเข้า
-    tr = Entrée
+    tr = Giriş
     uk = Прохід
     vi = Lối vào
     zh-Hans = 入口
@@ -3752,6 +3806,7 @@
     pt = Vedação
     pt-BR = Cerca
     ru = Забор
+    tr = Çit
     uk = Огорожа
     zh-Hans = 篱笆
 
@@ -3781,7 +3836,7 @@
     sk = Brána
     sv = Grind
     th = ประตู
-    tr = Porte
+    tr = Geçit
     uk = Ворота
     vi = Cổng
     zh-Hans = 门
@@ -3796,6 +3851,7 @@
     pt = Sebe
     pt-BR = Sebe
     ru = Живая изгородь
+    tr = Çit
     zh-Hans = 树篱
 
   [type.barrier.lift_gate]
@@ -3825,7 +3881,7 @@
     sk = Závora
     sv = Bom
     th = ไม้กั้น
-    tr = Barrière levante
+    tr = Asansör Kapısı
     uk = Шлагбаум
     vi = Thanh Chắn
     zh-Hans = 道闸
@@ -3840,6 +3896,7 @@
     pt = Muro de retenção
     pt-BR = Muro de retenção
     ru = Поддерживающая стена
+    tr = İstinat duvarı
     zh-Hans = 挡土墙
 
   [type.barrier.stile]
@@ -3868,7 +3925,7 @@
     sk = Turniket
     sv = Stätta
     th = บันไดข้าม
-    tr = Échalier
+    tr = Çit Merdiveni
     uk = Перелаз
     vi = Trụ chắn
     zh-Hans = 台阶
@@ -3901,7 +3958,7 @@
     sk = Závora
     sv = Bom
     th = ไม้กั้น
-    tr = Barrière levante
+    tr = Salıncak Kapısı
     uk = Шлагбаум
     vi = Thanh Chắn
     zh-Hans = 道闸
@@ -3933,7 +3990,7 @@
     sk = Mýtne
     sv = Tullhus
     th = ด่านเก็บเงิน
-    tr = Poste de péage
+    tr = Gişe
     uk = Пункт оплати
     vi = Quầy Soát Vé
     zh-Hans = 收费站
@@ -3948,6 +4005,7 @@
     pt = Muro
     pt-BR = Muro
     ru = Стена
+    tr = Duvar
     uk = Стіна
     zh-Hans = 墙
 
@@ -3959,6 +4017,7 @@
     pt = Fronteira
     pt-BR = Fronteira
     ru = Граница
+    tr = Sınır
     uk = Кордон
     zh-Hans = 边界
 
@@ -3970,6 +4029,7 @@
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
+    tr = İdari Sınır
     uk = Адміністративний поділ
     zh-Hans = 行政区域界线
 
@@ -4018,6 +4078,7 @@
     pt = Fronteira de cidade
     pt-BR = Fronteira de cidade
     ru = Граница города
+    tr = Şehir Sınırı
     uk = Межа міста
     zh-Hans = 城市行政区域界线
 
@@ -4027,6 +4088,7 @@
     pt = Fronteira de país
     pt-BR = Fronteira de país
     ru = Граница страны
+    tr = Ulusal Sınır
     uk = Кордон країни
     zh-Hans = 国家行政区域界线
 
@@ -4036,6 +4098,7 @@
     pt = Fronteira de condado
     pt-BR = Fronteira de condado
     ru = Граница округа
+    tr = İlçe Sınırı
     uk = Поділ округа
     zh-Hans = 县行政区域界线
 
@@ -4045,6 +4108,7 @@
     pt = Fronteira de município
     pt-BR = Fronteira de município
     ru = Граница муниципалитета
+    tr = Belediye Sınırı
     zh-Hans = 自治市行政区域界线
 
   [type.boundary.administrative.nation]
@@ -4058,6 +4122,7 @@
     pt = Fronteira de região
     pt-BR = Fronteira de região
     ru = Граница региона
+    tr = Bölgesel Sınır
     uk = Областний поділ
     zh-Hans = 1区域行政区域界线
 
@@ -4067,6 +4132,7 @@
     pt = Fronteira de estado
     pt-BR = Fronteira de estado
     ru = Граница штата
+    tr = Devlet Sınırı
     zh-Hans = 州省行政区域界线
 
   [type.boundary.administrative.suburb]
@@ -4075,6 +4141,7 @@
     pt = Fronteira de subúrbio
     pt-BR = Fronteira de subúrbio
     ru = Граница пригорода
+    tr = Banliyö Sınırı
     uk = Приміська межа
     zh-Hans = 市郊行政区域界线
 
@@ -4106,7 +4173,7 @@
     sv = Nationalpark
     sw = Hifadhi ya taifa
     th = อุทยานแห่งชาติ
-    tr = Ulusal park
+    tr = Ulusal Park
     uk = Національний парк
     vi = Công viên quốc gia
     zh-Hans = 国家公园
@@ -4196,6 +4263,7 @@
     ru = Гараж
     sk = Garáž
     th = อาคารจอดรถ
+    tr = Garaj
     uk = Гараж
     vi = Gara
     zh-Hans = 独立1车库
@@ -4259,7 +4327,7 @@
     sk = Železničná stanica
     sv = Tågstation
     th = สถานีรถไฟ
-    tr = Gar
+    tr = Tren İstasyonu
     uk = Залізничний вокзал
     vi = Đường tàu hỏa
     zh-Hans = 火车站建筑
@@ -4271,6 +4339,7 @@
     pt = Armazém
     pt-BR = Armazém
     ru = Склад
+    tr = Depo
     uk = Склад
     zh-Hans = 仓库
 
@@ -4282,6 +4351,7 @@
     pt = Ofícios
     pt-BR = Ofícios
     ru = Мастерская
+    tr = Zanaat
     uk = Майстерня
     zh-Hans = 工艺作坊
 
@@ -4311,7 +4381,7 @@
     sk = Pivovar
     sv = Bryggeri
     th = โรงเบียร์
-    tr = Bira fabrikası
+    tr = Bira Fabrikası
     uk = Пивоварня
     vi = Nhà máy bia
     zh-Hans = 酿酒厂
@@ -4406,7 +4476,7 @@
     sk = Záhradníctvo
     sv = Trädgårdsmästare
     th = คนจัดสวน
-    tr = Bahçe düzenleyici
+    tr = Bahçe Düzenleyici
     uk = Садівник
     vi = Người thiết kế và xây dựng cảnh quan
     zh-Hans = 园艺工
@@ -4531,7 +4601,7 @@
     sk = Fotograf
     sv = Fotograf
     th = ช่างภาพ
-    tr = Fotoğraf stüdyosu
+    tr = Fotoğraf Stüdyosu
     uk = Фотограф
     vi = Thợ chụp ảnh
     zh-Hans = 摄影棚
@@ -4563,7 +4633,7 @@
     sk = Klampiarstvo
     sv = Vvs-montör
     th = ช่างประปา
-    tr = Sıhhi tesisatçı
+    tr = Tesisatçı
     uk = Сантехнік
     vi = Thợ đường ống
     zh-Hans = 管道工
@@ -4595,7 +4665,7 @@
     sk = Oprava obuvy
     sv = Skomakare
     th = ช่างซ่อมรองเท้า
-    tr = Ayakkabı tamircisi
+    tr = Ayakkabı Tamircisi
     uk = Ремонт взуття
     vi = Sửa giày
     zh-Hans = 鞋匠
@@ -5524,7 +5594,7 @@
     sk = Filipínska kuchyňa
     sv = Filippinsk mat
     th = อาหารฟิลิปปินส์
-    tr = Filipino mutfağı
+    tr = Filipin mutfağı
     uk = Філіппінська кухня
     vi = Ẩm thực philipin
     zh-Hans = 菲律宾菜
@@ -5812,7 +5882,7 @@
     sk = Gril
     sv = Grill
     th = ย่าง
-    tr = ızgara
+    tr = Izgara
     uk = Гриль
     vi = Thịt nướng
     zh-Hans = 烤
@@ -6068,7 +6138,7 @@
     sk = Írska kuchyňa
     sv = Irländsk mat
     th = อาหารไอริช
-    tr = Irlanda mutfağı
+    tr = İrlanda mutfağı
     uk = Ірландська кухня
     vi = Ẩm thực ai-len
     zh-Hans = 爱尔兰菜
@@ -6100,7 +6170,7 @@
     sk = Talianska kuchyňa
     sv = Italiensk mat
     th = อาหารอิตาเลียน
-    tr = Italyan mutfağı
+    tr = İtalyan mutfağı
     uk = Італійська кухня
     vi = Ẩm thực ý
     zh-Hans = 意大利菜
@@ -6132,7 +6202,7 @@
     sk = Talianska kuchyňa; pizza
     sv = Italiensk, pizza
     th = อาหารอิตาเลียน; พิซซ่า
-    tr = Italyan, pizza
+    tr = İtalyan, pizza
     uk = Італійська кухня, піцерія
     vi = Ẩm thực ý, bánh pizza
     zh-Hans = 意大利菜；匹萨
@@ -6356,7 +6426,7 @@
     sk = Madagaskarská kuchyňa
     sv = Madagaskisk mat
     th = มาดากัสการ์
-    tr = Malgaş mutfağı
+    tr = Madagaskar mutfağı
     uk = Мадагаскарська кухня
     vi = Malagasy
     zh-Hans = 马达加斯加菜
@@ -6548,7 +6618,7 @@
     sk = Orientálna kuchyňa
     sv = Orientalisk mat
     th = อาหารโอเรียนทอล
-    tr = Doğu mutfağı
+    tr = Uzak Doğu mutfağı
     uk = Східна кухня
     vi = Ẩm thực phương đông
     zh-Hans = 东方菜
@@ -6644,7 +6714,7 @@
     sk = Perzská kuchyňa
     sv = Persisk mat
     th = อาหารเปอร์เซีย
-    tr = Iran mutfağı
+    tr = İran mutfağı
     uk = Перська кухня
     vi = Ẩm thực ba tư
     zh-Hans = 波斯菜
@@ -7060,7 +7130,7 @@
     sk = Španielska kuchyňa
     sv = Spansk mat
     th = อาหารสเปน
-    tr = Ispanyol mutfağı
+    tr = İspanyol mutfağı
     uk = Іспанська кухня
     vi = Ẩm thực tây ban nha
     zh-Hans = 西班牙菜
@@ -7092,7 +7162,7 @@
     sk = Steak house
     sv = Stekhus
     th = ร้านสเต๊ก
-    tr = Et lokantası
+    tr = Biftekçi
     uk = Стейк-хаус
     vi = Steak house
     zh-Hans = 牛排馆
@@ -7362,11 +7432,13 @@
     pt = Emergência
     pt-BR = Emergência
     ru = Экстренная служба
+    tr = Acil
     zh-Hans = 应急要素
 
   [type.emergency.defibrillator]
     en = Defibrillator
     ar = مزيل الرجفان
+    be = Дэфібрылятар
     cs = Defibrilátor
     da = Hjertestarter
     de = Defibrillator
@@ -7397,6 +7469,7 @@
   [type.emergency.fire_hydrant]
     en = Fire Hydrant
     ar = صنبور الإطفاء
+    be = Пажарны гідрант
     cs = Požární hydrant
     da = Brandhane
     de = Hydrant
@@ -7416,12 +7489,12 @@
     pt = Boca de incêndio
     pt-BR = Hidrante
     ro = Hidrant
-    ru = Гидрант
+    ru = Пожарный гидрант
     sk = Požiarny hydrant
     sv = Brandpost
     th = หัวจ่ายน้ำดับเพลิง
     tr = Yangın Söndürme Musluğu
-    uk = Пожежний кран
+    uk = Пожежний гідрант
     vi = Vòi chữa cháy
     zh-Hans = 消防栓
     zh-Hant = 消防栓
@@ -7452,7 +7525,7 @@
     sk = Tiesňového volania
     sv = Nödtelefon
     th = โทรศัพท์ฉุกเฉิน
-    tr = Acil telefon
+    tr = Acil Telefon
     uk = Аварійний телефон
     vi = Điện thoại khẩn cấp
     zh-Hans = 紧急电话
@@ -7484,7 +7557,7 @@
     sk = Vstup
     sv = Entré
     th = ทางเข้า
-    tr = Entrée
+    tr = Giriş
     uk = Вхід
     vi = Lối vào
     zh-Hans = 入口
@@ -7520,7 +7593,7 @@
     sv = Medicinskt laboratorium
     sw = Maabara ya Matibabu
     th = ห้องปฏิบัติการทางการแพทย์
-    tr = Tıbbi laboratuvar
+    tr = Tıbbi Laboratuvar
     uk = Медична лабораторія
     vi = Phòng thí nghiệm y tế
     zh-Hans = 医学实验室
@@ -7536,6 +7609,7 @@
     pt = Rodovia
     pt-BR = Rodovia
     ru = Дорога
+    tr = Otoyol
     uk = Дорога
     zh-Hans = 公路要素
 
@@ -7548,6 +7622,7 @@
     pt = Caminho para cavaleiros
     pt-BR = Caminho para cavaleiros
     ru = Конная дорожка
+    tr = Atlı Yolu
     uk = Кінна доріжка
     zh-Hans = 马道
 
@@ -7591,7 +7666,7 @@
     sk = Autobusová zastávka
     sv = Busshållplats
     th = ป้ายรถเมล์
-    tr = Otobüs durağı
+    tr = Otobüs Durağı
     uk = Зупинка
     vi = Bến xe buýt
     zh-Hans = 公交站
@@ -7625,7 +7700,7 @@
     sv = Väg under uppförande
     sw = Barabara inatengenezwa
     th = ทางกำลังอยู่ในการก่อสร้าง
-    tr = Yol yapım aşamasında
+    tr = Yapım Aşamasında Yol
     uk = Дорога, що будується
     vi = Đường đang thi công
     zh-Hans = 在建道路
@@ -7640,6 +7715,7 @@
     pt = Ciclovia
     pt-BR = Ciclovia
     ru = Велодорожка
+    tr = Bisiklet Yolu
     uk = Велодоріжка
     zh-Hans = 自行车道
 
@@ -7663,6 +7739,7 @@
     de = Aufzug
     fr = Ascenseur
     ru = Лифт
+    tr = Asansör
     uk = Ліфт
 
   [type.highway.footway]
@@ -7691,7 +7768,7 @@
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
-    tr = Yol
+    tr = Yaya Yolu
     uk = Пішохідна доріжка
     vi = Đường
     zh-Hans = 步行道路
@@ -7710,6 +7787,7 @@
     en = Pedestrian Zone
     pl = Obszar chodnika
     ru = Пешеходная зона
+    tr = Yaya Alanı
     uk = Пішохідна зона
 
   [type.highway.footway.bridge]
@@ -7858,7 +7936,7 @@
     sk = Ulica
     sv = Gata
     th = ถนน
-    tr = Cadde
+    tr = Otoyol
     uk = Автомагістраль
     vi = Phố
     zh-Hans = 高速公路
@@ -7910,6 +7988,7 @@
     de = Autobahnauffahrt
     pt = Ligação a autoestrada
     ru = Съезд с автомагистрали
+    tr = Otoyol Rampası
     uk = З'їзд з автомагістралі
     zh-Hans = 高速公路连接路
     zh-Hant = 高速公路連接路
@@ -7963,6 +8042,7 @@
     de = Radweg
     pl = Ścieżka dla rowerów
     ru = Велопешеходная дорожка
+    tr = Bisiklet ve Yürüyüş Yolu
     uk = Велопішохідна доріжка
 
   [type.highway.path.bridge]
@@ -7989,6 +8069,7 @@
     en = Bridle Path
     de = Reitweg
     ru = Конная тропа
+    tr = Atlı Yolu
     uk = Кінна стежка
 
   [type.highway.path.mountain_hiking]
@@ -8027,7 +8108,7 @@
     sk = Ulica
     sv = Gata
     th = ถนน
-    tr = Cadde
+    tr = Yayalar için Cadde
     uk = Пішохідна вулиця
     vi = Phố
     zh-Hans = 步行街
@@ -8037,6 +8118,7 @@
     ref = type.highway.pedestrian
     en = Pedestrian Zone
     ru = Пешеходная зона
+    tr = Yaya Alanı
     uk = Пішохідна зона
     zh-Hans = 步行区域
 
@@ -8075,7 +8157,7 @@
     sk = Ulica
     sv = Gata
     th = ถนน
-    tr = Cadde
+    tr = Ana Yol
     uk = Шосе
     vi = Phố
     zh-Hans = 主要道路
@@ -8129,7 +8211,7 @@
     sk = Pretekárska dráha
     sv = Racerbana
     th = สนามแข่ง
-    tr = Koşu yolu
+    tr = Yarış Pisti
     uk = Гоночний трек
     vi = Đường đua
     zh-Hans = 赛车场
@@ -8161,7 +8243,7 @@
     sk = Ulica
     sv = Gata
     th = ถนน
-    tr = Cadde
+    tr = Sokak
     uk = Вулиця
     vi = Phố
     zh-Hans = 住宅区道路
@@ -8202,7 +8284,7 @@
     sk = Odpočívadlo
     sv = Viloplats
     th = บริเวณพักผ่อน
-    tr = Aire de repos
+    tr = Dinlenme Alanı
     uk = Зона відпочинку
     vi = Khu Vực Thụt Vào Để Đỗ Xe
     zh-Hans = 休息区
@@ -8234,7 +8316,7 @@
     sk = Ulica
     sv = Gata
     th = ถนน
-    tr = Cadde
+    tr = Yol
     uk = Дорога
     vi = Phố
     zh-Hans = 道路
@@ -8274,7 +8356,7 @@
     sk = Ulica
     sv = Gata
     th = ถนน
-    tr = Cadde
+    tr = Tali Yol
     uk = Автодорога
     vi = Phố
     zh-Hans = 次要道路
@@ -8330,7 +8412,7 @@
     sk = Ulica
     sv = Gata
     th = ถนน
-    tr = Cadde
+    tr = Servis Yolu
     uk = Проїзд
     vi = Phố
     zh-Hans = 辅助道路
@@ -8360,6 +8442,7 @@
     pt = Estrada de estacionamento
     pt-BR = Estrada de estacionamento
     ru = Парковочный проезд
+    tr = Park Koridoru
     uk = Паркувальний проїзд
     zh-Hans = 停车场通道
     zh-Hant = 停車場通道
@@ -8378,6 +8461,7 @@
     pt = Área de serviço
     pt-BR = Área de serviços de estrada
     ru = Зона обслуживания
+    tr = Servis Alanı
     uk = Зона обслуговування
     zh-Hans = 服务区
     zh-Hant = 服務區
@@ -8440,7 +8524,7 @@
     sk = Cesta
     sv = Gångväg
     th = เส้นทาง
-    tr = Yol
+    tr = Merdiven
     uk = Сходи
     vi = Đường
     zh-Hans = 阶梯
@@ -8478,7 +8562,7 @@
     sk = Ulica
     sv = Gata
     th = ถนน
-    tr = Cadde
+    tr = Üçüncül Yol
     uk = Дорога
     vi = Phố
     zh-Hans = 三级道路
@@ -8496,6 +8580,7 @@
     ref = type.highway.tertiary
     en = Tertiary Road Ramp
     ru = Съезд с дороги
+    tr = Üçüncül Yol Rampası
     uk = З'їзд з дороги
     zh-Hans = 三级道路连接路
     zh-Hant = 三级道路連接路
@@ -8534,7 +8619,7 @@
     sk = Ulica
     sv = Gata
     th = ถนน
-    tr = Cadde
+    tr = Pist
     uk = Ґрунтівка
     vi = Phố
     zh-Hans = 土路
@@ -8598,7 +8683,7 @@
     sk = Semafor
     sv = Trafikljus
     th = สัญญาณไฟจราจร
-    tr = Feux de circulation
+    tr = Trafik Işıkları
     uk = Світлофор
     vi = Đèn Giao Thông
     zh-Hans = 交通信号灯
@@ -8630,7 +8715,7 @@
     sk = Ulica
     sv = Gata
     th = ถนน
-    tr = Cadde
+    tr = Devlet Yolu
     uk = Траса
     vi = Phố
     zh-Hans = 干线道路
@@ -8684,7 +8769,7 @@
     sk = Ulica
     sv = Gata
     th = ถนน
-    tr = Cadde
+    tr = Tali Yol
     uk = Невелика дорога
     vi = Phố
     zh-Hans = 道路
@@ -8771,8 +8856,10 @@
     pt = Histórico
     pt-BR = Histórico
     ru = Исторический объект
+    tr = Tarihi
     uk = Історичний об'єкт
     zh-Hans = 历史地点
+    zh-Hant = 歷史地點
 
   [type.historic.archaeological_site]
     en = Archaeological Site
@@ -8800,7 +8887,7 @@
     sk = Vykopávky
     sv = Arkeologisk plats
     th = โบราณสถาน
-    tr = Arkeolojik alan
+    tr = Sit Alanı
     uk = Пам'ятка археології
     vi = Điểm khảo cổ
     zh-Hans = 考古地点
@@ -8815,8 +8902,10 @@
     pt = Campo de batalha
     pt-BR = Campo de batalha
     ru = Поле боя
+    tr = Harp Meydanı
     uk = Поле битви
     zh-Hans = 古战场
+    zh-Hant = 古戰場
 
   [type.historic.boundary_stone]
     en = Boundary Stone
@@ -8826,8 +8915,10 @@
     pt = Marco fronteiriço
     pt-BR = Marco fronteiriço
     ru = Пограничный камень
+    tr = Sınır Taşı
     uk = Прикордонний камінь
     zh-Hans = 界碑
+    zh-Hant = 界碑
 
   [type.historic.castle]
     en = Castle
@@ -8922,8 +9013,8 @@
     tr = Kale
     uk = Замок
     vi = Pháo đài
-    zh-Hans = 城堡
-    zh-Hant = 城堡
+    zh-Hans = 宫殿
+    zh-Hant = 宮殿
 
   [type.historic.citywalls]
     en = City Wall
@@ -8934,8 +9025,10 @@
     pt = Muralha de cidade
     pt-BR = Muralha de cidade
     ru = Городская стена
+    tr = Şehir Duvarı
     uk = Міська стіна
     zh-Hans = 历史城墙
+    zh-Hant = 歷史城牆
 
   [type.historic.fort]
     en = Fort
@@ -8946,8 +9039,10 @@
     pt = Forte histórico
     pt-BR = Forte histórico
     ru = Форт
+    tr = Hisar
     uk = Форт
     zh-Hans = 历史要塞
+    zh-Hant = 歷史要塞
 
   [type.historic.memorial]
     en = Memorial
@@ -9005,11 +9100,11 @@
     sk = Pomník
     sv = Minnesmärke
     th = ที่ระลึก
-    tr = Anıt
+    tr = Hatıra Plaketi
     uk = Дошка пам'яті
     vi = Đài tưởng niệm
-    zh-Hans = 纪念物
-    zh-Hant = 紀念館
+    zh-Hans = 纪念牌匾
+    zh-Hant = 紀念牌匾
 
   [type.historic.memorial.sculpture]
     en = Sculpture
@@ -9036,11 +9131,11 @@
     sk = Pomník
     sv = Minnesmärke
     th = ที่ระลึก
-    tr = Anıt
+    tr = Heykel
     uk = Скульптура
     vi = Đài tưởng niệm
     zh-Hans = 雕塑
-    zh-Hant = 紀念館
+    zh-Hant = 雕塑
 
   [type.historic.memorial.statue]
     en = Statue
@@ -9067,11 +9162,11 @@
     sk = Pomník
     sv = Minnesmärke
     th = ที่ระลึก
-    tr = Anıt
+    tr = Heykel
     uk = Статуя
     vi = Đài tưởng niệm
     zh-Hans = 塑像
-    zh-Hant = 紀念館
+    zh-Hant = 塑像
 
   [type.historic.monument]
     en = Monument
@@ -9092,7 +9187,7 @@
     ru = Памятник
     sk = Zaujímavosť
     th = อนุสาวรีย์
-    tr = Abide
+    tr = Anıt
     uk = Пам'ятник
     vi = Tượng đài
     zh-Hans = 纪念堂
@@ -9160,7 +9255,7 @@
     uk = Корабель
     vi = Diểm tham quan
     zh-Hans = 历史船
-    zh-Hant = 旅遊景點
+    zh-Hant = 歷史船
 
   [type.historic.tomb]
     en = Tomb
@@ -9188,11 +9283,11 @@
     sk = Pamätihodnosť
     sv = Attraktion
     th = สถานที่ท่องเที่ยว
-    tr = Görülecek yerler
+    tr = Türbe
     uk = Гробниця
     vi = Diểm tham quan
     zh-Hans = 陵墓
-    zh-Hant = 旅遊景點
+    zh-Hant = 陵墓
 
   [type.historic.wayside_cross]
     en = Christian Cross
@@ -9203,8 +9298,10 @@
     pt = Cruzeiro
     pt-BR = Cruzeiro
     ru = Христианский крест
+    tr = Hıristiyan Haçı
     uk = Християнський хрест
     zh-Hans = 路旁十字架
+    zh-Hant = 路旁十字架
 
   [type.historic.wayside_shrine]
     en = Shrine
@@ -9215,8 +9312,10 @@
     pt = Alminhas
     pt-BR = Alminhas
     ru = Святыня
+    tr = Tapınak
     uk = Святиня
     zh-Hans = 路旁神龛
+    zh-Hant = 路旁神龕
 
   [type.hwtag]
     en = hwtag
@@ -9268,6 +9367,7 @@
     pt-BR = Internet
     ru = Интернет
     th = อินเทอร์เน็ต
+    tr = İnternet
     uk = Інтернет
     zh-Hans = 互联网
     zh-Hant = 互聯網
@@ -9283,6 +9383,7 @@
     pt-BR = Internet
     ru = Интернет
     th = อินเทอร์เน็ต
+    tr = İnternet
     uk = Інтернет
     zh-Hans = 无线热点
     zh-Hant = 互聯網
@@ -9294,6 +9395,7 @@
     pt = Cruzamento
     pt-BR = Cruzamento
     ru = Перекрёсток
+    tr = Kavşak noktası
     uk = Перехрестя
     zh-Hans = 交叉口
 
@@ -9306,6 +9408,7 @@
     pt = Rotunda
     pt-BR = Rotatória
     ru = Кольцо
+    tr = Göbekli kavşak
     uk = Кільце
     zh-Hans = 环岛
 
@@ -9317,6 +9420,7 @@
     pt = Uso do solo
     pt-BR = Uso do solo
     ru = Землепользование
+    tr = Arazi Kullanımı
     uk = Землевикористання
     zh-Hans = 土地利用要素
 
@@ -9329,6 +9433,7 @@
     pt = Horta comunitária
     pt-BR = Horta comunitária
     ru = Земельные участки
+    tr = Tahsisler
     uk = Земельні ділянки
     zh-Hans = 市民农园
 
@@ -9362,7 +9467,7 @@
     sv = Vattenbassäng
     sw = Bonde la Maji
     th = อ่างน้ำ
-    tr = Bir su havzası
+    tr = Havza
     uk = Резервуар
     vi = Một chậu nước
     zh-Hans = 水盆地
@@ -9377,6 +9482,7 @@
     pt = Terreno industrial devoluto
     pt-BR = Terreno industrial devoluto
     ru = Земля для застройки
+    tr = Terkedilmiş Endüstri Bölgesi
     uk = Земля для будiвництва
     zh-Hans = 棕土
 
@@ -9384,12 +9490,12 @@
     comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
     ref = type.amenity.grave_yard
     en = Cemetery
+    tr = Mezarlık
 
   [type.landuse.cemetery.christian]
     ref = type.amenity.grave_yard.christian
     en = Christian Cemetery
-    zh-Hans = 基督教墓地
-    zh-Hant = 基督教墓地
+    tr = Hristiyan Mezarlığı
 
   [type.landuse.churchyard]
     en = Churchyard
@@ -9434,6 +9540,7 @@
     pt = Área comercial
     pt-BR = Área comercial
     ru = Коммерческая застройка
+    tr = Ticari Alan
     uk = Комерційні ділянки
     zh-Hans = 商务办公用地
 
@@ -9446,6 +9553,7 @@
     pt = Construção
     pt-BR = Construção
     ru = Стройка
+    tr = Yapı
     uk = Будівництво
     zh-Hans = 建设区域
 
@@ -9457,6 +9565,7 @@
     pt = Quinta
     pt-BR = Fazenda
     ru = Ферма
+    tr = Çiftlik
     uk = Ферма
     zh-Hans = 农田
 
@@ -9488,7 +9597,7 @@
     sv = Jordbruksmark
     sw = Shamba
     th = พื้นที่ทำการเกษตร
-    tr = Tarım arazileri
+    tr = Tarım Arazileri
     uk = Сільськогосподарська земля
     vi = Đất nông nghiệp
     zh-Hans = 农业用地
@@ -9503,6 +9612,7 @@
     pt = Pátio de quinta
     pt-BR = Pátio de fazenda
     ru = Сельскохозяйственная земля
+    tr = Çiftlik Bölgesi
     uk = Сільськогосподарська земля
     zh-Hans = 农庄
 
@@ -9514,6 +9624,7 @@
     pt = Campo
     pt-BR = Campo
     ru = Поле
+    tr = Alan
     uk = Поле
 
   [type.landuse.forest]
@@ -9574,7 +9685,7 @@
     sk = Les
     sv = Skog
     th = ป่า
-    tr = Orman
+    tr = Çam Ormanı
     uk = Хвойний ліс
     vi = Rừng
     zh-Hans = 森林
@@ -9652,6 +9763,7 @@
     pt = Garagens
     pt-BR = Garagens
     ru = Гаражи
+    tr = Garajlar
     uk = Гаражі
     zh-Hans = 车库用地
 
@@ -9698,6 +9810,7 @@
     pt = Terreno com construção planeada
     pt-BR = Terreno com construção planeada
     ru = Земля для застройки
+    tr = Yeşil Alan
     uk = Земля для будiвництва
     zh-Hans = 待开发荒地
 
@@ -9709,6 +9822,7 @@
     pt = Estufas
     pt-BR = Estufas
     ru = Теплицы
+    tr = Kış Bahçesi
     uk = Теплиці
     zh-Hans = 温室园艺
 
@@ -9721,6 +9835,7 @@
     pt = Terreno industrial
     pt-BR = Terreno industrial
     ru = Промзона
+    tr = Sanayi Bölgesi
     uk = Промзона
     zh-Hans = 工业用地
 
@@ -9752,7 +9867,7 @@
     sv = Soptippen
     sw = Shamba la Taka
     th = พื้นที่ฝังกลบ
-    tr = Çöp sahası
+    tr = Çöp Sahası
     uk = Звалище
     vi = Bãi rác
     zh-Hans = 垃圾填埋区
@@ -9767,6 +9882,7 @@
     pt = Pradaria
     pt-BR = Pradaria
     ru = Луг
+    tr = Çayır
     uk = Луг
     zh-Hans = 草甸
 
@@ -9779,6 +9895,7 @@
     pt = Área militar
     pt-BR = Área militar
     ru = Военная зона
+    tr = Askeri Alan
     uk = Військова зона
     zh-Hans = 军事用地
 
@@ -9791,6 +9908,7 @@
     pt = Pomar
     pt-BR = Pomar
     ru = Сад
+    tr = Meyve Bahçesi
     uk = Сад
     zh-Hans = 种植用地
 
@@ -9803,6 +9921,7 @@
     pt = Pedreira
     pt-BR = Pedreira
     ru = Карьер
+    tr = Taş Ocağı
     uk = Кар'єр
     zh-Hans = 矿场
 
@@ -9834,7 +9953,7 @@
     sv = Järnvägsfaciliteter
     sw = Eneo la njia ya reli
     th = ที่ก่อสร้างทางรถไฟ
-    tr = Demiryolu binası
+    tr = Demiryolu Binası
     uk = Залізничні споруди
     vi = Cơ sở đường sắt
     zh-Hans = 铁路用地
@@ -9848,6 +9967,7 @@
     pt = Área de lazer
     pt-BR = Área de lazer
     ru = База отдыха
+    tr = Dinlenme Alanı
     uk = База вiдпочинку
     zh-Hans = 康体场地
 
@@ -9891,6 +10011,7 @@
     pt = Área residencial
     pt-BR = Área residencial
     ru = Жилая зона
+    tr = Yerleşim Alanı
     uk = Житлова зона
     zh-Hans = 住宅用地
 
@@ -9902,6 +10023,7 @@
     pt = Área de retalho
     pt-BR = Área de varejo
     ru = Зона торговли
+    tr = Perakende Satış Alanı
     uk = Зона торгівлі
     zh-Hans = 零售用地
 
@@ -9914,6 +10036,7 @@
     pt = Salinas
     pt-BR = Salinas
     ru = Соляной пруд
+    tr = Havuz
     uk = Соляний став
 
   [type.landuse.village_green]
@@ -9924,6 +10047,7 @@
     pt = Espaço verde de um vilarejo
     pt-BR = Espaço verde de um vilarejo
     ru = Парк
+    tr = Arazi
     uk = Парк
 
   [type.landuse.vineyard]
@@ -9935,6 +10059,7 @@
     pt = Vinha
     pt-BR = Vinha
     ru = Виноградник
+    tr = Üzüm Bağı
     uk = Виноградник
     zh-Hans = 葡萄园
 
@@ -9946,6 +10071,7 @@
     pt = Lazer
     pt-BR = Lazer
     ru = Место для отдыха
+    tr = Dinlenecek Yer
     uk = Місце відпочинку
     zh-Hans = 休闲要素
 
@@ -9957,6 +10083,7 @@
     pt = Terreno baldio
     pt-BR = Terreno baldio
     ru = Общественная земля
+    tr = Kamu Alanı
     uk = Громадська земля
     zh-Hans = 公共用地
 
@@ -9988,7 +10115,7 @@
     sv = Hundparken
     sw = Eneo la mbwa
     th = สถานที่พาสุนัขเดินเล่น
-    tr = Köpek alanı
+    tr = Köpek Alanı
     uk = Місце для вигулу собак
     vi = Nơi cho chó đi dạo
     zh-Hans = 遛狗区
@@ -10020,7 +10147,7 @@
     sk = Fitnescentrum
     sv = Gym
     th = ฟิตเนสเซ็นเตอร์
-    tr = Centre fitness
+    tr = Fitness Merkezi
     uk = Фітнес-зал
     vi = Phòng Tập
     zh-Hans = 健身中心
@@ -10116,7 +10243,7 @@
     sk = Golf
     sv = Golfbana
     th = สนามกอล์ฟ
-    tr = Golf sahası
+    tr = Golf Sahası
     uk = Майданчик для гольфу
     vi = Sân gôn
     zh-Hans = 高尔夫球场
@@ -10131,6 +10258,7 @@
     pt = Rinque de patinagem
     pt-BR = Rinque de patinação
     ru = Каток
+    tr = Buz Pateni Pisti
     uk = Каток
     zh-Hans = 滑冰场
 
@@ -10141,6 +10269,7 @@
     pt = Reserva natural
     pt-BR = Reserva natural
     ru = Ландшафтный заповедник
+    tr = Peyzaj Rezervi
     uk = Ландшафтний заповідник
 
   [type.leisure.marina]
@@ -10151,6 +10280,7 @@
     pt = Marina
     pt-BR = Marina
     ru = Причал
+    tr = Liman
     uk = Пристань
     zh-Hans = 游艇码头
 
@@ -10181,7 +10311,7 @@
     sv = Naturreservat
     sw = Hifadhi
     th = เขตอนุรักษ์ธรรมชาติ
-    tr = Doğal koruma alanı
+    tr = Doğal Koruma Alanı
     uk = Заповідник
     vi = Giữ chỗ
     zh-Hans = 自然保护区
@@ -10353,7 +10483,7 @@
     sv = Picknickbord
     sw = Jedwali la Picnic
     th = โตีะปิกนิก
-    tr = Piknik masası
+    tr = Piknik Masası
     uk = Стіл для пікніка
     vi = Bàn ăn ngoài trời
     zh-Hans = 野餐桌
@@ -10385,7 +10515,7 @@
     sk = Športovisko
     sv = Idrottsplats
     th = พื้นสนามกีฬา
-    tr = Spor sahası
+    tr = Spor Sahası
     uk = Спортмайданчик
     vi = Sân vận động
     zh-Hans = 运动场地
@@ -10417,7 +10547,7 @@
     sk = Ihrisko
     sv = Lekplats
     th = สนามเด็กเล่น
-    tr = Oyun alanı
+    tr = Oyun Alanı
     uk = Дитячий майданчик
     vi = Sân chơi
     zh-Hans = 儿童游乐场
@@ -10430,6 +10560,7 @@
     pt = Zona recreativa
     pt-BR = Zona recreativa
     ru = Зона для отдыха
+    tr = Rekreasyon Alanı
     uk = Зона для відпочинку
 
   [type.leisure.sauna]
@@ -10475,6 +10606,7 @@
     pt = Rampa de barcos
     pt-BR = Rampa de barcos
     ru = Лодочный спуск
+    tr = Kızak
     uk = Шлюпковий спуск
     zh-Hans = 船台
 
@@ -10504,7 +10636,7 @@
     sk = Športové centrum
     sv = Sportcenter
     th = กีฬา
-    tr = Spor
+    tr = Spor Merkezi
     uk = Спорткомплекс
     vi = Thể thao
     zh-Hans = 体育中心
@@ -10693,7 +10825,7 @@
     sk = Kúpalisko
     sv = Simbassäng
     th = สระว่ายน้ำ
-    tr = Yüzme havuzu
+    tr = Yüzme Havuzu
     uk = Басейн для плавання
     vi = Bể bơi
     zh-Hans = 游泳池
@@ -10710,6 +10842,7 @@
     pt = Pista para desportos não motorizados
     pt-BR = Pista para esportes não motorizados
     ru = Беговая дорожка
+    tr = Pist
     uk = Бігова доріжка
     zh-Hans = 賽道
 
@@ -10739,7 +10872,7 @@
     sk = Vodný park
     sv = Äventyrspark
     th = สวนน้ำ
-    tr = Centre aquatique
+    tr = Su Parkı
     uk = Аквапарк
     vi = Công Viên Nước
     zh-Hans = 水上乐园
@@ -10748,6 +10881,7 @@
   [type.leisure.beach_resort]
     en = Beach Resort
     ru = Пляжный курорт
+    tr = Sahil Tatil Yeri
     uk = Пляжний курорт
 
   [type.man_made]
@@ -10757,6 +10891,7 @@
     pt = Construção humana
     pt-BR = Construção humana
     ru = Искусственное сооружение
+    tr = İnsan Yapımı
     uk = Штучна споруда
     zh-Hans = 人造要素
 
@@ -10769,6 +10904,7 @@
     pt = Molhe
     pt-BR = Molhe
     ru = Волнорез
+    tr = Dalgakıran
     uk = Хвилеріз
     zh-Hans = 防波堤
 
@@ -10780,6 +10916,7 @@
     pt = Moledro ou mariola
     pt-BR = Moledro ou mariola
     ru = Тур
+    tr = Höyük
     uk = Тур
 
   [type.man_made.chimney]
@@ -10807,7 +10944,7 @@
     sk = Komín
     sv = Fabriksskorsten
     th = ปล่องควันโรงงาน
-    tr = Cheminée d'usine
+    tr = Fabrika Bacası
     uk = Заводська труба
     vi = Ống Khói Nhà Máy
     zh-Hans = 工厂烟囱
@@ -10821,6 +10958,7 @@
     pt = Atalhada
     pt-BR = Aceiro
     ru = Просека
+    tr = Kesme Çizgisi
     uk = Просіка
     zh-Hans = 树林分界线
 
@@ -10828,6 +10966,7 @@
     en = Flagpole
     be = Флагшток
     ru = Флагшток
+    tr = Bayrak Direği
     uk = Флагшток
 
   [type.man_made.lighthouse]
@@ -10866,6 +11005,7 @@
     en = Mast
     be = Мачта/вышка
     ru = Мачта/вышка
+    tr = Direk
     uk = Щогла/вишка
 
   [type.man_made.pier]
@@ -10878,6 +11018,7 @@
     pt = Pontão
     pt-BR = Píer
     ru = Пирс
+    tr = İskele
     uk = Пірс
     zh-Hans = 码头
 
@@ -10889,6 +11030,7 @@
     pt = Pipeline
     pt-BR = Pipeline
     ru = Трубопровод
+    tr = Boru
     uk = Трубопровід
     zh-Hans = 管道
 
@@ -10900,6 +11042,7 @@
     pt = Pipeline aéreo
     pt-BR = Pipeline aéreo
     ru = Наземный трубопровод
+    tr = Yerüstü Boru Hattı
     zh-Hans = 地面管道
 
   [type.man_made.silo]
@@ -10907,6 +11050,7 @@
     be = Сілас
     de = Silo
     ru = Элеватор
+    tr = Ambar
     uk = Силос
 
   [type.man_made.storage_tank]
@@ -10915,6 +11059,7 @@
     de = Speichertank
     fr = Réservoir
     ru = Резервуар
+    tr = Depolama Tankı
     uk = Резервуар
 
   [type.man_made.surveillance]
@@ -10975,7 +11120,7 @@
     sk = Veža
     sv = Torn
     th = หอคอย
-    tr = Tour
+    tr = Kule
     uk = Вежа
     vi = Tháp
     zh-Hans = 高塔
@@ -10990,6 +11135,7 @@
     pt = Estação de tratamento de águas residuais
     pt-BR = Estação de tratamento de esgoto
     ru = Очистные сооружения
+    tr = Atıksu Tesisi
     uk = Очистні споруди
     zh-Hans = 污水处理厂
 
@@ -11051,7 +11197,7 @@
     sk = Vodojem
     sv = Vattentorn
     th = อ่างเก็บน้ำ
-    tr = Château d'eau
+    tr = Su Kulesi
     uk = Водонапірна вежа
     vi = Tháp Nước
     zh-Hans = 水塔
@@ -11083,7 +11229,7 @@
     sk = Studňa
     sv = Brunn
     th = บ่อน้ำ
-    tr = Puits à eau
+    tr = Su Kuyusu
     uk = Криниця
     vi = Giếng Nước
     zh-Hans = 水井
@@ -11115,7 +11261,7 @@
     sk = Veterný mlyn
     sv = Väderkvarn
     th = กังหันลม
-    tr = Moulin
+    tr = Yel Değirmeni
     uk = Вітряний млин
     vi = Cối xay gió
     zh-Hans = 风车
@@ -11128,6 +11274,7 @@
     pt = Fábrica
     pt-BR = Fábrica
     ru = Промышленное производство
+    tr = Sanayi İşleri
     uk = Промислове виробництво
     zh-Hans = 工厂
 
@@ -11145,6 +11292,7 @@
     pt = Militar
     pt-BR = Militar
     ru = Военные объекты
+    tr = Askeri
     zh-Hans = 军事
 
   [type.military.bunker]
@@ -11164,6 +11312,7 @@
     ro = Buncăr
     ru = Бункер
     th = บังเกอร์
+    tr = Sığınak
     uk = Бункер
     vi = Boongke
     zh-Hans = 地堡
@@ -11176,6 +11325,7 @@
     fr = Col de montagne
     it = Passo
     ru = Перевал
+    tr = Boğaz
     uk = Перевал
 
   [type.natural]
@@ -11187,6 +11337,7 @@
     pt = Natureza
     pt-BR = Natureza
     ru = Природа
+    tr = Doğal
     uk = Природа
     zh-Hans = 自然
 
@@ -11200,6 +11351,7 @@
     pt = Zona rochosa
     pt-BR = Zona rochosa
     ru = Скалы
+    tr = Çıplak Kaya
     uk = Скелi
     zh-Hans = 岩石
 
@@ -11271,6 +11423,7 @@
     be = Пяшчаны пляж
     de = Sandstrand
     ru = Песчаный пляж
+    tr = Kum Plajı
     uk = Піщаний пляж
 
   [type.natural.beach.gravel]
@@ -11278,6 +11431,7 @@
     be = Галечны пляж
     de = Kiesstrand
     ru = Галечный пляж
+    tr = Çakıl Plajı
     uk = Гальковий пляж
 
   [type.natural.cape]
@@ -11356,6 +11510,7 @@
     pt = Falésia
     pt-BR = Falésia
     ru = Обрыв
+    tr = Uçurum
     uk = Обрив
     zh-Hans = 峭壁
 
@@ -11369,6 +11524,7 @@
     pt = Linha costeira
     pt-BR = Linha costeira
     ru = Береговая линия
+    tr = Kıyı Şeridi
     uk = Берегова лiнiя
     zh-Hans = 海岸线
 
@@ -11484,6 +11640,7 @@
     pt = Charneca
     pt-BR = Charneca
     ru = Пустошь
+    tr = Çalı
     uk = Пустище
     zh-Hans = 荒野
 
@@ -11497,6 +11654,7 @@
     pt = Nascente de água quente
     pt-BR = Nascente de água quente
     ru = Горячий источник
+    tr = Kaplıca
     uk = Горяче джерело
     zh-Hans = 温泉
 
@@ -11630,7 +11788,7 @@
     sv = Vattenbassäng
     sw = Bonde la Maji
     th = อ่างน้ำ
-    tr = Bir su havzası
+    tr = Havza
     uk = Резервуар
     vi = Một chậu nước
     zh-Hans = 水盆地
@@ -11677,6 +11835,7 @@
     pt = Campo
     pt-BR = Campo
     ru = Суша
+    tr = Arazi
     uk = Суша
 
   [type.natural.meadow]
@@ -11689,6 +11848,7 @@
     pt = Pradaria
     pt-BR = Pradaria
     ru = Луг
+    tr = Çayır
     uk = Луг
 
   [type.natural.orchard]
@@ -11701,6 +11861,7 @@
     pt = Pomar
     pt-BR = Pomar
     ru = Сад
+    tr = Meyve Bahçesi
     uk = Сад
 
   [type.natural.peak]
@@ -11743,6 +11904,7 @@
     fr = Col de montagne
     it = Sella
     ru = Седловина
+    tr = Dağ Eyeri
     uk = Сідловина
 
   [type.natural.rock]
@@ -11755,6 +11917,7 @@
     pt = Rochedo
     pt-BR = Rochedo
     ru = Камень
+    tr = Kaya
     uk = Камiнь
     zh-Hans = 岩石
 
@@ -11884,7 +12047,7 @@
     sk = Strom
     sv = Träd
     th = ต้นไม้
-    tr = Arbre
+    tr = Ağaç
     uk = Дерево
     vi = Cây
     zh-Hans = 树
@@ -11900,6 +12063,7 @@
     pt = Linha de árvores
     pt-BR = Linha de árvores
     ru = Ряд деревьев
+    tr = Ağaç Sırası
     uk = Ряд дерев
     zh-Hans = 树列
 
@@ -11912,6 +12076,7 @@
     pt = Vinha
     pt-BR = Vinha
     ru = Виноградник
+    tr = Bağ
     uk = Виноградник
 
   [type.natural.volcano]
@@ -11940,7 +12105,7 @@
     sk = Vulkán
     sv = Vulkan
     th = ภูเขาไฟ
-    tr = Volcan
+    tr = Volkan
     uk = Вулкан
     vi = Núi lửa
     zh-Hans = 火山
@@ -11975,7 +12140,7 @@
     sk = Voda
     sv = Vatten
     th = แหล่งน้ำ
-    tr = Su
+    tr = Su Kaynağı
     uk = Водоймище
     vi = Thủy vực
     zh-Hans = 水體
@@ -12009,7 +12174,7 @@
     sv = Sumpmarken
     sw = Maeneo yenye majimaji
     th = พื้นที่น้ำท่วมขัง
-    tr = Sulak alan
+    tr = Sulak Alan
     uk = Болотиста місцевість
     vi = Khu vực đầm lầy
     zh-Hans = 湿地
@@ -12025,6 +12190,7 @@
     pt = Zona úmida
     pt-BR = Zona úmida
     ru = Торфяное болото
+    tr = Sulak Alan
     uk = Торф'яне болото
     zh-Hans = 泥炭地
 
@@ -12038,6 +12204,7 @@
     pt = Zona úmida
     pt-BR = Zona úmida
     ru = Болотистая местность
+    tr = Sulak Alan
     uk = Болотиста мiсцевiсть
     zh-Hans = 沼泽地
 
@@ -12048,6 +12215,7 @@
     pt = Via sem saída
     pt-BR = Via sem saída
     ru = Тупик
+    tr = Çıkmaz
     uk = Тупик
 
   [type.office]
@@ -12140,7 +12308,7 @@
     sk = Realitný agent
     sv = Fastighetsmäklare
     th = นายหน้าอสังหาริมทรัพย์
-    tr = Agent immobilier
+    tr = Emlakçı
     uk = Агенція нерухомості
     vi = Đại Lý Bất Động Sản
     zh-Hans = 地产中介
@@ -12314,6 +12482,7 @@
     pt = Local
     pt-BR = Local
     ru = Место
+    tr = Yer
     uk = Мicце
     zh-Hans = 地点
 
@@ -12561,7 +12730,7 @@
     sk = Dedina
     sv = By
     th = หมู่บ้านเล็ก ๆ
-    tr = Küçük
+    tr = Mezra
     uk = Поселення
     vi = Quận
     zh-Hans = 村庄
@@ -12640,6 +12809,7 @@
     pt = Habitação isolada
     pt-BR = Habitação isolada
     ru = Жилище
+    tr = Konut
     uk = Житло
     zh-Hans = 孤立居所
 
@@ -12683,6 +12853,7 @@
     pt = Bairro
     pt-BR = Bairro
     ru = Микрорайон
+    tr = Mahalle
     uk = Мiкрорайон
     zh-Hans = 街坊社区/小区
 
@@ -12781,6 +12952,7 @@
     pt = Praça ou largo
     pt-BR = Praça ou largo
     ru = Площадь
+    tr = Meydan
     uk = Площа
     zh-Hans = 广场
 
@@ -12950,6 +13122,7 @@
     pt = Energia
     pt-BR = Energia
     ru = Энергетика
+    tr = Enerji
     uk = Енергія
     zh-Hans = 电力要素
 
@@ -12960,6 +13133,7 @@
     pt = Gerador de energia
     pt-BR = Gerador de energia
     ru = Генератор
+    tr = Jeneratör
     uk = Генератор
     zh-Hans = 发电机
 
@@ -12971,6 +13145,7 @@
     pt = Linha de transmissão de energia
     pt-BR = Linha de transmissão de energia
     ru = Линия электропередач
+    tr = Elektrik Hattı
     uk = Лінія електропередач
     zh-Hans = 超高压输电线
 
@@ -12982,6 +13157,7 @@
     pt = Linha de transmissão de energia subterrânea
     pt-BR = Linha de transmissão de energia subterrânea
     ru = Подземная линия электропередач
+    tr = Yeraltı Elektrik Hattı
     uk = Підземна лінія електропередач
     zh-Hans = 超高压输电线
 
@@ -12993,6 +13169,7 @@
     pt = Linha de transmissão de energia de baixa tensão
     pt-BR = Linha de transmissão de energia de baixa tensão
     ru = Линия электропередачи низкого напряжения
+    tr = Küçük Elektrik Hattı
     uk = Лінія електропередач низької напруги
     zh-Hans = 超高压输电线
 
@@ -13022,7 +13199,7 @@
     sk = Stĺp elektrického vedenia
     sv = Elstolpe
     th = เสาไฟฟ้า
-    tr = Poteau électrique
+    tr = Elektrik Kulesi
     uk = Стовп ЛЕП
     vi = Trụ Điện
     zh-Hans = 电线杆
@@ -13036,6 +13213,7 @@
     pt = Subestação elétrica
     pt-BR = Subestação elétrica
     ru = Электростанция
+    tr = Elektrik İstasyonu
     uk = Електростанція
 
   [type.power.substation]
@@ -13062,7 +13240,7 @@
     sk = Rozvodňa
     sv = Ställverk
     th = สถานีไฟฟ้า
-    tr = Sous-station
+    tr = Trafo
     uk = Підстанція
     vi = Trạm biến áp
     zh-Hans = 变电站
@@ -13094,7 +13272,7 @@
     sk = Stĺp elektrického vedenia
     sv = Elstolpe
     th = เสาไฟฟ้า
-    tr = Poteau électrique
+    tr = Elektrik Kulesi
     uk = Стовп ЛЕП
     vi = Trụ Điện
     zh-Hans = 高压电塔
@@ -13128,6 +13306,7 @@
     pt = Transporte público
     pt-BR = Transporte público
     ru = Общественный транспорт
+    tr = Toplu Taşıma
     uk = Громадський транспорт
     zh-Hans = 公共交通要素
 
@@ -13138,6 +13317,7 @@
     pt = Plataforma de transporte público
     pt-BR = Plataforma de transporte público
     ru = Платформа
+    tr = Platform
     zh-Hans = 公共交通站台
 
   [type.railway]
@@ -13149,6 +13329,7 @@
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Ж/Д
+    tr = Demiryolu
     uk = Залізниця
     zh-Hans = 铁路要素
 
@@ -13159,6 +13340,7 @@
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенная железная дорога
+    tr = Terk edilmiş demiryolu
     uk = Закинута залізниця
     zh-Hans = 铁路遗迹
 
@@ -13169,6 +13351,7 @@
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенный железнодорожный мост
+    tr = Terk edilmiş demiryolu
     uk = Закинутий залізничний міст
     zh-Hans = 铁路遗迹
 
@@ -13179,6 +13362,7 @@
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенный железнодорожный туннель
+    tr = Terk Edilmiş Demiryolu
     uk = Закинутий залізничний тунель
     zh-Hans = 铁路遗迹
 
@@ -13189,6 +13373,7 @@
     pt = Ferrovia em construção
     pt-BR = Ferrovia em construção
     ru = Строящаяся железная дорога
+    tr = Demiryolu İnşaatı
     uk = Будівництво залізниці
     zh-Hans = 在建铁路
 
@@ -13199,6 +13384,7 @@
     pt = Passagem pedestre
     pt-BR = Passagem pedestre
     ru = Пешеходный переход
+    tr = Demiryolu Geçişi
     uk = Пішохідний перехід
 
   [type.railway.disused]
@@ -13208,6 +13394,7 @@
     pt = Ferrovia em desuso
     pt-BR = Ferrovia em desuso
     ru = Неиспользуемая железная дорога
+    tr = Kullanılmayan demiryolu
     uk = Недійсна залізниця
     zh-Hans = 废弃铁路
 
@@ -13219,6 +13406,7 @@
     pt = Funicular
     pt-BR = Funicular
     ru = Фуникулер
+    tr = Füniküler
     uk = Фунікулер
     zh-Hans = 缆索铁路轨道
 
@@ -13230,6 +13418,7 @@
     pt = Funicular
     pt-BR = Funicular
     ru = Фуникулер
+    tr = Füniküler
     uk = Фунікулер
     zh-Hans = 缆索铁路轨道
 
@@ -13241,6 +13430,7 @@
     pt = Funicular
     pt-BR = Funicular
     ru = Фуникулер
+    tr = Füniküler
     uk = Фунікулер
     zh-Hans = 缆索铁路轨道
 
@@ -13293,6 +13483,7 @@
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
+    tr = Hafif Raylı
     uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
 
@@ -13303,6 +13494,7 @@
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
+    tr = Hafif Raylı
     uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
 
@@ -13313,6 +13505,7 @@
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
+    tr = Hafif Raylı
     uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
 
@@ -13358,6 +13551,7 @@
     pt = Monocarril
     pt-BR = Monotrilho
     ru = Монорельсовая железная дорога
+    tr = Monoray
     uk = Монорейкова залізниця
     zh-Hans = 单轨轨道
     zh-Hant = 單軌軌道
@@ -13370,6 +13564,7 @@
     pt = Monocarril
     pt-BR = Monotrilho
     ru = Монорельсовая железная дорога
+    tr = Monoray
     uk = Монорейкова залізниця
     zh-Hans = 单轨轨道
     zh-Hant = 單軌軌道
@@ -13381,6 +13576,7 @@
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
+    tr = Dar Hat Rayı
     uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
 
@@ -13391,6 +13587,7 @@
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
+    tr = Dar Hat Rayı
     uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
 
@@ -13401,6 +13598,7 @@
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
+    tr = Dar Hat Rayı
     uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
 
@@ -13412,6 +13610,7 @@
     pt = Plataforma ferroviária
     pt-BR = Plataforma ferroviária
     ru = Железнодорожная платформа
+    tr = Demiryolu Platformu
     uk = Залізнична платформа
     zh-Hans = 火车站台
 
@@ -13422,6 +13621,7 @@
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
+    tr = Korunmuş Ray
     uk = Законсервована залізниця
 
   [type.railway.preserved.bridge]
@@ -13431,6 +13631,7 @@
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
+    tr = Korunmuş Ray
     uk = Законсервована залізниця
 
   [type.railway.preserved.tunnel]
@@ -13440,6 +13641,7 @@
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
+    tr = Korunmuş Ray
     uk = Законсервована залізниця
 
   [type.railway.rail]
@@ -13483,6 +13685,7 @@
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Железнодорожный мост
+    tr = Demiryolu
     uk = Залізничний міст
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
@@ -13494,6 +13697,7 @@
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Железная дорога
+    tr = Demiryolu
     uk = Залізниця
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
@@ -13505,6 +13709,7 @@
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Железнодорожный туннель
+    tr = Demiryolu
     uk = Залізничний тунель
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
@@ -13516,6 +13721,7 @@
     pt = Ferrovia removida
     pt-BR = Ferrovia removida
     ru = Заброшенная Ж/Д
+    tr = Yıkılmış Ray
     uk = Закинута залізниця
 
   [type.railway.siding]
@@ -13525,6 +13731,7 @@
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
     ru = Ветка Ж/Д
+    tr = Demiryolu Hattı
     uk = Гілка залізниці
 
   [type.railway.siding.bridge]
@@ -13534,6 +13741,7 @@
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
     ru = Ветка Ж/Д
+    tr = Demiryolu Hattı
     uk = Гілка залізниці
 
   [type.railway.siding.tunnel]
@@ -13543,6 +13751,7 @@
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
     ru = Ветка Ж/Д
+    tr = Demiryolu Hattı
     uk = Гілка залізниці
 
   [type.railway.spur]
@@ -13552,6 +13761,7 @@
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
     ru = Подъездная Ж/Д
+    tr = Düz Ray
     uk = Під'їздна залізниця
 
   [type.railway.spur.bridge]
@@ -13561,6 +13771,7 @@
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
     ru = Подъездная Ж/Д
+    tr = Düz Ray
     uk = Під'їздна залізниця
 
   [type.railway.spur.tunnel]
@@ -13570,6 +13781,7 @@
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
     ru = Подъездная Ж/Д
+    tr = Düz Ray
     uk = Під'їздна залізниця
 
   [type.railway.station]
@@ -13598,7 +13810,7 @@
     sk = Železničná stanica
     sv = Tågstation
     th = สถานีรถไฟ
-    tr = Gar
+    tr = Tren İstasyonu
     uk = Залізничний вокзал
     vi = Đường tàu hỏa
     zh-Hans = 火车站
@@ -14006,6 +14218,7 @@
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
+    tr = Metro Hattı
     uk = Лінія метро
 
   [type.railway.subway.bridge]
@@ -14015,6 +14228,7 @@
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
+    tr = Metro Hattı
     uk = Лінія метро
 
   [type.railway.subway.tunnel]
@@ -14024,6 +14238,7 @@
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
+    tr = Metro Hattı
     uk = Лінія метро
 
   [type.railway.subway_entrance]
@@ -14054,7 +14269,7 @@
     sv = Tunnelbana entré
     sw = Lango la kuingilia stesheni ya reli
     th = ทางเข้ารถไฟใต้ดิน
-    tr = Metro girişi
+    tr = Metro Girişi
     uk = Вхід до метро
     vi = Lỗi vào Metro
     zh-Hans = 地铁入口
@@ -14420,6 +14635,7 @@
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
+    tr = Tramvay Hattı
     uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
@@ -14432,6 +14648,7 @@
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
+    tr = Tramvay Hattı
     uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
@@ -14444,6 +14661,7 @@
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
+    tr = Tramvay Hattı
     uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
@@ -14474,7 +14692,7 @@
     sk = Električková zastávka
     sv = Spårvagnshållplats
     th = ป้ายรถราง
-    tr = Tramvay durağı
+    tr = Tramvay Durağı
     uk = Зупинка
     vi = Bến tàu điện
     zh-Hans = 电车站
@@ -14487,6 +14705,7 @@
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     ru = Ж/Д площадка
+    tr = Demiryolu Avlusu
     uk = Залізнична ділянка
     zh-Hans = 铁路货场
 
@@ -14497,6 +14716,7 @@
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     ru = Ж/Д площадка
+    tr = Demiryolu Avlusu
     uk = Залізнична ділянка
     zh-Hans = 铁路货场
 
@@ -14507,6 +14727,7 @@
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     ru = Ж/Д площадка
+    tr = Demiryolu Avlusu
     uk = Залізнична ділянка
     zh-Hans = 铁路货场
 
@@ -14517,6 +14738,7 @@
     pt = Rota
     pt-BR = Rota
     ru = Маршрут
+    tr = Rota
     uk = Маршрут
     zh-Hans = 线路
 
@@ -14528,6 +14750,7 @@
     pt = Rota de ferry
     pt-BR = Rota de balsa
     ru = Паромная переправа
+    tr = Feribot
     uk = Паромна переправа
     zh-Hans = 航线
 
@@ -14537,6 +14760,7 @@
     pt = Rota de comboio vaivem
     pt-BR = Rota de trem vaivem
     ru = Челночная линия
+    tr = Servis Treni
 
   [type.shop]
     en = Shop
@@ -14596,7 +14820,7 @@
     sk = Liehoviny
     sv = Spritaffär
     th = ร้านขายเหล้า
-    tr = Içki dükkanı
+    tr = İçki dükkanı
     uk = Винний магазин
     vi = Cửa hàng rượu
     zh-Hans = 烈酒
@@ -14660,7 +14884,7 @@
     sk = Kozmetický salón
     sv = Skönhetssalong
     th = ร้านเสริมสวย
-    tr = Güzellik salonu
+    tr = Güzellik Salonu
     uk = Салон краси
     vi = Thẩm mỹ viện
     zh-Hans = 美容店
@@ -14693,7 +14917,7 @@
     sk = Nápoje
     sv = Drinkar
     th = เครื่องดื่ม
-    tr = Içecek
+    tr = İçecek
     uk = Напої
     vi = Đồ uống
     zh-Hans = 饮料店
@@ -14725,7 +14949,7 @@
     sk = Cyklistický obchod
     sv = Cykelaffär
     th = จักรยาน
-    tr = Bisiklet
+    tr = Bisikletçi
     uk = Веломагазин
     vi = Cửa hàng xe đạp
     zh-Hans = 自行车店
@@ -14752,6 +14976,7 @@
     ru = Букмекерская контора
     sk = Stávková kancelária
     th = ร้านรับแทงพนัน
+    tr = Bahisçi
     uk = Букмекерська контора
     vi = Người nhận cá cược
     zh-Hans = 博彩公司
@@ -14847,7 +15072,7 @@
     sk = Predajňa áut
     sv = Bilåterförsäljare
     th = ร้านค้ารถยนต์
-    tr = Otomobil mağazası
+    tr = Otomobil Mağazası
     uk = Автосалон
     vi = Cửa hàng xe
     zh-Hans = 车店
@@ -14879,7 +15104,7 @@
     sk = Autodiely
     sv = Bildelar
     th = อะไหล่รถยนต์
-    tr = Araba parçaları
+    tr = Araba Parçaları
     uk = Автозапчастини
     vi = Những bộ phận xe hơi
     zh-Hans = 汽车零件
@@ -14911,7 +15136,7 @@
     sk = Autoservis
     sv = Bilreparatör
     th = ร้านซ่อมรถยนต์
-    tr = Oto tamir dükkanı
+    tr = Oto Tamir
     uk = СТО
     vi = Cửa hàng sửa chữa ô tô
     zh-Hans = 汽车修理店
@@ -14943,7 +15168,7 @@
     sk = Pneuservis
     sv = Däckverkstad
     th = ร้านปะยาง
-    tr = Réparation de pneus
+    tr = Lastik Tamiri
     uk = Шиномонтаж
     vi = Vá Lốp
     zh-Hans = 轮胎修理
@@ -14953,6 +15178,7 @@
     en = RV Dealership
     be = Продаж аўтадамоў
     ru = Продажа автодомов
+    tr = Karavan Bayiliği
     uk = Продаж автобудинків
 
   [type.shop.chemist]
@@ -15045,7 +15271,7 @@
     sk = Oblečenie
     sv = Klädbutik
     th = ร้านขายเสื้อผ้า
-    tr = Giyim mağazası
+    tr = Giyim Mağazası
     uk = Магазин одягу
     vi = Cửa hàng quần áo
     zh-Hans = 服装店
@@ -15109,7 +15335,7 @@
     sk = Obchod s výpočtovou technikou
     sv = Datorbutik
     th = ร้านขายคอมพิวเตอร์
-    tr = Bilgisayar mağazası
+    tr = Bilgisayar Mağazası
     uk = Комп'ютерний магазин
     vi = Cửa hàng máy tính
     zh-Hans = 电脑商店
@@ -15268,7 +15494,7 @@
     sk = Obchodný dom
     sv = Varuhus
     th = ห้างสรรพสินค้า
-    tr = Alışveriş merkezi
+    tr = Büyük Mağaza
     uk = Універмаг
     vi = Cửa hàng bách hóa
     zh-Hans = 百货商场
@@ -15364,7 +15590,7 @@
     sk = Elektronika
     sv = Elektronik
     th = ร้านขายอุปกรณ์อิเล็กทรอนิกส์
-    tr = Elektronik mağazası
+    tr = Elektronik Mağazası
     uk = Електротехнiка
     vi = Cửa hàng điện
     zh-Hans = 电子产品商店
@@ -15525,7 +15751,7 @@
     sk = Nábytok
     sv = Möbelaffär
     th = ร้านเฟอร์นิเจอร์
-    tr = Mobilya mağazası
+    tr = Mobilya Mağazası
     uk = Магазин меблів
     vi = Cửa hàng nội thất
     zh-Hans = 家具店
@@ -15557,7 +15783,7 @@
     sk = Škôlka
     sv = Plantskola
     th = สถานรับเลี้ยงเด็ก
-    tr = Çocuk yuvası
+    tr = Bahçe Mağazası
     uk = Товари для саду
     vi = Nhà trẻ
     zh-Hans = 幼儿园
@@ -15589,7 +15815,7 @@
     sk = Darčeky
     sv = Presentaffär
     th = ร้านของขวัญ
-    tr = Hediyelik eşya mağazası
+    tr = Hediyelik Eşya Mağazası
     uk = Магазин сувенірів
     vi = Cửa hàng quà tặng
     zh-Hans = 礼品店
@@ -15742,7 +15968,7 @@
     ro = Magazin
     ru = Киоск
     th = ร้าน
-    tr = Mağaza
+    tr = Büfe
     uk = Кіоск
     vi = Cửa hàng
     zh-Hans = 商店
@@ -15805,7 +16031,7 @@
     sk = The Mall
     sv = Galleria
     th = เดอะมอลล์
-    tr = Alışveriş merkezi
+    tr = Alışveriş Merkezi
     uk = Торговий центр
     vi = Khu mua sắm
     zh-Hans = 商场
@@ -15869,7 +16095,7 @@
     sk = Mobilné telefóny
     sv = Mobilbutik
     th = ร้านขายโทรศัพท์มือถือ
-    tr = Cep telefonu mağazası
+    tr = Cep Telefonu Mağazası
     uk = Мобільні телефони
     vi = Cửa hàng điện thoại di động
     zh-Hans = 手机商店
@@ -16157,7 +16383,7 @@
     sk = Obchod zo zvieratami
     sv = Djuraffär
     th = เพ็ทชอป
-    tr = Animalerie
+    tr = Evcil Hayvan Mağazası
     uk = Зоотовари
     vi = Cửa Hàng Vật Nuôi
     zh-Hans = 宠物店
@@ -16221,7 +16447,7 @@
     sk = Obchodník s rybami
     sv = Fiskhandlare
     th = ร้านขายปลา
-    tr = Poissonnier
+    tr = Deniz Ürünleri Mağazası
     uk = Рибна лавка
     vi = Người bán cá
     zh-Hans = 鱼商
@@ -16253,7 +16479,7 @@
     sk = Obuvníctvo
     sv = Skobutik
     th = ร้านขายรองเท้า
-    tr = Ayakkabı mağazası
+    tr = Ayakkabı Mağazası
     uk = Магазин взуття
     vi = Cửa hàng giày
     zh-Hans = 鞋店
@@ -16285,7 +16511,7 @@
     sk = Športové potreby
     sv = Sportaffär
     th = สินค้ากีฬา
-    tr = Spor ürünleri
+    tr = Spor Ürünleri
     uk = Спортивні товари
     vi = Đồ dùng thể thao
     zh-Hans = 体育用品店
@@ -16317,7 +16543,7 @@
     sk = Papiernictvo
     sv = Pappershandel
     th = ร้านขายเครื่องเขียน
-    tr = Kırtasiye Dükkanı
+    tr = Kırtasiye
     uk = Канцелярськi товари
     vi = Cửa hàng văn phòng phẩm
     zh-Hans = 文具店
@@ -16440,7 +16666,7 @@
     sk = Pokladnica
     sv = Biljettkontor
     th = จุดจำหน่ายตั๋ว
-    tr = Billetterie
+    tr = Bilet Satıcısı
     uk = Квитковий кiоск
     vi = Phòng vé
     zh-Hans = 售票处
@@ -16536,7 +16762,7 @@
     sk = Obchod s pneumatikami
     sv = Däckaffär
     th = ร้านยาง
-    tr = Tekerlekçi
+    tr = Lastikçi
     uk = Магазин шин
     vi = Cửa hàng Lốp
     zh-Hans = 轮胎店
@@ -16602,7 +16828,7 @@
     sv = Video butik
     sw = Duka la Video
     th = ร้านขายดีวีดี
-    tr = Video mağazası
+    tr = Video Mağazası
     uk = Магазин відео
     vi = Cửa hàng bán/cho thuê bằng đĩa
     zh-Hans = 影像店
@@ -16636,7 +16862,7 @@
     sv = Videospel butik
     sw = Duka la Video za Michezo
     th = ร้านขายวิดีโอเกม
-    tr = Video oyunları mağazası
+    tr = Video Oyunları Mağazası
     uk = Магазин відеоігор
     vi = Cửa hàng bán trò chơi điện tử
     zh-Hans = 电子游戏店
@@ -16668,7 +16894,7 @@
     sk = Vinotéka
     sv = Vinhandel
     th = ร้านขายไวน์
-    tr = Caviste
+    tr = Şarap Mağazası
     uk = Винна крамниця
     vi = Rượu
     zh-Hans = 酒品商店
@@ -16682,6 +16908,7 @@
     pt = Desporto
     pt-BR = Esporte
     ru = Спорт
+    tr = Spor
     uk = Спорт
 
   [type.sport.american_football]
@@ -16693,6 +16920,7 @@
     pt = Futebol americano
     pt-BR = Futebol americano
     ru = Американский футбол
+    tr = Amerikan Futbolu
     uk = Американський футбол
 
   [type.sport.archery]
@@ -16705,6 +16933,7 @@
     pt = Tiro com arco
     pt-BR = Tiro com arco
     ru = Стрельба из лука
+    tr = Okçuluk
     uk = Стрiльба з лука
 
   [type.sport.athletics]
@@ -16748,6 +16977,7 @@
     pt = Futebol australiano
     pt-BR = Futebol australiano
     ru = Регби
+    tr = Ragbi
     uk = Регбi
 
   [type.sport.baseball]
@@ -16758,6 +16988,7 @@
     pt = Beisebol
     pt-BR = Beisebol
     ru = Бейсбол
+    tr = Beyzbol
     uk = Бейсбол
     zh-Hans = 棒球
 
@@ -16804,6 +17035,7 @@
     pt = Bowls
     pt-BR = Bowls
     ru = Кегли
+    tr = Kuka Oynu
     uk = Кеглi
     zh-Hans = 保龄球
 
@@ -16816,6 +17048,7 @@
     pt = Críquete
     pt-BR = Críquete
     ru = Крикет
+    tr = Kriket
     uk = Крикет
     zh-Hans = 板球
 
@@ -16827,6 +17060,7 @@
     pt = Curling
     pt-BR = Curling
     ru = Керлинг
+    tr = Сurling
     uk = Керлiнг
 
   [type.sport.diving]
@@ -16836,6 +17070,7 @@
     pt = Mergulho
     pt-BR = Mergulho
     ru = Подводное плавание
+    tr = Dalış
     uk = Пiдводне плавання
     zh-Hans = 跳水
 
@@ -16882,6 +17117,7 @@
     pt = Golfe
     pt-BR = Golfe
     ru = Гольф
+    tr = Golf
     uk = Гольф
     zh-Hans = 高尔夫球
 
@@ -16895,6 +17131,7 @@
     pt = Ginástica
     pt-BR = Ginástica
     ru = Гимнастика
+    tr = Jimnastik
     uk = Гiмнастика
     zh-Hans = 体操
 
@@ -16907,6 +17144,7 @@
     pt = Andebol
     pt-BR = Andebol
     ru = Гандбол
+    tr = Hentbol
     uk = Гандбол
     zh-Hans = 手球
 
@@ -16917,6 +17155,7 @@
     pt = Vários desportos
     pt-BR = Vários desportos
     ru = Различные виды спорта
+    tr = Çeşitli Sporlar
     uk = Рiзноманiтнi типи спорту
     zh-Hans = 多元
 
@@ -16929,6 +17168,7 @@
     pt = Mergulho autónomo
     pt-BR = Mergulho autônomo
     ru = Акваланг
+    tr = Tüplü Dalış
     uk = Акваланг
 
   [type.sport.shooting]
@@ -16941,6 +17181,7 @@
     pt = Tiro desportivo
     pt-BR = Tiro esportivo
     ru = Стрельба
+    tr = Atış Sporları
     uk = Стрiльба
     zh-Hans = 射击
 
@@ -16953,6 +17194,7 @@
     pt = Esqui
     pt-BR = Esqui
     ru = Лыжи
+    tr = Kayak
     uk = Лижi
 
   [type.sport.soccer]
@@ -16964,6 +17206,7 @@
     pt = Futebol
     pt-BR = Futebol
     ru = Футбол
+    tr = Futbol
     uk = Футбол
     zh-Hans = 足球
 
@@ -16977,6 +17220,7 @@
     pt = Natação desportiva
     pt-BR = Natação esportiva
     ru = Плавание
+    tr = Yüzme
     uk = Плавання
     zh-Hans = 游泳
 
@@ -17008,7 +17252,7 @@
     sv = Tennisbana
     sw = Wanja wa tenisi
     th = คอร์ทเทนนิส
-    tr = Tenis kortu
+    tr = Tenis Kortu
     uk = Тенісний корт
     vi = Sân tenis
     zh-Hans = 网球场
@@ -17023,6 +17267,7 @@
     pt = Turismo
     pt-BR = Turismo
     ru = Туризм
+    tr = Turizm
     uk = Туризм
     zh-Hans = 旅游要素
 
@@ -17051,7 +17296,7 @@
     sk = Horská chata
     sv = Bergsboende
     th = ที่พักบนภูเขาโรงแรม
-    tr = Dağda konaklama
+    tr = Dağda Konaklama
     uk = Гірський готель
     vi = Nhà ở trên núi
     zh-Hans = 山上住宿
@@ -17115,7 +17360,7 @@
     sk = Umelecké diela
     sv = Konstverk
     th = งานศิลปะ
-    tr = Turizm
+    tr = Sanat
     uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 艺术品
@@ -17147,7 +17392,7 @@
     sk = Umelecké diela
     sv = Konstverk
     th = งานศิลปะ
-    tr = Turizm
+    tr = Sanatsal Mimari
     uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 艺术品
@@ -17179,7 +17424,7 @@
     sk = Umelecké diela
     sv = Konstverk
     th = งานศิลปะ
-    tr = Turizm
+    tr = Sanat Eserleri
     uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 油画
@@ -17211,7 +17456,7 @@
     sk = Umelecké diela
     sv = Konstverk
     th = งานศิลปะ
-    tr = Turizm
+    tr = Heykel
     uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 雕塑
@@ -17243,7 +17488,7 @@
     sk = Umelecké diela
     sv = Konstverk
     th = งานศิลปะ
-    tr = Turizm
+    tr = Heykel
     uk = Витвір мистецтва
     vi = Du lịch
     zh-Hans = 雕像
@@ -17274,7 +17519,7 @@
     sk = Atrakcia
     sv = Attraktion
     th = การท่องเที่ยว
-    tr = Cazibe merkezleri
+    tr = Görülecek Yerler
     uk = Пам’ятка
     vi = Hấp dẫn
     zh-Hans = 景点
@@ -17305,7 +17550,7 @@
     sk = Atrakcia
     sv = Attraktion
     th = การท่องเที่ยว
-    tr = Cazibe merkezleri
+    tr = Görülecek Yerler
     uk = Пам’ятка
     vi = Hấp dẫn
     zh-Hans = 景点
@@ -17336,7 +17581,7 @@
     sk = Atrakcia
     sv = Attraktion
     th = การท่องเที่ยว
-    tr = Cazibe merkezleri
+    tr = Görülecek Yerler
     uk = Пам’ятка
     vi = Hấp dẫn
     zh-Hans = 景点
@@ -17362,7 +17607,7 @@
     pt-BR = Parque de campismo
     ru = Кемпинг
     th = การตั้งแคมป์
-    tr = Kamp alanı
+    tr = Kamp Alanı
     uk = Кемпінг
     vi = Cắm trại
     zh-Hans = 宿营场地
@@ -17394,7 +17639,7 @@
     sk = Kemp pre karavany
     sv = Husvagnsplats
     th = ขบวนนักเดินทาง
-    tr = Karavan alanı
+    tr = Karavan Parkı
     uk = Кемпінг для автобудинків
     vi = Khu lễ hội hóa trang
     zh-Hans = 房车宿营地
@@ -17421,6 +17666,7 @@
     sk = Chata
     sv = Stuga
     th = ชาเลต์
+    tr = Dağ Evi
     uk = Шале
     vi = Khách sạn
     zh-Hans = 度假屋
@@ -17452,7 +17698,7 @@
     sk = Pamätihodnosť
     sv = Attraktion
     th = สถานที่ท่องเที่ยว
-    tr = Görülecek yerler
+    tr = Galeri
     uk = Пам’ятні місця
     vi = Diểm tham quan
     zh-Hans = 美术馆
@@ -17484,7 +17730,7 @@
     sk = Penzión
     sv = Gästhus
     th = เกสท์เฮ้าส์
-    tr = Misafir evi
+    tr = Misafirhane
     uk = Гостинний дім
     vi = Nhà khách
     zh-Hans = 客栈
@@ -17564,7 +17810,7 @@
     sk = Infocentrum
     sv = Turistinformation
     th = ข้อมูลการท่องเที่ยว
-    tr = Turist bilgileri
+    tr = Turist Bilgilendirme
     uk = Турінформація
     vi = Thông tin du lịch
     zh-Hans = 旅游问询处
@@ -17596,7 +17842,7 @@
     sk = Informačné centrum
     sv = Informationstavla
     th = บอร์ดประชาสัมพันธ์
-    tr = Panneau d'informations
+    tr = Bilgi Panosu
     uk = Інформаційний щит
     vi = Bảng Thông Tin
     zh-Hans = 公告板
@@ -17628,7 +17874,7 @@
     sk = Infocentrum
     sv = Turistinformation
     th = ข้อมูลการท่องเที่ยว
-    tr = Turist bilgileri
+    tr = Turist Bilgilendirme
     uk = Турінформація
     vi = Thông tin du lịch
     zh-Hans = 旅游信息
@@ -17660,7 +17906,7 @@
     sk = Turistická mapa
     sv = Turistkarta
     th = แผนที่ท่องเที่ยว
-    tr = Carte touristique
+    tr = Turist Haritası
     uk = Мапа
     vi = Bản Đồ Du Lịch
     zh-Hans = 旅游地图
@@ -17692,7 +17938,7 @@
     sk = Turistické informačné centrum
     sv = Turistcenter
     th = ศูนย์บริการนักท่องเที่ยว
-    tr = Office de tourisme
+    tr = Turizm Ofisi
     uk = Туристичний офіс
     vi = Văn Phòng Du Lịch
     zh-Hans = 旅游咨询中心
@@ -17713,6 +17959,7 @@
     ru = Мотель
     sv = Motell
     th = โมเทล
+    tr = Motel
     uk = Мотель
     vi = Nhà nghỉ
     zh-Hans = 汽车旅馆
@@ -17771,7 +18018,7 @@
     sk = Piknik
     sv = Picknickplatser
     th = เว็บไซต์ปิกนิก
-    tr = Piknik alanı
+    tr = Piknik Alanı
     uk = Пікнік
     vi = Điểm cắm trại
     zh-Hans = 野餐地点
@@ -17800,7 +18047,7 @@
     sk = Rezort
     sv = Semesterort
     th = รีสอร์ต
-    tr = Tatil köyü
+    tr = Tatil Köyü
     uk = Будинок відпочинку
     vi = Khu nghỉ dưỡng
     zh-Hans = 度假村
@@ -17832,7 +18079,7 @@
     sk = Pamätihodnosť
     sv = Attraktion
     th = สถานที่ท่องเที่ยว
-    tr = Görülecek yerler
+    tr = Tema Parkı
     uk = Парк розваг
     vi = Diểm tham quan
     zh-Hans = 主题公园
@@ -17864,7 +18111,7 @@
     sk = Vyhliadka
     sv = Utsiktsplats
     th = จุดชมวิว
-    tr = Bakış
+    tr = Manzara
     uk = Оглядний майданчик
     vi = Điểm nhìn
     zh-Hans = 观点
@@ -17923,7 +18170,7 @@
     ru = Зоопарк
     sk = Zoologická záhrada
     th = สวนสัตว์
-    tr = Hayvanat bahçesi
+    tr = Hayvanat Bahçesi
     uk = Зоопарк
     vi = Vườn bách thú
     zh-Hans = 动物园
@@ -17937,6 +18184,7 @@
     pt = Redutor de velocidade
     pt-BR = Redutor de velocidade
     ru = Лежачий полицейский
+    tr = Hız Kesici (Tümsek)
     uk = Лежачий полiцейський
 
   [type.traffic_calming.bump]
@@ -17949,6 +18197,7 @@
     pt = Lomba
     pt-BR = Quebra-molas
     ru = Лежачий полицейский
+    tr = Hız Kesici (Tümsek)
     uk = Лежачий полiцейський
 
   [type.traffic_calming.hump]
@@ -17960,6 +18209,7 @@
     pt = Lomba longa
     pt-BR = Quebra-molas longa
     ru = Лежачий полицейский
+    tr = Hız Kesici (Tümsek)
     uk = Лежачий полiцейський
 
   [type.waterway]
@@ -17970,6 +18220,7 @@
     pt = Curso de água
     pt-BR = Curso de água
     ru = Водный путь
+    tr = Su Yolu
     uk = Водяний шлях
     zh-Hans = 航道要素
 
@@ -18040,6 +18291,7 @@
     pt = Barragem
     pt-BR = Usina
     ru = Дамба
+    tr = Baraj
     uk = Дамба
     zh-Hans = 水坝
 
@@ -18052,6 +18304,7 @@
     pt = Vala
     pt-BR = Vala
     ru = Канава
+    tr = Hendek
     uk = Канава
     zh-Hans = 水沟
 
@@ -18063,6 +18316,7 @@
     pt = Vala
     pt-BR = Vala
     ru = Канава
+    tr = Hendek
     uk = Канава
     zh-Hans = 水沟
 
@@ -18075,6 +18329,7 @@
     pt = Doca
     pt-BR = Doca
     ru = Причал
+    tr = Rıhtım
     uk = Причал
     zh-Hans = 船坞
 
@@ -18085,6 +18340,7 @@
     pt = Valeta de drenagem
     pt-BR = Valeta de drenagem
     ru = Водоотвод
+    tr = Lağım
     uk = Водовiдвiд
     zh-Hans = 渠
 
@@ -18095,6 +18351,7 @@
     pt = Valeta de drenagem
     pt-BR = Valeta de drenagem
     ru = Водоотвод
+    tr = Lağım
     uk = Водовiдвiд
     zh-Hans = 渠
 
@@ -18105,6 +18362,7 @@
     pt = Eclusa
     pt-BR = Eclusa
     ru = Шлюз
+    tr = Kanal Havuzu
     uk = Шлюз
 
   [type.waterway.lock_gate]
@@ -18132,7 +18390,7 @@
     sk = Stavidlo
     sv = Slussport
     th = ประตูระบายน้ำ
-    tr = Écluse
+    tr = Kilit Kapısı
     uk = Шлюз
     vi = Cổng Khóa
     zh-Hans = 闸门
@@ -18408,6 +18666,7 @@
     pt = Represa
     pt-BR = Açude
     ru = Плотина
+    tr = Su Bendi
     uk = Гребля
     zh-Hans = 堰
 
@@ -18419,6 +18678,7 @@
     pt = Cadeiras de rodas
     pt-BR = Cadeiras de rodas
     ru = Инвалидная коляска
+    tr = Tekerlekli sandalye
     uk = Iнвалiдний вiзок
     zh-Hans = 轮椅
 
@@ -18450,7 +18710,7 @@
     sv = Delvis utrustad för handikappade
     sw = Viti vya magurudumu vinaruhusiwa vichache
     th = พื้นที่จำกัดการใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ
-    tr = Kısıtlı tekerlekli sandalye erişimi
+    tr = Sınırlı tekerlekli sandalye erişimi
     uk = Частково обладнано для інвалідів
     vi = Được trang bị một phần cho người khuyết tật
     zh-Hans = 部分配备为残疾人专用
@@ -18518,7 +18778,7 @@
     sv = Utrustad för handikappade
     sw = Viti vya magurudumu vinaruhusiwa kabisa
     th = พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้
-    tr = Tam tekerlekli sandalye erişimi
+    tr = Tekerlekli sandalye erişimi var
     uk = Обладнано для інвалідів
     vi = Được trang bị cho người khuyết tật
     zh-Hans = 配备残疾人专用
@@ -18531,6 +18791,7 @@
     pt = Telesqui
     pt-BR = Telesqui
     ru = Бугельный подъёмник
+    tr = Kayak Teleferiği
     uk = Бугельний витяг
 
   [type.piste_lift.j.bar]
@@ -18539,6 +18800,7 @@
     pt = Telesqui de barra em J
     pt-BR = Telesqui de barra em J
     ru = Бугельный подъёмник
+    tr = Kayak Teleferiği
     uk = Бугельний витяг
 
   [type.piste_lift.magic_carpet]
@@ -18547,6 +18809,7 @@
     pt = Tapete deslizante
     pt-BR = Tapete deslizante
     ru = Ленточный конвейер
+    tr = Kayak Teleferiği
     uk = Стрiчковий конвеєр
 
   [type.piste_lift.platter]
@@ -18555,6 +18818,7 @@
     pt = Telesqui de disco
     pt-BR = Telesqui de disco
     ru = Бугельный подъёмник
+    tr = Tabak Asansörü
     uk = Бугельний витяг
 
   [type.piste_lift.rope_tow]
@@ -18563,6 +18827,7 @@
     pt = Telesqui de corda
     pt-BR = Telesqui de corda
     ru = Бугельный подъёмник
+    tr = Çekme Halatı
     uk = Бугельний витяг
 
   [type.piste_lift.t.bar]
@@ -18579,6 +18844,7 @@
     pt = Tipo de pista
     pt-BR = Tipo de pista
     ru = Тип трассы
+    tr = Kayakçı Taşıyıcı
     uk = Тип траси
 
   [type.piste_type.downhill]
@@ -18588,6 +18854,7 @@
     pt = Esqui alpino
     pt-BR = Esqui alpino
     ru = Горнолыжная трасса
+    tr = Yokuş Aşağı Kayak Pisti
     uk = Гірськолижна траса
 
   [type.piste_type.downhill.advanced]
@@ -18596,6 +18863,7 @@
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
     ru = Продвинутая горнолыжная трасса
+    tr = Gelişmiş kayak pisti
     uk = Доповнена гірськолижна траса
 
   [type.piste_type.downhill.easy]
@@ -18604,6 +18872,7 @@
     pt = Esqui alpino fácil
     pt-BR = Esqui alpino fácil
     ru = Лёгкая горнолыжная трасса
+    tr = Basit kayak pisti
     uk = Легка гірськолижна траса
 
   [type.piste_type.downhill.expert]
@@ -18612,6 +18881,7 @@
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
     ru = Горнолыжная трасса для экспертов
+    tr = Uzmanlar için kayak pisti
     uk = Гірськолижна траса для експертів
 
   [type.piste_type.downhill.freeride]
@@ -18619,6 +18889,7 @@
     pt = Esqui alpino livre
     pt-BR = Esqui alpino livre
     ru = Горнолыжная трасса для фрирайда
+    tr = Serbest sürüş kayak pisti
     uk = Гірськолижна траса вільного спуска
 
   [type.piste_type.downhill.intermediate]
@@ -18627,6 +18898,7 @@
     pt = Esqui alpino intermédio
     pt-BR = Esqui alpino intermédio
     ru = Горнолыжная трасса средней сложности
+    tr = Orta zorlukta kayak pisti
     uk = Гірськолижна траса середнього рівня
 
   [type.piste_type.downhill.novice]
@@ -18635,6 +18907,7 @@
     pt = Esqui alpino iniciante
     pt-BR = Esqui alpino iniciante
     ru = Горнолыжная трасса для новичков
+    tr = Yeni başlayanlar için kayak pisti
     uk = Гірськолижна траса для новеньких
 
   [type.piste_type.nordic]
@@ -18644,6 +18917,7 @@
     pt = Pista tipo nórdico
     pt-BR = Pista tipo nórdico
     ru = Лыжня
+    tr = İskandinav Kayak Pisti
     uk = Лижня
 
   [type.piste_type.sled]
@@ -18652,6 +18926,7 @@
     pt = Pista para trenós
     pt-BR = Pista para trenós
     ru = Трасса для саней
+    tr = Kızak Pisti
     uk = Траса для санок
 
   [type.building_part]

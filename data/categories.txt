@@ -2731,7 +2731,7 @@ ro:Sit arheologic
 es:Yacimiento arqueológico
 sv:Arkeologisk plats|fornminne
 th:โบราณสถาน|แหล่งท่องเที่ยว|การท่องเที่ยว
-tr:Arkeolojik alan|Kazı alanı
+tr:Arkeolojik alan|Kazı alanı|Sit alanı|ören yeri
 uk:Розкопки|історична пам'ятка|туризм|пам’ятні місця
 vi:Điểm khảo cổ
 zh-Hans:考古遗址|旅游|景点
@@ -3289,8 +3289,9 @@ sw:Chuo
 fa:دانشگاه
 
 amenity-fire_station
-en:Fire Station|U+1F692
-ru:Пожарная часть|Пожарная станция|Пожарные
+en:4Fire Station|U+1F692
+ru:4Пожарная часть|Пожарная станция|Пожарные
+be:4Пажарная частка|Пажарная станцыя|Пажарныя
 bg:Пожарна|пожарникар|станция
 ar:محطة إطفاء
 cs:Hasiči
@@ -3313,7 +3314,7 @@ es:Parque de bomberos
 sv:Brandstation
 th:2สถานีดับเพลิง
 tr:İtfaiye
-uk:Пожежна частина
+uk:4Пожежна частина|Пожежна станція|Пожежні
 vi:Trạm cứu hỏa
 zh-Hans:1消防局
 zh-Hant:1消防局|滅火隊|消防隊|消防車|救難|緊急
@@ -5025,7 +5026,7 @@ fr:Circuit
 de:Rennbahn
 hu:Versenypálya
 id:Lintasan balap
-it:Pista
+it:Pista|Circuito
 ja:1レース場|レース
 ko:경주로|경마장
 nb:Løpebane
@@ -8050,7 +8051,7 @@ ru:5Пакеты для экскрементов|Какашки|Пакеты д�
 tr:5Dışkı torbası dispenseri
 uk:5Мішки для екскрементів|Какашки|5Пакети для какашок
 
-amenity-vending_machine-parcel_pickup|@post
+amenity-parcel_locker|@post
 en:4Parcel Locker|4Parcel Pickup
 be:3Паштамат|5Атрыманне пасылак
 ru:3Почтомат|Постамат|5Получение посылок
@@ -9370,42 +9371,44 @@ zh-Hant:淋浴間
 fa:حمام
 
 emergency-defibrillator
-en:Defibrillator|AED
-ru:Дефибриллятор
-bg:Дефибрилатор
+en:4Defibrillator|AED
+ru:4Дефибриллятор
+be:4Дэфібрылятар
+bg:4Дефибрилатор
 ar:مزيل الرجفان
-cs:Defibrilátor
+cs:4Defibrilátor
 da:Hjertestarter
-de:Defibrillator
+de:4Defibrillator
 el:Πρώτες βοήθειες|απινιδωτής
-es:Desfibrilador
-fi:Defibrillaattori
-fr:Défibrillateur|DAE
-hu:Defibrillátor
-id:Defibrilator
-it:Defibrillatore
+es:4Desfibrilador
+fi:4Defibrillaattori
+fr:4Défibrillateur|DAE
+hu:4Defibrillátor
+id:4Defibrilator
+it:4Defibrillatore
 ja:除細動器
 ko:제세동기
 nb:Hjertestarter
-nl:AED|Defibrillator
-pl:Defibrylator|AED
-pt:Desfibrilador
-pt-BR:Desfibrilador
-ro:Defibrilator
-sk:Defibrilátor
-sv:Defibrillator
-sw:Difaibrileta
+nl:4Defibrillator|AED
+pl:4Defibrylator|AED
+pt:4Desfibrilador
+pt-BR:4Desfibrilador
+ro:4Defibrilator
+sk:4Defibrilátor
+sv:4Defibrillator
+sw:4Difaibrileta
 th:เครื่องกระตุ้นหัวใจ
-tr:Defibrilatör
-uk:Дефібрилятор
+tr:4Defibrilatör
+uk:4Дефібрилятор
 vi:Máy khử rung tim
 zh-Hans:除颤器
 zh-Hant:心臟電擊器
 fa:دستگاه شوک
 
 emergency-fire_hydrant
-en:Fire Hydrant
-ru:Гидрант|Пожарный гидрант
+en:4Fire Hydrant|Fire Plug
+ru:4Пожарный гидрант|гидрант
+be:4Пажарны гідрант|гідрант
 bg:Хидрант|Пожар|Кран
 ar:صنبور الإطفاء
 cs:Požární hydrant
@@ -9431,7 +9434,7 @@ sv:Brandpost
 sw:Bomba la Kuzima Moto
 th:หัวจ่ายน้ำดับเพลิง
 tr:Yangın Söndürme Musluğu
-uk:Пожежний кран
+uk:4Пожежний гідрант|гідрант
 vi:Vòi chữa cháy
 zh-Hans:消防栓
 zh-Hant:消防栓
@@ -9814,7 +9817,7 @@ zh-Hant:雜貨店
 fa:خرازی
 
 shop-video
-en:Video shop
+en:Video shop|DVD store
 ru:Магазин видео
 bg:Видео магазин|Видео
 ar:متجر فيديو
@@ -9826,7 +9829,7 @@ fr:Boutique de vidéos
 de:Videoshop
 hu:Videotéka
 id:Toko video
-it:Videoteca
+it:Videoteca|Negozio di DVD
 ja:ビデオショップ
 ko:비디오 가게
 nb:Videobutikken

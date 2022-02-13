@@ -170,8 +170,6 @@ node[aeroway=airport],
 node[aeroway=aerodrome],
 node[amenity=parking],
 area[amenity=parking],
-node[amenity=parking_space],
-area[amenity=parking_space],
 node[railway=station],
 node[railway=station][transport=subway],
 {z-index: 3100;}
@@ -671,6 +669,10 @@ node|z17-[vending=parking_tickets],
 area|z17-[vending=parking_tickets],
 node|z17-[amenity=vending_machine],
 area|z17-[amenity=vending_machine],
+node|z17-[amenity=parcel_locker],
+area|z17-[amenity=parcel_locker],
+node|z17-[amenity=post_office],
+area|z17-[amenity=post_office],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 11;text-min-distance: 14;}
 
 /* POI */
@@ -814,18 +816,22 @@ area|z18-[barrier=lift_gate]
 {icon-image: lift_gate-m.svg;}
 
 node|z17-[amenity=vending_machine],
-area|z17-[amenity=vending_machine]
+area|z17-[amenity=vending_machine],
 {icon-image: vending-m.svg;icon-min-distance: 20;}
 node|z17-[amenity=vending_machine][vending=parking_tickets],
 area|z17-[amenity=vending_machine][vending=parking_tickets]
 {icon-image: parking-meter-m.svg;font-size: 13.5;}
-node|z18-[amenity=vending_machine],
-area|z18-[amenity=vending_machine]
-{icon-image: vending-m.svg;}
-node|z18-[vending=parking_tickets],
-area|z18-[vending=parking_tickets]
-{icon-image: parking-meter-m.svg;}
 
+node|z17-[amenity=parcel_locker],
+area|z17-[amenity=parcel_locker],
+{icon-image: mail-m.svg;icon-min-distance: 20;}
+
+node|z17-[amenity=post_office],
+area|z17-[amenity=post_office],
+{icon-image: mail-m.svg;text-optional: true;}
+node|z18-[amenity=post_office],
+area|z18-[amenity=post_office],
+{font-size: 11;text-optional: true;}
 
 /* 6. SHOP */
 
@@ -923,12 +929,10 @@ node|z14-[amenity=charging_station],
 area|z14-[amenity=charging_station],
 node|z15-[amenity=sanitary_dump_station],
 area|z15-[amenity=sanitary_dump_station],
-node|z17-[amenity=car_wash],
-area|z17-[amenity=car_wash],
 node|z16-[amenity=parking],
 area|z16-[amenity=parking],
-node|z16-[amenity=parking_space],
-area|z16-[amenity=parking_space],
+node|z17-[amenity=car_wash],
+area|z17-[amenity=car_wash],
 node|z18-[amenity=car_rental],
 area|z18-[amenity=car_rental],
 node|z18-[amenity=car_sharing],
@@ -1003,57 +1007,37 @@ node|z18-[amenity=sanitary_dump_station],
 area|z18-[amenity=sanitary_dump_station]
 {font-size: 14.5; icon-min-distance: 10;}
 
+node|z16-[amenity=water_point],
+area|z16-[amenity=water_point],
+{icon-image: drinking-water-m.svg; icon-min-distance: 20;}
+
 /* 7.1 Parking */
 
 node|z15-16[amenity=parking],
-area|z15-16[amenity=parking],
-node|z15-16[amenity=parking_space],
-area|z15-16[amenity=parking_space]
+area|z15-16[amenity=parking]
 {icon-image: parking-m.svg;icon-min-distance: 3;z-index: 20000;}
 node|z15-16[amenity=parking][access=permissive],
-node|z15-16[amenity=parking][access=private],
-node|z15-16[amenity=parking_space][access=permissive],
-area|z15-16[amenity=parking_space][access=permissive],
-node|z15-16[amenity=parking_space][access=private],
-area|z15-16[amenity=parking_space][access=private]
+node|z15-16[amenity=parking][access=private]
 {icon-image: zero-icon.svg; icon-min-distance: 3;z-index: 20000;}
 
 node|z17[amenity=parking],
-area|z17[amenity=parking],
-node|z17[amenity=parking_space],
-area|z17[amenity=parking_space]
+area|z17[amenity=parking]
 {icon-image: parking-m.svg;icon-min-distance: 15;}
 node|z17[amenity=parking][access=permissive],
-node|z17[amenity=parking][access=private],
-node|z17[amenity=parking_space][access=permissive],
-area|z17[amenity=parking_space][access=permissive],
-node|z17[amenity=parking_space][access=private],
-area|z17[amenity=parking_space][access=private]
+node|z17[amenity=parking][access=private]
 {icon-image: zero-icon.svg;z-index: 6;icon-min-distance: 7;}
 
 node|z18[amenity=parking],
-area|z18[amenity=parking],
-node|z18[amenity=parking_space],
-area|z18[amenity=parking_space]
+area|z18[amenity=parking]
 {icon-image: parking-m.svg;icon-min-distance: 10;}
 node|z18[amenity=parking][access=permissive],
-node|z18[amenity=parking][access=private],
-node|z18[amenity=parking_space][access=permissive],
-area|z18[amenity=parking_space][access=permissive],
-node|z18[amenity=parking_space][access=private],
-area|z18[amenity=parking_space][access=private]
+node|z18[amenity=parking][access=private]
 {icon-image: zero-icon.svg;}
 
 node|z19-[amenity=parking],
-area|z19-[amenity=parking],
-node|z19-[amenity=parking_space],
-area|z19-[amenity=parking_space]
+area|z19-[amenity=parking]
 {icon-image: parking-m.svg;icon-min-distance: 6;}
 
 /*node|z17-[amenity=bicycle_parking],
 area|z17-[amenity=bicycle_parking]
 {icon-image: bike-parking-m.svg;icon-min-distance: 20;}*/
-
-node|z15-[amenity=parking_space][parking=underground],
-area|z15-[amenity=parking_space][parking=underground]
-{icon-image: zero-icon.svg;}

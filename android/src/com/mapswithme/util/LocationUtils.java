@@ -16,14 +16,13 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-import java.util.List;
-
 public class LocationUtils
 {
   private LocationUtils() {}
 
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
   private static final String TAG = LocationUtils.class.getSimpleName();
+  private static final double DEFAULT_SPEED_MPS = 5;
 
   /**
    * Correct compass angles due to display orientation.
@@ -73,7 +72,7 @@ public class LocationUtils
     return (timeDiff > expirationMillis);
   }
 
-  public static double getDiff(Location lastLocation, Location newLocation)
+  public static double getTimeDiff(Location lastLocation, Location newLocation)
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
       return (newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos()) * 1.0E-9;
@@ -98,6 +97,42 @@ public class LocationUtils
     return (p1 != null && p1.equals(p2));
   }
 
+  public static boolean isFromGpsProvider(@NonNull Location location)
+  {
+    return LocationManager.GPS_PROVIDER.equals(location.getProvider());
+  }
+
+  public static boolean isFromFusedProvider(@NonNull Location location)
+  {
+    return LocationManager.FUSED_PROVIDER.equals(location.getProvider());
+  }
+
+  public static boolean isAccuracySatisfied(@NonNull Location location)
+  {
+    // If it's a gps location then we completely ignore an accuracy checking,
+    // because there are cases on some devices (https://jira.mail.ru/browse/MAPSME-3789)
+    // when location is good, but it doesn't contain an accuracy for some reasons.
+    if (isFromGpsProvider(location))
+      return true;
+
+    // Completely ignore locations without lat and lon.
+    return location.getAccuracy() > 0.0f;
+  }
+
+  public static boolean isLocationBetterThanLast(@NonNull Location newLocation, @NonNull Location lastLocation)
+  {
+    if (isFromFusedProvider(newLocation))
+      return true;
+
+    if (isFromGpsProvider(lastLocation) && lastLocation.getAccuracy() == 0.0f)
+      return true;
+
+    double speed = Math.max(DEFAULT_SPEED_MPS, (newLocation.getSpeed() + lastLocation.getSpeed()) / 2.0);
+    double lastAccuracy = lastLocation.getAccuracy() + speed * LocationUtils.getTimeDiff(lastLocation, newLocation);
+    return newLocation.getAccuracy() < lastAccuracy;
+  }
+
+
   @SuppressLint("InlinedApi")
   @SuppressWarnings("deprecation")
   public static boolean areLocationServicesTurnedOn(@NonNull Context context)
@@ -112,38 +147,5 @@ public class LocationUtils
       e.printStackTrace();
       return false;
     }
-  }
-
-  private static void logAvailableProviders(@NonNull Context context)
-  {
-    LocationManager locMngr = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-    List<String> providers = locMngr.getProviders(true);
-    StringBuilder sb;
-    if (!providers.isEmpty())
-    {
-      sb = new StringBuilder("Available location providers:");
-      for (String provider : providers)
-        sb.append(" ").append(provider);
-    }
-    else
-    {
-      sb = new StringBuilder("There are no enabled location providers!");
-    }
-    LOGGER.i(TAG, sb.toString());
-  }
-
-  public static boolean checkProvidersAvailability(@NonNull Context context)
-  {
-    LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-    if (locationManager == null)
-    {
-      LOGGER.e(TAG, "This device doesn't support the location service.");
-      return false;
-    }
-
-    boolean networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    LocationUtils.logAvailableProviders(context);
-    return networkEnabled || gpsEnabled;
   }
 }

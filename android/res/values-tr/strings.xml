@@ -449,9 +449,9 @@
 	<string name="downloader_no_downloaded_maps_title">Hiç harita indirmediniz</string>
 	<string name="downloader_no_downloaded_maps_message">Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.</string>
 	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Geçerli konumunuzuz izlenmeye devam edilsin mi?</string>
+	<string name="current_location_unknown_title">Geçerli konumunuz izlenmeye devam edilsin mi?</string>
 	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Geçerli konum bilinmiyor. Muhtemelen bir binanın içinde veya tüneldesiniz.</string>
+	<string name="current_location_unknown_message">Geçerli konum bilinmiyor. Muhtemelen bir bina veya tünelin içindesiniz.</string>
 	<string name="current_location_unknown_continue_button">Devam</string>
 	<string name="current_location_unknown_stop_button">Dur</string>
 	<string name="meter">m</string>
@@ -491,7 +491,7 @@
 	<string name="editor_share_to_all_dialog_message_1">Herhangi bir kişisel bilgi girmediğinizden emin olun.</string>
 	<string name="editor_share_to_all_dialog_message_2">Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla iletişime geçeceğiz.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps, ücretsiz ve açık kaynaklı bir çevrimdışı harita uygulamasıdır. Reklamsız. İzleme yok. Haritada bir hata görürseniz, lütfen OpenStreetMap\'te düzeltin. Proje meraklıları tarafından boş zamanlarımızda oluşturulduğundan geri bildiriminize ve desteğinize ihtiyacımız var.</string>
+	<string name="about_description">Organic Maps, reklam ve izleyici içermeyen hızlı ve ücretsiz bir çevrimdışı harita uygulamasıdır. Haritalar kitle kaynaklı OpenStreetMap.org verilerine dayanmaktadır, böylece kendiniz harita hatalarını düzeltebilir ve haritaya yeni nesneler ekleyebilirsiniz. Organic Maps, teknoloji tutkunlarının boş zamanlarında oluşturduğu açık kaynaklı bir projedir. Geri bildirim ve desteğinize çok değer veriyoruz!</string>
 	<!-- For the first routing -->
 	<string name="accept">Kabul et</string>
 	<!-- For the first routing -->
@@ -504,11 +504,11 @@
 	<string name="mobile_data_option_not_today">Bugün Kullanma</string>
 	<string name="mobile_data">Mobil İnternet</string>
 	<!-- NOTE to translators: please synchronize your translation with the English one. -->
-	<string name="mobile_data_description">Mobil internet; mekanlarla ilgili ayrıntılı bilgileri, yer imlerinizi ve harita güncelleme bildirimlerini görüntülemek için gereklidir.</string>
+	<string name="mobile_data_description">Mekanlar ve yer imlerinizle ilgili ayrıntılı bilgileri görüntülemek ve harita güncelleme bildirimleri için mobil internet gereklidir.</string>
 	<string name="mobile_data_option_never">Asla Kullanma</string>
 	<string name="mobile_data_option_ask">Her Zaman Sor</string>
 	<string name="traffic_update_maps_text">Trafik verilerini görüntülemek için haritaların güncellenmesi gerekiyor.</string>
-	<string name="big_font">Harita üzerindeki yazı tipi boyutunu artır</string>
+	<string name="big_font">Haritadaki yazı tipi boyutunu artır</string>
 	<string name="traffic_update_app">Lütfen Organic Maps\'i güncelleyin</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafik verileri kullanılamıyor</string>
@@ -671,6 +671,10 @@
 	<string name="enable_screen_sleep">Ekranın kapanmasına izin ver</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Etkinleştirildiğinde ekranın bir süre hareketsiz kaldıktan sonra kapanmasına izin verilir.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Kilit ekranında göster</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Etkinleştirildiğinde, uygulama çalışırken her seferinde cihazınızın kilidini açmanıza gerek kalmaz.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

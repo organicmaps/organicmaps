@@ -39,6 +39,8 @@ public final class Config
   private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
   private static final String KEY_MISC_AD_FORBIDDEN = "AdForbidden";
   private static final String KEY_MISC_ENABLE_SCREEN_SLEEP = "EnableScreenSleep";
+  private static final String KEY_MISC_SHOW_ON_LOCK_SCREEN = "ShowOnLockScreen";
+  private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
 
   private Config() {}
 
@@ -186,6 +188,16 @@ public final class Config
     setBool(KEY_MISC_ENABLE_SCREEN_SLEEP, enabled);
   }
 
+  public static boolean isShowOnLockScreenEnabled()
+  {
+    return getBool(KEY_MISC_SHOW_ON_LOCK_SCREEN, true);
+  }
+
+  public static void setShowOnLockScreenEnabled(boolean enabled)
+  {
+    setBool(KEY_MISC_SHOW_ON_LOCK_SCREEN, enabled);
+  }
+
   public static boolean useGoogleServices()
   {
     return getBool(KEY_PREF_USE_GS, true);
@@ -296,6 +308,16 @@ public final class Config
   static boolean getMobileDataRoaming()
   {
     return getBool(KEY_MISC_USE_MOBILE_DATA_ROAMING, false);
+  }
+
+  public static void setAgpsTimestamp(long timestamp)
+  {
+    setLong(KEY_MISC_AGPS_TIMESTAMP, timestamp);
+  }
+
+  public static long getAgpsTimestamp()
+  {
+    return getLong(KEY_MISC_AGPS_TIMESTAMP, 0L);
   }
 
   public static boolean isTransliteration()

@@ -140,7 +140,7 @@ public:
 
     MemReader memReader(m_buffer.data(), m_buffer.size());
     ReaderSource<MemReader> src(memReader);
-    RoadAccessSerializer::Deserialize(src, vehicleType, deserializedRoadAccess, string("unknown"));
+    RoadAccessSerializer::Deserialize(src, vehicleType, deserializedRoadAccess);
     TEST_EQUAL(answer, deserializedRoadAccess, ());
   }
 

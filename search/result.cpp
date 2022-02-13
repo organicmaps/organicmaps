@@ -9,10 +9,10 @@
 
 #include <sstream>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 // Result ------------------------------------------------------------------------------------------
 Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
                string const & address, uint32_t featureType, Details const & details)
@@ -197,8 +197,7 @@ bool Results::AddResult(Result && result)
 
   if (result.IsSuggest())
   {
-    auto const d = distance(m_results.begin(), it);
-    if (d >= kMaxNumSuggests)
+    if (static_cast<size_t>(std::distance(m_results.begin(), it)) >= kMaxNumSuggests)
       return false;
 
     for (auto i = m_results.begin(); i != it; ++i)

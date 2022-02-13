@@ -7,9 +7,6 @@ import androidx.annotation.Nullable;
 
 public interface IntentProcessor
 {
-  boolean isSupported(@NonNull Intent intent);
-
   @Nullable
   MapTask process(@NonNull Intent intent);
 }
-

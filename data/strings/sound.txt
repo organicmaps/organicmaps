@@ -108,7 +108,7 @@
     be = Павярніце на круг.
     cs = Vjeďte na kruhový objezd.
     da = Kør ind i rundkørslen.
-    de = Fahren Sie in den Kreisverkehr.
+    de = Fahren Sie in den Kreisverkehr ein.
     el = Μπείτε στην κυκλική διασταύρωση.
     es = Entre a la rotonda.
     fa = به میدان وارد شوید.
@@ -584,7 +584,7 @@
     be = Праз трыста метраў
     cs = Za tři sta metrů
     da = Om tre hundrede meter
-    de = In dreihundertfünfzig Metern
+    de = In dreihundert Metern
     el = Σε τριακόσια μέτρα
     es = En trescientos metros
     fa = در سیصد متری
@@ -992,7 +992,7 @@
     be = Праз тры кіламетры
     cs = Za tři kilometry
     da = Om tre kilometer
-    de = In dreieinhalb Kilometern
+    de = In drei Kilometern
     el = Σε τρία χιλιόμετρα
     es = En tres kilómetros
     fa = در سه کیلومتری

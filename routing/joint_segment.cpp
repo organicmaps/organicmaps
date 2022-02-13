@@ -10,16 +10,9 @@
 
 namespace routing
 {
-bool IsRealSegmentSimple(Segment const & segment)
-{
-  return segment.GetFeatureId() != FakeFeatureIds::kIndexGraphStarterId;
-}
-
 JointSegment::JointSegment(Segment const & from, Segment const & to)
 {
-  // Can not check segment for fake or not with segment.IsRealSegment(), because all segments
-  // have got fake m_numMwmId during mwm generation.
-  CHECK(IsRealSegmentSimple(from) && IsRealSegmentSimple(to),
+  CHECK(!from.IsFakeCreated() && !to.IsFakeCreated(),
         ("Segments of joints can not be fake. Only through ToFake() method."));
 
   CHECK_EQUAL(from.GetMwmId(), to.GetMwmId(), ("Different mwmIds in segments for JointSegment"));
@@ -35,23 +28,27 @@ JointSegment::JointSegment(Segment const & from, Segment const & to)
   m_endSegmentId = to.GetSegmentIdx();
 }
 
-void JointSegment::ToFake(uint32_t fakeId)
+JointSegment JointSegment::MakeFake(uint32_t fakeId, uint32_t featureId/* = kInvalidFeatureId*/)
 {
-  m_featureId = kInvalidFeatureIdId;
-  m_startSegmentId = fakeId;
-  m_endSegmentId = fakeId;
-  m_numMwmId = kFakeNumMwmId;
-  m_forward = false;
+  JointSegment res;
+  res.m_featureId = featureId;
+  res.m_startSegmentId = fakeId;
+  res.m_endSegmentId = fakeId;
+  res.m_numMwmId = kFakeNumMwmId;
+  res.m_forward = false;
+  return res;
 }
 
 bool JointSegment::IsFake() const
 {
   // This is enough, but let's check in Debug for confidence.
-  bool result = m_featureId == kInvalidFeatureIdId && m_startSegmentId != kInvalidSegmentId;
+  bool const result = (m_numMwmId == kFakeNumMwmId && m_startSegmentId != kInvalidSegmentId);
   if (result)
   {
+    // Try if m_featureId can be real in a fake JointSegment.
+    //ASSERT_EQUAL(m_featureId, kInvalidFeatureId, ());
+
     ASSERT_EQUAL(m_startSegmentId, m_endSegmentId, ());
-    ASSERT_EQUAL(m_numMwmId, kFakeNumMwmId, ());
     ASSERT_EQUAL(m_forward, false, ());
   }
 

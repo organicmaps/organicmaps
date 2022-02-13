@@ -1195,37 +1195,37 @@
 
 /********** Types **********/
 
-"type.aerialway" = "Aerialway";
+"type.aerialway" = "纜車要素";
 
 "type.aerialway.cable_car" = "纜車";
 
 "type.aerialway.chair_lift" = "Aerialway";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "纜車要素";
 
-"type.aerialway.gondola" = "Aerialway";
+"type.aerialway.gondola" = "循環式索道";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "纜車";
 
 "type.aerialway.station" = "纜車站";
 
-"type.aeroway" = "Airspace Infrastructure";
+"type.aeroway" = "機場要素";
 
 "type.aeroway.aerodrome" = "機場";
 
 "type.aeroway.aerodrome.international" = "機場";
 
-"type.aeroway.apron" = "Apron";
+"type.aeroway.apron" = "機場停機坪";
 
-"type.aeroway.gate" = "Gate";
+"type.aeroway.gate" = "登機口";
 
 "type.aeroway.helipad" = "直升機場";
 
 "type.aeroway.runway" = "機場跑道";
 
-"type.aeroway.taxiway" = "Taxiway";
+"type.aeroway.taxiway" = "滑行道";
 
-"type.aeroway.terminal" = "Terminal";
+"type.aeroway.terminal" = "航站楼";
 
 "type.amenity" = "設施";
 
@@ -1303,7 +1303,7 @@
 "type.amenity.grave_yard" = "墓地";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.amenity.grave_yard.christian" = "墓地";
+"type.amenity.grave_yard.christian" = "基督教墓地";
 
 "type.amenity.hospital" = "醫院";
 
@@ -1355,11 +1355,11 @@
 
 "type.amenity.place_of_worship" = "寺廟";
 
-"type.amenity.place_of_worship.buddhist" = "寺廟";
+"type.amenity.place_of_worship.buddhist" = "佛教寺廟";
 
-"type.amenity.place_of_worship.christian" = "教堂";
+"type.amenity.place_of_worship.christian" = "基督教堂";
 
-"type.amenity.place_of_worship.hindu" = "寺廟";
+"type.amenity.place_of_worship.hindu" = "印度教寺廟";
 
 "type.amenity.place_of_worship.jewish" = "猶太教堂";
 
@@ -1367,7 +1367,7 @@
 
 "type.amenity.place_of_worship.shinto" = "聖殿";
 
-"type.amenity.place_of_worship.taoist" = "寺廟";
+"type.amenity.place_of_worship.taoist" = "道教宮觀";
 
 "type.amenity.police" = "警察局";
 
@@ -1375,7 +1375,7 @@
 
 "type.amenity.post_office" = "郵局";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "監獄";
 
 "type.amenity.pub" = "酒館";
 
@@ -1450,7 +1450,7 @@
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
-"type.amenity.vending_machine.parcel_pickup" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Parcel Locker";
 
 "type.amenity.vending_machine.fuel" = "Fuel Dispenser";
 
@@ -2018,43 +2018,43 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historic";
+"type.historic" = "歷史地點";
 
 "type.historic.archaeological_site" = "考古遺址";
 
-"type.historic.battlefield" = "Battlefield";
+"type.historic.battlefield" = "古戰場";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "界碑";
 
 "type.historic.castle" = "城堡";
 
 "type.historic.castle.defensive" = "城堡";
 
-"type.historic.castle.stately" = "城堡";
+"type.historic.castle.stately" = "宮殿";
 
-"type.historic.citywalls" = "City Wall";
+"type.historic.citywalls" = "歷史城牆";
 
-"type.historic.fort" = "Fort";
+"type.historic.fort" = "歷史要塞";
 
 "type.historic.memorial" = "紀念館";
 
-"type.historic.memorial.plaque" = "紀念館";
+"type.historic.memorial.plaque" = "紀念牌匾";
 
-"type.historic.memorial.sculpture" = "紀念館";
+"type.historic.memorial.sculpture" = "雕塑";
 
-"type.historic.memorial.statue" = "紀念館";
+"type.historic.memorial.statue" = "塑像";
 
 "type.historic.monument" = "紀念碑";
 
 "type.historic.ruins" = "廢墟";
 
-"type.historic.ship" = "旅遊景點";
+"type.historic.ship" = "歷史船";
 
-"type.historic.tomb" = "旅遊景點";
+"type.historic.tomb" = "陵墓";
 
-"type.historic.wayside_cross" = "Christian Cross";
+"type.historic.wayside_cross" = "路旁十字架";
 
-"type.historic.wayside_shrine" = "Shrine";
+"type.historic.wayside_shrine" = "路旁神龕";
 
 "type.hwtag" = "hwtag";
 

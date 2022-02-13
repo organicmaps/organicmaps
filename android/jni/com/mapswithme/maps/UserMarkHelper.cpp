@@ -9,7 +9,7 @@ namespace usermark_helper
 {
 using feature::Metadata;
 
-void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, feature::Metadata const & metadata)
+void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, Metadata const & metadata)
 {
   static jmethodID const addId = env->GetMethodID(clazz, "addMetadata", "(ILjava/lang/String;)V");
   ASSERT(addId, ());
@@ -17,10 +17,20 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, f
   for (auto const t : metadata.GetPresentTypes())
   {
     // TODO: It is not a good idea to pass raw strings to UI. Calling separate getters should be a better way.
-    jni::TScopedLocalRef metaString(env, t == feature::Metadata::FMD_WIKIPEDIA ?
-                                              jni::ToJavaString(env, metadata.GetWikiURL()) :
-                                              jni::ToJavaString(env, metadata.Get(t)));
-    env->CallVoidMethod(mapObject, addId, t, metaString.get());
+
+    std::string meta;
+    switch (t)
+    {
+    case Metadata::FMD_WIKIPEDIA: meta = metadata.GetWikiURL(); break;
+    case Metadata::FMD_DESCRIPTION: break;
+    default: meta = metadata.Get(t); break;
+    }
+
+    if (!meta.empty())
+    {
+      jni::TScopedLocalRef metaString(env, jni::ToJavaString(env, meta));
+      env->CallVoidMethod(mapObject, addId, t, metaString.get());
+    }
   }
 }
 

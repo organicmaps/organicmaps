@@ -663,6 +663,10 @@
 	<string name="enable_screen_sleep">Дозволити екрану вимкнутись</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">При включенні екран може переходити в сплячий режим після певного періоду бездіяльності</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Показувати на заблокованому екрані</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Якщо ввімкнено, вам не потрібно щоразу розблоковувати пристрій під час роботи програми.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Канатна дорога</string>
@@ -794,7 +798,7 @@
 	<string name="type.amenity.vending_machine.parking_tickets">Паркомат</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Автомат з продажу квитків</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Мішки для екскрементів</string>
-	<string name="type.amenity.vending_machine.parcel_pickup">Поштомат</string>
+	<string name="type.amenity.parcel_locker">Поштомат</string>
 	<string name="type.amenity.vending_machine.fuel">Паливна колонка</string>
 	<string name="type.amenity.veterinary">Ветеринарна клініка</string>
 	<string name="type.amenity.waste_basket">Бак для сміття</string>
@@ -939,7 +943,7 @@
 	<string name="type.cuisine.vegetarian">Вегетаріанська кухня</string>
 	<string name="type.cuisine.vietnamese">В\'єтнамська кухня</string>
 	<string name="type.emergency.defibrillator">Дефібрилятор</string>
-	<string name="type.emergency.fire_hydrant">Пожежний кран</string>
+	<string name="type.emergency.fire_hydrant">Пожежний гідрант</string>
 	<string name="type.emergency.phone">Аварійний телефон</string>
 	<string name="type.entrance">Вхід</string>
 	<string name="type.healthcare.laboratory">Медична лабораторія</string>

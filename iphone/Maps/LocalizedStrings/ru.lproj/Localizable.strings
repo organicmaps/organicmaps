@@ -1450,7 +1450,7 @@
 
 "type.amenity.vending_machine.excrement_bags" = "Пакеты для экскрементов";
 
-"type.amenity.vending_machine.parcel_pickup" = "Почтомат";
+"type.amenity.parcel_locker" = "Почтомат";
 
 "type.amenity.vending_machine.fuel" = "Топливная колонка";
 
@@ -1750,7 +1750,7 @@
 
 "type.emergency.defibrillator" = "Дефибриллятор";
 
-"type.emergency.fire_hydrant" = "Гидрант";
+"type.emergency.fire_hydrant" = "Пожарный гидрант";
 
 "type.emergency.phone" = "Телефон для экстренных вызовов";
 

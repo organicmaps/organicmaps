@@ -40,8 +40,7 @@ bool IsNeighbours(TileKey const & tileKey1, TileKey const & tileKey2)
 
 int ClipTileZoomByMaxDataZoom(int zoom)
 {
-  int const upperScale = scales::GetUpperScale();
-  return zoom <= upperScale ? zoom : upperScale;
+  return std::min(zoom, scales::GetUpperScale());
 }
 
 TileKey GetTileKeyByPoint(m2::PointD const & pt, int zoom)

@@ -236,10 +236,7 @@ class SearchWheel implements View.OnClickListener
 
       if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
       {
-        SearchEngine.INSTANCE.cancelInteractiveSearch();
-        mCurrentOption = null;
-        mIsExpanded = false;
-        resetSearchButtonImage();
+        reset();
         refreshSearchVisibility();
         return;
       }
@@ -284,8 +281,8 @@ class SearchWheel implements View.OnClickListener
     mCurrentOption = searchOption;
     final String query = mFrame.getContext().getString(searchOption.mQueryId);
     SearchEngine.INSTANCE.searchInteractive(mFrame.getContext(), query, System.nanoTime(), false /* isMapAndTable */);
+    SearchEngine.INSTANCE.setQuery(query);
     refreshSearchButtonImage();
-
     toggleSearchLayout();
   }
 }
