@@ -585,7 +585,8 @@ string FeatureType::DebugString(int scale)
   Classificator const & c = classif();
 
   string res = "Types";
-  for (size_t i = 0; i < GetTypesCount(); ++i)
+  uint32_t const count = GetTypesCount();
+  for (size_t i = 0; i < count; ++i)
     res += (" : " + c.GetReadableObjectName(m_types[i]));
   res += "\n";
 

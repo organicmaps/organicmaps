@@ -577,18 +577,15 @@ LocalizedStreet const & EditableMapObject::GetStreet() const { return m_street; 
 void EditableMapObject::SetCuisines(vector<string> const & cuisines)
 {
   FeatureParams params;
-  params.m_types.insert(params.m_types.begin(), m_types.begin(), m_types.end());
+  params.m_types.assign(m_types.begin(), m_types.end());
+  Classificator const & cl = classif();
   for (auto const & cuisine : cuisines)
-    params.m_types.push_back(classif().GetTypeByPath({"cuisine", cuisine}));
+    params.m_types.push_back(cl.GetTypeByPath({"cuisine", cuisine}));
 
   // Move useless types to the end and resize to fit TypesHolder.
   params.FinishAddingTypes();
 
-  feature::TypesHolder types;
-  for (auto const t : params.m_types)
-    types.Add(t);
-
-  m_types = types;
+  m_types.Assign(params.m_types.begin(), params.m_types.end());
 }
 
 void EditableMapObject::SetOpeningHours(string const & openingHours)

@@ -54,7 +54,8 @@ public:
 
   bool IsValid() const;
 
-  // To work with geometry.
+  /// @name To work with geometry.
+  ///@{
   void AddPoint(m2::PointD const & p);
   void SetHoles(Geometry const & holes);
   void AddPolygon(std::vector<m2::PointD> & poly);
@@ -68,7 +69,7 @@ public:
   m2::PointD GetKeyPoint() const;
   size_t GetPointsCount() const;
   size_t GetPolygonsCount() const { return m_polygons.size(); }
-  size_t GetTypesCount() const { return m_params.m_types.size(); }
+  ///@}
 
   template <class ToDo>
   void ForEachPoint(ToDo && toDo) const
@@ -117,7 +118,8 @@ public:
   bool IsLine() const { return GetGeomType() == GeomType::Line; }
   bool IsArea() const { return GetGeomType() == GeomType::Area; }
 
-  // To work with types.
+  /// @name To work with types.
+  ///@{
   void SetType(uint32_t type) { m_params.SetType(type); }
   void AddType(uint32_t type) { m_params.AddType(type); }
   bool PopExactType(uint32_t type) { return m_params.PopExactType(type); }
@@ -133,6 +135,8 @@ public:
   bool HasType(uint32_t t, uint8_t level) const { return m_params.IsTypeExist(t, level); }
   uint32_t FindType(uint32_t comp, uint8_t level) const { return m_params.FindType(comp, level); }
   FeatureParams::Types const & GetTypes() const { return m_params.m_types; }
+  size_t GetTypesCount() const { return m_params.m_types.size(); }
+  ///@}
 
   // To work with additional information.
   void SetRank(uint8_t rank);
@@ -160,7 +164,8 @@ public:
   int GetMinFeatureDrawScale() const;
   bool IsDrawableInRange(int lowScale, int highScale) const;
 
-  // Serialization.
+  /// @name Serialization.
+  ///@{
   bool PreSerialize();
   bool PreSerializeAndRemoveUselessNamesForIntermediate();
   void SerializeForIntermediate(Buffer & data) const;
@@ -176,11 +181,13 @@ public:
   void SerializeLocalityObject(serial::GeometryCodingParams const & params,
                                SupportingData & data) const;
   void SerializeForMwm(SupportingData & data, serial::GeometryCodingParams const & params) const;
+  ///@}
 
   // Get common parameters of feature.
   TypesHolder GetTypesHolder() const;
 
-  // To work with osm ids.
+  /// @name To work with osm ids.
+  ///@{
   void AddOsmId(base::GeoObjectId id);
   void SetOsmId(base::GeoObjectId id);
   base::GeoObjectId GetFirstOsmId() const;
@@ -190,11 +197,13 @@ public:
   base::GeoObjectId GetMostGenericOsmId() const;
   bool HasOsmId(base::GeoObjectId const & id) const;
   bool HasOsmIds() const { return !m_osmIds.empty(); }
-  std::vector<base::GeoObjectId> const & GetOsmIds() const { return m_osmIds; }
+  ///@}
 
   // To work with coasts.
   void SetCoastCell(int64_t iCell) { m_coastCell = iCell; }
   bool IsCoastCell() const { return (m_coastCell != -1); }
+
+  friend std::string DebugPrint(FeatureBuilder const & fb);
 
 protected:
   // Can be one of the following:
@@ -210,8 +219,6 @@ protected:
   /// Not used in GEOM_POINTs
   int64_t m_coastCell;
 };
-
-std::string DebugPrint(FeatureBuilder const & fb);
 
 // SerializationPolicy serialization and deserialization.
 namespace serialization_policy
