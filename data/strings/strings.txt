@@ -13526,7 +13526,7 @@
     sk = Pridať miesto na mape
     sv = Lägg till en plats på kartan
     th = เพิ่มสถานที่ไปยังแผนที่
-    tr = Haritaya bir yer ekleyin
+    tr = Haritaya bir yer ekle
     uk = Додати на мапу
     vi = Thêm địa điểm vào bản đồ
     zh-Hans = 添加地点到地图上
