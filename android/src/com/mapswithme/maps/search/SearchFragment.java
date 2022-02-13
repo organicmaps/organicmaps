@@ -241,14 +241,11 @@ public class SearchFragment extends BaseMwmFragment
 
   private void updateResultsPlaceholder()
   {
-    final boolean showPlaceholder = !mSearchRunning
+    final boolean show = !mSearchRunning
                          && mSearchAdapter.getItemCount() == 0
                          && mToolbarController.hasQuery();
-    final boolean showFab = mSearchRunning
-            || mSearchAdapter.getItemCount() > 0;
 
-    UiUtils.showIf(showFab, mShowOnMapFab);
-    UiUtils.showIf(showPlaceholder, mResultsPlaceholder);
+    UiUtils.showIf(show, mResultsPlaceholder);
   }
 
   @Override
