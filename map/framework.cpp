@@ -578,9 +578,22 @@ kml::MarkGroupId Framework::AddCategory(string const & categoryName)
 
 void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const
 {
-  auto types = feature::TypesHolder::FromTypesIndexes(bmk.GetData().m_featureTypes);
-  FillPointInfo(info, bmk.GetPivot(), {} /* customTitle */, [&types](FeatureType & ft) {
-    return !types.Empty() && feature::TypesHolder(ft).Equals(types);
+  // Convert indices to sorted classifier types.
+  Classificator const & cl = classif();
+  buffer_vector<uint8_t, 8> types;
+  for (uint32_t i : bmk.GetData().m_featureTypes)
+    types.push_back(cl.GetTypeForIndex(i));
+  std::sort(types.begin(), types.end());
+
+  FillPointInfo(info, bmk.GetPivot(), {} /* customTitle */, [&types](FeatureType & ft)
+  {
+    if (types.empty() || ft.GetTypesCount() != types.size())
+      return false;
+
+    // Strict equal types.
+    feature::TypesHolder fTypes(ft);
+    std::sort(fTypes.begin(), fTypes.end());
+    return std::equal(types.begin(), types.end(), fTypes.begin(), fTypes.end());
   });
 }
 
@@ -2573,12 +2586,6 @@ void Framework::BlockTapEvents(bool block)
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->BlockTapEvents(block);
-}
-
-namespace feature
-{
-string GetPrintableTypes(FeatureType & ft) { return DebugPrint(feature::TypesHolder(ft)); }
-uint32_t GetBestType(FeatureType & ft) { return feature::TypesHolder(ft).GetBestType(); }
 }
 
 bool Framework::ParseDrapeDebugCommand(string const & query)
