@@ -1,5 +1,6 @@
 package com.mapswithme.maps.search;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -568,8 +569,9 @@ public class SearchFragment extends BaseMwmFragment
 
   private void closeSearch()
   {
-    requireActivity().finish();
-    requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    final Activity activity  = requireActivity();
+    activity.finish();
+    activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)
