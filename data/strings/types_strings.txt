@@ -5119,6 +5119,9 @@
     zh-Hans = 早餐
     zh-Hant = 早餐
 
+  [type.cuisine.bubble_tea]
+    en = Bubble Tea
+    
   [type.cuisine.burger]
     en = Burger
     ar = برغر
