@@ -1319,7 +1319,7 @@ cuisine|peruvian;1320;
 cuisine|fine_dining;1321;
 cuisine|tea;1322;
 natural|geyser;1323;
-deprecated|deprecated;1324;x
+cuisine=bubble_tea;1324
 natural|hot_spring;1325;
 amenity|parking_space;1326;
 amenity|parking_space|underground;[amenity=parking_space][parking=underground];;name;int_name;1327;
@@ -1350,4 +1350,3 @@ recycling|cans;[recycling:cans=yes];;name;int_name;1351;
 recycling|shoes;[recycling:shoes=yes];;name;int_name;1352;
 recycling|green_waste;[recycling:green_waste=yes];;name;int_name;1353;
 recycling|cartons;[recycling:cartons=yes];;name;int_name;1354;
-cuisine=bubble_tea;1335
