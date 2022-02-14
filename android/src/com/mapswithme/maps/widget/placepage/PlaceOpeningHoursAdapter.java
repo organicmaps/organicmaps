@@ -37,7 +37,7 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     final List<WeekScheduleData> scheduleData = new ArrayList<>();
 
     // Timetables array contains only working days. We need to fill non-working gaps.
-    for (int i=0; i < weekDays.length; i++)
+    for (int i = 0; i < weekDays.length; i++)
     {
       int weekDay = weekDays[i];
 
