@@ -26,7 +26,7 @@ buildscript {
   ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:7.1.0'
+    classpath 'com.android.tools.build:gradle:7.1.1'
 
     if (googleMobileServicesEnabled) {
       println("Building with Google Mobile Services")
@@ -82,12 +82,12 @@ dependencies {
   }
 
   // 3-party
-  implementation 'com.google.code.gson:gson:2.8.9'
+  implementation 'com.google.code.gson:gson:2.9.0'
   // BottomSheet
   implementation 'com.cocosw:bottomsheet:1.5.0@aar'
   implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
   // Glide
-  implementation 'com.github.bumptech.glide:glide:4.12.0'
+  implementation 'com.github.bumptech.glide:glide:4.13.0'
   // Java concurrency annotations
   implementation 'net.jcip:jcip-annotations:1.0'
 
