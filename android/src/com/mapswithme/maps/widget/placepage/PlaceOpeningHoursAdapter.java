@@ -58,7 +58,7 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
         // Search next working day in timetables
         while (i+1 < weekDays.length)
         {
-          if (findScheduleForWeekDay(timetables, weekDays[i+1]) != null)
+          if (findScheduleForWeekDay(timetables, weekDays[i + 1]) != null)
             break;
           i++;
         }
