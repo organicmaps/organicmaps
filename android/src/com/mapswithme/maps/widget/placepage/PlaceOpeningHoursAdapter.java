@@ -13,6 +13,8 @@ import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,38 +34,37 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
 
   public void setTimetables(Timetable[] timetables, int firstDayOfWeek)
   {
-    int[] weekDays = buildWeekByFirstDay(firstDayOfWeek);
-
+    final List<Integer> weekDays = buildWeekByFirstDay(firstDayOfWeek);
     final List<WeekScheduleData> scheduleData = new ArrayList<>();
 
     // Timetables array contains only working days. We need to fill non-working gaps.
-    for (int i = 0; i < weekDays.length; i++)
+    for (int i = 0; i < weekDays.size(); i++)
     {
-      int weekDay = weekDays[i];
+      int weekDay = weekDays.get(i);
 
       Timetable tt = findScheduleForWeekDay(timetables, weekDay);
       if (tt != null)
       {
-        int startWeekDay = weekDays[i];
-        while (i < weekDays.length && tt.containsWeekday(weekDays[i]))
+        int startWeekDay = weekDays.get(i);
+        while (i < weekDays.size() && tt.containsWeekday(weekDays.get(i)))
           i++;
 
         i--;
-        int endWeekDay = weekDays[i];
+        int endWeekDay = weekDays.get(i);
         scheduleData.add(new WeekScheduleData(startWeekDay, endWeekDay, tt));
       }
       else
       {
-        int startWeekDay = weekDays[i];
-        // Search next working day in timetables
-        while (i+1 < weekDays.length)
+        int startWeekDay = weekDays.get(i);
+        // Search next working day in timetables.
+        while (i + 1 < weekDays.size())
         {
-          if (findScheduleForWeekDay(timetables, weekDays[i + 1]) != null)
+          if (findScheduleForWeekDay(timetables, weekDays.get(i + 1)) != null)
             break;
           i++;
         }
 
-        scheduleData.add(new WeekScheduleData(startWeekDay, weekDays[i], null));
+        scheduleData.add(new WeekScheduleData(startWeekDay, weekDays.get(i), null));
       }
     }
 
@@ -72,19 +73,16 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     notifyDataSetChanged();
   }
 
-  public static int[] buildWeekByFirstDay(int firstDayOfWeek)
+  public static List<Integer> buildWeekByFirstDay(int firstDayOfWeek)
   {
     if (firstDayOfWeek < 1 || firstDayOfWeek > 7)
       throw new IllegalArgumentException("First day of week "+firstDayOfWeek+" is out of range [1..7]");
 
-    int[] weekDays = new int[7];
-    for (int i=0; i<7; i++)
-    {
-      weekDays[i] = (i + firstDayOfWeek);
-      if (weekDays[i] > 7)
-        weekDays[i] -= 7;
-    }
-    return weekDays;
+    final List<Integer> list = Arrays.asList(Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY,
+                                             Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY,
+                                             Calendar.SATURDAY);
+    Collections.rotate(list, 1 - firstDayOfWeek);
+    return list;
   }
 
   public static Timetable findScheduleForWeekDay(Timetable[] tables, int weekDay)

@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -40,29 +39,29 @@ public class PlaceOpeningHoursAdapterTest {
   @Test
   public void test_build_week_from_sunday()
   {
-    int[] weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.SUNDAY);
-    assertArrayEquals(weekDays, new int[]{1, 2, 3, 4, 5, 6, 7});
+    List<Integer> weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.SUNDAY);
+    assertEquals(weekDays, List.of(1, 2, 3, 4, 5, 6, 7));
   }
 
   @Test
   public void test_build_week_from_monday()
   {
-    int[] weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.MONDAY);
-    assertArrayEquals(weekDays, new int[]{2, 3, 4, 5, 6, 7, 1});
+    List<Integer> weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.MONDAY);
+    assertEquals(weekDays, List.of(2, 3, 4, 5, 6, 7, 1));
   }
 
   @Test
   public void test_build_week_from_saturday()
   {
-    int[] weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.SATURDAY);
-    assertArrayEquals(weekDays, new int[]{7, 1, 2, 3, 4, 5, 6});
+    List<Integer> weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.SATURDAY);
+    assertEquals(weekDays, List.of(7, 1, 2, 3, 4, 5, 6));
   }
 
   @Test
   public void test_build_week_from_friday()
   {
-    int[] weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.FRIDAY);
-    assertArrayEquals(weekDays, new int[]{6, 7, 1, 2, 3, 4, 5});
+    List<Integer> weekDays = PlaceOpeningHoursAdapter.buildWeekByFirstDay(Calendar.FRIDAY);
+    assertEquals(weekDays, List.of(6, 7, 1, 2, 3, 4, 5));
   }
 
   @Test
