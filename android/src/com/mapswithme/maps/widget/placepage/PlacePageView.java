@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -401,7 +402,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mWvBookmarkNote = mBookmarkFrame.findViewById(R.id.wv__bookmark_notes);
     final WebSettings settings = mWvBookmarkNote.getSettings();
     settings.setJavaScriptEnabled(false);
-    settings.setDefaultTextEncodingName("utf-8");
+    settings.setDefaultTextEncodingName("UTF-8");
     mTvBookmarkNote = mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
     mTvBookmarkNote.setOnLongClickListener(this);
     initEditMapObjectBtn();
@@ -1071,7 +1072,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     if (StringUtils.nativeIsHtml(notes))
     {
-      mWvBookmarkNote.loadData(notes, Utils.TEXT_HTML, Utils.UTF_8);
+      // According to loadData documentation, HTML should be either base64 or percent encoded.
+      // Default UTF-8 encoding for all content is set above in WebSettings.
+      final String b64encoded = Base64.encodeToString(notes.getBytes(), Base64.DEFAULT);
+      mWvBookmarkNote.loadData(b64encoded, Utils.TEXT_HTML, "base64");
       UiUtils.show(mWvBookmarkNote);
       UiUtils.hide(mTvBookmarkNote);
     }
