@@ -40,22 +40,22 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     // Timetables array contains only working days. We need to fill non-working gaps.
     for (int i = 0; i < weekDays.size(); i++)
     {
-      int weekDay = weekDays.get(i);
+      final int weekDay = weekDays.get(i);
 
-      Timetable tt = findScheduleForWeekDay(timetables, weekDay);
+      final Timetable tt = findScheduleForWeekDay(timetables, weekDay);
       if (tt != null)
       {
-        int startWeekDay = weekDays.get(i);
+        final int startWeekDay = weekDays.get(i);
         while (i < weekDays.size() && tt.containsWeekday(weekDays.get(i)))
           i++;
 
         i--;
-        int endWeekDay = weekDays.get(i);
+        final int endWeekDay = weekDays.get(i);
         scheduleData.add(new WeekScheduleData(startWeekDay, endWeekDay, tt));
       }
       else
       {
-        int startWeekDay = weekDays.get(i);
+        final int startWeekDay = weekDays.get(i);
         // Search next working day in timetables.
         while (i + 1 < weekDays.size())
         {
