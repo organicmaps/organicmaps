@@ -15,11 +15,6 @@ buildscript {
   def isFdroid = taskName.contains("fdroid")
   def isBeta = taskName.contains("beta")
 
-  // Enable Google Mobile Services for all flavors except fdroid.
-  def googleMobileServicesDefault = !isFdroid
-  // Add a parameter to force GMS.
-  ext.googleMobileServicesEnabled = project.hasProperty('gms') ?: googleMobileServicesDefault
-
   // Enable Firebase for all beta flavors except fdroid only if google-services.json exists.
   def googleFirebaseServicesDefault = isBeta && !isFdroid && file('google-services.json').exists()
   // Add a parameter to force Firebase.
@@ -27,13 +22,6 @@ buildscript {
 
   dependencies {
     classpath 'com.android.tools.build:gradle:7.1.1'
-
-    if (googleMobileServicesEnabled) {
-      println("Building with Google Mobile Services")
-      classpath 'com.google.gms:google-services:4.3.10'
-    } else {
-      println("Building without Google Services")
-    }
 
     if (googleFirebaseServicesEnabled) {
       println("Building with Google Firebase Services")
@@ -56,9 +44,6 @@ repositories {
 
 apply plugin: 'com.android.application'
 apply from: 'secure.properties'
-if (googleMobileServicesEnabled) {
-  apply plugin: 'com.google.gms.google-services'
-}
 if (googleFirebaseServicesEnabled) {
   apply plugin: 'com.google.firebase.crashlytics'
   apply plugin: 'com.google.firebase.appdistribution'
@@ -69,11 +54,6 @@ apply plugin: 'ru.cian.huawei-publish'
 dependencies {
 
   implementation 'androidx.multidex:multidex:' + propMultiDexVersion
-
-  // Google Mobile Services
-  if (googleMobileServicesEnabled) {
-    implementation 'com.google.android.gms:play-services-location:19.0.1'
-  }
 
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
@@ -203,11 +183,6 @@ android {
     manifest.srcFile 'AndroidManifest.xml'
     res.srcDirs = ['res']
     java.srcDirs = ['src']
-    if (googleMobileServicesEnabled) {
-      java.srcDirs += 'flavors/gms-enabled'
-    } else {
-      java.srcDirs += 'flavors/gms-disabled'
-    }
     if (googleFirebaseServicesEnabled) {
       java.srcDirs += 'flavors/firebase-enabled'
     } else {

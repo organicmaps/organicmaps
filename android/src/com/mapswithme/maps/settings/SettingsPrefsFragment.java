@@ -29,8 +29,6 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.OnmapDownloader;
 import com.mapswithme.maps.editor.ProfileActivity;
 import com.mapswithme.maps.help.HelpActivity;
-import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.location.LocationProviderFactory;
 import com.mapswithme.maps.sound.LanguageData;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
@@ -301,9 +299,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initEmulationBadStorage();
     initUseMobileDataPrefsCallbacks();
     initPowerManagementPrefsCallbacks();
-    boolean playServices = initPlayServicesPrefsCallbacks();
-    boolean crashReports = initCrashReports();
-    if (!playServices && !crashReports)
+    if (!initCrashReports())
     {
       // Remove "Tracking" section completely.
       PreferenceCategory tracking = findPreference(getString(R.string.pref_subtittle_opt_out));
@@ -551,40 +547,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         return true;
       }
     });
-  }
-
-  private boolean initPlayServicesPrefsCallbacks()
-  {
-    Preference pref = findPreference(getString(R.string.pref_play_services));
-    // TODO: check whether it's needed #2049
-    if (pref == null)
-      return false;
-
-    if (!LocationProviderFactory.isGoogleLocationAvailable(getActivity().getApplicationContext()))
-    {
-      removePreference(getString(R.string.pref_subtittle_opt_out), pref);
-      return false;
-    }
-    else
-    {
-      ((TwoStatePreference) pref).setChecked(Config.useGoogleServices());
-      pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-      {
-        @Override
-        public boolean onPreferenceChange(Preference preference, Object newValue)
-        {
-          boolean oldVal = Config.useGoogleServices();
-          boolean newVal = (Boolean) newValue;
-          if (oldVal != newVal)
-          {
-            Config.setUseGoogleService(newVal);
-            LocationHelper.INSTANCE.restart();
-          }
-          return true;
-        }
-      });
-      return true;
-    }
   }
 
   private void init3dModePrefsCallbacks()

@@ -28,7 +28,6 @@ public final class Config
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
   static final String KEY_PREF_CRASHLYTICS = "CrashlyticsEnabled";
-  private static final String KEY_PREF_USE_GS = "UseGoogleServices";
 
   private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
   private static final String KEY_MISC_LOCATION_REQUESTED = "LocationRequested";
@@ -196,16 +195,6 @@ public final class Config
   public static void setShowOnLockScreenEnabled(boolean enabled)
   {
     setBool(KEY_MISC_SHOW_ON_LOCK_SCREEN, enabled);
-  }
-
-  public static boolean useGoogleServices()
-  {
-    return getBool(KEY_PREF_USE_GS, true);
-  }
-
-  public static void setUseGoogleService(boolean use)
-  {
-    setBool(KEY_PREF_USE_GS, use);
   }
 
   public static boolean isRoutingDisclaimerAccepted()

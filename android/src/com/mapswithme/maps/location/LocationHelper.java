@@ -29,7 +29,7 @@ import com.mapswithme.util.log.LoggerFactory;
 
 import org.jetbrains.annotations.NotNull;
 
-public enum LocationHelper implements Initializable<Context>, AppBackgroundTracker.OnTransitionListener, BaseLocationProvider.Listener
+public enum LocationHelper implements Initializable<Context>, AppBackgroundTracker.OnTransitionListener, AndroidNativeProvider.Listener
 {
   INSTANCE;
 
@@ -130,7 +130,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   private SensorHelper mSensorHelper;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private BaseLocationProvider mLocationProvider;
+  private AndroidNativeProvider mLocationProvider;
   @Nullable
   private UiCallback mUiCallback;
   private long mInterval;
@@ -167,7 +167,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   {
     mContext = context;
     mSensorHelper = new SensorHelper(context);
-    mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
+    mLocationProvider = new AndroidNativeProvider(mContext, this);
     LocationState.nativeSetListener(mMyPositionModeListener);
     LocationState.nativeSetLocationPendingTimeoutListener(mLocationPendingTimeoutListener);
     MwmApplication.backgroundTracker(context).addListener(this);
@@ -324,14 +324,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   public void onLocationError(int errCode)
   {
     mLogger.d(TAG, "onLocationError(): " + errCode);
-    if (errCode == ERROR_NOT_SUPPORTED && !(mLocationProvider instanceof AndroidNativeProvider))
-    {
-      // Try to downgrade to native provider first before notifying the user.
-      mLogger.d(TAG, "Downgrading to use native provider");
-      mLocationProvider = new AndroidNativeProvider(mContext, this);
-      return;
-    }
-
     for (LocationListener listener : mListeners)
       listener.onLocationError(errCode);
     mListeners.finishIterate();

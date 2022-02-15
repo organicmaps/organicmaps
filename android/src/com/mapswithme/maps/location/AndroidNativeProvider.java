@@ -9,14 +9,23 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-class AndroidNativeProvider extends BaseLocationProvider
+class AndroidNativeProvider
 {
+  static protected final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
   protected String TAG = AndroidNativeProvider.class.getSimpleName();
+
+  interface Listener
+  {
+    void onLocationChanged(@NonNull Location location);
+    void onLocationError(int errorCode);
+  }
 
   private class NativeLocationListener implements LocationListener {
     @Override
@@ -46,8 +55,10 @@ class AndroidNativeProvider extends BaseLocationProvider
     {
       LOGGER.d(TAG, "Status changed for location provider: " + provider + "; new status = " + status);
     }
-  };
+  }
 
+  @NonNull
+  protected Listener mListener;
   @NonNull
   private final LocationManager mLocationManager;
   private int mProviderCount = 0;
@@ -57,9 +68,9 @@ class AndroidNativeProvider extends BaseLocationProvider
   @NotNull
   final private NativeLocationListener mNativeLocationListener = new NativeLocationListener();
 
-  AndroidNativeProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener)
+  AndroidNativeProvider(@NonNull Context context, @NonNull AndroidNativeProvider.Listener listener)
   {
-    super(listener);
+    mListener = listener;
     mLocationManager = (LocationManager) MwmApplication.from(context).getSystemService(Context.LOCATION_SERVICE);
     // This service is always available on all versions of Android
     if (mLocationManager == null)
@@ -68,7 +79,6 @@ class AndroidNativeProvider extends BaseLocationProvider
 
   @SuppressWarnings("MissingPermission")
   // A permission is checked externally
-  @Override
   public void start(long interval)
   {
     LOGGER.d(TAG, "start()");
@@ -98,7 +108,6 @@ class AndroidNativeProvider extends BaseLocationProvider
     }
   }
 
-  @Override
   public void stop()
   {
     LOGGER.d(TAG, "stop()");

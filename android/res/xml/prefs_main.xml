@@ -174,13 +174,6 @@
     android:title="@string/subtittle_opt_out"
     android:order="6">
     <SwitchPreferenceCompat
-      android:key="@string/pref_play_services"
-      android:title="Google Play Services"
-      app:singleLineTitle="false"
-      android:summary="@string/pref_use_google_play"
-      android:defaultValue="true"
-      android:order="1"/>
-    <SwitchPreferenceCompat
       android:key="@string/pref_crash_reports"
       android:defaultValue="true"
       android:title="@string/crash_reports"
