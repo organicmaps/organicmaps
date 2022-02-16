@@ -124,7 +124,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @Nullable
   private Location mSavedLocation;
   private MapObject mMyPosition;
-  private long mSavedLocationTime;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private SensorHelper mSensorHelper;
@@ -203,14 +202,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   }
 
   /**
-   * <p>Obtains last known saved location. It depends on "My position" button mode and is erased on "No follow, no position" one.
-   * <p>If you need the location regardless of the button's state, use {@link #getLastKnownLocation()}.
-   * @return {@code null} if no location is saved or "My position" button is in "No follow, no position" mode.
+   * Obtains last known location.
+   * @return {@code null} if no location is saved.
    */
   @Nullable
   public Location getSavedLocation() { return mSavedLocation; }
-
-  public long getSavedLocationTime() { return mSavedLocationTime; }
 
   public void switchToNextMode()
   {
@@ -316,7 +312,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
     mSavedLocation = location;
     mMyPosition = null;
-    mSavedLocationTime = System.currentTimeMillis();
     notifyLocationUpdated();
   }
 
@@ -617,16 +612,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       switchToNextMode();
     else
       restart();
-  }
-
-  /**
-   * Obtains last known location regardless of "My position" button state.
-   * @return {@code null} on failure.
-   */
-  @Nullable
-  public Location getLastKnownLocation()
-  {
-    return mSavedLocation;
   }
 
   @Nullable
