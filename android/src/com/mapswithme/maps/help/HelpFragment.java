@@ -65,7 +65,16 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     setupItem(R.id.twitter, false, root);
     setupItem(R.id.faq, true, root);
     setupItem(R.id.report, true, root);
-    setupItem(R.id.support_us, true, root);
+    //noinspection ConstantConditions
+    if ("google".equalsIgnoreCase(BuildConfig.FLAVOR))
+    {
+      TextView view = root.findViewById(R.id.support_us);
+      view.setVisibility(View.GONE);
+    }
+    else
+    {
+      setupItem(R.id.support_us, true, root);
+    }
     setupItem(R.id.rate, true, root);
     setupItem(R.id.copyright, false, root);
     View termOfUseView = root.findViewById(R.id.term_of_use_link);
