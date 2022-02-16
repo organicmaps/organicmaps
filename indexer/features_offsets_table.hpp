@@ -103,8 +103,8 @@ namespace feature
     succinct::elias_fano m_table;
     std::unique_ptr<MmapReader> m_pReader;
 
-    detail::MappedFile m_file;
-    detail::MappedFile::Handle m_handle;
+    ::detail::MappedFile m_file;
+    ::detail::MappedFile::Handle m_handle;
   };
 
   // Builds feature offsets table in an mwm or rebuilds an existing

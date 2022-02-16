@@ -1,6 +1,5 @@
 #pragma once
 
-#include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_vertex_data.hpp"
 
@@ -18,8 +17,6 @@
 
 #include "geometry/point2d.hpp"
 
-#include <cstdint>
-#include <map>
 #include <memory>
 #include <optional>
 #include <unordered_map>

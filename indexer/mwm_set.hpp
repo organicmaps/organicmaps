@@ -1,4 +1,5 @@
 #pragma once
+#include "indexer/data_factory.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
@@ -7,10 +8,9 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/macros.hpp"
+#include "base/observer_list.hpp"
 
-#include "indexer/data_factory.hpp"
-#include "indexer/feature_meta.hpp"
-#include "indexer/features_offsets_table.hpp"
+#include "defines.hpp"
 
 #include <atomic>
 #include <deque>
@@ -21,7 +21,7 @@
 #include <utility>
 #include <vector>
 
-#include "base/observer_list.hpp"
+namespace feature { class FeaturesOffsetsTable; }
 
 /// Information about stored mwm.
 class MwmInfo

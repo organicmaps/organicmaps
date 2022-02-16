@@ -1,22 +1,15 @@
 #pragma once
 
-#include "routing/segment.hpp"
-
-#include "routing_common/maxspeed_conversion.hpp"
-#include "routing_common/vehicle_model.hpp"
-
 #include "routing/base/small_list.hpp"
 
-#include "indexer/feature_altitude.hpp"
+#include "routing/segment.hpp"
+
+#include "routing_common/vehicle_model.hpp"
+
 #include "indexer/feature_data.hpp"
 
-#include "coding/point_coding.hpp"
-
-#include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 #include "geometry/rect2d.hpp"
-
-#include "base/string_utils.hpp"
 
 #include <functional>
 #include <initializer_list>

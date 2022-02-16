@@ -11,6 +11,8 @@
 #include "storage/country_info_getter.hpp"
 #include "storage/routing_helpers.hpp"
 
+#include "traffic/traffic_cache.hpp"
+
 #include "transit/transit_types.hpp"
 
 #include "indexer/mwm_set.hpp"

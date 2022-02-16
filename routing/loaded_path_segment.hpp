@@ -1,18 +1,12 @@
 #pragma once
 
-#include "routing/road_graph.hpp"
 #include "routing/road_point.hpp"
 #include "routing/turns.hpp"
-#include "routing/turn_candidate.hpp"
 #include "routing/segment.hpp"
-
-#include "traffic/traffic_info.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
 #include "geometry/point_with_altitude.hpp"
-
-#include "base/buffer_vector.hpp"
 
 #include <string>
 #include <vector>

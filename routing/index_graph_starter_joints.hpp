@@ -2,13 +2,11 @@
 
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_vertex_data.hpp"
+
 #include "routing/fake_feature_ids.hpp"
 #include "routing/joint_segment.hpp"
 #include "routing/segment.hpp"
 
-#include "routing/base/astar_algorithm.hpp"
-
-#include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 
 #include "base/assert.hpp"

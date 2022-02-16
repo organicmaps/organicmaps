@@ -3,7 +3,7 @@
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_progress.hpp"
 #include "routing/base/routing_result.hpp"
-#include "routing/cross_mwm_graph.hpp"
+
 #include "routing/directions_engine.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/fake_edges_container.hpp"
@@ -12,6 +12,7 @@
 #include "routing/index_graph_starter_joints.hpp"
 #include "routing/joint.hpp"
 #include "routing/nearest_edge_finder.hpp"
+#include "routing/regions_decl.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
 #include "routing/segment.hpp"
@@ -19,8 +20,6 @@
 
 #include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
-
-#include "indexer/mwm_set.hpp"
 
 #include "platform/country_file.hpp"
 
@@ -37,6 +36,8 @@
 #include <vector>
 
 class DataSource;
+
+namespace traffic { class TrafficCache; }
 
 namespace routing
 {
@@ -72,7 +73,7 @@ public:
 
   IndexRouter(VehicleType vehicleType, bool loadAltitudes,
               CountryParentNameGetterFn const & countryParentNameGetterFn,
-              TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
+              TCountryFileFn const & countryFileFn, CountryRectFn const & countryRectFn,
               std::shared_ptr<NumMwmIds> numMwmIds, std::unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
               traffic::TrafficCache const & trafficCache, DataSource & dataSource);
 
@@ -238,7 +239,7 @@ private:
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
 
   TCountryFileFn const m_countryFileFn;
-  CourntryRectFn const m_countryRectFn;
+  CountryRectFn const m_countryRectFn;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
   std::shared_ptr<TrafficStash> m_trafficStash;
