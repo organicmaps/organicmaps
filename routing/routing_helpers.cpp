@@ -1,12 +1,12 @@
 #include "routing/routing_helpers.hpp"
 
+#include "routing/directions_engine.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/road_point.hpp"
 #include "routing/segment.hpp"
+#include "routing/traffic_stash.hpp"
 #include "routing/world_graph.hpp"
-
-#include "traffic/traffic_info.hpp"
 
 #include "geometry/point2d.hpp"
 

@@ -19,6 +19,7 @@
 #include "routing/routing_options.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
 #include "routing/speed_camera_prohibition.hpp"
+#include "routing/traffic_stash.hpp"
 #include "routing/transit_world_graph.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -34,6 +35,7 @@
 #include "platform/mwm_traits.hpp"
 #include "platform/settings.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/polyline2d.hpp"
@@ -243,7 +245,7 @@ double IndexRouter::BestEdgeComparator::GetSquaredDist(Edge const & edge) const
 // IndexRouter ------------------------------------------------------------------------------------
 IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                          CountryParentNameGetterFn const & countryParentNameGetterFn,
-                         TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
+                         TCountryFileFn const & countryFileFn, CountryRectFn const & countryRectFn,
                          shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
                          traffic::TrafficCache const & trafficCache, DataSource & dataSource)
   : m_vehicleType(vehicleType)
@@ -1304,6 +1306,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       ASSERT_LESS(start, input.size(), ());
       ASSERT_LESS(end, input.size(), ());
 
+      /// @todo I don't like this strategy with clearing previous caches, taking into account
+      /// that all MWMs were quite likely already loaded before in calculating Leaps path.
       // Clear previous loaded graphs to not spend too much memory at one time.
       worldGraph.ClearCachedGraphs();
 

@@ -1,12 +1,9 @@
 #pragma once
 
-#include <cstdint>
 #include <optional>
-#include <set>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
-#include <vector>
 
 namespace routing
 {

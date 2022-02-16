@@ -1,12 +1,9 @@
 #pragma once
 
 #include "routing/loaded_path_segment.hpp"
-#include "routing/road_graph.hpp"
 #include "routing/turn_candidate.hpp"
 
 #include "geometry/point_with_altitude.hpp"
-
-#include <cstddef>
 
 namespace routing
 {

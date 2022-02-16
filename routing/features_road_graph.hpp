@@ -1,9 +1,7 @@
 #pragma once
 
 #include "routing/road_graph.hpp"
-#include "routing/routing_callbacks.hpp"
 
-#include "routing_common/maxspeed_conversion.hpp"
 #include "routing_common/vehicle_model.hpp"
 
 #include "indexer/altitude_loader.hpp"

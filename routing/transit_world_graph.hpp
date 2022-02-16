@@ -1,12 +1,11 @@
 #pragma once
 
 #include "routing/base/astar_vertex_data.hpp"
+
 #include "routing/cross_mwm_graph.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/geometry.hpp"
 #include "routing/index_graph_loader.hpp"
-#include "routing/road_graph.hpp"
-#include "routing/route.hpp"
 #include "routing/segment.hpp"
 #include "routing/transit_graph_loader.hpp"
 #include "routing/transit_info.hpp"

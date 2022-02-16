@@ -1,13 +1,8 @@
 #pragma once
 
-#include "routing/directions_engine.hpp"
-#include "routing/index_road_graph.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/route_weight.hpp"
-#include "routing/traffic_stash.hpp"
-
-#include "traffic/traffic_info.hpp"
 
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
@@ -26,7 +21,10 @@
 
 namespace routing
 {
+class DirectionsEngine;
 class IndexGraphStarter;
+class IndexRoadGraph;
+class TrafficStash;
 class WorldGraph;
 
 inline double KMPH2MPS(double kmph) { return kmph * 1000.0 / (60 * 60); }

@@ -6,6 +6,8 @@
 
 #include "routing/restrictions_serialization.hpp"
 
+#include "traffic/traffic_cache.hpp"
+
 #include "indexer/classificator_loader.hpp"
 
 #include "platform/platform.hpp"
