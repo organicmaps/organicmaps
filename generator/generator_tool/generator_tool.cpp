@@ -502,7 +502,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       string const roadAccessFilename = genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
 
       routing::BuildRoutingIndex(dataFile, country, *countryParentGetter);
-      auto routingGraph = routing::CreateIndexGraph(path, dataFile, country, *countryParentGetter);
+      auto routingGraph = routing::CreateIndexGraph(dataFile, country, *countryParentGetter);
       CHECK(routingGraph, ());
 
       /// @todo CHECK return result doesn't work now for some small countries like Somalie.

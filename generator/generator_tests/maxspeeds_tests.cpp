@@ -8,6 +8,7 @@
 #include "generator/maxspeeds_collector.hpp"
 #include "generator/maxspeeds_parser.hpp"
 #include "generator/osm_element.hpp"
+#include "generator/restriction_generator.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/maxspeeds_serialization.hpp"
@@ -73,7 +74,7 @@ void BuildGeometry(Features const & roads, LocalCountryFile & country)
 }
 
 void TestMaxspeedsSection(Features const & roads, string const & maxspeedsCsvContent,
-                          map<uint32_t, base::GeoObjectId> const & featureIdToOsmId)
+                          FeatureIdToOsmId const & featureIdToOsmId)
 {
   classificator::Load();
   string const testDirFullPath = base::JoinPath(GetPlatform().WritableDir(), kTestDir);
@@ -88,9 +89,17 @@ void TestMaxspeedsSection(Features const & roads, string const & maxspeedsCsvCon
   ScopedFile testScopedMwm(base::JoinPath(kTestDir, testMwm), ScopedFile::Mode::Create);
   BuildGeometry(roads, country);
 
-  // Creating maxspeed section in test.mwm.
   string const testMwmFullPath = base::JoinPath(testDirFullPath, testMwm);
-  BuildMaxspeedsSection(nullptr, testMwmFullPath, featureIdToOsmId, base::JoinPath(testDirFullPath, kCsv));
+
+  // Create routing graph for test mwm.
+  auto const countryParentGetter = [](std::string const &) { return string(); };
+  routing::BuildRoutingIndex(testMwmFullPath, kTestMwm, countryParentGetter);
+  auto routingGraph = routing::CreateIndexGraph(testMwmFullPath, kTestMwm, countryParentGetter);
+  TEST(routingGraph, ());
+
+  // Creating maxspeed section in test.mwm.
+  BuildMaxspeedsSection(routingGraph.get(), testMwmFullPath, featureIdToOsmId,
+                        base::JoinPath(testDirFullPath, kCsv));
 
   // Loading maxspeed section.
   FrozenDataSource dataSource;
@@ -100,7 +109,7 @@ void TestMaxspeedsSection(Features const & roads, string const & maxspeedsCsvCon
   auto const handle = dataSource.GetMwmHandleById(mwmId);
   TEST(handle.IsAlive(), ());
 
-  auto const maxspeeds = LoadMaxspeeds(dataSource, handle);
+  auto const maxspeeds = LoadMaxspeeds(handle);
   TEST(maxspeeds, ());
 
   // Testing maxspeed section content.
@@ -244,8 +253,7 @@ UNIT_TEST(Maxspeed_Parse4)
 
 UNIT_TEST(Maxspeed_Parse5)
 {
-  string const maxspeedsCsvContent = R"(
-                                        2,Metric,10)";
+  string const maxspeedsCsvContent = R"(2,Metric,10)";
   OsmIdToMaxspeed const expectedMapping = {
       {base::MakeOsmWay(2), {Units::Metric, 10, kInvalidSpeed}}};
 
@@ -296,7 +304,7 @@ UNIT_TEST(Maxspeed_SectionEmpty)
 {
   Features const roads;
   string const maxspeedsCsvContent;
-  map<uint32_t, base::GeoObjectId> const featureIdToOsmId;
+  FeatureIdToOsmId const featureIdToOsmId;
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
@@ -306,7 +314,7 @@ UNIT_TEST(Maxspeed_Section1)
                           {{1.0, 0.0}, {1.0, 1.0}, {1.0, 2.0}} /* Points of feature 1 */};
   string const maxspeedsCsvContent = R"(25258932,Metric,60
                                         25258943,Metric,90)";
-  map<uint32_t, base::GeoObjectId> const featureIdToOsmId = {
+  FeatureIdToOsmId const featureIdToOsmId = {
       {0 /* feature id */, base::MakeOsmWay(25258932)},
       {1 /* feature id */, base::MakeOsmWay(25258943)}};
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
@@ -319,7 +327,7 @@ UNIT_TEST(Maxspeed_Section2)
                           {{1.0, 2.0}, {1.0, 3.0}} /* Points of feature 2 */};
   string const maxspeedsCsvContent = R"(25258932,Metric,60,40
                                         32424,Metric,120)";
-  map<uint32_t, base::GeoObjectId> const featureIdToOsmId = {
+  FeatureIdToOsmId const featureIdToOsmId = {
       {0 /* feature id */, base::MakeOsmWay(25258932)},
       {1 /* feature id */, base::MakeOsmWay(25258943)},
       {2 /* feature id */, base::MakeOsmWay(32424)}};
@@ -335,7 +343,7 @@ UNIT_TEST(Maxspeed_Section3)
   string const maxspeedsCsvContent = R"(25252,Metric,120,65534
                                         258943,Metric,65533
                                         32424,Metric,10,65533)";
-  map<uint32_t, base::GeoObjectId> const featureIdToOsmId = {
+  FeatureIdToOsmId const featureIdToOsmId = {
       {0 /* feature id */, base::MakeOsmWay(25252)},
       {1 /* feature id */, base::MakeOsmWay(258943)},
       {2 /* feature id */, base::MakeOsmWay(32424)}};
@@ -348,7 +356,7 @@ UNIT_TEST(Maxspeed_Section4)
                           {{1.0, 0.0}, {0.0, 0.0}} /* Points of feature 1 */};
   string const maxspeedsCsvContent = R"(50000000000,Imperial,30
                                         50000000001,Imperial,50)";
-  map<uint32_t, base::GeoObjectId> const featureIdToOsmId = {
+  FeatureIdToOsmId const featureIdToOsmId = {
       {0 /* feature id */, base::MakeOsmWay(50000000000)},
       {1 /* feature id */, base::MakeOsmWay(50000000001)}};
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
@@ -370,7 +378,7 @@ UNIT_TEST(Maxspeed_SectionBig)
                                         400,Imperial,10,20
                                         600,)"
       "Imperial,50,20\n700,Imperial,10\n";
-  map<uint32_t, base::GeoObjectId> const featureIdToOsmId = {
+  FeatureIdToOsmId const featureIdToOsmId = {
       {0 /* feature id */, base::MakeOsmWay(100)}, {1 /* feature id */, base::MakeOsmWay(200)},
       {2 /* feature id */, base::MakeOsmWay(300)}, {3 /* feature id */, base::MakeOsmWay(400)},
       {4 /* feature id */, base::MakeOsmWay(500)}, {5 /* feature id */, base::MakeOsmWay(600)},

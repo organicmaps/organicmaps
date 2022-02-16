@@ -161,7 +161,7 @@ unique_ptr<IndexGraph> IndexGraphLoaderImpl::CreateIndexGraph(NumMwmId numMwmId)
       m_vehicleModelFactory->GetVehicleModelForCountry(file.GetName());
 
   auto geometry = make_shared<Geometry>(GeometryLoader::Create(
-      m_dataSource, handle, vehicleModel, AttrLoader(m_dataSource, handle), m_loadAltitudes));
+      m_dataSource, handle, vehicleModel, m_loadAltitudes));
 
   auto graph = make_unique<IndexGraph>(std::move(geometry), m_estimator, m_avoidRoutingOptions);
   graph->SetCurrentTimeGetter(m_currentTimeGetter);

@@ -29,17 +29,13 @@
 namespace routing
 {
 
-std::unique_ptr<IndexGraph>
-CreateIndexGraph(std::string const & targetPath,
-                 std::string const & mwmPath,
-                 std::string const & country,
-                 CountryParentNameGetterFn const & countryParentNameGetterFn)
+std::unique_ptr<IndexGraph> CreateIndexGraph(std::string const & mwmPath, std::string const & country,
+                                             CountryParentNameGetterFn const & countryParentNameGetterFn)
 {
   std::shared_ptr<VehicleModelInterface> vehicleModel =
       CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country);
 
-  MwmValue mwmValue(
-      platform::LocalCountryFile(targetPath, platform::CountryFile(country), 0 /* version */));
+  MwmValue mwmValue(platform::LocalCountryFile::MakeTemporary(mwmPath));
 
   auto graph = std::make_unique<IndexGraph>(
       std::make_shared<Geometry>(GeometryLoader::CreateFromFile(mwmPath, vehicleModel)),
@@ -47,7 +43,6 @@ CreateIndexGraph(std::string const & targetPath,
         nullptr /* dataSource */, nullptr /* numMvmIds */));
 
   DeserializeIndexGraph(mwmValue, VehicleType::Car, *graph);
-
   return graph;
 }
 

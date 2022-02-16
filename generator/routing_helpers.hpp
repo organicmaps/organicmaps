@@ -10,6 +10,7 @@
 namespace routing
 {
 using OsmIdToFeatureIds = std::map<base::GeoObjectId, std::vector<uint32_t>>;
+using FeatureIdToOsmId = std::map<uint32_t, base::GeoObjectId>;
 
 // Adds |featureId| and corresponding |osmId| to |osmIdToFeatureIds|.
 // Note. In general, one |featureId| may correspond to several osm ids.
@@ -35,5 +36,5 @@ void AddFeatureId(base::GeoObjectId osmId, uint32_t featureId,
 bool ParseWaysOsmIdToFeatureIdMapping(std::string const & osmIdsToFeatureIdPath,
                                       OsmIdToFeatureIds & osmIdToFeatureIds);
 bool ParseWaysFeatureIdToOsmIdMapping(std::string const & osmIdsToFeatureIdPath,
-                                      std::map<uint32_t, base::GeoObjectId> & featureIdToOsmId);
+                                      FeatureIdToOsmId & featureIdToOsmId);
 }  // namespace routing

@@ -192,6 +192,9 @@ public:
   bool IsNumeric() const;
   bool IsValid() const { return m_speed != kInvalidSpeed; }
 
+  /// @pre IsNumeric() == true.
+  MaxspeedType GetSpeedKmPH() const;
+
 private:
   // Speed in km per hour or mile per hour depends on m_units value.
   MaxspeedType m_speed = kInvalidSpeed;
@@ -251,7 +254,22 @@ public:
                   MaxspeedType backward = kInvalidSpeed) noexcept;
 
   bool operator==(FeatureMaxspeed const & rhs) const;
-  bool IsFeatureIdLess(FeatureMaxspeed const & rhs) const { return m_featureId < rhs.m_featureId; }
+
+  struct Less
+  {
+    bool operator() (FeatureMaxspeed const & l, FeatureMaxspeed const & r) const
+    {
+      return l.m_featureId < r.m_featureId;
+    }
+    bool operator() (uint32_t l, FeatureMaxspeed const & r) const
+    {
+      return l < r.m_featureId;
+    }
+    bool operator() (FeatureMaxspeed const & l, uint32_t r) const
+    {
+      return l.m_featureId < r;
+    }
+  };
 
   bool IsValid() const { return m_maxspeed.IsValid(); }
   bool IsBidirectional() const { return m_maxspeed.IsBidirectional(); }
@@ -277,11 +295,6 @@ public:
   SpeedMacro SpeedToMacro(SpeedInUnits const & speed) const;
 
   SpeedInUnits ClosestValidMacro(SpeedInUnits const & speed) const;
-
-  /// \returns true if |macro| can be cast to a valid value of SpeedMacro emum class.
-  /// \note SpeedMacro::Undefined value and all values from 1 to 256 which are not present
-  /// in SpeedMacro enum class are considered as an invalid.
-  bool IsValidMacro(uint8_t macro) const;
 
   static MaxspeedConverter const & Instance();
 
