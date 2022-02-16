@@ -1,1 +1,11 @@
-../../../../google/play/release-notes/en-US/default.txt
+• New OSM data as of Feb 4, 2022
+• Fixed a broken place page on Android 11
+• Fixed invalid routes for car&bike
+• Respect "Avoid" setting for bike/walking routes
+• No unlock is needed when OM is active
+• Search for Water, RV Facilities and Recycling
+• Added parcel pickup, excrement bags, quay, marina, caravan, dump station, mast, flag pole, funeral directors
+• Improved translations, FAQ in Turkish
+• Fixed HTML display in bookmark's description
+
+…see https://organicmaps.app for a full changelog!
