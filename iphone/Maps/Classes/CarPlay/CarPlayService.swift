@@ -304,6 +304,11 @@ extension CarPlayService: CPSessionConfigurationDelegate {
                             limitedUserInterfacesChanged limitedUserInterfaces: CPLimitableUserInterface) {
     
   }
+  @available(iOS 13.0, *)
+  func sessionConfiguration(_ sessionConfiguration: CPSessionConfiguration,
+                            contentStyleChanged contentStyle: CPContentStyle) {
+    window?.overrideUserInterfaceStyle = contentStyle == .light ? .light : .dark
+  }
 }
 
 // MARK: - CPMapTemplateDelegate implementation
