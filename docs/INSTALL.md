@@ -83,30 +83,32 @@ sudo apt-get update && sudo apt-get install -y \
     clang \
     python \
     qtbase5-dev \
-    libqt5svg5-dev \
     libc++-dev \
-    libboost-iostreams-dev \
+    libfreetype-dev \
     libglu1-mesa-dev \
+    libicu-dev \
+    libqt5svg5-dev \
     libsqlite3-dev \
     zlib1g-dev
 ```
 
-_Fedora 33:_
+_Fedora:_
 
 ```bash
 sudo dnf install -y \
     clang \
+    freetype-devel \
+    libicu-devel \
+    libstdc++-devel \
     qt5-qtbase-devel \
     qt5-qtsvg-devel \
-    boost-devel \
-    libstdc++-devel \
     sqlite-devel
 ```
 
 _macOS:_
 
 ```bash
-brew install cmake qt@5
+brew install cmake ninja qt@5
 ```
 
 ### Building
