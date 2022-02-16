@@ -4,18 +4,14 @@
 
 #include "indexer/mwm_set.hpp"
 
-#include "coding/files_container.hpp"
 #include "coding/memory_region.hpp"
 #include "coding/reader.hpp"
 #include "coding/simple_dense_coding.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <vector>
 
 #include "3party/succinct/elias_fano.hpp"
-
-class DataSource;
 
 namespace routing
 {
@@ -32,19 +28,23 @@ public:
   /// returns an invalid Maxspeed value.
   Maxspeed GetMaxspeed(uint32_t fid) const;
 
+  using ReaderT = ModelReaderPtr;
+  void Load(ReaderT const & reader);
+
 private:
   bool HasForwardMaxspeed(uint32_t fid) const;
   bool HasBidirectionalMaxspeed(uint32_t fid) const;
 
+  // Feature IDs (compressed rank bit-vector).
   std::unique_ptr<CopiedMemoryRegion> m_forwardMaxspeedTableRegion;
-  // |m_forwardMaxspeed| contains true for feature ids which have only forward (single directional)
-  // maxspeed.
   succinct::elias_fano m_forwardMaxspeedsTable;
+
+  // Forward speeds (compressed uint8_t vector).
   std::unique_ptr<CopiedMemoryRegion> m_forwardMaxspeedRegion;
   coding::SimpleDenseCoding m_forwardMaxspeeds;
+
   std::vector<FeatureMaxspeed> m_bidirectionalMaxspeeds;
 };
 
-void LoadMaxspeeds(FilesContainerR::TReader const & reader, Maxspeeds & maxspeeds);
-std::unique_ptr<Maxspeeds> LoadMaxspeeds(DataSource const & dataSource, MwmSet::MwmHandle const & handle);
+std::unique_ptr<Maxspeeds> LoadMaxspeeds(MwmSet::MwmHandle const & handle);
 }  // namespace routing

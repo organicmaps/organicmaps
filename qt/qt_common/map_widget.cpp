@@ -314,7 +314,7 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
       // Maxspeed
       auto const & dataSource = m_framework.GetDataSource();
       auto const handle = dataSource.GetMwmHandleById(ft.GetID().m_mwmId);
-      auto const speeds = routing::LoadMaxspeeds(dataSource, handle);
+      auto const speeds = routing::LoadMaxspeeds(handle);
       if (speeds)
       {
         auto const speed = speeds->GetMaxspeed(ft.GetID().m_index);

@@ -3235,7 +3235,7 @@ void Framework::VisualizeCityRoadsInRect(m2::RectD const & rect)
           if (!handle.IsAlive())
             return;
 
-          cityRoads[mwmId] = LoadCityRoads(GetDataSource(), handle);
+          cityRoads[mwmId] = LoadCityRoads(handle);
         }
 
         if (!cityRoads[mwmId]->IsCityRoad(ft.GetID().m_index))
