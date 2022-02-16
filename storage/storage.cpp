@@ -721,7 +721,6 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
     return;
   }
 
-  static string const kSourceKey = "map";
   if (m_integrityValidationEnabled && !localFile->ValidateIntegrity())
   {
     base::DeleteFileX(localFile->GetPath(MapFileType::Map));
