@@ -64,9 +64,9 @@
 @hospital: #F8D9D9;
 @industrial: #E4E2EB;
 @sport: #D1CDA7;
-@parking: #F2F2CE;
+@parking: #F2F2BC;
 @military: #E53935;
-@farmland: #ededc3;
+@farmland: #EBE4A5;
 
 /*4.2 Aerodrome*/
 
@@ -98,10 +98,10 @@
 @primary_orange_medium: #FF9440;
 @primary_orange_light: #FFA14C;
 @secondary: #FFFFFF;
-@residential: #F8F8F8;
-@unclassified: #F8F8F8;
-@pedestrian: #F8F8F8;
-@footway: #F8F8F8;
+@residential: #FFFFFF;
+@unclassified: #FFFFFF;
+@pedestrian: #FFFFFF;
+@footway: #FFFFFF;
 @cycleway: #FF87AD;
 @construction: #BBBBAA;
 @track: #635730;
