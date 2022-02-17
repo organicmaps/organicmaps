@@ -33,7 +33,7 @@
   8.7 Footway 15-22 ZOOM
   8.8 Footway & Path tunnel 17-22 ZOOM
   8.9 Bridleway 14-22 ZOOM
-  8.10 Steps 16-22 ZOOM
+  8.10 Steps 15-22 ZOOM
   8.11 Runway 12-22 ZOOM
 9.RAIL 11-22 ZOOM
   9.1 RAIL 11-22 ZOOM
@@ -804,13 +804,13 @@ line|z13-[highway=proposed]
 {color: @construction;opacity: 1;}
 line|z13-[highway=pedestrian][bridge?]::bridgewhite,
 line|z13-[highway=footway][bridge?]::bridgewhite,
-line|z16-[highway=steps][bridge?]::bridgewhite,
+line|z15-[highway=steps][bridge?]::bridgewhite,
 line|z16-[highway=road][bridge?]::bridgewhite,
 line|z16-[highway=service][bridge?]::bridgewhite
 {casing-linecap: butt;casing-color:@bridge_background;}
 line|z13-[highway=pedestrian][bridge?]::bridgeblack,
 line|z13-[highway=footway][bridge?]::bridgeblack,
-line|z16-[highway=steps][bridge?]::bridgeblack,
+line|z15-[highway=steps][bridge?]::bridgeblack,
 line|z16-[highway=road][bridge?]::bridgeblack,
 line|z16-[highway=service][bridge?]::bridgeblack
 {casing-linecap: butt;casing-color:@bridge_casing;}
@@ -825,7 +825,7 @@ line|z14-[highway=bridleway]
 {color: @bridleway;opacity: 1;}
 line|z14-[highway=footway][sac_scale],
 line|z15-[highway=footway],
-line|z16-[highway=steps]
+line|z15-[highway=steps]
 {color: @footway;opacity: 1;}
 line|z16-[highway=pedestrian][tunnel?]
 {color: @unclassified_tunnel;casing-width: 1;casing-linecap: butt;casing-color: @unclassified_tunnel_casing;}
@@ -866,7 +866,7 @@ line|z13[highway=footway][bridge?]::bridgewhite,
 {casing-width: eval(prop("width")-0.2);}
 line|z14-[highway=pedestrian][bridge?]::bridgewhite,
 line|z14-[highway=footway][bridge?]::bridgewhite,
-line|z16-[highway=steps][bridge?]::bridgewhite,
+line|z15-[highway=steps][bridge?]::bridgewhite,
 line|z16-[highway=road][bridge?]::bridgewhite,
 line|z16-[highway=service][bridge?]::bridgewhite
 {casing-width: eval(prop("width"));}
@@ -876,7 +876,7 @@ line|z16-[highway=footway][bridge?]::bridgewhite
 
 line|z14-[highway=pedestrian][bridge?]::bridgeblack,
 line|z14-[highway=footway][bridge?]::bridgeblack,
-line|z16-[highway=steps][bridge?]::bridgeblack,
+line|z15-[highway=steps][bridge?]::bridgeblack,
 line|z16-[highway=road][bridge?]::bridgeblack,
 line|z16-[highway=service][bridge?]::bridgeblack
 {casing-width: eval(prop("width")+0.2);}
@@ -1029,14 +1029,16 @@ line|z19-[highway=bridleway]
 
 /* 8.10 Steps 16-22 ZOOM */
 
+line|z15[highway=steps]
+{width: 2.2;dashes: 1.5,1.5;}
 line|z16[highway=steps]
-{width: 5;dashes: 1.5,1.5;}
+{width: 4;dashes: 1.8,1.8;}
 line|z17[highway=steps]
-{width: 7;dashes: 2.3,2.3;}
+{width: 6;dashes: 2.5,2.5;}
 line|z18[highway=steps]
-{width: 9;dashes: 3.2,3.2;}
+{width: 8;dashes: 3.2,3.2;}
 line|z19-[highway=steps]
-{width: 11;dashes: 4,4;}
+{width: 10;dashes: 4,4;}
 
 /* 8.11 Runway 12-22 ZOOM */
 
