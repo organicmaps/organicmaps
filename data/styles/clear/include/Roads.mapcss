@@ -30,7 +30,7 @@
   8.4 Cycleway 13-22 ZOOM
   8.5 Construction & Proposed 13-22 ZOOM
   8.6 Track & Path 14-22 ZOOM
-  8.7 Footway 14-22 ZOOM
+  8.7 Footway 15-22 ZOOM
   8.8 Footway & Path tunnel 17-22 ZOOM
   8.9 Bridleway 14-22 ZOOM
   8.10 Steps 16-22 ZOOM
@@ -823,7 +823,8 @@ line|z14-[route=hiking],
 {color: @path;opacity: 1;}
 line|z14-[highway=bridleway]
 {color: @bridleway;opacity: 1;}
-line|z14-[highway=footway],
+line|z14-[highway=footway][sac_scale],
+line|z15-[highway=footway],
 line|z16-[highway=steps]
 {color: @footway;opacity: 1;}
 line|z16-[highway=pedestrian][tunnel?]
@@ -980,10 +981,11 @@ line|z19-[route=hiking]
 
 /* 8.7 Footway 14-22 ZOOM */
 
-line|z14[highway=footway]
+line|z14[highway=footway][sac_scale]
 {width: 1;dashes: 2.7,1.26;}
+
 line|z15[highway=footway]
-{width: 1.7;dashes: 2.7,1.26;}
+{width: 1.5;dashes: 2.7,1.26;}
 line|z16[highway=footway]
 {width: 2;dashes: 3.6,1.8;}
 line|z17[highway=footway]
