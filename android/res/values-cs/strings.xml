@@ -21,7 +21,7 @@
 	<string name="maps">Mapy</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Míle</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Moje poloha</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Později</string>
@@ -876,34 +876,51 @@
 	<string name="type.healthcare.laboratory">Lékařská laboratoř</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunel</string>
 	<string name="type.highway.bus_stop">Autobusová zastávka</string>
 	<string name="type.highway.construction">Silnice v rekonstrukci</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunel</string>
 	<string name="type.highway.footway">Cesta</string>
 	<string name="type.highway.footway.alpine_hiking">Cesta</string>
 	<string name="type.highway.footway.area">Cesta</string>
-	<string name="type.highway.footway.bridge">Cesta</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Most</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Cesta</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Cesta</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Cesta</string>
 	<string name="type.highway.footway.hiking">Cesta</string>
 	<string name="type.highway.footway.mountain_hiking">Cesta</string>
 	<string name="type.highway.footway.permissive">Cesta</string>
-	<string name="type.highway.footway.tunnel">Cesta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Brod</string>
 	<string name="type.highway.living_street">Ulice</string>
-	<string name="type.highway.living_street.bridge">Ulice</string>
-	<string name="type.highway.living_street.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tunel</string>
 	<string name="type.highway.motorway">Ulice</string>
-	<string name="type.highway.motorway.bridge">Ulice</string>
-	<string name="type.highway.motorway.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Tunel</string>
 	<string name="type.highway.motorway_junction">Dopravní uzel</string>
 	<string name="type.highway.motorway_link">Ulice</string>
-	<string name="type.highway.motorway_link.bridge">Ulice</string>
-	<string name="type.highway.motorway_link.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunel</string>
 	<string name="type.highway.path">Cesta</string>
 	<string name="type.highway.path.alpine_hiking">Cesta</string>
 	<string name="type.highway.path.bicycle">Cesta</string>
-	<string name="type.highway.path.bridge">Cesta</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Most</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Cesta</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Cesta</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Cesta</string>
@@ -911,51 +928,75 @@
 	<string name="type.highway.path.horse">Cesta</string>
 	<string name="type.highway.path.mountain_hiking">Cesta</string>
 	<string name="type.highway.path.permissive">Cesta</string>
-	<string name="type.highway.path.tunnel">Cesta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunel</string>
 	<string name="type.highway.pedestrian">Ulice</string>
 	<string name="type.highway.pedestrian.area">Ulice</string>
-	<string name="type.highway.pedestrian.bridge">Ulice</string>
-	<string name="type.highway.pedestrian.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Tunel</string>
 	<string name="type.highway.primary">Ulice</string>
-	<string name="type.highway.primary.bridge">Ulice</string>
-	<string name="type.highway.primary.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tunel</string>
 	<string name="type.highway.primary_link">Ulice</string>
-	<string name="type.highway.primary_link.bridge">Ulice</string>
-	<string name="type.highway.primary_link.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunel</string>
 	<string name="type.highway.raceway">Závodiště</string>
 	<string name="type.highway.residential">Ulice</string>
 	<string name="type.highway.residential.area">Ulice</string>
-	<string name="type.highway.residential.bridge">Ulice</string>
-	<string name="type.highway.residential.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tunel</string>
 	<string name="type.highway.rest_area">Odpočívadlo</string>
 	<string name="type.highway.road">Ulice</string>
-	<string name="type.highway.road.bridge">Ulice</string>
-	<string name="type.highway.road.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunel</string>
 	<string name="type.highway.secondary">Ulice</string>
-	<string name="type.highway.secondary.bridge">Ulice</string>
-	<string name="type.highway.secondary.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tunel</string>
 	<string name="type.highway.secondary_link">Ulice</string>
-	<string name="type.highway.secondary_link.bridge">Ulice</string>
-	<string name="type.highway.secondary_link.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tunel</string>
 	<string name="type.highway.service">Ulice</string>
 	<string name="type.highway.service.area">Ulice</string>
-	<string name="type.highway.service.bridge">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Most</string>
 	<string name="type.highway.service.driveway">Ulice</string>
 	<string name="type.highway.service.parking_aisle">Ulice</string>
-	<string name="type.highway.service.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tunel</string>
 	<string name="type.highway.speed_camera">Rychlostní kamera</string>
 	<string name="type.highway.steps">Cesta</string>
-	<string name="type.highway.steps.bridge">Cesta</string>
-	<string name="type.highway.steps.tunnel">Cesta</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunel</string>
 	<string name="type.highway.tertiary">Ulice</string>
-	<string name="type.highway.tertiary.bridge">Ulice</string>
-	<string name="type.highway.tertiary.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tunel</string>
 	<string name="type.highway.tertiary_link">Ulice</string>
-	<string name="type.highway.tertiary_link.bridge">Ulice</string>
-	<string name="type.highway.tertiary_link.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tunel</string>
 	<string name="type.highway.track">Ulice</string>
 	<string name="type.highway.track.area">Ulice</string>
-	<string name="type.highway.track.bridge">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Most</string>
 	<string name="type.highway.track.grade1">Ulice</string>
 	<string name="type.highway.track.grade2">Ulice</string>
 	<string name="type.highway.track.grade3">Ulice</string>
@@ -963,18 +1004,25 @@
 	<string name="type.highway.track.grade5">Ulice</string>
 	<string name="type.highway.track.no.access">Ulice</string>
 	<string name="type.highway.track.permissive">Ulice</string>
-	<string name="type.highway.track.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">Semafor</string>
 	<string name="type.highway.trunk">Ulice</string>
-	<string name="type.highway.trunk.bridge">Ulice</string>
-	<string name="type.highway.trunk.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tunel</string>
 	<string name="type.highway.trunk_link">Ulice</string>
-	<string name="type.highway.trunk_link.bridge">Ulice</string>
-	<string name="type.highway.trunk_link.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tunel</string>
 	<string name="type.highway.unclassified">Ulice</string>
 	<string name="type.highway.unclassified.area">Ulice</string>
-	<string name="type.highway.unclassified.bridge">Ulice</string>
-	<string name="type.highway.unclassified.tunnel">Ulice</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Most</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tunel</string>
 	<string name="type.area_highway.footway">Cesta</string>
 	<string name="type.area_highway.living_street">Ulice</string>
 	<string name="type.area_highway.motorway">Ulice</string>

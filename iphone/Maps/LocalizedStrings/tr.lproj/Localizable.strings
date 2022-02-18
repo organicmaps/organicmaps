@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mil";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Konumum";
 
 /* Update maps later/Buy pro version later button text */
@@ -788,7 +788,7 @@
 
 "refresh" = "Yenile";
 
-"placepage_add_place_button" = "Haritaya bir yer ekleyin";
+"placepage_add_place_button" = "Haritaya bir yer ekle";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Bunu tüm kullanıcılara göndermek ister misiniz?";
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Atlı Yolu";
 
-"type.highway.bridleway.bridge" = "Atlı Yolu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Köprü";
 
 "type.highway.bridleway.permissive" = "Atlı Yolu";
 
-"type.highway.bridleway.tunnel" = "Atlı Yolu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tünel";
 
 "type.highway.bus_stop" = "Otobüs Durağı";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Bisiklet Yolu";
 
-"type.highway.cycleway.bridge" = "Bisiklet Yolu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Köprü";
 
 "type.highway.cycleway.permissive" = "Bisiklet Yolu";
 
-"type.highway.cycleway.tunnel" = "Bisiklet Yolu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tünel";
 
 "type.highway.elevator" = "Asansör";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "Yaya Alanı";
 
-"type.highway.footway.bridge" = "Yaya Yolu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Köprü";
 
 "type.highway.footway.demanding_alpine_hiking" = "Yol";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "Yaya Yolu";
 
-"type.highway.footway.tunnel" = "Yaya Yolu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tünel";
 
 "type.highway.ford" = "Geçit";
 
 "type.highway.living_street" = "Cadde";
 
-"type.highway.living_street.bridge" = "Cadde";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Köprü";
 
-"type.highway.living_street.tunnel" = "Cadde";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tünel";
 
 "type.highway.motorway" = "Otoyol";
 
-"type.highway.motorway.bridge" = "Otoyol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Köprü";
 
-"type.highway.motorway.tunnel" = "Otoyol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tünel";
 
 "type.highway.motorway_junction" = "Çıkış";
 
 "type.highway.motorway_link" = "Otoyol Rampası";
 
-"type.highway.motorway_link.bridge" = "Otoyol Rampası";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Köprü";
 
-"type.highway.motorway_link.tunnel" = "Otoyol Rampası";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tünel";
 
 "type.highway.path" = "Yol";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "Bisiklet ve Yürüyüş Yolu";
 
-"type.highway.path.bridge" = "Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Köprü";
 
 "type.highway.path.demanding_alpine_hiking" = "Yol";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "Yol";
 
-"type.highway.path.tunnel" = "Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tünel";
 
 "type.highway.pedestrian" = "Yayalar için Cadde";
 
 "type.highway.pedestrian.area" = "Yaya Alanı";
 
-"type.highway.pedestrian.bridge" = "Yayalar için Cadde";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Köprü";
 
-"type.highway.pedestrian.tunnel" = "Yayalar için Cadde";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tünel";
 
 "type.highway.primary" = "Ana Yol";
 
-"type.highway.primary.bridge" = "Ana Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Köprü";
 
-"type.highway.primary.tunnel" = "Ana Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tünel";
 
 "type.highway.primary_link" = "Ana Yol";
 
-"type.highway.primary_link.bridge" = "Ana Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Köprü";
 
-"type.highway.primary_link.tunnel" = "Ana Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tünel";
 
 "type.highway.raceway" = "Yarış Pisti";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "Sokak";
 
-"type.highway.residential.bridge" = "Sokak";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Köprü";
 
-"type.highway.residential.tunnel" = "Sokak";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tünel";
 
 "type.highway.rest_area" = "Dinlenme Alanı";
 
 "type.highway.road" = "Yol";
 
-"type.highway.road.bridge" = "Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Köprü";
 
-"type.highway.road.tunnel" = "Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tünel";
 
 "type.highway.secondary" = "Tali Yol";
 
-"type.highway.secondary.bridge" = "Tali Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Köprü";
 
-"type.highway.secondary.tunnel" = "Tali Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tünel";
 
 "type.highway.secondary_link" = "Tali Yol";
 
-"type.highway.secondary_link.bridge" = "Tali Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Köprü";
 
-"type.highway.secondary_link.tunnel" = "Tali Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tünel";
 
 "type.highway.service" = "Servis Yolu";
 
 "type.highway.service.area" = "Servis Yolu";
 
-"type.highway.service.bridge" = "Servis Yolu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Köprü";
 
 "type.highway.service.driveway" = "Servis Yolu";
 
 "type.highway.service.parking_aisle" = "Park Koridoru";
 
-"type.highway.service.tunnel" = "Servis Yolu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tünel";
 
 "type.highway.services" = "Servis Alanı";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "Merdiven";
 
-"type.highway.steps.bridge" = "Merdiven";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Köprü";
 
-"type.highway.steps.tunnel" = "Merdiven";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tünel";
 
 "type.highway.tertiary" = "Üçüncül Yol";
 
-"type.highway.tertiary.bridge" = "Üçüncül Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Köprü";
 
-"type.highway.tertiary.tunnel" = "Üçüncül Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tünel";
 
 "type.highway.tertiary_link" = "Üçüncül Yol Rampası";
 
-"type.highway.tertiary_link.bridge" = "Üçüncül Yol Rampası";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Köprü";
 
-"type.highway.tertiary_link.tunnel" = "Üçüncül Yol Rampası";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tünel";
 
 "type.highway.track" = "Pist";
 
 "type.highway.track.area" = "Pist";
 
-"type.highway.track.bridge" = "Pist";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Köprü";
 
 "type.highway.track.grade1" = "Pist";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "Pist";
 
-"type.highway.track.tunnel" = "Pist";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tünel";
 
 "type.highway.traffic_signals" = "Trafik Işıkları";
 
 "type.highway.trunk" = "Devlet Yolu";
 
-"type.highway.trunk.bridge" = "Devlet Yolu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Köprü";
 
-"type.highway.trunk.tunnel" = "Devlet Yolu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tünel";
 
 "type.highway.trunk_link" = "Devlet Yolu";
 
-"type.highway.trunk_link.bridge" = "Devlet Yolu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Köprü";
 
-"type.highway.trunk_link.tunnel" = "Devlet Yolu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tünel";
 
 "type.highway.unclassified" = "Tali Yol";
 
 "type.highway.unclassified.area" = "Tali Yol";
 
-"type.highway.unclassified.bridge" = "Tali Yol";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Köprü";
 
-"type.highway.unclassified.tunnel" = "Tali Yol";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tünel";
 
 "type.area_highway.cycleway" = "Bisiklet Yolu";
 

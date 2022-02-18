@@ -23,7 +23,7 @@
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Konumum</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Daha sonra</string>
@@ -484,7 +484,7 @@
 	<string name="error_enter_correct_twitter_page">Geçerli bir Twitter web adresi veya kullanıcı adı girin</string>
 	<string name="error_enter_correct_vk_page">Geçerli bir VK web adresi veya hesap adı girin</string>
 	<string name="error_enter_correct_line_page">Geçerli bir LINE web adresi veya LINE ID\'si girin</string>
-	<string name="placepage_add_place_button">Haritaya bir yer ekleyin</string>
+	<string name="placepage_add_place_button">Haritaya bir yer ekle</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bunu tüm kullanıcılara göndermek ister misiniz?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
@@ -964,42 +964,55 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Otoyol</string>
 	<string name="type.highway.bridleway">Atlı Yolu</string>
-	<string name="type.highway.bridleway.bridge">Atlı Yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Köprü</string>
 	<string name="type.highway.bridleway.permissive">Atlı Yolu</string>
-	<string name="type.highway.bridleway.tunnel">Atlı Yolu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tünel</string>
 	<string name="type.highway.bus_stop">Otobüs Durağı</string>
 	<string name="type.highway.construction">Yapım Aşamasında Yol</string>
 	<string name="type.highway.cycleway">Bisiklet Yolu</string>
-	<string name="type.highway.cycleway.bridge">Bisiklet Yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Köprü</string>
 	<string name="type.highway.cycleway.permissive">Bisiklet Yolu</string>
-	<string name="type.highway.cycleway.tunnel">Bisiklet Yolu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tünel</string>
 	<string name="type.highway.elevator">Asansör</string>
 	<string name="type.highway.footway">Yaya Yolu</string>
 	<string name="type.highway.footway.alpine_hiking">Yol</string>
 	<string name="type.highway.footway.area">Yaya Alanı</string>
-	<string name="type.highway.footway.bridge">Yaya Yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Köprü</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Yol</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Yol</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Yol</string>
 	<string name="type.highway.footway.hiking">Yol</string>
 	<string name="type.highway.footway.mountain_hiking">Yol</string>
 	<string name="type.highway.footway.permissive">Yaya Yolu</string>
-	<string name="type.highway.footway.tunnel">Yaya Yolu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Tünel</string>
 	<string name="type.highway.ford">Geçit</string>
 	<string name="type.highway.living_street">Cadde</string>
-	<string name="type.highway.living_street.bridge">Cadde</string>
-	<string name="type.highway.living_street.tunnel">Cadde</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tünel</string>
 	<string name="type.highway.motorway">Otoyol</string>
-	<string name="type.highway.motorway.bridge">Otoyol</string>
-	<string name="type.highway.motorway.tunnel">Otoyol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Tünel</string>
 	<string name="type.highway.motorway_junction">Çıkış</string>
 	<string name="type.highway.motorway_link">Otoyol Rampası</string>
-	<string name="type.highway.motorway_link.bridge">Otoyol Rampası</string>
-	<string name="type.highway.motorway_link.tunnel">Otoyol Rampası</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tünel</string>
 	<string name="type.highway.path">Yol</string>
 	<string name="type.highway.path.alpine_hiking">Yol</string>
 	<string name="type.highway.path.bicycle">Bisiklet ve Yürüyüş Yolu</string>
-	<string name="type.highway.path.bridge">Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Köprü</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Yol</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Yol</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Yol</string>
@@ -1007,52 +1020,76 @@
 	<string name="type.highway.path.horse">Atlı Yolu</string>
 	<string name="type.highway.path.mountain_hiking">Yol</string>
 	<string name="type.highway.path.permissive">Yol</string>
-	<string name="type.highway.path.tunnel">Yol</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tünel</string>
 	<string name="type.highway.pedestrian">Yayalar için Cadde</string>
 	<string name="type.highway.pedestrian.area">Yaya Alanı</string>
-	<string name="type.highway.pedestrian.bridge">Yayalar için Cadde</string>
-	<string name="type.highway.pedestrian.tunnel">Yayalar için Cadde</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Tünel</string>
 	<string name="type.highway.primary">Ana Yol</string>
-	<string name="type.highway.primary.bridge">Ana Yol</string>
-	<string name="type.highway.primary.tunnel">Ana Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tünel</string>
 	<string name="type.highway.primary_link">Ana Yol</string>
-	<string name="type.highway.primary_link.bridge">Ana Yol</string>
-	<string name="type.highway.primary_link.tunnel">Ana Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tünel</string>
 	<string name="type.highway.raceway">Yarış Pisti</string>
 	<string name="type.highway.residential">Sokak</string>
 	<string name="type.highway.residential.area">Sokak</string>
-	<string name="type.highway.residential.bridge">Sokak</string>
-	<string name="type.highway.residential.tunnel">Sokak</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tünel</string>
 	<string name="type.highway.rest_area">Dinlenme Alanı</string>
 	<string name="type.highway.road">Yol</string>
-	<string name="type.highway.road.bridge">Yol</string>
-	<string name="type.highway.road.tunnel">Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tünel</string>
 	<string name="type.highway.secondary">Tali Yol</string>
-	<string name="type.highway.secondary.bridge">Tali Yol</string>
-	<string name="type.highway.secondary.tunnel">Tali Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tünel</string>
 	<string name="type.highway.secondary_link">Tali Yol</string>
-	<string name="type.highway.secondary_link.bridge">Tali Yol</string>
-	<string name="type.highway.secondary_link.tunnel">Tali Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tünel</string>
 	<string name="type.highway.service">Servis Yolu</string>
 	<string name="type.highway.service.area">Servis Yolu</string>
-	<string name="type.highway.service.bridge">Servis Yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Köprü</string>
 	<string name="type.highway.service.driveway">Servis Yolu</string>
 	<string name="type.highway.service.parking_aisle">Park Koridoru</string>
-	<string name="type.highway.service.tunnel">Servis Yolu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tünel</string>
 	<string name="type.highway.services">Servis Alanı</string>
 	<string name="type.highway.speed_camera">Hız Kamerası</string>
 	<string name="type.highway.steps">Merdiven</string>
-	<string name="type.highway.steps.bridge">Merdiven</string>
-	<string name="type.highway.steps.tunnel">Merdiven</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tünel</string>
 	<string name="type.highway.tertiary">Üçüncül Yol</string>
-	<string name="type.highway.tertiary.bridge">Üçüncül Yol</string>
-	<string name="type.highway.tertiary.tunnel">Üçüncül Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tünel</string>
 	<string name="type.highway.tertiary_link">Üçüncül Yol Rampası</string>
-	<string name="type.highway.tertiary_link.bridge">Üçüncül Yol Rampası</string>
-	<string name="type.highway.tertiary_link.tunnel">Üçüncül Yol Rampası</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tünel</string>
 	<string name="type.highway.track">Pist</string>
 	<string name="type.highway.track.area">Pist</string>
-	<string name="type.highway.track.bridge">Pist</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Köprü</string>
 	<string name="type.highway.track.grade1">Pist</string>
 	<string name="type.highway.track.grade2">Pist</string>
 	<string name="type.highway.track.grade3">Pist</string>
@@ -1060,18 +1097,25 @@
 	<string name="type.highway.track.grade5">Pist</string>
 	<string name="type.highway.track.no.access">Pist</string>
 	<string name="type.highway.track.permissive">Pist</string>
-	<string name="type.highway.track.tunnel">Pist</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tünel</string>
 	<string name="type.highway.traffic_signals">Trafik Işıkları</string>
 	<string name="type.highway.trunk">Devlet Yolu</string>
-	<string name="type.highway.trunk.bridge">Devlet Yolu</string>
-	<string name="type.highway.trunk.tunnel">Devlet Yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tünel</string>
 	<string name="type.highway.trunk_link">Devlet Yolu</string>
-	<string name="type.highway.trunk_link.bridge">Devlet Yolu</string>
-	<string name="type.highway.trunk_link.tunnel">Devlet Yolu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tünel</string>
 	<string name="type.highway.unclassified">Tali Yol</string>
 	<string name="type.highway.unclassified.area">Tali Yol</string>
-	<string name="type.highway.unclassified.bridge">Tali Yol</string>
-	<string name="type.highway.unclassified.tunnel">Tali Yol</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Köprü</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tünel</string>
 	<string name="type.area_highway.cycleway">Bisiklet Yolu</string>
 	<string name="type.area_highway.footway">Yaya Yolu</string>
 	<string name="type.area_highway.living_street">Cadde</string>

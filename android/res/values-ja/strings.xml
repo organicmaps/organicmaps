@@ -21,7 +21,7 @@
 	<string name="maps">マップ</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">マイル</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">現在地</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">次の機会に</string>
@@ -909,41 +909,54 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">道路</string>
 	<string name="type.highway.bridleway">馬道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">馬道(橋)</string>
 	<string name="type.highway.bridleway.permissive">馬道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">馬道(トンネル)</string>
 	<string name="type.highway.bus_stop">バス停</string>
 	<string name="type.highway.construction">工事中の道路</string>
 	<string name="type.highway.cycleway">自転車道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">自転車道(橋)</string>
 	<string name="type.highway.cycleway.permissive">自転車道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">自転車道(トンネル)</string>
 	<string name="type.highway.footway">歩道</string>
 	<string name="type.highway.footway.alpine_hiking">歩道</string>
 	<string name="type.highway.footway.area">歩道</string>
-	<string name="type.highway.footway.bridge">歩道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">橋</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">歩道</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">歩道</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">歩道</string>
 	<string name="type.highway.footway.hiking">歩道</string>
 	<string name="type.highway.footway.mountain_hiking">歩道</string>
 	<string name="type.highway.footway.permissive">歩道</string>
-	<string name="type.highway.footway.tunnel">歩道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">トンネル</string>
 	<string name="type.highway.ford">浅瀬</string>
 	<string name="type.highway.living_street">ストリート</string>
-	<string name="type.highway.living_street.bridge">ストリート</string>
-	<string name="type.highway.living_street.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">トンネル</string>
 	<string name="type.highway.motorway">ストリート</string>
-	<string name="type.highway.motorway.bridge">ストリート</string>
-	<string name="type.highway.motorway.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">トンネル</string>
 	<string name="type.highway.motorway_junction">ジャンクション</string>
 	<string name="type.highway.motorway_link">ストリート</string>
-	<string name="type.highway.motorway_link.bridge">ストリート</string>
-	<string name="type.highway.motorway_link.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">トンネル</string>
 	<string name="type.highway.path">歩道</string>
 	<string name="type.highway.path.alpine_hiking">歩道</string>
 	<string name="type.highway.path.bicycle">歩道</string>
-	<string name="type.highway.path.bridge">歩道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">橋</string>
 	<string name="type.highway.path.demanding_alpine_hiking">歩道</string>
 	<string name="type.highway.path.demanding_mountain_hiking">歩道</string>
 	<string name="type.highway.path.difficult_alpine_hiking">歩道</string>
@@ -951,52 +964,76 @@
 	<string name="type.highway.path.horse">歩道</string>
 	<string name="type.highway.path.mountain_hiking">歩道</string>
 	<string name="type.highway.path.permissive">歩道</string>
-	<string name="type.highway.path.tunnel">歩道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">トンネル</string>
 	<string name="type.highway.pedestrian">ストリート</string>
 	<string name="type.highway.pedestrian.area">ストリート</string>
-	<string name="type.highway.pedestrian.bridge">ストリート</string>
-	<string name="type.highway.pedestrian.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">トンネル</string>
 	<string name="type.highway.primary">ストリート</string>
-	<string name="type.highway.primary.bridge">ストリート</string>
-	<string name="type.highway.primary.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">トンネル</string>
 	<string name="type.highway.primary_link">ストリート</string>
-	<string name="type.highway.primary_link.bridge">ストリート</string>
-	<string name="type.highway.primary_link.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">トンネル</string>
 	<string name="type.highway.raceway">レース場</string>
 	<string name="type.highway.residential">ストリート</string>
 	<string name="type.highway.residential.area">ストリート</string>
-	<string name="type.highway.residential.bridge">ストリート</string>
-	<string name="type.highway.residential.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">トンネル</string>
 	<string name="type.highway.rest_area">休憩所</string>
 	<string name="type.highway.road">ストリート</string>
-	<string name="type.highway.road.bridge">ストリート</string>
-	<string name="type.highway.road.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">トンネル</string>
 	<string name="type.highway.secondary">ストリート</string>
-	<string name="type.highway.secondary.bridge">ストリート</string>
-	<string name="type.highway.secondary.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">トンネル</string>
 	<string name="type.highway.secondary_link">ストリート</string>
-	<string name="type.highway.secondary_link.bridge">ストリート</string>
-	<string name="type.highway.secondary_link.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">トンネル</string>
 	<string name="type.highway.service">ストリート</string>
 	<string name="type.highway.service.area">ストリート</string>
-	<string name="type.highway.service.bridge">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">橋</string>
 	<string name="type.highway.service.driveway">ストリート</string>
 	<string name="type.highway.service.parking_aisle">ストリート</string>
-	<string name="type.highway.service.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">トンネル</string>
 	<string name="type.highway.services">サービスエリア</string>
 	<string name="type.highway.speed_camera">自動速度違反取締装置</string>
 	<string name="type.highway.steps">歩道</string>
-	<string name="type.highway.steps.bridge">歩道</string>
-	<string name="type.highway.steps.tunnel">歩道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">トンネル</string>
 	<string name="type.highway.tertiary">ストリート</string>
-	<string name="type.highway.tertiary.bridge">ストリート</string>
-	<string name="type.highway.tertiary.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">トンネル</string>
 	<string name="type.highway.tertiary_link">ストリート</string>
-	<string name="type.highway.tertiary_link.bridge">ストリート</string>
-	<string name="type.highway.tertiary_link.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">トンネル</string>
 	<string name="type.highway.track">ストリート</string>
 	<string name="type.highway.track.area">ストリート</string>
-	<string name="type.highway.track.bridge">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">橋</string>
 	<string name="type.highway.track.grade1">ストリート</string>
 	<string name="type.highway.track.grade2">ストリート</string>
 	<string name="type.highway.track.grade3">ストリート</string>
@@ -1004,18 +1041,25 @@
 	<string name="type.highway.track.grade5">ストリート</string>
 	<string name="type.highway.track.no.access">ストリート</string>
 	<string name="type.highway.track.permissive">ストリート</string>
-	<string name="type.highway.track.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">トンネル</string>
 	<string name="type.highway.traffic_signals">交通信号</string>
 	<string name="type.highway.trunk">ストリート</string>
-	<string name="type.highway.trunk.bridge">ストリート</string>
-	<string name="type.highway.trunk.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">トンネル</string>
 	<string name="type.highway.trunk_link">ストリート</string>
-	<string name="type.highway.trunk_link.bridge">ストリート</string>
-	<string name="type.highway.trunk_link.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">トンネル</string>
 	<string name="type.highway.unclassified">ストリート</string>
 	<string name="type.highway.unclassified.area">ストリート</string>
-	<string name="type.highway.unclassified.bridge">ストリート</string>
-	<string name="type.highway.unclassified.tunnel">ストリート</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">トンネル</string>
 	<string name="type.area_highway.cycleway">自転車道</string>
 	<string name="type.area_highway.footway">歩道</string>
 	<string name="type.area_highway.living_street">ストリート</string>

@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Dặm";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Vị trí của Tôi";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Cầu";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Đường hầm";
 
 "type.highway.bus_stop" = "Bến xe buýt";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Cầu";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Đường hầm";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "Đường";
 
-"type.highway.footway.bridge" = "Đường";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Cầu";
 
 "type.highway.footway.demanding_alpine_hiking" = "Đường";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "Đường";
 
-"type.highway.footway.tunnel" = "Đường";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Đường hầm";
 
 "type.highway.ford" = "Đập tràn";
 
 "type.highway.living_street" = "Phố";
 
-"type.highway.living_street.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Cầu";
 
-"type.highway.living_street.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Đường hầm";
 
 "type.highway.motorway" = "Phố";
 
-"type.highway.motorway.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Cầu";
 
-"type.highway.motorway.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Đường hầm";
 
 "type.highway.motorway_junction" = "Lối ra";
 
 "type.highway.motorway_link" = "Phố";
 
-"type.highway.motorway_link.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Cầu";
 
-"type.highway.motorway_link.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Đường hầm";
 
 "type.highway.path" = "Đường";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "Đường";
 
-"type.highway.path.bridge" = "Đường";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Cầu";
 
 "type.highway.path.demanding_alpine_hiking" = "Đường";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "Đường";
 
-"type.highway.path.tunnel" = "Đường";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Đường hầm";
 
 "type.highway.pedestrian" = "Phố";
 
 "type.highway.pedestrian.area" = "Phố";
 
-"type.highway.pedestrian.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Cầu";
 
-"type.highway.pedestrian.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Đường hầm";
 
 "type.highway.primary" = "Phố";
 
-"type.highway.primary.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Cầu";
 
-"type.highway.primary.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Đường hầm";
 
 "type.highway.primary_link" = "Phố";
 
-"type.highway.primary_link.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Cầu";
 
-"type.highway.primary_link.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Đường hầm";
 
 "type.highway.raceway" = "Đường đua";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "Phố";
 
-"type.highway.residential.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Cầu";
 
-"type.highway.residential.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Đường hầm";
 
 "type.highway.rest_area" = "Khu Vực Thụt Vào Để Đỗ Xe";
 
 "type.highway.road" = "Phố";
 
-"type.highway.road.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Cầu";
 
-"type.highway.road.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Đường hầm";
 
 "type.highway.secondary" = "Phố";
 
-"type.highway.secondary.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Cầu";
 
-"type.highway.secondary.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Đường hầm";
 
 "type.highway.secondary_link" = "Phố";
 
-"type.highway.secondary_link.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Cầu";
 
-"type.highway.secondary_link.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Đường hầm";
 
 "type.highway.service" = "Phố";
 
 "type.highway.service.area" = "Phố";
 
-"type.highway.service.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Cầu";
 
 "type.highway.service.driveway" = "Phố";
 
 "type.highway.service.parking_aisle" = "Phố";
 
-"type.highway.service.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Đường hầm";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "Đường";
 
-"type.highway.steps.bridge" = "Đường";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Cầu";
 
-"type.highway.steps.tunnel" = "Đường";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Đường hầm";
 
 "type.highway.tertiary" = "Phố";
 
-"type.highway.tertiary.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Cầu";
 
-"type.highway.tertiary.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Đường hầm";
 
 "type.highway.tertiary_link" = "Phố";
 
-"type.highway.tertiary_link.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Cầu";
 
-"type.highway.tertiary_link.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Đường hầm";
 
 "type.highway.track" = "Phố";
 
 "type.highway.track.area" = "Phố";
 
-"type.highway.track.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Cầu";
 
 "type.highway.track.grade1" = "Phố";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "Phố";
 
-"type.highway.track.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Đường hầm";
 
 "type.highway.traffic_signals" = "Đèn Giao Thông";
 
 "type.highway.trunk" = "Phố";
 
-"type.highway.trunk.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Cầu";
 
-"type.highway.trunk.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Đường hầm";
 
 "type.highway.trunk_link" = "Phố";
 
-"type.highway.trunk_link.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Cầu";
 
-"type.highway.trunk_link.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Đường hầm";
 
 "type.highway.unclassified" = "Phố";
 
 "type.highway.unclassified.area" = "Phố";
 
-"type.highway.unclassified.bridge" = "Phố";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Cầu";
 
-"type.highway.unclassified.tunnel" = "Phố";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Đường hầm";
 
 "type.area_highway.cycleway" = "Cycle Path";
 

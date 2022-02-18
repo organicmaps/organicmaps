@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "英哩";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "我的位置";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "橋";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "隧道";
 
 "type.highway.bus_stop" = "巴士站";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "橋";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "隧道";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "人行步道";
 
-"type.highway.footway.bridge" = "人行步道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "橋";
 
 "type.highway.footway.demanding_alpine_hiking" = "人行步道";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "人行步道";
 
-"type.highway.footway.tunnel" = "人行步道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "隧道";
 
 "type.highway.ford" = "淺灘";
 
 "type.highway.living_street" = "路";
 
-"type.highway.living_street.bridge" = "路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "橋";
 
-"type.highway.living_street.tunnel" = "路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "隧道";
 
 "type.highway.motorway" = "高速公路";
 
-"type.highway.motorway.bridge" = "高速公路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "橋";
 
-"type.highway.motorway.tunnel" = "高速公路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "隧道";
 
 "type.highway.motorway_junction" = "交流道";
 
 "type.highway.motorway_link" = "高速公路連接路";
 
-"type.highway.motorway_link.bridge" = "高速公路連接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "橋";
 
-"type.highway.motorway_link.tunnel" = "高速公路連接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "隧道";
 
 "type.highway.path" = "人行步道";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "人行步道";
 
-"type.highway.path.bridge" = "人行步道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "橋";
 
 "type.highway.path.demanding_alpine_hiking" = "人行步道";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "人行步道";
 
-"type.highway.path.tunnel" = "人行步道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "隧道";
 
 "type.highway.pedestrian" = "路";
 
 "type.highway.pedestrian.area" = "路";
 
-"type.highway.pedestrian.bridge" = "路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "橋";
 
-"type.highway.pedestrian.tunnel" = "路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "隧道";
 
 "type.highway.primary" = "主要道路";
 
-"type.highway.primary.bridge" = "主要道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "橋";
 
-"type.highway.primary.tunnel" = "主要道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "隧道";
 
 "type.highway.primary_link" = "主要道路連接路";
 
-"type.highway.primary_link.bridge" = "主要道路連接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "橋";
 
-"type.highway.primary_link.tunnel" = "主要道路連接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "隧道";
 
 "type.highway.raceway" = "跑道";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "住宅區道路";
 
-"type.highway.residential.bridge" = "住宅區道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "橋";
 
-"type.highway.residential.tunnel" = "住宅區道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "隧道";
 
 "type.highway.rest_area" = "休息區";
 
 "type.highway.road" = "道路";
 
-"type.highway.road.bridge" = "道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "橋";
 
-"type.highway.road.tunnel" = "道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "隧道";
 
 "type.highway.secondary" = "次要道路";
 
-"type.highway.secondary.bridge" = "次要道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "橋";
 
-"type.highway.secondary.tunnel" = "次要道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "隧道";
 
 "type.highway.secondary_link" = "次要道路連接路";
 
-"type.highway.secondary_link.bridge" = "次要道路連接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "橋";
 
-"type.highway.secondary_link.tunnel" = "次要道路連接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "隧道";
 
 "type.highway.service" = "輔助道路";
 
 "type.highway.service.area" = "輔助道路";
 
-"type.highway.service.bridge" = "輔助道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "橋";
 
 "type.highway.service.driveway" = "車道";
 
 "type.highway.service.parking_aisle" = "停車場通道";
 
-"type.highway.service.tunnel" = "輔助道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "隧道";
 
 "type.highway.services" = "服務區";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "人行步道";
 
-"type.highway.steps.bridge" = "人行步道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "橋";
 
-"type.highway.steps.tunnel" = "人行步道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "隧道";
 
 "type.highway.tertiary" = "三级道路";
 
-"type.highway.tertiary.bridge" = "三级道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "橋";
 
-"type.highway.tertiary.tunnel" = "三级道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "隧道";
 
 "type.highway.tertiary_link" = "三级道路連接路";
 
-"type.highway.tertiary_link.bridge" = "三级道路連接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "橋";
 
-"type.highway.tertiary_link.tunnel" = "三级道路連接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "隧道";
 
 "type.highway.track" = "土路";
 
 "type.highway.track.area" = "土路";
 
-"type.highway.track.bridge" = "土路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "橋";
 
 "type.highway.track.grade1" = "土路";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "土路";
 
-"type.highway.track.tunnel" = "土路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "隧道";
 
 "type.highway.traffic_signals" = "紅綠燈";
 
 "type.highway.trunk" = "主幹道";
 
-"type.highway.trunk.bridge" = "主幹道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "橋";
 
-"type.highway.trunk.tunnel" = "主幹道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "隧道";
 
 "type.highway.trunk_link" = "主幹道連接路";
 
-"type.highway.trunk_link.bridge" = "主幹道連接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "橋";
 
-"type.highway.trunk_link.tunnel" = "主幹道連接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "隧道";
 
 "type.highway.unclassified" = "道路";
 
 "type.highway.unclassified.area" = "道路";
 
-"type.highway.unclassified.bridge" = "道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "橋";
 
-"type.highway.unclassified.tunnel" = "道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "隧道";
 
 "type.area_highway.cycleway" = "Cycle Path";
 

@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mil";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Posisi Saya";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Menjembatani";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Terowongan";
 
 "type.highway.bus_stop" = "Halte bus";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Menjembatani";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Terowongan";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "Jalur";
 
-"type.highway.footway.bridge" = "Jalur";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Menjembatani";
 
 "type.highway.footway.demanding_alpine_hiking" = "Jalur";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "Jalur";
 
-"type.highway.footway.tunnel" = "Jalur";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Terowongan";
 
 "type.highway.ford" = "Menyeberang";
 
 "type.highway.living_street" = "Jalan";
 
-"type.highway.living_street.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Menjembatani";
 
-"type.highway.living_street.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Terowongan";
 
 "type.highway.motorway" = "Jalan";
 
-"type.highway.motorway.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Menjembatani";
 
-"type.highway.motorway.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Terowongan";
 
 "type.highway.motorway_junction" = "Keluar";
 
 "type.highway.motorway_link" = "Jalan";
 
-"type.highway.motorway_link.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Menjembatani";
 
-"type.highway.motorway_link.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Terowongan";
 
 "type.highway.path" = "Jalur";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "Jalur";
 
-"type.highway.path.bridge" = "Jalur";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Menjembatani";
 
 "type.highway.path.demanding_alpine_hiking" = "Jalur";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "Jalur";
 
-"type.highway.path.tunnel" = "Jalur";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Terowongan";
 
 "type.highway.pedestrian" = "Jalan";
 
 "type.highway.pedestrian.area" = "Jalan";
 
-"type.highway.pedestrian.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Menjembatani";
 
-"type.highway.pedestrian.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Terowongan";
 
 "type.highway.primary" = "Jalan";
 
-"type.highway.primary.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Menjembatani";
 
-"type.highway.primary.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Terowongan";
 
 "type.highway.primary_link" = "Jalan";
 
-"type.highway.primary_link.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Menjembatani";
 
-"type.highway.primary_link.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Terowongan";
 
 "type.highway.raceway" = "Lintasan balap";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "Jalan";
 
-"type.highway.residential.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Menjembatani";
 
-"type.highway.residential.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Terowongan";
 
 "type.highway.rest_area" = "Tempat istirahat";
 
 "type.highway.road" = "Jalan";
 
-"type.highway.road.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Menjembatani";
 
-"type.highway.road.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Terowongan";
 
 "type.highway.secondary" = "Jalan";
 
-"type.highway.secondary.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Menjembatani";
 
-"type.highway.secondary.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Terowongan";
 
 "type.highway.secondary_link" = "Jalan";
 
-"type.highway.secondary_link.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Menjembatani";
 
-"type.highway.secondary_link.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Terowongan";
 
 "type.highway.service" = "Jalan";
 
 "type.highway.service.area" = "Jalan";
 
-"type.highway.service.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Menjembatani";
 
 "type.highway.service.driveway" = "Jalan";
 
 "type.highway.service.parking_aisle" = "Jalan";
 
-"type.highway.service.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Terowongan";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "Jalur";
 
-"type.highway.steps.bridge" = "Jalur";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Menjembatani";
 
-"type.highway.steps.tunnel" = "Jalur";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Terowongan";
 
 "type.highway.tertiary" = "Jalan";
 
-"type.highway.tertiary.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Menjembatani";
 
-"type.highway.tertiary.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Terowongan";
 
 "type.highway.tertiary_link" = "Jalan";
 
-"type.highway.tertiary_link.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Menjembatani";
 
-"type.highway.tertiary_link.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Terowongan";
 
 "type.highway.track" = "Jalan";
 
 "type.highway.track.area" = "Jalan";
 
-"type.highway.track.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Menjembatani";
 
 "type.highway.track.grade1" = "Jalan";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "Jalan";
 
-"type.highway.track.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Terowongan";
 
 "type.highway.traffic_signals" = "Lampu lalu lintas";
 
 "type.highway.trunk" = "Jalan";
 
-"type.highway.trunk.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Menjembatani";
 
-"type.highway.trunk.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Terowongan";
 
 "type.highway.trunk_link" = "Jalan";
 
-"type.highway.trunk_link.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Menjembatani";
 
-"type.highway.trunk_link.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Terowongan";
 
 "type.highway.unclassified" = "Jalan";
 
 "type.highway.unclassified.area" = "Jalan";
 
-"type.highway.unclassified.bridge" = "Jalan";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Menjembatani";
 
-"type.highway.unclassified.tunnel" = "Jalan";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Terowongan";
 
 "type.area_highway.cycleway" = "Cycle Path";
 

@@ -22,7 +22,7 @@
 	<string name="gb">GB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Μίλια</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Η θέση μου</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Αργότερα</string>
@@ -877,34 +877,51 @@
 	<string name="type.healthcare.laboratory">Ιατρικό Εργαστήριο</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Σήραγγα</string>
 	<string name="type.highway.bus_stop">Στάση λεωφορείου</string>
 	<string name="type.highway.construction">Οδός υπό κατασκευή</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Σήραγγα</string>
 	<string name="type.highway.footway">Διαδρομή</string>
 	<string name="type.highway.footway.alpine_hiking">Διαδρομή</string>
 	<string name="type.highway.footway.area">Διαδρομή</string>
-	<string name="type.highway.footway.bridge">Διαδρομή</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Γέφυρα</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Διαδρομή</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Διαδρομή</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Διαδρομή</string>
 	<string name="type.highway.footway.hiking">Διαδρομή</string>
 	<string name="type.highway.footway.mountain_hiking">Διαδρομή</string>
 	<string name="type.highway.footway.permissive">Διαδρομή</string>
-	<string name="type.highway.footway.tunnel">Διαδρομή</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Σήραγγα</string>
 	<string name="type.highway.ford">Πέρασμα</string>
 	<string name="type.highway.living_street">Οδός</string>
-	<string name="type.highway.living_street.bridge">Οδός</string>
-	<string name="type.highway.living_street.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Σήραγγα</string>
 	<string name="type.highway.motorway">Οδός</string>
-	<string name="type.highway.motorway.bridge">Οδός</string>
-	<string name="type.highway.motorway.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Σήραγγα</string>
 	<string name="type.highway.motorway_junction">Έξοδος</string>
 	<string name="type.highway.motorway_link">Οδός</string>
-	<string name="type.highway.motorway_link.bridge">Οδός</string>
-	<string name="type.highway.motorway_link.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Σήραγγα</string>
 	<string name="type.highway.path">Διαδρομή</string>
 	<string name="type.highway.path.alpine_hiking">Διαδρομή</string>
 	<string name="type.highway.path.bicycle">Διαδρομή</string>
-	<string name="type.highway.path.bridge">Διαδρομή</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Γέφυρα</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Διαδρομή</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Διαδρομή</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Διαδρομή</string>
@@ -912,51 +929,75 @@
 	<string name="type.highway.path.horse">Διαδρομή</string>
 	<string name="type.highway.path.mountain_hiking">Διαδρομή</string>
 	<string name="type.highway.path.permissive">Διαδρομή</string>
-	<string name="type.highway.path.tunnel">Διαδρομή</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Σήραγγα</string>
 	<string name="type.highway.pedestrian">Οδός</string>
 	<string name="type.highway.pedestrian.area">Οδός</string>
-	<string name="type.highway.pedestrian.bridge">Οδός</string>
-	<string name="type.highway.pedestrian.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Σήραγγα</string>
 	<string name="type.highway.primary">Οδός</string>
-	<string name="type.highway.primary.bridge">Οδός</string>
-	<string name="type.highway.primary.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Σήραγγα</string>
 	<string name="type.highway.primary_link">Οδός</string>
-	<string name="type.highway.primary_link.bridge">Οδός</string>
-	<string name="type.highway.primary_link.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Σήραγγα</string>
 	<string name="type.highway.raceway">Πίστα αγώνων</string>
 	<string name="type.highway.residential">Οδός</string>
 	<string name="type.highway.residential.area">Οδός</string>
-	<string name="type.highway.residential.bridge">Οδός</string>
-	<string name="type.highway.residential.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Σήραγγα</string>
 	<string name="type.highway.rest_area">Χώρος ανάπαυσης αυτοκινητιστών</string>
 	<string name="type.highway.road">Οδός</string>
-	<string name="type.highway.road.bridge">Οδός</string>
-	<string name="type.highway.road.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Σήραγγα</string>
 	<string name="type.highway.secondary">Οδός</string>
-	<string name="type.highway.secondary.bridge">Οδός</string>
-	<string name="type.highway.secondary.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Σήραγγα</string>
 	<string name="type.highway.secondary_link">Οδός</string>
-	<string name="type.highway.secondary_link.bridge">Οδός</string>
-	<string name="type.highway.secondary_link.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Σήραγγα</string>
 	<string name="type.highway.service">Οδός</string>
 	<string name="type.highway.service.area">Οδός</string>
-	<string name="type.highway.service.bridge">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Γέφυρα</string>
 	<string name="type.highway.service.driveway">Οδός</string>
 	<string name="type.highway.service.parking_aisle">Οδός</string>
-	<string name="type.highway.service.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Σήραγγα</string>
 	<string name="type.highway.speed_camera">Κάμερα ταχύτητας</string>
 	<string name="type.highway.steps">Διαδρομή</string>
-	<string name="type.highway.steps.bridge">Διαδρομή</string>
-	<string name="type.highway.steps.tunnel">Διαδρομή</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Σήραγγα</string>
 	<string name="type.highway.tertiary">Οδός</string>
-	<string name="type.highway.tertiary.bridge">Οδός</string>
-	<string name="type.highway.tertiary.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Σήραγγα</string>
 	<string name="type.highway.tertiary_link">Οδός</string>
-	<string name="type.highway.tertiary_link.bridge">Οδός</string>
-	<string name="type.highway.tertiary_link.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Σήραγγα</string>
 	<string name="type.highway.track">Οδός</string>
 	<string name="type.highway.track.area">Οδός</string>
-	<string name="type.highway.track.bridge">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Γέφυρα</string>
 	<string name="type.highway.track.grade1">Οδός</string>
 	<string name="type.highway.track.grade2">Οδός</string>
 	<string name="type.highway.track.grade3">Οδός</string>
@@ -964,18 +1005,25 @@
 	<string name="type.highway.track.grade5">Οδός</string>
 	<string name="type.highway.track.no.access">Οδός</string>
 	<string name="type.highway.track.permissive">Οδός</string>
-	<string name="type.highway.track.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Σήραγγα</string>
 	<string name="type.highway.traffic_signals">Φανάρια κυκλοφορίας</string>
 	<string name="type.highway.trunk">Οδός</string>
-	<string name="type.highway.trunk.bridge">Οδός</string>
-	<string name="type.highway.trunk.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Σήραγγα</string>
 	<string name="type.highway.trunk_link">Οδός</string>
-	<string name="type.highway.trunk_link.bridge">Οδός</string>
-	<string name="type.highway.trunk_link.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Σήραγγα</string>
 	<string name="type.highway.unclassified">Οδός</string>
 	<string name="type.highway.unclassified.area">Οδός</string>
-	<string name="type.highway.unclassified.bridge">Οδός</string>
-	<string name="type.highway.unclassified.tunnel">Οδός</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Γέφυρα</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Σήραγγα</string>
 	<string name="type.area_highway.footway">Διαδρομή</string>
 	<string name="type.area_highway.living_street">Οδός</string>
 	<string name="type.area_highway.motorway">Οδός</string>

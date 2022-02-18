@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "マイル";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "現在地";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,10 +1765,12 @@
 
 "type.highway.bridleway" = "馬道";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "馬道(橋)";
 
 "type.highway.bridleway.permissive" = "馬道";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "馬道(トンネル)";
 
 "type.highway.bus_stop" = "バス停";
@@ -1777,10 +1779,12 @@
 
 "type.highway.cycleway" = "自転車道";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "自転車道(橋)";
 
 "type.highway.cycleway.permissive" = "自転車道";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "自転車道(トンネル)";
 
 "type.highway.elevator" = "Elevator";
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "歩道";
 
-"type.highway.footway.bridge" = "歩道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "橋";
 
 "type.highway.footway.demanding_alpine_hiking" = "歩道";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "歩道";
 
-"type.highway.footway.tunnel" = "歩道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "トンネル";
 
 "type.highway.ford" = "浅瀬";
 
 "type.highway.living_street" = "ストリート";
 
-"type.highway.living_street.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "橋";
 
-"type.highway.living_street.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "トンネル";
 
 "type.highway.motorway" = "ストリート";
 
-"type.highway.motorway.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "橋";
 
-"type.highway.motorway.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "トンネル";
 
 "type.highway.motorway_junction" = "ジャンクション";
 
 "type.highway.motorway_link" = "ストリート";
 
-"type.highway.motorway_link.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "橋";
 
-"type.highway.motorway_link.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "トンネル";
 
 "type.highway.path" = "歩道";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "歩道";
 
-"type.highway.path.bridge" = "歩道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "橋";
 
 "type.highway.path.demanding_alpine_hiking" = "歩道";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "歩道";
 
-"type.highway.path.tunnel" = "歩道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "トンネル";
 
 "type.highway.pedestrian" = "ストリート";
 
 "type.highway.pedestrian.area" = "ストリート";
 
-"type.highway.pedestrian.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "橋";
 
-"type.highway.pedestrian.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "トンネル";
 
 "type.highway.primary" = "ストリート";
 
-"type.highway.primary.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "橋";
 
-"type.highway.primary.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "トンネル";
 
 "type.highway.primary_link" = "ストリート";
 
-"type.highway.primary_link.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "橋";
 
-"type.highway.primary_link.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "トンネル";
 
 "type.highway.raceway" = "レース場";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "ストリート";
 
-"type.highway.residential.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "橋";
 
-"type.highway.residential.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "トンネル";
 
 "type.highway.rest_area" = "休憩所";
 
 "type.highway.road" = "ストリート";
 
-"type.highway.road.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "橋";
 
-"type.highway.road.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "トンネル";
 
 "type.highway.secondary" = "ストリート";
 
-"type.highway.secondary.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "橋";
 
-"type.highway.secondary.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "トンネル";
 
 "type.highway.secondary_link" = "ストリート";
 
-"type.highway.secondary_link.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "橋";
 
-"type.highway.secondary_link.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "トンネル";
 
 "type.highway.service" = "ストリート";
 
 "type.highway.service.area" = "ストリート";
 
-"type.highway.service.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "橋";
 
 "type.highway.service.driveway" = "ストリート";
 
 "type.highway.service.parking_aisle" = "ストリート";
 
-"type.highway.service.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "トンネル";
 
 "type.highway.services" = "サービスエリア";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "歩道";
 
-"type.highway.steps.bridge" = "歩道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "橋";
 
-"type.highway.steps.tunnel" = "歩道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "トンネル";
 
 "type.highway.tertiary" = "ストリート";
 
-"type.highway.tertiary.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "橋";
 
-"type.highway.tertiary.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "トンネル";
 
 "type.highway.tertiary_link" = "ストリート";
 
-"type.highway.tertiary_link.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "橋";
 
-"type.highway.tertiary_link.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "トンネル";
 
 "type.highway.track" = "ストリート";
 
 "type.highway.track.area" = "ストリート";
 
-"type.highway.track.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "橋";
 
 "type.highway.track.grade1" = "ストリート";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "ストリート";
 
-"type.highway.track.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "トンネル";
 
 "type.highway.traffic_signals" = "交通信号";
 
 "type.highway.trunk" = "ストリート";
 
-"type.highway.trunk.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "橋";
 
-"type.highway.trunk.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "トンネル";
 
 "type.highway.trunk_link" = "ストリート";
 
-"type.highway.trunk_link.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "橋";
 
-"type.highway.trunk_link.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "トンネル";
 
 "type.highway.unclassified" = "ストリート";
 
 "type.highway.unclassified.area" = "ストリート";
 
-"type.highway.unclassified.bridge" = "ストリート";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "橋";
 
-"type.highway.unclassified.tunnel" = "ストリート";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "トンネル";
 
 "type.area_highway.cycleway" = "自転車道";
 

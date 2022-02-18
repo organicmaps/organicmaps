@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Miles";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Min posisjon";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Bridge";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunnel";
 
 "type.highway.bus_stop" = "Busstopp";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Bridge";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunnel";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "Sti";
 
-"type.highway.footway.bridge" = "Sti";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Bridge";
 
 "type.highway.footway.demanding_alpine_hiking" = "Sti";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "Sti";
 
-"type.highway.footway.tunnel" = "Sti";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunnel";
 
 "type.highway.ford" = "Vadested";
 
 "type.highway.living_street" = "Gate";
 
-"type.highway.living_street.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Bridge";
 
-"type.highway.living_street.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunnel";
 
 "type.highway.motorway" = "Gate";
 
-"type.highway.motorway.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Bridge";
 
-"type.highway.motorway.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunnel";
 
 "type.highway.motorway_junction" = "Utgang";
 
 "type.highway.motorway_link" = "Gate";
 
-"type.highway.motorway_link.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Bridge";
 
-"type.highway.motorway_link.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunnel";
 
 "type.highway.path" = "Sti";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "Sti";
 
-"type.highway.path.bridge" = "Sti";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Bridge";
 
 "type.highway.path.demanding_alpine_hiking" = "Sti";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "Sti";
 
-"type.highway.path.tunnel" = "Sti";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunnel";
 
 "type.highway.pedestrian" = "Gate";
 
 "type.highway.pedestrian.area" = "Gate";
 
-"type.highway.pedestrian.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Bridge";
 
-"type.highway.pedestrian.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunnel";
 
 "type.highway.primary" = "Gate";
 
-"type.highway.primary.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Bridge";
 
-"type.highway.primary.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunnel";
 
 "type.highway.primary_link" = "Gate";
 
-"type.highway.primary_link.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Bridge";
 
-"type.highway.primary_link.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunnel";
 
 "type.highway.raceway" = "Løpebane";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "Gate";
 
-"type.highway.residential.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Bridge";
 
-"type.highway.residential.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunnel";
 
 "type.highway.rest_area" = "Rasteplass";
 
 "type.highway.road" = "Gate";
 
-"type.highway.road.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Bridge";
 
-"type.highway.road.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunnel";
 
 "type.highway.secondary" = "Gate";
 
-"type.highway.secondary.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Bridge";
 
-"type.highway.secondary.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunnel";
 
 "type.highway.secondary_link" = "Gate";
 
-"type.highway.secondary_link.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Bridge";
 
-"type.highway.secondary_link.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunnel";
 
 "type.highway.service" = "Gate";
 
 "type.highway.service.area" = "Gate";
 
-"type.highway.service.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Bridge";
 
 "type.highway.service.driveway" = "Gate";
 
 "type.highway.service.parking_aisle" = "Gate";
 
-"type.highway.service.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunnel";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "Sti";
 
-"type.highway.steps.bridge" = "Sti";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Bridge";
 
-"type.highway.steps.tunnel" = "Sti";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunnel";
 
 "type.highway.tertiary" = "Gate";
 
-"type.highway.tertiary.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Bridge";
 
-"type.highway.tertiary.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunnel";
 
 "type.highway.tertiary_link" = "Gate";
 
-"type.highway.tertiary_link.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Bridge";
 
-"type.highway.tertiary_link.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunnel";
 
 "type.highway.track" = "Gate";
 
 "type.highway.track.area" = "Gate";
 
-"type.highway.track.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Bridge";
 
 "type.highway.track.grade1" = "Gate";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "Gate";
 
-"type.highway.track.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunnel";
 
 "type.highway.traffic_signals" = "Trafikklys";
 
 "type.highway.trunk" = "Gate";
 
-"type.highway.trunk.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Bridge";
 
-"type.highway.trunk.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunnel";
 
 "type.highway.trunk_link" = "Gate";
 
-"type.highway.trunk_link.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Bridge";
 
-"type.highway.trunk_link.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunnel";
 
 "type.highway.unclassified" = "Gate";
 
 "type.highway.unclassified.area" = "Gate";
 
-"type.highway.unclassified.bridge" = "Gate";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Bridge";
 
-"type.highway.unclassified.tunnel" = "Gate";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunnel";
 
 "type.area_highway.cycleway" = "Cycle Path";
 

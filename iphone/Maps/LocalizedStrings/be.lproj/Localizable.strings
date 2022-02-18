@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Мілі";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Маё месцазнаходжанне";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Мост";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Тунэль";
 
 "type.highway.bus_stop" = "Bus Stop";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Мост";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Тунэль";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "Foot Path";
 
-"type.highway.footway.bridge" = "Foot Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Мост";
 
 "type.highway.footway.demanding_alpine_hiking" = "Path";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "Foot Path";
 
-"type.highway.footway.tunnel" = "Foot Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Тунэль";
 
 "type.highway.ford" = "Ford";
 
 "type.highway.living_street" = "Living Street";
 
-"type.highway.living_street.bridge" = "Living Street";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Мост";
 
-"type.highway.living_street.tunnel" = "Living Street";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Тунэль";
 
 "type.highway.motorway" = "Motorway";
 
-"type.highway.motorway.bridge" = "Motorway";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Мост";
 
-"type.highway.motorway.tunnel" = "Motorway";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Тунэль";
 
 "type.highway.motorway_junction" = "Road Exit";
 
 "type.highway.motorway_link" = "Motorway";
 
-"type.highway.motorway_link.bridge" = "Motorway";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Мост";
 
-"type.highway.motorway_link.tunnel" = "Motorway";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Тунэль";
 
 "type.highway.path" = "Path";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "Path";
 
-"type.highway.path.bridge" = "Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Мост";
 
 "type.highway.path.demanding_alpine_hiking" = "Path";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "Path";
 
-"type.highway.path.tunnel" = "Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Тунэль";
 
 "type.highway.pedestrian" = "Pedestrian Street";
 
 "type.highway.pedestrian.area" = "Pedestrian Street";
 
-"type.highway.pedestrian.bridge" = "Pedestrian Street";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Мост";
 
-"type.highway.pedestrian.tunnel" = "Pedestrian Street";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Тунэль";
 
 "type.highway.primary" = "Primary Road";
 
-"type.highway.primary.bridge" = "Primary Road";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Мост";
 
-"type.highway.primary.tunnel" = "Primary Road";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Тунэль";
 
 "type.highway.primary_link" = "Primary Road";
 
-"type.highway.primary_link.bridge" = "Primary Road";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Мост";
 
-"type.highway.primary_link.tunnel" = "Primary Road";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Тунэль";
 
 "type.highway.raceway" = "Racetrack";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "Street";
 
-"type.highway.residential.bridge" = "Street";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Мост";
 
-"type.highway.residential.tunnel" = "Street";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Тунэль";
 
 "type.highway.rest_area" = "Rest Area";
 
 "type.highway.road" = "Road";
 
-"type.highway.road.bridge" = "Road";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Мост";
 
-"type.highway.road.tunnel" = "Road";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Тунэль";
 
 "type.highway.secondary" = "Secondary Road";
 
-"type.highway.secondary.bridge" = "Secondary Road";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Мост";
 
-"type.highway.secondary.tunnel" = "Secondary Road";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Тунэль";
 
 "type.highway.secondary_link" = "Secondary Road";
 
-"type.highway.secondary_link.bridge" = "Secondary Road";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Мост";
 
-"type.highway.secondary_link.tunnel" = "Secondary Road";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Тунэль";
 
 "type.highway.service" = "Service Road";
 
 "type.highway.service.area" = "Service Road";
 
-"type.highway.service.bridge" = "Service Road";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Мост";
 
 "type.highway.service.driveway" = "Service Road";
 
 "type.highway.service.parking_aisle" = "Service Road";
 
-"type.highway.service.tunnel" = "Service Road";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Тунэль";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "Stairs";
 
-"type.highway.steps.bridge" = "Stairs";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Мост";
 
-"type.highway.steps.tunnel" = "Stairs";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Тунэль";
 
 "type.highway.tertiary" = "Tertiary Road";
 
-"type.highway.tertiary.bridge" = "Tertiary Road";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Мост";
 
-"type.highway.tertiary.tunnel" = "Tertiary Road";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Тунэль";
 
 "type.highway.tertiary_link" = "Tertiary Road";
 
-"type.highway.tertiary_link.bridge" = "Tertiary Road";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Мост";
 
-"type.highway.tertiary_link.tunnel" = "Tertiary Road";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Тунэль";
 
 "type.highway.track" = "Track";
 
 "type.highway.track.area" = "Track";
 
-"type.highway.track.bridge" = "Track";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Мост";
 
 "type.highway.track.grade1" = "Track";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "Track";
 
-"type.highway.track.tunnel" = "Track";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Тунэль";
 
 "type.highway.traffic_signals" = "Traffic Lights";
 
 "type.highway.trunk" = "National Highway";
 
-"type.highway.trunk.bridge" = "National Highway";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Мост";
 
-"type.highway.trunk.tunnel" = "National Highway";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Тунэль";
 
 "type.highway.trunk_link" = "National Highway";
 
-"type.highway.trunk_link.bridge" = "National Highway";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Мост";
 
-"type.highway.trunk_link.tunnel" = "National Highway";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Тунэль";
 
 "type.highway.unclassified" = "Minor Road";
 
 "type.highway.unclassified.area" = "Minor Road";
 
-"type.highway.unclassified.bridge" = "Minor Road";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Мост";
 
-"type.highway.unclassified.tunnel" = "Minor Road";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Тунэль";
 
 "type.area_highway.cycleway" = "Cycle Path";
 
