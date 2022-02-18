@@ -44,7 +44,11 @@ template <typename CrossMwmId>
 class CrossMwmConnector final
 {
 public:
-  CrossMwmConnector() : m_mwmId(kFakeNumMwmId) {}
+  /// Used in generator or tests. Should initialize with some valid mwm id here
+  /// not to conflict with @see JointSegment::IsFake().
+  CrossMwmConnector() : m_mwmId(kGeneratorMwmId) {}
+
+  /// Used in client router.
   CrossMwmConnector(NumMwmId mwmId, uint32_t featureNumerationOffset)
     : m_mwmId(mwmId), m_featureNumerationOffset(featureNumerationOffset)
   {
