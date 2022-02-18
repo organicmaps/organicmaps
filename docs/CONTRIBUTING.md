@@ -1,10 +1,10 @@
 # Contributing
 
-Thank you for your interest in contributing to Organic Maps!
+Thank you for your interest in contributing to Organic Maps (OM)!
 
 ## How Can I Contribute?
 
-There are many ways to contribute.
+There are many ways to contribute and OM needs a variety of talents: programmers, graphic designers, translators, UI/UX experts, etc.
 
 ### Donate
 
@@ -16,8 +16,8 @@ The simplest way to contribute is to [submit an issue](https://github.com/organi
 Please give developers as much information as possible: OS and application versions,
 list of actions leading to a bug, a log file produced by the app.
 
-When using the Organic Maps app on a device, use the built-in "Report a bug" option:
-it creates a new e-mail with a log file attached. Your issue will be processed much
+When using the OM app on a device, use the built-in "Report a bug" option:
+on Android it creates a new e-mail with a log file attached. Your issue will be processed much
 faster if you send it to bugs@organicmaps.app.
 
 ### Feature Requests
@@ -26,34 +26,32 @@ If you have some ideas or want to request a new feature, please [start a discuss
 
 ### Translations
 
-If you want to improve app translations or add more search synonyms, please update [strings.txt](https://github.com/organicmaps/organicmaps/blob/master/data/strings/strings.txt) file, run `./tools/unix/generate_localizations.sh` and create a [Pull Request](#pull-requests).
+OM is available in 35 languages already, but some of them are incomplete and existing translations need regular updates as the app evolves.
+See [translations instructions](TRANSLATIONS.md) for details.
 
-Use `./tools/python/strings/google_translate.py` to generate initial strings for all languages:
+### Map styling and icons
 
-```bash
-cd tools/python/strings
-python3 -m venv venv
-source venv/bin/activate
-pip3 install -r requirements.txt
-```
+We strive to have a functional, cohesive and pleasant to the eye map rendering style.
+There is always something to improve, add new map features, fine tune colors palette etc.
+And every time we add a new map feature/POI we need a good and free-to-use icon.
 
-```bash
-./google_translate.py "Hello"
-```
+See [styles and icons instructions](STYLES.md) for details.
 
 ### Code Contributions
 
-Please follow instructions in [INSTALL.md](INSTALL.md) to set up your development environment.
-Create and submit a [Pull Request](#pull-requests) with your changes.
+Please follow instructions in [INSTALL.md](INSTALL.md) to set up your development environment
+and check the [developer's guidelines](#developers-guidelines).
+You will find a list of issues for new contributors [here](https://github.com/organicmaps/organicmaps/labels/Good%20first%20issue) to help you get started with simple tasks.
 
-## Process
+## Submitting your changes
 
-### Pull Requests
+All contributions to Organic Maps repository should be submitted via
+[Github pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
+and signed-off with the [Developers Certificate of Origin](#legal-requirements).
 
-All contributions to Organic Maps source code should be submitted via github pull requests.
-Each pull request is reviewed by OMaps maintainers, to ensure consistent code style
-and quality. Sometimes the review process even for smallest commits can be
-very thorough. Please follow [the developer guidelines](#guidelines).
+Each pull request is reviewed by OM maintainers to ensure its quality.
+Sometimes the review process even for smallest commits can be
+very thorough.
 
 ### Legal Requirements
 
@@ -77,11 +75,11 @@ Git has a flag that can sign a commit for you. An example using it is:
 Use your real name or on some rare cases a company email address, but we
 disallow pseudonyms or anonymous contributions.
 
-### Code of Conduct
+## Code of Conduct
 
-The Organic Maps community abides by the [CNCF code of conduct](CODE_OF_CONDUCT).
+The OM community abides by the [CNCF code of conduct](CODE_OF_CONDUCT.md).
 
-### Guidelines
+## Developer's Guidelines
 
 - [C++ Style Guide](CPP_STYLE.md).
 - [Objective-C Style Guide](OBJC_STYLE.md).
@@ -90,6 +88,6 @@ The Organic Maps community abides by the [CNCF code of conduct](CODE_OF_CONDUCT)
 
 ## Questions?
 
-For any questions about developing Organic Maps and relevant services -
+For any questions about developing OM and relevant services -
 virtually about anything related, please [contact us](COMMUNICATION.md),
 we'll be happy to help.
