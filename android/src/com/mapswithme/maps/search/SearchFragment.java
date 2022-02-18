@@ -423,38 +423,34 @@ public class SearchFragment extends BaseMwmFragment
     return mHiddenCommands;
   }
 
-  private void processSelected(@NonNull SearchResult result)
+  void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex)
   {
+    final String query = getQuery();
+    SearchRecents.add(query, requireContext());
+    SearchEngine.INSTANCE.cancel();
+    SearchEngine.INSTANCE.setQuery(query);
+
     if (RoutingController.get().isWaitingPoiPick())
     {
       SearchResult.Description description = result.description;
       String subtitle = description != null
-                        ? Utils.getLocalizedFeatureType(getContext(), description.featureType)
-                        : "";
+          ? Utils.getLocalizedFeatureType(getContext(), description.featureType)
+          : "";
       String title = TextUtils.isEmpty(result.name) ? subtitle : "";
 
       final MapObject point = MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH,
-                                                        title, subtitle, result.lat, result.lon);
+          title, subtitle, result.lat, result.lon);
       RoutingController.get().onPoiSelected(point);
+    }
+    else
+    {
+      SearchEngine.INSTANCE.showResult(resultIndex);
     }
 
     mToolbarController.deactivate();
 
     if (getActivity() instanceof SearchActivity)
       Utils.navigateToParent(getActivity());
-  }
-
-  void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex)
-  {
-    final String query = getQuery();
-    SearchRecents.add(query, requireContext());
-    SearchEngine.INSTANCE.cancel();
-
-    if (!RoutingController.get().isWaitingPoiPick())
-      SearchEngine.INSTANCE.showResult(resultIndex);
-    SearchEngine.INSTANCE.setQuery(query);
-    processSelected(result);
-
   }
 
   void showAllResultsOnMap()
