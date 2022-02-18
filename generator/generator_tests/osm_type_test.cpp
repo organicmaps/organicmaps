@@ -1,4 +1,3 @@
-
 #include "testing/testing.hpp"
 
 #include "generator/generator_tests/types_helper.hpp"
@@ -1429,6 +1428,34 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cliff)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Organic)
+{
+  {
+    Tags const tags = {
+      {"organic", "only"},
+      {"amenity", "cafe" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "cafe"})), (params));
+    TEST(params.IsTypeExist(GetType({"organic", "only"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      {"organic", "no"},
+      {"shop", "bakery" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"shop", "bakery"})), (params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 {
   Tags const oneTypes = {
@@ -1826,6 +1853,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"office", "lawyer"},
     {"office", "ngo"},
     {"office", "telecommunication"},
+    {"organic", "only"},
+    {"organic", "yes"},
     {"piste:lift", "j-bar"},
     {"piste:lift", "magic_carpet"},
     {"piste:lift", "platter"},
@@ -1999,11 +2028,12 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"wheelchair", "yes"},
   };
 
+  auto const & cl = classif();
   for (auto const & type : oneTypes)
   {
     auto const params = GetFeatureBuilderParams({type});
     TEST_EQUAL(params.m_types.size(), 1, (type, params));
-    TEST(params.IsTypeExist(classif().GetTypeByPath({type.m_key, type.m_value})), (type, params));
+    TEST(params.IsTypeExist(cl.GetTypeByPath({type.m_key, type.m_value})), (type, params));
   }
 
   Tags const exTypes = {
@@ -2014,7 +2044,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
   {
     auto const params = GetFeatureBuilderParams({type});
     TEST_GREATER(params.m_types.size(), 1, (type, params));
-    TEST(params.IsTypeExist(classif().GetTypeByPath({type.m_key, type.m_value})), (type, params));
+    TEST(params.IsTypeExist(cl.GetTypeByPath({type.m_key, type.m_value})), (type, params));
   }
 }
 
@@ -2243,7 +2273,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"place", "state", "USA"}, {{"place", "state"}, {"is_in", "USA"}}},
     {{"place", "state", "USA"}, {{"place", "state"}, {"is_in:country", "USA"}}},
     {{"place", "state", "USA"}, {{"place", "state"}, {"is_in:country_code", "us"}}},
-    {{"power", "line", "underground"}, {{"power", "line"}, {"location", "underground"}}},
     {{"railway", "abandoned", "bridge"}, {{"railway", "abandoned"}, {"bridge", "any_value"}}},
     {{"railway", "abandoned", "tunnel"}, {{"railway", "abandoned"}, {"tunnel", "any_value"}}},
     {{"railway", "funicular", "bridge"}, {{"railway", "funicular"}, {"bridge", "any_value"}}},

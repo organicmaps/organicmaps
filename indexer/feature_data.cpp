@@ -121,6 +121,7 @@ private:
         {"hwtag"},
         {"psurface"},
         {"internet_access"},
+        {"organic"},
         {"wheelchair"},
         {"entrance"},
         {"cuisine"},

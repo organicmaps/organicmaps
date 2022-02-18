@@ -7172,6 +7172,42 @@ el:Φάρος
 sk:Maják
 fa:فانوس دریایی
 
+organic-only|organic-yes
+en:4organic|bio|biological|eco|ecological|healthy
+ar:بيولوجي|بيولوجي|صحي|بيولوجي|بيئي|طبيعي|عضوي
+be:эка|натуральная|5натуральныя|натуральны|натуральнае|арганічная|5арганічныя|арганічны|арганічнае|біялагічная|5біялагічныя|біялагічны|біялагічнае|экалагічная|5экалагічныя|экалагічны|экалагічнае|біо|біа|бія|здаровая
+bg:еко|био|здравословен|биологичен|екологичен|природен|органичен
+cs:ekologické|bio|zdravé|biologické|environmentální|přírodní|organické
+da:øko|bio|sundt|biologisk|miljømæssigt|naturligt|organisk
+de:3Bio|Biologische|biologisch|5Ökologische|Ökologisches|öko|bio|4organische|organisch|naturnah|natürliches|natürlich|gesundes|gesund|umweltfreundlich
+el:οικολογικό|βιολογικό|υγιεινό|φυσικό
+es:eco|5ecológicos|ecológica|ecológico|5orgánicos|orgánico|5biológica|biológicos|biológico|bio|natural|saludable
+fa:اکو|زیستی|سالم|بیولوژیکی|زیست محیطی|طبیعی|ارگانیک
+fi:eko|bio|terveellinen|biologinen|ekologinen|luonnollinen|orgaaninen
+fr:saine|bio|biologique|4biologiques|naturelle|nature|naturel|écologique|4écologiques|éco|organique
+he:אקולוגי|ביו|בריא|ביולוגי|אקולוגי|טבעי|אורגני
+hu:eco|bio|egészséges|biológiai|környezeti|természetes|organikus
+id:eco|bio|sehat|biologis|ekologis|alami|organik
+it:eco|bio|sano|biologico|ambientale|naturale|organico
+ja:エコ|バイオ|ヘルシー|バイオロジー|エンバイロメンタル|ナチュラル|オーガニック
+ko:에코|바이오|건강|생물학|생태학적|천연|유기농
+nb:øko|bio|sunt|biologisk|økologisk|naturlig|organisk
+nl:eco|bio|healthy|biological|environmental|natural|organic
+pl:eko|bio|zdrowe|biologiczne|ekologiczne|naturalne|organiczne
+pt:eco|bio|saudável|biológico|ambiental|natural|orgânico
+pt-BR:eco|bio|biológico|ambiental|natural|orgânico
+ro:eco|bio|sănătos|biologic|ambiental|natural|organic
+ru:здоровая|5здоровые|био|биологическая|5биологические|биологический|биологическое|натуральная|5натуральные|натуральный|натуральное|органическая|5органические|органический|органическое|эко|5экологические|экологический|экологическое
+sk:eko|bio|zdravé|biologické|ekologické|prírodné|organické
+sv:eko|bio|hälsosamt|biologiskt|miljövänligt|naturligt|organiskt
+sw:eco|bio|afya|kibaolojia|kiikolojia|asili|kikaboni
+th:เชิงนิเวศ|ชีวภาพ|สุขภาพ|ชีวภาพ|ระบบนิเวศ|ธรรมชาติ|อินทรีย์
+tr:eko|biyo|sağlıklı|biyolojik|ekolojik|doğal|organik
+uk:здорова|5біологічні|біологічна|біологічне|біологічний|біо|натуральна|5натуральні|натуральний|натуральне|органічна|5органічні|органічний|органічне|еко|5екологічні|екологічний|екологічне
+vi:sinh thái|sinh học|lành mạnh|sinh học|sinh thái|tự nhiên|hữu cơ
+zh-Hans:生态的|生物的|健康的|生物的|环境的|自然的|有机的
+zh-Hant:生態|生物|健康|生物|生態|天然|有機
+
 shop-copyshop
 en:Copy Shop|Printer
 ru:Копировальный центр|печать|полиграфия
