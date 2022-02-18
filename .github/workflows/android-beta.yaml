@@ -1,5 +1,6 @@
 name: Android Beta
 on:
+  workflow_dispatch: # Manual trigger
   push:
     branches:
       - master
