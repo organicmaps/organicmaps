@@ -1244,7 +1244,7 @@ line|z12-14[piste:lift=magic_carpet],
 line|z12-14[piste:lift=platter],
 line|z12-14[piste:lift=rope_tow],
 line|z12-14[piste:lift=t-bar],
-line|z19-[power=line]
+line|z19-[power=line],
 {width: 1;}
 line|z15-[piste:lift],
 line|z15-[piste:lift=j-bar],
