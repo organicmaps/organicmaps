@@ -1,1 +1,1 @@
-This instruction is out of date. Please use [the new instructions](https://github.com/organicmaps/organicmaps/tree/master/tools/python/maps_generator).
+Please refer to maps_generator tool [instructions](../tools/python/maps_generator/README.md).
