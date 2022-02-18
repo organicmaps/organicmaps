@@ -57,7 +57,9 @@ office=administrative : office=government
 
 cycleway=opposite_lane : oneway:bicycle=no
 
-power = transformer : power = substation
+power=transformer : power=substation
+
+organic=limited : organic=yes
 
 diet:vegetarian=yes : cuisine=vegetarian
 diet:vegetarian=only : cuisine=vegetarian

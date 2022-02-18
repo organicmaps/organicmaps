@@ -233,59 +233,58 @@ namespace
     }
   };
 
-  bool HasRoutingExceptionType(uint32_t t)
-  {
-    static uint32_t const s = classif().GetTypeByPath({"route", "shuttle_train"});
-    return s == t;
-  }
+  /// @name Add here classifier types that don't have drawing rules but needed for algorithms.
+  /// @todo The difference between \a TypeAlwaysExists and \a IsUsefulNondrawableType is not
+  /// obvious. TypeAlwaysExists are *indexed* in category search, while IsUsefulNondrawableType are *not*.
+  /// The functions names and set of types looks strange now and definitely should be revised.
+  /// @{
 
-  /// Add here all exception classificator types: needed for algorithms,
-  /// but don't have drawing rules.
   /// Warning: Geometry of features with always existing types will be indexed in mwm on all
   /// zoom levels. If you add an always existing type to drawing types, the displacement of icons
   /// may work not correctly.
   bool TypeAlwaysExists(uint32_t type, GeomType g = GeomType::Undefined)
   {
-    if (!classif().IsTypeValid(type))
+    auto const & cl = classif();
+    if (!cl.IsTypeValid(type))
       return false;
 
-    static uint32_t const internet = classif().GetTypeByPath({"internet_access"});
-    static uint32_t const complexEntry = classif().GetTypeByPath({"complex_entry"});
+    static uint32_t const shuttle = cl.GetTypeByPath({"route", "shuttle_train"});
+    static uint32_t const internet = cl.GetTypeByPath({"internet_access"});
+    static uint32_t const organic = cl.GetTypeByPath({"organic"});
+    static uint32_t const complexEntry = cl.GetTypeByPath({"complex_entry"});
 
-    if ((g == GeomType::Line || g == GeomType::Undefined) && HasRoutingExceptionType(type))
+    if ((g == GeomType::Line || g == GeomType::Undefined) && type == shuttle)
       return true;
 
+    uint8_t const typeLevel = ftype::GetLevel(type);
     ftype::TruncValue(type, 1);
-    if (g != GeomType::Line && type == internet)
-      return true;
 
-    if (type == complexEntry)
-      return true;
+    if (g != GeomType::Line)
+    {
+      // Exclude generic 1-arity types like [organic].
+      if (type == internet || (type == organic && typeLevel >= 2))
+        return true;
+    }
 
-    return false;
+    return (type == complexEntry);
   }
 
-  /// Add here all exception classificator types: needed for algorithms,
-  /// but don't have drawing rules.
   bool IsUsefulNondrawableType(uint32_t type, GeomType g = GeomType::Undefined)
   {
-    if (!classif().IsTypeValid(type))
+    auto const & cl = classif();
+    if (!cl.IsTypeValid(type))
       return false;
 
     if (TypeAlwaysExists(type, g))
       return true;
 
-    static uint32_t const hwtag = classif().GetTypeByPath({"hwtag"});
-    static uint32_t const roundabout = classif().GetTypeByPath({"junction", "roundabout"});
-    static uint32_t const psurface = classif().GetTypeByPath({"psurface"});
-    static uint32_t const wheelchair = classif().GetTypeByPath({"wheelchair"});
-    static uint32_t const cuisine = classif().GetTypeByPath({"cuisine"});
-    static uint32_t const recycling = classif().GetTypeByPath({"recycling"});
-    // Reserved for custom event processing, e.g. fc2018.
-    // static uint32_t const event = classif().GetTypeByPath({"event" });
+    // Exclude generic 1-arity types like [wheelchair].
+    if (ftype::GetLevel(type) < 2)
+      return false;
 
-    // Caching type length to exclude generic [wheelchair].
-    uint8_t const typeLength = ftype::GetLevel(type);
+    static uint32_t const hwtag = cl.GetTypeByPath({"hwtag"});
+    static uint32_t const roundabout = cl.GetTypeByPath({"junction", "roundabout"});
+    static uint32_t const psurface = cl.GetTypeByPath({"psurface"});
 
     if ((g == GeomType::Line || g == GeomType::Undefined) && type == roundabout)
       return true;
@@ -297,21 +296,24 @@ namespace
         return true;
     }
 
-    if (type == wheelchair && typeLength == 2)
-      return true;
+    static uint32_t const arrTypes[] = {
+      cl.GetTypeByPath({"wheelchair"}),
+      cl.GetTypeByPath({"cuisine"}),
+      cl.GetTypeByPath({"recycling"})
+    };
 
-    if (type == cuisine || type == recycling)
-      return true;
-
-    // Reserved for custom event processing, e.g. fc2018.
-    // if (event == type)
-    //   return true;
+    for (uint32_t t : arrTypes)
+    {
+      if (t == type)
+        return true;
+    }
 
     return false;
   }
+  /// @}
 }  // namespace
 
-bool TypeIsUseful(uint32_t type)
+bool IsUsefulType(uint32_t type)
 {
   return IsUsefulNondrawableType(type) || classif().GetObject(type)->IsDrawableAny();
 }
@@ -395,9 +397,6 @@ bool IsUsefulType(uint32_t t, GeomType geomType, bool emptyName)
 
 bool HasUsefulType(vector<uint32_t> const & types, GeomType geomType, bool emptyName)
 {
-  if (types.empty())
-    return false;
-
   return any_of(types.begin(), types.end(), [&](uint32_t t) {
     return IsUsefulType(t, geomType, emptyName);
   });

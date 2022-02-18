@@ -1120,8 +1120,8 @@ wheelchair|yes;1121;
 wheelchair|no;1122;
 wheelchair|limited;1123;
 building|has_parts;1124;
-deprecated|deprecated;1125;x
-deprecated|deprecated;1126;x
+organic|only;1125;
+organic|yes;1126;
 deprecated|deprecated;1127;x
 deprecated|deprecated;1128;x
 deprecated|deprecated;1129;x
