@@ -15,6 +15,7 @@ namespace routing
 {
 using NumMwmId = std::uint16_t;
 NumMwmId constexpr kFakeNumMwmId = std::numeric_limits<NumMwmId>::max();
+NumMwmId constexpr kGeneratorMwmId = 0;
 
 class NumMwmIds final
 {
