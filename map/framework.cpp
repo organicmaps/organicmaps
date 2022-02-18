@@ -94,6 +94,8 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include "std/target_os.hpp"
+
 #include <algorithm>
 
 #include "defines.hpp"
@@ -1964,6 +1966,15 @@ void Framework::SetPlacePageListeners(PlacePageEvent::OnOpen onOpen,
   m_onPlacePageOpen = std::move(onOpen);
   m_onPlacePageClose = std::move(onClose);
   m_onPlacePageUpdate = std::move(onUpdate);
+#ifdef OMIM_OS_ANDROID
+  // A click on the Search result from the search activity in Android calls
+  // ShowSearchResult/SelectSearchResult, but SetPlacePageListeners is set later,
+  // when MWMActivity::onStart is called. So PP is displayed here if its info was set previously.
+  // TODO: A better approach is to use an intent with params to pass the search result into MWMActivity,
+  // like it is done when selected bookmark is displayed on the map.
+  if (m_onPlacePageOpen && HasPlacePageInfo())
+    m_onPlacePageOpen();
+#endif  // OMIM_OS_ANDROID
 }
 
 place_page::Info const & Framework::GetCurrentPlacePageInfo() const
