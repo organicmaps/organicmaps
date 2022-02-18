@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Милі";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Моє місцезнаходження";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Кінна доріжка";
 
-"type.highway.bridleway.bridge" = "Кінна доріжка";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Міст";
 
 "type.highway.bridleway.permissive" = "Кінна доріжка";
 
-"type.highway.bridleway.tunnel" = "Кінна доріжка";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Тунель";
 
 "type.highway.bus_stop" = "Зупинка";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Велодоріжка";
 
-"type.highway.cycleway.bridge" = "Велодоріжка";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Міст";
 
 "type.highway.cycleway.permissive" = "Велодоріжка";
 
-"type.highway.cycleway.tunnel" = "Велодоріжка";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Тунель";
 
 "type.highway.elevator" = "Ліфт";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "Пішохідна зона";
 
-"type.highway.footway.bridge" = "Пішохідна доріжка";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Міст";
 
 "type.highway.footway.demanding_alpine_hiking" = "Стежка";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "Пішохідна доріжка";
 
-"type.highway.footway.tunnel" = "Пішохідна доріжка";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Тунель";
 
 "type.highway.ford" = "Брід";
 
 "type.highway.living_street" = "Житлова зона";
 
-"type.highway.living_street.bridge" = "Житлова зона";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Міст";
 
-"type.highway.living_street.tunnel" = "Житлова зона";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Тунель";
 
 "type.highway.motorway" = "Автомагістраль";
 
-"type.highway.motorway.bridge" = "Автомагістраль";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Міст";
 
-"type.highway.motorway.tunnel" = "Автомагістраль";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Тунель";
 
 "type.highway.motorway_junction" = "З'їзд";
 
 "type.highway.motorway_link" = "З'їзд з автомагістралі";
 
-"type.highway.motorway_link.bridge" = "З'їзд з автомагістралі";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Міст";
 
-"type.highway.motorway_link.tunnel" = "З'їзд з автомагістралі";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Тунель";
 
 "type.highway.path" = "Стежка";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "Велопішохідна доріжка";
 
-"type.highway.path.bridge" = "Стежка";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Міст";
 
 "type.highway.path.demanding_alpine_hiking" = "Стежка";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "Стежка";
 
-"type.highway.path.tunnel" = "Стежка";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Тунель";
 
 "type.highway.pedestrian" = "Пішохідна вулиця";
 
 "type.highway.pedestrian.area" = "Пішохідна зона";
 
-"type.highway.pedestrian.bridge" = "Пішохідна вулиця";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Міст";
 
-"type.highway.pedestrian.tunnel" = "Пішохідна вулиця";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Тунель";
 
 "type.highway.primary" = "Шосе";
 
-"type.highway.primary.bridge" = "Шосе";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Міст";
 
-"type.highway.primary.tunnel" = "Шосе";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Тунель";
 
 "type.highway.primary_link" = "З'їзд з шосе";
 
-"type.highway.primary_link.bridge" = "З'їзд з шосе";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Міст";
 
-"type.highway.primary_link.tunnel" = "З'їзд з шосе";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Тунель";
 
 "type.highway.raceway" = "Гоночний трек";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "Вулиця";
 
-"type.highway.residential.bridge" = "Вулиця";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Міст";
 
-"type.highway.residential.tunnel" = "Вулиця";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Тунель";
 
 "type.highway.rest_area" = "Зона відпочинку";
 
 "type.highway.road" = "Дорога";
 
-"type.highway.road.bridge" = "Дорога";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Міст";
 
-"type.highway.road.tunnel" = "Дорога";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Тунель";
 
 "type.highway.secondary" = "Автодорога";
 
-"type.highway.secondary.bridge" = "Автодорога";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Міст";
 
-"type.highway.secondary.tunnel" = "Автодорога";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Тунель";
 
 "type.highway.secondary_link" = "З'їзд з автодороги";
 
-"type.highway.secondary_link.bridge" = "З'їзд з автодороги";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Міст";
 
-"type.highway.secondary_link.tunnel" = "З'їзд з автодороги";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Тунель";
 
 "type.highway.service" = "Проїзд";
 
 "type.highway.service.area" = "Проїзд";
 
-"type.highway.service.bridge" = "Проїзд";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Міст";
 
 "type.highway.service.driveway" = "Під'їзд";
 
 "type.highway.service.parking_aisle" = "Паркувальний проїзд";
 
-"type.highway.service.tunnel" = "Проїзд";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Тунель";
 
 "type.highway.services" = "Зона обслуговування";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "Сходи";
 
-"type.highway.steps.bridge" = "Сходи";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Міст";
 
-"type.highway.steps.tunnel" = "Сходи";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Тунель";
 
 "type.highway.tertiary" = "Дорога";
 
-"type.highway.tertiary.bridge" = "Дорога";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Міст";
 
-"type.highway.tertiary.tunnel" = "Дорога";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Тунель";
 
 "type.highway.tertiary_link" = "З'їзд з дороги";
 
-"type.highway.tertiary_link.bridge" = "З'їзд з дороги";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Міст";
 
-"type.highway.tertiary_link.tunnel" = "З'їзд з дороги";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Тунель";
 
 "type.highway.track" = "Ґрунтівка";
 
 "type.highway.track.area" = "Ґрунтівка";
 
-"type.highway.track.bridge" = "Ґрунтівка";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Міст";
 
 "type.highway.track.grade1" = "Ґрунтівка";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "Ґрунтівка";
 
-"type.highway.track.tunnel" = "Ґрунтівка";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Тунель";
 
 "type.highway.traffic_signals" = "Світлофор";
 
 "type.highway.trunk" = "Траса";
 
-"type.highway.trunk.bridge" = "Траса";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Міст";
 
-"type.highway.trunk.tunnel" = "Траса";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Тунель";
 
 "type.highway.trunk_link" = "З'їзд з траси";
 
-"type.highway.trunk_link.bridge" = "З'їзд з траси";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Міст";
 
-"type.highway.trunk_link.tunnel" = "З'їзд з траси";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Тунель";
 
 "type.highway.unclassified" = "Невелика дорога";
 
 "type.highway.unclassified.area" = "Невелика дорога";
 
-"type.highway.unclassified.bridge" = "Невелика дорога";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Міст";
 
-"type.highway.unclassified.tunnel" = "Невелика дорога";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Тунель";
 
 "type.area_highway.cycleway" = "Велодоріжка";
 

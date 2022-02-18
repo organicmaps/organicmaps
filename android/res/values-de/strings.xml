@@ -23,7 +23,7 @@
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Meilen</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Mein Standort</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Später</string>
@@ -930,42 +930,55 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Straße</string>
 	<string name="type.highway.bridleway">Reitweg</string>
-	<string name="type.highway.bridleway.bridge">Reitweg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Brücke</string>
 	<string name="type.highway.bridleway.permissive">Reitweg</string>
-	<string name="type.highway.bridleway.tunnel">Reitweg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Bushaltestelle</string>
 	<string name="type.highway.construction">Straße im Bau</string>
 	<string name="type.highway.cycleway">Radweg</string>
-	<string name="type.highway.cycleway.bridge">Radweg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Brücke</string>
 	<string name="type.highway.cycleway.permissive">Radweg</string>
-	<string name="type.highway.cycleway.tunnel">Radweg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunnel</string>
 	<string name="type.highway.elevator">Aufzug</string>
 	<string name="type.highway.footway">Fußweg</string>
 	<string name="type.highway.footway.alpine_hiking">Alpinwanderweg</string>
 	<string name="type.highway.footway.area">Fußweg</string>
-	<string name="type.highway.footway.bridge">Fußweg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Brücke</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Anspruchsvoller Alpinwanderweg</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Anspruchsvoller Bergwanderweg</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Schwieriger Alpinwanderweg</string>
 	<string name="type.highway.footway.hiking">Wanderweg</string>
 	<string name="type.highway.footway.mountain_hiking">Bergwanderweg</string>
 	<string name="type.highway.footway.permissive">Fußweg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Fußgängertunnel</string>
 	<string name="type.highway.ford">Furt</string>
 	<string name="type.highway.living_street">Spielstraße</string>
-	<string name="type.highway.living_street.bridge">Spielstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.living_street.tunnel">Spielstraßentunnel</string>
 	<string name="type.highway.motorway">Autobahn</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway.bridge">Autobahnbrücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway.tunnel">Autobahntunnel</string>
 	<string name="type.highway.motorway_junction">Autobahnausfahrt</string>
 	<string name="type.highway.motorway_link">Autobahnauffahrt</string>
-	<string name="type.highway.motorway_link.bridge">Autobahnauffahrt</string>
-	<string name="type.highway.motorway_link.tunnel">Autobahnauffahrt</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Weg</string>
 	<string name="type.highway.path.alpine_hiking">Alpinwanderweg</string>
 	<string name="type.highway.path.bicycle">Radweg</string>
-	<string name="type.highway.path.bridge">Weg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Brücke</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Anspruchsvoller Alpinwanderweg</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Anspruchsvoller Bergwanderweg</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Schwieriger Alpinwanderweg</string>
@@ -973,52 +986,76 @@
 	<string name="type.highway.path.horse">Reitweg</string>
 	<string name="type.highway.path.mountain_hiking">Bergwanderweg</string>
 	<string name="type.highway.path.permissive">Weg</string>
-	<string name="type.highway.path.tunnel">Weg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Fußgängerzone</string>
 	<string name="type.highway.pedestrian.area">Fußgängerzone</string>
-	<string name="type.highway.pedestrian.bridge">Fußgängerzone</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.pedestrian.tunnel">Fußgängertunnel</string>
 	<string name="type.highway.primary">Hauptstraße</string>
-	<string name="type.highway.primary.bridge">Hauptstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.primary.tunnel">Hauptstraßentunnel</string>
 	<string name="type.highway.primary_link">Hauptstraße</string>
-	<string name="type.highway.primary_link.bridge">Hauptstraße</string>
-	<string name="type.highway.primary_link.tunnel">Hauptstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunnel</string>
 	<string name="type.highway.raceway">Rennbahn</string>
 	<string name="type.highway.residential">Wohnstraße</string>
 	<string name="type.highway.residential.area">Wohnstraße</string>
-	<string name="type.highway.residential.bridge">Wohnstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.residential.tunnel">Wohnstraßentunnel</string>
 	<string name="type.highway.rest_area">Rastplatz</string>
 	<string name="type.highway.road">Straße</string>
-	<string name="type.highway.road.bridge">Straße</string>
-	<string name="type.highway.road.tunnel">Straßentunnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Straße</string>
-	<string name="type.highway.secondary.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary.tunnel">Straßentunnel</string>
 	<string name="type.highway.secondary_link">Straße</string>
-	<string name="type.highway.secondary_link.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary_link.tunnel">Straßentunnel</string>
 	<string name="type.highway.service">Straße</string>
 	<string name="type.highway.service.area">Straße</string>
-	<string name="type.highway.service.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Brücke</string>
 	<string name="type.highway.service.driveway">Zufahrt</string>
 	<string name="type.highway.service.parking_aisle">Straße</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.service.tunnel">Straßentunnel</string>
 	<string name="type.highway.services">Raststätte</string>
 	<string name="type.highway.speed_camera">Blitzer</string>
 	<string name="type.highway.steps">Stufen</string>
-	<string name="type.highway.steps.bridge">Stufen</string>
-	<string name="type.highway.steps.tunnel">Stufen</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary">Straße</string>
-	<string name="type.highway.tertiary.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary.tunnel">Straßentunnel</string>
 	<string name="type.highway.tertiary_link">Straße</string>
-	<string name="type.highway.tertiary_link.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary_link.tunnel">Straßentunnel</string>
 	<string name="type.highway.track">Straße</string>
 	<string name="type.highway.track.area">Straße</string>
-	<string name="type.highway.track.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Brücke</string>
 	<string name="type.highway.track.grade1">Straße</string>
 	<string name="type.highway.track.grade2">Straße</string>
 	<string name="type.highway.track.grade3">Straße</string>
@@ -1026,17 +1063,24 @@
 	<string name="type.highway.track.grade5">Straße</string>
 	<string name="type.highway.track.no.access">Straße</string>
 	<string name="type.highway.track.permissive">Straße</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Straßentunnel</string>
 	<string name="type.highway.traffic_signals">Verkehrsampel</string>
 	<string name="type.highway.trunk">Schnellstraße</string>
-	<string name="type.highway.trunk.bridge">Schnellstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">Schnellstraßentunnel</string>
 	<string name="type.highway.trunk_link">Schnellstraße</string>
-	<string name="type.highway.trunk_link.bridge">Schnellstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk_link.tunnel">Straßentunnel</string>
 	<string name="type.highway.unclassified">Straße</string>
 	<string name="type.highway.unclassified.area">Straße</string>
-	<string name="type.highway.unclassified.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">Straßentunnel</string>
 	<string name="type.area_highway.cycleway">Radweg</string>
 	<string name="type.area_highway.footway">Weg</string>

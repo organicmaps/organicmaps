@@ -21,7 +21,7 @@
 	<string name="maps">地图</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">英里</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">我的位置</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">稍后</string>
@@ -932,41 +932,54 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">公路要素</string>
 	<string name="type.highway.bridleway">马道</string>
-	<string name="type.highway.bridleway.bridge">马道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">桥</string>
 	<string name="type.highway.bridleway.permissive">马道</string>
-	<string name="type.highway.bridleway.tunnel">马道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">隧道</string>
 	<string name="type.highway.bus_stop">公交站</string>
 	<string name="type.highway.construction">在建道路</string>
 	<string name="type.highway.cycleway">自行车道</string>
-	<string name="type.highway.cycleway.bridge">自行车道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">桥</string>
 	<string name="type.highway.cycleway.permissive">自行车道</string>
-	<string name="type.highway.cycleway.tunnel">自行车道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">隧道</string>
 	<string name="type.highway.footway">步行道路</string>
 	<string name="type.highway.footway.alpine_hiking">步行道路</string>
 	<string name="type.highway.footway.area">步行道路</string>
-	<string name="type.highway.footway.bridge">步行道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">桥</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">步行道路</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">步行道路</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">步行道路</string>
 	<string name="type.highway.footway.hiking">步行道路</string>
 	<string name="type.highway.footway.mountain_hiking">步行道路</string>
 	<string name="type.highway.footway.permissive">步行道路</string>
-	<string name="type.highway.footway.tunnel">步行道路</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">隧道</string>
 	<string name="type.highway.ford">浅滩</string>
 	<string name="type.highway.living_street">生活性街道</string>
-	<string name="type.highway.living_street.bridge">生活性街道</string>
-	<string name="type.highway.living_street.tunnel">生活性街道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">隧道</string>
 	<string name="type.highway.motorway">高速公路</string>
-	<string name="type.highway.motorway.bridge">高速公路</string>
-	<string name="type.highway.motorway.tunnel">高速公路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">隧道</string>
 	<string name="type.highway.motorway_junction">出口</string>
 	<string name="type.highway.motorway_link">高速公路连接路</string>
-	<string name="type.highway.motorway_link.bridge">高速公路连接路</string>
-	<string name="type.highway.motorway_link.tunnel">高速公路连接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">隧道</string>
 	<string name="type.highway.path">小道</string>
 	<string name="type.highway.path.alpine_hiking">小道</string>
 	<string name="type.highway.path.bicycle">小道</string>
-	<string name="type.highway.path.bridge">小道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">桥</string>
 	<string name="type.highway.path.demanding_alpine_hiking">小道</string>
 	<string name="type.highway.path.demanding_mountain_hiking">小道</string>
 	<string name="type.highway.path.difficult_alpine_hiking">小道</string>
@@ -974,52 +987,76 @@
 	<string name="type.highway.path.horse">小道</string>
 	<string name="type.highway.path.mountain_hiking">小道</string>
 	<string name="type.highway.path.permissive">小道</string>
-	<string name="type.highway.path.tunnel">小道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">隧道</string>
 	<string name="type.highway.pedestrian">步行街</string>
 	<string name="type.highway.pedestrian.area">步行区域</string>
-	<string name="type.highway.pedestrian.bridge">步行街</string>
-	<string name="type.highway.pedestrian.tunnel">步行街</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">隧道</string>
 	<string name="type.highway.primary">主要道路</string>
-	<string name="type.highway.primary.bridge">主要道路</string>
-	<string name="type.highway.primary.tunnel">主要道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">隧道</string>
 	<string name="type.highway.primary_link">主要道路连接路</string>
-	<string name="type.highway.primary_link.bridge">主要道路连接路</string>
-	<string name="type.highway.primary_link.tunnel">主要道路连接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">隧道</string>
 	<string name="type.highway.raceway">赛车场</string>
 	<string name="type.highway.residential">住宅区道路</string>
 	<string name="type.highway.residential.area">住宅区道路</string>
-	<string name="type.highway.residential.bridge">住宅区道路</string>
-	<string name="type.highway.residential.tunnel">住宅区道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">隧道</string>
 	<string name="type.highway.rest_area">休息区</string>
 	<string name="type.highway.road">道路</string>
-	<string name="type.highway.road.bridge">道路</string>
-	<string name="type.highway.road.tunnel">道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">隧道</string>
 	<string name="type.highway.secondary">次要道路</string>
-	<string name="type.highway.secondary.bridge">次要道路</string>
-	<string name="type.highway.secondary.tunnel">次要道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">隧道</string>
 	<string name="type.highway.secondary_link">次要道路连接路</string>
-	<string name="type.highway.secondary_link.bridge">次要道路连接路</string>
-	<string name="type.highway.secondary_link.tunnel">次要道路连接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">隧道</string>
 	<string name="type.highway.service">辅助道路</string>
 	<string name="type.highway.service.area">辅助道路</string>
-	<string name="type.highway.service.bridge">辅助道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">桥</string>
 	<string name="type.highway.service.driveway">车道</string>
 	<string name="type.highway.service.parking_aisle">停车场通道</string>
-	<string name="type.highway.service.tunnel">辅助道路</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">隧道</string>
 	<string name="type.highway.services">服务区</string>
 	<string name="type.highway.speed_camera">超速摄像头</string>
 	<string name="type.highway.steps">阶梯</string>
-	<string name="type.highway.steps.bridge">阶梯</string>
-	<string name="type.highway.steps.tunnel">阶梯</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">隧道</string>
 	<string name="type.highway.tertiary">三级道路</string>
-	<string name="type.highway.tertiary.bridge">三级道路</string>
-	<string name="type.highway.tertiary.tunnel">三级道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">隧道</string>
 	<string name="type.highway.tertiary_link">三级道路连接路</string>
-	<string name="type.highway.tertiary_link.bridge">三级道路连接路</string>
-	<string name="type.highway.tertiary_link.tunnel">三级道路连接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">隧道</string>
 	<string name="type.highway.track">土路</string>
 	<string name="type.highway.track.area">土路</string>
-	<string name="type.highway.track.bridge">土路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">桥</string>
 	<string name="type.highway.track.grade1">土路</string>
 	<string name="type.highway.track.grade2">土路</string>
 	<string name="type.highway.track.grade3">土路</string>
@@ -1027,18 +1064,25 @@
 	<string name="type.highway.track.grade5">土路</string>
 	<string name="type.highway.track.no.access">土路</string>
 	<string name="type.highway.track.permissive">土路</string>
-	<string name="type.highway.track.tunnel">土路</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">隧道</string>
 	<string name="type.highway.traffic_signals">交通信号灯</string>
 	<string name="type.highway.trunk">干线道路</string>
-	<string name="type.highway.trunk.bridge">干线道路</string>
-	<string name="type.highway.trunk.tunnel">干线道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">隧道</string>
 	<string name="type.highway.trunk_link">干线道路连接路</string>
-	<string name="type.highway.trunk_link.bridge">干线道路连接路</string>
-	<string name="type.highway.trunk_link.tunnel">干线道路连接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">隧道</string>
 	<string name="type.highway.unclassified">道路</string>
 	<string name="type.highway.unclassified.area">道路</string>
-	<string name="type.highway.unclassified.bridge">道路</string>
-	<string name="type.highway.unclassified.tunnel">道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">桥</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">隧道</string>
 	<string name="type.area_highway.cycleway">自行车道</string>
 	<string name="type.area_highway.footway">步行道路</string>
 	<string name="type.area_highway.living_street">生活性街道</string>

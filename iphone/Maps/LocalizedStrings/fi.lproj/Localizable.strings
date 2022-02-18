@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mailit";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Sijaintini";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Silta";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunneli";
 
 "type.highway.bus_stop" = "Bussipysäkki";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Silta";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunneli";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "Polku";
 
-"type.highway.footway.bridge" = "Polku";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Silta";
 
 "type.highway.footway.demanding_alpine_hiking" = "Polku";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "Polku";
 
-"type.highway.footway.tunnel" = "Polku";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunneli";
 
 "type.highway.ford" = "Kahluupaikka";
 
 "type.highway.living_street" = "Katu";
 
-"type.highway.living_street.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Silta";
 
-"type.highway.living_street.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunneli";
 
 "type.highway.motorway" = "Katu";
 
-"type.highway.motorway.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Silta";
 
-"type.highway.motorway.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunneli";
 
 "type.highway.motorway_junction" = "Poistumistie";
 
 "type.highway.motorway_link" = "Katu";
 
-"type.highway.motorway_link.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Silta";
 
-"type.highway.motorway_link.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunneli";
 
 "type.highway.path" = "Polku";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "Polku";
 
-"type.highway.path.bridge" = "Polku";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Silta";
 
 "type.highway.path.demanding_alpine_hiking" = "Polku";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "Polku";
 
-"type.highway.path.tunnel" = "Polku";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunneli";
 
 "type.highway.pedestrian" = "Katu";
 
 "type.highway.pedestrian.area" = "Katu";
 
-"type.highway.pedestrian.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Silta";
 
-"type.highway.pedestrian.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunneli";
 
 "type.highway.primary" = "Katu";
 
-"type.highway.primary.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Silta";
 
-"type.highway.primary.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunneli";
 
 "type.highway.primary_link" = "Katu";
 
-"type.highway.primary_link.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Silta";
 
-"type.highway.primary_link.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunneli";
 
 "type.highway.raceway" = "Kilparata";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "Katu";
 
-"type.highway.residential.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Silta";
 
-"type.highway.residential.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunneli";
 
 "type.highway.rest_area" = "Levähdyspaikka";
 
 "type.highway.road" = "Katu";
 
-"type.highway.road.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Silta";
 
-"type.highway.road.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunneli";
 
 "type.highway.secondary" = "Katu";
 
-"type.highway.secondary.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Silta";
 
-"type.highway.secondary.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunneli";
 
 "type.highway.secondary_link" = "Katu";
 
-"type.highway.secondary_link.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Silta";
 
-"type.highway.secondary_link.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunneli";
 
 "type.highway.service" = "Katu";
 
 "type.highway.service.area" = "Katu";
 
-"type.highway.service.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Silta";
 
 "type.highway.service.driveway" = "Katu";
 
 "type.highway.service.parking_aisle" = "Katu";
 
-"type.highway.service.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunneli";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "Polku";
 
-"type.highway.steps.bridge" = "Polku";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Silta";
 
-"type.highway.steps.tunnel" = "Polku";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunneli";
 
 "type.highway.tertiary" = "Katu";
 
-"type.highway.tertiary.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Silta";
 
-"type.highway.tertiary.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunneli";
 
 "type.highway.tertiary_link" = "Katu";
 
-"type.highway.tertiary_link.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Silta";
 
-"type.highway.tertiary_link.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunneli";
 
 "type.highway.track" = "Katu";
 
 "type.highway.track.area" = "Katu";
 
-"type.highway.track.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Silta";
 
 "type.highway.track.grade1" = "Katu";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "Katu";
 
-"type.highway.track.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunneli";
 
 "type.highway.traffic_signals" = "Liikennevalot";
 
 "type.highway.trunk" = "Katu";
 
-"type.highway.trunk.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Silta";
 
-"type.highway.trunk.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunneli";
 
 "type.highway.trunk_link" = "Katu";
 
-"type.highway.trunk_link.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Silta";
 
-"type.highway.trunk_link.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunneli";
 
 "type.highway.unclassified" = "Katu";
 
 "type.highway.unclassified.area" = "Katu";
 
-"type.highway.unclassified.bridge" = "Katu";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Silta";
 
-"type.highway.unclassified.tunnel" = "Katu";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunneli";
 
 "type.area_highway.cycleway" = "Pyörätie";
 

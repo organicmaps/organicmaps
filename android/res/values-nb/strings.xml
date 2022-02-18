@@ -23,7 +23,7 @@
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Miles</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Min posisjon</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Senere</string>
@@ -872,34 +872,51 @@
 	<string name="type.healthcare.laboratory">Medisinsk laboratorium</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Busstopp</string>
 	<string name="type.highway.construction">Veikonstruksjon</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunnel</string>
 	<string name="type.highway.footway">Sti</string>
 	<string name="type.highway.footway.alpine_hiking">Sti</string>
 	<string name="type.highway.footway.area">Sti</string>
-	<string name="type.highway.footway.bridge">Sti</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Bridge</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Sti</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Sti</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Sti</string>
 	<string name="type.highway.footway.hiking">Sti</string>
 	<string name="type.highway.footway.mountain_hiking">Sti</string>
 	<string name="type.highway.footway.permissive">Sti</string>
-	<string name="type.highway.footway.tunnel">Sti</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Vadested</string>
 	<string name="type.highway.living_street">Gate</string>
-	<string name="type.highway.living_street.bridge">Gate</string>
-	<string name="type.highway.living_street.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tunnel</string>
 	<string name="type.highway.motorway">Gate</string>
-	<string name="type.highway.motorway.bridge">Gate</string>
-	<string name="type.highway.motorway.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Tunnel</string>
 	<string name="type.highway.motorway_junction">Utgang</string>
 	<string name="type.highway.motorway_link">Gate</string>
-	<string name="type.highway.motorway_link.bridge">Gate</string>
-	<string name="type.highway.motorway_link.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Sti</string>
 	<string name="type.highway.path.alpine_hiking">Sti</string>
 	<string name="type.highway.path.bicycle">Sti</string>
-	<string name="type.highway.path.bridge">Sti</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Bridge</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Sti</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Sti</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Sti</string>
@@ -907,51 +924,75 @@
 	<string name="type.highway.path.horse">Sti</string>
 	<string name="type.highway.path.mountain_hiking">Sti</string>
 	<string name="type.highway.path.permissive">Sti</string>
-	<string name="type.highway.path.tunnel">Sti</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Gate</string>
 	<string name="type.highway.pedestrian.area">Gate</string>
-	<string name="type.highway.pedestrian.bridge">Gate</string>
-	<string name="type.highway.pedestrian.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Tunnel</string>
 	<string name="type.highway.primary">Gate</string>
-	<string name="type.highway.primary.bridge">Gate</string>
-	<string name="type.highway.primary.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tunnel</string>
 	<string name="type.highway.primary_link">Gate</string>
-	<string name="type.highway.primary_link.bridge">Gate</string>
-	<string name="type.highway.primary_link.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunnel</string>
 	<string name="type.highway.raceway">Løpebane</string>
 	<string name="type.highway.residential">Gate</string>
 	<string name="type.highway.residential.area">Gate</string>
-	<string name="type.highway.residential.bridge">Gate</string>
-	<string name="type.highway.residential.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tunnel</string>
 	<string name="type.highway.rest_area">Rasteplass</string>
 	<string name="type.highway.road">Gate</string>
-	<string name="type.highway.road.bridge">Gate</string>
-	<string name="type.highway.road.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Gate</string>
-	<string name="type.highway.secondary.bridge">Gate</string>
-	<string name="type.highway.secondary.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tunnel</string>
 	<string name="type.highway.secondary_link">Gate</string>
-	<string name="type.highway.secondary_link.bridge">Gate</string>
-	<string name="type.highway.secondary_link.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tunnel</string>
 	<string name="type.highway.service">Gate</string>
 	<string name="type.highway.service.area">Gate</string>
-	<string name="type.highway.service.bridge">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Bridge</string>
 	<string name="type.highway.service.driveway">Gate</string>
 	<string name="type.highway.service.parking_aisle">Gate</string>
-	<string name="type.highway.service.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tunnel</string>
 	<string name="type.highway.speed_camera">Fotoboks</string>
 	<string name="type.highway.steps">Sti</string>
-	<string name="type.highway.steps.bridge">Sti</string>
-	<string name="type.highway.steps.tunnel">Sti</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary">Gate</string>
-	<string name="type.highway.tertiary.bridge">Gate</string>
-	<string name="type.highway.tertiary.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary_link">Gate</string>
-	<string name="type.highway.tertiary_link.bridge">Gate</string>
-	<string name="type.highway.tertiary_link.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tunnel</string>
 	<string name="type.highway.track">Gate</string>
 	<string name="type.highway.track.area">Gate</string>
-	<string name="type.highway.track.bridge">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Bridge</string>
 	<string name="type.highway.track.grade1">Gate</string>
 	<string name="type.highway.track.grade2">Gate</string>
 	<string name="type.highway.track.grade3">Gate</string>
@@ -959,18 +1000,25 @@
 	<string name="type.highway.track.grade5">Gate</string>
 	<string name="type.highway.track.no.access">Gate</string>
 	<string name="type.highway.track.permissive">Gate</string>
-	<string name="type.highway.track.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Trafikklys</string>
 	<string name="type.highway.trunk">Gate</string>
-	<string name="type.highway.trunk.bridge">Gate</string>
-	<string name="type.highway.trunk.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tunnel</string>
 	<string name="type.highway.trunk_link">Gate</string>
-	<string name="type.highway.trunk_link.bridge">Gate</string>
-	<string name="type.highway.trunk_link.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tunnel</string>
 	<string name="type.highway.unclassified">Gate</string>
 	<string name="type.highway.unclassified.area">Gate</string>
-	<string name="type.highway.unclassified.bridge">Gate</string>
-	<string name="type.highway.unclassified.tunnel">Gate</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tunnel</string>
 	<string name="type.area_highway.footway">Sti</string>
 	<string name="type.area_highway.living_street">Gate</string>
 	<string name="type.area_highway.motorway">Gate</string>

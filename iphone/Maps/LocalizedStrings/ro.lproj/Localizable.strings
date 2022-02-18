@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mile";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Poziția mea";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Pod";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunel";
 
 "type.highway.bus_stop" = "Stație de autobuz";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Pod";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunel";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "Cale";
 
-"type.highway.footway.bridge" = "Cale";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Pod";
 
 "type.highway.footway.demanding_alpine_hiking" = "Cale";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "Cale";
 
-"type.highway.footway.tunnel" = "Cale";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunel";
 
 "type.highway.ford" = "Superficial";
 
 "type.highway.living_street" = "Stradă";
 
-"type.highway.living_street.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Pod";
 
-"type.highway.living_street.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunel";
 
 "type.highway.motorway" = "Stradă";
 
-"type.highway.motorway.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Pod";
 
-"type.highway.motorway.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunel";
 
 "type.highway.motorway_junction" = "Ieșire";
 
 "type.highway.motorway_link" = "Stradă";
 
-"type.highway.motorway_link.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Pod";
 
-"type.highway.motorway_link.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunel";
 
 "type.highway.path" = "Cale";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "Cale";
 
-"type.highway.path.bridge" = "Cale";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Pod";
 
 "type.highway.path.demanding_alpine_hiking" = "Cale";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "Cale";
 
-"type.highway.path.tunnel" = "Cale";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunel";
 
 "type.highway.pedestrian" = "Stradă";
 
 "type.highway.pedestrian.area" = "Stradă";
 
-"type.highway.pedestrian.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Pod";
 
-"type.highway.pedestrian.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunel";
 
 "type.highway.primary" = "Stradă";
 
-"type.highway.primary.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Pod";
 
-"type.highway.primary.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunel";
 
 "type.highway.primary_link" = "Stradă";
 
-"type.highway.primary_link.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Pod";
 
-"type.highway.primary_link.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunel";
 
 "type.highway.raceway" = "Pistă de curse";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "Stradă";
 
-"type.highway.residential.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Pod";
 
-"type.highway.residential.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunel";
 
 "type.highway.rest_area" = "Zonă de odihnă";
 
 "type.highway.road" = "Stradă";
 
-"type.highway.road.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Pod";
 
-"type.highway.road.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunel";
 
 "type.highway.secondary" = "Stradă";
 
-"type.highway.secondary.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Pod";
 
-"type.highway.secondary.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunel";
 
 "type.highway.secondary_link" = "Stradă";
 
-"type.highway.secondary_link.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Pod";
 
-"type.highway.secondary_link.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunel";
 
 "type.highway.service" = "Stradă";
 
 "type.highway.service.area" = "Stradă";
 
-"type.highway.service.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Pod";
 
 "type.highway.service.driveway" = "Stradă";
 
 "type.highway.service.parking_aisle" = "Stradă";
 
-"type.highway.service.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunel";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "Cale";
 
-"type.highway.steps.bridge" = "Cale";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Pod";
 
-"type.highway.steps.tunnel" = "Cale";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunel";
 
 "type.highway.tertiary" = "Stradă";
 
-"type.highway.tertiary.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Pod";
 
-"type.highway.tertiary.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunel";
 
 "type.highway.tertiary_link" = "Stradă";
 
-"type.highway.tertiary_link.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Pod";
 
-"type.highway.tertiary_link.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunel";
 
 "type.highway.track" = "Stradă";
 
 "type.highway.track.area" = "Stradă";
 
-"type.highway.track.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Pod";
 
 "type.highway.track.grade1" = "Stradă";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "Stradă";
 
-"type.highway.track.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunel";
 
 "type.highway.traffic_signals" = "Semafoare";
 
 "type.highway.trunk" = "Stradă";
 
-"type.highway.trunk.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Pod";
 
-"type.highway.trunk.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunel";
 
 "type.highway.trunk_link" = "Stradă";
 
-"type.highway.trunk_link.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Pod";
 
-"type.highway.trunk_link.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunel";
 
 "type.highway.unclassified" = "Stradă";
 
 "type.highway.unclassified.area" = "Stradă";
 
-"type.highway.unclassified.bridge" = "Stradă";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Pod";
 
-"type.highway.unclassified.tunnel" = "Stradă";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunel";
 
 "type.area_highway.cycleway" = "Cycle Path";
 

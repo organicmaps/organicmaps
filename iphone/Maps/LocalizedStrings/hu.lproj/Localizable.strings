@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mérföld";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Saját helyzet";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Híd";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Alagút";
 
 "type.highway.bus_stop" = "Buszmegálló";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Híd";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Alagút";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "Ösvény";
 
-"type.highway.footway.bridge" = "Ösvény";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Híd";
 
 "type.highway.footway.demanding_alpine_hiking" = "Ösvény";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "Ösvény";
 
-"type.highway.footway.tunnel" = "Ösvény";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Alagút";
 
 "type.highway.ford" = "Gázló";
 
 "type.highway.living_street" = "Utca";
 
-"type.highway.living_street.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Híd";
 
-"type.highway.living_street.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Alagút";
 
 "type.highway.motorway" = "Utca";
 
-"type.highway.motorway.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Híd";
 
-"type.highway.motorway.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Alagút";
 
 "type.highway.motorway_junction" = "Kijárat";
 
 "type.highway.motorway_link" = "Utca";
 
-"type.highway.motorway_link.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Híd";
 
-"type.highway.motorway_link.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Alagút";
 
 "type.highway.path" = "Ösvény";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "Ösvény";
 
-"type.highway.path.bridge" = "Ösvény";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Híd";
 
 "type.highway.path.demanding_alpine_hiking" = "Ösvény";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "Ösvény";
 
-"type.highway.path.tunnel" = "Ösvény";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Alagút";
 
 "type.highway.pedestrian" = "Utca";
 
 "type.highway.pedestrian.area" = "Utca";
 
-"type.highway.pedestrian.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Híd";
 
-"type.highway.pedestrian.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Alagút";
 
 "type.highway.primary" = "Utca";
 
-"type.highway.primary.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Híd";
 
-"type.highway.primary.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Alagút";
 
 "type.highway.primary_link" = "Utca";
 
-"type.highway.primary_link.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Híd";
 
-"type.highway.primary_link.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Alagút";
 
 "type.highway.raceway" = "Versenypálya";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "Utca";
 
-"type.highway.residential.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Híd";
 
-"type.highway.residential.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Alagút";
 
 "type.highway.rest_area" = "Pihenőzóna";
 
 "type.highway.road" = "Utca";
 
-"type.highway.road.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Híd";
 
-"type.highway.road.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Alagút";
 
 "type.highway.secondary" = "Utca";
 
-"type.highway.secondary.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Híd";
 
-"type.highway.secondary.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Alagút";
 
 "type.highway.secondary_link" = "Utca";
 
-"type.highway.secondary_link.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Híd";
 
-"type.highway.secondary_link.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Alagút";
 
 "type.highway.service" = "Utca";
 
 "type.highway.service.area" = "Utca";
 
-"type.highway.service.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Híd";
 
 "type.highway.service.driveway" = "Utca";
 
 "type.highway.service.parking_aisle" = "Utca";
 
-"type.highway.service.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Alagút";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "Ösvény";
 
-"type.highway.steps.bridge" = "Ösvény";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Híd";
 
-"type.highway.steps.tunnel" = "Ösvény";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Alagút";
 
 "type.highway.tertiary" = "Utca";
 
-"type.highway.tertiary.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Híd";
 
-"type.highway.tertiary.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Alagút";
 
 "type.highway.tertiary_link" = "Utca";
 
-"type.highway.tertiary_link.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Híd";
 
-"type.highway.tertiary_link.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Alagút";
 
 "type.highway.track" = "Utca";
 
 "type.highway.track.area" = "Utca";
 
-"type.highway.track.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Híd";
 
 "type.highway.track.grade1" = "Utca";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "Utca";
 
-"type.highway.track.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Alagút";
 
 "type.highway.traffic_signals" = "Közlekedési lámpák";
 
 "type.highway.trunk" = "Utca";
 
-"type.highway.trunk.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Híd";
 
-"type.highway.trunk.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Alagút";
 
 "type.highway.trunk_link" = "Utca";
 
-"type.highway.trunk_link.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Híd";
 
-"type.highway.trunk_link.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Alagút";
 
 "type.highway.unclassified" = "Utca";
 
 "type.highway.unclassified.area" = "Utca";
 
-"type.highway.unclassified.bridge" = "Utca";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Híd";
 
-"type.highway.unclassified.tunnel" = "Utca";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Alagút";
 
 "type.area_highway.cycleway" = "Cycle Path";
 

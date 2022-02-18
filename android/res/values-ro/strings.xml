@@ -21,7 +21,7 @@
 	<string name="maps">Hărţi</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mile</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Poziția mea</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Mai tîrziu</string>
@@ -895,34 +895,51 @@
 	<string name="type.healthcare.laboratory">Laborator medical</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunel</string>
 	<string name="type.highway.bus_stop">Stație de autobuz</string>
 	<string name="type.highway.construction">Drum în construcție</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunel</string>
 	<string name="type.highway.footway">Cale</string>
 	<string name="type.highway.footway.alpine_hiking">Cale</string>
 	<string name="type.highway.footway.area">Cale</string>
-	<string name="type.highway.footway.bridge">Cale</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Pod</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Cale</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Cale</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Cale</string>
 	<string name="type.highway.footway.hiking">Cale</string>
 	<string name="type.highway.footway.mountain_hiking">Cale</string>
 	<string name="type.highway.footway.permissive">Cale</string>
-	<string name="type.highway.footway.tunnel">Cale</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Superficial</string>
 	<string name="type.highway.living_street">Stradă</string>
-	<string name="type.highway.living_street.bridge">Stradă</string>
-	<string name="type.highway.living_street.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tunel</string>
 	<string name="type.highway.motorway">Stradă</string>
-	<string name="type.highway.motorway.bridge">Stradă</string>
-	<string name="type.highway.motorway.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Tunel</string>
 	<string name="type.highway.motorway_junction">Ieșire</string>
 	<string name="type.highway.motorway_link">Stradă</string>
-	<string name="type.highway.motorway_link.bridge">Stradă</string>
-	<string name="type.highway.motorway_link.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunel</string>
 	<string name="type.highway.path">Cale</string>
 	<string name="type.highway.path.alpine_hiking">Cale</string>
 	<string name="type.highway.path.bicycle">Cale</string>
-	<string name="type.highway.path.bridge">Cale</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Pod</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Cale</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Cale</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Cale</string>
@@ -930,51 +947,75 @@
 	<string name="type.highway.path.horse">Cale</string>
 	<string name="type.highway.path.mountain_hiking">Cale</string>
 	<string name="type.highway.path.permissive">Cale</string>
-	<string name="type.highway.path.tunnel">Cale</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunel</string>
 	<string name="type.highway.pedestrian">Stradă</string>
 	<string name="type.highway.pedestrian.area">Stradă</string>
-	<string name="type.highway.pedestrian.bridge">Stradă</string>
-	<string name="type.highway.pedestrian.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Tunel</string>
 	<string name="type.highway.primary">Stradă</string>
-	<string name="type.highway.primary.bridge">Stradă</string>
-	<string name="type.highway.primary.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tunel</string>
 	<string name="type.highway.primary_link">Stradă</string>
-	<string name="type.highway.primary_link.bridge">Stradă</string>
-	<string name="type.highway.primary_link.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunel</string>
 	<string name="type.highway.raceway">Pistă de curse</string>
 	<string name="type.highway.residential">Stradă</string>
 	<string name="type.highway.residential.area">Stradă</string>
-	<string name="type.highway.residential.bridge">Stradă</string>
-	<string name="type.highway.residential.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tunel</string>
 	<string name="type.highway.rest_area">Zonă de odihnă</string>
 	<string name="type.highway.road">Stradă</string>
-	<string name="type.highway.road.bridge">Stradă</string>
-	<string name="type.highway.road.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunel</string>
 	<string name="type.highway.secondary">Stradă</string>
-	<string name="type.highway.secondary.bridge">Stradă</string>
-	<string name="type.highway.secondary.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tunel</string>
 	<string name="type.highway.secondary_link">Stradă</string>
-	<string name="type.highway.secondary_link.bridge">Stradă</string>
-	<string name="type.highway.secondary_link.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tunel</string>
 	<string name="type.highway.service">Stradă</string>
 	<string name="type.highway.service.area">Stradă</string>
-	<string name="type.highway.service.bridge">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Pod</string>
 	<string name="type.highway.service.driveway">Stradă</string>
 	<string name="type.highway.service.parking_aisle">Stradă</string>
-	<string name="type.highway.service.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tunel</string>
 	<string name="type.highway.speed_camera">Detector de viteză</string>
 	<string name="type.highway.steps">Cale</string>
-	<string name="type.highway.steps.bridge">Cale</string>
-	<string name="type.highway.steps.tunnel">Cale</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunel</string>
 	<string name="type.highway.tertiary">Stradă</string>
-	<string name="type.highway.tertiary.bridge">Stradă</string>
-	<string name="type.highway.tertiary.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tunel</string>
 	<string name="type.highway.tertiary_link">Stradă</string>
-	<string name="type.highway.tertiary_link.bridge">Stradă</string>
-	<string name="type.highway.tertiary_link.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tunel</string>
 	<string name="type.highway.track">Stradă</string>
 	<string name="type.highway.track.area">Stradă</string>
-	<string name="type.highway.track.bridge">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Pod</string>
 	<string name="type.highway.track.grade1">Stradă</string>
 	<string name="type.highway.track.grade2">Stradă</string>
 	<string name="type.highway.track.grade3">Stradă</string>
@@ -982,18 +1023,25 @@
 	<string name="type.highway.track.grade5">Stradă</string>
 	<string name="type.highway.track.no.access">Stradă</string>
 	<string name="type.highway.track.permissive">Stradă</string>
-	<string name="type.highway.track.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">Semafoare</string>
 	<string name="type.highway.trunk">Stradă</string>
-	<string name="type.highway.trunk.bridge">Stradă</string>
-	<string name="type.highway.trunk.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tunel</string>
 	<string name="type.highway.trunk_link">Stradă</string>
-	<string name="type.highway.trunk_link.bridge">Stradă</string>
-	<string name="type.highway.trunk_link.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tunel</string>
 	<string name="type.highway.unclassified">Stradă</string>
 	<string name="type.highway.unclassified.area">Stradă</string>
-	<string name="type.highway.unclassified.bridge">Stradă</string>
-	<string name="type.highway.unclassified.tunnel">Stradă</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Pod</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tunel</string>
 	<string name="type.area_highway.footway">Cale</string>
 	<string name="type.area_highway.living_street">Stradă</string>
 	<string name="type.area_highway.motorway">Stradă</string>
