@@ -12,13 +12,15 @@ namespace routing
 {
 JointSegment::JointSegment(Segment const & from, Segment const & to)
 {
-  CHECK(!from.IsFakeCreated() && !to.IsFakeCreated(),
-        ("Segments of joints can not be fake. Only through ToFake() method."));
+  static_assert(sizeof(JointSegment) == 16, "");
 
-  CHECK_EQUAL(from.GetMwmId(), to.GetMwmId(), ("Different mwmIds in segments for JointSegment"));
+  CHECK(!from.IsFakeCreated() && !to.IsFakeCreated(),
+        ("Segments of joints can not be fake. Only through MakeFake() function."));
+
+  CHECK_EQUAL(from.GetMwmId(), to.GetMwmId(), ());
   m_numMwmId = from.GetMwmId();
 
-  CHECK_EQUAL(from.IsForward(), to.IsForward(), ("Different forward in segments for JointSegment"));
+  CHECK_EQUAL(from.IsForward(), to.IsForward(), ());
   m_forward = from.IsForward();
 
   CHECK_EQUAL(from.GetFeatureId(), to.GetFeatureId(), ());
@@ -26,6 +28,18 @@ JointSegment::JointSegment(Segment const & from, Segment const & to)
 
   m_startSegmentId = from.GetSegmentIdx();
   m_endSegmentId = to.GetSegmentIdx();
+}
+
+void JointSegment::AssignID(Segment const & seg)
+{
+  m_numMwmId = seg.GetMwmId();
+  m_featureId = seg.GetFeatureId();
+}
+
+void JointSegment::AssignID(JointSegment const & seg)
+{
+  m_numMwmId = seg.m_numMwmId;
+  m_featureId = seg.m_featureId;
 }
 
 JointSegment JointSegment::MakeFake(uint32_t fakeId, uint32_t featureId/* = kInvalidFeatureId*/)

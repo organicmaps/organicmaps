@@ -664,4 +664,18 @@ namespace
         mercator::FromLatLon(35.6233244, -78.3917262), {0., 0.},
         mercator::FromLatLon(36.0081839, -81.5245347), 333425);
   }
+
+  // https://github.com/organicmaps/organicmaps/issues/1565
+  UNIT_TEST(Cyprus_NoUTurnFromFake)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(34.70639, 33.1184951), {0., 0.},
+        mercator::FromLatLon(34.7065239, 33.1184222), 384.238);
+
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(34.7068976, 33.1199084), {0., 0.},
+        mercator::FromLatLon(34.7070505, 33.1198391), 670.077);
+  }
 }  // namespace
