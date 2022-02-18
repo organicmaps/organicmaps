@@ -130,6 +130,13 @@ el:Μπιφτέκι|Χάμπουργκερ
 he:המבורגר
 sk:Hamburger
 
+cuisine-bubble_tea
+en:Bubble Tea|boba tea
+ru:Чай с шариками
+es:Té de burbujas
+uk:Бульбашковий чай
+be:Чай з бурбалкамі
+
 cuisine-cake
 en:Cake|bakery
 ru:Кондитерская|выпечка|пекарня
