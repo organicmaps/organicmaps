@@ -60,14 +60,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
         if (tintAttr != 0)
           Graphics.tint((TextView)view, tintAttr);
       }
-      view.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          processClick(mResult, mOrder);
-        }
-      });
+      view.setOnClickListener(v -> processClick(mResult, mOrder));
     }
 
     @Override
@@ -166,21 +159,21 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
       if (!TextUtils.isEmpty(result.description.airportIata))
       {
-        tail.append(" • " + result.description.airportIata);
+        tail.append(" • ").append(result.description.airportIata);
       }
       else if (!TextUtils.isEmpty(result.description.roadShields))
       {
-        tail.append(" • " + result.description.roadShields);
+        tail.append(" • ").append(result.description.roadShields);
       }
       else
       {
         if (!TextUtils.isEmpty(result.description.brand))
         {
-          tail.append(" • " + Utils.getLocalizedBrand(mFrame.getContext(), result.description.brand));
+          tail.append(" • ").append(Utils.getLocalizedBrand(mFrame.getContext(), result.description.brand));
         }
         if (!TextUtils.isEmpty(result.description.cuisine))
         {
-          tail.append(" • " + result.description.cuisine);
+          tail.append(" • ").append(result.description.cuisine);
         }
       }
 
@@ -208,7 +201,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       mRegion = view.findViewById(R.id.region);
       mDistance = view.findViewById(R.id.distance);
 
-      mClosedMarker.setBackgroundDrawable(mClosedMarkerBackground);
+      mClosedMarker.setBackground(mClosedMarkerBackground);
     }
 
     @Override
@@ -241,29 +234,11 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       return isNotPopular || !mResult.description.hasPopularityHigherPriority;
     }
 
-    private boolean isPopularVisible()
-    {
-      boolean isNotPopular = mResult.getPopularity().getType() == Popularity.Type.NOT_POPULAR;
-      if (isNotPopular)
-        return false;
-
-      boolean isClosed = mResult.description.openNow == SearchResult.OPEN_NOW_NO;
-
-      return !isClosed || mResult.description.hasPopularityHigherPriority;
-    }
-
     private void setBackground()
     {
-      Context context = mSearchFragment.getActivity();
-      int itemBg = ThemeUtils.getResource(context, R.attr.clickableBackground);
-      int bottomPad = mFrame.getPaddingBottom();
-      int topPad = mFrame.getPaddingTop();
-      int rightPad = mFrame.getPaddingRight();
-      int leftPad = mFrame.getPaddingLeft();
+      final Context context = mSearchFragment.getActivity();
+      final int itemBg = ThemeUtils.getResource(context, R.attr.clickableBackground);
       mFrame.setBackgroundResource(itemBg);
-      // On old Android (4.1) after setting the view background the previous paddings
-      // are discarded for unknown reasons, that's why restoring the previous paddings is needed.
-      mFrame.setPadding(leftPad, topPad, rightPad, bottomPad);
     }
 
     @Override

@@ -1317,12 +1317,12 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
   if (m_currentPlacePageInfo)
   {
-    if (scale < 0)
-      scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
-
-    m2::PointD const center = m_currentPlacePageInfo->GetMercator();
-    if (m_drapeEngine != nullptr)
+    if (m_drapeEngine) {
+      if (scale < 0)
+        scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
+      m2::PointD const center = m_currentPlacePageInfo->GetMercator();
       m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
+    }
 
     ActivateMapSelection();
   }
@@ -1994,14 +1994,13 @@ void Framework::ActivateMapSelection()
 
   m_searchMarks.SetSelected(featureId);
 
-  CHECK_NOT_EQUAL(m_currentPlacePageInfo->GetSelectedObject(), df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
-  if (m_drapeEngine != nullptr)
+  auto const selObj = m_currentPlacePageInfo->GetSelectedObject();
+  CHECK_NOT_EQUAL(selObj, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
+  if (m_drapeEngine)
   {
-    m_drapeEngine->SelectObject(m_currentPlacePageInfo->GetSelectedObject(), m_currentPlacePageInfo->GetMercator(),
-                                featureId,
-                                m_currentPlacePageInfo->GetBuildInfo().m_needAnimationOnSelection,
-                                m_currentPlacePageInfo->GetBuildInfo().m_isGeometrySelectionAllowed,
-                                true);
+    auto const & bi = m_currentPlacePageInfo->GetBuildInfo();
+    m_drapeEngine->SelectObject(selObj, m_currentPlacePageInfo->GetMercator(), featureId,
+                                bi.m_needAnimationOnSelection, bi.m_isGeometrySelectionAllowed, true);
   }
 
   if (m_onPlacePageOpen)
