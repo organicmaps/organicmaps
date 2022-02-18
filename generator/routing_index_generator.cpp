@@ -15,6 +15,7 @@
 #include "routing/index_graph_starter_joints.hpp"
 #include "routing/joint_segment.hpp"
 #include "routing/vehicle_mask.hpp"
+#include "routing/world_graph.hpp"
 
 #include "transit/experimental/transit_data.hpp"
 #include "transit/transit_graph_data.hpp"
@@ -183,7 +184,7 @@ public:
       routing::IndexGraph::Parents<routing::JointSegment> const & /* forwardParents */,
       routing::JointSegment const & /* commonVertex */,
       routing::IndexGraph::Parents<routing::JointSegment> const & /* backwardParents */,
-      function<uint32_t(routing::JointSegment const &)> && /* fakeFeatureConverter */)
+      WorldGraph::FakeConverterT const & /* fakeFeatureConverter */)
   {
     return true;
   }

@@ -108,11 +108,12 @@ public:
   virtual void DropAStarParents();
 
   virtual bool AreWavesConnectible(Parents<Segment> & forwardParents, Segment const & commonVertex,
-                                   Parents<Segment> & backwardParents,
-                                   std::function<uint32_t(Segment const &)> && fakeFeatureConverter);
+                                   Parents<Segment> & backwardParents);
+
+  using FakeConverterT = std::function<void (JointSegment &)>;
   virtual bool AreWavesConnectible(Parents<JointSegment> & forwardParents, JointSegment const & commonVertex,
                                    Parents<JointSegment> & backwardParents,
-                                   std::function<uint32_t(JointSegment const &)> && fakeFeatureConverter);
+                                   FakeConverterT const & fakeFeatureConverter);
 
   /// \returns transit-specific information for segment. For nontransit segments returns nullptr.
   virtual std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) = 0;

@@ -48,15 +48,14 @@ void WorldGraph::SetAStarParents(bool forward, Parents<JointSegment> & parents) 
 void WorldGraph::DropAStarParents() {}
 
 bool WorldGraph::AreWavesConnectible(Parents<Segment> & forwardParents, Segment const & commonVertex,
-                                     Parents<Segment> & backwardParents,
-                                     std::function<uint32_t(Segment const &)> && fakeFeatureConverter)
+                                     Parents<Segment> & backwardParents)
 {
   return true;
 }
 
 bool WorldGraph::AreWavesConnectible(Parents<JointSegment> & forwardParents, JointSegment const & commonVertex,
                                      Parents<JointSegment> & backwardParents,
-                                     std::function<uint32_t(JointSegment const &)> && fakeFeatureConverter)
+                                     FakeConverterT const & fakeFeatureConverter)
 {
   return true;
 }
