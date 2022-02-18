@@ -81,7 +81,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SkipDummy)
   TEST_EQUAL(params.m_types[0], GetType({"highway", "primary"}), ());
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, OsmType_Check)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Oneway)
 {
   {
     Tags const tags = {
@@ -112,18 +112,47 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Check)
     TEST(params.IsTypeExist(GetType({"highway", "primary"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "oneway"})), ());
   }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Location)
+{
+  {
+    Tags const tags = {
+      { "power", "line" },
+      { "location", "underground" },
+      { "man_made", "pipeline" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 0, (params));
+  }
 
   {
     Tags const tags = {
-      { "admin_level", "4" },
-      { "border_type", "state" },
-      { "boundary", "administrative" }
+      { "power", "line" },
+      { "man_made", "pipeline" },
     };
 
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
-    TEST(params.IsTypeExist(GetType({"boundary", "administrative", "4"})), ());
+    TEST(params.IsTypeExist(GetType({"power", "line"})), ());
+    // We don't have drawing rules now for pipeline.
+    //TEST(params.IsTypeExist(GetType({"man_made", "pipeline"})), ());
+  }
+
+  {
+    Tags const tags = {
+      { "power", "line" },
+      { "location", "overground" },
+      { "man_made", "pipeline" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    /// @todo Mapcss understands only [!location] syntax now. Make it possible to set [!location=underground]
+    TEST_EQUAL(params.m_types.size(), 0, (params));
   }
 }
 

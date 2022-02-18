@@ -76,7 +76,7 @@ landuse|industrial;75;
 barrier|wall;76;
 amenity|post_box;77;
 place|town;78;
-power|line;79;
+power|line;[power=line][!location];;name;int_name;79;
 landuse|farmyard;80;
 highway|residential|bridge;[highway=residential][bridge?];;name;int_name;81;
 railway|rail|bridge;[railway=rail][bridge?];;name;int_name;82;
@@ -256,7 +256,7 @@ deprecated|deprecated;255;x
 piste:type|downhill|intermediate;[piste:type=downhill][piste:difficulty=intermediate];;name;int_name;256;
 railway|subway_entrance;257;
 deprecated|deprecated;258;x
-man_made|pipeline;259;
+man_made|pipeline;[man_made=pipeline][!location];;name;int_name;259;
 route|ferry;260;
 highway|trunk_link|bridge;[highway=trunk_link][bridge?];;name;int_name;261;
 landuse|military;262;
@@ -302,7 +302,7 @@ man_made|storage_tank;301;
 man_made|silo;302;
 power|generator;303;
 highway|pedestrian|bridge;[highway=pedestrian][bridge?];;name;int_name;304;
-man_made|pipeline|overground;[man_made=pipeline][location=overground];;name;int_name;305;
+man_made|pipeline|overground;[man_made=pipeline][location=overground];x;name;int_name;305;man_made|pipeline
 natural|saddle;306;
 mountain_pass;[mountain_pass];;name;int_name;307;
 highway|raceway;308;
@@ -542,7 +542,7 @@ deprecated|deprecated;541;x
 amenity|speed_trap;542;highway|speed_camera
 area:highway|track;543;
 area:highway|primary;544;
-power|line|underground;[power=line][location=underground];;name;int_name;545;
+deprecated|deprecated;545;x
 deprecated|deprecated;546;x
 deprecated|deprecated;547;x
 deprecated|deprecated;548;x
