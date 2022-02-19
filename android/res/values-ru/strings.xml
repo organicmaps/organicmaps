@@ -203,6 +203,8 @@
 	<string name="pref_tts_language_title">Язык подсказок</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Не доступны</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Недавний путь</string>
 	<string name="pref_map_auto_zoom">Автозум</string>
 	<string name="duration_disabled">Выключено</string>
 	<string name="duration_1_hour">1 час</string>
@@ -210,6 +212,7 @@
 	<string name="duration_6_hours">6 часов</string>
 	<string name="duration_12_hours">12 часов</string>
 	<string name="duration_1_day">1 сутки</string>
+	<string name="recent_track_help_text">Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.</string>
 	<string name="search_show_on_map">Посмотреть на карте</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
@@ -491,6 +494,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
 	<string name="editor_share_to_all_dialog_message_2">Если при проверке изменений возникнут вопросы, мы напишем вам на email.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Выключить запись недавно пройденого пути?</string>
+	<string name="off_recent_track_background_button">Выключить</string>
+	<string name="recent_track_background_dialog_message">Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора пресональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!</string>
 	<!-- For the first routing -->

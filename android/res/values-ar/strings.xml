@@ -195,6 +195,8 @@
 	<string name="pref_tts_language_title">لغة الصوت</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">غير متاح</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">المسار الأخير</string>
 	<string name="pref_map_auto_zoom">تكبير تلقائي</string>
 	<string name="duration_disabled">لا يعمل</string>
 	<string name="duration_1_hour">1 ساعة</string>
@@ -202,6 +204,7 @@
 	<string name="duration_6_hours">6 ساعات</string>
 	<string name="duration_12_hours">12 ساعة</string>
 	<string name="duration_1_day">1 يوم</string>
+	<string name="recent_track_help_text">يتيح لك تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.</string>
 	<string name="search_show_on_map">مشاهدة على الخريطة</string>
 	<!-- Text in menu -->
 	<string name="website">الموقع الإلكتروني</string>
@@ -473,6 +476,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">تأكد من أنك لم تقم بإدخال أي بيانات شخصية.</string>
 	<string name="editor_share_to_all_dialog_message_2">سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسوف نتصل بك عبر البريد الإلكتروني.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">تريد تعطيل التسجيل الخاص بمسار سفرك الأخير؟</string>
+	<string name="off_recent_track_background_button">تعطيل</string>
+	<string name="recent_track_background_dialog_message">يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps هي تطبيق خرائط مجاني ومفتوح المصدر بلا اتصال بالإنترنت. لا اعلانات. لا تتبع. إذا رأيت خطأً على الخريطة ، فيرجى إصلاحه في OpenStreetMap. تم إنشاء المشروع بواسطة المتحمسين في أوقات فراغنا ، لذلك نحتاج إلى ملاحظاتك ودعمك.</string>
 	<!-- For the first routing -->

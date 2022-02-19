@@ -195,6 +195,8 @@
 	<string name="pref_tts_language_title">Bahasa Suara</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Tidak Tersedia</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Jalur terkini</string>
 	<string name="pref_map_auto_zoom">Perbesar otomatis</string>
 	<string name="duration_disabled">Nonaktif</string>
 	<string name="duration_1_hour">1 jam</string>
@@ -202,6 +204,7 @@
 	<string name="duration_6_hours">6 jam</string>
 	<string name="duration_12_hours">12 jam</string>
 	<string name="duration_1_day">1 hari</string>
+	<string name="recent_track_help_text">Ini memungkinkan Anda untuk merekam jalur yang telah dilalui selama jangka waktu tertentu dan melihatnya pada peta. Harap ketahui: aktivasi fungsi ini menyebabkan peningkatan penggunaan baterai. Trek akan dihapus secara otomatis dari peta setelah selang waktu berakhir.</string>
 	<string name="search_show_on_map">Tampilkan pada peta</string>
 	<!-- Text in menu -->
 	<string name="website">Situs Web</string>
@@ -471,6 +474,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Pastikan Anda tidak memasukkan data pribadi apa pun.</string>
 	<string name="editor_share_to_all_dialog_message_2">Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Nonaktifkan rekaman dari rute yang baru Anda lalui?</string>
+	<string name="off_recent_track_background_button">Nonaktifkan</string>
+	<string name="recent_track_background_dialog_message">Organic Maps menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps adalah aplikasi peta offline sumber terbuka dan gratis. Tanpa iklan. Tidak ada pelacakan. Jika Anda melihat kesalahan pada peta, harap perbaiki di OpenStreetMap. Proyek ini dibuat oleh para penggemar di waktu luang kami, jadi kami membutuhkan masukan dan dukungan Anda.</string>
 	<!-- For the first routing -->

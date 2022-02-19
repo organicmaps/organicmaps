@@ -198,6 +198,8 @@
 	<string name="pref_tts_language_title">Idioma da voz</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Não disponível</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Percurso recente</string>
 	<string name="pref_map_auto_zoom">Zoom automático</string>
 	<string name="duration_disabled">Desligado</string>
 	<string name="duration_1_hour">1 hora</string>
@@ -205,6 +207,7 @@
 	<string name="duration_6_hours">6 horas</string>
 	<string name="duration_12_hours">12 horas</string>
 	<string name="duration_1_day">1 dia</string>
+	<string name="recent_track_help_text">Permite você salvar um caminho percorrido durante um determinado período e o ver no papa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.</string>
 	<string name="search_show_on_map">Ver no mapa</string>
 	<!-- Text in menu -->
 	<string name="website">Site</string>
@@ -473,6 +476,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Certifique-se de não ter incluído nenhum dado pessoal.</string>
 	<string name="editor_share_to_all_dialog_message_2">Verificaremos as alterações. Se tivermos perguntas, entraremos em contato com você por email.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Desabilitar registro de sua rota recente?</string>
+	<string name="off_recent_track_background_button">Desabilitar</string>
+	<string name="recent_track_background_dialog_message">O Organic Maps usa sua localização geográfica em segundo plano para registrar sua rota recente.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps é uma aplicação gratuita e de código aberto de mapas off-line. Sem anúncios. Sem rastreamento. Se você vir um erro no mapa, por favor, corrija em OpenStreetMap. O projeto é criado por entusiastas em nosso tempo livre, então precisamos de seu feedback e suporte.</string>
 	<!-- For the first routing -->

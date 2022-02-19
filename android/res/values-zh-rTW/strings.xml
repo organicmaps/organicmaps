@@ -198,6 +198,8 @@
 	<string name="pref_tts_language_title">語音語言</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">無法使用</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">最近的軌跡</string>
 	<string name="pref_map_auto_zoom">自動縮放</string>
 	<string name="duration_disabled">關閉</string>
 	<string name="duration_1_hour">1小時</string>
@@ -205,6 +207,7 @@
 	<string name="duration_6_hours">6小時</string>
 	<string name="duration_12_hours">12小時</string>
 	<string name="duration_1_day">1天</string>
+	<string name="recent_track_help_text">它可讓您記錄特定期間所行經的路徑，並在地圖上看到該路徑。請注意：啟用此項功能會增加電池使用量。在時間間隔過期後，會從地圖中自動移除行進路線。</string>
 	<string name="search_show_on_map">在地圖上查看</string>
 	<!-- Text in menu -->
 	<string name="website">網站</string>
@@ -487,6 +490,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">確保您沒有輸入任何個人資料。</string>
 	<string name="editor_share_to_all_dialog_message_2">我們會檢查更改。如果我們有任何問題，我們會郵件與您聯絡。</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">禁止記錄您最近去過的路徑？</string>
+	<string name="off_recent_track_background_button">禁用</string>
+	<string name="recent_track_background_dialog_message">Organic Maps使用背景中的地理位置記錄您最近去過的路徑。</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps 是一款免費的開源離線地圖 app。沒有廣告，不會追蹤。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復吧。這個專案由愛好者在我們的空閒時間創建，因此我們需要您的回饋和支援。</string>
 	<!-- For the first routing -->

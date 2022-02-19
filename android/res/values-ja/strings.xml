@@ -191,6 +191,8 @@
 	<string name="pref_tts_language_title">音声言語</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">利用不可</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">最近の移動経路</string>
 	<string name="pref_map_auto_zoom">自動ズーム</string>
 	<string name="duration_disabled">オフ</string>
 	<string name="duration_1_hour">1時間</string>
@@ -198,6 +200,7 @@
 	<string name="duration_6_hours">6時間</string>
 	<string name="duration_12_hours">12時間</string>
 	<string name="duration_1_day">1日</string>
+	<string name="recent_track_help_text">移動経路を一定期間記録し、地図上で確認できるようにします。注意：この機能を有効にすると、バッテリーの消費量が増えます。表示期間が終了すると、走行軌跡は地図から自動的に削除されます。</string>
 	<string name="search_show_on_map">地図に表示</string>
 	<!-- Text in menu -->
 	<string name="website">ウェブサイト</string>
@@ -467,6 +470,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">個人情報を入力していないことを確認してください。</string>
 	<string name="editor_share_to_all_dialog_message_2">弊社で変更を確認します。質問がある場合はメールでご連絡します。</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">最近の走行ルートの記録を無効にしますか？</string>
+	<string name="off_recent_track_background_button">無効にする</string>
+	<string name="recent_track_background_dialog_message">Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Mapsは、無料のオープンソースのオフラインマップアプリケーションです。広告なし。全く追跡しません。地図上にエラーが表示された場合は、OpenStreetMapで修正してください。プロジェクトは私たちの自由な時間に愛好家によって作成されているため、フィードバックとサポートが必要です。</string>
 	<!-- For the first routing -->

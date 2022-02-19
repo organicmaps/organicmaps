@@ -36,11 +36,13 @@ import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.PowerManagment;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.HashMap;
@@ -296,6 +298,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initTransliterationPrefsCallbacks();
     init3dModePrefsCallbacks();
     initPerspectivePrefsCallbacks();
+    initTrackRecordPrefsCallbacks();
     initAutoZoomPrefsCallbacks();
     initLoggingEnabledPrefsCallbacks();
     initEmulationBadStorage();
@@ -353,6 +356,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     super.onResume();
 
+    initTrackRecordPrefsCallbacks();
     updateTts();
   }
 
@@ -585,6 +589,55 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       });
       return true;
     }
+  }
+
+  private void initTrackRecordPrefsCallbacks()
+  {
+    final ListPreference trackPref = findPreference(getString(R.string.pref_track_record));
+    final Preference pref = findPreference(getString(R.string.pref_track_record_time));
+    final Preference root = findPreference(getString(R.string.pref_track_screen));
+    if (trackPref == null || pref == null)
+      return;
+
+    boolean enabled = TrackRecorder.nativeIsEnabled() && PermissionsUtils.isBackgroundLocationGranted(getContext());
+    ((TwoStatePreference)pref).setChecked(enabled);
+    trackPref.setEnabled(enabled);
+    if (root != null)
+      root.setSummary(enabled ? R.string.on : R.string.off);
+    pref.setTitle(enabled ? R.string.on : R.string.off);
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      boolean enabled1 = (Boolean) newValue;
+      TrackRecorder.nativeSetEnabled(enabled1);
+      trackPref.setEnabled(enabled1);
+      if (root != null)
+        root.setSummary(enabled1 ? R.string.on : R.string.off);
+      pref.setTitle(enabled1 ? R.string.on : R.string.off);
+      trackPref.performClick();
+      return true;
+    });
+
+    String value = (enabled ? String.valueOf(TrackRecorder.nativeGetDuration()) : "0");
+    trackPref.setValue(value);
+    trackPref.setSummary(trackPref.getEntry());
+    trackPref.setOnPreferenceChangeListener((preference, newValue) -> {
+      int value1 = Integer.valueOf((String)newValue);
+      boolean enabled12 = value1 != 0;
+      if (enabled12)
+        TrackRecorder.nativeSetDuration(value1);
+      TrackRecorder.nativeSetEnabled(enabled12);
+      ((TwoStatePreference) pref).setChecked(enabled12);
+      trackPref.setEnabled(enabled12);
+      if (root != null)
+        root.setSummary(enabled12 ? R.string.on : R.string.off);
+      pref.setTitle(enabled12 ? R.string.on : R.string.off);
+
+      UiThread.runLater(() -> {
+        trackPref.setSummary(trackPref.getEntry());
+        if (enabled12)
+          getSettingsActivity().checkBackgroundLocationPermission();
+      });
+      return true;
+    });
   }
 
   private void init3dModePrefsCallbacks()

@@ -193,6 +193,8 @@
 	<string name="pref_tts_language_title">Stemmesprog</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Ikke til rådighed</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Seneste sti</string>
 	<string name="pref_map_auto_zoom">Auto zoom</string>
 	<string name="duration_disabled">Fra</string>
 	<string name="duration_1_hour">1 time</string>
@@ -200,6 +202,7 @@
 	<string name="duration_6_hours">6 timer</string>
 	<string name="duration_12_hours">12 timer</string>
 	<string name="duration_1_day">1 dag</string>
+	<string name="recent_track_help_text">Det giver dig mulighed at optage en rejsterute for en bestemt periode og se den på kortet. Bemærk: aktivering af denne funktion forårsager øget batteriforbrug. Sporet vil blive fjernet automatisk fra kortet efter at tidsintervallet er udløbet.</string>
 	<string name="search_show_on_map">Vis på kortet</string>
 	<!-- Text in menu -->
 	<string name="website">Hjemmeside</string>
@@ -471,6 +474,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Sørg for at du ikke indtastede personlige oplysninger.</string>
 	<string name="editor_share_to_all_dialog_message_2">Vi vil kigge på ændringerne. Hvis vi har spørgsmål, vil vi kontakte dig via email.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Vil du deaktivere gemningen af din seneste rejserute?</string>
+	<string name="off_recent_track_background_button">Deaktiver</string>
+	<string name="recent_track_background_dialog_message">Organic Maps anvender din geoposition i baggrunden til at gemme din seneste rejserute.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps er en gratis og open source offline kortapplikation. Ingen annoncer. Ingen sporing. Hvis du ser en fejl på kortet, skal du rette den i OpenStreetMap. Projektet er skabt af entusiaster i vores fritid, så vi har brug for din feedback og support.</string>
 	<!-- For the first routing -->

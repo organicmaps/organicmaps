@@ -193,6 +193,8 @@
 	<string name="pref_tts_language_title">Ngôn ngữ Giọng nói</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Không có sẵn</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Tìm kiếm gần đây</string>
 	<string name="pref_map_auto_zoom">Ống dòm tự động</string>
 	<string name="duration_disabled">Tắt</string>
 	<string name="duration_1_hour">1 giờ</string>
@@ -200,6 +202,7 @@
 	<string name="duration_6_hours">6 giờ</string>
 	<string name="duration_12_hours">12 giờ</string>
 	<string name="duration_1_day">1 ngày</string>
+	<string name="recent_track_help_text">Chức năng này cho phép bạn ghi lại đường đi trong một khoảng thời gian nhất định và xem nó trên bản đồ. Xin lưu ý: việc kích hoạt chức năng này sẽ tăng mức sử dụng pin. Đường đi sẽ tự động bị xóa khỏi bản đồ sau khi kết thúc khoảng thời gian nói trên.</string>
 	<string name="search_show_on_map">Xem trên bản đồ</string>
 	<!-- Text in menu -->
 	<string name="website">Trang web</string>
@@ -469,6 +472,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.</string>
 	<string name="editor_share_to_all_dialog_message_2">Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Tắt ghi lại tuyến đường đã đi gần đây của bạn?</string>
+	<string name="off_recent_track_background_button">Tắt</string>
+	<string name="recent_track_background_dialog_message">Organic Maps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps là một ứng dụng bản đồ ngoại tuyến mã nguồn mở và miễn phí. Không quảng cáo. Không theo dõi. Nếu bạn thấy lỗi trên bản đồ, hãy sửa lỗi đó trong OpenStreetMap. Dự án được tạo ra bởi những người đam mê trong thời gian rảnh của chúng tôi, vì vậy chúng tôi cần phản hồi và hỗ trợ của bạn.</string>
 	<!-- For the first routing -->

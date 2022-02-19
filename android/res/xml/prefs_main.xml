@@ -48,6 +48,28 @@
       app:singleLineTitle="false"
       android:defaultValue="false"
       android:order="7"/>
+    <androidx.preference.PreferenceScreen
+      android:key="@string/pref_track_screen"
+      android:title="@string/pref_track_record_title"
+      android:persistent="false"
+      android:order="8">
+      <SwitchPreferenceCompat
+        android:key="@string/pref_track_record_time"
+        android:title="@string/pref_track_record_title"
+        android:order="1"/>
+      <ListPreference
+        android:key="@string/pref_track_record"
+        android:title="@string/pref_track_record_title"
+        android:entries="@array/track_length"
+        android:entryValues="@array/track_length_values"
+        android:order="2"/>
+      <Preference
+        android:selectable="false"
+        android:persistent="false"
+        android:enabled="false"
+        android:summary="@string/recent_track_help_text"
+        android:order="3"/>
+    </androidx.preference.PreferenceScreen>
     <Preference
       android:key="@string/pref_storage"
       android:title="@string/maps_storage"

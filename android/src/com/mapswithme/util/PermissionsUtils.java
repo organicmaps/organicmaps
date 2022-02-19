@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import static android.Manifest.permission.ACCESS_BACKGROUND_LOCATION;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -32,5 +33,11 @@ public final class PermissionsUtils
         ACCESS_COARSE_LOCATION,
         ACCESS_FINE_LOCATION
     }, code);
+  }
+
+  public static boolean isBackgroundLocationGranted(@NonNull Context context)
+  {
+    return ContextCompat.checkSelfPermission(context, ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+        isLocationGranted(context);
   }
 }

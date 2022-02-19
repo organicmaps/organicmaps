@@ -7,7 +7,7 @@
 extern "C"
 {
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_location_TrackRecorder_nativeSetEnabled(JNIEnv * env, jclass clazz, jboolean enable)
+  Java_com_mapswithme_maps_settings_TrackRecorder_nativeSetEnabled(JNIEnv * env, jclass clazz, jboolean enable)
   {
     GpsTracker::Instance().SetEnabled(enable);
     Framework * const f = frm();
@@ -20,19 +20,19 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_location_TrackRecorder_nativeIsEnabled(JNIEnv * env, jclass clazz)
+  Java_com_mapswithme_maps_settings_TrackRecorder_nativeIsEnabled(JNIEnv * env, jclass clazz)
   {
     return GpsTracker::Instance().IsEnabled();
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_location_TrackRecorder_nativeSetDuration(JNIEnv * env, jclass clazz, jint durationHours)
+  Java_com_mapswithme_maps_settings_TrackRecorder_nativeSetDuration(JNIEnv * env, jclass clazz, jint durationHours)
   {
     GpsTracker::Instance().SetDuration(std::chrono::hours(durationHours));
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_location_TrackRecorder_nativeGetDuration(JNIEnv * env, jclass clazz)
+  Java_com_mapswithme_maps_settings_TrackRecorder_nativeGetDuration(JNIEnv * env, jclass clazz)
   {
     return static_cast<jint>(GpsTracker::Instance().GetDuration().count());
   }

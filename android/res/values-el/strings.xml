@@ -194,6 +194,8 @@
 	<string name="pref_tts_language_title">Γλώσσα φωνής</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Δεν είναι διαθέσιμη</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Πρόσφατη διαδρομή</string>
 	<string name="pref_map_auto_zoom">Αυτόματη μεγέθυνση</string>
 	<string name="duration_disabled">Απενεργ.</string>
 	<string name="duration_1_hour">1 ώρα</string>
@@ -201,6 +203,7 @@
 	<string name="duration_6_hours">6 ώρες</string>
 	<string name="duration_12_hours">12 ώρες</string>
 	<string name="duration_1_day">1 ημέρα</string>
+	<string name="recent_track_help_text">Σας επιτρέπει να καταγράψετε τη διαδρομή που έχει διανυθεί για συγκεκριμένο χρονικό διάστημα και να την δείτε στο χάρτη. Λάβετε υπόψη: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας. Το τμήμα θα αφαιρεθεί αυτόματα από το χάρτη μετά τη λήξη του μεσοδιαστήματος.</string>
 	<string name="search_show_on_map">Προβολή στο χάρτη</string>
 	<!-- Text in menu -->
 	<string name="website">Ιστότοπος</string>
@@ -464,6 +467,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.</string>
 	<string name="editor_share_to_all_dialog_message_2">Θα ελέγξουμε τις αλλαγές. Εάν έχουμε οποιαδήποτε απορία θα επικοινωνήσουμε μαζί σας μέσω email.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Θέλετε να απενεργοποιήσετε την καταγραφή της πρόσφατης διαδρομής σας;</string>
+	<string name="off_recent_track_background_button">Απενεργοποίηση</string>
+	<string name="recent_track_background_dialog_message">Το Organic Maps χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Οι Organic Maps είναι μια δωρεάν και ανοιχτού κώδικα εφαρμογή χαρτών εκτός σύνδεσης. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Εάν δείτε κάποιο σφάλμα στον χάρτη, διορθώστε το στο OpenStreetMap. Το έργο δημιουργείται από λάτρεις στον ελεύθερο χρόνο μας, επομένως χρειαζόμαστε τα σχόλια και την υποστήριξή σας.</string>
 	<!-- For the first routing -->

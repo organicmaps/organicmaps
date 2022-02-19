@@ -4136,7 +4136,7 @@
 
   [pref_track_record_title]
     comment = Settings «Map» category: «Record track» title
-    tags = ios
+    tags = ios,android
     en = Recent track
     ar = المسار الأخير
     be = Нядаўняя сцежка
@@ -4416,7 +4416,6 @@
     zh-Hant = 1天
 
   [recent_track_help_text]
-    tags = ios
     en = This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.
     ar = يتيح لك تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.
     be = Гэтая функцыя дазваляе запісваць сцежку за некаторы прамежак часу і бачыць яе на мапе. Увага: уключэнне гэтай функцыі павялічвае выкарыстанне батарэі. Сцежка будзе аўтаматычка выдалена з мапы калі прамежак часу скончыцца.
@@ -13673,7 +13672,6 @@
     zh-Hant = 停止
 
   [recent_track_background_dialog_title]
-    tags = ios
     comment = iOS dialog for the case when recent track recording is on and the app comes back from background
     en = Disable recording of your recently traveled route?
     ar = تريد تعطيل التسجيل الخاص بمسار سفرك الأخير؟
@@ -13709,7 +13707,6 @@
     zh-Hant = 禁止記錄您最近去過的路徑？
 
   [off_recent_track_background_button]
-    tags = ios
     en = Disable
     ar = تعطيل
     be = Выключыць
@@ -13780,7 +13777,6 @@
     zh-Hant = 看一看
 
   [recent_track_background_dialog_message]
-    tags = ios
     en = Organic Maps uses your geoposition in the background for recording your recently traveled route.
     ar = يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.
     be = Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме каб запісваць ваш нядаўна пройдзены маршрут.

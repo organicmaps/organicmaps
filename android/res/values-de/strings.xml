@@ -199,6 +199,8 @@
 	<string name="pref_tts_language_title">Sprache für Sprachführung</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nicht verfügbar</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Letzte Strecke</string>
 	<string name="pref_map_auto_zoom">Auto-Zoom</string>
 	<string name="duration_disabled">Aus</string>
 	<string name="duration_1_hour">1 Stunde</string>
@@ -206,6 +208,7 @@
 	<string name="duration_6_hours">6 Stunden</string>
 	<string name="duration_12_hours">12 Stunden</string>
 	<string name="duration_1_day">1 Tag</string>
+	<string name="recent_track_help_text">So können Sie die zurückgelegte Strecke für einen bestimmten Zeitraum aufzeichnen und auf der Karte sehen. Hinweis: Die Aktivierung dieser Funktion führt zu erhöhtem Batterieverbrauch. Die Aufzeichnung wird nach Ablauf des Zeitintervalls automatisch von der Karte entfernt.</string>
 	<string name="search_show_on_map">Auf der Karte ansehen</string>
 	<!-- Text in menu -->
 	<string name="website">Webseite</string>
@@ -482,6 +485,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Stellen Sie sicher, dass Sie keine persönlichen Daten eingegeben haben.</string>
 	<string name="editor_share_to_all_dialog_message_2">Wir werden die Änderungen prüfen. Wenn wir Fragen haben, werden wir Sie per Email kontaktieren.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Aufzeichnung Ihrer kürzlich gefahrenen Route deaktivieren?</string>
+	<string name="off_recent_track_background_button">Deaktivieren</string>
+	<string name="recent_track_background_dialog_message">Organic Maps verwendet Ihre Geoposition im Hintergrund, um Ihre kürzlich gefahrene Route aufzunehmen.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps ist eine kostenlose Open-Source-Offline-Kartenanwendung. Keine Werbung. Keine Verfolgung. Wenn Sie einen Fehler auf der Karte sehen, beheben Sie ihn bitte in OpenStreetMap. Das Projekt wird von Enthusiasten in unserer Freizeit erstellt, daher brauchen wir Ihr Feedback und Ihre Unterstützung.</string>
 	<!-- For the first routing -->

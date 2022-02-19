@@ -193,6 +193,8 @@
 	<string name="pref_tts_language_title">Nastavenia jazyka povelov</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nie je k dispozícii</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Posledná trasa</string>
 	<string name="pref_map_auto_zoom">Automatický zoom</string>
 	<string name="duration_disabled">Vypnúť</string>
 	<string name="duration_1_hour">1 hodina</string>
@@ -200,6 +202,7 @@
 	<string name="duration_6_hours">6 hodín</string>
 	<string name="duration_12_hours">12 hodín</string>
 	<string name="duration_1_day">1 deň</string>
+	<string name="recent_track_help_text">Umožňuje zaznamenať precestovanú trasu za určité obdobie a zobraziť ju na mape. Upozornenie: zapnutie tejto funkcie spôsobí vyššiu spotrebu batérie. Trasa sa z mapy automaticky odstráni po uplynutí časového intervalu.</string>
 	<string name="search_show_on_map">Zobraziť na mape</string>
 	<!-- Text in menu -->
 	<string name="website">Webové stránky</string>
@@ -467,6 +470,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Nezadávajte žiadne osobné udaje.</string>
 	<string name="editor_share_to_all_dialog_message_2">Skontrolujeme zmeny. V prípade otázok vás budeme kontaktovať emailom.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Znemožniť nahrávanie vami nedávno precestovanej trasy?</string>
+	<string name="off_recent_track_background_button">Znemožniť</string>
+	<string name="recent_track_background_dialog_message">Organic Maps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps je bezplatná offline aplikácia máp s otvoreným zdrojom. Žiadne reklamy. Žiadne sledovanie. Ak na mape vidíte chybu, opravte ju v OpenStreetMap. Projekt vytvárajú nadšenci v našom voľnom čase, preto potrebujeme vašu spätnú väzbu a podporu.</string>
 	<!-- For the first routing -->

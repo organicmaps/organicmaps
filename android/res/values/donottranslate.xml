@@ -28,6 +28,9 @@
   <string name="pref_autodownload" translatable="false">AutoDownloadMap</string>
   <string name="pref_3d" translatable="false">3D</string>
   <string name="pref_3d_buildings" translatable="false">3DBuildings</string>
+  <string name="pref_track_screen" translatable="false">TrackScreen</string>
+  <string name="pref_track_record" translatable="false">TrackRecord</string>
+  <string name="pref_track_record_time" translatable="false">TrackRecordTime</string>
   <string name="pref_osm_profile" translatable="false">Osm profile</string>
   <string name="pref_auto_zoom" translatable="false">AutoZoom</string>
   <string name="pref_large_fonts_size" translatable="false">LargeFontSize</string>

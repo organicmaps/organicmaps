@@ -195,6 +195,8 @@
 	<string name="pref_tts_language_title">ภาษาสำหรับเสียง</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">ไม่สามารถใช้ได้</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">เส้นทางล่าสุด</string>
 	<string name="pref_map_auto_zoom">ซูมอัตโนมัติ</string>
 	<string name="duration_disabled">ปิด</string>
 	<string name="duration_1_hour">1 ชั่วโมง</string>
@@ -202,6 +204,7 @@
 	<string name="duration_6_hours">6 ชั่วโมง</string>
 	<string name="duration_12_hours">12 ชั่วโมง</string>
 	<string name="duration_1_day">1 วัน</string>
+	<string name="recent_track_help_text">ช่วยให้คุณบันทึกเส้นทางที่คุณเดินทางในช่วงระยะเวลาหนึ่งแล้วดูบนแผนที่ได้ โปรดทราบว่า: การเปิดใช้งานฟังก์ชั่นนี้จะทำให้การใช้งานแบตเตอรี่เพิ่มมากขึ้น การติดตามจะถูกเอาออกไปโดยอัตโนมัติจากแผนที่หลังจากผ่านช่วงเวลาที่กำหนด</string>
 	<string name="search_show_on_map">ดูบนแผนที่</string>
 	<!-- Text in menu -->
 	<string name="website">เว็บไซต์</string>
@@ -471,6 +474,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ</string>
 	<string name="editor_share_to_all_dialog_message_2">เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">ปิดการใช้งานการบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้?</string>
+	<string name="off_recent_track_background_button">ปิดการใช้งาน</string>
+	<string name="recent_track_background_dialog_message">Organic Maps ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps เป็นแอปพลิเคชันแผนที่ออฟไลน์แบบโอเพนซอร์สฟรี ไม่มีโฆษณา ไม่มีการติดตาม. หากคุณเห็นข้อผิดพลาดบนแผนที่ โปรดแก้ไขใน OpenStreetMap โครงการนี้สร้างขึ้นโดยผู้ที่ชื่นชอบในเวลาว่าง เราจึงต้องการความคิดเห็นและการสนับสนุนจากคุณ</string>
 	<!-- For the first routing -->

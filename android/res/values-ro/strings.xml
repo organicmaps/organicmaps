@@ -198,6 +198,8 @@
 	<string name="pref_tts_language_title">Limba ghidului vocal</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nu există</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Traseu recent</string>
 	<string name="pref_map_auto_zoom">Zoom automat</string>
 	<string name="duration_disabled">Oprit</string>
 	<string name="duration_1_hour">1 oră</string>
@@ -205,6 +207,7 @@
 	<string name="duration_6_hours">6 ore</string>
 	<string name="duration_12_hours">12 ore</string>
 	<string name="duration_1_day">1 zi</string>
+	<string name="recent_track_help_text">Permite înregistrarea traseului parcurs pentru o anumită perioadă de timp și să îl vezi pe hartă. Reține: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.</string>
 	<string name="search_show_on_map">Vezi pe hartă</string>
 	<!-- Text in menu -->
 	<string name="website">Sit web</string>
@@ -486,6 +489,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Asigură-te că nu ai introdus niciun fel de date personale.</string>
 	<string name="editor_share_to_all_dialog_message_2">Vom verifica modificările. Dacă vor apărea întrebări, te vom contacta prin e-mail.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Dezactivezi înregistrarea celui mai recent traseu efectuat?</string>
+	<string name="off_recent_track_background_button">Dezactivează</string>
+	<string name="recent_track_background_dialog_message">Organic Maps folosește poziția ta geografică pentru a înregistra cel mai recent traseu urmat.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps este o aplicație gratuită și cod sursă public care permite descărcarea hărților și navigare fără internet. Fără reclame. Fără urmărire. Dacă vezi o eroare pe hartă, te rugăm să o corectezi în OpenStreetMap. Proiectul este creat de entuziaști în timpul nostru liber, așa că avem nevoie de părerea și sprijinul tău.</string>
 	<!-- For the first routing -->

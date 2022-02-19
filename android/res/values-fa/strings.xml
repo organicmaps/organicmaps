@@ -187,6 +187,8 @@
 	<string name="pref_tts_language_title">زبان صوت</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">موجود نیست</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">مسیر اخیر</string>
 	<string name="pref_map_auto_zoom">بزرگ نمایی خودکار</string>
 	<string name="duration_disabled">خاموش</string>
 	<string name="duration_1_hour">1 ساعت</string>
@@ -194,6 +196,7 @@
 	<string name="duration_6_hours">6 ساعت</string>
 	<string name="duration_12_hours">12 ساعت</string>
 	<string name="duration_1_day">1 روز</string>
+	<string name="recent_track_help_text">با این قابلیت شما می توانید مسیری که می پیمایید را در یک دوره مشخص ضبط نماید و ان را بر روی نقشه ببینید.لطفا توجه نمایید:فعال سازی این قابلیت باعث افزایش مصرف باتری موبایل شما می شود.مسیر به طور خودکار بعد از مدت مشخص شده حذف خواهد شد</string>
 	<string name="search_show_on_map">مشاهده بر روی نقشه</string>
 	<!-- Text in menu -->
 	<string name="website">وب سایت</string>
@@ -467,6 +470,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.</string>
 	<string name="editor_share_to_all_dialog_message_2">ما تغییرات را بررسی می کنیم.اگر سوالی بود با ایمیل با شما تماس می گیریم.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">غیرفعال سازی ذخیره مسیر اخیرا طی شده</string>
+	<string name="off_recent_track_background_button">غیرفعال</string>
+	<string name="recent_track_background_dialog_message">Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر هایی که اخیرا سفر کرده اید استفاده می کند.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps یک برنامه نقشه آفلاین رایگان و منبع باز است. بدون تبلیغات بدون ردیابی اگر خطایی روی نقشه مشاهده کردید، لطفاً آن را در OpenStreetMap برطرف کنید. این پروژه توسط علاقه مندان در اوقات فراغت ما ایجاد می شود، بنابراین ما به بازخورد و پشتیبانی شما نیاز داریم.</string>
 	<!-- For the first routing -->

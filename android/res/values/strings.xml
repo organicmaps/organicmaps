@@ -203,6 +203,8 @@
 	<string name="pref_tts_language_title">Voice Language</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Not Available</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Recent track</string>
 	<string name="pref_map_auto_zoom">Auto zoom</string>
 	<string name="duration_disabled">Off</string>
 	<string name="duration_1_hour">1 hour</string>
@@ -210,6 +212,7 @@
 	<string name="duration_6_hours">6 hours</string>
 	<string name="duration_12_hours">12 hours</string>
 	<string name="duration_1_day">1 day</string>
+	<string name="recent_track_help_text">This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.</string>
 	<string name="search_show_on_map">View on map</string>
 	<!-- Text in menu -->
 	<string name="website">Website</string>
@@ -509,6 +512,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Make sure you did not enter any personal data.</string>
 	<string name="editor_share_to_all_dialog_message_2">We will check the changes. If we have any questions we will contact you via email.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Disable recording of your recently traveled route?</string>
+	<string name="off_recent_track_background_button">Disable</string>
+	<string name="recent_track_background_dialog_message">Organic Maps uses your geoposition in the background for recording your recently traveled route.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps is a fast and free offline maps app without ads and tracking. Maps are based on crowd-sourced OpenStreetMap.org data, so you can fix mapping errors and add features there yourself. Organic Maps is an open-source project created by enthusiasts in their spare time. Your feedback and support are much appreciated!</string>
 	<!-- For the first routing -->

@@ -195,6 +195,8 @@
 	<string name="pref_tts_language_title">Talespråk</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Ikke tilgjengelig</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Siste rute</string>
 	<string name="pref_map_auto_zoom">Automatisk zooming</string>
 	<string name="duration_disabled">Av</string>
 	<string name="duration_1_hour">1 time</string>
@@ -202,6 +204,7 @@
 	<string name="duration_6_hours">6 timer</string>
 	<string name="duration_12_hours">12 timer</string>
 	<string name="duration_1_day">1 dag</string>
+	<string name="recent_track_help_text">Det lar deg lagre ruten du har reist i en spesifikk periode og se den på kartet. Merk: Aktivering av funksjonen øker batteriforbruket. Ruten fjernes automatisk fra kartet når tidsintervallet utløper.</string>
 	<string name="search_show_on_map">Vis på kartet</string>
 	<!-- Text in menu -->
 	<string name="website">Nettside</string>
@@ -469,6 +472,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Sørg for at du ikke har skrevet noe personlig informasjon.</string>
 	<string name="editor_share_to_all_dialog_message_2">Vi vil sjekke endringene. Vi kontakter deg via e-post dersom vi har spørsmål.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Deaktivere opptak av nylig reiste rute?</string>
+	<string name="off_recent_track_background_button">Deaktiver</string>
+	<string name="recent_track_background_dialog_message">Organic Maps bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps er en gratis og åpen kildekode-app for offline kart. Ingen annonser. Ingen sporing. Hvis du ser en feil på kartet, må du rette den i OpenStreetMap. Prosjektet er laget av entusiaster på fritiden vår, så vi trenger din tilbakemelding og støtte.</string>
 	<!-- For the first routing -->

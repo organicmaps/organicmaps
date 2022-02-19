@@ -26,6 +26,7 @@
 	<string name="version">Toleo: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Data ya OpenStreetMap: %s</string>
+	<string name="recent_track_help_text">Inakuwezesha kurekodi njia uliyosafiria kwa kipindi fulani na uione kwenye ramani. Tafadhali kumbuka: ukiwezesha utendaji huu betri itatumika zaidi. Njia hiyo itaondolewa kiotomatiki kwenye ramani baada ya mpishano wa muda kuisha.</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Maswali na majibu</string>
 	<!-- Button in the main Help dialog -->

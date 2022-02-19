@@ -200,6 +200,8 @@
 	<string name="pref_tts_language_title">Език на инструкциите</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Не е налично</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Скорошна пътека</string>
 	<string name="pref_map_auto_zoom">Автоматично мащабиране</string>
 	<string name="duration_disabled">Изключено</string>
 	<string name="duration_1_hour">1 час</string>
@@ -207,6 +209,7 @@
 	<string name="duration_6_hours">6 часа</string>
 	<string name="duration_12_hours">12 часа</string>
 	<string name="duration_1_day">1 ден</string>
+	<string name="recent_track_help_text">Тази опция ви позволява да запишете изминатия път за определен период и да го видите на картата. Моля, обърнете внимание: активирането на тази функция води до повишено използване на батерията.</string>
 	<string name="search_show_on_map">Преглед на картата</string>
 	<!-- Text in menu -->
 	<string name="website">Уебсайт</string>
@@ -460,6 +463,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Уверете се, че не сте въвели никакви лични данни.</string>
 	<string name="editor_share_to_all_dialog_message_2">Ще проверим промените. Ако имаме някакви въпроси, ще се свържем с вас по имейл.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Деактивиране на записването на последния ви маршрут?</string>
+	<string name="off_recent_track_background_button">Деактивиране</string>
+	<string name="recent_track_background_dialog_message">Organic Maps използва геопозицията ви във фонов режим за записване на последния ви маршрут.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps е безплатно приложение за офлайн карти с отворен код. Без реклами. Без проследяване. Ако видите грешка на картата, моля, поправете я в OpenStreetMap. Проектът е създаден от ентусиасти в свободното ни време, така че имаме нужда от вашата отзиви и подкрепа.</string>
 	<!-- For the first routing -->

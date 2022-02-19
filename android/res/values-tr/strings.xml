@@ -202,6 +202,8 @@
 	<string name="pref_tts_language_title">Ses Dili</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Mevcut Değil</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">En sonki kayıt</string>
 	<string name="pref_map_auto_zoom">Otomatik yakınlaştırma</string>
 	<string name="duration_disabled">Kapalı</string>
 	<string name="duration_1_hour">1 saat</string>
@@ -209,6 +211,7 @@
 	<string name="duration_6_hours">6 saat</string>
 	<string name="duration_12_hours">12 saat</string>
 	<string name="duration_1_day">1 gün</string>
+	<string name="recent_track_help_text">Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.</string>
 	<string name="search_show_on_map">Haritada görüntüle</string>
 	<!-- Text in menu -->
 	<string name="website">Web Sitesi</string>
@@ -490,6 +493,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Herhangi bir kişisel bilgi girmediğinizden emin olun.</string>
 	<string name="editor_share_to_all_dialog_message_2">Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla iletişime geçeceğiz.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?</string>
+	<string name="off_recent_track_background_button">Devre Dışı Bırak</string>
+	<string name="recent_track_background_dialog_message">Organic Maps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps, reklam ve izleyici içermeyen hızlı ve ücretsiz bir çevrimdışı harita uygulamasıdır. Haritalar kitle kaynaklı OpenStreetMap.org verilerine dayanmaktadır, böylece kendiniz harita hatalarını düzeltebilir ve haritaya yeni nesneler ekleyebilirsiniz. Organic Maps, teknoloji tutkunlarının boş zamanlarında oluşturduğu açık kaynaklı bir projedir. Geri bildirim ve desteğinize çok değer veriyoruz!</string>
 	<!-- For the first routing -->

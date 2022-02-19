@@ -193,6 +193,8 @@
 	<string name="pref_tts_language_title">A hang nyelve</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nem áll rendelkezésre</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Legutolsó útvonal</string>
 	<string name="pref_map_auto_zoom">Auto-zoom</string>
 	<string name="duration_disabled">Kikapcsolva</string>
 	<string name="duration_1_hour">1 óra</string>
@@ -200,6 +202,7 @@
 	<string name="duration_6_hours">6 óra</string>
 	<string name="duration_12_hours">12 óra</string>
 	<string name="duration_1_day">1 nap</string>
+	<string name="recent_track_help_text">Ez lehetővé teszi a bejárt útvonal rögzítését és megtekintését a térképen bizonyos időre. Kérjük, vegye figyelembe, hogy ezen funkció aktiválásával megnöveli az akkumulátor használatát. Az útvonal automatikusan törlődik a térképről az időtartam lejártával.</string>
 	<string name="search_show_on_map">Megtekintés a térképen</string>
 	<!-- Text in menu -->
 	<string name="website">Honlap</string>
@@ -469,6 +472,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.</string>
 	<string name="editor_share_to_all_dialog_message_2">Ellenőrizni fogjuk a változásokat. Ha bármilyen kérdésünk van, emailben keresünk.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Megszakítod a legutóbb megtett utad rögzítését?</string>
+	<string name="off_recent_track_background_button">Megszakítás</string>
+	<string name="recent_track_background_dialog_message">A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Az Organic Maps egy ingyenes, nyílt forráskódú offline térképalkalmazás. Nincsenek hirdetések. Nincs nyomkövetés. Ha hibát lát a térképen, javítsa ki az OpenStreetMap segítségével. A projektet a lelkesek készítik szabadidőnkben, ezért szükségünk van az Ön visszajelzésére és támogatására.</string>
 	<!-- For the first routing -->

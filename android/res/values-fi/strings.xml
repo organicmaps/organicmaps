@@ -199,6 +199,8 @@
 	<string name="pref_tts_language_title">Äänen kieli</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Ei saatavilla</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Viimeisin reitti</string>
 	<string name="pref_map_auto_zoom">Automaattinen zoomaus</string>
 	<string name="duration_disabled">Pois päältä</string>
 	<string name="duration_1_hour">1 tunti</string>
@@ -206,6 +208,7 @@
 	<string name="duration_6_hours">6 tuntia</string>
 	<string name="duration_12_hours">12 tuntia</string>
 	<string name="duration_1_day">1 päivä</string>
+	<string name="recent_track_help_text">Toiminnon avulla voit tallentaa kuljetun reitin tietyltä ajalta ja nähdä sen kartalla: Huomautus: tämän toiminnon aktivoiminen lisää akun käyttöä. Reitti poistetaan kartalta automaattisesti ajanjakson päätyttyä.</string>
 	<string name="search_show_on_map">Näytä kartalla</string>
 	<!-- Text in menu -->
 	<string name="website">Kotisivut</string>
@@ -475,6 +478,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Varmistat, ettet syöttänyt henkilökohtaisia tietojasi.</string>
 	<string name="editor_share_to_all_dialog_message_2">Tarkistamme muutokset. Otamme sinuun yhteyttä sähköpostitse, jos meillä on kysyttävää.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Poistetaanko viimeisen matkareitin tallennus?</string>
+	<string name="off_recent_track_background_button">Poista</string>
+	<string name="recent_track_background_dialog_message">MAPS.SE käyttää taustalla geosijaintia sinun viimeisen matkareitin tallentamiseksi.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps on ilmainen ja avoimen lähdekoodin offline-karttasovellus. Ei mainoksia. Ei seurantaa. Jos näet virheen kartalla, korjaa se OpenStreetMapissa. Hankkeen ovat luoneet harrastajat vapaa-ajallamme, joten tarvitsemme palautettasi ja tukeasi.</string>
 	<!-- For the first routing -->

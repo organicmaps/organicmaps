@@ -198,6 +198,8 @@
 	<string name="pref_tts_language_title">Мова підказок</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Не доступнi</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Недавній маршрут</string>
 	<string name="pref_map_auto_zoom">Автозум</string>
 	<string name="duration_disabled">Вимкнуто</string>
 	<string name="duration_1_hour">1 година</string>
@@ -205,6 +207,7 @@
 	<string name="duration_6_hours">6 годин</string>
 	<string name="duration_12_hours">12 годин</string>
 	<string name="duration_1_day">1 день</string>
+	<string name="recent_track_help_text">Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на мапі. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з мапи.</string>
 	<string name="search_show_on_map">Подивитись на мапі</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
@@ -485,6 +488,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Переконайтеся, що ви не ввели особисті дані.</string>
 	<string name="editor_share_to_all_dialog_message_2">Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Вимкнути запис нещодавно пройденого шляху?</string>
+	<string name="off_recent_track_background_button">Вимкнути</string>
+	<string name="recent_track_background_dialog_message">Organic Maps використовує вашу геопозицію у фоновому режимі для запису нещодавно пройденого шляху.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps – це швидкі та безкоштовні карти, які не потребують доступу до Інтернету. Карти засновані на даних проекта OpenStreetMap.org, саме там Ви можете виправити помилки та додати відсутні дані. Реклама та збір особистої інформації відсутні. Organic Maps це проект з відкритим вихідним кодом, створюється ентузіастами у вільний час, тому нам потрібні Ваші відгуки та підтримку!</string>
 	<!-- For the first routing -->

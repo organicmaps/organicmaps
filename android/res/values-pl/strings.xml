@@ -198,6 +198,8 @@
 	<string name="pref_tts_language_title">Język komunikatów</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Niedostępne</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Ostatnia trasa</string>
 	<string name="pref_map_auto_zoom">Automatyczne powiększanie</string>
 	<string name="duration_disabled">Wyłączona</string>
 	<string name="duration_1_hour">1 godzina</string>
@@ -205,6 +207,7 @@
 	<string name="duration_6_hours">6 godzin</string>
 	<string name="duration_12_hours">12 godzin</string>
 	<string name="duration_1_day">1 dzień</string>
+	<string name="recent_track_help_text">Umożliwia na pewien okres zapisanie przebytej trasy i obejrzenie jej na mapie. Uwaga: włączenie tej funkcji spowoduje większe zużycie baterii. Trasa zostanie usunięta z mapy automatycznie po upływie określonego czasu.</string>
 	<string name="search_show_on_map">Wyświetl na mapie</string>
 	<!-- Text in menu -->
 	<string name="website">Strona internetowa</string>
@@ -479,6 +482,10 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Upewnij się, że nie podałeś osobistych danych.</string>
 	<string name="editor_share_to_all_dialog_message_2">Zapoznamy się ze zmianami. W przypadku pytań skontaktujemy się z Tobą przez email.</string>
+	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+	<string name="recent_track_background_dialog_title">Wyłączyć rejestrowanie niedawno przebytej trasy?</string>
+	<string name="off_recent_track_background_button">Wyłącz</string>
+	<string name="recent_track_background_dialog_message">Organic Maps używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, napraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.</string>
 	<!-- For the first routing -->

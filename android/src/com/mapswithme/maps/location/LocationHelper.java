@@ -44,6 +44,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   private static final long INTERVAL_FOLLOW_MS = 1000;
   private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
   private static final long INTERVAL_NAVIGATION_VEHICLE_MS = 500;
+  private static final long INTERVAL_TRACK_RECORDER_MS = 20000;
 
   // TODO (trashkalmar): Correct value
   private static final long INTERVAL_NAVIGATION_BICYCLE_MS = 1000;
@@ -242,20 +243,20 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   {
     if (foreground)
     {
-      mLogger.d(TAG, "Resumed in foreground");
-
       if (mReceiverRegistered)
       {
         MwmApplication.from(mContext).unregisterReceiver(mReceiver);
         mReceiverRegistered = false;
       }
 
-      start();
+      if (!isActive())
+      {
+        mLogger.d(TAG, "Resumed in foreground");
+        start();
+      }
     }
     else
     {
-      mLogger.d(TAG, "Stopped in background");
-
       if (!mReceiverRegistered)
       {
         final IntentFilter filter = new IntentFilter();
@@ -266,7 +267,16 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
         mReceiverRegistered = true;
       }
 
-      stop();
+      if (PermissionsUtils.isBackgroundLocationGranted(mContext))
+      {
+        mLogger.d(TAG, "Switching to background mode");
+        restart();
+      }
+      else
+      {
+        mLogger.d(TAG, "Stopped in background");
+        stop();
+      }
     }
   }
 
@@ -402,8 +412,16 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
         break;
 
       case Framework.ROUTER_TYPE_TRANSIT:
-        // TODO: what is the interval should be for transit type?
-        mInterval = INTERVAL_NAVIGATION_PEDESTRIAN_MS;
+        if (MwmApplication.backgroundTracker(mContext).isForeground())
+        {
+          // Assume pedestrian navigation by default.
+          mInterval = INTERVAL_NAVIGATION_PEDESTRIAN_MS;
+        }
+        else
+        {
+          // Save the battery in the background.
+          mInterval = INTERVAL_TRACK_RECORDER_MS;
+        }
         break;
 
       default:
