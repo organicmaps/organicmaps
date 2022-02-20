@@ -287,13 +287,13 @@ public:
   void AddIngoingFakeEdge(Edge const & e);
 
   /// Returns RoadInfo for a road corresponding to featureId.
-  virtual RoadInfo GetRoadInfo(FeatureID const & featureId, SpeedParams const & speedParams) const = 0;
+  virtual RoadInfo GetRoadInfo(FeatureID const & featureId) const = 0;
 
   /// Returns speed in KM/H for a road corresponding to featureId.
-  virtual double GetSpeedKMpH(FeatureID const & featureId, SpeedParams const & speedParams) const = 0;
+  virtual double GetSpeedKMpH(FeatureID const & featureId) const = 0;
 
   /// Returns speed in KM/H for a road corresponding to edge.
-  double GetSpeedKMpH(Edge const & edge, SpeedParams const & speedParams) const;
+  double GetSpeedKMpH(Edge const & edge) const;
 
   /// Calls edgesLoader on each feature which is close to cross.
   virtual void ForEachFeatureClosestToCross(m2::PointD const & cross,

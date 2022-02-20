@@ -92,7 +92,7 @@ double CalcMaxSpeed(NumMwmIds const & numMwmIds,
   return maxSpeed;
 }
 
-SpeedKMpH const & CalcOffroadSpeed(VehicleModelFactoryInterface const & vehicleModelFactory)
+SpeedKMpH CalcOffroadSpeed(VehicleModelFactoryInterface const & vehicleModelFactory)
 {
   return vehicleModelFactory.GetVehicleModel()->GetOffroadSpeed();
 }

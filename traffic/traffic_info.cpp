@@ -177,13 +177,17 @@ SpeedGroup TrafficInfo::GetSpeedGroup(RoadSegmentId const & id) const
 void TrafficInfo::ExtractTrafficKeys(string const & mwmPath, vector<RoadSegmentId> & result)
 {
   result.clear();
-  feature::ForEachFeature(mwmPath, [&](FeatureType & ft, uint32_t const fid) {
-    if (!routing::CarModel::AllLimitsInstance().IsRoad(ft))
+
+  auto const & carModel = routing::CarModel::AllLimitsInstance();
+  feature::ForEachFeature(mwmPath, [&](FeatureType & ft, uint32_t const fid)
+  {
+    auto const response = carModel.GetFeatureInfo(ft, {});
+    if (!response.m_isValid)
       return;
 
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     auto const numPoints = static_cast<uint16_t>(ft.GetPointsCount());
-    uint8_t const numDirs = routing::CarModel::AllLimitsInstance().IsOneWay(ft) ? 1 : 2;
+    uint8_t const numDirs = response.m_isOneWay ? 1 : 2;
     for (uint16_t i = 0; i + 1 < numPoints; ++i)
     {
       for (uint8_t dir = 0; dir < numDirs; ++dir)

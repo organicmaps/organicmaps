@@ -9,34 +9,31 @@ namespace routing
 
 class CarModel : public VehicleModel
 {
+  explicit CarModel(HighwaySpeeds const & speeds, NoPassThroughHighways const & noPassThrough = {});
+  friend class CarModelFactory;
+
 public:
-  CarModel();
-  CarModel(LimitsInitList const & roadLimits, HighwayBasedInfo const & info);
-
-  // VehicleModelInterface overrides:
-  SpeedKMpH const & GetOffroadSpeed() const override;
-
   static CarModel const & AllLimitsInstance();
-  static LimitsInitList const & GetOptions();
-  static AdditionalRoadsList const & GetAdditionalRoads();
-  static SurfaceInitList const & GetSurfaces();
 
-  uint32_t GetNoCarTypeForTesting() const { return m_noCarType; }
-  uint32_t GetYesCarTypeForTesting() const { return m_yesCarType; }
+  /// @name VehicleModelInterface overrides
+  /// @{
+  SpeedKMpH GetOffroadSpeed() const override;
 
 protected:
-  RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const override;
+  ResultT IsOneWay(uint32_t type) const override;
+  ResultT GetRoadAvailability(uint32_t type) const override;
+  SpeedKMpH GetSpeedForAvailable() const override;
+  /// @}
 
 private:
-  void Init();
-
   uint32_t m_noCarType = 0;
   uint32_t m_yesCarType = 0;
+  uint32_t m_onewayType = 0;
 };
 
 class CarModelFactory : public VehicleModelFactory
 {
 public:
-  CarModelFactory(CountryParentNameGetterFn const & countryParentNameGetterF);
+  explicit CarModelFactory(CountryParentNameGetterFn const & countryParentNameGetterF);
 };
 }  // namespace routing

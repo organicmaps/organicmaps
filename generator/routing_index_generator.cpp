@@ -61,14 +61,10 @@ namespace
 class VehicleMaskBuilder final
 {
 public:
-  VehicleMaskBuilder(string const & country,
-                     routing::CountryParentNameGetterFn const & countryParentNameGetterFn)
-    : m_pedestrianModel(routing::PedestrianModelFactory(countryParentNameGetterFn)
-                            .GetVehicleModelForCountry(country))
-    , m_bicycleModel(routing::BicycleModelFactory(countryParentNameGetterFn)
-                         .GetVehicleModelForCountry(country))
-    , m_carModel(
-          routing::CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country))
+  VehicleMaskBuilder(string const & country, routing::CountryParentNameGetterFn const & parentGetter)
+    : m_pedestrianModel(routing::PedestrianModelFactory(parentGetter).GetVehicleModelForCountry(country))
+    , m_bicycleModel(routing::BicycleModelFactory(parentGetter).GetVehicleModelForCountry(country))
+    , m_carModel(routing::CarModelFactory(parentGetter).GetVehicleModelForCountry(country))
   {
     CHECK(m_pedestrianModel, ());
     CHECK(m_bicycleModel, ());
@@ -78,7 +74,7 @@ public:
   routing::VehicleMask CalcRoadMask(FeatureType & f) const
   {
     return CalcMask(f, [&](routing::VehicleModelInterface const & model, FeatureType & f) {
-      return model.IsRoad(f);
+      return model.HasRoadType(f);
     });
   }
 

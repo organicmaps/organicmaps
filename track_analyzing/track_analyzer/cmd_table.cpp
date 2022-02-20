@@ -11,6 +11,7 @@
 #include "routing/index_graph_loader.hpp"
 #include "routing/maxspeeds.hpp"
 
+#include "routing_common/car_model_coefs.hpp"
 #include "routing_common/car_model.hpp"
 #include "routing_common/maxspeed_conversion.hpp"
 #include "routing_common/vehicle_model.hpp"
@@ -90,16 +91,11 @@ class CarModelTypes final
 public:
   CarModelTypes()
   {
-    auto const & cl = classif();
+    for (auto const & e : routing::kHighwayBasedSpeeds)
+      m_hwtags.push_back(static_cast<uint32_t>(e.first));
 
-    for (auto const & road : CarModel::GetAdditionalRoads())
-      m_hwtags.push_back(cl.GetTypeByPath(road.m_type));
-
-    for (auto const & speed : CarModel::GetOptions())
-      m_hwtags.push_back(cl.GetTypeByPath(speed.m_type));
-
-    for (auto const & surface : CarModel::GetSurfaces())
-      m_surfaceTags.push_back(cl.GetTypeByPath(surface.m_type));
+    for (auto const & e : routing::kHighwayBasedSurface)
+      m_surfaceTags.push_back(static_cast<uint32_t>(e.first));
   }
 
   struct Type
@@ -402,8 +398,8 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
 
     auto const countryName = storage.GetTopmostParentFor(mwmName);
     auto const carModelFactory = make_shared<CarModelFactory>(VehicleModelFactory::CountryParentNameGetterFn{});
-    shared_ptr<VehicleModelInterface> vehicleModel =
-        carModelFactory->GetVehicleModelForCountry(mwmName);
+    shared_ptr<VehicleModelInterface> vehicleModel = carModelFactory->GetVehicleModelForCountry(mwmName);
+
     string const mwmFile = GetCurrentVersionMwmFile(storage, mwmName);
     MatchedTrackPointToMoveType pointToMoveType(FilesContainerR(make_unique<FileReader>(mwmFile)), *vehicleModel);
     Geometry geometry(GeometryLoader::CreateFromFile(mwmFile, vehicleModel));

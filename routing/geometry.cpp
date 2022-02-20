@@ -185,16 +185,15 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 {
   CHECK(altitudes == nullptr || altitudes->size() == feature.GetPointsCount(), ());
 
-  m_valid = vehicleModel.IsRoad(feature);
-  m_isOneWay = vehicleModel.IsOneWay(feature);
-  m_highwayType = vehicleModel.GetHighwayType(feature);
-  m_isPassThroughAllowed = vehicleModel.IsPassThroughAllowed(feature);
-
   uint32_t const fID = feature.GetID().m_index;
-  bool const inCity = attrs.m_cityRoads.IsCityRoad(fID);
-  Maxspeed const maxSpeed = attrs.m_maxSpeeds.GetMaxspeed(fID);
-  m_forwardSpeed = vehicleModel.GetSpeed(feature, {true /* forward */, inCity, maxSpeed});
-  m_backwardSpeed = vehicleModel.GetSpeed(feature, {false /* forward */, inCity, maxSpeed});
+  auto const response = vehicleModel.GetFeatureInfo(
+        feature, {attrs.m_maxSpeeds.GetMaxspeed(fID), attrs.m_cityRoads.IsCityRoad(fID)});
+  m_forwardSpeed = response.m_forwardSpeed;
+  m_backwardSpeed = response.m_backwardSpeed;
+  m_highwayType = response.m_highwayType;
+  m_valid = response.m_isValid;
+  m_isOneWay = response.m_isOneWay;
+  m_isPassThroughAllowed = response.m_isPassThroughAllowed;
 
   feature::TypesHolder types(feature);
   auto const & optionsClassfier = RoutingOptionsClassifier::Instance();

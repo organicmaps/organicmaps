@@ -5,34 +5,26 @@
 #include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <array>
-#include <cstdint>
 #include <functional>
 #include <initializer_list>
 #include <limits>
 #include <memory>
 #include <optional>
-#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
 
-class Classificator;
-class FeatureType;
-
 namespace feature { class TypesHolder; }
+class FeatureType;
 
 namespace routing
 {
 double constexpr kNotUsed = std::numeric_limits<double>::max();
 
-struct InOutCityFactor;
-struct InOutCitySpeedKMpH;
-
 // Each value is equal to the corresponding type index from types.txt.
-// The ascending order is strict. Check for static_cast<HighwayType> in vehicle_model.cpp
-enum class HighwayType : uint32_t
+// Check for static_cast<HighwayType> in vehicle_model.cpp
+enum class HighwayType : uint16_t
 {
   HighwayResidential = 1,
   HighwayService = 2,
@@ -62,22 +54,14 @@ enum class HighwayType : uint32_t
   RouteShuttleTrain = 1054,
 };
 
-using HighwayBasedFactors = base::SmallMap<HighwayType, InOutCityFactor>;
-using HighwayBasedSpeeds = base::SmallMap<HighwayType, InOutCitySpeedKMpH>;
-
-/// \brief Params for calculation of an approximate speed on a feature.
-struct SpeedParams
+// Each value is equal to the corresponding type index from types.txt.
+// Check for static_cast<SurfaceType> in vehicle_model.cpp
+enum class SurfaceType : uint16_t
 {
-  SpeedParams(bool forward, bool inCity, Maxspeed const & maxspeed)
-    : m_maxspeed(maxspeed), m_forward(forward), m_inCity(inCity)
-  {
-  }
-
-  Maxspeed m_maxspeed;
-  // Retrieve forward (true) or backward (false) speed.
-  bool m_forward;
-  // If a corresponding feature lies inside a city of a town.
-  bool m_inCity;
+  PavedGood = 1116,
+  PavedBad = 1117,
+  UnpavedGood = 1118,
+  UnpavedBad = 1119,
 };
 
 /// \brief Speeds which are used for edge weight and ETA estimations.
@@ -99,8 +83,8 @@ struct SpeedKMpH
   double m_eta = 0.0;     // KMpH
 };
 
-/// \brief Factors which modify weight and ETA speed on feature in case of bad pavement (reduce)
-/// or good highway class (increase).
+/// \brief Factors which modify weight and ETA speed on feature in case of
+/// bad pavement (reduce) or good highway class (increase).
 /// Both should be greater then 0.
 struct SpeedFactor
 {
@@ -156,6 +140,7 @@ struct InOutCitySpeedKMpH
 
 struct InOutCityFactor
 {
+  constexpr InOutCityFactor() = default;
   constexpr explicit InOutCityFactor(SpeedFactor const & factor) noexcept
     : m_inCity(factor), m_outCity(factor)
   {
@@ -177,37 +162,39 @@ struct InOutCityFactor
   SpeedFactor m_outCity;
 };
 
-struct HighwayBasedInfo
-{
-  HighwayBasedInfo(HighwayBasedSpeeds const & speeds, HighwayBasedFactors const & factors)
-    : m_speeds(speeds)
-    , m_factors(factors)
-  {
-  }
+using HighwaySpeeds = std::unordered_map<HighwayType, InOutCitySpeedKMpH>;
+using HighwayFactors = std::unordered_map<HighwayType, InOutCityFactor>;
+using SurfaceFactors = std::unordered_map<SurfaceType, SpeedFactor>;
+using NoPassThroughHighways = std::unordered_set<HighwayType>;
 
-  HighwayBasedSpeeds const & m_speeds;
-  HighwayBasedFactors const & m_factors;
-};
 
 class VehicleModelInterface
 {
 public:
-  enum class RoadAvailability
-  {
-    NotAvailable,
-    Available,
-    Unknown,
-  };
-
   virtual ~VehicleModelInterface() = default;
 
-  /// @return Allowed weight and ETA speed in KMpH.
-  /// 0 means that it's forbidden to move on this feature or it's not a road at all.
-  /// Weight and ETA should be less than max model speed's values respectively.
-  /// @param inCity is true if |f| lies in a city of town.
-  virtual SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const = 0;
+  struct Request
+  {
+    Maxspeed m_speed;
+    bool m_inCity;
+  };
+  struct Response
+  {
+    SpeedKMpH m_forwardSpeed, m_backwardSpeed;
 
-  virtual HighwayType GetHighwayType(FeatureType & f) const = 0;
+    // Highway type can be null, but m_isValid == true if Feature has hwtype=yes*
+    // without any recognizable highway classifier type in it.
+    std::optional<HighwayType> m_highwayType;
+    bool m_isValid = false;
+
+    bool m_isOneWay;
+    bool m_isPassThroughAllowed;
+  };
+  virtual Response GetFeatureInfo(FeatureType & ft, Request const & request) const = 0;
+
+  /// @todo Remove after proper FeaturesRoadGraph refactoring.
+  virtual bool HasRoadType(FeatureType & ft) const = 0;
+  virtual bool IsOneWay(FeatureType & ft) const = 0;
 
   /// @return Maximum model weight speed.
   /// All speeds which the model returns must be less than or equal to this speed.
@@ -215,20 +202,7 @@ public:
 
   /// @return Offroad speed in KMpH for vehicle. This speed should be used for non-feature routing
   /// e.g. to connect start point to nearest feature.
-  virtual SpeedKMpH const & GetOffroadSpeed() const = 0;
-
-  virtual bool IsOneWay(FeatureType & f) const = 0;
-
-  /// @returns true iff feature |f| can be used for routing with corresponding vehicle model.
-  virtual bool IsRoad(FeatureType & f) const = 0;
-
-  /// @returns true iff feature |f| can be used for through passage with corresponding vehicle model.
-  /// e.g. in Russia roads tagged "highway = service" are not allowed for through passage;
-  /// however, road with this tag can be be used if it is close enough to the start or destination
-  /// point of the route.
-  /// Roads with additional types e.g. "path = ferry", "vehicle_type = yes" considered as allowed
-  /// to pass through.
-  virtual bool IsPassThroughAllowed(FeatureType & f) const = 0;
+  virtual SpeedKMpH GetOffroadSpeed() const = 0;
 };
 
 class VehicleModelFactoryInterface
@@ -239,7 +213,7 @@ public:
   /// but it may be non optimal for some countries
   virtual std::shared_ptr<VehicleModelInterface> GetVehicleModel() const = 0;
 
-  /// @return The most optimal vehicle model for specified country
+  /// @return The most optimal vehicle model for specified \a country
   virtual std::shared_ptr<VehicleModelInterface> GetVehicleModelForCountry(
       std::string const & country) const = 0;
 };
@@ -247,51 +221,27 @@ public:
 class VehicleModel : public VehicleModelInterface
 {
 public:
-  struct FeatureTypeLimits
-  {
-    std::vector<std::string> m_type;
-    bool m_isPassThroughAllowed;      // pass through this road type is allowed
-  };
-
-  struct FeatureTypeSurface
-  {
-    std::vector<std::string> m_type;  // road surface type 'psurface=*'
-    SpeedFactor m_factor;
-  };
-
-  struct AdditionalRoad
-  {
-    std::vector<std::string> m_type;
-    InOutCitySpeedKMpH m_speed;
-  };
-
-  using AdditionalRoadsList = std::initializer_list<AdditionalRoad>;
-  using LimitsInitList = std::initializer_list<FeatureTypeLimits>;
-  using SurfaceInitList = std::initializer_list<FeatureTypeSurface>;
-
-  VehicleModel(Classificator const & classif, LimitsInitList const & featureTypeLimits,
-               SurfaceInitList const & featureTypeSurface, HighwayBasedInfo const & info);
+  VehicleModel(HighwaySpeeds const & speeds, HighwayFactors const & factors,
+               SurfaceFactors const & surfaces, NoPassThroughHighways const & noPassThrough = {});
 
   /// @name VehicleModelInterface overrides.
   /// @{
-  SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
-  HighwayType GetHighwayType(FeatureType & f) const override;
+  Response GetFeatureInfo(FeatureType & ft, Request const & request) const override;
+
+  bool HasRoadType(FeatureType & ft) const override;
+  bool IsOneWay(FeatureType & ft) const override;
+
   double GetMaxWeightSpeed() const override;
-  bool IsOneWay(FeatureType & f) const override;
-  bool IsRoad(FeatureType & f) const override;
-  bool IsPassThroughAllowed(FeatureType & f) const override;
   /// @}
 
-public:
-  /// @returns true if |m_highwayTypes| or |m_addRoadTypes| contains |type| and false otherwise.
-  bool IsRoadType(uint32_t type) const;
+  Response GetFeatureInfo(feature::TypesHolder const & types, Request const & request) const;
 
-  template <class TList>
-  bool HasRoadType(TList const & types) const
+  template <class ContT> bool HasRoadType(ContT const & types) const
   {
-    for (uint32_t t : types)
+    for (uint32_t type : types)
     {
-      if (IsRoadType(t))
+      NormalizeType(type);
+      if (m_highwayInfo.Find(type))
         return true;
     }
     return false;
@@ -299,57 +249,50 @@ public:
 
   bool EqualsForTests(VehicleModel const & rhs) const
   {
-    return (m_roadTypes == rhs.m_roadTypes) && (m_addRoadTypes == rhs.m_addRoadTypes) &&
-           (m_onewayType == rhs.m_onewayType);
+    return (m_highwayInfo == rhs.m_highwayInfo && m_highwayInfo == rhs.m_highwayInfo &&
+            m_maxModelSpeed == rhs.m_maxModelSpeed);
   }
 
 protected:
-  /// @returns a special restriction which is set to the feature.
-  virtual RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const;
+  enum class ResultT
+  {
+    Yes, No, Unknown
+  };
 
-  void AddAdditionalRoadTypes(Classificator const & classif, AdditionalRoadsList const & roads);
+  /// @returns If oneway road.
+  virtual ResultT IsOneWay(uint32_t type) const = 0;
 
-  static uint32_t PrepareToMatchType(uint32_t type);
+  /// @returns Availability according to a special restriction: hwtag={yes,no}{car,bicycle,foot}.
+  virtual ResultT GetRoadAvailability(uint32_t type) const = 0;
 
-  /// \returns true if |types| is a oneway feature.
-  /// \note According to OSM, tag "oneway" could have value "-1". That means it's a oneway feature
-  /// with reversed geometry. In that case at map generation the geometry of such features
-  /// is reversed (the order of points is changed) so in vehicle model all oneway feature
-  /// may be considered as features with forward geometry.
-  bool HasOneWayType(feature::TypesHolder const & types) const;
-
-  bool HasPassThroughType(feature::TypesHolder const & types) const;
-
-  SpeedKMpH GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & speedParams) const;
-
-  SpeedKMpH GetSpeedWihtoutMaxspeed(FeatureType & f, SpeedParams const & speedParams) const;
+  /// @returns Default speed for available road, but not in the current HighwayType model.
+  virtual SpeedKMpH GetSpeedForAvailable() const = 0;
 
   /// \brief Maximum within all the speed limits set in a model (car model, bicycle model and so on).
   /// Do not mix with maxspeed value tag, which defines maximum legal speed on a feature.
   InOutCitySpeedKMpH m_maxModelSpeed;
 
 private:
-  std::optional<HighwayType> GetHighwayType(uint32_t type) const;
-  void GetSurfaceFactor(uint32_t type, SpeedFactor & factor) const;
-  void GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad,
-                              std::optional<SpeedKMpH> & speed) const;
+  void NormalizeType(uint32_t type) const;
 
-  SpeedKMpH GetSpeedOnFeatureWithoutMaxspeed(HighwayType const & type,
-                                             SpeedParams const & speedParams) const;
-  SpeedKMpH GetSpeedOnFeatureWithMaxspeed(HighwayType const & type,
-                                          SpeedParams const & speedParams) const;
+  struct Info
+  {
+    InOutCitySpeedKMpH m_speed;
+    InOutCityFactor m_factor;
+    bool m_isPassThroughAllowed = true;
 
-  // HW type -> speed and factor.
-  HighwayBasedInfo m_highwayBasedInfo;
-  uint32_t m_onewayType;
+    bool operator==(Info const & rhs) const
+    {
+      return (m_speed == rhs.m_speed && m_factor == rhs.m_factor &&
+              m_isPassThroughAllowed == rhs.m_isPassThroughAllowed);
+    }
+  };
 
-  // HW type -> allow pass through.
-  base::SmallMap<uint32_t, bool> m_roadTypes;
-  // Mapping surface types psurface={paved_good/paved_bad/unpaved_good/unpaved_bad} to surface speed factors.
+  SpeedKMpH GetSpeed(Info const * info, MaxspeedType ftMaxSpeed, bool inCity) const;
+
+  base::SmallMap<uint32_t, Info> m_highwayInfo;
+
   base::SmallMapBase<uint32_t, SpeedFactor> m_surfaceFactors;
-
-  /// @todo Do we really need a separate map here or can merge with the m_roadTypes map?
-  base::SmallMapBase<uint32_t, InOutCitySpeedKMpH> m_addRoadTypes;
 };
 
 class VehicleModelFactory : public VehicleModelFactoryInterface
@@ -375,12 +318,12 @@ protected:
   CountryParentNameGetterFn m_countryParentNameGetterFn;
 };
 
-HighwayBasedFactors GetOneFactorsForBicycleAndPedestrianModel();
+HighwayFactors GetOneFactorsForBicycleAndPedestrianModel();
 
-std::string DebugPrint(VehicleModelInterface::RoadAvailability const l);
 std::string DebugPrint(SpeedKMpH const & speed);
 std::string DebugPrint(SpeedFactor const & speedFactor);
 std::string DebugPrint(InOutCitySpeedKMpH const & speed);
 std::string DebugPrint(InOutCityFactor const & speedFactor);
 std::string DebugPrint(HighwayType type);
+
 }  // namespace routing

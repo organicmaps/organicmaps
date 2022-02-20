@@ -39,15 +39,12 @@ string GetRegionParent(string const & id)
 template <typename VehicleModelType, typename VehicleModelFactoryType>
 void TestVehicleModelDefault()
 {
-  auto defaultVehicleModel = make_shared<VehicleModelType>();
-
-  VehicleModelFactoryType vehicleModelFactory = VehicleModelFactoryType(GetRegionParent);
-
   // Use static_pointer_cast here because VehicleModelInterface do not have EqualsForTests method
   shared_ptr<VehicleModelType> defaultVehicleModelForCountry = static_pointer_cast<VehicleModelType>(
-      vehicleModelFactory.GetVehicleModelForCountry("Nonexistent Country Name"));
-  TEST(defaultVehicleModel->EqualsForTests(*defaultVehicleModelForCountry),
-       ("Vehicle model for nonexistent counry is not equal to default."));
+      VehicleModelFactoryType(GetRegionParent).GetVehicleModelForCountry("Nonexistent Country Name"));
+
+  TEST(VehicleModelType::AllLimitsInstance().EqualsForTests(*defaultVehicleModelForCountry),
+       ("Vehicle model for nonexistent country is not equal to default."));
 }
 
 // DirectParent and IndirectParent tests require tested countries to have nondefault restriction
@@ -55,17 +52,14 @@ void TestVehicleModelDefault()
 template <typename VehicleModelType, typename VehicleModelFactoryType>
 void TestHaveNondefaultRestrictionForSelectedCountry(string country)
 {
-  auto defaultVehicleModel = make_shared<VehicleModelType>();
+  auto const & defaultVehicleModel = VehicleModelType::AllLimitsInstance();
 
   VehicleModelFactoryType vehicleModelFactory = VehicleModelFactoryType(GetRegionParent);
 
   shared_ptr<VehicleModelType> vehicleModelCountry =
       static_pointer_cast<VehicleModelType>(vehicleModelFactory.GetVehicleModelForCountry(country));
 
-  TEST(!(vehicleModelCountry->EqualsForTests(*defaultVehicleModel)),
-       (country,
-        "has default model. It may be ok if traffic restrictions was changed. "
-        "If so, select other country for this and next test."));
+  TEST(!defaultVehicleModel.EqualsForTests(*vehicleModelCountry), (country));
 }
 
 template <typename VehicleModelType, typename VehicleModelFactoryType>

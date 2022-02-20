@@ -132,8 +132,7 @@ public:
     {
       ASSERT_EQUAL(v, e.GetStartJunction(), ());
 
-      double const speedMPS = KMPH2MPS(
-          m_roadGraph.GetSpeedKMpH(e, {true /* forward */, false /* in city */, Maxspeed()}));
+      double const speedMPS = KMPH2MPS(m_roadGraph.GetSpeedKMpH(e));
       adj.emplace_back(e.GetEndJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
   }
@@ -152,8 +151,7 @@ public:
     {
       ASSERT_EQUAL(v, e.GetEndJunction(), ());
 
-      double const speedMPS = KMPH2MPS(
-          m_roadGraph.GetSpeedKMpH(e, {true /* forward */, false /* in city */, Maxspeed()}));
+      double const speedMPS = KMPH2MPS(m_roadGraph.GetSpeedKMpH(e));
       adj.emplace_back(e.GetStartJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
   }

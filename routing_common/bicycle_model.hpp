@@ -1,5 +1,4 @@
 #pragma once
-
 #include "routing_common/vehicle_model.hpp"
 
 namespace routing
@@ -7,39 +6,33 @@ namespace routing
 
 class BicycleModel : public VehicleModel
 {
+  explicit BicycleModel(HighwaySpeeds const & speeds);
+  friend class BicycleModelFactory;
+
 public:
-  BicycleModel();
-  BicycleModel(VehicleModel::LimitsInitList const & speedLimits);
-
-  /// VehicleModelInterface overrides:
-  SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
-  bool IsOneWay(FeatureType & f) const override;
-  SpeedKMpH const & GetOffroadSpeed() const override;
-
   static BicycleModel const & AllLimitsInstance();
 
+  /// @name VehicleModel overrides
+  /// @{
+  SpeedKMpH GetOffroadSpeed() const override;
+
 protected:
-  RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const override;
+  ResultT IsOneWay(uint32_t type) const override;
+  ResultT GetRoadAvailability(uint32_t type) const override;
+  SpeedKMpH GetSpeedForAvailable() const override;
+  /// @}
 
 private:
-  void Init();
-
-  /// @return true if it is allowed to ride a bicycle in both directions.
-  bool IsBicycleBidir(feature::TypesHolder const & types) const;
-  // Returns true if the road is explicitly set oneway for bicycles.
-  bool IsBicycleOnedir(feature::TypesHolder const & types) const;
-
-  uint32_t m_noBicycleType = 0;
-  uint32_t m_yesBicycleType = 0;
-  uint32_t m_bidirBicycleType = 0;
-  uint32_t m_onedirBicycleType = 0;
+  uint32_t m_noBicycleType;
+  uint32_t m_yesBicycleType;
+  uint32_t m_bidirBicycleType;
+  uint32_t m_onedirBicycleType;
 };
 
 class BicycleModelFactory : public VehicleModelFactory
 {
 public:
-  // TODO: remove countryParentNameGetterFn default value after removing unused bicycle routing
-  // from road_graph_router
-  BicycleModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn = {});
+  explicit BicycleModelFactory(CountryParentNameGetterFn const & parentGetter);
 };
+
 }  // namespace routing

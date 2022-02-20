@@ -12,7 +12,7 @@ namespace routing
  *  There are no (99%) traffic lights or pedestrian crossings on this kind of roads.
  */
 
-HighwayBasedFactors const kHighwayBasedFactors = {
+HighwayFactors const kHighwayBasedFactors = {
     // {highway class : InOutCityFactor(in city, out city)}
     {HighwayType::HighwayLivingStreet, InOutCityFactor(0.75)},
     {HighwayType::HighwayMotorway, InOutCityFactor(0.90, 0.94)},
@@ -36,7 +36,7 @@ HighwayBasedFactors const kHighwayBasedFactors = {
     {HighwayType::RouteShuttleTrain, InOutCityFactor(0.90)},
 };
 
-HighwayBasedSpeeds const kHighwayBasedSpeeds = {
+HighwaySpeeds const kHighwayBasedSpeeds = {
     // {highway class : InOutCitySpeedKMpH(in city, out city)}
     {HighwayType::HighwayLivingStreet, InOutCitySpeedKMpH({10.00, 10.00} /* in city */, {10.00, 10.00} /* out city */)},
     {HighwayType::HighwayMotorway, InOutCitySpeedKMpH(118.0 /* in city */, 124.0 /* out city */)},
@@ -59,4 +59,13 @@ HighwayBasedSpeeds const kHighwayBasedSpeeds = {
     {HighwayType::RouteFerry, InOutCitySpeedKMpH({10.00, 10.00} /* in city */, {10.00, 10.00} /* out city */)},
     {HighwayType::RouteShuttleTrain, InOutCitySpeedKMpH({25.00, 25.00} /* in city */, {25.00, 25.00} /* out city */)},
 };
+
+SurfaceFactors const kHighwayBasedSurface = {
+  // {surfaceType, {weightFactor, etaFactor}}
+  {SurfaceType::PavedGood, {1.0, 1.0}},
+  {SurfaceType::PavedBad, {0.5, 0.5}},
+  {SurfaceType::UnpavedGood, {0.4, 0.8}},
+  {SurfaceType::UnpavedBad, {0.1, 0.3}}
+};
+
 }  // namespace routing

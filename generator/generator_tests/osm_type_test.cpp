@@ -563,7 +563,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
     uint32_t type = GetType({"route", "ferry"});
     TEST(params.IsTypeExist(type), (params));
-    TEST(carModel.IsRoadType(type), ());
+    TEST(carModel.HasRoadType(params.m_types), ());
 
     type = GetType({"hwtag", "nocar"});
     TEST(params.IsTypeExist(type), ());
@@ -582,7 +582,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
     uint32_t type = GetType({"route", "ferry"});
     TEST(params.IsTypeExist(type), (params));
-    TEST(carModel.IsRoadType(type), ());
+    TEST(carModel.HasRoadType(params.m_types), ());
 
     type = GetType({"hwtag", "yescar"});
     TEST(params.IsTypeExist(type), ());
@@ -594,7 +594,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_YesCarNoCar)
 {
-  routing::CarModel const & carModel = routing::CarModel::AllLimitsInstance();
+  uint32_t const yesCar = GetType({"hwtag", "yescar"});
+  uint32_t const noCar = GetType({"hwtag", "nocar"});
 
   {
     Tags const tags = {
@@ -604,8 +605,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_YesCarNoCar)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
-    TEST(!params.IsTypeExist(carModel.GetNoCarTypeForTesting()), ());
-    TEST(!params.IsTypeExist(carModel.GetYesCarTypeForTesting()), ());
+    TEST(!params.IsTypeExist(yesCar), ());
+    TEST(!params.IsTypeExist(noCar), ());
   }
 
   {
@@ -617,8 +618,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_YesCarNoCar)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 2, (params));
-    TEST(!params.IsTypeExist(carModel.GetNoCarTypeForTesting()), ());
-    TEST(params.IsTypeExist(carModel.GetYesCarTypeForTesting()), ());
+    TEST(params.IsTypeExist(yesCar), ());
+    TEST(!params.IsTypeExist(noCar), ());
   }
 
   {
@@ -630,8 +631,20 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_YesCarNoCar)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 2, (params));
-    TEST(params.IsTypeExist(carModel.GetNoCarTypeForTesting()), ());
-    TEST(!params.IsTypeExist(carModel.GetYesCarTypeForTesting()), ());
+    TEST(!params.IsTypeExist(yesCar), ());
+    TEST(params.IsTypeExist(noCar), ());
+  }
+
+  {
+    Tags const tags = {
+        {"railway", "rail"},
+        {"motor_vehicle", "yes"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"railway", "rail", "motor_vehicle"})), ());
   }
 }
 

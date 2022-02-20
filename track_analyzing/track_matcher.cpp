@@ -147,7 +147,7 @@ void TrackMatcher::Step::FillCandidatesWithNearbySegments(
         if (ft.GetID().m_mwmId.GetInfo()->GetType() != MwmInfo::COUNTRY)
           return;
 
-        if (!vehicleModel.IsRoad(ft))
+        if (!vehicleModel.HasRoadType(ft))
           return;
 
         ft.ParseGeometry(FeatureType::BEST_GEOMETRY);

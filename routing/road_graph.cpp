@@ -292,11 +292,9 @@ void IRoadGraph::AddIngoingFakeEdge(Edge const & e)
   AddEdge(e.GetEndJunction(), e, m_fakeIngoingEdges);
 }
 
-double IRoadGraph::GetSpeedKMpH(Edge const & edge, SpeedParams const & speedParams) const
+double IRoadGraph::GetSpeedKMpH(Edge const & edge) const
 {
-  double const speedKMpH =
-      (edge.IsFake() ? GetMaxSpeedKMpH()
-                     : GetSpeedKMpH(edge.GetFeatureId(), speedParams));
+  double const speedKMpH = (edge.IsFake() ? GetMaxSpeedKMpH() : GetSpeedKMpH(edge.GetFeatureId()));
   ASSERT_LESS_OR_EQUAL(speedKMpH, GetMaxSpeedKMpH(), ());
   return speedKMpH;
 }

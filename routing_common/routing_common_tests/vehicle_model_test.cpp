@@ -21,7 +21,7 @@ namespace vehicle_model_test
 using namespace routing;
 using namespace std;
 
-HighwayBasedSpeeds const kDefaultSpeeds = {
+HighwaySpeeds const kDefaultSpeeds = {
     {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(100.0 /* in city */, 150.0 /* out city */)},
     {HighwayType::HighwayPrimary, InOutCitySpeedKMpH(90.0 /* in city */, 120.0 /* out city */)},
     {HighwayType::HighwaySecondary,
@@ -31,25 +31,24 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
                         SpeedKMpH(50.0 /* weight */, 60.0 /* eta */) /* out city */)},
     {HighwayType::HighwayService,
      InOutCitySpeedKMpH(SpeedKMpH(47.0 /* weight */, 36.0 /* eta */) /* in city */,
-                        SpeedKMpH(50.0 /* weight */, 40.0 /* eta */) /* out city */)}};
+                        SpeedKMpH(50.0 /* weight */, 40.0 /* eta */) /* out city */)}
+};
 
-HighwayBasedFactors const kDefaultFactors = {
+HighwayFactors const kDefaultFactors = {
     {HighwayType::HighwayTrunk, InOutCityFactor(1.0)},
     {HighwayType::HighwayPrimary, InOutCityFactor(1.0)},
     {HighwayType::HighwaySecondary, InOutCityFactor(1.0)},
-    {HighwayType::HighwayResidential, InOutCityFactor(0.5)}};
+    {HighwayType::HighwayResidential, InOutCityFactor(0.5)}
+};
 
-VehicleModel::LimitsInitList const kTestLimits = {{{"highway", "trunk"}, true},
-                                                   {{"highway", "primary"}, true},
-                                                   {{"highway", "secondary"}, true},
-                                                   {{"highway", "residential"}, true},
-                                                   {{"highway", "service"}, false}};
+NoPassThroughHighways const kTestLimits = {HighwayType::HighwayService};
 
-VehicleModel::SurfaceInitList const kCarSurface = {
-    {{"psurface", "paved_good"}, {0.8 /* weightFactor */, 0.9 /* etaFactor */}},
-    {{"psurface", "paved_bad"}, {0.4, 0.5}},
-    {{"psurface", "unpaved_good"}, {0.6, 0.8}},
-    {{"psurface", "unpaved_bad"}, {0.2, 0.2}}};
+SurfaceFactors const kCarSurface = {
+    {SurfaceType::PavedGood, {0.8 /* weightFactor */, 0.9 /* etaFactor */}},
+    {SurfaceType::PavedBad, {0.4, 0.5}},
+    {SurfaceType::UnpavedGood, {0.6, 0.8}},
+    {SurfaceType::UnpavedBad, {0.2, 0.2}}
+};
 
 class VehicleModelTest
 {
@@ -62,22 +61,41 @@ class TestVehicleModel : public VehicleModel
   friend void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue);
   friend void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expectedValue);
   friend void CheckSpeedWithParams(initializer_list<uint32_t> const & types,
-                                   SpeedParams const & params, SpeedKMpH const & expectedSpeed);
+                                   Request const & request, SpeedKMpH const & expectedSpeed);
 
 public:
   TestVehicleModel()
-    : VehicleModel(classif(), kTestLimits, kCarSurface, {kDefaultSpeeds, kDefaultFactors})
+    : VehicleModel(kDefaultSpeeds, kDefaultFactors, kCarSurface, kTestLimits)
   {
+    m_oneway = classif().GetTypeByPath({"hwtag", "oneway"});
   }
 
   // We are not going to use offroad routing in these tests.
-  SpeedKMpH const & GetOffroadSpeed() const override { return kDummy; }
+  SpeedKMpH GetOffroadSpeed() const override { return kDummy; }
+
+protected:
+  ResultT IsOneWay(uint32_t type) const override
+  {
+    if (type == m_oneway)
+      return ResultT::Yes;
+    return ResultT::Unknown;
+  }
+
+  ResultT GetRoadAvailability(uint32_t type) const override
+  {
+    return ResultT::Unknown;
+  }
+
+  SpeedKMpH GetSpeedForAvailable() const override
+  {
+    TEST(false, ());
+    return kDummy;
+  }
 
 private:
-  static SpeedKMpH const kDummy;
+  uint32_t m_oneway;
+  SpeedKMpH const kDummy = {0.0 /* weight */, 0.0 /* eta */};
 };
-
-SpeedKMpH const TestVehicleModel::kDummy = {0.0 /* weight */, 0.0 /* eta */};
 
 uint32_t GetType(char const * s0, char const * s1 = 0, char const * s2 = 0)
 {
@@ -91,23 +109,24 @@ uint32_t GetOnewayType()
   return GetType("hwtag", "oneway");
 }
 
-void CheckSpeedWithParams(initializer_list<uint32_t> const & types, SpeedParams const & params,
-                          SpeedKMpH const & expectedSpeed)
+void CheckSpeedWithParams(initializer_list<uint32_t> const & types, VehicleModel::Request const & request,
+                          SpeedKMpH const & expectedForward, SpeedKMpH const & expectedBackward = {})
 {
   TestVehicleModel vehicleModel;
   feature::TypesHolder h;
   for (uint32_t t : types)
     h.Add(t);
 
-  TEST_EQUAL(vehicleModel.GetTypeSpeed(h, params), expectedSpeed, ());
+  auto const response = vehicleModel.GetFeatureInfo(h, request);
+  TEST_EQUAL(response.m_forwardSpeed, expectedForward, ());
+  if (expectedBackward.IsValid())
+    TEST_EQUAL(response.m_backwardSpeed, expectedBackward, ());
 }
 
 void CheckSpeed(initializer_list<uint32_t> const & types, InOutCitySpeedKMpH const & expectedSpeed)
 {
-  SpeedParams const inCity(true /* forward */, true /* in city */, Maxspeed());
-  CheckSpeedWithParams(types, inCity, expectedSpeed.m_inCity);
-  SpeedParams const outCity(true /* forward */, false /* in city */, Maxspeed());
-  CheckSpeedWithParams(types, outCity, expectedSpeed.m_outCity);
+  CheckSpeedWithParams(types, {Maxspeed(), true /* in city */}, expectedSpeed.m_inCity);
+  CheckSpeedWithParams(types, {Maxspeed(), false /* in city */}, expectedSpeed.m_outCity);
 }
 
 void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue)
@@ -117,7 +136,8 @@ void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue)
   for (uint32_t t : types)
     h.Add(t);
 
-  TEST_EQUAL(vehicleModel.HasOneWayType(h), expectedValue, ());
+  auto const response = vehicleModel.GetFeatureInfo(h, {});
+  TEST_EQUAL(response.m_isOneWay, expectedValue, ());
 }
 
 void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expectedValue)
@@ -127,7 +147,8 @@ void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expe
   for (uint32_t t : types)
     h.Add(t);
 
-  TEST_EQUAL(vehicleModel.HasPassThroughType(h), expectedValue, ());
+  auto const response = vehicleModel.GetFeatureInfo(h, {});
+  TEST_EQUAL(response.m_isPassThroughAllowed, expectedValue, ());
 }
 
 
@@ -140,9 +161,9 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_MaxSpeed)
 UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_Speed)
 {
   {
-    CheckSpeed({GetType("highway", "secondary", "bridge")}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
-    CheckSpeed({GetType("highway", "secondary", "tunnel")}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
-    CheckSpeed({GetType("highway", "secondary")}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
+    CheckSpeed({GetType("highway", "secondary", "bridge")}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
+    CheckSpeed({GetType("highway", "secondary", "tunnel")}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
+    CheckSpeed({GetType("highway", "secondary")}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
   }
 
   CheckSpeed({GetType("highway", "trunk")},
@@ -158,9 +179,9 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_Speed_MultiTypes)
   uint32_t const typeSecondary = GetType("highway", "secondary");
   uint32_t const typeHighway = GetType("highway");
 
-  CheckSpeed({typeTunnel, typeSecondary}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
-  CheckSpeed({typeTunnel, typeHighway}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
-  CheckSpeed({typeHighway, typeTunnel}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
+  CheckSpeed({typeTunnel, typeSecondary}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
+  CheckSpeed({typeTunnel, typeHighway}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
+  CheckSpeed({typeHighway, typeTunnel}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
 }
 
 UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_OneWay)
@@ -168,9 +189,9 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_OneWay)
   uint32_t const typeBridge = GetType("highway", "secondary", "bridge");
   uint32_t const typeOneway = GetOnewayType();
 
-  CheckSpeed({typeBridge, typeOneway}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
+  CheckSpeed({typeBridge, typeOneway}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
   CheckOneWay({typeBridge, typeOneway}, true);
-  CheckSpeed({typeOneway, typeBridge}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
+  CheckSpeed({typeOneway, typeBridge}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
   CheckOneWay({typeOneway, typeBridge}, true);
 
   CheckOneWay({typeOneway}, true);
@@ -182,9 +203,9 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_DifferentSpeeds)
   uint32_t const typePrimary = GetType("highway", "primary");
   uint32_t const typeOneway = GetOnewayType();
 
-  CheckSpeed({typeSecondary, typePrimary}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
+  CheckSpeed({typeSecondary, typePrimary}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
 
-  CheckSpeed({typeSecondary, typePrimary, typeOneway}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
+  CheckSpeed({typeSecondary, typePrimary, typeOneway}, kDefaultSpeeds.at(HighwayType::HighwaySecondary));
   CheckOneWay({typePrimary, typeOneway, typeSecondary}, true);
 }
 
@@ -228,26 +249,23 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_MaxspeedFactor)
   Maxspeed const maxspeed90 =
       Maxspeed(measurement_utils::Units::Metric, 90 /* forward speed */, kInvalidSpeed);
   CheckSpeedWithParams({secondary, unpavedBad},
-                       SpeedParams(true /* forward */, false /* in city */, maxspeed90),
+                       {maxspeed90, false /* in city */},
                        SpeedKMpH(18.0));
 
   CheckSpeedWithParams({primary, pavedGood},
-                       SpeedParams(true /* forward */, false /* in city */, maxspeed90),
+                       {maxspeed90, false /* in city */},
                        SpeedKMpH(72.0, 81.0));
 
   Maxspeed const maxspeed9070 =
-      Maxspeed(measurement_utils::Units::Metric, 90 /* forward speed */, 70);
+      Maxspeed(measurement_utils::Units::Metric, 90 /* forward speed */, 70 /* backward speed */);
   CheckSpeedWithParams({primary, pavedGood},
-                       SpeedParams(true /* forward */, false /* in city */, maxspeed9070),
-                       SpeedKMpH(72.0, 81.0));
-  CheckSpeedWithParams({primary, pavedGood},
-                       SpeedParams(false /* forward */, false /* in city */, maxspeed9070),
-                       SpeedKMpH(56.0, 63.0));
+                       {maxspeed9070, false},
+                       SpeedKMpH(72.0, 81.0), SpeedKMpH(56.0, 63.0));
 
   Maxspeed const maxspeed60 =
-      Maxspeed(measurement_utils::Units::Metric, 60 /* forward speed */, kInvalidSpeed);
+      Maxspeed(measurement_utils::Units::Metric, 60 /* forward speed */, kInvalidSpeed /* backward speed */);
   CheckSpeedWithParams({residential, pavedGood},
-                       SpeedParams(true /* forward */, false /* in city */, maxspeed60),
+                       {maxspeed60, false /* in city */},
                        SpeedKMpH(24.0, 27.0));
 }
 
@@ -279,13 +297,11 @@ UNIT_TEST(VehicleModel_CarModelValidation)
 
   for (auto const hwType : carRoadTypes)
   {
-    auto const * factor = kHighwayBasedFactors.Find(hwType);
-    TEST(factor, (hwType));
-    TEST(factor->IsValid(), (hwType, *factor));
+    auto const factor = kHighwayBasedFactors.at(hwType);
+    TEST(factor.IsValid(), ());
 
-    auto const * speed = kHighwayBasedSpeeds.Find(hwType);
-    TEST(speed, (hwType));
-    TEST(speed->IsValid(), (hwType, *speed));
+    auto const speed = kHighwayBasedSpeeds.at(hwType);
+    TEST(speed.IsValid(), ());
   }
 }
 }  // namespace vehicle_model_test

@@ -45,8 +45,7 @@ bool IsBicycleRoad(Types const & types)
 template <typename Types>
 bool IsRoad(Types const & types)
 {
-  return IsCarRoad(types) || PedestrianModel::AllLimitsInstance().HasRoadType(types) ||
-         IsBicycleRoad(types);
+  return (IsCarRoad(types) || IsBicycleRoad(types) || PedestrianModel::AllLimitsInstance().HasRoadType(types));
 }
 
 void FillSegmentInfo(std::vector<Segment> const & segments,
