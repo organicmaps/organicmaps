@@ -302,7 +302,7 @@ mapswithme
 *man_made|silo
 *power|generator
 *highway|pedestrian|bridge
-*man_made|pipeline|overground
+man_made|pipeline
 *natural|saddle
 *mountain_pass
 *highway|raceway
@@ -542,7 +542,7 @@ mapswithme
 highway|speed_camera
 *area:highway|track
 *area:highway|primary
-*power|line|underground
+mapswithme
 mapswithme
 mapswithme
 mapswithme
@@ -1122,8 +1122,8 @@ mapswithme
 *wheelchair|no
 *wheelchair|limited
 *building|has_parts
-mapswithme
-mapswithme
+*organic|only
+*organic|yes
 mapswithme
 mapswithme
 mapswithme

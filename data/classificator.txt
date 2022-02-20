@@ -575,9 +575,7 @@ world  +
         lighthouse  -
         mast  -
         pier  -
-        pipeline  +
-            overground  -
-            {}
+        pipeline  -
         silo  -
         storage_tank  -
         surveillance  -
@@ -645,6 +643,10 @@ world  +
         ngo  -
         telecommunication  -
         {}
+    organic  +
+        only  -
+        yes  -
+        {}
     piste:lift  +
         j-bar  -
         magic_carpet  -
@@ -702,9 +704,7 @@ world  +
         {}
     power  +
         generator  -
-        line  +
-            underground  -
-            {}
+        line  -
         minor_line  -
         pole  -
         station  -
