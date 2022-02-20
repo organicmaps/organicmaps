@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Míle";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Moja poloha";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Most";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunel";
 
 "type.highway.bus_stop" = "Autobusová zastávka";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Most";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunel";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "Cesta";
 
-"type.highway.footway.bridge" = "Cesta";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Most";
 
 "type.highway.footway.demanding_alpine_hiking" = "Cesta";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "Cesta";
 
-"type.highway.footway.tunnel" = "Cesta";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunel";
 
 "type.highway.ford" = "Brod";
 
 "type.highway.living_street" = "Ulica";
 
-"type.highway.living_street.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Most";
 
-"type.highway.living_street.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunel";
 
 "type.highway.motorway" = "Ulica";
 
-"type.highway.motorway.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Most";
 
-"type.highway.motorway.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunel";
 
 "type.highway.motorway_junction" = "Dopravný uzol";
 
 "type.highway.motorway_link" = "Ulica";
 
-"type.highway.motorway_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Most";
 
-"type.highway.motorway_link.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunel";
 
 "type.highway.path" = "Cesta";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "Cesta";
 
-"type.highway.path.bridge" = "Cesta";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Most";
 
 "type.highway.path.demanding_alpine_hiking" = "Cesta";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "Cesta";
 
-"type.highway.path.tunnel" = "Cesta";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunel";
 
 "type.highway.pedestrian" = "Ulica";
 
 "type.highway.pedestrian.area" = "Ulica";
 
-"type.highway.pedestrian.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Most";
 
-"type.highway.pedestrian.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunel";
 
 "type.highway.primary" = "Ulica";
 
-"type.highway.primary.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Most";
 
-"type.highway.primary.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunel";
 
 "type.highway.primary_link" = "Ulica";
 
-"type.highway.primary_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Most";
 
-"type.highway.primary_link.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunel";
 
 "type.highway.raceway" = "Pretekárska dráha";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "Ulica";
 
-"type.highway.residential.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Most";
 
-"type.highway.residential.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunel";
 
 "type.highway.rest_area" = "Odpočívadlo";
 
 "type.highway.road" = "Ulica";
 
-"type.highway.road.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Most";
 
-"type.highway.road.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunel";
 
 "type.highway.secondary" = "Ulica";
 
-"type.highway.secondary.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Most";
 
-"type.highway.secondary.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunel";
 
 "type.highway.secondary_link" = "Ulica";
 
-"type.highway.secondary_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Most";
 
-"type.highway.secondary_link.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunel";
 
 "type.highway.service" = "Ulica";
 
 "type.highway.service.area" = "Ulica";
 
-"type.highway.service.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Most";
 
 "type.highway.service.driveway" = "Ulica";
 
 "type.highway.service.parking_aisle" = "Ulica";
 
-"type.highway.service.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunel";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "Cesta";
 
-"type.highway.steps.bridge" = "Cesta";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Most";
 
-"type.highway.steps.tunnel" = "Cesta";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunel";
 
 "type.highway.tertiary" = "Ulica";
 
-"type.highway.tertiary.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Most";
 
-"type.highway.tertiary.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunel";
 
 "type.highway.tertiary_link" = "Ulica";
 
-"type.highway.tertiary_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Most";
 
-"type.highway.tertiary_link.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunel";
 
 "type.highway.track" = "Ulica";
 
 "type.highway.track.area" = "Ulica";
 
-"type.highway.track.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Most";
 
 "type.highway.track.grade1" = "Ulica";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "Ulica";
 
-"type.highway.track.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunel";
 
 "type.highway.traffic_signals" = "Semafor";
 
 "type.highway.trunk" = "Ulica";
 
-"type.highway.trunk.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Most";
 
-"type.highway.trunk.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunel";
 
 "type.highway.trunk_link" = "Ulica";
 
-"type.highway.trunk_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Most";
 
-"type.highway.trunk_link.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunel";
 
 "type.highway.unclassified" = "Ulica";
 
 "type.highway.unclassified.area" = "Ulica";
 
-"type.highway.unclassified.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Most";
 
-"type.highway.unclassified.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunel";
 
 "type.area_highway.cycleway" = "Cycle Path";
 

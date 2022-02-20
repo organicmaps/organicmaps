@@ -68,15 +68,16 @@ using HighwayBasedSpeeds = base::SmallMap<HighwayType, InOutCitySpeedKMpH>;
 /// \brief Params for calculation of an approximate speed on a feature.
 struct SpeedParams
 {
-  SpeedParams(bool forward, bool inCity, Maxspeed maxspeed)
-    : m_forward(forward), m_inCity(inCity), m_maxspeed(std::move(maxspeed))
+  SpeedParams(bool forward, bool inCity, Maxspeed const & maxspeed)
+    : m_maxspeed(maxspeed), m_forward(forward), m_inCity(inCity)
   {
   }
 
-  bool m_forward;
-  // |m_inCity| == true if a corresponding feature lies inside a city of a town.
-  bool m_inCity;
   Maxspeed m_maxspeed;
+  // Retrieve forward (true) or backward (false) speed.
+  bool m_forward;
+  // If a corresponding feature lies inside a city of a town.
+  bool m_inCity;
 };
 
 /// \brief Speeds which are used for edge weight and ETA estimations.
@@ -323,8 +324,8 @@ protected:
 
   SpeedKMpH GetSpeedWihtoutMaxspeed(FeatureType & f, SpeedParams const & speedParams) const;
 
-  /// \brief maximum within all the speed limits set in a model (car model, bicycle model and so on).
-  /// It shouldn't be mixed with maxspeed value tag which defines maximum legal speed on a feature.
+  /// \brief Maximum within all the speed limits set in a model (car model, bicycle model and so on).
+  /// Do not mix with maxspeed value tag, which defines maximum legal speed on a feature.
   InOutCitySpeedKMpH m_maxModelSpeed;
 
 private:

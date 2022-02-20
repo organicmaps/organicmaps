@@ -28,6 +28,8 @@ InOutCitySpeedKMpH Max(InOutCitySpeedKMpH const & lhs, InOutCitySpeedKMpH const 
   return {Pick<max>(lhs.m_inCity, rhs.m_inCity), Pick<max>(lhs.m_outCity, rhs.m_outCity)};
 }
 
+/// @todo This function is used to to get key to fetch speed factor from model,
+/// but we assign factors for links too. @see kHighwayBasedFactors.
 HighwayType GetHighwayTypeKey(HighwayType type)
 {
   switch (type)
@@ -162,26 +164,23 @@ SpeedKMpH VehicleModel::GetSpeedOnFeatureWithMaxspeed(HighwayType const & type,
                                                       SpeedParams const & speedParams) const
 {
   ASSERT(speedParams.m_maxspeed.IsValid(), ());
-  bool const isCityRoad = speedParams.m_inCity;
+
   auto const featureMaxSpeedKmPH = speedParams.m_maxspeed.GetSpeedKmPH(speedParams.m_forward);
   ASSERT(featureMaxSpeedKmPH != kInvalidSpeed, (type, speedParams.m_forward, speedParams.m_maxspeed));
 
-  // We assume that all link roads are equal to its parents and drop "_link" suffix
-  // while searching for the particular factor.
-  auto const hwType = GetHighwayTypeKey(type);
-  auto const * factor = m_highwayBasedInfo.m_factors.Find(hwType);
-  ASSERT(factor, ("Key:", hwType, "is not found."));
-  SpeedKMpH const & maxModelSpeed = m_maxModelSpeed.GetSpeed(isCityRoad);
+  auto const typeKey = GetHighwayTypeKey(type);
+  auto const * factor = m_highwayBasedInfo.m_factors.Find(typeKey);
+  ASSERT(factor, ("Key:", typeKey, "is not found."));
+
+  bool const isCityRoad = speedParams.m_inCity;
   return Pick<min>(SpeedKMpH(static_cast<double>(featureMaxSpeedKmPH)) * factor->GetFactor(isCityRoad),
-                   maxModelSpeed);
+                   m_maxModelSpeed.GetSpeed(isCityRoad));
 }
 
 SpeedKMpH VehicleModel::GetSpeedOnFeatureWithoutMaxspeed(HighwayType const & type,
                                                          SpeedParams const & speedParams) const
 {
   ASSERT(!speedParams.m_maxspeed.IsValid(), ());
-  auto const isCityRoad = speedParams.m_inCity;
-  SpeedKMpH const & maxModelSpeed = m_maxModelSpeed.GetSpeed(isCityRoad);
 
   auto const * s = m_highwayBasedInfo.m_speeds.Find(type);
   ASSERT(s, ("Key:", type, "is not found."));
@@ -190,10 +189,15 @@ SpeedKMpH VehicleModel::GetSpeedOnFeatureWithoutMaxspeed(HighwayType const & typ
   auto const * factor = m_highwayBasedInfo.m_factors.Find(typeKey);
   ASSERT(factor, ("Key:", typeKey, "is not found."));
 
+  auto const isCityRoad = speedParams.m_inCity;
   SpeedKMpH const speed = s->GetSpeed(isCityRoad);
   ASSERT(speed.IsValid(), (speed));
-  // Note. Weight speeds put to |m_highwayBasedInfo| are taken from the former code and should not
-  // be multiplied to the factor. On the contrary eta speed should be multiplied.
+
+  SpeedKMpH const & maxModelSpeed = m_maxModelSpeed.GetSpeed(isCityRoad);
+
+  /// @todo Hm, well this is not obvious for me and should be revised.
+  // Speeds from the m_highwayBasedInfo are taken from the former code and should not
+  // be multiplied to the factor. On the contrary, ETA speed should be multiplied.
   return SpeedKMpH(
       min(speed.m_weight, maxModelSpeed.m_weight),
       min(factor->GetFactor(isCityRoad).m_eta * speed.m_eta, maxModelSpeed.m_eta));

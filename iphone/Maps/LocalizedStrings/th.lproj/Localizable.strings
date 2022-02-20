@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "ไมล์";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "ตำแหน่งของฉัน";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "สะพาน";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "อุโมงค์";
 
 "type.highway.bus_stop" = "ป้ายรถเมล์";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "สะพาน";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "อุโมงค์";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "เส้นทาง";
 
-"type.highway.footway.bridge" = "เส้นทาง";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "สะพาน";
 
 "type.highway.footway.demanding_alpine_hiking" = "เส้นทาง";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "เส้นทาง";
 
-"type.highway.footway.tunnel" = "เส้นทาง";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "อุโมงค์";
 
 "type.highway.ford" = "ที่ตื้นของทางน้ำ";
 
 "type.highway.living_street" = "ถนน";
 
-"type.highway.living_street.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "สะพาน";
 
-"type.highway.living_street.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "อุโมงค์";
 
 "type.highway.motorway" = "ถนน";
 
-"type.highway.motorway.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "สะพาน";
 
-"type.highway.motorway.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "อุโมงค์";
 
 "type.highway.motorway_junction" = "ทางออก";
 
 "type.highway.motorway_link" = "ถนน";
 
-"type.highway.motorway_link.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "สะพาน";
 
-"type.highway.motorway_link.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "อุโมงค์";
 
 "type.highway.path" = "เส้นทาง";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "เส้นทาง";
 
-"type.highway.path.bridge" = "เส้นทาง";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "สะพาน";
 
 "type.highway.path.demanding_alpine_hiking" = "เส้นทาง";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "เส้นทาง";
 
-"type.highway.path.tunnel" = "เส้นทาง";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "อุโมงค์";
 
 "type.highway.pedestrian" = "ถนน";
 
 "type.highway.pedestrian.area" = "ถนน";
 
-"type.highway.pedestrian.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "สะพาน";
 
-"type.highway.pedestrian.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "อุโมงค์";
 
 "type.highway.primary" = "ถนน";
 
-"type.highway.primary.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "สะพาน";
 
-"type.highway.primary.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "อุโมงค์";
 
 "type.highway.primary_link" = "ถนน";
 
-"type.highway.primary_link.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "สะพาน";
 
-"type.highway.primary_link.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "อุโมงค์";
 
 "type.highway.raceway" = "สนามแข่ง";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "ถนน";
 
-"type.highway.residential.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "สะพาน";
 
-"type.highway.residential.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "อุโมงค์";
 
 "type.highway.rest_area" = "บริเวณพักผ่อน";
 
 "type.highway.road" = "ถนน";
 
-"type.highway.road.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "สะพาน";
 
-"type.highway.road.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "อุโมงค์";
 
 "type.highway.secondary" = "ถนน";
 
-"type.highway.secondary.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "สะพาน";
 
-"type.highway.secondary.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "อุโมงค์";
 
 "type.highway.secondary_link" = "ถนน";
 
-"type.highway.secondary_link.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "สะพาน";
 
-"type.highway.secondary_link.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "อุโมงค์";
 
 "type.highway.service" = "ถนน";
 
 "type.highway.service.area" = "ถนน";
 
-"type.highway.service.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "สะพาน";
 
 "type.highway.service.driveway" = "ถนน";
 
 "type.highway.service.parking_aisle" = "ถนน";
 
-"type.highway.service.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "อุโมงค์";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "เส้นทาง";
 
-"type.highway.steps.bridge" = "เส้นทาง";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "สะพาน";
 
-"type.highway.steps.tunnel" = "เส้นทาง";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "อุโมงค์";
 
 "type.highway.tertiary" = "ถนน";
 
-"type.highway.tertiary.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "สะพาน";
 
-"type.highway.tertiary.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "อุโมงค์";
 
 "type.highway.tertiary_link" = "ถนน";
 
-"type.highway.tertiary_link.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "สะพาน";
 
-"type.highway.tertiary_link.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "อุโมงค์";
 
 "type.highway.track" = "ถนน";
 
 "type.highway.track.area" = "ถนน";
 
-"type.highway.track.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "สะพาน";
 
 "type.highway.track.grade1" = "ถนน";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "ถนน";
 
-"type.highway.track.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "อุโมงค์";
 
 "type.highway.traffic_signals" = "สัญญาณไฟจราจร";
 
 "type.highway.trunk" = "ถนน";
 
-"type.highway.trunk.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "สะพาน";
 
-"type.highway.trunk.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "อุโมงค์";
 
 "type.highway.trunk_link" = "ถนน";
 
-"type.highway.trunk_link.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "สะพาน";
 
-"type.highway.trunk_link.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "อุโมงค์";
 
 "type.highway.unclassified" = "ถนน";
 
 "type.highway.unclassified.area" = "ถนน";
 
-"type.highway.unclassified.bridge" = "ถนน";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "สะพาน";
 
-"type.highway.unclassified.tunnel" = "ถนน";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "อุโมงค์";
 
 "type.area_highway.cycleway" = "Cycle Path";
 

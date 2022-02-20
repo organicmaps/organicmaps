@@ -1,5 +1,7 @@
 #pragma once
 
+#include "generator/routing_helpers.hpp"
+
 #include "routing_common/maxspeed_conversion.hpp"
 
 #include "platform/measurement_utils.hpp"
@@ -16,15 +18,12 @@ namespace routing
 class IndexGraph;
 using OsmIdToMaxspeed = std::map<base::GeoObjectId, Maxspeed>;
 
-/// \brief Parses csv file with path |maxspeedsFilename| and stores the result in |osmIdToMaxspeed|.
+/// \brief Parses csv file with |filePath| and stores the result in |osmIdToMaxspeed|.
 /// \note There's a detailed description of the csv file in generator/maxspeed_collector.hpp.
-bool ParseMaxspeeds(std::string const & maxspeedsFilename, OsmIdToMaxspeed & osmIdToMaxspeed);
-
-/// \brief Writes |speeds| to maxspeeds section to mwm with |dataPath|.
-void SerializeMaxspeeds(std::string const & dataPath, std::vector<FeatureMaxspeed> const & speeds);
+bool ParseMaxspeeds(std::string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed);
 
 void BuildMaxspeedsSection(IndexGraph * graph, std::string const & dataPath,
-                           std::map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
+                           FeatureIdToOsmId const & featureIdToOsmId,
                            std::string const & maxspeedsFilename);
 
 /// \brief Builds maxspeeds section in mwm with |dataPath|. This section contains max speed limits

@@ -7,8 +7,6 @@
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
-#include "traffic/traffic_info.hpp"
-
 #include "indexer/data_source.hpp"
 
 #include "geometry/point_with_altitude.hpp"

@@ -4,6 +4,8 @@
 
 #include "generator/gen_mwm_info.hpp"
 
+#include "routing/traffic_stash.hpp"
+
 #include "routing_common/car_model.hpp"
 
 #include "coding/file_writer.hpp"

@@ -13,6 +13,7 @@ on:
       - android/src/fdroid/**
       - android/src/google/**
       - iphone/**
+      - data/strings/**
       - docs/**
       - generator/**
       - packaging/**

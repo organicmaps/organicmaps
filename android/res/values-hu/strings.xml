@@ -21,7 +21,7 @@
 	<string name="maps">Térképek</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mérföld</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Saját helyzet</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Később</string>
@@ -875,34 +875,51 @@
 	<string name="type.healthcare.laboratory">Orvosi laboratórium</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Alagút</string>
 	<string name="type.highway.bus_stop">Buszmegálló</string>
 	<string name="type.highway.construction">Útépítés</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Alagút</string>
 	<string name="type.highway.footway">Ösvény</string>
 	<string name="type.highway.footway.alpine_hiking">Ösvény</string>
 	<string name="type.highway.footway.area">Ösvény</string>
-	<string name="type.highway.footway.bridge">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Híd</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Ösvény</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Ösvény</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Ösvény</string>
 	<string name="type.highway.footway.hiking">Ösvény</string>
 	<string name="type.highway.footway.mountain_hiking">Ösvény</string>
 	<string name="type.highway.footway.permissive">Ösvény</string>
-	<string name="type.highway.footway.tunnel">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Alagút</string>
 	<string name="type.highway.ford">Gázló</string>
 	<string name="type.highway.living_street">Utca</string>
-	<string name="type.highway.living_street.bridge">Utca</string>
-	<string name="type.highway.living_street.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Alagút</string>
 	<string name="type.highway.motorway">Utca</string>
-	<string name="type.highway.motorway.bridge">Utca</string>
-	<string name="type.highway.motorway.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Alagút</string>
 	<string name="type.highway.motorway_junction">Kijárat</string>
 	<string name="type.highway.motorway_link">Utca</string>
-	<string name="type.highway.motorway_link.bridge">Utca</string>
-	<string name="type.highway.motorway_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Alagút</string>
 	<string name="type.highway.path">Ösvény</string>
 	<string name="type.highway.path.alpine_hiking">Ösvény</string>
 	<string name="type.highway.path.bicycle">Ösvény</string>
-	<string name="type.highway.path.bridge">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Híd</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Ösvény</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Ösvény</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Ösvény</string>
@@ -910,51 +927,75 @@
 	<string name="type.highway.path.horse">Ösvény</string>
 	<string name="type.highway.path.mountain_hiking">Ösvény</string>
 	<string name="type.highway.path.permissive">Ösvény</string>
-	<string name="type.highway.path.tunnel">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Alagút</string>
 	<string name="type.highway.pedestrian">Utca</string>
 	<string name="type.highway.pedestrian.area">Utca</string>
-	<string name="type.highway.pedestrian.bridge">Utca</string>
-	<string name="type.highway.pedestrian.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Alagút</string>
 	<string name="type.highway.primary">Utca</string>
-	<string name="type.highway.primary.bridge">Utca</string>
-	<string name="type.highway.primary.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Alagút</string>
 	<string name="type.highway.primary_link">Utca</string>
-	<string name="type.highway.primary_link.bridge">Utca</string>
-	<string name="type.highway.primary_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Alagút</string>
 	<string name="type.highway.raceway">Versenypálya</string>
 	<string name="type.highway.residential">Utca</string>
 	<string name="type.highway.residential.area">Utca</string>
-	<string name="type.highway.residential.bridge">Utca</string>
-	<string name="type.highway.residential.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Alagút</string>
 	<string name="type.highway.rest_area">Pihenőzóna</string>
 	<string name="type.highway.road">Utca</string>
-	<string name="type.highway.road.bridge">Utca</string>
-	<string name="type.highway.road.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Alagút</string>
 	<string name="type.highway.secondary">Utca</string>
-	<string name="type.highway.secondary.bridge">Utca</string>
-	<string name="type.highway.secondary.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Alagút</string>
 	<string name="type.highway.secondary_link">Utca</string>
-	<string name="type.highway.secondary_link.bridge">Utca</string>
-	<string name="type.highway.secondary_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Alagút</string>
 	<string name="type.highway.service">Utca</string>
 	<string name="type.highway.service.area">Utca</string>
-	<string name="type.highway.service.bridge">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Híd</string>
 	<string name="type.highway.service.driveway">Utca</string>
 	<string name="type.highway.service.parking_aisle">Utca</string>
-	<string name="type.highway.service.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Alagút</string>
 	<string name="type.highway.speed_camera">Traffipax</string>
 	<string name="type.highway.steps">Ösvény</string>
-	<string name="type.highway.steps.bridge">Ösvény</string>
-	<string name="type.highway.steps.tunnel">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Alagút</string>
 	<string name="type.highway.tertiary">Utca</string>
-	<string name="type.highway.tertiary.bridge">Utca</string>
-	<string name="type.highway.tertiary.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Alagút</string>
 	<string name="type.highway.tertiary_link">Utca</string>
-	<string name="type.highway.tertiary_link.bridge">Utca</string>
-	<string name="type.highway.tertiary_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Alagút</string>
 	<string name="type.highway.track">Utca</string>
 	<string name="type.highway.track.area">Utca</string>
-	<string name="type.highway.track.bridge">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Híd</string>
 	<string name="type.highway.track.grade1">Utca</string>
 	<string name="type.highway.track.grade2">Utca</string>
 	<string name="type.highway.track.grade3">Utca</string>
@@ -962,18 +1003,25 @@
 	<string name="type.highway.track.grade5">Utca</string>
 	<string name="type.highway.track.no.access">Utca</string>
 	<string name="type.highway.track.permissive">Utca</string>
-	<string name="type.highway.track.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Alagút</string>
 	<string name="type.highway.traffic_signals">Közlekedési lámpák</string>
 	<string name="type.highway.trunk">Utca</string>
-	<string name="type.highway.trunk.bridge">Utca</string>
-	<string name="type.highway.trunk.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Alagút</string>
 	<string name="type.highway.trunk_link">Utca</string>
-	<string name="type.highway.trunk_link.bridge">Utca</string>
-	<string name="type.highway.trunk_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Alagút</string>
 	<string name="type.highway.unclassified">Utca</string>
 	<string name="type.highway.unclassified.area">Utca</string>
-	<string name="type.highway.unclassified.bridge">Utca</string>
-	<string name="type.highway.unclassified.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Alagút</string>
 	<string name="type.area_highway.footway">Ösvény</string>
 	<string name="type.area_highway.living_street">Utca</string>
 	<string name="type.area_highway.motorway">Utca</string>

@@ -38,6 +38,14 @@ final class CarPlayService: NSObject {
     self.interfaceController = interfaceController
     self.interfaceController?.delegate = self
     sessionConfiguration = CPSessionConfiguration(delegate: self)
+    // Try to use the CarPlay unit's interface style.
+    if #available(iOS 13.0, *) {
+      if sessionConfiguration?.contentStyle == .light {
+        window.overrideUserInterfaceStyle = .light
+      } else {
+        window.overrideUserInterfaceStyle = .dark
+      }
+    }
     searchService = CarPlaySearchService()
     let router = CarPlayRouter()
     router.addListener(self)
@@ -303,6 +311,11 @@ extension CarPlayService: CPSessionConfigurationDelegate {
   func sessionConfiguration(_ sessionConfiguration: CPSessionConfiguration,
                             limitedUserInterfacesChanged limitedUserInterfaces: CPLimitableUserInterface) {
     
+  }
+  @available(iOS 13.0, *)
+  func sessionConfiguration(_ sessionConfiguration: CPSessionConfiguration,
+                            contentStyleChanged contentStyle: CPContentStyle) {
+    window?.overrideUserInterfaceStyle = contentStyle == .light ? .light : .dark
   }
 }
 

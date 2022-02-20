@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "مایل";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "مکان من";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "پل";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "تونل";
 
 "type.highway.bus_stop" = "حمل و نقل";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "پل";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "تونل";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "مسیر";
 
-"type.highway.footway.bridge" = "مسیر";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "پل";
 
 "type.highway.footway.demanding_alpine_hiking" = "مسیر";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "مسیر";
 
-"type.highway.footway.tunnel" = "مسیر";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "تونل";
 
 "type.highway.ford" = "گدار";
 
 "type.highway.living_street" = "جاده";
 
-"type.highway.living_street.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "پل";
 
-"type.highway.living_street.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "تونل";
 
 "type.highway.motorway" = "جاده";
 
-"type.highway.motorway.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "پل";
 
-"type.highway.motorway.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "تونل";
 
 "type.highway.motorway_junction" = "تقاطع";
 
 "type.highway.motorway_link" = "جاده";
 
-"type.highway.motorway_link.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "پل";
 
-"type.highway.motorway_link.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "تونل";
 
 "type.highway.path" = "مسیر";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "مسیر";
 
-"type.highway.path.bridge" = "مسیر";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "پل";
 
 "type.highway.path.demanding_alpine_hiking" = "مسیر";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "مسیر";
 
-"type.highway.path.tunnel" = "مسیر";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "تونل";
 
 "type.highway.pedestrian" = "جاده";
 
 "type.highway.pedestrian.area" = "جاده";
 
-"type.highway.pedestrian.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "پل";
 
-"type.highway.pedestrian.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "تونل";
 
 "type.highway.primary" = "جاده";
 
-"type.highway.primary.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "پل";
 
-"type.highway.primary.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "تونل";
 
 "type.highway.primary_link" = "جاده";
 
-"type.highway.primary_link.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "پل";
 
-"type.highway.primary_link.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "تونل";
 
 "type.highway.raceway" = "کانال";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "جاده";
 
-"type.highway.residential.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "پل";
 
-"type.highway.residential.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "تونل";
 
 "type.highway.rest_area" = "Rest Area";
 
 "type.highway.road" = "جاده";
 
-"type.highway.road.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "پل";
 
-"type.highway.road.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "تونل";
 
 "type.highway.secondary" = "جاده";
 
-"type.highway.secondary.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "پل";
 
-"type.highway.secondary.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "تونل";
 
 "type.highway.secondary_link" = "جاده";
 
-"type.highway.secondary_link.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "پل";
 
-"type.highway.secondary_link.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "تونل";
 
 "type.highway.service" = "جاده";
 
 "type.highway.service.area" = "جاده";
 
-"type.highway.service.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "پل";
 
 "type.highway.service.driveway" = "جاده";
 
 "type.highway.service.parking_aisle" = "جاده";
 
-"type.highway.service.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "تونل";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "مسیر";
 
-"type.highway.steps.bridge" = "مسیر";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "پل";
 
-"type.highway.steps.tunnel" = "مسیر";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "تونل";
 
 "type.highway.tertiary" = "جاده";
 
-"type.highway.tertiary.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "پل";
 
-"type.highway.tertiary.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "تونل";
 
 "type.highway.tertiary_link" = "جاده";
 
-"type.highway.tertiary_link.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "پل";
 
-"type.highway.tertiary_link.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "تونل";
 
 "type.highway.track" = "جاده";
 
 "type.highway.track.area" = "جاده";
 
-"type.highway.track.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "پل";
 
 "type.highway.track.grade1" = "جاده";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "جاده";
 
-"type.highway.track.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "تونل";
 
 "type.highway.traffic_signals" = "چراغ راهنما";
 
 "type.highway.trunk" = "جاده";
 
-"type.highway.trunk.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "پل";
 
-"type.highway.trunk.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "تونل";
 
 "type.highway.trunk_link" = "جاده";
 
-"type.highway.trunk_link.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "پل";
 
-"type.highway.trunk_link.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "تونل";
 
 "type.highway.unclassified" = "جاده";
 
 "type.highway.unclassified.area" = "جاده";
 
-"type.highway.unclassified.bridge" = "جاده";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "پل";
 
-"type.highway.unclassified.tunnel" = "جاده";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "تونل";
 
 "type.area_highway.cycleway" = "Cycle Path";
 

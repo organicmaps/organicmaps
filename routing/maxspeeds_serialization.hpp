@@ -2,10 +2,9 @@
 
 #include "routing/maxspeeds.hpp"
 
-#include "routing_common/maxspeed_conversion.hpp"
+#include "routing_common/vehicle_model.hpp"
 
 #include "coding/reader.hpp"
-#include "coding/simple_dense_coding.hpp"
 #include "coding/succinct_mapper.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
@@ -20,214 +19,213 @@
 #include <memory>
 #include <vector>
 
-#include "3party/succinct/elias_fano.hpp"
-
 namespace routing
 {
-using MaxspeedsSectionLastVersionType = uint16_t;
-MaxspeedsSectionLastVersionType constexpr kMaxspeedsSectionLastVersion = 0;
-
-void GetForwardMaxspeedStats(std::vector<FeatureMaxspeed> const & speeds,
-                             size_t & forwardMaxspeedsNumber, uint32_t & maxForwardFeatureId);
-
 /// \brief
-/// Section name: "maxspeeds".
+/// Section name: MAXSPEEDS_FILE_TAG.
 /// Description: keeping value of maxspeed tag for roads.
 /// Section tables:
-/// * header
-/// * elias_fano with feature ids which have maxspeed tag in forward direction only
-/// * SimpleDenseCoding with code of maxspeed
-/// * table with vector with feature ids and maxspeeds which have maxspeed for both directions.
-///   The table is stored in the following format:
-///   <First feature id><Forward speed macro><Backward speed macro>
-///   <Second feature id><Forward speed macro><Backward speed macro>
-///   ...
-///   The number of such features is stored in the header.
+/// * Header
+/// * HighwayType -> Average speed macro
+/// * Forward speeds:
+///   elias_fano with feature ids which have maxspeed tag in forward direction only
+///   SimpleDenseCoding with speed macros
+/// * Bidirectional speeds in raw table:
+///   <varint(delta(Feature id))><Forward speed macro><Backward speed macro>
+///
+/// \note elias_fano is better than raw table in case of high density of entries, so we assume that
+///  Bidirectional speeds count *is much less than* Forward speeds count.
 class MaxspeedsSerializer
 {
+  // 0 - start version
+  // 1 - added HighwayType -> SpeedMacro
+  using VersionT = uint16_t;
+  static VersionT constexpr kVersion = 1;
+
 public:
   MaxspeedsSerializer() = delete;
 
-  template <class Sink>
-  static void Serialize(std::vector<FeatureMaxspeed> const & speeds, Sink & sink)
+  struct FeatureSpeedMacro
   {
-    CHECK(base::IsSortedAndUnique(speeds.cbegin(), speeds.cend(), IsFeatureIdLess),
-          ("SpeedMacro feature ids should be unique."));
+    FeatureSpeedMacro(uint32_t featureID, SpeedMacro forward, SpeedMacro backward = SpeedMacro::Undefined)
+      : m_featureID(featureID), m_forward(forward), m_backward(backward)
+    {
+      // We store bidirectional speeds only if they are not equal,
+      // see Maxspeed::IsBidirectional() comments.
+      if (m_forward == m_backward)
+        m_backward = SpeedMacro::Undefined;
+    }
 
+    bool IsBidirectional() const { return m_backward != SpeedMacro::Undefined; }
+
+    uint32_t m_featureID;
+    SpeedMacro m_forward;
+    SpeedMacro m_backward;
+  };
+
+  template <class Sink>
+  static void Serialize(std::vector<FeatureSpeedMacro> const & featureSpeeds,
+                        std::map<HighwayType, SpeedMacro> const & typeSpeeds,
+                        Sink & sink)
+  {
+    CHECK(base::IsSortedAndUnique(featureSpeeds.cbegin(), featureSpeeds.cend(),
+                                  [](FeatureSpeedMacro const & l, FeatureSpeedMacro const & r)
+                                  {
+                                    return l.m_featureID < r.m_featureID;
+                                  }), ());
+
+    // Version
     auto const startOffset = sink.Pos();
-    WriteToSink(sink, kMaxspeedsSectionLastVersion);
+    WriteToSink(sink, kVersion);
 
+    // Header
     auto const headerOffset = sink.Pos();
     Header header;
     header.Serialize(sink);
+
     auto const forwardMaxspeedTableOffset = sink.Pos();
 
-    size_t forwardNumber = 0;
-    size_t serializedForwardNumber = 0;
-    uint32_t maxForwardFeatureId = 0;
-    GetForwardMaxspeedStats(speeds, forwardNumber, maxForwardFeatureId);
+    // Saving forward (one direction) maxspeeds.
+    uint32_t maxFeatureID;
+    std::vector<uint8_t> forwardMaxspeeds = GetForwardMaxspeeds(featureSpeeds, maxFeatureID);
 
-    auto const & converter = GetMaxspeedConverter();
-
-    // Keeping forward (one direction) maxspeeds.
-    if (forwardNumber > 0)
+    size_t forwardCount = forwardMaxspeeds.size();
+    if (forwardCount > 0)
     {
-      succinct::elias_fano::elias_fano_builder builder(maxForwardFeatureId + 1, forwardNumber);
-
-      std::vector<uint8_t> forwardMaxspeeds;
-      forwardMaxspeeds.reserve(forwardNumber);
-      for (auto const & s : speeds)
+      succinct::elias_fano::elias_fano_builder builder(maxFeatureID + 1, forwardCount);
+      for (auto const & e : featureSpeeds)
       {
-        ASSERT(s.IsValid(), ());
-        if (s.IsBidirectional())
-          continue;
-
-        auto const forwardSpeedInUnits = s.GetForwardSpeedInUnits();
-        ASSERT(forwardSpeedInUnits.IsValid(), ());
-
-        auto const macro = converter.SpeedToMacro(forwardSpeedInUnits);
-        if (macro == SpeedMacro::Undefined)
-        {
-          LOG(LWARNING, ("Undefined speed", forwardSpeedInUnits));
-          continue;
-        }
-
-        forwardMaxspeeds.push_back(static_cast<uint8_t>(macro));
-        builder.push_back(s.GetFeatureId());
+        if (!e.IsBidirectional())
+          builder.push_back(e.m_featureID);
       }
-      serializedForwardNumber = forwardMaxspeeds.size();
 
-      // Table of feature ids which have maxspeed forward info and don't have maxspeed backward.
       coding::FreezeVisitor<Writer> visitor(sink);
       succinct::elias_fano(&builder).map(visitor);
 
       header.m_forwardMaxspeedOffset = static_cast<uint32_t>(sink.Pos() - forwardMaxspeedTableOffset);
 
-      // Maxspeeds which have only forward value.
       coding::SimpleDenseCoding simpleDenseCoding(forwardMaxspeeds);
       coding::Freeze(simpleDenseCoding, sink, "ForwardMaxspeeds");
     }
     else
     {
-      header.m_forwardMaxspeedOffset = static_cast<uint32_t>(sink.Pos() - forwardMaxspeedTableOffset);
+      header.m_forwardMaxspeedOffset = 0;
     }
     header.m_bidirectionalMaxspeedOffset = static_cast<uint32_t>(sink.Pos() - forwardMaxspeedTableOffset);
 
-    // Keeping bidirectional maxspeeds.
+    // Saving bidirectional maxspeeds.
     uint32_t prevFeatureId = 0;
-    for (auto const & s : speeds)
+    for (auto const & s : featureSpeeds)
     {
       if (!s.IsBidirectional())
         continue;
 
-      auto const forwardSpeedInUnits = s.GetForwardSpeedInUnits();
-      ASSERT(forwardSpeedInUnits.IsValid(), ());
-      auto const backwardSpeedInUnits = s.GetBackwardSpeedInUnits();
-      ASSERT(forwardSpeedInUnits.IsValid(), ());
-
-      auto const forwardMacro = converter.SpeedToMacro(forwardSpeedInUnits);
-      auto const backwardMacro = converter.SpeedToMacro(backwardSpeedInUnits);
-      if (forwardMacro == SpeedMacro::Undefined || backwardMacro == SpeedMacro::Undefined)
-      {
-        LOG(LWARNING, ("Undefined speed", forwardSpeedInUnits, backwardSpeedInUnits));
-        continue;
-      }
-
       ++header.m_bidirectionalMaxspeedNumber;
-      // Note. |speeds| sorted by feature ids and they are unique. So the first item in |speed|
-      // has feature id 0 or greater. And the second item in |speed| has feature id greater than 0.
-      // This guarantees that for only first saved |s| the if branch below is called.
-      if (prevFeatureId != 0)
-        CHECK_GREATER(s.GetFeatureId(), prevFeatureId, ());
-      uint32_t delta = (prevFeatureId == 0 ? s.GetFeatureId() : s.GetFeatureId() - prevFeatureId);
-      prevFeatureId = s.GetFeatureId();
 
-      WriteVarUint(sink, delta);
-      WriteToSink(sink, static_cast<uint8_t>(forwardMacro));
-      WriteToSink(sink, static_cast<uint8_t>(backwardMacro));
+      // Valid, because we did base::IsSortedAndUnique in the beginning.
+      WriteVarUint(sink, s.m_featureID - prevFeatureId);
+      prevFeatureId = s.m_featureID;
+
+      WriteToSink(sink, static_cast<uint8_t>(s.m_forward));
+      WriteToSink(sink, static_cast<uint8_t>(s.m_backward));
     }
 
+    // Save HighwayType speeds, sorted by type.
+    WriteVarUint(sink, static_cast<uint32_t>(typeSpeeds.size()));
+    for (auto const & [type, speed] : typeSpeeds)
+    {
+      WriteVarUint(sink, static_cast<uint32_t>(type));
+      WriteToSink(sink, static_cast<uint8_t>(speed));
+    }
+
+    // Finalize Header data.
     auto const endOffset = sink.Pos();
     sink.Seek(headerOffset);
     header.Serialize(sink);
     sink.Seek(endOffset);
 
-    LOG(LINFO, ("Serialized", serializedForwardNumber, "forward maxspeeds and",
+    // Print statistics.
+    LOG(LINFO, ("Serialized", forwardCount, "forward maxspeeds and",
                 header.m_bidirectionalMaxspeedNumber,
                 "bidirectional maxspeeds. Section size:", endOffset - startOffset, "bytes."));
-
-    size_t constexpr kBidirectionalMaxspeedLimit = 2000;
-    if (header.m_bidirectionalMaxspeedNumber > kBidirectionalMaxspeedLimit)
-    {
-      LOG(LWARNING,
-          ("There's to many bidirectional maxpeed tags:", header.m_bidirectionalMaxspeedNumber,
-           ". All maxpeed tags are serialized correctly but they may take too large space in mwm. "
-           "Consider about changing section format to keep bidirectional maxspeeds in another "
-           "way."));
-    }
+    LOG(LINFO, ("Succinct EF compression ratio:",
+                forwardCount * (4 + 1) / double(header.m_bidirectionalMaxspeedOffset)));
   }
 
   template <class Source>
   static void Deserialize(Source & src, Maxspeeds & maxspeeds)
   {
-    // Note. Now it's assumed that only little-endian architectures are supported.
-    // (See a check at the beginning of main method in generator_tool.cpp) If it's necessary
-    // to support big-endian architectures code below should be modified.
     CHECK(maxspeeds.IsEmpty(), ());
-    auto const v = ReadPrimitiveFromSource<MaxspeedsSectionLastVersionType>(src);
-    CHECK_EQUAL(v, kMaxspeedsSectionLastVersion, ());
 
+    // Version
+    auto const version = ReadPrimitiveFromSource<VersionT>(src);
+
+    // Header
     Header header;
     header.Deserialize(src);
 
+    // Loading forward only speeds.
     if (header.m_forwardMaxspeedOffset != header.m_bidirectionalMaxspeedOffset)
     {
+      CHECK_LESS(header.m_forwardMaxspeedOffset, header.m_bidirectionalMaxspeedOffset, ());
+
       // Reading maxspeed information for features which have only forward maxspeed.
-      size_t const forwardTableSz = header.m_forwardMaxspeedOffset;
-      std::vector<uint8_t> forwardTableData(forwardTableSz);
+      std::vector<uint8_t> forwardTableData(header.m_forwardMaxspeedOffset);
       src.Read(forwardTableData.data(), forwardTableData.size());
       maxspeeds.m_forwardMaxspeedTableRegion = std::make_unique<CopiedMemoryRegion>(std::move(forwardTableData));
       coding::Map(maxspeeds.m_forwardMaxspeedsTable,
           maxspeeds.m_forwardMaxspeedTableRegion->ImmutableData(), "ForwardMaxspeedsTable");
 
-      size_t const forwardSz = header.m_bidirectionalMaxspeedOffset - header.m_forwardMaxspeedOffset;
-      std::vector<uint8_t> forwardData(forwardSz);
+      std::vector<uint8_t> forwardData(header.m_bidirectionalMaxspeedOffset - header.m_forwardMaxspeedOffset);
       src.Read(forwardData.data(), forwardData.size());
       maxspeeds.m_forwardMaxspeedRegion = std::make_unique<CopiedMemoryRegion>(std::move(forwardData));
       Map(maxspeeds.m_forwardMaxspeeds, maxspeeds.m_forwardMaxspeedRegion->ImmutableData(), "ForwardMaxspeeds");
     }
+
+    // Loading bidirectional speeds.
+    auto const & converter = GetMaxspeedConverter();
+    auto ReadSpeed = [&](size_t i)
+    {
+      uint8_t const idx = ReadPrimitiveFromSource<uint8_t>(src);
+      auto const speed = converter.MacroToSpeed(static_cast<SpeedMacro>(idx));
+      CHECK(speed.IsValid(), (i));
+      return speed;
+    };
 
     maxspeeds.m_bidirectionalMaxspeeds.reserve(header.m_bidirectionalMaxspeedNumber);
     uint32_t featureId = 0;
     for (size_t i = 0; i < header.m_bidirectionalMaxspeedNumber; ++i)
     {
       auto const delta = ReadVarUint<uint32_t>(src);
-      auto const forward = ReadPrimitiveFromSource<uint8_t>(src);
-      auto const backward = ReadPrimitiveFromSource<uint8_t>(src);
-      CHECK(GetMaxspeedConverter().IsValidMacro(forward), (i));
-      CHECK(GetMaxspeedConverter().IsValidMacro(backward), (i));
+      auto const forwardSpeed = ReadSpeed(i);
+      auto const backwardSpeed = ReadSpeed(i);
 
-      auto const forwardSpeed = GetMaxspeedConverter().MacroToSpeed(static_cast<SpeedMacro>(forward));
-      auto const backwardSpeed = GetMaxspeedConverter().MacroToSpeed(static_cast<SpeedMacro>(backward));
-      CHECK(forwardSpeed.IsValid(), (i));
-      CHECK(backwardSpeed.IsValid(), (i));
       CHECK(HaveSameUnits(forwardSpeed, backwardSpeed), (i));
 
+      // Note. If neither |forwardSpeed| nor |backwardSpeed| are numeric, it means
+      // both of them have value "walk" or "none". So the units are not relevant for this case.
       measurement_utils::Units units = measurement_utils::Units::Metric;
       if (forwardSpeed.IsNumeric())
         units = forwardSpeed.GetUnits();
       else if (backwardSpeed.IsNumeric())
         units = backwardSpeed.GetUnits();
-      // Note. If neither |forwardSpeed| nor |backwardSpeed| are numeric it means
-      // both of them have value "walk" or "none". So the units are not relevant for this case.
 
       featureId += delta;
       maxspeeds.m_bidirectionalMaxspeeds.emplace_back(featureId, units, forwardSpeed.GetSpeed(),
                                                       backwardSpeed.GetSpeed());
     }
+
+    // Load HighwayType speeds.
+    if (version >= 1)
+    {
+      /// @todo
+    }
   }
 
 private:
+  static std::vector<uint8_t> GetForwardMaxspeeds(std::vector<FeatureSpeedMacro> const & speeds,
+                                                  uint32_t & maxFeatureID);
+
   struct Header
   {
   public:

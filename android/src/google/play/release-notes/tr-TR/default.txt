@@ -1,11 +1,1 @@
-• Yeni OSM harita verileri (4 Şubat 2022)
-• Android 11'de bozuk yer sayfası düzeltildi
-• Araba ve bisiklet için geçersiz rotalar düzeltildi
-• Bisiklet/yürüyüş rotaları için "kaçınma" ayarları
-• Uygulama etkinse cihazın kilidini açmanıza gerek kalmaz
-• Su, Karavan Tesisleri ve Geri Dönüşüm kategorilerini arayın
-• Yeni obje türleri eklendi (rıhtım, marina, karavan...)
-• Türkçe SSS eklendi
-• İyileştirilmiş çeviriler
-
-…ve https://organicmaps.app adresindeki sürüm notundaki diğer birçok iyileştirme
+../../../../fdroid/play/release-notes/tr-TR/default.txt

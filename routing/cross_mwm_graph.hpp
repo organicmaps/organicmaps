@@ -2,7 +2,7 @@
 
 #include "routing/cross_mwm_ids.hpp"
 #include "routing/cross_mwm_index_graph.hpp"
-#include "routing/router.hpp"
+#include "routing/regions_decl.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -38,7 +38,7 @@ public:
   CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds,
                 std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                 std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-                VehicleType vehicleType, CourntryRectFn const & countryRectFn,
+                VehicleType vehicleType, CountryRectFn const & countryRectFn,
                 DataSource & dataSource);
 
   /// \brief Transition segment is a segment which is crossed by mwm border. That means
@@ -128,7 +128,7 @@ private:
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
-  CourntryRectFn const & m_countryRectFn;
+  CountryRectFn const & m_countryRectFn;
   CrossMwmIndexGraph<base::GeoObjectId> m_crossMwmIndexGraph;
   CrossMwmIndexGraph<connector::TransitId> m_crossMwmTransitGraph;
 };

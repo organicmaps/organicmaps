@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
@@ -38,6 +39,12 @@ class AndroidNativeProvider extends BaseLocationProvider
     {
       LOGGER.d(TAG, "Enabled location provider: " + provider);
       mProviderCount++;
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras)
+    {
+      LOGGER.d(TAG, "Status changed for location provider: " + provider + "; new status = " + status);
     }
   };
 

@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mile";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Moje położenie";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,10 +1765,12 @@
 
 "type.highway.bridleway" = "Droga dla koni";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "Most drogowy dla koni";
 
 "type.highway.bridleway.permissive" = "Droga dla koni ograniczona";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunel drogowy dla koni";
 
 "type.highway.bus_stop" = "Przystanek autobusowy";
@@ -1777,10 +1779,12 @@
 
 "type.highway.cycleway" = "Droga rowerowa";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Most drogowy dla rowerów";
 
 "type.highway.cycleway.permissive" = "Droga rowerowa ograniczona";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Tunel drogowy dla rowerów";
 
 "type.highway.elevator" = "Elevator";
@@ -1791,6 +1795,7 @@
 
 "type.highway.footway.area" = "Obszar chodnika";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Most dla pieszych";
 
 "type.highway.footway.demanding_alpine_hiking" = "Ścieżka";
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "Chodnik";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel dla pieszych";
 
 "type.highway.ford" = "Bród";
 
 "type.highway.living_street" = "Ulica w strefie zamieszkania";
 
-"type.highway.living_street.bridge" = "Ulica w strefie zamieszkania";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Tunel ulicy";
 
 "type.highway.motorway" = "Ulica";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway.bridge" = "Most drogowy";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "Tunel drogowy";
 
 "type.highway.motorway_junction" = "Wyjazd";
 
 "type.highway.motorway_link" = "Ulica";
 
-"type.highway.motorway_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Most";
 
-"type.highway.motorway_link.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunel";
 
 "type.highway.path" = "Ścieżka";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "Ścieżka dla rowerów";
 
-"type.highway.path.bridge" = "Ścieżka";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Most";
 
 "type.highway.path.demanding_alpine_hiking" = "Ścieżka";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "Ścieżka";
 
-"type.highway.path.tunnel" = "Ścieżka";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunel";
 
 "type.highway.pedestrian" = "Pasaż pieszy";
 
 "type.highway.pedestrian.area" = "Pasaż pieszy";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Most pasażu pieszego";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunel pasażu pieszego";
 
 "type.highway.primary" = "Ulica";
 
-"type.highway.primary.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Tunel drogowy";
 
 "type.highway.primary_link" = "Ulica";
 
-"type.highway.primary_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Most";
 
-"type.highway.primary_link.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunel";
 
 "type.highway.raceway" = "Tor wyścigowy";
 
@@ -1879,40 +1899,50 @@
 
 "type.highway.residential.area" = "Ulica";
 
-"type.highway.residential.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Most";
 
-"type.highway.residential.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunel";
 
 "type.highway.rest_area" = "Miejsce wypoczynku";
 
 "type.highway.road" = "Ulica";
 
-"type.highway.road.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Most";
 
-"type.highway.road.tunnel" = "Tunel drogowy";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunel";
 
 "type.highway.secondary" = "Ulica";
 
-"type.highway.secondary.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Tunel drogowy";
 
 "type.highway.secondary_link" = "Ulica";
 
-"type.highway.secondary_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "Tunel drogowy";
 
 "type.highway.service" = "Ulica";
 
 "type.highway.service.area" = "Ulica";
 
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Most drogowy";
 
 "type.highway.service.driveway" = "Ulica";
 
 "type.highway.service.parking_aisle" = "Miejsca parkingowe";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Tunel drogowy";
 
 "type.highway.services" = "Miejsce obsługi podróżnych";
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "Schody";
 
-"type.highway.steps.bridge" = "Schody";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Most";
 
-"type.highway.steps.tunnel" = "Schody";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunel";
 
 "type.highway.tertiary" = "Ulica";
 
-"type.highway.tertiary.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "Tunel drogowy";
 
 "type.highway.tertiary_link" = "Ulica";
 
-"type.highway.tertiary_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary_link.tunnel" = "Tunel drogowy";
 
 "type.highway.track" = "Ulica";
 
 "type.highway.track.area" = "Ulica";
 
-"type.highway.track.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Most";
 
 "type.highway.track.grade1" = "Ulica";
 
@@ -1957,28 +1994,35 @@
 
 "type.highway.track.permissive" = "Ulica";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel drogowy";
 
 "type.highway.traffic_signals" = "Sygnalizacja świetlna";
 
 "type.highway.trunk" = "Ulica";
 
-"type.highway.trunk.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Most";
 
-"type.highway.trunk.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunel";
 
 "type.highway.trunk_link" = "Ulica";
 
-"type.highway.trunk_link.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Most";
 
-"type.highway.trunk_link.tunnel" = "Ulica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunel";
 
 "type.highway.unclassified" = "Ulica";
 
 "type.highway.unclassified.area" = "Ulica";
 
-"type.highway.unclassified.bridge" = "Ulica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Most";
 
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Tunel drogowy";
 
 "type.area_highway.cycleway" = "Droga rowerowa";

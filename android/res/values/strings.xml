@@ -24,7 +24,7 @@
 	<string name="gb">GB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Miles</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">My Position</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Later</string>
@@ -987,42 +987,55 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Highway</string>
 	<string name="type.highway.bridleway">Bridle Path</string>
-	<string name="type.highway.bridleway.bridge">Bridle Path</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Bridge</string>
 	<string name="type.highway.bridleway.permissive">Bridle Path</string>
-	<string name="type.highway.bridleway.tunnel">Bridle Path</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Bus Stop</string>
 	<string name="type.highway.construction">Road Under Construction</string>
 	<string name="type.highway.cycleway">Cycle Path</string>
-	<string name="type.highway.cycleway.bridge">Cycle Path</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Bridge</string>
 	<string name="type.highway.cycleway.permissive">Cycle Path</string>
-	<string name="type.highway.cycleway.tunnel">Cycle Path</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunnel</string>
 	<string name="type.highway.elevator">Elevator</string>
 	<string name="type.highway.footway">Foot Path</string>
 	<string name="type.highway.footway.alpine_hiking">Path</string>
 	<string name="type.highway.footway.area">Pedestrian Zone</string>
-	<string name="type.highway.footway.bridge">Foot Path</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Pedestrian Bridge</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Path</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Path</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Path</string>
 	<string name="type.highway.footway.hiking">Path</string>
 	<string name="type.highway.footway.mountain_hiking">Path</string>
 	<string name="type.highway.footway.permissive">Foot Path</string>
-	<string name="type.highway.footway.tunnel">Foot Path</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Pedestrian Tunnel</string>
 	<string name="type.highway.ford">Ford</string>
 	<string name="type.highway.living_street">Living Street</string>
-	<string name="type.highway.living_street.bridge">Living Street</string>
-	<string name="type.highway.living_street.tunnel">Living Street</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tunnel</string>
 	<string name="type.highway.motorway">Motorway</string>
-	<string name="type.highway.motorway.bridge">Motorway</string>
-	<string name="type.highway.motorway.tunnel">Motorway</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Motorway Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Motorway Tunnel</string>
 	<string name="type.highway.motorway_junction">Road Exit</string>
 	<string name="type.highway.motorway_link">Motorway Ramp</string>
-	<string name="type.highway.motorway_link.bridge">Motorway Ramp</string>
-	<string name="type.highway.motorway_link.tunnel">Motorway Ramp</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Path</string>
 	<string name="type.highway.path.alpine_hiking">Path</string>
 	<string name="type.highway.path.bicycle">Cycle &amp; Foot Path</string>
-	<string name="type.highway.path.bridge">Path</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Bridge</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Path</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Path</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Path</string>
@@ -1030,52 +1043,76 @@
 	<string name="type.highway.path.horse">Bridle Path</string>
 	<string name="type.highway.path.mountain_hiking">Path</string>
 	<string name="type.highway.path.permissive">Path</string>
-	<string name="type.highway.path.tunnel">Path</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Pedestrian Street</string>
 	<string name="type.highway.pedestrian.area">Pedestrian Zone</string>
-	<string name="type.highway.pedestrian.bridge">Pedestrian Street</string>
-	<string name="type.highway.pedestrian.tunnel">Pedestrian Street</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Pedestrian Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Pedestrian Tunnel</string>
 	<string name="type.highway.primary">Primary Road</string>
-	<string name="type.highway.primary.bridge">Primary Road</string>
-	<string name="type.highway.primary.tunnel">Primary Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tunnel</string>
 	<string name="type.highway.primary_link">Primary Road Ramp</string>
-	<string name="type.highway.primary_link.bridge">Primary Road Ramp</string>
-	<string name="type.highway.primary_link.tunnel">Primary Road Ramp</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunnel</string>
 	<string name="type.highway.raceway">Racetrack</string>
 	<string name="type.highway.residential">Street</string>
 	<string name="type.highway.residential.area">Street</string>
-	<string name="type.highway.residential.bridge">Street</string>
-	<string name="type.highway.residential.tunnel">Street</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tunnel</string>
 	<string name="type.highway.rest_area">Rest Area</string>
 	<string name="type.highway.road">Road</string>
-	<string name="type.highway.road.bridge">Road</string>
-	<string name="type.highway.road.tunnel">Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Secondary Road</string>
-	<string name="type.highway.secondary.bridge">Secondary Road</string>
-	<string name="type.highway.secondary.tunnel">Secondary Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tunnel</string>
 	<string name="type.highway.secondary_link">Secondary Road Ramp</string>
-	<string name="type.highway.secondary_link.bridge">Secondary Road Ramp</string>
-	<string name="type.highway.secondary_link.tunnel">Secondary Road Ramp</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tunnel</string>
 	<string name="type.highway.service">Service Road</string>
 	<string name="type.highway.service.area">Service Road</string>
-	<string name="type.highway.service.bridge">Service Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Bridge</string>
 	<string name="type.highway.service.driveway">Driveway</string>
 	<string name="type.highway.service.parking_aisle">Parking Aisle</string>
-	<string name="type.highway.service.tunnel">Service Road</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tunnel</string>
 	<string name="type.highway.services">Service Area</string>
 	<string name="type.highway.speed_camera">Speed Camera</string>
 	<string name="type.highway.steps">Stairs</string>
-	<string name="type.highway.steps.bridge">Stairs</string>
-	<string name="type.highway.steps.tunnel">Stairs</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary">Tertiary Road</string>
-	<string name="type.highway.tertiary.bridge">Tertiary Road</string>
-	<string name="type.highway.tertiary.tunnel">Tertiary Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary_link">Tertiary Road Ramp</string>
-	<string name="type.highway.tertiary_link.bridge">Tertiary Road Ramp</string>
-	<string name="type.highway.tertiary_link.tunnel">Tertiary Road Ramp</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tunnel</string>
 	<string name="type.highway.track">Track</string>
 	<string name="type.highway.track.area">Track</string>
-	<string name="type.highway.track.bridge">Track</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Bridge</string>
 	<string name="type.highway.track.grade1">Track</string>
 	<string name="type.highway.track.grade2">Track</string>
 	<string name="type.highway.track.grade3">Track</string>
@@ -1083,18 +1120,25 @@
 	<string name="type.highway.track.grade5">Track</string>
 	<string name="type.highway.track.no.access">Track</string>
 	<string name="type.highway.track.permissive">Track</string>
-	<string name="type.highway.track.tunnel">Track</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Traffic Lights</string>
 	<string name="type.highway.trunk">National Highway</string>
-	<string name="type.highway.trunk.bridge">National Highway</string>
-	<string name="type.highway.trunk.tunnel">National Highway</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tunnel</string>
 	<string name="type.highway.trunk_link">National Highway Ramp</string>
-	<string name="type.highway.trunk_link.bridge">National Highway Ramp</string>
-	<string name="type.highway.trunk_link.tunnel">National Highway Ramp</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tunnel</string>
 	<string name="type.highway.unclassified">Minor Road</string>
 	<string name="type.highway.unclassified.area">Minor Road</string>
-	<string name="type.highway.unclassified.bridge">Minor Road</string>
-	<string name="type.highway.unclassified.tunnel">Minor Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tunnel</string>
 	<string name="type.area_highway.cycleway">Cycle Path</string>
 	<string name="type.area_highway.footway">Foot Path</string>
 	<string name="type.area_highway.living_street">Living Street</string>

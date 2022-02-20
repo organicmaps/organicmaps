@@ -1,4 +1,6 @@
 #include "indexer/mwm_set.hpp"
+
+#include "indexer/features_offsets_table.hpp"
 #include "indexer/scales.hpp"
 
 #include "coding/reader.hpp"

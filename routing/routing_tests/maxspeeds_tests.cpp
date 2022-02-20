@@ -27,7 +27,15 @@ void TestMaxspeedsSerialization(vector<FeatureMaxspeed> const & speeds)
   vector<char> buffer;
   MemWriter<vector<char>> w(buffer);
 
-  MaxspeedsSerializer::Serialize(speeds, w);
+  std::vector<MaxspeedsSerializer::FeatureSpeedMacro> inputSpeeds;
+  MaxspeedConverter const & converter = GetMaxspeedConverter();
+  for (auto const & s : speeds)
+  {
+    inputSpeeds.push_back({ s.GetFeatureId(),
+                            converter.SpeedToMacro(s.GetForwardSpeedInUnits()),
+                            converter.SpeedToMacro(s.GetBackwardSpeedInUnits()) });
+  }
+  MaxspeedsSerializer::Serialize(inputSpeeds, {}, w);
 
   size_t const sz = buffer.size();
 
@@ -72,11 +80,6 @@ UNIT_TEST(MaxspeedConverter_Smoke)
   TEST_EQUAL(conv.MacroToSpeed(SpeedMacro::Speed60KmPH), SpeedInUnits(60, Units::Metric), ());
   TEST_EQUAL(conv.MacroToSpeed(SpeedMacro::Speed90KmPH), SpeedInUnits(90, Units::Metric), ());
   TEST_EQUAL(conv.MacroToSpeed(SpeedMacro::Speed30MPH), SpeedInUnits(30, Units::Imperial), ());
-
-  // Test on IsValidMacro() method.
-  TEST(!conv.IsValidMacro(0), ());
-  TEST(conv.IsValidMacro(1), ()); // static_cast<uint8_t>(None) == 1
-  TEST(!conv.IsValidMacro(9), ()); // A value which is undefined in SpeedMacro enum class.
 }
 
 UNIT_TEST(MaxspeedConverter_ClosestValidMacro)

@@ -1,5 +1,6 @@
 name: Android Beta
 on:
+  workflow_dispatch: # Manual trigger
   push:
     branches:
       - master
@@ -13,7 +14,7 @@ on:
       - NOTICE
       - README.md
       - iphone/**
-      - xcode/**
+      - data/strings/**
       - docs/**
       - generator/**
       - packaging/**
@@ -22,6 +23,7 @@ on:
       - skin_generator/**
       - tools/**
       - track_generator/**
+      - xcode/**
 
 jobs:
   android-google-beta:

@@ -53,32 +53,49 @@ bool ParseOneSpeedValue(strings::SimpleTokenizer & iter, MaxspeedType & value)
   return true;
 }
 
-FeatureMaxspeed ToFeatureMaxspeed(uint32_t featureId, Maxspeed const & maxspeed)
-{
-  return FeatureMaxspeed(featureId, maxspeed.GetUnits(), maxspeed.GetForward(),
-                         maxspeed.GetBackward());
-}
-
 /// \brief Collects all maxspeed tag values of specified mwm based on maxspeeds.csv file.
 class MaxspeedsMwmCollector
 {
-  vector<FeatureMaxspeed> m_maxspeeds;
+  string const & m_dataPath;
+  FeatureIdToOsmId const & m_ft2osm;
+  IndexGraph * m_graph;
+
+  MaxspeedConverter const & m_converter;
+
+  std::vector<MaxspeedsSerializer::FeatureSpeedMacro> m_maxspeeds;
+
+  struct AvgInfo
+  {
+    double m_lengthKM = 0;
+    double m_timeH = 0;
+  };
+  std::unordered_map<HighwayType, AvgInfo> m_avgSpeeds;
+
+  base::GeoObjectId GetOsmID(uint32_t fid) const
+  {
+    auto const osmIdIt = m_ft2osm.find(fid);
+    if (osmIdIt == m_ft2osm.cend())
+      return base::GeoObjectId();
+    return osmIdIt->second;
+  }
+
+  routing::RoadGeometry const & GetRoad(uint32_t fid) const
+  {
+    return m_graph->GetRoadGeometry(fid);
+  }
 
 public:
-  MaxspeedsMwmCollector(IndexGraph * graph, string const & dataPath,
-                       map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
-                       string const & maxspeedCsvPath)
+  MaxspeedsMwmCollector(string const & dataPath, FeatureIdToOsmId const & ft2osm, IndexGraph * graph)
+    : m_dataPath(dataPath), m_ft2osm(ft2osm), m_graph(graph)
+    , m_converter(MaxspeedConverter::Instance())
+  {
+  }
+
+  void Process(string const & maxspeedCsvPath)
   {
     OsmIdToMaxspeed osmIdToMaxspeed;
     CHECK(ParseMaxspeeds(maxspeedCsvPath, osmIdToMaxspeed), (maxspeedCsvPath));
 
-    auto const GetOsmID = [&](uint32_t fid) -> base::GeoObjectId
-    {
-      auto const osmIdIt = featureIdToOsmId.find(fid);
-      if (osmIdIt == featureIdToOsmId.cend())
-        return base::GeoObjectId();
-      return osmIdIt->second;
-    };
     auto const GetSpeed = [&](uint32_t fid) -> Maxspeed *
     {
       auto osmid = GetOsmID(fid);
@@ -91,10 +108,6 @@ public:
 
       return &maxspeedIt->second;
     };
-    auto const GetRoad = [&](uint32_t fid) -> routing::RoadGeometry const &
-    {
-      return graph->GetRoadGeometry(fid);
-    };
     auto const GetLastIndex = [&](uint32_t fid)
     {
       return GetRoad(fid).GetPointsCount() - 2;
@@ -106,7 +119,8 @@ public:
       return Segment(0, fid, seg.GetSegmentIdx() > 0 ? 0 : GetLastIndex(fid), seg.IsForward());
     };
 
-    ForEachFeature(dataPath, [&](FeatureType & ft, uint32_t fid)
+    auto const & converter = GetMaxspeedConverter();
+    ForEachFeature(m_dataPath, [&](FeatureType & ft, uint32_t fid)
     {
       if (!routing::IsCarRoad(TypesHolder(ft)))
         return;
@@ -117,12 +131,16 @@ public:
 
       auto const osmid = GetOsmID(fid).GetSerialId();
 
-      // Recalculate link speed accordint to the ingoing highway.
+#define LOG_MAX_SPEED(msg) if (false) LOG(LINFO, msg)
+
+      LOG_MAX_SPEED(("Start osmid =", osmid));
+
+      // Recalculate link speed according to the ingoing highway.
       // See MaxspeedsCollector::CollectFeature.
       if (maxSpeed->GetForward() == routing::kCommonMaxSpeedValue)
       {
         // Check if we are in unit tests.
-        if (graph == nullptr)
+        if (m_graph == nullptr)
           return;
 
         // 0 - not updated, 1 - goto next iteration, 2 - updated
@@ -131,6 +149,8 @@ public:
         // Check ingoing first, then - outgoing.
         for (bool direction : { false, true })
         {
+          LOG_MAX_SPEED(("Search dir =", direction));
+
           Segment seg(0, fid, 0, true);
           if (direction)
             seg = GetOpposite(seg);
@@ -138,32 +158,42 @@ public:
           std::unordered_set<uint32_t> reviewed;
           do
           {
+            LOG_MAX_SPEED(("Input seg =", seg));
+
             status = 0;
             reviewed.insert(seg.GetFeatureId());
 
             IndexGraph::SegmentEdgeListT edges;
-            graph->GetEdgeList(seg, direction, true /* useRoutingOptions */, edges);
+            m_graph->GetEdgeList(seg, direction, false /* useRoutingOptions */, edges);
             for (auto const & e : edges)
             {
+              LOG_MAX_SPEED(("Edge =", e));
               Segment const target = e.GetTarget();
-              Maxspeed * s = GetSpeed(target.GetFeatureId());
+
+              uint32_t const targetFID = target.GetFeatureId();
+              LOG_MAX_SPEED(("Edge target =", target, "; osmid =", GetOsmID(targetFID).GetSerialId()));
+
+              Maxspeed const * s = GetSpeed(targetFID);
               if (s)
               {
-                if (s->GetForward() != routing::kCommonMaxSpeedValue)
+                if (routing::IsNumeric(s->GetForward()))
                 {
                   status = 2;
-                  maxSpeed->SetForward(s->GetForward());
 
-                  // In theory, we should iterate on forward and backward segments/speeds separately,
-                  // but I don't see any reason for this complication.
-                  if (!GetRoad(fid).IsOneWay())
-                    maxSpeed->SetBackward(s->GetForward());
+                  // Main thing here is to reduce the speed, relative to a parent. So use 0.7 factor.
+                  auto const speed = converter.ClosestValidMacro(
+                        SpeedInUnits(std::lround(s->GetForward() * 0.7), s->GetUnits()));
+                  maxSpeed->SetUnits(s->GetUnits());
+                  maxSpeed->SetForward(speed.GetSpeed());
 
                   LOG(LINFO, ("Updated link speed for way", osmid, "with", *maxSpeed));
                   break;
                 }
-                else if (reviewed.find(target.GetFeatureId()) == reviewed.end())
+                else if (s->GetForward() == routing::kCommonMaxSpeedValue &&
+                         reviewed.find(targetFID) == reviewed.end())
                 {
+                  LOG_MAX_SPEED(("Add reviewed"));
+
                   // Found another input link. Save it for the next iteration.
                   status = 1;
                   seg = GetOpposite(target);
@@ -183,14 +213,82 @@ public:
         }
       }
 
-      m_maxspeeds.push_back(ToFeatureMaxspeed(fid, *maxSpeed));
+      LOG_MAX_SPEED(("End osmid =", osmid));
+
+      AddSpeed(fid, *maxSpeed);
     });
   }
 
-  vector<FeatureMaxspeed> const & GetMaxspeeds()
+  void AddSpeed(uint32_t featureID, Maxspeed const & speed)
   {
-    CHECK(is_sorted(m_maxspeeds.cbegin(), m_maxspeeds.cend(), IsFeatureIdLess), ());
-    return m_maxspeeds;
+    // Add converted macro speed.
+    SpeedInUnits const forward(speed.GetForward(), speed.GetUnits());
+    CHECK(forward.IsValid(), ());
+    SpeedInUnits const backward(speed.GetBackward(), speed.GetUnits());
+
+    /// @todo Should we find closest macro speed here when Undefined? OSM has bad data sometimes.
+    SpeedMacro const backwardMacro = m_converter.SpeedToMacro(backward);
+    MaxspeedsSerializer::FeatureSpeedMacro ftSpeed{featureID, m_converter.SpeedToMacro(forward), backwardMacro};
+
+    if (ftSpeed.m_forward == SpeedMacro::Undefined)
+    {
+      LOG(LWARNING, ("Undefined macro for forward speed", forward, "in", GetOsmID(featureID)));
+      return;
+    }
+    if (backward.IsValid() && backwardMacro == SpeedMacro::Undefined)
+    {
+      LOG(LWARNING, ("Undefined macro for backward speed", backward, "in", GetOsmID(featureID)));
+    }
+
+    m_maxspeeds.push_back(ftSpeed);
+
+    // Possible in unit tests.
+    if (m_graph == nullptr)
+      return;
+
+    // Update average speed information.
+    auto const & rd = GetRoad(featureID);
+    auto & info = m_avgSpeeds[rd.GetHighwayType()];
+
+    double const lenKM = rd.GetRoadLengthM() / 1000.0;
+    for (auto const & s : { forward, backward })
+    {
+      if (s.IsNumeric())
+      {
+        info.m_lengthKM += lenKM;
+        info.m_timeH += lenKM / s.GetSpeedKmPH();
+      }
+    }
+  }
+
+  void SerializeMaxspeeds() const
+  {
+    if (m_maxspeeds.empty())
+      return;
+
+    std::map<HighwayType, SpeedMacro> typeSpeeds;
+    for (auto const & e : m_avgSpeeds)
+    {
+      long const speed = std::lround(e.second.m_lengthKM / e.second.m_timeH);
+      if (speed < routing::kInvalidSpeed)
+      {
+        // Store type speeds in Metric system, like VehicleModel profiles.
+        auto const speedInUnits = m_converter.ClosestValidMacro(
+              { static_cast<MaxspeedType>(speed), measurement_utils::Units::Metric });
+
+        LOG(LINFO, ("Average speed for", e.first, "=", speedInUnits));
+
+        typeSpeeds[e.first] = m_converter.SpeedToMacro(speedInUnits);
+      }
+      else
+        LOG(LWARNING, ("Large average speed for", e.first, "=", speed));
+    }
+
+    FilesContainerW cont(m_dataPath, FileWriter::OP_WRITE_EXISTING);
+    auto writer = cont.GetWriter(MAXSPEEDS_FILE_TAG);
+    MaxspeedsSerializer::Serialize(m_maxspeeds, typeSpeeds, *writer);
+
+    LOG(LINFO, ("Serialized", m_maxspeeds.size(), "speeds for", m_dataPath));
   }
 };
 
@@ -198,23 +296,23 @@ public:
 
 namespace routing
 {
-bool ParseMaxspeeds(string const & maxspeedsFilename, OsmIdToMaxspeed & osmIdToMaxspeed)
+bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
 {
   osmIdToMaxspeed.clear();
 
-  ifstream stream(maxspeedsFilename);
+  ifstream stream(filePath);
   if (!stream)
     return false;
 
   string line;
-  while (getline(stream, line))
+  while (stream.good())
   {
+    getline(stream, line);
     strings::SimpleTokenizer iter(line, kDelim);
 
-    if (!iter)  // the line is empty
-      return false;
-    // @TODO(bykoianko) strings::to_uint64 returns not-zero value if |*iter| is equal to
-    // a too long string of numbers. But ParseMaxspeeds() should return false in this case.
+    if (!iter)  // empty line
+      continue;
+
     uint64_t osmId = 0;
     if (!strings::to_uint64(*iter, osmId))
       return false;
@@ -252,24 +350,14 @@ bool ParseMaxspeeds(string const & maxspeedsFilename, OsmIdToMaxspeed & osmIdToM
   return true;
 }
 
-void SerializeMaxspeeds(string const & dataPath, vector<FeatureMaxspeed> const & speeds)
-{
-  if (speeds.empty())
-    return;
-
-  FilesContainerW cont(dataPath, FileWriter::OP_WRITE_EXISTING);
-  auto writer = cont.GetWriter(MAXSPEEDS_FILE_TAG);
-
-  MaxspeedsSerializer::Serialize(speeds, *writer);
-  LOG(LINFO, ("SerializeMaxspeeds(", dataPath, ", ...) serialized:", speeds.size(), "maxspeed tags."));
-}
-
 void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
                            map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
                            string const & maxspeedsFilename)
 {
-  MaxspeedsMwmCollector collector(graph, dataPath, featureIdToOsmId, maxspeedsFilename);
-  SerializeMaxspeeds(dataPath, collector.GetMaxspeeds());
+  MaxspeedsMwmCollector collector(dataPath, featureIdToOsmId, graph);
+
+  collector.Process(maxspeedsFilename);
+  collector.SerializeMaxspeeds();
 }
 
 void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,

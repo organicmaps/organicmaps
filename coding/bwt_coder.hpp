@@ -16,14 +16,15 @@ namespace coding
 class BWTCoder
 {
 public:
+  using BufferT = std::vector<uint8_t>;
+
   struct Params
   {
     size_t m_blockSize = 32000;
   };
 
   template <typename Sink>
-  static void EncodeAndWriteBlock(Sink & sink, size_t n, uint8_t const * s,
-                                  std::vector<uint8_t> & bwtBuffer)
+  static void EncodeAndWriteBlock(Sink & sink, size_t n, uint8_t const * s, BufferT & bwtBuffer)
   {
     bwtBuffer.resize(n);
     auto const start = BWT(n, s, bwtBuffer.data());
@@ -43,7 +44,7 @@ public:
   template <typename Sink>
   static void EncodeAndWriteBlock(Sink & sink, size_t n, uint8_t const * s)
   {
-    std::vector<uint8_t> bwtBuffer;
+    BufferT bwtBuffer;
     EncodeAndWriteBlock(sink, n, s, bwtBuffer);
   }
 
@@ -59,7 +60,7 @@ public:
     CHECK(params.m_blockSize != 0, ());
     CHECK_GREATER(n + params.m_blockSize, n, ());
 
-    std::vector<uint8_t> bwtBuffer;
+    BufferT bwtBuffer;
 
     size_t const numBlocks = (n + params.m_blockSize - 1) / params.m_blockSize;
     WriteVarUint(sink, numBlocks);
@@ -70,9 +71,8 @@ public:
     }
   }
 
-  template <typename Source, typename OutIt>
-  static OutIt ReadAndDecodeBlock(Source & source, std::vector<uint8_t> & bwtBuffer,
-                                  std::vector<uint8_t> & revBuffer, OutIt it)
+  template <typename Source>
+  static void ReadAndDecodeBlock(Source & source, BufferT & bwtBuffer, BufferT & revBuffer)
   {
     auto const start = ReadVarUint<uint64_t, Source>(source);
 
@@ -96,15 +96,14 @@ public:
 
     revBuffer.resize(n);
     RevBWT(n, static_cast<size_t>(start), bwtBuffer.data(), revBuffer.data());
-    return std::copy(revBuffer.begin(), revBuffer.end(), it);
   }
 
-  template <typename Source, typename OutIt>
-  static OutIt ReadAndDecodeBlock(Source & source, OutIt it)
+  template <typename Source>
+  static BufferT ReadAndDecodeBlock(Source & source)
   {
-    std::vector<uint8_t> bwtBuffer;
-    std::vector<uint8_t> revBuffer;
-    return ReadAndDecodeBlock(source, bwtBuffer, revBuffer, it);
+    BufferT bwtBuffer, revBuffer;
+    ReadAndDecodeBlock(source, bwtBuffer, revBuffer);
+    return revBuffer;
   }
 
   template <typename Source, typename OutIt>
@@ -113,11 +112,13 @@ public:
     auto const numBlocks = ReadVarUint<uint64_t, Source>(source);
     CHECK_LESS(numBlocks, std::numeric_limits<size_t>::max(), ());
 
-    std::vector<uint8_t> bwtBuffer;
-    std::vector<uint8_t> revBuffer;
+    BufferT bwtBuffer, revBuffer;
 
     for (size_t i = 0; i < static_cast<size_t>(numBlocks); ++i)
-      it = ReadAndDecodeBlock(source, bwtBuffer, revBuffer, it);
+    {
+      ReadAndDecodeBlock(source, bwtBuffer, revBuffer);
+      std::copy(revBuffer.begin(), revBuffer.end(), it);
+    }
     return it;
   }
 };

@@ -23,7 +23,7 @@
 	<string name="mb">Mt</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mailit</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Sijaintini</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Myöhemmin</string>
@@ -886,34 +886,51 @@
 	<string name="type.healthcare.laboratory">Lääketieteellinen laboratorio</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunneli</string>
 	<string name="type.highway.bus_stop">Bussipysäkki</string>
 	<string name="type.highway.construction">Rakenteilla oleva tie</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunneli</string>
 	<string name="type.highway.footway">Polku</string>
 	<string name="type.highway.footway.alpine_hiking">Polku</string>
 	<string name="type.highway.footway.area">Polku</string>
-	<string name="type.highway.footway.bridge">Polku</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Silta</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Polku</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Polku</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Polku</string>
 	<string name="type.highway.footway.hiking">Polku</string>
 	<string name="type.highway.footway.mountain_hiking">Polku</string>
 	<string name="type.highway.footway.permissive">Polku</string>
-	<string name="type.highway.footway.tunnel">Polku</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Tunneli</string>
 	<string name="type.highway.ford">Kahluupaikka</string>
 	<string name="type.highway.living_street">Katu</string>
-	<string name="type.highway.living_street.bridge">Katu</string>
-	<string name="type.highway.living_street.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tunneli</string>
 	<string name="type.highway.motorway">Katu</string>
-	<string name="type.highway.motorway.bridge">Katu</string>
-	<string name="type.highway.motorway.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Tunneli</string>
 	<string name="type.highway.motorway_junction">Poistumistie</string>
 	<string name="type.highway.motorway_link">Katu</string>
-	<string name="type.highway.motorway_link.bridge">Katu</string>
-	<string name="type.highway.motorway_link.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunneli</string>
 	<string name="type.highway.path">Polku</string>
 	<string name="type.highway.path.alpine_hiking">Polku</string>
 	<string name="type.highway.path.bicycle">Polku</string>
-	<string name="type.highway.path.bridge">Polku</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Silta</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Polku</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Polku</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Polku</string>
@@ -921,51 +938,75 @@
 	<string name="type.highway.path.horse">Polku</string>
 	<string name="type.highway.path.mountain_hiking">Polku</string>
 	<string name="type.highway.path.permissive">Polku</string>
-	<string name="type.highway.path.tunnel">Polku</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunneli</string>
 	<string name="type.highway.pedestrian">Katu</string>
 	<string name="type.highway.pedestrian.area">Katu</string>
-	<string name="type.highway.pedestrian.bridge">Katu</string>
-	<string name="type.highway.pedestrian.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Tunneli</string>
 	<string name="type.highway.primary">Katu</string>
-	<string name="type.highway.primary.bridge">Katu</string>
-	<string name="type.highway.primary.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tunneli</string>
 	<string name="type.highway.primary_link">Katu</string>
-	<string name="type.highway.primary_link.bridge">Katu</string>
-	<string name="type.highway.primary_link.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunneli</string>
 	<string name="type.highway.raceway">Kilparata</string>
 	<string name="type.highway.residential">Katu</string>
 	<string name="type.highway.residential.area">Katu</string>
-	<string name="type.highway.residential.bridge">Katu</string>
-	<string name="type.highway.residential.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tunneli</string>
 	<string name="type.highway.rest_area">Levähdyspaikka</string>
 	<string name="type.highway.road">Katu</string>
-	<string name="type.highway.road.bridge">Katu</string>
-	<string name="type.highway.road.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunneli</string>
 	<string name="type.highway.secondary">Katu</string>
-	<string name="type.highway.secondary.bridge">Katu</string>
-	<string name="type.highway.secondary.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tunneli</string>
 	<string name="type.highway.secondary_link">Katu</string>
-	<string name="type.highway.secondary_link.bridge">Katu</string>
-	<string name="type.highway.secondary_link.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tunneli</string>
 	<string name="type.highway.service">Katu</string>
 	<string name="type.highway.service.area">Katu</string>
-	<string name="type.highway.service.bridge">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Silta</string>
 	<string name="type.highway.service.driveway">Katu</string>
 	<string name="type.highway.service.parking_aisle">Katu</string>
-	<string name="type.highway.service.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tunneli</string>
 	<string name="type.highway.speed_camera">Nopeusvalvontakamera</string>
 	<string name="type.highway.steps">Polku</string>
-	<string name="type.highway.steps.bridge">Polku</string>
-	<string name="type.highway.steps.tunnel">Polku</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunneli</string>
 	<string name="type.highway.tertiary">Katu</string>
-	<string name="type.highway.tertiary.bridge">Katu</string>
-	<string name="type.highway.tertiary.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tunneli</string>
 	<string name="type.highway.tertiary_link">Katu</string>
-	<string name="type.highway.tertiary_link.bridge">Katu</string>
-	<string name="type.highway.tertiary_link.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tunneli</string>
 	<string name="type.highway.track">Katu</string>
 	<string name="type.highway.track.area">Katu</string>
-	<string name="type.highway.track.bridge">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Silta</string>
 	<string name="type.highway.track.grade1">Katu</string>
 	<string name="type.highway.track.grade2">Katu</string>
 	<string name="type.highway.track.grade3">Katu</string>
@@ -973,18 +1014,25 @@
 	<string name="type.highway.track.grade5">Katu</string>
 	<string name="type.highway.track.no.access">Katu</string>
 	<string name="type.highway.track.permissive">Katu</string>
-	<string name="type.highway.track.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tunneli</string>
 	<string name="type.highway.traffic_signals">Liikennevalot</string>
 	<string name="type.highway.trunk">Katu</string>
-	<string name="type.highway.trunk.bridge">Katu</string>
-	<string name="type.highway.trunk.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tunneli</string>
 	<string name="type.highway.trunk_link">Katu</string>
-	<string name="type.highway.trunk_link.bridge">Katu</string>
-	<string name="type.highway.trunk_link.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tunneli</string>
 	<string name="type.highway.unclassified">Katu</string>
 	<string name="type.highway.unclassified.area">Katu</string>
-	<string name="type.highway.unclassified.bridge">Katu</string>
-	<string name="type.highway.unclassified.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tunneli</string>
 	<string name="type.area_highway.cycleway">Pyörätie</string>
 	<string name="type.area_highway.footway">Kävelytie</string>
 	<string name="type.area_highway.living_street">Katu</string>

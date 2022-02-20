@@ -94,6 +94,8 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include "std/target_os.hpp"
+
 #include <algorithm>
 
 #include "defines.hpp"
@@ -578,9 +580,22 @@ kml::MarkGroupId Framework::AddCategory(string const & categoryName)
 
 void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const
 {
-  auto types = feature::TypesHolder::FromTypesIndexes(bmk.GetData().m_featureTypes);
-  FillPointInfo(info, bmk.GetPivot(), {} /* customTitle */, [&types](FeatureType & ft) {
-    return !types.Empty() && feature::TypesHolder(ft).Equals(types);
+  // Convert indices to sorted classifier types.
+  Classificator const & cl = classif();
+  buffer_vector<uint8_t, 8> types;
+  for (uint32_t i : bmk.GetData().m_featureTypes)
+    types.push_back(cl.GetTypeForIndex(i));
+  std::sort(types.begin(), types.end());
+
+  FillPointInfo(info, bmk.GetPivot(), {} /* customTitle */, [&types](FeatureType & ft)
+  {
+    if (types.empty() || ft.GetTypesCount() != types.size())
+      return false;
+
+    // Strict equal types.
+    feature::TypesHolder fTypes(ft);
+    std::sort(fTypes.begin(), fTypes.end());
+    return std::equal(types.begin(), types.end(), fTypes.begin(), fTypes.end());
   });
 }
 
@@ -1304,12 +1319,12 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
   if (m_currentPlacePageInfo)
   {
-    if (scale < 0)
-      scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
-
-    m2::PointD const center = m_currentPlacePageInfo->GetMercator();
-    if (m_drapeEngine != nullptr)
+    if (m_drapeEngine) {
+      if (scale < 0)
+        scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
+      m2::PointD const center = m_currentPlacePageInfo->GetMercator();
       m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
+    }
 
     ActivateMapSelection();
   }
@@ -1951,6 +1966,15 @@ void Framework::SetPlacePageListeners(PlacePageEvent::OnOpen onOpen,
   m_onPlacePageOpen = std::move(onOpen);
   m_onPlacePageClose = std::move(onClose);
   m_onPlacePageUpdate = std::move(onUpdate);
+#ifdef OMIM_OS_ANDROID
+  // A click on the Search result from the search activity in Android calls
+  // ShowSearchResult/SelectSearchResult, but SetPlacePageListeners is set later,
+  // when MWMActivity::onStart is called. So PP is displayed here if its info was set previously.
+  // TODO: A better approach is to use an intent with params to pass the search result into MWMActivity,
+  // like it is done when selected bookmark is displayed on the map.
+  if (m_onPlacePageOpen && HasPlacePageInfo())
+    m_onPlacePageOpen();
+#endif  // OMIM_OS_ANDROID
 }
 
 place_page::Info const & Framework::GetCurrentPlacePageInfo() const
@@ -1981,14 +2005,13 @@ void Framework::ActivateMapSelection()
 
   m_searchMarks.SetSelected(featureId);
 
-  CHECK_NOT_EQUAL(m_currentPlacePageInfo->GetSelectedObject(), df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
-  if (m_drapeEngine != nullptr)
+  auto const selObj = m_currentPlacePageInfo->GetSelectedObject();
+  CHECK_NOT_EQUAL(selObj, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
+  if (m_drapeEngine)
   {
-    m_drapeEngine->SelectObject(m_currentPlacePageInfo->GetSelectedObject(), m_currentPlacePageInfo->GetMercator(),
-                                featureId,
-                                m_currentPlacePageInfo->GetBuildInfo().m_needAnimationOnSelection,
-                                m_currentPlacePageInfo->GetBuildInfo().m_isGeometrySelectionAllowed,
-                                true);
+    auto const & bi = m_currentPlacePageInfo->GetBuildInfo();
+    m_drapeEngine->SelectObject(selObj, m_currentPlacePageInfo->GetMercator(), featureId,
+                                bi.m_needAnimationOnSelection, bi.m_isGeometrySelectionAllowed, true);
   }
 
   if (m_onPlacePageOpen)
@@ -2573,12 +2596,6 @@ void Framework::BlockTapEvents(bool block)
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->BlockTapEvents(block);
-}
-
-namespace feature
-{
-string GetPrintableTypes(FeatureType & ft) { return DebugPrint(feature::TypesHolder(ft)); }
-uint32_t GetBestType(FeatureType & ft) { return feature::TypesHolder(ft).GetBestType(); }
 }
 
 bool Framework::ParseDrapeDebugCommand(string const & query)
@@ -3228,7 +3245,7 @@ void Framework::VisualizeCityRoadsInRect(m2::RectD const & rect)
           if (!handle.IsAlive())
             return;
 
-          cityRoads[mwmId] = LoadCityRoads(GetDataSource(), handle);
+          cityRoads[mwmId] = LoadCityRoads(handle);
         }
 
         if (!cityRoads[mwmId]->IsCityRoad(ft.GetID().m_index))

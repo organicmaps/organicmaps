@@ -55,13 +55,10 @@ unique_ptr<CityRoads> LoadCityRoads(LocalCountryFile const & country)
   FrozenDataSource dataSource;
   auto const regResult = dataSource.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
-  auto const & mwmId = regResult.first;
 
-  MwmSet::MwmHandle handle(dataSource.GetMwmHandleById(mwmId));
-  if (!handle.IsAlive())
-    return make_unique<CityRoads>();
-
-  return routing::LoadCityRoads(dataSource, handle);
+  MwmSet::MwmHandle handle(dataSource.GetMwmHandleById(regResult.first));
+  TEST(handle.IsAlive(), ());
+  return routing::LoadCityRoads(handle);
 }
 
 /// \brief Builds mwm with city_roads section, read the section and compare original feature ids

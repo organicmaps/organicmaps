@@ -2,8 +2,6 @@
 
 #include "std/target_os.hpp"
 
-#include <sstream>
-
 using namespace std;
 
 namespace feature
@@ -207,9 +205,8 @@ string ToString(Metadata::EType type)
 
 string DebugPrint(Metadata const & metadata)
 {
-  ostringstream oss;
   bool first = true;
-  oss << "Metadata [";
+  std::string res = "Metadata [";
   for (uint8_t i = 0; i < static_cast<uint8_t>(Metadata::FMD_COUNT); ++i)
   {
     auto const t = static_cast<Metadata::EType>(i);
@@ -219,21 +216,19 @@ string DebugPrint(Metadata const & metadata)
       if (first)
         first = false;
       else
-        oss << "; ";
+        res += "; ";
 
-      oss << DebugPrint(t) << "=" << s;
+      res = res + DebugPrint(t) + "=" + s;
     }
   }
-  oss << "]";
-  return oss.str();
+  res += "]";
+  return res;
 }
 
 string DebugPrint(feature::AddressData const & addressData)
 {
-  ostringstream oss;
-  oss << "AddressData [";
-  oss << "Street = \"" << addressData.Get(AddressData::Type::Street) << "\"; ";
-  oss << "Postcode = \"" << addressData.Get(AddressData::Type::Postcode) << "\"]";
-  return oss.str();
+  return std::string("AddressData [") +
+          "Street = \""  + addressData.Get(AddressData::Type::Street) + "\"; " +
+          "Postcode = \"" + addressData.Get(AddressData::Type::Postcode) + "\"]";
 }
 }  // namespace feature

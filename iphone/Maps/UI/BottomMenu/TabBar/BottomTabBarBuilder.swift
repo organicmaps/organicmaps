@@ -4,7 +4,7 @@
     let interactor = BottomTabBarInteractor(viewController: viewController,
                                             mapViewController: mapViewController,
                                             controlsManager: controlsManager)
-    let presenter = BottomTabBarPresenter(view: viewController, interactor: interactor)
+    let presenter = BottomTabBarPresenter(interactor: interactor)
     
     interactor.presenter = presenter
     viewController.presenter = presenter

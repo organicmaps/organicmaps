@@ -8,11 +8,8 @@
 
 namespace routing
 {
-std::unique_ptr<IndexGraph>
-CreateIndexGraph(std::string const & targetPath,
-                 std::string const & mwmPath,
-                 std::string const & country,
-                 CountryParentNameGetterFn const & countryParentNameGetterFn);
+std::unique_ptr<IndexGraph> CreateIndexGraph(std::string const & mwmPath, std::string const & country,
+                                             CountryParentNameGetterFn const & countryParentNameGetterFn);
 
 void SerializeRestrictions(RestrictionCollector & restrictionCollector,
                            std::string const & mwmPath);

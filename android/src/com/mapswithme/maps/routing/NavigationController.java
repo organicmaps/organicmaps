@@ -300,7 +300,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
   private void updateSpeedView(@NonNull RoutingInfo info)
   {
-    final Location last = LocationHelper.INSTANCE.getLastKnownLocation();
+    final Location last = LocationHelper.INSTANCE.getSavedLocation();
     if (last == null)
       return;
 

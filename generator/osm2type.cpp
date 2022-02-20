@@ -28,10 +28,10 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 namespace ftype
 {
+using namespace std;
+
 namespace
 {
 template <typename ToDo>

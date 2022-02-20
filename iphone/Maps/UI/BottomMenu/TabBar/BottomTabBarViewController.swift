@@ -1,9 +1,3 @@
-protocol BottomTabBarViewProtocol: AnyObject {
-  var presenter: BottomTabBarPresenterProtocol! { get set }
-  var isHidden: Bool { get }
-  var isApplicationBadgeHidden: Bool { get set }
-}
-
 class BottomTabBarViewController: UIViewController {
   var presenter: BottomTabBarPresenterProtocol!
   
@@ -38,7 +32,6 @@ class BottomTabBarViewController: UIViewController {
     updateBadge()
 
     MWMSearchManager.add(self)
-    MWMNavigationDashboardManager.add(self)
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -47,7 +40,6 @@ class BottomTabBarViewController: UIViewController {
   
   deinit {
     MWMSearchManager.remove(self)
-    MWMNavigationDashboardManager.remove(self)
   }
   
   static func updateAvailableArea(_ frame: CGRect) {
@@ -106,19 +98,6 @@ class BottomTabBarViewController: UIViewController {
   
   private func updateBadge() {
     downloadBadge.isHidden = isApplicationBadgeHidden
-  }
-}
-
-extension BottomTabBarViewController: BottomTabBarViewProtocol {
-  
-}
-
-// MARK: - MWMNavigationDashboardObserver
-
-extension BottomTabBarViewController: MWMNavigationDashboardObserver {
-  func onNavigationDashboardStateChanged() {
-    let state = MWMNavigationDashboardManager.shared().state
-    self.isHidden = state != .hidden;
   }
 }
 

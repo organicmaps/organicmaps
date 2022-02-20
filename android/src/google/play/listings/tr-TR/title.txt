@@ -1,0 +1,1 @@
+../../../../fdroid/play/listings/tr-TR/title.txt

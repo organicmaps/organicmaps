@@ -2,13 +2,11 @@
 
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_vertex_data.hpp"
+
 #include "routing/fake_feature_ids.hpp"
 #include "routing/joint_segment.hpp"
 #include "routing/segment.hpp"
 
-#include "routing/base/astar_algorithm.hpp"
-
-#include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 
 #include "base/assert.hpp"
@@ -74,23 +72,22 @@ public:
   bool AreWavesConnectible(Parents & forwardParents, Vertex const & commonVertex,
                            Parents & backwardParents) override
   {
-    auto converter = [&](JointSegment const & vertex)
+    auto const converter = [&](JointSegment & vertex)
     {
-      ASSERT(!vertex.IsRealSegment(), ());
+      if (!vertex.IsFake())
+        return;
 
       auto const it = m_fakeJointSegments.find(vertex);
       ASSERT(it != m_fakeJointSegments.cend(), ());
 
       auto const & first = it->second.GetSegment(true /* start */);
       if (first.IsRealSegment())
-        return first.GetFeatureId();
-
-      auto const & second = it->second.GetSegment(false /* start */);
-      return second.GetFeatureId();
+        vertex.AssignID(first);
+      else
+        vertex.AssignID(it->second.GetSegment(false /* start */));
     };
 
-    return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents,
-                                       std::move(converter));
+    return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents, converter);
   }
 
   RouteWeight GetAStarWeightEpsilon() override { return m_graph.GetAStarWeightEpsilon(); }

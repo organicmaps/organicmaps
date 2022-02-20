@@ -83,30 +83,32 @@ sudo apt-get update && sudo apt-get install -y \
     clang \
     python \
     qtbase5-dev \
-    libqt5svg5-dev \
     libc++-dev \
-    libboost-iostreams-dev \
+    libfreetype-dev \
     libglu1-mesa-dev \
+    libicu-dev \
+    libqt5svg5-dev \
     libsqlite3-dev \
     zlib1g-dev
 ```
 
-_Fedora 33:_
+_Fedora:_
 
 ```bash
 sudo dnf install -y \
     clang \
+    freetype-devel \
+    libicu-devel \
+    libstdc++-devel \
     qt5-qtbase-devel \
     qt5-qtsvg-devel \
-    boost-devel \
-    libstdc++-devel \
     sqlite-devel
 ```
 
 _macOS:_
 
 ```bash
-brew install cmake qt@5
+brew install cmake ninja qt@5
 ```
 
 ### Building
@@ -221,7 +223,7 @@ Install Android SDK and NDK:
 
 - Run the Android Studio.
 - Open "SDK Manager" (under "More Actions" in a welcome screen or a three-dot menu in a list of recent projects screen or "Tools" top menu item in an open project).
-- Select "Android 11.0 (R) / API Level 30" SDK.
+- Select "Android 12.0 (S) / API Level 31" SDK.
 - Switch to "SDK Tools" tab
 - Check "Show Package Details" checkbox.
 - Select "NDK (Side by side)" version **23.1.7779620**.
@@ -242,10 +244,11 @@ _macOS:_
 
 _Windows 10:_ no action needed, should work out of the box.
 
-In Android Studio open the project in `android/` directory.
-Make sure the Studio has at least 1920Mb max heap size in "File > Settings... > Appearance & Behavior > System Settings > Memory Settings", otherwise it might get stuck on "Updating indexes".
+Make sure the Studio has at least 1920Mb max heap size in "File > Settings... > Appearance & Behavior > System Settings > Memory Settings" _before_ opening the project, otherwise it might get stuck on "Updating indexes".
 
-Setup a virtual device to use [emulator]((https://developer.android.com/studio/run/emulator)) ("Tools > AVD Manager") or [use a hardware device for debugging](https://developer.android.com/studio/run/device).
+In Android Studio open the project in `android/` directory.
+
+Setup a virtual device to use [emulator](https://developer.android.com/studio/run/emulator) ("Tools > Device Manager") or [use a hardware device for debugging](https://developer.android.com/studio/run/device). If using an emulator, make sure to choose a system image with API Level 31 and ABI _x86_64_.
 
 ### Building
 
@@ -364,7 +367,7 @@ To add any of those options to in-studio builds list them in "Command-line Optio
 You can install
 [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
-Android Studio. Please make sure that SDK for API Level 30,
+Android Studio. Please make sure that SDK for API Level 31,
 NDK version **23.1.7779620** and CMake version **3.18.1** are installed.
 
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:

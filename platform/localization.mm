@@ -36,4 +36,13 @@ std::string GetCurrencySymbol(std::string const & currencyCode)
 
   return [symbol UTF8String];
 }
+
+std::string GetLocalizedMyPositionBookmarkName()
+{
+  NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+  dateFormatter.dateStyle = NSDateFormatterLongStyle;
+  dateFormatter.timeStyle = NSDateFormatterShortStyle;
+  NSDate * now = [NSDate date];
+  return [dateFormatter stringFromDate:now].UTF8String;
+}
 }  // namespace platform

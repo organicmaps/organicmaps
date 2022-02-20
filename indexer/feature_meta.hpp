@@ -83,18 +83,13 @@ protected:
   // TODO: Change uint8_t to appropriate type when FMD_COUNT reaches 256.
   void Set(uint8_t type, std::string const & value)
   {
-    auto found = m_metadata.find(type);
-    if (found == m_metadata.end())
-    {
-      if (!value.empty())
-        m_metadata[type] = value;
-    }
+    if (value.empty())
+      m_metadata.erase(type);
     else
     {
-      if (value.empty())
-        m_metadata.erase(found);
-      else
-        found->second = value;
+      auto res = m_metadata.try_emplace(type, value);
+      if (!res.second)
+        res.first->second = value;
     }
   }
 

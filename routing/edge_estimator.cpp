@@ -1,10 +1,12 @@
 #include "routing/edge_estimator.hpp"
+
+#include "routing/geometry.hpp"
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/routing_helpers.hpp"
+#include "routing/traffic_stash.hpp"
 
 #include "traffic/speed_groups.hpp"
-#include "traffic/traffic_info.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/point_with_altitude.hpp"

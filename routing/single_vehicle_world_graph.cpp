@@ -61,10 +61,7 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
     for (auto const & twin : twins)
     {
       NumMwmId const twinMwmId = twin.GetMwmId();
-
-      uint32_t const twinFeatureId = twin.GetFeatureId();
-
-      Segment const start(twinMwmId, twinFeatureId, target.GetSegmentId(!opposite), target.IsForward());
+      Segment const start(twinMwmId, twin.GetFeatureId(), target.GetSegmentId(!opposite), target.IsForward());
 
       auto & twinIndexGraph = GetIndexGraph(twinMwmId);
 
@@ -77,10 +74,8 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
                                                                 isOutgoing, lastPoints.back()))
       {
         newCrossMwmEdges.emplace_back(*edge);
-        newCrossMwmEdges.back().GetTarget().SetFeatureId(twinFeatureId);
-        newCrossMwmEdges.back().GetTarget().SetMwmId(twinMwmId);
-        newCrossMwmEdges.back().GetWeight() +=
-            m_hierarchyHandler.GetCrossBorderPenalty(mwmId, twinMwmId);
+        newCrossMwmEdges.back().GetTarget().AssignID(twin);
+        newCrossMwmEdges.back().GetWeight() += m_hierarchyHandler.GetCrossBorderPenalty(mwmId, twinMwmId);
 
         parentWeights.push_back(parentWeights[i]);
       }
@@ -277,12 +272,11 @@ NumMwmId GetCommonMwmInChain(vector<VertexType> const & chain)
   return mwmId;
 }
 
-template <typename VertexType>
-bool
+template <typename VertexType, class ConverterT> bool
 SingleVehicleWorldGraph::AreWavesConnectibleImpl(Parents<VertexType> const & forwardParents,
                                                  VertexType const & commonVertex,
                                                  Parents<VertexType> const & backwardParents,
-                                                 function<uint32_t(VertexType const &)> && fakeFeatureConverter)
+                                                 ConverterT const & fakeConverter)
 {
   if (IsRegionsGraphMode())
     return true;
@@ -326,14 +320,7 @@ SingleVehicleWorldGraph::AreWavesConnectibleImpl(Parents<VertexType> const & for
 
   fillParents(commonVertex, backwardParents);
 
-  if (fakeFeatureConverter)
-  {
-    for (size_t i = 0; i < chain.size(); ++i)
-    {
-      if (!chain[i].IsRealSegment())
-        chain[i].SetFeatureId(fakeFeatureConverter(chain[i]));
-    }
-  }
+  fakeConverter(chain);
 
   NumMwmId const mwmId = GetCommonMwmInChain(chain);
   if (mwmId == kFakeNumMwmId)
@@ -363,17 +350,22 @@ SingleVehicleWorldGraph::AreWavesConnectibleImpl(Parents<VertexType> const & for
 
 bool SingleVehicleWorldGraph::AreWavesConnectible(Parents<Segment> & forwardParents,
                                                   Segment const & commonVertex,
-                                                  Parents<Segment> & backwardParents,
-                                                  function<uint32_t(Segment const &)> && fakeFeatureConverter)
+                                                  Parents<Segment> & backwardParents)
 {
-  return AreWavesConnectibleImpl(forwardParents, commonVertex, backwardParents, move(fakeFeatureConverter));
+  return AreWavesConnectibleImpl(forwardParents, commonVertex, backwardParents,
+                                 [](vector<Segment> &) {});
 }
 
 bool SingleVehicleWorldGraph::AreWavesConnectible(Parents<JointSegment> & forwardParents,
                                                   JointSegment const & commonVertex,
                                                   Parents<JointSegment> & backwardParents,
-                                                  function<uint32_t(JointSegment const &)> && fakeFeatureConverter)
+                                                  FakeConverterT const & fakeFeatureConverter)
 {
-  return AreWavesConnectibleImpl(forwardParents, commonVertex, backwardParents, move(fakeFeatureConverter));
+  return AreWavesConnectibleImpl(forwardParents, commonVertex, backwardParents,
+                                 [&fakeFeatureConverter](vector<JointSegment> & chain)
+  {
+    for (auto & vertex : chain)
+      fakeFeatureConverter(vertex);
+  });
 }
 }  // namespace routing

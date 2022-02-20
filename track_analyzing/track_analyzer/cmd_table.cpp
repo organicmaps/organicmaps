@@ -337,10 +337,10 @@ public:
     : m_featuresVector(container), m_vehicleModel(vehicleModel)
   {
     if (container.IsExist(CITY_ROADS_FILE_TAG))
-      LoadCityRoads(container.GetFileName(), container.GetReader(CITY_ROADS_FILE_TAG), m_cityRoads);
+      m_cityRoads.Load(container.GetReader(CITY_ROADS_FILE_TAG));
 
     if (container.IsExist(MAXSPEEDS_FILE_TAG))
-      LoadMaxspeeds(container.GetReader(MAXSPEEDS_FILE_TAG), m_maxspeeds);
+      m_maxspeeds.Load(container.GetReader(MAXSPEEDS_FILE_TAG));
   }
 
   MoveType GetMoveType(MatchedTrackPoint const & point)

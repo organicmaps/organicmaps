@@ -12,6 +12,7 @@ on:
       - NOTICE
       - README.md
       - android/**
+      - data/strings/**
       - docs/**
       - generator/**
       - iphone/metadata/**

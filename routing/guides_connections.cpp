@@ -2,6 +2,8 @@
 
 #include "routing/fake_feature_ids.hpp"
 
+#include "geometry/parametrized_segment.hpp"
+
 namespace
 {
 // We consider only really close points to be attached to the track.

@@ -7,7 +7,6 @@
 #include "routing/index_graph_loader.hpp"
 #include "routing/joint_segment.hpp"
 #include "routing/mwm_hierarchy_handler.hpp"
-#include "routing/road_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/segment.hpp"
 #include "routing/transit_info.hpp"
@@ -89,11 +88,10 @@ public:
   void DropAStarParents() override;
 
   bool AreWavesConnectible(Parents<Segment> & forwardParents, Segment const & commonVertex,
-                           Parents<Segment> & backwardParents,
-                           std::function<uint32_t(Segment const &)> && fakeFeatureConverter) override;
+                           Parents<Segment> & backwardParents) override;
   bool AreWavesConnectible(Parents<JointSegment> & forwardParents, JointSegment const & commonVertex,
                            Parents<JointSegment> & backwardParents,
-                           std::function<uint32_t(JointSegment const &)> && fakeFeatureConverter) override;
+                           FakeConverterT const & fakeFeatureConverter) override;
   // @}
 
   // This method should be used for tests only
@@ -109,11 +107,11 @@ private:
   ///        parents' featureIds from backward wave.
   /// \return The result chain of fetureIds are used to find restrictions on it and understand whether
   ///         waves are connectable or not.
-  template <typename VertexType>
+  template <typename VertexType, class ConverterT>
   bool AreWavesConnectibleImpl(Parents<VertexType> const & forwardParents,
                                VertexType const & commonVertex,
                                Parents<VertexType> const & backwardParents,
-                               std::function<uint32_t(VertexType const &)> && fakeFeatureConverter);
+                               ConverterT const & fakeConverter);
 
   // Retrieves the same |jointEdges|, but into others mwms.
   // If they are cross mwm edges, of course.

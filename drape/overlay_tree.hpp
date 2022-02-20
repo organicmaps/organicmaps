@@ -69,7 +69,7 @@ public:
   bool IsNeedUpdate() const;
   void InvalidateOnNextFrame();
 
-  void StartOverlayPlacing(ScreenBase const & screen, int zoomLevel);
+  void StartOverlayPlacing(ScreenBase const & screen, uint8_t zoomLevel);
   void Add(ref_ptr<OverlayHandle> handle);
   //! \return true if tree completely invalidated and next call has no sense
   bool Remove(ref_ptr<OverlayHandle> handle);
@@ -106,16 +106,28 @@ private:
                     ref_ptr<OverlayHandle> const & parentOverlay);
   bool CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
                    ref_ptr<OverlayHandle> & parentOverlay) const;
-  void DeleteHandle(ref_ptr<OverlayHandle> const & handle);
+  bool DeleteHandleImpl(ref_ptr<OverlayHandle> handle);
+  void DeleteHandle(ref_ptr<OverlayHandle> handle);
 
   ref_ptr<OverlayHandle> FindParent(ref_ptr<OverlayHandle> handle, int searchingRank) const;
   void DeleteHandleWithParents(ref_ptr<OverlayHandle> handle, int currentRank);
 
   void StoreDisplacementInfo(int caseIndex, ref_ptr<OverlayHandle> displacerHandle,
                              ref_ptr<OverlayHandle> displacedHandle);
+
+  bool IsInCache(ref_ptr<OverlayHandle> const & handle) const;
+
   int m_frameCounter;
   std::array<std::vector<ref_ptr<OverlayHandle>>, dp::OverlayRanksCount> m_handles;
+
   HandlesCache m_handlesCache;
+  /// @todo By VNG: Additional cache by OverlayID for fast FindParent(OverlayHandle).
+  /// I did profiling here in perspective-navigation mode.
+  /// The best solution is to store parent in OverlayHandle, but I didn't realize
+  /// how to implement it in a reasonable time, except "rewrite all".
+  /// Probably, another good solution is to combine m_handlesCache and m_overlayIdCache and make
+  /// one container like unordered_map<{FeatureID, kml::MarkId}, buffer_vector<OverlayHandle>>.
+  std::map<OverlayID, buffer_vector<ref_ptr<OverlayHandle>, 4>> m_overlayIdCache;
 
   bool m_isDisplacementEnabled;
 
@@ -126,6 +138,6 @@ private:
 
   HandlesCache m_displacers;
   uint32_t m_frameUpdatePeriod;
-  int m_zoomLevel = 1;
+  uint8_t m_zoomLevel = 1;
 };
 }  // namespace dp

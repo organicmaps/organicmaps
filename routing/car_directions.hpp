@@ -1,11 +1,8 @@
 #pragma once
 
 #include "routing/directions_engine.hpp"
-#include "routing/directions_engine_helpers.hpp"
-#include "routing/index_road_graph.hpp"
-#include "routing/loaded_path_segment.hpp"
+#include "routing/route.hpp"
 #include "routing/segment.hpp"
-#include "routing/turn_candidate.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 

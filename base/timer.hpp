@@ -29,6 +29,7 @@ public:
 
   inline double ElapsedSeconds() const { return TimeElapsedAs<std::chrono::duration<double>>().count(); }
   inline uint64_t ElapsedMilliseconds() const { return TimeElapsedAs<std::chrono::milliseconds>().count(); }
+  inline uint64_t ElapsedNanoseconds() const { return TimeElapsedAs<std::chrono::nanoseconds>().count(); }
 
   inline void Reset() { m_startTime = std::chrono::steady_clock::now(); }
 };

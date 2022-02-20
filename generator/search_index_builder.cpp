@@ -20,6 +20,7 @@
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/postcodes_matcher.hpp"
+#include "indexer/scales_patch.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_builder.hpp"
@@ -108,7 +109,7 @@ private:
   unordered_multimap<string, string> m_map;
 };
 
-void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const & scaleRange,
+void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> scaleRange,
                       feature::TypesHolder const & types, vector<uint32_t> & result)
 {
   for (uint32_t t : types)
@@ -130,12 +131,10 @@ void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const 
       continue;
 
     // Drawable scale must be normalized to indexer scales.
-    auto indexedRange = scaleRange;
-    if (scaleRange.second == scales::GetUpperScale())
-      indexedRange.second = scales::GetUpperStyleScale();
+    scaleRange.second = scales::PatchMaxDrawableScale(scaleRange.second);
 
     // Index only those types that are visible.
-    if (feature::IsVisibleInRange(t, indexedRange))
+    if (feature::IsVisibleInRange(t, scaleRange))
       result.push_back(t);
   }
 }

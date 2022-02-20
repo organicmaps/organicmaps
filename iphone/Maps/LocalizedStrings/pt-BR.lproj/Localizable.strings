@@ -32,7 +32,7 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Milhas";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Minha posição";
 
 /* Update maps later/Buy pro version later button text */
@@ -1765,11 +1765,13 @@
 
 "type.highway.bridleway" = "Caminho para cavaleiros";
 
-"type.highway.bridleway.bridge" = "Caminho para cavaleiros";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Ponte";
 
 "type.highway.bridleway.permissive" = "Caminho para cavaleiros";
 
-"type.highway.bridleway.tunnel" = "Caminho para cavaleiros";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Túnel";
 
 "type.highway.bus_stop" = "Ponto de ônibus";
 
@@ -1777,11 +1779,13 @@
 
 "type.highway.cycleway" = "Ciclovia";
 
-"type.highway.cycleway.bridge" = "Ciclovia";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Ponte";
 
 "type.highway.cycleway.permissive" = "Ciclovia";
 
-"type.highway.cycleway.tunnel" = "Ciclovia";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Túnel";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1795,8 @@
 
 "type.highway.footway.area" = "Caminho pedonal";
 
-"type.highway.footway.bridge" = "Caminho pedonal";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Ponte";
 
 "type.highway.footway.demanding_alpine_hiking" = "Caminho pedonal";
 
@@ -1805,29 +1810,36 @@
 
 "type.highway.footway.permissive" = "Caminho pedonal";
 
-"type.highway.footway.tunnel" = "Caminho pedonal";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Túnel";
 
 "type.highway.ford" = "Rio raso";
 
 "type.highway.living_street" = "Zona de coexistência";
 
-"type.highway.living_street.bridge" = "Zona de coexistência";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Ponte";
 
-"type.highway.living_street.tunnel" = "Zona de coexistência";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Túnel";
 
 "type.highway.motorway" = "Rodovia";
 
-"type.highway.motorway.bridge" = "Rodovia";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Ponte";
 
-"type.highway.motorway.tunnel" = "Rodovia";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Túnel";
 
 "type.highway.motorway_junction" = "Saída de rodovia";
 
 "type.highway.motorway_link" = "Rodovia";
 
-"type.highway.motorway_link.bridge" = "Rodovia";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Ponte";
 
-"type.highway.motorway_link.tunnel" = "Rodovia";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Túnel";
 
 "type.highway.path" = "Caminho";
 
@@ -1835,7 +1847,8 @@
 
 "type.highway.path.bicycle" = "Caminho";
 
-"type.highway.path.bridge" = "Caminho";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Ponte";
 
 "type.highway.path.demanding_alpine_hiking" = "Caminho";
 
@@ -1851,27 +1864,34 @@
 
 "type.highway.path.permissive" = "Caminho";
 
-"type.highway.path.tunnel" = "Caminho";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Túnel";
 
 "type.highway.pedestrian" = "Rua pedonal";
 
 "type.highway.pedestrian.area" = "Rua pedonal";
 
-"type.highway.pedestrian.bridge" = "Rua pedonal";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Ponte";
 
-"type.highway.pedestrian.tunnel" = "Rua pedonal";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Túnel";
 
 "type.highway.primary" = "Estrada";
 
-"type.highway.primary.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Ponte";
 
-"type.highway.primary.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Túnel";
 
 "type.highway.primary_link" = "Estrada";
 
-"type.highway.primary_link.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Ponte";
 
-"type.highway.primary_link.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Túnel";
 
 "type.highway.raceway" = "Pista de corrida";
 
@@ -1879,41 +1899,51 @@
 
 "type.highway.residential.area" = "Rua residencial";
 
-"type.highway.residential.bridge" = "Rua residencial";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Ponte";
 
-"type.highway.residential.tunnel" = "Rua residencial";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Túnel";
 
 "type.highway.rest_area" = "Área de descanso";
 
 "type.highway.road" = "Estrada";
 
-"type.highway.road.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Ponte";
 
-"type.highway.road.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Túnel";
 
 "type.highway.secondary" = "Estrada";
 
-"type.highway.secondary.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Ponte";
 
-"type.highway.secondary.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Túnel";
 
 "type.highway.secondary_link" = "Estrada";
 
-"type.highway.secondary_link.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Ponte";
 
-"type.highway.secondary_link.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Túnel";
 
 "type.highway.service" = "Estrada de acesso ou serviço";
 
 "type.highway.service.area" = "Estrada de acesso ou serviço";
 
-"type.highway.service.bridge" = "Estrada de acesso ou serviço";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Ponte";
 
 "type.highway.service.driveway" = "Estrada de acesso ou serviço";
 
 "type.highway.service.parking_aisle" = "Estrada de estacionamento";
 
-"type.highway.service.tunnel" = "Estrada de acesso ou serviço";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Túnel";
 
 "type.highway.services" = "Área de serviços de estrada";
 
@@ -1921,27 +1951,34 @@
 
 "type.highway.steps" = "Escadas";
 
-"type.highway.steps.bridge" = "Escadas";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Ponte";
 
-"type.highway.steps.tunnel" = "Escadas";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Túnel";
 
 "type.highway.tertiary" = "Estrada";
 
-"type.highway.tertiary.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Ponte";
 
-"type.highway.tertiary.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Túnel";
 
 "type.highway.tertiary_link" = "Estrada";
 
-"type.highway.tertiary_link.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Ponte";
 
-"type.highway.tertiary_link.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Túnel";
 
 "type.highway.track" = "Estrada rústica";
 
 "type.highway.track.area" = "Estrada rústica";
 
-"type.highway.track.bridge" = "Estrada rústica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Ponte";
 
 "type.highway.track.grade1" = "Estrada rústica";
 
@@ -1957,29 +1994,36 @@
 
 "type.highway.track.permissive" = "Estrada rústica";
 
-"type.highway.track.tunnel" = "Estrada rústica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Túnel";
 
 "type.highway.traffic_signals" = "Semáforo";
 
 "type.highway.trunk" = "Via expressa";
 
-"type.highway.trunk.bridge" = "Via expressa";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Ponte";
 
-"type.highway.trunk.tunnel" = "Via expressa";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Túnel";
 
 "type.highway.trunk_link" = "Via expressa";
 
-"type.highway.trunk_link.bridge" = "Via expressa";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Ponte";
 
-"type.highway.trunk_link.tunnel" = "Via expressa";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Túnel";
 
 "type.highway.unclassified" = "Estrada sem classificação";
 
 "type.highway.unclassified.area" = "Estrada sem classificação";
 
-"type.highway.unclassified.bridge" = "Estrada sem classificação";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Ponte";
 
-"type.highway.unclassified.tunnel" = "Estrada sem classificação";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Túnel";
 
 "type.area_highway.cycleway" = "Ciclovia";
 

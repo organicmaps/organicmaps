@@ -2,15 +2,14 @@
 
 #include "generator/generator_tests_support/routing_helpers.hpp"
 
+#include "routing/routing_tests/index_graph_tools.hpp"
+
 #include "routing/fake_ending.hpp"
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/routing_session.hpp"
-
-#include "routing/routing_tests/index_graph_tools.hpp"
-
-#include "traffic/traffic_info.hpp"
+#include "routing/traffic_stash.hpp"
 
 #include "routing_common/car_model.hpp"
 
