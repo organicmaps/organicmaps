@@ -16,6 +16,7 @@
 
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/sha1.hpp"
 
 #include "base/exception.hpp"
 #include "base/file_name_utils.hpp"
@@ -659,9 +660,45 @@ void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadSt
 
   m_downloadingCountries.erase(queuedCountry.GetCountryId());
 
-  OnMapDownloadFinished(queuedCountry.GetCountryId(), status, queuedCountry.GetFileType());
+  auto const & countryId = queuedCountry.GetCountryId();
+  auto const fileType = queuedCountry.GetFileType();
+  auto const finishFn = [this, countryId, fileType] (DownloadStatus status)
+  {
+    OnMapDownloadFinished(countryId, status, fileType);
+    OnFinishDownloading();
+  };
 
-  OnFinishDownloading();
+  if (status == DownloadStatus::Completed && m_integrityValidationEnabled)
+  {
+    /// @todo Can/Should be combined with ApplyDiff routine when we will restore it.
+    /// While this is simple and working solution, I think that Downloader component
+    /// should make this kind of checks (taking expecting SHA as input). But now it's
+    /// not so simple as it may seem ..
+
+    GetPlatform().RunTask(Platform::Thread::File, [path = GetFileDownloadPath(countryId, fileType),
+                                                   sha1 = GetCountryFile(countryId).GetSha1(),
+                                                   fn = std::move(finishFn)]()
+    {
+      DownloadStatus status = DownloadStatus::Completed;
+
+      if (coding::SHA1::CalculateBase64(path) != sha1)
+      {
+        LOG(LERROR, ("SHA check error for", path));
+        base::DeleteFileX(path);
+        status = DownloadStatus::FailedSHA;
+      }
+
+      GetPlatform().RunTask(Platform::Thread::Gui, [fn = std::move(fn), status]()
+      {
+        if (status == DownloadStatus::Completed)
+          LOG(LDEBUG, ("Successful SHA check"));
+
+        fn(status);
+      });
+    });
+  }
+  else
+    finishFn(status);
 }
 
 void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType type)
@@ -718,13 +755,6 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
   {
     localFile->DeleteFromDisk(type);
     fn(false);
-    return;
-  }
-
-  if (m_integrityValidationEnabled && !localFile->ValidateIntegrity())
-  {
-    base::DeleteFileX(localFile->GetPath(MapFileType::Map));
-    fn(false /* isSuccess */);
     return;
   }
 
