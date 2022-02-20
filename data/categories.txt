@@ -7175,7 +7175,7 @@ fa:فانوس دریایی
 organic-only|organic-yes
 en:4organic|bio|biological|eco|ecological|healthy
 ar:بيولوجي|بيولوجي|صحي|بيولوجي|بيئي|طبيعي|عضوي
-be:эка|натуральная|5натуральныя|натуральны|натуральнае|арганічная|5арганічныя|арганічны|арганічнае|біялагічная|5біялагічныя|біялагічны|біялагічнае|экалагічная|5экалагічныя|экалагічны|экалагічнае|біо|біа|бія|здаровая
+be:эка|5натуральная|5арганічная|5біялагічная|5экалагічная|біо|біа|бія|5здаровая
 bg:еко|био|здравословен|биологичен|екологичен|природен|органичен
 cs:ekologické|bio|zdravé|biologické|environmentální|přírodní|organické
 da:øko|bio|sundt|biologisk|miljømæssigt|naturligt|organisk
@@ -7197,13 +7197,13 @@ pl:eko|bio|zdrowe|biologiczne|ekologiczne|naturalne|organiczne
 pt:eco|bio|saudável|biológico|ambiental|natural|orgânico
 pt-BR:eco|bio|biológico|ambiental|natural|orgânico
 ro:eco|bio|sănătos|biologic|ambiental|natural|organic
-ru:здоровая|5здоровые|био|биологическая|5биологические|биологический|биологическое|натуральная|5натуральные|натуральный|натуральное|органическая|5органические|органический|органическое|эко|5экологические|экологический|экологическое
+ru:5здоровая|био|5биологическая|5натуральная|5органическая|эко|5экологическая
 sk:eko|bio|zdravé|biologické|ekologické|prírodné|organické
 sv:eko|bio|hälsosamt|biologiskt|miljövänligt|naturligt|organiskt
 sw:eco|bio|afya|kibaolojia|kiikolojia|asili|kikaboni
 th:เชิงนิเวศ|ชีวภาพ|สุขภาพ|ชีวภาพ|ระบบนิเวศ|ธรรมชาติ|อินทรีย์
 tr:eko|biyo|sağlıklı|biyolojik|ekolojik|doğal|organik
-uk:здорова|5біологічні|біологічна|біологічне|біологічний|біо|натуральна|5натуральні|натуральний|натуральне|органічна|5органічні|органічний|органічне|еко|5екологічні|екологічний|екологічне
+uk:5здорова|5біологічна|біо|5натуральна|5органічна|еко|5екологічна
 vi:sinh thái|sinh học|lành mạnh|sinh học|sinh thái|tự nhiên|hữu cơ
 zh-Hans:生态的|生物的|健康的|生物的|环境的|自然的|有机的
 zh-Hant:生態|生物|健康|生物|生態|天然|有機
