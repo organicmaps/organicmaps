@@ -1577,6 +1577,38 @@ UNIT_CLASS_TEST(ProcessorTest, CuisineTest)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, OrganicTest)
+{
+  string const countryName = "Wonderland";
+
+  TestPOI cafe(m2::PointD(1.0, 1.0), "Мечта ботаника", "ru");
+  cafe.SetTypes({{"amenity", "cafe"}, {"organic", "only"}});
+
+  TestPOI shop(m2::PointD(1.0, 1.0), "Whole foods", "en");
+  shop.SetTypes({{"shop", "supermarket"}, {"organic", "yes"}});
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(cafe);
+    builder.Add(shop);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+
+  {
+    Rules rules{ExactMatch(countryId, cafe), ExactMatch(countryId, shop)};
+    TEST(ResultsMatch("органическая ", "ru", rules), ());
+  }
+  {
+    Rules rules{ExactMatch(countryId, shop)};
+    TEST(ResultsMatch("органический магазин", "ru", rules), ());
+  }
+  {
+    Rules rules{ExactMatch(countryId, cafe)};
+    TEST(ResultsMatch("органическое кафе", "ru", rules), ());
+  }
+  TEST_EQUAL(GetResultsNumber("органическая обувь", "ru"), 0, ());
+}
+
 UNIT_CLASS_TEST(ProcessorTest, AirportTest)
 {
   string const countryName = "Wonderland";
