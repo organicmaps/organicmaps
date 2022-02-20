@@ -6605,7 +6605,7 @@
     sk = Áno
     sv = Ja
     th = ใช่
-    tr = Evet
+    tr = Var
     uk = Так
     vi = Có
     zh-Hans = 是
