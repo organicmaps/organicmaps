@@ -51573,17 +51573,6 @@ cont {
   }
 }
 cont {
-  name: "power-line-underground"
-  element {
-    scale: 19
-    lines {
-      width: 1.0
-      color: 5131837
-      priority: 1572
-    }
-  }
-}
-cont {
   name: "power-station"
   element {
     scale: 17
