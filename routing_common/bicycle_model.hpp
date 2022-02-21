@@ -17,6 +17,7 @@ public:
   SpeedKMpH const & GetOffroadSpeed() const override;
 
   static BicycleModel const & AllLimitsInstance();
+  static SpeedKMpH DismountSpeed();
 
 protected:
   RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const override;

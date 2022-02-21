@@ -49,7 +49,9 @@ namespace routing
 
 VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const & featureTypeLimits,
                            SurfaceInitList const & featureTypeSurface, HighwayBasedInfo const & info)
-: m_highwayBasedInfo(info), m_onewayType(classif.GetTypeByPath({"hwtag", "oneway"}))
+: m_highwayBasedInfo(info)
+, m_onewayType(classif.GetTypeByPath({"hwtag", "oneway"}))
+, m_railwayVehicleType(classif.GetTypeByPath({"railway", "rail", "motor_vehicle"}))
 {
   m_roadTypes.Reserve(featureTypeLimits.size());
   for (auto const & v : featureTypeLimits)
@@ -90,9 +92,12 @@ void VehicleModel::AddAdditionalRoadTypes(Classificator const & classif, Additio
   }
 }
 
-uint32_t VehicleModel::PrepareToMatchType(uint32_t type)
+uint32_t VehicleModel::PrepareToMatchType(uint32_t type) const
 {
-  return ftypes::BaseChecker::PrepareToMatch(type, 2);
+  // The only exception, 3-arity type now.
+  if (type != m_railwayVehicleType)
+    ftype::TruncValue(type, 2);
+  return type;
 }
 
 SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
@@ -109,8 +114,10 @@ SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParam
 HighwayType VehicleModel::GetHighwayType(FeatureType & f) const
 {
   feature::TypesHolder const types(f);
-  for (auto const t : types)
+  for (uint32_t t : types)
   {
+    t = PrepareToMatchType(t);
+
     auto const ret = GetHighwayType(t);
     if (ret)
       return *ret;
@@ -130,7 +137,6 @@ double VehicleModel::GetMaxWeightSpeed() const
 
 optional<HighwayType> VehicleModel::GetHighwayType(uint32_t type) const
 {
-  type = PrepareToMatchType(type);
   auto const * value = m_roadTypes.Find(type);
   if (value)
     return static_cast<HighwayType>(classif().GetIndexForType(type));
@@ -212,6 +218,8 @@ SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types,
   optional<SpeedKMpH> additionalRoadSpeed;
   for (uint32_t t : types)
   {
+    t = PrepareToMatchType(t);
+
     if (!hwType)
       hwType = GetHighwayType(t);
 
@@ -260,21 +268,20 @@ bool VehicleModel::IsRoad(FeatureType & f) const
 
 bool VehicleModel::IsPassThroughAllowed(FeatureType & f) const
 {
-  feature::TypesHolder const types(f);
-  // Allow pass through additional road types e.g. peer, ferry.
-  for (uint32_t t : types)
-  {
-    if (m_addRoadTypes.Find(t))
-      return true;
-  }
-  return HasPassThroughType(types);
+  return HasPassThroughType(feature::TypesHolder(f));
 }
 
 bool VehicleModel::HasPassThroughType(feature::TypesHolder const & types) const
 {
-  for (uint32_t const t : types)
+  for (uint32_t t : types)
   {
-    bool const * allow = m_roadTypes.Find(PrepareToMatchType(t));
+    t = PrepareToMatchType(t);
+
+    // Additional types (like ferry) are always pass-through now.
+    if (m_addRoadTypes.Find(t))
+      return true;
+
+    bool const * allow = m_roadTypes.Find(t);
     if (allow && *allow)
       return true;
   }
@@ -284,7 +291,8 @@ bool VehicleModel::HasPassThroughType(feature::TypesHolder const & types) const
 
 bool VehicleModel::IsRoadType(uint32_t type) const
 {
-  return m_addRoadTypes.Find(type) || m_roadTypes.Find(PrepareToMatchType(type));
+  type = PrepareToMatchType(type);
+  return m_addRoadTypes.Find(type) || m_roadTypes.Find(type);
 }
 
 VehicleModelInterface::RoadAvailability VehicleModel::GetRoadAvailability(feature::TypesHolder const &) const

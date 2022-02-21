@@ -297,6 +297,8 @@ public:
     return false;
   }
 
+  SpeedKMpH GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & speedParams) const;
+
   bool EqualsForTests(VehicleModel const & rhs) const
   {
     return (m_roadTypes == rhs.m_roadTypes) && (m_addRoadTypes == rhs.m_addRoadTypes) &&
@@ -309,7 +311,7 @@ protected:
 
   void AddAdditionalRoadTypes(Classificator const & classif, AdditionalRoadsList const & roads);
 
-  static uint32_t PrepareToMatchType(uint32_t type);
+  uint32_t PrepareToMatchType(uint32_t type) const;
 
   /// \returns true if |types| is a oneway feature.
   /// \note According to OSM, tag "oneway" could have value "-1". That means it's a oneway feature
@@ -319,8 +321,6 @@ protected:
   bool HasOneWayType(feature::TypesHolder const & types) const;
 
   bool HasPassThroughType(feature::TypesHolder const & types) const;
-
-  SpeedKMpH GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & speedParams) const;
 
   SpeedKMpH GetSpeedWihtoutMaxspeed(FeatureType & f, SpeedParams const & speedParams) const;
 
@@ -342,6 +342,7 @@ private:
   // HW type -> speed and factor.
   HighwayBasedInfo m_highwayBasedInfo;
   uint32_t m_onewayType;
+  uint32_t m_railwayVehicleType;  ///< The only 3-arity type
 
   // HW type -> allow pass through.
   base::SmallMap<uint32_t, bool> m_roadTypes;
