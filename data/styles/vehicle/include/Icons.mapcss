@@ -129,10 +129,8 @@ node[historic=castle],
 area[historic=castle]
 {z-index: 2890;}
 
-node[amenity=hospital],
 node[building=hospital],
 area[building=hospital],
-area[amenity=hospital],
 node[building=university],
 area[building=university],
 {z-index: 2900;}
@@ -680,6 +678,10 @@ area|z17-[amenity=post_office],
 
 
 /* 5.1 Hospital */
+
+area|z15-[amenity=hospital],
+node|z15-[amenity=hospital],
+{-x-me-text-priority:16000;}
 
 node|z15[amenity=hospital],
 node|z15[building=hospital],

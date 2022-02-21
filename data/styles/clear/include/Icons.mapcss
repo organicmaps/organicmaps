@@ -426,12 +426,10 @@ node[historic=castle],
 area[historic=castle]
 {z-index: 2890;}
 
-node[amenity=hospital],
 node[building=hospital],
 area[building=hospital],
 node[building=university],
 area[building=university],
-area[amenity=hospital],
 node[amenity=pharmacy],
 area[amenity=pharmacy]
 {z-index: 2900;}
@@ -1513,6 +1511,10 @@ area|z18-[shop=massage]
 {icon-image: sauna-m.svg;font-size: 11;text-optional: true;}
 
 /* 5.1 Hospital */
+
+area|z15-[amenity=hospital],
+node|z15-[amenity=hospital],
+{-x-me-text-priority:16000;}
 
 area|z14[amenity=hospital]
 {icon-image: hospital-s.svg;icon-min-distance: 8;}
