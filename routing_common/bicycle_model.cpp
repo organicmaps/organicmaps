@@ -414,9 +414,8 @@ void BicycleModel::Init()
   });
 
   // Small dismount speed with obvious inconvenience of a bike in hands.
-  InOutCitySpeedKMpH const dismountSpeed(SpeedKMpH(2.0, 2.0));
+  InOutCitySpeedKMpH const dismountSpeed(DismountSpeed());
 
-  /// @todo I suspect that 'highway-footway-bridge/tunnel' will not be processed properly ...
   AddAdditionalRoadTypes(cl, {
       {{"highway", "footway"}, dismountSpeed},
       {{"highway", "pedestrian"}, dismountSpeed},
@@ -472,6 +471,12 @@ BicycleModel const & BicycleModel::AllLimitsInstance()
 {
   static BicycleModel const instance(bicycle_model::kBicycleOptionsAll);
   return instance;
+}
+
+// static
+SpeedKMpH BicycleModel::DismountSpeed()
+{
+  return 2.0;
 }
 
 BicycleModelFactory::BicycleModelFactory(

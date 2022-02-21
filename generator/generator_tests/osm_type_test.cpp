@@ -6,7 +6,9 @@
 #include "generator/osm2type.hpp"
 #include "generator/tag_admixer.hpp"
 
+#include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
+#include "routing_common/pedestrian_model.hpp"
 
 #include "indexer/feature_data.hpp"
 #include "indexer/classificator.hpp"
@@ -578,7 +580,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 {
-  routing::CarModel const & carModel = routing::CarModel::AllLimitsInstance();
+  uint32_t const ferryType = GetType({"route", "ferry"});
+  TEST(routing::PedestrianModel::AllLimitsInstance().IsRoadType(ferryType), ());
+  TEST(routing::BicycleModel::AllLimitsInstance().IsRoadType(ferryType), ());
+  TEST(routing::CarModel::AllLimitsInstance().IsRoadType(ferryType), ());
 
   {
     Tags const tags = {
@@ -588,78 +593,52 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(ferryType), (params));
+    TEST(params.IsTypeExist(GetType({"hwtag", "nocar"})), ());
+  }
 
-    uint32_t type = GetType({"route", "ferry"});
+  {
+    Tags const tags = {
+      { "railway", "rail" },
+      { "motor_vehicle", "yes" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    uint32_t const type = GetType({"railway", "rail", "motor_vehicle"});
     TEST(params.IsTypeExist(type), (params));
-    TEST(carModel.IsRoadType(type), ());
+    TEST(routing::CarModel::AllLimitsInstance().IsRoadType(type), ());
+  }
 
-    type = GetType({"hwtag", "nocar"});
-    TEST(params.IsTypeExist(type), ());
+  {
+    Tags const tags = {
+      { "route", "shuttle_train" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    uint32_t const type = GetType({"route", "shuttle_train"});
+    TEST(params.IsTypeExist(type), (params));
+    TEST(routing::CarModel::AllLimitsInstance().IsRoadType(type), ());
   }
 
   {
     Tags const tags = {
       { "foot", "no" },
+      { "bicycle", "no" },
       { "motorcar", "yes" },
       { "route", "ferry" },
     };
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    TEST_EQUAL(params.m_types.size(), 3, (params));
-
-    uint32_t type = GetType({"route", "ferry"});
-    TEST(params.IsTypeExist(type), (params));
-    TEST(carModel.IsRoadType(type), ());
-
-    type = GetType({"hwtag", "yescar"});
-    TEST(params.IsTypeExist(type), ());
-
-    type = GetType({"hwtag", "nofoot"});
-    TEST(params.IsTypeExist(type), ());
-  }
-}
-
-UNIT_CLASS_TEST(TestWithClassificator, OsmType_YesCarNoCar)
-{
-  routing::CarModel const & carModel = routing::CarModel::AllLimitsInstance();
-
-  {
-    Tags const tags = {
-        {"highway", "secondary"},
-    };
-
-    auto const params = GetFeatureBuilderParams(tags);
-
-    TEST_EQUAL(params.m_types.size(), 1, (params));
-    TEST(!params.IsTypeExist(carModel.GetNoCarTypeForTesting()), ());
-    TEST(!params.IsTypeExist(carModel.GetYesCarTypeForTesting()), ());
-  }
-
-  {
-    Tags const tags = {
-        {"highway", "cycleway"},
-        {"motorcar", "yes"},
-    };
-
-    auto const params = GetFeatureBuilderParams(tags);
-
-    TEST_EQUAL(params.m_types.size(), 2, (params));
-    TEST(!params.IsTypeExist(carModel.GetNoCarTypeForTesting()), ());
-    TEST(params.IsTypeExist(carModel.GetYesCarTypeForTesting()), ());
-  }
-
-  {
-    Tags const tags = {
-        {"highway", "secondary"},
-        {"motor_vehicle", "no"},
-    };
-
-    auto const params = GetFeatureBuilderParams(tags);
-
-    TEST_EQUAL(params.m_types.size(), 2, (params));
-    TEST(params.IsTypeExist(carModel.GetNoCarTypeForTesting()), ());
-    TEST(!params.IsTypeExist(carModel.GetYesCarTypeForTesting()), ());
+    TEST_EQUAL(params.m_types.size(), 4, (params));
+    TEST(params.IsTypeExist(ferryType), (params));
+    TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "nofoot"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "nobicycle"})), ());
   }
 }
 

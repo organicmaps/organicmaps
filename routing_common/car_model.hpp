@@ -21,9 +21,6 @@ public:
   static AdditionalRoadsList const & GetAdditionalRoads();
   static SurfaceInitList const & GetSurfaces();
 
-  uint32_t GetNoCarTypeForTesting() const { return m_noCarType; }
-  uint32_t GetYesCarTypeForTesting() const { return m_yesCarType; }
-
 protected:
   RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const override;
 
