@@ -595,22 +595,24 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
         {"foot", "no"},
         {"bicycle", "yes"},
         {"oneway:bicycle", "no"},
+        {"motor_vehicle", "yes"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    TEST_EQUAL(params.m_types.size(), 6, (params));
+    TEST_EQUAL(params.m_types.size(), 7, (params));
     TEST(params.IsTypeExist(GetType({"highway", "primary"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "oneway"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "private"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "nofoot"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "bidir_bicycle"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
   }
 
   {
     Tags const tags = {
-        {"foot", "yes"},
+        {"foot", "designated"},
         {"cycleway", "lane"},
         {"highway", "primary"},
     };
@@ -619,6 +621,86 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
     TEST_EQUAL(params.m_types.size(), 3, (params));
     TEST(params.IsTypeExist(GetType({"highway", "primary"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "yesfoot"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
+  }
+
+  {
+    Tags const tags = {
+        {"foot", "use_sidepath"},
+        {"sidewalk", "left"},
+        {"cycleway:both", "separate"},
+        {"highway", "primary"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "primary"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "nofoot"})), ());
+    // No cycleway doesn't mean that bicycle is not allowed.
+    //TEST(params.IsTypeExist(GetType({"hwtag", "nobicycle"})), ());
+  }
+
+  {
+    Tags const tags = {
+        {"foot", "unknown"},
+        {"bicycle", "dismount"},
+        {"highway", "bridleway"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "bridleway"})), ());
+  }
+
+  {
+    Tags const tags = {
+        {"motor_vehicle", "yes"},
+        {"motorcar", "no"},
+        {"highway", "track"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "track"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "nocar"})), ());
+  }
+
+  {
+    Tags const tags = {
+        {"foot", "no"},
+        {"bicycle", "no"},
+        {"sidewalk:left", "yes"},
+        {"cycleway:right", "yes"},
+        {"highway", "trunk"},
+        {"motorcar", "designated"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 4, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "trunk"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "nofoot"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "nobicycle"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
+  }
+
+  {
+    Tags const tags = {
+        {"foot", "yes"},
+        {"bicycle", "yes"},
+        {"sidewalk", "no"},
+        {"cycleway", "no"},
+        {"highway", "path"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 3, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "path", "bicycle"})), (params));
     TEST(params.IsTypeExist(GetType({"hwtag", "yesfoot"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
   }
@@ -717,6 +799,25 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
     TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "nofoot"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "nobicycle"})), ());
+  }
+
+  {
+    Tags const tags = {
+        {"ferry", "path"},
+        {"bicycle", "no"},
+        {"route", "ferry"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    // - Existing ferry=path forces to set bicycle/foot=yes. Finally, bicycle=yes prevails on bicycle=no.
+    // Only one way like this in all OSM: https://www.openstreetmap.org/way/913507515
+    // - Assume nocar for ferries by default, unless otherwise specified
+    TEST_EQUAL(params.m_types.size(), 4, (params));
+    TEST(params.IsTypeExist(GetType({"route", "ferry"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "yesfoot"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "nocar"})), ());
   }
 }
 
