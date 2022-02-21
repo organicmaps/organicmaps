@@ -101,6 +101,10 @@ public class FloatingSearchToolbarController extends SearchToolbarController
     mVisibilityListener = visibilityListener;
   }
 
+  @Override
+  protected boolean useExtendedToolbar() {
+    return false;
+  }
 
   public interface SearchToolbarListener
   {
