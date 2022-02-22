@@ -55,7 +55,6 @@ int main(int argc, char ** argv)
   RoadsFromOsm const & roadsFromOsm = GetRoadsFromOsm(reader, mwmMatcher, highwayTypes);
 
   storage::Storage storage;
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   std::shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
 
   std::unordered_map<std::string, NumMwmId> regionsToIds;
