@@ -79,7 +79,7 @@ Platform::Platform()
     for (auto const & path : paths)
     {
       if (IsFileExistsByFullPath(path))
-      {
+    {
         m_writableDir = path;
         break;
       }
@@ -112,7 +112,6 @@ Platform::Platform()
   m_writableDir = base::AddSlashIfNeeded(m_writableDir);
 
   m_settingsDir = m_writableDir;
-  m_privateDir = m_writableDir;
 
   NSString * tempDir = NSTemporaryDirectory();
   if (tempDir == nil)
