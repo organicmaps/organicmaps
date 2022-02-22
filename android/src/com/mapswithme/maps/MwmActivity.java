@@ -432,7 +432,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mBookmarkCategoryToolbar = findViewById(R.id.bookmark_category_toolbar);
     mBookmarkCategoryToolbar.inflateMenu(R.menu.menu_bookmark_catalog);
     mBookmarkCategoryToolbar.setOnMenuItemClickListener(this::onBookmarkToolbarMenuClicked);
-    UiUtils.extendViewWithStatusBar(mBookmarkCategoryToolbar);
 
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
@@ -1442,12 +1441,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return false;
     }
 
-    if (UiUtils.isVisible(mBookmarkCategoryToolbar))
-    {
-      showLineFrame(false);
-      return false;
-    }
-
     hideRoutingActionFrame();
     showLineFrame(true);
     return true;
@@ -2068,15 +2061,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void showBookmarkCategoryToolbar()
   {
     UiUtils.show(mBookmarkCategoryToolbar);
-    adjustCompassAndTraffic(mBookmarkCategoryToolbar.getHeight());
-    adjustMenuLineFrameVisibility();
   }
 
   private void hideBookmarkCategoryToolbar()
   {
     UiUtils.hide(mBookmarkCategoryToolbar);
-    adjustCompassAndTraffic(UiUtils.getStatusBarHeight(MwmActivity.this));
-    adjustMenuLineFrameVisibility();
   }
 
   private class CurrentPositionClickListener implements OnClickListener
