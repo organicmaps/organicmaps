@@ -570,7 +570,7 @@
     pl = Wyszukaj mapy
     pt = Pesquisar mapa
     pt-BR = Procurar mapa
-    ro = Caută harta
+    ro = Caută pe hartă
     ru = Поиск на карте
     sk = Prehľadať mapu
     sv = Sök karta
@@ -1041,7 +1041,7 @@
     pl = Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji
     pt = Por favor liberte primeiro algum espaço no cartão SD ou armazenamento USB para utilizar a aplicação
     pt-BR = Por favor libere primeiro algum espaço no cartão SD/armazenamento USB para utilizar o app
-    ro = Spațiu de stocare de pe cardul SD/memoria USB este insuficient pentru a putea utiliza aplicația
+    ro = Spațiul de stocare de pe cardul SD/memoria USB este insuficient pentru a putea utiliza aplicația
     ru = Недостаточно свободного места на SD карте/в памяти устройства для использования программы
     sk = Prosím, uvoľnite najprv miesto na SD karte/USB úložisku
     sv = Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda denna app.
@@ -1149,7 +1149,7 @@
     pl = Przejdź do mapy
     pt = Ir ao mapa
     pt-BR = Ir para o mapa
-    ro = Du-te la hartă
+    ro = Mergi la hartă
     ru = Перейти на карту
     sk = Prejsť na mapu
     sv = Gå till karta
@@ -1368,14 +1368,14 @@
     pl = Nie udało się pobrać %@
     pt = O descarregamento de %@ falhou
     pt-BR = O download de %@ falhou
-    ro = Descărcarea %@ nu a reușit
+    ro = Descărcarea %@ a eșuat
     ru = Не удалось загрузить %@
     sk = Sťahovanie zlyhalo: %@
     sv = %@ nedladdning misslyckades
     th = การดาวน์โหลด %@ ล้มเหลว
     tr = %@ indirme işlemi başarısız oldu
     uk = Не вдалося завантажити %@
-    vi = %@ - descărcarea a eșuat
+    vi = %@
     zh-Hans = %@下载失败
     zh-Hant = %@ 下載失敗
 
@@ -2405,7 +2405,7 @@
     pl = Wypoczynek z dziećmi
     pt = Passeios com crianças
     pt-BR = Feriados em família
-    ro = Timp liber
+    ro = Divertisment
     ru = Отдых с детьми
     sk = Rodinná dovolenka
     sv = Semester med barn
@@ -9013,38 +9013,38 @@
 
   [editor_report_problem_desription_1]
     tags = android
-    en = Please describe the problem in detail so that the OpenStreeMap community can fix the error.
-    ar = يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreeMap إصلاح الخطأ.
+    en = Please describe the problem in detail so that the OpenStreetMap community can fix the error.
+    ar = يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreetMap إصلاح الخطأ.
     be = Калі ласка, падрабязна апішыце праблему, каб супольнасць OpenStreetMap магла выправіць памылку.
-    bg = Моля, опишете подробно проблема, за да може общността на OpenStreeMap да отстрани грешката.
-    cs = Popište prosím detailně problém, aby vám komunita OpenStreeMap mohla pomoct opravit chybu.
+    bg = Моля, опишете подробно проблема, за да може общността на OpenStreetMap да отстрани грешката.
+    cs = Popište prosím detailně problém, aby vám komunita OpenStreetMap mohla pomoct opravit chybu.
     da = Beskriv problemet i detaljer, så OpenStreetMap-fællesskabet kan løse fejlen.
-    de = Bitte beschreiben Sie das Problem detailliert, damit die OpenStreeMap-Gemeinschaft den Fehler beheben kann.
-    el = Περιγράψτε το πρόβλημα αναλυτικά ώστε η Κοινότητα OpenStreeMap να διορθώσει το σφάλμα.
-    es = Por favor, describe el problema en detalle para que la comunidad de OpenStreeMap pueda corregir el error.
+    de = Bitte beschreiben Sie das Problem detailliert, damit die OpenStreetMap-Gemeinschaft den Fehler beheben kann.
+    el = Περιγράψτε το πρόβλημα αναλυτικά ώστε η Κοινότητα OpenStreetMap να διορθώσει το σφάλμα.
+    es = Por favor, describe el problema en detalle para que la comunidad de OpenStreetMap pueda corregir el error.
     fa = لطفا مشکلتان را با جزئیات توضیح دهید بطوری که انجمن OSM بتوانند ان را برطرف کنند.
     fi = Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.
-    fr = Veuillez décrire le problème en détail pour permettre à la communauté OpenStreeMap de réparer l'erreur.
-    hu = Kérjük, írd le részletesen a problémát, hogy az OpenStreeMap csapata kijavíthassa.
-    id = Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.
-    it = Si prega di descrivere il problema in dettaglio in modo che la community OpenStreeMap possa riparare l’errore.
-    ja = OpenStreeMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。
-    ko = OpenStreeMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.
+    fr = Veuillez décrire le problème en détail pour permettre à la communauté OpenStreetMap de réparer l'erreur.
+    hu = Kérjük, írd le részletesen a problémát, hogy az OpenStreetMap csapata kijavíthassa.
+    id = Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreetMap dapat memperbaiki kesalahan.
+    it = Si prega di descrivere il problema in dettaglio in modo che la community OpenStreetMap possa riparare l’errore.
+    ja = OpenStreetMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。
+    ko = OpenStreetMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.
     nb = Beskriv problemet detaljert slik at OpenStreetMap-samfunnet kan fikse feilen.
     nl = Beschrijf het probleem gedetailleerd, zodat de OpenStreetMap-community de fout kan oplossen.
     pl = Prosimy o szczegółowe opisanie problemu, aby użytkownicy OpenStreetMap mogli naprawić błąd.
-    pt = Por favor, descreva o problema ao pormenor para que a comunidade OpenStreeMap possa corrigir o erro.
-    pt-BR = Por favor, descreva o problema em detalhes para que a comunidade OpenStreeMap possa corrigir o erro.
-    ro = Descrie problema în detaliu, astfel încât comunitatea OpenStreeMap să poată remedia eroarea.
+    pt = Por favor, descreva o problema ao pormenor para que a comunidade OpenStreetMap possa corrigir o erro.
+    pt-BR = Por favor, descreva o problema em detalhes para que a comunidade OpenStreetMap possa corrigir o erro.
+    ro = Descrie problema în detaliu, astfel încât comunitatea OpenStreetMap să poată remedia eroarea.
     ru = Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.
     sk = Prosím, pridajte detailný popis problému, aby mohla komunita OpenStreetMap opraviť danú chybu.
-    sv = Beskriv problemet i detalj så att OpenStreeMaps community kan lösa felet.
-    th = กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreeMap จะสามารถแก้ไขข้อผิดพลาดได้
+    sv = Beskriv problemet i detalj så att OpenStreetMaps community kan lösa felet.
+    th = กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreetMap จะสามารถแก้ไขข้อผิดพลาดได้
     tr = OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde açıklayın.
     uk = Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.
-    vi = Xin mô tả chi tiết vấn đề để cộng đồng OpenStreeMap có thể sửa lỗi đó.
-    zh-Hans = 请详细描述此问题以便OpenStreeMap社区能够修复此错误。
-    zh-Hant = 請詳細描述此問題以便 OpenStreeMap 社群修復此錯誤。
+    vi = Xin mô tả chi tiết vấn đề để cộng đồng OpenStreetMap có thể sửa lỗi đó.
+    zh-Hans = 请详细描述此问题以便OpenStreetMap社区能够修复此错误。
+    zh-Hant = 請詳細描述此問題以便 OpenStreetMap 社群修復此錯誤。
 
   [editor_report_problem_desription_2]
     tags = android
@@ -9607,7 +9607,7 @@
     uk = Не зареєстровані в OpenStreetMap?
     vi = Bạn chưa có tài khoản tại OpenStreetMap ư?
     zh-Hans = 在OpenStreetMap上没有账户吗？
-    zh-Hant = 沒有 OpenStreeMap 帳號嗎？
+    zh-Hant = 沒有 OpenStreetMap 帳號嗎？
 
   [register_at_openstreetmap]
     tags = android,ios
@@ -13840,7 +13840,7 @@
     pl = Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, napraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.
     pt = Organic Maps é uma aplicação gratuita e de código aberto de mapas offline. Sem anúncios. Sem seguimento. Se vir um erro no mapa, por favor repare-o em OpenStreetMap. O projecto é criado por entusiastas no nosso tempo livre, por isso precisamos do seu feedback e apoio.
     pt-BR = Organic Maps é uma aplicação gratuita e de código aberto de mapas off-line. Sem anúncios. Sem rastreamento. Se você vir um erro no mapa, por favor, corrija em OpenStreetMap. O projeto é criado por entusiastas em nosso tempo livre, então precisamos de seu feedback e suporte.
-    ro = Organic Maps este o aplicație rapidă și gratuită fără reclame. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi
+    ro = Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi
     ru = Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора пресональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!
     sk = Organic Maps je bezplatná offline aplikácia máp s otvoreným zdrojom. Žiadne reklamy. Žiadne sledovanie. Ak na mape vidíte chybu, opravte ju v OpenStreetMap. Projekt vytvárajú nadšenci v našom voľnom čase, preto potrebujeme vašu spätnú väzbu a podporu.
     sv = Organic Maps är en gratis offlinekartapplikation med öppen källkod. Inga annonser. Ingen spårning. Om du ser ett fel på kartan, åtgärda det i OpenStreetMap. Projektet skapas av entusiaster på vår fritid, så vi behöver din feedback och support.
