@@ -38,7 +38,6 @@ import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.NoConnectionListener;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -221,9 +220,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NullableProblems")
   @NonNull
   private MenuController mMainMenuController;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private Toolbar mBookmarkCategoryToolbar;
+
 
   public interface LeftAnimationTrackListener
   {
@@ -429,10 +426,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                      .addOnGlobalLayoutListener(new ToolbarLayoutChangeListener());
     mSearchController.setVisibilityListener(this);
 
-    mBookmarkCategoryToolbar = findViewById(R.id.bookmark_category_toolbar);
-    mBookmarkCategoryToolbar.inflateMenu(R.menu.menu_bookmark_catalog);
-    mBookmarkCategoryToolbar.setOnMenuItemClickListener(this::onBookmarkToolbarMenuClicked);
-
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
 
@@ -449,16 +442,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       addTask(new Factory.RestoreRouteTask());
       return;
     }
-  }
-
-  private boolean onBookmarkToolbarMenuClicked(@NonNull MenuItem item)
-  {
-    if (item.getItemId() == R.id.close)
-    {
-      closeBookmarkCategoryToolbar();
-      return true;
-    }
-    return false;
   }
 
   @Override
@@ -724,19 +707,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  /**
-   * @return False if the bookmark category toolbar was already closed, true otherwise
-   */
-  private boolean closeBookmarkCategoryToolbar()
-  {
-    if (UiUtils.isVisible(mBookmarkCategoryToolbar))
-    {
-      hideBookmarkCategoryToolbar();
-      return true;
-    }
-    return false;
-  }
-
   private void closeFloatingToolbarsAndPanels(boolean clearSearchText)
   {
     closeFloatingPanels();
@@ -751,7 +721,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void closeFloatingToolbars(boolean clearSearchText, boolean stopSearch)
   {
-    closeBookmarkCategoryToolbar();
     closePositionChooser();
     closeSearchToolbar(clearSearchText, stopSearch);
   }
@@ -1112,7 +1081,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     RoutingController routingController = RoutingController.get();
     if (!closeMenu() && !closePlacePage() && !closeSearchToolbar(true, true) &&
-            !closeBookmarkCategoryToolbar() && !closeSidePanel() && !closePositionChooser() &&
+            !closeSidePanel() && !closePositionChooser() &&
             !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
     {
       try
@@ -1241,9 +1210,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (RoutingController.get().isNavigating()
         || RoutingController.get().isBuilding()
         || RoutingController.get().isPlanning())
-      return;
-
-    if (UiUtils.isVisible(mBookmarkCategoryToolbar))
       return;
 
     mIsFullscreen = isFullscreen;
@@ -2025,7 +1991,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     Track track = BookmarkManager.INSTANCE.getTrack(trackId);
     Objects.requireNonNull(track);
-    setupBookmarkCategoryToolbar(track.getCategoryId());
     Framework.nativeShowTrackRect(trackId);
   }
 
@@ -2033,39 +1998,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
     Objects.requireNonNull(info);
-    setupBookmarkCategoryToolbar(info.getCategoryId());
     BookmarkManager.INSTANCE.showBookmarkOnMap(bookmarkId);
   }
 
   public void showBookmarkCategoryOnMap(long categoryId)
   {
-    setupBookmarkCategoryToolbar(categoryId);
     BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(categoryId);
-  }
-
-  private void setupBookmarkCategoryToolbar(long categoryId)
-  {
-    final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(categoryId);
-    mBookmarkCategoryToolbar.setTitle(category.getName());
-    UiUtils.setupNavigationIcon(mBookmarkCategoryToolbar, v -> showBookmarkCategoriesActivity(category));
-
-    showBookmarkCategoryToolbar();
-  }
-
-  private void showBookmarkCategoriesActivity(BookmarkCategory category)
-  {
-    BookmarkCategoriesActivity.start(MwmActivity.this, category);
-    closeFloatingToolbarsAndPanels(false);
-  }
-
-  private void showBookmarkCategoryToolbar()
-  {
-    UiUtils.show(mBookmarkCategoryToolbar);
-  }
-
-  private void hideBookmarkCategoryToolbar()
-  {
-    UiUtils.hide(mBookmarkCategoryToolbar);
   }
 
   private class CurrentPositionClickListener implements OnClickListener
