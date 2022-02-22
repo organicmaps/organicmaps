@@ -140,8 +140,6 @@ Platform::Platform()
   }
   m_tmpDir += '/';
 
-  m_privateDir = m_settingsDir;
-
   m_guiThread = make_unique<platform::GuiThread>();
 
   LOG(LDEBUG, ("Resources directory:", m_resourcesDir));

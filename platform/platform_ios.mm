@@ -49,11 +49,6 @@ Platform::Platform()
   m_writableDir += "/";
   m_settingsDir = m_writableDir;
 
-  auto privatePaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
-                                                          NSUserDomainMask, YES);
-  m_privateDir = privatePaths.firstObject.UTF8String;
-  m_privateDir +=  "/";
-
   NSString * tmpDir = NSTemporaryDirectory();
   if (tmpDir)
     m_tmpDir = tmpDir.UTF8String;
