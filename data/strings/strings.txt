@@ -5758,7 +5758,7 @@
     pl = Tworzenie tras wymaga pobrania i zaktualizowania wszystkich map od Twojej lokalizacji do celu podróży.
     pt = É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.
     pt-BR = É necessário baixar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.
-    ro = Pentru a crea un traseu, este necesare ca toate hărție, de la poziția ta și până la destinație să fie descărcate și actualizate
+    ro = Pentru a crea un traseu, este necesar ca toate hărțile, de la poziția ta până la destinație să fie descărcate și actualizate
     ru = Для создания маршрута необходимо загрузить и обновить все карты на пути следования.
     sv = Att kunna skapa en navigeringsväg kräver att alla kartorna från din plats till din destination är nerladdade och uppdaterade.
     th = การสร้างเส้นทางจำเป็นต้องใช้แผนที่จากสถานที่ตั้งของคุณไปยังปลายทางที่มีการดาวน์โหลดและอัปเดต
@@ -6746,7 +6746,7 @@
     pl = — Sugerowane trasy należy traktować jedynie jako rekomendacje;
     pt = — As rotas indicadas devem ser consideradas apenas como sugestões;
     pt-BR = — As rotas indicadas devem ser tratadas apenas como sugestões;
-    ro = — Traseele sugerate sunt daor niște recomandări;
+    ro = — Traseele sugerate sunt doar niște recomandări;
     ru = — Предлагаемые маршруты — лишь рекомендации;
     sk = — Navrhované trasy by sa mali brať len ako odporúčania;
     sv = — Föreslagna vägar endast är rekommendationer;
@@ -13840,7 +13840,7 @@
     pl = Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, napraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.
     pt = Organic Maps é uma aplicação gratuita e de código aberto de mapas offline. Sem anúncios. Sem seguimento. Se vir um erro no mapa, por favor repare-o em OpenStreetMap. O projecto é criado por entusiastas no nosso tempo livre, por isso precisamos do seu feedback e apoio.
     pt-BR = Organic Maps é uma aplicação gratuita e de código aberto de mapas off-line. Sem anúncios. Sem rastreamento. Se você vir um erro no mapa, por favor, corrija em OpenStreetMap. O projeto é criado por entusiastas em nosso tempo livre, então precisamos de seu feedback e suporte.
-    ro = Organic Maps este o aplicație rapidă și gratuită fără de reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi
+    ro = Organic Maps este o aplicație rapidă și gratuită fără reclame. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi
     ru = Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора пресональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!
     sk = Organic Maps je bezplatná offline aplikácia máp s otvoreným zdrojom. Žiadne reklamy. Žiadne sledovanie. Ak na mape vidíte chybu, opravte ju v OpenStreetMap. Projekt vytvárajú nadšenci v našom voľnom čase, preto potrebujeme vašu spätnú väzbu a podporu.
     sv = Organic Maps är en gratis offlinekartapplikation med öppen källkod. Inga annonser. Ingen spårning. Om du ser ett fel på kartan, åtgärda det i OpenStreetMap. Projektet skapas av entusiaster på vår fritid, så vi behöver din feedback och support.
@@ -18013,7 +18013,7 @@
     pl = Ta opcja zostaje włączona do logowania działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.
     pt = Esta opção ativa o registo das ações para diagnóstico. Pode ser útil para os programadores descobrirem o problema na aplicação. Ative esta opção apenas a pedido dos programadores do Organic Maps.
     pt-BR = A opção ativa para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.
-    ro = Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastră pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.
+    ro = Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.
     ru = Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении.
     sk = Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory Organic Maps.
     sv = Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.
@@ -18999,7 +18999,7 @@
     pl = Klawiatura nie jest dostępna podczas ruchu
     pt = O teclado não está disponível ao coduzir
     pt-BR = O teclado não está disponível enquanto dirige
-    ro = Tastatura nu poate fi folistă cât timp conduceți
+    ro = Tastatura nu poate fi folosită cât timp conduceți
     ru = Клавиатура недоступна во время движения
     sk = Počas jazdy nie je klávesnica k dispozícii
     sv = Tangentbordet är inte tillgängligt vid rörelsen
