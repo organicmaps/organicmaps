@@ -21,7 +21,6 @@ void CmdUnmatchedTracks(string const & logFile, string const & trackFileCsv)
 {
   LOG(LINFO, ("Saving unmatched tracks", logFile));
   storage::Storage storage;
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
   MwmToTracks mwmToTracks;
   ParseTracks(logFile, numMwmIds, mwmToTracks);
