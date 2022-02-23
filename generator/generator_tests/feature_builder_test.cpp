@@ -25,12 +25,8 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
   FeatureBuilder fb1;
   FeatureBuilderParams params;
 
-  char const * arr1[][1] = {
+  base::StringIL arr[] = {
     { "building" },
-  };
-  AddTypes(params, arr1);
-
-  char const * arr2[][2] = {
     { "place", "country" },
     { "place", "state" },
     /// @todo Can't realize is it deprecated or we forgot to add clear styles for it.
@@ -39,7 +35,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
     { "place", "city" },
     { "place", "town" },
   };
-  AddTypes(params, arr2);
+  AddTypes(params, arr);
 
   params.FinishAddingTypes();
   params.AddHouseNumber("75");
@@ -69,7 +65,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
   FeatureBuilder fb1;
   FeatureBuilderParams params;
 
-  char const * arr2[][2] = {
+  base::StringIL arr[] = {
     { "railway", "rail" },
     { "highway", "motorway" },
     { "hwtag", "oneway" },
@@ -77,7 +73,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
     { "junction", "roundabout" },
   };
 
-  AddTypes(params, arr2);
+  AddTypes(params, arr);
   params.FinishAddingTypes();
   fb1.SetParams(params);
 
@@ -107,7 +103,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
   FeatureBuilder fb1;
   FeatureBuilderParams params;
 
-  char const * arr[][2] = {{"waterway", "waterfall"}};
+  base::StringIL arr[] = {{"waterway", "waterfall"}};
   AddTypes(params, arr);
   TEST(params.FinishAddingTypes(), ());
 
@@ -174,10 +170,11 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
 {
   FeatureBuilderParams params;
 
-  char const * arr3[][3] = { { "boundary", "administrative", "2" } };
-  AddTypes(params, arr3);
-  char const * arr2[][2] = { { "barrier", "fence" } };
-  AddTypes(params, arr2);
+  base::StringIL arr[] = {
+    { "boundary", "administrative", "2" },
+    { "barrier", "fence" }
+  };
+  AddTypes(params, arr);
   params.FinishAddingTypes();
 
   params.AddName("default", "Name");
@@ -223,10 +220,10 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeLocalityObjectForBuildi
   FeatureBuilder fb;
   FeatureBuilderParams params;
 
-  char const * arr1[][1] = {
+  base::StringIL arr[] = {
     { "building" },
   };
-  AddTypes(params, arr1);
+  AddTypes(params, arr);
 
   params.FinishAddingTypes();
   params.AddHouseNumber("75");
@@ -255,7 +252,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeAccuratelyForIntermedia
   FeatureBuilder fb1;
   FeatureBuilderParams params;
 
-  char const * arr2[][2] = {
+  base::StringIL arr[] = {
     { "railway", "rail" },
     { "highway", "motorway" },
     { "hwtag", "oneway" },
@@ -263,7 +260,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeAccuratelyForIntermedia
     { "junction", "circular" },
   };
 
-  AddTypes(params, arr2);
+  AddTypes(params, arr);
   params.FinishAddingTypes();
   fb1.SetParams(params);
 
@@ -298,7 +295,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessAltName)
   {
     FeatureBuilderParams params;
 
-    char const * arr[][1] = {{"shop"}};
+    base::StringIL arr[] = {{"shop"}};
     AddTypes(params, arr);
     params.FinishAddingTypes();
 
@@ -324,7 +321,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessAltName)
   {
     FeatureBuilderParams params;
 
-    char const * arr[][1] = {{"shop"}};
+    base::StringIL arr[] = {{"shop"}};
     AddTypes(params, arr);
     params.FinishAddingTypes();
 
@@ -348,4 +345,21 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessAltName)
     TEST(fb.IsValid(), (fb));
   }
 }
+
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveInconsistentTypes)
+{
+  FeatureBuilderParams params;
+
+  base::StringIL arr[] = {
+    {"highway", "cycleway"}, {"hwtag", "onedir_bicycle"},
+    {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}
+  };
+  AddTypes(params, arr);
+  TEST_EQUAL(params.m_types.size(), 4, ());
+
+  TEST(params.RemoveInconsistentTypes(), ());
+  TEST_EQUAL(params.m_types.size(), 3, ());
+  TEST(!params.IsTypeExist(classif().GetTypeByPath({"hwtag", "nobicycle"})), ());
+}
+
 }  // namespace feature_builder_test

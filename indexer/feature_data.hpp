@@ -83,8 +83,11 @@ namespace feature
     size_t Size() const { return m_size; }
     bool Empty() const { return (m_size == 0); }
 
-    auto cbegin() const { return m_types.cbegin(); }
-    auto cend() const { return m_types.cbegin() + m_size; }
+    uint32_t front() const
+    {
+      ASSERT(m_size > 0, ());
+      return m_types[0];
+    }
     auto begin() const { return m_types.cbegin(); }
     auto end() const { return m_types.cbegin() + m_size; }
     auto begin() { return m_types.begin(); }
@@ -242,7 +245,12 @@ public:
   /// the special subway type for the correspondent city.
   void SetRwSubwayType(char const * cityName);
 
-  bool FinishAddingTypes();
+  enum TypesResult { TYPES_GOOD, TYPES_EMPTY, TYPES_EXCEED_MAX };
+  TypesResult FinishAddingTypesEx();
+  bool FinishAddingTypes() { return FinishAddingTypesEx() != TYPES_EMPTY; }
+
+  // For logging purpose.
+  std::string PrintTypes();
 
   void SetType(uint32_t t);
   bool PopAnyType(uint32_t & t);
@@ -284,7 +292,8 @@ public:
     Base::Read(src, header);
   }
 
-  Types m_types = {};
+  /// @todo Make protected and update EditableMapObject code.
+  Types m_types;
 
 private:
   using Base = FeatureParamsBase;
@@ -296,6 +305,7 @@ private:
   std::optional<feature::HeaderGeomType> m_geomType;
 };
 
+/// @todo Take out into generator library.
 class FeatureBuilderParams : public FeatureParams
 {
 public:
@@ -339,6 +349,9 @@ public:
 
   bool GetReversedGeometry() const { return m_reversedGeometry; }
   void SetReversedGeometry(bool reversedGeometry) { m_reversedGeometry = reversedGeometry; }
+
+  /// @return true If any inconsistency was found here.
+  bool RemoveInconsistentTypes();
 
 private:
   bool m_reversedGeometry = false;

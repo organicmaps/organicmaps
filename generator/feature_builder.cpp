@@ -218,6 +218,7 @@ TypesHolder FeatureBuilder::GetTypesHolder() const
 
 bool FeatureBuilder::PreSerialize()
 {
+  /// @todo Seems like we should put CHECK(IsValid()) here.
   if (!m_params.IsValid())
     return false;
 
@@ -618,7 +619,15 @@ bool FeatureBuilder::IsDrawableInRange(int lowScale, int highScale) const
 
 bool FeatureBuilder::PreSerializeAndRemoveUselessNamesForMwm(SupportingData const & data)
 {
-  // We don't need empty features without geometry.
+  // Order is important here not to get dummy logs, when there are no classifier types.
+
+  // 1 - Check base params.
+  if (!PreSerializeAndRemoveUselessNamesForIntermediate())
+    return false;
+
+  // 2 - Check for non-empty geometry.
+  /// @todo Now happens with very thin area buildings like here:
+  /// https://www.openstreetmap.org/#map=19/48.93804/8.35221
   GeomType const geomType = m_params.GetGeomType();
   if (geomType == GeomType::Line)
   {
@@ -637,7 +646,7 @@ bool FeatureBuilder::PreSerializeAndRemoveUselessNamesForMwm(SupportingData cons
     }
   }
 
-  return PreSerializeAndRemoveUselessNamesForIntermediate();
+  return true;
 }
 
 void FeatureBuilder::SerializeLocalityObject(serial::GeometryCodingParams const & params,

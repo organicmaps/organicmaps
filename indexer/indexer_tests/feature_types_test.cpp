@@ -36,7 +36,16 @@ UNIT_TEST(Feature_UselessTypes)
       {"building", "train_station"},
     }, false /* sortBySpec */);
 
-    TEST_EQUAL(*types.cbegin(), cl.GetTypeByPath({"building", "train_station"}), ());
+    TEST_EQUAL(types.front(), cl.GetTypeByPath({"building", "train_station"}), ());
+  }
+
+  {
+    feature::TypesHolder types = MakeTypesHolder({
+      {"hwtag", "lit"},
+      {"hwtag", "oneway"},
+    }, false /* sortBySpec */);
+
+    TEST_EQUAL(types.front(), cl.GetTypeByPath({"hwtag", "oneway"}), ());
   }
 }
 
@@ -52,7 +61,7 @@ UNIT_TEST(Feature_TypesPriority)
       {"building", "train_station"},
     });
 
-    TEST_EQUAL(*types.cbegin(), cl.GetTypeByPath({"building", "train_station"}), ());
+    TEST_EQUAL(types.front(), cl.GetTypeByPath({"building", "train_station"}), ());
   }
 
   /// @todo post_office should be bigger than copyshop.
@@ -62,7 +71,7 @@ UNIT_TEST(Feature_TypesPriority)
 //      {"amenity", "post_office"},
 //    });
 
-//    TEST_EQUAL(*types.cbegin(), cl.GetTypeByPath({"amenity", "post_office"}), ());
+//    TEST_EQUAL(types.front(), cl.GetTypeByPath({"amenity", "post_office"}), ());
 //  }
 
   {
@@ -72,7 +81,7 @@ UNIT_TEST(Feature_TypesPriority)
       {"amenity", "fuel"},
     });
 
-    TEST_EQUAL(*types.cbegin(), cl.GetTypeByPath({"amenity", "fuel"}), ());
+    TEST_EQUAL(types.front(), cl.GetTypeByPath({"amenity", "fuel"}), ());
   }
 
   {
@@ -81,7 +90,7 @@ UNIT_TEST(Feature_TypesPriority)
       {"sport", "soccer"},
     });
 
-    TEST_EQUAL(*types.cbegin(), cl.GetTypeByPath({"sport", "soccer"}), ());
+    TEST_EQUAL(types.front(), cl.GetTypeByPath({"sport", "soccer"}), ());
   }
 
   {
@@ -90,7 +99,7 @@ UNIT_TEST(Feature_TypesPriority)
       {"highway", "bus_stop"},
     });
 
-    TEST_EQUAL(*types.cbegin(), cl.GetTypeByPath({"highway", "bus_stop"}), ());
+    TEST_EQUAL(types.front(), cl.GetTypeByPath({"highway", "bus_stop"}), ());
   }
 
   {
@@ -99,7 +108,7 @@ UNIT_TEST(Feature_TypesPriority)
       {"amenity", "community_centre"},
     });
 
-    TEST_EQUAL(*types.cbegin(), cl.GetTypeByPath({"amenity", "community_centre"}), ());
+    TEST_EQUAL(types.front(), cl.GetTypeByPath({"amenity", "community_centre"}), ());
   }
 
   {
@@ -109,7 +118,7 @@ UNIT_TEST(Feature_TypesPriority)
       {"railway", "subway_entrance"},
     });
 
-    TEST_EQUAL(*types.cbegin(), cl.GetTypeByPath({"railway", "subway_entrance"}), ());
+    TEST_EQUAL(types.front(), cl.GetTypeByPath({"railway", "subway_entrance"}), ());
   }
 
   {
@@ -119,7 +128,7 @@ UNIT_TEST(Feature_TypesPriority)
       {"highway", "cycleway"},
     }, true /* sortBySpec */, feature::GeomType::Line);
 
-    TEST_EQUAL(*types.cbegin(), cl.GetTypeByPath({"highway", "cycleway"}), ());
+    TEST_EQUAL(types.front(), cl.GetTypeByPath({"highway", "cycleway"}), ());
   }
 }
 

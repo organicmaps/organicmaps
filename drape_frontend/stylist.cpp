@@ -154,7 +154,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang)
 
   uint32_t mainOverlayType = 0;
   if (types.Size() == 1)
-    mainOverlayType = *types.cbegin();
+    mainOverlayType = types.front();
   else
   {
     // Determine main overlays type by priority. Priorities might be different across zoom levels
