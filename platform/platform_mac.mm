@@ -23,6 +23,33 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <netinet/in.h>
 
+namespace
+{
+
+template <class FnT> void ForEachPossibleDir(std::string const & basePath, FnT && fn)
+{
+  std::string const dirs[] =
+  {
+    // Check symlink in the current folder (preferred environment setup).
+    basePath + "/data",
+    // Check if we are in the 'build' folder inside repo.
+    basePath + "/../data",
+    // Check if we are near with default repo's name.
+    basePath + "/../organicmaps/data",
+  };
+
+  for (auto const & dir : dirs)
+  {
+    if (Platform::IsFileExistsByFullPath(dir))
+    {
+      fn(dir);
+      return;
+    }
+  }
+}
+
+} // namespace
+
 Platform::Platform()
 {
   // get resources directory path
@@ -39,58 +66,20 @@ Platform::Platform()
   }
   else if (resourcesPath == bundlePath)
   {
-#ifdef STANDALONE_APP
-    m_resourcesDir = resourcesPath + "/";
-#else // STANDALONE_APP
-    // we're the console app, probably unit test, and path is our directory
-    m_resourcesDir = bundlePath + "/../../data/";
-    if (!IsFileExistsByFullPath(m_resourcesDir))
+    // We're the console app (tests or tools), and resource path is a running directory.
+    ForEachPossibleDir(resourcesPath, [this](std::string const & dir)
     {
-      // Check development environment without symlink but with git repo
-      std::string const repoPath = bundlePath + "/../../../omim/data/";
-      if (IsFileExistsByFullPath(repoPath))
-        m_resourcesDir = repoPath;
-      else
-        m_resourcesDir = "./data/";
-    }
-#endif // STANDALONE_APP
-    m_writableDir = m_resourcesDir;
+      m_resourcesDir = m_writableDir = dir;
+    });
   }
   else
   {
-    m_resourcesDir = resourcesPath + "/";
-    std::string const currentDir = [NSFileManager.defaultManager currentDirectoryPath].UTF8String;
-    std::string const paths[] =
+    // We are the bundled executable with its own resources.
+    m_resourcesDir = resourcesPath;
+    ForEachPossibleDir(resourcesPath + "/../../..", [this](std::string const & dir)
     {
-      // Developers can set a symlink to the data folder.
-      m_resourcesDir + "../../../data/",
-      // Check development environment without a symlink but with a git repo.
-      m_resourcesDir + "../../../../omim/data/",
-      m_resourcesDir + "../../../../organicmaps/data/",
-      // Working directory is set to the data folder or any project's subfolder.
-      currentDir + "/../data",
-      // Working directory is set to the project's root.
-      currentDir + "/data",
-      // Working directory is set to the build folder with binaries.
-      currentDir + "/../omim/data",
-      currentDir + "/../organicmaps/data",
-    };
-    // Find the writable path.
-    for (auto const & path : paths)
-    {
-      if (IsFileExistsByFullPath(path))
-      {
-        m_writableDir = path;
-        break;
-      }
-    }
-
-    if (m_writableDir.empty())
-    {
-      auto const p = m_resourcesDir.find("/omim/");
-      if (p != std::string::npos)
-        m_writableDir = m_resourcesDir.substr(0, p) + "/omim/data/";
-    }
+      m_writableDir = dir;
+    });
 
     if (m_writableDir.empty())
     {
@@ -98,25 +87,21 @@ Platform::Platform()
       NSString * supportDir = [dirPaths objectAtIndex:0];
       m_writableDir = supportDir.UTF8String;
 #ifdef BUILD_DESIGNER
-      m_writableDir += "/OMapsData.Designer/";
+      m_writableDir += "/OMapsData.Designer";
 #else // BUILD_DESIGNER
-      m_writableDir += "/OMapsData/";
+      m_writableDir += "/OMapsData";
 #endif // BUILD_DESIGNER
       ::mkdir(m_writableDir.c_str(), 0755);
     }
   }
 
-  if (m_resourcesDir.empty())
-    m_resourcesDir = ".";
-  m_resourcesDir = base::AddSlashIfNeeded(m_resourcesDir);
-  m_writableDir = base::AddSlashIfNeeded(m_writableDir);
+  ValidateWritableAndResourceDirs();
 
   m_settingsDir = m_writableDir;
-  m_privateDir = m_writableDir;
 
   NSString * tempDir = NSTemporaryDirectory();
   if (tempDir == nil)
-      tempDir = @"/tmp";
+    tempDir = @"/tmp";
   m_tmpDir = tempDir.UTF8String;
   m_tmpDir += '/';
 

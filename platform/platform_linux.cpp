@@ -84,6 +84,8 @@ Platform::Platform()
       MYTHROW(FileSystemException, ("Can't create directory", m_settingsDir));
   }
 
+  m_settingsDir += '/';
+
   char const * resDir = ::getenv("MWM_RESOURCES_DIR");
   char const * writableDir = ::getenv("MWM_WRITABLE_DIR");
   if (resDir && writableDir)
@@ -100,7 +102,7 @@ Platform::Platform()
   }
   else
   {
-    initializer_list<string> dirs = {
+    string dirs[] = {
       "./data",                                     // check symlink in the current folder
       "../data",                                    // check if we are in the 'build' folder inside repo
       base::JoinPath(execPath, "..", "..", "data"), // check symlink from bundle?
@@ -119,12 +121,7 @@ Platform::Platform()
     }
   }
 
-  // Actually, m_resourcesDir and m_writableDir maybe empty here and
-  // will be set later by tests infrustructure.
-
-  m_resourcesDir += '/';
-  m_settingsDir += '/';
-  m_writableDir += '/';
+  ValidateWritableAndResourceDirs();
 
   char const * tmpDir = ::getenv("TMPDIR");
   if (tmpDir)
@@ -139,8 +136,6 @@ Platform::Platform()
       MYTHROW(FileSystemException, ("Can't create tmp directory:", m_tmpDir));
   }
   m_tmpDir += '/';
-
-  m_privateDir = m_settingsDir;
 
   m_guiThread = make_unique<platform::GuiThread>();
 

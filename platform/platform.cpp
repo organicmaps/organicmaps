@@ -343,6 +343,21 @@ void Platform::ShutdownThreads()
   m_backgroundThread->ShutdownAndJoin();
 }
 
+void Platform::ValidateWritableAndResourceDirs()
+{
+  // Resources and Writable dirs maybe empty after Platform initialization and will be manually assigned
+  // later in tests, tools, etc. Set some unexisting path by default to grep logs and detect possible errors.
+  if (!m_resourcesDir.empty())
+    m_resourcesDir += '/';
+  else
+    m_resourcesDir = "OM_Unexisting_ResourceDir_path";
+
+  if (!m_writableDir.empty())
+    m_writableDir += '/';
+  else
+    m_writableDir = "OM_Unexisting_WritableDir_path";
+}
+
 void Platform::RunThreads()
 {
   ASSERT(!m_networkThread || (m_networkThread && m_networkThread->IsShutDown()), ());

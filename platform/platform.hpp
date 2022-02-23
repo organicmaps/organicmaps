@@ -96,8 +96,6 @@ protected:
   /// Writable directory to store downloaded map data
   /// @note on some systems it can point to external ejectable storage
   std::string m_writableDir;
-  /// Application private directory.
-  std::string m_privateDir;
   /// Temporary directory, can be cleaned up by the system
   std::string m_tmpDir;
   /// Writable directory to store persistent application data
@@ -188,9 +186,6 @@ public:
   void SetSettingsDir(std::string const & path);
   /// @return full path to file in the settings directory
   std::string SettingsPathForFile(std::string const & file) const { return SettingsDir() + file; }
-
-  /// Returns application private directory.
-  std::string const & PrivateDir() const { return m_privateDir; }
 
   /// @return reader for file decriptor.
   /// @throws FileAbsentException
@@ -326,6 +321,9 @@ public:
   void SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread);
 
   platform::BatteryLevelTracker & GetBatteryTracker() { return m_batteryTracker; }
+
+protected:
+  void ValidateWritableAndResourceDirs();
 
 private:
   void RunThreads();
