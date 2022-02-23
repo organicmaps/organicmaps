@@ -183,34 +183,3 @@ public:
 
   void DoMerge() { m_merger.DoMerge(m_worldBucket); }
 };
-
-template <class FeatureOut>
-class SimpleCountryMapGenerator
-{
-public:
-  SimpleCountryMapGenerator(feature::GenerateInfo const & info) : m_bucket(info) {}
-
-  void operator()(feature::FeatureBuilder & fb)
-  {
-      m_bucket(fb);
-  }
-
-  FeatureOut & Parent() { return m_bucket; }
-
-private:
-  FeatureOut m_bucket;
-};
-
-template <class FeatureOut>
-class CountryMapGenerator : public SimpleCountryMapGenerator<FeatureOut>
-{
-public:
-  CountryMapGenerator(feature::GenerateInfo const & info) :
-    SimpleCountryMapGenerator<FeatureOut>(info) {}
-
-  void Process(feature::FeatureBuilder fb)
-  {
-    if (feature::PreprocessForCountryMap(fb))
-      SimpleCountryMapGenerator<FeatureOut>::operator()(fb);
-  }
-};

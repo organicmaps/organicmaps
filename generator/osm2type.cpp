@@ -1059,7 +1059,19 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   // Stage5: Postprocess feature types.
   PostprocessElement(p, params);
 
-  params.FinishAddingTypes();
+  {
+    std::string const typesString = params.PrintTypes();
+
+    // Unknown type is possible in unit tests.
+    std::string const id = (p->m_type != OsmElement::EntityType::Unknown) ?
+          DebugPrint(GetGeoObjectId(*p)) : std::string("Unknown");
+
+    if (params.RemoveInconsistentTypes())
+      LOG(LWARNING, ("Inconsistent types for:", id, "Types:", typesString));
+
+    if (params.FinishAddingTypesEx() == FeatureParams::TYPES_EXCEED_MAX)
+      LOG(LWARNING, ("Exceeded types count for:", id, "Types:", typesString));
+  }
 
   // Stage6: Collect additional information about feature such as
   // hotel stars, opening hours, cuisine, ...

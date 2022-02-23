@@ -96,18 +96,16 @@ public:
   /// @return Type score, less is better.
   uint8_t Score(uint32_t t) const
   {
-    // 2-arity is better than 1-arity
-
-//    ftype::TruncValue(t, 2);
-//    if (IsIn2(t))
-//      return 1;
+    ftype::TruncValue(t, 2);
+    if (IsIn(2, t))
+      return 3;
 
     ftype::TruncValue(t, 1);
-    if (t == m_building)
+    if (IsIn(1, t))
       return 2;
 
-    if (IsIn1(t))
-      return 3;
+    if (IsIn(0, t))
+      return 1;
 
     return 0;
   }
@@ -142,19 +140,26 @@ private:
 
     Classificator const & c = classif();
 
-    m_building = c.GetTypeByPath({"building"});
+    m_types[0].push_back(c.GetTypeByPath({"building"}));
 
-    m_types1.reserve(std::size(types1));
+    m_types[1].reserve(std::size(types1));
     for (auto const & type : types1)
-      m_types1.push_back(c.GetTypeByPath(type));
+      m_types[1].push_back(c.GetTypeByPath(type));
 
-    std::sort(m_types1.begin(), m_types1.end());
+    // Put _most_ useless types here, that are not fit in the arity logic above.
+    // This change is for generator, to eliminate "lit" type first when max types count exceeded.
+    m_types[2].push_back(c.GetTypeByPath({"hwtag", "lit"}));
+
+    for (auto & v : m_types)
+      std::sort(v.begin(), v.end());
   }
 
-  bool IsIn1(uint32_t t) const { return std::binary_search(m_types1.begin(), m_types1.end(), t); }
+  bool IsIn(uint8_t idx, uint32_t t) const
+  {
+    return std::binary_search(m_types[idx].begin(), m_types[idx].end(), t);
+  }
 
-  vector<uint32_t> m_types1;
-  uint32_t m_building;
+  vector<uint32_t> m_types[3];
 };
 } // namespace
 
@@ -409,29 +414,35 @@ void FeatureParams::SetRwSubwayType(char const * cityName)
   }
 }
 
-bool FeatureParams::FinishAddingTypes()
+FeatureParams::TypesResult FeatureParams::FinishAddingTypesEx()
 {
   base::SortUnique(m_types);
+
+  TypesResult res = TYPES_GOOD;
 
   if (m_types.size() > kMaxTypesCount)
   {
     UselessTypesChecker::Instance().SortUselessToEnd(m_types);
 
-    LOG(LWARNING, ("Exceeded max types count, got total", m_types.size(), ":", TypesToString(m_types)));
-
     m_types.resize(kMaxTypesCount);
     sort(m_types.begin(), m_types.end());
+
+    res = TYPES_EXCEED_MAX;
   }
 
   // Patch fix that removes house number from localities.
   /// @todo move this fix elsewhere (osm2type.cpp?)
   if (!house.IsEmpty() && ftypes::IsLocalityChecker::Instance()(m_types))
-  {
-    LOG(LWARNING, ("Locality with house number", *this));
     house.Clear();
-  }
 
-  return !m_types.empty();
+  return (m_types.empty() ? TYPES_EMPTY : res);
+}
+
+std::string FeatureParams::PrintTypes()
+{
+  base::SortUnique(m_types);
+  UselessTypesChecker::Instance().SortUselessToEnd(m_types);
+  return TypesToString(m_types);
 }
 
 void FeatureParams::SetType(uint32_t t)
@@ -510,6 +521,67 @@ void FeatureBuilderParams::AddStreet(string s)
 void FeatureBuilderParams::AddPostcode(string const & s)
 {
   m_addrTags.Add(AddressData::Type::Postcode, s);
+}
+
+namespace
+{
+
+// Define types that can't live together in a feature.
+class YesNoTypes
+{
+  std::vector<std::pair<uint32_t, uint32_t>> m_types;
+
+public:
+  YesNoTypes()
+  {
+    // Remain first type and erase second in case of conflict.
+    base::StringIL arr[][2] = {
+      {{"hwtag", "yescar"}, {"hwtag", "nocar"}},
+      {{"hwtag", "yesfoot"}, {"hwtag", "nofoot"}},
+      {{"hwtag", "yesbicycle"}, {"hwtag", "nobicycle"}},
+      {{"hwtag", "nobicycle"}, {"hwtag", "bidir_bicycle"}},
+      {{"hwtag", "nobicycle"}, {"hwtag", "onedir_bicycle"}},
+      {{"hwtag", "bidir_bicycle"}, {"hwtag", "onedir_bicycle"}},
+      {{"wheelchair", "yes"}, {"wheelchair", "no"}},
+    };
+
+    auto const & cl = classif();
+    for (auto const & p : arr)
+      m_types.emplace_back(cl.GetTypeByPath(p[0]), cl.GetTypeByPath(p[1]));
+  }
+
+  bool RemoveInconsistent(std::vector<uint32_t> & types) const
+  {
+    size_t const szBefore = types.size();
+    for (auto const & p : m_types)
+    {
+      uint32_t skip;
+      bool found1 = false, found2 = false;
+      for (uint32_t t : types)
+      {
+        if (t == p.first)
+          found1 = true;
+        if (t == p.second)
+        {
+          found2 = true;
+          skip = t;
+        }
+      }
+
+      if (found1 && found2)
+        base::EraseIf(types, [skip](uint32_t t) { return skip == t; });
+    }
+
+    return szBefore != types.size();
+  }
+};
+
+} // namespace
+
+bool FeatureBuilderParams::RemoveInconsistentTypes()
+{
+  static YesNoTypes ynTypes;
+  return ynTypes.RemoveInconsistent(m_types);
 }
 
 string DebugPrint(FeatureParams const & p)

@@ -402,7 +402,7 @@ UNIT_TEST(XMLFeature_AmenityRecyclingFromAndToXml)
 
     auto const th = emo.GetTypes();
     TEST_EQUAL(th.Size(), 1, ());
-    TEST_EQUAL(*th.begin(), classif().GetTypeByPath({"amenity", "recycling", "centre"}), ());
+    TEST_EQUAL(th.front(), classif().GetTypeByPath({"amenity", "recycling", "centre"}), ());
 
     auto convertedFt = editor::ToXML(emo, true);
     convertedFt.SetAttribute("timestamp", kTimestamp);
@@ -425,7 +425,7 @@ UNIT_TEST(XMLFeature_AmenityRecyclingFromAndToXml)
 
     auto const th = emo.GetTypes();
     TEST_EQUAL(th.Size(), 1, ());
-    TEST_EQUAL(*th.begin(), classif().GetTypeByPath({"amenity", "recycling", "container"}), ());
+    TEST_EQUAL(th.front(), classif().GetTypeByPath({"amenity", "recycling", "container"}), ());
 
     auto convertedFt = editor::ToXML(emo, true);
     convertedFt.SetAttribute("timestamp", kTimestamp);
