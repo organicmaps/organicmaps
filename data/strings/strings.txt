@@ -210,7 +210,7 @@
     pl = Nie udało się pobrać. Proszę nacisnąć, aby spróbować ponownie.
     pt = O descarregamento falhou, toque novamente para tentar de novo.
     pt-BR = O baixar falhou, toque para tentar de novo.
-    ro = Descărcarea a eșuat. Încearcă din nou.
+    ro = Descărcarea a eșuat. Atinge pentru a încearca din nou.
     ru = Ошибка загрузки. Нажмите, чтобы повторить попытку
     sk = Sťahovanie zlyhalo, skúste to znova.
     sv = Nedladdningen misslyckades, tryck för att försöka igen
@@ -545,7 +545,7 @@
     zh-Hant = 搜尋
 
   [search_map]
-    comment = Search box placeholder text
+    comment = Search box placeholder text; Used when searching on the map itself, not when searching for a map
     tags = android
     en = Search Map
     ar = ابحث في الخريطة
@@ -562,7 +562,7 @@
     he = חפש במפה
     hu = Keresés a térképen
     id = Cari Peta
-    it = Cerca mappa
+    it = Cerca sulla mappa
     ja = マップを検索
     ko = 지도 검색하기
     nb = Søk kart
@@ -1479,7 +1479,7 @@
     pl = Nazwa zestawu zakładek
     pt = Nome do conjunto de favoritos
     pt-BR = Nome do conjunto de favoritos
-    ro = Dă un nume listei
+    ro = Denumirea listei
     ru = Название списка меток
     sk = Meno záložky
     sv = Bokmärkessamlingens namn
@@ -1625,7 +1625,7 @@
     pl = Nazwa
     pt = Nome
     pt-BR = Nome
-    ro = Nume
+    ro = Denumire
     ru = Название
     sk = Názov
     sv = Namn
@@ -2397,7 +2397,7 @@
     fr = Vacances en famille
     hu = Pihenés a gyerekekkel
     id = Liburan keluarga
-    it = Tempo libero
+    it = Divertimento in famiglia
     ja = 家族の休日
     ko = 가족 기념일
     nb = Familieferie
@@ -2405,7 +2405,7 @@
     pl = Wypoczynek z dziećmi
     pt = Passeios com crianças
     pt-BR = Feriados em família
-    ro = Divertisment
+    ro = Divertisment cu copiii
     ru = Отдых с детьми
     sk = Rodinná dovolenka
     sv = Semester med barn
@@ -2722,6 +2722,7 @@
     en = RV Facilities
     be = Для аўтадамоў
     ru = Для автодомов
+    ro = Pentru rulote
     tr = Karavan tesisleri
     uk = Для автобудинків
 
@@ -11805,7 +11806,7 @@
     pl = Poinformuj redaktorów OSM
     pt = Enviar nota aos editores OSM
     pt-BR = Envie uma nota para os editores OSM
-    ro = Trimite un mesaj către OSM
+    ro = Trimite un mesaj către editorii OSM
     ru = Отправить заметку редакторам OSM
     sk = Odoslať poznámku OSM editorom
     sv = Skicka en not till OSM-redaktörer
@@ -12552,6 +12553,7 @@
     zh-Hant = 英哩
 
   [foot]
+    comment = translate it to represent a unit of measure, not the think you walk on
     tags = android,ios
     en = ft
     ar = قدم
@@ -12563,10 +12565,8 @@
     es = pie
     fa = فوت
     fi = ft
-    fr = pied
     hu = ft
     id = kaki
-    it = piede
     ja = フィート
     ko = 풋
     nb = fot
@@ -12574,7 +12574,6 @@
     pl = ft
     pt = ft
     pt-BR = ft
-    ro = picior
     ru = фут
     sk = stopa
     sv = fot
@@ -12633,7 +12632,6 @@
     fr = h
     hu = ó
     id = j
-    it = o
     ja = 時間
     ko = t
     nb = t
@@ -12641,7 +12639,6 @@
     pl = godz
     pt = h
     pt-BR = h
-    ro = o
     ru = ч
     sk = hod
     sv = h
@@ -16678,6 +16675,7 @@
     zh-Hant = %d 軌跡
 
   [subtittle_opt_out]
+    comment = used to choose between the Google and Android location services
     tags = android
     en = Tracking settings
     ar = إعدادات التتبع
@@ -16702,7 +16700,7 @@
     pl = Ustawienia śledzenia
     pt = Configurações de rastreamento
     pt-BR = Configurações de rastreamento
-    ro = Opțiuni traseu
+    ro = Opțiuni tracking
     ru = Настройки сопровождения
     sk = Nastavenie sledovania
     sv = Spårningsinställningar
@@ -18050,7 +18048,7 @@
     pl = Edytowane online
     pt = Edição online
     pt-BR = Edição online
-    ro = Modifică în internet
+    ro = Modifică online
     ru = Редактируется онлайн
     sk = Online úprava
     sv = Redigeras online
@@ -18198,7 +18196,7 @@
     pl = Drogi gruntowe
     pt = Estradas não pavimentadas
     pt-BR = Pistas sem pavimentação
-    ro = Drum neasfaltat
+    ro = Drumuri neasfaltate
     ru = Грунтовые дороги
     sk = Nespevnené cesty
     sv = Kärrväg
@@ -18235,7 +18233,7 @@
     pl = Przeprawy promowe
     pt = Ferry
     pt-BR = Balsa
-    ro = Trecere cu bac
+    ro = Treceri cu bac
     ru = Паромные переправы
     sk = Prechody trajektom
     sv = Färjetrafik
@@ -18819,7 +18817,7 @@
     pl = Dalej
     pt = A seguir
     pt-BR = Então
-    ro = După
+    ro = Apoi
     ru = Затем
     sk = Potom
     sv = Vidare
@@ -20093,7 +20091,7 @@
     pl = Tydzień wstecz
     pt = Uma semana atrás
     pt-BR = Uma semana atrás
-    ro = Acum o săptămînă
+    ro = Acum o săptămână
     ru = Неделю назад
     sk = Pred týždňom
     sv = För en vecka sedan
@@ -21552,7 +21550,7 @@
     pl = Powiększ mapę, aby zobaczyć izolinie
     pt = Amplie o mapa para ver as curvas de nível
     pt-BR = Use o zoom para explorar as isolinhas
-    ro = Mărește harta pentru a vedea contururile
+    ro = Mărește harta pentru a vedea izoliniile
     ru = Увеличьте карту, чтобы увидеть изолинии
     sk = Priblížením preskúmajte izočiary
     sv = Förstora kartan för att se isolinjer
