@@ -3477,7 +3477,7 @@ ja:クリニック|医師|医者|ドクター|救急|診療
 pl:klinika|lekarz|doktor|leczenie
 pt:3Hospital|2Clínica|3médico|serviços de saúde|primeiros socorros
 pt-BR:Hospital|3clínica|3médico|saúde|serviços de saúde|primeiros socorros
-ro:Spital|ambulanță|medic|doctor|diagnostică
+ro:ambulanță|medic|doctor|diagnostică
 sv:klinik|3läkare
 th:3โรงพยาบาล|แพทย์
 tr:hastane|3klinik|doktor|sağlık merkezi|sağlık hizmetleri|ilk yardım
