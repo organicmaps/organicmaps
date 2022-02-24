@@ -17,15 +17,15 @@ set(SRC
   collector_routing_city_boundaries_tests.cpp
   common.cpp
   common.hpp
-  complex_loader_tests.cpp
+#  complex_loader_tests.cpp
   cross_mwm_osm_ways_collector_tests.cpp
   descriptions_section_builder_tests.cpp
   feature_builder_test.cpp
   feature_merger_test.cpp
   filter_elements_tests.cpp
   gen_mwm_info_tests.cpp
-  hierarchy_entry_tests.cpp
-  hierarchy_tests.cpp
+#  hierarchy_entry_tests.cpp
+#  hierarchy_tests.cpp
   intermediate_data_test.cpp
   maxspeeds_tests.cpp
   merge_collectors_tests.cpp

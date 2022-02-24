@@ -24,7 +24,7 @@ struct GenerateInfo;
 
 namespace generator
 {
-class ComplexFeaturesMixer;
+
 // This is the base layer class. Inheriting from it allows you to create a chain of layers.
 class LayerBase : public std::enable_shared_from_this<LayerBase>
 {
@@ -53,8 +53,6 @@ private:
 class RepresentationLayer : public LayerBase
 {
 public:
-  explicit RepresentationLayer(std::shared_ptr<ComplexFeaturesMixer> const & complexFeaturesMixer = nullptr);
-
   // LayerBase overrides:
   void Handle(feature::FeatureBuilder & fb) override;
 
@@ -65,7 +63,7 @@ public:
 private:
   void HandleArea(feature::FeatureBuilder & fb, FeatureBuilderParams const & params);
 
-  std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
+  //std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
 };
 
 // Responsibility of class PrepareFeatureLayer is the removal of unused types and names,
@@ -114,12 +112,14 @@ public:
   void Handle(feature::FeatureBuilder & fb) override;
 };
 
+/*
 class PreserializeLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
   void Handle(feature::FeatureBuilder & fb) override;
 };
+*/
 
 template <class SerializePolicy = feature::serialization_policy::MaxAccuracy>
 class AffiliationsFeatureLayer : public LayerBase
@@ -161,7 +161,7 @@ private:
   std::shared_ptr<feature::AffiliationInterface> m_affiliation;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
 };
-
+/*
 class ComplexFeaturesMixer
 {
 public:
@@ -179,4 +179,5 @@ private:
   std::unordered_set<CompositeId> const & m_hierarchyNodesSet;
   uint32_t const m_complexEntryType;
 };
+*/
 }  // namespace generator
