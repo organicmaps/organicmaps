@@ -186,11 +186,10 @@ public class SearchToolbarController extends ToolbarController
   }
 
   @Override
-  public void onFocusChange(View view, boolean b) {
+  public void onFocusChange(View view, boolean b)
+  {
     if (view.getId()== R.id.query && b)
-    {
         onQueryClick(getQuery());
-    }
   }
 
   @Override

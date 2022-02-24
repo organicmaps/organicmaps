@@ -100,7 +100,8 @@ public class FloatingSearchToolbarController extends SearchToolbarController
   }
 
   @Override
-  protected boolean useExtendedToolbar() {
+  protected boolean useExtendedToolbar()
+  {
     return false;
   }
 
