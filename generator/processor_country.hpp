@@ -20,8 +20,7 @@ class ProcessorCountry : public FeatureProcessorInterface
 {
 public:
   explicit ProcessorCountry(std::shared_ptr<FeatureProcessorQueue> const & queue,
-                            std::string const & bordersPath, bool haveBordersForWholeWorld,
-                            std::shared_ptr<ComplexFeaturesMixer> const & complexFeaturesMixer);
+                            std::string const & bordersPath, bool haveBordersForWholeWorld);
 
   // FeatureProcessorInterface overrides:
   std::shared_ptr<FeatureProcessorInterface> Clone() const override;
@@ -34,7 +33,7 @@ private:
   std::shared_ptr<AffiliationsFeatureLayer<>> m_affiliationsLayer;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
   std::shared_ptr<LayerBase> m_processingChain;
-  std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
+  //std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
   bool m_haveBordersForWholeWorld;
 };
 }  // namespace generator

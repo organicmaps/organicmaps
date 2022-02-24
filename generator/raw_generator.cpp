@@ -1,6 +1,6 @@
 #include "generator/raw_generator.hpp"
 
-#include "generator/complex_loader.hpp"
+//#include "generator/complex_loader.hpp"
 #include "generator/features_processing_helpers.hpp"
 #include "generator/final_processor_coastline.hpp"
 #include "generator/final_processor_country.hpp"
@@ -99,13 +99,13 @@ std::shared_ptr<FeatureProcessorQueue> RawGenerator::GetQueue() { return m_queue
 
 void RawGenerator::GenerateCountries()
 {
-  if (!m_genInfo.m_complexHierarchyFilename.empty())
-    m_hierarchyNodesSet = GetOrCreateComplexLoader(m_genInfo.m_complexHierarchyFilename).GetIdsSet();
+//  if (!m_genInfo.m_complexHierarchyFilename.empty())
+//    m_hierarchyNodesSet = GetOrCreateComplexLoader(m_genInfo.m_complexHierarchyFilename).GetIdsSet();
 
-  auto const complexFeaturesMixer = std::make_shared<ComplexFeaturesMixer>(m_hierarchyNodesSet);
+//  auto const complexFeaturesMixer = std::make_shared<ComplexFeaturesMixer>(m_hierarchyNodesSet);
 
   auto processor = CreateProcessor(ProcessorType::Country, m_queue, m_genInfo.m_targetDir,
-                                   m_genInfo.m_haveBordersForWholeWorld, complexFeaturesMixer);
+                                   m_genInfo.m_haveBordersForWholeWorld/*, complexFeaturesMixer*/);
   m_translators->Append(
       CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo));
   m_finalProcessors.emplace(CreateCountryFinalProcessor());
@@ -246,7 +246,7 @@ bool RawGenerator::GenerateFilteredFeatures()
 
     stats.Log(elements, reader.Pos());
     translators.Emit(elements);
-    
+
     for (auto & e : elements)
       e.Clear();
 

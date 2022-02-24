@@ -72,15 +72,10 @@ std::shared_ptr<LayerBase> LayerBase::Add(std::shared_ptr<LayerBase> next)
   return next;
 }
 
-RepresentationLayer::RepresentationLayer(std::shared_ptr<ComplexFeaturesMixer> const & complexFeaturesMixer)
-  : m_complexFeaturesMixer(complexFeaturesMixer)
-{
-}
-
 void RepresentationLayer::Handle(FeatureBuilder & fb)
 {
-  if (m_complexFeaturesMixer)
-    m_complexFeaturesMixer->Process([&](FeatureBuilder & fb){ LayerBase::Handle(fb); }, fb);
+//  if (m_complexFeaturesMixer)
+//    m_complexFeaturesMixer->Process([&](FeatureBuilder & fb){ LayerBase::Handle(fb); }, fb);
 
   auto const sourceType = fb.GetMostGenericOsmId().GetType();
   auto const geomType = fb.GetGeomType();
@@ -254,6 +249,7 @@ void CountryLayer::Handle(feature::FeatureBuilder & fb)
     LayerBase::Handle(fb);
 }
 
+/*
 void PreserializeLayer::Handle(FeatureBuilder & fb)
 {
   if (fb.PreSerialize())
@@ -333,4 +329,5 @@ feature::FeatureBuilder ComplexFeaturesMixer::MakeComplexAreaFrom(feature::Featu
   params.SetType(m_complexEntryType);
   return areaFb;
 }
+*/
 }  // namespace generator

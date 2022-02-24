@@ -49,8 +49,8 @@ set(SRC
   collector_routing_city_boundaries.hpp
   collector_tag.cpp
   collector_tag.hpp
-  complex_loader.cpp
-  complex_loader.hpp
+#  complex_loader.cpp
+#  complex_loader.hpp
   composite_id.cpp
   composite_id.hpp
   cross_mwm_osm_ways_collector.cpp
@@ -80,8 +80,8 @@ set(SRC
   features_processing_helpers.hpp
   filter_collection.cpp
   filter_collection.hpp
-  filter_complex.cpp
-  filter_complex.hpp
+#  filter_complex.cpp
+#  filter_complex.hpp
   filter_elements.cpp
   filter_elements.hpp
   filter_interface.hpp
@@ -93,8 +93,8 @@ set(SRC
   filter_world.hpp
   final_processor_coastline.cpp
   final_processor_coastline.hpp
-  final_processor_complex.cpp
-  final_processor_complex.hpp
+#  final_processor_complex.cpp
+#  final_processor_complex.hpp
   final_processor_country.cpp
   final_processor_country.hpp
   final_processor_interface.cpp
@@ -107,10 +107,10 @@ set(SRC
   gen_mwm_info.hpp
   generate_info.hpp
   geometry_holder.hpp
-  hierarchy.cpp
-  hierarchy.hpp
-  hierarchy_entry.cpp
-  hierarchy_entry.hpp
+#  hierarchy.cpp
+#  hierarchy.hpp
+#  hierarchy_entry.cpp
+#  hierarchy_entry.hpp
   holes.cpp
   holes.hpp
   intermediate_data.cpp
@@ -155,15 +155,15 @@ set(SRC
   postcode_points_builder.hpp
   processor_coastline.cpp
   processor_coastline.hpp
-  processor_complex.cpp
-  processor_complex.hpp
+#  processor_complex.cpp
+#  processor_complex.hpp
   processor_country.cpp
   processor_country.hpp
   processor_factory.hpp
   processor_interface.hpp
   processor_noop.hpp
-  processor_simple.cpp
-  processor_simple.hpp
+#  processor_simple.cpp
+#  processor_simple.hpp
   processor_world.cpp
   processor_world.hpp
   raw_generator.cpp
@@ -215,8 +215,8 @@ set(SRC
   translator_coastline.hpp
   translator_collection.cpp
   translator_collection.hpp
-  translator_complex.cpp
-  translator_complex.hpp
+#  translator_complex.cpp
+#  translator_complex.hpp
   translator_country.cpp
   translator_country.hpp
   translator_factory.hpp
@@ -267,7 +267,7 @@ omim_add_test_subdirectory(generator_tests)
 omim_add_test_subdirectory(generator_integration_tests)
 
 omim_add_tool_subdirectory(generator_tool)
-omim_add_tool_subdirectory(complex_generator)
+#omim_add_tool_subdirectory(complex_generator)
 omim_add_tool_subdirectory(feature_segments_checker)
 omim_add_tool_subdirectory(srtm_coverage_checker)
 add_subdirectory(world_roads_builder)
