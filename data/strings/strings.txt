@@ -12553,7 +12553,7 @@
     zh-Hant = 英哩
 
   [foot]
-    comment = translate it to represent a unit of measure, not the think you walk on
+    comment = A unit of measure
     tags = android,ios
     en = ft
     ar = قدم
