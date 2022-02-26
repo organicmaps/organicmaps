@@ -111,7 +111,7 @@ SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParam
   return GetTypeSpeed(types, speedParams);
 }
 
-HighwayType VehicleModel::GetHighwayType(FeatureType & f) const
+std::optional<HighwayType> VehicleModel::GetHighwayType(FeatureType & f) const
 {
   feature::TypesHolder const types(f);
   for (uint32_t t : types)
@@ -126,8 +126,7 @@ HighwayType VehicleModel::GetHighwayType(FeatureType & f) const
       return static_cast<HighwayType>(classif().GetIndexForType(t));
   }
 
-  UNREACHABLE();
-  return HighwayType::HighwayResidential;
+  return {};
 }
 
 double VehicleModel::GetMaxWeightSpeed() const
