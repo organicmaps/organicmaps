@@ -1163,8 +1163,8 @@ area|z14[amenity=community_centre]
 node|z15[amenity=community_centre],
 area|z15[amenity=community_centre]
 {icon-image: tourism-m.svg;icon-min-distance: 24;}
-node|z16[amenity=community_centre],
-area|z16[amenity=community_centre]
+node|z16-[amenity=community_centre],
+area|z16-[amenity=community_centre]
 {icon-image: tourism-m.svg;icon-min-distance: 16;}
 
 /* 4.2 Apartament */
