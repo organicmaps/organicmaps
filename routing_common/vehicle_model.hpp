@@ -207,7 +207,7 @@ public:
   /// @param inCity is true if |f| lies in a city of town.
   virtual SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const = 0;
 
-  virtual HighwayType GetHighwayType(FeatureType & f) const = 0;
+  virtual std::optional<HighwayType> GetHighwayType(FeatureType & f) const = 0;
 
   /// @return Maximum model weight speed.
   /// All speeds which the model returns must be less than or equal to this speed.
@@ -275,7 +275,7 @@ public:
   /// @name VehicleModelInterface overrides.
   /// @{
   SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
-  HighwayType GetHighwayType(FeatureType & f) const override;
+  std::optional<HighwayType> GetHighwayType(FeatureType & f) const override;
   double GetMaxWeightSpeed() const override;
   bool IsOneWay(FeatureType & f) const override;
   bool IsRoad(FeatureType & f) const override;
