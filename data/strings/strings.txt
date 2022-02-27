@@ -3210,7 +3210,7 @@
     sk = Ahoj,\n\nPráve som tu: %1$@. Stlačte jeden z týchto odkazov %2$@, %3$@ a uvidíte toto miesto na mape.\n\nVďaka
     sv = Hej,\n\nJag är här nu: %1$@. Klicka på denna länk %2$@ eller denna %3$@ för att se platsen på kartan.\n\nTack.
     th = หวัดดี\n\nฉันอยู่ที่นี่ตอนนี้: %1$@. คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ
-    tr = Merhaba,\n\nŞu anda bulunduğum yer: %1$@. Yeri haritada görmek için bu %2$@ veya şu %3$@ bağlantıya tıkla.\n\nTeşekkürler.
+    tr = Merhaba,\n\nŞu anda bulunduğum yer: %1$@. Yeri haritada görmek için %2$@ veya %3$@ bağlantısına tıkla.\n\nTeşekkürler.
     uk = Привіт,\n\nЯ зараз тут: %1$@. Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на мапі.\n\nДякую.
     vi = Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.
     zh-Hans = 嗨，\n\n我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的位置。\n\n谢谢。
@@ -16708,7 +16708,7 @@
     sv = Spårningsinställningar
     sw = Mipangilio ya ufuatiliaji
     th = การตั้งค่าการติดตาม
-    tr = Kayıt ayarları
+    tr = Takip ayarları
     uk = Налаштування супроводу
     vi = Thiết lập theo dõi
     zh-Hans = 支持设置
