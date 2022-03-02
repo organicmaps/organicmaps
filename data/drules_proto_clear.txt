@@ -12823,22 +12823,9 @@ cont {
 cont {
   name: "highway-footway"
   element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 16777215
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 1310
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 15
     lines {
-      width: 1.7
+      width: 1.5
       color: 16777215
       dashdot {
         dd: 2.7
@@ -12955,7 +12942,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.7
+      width: 1.5
       color: 16777215
       dashdot {
         dd: 2.7
@@ -13058,16 +13045,6 @@ cont {
   name: "highway-footway-area"
   element {
     scale: 14
-    lines {
-      width: 1.0
-      color: 16777215
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 1310
-      cap: BUTTCAP
-    }
     area {
       color: 15591638
       priority: -15690
@@ -13076,7 +13053,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.7
+      width: 1.5
       color: 16777215
       dashdot {
         dd: 2.7
@@ -13198,22 +13175,9 @@ cont {
 cont {
   name: "highway-footway-bridge"
   element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 16777215
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 1310
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 15
     lines {
-      width: 1.7
+      width: 1.5
       color: 16777215
       dashdot {
         dd: 2.7
@@ -13330,7 +13294,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.7
+      width: 1.5
       color: 16777215
       dashdot {
         dd: 2.7
@@ -13447,7 +13411,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.7
+      width: 1.5
       color: 16777215
       dashdot {
         dd: 2.7
@@ -13564,7 +13528,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.7
+      width: 1.5
       color: 16777215
       dashdot {
         dd: 2.7
@@ -13681,7 +13645,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.7
+      width: 1.5
       color: 16777215
       dashdot {
         dd: 2.7
@@ -13798,7 +13762,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.7
+      width: 1.5
       color: 16777215
       dashdot {
         dd: 2.7
@@ -13900,22 +13864,9 @@ cont {
 cont {
   name: "highway-footway-permissive"
   element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 16777215
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 1310
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 15
     lines {
-      width: 1.7
+      width: 1.5
       color: 16777215
       dashdot {
         dd: 2.7
@@ -14017,22 +13968,9 @@ cont {
 cont {
   name: "highway-footway-tunnel"
   element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 16777215
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 1310
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 15
     lines {
-      width: 1.7
+      width: 1.5
       color: 16777215
       dashdot {
         dd: 2.7
