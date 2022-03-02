@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>app.organicmaps.desktop</id>
+
+  <name>Organic Maps</name>
+  <summary>A free offline maps app for travelers, tourists, hikers, and cyclists based on top of crowd-sourced OpenStreetMap data and curated with love by MapsWithMe (Maps.Me) founders</summary>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Apache-2.0</project_license>
+
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+
+  <description>
+    <p># Organic Maps</p>
+    <p>
+      Organic Maps is a free Android &amp; iOS offline maps app for travelers,
+      tourists, hikers, and cyclists.
+      It uses crowd-sourced OpenStreetMap data and is developed with love by
+      <em>MapsWithMe</em> (<em>MapsMe</em>) founders and our community.
+      No ads, no tracking, no data collection, no crapware.
+      Your donations and positive reviews motivate and inspire us, thanks ❤️!
+    </p>
+    <p>## Features</p>
+    <p>
+      Organic Maps is the ultimate companion app for travelers, tourists,
+      hikers, and cyclists:
+      <ul>
+        <li>
+          Detailed offline maps with places that don&apos;t exist on other maps,
+          thanks to OpenStreetMap
+        </li>
+        <li>Cycling routes, hiking trails, and walking paths</li>
+        <li>Contour lines, elevation profiles, peaks, and slopes</li>
+        <li>Turn-by-turn walking, cycling, and car navigation with voice guidance</li>
+        <li>Fast offline search on the map</li>
+        <li>Bookmarks export and import in KML/KMZ formats (GPX is planned)</li>
+        <li>Dark Mode to protect your eyes</li>
+        <li>Countries and regions don&apos;t take a lot of space</li>
+        <li>Free and open-source</li>
+      </ul>
+    </p>
+    <p>## Why Organic?</p>
+    <p>
+      Organic Maps is pure and organic, made with love:
+      <ul>
+        <li>Respects your privacy</li>
+        <li>Saves your battery</li>
+        <li>No unexpected mobile data charges</li>
+      </ul>
+    </p>
+    <p>
+      Organic Maps app is free from trackers and other bad stuff:
+      <ul>
+        <li>No ads</li>
+        <li>No tracking</li>
+        <li>No data collection</li>
+        <li>No phoning home</li>
+        <li>No annoying registration</li>
+        <li>No mandatory tutorials</li>
+        <li>No noisy email spam</li>
+        <li>No push notifications</li>
+        <li>No crapware</li>
+        <li><del>No pesticides</del> Purely organic!</li>
+      </ul>
+    </p>
+    <p>The application is verified by Exodus Privacy Project.</p>
+    <p>
+      Organic Maps doesn&apos;t request excessive permissions to spy on you.
+    </p>
+    <p>
+      At Organic Maps, we believe that privacy is a fundamental human right:
+      <ul>
+        <li>Organic Maps is an indie community-driven open-source project</li>
+        <li>We protect your privacy from Big Tech&apos;s prying eyes</li>
+        <li>Stay safe no matter wherever you are</li>
+      </ul>
+    </p>
+    <p>Reject surveillance - embrace your freedom.</p>
+    <p><em>Give Organic Maps a try!</em></p>
+    <p>## Who is paying for the free app?</p>
+    <p>The app is free for everyone. Please donate to support us!</p>
+  </description>
+
+  <url type="homepage">https://organicmaps.app</url>
+  <url type="bugtracker">https://github.com/organicmaps/organicmaps/issues</url>
+  <url type="donation">https://organicmaps.app/donate</url>
+  <url type="translate">https://github.com/organicmaps/organicmaps/blob/master/docs/TRANSLATIONS.md</url>
+  <url type="contact">https://github.com/organicmaps/organicmaps#feedback=</url>
+
+  <launchable type="desktop-id">OrganicMaps.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://organicmaps.app/images/screenshots/hiking.jpg</image>
+    </screenshot>
+    <screenshot>
+      <image>https://organicmaps.app/images/screenshots/prague.jpg</image>
+    </screenshot>
+    <screenshot>
+      <image>https://organicmaps.app/images/screenshots/dark.jpg</image>
+    </screenshot>
+  </screenshots>
+</component>
