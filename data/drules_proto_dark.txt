@@ -23790,13 +23790,26 @@ cont {
 cont {
   name: "highway-steps"
   element {
-    scale: 16
+    scale: 15
     lines {
-      width: 5.0
+      width: 2.2
       color: 2828327
       dashdot {
         dd: 1.5
         dd: 1.5
+      }
+      priority: 1475
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 4.0
+      color: 2828327
+      dashdot {
+        dd: 1.8
+        dd: 1.8
       }
       priority: 1475
     }
@@ -23812,11 +23825,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 7.0
+      width: 6.0
       color: 2828327
       dashdot {
-        dd: 2.3
-        dd: 2.3
+        dd: 2.5
+        dd: 2.5
       }
       priority: 1475
     }
@@ -23832,7 +23845,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 9.0
+      width: 8.0
       color: 2828327
       dashdot {
         dd: 3.2
@@ -23852,7 +23865,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 11.0
+      width: 10.0
       color: 2828327
       dashdot {
         dd: 4.0
@@ -23873,13 +23886,26 @@ cont {
 cont {
   name: "highway-steps-bridge"
   element {
-    scale: 16
+    scale: 15
     lines {
-      width: 5.0
+      width: 2.2
       color: 2828327
       dashdot {
         dd: 1.5
         dd: 1.5
+      }
+      priority: 1475
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 4.0
+      color: 2828327
+      dashdot {
+        dd: 1.8
+        dd: 1.8
       }
       priority: 1475
     }
@@ -23895,11 +23921,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 7.0
+      width: 6.0
       color: 2828327
       dashdot {
-        dd: 2.3
-        dd: 2.3
+        dd: 2.5
+        dd: 2.5
       }
       priority: 1475
     }
@@ -23915,7 +23941,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 9.0
+      width: 8.0
       color: 2828327
       dashdot {
         dd: 3.2
@@ -23935,7 +23961,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 11.0
+      width: 10.0
       color: 2828327
       dashdot {
         dd: 4.0
@@ -23956,13 +23982,26 @@ cont {
 cont {
   name: "highway-steps-tunnel"
   element {
-    scale: 16
+    scale: 15
     lines {
-      width: 5.0
+      width: 2.2
       color: 2828327
       dashdot {
         dd: 1.5
         dd: 1.5
+      }
+      priority: 1475
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 4.0
+      color: 2828327
+      dashdot {
+        dd: 1.8
+        dd: 1.8
       }
       priority: 1475
     }
@@ -23978,11 +24017,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 7.0
+      width: 6.0
       color: 2828327
       dashdot {
-        dd: 2.3
-        dd: 2.3
+        dd: 2.5
+        dd: 2.5
       }
       priority: 1475
     }
@@ -23998,7 +24037,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 9.0
+      width: 8.0
       color: 2828327
       dashdot {
         dd: 3.2
@@ -24018,7 +24057,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 11.0
+      width: 10.0
       color: 2828327
       dashdot {
         dd: 4.0
