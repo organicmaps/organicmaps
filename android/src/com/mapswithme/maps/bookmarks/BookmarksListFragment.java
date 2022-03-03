@@ -249,7 +249,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void configureFab(@NonNull View view)
   {
-    mFabViewOnMap = view.findViewById(R.id.fabViewOnMap);
+    mFabViewOnMap = view.findViewById(R.id.show_on_map_fab);
     mFabViewOnMap.setOnClickListener(v ->
     {
       final Intent i = makeMwmActivityIntent();
@@ -802,7 +802,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private void updateLoadingPlaceholder(@NonNull View root, boolean isShowLoadingPlaceholder)
   {
     View loadingPlaceholder = root.findViewById(R.id.placeholder_loading);
-    UiUtils.showIf(!isShowLoadingPlaceholder, root, R.id.fabViewOnMap);
+    UiUtils.showIf(!isShowLoadingPlaceholder, root, R.id.show_on_map_fab);
     UiUtils.showIf(isShowLoadingPlaceholder, loadingPlaceholder);
   }
 }

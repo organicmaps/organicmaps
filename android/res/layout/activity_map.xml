@@ -34,6 +34,7 @@
     layout="@layout/toolbar_with_search"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
     android:visibility="gone"
     tools:visibility="visible" />
 
@@ -67,11 +68,6 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"/>
 
-  <include
-    layout="@layout/search_filter_panel"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/height_block_base"
-    android:layout_alignParentBottom="true"/>
 </RelativeLayout>
   <com.mapswithme.maps.widget.placepage.PlacePageView
     android:id="@+id/placepage"
@@ -97,13 +93,4 @@
   </FrameLayout>
   <include layout="@layout/elevation_profile_bottom_sheet" />
   <include layout="@layout/main_menu_bottom_sheet" />
-  <androidx.appcompat.widget.Toolbar
-    android:id="@+id/bookmark_category_toolbar"
-    style="@style/MwmWidget.ToolbarStyle"
-    android:layout_width="match_parent"
-    android:layout_height="?actionBarSize"
-    android:elevation="0dp"
-    android:theme="@style/MwmWidget.ToolbarTheme"
-    android:visibility="gone"
-    tools:visibility="visible" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

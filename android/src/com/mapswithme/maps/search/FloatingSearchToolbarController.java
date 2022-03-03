@@ -39,10 +39,8 @@ public class FloatingSearchToolbarController extends SearchToolbarController
   @Override
   protected void onQueryClick(@Nullable String query)
   {
-    super.onQueryClick(query);
     if (mListener != null)
       mListener.onSearchQueryClick(getQuery());
-    hide();
   }
 
   @Override
@@ -101,6 +99,11 @@ public class FloatingSearchToolbarController extends SearchToolbarController
     mVisibilityListener = visibilityListener;
   }
 
+  @Override
+  protected boolean useExtendedToolbar()
+  {
+    return false;
+  }
 
   public interface SearchToolbarListener
   {

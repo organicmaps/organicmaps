@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +37,6 @@ import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.NoConnectionListener;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -79,7 +77,6 @@ import com.mapswithme.maps.routing.RoutingPlanInplaceController;
 import com.mapswithme.maps.search.FloatingSearchToolbarController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
-import com.mapswithme.maps.search.SearchFilterController;
 import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.settings.DrivingOptionsActivity;
 import com.mapswithme.maps.settings.RoadType;
@@ -197,8 +194,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NullableProblems")
   @NonNull
   private MapLayerCompositeController mToggleMapLayerController;
-  @Nullable
-  private SearchFilterController mFilterController;
 
   private boolean mIsTabletLayout;
   private boolean mIsFullscreen;
@@ -224,9 +219,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NullableProblems")
   @NonNull
   private MenuController mMainMenuController;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private Toolbar mBookmarkCategoryToolbar;
+
 
   public interface LeftAnimationTrackListener
   {
@@ -324,14 +317,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void showBookmarks()
   {
     BookmarkCategoriesActivity.start(this);
-  }
-
-  private void showTabletSearch(@Nullable Intent data, @NonNull String query)
-  {
-    if (mFilterController == null || data == null)
-      return;
-
-    showSearch(query);
   }
 
   public void showSearch(String query)
@@ -440,11 +425,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                      .addOnGlobalLayoutListener(new ToolbarLayoutChangeListener());
     mSearchController.setVisibilityListener(this);
 
-    mBookmarkCategoryToolbar = findViewById(R.id.bookmark_category_toolbar);
-    mBookmarkCategoryToolbar.inflateMenu(R.menu.menu_bookmark_catalog);
-    mBookmarkCategoryToolbar.setOnMenuItemClickListener(this::onBookmarkToolbarMenuClicked);
-    UiUtils.extendViewWithStatusBar(mBookmarkCategoryToolbar);
-
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
 
@@ -461,16 +441,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       addTask(new Factory.RestoreRouteTask());
       return;
     }
-  }
-
-  private boolean onBookmarkToolbarMenuClicked(@NonNull MenuItem item)
-  {
-    if (item.getItemId() == R.id.close)
-    {
-      closeBookmarkCategoryToolbar();
-      return true;
-    }
-    return false;
   }
 
   @Override
@@ -500,24 +470,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initMainMenu();
     initOnmapDownloader();
     initPositionChooser();
-    initFilterViews();
-  }
-
-  private void initFilterViews()
-  {
-    View frame = findViewById(R.id.filter_frame);
-    if (frame != null)
-    {
-      mFilterController = new SearchFilterController(frame, new SearchFilterController
-          .DefaultFilterListener()
-      {
-        @Override
-        public void onShowOnMapClick()
-        {
-          showSearch(mSearchController.getQuery());
-        }
-      }, R.string.search_in_table);
-    }
   }
 
   private void initPositionChooser()
@@ -552,13 +504,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
       // Do not show the search tool bar if we are planning or navigating
       if (!RoutingController.get().isNavigating() && !RoutingController.get().isPlanning())
       {
-        mSearchController.show();
+        showSearchToolbar();
       }
     }
     else
     {
       closeSearchToolbar(true, true);
     }
+  }
+
+  private void showSearchToolbar()
+  {
+    mSearchController.show();
   }
 
   public void showPositionChooser(boolean isBusiness, boolean applyPosition)
@@ -749,19 +706,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  /**
-   * @return False if the bookmark category toolbar was already closed, true otherwise
-   */
-  private boolean closeBookmarkCategoryToolbar()
-  {
-    if (UiUtils.isVisible(mBookmarkCategoryToolbar))
-    {
-      hideBookmarkCategoryToolbar();
-      return true;
-    }
-    return false;
-  }
-
   private void closeFloatingToolbarsAndPanels(boolean clearSearchText)
   {
     closeFloatingPanels();
@@ -776,7 +720,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void closeFloatingToolbars(boolean clearSearchText, boolean stopSearch)
   {
-    closeBookmarkCategoryToolbar();
     closePositionChooser();
     closeSearchToolbar(clearSearchText, stopSearch);
   }
@@ -1137,7 +1080,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     RoutingController routingController = RoutingController.get();
     if (!closeMenu() && !closePlacePage() && !closeSearchToolbar(true, true) &&
-            !closeBookmarkCategoryToolbar() && !closeSidePanel() && !closePositionChooser() &&
+            !closeSidePanel() && !closePositionChooser() &&
             !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
     {
       try
@@ -1266,9 +1209,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (RoutingController.get().isNavigating()
         || RoutingController.get().isBuilding()
         || RoutingController.get().isPlanning())
-      return;
-
-    if (UiUtils.isVisible(mBookmarkCategoryToolbar))
       return;
 
     mIsFullscreen = isFullscreen;
@@ -1466,12 +1406,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return false;
     }
 
-    if (UiUtils.isVisible(mBookmarkCategoryToolbar))
-    {
-      showLineFrame(false);
-      return false;
-    }
-
     hideRoutingActionFrame();
     showLineFrame(true);
     return true;
@@ -1658,17 +1592,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavAnimationController == null)
       return;
 
-    adjustCompassAndTraffic(visible ? calcFloatingViewsOffset()
-                                    : UiUtils.getStatusBarHeight(getApplicationContext()));
-    int toolbarHeight = mSearchController.getToolbar().getHeight();
-    setNavButtonsTopLimit(visible ? toolbarHeight : 0);
-    if (mFilterController != null)
-    {
-      boolean show = visible && !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery())
-                     && !RoutingController.get().isNavigating();
-      mFilterController.show(show);
-      mMainMenu.show(!show);
-    }
+    boolean show = visible && !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery())
+                   && !RoutingController.get().isNavigating();
+    mMainMenu.show(!show);
   }
 
   private int calcFloatingViewsOffset()
@@ -1690,11 +1616,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     refreshFade();
     if (mOnmapDownloader != null)
       mOnmapDownloader.updateState(false);
-    if (show)
-    {
-      if (mFilterController != null)
-        mFilterController.show(false);
-    }
   }
 
   @Override
@@ -2021,6 +1942,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onSearchQueryClick(@Nullable String query)
   {
+    closeFloatingToolbarsAndPanels(true);
     showSearch(query);
   }
 
@@ -2069,7 +1991,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     Track track = BookmarkManager.INSTANCE.getTrack(trackId);
     Objects.requireNonNull(track);
-    setupBookmarkCategoryToolbar(track.getCategoryId());
     Framework.nativeShowTrackRect(trackId);
   }
 
@@ -2077,41 +1998,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
     Objects.requireNonNull(info);
-    setupBookmarkCategoryToolbar(info.getCategoryId());
     BookmarkManager.INSTANCE.showBookmarkOnMap(bookmarkId);
   }
 
   public void showBookmarkCategoryOnMap(long categoryId)
   {
-    setupBookmarkCategoryToolbar(categoryId);
     BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(categoryId);
-  }
-
-  private void setupBookmarkCategoryToolbar(long categoryId)
-  {
-    final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(categoryId);
-    mBookmarkCategoryToolbar.setTitle(category.getName());
-    UiUtils.setupNavigationIcon(mBookmarkCategoryToolbar, v -> {
-      BookmarkCategoriesActivity.start(MwmActivity.this, category);
-      closePlacePage();
-      closeBookmarkCategoryToolbar();
-    });
-
-    showBookmarkCategoryToolbar();
-  }
-
-  private void showBookmarkCategoryToolbar()
-  {
-    UiUtils.show(mBookmarkCategoryToolbar);
-    adjustCompassAndTraffic(mBookmarkCategoryToolbar.getHeight());
-    adjustMenuLineFrameVisibility();
-  }
-
-  private void hideBookmarkCategoryToolbar()
-  {
-    UiUtils.hide(mBookmarkCategoryToolbar);
-    adjustCompassAndTraffic(UiUtils.getStatusBarHeight(MwmActivity.this));
-    adjustMenuLineFrameVisibility();
   }
 
   private class CurrentPositionClickListener implements OnClickListener
