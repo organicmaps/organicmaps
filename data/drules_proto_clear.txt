@@ -4542,11 +4542,11 @@ cont {
     scale: 14
     area {
       color: 16308697
-      priority: -15127
+      priority: -15981
     }
     symbol {
       name: "hospital-s"
-      priority: 16873
+      priority: 16019
       min_distance: 8
     }
   }
@@ -4554,12 +4554,12 @@ cont {
     scale: 15
     area {
       color: 16308697
-      priority: -15127
+      priority: -15981
     }
     symbol {
       name: "hospital-m"
       apply_for_type: 1
-      priority: 16873
+      priority: 16019
       min_distance: 6
     }
     caption {
@@ -4568,19 +4568,19 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15873
+      priority: 16000
     }
   }
   element {
     scale: 16
     area {
       color: 16308697
-      priority: -15127
+      priority: -15981
     }
     symbol {
       name: "hospital-m"
       apply_for_type: 1
-      priority: 16873
+      priority: 16019
       min_distance: 4
     }
     caption {
@@ -4590,19 +4590,19 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15873
+      priority: 16000
     }
   }
   element {
     scale: 17
     area {
       color: 16308697
-      priority: -15127
+      priority: -15981
     }
     symbol {
       name: "hospital-m"
       apply_for_type: 1
-      priority: 16873
+      priority: 16019
       min_distance: 4
     }
     caption {
@@ -4612,19 +4612,19 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15873
+      priority: 16000
     }
   }
   element {
     scale: 18
     area {
       color: 16308697
-      priority: -15127
+      priority: -15981
     }
     symbol {
       name: "hospital-m"
       apply_for_type: 1
-      priority: 16873
+      priority: 16019
       min_distance: 4
     }
     caption {
@@ -4634,19 +4634,19 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15873
+      priority: 16000
     }
   }
   element {
     scale: 19
     area {
       color: 16308697
-      priority: -15127
+      priority: -15981
     }
     symbol {
       name: "hospital-m"
       apply_for_type: 1
-      priority: 16873
+      priority: 16019
       min_distance: 4
     }
     caption {
@@ -4656,7 +4656,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15873
+      priority: 16000
     }
   }
 }

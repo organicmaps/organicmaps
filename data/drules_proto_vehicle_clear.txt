@@ -1375,7 +1375,7 @@ cont {
     symbol {
       name: "hospital-m"
       apply_for_type: 1
-      priority: 16847
+      priority: 16000
       min_distance: 10
     }
     caption {
@@ -1384,7 +1384,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15847
+      priority: 16000
     }
   }
   element {
@@ -1392,7 +1392,7 @@ cont {
     symbol {
       name: "hospital-m"
       apply_for_type: 1
-      priority: 16847
+      priority: 16000
       min_distance: 8
     }
     caption {
@@ -1401,7 +1401,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15847
+      priority: 16000
     }
   }
   element {
@@ -1409,7 +1409,7 @@ cont {
     symbol {
       name: "hospital-m"
       apply_for_type: 1
-      priority: 16847
+      priority: 16000
       min_distance: 14
     }
     caption {
@@ -1418,7 +1418,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15847
+      priority: 16000
     }
   }
   element {
@@ -1426,7 +1426,7 @@ cont {
     symbol {
       name: "hospital-m"
       apply_for_type: 1
-      priority: 16847
+      priority: 16000
     }
     caption {
       primary {
@@ -1434,7 +1434,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15847
+      priority: 16000
     }
   }
   element {
@@ -1442,7 +1442,7 @@ cont {
     symbol {
       name: "hospital-m"
       apply_for_type: 1
-      priority: 16847
+      priority: 16000
     }
     caption {
       primary {
@@ -1450,7 +1450,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15847
+      priority: 16000
     }
   }
 }
