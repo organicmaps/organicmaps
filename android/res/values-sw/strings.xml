@@ -30,6 +30,8 @@
 	<string name="faq">Maswali na majibu</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Jinsi ya kutuunga mkono?</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Huduma za Google Play</string>
 	<!-- deep purple color -->
 	<string name="deep_purple">Zambarau Iliyoiva</string>
 	<!-- light blue color -->

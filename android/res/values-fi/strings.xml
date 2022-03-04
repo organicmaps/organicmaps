@@ -249,6 +249,8 @@
 	<string name="downloader_delete_map">Poista kartta</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Päivitä kartta</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play Palvelut</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Käytä Google Play -palveluita sijaintisi selvittämiseksi</string>
 	<!-- Text for routing error dialog -->

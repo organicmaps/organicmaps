@@ -245,6 +245,8 @@
 	<string name="downloader_delete_map">حذف الخريطة</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">تحديث الخريطة</string>
+	<!-- Preference title -->
+	<string name="google_play_services">خدمات Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">استخدم خدمات جوجل بلاي لتتعرف على موقعك الحالي</string>
 	<!-- Text for routing error dialog -->

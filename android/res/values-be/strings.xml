@@ -253,6 +253,8 @@
 	<string name="downloader_delete_map">Выдаліць мапу</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Абнавіць мапу</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Сэрвісы Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Ужываць службы Google Play для вызначэння месцазнаходжання</string>
 	<!-- Text for routing error dialog -->

@@ -241,6 +241,8 @@
 	<string name="downloader_delete_map">Radera karta</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Uppdatera karta</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play-tjänster</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Använd Google Play Services för att bestämma din aktuella position</string>
 	<!-- Text for routing error dialog -->

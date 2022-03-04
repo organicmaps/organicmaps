@@ -248,6 +248,8 @@
 	<string name="downloader_delete_map">Șterge harta</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Actualizează harta</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Servicii Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Folosește serviciile Google Play, pentru a obține poziția actuală</string>
 	<!-- Text for routing error dialog -->

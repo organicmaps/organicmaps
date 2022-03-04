@@ -248,6 +248,8 @@
 	<string name="downloader_delete_map">Eliminar mapa</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Atualizar mapa</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Serviços do Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Use os Serviços Google Play para determinar a sua localização atual</string>
 	<!-- Text for routing error dialog -->

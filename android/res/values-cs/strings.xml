@@ -243,6 +243,8 @@
 	<string name="downloader_delete_map">Smazat mapu</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Aktualizovat mapu</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Služby Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Používat Služby Google Play pro získání aktuální polohy</string>
 	<!-- Text for routing error dialog -->

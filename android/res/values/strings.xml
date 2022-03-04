@@ -271,6 +271,8 @@
 	<string name="downloader_delete_map">Delete Map</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Update Map</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play Services</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Use Google Play Services to determine your current location</string>
 	<!-- Text for routing error dialog -->

@@ -243,6 +243,8 @@
 	<string name="downloader_delete_map">Xóa Bản đồ</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Cập nhật Bản đồ</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Dịch vụ Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Sử dụng Dịch vụ Google Play để có được vị trí hiện tại của bạn</string>
 	<!-- Text for routing error dialog -->
