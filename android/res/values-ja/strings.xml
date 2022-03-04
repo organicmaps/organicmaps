@@ -241,6 +241,8 @@
 	<string name="downloader_delete_map">地図を削除</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">地図を更新</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play 開発者サービス</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">現在のロケーションを取得するためにGoogle Playのサービスを使う</string>
 	<!-- Text for routing error dialog -->

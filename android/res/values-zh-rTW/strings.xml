@@ -254,6 +254,8 @@
 	<string name="downloader_delete_map">刪除地圖</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">更新地圖</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play 服務</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">使用 Google Play 服務來獲得您的目前位置</string>
 	<!-- Text for routing error dialog -->

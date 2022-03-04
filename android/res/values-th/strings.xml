@@ -245,6 +245,8 @@
 	<string name="downloader_delete_map">ลบแผนที่</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">อัปเดตแผนที่</string>
+	<!-- Preference title -->
+	<string name="google_play_services">บริการของ Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ</string>
 	<!-- Text for routing error dialog -->

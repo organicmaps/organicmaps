@@ -244,6 +244,8 @@
 	<string name="downloader_delete_map">Διαγραφή χάρτη</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Ενημέρωση χάρτη</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Υπηρεσίες Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Χρησιμοποιήστε υπηρεσίες Google Play για να προσδιορίσετε την τρέχουσα τοποθεσία σας</string>
 	<!-- Text for routing error dialog -->

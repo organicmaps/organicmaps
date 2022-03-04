@@ -248,6 +248,8 @@
 	<string name="downloader_delete_map">Видалити мапу</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Оновити мапу</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Сервіси Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Щоб визначити ваше поточне місцезнаходження, використовуйте сервіси Google Play</string>
 	<!-- Text for routing error dialog -->

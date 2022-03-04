@@ -157,7 +157,7 @@
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hey, Organic Maps’te geçerli konumumu incele!</string>
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Merhaba,\n\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için bu %2$s veya şu %3$s bağlantıya tıkla.\n\nTeşekkürler.</string>
+	<string name="my_position_share_email">Merhaba,\n\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için %2$s veya %3$s bağlantısına tıkla.\n\nTeşekkürler.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Paylaş</string>
 	<!-- Share by email button text, also used in editor and About. -->
@@ -252,6 +252,8 @@
 	<string name="downloader_delete_map">Haritayı Sil</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Haritayı Güncelle</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play Hizmetleri</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Mevcut konumunuzu belirlemek için Google Play Hizmetlerini kullanın</string>
 	<!-- Text for routing error dialog -->
@@ -298,7 +300,7 @@
 	<!-- blue gray color -->
 	<string name="blue_gray">Mavi Gri</string>
 	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Evet</string>
+	<string name="WiFi_available">Var</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Rotanızı takip ederken şunları lütfen unutmayın:</string>
@@ -564,7 +566,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d kayıt</item>
 	</plurals>
-	<string name="subtittle_opt_out">Kayıt ayarları</string>
+	<string name="subtittle_opt_out">Takip ayarları</string>
 	<string name="crash_reports">Çökme raporu</string>
 	<string name="crash_reports_description">Organic Maps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.</string>
 	<string name="privacy_policy">Gizlilik politikası</string>
