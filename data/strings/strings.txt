@@ -3443,7 +3443,7 @@
     comment = Data version in «About» screen, %@ is replaced by a local, human readable date.
     tags = android,ios
     en = OpenStreetMap data: %@
-    ar = OpenStreetMap: %@ ﺕﺎﻧﺎﻴﺑ
+    ar = OpenStreetMap بيانات %@
     be = Дадзеныя OpenStreetMap: %@
     bg = Данни на OpenStreetMap: %@
     cs = Data OpenStreetMap: %@
@@ -4722,7 +4722,7 @@
     comment = Button in the main Help dialog
     tags = android,ios
     en = Frequently Asked Questions
-    ar = ﺔﺑﻮﺟﺃﻭ ﺔﻠﺌﺳﺃ
+    ar = اسئلة واجوبة
     be = Пытанні і адказы
     bg = Въпроси и отговори
     cs = Otázky a odpovědi
