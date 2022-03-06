@@ -194,7 +194,7 @@
 "version" = "الاصدار: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap: %@ ﺕﺎﻧﺎﻴﺑ";
+"data_version" = "OpenStreetMap بيانات %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "المسارات";
@@ -292,7 +292,7 @@
 "help" = "مساعدة";
 
 /* Button in the main Help dialog */
-"faq" = "ﺔﺑﻮﺟﺃﻭ ﺔﻠﺌﺳﺃ";
+"faq" = "اسئلة واجوبة";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "كيف تدعم لنا؟";
