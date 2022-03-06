@@ -166,7 +166,7 @@
 	<!-- Prints version number in About dialog -->
 	<string name="version">الاصدار: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
-	<string name="data_version">OpenStreetMap: %s ﺕﺎﻧﺎﻴﺑ</string>
+	<string name="data_version">OpenStreetMap بيانات %s</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">هل أنت واثق أنك تريد الاستمرار؟</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -212,7 +212,7 @@
 	<!-- Text in menu -->
 	<string name="help">مساعدة</string>
 	<!-- Button in the main Help dialog -->
-	<string name="faq">ﺔﺑﻮﺟﺃﻭ ﺔﻠﺌﺳﺃ</string>
+	<string name="faq">اسئلة واجوبة</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">كيف تدعم لنا؟</string>
 	<!-- Button in the main Help dialog -->
