@@ -27,7 +27,7 @@
 	<string name="later">Senere</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Søg</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Søg kort</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.</string>
@@ -448,6 +448,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/t</string>
 	<string name="mile">mil</string>
+	<!-- A unit of measure -->
 	<string name="foot">fod</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">time</string>
@@ -546,6 +547,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d ruter</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Tracking-indstillinger</string>
 	<string name="crash_reports">Nedbrudsrapport</string>
 	<string name="crash_reports_description">Vi kan anvende dine data til at forbedre brugeroplevelsen på Organic Maps. Ændringerne træder i kraft, når du har genstartet appen.</string>

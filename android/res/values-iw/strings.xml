@@ -25,7 +25,7 @@
 	<string name="core_my_position">מיקומי</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">מאוחר יותר</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">חפש במפה</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">שרותי המיקום של מכשיר או ישום זה זה כבויים. הכנס ל \"הגדרות\" Settings)) כדי להדליקם.</string>

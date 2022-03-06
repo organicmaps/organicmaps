@@ -29,7 +29,7 @@
 	<string name="later">Nanti</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Cari</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Cari Peta</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.</string>
@@ -361,7 +361,7 @@
 	<string name="editor_example_values">Contoh Nilai</string>
 	<string name="editor_correct_mistake">Koreksi kesalahan</string>
 	<string name="editor_add_select_location">Lokasi</string>
-	<string name="editor_report_problem_desription_1">Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.</string>
+	<string name="editor_report_problem_desription_1">Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreetMap dapat memperbaiki kesalahan.</string>
 	<string name="editor_report_problem_desription_2">Atau Anda bisa melakukan sendiri di https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Kirim</string>
 	<string name="editor_report_problem_title">Masalah</string>
@@ -446,6 +446,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/j</string>
 	<string name="mile">mil</string>
+	<!-- A unit of measure -->
 	<string name="foot">kaki</string>
 	<string name="miles_per_hour">mpj</string>
 	<string name="hour">j</string>
@@ -544,6 +545,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">trek %d</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Pengaturan treking</string>
 	<string name="crash_reports">Laporan tabrakan</string>
 	<string name="crash_reports_description">Kami dapat menggunakan data Anda untuk meningkatkan pengalaman Organic Maps. Perubahan akan berlaku setelah Anda memulai ulang aplikasi.</string>

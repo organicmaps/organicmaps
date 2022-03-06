@@ -743,6 +743,7 @@
 
 "mile" = "مایل";
 
+/* A unit of measure */
 "foot" = "فوت";
 
 "miles_per_hour" = "مایل بر ساعت (mph)";

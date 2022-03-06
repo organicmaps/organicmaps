@@ -743,6 +743,7 @@
 
 "mile" = "英里";
 
+/* A unit of measure */
 "foot" = "英尺";
 
 "miles_per_hour" = "英里每小时";

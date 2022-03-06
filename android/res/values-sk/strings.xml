@@ -27,7 +27,7 @@
 	<string name="later">Neskôr</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Hľadať</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Prehľadať mapu</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Aktuálne máte všetky možnosti pre určovanie polohy vypnuté. Prosím, povoľte ich v Nastaveniach.</string>
@@ -444,6 +444,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
+	<!-- A unit of measure -->
 	<string name="foot">stopa</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">hod</string>
@@ -543,6 +544,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d sledovania</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Nastavenie sledovania</string>
 	<string name="crash_reports">Hlásenie chýb</string>
 	<string name="crash_reports_description">Vaše údaje môžeme použiť na zlepšenie skúseností s programom Organic Maps. Zmeny sa prejavia po reštartovaní aplikácie.</string>

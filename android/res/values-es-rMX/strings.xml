@@ -79,6 +79,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d rastreos</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Configuraciones de rastreo</string>
 	<string name="crash_reports">Reporte de fallas</string>
 	<string name="crash_reports_description">Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios surtirán efecto después de que reinicie la aplicación.</string>

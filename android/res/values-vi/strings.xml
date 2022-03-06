@@ -27,7 +27,7 @@
 	<string name="later">Để sau</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Tìm kiếm</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Tìm kiếm Bản đồ</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Bạn hiện đang tắt tất cả Dịch vụ Định vị cho thiết bị hoặc ứng dụng này. Bạn vui lòng bật lại chúng trong Thiết lập.</string>
@@ -54,7 +54,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Tiếp tục</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
-	<string name="download_country_failed">%s - descărcarea a eșuat</string>
+	<string name="download_country_failed">%s</string>
 	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Thêm Bộ Mới</string>
 	<!-- Bookmark Color dialog title -->
@@ -361,7 +361,7 @@
 	<string name="editor_example_values">Giá trị ví dụ</string>
 	<string name="editor_correct_mistake">Sửa lỗi</string>
 	<string name="editor_add_select_location">Vị trí</string>
-	<string name="editor_report_problem_desription_1">Xin mô tả chi tiết vấn đề để cộng đồng OpenStreeMap có thể sửa lỗi đó.</string>
+	<string name="editor_report_problem_desription_1">Xin mô tả chi tiết vấn đề để cộng đồng OpenStreetMap có thể sửa lỗi đó.</string>
 	<string name="editor_report_problem_desription_2">Hoặc bạn có thể tự sửa tại https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Gửi</string>
 	<string name="editor_report_problem_title">Vấn đề</string>
@@ -446,6 +446,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/giờ</string>
 	<string name="mile">dặm</string>
+	<!-- A unit of measure -->
 	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">giờ</string>
@@ -544,6 +545,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d các chặn đường</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Thiết lập theo dõi</string>
 	<string name="crash_reports">Báo cáo sự cố</string>
 	<string name="crash_reports_description">Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên Organic Maps. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.</string>

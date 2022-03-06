@@ -30,7 +30,7 @@
 	<string name="later">بعداً</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">جست‌وجو</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">جست‌وجوی نقشه</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">سرویس موقعیت مکانی شما غیر فعال است .لطفا جهت کارکرد صحیح نرم افزار ان را فعال کنید.</string>
@@ -444,6 +444,7 @@
 	<string name="kilometer">کیلومتر</string>
 	<string name="kilometers_per_hour">کیلومتربرساعت (km/h)</string>
 	<string name="mile">مایل</string>
+	<!-- A unit of measure -->
 	<string name="foot">فوت</string>
 	<string name="miles_per_hour">مایل بر ساعت (mph)</string>
 	<string name="hour">ساعت</string>
@@ -545,6 +546,7 @@
 	  <item quantity="one">%d رد</item>
 	  <item quantity="other">%d رد</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">تنظیمات ردیابی</string>
 	<string name="crash_reports">گزارش خرابی</string>
 	<string name="crash_reports_description">ما از داده‌های شما برای بهبود Organic Maps استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.</string>

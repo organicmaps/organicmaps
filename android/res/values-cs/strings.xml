@@ -27,7 +27,7 @@
 	<string name="later">Později</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Hledat</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Prohledat mapu</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.</string>
@@ -361,7 +361,7 @@
 	<string name="editor_example_values">Vzorové hodnoty</string>
 	<string name="editor_correct_mistake">Opravit chybu</string>
 	<string name="editor_add_select_location">Umístění</string>
-	<string name="editor_report_problem_desription_1">Popište prosím detailně problém, aby vám komunita OpenStreeMap mohla pomoct opravit chybu.</string>
+	<string name="editor_report_problem_desription_1">Popište prosím detailně problém, aby vám komunita OpenStreetMap mohla pomoct opravit chybu.</string>
 	<string name="editor_report_problem_desription_2">Nebo to udělejte sami na https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Odeslat</string>
 	<string name="editor_report_problem_title">Problém</string>
@@ -448,6 +448,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mil</string>
+	<!-- A unit of measure -->
 	<string name="foot">stopa</string>
 	<string name="miles_per_hour">mil/h</string>
 	<string name="hour">hod</string>
@@ -547,6 +548,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d cest</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Natavení doprovodu</string>
 	<string name="crash_reports">Zprávy o chybách</string>
 	<string name="crash_reports_description">Můžeme používat vaše údaje pro vývoj a zlepšení Organic Maps. Změny se projeví po restartování aplikace.</string>

@@ -30,7 +30,7 @@
 	<string name="later">Не зараз</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Пошук</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Пошук на мапі</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.</string>
@@ -455,6 +455,7 @@
 	<string name="kilometer">км</string>
 	<string name="kilometers_per_hour">км/год</string>
 	<string name="mile">ми</string>
+	<!-- A unit of measure -->
 	<string name="foot">фут</string>
 	<string name="miles_per_hour">ми/год</string>
 	<string name="hour">год</string>
@@ -561,6 +562,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d треків</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Налаштування супроводу</string>
 	<string name="crash_reports">Звіти про помилки</string>
 	<string name="crash_reports_description">Ми можемо використовувати ваші дані, щоб розвивати та покращувати Organic Maps. Зміни вступлять у силу після перезапуску програми</string>

@@ -743,6 +743,7 @@
 
 "mile" = "міля";
 
+/* A unit of measure */
 "foot" = "фут";
 
 "miles_per_hour" = "міль/г";

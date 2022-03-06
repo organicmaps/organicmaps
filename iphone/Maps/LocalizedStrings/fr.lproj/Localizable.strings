@@ -743,7 +743,8 @@
 
 "mile" = "mi";
 
-"foot" = "pied";
+/* A unit of measure */
+"foot" = "ft";
 
 "miles_per_hour" = "mph";
 

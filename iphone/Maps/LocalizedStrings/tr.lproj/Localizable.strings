@@ -743,6 +743,7 @@
 
 "mile" = "mil";
 
+/* A unit of measure */
 "foot" = "fit";
 
 "miles_per_hour" = "saatte mil";
