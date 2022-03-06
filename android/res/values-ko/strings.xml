@@ -27,7 +27,7 @@
 	<string name="later">후</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">검색하기</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">지도 검색하기</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">현재 이 장치나 애플리케이션을 위한 전 위치 서비스를 불능시키셨습니다. 설정에서 이를 작동시켜 주시기 바랍니다.</string>
@@ -361,7 +361,7 @@
 	<string name="editor_example_values">예제</string>
 	<string name="editor_correct_mistake">입력 수정</string>
 	<string name="editor_add_select_location">위치</string>
-	<string name="editor_report_problem_desription_1">OpenStreeMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.</string>
+	<string name="editor_report_problem_desription_1">OpenStreetMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.</string>
 	<string name="editor_report_problem_desription_2">아니면, 다음에서 스스로 가능: https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">전송</string>
 	<string name="editor_report_problem_title">문제</string>
@@ -446,6 +446,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/시</string>
 	<string name="mile">mi</string>
+	<!-- A unit of measure -->
 	<string name="foot">풋</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">t</string>
@@ -543,6 +544,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d 추적</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">추적 설정</string>
 	<string name="crash_reports">오류 보고서</string>
 	<string name="crash_reports_description">당사는 Organic Maps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.</string>

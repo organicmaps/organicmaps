@@ -27,7 +27,7 @@
 	<string name="later">Később</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Keresés</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Keresés a térképen</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Ezen az eszközön jelenleg minden helyzetmeghatározó szolgáltatás ki van kapcsolva. Kérjük kapcsolja be ezeket a Beállítások között.</string>
@@ -361,7 +361,7 @@
 	<string name="editor_example_values">Példa értékek</string>
 	<string name="editor_correct_mistake">Hiba javítása</string>
 	<string name="editor_add_select_location">Elhelyezkedés</string>
-	<string name="editor_report_problem_desription_1">Kérjük, írd le részletesen a problémát, hogy az OpenStreeMap csapata kijavíthassa.</string>
+	<string name="editor_report_problem_desription_1">Kérjük, írd le részletesen a problémát, hogy az OpenStreetMap csapata kijavíthassa.</string>
 	<string name="editor_report_problem_desription_2">Vagy végezd el te magad a javítást itt: https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Küldés</string>
 	<string name="editor_report_problem_title">Probléma</string>
@@ -446,6 +446,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mf</string>
+	<!-- A unit of measure -->
 	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">ó</string>
@@ -544,6 +545,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d út</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Követési beállítások</string>
 	<string name="crash_reports">Hibajelentés</string>
 	<string name="crash_reports_description">A Organic Maps fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.</string>

@@ -2721,8 +2721,8 @@
     tags = android,ios
     en = RV Facilities
     be = Для аўтадамоў
-    ru = Для автодомов
     ro = Pentru rulote
+    ru = Для автодомов
     tr = Karavan tesisleri
     uk = Для автобудинків
 
@@ -9499,7 +9499,7 @@
     pl = Dziś nieczynne
     pt = Fechado hoje
     pt-BR = Fechado hoje
-    ro = Închis astăzi 
+    ro = Închis astăzi
     ru = Сегодня закрыто
     sk = Dnes deň voľna
     sv = Stängt idag
@@ -19108,7 +19108,7 @@
     pl = Brak możliwości zbudowania trasy od bieżącej lokalizacji
     pt = Não foi possível calcular o percurso a partir da localização atual
     pt-BR = Desativar rota demarcada pela sua localização atual
-    ro = Traseul de la locul în care te afli nu poate fi alcătuit 
+    ro = Traseul de la locul în care te afli nu poate fi alcătuit
     ru = Невозможно построить маршрут от текущего местоположения
     sk = Z vašej aktuálnej polohy nie je možné vytvoriť trasu
     sv = Det gick inte att bygga rutten från nuvarande plats

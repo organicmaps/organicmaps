@@ -743,6 +743,7 @@
 
 "mile" = "マイル";
 
+/* A unit of measure */
 "foot" = "フィート";
 
 "miles_per_hour" = "マイル毎時";

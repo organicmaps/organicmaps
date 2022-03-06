@@ -30,7 +30,7 @@
 	<string name="later">Later</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Search</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Search Map</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">You currently have all Location Services for this device or application disabled. Please enable them in Settings.</string>
@@ -391,7 +391,7 @@
 	<string name="editor_example_values">Example Values</string>
 	<string name="editor_correct_mistake">Correct mistake</string>
 	<string name="editor_add_select_location">Location</string>
-	<string name="editor_report_problem_desription_1">Please describe the problem in detail so that the OpenStreeMap community can fix the error.</string>
+	<string name="editor_report_problem_desription_1">Please describe the problem in detail so that the OpenStreetMap community can fix the error.</string>
 	<string name="editor_report_problem_desription_2">Or do it yourself at https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Send</string>
 	<string name="editor_report_problem_title">Issue</string>
@@ -479,6 +479,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
+	<!-- A unit of measure -->
 	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
@@ -589,6 +590,7 @@
 	  <item quantity="one">%d track</item>
 	  <item quantity="other">%d tracks</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Tracking settings</string>
 	<string name="crash_reports">Crash report</string>
 	<string name="crash_reports_description">We may use your data to improve Organic Maps experience. Changes will take effect after you restart the app.</string>

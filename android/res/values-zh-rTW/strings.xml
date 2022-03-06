@@ -27,7 +27,7 @@
 	<string name="later">稍後</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">搜尋</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">搜尋地圖</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">您目前裝置所有的定位服務或相關應用程式是處於停用的狀態，請從系統設定中選擇啟用。</string>
@@ -374,7 +374,7 @@
 	<string name="editor_example_values">範例值</string>
 	<string name="editor_correct_mistake">修正錯誤</string>
 	<string name="editor_add_select_location">位置</string>
-	<string name="editor_report_problem_desription_1">請詳細描述此問題以便 OpenStreeMap 社群修復此錯誤。</string>
+	<string name="editor_report_problem_desription_1">請詳細描述此問題以便 OpenStreetMap 社群修復此錯誤。</string>
 	<string name="editor_report_problem_desription_2">或者在 https://www.openstreetmap.org/ 上親自修復此錯誤</string>
 	<string name="editor_report_problem_send_button">發送</string>
 	<string name="editor_report_problem_title">問題</string>
@@ -389,7 +389,7 @@
 	<string name="day_off">沒有營業</string>
 	<string name="today">今天</string>
 	<string name="edit_opening_hours">編輯營業時間</string>
-	<string name="no_osm_account">沒有 OpenStreeMap 帳號嗎？</string>
+	<string name="no_osm_account">沒有 OpenStreetMap 帳號嗎？</string>
 	<string name="register_at_openstreetmap">註冊</string>
 	<string name="login">登入</string>
 	<string name="password">密碼</string>
@@ -460,6 +460,7 @@
 	<string name="kilometer">公里</string>
 	<string name="kilometers_per_hour">公里每小時</string>
 	<string name="mile">英哩</string>
+	<!-- A unit of measure -->
 	<string name="foot">英尺</string>
 	<string name="miles_per_hour">英哩每小時</string>
 	<string name="hour">小時</string>
@@ -563,6 +564,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d 軌跡</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">跟蹤設置</string>
 	<string name="crash_reports">錯誤報告</string>
 	<string name="crash_reports_description">我們可以使用您的數據來開發和改進Organic Maps。更改將再重新啟動 app 後生效。</string>

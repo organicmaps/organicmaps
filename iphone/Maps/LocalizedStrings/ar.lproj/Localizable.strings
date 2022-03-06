@@ -743,6 +743,7 @@
 
 "mile" = "ميل";
 
+/* A unit of measure */
 "foot" = "قدم";
 
 "miles_per_hour" = "ميل/ساعة";

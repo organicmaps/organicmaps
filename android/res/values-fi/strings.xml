@@ -29,7 +29,7 @@
 	<string name="later">Myöhemmin</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Haku</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Hae kartalta</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.</string>
@@ -452,6 +452,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
+	<!-- A unit of measure -->
 	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">t</string>
@@ -552,6 +553,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d radat</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Paikannusasetukset</string>
 	<string name="crash_reports">Kaatumisraportti</string>
 	<string name="crash_reports_description">Me saatamme käyttää tietojasi parantaaksemme Organic Maps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.</string>

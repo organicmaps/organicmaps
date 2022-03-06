@@ -29,7 +29,7 @@
 	<string name="later">Plus tard</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Recherche</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Rechercher sur la carte</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Tous les services de localisation de cet appareil sont désactivés, ou ils le sont pour cette application. Veuillez les activer dans les paramètres.</string>
@@ -370,7 +370,7 @@
 	<string name="editor_example_values">Exemple de valeurs</string>
 	<string name="editor_correct_mistake">Corriger l\'erreur</string>
 	<string name="editor_add_select_location">Emplacement</string>
-	<string name="editor_report_problem_desription_1">Veuillez décrire le problème en détail pour permettre à la communauté OpenStreeMap de réparer l\'erreur.</string>
+	<string name="editor_report_problem_desription_1">Veuillez décrire le problème en détail pour permettre à la communauté OpenStreetMap de réparer l\'erreur.</string>
 	<string name="editor_report_problem_desription_2">Ou faites-le vous-même sur https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Envoyer</string>
 	<string name="editor_report_problem_title">Problème</string>
@@ -456,7 +456,6 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
-	<string name="foot">pied</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
 	<string name="minute">min</string>
@@ -562,6 +561,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">pistes %d</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Paramètres de suivi</string>
 	<string name="crash_reports">Rapport d\'accident</string>
 	<string name="crash_reports_description">Nous pouvons utiliser vos données pour améliorer l\'expérience de Organic Maps. Les modifications prendront effet après le redémarrage de l\'application.</string>

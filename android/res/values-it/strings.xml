@@ -27,8 +27,8 @@
 	<string name="later">Più tardi</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Cerca</string>
-	<!-- Search box placeholder text -->
-	<string name="search_map">Cerca mappa</string>
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+	<string name="search_map">Cerca sulla mappa</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Attualmente tutti i servizi di localizzazione per questo dispositivo o applicazione sono disattivati. Si prega di abilitarli in Impostazioni.</string>
 	<!-- View and button titles for accessibility -->
@@ -110,7 +110,7 @@
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
 	<string name="nightlife">Vita notturna</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Tempo libero</string>
+	<string name="children">Divertimento in famiglia</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
 	<string name="bank">Banca</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
@@ -366,7 +366,7 @@
 	<string name="editor_example_values">Esempi</string>
 	<string name="editor_correct_mistake">Correggi errore</string>
 	<string name="editor_add_select_location">Posizione</string>
-	<string name="editor_report_problem_desription_1">Si prega di descrivere il problema in dettaglio in modo che la community OpenStreeMap possa riparare l’errore.</string>
+	<string name="editor_report_problem_desription_1">Si prega di descrivere il problema in dettaglio in modo che la community OpenStreetMap possa riparare l’errore.</string>
 	<string name="editor_report_problem_desription_2">O fallo tu stesso su https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Invia</string>
 	<string name="editor_report_problem_title">Problema</string>
@@ -454,9 +454,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
-	<string name="foot">piede</string>
 	<string name="miles_per_hour">mph</string>
-	<string name="hour">o</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Descrizione</string>
 	<string name="placepage_more_button">Di più</string>
@@ -564,6 +562,7 @@
 	  <item quantity="one">%d percorso</item>
 	  <item quantity="other">%d percorsi</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Impostazioni percorso</string>
 	<string name="crash_reports">Rapporto d\'arresto</string>
 	<string name="crash_reports_description">Potremmo utilizzare i tuoi dati per migliorare l\'esperienza di Organic Maps. Le modifiche avranno effetto dopo aver riavviato l\'app.</string>

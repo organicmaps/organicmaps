@@ -27,7 +27,7 @@
 	<string name="later">次の機会に</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">検索</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">マップを検索</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。</string>
@@ -359,7 +359,7 @@
 	<string name="editor_example_values">値の例</string>
 	<string name="editor_correct_mistake">間違いの訂正</string>
 	<string name="editor_add_select_location">現在位置</string>
-	<string name="editor_report_problem_desription_1">OpenStreeMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。</string>
+	<string name="editor_report_problem_desription_1">OpenStreetMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。</string>
 	<string name="editor_report_problem_desription_2">または、このURLでご自身で修正してください https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">送信</string>
 	<string name="editor_report_problem_title">問題</string>
@@ -444,6 +444,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">キロメートル毎時</string>
 	<string name="mile">マイル</string>
+	<!-- A unit of measure -->
 	<string name="foot">フィート</string>
 	<string name="miles_per_hour">マイル毎時</string>
 	<string name="hour">時間</string>
@@ -541,6 +542,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%dの追跡</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">追跡の設定</string>
 	<string name="crash_reports">クラッシュレポート</string>
 	<string name="crash_reports_description">Organic Maps体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。</string>

@@ -28,7 +28,7 @@
 	<string name="later">Αργότερα</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Αναζήτηση</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Αναζήτηση χάρτη</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τις από τις Ρυθμίσεις.</string>
@@ -364,7 +364,7 @@
 	<string name="editor_example_values">Παράδειγμα τιμών</string>
 	<string name="editor_correct_mistake">Διόρθωση λάθους</string>
 	<string name="editor_add_select_location">Τοποθεσία</string>
-	<string name="editor_report_problem_desription_1">Περιγράψτε το πρόβλημα αναλυτικά ώστε η Κοινότητα OpenStreeMap να διορθώσει το σφάλμα.</string>
+	<string name="editor_report_problem_desription_1">Περιγράψτε το πρόβλημα αναλυτικά ώστε η Κοινότητα OpenStreetMap να διορθώσει το σφάλμα.</string>
 	<string name="editor_report_problem_desription_2">Ή κάντε το μόνοι σας στη διεύθυνση https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Αποστολή</string>
 	<string name="editor_report_problem_title">Πρόβλημα</string>
@@ -539,6 +539,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d διαδρομές</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Ρυθμίσεις διαδρομών</string>
 	<string name="crash_reports">Αναφορά σφάλματος</string>
 	<string name="crash_reports_description">Μπορεί να χρησιμοποιήσουμε τα δεδομένα σας για να βελτιώσουμε την εμπειρία του Organic Maps. Οι αλλαγές θα ενεργοποιηθούν μετά την επανεκκίνηση της εφαρμογής.</string>

@@ -25,7 +25,7 @@
 	<string name="core_my_position">Mijn locatie</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Zoeken</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Op de kaart zoeken</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">U heeft momenteel alle locatieservices voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen</string>
@@ -448,6 +448,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mijl</string>
+	<!-- A unit of measure -->
 	<string name="foot">voet</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">u</string>
@@ -546,6 +547,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d routes</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Tracking-instellingen</string>
 	<string name="crash_reports">Crash rapport</string>
 	<string name="crash_reports_description">Wij kunnen uw gegevens gebruiken om Organic Maps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.</string>

@@ -126,7 +126,7 @@
 "nightlife" = "Vita notturna";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Tempo libero";
+"children" = "Divertimento in famiglia";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "Banca";
@@ -743,7 +743,8 @@
 
 "mile" = "mi";
 
-"foot" = "piede";
+/* A unit of measure */
+"foot" = "ft";
 
 "miles_per_hour" = "mph";
 

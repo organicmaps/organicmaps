@@ -743,6 +743,7 @@
 
 "mile" = "mil";
 
+/* A unit of measure */
 "foot" = "kaki";
 
 "miles_per_hour" = "mpj";

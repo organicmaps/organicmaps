@@ -30,7 +30,7 @@
 	<string name="later">Потым</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Шукаць</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Шукаць на мапе</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">У вас выключана геалакацыя для гэтай прылады альбо дадатку. Калі ласка, уключыце яе ў Наладах.</string>
@@ -460,6 +460,7 @@
 	<string name="kilometer">км</string>
 	<string name="kilometers_per_hour">км/г</string>
 	<string name="mile">міля</string>
+	<!-- A unit of measure -->
 	<string name="foot">фут</string>
 	<string name="miles_per_hour">міль/г</string>
 	<string name="hour">г</string>
@@ -565,6 +566,7 @@
 	  <item quantity="one">%d сцежка</item>
 	  <item quantity="other">%d сцежак</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Налады адсочвання</string>
 	<string name="crash_reports">Справаздача аб памылцы</string>
 	<string name="crash_reports_description">Мы можам выкарыстоўваць вашы дадзеныя, каб палепшыць Organic Maps. Змены набудуць сілу пасля перапуску дататка.</string>

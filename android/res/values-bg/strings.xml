@@ -30,7 +30,7 @@
 	<string name="later">По-късно</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Търсене</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Търсене в карта</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">В момента всички услуги за местоположение за това устройство или приложение са деактивирани. Моля, разрешете ги в Настройки.</string>
@@ -352,7 +352,7 @@
 	<string name="editor_example_values">Примерни стойности</string>
 	<string name="editor_correct_mistake">Поправяне на грешка</string>
 	<string name="editor_add_select_location">Местоположение</string>
-	<string name="editor_report_problem_desription_1">Моля, опишете подробно проблема, за да може общността на OpenStreeMap да отстрани грешката.</string>
+	<string name="editor_report_problem_desription_1">Моля, опишете подробно проблема, за да може общността на OpenStreetMap да отстрани грешката.</string>
 	<string name="editor_report_problem_desription_2">Или го направете сами на https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Изпращане</string>
 	<string name="editor_report_problem_title">Проблем</string>
@@ -438,6 +438,7 @@
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
 	<string name="mile">ми</string>
+	<!-- A unit of measure -->
 	<string name="foot">фут</string>
 	<string name="hour">ч</string>
 	<string name="minute">мин</string>
@@ -539,6 +540,7 @@
 	  <item quantity="one">%d пътека</item>
 	  <item quantity="other">%d пътеки</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Настройки за проследяване</string>
 	<string name="crash_reports">Доклад за срив</string>
 	<string name="crash_reports_description">Можем да използваме данни ви, за да подобрим изживяването с Organic Maps. Промените ще влязат в сила, след рестартиране на приложението.</string>

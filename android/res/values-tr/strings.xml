@@ -29,7 +29,7 @@
 	<string name="later">Daha sonra</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Ara</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Haritada Ara</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Şu anda bu cihaz veya uygulama için tüm Konum Hizmetleri devre dışı bırakılmış. Lütfen bunu ayarlardan etkinleştirin.</string>
@@ -460,6 +460,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/s</string>
 	<string name="mile">mil</string>
+	<!-- A unit of measure -->
 	<string name="foot">fit</string>
 	<string name="miles_per_hour">saatte mil</string>
 	<string name="hour">sa</string>
@@ -566,6 +567,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d kayıt</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Takip ayarları</string>
 	<string name="crash_reports">Çökme raporu</string>
 	<string name="crash_reports_description">Organic Maps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.</string>

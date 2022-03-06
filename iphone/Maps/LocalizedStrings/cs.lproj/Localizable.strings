@@ -743,6 +743,7 @@
 
 "mile" = "mil";
 
+/* A unit of measure */
 "foot" = "stopa";
 
 "miles_per_hour" = "mil/h";

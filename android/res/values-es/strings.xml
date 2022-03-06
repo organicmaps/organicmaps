@@ -27,7 +27,7 @@
 	<string name="later">Luego</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Buscar</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Buscar en el mapa</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">No se puede acceder a los servicios de localización. Por favor, activelo en los ajustes.</string>
@@ -366,7 +366,7 @@
 	<string name="editor_example_values">Valores de ejemplo</string>
 	<string name="editor_correct_mistake">Corregir error</string>
 	<string name="editor_add_select_location">Ubicación</string>
-	<string name="editor_report_problem_desription_1">Por favor, describe el problema en detalle para que la comunidad de OpenStreeMap pueda corregir el error.</string>
+	<string name="editor_report_problem_desription_1">Por favor, describe el problema en detalle para que la comunidad de OpenStreetMap pueda corregir el error.</string>
 	<string name="editor_report_problem_desription_2">O hazlo tú mismo en https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Enviar</string>
 	<string name="editor_report_problem_title">Problema</string>
@@ -453,6 +453,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
+	<!-- A unit of measure -->
 	<string name="foot">pie</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
@@ -560,6 +561,7 @@
 	  <item quantity="one">%d ruta</item>
 	  <item quantity="other">%d rutas</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Configuraciones de seguimiento</string>
 	<string name="crash_reports">Informe de incidentes</string>
 	<string name="crash_reports_description">Puede que utilicemos vuestros datos para mejorar la experiencia de Organic Maps. Los cambios tendrán efecto después que reinicie la aplicación.</string>

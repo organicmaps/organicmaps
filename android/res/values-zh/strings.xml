@@ -27,7 +27,7 @@
 	<string name="later">稍后</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">搜索</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">搜索地图</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">您目前有此设备的所有位置服务或应用已禁用。请在设置中启用它们。</string>
@@ -371,7 +371,7 @@
 	<string name="editor_example_values">示例值</string>
 	<string name="editor_correct_mistake">纠正错误</string>
 	<string name="editor_add_select_location">位置</string>
-	<string name="editor_report_problem_desription_1">请详细描述此问题以便OpenStreeMap社区能够修复此错误。</string>
+	<string name="editor_report_problem_desription_1">请详细描述此问题以便OpenStreetMap社区能够修复此错误。</string>
 	<string name="editor_report_problem_desription_2">或者在https://www.openstreetmap.org/上亲自修复此错误。</string>
 	<string name="editor_report_problem_send_button">发送</string>
 	<string name="editor_report_problem_title">问题</string>
@@ -456,6 +456,7 @@
 	<string name="kilometer">公里</string>
 	<string name="kilometers_per_hour">公里每小时</string>
 	<string name="mile">英里</string>
+	<!-- A unit of measure -->
 	<string name="foot">英尺</string>
 	<string name="miles_per_hour">英里每小时</string>
 	<string name="hour">小時</string>
@@ -553,6 +554,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d 跟踪</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">支持设置</string>
 	<string name="crash_reports">错误报告</string>
 	<string name="crash_reports_description">我们可以使用您的数据来开发和改进Organic Maps。更改将在重新启动应用程序后生效。</string>

@@ -29,7 +29,7 @@
 	<string name="later">لاحقا</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">البحث</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">ابحث في الخريطة</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.</string>
@@ -363,7 +363,7 @@
 	<string name="editor_example_values">أمثلة على القيم</string>
 	<string name="editor_correct_mistake">تصحيح الخطأ</string>
 	<string name="editor_add_select_location">الموقع</string>
-	<string name="editor_report_problem_desription_1">يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreeMap إصلاح الخطأ.</string>
+	<string name="editor_report_problem_desription_1">يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreetMap إصلاح الخطأ.</string>
 	<string name="editor_report_problem_desription_2">أو افعل ذلك بنفسك من خلال الموقع https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">إرسال</string>
 	<string name="editor_report_problem_title">مشكلة</string>
@@ -450,6 +450,7 @@
 	<string name="kilometer">كم</string>
 	<string name="kilometers_per_hour">كم/ساعة</string>
 	<string name="mile">ميل</string>
+	<!-- A unit of measure -->
 	<string name="foot">قدم</string>
 	<string name="miles_per_hour">ميل/ساعة</string>
 	<string name="hour">س</string>
@@ -547,6 +548,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">المسارات %d</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">إعدادات التتبع</string>
 	<string name="crash_reports">تقرير الحادث</string>
 	<string name="crash_reports_description">قد نستخدم بياناتك لتحسين تجربة Organic Maps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.</string>

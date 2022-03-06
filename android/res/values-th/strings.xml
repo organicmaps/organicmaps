@@ -29,7 +29,7 @@
 	<string name="later">ภายหลัง</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">ค้นหา</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">ค้นหาแผนที่</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า</string>
@@ -363,7 +363,7 @@
 	<string name="editor_example_values">ตัวอย่างของค่าที่ตั้งไว้</string>
 	<string name="editor_correct_mistake">แก้ไขข้อผิดพลาด</string>
 	<string name="editor_add_select_location">ตำแหน่ง</string>
-	<string name="editor_report_problem_desription_1">กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreeMap จะสามารถแก้ไขข้อผิดพลาดได้</string>
+	<string name="editor_report_problem_desription_1">กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreetMap จะสามารถแก้ไขข้อผิดพลาดได้</string>
 	<string name="editor_report_problem_desription_2">หรือทำด้วยตัวคุณเองที่ https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">ส่ง</string>
 	<string name="editor_report_problem_title">ปัญหา</string>
@@ -448,6 +448,7 @@
 	<string name="kilometer">กม.</string>
 	<string name="kilometers_per_hour">กม./ชม.</string>
 	<string name="mile">ไมล์</string>
+	<!-- A unit of measure -->
 	<string name="foot">ฟุต</string>
 	<string name="miles_per_hour">ไมล์/ชม.</string>
 	<string name="hour">ชม.</string>
@@ -545,6 +546,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d ติดตามต่าง ๆ</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">การตั้งค่าการติดตาม</string>
 	<string name="crash_reports">รายงานข้อขัดข้อง</string>
 	<string name="crash_reports_description">เราอาจใช้ข้อมูลของคุณเพื่อพัฒนาประสบการณ์ของ Organic Maps การเปลี่ยนแปลงจะมีผลหลังจากที่คุณเปิดแอพฯ ขึ้นใหม่</string>
