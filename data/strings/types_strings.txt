@@ -14957,7 +14957,7 @@
     pl = Salon piękności
     pt = Salão de beleza
     pt-BR = Salão de beleza
-    ro = Salon de infrumusetare
+    ro = Salon de înfrumusețare
     ru = Салон красоты
     sk = Kozmetický salón
     sv = Skönhetssalong
