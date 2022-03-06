@@ -66,7 +66,7 @@ nb:Spisesteder|Mat
 pl:Gdzie zjeść|Jedzenie
 pt:Onde comer|comer|comida
 pt-BR:Onde comer|comer|comida|alimentação
-ro:Unde să mănânci|Alimentație
+ro:Unde să mănânci|Alimentație|mâncare
 es:Dónde comer|Comer
 sv:Var att äta|Mat
 th:กินร้านไหนดี|อาหาร
@@ -102,7 +102,7 @@ nb:Dagligvarer|Mat|Butikk
 pl:Produkty|Jedzenie|Sklep
 pt:Mercearias|Minimercados|Supermercados|Hipermercados|Comida|Alimentos|Loja
 pt-BR:Mercados|Alimentação|Loja
-ro:4Alimentare|Produse|Alimentație|Magazin
+ro:4Alimentare|Produse|Alimentație|Mâncare|Magazin
 es:Productos|Comer|Tienda
 sv:Produkter|Mat|Butik|Affär
 th:ซื้อของกินของใช้|อาหาร|ร้านค้า
@@ -173,7 +173,7 @@ nb:Drivstoff
 pl:3Stacja benzynowa
 pt:3Combustível
 pt-BR:Combustível
-ro:4Benzinărie|Benzină
+ro:4Benzinărie|Benzină|Gaz
 es:3Gasolinera
 sv:3Bensin
 th:ก๊าซ
@@ -244,7 +244,7 @@ nb:Shopping|Butikk
 pl:Zakupy|Sklep
 pt:Compras|Loja
 pt-BR:Compras|Loja
-ro:Cumpărături|Magazin
+ro:Shopping|Cumpărături|Magazin
 es:Compras|Tienda
 sv:Shopping|Butik|Affär
 th:ช็อปปิง|ร้านค้า
@@ -315,7 +315,7 @@ nb:Severdigheter
 pl:Osobliwości miasta|Atrakcje turystyczne|Turystyka|zwiedzanie
 pt:Atrações turísticas|3Turismo|Miradouros
 pt-BR:Atração|Turismo
-ro:Obiective turistice
+ro:Obiective turistice|Turism
 es:Turismo
 sv:Attraktion|Turism|Sevärdheter
 th:สถานที่ท่องเที่ยว
@@ -385,7 +385,7 @@ nb:Nattliv
 pl:Życie nocne
 pt:Vida noturna
 pt-BR:Vida noturna
-ro:Viața nocturnă
+ro:Viața nocturnă|cu prietenii|petrecere
 es:Vida nocturna
 sv:Nattliv
 th:ไนท์ไลฟ์
@@ -413,14 +413,14 @@ fr:Vacances en famille
 de:Freizeit mit Kindern
 hu:Pihenés a gyerekekkel
 id:Liburan keluarga
-it:Tempo libero|Vacanze bambini
+it:Divertimento in famiglia|Vacanze bambini
 ja:家族の休日
 ko:가족 기념일|명절
 nb:Familieferie
 pl:Wypoczynek z dziećmi
 pt:Atividades com crianças
 pt-BR:Feriados em família
-ro:Timp liber|Odihnă cu copii
+ro:Divertisment cu copiii|Divertisment cu familia|Vacanță cu copiii
 es:Descanso con niños
 sv:Semester med barn
 th:วันหยุดสำหรับครอบครัว
@@ -455,7 +455,7 @@ nb:Minibank
 pl:5Bankomat
 pt:3Multibanco|2MB|Caixa Multibanco|2ATM|Multicaixa|Caixa automática|Terminal bancário
 pt-BR:3Caixa eletrônico|caixa automático|banco 24 horas
-ro:3Bancomat
+ro:3Bancomat|ATM
 es:Cajero|cajero automático
 sv:3Bankomat
 th:2เอทีเอ็ม
@@ -474,6 +474,7 @@ fa:خود پرداز
 en:2RV Facilities|4Caravan|Vanlife|5Campervan|5Motorhome
 be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Дом на колах
 ru:Для автодомов|5Автодом|5Трейлер|Дом на колёсах
+ro:Pentru rulote|3Rulotă|RV
 tr:4Karavan Tesisleri
 uk:Для автобудинків|5Автодім|5Автобудинок|5Трейлер|5Караван|Будинок на колесах
 
@@ -934,7 +935,7 @@ nb:Nærbutikk|nærbutikk
 pl:Sklep spożywczy
 pt:Loja de conveniência
 pt-BR:Loja de conveniência|4mercadinho|compras
-ro:4Magazin mixt
+ro:4Magazin mixt|minimarket|supermarket|magazin
 es:Tienda de barrio
 sv:Närbutik
 th:ร้านสะดวกซื้อ
@@ -1406,7 +1407,7 @@ nb:Skjønnhetssalong
 pl:Salon piękności
 pt:Salão de beleza|cabeleireiro|cabeleireira|brabeiro
 pt-BR:Salão de beleza
-ro:Salon de infrumusetare
+ro:Salon de înfrumusețare
 es:Centro de belleza
 sv:Skönhetssalong
 th:2ร้านเสริมสวย|2ร้านขายผลิตภัณฑ์ความงาม
@@ -1441,7 +1442,7 @@ nb:Frukt- og grønnsakshandler
 pl:Warzywniak|towary
 pt:3Cash and carry|Venda a retalho|2loja
 pt-BR:Quitanda|verdureiro|varejão|2loja|compras
-ro:Băcănie
+ro:Băcănie|fructe|legume
 es:Frutería
 sv:Grönsakshandlare
 th:ร้านขายผัด
@@ -1542,7 +1543,7 @@ nb:Kjøpesenteret
 pl:Centrum handlowe
 pt:Centro comercia|3Shopping
 pt-BR:Shopping center|compras
-ro:Mall-ul
+ro:Mall
 es:Centro comercial
 sv:Galleria|köpcentrum
 th:เดอะมอลล์
@@ -1680,7 +1681,7 @@ nb:Søtsaker|godtebutikk
 pl:Sklep ze słodyczami|słodycze
 pt:Confeitaria|loja de doces|bolos|doces|guloseimas
 pt-BR:Confeitaria|loja de doces
-ro:Cofetărie
+ro:Cofetărie|dulciuri
 es:Confitería|confitería
 sv:Konditori|godisbutik
 th:ร้านขายขนมหวาน|ร้านขายลูกกวาด
@@ -3211,6 +3212,7 @@ nb:Bordell
 pl:Burdel
 pt:Bordel|3Casa de prostituição
 pt-BR:Bordel
+ro:Bordel
 es:Burdel
 sv:Bordell
 th:ซ่อง
@@ -3445,7 +3447,7 @@ nb:Sykehus
 pl:4Szpital
 pt:3Hospital
 pt-BR:3Hospital
-ro:Spital
+ro:3Spital
 es:4Hospital
 sv:4Sjukhus
 th:3คลินิก
@@ -3475,6 +3477,7 @@ ja:クリニック|医師|医者|ドクター|救急|診療
 pl:klinika|lekarz|doktor|leczenie
 pt:3Hospital|2Clínica|3médico|serviços de saúde|primeiros socorros
 pt-BR:Hospital|3clínica|3médico|saúde|serviços de saúde|primeiros socorros
+ro:ambulanță|medic|doctor|diagnostică
 sv:klinik|3läkare
 th:3โรงพยาบาล|แพทย์
 tr:hastane|3klinik|doktor|sağlık merkezi|sağlık hizmetleri|ilk yardım
@@ -3505,7 +3508,7 @@ nb:Klinikk|sykehus
 pl:Klinika|Szpital
 pt:Clínica|centro de saúde|USF|Unidade de Saúde Familiar|Posto médico|policlínica|hospital
 pt-BR:Clínica|centro de saúde|posto de saúde|policlínica|centro médico|posto médico|hospital
-ro:Clinică|spital
+ro:Clinică|policlinică|doctor|medic|diagnostică
 es:Clínica|centro de salud|hospital
 sv:Klinik|sjukhus
 th:คลินิก|โรงพยาบาล
@@ -3894,7 +3897,7 @@ id:Kantor pos
 pl:Poczta|listy
 pt:Estação de correios|Posto de correios|Correios
 pt-BR:3Correios
-ro:Oficiul postal
+ro:Oficiu poștal
 es:4Oficina de correos|3post
 sv:Postkontor
 tr:3Postane
@@ -6061,7 +6064,7 @@ nb:Vår
 pl:Źródło
 pt:Nascente
 pt-BR:Nascente
-ro:Primăvară
+ro:Izvor
 es:Manantial
 sv:Vattenkälla
 th:ฤดูใบไม้ผลิ
@@ -8357,7 +8360,7 @@ nb:Alkoholutsalg
 pl:Sklep z winami
 pt:Loja de Vinhos|vinhos|bebidas alcoólicas
 pt-BR:Loja de vinhos|bebidas
-ro:Magazin de băuturi alcolice
+ro:Vinărie
 es:Tienda de vinos|Vino
 sv:Vinhandel
 th:ร้านขายไวน์
@@ -8621,7 +8624,7 @@ nb:Vannpark
 pl:Akwapark
 pt:Parque aquático
 pt-BR:Parque aquático
-ro:Parc acvatic
+ro:Parc acvatic|aquapark
 es:Parque acuático
 sv:Äventyrspark
 th:สวนน้ำ
@@ -9944,7 +9947,7 @@ nl:Wildernishut
 pl:Gajówka
 pt:Cabana
 pt-BR:Cabana
-ro:Adăpost
+ro:Cabană în pădure
 sk:Chata
 sv:Vildmarksstuga
 sw:Kibanda cha Mwituni
@@ -9968,6 +9971,7 @@ nl:Galerij|museum
 pl:Galeria|muzeum
 pt:Galeria|museu
 pt-BR:Galeria|museu
+ro:Galerie|muzeu
 tr:Galeri|müze
 fa:گالری|موزه
 
@@ -9984,6 +9988,7 @@ nl:Pretpark|Attractiepark
 pl:Park tematyczny
 pt:Parque de diversões|parque temático
 pt-BR:Parque de diversão|parque temático
+ro:Parc de distracții
 tr:Tema parkı|Eğlence parkı
 
 boundary-national_park|@tourism

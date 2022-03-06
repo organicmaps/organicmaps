@@ -604,7 +604,7 @@
     pl = Burdel
     pt = Bordel
     pt-BR = Bordel
-    ro = Divertisment
+    ro = Bordel
     ru = Бордель
     sk = Nevestinec
     sv = Bordell
@@ -12054,7 +12054,7 @@
     pl = Źródło
     pt = Nascente
     pt-BR = Nascente
-    ro = Primăvară
+    ro = Izvor
     ru = Родник
     sk = Prameň
     sv = Vattenkälla
@@ -16104,7 +16104,7 @@
     pl = Centrum handlowe
     pt = Centro comercial
     pt-BR = Shopping center
-    ro = Mall-ul
+    ro = Mall
     ru = Торговый центр
     sk = The Mall
     sv = Galleria
@@ -16967,7 +16967,7 @@
     pl = Sklep monopolowy
     pt = Loja de vinhos
     pt-BR = Loja de vinhos
-    ro = Magazin de băuturi alcolice
+    ro = Vinărie
     ru = Винный магазин
     sk = Vinotéka
     sv = Vinhandel
@@ -17771,7 +17771,7 @@
     pl = Galeria
     pt = Galeria
     pt-BR = Galeria
-    ro = Obiective turistice
+    ro = Galerie
     ru = Галерея
     sk = Pamätihodnosť
     sv = Attraktion
@@ -18152,7 +18152,7 @@
     pl = Park tematyczny
     pt = Parque de diversão
     pt-BR = Parque de diversão
-    ro = Obiective turistice
+    ro = Parc de distracții
     ru = Парк развлечений
     sk = Pamätihodnosť
     sv = Attraktion
@@ -18216,7 +18216,7 @@
     pl = Gajówka
     pt = Cabana
     pt-BR = Cabana
-    ro = Adăpost
+    ro = Cabană în pădure
     ru = Хижина в лесу
     sk = Chata
     sv = Vildmarksstuga
