@@ -157,6 +157,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
                         geometry::Altitudes const * altitudes, RoadAttrsGetter & attrs)
 {
   size_t const count = feature.GetPointsCount();
+  CHECK_GREATER(count, 1, ());
   CHECK(altitudes == nullptr || altitudes->size() == count, ());
 
   feature::TypesHolder types(feature);
