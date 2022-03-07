@@ -2,18 +2,18 @@
 
 - `3party` - external libraries, sometimes modified.
 - `android` - Android UI.
-- `api` - external API of the application.
 - `base` - some base things, like macros, logging, caches etc.
 - `cmake` - CMake helper files.
 - `coding` - I/O classes and data processing.
 - `data` - data files for the application: maps, styles, country borders.
 - `descriptions` -
+- `docs` - documentation.
 - `drape_frontend` - scene and resource manager for the Drape library.
 - `drape` - the new graphics library core.
-- `editor` -
+- `editor` - built-in OSM data editor.
 - `feature_list` -
+- `ge0` - external API of the application.
 - `generator` - map building tool.
-- `geocoder` -
 - `geometry` - geometry primitives we use.
 - `indexer` - processor for map files, classificator, styles.
 - `iphone` - iOS UI.
@@ -21,7 +21,9 @@
 - `map` - app business logic, including a scene manager.
 - `mapshot` - generate screenshots of maps, specified by coordinates and zoom level.
 - `openlr` -
+- `packaging` - packaging specs for various distributions.
 - `platform` - platform abstraction classes: file paths, http requests, location services.
+- `poly_borders` - borders post-processing tool.
 - `pyhelpers` -
 - `qt_tstfrm` - widgets for visual testing.
 - `qt` - desktop application.
@@ -35,6 +37,7 @@
 - `storage` - map reading function.
 - `testing` - common interfaces for tests.
 - `tools` - tools for building packages and maps, for testing etc.
+- `topography_generator` - isolines from SRTM data.
 - `track_analyzing` -
 - `track_generator` - Generate smooth tracks based on waypoints from KML.
 - `tracking` -
