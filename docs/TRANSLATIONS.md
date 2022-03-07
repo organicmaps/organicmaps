@@ -12,30 +12,25 @@ But if you can't run it - don't worry, its not mandatory!
 
 ## Translation files
 
+Main:
 - Application UI strings: [`data/strings/strings.txt`](../data/strings/strings.txt)
-
 - A few iOS specific strings: [`iphone/plist.txt`](../iphone/plist.txt)
-
-
-- Android stores description: [`android/src/google/play/listings/`](../android/src/google/play/listings/)
-
-- Apple AppStore description: [`iphone/metadata/`](../iphone/metadata/)
-
-
 - Names of map features/types: [`data/strings/types_strings.txt`](../data/strings/types_strings.txt)
-
 - Search keywords/aliases/synonyms for map features: [`data/categories.txt`](../data/categories.txt)
 
-- Search keywords for cuisine types: [`data/categories_cuisines.txt`](../data/categories_cuisines.txt)
-
-
+Additional:
 - Text-to-speech strings for navigation: [`data/strings/sound.txt`](../data/strings/sound.txt)
 
+- Android stores description: [`android/src/google/play/listings/`](../android/src/google/play/listings/)
+- Apple AppStore description: [`iphone/metadata/`](../iphone/metadata/)
 
 - Popular brands of map features: [`data/strings/brands_strings.txt`](../data/strings/brands_strings.txt)
-
 - Search keywords for popular brands: [`data/categories_brands.txt`](../data/categories_brands.txt)
+- Search keywords for cuisine types: [`data/categories_cuisines.txt`](../data/categories_cuisines.txt)
 
+- Country / map region names: [`data/countries_names.txt`](../data/countries_names.txt)
+
+- [other strings](STRUCTURE.md#strings-and-translations) files
 
 Language codes used are from [ISO 639-1 standard](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
 If a string is not translated into a particular language then it falls back to English or a "parent" language (e.g. `es-MX` falls back to `es`).
