@@ -1603,6 +1603,8 @@
 
 "type.cuisine.breakfast" = "Frukost";
 
+"type.cuisine.bubble_tea" = "Bubble Tea";
+
 "type.cuisine.burger" = "Hamburgare";
 
 "type.cuisine.buschenschank" = "Vintaverna";
