@@ -5119,6 +5119,13 @@
     zh-Hans = 早餐
     zh-Hant = 早餐
 
+  [type.cuisine.bubble_tea]
+    en = Bubble Tea
+    es = Té de burbujas
+    ru = Чай с шариками
+    uk = Бульбашковий чай
+    be = Чай з бурбалкамі
+    
   [type.cuisine.burger]
     en = Burger
     ar = برغر
