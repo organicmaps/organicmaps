@@ -5121,11 +5121,11 @@
 
   [type.cuisine.bubble_tea]
     en = Bubble Tea
+    be = Чай з бурбалкамі
     es = Té de burbujas
     ru = Чай с шариками
     uk = Бульбашковий чай
-    be = Чай з бурбалкамі
-    
+
   [type.cuisine.burger]
     en = Burger
     ar = برغر
