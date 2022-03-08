@@ -21837,6 +21837,7 @@
     comment = A preference title; keep short!
     en = Show on the lock screen
     be = Паказваць на экране блакіроўкі
+    de = Auf dem Sperrbildschirm anzeigen
     it = Mostra sulla schermata di blocco
     pl = Pokazuj na ekranie blokady
     ro = Arată pe ecranul de blocare
@@ -21849,6 +21850,7 @@
     comment = Description in preferences
     en = When enabled, you don't need to unlock your device every time while the app is running.
     be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.
+    de = Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
     pl = Po włączeniu nie musisz odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.
     ro = Când este activată, nu trebuie să deblochezi telefonul de fiecare dată când aplicația este în funcțiune.
