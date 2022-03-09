@@ -543,18 +543,26 @@ node|z15[railway=station][transport=subway][city=moscow]
 {icon-image: subway-moscow-m.svg;text-offset: 1;font-size: 12;text-optional: true;}
 node|z15[railway=station][transport=subway][city=moscow]::int_name
 {text-offset: 1;font-size: 10;text-optional: true;}
+/*
 node|z16[railway=station][transport=subway][city=moscow]check
 {icon-image: subway-moscow-m.svg;text-offset: 1;font-size: 10;text-color: @district_label;text-halo-radius: 0;}
 node|z16[railway=station][transport=subway][city=moscow]::int_name
 {text-offset: 1;font-size: 9;text-color: @district_label;text-halo-radius: 0;} check
+*/
 
 /* Do not draw main metro icon, because entrances will be visible now */
-node|z17-[railway=station][transport=subway][city=moscow]
+node|z16-[railway=station][transport=subway][city=moscow]
 {icon-image: zero-icon.svg;text: none;}
-node|z17-[railway=station][transport=subway][city=moscow]::int_name
+node|z16-[railway=station][transport=subway][city=moscow]::int_name
 {text: none;}
 
 /* Moscow Subway Station entrance */
+
+node|z15[railway=subway_entrance][city=moscow]
+{icon-image: subway-moscow-s.svg;text-offset: 1;font-size: 11;text-optional: true;}
+node|z15[railway=subway_entrance][city=moscow]::int_name
+{text-offset: 25;font-size: 9;text-optional: true;}
+
 node|z16[railway=subway_entrance][city=moscow]
 {icon-image: subway-moscow-m.svg;text-offset: 1;font-size: 12;text-optional: true;}
 node|z16[railway=subway_entrance][city=moscow]::int_name
