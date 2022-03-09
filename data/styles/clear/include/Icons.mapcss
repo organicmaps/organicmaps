@@ -665,15 +665,9 @@ node|z14-[railway=station][transport=subway]::int_name,
 node|z16-[railway=subway_entrance]::int_name,
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;text-optional: true;}
 
-node|z12-[railway=station][transport=subway][city=moscow],
-node|z12-[railway=station][transport=subway][city=spb],
-node|z15-[railway=subway_entrance][city=moscow],
 node|z17-[railway=tram_stop],
 area|z17-[railway=tram_stop]
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;text-optional: true;}
-node|z12-[railway=station][transport=subway][city=moscow]::int_name,
-node|z12-[railway=station][transport=subway][city=spb]::int_name,
-node|z15-[railway=subway_entrance][city=moscow]::int_name,
 node|z17-[railway=tram_stop]::int_name,
 area|z17-[railway=tram_stop]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;text-optional: true;}

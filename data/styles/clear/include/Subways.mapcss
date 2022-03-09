@@ -529,6 +529,14 @@ node|z17-[railway=subway_entrance][city=minsk] {icon-image: subway-minsk-m.svg;t
 node|z17-[railway=subway_entrance][city=minsk] {icon-image: subway-minsk-m.svg;font-size: 13;text-optional: true;}
 
 /* Moscow Subway Station */
+
+node|z12-[railway=station][transport=subway][city=moscow],
+node|z15-[railway=subway_entrance][city=moscow],
+{text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;text-optional: true;}
+node|z12-[railway=station][transport=subway][city=moscow]::int_name,
+node|z15-[railway=subway_entrance][city=moscow]::int_name,
+{text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;text-optional: true;}
+
 node|z11[railway=station][transport=subway][city=moscow]
 {icon-image: subway-moscow-s.svg;icon-min-distance: 1;text-optional: true;}
 node|z12-13[railway=station][transport=subway][city=moscow]
@@ -543,12 +551,6 @@ node|z15[railway=station][transport=subway][city=moscow]
 {icon-image: subway-moscow-m.svg;text-offset: 1;font-size: 12;text-optional: true;}
 node|z15[railway=station][transport=subway][city=moscow]::int_name
 {text-offset: 1;font-size: 10;text-optional: true;}
-/*
-node|z16[railway=station][transport=subway][city=moscow]check
-{icon-image: subway-moscow-m.svg;text-offset: 1;font-size: 10;text-color: @district_label;text-halo-radius: 0;}
-node|z16[railway=station][transport=subway][city=moscow]::int_name
-{text-offset: 1;font-size: 9;text-color: @district_label;text-halo-radius: 0;} check
-*/
 
 /* Do not draw main metro icon, because entrances will be visible now */
 node|z16-[railway=station][transport=subway][city=moscow]
@@ -749,6 +751,11 @@ node|z15-[railway=station][transport=subway][city=sofia] {icon-image: subway-sof
 node|z17-[railway=subway_entrance][city=sofia] {icon-image: subway-sofia-s.svg;text-optional: true;}
 
 /* Saint Petersburg Subway Station */
+node|z12-[railway=station][transport=subway][city=spb],
+{text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;text-optional: true;}
+node|z12-[railway=station][transport=subway][city=spb]::int_name,
+{text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;text-optional: true;}
+
 node|z11[railway=station][transport=subway][city=spb]
 {icon-image: subway-spb-s.svg;icon-min-distance: 1;}
 node|z12[railway=station][transport=subway][city=spb]
