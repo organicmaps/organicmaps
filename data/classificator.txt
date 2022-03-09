@@ -222,6 +222,7 @@ world  +
         beef_bowl  -
         brazilian  -
         breakfast  -
+        bubble_tea  -
         burger  -
         buschenschank  -
         cake  -

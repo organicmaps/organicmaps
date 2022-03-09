@@ -1321,7 +1321,7 @@ mapswithme
 *cuisine|fine_dining
 *cuisine|tea
 *natural|geyser
-mapswithme
+*cuisine|bubble_tea
 *natural|hot_spring
 *amenity|parking_space
 *amenity|parking_space|underground

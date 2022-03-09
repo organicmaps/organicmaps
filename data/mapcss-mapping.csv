@@ -1319,7 +1319,7 @@ cuisine|peruvian;1320;
 cuisine|fine_dining;1321;
 cuisine|tea;1322;
 natural|geyser;1323;
-cuisine|bubble_tea;1324
+cuisine|bubble_tea;1324;
 natural|hot_spring;1325;
 amenity|parking_space;1326;
 amenity|parking_space|underground;[amenity=parking_space][parking=underground];;name;int_name;1327;
