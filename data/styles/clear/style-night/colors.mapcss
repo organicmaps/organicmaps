@@ -91,17 +91,17 @@
 /* 5.1 All roads */
 
 @trunk: #372400;
-@trunk_orange: #381F14;
-@trunk_orange_medium: #381F14;
-@trunk_orange_light: #381F11;
-@primary_orange:  #422518;
-@primary_orange_medium: #422518;
-@primary_orange_light: #422518;
-@secondary: #2B2827;
-@residential: #2B2827;
-@unclassified: #2B2827;
+@trunk_orange: #49291B;
+@trunk_orange_medium: #49291B;
+@trunk_orange_light: #49291B;
+@primary_orange: #593323;
+@primary_orange_medium: #593323;
+@primary_orange_light: #593323;
+@secondary: #4B4643;
+@residential: #4B4643;
+@unclassified: #4B4643;
 @pedestrian: #4D4744;
-@footway: #2B2827;
+@footway: #3F3A37;
 @cycleway: #6E3D47;
 @construction: #332F2D;
 @track: #2B2827;
@@ -110,8 +110,8 @@
 
 /* 5.2 Bridges */
 
-@bridge_background: #222211;
-@bridge_casing: #444444;
+@bridge_background: #2C2C1A;
+@bridge_casing: #505050;
 
 /* 5.3 Tunnels */
 
