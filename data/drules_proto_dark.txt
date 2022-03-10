@@ -55750,14 +55750,14 @@ cont {
       primary {
         height: 11
         color: 8947848
-        stroke_color: 1292964096
+        stroke_color: 1118464
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 8947848
-        stroke_color: 1292964096
+        stroke_color: 1118464
         offset_y: 1
         text: "int_name"
         is_optional: true
@@ -55776,14 +55776,14 @@ cont {
       primary {
         height: 12
         color: 8947848
-        stroke_color: 856756480
+        stroke_color: 1118464
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 10
         color: 8947848
-        stroke_color: 856756480
+        stroke_color: 1118464
         offset_y: 1
         text: "int_name"
         is_optional: true
@@ -55794,25 +55794,9 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "subway-moscow-m"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16941
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 9
-        color: 5592405
-        offset_y: 1
-        text: "int_name"
-        is_optional: true
-      }
-      priority: 15941
     }
   }
   element {
@@ -57493,11 +57477,37 @@ cont {
 cont {
   name: "railway-subway_entrance-moscow"
   element {
+    scale: 15
+    symbol {
+      name: "subway-moscow-s"
+      apply_for_type: 1
+      priority: 16941
+    }
+    caption {
+      primary {
+        height: 11
+        color: 8947848
+        stroke_color: 1118464
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 9
+        color: 8947848
+        stroke_color: 1118464
+        offset_y: 25
+        text: "int_name"
+        is_optional: true
+      }
+      priority: 15941
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "subway-moscow-m"
       apply_for_type: 1
-      priority: 16902
+      priority: 16941
     }
     caption {
       primary {
@@ -57515,7 +57525,7 @@ cont {
         text: "int_name"
         is_optional: true
       }
-      priority: 15902
+      priority: 15941
     }
   }
   element {
@@ -57523,25 +57533,25 @@ cont {
     symbol {
       name: "subway-moscow-m"
       apply_for_type: 1
-      priority: 16902
+      priority: 16941
     }
     caption {
       primary {
         height: 12
         color: 8947848
-        stroke_color: 437326080
+        stroke_color: 1118464
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 11
         color: 8947848
-        stroke_color: 437326080
+        stroke_color: 1118464
         offset_y: 25
         text: "int_name"
         is_optional: true
       }
-      priority: 15902
+      priority: 15941
     }
   }
   element {
@@ -57549,25 +57559,25 @@ cont {
     symbol {
       name: "subway-moscow-m"
       apply_for_type: 1
-      priority: 16902
+      priority: 16941
     }
     caption {
       primary {
         height: 13
         color: 8947848
-        stroke_color: 437326080
+        stroke_color: 1118464
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 11
         color: 8947848
-        stroke_color: 437326080
+        stroke_color: 1118464
         offset_y: 25
         text: "int_name"
         is_optional: true
       }
-      priority: 15902
+      priority: 15941
     }
   }
   element {
@@ -57575,25 +57585,25 @@ cont {
     symbol {
       name: "subway-moscow-m"
       apply_for_type: 1
-      priority: 16902
+      priority: 16941
     }
     caption {
       primary {
         height: 13
         color: 8947848
-        stroke_color: 437326080
+        stroke_color: 1118464
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 11
         color: 8947848
-        stroke_color: 437326080
+        stroke_color: 1118464
         offset_y: 25
         text: "int_name"
         is_optional: true
       }
-      priority: 15902
+      priority: 15941
     }
   }
 }
