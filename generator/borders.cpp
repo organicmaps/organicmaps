@@ -189,7 +189,7 @@ bool GetBordersRect(std::string const & baseDir, std::string const & country,
 
 CountryPolygonsCollection LoadCountriesList(std::string const & baseDir)
 {
-  LOG(LINFO, ("Loading countries."));
+  LOG(LINFO, ("Loading countries in", BORDERS_DIR, "folder in", baseDir));
 
   CountryPolygonsCollection countryPolygonsCollection;
   ForEachCountry(baseDir, [&](auto const & name, auto const & borders)

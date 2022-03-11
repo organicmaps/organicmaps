@@ -216,7 +216,10 @@ bool ProcessorOsmElementsFromO5M::TryRead(OsmElement & element)
 }
 
 ProcessorOsmElementsFromXml::ProcessorOsmElementsFromXml(SourceReader & stream)
-  : m_xmlSource([&, this](auto * element) { m_queue.emplace(*element); })
+  : m_xmlSource([&, this](auto * element)
+    {
+      m_queue.emplace(*element);
+    })
   , m_parser(stream, m_xmlSource)
 {
 }
