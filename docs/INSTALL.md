@@ -224,11 +224,13 @@ Install Android SDK and NDK:
 - Run the Android Studio.
 - Open "SDK Manager" (under "More Actions" in a welcome screen or a three-dot menu in a list of recent projects screen or "Tools" top menu item in an open project).
 - Select "Android 12.0 (S) / API Level 31" SDK.
-- Switch to "SDK Tools" tab
+- Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
 - Select "NDK (Side by side)" version **23.1.7779620**.
 - Select "CMake" version **3.18.1**.
-- Click "OK" and wait for downloads and installation to finish.
+- Click "Apply" and wait for downloads and installation to finish.
+- In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
+- Set "IDE max heap size" to 2048Mb or more (otherwise the Studio might get stuck on "Updating indexes" when opening the project).
 
 Configure the repo with Android SDK and NDK paths:
 
@@ -243,8 +245,6 @@ _macOS:_
 ```
 
 _Windows 10:_ no action needed, should work out of the box.
-
-Make sure the Studio has at least 1920Mb max heap size in "File > Settings... > Appearance & Behavior > System Settings > Memory Settings" _before_ opening the project, otherwise it might get stuck on "Updating indexes".
 
 In Android Studio open the project in `android/` directory.
 
