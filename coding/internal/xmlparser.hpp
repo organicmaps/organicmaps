@@ -87,8 +87,10 @@ public:
     XML_SetUserData(m_parser.get(), static_cast<void *>(this));
   }
 
+  using StringPtrT = XML_Char const *;
+
   // Start element handler
-  void OnStartElement(XML_Char const * name, XML_Char const ** attrs)
+  void OnStartElement(StringPtrT name, StringPtrT * attrs)
   {
     CheckCharData();
 
@@ -107,7 +109,7 @@ public:
   }
 
   // End element handler
-  void OnEndElement(XML_Char const * name)
+  void OnEndElement(StringPtrT name)
   {
     CheckCharData();
 

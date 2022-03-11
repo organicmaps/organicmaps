@@ -15,6 +15,8 @@ std::string DebugPrint(OsmElement::EntityType type)
   {
   case OsmElement::EntityType::Unknown:
     return "unknown";
+  case OsmElement::EntityType::Bounds:
+    return "bounds";
   case OsmElement::EntityType::Way:
     return "way";
   case OsmElement::EntityType::Tag:
@@ -141,8 +143,7 @@ std::string OsmElement::ToString(std::string const & shift) const
   case EntityType::Member:
     ss << "Member: " << m_ref << " type: " << DebugPrint(m_memberType) << " role: " << m_role;
     break;
-  case EntityType::Unknown:
-  case EntityType::Osm:
+  default:
     UNREACHABLE();
     break;
   }
@@ -192,15 +193,10 @@ base::GeoObjectId GetGeoObjectId(OsmElement const & element)
     return base::MakeOsmWay(element.m_id);
   case OsmElement::EntityType::Relation:
     return base::MakeOsmRelation(element.m_id);
-  case OsmElement::EntityType::Member:
-  case OsmElement::EntityType::Nd:
-  case OsmElement::EntityType::Osm:
-  case OsmElement::EntityType::Tag:
-  case OsmElement::EntityType::Unknown:
+  default:
     UNREACHABLE();
     return base::GeoObjectId();
   }
-  UNREACHABLE();
 }
 
 std::string DebugPrintID(OsmElement const & e)

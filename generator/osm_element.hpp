@@ -20,6 +20,7 @@ struct OsmElement
   enum class EntityType
   {
     Unknown = 0x0,
+    Bounds = 0x6F62, // "bo"
     Node = 0x6F6E, // "no"
     Way = 0x6177, // "wa"
     Relation = 0x6572, // "re"
