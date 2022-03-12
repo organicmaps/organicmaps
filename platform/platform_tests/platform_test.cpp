@@ -58,7 +58,7 @@ UNIT_TEST(WritableDir)
 UNIT_TEST(WritablePathForFile)
 {
   Platform & pl = GetPlatform();
-  std::string const p1 = pl.WritableDir() + TEST_FILE_NAME;
+  std::string const p1 = base::JoinPath(pl.WritableDir(), TEST_FILE_NAME);
   std::string const p2 = pl.WritablePathForFile(TEST_FILE_NAME);
   TEST_EQUAL(p1, p2, ());
 }

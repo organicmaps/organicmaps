@@ -15,6 +15,7 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 #include <algorithm>
@@ -385,7 +386,7 @@ UNIT_TEST(HS_MWMSearch)
   // "Minsk", "Belarus", "Lithuania", "USA_New York", "USA_California"
   string const country = "minsk-pass";
 
-  string const path = GetPlatform().WritableDir() + country + ".addr";
+  string const path = base::JoinPath(GetPlatform().WritableDir(), country + ".addr");
   ifstream file(path.c_str());
   if (!file.good())
   {
