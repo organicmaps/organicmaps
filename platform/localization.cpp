@@ -27,6 +27,7 @@ LocalizedUnits GetLocalizedUnits(measurement_utils::Units units, MeasurementType
     case measurement_utils::Units::Imperial: return {GetLocalizedString("foot"), GetLocalizedString("mile")};
     case measurement_utils::Units::Metric: return {GetLocalizedString("meter"), GetLocalizedString("kilometer")};
     }
+    break;
   case MeasurementType::Speed:
     switch (units)
     {

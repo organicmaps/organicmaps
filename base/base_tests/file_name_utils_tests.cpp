@@ -76,6 +76,9 @@ UNIT_TEST(FilePath_Slash)
 
 UNIT_TEST(FilePath_Join)
 {
+  TEST_EQUAL("dir", base::JoinPath("", "dir"), ());
+  TEST_EQUAL("dir", base::JoinPath("", "/dir"), ());
+  TEST_EQUAL("dir/file", base::JoinPath("", "dir", "file"), ());
   TEST_EQUAL("omim/strings.txt", base::JoinPath("omim", "strings.txt"), ());
   TEST_EQUAL("omim/strings.txt", base::JoinPath("omim/", "strings.txt"), ());
   TEST_EQUAL("../../omim/strings.txt", base::JoinPath("..", "..", "omim", "strings.txt"), ());

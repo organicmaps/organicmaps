@@ -882,6 +882,8 @@ UNIT_TEST(StartsWith)
   std::string s("xyz");
   TEST(StartsWith(s, ""), ());
   TEST(StartsWith(s, "x"), ());
+  TEST(StartsWith(s, 'x'), ());
+  TEST(!StartsWith(s, 'z'), ());
   TEST(StartsWith(s, "xyz"), ());
   TEST(!StartsWith(s, "xyzabc"), ());
   TEST(!StartsWith(s, "ayz"), ());
@@ -906,6 +908,8 @@ UNIT_TEST(EndsWith)
     std::string const s("xyz");
     TEST(EndsWith(s, ""), ());
     TEST(EndsWith(s, "z"), ());
+    TEST(EndsWith(s, 'z'), ());
+    TEST(!EndsWith(s, 'x'), ());
     TEST(EndsWith(s, "yz"), ());
     TEST(EndsWith(s, "xyz"), ());
     TEST(!EndsWith(s, "abcxyz"), ());

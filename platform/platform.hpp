@@ -134,7 +134,7 @@ public:
   /// Set writable dir — use for testing and linux stuff only
   void SetWritableDirForTests(std::string const & path);
   /// @return full path to file in user's writable directory
-  std::string WritablePathForFile(std::string const & file) const { return WritableDir() + file; }
+  std::string WritablePathForFile(std::string const & file) const;
   /// Uses m_writeableDir [w], m_resourcesDir [r], m_settingsDir [s].
   std::string ReadPathForFile(std::string const & file,
                               std::string searchScope = std::string()) const;
@@ -185,7 +185,7 @@ public:
   std::string const & SettingsDir() const { return m_settingsDir; }
   void SetSettingsDir(std::string const & path);
   /// @return full path to file in the settings directory
-  std::string SettingsPathForFile(std::string const & file) const { return SettingsDir() + file; }
+  std::string SettingsPathForFile(std::string const & file) const;
 
   /// @return reader for file decriptor.
   /// @throws FileAbsentException

@@ -1,5 +1,6 @@
 #include "platform/platform.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 #include "base/logging.hpp"
 
@@ -70,9 +71,10 @@ Platform::Platform()
   // writable path:
   // 1. the same as resources if we have write access to this folder
   // 2. otherwise, use system-specific folder
+  string const tmpFilePath = base::JoinPath(m_resourcesDir, "mapswithmetmptestfile");
   try
   {
-    FileWriter tmpfile(m_resourcesDir + "mapswithmetmptestfile");
+    FileWriter tmpfile(tmpFilePath);
     tmpfile.Write("Hi from Alex!", 13);
     m_writableDir = m_resourcesDir;
   }
@@ -80,17 +82,17 @@ Platform::Platform()
   {
     CHECK(GetUserWritableDir(m_writableDir), ("Can't get writable directory"));
   }
-  FileWriter::DeleteFileX(m_resourcesDir + "mapswithmetmptestfile");
+  FileWriter::DeleteFileX(tmpFilePath);
 
   m_settingsDir = m_writableDir;
   char pathBuf[MAX_PATH] = {0};
   GetTempPathA(MAX_PATH, pathBuf);
   m_tmpDir = pathBuf;
 
-  LOG(LDEBUG, ("Resources Directory:", m_resourcesDir));
-  LOG(LDEBUG, ("Writable Directory:", m_writableDir));
-  LOG(LDEBUG, ("Tmp Directory:", m_tmpDir));
-  LOG(LDEBUG, ("Settings Directory:", m_settingsDir));
+  LOG(LINFO, ("Resources Directory:", m_resourcesDir));
+  LOG(LINFO, ("Writable Directory:", m_writableDir));
+  LOG(LINFO, ("Tmp Directory:", m_tmpDir));
+  LOG(LINFO, ("Settings Directory:", m_settingsDir));
 }
 
 bool Platform::IsFileExistsByFullPath(string const & filePath)
