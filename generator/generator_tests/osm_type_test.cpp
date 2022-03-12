@@ -16,6 +16,8 @@
 
 #include "platform/platform.hpp"
 
+#include "base/file_name_utils.hpp"
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -59,7 +61,7 @@ FeatureBuilderParams GetFeatureBuilderParams(Tags const & tags)
   FillXmlElement(tags, &e);
   FeatureBuilderParams params;
 
-  static TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
+  static TagReplacer tagReplacer(base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE));
   tagReplacer.Process(e);
 
   ftype::GetNameAndType(&e, params);

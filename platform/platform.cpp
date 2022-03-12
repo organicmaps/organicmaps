@@ -145,9 +145,9 @@ string Platform::ReadPathForFile(string const & file, string searchScope) const
   {
     switch (searchScope[i])
     {
-    case 'w': fullPath = m_writableDir + file; break;
-    case 'r': fullPath = m_resourcesDir + file; break;
-    case 's': fullPath = m_settingsDir + file; break;
+    case 'w': fullPath = base::JoinPath(m_writableDir, file); break;
+    case 'r': fullPath = base::JoinPath(m_resourcesDir, file); break;
+    case 's': fullPath = base::JoinPath(m_settingsDir, file); break;
     case 'f': fullPath = file; break;
     default : CHECK(false, ("Unsupported searchScope:", searchScope)); break;
     }
@@ -177,13 +177,13 @@ bool Platform::RemoveFileIfExists(string const & filePath)
 string Platform::TmpPathForFile() const
 {
   size_t constexpr kNameLen = 32;
-  return TmpDir() + RandomString(kNameLen);
+  return base::JoinPath(TmpDir(), RandomString(kNameLen));
 }
 
 string Platform::TmpPathForFile(string const & prefix, string const & suffix) const
 {
   size_t constexpr kRandomLen = 8;
-  return TmpDir() + prefix + RandomString(kRandomLen) + suffix;
+  return base::JoinPath(TmpDir(), prefix + RandomString(kRandomLen) + suffix);
 }
 
 void Platform::GetFontNames(FilesList & res) const

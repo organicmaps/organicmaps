@@ -5,6 +5,7 @@
 #include "coding/zip_reader.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/thread.hpp"
 #include "base/thread_pool.hpp"
 #include "base/logging.hpp"
@@ -95,32 +96,32 @@ public:
 /*
 UNIT_TEST(ApkReader_Multithreaded)
 {
-/// @todo Update test with current apk path.
-  string const path = GetPlatform().WritableDir() + "../android/MapsWithMePro/bin/MapsWithMePro-production.apk";
+  /// @todo Update test with current apk path.
+  string const path = base::JoinPath(GetPlatform().WritableDir(), "../android/MapsWithMePro/bin/MapsWithMePro-production.apk");
 
-uint64_t size;
-if (!base::GetFileSize(path, size))
-{
-  LOG(LINFO, ("Apk not found"));
-  return;
-}
+  uint64_t size;
+  if (!base::GetFileSize(path, size))
+  {
+    LOG(LINFO, ("Apk not found"));
+    return;
+  }
 
-srand(static_cast<unsigned>(size));
+  srand(static_cast<unsigned>(size));
 
-size_t const count = 20;
-base::thread_pool::routine_simple::ThreadPool pool(count);
+  size_t const count = 20;
+  base::thread_pool::routine_simple::ThreadPool pool(count);
 
-for (size_t i = 0; i < count; ++i)
-  pool.Add(make_unique<ApkTester>(path));
+  for (size_t i = 0; i < count; ++i)
+    pool.Add(make_unique<ApkTester>(path));
 
-pool.Join();
+  pool.Join();
 
-typedef ApkTester const * PtrT;
-PtrT etalon = dynamic_cast<PtrT>(pool.GetRoutine(0));
-for (size_t i = 1; i < count; ++i)
-{
-  PtrT p = dynamic_cast<PtrT>(pool.GetRoutine(i));
-  TEST_EQUAL(etalon->m_hashes, p->m_hashes, ());
-}
+  typedef ApkTester const * PtrT;
+  PtrT etalon = dynamic_cast<PtrT>(pool.GetRoutine(0));
+  for (size_t i = 1; i < count; ++i)
+  {
+    PtrT p = dynamic_cast<PtrT>(pool.GetRoutine(i));
+    TEST_EQUAL(etalon->m_hashes, p->m_hashes, ());
+  }
 */
 }  // namespace apk_test

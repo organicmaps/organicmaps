@@ -4,6 +4,8 @@
 #include <string>
 #include <utility>
 
+#include "base/assert.hpp"
+
 namespace base
 {
 /// Remove extension from file name.
@@ -31,15 +33,26 @@ std::string::value_type GetNativeSeparator();
 /// Add the terminating slash to the folder path std::string if it's not already there.
 std::string AddSlashIfNeeded(std::string const & path);
 
+namespace impl
+{
 inline std::string JoinPath(std::string const & file) { return file; }
 
-/// Create full path from some folder using native folders separator.
 template <typename... Args>
 std::string JoinPath(std::string const & folder, Args &&... args)
 {
   if (folder.empty())
-    return JoinPath(std::forward<Args>(args)...);
+    return {};
 
-  return AddSlashIfNeeded(folder) + JoinPath(std::forward<Args>(args)...);
+  return AddSlashIfNeeded(folder) + impl::JoinPath(std::forward<Args>(args)...);
+}
+}  // namespace impl
+
+/// Create full path from some folder using native folders separator.
+template <typename... Args>
+std::string JoinPath(std::string const & dir, std::string const & fileOrDir, Args &&... args)
+{
+  ASSERT(!dir.empty(), ("JoinPath dir is empty"));
+  ASSERT(!fileOrDir.empty(), ("JoinPath fileOrDir is empty"));
+  return impl::JoinPath(dir, fileOrDir, std::forward<Args>(args)...);
 }
 }  // namespace base
