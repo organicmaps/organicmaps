@@ -1,7 +1,6 @@
 package com.mapswithme.maps.downloader;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.location.Location;
@@ -15,24 +14,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetFragment;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
@@ -72,124 +69,74 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private int mListenerSlot;
 
-  private enum MenuItem
+  private void onDownloadActionSelected(final CountryItem item, DownloaderAdapter adapter)
   {
-    DOWNLOAD(R.drawable.ic_download, R.string.downloader_download_map)
+    MapManager.warn3gAndDownload(adapter.mActivity, item.id, null);
+  }
+
+  private void onUpdateActionSelected(final CountryItem item, DownloaderAdapter adapter)
+  {
+    item.update();
+    if (item.status != CountryItem.STATUS_UPDATABLE)
+      return;
+    MapManager.warnOn3gUpdate(adapter.mActivity, item.id, () -> MapManager.nativeUpdate(item.id));
+  }
+
+  private void onExploreActionSelected(CountryItem item, DownloaderAdapter adapter)
+  {
+    Intent intent = new Intent(adapter.mActivity, MwmActivity.class);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    intent.putExtra(MwmActivity.EXTRA_TASK, new Factory.ShowCountryTask(item.id));
+    adapter.mActivity.startActivity(intent);
+
+    if (!(adapter.mActivity instanceof MwmActivity))
+      adapter.mActivity.finish();
+  }
+
+  void onDeleteActionSelected(final CountryItem item, final DownloaderAdapter adapter)
+  {
+    if (RoutingController.get().isNavigating())
     {
-      @Override
-      void invoke(final CountryItem item, DownloaderAdapter adapter)
-      {
-        MapManager.warn3gAndDownload(adapter.mActivity, item.id, null);
-      }
-    },
-
-    DELETE(R.drawable.ic_delete, R.string.delete)
-    {
-      private void deleteNode(CountryItem item)
-      {
-        MapManager.nativeCancel(item.id);
-        MapManager.nativeDelete(item.id);
-        OnmapDownloader.setAutodownloadLocked(true);
-      }
-
-      @Override
-      void invoke(final CountryItem item, final DownloaderAdapter adapter)
-      {
-        if (RoutingController.get().isNavigating())
-        {
-          new AlertDialog.Builder(adapter.mActivity)
-              .setTitle(R.string.downloader_delete_map)
-              .setMessage(R.string.downloader_delete_map_while_routing_dialog)
-              .setPositiveButton(android.R.string.ok, null)
-              .show();
-          return;
-        }
-
-        if (!MapManager.nativeHasUnsavedEditorChanges(item.id))
-        {
-          deleteNode(item, adapter);
-          return;
-        }
-
-        new AlertDialog.Builder(adapter.mActivity)
-                       .setTitle(R.string.downloader_delete_map)
-                       .setMessage(R.string.downloader_delete_map_dialog)
-                       .setNegativeButton(android.R.string.no, null)
-                       .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
-                       {
-                         @Override
-                         public void onClick(DialogInterface dialog, int which)
-                         {
-                           deleteNode(item, adapter);
-                         }
-                       }).show();
-      }
-
-      private void deleteNode(CountryItem item, DownloaderAdapter adapter)
-      {
-        if (adapter.mActivity instanceof MwmActivity)
-        {
-          ((MwmActivity) adapter.mActivity).closePlacePage();
-        }
-        deleteNode(item);
-      }
-    },
-
-    CANCEL(R.drawable.ic_cancel, R.string.cancel)
-    {
-      @Override
-      void invoke(CountryItem item, DownloaderAdapter adapter)
-      {
-        MapManager.nativeCancel(item.id);
-      }
-    },
-
-    EXPLORE(R.drawable.ic_explore, R.string.zoom_to_country)
-    {
-      @Override
-      void invoke(CountryItem item, DownloaderAdapter adapter)
-      {
-        Intent intent = new Intent(adapter.mActivity, MwmActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        intent.putExtra(MwmActivity.EXTRA_TASK, new Factory.ShowCountryTask(item.id));
-        adapter.mActivity.startActivity(intent);
-
-        if (!(adapter.mActivity instanceof MwmActivity))
-          adapter.mActivity.finish();
-      }
-    },
-
-    UPDATE(R.drawable.ic_update, R.string.downloader_update_map)
-    {
-      @Override
-      void invoke(final CountryItem item, DownloaderAdapter adapter)
-      {
-        item.update();
-
-        if (item.status != CountryItem.STATUS_UPDATABLE)
-          return;
-
-        MapManager.warnOn3gUpdate(adapter.mActivity, item.id, new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            MapManager.nativeUpdate(item.id);
-          }
-        });
-      }
-    };
-
-    final @DrawableRes int icon;
-    final @StringRes int title;
-
-    MenuItem(@DrawableRes int icon, @StringRes int title)
-    {
-      this.icon = icon;
-      this.title = title;
+      new AlertDialog.Builder(adapter.mActivity)
+          .setTitle(R.string.downloader_delete_map)
+          .setMessage(R.string.downloader_delete_map_while_routing_dialog)
+          .setPositiveButton(android.R.string.ok, null)
+          .show();
+      return;
     }
 
-    abstract void invoke(CountryItem item, DownloaderAdapter adapter);
+    if (!MapManager.nativeHasUnsavedEditorChanges(item.id))
+    {
+      deleteNode(item, adapter);
+      return;
+    }
+
+    new AlertDialog.Builder(adapter.mActivity)
+        .setTitle(R.string.downloader_delete_map)
+        .setMessage(R.string.downloader_delete_map_dialog)
+        .setNegativeButton(android.R.string.no, null)
+        .setPositiveButton(android.R.string.yes, (dialog, which) -> deleteNode(item, adapter)).show();
+  }
+
+  private void onCancelActionSelected(CountryItem item, DownloaderAdapter adapter)
+  {
+    MapManager.nativeCancel(item.id);
+  }
+
+  private void deleteNode(CountryItem item)
+  {
+    MapManager.nativeCancel(item.id);
+    MapManager.nativeDelete(item.id);
+    OnmapDownloader.setAutodownloadLocked(true);
+  }
+
+  private void deleteNode(CountryItem item, DownloaderAdapter adapter)
+  {
+    if (adapter.mActivity instanceof MwmActivity)
+    {
+      ((MwmActivity) adapter.mActivity).closePlacePage();
+    }
+    deleteNode(item);
   }
 
   private static class PathEntry
@@ -335,7 +282,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       case CountryItem.STATUS_DOWNLOADABLE:
       case CountryItem.STATUS_PARTLY:
         if (clickOnStatus)
-          MenuItem.DOWNLOAD.invoke(mItem, DownloaderAdapter.this);
+          onDownloadActionSelected(mItem, DownloaderAdapter.this);
         else
           processLongClick();
         break;
@@ -364,68 +311,85 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     private void processLongClick()
     {
-      List<MenuItem> items = new ArrayList<>();
+      ArrayList<MenuBottomSheetItem> items = getMenuItems();
+      new MenuBottomSheetFragment(mItem.name, items)
+          .show(mFragment.getParentFragmentManager(), "downloaderBottomSheet");
+    }
 
+    private MenuBottomSheetItem getDownloadMenuItem()
+    {
+      return new MenuBottomSheetItem(R.string.downloader_download_map, R.drawable.ic_download,
+          () -> onDownloadActionSelected(mItem, DownloaderAdapter.this));
+    }
+
+    private MenuBottomSheetItem getUpdateMenuItem()
+    {
+      return new MenuBottomSheetItem(R.string.downloader_update_map, R.drawable.ic_update,
+          () -> onUpdateActionSelected(mItem, DownloaderAdapter.this));
+    }
+
+    private MenuBottomSheetItem getExploreMenuItem()
+    {
+      return new MenuBottomSheetItem(R.string.zoom_to_country, R.drawable.ic_explore,
+          () -> onExploreActionSelected(mItem, DownloaderAdapter.this));
+    }
+
+    private MenuBottomSheetItem getDeleteMenuItem()
+    {
+      return new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
+          () -> onDeleteActionSelected(mItem, DownloaderAdapter.this));
+    }
+
+    private MenuBottomSheetItem getCancelMenuItem()
+    {
+      return new MenuBottomSheetItem(R.string.cancel, R.drawable.ic_cancel,
+          () -> onCancelActionSelected(mItem, DownloaderAdapter.this));
+    }
+
+    private ArrayList<MenuBottomSheetItem> getMenuItems()
+    {
+      ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
       switch (mItem.status)
       {
-      case CountryItem.STATUS_DOWNLOADABLE:
-        items.add(MenuItem.DOWNLOAD);
-        break;
+        case CountryItem.STATUS_DOWNLOADABLE:
+          items.add(getDownloadMenuItem());
+          break;
 
-      case CountryItem.STATUS_UPDATABLE:
-        items.add(MenuItem.UPDATE);
-        // No break
+        case CountryItem.STATUS_UPDATABLE:
+          items.add(getUpdateMenuItem());
+          // Fallthrough
 
-      case CountryItem.STATUS_DONE:
-        if (!mItem.isExpandable())
-          items.add(MenuItem.EXPLORE);
+        case CountryItem.STATUS_DONE:
+          if (!mItem.isExpandable())
+            items.add(getExploreMenuItem());
+          items.add(getDeleteMenuItem());
+          break;
 
-        items.add(MenuItem.DELETE);
-        break;
+        case CountryItem.STATUS_FAILED:
+          items.add(getCancelMenuItem());
 
-      case CountryItem.STATUS_FAILED:
-        items.add(MenuItem.CANCEL);
+          if (mItem.present)
+          {
+            items.add(getDeleteMenuItem());
+            items.add(getExploreMenuItem());
+          }
+          break;
 
-        if (mItem.present)
-        {
-          items.add(MenuItem.DELETE);
-          items.add(MenuItem.EXPLORE);
-        }
-        break;
+        case CountryItem.STATUS_PROGRESS:
+        case CountryItem.STATUS_APPLYING:
+        case CountryItem.STATUS_ENQUEUED:
+          items.add(getCancelMenuItem());
 
-      case CountryItem.STATUS_PROGRESS:
-      case CountryItem.STATUS_APPLYING:
-      case CountryItem.STATUS_ENQUEUED:
-        items.add(MenuItem.CANCEL);
+          if (mItem.present)
+            items.add(getExploreMenuItem());
+          break;
 
-        if (mItem.present)
-          items.add(MenuItem.EXPLORE);
-        break;
-
-      case CountryItem.STATUS_PARTLY:
-        items.add(MenuItem.DOWNLOAD);
-        items.add(MenuItem.DELETE);
-        break;
+        case CountryItem.STATUS_PARTLY:
+          items.add(getDownloadMenuItem());
+          items.add(getDeleteMenuItem());
+          break;
       }
-
-      if (items.isEmpty())
-        return;
-
-      BottomSheetHelper.Builder bs = BottomSheetHelper.create(mActivity, mItem.name);
-      for (MenuItem item: items)
-        bs.sheet(item.ordinal(), item.icon, item.title);
-
-      BottomSheet bottomSheet = bs.listener(new android.view.MenuItem.OnMenuItemClickListener()
-      {
-        @Override
-        public boolean onMenuItemClick(android.view.MenuItem item)
-        {
-          MenuItem.values()[item.getItemId()].invoke(mItem, DownloaderAdapter.this);
-          return false;
-        }
-      }).build();
-      BottomSheetHelper.tint(bottomSheet);
-      bottomSheet.show();
+      return items;
     }
 
     ItemViewHolder(View frame)
