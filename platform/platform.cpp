@@ -125,6 +125,16 @@ void Platform::SetSettingsDir(string const & path)
   m_settingsDir = base::AddSlashIfNeeded(path);
 }
 
+std::string Platform::SettingsPathForFile(std::string const & file) const
+{
+  return base::JoinPath(SettingsDir(), file);
+}
+
+std::string Platform::WritablePathForFile(std::string const & file) const
+{
+  return base::JoinPath(WritableDir(), file);
+}
+
 string Platform::ReadPathForFile(string const & file, string searchScope) const
 {
   if (searchScope.empty())
@@ -297,9 +307,9 @@ bool Platform::MkDirChecked(string const & dirName)
 // static
 bool Platform::MkDirRecursively(string const & dirName)
 {
-  auto const sep = base::GetNativeSeparator();
+  string::value_type const sep[] = { base::GetNativeSeparator(), 0};
   string path = strings::StartsWith(dirName, sep) ? sep : "";
-  auto const tokens = strings::Tokenize(dirName, sep.c_str());
+  auto const tokens = strings::Tokenize(dirName, sep);
   for (auto const & t : tokens)
   {
     path = base::JoinPath(path, t);

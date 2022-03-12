@@ -24,6 +24,8 @@
 #include <string>
 #include <vector>
 
+namespace house_detector_tests
+{
 using namespace std;
 using platform::LocalCountryFile;
 
@@ -496,3 +498,4 @@ UNIT_TEST(HS_MWMSearch)
   LOG(LINFO, ("Matched =", matched, "Not matched =", notMatched, "Not found =", all - matched - notMatched));
   LOG(LINFO, ("All count =", all, "Percent matched =", matched / double(all)));
 }
+}  // namespace house_detector_tests

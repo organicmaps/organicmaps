@@ -143,14 +143,14 @@ public:
   using reference = std::string;
   using iterator_category = std::input_iterator_tag;
 
-  // *NOTE* |s| must be not temporary!
+  // *NOTE* |s| must not be a temporary!
   TokenizeIterator(std::string const & s, DelimFn const & delimFn)
     : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn)
   {
     Move();
   }
 
-  // *NOTE* |s| must be not temporary!
+  // *NOTE* |s| must not be a temporary!
   TokenizeIterator(UniString const & s, DelimFn const & delimFn)
     : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn)
   {
@@ -591,15 +591,13 @@ bool StartsWith(IterT1 beg, IterT1 end, IterT2 begPrefix, IterT2 endPrefix)
 }
 
 bool StartsWith(UniString const & s, UniString const & p);
-
 bool StartsWith(std::string const & s1, char const * s2);
-
+bool StartsWith(std::string const & s, std::string::value_type c);
 bool StartsWith(std::string const & s1, std::string const & s2);
 
 bool EndsWith(UniString const & s1, UniString const & s2);
-
 bool EndsWith(std::string const & s1, char const * s2);
-
+bool EndsWith(std::string const & s, std::string::value_type c);
 bool EndsWith(std::string const & s1, std::string const & s2);
 
 // If |s| starts with |prefix|, deletes it from |s| and returns true.

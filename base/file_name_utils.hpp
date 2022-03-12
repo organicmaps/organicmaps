@@ -25,8 +25,8 @@ std::string GetNameFromFullPathWithoutExt(std::string const & path);
 /// root directory. If the argument is a single component, returns ".".
 std::string GetDirectory(std::string const & path);
 
-/// Get folder separator for specific platform
-std::string GetNativeSeparator();
+/// Get native folder separator for the platform.
+std::string::value_type GetNativeSeparator();
 
 /// Add the terminating slash to the folder path std::string if it's not already there.
 std::string AddSlashIfNeeded(std::string const & path);
