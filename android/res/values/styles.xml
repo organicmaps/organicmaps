@@ -17,7 +17,7 @@
     <item name="android:tint">?iconTint</item>
   </style>
 
-  <style name="MwmWidget.MapButton.Traffic">
+  <style name="MwmWidget.MapButton.Layers">
     <item name="android:tint">@null</item>
   </style>
 

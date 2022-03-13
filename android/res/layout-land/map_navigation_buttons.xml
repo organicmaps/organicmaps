@@ -9,14 +9,14 @@
 
   <ImageButton
     android:id="@+id/traffic"
-    style="@style/MwmWidget.MapButton.Traffic"
+    style="@style/MwmWidget.MapButton.Layers"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
     android:visibility="invisible"/>
 
   <ImageButton
     android:id="@+id/subway"
-    style="@style/MwmWidget.MapButton.Traffic"
+    style="@style/MwmWidget.MapButton.Layers"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
     android:background="?attr/nav_bg_subway"
@@ -24,7 +24,7 @@
 
   <ImageButton
     android:id="@+id/isolines"
-    style="@style/MwmWidget.MapButton.Traffic"
+    style="@style/MwmWidget.MapButton.Layers"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
     android:background="?nav_bg_isolines"

@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -45,7 +44,9 @@ import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.downloader.DownloaderActivity;
 import com.mapswithme.maps.downloader.DownloaderFragment;
+import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.OnmapDownloader;
+import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
@@ -58,14 +59,11 @@ import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.MapLayerCompositeController;
 import com.mapswithme.maps.maplayer.Mode;
-import com.mapswithme.maps.maplayer.OnIsolinesLayerToggleListener;
+import com.mapswithme.maps.maplayer.ToggleMapLayerFragment;
 import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.maps.maplayer.isolines.IsolinesState;
-import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
-import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
-import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingBottomMenuListener;
@@ -84,13 +82,8 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
-import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
-import com.mapswithme.maps.widget.menu.MainMenuOptionListener;
-import com.mapswithme.maps.widget.menu.MenuController;
-import com.mapswithme.maps.widget.menu.MenuControllerFactory;
-import com.mapswithme.maps.widget.menu.MenuStateObserver;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
@@ -104,9 +97,12 @@ import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetFragment;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -124,12 +120,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
                RoutingBottomMenuListener,
                BookmarkManager.BookmarksLoadingListener,
                FloatingSearchToolbarController.SearchToolbarListener,
-               OnTrafficLayerToggleListener,
-               OnSubwayLayerToggleListener,
                PlacePageController.SlideListener,
                AlertDialogCallback, RoutingModeListener,
                AppBackgroundTracker.OnTransitionListener,
-               OnIsolinesLayerToggleListener,
                NoConnectionListener,
                MapWidgetOffsetsProvider
 {
@@ -167,10 +160,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private FadeView mFadeView;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private View mPositionChooser;
 
   private RoutingPlanInplaceController mRoutingPlanInplaceController;
@@ -189,6 +178,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Nullable
   private MyPositionButton mNavMyPosition;
+  @NonNull
+  ToggleMapLayerFragment mToggleMapLayerFragment;
+  @NonNull
+  private MenuBottomSheetFragment mLayersBottomSheet;
+  @NonNull
+  private MenuBottomSheetFragment mMainMenuBottomSheet;
   @Nullable
   private NavigationButtonsAnimationController mNavAnimationController;
   @SuppressWarnings("NullableProblems")
@@ -217,9 +212,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private PlacePageController mPlacePageController;
   @SuppressWarnings("NullableProblems")
-  @NonNull
-  private MenuController mMainMenuController;
-
 
   public interface LeftAnimationTrackListener
   {
@@ -414,16 +406,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageController.initialize(this);
     mPlacePageController.onActivityCreated(this, savedInstanceState);
 
-    mMainMenuController = MenuControllerFactory.createMainMenuController(new MainMenuStateObserver(),
-                                                                         new MainMenuOptionSelectedListener(),
-                                                                         this);
-    mMainMenuController.initialize(findViewById(R.id.coordinator));
-
     mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.getToolbar()
                      .getViewTreeObserver()
                      .addOnGlobalLayoutListener(new ToolbarLayoutChangeListener());
     mSearchController.setVisibilityListener(this);
+
+    initBottomSheets();
 
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
@@ -441,6 +430,34 @@ public class MwmActivity extends BaseMwmFragmentActivity
       addTask(new Factory.RestoreRouteTask());
       return;
     }
+  }
+
+  private void initBottomSheets()
+  {
+    mToggleMapLayerFragment = new ToggleMapLayerFragment(this::onIsolinesLayerOptionSelected, this::onSubwayLayerOptionSelected);
+    mLayersBottomSheet = new MenuBottomSheetFragment(mToggleMapLayerFragment);
+    mMainMenuBottomSheet = new MenuBottomSheetFragment(mToggleMapLayerFragment, getMainMenuItems());
+  }
+
+  private int getDownloadMapsCounter()
+  {
+    UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
+    return info == null ? 0 : info.filesCount;
+  }
+
+  private ArrayList<MenuBottomSheetItem> getMainMenuItems()
+  {
+    ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
+    items.add(new MenuBottomSheetItem(R.string.placepage_add_place_button, R.drawable.ic_plus, this::onAddPlaceOptionSelected));
+    items.add(new MenuBottomSheetItem(
+        R.string.download_maps,
+        R.drawable.ic_download,
+        getDownloadMapsCounter(),
+        this::onDownloadMapsOptionSelected
+    ));
+    items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
+    items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share, this::onShareLocationOptionSelected));
+    return items;
   }
 
   @Override
@@ -535,9 +552,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initMap(boolean isLaunchByDeepLink)
   {
-    mFadeView = findViewById(R.id.fade_view);
-    mFadeView.setListener(this::onFadeViewTouch);
-
     mMapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.class.getName());
     if (mMapFragment == null)
     {
@@ -555,12 +569,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       container.setOnTouchListener(this);
     }
-  }
-
-  private boolean onFadeViewTouch()
-  {
-    closeMenu();
-    return getCurrentMenu().close(true);
   }
 
   public boolean isMapAttached()
@@ -581,20 +589,44 @@ public class MwmActivity extends BaseMwmFragmentActivity
     View myPosition = frame.findViewById(R.id.my_position);
     mNavMyPosition = new MyPositionButton(myPosition, mOnMyPositionClickListener);
 
-    initToggleMapLayerController(frame);
+    View mLayersButton = frame.findViewById(R.id.layers_button);
+
+    mToggleMapLayerController = new MapLayerCompositeController(mLayersButton, this::toggleMapLayerMenu,this);
 
     mNavAnimationController = new NavigationButtonsAnimationController(
         zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this);
   }
-
-  private void initToggleMapLayerController(@NonNull View frame)
+  private void toggleMapLayerMenu()
   {
-    ImageButton trafficBtn = frame.findViewById(R.id.traffic);
-    TrafficButton traffic = new TrafficButton(trafficBtn);
-    View subway = frame.findViewById(R.id.subway);
-    View isoLines = frame.findViewById(R.id.isolines);
-    mToggleMapLayerController = new MapLayerCompositeController(traffic, subway, isoLines, this);
-    mToggleMapLayerController.attachCore();
+    if (!closeMapLayerMenu())
+      showMapLayerMenu();
+  }
+
+  private boolean closeMapLayerMenu()
+  {
+    if (!mLayersBottomSheet.isAdded())
+      return false;
+    mLayersBottomSheet.dismiss();
+    return true;
+  }
+
+  private void showMapLayerMenu()
+  {
+    mLayersBottomSheet.show(getSupportFragmentManager(), "layersBottomSheet");
+  }
+
+  private boolean closeMainMenu()
+  {
+    if (!mMainMenuBottomSheet.isAdded())
+      return false;
+    mMainMenuBottomSheet.dismiss();
+    return true;
+  }
+
+  private void showMainMenu()
+  {
+    mMainMenuBottomSheet = new MenuBottomSheetFragment(mToggleMapLayerFragment, getMainMenuItems());
+    mMainMenuBottomSheet.show(getSupportFragmentManager(), "mainMenuBottomSheet");
   }
 
   /**
@@ -619,8 +651,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (removeCurrentFragment(true))
     {
-      InputUtils.hideKeyboard(mFadeView);
-      mFadeView.fadeOut();
       return true;
     }
 
@@ -633,37 +663,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     closePlacePage();
-    if (removeCurrentFragment(true))
-    {
-      InputUtils.hideKeyboard(mFadeView);
-      mFadeView.fadeOut();
-    }
-  }
-
-  /**
-   * @return False if the menu was already closed, true otherwise
-   */
-  public boolean closeMenu()
-  {
-    if (!getMainMenuController().isClosed())
-    {
-      mFadeView.fadeOut();
-      getMainMenuController().close();
-      return true;
-    }
-    return false;
-  }
-
-  /**
-   * Tries to close the main menu then runs the given runnable
-   *
-   * @param procAfterClose The runnable to run after closing the menu
-   */
-  public void closeMenu(@Nullable Runnable procAfterClose)
-  {
-    closeMenu();
-    if (procAfterClose != null)
-      procAfterClose.run();
+    removeCurrentFragment(true);
   }
 
   /**
@@ -712,9 +712,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingToolbars(clearSearchText, true);
   }
 
-  private void closeFloatingPanels()
+  public void closeFloatingPanels()
   {
-    closeMenu();
+    closeMainMenu();
+    closeMapLayerMenu();
     closePlacePage();
   }
 
@@ -726,24 +727,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void startLocationToPoint(final @Nullable MapObject endPoint)
   {
-    closeMenu(() -> {
-      if (!PermissionsUtils.isFineLocationGranted(MwmActivity.this))
-        PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
+    closeFloatingPanels();
+    if (!PermissionsUtils.isFineLocationGranted(MwmActivity.this))
+      PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
 
-      MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
-      RoutingController.get().prepare(startPoint, endPoint);
+    MapObject startPoint = LocationHelper.INSTANCE.getMyPosition();
+    RoutingController.get().prepare(startPoint, endPoint);
 
-      // TODO: check for tablet.
-      closePlacePage();
-    });
-  }
-
-  public void refreshFade()
-  {
-    if (getCurrentMenu().isOpen() || !mMainMenuController.isClosed())
-      mFadeView.fadeIn();
-    else
-      mFadeView.fadeOut();
+    // TODO: check for tablet.
+    closePlacePage();
   }
 
   private void initMainMenu()
@@ -883,24 +875,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       myPositionClick();
   }
 
-  @Override
-  public void onSubwayLayerSelected()
-  {
-    toggleLayer(Mode.SUBWAY);
-  }
-
-  @Override
-  public void onTrafficLayerSelected()
-  {
-    toggleLayer(Mode.TRAFFIC);
-  }
-
-  @Override
-  public void onIsolinesLayerSelected()
-  {
-    toggleLayer(Mode.ISOLINES);
-  }
-
   private void onIsolinesStateChanged(@NonNull IsolinesState type)
   {
     if (type != IsolinesState.EXPIREDDATA)
@@ -997,7 +971,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavAnimationController != null)
       mNavAnimationController.onResume();
     mPlacePageController.onActivityResumed(this);
-    refreshFade();
   }
 
   @Override
@@ -1066,20 +1039,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mToggleMapLayerController.detachCore();
     TrafficManager.INSTANCE.detachAll();
     mPlacePageController.destroy();
-    getMainMenuController().destroy();
   }
 
   @Override
   public void onBackPressed()
   {
-    if (getCurrentMenu().close(true))
-    {
-      mFadeView.fadeOut();
-      return;
-    }
-
     RoutingController routingController = RoutingController.get();
-    if (!closeMenu() && !closePlacePage() && !closeSearchToolbar(true, true) &&
+    if (!closeMainMenu() && !closeMapLayerMenu() && !closePlacePage() && !closeSearchToolbar(true, true) &&
             !closeSidePanel() && !closePositionChooser() &&
             !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
     {
@@ -1173,9 +1139,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setFullscreen(false);
 
     mPlacePageController.openFor(data);
-
-    if (UiUtils.isVisible(mFadeView))
-      mFadeView.fadeOut();
   }
 
   // Called from JNI.
@@ -1613,7 +1576,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // TODO:
 //    mPlacePage.refreshViews();
     mNavigationController.show(show);
-    refreshFade();
     if (mOnmapDownloader != null)
       mOnmapDownloader.updateState(false);
   }
@@ -1883,7 +1845,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRoutingStart()
   {
-    closeMenu(() -> RoutingController.get().start());
+    closeFloatingPanels();
+    RoutingController.get().start();
   }
 
   @Override
@@ -1981,12 +1944,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mToggleMapLayerController.toggleMode(mode);
   }
 
-  @NonNull
-  private MenuController getMainMenuController()
-  {
-    return mMainMenuController;
-  }
-
   public void showTrackOnMap(long trackId)
   {
     Track track = BookmarkManager.INSTANCE.getTrack(trackId);
@@ -2067,11 +2024,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       getActivity().closePlacePage();
       getActivity().closeSidePanel();
-      MenuController controller = getActivity().getMainMenuController();
-      if (controller.isClosed())
-        controller.open();
-      else
-        controller.close();
+      getActivity().showMainMenu();
     }
   }
 
@@ -2086,7 +2039,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public void onMenuItemClickInternal()
     {
       RoutingController.get().cancel();
-      getActivity().closeMenu(() -> getActivity().showSearch(getActivity().mSearchController.getQuery()));
+      getActivity().closeFloatingPanels();
+      getActivity().showSearch(getActivity().mSearchController.getQuery());
     }
   }
 
@@ -2100,7 +2054,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     void onMenuItemClickInternal()
     {
-      getActivity().closeMenu(getActivity()::showBookmarks);
+      getActivity().closeFloatingPanels();
+      getActivity().showBookmarks();
     }
   }
 
@@ -2133,73 +2088,41 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private class MainMenuStateObserver implements MenuStateObserver
+  public void onAddPlaceOptionSelected()
   {
-
-    @Override
-    public void onMenuOpen()
-    {
-      mFadeView.fadeIn();
-    }
-
-    @Override
-    public void onMenuClosed()
-    {
-      mFadeView.fadeOut();
-      getCurrentMenu().updateMarker();
-    }
+    closeFloatingPanels();
+    showPositionChooser(false, false);
   }
 
-  private class MainMenuOptionSelectedListener implements MainMenuOptionListener
+  public void onDownloadMapsOptionSelected()
   {
-    @Override
-    public void onAddPlaceOptionSelected()
-    {
-      closeMenu(() -> showPositionChooser(false, false));
-    }
+    RoutingController.get().cancel();
+    closeFloatingPanels();
+    showDownloader(false);
+  }
 
-    @Override
-    public void onDownloadMapsOptionSelected()
-    {
-      RoutingController.get().cancel();
-      closeMenu(() -> showDownloader(false));
-    }
+  public void onSettingsOptionSelected()
+  {
+    Intent intent = new Intent(getActivity(), SettingsActivity.class);
+    closeFloatingPanels();
+    getActivity().startActivity(intent);
+  }
 
-    @Override
-    public void onSettingsOptionSelected()
-    {
-      Intent intent = new Intent(getActivity(), SettingsActivity.class);
-      closeMenu(() -> getActivity().startActivity(intent));
-    }
+  public void onShareLocationOptionSelected()
+  {
+    closeFloatingPanels();
+    shareMyLocation();
+  }
 
-    @Override
-    public void onShareLocationOptionSelected()
-    {
-      closeMenu(MwmActivity.this::shareMyLocation);
-    }
+  public void onSubwayLayerOptionSelected()
+  {
+    closeFloatingPanels();
+    toggleLayer(Mode.SUBWAY);
+  }
 
-    @Override
-    public void onReportOptionSelected()
-    {
-      closeMenu(() -> Utils.sendFeedback(getActivity()));
-    }
-
-    @Override
-    public void onSubwayLayerOptionSelected()
-    {
-      toggleLayer(Mode.SUBWAY);
-    }
-
-    @Override
-    public void onTrafficLayerOptionSelected()
-    {
-      toggleLayer(Mode.TRAFFIC);
-    }
-
-    @Override
-    public void onIsolinesLayerOptionSelected()
-    {
-      toggleLayer(Mode.ISOLINES);
-    }
+  public void onIsolinesLayerOptionSelected()
+  {
+    closeFloatingPanels();
+    toggleLayer(Mode.ISOLINES);
   }
 }

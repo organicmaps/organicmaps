@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,18 +23,36 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
 {
   @Nullable
   private final String title;
+  @Nullable
+  private final Fragment headerFragment;
   private final ArrayList<MenuBottomSheetItem> menuBottomSheetItems;
+
+  public MenuBottomSheetFragment(@NonNull Fragment headerFragment, ArrayList<MenuBottomSheetItem> menuBottomSheetItems)
+  {
+    this.title = null;
+    this.headerFragment = headerFragment;
+    this.menuBottomSheetItems = menuBottomSheetItems;
+  }
 
   public MenuBottomSheetFragment(@NonNull String title, ArrayList<MenuBottomSheetItem> menuBottomSheetItems)
   {
     this.title = title;
+    this.headerFragment = null;
     this.menuBottomSheetItems = menuBottomSheetItems;
   }
 
   public MenuBottomSheetFragment(ArrayList<MenuBottomSheetItem> menuBottomSheetItems)
   {
     this.title = null;
+    this.headerFragment = null;
     this.menuBottomSheetItems = menuBottomSheetItems;
+  }
+
+  public MenuBottomSheetFragment(@NonNull Fragment headerFragment)
+  {
+    this.title = null;
+    this.headerFragment = headerFragment;
+    this.menuBottomSheetItems = new ArrayList<>();
   }
 
   @Override
@@ -84,5 +103,7 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
     MenuAdapter menuAdapter = new MenuAdapter(menuBottomSheetItems, this::dismiss);
     recyclerView.setAdapter(menuAdapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+    if (headerFragment != null)
+      getChildFragmentManager().beginTransaction().add(R.id.bottom_sheet_menu_header, headerFragment).commit();
   }
 }
