@@ -44,7 +44,7 @@ public:
 
   bool IsOneWay() const { return m_isOneWay; }
   SpeedKMpH const & GetSpeed(bool forward) const;
-  HighwayType GetHighwayType() const { return *m_highwayType; }
+  std::optional<HighwayType> GetHighwayType() const { return m_highwayType; }
   bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; }
 
   LatLonWithAltitude const & GetJunction(uint32_t junctionId) const

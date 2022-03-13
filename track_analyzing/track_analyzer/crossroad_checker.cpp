@@ -86,10 +86,10 @@ IsCrossroadChecker::Type IsCrossroadChecker::operator()(Segment const & current,
   if (jointId == Joint::kInvalidId)
     return Type::Count;
 
-  bool const isCurrentLink = IsHighwayLink(currentSegmentHwType);
-  bool const isNextLink = IsHighwayLink(nextSegmentHwType);
-  bool const isCurrentBig = IsBigHighway(currentSegmentHwType);
-  bool const isNextBig = IsBigHighway(nextSegmentHwType);
+  bool const isCurrentLink = IsHighwayLink(*currentSegmentHwType);
+  bool const isNextLink = IsHighwayLink(*nextSegmentHwType);
+  bool const isCurrentBig = IsBigHighway(*currentSegmentHwType);
+  bool const isNextBig = IsBigHighway(*nextSegmentHwType);
 
   if (currentSegmentFeatureId != nextSegmentFeatureId && currentSegmentHwType != nextSegmentHwType)
   {
@@ -136,13 +136,13 @@ IsCrossroadChecker::Type IsCrossroadChecker::operator()(Segment const & current,
       }
     }
 
-    if (isCurrentLink && IsBigHighway(pointHwType))
+    if (isCurrentLink && IsBigHighway(*pointHwType))
     {
       retType = Type::IntersectionWithBig;
       return;
     }
 
-    if (FromSmallerToBigger(currentSegmentHwType, pointHwType))
+    if (FromSmallerToBigger(*currentSegmentHwType, *pointHwType))
     {
       retType = Type::IntersectionWithBig;
       return;

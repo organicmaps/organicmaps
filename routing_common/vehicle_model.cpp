@@ -126,6 +126,7 @@ std::optional<HighwayType> VehicleModel::GetHighwayType(FeatureType & f) const
       return static_cast<HighwayType>(classif().GetIndexForType(t));
   }
 
+  // For example Denmark has "No track" profile (see kCarOptionsDenmark), but tracks exist in MWM.
   return {};
 }
 

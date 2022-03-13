@@ -129,11 +129,11 @@ public:
       if (!maxSpeed)
           return;
 
-      auto const osmid = GetOsmID(fid).GetSerialId();
+      auto const osmID = GetOsmID(fid).GetSerialId();
 
 #define LOG_MAX_SPEED(msg) if (false) LOG(LINFO, msg)
 
-      LOG_MAX_SPEED(("Start osmid =", osmid));
+      LOG_MAX_SPEED(("Start osmid =", osmID));
 
       // Recalculate link speed according to the ingoing highway.
       // See MaxspeedsCollector::CollectFeature.
@@ -186,7 +186,7 @@ public:
                   maxSpeed->SetUnits(s->GetUnits());
                   maxSpeed->SetForward(speed.GetSpeed());
 
-                  LOG(LINFO, ("Updated link speed for way", osmid, "with", *maxSpeed));
+                  LOG(LINFO, ("Updated link speed for way", osmID, "with", *maxSpeed));
                   break;
                 }
                 else if (s->GetForward() == routing::kCommonMaxSpeedValue &&
@@ -208,18 +208,18 @@ public:
 
         if (status == 0)
         {
-          LOG(LWARNING, ("Didn't find connected edge with speed for way", osmid));
+          LOG(LWARNING, ("Didn't find connected edge with speed for way", osmID));
           return;
         }
       }
 
-      LOG_MAX_SPEED(("End osmid =", osmid));
+      LOG_MAX_SPEED(("End osmid =", osmID));
 
-      AddSpeed(fid, *maxSpeed);
+      AddSpeed(fid, osmID, *maxSpeed);
     });
   }
 
-  void AddSpeed(uint32_t featureID, Maxspeed const & speed)
+  void AddSpeed(uint32_t featureID, uint64_t osmID, Maxspeed const & speed)
   {
     // Add converted macro speed.
     SpeedInUnits const forward(speed.GetForward(), speed.GetUnits());
@@ -232,12 +232,12 @@ public:
 
     if (ftSpeed.m_forward == SpeedMacro::Undefined)
     {
-      LOG(LWARNING, ("Undefined macro for forward speed", forward, "in", GetOsmID(featureID)));
+      LOG(LWARNING, ("Undefined forward speed macro", forward, "for way", osmID));
       return;
     }
     if (backward.IsValid() && backwardMacro == SpeedMacro::Undefined)
     {
-      LOG(LWARNING, ("Undefined macro for backward speed", backward, "in", GetOsmID(featureID)));
+      LOG(LWARNING, ("Undefined backward speed macro", backward, "for way", osmID));
     }
 
     m_maxspeeds.push_back(ftSpeed);
@@ -248,17 +248,24 @@ public:
 
     // Update average speed information.
     auto const & rd = GetRoad(featureID);
-    auto & info = m_avgSpeeds[rd.GetHighwayType()];
 
-    double const lenKM = rd.GetRoadLengthM() / 1000.0;
-    for (auto const & s : { forward, backward })
+    auto const hwType = rd.GetHighwayType();
+    if (hwType)
     {
-      if (s.IsNumeric())
+      auto & info = m_avgSpeeds[*hwType];
+
+      double const lenKM = rd.GetRoadLengthM() / 1000.0;
+      for (auto const & s : { forward, backward })
       {
-        info.m_lengthKM += lenKM;
-        info.m_timeH += lenKM / s.GetSpeedKmPH();
+        if (s.IsNumeric())
+        {
+          info.m_lengthKM += lenKM;
+          info.m_timeH += lenKM / s.GetSpeedKmPH();
+        }
       }
     }
+    else
+      LOG(LINFO, ("Undefined HighwayType for way", osmID));
   }
 
   void SerializeMaxspeeds() const
