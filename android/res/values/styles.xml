@@ -9,12 +9,6 @@
 
   <style name="MwmWidget.Downloader"/>
 
-  <style name="BottomSheetAnimation">
-    <item name="android:windowEnterAnimation">@anim/slide_in_up</item>
-    <item name="android:windowExitAnimation">@anim/slide_out_down</item>
-  </style>
-
-
   <style name="MwmWidget.MapButton" parent="android:Widget.ImageButton">
     <item name="android:scaleType">center</item>
     <item name="android:layout_height">64dp</item>

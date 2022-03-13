@@ -144,6 +144,14 @@
 
   <style name="MwmTheme.Editor"/>
 
+  <style name="MwmTheme.BottomSheetDialog" parent="Theme.Material3.Light.BottomSheetDialog">
+    <item name="colorSurface">@color/bg_cards</item>
+  </style>
+
+  <style name="MwmTheme.Night.BottomSheetDialog" parent="Theme.Material3.Dark.BottomSheetDialog" >
+    <item name="colorSurface">@color/bg_cards_night</item>
+  </style>
+
   <style name="MwmTheme.Downloader">
     <item name="status_done">@drawable/ic_downloader_done</item>
     <item name="status_downloadable">@drawable/ic_downloader_download</item>

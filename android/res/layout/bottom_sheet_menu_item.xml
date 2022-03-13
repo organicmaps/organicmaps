@@ -20,7 +20,7 @@
     app:tint="?android:textColorSecondary"/>
   <TextView
     android:id="@+id/bottom_sheet_menu_item_text"
-    style="@style/MwmTextAppearance.Body1"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
     android:layout_width="0dp"
     android:layout_weight="1"
     android:layout_height="match_parent"

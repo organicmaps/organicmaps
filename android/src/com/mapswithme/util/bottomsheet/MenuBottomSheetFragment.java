@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.ThemeUtils;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,14 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
   {
     this.title = null;
     this.menuBottomSheetItems = menuBottomSheetItems;
+  }
+
+  @Override
+  public int getTheme()
+  {
+    return ThemeUtils.isNightTheme(requireContext())
+        ? R.style.MwmTheme_Night_BottomSheetDialog
+        : R.style.MwmTheme_BottomSheetDialog;
   }
 
   @Override
@@ -75,6 +84,5 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
     MenuAdapter menuAdapter = new MenuAdapter(menuBottomSheetItems, this::dismiss);
     recyclerView.setAdapter(menuAdapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
-    requireDialog().getWindow().getAttributes().windowAnimations = R.style.BottomSheetAnimation;
   }
 }
