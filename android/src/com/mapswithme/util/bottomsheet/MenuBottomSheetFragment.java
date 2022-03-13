@@ -75,5 +75,6 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
     MenuAdapter menuAdapter = new MenuAdapter(menuBottomSheetItems, this::dismiss);
     recyclerView.setAdapter(menuAdapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+    requireDialog().getWindow().getAttributes().windowAnimations = R.style.BottomSheetAnimation;
   }
 }
