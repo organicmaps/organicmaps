@@ -249,7 +249,7 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
     if (IsLeaf(countryId))
       RegisterCountryFiles(countryId, localFile.GetDirectory(), localFile.GetVersion());
     else
-      RegisterFakeCountryFiles(localFile);
+      RegisterFakeCountryFiles(localFile);  // Also called for Worlds from resources.
 
     LOG(LINFO, ("Found file:", name, "in directory:", localFile.GetDirectory()));
 

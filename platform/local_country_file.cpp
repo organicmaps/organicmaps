@@ -28,6 +28,10 @@ LocalCountryFile::LocalCountryFile(string const & directory, CountryFile const &
 
 void LocalCountryFile::SyncWithDisk()
 {
+  // World files from resources have an empty directory. See todo in the header.
+  if (m_directory.empty())
+    return;
+
   m_files = {};
   uint64_t size = 0;
 
