@@ -142,17 +142,6 @@
     <item name="android:background">@color/bg_cards_night</item>
   </style>
 
-  <style name="BottomSheet.Dialog.Dark">
-    <item name="android:textColorPrimary">@color/text_light</item>
-    <item name="android:textColorSecondary">@color/text_light</item>
-    <item name="android:textColorHint">@color/text_light_subtitle</item>
-    <item name="bs_dialogBackground">?panel</item>
-    <item name="bs_dividerColor">@color/bs_dark_divider_color</item>
-    <item name="bs_listStyle">@style/BottomSheet.List.Dark</item>
-    <item name="bs_closeDrawable">@drawable/bs_ic_clear</item>
-    <item name="bs_moreDrawable">@drawable/bs_ic_more</item>
-  </style>
-
   <style name="MwmTheme.Editor"/>
 
   <style name="MwmTheme.Downloader">

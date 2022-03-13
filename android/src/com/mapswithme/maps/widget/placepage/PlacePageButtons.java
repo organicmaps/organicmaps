@@ -181,7 +181,7 @@ public final class PlacePageButtons
     // Must not be used outside
     MORE(
         R.string.placepage_more_button,
-        new ImageResources(R.drawable.bs_ic_more),
+        new ImageResources(R.drawable.ic_more),
         ButtonType.MORE),
 
     CALL(
