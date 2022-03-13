@@ -42,14 +42,7 @@
     android:visibility="gone"
     tools:visibility="invisible"/>
 
-  <com.mapswithme.maps.widget.FadeView
-    android:id="@+id/fade_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black"
-    android:visibility="gone"/>
-
-  <include
+   <include
     layout="@layout/layout_nav"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -92,5 +85,4 @@
     <include layout="@layout/divider_horizontal"/>
   </FrameLayout>
   <include layout="@layout/elevation_profile_bottom_sheet" />
-  <include layout="@layout/main_menu_bottom_sheet" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
