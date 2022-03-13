@@ -172,6 +172,7 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   GenerateInfo genInfo;
   genInfo.m_fileName = kTestMwm;
   genInfo.m_bucketNames.push_back(kTestMwm);
+  genInfo.m_cacheDir = testDirFullPath;
   genInfo.m_tmpDir = testDirFullPath;
   genInfo.m_targetDir = testDirFullPath;
   genInfo.m_intermediateDir = testDirFullPath;

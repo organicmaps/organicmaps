@@ -101,6 +101,7 @@ public:
 
     GenerateInfo genInfo;
     // Generate intermediate data.
+    genInfo.m_cacheDir = writableDir;
     genInfo.m_intermediateDir = writableDir;
     genInfo.m_nodeStorageType = feature::GenerateInfo::NodeStorageType::Index;
     genInfo.m_osmFileName = base::JoinPath(writableDir, osmRelativePath);

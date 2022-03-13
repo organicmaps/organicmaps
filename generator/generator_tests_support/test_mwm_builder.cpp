@@ -136,6 +136,7 @@ void TestMwmBuilder::Finish()
   GenerateInfo info;
   info.m_targetDir = m_file.GetDirectory();
   info.m_tmpDir = m_file.GetDirectory();
+  info.m_intermediateDir = m_file.GetDirectory();
   info.m_versionDate = static_cast<uint32_t>(base::YYMMDDToSecondsSinceEpoch(m_version));
   CHECK(GenerateFinalFeatures(info, m_file.GetCountryFile().GetName(), m_type),
         ("Can't sort features."));
