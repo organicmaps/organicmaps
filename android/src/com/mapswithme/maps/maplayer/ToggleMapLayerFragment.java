@@ -1,5 +1,6 @@
 package com.mapswithme.maps.maplayer;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,21 +13,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
+import com.mapswithme.util.SharedPropertiesUtils;
+import com.mapswithme.util.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ToggleMapLayerFragment extends Fragment
 {
   @NonNull
-  private final LayerItemClickListener mIsolinesListener;
-  @NonNull
-  private final LayerItemClickListener mSubwayListener;
-  @NonNull
+  private final LayerItemClickListener mLayerItemClickListener;
+  @Nullable
   private LayersAdapter mAdapter;
 
-  public ToggleMapLayerFragment(@NonNull LayerItemClickListener isolinesListener, @NonNull LayerItemClickListener subwayListener)
+  public ToggleMapLayerFragment(@NonNull LayerItemClickListener layerItemClickListener)
   {
-    this.mIsolinesListener = isolinesListener;
-    this.mSubwayListener = subwayListener;
+    mLayerItemClickListener = layerItemClickListener;
   }
 
   @Nullable
@@ -42,61 +46,38 @@ public class ToggleMapLayerFragment extends Fragment
   {
     RecyclerView recycler = root.findViewById(R.id.recycler);
     RecyclerView.LayoutManager layoutManager = new SpanningLinearLayoutManager(requireContext(),
-                                                                               LinearLayoutManager.HORIZONTAL,
-                                                                               false);
+        LinearLayoutManager.HORIZONTAL,
+        false);
     recycler.setLayoutManager(layoutManager);
-    mAdapter = new LayersAdapter();
-    mAdapter.setLayerModes(LayersUtils.createItems(requireContext(),
-                                                   new SubwayItemClickListener(),
-                                                   new TrafficItemClickListener(),
-                                                   new IsolinesItemClickListener()));
+    mAdapter = new LayersAdapter(getLayersItems());
     recycler.setAdapter(mAdapter);
     recycler.setNestedScrollingEnabled(false);
   }
 
+  private List<LayerBottomSheetItem> getLayersItems()
+  {
+    List<Mode> availableLayers = LayersUtils.getAvailableLayers();
+    List<LayerBottomSheetItem> items = new ArrayList<>();
+    for (Mode layer : availableLayers)
+    {
+      items.add(LayerBottomSheetItem.create(requireContext(), layer, this::onItemClick));
+    }
+    return items;
+  }
+
+  private void onItemClick(@NonNull View v, @NonNull LayerBottomSheetItem item)
+  {
+    Mode mode = item.getMode();
+    Context context = v.getContext();
+    SharedPropertiesUtils.setLayerMarkerShownForLayerMode(context, mode);
+    mAdapter.notifyDataSetChanged();
+    if (IsolinesManager.from(context).shouldShowNotification())
+      Utils.showSnackbar(context, v.getRootView(), R.string.isolines_toast_zooms_1_10);
+    mLayerItemClickListener.onClick(mode);
+  }
+
   public interface LayerItemClickListener
   {
-    void onClick();
-  }
-
-  private class SubwayItemClickListener extends DefaultClickListener
-  {
-    private SubwayItemClickListener()
-    {
-      super(mAdapter);
-    }
-
-    @Override
-    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
-    {
-      mSubwayListener.onClick();
-    }
-  }
-
-  private class TrafficItemClickListener extends DefaultClickListener
-  {
-    private TrafficItemClickListener()
-    {
-      super(mAdapter);
-    }
-
-    @Override
-    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
-    {}
-  }
-
-  private class IsolinesItemClickListener extends AbstractIsoLinesClickListener
-  {
-    private IsolinesItemClickListener()
-    {
-      super(mAdapter);
-    }
-
-    @Override
-    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
-    {
-      super.onItemClickInternal(v, item);
-      mIsolinesListener.onClick();
-    }
+    void onClick(@NonNull Mode mode);
   }
 }

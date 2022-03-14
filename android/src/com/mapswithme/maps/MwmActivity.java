@@ -57,7 +57,7 @@ import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.intent.MapTask;
 import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.maplayer.MapLayerCompositeController;
+import com.mapswithme.maps.maplayer.MapLayersController;
 import com.mapswithme.maps.maplayer.Mode;
 import com.mapswithme.maps.maplayer.ToggleMapLayerFragment;
 import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
@@ -188,7 +188,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private NavigationButtonsAnimationController mNavAnimationController;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private MapLayerCompositeController mToggleMapLayerController;
+  private MapLayersController mToggleMapLayerController;
 
   private boolean mIsTabletLayout;
   private boolean mIsFullscreen;
@@ -434,7 +434,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initBottomSheets()
   {
-    mToggleMapLayerFragment = new ToggleMapLayerFragment(this::onIsolinesLayerOptionSelected, this::onSubwayLayerOptionSelected);
+    mToggleMapLayerFragment = new ToggleMapLayerFragment(this::onLayerItemClicked);
     mLayersBottomSheet = new MenuBottomSheetFragment(mToggleMapLayerFragment);
     mMainMenuBottomSheet = new MenuBottomSheetFragment(mToggleMapLayerFragment, getMainMenuItems());
   }
@@ -591,7 +591,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     View mLayersButton = frame.findViewById(R.id.layers_button);
 
-    mToggleMapLayerController = new MapLayerCompositeController(mLayersButton, this::toggleMapLayerMenu,this);
+    mToggleMapLayerController = new MapLayersController(mLayersButton, this::toggleMapLayerMenu,this);
 
     mNavAnimationController = new NavigationButtonsAnimationController(
         zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this);
@@ -1036,7 +1036,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onSafeDestroy();
     mNavigationController.destroy();
-    mToggleMapLayerController.detachCore();
     TrafficManager.INSTANCE.detachAll();
     mPlacePageController.destroy();
   }
@@ -1197,7 +1196,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         mNavAnimationController.disappearZoomButtons();
       if (mNavMyPosition != null)
         mNavMyPosition.hide();
-      mToggleMapLayerController.hide();
+      mToggleMapLayerController.hideButton();
     }
     else
     {
@@ -1207,6 +1206,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         appearMenu(menu);
       else
         mIsAppearMenuLater = true;
+      mToggleMapLayerController.showButton();
     }
   }
 
@@ -1214,7 +1214,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     showLineFrame(true);
     showNavMyPositionBtn();
-    mToggleMapLayerController.applyLastActiveMode();
   }
 
   private void showNavMyPositionBtn()
@@ -1498,7 +1497,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         }
         showAddStartOrFinishFrame(RoutingController.get(), false);
         int width = UiUtils.dimen(context, R.dimen.panel_width);
-        adjustTraffic(width, UiUtils.getStatusBarHeight(context));
+        adjustLayersButton(width, UiUtils.getStatusBarHeight(context));
         mNavigationController.adjustSearchButtons(width);
       }
       else
@@ -1541,10 +1540,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         return true;
       }
     });
-    adjustTraffic(0, offsetY);
+    adjustLayersButton(0, offsetY);
   }
 
-  private void adjustTraffic(int offsetX, int offsetY)
+  private void adjustLayersButton(int offsetX, int offsetY)
   {
     mToggleMapLayerController.adjust(offsetX, offsetY);
   }
@@ -1779,7 +1778,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (RoutingController.get().isPlanning() || RoutingController.get().isNavigating())
     {
       if (UiUtils.isLandscape(this))
-        mToggleMapLayerController.hide();
+        mToggleMapLayerController.hideButton();
       else
         mNavigationController.fadeOutSearchButtons();
     }
@@ -2114,15 +2113,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     shareMyLocation();
   }
 
-  public void onSubwayLayerOptionSelected()
+  public void onLayerItemClicked(@NonNull Mode mode)
   {
     closeFloatingPanels();
-    toggleLayer(Mode.SUBWAY);
-  }
-
-  public void onIsolinesLayerOptionSelected()
-  {
-    closeFloatingPanels();
-    toggleLayer(Mode.ISOLINES);
+    toggleLayer(mode);
   }
 }

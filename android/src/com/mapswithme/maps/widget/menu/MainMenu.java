@@ -58,16 +58,6 @@ public class MainMenu extends BaseMenu
             return new MwmActivity.MenuClickDelegate(activity, item);
           }
         },
-    ADD_PLACE(R.id.add_place)
-        {
-          @NonNull
-          @Override
-          public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
-                                                       @NonNull Item item)
-          {
-            throw new UnsupportedOperationException("Main menu option doesn't support it!");
-          }
-        },
     SEARCH(R.id.search)
         {
           @NonNull
@@ -96,26 +86,6 @@ public class MainMenu extends BaseMenu
                                                        @NonNull Item item)
           {
             return new MwmActivity.BookmarksDelegate(activity, item);
-          }
-        },
-    SHARE_MY_LOCATION(R.id.share)
-        {
-          @NonNull
-          @Override
-          public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
-                                                       @NonNull Item item)
-          {
-            throw new UnsupportedOperationException("Main menu option doesn't support it!");
-          }
-        },
-    DOWNLOAD_MAPS(R.id.download_maps)
-        {
-          @NonNull
-          @Override
-          public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
-                                                       @NonNull Item item)
-          {
-            throw new UnsupportedOperationException("Main menu option doesn't support it!");
           }
         },
     SETTINGS(R.id.settings)
@@ -233,12 +203,9 @@ public class MainMenu extends BaseMenu
 
   private void init()
   {
-    mapItem(Item.ADD_PLACE);
     mapItem(Item.SEARCH);
     mapItem(Item.HELP);
     mapItem(Item.BOOKMARKS);
-    mapItem(Item.SHARE_MY_LOCATION);
-    mapItem(Item.DOWNLOAD_MAPS);
     mapItem(Item.SETTINGS);
 
     setState(State.MENU, false);
@@ -283,8 +250,6 @@ public class MainMenu extends BaseMenu
         if (isRouting)
           mToggle.hide();
       }
-
-      setVisible(Item.ADD_PLACE, !isRouting);
     }
 
     show(state != State.NAVIGATION && !isFullScreen);
