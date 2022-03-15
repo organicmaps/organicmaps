@@ -57,19 +57,12 @@ size_t LayerBase::GetChainSize() const
   return size;
 }
 
-void LayerBase::SetNext(std::shared_ptr<LayerBase> next)
-{
-  m_next = next;
-}
-
-std::shared_ptr<LayerBase> LayerBase::Add(std::shared_ptr<LayerBase> next)
+void LayerBase::Add(std::shared_ptr<LayerBase> next)
 {
   if (m_next)
     m_next->Add(next);
   else
     m_next = next;
-
-  return next;
 }
 
 void RepresentationLayer::Handle(FeatureBuilder & fb)

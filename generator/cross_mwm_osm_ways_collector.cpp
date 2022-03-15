@@ -18,17 +18,8 @@ namespace generator
 {
 // CrossMwmOsmWaysCollector ------------------------------------------------------------------------
 
-CrossMwmOsmWaysCollector::CrossMwmOsmWaysCollector(std::string intermediateDir,
-                                                   std::string const & targetDir,
-                                                   bool haveBordersForWholeWorld)
-  : m_intermediateDir(std::move(intermediateDir))
-{
-  m_affiliation =
-      std::make_shared<feature::CountriesFilesAffiliation>(targetDir, haveBordersForWholeWorld);
-}
-
 CrossMwmOsmWaysCollector::CrossMwmOsmWaysCollector(
-    std::string intermediateDir, std::shared_ptr<feature::CountriesFilesAffiliation> affiliation)
+    std::string intermediateDir, AffiliationInterfacePtr affiliation)
   : m_intermediateDir(std::move(intermediateDir)), m_affiliation(std::move(affiliation))
 {
 }

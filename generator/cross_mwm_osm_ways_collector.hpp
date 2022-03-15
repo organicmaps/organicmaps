@@ -41,11 +41,7 @@ public:
     std::vector<SegmentInfo> m_crossMwmSegments;
   };
 
-  CrossMwmOsmWaysCollector(std::string intermediateDir,
-                           std::string const & targetDir,
-                           bool haveBordersForWholeWorld);
-  CrossMwmOsmWaysCollector(std::string intermediateDir,
-                           std::shared_ptr<feature::CountriesFilesAffiliation> affiliation);
+  CrossMwmOsmWaysCollector(std::string intermediateDir, AffiliationInterfacePtr affiliation);
 
   // generator::CollectorInterface overrides:
   // @{
@@ -66,6 +62,6 @@ protected:
 private:
   std::string m_intermediateDir;
   std::map<std::string, std::vector<CrossMwmInfo>> m_mwmToCrossMwmOsmIds;
-  std::shared_ptr<feature::CountriesFilesAffiliation> m_affiliation;
+  AffiliationInterfacePtr m_affiliation;
 };
 }  // namespace generator

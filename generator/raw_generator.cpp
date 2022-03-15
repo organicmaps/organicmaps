@@ -95,28 +95,35 @@ void RawGenerator::ForceReloadCache()
   m_cache = std::make_shared<cache::IntermediateData>(m_intermediateDataObjectsCache, m_genInfo);
 }
 
-std::shared_ptr<FeatureProcessorQueue> RawGenerator::GetQueue() { return m_queue; }
-
-void RawGenerator::GenerateCountries()
+void RawGenerator::GenerateCountries(bool isTests/* = false*/)
 {
 //  if (!m_genInfo.m_complexHierarchyFilename.empty())
 //    m_hierarchyNodesSet = GetOrCreateComplexLoader(m_genInfo.m_complexHierarchyFilename).GetIdsSet();
-
 //  auto const complexFeaturesMixer = std::make_shared<ComplexFeaturesMixer>(m_hierarchyNodesSet);
 
-  auto processor = CreateProcessor(ProcessorType::Country, m_queue, m_genInfo.m_targetDir,
-                                   m_genInfo.m_haveBordersForWholeWorld/*, complexFeaturesMixer*/);
-  m_translators->Append(
-      CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo));
-  m_finalProcessors.emplace(CreateCountryFinalProcessor());
+  AffiliationInterfacePtr affiliation;
+  if (isTests)
+  {
+    affiliation = std::make_shared<feature::SingleAffiliation>(m_genInfo.m_fileName);
+  }
+  else
+  {
+    affiliation = std::make_shared<feature::CountriesFilesIndexAffiliation>(
+        m_genInfo.m_targetDir, m_genInfo.m_haveBordersForWholeWorld);
+  }
+
+  auto processor = CreateProcessor(ProcessorType::Country, affiliation, m_queue);
+
+  m_translators->Append(CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo,
+                                         isTests ? nullptr : affiliation));
+
+  m_finalProcessors.emplace(CreateCountryFinalProcessor(affiliation, false));
 }
 
 void RawGenerator::GenerateWorld()
 {
-  auto processor =
-      CreateProcessor(ProcessorType::World, m_queue, m_genInfo.m_popularPlacesFilename);
-  m_translators->Append(
-      CreateTranslator(TranslatorType::World, processor, m_cache, m_genInfo));
+  auto processor = CreateProcessor(ProcessorType::World, m_queue, m_genInfo.m_popularPlacesFilename);
+  m_translators->Append(CreateTranslator(TranslatorType::World, processor, m_cache, m_genInfo));
   m_finalProcessors.emplace(CreateWorldFinalProcessor());
 }
 
@@ -152,22 +159,14 @@ bool RawGenerator::Execute()
 
   while (!m_finalProcessors.empty())
   {
-    base::thread_pool::computational::ThreadPool threadPool(m_threadsCount);
-    while (true)
-    {
-      auto const finalProcessor = m_finalProcessors.top();
-      m_finalProcessors.pop();
-      threadPool.SubmitWork([finalProcessor{finalProcessor}]() { finalProcessor->Process(); });
-      if (m_finalProcessors.empty() || *finalProcessor != *m_finalProcessors.top())
-        break;
-    }
+    auto const finalProcessor = m_finalProcessors.top();
+    m_finalProcessors.pop();
+    finalProcessor->Process();
   }
 
   LOG(LINFO, ("Final processing is finished."));
   return true;
 }
-
-std::vector<std::string> const & RawGenerator::GetNames() const { return m_names; }
 
 RawGenerator::FinalProcessorPtr RawGenerator::CreateCoslineFinalProcessor()
 {
@@ -179,11 +178,10 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCoslineFinalProcessor()
   return finalProcessor;
 }
 
-RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(bool addAds)
+RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(
+    AffiliationInterfacePtr const & affiliations, bool addAds)
 {
-  auto finalProcessor = std::make_shared<CountryFinalProcessor>(
-      m_genInfo.m_targetDir, m_genInfo.m_tmpDir, m_genInfo.m_intermediateDir,
-      m_genInfo.m_haveBordersForWholeWorld, m_threadsCount);
+  auto finalProcessor = std::make_shared<CountryFinalProcessor>(affiliations, m_genInfo.m_tmpDir, m_threadsCount);
   finalProcessor->SetIsolinesDir(m_genInfo.m_isolinesDir);
   finalProcessor->SetCitiesAreas(m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME));
   finalProcessor->SetMiniRoundabouts(m_genInfo.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME));
@@ -267,7 +265,7 @@ bool RawGenerator::GenerateFilteredFeatures()
     LOG(LWARNING, ("No feature data " DATA_FILE_EXTENSION_TMP " files were generated for any country!"));
   else
     LOG(LINFO, ("Feature data " DATA_FILE_EXTENSION_TMP " files were written for following countries:", m_names));
-  
+
   return true;
 }
 }  // namespace generator

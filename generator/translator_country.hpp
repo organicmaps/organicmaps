@@ -1,5 +1,6 @@
 #pragma once
 
+#include "generator/affiliation.hpp"
 #include "generator/processor_interface.hpp"
 #include "generator/tag_admixer.hpp"
 #include "generator/translator.hpp"
@@ -22,9 +23,9 @@ namespace generator
 class TranslatorCountry : public Translator
 {
 public:
-  explicit TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> const & processor,
-                             std::shared_ptr<cache::IntermediateData> const & cache,
-                             feature::GenerateInfo const & info, bool needMixTags = false);
+  TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> const & processor,
+                    std::shared_ptr<cache::IntermediateData> const & cache,
+                    feature::GenerateInfo const & info, AffiliationInterfacePtr affiliation);
 
   // TranslatorInterface overrides:
   void Preprocess(OsmElement & element) override;

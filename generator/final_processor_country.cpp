@@ -34,18 +34,14 @@ namespace generator
 using namespace base::thread_pool::computational;
 using namespace feature;
 
-CountryFinalProcessor::CountryFinalProcessor(std::string const & borderPath,
-                                             std::string const & temporaryMwmPath,
-                                             std::string const & intermediateDir,
-                                             bool haveBordersForWholeWorld, size_t threadsCount)
+CountryFinalProcessor::CountryFinalProcessor(AffiliationInterfacePtr affiliations,
+                                             std::string const & temporaryMwmPath, size_t threadsCount)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::CountriesOrWorld)
-  , m_borderPath(borderPath)
   , m_temporaryMwmPath(temporaryMwmPath)
-  , m_intermediateDir(intermediateDir)
-  , m_affiliations(
-        std::make_unique<CountriesFilesIndexAffiliation>(m_borderPath, haveBordersForWholeWorld))
+  , m_affiliations(std::move(affiliations))
   , m_threadsCount(threadsCount)
 {
+  ASSERT(m_affiliations, ());
 }
 
 bool CountryFinalProcessor::IsCountry(std::string const & filename)

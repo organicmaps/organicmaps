@@ -82,7 +82,8 @@ bool WikiDataValidator(std::string const & tagValue)
 
 TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> const & processor,
                                      std::shared_ptr<cache::IntermediateData> const & cache,
-                                     feature::GenerateInfo const & info, bool needMixTags)
+                                     feature::GenerateInfo const & info,
+                                     AffiliationInterfacePtr affiliation)
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache->GetCache()))
   /// @todo Looks like ways.csv was in some MM proprietary generator routine?!
   , m_tagAdmixer(std::make_shared<TagAdmixer>(info.GetIntermediateFileName("ways", ".csv"),
@@ -90,11 +91,13 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
   , m_tagReplacer(std::make_shared<TagReplacer>(
         base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
 {
-  if (needMixTags)
-  {
-    m_osmTagMixer = std::make_shared<OsmTagMixer>(
-        base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE));
-  }
+  /// @todo This option is not used, but may be useful in future?
+//  if (needMixTags)
+//  {
+//    m_osmTagMixer = std::make_shared<OsmTagMixer>(
+//        base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE));
+//  }
+
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
   filters->Append(std::make_shared<FilterRoads>());
@@ -124,8 +127,9 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
   collectors->Append(std::make_shared<MiniRoundaboutCollector>(
       info.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME)));
 
-  collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(
-      info.m_intermediateDir, info.m_targetDir, info.m_haveBordersForWholeWorld));
+  if (affiliation)
+    collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(info.m_intermediateDir, affiliation));
+
   if (!info.m_idToWikidataFilename.empty())
   {
     collectors->Append(std::make_shared<CollectorTag>(info.m_idToWikidataFilename,
