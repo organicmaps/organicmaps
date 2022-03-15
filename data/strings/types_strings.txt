@@ -4514,6 +4514,8 @@
   [type.craft.metal_construction]
     en = Metal Worker
     ar = عامل معادن
+    be = Металаканструкцыі
+    bg = Метални конструкции
     cs = Kovodílna
     da = Metalarbejder
     de = Schlosser
@@ -4533,12 +4535,12 @@
     pt = Serralheiro metálico
     pt-BR = Serralheiro metálico
     ro = Metalurgist
-    ru = Ковка металла
+    ru = Металлоконструкции
     sk = Kovorobotník
     sv = Metallarbetare
     th = ช่างเหล็ก
     tr = Dökümcü
-    uk = Кування металу
+    uk = Металоконструкції
     vi = Nhà kim khí
     zh-Hans = 金属制造工
     zh-Hant = 鐵工
@@ -8951,6 +8953,8 @@
   [type.historic.archaeological_site]
     en = Archaeological Site
     ar = موقع أثري
+    be = Археалагічны помнік
+    bg = Археологически сайт
     cs = Vykopávky
     da = Arkæologisk sted
     de = Ausgrabungsstätte
@@ -12453,12 +12457,12 @@
     pt = Agente de seguros
     pt-BR = Seguradora
     ro = Birou de asigurări
-    ru = Продажа страховок
+    ru = Страховая компания
     sk = Poisťovňa
     sv = Försäkringskontor
     th = สำนักงานประกันภัย
     tr = Sigorta Acentası
-    uk = Офіс страхової компанії
+    uk = Страхова компанія
     vi = Văn phòng bảo hiểm
     zh-Hans = 保险公司
     zh-Hant = 保險公司
@@ -12496,7 +12500,7 @@
     zh-Hant = 律師事務所
 
   [type.office.ngo]
-    en = NGO Office
+    en = Non-Governmental Organization
     ar = مكتب مؤسسة خيرية
     cs = Kancelář nevládní organizace
     da = NGO-kontor
@@ -12517,19 +12521,21 @@
     pt = Escritório de ONG
     pt-BR = Escritório de ONG
     ro = Birou ONG
-    ru = Офис НКО
+    ru = Общественная организация
     sk = Sídlo mimovládnej organizácie
     sv = Kontor för icke-statlig organisation
     th = สำนักงานองค์กรพัฒนาเอกชน
     tr = STK Binası
-    uk = Офіс громадської організації
+    uk = Недержавна організація
     vi = Văn phòng NGO
     zh-Hans = 非政府组织办公室
     zh-Hant = 非政府組織辦公室
 
   [type.office.telecommunication]
-    en = Mobile Operator
+    en = Telecom Company
     ar = شركة اتصالات
+    be = Тэлекамунікацыйная кампанія
+    bg = Телекомуникационна компания
     cs = Mobilní operátor
     da = Mobiloperatør
     de = Mobilfunkbetreiber
@@ -12549,12 +12555,12 @@
     pt = Operadora de telecomunicações
     pt-BR = Operadora de telecomunicações
     ro = Operator de telefonie mobilă
-    ru = Мобильный оператор
+    ru = Телекоммуникационная компания
     sk = Mobilný operátor
     sv = Mobiloperatör
     th = ผู้ให้บริการโทรศัพท์มือถือ
     tr = Cep telefonu operatörü
-    uk = Мобільний оператор
+    uk = Телекомунікаційна компанія
     vi = Điều hành di động
     zh-Hans = 电信办公室
     zh-Hant = 行動電話業者
@@ -15522,8 +15528,9 @@
     zh-Hant = 復印店
 
   [type.shop.cosmetics]
-    en = Beauty Care
+    en = Cosmetics
     ar = مستحضرات تجميل
+    be = Касметыка
     cs = Kosmetika
     da = Kosmetik
     de = Kosmetikgeschäft
@@ -15543,7 +15550,7 @@
     pt = Loja de cosméticos
     pt-BR = Loja de cosméticos
     ro = Cosmetică
-    ru = Магазин косметики
+    ru = Косметика
     sk = Kozmetika
     sv = Kosmetika
     th = เครื่องสำอาง
@@ -16156,6 +16163,7 @@
 
   [type.shop.mobile_phone]
     en = Cell Phones
+    en-GB = Mobile Phones
     ar = متجر هواتف محمولة
     cs = Mobily
     da = Mobiltelefonbutik
@@ -16176,7 +16184,7 @@
     pt = Loja de telemóveis
     pt-BR = Loja de celulares
     ro = Magazin de telefoane mobile
-    ru = Магазин мобильных телефонов
+    ru = Мобильные телефоны
     sk = Mobilné telefóny
     sv = Mobilbutik
     th = ร้านขายโทรศัพท์มือถือ
