@@ -1,5 +1,6 @@
 #pragma once
 
+#include "generator/affiliation.hpp"
 #include "generator/final_processor_interface.hpp"
 #include "generator/place_processor.hpp"
 
@@ -8,19 +9,13 @@
 #include <string>
 #include <vector>
 
-namespace feature
-{
-class AffiliationInterface;
-}  // namespace feature
-
 namespace generator
 {
 class CountryFinalProcessor : public FinalProcessorIntermediateMwmInterface
 {
 public:
-  CountryFinalProcessor(std::string const & borderPath, std::string const & temporaryMwmPath,
-                        std::string const & intermediateDir, bool haveBordersForWholeWorld,
-                        size_t threadsCount);
+  CountryFinalProcessor(AffiliationInterfacePtr affiliations,
+                        std::string const & temporaryMwmPath, size_t threadsCount);
 
   void SetBooking(std::string const & filename);
   void SetCitiesAreas(std::string const & filename);
@@ -67,7 +62,7 @@ private:
   std::string m_routingCityBoundariesDumpPath;
   std::string m_hierarchySrcFilename;
 
-  std::unique_ptr<feature::AffiliationInterface> m_affiliations;
+  AffiliationInterfacePtr m_affiliations;
 
   size_t m_threadsCount;
 };

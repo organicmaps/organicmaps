@@ -21,7 +21,7 @@ ProcessorCoastline::ProcessorCoastline(std::shared_ptr<FeatureProcessorQueue> co
   m_processingChain->Add(std::make_shared<PrepareCoastlineFeatureLayer>());
   auto affiliation = std::make_shared<feature::SingleAffiliation>(WORLD_COASTS_FILE_NAME);
   m_affiliationsLayer =
-      std::make_shared<AffiliationsFeatureLayer<>>(kAffiliationsBufferSize, affiliation, m_queue);
+      std::make_shared<AffiliationsFeatureLayer>(kAffiliationsBufferSize, affiliation, m_queue);
   m_processingChain->Add(m_affiliationsLayer);
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "generator/affiliation.hpp"
 #include "generator/composite_id.hpp"
 #include "generator/features_processing_helpers.hpp"
 #include "generator/final_processor_interface.hpp"
@@ -21,7 +22,7 @@ public:
   explicit RawGenerator(feature::GenerateInfo & genInfo, size_t threadsCount = 1,
                         size_t chunkSize = 1024);
 
-  void GenerateCountries();
+  void GenerateCountries(bool isTests = false);
   void GenerateWorld();
   void GenerateCoasts();
   void GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator);
@@ -29,8 +30,8 @@ public:
       std::shared_ptr<TranslatorInterface> const & translator,
       std::shared_ptr<FinalProcessorIntermediateMwmInterface> const & finalProcessor);
   bool Execute();
-  std::vector<std::string> const & GetNames() const;
-  std::shared_ptr<FeatureProcessorQueue> GetQueue();
+  std::vector<std::string> const & GetNames() const { return m_names; }
+  std::shared_ptr<FeatureProcessorQueue> GetQueue() { return m_queue; }
   void ForceReloadCache();
 
 private:
@@ -42,7 +43,7 @@ private:
   };
 
   FinalProcessorPtr CreateCoslineFinalProcessor();
-  FinalProcessorPtr CreateCountryFinalProcessor(bool needMixNodes = false);
+  FinalProcessorPtr CreateCountryFinalProcessor(AffiliationInterfacePtr const & affiliations, bool needMixNodes);
   FinalProcessorPtr CreateWorldFinalProcessor();
   bool GenerateFilteredFeatures();
 

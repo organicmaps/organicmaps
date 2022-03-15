@@ -24,18 +24,20 @@ namespace generator
 {
 TranslatorWorld::TranslatorWorld(std::shared_ptr<FeatureProcessorInterface> const & processor,
                                  std::shared_ptr<cache::IntermediateData> const & cache,
-                                 feature::GenerateInfo const & info, bool needMixTags)
+                                 feature::GenerateInfo const & info)
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache->GetCache()))
   , m_tagAdmixer(std::make_shared<TagAdmixer>(info.GetIntermediateFileName("ways", ".csv"),
                                               info.GetIntermediateFileName(TOWNS_FILE)))
   , m_tagReplacer(std::make_shared<TagReplacer>(
         base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
 {
-  if (needMixTags)
-  {
-    m_osmTagMixer = std::make_shared<OsmTagMixer>(
-        base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE));
-  }
+  /// @todo This option is not used, but may be useful in future?
+//  if (needMixTags)
+//  {
+//    m_osmTagMixer = std::make_shared<OsmTagMixer>(
+//        base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE));
+//  }
+
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
   filters->Append(std::make_shared<FilterRoads>());
