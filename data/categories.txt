@@ -27,6 +27,9 @@
 # Its possible to use emoji codes as search synonims, e.g. U+1F6B0 for Potable water.
 # Each category must end with an empty line.
 #
+# Note: some features are not searchable unless they have a [name=] tag,
+# e.g. roads, rivers, offices (see search/types_skipper.cpp)
+#
 # BNF:
 # <category>           ::= <category_title> '\n' <category_item_list> '\n'
 # <category_title>     ::= <osm_type_list> '|' <group_title_list>
@@ -4559,7 +4562,6 @@ sk:Kontinent|svetadiel
 sw:Bara
 fa:قاره
 
-# Skipped if empty name
 place-country
 en:Country
 ru:Страна
@@ -4594,7 +4596,6 @@ sk:Krajina
 sw:Nchi
 fa:کشور
 
-# Skipped if empty name
 place-city
 en:City|town
 ru:Город
@@ -4629,7 +4630,6 @@ sk:Mesto
 sw:Mji
 fa:شهر
 
-# Skipped if empty name
 place-town
 en:Town|city
 ru:Город
@@ -4698,7 +4698,6 @@ sk:Hlavné mesto|metropole
 sw:Mji mkuu
 fa:پایتخت
 
-# Skipped if empty name
 place-county
 en:County
 ru:Округ|графство
@@ -4732,7 +4731,6 @@ el:Δήμος
 sk:Krajina
 fa:بخش
 
-# Skipped if empty name
 place-state
 en:State|province
 ru:Штат|провинция
@@ -4767,7 +4765,6 @@ sk:Štát|kraj
 sw:Jimbo
 fa:ایالت
 
-# Skipped if empty name
 place-region
 en:Region
 ru:Район
@@ -4836,7 +4833,6 @@ sk:Ostrov
 sw:Kisiwa
 fa:جزیره
 
-# Skipped if empty name
 place-suburb|landuse-residential|place-neighbourhood
 en:Suburb|district
 ru:Район|микрорайон|округ|квартал
@@ -5040,7 +5036,6 @@ el:Πίστα αγώνων
 sk:Pretekárska dráha
 fa:کانال
 
-# Skipped if empty name
 highway-path|highway-footway|highway-steps|highway-cycleway
 en:Path
 ru:Дорожка
@@ -5075,7 +5070,6 @@ sk:Cesta
 sw:Jia
 fa:مسیر
 
-# Skipped if empty name
 highway-pedestrian|highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-unclassified|highway-motorway_link|highway-motorway|highway-cycleway
 en:Street|st|str|ave|road|rd
 ru:Улица|переулок|проезд|тракт|проспект|ул
@@ -5110,7 +5104,6 @@ sk:Ulica|cesta|ul
 sw:Barabara|mtaa|barabara kuu
 fa:جاده
 
-# Skipped if empty name
 highway-motorway_junction
 en:3Exit|3junction
 ru:3Съезд
@@ -5149,7 +5142,6 @@ en:Lift
 ru:Лифт
 tr:Asansör
 
-# Skipped if empty name
 natural-peak
 en:Peak|mountain|mount|U+1F5FB|U+1F304
 ru:Гора|вершина|пик
@@ -5184,7 +5176,6 @@ sk:Hora|pohorie
 sw:Kilele|mlima
 fa:قله|کوه|کوهستان
 
-# Skipped if empty name
 natural-saddle|mountain_pass
 en:4Saddle|Pass
 be:4Седлавіна|5Перавал
@@ -5194,8 +5185,6 @@ ru:4Седловина|5Перевал
 tr:Sele|eyer
 uk:4Сідловина|5Перевал
 
-
-# Skipped if empty name
 natural-strait
 en:Strait
 ru:Пролив
@@ -5231,7 +5220,6 @@ zh-Hans:海峡
 zh-Hant:海峽
 fa:تنگه
 
-# Skipped if empty name
 landuse-forest
 en:Forest|U+1F332|U+1F333
 ru:Лес
@@ -5790,7 +5778,6 @@ pt-BR:Atletismo
 tr:Atletik
 el:Στίβος
 
-# Skipped if empty name
 building
 en:Building|U+1F3E0|U+1F3E1|U+1F3E2
 ru:Здание|Строение
@@ -5915,7 +5902,6 @@ sk:4Veľvyslanectvo|4ambasáda
 sw:Ubalozi
 fa:سفارت
 
-# Skipped if empty name
 natural-bay
 en:Bay
 ru:Залив
@@ -6562,7 +6548,6 @@ sk:Kancelária|úrad
 sw:Ofisi|kampuni
 fa:اداره
 
-# Skipped if empty name
 office-company
 en:Company Office
 ru:Организация|компания
@@ -6928,7 +6913,6 @@ el:Ράφτης|ράπτης
 sk:Krajčírstvo
 fa:خیاطی
 
-# Skipped if empty name
 area:highway-footway|area:highway-pedestrian|area:highway-steps|place-square
 en:Square
 ru:Площадь
@@ -8096,7 +8080,6 @@ ru:Топливная колонка|бензоколонка|топливора
 tr:Yakıt dağıtıcı
 uk:Паливна колонка|бензоколонка|пальнороздавальна колонка
 
-# Skipped if empty name
 building-garage
 en:Garage
 ru:Гараж
@@ -8164,7 +8147,6 @@ zh-Hant:休息區
 el:Χώρος ανάπαυσης αυτοκινητιστών
 sk:Odpočívadlo
 
-# Skipped if empty name
 man_made-chimney
 en:Factory Chimney
 ru:Заводская труба
@@ -8729,7 +8711,6 @@ fa:توربین بادی
 # sk:Bunker
 # fa:پناهگاه
 
-# Skipped if empty name
 natural-cave_entrance
 en:Cave
 ru:3Пещера
@@ -8763,7 +8744,6 @@ el:Σπήλαιο
 sk:Jaskyňa
 fa:غار
 
-# Skipped if empty name
 natural-tree
 en:Tree
 ru:Дерево
@@ -8864,7 +8844,6 @@ el:Κτηματομεσίτης|Μεσίτης
 sk:Realitný agent
 fa:بنگاه معاملات ملکی
 
-# Skipped if empty name
 waterway-lock_gate
 en:Lock Gate
 ru:Шлюз
@@ -9539,7 +9518,6 @@ zh-Hans:保险机构
 zh-Hant:保險公司
 fa:دفتر بیمه
 
-# Skipped if empty name
 office-ngo
 en:4Non-Governmental Organization|NGO
 ru:4Общественная организация|4неправительственная организация|НПО|некоммерческая организация|НКО
@@ -10049,7 +10027,6 @@ vi:Giữ chỗ
 zh-Hans:野生动物园
 zh-Hant:自然保護區
 
-# Skipped if empty name
 natural-cape
 en:Cape
 ru:Мыс
@@ -10118,7 +10095,6 @@ zh-Hans:间歇泉
 zh-Hant:間歇泉
 fa:چشمه آب گرم
 
-# Skipped if empty name
 natural-glacier|@tourism
 en:Glacier
 ru:Ледник
