@@ -1565,7 +1565,7 @@
 
 "type.craft.hvac" = "Кондиціонери";
 
-"type.craft.metal_construction" = "Кування металу";
+"type.craft.metal_construction" = "Металоконструкції";
 
 "type.craft.painter" = "Маляр";
 
@@ -2409,13 +2409,13 @@
 
 "type.office.government" = "Держустанова";
 
-"type.office.insurance" = "Офіс страхової компанії";
+"type.office.insurance" = "Страхова компанія";
 
 "type.office.lawyer" = "Адвокат";
 
-"type.office.ngo" = "Офіс громадської організації";
+"type.office.ngo" = "Недержавна організація";
 
-"type.office.telecommunication" = "Мобільний оператор";
+"type.office.telecommunication" = "Телекомунікаційна компанія";
 
 "type.place" = "Мicце";
 

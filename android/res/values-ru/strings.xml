@@ -876,7 +876,7 @@
 	<string name="type.craft.electrician">Электрик</string>
 	<string name="type.craft.gardener">Садовник</string>
 	<string name="type.craft.hvac">Кондиционеры</string>
-	<string name="type.craft.metal_construction">Ковка металла</string>
+	<string name="type.craft.metal_construction">Металлоконструкции</string>
 	<string name="type.craft.painter">Маляр</string>
 	<string name="type.craft.photographer">Фотограф</string>
 	<string name="type.craft.plumber">Сантехник</string>
@@ -1305,10 +1305,10 @@
 	<string name="type.office.company">Организация</string>
 	<string name="type.office.estate_agent">Агентство недвижимости</string>
 	<string name="type.office.government">Госучреждение</string>
-	<string name="type.office.insurance">Продажа страховок</string>
+	<string name="type.office.insurance">Страховая компания</string>
 	<string name="type.office.lawyer">Адвокат</string>
-	<string name="type.office.ngo">Офис НКО</string>
-	<string name="type.office.telecommunication">Мобильный оператор</string>
+	<string name="type.office.ngo">Общественная организация</string>
+	<string name="type.office.telecommunication">Телекоммуникационная компания</string>
 	<string name="type.place">Место</string>
 	<string name="type.place.city">Город</string>
 	<string name="type.place.city.capital">Столица</string>
@@ -1455,7 +1455,7 @@
 	<string name="type.shop.confectionery">Кондитерская</string>
 	<string name="type.shop.convenience">Продуктовый магазин</string>
 	<string name="type.shop.copyshop">Копировальный центр</string>
-	<string name="type.shop.cosmetics">Магазин косметики</string>
+	<string name="type.shop.cosmetics">Косметика</string>
 	<string name="type.shop.department_store">Универмаг</string>
 	<string name="type.shop.doityourself">Хозяйственный</string>
 	<string name="type.shop.dry_cleaning">Химчистка</string>
@@ -1475,7 +1475,7 @@
 	<string name="type.shop.laundry">Прачечная</string>
 	<string name="type.shop.mall">Торговый центр</string>
 	<string name="type.shop.massage">Массажный салон</string>
-	<string name="type.shop.mobile_phone">Магазин мобильных телефонов</string>
+	<string name="type.shop.mobile_phone">Мобильные телефоны</string>
 	<string name="type.shop.money_lender">Магазин</string>
 	<string name="type.shop.motorcycle">Магазин мотоциклов</string>
 	<string name="type.shop.music">Магазин</string>

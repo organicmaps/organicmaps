@@ -1338,8 +1338,8 @@
 	<string name="type.office.government">Government Office</string>
 	<string name="type.office.insurance">Insurance Office</string>
 	<string name="type.office.lawyer">Lawyer</string>
-	<string name="type.office.ngo">NGO Office</string>
-	<string name="type.office.telecommunication">Mobile Operator</string>
+	<string name="type.office.ngo">Non-Governmental Organization</string>
+	<string name="type.office.telecommunication">Telecom Company</string>
 	<string name="type.place">place</string>
 	<string name="type.place.city">City</string>
 	<string name="type.place.city.capital">Capital</string>
@@ -1486,7 +1486,7 @@
 	<string name="type.shop.confectionery">Sweets</string>
 	<string name="type.shop.convenience">Convenience Store</string>
 	<string name="type.shop.copyshop">Copy Shop</string>
-	<string name="type.shop.cosmetics">Beauty Care</string>
+	<string name="type.shop.cosmetics">Cosmetics</string>
 	<string name="type.shop.department_store">Department Store</string>
 	<string name="type.shop.doityourself">Hardware Store</string>
 	<string name="type.shop.dry_cleaning">Dry Cleaning</string>
