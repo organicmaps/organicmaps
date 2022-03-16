@@ -186,7 +186,7 @@ decltype(auto) GetPathToRoot(types::Ptr<Data> node)
 }
 
 template <typename Data, typename Fn>
-types::Ptr<typename std::result_of<Fn(Data const &)>::type> TransformToTree(
+types::Ptr<typename std::invoke_result<Fn, Data const &>::type> TransformToTree(
     types::Ptr<Data> const & node, Fn && fn)
 {
   auto n = MakeTreeNode(fn(node->GetData()));
