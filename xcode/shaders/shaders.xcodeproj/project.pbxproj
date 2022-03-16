@@ -412,7 +412,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4566607720E254060085E8C1 /* Build configuration list for PBXNativeTarget "shaders" */;
 			buildPhases = (
-				456660D520E256C00085E8C1 /* ShellScript */,
+				456660D520E256C00085E8C1 /* Run Script */,
 				4566606A20E254060085E8C1 /* Sources */,
 			);
 			buildRules = (
@@ -508,7 +508,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		456660D520E256C00085E8C1 /* ShellScript */ = {
+		456660D520E256C00085E8C1 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -595,6 +595,7 @@
 				"$(SRCROOT)/../../shaders/programs.hpp",
 				"$(SRCROOT)/../../shaders/GL/shaders_lib.glsl",
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -603,7 +604,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Without this check shaders library is always rebuilt in XCode 13.\n# See https://stackoverflow.com/a/69481200/1209392\nif [ $ACTION != \"indexbuild\" ]; then\npython ${SRCROOT}/../../shaders/gl_shaders_preprocessor.py ${SRCROOT}/../../shaders/GL shader_index.txt programs.hpp shaders_lib.glsl ${SRCROOT}/../../shaders gl_shaders\nfi\n";
+			shellScript = "# Without this check shaders library is always rebuilt in XCode 13.\n# See https://stackoverflow.com/a/69481200/1209392\nif [ $ACTION != \"indexbuild\" ]; then\npython3 ${SRCROOT}/../../shaders/gl_shaders_preprocessor.py ${SRCROOT}/../../shaders/GL shader_index.txt programs.hpp shaders_lib.glsl ${SRCROOT}/../../shaders gl_shaders\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
