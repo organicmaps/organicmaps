@@ -668,6 +668,10 @@
 	<string name="enable_screen_sleep">Bildschirm schlafen lassen</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Wenn diese Option aktiviert ist, kann der Bildschirm nach einer gewissen Zeit der Inaktivität in den Ruhezustand versetzt werden.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Auf dem Sperrbildschirm anzeigen</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Seilbahn</string>

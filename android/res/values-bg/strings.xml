@@ -627,6 +627,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
+	<string name="type.craft.metal_construction">Метални конструкции</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
 
 	<!-- SECTION: Types: Roads -->
@@ -720,9 +721,11 @@
 	<string name="type.highway.unclassified.tunnel">Тунел</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic.archaeological_site">Археологически сайт</string>
 	<string name="type.landuse.basin">Резервоар</string>
 	<string name="type.leisure.picnic_table">Маса за пикник</string>
 	<string name="type.natural.water.reservoir">Резервоар</string>
 	<string name="type.natural.water.basin">Резервоар</string>
 	<string name="type.natural.water">Воден басейн</string>
+	<string name="type.office.telecommunication">Телекомуникационна компания</string>
 </resources>

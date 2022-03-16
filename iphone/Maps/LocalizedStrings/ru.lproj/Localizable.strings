@@ -1565,7 +1565,7 @@
 
 "type.craft.hvac" = "Кондиционеры";
 
-"type.craft.metal_construction" = "Ковка металла";
+"type.craft.metal_construction" = "Металлоконструкции";
 
 "type.craft.painter" = "Маляр";
 
@@ -2409,13 +2409,13 @@
 
 "type.office.government" = "Госучреждение";
 
-"type.office.insurance" = "Продажа страховок";
+"type.office.insurance" = "Страховая компания";
 
 "type.office.lawyer" = "Адвокат";
 
-"type.office.ngo" = "Офис НКО";
+"type.office.ngo" = "Общественная организация";
 
-"type.office.telecommunication" = "Мобильный оператор";
+"type.office.telecommunication" = "Телекоммуникационная компания";
 
 "type.place" = "Место";
 
@@ -2709,7 +2709,7 @@
 
 "type.shop.copyshop" = "Копировальный центр";
 
-"type.shop.cosmetics" = "Магазин косметики";
+"type.shop.cosmetics" = "Косметика";
 
 "type.shop.department_store" = "Универмаг";
 
@@ -2749,7 +2749,7 @@
 
 "type.shop.massage" = "Массажный салон";
 
-"type.shop.mobile_phone" = "Магазин мобильных телефонов";
+"type.shop.mobile_phone" = "Мобильные телефоны";
 
 "type.shop.money_lender" = "Магазин";
 

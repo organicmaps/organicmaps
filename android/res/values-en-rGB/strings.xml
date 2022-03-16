@@ -23,4 +23,5 @@
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.leisure.common">Common Land</string>
+	<string name="type.shop.mobile_phone">Mobile Phones</string>
 </resources>

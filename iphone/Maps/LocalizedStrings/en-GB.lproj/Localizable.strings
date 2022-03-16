@@ -2413,9 +2413,9 @@
 
 "type.office.lawyer" = "Lawyer";
 
-"type.office.ngo" = "NGO Office";
+"type.office.ngo" = "Non-Governmental Organization";
 
-"type.office.telecommunication" = "Mobile Operator";
+"type.office.telecommunication" = "Telecom Company";
 
 "type.place" = "place";
 
@@ -2709,7 +2709,7 @@
 
 "type.shop.copyshop" = "Copy Shop";
 
-"type.shop.cosmetics" = "Beauty Care";
+"type.shop.cosmetics" = "Cosmetics";
 
 "type.shop.department_store" = "Department Store";
 
@@ -2749,7 +2749,7 @@
 
 "type.shop.massage" = "Massage Salon";
 
-"type.shop.mobile_phone" = "Cell Phones";
+"type.shop.mobile_phone" = "Mobile Phones";
 
 "type.shop.money_lender" = "Shop";
 

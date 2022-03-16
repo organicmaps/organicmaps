@@ -1565,7 +1565,7 @@
 
 "type.craft.hvac" = "Hvac";
 
-"type.craft.metal_construction" = "Metal Worker";
+"type.craft.metal_construction" = "Металаканструкцыі";
 
 "type.craft.painter" = "Painter";
 
@@ -2067,7 +2067,7 @@
 
 "type.historic" = "Historic";
 
-"type.historic.archaeological_site" = "Archaeological Site";
+"type.historic.archaeological_site" = "Археалагічны помнік";
 
 "type.historic.battlefield" = "Battlefield";
 
@@ -2413,9 +2413,9 @@
 
 "type.office.lawyer" = "Lawyer";
 
-"type.office.ngo" = "NGO Office";
+"type.office.ngo" = "Non-Governmental Organization";
 
-"type.office.telecommunication" = "Mobile Operator";
+"type.office.telecommunication" = "Тэлекамунікацыйная кампанія";
 
 "type.place" = "place";
 
@@ -2709,7 +2709,7 @@
 
 "type.shop.copyshop" = "Copy Shop";
 
-"type.shop.cosmetics" = "Beauty Care";
+"type.shop.cosmetics" = "Касметыка";
 
 "type.shop.department_store" = "Department Store";
 

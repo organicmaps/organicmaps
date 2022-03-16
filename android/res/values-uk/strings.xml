@@ -855,7 +855,7 @@
 	<string name="type.craft.electrician">Електрик</string>
 	<string name="type.craft.gardener">Садівник</string>
 	<string name="type.craft.hvac">Кондиціонери</string>
-	<string name="type.craft.metal_construction">Кування металу</string>
+	<string name="type.craft.metal_construction">Металоконструкції</string>
 	<string name="type.craft.painter">Маляр</string>
 	<string name="type.craft.photographer">Фотограф</string>
 	<string name="type.craft.plumber">Сантехнік</string>
@@ -1281,10 +1281,10 @@
 	<string name="type.office.company">Організація</string>
 	<string name="type.office.estate_agent">Агенція нерухомості</string>
 	<string name="type.office.government">Держустанова</string>
-	<string name="type.office.insurance">Офіс страхової компанії</string>
+	<string name="type.office.insurance">Страхова компанія</string>
 	<string name="type.office.lawyer">Адвокат</string>
-	<string name="type.office.ngo">Офіс громадської організації</string>
-	<string name="type.office.telecommunication">Мобільний оператор</string>
+	<string name="type.office.ngo">Недержавна організація</string>
+	<string name="type.office.telecommunication">Телекомунікаційна компанія</string>
 	<string name="type.place">Мicце</string>
 	<string name="type.place.city">Місто</string>
 	<string name="type.place.city.capital">Столиця</string>
