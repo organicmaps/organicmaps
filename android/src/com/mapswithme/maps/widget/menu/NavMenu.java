@@ -1,244 +1,168 @@
 package com.mapswithme.maps.widget.menu;
 
-import android.animation.Animator;
 import android.animation.ValueAnimator;
-import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.maplayer.traffic.TrafficManager;
+import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.sound.TtsPlayer;
+import com.mapswithme.maps.widget.FlatProgressView;
 import com.mapswithme.util.Graphics;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
-public class NavMenu extends BaseMenu
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+public class NavMenu
 {
+  private final BottomSheetBehavior<View> mNavBottomSheetBehavior;
+
+  private final ImageView mTts;
+  private final ImageView mToggle;
+  private final View mSpeedViewContainer;
+  private final TextView mSpeedValue;
+  private final TextView mSpeedUnits;
+  private final TextView mTimeHourValue;
+  private final TextView mTimeHourUnits;
+  private final TextView mTimeMinuteValue;
+  private final TextView mTimeMinuteUnits;
+  private final ImageView mDotTimeLeft;
+  private final ImageView mDotTimeArrival;
+  private final TextView mDistanceValue;
+  private final TextView mDistanceUnits;
+  private final FlatProgressView mRouteProgress;
+
   @IntegerRes
   private final int mAnimationDuration;
-  @NonNull
-  private final ImageView mTts;
-//  @NonNull
-//  private final ImageView mTraffic;
+  private final AppCompatActivity mActivity;
+  private final NavMenuListener mNavMenuListener;
+  private boolean mShowTimeLeft = true;
 
-  ImageView mToggle;
-
-  final View mContentFrame;
-
-  int mContentHeight;
-
-  boolean mLayoutMeasured;
-
-  private boolean mIsOpen;
-
-  private boolean mAnimating;
-
-  public enum Item implements BaseMenu.Item
+  public NavMenu(AppCompatActivity activity, NavMenuListener navMenuListener)
   {
-    TOGGLE(R.id.toggle),
-    TTS_VOLUME(R.id.tts_volume),
-    STOP(R.id.stop),
-    SETTINGS(R.id.settings);
-//    TRAFFIC(R.id.traffic);
-
-    private final int mViewId;
-
-    Item(int viewId)
+    mActivity = activity;
+    mNavMenuListener = navMenuListener;
+    mAnimationDuration = MwmApplication.from(mActivity).getResources().getInteger(R.integer.anim_menu);
+    mNavBottomSheetBehavior = BottomSheetBehavior.from(mActivity.findViewById(R.id.nav_bottom_sheet));
+    BottomSheetBehavior.BottomSheetCallback bottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback()
     {
-      mViewId = viewId;
-    }
+      @Override
+      public void onStateChanged(@NonNull View bottomSheet, int newState)
+      {
+        if (newState == BottomSheetBehavior.STATE_EXPANDED)
+          setToggleState(true, true);
+        else if (newState == BottomSheetBehavior.STATE_COLLAPSED)
+          setToggleState(false, true);
+      }
 
-    @Override
-    public int getViewId()
-    {
-      return mViewId;
-    }
-  }
+      @Override
+      public void onSlide(@NonNull View bottomSheet, float slideOffset)
+      {
 
-  private class AnimationListener extends UiUtils.SimpleAnimatorListener
-  {
-    @Override
-    public void onAnimationStart(android.animation.Animator animation)
-    {
-      mAnimating = true;
-    }
+      }
+    };
+    mNavBottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback);
 
-    @Override
-    public void onAnimationEnd(android.animation.Animator animation)
-    {
-      mAnimating = false;
-    }
-  }
+    View mBottomFrame = mActivity.findViewById(R.id.nav_bottom_frame);
+    mBottomFrame.setOnClickListener(v -> switchTimeFormat());
 
-  public NavMenu(View frame, ItemClickListener<Item> listener)
-  {
-    super(frame, listener);
-    mAnimationDuration = MwmApplication.from(frame.getContext())
-                                       .getResources().getInteger(R.integer.anim_menu);
-    mContentFrame = mFrame.findViewById(R.id.content_frame);
-    mToggle = mLineFrame.findViewById(R.id.toggle);
-    mToggle.setImageDrawable(Graphics.tint(mFrame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight));
+    // Bottom frame
+    mSpeedViewContainer = mBottomFrame.findViewById(R.id.speed_view_container);
+    mSpeedValue = mBottomFrame.findViewById(R.id.speed_value);
+    mSpeedUnits = mBottomFrame.findViewById(R.id.speed_dimen);
+    mTimeHourValue = mBottomFrame.findViewById(R.id.time_hour_value);
+    mTimeHourUnits = mBottomFrame.findViewById(R.id.time_hour_dimen);
+    mTimeMinuteValue = mBottomFrame.findViewById(R.id.time_minute_value);
+    mTimeMinuteUnits = mBottomFrame.findViewById(R.id.time_minute_dimen);
+    mDotTimeArrival = mBottomFrame.findViewById(R.id.dot_estimate);
+    mDotTimeLeft = mBottomFrame.findViewById(R.id.dot_left);
+    mDistanceValue = mBottomFrame.findViewById(R.id.distance_value);
+    mDistanceUnits = mBottomFrame.findViewById(R.id.distance_dimen);
+    mRouteProgress = mBottomFrame.findViewById(R.id.navigation_progress);
 
-    setToggleState(false, false);
-
-    mapItem(Item.TOGGLE, mLineFrame);
-    Button stop = (Button) mapItem(Item.STOP, mFrame);
+    // Bottom frame buttons
+    mToggle = mBottomFrame.findViewById(R.id.toggle);
+    mToggle.setImageDrawable(Graphics.tint(mActivity, R.drawable.ic_menu_close, R.attr.iconTintLight));
+    mToggle.setOnClickListener(v -> onToggleClicked());
+    ImageView mSettings = mBottomFrame.findViewById(R.id.settings);
+    mSettings.setOnClickListener(v -> onSettingsClicked());
+    mTts = mBottomFrame.findViewById(R.id.tts_volume);
+    mTts.setOnClickListener(v -> onTtsClicked());
+    Button stop = mBottomFrame.findViewById(R.id.stop);
+    stop.setOnClickListener(v -> onStopClicked());
     UiUtils.updateRedButton(stop);
 
-    mapItem(Item.SETTINGS, mFrame);
-
-    mTts = (ImageView) mapItem(Item.TTS_VOLUME, mFrame);
-//    mTraffic = (ImageView) mapItem(Item.TRAFFIC, mFrame);
+    hideNavBottomSheet();
   }
 
-  @Override
-  public void onResume(@Nullable Runnable procAfterMeasurement)
+  private void onStopClicked()
   {
-    measureContent(procAfterMeasurement);
-    refresh();
+    mNavMenuListener.onStopClicked();
   }
 
-  public boolean isOpen()
+  private void onSettingsClicked()
   {
-    return mIsOpen;
+    mNavMenuListener.onSettingsClicked();
   }
 
-  public boolean isAnimating()
+  private void onTtsClicked()
   {
-    return mAnimating;
-  }
-
-  public boolean open(boolean animate)
-  {
-    if ((animate && mAnimating) || isOpen())
-      return false;
-
-    mIsOpen = true;
-
-    UiUtils.show(mContentFrame);
-    adjustTransparency();
-    updateMarker();
-
-    setToggleState(mIsOpen, animate);
-    if (!animate)
-      return true;
-
-    mFrame.setTranslationY(mContentHeight);
-    mFrame.animate()
-          .setDuration(mAnimationDuration)
-          .translationY(0.0f)
-          .setListener(new AnimationListener())
-          .start();
-
-    return true;
-  }
-
-  public boolean close(boolean animate, @Nullable final Runnable onCloseListener)
-  {
-    if (mAnimating || !isOpen())
-    {
-      if (onCloseListener != null)
-        onCloseListener.run();
-
-      return false;
-    }
-
-    mIsOpen = false;
-    setToggleState(mIsOpen, animate);
-
-    if (!animate)
-    {
-      UiUtils.hide(mContentFrame);
-      adjustTransparency();
-      updateMarker();
-
-      if (onCloseListener != null)
-        onCloseListener.run();
-
-      return true;
-    }
-
-    mFrame.animate()
-          .setDuration(mAnimationDuration)
-          .translationY(mContentHeight)
-          .setListener(new AnimationListener()
-          {
-            @Override
-            public void onAnimationEnd(Animator animation)
-            {
-              super.onAnimationEnd(animation);
-              mFrame.setTranslationY(0.0f);
-              UiUtils.hide(mContentFrame);
-              adjustTransparency();
-              updateMarker();
-
-              if (onCloseListener != null)
-                onCloseListener.run();
-            }
-          }).start();
-
-    return true;
-  }
-
-  public void toggle(boolean animate)
-  {
-    if (mAnimating)
-      return;
-
-    boolean show = !isOpen();
-
-    if (show)
-      open(animate);
-    else
-      close(animate);
-  }
-
-
-  void measureContent(@Nullable final Runnable procAfterMeasurement)
-  {
-    if (mLayoutMeasured)
-      return;
-
-    UiUtils.measureView(mContentFrame, (width, height) ->
-    {
-      if (height != 0)
-      {
-        mContentHeight = height;
-        mLayoutMeasured = true;
-
-        UiUtils.hide(mContentFrame);
-      }
-      afterLayoutMeasured(procAfterMeasurement);
-    });
-  }
-
-  public void refresh()
-  {
+    TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
     refreshTts();
   }
 
-  public void refreshTts()
+  private void onToggleClicked()
   {
-    mTts.setImageDrawable(TtsPlayer.isEnabled() ? Graphics.tint(mFrame.getContext(), R.drawable.ic_voice_on,
-                                                                R.attr.colorAccent)
-                                                : Graphics.tint(mFrame.getContext(), R.drawable.ic_voice_off));
+    toggleNavBottomSheet();
   }
 
-  public void refreshTraffic()
+
+  private void switchTimeFormat()
   {
-    Drawable onIcon = Graphics.tint(mFrame.getContext(), R.drawable.ic_setting_traffic_on,
-                                    R.attr.colorAccent);
-    Drawable offIcon = Graphics.tint(mFrame.getContext(), R.drawable.ic_setting_traffic_off);
-//   mTraffic.setImageDrawable(TrafficManager.INSTANCE.isEnabled() ? onIcon : offIcon);
+    mShowTimeLeft = !mShowTimeLeft;
+    mNavMenuListener.onNavMenuUpdate();
   }
 
-  @Override
+  public void collapseNavBottomSheet()
+  {
+    mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+  }
+
+  public void expandNavBottomSheet()
+  {
+    mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+  }
+
+  public void toggleNavBottomSheet()
+  {
+    if (mNavBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED)
+      expandNavBottomSheet();
+    else
+      collapseNavBottomSheet();
+  }
+
+  public void hideNavBottomSheet()
+  {
+    mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    setToggleState(false, false);
+  }
+
   protected void setToggleState(boolean open, boolean animate)
   {
     final float to = open ? -90.0f : 90.0f;
@@ -257,20 +181,93 @@ public class NavMenu extends BaseMenu
     animator.start();
   }
 
-  @Override
-  protected int getHeightResId()
+  public void refreshTts()
   {
-    return R.dimen.nav_menu_height;
+    mTts.setImageDrawable(TtsPlayer.isEnabled() ? Graphics.tint(mActivity, R.drawable.ic_voice_on,
+        R.attr.colorAccent)
+        : Graphics.tint(mActivity, R.drawable.ic_voice_off));
   }
 
-  @Override
-  protected void adjustTransparency() {}
 
-  @Override
-  public void show(boolean show)
+  private void updateTime(int seconds)
   {
-    super.show(show);
-    measureContent(null);
-    UiUtils.showIf(show, mTts);
+    if (mShowTimeLeft)
+      updateTimeLeft(seconds);
+    else
+      updateTimeEstimate(seconds);
+
+    mDotTimeLeft.setEnabled(mShowTimeLeft);
+    mDotTimeArrival.setEnabled(!mShowTimeLeft);
+  }
+
+  private void updateTimeLeft(int seconds)
+  {
+    final long hours = TimeUnit.SECONDS.toHours(seconds);
+    final long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
+    UiUtils.setTextAndShow(mTimeMinuteValue, String.valueOf(minutes));
+    String min = mActivity.getResources().getString(R.string.minute);
+    UiUtils.setTextAndShow(mTimeMinuteUnits, min);
+    if (hours == 0)
+    {
+      UiUtils.hide(mTimeHourUnits, mTimeHourValue);
+      return;
+    }
+    UiUtils.setTextAndShow(mTimeHourValue, String.valueOf(hours));
+    String hour = mActivity.getResources().getString(R.string.hour);
+    UiUtils.setTextAndShow(mTimeHourUnits, hour);
+  }
+
+  private void updateTimeEstimate(int seconds)
+  {
+    final Calendar currentTime = Calendar.getInstance();
+    currentTime.add(Calendar.SECOND, seconds);
+    final DateFormat timeFormat12 = new SimpleDateFormat("h:mm aa", Locale.getDefault());
+    final DateFormat timeFormat24 = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    boolean is24Format = android.text.format.DateFormat.is24HourFormat(mTimeMinuteValue.getContext());
+    UiUtils.setTextAndShow(mTimeMinuteValue, is24Format ? timeFormat24.format(currentTime.getTime())
+        : timeFormat12.format(currentTime.getTime()));
+    UiUtils.hide(mTimeHourUnits, mTimeHourValue, mTimeMinuteUnits);
+  }
+
+
+  private void updateSpeedView(@NonNull RoutingInfo info)
+  {
+    final Location last = LocationHelper.INSTANCE.getSavedLocation();
+    if (last == null)
+      return;
+
+    Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
+
+    mSpeedUnits.setText(speedAndUnits.second);
+    mSpeedValue.setText(speedAndUnits.first);
+    mSpeedViewContainer.setActivated(info.isSpeedLimitExceeded());
+  }
+
+  public void update(@NonNull RoutingInfo info)
+  {
+    updateSpeedView(info);
+    updateTime(info.totalTimeInSeconds);
+    mDistanceValue.setText(info.distToTarget);
+    mDistanceUnits.setText(info.targetUnits);
+    mRouteProgress.setProgress((int) info.completionPercent);
+  }
+
+  public boolean isShowTimeLeft()
+  {
+    return mShowTimeLeft;
+  }
+
+  public void setShowTimeLeft(boolean showTimeLeft)
+  {
+    this.mShowTimeLeft = showTimeLeft;
+  }
+
+  public interface NavMenuListener
+  {
+    void onStopClicked();
+
+    void onSettingsClicked();
+
+    void onNavMenuUpdate();
   }
 }

@@ -6,13 +6,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.location.Location;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,41 +18,29 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.MediaPlayerWrapper;
-import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
-import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.sound.TtsPlayer;
-import com.mapswithme.maps.widget.FlatProgressView;
 import com.mapswithme.maps.widget.menu.NavMenu;
 import com.mapswithme.util.Graphics;
-import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-
 
 public class NavigationController implements Application.ActivityLifecycleCallbacks,
-                                             TrafficManager.TrafficCallback, View.OnClickListener
+    TrafficManager.TrafficCallback,
+    NavMenu.NavMenuListener
 {
   private static final String STATE_SHOW_TIME_LEFT = "ShowTimeLeft";
   private static final String STATE_BOUND = "Bound";
 
   private final View mFrame;
-  private final View mBottomFrame;
   private final View mSearchButtonFrame;
-  @NonNull
-  private final NavMenu mNavMenu;
 
   private final ImageView mNextTurnImage;
   private final TextView mNextTurnDistance;
@@ -66,28 +52,15 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   private final View mStreetFrame;
   private final TextView mNextStreet;
 
-  private final TextView mSpeedValue;
-  private final TextView mSpeedUnits;
-  private final TextView mTimeHourValue;
-  private final TextView mTimeHourUnits;
-  private final TextView mTimeMinuteValue;
-  private final TextView mTimeMinuteUnits;
-  private final ImageView mDotTimeLeft;
-  private final ImageView mDotTimeArrival;
-  private final TextView mDistanceValue;
-  private final TextView mDistanceUnits;
-  private final FlatProgressView mRouteProgress;
-
   @NonNull
   private final SearchWheel mSearchWheel;
-  @NonNull
-  private final View mSpeedViewContainer;
-
-  private boolean mShowTimeLeft = true;
 
   @NonNull
   private final MediaPlayer.OnCompletionListener mSpeedCamSignalCompletionListener;
 
+  private final NavMenu mNavMenu;
+  View.OnClickListener mOnSettingsClickListener;
+  View.OnClickListener mOnBookmarkClickListener;
   @Nullable
   private NavigationService mService = null;
   private boolean mBound = false;
@@ -99,7 +72,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     {
       NavigationService.LocalBinder binder = (NavigationService.LocalBinder) service;
       mService = binder.getService();
-      mBound =  true;
+      mBound = true;
       doBackground();
     }
 
@@ -111,14 +84,13 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     }
   };
 
-  // TODO (@velichkomarija) remove unnecessary casts.
-  public NavigationController(Activity activity)
+
+  public NavigationController(AppCompatActivity activity, View.OnClickListener onSettingsClickListener, View.OnClickListener onBookmarkClickListener)
   {
     mFrame = activity.findViewById(R.id.navigation_frame);
-    mBottomFrame = mFrame.findViewById(R.id.nav_bottom_frame);
-    mBottomFrame.setOnClickListener(v -> switchTimeFormat());
-    mNavMenu = createNavMenu();
-    mNavMenu.refresh();
+    mNavMenu = new NavMenu(activity, this);
+    mOnSettingsClickListener = onSettingsClickListener;
+    mOnBookmarkClickListener = onBookmarkClickListener;
 
     // Top frame
     View topFrame = mFrame.findViewById(R.id.nav_top_frame);
@@ -138,62 +110,15 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     UiUtils.extendViewWithStatusBar(mStreetFrame);
     UiUtils.extendViewMarginWithStatusBar(turnFrame);
 
-    // Bottom frame
-    mSpeedViewContainer = mBottomFrame.findViewById(R.id.speed_view_container);
-    mSpeedValue = mBottomFrame.findViewById(R.id.speed_value);
-    mSpeedUnits = mBottomFrame.findViewById(R.id.speed_dimen);
-    mTimeHourValue = mBottomFrame.findViewById(R.id.time_hour_value);
-    mTimeHourUnits = mBottomFrame.findViewById(R.id.time_hour_dimen);
-    mTimeMinuteValue = mBottomFrame.findViewById(R.id.time_minute_value);
-    mTimeMinuteUnits = mBottomFrame.findViewById(R.id.time_minute_dimen);
-    mDotTimeArrival = mBottomFrame.findViewById(R.id.dot_estimate);
-    mDotTimeLeft = mBottomFrame.findViewById(R.id.dot_left);
-    mDistanceValue = mBottomFrame.findViewById(R.id.distance_value);
-    mDistanceUnits = mBottomFrame.findViewById(R.id.distance_dimen);
-    mRouteProgress = mBottomFrame.findViewById(R.id.navigation_progress);
-
     mSearchButtonFrame = activity.findViewById(R.id.search_button_frame);
     mSearchWheel = new SearchWheel(mSearchButtonFrame);
 
     ImageView bookmarkButton = mSearchButtonFrame.findViewById(R.id.btn_bookmarks);
     bookmarkButton.setImageDrawable(Graphics.tint(bookmarkButton.getContext(),
-                                                  R.drawable.ic_menu_bookmarks));
-    bookmarkButton.setOnClickListener(this);
+        R.drawable.ic_menu_bookmarks));
+    bookmarkButton.setOnClickListener(mOnBookmarkClickListener);
     Application app = (Application) bookmarkButton.getContext().getApplicationContext();
     mSpeedCamSignalCompletionListener = new CameraWarningSignalCompletionListener(app);
-  }
-
-  private NavMenu createNavMenu()
-  {
-    return new NavMenu(mBottomFrame, this::onMenuItemClicked);
-  }
-
-  private void onMenuItemClicked(NavMenu.Item item)
-  {
-    final MwmActivity parent = ((MwmActivity) mFrame.getContext());
-    switch (item)
-    {
-    case STOP:
-      mNavMenu.close(false);
-      RoutingController.get().cancel();
-      stop(parent);
-      break;
-    case SETTINGS:
-      parent.closeFloatingPanels();
-      parent.startActivity(new Intent(parent, SettingsActivity.class));
-      break;
-    case TTS_VOLUME:
-      TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
-      mNavMenu.refreshTts();
-      break;
-//    case TRAFFIC:
-//      TrafficManager.INSTANCE.toggle();
-//      parent.onTrafficLayerSelected();
-//      mNavMenu.refreshTraffic();
-//      break;
-    case TOGGLE:
-      mNavMenu.toggle(true);
-    }
   }
 
   public void stop(MwmActivity parent)
@@ -262,7 +187,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     info.pedestrianTurnDirection.setTurnDrawable(mNextTurnImage);
   }
 
-  public void updateNorth(double north)
+  public void updateNorth()
   {
     if (!RoutingController.get().isNavigating())
       return;
@@ -281,11 +206,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
       updateVehicle(info);
 
     updateStreetView(info);
-    updateSpeedView(info);
-    updateTime(info.totalTimeInSeconds);
-    mDistanceValue.setText(info.distToTarget);
-    mDistanceUnits.setText(info.targetUnits);
-    mRouteProgress.setProgress((int) info.completionPercent);
+    mNavMenu.update(info);
     playbackSpeedCamWarning(info);
   }
 
@@ -297,73 +218,15 @@ public class NavigationController implements Application.ActivityLifecycleCallba
       mNextStreet.setText(info.nextStreet);
   }
 
-  private void updateSpeedView(@NonNull RoutingInfo info)
-  {
-    final Location last = LocationHelper.INSTANCE.getSavedLocation();
-    if (last == null)
-      return;
-
-    Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
-
-    mSpeedUnits.setText(speedAndUnits.second);
-    mSpeedValue.setText(" " + speedAndUnits.first);
-    mSpeedViewContainer.setActivated(info.isSpeedLimitExceeded());
-  }
 
   private void playbackSpeedCamWarning(@NonNull RoutingInfo info)
   {
     if (!info.shouldPlayWarningSignal() || TtsPlayer.INSTANCE.isSpeaking())
       return;
 
-    Context context = mBottomFrame.getContext();
+    Context context = mFrame.getContext();
     MediaPlayerWrapper player = MediaPlayerWrapper.from(context);
     player.playback(R.raw.speed_cams_beep, mSpeedCamSignalCompletionListener);
-  }
-
-  private void updateTime(int seconds)
-  {
-    if (mShowTimeLeft)
-      updateTimeLeft(seconds);
-    else
-      updateTimeEstimate(seconds);
-
-    mDotTimeLeft.setEnabled(mShowTimeLeft);
-    mDotTimeArrival.setEnabled(!mShowTimeLeft);
-  }
-
-  private void updateTimeLeft(int seconds)
-  {
-    final long hours = TimeUnit.SECONDS.toHours(seconds);
-    final long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
-    UiUtils.setTextAndShow(mTimeMinuteValue, String.valueOf(minutes));
-    String min = mFrame.getResources().getString(R.string.minute);
-    UiUtils.setTextAndShow(mTimeMinuteUnits, min);
-    if (hours == 0)
-    {
-      UiUtils.hide(mTimeHourUnits, mTimeHourValue);
-      return;
-    }
-    UiUtils.setTextAndShow(mTimeHourValue, String.valueOf(hours));
-    String hour = mFrame.getResources().getString(R.string.hour);
-    UiUtils.setTextAndShow(mTimeHourUnits, hour);
-  }
-
-  private void updateTimeEstimate(int seconds)
-  {
-    final Calendar currentTime = Calendar.getInstance();
-    currentTime.add(Calendar.SECOND, seconds);
-    final DateFormat timeFormat12 = new SimpleDateFormat("h:mm aa", Locale.getDefault());
-    final DateFormat timeFormat24 = new SimpleDateFormat("HH:mm", Locale.getDefault());
-    boolean is24Format = android.text.format.DateFormat.is24HourFormat(mTimeMinuteValue.getContext());
-    UiUtils.setTextAndShow(mTimeMinuteValue, is24Format ? timeFormat24.format(currentTime.getTime())
-                          : timeFormat12.format(currentTime.getTime()));
-    UiUtils.hide(mTimeHourUnits, mTimeHourValue, mTimeMinuteUnits);
-  }
-
-  private void switchTimeFormat()
-  {
-    mShowTimeLeft = !mShowTimeLeft;
-    update(Framework.nativeGetRouteFollowingInfo());
   }
 
   public void showSearchButtons(boolean show)
@@ -393,22 +256,20 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     UiUtils.invisible(mSearchButtonFrame);
   }
 
+
   public void show(boolean show)
   {
+    if (show && !UiUtils.isVisible(mFrame))
+      mNavMenu.collapseNavBottomSheet();
+    else if (!show && UiUtils.isVisible(mFrame))
+      mNavMenu.hideNavBottomSheet();
     UiUtils.showIf(show, mFrame);
     UiUtils.showIf(show, mSearchButtonFrame);
-    mNavMenu.show(show);
   }
 
   public void resetSearchWheel()
   {
     mSearchWheel.reset();
-  }
-
-  @NonNull
-  public NavMenu getNavMenu()
-  {
-    return mNavMenu;
   }
 
   @Override
@@ -426,7 +287,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   @Override
   public void onActivityResumed(@NonNull Activity activity)
   {
-    mNavMenu.onResume(null);
+    mNavMenu.refreshTts();
     mSearchWheel.onResume();
     if (mBound)
       doBackground();
@@ -447,14 +308,14 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   @Override
   public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState)
   {
-    outState.putBoolean(STATE_SHOW_TIME_LEFT, mShowTimeLeft);
+    outState.putBoolean(STATE_SHOW_TIME_LEFT, mNavMenu.isShowTimeLeft());
     outState.putBoolean(STATE_BOUND, mBound);
     mSearchWheel.saveState(outState);
   }
 
   public void onRestoreState(@NonNull Bundle savedInstanceState, @NonNull MwmActivity parent)
   {
-    mShowTimeLeft = savedInstanceState.getBoolean(STATE_SHOW_TIME_LEFT);
+    mNavMenu.setShowTimeLeft(savedInstanceState.getBoolean(STATE_SHOW_TIME_LEFT));
     mBound = savedInstanceState.getBoolean(STATE_BOUND);
     if (mBound)
       start(parent);
@@ -470,13 +331,13 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   @Override
   public void onEnabled()
   {
-   // mNavMenu.refreshTraffic();
+    // mNavMenu.refreshTraffic();
   }
 
   @Override
   public void onDisabled()
   {
-   // mNavMenu.refreshTraffic();
+    // mNavMenu.refreshTraffic();
   }
 
   @Override
@@ -515,20 +376,28 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     // no op
   }
 
-  @Override
-  public void onClick(View v)
-  {
-    switch (v.getId())
-    {
-      case R.id.btn_bookmarks:
-        BookmarkCategoriesActivity.start(mFrame.getContext());
-        break;
-    }
-  }
-
   public void destroy()
   {
-    MediaPlayerWrapper.from(mBottomFrame.getContext()).release();
+    MediaPlayerWrapper.from(mFrame.getContext()).release();
+  }
+
+  @Override
+  public void onSettingsClicked()
+  {
+    mOnSettingsClickListener.onClick(null);
+  }
+
+  @Override
+  public void onStopClicked()
+  {
+    mNavMenu.hideNavBottomSheet();
+    RoutingController.get().cancel();
+  }
+
+  @Override
+  public void onNavMenuUpdate()
+  {
+    update(Framework.nativeGetRouteFollowingInfo());
   }
 
   private static class CameraWarningSignalCompletionListener implements MediaPlayer.OnCompletionListener

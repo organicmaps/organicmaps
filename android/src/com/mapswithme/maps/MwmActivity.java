@@ -308,6 +308,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void showBookmarks()
   {
+    closeFloatingPanels();
     BookmarkCategoriesActivity.start(this);
   }
 
@@ -481,7 +482,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       removeCurrentFragment(false);
     }
 
-    mNavigationController = new NavigationController(this);
+    mNavigationController = new NavigationController(this, v -> onSettingsOptionSelected(), v -> showBookmarks());
     //TrafficManager.INSTANCE.attach(mNavigationController);
 
     initMainMenu();
@@ -1161,9 +1162,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private BaseMenu getCurrentMenu()
   {
-    return (RoutingController.get().isNavigating()
-            ? mNavigationController.getNavMenu()
-            : mMainMenu);
+    return mMainMenu;
   }
 
   private void setFullscreen(boolean isFullscreen)
@@ -1728,7 +1727,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onCompassUpdated(@NonNull CompassData compass)
   {
     MapFragment.nativeCompassUpdated(compass.getNorth(), false);
-    mNavigationController.updateNorth(compass.getNorth());
+    mNavigationController.updateNorth();
   }
 
   @Override
@@ -2053,7 +2052,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     void onMenuItemClickInternal()
     {
-      getActivity().closeFloatingPanels();
       getActivity().showBookmarks();
     }
   }

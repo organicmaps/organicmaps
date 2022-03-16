@@ -91,6 +91,7 @@
           android:lines="1"
           android:includeFontPadding="false"
           android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
+          android:textAlignment="center"
           tools:text="99"/>
 
         <TextView
