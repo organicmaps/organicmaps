@@ -44,8 +44,7 @@ private:
   std::unordered_map<uint32_t, RoadGeometry> m_roads;
 };
 
-std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(
-    traffic::TrafficCache const & trafficCache);
+std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(traffic::TrafficCache const & trafficCache);
 std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(std::shared_ptr<TrafficStash> trafficStash);
 
 Joint MakeJoint(std::vector<routing::RoadPoint> const & points);

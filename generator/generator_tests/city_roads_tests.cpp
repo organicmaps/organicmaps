@@ -81,7 +81,7 @@ void TestCityRoadsBuilding(vector<uint32_t> && cityRoadFeatureIds)
   // Adding city_roads section to mwm.
   string const mwmFullPath = base::JoinPath(writableDir, mwmRelativePath);
   vector<uint32_t> originalCityRoadFeatureIds = cityRoadFeatureIds;
-  SerializeCityRoads(mwmFullPath, move(cityRoadFeatureIds));
+  routing_builder::SerializeCityRoads(mwmFullPath, move(cityRoadFeatureIds));
 
   auto const cityRoads = LoadCityRoads(country);
   TEST(cityRoads, ());

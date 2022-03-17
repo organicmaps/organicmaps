@@ -26,8 +26,9 @@
 #include <utility>
 #include <vector>
 
-namespace routing
+namespace routing_builder
 {
+using namespace routing;
 
 std::unique_ptr<IndexGraph> CreateIndexGraph(std::string const & mwmPath, std::string const & country,
                                              CountryParentNameGetterFn const & countryParentNameGetterFn)
@@ -109,4 +110,4 @@ bool BuildRoadRestrictions(IndexGraph & graph,
   return true;
 }
 
-}  // namespace routing
+}  // namespace routing_builder

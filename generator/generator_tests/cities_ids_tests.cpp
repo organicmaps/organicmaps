@@ -25,11 +25,11 @@
 #include <sstream>
 #include <string>
 
+namespace cities_ids_tests
+{
 using namespace generator;
 using namespace generator::tests_support;
 
-namespace
-{
 class CitiesIdsTest : public TestWithCustomMwms
 {
 public:
@@ -62,7 +62,6 @@ public:
 private:
   std::string m_name;
 };
-}  // namespace
 
 UNIT_CLASS_TEST(CitiesIdsTest, BuildCitiesIds)
 {
@@ -117,3 +116,5 @@ UNIT_CLASS_TEST(CitiesIdsTest, BuildCitiesIds)
     TEST_EQUAL(numLocalities, 2, ());
   }
 }
+
+} // namespace cities_ids_tests

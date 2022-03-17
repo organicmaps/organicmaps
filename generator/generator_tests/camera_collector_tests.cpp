@@ -32,16 +32,15 @@
 #include <string>
 #include <utility>
 
+namespace routing_builder
+{
 using namespace generator;
-using namespace generator::cache;
 using namespace feature;
 using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
 using namespace std;
 
-namespace
-{
 string const kSpeedCameraTag = "<tag k=\"highway\" v=\"speed_camera\"/>";
 
 feature::FeatureBuilder MakeFeatureBuilderWithParams(OsmElement & element)
@@ -77,10 +76,7 @@ public:
 protected:
   using Translator::Translator;
 };
-}  // namespace
 
-namespace generator_tests
-{
 class TestCameraCollector
 {
 public:
@@ -208,9 +204,6 @@ public:
 
 string const TestCameraCollector::kTestDir = "camera_test";
 string const TestCameraCollector::kOsmFileName = "planet" OSM_DATA_FILE_EXTENSION;
-} // namespace generator_tests
-
-using namespace generator_tests;
 
 UNIT_CLASS_TEST(TestCameraCollector, test_1)
 {
@@ -341,3 +334,5 @@ UNIT_CLASS_TEST(TestCameraCollector, Merge)
 {
   TestCameraCollector::TestMergeCollectors();
 }
+
+} // namespace routing_builder

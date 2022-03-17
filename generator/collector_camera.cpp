@@ -30,10 +30,10 @@
 #include <algorithm>
 #include <iterator>
 
+namespace routing_builder
+{
 using namespace feature;
 
-namespace routing
-{
 size_t const CameraProcessor::kMaxSpeedSpeedStringLength = 32;
 
 std::optional<double> GetMaxSpeedKmPH(std::string const & maxSpeedString)
@@ -231,4 +231,4 @@ void CameraCollector::MergeInto(CameraCollector & collector) const
 {
   collector.m_processor.Merge(m_processor);
 }
-}  // namespace routing
+}  // namespace routing_builder

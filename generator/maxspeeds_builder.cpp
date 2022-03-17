@@ -29,13 +29,13 @@
 
 #include "defines.hpp"
 
+namespace routing_builder
+{
 using namespace feature;
 using namespace generator;
 using namespace routing;
 using namespace std;
 
-namespace
-{
 char const kDelim[] = ", \t\r\n";
 
 bool ParseOneSpeedValue(strings::SimpleTokenizer & iter, MaxspeedType & value)
@@ -265,7 +265,7 @@ public:
       }
     }
     else
-      LOG(LINFO, ("Undefined HighwayType for way", osmID));
+      LOG(LWARNING, ("Undefined HighwayType for way", osmID));
   }
 
   void SerializeMaxspeeds() const
@@ -299,10 +299,6 @@ public:
   }
 };
 
-}  // namespace
-
-namespace routing
-{
 bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
 {
   osmIdToMaxspeed.clear();
@@ -374,4 +370,4 @@ void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
   CHECK(ParseWaysFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId), ());
   BuildMaxspeedsSection(graph, dataPath, featureIdToOsmId, maxspeedsFilename);
 }
-}  // namespace routing
+}  // namespace routing_builder

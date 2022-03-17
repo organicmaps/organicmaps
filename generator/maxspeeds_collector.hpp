@@ -10,10 +10,6 @@
 
 namespace generator
 {
-namespace cache
-{
-class IntermediateDataReaderInterface;
-}  // namespace cache
 
 /// \brief Collects all maxspeed tags value and saves them to a csv file.
 /// Every line describes maxspeed, maxspeed:forward and maxspeed:backward

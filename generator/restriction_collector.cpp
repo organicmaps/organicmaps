@@ -21,7 +21,7 @@
 #include <sstream>
 #include <unordered_set>
 
-namespace
+namespace routing_builder
 {
 using namespace routing;
 
@@ -41,10 +41,7 @@ bool ParseLineOfWayIds(strings::SimpleTokenizer & iter, std::vector<base::GeoObj
   }
   return true;
 }
-}  // namespace
 
-namespace routing
-{
 m2::PointD constexpr RestrictionCollector::kNoCoords;
 
 RestrictionCollector::RestrictionCollector(std::string const & osmIdsToFeatureIdPath,
@@ -386,4 +383,4 @@ void FromString(std::string const & str, double & number)
 {
   CHECK(strings::to_double(str.c_str(), number), ());
 }
-}  // namespace routing
+}  // namespace routing_builder

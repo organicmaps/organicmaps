@@ -6,6 +6,8 @@
 #include "generator/restriction_collector.hpp"
 #include "generator/restriction_generator.hpp"
 
+#include "traffic/traffic_cache.hpp"
+
 #include "routing/restriction_loader.hpp"
 
 #include "indexer/classificator_loader.hpp"
@@ -167,7 +169,7 @@ void TestRestrictionBuilding(string const & restrictionPath,
   string const & mwmFullPath = scopedMwm.GetFullPath();
 
   // Prepare data to collector.
-  auto restrictionCollector = make_unique<RestrictionCollector>(osmIdsToFeatureIdFullPath, *graph);
+  auto restrictionCollector = make_unique<routing_builder::RestrictionCollector>(osmIdsToFeatureIdFullPath, *graph);
 
   TEST(restrictionCollector->Process(restrictionFullPath), ("Bad restrictions were given."));
 

@@ -2,6 +2,8 @@
 
 #include "generator/utils.hpp"
 
+#include "traffic/traffic_cache.hpp"
+
 #include "routing/index_router.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/routing_exceptions.hpp"

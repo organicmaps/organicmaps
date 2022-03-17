@@ -1,6 +1,8 @@
 #include "track_analyzing/track.hpp"
 #include "track_analyzing/utils.hpp"
 
+#include "traffic/speed_groups.hpp"
+
 #include "routing_common/car_model.hpp"
 #include "routing_common/vehicle_model.hpp"
 
@@ -20,12 +22,12 @@
 #include <iostream>
 #include <sstream>
 
+
+namespace track_analyzing
+{
 using namespace routing;
 using namespace std;
-using namespace track_analyzing;
 
-namespace
-{
 class TrackStats final
 {
 public:
@@ -121,10 +123,7 @@ double EstimateDuration(MatchedTrack const & track, shared_ptr<EdgeEstimator> es
 
   return result;
 }
-}  // namespace
 
-namespace track_analyzing
-{
 void CmdTracks(string const & filepath, string const & trackExtension, StringFilter mwmFilter,
                StringFilter userFilter, TrackFilter const & filter, bool noTrackLogs,
                bool noMwmLogs, bool noWorldLogs)

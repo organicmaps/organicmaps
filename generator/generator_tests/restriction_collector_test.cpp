@@ -25,12 +25,13 @@
 #include <utility>
 #include <vector>
 
+namespace routing_builder
+{
 using namespace generator;
 using namespace platform;
 using namespace platform::tests_support;
+using namespace routing;
 
-namespace routing
-{
 std::string const kTestDir = "test-restrictions";
 std::string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
 
@@ -251,4 +252,4 @@ UNIT_TEST(RestrictionWriter_Merge)
                                     "No,way,14,4,24\n";
   TEST_EQUAL(buffer.str(), correctAnswer, ());
 }
-}  // namespace
+}  // namespace routing_builder
