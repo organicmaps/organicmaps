@@ -8,8 +8,10 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_EXTENSIONS OFF)
 
-if (NOT (DEFINED ENV{UNITY_DISABLE}))
-  message("Using unity builds, export UNITY_DISABLE=1 to disable it.")
+option(UNITY_DISABLE "Disable unity build" OFF)
+
+if (NOT UNITY_DISABLE)
+  message("Using unity builds, pass -DUNITY_DISABLE=ON to disable it.")
   set(CMAKE_UNITY_BUILD ON)
   set(CMAKE_UNITY_BUILD_BATCH_SIZE 50)
 endif()
