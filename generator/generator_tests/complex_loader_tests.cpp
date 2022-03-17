@@ -14,11 +14,11 @@
 
 #include "platform/platform_tests_support/scoped_file.hpp"
 
+namespace complex_loader_tests
+{
 using generator::tests_support::TestWithClassificator;
 using platform::tests_support::ScopedFile;
 
-namespace
-{
 std::string const kCsv1 =
     "13835058055284963881 9223372037111861697;"
     ";"
@@ -161,4 +161,4 @@ UNIT_CLASS_TEST(TestWithClassificator, Complex_GetOrCreateComplexLoader)
   TEST_EQUAL(forest.Size(), 1, ());
   forest.ForEachTree([](auto const & tree) { TEST_EQUAL(tree_node::Size(tree), 7, ()); });
 }
-}  // namespace
+}  // namespace complex_loader_tests

@@ -33,17 +33,15 @@
 
 #include "3party/opening_hours/opening_hours.hpp"
 
-namespace routing
+namespace routing_builder
 {
 using namespace feature;
 using namespace routing;
 using namespace generator;
 using namespace std;
 
-namespace
-{
-using TagMapping = routing::RoadAccessTagProcessor::TagMapping;
-using ConditionalTagsList = routing::RoadAccessTagProcessor::ConditionalTagsList;
+using TagMapping = RoadAccessTagProcessor::TagMapping;
+using ConditionalTagsList = RoadAccessTagProcessor::ConditionalTagsList;
 
 // Get from: https://taginfo.openstreetmap.org/search?q=%3Aconditional
 // @{
@@ -401,7 +399,6 @@ string GetVehicleTypeForAccessConditional(string const & accessConditionalTag)
   string result(accessConditionalTag.begin(), accessConditionalTag.begin() + pos);
   return result;
 }
-}  // namespace
 
 // RoadAccessTagProcessor --------------------------------------------------------------------------
 RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
@@ -591,7 +588,7 @@ void RoadAccessWriter::CollectFeature(FeatureBuilder const & fb, OsmElement cons
     p.ProcessConditional(elem);
   }
 
-  if (!routing::IsRoad(fb.GetTypes()))
+  if (!IsRoad(fb.GetTypes()))
     return;
 
   uint8_t ignoreBarrierWithoutAccessOnThisWay = 0;
@@ -839,4 +836,4 @@ bool BuildRoadAccessInfo(string const & dataFilePath, string const & roadAccessP
   RoadAccessSerializer::Serialize(*writer, collector.GetRoadAccessAllTypes());
   return true;
 }
-}  // namespace routing
+}  // namespace routing_builder

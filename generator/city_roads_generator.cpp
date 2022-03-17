@@ -22,13 +22,11 @@
 
 #include <utility>
 
-namespace routing
+namespace routing_builder
 {
 using namespace generator;
 using namespace std;
 
-namespace
-{
 void LoadCitiesBoundariesGeometry(string const & boundariesPath,
                                   CitiesBoundariesChecker::CitiesBoundaries & result)
 {
@@ -91,7 +89,6 @@ vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boun
 
   return cityRoadFeatureIds;
 }
-}  // namespace
 
 void SerializeCityRoads(string const & dataPath, vector<uint32_t> && cityRoadFeatureIds)
 {
@@ -122,4 +119,4 @@ bool BuildCityRoads(string const & mwmPath, string const & boundariesPath)
   }
   return true;
 }
-}  // namespace routing
+}  // namespace routing_builder

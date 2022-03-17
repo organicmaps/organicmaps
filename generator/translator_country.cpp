@@ -115,11 +115,11 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
       info.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME), cache->GetCache()));
   collectors->Append(
       std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
-  collectors->Append(std::make_shared<routing::RestrictionWriter>(
+  collectors->Append(std::make_shared<routing_builder::RestrictionWriter>(
       info.GetIntermediateFileName(RESTRICTIONS_FILENAME), cache->GetCache()));
-  collectors->Append(std::make_shared<routing::RoadAccessWriter>(
+  collectors->Append(std::make_shared<routing_builder::RoadAccessWriter>(
       info.GetIntermediateFileName(ROAD_ACCESS_FILENAME)));
-  collectors->Append(std::make_shared<routing::CameraCollector>(
+  collectors->Append(std::make_shared<routing_builder::CameraCollector>(
       info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME)));
   collectors->Append(std::make_shared<MiniRoundaboutCollector>(
       info.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME)));

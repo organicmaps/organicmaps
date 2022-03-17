@@ -22,7 +22,7 @@
 #include <utility>
 #include <vector>
 
-namespace
+namespace routing_builder
 {
 using namespace routing;
 
@@ -89,10 +89,7 @@ OsmElement::EntityType GetType(RelationElement const & relationElement, uint64_t
 
   UNREACHABLE();
 };
-}  // namespace
 
-namespace routing
-{
 std::string const RestrictionWriter::kNodeString = "node";
 std::string const RestrictionWriter::kWayString = "way";
 
@@ -243,4 +240,4 @@ std::string DebugPrint(RestrictionWriter::ViaType const & type)
   }
   UNREACHABLE();
 }
-}  // namespace routing
+}  // namespace routing_builder

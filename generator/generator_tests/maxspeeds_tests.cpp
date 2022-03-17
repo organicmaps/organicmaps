@@ -55,6 +55,7 @@ using namespace measurement_utils;
 using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
+using namespace routing_builder;
 using namespace std;
 
 using Features = vector<vector<m2::PointD>>;
@@ -93,8 +94,8 @@ void TestMaxspeedsSection(Features const & roads, string const & maxspeedsCsvCon
 
   // Create routing graph for test mwm.
   auto const countryParentGetter = [](std::string const &) { return string(); };
-  routing::BuildRoutingIndex(testMwmFullPath, kTestMwm, countryParentGetter);
-  auto routingGraph = routing::CreateIndexGraph(testMwmFullPath, kTestMwm, countryParentGetter);
+  BuildRoutingIndex(testMwmFullPath, kTestMwm, countryParentGetter);
+  auto routingGraph = CreateIndexGraph(testMwmFullPath, kTestMwm, countryParentGetter);
   TEST(routingGraph, ());
 
   // Creating maxspeed section in test.mwm.

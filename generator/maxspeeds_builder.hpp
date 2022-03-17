@@ -17,13 +17,16 @@ namespace routing
 {
 class IndexGraph;
 using OsmIdToMaxspeed = std::map<base::GeoObjectId, Maxspeed>;
+} // namesoace routing
 
+namespace routing_builder
+{
 /// \brief Parses csv file with |filePath| and stores the result in |osmIdToMaxspeed|.
 /// \note There's a detailed description of the csv file in generator/maxspeed_collector.hpp.
-bool ParseMaxspeeds(std::string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed);
+bool ParseMaxspeeds(std::string const & filePath, routing::OsmIdToMaxspeed & osmIdToMaxspeed);
 
-void BuildMaxspeedsSection(IndexGraph * graph, std::string const & dataPath,
-                           FeatureIdToOsmId const & featureIdToOsmId,
+void BuildMaxspeedsSection(routing::IndexGraph * graph, std::string const & dataPath,
+                           routing::FeatureIdToOsmId const & featureIdToOsmId,
                            std::string const & maxspeedsFilename);
 
 /// \brief Builds maxspeeds section in mwm with |dataPath|. This section contains max speed limits
@@ -34,6 +37,6 @@ void BuildMaxspeedsSection(IndexGraph * graph, std::string const & dataPath,
 //     to a csv file.
 /// 2. Calls GenerateFeatures()
 /// 3. Generates geometry.
-void BuildMaxspeedsSection(IndexGraph * graph, std::string const & dataPath,
+void BuildMaxspeedsSection(routing::IndexGraph * graph, std::string const & dataPath,
                            std::string const & osmToFeaturePath, std::string const & maxspeedsFilename);
-}  // namespace routing
+}  // namespace routing_builder

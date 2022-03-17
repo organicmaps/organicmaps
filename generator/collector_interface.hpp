@@ -26,12 +26,14 @@ namespace feature
 {
 class MetalinesBuilder;
 }  // namespace feature
-namespace routing
+
+namespace routing_builder
 {
 class CameraCollector;
 class RestrictionWriter;
 class RoadAccessWriter;
-}  // namespace routing
+}
+
 namespace generator
 {
 class BoundaryPostcodeCollector;
@@ -72,10 +74,10 @@ public:
   virtual void MergeInto(CollectorCollection &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(BoundaryPostcodeCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(CityAreaCollector &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(routing::CameraCollector &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(routing_builder::CameraCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(MiniRoundaboutCollector &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(routing::RestrictionWriter &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(routing::RoadAccessWriter &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(routing_builder::RestrictionWriter &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(routing_builder::RoadAccessWriter &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(CollectorTag &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(MaxspeedsCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(feature::MetalinesBuilder &) const { FailIfMethodUnsupported(); }
