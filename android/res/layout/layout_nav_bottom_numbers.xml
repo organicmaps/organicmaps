@@ -3,9 +3,9 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
+  android:layout_height="match_parent"
   android:orientation="vertical"
-  android:layout_marginEnd="@dimen/nav_toggle"
+  android:gravity="center_vertical"
   android:background="?clickableBackground"
   tools:background="#3000FF00"
   tools:ignore="RtlSymmetry">
@@ -13,7 +13,7 @@
   <LinearLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="@dimen/nav_numbers_height">
     <!-- Speed -->
     <RelativeLayout
       android:id="@+id/speed_view_container"
@@ -22,8 +22,6 @@
       android:layout_height="match_parent"
       android:background="@drawable/speed_cams_bg"
       android:minWidth="@dimen/nav_numbers_side_min_width"
-      android:paddingBottom="@dimen/margin_eighth"
-      android:paddingTop="@dimen/margin_eighth"
       android:paddingStart="@dimen/nav_numbers_margin"
       android:paddingEnd="@dimen/nav_numbers_margin">
       <TextView
@@ -56,8 +54,6 @@
       android:layout_weight="1"
       android:layout_height="match_parent"
       android:minWidth="@dimen/nav_numbers_side_min_width"
-      android:paddingBottom="@dimen/margin_eighth"
-      android:paddingTop="@dimen/margin_eighth"
       android:paddingStart="@dimen/nav_numbers_margin"
       android:paddingEnd="@dimen/nav_numbers_margin">
       <LinearLayout
@@ -137,8 +133,6 @@
       android:layout_weight="1"
       android:layout_height="match_parent"
       android:minWidth="@dimen/nav_numbers_side_min_width"
-      android:paddingBottom="@dimen/margin_eighth"
-      android:paddingTop="@dimen/margin_eighth"
       android:paddingStart="@dimen/nav_numbers_margin"
       android:paddingEnd="@dimen/nav_numbers_margin">
       <TextView

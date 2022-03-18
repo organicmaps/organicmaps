@@ -1,6 +1,5 @@
 package com.mapswithme.maps.widget.menu;
 
-import android.animation.ValueAnimator;
 import android.location.Location;
 import android.util.Pair;
 import android.view.View;
@@ -34,7 +33,6 @@ public class NavMenu
   private final BottomSheetBehavior<View> mNavBottomSheetBehavior;
 
   private final ImageView mTts;
-  private final ImageView mToggle;
   private final View mSpeedViewContainer;
   private final TextView mSpeedValue;
   private final TextView mSpeedUnits;
@@ -48,8 +46,6 @@ public class NavMenu
   private final TextView mDistanceUnits;
   private final FlatProgressView mRouteProgress;
 
-  @IntegerRes
-  private final int mAnimationDuration;
   private final AppCompatActivity mActivity;
   private final NavMenuListener mNavMenuListener;
   private boolean mShowTimeLeft = true;
@@ -58,26 +54,7 @@ public class NavMenu
   {
     mActivity = activity;
     mNavMenuListener = navMenuListener;
-    mAnimationDuration = MwmApplication.from(mActivity).getResources().getInteger(R.integer.anim_menu);
     mNavBottomSheetBehavior = BottomSheetBehavior.from(mActivity.findViewById(R.id.nav_bottom_sheet));
-    BottomSheetBehavior.BottomSheetCallback bottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback()
-    {
-      @Override
-      public void onStateChanged(@NonNull View bottomSheet, int newState)
-      {
-        if (newState == BottomSheetBehavior.STATE_EXPANDED)
-          setToggleState(true, true);
-        else if (newState == BottomSheetBehavior.STATE_COLLAPSED)
-          setToggleState(false, true);
-      }
-
-      @Override
-      public void onSlide(@NonNull View bottomSheet, float slideOffset)
-      {
-
-      }
-    };
-    mNavBottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback);
 
     View mBottomFrame = mActivity.findViewById(R.id.nav_bottom_frame);
     mBottomFrame.setOnClickListener(v -> switchTimeFormat());
@@ -97,9 +74,6 @@ public class NavMenu
     mRouteProgress = mBottomFrame.findViewById(R.id.navigation_progress);
 
     // Bottom frame buttons
-    mToggle = mBottomFrame.findViewById(R.id.toggle);
-    mToggle.setImageDrawable(Graphics.tint(mActivity, R.drawable.ic_menu_close, R.attr.iconTintLight));
-    mToggle.setOnClickListener(v -> onToggleClicked());
     ImageView mSettings = mBottomFrame.findViewById(R.id.settings);
     mSettings.setOnClickListener(v -> onSettingsClicked());
     mTts = mBottomFrame.findViewById(R.id.tts_volume);
@@ -127,12 +101,6 @@ public class NavMenu
     refreshTts();
   }
 
-  private void onToggleClicked()
-  {
-    toggleNavBottomSheet();
-  }
-
-
   private void switchTimeFormat()
   {
     mShowTimeLeft = !mShowTimeLeft;
@@ -149,36 +117,9 @@ public class NavMenu
     mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
   }
 
-  public void toggleNavBottomSheet()
-  {
-    if (mNavBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED)
-      expandNavBottomSheet();
-    else
-      collapseNavBottomSheet();
-  }
-
   public void hideNavBottomSheet()
   {
     mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-    setToggleState(false, false);
-  }
-
-  protected void setToggleState(boolean open, boolean animate)
-  {
-    final float to = open ? -90.0f : 90.0f;
-    if (!animate)
-    {
-      mToggle.setRotation(to);
-      mToggle.invalidate();
-      return;
-    }
-
-    final float from = -to;
-    ValueAnimator animator = ValueAnimator.ofFloat(from, to);
-    animator.addUpdateListener(animation -> mToggle.setRotation((float) animation.getAnimatedValue()));
-
-    animator.setDuration(mAnimationDuration);
-    animator.start();
   }
 
   public void refreshTts()

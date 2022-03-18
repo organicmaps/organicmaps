@@ -175,6 +175,8 @@
     <item name="chipIconTintColor">@color/extended_green</item>
     <item name="chipTextColor">@color/bg_primary</item>
     <item name="android:popupMenuStyle">@style/PopupMenu</item>
+
+    <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
   </style>
 
   <!-- Night theme -->
@@ -345,5 +347,7 @@
     <item name="chipIconTintColor">@color/white_lightest</item>
     <item name="chipTextColor">@color/white_secondary</item>
     <item name="android:popupMenuStyle">@style/PopupMenu.Dark</item>
+
+    <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
   </style>
 </resources>

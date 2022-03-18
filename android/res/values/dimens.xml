@@ -124,21 +124,20 @@
   <dimen name="nav_next_turn_space">6dp</dimen>
   <dimen name="nav_next_turn_sign">64dp</dimen>
   <dimen name="nav_next_next_turn_frame">32dp</dimen>
-  <dimen name="nav_menu_height">48dp</dimen>
-  <dimen name="nav_menu_peek_height">52dp</dimen>
-  <dimen name="nav_menu_content_height">64dp</dimen>
   <dimen name="nav_numbers_margin">8dp</dimen>
   <dimen name="nav_numbers_side_min_width">90dp</dimen>
   <dimen name="nav_numbers_center_min_width">130dp</dimen>
   <dimen name="nav_progress">4dp</dimen>
   <dimen name="nav_progress_head">2dp</dimen>
-  <dimen name="nav_toggle">40dp</dimen>
-  <dimen name="nav_toggle_margin">8dp</dimen>
   <dimen name="nav_button_width">200dp</dimen>
   <dimen name="nav_button_height">@dimen/primary_button_min_height</dimen>
   <dimen name="nav_icon_size">48dp</dimen>
   <dimen name="nav_bottom_gap">12dp</dimen>
   <dimen name="nav_menu_top_offset">0dp</dimen>
+  <dimen name="nav_header_height">60dp</dimen>
+  <dimen name="nav_numbers_height">40dp</dimen>
+  <dimen name="nav_menu_content_height">64dp</dimen>
+  <dimen name="nav_menu_landscape_width">360dp</dimen>
 
   <dimen name="nav_frame_padding">@dimen/margin_eighth</dimen>
   <dimen name="nav_button">28dp</dimen>

@@ -15,9 +15,10 @@
     <FrameLayout
       android:id="@+id/nav_bottom_sheet"
       style="?attr/bottomSheetStyle"
-      android:layout_width="match_parent"
+      android:layout_width="@dimen/nav_menu_landscape_width"
       android:layout_height="wrap_content"
       app:behavior_peekHeight="@dimen/nav_header_height"
+      android:layout_gravity="start"
       app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
       <include layout="@layout/layout_nav_bottom" />
