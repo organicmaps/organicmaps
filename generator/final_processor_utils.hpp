@@ -33,7 +33,7 @@ public:
   static bool IsPlace(feature::FeatureBuilder const & fb);
 
   bool Process(feature::FeatureBuilder const & fb);
-  std::vector<PlaceProcessor::PlaceWithIds> GetFeatures();
+  std::vector<feature::FeatureBuilder> GetFeatures();
   std::shared_ptr<OsmIdToBoundariesTable> GetTable() const;
 
 private:

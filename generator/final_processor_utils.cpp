@@ -30,13 +30,15 @@ void ProcessorCities::Process()
 {
   std::mutex mutex;
   std::vector<FeatureBuilder> allCities;
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path) {
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path)
+  {
     if (!m_affiliation.HasCountryByName(country))
       return;
 
     std::vector<FeatureBuilder> cities;
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto  && fb, auto /* pos */) {
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto  && fb, auto /* pos */)
+    {
       if (PlaceHelper::IsPlace(fb))
         cities.emplace_back(std::move(fb));
       else
@@ -51,13 +53,7 @@ void ProcessorCities::Process()
   for (auto const & city : allCities)
     m_citiesHelper.Process(city);
 
-  auto fbsWithIds = m_citiesHelper.GetFeatures();
-
-  std::vector<FeatureBuilder> fbs;
-  fbs.reserve(fbsWithIds.size());
-  base::Transform(fbsWithIds, std::back_inserter(fbs), base::RetrieveFirst());
-
-  AppendToMwmTmp(fbs, m_affiliation, m_temporaryMwmPath, m_threadsCount);
+  AppendToMwmTmp(m_citiesHelper.GetFeatures(), m_affiliation, m_temporaryMwmPath, m_threadsCount);
 }
 
 PlaceHelper::PlaceHelper()
@@ -86,7 +82,7 @@ bool PlaceHelper::Process(feature::FeatureBuilder const & fb)
   return true;
 }
 
-std::vector<PlaceProcessor::PlaceWithIds> PlaceHelper::GetFeatures()
+std::vector<feature::FeatureBuilder> PlaceHelper::GetFeatures()
 {
   return m_processor.ProcessPlaces();
 }

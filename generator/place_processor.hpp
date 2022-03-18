@@ -27,18 +27,10 @@ public:
 
   void Append(feature::FeatureBuilder const & fb);
   feature::FeatureBuilder const & GetFb() const;
-  FeaturesBuilders const & GetFbs() const;
+  FeaturesBuilders const & GetFbs() const { return m_fbs; }
 
-  // Returns limit rect around all stored feature builders.
-  m2::RectD const & GetAllFbsLimitRect() const;
-
-  // Methods return values for best stored feature builder.
-  base::GeoObjectId GetMostGenericOsmId() const;
-  uint8_t GetRank() const;
-  std::string_view GetName() const;
-  StringUtf8Multilang const & GetMultilangName() const;
-  bool IsPoint() const;
-  m2::RectD const & GetLimitRect() const;
+  /// @return limit rect around all stored feature builders.
+  m2::RectD const & GetAllFbsLimitRect() const { return m_allFbsLimitRect; }
 
 private:
   m2::RectD m_allFbsLimitRect;
@@ -52,19 +44,18 @@ m2::RectD GetLimitRect(FeaturePlace const & fp);
 class PlaceProcessor
 {
 public:
-  using PlaceWithIds = std::pair<feature::FeatureBuilder, std::vector<base::GeoObjectId>>;
-
   PlaceProcessor(std::shared_ptr<OsmIdToBoundariesTable> boundariesTable = {});
 
   void Add(feature::FeatureBuilder const & fb);
-  std::vector<PlaceWithIds> ProcessPlaces();
+
+  using IDsContainerT = std::vector<base::GeoObjectId>;
+  /// @param[out] ids To store correspondent IDs for test purposes if not nullptr.
+  std::vector<feature::FeatureBuilder> ProcessPlaces(std::vector<IDsContainerT> * ids = nullptr);
 
 private:
   using FeaturePlaces = std::vector<FeaturePlace>;
 
-  static std::string GetKey(feature::FeatureBuilder const & fb);
-  void FillTable(FeaturePlaces::const_iterator start, FeaturePlaces::const_iterator end,
-                 FeaturePlaces::const_iterator best) const;
+  template <class IterT> void FillTable(IterT start, IterT end, IterT best) const;
 
   std::unordered_map<std::string, std::unordered_map<base::GeoObjectId, FeaturePlace>> m_nameToPlaces;
   std::shared_ptr<OsmIdToBoundariesTable> m_boundariesTable;

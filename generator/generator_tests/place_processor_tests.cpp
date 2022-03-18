@@ -20,7 +20,8 @@
 #include <utility>
 #include <vector>
 
-namespace generator_tests
+
+namespace place_processor_tests
 {
 class IdGenerator
 {
@@ -50,10 +51,10 @@ struct DisablerIdInc
   ~DisablerIdInc() { GetIdGen().StartInc(); }
 };
 
-feature::FeatureBuilder MakeFbForTest(Tags const & tags, OsmElement::EntityType t,
+feature::FeatureBuilder MakeFbForTest(generator_tests::Tags const & tags, OsmElement::EntityType t,
                                       std::vector<m2::PointD> const & points)
 {
-  auto element = MakeOsmElement(GetIdGen().GetId(), tags, t);
+  auto element = generator_tests::MakeOsmElement(GetIdGen().GetId(), tags, t);
   feature::FeatureBuilder result;
   ftype::GetNameAndType(&element, result.GetParams());
   if (element.IsNode())
@@ -108,18 +109,29 @@ feature::FeatureBuilder MakeArea()
                         {172.54302978515625, -43.48331750944707}});
 }
 
-void Sort(std::vector<generator::PlaceProcessor::PlaceWithIds> & value)
+using PlaceWithIDs = std::pair<feature::FeatureBuilder, generator::PlaceProcessor::IDsContainerT>;
+
+void Sort(std::vector<PlaceWithIDs> & value)
 {
-  std::sort(std::begin(value), std::end(value), [](auto const & left, auto const & right) {
+  std::sort(std::begin(value), std::end(value), [](auto const & left, auto const & right)
+  {
     return left.first.GetMostGenericOsmId() < right.first.GetMostGenericOsmId();
   });
   for (auto & placeWithIds : value)
     std::sort(std::begin(placeWithIds.second), std::end(placeWithIds.second));
 }
 
-void Test(std::vector<generator::PlaceProcessor::PlaceWithIds> value,
-          std::vector<generator::PlaceProcessor::PlaceWithIds> expected)
+void Test(generator::PlaceProcessor & processor, std::vector<PlaceWithIDs> & expected)
 {
+  std::vector<generator::PlaceProcessor::IDsContainerT> ids;
+  auto fbs = processor.ProcessPlaces(&ids);
+  TEST_EQUAL(fbs.size(), ids.size(), ());
+
+  std::vector<PlaceWithIDs> value;
+  value.reserve(fbs.size());
+  for (size_t i = 0; i < fbs.size(); ++i)
+    value.emplace_back(std::move(fbs[i]), std::move(ids[i]));
+
   Sort(value);
   Sort(expected);
   TEST_EQUAL(value, expected, ());
@@ -137,8 +149,9 @@ protected:
 
 UNIT_CLASS_TEST(TestPlaceProcessor, EmptyTest)
 {
+  std::vector<PlaceWithIDs> expected;
   generator::PlaceProcessor pp;
-  Test(pp.ProcessPlaces(), {});
+  Test(pp, expected);
 }
 
 UNIT_CLASS_TEST(TestPlaceProcessor, OnePlacePointTest)
@@ -151,8 +164,8 @@ UNIT_CLASS_TEST(TestPlaceProcessor, OnePlacePointTest)
   generator::PlaceProcessor pp(table);
   pp.Add(point);
 
-  std::vector<generator::PlaceProcessor::PlaceWithIds> r{{point, {point.GetMostGenericOsmId()}}};
-  Test(pp.ProcessPlaces(), r);
+  std::vector<PlaceWithIDs> expected{{point, {point.GetMostGenericOsmId()}}};
+  Test(pp, expected);
   TEST(TestTable(*table, {}), ());
 }
 
@@ -162,9 +175,9 @@ UNIT_CLASS_TEST(TestPlaceProcessor, OnePlaceAreaTest)
   generator::PlaceProcessor pp(table);
   pp.Add(kArea);
 
-  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+  std::vector<PlaceWithIDs> expected{
       {generator::MakePoint(kArea), {kArea.GetMostGenericOsmId()}}};
-  Test(pp.ProcessPlaces(), r);
+  Test(pp, expected);
   TEST(TestTable(*table, {{{kArea.GetMostGenericOsmId()}, 1 /* cluster size */}}), ());
 }
 
@@ -179,9 +192,9 @@ UNIT_CLASS_TEST(TestPlaceProcessor, PointInAreaTest)
   pp.Add(kArea);
   pp.Add(point);
 
-  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+  std::vector<PlaceWithIDs> expected{
       {point, {point.GetMostGenericOsmId(), kArea.GetMostGenericOsmId()}}};
-  Test(pp.ProcessPlaces(), r);
+  Test(pp, expected);
   TEST(TestTable(*table, {{{point.GetMostGenericOsmId(), kArea.GetMostGenericOsmId()},
                            1 /* cluster size */}}),
        ());
@@ -198,10 +211,10 @@ UNIT_CLASS_TEST(TestPlaceProcessor, SameNamesButDifferentPlacesTest)
   pp.Add(kArea);
   pp.Add(point);
 
-  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+  std::vector<PlaceWithIDs> expected{
       {point, {point.GetMostGenericOsmId()}},
       {generator::MakePoint(kArea), {kArea.GetMostGenericOsmId()}}};
-  Test(pp.ProcessPlaces(), r);
+  Test(pp, expected);
   TEST(TestTable(*table, {{{kArea.GetMostGenericOsmId()}, 1 /* cluster size */}}), ());
 }
 
@@ -218,9 +231,9 @@ UNIT_CLASS_TEST(TestPlaceProcessor, SelectBestPlaceTest)
   pp.Add(point1);
   pp.Add(point2);
 
-  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+  std::vector<PlaceWithIDs> expected{
       {point2, {point1.GetMostGenericOsmId(), point2.GetMostGenericOsmId()}}};
-  Test(pp.ProcessPlaces(), r);
+  Test(pp, expected);
   TEST(TestTable(*table, {}), ());
 }
 
@@ -762,9 +775,9 @@ UNIT_CLASS_TEST(TestPlaceProcessor, MinskDuplicatingCityFeatureTest)
   pp.Add(areaPart3);
   pp.Add(point);
 
-  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+  std::vector<PlaceWithIDs> expected{
       {point, {point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()}}};
-  Test(pp.ProcessPlaces(), r);
+  Test(pp, expected);
   TEST(TestTable(*table, {{{point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()},
                            3 /* cluster size */}}),
        ());
@@ -1320,9 +1333,9 @@ UNIT_CLASS_TEST(TestPlaceProcessor, VoronezhDuplicatingCityFeatureTest)
   pp.Add(areaPart2);
   pp.Add(point);
 
-  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+  std::vector<PlaceWithIDs> expected{
       {point, {point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()}}};
-  Test(pp.ProcessPlaces(), r);
+  Test(pp, expected);
   TEST(TestTable(*table, {{{point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()},
                            2 /* cluster size */}}),
        ());
@@ -1386,11 +1399,11 @@ UNIT_CLASS_TEST(TestPlaceProcessor, KuznetsovoNearbyHamletsTest)
   pp.Add(way1);
   pp.Add(way2);
   pp.Add(way3);
-  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+  std::vector<PlaceWithIDs> expected{
       {point1, {point1.GetMostGenericOsmId(), way1.GetMostGenericOsmId()}},
       {point2, {point2.GetMostGenericOsmId(), way2.GetMostGenericOsmId()}},
       {point3, {point3.GetMostGenericOsmId(), way3.GetMostGenericOsmId()}}};
-  Test(pp.ProcessPlaces(), r);
+  Test(pp, expected);
   TEST(TestTable(
            *table,
            {{{point1.GetMostGenericOsmId(), way1.GetMostGenericOsmId()}, 1 /* cluster size */},
@@ -1398,4 +1411,4 @@ UNIT_CLASS_TEST(TestPlaceProcessor, KuznetsovoNearbyHamletsTest)
             {{point3.GetMostGenericOsmId(), way3.GetMostGenericOsmId()}, 1 /* cluster size */}}),
        ());
 }
-}  // namespace generator_tests
+} // namespace place_processor_tests
