@@ -13,10 +13,8 @@
 #include <string>
 #include <vector>
 
-namespace
+namespace cluster_finder_tests
 {
-using namespace generator;
-
 enum class Type { T1 = 1, T2, T3 };
 
 std::string DebugPrint(Type const & t)
@@ -55,7 +53,8 @@ std::string DebugPrint(NamedPoint const & t)
   return DebugPrint(t.m_point) + " " + DebugPrint(t.m_type) + " " + t.m_name;
 }
 
-auto const getRadiusMFunction = [](NamedPoint const & p) {
+auto const getRadiusMFunction = [](NamedPoint const & p)
+{
   switch (p.m_type) {
   case Type::T1: return 4000;
   case Type::T2: return 8000;
@@ -64,27 +63,34 @@ auto const getRadiusMFunction = [](NamedPoint const & p) {
   UNREACHABLE();
 };
 
-auto const isSameFunction = [](NamedPoint const & left, NamedPoint const & right) {
+auto const isSameFunction = [](NamedPoint const & left, NamedPoint const & right)
+{
   return left.m_name == right.m_name && left.m_type == right.m_type;
 };
 
-void Sort(std::vector<std::vector<NamedPoint>> & data)
+using ClusterT = std::vector<NamedPoint const *>;
+
+void Sort(std::vector<ClusterT> & data)
 {
   for (auto & d : data)
   {
-    std::sort(std::begin(d), std::end(d), [](auto const & l, auto const & r) {
-      return l.m_id < r.m_id;
+    std::sort(std::begin(d), std::end(d), [](NamedPoint const * l, NamedPoint const * r)
+    {
+      return l->m_id < r->m_id;
     });
   }
-  std::sort(std::begin(data), std::end(data), [](auto const & l, auto const & r) {
-    CHECK(!l.empty(), ());
-    CHECK(!r.empty(), ());
-    return l.front().m_id < r.front().m_id;
+  std::sort(std::begin(data), std::end(data), [](ClusterT const & l, ClusterT const & r)
+  {
+    TEST(!l.empty(), ());
+    TEST(!r.empty(), ());
+    return l.front()->m_id < r.front()->m_id;
   });
 }
 
-void Test(std::vector<std::vector<NamedPoint>> & result, std::vector<std::vector<NamedPoint>> & expected)
+void Test(std::vector<NamedPoint> const & input, std::vector<ClusterT> & expected)
 {
+  auto result = generator::GetClusters(input, getRadiusMFunction, isSameFunction);
+
   Sort(result);
   Sort(expected);
   TEST_EQUAL(result, expected, ());
@@ -92,67 +98,65 @@ void Test(std::vector<std::vector<NamedPoint>> & result, std::vector<std::vector
 
 UNIT_TEST(ClustersFinder_Empty)
 {
-  std::list<NamedPoint> emptyList;
-  std::vector<std::vector<NamedPoint>> expected;
-  auto result = GetClusters(std::move(emptyList), getRadiusMFunction, isSameFunction);
-  Test(result, expected);
+  std::vector<ClusterT> expected;
+  Test({}, expected);
 }
 
 UNIT_TEST(ClustersFinder_OneElement)
 {
-  NamedPoint p1({0.0, 0.0}, Type::T1, "name");
-  std::list<NamedPoint> l{p1};
-  std::vector<std::vector<NamedPoint>> expected{{p1}};
-  auto result = GetClusters(std::move(l), getRadiusMFunction, isSameFunction);
-  Test(result, expected);
+  std::vector<NamedPoint> in{NamedPoint({0.0, 0.0}, Type::T1, "name")};
+  std::vector<ClusterT> expected{{&in[0]}};
+  Test(in, expected);
 }
 
 UNIT_TEST(ClustersFinder_TwoElements)
 {
-  NamedPoint p1({0.0, 0.0}, Type::T1, "name");
-  NamedPoint p2({0.0001, 0.0001}, Type::T1, "name");
-  std::list<NamedPoint> l{p1, p2};
+  std::vector<NamedPoint> in{
+    NamedPoint({0.0, 0.0}, Type::T1, "name"),
+    NamedPoint({0.0001, 0.0001}, Type::T1, "name")
+  };
 
-  std::vector<std::vector<NamedPoint>> expected{{p1, p2}};
-  auto result = GetClusters(std::move(l), getRadiusMFunction, isSameFunction);
-  Test(result, expected);
+  std::vector<ClusterT> expected{{&in[0], &in[1]}};
+  Test(in, expected);
 }
 
 UNIT_TEST(ClustersFinder_TwoClusters)
 {
   {
-    NamedPoint p1({0.0, 0.0}, Type::T1, "name1");
-    NamedPoint p2({0.0001, 0.0001}, Type::T1, "name2");
-    std::list<NamedPoint> l{p1, p2};
-    std::vector<std::vector<NamedPoint>> expected{{p2}, {p1}};
-    auto result = GetClusters(std::move(l), getRadiusMFunction, isSameFunction);
-    Test(result, expected);
+    std::vector<NamedPoint> in{
+      NamedPoint({0.0, 0.0}, Type::T1, "name1"),
+      NamedPoint({0.0001, 0.0001}, Type::T1, "name2")
+    };
+
+    std::vector<ClusterT> expected{{&in[1]}, {&in[0]}};
+    Test(in, expected);
   }
   {
-    NamedPoint p1({0.0, 0.0}, Type::T1, "name");
-    NamedPoint p2({0.1, 0.1}, Type::T1, "name");
-    std::list<NamedPoint> l{p1, p2};
+    std::vector<NamedPoint> in{
+      NamedPoint({0.0, 0.0}, Type::T1, "name"),
+      NamedPoint({0.1, 0.1}, Type::T1, "name")
+    };
 
-    std::vector<std::vector<NamedPoint>> expected{{p1}, {p2}};
-    auto result = GetClusters(std::move(l), getRadiusMFunction, isSameFunction);
-    Test(result, expected);
+    std::vector<ClusterT> expected{{&in[0]}, {&in[1]}};
+    Test(in, expected);
   }
 }
 
 UNIT_TEST(ClustersFinder_ThreeClusters)
 {
-  NamedPoint p1({0.0, 0.0}, Type::T1, "name");
-  NamedPoint p2({0.0, 0.00001}, Type::T1, "name");
-  NamedPoint p3({0.0001, 0.0000}, Type::T1, "name");
+  std::vector<NamedPoint> in{
+    NamedPoint({0.0, 0.0}, Type::T1, "name"),
+    NamedPoint({0.0, 0.00001}, Type::T1, "name"),
+    NamedPoint({0.0001, 0.0000}, Type::T1, "name"),
 
-  NamedPoint p11({0.0, 0.0}, Type::T2, "name");
-  NamedPoint p12({0.0, 0.001}, Type::T2, "name");
-  NamedPoint p13({0.001, 0.0000}, Type::T2, "name");
+    NamedPoint({0.0, 0.0}, Type::T2, "name"),
+    NamedPoint({0.0, 0.001}, Type::T2, "name"),
+    NamedPoint({0.001, 0.0000}, Type::T2, "name"),
 
-  NamedPoint p21({0.0, 0.0}, Type::T1, "name21");
-  std::list<NamedPoint> l{p1, p2, p3, p11, p12, p13, p21};
-  std::vector<std::vector<NamedPoint>> expected{{p2, p1, p3}, {p11, p13, p12}, {p21}};
-  auto result = GetClusters(std::move(l), getRadiusMFunction, isSameFunction);
-  Test(result, expected);
+    NamedPoint({0.0, 0.0}, Type::T1, "name21")
+  };
+
+  std::vector<ClusterT> expected{{&in[1], &in[0], &in[2]}, {&in[3], &in[5], &in[4]}, {&in[6]}};
+  Test(in, expected);
 }
-}  // namespace
+}  // namespace cluster_finder_tests

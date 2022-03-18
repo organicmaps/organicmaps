@@ -14,25 +14,24 @@ namespace generator
 {
 // The class ClustersFinder finds clusters of objects for which IsSameFunc returns true.
 // RadiusFunc should return the same radius for all objects in one cluster.
-template <typename T, template<typename, typename> class Container, typename Alloc = std::allocator<T>>
-class ClustersFinder
+template <class T> class ClustersFinder
 {
 public:
+  using PtrT = T const *;
   using RadiusFunc = std::function<double(T const &)>;
   using IsSameFunc = std::function<bool(T const &, T const &)>;
 
-  ClustersFinder(Container<T, Alloc> && container, RadiusFunc const & radiusFunc,
-                 IsSameFunc const & isSameFunc)
-    : m_container(std::move(container)), m_radiusFunc(radiusFunc), m_isSameFunc(isSameFunc)
+  ClustersFinder(std::vector<T> const & container, RadiusFunc radiusFunc, IsSameFunc isSameFunc)
+    : m_container(container), m_radiusFunc(std::move(radiusFunc)), m_isSameFunc(std::move(isSameFunc))
   {
     for (auto const & e : m_container)
       m_tree.Add(&e);
   }
 
-  std::vector<std::vector<T>> Find() const
+  std::vector<std::vector<PtrT>> Find() const
   {
-    std::vector<std::vector<T>> clusters;
-    std::set<ConstIterator> unviewed;
+    std::vector<std::vector<PtrT>> clusters;
+    std::set<PtrT> unviewed;
     for (auto const & e : m_container)
       unviewed.insert(&e);
 
@@ -45,61 +44,57 @@ public:
   }
 
 private:
-  using ConstIterator = T const *;
-
   struct TraitsDef
   {
-    m2::RectD const LimitRect(ConstIterator const & it) const { return GetLimitRect(*it); }
+    m2::RectD const LimitRect(PtrT p) const { return GetLimitRect(*p); }
   };
 
-  std::vector<T> FindOneCluster(ConstIterator const & it, std::set<ConstIterator> & unviewed) const
+  std::vector<PtrT> FindOneCluster(PtrT p, std::set<PtrT> & unviewed) const
   {
-    std::vector<T> cluster{*it};
-    std::queue<ConstIterator> queue;
-    queue.emplace(it);
-    unviewed.erase(it);
+    std::vector<PtrT> cluster{p};
+    std::queue<PtrT> queue;
+    queue.emplace(p);
+    unviewed.erase(p);
     while (!queue.empty())
     {
       auto const current = queue.front();
       queue.pop();
       auto const queryBbox = GetBboxFor(current);
-      m_tree.ForEachInRect(queryBbox, [&](auto const & candidate) {
-        if (unviewed.count(candidate) == 0 || !m_isSameFunc(*it, *candidate))
+      m_tree.ForEachInRect(queryBbox, [&](PtrT candidate)
+      {
+        if (unviewed.count(candidate) == 0 || !m_isSameFunc(*p, *candidate))
           return;
 
         unviewed.erase(candidate);
         queue.emplace(candidate);
-        cluster.emplace_back(*candidate);
+        cluster.emplace_back(candidate);
       });
     }
 
     return cluster;
   }
 
-  m2::RectD GetBboxFor(ConstIterator const & it) const
+  m2::RectD GetBboxFor(PtrT p) const
   {
     m2::RectD bbox;
-    auto const dist = m_radiusFunc(*it);
-    GetLimitRect(*it).ForEachCorner([&](auto const & p) {
+    auto const dist = m_radiusFunc(*p);
+    GetLimitRect(*p).ForEachCorner([&](auto const & p)
+    {
       bbox.Add(mercator::RectByCenterXYAndSizeInMeters(p, dist));
     });
-
     return bbox;
   }
 
-  Container<T, Alloc> m_container;
+  std::vector<T> const & m_container;
   RadiusFunc m_radiusFunc;
   IsSameFunc m_isSameFunc;
-  m4::Tree<ConstIterator, TraitsDef> m_tree;
+  m4::Tree<PtrT, TraitsDef> m_tree;
 };
 
-template <typename T, template<typename, typename> class Container, typename Alloc = std::allocator<T>>
-std::vector<std::vector<T>> GetClusters(
-    Container<T, Alloc> && container,
-    typename ClustersFinder<T, Container, Alloc>::RadiusFunc const & radiusFunc,
-    typename ClustersFinder<T, Container, Alloc>::IsSameFunc const & isSameFunc)
+/// @return Vector of equal place clusters, like pointers from input \a container.
+template <class T, class RadiusFnT, class IsSameFnT>
+std::vector<std::vector<T const *>> GetClusters(std::vector<T> const & container, RadiusFnT && radiusFunc, IsSameFnT && isSameFunc)
 {
-  return ClustersFinder<T, Container, Alloc>(std::forward<Container<T, Alloc>>(container),
-                                             radiusFunc, isSameFunc).Find();
+  return ClustersFinder<T>(container, std::forward<RadiusFnT>(radiusFunc), std::forward<IsSameFnT>(isSameFunc)).Find();
 }
 }  // namespace generator
