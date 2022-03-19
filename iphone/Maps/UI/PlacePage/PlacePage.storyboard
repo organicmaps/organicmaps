@@ -66,7 +66,7 @@
                                 <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPView"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
