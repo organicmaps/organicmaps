@@ -53,7 +53,7 @@ waterway|riverbank;52;
 highway|path|bicycle;[highway=path][bicycle?];;name;int_name;53;
 landuse|meadow;54;
 highway|living_street;55;
-deprecated|deprecated;56;x
+man_made|survey_point;56;
 natural|peak;57;
 highway|motorway;58;
 highway|steps;59;

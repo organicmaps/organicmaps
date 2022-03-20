@@ -1800,6 +1800,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"man_made", "chimney"},
     {"man_made", "cutline"},
     {"man_made", "lighthouse"},
+    {"man_made", "survey_point"},
     {"man_made", "pier"},
     {"man_made", "silo"},
     {"man_made", "storage_tank"},

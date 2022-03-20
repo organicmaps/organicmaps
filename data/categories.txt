@@ -7149,6 +7149,17 @@ el:Φάρος
 sk:Maják
 fa:فانوس دریایی
 
+man_made-survey_point
+en:4Survey Point|survey marker|survey benchmark|4geodetic mark|geodetic vertex|4triangulation station|4trigonometrical point|trig point|trig pillar|4trig station|trig beacon|trig
+be:4Геадэзічны пункт
+de:4Vermessungspunkt
+el:4Γεωδαιτικό σημείο
+fr:4Borne géodésique
+ja:測量標
+pl:4Znak geodezyjny
+ru:4Геодезический пункт|Геодезический знак|4тригонометрический пункт|пункт триангуляции|тригопункт|4триангулятор
+uk:4Геодезичний пункт
+
 organic-only|organic-yes
 en:4organic|bio|biological|eco|ecological|healthy
 ar:بيولوجي|بيولوجي|صحي|بيولوجي|بيئي|طبيعي|عضوي

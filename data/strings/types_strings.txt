@@ -11051,6 +11051,17 @@
     uk = Просіка
     zh-Hans = 树林分界线
 
+  [type.man_made.survey_point]
+    en = Survey Point
+    be = Геадэзічны пункт
+    de = Vermessungspunkt
+    el = Γεωδαιτικό σημείο
+    fr = Borne géodésique
+    ja = 測量標
+    pl = Znak geodezyjny
+    ru = Геодезический пункт
+    uk = Геодезичний пункт
+
   [type.man_made.flagpole]
     en = Flagpole
     be = Флагшток
