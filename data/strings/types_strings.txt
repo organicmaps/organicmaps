@@ -12620,6 +12620,22 @@
     zh-Hans = 电信办公室
     zh-Hant = 行動電話業者
 
+  [type.organic.only]
+    en = Organic
+    be = Эка
+    de = Bio
+    es = Orgánico
+    fr = Biologique
+    it = Biologico
+    nl = Biologisch
+    pt = Orgânico
+    pt-BR = Orgânico
+    ru = Эко
+    uk = Еко
+
+  [type.organic.yes]
+    ref = type.organic.only
+
   [type.place]
     en = place
     de = Ort
