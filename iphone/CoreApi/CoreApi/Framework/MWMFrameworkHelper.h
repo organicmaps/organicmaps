@@ -38,6 +38,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)showBookmark:(MWMMarkID)bookmarkId;
 + (void)showTrack:(MWMTrackID)trackId;
 + (void)updatePlacePageData;
++ (void)updateAfterDeleteBookmark;
 
 @end
 
