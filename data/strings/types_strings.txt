@@ -4,6 +4,7 @@
     en = Aerialway
     de = Seilbahn
     el = Τελεφερίκ
+    es = Transporte aéreo
     fr = Transport par câble aérien
     ja = 索道
     pl = Transport linowy
@@ -19,6 +20,7 @@
     en = Aerialway
     de = Pendelbahn
     el = Τελεφερίκ
+    es = Teleférico
     fr = Téléphérique
     ja = ロープウェイ
     pl = Kolej linowa
@@ -34,6 +36,7 @@
     en = Aerialway
     de = Sessellift
     el = Τελεφερίκ
+    es = Telesilla
     fr = Télésiège
     ja = チェアリフト
     pl = Wyciąg krzesełkowy
@@ -48,6 +51,7 @@
     en = Aerialway
     de = Schlepplift
     el = Τελεφερίκ
+    es = Telesquí
     fr = Téléski
     ja = 牽引リフト
     pl = Wyciąg orczykowy
@@ -63,6 +67,7 @@
     en = Aerialway
     de = Gondelbahn
     el = Τελεφερίκ
+    es = Telecabina
     fr = Télécabine
     ja = ゴンドラ
     pl = Gondola kolejki linowej
@@ -78,6 +83,7 @@
     en = Aerialway
     de = Kombibahn
     el = Τελεφερίκ
+    es = Telecabina/telesilla
     ja = 混合リフト
     pl = Wyciąg mieszany
     pt = Teleférico híbrido
@@ -122,6 +128,7 @@
   [type.aeroway]
     en = Airspace Infrastructure
     de = Luftverkehr
+    es = Infraestructura aérea
     ja = 空路
     pt = Via aérea
     pt-BR = Via aérea
@@ -198,6 +205,7 @@
   [type.aeroway.apron]
     en = Apron
     de = Vorfeld
+    es = Plataforma
     fr = Aire de stationnement pour aéronefs
     ja = エプロン
     pl = Płyta postojowa samolotów
@@ -211,6 +219,7 @@
 
   [type.aeroway.gate]
     en = Gate
+    es = Puerta de embarque
     fr = Porte d'embarquement
     ja = 搭乗口
     pl = Wyjście lotniskowe
@@ -255,6 +264,7 @@
   [type.aeroway.runway]
     en = Runway
     de = Start-/Landebahn
+    es = Pista de despegue
     fr = Piste d'aviation
     ja = 滑走路
     pl = Droga startowa
@@ -269,6 +279,7 @@
   [type.aeroway.taxiway]
     en = Taxiway
     de = Rollweg
+    es = Pista de rodaje
     fr = Taxiway
     ja = 誘導路
     pl = Droga kołowania
@@ -283,6 +294,7 @@
   [type.aeroway.terminal]
     en = Terminal
     de = Terminal
+    es = Terminal
     ja = 空港ターミナルビル
     pl = Terminal lotniskowy
     pt = Terminal de passageiros
@@ -416,6 +428,7 @@
     en = Bar
     ar = حانة
     el = Μπαρ
+    es = Bar
     fa = میکده
     fi = Baari
     hu = Bár
@@ -564,6 +577,7 @@
     ar = متجر بيرة
     cs = Hospoda se zahrádkou
     el = Μπυραρία
+    es = Biergarten
     fa = غذا
     hu = Sörkert
     ja = ビアガーデン
@@ -810,6 +824,7 @@
     da = Kasino
     de = Kasino
     el = Καζίνο
+    es = Casino
     fa = قمارخانه
     fi = Kasino
     fr = Casino
@@ -1311,6 +1326,7 @@
 
   [type.amenity.food_court]
     en = Food Court
+    es = Zona de comidas
     fr = Aire de restauration
     ja = フードコート
     pl = Sekcja gastronomiczna
@@ -1441,6 +1457,7 @@
     cs = Nemocnice
     de = Krankenhaus
     el = Νοσοκομείο
+    es = Hospital
     fa = بیمارستان
     fi = Sairaala
     fr = Hôpital
@@ -2558,6 +2575,7 @@
   [type.amenity.prison]
     en = Prison
     de = Gefängnis
+    es = Prisión
     ja = 刑務所
     pl = Więzienie
     pt = Prisão
@@ -2575,6 +2593,7 @@
     da = Værtshus
     de = Kneipe
     el = Παμπ
+    es = Pub
     fa = میکده
     fi = Pubi
     fr = Pub
@@ -2669,7 +2688,6 @@
     de = Wertstoffcontainer
     el = Κάδος ανακύκλωσης
     es = Contenedor de reciclaje
-    es-MX = Contenedor de reciclaje
     fa = ظرف بازیافت
     fi = Kierrätysjäteastia
     fr = Conteneur de recyclage
@@ -2741,8 +2759,7 @@
     da = Gammelt tøj
     de = Altkleider
     el = Παλιά ρούχα
-    es = Ropa vieja
-    es-MX = Ropa vieja
+    es = Ropa
     fa = لباسهای قدیمی
     fi = Vanhat vaatteet
     fr = Vêtement usagés
@@ -2775,8 +2792,7 @@
     da = Glasflasker
     de = Glas
     el = Γυάλινα μπουκάλια
-    es = Cascos de botellas
-    es-MX = Envase de vidrio
+    es = Envases de vidrio
     fa = بطریهای شیشهای
     fi = Lasipullot
     fr = Verre
@@ -2809,8 +2825,7 @@
     da = Papiraffald
     de = Papier
     el = Απορρίμματα χαρτιού
-    es = Desperdicio de papel
-    es-MX = Desechos de papel
+    es = Papel
     fa = پسماند کاغذ
     fi = Paperi- ja kartonkijäte
     fr = Papier usagé
@@ -2843,8 +2858,7 @@
     da = Plastaffald
     de = Kunststoff
     el = Πλαστικά απορρίμματα
-    es = Residuos de plástico
-    es-MX = Desechos de plástico
+    es = Plástico
     fa = پسماند پلاستیک
     fi = Muovijäte
     fr = Déchets plastiques
@@ -2878,7 +2892,6 @@
     de = Plastikflaschen
     el = Πλαστικά μπουκάλια
     es = Botellas de plástico
-    es-MX = Botellas de plástico
     fa = بطریهای پلاستیک
     fi = Muovipullot
     fr = Collecte de bouteilles en plastique
@@ -2974,6 +2987,7 @@
     en = Cardboard
     be = Кардон
     de = Karton
+    es = Cartón
     ru = Картон
     tr = Karton
     uk = Картон
@@ -2982,6 +2996,7 @@
     en = Cans
     be = Бляшаныя і алюмініевыя слоікі
     de = Dosen
+    es = Latas
     ru = Жестяные и алюминиевые банки
     tr = Teneke ve alüminyum kutular
     uk = Бляшані та алюмінієві банки
@@ -2990,6 +3005,7 @@
     en = Shoes
     be = Абутак
     de = Schuhe
+    es = Calzado
     ru = Обувь
     tr = Ayakkabılar
     uk = Взуття
@@ -2998,6 +3014,7 @@
     en = Green/Organic Waste
     be = Арганіка / Харчовыя адходы
     de = Bio-Müll
+    es = Orgánico
     ru = Органика / Пищевые отходы
     tr = Yeşil/Organik Atık
     uk = Органіка / Харчові відходи
@@ -3006,6 +3023,7 @@
     en = Bewerage Cartons
     be = Тэтрапак і аналагі
     de = Getränkekarton
+    es = Cartones de bebida
     ru = Тетрапак и аналоги
     tr = İçecek Kartonları
     uk = Тетрапак та аналоги
@@ -3144,6 +3162,7 @@
     en = Taxi
     ar = سيارة أجرة
     el = Ταξί
+    es = Taxi
     fa = تاکسی
     fi = Taksi
     id = Taksi
@@ -3321,6 +3340,7 @@
     en = Vending Machine
     be = Гандлёвы аўтамат
     de = Verkaufsautomat
+    es = Máquina expendedora
     fr = Distributeur automatique
     ja = 自動販売機
     pl = Automat sprzedający
@@ -3468,6 +3488,7 @@
   [type.amenity.vending_machine.excrement_bags]
     en = Excrement Bags Dispenser
     be = Мяшкі дзеля экскрыментаў
+    es = Maquina expendedora de bolsas para excrementos
     ru = Пакеты для экскрементов
     tr = Dışkı Torbası Dağıtıcı
     uk = Мішки для екскрементів
@@ -3475,6 +3496,7 @@
   [type.amenity.parcel_locker]
     en = Parcel Locker
     be = Паштамат
+    es = Taquilla de paquetes
     ru = Почтомат
     tr = Posta Kutusu
     uk = Поштомат
@@ -3626,6 +3648,7 @@
   [type.barrier]
     en = Barrier
     de = Barriere
+    es = Barrera
     fr = Barrière
     ja = 障害物
     pl = Bariera
@@ -3736,6 +3759,7 @@
     en = Chain
     be = Ланцуг
     de = Kette
+    es = Cadena
     fr = Chaîne
     ru = Цепь
     tr = Zincir
@@ -3744,6 +3768,7 @@
   [type.barrier.city_wall]
     en = City Wall
     de = Stadtmauer
+    es = Muralla
     fr = Muraille
     ja = 城壁
     pl = Mur miejski
@@ -3757,6 +3782,7 @@
   [type.barrier.cycle_barrier]
     en = Cycle Barrier
     de = Umlaufschranke
+    es = Barrera para bicicletas
     ja = バリカー
     pl = Bariera rowerowa
     pt = Barreira de bicicletas
@@ -3800,6 +3826,7 @@
   [type.barrier.fence]
     en = Fence
     de = Zaun
+    es = Valla
     fr = Clôture
     ja = フェンス
     pl = Płot
@@ -3845,6 +3872,7 @@
   [type.barrier.hedge]
     en = Hedge
     de = Hecke
+    es = Seto
     fr = Haie
     ja = 生垣
     pl = Żywopłot
@@ -3890,6 +3918,7 @@
   [type.barrier.retaining_wall]
     en = Retaining Wall
     de = Stützmauer
+    es = Muro de contención
     fr = Mur de soutènement
     ja = 擁壁
     pl = Mur oporowy
@@ -3999,6 +4028,7 @@
   [type.barrier.wall]
     en = Wall
     de = Mauer
+    es = Muro
     fr = Mur
     ja = 壁
     pl = Mur
@@ -4012,6 +4042,7 @@
   [type.boundary]
     en = Boundary
     de = Grenze
+    es = Frontera
     ja = 境界線
     pl = Granica
     pt = Fronteira
@@ -4024,6 +4055,7 @@
   [type.boundary.administrative]
     en = Administrative Boundary
     de = Verwaltungsgrenze
+    es = Frontera administrativa
     ja = 行政境界
     pl = Granica administracyjna
     pt = Fronteira administrativa
@@ -4074,6 +4106,7 @@
 
   [type.boundary.administrative.city]
     en = City Boundary
+    es = Frontera de ciudad
     pl = Granica miasta
     pt = Fronteira de cidade
     pt-BR = Fronteira de cidade
@@ -4084,6 +4117,7 @@
 
   [type.boundary.administrative.country]
     en = National Border
+    es = Frontera de país
     pl = Granica państwa
     pt = Fronteira de país
     pt-BR = Fronteira de país
@@ -4094,6 +4128,7 @@
 
   [type.boundary.administrative.county]
     en = County Boundary
+    es = Frontera de condado
     pl = Granica hrabstwa
     pt = Fronteira de condado
     pt-BR = Fronteira de condado
@@ -4104,6 +4139,7 @@
 
   [type.boundary.administrative.municipality]
     en = Municipality Boundary
+    es = Frontera de municipio
     pl = Granica gminy
     pt = Fronteira de município
     pt-BR = Fronteira de município
@@ -4113,11 +4149,13 @@
 
   [type.boundary.administrative.nation]
     ref = type.boundary.administrative.country
+    es = Frontera de nación
     pt = Fronteira de nação
     pt-BR = Fronteira de nação
 
   [type.boundary.administrative.region]
     en = Regional Boundary
+    es = Frontera de región
     pl = Granica regionu
     pt = Fronteira de região
     pt-BR = Fronteira de região
@@ -4128,6 +4166,7 @@
 
   [type.boundary.administrative.state]
     en = State Boundary
+    es = Frontera de estado
     pl = Granica województwa
     pt = Fronteira de estado
     pt-BR = Fronteira de estado
@@ -4137,6 +4176,7 @@
 
   [type.boundary.administrative.suburb]
     en = Suburb Boundary
+    es = Frontera de suburbio
     pl = Granica przedmieść
     pt = Fronteira de subúrbio
     pt-BR = Fronteira de subúrbio
@@ -4335,6 +4375,7 @@
 
   [type.building.warehouse]
     en = Warehouse
+    es = Almacén
     fr = Entrepôt
     pt = Armazém
     pt-BR = Armazém
@@ -7718,6 +7759,7 @@
   [type.highway.cycleway]
     en = Cycle Path
     de = Radweg
+    es = Ciclovía
     fr = Piste cyclable
     ja = 自転車道
     pl = Droga rowerowa
@@ -7746,6 +7788,7 @@
     en = Elevator
     en-GB = Lift
     de = Aufzug
+    es = Ascensor
     fr = Ascenseur
     ru = Лифт
     tr = Asansör
@@ -9493,6 +9536,7 @@
   [type.junction.roundabout]
     en = Roundabout
     de = Kreisverkehr
+    es = Rotonda
     fr = Rond-point
     ja = ラウンドアバウト
     pl = Rondo
@@ -13392,6 +13436,7 @@
   [type.public_transport]
     en = Public Transport
     de = Öffentlicher Verkehr
+    es = Transporte público
     ja = 公共交通機関
     pl = Transport publiczny
     pt = Transporte público
@@ -16996,6 +17041,7 @@
   [type.sport]
     en = sport
     de = Sport
+    es = Deporte
     fi = Urheilu
     ja = スポーツ
     pt = Desporto
@@ -17007,6 +17053,7 @@
   [type.sport.american_football]
     en = American Football
     de = American Football
+    es = Fútbol americano
     fi = Amerikkalainen jalkapallo
     ja = アメリカンフットボール
     pl = Futbol amerykański
@@ -17019,6 +17066,7 @@
   [type.sport.archery]
     en = Archery
     de = Bogenschießen
+    es = Tiro con arco
     fi = Jousiammunta
     fr = Tir à l'arc
     ja = アーチェリー
@@ -17066,6 +17114,7 @@
   [type.sport.australian_football]
     en = Rugby
     de = Rugby
+    es = Fútbol australiano
     ja = オーストラリアンフットボール
     pt = Futebol australiano
     pt-BR = Futebol australiano
@@ -17076,6 +17125,7 @@
   [type.sport.baseball]
     en = Baseball
     de = Baseball
+    es = Béisbol
     ja = 野球
     pl = Baseball
     pt = Beisebol
@@ -17135,6 +17185,7 @@
   [type.sport.cricket]
     en = Cricket
     de = Cricket
+    es = Críquet
     fi = Kriketti
     ja = クリケット
     pl = Krykiet
@@ -17148,6 +17199,7 @@
   [type.sport.curling]
     en = Сurling
     de = Curling
+    es = Curling
     fi = Curling
     ja = カーリング
     pt = Curling
@@ -17159,6 +17211,7 @@
   [type.sport.diving]
     en = Diving
     de = Tauchen
+    es = Salto
     ja = ダイビング
     pt = Mergulho
     pt-BR = Mergulho
@@ -17204,6 +17257,7 @@
   [type.sport.golf]
     en = Golf
     de = Golf
+    es = Golf
     fi = Golf
     ja = ゴルフ
     pl = Golf
@@ -17217,6 +17271,7 @@
   [type.sport.gymnastics]
     en = Gymnastics
     de = Gymnastik
+    es = Gimnasia
     fi = Voimistelu
     fr = Gymnastique
     ja = 体操競技
@@ -17231,6 +17286,7 @@
   [type.sport.handball]
     en = Handball
     de = Handball
+    es = Balonmano
     fi = Käsipallo
     ja = ハンドボール
     pl = Piłka ręczna
@@ -17244,6 +17300,7 @@
   [type.sport.multi]
     en = Various Sport
     de = verschiedene Sportarten
+    es = Varios deportes
     ja = 複数
     pt = Vários desportos
     pt-BR = Vários desportos
@@ -17255,6 +17312,7 @@
   [type.sport.scuba_diving]
     en = Scuba Diving
     de = Sporttauchen
+    es = Submarinismo
     fr = Plongée sous-marine
     ja = スクーバダイビング
     pl = Nurkowanie
@@ -17267,6 +17325,7 @@
   [type.sport.shooting]
     en = Shooting
     de = Sportschießen
+    es = Tiro deportivo
     fi = Ammunta
     fr = Sports de tir
     ja = 射撃競技
@@ -17281,6 +17340,7 @@
   [type.sport.skiing]
     en = Skiing
     de = Skisport
+    es = Esquí
     fi = Hiihto
     fr = Ski
     ja = スキー
@@ -17293,6 +17353,7 @@
   [type.sport.soccer]
     en = Soccer (Football)
     de = Fußball
+    es = Fútbol
     fi = Jalkapallo
     fr = Football
     ja = サッカー
@@ -17306,6 +17367,7 @@
   [type.sport.swimming]
     en = Swimming
     de = Schwimmen
+    es = Natación
     fi = Uinti
     fr = Natation
     ja = 水泳
@@ -17354,6 +17416,7 @@
   [type.tourism]
     en = Tourism
     de = Tourismus
+    es = Turismo
     fi = Turismi
     ja = 観光
     pl = Turystyka
@@ -18766,6 +18829,7 @@
   [type.wheelchair]
     en = Wheelchair
     de = Rollstuhl
+    es = Silla de ruedas
     fi = Rullatuoli
     ja = 車椅子
     pt = Cadeiras de rodas
