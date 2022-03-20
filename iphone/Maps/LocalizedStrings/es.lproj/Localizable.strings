@@ -1196,35 +1196,35 @@
 
 /********** Types **********/
 
-"type.aerialway" = "Aerialway";
+"type.aerialway" = "Transporte aéreo";
 
-"type.aerialway.cable_car" = "Aerialway";
+"type.aerialway.cable_car" = "Teleférico";
 
-"type.aerialway.chair_lift" = "Aerialway";
+"type.aerialway.chair_lift" = "Telesilla";
 
-"type.aerialway.drag_lift" = "Aerialway";
+"type.aerialway.drag_lift" = "Telesquí";
 
-"type.aerialway.gondola" = "Aerialway";
+"type.aerialway.gondola" = "Telecabina";
 
-"type.aerialway.mixed_lift" = "Aerialway";
+"type.aerialway.mixed_lift" = "Telecabina/telesilla";
 
 "type.aerialway.station" = "Estación de teleférico";
 
-"type.aeroway" = "Airspace Infrastructure";
+"type.aeroway" = "Infraestructura aérea";
 
 "type.aeroway.aerodrome" = "Aeropuerto";
 
 "type.aeroway.aerodrome.international" = "Aeropuerto";
 
-"type.aeroway.apron" = "Apron";
+"type.aeroway.apron" = "Plataforma";
 
-"type.aeroway.gate" = "Gate";
+"type.aeroway.gate" = "Puerta de embarque";
 
 "type.aeroway.helipad" = "Helipuerto";
 
-"type.aeroway.runway" = "Runway";
+"type.aeroway.runway" = "Pista de despegue";
 
-"type.aeroway.taxiway" = "Taxiway";
+"type.aeroway.taxiway" = "Pista de rodaje";
 
 "type.aeroway.terminal" = "Terminal";
 
@@ -1294,7 +1294,7 @@
 
 "type.amenity.fire_station" = "Parque de bomberos";
 
-"type.amenity.food_court" = "Food Court";
+"type.amenity.food_court" = "Zona de comidas";
 
 "type.amenity.fountain" = "Fuente";
 
@@ -1376,7 +1376,7 @@
 
 "type.amenity.post_office" = "Oficina de correos";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "Prisión";
 
 "type.amenity.pub" = "Pub";
 
@@ -1393,13 +1393,13 @@
 
 "type.recycling.batteries" = "Baterías";
 
-"type.recycling.clothes" = "Ropa vieja";
+"type.recycling.clothes" = "Ropa";
 
-"type.recycling.glass_bottles" = "Cascos de botellas";
+"type.recycling.glass_bottles" = "Envases de vidrio";
 
-"type.recycling.paper" = "Desperdicio de papel";
+"type.recycling.paper" = "Papel";
 
-"type.recycling.plastic" = "Residuos de plástico";
+"type.recycling.plastic" = "Plástico";
 
 "type.recycling.plastic_bottles" = "Botellas de plástico";
 
@@ -1407,15 +1407,15 @@
 
 "type.recycling.small_appliances" = "Residuos electrónicos";
 
-"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cardboard" = "Cartón";
 
-"type.recycling.cans" = "Cans";
+"type.recycling.cans" = "Latas";
 
-"type.recycling.shoes" = "Shoes";
+"type.recycling.shoes" = "Calzado";
 
-"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.green_waste" = "Orgánico";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Cartones de bebida";
 
 "type.amenity.restaurant" = "Restaurante";
 
@@ -1439,7 +1439,7 @@
 
 "type.amenity.university" = "Universidad";
 
-"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine" = "Máquina expendedora";
 
 "type.amenity.vending_machine.cigarettes" = "Máquina expendedora de tabaco";
 
@@ -1449,9 +1449,9 @@
 
 "type.amenity.vending_machine.public_transport_tickets" = "Máquina expendedora de boletos para el transporte público";
 
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "Maquina expendedora de bolsas para excrementos";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Taquilla de paquetes";
 
 "type.amenity.vending_machine.fuel" = "Fuel Dispenser";
 
@@ -1465,7 +1465,7 @@
 
 "type.amenity.water_point" = "Fuente de agua";
 
-"type.barrier" = "Barrier";
+"type.barrier" = "Barrera";
 
 "type.barrier.block" = "Bloque";
 
@@ -1473,23 +1473,23 @@
 
 "type.barrier.border_control" = "Control de fronteras";
 
-"type.barrier.chain" = "Chain";
+"type.barrier.chain" = "Cadena";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Muralla";
 
-"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.barrier.cycle_barrier" = "Barrera para bicicletas";
 
 "type.barrier.entrance" = "Entrada";
 
-"type.barrier.fence" = "Fence";
+"type.barrier.fence" = "Valla";
 
 "type.barrier.gate" = "Puerta";
 
-"type.barrier.hedge" = "Hedge";
+"type.barrier.hedge" = "Seto";
 
 "type.barrier.lift_gate" = "Barrera";
 
-"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.retaining_wall" = "Muro de contención";
 
 "type.barrier.stile" = "Escalón";
 
@@ -1497,47 +1497,47 @@
 
 "type.barrier.toll_booth" = "Peaje";
 
-"type.barrier.wall" = "Wall";
+"type.barrier.wall" = "Muro";
 
-"type.boundary" = "Boundary";
+"type.boundary" = "Frontera";
 
-"type.boundary.administrative" = "Administrative Boundary";
+"type.boundary.administrative" = "Frontera administrativa";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
+"type.boundary.administrative.10" = "Frontera administrativa";
 
-"type.boundary.administrative.11" = "Administrative Boundary";
+"type.boundary.administrative.11" = "Frontera administrativa";
 
-"type.boundary.administrative.2" = "National Border";
+"type.boundary.administrative.2" = "Frontera de país";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+"type.boundary.administrative.3" = "Frontera administrativa";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
+"type.boundary.administrative.4" = "Frontera administrativa";
 
-"type.boundary.administrative.5" = "Administrative Boundary";
+"type.boundary.administrative.5" = "Frontera administrativa";
 
-"type.boundary.administrative.6" = "Administrative Boundary";
+"type.boundary.administrative.6" = "Frontera administrativa";
 
-"type.boundary.administrative.7" = "Administrative Boundary";
+"type.boundary.administrative.7" = "Frontera administrativa";
 
-"type.boundary.administrative.8" = "Administrative Boundary";
+"type.boundary.administrative.8" = "Frontera administrativa";
 
-"type.boundary.administrative.9" = "Administrative Boundary";
+"type.boundary.administrative.9" = "Frontera administrativa";
 
-"type.boundary.administrative.city" = "City Boundary";
+"type.boundary.administrative.city" = "Frontera de ciudad";
 
-"type.boundary.administrative.country" = "National Border";
+"type.boundary.administrative.country" = "Frontera de país";
 
-"type.boundary.administrative.county" = "County Boundary";
+"type.boundary.administrative.county" = "Frontera de condado";
 
-"type.boundary.administrative.municipality" = "Municipality Boundary";
+"type.boundary.administrative.municipality" = "Frontera de municipio";
 
-"type.boundary.administrative.nation" = "National Border";
+"type.boundary.administrative.nation" = "Frontera de nación";
 
-"type.boundary.administrative.region" = "Regional Boundary";
+"type.boundary.administrative.region" = "Frontera de región";
 
-"type.boundary.administrative.state" = "State Boundary";
+"type.boundary.administrative.state" = "Frontera de estado";
 
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+"type.boundary.administrative.suburb" = "Frontera de suburbio";
 
 "type.boundary.national_park" = "Parque nacional";
 
@@ -1551,7 +1551,7 @@
 
 "type.building.train_station" = "Estación de tren";
 
-"type.building.warehouse" = "Warehouse";
+"type.building.warehouse" = "Almacén";
 
 "type.craft" = "Craft";
 
@@ -1780,17 +1780,17 @@
 
 "type.highway.construction" = "Carretera en construcción";
 
-"type.highway.cycleway" = "Cycle Path";
+"type.highway.cycleway" = "Ciclovía";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Puente";
 
-"type.highway.cycleway.permissive" = "Cycle Path";
+"type.highway.cycleway.permissive" = "Ciclovía";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Túnel";
 
-"type.highway.elevator" = "Elevator";
+"type.highway.elevator" = "Ascensor";
 
 "type.highway.footway" = "Camino";
 
@@ -2028,7 +2028,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Túnel";
 
-"type.area_highway.cycleway" = "Cycle Path";
+"type.area_highway.cycleway" = "Ciclovía";
 
 "type.area_highway.footway" = "Camino";
 
@@ -2135,7 +2135,7 @@
 
 "type.junction" = "Junction";
 
-"type.junction.roundabout" = "Roundabout";
+"type.junction.roundabout" = "Rotonda";
 
 "type.landuse" = "Landuse";
 
@@ -2511,7 +2511,7 @@
 
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 
-"type.public_transport" = "Public Transport";
+"type.public_transport" = "Transporte público";
 
 "type.public_transport.platform" = "Platform";
 
@@ -2803,51 +2803,51 @@
 
 "type.shop.wine" = "Tienda de vinos";
 
-"type.sport" = "sport";
+"type.sport" = "Deporte";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Fútbol americano";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Tiro con arco";
 
 "type.sport.athletics" = "Atletismo";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Fútbol australiano";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "Béisbol";
 
 "type.sport.basketball" = "Baloncesto";
 
 "type.sport.bowls" = "Bowls";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.cricket" = "Críquet";
 
-"type.sport.curling" = "Сurling";
+"type.sport.curling" = "Curling";
 
-"type.sport.diving" = "Diving";
+"type.sport.diving" = "Salto";
 
 "type.sport.equestrian" = "Equitación";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gimnasia";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Balonmano";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Varios deportes";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+"type.sport.scuba_diving" = "Submarinismo";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Tiro deportivo";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Esquí";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Fútbol";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Natación";
 
 "type.sport.tennis" = "Cancha de tenis";
 
-"type.tourism" = "Tourism";
+"type.tourism" = "Turismo";
 
 "type.tourism.alpine_hut" = "Cabaña";
 
@@ -2955,7 +2955,7 @@
 
 "type.waterway.weir" = "Weir";
 
-"type.wheelchair" = "Wheelchair";
+"type.wheelchair" = "Silla de ruedas";
 
 "type.wheelchair.limited" = "Parcialmente equipado para discapacitados";
 

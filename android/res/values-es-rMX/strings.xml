@@ -192,13 +192,6 @@
 	<string name="type.amenity.post_office">Oficina de correos</string>
 
 	<!-- SECTION: Types: Recycling -->
-	<string name="type.amenity.recycling">Contenedor de reciclaje</string>
-	<string name="type.amenity.recycling.container">Contenedor de reciclaje</string>
-	<string name="type.recycling.clothes">Ropa vieja</string>
-	<string name="type.recycling.glass_bottles">Envase de vidrio</string>
-	<string name="type.recycling.paper">Desechos de papel</string>
-	<string name="type.recycling.plastic">Desechos de plástico</string>
-	<string name="type.recycling.plastic_bottles">Botellas de plástico</string>
 	<string name="type.recycling.scrap_metal">Desechos de metal</string>
 	<string name="type.recycling.small_appliances">Desechos electrónicos</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de billetes de transporte público</string>

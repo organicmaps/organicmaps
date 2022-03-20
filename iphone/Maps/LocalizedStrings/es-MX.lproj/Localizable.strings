@@ -1387,21 +1387,21 @@
 
 "type.amenity.recycling.centre" = "Recycling Center";
 
-"type.amenity.recycling" = "Contenedor de reciclaje";
+"type.amenity.recycling" = "Recycling Container";
 
-"type.amenity.recycling.container" = "Contenedor de reciclaje";
+"type.amenity.recycling.container" = "Recycling Container";
 
 "type.recycling.batteries" = "Household Batteries";
 
-"type.recycling.clothes" = "Ropa vieja";
+"type.recycling.clothes" = "Clothes";
 
-"type.recycling.glass_bottles" = "Envase de vidrio";
+"type.recycling.glass_bottles" = "Glass Bottles";
 
-"type.recycling.paper" = "Desechos de papel";
+"type.recycling.paper" = "Paper";
 
-"type.recycling.plastic" = "Desechos de plástico";
+"type.recycling.plastic" = "Plastic";
 
-"type.recycling.plastic_bottles" = "Botellas de plástico";
+"type.recycling.plastic_bottles" = "Plastic Bottles";
 
 "type.recycling.scrap_metal" = "Desechos de metal";
 
