@@ -164,4 +164,12 @@
   GetFramework().UpdatePlacePageInfoForCurrentSelection();
 }
 
++ (void)updateAfterDeleteBookmark {
+  auto & frm = GetFramework();
+  auto buildInfo = frm.GetCurrentPlacePageInfo().GetBuildInfo();
+  buildInfo.m_match = place_page::BuildInfo::Match::FeatureOnly;
+  buildInfo.m_userMarkId = kml::kInvalidMarkId;
+  buildInfo.m_source = place_page::BuildInfo::Source::Other;
+  frm.UpdatePlacePageInfoForCurrentSelection(buildInfo);
+}
 @end
