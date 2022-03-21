@@ -1244,6 +1244,7 @@
 	<string name="type.man_made.cairn">Тур</string>
 	<string name="type.man_made.chimney">Заводская труба</string>
 	<string name="type.man_made.cutline">Просека</string>
+	<string name="type.man_made.survey_point">Геодезический пункт</string>
 	<string name="type.man_made.flagpole">Флагшток</string>
 	<string name="type.man_made.lighthouse">Маяк</string>
 	<string name="type.man_made.mast">Мачта/вышка</string>

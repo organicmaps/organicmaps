@@ -824,6 +824,7 @@
 	<string name="type.landuse.cemetery.christian">Хрысціянскія могілкі</string>
 	<string name="type.leisure.marina">Прычал</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
+	<string name="type.man_made.survey_point">Геадэзічны пункт</string>
 	<string name="type.man_made.flagpole">Флагшток</string>
 	<string name="type.man_made.mast">Мачта/вышка</string>
 	<string name="type.man_made.silo">Сілас</string>

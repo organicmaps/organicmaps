@@ -1197,6 +1197,7 @@
 	<string name="type.man_made.cairn">Kopiec</string>
 	<string name="type.man_made.chimney">Komin fabryki</string>
 	<string name="type.man_made.cutline">Przecinka leśna</string>
+	<string name="type.man_made.survey_point">Znak geodezyjny</string>
 	<string name="type.man_made.lighthouse">Latarnia morska</string>
 	<string name="type.man_made.pier">Molo</string>
 	<string name="type.man_made.pipeline">Rurociąg</string>

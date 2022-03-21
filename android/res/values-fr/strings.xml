@@ -1159,6 +1159,7 @@
 	<string name="type.leisure.water_park">Centre aquatique</string>
 	<string name="type.man_made.breakwater">Brise-lames</string>
 	<string name="type.man_made.chimney">Cheminée d\'usine</string>
+	<string name="type.man_made.survey_point">Borne géodésique</string>
 	<string name="type.man_made.lighthouse">Phare</string>
 	<string name="type.man_made.pier">Jetée</string>
 	<string name="type.man_made.storage_tank">Réservoir</string>

@@ -1175,6 +1175,7 @@
 	<string name="type.man_made.cairn">ケルン</string>
 	<string name="type.man_made.chimney">工場煙突</string>
 	<string name="type.man_made.cutline">森林の切れ目</string>
+	<string name="type.man_made.survey_point">測量標</string>
 	<string name="type.man_made.lighthouse">灯台</string>
 	<string name="type.man_made.pier">桟橋</string>
 	<string name="type.man_made.pipeline">パイプライン</string>
