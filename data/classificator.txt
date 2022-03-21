@@ -580,6 +580,7 @@ world  +
         silo  -
         storage_tank  -
         surveillance  -
+        survey_point  -
         tower  -
         wastewater_plant  -
         water_tap  -

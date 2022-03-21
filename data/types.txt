@@ -53,7 +53,7 @@ mapswithme
 *highway|path|bicycle
 *landuse|meadow
 *highway|living_street
-mapswithme
+*man_made|survey_point
 *natural|peak
 *highway|motorway
 *highway|steps
