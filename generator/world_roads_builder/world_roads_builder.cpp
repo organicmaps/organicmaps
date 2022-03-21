@@ -69,11 +69,8 @@ RoadsFromOsm GetRoadsFromOsm(generator::SourceReader & reader,
     {
       std::string const & highway = e->GetTag("highway");
 
-      if (!highway.empty() &&
-          std::find(highways.begin(), highways.end(), highway) != highways.end())
-      {
+      if (!highway.empty() && base::IsExist(highways, highway))
         roadsFromOsm.m_ways[highway].emplace(e->m_id, RoadData({}, *e));
-      }
     }
     else if (e->IsNode())
     {

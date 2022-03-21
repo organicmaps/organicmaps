@@ -464,7 +464,7 @@ string DetermineSurface(OsmElement * p)
 
   auto const Has = [](base::StringIL const & il, std::string const & v)
   {
-    return std::find(il.begin(), il.end(), v) != il.end();
+    return base::IsExist(il, v);
   };
 
   bool isPaved = false;

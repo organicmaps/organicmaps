@@ -100,7 +100,7 @@ namespace feature
       return (m_size > 0 ? m_types[0] : 0);
     }
 
-    bool Has(uint32_t t) const { return std::find(begin(), end(), t) != end(); }
+    bool Has(uint32_t t) const { return base::IsExist(*this, t); }
 
     template <typename Fn>
     bool RemoveIf(Fn && fn)

@@ -385,11 +385,8 @@ bool SubwayConverter::ConvertTransfers()
     {
       for (auto const & [lineId, lineData] : m_feed.m_lines.m_data)
       {
-        auto it = std::find(lineData.m_stopIds.begin(), lineData.m_stopIds.end(), stopId);
-        if (it != lineData.m_stopIds.end())
-        {
+        if (base::IsExist(lineData.m_stopIds, stopId))
           routeToStops[lineData.m_routeId].insert(stopId);
-        }
       }
     }
 
