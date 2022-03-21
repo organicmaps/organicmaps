@@ -898,7 +898,16 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_limit = searchParams.m_maxNumResults;
   params.m_pivot = m_position ? *m_position : GetViewport().Center();
   params.m_pivotRegion = GetPivotRegion();
+
   params.m_preferredTypes = m_preferredTypes;
+  // Remove "secondary" category types from preferred.
+  base::EraseIf(params.m_preferredTypes, [](uint32_t type)
+  {
+    static uint32_t const organic = classif().GetTypeByPath({"organic"});
+    ftype::TruncValue(type, 1);
+    return (organic == type);
+  });
+
   params.m_suggestsEnabled = searchParams.m_suggestsEnabled;
   params.m_needAddress = searchParams.m_needAddress;
   params.m_needHighlighting = searchParams.m_needHighlighting && !geocoderParams.IsCategorialRequest();
