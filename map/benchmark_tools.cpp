@@ -185,8 +185,7 @@ void RunGraphicsBenchmark(Framework * framework)
   {
     framework->GetStorage().Subscribe(
         [framework, handle](storage::CountryId const & countryId) {
-          if (std::find(handle->m_regionsToDownload.begin(), handle->m_regionsToDownload.end(),
-                        countryId) != handle->m_regionsToDownload.end())
+          if (base::IsExist(handle->m_regionsToDownload, countryId))
           {
             handle->m_regionsToDownloadCounter++;
             if (handle->m_regionsToDownloadCounter == handle->m_regionsToDownload.size())

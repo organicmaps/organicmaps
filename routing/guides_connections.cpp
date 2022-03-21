@@ -224,11 +224,8 @@ void GuidesConnections::ExtendFakeEndingProjections(FakeEnding const & srcFakeEn
 
   for (auto const & proj : srcFakeEnding.m_projections)
   {
-    if (std::find(dstFakeEnding.m_projections.begin(), dstFakeEnding.m_projections.end(), proj) ==
-        dstFakeEnding.m_projections.end())
-    {
+    if (!base::IsExist(dstFakeEnding.m_projections, proj))
       dstFakeEnding.m_projections.push_back(proj);
-    }
   }
 }
 

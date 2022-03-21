@@ -1770,8 +1770,7 @@ bool IsSplineSubset(IdList const & stops, IdList const & stopsOther)
 
   for (TransitId stopId : stops)
   {
-    auto const it = std::find(stopsOther.begin(), stopsOther.end(), stopId);
-    if (it == stopsOther.end())
+    if (!base::IsExist(stopsOther, stopId))
       return false;
   }
 
@@ -2069,10 +2068,7 @@ void LinkTransferIdToStop(StopData & stop, TransitId transferId)
 {
   // We use vector instead of unordered set because we assume that transfers count for stop doesn't
   // exceed 2 or maybe 4.
-  if (std::find(stop.m_transferIds.begin(), stop.m_transferIds.end(), transferId) ==
-      stop.m_transferIds.end())
-  {
+  if (!base::IsExist(stop.m_transferIds, transferId))
     stop.m_transferIds.push_back(transferId);
-  }
 }
 }  // namespace transit

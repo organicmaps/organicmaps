@@ -121,7 +121,7 @@ public:
       // Exclude ferry routes.
       static OsmElement::Tag const kFerryTag = {"route", "ferry"};
       auto const & tags = element.Tags();
-      if (std::find(tags.cbegin(), tags.cend(), kFerryTag) == tags.cend())
+      if (!base::IsExist(tags, kFerryTag))
         element.AddTag("highway", it->second);
     }
     else if (element.m_type == OsmElement::EntityType::Node &&

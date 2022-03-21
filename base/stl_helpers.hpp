@@ -154,6 +154,13 @@ decltype(auto) FindIf(Cont && c, Fn && fn)
   return std::find_if(c.begin(), c.end(), std::forward<Fn>(fn));
 }
 
+template <typename Cont, typename T>
+bool IsExist(Cont const & c, T const & t)
+{
+  auto end = std::cend(c);
+  return std::find(std::cbegin(c), end, t) != end;
+}
+
 // Creates a comparer being able to compare two instances of class C
 // (given by reference or pointer) by a field or const method of C.
 // For example, to create comparer that is able to compare pairs of

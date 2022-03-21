@@ -81,7 +81,7 @@ SimpleDelimiter::SimpleDelimiter(char delim) { m_delims.push_back(delim); }
 
 bool SimpleDelimiter::operator()(UniChar c) const
 {
-  return std::find(m_delims.begin(), m_delims.end(), c) != m_delims.end();
+  return base::IsExist(m_delims, c);
 }
 
 UniChar LastUniChar(std::string const & s)

@@ -83,7 +83,7 @@ public:
     // Special processing for US state highways, to not duplicate the table.
     if (network.size() == 5 && strings::StartsWith(network, "US:"))
     {
-      if (std::find(kStatesCode.begin(), kStatesCode.end(), network.substr(3)) != kStatesCode.end())
+      if (base::IsExist(kStatesCode, network.substr(3)))
         return RoadShieldType::Generic_White;
     }
 
@@ -194,10 +194,10 @@ public:
     if (roadType == "I")
       return RoadShield(RoadShieldType::US_Interstate, roadNumber, additionalInfo);
 
-    if (std::find(kFederalCode.begin(), kFederalCode.end(), shieldParts[0]) != kFederalCode.end())
+    if (base::IsExist(kFederalCode, shieldParts[0]))
       return RoadShield(RoadShieldType::US_Highway, roadNumber, additionalInfo);
 
-    if (std::find(kStatesCode.begin(), kStatesCode.end(), shieldParts[0]) != kStatesCode.end())
+    if (base::IsExist(kStatesCode, shieldParts[0]))
       return RoadShield(RoadShieldType::Generic_White, roadNumber, additionalInfo);
 
     return RoadShield(RoadShieldType::Default, rawText);

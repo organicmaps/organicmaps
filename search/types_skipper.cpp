@@ -78,6 +78,6 @@ bool TypesSkipper::SkipAlways(feature::TypesHolder const & types) const
 // static
 bool TypesSkipper::HasType(Cont const & v, uint32_t t)
 {
-  return std::find(v.begin(), v.end(), t) != v.end();
+  return base::IsExist(v, t);
 }
 }  // namespace search
