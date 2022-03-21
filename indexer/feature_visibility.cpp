@@ -250,7 +250,6 @@ namespace
 
     static uint32_t const shuttle = cl.GetTypeByPath({"route", "shuttle_train"});
     static uint32_t const internet = cl.GetTypeByPath({"internet_access"});
-    static uint32_t const organic = cl.GetTypeByPath({"organic"});
     static uint32_t const complexEntry = cl.GetTypeByPath({"complex_entry"});
 
     if ((g == GeomType::Line || g == GeomType::Undefined) && type == shuttle)
@@ -261,9 +260,19 @@ namespace
 
     if (g != GeomType::Line)
     {
-      // Exclude generic 1-arity types like [organic].
-      if (type == internet || (type == organic && typeLevel >= 2))
+      if (type == internet)
         return true;
+
+      // Exclude generic 1-arity types like [organic].
+      if (typeLevel >= 2)
+      {
+        static uint32_t const arrTypes[] = {
+            cl.GetTypeByPath({"organic"}),
+            cl.GetTypeByPath({"recycling"})
+        };
+        if (base::IsExist(arrTypes, type))
+          return true;
+      }
     }
 
     return (type == complexEntry);
@@ -298,17 +307,9 @@ namespace
 
     static uint32_t const arrTypes[] = {
       cl.GetTypeByPath({"wheelchair"}),
-      cl.GetTypeByPath({"cuisine"}),
-      cl.GetTypeByPath({"recycling"})
+      cl.GetTypeByPath({"cuisine"})
     };
-
-    for (uint32_t t : arrTypes)
-    {
-      if (t == type)
-        return true;
-    }
-
-    return false;
+    return base::IsExist(arrTypes, type);
   }
   /// @}
 }  // namespace

@@ -1609,6 +1609,34 @@ UNIT_CLASS_TEST(ProcessorTest, OrganicTest)
   TEST_EQUAL(GetResultsNumber("органическая обувь", "ru"), 0, ());
 }
 
+UNIT_CLASS_TEST(ProcessorTest, RecyclingTest)
+{
+  string const countryName = "Wonderland";
+
+  TestPOI paper(m2::PointD(1.0, 1.0), "Макулатура", "ru");
+  paper.SetTypes({{"amenity", "recycling", "container"}, {"recycling", "paper"}});
+
+  TestPOI metal(m2::PointD(1.0, 1.0), "Armatura", "en");
+  metal.SetTypes({{"amenity", "recycling", "centre"}, {"recycling", "scrap_metal"}});
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(paper);
+    builder.Add(metal);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+
+  {
+    Rules rules{ExactMatch(countryId, paper), ExactMatch(countryId, metal)};
+    TEST(ResultsMatch("прием вторсырья", "ru", rules), ());
+  }
+  {
+    Rules rules{ExactMatch(countryId, paper)};
+    TEST(ResultsMatch("прием бумаги", "ru", rules), ());
+  }
+  TEST_EQUAL(GetResultsNumber("прием обуви", "ru"), 0, ());
+}
+
 UNIT_CLASS_TEST(ProcessorTest, AirportTest)
 {
   string const countryName = "Wonderland";
