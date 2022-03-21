@@ -2283,6 +2283,8 @@
 
 "type.man_made.cutline" = "树林分界线";
 
+"type.man_made.survey_point" = "Survey Point";
+
 "type.man_made.flagpole" = "Flagpole";
 
 "type.man_made.lighthouse" = "灯塔";

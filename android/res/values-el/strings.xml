@@ -1096,6 +1096,7 @@
 	<string name="type.leisure.swimming_pool.private">Πισίνα</string>
 	<string name="type.leisure.water_park">Υδάτινο πάρκο</string>
 	<string name="type.man_made.chimney">Καμινάδα εργοστασίου</string>
+	<string name="type.man_made.survey_point">Γεωδαιτικό σημείο</string>
 	<string name="type.man_made.lighthouse">Φάρος</string>
 	<string name="type.man_made.surveillance">Κάμερα παρακολούθησης</string>
 	<string name="type.man_made.tower">Πύργος</string>

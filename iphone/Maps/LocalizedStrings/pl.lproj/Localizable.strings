@@ -2283,6 +2283,8 @@
 
 "type.man_made.cutline" = "Przecinka leśna";
 
+"type.man_made.survey_point" = "Znak geodezyjny";
+
 "type.man_made.flagpole" = "Flagpole";
 
 "type.man_made.lighthouse" = "Latarnia morska";

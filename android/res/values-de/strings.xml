@@ -1197,6 +1197,7 @@
 	<string name="type.man_made.cairn">Steinhaufen</string>
 	<string name="type.man_made.chimney">Fabrikschornstein</string>
 	<string name="type.man_made.cutline">Schneise</string>
+	<string name="type.man_made.survey_point">Vermessungspunkt</string>
 	<string name="type.man_made.lighthouse">Leuchtturm</string>
 	<string name="type.man_made.pier">Anlegestelle</string>
 	<string name="type.man_made.silo">Silo</string>

@@ -1273,6 +1273,7 @@
 	<string name="type.man_made.cairn">Cairn</string>
 	<string name="type.man_made.chimney">Factory Chimney</string>
 	<string name="type.man_made.cutline">Cutline</string>
+	<string name="type.man_made.survey_point">Survey Point</string>
 	<string name="type.man_made.flagpole">Flagpole</string>
 	<string name="type.man_made.lighthouse">Lighthouse</string>
 	<string name="type.man_made.mast">Mast</string>

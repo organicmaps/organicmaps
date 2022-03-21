@@ -2283,6 +2283,8 @@
 
 "type.man_made.cutline" = "Cutline";
 
+"type.man_made.survey_point" = "Borne géodésique";
+
 "type.man_made.flagpole" = "Flagpole";
 
 "type.man_made.lighthouse" = "Phare";
