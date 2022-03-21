@@ -2419,6 +2419,10 @@
 
 "type.office.telecommunication" = "Mobilfunkbetreiber";
 
+"type.organic.only" = "Bio";
+
+"type.organic.yes" = "Bio";
+
 "type.place" = "Ort";
 
 "type.place.city" = "Großstadt";

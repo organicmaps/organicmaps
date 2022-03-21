@@ -2419,6 +2419,10 @@
 
 "type.office.telecommunication" = "Opérateur mobile";
 
+"type.organic.only" = "Biologique";
+
+"type.organic.yes" = "Biologique";
+
 "type.place" = "place";
 
 "type.place.city" = "Ville";

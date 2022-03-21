@@ -2419,6 +2419,10 @@
 
 "type.office.telecommunication" = "Matkapuhelinoperaattori";
 
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
+
 "type.place" = "place";
 
 "type.place.city" = "Kaupunki";

@@ -1257,6 +1257,8 @@
 	<string name="type.office.lawyer">Anwaltsbüro</string>
 	<string name="type.office.ngo">Büro einer Nichtregierungsorganisation</string>
 	<string name="type.office.telecommunication">Mobilfunkbetreiber</string>
+	<string name="type.organic.only">Bio</string>
+	<string name="type.organic.yes">Bio</string>
 	<string name="type.place">Ort</string>
 	<string name="type.place.city">Großstadt</string>
 	<string name="type.place.city.capital">Hauptstadt</string>

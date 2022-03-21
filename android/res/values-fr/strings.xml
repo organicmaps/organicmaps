@@ -1209,6 +1209,8 @@
 	<string name="type.office.lawyer">Cabinet d\'avocat</string>
 	<string name="type.office.ngo">Bureau ONG</string>
 	<string name="type.office.telecommunication">Opérateur mobile</string>
+	<string name="type.organic.only">Biologique</string>
+	<string name="type.organic.yes">Biologique</string>
 	<string name="type.place.city">Ville</string>
 	<string name="type.place.city.capital">Capitale</string>
 	<string name="type.place.city.capital.10">Ville</string>

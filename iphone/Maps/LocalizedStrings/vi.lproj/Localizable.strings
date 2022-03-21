@@ -2419,6 +2419,10 @@
 
 "type.office.telecommunication" = "Điều hành di động";
 
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
+
 "type.place" = "place";
 
 "type.place.city" = "Đất nước";

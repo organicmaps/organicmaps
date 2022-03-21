@@ -843,6 +843,8 @@
 	<string name="type.natural.saddle">Седлавіна</string>
 	<string name="type.natural.water">Вадаём</string>
 	<string name="type.office.telecommunication">Тэлекамунікацыйная кампанія</string>
+	<string name="type.organic.only">Эка</string>
+	<string name="type.organic.yes">Эка</string>
 	<string name="type.railway.platform">Чыгуначная платформа</string>
 	<string name="type.shop.beverages">Напоі</string>
 	<string name="type.shop.caravan">Продаж аўтадамоў</string>

@@ -1286,6 +1286,8 @@
 	<string name="type.office.lawyer">Адвокат</string>
 	<string name="type.office.ngo">Недержавна організація</string>
 	<string name="type.office.telecommunication">Телекомунікаційна компанія</string>
+	<string name="type.organic.only">Еко</string>
+	<string name="type.organic.yes">Еко</string>
 	<string name="type.place">Мicце</string>
 	<string name="type.place.city">Місто</string>
 	<string name="type.place.city.capital">Столиця</string>
