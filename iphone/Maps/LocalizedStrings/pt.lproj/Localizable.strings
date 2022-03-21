@@ -2419,6 +2419,10 @@
 
 "type.office.telecommunication" = "Operadora de telecomunicações";
 
+"type.organic.only" = "Orgânico";
+
+"type.organic.yes" = "Orgânico";
+
 "type.place" = "Local";
 
 "type.place.city" = "Cidade";

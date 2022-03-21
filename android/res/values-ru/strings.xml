@@ -1310,6 +1310,8 @@
 	<string name="type.office.lawyer">Адвокат</string>
 	<string name="type.office.ngo">Общественная организация</string>
 	<string name="type.office.telecommunication">Телекоммуникационная компания</string>
+	<string name="type.organic.only">Эко</string>
+	<string name="type.organic.yes">Эко</string>
 	<string name="type.place">Место</string>
 	<string name="type.place.city">Город</string>
 	<string name="type.place.city.capital">Столица</string>

@@ -2419,6 +2419,10 @@
 
 "type.office.telecommunication" = "Телекоммуникационная компания";
 
+"type.organic.only" = "Эко";
+
+"type.organic.yes" = "Эко";
+
 "type.place" = "Место";
 
 "type.place.city" = "Город";

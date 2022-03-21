@@ -1136,6 +1136,8 @@
 	<string name="type.office.lawyer">Advocatenkantoor</string>
 	<string name="type.office.ngo">NGO-kantoor</string>
 	<string name="type.office.telecommunication">Mobiele provider</string>
+	<string name="type.organic.only">Biologisch</string>
+	<string name="type.organic.yes">Biologisch</string>
 	<string name="type.place.city">Stad</string>
 	<string name="type.place.city.capital">Hoofdstad</string>
 	<string name="type.place.city.capital.10">Stad</string>

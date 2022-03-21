@@ -2419,6 +2419,10 @@
 
 "type.office.telecommunication" = "Тэлекамунікацыйная кампанія";
 
+"type.organic.only" = "Эка";
+
+"type.organic.yes" = "Эка";
+
 "type.place" = "place";
 
 "type.place.city" = "City";

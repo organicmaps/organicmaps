@@ -2419,6 +2419,10 @@
 
 "type.office.telecommunication" = "Телекомунікаційна компанія";
 
+"type.organic.only" = "Еко";
+
+"type.organic.yes" = "Еко";
+
 "type.place" = "Мicце";
 
 "type.place.city" = "Місто";

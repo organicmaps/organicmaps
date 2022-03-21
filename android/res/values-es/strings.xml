@@ -1203,6 +1203,8 @@
 	<string name="type.office.lawyer">Despacho de abogados</string>
 	<string name="type.office.ngo">Sede de ONG</string>
 	<string name="type.office.telecommunication">Operadora de telefonía móvil</string>
+	<string name="type.organic.only">Orgánico</string>
+	<string name="type.organic.yes">Orgánico</string>
 	<string name="type.place.city">Ciudad</string>
 	<string name="type.place.city.capital.10">Ciudad</string>
 	<string name="type.place.city.capital.11">Ciudad</string>

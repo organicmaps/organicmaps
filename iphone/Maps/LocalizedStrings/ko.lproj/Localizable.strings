@@ -2419,6 +2419,10 @@
 
 "type.office.telecommunication" = "이동통신 사업자";
 
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
+
 "type.place" = "place";
 
 "type.place.city" = "도시";

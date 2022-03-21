@@ -1256,6 +1256,8 @@
 	<string name="type.office.lawyer">Escritório de advogado</string>
 	<string name="type.office.ngo">Escritório de ONG</string>
 	<string name="type.office.telecommunication">Operadora de telecomunicações</string>
+	<string name="type.organic.only">Orgânico</string>
+	<string name="type.organic.yes">Orgânico</string>
 	<string name="type.place">Local</string>
 	<string name="type.place.city">Cidade</string>
 	<string name="type.place.city.capital">Capital</string>
