@@ -242,13 +242,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     TestPOI poi(m2::PointD(1.0, 1.0), "poi", "en");
 
     auto typeTokens = strings::Tokenize(classif().GetFullObjectName(type), "|");
-    if (ftypes::IsRecyclingTypeChecker::Instance()(type))
-    {
-      // recycling=XXX types are not drawable/visible alone.
-      poi.SetTypes({{"amenity", "recycling", "container"}, std::move(typeTokens)});
-    }
-    else
-      poi.SetTypes({std::move(typeTokens)});
+    poi.SetTypes({std::move(typeTokens)});
 
     auto id = BuildMwm(countryName, DataHeader::MapType::Country,
                        [&](TestMwmBuilder & builder) { builder.Add(poi); });
