@@ -7502,7 +7502,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "picnic-m"
+      name: "shelter-m"
       priority: 16631
       min_distance: 10
     }
@@ -7518,7 +7518,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "picnic-m"
+      name: "shelter-m"
       priority: 16631
       min_distance: 10
     }
@@ -7534,7 +7534,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "picnic-m"
+      name: "shelter-m"
       priority: 16631
       min_distance: 10
     }
@@ -7550,7 +7550,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "picnic-m"
+      name: "shelter-m"
       priority: 16631
       min_distance: 10
     }
@@ -38119,6 +38119,77 @@ cont {
         offset_y: 1
       }
       priority: 15300
+    }
+  }
+}
+cont {
+  name: "man_made-survey_point"
+  element {
+    scale: 16
+    symbol {
+      name: "survey_point-m"
+      apply_for_type: 1
+      priority: 16582
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15582
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "survey_point-m"
+      apply_for_type: 1
+      priority: 16582
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15582
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "survey_point-m"
+      apply_for_type: 1
+      priority: 16582
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15582
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "survey_point-m"
+      apply_for_type: 1
+      priority: 16582
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15582
     }
   }
 }
