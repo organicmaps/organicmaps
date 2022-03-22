@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class NavMenu
 {
   private final BottomSheetBehavior<View> mNavBottomSheetBehavior;
+  private final View mBottomSheetBackground;
 
   private final ImageView mTts;
   private final View mSpeedViewContainer;
@@ -55,6 +56,31 @@ public class NavMenu
     mActivity = activity;
     mNavMenuListener = navMenuListener;
     mNavBottomSheetBehavior = BottomSheetBehavior.from(mActivity.findViewById(R.id.nav_bottom_sheet));
+    mBottomSheetBackground = mActivity.findViewById(R.id.nav_bottom_sheet_background);
+    mBottomSheetBackground.setOnClickListener(v -> collapseNavBottomSheet());
+    mBottomSheetBackground.setVisibility(View.GONE);
+    mBottomSheetBackground.setAlpha(0);
+    mNavBottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback()
+    {
+      @Override
+      public void onStateChanged(@NonNull View bottomSheet, int newState)
+      {
+        if (newState == BottomSheetBehavior.STATE_COLLAPSED || newState == BottomSheetBehavior.STATE_HIDDEN)
+        {
+          mBottomSheetBackground.setVisibility(View.GONE);
+          mBottomSheetBackground.setAlpha(0);
+        } else
+        {
+          mBottomSheetBackground.setVisibility(View.VISIBLE);
+        }
+      }
+
+      @Override
+      public void onSlide(@NonNull View bottomSheet, float slideOffset)
+      {
+        mBottomSheetBackground.setAlpha(slideOffset);
+      }
+    });
 
     View mBottomFrame = mActivity.findViewById(R.id.nav_bottom_frame);
     mBottomFrame.setOnClickListener(v -> switchTimeFormat());
@@ -110,11 +136,6 @@ public class NavMenu
   public void collapseNavBottomSheet()
   {
     mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-  }
-
-  public void expandNavBottomSheet()
-  {
-    mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
   }
 
   public void hideNavBottomSheet()
