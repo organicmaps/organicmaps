@@ -39,15 +39,13 @@ public class NavMenu
   private final TextView mTimeHourUnits;
   private final TextView mTimeMinuteValue;
   private final TextView mTimeMinuteUnits;
-  private final ImageView mDotTimeLeft;
-  private final ImageView mDotTimeArrival;
+  private final TextView mTimeEstimate;
   private final TextView mDistanceValue;
   private final TextView mDistanceUnits;
   private final FlatProgressView mRouteProgress;
 
   private final AppCompatActivity mActivity;
   private final NavMenuListener mNavMenuListener;
-  private boolean mShowTimeLeft = true;
 
   public NavMenu(AppCompatActivity activity, NavMenuListener navMenuListener)
   {
@@ -81,7 +79,8 @@ public class NavMenu
     });
 
     View mBottomFrame = mActivity.findViewById(R.id.nav_bottom_frame);
-    mBottomFrame.setOnClickListener(v -> switchTimeFormat());
+    View headerFrame =  mBottomFrame.findViewById(R.id.line_frame);
+    headerFrame.setOnClickListener(v -> toggleNavMenu());
 
     // Bottom frame
     mSpeedViewContainer = mBottomFrame.findViewById(R.id.speed_view_container);
@@ -91,8 +90,7 @@ public class NavMenu
     mTimeHourUnits = mBottomFrame.findViewById(R.id.time_hour_dimen);
     mTimeMinuteValue = mBottomFrame.findViewById(R.id.time_minute_value);
     mTimeMinuteUnits = mBottomFrame.findViewById(R.id.time_minute_dimen);
-    mDotTimeArrival = mBottomFrame.findViewById(R.id.dot_estimate);
-    mDotTimeLeft = mBottomFrame.findViewById(R.id.dot_left);
+    mTimeEstimate = mBottomFrame.findViewById(R.id.time_estimate);
     mDistanceValue = mBottomFrame.findViewById(R.id.distance_value);
     mDistanceUnits = mBottomFrame.findViewById(R.id.distance_dimen);
     mRouteProgress = mBottomFrame.findViewById(R.id.navigation_progress);
@@ -125,15 +123,22 @@ public class NavMenu
     refreshTts();
   }
 
-  private void switchTimeFormat()
+  private void toggleNavMenu()
   {
-    mShowTimeLeft = !mShowTimeLeft;
-    mNavMenuListener.onNavMenuUpdate();
+    if (getBottomSheetState() == BottomSheetBehavior.STATE_EXPANDED)
+      collapseNavBottomSheet();
+    else
+      expandNavBottomSheet();
   }
 
   public void collapseNavBottomSheet()
   {
     mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+  }
+
+  public void expandNavBottomSheet()
+  {
+    mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
   }
 
   public void hideNavBottomSheet()
@@ -156,13 +161,8 @@ public class NavMenu
 
   private void updateTime(int seconds)
   {
-    if (mShowTimeLeft)
-      updateTimeLeft(seconds);
-    else
-      updateTimeEstimate(seconds);
-
-    mDotTimeLeft.setEnabled(mShowTimeLeft);
-    mDotTimeArrival.setEnabled(!mShowTimeLeft);
+    updateTimeLeft(seconds);
+    updateTimeEstimate(seconds);
   }
 
   private void updateTimeLeft(int seconds)
@@ -189,9 +189,8 @@ public class NavMenu
     final DateFormat timeFormat12 = new SimpleDateFormat("h:mm aa", Locale.getDefault());
     final DateFormat timeFormat24 = new SimpleDateFormat("HH:mm", Locale.getDefault());
     boolean is24Format = android.text.format.DateFormat.is24HourFormat(mTimeMinuteValue.getContext());
-    UiUtils.setTextAndShow(mTimeMinuteValue, is24Format ? timeFormat24.format(currentTime.getTime())
+    UiUtils.setTextAndShow(mTimeEstimate, is24Format ? timeFormat24.format(currentTime.getTime())
         : timeFormat12.format(currentTime.getTime()));
-    UiUtils.hide(mTimeHourUnits, mTimeHourValue, mTimeMinuteUnits);
   }
 
 
@@ -217,22 +216,10 @@ public class NavMenu
     mRouteProgress.setProgress((int) info.completionPercent);
   }
 
-  public boolean isShowTimeLeft()
-  {
-    return mShowTimeLeft;
-  }
-
-  public void setShowTimeLeft(boolean showTimeLeft)
-  {
-    this.mShowTimeLeft = showTimeLeft;
-  }
-
   public interface NavMenuListener
   {
     void onStopClicked();
 
     void onSettingsClicked();
-
-    void onNavMenuUpdate();
   }
 }

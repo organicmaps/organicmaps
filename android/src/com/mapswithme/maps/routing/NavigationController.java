@@ -37,7 +37,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     TrafficManager.TrafficCallback,
     NavMenu.NavMenuListener
 {
-  private static final String STATE_SHOW_TIME_LEFT = "ShowTimeLeft";
   private static final String STATE_BOUND = "Bound";
 
   private final View mFrame;
@@ -325,14 +324,12 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   @Override
   public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState)
   {
-    outState.putBoolean(STATE_SHOW_TIME_LEFT, mNavMenu.isShowTimeLeft());
     outState.putBoolean(STATE_BOUND, mBound);
     mSearchWheel.saveState(outState);
   }
 
   public void onRestoreState(@NonNull Bundle savedInstanceState, @NonNull MwmActivity parent)
   {
-    mNavMenu.setShowTimeLeft(savedInstanceState.getBoolean(STATE_SHOW_TIME_LEFT));
     mBound = savedInstanceState.getBoolean(STATE_BOUND);
     if (mBound)
       start(parent);
@@ -409,12 +406,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   {
     mNavMenu.hideNavBottomSheet();
     RoutingController.get().cancel();
-  }
-
-  @Override
-  public void onNavMenuUpdate()
-  {
-    update(Framework.nativeGetRouteFollowingInfo());
   }
 
   private static class CameraWarningSignalCompletionListener implements MediaPlayer.OnCompletionListener

@@ -6,7 +6,6 @@
   android:layout_height="match_parent"
   android:orientation="vertical"
   android:gravity="center_vertical"
-  android:background="?clickableBackground"
   tools:background="#3000FF00"
   tools:ignore="RtlSymmetry">
 
@@ -31,7 +30,7 @@
         android:layout_height="wrap_content"
         android:lines="1"
         android:includeFontPadding="false"
-        android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
         tools:text="999"/>
 
       <!-- Speed -->
@@ -68,7 +67,7 @@
           android:layout_height="wrap_content"
           android:lines="1"
           android:includeFontPadding="false"
-          android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
+          android:textAppearance="@style/MwmTextAppearance.RoutingTime"
           tools:text="999"/>
 
         <TextView
@@ -78,7 +77,7 @@
           android:layout_marginEnd="@dimen/margin_quarter"
           android:lines="1"
           android:includeFontPadding="false"
-          android:textAppearance="@style/MwmTextAppearance.RoutingDimension"
+          android:textAppearance="@style/MwmTextAppearance.RoutingTime.Dimension"
           tools:text="h"/>
         <TextView
           android:id="@+id/time_minute_value"
@@ -86,7 +85,7 @@
           android:layout_height="wrap_content"
           android:lines="1"
           android:includeFontPadding="false"
-          android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
+          android:textAppearance="@style/MwmTextAppearance.RoutingTime"
           android:textAlignment="center"
           tools:text="99"/>
 
@@ -96,34 +95,21 @@
           android:layout_height="wrap_content"
           android:lines="1"
           android:includeFontPadding="false"
-          android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+          android:textAppearance="@style/MwmTextAppearance.RoutingTime.Dimension"
           tools:text="m"/>
       </LinearLayout>
 
-      <LinearLayout
-        android:layout_below="@+id/time_values_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:theme="?navigationTheme"
-        android:minWidth="@dimen/nav_numbers_center_min_width"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        tools:background="#20FF0000">
-        <ImageView
-          android:id="@+id/dot_left"
+        <TextView
+          android:id="@+id/time_estimate"
+          android:layout_below="@+id/time_values_container"
+          android:layout_centerHorizontal="true"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/margin_half"
-          android:src="?newsMarker"
-          tools:ignore="ContentDescription" />
-        <ImageView
-          android:id="@+id/dot_estimate"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:src="?newsMarker"
-          tools:ignore="ContentDescription" />
-      </LinearLayout>
+          android:lines="1"
+          android:includeFontPadding="false"
+          android:textAppearance="@style/MwmTextAppearance.RoutingDimension"
+          android:textAlignment="center"
+          tools:text="99"/>
     </RelativeLayout>
 
 
@@ -142,7 +128,7 @@
         android:layout_centerHorizontal="true"
         android:lines="1"
         android:includeFontPadding="false"
-        android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
         tools:text="99999"/>
       <TextView
         android:id="@+id/distance_dimen"
