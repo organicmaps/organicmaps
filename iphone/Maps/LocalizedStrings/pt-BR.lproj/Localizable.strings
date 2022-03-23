@@ -295,7 +295,7 @@
 "faq" = "Perguntas e respostas";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "How to support us?";
+"how_to_support_us" = "Como nos apoiar?";
 
 /* Button in the main Help dialog */
 "copyright" = "Direitos autorais";
@@ -467,7 +467,7 @@
 
 "dialog_routing_select_closer_end" = "Selecione um ponto de chegada mais perto de uma estrada.";
 
-"dialog_routing_change_intermediate" = "Unable to locate the intermediate point.";
+"dialog_routing_change_intermediate" = "Não foi possível localizar o ponto intermédio.";
 
 "dialog_routing_intermediate_not_determined" = "Ajuste seu ponto intermédio.";
 
@@ -2361,7 +2361,7 @@
 
 "type.natural.water.pond" = "Lagoa";
 
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "Reservatório";
 
 "type.natural.water.basin" = "Reservatório";
 
