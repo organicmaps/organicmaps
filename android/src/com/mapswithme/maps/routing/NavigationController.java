@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -260,11 +261,27 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   public void show(boolean show)
   {
     if (show && !UiUtils.isVisible(mFrame))
-      mNavMenu.collapseNavBottomSheet();
+      collapseNavMenu();
     else if (!show && UiUtils.isVisible(mFrame))
       mNavMenu.hideNavBottomSheet();
     UiUtils.showIf(show, mFrame);
     UiUtils.showIf(show, mSearchButtonFrame);
+  }
+
+
+  public boolean isNavMenuCollapsed()
+  {
+    return mNavMenu.getBottomSheetState() == BottomSheetBehavior.STATE_COLLAPSED;
+  }
+
+  public boolean isNavMenuHidden()
+  {
+    return mNavMenu.getBottomSheetState() == BottomSheetBehavior.STATE_HIDDEN;
+  }
+
+  public void collapseNavMenu()
+  {
+    mNavMenu.collapseNavBottomSheet();
   }
 
   public void resetSearchWheel()

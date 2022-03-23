@@ -643,6 +643,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   /**
+   * @return False if the navigation menu was already collapsed or hidden, true otherwise
+   */
+  public boolean collapseNavMenu()
+  {
+    if (mNavigationController.isNavMenuCollapsed() || mNavigationController.isNavMenuHidden())
+      return false;
+    mNavigationController.collapseNavMenu();
+    return true;
+  }
+
+  /**
    * @return False if the side panel was already closed, true otherwise
    */
   public boolean closeSidePanel()
@@ -1045,7 +1056,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onBackPressed()
   {
     RoutingController routingController = RoutingController.get();
-    if (!closeMainMenu() && !closeMapLayerMenu() && !closePlacePage() && !closeSearchToolbar(true, true) &&
+    if (!closeMainMenu() && !closeMapLayerMenu() && !collapseNavMenu() && !closePlacePage() &&!closeSearchToolbar(true, true) &&
             !closeSidePanel() && !closePositionChooser() &&
             !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
     {
