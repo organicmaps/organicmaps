@@ -108,16 +108,20 @@ dependencies {
 
 def run(cmd) {
   def stdout = new ByteArrayOutputStream()
-  exec{
+  exec {
     commandLine = cmd
     standardOutput = stdout
   }
   return stdout.toString()
 }
 
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
 def getVersion() {
-  def versionCode = Integer.parseInt(run(['../tools/unix/version.sh', 'android_code']).trim())
-  def versionName = run(['../tools/unix/version.sh', 'android_name']).trim()
+  def isWindows = DefaultNativePlatform.getCurrentOperatingSystem().isWindows()
+  def bash = isWindows ? 'C:\\Program Files\\Git\\bin\\bash.exe' : 'bash'
+  def versionCode = Integer.parseInt(run([bash, '../tools/unix/version.sh', 'android_code']).trim())
+  def versionName = run([bash, '../tools/unix/version.sh', 'android_name']).trim()
   return new groovy.lang.Tuple2(versionCode, versionName)
 }
 
