@@ -199,9 +199,9 @@ UNIT_TEST(TurnsNearMKAD85kmShortFakeSegmentTest)
 
   // 4 is absolutely wrong here. Seems like old route ignored fences here:
   // https://www.openstreetmap.org/way/1005920588
-  integration::TestTurnCount(route, 13 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 11 /* expectedTurnCount */);
 
-  integration::TestRouteLength(route, 1680.86);
+  integration::TestRouteLength(route, 1704.21);
 }
 
 UNIT_TEST(TurnsNearKhladkombinatTest)

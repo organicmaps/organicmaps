@@ -33,18 +33,12 @@ UNIT_TEST(CrossCountry_EAEU_Borders_Russia_to_Russia_through_Belarus)
 // territorial dispute. So the route should run directly from Russian Federation to Crimea.
 UNIT_TEST(CrossCountry_Russia_Belgorod_Oblast_to_Crimea)
 {
-  // Route length: 906386 meters. ETA: 50935 seconds.
-  /// @todo Is this route still better via Ukraine even with additional 4 hours penalty (2 borders crossing) ?!
+  // This routes go via Russia only.
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Car),
       mercator::FromLatLon(50.39589, 38.83377) /* startPoint */, {0.0, 0.0} /* startDirection */,
-      mercator::FromLatLon(45.06336, 34.48566) /* finalPoint */, 906'386 /* expectedRouteMeters */);
-  /// Adding intermediate point here {45.2711192, 36.0222279} gives via Russia route like:
-  /// Route length: 1.14846e+06 meters. ETA: 53168.6 seconds.
-  /// @todo Check Length/ETA criteria and why we missed better ETA route.
+      mercator::FromLatLon(45.06336, 34.48566) /* finalPoint */, 1'150'000 /* expectedRouteMeters */);
 
-  // Route length: 1.10125e+06 meters. ETA: 51511.1 seconds.
-  // This route goes via Russia only.
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Car),
       mercator::FromLatLon(50.39589, 38.83377) /* startPoint */, {0.0, 0.0} /* startDirection */,
