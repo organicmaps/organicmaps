@@ -145,8 +145,10 @@ double EdgeEstimator::ComputeDefaultLeapWeightSpeed() const
 
   /// @todo By VNG: Current m_maxWeightSpeedMpS is > 120 km/h, so estimating speed was > 60km/h
   /// for start/end fake edges by straight line! I strongly believe that this is very! optimistic.
-  /// Set factor to 2.5, see a good example here https://github.com/organicmaps/organicmaps/issues/1071.
-  return m_maxWeightSpeedMpS / 2.5;
+  /// Set factor to 2.15:
+  /// - lower bound Russia_MoscowDesnogorsk (https://github.com/organicmaps/organicmaps/issues/1071)
+  /// - upper bound RussiaSmolenskRussiaMoscowTimeTest
+  return m_maxWeightSpeedMpS / 2.15;
 }
 
 /*
