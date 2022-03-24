@@ -167,7 +167,7 @@ UNIT_TEST(MunichRoadWithOnewayBicycleYes1)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(48.15995, 11.56296), {0.0, 0.0},
-      mercator::FromLatLon(48.16027, 11.56306), 262.1 /* expectedRouteMeters */);
+      mercator::FromLatLon(48.16027, 11.56306), 296.247 /* expectedRouteMeters */);
 }
 
 UNIT_TEST(MunichRoadWithOnewayBicycleYes2)
@@ -175,5 +175,5 @@ UNIT_TEST(MunichRoadWithOnewayBicycleYes2)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(48.17819, 11.57286), {0.0, 0.0},
-      mercator::FromLatLon(48.17867, 11.57303), 177.2 /* expectedRouteMeters */);
+      mercator::FromLatLon(48.17867, 11.57303), 201.532 /* expectedRouteMeters */);
 }
