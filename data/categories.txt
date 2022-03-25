@@ -48,6 +48,8 @@
 # <lang>               ::= 'en'|'cs'|'sk'|'de'|'es'|'fr'|'it'|'ja' etc.
 #
 
+
+# First keyword should match [eat] definition in strings.txt!
 @eat
 en:Where to eat|eat|Food
 ru:Где поесть|Поесть|Еда|кушать|покушать
@@ -84,6 +86,7 @@ sk:Kde sa najesť|Jedlo
 sw:Sehemu ya kula
 fa:غذا|کجا غذا بخوریم
 
+# First keyword should match [food] definition in strings.txt!
 @food
 en:4Groceries|Food|Shop
 ru:4Продукты|Еда|4Магазин
@@ -120,6 +123,7 @@ sk:Potraviny|Jedlo|Obchod
 sw:Migahawani|Duka
 fa:غذا|فروشگاه|عطاری
 
+# First keyword should match [transport] definition in strings.txt!
 @transport
 en:5Transport
 ru:5Транспорт
@@ -155,6 +159,7 @@ he:תחבורה
 sk:Doprava
 fa:حمل و نقل
 
+# First keyword should match [fuel] definition in strings.txt!
 @fuel
 en:2Gas|Gasoline|3Petrol|4Diesel|3Fuel
 ru:3бензин|3дизель|4топливо|газ
@@ -191,6 +196,7 @@ sk:3Čerpacia stanica
 sw:Sheli
 fa:سوخت|بنزین|دیزل|گازوئیل
 
+# First keyword should match [parking] definition in strings.txt!
 @parking
 en:4Parking
 ru:4Парковка
@@ -226,6 +232,7 @@ he:חניה
 sk:4Parkovisko
 fa:پارکینگ
 
+# First keyword should match [shopping] definition in strings.txt!
 @shopping
 en:5Shopping|Shop
 ru:4Шоппинг|Магазин
@@ -262,6 +269,7 @@ sk:Nakupovanie|Obchod
 sw:Manunuzi|Duka
 fa:فروشگاه|خرید کردن
 
+# First keyword should match [hotel] definition in strings.txt!
 @hotel
 en:Hotel|hotels
 ru:5Гостиница|гостиницы|отель|отели
@@ -297,6 +305,7 @@ he:מלון|בתי
 sk:Hotel|Hotely
 fa:هتل|هتل ها
 
+# First keyword should match [tourism] definition in strings.txt!
 @tourism
 en:3Sights|3Attractions|3Tourism
 ru:4Достопримечательности|3Туризм
@@ -332,6 +341,7 @@ he:נקודות עיניין
 sk:Pamätihodnosť
 fa:منظره|گردشگری
 
+# First keyword should match [entertainment] definition in strings.txt!
 @entertainment
 en:Entertainment
 ru:Развлечения
@@ -367,6 +377,7 @@ he:בידור
 sk:Zábava
 fa:سرگرمی
 
+# First keyword should match [nightlife] definition in strings.txt!
 @nightlife
 en:Nightlife
 ru:Ночная жизнь|С друзьями|Вечер с друзьями|потусить
@@ -402,6 +413,7 @@ sk:Nočný život
 sw:Shughuli za usiku
 fa:تفریحات شبانه
 
+# First keyword should match [children] definition in strings.txt!
 @children
 en:Family holiday
 ru:Отдых с детьми
@@ -437,6 +449,7 @@ sk:Rodinná dovolenka
 sw:Mapumziko ya familia
 fa:تعطیلات خانوادگی
 
+# First keyword should match [atm] definition in strings.txt!
 @atm
 en:ATM|Cash machine
 ru:3Банкомат
@@ -473,6 +486,7 @@ sk:3Bankomat
 sw:Benki|fedha
 fa:خود پرداز
 
+# First keyword should match [rv] definition in strings.txt!
 @rv
 en:2RV Facilities|4Caravan|Vanlife|5Campervan|5Motorhome
 be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Дом на колах
@@ -514,6 +528,7 @@ el:χρήματα
 sk:sporiteľna|peniaze
 fa:دستگاه خودپرداز
 
+# First keyword should match [bank] definition in strings.txt!
 @bank
 en:3Bank
 ru:3Банк
@@ -581,6 +596,7 @@ el:χρήματα
 sk:peniaze
 fa:بانک
 
+# First keyword should match [recycling] definition in strings.txt!
 @recycling
 en:4Recycling|Waste utilization|Waste disposal|Recyclables|Separate garbage collection|Waste sorting|Reuse
 ru:Переработка|5Переработка отходов|Утилизация отходов|5Приём вторсырья|5Сдать вторсырьё|4Сбор вторсырья|5Раздельный сбор мусора|Сортировка мусора|Повторное использование|Утиль|Ресайклинг|Рециклинг|Вторичное сырьё
@@ -3425,6 +3441,7 @@ vi:Tổ chức tang lễ
 zh-Hans:殡仪馆
 zh-Hant:葬儀社
 
+# First keyword should match [hospital] definition in strings.txt!
 @hospital
 en:4Hospital
 ru:4Больница
@@ -3748,6 +3765,7 @@ sw:Maegesho
 fa:پارکینگ
 el:Στάθμευση
 
+# First keyword should match [pharmacy] definition in strings.txt!
 @pharmacy
 en:3Pharmacy
 ru:3Аптека
@@ -3844,6 +3862,7 @@ sk:3Poštová schránka|3schránka
 sw:Sanduku la posta
 fa:صندوق پست
 
+# First keyword should match [post] definition in strings.txt!
 @post
 en:3Post
 ru:3Почта
@@ -4437,6 +4456,7 @@ sk:2Telefón|telefónna búdka|telefónny automat
 sw:Simu
 fa:تلفن خانه
 
+# First keyword should match [toilet] definition in strings.txt!
 @toilet
 en:3Toilet
 ru:3Туалет|4уборная
@@ -5812,6 +5832,7 @@ sk:Budova|stavba
 sw:Jengo
 fa:ساختمان
 
+# First keyword should match [police] definition in strings.txt!
 @police
 en:4Police
 ru:4Полиция|милиция
@@ -5947,6 +5968,7 @@ fa:خلیج
 #
 # A search for "Drinking/Potable water" shall result in amenity=drinking_water only.
 #
+# First keyword should match [water] definition in strings.txt!
 @water
 en:3Water|water source
 ru:3Вода|источник воды
@@ -7014,6 +7036,7 @@ sk:Oceán
 sw:Bahari
 fa:اقیانوس
 
+# First keyword should match [wifi] definition in strings.txt!
 @wifi
 en:WiFi|Wi-Fi
 ru:WiFi|Wi-Fi
