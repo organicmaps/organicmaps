@@ -146,6 +146,9 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "警察局";
 
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "無線網路";
+
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "回收";
 
@@ -311,9 +314,6 @@
 
 /* Settings item title */
 "pref_calibration_title" = "指南針校準";
-
-/* Search category */
-"wifi" = "無線網路";
 
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";

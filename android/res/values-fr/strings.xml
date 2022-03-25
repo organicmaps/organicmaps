@@ -104,7 +104,7 @@
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
 	<string name="hotel">Hôtel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Site touristique</string>
+	<string name="tourism">Sites touristiques</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
 	<string name="entertainment">Divertissement</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
@@ -125,6 +125,8 @@
 	<string name="post">Poste</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Police</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Recyclage</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -224,8 +226,6 @@
 	<string name="copyright">Tous droits réservés</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Signaler un bug</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Tout mettre à jour</string>
 	<!-- Cancel all button text -->

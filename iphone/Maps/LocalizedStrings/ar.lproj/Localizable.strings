@@ -146,6 +146,9 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "شرطة";
 
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "واي-فاي";
+
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "إعادة تدوير";
 
@@ -311,9 +314,6 @@
 
 /* Settings item title */
 "pref_calibration_title" = "معايرة البوصلة";
-
-/* Search category */
-"wifi" = "واي-فاي";
 
 /* Update all button text */
 "downloader_update_all_button" = "تحديث الكل";

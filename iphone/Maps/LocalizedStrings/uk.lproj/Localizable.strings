@@ -146,6 +146,9 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Поліція";
 
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
+
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Переробка відходів";
 
@@ -311,9 +314,6 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Калібрування компаса";
-
-/* Search category */
-"wifi" = "WiFi";
 
 /* Update all button text */
 "downloader_update_all_button" = "Оновити всі";
@@ -2867,11 +2867,11 @@
 
 "type.tourism.artwork.statue" = "Витвір мистецтва";
 
-"type.tourism.attraction" = "Пам’ятка";
+"type.tourism.attraction" = "Пам’ятне місце";
 
-"type.tourism.attraction.animal" = "Пам’ятка";
+"type.tourism.attraction.animal" = "Пам’ятне місце";
 
-"type.tourism.attraction.specified" = "Пам’ятка";
+"type.tourism.attraction.specified" = "Пам’ятне місце";
 
 "type.tourism.camp_site" = "Кемпінг";
 

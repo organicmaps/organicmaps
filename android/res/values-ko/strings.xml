@@ -123,6 +123,8 @@
 	<string name="post">우편</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">치안대</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi 인터넷</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">재활용</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -217,8 +219,6 @@
 	<string name="copyright">저작권</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">오류 신고</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi 인터넷</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">모두 업데이트</string>
 	<!-- Cancel all button text -->
