@@ -146,6 +146,9 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "پلیس";
 
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "وای فای";
+
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "بازیافت";
 
@@ -311,9 +314,6 @@
 
 /* Settings item title */
 "pref_calibration_title" = "تنظیم کردن قظب نما";
-
-/* Search category */
-"wifi" = "وای فای";
 
 /* Update all button text */
 "downloader_update_all_button" = "اپدیت همه";

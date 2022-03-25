@@ -114,7 +114,7 @@
 "hotel" = "Гостиница";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Достопримечательность";
+"tourism" = "Достопримечательности";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
 "entertainment" = "Развлечения";
@@ -145,6 +145,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Полиция";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Переработка";
@@ -311,9 +314,6 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Калибровка компаса";
-
-/* Search category */
-"wifi" = "WiFi";
 
 /* Update all button text */
 "downloader_update_all_button" = "Обновить все";

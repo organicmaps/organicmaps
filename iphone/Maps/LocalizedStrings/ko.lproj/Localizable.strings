@@ -146,6 +146,9 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "치안대";
 
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi 인터넷";
+
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "재활용";
 
@@ -311,9 +314,6 @@
 
 /* Settings item title */
 "pref_calibration_title" = "나침반 보정";
-
-/* Search category */
-"wifi" = "WiFi 인터넷";
 
 /* Update all button text */
 "downloader_update_all_button" = "모두 업데이트";
