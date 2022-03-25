@@ -38,7 +38,7 @@ if [ ! -f "$TWINE_PATH/$TWINE_GEM" ] || ! gem list -i twine; then
     cd $TWINE_PATH \
     && rm -f *.gem \
     && gem build --output $TWINE_GEM \
-    && gem install $TWINE_GEM
+    && gem install --user-install $TWINE_GEM
   )
 fi
 
