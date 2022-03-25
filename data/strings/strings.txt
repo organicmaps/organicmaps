@@ -2640,6 +2640,41 @@
     zh-Hans = 警察
     zh-Hant = 警察局
 
+  [wifi]
+    comment = Search category for WiFi access; any changes should be duplicated in categories.txt @wifi!
+    tags = android,ios
+    en = WiFi
+    ar = واي-فاي
+    be = WiFi
+    bg = WiFi
+    cs = WiFi
+    da = WiFi
+    de = WLAN
+    el = WiFi
+    es = WiFi
+    fa = وای فای
+    fi = WiFi
+    fr = WiFi
+    hu = WiFi
+    id = WiFi
+    it = Wi-Fi
+    ja = 無線LAN
+    ko = WiFi 인터넷
+    nb = WiFi
+    nl = WiFi
+    pl = WiFi
+    pt = WiFi
+    pt-BR = WiFi
+    ro = Wi-Fi
+    ru = WiFi
+    sk = WiFi
+    th = WiFi
+    tr = WiFi
+    uk = WiFi
+    vi = WiFi
+    zh-Hans = 无线网络
+    zh-Hant = 無線網路
+
   [recycling]
     comment = Search category for recycling; any changes should be duplicated in categories.txt @recycling!
     tags = android,ios
@@ -4977,41 +5012,6 @@
     vi = Chuẩn hóa la bàn
     zh-Hans = 指南针校准
     zh-Hant = 指南針校準
-
-  [wifi]
-    comment = Search category
-    tags = android,ios
-    en = WiFi
-    ar = واي-فاي
-    be = WiFi
-    bg = WiFi
-    cs = WiFi
-    da = WiFi
-    de = WLAN
-    el = WiFi
-    es = WiFi
-    fa = وای فای
-    fi = WiFi
-    fr = WiFi
-    hu = WiFi
-    id = WiFi
-    it = Wi-Fi
-    ja = 無線LAN
-    ko = WiFi 인터넷
-    nb = WiFi
-    nl = WiFi
-    pl = WiFi
-    pt = WiFi
-    pt-BR = WiFi
-    ro = Wi-Fi
-    ru = WiFi
-    sk = WiFi
-    th = WiFi
-    tr = WiFi
-    uk = WiFi
-    vi = WiFi
-    zh-Hans = 无线网络
-    zh-Hant = 無線網路
 
   [downloader_update_all_button]
     comment = Update all button text
