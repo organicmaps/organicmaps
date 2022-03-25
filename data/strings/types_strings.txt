@@ -17709,66 +17709,12 @@
     zh-Hant = 景點
 
   [type.tourism.attraction.animal]
-    en = Attraction
-    ar = أماكن جذابة
-    cs = Atrakce
-    da = Attraktioner
-    de = Sehenswürdigkeit
-    el = Αξιοθέατα
-    es = Atracción turística
-    fa = گردشگری
-    fi = Nähtävyys
-    hu = Látnivaló
-    id = Atraksi
-    it = Attrattiva
+    ref = type.tourism.attraction
     ja = 動物
-    ko = 관광 명소
-    nb = Attraksjon
-    nl = Attractie
     pl = Atrakcje zwierzęce
-    pt = Atração turística
-    pt-BR = Atração turística
-    ro = Punct de atracție
-    ru = Достопримечательность
-    sk = Atrakcia
-    sv = Attraktion
-    th = การท่องเที่ยว
-    tr = Görülecek Yerler
-    uk = Пам’ятне місце
-    vi = Hấp dẫn
-    zh-Hans = 景点
-    zh-Hant = 景點
 
   [type.tourism.attraction.specified]
-    en = Attraction
-    ar = أماكن جذابة
-    cs = Atrakce
-    da = Attraktioner
-    de = Sehenswürdigkeit
-    el = Αξιοθέατα
-    es = Atracción turística
-    fa = گردشگری
-    fi = Nähtävyys
-    hu = Látnivaló
-    id = Atraksi
-    it = Attrattiva
-    ja = アトラクション
-    ko = 관광 명소
-    nb = Attraksjon
-    nl = Attractie
-    pl = Atrakcje
-    pt = Atração turística
-    pt-BR = Atração turística
-    ro = Punct de atracție
-    ru = Достопримечательность
-    sk = Atrakcia
-    sv = Attraktion
-    th = การท่องเที่ยว
-    tr = Görülecek Yerler
-    uk = Пам’ятне місце
-    vi = Hấp dẫn
-    zh-Hans = 景点
-    zh-Hant = 景點
+    ref = type.tourism.attraction
 
   [type.tourism.camp_site]
     en = Camping
