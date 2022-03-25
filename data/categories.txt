@@ -298,36 +298,36 @@ sk:Hotel|Hotely
 fa:هتل|هتل ها
 
 @tourism
-en:4Attractions|3Tourism|4Sights
-ru:3Туризм|4достопримечательности
-be:Славутасці|4турызм
-bg:4Туризъм|Забележителности
+en:3Sights|3Attractions|3Tourism
+ru:4Достопримечательности|3Туризм
+be:4Славутасці|4турызм
+bg:5Забележителности|4Туризъм
 ar:سياحة
 cs:Pamětihodnost
-da:4Turisme|Seværdigheder|3sightseeing
-nl:4Toerisme
-fi:Nähtävyydet
-fr:4Tourisme|4Attraction|Sites touristiques
-de:4Attraktion|4Tourismus|Touristenattraktion|Sehenswürdigkeit
-hu:4Túrizmus|Látnivaló
+da:5Seværdigheder|4Turisme|3sightseeing
+nl:5Bezienswaardigheden|4Toerisme
+fi:4Nähtävyydet
+fr:5Sites touristiques|4Tourisme|4Attraction
+de:4Sehenswürdigkeit|4Attraktion|4Tourismus|Touristenattraktion
+hu:4Látnivaló|4Túrizmus
 id:Pemandangan
-it:Luoghi turistici|4Turistico
+it:5Luoghi turistici|4Turistico
 ja:観光
 ko:관광
-nb:Severdigheter
-pl:Osobliwości miasta|Atrakcje turystyczne|Turystyka|zwiedzanie
-pt:Atrações turísticas|3Turismo|Miradouros
-pt-BR:Atração|3Turismo
-ro:Obiective turistice|4Turism
+nb:5Severdigheter
+pl:4Atrakcje turystyczne|Osobliwości miasta|Turystyka|zwiedzanie
+pt:4Atrações turísticas|3Turismo|Miradouros
+pt-BR:4Atraçãos|3Turismo
+ro:5Obiective turistice|4Turism
 es:4Turismo
-sv:4Attraktion|4Turism|Sevärdheter
+sv:4Sevärdheter|4Attraktion|4Turism
 th:สถานที่ท่องเที่ยว
-tr:Görülecek yerler|3Turizm
-uk:Пам’ятні місця|3туризм|4визначна річ
+tr:4Görülecek yerler|3Turizm
+uk:3Пам’ятні місця|3туризм|4Визначні пам'ятки
 vi:Diểm tham quan
 zh-Hans:景点
 zh-Hant:旅遊景點
-el:Αξιοθέατο
+el:4Αξιοθέατα
 he:נקודות עיניין
 sk:Pamätihodnosť
 fa:منظره|گردشگری
@@ -2205,9 +2205,9 @@ sw:Ukumbi|utalii
 fa:شهرداری
 
 tourism-attraction|@tourism
-en:3Attraction|U+1F3A0|U+1F3A1|U+1F3A2|U+1F3AA
-ru:4Достопримечательность
-bg:Забележителност|туристи
+en:4Attraction|U+1F3A0|U+1F3A1|U+1F3A2|U+1F3AA
+ru:5Достопримечательность
+bg:Забележителност
 ar:أماكن جذابة|سياحة|مناظر
 cs:3Atrakce|3pamětihodnost|3zajímavost
 da:3Attraktioner|3turisme|3sightseeing|3seværdigheder
@@ -2229,7 +2229,7 @@ es:3Atracción turística|3turismo
 sv:3Attraktion|3turism|3sevärdheter
 th:3การท่องเที่ยว|แหล่งท่องเที่ยว|สถานที่ท่องเที่ยว
 tr:3Cazibe merkezleri|3görülecek yerler
-uk:3Пам’ятка
+uk:3Пам’ятне місце
 vi:3Hấp dẫn|diểm tham quan
 zh-Hans:1景点|旅游|景点
 zh-Hant:1景點|3旅遊景點|旅遊|3觀光景點|觀光|名勝
