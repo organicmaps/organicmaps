@@ -10,6 +10,8 @@
 
 To build and run Organic Maps you'll need a machine with at least 4Gb of RAM and 20-30Gb of disk space depending on your target platform. Expect to download 5-10Gb of files.
 
+For _Windows_ you need to have [Git for Windows](https://git-scm.com/download/win) installed and Git bash available in the PATH.
+
 ## Getting sources
 
 First of all get the source code. The full Organic Maps sources repository is ~8.5Gb in size, there are various [clone options](#special-cases-options) to reduce download size to suit your needs.
@@ -20,7 +22,7 @@ For _Windows 10_ enable [symlinks](https://git-scm.com/docs/git-config#Documenta
 git config --global core.symlinks true
 ```
 
-Clone the repository including all submodules:
+Clone the repository including all submodules (see [Special cases options](#special-cases-options) below):
 
 (if you plan to contribute and propose pull requests then use a web interface at https://github.com/organicmaps/organicmaps to fork the repo first and use your fork's url in the command below)
 
@@ -38,10 +40,12 @@ Configure the repository for an opensource build:
 (if you plan to publish the app privately in stores check [special options](#special-cases-options))
 
 ```bash
-./configure.sh
+bash ./configure.sh
 ```
 
-For _Windows 10_: Use WSL to run `./configure.sh`:
+For _Windows 10_: Use WSL to run `./configure.sh`, or, alternatively, run the following command from the
+[Visual Studio Developer Command Prompt](https://docs.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022)
+and follow instructions:
 
 ```bash
 bash ./configure.sh # execute the script by using Ubuntu WSL VM
@@ -69,6 +73,7 @@ You need a Linux or a Mac machine to build a desktop version of Organic Maps.
 - We haven't compiled Organic Maps on Windows in a long time, though it is possible.
   It is likely some make files should be updated.
   If you succeed, please submit a tutorial.
+  You'll need to have python3, cmake, ninja in the PATH and also to have Qt5 installed.
 
 Ensure that you have at least 20GB of free space.
 
