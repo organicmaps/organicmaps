@@ -17703,7 +17703,7 @@
     sv = Attraktion
     th = การท่องเที่ยว
     tr = Görülecek Yerler
-    uk = Пам’ятка
+    uk = Пам’ятне місце
     vi = Hấp dẫn
     zh-Hans = 景点
     zh-Hant = 景點
@@ -17734,7 +17734,7 @@
     sv = Attraktion
     th = การท่องเที่ยว
     tr = Görülecek Yerler
-    uk = Пам’ятка
+    uk = Пам’ятне місце
     vi = Hấp dẫn
     zh-Hans = 景点
     zh-Hant = 景點
@@ -17765,7 +17765,7 @@
     sv = Attraktion
     th = การท่องเที่ยว
     tr = Görülecek Yerler
-    uk = Пам’ятка
+    uk = Пам’ятне місце
     vi = Hấp dẫn
     zh-Hans = 景点
     zh-Hant = 景點

@@ -2246,7 +2246,7 @@
     es = Turismo
     fa = منظره
     fi = Nähtävyydet
-    fr = Site touristique
+    fr = Sites touristiques
     he = נקודות עיניין
     hu = Látnivaló
     id = Pemandangan
@@ -2259,7 +2259,7 @@
     pt = Atrações turísticas
     pt-BR = Atrações
     ro = Obiective turistice
-    ru = Достопримечательность
+    ru = Достопримечательности
     sk = Pamätihodnosť
     sv = Sevärdheter
     th = สถานที่ท่องเที่ยว
