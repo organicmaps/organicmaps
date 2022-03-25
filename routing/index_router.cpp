@@ -1306,10 +1306,10 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       ASSERT_LESS(start, input.size(), ());
       ASSERT_LESS(end, input.size(), ());
 
-      /// @todo I don't like this strategy with clearing previous caches, taking into account
-      /// that all MWMs were quite likely already loaded before in calculating Leaps path.
+      // VNG: I don't like this strategy with clearing previous caches, taking into account
+      // that all MWMs were quite likely already loaded before in calculating Leaps path.
       // Clear previous loaded graphs to not spend too much memory at one time.
-      worldGraph.ClearCachedGraphs();
+      //worldGraph.ClearCachedGraphs();
 
       // Clear previous info about route.
       routingResult.Clear();
