@@ -6,10 +6,10 @@
 
   <ImageView
     android:layout_width="match_parent"
-    android:layout_height="6dp"
-    android:layout_marginTop="@dimen/margin_quarter_plus"
+    android:layout_height="4dp"
+    android:layout_marginTop="@dimen/margin_quarter"
     android:layout_marginBottom="@dimen/margin_eighth"
     android:src="@drawable/bottom_sheet_handle"
-    app:tint="?iconTintLight" />
+    app:tint="?colorControlHighlight" />
 
 </RelativeLayout>
