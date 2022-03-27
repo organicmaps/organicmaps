@@ -1,46 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:orientation="vertical"
+  android:id="@+id/menu_frame"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:clickable="true"
+  android:background="?menuBackground"
   android:visibility="invisible"
   tools:visibility="visible">
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
 
-    <FrameLayout
-      android:id="@+id/line_frame"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+  <include
+    android:id="@+id/buttons_frame"
+    layout="@layout/menu_buttons_line" />
 
-      <ImageView
-        android:id="@+id/toggle"
-        style="@style/MwmTheme.Menu.Line.Button.Toggle"
-        tools:layout_marginTop="60dp"/>
+  <include
+    android:id="@+id/routing_plan_frame"
+    layout="@layout/menu_route_plan_line"
+    tools:layout_height="@dimen/menu_line_height"
+    tools:layout_marginTop="60dp"
+    tools:layout_width="match_parent" />
 
-      <include
-        android:id="@+id/buttons_frame"
-        layout="@layout/menu_buttons_line"/>
-
-      <include
-        android:id="@+id/routing_plan_frame"
-        layout="@layout/menu_route_plan_line"
-        tools:layout_width="match_parent"
-        tools:layout_height="@dimen/menu_line_height"
-        tools:layout_marginTop="60dp"/>
-
-      <include
-        android:id="@+id/routing_action_frame"
-        layout="@layout/routing_action_panel"
-        android:visibility="gone"
-        tools:layout_width="match_parent"
-        tools:layout_height="wrap_content"
-        tools:layout_marginTop="60dp"/>
-    </FrameLayout>
-  </LinearLayout>
-</LinearLayout>
+  <include
+    android:id="@+id/routing_action_frame"
+    layout="@layout/routing_action_panel"
+    android:visibility="gone"
+    tools:layout_height="wrap_content"
+    tools:layout_marginTop="120dp"
+    tools:layout_width="match_parent"
+    tools:visibility="visible" />
+</FrameLayout>

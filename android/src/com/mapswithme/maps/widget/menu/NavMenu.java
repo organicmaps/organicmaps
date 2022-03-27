@@ -79,7 +79,7 @@ public class NavMenu
     });
 
     View mBottomFrame = mActivity.findViewById(R.id.nav_bottom_frame);
-    View headerFrame =  mBottomFrame.findViewById(R.id.line_frame);
+    View headerFrame = mBottomFrame.findViewById(R.id.line_frame);
     headerFrame.setOnClickListener(v -> toggleNavMenu());
 
     // Bottom frame
