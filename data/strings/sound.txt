@@ -1036,7 +1036,7 @@
     hr = Zatim
     hu = Majd
     id = Lalu.
-    it = Quindi
+    it = Poi
     ja = その先
     ko = 그 다음
     nl = Daarna
