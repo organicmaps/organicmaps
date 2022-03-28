@@ -54,7 +54,11 @@ public:
       return rect;
     }
 
-    std::vector<indexer::CityBoundary> const & GetBoundariesForTesting() const { return m_boundaries; }
+    template <class FnT> void ForEachBoundary(FnT && fn) const
+    {
+      for (size_t i = 0; i < m_boundaries.size(); ++i)
+        fn(m_boundaries[i], i);
+    }
 
     friend std::string DebugPrint(Boundaries const & boundaries)
     {

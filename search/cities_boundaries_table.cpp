@@ -115,7 +115,7 @@ void GetCityBoundariesInRectForTesting(CitiesBoundariesTable const & table, m2::
   {
     for (auto const & cb : kv.second)
     {
-      if (rect.IsIntersect(m2::RectD(cb.m_bbox.Min(), cb.m_bbox.Max())))
+      if (rect.IsIntersect(cb.m_bbox.ToRect()))
       {
         featureIds.push_back(kv.first);
         break;
