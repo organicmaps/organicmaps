@@ -15,25 +15,24 @@
 
 #include "3party/succinct/mapper.hpp"
 
-using namespace std;
+namespace feature
+{
 
 namespace
 {
 template <class TCont>
 void LoadAndMap(size_t dataSize, ReaderSource<FilesContainerR::TReader> & src, TCont & cont,
-                unique_ptr<CopiedMemoryRegion> & region)
+                std::unique_ptr<CopiedMemoryRegion> & region)
 {
-  vector<uint8_t> data(dataSize);
+  std::vector<uint8_t> data(dataSize);
   src.Read(data.data(), data.size());
-  region = make_unique<CopiedMemoryRegion>(move(data));
+  region = std::make_unique<CopiedMemoryRegion>(move(data));
   coding::MapVisitor visitor(region->ImmutableData());
   cont.map(visitor);
 }
 }  // namespace
 
-namespace feature
-{
-AltitudeLoader::AltitudeLoader(DataSource const & dataSource, MwmSet::MwmId const & mwmId)
+AltitudeLoaderBase::AltitudeLoaderBase(DataSource const & dataSource, MwmSet::MwmId const & mwmId)
   : m_handle(dataSource.GetMwmHandleById(mwmId))
 {
   if (!m_handle.IsAlive())
@@ -48,7 +47,7 @@ AltitudeLoader::AltitudeLoader(DataSource const & dataSource, MwmSet::MwmId cons
 
   try
   {
-    m_reader = make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(ALTITUDES_FILE_TAG));
+    m_reader = std::make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(ALTITUDES_FILE_TAG));
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     m_header.Deserialize(src);
 
@@ -63,32 +62,21 @@ AltitudeLoader::AltitudeLoader(DataSource const & dataSource, MwmSet::MwmId cons
   }
 }
 
-bool AltitudeLoader::HasAltitudes() const
+bool AltitudeLoaderBase::HasAltitudes() const
 {
   return m_reader != nullptr && m_header.m_minAltitude != geometry::kInvalidAltitude;
 }
 
-geometry::Altitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t pointCount)
+geometry::Altitudes AltitudeLoaderBase::GetAltitudes(uint32_t featureId, size_t pointCount)
 {
   if (!HasAltitudes())
   {
     // There's no altitude section in mwm.
-    return m_cache
-        .insert(
-            make_pair(featureId, geometry::Altitudes(pointCount, geometry::kDefaultAltitudeMeters)))
-        .first->second;
+    return geometry::Altitudes(pointCount, geometry::kDefaultAltitudeMeters);
   }
-
-  auto const it = m_cache.find(featureId);
-  if (it != m_cache.end())
-    return it->second;
 
   if (!m_altitudeAvailability[featureId])
-  {
-    return m_cache
-        .insert(make_pair(featureId, geometry::Altitudes(pointCount, m_header.m_minAltitude)))
-        .first->second;
-  }
+    return geometry::Altitudes(pointCount, m_header.m_minAltitude);
 
   uint64_t const r = m_altitudeAvailability.rank(featureId);
   CHECK_LESS(r, m_altitudeAvailability.size(), ("Feature Id", featureId, "of", m_countryFileName));
@@ -114,19 +102,24 @@ geometry::Altitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, siz
     {
       LOG(LERROR, ("Only a part point of a feature has a valid altitdue. Altitudes: ", altitudes.m_altitudes,
                    ". Feature Id", featureId, "of", m_countryFileName));
-      return m_cache
-          .insert(make_pair(featureId, geometry::Altitudes(pointCount, m_header.m_minAltitude)))
-          .first->second;
+      return geometry::Altitudes(pointCount, m_header.m_minAltitude);
     }
 
-    return m_cache.insert(make_pair(featureId, move(altitudes.m_altitudes))).first->second;
+    return std::move(altitudes.m_altitudes);
   }
   catch (Reader::OpenException const & e)
   {
     LOG(LERROR, ("Feature Id", featureId, "of", m_countryFileName, ". Error while getting altitude data:", e.Msg()));
-    return m_cache
-        .insert(make_pair(featureId, geometry::Altitudes(pointCount, m_header.m_minAltitude)))
-        .first->second;
+    return geometry::Altitudes(pointCount, m_header.m_minAltitude);
   }
+}
+
+geometry::Altitudes const & AltitudeLoaderCached::GetAltitudes(uint32_t featureId, size_t pointCount)
+{
+  auto const it = m_cache.find(featureId);
+  if (it != m_cache.end())
+    return it->second;
+
+  return m_cache.emplace(featureId, AltitudeLoaderBase::GetAltitudes(featureId, pointCount)).first->second;
 }
 }  // namespace feature

@@ -24,7 +24,7 @@
 #include <utility>
 #include <vector>
 
-namespace
+namespace get_altitude_tests
 {
 using namespace feature;
 using namespace platform;
@@ -44,10 +44,10 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId,
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
   TEST(regResult.first.IsAlive(), ());
 
-  unique_ptr<AltitudeLoader> altitudeLoader =
-      make_unique<AltitudeLoader>(dataSource, regResult.first /* mwmId */);
+  auto altitudeLoader = make_unique<AltitudeLoaderCached>(dataSource, regResult.first /* mwmId */);
 
-  ForEachFeature(country.GetPath(MapFileType::Map), [&](FeatureType & f, uint32_t const & id) {
+  ForEachFeature(country.GetPath(MapFileType::Map), [&](FeatureType & f, uint32_t const & id)
+  {
     if (!routing::IsRoad(TypesHolder(f)))
       return;
 
@@ -56,7 +56,7 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId,
     if (pointsCount == 0)
       return;
 
-    geometry::Altitudes altitudes = altitudeLoader->GetAltitudes(id, pointsCount);
+    geometry::Altitudes const & altitudes = altitudeLoader->GetAltitudes(id, pointsCount);
     TEST(!altitudes.empty(),
          ("Empty altitude vector. MWM:", countryId, ", feature id:", id, ", altitudes:", altitudes));
 
@@ -79,4 +79,4 @@ UNIT_TEST(AllMwmFeaturesGetAltitudeTest)
   TestAltitudeOfAllMwmFeatures("Netherlands_North Holland_Amsterdam", -25 /* altitudeLowerBoundMeters */,
                                50 /* altitudeUpperBoundMeters */);
 }
-}  // namespace
+}  // namespace get_altitude_tests
