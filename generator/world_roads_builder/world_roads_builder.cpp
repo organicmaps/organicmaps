@@ -64,7 +64,8 @@ RoadsFromOsm GetRoadsFromOsm(generator::SourceReader & reader,
 {
   RoadsFromOsm roadsFromOsm;
 
-  ProcessOsmElementsFromO5M(reader, [&roadsFromOsm, &highways](OsmElement && e) {
+  ProcessOsmElementsFromO5M(reader, [&roadsFromOsm, &highways](OsmElement && e)
+  {
     if (e.IsWay())
     {
       std::string const & highway = e.GetTag("highway");
