@@ -334,8 +334,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   {
     string const & country = genInfo.m_bucketNames[i];
     string const dataFile = genInfo.GetTargetFileName(country, DATA_FILE_EXTENSION);
-    string const osmToFeatureFilename =
-        genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
+    string const osmToFeatureFilename = dataFile + OSM2FEATURE_FILE_EXTENSION;
 
     if (FLAGS_generate_geometry)
     {
@@ -430,7 +429,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       generator::OsmIdToBoundariesTable table;
       if (!generator::DeserializeBoundariesTable(FLAGS_cities_boundaries_data, table))
         LOG(LCRITICAL, ("Error deserializing boundaries table"));
-      if (!generator::BuildCitiesBoundaries(dataFile, osmToFeatureFilename, table))
+      if (!generator::BuildCitiesBoundaries(dataFile, table))
         LOG(LCRITICAL, ("Error generating cities boundaries."));
     }
 

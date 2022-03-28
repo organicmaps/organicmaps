@@ -15,8 +15,7 @@ using OsmIdToBoundariesTable =
     base::ClusteringMap<base::GeoObjectId, indexer::CityBoundary>;
 using TestIdToBoundariesTable = base::ClusteringMap<uint64_t, indexer::CityBoundary>;
 
-bool BuildCitiesBoundaries(std::string const & dataPath, std::string const & osmToFeaturePath,
-                           OsmIdToBoundariesTable & table);
+bool BuildCitiesBoundaries(std::string const & dataPath, OsmIdToBoundariesTable & table);
 bool BuildCitiesBoundariesForTesting(std::string const & dataPath, TestIdToBoundariesTable & table);
 
 void SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable & table);

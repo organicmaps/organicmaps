@@ -96,20 +96,6 @@ public:
     }
   }
 
-  TagAdmixer(TagAdmixer const & other)
-    : m_ways(other.m_ways), m_capitals(other.m_capitals) {}
-
-  TagAdmixer & operator=(TagAdmixer const & other)
-  {
-    if (this != &other)
-    {
-      m_ways = other.m_ways;
-      m_capitals = other.m_capitals;
-    }
-
-    return *this;
-  }
-
   void Process(OsmElement & element) const
   {
     if (element.m_type == OsmElement::EntityType::Way)
