@@ -1124,11 +1124,11 @@ mapswithme
 *building|has_parts
 *organic|only
 *organic|yes
-mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
+*amenity|vending_machine|coffee
+*amenity|vending_machine|condoms
+*amenity|vending_machine|food
+*amenity|vending_machine|newspapers
+*amenity|vending_machine|sweets
 mapswithme
 mapswithme
 mapswithme
