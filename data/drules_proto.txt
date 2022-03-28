@@ -9649,48 +9649,32 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
-      color: 2157549977
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 1.8
+      color: 861802009
       priority: 1456
     }
   }
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 1301911961
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 2.2
+      color: 442371609
       priority: 1456
     }
   }
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1301911961
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 2.6
+      color: 442371609
       priority: 1456
     }
   }
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1301911961
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 2.6
+      color: 442371609
       priority: 1456
     }
   }
@@ -9763,8 +9747,8 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
-      color: 2157549977
+      width: 1.0
+      color: 855638016
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -9775,8 +9759,8 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 1301911961
+      width: 1.4
+      color: 436207616
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -9787,8 +9771,8 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1301911961
+      width: 1.8
+      color: 436207616
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -9799,8 +9783,8 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1301911961
+      width: 1.8
+      color: 436207616
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -9998,48 +9982,32 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
-      color: 2157549977
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 1.8
+      color: 861802009
       priority: 1456
     }
   }
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 1301911961
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 2.2
+      color: 442371609
       priority: 1456
     }
   }
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1301911961
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 2.6
+      color: 442371609
       priority: 1456
     }
   }
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1301911961
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 2.6
+      color: 442371609
       priority: 1456
     }
   }
@@ -10302,48 +10270,32 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
-      color: 2157549977
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 1.8
+      color: 861802009
       priority: 1456
     }
   }
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 1301911961
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 2.2
+      color: 442371609
       priority: 1456
     }
   }
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1301911961
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 2.6
+      color: 442371609
       priority: 1456
     }
   }
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1301911961
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 2.6
+      color: 442371609
       priority: 1456
     }
   }
@@ -30077,48 +30029,32 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
-      color: 2157549977
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 1.8
+      color: 861802009
       priority: 1456
     }
   }
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 1301911961
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 2.2
+      color: 442371609
       priority: 1456
     }
   }
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1301911961
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 2.6
+      color: 442371609
       priority: 1456
     }
   }
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1301911961
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
+      width: 2.6
+      color: 442371609
       priority: 1456
     }
   }

@@ -78,7 +78,9 @@
  @aerodrome5: #292133;
 
 /* 4.3 Barriers */
-@fence: #444444;
+@fence: #000000;
+@walls: #5e0e19;
+@hedge: #999999;
 
 /* 4.4 Buildings */
 

@@ -23,6 +23,8 @@
   8.1 Pier, dam, cutline
   8.2 Building
   8.3 Barrier
+  8.4 Fence
+  8.5 City-Wall
 9.ISOLINES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -679,36 +681,50 @@ area|z18-[landuse=garages],
 area|z18-[building=train_station],
 {fill-color: @building_dark;opacity: 1;casing-width: 1;casing-color: @building_dark_border;}
 
-/* 8.3 Barrier */
+/* 8.3 Barrier-Walls */
 
 line|z16-[barrier=wall],
-line|z16-[barrier=city_wall],
 line|z16-[barrier=retaining_wall],
-line|z16-[barrier=hedge],
-line|z16-[barrier=fence],
 line|z16-[historic=citywalls],
-{color: @fence;opacity: 1;}
-
+line|z16-[barrier=city_wall],
+{color: @walls;opacity: 1;}
+ 
 line|z16[barrier=wall],
-line|z16[barrier=city_wall],
 line|z16[barrier=retaining_wall],
-line|z16[barrier=fence],
-line|z16[barrier=hedge],
 line|z16[historic=citywalls],
-{width: 0.7;dashes: 0.12,0.12;opacity: 0.5;}
+line|z16-[barrier=city_wall],
+{width: 1.8;opacity: 0.8;}
 line|z17-[barrier=wall],
-line|z17-[barrier=city_wall],
 line|z17-[barrier=retaining_wall],
-line|z17-[barrier=fence],
-line|z17-[barrier=hedge],
 line|z17-[historic=citywalls],
-{width: 1.0;dashes: 0.25,0.25;opacity:0.7;}
+line|z17-[barrier=city_wall],
+{width: 2.2;opacity:0.9;}
 line|z18-[barrier=wall],
-line|z18-[barrier=city_wall],
 line|z18-[barrier=retaining_wall],
-line|z18-[barrier=fence],
-line|z18-[barrier=hedge],
 line|z18-[historic=citywalls],
+line|z18-[barrier=city_wall],
+{width: 2.6;}
+ 
+/* 8.4 Barrier-Fence */
+ 
+line|z16-[barrier=fence],
+{color: @fence; opacity: 1;}
+line|z16[barrier=fence],
+{width: 1.0;dashes: 0.12,0.12;opacity: 0.8;}
+line|z17-[barrier=fence],
+{width: 1.4;dashes: 0.25,0.25;opacity:0.9;}
+line|z18-[barrier=fence],
+{width: 1.8;dashes: 0.3,0.5;}
+
+/* 8.5 Barrier-Hedge */
+ 
+line|z16-[barrier=hedge],
+{color: @hedge;opacity: 1;}
+line|z16[barrier=hedge],
+{width: 0.7;dashes: 0.12,0.12;opacity: 0.5;}
+line|z17-[barrier=hedge],
+{width: 1.0;dashes: 0.25,0.25;opacity:0.7;}
+line|z18-[barrier=hedge],
 {width: 1.4;dashes: 0.3,0.3;}
 
 /* 9. ISOLINES */
