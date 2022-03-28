@@ -3214,18 +3214,16 @@ void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
       id += ", name:" + name;
     }
 
-    size_t const boundariesSize = boundaries.GetBoundariesForTesting().size();
-    for (size_t i = 0; i < boundariesSize; ++i)
+    boundaries.ForEachBoundary([&id, this](indexer::CityBoundary const & cityBoundary, size_t i)
     {
       string idWithIndex = id;
-      auto const & cityBoundary = boundaries.GetBoundariesForTesting()[i];
-      if (boundariesSize > 1)
-        idWithIndex = id + " , i:" + strings::to_string(i);
+      if (i > 0)
+        idWithIndex = id + ", i:" + strings::to_string(i);
 
       DrawLine(cityBoundary.m_bbox, cityBoundaryBBColor, m_drapeApi, idWithIndex + ", bb");
       DrawLine(cityBoundary.m_cbox, cityBoundaryCBColor, m_drapeApi, idWithIndex + ", cb");
       DrawLine(cityBoundary.m_dbox, cityBoundaryDBColor, m_drapeApi, idWithIndex + ", db");
-    }
+    });
   }
 }
 
