@@ -8,6 +8,7 @@
   android:theme="?navButtonsTheme"
   android:layout_marginBottom="@dimen/nav_menu_height"
   android:padding="@dimen/nav_frame_padding"
+  android:layoutDirection="ltr"
   tools:background="@color/bg_primary">
 
   <View
