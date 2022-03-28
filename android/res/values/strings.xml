@@ -829,9 +829,14 @@
 	<string name="type.amenity.university">University</string>
 	<string name="type.amenity.vending_machine">Vending Machine</string>
 	<string name="type.amenity.vending_machine.cigarettes">Cigarette Dispenser</string>
+	<string name="type.amenity.vending_machine.coffee">Coffee Dispenser</string>
+	<string name="type.amenity.vending_machine.condoms">Condoms Dispenser</string>
 	<string name="type.amenity.vending_machine.drinks">Drinks Dispenser</string>
+	<string name="type.amenity.vending_machine.food">Food Dispenser</string>
+	<string name="type.amenity.vending_machine.newspapers">Newspapers Dispenser</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parking Tickets</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Ticket Machine</string>
+	<string name="type.amenity.vending_machine.sweets">Sweets Dispenser</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Excrement Bags Dispenser</string>
 	<string name="type.amenity.parcel_locker">Parcel Locker</string>
 	<string name="type.amenity.vending_machine.fuel">Fuel Dispenser</string>

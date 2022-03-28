@@ -1443,11 +1443,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Аўтамат з цыгарэтамі";
 
+"type.amenity.vending_machine.coffee" = "Кававы аўтамат";
+
+"type.amenity.vending_machine.condoms" = "Аўтамат з прэзерватывамі";
+
 "type.amenity.vending_machine.drinks" = "Аўтамат з напоямі";
+
+"type.amenity.vending_machine.food" = "Аўтамат з ежай";
+
+"type.amenity.vending_machine.newspapers" = "Газетны аўтамат";
 
 "type.amenity.vending_machine.parking_tickets" = "Паркамат";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Аўтамат па продажы білетаў";
+
+"type.amenity.vending_machine.sweets" = "Аўтамат з прысмакамі";
 
 "type.amenity.vending_machine.excrement_bags" = "Мяшкі дзеля экскрыментаў";
 

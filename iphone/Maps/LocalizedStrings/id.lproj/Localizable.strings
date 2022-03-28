@@ -1443,11 +1443,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Mesin rokok";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Mesin penjual minuman";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Mesin pembayaran tiket parkir";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Mesin penjual otomatis tiket transportasi umum";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
