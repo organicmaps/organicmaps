@@ -117,11 +117,16 @@ world  +
         university  -
         vending_machine  +
             cigarettes  -
+            coffee  -
+            condoms  -
             drinks  -
             excrement_bags  -
+            food  -
             fuel  -
+            newspapers  -
             parking_tickets  -
             public_transport_tickets  -
+            sweets  -
             {}
         veterinary  -
         waste_basket  -
