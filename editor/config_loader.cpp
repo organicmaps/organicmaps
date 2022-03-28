@@ -13,6 +13,8 @@
 
 #include "3party/pugixml/src/pugixml.hpp"
 
+namespace editor
+{
 using namespace std;
 
 namespace
@@ -23,8 +25,8 @@ auto const kConfigFileName = "editor.config";
 auto const kHashFileName = "editor.config.hash";
 
 auto const kSynchroTimeout = chrono::hours(4);
-auto const kRemoteHashUrl = "http://osmz.ru/mwm/editor.config.date";
-auto const kRemoteConfigUrl = "http://osmz.ru/mwm/editor.config";
+auto const kRemoteHashUrl = "https://cdn.organicmaps.app/editor.config.date";
+auto const kRemoteConfigUrl = "https://cdn.organicmaps.app/editor.config";
 
 string GetConfigFilePath() { return GetPlatform().WritablePathForFile(kConfigFileName); }
 string GetHashFilePath() { return GetPlatform().WritablePathForFile(kHashFileName); }
@@ -51,8 +53,6 @@ string RunSimpleHttpRequest(string const & url)
 }
 }  // namespace
 
-namespace editor
-{
 void Waiter::Interrupt()
 {
   {
@@ -137,7 +137,8 @@ void ConfigLoader::LoadFromLocal(pugi::xml_document & doc)
 
   try
   {
-    reader = GetPlatform().GetReader(kConfigFileName);
+    // Get config file from WritableDir first.
+    reader = GetPlatform().GetReader(kConfigFileName, "wr");
   }
   catch (RootException const & ex)
   {
