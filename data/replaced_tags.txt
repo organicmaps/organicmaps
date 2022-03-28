@@ -52,6 +52,9 @@ amenity=monastery : amenity=place_of_worship
 amenity=parking_entrance : amenity=parking
 vending=parcel_pickup;parcel_mail_in : amenity=parcel_locker | u
 vending=parcel_pickup : amenity=parcel_locker | u
+vending=water : vending=drinks
+vending=milk : vending=drinks
+vending=bread : vending=food
 
 building=entrance : entrance=yes
 
