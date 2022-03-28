@@ -20,10 +20,10 @@
 
 #include <limits>
 
-using namespace std;
-
 namespace routing
 {
+using namespace std;
+
 namespace
 {
 uint32_t constexpr kPowOfTwoForFeatureCacheSize = 10; // cache contains 2 ^ kPowOfTwoForFeatureCacheSize elements
@@ -41,7 +41,7 @@ FeaturesRoadGraph::Value::Value(DataSource const & dataSource, MwmSet::MwmHandle
   if (!m_mwmHandle.IsAlive())
     return;
 
-  m_altitudeLoader = make_unique<feature::AltitudeLoader>(dataSource, m_mwmHandle.GetId());
+  m_altitudeLoader = make_unique<feature::AltitudeLoaderCached>(dataSource, m_mwmHandle.GetId());
 }
 
 FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(

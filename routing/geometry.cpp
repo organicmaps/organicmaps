@@ -90,7 +90,7 @@ private:
   RoadAttrsGetter m_attrsGetter;
   FeaturesLoaderGuard m_guard;
   string const m_country;
-  feature::AltitudeLoader m_altitudeLoader;
+  feature::AltitudeLoaderBase m_altitudeLoader;
   bool const m_loadAltitudes;
 };
 
@@ -119,15 +119,11 @@ void GeometryLoaderImpl::Load(uint32_t featureId, RoadGeometry & road)
 
   feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-  geometry::Altitudes const * altitudes = nullptr;
+  geometry::Altitudes altitudes;
   if (m_loadAltitudes)
-    altitudes = &(m_altitudeLoader.GetAltitudes(featureId, feature->GetPointsCount()));
+    altitudes = m_altitudeLoader.GetAltitudes(featureId, feature->GetPointsCount());
 
-  road.Load(*m_vehicleModel, *feature, altitudes, m_attrsGetter);
-
-  /// @todo Hm, if RoadGeometry will be cached in a caller, need to reconsider this logic,
-  /// because it's strange to clear cache after each Load call :)
-  m_altitudeLoader.ClearCache();
+  road.Load(*m_vehicleModel, *feature, altitudes.empty() ? nullptr : &altitudes, m_attrsGetter);
 }
 
 // FileGeometryLoader ------------------------------------------------------------------------------

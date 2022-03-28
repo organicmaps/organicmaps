@@ -16,24 +16,16 @@ class DataSource;
 
 namespace feature
 {
-// @TODO(bykoianko) |m_altitudeAvailability| and |m_featureTable| are saved without
-// taking into account endianness. It should be fixed. The plan is
-// * to use one bit form AltitudeHeader::m_version for keeping information about endianness. (Zero
-//   should be used for big endian.)
-// * to check the endianness of the reader and the bit while reading and to use an appropriate
-//   methods for reading.
-class AltitudeLoader
+class AltitudeLoaderBase
 {
 public:
-  AltitudeLoader(DataSource const & dataSource, MwmSet::MwmId const & mwmId);
+  AltitudeLoaderBase(DataSource const & dataSource, MwmSet::MwmId const & mwmId);
 
   /// \returns altitude of feature with |featureId|. All items of the returned vector are valid
   /// or the returned vector is empty.
-  geometry::Altitudes const & GetAltitudes(uint32_t featureId, size_t pointCount);
+  geometry::Altitudes GetAltitudes(uint32_t featureId, size_t pointCount);
 
   bool HasAltitudes() const;
-
-  void ClearCache() { m_cache.clear(); }
 
 private:
   std::unique_ptr<CopiedMemoryRegion> m_altitudeAvailabilityRegion;
@@ -43,9 +35,26 @@ private:
   succinct::elias_fano m_featureTable;
 
   std::unique_ptr<FilesContainerR::TReader> m_reader;
-  std::map<uint32_t, geometry::Altitudes> m_cache;
   AltitudeHeader m_header;
   std::string m_countryFileName;
   MwmSet::MwmHandle m_handle;
+};
+
+class AltitudeLoaderCached : public AltitudeLoaderBase
+{
+public:
+  AltitudeLoaderCached(DataSource const & dataSource, MwmSet::MwmId const & mwmId)
+    : AltitudeLoaderBase(dataSource, mwmId)
+  {
+  }
+
+  /// \returns altitude of feature with |featureId|. All items of the returned vector are valid
+  /// or the returned vector is empty.
+  geometry::Altitudes const & GetAltitudes(uint32_t featureId, size_t pointCount);
+
+  void ClearCache() { m_cache.clear(); }
+
+private:
+  std::map<uint32_t, geometry::Altitudes> m_cache;
 };
 }  // namespace feature
