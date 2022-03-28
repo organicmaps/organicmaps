@@ -778,9 +778,14 @@
 	<string name="type.amenity.university">Université</string>
 	<string name="type.amenity.vending_machine">Distributeur automatique</string>
 	<string name="type.amenity.vending_machine.cigarettes">Distributeur de cigarettes</string>
+	<string name="type.amenity.vending_machine.coffee">Distributeur de café</string>
+	<string name="type.amenity.vending_machine.condoms">Distributeur de préservatifs</string>
 	<string name="type.amenity.vending_machine.drinks">Distributeur de boissons</string>
+	<string name="type.amenity.vending_machine.food">Distributeur de aliments</string>
+	<string name="type.amenity.vending_machine.newspapers">Distributeur de journaux</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Horodateur</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Distributeur de billets de transport en commun</string>
+	<string name="type.amenity.vending_machine.sweets">Distributeur de bonbons</string>
 	<string name="type.amenity.veterinary">Docteur vétérinaire</string>
 	<string name="type.amenity.waste_basket">Poubelle</string>
 	<string name="type.amenity.waste_disposal">Déchets</string>

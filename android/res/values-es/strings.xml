@@ -795,9 +795,14 @@
 	<string name="type.amenity.university">Universidad</string>
 	<string name="type.amenity.vending_machine">Máquina expendedora</string>
 	<string name="type.amenity.vending_machine.cigarettes">Máquina expendedora de tabaco</string>
+	<string name="type.amenity.vending_machine.coffee">Máquina expendedora de café</string>
+	<string name="type.amenity.vending_machine.condoms">Máquina expendedora de condones</string>
 	<string name="type.amenity.vending_machine.drinks">Máquina expendedora de bebidas</string>
+	<string name="type.amenity.vending_machine.food">Máquina expendedora de comida</string>
+	<string name="type.amenity.vending_machine.newspapers">Máquina expendedora de periódicos</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Máquina de pago de tique de aparcamiento</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de boletos para el transporte público</string>
+	<string name="type.amenity.vending_machine.sweets">Máquina expendedora de dulces</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Maquina expendedora de bolsas para excrementos</string>
 	<string name="type.amenity.parcel_locker">Taquilla de paquetes</string>
 	<string name="type.amenity.veterinary">Clínica veterinaria</string>

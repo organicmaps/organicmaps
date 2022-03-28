@@ -1443,11 +1443,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Distributeur de cigarettes";
 
+"type.amenity.vending_machine.coffee" = "Distributeur de café";
+
+"type.amenity.vending_machine.condoms" = "Distributeur de préservatifs";
+
 "type.amenity.vending_machine.drinks" = "Distributeur de boissons";
+
+"type.amenity.vending_machine.food" = "Distributeur de aliments";
+
+"type.amenity.vending_machine.newspapers" = "Distributeur de journaux";
 
 "type.amenity.vending_machine.parking_tickets" = "Horodateur";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Distributeur de billets de transport en commun";
+
+"type.amenity.vending_machine.sweets" = "Distributeur de bonbons";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 

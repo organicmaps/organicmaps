@@ -815,9 +815,14 @@
 	<string name="type.amenity.university">Университет</string>
 	<string name="type.amenity.vending_machine">Торговый автомат</string>
 	<string name="type.amenity.vending_machine.cigarettes">Автомат с сигаретами</string>
+	<string name="type.amenity.vending_machine.coffee">Кофейный автомат</string>
+	<string name="type.amenity.vending_machine.condoms">Автомат с презервативами</string>
 	<string name="type.amenity.vending_machine.drinks">Автомат с напитками</string>
+	<string name="type.amenity.vending_machine.food">Автомат с едой</string>
+	<string name="type.amenity.vending_machine.newspapers">Газетный автомат</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Паркомат</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Автомат по продаже билетов</string>
+	<string name="type.amenity.vending_machine.sweets">Автомат со сладостями</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Пакеты для экскрементов</string>
 	<string name="type.amenity.parcel_locker">Почтомат</string>
 	<string name="type.amenity.vending_machine.fuel">Топливная колонка</string>

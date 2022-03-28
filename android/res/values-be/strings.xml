@@ -708,9 +708,14 @@
 	<string name="type.amenity.sanitary_dump_station">Зліў для прыбіральняў транспартных сродкаў</string>
 	<string name="type.amenity.vending_machine">Гандлёвы аўтамат</string>
 	<string name="type.amenity.vending_machine.cigarettes">Аўтамат з цыгарэтамі</string>
+	<string name="type.amenity.vending_machine.coffee">Кававы аўтамат</string>
+	<string name="type.amenity.vending_machine.condoms">Аўтамат з прэзерватывамі</string>
 	<string name="type.amenity.vending_machine.drinks">Аўтамат з напоямі</string>
+	<string name="type.amenity.vending_machine.food">Аўтамат з ежай</string>
+	<string name="type.amenity.vending_machine.newspapers">Газетны аўтамат</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Паркамат</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Аўтамат па продажы білетаў</string>
+	<string name="type.amenity.vending_machine.sweets">Аўтамат з прысмакамі</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Мяшкі дзеля экскрыментаў</string>
 	<string name="type.amenity.parcel_locker">Паштамат</string>
 	<string name="type.amenity.vending_machine.fuel">Паліўная калонка</string>
