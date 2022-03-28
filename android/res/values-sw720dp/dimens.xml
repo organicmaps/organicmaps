@@ -1,7 +1,6 @@
 <resources>
   <dimen name="dialog_max_height">600dp</dimen>
 
-  <dimen name="nav_menu_height">40dp</dimen>
   <dimen name="nav_menu_content_height">64dp</dimen>
   <dimen name="nav_street_height">56dp</dimen>
   <dimen name="nav_street_left">152dp</dimen>

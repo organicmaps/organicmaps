@@ -28,7 +28,6 @@
       style="?attr/bottomSheetStyle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:behavior_peekHeight="@dimen/nav_header_height"
       app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
       <include layout="@layout/layout_nav_bottom" />

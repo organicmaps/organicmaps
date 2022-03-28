@@ -30,6 +30,7 @@ public class NavMenu
 {
   private final BottomSheetBehavior<View> mNavBottomSheetBehavior;
   private final View mBottomSheetBackground;
+  private final View mHeaderFrame;
 
   private final ImageView mTts;
   private final View mSpeedViewContainer;
@@ -47,10 +48,16 @@ public class NavMenu
   private final AppCompatActivity mActivity;
   private final NavMenuListener mNavMenuListener;
 
+  private int currentPeekHeight = 0;
+
   public NavMenu(AppCompatActivity activity, NavMenuListener navMenuListener)
   {
     mActivity = activity;
     mNavMenuListener = navMenuListener;
+    View mBottomFrame = mActivity.findViewById(R.id.nav_bottom_frame);
+    mHeaderFrame = mBottomFrame.findViewById(R.id.line_frame);
+    mHeaderFrame.setOnClickListener(v -> toggleNavMenu());
+    mHeaderFrame.addOnLayoutChangeListener((view, i, i1, i2, i3, i4, i5, i6, i7) -> setPeekHeight());
     mNavBottomSheetBehavior = BottomSheetBehavior.from(mActivity.findViewById(R.id.nav_bottom_sheet));
     mBottomSheetBackground = mActivity.findViewById(R.id.nav_bottom_sheet_background);
     mBottomSheetBackground.setOnClickListener(v -> collapseNavBottomSheet());
@@ -77,10 +84,6 @@ public class NavMenu
         mBottomSheetBackground.setAlpha(slideOffset);
       }
     });
-
-    View mBottomFrame = mActivity.findViewById(R.id.nav_bottom_frame);
-    View headerFrame = mBottomFrame.findViewById(R.id.line_frame);
-    headerFrame.setOnClickListener(v -> toggleNavMenu());
 
     // Bottom frame
     mSpeedViewContainer = mBottomFrame.findViewById(R.id.speed_view_container);
@@ -131,6 +134,16 @@ public class NavMenu
       expandNavBottomSheet();
   }
 
+  public void setPeekHeight()
+  {
+    int headerHeight = mHeaderFrame.getHeight();
+    if (currentPeekHeight != headerHeight)
+    {
+      currentPeekHeight = headerHeight;
+      mNavBottomSheetBehavior.setPeekHeight(currentPeekHeight);
+    }
+  }
+
   public void collapseNavBottomSheet()
   {
     mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -169,9 +182,9 @@ public class NavMenu
   {
     final long hours = TimeUnit.SECONDS.toHours(seconds);
     final long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
-    UiUtils.setTextAndShow(mTimeMinuteValue, String.valueOf(minutes));
+    mTimeMinuteValue.setText(String.valueOf(minutes));
     String min = mActivity.getResources().getString(R.string.minute);
-    UiUtils.setTextAndShow(mTimeMinuteUnits, min);
+    mTimeMinuteUnits.setText(min);
     if (hours == 0)
     {
       UiUtils.hide(mTimeHourUnits, mTimeHourValue);
@@ -186,11 +199,12 @@ public class NavMenu
   {
     final Calendar currentTime = Calendar.getInstance();
     currentTime.add(Calendar.SECOND, seconds);
-    final DateFormat timeFormat12 = new SimpleDateFormat("h:mm aa", Locale.getDefault());
-    final DateFormat timeFormat24 = new SimpleDateFormat("HH:mm", Locale.getDefault());
-    boolean is24Format = android.text.format.DateFormat.is24HourFormat(mTimeMinuteValue.getContext());
-    UiUtils.setTextAndShow(mTimeEstimate, is24Format ? timeFormat24.format(currentTime.getTime())
-        : timeFormat12.format(currentTime.getTime()));
+    DateFormat timeFormat;
+    if (android.text.format.DateFormat.is24HourFormat(mTimeMinuteValue.getContext()))
+      timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    else
+      timeFormat = new SimpleDateFormat("h:mm aa", Locale.getDefault());
+    mTimeEstimate.setText(timeFormat.format(currentTime.getTime()));
   }
 
 

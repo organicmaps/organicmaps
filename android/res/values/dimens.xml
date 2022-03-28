@@ -127,15 +127,14 @@
   <dimen name="nav_numbers_margin">8dp</dimen>
   <dimen name="nav_numbers_side_min_width">90dp</dimen>
   <dimen name="nav_numbers_center_min_width">130dp</dimen>
-  <dimen name="nav_progress">4dp</dimen>
+  <dimen name="nav_progress">4sp</dimen>
   <dimen name="nav_progress_head">2dp</dimen>
   <dimen name="nav_button_width">200dp</dimen>
   <dimen name="nav_button_height">@dimen/primary_button_min_height</dimen>
   <dimen name="nav_icon_size">48dp</dimen>
   <dimen name="nav_bottom_gap">12dp</dimen>
   <dimen name="nav_menu_top_offset">0dp</dimen>
-  <dimen name="nav_header_height">68dp</dimen>
-  <dimen name="nav_numbers_height">54dp</dimen>
+  <dimen name="nav_numbers_height">54sp</dimen>
   <dimen name="nav_menu_content_height">64dp</dimen>
   <dimen name="nav_menu_landscape_width">360dp</dimen>
 
