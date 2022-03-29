@@ -3384,6 +3384,22 @@
     zh-Hans = 香烟售货机
     zh-Hant = 香菸自動販賣機
 
+  [type.amenity.vending_machine.coffee]
+    en = Coffee Dispenser
+    be = Кававы аўтамат
+    es = Máquina expendedora de café
+    fr = Distributeur de café
+    ru = Кофейный автомат
+    uk = Кавовий автомат
+
+  [type.amenity.vending_machine.condoms]
+    en = Condoms Dispenser
+    be = Аўтамат з прэзерватывамі
+    es = Máquina expendedora de condones
+    fr = Distributeur de préservatifs
+    ru = Автомат с презервативами
+    uk = Автомат з презервативами
+
   [type.amenity.vending_machine.drinks]
     en = Drinks Dispenser
     ar = ماكينة بيع مشروبات
@@ -3416,6 +3432,22 @@
     vi = Máy bán thức uống
     zh-Hans = 饮料售货机
     zh-Hant = 飲料自動販賣機
+
+  [type.amenity.vending_machine.food]
+    en = Food Dispenser
+    be = Аўтамат з ежай
+    es = Máquina expendedora de comida
+    fr = Distributeur de aliments
+    ru = Автомат с едой
+    uk = Автомат з їжею
+
+  [type.amenity.vending_machine.newspapers]
+    en = Newspapers Dispenser
+    be = Газетны аўтамат
+    es = Máquina expendedora de periódicos
+    fr = Distributeur de journaux
+    ru = Газетный автомат
+    uk = Газетний автомат
 
   [type.amenity.vending_machine.parking_tickets]
     en = Parking Tickets
@@ -3484,6 +3516,14 @@
     vi = Máy bán vé phương tiện công cộng tự động
     zh-Hans = 公共交通售票机
     zh-Hant = 公共交通售票機
+
+  [type.amenity.vending_machine.sweets]
+    en = Sweets Dispenser
+    be = Аўтамат з прысмакамі
+    es = Máquina expendedora de dulces
+    fr = Distributeur de bonbons
+    ru = Автомат со сладостями
+    uk = Автомат із солодощами
 
   [type.amenity.vending_machine.excrement_bags]
     en = Excrement Bags Dispenser

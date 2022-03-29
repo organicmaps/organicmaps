@@ -7989,6 +7989,22 @@ el:Αυτόματος πωλητής τσιγάρων
 sk:Automat na cigarety
 fa:ماشین سیگار فروشی
 
+amenity-vending_machine-coffee
+en:4Coffee Dispenser|Coffee
+be:3Кававы аўтамат|кава
+es:Máquina expendedora de café|Café
+fr:Distributeur de café|Café
+ru:3Кофейный автомат|кофе|кофемат
+uk:3Кавовий автомат|кава
+
+amenity-vending_machine-condoms
+en:4Condoms Dispenser|Condoms|Condomat
+be:Аўтамат з прэзерватывамі|5прэзерватывы|5кандамат
+es:Máquina expendedora de condones|Condones
+fr:Distributeur de préservatifs|Préservatifs
+ru:Автомат с презервативами|5презервативы|5кондомат
+uk:Автомат з презервативами|5презервативи|5кондомат
+
 amenity-vending_machine-drinks
 en:4Drinks Dispenser|4Beverages
 ru:Автомат с напитками|Газировка|4Напитки|3Соки
@@ -8022,6 +8038,14 @@ zh-Hant:飲料自動販賣機
 el:Αυτόματος πωλητής ποτών
 sk:Nápojový automat
 fa:ماشین فروش نوشیدنی
+
+amenity-vending_machine-food|@food
+en:4Food Dispenser|Food|Snacks
+be:Аўтамат з ежай|5перакус|4снэкі
+es:Máquina expendedora de comida|Comida|Snacks
+fr:Distributeur de aliments|Aliments
+ru:Автомат с едой|5перекус|4снэки
+uk:Автомат з їжею|5перекус|4снекі
 
 amenity-vending_machine-parking_tickets|@parking
 en:4Parking Tickets|3Pay and Display|Parkomat|Parking Meter
@@ -8091,6 +8115,22 @@ uk:Автомат з продажу квитків
 vi:Máy bán vé phương tiện công cộng tự động
 zh-Hans:公共交通售票机
 zh-Hant:公共交通售票機
+
+amenity-vending_machine-newspapers
+en:4Newspaper Dispenser|Newspapers
+be:Газетны аўтамат|газетамат|3газеты|4прэса
+es:Máquina expendedora de periódicos|Periódicos
+fr:Distributeur de journaux|Journaux
+ru:Газетный автомат|газетомат|3газеты|4пресса
+uk:Газетний автомат|газетомат|3газети|4преса
+
+amenity-vending_machine-sweets
+en:4Sweets Dispenser|Sweets|4Candies|Lollies
+be:Аўтамат з прысмакамі|4прысмакі|4цукеркі
+es:Máquina expendedora de dulces|Dulces|Chuches|Chucherías
+fr:Distributeur de bonbons|Bonbons
+ru:Автомат со сладостями|4сладости|4конфеты
+uk:Автомат із солодощами|4солодощі|4цукерки
 
 amenity-vending_machine-excrement_bags
 en:5Excrement Bags Dispenser|4Poop Bags|3Dog Poop Bags|Animal Waste
