@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "청회색";
 
-/* Wi-Fi available */
-"WiFi_available" = "네";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "루트를 재구축하길 원하시나요?";
 
-"redirect_route_yes" = "네";
+/* A generic "Yes" button in dialogs */
+"yes" = "네";
 
-"redirect_route_no" = "아니오";
+/* A generic "No" button in dialogs */
+"no" = "아니오";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "네";
+
+/* E.g. "WiFi:No" */
+"no_available" = "아니오";
 
 "trip_finished" = "도착했습니다!";
 

@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "Gråblå";
 
-/* Wi-Fi available */
-"WiFi_available" = "Ja";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "Vil du planlegge en rute på nytt?";
 
-"redirect_route_yes" = "Ja";
+/* A generic "Yes" button in dialogs */
+"yes" = "Ja";
 
-"redirect_route_no" = "Nei";
+/* A generic "No" button in dialogs */
+"no" = "Nei";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Ja";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Nei";
 
 "trip_finished" = "Du har ankommet!";
 

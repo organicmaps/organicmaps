@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "Azul escuro";
 
-/* Wi-Fi available */
-"WiFi_available" = "Sim";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "Você deseja retraçar a rota?";
 
-"redirect_route_yes" = "Sim";
+/* A generic "Yes" button in dialogs */
+"yes" = "Sim";
 
-"redirect_route_no" = "Não";
+/* A generic "No" button in dialogs */
+"no" = "Não";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Sim";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Não";
 
 "trip_finished" = "Você chegou!";
 

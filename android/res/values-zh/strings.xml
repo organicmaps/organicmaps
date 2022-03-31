@@ -298,8 +298,6 @@
 	<string name="gray">灰色</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">蓝灰色</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">是</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">按照路线行进时，请谨记：</string>
@@ -604,6 +602,14 @@
 	<string name="avoid_toll_roads_placepage">规避收费公路</string>
 	<string name="avoid_unpaved_roads_placepage">规避土路</string>
 	<string name="avoid_ferry_crossing_placepage">规避渡輪渡口</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">是</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">否</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">是</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">否</string>
 	<string name="ok">好的</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">分类……</string>

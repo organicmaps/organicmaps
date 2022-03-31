@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "Kijivu Buluu";
 
-/* Wi-Fi available */
-"WiFi_available" = "Yes";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "Je, unataka kuunda upya njia?";
 
-"redirect_route_yes" = "Ndio";
+/* A generic "Yes" button in dialogs */
+"yes" = "Ndio";
 
-"redirect_route_no" = "Hapana";
+/* A generic "No" button in dialogs */
+"no" = "Hapana";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Ndio";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Hapana";
 
 "trip_finished" = "Umefika!";
 

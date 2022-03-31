@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "Modro sivá";
 
-/* Wi-Fi available */
-"WiFi_available" = "Áno";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "Chcete znova vytvoriť trasu?";
 
-"redirect_route_yes" = "Áno";
+/* A generic "Yes" button in dialogs */
+"yes" = "Áno";
 
-"redirect_route_no" = "Nie";
+/* A generic "No" button in dialogs */
+"no" = "Nie";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Áno";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Nie";
 
 "trip_finished" = "Prišli ste do cieľa!";
 

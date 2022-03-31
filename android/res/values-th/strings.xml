@@ -292,8 +292,6 @@
 	<string name="gray">สีเทา</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">สีฟ้าอมเทา</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">ใช่</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">ขณะกำลังเดินทางตามเส้นทาง โปรดจำไว้ว่า:</string>
@@ -596,6 +594,14 @@
 	<string name="avoid_toll_roads_placepage">เลี่ยงทางที่ต้องเสียเงินทั้งหมด</string>
 	<string name="avoid_unpaved_roads_placepage">เลี่ยงถนนดินทั้งหมด</string>
 	<string name="avoid_ferry_crossing_placepage">เลี่ยงการข้ามฟากด้วยเรือ</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">ใช่</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">ไม่ใช่</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">ใช่</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">ไม่ใช่</string>
 	<string name="ok">โอเค</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">เรียง…</string>

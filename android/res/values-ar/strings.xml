@@ -292,8 +292,6 @@
 	<string name="gray">رمادي</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">رمادي أزرق</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">نعم</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">عند اتباع المسار، يُرجى وضع ما يلي في الاعتبار:</string>
@@ -598,6 +596,14 @@
 	<string name="avoid_toll_roads_placepage">تجنب نقاط تحصيل الرسوم</string>
 	<string name="avoid_unpaved_roads_placepage">تجنب الطرق الغير ممهدة</string>
 	<string name="avoid_ferry_crossing_placepage">تجنب تقاطع العبارات</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">نعم</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">لا</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">نعم</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">لا</string>
 	<string name="ok">موافق</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">تريتب…</string>

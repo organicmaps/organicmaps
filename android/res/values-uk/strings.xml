@@ -295,8 +295,6 @@
 	<string name="gray">Сірий</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Сіро-блакитний</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Так</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Під час руху за маршрутом пам\'ятайте:</string>
@@ -612,6 +610,14 @@
 	<string name="avoid_toll_roads_placepage">Уникати платних доріг</string>
 	<string name="avoid_unpaved_roads_placepage">Уникати ґрунтових доріг</string>
 	<string name="avoid_ferry_crossing_placepage">Уникати поромних переправ</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Так</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Ні</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Так</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Ні</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортувати</string>

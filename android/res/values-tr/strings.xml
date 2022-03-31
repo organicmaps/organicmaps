@@ -299,8 +299,6 @@
 	<string name="gray">Gri</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Mavi Gri</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Var</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Rotanızı takip ederken şunları lütfen unutmayın:</string>
@@ -617,6 +615,14 @@
 	<string name="avoid_toll_roads_placepage">Paralı yollardan kaçın</string>
 	<string name="avoid_unpaved_roads_placepage">Asfaltsız yollardan kaçın</string>
 	<string name="avoid_ferry_crossing_placepage">Feribot geçişlerinden kaçın</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Evet</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Hayır</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Var</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Yok</string>
 	<string name="ok">Tamam</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sırala…</string>

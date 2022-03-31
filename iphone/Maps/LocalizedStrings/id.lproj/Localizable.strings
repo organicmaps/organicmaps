@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "Biru Keabu-abuan";
 
-/* Wi-Fi available */
-"WiFi_available" = "Ya";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "Anda ingin membuat ulang rute?";
 
-"redirect_route_yes" = "Ya";
+/* A generic "Yes" button in dialogs */
+"yes" = "Ya";
 
-"redirect_route_no" = "Tidak";
+/* A generic "No" button in dialogs */
+"no" = "Tidak";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Ya";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Tidak";
 
 "trip_finished" = "Anda telah tiba!";
 

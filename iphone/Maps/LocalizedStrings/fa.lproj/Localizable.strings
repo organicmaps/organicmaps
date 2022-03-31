@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "خاکستری کبود";
 
-/* Wi-Fi available */
-"WiFi_available" = "بلی";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "آیا می خواهید مسیر را دوباره ایجاد کنید?";
 
-"redirect_route_yes" = "بله";
+/* A generic "Yes" button in dialogs */
+"yes" = "بله";
 
-"redirect_route_no" = "خیر";
+/* A generic "No" button in dialogs */
+"no" = "خیر";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "بلی";
+
+/* E.g. "WiFi:No" */
+"no_available" = "خیر";
 
 "trip_finished" = "شما به مقصد رسیدید!";
 

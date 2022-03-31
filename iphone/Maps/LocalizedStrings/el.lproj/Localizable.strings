@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "Γκρίζο μπλε";
 
-/* Wi-Fi available */
-"WiFi_available" = "Ναι";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "Θα θέλατε να τροποποιήσετε τη διαδρομή;";
 
-"redirect_route_yes" = "Ναι";
+/* A generic "Yes" button in dialogs */
+"yes" = "Ναι";
 
-"redirect_route_no" = "Όχι";
+/* A generic "No" button in dialogs */
+"no" = "Όχι";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Ναι";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Όχι";
 
 "trip_finished" = "Έχετε φτάσει!";
 

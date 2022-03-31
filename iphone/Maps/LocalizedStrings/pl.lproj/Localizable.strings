@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "Szaroniebieski";
 
-/* Wi-Fi available */
-"WiFi_available" = "Tak";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "Czy chcesz przebudować trasę?";
 
-"redirect_route_yes" = "Tak";
+/* A generic "Yes" button in dialogs */
+"yes" = "Tak";
 
-"redirect_route_no" = "Nie";
+/* A generic "No" button in dialogs */
+"no" = "Nie";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Tak";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Nie";
 
 "trip_finished" = "Jesteś na miejscu!";
 

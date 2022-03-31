@@ -157,6 +157,14 @@
 	<string name="avoid_toll_roads_placepage">Epuka barabara za kulipia</string>
 	<string name="avoid_unpaved_roads_placepage">Epuka barabara za vumbi</string>
 	<string name="avoid_ferry_crossing_placepage">Epuka vivuko vya feri</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Ndio</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Hapana</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Ndio</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Hapana</string>
 	<string name="ok">Sawa</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ainisha…</string>

@@ -297,8 +297,6 @@
 	<string name="gray">Gri</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Gri albăstriu</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Da</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Când parcurgi traseul, ai în vedere următoarele:</string>
@@ -616,6 +614,14 @@
 	<string name="avoid_toll_roads_placepage">Evită drumurile cu plată</string>
 	<string name="avoid_unpaved_roads_placepage">Evită drumurile neasfaltate</string>
 	<string name="avoid_ferry_crossing_placepage">Evită trecerile cu bac</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Da</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Nu</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Da</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Nu</string>
 	<string name="ok">Bine</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortare…</string>
