@@ -295,8 +295,6 @@
 	<string name="gray">Gris</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Gris azulado</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Sí</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Al seguir la ruta, tenga en cuenta:</string>
@@ -611,6 +609,14 @@
 	<string name="avoid_toll_roads_placepage">Evitar las carreteras con pago de peaje</string>
 	<string name="avoid_unpaved_roads_placepage">Evitar los caminos sin pavimento</string>
 	<string name="avoid_ferry_crossing_placepage">Evitar ferries</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Sí</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">No</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Sí</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">No</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ordenar…</string>

@@ -291,8 +291,6 @@
 	<string name="gray">Γκρι</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Γκρίζο μπλε</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Ναι</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Όταν ακολουθείτε την διαδρομή, να θυμάστε:</string>
@@ -589,6 +587,14 @@
 	<string name="avoid_toll_roads_placepage">Αποφυγή των δρόμων με διόδια</string>
 	<string name="avoid_unpaved_roads_placepage">Αποφυγή των χωματόδρομων</string>
 	<string name="avoid_ferry_crossing_placepage">Αποφυγή των πορθμείων</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Ναι</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Όχι</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Ναι</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Όχι</string>
 	<string name="ok">Καλώς</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ταξινόμηση</string>

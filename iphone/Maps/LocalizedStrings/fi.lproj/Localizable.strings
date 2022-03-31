@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "Harmaan sininen";
 
-/* Wi-Fi available */
-"WiFi_available" = "Kyllä";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "Haluatko luoda reitin uudelleen?";
 
-"redirect_route_yes" = "Kyllä";
+/* A generic "Yes" button in dialogs */
+"yes" = "Kyllä";
 
-"redirect_route_no" = "Ei";
+/* A generic "No" button in dialogs */
+"no" = "Ei";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Kyllä";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Ei";
 
 "trip_finished" = "Olet saapunut!";
 

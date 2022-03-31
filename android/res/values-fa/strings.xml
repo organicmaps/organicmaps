@@ -284,8 +284,6 @@
 	<string name="gray">خاکستری</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">خاکستری کبود</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">بلی</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">زمانی که مسیری را دنبال می کنید لطفا به یاد داشته باشید:</string>
@@ -596,6 +594,14 @@
 	<string name="avoid_toll_roads_placepage">اجتناب از جاده های دارای عوارض</string>
 	<string name="avoid_unpaved_roads_placepage">اجتناب از جاده های آسفالت نشده</string>
 	<string name="avoid_ferry_crossing_placepage">اجتناب از گذرگاه های کشتی</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">بله</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">خیر</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">بلی</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">خیر</string>
 	<string name="ok">موافقت کردن</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">مرتب سازی…</string>

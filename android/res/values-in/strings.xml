@@ -290,8 +290,6 @@
 	<string name="gray">Abu-abu</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Biru Keabu-abuan</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Ya</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Saat mengikuti rute, harap diingat:</string>
@@ -595,6 +593,14 @@
 	<string name="avoid_toll_roads_placepage">Hindari jalan tol</string>
 	<string name="avoid_unpaved_roads_placepage">Hindari jalan tanah</string>
 	<string name="avoid_ferry_crossing_placepage">Hindari penyeberangan kapal feri</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Ya</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Tidak</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Ya</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Tidak</string>
 	<string name="ok">Oke</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Urutkan…</string>

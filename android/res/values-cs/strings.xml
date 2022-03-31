@@ -290,8 +290,6 @@
 	<string name="gray">Šedá</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Modrošedá</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Ano</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Při navigaci podle trasy mějte na paměti následující:</string>
@@ -598,6 +596,14 @@
 	<string name="avoid_toll_roads_placepage">Vyhnout se silnicím s mýtným</string>
 	<string name="avoid_unpaved_roads_placepage">Vyhnout se nezpevněným silnicím</string>
 	<string name="avoid_ferry_crossing_placepage">Vyhnout se přejezdům trajektů</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Ano</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Ne</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Ano</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Ne</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Třídit…</string>

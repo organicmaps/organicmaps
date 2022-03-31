@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "สีฟ้าอมเทา";
 
-/* Wi-Fi available */
-"WiFi_available" = "ใช่";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "ต้องการสร้างเส้นทางใหม่หรือไม่";
 
-"redirect_route_yes" = "ใช่";
+/* A generic "Yes" button in dialogs */
+"yes" = "ใช่";
 
-"redirect_route_no" = "ไม่ใช่";
+/* A generic "No" button in dialogs */
+"no" = "ไม่ใช่";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "ใช่";
+
+/* E.g. "WiFi:No" */
+"no_available" = "ไม่ใช่";
 
 "trip_finished" = "คุณมาถึงแล้ว!";
 

@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "ブルーグレイ";
 
-/* Wi-Fi available */
-"WiFi_available" = "はい";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "ルートを再構築しますか?";
 
-"redirect_route_yes" = "はい";
+/* A generic "Yes" button in dialogs */
+"yes" = "はい";
 
-"redirect_route_no" = "いいえ";
+/* A generic "No" button in dialogs */
+"no" = "いいえ";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "はい";
+
+/* E.g. "WiFi:No" */
+"no_available" = "いいえ";
 
 "trip_finished" = "到着しました!";
 

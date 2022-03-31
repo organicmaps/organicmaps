@@ -129,6 +129,14 @@
 	<string name="avoid_toll_roads_placepage">Evitar las carreteras de peaje</string>
 	<string name="avoid_unpaved_roads_placepage">Evitar los caminos de tierra</string>
 	<string name="avoid_ferry_crossing_placepage">Evitar los trasbordadores de ferri</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Sí</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">No</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Sí</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">No</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ordenar…</string>

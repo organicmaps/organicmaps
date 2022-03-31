@@ -296,8 +296,6 @@
 	<string name="gray">Harmaa</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Harmaan sininen</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Kyllä</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Muista seuraavat asiat seuratessasi reittiä:</string>
@@ -603,6 +601,14 @@
 	<string name="avoid_toll_roads_placepage">Vältä maksullisia teitä</string>
 	<string name="avoid_unpaved_roads_placepage">Vältä maanteitä</string>
 	<string name="avoid_ferry_crossing_placepage">Vältä lautan käyttöä</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Kyllä</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Ei</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Kyllä</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Ei</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Järjestä…</string>

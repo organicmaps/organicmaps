@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "Gri albăstriu";
 
-/* Wi-Fi available */
-"WiFi_available" = "Da";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "Vrei să refaci traseul?";
 
-"redirect_route_yes" = "Da";
+/* A generic "Yes" button in dialogs */
+"yes" = "Da";
 
-"redirect_route_no" = "Nu";
+/* A generic "No" button in dialogs */
+"no" = "Nu";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Da";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Nu";
 
 "trip_finished" = "Ai ajuns!";
 

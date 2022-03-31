@@ -288,8 +288,6 @@
 	<string name="gray">グレイ</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">ブルーグレイ</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">はい</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">案内ルートに従う際は、以下の点にご留意ください：</string>
@@ -592,6 +590,14 @@
 	<string name="avoid_toll_roads_placepage">有料道路を回避</string>
 	<string name="avoid_unpaved_roads_placepage">未舗装道路を回避</string>
 	<string name="avoid_ferry_crossing_placepage">フェリー航路を回避</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">はい</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">いいえ</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">はい</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">いいえ</string>
 	<string name="ok">OK</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">並び替え中…</string>

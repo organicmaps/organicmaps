@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "رمادي أزرق";
 
-/* Wi-Fi available */
-"WiFi_available" = "نعم";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "هل تريد إعادة تحديد الطريق?";
 
-"redirect_route_yes" = "نعم";
+/* A generic "Yes" button in dialogs */
+"yes" = "نعم";
 
-"redirect_route_no" = "لا";
+/* A generic "No" button in dialogs */
+"no" = "لا";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "نعم";
+
+/* E.g. "WiFi:No" */
+"no_available" = "لا";
 
 "trip_finished" = "لقد وصلت!";
 

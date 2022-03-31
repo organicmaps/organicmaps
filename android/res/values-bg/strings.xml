@@ -281,8 +281,6 @@
 	<string name="brown">Кафяво</string>
 	<!-- pink color -->
 	<string name="pink">Розово</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Да</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Когато следвате маршрута, моля, имайте предвид:</string>
@@ -587,6 +585,14 @@
 	<string name="avoid_toll_roads_placepage">Избягване на платени пътища</string>
 	<string name="avoid_unpaved_roads_placepage">Избягвайте неасфалтирани пътища</string>
 	<string name="avoid_ferry_crossing_placepage">Избягване на преходи с ферибот</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Да</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Не</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Да</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Не</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортиране…</string>

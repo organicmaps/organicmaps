@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "Сіро-блакитний";
 
-/* Wi-Fi available */
-"WiFi_available" = "Так";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "Бажаєте перебудувати маршрут?";
 
-"redirect_route_yes" = "Так";
+/* A generic "Yes" button in dialogs */
+"yes" = "Так";
 
-"redirect_route_no" = "Ні";
+/* A generic "No" button in dialogs */
+"no" = "Ні";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Так";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Ні";
 
 "trip_finished" = "Ви прибули!";
 

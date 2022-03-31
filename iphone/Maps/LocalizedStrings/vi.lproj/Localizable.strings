@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "Xám xanh da trời";
 
-/* Wi-Fi available */
-"WiFi_available" = "Có";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "Bạn có muốn tạo lại tuyến không?";
 
-"redirect_route_yes" = "Có";
+/* A generic "Yes" button in dialogs */
+"yes" = "Có";
 
-"redirect_route_no" = "Không";
+/* A generic "No" button in dialogs */
+"no" = "Không";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Có";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Không";
 
 "trip_finished" = "Bạn đã tới nơi!";
 

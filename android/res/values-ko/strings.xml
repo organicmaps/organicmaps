@@ -290,8 +290,6 @@
 	<string name="gray">회색</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">청회색</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">네</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">경로를 따라갈 때는 다음 사항에 주의해 주세요:</string>
@@ -594,6 +592,14 @@
 	<string name="avoid_toll_roads_placepage">유료 도로 피하기</string>
 	<string name="avoid_unpaved_roads_placepage">비포장 도로 피하기</string>
 	<string name="avoid_ferry_crossing_placepage">여객선 횡단길 피하기</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">네</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">아니오</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">네</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">아니오</string>
 	<string name="ok">OK</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">분류…</string>

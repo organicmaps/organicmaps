@@ -419,9 +419,6 @@
 /* blue gray color */
 "blue_gray" = "Mavi Gri";
 
-/* Wi-Fi available */
-"WiFi_available" = "Var";
-
 
 /********** Routing dialogs strings **********/
 
@@ -1026,9 +1023,17 @@
 
 "redirect_route_alert" = "Yeniden bir rota oluşturmak ister misiniz?";
 
-"redirect_route_yes" = "Evet";
+/* A generic "Yes" button in dialogs */
+"yes" = "Evet";
 
-"redirect_route_no" = "Hayır";
+/* A generic "No" button in dialogs */
+"no" = "Hayır";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Var";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Yok";
 
 "trip_finished" = "Vardınız!";
 
