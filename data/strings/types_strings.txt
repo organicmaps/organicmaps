@@ -3389,6 +3389,7 @@
     be = Кававы аўтамат
     es = Máquina expendedora de café
     fr = Distributeur de café
+    it = DIstributore di caffè
     ru = Кофейный автомат
     uk = Кавовий автомат
 
@@ -3397,6 +3398,7 @@
     be = Аўтамат з прэзерватывамі
     es = Máquina expendedora de condones
     fr = Distributeur de préservatifs
+    it = Distributore di profilattici
     ru = Автомат с презервативами
     uk = Автомат з презервативами
 
@@ -3438,6 +3440,7 @@
     be = Аўтамат з ежай
     es = Máquina expendedora de comida
     fr = Distributeur de aliments
+    it = Distributore di alimenti
     ru = Автомат с едой
     uk = Автомат з їжею
 
@@ -3446,6 +3449,7 @@
     be = Газетны аўтамат
     es = Máquina expendedora de periódicos
     fr = Distributeur de journaux
+    it = Distributore di giornali
     ru = Газетный автомат
     uk = Газетний автомат
 
@@ -3522,6 +3526,7 @@
     be = Аўтамат з прысмакамі
     es = Máquina expendedora de dulces
     fr = Distributeur de bonbons
+    it = Distributore di dolciumi
     ru = Автомат со сладостями
     uk = Автомат із солодощами
 
