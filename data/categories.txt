@@ -7994,6 +7994,7 @@ en:4Coffee Dispenser|Coffee
 be:3Кававы аўтамат|кава
 es:Máquina expendedora de café|Café
 fr:Distributeur de café|Café
+it:Distributore automatico di caffè|Caffè
 ru:3Кофейный автомат|кофе|кофемат
 uk:3Кавовий автомат|кава
 
@@ -8002,6 +8003,7 @@ en:4Condoms Dispenser|Condoms|Condomat
 be:Аўтамат з прэзерватывамі|5прэзерватывы|5кандамат
 es:Máquina expendedora de condones|Condones
 fr:Distributeur de préservatifs|Préservatifs
+it:Distributore di profilattici|Preservativi
 ru:Автомат с презервативами|5презервативы|5кондомат
 uk:Автомат з презервативами|5презервативи|5кондомат
 
@@ -8044,6 +8046,7 @@ en:4Food Dispenser|Food|Snacks
 be:Аўтамат з ежай|5перакус|4снэкі
 es:Máquina expendedora de comida|Comida|Snacks
 fr:Distributeur de aliments|Aliments
+it:Distributore automatico di alimenti|Macchinetta automatica|Snack
 ru:Автомат с едой|5перекус|4снэки
 uk:Автомат з їжею|5перекус|4снекі
 
@@ -8121,6 +8124,7 @@ en:4Newspaper Dispenser|Newspapers
 be:Газетны аўтамат|газетамат|3газеты|4прэса
 es:Máquina expendedora de periódicos|Periódicos
 fr:Distributeur de journaux|Journaux
+it:Distributore automatico di giornali|Riviste
 ru:Газетный автомат|газетомат|3газеты|4пресса
 uk:Газетний автомат|газетомат|3газети|4преса
 
@@ -8129,6 +8133,7 @@ en:4Sweets Dispenser|Sweets|4Candies|Lollies
 be:Аўтамат з прысмакамі|4прысмакі|4цукеркі
 es:Máquina expendedora de dulces|Dulces|Chuches|Chucherías
 fr:Distributeur de bonbons|Bonbons
+it:Distributore di dolci|Caramelle
 ru:Автомат со сладостями|4сладости|4конфеты
 uk:Автомат із солодощами|4солодощі|4цукерки
 
