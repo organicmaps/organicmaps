@@ -54,7 +54,7 @@ jobs:
           java-version: 11
 
       - name: Install Google SDK
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
 
       - name: Checkout sources
         uses: actions/checkout@v2
