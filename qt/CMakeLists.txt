@@ -141,6 +141,15 @@ copy_resources(
   07_roboto_medium.ttf
 )
 
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
+install(DIRECTORY ${OMIM_ROOT}/data DESTINATION ${CMAKE_INSTALL_PREFIX}/share/organicmaps/)
+
+if (PLATFORM_LINUX)
+  install(FILES ${OMIM_ROOT}/qt/res/app.organicmaps.desktop.metainfo.xml DESTINATION ${CMAKE_INSTALL_PREFIX}/share/metainfo/)
+  install(FILES ${OMIM_ROOT}/qt/res/OrganicMaps.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications/)
+  install(FILES ${OMIM_ROOT}/qt/res/logo.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/96x96/apps/ RENAME organicmaps.png)
+endif()
+
 if (NOT PLATFORM_LINUX)
   # On Linux, ICU data is loaded from the shared library.
   copy_resources(icudt70l.dat)
