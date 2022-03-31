@@ -175,12 +175,11 @@ string MetadataTagProcessorImpl::ValidateAndFormat_flats(string const & v) const
 
 string MetadataTagProcessorImpl::ValidateAndFormat_internet(string v) const
 {
-  // TODO(AlexZ): Reuse/synchronize this code with MapObject::SetInternet().
   strings::AsciiToLower(v);
-  if (v == "wlan" || v == "wired" || v == "yes" || v == "no")
+  if (v == "wlan" || v == "wired" || v == "terminal" || v == "yes" || v == "no")
     return v;
-  // Process wifi=free tag.
-  if (v == "free")
+  // Process additional top tags.
+  if (v == "free" || v == "wifi" || v == "public")
     return "wlan";
   return {};
 }

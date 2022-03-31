@@ -347,6 +347,7 @@ UNIT_TEST(EditableMapObject_SetInternet)
   setInternetAndCheck(emo, osm::Internet::Wired, false);
   setInternetAndCheck(emo, osm::Internet::Wlan, true);
   setInternetAndCheck(emo, osm::Internet::Unknown, false);
+  setInternetAndCheck(emo, osm::Internet::Terminal, false);
 
   EditableMapObject bunkerEmo;
   bunkerEmo.SetType(classif().GetTypeByPath({"military", "bunker"}));
@@ -361,6 +362,8 @@ UNIT_TEST(EditableMapObject_SetInternet)
   setInternetAndCheck(bunkerEmo, osm::Internet::Wired, false);
   setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
   setInternetAndCheck(bunkerEmo, osm::Internet::Unknown, false);
+  setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
+  setInternetAndCheck(bunkerEmo, osm::Internet::Terminal, false);
   setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
   setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
 }
@@ -644,23 +647,20 @@ UNIT_TEST(EditableMapObject_FromFeatureType)
   classificator::Load();
 
   EditableMapObject emo;
-  auto const wifiType = classif().GetTypeByPath({"internet_access", "wlan"});
-  auto const cafeType = classif().GetTypeByPath({"amenity", "cafe"});
+
   feature::TypesHolder types;
-  types.Add(wifiType);
-  types.Add(cafeType);
+  types.Add(classif().GetTypeByPath({"amenity", "cafe"}));
   emo.SetTypes(types);
 
   emo.SetHouseNumber("1");
 
   StringUtf8Multilang names;
-
   names.AddString(GetLangCode("default"), "Default name");
   names.AddString(GetLangCode("ru"), "Ru name");
+  emo.SetName(names);
 
   emo.SetWebsite("https://some.thing.org");
-
-  emo.SetName(names);
+  emo.SetInternet(osm::Internet::Wlan);
 
   emo.SetPointType();
   emo.SetMercator(m2::PointD(1.0, 1.0));
@@ -668,11 +668,15 @@ UNIT_TEST(EditableMapObject_FromFeatureType)
   FeatureType ft(emo);
   EditableMapObject emo2;
   emo2.SetFromFeatureType(ft);
+
   TEST(emo.GetTypes().Equals(emo2.GetTypes()), ());
+
   TEST_EQUAL(emo.GetNameMultilang(), emo2.GetNameMultilang(), ());
   TEST_EQUAL(emo.GetHouseNumber(), emo2.GetHouseNumber(), ());
   TEST_EQUAL(emo.GetMercator(), emo2.GetMercator(), ());
   TEST_EQUAL(emo.GetWebsite(), emo2.GetWebsite(), ());
+  TEST_EQUAL(emo.GetInternet(), emo2.GetInternet(), ());
+
   TEST(emo.IsPointType(), ());
   TEST(emo2.IsPointType(), ());
 }

@@ -128,6 +128,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private RecyclerView mFullWeekOpeningHours;
   private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
   private View mWifi;
+  private TextView mTvWiFi;
   private View mEmail;
   private TextView mTvEmail;
   private View mOperator;
@@ -371,6 +372,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mOpeningHoursAdapter = new PlaceOpeningHoursAdapter();
     mFullWeekOpeningHours.setAdapter(mOpeningHoursAdapter);
     mWifi = findViewById(R.id.ll__place_wifi);
+    mTvWiFi = findViewById(R.id.tv__place_wifi);
     mEmail = findViewById(R.id.ll__place_email);
     mEmail.setOnClickListener(this);
     mTvEmail = findViewById(R.id.tv__place_email);
@@ -848,7 +850,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedCuisine(), mCuisine, mTvCuisine);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, null);
-    refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
+    refreshWiFi(mapObject);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours(mapObject);
     refreshSocialLinks(mapObject);
@@ -966,6 +968,19 @@ public class PlacePageView extends NestedScrollViewClickFixed
       UiUtils.clearTextAndHide(mTodayNonBusinessTime);
     else
       UiUtils.setTextAndShow(mTodayNonBusinessTime, TimeFormatUtils.formatNonBusinessTime(closedTimespans, hoursClosedLabel));
+  }
+
+  private void refreshWiFi(@NonNull MapObject mapObject)
+  {
+    final String inet = mapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET);
+    if (inet != null)
+    {
+      mWifi.setVisibility(View.VISIBLE);
+      /// @todo Better (but harder) to wrap C++ osm::Internet into Java, instead of comparing with "no".
+      mTvWiFi.setText(TextUtils.equals(inet, "no") ? R.string.no_available : R.string.yes_available);
+    }
+    else
+      mWifi.setVisibility(View.GONE);
   }
 
   private void refreshSocialLinks(@NonNull MapObject mapObject)

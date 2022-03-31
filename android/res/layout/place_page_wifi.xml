@@ -15,5 +15,5 @@
   <TextView
     android:id="@+id/tv__place_wifi"
     style="@style/PlacePageMetadataText"
-    android:text="@string/WiFi_available"/>
+    android:text="@string/yes"/>
 </LinearLayout>

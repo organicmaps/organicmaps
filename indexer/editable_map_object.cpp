@@ -2,6 +2,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/cuisines.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
 
@@ -520,11 +521,12 @@ void EditableMapObject::SetInternet(Internet internet)
 {
   m_metadata.Set(feature::Metadata::FMD_INTERNET, DebugPrint(internet));
 
-  static auto const wifiType = classif().GetTypeByPath({"internet_access", "wlan"});
+  uint32_t const wifiType = ftypes::IsWifiChecker::Instance().GetType();
+  bool const hasWiFi = m_types.Has(wifiType);
 
-  if (m_types.Has(wifiType) && internet != Internet::Wlan)
+  if (hasWiFi && internet != Internet::Wlan)
     m_types.Remove(wifiType);
-  else if (!m_types.Has(wifiType) && internet == Internet::Wlan)
+  else if (!hasWiFi && internet == Internet::Wlan)
     m_types.Add(wifiType);
 }
 

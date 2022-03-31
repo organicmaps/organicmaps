@@ -130,8 +130,8 @@ class PlacePageInfoViewController: UIViewController {
       operatorView = createInfoItem(ppOperator, icon: UIImage(named: "ic_placepage_operator"))
     }
 
-    if placePageInfoData.wifiAvailable {
-      wifiView = createInfoItem(L("WiFi_available"), icon: UIImage(named: "ic_placepage_wifi"))
+    if let wifi = placePageInfoData.wifiAvailable {
+      wifiView = createInfoItem(wifi, icon: UIImage(named: "ic_placepage_wifi"))
     }
 
     if let address = placePageInfoData.address {

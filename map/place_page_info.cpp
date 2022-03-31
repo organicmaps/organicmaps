@@ -100,6 +100,7 @@ std::string Info::FormatSubtitle(bool withType) const
 
   if (withType)
     subtitle.push_back(GetLocalizedType());
+
   // Flats.
   std::string const flats = GetFlats();
   if (!flats.empty())
@@ -137,6 +138,8 @@ std::string Info::FormatSubtitle(bool withType) const
   std::string const eleStr = GetElevationFormatted();
   if (!eleStr.empty())
     subtitle.push_back(kMountainSymbol + eleStr);
+
+  // Internet.
   if (HasWifi())
     subtitle.push_back(m_localizedWifiString);
 

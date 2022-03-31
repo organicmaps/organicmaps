@@ -406,6 +406,8 @@ class IsWifiChecker : public BaseChecker
   IsWifiChecker();
 public:
   DECLARE_CHECKER_INSTANCE(IsWifiChecker);
+
+  uint32_t GetType() const { return m_types[0]; }
 };
 
 class IsEatChecker : public BaseChecker

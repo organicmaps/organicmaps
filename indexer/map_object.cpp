@@ -20,17 +20,10 @@ namespace
 {
 constexpr char const * kWlan = "wlan";
 constexpr char const * kWired = "wired";
+constexpr char const * kTerminal = "terminal";
 constexpr char const * kYes = "yes";
 constexpr char const * kNo = "no";
 constexpr char const * kFieldsSeparator = " • ";
-
-void SetInetIfNeeded(FeatureType & ft, feature::Metadata & metadata)
-{
-  if (!ftypes::IsWifiChecker::Instance()(ft) || metadata.Has(feature::Metadata::FMD_INTERNET))
-    return;
-
-  metadata.Set(feature::Metadata::FMD_INTERNET, kWlan);
-}
 }  // namespace
 
 string DebugPrint(osm::Internet internet)
@@ -41,6 +34,7 @@ string DebugPrint(osm::Internet internet)
   case Internet::Yes: return kYes;
   case Internet::Wlan: return kWlan;
   case Internet::Wired: return kWired;
+  case Internet::Terminal: return kTerminal;
   case Internet::Unknown: break;
   }
   return {};
@@ -105,7 +99,10 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
                     FeatureType::BEST_GEOMETRY);
   }
 
-  SetInetIfNeeded(ft, m_metadata);
+#ifdef DEBUG
+  if (ftypes::IsWifiChecker::Instance()(ft))
+    ASSERT(m_metadata.Has(feature::Metadata::FMD_INTERNET), ());
+#endif
 }
 
 FeatureID const & MapObject::GetID() const { return m_featureID; }
@@ -191,15 +188,19 @@ string MapObject::GetLinePage() const
 
 Internet MapObject::GetInternet() const
 {
-  string inet = m_metadata.Get(feature::Metadata::FMD_INTERNET);
-  strings::AsciiToLower(inet);
-  // Most popular case.
+  return InternetFromString(m_metadata.Get(feature::Metadata::FMD_INTERNET));
+}
+
+Internet InternetFromString(std::string const & inet)
+{
   if (inet.empty())
     return Internet::Unknown;
   if (inet.find(kWlan) != string::npos)
     return Internet::Wlan;
   if (inet.find(kWired) != string::npos)
     return Internet::Wired;
+  if (inet.find(kTerminal) != string::npos)
+    return Internet::Terminal;
   if (inet == kYes)
     return Internet::Yes;
   if (inet == kNo)

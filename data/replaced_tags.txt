@@ -79,6 +79,10 @@ power=transformer : power=substation
 
 organic=limited : organic=yes
 
+wifi=yes : internet_access=wlan
+wifi=free : internet_access=wlan
+wifi=no : internet_access=no
+
 diet:vegetarian=yes : cuisine=vegetarian
 diet:vegetarian=only : cuisine=vegetarian
 diet=vegetarian : cuisine=vegetarian

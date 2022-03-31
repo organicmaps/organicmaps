@@ -1437,6 +1437,63 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Organic)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Internet)
+{
+  {
+    Tags const tags = {
+      {"internet_access", "no"},
+      {"wifi", "no"},
+      {"amenity", "cafe"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "cafe"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      {"internet_access", "wlan"},
+      {"office", "it"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"office"})), (params));
+    TEST(params.IsTypeExist(GetType({"internet_access", "wlan"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      {"wifi", "free"},
+      {"internet_access", "yes"},
+      {"shop", "clothes"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"shop", "clothes" })), (params));
+    TEST(params.IsTypeExist(GetType({"internet_access", "wlan"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      {"wifi", "no"},
+      {"internet_access", "terminal"},
+      {"amenity", "internet_cafe"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "internet_cafe" })), (params));
+    TEST(params.IsTypeExist(GetType({"internet_access"})), (params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 {
   Tags const oneTypes = {
