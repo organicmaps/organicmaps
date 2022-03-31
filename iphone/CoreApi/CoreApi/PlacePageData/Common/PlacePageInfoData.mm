@@ -46,7 +46,8 @@ using namespace osm;
           _ppOperator = @(rawData.GetOperator().c_str());
           break;
         case Props::Internet:
-          _wifiAvailable = YES;
+          _wifiAvailable = (rawData.GetInternet() == osm::Internet::No)
+              ? NSLocalizedString(@"no_available", nil) : NSLocalizedString(@"yes_available", nil);
           break;
         default:
           break;

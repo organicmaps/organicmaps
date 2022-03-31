@@ -6650,43 +6650,6 @@
     zh-Hans = 蓝灰色
     zh-Hant = 藍灰色
 
-  [WiFi_available]
-    comment = Wi-Fi available
-    tags = android,ios
-    en = Yes
-    ar = نعم
-    be = Так
-    bg = Да
-    cs = Ano
-    da = Ja
-    de = Ja
-    el = Ναι
-    es = Sí
-    fa = بلی
-    fi = Kyllä
-    fr = Oui
-    he = כן
-    hu = Igen
-    id = Ya
-    it = Sì
-    ja = はい
-    ko = 네
-    nb = Ja
-    nl = Ja
-    pl = Tak
-    pt = Sim
-    pt-BR = Sim
-    ro = Da
-    ru = Есть
-    sk = Áno
-    sv = Ja
-    th = ใช่
-    tr = Var
-    uk = Так
-    vi = Có
-    zh-Hans = 是
-    zh-Hant = 是
-
 [[Routing dialogs strings]]
 
   [dialog_routing_disclaimer_title]
@@ -18940,17 +18903,19 @@
     zh-Hans = 想重建路线?
     zh-Hant = 想重建路線?
 
-  [redirect_route_yes]
-    tags = ios
+  [yes]
+    comment = A generic "Yes" button in dialogs
+    tags = android,ios
     en = Yes
     ar = نعم
     be = Так
+    bg = Да
     cs = Ano
     da = Ja
     de = Ja
     el = Ναι
-    es = Si
-    es-MX = Si
+    es = Sí
+    es-MX = Sí
     fa = بله
     fi = Kyllä
     fr = Oui
@@ -18976,11 +18941,13 @@
     zh-Hans = 是
     zh-Hant = 是
 
-  [redirect_route_no]
-    tags = ios
+  [no]
+    comment = A generic "No" button in dialogs
+    tags = android,ios
     en = No
     ar = لا
     be = Не
+    bg = Не
     cs = Ne
     da = Nej
     de = Nein
@@ -19011,6 +18978,23 @@
     vi = Không
     zh-Hans = 否
     zh-Hant = 否
+
+  [yes_available]
+    comment = E.g. "WiFi:Yes"
+    tags = android,ios
+    ref = yes
+    be = Ёсць
+    fa = بلی
+    he = כן
+    ru = Есть
+    tr = Var
+
+  [no_available]
+    comment = E.g. "WiFi:No"
+    tags = android,ios
+    ref = no
+    be = Няма
+    tr = Yok
 
   [trip_finished]
     tags = ios

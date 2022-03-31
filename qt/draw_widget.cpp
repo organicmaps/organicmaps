@@ -46,6 +46,8 @@
 #include <string>
 #include <vector>
 
+namespace qt
+{
 using namespace qt::common;
 
 namespace
@@ -80,8 +82,6 @@ void DrawMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName,
 }
 }  // namespace
 
-namespace qt
-{
 DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr<ScreenshotParams> && screenshotParams,
                        QWidget * parent)
   : TBase(framework, apiOpenGLES3, screenshotParams != nullptr, parent)

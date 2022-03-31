@@ -647,13 +647,13 @@ extension CarPlayService {
   }
   
   func showRerouteAlert(trips: [CPTrip]) {
-    let yesAction = CPAlertAction(title: L("redirect_route_yes"), style: .default, handler: { [unowned self] _ in
+    let yesAction = CPAlertAction(title: L("yes"), style: .default, handler: { [unowned self] _ in
       self.router?.cancelTrip()
       self.updateMapTemplateUIToBase()
       self.preparedToPreviewTrips = trips
       self.interfaceController?.dismissTemplate(animated: true)
     })
-    let noAction = CPAlertAction(title: L("redirect_route_no"), style: .cancel, handler: { [unowned self] _ in
+    let noAction = CPAlertAction(title: L("no"), style: .cancel, handler: { [unowned self] _ in
       self.interfaceController?.dismissTemplate(animated: true)
     })
     let alert = CPAlertTemplate(titleVariants: [L("redirect_route_alert")], actions: [noAction, yesAction])

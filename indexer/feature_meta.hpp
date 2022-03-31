@@ -115,6 +115,7 @@ public:
     FMD_OPERATOR = 6,
     FMD_URL = 7,
     FMD_WEBSITE = 8,
+    /// @todo We have meta and classifier type at the same type. It's ok now for search, but should be revised in future.
     FMD_INTERNET = 9,
     FMD_ELE = 10,
     FMD_TURN_LANES = 11,

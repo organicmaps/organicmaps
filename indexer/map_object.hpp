@@ -25,11 +25,14 @@ enum class Internet
 {
   Unknown,  //!< Internet state is unknown (default).
   Wlan,     //!< Wireless Internet access is present.
+  Terminal, //!< A computer with internet service.
   Wired,    //!< Wired Internet access is present.
   Yes,      //!< Unspecified Internet access is available.
   No        //!< There is definitely no any Internet access.
 };
 std::string DebugPrint(Internet internet);
+/// @param[in]  inet  Should be lowercase like in DebugPrint.
+Internet InternetFromString(std::string const & inet);
 
 // Object details in the sorted order, visible to users.
 // Must correspond MapObject.java
@@ -88,6 +91,7 @@ public:
   std::string GetVkPage() const;
   std::string GetLinePage() const;
   Internet GetInternet() const;
+
   /// @returns non-localized cuisines keys.
   std::vector<std::string> GetCuisines() const;
   /// @returns translated cuisine(s).
