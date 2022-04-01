@@ -288,6 +288,8 @@ public:
     return m_readyGlyphs.find(std::make_pair(code, fixedHeight)) != m_readyGlyphs.end();
   }
 
+  std::string GetName() const { return std::string(m_fontFace->family_name) + ':' + m_fontFace->style_name; }
+
 private:
   ReaderPtr<Reader> m_fontReader;
   FT_StreamRec_ m_stream;
@@ -488,15 +490,27 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
     }
   }
 
-  std::ostringstream ss;
+  m_impl->m_lastUsedBlock = m_impl->m_blocks.end();
+
+  LOG(LDEBUG, ("How unicode blocks are mapped on font files:"));
+
+  // We don't have black list for now.
+  ASSERT_EQUAL(m_impl->m_fonts.size(), params.m_fonts.size(), ());
+
   for (auto const & b : m_impl->m_blocks)
   {
-    if (b.m_fontsWeight.empty())
-      ss << b.m_name << ", ";
+    auto const & weights = b.m_fontsWeight;
+    ASSERT_LESS_OR_EQUAL(weights.size(), m_impl->m_fonts.size(), ());
+    if (weights.empty())
+    {
+      LOG_SHORT(LDEBUG, (b.m_name, "is unsupported"));
+    }
+    else
+    {
+      size_t const ind = std::distance(weights.begin(), std::max_element(weights.begin(), weights.end()));
+      LOG_SHORT(LDEBUG, (b.m_name, "is in", params.m_fonts[ind]));
+    }
   }
-  LOG(LINFO, ("Unsupported unicode blocks:", ss.str()));
-
-  m_impl->m_lastUsedBlock = m_impl->m_blocks.end();
 }
 
 GlyphManager::~GlyphManager()
