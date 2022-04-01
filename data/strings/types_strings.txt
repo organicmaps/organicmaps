@@ -3387,6 +3387,7 @@
   [type.amenity.vending_machine.coffee]
     en = Coffee Dispenser
     be = Кававы аўтамат
+    de = Kaffeeautomat
     es = Máquina expendedora de café
     fr = Distributeur de café
     it = Distributore di caffè
@@ -3396,6 +3397,7 @@
   [type.amenity.vending_machine.condoms]
     en = Condoms Dispenser
     be = Аўтамат з прэзерватывамі
+    de = Kondomautomat
     es = Máquina expendedora de condones
     fr = Distributeur de préservatifs
     it = Distributore di profilattici
@@ -3438,6 +3440,7 @@
   [type.amenity.vending_machine.food]
     en = Food Dispenser
     be = Аўтамат з ежай
+    de = Essensautomat
     es = Máquina expendedora de comida
     fr = Distributeur de aliments
     it = Distributore di alimenti
@@ -3447,6 +3450,7 @@
   [type.amenity.vending_machine.newspapers]
     en = Newspapers Dispenser
     be = Газетны аўтамат
+    de = Zeitungsautomat
     es = Máquina expendedora de periódicos
     fr = Distributeur de journaux
     it = Distributore di giornali
@@ -3524,6 +3528,7 @@
   [type.amenity.vending_machine.sweets]
     en = Sweets Dispenser
     be = Аўтамат з прысмакамі
+    de = Süßigkeitenautomat
     es = Máquina expendedora de dulces
     fr = Distributeur de bonbons
     it = Distributore di dolciumi
@@ -3533,6 +3538,7 @@
   [type.amenity.vending_machine.excrement_bags]
     en = Excrement Bags Dispenser
     be = Мяшкі дзеля экскрыментаў
+    de = Hundekotbeutelspender
     es = Maquina expendedora de bolsas para excrementos
     ru = Пакеты для экскрементов
     tr = Dışkı Torbası Dağıtıcı
@@ -3541,6 +3547,7 @@
   [type.amenity.parcel_locker]
     en = Parcel Locker
     be = Паштамат
+    de = Paketstation
     es = Taquilla de paquetes
     ru = Почтомат
     tr = Posta Kutusu
@@ -3653,6 +3660,7 @@
   [type.amenity.waste_transfer_station]
     en = Waste Transfer Station
     be = Станцыя перавалкі адходаў
+    de = Müllumladestation
     ru = Станция перевалки отходов
     tr = Atık Transfer İstasyonu
     uk = Станція передачі сміття
@@ -10066,7 +10074,7 @@
 
   [type.landuse.military]
     en = Military Area
-    de = Militärisch genutztes Gebiet
+    de = Militärgebiet
     fr = Terrain militaire
     ja = 軍用地
     pl = Teren wojskowy
