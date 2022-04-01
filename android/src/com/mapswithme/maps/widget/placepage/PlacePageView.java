@@ -973,7 +973,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private void refreshWiFi(@NonNull MapObject mapObject)
   {
     final String inet = mapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET);
-    if (inet != null)
+    if (!TextUtils.isEmpty(inet))
     {
       mWifi.setVisibility(View.VISIBLE);
       /// @todo Better (but harder) to wrap C++ osm::Internet into Java, instead of comparing with "no".
