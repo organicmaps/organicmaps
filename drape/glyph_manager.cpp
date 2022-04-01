@@ -202,12 +202,11 @@ public:
       if (isSdf)
       {
         sdf_image::SdfImage const img(bitmap.rows, bitmap.pitch, bitmap.buffer, m_sdfScale * kSdfBorder);
-        imageWidth = img.GetWidth() * scale;
-        imageHeight = img.GetHeight() * scale;
+        imageWidth = std::round(img.GetWidth() * scale);
+        imageHeight = std::round(img.GetHeight() * scale);
 
-        size_t const bufferSize = bitmap.rows * bitmap.pitch;
-        data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
-        memcpy(&(*data)[0], bitmap.buffer, bufferSize);
+        data = SharedBufferManager::instance().reserveSharedBuffer(bitmap.rows * bitmap.pitch);
+        memcpy(data->data(), bitmap.buffer, data->size());
       }
       else
       {
@@ -215,16 +214,16 @@ public:
         imageHeight += 2 * border;
         imageWidth += 2 * border;
 
-        size_t const bufferSize = imageWidth * imageHeight;
-        data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
-        memset(data->data(), 0, data->size());
+        data = SharedBufferManager::instance().reserveSharedBuffer(imageWidth * imageHeight);
+        auto ptr = data->data();
+        memset(ptr, 0, data->size());
 
         for (size_t row = border; row < bitmap.rows + border; ++row)
         {
           size_t const dstBaseIndex = row * imageWidth + border;
           size_t const srcBaseIndex = (row - border) * bitmap.pitch;
           for (int column = 0; column < bitmap.pitch; ++column)
-            data->data()[dstBaseIndex + column] = bitmap.buffer[srcBaseIndex + column];
+            ptr[dstBaseIndex + column] = bitmap.buffer[srcBaseIndex + column];
         }
       }
     }
