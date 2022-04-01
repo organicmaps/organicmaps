@@ -3389,7 +3389,7 @@
     be = Кававы аўтамат
     es = Máquina expendedora de café
     fr = Distributeur de café
-    it = DIstributore di caffè
+    it = Distributore di caffè
     ru = Кофейный автомат
     uk = Кавовий автомат
 
