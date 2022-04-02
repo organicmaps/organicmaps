@@ -207,6 +207,8 @@
 	<string name="search_show_on_map">Tampilkan pada peta</string>
 	<!-- Text in menu -->
 	<string name="website">Situs Web</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Berita</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Umpan balik</string>
 	<!-- Text in menu -->

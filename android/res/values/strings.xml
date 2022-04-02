@@ -215,6 +215,8 @@
 	<string name="search_show_on_map">View on map</string>
 	<!-- Text in menu -->
 	<string name="website">Website</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">News</string>
 	<!-- Text in menu -->
 	<string name="github">GitHub</string>
 	<!-- Text in menu -->

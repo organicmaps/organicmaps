@@ -205,6 +205,8 @@
 	<string name="search_show_on_map">지도 보기</string>
 	<!-- Text in menu -->
 	<string name="website">웹사이트</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">소식</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">피드백</string>
 	<!-- Text in menu -->

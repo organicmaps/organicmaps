@@ -212,6 +212,8 @@
 	<string name="search_show_on_map">Vezi pe hartă</string>
 	<!-- Text in menu -->
 	<string name="website">Site web</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Știri</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Părere</string>
 	<!-- Text in menu -->

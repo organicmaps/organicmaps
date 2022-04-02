@@ -206,6 +206,8 @@
 	<string name="search_show_on_map">Προβολή στο χάρτη</string>
 	<!-- Text in menu -->
 	<string name="website">Ιστότοπος</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Νέα</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Σχόλια</string>
 	<!-- Text in menu -->

@@ -155,6 +155,8 @@
 	<string name="pref_zoom_title">כפתורי זום</string>
 	<string name="pref_zoom_summary">הצג על המסך</string>
 	<string name="search_show_on_map">ראה במפה</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">תוֹשׁדָחֲ</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">דרגו את האפליקציה</string>
 	<!-- Text in menu -->

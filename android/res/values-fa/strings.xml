@@ -199,6 +199,8 @@
 	<string name="search_show_on_map">مشاهده بر روی نقشه</string>
 	<!-- Text in menu -->
 	<string name="website">وب سایت</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">ﺭﺎﺒﺧﺍ</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">بازخورد</string>
 	<!-- Text in menu -->

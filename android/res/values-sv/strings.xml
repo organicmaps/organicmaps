@@ -203,6 +203,8 @@
 	<string name="search_show_on_map">Visa på kartan</string>
 	<!-- Text in menu -->
 	<string name="website">Webbplats</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Nyheter</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->

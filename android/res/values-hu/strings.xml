@@ -205,6 +205,8 @@
 	<string name="search_show_on_map">Megtekintés a térképen</string>
 	<!-- Text in menu -->
 	<string name="website">Honlap</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Hírek</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Visszajelzés</string>
 	<!-- Text in menu -->

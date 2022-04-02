@@ -210,6 +210,8 @@
 	<string name="search_show_on_map">在地圖上查看</string>
 	<!-- Text in menu -->
 	<string name="website">網站</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">消息</string>
 	<!-- Text in menu -->
 	<string name="facebook">臉書</string>
 	<!-- Text in menu -->

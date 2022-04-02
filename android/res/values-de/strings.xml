@@ -211,6 +211,8 @@
 	<string name="search_show_on_map">Auf der Karte ansehen</string>
 	<!-- Text in menu -->
 	<string name="website">Webseite</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Nachrichten</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
@@ -797,13 +799,21 @@
 	<string name="type.amenity.university">Universität</string>
 	<string name="type.amenity.vending_machine">Verkaufsautomat</string>
 	<string name="type.amenity.vending_machine.cigarettes">Zigarettenautomat</string>
+	<string name="type.amenity.vending_machine.coffee">Kaffeeautomat</string>
+	<string name="type.amenity.vending_machine.condoms">Kondomautomat</string>
 	<string name="type.amenity.vending_machine.drinks">Getränkeautomat</string>
+	<string name="type.amenity.vending_machine.food">Essensautomat</string>
+	<string name="type.amenity.vending_machine.newspapers">Zeitungsautomat</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parkautomat</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Fahrkartenautomat</string>
+	<string name="type.amenity.vending_machine.sweets">Süßigkeitenautomat</string>
+	<string name="type.amenity.vending_machine.excrement_bags">Hundekotbeutelspender</string>
+	<string name="type.amenity.parcel_locker">Paketstation</string>
 	<string name="type.amenity.vending_machine.fuel">Tankautomat</string>
 	<string name="type.amenity.veterinary">Tierarzt</string>
 	<string name="type.amenity.waste_basket">Abfalleimer</string>
 	<string name="type.amenity.waste_disposal">Müllcontainer</string>
+	<string name="type.amenity.waste_transfer_station">Müllumladestation</string>
 	<string name="type.amenity.water_point">Wasseranschluss</string>
 	<string name="type.barrier">Barriere</string>
 	<string name="type.barrier.block">Block</string>
@@ -1158,7 +1168,7 @@
 	<string name="type.landuse.industrial">Industriegebiet</string>
 	<string name="type.landuse.landfill">Müllhalde</string>
 	<string name="type.landuse.meadow">Wiese</string>
-	<string name="type.landuse.military">Militärisch genutztes Gebiet</string>
+	<string name="type.landuse.military">Militärgebiet</string>
 	<string name="type.landuse.orchard">Obstplantage</string>
 	<string name="type.landuse.quarry">Steinbruch</string>
 	<string name="type.landuse.railway">Eisenbahnanlagen</string>

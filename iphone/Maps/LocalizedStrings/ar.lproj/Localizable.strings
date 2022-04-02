@@ -264,6 +264,9 @@
 /* Text in menu */
 "website" = "الموقع الإلكتروني";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "ﺭﺎﺒﺧﺃ";
+
 /* Text in menu */
 "github" = "GitHub";
 

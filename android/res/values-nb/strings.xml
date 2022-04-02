@@ -207,6 +207,8 @@
 	<string name="search_show_on_map">Vis på kartet</string>
 	<!-- Text in menu -->
 	<string name="website">Nettside</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Nyheter</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Tilbakemelding</string>
 	<!-- Text in menu -->

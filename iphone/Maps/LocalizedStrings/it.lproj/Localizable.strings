@@ -264,6 +264,9 @@
 /* Text in menu */
 "website" = "Sito web";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Notizia";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -1448,21 +1451,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Distributore automatico di sigarette";
 
-"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.coffee" = "Distributore di caffè";
 
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.condoms" = "Distributore di profilattici";
 
 "type.amenity.vending_machine.drinks" = "Distributore automatico di bibite";
 
-"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.food" = "Distributore di alimenti";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Distributore di giornali";
 
 "type.amenity.vending_machine.parking_tickets" = "Parcometro";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Distributore automatico biglietti di trasporto";
 
-"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.sweets" = "Distributore di dolciumi";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 

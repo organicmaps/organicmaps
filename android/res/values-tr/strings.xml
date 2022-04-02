@@ -214,6 +214,8 @@
 	<string name="search_show_on_map">Haritada görüntüle</string>
 	<!-- Text in menu -->
 	<string name="website">Web Sitesi</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Haberler</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Geri Bildirim</string>
 	<!-- Text in menu -->
@@ -379,7 +381,7 @@
 	<string name="editor_report_problem_duplicate_place_title">Kopyalanmış yer</string>
 	<string name="autodownload">Otomatik indir</string>
 	<!-- Place Page opening hours text -->
-	<string name="daily">Günlük</string>
+	<string name="daily">Her gün</string>
 	<string name="twentyfour_seven">7/24</string>
 	<string name="day_off_today">Bugün kapalı</string>
 	<string name="day_off">Kapalı</string>

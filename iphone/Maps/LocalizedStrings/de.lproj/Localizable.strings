@@ -264,6 +264,9 @@
 /* Text in menu */
 "website" = "Webseite";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Nachrichten";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -1448,25 +1451,25 @@
 
 "type.amenity.vending_machine.cigarettes" = "Zigarettenautomat";
 
-"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.coffee" = "Kaffeeautomat";
 
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.condoms" = "Kondomautomat";
 
 "type.amenity.vending_machine.drinks" = "Getränkeautomat";
 
-"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.food" = "Essensautomat";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Zeitungsautomat";
 
 "type.amenity.vending_machine.parking_tickets" = "Parkautomat";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Fahrkartenautomat";
 
-"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.sweets" = "Süßigkeitenautomat";
 
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "Hundekotbeutelspender";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Paketstation";
 
 "type.amenity.vending_machine.fuel" = "Tankautomat";
 
@@ -1476,7 +1479,7 @@
 
 "type.amenity.waste_disposal" = "Müllcontainer";
 
-"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.waste_transfer_station" = "Müllumladestation";
 
 "type.amenity.water_point" = "Wasseranschluss";
 
@@ -2202,7 +2205,7 @@
 
 "type.landuse.meadow" = "Wiese";
 
-"type.landuse.military" = "Militärisch genutztes Gebiet";
+"type.landuse.military" = "Militärgebiet";
 
 "type.landuse.orchard" = "Obstplantage";
 

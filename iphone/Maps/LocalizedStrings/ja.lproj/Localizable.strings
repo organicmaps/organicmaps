@@ -264,6 +264,9 @@
 /* Text in menu */
 "website" = "ウェブサイト";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "ニュース";
+
 /* Text in menu */
 "github" = "GitHub";
 

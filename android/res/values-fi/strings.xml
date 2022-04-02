@@ -211,6 +211,8 @@
 	<string name="search_show_on_map">Näytä kartalla</string>
 	<!-- Text in menu -->
 	<string name="website">Kotisivut</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Uutiset</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Palaute</string>
 	<!-- Text in menu -->
