@@ -105,6 +105,11 @@
                 android:text="@string/website"
                 app:drawableStartCompat="@drawable/ic_website"/>
 
+      <TextView android:id="@+id/email"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/email"
+                app:drawableStartCompat="@drawable/ic_email"/>
+
       <TextView android:id="@+id/facebook"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/facebook"
@@ -119,6 +124,16 @@
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/instagram"
                 app:drawableStartCompat="@drawable/ic_instagram"/>
+
+      <TextView android:id="@+id/matrix"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/matrix"
+                app:drawableStartCompat="@drawable/ic_matrix"/>
+
+      <TextView android:id="@+id/openstreetmap"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/openstreetmap"
+                app:drawableStartCompat="@drawable/ic_openstreetmap"/>
 
       <View android:layout_width="match_parent"
             android:layout_height="1dp"
