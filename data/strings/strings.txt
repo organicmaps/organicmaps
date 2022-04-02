@@ -9396,7 +9396,7 @@
     sk = Denne
     sv = Dagligen
     th = ทุกวัน
-    tr = Günlük
+    tr = Her gün
     uk = Щоденно
     vi = Hàng ngày
     zh-Hans = 每天
