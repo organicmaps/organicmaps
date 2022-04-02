@@ -42,7 +42,6 @@ public:
   SdfImage() = default;
   SdfImage(uint32_t h, uint32_t w);
   SdfImage(uint32_t h, uint32_t w, uint8_t * imageData, uint8_t border);
-  SdfImage(SdfImage const & copy);
 
   uint32_t GetWidth() const;
   uint32_t GetHeight() const;

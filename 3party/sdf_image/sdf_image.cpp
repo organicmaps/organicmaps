@@ -77,13 +77,6 @@ SdfImage::SdfImage(uint32_t h, uint32_t w, uint8_t * imageData, uint8_t border)
   }
 }
 
-SdfImage::SdfImage(SdfImage const & copy)
-{
-  m_height = copy.m_height;
-  m_width = copy.m_width;
-  m_data = copy.m_data;
-}
-
 uint32_t SdfImage::GetWidth() const
 {
   return m_width;
@@ -182,6 +175,7 @@ SdfImage SdfImage::Bilinear(float scale)
 
   SdfImage result(dstHeight, dstWidth);
 
+  /// @todo Probably, should make srcWidth-1, srcHeight-1 here, but now it works fine with current std::round.
   float xRatio = static_cast<float>(srcWidth) / dstWidth;
   float yRatio = static_cast<float>(srcHeight) / dstHeight;
   for (uint32_t i = 0; i < dstHeight; i++)
@@ -194,9 +188,8 @@ SdfImage SdfImage::Bilinear(float scale)
       uint32_t x = static_cast<uint32_t>(fx);
       uint32_t y = static_cast<uint32_t>(fy);
       uint32_t index = y * srcWidth + x;
-      ASSERT_LESS(index, m_data.size(), ());
+      ASSERT_LESS(index + srcWidth + 1, m_data.size(), ());
 
-      // range is 0 to 255 thus bitwise AND with 0xff
       float A = m_data[index];
       float B = m_data[index + 1];
       float C = m_data[index + srcWidth];
