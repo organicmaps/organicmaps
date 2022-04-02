@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/margin_base_plus"
+            android:layout_marginStart="@dimen/margin_base_plus"
             android:src="@mipmap/ic_launcher" />
 
         <LinearLayout

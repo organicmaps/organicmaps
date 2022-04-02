@@ -5,8 +5,8 @@
   android:id="@+id/bottom_sheet_menu_item"
   android:layout_width="match_parent"
   android:layout_height="@dimen/menu_list_item_height"
-  android:paddingLeft="@dimen/margin_base"
-  android:paddingRight="@dimen/margin_base"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base"
   android:gravity="center_vertical"
   android:background="?clickableBackground"
   android:orientation="horizontal">
