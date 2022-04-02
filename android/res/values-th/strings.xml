@@ -207,6 +207,8 @@
 	<string name="search_show_on_map">ดูบนแผนที่</string>
 	<!-- Text in menu -->
 	<string name="website">เว็บไซต์</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">ข่าว</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">ข้อเสนอแนะ</string>
 	<!-- Text in menu -->

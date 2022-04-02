@@ -210,6 +210,8 @@
 	<string name="search_show_on_map">Подивитись на мапі</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Новини</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Відгук</string>
 	<!-- Text in menu -->

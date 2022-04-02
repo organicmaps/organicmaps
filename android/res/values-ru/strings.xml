@@ -215,6 +215,8 @@
 	<string name="search_show_on_map">Посмотреть на карте</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Новости</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Связаться с нами</string>
 	<!-- Text in menu -->

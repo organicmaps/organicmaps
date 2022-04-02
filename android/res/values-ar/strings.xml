@@ -207,6 +207,8 @@
 	<string name="search_show_on_map">مشاهدة على الخريطة</string>
 	<!-- Text in menu -->
 	<string name="website">الموقع الإلكتروني</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">ﺭﺎﺒﺧﺃ</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">تعقيب</string>
 	<!-- Text in menu -->

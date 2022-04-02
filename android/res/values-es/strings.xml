@@ -210,6 +210,8 @@
 	<string name="search_show_on_map">Ver en el mapa</string>
 	<!-- Text in menu -->
 	<string name="website">Sitio web</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Noticias</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Comentarios</string>
 	<!-- Text in menu -->

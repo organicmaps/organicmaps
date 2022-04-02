@@ -205,6 +205,8 @@
 	<string name="search_show_on_map">Xem trên bản đồ</string>
 	<!-- Text in menu -->
 	<string name="website">Trang web</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Tin tức</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Phản hồi</string>
 	<!-- Text in menu -->

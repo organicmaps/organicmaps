@@ -209,6 +209,8 @@
 	<string name="search_show_on_map">在地图上查看</string>
 	<!-- Text in menu -->
 	<string name="website">网站</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">新闻</string>
 	<!-- Text in menu -->
 	<string name="facebook">脸书</string>
 	<!-- Text in menu -->

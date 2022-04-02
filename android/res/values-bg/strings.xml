@@ -212,6 +212,8 @@
 	<string name="search_show_on_map">Преглед на картата</string>
 	<!-- Text in menu -->
 	<string name="website">Уебсайт</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Новини</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Обратна връзка</string>
 	<!-- Text in menu -->

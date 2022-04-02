@@ -205,6 +205,8 @@
 	<string name="search_show_on_map">Zobrazit na mapě</string>
 	<!-- Text in menu -->
 	<string name="website">Webové stránky</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Zprávy</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Zpětná vazba</string>
 	<!-- Text in menu -->
