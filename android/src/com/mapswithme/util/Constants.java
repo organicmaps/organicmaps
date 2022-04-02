@@ -29,6 +29,7 @@ public final class Constants
 
     public static final String SUPPORT_US = "https://organicmaps.app/support-us";
 
+    public static final String NEWS = "https://organicmaps.app/news/";
     public static final String WEB_SITE = "https://organicmaps.app";
     public static final String GITHUB = "https://github.com/organicmaps/organicmaps";
 

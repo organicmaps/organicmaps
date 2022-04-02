@@ -55,6 +55,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     ((TextView) root.findViewById(R.id.data_version))
         .setText(getString(R.string.data_version, localDate(Framework.nativeGetDataVersion())));
 
+    setupItem(R.id.news, true, root);
     setupItem(R.id.web, true, root);
     setupItem(R.id.email, true, root);
     setupItem(R.id.github, false, root);
@@ -106,6 +107,8 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     final int id = v.getId();
     if (id == R.id.web)
       openLink(Constants.Url.WEB_SITE);
+    else if (id == R.id.news)
+      openLink(Constants.Url.NEWS);
     else if (id == R.id.email)
       Utils.sendTo(getContext(), BuildConfig.SUPPORT_MAIL, "Organic Maps");
     else if (id == R.id.github)

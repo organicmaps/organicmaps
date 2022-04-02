@@ -62,6 +62,11 @@
                 android:textAppearance="@style/MwmTextAppearance.Body1"
                 android:text="@string/about_description"/>
 
+      <TextView android:id="@+id/news"
+          style="@style/MwmWidget.TextView.Item"
+          android:text="@string/news"
+          app:drawableStartCompat="@drawable/ic_news"/>
+
       <TextView android:id="@+id/faq"
           style="@style/MwmWidget.TextView.Item"
           android:text="@string/faq"

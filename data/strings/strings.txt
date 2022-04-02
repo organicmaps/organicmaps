@@ -4593,6 +4593,43 @@
     zh-Hans = 网站
     zh-Hant = 網站
 
+  [news]
+    comment = Text in About menu, opens Organic Maps news website
+    tags = android,ios
+    en = News
+    ar = ﺭﺎﺒﺧﺃ
+    be = Навіны
+    bg = Новини
+    cs = Zprávy
+    da = Nyheder
+    de = Nachrichten
+    el = Νέα
+    es = Noticias
+    fa = ﺭﺎﺒﺧﺍ
+    fi = Uutiset
+    fr = Nouvelles
+    he = תוֹשׁדָחֲ
+    hu = Hírek
+    id = Berita
+    it = Notizia
+    ja = ニュース
+    ko = 소식
+    nb = Nyheter
+    nl = Nieuws
+    pl = Wiadomości
+    pt = Notícias
+    ro = Știri
+    ru = Новости
+    sk = Správy
+    sv = Nyheter
+    sw = Habari
+    th = ข่าว
+    tr = Haberler
+    uk = Новини
+    vi = Tin tức
+    zh-Hans = 新闻
+    zh-Hant = 消息
+
   [github]
     comment = Text in menu
     tags = android,ios
