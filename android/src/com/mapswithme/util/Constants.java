@@ -25,6 +25,7 @@ public final class Constants
     public static final String TWITTER = "https://twitter.com/OrganicMapsApp";
     public static final String TELEGRAM = "https://t.me/OrganicMaps";
     public static final String INSTAGRAM = "https://www.instagram.com/organicmaps.app";
+    public static final String MATRIX = "https://matrix.to/#/%23organicmaps:matrix.org";
 
     public static final String SUPPORT_US = "https://organicmaps.app/support-us";
 
