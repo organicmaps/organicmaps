@@ -39,8 +39,9 @@ class MaxspeedsSerializer
 {
   // 0 - start version
   // 1 - added HighwayType -> SpeedMacro
+  // 2 - HighwayType -> SpeedMacro for inside/outside a city
   using VersionT = uint16_t;
-  static VersionT constexpr kVersion = 1;
+  static VersionT constexpr kVersion = 2;
 
 public:
   MaxspeedsSerializer() = delete;
@@ -63,10 +64,13 @@ public:
     SpeedMacro m_backward;
   };
 
+  using HW2SpeedMap = std::map<HighwayType, SpeedMacro>;
+
+  static int constexpr DEFAULT_SPEEDS_COUNT = Maxspeeds::DEFAULT_SPEEDS_COUNT;
+
   template <class Sink>
   static void Serialize(std::vector<FeatureSpeedMacro> const & featureSpeeds,
-                        std::map<HighwayType, SpeedMacro> const & typeSpeeds,
-                        Sink & sink)
+                        HW2SpeedMap typeSpeeds[], Sink & sink)
   {
     CHECK(base::IsSortedAndUnique(featureSpeeds.cbegin(), featureSpeeds.cend(),
                                   [](FeatureSpeedMacro const & l, FeatureSpeedMacro const & r)
@@ -131,11 +135,14 @@ public:
     }
 
     // Save HighwayType speeds, sorted by type.
-    WriteVarUint(sink, static_cast<uint32_t>(typeSpeeds.size()));
-    for (auto const & [type, speed] : typeSpeeds)
+    for (int ind = 0; ind < DEFAULT_SPEEDS_COUNT; ++ind)
     {
-      WriteVarUint(sink, static_cast<uint32_t>(type));
-      WriteToSink(sink, static_cast<uint8_t>(speed));
+      WriteVarUint(sink, static_cast<uint32_t>(typeSpeeds[ind].size()));
+      for (auto const & [type, speed] : typeSpeeds[ind])
+      {
+        WriteVarUint(sink, static_cast<uint32_t>(type));
+        WriteToSink(sink, static_cast<uint8_t>(speed));
+      }
     }
 
     // Finalize Header data.
@@ -216,9 +223,20 @@ public:
     }
 
     // Load HighwayType speeds.
-    if (version >= 1)
+    if (version >= 2)
     {
-      /// @todo
+      for (int ind = 0; ind < DEFAULT_SPEEDS_COUNT; ++ind)
+      {
+        uint32_t const count = ReadVarUint<uint32_t>(src);
+        for (uint32_t i = 0; i < count; ++i)
+        {
+          auto const type = static_cast<HighwayType>(ReadVarUint<uint32_t>(src));
+          auto const speed = converter.MacroToSpeed(static_cast<SpeedMacro>(ReadPrimitiveFromSource<uint8_t>(src)));
+          // Constraint should be met, but unit tests use different input Units. No problem here.
+          //ASSERT_EQUAL(speed.GetUnits(), measurement_utils::Units::Metric, ());
+          maxspeeds.m_defaultSpeeds[ind][type] = speed.GetSpeed();
+        }
+      }
     }
   }
 

@@ -35,7 +35,20 @@ void TestMaxspeedsSerialization(vector<FeatureMaxspeed> const & speeds)
                             converter.SpeedToMacro(s.GetForwardSpeedInUnits()),
                             converter.SpeedToMacro(s.GetBackwardSpeedInUnits()) });
   }
-  MaxspeedsSerializer::Serialize(inputSpeeds, {}, w);
+
+  int constexpr SPEEDS_COUNT = MaxspeedsSerializer::DEFAULT_SPEEDS_COUNT;
+  SpeedInUnits defSpeeds[SPEEDS_COUNT];
+  MaxspeedsSerializer::HW2SpeedMap defaultMap[SPEEDS_COUNT];
+
+  if (!speeds.empty())
+  {
+    defSpeeds[0] = speeds.front().GetForwardSpeedInUnits();
+    defSpeeds[1] = speeds.back().GetForwardSpeedInUnits();
+    defaultMap[0][HighwayType::HighwayPrimary] = converter.SpeedToMacro(defSpeeds[0]);
+    defaultMap[1][HighwayType::HighwaySecondary] = converter.SpeedToMacro(defSpeeds[1]);
+  }
+
+  MaxspeedsSerializer::Serialize(inputSpeeds, defaultMap, w);
 
   size_t const sz = buffer.size();
 
@@ -46,6 +59,9 @@ void TestMaxspeedsSerialization(vector<FeatureMaxspeed> const & speeds)
 
   for (auto const & s : speeds)
     TEST_EQUAL(maxspeeds.GetMaxspeed(s.GetFeatureId()), s.GetMaxspeed(), (s));
+
+  TEST_EQUAL(maxspeeds.GetDefaultSpeed(false, HighwayType::HighwayPrimary), defSpeeds[0].GetSpeed(), ());
+  TEST_EQUAL(maxspeeds.GetDefaultSpeed(true, HighwayType::HighwaySecondary), defSpeeds[1].GetSpeed(), ());
 }
 
 UNIT_TEST(MaxspeedConverter_Smoke)
