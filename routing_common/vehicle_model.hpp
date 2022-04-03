@@ -68,16 +68,25 @@ using HighwayBasedSpeeds = base::SmallMap<HighwayType, InOutCitySpeedKMpH>;
 /// \brief Params for calculation of an approximate speed on a feature.
 struct SpeedParams
 {
+  /// For unit tests compatibility.
   SpeedParams(bool forward, bool inCity, Maxspeed const & maxspeed)
-    : m_maxspeed(maxspeed), m_forward(forward), m_inCity(inCity)
+    : m_maxspeed(maxspeed), m_defSpeedKmPH(kInvalidSpeed), m_inCity(inCity), m_forward(forward)
   {
   }
 
+  SpeedParams(Maxspeed const & maxspeed, MaxspeedType defSpeedKmPH, bool inCity)
+    : m_maxspeed(maxspeed), m_defSpeedKmPH(defSpeedKmPH), m_inCity(inCity)
+  {
+  }
+
+  // Maxspeed stored for feature, if any.
   Maxspeed m_maxspeed;
-  // Retrieve forward (true) or backward (false) speed.
-  bool m_forward;
+  // Default speed for this feature type in MWM, if any (kInvalidSpeed otherwise).
+  MaxspeedType m_defSpeedKmPH;
   // If a corresponding feature lies inside a city of a town.
   bool m_inCity;
+  // Retrieve forward (true) or backward (false) speed.
+  bool m_forward;
 };
 
 /// \brief Speeds which are used for edge weight and ETA estimations.
@@ -297,7 +306,7 @@ public:
     return false;
   }
 
-  SpeedKMpH GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & speedParams) const;
+  SpeedKMpH GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & params) const;
 
   bool EqualsForTests(VehicleModel const & rhs) const
   {
@@ -322,7 +331,7 @@ protected:
 
   bool HasPassThroughType(feature::TypesHolder const & types) const;
 
-  SpeedKMpH GetSpeedWihtoutMaxspeed(FeatureType & f, SpeedParams const & speedParams) const;
+  SpeedKMpH GetSpeedWihtoutMaxspeed(FeatureType & f, SpeedParams params) const;
 
   /// \brief Maximum within all the speed limits set in a model (car model, bicycle model and so on).
   /// Do not mix with maxspeed value tag, which defines maximum legal speed on a feature.
@@ -333,11 +342,6 @@ private:
   void GetSurfaceFactor(uint32_t type, SpeedFactor & factor) const;
   void GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad,
                               std::optional<SpeedKMpH> & speed) const;
-
-  SpeedKMpH GetSpeedOnFeatureWithoutMaxspeed(HighwayType const & type,
-                                             SpeedParams const & speedParams) const;
-  SpeedKMpH GetSpeedOnFeatureWithMaxspeed(HighwayType const & type,
-                                          SpeedParams const & speedParams) const;
 
   // HW type -> speed and factor.
   HighwayBasedInfo m_highwayBasedInfo;

@@ -187,9 +187,14 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 
   uint32_t const fID = feature.GetID().m_index;
   m_inCity = attrs.m_cityRoads.IsCityRoad(fID);
-  Maxspeed const maxSpeed = attrs.m_maxSpeeds.GetMaxspeed(fID);
-  m_forwardSpeed = vehicleModel.GetSpeed(feature, {true /* forward */, m_inCity, maxSpeed});
-  m_backwardSpeed = vehicleModel.GetSpeed(feature, {false /* forward */, m_inCity, maxSpeed});
+
+  SpeedParams params(attrs.m_maxSpeeds.GetMaxspeed(fID),
+                     m_highwayType ? attrs.m_maxSpeeds.GetDefaultSpeed(m_inCity, *m_highwayType) : kInvalidSpeed,
+                     m_inCity);
+  params.m_forward = true;
+  m_forwardSpeed = vehicleModel.GetSpeed(feature, params);
+  params.m_forward = false;
+  m_backwardSpeed = vehicleModel.GetSpeed(feature, params);
 
   feature::TypesHolder types(feature);
   auto const & optionsClassfier = RoutingOptionsClassifier::Instance();
