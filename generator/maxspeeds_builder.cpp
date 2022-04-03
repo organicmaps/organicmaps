@@ -69,7 +69,10 @@ class MaxspeedsMwmCollector
     double m_lengthKM = 0;
     double m_timeH = 0;
   };
-  std::unordered_map<HighwayType, AvgInfo> m_avgSpeeds;
+
+  static int constexpr SPEEDS_COUNT = MaxspeedsSerializer::DEFAULT_SPEEDS_COUNT;
+  // 0 - outside a city; 1 - inside a city.
+  std::unordered_map<HighwayType, AvgInfo> m_avgSpeeds[SPEEDS_COUNT];
 
   base::GeoObjectId GetOsmID(uint32_t fid) const
   {
@@ -252,7 +255,7 @@ public:
     auto const hwType = rd.GetHighwayType();
     if (hwType)
     {
-      auto & info = m_avgSpeeds[*hwType];
+      auto & info = m_avgSpeeds[rd.IsInCity() ? 1 : 0][*hwType];
 
       double const lenKM = rd.GetRoadLengthM() / 1000.0;
       for (auto const & s : { forward, backward })
@@ -273,22 +276,26 @@ public:
     if (m_maxspeeds.empty())
       return;
 
-    std::map<HighwayType, SpeedMacro> typeSpeeds;
-    for (auto const & e : m_avgSpeeds)
+    MaxspeedsSerializer::HW2SpeedMap typeSpeeds[SPEEDS_COUNT];
+    for (int ind = 0; ind < SPEEDS_COUNT; ++ind)
     {
-      long const speed = std::lround(e.second.m_lengthKM / e.second.m_timeH);
-      if (speed < routing::kInvalidSpeed)
+      LOG(LINFO, ("Average speeds", ind == 0 ? "outside" : "inside", "a city:"));
+      for (auto const & e : m_avgSpeeds[ind])
       {
-        // Store type speeds in Metric system, like VehicleModel profiles.
-        auto const speedInUnits = m_converter.ClosestValidMacro(
-              { static_cast<MaxspeedType>(speed), measurement_utils::Units::Metric });
+        long const speed = std::lround(e.second.m_lengthKM / e.second.m_timeH);
+        if (speed < routing::kInvalidSpeed)
+        {
+          // Store type speeds in Metric system, like VehicleModel profiles.
+          auto const speedInUnits = m_converter.ClosestValidMacro(
+                { static_cast<MaxspeedType>(speed), measurement_utils::Units::Metric });
 
-        LOG(LINFO, ("Average speed for", e.first, "=", speedInUnits));
+          LOG(LINFO, ("*", e.first, "=", speedInUnits));
 
-        typeSpeeds[e.first] = m_converter.SpeedToMacro(speedInUnits);
+          typeSpeeds[ind][e.first] = m_converter.SpeedToMacro(speedInUnits);
+        }
+        else
+          LOG(LWARNING, ("Large average speed for", e.first, "=", speed));
       }
-      else
-        LOG(LWARNING, ("Large average speed for", e.first, "=", speed));
     }
 
     FilesContainerW cont(m_dataPath, FileWriter::OP_WRITE_EXISTING);

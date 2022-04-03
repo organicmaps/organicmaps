@@ -163,10 +163,8 @@ void FileGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
 // RoadGeometry ------------------------------------------------------------------------------------
 RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH,
                            Points const & points)
-  : m_forwardSpeed{weightSpeedKMpH, etaSpeedKMpH}
-  , m_backwardSpeed(m_forwardSpeed)
-  , m_isOneWay(oneWay)
-  , m_valid(true)
+  : m_forwardSpeed{weightSpeedKMpH, etaSpeedKMpH}, m_backwardSpeed(m_forwardSpeed)
+  , m_isOneWay(oneWay), m_valid(true), m_isPassThroughAllowed(false), m_inCity(false)
 {
   ASSERT_GREATER(weightSpeedKMpH, 0.0, ());
   ASSERT_GREATER(etaSpeedKMpH, 0.0, ());
@@ -181,16 +179,17 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 {
   CHECK(altitudes == nullptr || altitudes->size() == feature.GetPointsCount(), ());
 
+  m_highwayType = vehicleModel.GetHighwayType(feature);
+
   m_valid = vehicleModel.IsRoad(feature);
   m_isOneWay = vehicleModel.IsOneWay(feature);
-  m_highwayType = vehicleModel.GetHighwayType(feature);
   m_isPassThroughAllowed = vehicleModel.IsPassThroughAllowed(feature);
 
   uint32_t const fID = feature.GetID().m_index;
-  bool const inCity = attrs.m_cityRoads.IsCityRoad(fID);
+  m_inCity = attrs.m_cityRoads.IsCityRoad(fID);
   Maxspeed const maxSpeed = attrs.m_maxSpeeds.GetMaxspeed(fID);
-  m_forwardSpeed = vehicleModel.GetSpeed(feature, {true /* forward */, inCity, maxSpeed});
-  m_backwardSpeed = vehicleModel.GetSpeed(feature, {false /* forward */, inCity, maxSpeed});
+  m_forwardSpeed = vehicleModel.GetSpeed(feature, {true /* forward */, m_inCity, maxSpeed});
+  m_backwardSpeed = vehicleModel.GetSpeed(feature, {false /* forward */, m_inCity, maxSpeed});
 
   feature::TypesHolder types(feature);
   auto const & optionsClassfier = RoutingOptionsClassifier::Instance();

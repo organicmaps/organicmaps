@@ -32,7 +32,7 @@ struct InOutCitySpeedKMpH;
 
 // Each value is equal to the corresponding type index from types.txt.
 // The ascending order is strict. Check for static_cast<HighwayType> in vehicle_model.cpp
-enum class HighwayType : uint32_t
+enum class HighwayType : uint16_t
 {
   HighwayResidential = 1,
   HighwayService = 2,

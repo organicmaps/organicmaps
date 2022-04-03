@@ -35,17 +35,19 @@ class RoadGeometry final
 public:
   using Points = buffer_vector<m2::PointD, 32>;
 
-  RoadGeometry() = default;
+  RoadGeometry() : m_isOneWay(false), m_valid(false), m_isPassThroughAllowed(false), m_inCity(false) {}
+  /// Used in tests.
   RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH, Points const & points);
 
   /// @param[in] altitudes May be nullptr.
   void Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
             geometry::Altitudes const * altitudes, RoadAttrsGetter & attrs);
 
-  bool IsOneWay() const { return m_isOneWay; }
   SpeedKMpH const & GetSpeed(bool forward) const;
   std::optional<HighwayType> GetHighwayType() const { return m_highwayType; }
+  bool IsOneWay() const { return m_isOneWay; }
   bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; }
+  bool IsInCity() const { return m_inCity; }
 
   LatLonWithAltitude const & GetJunction(uint32_t junctionId) const
   {
@@ -89,10 +91,11 @@ private:
   SpeedKMpH m_forwardSpeed;
   SpeedKMpH m_backwardSpeed;
   std::optional<HighwayType> m_highwayType;
-  bool m_isOneWay = false;
-  bool m_valid = false;
-  bool m_isPassThroughAllowed = false;
   RoutingOptions m_routingOptions;
+  bool m_isOneWay : 1;
+  bool m_valid : 1;
+  bool m_isPassThroughAllowed : 1;
+  bool m_inCity : 1;
 };
 
 class GeometryLoader

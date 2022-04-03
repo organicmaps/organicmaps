@@ -44,16 +44,16 @@ Maxspeed Maxspeeds::GetMaxspeed(uint32_t fid) const
   return range.first->GetMaxspeed();
 }
 
+MaxspeedType Maxspeeds::GetDefaultSpeed(bool inCity, HighwayType hwType) const
+{
+  auto const & theMap = m_defaultSpeeds[inCity ? 1 : 0];
+  auto const it = theMap.find(hwType);
+  return (it != theMap.end()) ? it->second : kInvalidSpeed;
+}
+
 bool Maxspeeds::HasForwardMaxspeed(uint32_t fid) const
 {
   return fid < m_forwardMaxspeedsTable.size() ? m_forwardMaxspeedsTable[fid] : false;
-}
-
-bool Maxspeeds::HasBidirectionalMaxspeed(uint32_t fid) const
-{
-  return std::binary_search(
-      m_bidirectionalMaxspeeds.cbegin(), m_bidirectionalMaxspeeds.cend(),
-      fid, FeatureMaxspeed::Less());
 }
 
 void Maxspeeds::Load(ReaderT const & reader)
