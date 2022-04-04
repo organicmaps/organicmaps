@@ -25,7 +25,7 @@
 - Comments in PR should be not only about things which are worth redeveloping but about good designs as well
 - It's better to ask the developer to make code simpler or add comments to the code base than to understand the code through the developer's explanation
 - It's worth writing comments in PR which help the PR author to learn something new
-- All code base should conform to ./docs/CPP_STYLE.md, ./docs/OBJC_STYLE.md or other style in ./docs/ depending on the language
+- All code base should conform to ./docs/CPP_STYLE.md, ./docs/OBJC_STYLE.md, ./docs/JAVA_STYLE.md or other style in ./docs/ depending on the language
 - Code review should be started as quick as possible after a PR is published. A reviewer should answer developer comments as quick as possible
 - If a PR looks good to a reviewer they should approve this PR. It means the review is finished
 - If a developer changes the PR significantly, the reviewers who have already approved the PR should be informed about these changes
