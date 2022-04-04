@@ -71,6 +71,7 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
     let appVersion = CopyableLabel()
     appVersion.translatesAutoresizingMaskIntoConstraints = false
     appVersion.styleName = "blackPrimaryText"
+    appVersion.adjustsFontSizeToFitWidth = true
     let appInfo = AppInfo.shared();
     // Use strong left-to-right unicode direction characters for the app version.
     appVersion.text = String(format: L("version"), "\u{2066}\(appInfo.bundleVersion)-\(appInfo.buildNumber)\u{2069}")

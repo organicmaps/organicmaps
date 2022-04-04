@@ -177,21 +177,23 @@ SdfImage SdfImage::Bilinear(float scale)
 {
   uint32_t srcWidth = GetWidth();
   uint32_t srcHeight = GetHeight();
-  uint32_t dstWidth = srcWidth * scale;
-  uint32_t dstHeight = srcHeight * scale;
+  uint32_t dstWidth = std::round(srcWidth * scale);
+  uint32_t dstHeight = std::round(srcHeight * scale);
 
   SdfImage result(dstHeight, dstWidth);
 
-  float xRatio = static_cast<float>(srcWidth - 1) / result.GetWidth();
-  float yRatio = static_cast<float>(srcHeight - 1) / result.GetHeight();
+  float xRatio = static_cast<float>(srcWidth) / dstWidth;
+  float yRatio = static_cast<float>(srcHeight) / dstHeight;
   for (uint32_t i = 0; i < dstHeight; i++)
   {
     uint32_t baseIndex = i * dstWidth;
     for (uint32_t j = 0; j < dstWidth; j++)
     {
-      int x = static_cast<int>(xRatio * j);
-      int y = static_cast<int>(yRatio * i);
-      int index = y * srcWidth + x;
+      float fx = xRatio * j;
+      float fy = yRatio * i;
+      uint32_t x = static_cast<uint32_t>(fx);
+      uint32_t y = static_cast<uint32_t>(fy);
+      uint32_t index = y * srcWidth + x;
       ASSERT_LESS(index, m_data.size(), ());
 
       // range is 0 to 255 thus bitwise AND with 0xff
@@ -200,8 +202,8 @@ SdfImage SdfImage::Bilinear(float scale)
       float C = m_data[index + srcWidth];
       float D = m_data[index + srcWidth + 1];
 
-      float xDiff = (xRatio * j) - x;
-      float yDiff = (yRatio * i) - y;
+      float xDiff = fx - x;
+      float yDiff = fy - y;
       float xInvertDiff = 1.0f - xDiff;
       float yInvertDiff = 1.0f - yDiff;
 

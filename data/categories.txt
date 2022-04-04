@@ -900,7 +900,7 @@ zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 
 shop-cosmetics|@shopping
-en:4Cosmetics|4Beauty Care|personal care|U+1F3EC|U+1F3EA
+en:4Cosmetics|4Beauty Care|personal care|makeup|U+1F3EC|U+1F3EA
 ru:4Косметика
 bg:4Козметика
 be:4Касметыка
@@ -913,7 +913,7 @@ fr:4Produits de beauté|soins de beauté
 de:4Kosmetik|Schönheitspflege
 hu:4Kozmetikum|házi gondozás
 id:4Kosmetik
-it:4Cosmetici
+it:4Cosmetici|Trucchi
 ja:化粧品|ホームケア
 ko:화장품 가게|화장품|뷰티케어
 nb:4Kosmetikk|hjemmepleie
