@@ -3,6 +3,7 @@ package com.mapswithme.util;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ComponentName;
 import android.location.Location;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -112,6 +113,15 @@ public class SharingUtils
       intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
     }
 
-    context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
+    Intent chooser = Intent.createChooser(intent, context.getString(R.string.share));
+
+    // Prevent sharing to ourselves (supported from API Level 24).
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
+    {
+      ComponentName[] excludeSelf = { new ComponentName(context, com.mapswithme.maps.SplashActivity.class) };
+      chooser.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, excludeSelf);
+    }
+
+    context.startActivity(chooser);
   }
 }
