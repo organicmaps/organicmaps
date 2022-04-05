@@ -15,8 +15,9 @@
     <control>touch</control>
   </supports>
 
+  <content_rating type="oars-1.1" />
+
   <description>
-    <p># Organic Maps</p>
     <p>
       Organic Maps is a free Android &amp; iOS offline maps app for travelers,
       tourists, hikers, and cyclists.
@@ -80,10 +81,10 @@
         <li>Stay safe no matter wherever you are</li>
       </ul>
     </p>
-    <p>Reject surveillance - embrace your freedom.</p>
-    <p><em>Give Organic Maps a try!</em></p>
-    <p>## Who is paying for the free app?</p>
-    <p>The app is free for everyone. Please donate to support us!</p>
+    <p>
+      Reject surveillance - embrace your freedom.
+      <em>Give Organic Maps a try!</em>
+    </p>
   </description>
 
   <url type="homepage">https://organicmaps.app</url>
@@ -104,4 +105,26 @@
       <image>https://organicmaps.app/images/screenshots/dark.jpg</image>
     </screenshot>
   </screenshots>
+
+  <releases>
+   <release version="2022.03.23-4" date="2022-03-23">
+     <description>
+       <ul>
+         <li>New OSM data as of March 14, 2022</li>
+         <li>Wikipedia articles for well-known places</li>
+         <li>Search for organic shops and restaurants</li>
+         <li>Material style for bottom menus and "show on map"</li>
+         <li>Filter inaccurate network locations</li>
+         <li>Fixed compass overlapped by layers button for RTL</li>
+         <li>Tuned visibility of steps, footways, community_centre</li>
+         <li>Brighter roads in dark mode</li>
+         <li>Darker farmlands and parkings</li>
+         <li>Added bubble_tea and water_well</li>
+         <li>Fixed some icons</li>
+         <li>Improved routing</li>
+         <li>Improved ar, es, ro translations</li>
+       </ul>
+     </description>
+   </release>
+ </releases>
 </component>
