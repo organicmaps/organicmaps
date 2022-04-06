@@ -198,7 +198,7 @@ void PlaceProcessor::FillTable(IterT start, IterT end, IterT best) const
       if (!fb.IsArea() || !isCityTownOrVillage(fb.GetTypes()))
         continue;
 
-      auto const id = fb.GetLastOsmId();
+      auto const id = fb.GetMostGenericOsmId();
       m_boundariesTable->Append(id, indexer::CityBoundary(fb.GetOuterGeometry()));
       if (lastId != base::GeoObjectId())
         m_boundariesTable->Union(id, lastId);
