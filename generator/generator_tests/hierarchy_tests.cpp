@@ -21,8 +21,7 @@ std::vector<feature::FeatureBuilder> MakeTestSet1()
   std::vector<feature::FeatureBuilder> fbs;
   {
     feature::FeatureBuilder outline;
-    std::vector<m2::PointD> polygon = {{0.0, 0.0}, {0.0, 10.0}, {10.0, 10.0}, {10.0, 0.0}};
-    outline.AddPolygon(polygon);
+    outline.AddPolygon({{0.0, 0.0}, {0.0, 10.0}, {10.0, 10.0}, {10.0, 0.0}});
     outline.AddOsmId(base::MakeOsmWay(1));
     outline.AddType(classif().GetTypeByPath({"building"}));
     outline.AddType(classif().GetTypeByPath({"tourism", "attraction"}));
@@ -31,8 +30,7 @@ std::vector<feature::FeatureBuilder> MakeTestSet1()
   }
   {
     feature::FeatureBuilder buildingPart;
-    std::vector<m2::PointD> polygon = {{0.0, 0.0}, {0.0, 8.0}, {8.0, 8.0}, {8.0, 0.0}};
-    buildingPart.AddPolygon(polygon);
+    buildingPart.AddPolygon({{0.0, 0.0}, {0.0, 8.0}, {8.0, 8.0}, {8.0, 0.0}});
     buildingPart.AddOsmId(base::MakeOsmWay(2));
     buildingPart.AddType(classif().GetTypeByPath({"building:part"}));
     buildingPart.SetArea();
@@ -40,8 +38,7 @@ std::vector<feature::FeatureBuilder> MakeTestSet1()
   }
   {
     feature::FeatureBuilder buildingPart;
-    std::vector<m2::PointD> polygon = {{0.0, 0.0}, {0.0, 7.0}, {7.0, 7.0}, {7.0, 0.0}};
-    buildingPart.AddPolygon(polygon);
+    buildingPart.AddPolygon({{0.0, 0.0}, {0.0, 7.0}, {7.0, 7.0}, {7.0, 0.0}});
     buildingPart.AddOsmId(base::MakeOsmWay(3));
     buildingPart.AddType(classif().GetTypeByPath({"building:part"}));
     buildingPart.SetArea();
@@ -49,8 +46,7 @@ std::vector<feature::FeatureBuilder> MakeTestSet1()
   }
   {
     feature::FeatureBuilder buildingPart;
-    std::vector<m2::PointD> polygon = {{0.0, 0.0}, {0.0, 6.0}, {6.0, 6.0}, {6.0, 0.0}};
-    buildingPart.AddPolygon(polygon);
+    buildingPart.AddPolygon({{0.0, 0.0}, {0.0, 6.0}, {6.0, 6.0}, {6.0, 0.0}});
     buildingPart.AddOsmId(base::MakeOsmWay(4));
     buildingPart.AddType(classif().GetTypeByPath({"building:part"}));
     buildingPart.SetArea();
@@ -106,8 +102,7 @@ UNIT_CLASS_TEST(TestWithClassificator, ComplexHierarchy_AddChildrenTo)
     if (compositeId.m_mainId == osmId)
     {
       feature::FeatureBuilder buildingPart;
-      std::vector<m2::PointD> polygon = {{6.0, 6.0}, {6.0, 7.0}, {7.0, 7.0}, {7.0, 6.0}};
-      buildingPart.AddPolygon(polygon);
+      buildingPart.AddPolygon({{6.0, 6.0}, {6.0, 7.0}, {7.0, 7.0}, {7.0, 6.0}});
       buildingPart.AddOsmId(base::MakeOsmWay(5));
       buildingPart.AddType(classif().GetTypeByPath({"building:part"}));
       buildingPart.SetArea();

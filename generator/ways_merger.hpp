@@ -71,7 +71,7 @@ public:
       } while (true);
 
       if (points.size() > 2 && points.front() == points.back())
-        toDo(points, ids);
+        toDo(std::move(points), ids);
     }
   }
 

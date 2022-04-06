@@ -151,6 +151,8 @@ public:
     GeometryHolder holder([this](int i) -> FileWriter & { return *m_geoFile[i]; },
                           [this](int i) -> FileWriter & { return *m_trgFile[i]; }, fb, m_header);
 
+    if (!fb.IsPoint())
+    {
     bool const isLine = fb.IsLine();
     bool const isArea = fb.IsArea();
     CHECK(!isLine || !isArea, ("A feature can't have both points and triangles geometries:", fb.GetMostGenericOsmId()));
@@ -232,6 +234,7 @@ public:
             holder.AddTriangles(simplified, i);
         }
       }
+    }
     }
 
     uint32_t featureId = kInvalidFeatureId;

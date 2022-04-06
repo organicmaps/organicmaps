@@ -43,14 +43,6 @@ bool MoveIterAwayFromRoundabout(feature::FeatureBuilder::PointSeq::iterator & it
   return middlePoint;
 }
 
-void UpdateFeatureGeometry(feature::FeatureBuilder::PointSeq const & seq,
-                           feature::FeatureBuilder & fb)
-{
-  fb.ResetGeometry();
-  for (auto const & p : seq)
-    fb.AddPoint(p);
-}
-
 feature::FeatureBuilder::PointSeq::iterator GetIterOnRoad(m2::PointD const & point,
                                                           feature::FeatureBuilder::PointSeq & road)
 {
@@ -137,7 +129,7 @@ void MiniRoundaboutTransformer::UpdateRoadType(FeatureParams::Types const & foun
   }
 }
 
-feature::FeatureBuilder CreateFb(std::vector<m2::PointD> const & way, uint64_t id,
+feature::FeatureBuilder CreateFb(std::vector<m2::PointD> && way, uint64_t id,
                                  uint32_t roadType, bool isRoundabout = true,
                                  bool isLeftHandTraffic = false)
 {
@@ -147,23 +139,15 @@ feature::FeatureBuilder CreateFb(std::vector<m2::PointD> const & way, uint64_t i
 
   if (!isRoundabout)
   {
-    UpdateFeatureGeometry(way, fb);
+    fb.AssignPoints(std::move(way));
     return fb;
   }
 
   if (isLeftHandTraffic)
-  {
-    std::vector<m2::PointD> wayRev = way;
-    std::reverse(wayRev.begin(), wayRev.end());
+    std::reverse(way.begin(), way.end());
 
-    UpdateFeatureGeometry(wayRev, fb);
-    fb.AddPoint(wayRev[0]);
-  }
-  else
-  {
-    UpdateFeatureGeometry(way, fb);
-    fb.AddPoint(way[0]);
-  }
+  way.push_back(way[0]);
+  fb.AssignPoints(std::move(way));
 
   static uint32_t const roundaboutType = classif().GetTypeByPath({"junction", "roundabout"});
   fb.AddType(roundaboutType);
@@ -220,12 +204,12 @@ bool MiniRoundaboutTransformer::AddRoundaboutToRoad(RoundaboutUnit const & round
 
   if (isMiddlePoint)
   {
-    auto const surrogateRoad =
+    auto surrogateRoad =
         CreateSurrogateRoad(roundaboutOnRoad, roundaboutCircle, road, itPointUpd);
     if (surrogateRoad.size() < 2)
       return false;
     auto fbSurrogateRoad =
-        CreateFb(surrogateRoad, roundaboutOnRoad.m_roadId, 0, false /* isRoundabout */);
+        CreateFb(std::move(surrogateRoad), roundaboutOnRoad.m_roadId, 0, false /* isRoundabout */);
     for (auto const & t : roundaboutOnRoad.m_roadTypes)
       fbSurrogateRoad.AddType(t);
 
@@ -320,7 +304,7 @@ std::vector<feature::FeatureBuilder> MiniRoundaboutTransformer::ProcessRoundabou
       if (!AddRoundaboutToRoad(roundaboutOnRoad, circlePlain, road, fbsRoads))
         continue;
 
-      UpdateFeatureGeometry(road, *itRoad);
+      itRoad->AssignPoints(std::move(road));
       UpdateRoadType(itRoad->GetTypes(), roadType);
       foundRoad = true;
     }
@@ -329,7 +313,7 @@ std::vector<feature::FeatureBuilder> MiniRoundaboutTransformer::ProcessRoundabou
       continue;
 
     fbsRoundabouts.push_back(
-        CreateFb(circlePlain, rb.m_id, roadType, true /* isRoundabout */, m_leftHandTraffic));
+        CreateFb(std::move(circlePlain), rb.m_id, roadType, true /* isRoundabout */, m_leftHandTraffic));
   }
 
   LOG(LINFO, ("Transformed", fbsRoundabouts.size(), "mini_roundabouts to roundabouts.", "Added",

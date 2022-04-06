@@ -83,7 +83,6 @@ class DoDifference
 {
   RectT m_src;
   std::vector<RegionT> m_res;
-  std::vector<m2::PointD> m_points;
 
 public:
   explicit DoDifference(RegionT const & rgn)
@@ -102,12 +101,6 @@ public:
       m2::IntersectRegions(m_res.front(), r, m_res);
   }
 
-  void operator()(PointT const & p)
-  {
-    m_points.push_back(PointUToPointD(
-        m2::PointU(static_cast<uint32_t>(p.x), static_cast<uint32_t>(p.y)), kPointCoordBits));
-  }
-
   size_t GetPointsCount() const
   {
     size_t count = 0;
@@ -120,10 +113,16 @@ public:
   {
     for (size_t i = 0; i < m_res.size(); ++i)
     {
-      m_points.clear();
-      m_points.reserve(m_res[i].Size() + 1);
-      m_res[i].ForEachPoint(std::ref(*this));
-      fb.AddPolygon(m_points);
+      std::vector<m2::PointD> points;
+      points.reserve(m_res[i].Size() + 1);
+
+      m_res[i].ForEachPoint([&points](PointT const & p)
+      {
+        points.push_back(PointUToPointD(
+            m2::PointU(static_cast<uint32_t>(p.x), static_cast<uint32_t>(p.y)), kPointCoordBits));
+      });
+
+      fb.AddPolygon(std::move(points));
     }
   }
 };

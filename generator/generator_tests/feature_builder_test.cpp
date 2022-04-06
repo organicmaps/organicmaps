@@ -77,8 +77,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
   params.FinishAddingTypes();
   fb1.SetParams(params);
 
-  fb1.AddPoint(m2::PointD(0, 0));
-  fb1.AddPoint(m2::PointD(1, 1));
+  fb1.AssignPoints({ {0, 0}, {1, 1} });
   fb1.SetLinear();
 
   TEST(fb1.RemoveInvalidTypes(), ());
@@ -183,8 +182,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
   FeatureBuilder fb1;
   fb1.SetParams(params);
 
-  fb1.AddPoint(m2::PointD(0, 0));
-  fb1.AddPoint(m2::PointD(1, 1));
+  fb1.AssignPoints({ {0, 0}, {1, 1} });
   fb1.SetLinear();
 
   TEST(!fb1.GetName(0).empty(), ());
@@ -244,7 +242,6 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeLocalityObjectForBuildi
 
   auto & buffer = holder.GetBuffer();
   TEST(fb.PreSerializeAndRemoveUselessNamesForMwm(buffer), ());
-  fb.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeAccuratelyForIntermediate)
@@ -265,9 +262,11 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeAccuratelyForIntermedia
   fb1.SetParams(params);
 
   auto const diff = 0.33333333334567;
+  std::vector<m2::PointD> points;
   for (size_t i = 0; i < 100; ++i)
-    fb1.AddPoint(m2::PointD(i + diff, i + 1 + diff));
+    points.push_back({ i + diff, i + 1 + diff });
 
+  fb1.AssignPoints(std::move(points));
   fb1.SetLinear();
 
   TEST(fb1.RemoveInvalidTypes(), ());

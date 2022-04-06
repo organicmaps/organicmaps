@@ -52,7 +52,7 @@ struct DisablerIdInc
 };
 
 feature::FeatureBuilder MakeFbForTest(generator_tests::Tags const & tags, OsmElement::EntityType t,
-                                      std::vector<m2::PointD> const & points)
+                                      std::vector<m2::PointD> && points)
 {
   auto element = generator_tests::MakeOsmElement(GetIdGen().GetId(), tags, t);
   feature::FeatureBuilder result;
@@ -65,11 +65,8 @@ feature::FeatureBuilder MakeFbForTest(generator_tests::Tags const & tags, OsmEle
   }
   else if (element.IsRelation() || element.IsWay())
   {
-    for (auto const & p : points)
-      result.AddPoint(p);
-
+    result.AssignPoints(std::move(points));
     CHECK(result.IsGeometryClosed(), ());
-
     result.SetArea();
 
     result.SetOsmId(element.IsRelation() ? base::MakeOsmRelation(element.m_id)
