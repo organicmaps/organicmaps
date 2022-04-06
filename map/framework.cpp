@@ -3203,7 +3203,8 @@ void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
   for (auto const fid : featureIds)
   {
     search::CitiesBoundariesTable::Boundaries boundaries;
-    table.Get(fid, boundaries);
+    if (!table.Get(fid, boundaries))
+      continue;
 
     string id = "fid:" + strings::to_string(fid);
     auto ft = loader.GetFeatureByIndex(fid);
