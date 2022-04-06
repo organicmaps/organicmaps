@@ -30829,8 +30829,8 @@ cont {
       priority: 1475
       pathsym {
         name: "arrow-xs"
-        step: 144.0
-        offset: 80.0
+        step: 44.0
+        offset: 30.0
       }
     }
   }
@@ -30840,8 +30840,8 @@ cont {
       priority: 1475
       pathsym {
         name: "arrow-s"
-        step: 144.0
-        offset: 120.0
+        step: 54.0
+        offset: 50.0
       }
     }
   }
@@ -30851,8 +30851,8 @@ cont {
       priority: 1475
       pathsym {
         name: "arrow-s"
-        step: 184.0
-        offset: 160.0
+        step: 64.0
+        offset: 70.0
       }
     }
   }
@@ -30862,8 +30862,8 @@ cont {
       priority: 1475
       pathsym {
         name: "arrow-m"
-        step: 184.0
-        offset: 200.0
+        step: 74.0
+        offset: 90.0
       }
     }
   }
@@ -30873,8 +30873,8 @@ cont {
       priority: 1475
       pathsym {
         name: "arrow-m"
-        step: 184.0
-        offset: 200.0
+        step: 74.0
+        offset: 90.0
       }
     }
   }
