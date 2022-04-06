@@ -94,8 +94,9 @@ bool Less(FeatureBuilder const & lhs, FeatureBuilder const & rhs)
   auto const lGeomType = static_cast<int8_t>(lhs.GetGeomType());
   auto const rGeomType = static_cast<int8_t>(rhs.GetGeomType());
 
-  auto const lId = lhs.HasOsmIds() ? lhs.GetMostGenericOsmId() : base::GeoObjectId();
-  auto const rId = rhs.HasOsmIds() ? rhs.GetMostGenericOsmId() : base::GeoObjectId();
+  // may be empty IDs
+  auto const lId = lhs.GetMostGenericOsmId();
+  auto const rId = rhs.GetMostGenericOsmId();
 
   auto const lPointsCount = lhs.GetPointsCount();
   auto const rPointsCount = rhs.GetPointsCount();

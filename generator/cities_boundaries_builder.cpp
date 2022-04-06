@@ -86,15 +86,21 @@ bool BuildCitiesBoundariesForTesting(string const & dataPath, TestIdToBoundaries
 
 void SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable & table)
 {
-  vector<vector<base::GeoObjectId>> allIds;
-  vector<vector<CityBoundary>> allBoundaries;
-  table.ForEachCluster(
-      [&](vector<base::GeoObjectId> const & ids, vector<CityBoundary> const & boundaries) {
-        allIds.push_back(ids);
-        allBoundaries.push_back(boundaries);
-      });
+  using GeoIDsT = vector<base::GeoObjectId>;
+  using BoundariesT = vector<CityBoundary>;
+  vector<GeoIDsT> allIds;
+  vector<BoundariesT> allBoundaries;
 
-  CHECK_EQUAL(allIds.size(), allBoundaries.size(), ());
+  table.ForEachCluster([&](GeoIDsT & ids, BoundariesT const & boundaries)
+  {
+    CHECK(!ids.empty(), ());
+    CHECK(!boundaries.empty(), ());
+
+    allIds.push_back(std::move(ids));
+    allBoundaries.push_back(boundaries);
+  });
+
+  LOG(LINFO, ("Saved boundary clusters count =", allIds.size()));
 
   FileWriter sink(path);
   indexer::CitiesBoundariesSerDes::Serialize(sink, allBoundaries);
@@ -111,6 +117,7 @@ bool DeserializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable
   vector<vector<base::GeoObjectId>> allIds;
   vector<vector<CityBoundary>> allBoundaries;
 
+  size_t count = 0;
   try
   {
     FileReader reader(path);
@@ -119,8 +126,8 @@ bool DeserializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable
     double precision;
     indexer::CitiesBoundariesSerDes::Deserialize(source, allBoundaries, precision);
 
-    auto const n = allBoundaries.size();
-    allIds.resize(n);
+    count = allBoundaries.size();
+    allIds.resize(count);
 
     for (auto & ids : allIds)
     {
@@ -141,16 +148,15 @@ bool DeserializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable
     return false;
   }
 
-  CHECK_EQUAL(allBoundaries.size(), allIds.size(), ());
   table.Clear();
-  for (size_t i = 0; i < allBoundaries.size(); ++i)
+  for (size_t i = 0; i < count; ++i)
   {
     auto const & ids = allIds[i];
     CHECK(!ids.empty(), ());
     auto const & id = ids.front();
 
-    for (auto const & b : allBoundaries[i])
-      table.Append(id, b);
+    for (auto & b : allBoundaries[i])
+      table.Append(id, std::move(b));
 
     for (size_t j = 1; j < ids.size(); ++j)
       table.Union(id, ids[j]);
