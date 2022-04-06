@@ -529,13 +529,13 @@ line|z17-[route=ferry_motorcar]
 /* line|z15-[highway=primary][hwtag=oneway]::arrows <-- не работает по типам магистралей */
 
 line|z15[hwtag=oneway]::arrows
-{pattern-offset: 80;pattern-image: arrow-xs.svg;pattern-spacing: 160;}
+{pattern-offset: 30;pattern-image: arrow-xs.svg;pattern-spacing: 60;}
 line|z16[hwtag=oneway]::arrows
-{pattern-offset: 120;pattern-image: arrow-s.svg;pattern-spacing: 160;}
+{pattern-offset: 50;pattern-image: arrow-s.svg;pattern-spacing: 70;}
 line|z17[hwtag=oneway]::arrows
-{pattern-offset: 160;pattern-image: arrow-s.svg;pattern-spacing: 200;}
+{pattern-offset: 70;pattern-image: arrow-s.svg;pattern-spacing: 80;}
 line|z18-[hwtag=oneway]::arrows
-{pattern-offset: 200;pattern-image: arrow-m.svg;pattern-spacing: 200;}
+{pattern-offset: 90;pattern-image: arrow-m.svg;pattern-spacing: 90;}
 
 /* 13.JUNCTION  */
 
