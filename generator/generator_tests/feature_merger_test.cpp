@@ -49,8 +49,7 @@ UNIT_TEST(FeatureMerger_MultipleTypes)
   for (size_t i = 0; i < count; ++i)
   {
     arrF[i].SetLinear();
-    arrF[i].AddPoint(arrPt[i]);
-    arrF[i].AddPoint(arrPt[i+1]);
+    arrF[i].AssignPoints({ arrPt[i], arrPt[i+1] });
 
     arrF[i].AddType(0);
   }
@@ -97,36 +96,28 @@ UNIT_TEST(FeatureMerger_Branches)
   std::vector<FeatureBuilder> vF;
 
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(-2, 0));
-  vF.back().AddPoint(P(-1, 0));
+  vF.back().AssignPoints({ P(-2, 0), P(-1, 0) });
 
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(-1, 0));
-  vF.back().AddPoint(P(0, 1));
+  vF.back().AssignPoints({ P(-1, 0), P(0, 1) });
 
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(-1, 0));
-  vF.back().AddPoint(P(0, 0));
+  vF.back().AssignPoints({ P(-1, 0), P(0, 0) });
 
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(-1, 0));
-  vF.back().AddPoint(P(0, -1));
+  vF.back().AssignPoints({ P(-1, 0), P(0, -1) });
 
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(0, 1));
-  vF.back().AddPoint(P(1, 0));
+  vF.back().AssignPoints({ P(0, 1), P(1, 0) });
 
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(0, 0));
-  vF.back().AddPoint(P(1, 0));
+  vF.back().AssignPoints({ P(0, 0), P(1, 0) });
 
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(0, -1));
-  vF.back().AddPoint(P(1, 0));
+  vF.back().AssignPoints({ P(0, -1), P(1, 0) });
 
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(1, 0));
-  vF.back().AddPoint(P(2, 0));
+  vF.back().AssignPoints({ P(1, 0), P(2, 0) });
 
   FeatureMergeProcessor processor(kPointCoordBits);
 
@@ -151,32 +142,21 @@ UNIT_TEST(FeatureMerger_Rounds)
   std::vector<FeatureBuilder> vF;
 
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(-10, 0));
-  vF.back().AddPoint(P(-5, 0));
+  vF.back().AssignPoints({ P(-10, 0), P(-5, 0) });
 
   // make first round feature
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(-4, 1));
-  vF.back().AddPoint(P(-3, 0));
-  vF.back().AddPoint(P(-4, -1));
-  vF.back().AddPoint(P(-5, 0));
-  vF.back().AddPoint(P(-4, 1));
+  vF.back().AssignPoints({ P(-4, 1), P(-3, 0), P(-4, -1), P(-5, 0), P(-4, 1) });
 
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(-3, 0));
-  vF.back().AddPoint(P(3, 0));
+  vF.back().AssignPoints({ P(-3, 0), P(3, 0) });
 
   // make second round feature
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(4, -1));
-  vF.back().AddPoint(P(3, 0));
-  vF.back().AddPoint(P(4, 1));
-  vF.back().AddPoint(P(5, 0));
-  vF.back().AddPoint(P(4, -1));
+  vF.back().AssignPoints({ P(4, -1), P(3, 0), P(4, 1), P(5, 0), P(4, -1) });
 
   vF.push_back(FeatureBuilder());
-  vF.back().AddPoint(P(5, 0));
-  vF.back().AddPoint(P(10, 0));
+  vF.back().AssignPoints({ P(5, 0), P(10, 0) });
 
   FeatureMergeProcessor processor(kPointCoordBits);
 

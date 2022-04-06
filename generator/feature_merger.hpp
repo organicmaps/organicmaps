@@ -28,7 +28,7 @@ public:
 
   bool EqualGeometry(MergedFeatureBuilder const & fb) const;
 
-  inline bool NotEmpty() const { return !GetOuterGeometry().empty(); }
+  inline bool NotEmpty() const { return !GetGeometry().empty(); }
 
   inline m2::PointD FirstPoint() const { return GetOuterGeometry().front(); }
   inline m2::PointD LastPoint() const { return GetOuterGeometry().back(); }

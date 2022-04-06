@@ -28,9 +28,8 @@ feature::FeatureBuilder MakeFbForTest(OsmElement element)
 {
   feature::FeatureBuilder result;
   ftype::GetNameAndType(&element, result.GetParams());
-  std::vector<m2::PointD> polygon = {{0, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}};
   result.SetOsmId(base::MakeOsmRelation(element.m_id));
-  result.AddPolygon(polygon);
+  result.AddPolygon({{0, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}});
   result.SetArea();
   return result;
 }

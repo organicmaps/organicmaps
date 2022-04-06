@@ -56,13 +56,18 @@ public:
 
   /// @name To work with geometry.
   ///@{
-  void AddPoint(m2::PointD const & p);
-  void SetHoles(Geometry const & holes);
-  void AddPolygon(std::vector<m2::PointD> & poly);
+  void AssignPoints(PointSeq points);
+  void AssignArea(PointSeq && outline, Geometry const & holes);
+  void AddPolygon(PointSeq && poly);
   void ResetGeometry();
+
   m2::RectD const & GetLimitRect() const { return m_limitRect; }
   Geometry const & GetGeometry() const { return m_polygons; }
-  PointSeq const & GetOuterGeometry() const { return m_polygons.front(); }
+  PointSeq const & GetOuterGeometry() const
+  {
+    CHECK(!m_polygons.empty(), ());
+    return m_polygons.front();
+  }
   GeomType GetGeomType() const { return m_params.GetGeomType(); }
   bool IsGeometryClosed() const;
   m2::PointD GetGeometryCenter() const;
@@ -133,7 +138,6 @@ public:
 
   bool HasType(uint32_t t) const { return m_params.IsTypeExist(t); }
   bool HasType(uint32_t t, uint8_t level) const { return m_params.IsTypeExist(t, level); }
-  uint32_t FindType(uint32_t comp, uint8_t level) const { return m_params.FindType(comp, level); }
   FeatureParams::Types const & GetTypes() const { return m_params.m_types; }
   size_t GetTypesCount() const { return m_params.m_types.size(); }
   ///@}
@@ -170,9 +174,8 @@ public:
   ///@{
   bool PreSerialize();
   bool PreSerializeAndRemoveUselessNamesForIntermediate();
+
   void SerializeForIntermediate(Buffer & data) const;
-  void SerializeBorderForIntermediate(serial::GeometryCodingParams const & params,
-                                      Buffer & data) const;
   void DeserializeFromIntermediate(Buffer & data);
 
   // These methods use geometry without loss of accuracy.
@@ -180,8 +183,6 @@ public:
   void DeserializeAccuratelyFromIntermediate(Buffer & data);
 
   bool PreSerializeAndRemoveUselessNamesForMwm(SupportingData const & data);
-  void SerializeLocalityObject(serial::GeometryCodingParams const & params,
-                               SupportingData & data) const;
   void SerializeForMwm(SupportingData & data, serial::GeometryCodingParams const & params) const;
   ///@}
 
@@ -197,8 +198,8 @@ public:
   // Returns an id of the most general element: node's one if there is no area or relation,
   // area's one if there is no relation, and relation id otherwise.
   base::GeoObjectId GetMostGenericOsmId() const;
-  bool HasOsmId(base::GeoObjectId const & id) const;
   bool HasOsmIds() const { return !m_osmIds.empty(); }
+  std::string DebugPrintIDs() const;
   ///@}
 
   // To work with coasts.

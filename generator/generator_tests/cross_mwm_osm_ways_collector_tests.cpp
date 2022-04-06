@@ -117,13 +117,18 @@ public:
   }
 };
 
-feature::FeatureBuilder CreateFeatureBuilderFromOsmWay(uint64_t osmId, std::vector<ms::LatLon> const & points)
+feature::FeatureBuilder CreateFeatureBuilderFromOsmWay(uint64_t osmId, std::vector<ms::LatLon> const & llPoints)
 {
   feature::FeatureBuilder fb;
   fb.AddOsmId(base::MakeOsmWay(osmId));
+
+  std::vector<m2::PointD> points;
+  base::Transform(llPoints, std::back_inserter(points), [](ms::LatLon const & ll)
+  {
+    return mercator::FromLatLon(ll);
+  });
+  fb.AssignPoints(std::move(points));
   fb.SetLinear();
-  for (auto const & ll : points)
-    fb.AddPoint(mercator::FromLatLon(ll));
 
   fb.AddType(classif().GetTypeByPath(kHighwayUnclassifiedPath));
   return fb;

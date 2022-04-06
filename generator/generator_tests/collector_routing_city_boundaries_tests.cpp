@@ -38,15 +38,14 @@ std::vector<m2::PointD> const kPolygon2 = {{2, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0
 std::vector<m2::PointD> const kPolygon3 = {{3, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {3, 0}};
 std::vector<m2::PointD> const kPolygon4 = {{4, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {4, 0}};
 
-feature::FeatureBuilder MakeAreaFeatureBuilder(OsmElement element,
-                                               std::vector<m2::PointD> const & geometry)
+feature::FeatureBuilder MakeAreaFeatureBuilder(OsmElement element, std::vector<m2::PointD> && geometry)
 {
   feature::FeatureBuilder result;
   auto const filterType = [](uint32_t) { return true; };
   ftype::GetNameAndType(&element, result.GetParams(), filterType);
   result.SetOsmId(base::MakeOsmRelation(element.m_id));
-  auto polygon = geometry;
-  result.AddPolygon(polygon);
+
+  result.AddPolygon(std::move(geometry));
   result.SetArea();
   return result;
 }
@@ -84,13 +83,13 @@ auto const relationWithLabel3 = MakeAreaWithPlaceNode(7 /* id */, 11 /* placeId 
 auto const relationWithLabel4 = MakeAreaWithPlaceNode(8 /* id */, 12 /* placeId */, "country" /* role */);
 
 void Collect(BoundariesCollector & collector, std::vector<OsmElement> const & elements,
-             std::vector<std::vector<m2::PointD>> const & geometries = {})
+             std::vector<std::vector<m2::PointD>> geometries = {})
 {
   for (size_t i = 0; i < elements.size(); ++i)
   {
     auto const & element = elements[i];
     auto featureBuilder = element.IsNode() ? MakeNodeFeatureBuilder(element)
-                                           : MakeAreaFeatureBuilder(element, geometries[i]);
+                                           : MakeAreaFeatureBuilder(element, std::move(geometries[i]));
 
     if (BoundariesCollector::FilterOsmElement(element))
       collector.Process(featureBuilder, element);

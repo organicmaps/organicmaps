@@ -73,11 +73,10 @@ END)";
 
   std::string const & GetBorderPath() const { return m_testPath; }
 
-  static feature::FeatureBuilder MakeLineFb(std::vector<m2::PointD> const & geom)
+  static feature::FeatureBuilder MakeLineFb(std::vector<m2::PointD> && geom)
   {
     feature::FeatureBuilder fb;
-    for (auto const & p : geom)
-      fb.AddPoint(p);
+    fb.AssignPoints(std::move(geom));
 
     fb.AddType(classif().GetTypeByPath({"highway", "secondary"}));
     fb.SetLinear();
