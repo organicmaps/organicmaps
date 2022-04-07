@@ -308,8 +308,23 @@ void EditableMapObject::ForEachMetadataItem(
 {
   for (auto const type : m_metadata.GetKeys())
   {
-    auto const attributeName = ToString(type);
-    fn(attributeName, m_metadata.Get(type));
+    // Multilang description may produce several tags with different values.
+    if (type == feature::Metadata::FMD_DESCRIPTION)
+    {
+      auto const multilangDescription = StringUtf8Multilang::FromBuffer(m_metadata.Get(type));
+      multilangDescription.ForEach([&fn](int8_t code, string const & value)
+      {
+        if (code == StringUtf8Multilang::kDefaultCode)
+          fn("description", value);
+        else
+          fn(string("description:") + StringUtf8Multilang::GetLangByCode(code), value);
+      });
+    }
+    else
+    {
+      string const attributeName = ToString(type);
+      fn(attributeName, m_metadata.Get(type));
+    }
   }
 }
 
