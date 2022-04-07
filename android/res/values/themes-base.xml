@@ -71,7 +71,6 @@
     <item name="circleAccent">@drawable/circle_accent</item>
 
     <item name="menuBackground">@color/bg_menu</item>
-    <item name="menuBackgroundOpen">@color/bg_menu_open</item>
 
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending</item>
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
@@ -175,6 +174,8 @@
     <item name="chipIconTintColor">@color/extended_green</item>
     <item name="chipTextColor">@color/bg_primary</item>
     <item name="android:popupMenuStyle">@style/PopupMenu</item>
+
+    <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
   </style>
 
   <!-- Night theme -->
@@ -250,7 +251,6 @@
     <item name="circleAccent">@drawable/circle_accent_night</item>
 
     <item name="menuBackground">@color/bg_menu_night</item>
-    <item name="menuBackgroundOpen">@color/bg_menu_open_night</item>
 
     <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending_night</item>
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
@@ -345,5 +345,7 @@
     <item name="chipIconTintColor">@color/white_lightest</item>
     <item name="chipTextColor">@color/white_secondary</item>
     <item name="android:popupMenuStyle">@style/PopupMenu.Dark</item>
+
+    <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
   </style>
 </resources>

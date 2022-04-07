@@ -4,7 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:layout_marginBottom="@dimen/nav_menu_height"
+  android:layout_marginBottom="@dimen/menu_line_height"
   android:layoutDirection="ltr"
   android:padding="@dimen/nav_frame_padding"
   android:theme="?navButtonsTheme">
