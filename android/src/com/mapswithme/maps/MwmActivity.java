@@ -63,7 +63,6 @@ import com.mapswithme.maps.maplayer.ToggleMapLayerFragment;
 import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.maps.maplayer.isolines.IsolinesState;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
-import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingBottomMenuListener;
@@ -1064,7 +1063,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onSafeDestroy();
     mNavigationController.destroy();
-    TrafficManager.INSTANCE.detachAll();
+    //TrafficManager.INSTANCE.detachAll();
     mPlacePageController.destroy();
   }
 
