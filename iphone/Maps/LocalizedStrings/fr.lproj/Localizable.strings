@@ -2175,6 +2175,8 @@
 
 "type.landuse.construction" = "Chantier de construction";
 
+"type.landuse.education" = "Établissements éducatifs";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Terrains agricoles";

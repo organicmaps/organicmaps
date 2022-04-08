@@ -2175,6 +2175,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Адукацыйныя ўстановы";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Farmland";

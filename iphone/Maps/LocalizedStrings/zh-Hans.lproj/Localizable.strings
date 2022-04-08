@@ -2175,6 +2175,8 @@
 
 "type.landuse.construction" = "建设区域";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "农田";
 
 "type.landuse.farmland" = "农业用地";

@@ -2175,6 +2175,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Instalaciones educativas";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Tierras agrícolas";

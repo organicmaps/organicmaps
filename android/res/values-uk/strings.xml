@@ -1172,6 +1172,7 @@
 	<string name="type.landuse.churchyard">Церковний двір</string>
 	<string name="type.landuse.commercial">Комерційні ділянки</string>
 	<string name="type.landuse.construction">Будівництво</string>
+	<string name="type.landuse.education">Освітній заклади</string>
 	<string name="type.landuse.farm">Ферма</string>
 	<string name="type.landuse.farmland">Сільськогосподарська земля</string>
 	<string name="type.landuse.farmyard">Сільськогосподарська земля</string>

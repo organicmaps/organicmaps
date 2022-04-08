@@ -1123,6 +1123,7 @@
 	<string name="type.landuse.churchyard">Cour d\'église</string>
 	<string name="type.landuse.commercial">Zone commerciale</string>
 	<string name="type.landuse.construction">Chantier de construction</string>
+	<string name="type.landuse.education">Établissements éducatifs</string>
 	<string name="type.landuse.farmland">Terrains agricoles</string>
 	<string name="type.landuse.farmyard">Ferme</string>
 	<string name="type.landuse.field">Champ</string>

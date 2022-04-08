@@ -2175,6 +2175,8 @@
 
 "type.landuse.construction" = "建設工事中";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "農地";
 
 "type.landuse.farmland" = "農地";

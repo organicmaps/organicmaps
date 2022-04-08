@@ -2175,6 +2175,8 @@
 
 "type.landuse.construction" = "Yapı";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Çiftlik";
 
 "type.landuse.farmland" = "Tarım Arazileri";
