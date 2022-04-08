@@ -2175,6 +2175,8 @@
 
 "type.landuse.construction" = "Стройка";
 
+"type.landuse.education" = "Образовательные учреждения";
+
 "type.landuse.farm" = "Ферма";
 
 "type.landuse.farmland" = "Сельскохозяйственная земля";
