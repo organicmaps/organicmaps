@@ -9743,6 +9743,14 @@
     uk = Будівництво
     zh-Hans = 建设区域
 
+  [type.landuse.education]
+    en = Educational Facilities
+    be = Адукацыйныя ўстановы
+    es = Instalaciones educativas
+    fr = Établissements éducatifs
+    ru = Образовательные учреждения
+    uk = Освітній заклади
+
   [type.landuse.farm]
     en = Farm
     de = Bauernhof
