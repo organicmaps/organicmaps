@@ -493,6 +493,15 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
         return EXIT_FAILURE;
       }
 
+      // Order is important: city roads first, routing graph, maxspeeds then (to check inside/outside a city).
+      if (FLAGS_make_city_roads)
+      {
+        auto const boundariesPath = genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME);
+        LOG(LINFO, ("Generating", CITY_ROADS_FILE_TAG, "for", dataFile, "using", boundariesPath));
+        if (!BuildCityRoads(dataFile, boundariesPath))
+          LOG(LCRITICAL, ("Generating city roads error."));
+      }
+
       string const restrictionsFilename = genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME);
       string const roadAccessFilename = genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
 
@@ -515,18 +524,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       }
     }
 
-    if (FLAGS_make_city_roads)
-    {
-      CHECK(!FLAGS_cities_boundaries_data.empty(), ());
-      LOG(LINFO, ("Generating cities boundaries roads for", dataFile));
-      auto const boundariesPath =
-          genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME);
-      if (!BuildCityRoads(dataFile, boundariesPath))
-        LOG(LCRITICAL, ("Generating city roads error."));
-    }
-
-    if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
-        FLAGS_make_transit_cross_mwm_experimental)
+    if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm || FLAGS_make_transit_cross_mwm_experimental)
     {
       if (!countryParentGetter)
       {
