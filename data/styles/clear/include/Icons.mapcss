@@ -159,8 +159,6 @@ node[amenity=casino],
 area[amenity=casino],
 node[shop=money_lender],
 area[shop=money_lender],
-node[amenity=kindergarten],
-area[amenity=kindergarten],
 node[amenity=childcare],
 area[amenity=childcare],
 node[amenity=post_office],
@@ -222,8 +220,6 @@ node[amenity=shelter],
 area[amenity=shelter],
 node[highway=rest_area],
 area[highway=rest_area],
-node[amenity=school],
-area[amenity=school],
 node[amenity=bicycle_rental],
 area[amenity=bicycle_rental],
 node[amenity=car_wash],
@@ -288,8 +284,6 @@ node[amenity=bank],
 area[amenity=bank],
 node[amenity=courthouse],
 area[amenity=courthouse],
-node[amenity=college],
-area[amenity=college],
 node[amenity=cinema],
 area[amenity=cinema],
 node[amenity=police],
@@ -1385,6 +1379,8 @@ area|z16-[leisure=dog_park],
 node|z16-[man_made=windmill],
 area|z16-[man_made=windmill],
 node|z16-[man_made=survey_point],
+node|z16-[amenity=college],
+area|z16-[amenity=college],
 node|z17-[amenity=pharmacy],
 area|z17-[amenity=pharmacy],
 node|z17-[amenity=clinic],
@@ -1409,8 +1405,6 @@ node|z17-[amenity=childcare],
 area|z17-[amenity=childcare],
 node|z17-[amenity=school],
 area|z17-[amenity=school],
-node|z17-[amenity=college],
-area|z17-[amenity=college],
 node|z17-[amenity=cinema],
 area|z17-[amenity=cinema],
 node|z17-[amenity=police],
@@ -1588,9 +1582,15 @@ node|z18-[amenity=university][!name],
 area|z18-[amenity=university][!name]
 {}
 
+node|z16-[amenity=college],
+area|z16-[amenity=college]
+{icon-image: college-m.svg; -x-me-text-priority:16000;}
+node|z18-[amenity=college],
+area|z18-[amenity=college]
+{font-size: 11;text-optional: true;}
 node|z17-[amenity=kindergarten],
 area|z17-[amenity=kindergarten]
-{icon-image: kindergarten-m.svg;}
+{icon-image: kindergarten-m.svg; -x-me-text-priority:16000;}
 node|z18-[amenity=kindergarten],
 area|z18-[amenity=kindergarten]
 {font-size: 11;text-optional: true;}
@@ -1602,17 +1602,10 @@ area|z18-[amenity=childcare]
 {font-size: 11;text-optional: true;}
 node|z17-[amenity=school],
 area|z17-[amenity=school]
-{icon-image: school-m.svg;}
+{icon-image: school-m.svg; -x-me-text-priority:16000;}
 node|z18-[amenity=school],
 area|z18-[amenity=school]
 {font-size: 11;text-optional: true;}
-node|z17-[amenity=college],
-area|z17-[amenity=college]
-{icon-image: college-m.svg;}
-node|z18-[amenity=college],
-area|z18-[amenity=college]
-{font-size: 11;text-optional: true;}
-
 /* 5.3 Sport */
 
 node|z13-14[leisure=stadium]
