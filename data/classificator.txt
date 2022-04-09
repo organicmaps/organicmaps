@@ -508,6 +508,7 @@ world  +
         churchyard  -
         commercial  -
         construction  -
+        education  -
         farm  -
         farmland  -
         farmyard  -

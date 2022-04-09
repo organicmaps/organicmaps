@@ -389,7 +389,7 @@ mapswithme
 *aerialway|cable_car
 *piste:type|downhill
 *sport|american_football
-mapswithme
+*landuse|education
 *man_made|cairn
 *railway|preserved|bridge
 *highway|path|demanding_alpine_hiking
