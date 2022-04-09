@@ -127,6 +127,8 @@ public:
   void Load(uint32_t featureId, RoadGeometry & road) override
   {
     auto feature = m_featuresVector.GetVector().GetByIndex(featureId);
+    CHECK(feature, ());
+    feature->SetID({{}, featureId});
     feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     // Note. If FileGeometryLoader is used for generation cross mwm section for bicycle or
