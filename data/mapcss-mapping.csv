@@ -389,7 +389,7 @@ place|city|capital;[place=city][capital?];;name;int_name;388;
 aerialway|cable_car;389;
 piste:type|downhill;390;
 sport|american_football;391;
-deprecated|deprecated;392;x
+landuse|education;392;
 man_made|cairn;393;
 railway|preserved|bridge;[railway=preserved][bridge?];;name;int_name;394;
 highway|path|demanding_alpine_hiking;[highway=path][sac_scale=demanding_alpine_hiking];;name;int_name;395;
