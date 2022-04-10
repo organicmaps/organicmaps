@@ -9748,6 +9748,7 @@
     be = Адукацыйныя ўстановы
     es = Instalaciones educativas
     fr = Établissements éducatifs
+    it = Strutture didattiche
     ru = Образовательные учреждения
     uk = Освітній заклади
 
