@@ -285,8 +285,6 @@ class IsPoiChecker : public BaseChecker
 {
   IsPoiChecker();
 public:
-  static std::set<std::string> const kPoiTypes;
-
   DECLARE_CHECKER_INSTANCE(IsPoiChecker);
 };
 

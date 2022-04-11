@@ -325,7 +325,7 @@ bool Platform::MkDirRecursively(string const & dirName)
   auto const tokens = strings::Tokenize(dirName, sep);
   for (auto const & t : tokens)
   {
-    path = base::JoinPath(path, t);
+    path = base::JoinPath(path, string(t));
     if (!IsFileExistsByFullPath(path))
     {
       auto const ret = MkDir(path);

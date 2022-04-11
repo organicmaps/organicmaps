@@ -118,12 +118,7 @@ void BrandsHolder::LoadFromStream(istream & s)
       CHECK_NOT_EQUAL(langCode, StringUtf8Multilang::kUnsupportedLanguageCode, ());
 
       while (++iter)
-      {
-        Brand::Name name(*iter, langCode);
-
-        if (!name.m_name.empty())
-          brand.m_synonyms.push_back(name);
-      }
+        brand.m_synonyms.emplace_back(*iter, langCode);
     }
   }
 

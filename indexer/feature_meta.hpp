@@ -154,7 +154,11 @@ public:
   /// Used to normalize tags like "contact:phone", "phone" and "contact:mobile" to a common metadata enum value.
   static bool TypeFromString(std::string const & osmTagKey, EType & outType);
 
-  std::vector<Metadata::EType> GetKeys() const;
+  template <class FnT> void ForEachKey(FnT && fn) const
+  {
+    for (auto const & e : m_metadata)
+      fn(static_cast<Metadata::EType>(e.first));
+  }
 
   using MetadataBase::Has;
   using MetadataBase::Get;

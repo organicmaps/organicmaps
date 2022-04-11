@@ -17,6 +17,8 @@
 #include <sstream>
 #include <string>
 
+namespace editor
+{
 using namespace std;
 
 namespace
@@ -84,9 +86,6 @@ void ValidateElement(pugi::xml_node const & nodeOrWay)
     MYTHROW(editor::NoTimestamp, ("Node has no timestamp attribute"));
 }
 }  // namespace
-
-namespace editor
-{
 
 XMLFeature::XMLFeature(Type const type)
 {
@@ -167,12 +166,15 @@ string XMLFeature::ToOSMString() const
 
 void XMLFeature::ApplyPatch(XMLFeature const & featureWithChanges)
 {
+  /// @todo Avoid a bunch of string, vector temporaries here.
+
   // TODO(mgsergio): Get these alt tags from the config.
   vector<vector<string>> const alternativeTags = {{"phone", "contact:phone", "contact:mobile"},
                                                   {"website", "contact:website", "url"},
                                                   {"fax", "contact:fax"},
                                                   {"email", "contact:email"}};
-  featureWithChanges.ForEachTag([&alternativeTags, this](string const & k, string const & v) {
+  featureWithChanges.ForEachTag([&alternativeTags, this](string const & k, string v)
+  {
     // Avoid duplication for similar alternative osm tags.
     for (auto const & alt : alternativeTags)
     {
@@ -184,13 +186,13 @@ void XMLFeature::ApplyPatch(XMLFeature const & featureWithChanges)
           // Reuse already existing tag if it's present.
           if (HasTag(tag))
           {
-            SetTagValue(tag, v);
+            SetTagValue(tag, std::move(v));
             return;
           }
         }
       }
     }
-    SetTagValue(k, v);
+    SetTagValue(k, std::move(v));
   });
 }
 
@@ -256,32 +258,32 @@ string XMLFeature::GetName(uint8_t const langCode) const
   return GetName(StringUtf8Multilang::GetLangByCode(langCode));
 }
 
-void XMLFeature::SetName(string const & name) { SetName(kDefaultLang, name); }
+void XMLFeature::SetName(string name) { SetName(kDefaultLang, std::move(name)); }
 
-void XMLFeature::SetName(string const & lang, string const & name)
+void XMLFeature::SetName(string const & lang, string name)
 {
   if (lang == kIntlLang)
   {
-    SetTagValue(kIntlName, name);
+    SetTagValue(kIntlName, std::move(name));
   }
   else if (lang == kAltLang)
   {
-    SetTagValue(kAltName, name);
+    SetTagValue(kAltName, std::move(name));
   }
   else if (lang == kOldLang)
   {
-    SetTagValue(kOldName, name);
+    SetTagValue(kOldName, std::move(name));
   }
   else
   {
     auto const suffix = (lang == kDefaultLang || lang.empty()) ? "" : ":" + lang;
-    SetTagValue(kDefaultName + suffix, name);
+    SetTagValue(kDefaultName + suffix, std::move(name));
   }
 }
 
-void XMLFeature::SetName(uint8_t const langCode, string const & name)
+void XMLFeature::SetName(uint8_t const langCode, string name)
 {
-  SetName(StringUtf8Multilang::GetLangByCode(langCode), name);
+  SetName(StringUtf8Multilang::GetLangByCode(langCode), std::move(name));
 }
 
 string XMLFeature::GetHouse() const { return GetTagValue(kHouseNumber); }
@@ -417,7 +419,8 @@ XMLFeature::Type XMLFeature::StringToType(string const & type)
 
 void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object)
 {
-  xml.ForEachName([&object](string const & lang, string const & name) {
+  xml.ForEachName([&object](string_view lang, string_view name)
+  {
     object.SetName(name, StringUtf8Multilang::GetLangIndex(lang));
   });
 
@@ -427,12 +430,10 @@ void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object)
 
   auto const cuisineStr = xml.GetCuisine();
   if (!cuisineStr.empty())
-  {
-    auto const cuisines = strings::Tokenize(cuisineStr, ";");
-    object.SetCuisines(cuisines);
-  }
+    object.SetCuisines(strings::Tokenize(cuisineStr, ";"));
 
-  xml.ForEachTag([&object](string const & k, string const & v) {
+  xml.ForEachTag([&object](string const & k, string const & v)
+  {
     // Skip result because we iterate via *all* tags here.
     (void)object.UpdateMetadataValue(k, v);
   });
@@ -453,8 +454,10 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
     toFeature.SetGeometry(begin(triangles), end(triangles));
   }
 
-  object.GetNameMultilang().ForEach(
-      [&toFeature](uint8_t const & lang, string const & name) { toFeature.SetName(lang, name); });
+  object.GetNameMultilang().ForEach([&toFeature](uint8_t const & lang, string_view name)
+  {
+    toFeature.SetName(lang, std::string(name));
+  });
 
   string const house = object.GetHouseNumber();
   if (!house.empty())
@@ -497,15 +500,15 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
 
       string const strType = classif().GetReadableObjectName(type);
       strings::SimpleTokenizer iter(strType, "-");
-      string const k = *iter;
+      string const k(*iter);
       if (++iter)
       {
         // First (main) type is always stored as "k=amenity v=restaurant".
         // Any other "k=amenity v=atm" is replaced by "k=atm v=yes".
         if (toFeature.GetTagValue(k).empty())
-          toFeature.SetTagValue(k, *iter);
+          toFeature.SetTagValue(k, string(*iter));
         else
-          toFeature.SetTagValue(*iter, "yes");
+          toFeature.SetTagValue(string(*iter), "yes");
       }
       else
       {
@@ -517,9 +520,9 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
     }
   }
 
-  object.ForEachMetadataItem([&toFeature](string const & tag, string const & value)
+  object.ForEachMetadataItem([&toFeature](string const & tag, string && value)
   {
-    toFeature.SetTagValue(tag, value);
+    toFeature.SetTagValue(tag, std::move(value));
   });
 
   return toFeature;
@@ -531,7 +534,7 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
                ("At the moment only new nodes (points) can be created."));
   object.SetPointType();
   object.SetMercator(xml.GetMercatorCenter());
-  xml.ForEachName([&object](string const & lang, string const & name)
+  xml.ForEachName([&object](string_view lang, string_view name)
   {
     object.SetName(name, StringUtf8Multilang::GetLangIndex(lang));
   });
@@ -542,10 +545,7 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
 
   auto const cuisineStr = xml.GetCuisine();
   if (!cuisineStr.empty())
-  {
-    auto const cuisines = strings::Tokenize(cuisineStr, ";");
-    object.SetCuisines(cuisines);
-  }
+    object.SetCuisines(strings::Tokenize(cuisineStr, ";"));
 
   feature::TypesHolder types = object.GetTypes();
 

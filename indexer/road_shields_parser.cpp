@@ -9,10 +9,11 @@
 #include <unordered_map>
 #include <utility>
 
+
+namespace ftypes
+{
 namespace
 {
-using ftypes::RoadShield;
-using ftypes::RoadShieldType;
 
 uint32_t constexpr kMaxRoadShieldBytesSize = 8;
 
@@ -76,7 +77,7 @@ class RoadShieldParser
 public:
   explicit RoadShieldParser(std::string const & baseRoadNumber) : m_baseRoadNumber(baseRoadNumber) {}
   virtual ~RoadShieldParser() = default;
-  virtual RoadShield ParseRoadShield(std::string const & rawText) const = 0;
+  virtual RoadShield ParseRoadShield(std::string_view rawText) const = 0;
 
   RoadShieldType FindNetworkShield(std::string network) const
   {
@@ -110,8 +111,8 @@ public:
   {
     std::set<RoadShield> result;
     std::set<RoadShield> defaultShields;
-    std::vector<std::string> shieldsRawTests = strings::Tokenize(m_baseRoadNumber, ";");
-    for (std::string const & rawText : shieldsRawTests)
+
+    strings::Tokenize(m_baseRoadNumber, ";", [&](std::string_view rawText)
     {
       RoadShield shield;
       auto slashPos = rawText.find('/');
@@ -122,7 +123,7 @@ public:
       else
       {
         shield = ParseRoadShield(rawText.substr(slashPos + 1));
-        shield.m_type = FindNetworkShield(rawText.substr(0, slashPos));
+        shield.m_type = FindNetworkShield(std::string(rawText.substr(0, slashPos)));
       }
       if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden)
       {
@@ -133,7 +134,8 @@ public:
         }
         result.insert(std::move(shield));
       }
-    }
+    });
+
     for (RoadShield const & shield : defaultShields)
       result.erase(shield);
     return result;
@@ -147,9 +149,9 @@ class USRoadShieldParser : public RoadShieldParser
 {
 public:
   explicit USRoadShieldParser(std::string const & baseRoadNumber) : RoadShieldParser(baseRoadNumber) {}
-  RoadShield ParseRoadShield(std::string const & rawText) const override
+  RoadShield ParseRoadShield(std::string_view rawText) const override
   {
-    std::string shieldText = rawText;
+    std::string shieldText(rawText);
 
     std::replace(shieldText.begin(), shieldText.end(), '-', ' ');
     auto const shieldParts = strings::Tokenize(shieldText, " ");
@@ -176,9 +178,8 @@ public:
     if (shieldParts.size() <= 1)
       return RoadShield(RoadShieldType::Default, rawText);
 
-    std::string const & roadType =
-        shieldParts[0];  // 'I' for interstates and kFederalCode/kStatesCode for highways.
-    std::string roadNumber = shieldParts[1];
+    std::string_view const roadType = shieldParts[0];  // 'I' for interstates and kFederalCode/kStatesCode for highways.
+    std::string roadNumber(shieldParts[1]);
     std::string additionalInfo;
     if (shieldParts.size() >= 3)
     {
@@ -213,7 +214,7 @@ public:
   {
   }
 
-  RoadShield ParseRoadShield(std::string const & rawText) const override
+  RoadShield ParseRoadShield(std::string_view rawText) const override
   {
     if (rawText.size() > kMaxRoadShieldBytesSize)
       return RoadShield();
@@ -235,7 +236,7 @@ public:
   {
   }
 
-  RoadShield ParseRoadShield(std::string const & rawText) const override
+  RoadShield ParseRoadShield(std::string_view rawText) const override
   {
     if (rawText.size() > kMaxRoadShieldBytesSize)
       return RoadShield();
@@ -265,13 +266,13 @@ public:
   {
   }
 
-  RoadShield ParseRoadShield(std::string const & rawText) const override
+  RoadShield ParseRoadShield(std::string_view rawText) const override
   {
     if (rawText.size() > kMaxRoadShieldBytesSize)
       return RoadShield();
 
-    std::uint64_t ref;
-    if (strings::to_uint64(rawText, ref))
+    uint64_t ref;
+    if (strings::to_uint(rawText, ref))
     {
       for (auto const & p : m_types)
       {
@@ -310,7 +311,7 @@ public:
   {
   }
 
-  RoadShield ParseRoadShield(std::string const & rawText) const override
+  RoadShield ParseRoadShield(std::string_view rawText) const override
   {
     uint32_t constexpr kMaxRoadShieldSymbolsSize = 4 * kMaxRoadShieldBytesSize;
 
@@ -490,9 +491,9 @@ public:
     : RoadShieldParser(baseRoadNumber)
   {}
 
-  RoadShield ParseRoadShield(std::string const & rawText) const override
+  RoadShield ParseRoadShield(std::string_view rawText) const override
   {
-    std::string shieldText = rawText;
+    std::string shieldText(rawText);
 
     std::replace(shieldText.begin(), shieldText.end(), '-', ' ');
     auto const shieldParts = strings::Tokenize(shieldText, " ");
@@ -503,7 +504,7 @@ public:
     if (shieldParts.size() <= 1)
       return RoadShield(RoadShieldType::Default, rawText);
 
-    std::string roadNumber = shieldParts[1];
+    std::string roadNumber(shieldParts[1]);
     std::string additionalInfo;
     if (shieldParts.size() >= 3)
     {
@@ -527,8 +528,6 @@ public:
 };
 }  // namespace
 
-namespace ftypes
-{
 std::set<RoadShield> GetRoadShields(FeatureType & f)
 {
   std::string const roadNumber = f.GetRoadNumber();

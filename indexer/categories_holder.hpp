@@ -195,7 +195,7 @@ public:
 
   // Converts any language |locale| from UI to the corresponding
   // internal integer code.
-  static int8_t MapLocaleToInteger(std::string const & locale);
+  static int8_t MapLocaleToInteger(std::string_view const locale);
 
   // Returns corresponding string representation for an internal
   // integer |code|. Returns an empty string in case of invalid

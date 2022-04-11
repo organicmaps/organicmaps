@@ -440,27 +440,21 @@ void Storage::RestoreDownloadQueue()
   if (download.empty())
     return;
 
-  auto parse = [this](string const & token) {
-    if (token.empty())
-      return;
+  strings::Tokenize(download, ";", [this](string_view v)
+  {
+    auto const it = base::FindIf(m_notAppliedDiffs, [this, v](LocalCountryFile const & localDiff)
+                                {
+                                  return v == FindCountryIdByFile(localDiff.GetCountryName());
+                                });
 
-    for (strings::SimpleTokenizer iter(token, ";"); iter; ++iter)
+    if (it == m_notAppliedDiffs.end())
     {
-      auto const diffIt = find_if(m_notAppliedDiffs.cbegin(), m_notAppliedDiffs.cend(),
-                                  [this, &iter](LocalCountryFile const & localDiff) {
-                                    return *iter == FindCountryIdByFile(localDiff.GetCountryName());
-                                  });
-
-      if (diffIt == m_notAppliedDiffs.end())
-      {
-        auto localFile = GetLatestLocalFile(*iter);
-        auto isUpdate = localFile && localFile->OnDisk(MapFileType::Map);
-        DownloadNode(*iter, isUpdate);
-      }
+      string const s(v);
+      auto localFile = GetLatestLocalFile(s);
+      auto isUpdate = localFile && localFile->OnDisk(MapFileType::Map);
+      DownloadNode(s, isUpdate);
     }
-  };
-
-  parse(download);
+  });
 }
 
 void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)

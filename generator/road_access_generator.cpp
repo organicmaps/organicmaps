@@ -224,7 +224,7 @@ bool ParseRoadAccess(string const & roadAccessPath, OsmIdToFeatureIds const & os
     ++iter;
 
     uint64_t osmId;
-    if (!iter || !strings::to_uint64(*iter, osmId))
+    if (!iter || !strings::to_uint(*iter, osmId))
     {
       LOG(LERROR, ("Error when parsing road access: bad osm id at line", lineNo, "Line contents:", line));
       return false;
@@ -279,20 +279,21 @@ void ParseRoadAccessConditional(
   // TODO point is not supported yet.
   array<RoadAccess::PointToAccessConditional, kVehicleCount> pointToAccessConditional;
 
-  string buffer;
   string line;
   VehicleType vehicleType = VehicleType::Count;
   while (getline(stream, line))
   {
-    using It = strings::SimpleTokenizerWithEmptyTokens;
-    It strIt(line, strings::SimpleDelimiter('\t'));
+    strings::TokenizeIterator<strings::SimpleDelimiter, std::string::const_iterator, true /* KeepEmptyTokens */>
+        strIt(line.begin(), line.end(), strings::SimpleDelimiter('\t'));
+
     CHECK(strIt, (line));
-    buffer = *strIt;
+    string_view buffer = *strIt;
     strings::Trim(buffer);
     FromString(buffer, vehicleType);
     CHECK_NOT_EQUAL(vehicleType, VehicleType::Count, (line, buffer));
 
-    auto const moveIterAndCheck = [&]() {
+    auto const moveIterAndCheck = [&]()
+    {
       ++strIt;
       CHECK(strIt, (line));
       return *strIt;
@@ -301,13 +302,14 @@ void ParseRoadAccessConditional(
     uint64_t osmId = 0;
     buffer = moveIterAndCheck();
     strings::Trim(buffer);
-    CHECK(strings::to_uint64(buffer, osmId), (line, buffer));
+    CHECK(strings::to_uint(buffer, osmId), (line, buffer));
 
     size_t accessNumber = 0;
     buffer = moveIterAndCheck();
     strings::Trim(buffer);
-    CHECK(strings::to_size_t(buffer, accessNumber), (line, buffer));
+    CHECK(strings::to_uint(buffer, accessNumber), (line, buffer));
     CHECK_NOT_EQUAL(accessNumber, 0, (line));
+
     RoadAccess::Conditional conditional;
     for (size_t i = 0; i < accessNumber; ++i)
     {
@@ -317,9 +319,9 @@ void ParseRoadAccessConditional(
       FromString(buffer, roadAccessType);
       CHECK_NOT_EQUAL(roadAccessType, RoadAccess::Type::Count, (line));
 
-      buffer = moveIterAndCheck();
-      strings::Trim(buffer);
-      osmoh::OpeningHours openingHours(buffer);
+      string strBuffer(moveIterAndCheck());
+      strings::Trim(strBuffer);
+      osmoh::OpeningHours openingHours(strBuffer);
       if (!openingHours.IsValid())
         continue;
 

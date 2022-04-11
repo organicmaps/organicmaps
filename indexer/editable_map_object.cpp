@@ -19,6 +19,8 @@
 #include <regex>
 #include <sstream>
 
+namespace osm
+{
 using namespace std;
 
 namespace
@@ -136,7 +138,7 @@ bool TryToFillDefaultNameFromCode(int8_t const code, StringUtf8Multilang & names
 // This is the case when fake names were cleared.
 void TryToFillDefaultNameFromAnyLanguage(StringUtf8Multilang & names)
 {
-  names.ForEach([&names](int8_t langCode, string const & name)
+  names.ForEach([&names](int8_t langCode, string_view name)
   {
     if (name.empty() || langCode == StringUtf8Multilang::kDefaultCode)
       return base::ControlFlow::Continue;
@@ -169,7 +171,7 @@ void RemoveFakesFromName(osm::FakeNames const & fakeNames, StringUtf8Multilang &
     return;
 
   StringUtf8Multilang nameWithoutFakes;
-  name.ForEach([&codesToExclude, &nameWithoutFakes](int8_t langCode, string const & value)
+  name.ForEach([&codesToExclude, &nameWithoutFakes](int8_t langCode, string_view value)
   {
     auto const it = find(codesToExclude.begin(), codesToExclude.end(), langCode);
     if (it == codesToExclude.end())
@@ -180,11 +182,9 @@ void RemoveFakesFromName(osm::FakeNames const & fakeNames, StringUtf8Multilang &
 }
 }  // namespace
 
-namespace osm
-{
 // LocalizedName -----------------------------------------------------------------------------------
 
-LocalizedName::LocalizedName(int8_t const code, string const & name)
+LocalizedName::LocalizedName(int8_t const code, string_view name)
   : m_code(code)
   , m_lang(StringUtf8Multilang::GetLangByCode(code))
   , m_langName(StringUtf8Multilang::GetLangNameByCode(code))
@@ -273,7 +273,8 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
     ++mandatoryCount;
 
   // Push other languages.
-  source.ForEach([&names, mandatoryCount](int8_t const code, string const & name) {
+  source.ForEach([&names, mandatoryCount](int8_t const code, string_view name)
+  {
     // Exclude default name.
     if (StringUtf8Multilang::kDefaultCode == code)
       return;
@@ -303,29 +304,28 @@ string EditableMapObject::GetWikipedia() const
   return m_metadata.Get(feature::Metadata::FMD_WIKIPEDIA);
 }
 
-void EditableMapObject::ForEachMetadataItem(
-    function<void(string const & tag, string const & value)> const & fn) const
+void EditableMapObject::ForEachMetadataItem(function<void(string const & tag, string && value)> const & fn) const
 {
-  for (auto const type : m_metadata.GetKeys())
+  m_metadata.ForEachKey([&fn, this](feature::Metadata::EType type)
   {
     // Multilang description may produce several tags with different values.
     if (type == feature::Metadata::FMD_DESCRIPTION)
     {
       auto const multilangDescription = StringUtf8Multilang::FromBuffer(m_metadata.Get(type));
-      multilangDescription.ForEach([&fn](int8_t code, string const & value)
+      multilangDescription.ForEach([&fn](int8_t code, string_view v)
       {
+        string value(v);
         if (code == StringUtf8Multilang::kDefaultCode)
-          fn("description", value);
+          fn("description", std::move(value));
         else
-          fn(string("description:") + StringUtf8Multilang::GetLangByCode(code), value);
+          fn(string("description:") + StringUtf8Multilang::GetLangByCode(code), std::move(value));
       });
     }
     else
     {
-      string const attributeName = ToString(type);
-      fn(attributeName, m_metadata.Get(type));
+      fn(ToString(type), m_metadata.Get(type));
     }
-  }
+  });
 }
 
 uint64_t EditableMapObject::GetTestId() const
@@ -350,7 +350,7 @@ void EditableMapObject::SetEditableProperties(osm::EditableProperties const & pr
 
 void EditableMapObject::SetName(StringUtf8Multilang const & name) { m_name = name; }
 
-void EditableMapObject::SetName(string name, int8_t langCode)
+void EditableMapObject::SetName(string_view name, int8_t langCode)
 {
   strings::Trim(name);
 
@@ -591,18 +591,30 @@ void EditableMapObject::SetLevel(string const & level)
 
 LocalizedStreet const & EditableMapObject::GetStreet() const { return m_street; }
 
-void EditableMapObject::SetCuisines(vector<string> const & cuisines)
+template <class T>
+void EditableMapObject::SetCuisinesImpl(vector<T> const & cuisines)
 {
   FeatureParams params;
   params.m_types.assign(m_types.begin(), m_types.end());
+
   Classificator const & cl = classif();
   for (auto const & cuisine : cuisines)
-    params.m_types.push_back(cl.GetTypeByPath({"cuisine", cuisine}));
+    params.m_types.push_back(cl.GetTypeByPath({string_view("cuisine"), cuisine}));
 
   // Move useless types to the end and resize to fit TypesHolder.
   params.FinishAddingTypes();
 
   m_types.Assign(params.m_types.begin(), params.m_types.end());
+}
+
+void EditableMapObject::SetCuisines(std::vector<std::string_view> const & cuisines)
+{
+  SetCuisinesImpl(cuisines);
+}
+
+void EditableMapObject::SetCuisines(std::vector<std::string> const & cuisines)
+{
+  SetCuisinesImpl(cuisines);
 }
 
 void EditableMapObject::SetOpeningHours(string const & openingHours)
@@ -618,7 +630,7 @@ void EditableMapObject::RemoveBlankAndDuplicationsForDefault()
   string defaultName;
   m_name.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
 
-  m_name.ForEach([&defaultName, &editedName](int8_t langCode, string const & name)
+  m_name.ForEach([&defaultName, &editedName](int8_t langCode, string_view name)
   {
     auto const duplicate = langCode != StringUtf8Multilang::kDefaultCode && defaultName == name;
     if (!name.empty() && !duplicate)
@@ -682,12 +694,10 @@ bool EditableMapObject::ValidateFlats(string const & flats)
 {
   for (auto it = strings::SimpleTokenizer(flats, ";"); it; ++it)
   {
-    auto token = *it;
+    string_view token = *it;
     strings::Trim(token);
 
-    vector<string> range;
-    for (auto i = strings::SimpleTokenizer(token, "-"); i; ++i)
-      range.push_back(*i);
+    auto range = strings::Tokenize(token, "-");
     if (range.empty() || range.size() > 2)
       return false;
 

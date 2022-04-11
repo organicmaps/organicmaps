@@ -71,7 +71,7 @@ public:
   }
 };
 
-void ForEachObject(Classificator const & c, vector<string> const & path, GeomType geomType,
+void ForEachObject(Classificator const & c, vector<string_view> const & path, GeomType geomType,
                    int rules)
 {
   uint32_t const type = c.GetTypeByPath(path);
@@ -84,9 +84,7 @@ void ForEachObject(Classificator const & c, vector<string> const & path, GeomTyp
 
 void ForEachObject(Classificator const & c, string const & name, GeomType geomType, int rules)
 {
-  vector<string> path;
-  strings::Tokenize(name, "-", base::MakeBackInsertFunctor(path));
-  ForEachObject(c, path, geomType, rules);
+  ForEachObject(c, strings::Tokenize(name, "-"), geomType, rules);
 }
 
 void CheckPointStyles(Classificator const & c, string const & name)

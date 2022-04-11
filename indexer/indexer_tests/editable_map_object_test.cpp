@@ -33,7 +33,8 @@ string DebugPrint(ExpectedName const & expectedName)
 void CheckExpectations(StringUtf8Multilang const & s, vector<ExpectedName> const & expectations)
 {
   size_t counter = 0;
-  s.ForEach([&expectations, &counter](int8_t const code, string const & name) {
+  s.ForEach([&expectations, &counter](int8_t const code, string_view name)
+  {
     auto const it = find_if(expectations.begin(), expectations.end(), [&code](ExpectedName const & item)
     {
       return GetLangCode(item.m_lang.c_str()) == code;
@@ -585,10 +586,10 @@ UNIT_TEST(EditableMapObject_RemoveFakeNames)
 
 UNIT_TEST(EditableMapObject_RemoveBlankNames)
 {
-  auto const getCountOfNames = [](StringUtf8Multilang const & names) {
+  auto const getCountOfNames = [](StringUtf8Multilang const & names)
+  {
     size_t counter = 0;
-    names.ForEach([&counter](int8_t const, string const &) { ++counter; });
-
+    names.ForEach([&counter](int8_t, string_view) { ++counter; });
     return counter;
   };
 

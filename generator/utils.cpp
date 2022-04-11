@@ -172,17 +172,19 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
 
   MapcssRules rules;
 
-  auto const processShort = [&rules](std::string const & typeString) {
-    auto const typeTokens = strings::Tokenize(typeString, "|");
+  auto const processShort = [&rules](std::string const & typeString)
+  {
+    auto typeTokens = strings::Tokenize<std::string>(typeString, "|");
     CHECK(typeTokens.size() == 2, (typeString));
     MapcssRule rule;
     rule.m_tags = {{typeTokens[0], typeTokens[1]}};
-    rules.push_back({typeTokens, rule});
+    rules.emplace_back(std::move(typeTokens), std::move(rule));
   };
 
   auto const processFull = [&rules](std::string const & typeString,
-                                    std::string const & selectorsString) {
-    auto const typeTokens = strings::Tokenize(typeString, "|");
+                                    std::string const & selectorsString)
+  {
+    auto const typeTokens = strings::Tokenize<std::string>(typeString, "|");
     for (auto const & selector : strings::Tokenize(selectorsString, ","))
     {
       CHECK(!selector.empty(), (selectorsString));
@@ -190,12 +192,12 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
       CHECK_EQUAL(selector.back(), ']', (selectorsString));
 
       MapcssRule rule;
-      auto tags = strings::Tokenize(selector, "[");
+      auto tags = strings::Tokenize<std::string>(selector, "[");
       for (auto & rawTag : tags)
       {
         strings::Trim(rawTag, "]");
         CHECK(!rawTag.empty(), (selector, tags));
-        auto tag = strings::Tokenize(rawTag, "=");
+        auto tag = strings::Tokenize<std::string>(rawTag, "=");
         if (tag.size() == 1)
         {
           CHECK(!tag[0].empty(), (rawTag));
@@ -209,10 +211,10 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
         else
         {
           CHECK_EQUAL(tag.size(), 2, (tag));
-          rule.m_tags.push_back({tag[0], tag[1]});
+          rule.m_tags.emplace_back(tag[0], tag[1]);
         }
       }
-      rules.push_back({typeTokens, rule});
+      rules.emplace_back(typeTokens, std::move(rule));
     }
   };
 

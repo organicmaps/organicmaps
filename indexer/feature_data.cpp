@@ -255,7 +255,7 @@ bool FeatureParamsBase::IsEmptyNames() const
 namespace
 {
 
-bool IsDummyName(string const & s)
+bool IsDummyName(string_view s)
 {
   return s.empty();
 }
@@ -271,7 +271,7 @@ void FeatureParams::ClearName()
   name.Clear();
 }
 
-bool FeatureParams::AddName(string const & lang, string const & s)
+bool FeatureParams::AddName(string_view lang, string_view s)
 {
   if (IsDummyName(s))
     return false;

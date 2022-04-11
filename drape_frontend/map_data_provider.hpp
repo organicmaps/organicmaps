@@ -20,7 +20,7 @@ public:
   using TReadIDsFn = std::function<void(TReadCallback<FeatureID const> const &,
                                         m2::RectD const &, int)>;
   using TIsCountryLoadedFn = std::function<bool(m2::PointD const &)>;
-  using TIsCountryLoadedByNameFn = std::function<bool(std::string const &)>;
+  using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
   using TUpdateCurrentCountryFn = std::function<void(m2::PointD const &, int)>;
 
   MapDataProvider(TReadIDsFn && idsReader,

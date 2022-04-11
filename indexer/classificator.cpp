@@ -58,9 +58,9 @@ void ClassifObject::AddDrawRule(drule::Key const & k)
   m_drawRule.insert(i, k);
 }
 
-ClassifObjectPtr ClassifObject::BinaryFind(string const & s) const
+ClassifObjectPtr ClassifObject::BinaryFind(string_view const s) const
 {
-  auto const i = lower_bound(m_objs.begin(), m_objs.end(), s, less_name_t());
+  auto const i = lower_bound(m_objs.begin(), m_objs.end(), s, LessName());
   if ((i == m_objs.end()) || ((*i).m_name != s))
     return ClassifObjectPtr(0, 0);
   else
@@ -85,7 +85,7 @@ void ClassifObject::LoadPolicy::EndChilds()
 void ClassifObject::Sort()
 {
   sort(m_drawRule.begin(), m_drawRule.end(), less_scales());
-  sort(m_objs.begin(), m_objs.end(), less_name_t());
+  sort(m_objs.begin(), m_objs.end(), LessName());
   for_each(m_objs.begin(), m_objs.end(), bind(&ClassifObject::Sort, placeholders::_1));
 }
 
@@ -378,7 +378,7 @@ uint32_t Classificator::GetTypeByPathImpl(Iter beg, Iter end) const
   {
     ClassifObjectPtr ptr = p->BinaryFind(*beg++);
     if (!ptr)
-      return 0;
+      return INVALID_TYPE;
 
     ftype::PushValue(type, ptr.GetIndex());
     p = ptr.get();
@@ -387,7 +387,7 @@ uint32_t Classificator::GetTypeByPathImpl(Iter beg, Iter end) const
   return type;
 }
 
-uint32_t Classificator::GetTypeByPathSafe(vector<string> const & path) const
+uint32_t Classificator::GetTypeByPathSafe(vector<string_view> const & path) const
 {
   return GetTypeByPathImpl(path.begin(), path.end());
 }
@@ -395,14 +395,21 @@ uint32_t Classificator::GetTypeByPathSafe(vector<string> const & path) const
 uint32_t Classificator::GetTypeByPath(vector<string> const & path) const
 {
   uint32_t const type = GetTypeByPathImpl(path.cbegin(), path.cend());
-  ASSERT_NOT_EQUAL(type, 0, (path));
+  ASSERT_NOT_EQUAL(type, INVALID_TYPE, (path));
+  return type;
+}
+
+uint32_t Classificator::GetTypeByPath(vector<string_view> const & path) const
+{
+  uint32_t const type = GetTypeByPathImpl(path.cbegin(), path.cend());
+  ASSERT_NOT_EQUAL(type, INVALID_TYPE, (path));
   return type;
 }
 
 uint32_t Classificator::GetTypeByPath(initializer_list<char const *> const & lst) const
 {
   uint32_t const type = GetTypeByPathImpl(lst.begin(), lst.end());
-  ASSERT_NOT_EQUAL(type, 0, (lst));
+  ASSERT_NOT_EQUAL(type, INVALID_TYPE, (lst));
   return type;
 }
 

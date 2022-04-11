@@ -2067,12 +2067,14 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"wheelchair", "yes"},
   };
 
+  using SV = std::string_view;
+
   auto const & cl = classif();
   for (auto const & type : oneTypes)
   {
     auto const params = GetFeatureBuilderParams({type});
     TEST_EQUAL(params.m_types.size(), 1, (type, params));
-    TEST(params.IsTypeExist(cl.GetTypeByPath({type.m_key, type.m_value})), (type, params));
+    TEST(params.IsTypeExist(cl.GetTypeByPath({SV(type.m_key), SV(type.m_value)})), (type, params));
   }
 
   Tags const exTypes = {
@@ -2083,7 +2085,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
   {
     auto const params = GetFeatureBuilderParams({type});
     TEST_GREATER(params.m_types.size(), 1, (type, params));
-    TEST(params.IsTypeExist(cl.GetTypeByPath({type.m_key, type.m_value})), (type, params));
+    TEST(params.IsTypeExist(cl.GetTypeByPath({SV(type.m_key), SV(type.m_value)})), (type, params));
   }
 }
 

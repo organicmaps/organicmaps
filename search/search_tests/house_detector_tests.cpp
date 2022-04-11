@@ -346,7 +346,7 @@ UNIT_TEST(HS_StreetsCompare)
 
 namespace
 {
-string GetStreetKey(string const & name)
+string GetStreetKey(string_view name)
 {
   return strings::ToUtf8(search::GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */));
 }
@@ -415,8 +415,7 @@ UNIT_TEST(HS_MWMSearch)
     if (line.empty())
       continue;
 
-    vector<string> v;
-    strings::Tokenize(line, "|", base::MakeBackInsertFunctor(v));
+    auto const v = strings::Tokenize(line, "|");
 
     string key = GetStreetKey(v[0]);
     if (key.empty())

@@ -32,7 +32,7 @@ struct RoadShield
   std::string m_additionalText;
 
   RoadShield() = default;
-  RoadShield(RoadShieldType const & type, std::string const & name)
+  RoadShield(RoadShieldType const & type, std::string_view name)
   : m_type(type), m_name(name)
   {}
   RoadShield(RoadShieldType const & type, std::string const & name,

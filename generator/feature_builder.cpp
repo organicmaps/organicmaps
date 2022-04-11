@@ -577,7 +577,7 @@ int FeatureBuilder::GetMinFeatureDrawScale() const
   return (minScale == -1 ? 1000 : minScale);
 }
 
-bool FeatureBuilder::AddName(string const & lang, string const & name)
+bool FeatureBuilder::AddName(string_view lang, string_view name)
 {
   return m_params.AddName(lang, name);
 }

@@ -229,7 +229,7 @@ bool ParseTrackFile(unzip::File & zipReader, Track & trackData) noexcept
 
 optional<Track> ParseTrackArchiveData(string const & content, TemporaryFile & tmpArchiveFile)
 {
-  string binaryData = FromHex(content.data(), content.size());
+  string binaryData = FromHex(content);
   optional<string> archiveBody;
 
   if (HasZipSignature(binaryData))

@@ -72,15 +72,13 @@ inline std::string NumToHex<char>(char c)
 }
 /// @}
 
-inline std::string FromHex(void const * ptr, size_t size)
+inline std::string FromHex(std::string_view s)
 {
   std::string result;
-  result.resize(size / 2);
-  ::impl::FromHexRaw(ptr, size, &result[0]);
+  result.resize(s.size() / 2);
+  ::impl::FromHexRaw(s.data(), s.size(), &result[0]);
   return result;
 }
-
-inline std::string FromHex(std::string const & src) { return FromHex(src.c_str(), src.size()); }
 
 inline std::string ByteToQuat(uint8_t n)
 {

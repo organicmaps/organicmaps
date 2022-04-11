@@ -130,7 +130,8 @@ void TestFeature::Serialize(FeatureBuilder & fb) const
   case Type::Unknown: break;
   }
 
-  m_names.ForEach([&](int8_t langCode, string const & name) {
+  m_names.ForEach([&](int8_t langCode, string_view name)
+  {
     if (!name.empty())
     {
       auto const lang = StringUtf8Multilang::GetLangByCode(langCode);
@@ -256,8 +257,7 @@ void TestStreet::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
 
-  auto const & classificator = classif();
-  fb.SetType(classificator.GetTypeByPath({"highway", m_highwayType}));
+  fb.SetType(classif().GetTypeByPath({string_view("highway"), m_highwayType}));
 
   fb.GetParams().ref = m_roadNumber;
 

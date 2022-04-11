@@ -253,7 +253,7 @@ public:
   /// Checks, whether the country which contains the specified point is loaded.
   bool IsCountryLoaded(m2::PointD const & pt) const;
   /// Checks, whether the country is loaded.
-  bool IsCountryLoadedByName(std::string const & name) const;
+  bool IsCountryLoadedByName(std::string_view name) const;
 
   void InvalidateRect(m2::RectD const & rect);
 

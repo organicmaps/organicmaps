@@ -223,7 +223,7 @@ public:
 
   void ClearName();
 
-  bool AddName(std::string const & lang, std::string const & s);
+  bool AddName(std::string_view lang, std::string_view s);
   bool AddHouseName(std::string const & s);
   bool AddHouseNumber(std::string houseNumber);
 
