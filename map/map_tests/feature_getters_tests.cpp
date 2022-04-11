@@ -14,10 +14,11 @@
 #include <cstdint>
 #include <vector>
 
-using namespace std;
 
 UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
 {
+  using namespace std;
+
   Framework frm(FrameworkParams(false /* m_enableDiffs */));
   frm.DeregisterAllMaps();
   frm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
@@ -55,9 +56,7 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
     TEST(id.IsValid(), ());
     frm.GetDataSource().ReadFeature([&](FeatureType & ft)
     {
-      string_view name;
-      TEST(ft.GetName(StringUtf8Multilang::kDefaultCode, name), ());
-      TEST_EQUAL("Родны Кут", name, ());
+      TEST_EQUAL("Родны Кут", ft.GetName(StringUtf8Multilang::kDefaultCode), ());
       TEST(!isBuilding(ft), ());
     }, id);
   }

@@ -28,10 +28,10 @@
 #include <string>
 #include <vector>
 
+namespace bookmarks_test
+{
 using namespace std;
 
-namespace
-{
 using Runner = Platform::ThreadRunner;
 
 static FrameworkParams const kFrameworkParams(false /* m_enableDiffs */);
@@ -192,7 +192,6 @@ KmlFileType GetActiveKmlFileType()
 {
   return KmlFileType::Text;
 }
-}  // namespace
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
 {
@@ -452,12 +451,11 @@ void CheckPlace(Framework const & fm, shared_ptr<MwmInfo> mwmInfo, double lat, d
 {
   auto const info = fm.GetAddressAtPoint(mercator::FromLatLon(lat, lon));
 
-  string streetName;
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  feature::GetReadableName(mwmInfo->GetRegionData(), streetNames, deviceLang,
-                           false /* allowTranslit */, streetName);
+  feature::NameParamsOut out;
+  feature::GetReadableName({ streetNames, mwmInfo->GetRegionData(), languages::GetCurrentNorm(),
+                             false /* allowTranslit */ }, out);
 
-  TEST_EQUAL(info.GetStreetName(), streetName, ());
+  TEST_EQUAL(info.GetStreetName(), out.primary, ());
   TEST_EQUAL(info.GetHouseNumber(), houseNumber, ());
 }
 }  // namespace
@@ -1389,3 +1387,4 @@ UNIT_CLASS_TEST(Runner, Bookmarks_BrokenFile)
   auto kmlData = LoadKmlFile(fileName, KmlFileType::Binary);
   TEST(kmlData == nullptr, ());
 }
+} // namespace bookmarks_test

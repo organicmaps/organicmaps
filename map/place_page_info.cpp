@@ -45,27 +45,32 @@ void Info::SetFromFeatureType(FeatureType & ft)
   MapObject::SetFromFeatureType(ft);
   m_hasMetadata = true;
 
-  std::string primaryName;
-  std::string secondaryName;
-  GetPrefferedNames(primaryName, secondaryName);
+  feature::NameParamsOut out;
+  auto const mwmInfo = GetID().m_mwmId.GetInfo();
+  if (mwmInfo)
+  {
+    feature::GetPreferredNames({ m_name, mwmInfo->GetRegionData(), languages::GetCurrentNorm(),
+                               true /* allowTranslit */} , out);
+  }
+
   m_sortedTypes = m_types;
   m_sortedTypes.SortBySpec();
-  m_primaryFeatureName = primaryName;
+  m_primaryFeatureName = out.GetPrimary();
   if (IsBookmark())
   {
     m_uiTitle = GetBookmarkName();
 
-    auto const secondaryTitle = m_customName.empty() ? primaryName : m_customName;
+    auto const secondaryTitle = m_customName.empty() ? m_primaryFeatureName : m_customName;
     if (m_uiTitle != secondaryTitle)
       m_uiSecondaryTitle = secondaryTitle;
 
     m_uiSubtitle = FormatSubtitle(true /* withType */);
     m_uiAddress = m_address;
   }
-  else if (!primaryName.empty())
+  else if (!m_primaryFeatureName.empty())
   {
-    m_uiTitle = primaryName;
-    m_uiSecondaryTitle = secondaryName;
+    m_uiTitle = m_primaryFeatureName;
+    m_uiSecondaryTitle = out.secondary;
     m_uiSubtitle = FormatSubtitle(true /* withType */);
     m_uiAddress = m_address;
   }
@@ -148,17 +153,6 @@ std::string Info::FormatSubtitle(bool withType) const
     subtitle.push_back(kWheelchairSymbol);
 
   return strings::JoinStrings(subtitle, kSubtitleSeparator);
-}
-
-void Info::GetPrefferedNames(std::string & primaryName, std::string & secondaryName) const
-{
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-  if (mwmInfo)
-  {
-    auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-    feature::GetPreferredNames(mwmInfo->GetRegionData(), m_name, deviceLang,
-                               true /* allowTranslit */, primaryName, secondaryName);
-  }
 }
 
 std::string Info::GetBookmarkName()

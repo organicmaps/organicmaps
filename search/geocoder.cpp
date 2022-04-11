@@ -179,8 +179,8 @@ public:
       return;
     for (auto const lang : m_params.GetLangs())
     {
-      string_view name;
-      if (ft->GetName(lang, name))
+      string_view name = ft->GetName(lang);
+      if (!name.empty())
         names.push_back(std::string(name));
     }
   }
@@ -235,11 +235,12 @@ void JoinQueryTokens(QueryParams const & params, TokenRange const & range, UniSt
 /// @todo Can't change on string_view now, because of unordered_map<string> Affiliations.
 WARN_UNUSED_RESULT bool GetAffiliationName(FeatureType & ft, string & affiliation)
 {
-  string_view name;
-  if (!ft.GetName(StringUtf8Multilang::kDefaultCode, name) || name.empty())
+  string_view name = ft.GetName(StringUtf8Multilang::kDefaultCode);
+  if (name.empty())
   {
     // As a best effort, we try to read an english name if default name is absent.
-    if (!ft.GetName(StringUtf8Multilang::kEnglishCode, name) || name.empty())
+    name = ft.GetName(StringUtf8Multilang::kEnglishCode);
+    if (name.empty())
     {
       affiliation.clear();
       return false;
@@ -745,10 +746,8 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
     Region region(l, type);
     region.m_center = ft.GetCenter();
 
-    string_view name;
-    ft.GetName(StringUtf8Multilang::kDefaultCode, name);
-    LOG(LDEBUG, ("Region =", name));
-    region.m_defaultName = name;
+    region.m_defaultName = ft.GetName(StringUtf8Multilang::kDefaultCode);
+    LOG(LDEBUG, ("Region =", region.m_defaultName));
 
     m_infoGetter.GetMatchedRegions(affiliation, region.m_ids);
     m_regions[type][l.m_tokenRange].push_back(std::move(region));
@@ -817,9 +816,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
       }
 
 #ifdef DEBUG
-      string_view name;
-      ft->GetName(StringUtf8Multilang::kDefaultCode, name);
-      city.m_defaultName = name;
+      city.m_defaultName = ft->GetName(StringUtf8Multilang::kDefaultCode);
       LOG(LINFO,
           ("City =", city.m_defaultName, "rect =", city.m_rect,
            "rect source:", haveBoundary ? "table" : "population",
@@ -874,9 +871,7 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     village.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
 
 #ifdef DEBUG
-    string_view name;
-    ft->GetName(StringUtf8Multilang::kDefaultCode, name);
-    village.m_defaultName = name;
+    village.m_defaultName = ft->GetName(StringUtf8Multilang::kDefaultCode);
     LOG(LDEBUG, ("Village =", village.m_defaultName, "radius =", radius));
 #endif
 

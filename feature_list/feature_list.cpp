@@ -226,15 +226,10 @@ public:
 
     string const & mwmName = f.GetID().GetMwmName();
 
-    string_view svName;
-    f.GetName(StringUtf8Multilang::kDefaultCode, svName);
-
-    string name(svName);
+    string name(f.GetName(StringUtf8Multilang::kDefaultCode));
     if (name.empty())
     {
-      string primary, secondary;
-      f.GetPreferredNames(primary, secondary);
-      name = primary;
+      std::tie(name, std::ignore) = f.GetPreferredNames();
       if (name.empty())
         name = metaOperator;
     }

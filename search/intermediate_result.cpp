@@ -132,10 +132,10 @@ bool PreRankerResult::CategoriesComparator::operator()(PreRankerResult const & l
 
 // RankerResult ------------------------------------------------------------------------------------
 RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
-                           string const & displayName, string const & fileName)
+                           string displayName, string const & fileName)
   : m_id(f.GetID())
   , m_types(f)
-  , m_str(displayName)
+  , m_str(std::move(displayName))
   , m_resultType(ftypes::IsBuildingChecker::Instance()(m_types) ? Type::Building : Type::Feature)
   , m_geomType(f.GetGeomType())
 {
@@ -148,6 +148,12 @@ RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::Point
   m_distance = PointDistance(center, pivot);
 
   FillDetails(f, m_details);
+}
+
+RankerResult::RankerResult(FeatureType & ft, m2::PointD const & pivot, std::string const & fileName)
+  : RankerResult(ft, feature::GetCenter(ft, FeatureType::WORST_GEOMETRY),
+                 pivot, std::string(ft.GetReadableName()), fileName)
+{
 }
 
 RankerResult::RankerResult(double lat, double lon)

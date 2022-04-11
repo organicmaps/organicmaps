@@ -2720,11 +2720,9 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
         return true;
       }
 
-      string name;
-      ft->GetReadableName(name);
       feature::TypesHolder const types(*ft);
       search::Result::Details details;
-      results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*ft), name, edit.second,
+      results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*ft), ft->GetReadableName(), edit.second,
                                                types.GetBestType(), details));
     }
     params.m_onResults(results);
@@ -2767,11 +2765,10 @@ WARN_UNUSED_RESULT bool LocalizeStreet(DataSource const & dataSource, FeatureID 
   if (!ft)
     return false;
 
-  string_view name;
-  ft->GetName(StringUtf8Multilang::kDefaultCode, name);
-  result.m_defaultName = name;
+  result.m_defaultName = ft->GetName(StringUtf8Multilang::kDefaultCode);
 
-  ft->GetReadableName(result.m_localizedName);
+  result.m_localizedName = ft->GetReadableName();
+
   if (result.m_localizedName == result.m_defaultName)
     result.m_localizedName.clear();
   return true;
@@ -3212,11 +3209,7 @@ void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
     string id = "fid:" + strings::to_string(fid);
     auto ft = loader.GetFeatureByIndex(fid);
     if (ft)
-    {
-      string_view name;
-      ft->GetName(StringUtf8Multilang::kDefaultCode, name);
-      id.append(", name:").append(name);
-    }
+      id.append(", name:").append(ft->GetName(StringUtf8Multilang::kDefaultCode));
 
     boundaries.ForEachBoundary([&id, this](indexer::CityBoundary const & cityBoundary, size_t i)
     {

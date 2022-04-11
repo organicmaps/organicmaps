@@ -69,7 +69,7 @@ public:
   static auto constexpr kPopularityHighPriorityMinDistance = 50000.0;
 
   // For Type::Feature.
-  Result(FeatureID const & id, m2::PointD const & pt, std::string const & str,
+  Result(FeatureID const & id, m2::PointD const & pt, std::string_view str,
          std::string const & address, uint32_t featureType, Details const & meta);
 
   // For Type::LatLon.
@@ -122,7 +122,7 @@ public:
   std::pair<uint16_t, uint16_t> const & GetHighlightRange(size_t idx) const;
   size_t GetHighlightRangesCount() const { return m_hightlightRanges.size(); }
 
-  void PrependCity(std::string const & name);
+  void PrependCity(std::string_view name);
 
   int32_t GetPositionInResults() const { return m_positionInResults; }
   void SetPositionInResults(int32_t pos) { m_positionInResults = pos; }

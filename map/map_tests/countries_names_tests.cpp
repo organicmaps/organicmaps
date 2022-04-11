@@ -65,11 +65,9 @@ UNIT_TEST(CountriesNamesTest)
     bool found = false;
     for (auto const lang : langIndices)
     {
-      string_view svName;
-      if (ft->GetName(lang, svName))
+      std::string const name(ft->GetName(lang));
+      if (!name.empty())
       {
-        std::string name(svName);
-
         auto const it = synonyms.find(name);
         if (it == synonyms.end())
           found = storage.IsNode(name) || kIgnoreList.count(name) != 0;

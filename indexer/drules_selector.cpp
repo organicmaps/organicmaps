@@ -143,7 +143,7 @@ bool GetPopulation(FeatureType & ft, uint64_t & population)
 // Feature tag value evaluator for tag 'name'
 bool GetName(FeatureType & ft, string & name)
 {
-  ft.GetReadableName(name);
+  name = ft.GetReadableName();
   return true;
 }
 

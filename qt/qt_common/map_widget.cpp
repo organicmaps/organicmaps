@@ -301,9 +301,7 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
     addStringFn(concat);
 
     // Name
-    std::string name;
-    ft.GetReadableName(name);
-    addStringFn(name);
+    addStringFn(std::string(ft.GetReadableName()));
 
     // Address
     auto const info = GetFeatureAddressInfo(m_framework, ft);

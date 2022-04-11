@@ -66,9 +66,7 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
   pathSegment.m_isLink = ftypes::IsLinkChecker::Instance()(*ft);
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(*ft);
 
-  string_view name;
-  ft->GetName(StringUtf8Multilang::kDefaultCode, name);
-  pathSegment.m_name = name;
+  pathSegment.m_name = ft->GetName(StringUtf8Multilang::kDefaultCode);
 }
 
 void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges,

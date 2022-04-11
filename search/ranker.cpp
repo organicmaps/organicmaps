@@ -107,8 +107,8 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
 
   for (auto const lang : params.GetLangs())
   {
-    string_view name;
-    if (!ft.GetName(lang, name))
+    string_view const name = ft.GetName(lang);
+    if (name.empty())
       continue;
 
     auto const updateScore = [&](string_view n)
@@ -340,7 +340,7 @@ public:
     if (!ft)
       return {};
 
-    RankerResult r(*ft, center, m_ranker.m_params.m_pivot, name, country);
+    RankerResult r(*ft, center, m_ranker.m_params.m_pivot, std::move(name), country);
 
     search::RankingInfo info;
     InitRankingInfo(*ft, center, preRankerResult, info);
@@ -668,8 +668,9 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
   if (needAddress &&
       ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::LocalityType::None)
   {
-    m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item) {
-      string city;
+    m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item)
+    {
+      string_view city;
       if (item.GetReadableName(city))
         res.PrependCity(city);
     });
@@ -847,11 +848,10 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
   if (bestLang == StringUtf8Multilang::kAltNameCode ||
       bestLang == StringUtf8Multilang::kOldNameCode)
   {
-    string readableName;
-    f.GetReadableName(readableName);
+    string_view const readableName = f.GetReadableName();
     // Do nothing if alt/old name is the only name we have.
     if (readableName != name && !readableName.empty())
-      name = readableName + " (" + name + ")";
+      name = std::string(readableName) + " (" + name + ")";
   }
 }
 

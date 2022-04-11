@@ -55,12 +55,9 @@ void AddStreet(FeatureType & ft, m2::PointD const & center, bool includeSquaresA
   if (!addAsStreet && !addAsSquareOrSuburb)
     return;
 
-  string name;
-  ft.GetReadableName(name);
-  if (name.empty())
-    return;
-
-  streets.emplace_back(ft.GetID(), feature::GetMinDistanceMeters(ft, center), name, ft.GetNames());
+  string_view const name = ft.GetReadableName();
+  if (!name.empty())
+    streets.emplace_back(ft.GetID(), feature::GetMinDistanceMeters(ft, center), name, ft.GetNames());
 }
 
 // Following methods join only non-empty arguments in order with
@@ -291,14 +288,12 @@ bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,
   {
     FeatureID streetFeature(bld.m_id.m_mwmId, streetId);
     CHECK(bld.m_id.m_mwmId.IsAlive(), (bld.m_id.m_mwmId));
-    m_dataSource.ReadFeature(
-        [&bld, &addr](FeatureType & ft) {
-          string streetName;
-          ft.GetReadableName(streetName);
-          double distance = feature::GetMinDistanceMeters(ft, bld.m_center);
-          addr.m_street = Street(ft.GetID(), distance, streetName, ft.GetNames());
-        },
-        streetFeature);
+    m_dataSource.ReadFeature([&bld, &addr](FeatureType & ft)
+    {
+      double distance = feature::GetMinDistanceMeters(ft, bld.m_center);
+      addr.m_street = Street(ft.GetID(), distance, ft.GetReadableName(), ft.GetNames());
+    }, streetFeature);
+
     CHECK(!addr.m_street.m_multilangName.IsEmpty(), (bld.m_id.m_mwmId, streetId));
     addr.m_building = bld;
     return true;
@@ -351,15 +346,14 @@ string ReverseGeocoder::GetLocalizedRegionAddress(RegionAddress const & addr,
   string addrStr;
   if (addr.m_featureId.IsValid())
   {
-    m_dataSource.ReadFeature([&addrStr](FeatureType & ft) { ft.GetReadableName(addrStr); },
-                             addr.m_featureId);
+    m_dataSource.ReadFeature([&addrStr](FeatureType & ft) { addrStr = ft.GetReadableName(); }, addr.m_featureId);
 
     auto const countryName = addr.GetCountryName();
     if (!countryName.empty())
     {
       vector<string> nameParts;
       nameGetter.GetLocalizedFullName(countryName, nameParts);
-      nameParts.insert(nameParts.begin(), addrStr);
+      nameParts.insert(nameParts.begin(), std::move(addrStr));
       nameParts.erase(unique(nameParts.begin(), nameParts.end()), nameParts.end());
       addrStr = strings::JoinStrings(nameParts, ", ");
     }
