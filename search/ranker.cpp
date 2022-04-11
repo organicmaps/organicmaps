@@ -98,7 +98,7 @@ vector<vector<strings::UniString>> ModifyStrasse(vector<strings::UniString> cons
 }
 
 NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
-                                       TokenRange const & range, Model::Type type)
+                         TokenRange const & range, Model::Type type)
 {
   NameScores bestScores;
 
@@ -107,7 +107,7 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
 
   for (auto const lang : params.GetLangs())
   {
-    string name;
+    string_view name;
     if (!ft.GetName(lang, name))
       continue;
 

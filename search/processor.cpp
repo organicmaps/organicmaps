@@ -738,7 +738,7 @@ void Processor::SearchPlusCode()
 void Processor::SearchPostcode()
 {
   // Create a copy of the query to trim it in-place.
-  string query(m_query);
+  string_view query(m_query);
   strings::Trim(query);
 
   if (!LooksLikePostcode(query, !m_prefix.empty()))

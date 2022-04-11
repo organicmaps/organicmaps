@@ -75,15 +75,15 @@ public:
     }
   }
 
-  void Append(std::string const & s)
+  void Append(std::string_view sv)
   {
     ASSERT(!m_blocks.empty(), ());
 
     ASSERT_LESS(m_pool.size(), m_blockSize, ());
 
     ++m_blocks.back().m_subs;
-    m_pool.append(s);
-    m_lengths.push_back(s.size());
+    m_pool.append(sv);
+    m_lengths.push_back(sv.size());
 
     if (m_pool.size() >= m_blockSize)
     {

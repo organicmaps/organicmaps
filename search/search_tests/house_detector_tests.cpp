@@ -41,12 +41,9 @@ public:
   {
     if (f.GetGeomType() == feature::GeomType::Line)
     {
-      string name;
-      if (f.GetName(0, name) &&
-          find(streetNames.begin(), streetNames.end(), name) != streetNames.end())
-      {
+      string_view name;
+      if (f.GetName(0, name) && base::IsExist(streetNames, name))
         vect.push_back(f.GetID());
-      }
     }
   }
 
@@ -61,7 +58,7 @@ public:
 
 class CollectStreetIDs
 {
-  static bool GetKey(string const & name, string & key)
+  static bool GetKey(string_view name, string & key)
   {
     TEST(!name.empty(), ());
     key = strings::ToUtf8(search::GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */));
@@ -83,7 +80,7 @@ public:
   {
     if (f.GetGeomType() == feature::GeomType::Line)
     {
-      string name;
+      string_view name;
       if (f.GetName(0, name) && ftypes::IsWayChecker::Instance()(f))
       {
         string key;

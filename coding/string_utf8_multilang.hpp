@@ -183,8 +183,8 @@ public:
   }
   */
 
-  bool GetString(int8_t lang, std::string & utf8s) const;
-  bool GetString(std::string const & lang, std::string & utf8s) const
+  bool GetString(int8_t lang, std::string_view & utf8s) const;
+  bool GetString(std::string_view const lang, std::string_view & utf8s) const
   {
     int8_t const l = GetLangIndex(lang);
     if (l >= 0)

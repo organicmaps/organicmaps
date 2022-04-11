@@ -68,11 +68,11 @@ public:
   {
     for (size_t i = 0; i < input.size(); ++i)
     {
-      std::string result;
-      m_finder.GetLocality(
-          mercator::FromLatLon(input[i]), [&](search::LocalityItem const & item) {
-            item.GetSpecifiedOrDefaultName(StringUtf8Multilang::kEnglishCode, result);
-          });
+      std::string_view result;
+      m_finder.GetLocality(mercator::FromLatLon(input[i]), [&](search::LocalityItem const & item)
+      {
+        item.GetSpecifiedOrDefaultName(StringUtf8Multilang::kEnglishCode, result);
+      });
       TEST_EQUAL(result, results[i], ());
     }
   }

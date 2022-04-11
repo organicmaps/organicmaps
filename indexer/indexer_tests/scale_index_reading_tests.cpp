@@ -62,12 +62,11 @@ public:
     for (auto const & index : indices)
     {
       auto ft = loader.GetFeatureByIndex(index);
-      TEST(ft, ("Can't load feature by index:", index));
+      TEST(ft, (index));
 
-      string name;
-      TEST(ft->GetName(StringUtf8Multilang::kEnglishCode, name),
-           ("Can't get en name by index:", index));
-      names.push_back(name);
+      string_view name;
+      TEST(ft->GetName(StringUtf8Multilang::kEnglishCode, name), (index));
+      names.push_back(std::string(name));
     }
 
     sort(names.begin(), names.end());

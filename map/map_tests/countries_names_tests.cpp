@@ -21,12 +21,12 @@
 #include <set>
 #include <string>
 
-using namespace platform;
-using namespace storage;
-using namespace std;
-
 UNIT_TEST(CountriesNamesTest)
 {
+  using namespace platform;
+  using namespace storage;
+  using namespace std;
+
   Framework f(FrameworkParams(false /* m_enableDiffs */));
   auto & storage = f.GetStorage();
   auto const & synonyms = storage.GetCountryNameSynonyms();
@@ -65,9 +65,11 @@ UNIT_TEST(CountriesNamesTest)
     bool found = false;
     for (auto const lang : langIndices)
     {
-      string name;
-      if (ft->GetName(lang, name))
+      string_view svName;
+      if (ft->GetName(lang, svName))
       {
+        std::string name(svName);
+
         auto const it = synonyms.find(name);
         if (it == synonyms.end())
           found = storage.IsNode(name) || kIgnoreList.count(name) != 0;

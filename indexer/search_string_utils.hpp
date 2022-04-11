@@ -84,10 +84,10 @@ bool TokenizeStringAndCheckIfLastTokenIsPrefix(strings::UniString const & s,
 }
 
 template <class Tokens, class Delims>
-bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string const & s, Tokens & tokens,
+bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string_view sv, Tokens & tokens,
                                                Delims const & delims)
 {
-  return TokenizeStringAndCheckIfLastTokenIsPrefix(NormalizeAndSimplifyString(s), tokens, delims);
+  return TokenizeStringAndCheckIfLastTokenIsPrefix(NormalizeAndSimplifyString(sv), tokens, delims);
 }
 
 // Chops off the last query token (the "prefix" one) from |str|.

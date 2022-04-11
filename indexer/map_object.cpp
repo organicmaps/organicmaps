@@ -114,9 +114,11 @@ feature::TypesHolder const & MapObject::GetTypes() const { return m_types; }
 
 string MapObject::GetDefaultName() const
 {
-  string name;
+  string_view name;
   UNUSED_VALUE(m_name.GetString(StringUtf8Multilang::kDefaultCode, name));
-  return name;
+
+  /// @todo Can return string_view?
+  return std::string(name);
 }
 
 StringUtf8Multilang const & MapObject::GetNameMultilang() const

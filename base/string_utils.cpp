@@ -291,11 +291,13 @@ std::string ToUtf8(UniString const & s)
   return result;
 }
 
-bool IsASCIIString(std::string const & str)
+bool IsASCIIString(std::string_view sv)
 {
-  for (size_t i = 0; i < str.size(); ++i)
-    if (str[i] & 0x80)
+  for (auto c : sv)
+  {
+    if (c & 0x80)
       return false;
+  }
   return true;
 }
 

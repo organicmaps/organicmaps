@@ -236,13 +236,12 @@ bool GetBuildingInfo(FeatureType & ft, search::ReverseGeocoder const & coder, st
 }
 
 bool GetCafeInfo(FeatureType & ft, search::ReverseGeocoder const & coder, string & street,
-                 uint32_t & cafeType, string & name)
+                 uint32_t & cafeType, string_view & name)
 {
   if (!ft.HasName())
     return false;
 
-  auto const names = ft.GetNames();
-  if (!names.GetString(StringUtf8Multilang::kDefaultCode, name))
+  if (!ft.GetNames().GetString(StringUtf8Multilang::kDefaultCode, name))
     return false;
 
   for (auto const t : feature::TypesHolder(ft))
@@ -287,13 +286,13 @@ void ModifyCafe(string const & name, string const & type, string & out)
   AddMisprints(out);
 }
 
-string GetLocalizedCafeType(unordered_map<uint32_t, StringUtf8Multilang> const & typesTranslations,
-                            uint32_t type, uint8_t lang)
+string_view GetLocalizedCafeType(unordered_map<uint32_t, StringUtf8Multilang> const & typesTranslations,
+                                 uint32_t type, uint8_t lang)
 {
   auto const it = typesTranslations.find(type);
   if (it == typesTranslations.end())
     return {};
-  string translation;
+  string_view translation;
   if (it->second.GetString(lang, translation))
     return translation;
   it->second.GetString(StringUtf8Multilang::kEnglishCode, translation);
@@ -320,12 +319,12 @@ optional<Sample> GenerateRequest(
   case RequestType::Cafe:
   {
     uint32_t type;
-    string name;
+    string_view name;
     if (!GetCafeInfo(ft, coder, street, type, name))
       return {};
 
     auto const cafeType = GetLocalizedCafeType(typesTranslations, type, lang);
-    ModifyCafe(name, cafeType, cafeStr);
+    ModifyCafe(std::string(name), std::string(cafeType), cafeStr);
     break;
   }
   }

@@ -402,13 +402,13 @@ TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
 }
 
 TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
-                           string const & houseNumber, string const & street, string const & lang)
+                           string const & houseNumber, string_view street, string const & lang)
   : TestFeature(center, name, lang), m_houseNumber(houseNumber), m_streetName(street)
 {
 }
 
 TestBuilding::TestBuilding(vector<m2::PointD> const & boundary, string const & name,
-                           string const & houseNumber, string const & street, string const & lang)
+                           string const & houseNumber, string_view street, string const & lang)
   : TestFeature(boundary, name, lang)
   , m_boundary(boundary)
   , m_houseNumber(houseNumber)

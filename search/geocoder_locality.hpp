@@ -75,7 +75,7 @@ struct City : public Locality
   m2::RectD m_rect;
   Model::Type m_type;
 
-#if defined(DEBUG)
+#ifdef DEBUG
   std::string m_defaultName;
 #endif
 };

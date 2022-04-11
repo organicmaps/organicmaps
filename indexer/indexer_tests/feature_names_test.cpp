@@ -477,6 +477,7 @@ UNIT_TEST(GetReadableName)
   }
 }
 
+/*
 UNIT_TEST(GetNameForSearchOnBooking)
 {
   {
@@ -543,4 +544,5 @@ UNIT_TEST(GetNameForSearchOnBooking)
     TEST_EQUAL(result, "en name", ());
   }
 }
+*/
 }  // namespace
