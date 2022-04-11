@@ -10,6 +10,10 @@ Please prepend `[strings]` to your commit message and add [Developers Certificat
 Then run a `tools/unix/generate_localizations.sh` script and add the changes as a separate `[strings] Regenerated` commit.
 But if you can't run it - don't worry, its not mandatory!
 
+## Requirements
+
+To run the `tools/unix/generate_localizations.sh` script, it is necessary to have installed `ruby`.
+
 ## Translation files
 
 Main:
