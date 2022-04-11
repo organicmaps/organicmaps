@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
@@ -50,8 +51,9 @@ public final class Notifier
 
     Intent intent = MwmActivity.createShowMapIntent(mContext, id)
                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    PendingIntent pi = PendingIntent.getActivity(mContext, 0, intent,
-                                                 PendingIntent.FLAG_UPDATE_CURRENT);
+    int flags = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
+    PendingIntent pi = PendingIntent.getActivity(mContext, 0, intent, flag);
 
     String channel = NotificationChannelFactory.createProvider(mContext).getDownloadingChannel();
     placeNotification(title, content, pi, ID_DOWNLOAD_FAILED, channel);
