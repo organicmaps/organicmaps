@@ -31,12 +31,12 @@
 #include <utility>
 #include <vector>
 
+namespace scale_index_reading_tests
+{
 using namespace generator::tests_support;
 using namespace indexer;
 using namespace std;
 
-namespace
-{
 using Names = vector<string>;
 
 class ScaleIndexReadingTest : public TestWithCustomMwms
@@ -64,8 +64,8 @@ public:
       auto ft = loader.GetFeatureByIndex(index);
       TEST(ft, (index));
 
-      string_view name;
-      TEST(ft->GetName(StringUtf8Multilang::kEnglishCode, name), (index));
+      string_view const name = ft->GetName(StringUtf8Multilang::kEnglishCode);
+      TEST(!name.empty(), (index));
       names.push_back(std::string(name));
     }
 
@@ -128,4 +128,4 @@ UNIT_CLASS_TEST(ScaleIndexReadingTest, Mmap)
   TEST_EQUAL(collectNamesForExactScale(m2::RectD{-0.5, -0.5, 1.5, 1.5}, drawableScale),
              Names({"A", "B", "C", "D"}), ());
 }
-}  // namespace
+} // namespace scale_index_reading_tests

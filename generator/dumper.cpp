@@ -72,9 +72,8 @@ namespace feature
     void operator()(FeatureType & f, uint32_t)
     {
       ++m_totalCount;
-      string s1, s2;
-      f.GetPreferredNames(s1, s2);
-      if (!s1.empty())
+      auto const [primary, secondary] = f.GetPreferredNames();
+      if (!primary.empty())
         ++m_namesCount;
 
       m_currFeatureTypes.clear();

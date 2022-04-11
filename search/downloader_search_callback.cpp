@@ -29,11 +29,10 @@ bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType 
 
   for (auto const langIndex : langIndices)
   {
-    std::string_view sv;
-    if (!ft.GetName(langIndex, sv))
+    name = ft.GetName(langIndex);
+    if (name.empty())
       continue;
 
-    name = sv;
     if (storage.IsInnerNode(name))
       return true;
     auto const it = synonyms.find(name);

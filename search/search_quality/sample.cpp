@@ -14,6 +14,8 @@
 #include <memory>
 #include <sstream>
 
+namespace search
+{
 using namespace base;
 using namespace std;
 
@@ -49,18 +51,12 @@ bool Equal(vector<T> lhs, vector<T> rhs)
 }
 }  // namespace
 
-namespace search
-{
 // static
 Sample::Result Sample::Result::Build(FeatureType & ft, Relevance relevance)
 {
   Sample::Result r;
   r.m_pos = feature::GetCenter(ft);
-  {
-    string name;
-    ft.GetReadableName(name);
-    r.m_name = strings::MakeUniString(name);
-  }
+  r.m_name = strings::MakeUniString(ft.GetReadableName());
   r.m_houseNumber = ft.GetHouseNumber();
   r.m_types = feature::TypesHolder(ft).ToObjectNames();
   r.m_relevance = relevance;

@@ -705,70 +705,46 @@ FeatureType::GeomStat FeatureType::GetTrianglesSize(int scale)
   return GeomStat(sz, m_triangles.size());
 }
 
-void FeatureType::GetPreferredNames(string & primary, string & secondary)
+std::pair<std::string_view, std::string_view> FeatureType::GetPreferredNames()
 {
-  if (!HasName())
-    return;
-
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
-  if (!mwmInfo)
-    return;
-
-  ParseCommon();
-
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, false /* allowTranslit */,
-                      primary, secondary);
+  feature::NameParamsOut out;
+  GetPreferredNames(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()), out);
+  return { out.primary, out.secondary };
 }
 
-void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, string & primary,
-                                    string & secondary)
+void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out)
 {
   if (!HasName())
     return;
 
   auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
   if (!mwmInfo)
     return;
 
   ParseCommon();
 
-  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit,
-                      primary, secondary);
+  feature::GetPreferredNames({ GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit }, out);
 }
 
-void FeatureType::GetReadableName(string & name)
+string_view FeatureType::GetReadableName()
 {
-  if (!HasName())
-    return;
-
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
-  if (!mwmInfo)
-    return;
-
-  ParseCommon();
-
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, false /* allowTranslit */,
-                    name);
+  feature::NameParamsOut out;
+  GetReadableName(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()), out);
+  return out.primary;
 }
 
-void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, string & name)
+void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out)
 {
   if (!HasName())
     return;
 
   auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
   if (!mwmInfo)
     return;
 
   ParseCommon();
 
-  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit, name);
+  feature::GetReadableName({ GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit }, out);
 }
 
 string const & FeatureType::GetHouseNumber()
@@ -777,13 +753,19 @@ string const & FeatureType::GetHouseNumber()
   return m_params.house.Get();
 }
 
-bool FeatureType::GetName(int8_t lang, string_view & name)
+string_view FeatureType::GetName(int8_t lang)
 {
   if (!HasName())
-    return false;
+    return {};
 
   ParseCommon();
-  return m_params.name.GetString(lang, name);
+
+  // We don't store empty names.
+  string_view name;
+  if (m_params.name.GetString(lang, name))
+    ASSERT(!name.empty(), ());
+
+  return name;
 }
 
 uint8_t FeatureType::GetRank()

@@ -14,7 +14,7 @@ namespace search
 using namespace std;
 
 // Result ------------------------------------------------------------------------------------------
-Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
+Result::Result(FeatureID const & id, m2::PointD const & pt, string_view str,
                string const & address, uint32_t featureType, Details const & details)
   : m_resultType(Type::Feature)
   , m_id(id)
@@ -122,7 +122,7 @@ pair<uint16_t, uint16_t> const & Result::GetHighlightRange(size_t idx) const
   return m_hightlightRanges[idx];
 }
 
-void Result::PrependCity(string const & city)
+void Result::PrependCity(string_view city)
 {
   // It is expected that if |m_address| is not empty,
   // it starts with the region name. Avoid duplication
@@ -130,7 +130,7 @@ void Result::PrependCity(string const & city)
   // the city name and prepend otherwise.
   strings::SimpleTokenizer tok(m_address, ",");
   if (tok && *tok != city)
-    m_address = city + ", " + m_address;
+    m_address = std::string(city) + ", " + m_address;
 }
 
 string Result::ToStringForStats() const

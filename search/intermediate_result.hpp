@@ -94,7 +94,8 @@ public:
 
   /// For Type::Feature and Type::Building.
   RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
-               std::string const & displayName, std::string const & fileName);
+               std::string displayName, std::string const & fileName);
+  RankerResult(FeatureType & ft, m2::PointD const & pivot, std::string const & fileName);
 
   /// For Type::LatLon.
   RankerResult(double lat, double lon);

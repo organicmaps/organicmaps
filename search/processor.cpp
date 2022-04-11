@@ -955,11 +955,9 @@ void Processor::EmitFeatureIfExists(vector<shared_ptr<MwmInfo>> const & infos,
     auto ft = guard->GetFeatureByIndex(fid);
     if (!ft)
       continue;
-    auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
-    string name;
-    ft->GetReadableName(name);
+
     m_emitter.AddResultNoChecks(m_ranker.MakeResult(
-        RankerResult(*ft, center, m2::PointD() /* pivot */, name, guard->GetCountryFileName()),
+        RankerResult(*ft, m2::PointD() /* pivot */, guard->GetCountryFileName()),
         true /* needAddress */, true /* needHighlighting */));
     m_emitter.Emit();
   }
@@ -978,6 +976,7 @@ void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const
     auto ft = guard->GetFeatureByIndex(fid);
     if (!ft)
       continue;
+
     auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
     double dist = center.SquaredLength(m_viewport.Center());
     auto pivot = m_viewport.Center();
@@ -993,13 +992,13 @@ void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const
     results.emplace_back(dist, pivot, guard->GetCountryFileName(), move(ft));
     guards.push_back(move(guard));
   }
+
   sort(results.begin(), results.end());
+
   for (auto const & [dist, pivot, country, ft] : results)
   {
-    auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
-    string name;
-    ft->GetReadableName(name);
-    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, center, pivot, name, country),
+    /// @todo We make duplicating feature::GetCenter call in RankerResult.
+    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, pivot, country),
                                                     true /* needAddress */,
                                                     true /* needHighlighting */));
     m_emitter.Emit();

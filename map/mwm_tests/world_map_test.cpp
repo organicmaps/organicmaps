@@ -41,8 +41,8 @@ UNIT_TEST(World_Capitals)
     if (found)
       ++capitalsCount;
 
-    std::string_view name;
-    if (ft->GetName(StringUtf8Multilang::kEnglishCode, name) && testCapitals.count(name) > 0)
+    std::string_view const name = ft->GetName(StringUtf8Multilang::kEnglishCode);
+    if (testCapitals.count(name) > 0)
       TEST(found, (name));
   }
 
