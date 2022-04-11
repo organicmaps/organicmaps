@@ -189,8 +189,7 @@ void MetalinesBuilder::CollectFeature(FeatureBuilder const & feature, OsmElement
   if (name.empty() && params.ref.empty())
     return;
 
-  auto const key = static_cast<uint64_t>(std::hash<std::string>{}(name + '\0' + params.ref));
-  WriteVarUint(*m_writer, key);
+  WriteVarUint(*m_writer, static_cast<uint64_t>(std::hash<std::string>{}(std::string(name) + '\0' + params.ref)));
   LineString(element).Serialize(*m_writer);
 }
 

@@ -777,7 +777,7 @@ string const & FeatureType::GetHouseNumber()
   return m_params.house.Get();
 }
 
-bool FeatureType::GetName(int8_t lang, string & name)
+bool FeatureType::GetName(int8_t lang, string_view & name)
 {
   if (!HasName())
     return false;

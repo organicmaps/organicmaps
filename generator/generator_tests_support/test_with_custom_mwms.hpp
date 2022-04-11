@@ -39,9 +39,9 @@ public:
   // *NOTE* when |type| is feature::DataHeader::MapType::Country, the country
   // with |name| will be automatically registered.
   template <typename BuildFn>
-  MwmSet::MwmId BuildMwm(std::string const & name, feature::DataHeader::MapType type, BuildFn && fn)
+  MwmSet::MwmId BuildMwm(std::string name, feature::DataHeader::MapType type, BuildFn && fn)
   {
-    m_files.emplace_back(GetPlatform().WritableDir(), platform::CountryFile(name), 0 /* version */);
+    m_files.emplace_back(GetPlatform().WritableDir(), platform::CountryFile(std::move(name)), 0 /* version */);
     auto & file = m_files.back();
     Cleanup(file);
 
@@ -82,9 +82,9 @@ public:
   }
 
   template <typename BuildFn>
-  MwmSet::MwmId BuildCountry(std::string const & name, BuildFn && fn)
+  MwmSet::MwmId BuildCountry(std::string_view name, BuildFn && fn)
   {
-    return BuildMwm(name, feature::DataHeader::MapType::Country, std::forward<BuildFn>(fn));
+    return BuildMwm(std::string(name), feature::DataHeader::MapType::Country, std::forward<BuildFn>(fn));
   }
 
   void SetMwmVersion(uint32_t version);

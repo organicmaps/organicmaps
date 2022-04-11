@@ -147,7 +147,7 @@ public:
   void GetReadableName(std::string & name);
   void GetReadableName(bool allowTranslit, int8_t deviceLang, std::string & name);
 
-  bool GetName(int8_t lang, std::string & name);
+  bool GetName(int8_t lang, std::string_view & name);
   //@}
 
   uint8_t GetRank();

@@ -204,11 +204,10 @@ public:
     f.ParseBeforeStatistic();
     string const & category = GetReadableType(f);
     auto const & meta = f.GetMetadata();
-    // "operator" is a reserved word, hence "operatr". This word is pretty
-    // common in C++ projects.
-    string const & operatr = meta.Get(feature::Metadata::FMD_OPERATOR);
+
+    string const & metaOperator = meta.Get(feature::Metadata::FMD_OPERATOR);
     auto const & osmIt = ft2osm.find(f.GetID().m_index);
-    if ((!f.HasName() && operatr.empty()) ||
+    if ((!f.HasName() && metaOperator.empty()) ||
         (f.GetGeomType() == feature::GeomType::Line && category != "highway-pedestrian") ||
         category.empty())
     {
@@ -219,19 +218,27 @@ public:
     osm::MapObject obj;
     obj.SetFromFeatureType(f);
 
-    string city;
-    m_finder.GetLocality(center, [&city](search::LocalityItem const & item) {
+    string_view city;
+    m_finder.GetLocality(center, [&city](search::LocalityItem const & item)
+    {
       item.GetSpecifiedOrDefaultName(StringUtf8Multilang::kDefaultCode, city);
     });
 
     string const & mwmName = f.GetID().GetMwmName();
-    string name, primary, secondary;
-    f.GetPreferredNames(primary, secondary);
-    f.GetName(StringUtf8Multilang::kDefaultCode, name);
+
+    string_view svName;
+    f.GetName(StringUtf8Multilang::kDefaultCode, svName);
+
+    string name(svName);
     if (name.empty())
+    {
+      string primary, secondary;
+      f.GetPreferredNames(primary, secondary);
       name = primary;
-    if (name.empty())
-      name = operatr;
+      if (name.empty())
+        name = metaOperator;
+    }
+
     string osmId = osmIt != ft2osm.cend() ? to_string(osmIt->second.GetEncodedId()) : "";
     string const & uid = BuildUniqueId(ll, name);
     string const & lat = strings::to_string_dac(ll.m_lat, 6);
@@ -272,10 +279,11 @@ public:
     string const & atm = HasAtm(f) ? "yes" : "";
 
     vector<string> columns = {
-        osmId,             uid,             lat,           lon,       mwmName, category, name,    city,
-        addrStreet,        addrHouse,       phone,         website,   stars,    operatr, internet,
-        denomination,      wheelchair,      opening_hours, wikipedia, floor,   fee,      atm,     contact_facebook,
+        osmId,             uid,             lat,           lon,       mwmName, category,     name,    std::string(city),
+        addrStreet,        addrHouse,       phone,         website,   stars,   metaOperator, internet,
+        denomination,      wheelchair,      opening_hours, wikipedia, floor,   fee,          atm,     contact_facebook,
         contact_instagram, contact_twitter, contact_vk,    contact_line};
+
     AppendNames(f, columns);
     PrintAsCSV(columns, ';', cout);
   }

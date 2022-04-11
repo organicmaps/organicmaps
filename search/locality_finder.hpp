@@ -37,9 +37,9 @@ struct LocalityItem
   LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center,
                Boundaries && boundaries, uint64_t population, FeatureID const & id);
 
-  bool GetName(int8_t lang, std::string & name) const { return m_names.GetString(lang, name); }
+  bool GetName(int8_t lang, std::string_view & name) const { return m_names.GetString(lang, name); }
 
-  bool GetSpecifiedOrDefaultName(int8_t lang, std::string & name) const
+  bool GetSpecifiedOrDefaultName(int8_t lang, std::string_view & name) const
   {
     return GetName(lang, name) || GetName(StringUtf8Multilang::kDefaultCode, name);
   }

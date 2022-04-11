@@ -2767,7 +2767,10 @@ WARN_UNUSED_RESULT bool LocalizeStreet(DataSource const & dataSource, FeatureID 
   if (!ft)
     return false;
 
-  ft->GetName(StringUtf8Multilang::kDefaultCode, result.m_defaultName);
+  string_view name;
+  ft->GetName(StringUtf8Multilang::kDefaultCode, name);
+  result.m_defaultName = name;
+
   ft->GetReadableName(result.m_localizedName);
   if (result.m_localizedName == result.m_defaultName)
     result.m_localizedName.clear();
@@ -3210,9 +3213,9 @@ void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
     auto ft = loader.GetFeatureByIndex(fid);
     if (ft)
     {
-      string name;
+      string_view name;
       ft->GetName(StringUtf8Multilang::kDefaultCode, name);
-      id += ", name:" + name;
+      id.append(", name:").append(name);
     }
 
     boundaries.ForEachBoundary([&id, this](indexer::CityBoundary const & cityBoundary, size_t i)

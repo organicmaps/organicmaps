@@ -156,7 +156,7 @@ RankerResult::RankerResult(double lat, double lon)
   m_region.SetParams(string(), mercator::FromLatLon(lat, lon));
 }
 
-RankerResult::RankerResult(m2::PointD const & coord, string const & postcode)
+RankerResult::RankerResult(m2::PointD const & coord, string_view postcode)
   : m_str(postcode), m_resultType(Type::Postcode)
 {
   m_region.SetParams(string(), coord);

@@ -133,14 +133,13 @@ public:
   void SerializeStrings(Sink & sink)
   {
     coding::BlockedTextStorageWriter<Sink> writer(sink, 200000 /* blockSize */);
-    std::string str;
     for (auto const & langIndices : m_groupedByLang)
     {
       for (auto const & descIndex : langIndices.second)
       {
-        auto const found = m_descriptions[descIndex].m_description.GetString(langIndices.first, str);
-        CHECK(found, ());
-        writer.Append(str);
+        std::string_view sv;
+        CHECK(m_descriptions[descIndex].m_description.GetString(langIndices.first, sv), ());
+        writer.Append(sv);
       }
     }
   }

@@ -298,7 +298,7 @@ bool FeatureParams::AddHouseName(string const & s)
     if (AddHouseNumber(s))
     {
       // Duplicating code to avoid changing the method header.
-      string dummy;
+      string_view dummy;
       if (!name.GetString(StringUtf8Multilang::kDefaultCode, dummy))
         name.AddString(StringUtf8Multilang::kDefaultCode, housename);
       return true;
@@ -306,7 +306,7 @@ bool FeatureParams::AddHouseName(string const & s)
   }
 
   // Add as a default name if we don't have it yet.
-  string dummy;
+  string_view dummy;
   if (!name.GetString(StringUtf8Multilang::kDefaultCode, dummy))
   {
     name.AddString(StringUtf8Multilang::kDefaultCode, s);

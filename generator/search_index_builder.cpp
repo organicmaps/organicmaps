@@ -253,13 +253,13 @@ bool InsertPostcodes(FeatureType & f, function<void(strings::UniString const &)>
     auto const & names = f.GetNames();
     if (names.CountLangs() == 1)
     {
-      string defaultName;
+      string_view defaultName;
       names.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
       if (!defaultName.empty() && LooksLikePostcode(defaultName, false /* isPrefix */))
       {
         // In UK it's common practice to set outer postcode as postcode and outer + inner as ref.
         // We convert ref to name at FeatureBuilder.
-        postcodes.push_back(defaultName);
+        postcodes.push_back(std::string(defaultName));
         useNameAsPostcode = true;
       }
     }

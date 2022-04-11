@@ -19,7 +19,8 @@
 #include <unordered_map>
 #include <utility>
 
-using namespace feature;
+namespace feature
+{
 using namespace std;
 
 namespace
@@ -31,36 +32,44 @@ int8_t GetIndex(string const & lang)
   return StrUtf8::GetLangIndex(lang);
 }
 
-void GetMwmLangName(feature::RegionData const & regionData, StringUtf8Multilang const & src, string & out)
+void GetMwmLangName(feature::RegionData const & regionData, StrUtf8 const & src, string & out)
 {
   vector<int8_t> mwmLangCodes;
   regionData.GetLanguages(mwmLangCodes);
 
   for (auto const code : mwmLangCodes)
   {
-    if (src.GetString(code, out))
+    string_view sv;
+    if (src.GetString(code, sv))
+    {
+      out = sv;
       return;
+    }
   }
 }
 
-bool GetTransliteratedName(feature::RegionData const & regionData, StringUtf8Multilang const & src, string & out)
+bool GetTransliteratedName(feature::RegionData const & regionData, StrUtf8 const & src, string & out)
 {
   vector<int8_t> mwmLangCodes;
   regionData.GetLanguages(mwmLangCodes);
 
-  string srcName;
+  auto const & translator = Transliteration::Instance();
+
+  string_view srcName;
   for (auto const code : mwmLangCodes)
-    if (src.GetString(code, srcName) && Transliteration::Instance().Transliterate(srcName, code, out))
+  {
+    if (src.GetString(code, srcName) && translator.Transliterate(srcName, code, out))
       return true;
+  }
 
   // If default name is available, interpret it as a name for the first mwm language.
-  if (!mwmLangCodes.empty() && src.GetString(StringUtf8Multilang::kDefaultCode, srcName))
-    return Transliteration::Instance().Transliterate(srcName, mwmLangCodes[0], out);
+  if (!mwmLangCodes.empty() && src.GetString(StrUtf8::kDefaultCode, srcName))
+    return translator.Transliterate(srcName, mwmLangCodes[0], out);
 
   return false;
 }
 
-bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorityList, string & out)
+bool GetBestName(StrUtf8 const & src, vector<int8_t> const & priorityList, string & out)
 {
   size_t bestIndex = priorityList.size();
 
@@ -131,10 +140,10 @@ vector<int8_t> MakeLanguagesPriorityList(int8_t deviceLang, bool preferDefault)
   return langPriority;
 }
 
-void GetReadableNameImpl(feature::RegionData const & regionData, StringUtf8Multilang const & src,
+void GetReadableNameImpl(feature::RegionData const & regionData, StrUtf8 const & src,
                          int8_t deviceLang, bool preferDefault, bool allowTranslit, string & out)
 {
-  vector<int8_t> langPriority = MakeLanguagesPriorityList(deviceLang, preferDefault);
+  auto const langPriority = MakeLanguagesPriorityList(deviceLang, preferDefault);
 
   if (GetBestName(src, langPriority, out))
     return;
@@ -156,35 +165,31 @@ void GetReadableNameImpl(feature::RegionData const & regionData, StringUtf8Multi
 // of second components is {"sushi", "pizza", "seafood"}.
 vector<string> GetRawTypeSecond(ftypes::BaseChecker const & checker, TypesHolder const & types)
 {
+  auto const & c = classif();
   vector<string> res;
   for (auto const t : types)
   {
     if (!checker(t))
       continue;
-    auto const path = classif().GetFullObjectNamePath(t);
+    auto path = c.GetFullObjectNamePath(t);
     CHECK_EQUAL(path.size(), 2, (path));
-    res.push_back(path[1]);
+    res.push_back(std::move(path[1]));
   }
   return res;
 }
 
 vector<string> GetLocalizedTypes(ftypes::BaseChecker const & checker, TypesHolder const & types)
 {
+  auto const & c = classif();
   vector<string> localized;
   for (auto const t : types)
   {
-    if (!checker(t))
-      continue;
-    localized.push_back(platform::GetLocalizedTypeName(classif().GetReadableObjectName(t)));
+    if (checker(t))
+      localized.push_back(platform::GetLocalizedTypeName(c.GetReadableObjectName(t)));
   }
   return localized;
 }
-}  // namespace
 
-namespace feature
-{
-namespace impl
-{
 class FeatureEstimator
 {
   template <size_t N>
@@ -203,7 +208,6 @@ class FeatureEstimator
   }
 
 public:
-
   FeatureEstimator()
   {
     m_TypeContinent   = GetType("place", "continent");
@@ -311,12 +315,11 @@ FeatureEstimator const & GetFeatureEstimator()
   static FeatureEstimator const featureEstimator;
   return featureEstimator;
 }
-
-}  // namespace feature::impl
+}  // namespace
 
 int GetFeatureViewportScale(TypesHolder const & types)
 {
-  return impl::GetFeatureEstimator().GetViewportScale(types);
+  return GetFeatureEstimator().GetViewportScale(types);
 }
 
 vector<int8_t> GetSimilar(int8_t lang)
@@ -342,7 +345,7 @@ void GetPreferredNames(RegionData const & regionData, StringUtf8Multilang const 
   if (IsNativeLang(regionData, deviceLang))
     return GetReadableNameImpl(regionData, src, deviceLang, true, allowTranslit, primary);
 
-  vector<int8_t> primaryCodes = MakeLanguagesPriorityList(deviceLang, false);
+  auto const primaryCodes = MakeLanguagesPriorityList(deviceLang, false);
 
   if (!GetBestName(src, primaryCodes, primary) && allowTranslit)
     GetTransliteratedName(regionData, src, primary);
@@ -377,8 +380,8 @@ void GetReadableName(RegionData const & regionData, StringUtf8Multilang const & 
   GetReadableNameImpl(regionData, src, deviceLang, preferDefault, allowTranslit, out);
 }
 
-int8_t GetNameForSearchOnBooking(RegionData const & regionData, StringUtf8Multilang const & src,
-                                 string & name)
+/*
+int8_t GetNameForSearchOnBooking(RegionData const & regionData, StringUtf8Multilang const & src, string & name)
 {
   if (src.GetString(StringUtf8Multilang::kDefaultCode, name))
     return StringUtf8Multilang::kDefaultCode;
@@ -398,6 +401,7 @@ int8_t GetNameForSearchOnBooking(RegionData const & regionData, StringUtf8Multil
   name.clear();
   return StringUtf8Multilang::kUnsupportedLanguageCode;
 }
+*/
 
 bool GetPreferredName(StringUtf8Multilang const & src, int8_t deviceLang, string & out)
 {

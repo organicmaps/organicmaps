@@ -179,9 +179,9 @@ public:
       return;
     for (auto const lang : m_params.GetLangs())
     {
-      string name;
+      string_view name;
       if (ft->GetName(lang, name))
-        names.push_back(name);
+        names.push_back(std::string(name));
     }
   }
 
@@ -232,17 +232,22 @@ void JoinQueryTokens(QueryParams const & params, TokenRange const & range, UniSt
   }
 }
 
+/// @todo Can't change on string_view now, because of unordered_map<string> Affiliations.
 WARN_UNUSED_RESULT bool GetAffiliationName(FeatureType & ft, string & affiliation)
 {
-  affiliation.clear();
+  string_view name;
+  if (!ft.GetName(StringUtf8Multilang::kDefaultCode, name) || name.empty())
+  {
+    // As a best effort, we try to read an english name if default name is absent.
+    if (!ft.GetName(StringUtf8Multilang::kEnglishCode, name) || name.empty())
+    {
+      affiliation.clear();
+      return false;
+    }
+  }
 
-  if (ft.GetName(StringUtf8Multilang::kDefaultCode, affiliation) && !affiliation.empty())
-    return true;
-
-  // As a best effort, we try to read an english name if default name is absent.
-  if (ft.GetName(StringUtf8Multilang::kEnglishCode, affiliation) && !affiliation.empty())
-    return true;
-  return false;
+  affiliation = name;
+  return true;
 }
 
 double Area(m2::RectD const & rect) { return rect.IsValid() ? rect.SizeX() * rect.SizeY() : 0; }
@@ -728,7 +733,8 @@ void Geocoder::CacheWorldLocalities()
 
 void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 {
-  auto addRegionMaps = [&](FeatureType & ft, Locality const & l, Region::Type type) {
+  auto addRegionMaps = [&](FeatureType & ft, Locality const & l, Region::Type type)
+  {
     if (ft.GetGeomType() != feature::GeomType::Point)
       return;
 
@@ -739,11 +745,13 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
     Region region(l, type);
     region.m_center = ft.GetCenter();
 
-    ft.GetName(StringUtf8Multilang::kDefaultCode, region.m_defaultName);
-    LOG(LDEBUG, ("Region =", region.m_defaultName));
+    string_view name;
+    ft.GetName(StringUtf8Multilang::kDefaultCode, name);
+    LOG(LDEBUG, ("Region =", name));
+    region.m_defaultName = name;
 
     m_infoGetter.GetMatchedRegions(affiliation, region.m_ids);
-    m_regions[type][l.m_tokenRange].push_back(region);
+    m_regions[type][l.m_tokenRange].push_back(std::move(region));
   };
 
   vector<Locality> preLocalities;
@@ -808,8 +816,10 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
         city.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
       }
 
-#if defined(DEBUG)
-      ft->GetName(StringUtf8Multilang::kDefaultCode, city.m_defaultName);
+#ifdef DEBUG
+      string_view name;
+      ft->GetName(StringUtf8Multilang::kDefaultCode, name);
+      city.m_defaultName = name;
       LOG(LINFO,
           ("City =", city.m_defaultName, "rect =", city.m_rect,
            "rect source:", haveBoundary ? "table" : "population",
@@ -817,7 +827,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
            "sizeY =", mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.LeftBottom())));
 #endif
 
-      m_cities[city.m_tokenRange].push_back(city);
+      m_cities[city.m_tokenRange].push_back(std::move(city));
     }
   }
 }
@@ -863,12 +873,14 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     auto const radius = ftypes::GetRadiusByPopulation(population);
     village.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
 
-#if defined(DEBUG)
-    ft->GetName(StringUtf8Multilang::kDefaultCode, village.m_defaultName);
+#ifdef DEBUG
+    string_view name;
+    ft->GetName(StringUtf8Multilang::kDefaultCode, name);
+    village.m_defaultName = name;
     LOG(LDEBUG, ("Village =", village.m_defaultName, "radius =", radius));
 #endif
 
-    m_cities[village.m_tokenRange].push_back(village);
+    m_cities[village.m_tokenRange].push_back(std::move(village));
     if (numVillages >= kMaxNumVillages)
       break;
   }

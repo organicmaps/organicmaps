@@ -100,7 +100,7 @@ public:
   RankerResult(double lat, double lon);
 
   /// For Type::Postcode.
-  RankerResult(m2::PointD const & coord, std::string const & postcode);
+  RankerResult(m2::PointD const & coord, std::string_view postcode);
 
   bool IsStreet() const;
 

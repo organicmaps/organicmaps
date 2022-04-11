@@ -37,15 +37,15 @@ bool ExtractName(StringUtf8Multilang const & names, int8_t const langCode,
   }
 
   // Exclude languages that are already present.
-  auto const it =
-      find_if(result.begin(), result.end(), [langCode](osm::LocalizedName const & localizedName) {
-        return localizedName.m_code == langCode;
-      });
+  auto const it = base::FindIf(result, [langCode](osm::LocalizedName const & localizedName)
+  {
+    return localizedName.m_code == langCode;
+  });
 
   if (result.end() != it)
     return false;
 
-  string name;
+  string_view name;
   names.GetString(langCode, name);
   result.emplace_back(langCode, name);
 
@@ -88,39 +88,34 @@ bool IsProtocolSpecified(string const & website)
 osm::FakeNames MakeFakeSource(StringUtf8Multilang const & source,
                               vector<int8_t> const & mwmLanguages, StringUtf8Multilang & fakeSource)
 {
-  string defaultName;
+  string_view defaultName;
   // Fake names works for mono language (official) speaking countries-only.
   if (mwmLanguages.size() != 1 || !source.GetString(StringUtf8Multilang::kDefaultCode, defaultName))
-  {
     return {};
-  }
 
   osm::FakeNames fakeNames;
-  // Mwm name has higher priority then English name.
-  array<int8_t, kFakeNamesCount> fillCandidates = {{mwmLanguages.front(), StringUtf8Multilang::kEnglishCode}};
   fakeSource = source;
 
-  string tempName;
-  for (auto const code : fillCandidates)
+  // Mwm name has higher priority then English name.
+  for (auto const code : {mwmLanguages.front(), StringUtf8Multilang::kEnglishCode})
   {
+    string_view tempName;
     if (!source.GetString(code, tempName))
     {
       tempName = defaultName;
       fakeSource.AddString(code, defaultName);
     }
-
-    fakeNames.m_names.emplace_back(code, tempName);
+    fakeNames.m_names.emplace_back(code, std::string(tempName));
   }
 
   fakeNames.m_defaultName = defaultName;
-
   return fakeNames;
 }
 
 // Tries to set default name from the localized name. Returns false when there's no such localized name.
 bool TryToFillDefaultNameFromCode(int8_t const code, StringUtf8Multilang & names)
 {
-  string newDefaultName;
+  string_view newDefaultName;
   if (code != StringUtf8Multilang::kUnsupportedLanguageCode)
     names.GetString(code, newDefaultName);
 
@@ -151,14 +146,15 @@ void TryToFillDefaultNameFromAnyLanguage(StringUtf8Multilang & names)
 void RemoveFakesFromName(osm::FakeNames const & fakeNames, StringUtf8Multilang & name)
 {
   vector<int8_t> codesToExclude;
-  string defaultName;
+  string_view defaultName;
   name.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
 
   for (auto const & item : fakeNames.m_names)
   {
-    string tempName;
+    string_view tempName;
     if (!name.GetString(item.m_code, tempName))
       continue;
+
     // No need to save in case when name is empty, duplicate of default name or was not changed.
     if (tempName.empty() || tempName == defaultName ||
         (tempName == item.m_filledName && tempName == fakeNames.m_defaultName))
@@ -403,13 +399,13 @@ void EditableMapObject::RemoveFakeNames(FakeNames const & fakeNames, StringUtf8M
 
   int8_t newDefaultNameCode = StringUtf8Multilang::kUnsupportedLanguageCode;
   size_t changedCount = 0;
-  string defaultName;
+  string_view defaultName;
   name.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
 
   // New default name calculation priority: 1. name on mwm language, 2. english name.
   for (auto it = fakeNames.m_names.rbegin(); it != fakeNames.m_names.rend(); ++it)
   {
-    string tempName;
+    string_view tempName;
     if (!name.GetString(it->m_code, tempName))
       continue;
 
@@ -627,7 +623,7 @@ void EditableMapObject::SetPointType() { m_geomType = feature::GeomType::Point; 
 void EditableMapObject::RemoveBlankAndDuplicationsForDefault()
 {
   StringUtf8Multilang editedName;
-  string defaultName;
+  string_view defaultName;
   m_name.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
 
   m_name.ForEach([&defaultName, &editedName](int8_t langCode, string_view name)

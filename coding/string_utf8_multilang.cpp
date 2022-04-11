@@ -226,7 +226,7 @@ void StringUtf8Multilang::RemoveString(int8_t lang)
   }
 }
 
-bool StringUtf8Multilang::GetString(int8_t lang, string & utf8s) const
+bool StringUtf8Multilang::GetString(int8_t lang, string_view & utf8s) const
 {
   if (!IsSupportedLangCode(lang))
     return false;
@@ -241,7 +241,7 @@ bool StringUtf8Multilang::GetString(int8_t lang, string & utf8s) const
     if ((m_s[i] & kLangCodeMask) == lang)
     {
       ++i;
-      utf8s.assign(m_s.c_str() + i, next - i);
+      utf8s = { m_s.c_str() + i, next - i };
       return true;
     }
 
