@@ -6,6 +6,7 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <charconv>
 #include <cerrno>
 #include <cstdint>
 #include <cstdlib>
@@ -14,6 +15,7 @@
 #include <regex>
 #include <sstream>
 #include <string>
+#include <string_view>
 #include <type_traits>
 
 #include "3party/utfcpp/source/utf8/unchecked.h"
@@ -108,6 +110,7 @@ void AsciiToLower(std::string & s);
 std::string & TrimLeft(std::string & s);
 std::string & TrimRight(std::string & s);
 std::string & Trim(std::string & s);
+std::string_view & Trim(std::string_view & sv);
 /// Remove any characters that contain in "anyOf" on left and right side of string s
 std::string & Trim(std::string & s, char const * anyOf);
 
@@ -123,7 +126,7 @@ void MakeLowerCaseInplace(std::string & s);
 std::string MakeLowerCase(std::string const & s);
 bool EqualNoCase(std::string const & s1, std::string const & s2);
 
-UniString MakeUniString(std::string const & utf8s);
+UniString MakeUniString(std::string_view utf8s);
 std::string ToUtf8(UniString const & s);
 bool IsASCIIString(std::string const & str);
 bool IsASCIIDigit(UniChar c);
@@ -133,34 +136,34 @@ bool IsASCIILatin(UniChar c);
 
 inline std::string DebugPrint(UniString const & s) { return ToUtf8(s); }
 
-template <typename DelimFn, typename Iter = UniString::const_iterator, bool KeepEmptyTokens = false>
-class TokenizeIterator
+template <typename DelimFn, typename Iter> class TokenizeIteratorBase
 {
 public:
   using difference_type = std::ptrdiff_t;
-  using value_type = std::string;
-  using pointer = void;
-  using reference = std::string;
   using iterator_category = std::input_iterator_tag;
 
-  // *NOTE* |s| must not be a temporary!
-  TokenizeIterator(std::string const & s, DelimFn const & delimFn)
-    : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn)
+  // Hack to get buffer pointer from any iterator.
+  // Deliberately made non-static to simplify the call like this->ToCharPtr.
+  char const * ToCharPtr(char const * p) const { return p; }
+  template <class T> auto ToCharPtr(T const & i) const { return ToCharPtr(i.base()); }
+};
+
+template <typename DelimFn, typename Iter, bool KeepEmptyTokens = false>
+class TokenizeIterator : public TokenizeIteratorBase<DelimFn, Iter>
+{
+public:
+  template <class InIterT> TokenizeIterator(InIterT beg, InIterT end, DelimFn const & delimFn)
+    : m_start(beg), m_end(beg), m_finish(end), m_delimFn(delimFn)
   {
     Move();
   }
 
-  // *NOTE* |s| must not be a temporary!
-  TokenizeIterator(UniString const & s, DelimFn const & delimFn)
-    : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn)
-  {
-    Move();
-  }
-
-  std::string operator*() const
+  std::string_view operator*() const
   {
     ASSERT(m_start != m_finish, ("Dereferencing of empty iterator."));
-    return std::string(m_start.base(), m_end.base());
+
+    auto const baseI = this->ToCharPtr(m_start);
+    return std::string_view(baseI, std::distance(baseI, this->ToCharPtr(m_end)));
   }
 
   UniString GetUniString() const
@@ -218,42 +221,24 @@ private:
   DelimFn m_delimFn;
 };
 
+/// Used in ParseCSVRow for the generator routine.
 template <typename DelimFn, typename Iter>
-class TokenizeIterator<DelimFn, Iter, true /* KeepEmptyTokens */>
+class TokenizeIterator<DelimFn, Iter, true /* KeepEmptyTokens */> : public TokenizeIteratorBase<DelimFn, Iter>
 {
 public:
-  using difference_type = std::ptrdiff_t;
-  using value_type = std::string;
-  using pointer = void;
-  using reference = std::string;
-  using iterator_category = std::input_iterator_tag;
-
-  // *NOTE* |s| must be not temporary!
-  TokenizeIterator(std::string const & s, DelimFn const & delimFn)
-    : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn), m_finished(false)
+  template <class InIterT> TokenizeIterator(InIterT beg, InIterT end, DelimFn const & delimFn)
+    : m_start(beg), m_end(beg), m_finish(end), m_delimFn(delimFn), m_finished(false)
   {
     while (m_end != m_finish && !m_delimFn(*m_end))
       ++m_end;
   }
 
-  // *NOTE* |s| must be not temporary!
-  TokenizeIterator(UniString const & s, DelimFn const & delimFn)
-    : m_start(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFn(delimFn), m_finished(false)
-  {
-    while (m_end != m_finish && !m_delimFn(*m_end))
-      ++m_end;
-  }
-
-  std::string operator*() const
+  std::string_view operator*() const
   {
     ASSERT(!m_finished, ("Dereferencing of empty iterator."));
-    return std::string(m_start.base(), m_end.base());
-  }
 
-  UniString GetUniString() const
-  {
-    ASSERT(!m_finished, ("Dereferencing of empty iterator."));
-    return UniString(m_start, m_end);
+    auto const baseI = this->ToCharPtr(m_start);
+    return std::string_view(baseI, std::distance(baseI, this->ToCharPtr(m_end)));
   }
 
   operator bool() const { return !m_finished; }
@@ -314,8 +299,7 @@ private:
 
   DelimFn m_delimFn;
 
-  // When true, iterator is at the end position and is not valid
-  // anymore.
+  // When true, iterator is at the end position and is not valid anymore.
   bool m_finished;
 };
 
@@ -325,22 +309,25 @@ class SimpleDelimiter
 
 public:
   SimpleDelimiter(char const * delims);
-
   SimpleDelimiter(char delim);
 
   // Returns true iff |c| is a delimiter.
   bool operator()(UniChar c) const;
 };
 
-using SimpleTokenizer =
-    TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<std::string::const_iterator>,
-                     false /* KeepEmptyTokens */>;
-using SimpleTokenizerWithEmptyTokens =
-    TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<std::string::const_iterator>,
-                     true /* KeepEmptyTokens */>;
+template <class StringT> class SimpleTokenizer : public
+    TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<typename StringT::const_iterator>, false /* KeepEmptyTokens */>
+{
+  using BaseT = TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<typename StringT::const_iterator>, false /* KeepEmptyTokens */>;
+public:
+  SimpleTokenizer(StringT const & str, SimpleDelimiter const & delims)
+    : BaseT(str.begin(), str.end(), delims)
+  {
+  }
+};
 
 template <typename TFunctor>
-void Tokenize(std::string const & str, char const * delims, TFunctor && f)
+void Tokenize(std::string_view str, char const * delims, TFunctor && f)
 {
   SimpleTokenizer iter(str, delims);
   while (iter)
@@ -350,16 +337,14 @@ void Tokenize(std::string const & str, char const * delims, TFunctor && f)
   }
 }
 
-template <template <typename...> class Collection = std::vector>
-Collection<std::string> Tokenize(std::string const & str, char const * delims)
+/// @note Lifetime of return container is the same as \a str lifetime. Avoid temporary input.
+template <class ResultT = std::string_view>
+std::vector<ResultT> Tokenize(std::string_view str, char const * delims)
 {
-  Collection<std::string> c;
-  Tokenize(str, delims, base::MakeInsertFunctor(c));
+  std::vector<ResultT> c;
+  Tokenize(str, delims, [&c](std::string_view v) { c.push_back(ResultT(v)); });
   return c;
 }
-
-static_assert(std::is_same<std::vector<std::string>, decltype(strings::Tokenize("", ""))>::value,
-              "Tokenize() should return vector<string> by default.");
 
 /// Splits a string by the delimiter, keeps empty parts, on an empty string returns an empty vector.
 /// Does not support quoted columns, newlines in columns and escaped quotes.
@@ -525,7 +510,37 @@ WARN_UNUSED_RESULT inline bool to_double(std::string const & s, double & d)
 {
   return to_double(s.c_str(), d);
 }
+
+
+namespace impl
+{
+template <typename T> bool from_sv(std::string_view sv, T & t)
+{
+  auto const res = std::from_chars(sv.begin(), sv.end(), t);
+  return (res.ec != std::errc::invalid_argument && res.ec != std::errc::result_out_of_range &&
+          res.ptr == sv.end());
+}
+} // namespace impl
+
+template <class T> inline bool to_uint(std::string_view sv, T & i)
+{
+  static_assert(std::is_unsigned<T>::value, "");
+  return impl::from_sv(sv, i);
+}
+
+inline bool to_double(std::string_view sv, double & d)
+{
+  /// @todo std::from_chars still not implemented?
+  return to_double(std::string(sv), d);
+}
+
+inline bool is_number(std::string_view s)
+{
+  uint64_t i;
+  return impl::from_sv(s, i);
+}
 //@}
+
 
 /// @name From numeric to string.
 //@{
@@ -539,22 +554,8 @@ std::string to_string(T t)
   return ss.str();
 }
 
-template <typename T>
-struct ToStringConverter { std::string operator()(T const & v) { return to_string(v); } };
-
-template <typename T,
-          typename = std::enable_if_t<std::is_integral<T>::value && sizeof(T) < sizeof(long long)>>
+template <typename T, typename = std::enable_if_t<std::is_integral<T>::value>>
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, T & i)
-{
-  return internal::ToInteger(s.c_str(), i);
-}
-
-WARN_UNUSED_RESULT inline bool to_any(std::string const & s, uint64_t & i)
-{
-  return internal::ToInteger(s.c_str(), i);
-}
-
-WARN_UNUSED_RESULT inline bool to_any(std::string const & s, int64_t & i)
 {
   return internal::ToInteger(s.c_str(), i);
 }
@@ -573,10 +574,6 @@ inline std::string to_string(uint64_t i) { return std::to_string(i); }
 /// Use this function to get string with fixed count of
 /// "Digits after comma".
 std::string to_string_dac(double d, int dac);
-inline std::string to_string_with_digits_after_comma(double d, int dac)
-{
-  return to_string_dac(d, dac);
-}
 //@}
 
 template <typename IterT1, typename IterT2>
@@ -633,35 +630,6 @@ template <typename Container, typename Delimiter>
 typename Container::value_type JoinStrings(Container const & container, Delimiter const & delimiter)
 {
   return JoinStrings(begin(container), end(container), delimiter);
-}
-
-template <typename Iterator, typename Delimiter>
-std::string JoinAny(Iterator first, Iterator last, Delimiter const & delimiter,
-                    std::function<
-                      std::string (typename Iterator::value_type const & v)> const & converter)
-{
-  if (first == last)
-    return {};
-
-  std::string result(converter(*first));
-  ++first;
-
-  for (; first != last; ++first)
-  {
-    result += delimiter;
-    result += converter(*first);
-  }
-  return result;
-}
-
-template <typename Container, typename Delimiter = char const>
-std::string JoinAny(Container const & container,
-                    Delimiter const & delimiter = ',',
-                    std::function<
-                        std::string (typename Container::value_type const & v)> const & converter =
-                          ToStringConverter<typename Container::value_type>())
-{
-  return JoinAny(std::cbegin(container), std::cend(container), delimiter, converter);
 }
 
 template <typename Fn>

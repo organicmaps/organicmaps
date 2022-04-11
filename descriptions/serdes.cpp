@@ -21,17 +21,16 @@ Serializer::Serializer(DescriptionsCollection && descriptions)
     CHECK(!index.m_description.IsEmpty(), ());
 
     LangMeta langMeta;
-    index.m_description.ForEach([this, &stringsCount, &langMeta, i](LangCode lang, std::string const & str)
-                                {
-                                  CHECK_GREATER_OR_EQUAL(lang, 0, ());
-                                  CHECK(lang < StringUtf8Multilang::kMaxSupportedLanguages, ());
-                                  CHECK(!str.empty(), ());
-                                  ++stringsCount;
-                                  auto & group = m_groupedByLang[lang];
-                                  langMeta.insert(std::make_pair(lang, static_cast<StringIndex>(group.size())));
-                                  group.push_back(i);
-                                });
-    m_langMetaCollection.push_back(langMeta);
+    index.m_description.ForEach([this, &stringsCount, &langMeta, i](LangCode lang, std::string_view sv)
+    {
+      CHECK(!sv.empty(), ());
+      ++stringsCount;
+      auto & group = m_groupedByLang[lang];
+      langMeta.emplace(lang, static_cast<StringIndex>(group.size()));
+      group.push_back(i);
+    });
+
+    m_langMetaCollection.push_back(std::move(langMeta));
   }
 
   std::map<LangCode, uint32_t> indicesOffsets;

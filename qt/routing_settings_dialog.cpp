@@ -62,18 +62,13 @@ std::optional<ms::LatLon> RoutingSettings::GetCoordsFromString(std::string const
 {
   ms::LatLon coords{};
   strings::SimpleTokenizer iter(input, kDelim);
-  if (!iter)
-    return {};
-
-  if (!strings::to_double(*iter, coords.m_lat))
-    return {};
-
-  ++iter;
-
-  if (!strings::to_double(*iter, coords.m_lon))
-    return {};
-
-  return {coords};
+  if (iter && strings::to_double(*iter, coords.m_lat))
+  {
+    ++iter;
+    if (iter && strings::to_double(*iter, coords.m_lon))
+      return coords;
+  }
+  return {};
 }
 
 // static

@@ -364,11 +364,12 @@ std::string GetBackgroundForSymbol(std::string const & symbolName,
   auto const tokens = strings::Tokenize(symbolName, kDelimiter.c_str());
   if (tokens.size() < 2 || tokens.size() > 3)
     return {};
+
   std::string backgroundSymbol;
-  if (tokens.size() == 2)
-    backgroundSymbol = tokens[0] + kDelimiter + kBackgroundName;
-  else
-    backgroundSymbol = tokens[0] + kDelimiter + kBackgroundName + kDelimiter + tokens[2];
+  backgroundSymbol.append(tokens[0]).append(kDelimiter).append(kBackgroundName);
+  if (tokens.size() == 3)
+    backgroundSymbol.append(kDelimiter).append(tokens[2]);
+
   return textures->HasSymbolRegion(backgroundSymbol) ? backgroundSymbol : "";
 }
 

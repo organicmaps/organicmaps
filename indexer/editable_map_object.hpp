@@ -37,7 +37,7 @@ struct EditableProperties
 
 struct LocalizedName
 {
-  LocalizedName(int8_t code, std::string const & name);
+  LocalizedName(int8_t code, std::string_view name);
   LocalizedName(std::string const & langCode, std::string const & name);
 
   /// m_code, m_lang and m_langName are defined in StringUtf8Multilang.
@@ -110,8 +110,7 @@ public:
   std::string GetPostcode() const;
   std::string GetWikipedia() const;
 
-  void ForEachMetadataItem(
-      std::function<void(std::string const & tag, std::string const & value)> const & fn) const;
+  void ForEachMetadataItem(std::function<void(std::string const & tag, std::string && value)> const & fn) const;
 
   // These two methods should only be used in tests.
   uint64_t GetTestId() const;
@@ -120,7 +119,7 @@ public:
   void SetEditableProperties(osm::EditableProperties const & props);
   //  void SetFeatureID(FeatureID const & fid);
   void SetName(StringUtf8Multilang const & name);
-  void SetName(std::string name, int8_t langCode = StringUtf8Multilang::kDefaultCode);
+  void SetName(std::string_view name, int8_t langCode);
   void SetMercator(m2::PointD const & center);
   void SetType(uint32_t featureType);
   void SetTypes(feature::TypesHolder const & types);
@@ -152,8 +151,14 @@ public:
 
   void SetBuildingLevels(std::string const & buildingLevels);
   void SetLevel(std::string const & level);
+
   /// @param[in] cuisine is a vector of osm cuisine ids.
+private:
+  template <class T> void SetCuisinesImpl(std::vector<T> const & cuisines);
+public:
+  void SetCuisines(std::vector<std::string_view> const & cuisines);
   void SetCuisines(std::vector<std::string> const & cuisines);
+
   void SetOpeningHours(std::string const & openingHours);
 
   /// Special mark that it's a point feature, not area or line.

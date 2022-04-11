@@ -170,7 +170,7 @@ private:
 time_t GetCurrentTimestamp();
 
 std::string ToString(RoadAccess::Type type);
-void FromString(std::string const & s, RoadAccess::Type & result);
+void FromString(std::string_view s, RoadAccess::Type & result);
 
 std::string DebugPrint(RoadAccess::Confidence confidence);
 std::string DebugPrint(RoadAccess::Conditional const & conditional);

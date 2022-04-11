@@ -106,7 +106,7 @@ bool EndsWithHouseNumber(Iter beg, Iter end)
   return false;
 }
 
-bool StreetMatches(std::string const & name, std::vector<std::string> const & queryTokens)
+bool StreetMatches(std::string_view name, std::vector<std::string> const & queryTokens)
 {
   auto const nameTokens = search::NormalizeAndTokenizeAsUtf8(name);
 
@@ -218,23 +218,23 @@ bool Matcher::Matches(strings::UniString const & query, Sample::Result const & g
     }
   }
 
-  ft.ForEachName(
-      [&queryTokens, &ft, &golden, &nameMatches](int8_t /* lang */, std::string const & name) {
-        if (NormalizeAndSimplifyString(ToUtf8(golden.m_name)) == NormalizeAndSimplifyString(name))
-        {
-          nameMatches = true;
-          return base::ControlFlow::Break;
-        }
+  ft.ForEachName([&queryTokens, &ft, &golden, &nameMatches](int8_t /* lang */, std::string_view name)
+  {
+    if (NormalizeAndSimplifyString(ToUtf8(golden.m_name)) == NormalizeAndSimplifyString(name))
+    {
+      nameMatches = true;
+      return base::ControlFlow::Break;
+    }
 
-        if (golden.m_name.empty() && ft.GetGeomType() == feature::GeomType::Line &&
-            StreetMatches(name, queryTokens))
-        {
-          nameMatches = true;
-          return base::ControlFlow::Break;
-        }
+    if (golden.m_name.empty() && ft.GetGeomType() == feature::GeomType::Line &&
+        StreetMatches(name, queryTokens))
+    {
+      nameMatches = true;
+      return base::ControlFlow::Break;
+    }
 
-        return base::ControlFlow::Continue;
-      });
+    return base::ControlFlow::Continue;
+  });
 
   bool houseNumberMatches = true;
   if (!golden.m_houseNumber.empty() && !houseNumber.empty())

@@ -62,27 +62,22 @@ bool GetTransliteratedName(feature::RegionData const & regionData, StringUtf8Mul
 
 bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorityList, string & out)
 {
-  auto bestIndex = priorityList.size();
+  size_t bestIndex = priorityList.size();
 
-  auto const findAndSet = [](vector<int8_t> const & langs, int8_t const code, string const & name,
-                             size_t & bestIndex, string & outName)
+  src.ForEach([&](int8_t code, string_view name)
   {
-    auto const it = find(langs.begin(), langs.end(), code);
-    if (it != langs.end() && bestIndex > static_cast<size_t>(distance(langs.begin(), it)))
+    if (bestIndex == 0)
+      return base::ControlFlow::Break;
+
+    size_t const idx = std::distance(priorityList.begin(), find(priorityList.begin(), priorityList.end(), code));
+    if (bestIndex > idx)
     {
-      bestIndex = distance(langs.begin(), it);
-      outName = name;
+      bestIndex = idx;
+      out = name;
     }
-  };
 
-  src.ForEach([&](int8_t code, string const & name)
-              {
-                if (bestIndex == 0)
-                  return base::ControlFlow::Break;
-
-                findAndSet(priorityList, code, name, bestIndex, out);
-                return base::ControlFlow::Continue;
-              });
+    return base::ControlFlow::Continue;
+  });
 
   // There are many "junk" names in Arabian island.
   if (bestIndex < priorityList.size() &&

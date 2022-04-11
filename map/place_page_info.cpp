@@ -254,7 +254,7 @@ kml::LocalizableString Info::FormatNewBookmarkName() const
   kml::LocalizableString bookmarkName;
   if (IsFeature())
   {
-    m_name.ForEach([&bookmarkName](int8_t langCode, std::string const & localName)
+    m_name.ForEach([&bookmarkName](int8_t langCode, std::string_view localName)
     {
       if (!localName.empty())
         bookmarkName[langCode] = localName;

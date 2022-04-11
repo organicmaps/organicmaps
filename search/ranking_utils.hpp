@@ -166,7 +166,7 @@ std::string DebugPrint(NameScores const & scores);
 bool IsStopWord(strings::UniString const & s);
 
 // Normalizes, simplifies and splits string, removes stop-words.
-void PrepareStringForMatching(std::string const & name, std::vector<strings::UniString> & tokens);
+void PrepareStringForMatching(std::string_view name, std::vector<strings::UniString> & tokens);
 
 template <typename Slice>
 NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t lang,
@@ -283,11 +283,10 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t
 }
 
 template <typename Slice>
-NameScores GetNameScores(std::string const & name, uint8_t lang, Slice const & slice)
+NameScores GetNameScores(std::string_view name, uint8_t lang, Slice const & slice)
 {
   std::vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens),
-                 Delimiters());
+  SplitUniString(NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens), Delimiters());
   return GetNameScores(tokens, lang, slice);
 }
 }  // namespace search

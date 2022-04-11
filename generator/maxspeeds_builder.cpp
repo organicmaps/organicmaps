@@ -38,13 +38,13 @@ using namespace std;
 
 char const kDelim[] = ", \t\r\n";
 
-bool ParseOneSpeedValue(strings::SimpleTokenizer & iter, MaxspeedType & value)
+template <class TokenizerT> bool ParseOneSpeedValue(TokenizerT & iter, MaxspeedType & value)
 {
   if (!iter)
     return false;
 
   uint64_t parsedSpeed = 0;
-  if (!strings::to_uint64(*iter, parsedSpeed))
+  if (!strings::to_uint(*iter, parsedSpeed))
     return false;
   if (parsedSpeed > routing::kInvalidSpeed)
     return false;
@@ -324,7 +324,7 @@ bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
       continue;
 
     uint64_t osmId = 0;
-    if (!strings::to_uint64(*iter, osmId))
+    if (!strings::to_uint(*iter, osmId))
       return false;
     ++iter;
 

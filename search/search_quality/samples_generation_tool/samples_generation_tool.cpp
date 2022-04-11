@@ -150,7 +150,7 @@ map<string, vector<string>> const kStreetSynonyms = {
 
 void ModifyStreet(string & str)
 {
-  auto tokens = strings::Tokenize(str, " -&");
+  auto tokens = strings::Tokenize<std::string>(str, " -&");
   str.clear();
 
   auto const isStreetSynonym = [](string const & s) {

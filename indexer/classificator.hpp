@@ -46,11 +46,19 @@ public:
 
 class ClassifObject
 {
-  struct less_name_t
+  struct LessName
   {
     bool operator() (ClassifObject const & r1, ClassifObject const & r2) const
     {
       return (r1.m_name < r2.m_name);
+    }
+    bool operator() (ClassifObject const & r1, std::string_view r2) const
+    {
+      return (r1.m_name < r2);
+    }
+    bool operator() (std::string_view r1, ClassifObject const & r2) const
+    {
+      return (r1 < r2.m_name);
     }
   };
 
@@ -71,7 +79,7 @@ public:
 
   /// @name Find substitution when reading osm features.
   //@{
-  ClassifObjectPtr BinaryFind(std::string const & s) const;
+  ClassifObjectPtr BinaryFind(std::string_view const s) const;
   //@}
 
   void Sort();
@@ -177,9 +185,10 @@ public:
   /// @name Type by \a path in classificator tree, for example {"natural", "caostline"}.
   ///@{
   /// @return INVALID_TYPE in case of nonexisting type
-  uint32_t GetTypeByPathSafe(std::vector<std::string> const & path) const;
+  uint32_t GetTypeByPathSafe(std::vector<std::string_view> const & path) const;
   /// Invokes ASSERT in case of nonexisting type
   uint32_t GetTypeByPath(std::vector<std::string> const & path) const;
+  uint32_t GetTypeByPath(std::vector<std::string_view> const & path) const;
   uint32_t GetTypeByPath(std::initializer_list<char const *> const & lst) const;
   ///@}
 

@@ -140,7 +140,7 @@ public:
 
   // To work with additional information.
   void SetRank(uint8_t rank);
-  bool AddName(std::string const & lang, std::string const & name);
+  bool AddName(std::string_view lang, std::string_view name);
   void SetParams(FeatureBuilderParams const & params) { m_params.SetParams(params); }
 
   FeatureBuilderParams const & GetParams() const { return m_params; }

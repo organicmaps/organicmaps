@@ -114,13 +114,13 @@ public:
   template <typename Fn>
   void ForEachName(Fn && func) const
   {
-    static auto const kPrefixLen = strlen(kLocalName);
-    auto const tags = GetRootNode().select_nodes("tag");
-    for (auto const & tag : tags)
-    {
-      std::string const & key = tag.node().attribute("k").value();
+    size_t const kPrefixLen = strlen(kLocalName);
 
-      if (strings::StartsWith(key, kLocalName))
+    for (auto const & tag : GetRootNode().select_nodes("tag"))
+    {
+      std::string_view const key = tag.node().attribute("k").value();
+
+      if (key.substr(0, kPrefixLen) == kLocalName)
         func(key.substr(kPrefixLen), tag.node().attribute("v").value());
       else if (key == kDefaultName)
         func(kDefaultLang, tag.node().attribute("v").value());
@@ -133,9 +133,9 @@ public:
     }
   }
 
-  void SetName(std::string const & name);
-  void SetName(std::string const & lang, std::string const & name);
-  void SetName(uint8_t const langCode, std::string const & name);
+  void SetName(std::string name);
+  void SetName(std::string const & lang, std::string name);
+  void SetName(uint8_t const langCode, std::string name);
 
   std::string GetHouse() const;
   void SetHouse(std::string const & house);

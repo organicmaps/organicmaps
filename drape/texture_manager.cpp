@@ -89,15 +89,15 @@ void ParseColorsList(std::string const & colorsFile, ToDo toDo)
 }
 
 template <typename ToDo>
-void ParsePatternsList(std::string const & patternsFile, ToDo toDo)
+void ParsePatternsList(std::string const & patternsFile, ToDo && toDo)
 {
-  strings::Tokenize(ReadFileToString(patternsFile), "\n", [&](std::string const & patternStr)
+  strings::Tokenize(ReadFileToString(patternsFile), "\n", [&](std::string_view patternStr)
   {
     if (patternStr.empty())
       return;
 
     buffer_vector<double, 8> pattern;
-    strings::Tokenize(patternStr, " ", [&](std::string const & token)
+    strings::Tokenize(patternStr, " ", [&](std::string_view token)
     {
       double d = 0.0;
       VERIFY(strings::to_double(token, d), ());
@@ -119,6 +119,7 @@ void ParsePatternsList(std::string const & patternsFile, ToDo toDo)
       toDo(pattern);
   });
 }
+
 m2::PointU StipplePenTextureSize(size_t patternsCount, uint32_t maxTextureSize)
 {
   uint32_t const sz = base::NextPowOf2(static_cast<uint32_t>(patternsCount) + kReservedPatterns);
@@ -460,7 +461,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   // Initialize patterns.
   buffer_vector<buffer_vector<uint8_t, 8>, 64> patterns;
   double const visualScale = params.m_visualScale;
-  ParsePatternsList(params.m_patterns, [&patterns, visualScale](buffer_vector<double, 8>  const & pattern)
+  ParsePatternsList(params.m_patterns, [&patterns, visualScale](buffer_vector<double, 8> const & pattern)
   {
     buffer_vector<uint8_t, 8> p;
     for (size_t i = 0; i < pattern.size(); i++)

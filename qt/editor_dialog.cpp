@@ -251,12 +251,8 @@ void EditorDialog::OnSave()
     case osm::Props::ContactLine: m_feature.SetLinePage(v); break;
     case osm::Props::Internet: ASSERT(false, ("Is handled separately above."));
     case osm::Props::Cuisine:
-    {
-      std::vector<std::string> cuisines;
-      strings::Tokenize(v, ";", base::MakeBackInsertFunctor(cuisines));
-      m_feature.SetCuisines(cuisines);
-    }
-    break;
+      m_feature.SetCuisines(strings::Tokenize(v, ";"));
+      break;
     case osm::Props::OpeningHours: m_feature.SetOpeningHours(v); break;
     case osm::Props::Stars:
     {

@@ -1113,7 +1113,7 @@ bool Framework::IsCountryLoaded(m2::PointD const & pt) const
   return m_featuresFetcher.IsLoaded(fName);
 }
 
-bool Framework::IsCountryLoadedByName(string const & name) const
+bool Framework::IsCountryLoadedByName(string_view name) const
 {
   return m_featuresFetcher.IsLoaded(name);
 }

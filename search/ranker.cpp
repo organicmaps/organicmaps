@@ -40,9 +40,10 @@ void UpdateNameScores(string const & name, uint8_t lang, Slice const & slice,
 {
   if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
   {
-    auto const names = strings::Tokenize(name, ";");
-    for (auto const & n : names)
+    strings::Tokenize(name, ";", [&](string_view n)
+    {
       bestScores.UpdateIfBetter(GetNameScores(n, lang, slice));
+    });
   }
   else
   {
@@ -109,21 +110,12 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
     string name;
     if (!ft.GetName(lang, name))
       continue;
-    vector<vector<strings::UniString>> tokens(1);
-    if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
-    {
-      auto const names = strings::Tokenize(name, ";");
-      tokens.resize(names.size());
-      for (size_t i = 0; i < names.size(); ++i)
-        PrepareStringForMatching(names[i], tokens[i]);
-    }
-    else
-    {
-      PrepareStringForMatching(name, tokens[0]);
-    }
 
-    for (auto const & t : tokens)
+    auto const updateScore = [&](string_view n)
     {
+      vector<strings::UniString> t;
+      PrepareStringForMatching(n, t);
+
       UpdateNameScores(t, lang, slice, bestScores);
       UpdateNameScores(t, lang, sliceNoCategories, bestScores);
 
@@ -136,6 +128,18 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
           UpdateNameScores(variant, lang, sliceNoCategories, bestScores);
         }
       }
+    };
+
+    if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
+    {
+      strings::Tokenize(name, ";", [&updateScore](string_view n)
+      {
+        updateScore(n);
+      });
+    }
+    else
+    {
+      updateScore(name);
     }
   }
 
@@ -802,7 +806,8 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
 {
   int8_t bestLang = StringUtf8Multilang::kUnsupportedLanguageCode;
   KeywordLangMatcher::Score bestScore;
-  auto updateScore = [&](int8_t lang, string const & s, bool force) {
+  auto updateScore = [&](int8_t lang, string_view s, bool force)
+  {
     // Ignore name for categorial requests.
     auto const score = m_keywordsScorer.CalcScore(lang, m_params.m_categorialRequest ? "" : s);
     if (force ? bestScore <= score : bestScore < score)
@@ -813,12 +818,14 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
     }
   };
 
-  auto bestNameFinder = [&](int8_t lang, string const & s) {
+  auto bestNameFinder = [&](int8_t lang, string_view s)
+  {
     if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
     {
-      auto const names = strings::Tokenize(s, ";");
-      for (auto const & n : names)
+      strings::Tokenize(s, ";", [lang, &updateScore](std::string_view n)
+      {
         updateScore(lang, n, true /* force */);
+      });
     }
     else
     {

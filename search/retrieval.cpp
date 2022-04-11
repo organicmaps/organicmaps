@@ -207,7 +207,8 @@ pair<bool, bool> MatchFeatureByNameAndType(EditableMapObject const & emo,
     return {true, true};
 
   pair<bool, bool> matchedByName = {false, false};
-  emo.GetNameMultilang().ForEach([&](int8_t lang, string const & name) {
+  emo.GetNameMultilang().ForEach([&](int8_t lang, string_view name)
+  {
     if (name.empty() || !request.HasLang(lang))
       return base::ControlFlow::Continue;
 

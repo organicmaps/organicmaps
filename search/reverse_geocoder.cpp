@@ -97,7 +97,8 @@ optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(string const & keyName
     for (auto const & street : streets)
     {
       bool fullMatchFound = false;
-      street.m_multilangName.ForEach([&](int8_t /* langCode */, string const & name) {
+      street.m_multilangName.ForEach([&](int8_t /* langCode */, string_view name)
+      {
         if (fullMatchFound)
           return;
 

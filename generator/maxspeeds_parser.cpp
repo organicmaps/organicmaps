@@ -217,7 +217,7 @@ string UnitsToString(Units units)
   UNREACHABLE();
 }
 
-Units StringToUnits(string const & units)
+Units StringToUnits(string_view units)
 {
   if (units == "Metric")
     return Units::Metric;

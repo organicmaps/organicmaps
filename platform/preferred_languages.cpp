@@ -46,12 +46,7 @@ void GetSystemPreferred(vector<string> & languages)
   // check environment variables
   char const * p = getenv("LANGUAGE");
   if (p && strlen(p))  // LANGUAGE can contain several values divided by ':'
-  {
-    string const str(p);
-    strings::SimpleTokenizer iter(str, ":");
-    for (; iter; ++iter)
-      languages.push_back(*iter);
-  }
+    languages = strings::Tokenize<std::string>(p, ":");
   else if ((p = getenv("LC_ALL")))
     languages.push_back(p);
   else if ((p = getenv("LC_MESSAGES")))
@@ -155,9 +150,7 @@ string GetCurrentOrig()
 
 string Normalize(string const & lang)
 {
-  strings::SimpleTokenizer const iter(lang, "-_ ");
-  ASSERT(iter, (lang));
-  return *iter;
+  return lang.substr(0, lang.find_first_of("-_ "));
 }
 
 string GetCurrentNorm()

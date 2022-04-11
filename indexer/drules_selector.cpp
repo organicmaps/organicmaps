@@ -99,6 +99,7 @@ private:
   TType const m_value;
 };
 
+/*
 uint32_t TagSelectorToType(string value)
 {
   vector<string> path;
@@ -130,6 +131,7 @@ private:
   uint32_t m_type;
   bool m_equals;
 };
+*/
 
 // Feature tag value evaluator for tag 'population'
 bool GetPopulation(FeatureType & ft, uint64_t & population)
@@ -192,22 +194,20 @@ unique_ptr<ISelector> ParseSelector(string const & str)
     }
     return make_unique<Selector<double>>(&GetBoundingBoxArea, e.m_operator, value);
   }
-  else if (e.m_tag == "extra_tag")
-  {
-    uint32_t const type = TagSelectorToType(e.m_value);
-    if (type == 0)
-    {
-      // Type was not found.
-      LOG(LDEBUG, ("Invalid selector:", str));
-      return unique_ptr<ISelector>();
-    }
-    return make_unique<TypeSelector>(type, e.m_operator);
-  }
+//  else if (e.m_tag == "extra_tag")
+//  {
+//    ASSERT(false, ());
+//    uint32_t const type = TagSelectorToType(e.m_value);
+//    if (type == Classificator::INVALID_TYPE)
+//    {
+//      // Type was not found.
+//      LOG(LDEBUG, ("Invalid selector:", str));
+//      return unique_ptr<ISelector>();
+//    }
+//    return make_unique<TypeSelector>(type, e.m_operator);
+//  }
 
-  // Add new tag here
-
-  // unrecognized selector
-  LOG(LDEBUG, ("Unrecognized selector:", str));
+  LOG(LERROR, ("Unrecognized selector:", str));
   return unique_ptr<ISelector>();
 }
 

@@ -434,32 +434,31 @@ IsIsolineChecker::IsIsolineChecker() : BaseChecker(1 /* level */)
   m_types.push_back(classif().GetTypeByPath({"isoline"}));
 }
 
-// static
-set<string> const IsPoiChecker::kPoiTypes = {
-  "amenity",
-  "shop",
-  "tourism",
-  "leisure",
-  "sport",
-  "craft",
-  "man_made",
-  "emergency",
-  "office",
-  "historic",
-  "railway",
-  "highway",
-  "aeroway"
-};
-
 IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
 {
-  for (auto const & type : IsPoiChecker::kPoiTypes)
+  string_view const poiTypes[] = {
+    "amenity",
+    "shop",
+    "tourism",
+    "leisure",
+    "sport",
+    "craft",
+    "man_made",
+    "emergency",
+    "office",
+    "historic",
+    "railway",
+    "highway",
+    "aeroway"
+  };
+
+  for (auto const & type : poiTypes)
     m_types.push_back(classif().GetTypeByPath({type}));
 }
 
 AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
 {
-  set<pair<string, string>> const primaryAttractionTypes = {
+  base::StringIL const primaryAttractionTypes[] = {
       {"amenity", "grave_yard"},
       {"amenity", "fountain"},
       {"amenity", "place_of_worship"},
@@ -503,14 +502,16 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
       {"waterway", "waterfall"},
   };
 
-  set<pair<string, string>> const additionalAttractionTypes = {
+  base::StringIL const additionalAttractionTypes[] = {
       {"tourism", "viewpoint"},
       {"tourism", "attraction"},
   };
 
+  Classificator const & c = classif();
+
   for (auto const & t : primaryAttractionTypes)
   {
-    auto const type = classif().GetTypeByPath({t.first, t.second});
+    auto const type = c.GetTypeByPath(t);
     m_types.push_back(type);
     m_primaryTypes.push_back(type);
   }
@@ -518,7 +519,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
 
   for (auto const & t : additionalAttractionTypes)
   {
-    auto const type = classif().GetTypeByPath({t.first, t.second});
+    auto const type = c.GetTypeByPath(t);
     m_types.push_back(type);
     m_additionalTypes.push_back(type);
   }
@@ -609,14 +610,14 @@ unsigned IsHotelChecker::GetHotelTypesMask(FeatureType & ft) const
 
 IsIslandChecker::IsIslandChecker()
 {
-  vector<pair<string, string>> const types = {
+  base::StringIL const types[] = {
     {"place", "island"},
     {"place", "islet"},
   };
 
   Classificator const & c = classif();
   for (auto const & t : types)
-    m_types.push_back(c.GetTypeByPath({t.first, t.second}));
+    m_types.push_back(c.GetTypeByPath(t));
 }
 
 IsLandChecker::IsLandChecker()
@@ -821,7 +822,7 @@ IsStateChecker::IsStateChecker()
 
 IsCityTownOrVillageChecker::IsCityTownOrVillageChecker()
 {
-  vector<pair<string, string>> const types = {
+  base::StringIL const types[] = {
     {"place", "city"},
     {"place", "town"},
     {"place", "village"},
@@ -830,7 +831,7 @@ IsCityTownOrVillageChecker::IsCityTownOrVillageChecker()
 
   Classificator const & c = classif();
   for (auto const & t : types)
-    m_types.push_back(c.GetTypeByPath({t.first, t.second}));
+    m_types.push_back(c.GetTypeByPath(t));
 }
 
 IsEntranceChecker::IsEntranceChecker() : BaseChecker(1 /* level */)

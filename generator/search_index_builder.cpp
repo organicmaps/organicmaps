@@ -67,17 +67,13 @@ public:
     ifstream stream(fPath.c_str());
 
     string line;
-    vector<string> tokens;
-
     while (stream.good())
     {
       getline(stream, line);
       if (line.empty())
         continue;
 
-      tokens.clear();
-      strings::Tokenize(line, ":,", base::MakeBackInsertFunctor(tokens));
-
+      auto tokens = strings::Tokenize(line, ":,");
       if (tokens.size() > 1)
       {
         strings::Trim(tokens[0]);
@@ -88,7 +84,7 @@ public:
           // For example, the hypothetical "Russia" -> "Russian Federation" mapping
           // would have the feature with name "Russia" match the request "federation". It would be wrong.
           CHECK(tokens[i].find_first_of(" \t") == string::npos, ());
-          m_map.insert(make_pair(tokens[0], tokens[i]));
+          m_map.emplace(tokens[0], tokens[i]);
         }
       }
     }
@@ -192,18 +188,18 @@ struct FeatureNameInserter
     }
   }
 
-  void operator()(signed char lang, string const & name) const
+  void operator()(signed char lang, string_view name) const
   {
-    strings::UniString const uniName = search::NormalizeAndSimplifyString(name);
-
     // split input string on tokens
     search::QueryTokens tokens;
-    SplitUniString(uniName, base::MakeBackInsertFunctor(tokens), search::Delimiters());
+    SplitUniString(search::NormalizeAndSimplifyString(name),
+                   base::MakeBackInsertFunctor(tokens), search::Delimiters());
 
     // add synonyms for input native string
     if (m_synonyms)
     {
-      m_synonyms->ForEach(name, [&](string const & utf8str)
+      /// @todo Avoid creating temporary std::string.
+      m_synonyms->ForEach(std::string(name), [&](string const & utf8str)
                           {
                             tokens.push_back(search::NormalizeAndSimplifyString(utf8str));
                           });

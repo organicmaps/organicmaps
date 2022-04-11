@@ -122,15 +122,14 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetCustomSymbolNames(
     return nullptr;
 
   auto symbolNames = make_unique_dp<SymbolNameZoomInfo>();
-  strings::Tokenize(it->second, ";", [&](std::string const & token)
+  strings::Tokenize(it->second, ";", [&](std::string_view token)
   {
-    int zoomLevel = 1;
-    std::string name = token;
+    uint8_t zoomLevel = 1;
     auto pos = token.find(',');
-    if (pos != std::string::npos && strings::to_int(token.substr(0, pos), zoomLevel))
-      name = token.substr(pos + 1);
-    if (!name.empty() && zoomLevel >= 1 && zoomLevel <= 18)
-      symbolNames->insert(std::make_pair(zoomLevel, name));
+    if (pos != std::string::npos && strings::to_uint(token.substr(0, pos), zoomLevel))
+      token = token.substr(pos + 1);
+    if (!token.empty() && zoomLevel >= 1 && zoomLevel <= scales::GetUpperStyleScale())
+      symbolNames->emplace(zoomLevel, std::string(token));
   });
 
   if (symbolNames->empty())

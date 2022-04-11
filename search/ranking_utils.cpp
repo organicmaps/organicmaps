@@ -113,14 +113,13 @@ bool IsStopWord(UniString const & s)
   return kStopWords.count(s) > 0;
 }
 
-void PrepareStringForMatching(string const & name, vector<strings::UniString> & tokens)
+void PrepareStringForMatching(string_view name, vector<strings::UniString> & tokens)
 {
-  auto filter = [&tokens](strings::UniString const & token)
+  SplitUniString(NormalizeAndSimplifyString(name), [&tokens](strings::UniString const & token)
   {
     if (!IsStopWord(token))
       tokens.push_back(token);
-  };
-  SplitUniString(NormalizeAndSimplifyString(name), filter, Delimiters());
+  }, Delimiters());
 }
 
 string DebugPrint(NameScore const & score)

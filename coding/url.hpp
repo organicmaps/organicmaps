@@ -59,6 +59,6 @@ std::string Join(std::string const & lhs, std::string const & rhs, Args &&... ar
 }
 
 std::string UrlEncode(std::string const & rawUrl);
-std::string UrlDecode(std::string const & encodedUrl);
+std::string UrlDecode(std::string_view encodedUrl);
 
 }  // namespace url
