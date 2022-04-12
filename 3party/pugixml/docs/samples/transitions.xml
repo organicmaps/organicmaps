@@ -1,7 +1,0 @@
-<transition source="idle" target="run">
-	<event name="key_up|key_shift" />
-</transition>
-<transition source="run" target="attack">
-	<event name="key_ctrl" />
-	<condition expr="weapon != null" />
-</transition>

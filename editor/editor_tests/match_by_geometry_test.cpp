@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "3party/pugixml/src/pugixml.hpp"
+#include "3party/pugixml/pugixml/src/pugixml.hpp"
 
 namespace
 {
@@ -256,4 +256,3 @@ UNIT_TEST(MatchByGeometry)
   TEST_EQUAL(matched.attribute("id").value(), std::string("85761"), ());
 }
 }  // namespace
-
