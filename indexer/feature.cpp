@@ -788,19 +788,18 @@ feature::Metadata const & FeatureType::GetMetadata()
   return m_metadata;
 }
 
-std::string FeatureType::GetMetadata(feature::Metadata::EType type)
+std::string_view FeatureType::GetMetadata(feature::Metadata::EType type)
 {
   ParseMetaIds();
-  if (m_metadata.Has(type))
-    return m_metadata.Get(type);
 
-  auto const it = base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; });
-  if (it == m_metaIds.end())
-    return {};
-
-  auto value = m_metadataDeserializer->GetMetaById(it->second);
-  m_metadata.Set(type, value);
-  return value;
+  auto meta = m_metadata.Get(type);
+  if (meta.empty())
+  {
+    auto const it = base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; });
+    if (it != m_metaIds.end())
+      meta = m_metadata.Set(type, m_metadataDeserializer->GetMetaById(it->second));
+  }
+  return meta;
 }
 
 bool FeatureType::HasMetadata(feature::Metadata::EType type)

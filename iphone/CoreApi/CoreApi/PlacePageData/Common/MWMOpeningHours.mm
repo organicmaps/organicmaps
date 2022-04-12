@@ -83,12 +83,14 @@ void addUnhandledDays(ui::OpeningDays const & days, std::vector<Day> & allDays)
 
 namespace osmoh {
 
-std::vector<osmoh::Day> processRawString(NSString *str, id<IOpeningHoursLocalization> localization)
+std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString *str, id<IOpeningHoursLocalization> localization)
 {
-  ui::TimeTableSet timeTableSet;
   osmoh::OpeningHours oh(str.UTF8String);
+  bool const isClosed = oh.IsClosed(time(nullptr));
+
+  ui::TimeTableSet timeTableSet;
   if (!MakeTimeTableSet(oh, timeTableSet))
-    return {};
+    return {{}, isClosed};
 
   std::vector<Day> days;
 
@@ -121,7 +123,7 @@ std::vector<osmoh::Day> processRawString(NSString *str, id<IOpeningHoursLocaliza
     addClosedToday(days, localization);
 
   addUnhandledDays(unhandledDays, days);
-  return days;
+  return {std::move(days), isClosed};
 }
 
 } // namespace osmoh

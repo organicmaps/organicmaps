@@ -2,6 +2,8 @@
 
 #import "OpeningHours.h"
 
+#import <CoreApi/StringUtils.h>
+
 #include "map/place_page_info.hpp"
 
 using namespace place_page;
@@ -20,12 +22,12 @@ using namespace osm;
     for (auto property : availableProperties) {
       switch (property) {
         case Props::OpeningHours:
-          _openingHoursString = @(rawData.GetOpeningHours().c_str());
-          _openingHours = [[OpeningHours alloc] initWithRawString:@(rawData.GetOpeningHours().c_str())
+          _openingHoursString = ToNSString(rawData.GetOpeningHours());
+          _openingHours = [[OpeningHours alloc] initWithRawString:_openingHoursString
                                                      localization:localization];
           break;
         case Props::Phone: {
-          _phone = @(rawData.GetPhone().c_str());
+          _phone = ToNSString(rawData.GetPhone());
           NSString *filteredDigits = [[_phone componentsSeparatedByCharactersInSet:
                                        [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
                                       componentsJoinedByString:@""];
@@ -34,16 +36,16 @@ using namespace osm;
           break;
         }
         case Props::Website:
-          _website = @(rawData.GetWebsite().c_str());
+          _website = ToNSString(rawData.GetWebsite());
           break;
         case Props::Email:
-          _email = @(rawData.GetEmail().c_str());
+          _email = ToNSString(rawData.GetEmail());
           break;
         case Props::Cuisine:
           _cuisine = @(strings::JoinStrings(rawData.GetLocalizedCuisines(), Info::kSubtitleSeparator).c_str());
           break;
         case Props::Operator:
-          _ppOperator = @(rawData.GetOperator().c_str());
+          _ppOperator = ToNSString(rawData.GetOperator());
           break;
         case Props::Internet:
           _wifiAvailable = (rawData.GetInternet() == osm::Internet::No)

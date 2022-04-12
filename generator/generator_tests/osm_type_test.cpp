@@ -1371,8 +1371,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Metadata)
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"amenity", "restaurant"})), (params));
 
-    std::string buffer;
-    TEST(params.GetMetadata().Get(feature::Metadata::FMD_DESCRIPTION, buffer), ());
+    std::string buffer(params.GetMetadata().Get(feature::Metadata::FMD_DESCRIPTION));
+    TEST(!buffer.empty(), ());
     auto const mlStr = StringUtf8Multilang::FromBuffer(std::move(buffer));
 
     std::string_view desc;

@@ -2,11 +2,12 @@
 
 #include "3party/opening_hours/opening_hours.hpp"
 
-static PlacePageDataSchedule convertOpeningHours(std::string rawOpeningHours) {
-  if (rawOpeningHours.empty())
+static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH) {
+  if (rawOH.empty())
     return PlacePageDataOpeningHoursUnknown;
 
-  osmoh::OpeningHours oh(rawOpeningHours);
+  /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
+  osmoh::OpeningHours oh((std::string(rawOH)));
   if (!oh.IsValid()) {
     return PlacePageDataOpeningHoursUnknown;
   }

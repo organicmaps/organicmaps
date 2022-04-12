@@ -23,7 +23,7 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, M
     {
     case Metadata::FMD_WIKIPEDIA: meta = metadata.GetWikiURL(); break;
     case Metadata::FMD_DESCRIPTION: break;
-    default: meta = metadata.Get(t); break;
+    default: meta = metadata.Get(static_cast<Metadata::EType>(t)); break;
     }
 
     if (!meta.empty())

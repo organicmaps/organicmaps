@@ -319,6 +319,7 @@ void ParseRoadAccessConditional(
       FromString(buffer, roadAccessType);
       CHECK_NOT_EQUAL(roadAccessType, RoadAccess::Type::Count, (line));
 
+      /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
       string strBuffer(moveIterAndCheck());
       strings::Trim(strBuffer);
       osmoh::OpeningHours openingHours(strBuffer);

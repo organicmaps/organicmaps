@@ -242,10 +242,10 @@ bool InsertPostcodes(FeatureType & f, function<void(strings::UniString const &)>
   using namespace search;
 
   auto const & postBoxChecker = ftypes::IsPostBoxChecker::Instance();
-  string const postcode = f.GetMetadata(feature::Metadata::FMD_POSTCODE);
+  auto const postcode = f.GetMetadata(feature::Metadata::FMD_POSTCODE);
   vector<string> postcodes;
   if (!postcode.empty())
-    postcodes.push_back(postcode);
+    postcodes.push_back(std::string(postcode));
 
   bool useNameAsPostcode = false;
   if (postBoxChecker(f))
@@ -326,21 +326,23 @@ public:
 
     if (ftypes::IsAirportChecker::Instance()(types))
     {
-      string const iata = f.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
+      auto const iata = f.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
       if (!iata.empty())
         inserter(StringUtf8Multilang::kDefaultCode, iata);
     }
 
     // Index operator to support "Sberbank ATM" for objects with amenity=atm and operator=Sberbank.
-    string const op = f.GetMetadata(feature::Metadata::FMD_OPERATOR);
+    auto const op = f.GetMetadata(feature::Metadata::FMD_OPERATOR);
     if (!op.empty())
       inserter(StringUtf8Multilang::kDefaultCode, op);
 
-    string const brand = f.GetMetadata(feature::Metadata::FMD_BRAND);
+    auto const brand = f.GetMetadata(feature::Metadata::FMD_BRAND);
     if (!brand.empty())
     {
       auto const & brands = indexer::GetDefaultBrands();
-      brands.ForEachNameByKey(brand, [&inserter](indexer::BrandsHolder::Brand::Name const & name) {
+      /// @todo Avoid temporary string when unordered_map will allow search by string_view.
+      brands.ForEachNameByKey(std::string(brand), [&inserter](indexer::BrandsHolder::Brand::Name const & name)
+      {
         inserter(name.m_locale, name.m_name);
       });
     }
@@ -390,8 +392,7 @@ void ReadAddressData(string const & filename, vector<feature::AddressData> & add
   }
 }
 
-bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string const & streetName,
-                    uint32_t & result)
+bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string_view streetName, uint32_t & result)
 {
   bool const hasStreet = !streetName.empty();
   if (hasStreet)

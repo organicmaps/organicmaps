@@ -26,6 +26,7 @@ struct Day
   bool m_isOpen = true;
 };
 
-std::vector<osmoh::Day> processRawString(NSString *str, id<IOpeningHoursLocalization> localization);
+/// @return { Days schedule list, is closed now }
+std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString *str, id<IOpeningHoursLocalization> localization);
 
 }  // namespace osmoh

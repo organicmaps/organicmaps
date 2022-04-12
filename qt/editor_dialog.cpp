@@ -107,7 +107,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     grid->addWidget(houseLineEdit, row++, 1);
 
     grid->addWidget(new QLabel(kPostcodeObjectName), row, 0);
-    QLineEdit * postcodeEdit = new QLineEdit(QString::fromStdString(emo.GetPostcode()));
+    QLineEdit * postcodeEdit = new QLineEdit(QString::fromStdString(std::string(emo.GetPostcode())));
     postcodeEdit->setObjectName(kPostcodeObjectName);
     grid->addWidget(postcodeEdit, row++, 1);
   }

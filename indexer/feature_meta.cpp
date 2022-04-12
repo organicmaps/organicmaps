@@ -18,7 +18,7 @@ char constexpr const * kBaseWikiUrl =
 
 string Metadata::GetWikiURL() const
 {
-  string v = this->Get(FMD_WIKIPEDIA);
+  string v(this->Get(FMD_WIKIPEDIA));
   if (v.empty())
     return v;
 
@@ -136,7 +136,7 @@ bool RegionData::HasLanguage(int8_t const lang) const
 
 bool RegionData::IsSingleLanguage(int8_t const lang) const
 {
-  string const value = Get(RegionData::Type::RD_LANGUAGES);
+  auto const value = Get(RegionData::Type::RD_LANGUAGES);
   if (value.size() != 1)
     return false;
   return value.front() == lang;
@@ -144,10 +144,10 @@ bool RegionData::IsSingleLanguage(int8_t const lang) const
 
 void RegionData::AddPublicHoliday(int8_t month, int8_t offset)
 {
-  string value = Get(RegionData::Type::RD_PUBLIC_HOLIDAYS);
+  string value(Get(RegionData::Type::RD_PUBLIC_HOLIDAYS));
   value.push_back(month);
   value.push_back(offset);
-  Set(RegionData::Type::RD_PUBLIC_HOLIDAYS, value);
+  Set(RegionData::Type::RD_PUBLIC_HOLIDAYS, std::move(value));
 }
 
 // Warning: exact osm tag keys should be returned for valid enum values.
@@ -199,15 +199,15 @@ string DebugPrint(Metadata const & metadata)
   for (uint8_t i = 0; i < static_cast<uint8_t>(Metadata::FMD_COUNT); ++i)
   {
     auto const t = static_cast<Metadata::EType>(i);
-    string s;
-    if (metadata.Get(t, s))
+    auto const sv = metadata.Get(t);
+    if (!sv.empty())
     {
       if (first)
         first = false;
       else
         res += "; ";
 
-      res = res + DebugPrint(t) + "=" + s;
+      res.append(DebugPrint(t)).append("=").append(sv);
     }
   }
   res += "]";
@@ -216,8 +216,8 @@ string DebugPrint(Metadata const & metadata)
 
 string DebugPrint(feature::AddressData const & addressData)
 {
-  return std::string("AddressData [") +
-          "Street = \""  + addressData.Get(AddressData::Type::Street) + "\"; " +
-          "Postcode = \"" + addressData.Get(AddressData::Type::Postcode) + "\"]";
+  return std::string("AddressData [")
+          .append("Street = \"").append(addressData.Get(AddressData::Type::Street)).append("\"; ")
+          .append("Postcode = \"").append(addressData.Get(AddressData::Type::Postcode)).append("\"]");
 }
 }  // namespace feature

@@ -56,7 +56,7 @@ public:
     std::string m_roadShields;
 
     // Following fields are used for hotels only.
-    int m_stars = 0;
+    uint8_t m_stars = 0;
     bool m_isHotel = false;
 
     // Valid for any result.

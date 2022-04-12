@@ -156,7 +156,7 @@ public:
   feature::Metadata const & GetMetadata();
 
   // Gets single metadata string. Does not parse all metadata.
-  std::string GetMetadata(feature::Metadata::EType type);
+  std::string_view GetMetadata(feature::Metadata::EType type);
   bool HasMetadata(feature::Metadata::EType type);
 
   /// @name Statistic functions.

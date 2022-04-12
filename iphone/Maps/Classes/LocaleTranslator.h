@@ -7,4 +7,4 @@ namespace locale_translator
 
 std::string bcp47ToTwineLanguage(NSString const * bcp47LangName);
 
-} // namespace tts
+} // namespace locale_translator
