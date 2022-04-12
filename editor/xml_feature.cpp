@@ -97,7 +97,7 @@ XMLFeature::XMLFeature(Type const type)
 
 XMLFeature::XMLFeature(string const & xml)
 {
-  m_document.load(xml.data());
+  m_document.load_string(xml.data());
   ValidateElement(GetRootNode());
 }
 

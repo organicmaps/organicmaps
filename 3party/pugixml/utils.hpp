@@ -1,4 +1,6 @@
-#include "pugixml.hpp"
+#pragma once
+
+#include "pugixml/src/pugixml.hpp"
 
 #include <sstream>
 #include <string>
