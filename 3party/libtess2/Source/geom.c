@@ -293,3 +293,6 @@ int tesedgeIsLocallyDelaunay( TESShalfEdge *e )
   return (calcAngle(e->Lnext->Org, e->Lnext->Lnext->Org, e->Org) +
           calcAngle(e->Sym->Lnext->Org, e->Sym->Lnext->Lnext->Org, e->Sym->Org)) < (3.14159 + 0.01);
 }
+
+/* Fixes macro redifinition warning for Unity builds. */
+#undef Swap

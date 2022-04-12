@@ -512,3 +512,6 @@ void pqDelete( PriorityQ *pq, PQhandle curr )
 		-- pq->size;
 	}
 }
+
+/* Fixes macro redifinition warning for Unity builds. */
+#undef Swap
