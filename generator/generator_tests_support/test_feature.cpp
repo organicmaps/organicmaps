@@ -89,9 +89,12 @@ void TestFeature::Init()
 
 bool TestFeature::Matches(FeatureType & feature) const
 {
-  istringstream is(feature.GetMetadata(Metadata::FMD_TEST_ID));
+  auto const sv = feature.GetMetadata(feature::Metadata::FMD_TEST_ID);
+  if (sv.empty())
+    return false;
+
   uint64_t id;
-  is >> id;
+  CHECK(strings::to_uint(sv, id), (sv));
   return id == m_id;
 }
 
@@ -106,10 +109,7 @@ void TestFeature::Serialize(FeatureBuilder & fb) const
   {
     auto const type = static_cast<Metadata::EType>(i);
     if (m_metadata.Has(type))
-    {
-      auto const value = m_metadata.Get(type);
-      fb.GetMetadata().Set(type, value);
-    }
+      fb.GetMetadata().Set(type, std::string(m_metadata.Get(type)));
   }
 
   switch (m_type)

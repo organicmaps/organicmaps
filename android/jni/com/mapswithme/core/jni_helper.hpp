@@ -54,6 +54,11 @@ inline jstring ToJavaString(JNIEnv * env, std::string const & s)
 {
   return ToJavaString(env, s.c_str());
 }
+inline jstring ToJavaString(JNIEnv * env, std::string_view sv)
+{
+  /// @todo Make conversion without a temporary some day.
+  return ToJavaString(env, std::string(sv).c_str());
+}
 
 jclass GetStringClass(JNIEnv * env);
 char const * GetStringClassName();

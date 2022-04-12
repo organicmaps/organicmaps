@@ -290,31 +290,30 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
 
 vector<LocalizedStreet> const & EditableMapObject::GetNearbyStreets() const { return m_nearbyStreets; }
 
-string EditableMapObject::GetPostcode() const
+string_view EditableMapObject::GetPostcode() const
 {
   return m_metadata.Get(feature::Metadata::FMD_POSTCODE);
 }
 
-string EditableMapObject::GetWikipedia() const
+string_view EditableMapObject::GetWikipedia() const
 {
   return m_metadata.Get(feature::Metadata::FMD_WIKIPEDIA);
 }
 
-void EditableMapObject::ForEachMetadataItem(function<void(string const & tag, string && value)> const & fn) const
+void EditableMapObject::ForEachMetadataItem(function<void(string tag, string_view value)> const & fn) const
 {
   m_metadata.ForEachKey([&fn, this](feature::Metadata::EType type)
   {
     // Multilang description may produce several tags with different values.
     if (type == feature::Metadata::FMD_DESCRIPTION)
     {
-      auto const multilangDescription = StringUtf8Multilang::FromBuffer(m_metadata.Get(type));
-      multilangDescription.ForEach([&fn](int8_t code, string_view v)
+      auto const mlDescr = StringUtf8Multilang::FromBuffer(std::string(m_metadata.Get(type)));
+      mlDescr.ForEach([&fn](int8_t code, string_view v)
       {
-        string value(v);
         if (code == StringUtf8Multilang::kDefaultCode)
-          fn("description", std::move(value));
+          fn("description", v);
         else
-          fn(string("description:") + StringUtf8Multilang::GetLangByCode(code), std::move(value));
+          fn(string("description:") + StringUtf8Multilang::GetLangByCode(code), v);
       });
     }
     else
@@ -324,19 +323,9 @@ void EditableMapObject::ForEachMetadataItem(function<void(string const & tag, st
   });
 }
 
-uint64_t EditableMapObject::GetTestId() const
-{
-  istringstream iss(m_metadata.Get(feature::Metadata::FMD_TEST_ID));
-  uint64_t id;
-  iss >> id;
-  return id;
-}
-
 void EditableMapObject::SetTestId(uint64_t id)
 {
-  ostringstream oss;
-  oss << id;
-  m_metadata.Set(feature::Metadata::FMD_TEST_ID, oss.str());
+  m_metadata.Set(feature::Metadata::FMD_TEST_ID, std::to_string(id));
 }
 
 void EditableMapObject::SetEditableProperties(osm::EditableProperties const & props)

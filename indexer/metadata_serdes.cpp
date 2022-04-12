@@ -107,7 +107,8 @@ void MetadataBuilder::Put(uint32_t featureId, feature::MetadataBase const & meta
   for (auto const & type : meta.GetPresentTypes())
   {
     uint32_t id = 0;
-    auto const value = meta.Get(type);
+    /// @todo Avoid temporary string when unordered_map will allow search by string_view.
+    string const value(meta.Get(type));
     auto const it = m_stringToId.find(value);
     if (it != m_stringToId.end())
     {

@@ -21,7 +21,7 @@ namespace routing
 {
 using namespace std;
 
-double CalcFerryDurationHours(string const & durationHours, double roadLenKm)
+double CalcFerryDurationHours(string_view durationHours, double roadLenKm)
 {
   // Look for more info: https://confluence.mail.ru/display/MAPSME/Ferries
   // Shortly: the coefs were received from statistic about ferries with durations in OSM.
@@ -32,7 +32,7 @@ double CalcFerryDurationHours(string const & durationHours, double roadLenKm)
     return kIntercept + kSlope * roadLenKm;
 
   double durationH = 0.0;
-  CHECK(strings::to_double(durationHours.c_str(), durationH), (durationHours));
+  CHECK(strings::to_double(durationHours, durationH), (durationHours));
 
   // See: https://confluence.mail.ru/download/attachments/249123157/image2019-8-22_16-15-53.png
   // Shortly: we drop some points: (x: lengthKm, y: durationH), that are upper or lower these two
@@ -214,10 +214,8 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 
   if (m_routingOptions.Has(RoutingOptions::Road::Ferry))
   {
-    auto const durationHours = feature.GetMetadata(feature::Metadata::FMD_DURATION);
     auto const roadLenKm = GetRoadLengthM() / 1000.0;
-    double const durationH = CalcFerryDurationHours(durationHours, roadLenKm);
-
+    double const durationH = CalcFerryDurationHours(feature.GetMetadata(feature::Metadata::FMD_DURATION), roadLenKm);
     CHECK(!base::AlmostEqualAbs(durationH, 0.0, 1e-5), (durationH));
 
     if (roadLenKm != 0.0)

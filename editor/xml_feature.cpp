@@ -520,9 +520,9 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
     }
   }
 
-  object.ForEachMetadataItem([&toFeature](string const & tag, string && value)
+  object.ForEachMetadataItem([&toFeature](string tag, string_view value)
   {
-    toFeature.SetTagValue(tag, std::move(value));
+    toFeature.SetTagValue(tag, std::string(value));
   });
 
   return toFeature;

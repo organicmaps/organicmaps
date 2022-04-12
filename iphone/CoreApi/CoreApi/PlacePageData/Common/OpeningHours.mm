@@ -28,11 +28,10 @@
 - (instancetype)initWithRawString:(NSString *)rawString localization:(id<IOpeningHoursLocalization>)localization {
   self = [super init];
   if (self) {
-    osmoh::OpeningHours oh(rawString.UTF8String);
-    _isClosedNow = oh.IsClosed(time(nullptr));
-    auto days = osmoh::processRawString(rawString, localization);
+    auto const [days, isClosed] = osmoh::processRawString(rawString, localization);
+    _isClosedNow = isClosed;
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:days.size()];
-    for (auto day : days) {
+    for (auto const & day : days) {
       WorkingDay *wd = [[WorkingDay alloc] init];
       wd.isOpen = day.m_isOpen;
       wd.workingDays = day.m_workingDays;

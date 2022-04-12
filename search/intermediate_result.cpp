@@ -237,19 +237,20 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   details.m_airportIata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
   details.m_brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
 
-  string const openHours = ft.GetMetadata(feature::Metadata::FMD_OPEN_HOURS);
+  /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
+  std::string const openHours(ft.GetMetadata(feature::Metadata::FMD_OPEN_HOURS));
   if (!openHours.empty())
   {
-    osmoh::OpeningHours const oh(openHours);
-    // TODO: We should check closed/open time for specific feature's timezone.
+    osmoh::OpeningHours const oh((std::string(openHours)));
+    /// @todo We should check closed/open time for specific feature's timezone.
     time_t const now = time(nullptr);
     if (oh.IsValid() && !oh.IsUnknown(now))
       details.m_isOpenNow = oh.IsOpen(now) ? osm::Yes : osm::No;
     // In else case value us osm::Unknown, it's set in preview's constructor.
   }
 
-  if (strings::to_int(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
-    details.m_stars = base::Clamp(details.m_stars, 0, 5);
+  if (strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
+    details.m_stars = std::min(details.m_stars, uint8_t(5));
   else
     details.m_stars = 0;
 

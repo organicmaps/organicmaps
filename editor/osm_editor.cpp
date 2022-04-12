@@ -563,14 +563,14 @@ EditableProperties Editor::GetEditableProperties(FeatureType & feature) const
     }
 
     auto const & metadata = originalObjectPtr->GetMetadata();
-    auto const & featureOpeningHours = metadata.Get(feature::Metadata::FMD_OPEN_HOURS);
-    // Note: empty string is parsed as a valid opening hours rule.
+
+    /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
+    std::string const featureOpeningHours(metadata.Get(feature::Metadata::FMD_OPEN_HOURS));
+    /// @note Empty string is parsed as a valid opening hours rule.
     if (!osmoh::OpeningHours(featureOpeningHours).IsValid())
     {
       auto & meta = editableProperties.m_metadata;
-      auto const toBeRemoved = remove(begin(meta), end(meta), feature::Metadata::FMD_OPEN_HOURS);
-      if (toBeRemoved != end(meta))
-        meta.erase(toBeRemoved);
+      meta.erase(remove(begin(meta), end(meta), feature::Metadata::FMD_OPEN_HOURS), end(meta));
     }
   }
 

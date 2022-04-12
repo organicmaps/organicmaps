@@ -107,13 +107,13 @@ public:
   NamesDataSource GetNamesDataSource(bool addFakes = true);
   LocalizedStreet const & GetStreet() const;
   std::vector<LocalizedStreet> const & GetNearbyStreets() const;
-  std::string GetPostcode() const;
-  std::string GetWikipedia() const;
+  std::string_view GetPostcode() const;
+  std::string_view GetWikipedia() const;
 
-  void ForEachMetadataItem(std::function<void(std::string const & tag, std::string && value)> const & fn) const;
+  /// @note value is a temporary string view and can't be stored for later use.
+  void ForEachMetadataItem(std::function<void(std::string tag, std::string_view value)> const & fn) const;
 
   // These two methods should only be used in tests.
-  uint64_t GetTestId() const;
   void SetTestId(uint64_t id);
 
   void SetEditableProperties(osm::EditableProperties const & props);

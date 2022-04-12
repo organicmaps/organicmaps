@@ -35,8 +35,7 @@ namespace search
 namespace
 {
 template <typename Slice>
-void UpdateNameScores(string const & name, uint8_t lang, Slice const & slice,
-                      NameScores & bestScores)
+void UpdateNameScores(string_view name, uint8_t lang, Slice const & slice, NameScores & bestScores)
 {
   if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
   {
@@ -149,20 +148,22 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
 
   if (ftypes::IsAirportChecker::Instance()(ft))
   {
-    string const iata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
+    auto const iata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
     if (!iata.empty())
       UpdateNameScores(iata, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
   }
 
-  string const op = ft.GetMetadata(feature::Metadata::FMD_OPERATOR);
+  auto const op = ft.GetMetadata(feature::Metadata::FMD_OPERATOR);
   if (!op.empty())
     UpdateNameScores(op, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
 
-  string const brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
+  auto const brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
   if (!brand.empty())
   {
     auto const & brands = indexer::GetDefaultBrands();
-    brands.ForEachNameByKey(brand, [&](indexer::BrandsHolder::Brand::Name const & name) {
+    /// @todo Avoid temporary string when unordered_map will allow search by string_view.
+    brands.ForEachNameByKey(std::string(brand), [&](indexer::BrandsHolder::Brand::Name const & name)
+    {
       UpdateNameScores(name.m_name, name.m_locale, sliceNoCategories, bestScores);
     });
   }

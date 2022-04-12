@@ -54,7 +54,7 @@ double GetBuildingHeightInMeters(FeatureType & f)
 
   double heightInMeters = kDefaultHeightInMeters;
 
-  std::string value = f.GetMetadata(feature::Metadata::FMD_HEIGHT);
+  auto value = f.GetMetadata(feature::Metadata::FMD_HEIGHT);
   if (!value.empty())
   {
     if (!strings::to_double(value, heightInMeters))
@@ -74,7 +74,7 @@ double GetBuildingHeightInMeters(FeatureType & f)
 
 double GetBuildingMinHeightInMeters(FeatureType & f)
 {
-  std::string value = f.GetMetadata(feature::Metadata::FMD_MIN_HEIGHT);
+  auto const value = f.GetMetadata(feature::Metadata::FMD_MIN_HEIGHT);
   if (value.empty())
     return 0.0;
 

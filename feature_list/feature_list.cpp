@@ -205,7 +205,7 @@ public:
     string const & category = GetReadableType(f);
     auto const & meta = f.GetMetadata();
 
-    string const & metaOperator = meta.Get(feature::Metadata::FMD_OPERATOR);
+    auto const metaOperator = meta.Get(feature::Metadata::FMD_OPERATOR);
     auto const & osmIt = ft2osm.find(f.GetID().m_index);
     if ((!f.HasName() && metaOperator.empty()) ||
         (f.GetGeomType() == feature::GeomType::Line && category != "highway-pedestrian") ||
@@ -256,26 +256,26 @@ public:
         addrHouse = addr.GetHouseNumber();
       }
     }
-    string const & phone = meta.Get(feature::Metadata::FMD_PHONE_NUMBER);
-    string const & website = meta.Get(feature::Metadata::FMD_WEBSITE);
-    string const & contact_facebook = meta.Get(feature::Metadata::FMD_CONTACT_FACEBOOK);
-    string const & contact_instagram = meta.Get(feature::Metadata::FMD_CONTACT_INSTAGRAM);
-    string const & contact_twitter = meta.Get(feature::Metadata::FMD_CONTACT_TWITTER);
-    string const & contact_vk = meta.Get(feature::Metadata::FMD_CONTACT_VK);
-    string const & contact_line = meta.Get(feature::Metadata::FMD_CONTACT_LINE);
-    string const & stars = meta.Get(feature::Metadata::FMD_STARS);
-    string const & internet = meta.Get(feature::Metadata::FMD_INTERNET);
-    string const & denomination = meta.Get(feature::Metadata::FMD_DENOMINATION);
-    string const & wheelchair = GetWheelchairType(f);
-    string const & opening_hours = meta.Get(feature::Metadata::FMD_OPEN_HOURS);
-    string const & wikipedia = meta.GetWikiURL();
-    string const & floor = meta.Get(feature::Metadata::FMD_LEVEL);
-    string const & fee = strings::EndsWith(category, "-fee") ? "yes" : "";
-    string const & atm = HasAtm(f) ? "yes" : "";
+    string const phone(meta.Get(feature::Metadata::FMD_PHONE_NUMBER));
+    string const website(meta.Get(feature::Metadata::FMD_WEBSITE));
+    string const contact_facebook(meta.Get(feature::Metadata::FMD_CONTACT_FACEBOOK));
+    string const contact_instagram(meta.Get(feature::Metadata::FMD_CONTACT_INSTAGRAM));
+    string const contact_twitter(meta.Get(feature::Metadata::FMD_CONTACT_TWITTER));
+    string const contact_vk(meta.Get(feature::Metadata::FMD_CONTACT_VK));
+    string const contact_line(meta.Get(feature::Metadata::FMD_CONTACT_LINE));
+    string const stars(meta.Get(feature::Metadata::FMD_STARS));
+    string const internet(meta.Get(feature::Metadata::FMD_INTERNET));
+    string const denomination(meta.Get(feature::Metadata::FMD_DENOMINATION));
+    string const wheelchair(GetWheelchairType(f));
+    string const opening_hours(meta.Get(feature::Metadata::FMD_OPEN_HOURS));
+    string const wikipedia(meta.GetWikiURL());
+    string const floor(meta.Get(feature::Metadata::FMD_LEVEL));
+    string const fee = strings::EndsWith(category, "-fee") ? "yes" : "";
+    string const atm = HasAtm(f) ? "yes" : "";
 
     vector<string> columns = {
         osmId,             uid,             lat,           lon,       mwmName, category,     name,    std::string(city),
-        addrStreet,        addrHouse,       phone,         website,   stars,   metaOperator, internet,
+        addrStreet,        addrHouse,       phone,         website,   stars,   std::string(metaOperator), internet,
         denomination,      wheelchair,      opening_hours, wikipedia, floor,   fee,          atm,     contact_facebook,
         contact_instagram, contact_twitter, contact_vk,    contact_line};
 

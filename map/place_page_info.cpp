@@ -98,61 +98,67 @@ void Info::SetMercator(m2::PointD const & mercator)
 
 std::string Info::FormatSubtitle(bool withType) const
 {
-  std::vector<std::string> subtitle;
+  std::string result;
+  auto const append = [&result](std::string_view sv)
+  {
+    if (!result.empty())
+      result += kSubtitleSeparator;
+    result += sv;
+  };
 
   if (IsBookmark())
-    subtitle.push_back(m_bookmarkCategoryName);
+    append(m_bookmarkCategoryName);
 
   if (withType)
-    subtitle.push_back(GetLocalizedType());
+    append(GetLocalizedType());
 
   // Flats.
-  std::string const flats = GetFlats();
+  auto const flats = GetFlats();
   if (!flats.empty())
-    subtitle.push_back(flats);
+    append(flats);
 
   // Cuisines.
-  for (std::string const & cuisine : GetLocalizedCuisines())
-    subtitle.push_back(cuisine);
+  for (auto const & cuisine : GetLocalizedCuisines())
+    append(cuisine);
 
   // Recycling types.
-  for (std::string const & recycling : GetLocalizedRecyclingTypes())
-    subtitle.push_back(recycling);
+  for (auto const & recycling : GetLocalizedRecyclingTypes())
+    append(recycling);
 
   // Airport IATA code.
-  std::string const iata = GetAirportIata();
+  auto const iata = GetAirportIata();
   if (!iata.empty())
-    subtitle.push_back(iata);
+    append(iata);
 
   // Road numbers/ids.
-  std::string const roadShields = FormatRoadShields();
+  auto const roadShields = FormatRoadShields();
   if (!roadShields.empty())
-    subtitle.push_back(roadShields);
+    append(roadShields);
 
   // Stars.
-  std::string const stars = FormatStars();
+  auto const stars = FormatStars();
   if (!stars.empty())
-    subtitle.push_back(stars);
+    append(stars);
 
   // Operator.
-  std::string const op = GetOperator();
+  auto const op = GetOperator();
   if (!op.empty())
-    subtitle.push_back(op);
+    append(op);
 
   // Elevation.
-  std::string const eleStr = GetElevationFormatted();
+  auto const eleStr = GetElevationFormatted();
   if (!eleStr.empty())
-    subtitle.push_back(kMountainSymbol + eleStr);
+    append(kMountainSymbol + eleStr);
 
   // Internet.
   if (HasWifi())
-    subtitle.push_back(m_localizedWifiString);
+    append(m_localizedWifiString);
 
   // Wheelchair
   if (GetWheelchairType() == ftraits::WheelchairAvailability::Yes)
-    subtitle.push_back(kWheelchairSymbol);
+    append(kWheelchairSymbol);
 
-  return strings::JoinStrings(subtitle, kSubtitleSeparator);
+  return result;
 }
 
 std::string Info::GetBookmarkName()
@@ -293,6 +299,24 @@ void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedTy
 void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string const & localizedType,
                        std::string const & distance)
 {
+  auto const addTitle = [this](std::string && str)
+  {
+    if (!m_uiTitle.empty())
+    {
+      m_uiTitle += kSubtitleSeparator;
+      m_uiTitle += str;
+    }
+    else
+      m_uiTitle = std::move(str);
+  };
+
+  auto const addSubtitle = [this](std::string_view sv)
+  {
+    if (!m_uiSubtitle.empty())
+      m_uiSubtitle += kSubtitleSeparator;
+    m_uiSubtitle += sv;
+  };
+
   CHECK_NOT_EQUAL(type, RoadWarningMarkType::Count, ());
   m_roadType = type;
 
@@ -300,15 +324,13 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
   if (type == RoadWarningMarkType::Toll)
   {
     std::vector<std::string> title;
-    auto shields = ftypes::GetRoadShields(ft);
-    for (auto const & shield : shields)
+    for (auto const & shield : ftypes::GetRoadShields(ft))
     {
       auto name = shield.m_name;
       if (!shield.m_additionalText.empty())
         name += " " + shield.m_additionalText;
-      title.push_back(shield.m_name);
+      addTitle(std::move(name));
     }
-    m_uiTitle = strings::JoinStrings(title, kSubtitleSeparator);
 
     if (m_uiTitle.empty())
       m_uiTitle = m_primaryFeatureName;
@@ -316,23 +338,22 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
     if (m_uiTitle.empty())
       m_uiTitle = localizedType;
     else
-      subtitle.push_back(localizedType);
-    subtitle.push_back(distance);
+      addSubtitle(localizedType);
+    addSubtitle(distance);
   }
   else if (type == RoadWarningMarkType::Dirty)
   {
     m_uiTitle = localizedType;
-    subtitle.push_back(distance);
+    addSubtitle(distance);
   }
   else if (type == RoadWarningMarkType::Ferry)
   {
     m_uiTitle = m_primaryFeatureName;
-    subtitle.push_back(localizedType);
+    addSubtitle(localizedType);
     auto const operatorName = GetOperator();
     if (!operatorName.empty())
-      subtitle.push_back(operatorName);
+      addSubtitle(operatorName);
   }
-  m_uiSubtitle = strings::JoinStrings(subtitle, kSubtitleSeparator);
 }
 
 }  // namespace place_page
