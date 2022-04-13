@@ -53,25 +53,25 @@ public:
   DECLARE_EXCEPTION(FinishAuthorizationServerError, OsmOAuthException);
   DECLARE_EXCEPTION(ResetPasswordServerError, OsmOAuthException);
 
-  static bool IsValid(KeySecret const & ks) noexcept;
-  static bool IsValid(UrlRequestToken const & urt) noexcept;
+  static bool IsValid(KeySecret const & ks);
+  static bool IsValid(UrlRequestToken const & urt);
 
   /// The constructor. Simply stores a lot of strings in fields.
   OsmOAuth(std::string const & consumerKey, std::string const & consumerSecret,
-           std::string const & baseUrl, std::string const & apiUrl) noexcept;
+           std::string const & baseUrl, std::string const & apiUrl);
 
   /// Should be used everywhere in production code instead of servers below.
-  static OsmOAuth ServerAuth() noexcept;
-  static OsmOAuth ServerAuth(KeySecret const & userKeySecret) noexcept;
+  static OsmOAuth ServerAuth();
+  static OsmOAuth ServerAuth(KeySecret const & userKeySecret);
 
   /// master.apis.dev.openstreetmap.org
-  static OsmOAuth DevServerAuth() noexcept;
+  static OsmOAuth DevServerAuth();
   /// api.openstreetmap.org
-  static OsmOAuth ProductionServerAuth() noexcept;
+  static OsmOAuth ProductionServerAuth();
 
-  void SetKeySecret(KeySecret const & keySecret) noexcept;
-  KeySecret const & GetKeySecret() const noexcept;
-  bool IsAuthorized() const noexcept;
+  void SetKeySecret(KeySecret const & keySecret);
+  KeySecret const & GetKeySecret() const;
+  bool IsAuthorized() const;
 
   /// @returns false if login and/or password are invalid.
   bool AuthorizePassword(std::string const & login, std::string const & password);
@@ -97,8 +97,12 @@ public:
   KeySecret FinishAuthorization(RequestToken const & requestToken,
                                 std::string const & verifier) const;
   // AuthResult FinishAuthorization(KeySecret const & requestToken, string const & verifier);
-  std::string GetRegistrationURL() const noexcept { return m_baseUrl + "/user/new"; }
-  std::string GetResetPasswordURL() const noexcept { return m_baseUrl + "/user/forgot-password"; }
+  std::string GetRegistrationURL() const { return m_baseUrl + "/user/new"; }
+  std::string GetResetPasswordURL() const { return m_baseUrl + "/user/forgot-password"; }
+  std::string GetHistoryURL(std::string const & user) const
+  {
+    return m_baseUrl + "/user/" + user + "/history";
+  }
   //@}
 
 private:
