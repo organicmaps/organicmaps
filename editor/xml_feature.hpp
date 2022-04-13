@@ -133,9 +133,9 @@ public:
     }
   }
 
-  void SetName(std::string name);
-  void SetName(std::string const & lang, std::string name);
-  void SetName(uint8_t const langCode, std::string name);
+  void SetName(std::string_view name);
+  void SetName(std::string_view lang, std::string_view name);
+  void SetName(uint8_t const langCode, std::string_view name);
 
   std::string GetHouse() const;
   void SetHouse(std::string const & house);
@@ -164,9 +164,9 @@ public:
   //@}
 
   bool HasAnyTags() const;
-  bool HasTag(std::string const & key) const;
-  bool HasAttribute(std::string const & key) const;
-  bool HasKey(std::string const & key) const;
+  bool HasTag(std::string_view key) const;
+  bool HasAttribute(std::string_view key) const;
+  bool HasKey(std::string_view key) const;
 
   template <typename Fn>
   void ForEachTag(Fn && func) const
@@ -175,8 +175,8 @@ public:
       func(tag.node().attribute("k").value(), tag.node().attribute("v").value());
   }
 
-  std::string GetTagValue(std::string const & key) const;
-  void SetTagValue(std::string const & key, std::string value);
+  std::string GetTagValue(std::string_view key) const;
+  void SetTagValue(std::string_view key, std::string_view value);
 
   std::string GetAttribute(std::string const & key) const;
   void SetAttribute(std::string const & key, std::string const & value);
