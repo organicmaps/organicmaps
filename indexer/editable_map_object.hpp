@@ -110,8 +110,8 @@ public:
   std::string_view GetPostcode() const;
   std::string_view GetWikipedia() const;
 
-  /// @note value is a temporary string view and can't be stored for later use.
-  void ForEachMetadataItem(std::function<void(std::string tag, std::string_view value)> const & fn) const;
+  /// @note { tag, value } are temporary string views and can't be stored for later use.
+  void ForEachMetadataItem(std::function<void(std::string_view tag, std::string_view value)> const & fn) const;
 
   // These two methods should only be used in tests.
   void SetTestId(uint64_t id);

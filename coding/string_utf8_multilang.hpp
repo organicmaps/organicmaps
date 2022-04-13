@@ -73,14 +73,6 @@ public:
     std::vector<std::string> m_transliteratorsIds;
   };
 
-  struct Position
-  {
-    size_t m_begin = 0;
-    size_t m_length = 0;
-  };
-
-  using TranslationPositions = std::map<int8_t, Position>;
-
   static int8_t constexpr kUnsupportedLanguageCode = -1;
   static int8_t constexpr kDefaultCode = 0;
   static int8_t constexpr kEnglishCode = 1;
@@ -217,9 +209,6 @@ public:
   /// @}
 
 private:
-  TranslationPositions GenerateTranslationPositions() const;
-  std::string GetTranslation(Position const & position) const;
-
   size_t GetNextIndex(size_t i) const;
 
   std::string m_s;

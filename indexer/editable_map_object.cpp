@@ -300,7 +300,7 @@ string_view EditableMapObject::GetWikipedia() const
   return m_metadata.Get(feature::Metadata::FMD_WIKIPEDIA);
 }
 
-void EditableMapObject::ForEachMetadataItem(function<void(string tag, string_view value)> const & fn) const
+void EditableMapObject::ForEachMetadataItem(function<void(string_view tag, string_view value)> const & fn) const
 {
   m_metadata.ForEachKey([&fn, this](feature::Metadata::EType type)
   {
