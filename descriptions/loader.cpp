@@ -24,14 +24,7 @@ bool Loader::GetDescription(FeatureID const & featureId, std::vector<int8_t> con
   EntryPtr entry;
   {
     std::lock_guard<std::mutex> lock(m_mutex);
-    auto it = m_deserializers.find(featureId.m_mwmId);
-
-    if (it == m_deserializers.end())
-    {
-      auto const result = m_deserializers.emplace(featureId.m_mwmId, std::make_shared<Entry>());
-      it = result.first;
-    }
-    entry = it->second;
+    entry = m_deserializers.try_emplace(featureId.m_mwmId, std::make_shared<Entry>()).first->second;
   }
 
   ASSERT(entry, ());

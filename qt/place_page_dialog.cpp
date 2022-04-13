@@ -28,7 +28,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   QGridLayout * grid = new QGridLayout();
   int row = 0;
 
-  {  // Coordinates.
+  {
     grid->addWidget(new QLabel("lat, lon"), row, 0);
     ms::LatLon const ll = info.GetLatLon();
     string const llstr =
@@ -45,8 +45,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     grid->addWidget(label, row++, 1);
   }
 
-  // Title/Name/Custom Name.
-  if (auto const title = info.GetTitle(); !title.empty())
+  if (auto const & title = info.GetTitle(); !title.empty())
   {
     grid->addWidget(new QLabel("Title"), row, 0);
     QLabel * label = new QLabel(QString::fromStdString(title));
@@ -54,16 +53,15 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     grid->addWidget(label, row++, 1);
   }
 
-  // Subtitle.
-  if (info.IsFeature())
+  if (auto const & subTitle = info.GetSubtitle(); !subTitle.empty())
   {
     grid->addWidget(new QLabel("Subtitle"), row, 0);
-    QLabel * label = new QLabel(QString::fromStdString(info.GetSubtitle()));
+    QLabel * label = new QLabel(QString::fromStdString(subTitle));
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(label, row++, 1);
   }
 
-  {  // Address.
+  {
     grid->addWidget(new QLabel("Address"), row, 0);
     QLabel * label = new QLabel(QString::fromStdString(address.FormatAddress()));
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
@@ -99,6 +97,12 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     QLabel * labelT = new QLabel(QString::fromStdString(DebugPrint(info.GetTypes())));
     labelT->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(labelT, row++, 1);
+  }
+
+  if (auto const & descr = info.GetDescription(); !descr.empty())
+  {
+    grid->addWidget(new QLabel("Description size"), row, 0);
+    grid->addWidget(new QLabel(QString::fromStdString(std::to_string(descr.size()))), row++, 1);
   }
 
   for (auto const prop : info.AvailableProperties())
