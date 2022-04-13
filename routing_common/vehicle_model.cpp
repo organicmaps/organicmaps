@@ -202,8 +202,9 @@ SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedPa
       ASSERT(s, ("Key:", *hwType, "is not found."));
       speed = s->GetSpeed(isCityRoad);
 
-      // Override 'default' speed from params, but take into account ETA/Weight factor.
-      if (params.m_defSpeedKmPH != kInvalidSpeed)
+      // Override the global default speed with the MWM's saved default speed if they are not significantly differ (2x),
+      // to avoid anomaly peaks (especially for tracks).
+      if (params.m_defSpeedKmPH != kInvalidSpeed && fabs(speed.m_weight - params.m_defSpeedKmPH) / speed.m_weight < 1.0)
       {
         double const factor = speed.m_eta / speed.m_weight;
         speed.m_weight = params.m_defSpeedKmPH;
