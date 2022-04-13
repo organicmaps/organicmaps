@@ -9,30 +9,10 @@
 
 #include <limits>
 
+namespace route_test
+{
 using namespace routing;
 using namespace std;
-
-namespace
-{
-  class RoutingOptionSetter
-  {
-  public:
-    RoutingOptionSetter(RoutingOptions::Road road)
-    {
-      RoutingOptions routingOptions;
-      routingOptions.Add(road);
-      RoutingOptions::SaveCarOptionsToSettings(routingOptions);
-    }
-
-    ~RoutingOptionSetter()
-    {
-      RoutingOptions::SaveCarOptionsToSettings(m_formerRoutingOptions);
-    }
-
-  private:
-    RoutingOptions m_formerRoutingOptions = RoutingOptions::LoadCarOptionsFromSettings();
-  };
-
 
   UNIT_TEST(StrangeCaseInAfrica)
   {
@@ -516,26 +496,30 @@ namespace
   }
 
   // Test that toll road is not crossed by a fake edge if RouingOptions are set to Road::Toll.
+  // Test on necessity calling RectCoversPolyline() after DataSource::ForEachInRect() while looking for fake edges.
   UNIT_TEST(RussiaMoscowNotCrossingTollRoadTest)
   {
     auto & vehicleComponents = integration::GetVehicleComponents(VehicleType::Car);
-    RoutingOptionSetter routingOptionSetter(RoutingOptions::Road::Toll);
 
-    integration::CalculateRouteAndTestRouteLength(
-        vehicleComponents, mercator::FromLatLon(55.93934, 37.406), {0.0, 0.0},
-        mercator::FromLatLon(55.93952, 37.45089), 10713.9);
-  }
+    auto const start = mercator::FromLatLon(55.93934, 37.406);
+    m2::PointD finish[] = { mercator::FromLatLon(55.9414245, 37.4489627), mercator::FromLatLon(55.9421391, 37.4484832) };
 
-  // Test on necessity calling RectCoversPolyline() after DataSource::ForEachInRect()
-  // while looking for fake edges.
-  UNIT_TEST(RussiaMoscowNecessityRectCoversPolylineTest)
-  {
-    auto & vehicleComponents = integration::GetVehicleComponents(VehicleType::Car);
-    RoutingOptionSetter routingOptionSetter(RoutingOptions::Road::Toll);
+    {
+      // Avoid motorway toll road and build route through minor residential roads (short but slow).
+      RoutingOptionSetter optionsGuard(RoutingOptions::Road::Toll);
 
-    integration::CalculateRouteAndTestRouteLength(
-        vehicleComponents, mercator::FromLatLon(55.93885, 37.40588), {0.0, 0.0},
-        mercator::FromLatLon(55.93706, 37.45339), 10894.3);
+      // 1. End point is near the motorway toll road, but choose a minor track as end segment.
+      integration::CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 8427.71);
+
+      // 2. End point is near the service road via the motorway toll road, but choose a minor track as end segment.
+      integration::CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0},finish[1], 8972.7);
+    }
+
+    {
+      // Normal route via the motorway toll road (long but fast).
+      integration::CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 20604.9);
+      integration::CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[1], 20689.6);
+    }
   }
 
   UNIT_TEST(NoCrash_RioGrandeCosmopolis)
@@ -678,4 +662,4 @@ namespace
         mercator::FromLatLon(34.7068976, 33.1199084), {0., 0.},
         mercator::FromLatLon(34.7070505, 33.1198391), 670.077);
   }
-}  // namespace
+} // namespace route_test
