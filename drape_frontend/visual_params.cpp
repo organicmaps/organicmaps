@@ -1,12 +1,13 @@
 #include "drape_frontend/visual_params.hpp"
 
-#include "base/macros.hpp"
-#include "base/math.hpp"
-#include "base/assert.hpp"
+#include "indexer/scales.hpp"
 
 #include "geometry/mercator.hpp"
 
-#include "indexer/scales.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/math.hpp"
 
 #include "std/target_os.hpp"
 
@@ -54,6 +55,8 @@ void VisualParams::Init(double vs, uint32_t tileSize)
   vizParams.m_tileSize = tileSize;
   vizParams.m_visualScale = vs;
 
+  LOG(LINFO, ("Visual scale =", vs, "; Tile size =", tileSize));
+
   // Here we set up glyphs rendering parameters separately for high-res and low-res screens.
   if (vs <= 1.0)
     vizParams.m_glyphVisualParams = { 0.48f, 0.08f, 0.2f, 0.01f, 0.49f, 0.04f };
@@ -97,6 +100,8 @@ void VisualParams::SetVisualScale(double visualScale)
 {
   ASSERT_INITED;
   m_visualScale = visualScale;
+
+  LOG(LINFO, ("Visual scale =", visualScale));
 }
 
 std::string const & VisualParams::GetResourcePostfix(double visualScale)
