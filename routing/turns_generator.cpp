@@ -129,7 +129,7 @@ bool GetTurnHighwayClasses(TurnCandidates const & possibleTurns, TurnInfo const 
     if (t.m_segment == firstOutgoingSegment || t.m_segment == inversedLastIngoingSegment)
       continue;
     ftypes::HighwayClass const highwayClass = t.m_highwayClass;
-    // Note. The bigger road the less HighwayClass value.
+    // @note The bigger is the road, the lesser is HighwayClass value.
     if (static_cast<int>(highwayClass) < static_cast<int>(turnHighwayClasses.m_biggestPossibleTurnRoadClass))
       turnHighwayClasses.m_biggestPossibleTurnRoadClass = highwayClass;
   }
@@ -146,7 +146,7 @@ bool GetTurnHighwayClasses(TurnCandidates const & possibleTurns, TurnInfo const 
   if (turnHighwayClasses.m_biggestPossibleTurnRoadClass == ftypes::HighwayClass::Count)
     return false; // No outgoing segments except for the route.
 
-  // Note. The bigger road the less HighwayClass value.
+  // @note The bigger is the road, the lesser is HighwayClass value.
   turnHighwayClasses.m_smallestRouteRoadClass =
       static_cast<ftypes::HighwayClass>(max(static_cast<int>(turnInfo.m_ingoing.m_highwayClass),
                                             static_cast<int>(turnInfo.m_outgoing.m_highwayClass)));
@@ -196,13 +196,13 @@ bool KeepTurnByHighwayClass(TurnCandidates const & possibleTurns, TurnInfo const
 }
 
 /// * \returns true when
-/// * - any alternative turn to bigger road
-/// * - or any alternative turn to similar road if turns less than kMaxAbsAngleSameRoadClass degrees (wider than SlightTurn)
-/// * - or any alternative turn to smaller road if turns GoStraight or SlightTurn
+/// * - any alternative turn to a bigger road
+/// * - or any alternative turn to a similar road if the turn's angle is less than kMaxAbsAngleSameRoadClass degrees (wider than SlightTurn)
+/// * - or any alternative turn to a smaller road if it's GoStraight or SlightTurn.
 /// * Returns false otherwise.
 /// \param possibleTurns is all possible ways out from a junction.
 /// \param turnInfo is information about ingoing and outgoing segments of the route.
-/// it is supposed that current turn is 
+/// it is supposed that current turn is GoStraight or SlightTurn
 bool KeepTurnByAlignedAlternatives(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
                            NumMwmIds const & numMwmIds)
 {
@@ -229,21 +229,22 @@ bool KeepTurnByAlignedAlternatives(TurnCandidates const & possibleTurns, TurnInf
     if (t.m_segment == firstOutgoingSegment || t.m_segment == inversedLastIngoingSegment)
       continue;
     ftypes::HighwayClass const highwayClass = t.m_highwayClass;
-    // Note. The bigger road the less HighwayClass value.
+    // @note The bigger is the road, the lesser is HighwayClass value.
     if (static_cast<int>(highwayClass) < static_cast<int>(outgoingRouteRoadClass))
     {
-      // any alternative turn to bigger road causes keep turn
+      // Any alternative turn to a bigger road keeps the turn direction.
       return true;
     }
     else if (highwayClass == outgoingRouteRoadClass)
     {
-      // any alternative turn to similar road causes keep turn if turns less than kMaxAbsAngleSameRoadClass degrees (wider than SlightTurn)
+      // Any alternative turn to a similar road keeps the turn direction if the turn's angle is less than
+      // kMaxAbsAngleSameRoadClass degrees (wider than SlightTurn).
       if (fabs(t.m_angle) < kMaxAbsAngleSameRoadClass)
         return true;
     }
     else // static_cast<int>(highwayClass) > static_cast<int>(outgoingRouteRoadClass)
     {
-      // any alternative turn to smaller road causes keep turn if turns GoStraight or SlightTurn
+      // Any alternative turn to a smaller road keeps the turn direction if it's GoStraight or SlightTurn.
       if (IsGoStraightOrSlightTurn(IntermediateDirection(t.m_angle)))
         return true;
     }
