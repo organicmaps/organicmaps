@@ -195,6 +195,62 @@ bool KeepTurnByHighwayClass(TurnCandidates const & possibleTurns, TurnInfo const
   return true;
 }
 
+/// * \returns true when
+/// * - any alternative turn to bigger road
+/// * - or any alternative turn to similar road if turns less than kMaxAbsAngleSameRoadClass degrees (wider than SlightTurn)
+/// * - or any alternative turn to smaller road if turns GoStraight or SlightTurn
+/// * Returns false otherwise.
+/// \param possibleTurns is all possible ways out from a junction.
+/// \param turnInfo is information about ingoing and outgoing segments of the route.
+/// it is supposed that current turn is 
+bool KeepTurnByAlignedAlternatives(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
+                           NumMwmIds const & numMwmIds)
+{
+  double constexpr kMaxAbsAngleSameRoadClass = 70.0;
+
+  ftypes::HighwayClass outgoingRouteRoadClass = turnInfo.m_outgoing.m_highwayClass;
+
+  // The turn should be kept if there's no any information about feature id of outgoing segment
+  // just to be on the safe side. It may happen in case of outgoing segment is a finish segment.
+  Segment firstOutgoingSegment;
+  if (!turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSegment))
+    return true;
+
+  Segment inversedLastIngoingSegment;
+  if (!turnInfo.m_ingoing.m_segmentRange.GetLastSegment(numMwmIds, inversedLastIngoingSegment))
+    return true;
+  inversedLastIngoingSegment.Inverse();
+
+  for (auto const & t : possibleTurns.candidates)
+  {
+    // Let's consider all outgoing segments except for
+    // (1) route outgoing segment
+    // (2) a U-turn segment (inversedLastIngoingSegment)
+    if (t.m_segment == firstOutgoingSegment || t.m_segment == inversedLastIngoingSegment)
+      continue;
+    ftypes::HighwayClass const highwayClass = t.m_highwayClass;
+    // Note. The bigger road the less HighwayClass value.
+    if (static_cast<int>(highwayClass) < static_cast<int>(outgoingRouteRoadClass))
+    {
+      // any alternative turn to bigger road causes keep turn
+      return true;
+    }
+    else if (highwayClass == outgoingRouteRoadClass)
+    {
+      // any alternative turn to similar road causes keep turn if turns less than kMaxAbsAngleSameRoadClass degrees (wider than SlightTurn)
+      if (fabs(t.m_angle) < kMaxAbsAngleSameRoadClass)
+        return true;
+    }
+    else // static_cast<int>(highwayClass) > static_cast<int>(outgoingRouteRoadClass)
+    {
+      // any alternative turn to smaller road causes keep turn if turns GoStraight or SlightTurn
+      if (IsGoStraightOrSlightTurn(IntermediateDirection(t.m_angle)))
+        return true;
+    }
+  }
+  return false;
+}
+
 /*!
  * \brief Returns false when other possible turns leads to service roads;
  */
@@ -1146,6 +1202,13 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
   // will be made after.
   if (!turn.m_keepAnyway && IsGoStraightOrSlightTurn(turn.m_turn) && nodes.candidates.size() != 1 &&
       !KeepTurnByHighwayClass(nodes, turnInfo, numMwmIds, turn.m_turn))
+  {
+    turn.m_turn = CarDirection::None;
+    return;
+  }
+
+  if (!turn.m_keepAnyway && IsGoStraightOrSlightTurn(turn.m_turn) && nodes.candidates.size() != 1 &&
+      !KeepTurnByAlignedAlternatives(nodes, turnInfo, numMwmIds))
   {
     turn.m_turn = CarDirection::None;
     return;
