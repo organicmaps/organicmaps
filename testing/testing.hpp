@@ -202,7 +202,7 @@ CommandLineOptions const & GetTestingOptions();
     {                                                                                           \
       X;                                                                                        \
     }                                                                                           \
-    catch (exception const &)                                                                   \
+    catch (std::exception const &)                                                              \
     {                                                                                           \
       expected_exception = true;                                                                \
     }                                                                                           \
@@ -223,6 +223,12 @@ CommandLineOptions const & GetTestingOptions();
     try                                                                                         \
     {                                                                                           \
       X;                                                                                        \
+    }                                                                                           \
+    catch (RootException const & ex)                                                            \
+    {                                                                                           \
+      ::base::OnTestFailed(SRC(),                                                               \
+                           ::base::Message("Unexpected exception at TEST(" #X ")",              \
+                           ::base::Message(ex.Msg()), ::base::Message msg));                    \
     }                                                                                           \
     catch (...)                                                                                 \
     {                                                                                           \
