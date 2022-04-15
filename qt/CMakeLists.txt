@@ -40,6 +40,8 @@ set(SRC
   place_page_dialog.hpp
   preferences_dialog.cpp
   preferences_dialog.hpp
+  popup_menu_holder.cpp
+  popup_menu_holder.hpp
   routing_settings_dialog.cpp
   routing_settings_dialog.hpp
   routing_turns_visualizer.cpp
@@ -50,6 +52,7 @@ set(SRC
   screenshoter.hpp
   search_panel.cpp
   search_panel.hpp
+  selection.hpp
   update_dialog.cpp
   update_dialog.hpp
 )

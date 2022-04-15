@@ -204,7 +204,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
     {
       SubmitBookmark(pt);
     }
-    else if (!m_currentSelectionMode || IsCommandModifier(e))
+    else if (!m_selectionMode || IsCommandModifier(e))
     {
       ShowInfoPopup(e, pt);
     }
@@ -228,7 +228,7 @@ void DrawWidget::mouseMoveEvent(QMouseEvent * e)
   if (IsLeftButton(e) && !IsAltModifier(e))
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
 
-  if (m_currentSelectionMode && m_rubberBand != nullptr && m_rubberBand->isVisible())
+  if (m_selectionMode && m_rubberBand != nullptr && m_rubberBand->isVisible())
   {
     m_rubberBand->setGeometry(QRect(m_rubberBandOrigin, e->pos()).normalized());
   }
@@ -303,7 +303,7 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   {
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_UP));
   }
-  else if (m_currentSelectionMode && IsRightButton(e) &&
+  else if (m_selectionMode && IsRightButton(e) &&
            m_rubberBand != nullptr && m_rubberBand->isVisible())
   {
     ProcessSelectionMode();
@@ -318,7 +318,7 @@ void DrawWidget::ProcessSelectionMode()
   rect.Add(m_framework.PtoG(m2::PointD(L2D(lt.x()), L2D(lt.y()))));
   rect.Add(m_framework.PtoG(m2::PointD(L2D(rb.x()), L2D(rb.y()))));
 
-  switch (*m_currentSelectionMode)
+  switch (*m_selectionMode)
   {
   case SelectionMode::Features:
   {
@@ -645,7 +645,7 @@ void DrawWidget::SetRouter(routing::RouterType routerType)
 
 void DrawWidget::SetRuler(bool enabled)
 {
-  if(!enabled)
+  if (!enabled)
     m_ruler.EraseLine(m_framework.GetDrapeApi());
   m_ruler.SetActive(enabled);
 }

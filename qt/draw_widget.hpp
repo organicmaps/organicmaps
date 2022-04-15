@@ -3,6 +3,7 @@
 #include "qt/qt_common/map_widget.hpp"
 #include "qt/routing_turns_visualizer.hpp"
 #include "qt/ruler.hpp"
+#include "qt/selection.hpp"
 
 #include "map/everywhere_search_params.hpp"
 #include "map/place_page_info.hpp"
@@ -112,27 +113,19 @@ private:
   bool m_emulatingLocation;
 
 public:
-  enum class SelectionMode
-  {
-    Features,
-    CityBoundaries,
-    CityRoads,
-    MwmsBordersByPolyFiles,
-    MwmsBordersWithVerticesByPolyFiles,
-    MwmsBordersByPackedPolygon,
-    MwmsBordersWithVerticesByPackedPolygon,
-    BoundingBoxByPolyFiles,
-    BoundingBoxByPackedPolygon,
-  };
+  /// Pass empty \a mode to drop selection.
+  void SetSelectionMode(std::optional<SelectionMode> mode) { m_selectionMode = mode; }
 
-  void SetSelectionMode(SelectionMode mode) { m_currentSelectionMode = {mode}; }
-  void DropSelectionMode() { m_currentSelectionMode = {}; }
-  bool SelectionModeIsSet() { return static_cast<bool>(m_currentSelectionMode); }
-  SelectionMode GetSelectionMode() const { return *m_currentSelectionMode; }
+  void DropSelectionIfMWMBordersMode()
+  {
+    static_assert(SelectionMode::MWMBorders < SelectionMode::Cancelled, "");
+    if (m_selectionMode && *m_selectionMode > SelectionMode::MWMBorders && *m_selectionMode < SelectionMode::Cancelled)
+      m_selectionMode = {};
+  }
 
 private:
   void ProcessSelectionMode();
-  std::optional<SelectionMode> m_currentSelectionMode;
+  std::optional<SelectionMode> m_selectionMode;
   RouteMarkType m_routePointAddMode = RouteMarkType::Finish;
 
   std::unique_ptr<Screenshoter> m_screenshoter;
