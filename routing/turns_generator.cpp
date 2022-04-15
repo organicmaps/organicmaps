@@ -1199,7 +1199,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
 
   // Note 1. If the road significantly changes its direction this turn shall be kept here.
   // Note 2. If there's only one exit from this junction (nodes.candidates.size() == 1)
-  // this turn should be kept (because if was kept by previous logic as an exception).
+  // this turn should be kept (because it was kept by previous logic as an exception).
   // Note 3. Keeping a turn at this point means that the decision to keep this turn or not
   // will be made after.
   if (!turn.m_keepAnyway && IsGoStraightOrSlightTurn(turn.m_turn) && nodes.candidates.size() != 1)
