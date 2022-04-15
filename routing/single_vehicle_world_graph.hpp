@@ -68,7 +68,7 @@ public:
   double CalculateETA(Segment const & from, Segment const & to) override;
   double CalculateETAWithoutPenalty(Segment const & segment) override;
 
-  std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter) override;
+  void ForEachTransition(NumMwmId numMwmId, bool isEnter, TransitionFnT const & fn) override;
 
   void SetRoutingOptions(RoutingOptions routingOptions) override { m_avoidRoutingOptions = routingOptions; }
   /// \returns true if feature, associated with segment satisfies users conditions.

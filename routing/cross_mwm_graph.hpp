@@ -95,11 +95,10 @@ public:
 
   void Clear();
 
-  // \returns transitions for mwm with id |numMwmId| for CrossMwmIndexGraph.
-  std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter)
+  template <class FnT> void ForEachTransition(NumMwmId numMwmId, bool isEnter, FnT && fn)
   {
-    CHECK(CrossMwmSectionExists(numMwmId), ("Should be used in LeapsOnly mode only. LeapsOnly mode requires CrossMwmIndexGraph."));
-    return m_crossMwmIndexGraph.GetTransitions(numMwmId, isEnter);
+    CHECK(CrossMwmSectionExists(numMwmId), ("Should be used in LeapsOnly mode only"));
+    return m_crossMwmIndexGraph.ForEachTransition(numMwmId, isEnter, fn);
   }
 
   /// \brief Checks whether feature where |segment| is placed is a cross mwm connector.

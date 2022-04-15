@@ -116,8 +116,8 @@ public:
       // and the last parameter (|isEnter|) should be set to true.
       // If |isOutgoing| == false |s| should be an enter transition segment and the method below searches exits
       // and the last parameter (|isEnter|) should be set to false.
-      Segment const * twinSeg = connector.GetTransition(crossMwmId, s.GetSegmentIdx(), isOutgoing);
-      if (twinSeg == nullptr)
+      auto const twinSeg = connector.GetTransition(crossMwmId, s.GetSegmentIdx(), isOutgoing);
+      if (!twinSeg)
         continue;
 
       // Twins should have the same direction, because we assume that twins are the same segments
@@ -185,10 +185,12 @@ public:
     GetCrossMwmConnectorWithTransitions(numMwmId);
   }
 
-  std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter)
+  template <class FnT> void ForEachTransition(NumMwmId numMwmId, bool isEnter, FnT && fn)
   {
     auto const & connector = GetCrossMwmConnectorWithTransitions(numMwmId);
-    return isEnter ? connector.GetEnters() : connector.GetExits();
+
+    auto const wrapper = [&fn](uint32_t, Segment const & s) { fn(s); };
+    return isEnter ? connector.ForEachEnter(wrapper) : connector.ForEachExit(wrapper);
   }
 
 private:

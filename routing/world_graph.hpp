@@ -96,8 +96,8 @@ public:
   virtual double CalculateETA(Segment const & from, Segment const & to) = 0;
   virtual double CalculateETAWithoutPenalty(Segment const & segment) = 0;
 
-  /// \returns transitions for mwm with id |numMwmId|.
-  virtual std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter);
+  using TransitionFnT = std::function<void(Segment const &)>;
+  virtual void ForEachTransition(NumMwmId numMwmId, bool isEnter, TransitionFnT const & fn);
 
   virtual bool IsRoutingOptionsGood(Segment const & /* segment */);
   virtual RoutingOptions GetRoutingOptions(Segment const & /* segment */);

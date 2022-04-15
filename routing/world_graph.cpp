@@ -62,10 +62,8 @@ bool WorldGraph::AreWavesConnectible(Parents<JointSegment> & forwardParents, Joi
 
 void WorldGraph::SetRoutingOptions(RoutingOptions /* routingOption */) {}
 
-std::vector<Segment> const & WorldGraph::GetTransitions(NumMwmId numMwmId, bool isEnter)
+void WorldGraph::ForEachTransition(NumMwmId numMwmId, bool isEnter, TransitionFnT const & fn)
 {
-  static std::vector<Segment> const kEmpty;
-  return kEmpty;
 }
 
 CrossMwmGraph & WorldGraph::GetCrossMwmGraph()

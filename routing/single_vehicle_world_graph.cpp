@@ -188,9 +188,9 @@ double SingleVehicleWorldGraph::CalculateETAWithoutPenalty(Segment const & segme
                                         EdgeEstimator::Purpose::ETA);
 }
 
-vector<Segment> const & SingleVehicleWorldGraph::GetTransitions(NumMwmId numMwmId, bool isEnter)
+void SingleVehicleWorldGraph::ForEachTransition(NumMwmId numMwmId, bool isEnter, TransitionFnT const & fn)
 {
-  return m_crossMwmGraph->GetTransitions(numMwmId, isEnter);
+  return m_crossMwmGraph->ForEachTransition(numMwmId, isEnter, fn);
 }
 
 unique_ptr<TransitInfo> SingleVehicleWorldGraph::GetTransitInfo(Segment const &) { return {}; }
