@@ -2,7 +2,6 @@
 
 #include "base/buffer_vector.hpp"
 #include "base/checked_cast.hpp"
-#include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -414,12 +413,12 @@ bool ToInteger(char const * start, T & result, int base = 10)
 }
 }  // namespace internal
 
-WARN_UNUSED_RESULT inline bool to_int(char const * s, int & i, int base = 10)
+[[nodiscard]] inline bool to_int(char const * s, int & i, int base = 10)
 {
   return internal::ToInteger(s, i, base);
 }
 
-WARN_UNUSED_RESULT inline bool to_uint(char const * s, unsigned int & i, int base = 10)
+[[nodiscard]] inline bool to_uint(char const * s, unsigned int & i, int base = 10)
 {
   return internal::ToInteger(s, i, base);
 }
@@ -433,12 +432,12 @@ WARN_UNUSED_RESULT inline bool to_uint(char const * s, unsigned int & i, int bas
 // negative std::numeric_limits<uint64_t>::max() converts to 1.
 // Values lower than negative std::numeric_limits<uint64_t>::max()
 // are not convertible (method returns false).
-WARN_UNUSED_RESULT inline bool to_uint64(char const * s, uint64_t & i, int base = 10)
+[[nodiscard]] inline bool to_uint64(char const * s, uint64_t & i, int base = 10)
 {
   return internal::ToInteger(s, i, base);
 }
 
-WARN_UNUSED_RESULT inline bool to_int64(char const * s, int64_t & i)
+[[nodiscard]] inline bool to_int64(char const * s, int64_t & i)
 {
   return internal::ToInteger(s, i);
 }
@@ -449,64 +448,64 @@ WARN_UNUSED_RESULT inline bool to_int64(char const * s, int64_t & i)
 // conversions may differ between platforms.
 // Converting strings representing negative numbers to unsigned integers looks like a bad
 // idea anyway and it's not worth changing the implementation solely for this reason.
-WARN_UNUSED_RESULT inline bool to_uint32(char const * s, uint32_t & i, int base = 10)
+[[nodiscard]] inline bool to_uint32(char const * s, uint32_t & i, int base = 10)
 {
   return internal::ToInteger(s, i, base);
 }
 
-WARN_UNUSED_RESULT inline bool to_int32(char const * s, int32_t & i)
+[[nodiscard]] inline bool to_int32(char const * s, int32_t & i)
 {
   return internal::ToInteger(s, i);
 }
 
-WARN_UNUSED_RESULT bool to_size_t(char const * s, size_t & i, int base = 10);
+[[nodiscard]] bool to_size_t(char const * s, size_t & i, int base = 10);
 // Both functions return false for INF, NAN, numbers like "1." and "0.4 ".
-WARN_UNUSED_RESULT bool to_float(char const * s, float & f);
-WARN_UNUSED_RESULT bool to_double(char const * s, double & d);
-WARN_UNUSED_RESULT bool is_finite(double d);
+[[nodiscard]] bool to_float(char const * s, float & f);
+[[nodiscard]] bool to_double(char const * s, double & d);
+[[nodiscard]] bool is_finite(double d);
 
-WARN_UNUSED_RESULT inline bool is_number(std::string const & s)
+[[nodiscard]] inline bool is_number(std::string const & s)
 {
   uint64_t dummy;
   return to_uint64(s.c_str(), dummy);
 }
 
-WARN_UNUSED_RESULT inline bool to_int(std::string const & s, int & i, int base = 10)
+[[nodiscard]] inline bool to_int(std::string const & s, int & i, int base = 10)
 {
   return to_int(s.c_str(), i, base);
 }
-WARN_UNUSED_RESULT inline bool to_uint(std::string const & s, unsigned int & i, int base = 10)
+[[nodiscard]] inline bool to_uint(std::string const & s, unsigned int & i, int base = 10)
 {
   return to_uint(s.c_str(), i, base);
 }
 
 // Note: negative values will be converted too.
 // For ex. "-1" converts to uint64_t max value.
-WARN_UNUSED_RESULT inline bool to_uint64(std::string const & s, uint64_t & i, int base = 10)
+[[nodiscard]] inline bool to_uint64(std::string const & s, uint64_t & i, int base = 10)
 {
   return to_uint64(s.c_str(), i, base);
 }
-WARN_UNUSED_RESULT inline bool to_int64(std::string const & s, int64_t & i)
+[[nodiscard]] inline bool to_int64(std::string const & s, int64_t & i)
 {
   return to_int64(s.c_str(), i);
 }
-WARN_UNUSED_RESULT inline bool to_uint32(std::string const & s, uint32_t & i, int base = 10)
+[[nodiscard]] inline bool to_uint32(std::string const & s, uint32_t & i, int base = 10)
 {
   return to_uint32(s.c_str(), i, base);
 }
-WARN_UNUSED_RESULT inline bool to_int32(std::string const & s, int32_t & i)
+[[nodiscard]] inline bool to_int32(std::string const & s, int32_t & i)
 {
   return to_int32(s.c_str(), i);
 }
-WARN_UNUSED_RESULT inline bool to_size_t(std::string const & s, size_t & i)
+[[nodiscard]] inline bool to_size_t(std::string const & s, size_t & i)
 {
   return to_size_t(s.c_str(), i);
 }
-WARN_UNUSED_RESULT inline bool to_float(std::string const & s, float & f)
+[[nodiscard]] inline bool to_float(std::string const & s, float & f)
 {
   return to_float(s.c_str(), f);
 }
-WARN_UNUSED_RESULT inline bool to_double(std::string const & s, double & d)
+[[nodiscard]] inline bool to_double(std::string const & s, double & d)
 {
   return to_double(s.c_str(), d);
 }
@@ -555,14 +554,14 @@ std::string to_string(T t)
 }
 
 template <typename T, typename = std::enable_if_t<std::is_integral<T>::value>>
-WARN_UNUSED_RESULT inline bool to_any(std::string const & s, T & i)
+[[nodiscard]] inline bool to_any(std::string const & s, T & i)
 {
   return internal::ToInteger(s.c_str(), i);
 }
 
-WARN_UNUSED_RESULT inline bool to_any(std::string const & s, float & f) { return to_float(s, f); }
-WARN_UNUSED_RESULT inline bool to_any(std::string const & s, double & d) { return to_double(s, d); }
-WARN_UNUSED_RESULT inline bool to_any(std::string const & s, std::string & result)
+[[nodiscard]] inline bool to_any(std::string const & s, float & f) { return to_float(s, f); }
+[[nodiscard]] inline bool to_any(std::string const & s, double & d) { return to_double(s, d); }
+[[nodiscard]] inline bool to_any(std::string const & s, std::string & result)
 {
   result = s;
   return true;

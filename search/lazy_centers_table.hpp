@@ -29,7 +29,7 @@ public:
 
   void EnsureTableLoaded();
 
-  WARN_UNUSED_RESULT bool Get(uint32_t id, m2::PointD & center);
+  [[nodiscard]] bool Get(uint32_t id, m2::PointD & center);
 
 private:
   MwmValue const & m_value;
