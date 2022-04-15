@@ -35,8 +35,7 @@ double CalcFerryDurationHours(string_view durationHours, double roadLenKm)
   CHECK(strings::to_double(durationHours, durationH), (durationHours));
 
   // See: https://confluence.mail.ru/download/attachments/249123157/image2019-8-22_16-15-53.png
-  // Shortly: we drop some points: (x: lengthKm, y: durationH), that are upper or lower these two
-  // lines.
+  // Shortly: we drop some points: (x: lengthKm, y: durationH), that are upper or lower these two lines.
   double constexpr kUpperBoundIntercept = 4.0;
   double constexpr kUpperBoundSlope = 0.037;
   if (kUpperBoundIntercept + kUpperBoundSlope * roadLenKm - durationH < 0)

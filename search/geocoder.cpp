@@ -1220,26 +1220,28 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx,
   vector<StreetsMatcher::Prediction> suburbs;
   StreetsMatcher::Go(ctx, ctx.m_suburbs, *m_filter, m_params, suburbs);
 
+  auto const & suburbChecker = ftypes::IsSuburbChecker::Instance();
   for (auto const & suburb : suburbs)
   {
     ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_SUBURB, suburb.m_tokenRange);
 
-    suburb.m_features.ForEach([&](uint64_t suburbId) {
-      auto ft = m_context->GetFeature(static_cast<uint32_t>(suburbId));
+    suburb.m_features.ForEach([&](uint64_t suburbId)
+    {
+      auto ft = m_context->GetFeature(base::asserted_cast<uint32_t>(suburbId));
       if (!ft)
         return;
 
       auto & layers = ctx.m_layers;
       ASSERT(layers.empty(), ());
       layers.emplace_back();
-      SCOPE_GUARD(cleanupGuard, [&]{ layers.pop_back(); });
+      SCOPE_GUARD(cleanupGuard, [&layers]{ layers.pop_back(); });
 
       auto & layer = layers.back();
       InitLayer(Model::TYPE_SUBURB, suburb.m_tokenRange, layer);
       vector<uint32_t> suburbFeatures = {ft->GetID().m_index};
       layer.m_sortedFeatures = &suburbFeatures;
 
-      auto const suburbType = ftypes::IsSuburbChecker::Instance().GetType(*ft);
+      auto const suburbType = suburbChecker.GetType(*ft);
       double radius = 0.0;
       switch (suburbType)
       {

@@ -50,8 +50,8 @@ namespace routing
 VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const & featureTypeLimits,
                            SurfaceInitList const & featureTypeSurface, HighwayBasedInfo const & info)
 : m_highwayBasedInfo(info)
-, m_onewayType(classif.GetTypeByPath({"hwtag", "oneway"}))
-, m_railwayVehicleType(classif.GetTypeByPath({"railway", "rail", "motor_vehicle"}))
+, m_onewayType(ftypes::IsOneWayChecker::Instance().GetType())
+, m_railwayVehicleType(ftypes::IsWayWithDurationChecker::Instance().GetMotorVehicleRailway())
 {
   m_roadTypes.Reserve(featureTypeLimits.size());
   for (auto const & v : featureTypeLimits)
@@ -302,8 +302,7 @@ VehicleModelFactory::VehicleModelFactory(
 shared_ptr<VehicleModelInterface> VehicleModelFactory::GetVehicleModel() const
 {
   auto const itr = m_models.find("");
-  ASSERT(itr != m_models.end(), ("No default vehicle model. VehicleModelFactory was not "
-                                 "properly constructed"));
+  ASSERT(itr != m_models.end(), ());
   return itr->second;
 }
 
