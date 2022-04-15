@@ -5,6 +5,7 @@ import linecache
 import multiprocessing
 import os
 import re
+import subprocess
 import sys
 from contextlib import contextmanager
 from distutils import log
@@ -409,12 +410,6 @@ class BuildOmimBindingCommand(build_ext, object):
         self.cmake_pybindings()
         super(BuildOmimBindingCommand, self).run()
 
-
-VERSIONS_LOCATIONS = {
-    'xcode/common.xcconfig': 'CURRENT_PROJECT_VERSION',
-    'android/gradle.properties': 'propVersionName',
-}
-
 PYBINDINGS = {
     'pygen': {
         'path': 'generator/pygen',
@@ -451,22 +446,10 @@ PYBINDINGS = {
 
 
 def get_version():
-    versions = []
-    for path, varname in VERSIONS_LOCATIONS.items():
-        with open(os.path.join(OMIM_ROOT, os.path.normpath(path))) as f:
-            for line in f:
-                match = re.search(
-                    r'^\s*{}\s*=\s*(?P<version>.*)'.format(varname),
-                    line.strip(),
-                )
-                if match:
-                    versions.append(LooseVersion(match.group('version')))
-                    break
-    code_version = max(versions)
-
-    env_version_addendum = os.environ.get('OMIM_SCM_VERSION', '')
-
-    return "{}{}".format(code_version, env_version_addendum)
+    return subprocess.check_output(
+        [os.path.join(OMIM_ROOT, 'tools', 'unix', 'version.sh'), 'android_code'],
+        universal_newlines=True,
+    ).strip(' \n\r')
 
 
 def transform_omim_requirement(requirement, omim_package_version):
