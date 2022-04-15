@@ -2755,7 +2755,7 @@ bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
 
 namespace
 {
-WARN_UNUSED_RESULT bool LocalizeStreet(DataSource const & dataSource, FeatureID const & fid,
+[[nodiscard]] bool LocalizeStreet(DataSource const & dataSource, FeatureID const & fid,
                                        osm::LocalizedStreet & result)
 {
   FeaturesLoaderGuard g(dataSource, fid.m_mwmId);

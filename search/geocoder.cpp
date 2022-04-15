@@ -233,7 +233,7 @@ void JoinQueryTokens(QueryParams const & params, TokenRange const & range, UniSt
 }
 
 /// @todo Can't change on string_view now, because of unordered_map<string> Affiliations.
-WARN_UNUSED_RESULT bool GetAffiliationName(FeatureType & ft, string & affiliation)
+[[nodiscard]] bool GetAffiliationName(FeatureType & ft, string & affiliation)
 {
   string_view name = ft.GetName(StringUtf8Multilang::kDefaultCode);
   if (name.empty())

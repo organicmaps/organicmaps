@@ -52,7 +52,7 @@ public:
 
   // Tries to get |center| of the feature identified by |id|.  Returns
   // false if table does not have entry for the feature.
-  WARN_UNUSED_RESULT bool Get(uint32_t id, m2::PointD & center);
+  [[nodiscard]] bool Get(uint32_t id, m2::PointD & center);
 
   uint64_t Count() const { return m_map->Count(); };
 
