@@ -63,7 +63,6 @@ void MapWidget::BindHotkeys(QWidget & parent)
       {Qt::Key_Minus, SLOT(ScaleMinus())},
       {Qt::ALT + Qt::Key_Equal, SLOT(ScalePlusLight())},
       {Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight())},
-      {Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight())},
 #ifdef ENABLE_AA_SWITCH
       {Qt::ALT + Qt::Key_A, SLOT(AntialiasingOn())},
       {Qt::ALT + Qt::Key_S, SLOT(AntialiasingOff())},
