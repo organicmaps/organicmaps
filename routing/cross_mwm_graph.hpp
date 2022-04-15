@@ -102,7 +102,6 @@ public:
     return m_crossMwmIndexGraph.GetTransitions(numMwmId, isEnter);
   }
 
-  bool IsFeatureTransit(NumMwmId numMwmId, uint32_t featureId);
   /// \brief Checks whether feature where |segment| is placed is a cross mwm connector.
   ///        If yes twin-segments are saved to |twins|.
   void GetTwinFeature(Segment const & segment, bool isOutgoing, std::vector<Segment> & twins);

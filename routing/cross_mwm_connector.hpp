@@ -92,16 +92,17 @@ public:
     m_transitFeatureIdToSegmentId[featureId].emplace_back(segmentIdx);
   }
 
-  bool IsFeatureCrossMwmConnector(uint32_t featureId) const
-  {
-    return m_transitFeatureIdToSegmentId.find(featureId) != m_transitFeatureIdToSegmentId.cend();
-  }
-
-  std::vector<uint32_t> const & GetTransitSegmentId(uint32_t featureId) const
+  template <class FnT> void ForEachTransitSegmentId(uint32_t featureId, FnT && fn) const
   {
     auto it = m_transitFeatureIdToSegmentId.find(featureId);
-    CHECK(it != m_transitFeatureIdToSegmentId.cend(), ());
-    return it->second;
+    if (it != m_transitFeatureIdToSegmentId.cend())
+    {
+      for (uint32_t segId : it->second)
+      {
+        if (fn(segId))
+          break;
+      }
+    }
   }
 
   bool IsTransition(Segment const & segment, bool isOutgoing) const
@@ -145,23 +146,29 @@ public:
       /// Actually, the fix is valid, because transition features can have segment = 1 when leaving MWM
       /// and segment = 2 when entering MWM due to *not precise* packed MWM borders.
       if (isEnter)
-        tIt = m_transitions.find(Key(featureId, segmentIdx + 1));
+        tIt = m_transitions.find(Key(featureId, ++segmentIdx));
       else if (segmentIdx > 0)
-        tIt = m_transitions.find(Key(featureId, segmentIdx - 1));
+        tIt = m_transitions.find(Key(featureId, --segmentIdx));
 
       if (tIt == m_transitions.cend())
         return nullptr;
     }
 
     auto const & transition = tIt->second;
-    CHECK_EQUAL(transition.m_crossMwmId, crossMwmId, ("fId:", featureId, ", segId:", segmentIdx));
+    ASSERT_EQUAL(transition.m_crossMwmId, crossMwmId, ("fId:", featureId, ", segId:", segmentIdx));
     bool const isForward = transition.m_forwardIsEnter == isEnter;
     if (transition.m_oneWay && !isForward)
       return nullptr;
 
     Segment const & segment =
         isEnter ? GetEnter(transition.m_enterIdx) : GetExit(transition.m_exitIdx);
-    CHECK_EQUAL(segment.IsForward(), isForward, ("fId:", featureId, ", segId:", segmentIdx));
+
+    /// @todo Actually, we can avoid storing m_enters, m_exits, because we already have all Segment components:
+    /// Also can emulate segments iteration in Get{Ingoing/Outgoing}EdgeList.
+    ASSERT_EQUAL(segment.GetMwmId(), m_mwmId, ("fId:", featureId, ", segId:", segmentIdx));
+    ASSERT_EQUAL(segment.GetFeatureId(), featureId, ("fId:", featureId, ", segId:", segmentIdx));
+    ASSERT_EQUAL(segment.GetSegmentIdx(), segmentIdx, ("fId:", featureId, ", segId:", segmentIdx));
+    ASSERT_EQUAL(segment.IsForward(), isForward, ("fId:", featureId, ", segId:", segmentIdx));
 
     return &segment;
   }

@@ -46,18 +46,15 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
   {
     JointSegment const & target = jointEdges[i].GetTarget();
 
-    NumMwmId const edgeMwmId = target.GetMwmId();
-
-    if (!m_crossMwmGraph->IsFeatureTransit(edgeMwmId, target.GetFeatureId()))
+    vector<Segment> twins;
+    m_crossMwmGraph->GetTwinFeature(target.GetSegment(true /* start */), isOutgoing, twins);
+    if (twins.empty())
     {
-      ASSERT_EQUAL(mwmId, edgeMwmId, ());
+      ASSERT_EQUAL(mwmId, target.GetMwmId(), ());
       continue;
     }
 
     auto & currentIndexGraph = GetIndexGraph(mwmId);
-
-    vector<Segment> twins;
-    m_crossMwmGraph->GetTwinFeature(target.GetSegment(true /* start */), isOutgoing, twins);
     for (auto const & twin : twins)
     {
       NumMwmId const twinMwmId = twin.GetMwmId();
