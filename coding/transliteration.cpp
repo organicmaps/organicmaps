@@ -152,7 +152,7 @@ bool Transliteration::Transliterate(std::string_view sv, int8_t langCode,
   if (transliteratorsIds.empty())
     return false;
 
-  icu::UnicodeString ustr(sv.data(), sv.size());
+  icu::UnicodeString ustr(sv.data(), static_cast<int32_t>(sv.size()));
   for (auto const & id : transliteratorsIds)
     Transliterate(id, ustr);
 
