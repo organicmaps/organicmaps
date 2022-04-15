@@ -14,11 +14,10 @@
 #include <numeric>
 #include <utility>
 
-using namespace routing;
-using namespace std;
-
 namespace routing
 {
+using namespace std;
+
 CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds,
                              shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                              shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
@@ -176,25 +175,19 @@ void CrossMwmGraph::Clear()
 
 void CrossMwmGraph::GetTwinFeature(Segment const & segment, bool isOutgoing, vector<Segment> & twins)
 {
-  std::vector<uint32_t> const & transitSegmentIds =
-    m_crossMwmIndexGraph.GetTransitSegmentId(segment.GetMwmId(), segment.GetFeatureId());
-
-  for (auto transitSegmentId : transitSegmentIds)
+  m_crossMwmIndexGraph.ForEachTransitSegmentId(segment.GetMwmId(), segment.GetFeatureId(),
+                                               [&](uint32_t transitSegmentId)
   {
-    Segment const transitSegment(segment.GetMwmId(), segment.GetFeatureId(),
-                                 transitSegmentId, segment.IsForward());
+    Segment const transitSegment(segment.GetMwmId(), segment.GetFeatureId(), transitSegmentId, segment.IsForward());
 
-    if (!IsTransition(transitSegment, isOutgoing))
-      continue;
-
-    GetTwins(transitSegment, isOutgoing, twins);
-    break;
-  }
-}
-
-bool CrossMwmGraph::IsFeatureTransit(NumMwmId numMwmId, uint32_t featureId)
-{
-  return m_crossMwmIndexGraph.IsFeatureTransit(numMwmId, featureId);
+    if (IsTransition(transitSegment, isOutgoing))
+    {
+      // Get twins and exit.
+      GetTwins(transitSegment, isOutgoing, twins);
+      return true;
+    }
+    return false;
+  });
 }
 
 CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId,

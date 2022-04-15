@@ -84,14 +84,9 @@ public:
     return c.IsTransition(s, isOutgoing);
   }
 
-  bool IsFeatureTransit(NumMwmId numMwmId, uint32_t featureId)
+  template <class FnT> void ForEachTransitSegmentId(NumMwmId numMwmId, uint32_t featureId, FnT && fn)
   {
-    return GetCrossMwmConnectorWithTransitions(numMwmId).IsFeatureCrossMwmConnector(featureId);
-  }
-
-  std::vector<uint32_t> const & GetTransitSegmentId(NumMwmId numMwmId, uint32_t featureId)
-  {
-    return GetCrossMwmConnectorWithTransitions(numMwmId).GetTransitSegmentId(featureId);
+    GetCrossMwmConnectorWithTransitions(numMwmId).ForEachTransitSegmentId(featureId, fn);
   }
 
   /// \brief Fills |twins| based on transitions defined in cross_mwm section.
@@ -273,15 +268,10 @@ private:
     MwmValue const * value = handle.GetValue();
     CHECK(value != nullptr, ("Country file:", m_numMwmIds->GetFile(numMwmId)));
 
-    FilesContainerR::TReader const reader =
-        FilesContainerR::TReader(connector::GetReader<CrossMwmId>(value->m_cont));
+    FilesContainerR::TReader reader(connector::GetReader<CrossMwmId>(value->m_cont));
     ReaderSourceFile src(reader);
-    auto it = m_connectors.find(numMwmId);
-    if (it == m_connectors.end())
-      it = m_connectors
-               .emplace(numMwmId, CrossMwmConnector<CrossMwmId>(
-                                      numMwmId, connector::GetFeaturesOffset<CrossMwmId>()))
-               .first;
+    auto it = m_connectors.try_emplace(
+          numMwmId, CrossMwmConnector<CrossMwmId>(numMwmId, connector::GetFeaturesOffset<CrossMwmId>())).first;
 
     fn(m_vehicleType, it->second, src);
     return it->second;
