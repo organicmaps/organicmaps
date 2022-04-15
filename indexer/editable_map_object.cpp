@@ -25,8 +25,6 @@ using namespace std;
 
 namespace
 {
-size_t const kFakeNamesCount = 2;
-
 bool ExtractName(StringUtf8Multilang const & names, int8_t const langCode,
                  vector<osm::LocalizedName> & result)
 {
