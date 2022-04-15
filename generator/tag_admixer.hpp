@@ -119,6 +119,7 @@ public:
         return;
 
       // Exclude ferry routes.
+      /// @todo This routine is not used but anyway: what about railway-rail-motor_vehicle or route-shuttle_train?
       static OsmElement::Tag const kFerryTag = {"route", "ferry"};
       auto const & tags = element.Tags();
       if (!base::IsExist(tags, kFerryTag))
