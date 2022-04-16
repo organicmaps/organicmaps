@@ -31,7 +31,7 @@ DECLARE_EXCEPTION(TestFailureException, RootException);
 
 namespace base
 {
-inline void OnTestFailed(SrcPoint const & srcPoint, std::string const & msg)
+[[noreturn]] inline void OnTestFailed(SrcPoint const & srcPoint, std::string const & msg)
 {
   LOG(LINFO, ("FAILED"));
   LOG(LINFO, (::DebugPrint(srcPoint.FileName()) + ":" + ::DebugPrint(srcPoint.Line()), msg));
