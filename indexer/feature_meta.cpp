@@ -46,7 +46,7 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
 {
   if (k == "opening_hours")
     outType = Metadata::FMD_OPEN_HOURS;
-  else if (k == "phone" || k == "contact:phone" || k == "contact:mobile")
+  else if (k == "phone" || k == "contact:phone" || k == "contact:mobile" || k == "mobile")
     outType = Metadata::FMD_PHONE_NUMBER;
   else if (k == "fax" || k == "contact:fax")
     outType = Metadata::EType::FMD_FAX_NUMBER;
