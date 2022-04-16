@@ -9,9 +9,12 @@
 
 #include <string>
 
+// TestRegister is static to avoid this warning:
+// No previous extern declaration for non-static variable 'g_testRegister_TESTNAME'
+// note: declare 'static' if the variable is not intended to be used outside of this translation unit
 #define UNIT_TEST(name)                                                  \
   void UnitTest_##name();                                                \
-  TestRegister g_testRegister_##name(#name, __FILE__, &UnitTest_##name); \
+  static TestRegister g_testRegister_##name(#name, __FILE__, &UnitTest_##name); \
   void UnitTest_##name()
 
 #define UNIT_CLASS_TEST(CLASS, NAME)               \
