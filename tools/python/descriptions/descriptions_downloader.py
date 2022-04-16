@@ -138,7 +138,7 @@ def beautify_page(html, lang):
     for x in soup.find_all():
         if len(x.text.strip()) == 0:
             x.extract()
-    soup = remove_bad_sections(soup, lang)
+    # soup = remove_bad_sections(soup, lang)
     html = str(soup.prettify())
     html = htmlmin.minify(html, remove_empty_space=True)
     return html
@@ -181,7 +181,8 @@ def download(directory, url):
         return None
     page = get_wiki_page(lang, page_name)
     try:
-        text = try_get(page, "text")
+        # text = try_get(page, "text")
+        text = try_get(page, "summary")
     except GettingError:
         log.exception(f"Error: page is not downloaded {page_name}.")
         return None
@@ -236,7 +237,7 @@ def wikipedia_worker(output_dir, checker, langs):
             if not checker(ident):
                 return
             url = url.strip()
-        except (AttributeError, IndexError):
+        except (AttributeError, IndexError, ValueError):
             log.exception(f"{line} is incorrect.")
             return
         parsed = urllib.parse.urlparse(url)

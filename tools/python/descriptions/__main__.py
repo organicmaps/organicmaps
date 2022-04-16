@@ -14,7 +14,11 @@ from descriptions.descriptions_downloader import log
 def parse_args():
     parser = argparse.ArgumentParser(description="Download wiki pages.")
     parser.add_argument(
-        "--output_dir", metavar="PATH", type=str, help="Output dir for saving pages"
+        "--output_dir",
+        metavar="PATH",
+        type=str,
+        required=True,
+        help="Output dir for saving pages",
     )
     parser.add_argument(
         "--popularity",
@@ -32,7 +36,10 @@ def parse_args():
         help="Input file with wikipedia url.",
     )
     parser.add_argument(
-        "--wikidata", metavar="PATH", type=str, help="Input file with wikidata ids."
+        "--wikidata",
+        metavar="PATH",
+        type=str,
+        help="Input file with wikidata ids.",
     )
     parser.add_argument(
         "--langs",
@@ -47,6 +54,7 @@ def parse_args():
 
 
 def main():
+    logging.basicConfig(level=logging.WARNING)
     log.setLevel(logging.WARNING)
     wikipediaapi.log.setLevel(logging.WARNING)
     args = parse_args()
