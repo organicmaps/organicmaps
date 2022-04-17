@@ -171,7 +171,7 @@ bool Framework::DestroySurfaceOnDetach()
 }
 
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
-                                  bool launchByDeepLink, int appVersionCode)
+                                  bool launchByDeepLink, uint32_t appVersionCode)
 {
   // Vulkan is supported only since Android 8.0, because some Android devices with Android 7.x
   // have fatal driver issue, which can lead to process termination and whole OS destabilization.
