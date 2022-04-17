@@ -8,6 +8,7 @@ enum class SelectionMode
   Features = 0,
   CityBoundaries,
   CityRoads,
+  CrossMwmSegments,
   MWMBorders,
 
   MwmsBordersByPolyFiles,

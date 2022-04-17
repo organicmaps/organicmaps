@@ -225,13 +225,12 @@ void DrawWidget::mouseMoveEvent(QMouseEvent * e)
     return;
 
   QOpenGLWidget::mouseMoveEvent(e);
+
   if (IsLeftButton(e) && !IsAltModifier(e))
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
 
   if (m_selectionMode && m_rubberBand != nullptr && m_rubberBand->isVisible())
-  {
     m_rubberBand->setGeometry(QRect(m_rubberBandOrigin, e->pos()).normalized());
-  }
 }
 
 void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVertices,
@@ -259,13 +258,11 @@ void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVer
     }
     else
     {
-      std::string const bordersDir =
-          base::JoinPath(GetPlatform().ResourcesDir(), BORDERS_DIR);
-
+      std::string const bordersDir = base::JoinPath(GetPlatform().WritableDir(), BORDERS_DIR);
       std::string const path = base::JoinPath(bordersDir, mwmName + BORDERS_EXTENSION);
+
       std::vector<m2::RegionD> polygons;
       borders::LoadBorders(path, polygons);
-
       return polygons;
     }
   };
@@ -321,56 +318,51 @@ void DrawWidget::ProcessSelectionMode()
   switch (*m_selectionMode)
   {
   case SelectionMode::Features:
-  {
     m_framework.VisualizeRoadsInRect(rect);
     break;
-  }
+
   case SelectionMode::CityBoundaries:
-  {
     m_framework.VisualizeCityBoundariesInRect(rect);
     break;
-  }
+
   case SelectionMode::CityRoads:
-  {
     m_framework.VisualizeCityRoadsInRect(rect);
     break;
-  }
+
+  case SelectionMode::CrossMwmSegments:
+    m_framework.VisualizeCrossMwmTransitionsInRect(rect);
+    break;
+
   case SelectionMode::MwmsBordersByPolyFiles:
-  {
     VisualizeMwmsBordersInRect(rect, false /* withVertices */, false /* fromPackedPolygon */,
                                false /* boundingBox */);
     break;
-  }
+
   case SelectionMode::MwmsBordersWithVerticesByPolyFiles:
-  {
     VisualizeMwmsBordersInRect(rect, true /* withVertices */, false /* fromPackedPolygon */,
                                false /* boundingBox */);
     break;
-  }
+
   case SelectionMode::MwmsBordersByPackedPolygon:
-  {
     VisualizeMwmsBordersInRect(rect, false /* withVertices */, true /* fromPackedPolygon */,
                                false /* boundingBox */);
     break;
-  }
+
   case SelectionMode::MwmsBordersWithVerticesByPackedPolygon:
-  {
     VisualizeMwmsBordersInRect(rect, true /* withVertices */, true /* fromPackedPolygon */,
                                false /* boundingBox */);
     break;
-  }
+
   case SelectionMode::BoundingBoxByPolyFiles:
-  {
     VisualizeMwmsBordersInRect(rect, true /* withVertices */, false /* fromPackedPolygon */,
                                true /* boundingBox */);
     break;
-  }
+
   case SelectionMode::BoundingBoxByPackedPolygon:
-  {
     VisualizeMwmsBordersInRect(rect, true /* withVertices */, true /* fromPackedPolygon */,
                                true /* boundingBox */);
     break;
-  }
+
   default:
     UNREACHABLE();
   }

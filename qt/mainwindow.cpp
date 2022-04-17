@@ -339,6 +339,8 @@ void MainWindow::CreateNavigationBar()
                            std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityBoundaries), true);
     m_selection->addAction(QIcon(":/navig64/city_roads.png"), tr("City roads selection mode"),
                            std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityRoads), true);
+    m_selection->addAction(QIcon(":/navig64/test.png"), tr("Cross MWM segments selection mode"),
+                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CrossMwmSegments), true);
     m_selection->addAction(QIcon(":/navig64/borders_selection.png"), tr("MWMs borders selection mode"),
                            this, SLOT(OnSwitchMwmsBordersSelectionMode()), true);
 

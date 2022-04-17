@@ -12,7 +12,6 @@
 
 #include "generator/borders.hpp"
 
-#include "routing/city_roads.hpp"
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
@@ -179,8 +178,7 @@ string MakeSearchBookingUrl(booking::Api const & bookingApi, search::CityFinder 
 }*/
 }  // namespace
 
-pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
-    LocalCountryFile const & localFile)
+pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(LocalCountryFile const & localFile)
 {
   return m_featuresFetcher.RegisterMap(localFile);
 }
@@ -3120,137 +3118,6 @@ storage::CountriesVec Framework::GetTopmostCountries(ms::LatLon const & latlon) 
   return topmostCountryIds;
 }
 
-namespace
-{
-vector<dp::Color> colorList = {
-    dp::Color(255, 0, 0, 255),   dp::Color(0, 255, 0, 255),   dp::Color(0, 0, 255, 255),
-    dp::Color(255, 255, 0, 255), dp::Color(0, 255, 255, 255), dp::Color(255, 0, 255, 255),
-    dp::Color(100, 0, 0, 255),   dp::Color(0, 100, 0, 255),   dp::Color(0, 0, 100, 255),
-    dp::Color(100, 100, 0, 255), dp::Color(0, 100, 100, 255), dp::Color(100, 0, 100, 255)};
-
-dp::Color const cityBoundaryBBColor = dp::Color(255, 0, 0, 255);
-dp::Color const cityBoundaryCBColor = dp::Color(0, 255, 0, 255);
-dp::Color const cityBoundaryDBColor = dp::Color(0, 0, 255, 255);
-
-template <class Box>
-void DrawLine(Box const & box, dp::Color const & color, df::DrapeApi & drapeApi, string const & id)
-{
-  auto points = box.Points();
-  CHECK(!points.empty(), ());
-  points.push_back(points.front());
-
-  points.erase(unique(points.begin(), points.end(), [](m2::PointD const & p1, m2::PointD const & p2) {
-    m2::PointD const delta = p2 - p1;
-    return delta.IsAlmostZero();
-  }), points.end());
-
-  if (points.size() <= 1)
-    return;
-
-  drapeApi.AddLine(id, df::DrapeApiLineData(points, color).Width(3.0f).ShowPoints(true).ShowId());
-}
-
-void VisualizeFeatureInRect(m2::RectD const & rect, FeatureType & ft, df::DrapeApi & drapeApi)
-{
-  static uint64_t counter = 0;
-  bool allPointsOutside = true;
-  vector<m2::PointD> points;
-  ft.ForEachPoint([&points, &rect, &allPointsOutside](m2::PointD const & pt)
-                  {
-                    if (rect.IsPointInside(pt))
-                      allPointsOutside = false;
-                    points.push_back(pt);
-                  }, scales::GetUpperScale());
-
-  if (!allPointsOutside)
-  {
-    size_t const colorIndex = counter % colorList.size();
-    // Note. The first param at DrapeApi::AddLine() should be unique. Other way last added line
-    // replaces the previous added line with the same name.
-    // As a consequence VisualizeFeatureInRect() should be applied to single mwm. Other way
-    // feature ids will be dubbed.
-    drapeApi.AddLine(
-        strings::to_string(ft.GetID().m_index),
-        df::DrapeApiLineData(points, colorList[colorIndex]).Width(3.0f).ShowPoints(true).ShowId());
-    counter++;
-  }
-}
-}  // namespace
-
-std::vector<std::string> Framework::GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const
-{
-  return m_infoGetter->GetRegionsCountryIdByRect(rect, rough);
-}
-
-void Framework::VisualizeRoadsInRect(m2::RectD const & rect)
-{
-  m_featuresFetcher.ForEachFeature(rect, [this, &rect](FeatureType & ft)
-  {
-    if (routing::IsRoad(feature::TypesHolder(ft)))
-      VisualizeFeatureInRect(rect, ft, m_drapeApi);
-  }, scales::GetUpperScale());
-}
-
-void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
-{
-  search::CitiesBoundariesTable table(GetDataSource());
-  table.Load();
-
-  vector<uint32_t> featureIds;
-  GetCityBoundariesInRectForTesting(table, rect, featureIds);
-
-  FeaturesLoaderGuard loader(GetDataSource(), GetDataSource().GetMwmIdByCountryFile(CountryFile("World")));
-  for (auto const fid : featureIds)
-  {
-    search::CitiesBoundariesTable::Boundaries boundaries;
-    if (!table.Get(fid, boundaries))
-      continue;
-
-    string id = "fid:" + strings::to_string(fid);
-    auto ft = loader.GetFeatureByIndex(fid);
-    if (ft)
-      id.append(", name:").append(ft->GetName(StringUtf8Multilang::kDefaultCode));
-
-    boundaries.ForEachBoundary([&id, this](indexer::CityBoundary const & cityBoundary, size_t i)
-    {
-      string idWithIndex = id;
-      if (i > 0)
-        idWithIndex = id + ", i:" + strings::to_string(i);
-
-      DrawLine(cityBoundary.m_bbox, cityBoundaryBBColor, m_drapeApi, idWithIndex + ", bb");
-      DrawLine(cityBoundary.m_cbox, cityBoundaryCBColor, m_drapeApi, idWithIndex + ", cb");
-      DrawLine(cityBoundary.m_dbox, cityBoundaryDBColor, m_drapeApi, idWithIndex + ", db");
-    });
-  }
-}
-
-void Framework::VisualizeCityRoadsInRect(m2::RectD const & rect)
-{
-  std::map<MwmSet::MwmId, unique_ptr<CityRoads>> cityRoads;
-  GetDataSource().ForEachInRect(
-      [this, &rect, &cityRoads](FeatureType & ft) {
-        if (ft.GetGeomType() != feature::GeomType::Line)
-          return;
-
-        auto const & mwmId = ft.GetID().m_mwmId;
-        auto const it = cityRoads.find(mwmId);
-        if (it == cityRoads.cend())
-        {
-          MwmSet::MwmHandle handle = m_featuresFetcher.GetDataSource().GetMwmHandleById(mwmId);
-          if (!handle.IsAlive())
-            return;
-
-          cityRoads[mwmId] = LoadCityRoads(handle);
-        }
-
-        if (!cityRoads[mwmId]->IsCityRoad(ft.GetID().m_index))
-          return;  // ft is not a city road.
-
-        VisualizeFeatureInRect(rect, ft, m_drapeApi);
-      },
-      rect, scales::GetUpperScale());
-}
-
 void Framework::RunUITask(function<void()> fn)
 {
   GetPlatform().RunTask(Platform::Thread::Gui, move(fn));
@@ -3293,22 +3160,23 @@ m2::PointD Framework::GetMinDistanceBetweenResults() const
   return m_searchMarks.GetMaxDimension(m_currentModelView);
 }
 
+std::vector<std::string> Framework::GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const
+{
+  return m_infoGetter->GetRegionsCountryIdByRect(rect, rough);
+}
+
 vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect, bool rough) const
 {
   vector<MwmSet::MwmId> result;
   if (!m_infoGetter)
     return result;
 
-  auto countryIds = m_infoGetter->GetRegionsCountryIdByRect(rect, rough);
-  for (auto const & countryId : countryIds)
-    result.push_back(GetMwmIdByName(countryId));
+  auto const & dataSource = m_featuresFetcher.GetDataSource();
+  auto countryIds = GetRegionsCountryIdByRect(rect, rough);
+  for (auto & id : countryIds)
+    result.push_back(dataSource.GetMwmIdByCountryFile(platform::CountryFile(std::move(id))));
 
   return result;
-}
-
-MwmSet::MwmId Framework::GetMwmIdByName(string const & name) const
-{
-  return m_featuresFetcher.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(name));
 }
 
 void Framework::ReadFeatures(function<void(FeatureType &)> const & reader,
