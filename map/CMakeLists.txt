@@ -77,6 +77,12 @@ set(SRC
   viewport_search_callback.hpp
 )
 
+if (PLATFORM_DESKTOP)
+  append(SRC
+    framework_visualize.cpp
+  )
+endif()
+
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
@@ -96,7 +102,7 @@ omim_add_test_subdirectory(map_tests)
 omim_add_test_subdirectory(mwm_tests)
 omim_add_test_subdirectory(style_tests)
 
-if(PLATFORM_DESKTOP)
+if (PLATFORM_DESKTOP)
   add_subdirectory(benchmark_tool)
   add_subdirectory(extrapolation_benchmark)
 endif()

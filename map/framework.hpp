@@ -304,10 +304,13 @@ public:
   BookmarkManager & GetBookmarkManager();
   BookmarkManager const & GetBookmarkManager() const;
 
-  // Utilities
+  /// @name Visualize utilities, used in desktop only. Implemented in framework_visualize.cpp
+  /// @{
   void VisualizeRoadsInRect(m2::RectD const & rect);
   void VisualizeCityBoundariesInRect(m2::RectD const & rect);
   void VisualizeCityRoadsInRect(m2::RectD const & rect);
+  void VisualizeCrossMwmTransitionsInRect(m2::RectD const & rect);
+  /// @}
 
 public:
   // SearchAPI::Delegate overrides:
@@ -362,7 +365,6 @@ public:
 
   std::vector<std::string> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
   std::vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect, bool rough) const;
-  MwmSet::MwmId GetMwmIdByName(std::string const & name) const;
 
   void ReadFeatures(std::function<void(FeatureType &)> const & reader,
                     std::vector<FeatureID> const & features);
