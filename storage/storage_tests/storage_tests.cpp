@@ -675,8 +675,7 @@ UNIT_TEST(StorageTest_FailedDownloading)
   }
 
   // File wasn't downloaded, but temprorary downloader files must exist.
-  string const downloadPath =
-      GetFileDownloadPath(storage.GetCurrentDataVersion(), countryFile, MapFileType::Map);
+  string const downloadPath = GetFileDownloadPath(storage.GetCurrentDataVersion(), countryFile.GetName(), MapFileType::Map);
   TEST(!Platform::IsFileExistsByFullPath(downloadPath), ());
   TEST(Platform::IsFileExistsByFullPath(downloadPath + DOWNLOADING_FILE_EXTENSION), ());
   TEST(Platform::IsFileExistsByFullPath(downloadPath + RESUME_FILE_EXTENSION), ());

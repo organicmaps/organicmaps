@@ -23,19 +23,11 @@
 #include <set>
 #include <string>
 
+namespace local_country_file_tests
+{
+using namespace platform;
 using namespace platform::tests_support;
 using namespace std;
-
-namespace platform
-{
-namespace
-{
-template <typename T>
-bool Contains(vector<T> const & v, T const & t)
-{
-  return find(v.begin(), v.end(), t) != v.end();
-}
-}  // namespace
 
 // Checks that all unsigned numbers less than 10 ^ 18 can be parsed as
 // a timestamp.
@@ -141,7 +133,7 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   // Check FindAllLocalMaps()
   vector<LocalCountryFile> localFiles;
   FindAllLocalMapsAndCleanup(4 /* latestVersion */, localFiles);
-  TEST(Contains(localFiles, irelandLocalFile), (irelandLocalFile, localFiles));
+  TEST(base::IsExist(localFiles, irelandLocalFile), (irelandLocalFile, localFiles));
 
   irelandLocalFile.SyncWithDisk();
   TEST(irelandLocalFile.OnDisk(MapFileType::Map), ());
@@ -355,4 +347,4 @@ UNIT_TEST(LocalCountryFile_MakeTemporary)
   TEST_EQUAL(file.GetPath(MapFileType::Map), path, ());
 }
 
-}  // namespace platform
+} // local_country_file_tests

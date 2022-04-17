@@ -23,10 +23,10 @@
 
 #include "defines.hpp"
 
-using namespace std;
-
 namespace platform
 {
+using namespace std;
+
 namespace
 {
 char const kBitsExt[] = ".bftsegbits";
@@ -321,15 +321,9 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, string
   return make_shared<LocalCountryFile>(directory, countryFile, version);
 }
 
-string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapFileType type)
+string GetFileDownloadPath(int64_t version, string const & dataDir, string const & mwmName, MapFileType type)
 {
-  return GetFileDownloadPath(version, string(), countryFile, type);
-}
-
-string GetFileDownloadPath(int64_t version, string const & dataDir, CountryFile const & countryFile,
-                           MapFileType type)
-{
-  string const readyFile = GetFileName(countryFile.GetName(), type) + READY_FILE_EXTENSION;
+  string const readyFile = GetFileName(mwmName, type) + READY_FILE_EXTENSION;
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
     return base::JoinPath(dir, readyFile);
