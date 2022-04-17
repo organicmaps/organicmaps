@@ -92,7 +92,7 @@ namespace android
     void OnCompassUpdated(location::CompassInfo const & info, bool forceRedraw);
 
     bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
-                           bool launchByDeepLink, int appVersionCode);
+                           bool launchByDeepLink, uint32_t appVersionCode);
     bool IsDrapeEngineCreated();
     bool DestroySurfaceOnDetach();
     void DetachSurface(bool destroySurface);

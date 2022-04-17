@@ -150,7 +150,7 @@ std::string GetDumpFilePath()
 }
 }  // namespace
 
-VulkanPipeline::VulkanPipeline(VkDevice device, int appVersionCode)
+VulkanPipeline::VulkanPipeline(VkDevice device, uint32_t appVersionCode)
   : m_appVersionCode(appVersionCode)
 {
   // Read dump.
@@ -163,7 +163,7 @@ VulkanPipeline::VulkanPipeline(VkDevice device, int appVersionCode)
       FileReader r(dumpFilePath);
       NonOwningReaderSource src(r);
 
-      auto const v = ReadPrimitiveFromSource<int>(src);
+      auto const v = ReadPrimitiveFromSource<uint32_t>(src);
       if (v != appVersionCode)
       {
         // Dump is obsolete.
@@ -171,7 +171,7 @@ VulkanPipeline::VulkanPipeline(VkDevice device, int appVersionCode)
       }
       else
       {
-        dumpData.resize(static_cast<size_t>(r.Size() - sizeof(int)));
+        dumpData.resize(static_cast<size_t>(r.Size() - sizeof(uint32_t)));
         src.Read(dumpData.data(), dumpData.size());
       }
     }
