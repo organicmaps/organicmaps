@@ -183,25 +183,25 @@ public:
   template <typename Reader>
   void Read(Reader & reader)
   {
-    auto const indexOffset = ReadPrimitiveFromPos<uint64_t, Reader>(reader, 0);
+    auto const indexOffset = ReadPrimitiveFromPos<uint64_t>(reader, 0);
 
     NonOwningReaderSource source(reader);
     source.Skip(indexOffset);
 
-    auto const numBlocks = ReadVarUint<uint64_t, NonOwningReaderSource>(source);
+    auto const numBlocks = ReadVarUint<uint64_t>(source);
     m_blocks.assign(static_cast<size_t>(numBlocks), {});
 
     uint64_t prevOffset = 8;  // 8 bytes for the offset of the data section
     for (uint64_t i = 0; i < numBlocks; ++i)
     {
-      auto const delta = ReadVarUint<uint64_t, NonOwningReaderSource>(source);
+      auto const delta = ReadVarUint<uint64_t>(source);
       CHECK_GREATER_OR_EQUAL(prevOffset + delta, prevOffset, ());
       prevOffset += delta;
 
       auto & block = m_blocks[static_cast<size_t>(i)];
       block.m_offset = prevOffset;
       block.m_from = i == 0 ? 0 : m_blocks[static_cast<size_t>(i - 1)].To();
-      block.m_subs = ReadVarUint<uint64_t, NonOwningReaderSource>(source);
+      block.m_subs = ReadVarUint<uint64_t>(source);
       CHECK_GREATER_OR_EQUAL(block.m_from + block.m_subs, block.m_from, ());
     }
   }
