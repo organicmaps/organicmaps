@@ -2247,9 +2247,10 @@ sk:3Taxi
 sw:3Teksi|usafiri
 fa:تاکسی|اژانس
 
-amenity-townhall|@tourism
-en:3Town Hall|city hall
-ru:3Ратуша
+amenity-townhall
+en:3Town Hall|townhall|city hall|guildhall|village hall|4municipal hall|civic centre
+ru:4Администрация|4ратуша
+be:4Адміністрацыя|4ратуша
 bg:Община|кмет
 ar:مبنى البلدية|مناظر|سياحة
 cs:3Radnice
@@ -2273,7 +2274,7 @@ eu:3Udaletxea
 sv:3Rådhus
 th:3ศาลากลางจังหวัด|การท่องเที่ยว
 tr:3Belediye binası
-uk:3Ратуша
+uk:4Адміністрація|4ратуша
 vi:3Trung tâm thành phố
 zh-Hans:1市政厅|旅游|景点
 zh-Hant:1市政廳|1市鎮大廳|1旅遊景點
@@ -3019,7 +3020,7 @@ fi:Koirapuisto
 he:גינת כלבים
 ja:ドッグラン
 
-leisure-garden|@tourism
+leisure-garden
 en:3Garden
 ru:Сад
 bg:3Градина

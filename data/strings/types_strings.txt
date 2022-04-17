@@ -3388,6 +3388,7 @@
   [type.amenity.townhall]
     en = Town Hall
     ar = مبنى البلدية
+    be = Адміністрацыя
     cs = Radnice
     da = Rådhus
     de = Rathaus
@@ -3408,12 +3409,12 @@
     pt = Câmara municipal ou junta de freguesia
     pt-BR = Prefeitura ou subprefeitura
     ro = Primărie
-    ru = Ратуша
+    ru = Администрация
     sk = Radnica
     sv = Rådhus
     th = ศาลากลางจังหวัด
     tr = Belediye Binası
-    uk = Ратуша
+    uk = Адміністрація
     vi = Trung tâm thành phố
     zh-Hans = 市政府
     zh-Hant = 市政廳
