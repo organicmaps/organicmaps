@@ -69,11 +69,21 @@ std::shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, C
 std::shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, std::string const & dataDir,
                                                          CountryFile const & countryFile);
 
-// Note. The function assumes the maps are located in writable dir/|dataDir|/|version| directory.
-// If |dataDir| is empty (or is not set) the function assumes that maps are in writable dir.
-std::string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapFileType type);
+/// @note The function assumes the maps are located in writable dir/|dataDir|/|version| directory.
+/// If |dataDir| is empty (or is not set) the function assumes that maps are in writable dir.
+/// @{
 std::string GetFileDownloadPath(int64_t version, std::string const & dataDir,
-                                CountryFile const & countryFile, MapFileType type);
+                                std::string const & mwmName, MapFileType type);
+inline std::string GetFileDownloadPath(int64_t version, std::string const & dataDir,
+                                       CountryFile const & countryFile, MapFileType type)
+{
+  return GetFileDownloadPath(version, dataDir, countryFile.GetName(), type);
+}
+inline std::string GetFileDownloadPath(int64_t version, std::string const & mwmName, MapFileType type)
+{
+  return GetFileDownloadPath(version, {}, mwmName, type);
+}
+/// @}
 
 std::unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, MapFileType type);
 
@@ -106,10 +116,6 @@ public:
 
   // Returns true if |file| corresponds to an index file.
   static bool IsIndexFile(std::string const & file);
-
-private:
-  friend void UnitTest_LocalCountryFile_CountryIndexes();
-  friend void UnitTest_LocalCountryFile_DoNotDeleteUserFiles();
 
   static std::string IndexesDir(LocalCountryFile const & localFile);
 };

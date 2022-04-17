@@ -71,12 +71,12 @@ std::string GetFilePathByUrl(std::string const & url)
   uint64_t dataVersion = 0;
   CHECK(strings::to_uint(urlComponents[1], dataVersion), ());
 
-  auto const countryComponents = strings::Tokenize(url::UrlDecode(urlComponents.back()), ".");
-  CHECK_EQUAL(countryComponents.size(), 2, ());
+  std::string mwmFile = url::UrlDecode(urlComponents.back());
+  // remove extension
+  mwmFile = mwmFile.substr(0, mwmFile.find('.'));
 
   auto const fileType = urlComponents[0] == kDiffsPath ? MapFileType::Diff : MapFileType::Map;
-
-  return platform::GetFileDownloadPath(dataVersion, platform::CountryFile(std::string(countryComponents[0])), fileType);
+  return platform::GetFileDownloadPath(dataVersion, mwmFile, fileType);
 }
 
 }  // namespace downloader
