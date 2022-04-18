@@ -62,6 +62,7 @@ public:
   // Return value will be false until SyncWithDisk() is called.
   bool OnDisk(MapFileType type) const;
 
+  bool IsInBundle() const { return m_directory.empty(); }
   std::string const & GetDirectory() const { return m_directory; }
   std::string const & GetCountryName() const { return m_countryFile.GetName(); }
   int64_t GetVersion() const { return m_version; }

@@ -33,9 +33,7 @@ char const kBitsExt[] = ".bftsegbits";
 char const kNodesExt[] = ".bftsegnodes";
 char const kOffsetsExt[] = ".offsets";
 
-size_t const kMaxTimestampLength = 18;
-
-string GetSpecialFilesSearchScope()
+string GetAdditionalWorldScope()
 {
   return "r";
 }
@@ -221,8 +219,8 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
 {
   string const dir = GetDataDirFullPath(dataDir);
 
-  /// @todo Should we search for files in root data folder, except minsk-pass tests?
-  FindAllLocalMapsInDirectoryAndCleanup(dir, 0 /* version */, latestVersion, localFiles);
+  // Do not search root folder! We have separate World processing in Storage::GetForceDownloadWorlds.
+  //FindAllLocalMapsInDirectoryAndCleanup(dir, 0 /* version */, latestVersion, localFiles);
 
   Platform::TFilesWithType fwts;
   Platform::GetFilesByType(dir, Platform::FILE_TYPE_DIRECTORY, fwts);
@@ -242,8 +240,8 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
     }
   }
 
-  // World and WorldCoasts can be stored in app bundle or in resources
-  // directory, thus it's better to get them via Platform.
+  // Check for World and WorldCoasts in app bundle or in resources.
+  Platform & platform = GetPlatform();
   string const world(WORLD_FILE_NAME);
   string const worldCoasts(WORLD_COASTS_FILE_NAME);
   for (string const & file : {world, worldCoasts})
@@ -251,26 +249,26 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
     auto i = localFiles.begin();
     for (; i != localFiles.end(); ++i)
     {
-      if (i->GetCountryFile().GetName() == file)
+      if (i->GetCountryName() == file)
         break;
     }
 
     try
     {
-      Platform & platform = GetPlatform();
-      ModelReaderPtr reader(
-          platform.GetReader(file + DATA_FILE_EXTENSION, GetSpecialFilesSearchScope()));
+      ModelReaderPtr reader(platform.GetReader(file + DATA_FILE_EXTENSION, GetAdditionalWorldScope()));
 
-      // Assume that empty path means the resource file.
-      LocalCountryFile worldFile{string(), CountryFile(file), version::ReadVersionDate(reader)};
-      worldFile.m_files[base::Underlying(MapFileType::Map)] = 1;
+      // Empty path means the resource file.
+      LocalCountryFile worldFile(string(), CountryFile(file), version::ReadVersionDate(reader));
+      worldFile.m_files[base::Underlying(MapFileType::Map)] = reader.Size();
+
+      // Replace if newer only.
       if (i != localFiles.end())
       {
-        // Always use resource World files instead of local on disk.
-        *i = worldFile;
+        if (worldFile.GetVersion() > i->GetVersion())
+          *i = std::move(worldFile);
       }
       else
-        localFiles.push_back(worldFile);
+        localFiles.push_back(std::move(worldFile));
     }
     catch (RootException const & ex)
     {
@@ -329,16 +327,13 @@ string GetFileDownloadPath(int64_t version, string const & dataDir, string const
   return GetFilePath(version, dataDir, countryName, type) + READY_FILE_EXTENSION;
 }
 
-unique_ptr<ModelReader> GetCountryReader(platform::LocalCountryFile const & file, MapFileType type)
+unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, MapFileType type)
 {
   Platform & platform = GetPlatform();
-  // See LocalCountryFile comment for explanation.
-  if (file.GetDirectory().empty())
-  {
-    return platform.GetReader(file.GetCountryName() + DATA_FILE_EXTENSION,
-                              GetSpecialFilesSearchScope());
-  }
-  return platform.GetReader(file.GetPath(type), "f");
+  if (file.IsInBundle())
+    return platform.GetReader(file.GetFileName(type), GetAdditionalWorldScope());
+  else
+    return platform.GetReader(file.GetPath(type), "f");
 }
 
 // static
@@ -408,11 +403,9 @@ string CountryIndexes::IndexesDir(LocalCountryFile const & localFile)
   string dir = localFile.GetDirectory();
   CountryFile const & file = localFile.GetCountryFile();
 
-  /// @todo It's a temporary code until we will put fIndex->fOffset into mwm container.
-  /// IndexesDir should not throw any exceptions.
-  if (dir.empty())
+  if (localFile.IsInBundle())
   {
-    // Local file is stored in resources. Need to prepare index folder in the writable directory.
+    // Local file is stored in bundle. Need to prepare index folder in the writable directory.
     int64_t const version = localFile.GetVersion();
     ASSERT_GREATER(version, 0, ());
 
