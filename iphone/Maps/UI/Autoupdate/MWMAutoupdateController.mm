@@ -252,7 +252,7 @@ using namespace storage;
 {
   auto const & s = GetFramework().GetStorage();
   NodeAttrs nodeAttrs;
-  s.GetNodeAttrs(RootId().UTF8String, nodeAttrs);
+  s.GetNodeAttrs(s.GetRootId(), nodeAttrs);
   auto view = static_cast<MWMAutoupdateView *>(self.view);
   NSString * nodeName = @(s.GetNodeLocalName(countryId).c_str());
   [view setStatusForNodeName:nodeName rootAttributes:nodeAttrs];

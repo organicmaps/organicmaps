@@ -483,7 +483,7 @@ public:
   // of several versions of the same map keeps only the latest one, others
   // are deleted from disk.
   // *NOTE* storage will forget all already known local maps.
-  void RegisterAllLocalMaps(bool enableDiffs);
+  void RegisterAllLocalMaps(bool enableDiffs = false);
 
   // Returns list of all local maps, including fake countries (World*.mwm).
   void GetLocalMaps(std::vector<LocalFilePtr> & maps) const;
@@ -559,6 +559,8 @@ public:
 
   void SetStartDownloadingCallback(StartDownloadingCallback const & cb);
 
+  std::string GetFilePath(CountryId const & countryId, MapFileType file) const;
+
 protected:
   void OnFinishDownloading();
 
@@ -598,8 +600,7 @@ private:
   // Removes country files from downloader.
   bool DeleteCountryFilesFromDownloader(CountryId const & countryId);
 
-  // Returns a path to a place on disk downloader can use for
-  // downloaded files.
+  // Returns a path to a place on disk downloader can use for downloaded files.
   std::string GetFileDownloadPath(CountryId const & countryId, MapFileType file) const;
 
   /// Fast version, doesn't check if country is out of date
