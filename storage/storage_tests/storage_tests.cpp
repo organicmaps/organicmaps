@@ -477,7 +477,7 @@ void InitStorage(Storage & storage, TaskRunner & runner,
 {
   storage.Clear();
   storage.Init(update, [](CountryId const &, LocalFilePtr const) { return false; });
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  storage.RegisterAllLocalMaps();
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
   // Disable because of FakeMapFilesDownloader.
   storage.SetEnabledIntegrityValidationForTesting(false);
@@ -515,8 +515,7 @@ UNIT_TEST(StorageTest_Smoke)
   CountryId const georgiaCountryId = storage.FindCountryIdByFile("Georgia");
   TEST(IsCountryIdValid(georgiaCountryId), ());
   CountryFile usaGeorgiaFile = storage.GetCountryFile(georgiaCountryId);
-  TEST_EQUAL(platform::GetFileName(usaGeorgiaFile.GetName(), MapFileType::Map),
-             "Georgia" DATA_FILE_EXTENSION, ());
+  TEST_EQUAL(usaGeorgiaFile.GetFileName(MapFileType::Map), "Georgia" DATA_FILE_EXTENSION, ());
 }
 
 UNIT_CLASS_TEST(StorageTest, CountryDownloading)
@@ -555,7 +554,7 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
   int64_t const v2 = version::FOR_TESTING_MWM2;
 
   storage.Init(&OnCountryDownloaded, [](CountryId const &, LocalFilePtr const) { return false; });
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  storage.RegisterAllLocalMaps();
 
   CountryId const countryId = storage.FindCountryIdByFile("Azerbaijan");
   TEST(IsCountryIdValid(countryId), ());
@@ -567,14 +566,14 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
   TEST_EQUAL(Status::NotDownloaded, storage.CountryStatusEx(countryId), ());
 
   LocalFilePtr localFileV1 = CreateDummyMapFile(countryFile, v1, 1024 /* size */);
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  storage.RegisterAllLocalMaps();
   latestLocalFile = storage.GetLatestLocalFile(countryId);
   TEST(latestLocalFile.get(), ("Created map file wasn't found by storage."));
   TEST_EQUAL(latestLocalFile->GetVersion(), localFileV1->GetVersion(), ());
   TEST_EQUAL(Status::OnDiskOutOfDate, storage.CountryStatusEx(countryId), ());
 
   LocalFilePtr localFileV2 = CreateDummyMapFile(countryFile, v2, 2048 /* size */);
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  storage.RegisterAllLocalMaps();
   latestLocalFile = storage.GetLatestLocalFile(countryId);
   TEST(latestLocalFile.get(), ("Created map file wasn't found by storage."));
   TEST_EQUAL(latestLocalFile->GetVersion(), localFileV2->GetVersion(), ());
@@ -698,7 +697,7 @@ UNIT_TEST(StorageTest_ObsoleteMapsRemoval)
   TEST(map1.Exists(), ());
   TEST(map2.Exists(), ());
 
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  storage.RegisterAllLocalMaps();
 
   TEST(!map1.Exists(), ());
   map1.Reset();
@@ -1038,7 +1037,7 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
   }
 
   Storage storage(kCountriesTxt, make_unique<TestMapFilesDownloader>());
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  storage.RegisterAllLocalMaps();
 
   country1.SyncWithDisk();
   country2.SyncWithDisk();

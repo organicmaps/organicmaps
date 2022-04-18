@@ -31,19 +31,15 @@
 #include "3party/jansson/myjansson.hpp"
 
 #include <algorithm>
-#include <chrono>
-#include <limits>
 #include <sstream>
 
+namespace storage
+{
 using namespace downloader;
 using namespace generator::mwm_diff;
 using namespace platform;
 using namespace std;
-using namespace std::chrono;
-using namespace std::placeholders;
 
-namespace storage
-{
 namespace
 {
 string const kDownloadQueueKey = "DownloadQueue";
@@ -416,7 +412,7 @@ Status Storage::CountryStatusEx(CountryId const & countryId) const
   if (GetRemoteSize(countryFile) == 0)
     return Status::UnknownError;
 
-  if (localFile->GetVersion() != GetCurrentDataVersion())
+  if (localFile->GetVersion() != m_currentVersion)
     return Status::OnDiskOutOfDate;
   return Status::OnDisk;
 }
@@ -470,7 +466,7 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
   // If it's not even possible to prepare directory for files before
   // downloading, then mark this country as failed and switch to next
   // country.
-  if (!PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, countryFile))
+  if (!PreparePlaceForCountryFiles(m_currentVersion, m_dataDir, countryFile))
   {
     OnMapDownloadFinished(countryId, DownloadStatus::Failed, type);
     return;
@@ -482,7 +478,7 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
     return;
   }
 
-  QueuedCountry queuedCountry(countryFile, countryId, type, GetCurrentDataVersion(), m_dataDir,
+  QueuedCountry queuedCountry(countryFile, countryId, type, m_currentVersion, m_dataDir,
                               m_diffsDataSource);
   queuedCountry.Subscribe(*this);
 
@@ -712,7 +708,7 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
       return;
     }
 
-    LocalFilePtr localFile = GetLocalFile(countryId, GetCurrentDataVersion());
+    LocalFilePtr localFile = GetLocalFile(countryId, m_currentVersion);
     ASSERT(localFile, ());
 
     // This is the final point of success download or diff or update, so better
@@ -937,16 +933,20 @@ bool Storage::DeleteCountryFilesFromDownloader(CountryId const & countryId)
     m_diffsBeingApplied[countryId]->Cancel();
 
   m_downloader->Remove(countryId);
-  DeleteDownloaderFilesForCountry(GetCurrentDataVersion(), m_dataDir, GetCountryFile(countryId));
+  DeleteDownloaderFilesForCountry(m_currentVersion, m_dataDir, GetCountryFile(countryId));
   SaveDownloadQueue();
 
   return true;
 }
 
+string Storage::GetFilePath(CountryId const & countryId, MapFileType type) const
+{
+  return platform::GetFilePath(m_currentVersion, m_dataDir, countryId, type);
+}
+
 string Storage::GetFileDownloadPath(CountryId const & countryId, MapFileType type) const
 {
-  return platform::GetFileDownloadPath(GetCurrentDataVersion(), m_dataDir,
-                                       GetCountryFile(countryId), type);
+  return platform::GetFileDownloadPath(m_currentVersion, m_dataDir, countryId, type);
 }
 
 bool Storage::CheckFailedCountries(CountriesVec const & countries) const
@@ -1272,7 +1272,8 @@ bool Storage::IsDisputed(CountryTree::Node const & node) const
 void Storage::CalcMaxMwmSizeBytes()
 {
   m_maxMwmSizeBytes = 0;
-  m_countries.GetRoot().ForEachInSubtree([&](CountryTree::Node const & node) {
+  m_countries.GetRoot().ForEachInSubtree([&](CountryTree::Node const & node)
+  {
     if (node.ChildrenCount() == 0)
     {
       MwmSize mwmSizeBytes = node.Value().GetSubtreeMwmSizeBytes();
@@ -1321,7 +1322,7 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
   if (IsDiffApplyingInProgressToCountry(countryId))
     return;
 
-  auto const diffLocalFile = PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir,
+  auto const diffLocalFile = PreparePlaceForCountryFiles(m_currentVersion, m_dataDir,
                                                          GetCountryFile(countryId));
   uint64_t version;
   if (!diffLocalFile || !m_diffsDataSource->VersionFor(countryId, version))
@@ -1415,14 +1416,13 @@ bool Storage::IsPossibleToAutoupdate() const
   if (m_diffsDataSource->GetStatus() != diffs::Status::Available)
     return false;
 
-  auto const currentVersion = GetCurrentDataVersion();
   CountriesVec localMaps;
   GetLocalRealMaps(localMaps);
   for (auto const & countryId : localMaps)
   {
     auto const localFile = GetLatestLocalFile(countryId);
     auto const mapVersion = localFile->GetVersion();
-    if (mapVersion != currentVersion && mapVersion > 0 &&
+    if (mapVersion != m_currentVersion && mapVersion > 0 &&
         !m_diffsDataSource->HasDiffFor(localFile->GetCountryName()))
     {
       return false;

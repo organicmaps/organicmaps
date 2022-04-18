@@ -48,6 +48,7 @@ public:
   // Returns path to a file.
   // Return value may be empty until SyncWithDisk() is called.
   std::string GetPath(MapFileType type) const;
+  std::string GetFileName(MapFileType type) const;
 
   // Returns size of a file.
   // Return value may be zero until SyncWithDisk() is called.
@@ -84,8 +85,7 @@ private:
   friend void FindAllLocalMapsAndCleanup(int64_t latestVersion, std::string const & dataDir,
                                          std::vector<LocalCountryFile> & localFiles);
 
-  /// @note! If directory is empty, the file is stored in resources.
-  /// In this case, the only valid params are m_countryFile and m_version.
+  /// Can be bundled (empty directory) or path to the file.
   std::string m_directory;
   CountryFile m_countryFile;
   int64_t m_version;

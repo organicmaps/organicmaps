@@ -21,9 +21,9 @@ void DeleteDownloaderFilesForCountry(int64_t version, std::string const & dataDi
 // Finds all local map files in |directory|. Version of these files is
 // passed as an argument. Also, performs cleanup described in comment
 // for FindAllLocalMapsAndCleanup().
-void FindAllLocalMapsInDirectoryAndCleanup(std::string const & directory, int64_t version,
-                                           int64_t latestVersion,
-                                           std::vector<LocalCountryFile> & localFiles);
+size_t FindAllLocalMapsInDirectoryAndCleanup(std::string const & directory, int64_t version,
+                                             int64_t latestVersion,
+                                             std::vector<LocalCountryFile> & localFiles);
 
 // Finds all local map files in resources and writable directory. For
 // Android, checks /Android/obb directory.  Subdirectories in the
@@ -72,8 +72,12 @@ std::shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, s
 /// @note The function assumes the maps are located in writable dir/|dataDir|/|version| directory.
 /// If |dataDir| is empty (or is not set) the function assumes that maps are in writable dir.
 /// @{
+/// @param[in]  countryName Actually, same as storage::CountryId, like "Abkhazia".
+std::string GetFilePath(int64_t version, std::string const & dataDir,
+                        std::string const & countryName, MapFileType type);
 std::string GetFileDownloadPath(int64_t version, std::string const & dataDir,
-                                std::string const & mwmName, MapFileType type);
+                                std::string const & countryName, MapFileType type);
+
 inline std::string GetFileDownloadPath(int64_t version, std::string const & dataDir,
                                        CountryFile const & countryFile, MapFileType type)
 {

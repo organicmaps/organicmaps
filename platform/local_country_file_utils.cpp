@@ -54,6 +54,7 @@ bool IsDiffFile(string const & name)
          strings::EndsWith(name, DIFF_APPLYING_FILE_EXTENSION);
 }
 
+/*
 bool DirectoryHasIndexesOnly(string const & directory)
 {
   Platform::TFilesWithType fwts;
@@ -74,6 +75,7 @@ bool DirectoryHasIndexesOnly(string const & directory)
 
   return true;
 }
+*/
 
 inline string GetDataDirFullPath(string const & dataDir)
 {
@@ -100,26 +102,22 @@ void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diff
       continue;
 
     base::GetNameWithoutExt(name);
-
     if (isDiffReady)
       base::GetNameWithoutExt(name);
 
-    LocalCountryFile localDiff(dir, CountryFile(name), 0 /* version */);
-
-    diffs.push_back(localDiff);
+    diffs.emplace_back(dir, CountryFile(std::move(name)), 0 /* version */);
   }
 }
+}  // namespace
 
-string GetFilePath(int64_t version, string const & dataDir, CountryFile const & countryFile,
-                   MapFileType type)
+string GetFilePath(int64_t version, string const & dataDir, string const & countryName, MapFileType type)
 {
-  string const filename = GetFileName(countryFile.GetName(), type);
+  string const filename = GetFileName(countryName, type);
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
     return base::JoinPath(dir, filename);
   return base::JoinPath(dir, strings::to_string(version), filename);
 }
-}  // namespace
 
 void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countryFile)
 {
@@ -141,22 +139,21 @@ void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir,
 
   // Delete the diff that was downloaded but wasn't applied.
   {
-    string const path = GetFilePath(version, dataDir, countryFile, MapFileType::Diff);
+    string const path = GetFilePath(version, dataDir, countryFile.GetName(), MapFileType::Diff);
     Platform::RemoveFileIfExists(path);
   }
 }
 
-void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t version,
-                                           int64_t latestVersion,
-                                           vector<LocalCountryFile> & localFiles)
+size_t FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t version,
+                                             int64_t latestVersion,
+                                             vector<LocalCountryFile> & localFiles)
 {
   Platform & platform = GetPlatform();
+  size_t const szBefore = localFiles.size();
 
   Platform::TFilesWithType fwts;
-  platform.GetFilesByType(directory, Platform::FILE_TYPE_REGULAR | Platform::FILE_TYPE_DIRECTORY,
-                          fwts);
+  platform.GetFilesByType(directory, Platform::FILE_TYPE_REGULAR | Platform::FILE_TYPE_DIRECTORY, fwts);
 
-  unordered_set<string> names;
   for (auto const & fwt : fwts)
   {
     if (fwt.second != Platform::FILE_TYPE_REGULAR)
@@ -176,12 +173,13 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
 
     // Remove DATA_FILE_EXTENSION and use base name as a country file name.
     base::GetNameWithoutExt(name);
-    names.insert(name);
-    LocalCountryFile localFile(directory, CountryFile(name), version);
-
-    localFiles.push_back(localFile);
+    localFiles.emplace_back(directory, CountryFile(std::move(name)), version);
   }
 
+  return localFiles.size() - szBefore;
+
+  // Probably, indices will appear in future.
+  /*
   for (auto const & fwt : fwts)
   {
     if (fwt.second != Platform::FILE_TYPE_DIRECTORY)
@@ -198,6 +196,7 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
       CountryIndexes::DeleteFromDisk(absentCountry);
     }
   }
+  */
 }
 
 void FindAllDiffs(string const & dataDir, vector<LocalCountryFile> & diffs)
@@ -235,10 +234,12 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
       continue;
 
     string const fullPath = base::JoinPath(dir, subdir);
-    FindAllLocalMapsInDirectoryAndCleanup(fullPath, version, latestVersion, localFiles);
-    Platform::EError err = Platform::RmDir(fullPath);
-    if (err != Platform::ERR_OK && err != Platform::ERR_DIRECTORY_NOT_EMPTY)
-      LOG(LWARNING, ("Can't remove directory:", fullPath, err));
+    if (0 == FindAllLocalMapsInDirectoryAndCleanup(fullPath, version, latestVersion, localFiles))
+    {
+      Platform::EError err = Platform::RmDir(fullPath);
+      if (err != Platform::ERR_OK)
+        LOG(LWARNING, ("Can't remove directory:", fullPath, err));
+    }
   }
 
   // World and WorldCoasts can be stored in app bundle or in resources
@@ -323,13 +324,9 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, string
   return make_shared<LocalCountryFile>(directory, countryFile, version);
 }
 
-string GetFileDownloadPath(int64_t version, string const & dataDir, string const & mwmName, MapFileType type)
+string GetFileDownloadPath(int64_t version, string const & dataDir, string const & countryName, MapFileType type)
 {
-  string const readyFile = GetFileName(mwmName, type) + READY_FILE_EXTENSION;
-  string const dir = GetDataDirFullPath(dataDir);
-  if (version == 0)
-    return base::JoinPath(dir, readyFile);
-  return base::JoinPath(dir, strings::to_string(version), readyFile);
+  return GetFilePath(version, dataDir, countryName, type) + READY_FILE_EXTENSION;
 }
 
 unique_ptr<ModelReader> GetCountryReader(platform::LocalCountryFile const & file, MapFileType type)

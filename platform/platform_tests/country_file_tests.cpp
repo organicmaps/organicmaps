@@ -16,7 +16,7 @@ UNIT_TEST(CountryFile_Smoke)
   {
     CountryFile cf("One");
     TEST_EQUAL("One", cf.GetName(), ());
-    string const mapFileName = GetFileName(cf.GetName(), MapFileType::Map);
+    string const mapFileName = cf.GetFileName(MapFileType::Map);
 
     TEST_EQUAL("One" DATA_FILE_EXTENSION, mapFileName, ());
     TEST_EQUAL(0, cf.GetRemoteSize(), ());
@@ -25,7 +25,7 @@ UNIT_TEST(CountryFile_Smoke)
   {
     CountryFile cf("Three", 666, "xxxSHAxxx");
     TEST_EQUAL("Three", cf.GetName(), ());
-    string const mapFileName = GetFileName(cf.GetName(), MapFileType::Map);
+    string const mapFileName = cf.GetFileName(MapFileType::Map);
 
     TEST_EQUAL("Three" DATA_FILE_EXTENSION, mapFileName, ());
     TEST_EQUAL(666, cf.GetRemoteSize(), ());
