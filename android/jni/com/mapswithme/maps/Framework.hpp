@@ -137,6 +137,7 @@ namespace android
 
     void AddLocalMaps();
     void RemoveLocalMaps();
+    void ReloadWorldMaps();
 
     m2::PointD GetViewportCenter() const;
 

@@ -40,18 +40,10 @@ using namespace std::placeholders;
 #define ERR_FILE_IN_PROGRESS        -6
 //@}
 
-struct FileToDownload
-{
-  std::vector<std::string> m_urls;
-  std::string m_fileName;
-  std::string m_pathOnSdcard;
-  uint64_t m_fileSize;
-};
-
 namespace
 {
 
-static std::vector<FileToDownload> g_filesToDownload;
+static std::vector<platform::CountryFile> g_filesToDownload;
 static int g_totalDownloadedBytes;
 static int g_totalBytesToDownload;
 static std::shared_ptr<HttpRequest> g_currentRequest;
@@ -77,24 +69,6 @@ extern "C"
     }
   }
 
-  // Check if we need to download mandatory resource file.
-  static bool NeedToDownload(Platform & pl, std::string const & name, int size)
-  {
-    try
-    {
-      ModelReaderPtr reader(pl.GetReader(name));
-      return false;
-    }
-    catch (RootException const &)
-    {
-      // TODO: A hack for a changed font file name. Remove when this stops being relevant.
-      // This is because we don't want to force update users with the old font (which is good enough)
-      if (name == "02_droidsans-fallback.ttf")
-        return NeedToDownload(pl, "02_wqy-microhei.ttf", size); // Size is not checked anyway
-    }
-    return true;
-  }
-
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_DownloadResourcesLegacyActivity_nativeGetBytesToDownload(JNIEnv * env, jclass clazz)
   {
@@ -103,45 +77,23 @@ extern "C"
     g_totalBytesToDownload = 0;
     g_totalDownloadedBytes = 0;
 
+    storage::Storage const & storage = g_framework->GetStorage();
+    bool const anyWorldWasMoved = storage.GetForceDownloadWorlds(g_filesToDownload);
+
+    for (auto const & cf : g_filesToDownload)
+      g_totalBytesToDownload += cf.GetRemoteSize();
+
     Platform & pl = GetPlatform();
-    std::string const path = pl.WritableDir();
-
-    ReaderStreamBuf buffer(pl.GetReader(EXTERNAL_RESOURCES_FILE));
-    std::istream in(&buffer);
-
-    std::string name;
-    int size;
-    while (true)
-    {
-      in >> name;
-      if (!in.good())
-        break;
-
-      in >> size;
-      if (!in.good())
-        break;
-
-      if (NeedToDownload(pl, name, size))
-      {
-        LOG(LDEBUG, ("Should download", name, "size", size, "bytes"));
-
-        FileToDownload f;
-        f.m_pathOnSdcard = path + name;
-        f.m_fileName = name;
-        f.m_fileSize = size;
-
-        g_filesToDownload.push_back(f);
-        g_totalBytesToDownload += size;
-      }
-    }
-
-    int const res = HasSpaceForFiles(pl, path, g_totalBytesToDownload);
+    int const res = HasSpaceForFiles(pl, pl.WritableDir(), g_totalBytesToDownload);
     if (res == ERR_STORAGE_DISCONNECTED)
       LOG(LWARNING, ("External file system is not available"));
     else if (res == ERR_NOT_ENOUGH_FREE_SPACE)
       LOG(LWARNING, ("Not enough space to extract files"));
 
     g_currentRequest.reset();
+
+    if (anyWorldWasMoved && res == 0)
+      g_framework->ReloadWorldMaps();
 
     return res;
   }
@@ -159,10 +111,11 @@ extern "C"
 
     if (errorCode == ERR_DOWNLOAD_SUCCESS)
     {
-      FileToDownload & curFile = g_filesToDownload.back();
-      LOG(LDEBUG, ("finished downloading", curFile.m_fileName, "size", curFile.m_fileSize, "bytes"));
+      auto const & curFile = g_filesToDownload.back();
+      size_t const sz = curFile.GetRemoteSize();
+      LOG(LDEBUG, ("finished downloading", curFile.GetName(), "size", sz, "bytes"));
 
-      g_totalDownloadedBytes += curFile.m_fileSize;
+      g_totalDownloadedBytes += sz;
       LOG(LDEBUG, ("totalDownloadedBytes:", g_totalDownloadedBytes));
 
       g_filesToDownload.pop_back();
@@ -189,18 +142,22 @@ extern "C"
 
     /// @todo One downloader instance with cached servers. All this routine will be refactored some time.
     static auto downloader = storage::GetDownloader();
-    downloader->SetDataVersion(g_framework->GetStorage().GetCurrentDataVersion());
+    storage::Storage const & storage = g_framework->GetStorage();
+    downloader->SetDataVersion(storage.GetCurrentDataVersion());
 
-    downloader->EnsureServersListReady([ptr = jni::make_global_ref(listener)]()
+    downloader->EnsureServersListReady([&storage, ptr = jni::make_global_ref(listener)]()
     {
-      FileToDownload const & curFile = g_filesToDownload.back();
-      LOG(LINFO, ("Downloading file", curFile.m_fileName));
+      auto const & curFile = g_filesToDownload.back();
+      auto const fileName = curFile.GetFileName(MapFileType::Map);
+      LOG(LINFO, ("Downloading file", fileName));
 
-      auto const urls = downloader->MakeUrlListLegacy(curFile.m_fileName);
-      g_currentRequest.reset(HttpRequest::GetFile(urls, curFile.m_pathOnSdcard, curFile.m_fileSize,
-                                                  std::bind(&DownloadFileFinished, ptr, _1),
-                                                  std::bind(&DownloadFileProgress, ptr, _1),
-                                                  512 * 1024, false));
+      g_currentRequest.reset(HttpRequest::GetFile(
+          downloader->MakeUrlListLegacy(fileName),
+          storage.GetFilePath(curFile.GetName(), MapFileType::Map),
+          curFile.GetRemoteSize(),
+          std::bind(&DownloadFileFinished, ptr, _1),
+          std::bind(&DownloadFileProgress, ptr, _1),
+          512 * 1024, false));
     });
 
     return ERR_FILE_IN_PROGRESS;

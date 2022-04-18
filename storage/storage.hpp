@@ -479,6 +479,10 @@ public:
   // Clears local files registry and downloader's queue.
   void Clear();
 
+  /// Used in Android to check Worlds to download.
+  /// @return true If any World file was moved.
+  bool GetForceDownloadWorlds(std::vector<platform::CountryFile> & res) const;
+
   // Finds and registers all map files in maps directory. In the case
   // of several versions of the same map keeps only the latest one, others
   // are deleted from disk.
@@ -634,6 +638,10 @@ private:
   /// @return true if |node.Value().Name()| is a disputed territory and false otherwise.
   bool IsDisputed(CountryTree::Node const & node) const;
 
+  /// @return true iff \a node is a country MWM leaf of the tree.
+  static bool IsCountryLeaf(CountryTree::Node const & node);
+  static bool IsWorldCountryID(CountryId const & country);
+
   void CalcMaxMwmSizeBytes();
 
   void OnMapDownloadFailed(CountryId const & countryId);
@@ -713,7 +721,7 @@ void Storage::ForEachCountry(ToDo && toDo) const
 {
   m_countries.GetRoot().ForEachInSubtree([&](CountryTree::Node const & node)
   {
-    if (node.ChildrenCount() == 0)
+    if (IsCountryLeaf(node))
       toDo(node.Value());
   });
 }

@@ -334,10 +334,14 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           () -> onExploreActionSelected(mItem, DownloaderAdapter.this));
     }
 
-    private MenuBottomSheetItem getDeleteMenuItem()
+    private void appendDeleteMenuItem(ArrayList<MenuBottomSheetItem> items)
     {
-      return new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
-          () -> onDeleteActionSelected(mItem, DownloaderAdapter.this));
+      // Do not show "Delete" option for World files.
+      // Checking name is not beautiful, but the simplest way for now ..
+      if (!mItem.id.startsWith("World")) {
+        items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
+                () -> onDeleteActionSelected(mItem, DownloaderAdapter.this)));
+      }
     }
 
     private MenuBottomSheetItem getCancelMenuItem()
@@ -362,7 +366,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         case CountryItem.STATUS_DONE:
           if (!mItem.isExpandable())
             items.add(getExploreMenuItem());
-          items.add(getDeleteMenuItem());
+          appendDeleteMenuItem(items);
           break;
 
         case CountryItem.STATUS_FAILED:
@@ -370,7 +374,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
           if (mItem.present)
           {
-            items.add(getDeleteMenuItem());
+            appendDeleteMenuItem(items);
             items.add(getExploreMenuItem());
           }
           break;
@@ -386,7 +390,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
         case CountryItem.STATUS_PARTLY:
           items.add(getDownloadMenuItem());
-          items.add(getDeleteMenuItem());
+          appendDeleteMenuItem(items);
           break;
       }
       return items;

@@ -308,9 +308,7 @@ public class Framework
   /**
    * Registers all maps(.mwms). Adds them to the models, generates indexes and does all necessary stuff.
    */
-  public static native void nativeRegisterMaps();
-
-  public static native void nativeDeregisterMaps();
+  public static native void nativeReloadWorldMaps();
 
   /**
    * Determines if currently is day or night at the given location. Used to switch day/night styles.

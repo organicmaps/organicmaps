@@ -404,10 +404,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   {
     if (result == ERR_NO_MORE_FILES)
     {
-      // World and WorldCoasts has been downloaded, we should register maps again to correctly add them to the model and generate indexes etc.
-      // TODO fix the hack when separate download of World-s will be removed or refactored
-      Framework.nativeDeregisterMaps();
-      Framework.nativeRegisterMaps();
+      // World and WorldCoasts has been downloaded, we should register maps again to correctly add them to the model.
+      Framework.nativeReloadWorldMaps();
+
       if (mCurrentCountry != null && mChbDownloadCountry.isChecked())
       {
         CountryItem item = CountryItem.fill(mCurrentCountry);

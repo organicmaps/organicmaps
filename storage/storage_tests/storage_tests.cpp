@@ -797,29 +797,26 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
   }
 
   // Storage::GetLocalRealMaps() test.
-  /*
-  CountriesVec localRealMaps;
-  storage.GetLocalRealMaps(localRealMaps);
-  TEST_EQUAL(localRealMaps.size(), 4, ());
+//  CountriesVec localRealMaps;
+//  storage.GetLocalRealMaps(localRealMaps);
+//  TEST_EQUAL(localRealMaps.size(), 4, ());
 
   TEST(storage.IsNodeDownloaded("Algeria_Central"), ());
   TEST(storage.IsNodeDownloaded("Algeria_Coast"), ());
   TEST(!storage.IsNodeDownloaded("Algeria_Coast.mwm"), ());
-  TEST(!storage.IsNodeDownloaded(WORLD_FILE_NAME), ());
-  TEST(!storage.IsNodeDownloaded(WORLD_COASTS_FILE_NAME), ());
-  */
+  TEST(storage.IsNodeDownloaded(WORLD_FILE_NAME), ());
+  TEST(storage.IsNodeDownloaded(WORLD_COASTS_FILE_NAME), ());
 
   // Storage::GetChildrenInGroups test when at least Algeria_Central and Algeria_Coast have been downloaded.
   CountryId const rootCountryId = storage.GetRootId();
   TEST_EQUAL(rootCountryId, COUNTRIES_ROOT, ());
 
   CountriesVec downloaded, available;
-  CountriesVec downloadedWithKeep, availableWithKeep;
-
   storage.GetChildrenInGroups(rootCountryId, downloaded, available);
   TEST_EQUAL(downloaded.size(), 1, (downloaded));
   TEST_EQUAL(available.size(), 223, ());
 
+  CountriesVec downloadedWithKeep, availableWithKeep;
   storage.GetChildrenInGroups(rootCountryId, downloadedWithKeep,
                               availableWithKeep, true /* keepAvailableChildren*/);
   TEST_EQUAL(downloadedWithKeep.size(), 1, (downloadedWithKeep));
