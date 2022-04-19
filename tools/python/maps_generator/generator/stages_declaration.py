@@ -353,29 +353,6 @@ class StageCountriesTxt(Stage):
 
 
 @outer_stage
-class StageExternalResources(Stage):
-    def apply(self, env: Env):
-        black_list = {}
-        resources = [
-            os.path.join(env.paths.user_resource_path, file)
-            for file in os.listdir(env.paths.user_resource_path)
-            if file.endswith(".ttf") and file not in black_list
-        ]
-        for ttf_file in resources:
-            shutil.copy2(ttf_file, env.paths.mwm_path)
-
-        for file in os.listdir(env.paths.mwm_path):
-            if file.startswith(WORLD_NAME) and file.endswith(".mwm"):
-                resources.append(os.path.join(env.paths.mwm_path, file))
-
-        resources.sort()
-        with open(env.paths.external_resources_path, "w") as f:
-            for resource in resources:
-                fd = os.open(resource, os.O_RDONLY)
-                f.write(f"{os.path.basename(resource)} {os.fstat(fd).st_size}\n")
-
-
-@outer_stage
 @production_only
 class StageLocalAds(Stage):
     def apply(self, env: Env):
@@ -388,9 +365,7 @@ class StageLocalAds(Stage):
         )
         with tarfile.open(f"{env.paths.localads_path}.tar.gz", "w:gz") as tar:
             for filename in os.listdir(env.paths.localads_path):
-                tar.add(
-                    os.path.join(env.paths.localads_path, filename), arcname=filename
-                )
+                tar.add(os.path.join(env.paths.localads_path, filename), arcname=filename)
 
 
 @outer_stage
