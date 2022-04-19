@@ -479,9 +479,16 @@ public:
   // Clears local files registry and downloader's queue.
   void Clear();
 
-  /// Used in Android to check Worlds to download.
-  /// @return true If any World file was moved.
-  bool GetForceDownloadWorlds(std::vector<platform::CountryFile> & res) const;
+  /// Used in Android to get absent Worlds files to download.
+  /// @param[out] res Out vector, empty if all files are present some or error occured.
+  /// @return     WorldStatus:
+  enum class WorldStatus {
+    READY = 0,            ///< Ready to download or all files are present if \a res is empty
+    WAS_MOVED,            ///< All World files are present and one or more files was moved, \a res is empty.
+    ERROR_CREATE_FOLDER,  ///< Error when creating folder
+    ERROR_MOVE_FILE       ///< Error when trying to move World file
+  };
+  WorldStatus GetForceDownloadWorlds(std::vector<platform::CountryFile> & res) const;
 
   // Finds and registers all map files in maps directory. In the case
   // of several versions of the same map keeps only the latest one, others

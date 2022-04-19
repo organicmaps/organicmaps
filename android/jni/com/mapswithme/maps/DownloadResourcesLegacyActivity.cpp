@@ -32,7 +32,7 @@ using namespace std::placeholders;
 /// Special error codes to notify GUI about free space
 //@{
 #define ERR_DOWNLOAD_SUCCESS         0
-#define ERR_NOT_ENOUGH_MEMORY       -1
+#define ERR_DISK_ERROR              -1
 #define ERR_NOT_ENOUGH_FREE_SPACE   -2
 #define ERR_STORAGE_DISCONNECTED    -3
 #define ERR_DOWNLOAD_ERROR          -4
@@ -77,14 +77,25 @@ extern "C"
     g_totalBytesToDownload = 0;
     g_totalDownloadedBytes = 0;
 
-    storage::Storage const & storage = g_framework->GetStorage();
-    bool const anyWorldWasMoved = storage.GetForceDownloadWorlds(g_filesToDownload);
+    using namespace storage;
+    Storage const & storage = g_framework->GetStorage();
+    auto const status = storage.GetForceDownloadWorlds(g_filesToDownload);
 
     for (auto const & cf : g_filesToDownload)
       g_totalBytesToDownload += cf.GetRemoteSize();
 
-    Platform & pl = GetPlatform();
-    int const res = HasSpaceForFiles(pl, pl.WritableDir(), g_totalBytesToDownload);
+    int res;
+    if (status == Storage::WorldStatus::ERROR_CREATE_FOLDER ||
+        status == Storage::WorldStatus::ERROR_MOVE_FILE)
+    {
+      res = ERR_DISK_ERROR;
+    }
+    else
+    {
+      Platform & pl = GetPlatform();
+      res = HasSpaceForFiles(pl, pl.WritableDir(), g_totalBytesToDownload);
+    }
+
     if (res == ERR_STORAGE_DISCONNECTED)
       LOG(LWARNING, ("External file system is not available"));
     else if (res == ERR_NOT_ENOUGH_FREE_SPACE)
@@ -92,8 +103,11 @@ extern "C"
 
     g_currentRequest.reset();
 
-    if (anyWorldWasMoved && res == 0)
+    if (status == Storage::WorldStatus::WAS_MOVED)
+    {
       g_framework->ReloadWorldMaps();
+      res = ERR_DOWNLOAD_SUCCESS;  // reset possible storage error if we moved files
+    }
 
     return res;
   }

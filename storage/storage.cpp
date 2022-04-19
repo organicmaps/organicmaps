@@ -203,7 +203,7 @@ void Storage::Clear()
   SaveDownloadQueue();
 }
 
-bool Storage::GetForceDownloadWorlds(std::vector<platform::CountryFile> & res) const
+Storage::WorldStatus Storage::GetForceDownloadWorlds(std::vector<platform::CountryFile> & res) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -224,7 +224,7 @@ bool Storage::GetForceDownloadWorlds(std::vector<platform::CountryFile> & res) c
     }
 
     if (hasWorld[0] && hasWorld[1])
-      return false;
+      return WorldStatus::READY;
   }
 
   Platform & pl = GetPlatform();
@@ -259,7 +259,10 @@ bool Storage::GetForceDownloadWorlds(std::vector<platform::CountryFile> & res) c
             break;
           }
           else
+          {
             LOG(LERROR, ("Can't move", filePath, "into", dirPath));
+            return WorldStatus::ERROR_MOVE_FILE;
+          }
         }
         catch (RootException const & ex)
         {
@@ -270,13 +273,16 @@ bool Storage::GetForceDownloadWorlds(std::vector<platform::CountryFile> & res) c
     }
   }
 
+  if (storage::PrepareDirToDownloadCountry(m_currentVersion, m_dataDir).empty())
+    return WorldStatus::ERROR_CREATE_FOLDER;
+
   for (int i = 0; i < 2; ++i)
   {
     if (!hasWorld[i])
       res.push_back(GetCountryFile(worldName[i]));
   }
 
-  return anyWorldWasMoved;
+  return (anyWorldWasMoved && res.empty() ? WorldStatus::WAS_MOVED : WorldStatus::READY);
 }
 
 void Storage::RegisterAllLocalMaps(bool enableDiffs /* = false */)

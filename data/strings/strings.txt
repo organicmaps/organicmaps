@@ -1008,6 +1008,7 @@
     zh-Hant = 下載
 
   [disconnect_usb_cable]
+    comment = Used in DownloadResources startup screen
     tags = android
     en = Please disconnect USB cable or insert memory card to use Organic Maps
     ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.
@@ -1044,6 +1045,7 @@
     zh-Hant = 請拔除 USB 線或插入 SD 卡以使用 Organic Maps
 
   [not_enough_free_space_on_sdcard]
+    comment = Used in DownloadResources startup screen
     tags = android
     en = Please free up some space on the SD card/USB storage first in order to use the app
     ar = الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.
@@ -1079,43 +1081,6 @@
     vi = Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng
     zh-Hans = 请在存储卡/ USB 储存设备上释放一些空间以 使用此应用
     zh-Hant = 如要繼續使用，請先釋放一些 SD 卡/ USB 儲存空間
-
-  [not_enough_memory]
-    tags = android
-    en = Not enough memory to launch app
-    ar = لا يوجد ذاكرة كافية لتشغيل التطبيق.
-    be = Недастаткова памяці для запуска дадатка
-    bg = Няма достатъчно памет за стартиране на приложението
-    cs = Nedostatek paměti ke spuštění aplikace
-    da = Ikke nok hukommelse til at åbne app
-    de = Nicht genügend Speicher, um die Anwendung zu starten
-    el = Δεν υπάρχει αρκετή μνήμη για την έναρξη εφαρμογής
-    es = No hay suficiente memoria para iniciar la aplicación
-    eu = Ez dago memoria nahikoa aplikazioa abiarazteko
-    fa = حافظه کافی برای اجرای برنامه وجود ندارد
-    fi = Ei tarpeeksi muistia sovelluksen avaamiseksi
-    fr = Mémoire insuffisante pour lancer l'appli
-    he = אין מספיק זכרון כדי להפעיל הישום
-    hu = Nincs elegendő memória az alkalmazás futtatásához
-    id = Memori tidak cukup untuk meluncurkan aplikasi
-    it = Memoria insufficiente per lanciare l'app
-    ja = メモリ不足のためアプリを起動できません
-    ko = 응용 프로그램을 실행하기위한 메모리가 충분하지 않다
-    nb = Ikke nok minne til å starte appen
-    nl = Niet genoeg geheugen om de app te starten
-    pl = Za mało pamięci, aby uruchomić aplikację
-    pt = Não há memória suficiente para executar a aplicação
-    pt-BR = Não há memória suficiente para executar o app
-    ro = Memorie insuficientă pentru a porni aplicația
-    ru = Недостаточно памяти для запуска программы
-    sk = Nedostatok pamäti k spusteniu aplikácie
-    sv = Inte tillräckligt med utrymme för att starta appen
-    th = มีหน่วยความจำไม่เพียงพอสำหรับการเปิดแอป
-    tr = Uygulamayı başlatmak için yeterli hafıza yok
-    uk = Недостатньо пам'яті для запуску програми
-    vi = Không đủ bộ nhớ để chạy ứng dụng
-    zh-Hans = 没有足够的内存来启动应用程序
-    zh-Hant = 沒有足夠的記憶體以啟動應用程式
 
   [download_resources]
     tags = android
@@ -22343,7 +22308,20 @@
     ru = Скачать карту мира
     tr = Dünya haritasını indir
 
+  [disk_error]
+    tags = android
+    comment = Used in DownloadResources startup screen
+    en = Unable to create folder and move files on internal device's memory or sdcard
+    ru = Не могу создать папку и переместить файлы на устройстве
+
+  [disk_error_title]
+    tags = android
+    comment = Used in DownloadResources startup screen
+    en = Disk error
+    ru = Ошибка диска
+
   [connection_failure]
+    comment = Used in DownloadResources startup screen
     tags = android
     en = Connection failure
     be = Памылка падлучэння
@@ -22362,6 +22340,7 @@
     tr = Bağlantı hatası
 
   [disconnect_usb_cable_title]
+    comment = Used in DownloadResources startup screen
     tags = android
     en = Disconnect USB cable
     be = Адлучыце USB кабель
