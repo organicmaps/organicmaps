@@ -1045,29 +1045,29 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
 
   storage.GetUpdateInfo("OutdatedCountry1", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 1, ());
-  TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 50, ());
+  TEST_EQUAL(updateInfo.m_totalDownloadSizeInBytes, 50, ());
   TEST_EQUAL(updateInfo.m_sizeDifference, 50 - static_cast<int64_t>(country1Size), ());
 
   storage.GetUpdateInfo("OutdatedCountry2", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 1, ());
-  TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 1000, ());
+  TEST_EQUAL(updateInfo.m_totalDownloadSizeInBytes, 1000, ());
   TEST_EQUAL(updateInfo.m_sizeDifference, 1000 - static_cast<int64_t>(country2Size), ());
 
   storage.GetUpdateInfo("Abkhazia", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 0, ());
-  TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 0, ());
+  TEST_EQUAL(updateInfo.m_totalDownloadSizeInBytes, 0, ());
 
   storage.GetUpdateInfo("Country1", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 0, ());
-  TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 0, ());
+  TEST_EQUAL(updateInfo.m_totalDownloadSizeInBytes, 0, ());
 
   storage.GetUpdateInfo("Disputable Territory", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 0, ());
-  TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 0, ());
+  TEST_EQUAL(updateInfo.m_totalDownloadSizeInBytes, 0, ());
 
   storage.GetUpdateInfo(storage.GetRootId(), updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 2, ());
-  TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 1050, ());
+  TEST_EQUAL(updateInfo.m_totalDownloadSizeInBytes, 1050, ());
   TEST_EQUAL(updateInfo.m_sizeDifference,
              (1000 + 50) - static_cast<int64_t>((country1Size + country2Size)), ());
 }
