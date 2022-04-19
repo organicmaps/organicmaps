@@ -1836,25 +1836,29 @@ bool Storage::GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  auto const updateInfoAccumulator = [&updateInfo, this](CountryTree::Node const & node) {
+  auto const updateInfoAccumulator = [&updateInfo, this](CountryTree::Node const & node)
+  {
     if (node.ChildrenCount() != 0 || GetNodeStatus(node).status != NodeStatus::OnDiskOutOfDate)
       return;
 
-    updateInfo.m_numberOfMwmFilesToUpdate += 1;  // It's not a group mwm.
-    if (m_diffsDataSource->HasDiffFor(node.Value().Name()))
+    // Here the node is a leaf describing one mwm file (not a group node).
+
+    CountryId const & countryId = node.Value().Name();
+    updateInfo.m_numberOfMwmFilesToUpdate += 1;
+
+    LocalAndRemoteSize const sizes = CountrySizeInBytes(countryId);
+    updateInfo.m_maxFileSizeInBytes = std::max(updateInfo.m_maxFileSizeInBytes, sizes.second);
+
+    if (m_diffsDataSource->HasDiffFor(countryId))
     {
       uint64_t size;
-      m_diffsDataSource->SizeToDownloadFor(node.Value().Name(), size);
-      updateInfo.m_totalUpdateSizeInBytes += size;
+      m_diffsDataSource->SizeToDownloadFor(countryId, size);
+      updateInfo.m_totalDownloadSizeInBytes += size;
     }
     else
-    {
-      updateInfo.m_totalUpdateSizeInBytes += node.Value().GetSubtreeMwmSizeBytes();
-    }
+      updateInfo.m_totalDownloadSizeInBytes += sizes.second;
 
-    LocalAndRemoteSize sizes = CountrySizeInBytes(node.Value().Name());
-    updateInfo.m_sizeDifference +=
-        static_cast<int64_t>(sizes.second) - static_cast<int64_t>(sizes.first);
+    updateInfo.m_sizeDifference += static_cast<int64_t>(sizes.second) - static_cast<int64_t>(sizes.first);
   };
 
   CountryTree::Node const * const node = m_countries.FindFirst(countryId);
@@ -1863,7 +1867,7 @@ bool Storage::GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo
     ASSERT(false, ());
     return false;
   }
-  updateInfo = UpdateInfo();
+  updateInfo = {};
   node->ForEachInSubtree(updateInfoAccumulator);
   return true;
 }

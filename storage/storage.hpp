@@ -426,12 +426,13 @@ public:
 
   struct UpdateInfo
   {
-    UpdateInfo() : m_numberOfMwmFilesToUpdate(0), m_totalUpdateSizeInBytes(0), m_sizeDifference(0) {}
+    MwmCounter m_numberOfMwmFilesToUpdate = 0;
 
-    MwmCounter m_numberOfMwmFilesToUpdate;
-    MwmSize m_totalUpdateSizeInBytes;
+    MwmSize m_maxFileSizeInBytes = 0;
+    MwmSize m_totalDownloadSizeInBytes = 0;
+
     // Difference size in bytes between before update and after update.
-    int64_t m_sizeDifference;
+    int64_t m_sizeDifference = 0;
   };
 
   /// \brief Get information for mwm update button.

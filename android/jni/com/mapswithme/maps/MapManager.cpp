@@ -139,7 +139,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env,
   static jmethodID const ctor = jni::GetConstructorID(env, infoClass, "(IJ)V");
   ASSERT(ctor, (jni::DescribeException()));
 
-  return env->NewObject(infoClass, ctor, info.m_numberOfMwmFilesToUpdate, info.m_totalUpdateSizeInBytes);
+  return env->NewObject(infoClass, ctor, info.m_numberOfMwmFilesToUpdate, info.m_totalDownloadSizeInBytes);
 }
 
 static void UpdateItemShort(JNIEnv * env, jobject item, NodeStatus const status, NodeErrorCode const error)
