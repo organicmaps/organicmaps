@@ -143,7 +143,7 @@ using namespace storage;
 - (BOOL)downloadNodes:(NSArray<NSString *> *)countryIds error:(NSError *__autoreleasing _Nullable *)error {
   auto &s = GetFramework().GetStorage();
 
-  MwmSize requiredSize = s.GetMaxMwmSizeBytes();
+  MwmSize requiredSize = 0;
   for (NSString *countryId in countryIds) {
     NodeAttrs nodeAttrs;
     GetFramework().GetStorage().GetNodeAttrs(countryId.UTF8String, nodeAttrs);
