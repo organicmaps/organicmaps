@@ -36,7 +36,6 @@ char const * arrFiles[] = {
   "languages.txt",
   "unicode_blocks.txt",
   "drules_proto_clear.bin",
-  "external_resources.txt",
   "packed_polygons.bin",
   "countries.txt"
 };

@@ -86,8 +86,6 @@
 #define PACKED_POLYGONS_INFO_TAG "info"
 #define PACKED_POLYGONS_FILE "packed_polygons.bin"
 
-#define EXTERNAL_RESOURCES_FILE "external_resources.txt"
-
 #define GPS_TRACK_FILENAME "gps_track.dat"
 #define RESTRICTIONS_FILENAME "restrictions.csv"
 #define ROAD_ACCESS_FILENAME "road_access.csv"
