@@ -67,7 +67,8 @@ bool ParseVersion(std::string const & s, int64_t & version);
 // If |dataDir| is empty (or is not set) the function assumes that maps are in writable dir.
 std::shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, CountryFile const & countryFile);
 std::shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, std::string const & dataDir,
-                                                         CountryFile const & countryFile);
+                                                              CountryFile const & countryFile);
+std::string PrepareDirToDownloadCountry(int64_t version, std::string const & dataDir);
 
 /// @note The function assumes the maps are located in writable dir/|dataDir|/|version| directory.
 /// If |dataDir| is empty (or is not set) the function assumes that maps are in writable dir.

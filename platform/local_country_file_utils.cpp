@@ -313,13 +313,17 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version,
 shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, string const & dataDir,
                                                          CountryFile const & countryFile)
 {
-  string const dir = GetDataDirFullPath(dataDir);
+  string const dir = PrepareDirToDownloadCountry(version, dataDir);
+  return (!dir.empty() ? make_shared<LocalCountryFile>(dir, countryFile, version) : nullptr);
+}
+
+std::string PrepareDirToDownloadCountry(int64_t version, std::string const & dataDir)
+{
+  string dir = GetDataDirFullPath(dataDir);
   if (version == 0)
-    return make_shared<LocalCountryFile>(dir, countryFile, version);
-  string const directory = base::JoinPath(dir, strings::to_string(version));
-  if (!Platform::MkDirChecked(directory))
-    return shared_ptr<LocalCountryFile>();
-  return make_shared<LocalCountryFile>(directory, countryFile, version);
+    return dir;
+  dir = base::JoinPath(dir, strings::to_string(version));
+  return (Platform::MkDirChecked(dir) ? dir : std::string());
 }
 
 string GetFileDownloadPath(int64_t version, string const & dataDir, string const & countryName, MapFileType type)
