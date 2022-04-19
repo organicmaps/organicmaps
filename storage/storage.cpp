@@ -130,7 +130,6 @@ Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */,
 
   SetLocale(languages::GetCurrentTwine());
   LoadCountriesFile(pathToCountriesFile);
-  CalcMaxMwmSizeBytes();
 
   m_downloader->SetDataVersion(m_currentVersion);
 }
@@ -145,7 +144,6 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
       LoadCountriesFromBuffer(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations,
                               m_countryNameSynonyms, m_mwmTopCityGeoIds, m_mwmTopCountryGeoIds);
   CHECK_LESS_OR_EQUAL(0, m_currentVersion, ("Can't load test countries file"));
-  CalcMaxMwmSizeBytes();
 
   m_downloader->SetDataVersion(m_currentVersion);
 }
@@ -1373,20 +1371,6 @@ bool Storage::IsCountryLeaf(CountryTree::Node const & node)
 bool Storage::IsWorldCountryID(CountryId const & country)
 {
   return strings::StartsWith(country, WORLD_FILE_NAME);
-}
-
-void Storage::CalcMaxMwmSizeBytes()
-{
-  m_maxMwmSizeBytes = 0;
-  m_countries.GetRoot().ForEachInSubtree([&](CountryTree::Node const & node)
-  {
-    if (node.ChildrenCount() == 0)
-    {
-      MwmSize mwmSizeBytes = node.Value().GetSubtreeMwmSizeBytes();
-      if (mwmSizeBytes > m_maxMwmSizeBytes)
-        m_maxMwmSizeBytes = mwmSizeBytes;
-    }
-  });
 }
 
 /*

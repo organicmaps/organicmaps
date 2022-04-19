@@ -247,8 +247,6 @@ private:
   MwmTopCountryGeoIds m_mwmTopCountryGeoIds;
   /// @}
 
-  MwmSize m_maxMwmSizeBytes = 0;
-
   ThreadChecker m_threadChecker;
 
   bool m_needToStartDeferredDownloading = false;
@@ -557,8 +555,6 @@ public:
   void SetLocale(std::string const & locale) { m_countryNameGetter.SetLocale(locale); }
   std::string GetLocale() const { return m_countryNameGetter.GetLocale(); }
 
-  MwmSize GetMaxMwmSizeBytes() const { return m_maxMwmSizeBytes; }
-
   // for testing:
   void SetEnabledIntegrityValidationForTesting(bool enabled);
   void SetDownloaderForTesting(std::unique_ptr<MapFilesDownloader> downloader);
@@ -649,8 +645,6 @@ private:
   /// @return true iff \a node is a country MWM leaf of the tree.
   static bool IsCountryLeaf(CountryTree::Node const & node);
   static bool IsWorldCountryID(CountryId const & country);
-
-  void CalcMaxMwmSizeBytes();
 
   void OnMapDownloadFailed(CountryId const & countryId);
 
