@@ -41,9 +41,10 @@
 	<string name="close">Închide</string>
 	<string name="unsupported_phone">Această aplicație necesită accelerarea hardware OpenGL. Din păcate, dispozitivul tău nu este compatibil.</string>
 	<string name="download">Descarcă</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Deconectează cablul USB sau introdu un card de memorie pentru a utiliza Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Spațiul de stocare de pe cardul SD/memoria USB este insuficient pentru a putea utiliza aplicația</string>
-	<string name="not_enough_memory">Memorie insuficientă pentru a porni aplicația</string>
 	<string name="download_resources">Înainte de a începe, trebuie descărcată harta generală a lumii în dispozitivul tău.\nSe vor descărca %s.</string>
 	<string name="download_resources_continue">Mergi la hartă</string>
 	<string name="downloading_country_can_proceed">Se descarcă %s. Acum poți\ntrece la hartă.</string>
@@ -677,7 +678,9 @@
 	<string name="elevation_profile_time">Timp:</string>
 	<string name="isolines_toast_zooms_1_10">Mărește harta pentru a vedea izoliniile</string>
 	<string name="download_map_title">Descarcă harta lumii</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Eroare de conectare</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Deconectează cablul USB</string>
 	<string name="enable_screen_sleep">Permite ecranului să se stingă</string>
 	<!-- Description in preferences -->

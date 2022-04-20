@@ -37,9 +37,10 @@
 	<string name="close">סגור</string>
 	<string name="unsupported_phone">נדרש מאיץ חומרה OpenGL. לצערינו מכשיר זה אינו נתמך.</string>
 	<string name="download">הורד</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש  ב Organic Maps.</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">אנא פנה שטח אחסון על ה SD card/USB כדי להשתמש בישום</string>
-	<string name="not_enough_memory">אין מספיק זכרון כדי להפעיל הישום</string>
 	<string name="download_resources">תחילה, נוריד למכשירך מפה כללית של העולם.\nדורש %s של נתונים.</string>
 	<string name="download_resources_continue">עבור למפה</string>
 	<string name="downloading_country_can_proceed">מוריד %s. תוכל עתה\nלהמשיך למפה.</string>

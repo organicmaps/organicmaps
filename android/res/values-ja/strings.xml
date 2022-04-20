@@ -41,9 +41,10 @@
 	<string name="close">閉じる</string>
 	<string name="unsupported_phone">ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。</string>
 	<string name="download">ダウンロード</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Organic Mapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります</string>
-	<string name="not_enough_memory">メモリ不足のためアプリを起動できません</string>
 	<string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。これには%sの空き容量が必要です。</string>
 	<string name="download_resources_continue">マップを表示</string>
 	<string name="downloading_country_can_proceed">%sをダウンロードしました\nマップを表示可能です</string>

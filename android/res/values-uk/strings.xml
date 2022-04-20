@@ -44,9 +44,10 @@
 	<string name="close">Закрити</string>
 	<string name="unsupported_phone">Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.</string>
 	<string name="download">Завантажити</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Вимкніть USB кабель або вставте SD-карту</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Недостатньо вільного місця на SD карті / в пам\'яті пристрою для використання програми</string>
-	<string name="not_enough_memory">Недостатньо пам\'яті для запуску програми</string>
 	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.\nВона потребує %s даних.</string>
 	<string name="download_resources_continue">Перейти на мапу</string>
 	<string name="downloading_country_can_proceed">Поки завантажується %s\nви можете користуватися програмою.</string>
