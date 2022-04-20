@@ -38,9 +38,10 @@
 	<string name="connection_settings">Verbindingsinstellingen</string>
 	<string name="close">Sluiten</string>
 	<string name="unsupported_phone">Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Verwijder de USB kabel of plaats een geheugenkaart om Organic Maps te gebruiken</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Maak eerst ruimte vrij op de SD-kaart/USB-opslag om de app te gebruiken</string>
-	<string name="not_enough_memory">Niet genoeg geheugen om de app te starten</string>
 	<string name="download_resources">Voordat u start, laten we de algemene wereldkaart naar uw apparaat downloaden.\nDeze neemt %s in beslag.</string>
 	<string name="download_resources_continue">Ga naar de kaart</string>
 	<string name="downloading_country_can_proceed">%s aan het downloaden. U kunt nu\ndoorgaan naar de kaart.</string>

@@ -41,9 +41,10 @@
 	<string name="close">Chiudi</string>
 	<string name="unsupported_phone">È necessaria una accelerazione hardware OpenGL. Purtroppo, il tuo dispositivo non è supportato.</string>
 	<string name="download">Scarica</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Si prega di scollegare il cavo USB o inserire la scheda di memoria per utilizzare Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l\'app</string>
-	<string name="not_enough_memory">Memoria insufficiente per lanciare l\'app</string>
 	<string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %s.</string>
 	<string name="download_resources_continue">Vai alla mappa</string>
 	<string name="downloading_country_can_proceed">Sto scaricando %s. Puoi ora\nprocedere con la mappa.</string>
@@ -673,7 +674,9 @@
 	<string name="elevation_profile_time">Tempo:</string>
 	<string name="isolines_toast_zooms_1_10">Ingrandisci mappa per vedere l\'isolinea</string>
 	<string name="download_map_title">Scarica la mappa del mondo</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Errore di connessione</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Scollegare il cavo USB</string>
 	<string name="enable_screen_sleep">Consenti allo schermo di dormire</string>
 	<!-- Description in preferences -->
@@ -1091,6 +1094,7 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Cimitero</string>
 	<string name="type.landuse.churchyard">Sagrato della chiesa</string>
+	<string name="type.landuse.education">Strutture didattiche</string>
 	<string name="type.landuse.farmland">Terreno agricolo</string>
 	<string name="type.landuse.forest">Foresta</string>
 	<string name="type.landuse.forest.coniferous">Foresta</string>

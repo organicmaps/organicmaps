@@ -44,9 +44,10 @@
 	<string name="close">Close</string>
 	<string name="unsupported_phone">The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.</string>
 	<string name="download">Download</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Please disconnect USB cable or insert memory card to use Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Please free up some space on the SD card/USB storage first in order to use the app</string>
-	<string name="not_enough_memory">Not enough memory to launch app</string>
 	<string name="download_resources">Before you start using the app, allow us to download the general world map to your device.\nIt will use %s of storage.</string>
 	<string name="download_resources_continue">Go to Map</string>
 	<string name="downloading_country_can_proceed">Downloading %s. You can now\nproceed to the map.</string>
@@ -701,7 +702,13 @@
 	<string name="elevation_profile_time">Time:</string>
 	<string name="isolines_toast_zooms_1_10">Zoom in to explore isolines</string>
 	<string name="download_map_title">Download the world map</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">Unable to create folder and move files on internal device\'s memory or sdcard</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">Disk error</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Connection failure</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Disconnect USB cable</string>
 	<string name="enable_screen_sleep">Allow screen to sleep</string>
 	<!-- Description in preferences -->
