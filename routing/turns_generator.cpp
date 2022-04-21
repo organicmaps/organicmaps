@@ -197,19 +197,26 @@ bool DiscardTurnByHighwayClass(TurnCandidates const & possibleTurns, TurnInfo co
 }
 
 /// * \returns false when
+/// * for routes which go straight and don't go to a smaller road:
+/// * - any alternative GoStraight or SlightTurn turn
+/// * for other routes:
 /// * - any alternative turn to a bigger road
 /// * - or any alternative turn to a similar road if the turn's angle is less than kMaxAbsAngleSameRoadClass degrees (wider than SlightTurn)
 /// * - or any alternative turn to a smaller road if it's GoStraight or SlightTurn.
 /// * Returns true otherwise.
+/// \param turnRoute is current route turn
 /// \param turnCandidates is all possible ways out from a junction except uturn.
 /// \param turnInfo is information about ingoing and outgoing segments of the route.
 /// it is supposed that current turn is GoStraight or SlightTurn
-bool DiscardTurnByNoAlignedAlternatives(std::vector<TurnCandidate> const & turnCandidates, TurnInfo const & turnInfo,
+bool DiscardTurnByNoAlignedAlternatives(TurnItem const & turnRoute, 
+                                        std::vector<TurnCandidate> const & turnCandidates, 
+                                        TurnInfo const & turnInfo,
                                         NumMwmIds const & numMwmIds)
 {
   double constexpr kMaxAbsAngleSameRoadClass = 70.0;
 
   ftypes::HighwayClass outgoingRouteRoadClass = turnInfo.m_outgoing.m_highwayClass;
+  ftypes::HighwayClass ingoingRouteRoadClass = turnInfo.m_ingoing.m_highwayClass;
 
   // The turn should be kept if there's no any information about feature id of outgoing segment
   // just to be on the safe side. It may happen in case of outgoing segment is a finish segment.
@@ -222,25 +229,34 @@ bool DiscardTurnByNoAlignedAlternatives(std::vector<TurnCandidate> const & turnC
     // Let's consider all outgoing segments except for route outgoing segment.
     if (t.m_segment == firstOutgoingSegment)
       continue;
-    ftypes::HighwayClass const highwayClass = t.m_highwayClass;
-    // @note The bigger is the road, the lesser is HighwayClass value.
-    if (static_cast<int>(highwayClass) < static_cast<int>(outgoingRouteRoadClass))
+
+    if (turnRoute.m_turn == CarDirection::GoStraight && static_cast<int>(outgoingRouteRoadClass) >= static_cast<int>(ingoingRouteRoadClass))
     {
-      // Any alternative turn to a bigger road keeps the turn direction.
-      return false;
-    }
-    else if (highwayClass == outgoingRouteRoadClass)
-    {
-      // Any alternative turn to a similar road keeps the turn direction if the turn's angle is less than
-      // kMaxAbsAngleSameRoadClass degrees (wider than SlightTurn).
-      if (fabs(t.m_angle) < kMaxAbsAngleSameRoadClass)
-        return false;
-    }
-    else // static_cast<int>(highwayClass) > static_cast<int>(outgoingRouteRoadClass)
-    {
-      // Any alternative turn to a smaller road keeps the turn direction if it's GoStraight or SlightTurn.
       if (IsGoStraightOrSlightTurn(IntermediateDirection(t.m_angle)))
         return false;
+    }
+    else
+    {
+      ftypes::HighwayClass const highwayClass = t.m_highwayClass;
+      // @note The bigger is the road, the lesser is HighwayClass value.
+      if (static_cast<int>(highwayClass) < static_cast<int>(outgoingRouteRoadClass))
+      {
+        // Any alternative turn to a bigger road keeps the turn direction.
+        return false;
+      }
+      else if (highwayClass == outgoingRouteRoadClass)
+      {
+        // Any alternative turn to a similar road keeps the turn direction if the turn's angle is less than
+        // kMaxAbsAngleSameRoadClass degrees (wider than SlightTurn).
+        if (fabs(t.m_angle) < kMaxAbsAngleSameRoadClass)
+          return false;
+      }
+      else // static_cast<int>(highwayClass) > static_cast<int>(outgoingRouteRoadClass)
+      {
+        // Any alternative turn to a smaller road keeps the turn direction if it's GoStraight or SlightTurn.
+        if (IsGoStraightOrSlightTurn(IntermediateDirection(t.m_angle)))
+          return false;
+      }
     }
   }
   return true;
@@ -1152,7 +1168,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
   if (!turn.m_keepAnyway && IsGoStraightOrSlightTurn(turn.m_turn))
   {
     if (DiscardTurnByHighwayClass(nodes, turnInfo, numMwmIds, turn.m_turn) ||
-        DiscardTurnByNoAlignedAlternatives(turnCandidates, turnInfo, numMwmIds))
+        DiscardTurnByNoAlignedAlternatives(turn, turnCandidates, turnInfo, numMwmIds))
     {
       turn.m_turn = CarDirection::None;
       return;
