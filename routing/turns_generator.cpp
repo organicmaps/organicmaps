@@ -266,38 +266,6 @@ bool KeepRoundaboutTurnByHighwayClass(TurnCandidates const & possibleTurns,
   return false;
 }
 
-bool DoAllTurnCandidatesGoAlmostStraight(vector<TurnCandidate> const & candidates)
-{
-  return all_of(candidates.cbegin(), candidates.cend(), [](TurnCandidate const & c) {
-    return IsGoStraightOrSlightTurn(IntermediateDirection(c.m_angle));
-  });
-}
-
-/// \brief Analyzes its args and makes a decision if it's possible to have a turn at this junction
-/// or not.
-/// \returns true if based on this analysis there's no turn at this junction and
-/// false if the junction should be considered as possible turn.
-bool DiscardTurnByIngoingAndOutgoingEdges(CarDirection intermediateDirection, bool hasMultiTurns,
-                                          TurnInfo const & turnInfo, TurnItem const & turn,
-                                          TurnCandidates const & turnCandidates)
-{
-  // @TODO(bykoianko) If all turn candidates go almost straight and there are several ways
-  // from the junction (|hasMultiTurns| == true) the turn will be discarded.
-  // If all turn candidates go almost straight and there is only one way
-  // from the junction (|hasMultiTurns| == false) the turn will not be discarded in this method,
-  // and then may be kept. It means that in some cases if there are two or more possible
-  // ways from a junction the turn may be discarded and if there is only one way out
-  // the turn may be kept. This code should be redesigned.
-  if (turnCandidates.isCandidatesAngleValid &&
-      DoAllTurnCandidatesGoAlmostStraight(turnCandidates.candidates))
-  {
-    return !hasMultiTurns;
-  }
-
-  return ((!hasMultiTurns && IsGoStraightOrSlightTurn(intermediateDirection)) ||
-          (hasMultiTurns && intermediateDirection == CarDirection::GoStraight));
-}
-
 bool KeepTurnByIngoingEdges(m2::PointD const & junctionPoint,
                             m2::PointD const & ingoingPointOneSegment,
                             m2::PointD const & outgoingPoint, bool hasMultiTurns,
@@ -1160,10 +1128,6 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
     return;
   }
 
-  if (!turn.m_keepAnyway)
-    if (DiscardTurnByIngoingAndOutgoingEdges(intermediateDirection, hasMultiTurns, turnInfo, turn, nodes))
-      return;
-
   // Collect in candidatesWithoutUturn all turn candidates except uturn (if any).
   auto candidatesWithoutUturn = nodes.candidates;
   Segment lastIngoingSegment;
@@ -1182,7 +1146,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
   // Note 1. If the road significantly changes its direction this turn shall be kept here.
   // Note 2. Keeping a turn at this point means that the decision to keep this turn or not
   // will be made after.
-  if (!turn.m_keepAnyway && IsGoStraightOrSlightTurn(turn.m_turn)))
+  if (!turn.m_keepAnyway && IsGoStraightOrSlightTurn(turn.m_turn))
   {
     if (DiscardTurnByHighwayClass(nodes, turnInfo, numMwmIds, turn.m_turn) ||
         DiscardTurnByNoAlignedAlternatives(candidatesWithoutUturn, turnInfo, numMwmIds))
