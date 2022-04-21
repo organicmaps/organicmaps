@@ -281,13 +281,6 @@ bool DiscardTurnByIngoingAndOutgoingEdges(CarDirection intermediateDirection, bo
                                           TurnInfo const & turnInfo, TurnItem const & turn,
                                           TurnCandidates const & turnCandidates)
 {
-  if (turn.m_keepAnyway || turnInfo.m_ingoing.m_onRoundabout ||
-      turnInfo.m_outgoing.m_onRoundabout ||
-      turnInfo.m_ingoing.m_highwayClass != turnInfo.m_outgoing.m_highwayClass)
-  {
-    return false;
-  }
-
   // @TODO(bykoianko) If all turn candidates go almost straight and there are several ways
   // from the junction (|hasMultiTurns| == true) the turn will be discarded.
   // If all turn candidates go almost straight and there is only one way
@@ -1167,8 +1160,9 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
     return;
   }
 
-  if (DiscardTurnByIngoingAndOutgoingEdges(intermediateDirection, hasMultiTurns, turnInfo, turn, nodes))
-    return;
+  if (!turn.m_keepAnyway)
+    if (DiscardTurnByIngoingAndOutgoingEdges(intermediateDirection, hasMultiTurns, turnInfo, turn, nodes))
+      return;
 
   // Collect in candidatesWithoutUturn all turn candidates except uturn (if any).
   auto candidatesWithoutUturn = nodes.candidates;
@@ -1186,11 +1180,9 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
   turn.m_turn = intermediateDirection;
 
   // Note 1. If the road significantly changes its direction this turn shall be kept here.
-  // Note 2. If there's only one exit from this junction (nodes.candidates.size() == 1)
-  // this turn should be kept (because it was kept by DiscardTurnByIngoingAndOutgoingEdges as an exception).
-  // Note 3. Keeping a turn at this point means that the decision to keep this turn or not
+  // Note 2. Keeping a turn at this point means that the decision to keep this turn or not
   // will be made after.
-  if (!turn.m_keepAnyway && IsGoStraightOrSlightTurn(turn.m_turn) && nodes.candidates.size() != 1)
+  if (!turn.m_keepAnyway && IsGoStraightOrSlightTurn(turn.m_turn)))
   {
     if (DiscardTurnByHighwayClass(nodes, turnInfo, numMwmIds, turn.m_turn) ||
         DiscardTurnByNoAlignedAlternatives(candidatesWithoutUturn, turnInfo, numMwmIds))
