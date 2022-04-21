@@ -58,9 +58,9 @@ bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage
   // - Android and Desktop has 1 simultaneous download
   // - iOS has unlimited simultaneous downloads
 #ifdef OMIM_OS_IPHONE
-  return updateInfo.m_totalDownloadSizeInBytes;
+  return IsEnoughSpaceForDownload(updateInfo.m_totalDownloadSizeInBytes);
 #else
-  return diff + updateInfo.m_maxFileSizeInBytes;
+  return IsEnoughSpaceForDownload(diff + updateInfo.m_maxFileSizeInBytes);
 #endif
 }
 
