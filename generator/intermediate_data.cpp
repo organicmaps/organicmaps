@@ -157,7 +157,7 @@ public:
   {
   }
 
-  ~RawMemPointStorageWriter() override
+  ~RawMemPointStorageWriter() noexcept(false) override
   {
     m_fileWriter.Write(m_data.data(), m_data.size() * sizeof(LatLon));
   }
