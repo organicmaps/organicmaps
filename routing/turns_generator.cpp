@@ -201,10 +201,10 @@ bool DiscardTurnByHighwayClass(TurnCandidates const & possibleTurns, TurnInfo co
 /// * - or any alternative turn to a similar road if the turn's angle is less than kMaxAbsAngleSameRoadClass degrees (wider than SlightTurn)
 /// * - or any alternative turn to a smaller road if it's GoStraight or SlightTurn.
 /// * Returns true otherwise.
-/// \param candidatesWithoutUturn is all possible ways out from a junction except uturn.
+/// \param turnCandidates is all possible ways out from a junction except uturn.
 /// \param turnInfo is information about ingoing and outgoing segments of the route.
 /// it is supposed that current turn is GoStraight or SlightTurn
-bool DiscardTurnByNoAlignedAlternatives(std::vector<TurnCandidate> const & candidatesWithoutUturn, TurnInfo const & turnInfo,
+bool DiscardTurnByNoAlignedAlternatives(std::vector<TurnCandidate> const & turnCandidates, TurnInfo const & turnInfo,
                                         NumMwmIds const & numMwmIds)
 {
   double constexpr kMaxAbsAngleSameRoadClass = 70.0;
@@ -217,7 +217,7 @@ bool DiscardTurnByNoAlignedAlternatives(std::vector<TurnCandidate> const & candi
   if (!turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSegment))
     return false;
 
-  for (auto const & t : candidatesWithoutUturn)
+  for (auto const & t : turnCandidates)
   {
     // Let's consider all outgoing segments except for route outgoing segment.
     if (t.m_segment == firstOutgoingSegment)
@@ -1008,6 +1008,18 @@ bool HasMultiTurns(NumMwmIds const & numMwmIds, TurnCandidates const & turnCandi
   return !OneOfTurnCandidatesGoesAlongIngoingSegment(numMwmIds, turnCandidates, turnInfo);
 }
 
+void RemoveUTurnCandidate(TurnInfo const & turnInfo, NumMwmIds const & numMwmIds, std::vector<TurnCandidate> & turnCandidates)
+{
+  Segment lastIngoingSegment;
+  if (turnInfo.m_ingoing.m_segmentRange.GetLastSegment(numMwmIds, lastIngoingSegment))
+  {
+    if (turnCandidates.front().m_segment.IsInverse(lastIngoingSegment))
+      turnCandidates.erase(turnCandidates.begin());
+    else if (turnCandidates.back().m_segment.IsInverse(lastIngoingSegment))
+      turnCandidates.pop_back();
+  }
+}
+
 /// \returns true if there is exactly 1 turn in |turnCandidates| with angle less then
 /// |kMaxForwardAngleCandidates|.
 bool HasSingleForwardTurn(TurnCandidates const & turnCandidates)
@@ -1106,6 +1118,10 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
     return;
 
   bool const hasMultiTurns = HasMultiTurns(numMwmIds, nodes, turnInfo);
+  RemoveUTurnCandidate(turnInfo, numMwmIds, nodes.candidates);
+  auto const & turnCandidates = nodes.candidates;
+  ASSERT(hasMultiTurns == (turnCandidates.size() >= 2), 
+         ("hasMultiTurns is true if there are two or more possible ways which don't go along an ingoing segment and false otherwise"));
 
   // Check for enter or exit to/from roundabout.
   if (turnInfo.m_ingoing.m_onRoundabout || turnInfo.m_outgoing.m_onRoundabout)
@@ -1128,19 +1144,6 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
     return;
   }
 
-  // Collect in candidatesWithoutUturn all turn candidates except uturn (if any).
-  auto candidatesWithoutUturn = nodes.candidates;
-  Segment lastIngoingSegment;
-  if (turnInfo.m_ingoing.m_segmentRange.GetLastSegment(numMwmIds, lastIngoingSegment))
-  {
-    if (candidatesWithoutUturn.front().m_segment.IsInverse(lastIngoingSegment))
-      candidatesWithoutUturn.assign(candidatesWithoutUturn.cbegin() + 1, candidatesWithoutUturn.cend());
-    else if (candidatesWithoutUturn.back().m_segment.IsInverse(lastIngoingSegment))
-      candidatesWithoutUturn.assign(candidatesWithoutUturn.cbegin(), candidatesWithoutUturn.cend() - 1);
-  }
-  ASSERT(hasMultiTurns == (candidatesWithoutUturn.size() >= 2), 
-         ("hasMultiTurns is true if there are two or more possible ways which don't go along an ingoing segment and false otherwise"));
-
   turn.m_turn = intermediateDirection;
 
   // Note 1. If the road significantly changes its direction this turn shall be kept here.
@@ -1149,7 +1152,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
   if (!turn.m_keepAnyway && IsGoStraightOrSlightTurn(turn.m_turn))
   {
     if (DiscardTurnByHighwayClass(nodes, turnInfo, numMwmIds, turn.m_turn) ||
-        DiscardTurnByNoAlignedAlternatives(candidatesWithoutUturn, turnInfo, numMwmIds))
+        DiscardTurnByNoAlignedAlternatives(turnCandidates, turnInfo, numMwmIds))
     {
       turn.m_turn = CarDirection::None;
       return;
@@ -1173,20 +1176,14 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
     // possible ways out (except of uturn) are links.
     if (!turnInfo.m_ingoing.m_isLink && !turnInfo.m_outgoing.m_isLink &&
         turnInfo.m_ingoing.m_highwayClass == turnInfo.m_outgoing.m_highwayClass &&
-        GetLinkCount(candidatesWithoutUturn) + 1 == candidatesWithoutUturn.size())
+        GetLinkCount(turnCandidates) + 1 == turnCandidates.size())
     {
       turn.m_turn = CarDirection::None;
       return;
     }
   }
 
-  if (turn.m_turn == CarDirection::GoStraight && !hasMultiTurns)
-  {
-      turn.m_turn = CarDirection::None;
-      return;
-  }
-
-  if (candidatesWithoutUturn.size() >= 2)
+  if (turnCandidates.size() >= 2)
   {
     // If the route goes along the rightmost or the leftmost way among available ones:
     // 1. RightmostDirection or LeftmostDirection is selected
@@ -1195,22 +1192,22 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
     // GoStraight is corrected to TurnSlightRight/TurnSlightLeft
     // to avoid ambiguity: 2 or more almost straight turns and GoStraight direction.
 
-    if (candidatesWithoutUturn.front().m_segment == firstOutgoingSeg)
+    if (turnCandidates.front().m_segment == firstOutgoingSeg)
     {
       // The route goes along the leftmost candidate. 
       turn.m_turn = LeftmostDirection(turnAngle);
       // Compare with the closest left candidate.
-      GoStraightCorrection(candidatesWithoutUturn[1], CarDirection::TurnSlightLeft, turn);
+      GoStraightCorrection(turnCandidates[1], CarDirection::TurnSlightLeft, turn);
     }
-    else if (candidatesWithoutUturn.back().m_segment == firstOutgoingSeg)
+    else if (turnCandidates.back().m_segment == firstOutgoingSeg)
     {
       // The route goes along the rightmost candidate. 
       turn.m_turn = RightmostDirection(turnAngle);
       // Compare with the closest right candidate.
-      GoStraightCorrection(candidatesWithoutUturn[candidatesWithoutUturn.size() - 2], CarDirection::TurnSlightRight, turn);
+      GoStraightCorrection(turnCandidates[turnCandidates.size() - 2], CarDirection::TurnSlightRight, turn);
     }
-    // Note. It's possible that |firstOutgoingSeg| is not contained in |candidatesWithoutUturn|.
-    // It may happened if |firstOutgoingSeg| and candidates in |candidatesWithoutUturn| are
+    // Note. It's possible that |firstOutgoingSeg| is not contained in |turnCandidates|.
+    // It may happened if |firstOutgoingSeg| and candidates in |turnCandidates| are
     // from different mwms.
   }
 }
