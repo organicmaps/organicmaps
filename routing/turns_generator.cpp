@@ -1208,6 +1208,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
     // GoStraight is corrected to TurnSlightRight/TurnSlightLeft
     // to avoid ambiguity: 2 or more almost straight turns and GoStraight direction.
 
+    // turnCandidates are sorted by angle from leftmost to rightmost.
     if (turnCandidates.front().m_segment == firstOutgoingSeg)
     {
       // The route goes along the leftmost candidate. 
