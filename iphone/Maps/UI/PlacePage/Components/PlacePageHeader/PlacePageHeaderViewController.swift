@@ -9,6 +9,7 @@ protocol PlacePageHeaderViewProtocol: AnyObject {
 class PlacePageHeaderViewController: UIViewController {
   var presenter: PlacePageHeaderPresenterProtocol?
 
+  @IBOutlet private var headerView: PlacePageHeaderView!
   @IBOutlet private var titleLabel: UILabel?
   @IBOutlet private var expandView: UIView!
   @IBOutlet private var shadowView: UIView!
@@ -18,6 +19,7 @@ class PlacePageHeaderViewController: UIViewController {
     presenter?.configure()
     let tap = UITapGestureRecognizer(target: self, action: #selector(onExpandPressed(sender:)))
     expandView.addGestureRecognizer(tap)
+    headerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
   }
 
   @objc func onExpandPressed(sender: UITapGestureRecognizer) {

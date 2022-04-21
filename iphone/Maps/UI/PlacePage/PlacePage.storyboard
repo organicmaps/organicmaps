@@ -1796,6 +1796,7 @@
                     <size key="freeformSize" width="375" height="59"/>
                     <connections>
                         <outlet property="expandView" destination="Gdy-g5-gbM" id="rzi-mb-hUi"/>
+                        <outlet property="headerView" destination="fqh-H3-eji" id="Z2K-Wd-hRO"/>
                         <outlet property="shadowView" destination="spW-XI-KSY" id="kLc-R7-Rij"/>
                         <outlet property="titleLabel" destination="lR4-to-4wX" id="l4F-JL-aNb"/>
                         <outlet property="view" destination="xTs-NP-HcT" id="jQF-X9-Xlv"/>
