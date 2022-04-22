@@ -58,7 +58,13 @@ final class PlacePageScrollView: UIScrollView {
     bgView.styleName = "PPBackgroundView"
     stackView.insertSubview(bgView, at: 0)
     bgView.alignToSuperview()
+
     scrollView.decelerationRate = .fast
+    scrollView.layer.cornerRadius = 10
+    scrollView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+
+    stackView.layer.cornerRadius = 10
+    stackView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 
     actionBarContainerView.layer.cornerRadius = 10
     actionBarContainerView.layer.masksToBounds = true
