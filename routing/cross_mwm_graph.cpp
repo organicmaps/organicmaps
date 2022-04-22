@@ -49,24 +49,30 @@ bool CrossMwmGraph::IsTransition(Segment const & s, bool isOutgoing)
                                              : false;
 }
 
-void CrossMwmGraph::GetAllLoadedNeighbors(NumMwmId numMwmId,
-                                          vector<NumMwmId> & neighbors,
-                                          bool & allNeighborsHaveCrossMwmSection)
+bool CrossMwmGraph::GetAllLoadedNeighbors(NumMwmId numMwmId, vector<NumMwmId> & neighbors)
 {
   CHECK(m_numMwmTree, ());
   m2::RectD const rect = m_countryRectFn(m_numMwmIds->GetFile(numMwmId).GetName());
-  allNeighborsHaveCrossMwmSection = true;
-  m_numMwmTree->ForEachInRect(rect, [&](NumMwmId id) {
+
+  bool allNeighborsHaveCrossMwmSection = true;
+  m_numMwmTree->ForEachInRect(rect, [&](NumMwmId id)
+  {
     if (id == numMwmId)
       return;
     MwmStatus const status = GetCrossMwmStatus(id);
     if (status == MwmStatus::NotLoaded)
       return;
+
     if (status == MwmStatus::NoSection)
+    {
       allNeighborsHaveCrossMwmSection = false;
+      LOG(LWARNING, ("No cross-mwm-section for", m_numMwmIds->GetFile(id)));
+    }
 
     neighbors.push_back(id);
   });
+
+  return allNeighborsHaveCrossMwmSection;
 }
 
 void CrossMwmGraph::DeserializeTransitions(vector<NumMwmId> const & mwmIds)
@@ -87,8 +93,7 @@ void CrossMwmGraph::DeserializeTransitTransitions(vector<NumMwmId> const & mwmId
 
 void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment> & twins)
 {
-  ASSERT(IsTransition(s, isOutgoing),
-        ("The segment", s, "is not a transition segment for isOutgoing ==", isOutgoing));
+  ASSERT(IsTransition(s, isOutgoing), (s, isOutgoing));
   // Note. There's an extremely rare case when a segment is ingoing and outgoing at the same time.
   // |twins| is not filled for such cases. For details please see a note in
   // CrossMwmGraph::GetOutgoingEdgeList().
@@ -97,13 +102,19 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
 
   twins.clear();
 
+  // If you got ASSERTs here, check that m_numMwmIds and m_numMwmTree are initialized with valid
+  // country MWMs only, without World*, minsk-pass, or any other test MWMs.
+  // This may happen with ill-formed routing integration tests.
+#ifdef DEBUG
+  auto const & file = m_numMwmIds->GetFile(s.GetMwmId());
+#endif
+
   vector<NumMwmId> neighbors;
-  bool allNeighborsHaveCrossMwmSection = false;
-  GetAllLoadedNeighbors(s.GetMwmId(), neighbors, allNeighborsHaveCrossMwmSection);
+  bool const allNeighborsHaveCrossMwmSection = GetAllLoadedNeighbors(s.GetMwmId(), neighbors);
+  ASSERT(allNeighborsHaveCrossMwmSection, (file));
+
   MwmStatus const currentMwmStatus = GetCrossMwmStatus(s.GetMwmId());
-  CHECK_NOT_EQUAL(currentMwmStatus, MwmStatus::NotLoaded,
-                  ("Current mwm is not loaded. Mwm:", m_numMwmIds->GetFile(s.GetMwmId()),
-                   "currentMwmStatus:", currentMwmStatus));
+  ASSERT_EQUAL(currentMwmStatus, MwmStatus::SectionExists, (file));
 
   if (TransitGraph::IsTransitSegment(s) && TransitCrossMwmSectionExists(s.GetMwmId()))
   {
@@ -117,9 +128,7 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
   }
   else
   {
-    // TODO (@gmoryes)
-    //  May be we should add ErrorCode about "NeedUpdateMaps" and return it here.
-    //  but until we haven't it, lets do nothing.
+    ASSERT(false, ("All country MWMs should have cross-mwm-section", file));
     return;
   }
 

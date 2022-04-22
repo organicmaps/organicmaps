@@ -115,9 +115,7 @@ private:
   /// \brief Fills |neighbors| with number mwm id of all loaded neighbors of |numMwmId| and
   /// sets |allNeighborsHaveCrossMwmSection| to true if all loaded neighbors have cross mwm section
   /// and to false otherwise.
-  void GetAllLoadedNeighbors(NumMwmId numMwmId,
-                             std::vector<NumMwmId> & neighbors,
-                             bool & allNeighborsHaveCrossMwmSection);
+  bool GetAllLoadedNeighbors(NumMwmId numMwmId, std::vector<NumMwmId> & neighbors);
   /// \brief Deserizlize transitions for mwm with |ids|.
   void DeserializeTransitions(std::vector<NumMwmId> const & mwmIds);
   void DeserializeTransitTransitions(std::vector<NumMwmId> const & mwmIds);

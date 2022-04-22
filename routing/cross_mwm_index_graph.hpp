@@ -136,9 +136,9 @@ public:
       // build the route, because we fail in astar_algorithm.hpp CHECK(invariant) sometimes.
       auto const & sMwmId = m_dataSource.GetMwmIdByCountryFile(m_numMwmIds->GetFile(s.GetMwmId()));
       CHECK(sMwmId.IsAlive(), (s));
-      auto const & twinSegMwmId =
-          m_dataSource.GetMwmIdByCountryFile(m_numMwmIds->GetFile(twinSeg->GetMwmId()));
+      auto const & twinSegMwmId = m_dataSource.GetMwmIdByCountryFile(m_numMwmIds->GetFile(twinSeg->GetMwmId()));
       CHECK(twinSegMwmId.IsAlive(), (*twinSeg));
+
       if (sMwmId.GetInfo()->GetVersion() == twinSegMwmId.GetInfo()->GetVersion() ||
           SegmentsAreEqualByGeometry(s, *twinSeg))
       {
@@ -263,12 +263,13 @@ private:
   template <typename Fn>
   CrossMwmConnector<CrossMwmId> const & Deserialize(NumMwmId numMwmId, Fn && fn)
   {
-    MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(numMwmId));
+    auto const & file = m_numMwmIds->GetFile(numMwmId);
+    MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
     if (!handle.IsAlive())
-      MYTHROW(RoutingException, ("Mwm", m_numMwmIds->GetFile(numMwmId), "cannot be loaded."));
+      MYTHROW(RoutingException, ("Mwm", file, "cannot be loaded."));
 
     MwmValue const * value = handle.GetValue();
-    CHECK(value != nullptr, ("Country file:", m_numMwmIds->GetFile(numMwmId)));
+    CHECK(value != nullptr, ("Country file:", file));
 
     FilesContainerR::TReader reader(connector::GetReader<CrossMwmId>(value->m_cont));
     ReaderSourceFile src(reader);

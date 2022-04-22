@@ -163,10 +163,10 @@ Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge)
     return Segment();
   }
 
-  NumMwmId const numMwmId =
-      numMwmIds.GetId(edge.GetFeatureId().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
+  auto const & fID = edge.GetFeatureId();
+  NumMwmId const numMwmId = numMwmIds.GetId(fID.m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
 
-  return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
+  return Segment(numMwmId, fID.m_index, edge.GetSegId(), edge.IsForward());
 }
 
 bool SegmentCrossesRect(m2::Segment2D const & segment, m2::RectD const & rect)
