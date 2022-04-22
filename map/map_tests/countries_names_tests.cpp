@@ -50,6 +50,8 @@ UNIT_TEST(CountriesNamesTest)
                                    "Transnistria",
                                    "Nagorno-Karabakh Republic",
                                    "Republic of Artsakh",
+                                   "Saint Helena, Ascension and Tristan da Cunha",
+                                   "Somaliland",
                                    };
 
   auto const features = cache.Get(mwmContext);
