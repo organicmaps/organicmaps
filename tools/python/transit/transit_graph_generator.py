@@ -415,7 +415,7 @@ if __name__ == '__main__':
     if output_file is None:
         output_file = os.path.join(head, name + '.transit' + extension)
     with open(output_file, 'w') as json_file:
-        result_data = json.dumps(result, ensure_ascii=False, indent=4, sort_keys=True)
+        result_data = json.dumps(result, ensure_ascii=False, indent='\t', sort_keys=True, separators=(',', ':'))
         json_file.write(result_data)
     print('Transit graph generated:', output_file)
 
