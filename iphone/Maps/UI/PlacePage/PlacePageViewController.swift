@@ -59,6 +59,10 @@ final class PlacePageScrollView: UIScrollView {
     stackView.insertSubview(bgView, at: 0)
     bgView.alignToSuperview()
     scrollView.decelerationRate = .fast
+
+    actionBarContainerView.layer.cornerRadius = 10
+    actionBarContainerView.layer.masksToBounds = true
+    actionBarContainerView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
   }
 
   override func viewDidLayoutSubviews() {
