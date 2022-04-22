@@ -328,17 +328,17 @@ UNIT_TEST(TestRightmostDirection)
   TEST_EQUAL(RightmostDirection(90.), CarDirection::TurnRight, ());
   TEST_EQUAL(RightmostDirection(45.), CarDirection::TurnSlightRight, ());
   TEST_EQUAL(RightmostDirection(0.), CarDirection::GoStraight, ());
-  TEST_EQUAL(RightmostDirection(-20.), CarDirection::TurnSlightLeft, ());
-  TEST_EQUAL(RightmostDirection(-90.), CarDirection::TurnLeft, ());
-  TEST_EQUAL(RightmostDirection(-170.), CarDirection::TurnSharpLeft, ());
+  TEST_EQUAL(RightmostDirection(-20.), CarDirection::GoStraight, ());
+  TEST_EQUAL(RightmostDirection(-90.), CarDirection::GoStraight, ());
+  TEST_EQUAL(RightmostDirection(-170.), CarDirection::GoStraight, ());
 }
 
 UNIT_TEST(TestLeftmostDirection)
 {
-  TEST_EQUAL(LeftmostDirection(180.), CarDirection::TurnSharpRight, ());
-  TEST_EQUAL(LeftmostDirection(170.), CarDirection::TurnSharpRight, ());
-  TEST_EQUAL(LeftmostDirection(90.), CarDirection::TurnRight, ());
-  TEST_EQUAL(LeftmostDirection(45.), CarDirection::TurnSlightRight, ());
+  TEST_EQUAL(LeftmostDirection(180.), CarDirection::GoStraight, ());
+  TEST_EQUAL(LeftmostDirection(170.), CarDirection::GoStraight, ());
+  TEST_EQUAL(LeftmostDirection(90.), CarDirection::GoStraight, ());
+  TEST_EQUAL(LeftmostDirection(45.), CarDirection::GoStraight, ());
   TEST_EQUAL(LeftmostDirection(0.), CarDirection::GoStraight, ());
   TEST_EQUAL(LeftmostDirection(-20.), CarDirection::TurnSlightLeft, ());
   TEST_EQUAL(LeftmostDirection(-90.), CarDirection::TurnLeft, ());
