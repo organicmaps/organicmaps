@@ -154,7 +154,7 @@ public:
 
   // Tries to get |value| for key identified by |id|.  Returns
   // false if table does not have entry for this id.
-  WARN_UNUSED_RESULT bool Get(uint32_t id, Value & value)
+  [[nodiscard]] bool Get(uint32_t id, Value & value)
   {
     if (id >= m_ids.size() || !m_ids[id])
       return false;
@@ -173,7 +173,7 @@ public:
 
   // Tries to get |value| for key identified by |id|.  Returns
   // false if table does not have entry for this id.
-  WARN_UNUSED_RESULT bool GetThreadsafe(uint32_t id, Value & value) const
+  [[nodiscard]] bool GetThreadsafe(uint32_t id, Value & value) const
   {
     if (id >= m_ids.size() || !m_ids[id])
       return false;

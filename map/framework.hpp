@@ -269,8 +269,7 @@ public:
     AskForUpdateMaps,
     Migrate
   };
-
-  DoAfterUpdate ToDoAfterUpdate() const;
+//  DoAfterUpdate ToDoAfterUpdate() const;
 
   storage::Storage & GetStorage() { return m_storage; }
   storage::Storage const & GetStorage() const { return m_storage; }
@@ -736,14 +735,8 @@ public:
   void CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type,
                   std::string const & note);
 
-public:
-  storage::CountriesVec GetTopmostCountries(ms::LatLon const & latlon) const;
-
 private:
-  std::unique_ptr<search::CityFinder> m_cityFinder;
   CachingAddressGetter m_addressGetter;
-
-  void InitCityFinder();
 
 public:
   // TipsApi::Delegate override.

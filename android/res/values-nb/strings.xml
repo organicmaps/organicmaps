@@ -43,9 +43,10 @@
 	<string name="close">Lukk</string>
 	<string name="unsupported_phone">En maskinvareakselerert OpenGL kreves. Dessverre støttes ikke enheten din.</string>
 	<string name="download">Last ned</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Koble fra USB-kabelen eller sett inn minnekortet for å bruke Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Frigjør plass på SD-kortet/USB-enheten først for å bruke appen</string>
-	<string name="not_enough_memory">Ikke nok minne til å starte appen</string>
 	<string name="download_resources">Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %s med data.</string>
 	<string name="download_resources_continue">Gå til kart</string>
 	<string name="downloading_country_can_proceed">Laster ned %s. Du kan nå\nfortsette til kartet.</string>

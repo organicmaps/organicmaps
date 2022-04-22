@@ -10,7 +10,7 @@ FileWriter::FileWriter(string const & fileName, FileWriter::Op op)
 {
 }
 
-FileWriter::~FileWriter()
+FileWriter::~FileWriter() noexcept(false)
 {
   // Note: FileWriter::Flush will be called (like non virtual method).
   Flush();
@@ -41,19 +41,9 @@ uint64_t FileWriter::Size() const
   return m_pFileData->Size();
 }
 
-void FileWriter::Flush()
+void FileWriter::Flush() noexcept(false)
 {
   m_pFileData->Flush();
-}
-
-base::FileData & FileWriter::GetFileData()
-{
-  return *m_pFileData;
-}
-
-base::FileData const & FileWriter::GetFileData() const
-{
-  return *m_pFileData;
 }
 
 void FileWriter::DeleteFileX(string const & fName)

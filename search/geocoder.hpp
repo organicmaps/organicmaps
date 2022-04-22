@@ -35,7 +35,6 @@
 #include "base/cancellable.hpp"
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
-#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstddef>
@@ -291,7 +290,7 @@ private:
 
   // This is a faster wrapper around SearchModel::GetSearchType(), as
   // it uses pre-loaded lists of streets and villages.
-  WARN_UNUSED_RESULT bool GetTypeInGeocoding(BaseContext const & ctx, uint32_t featureId,
+  [[nodiscard]] bool GetTypeInGeocoding(BaseContext const & ctx, uint32_t featureId,
                                              Model::Type & type);
 
   ExtendedMwmInfos::ExtendedMwmInfo GetExtendedMwmInfo(

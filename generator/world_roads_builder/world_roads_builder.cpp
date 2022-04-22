@@ -64,17 +64,17 @@ RoadsFromOsm GetRoadsFromOsm(generator::SourceReader & reader,
 {
   RoadsFromOsm roadsFromOsm;
 
-  ProcessOsmElementsFromO5M(reader, [&roadsFromOsm, &highways](OsmElement * e) {
-    if (e->IsWay())
+  ProcessOsmElementsFromO5M(reader, [&roadsFromOsm, &highways](OsmElement && e) {
+    if (e.IsWay())
     {
-      std::string const & highway = e->GetTag("highway");
+      std::string const & highway = e.GetTag("highway");
 
       if (!highway.empty() && base::IsExist(highways, highway))
-        roadsFromOsm.m_ways[highway].emplace(e->m_id, RoadData({}, *e));
+        roadsFromOsm.m_ways[highway].emplace(e.m_id, RoadData({}, std::move(e)));
     }
-    else if (e->IsNode())
+    else if (e.IsNode())
     {
-      roadsFromOsm.m_nodes.emplace(e->m_id, ms::LatLon(e->m_lat, e->m_lon));
+      roadsFromOsm.m_nodes.emplace(e.m_id, ms::LatLon(e.m_lat, e.m_lon));
     }
   });
 

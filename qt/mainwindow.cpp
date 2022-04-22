@@ -208,10 +208,7 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
 
   m_pDrawWidget->UpdateAfterSettingsChanged();
   
-  if (RoutingSettings::IsCacheEnabled())
-    RoutingSettings::LoadSettings(m_pDrawWidget->GetFramework());
-  else
-    RoutingSettings::ResetSettings();
+  RoutingSettings::LoadSession(m_pDrawWidget->GetFramework());
 }
 
 #if defined(Q_WS_WIN)

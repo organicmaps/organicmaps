@@ -41,9 +41,10 @@
 	<string name="close">Itxi</string>
 	<string name="unsupported_phone">Aplikazioak hardware-azeleratutako OpenGL behar du. Zoritxarrez, zure gailua ez da onartzen.</string>
 	<string name="download">Deskargatu</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Mesedez, deskonektatu USB kablea edo sartu SD memoria Organic Maps erabiltzeko</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Mesedez, askatu lekua SD memorian/USB biltegian aplikazioa erabiltzeko</string>
-	<string name="not_enough_memory">Ez dago memoria nahikoa aplikazioa abiarazteko</string>
 	<string name="download_resources">Hasi baino lehen, utzi mundu-mapa orokor bat zure gailura deskargatzeko.\nDatuen %s beharrezkoa da.</string>
 	<string name="download_resources_continue">Joan mapara</string>
 	<string name="downloading_country_can_proceed">%s deskargatzen. Orain mapara\n joan zaitezke.</string>
@@ -656,7 +657,9 @@
 	<string name="elevation_profile_time">Hutsunea:</string>
 	<string name="isolines_toast_zooms_1_10">Handitu mapa isolineak ikusteko</string>
 	<string name="download_map_title">Deskargatu munduko mapa</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Konexio arazoa</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Deskonektatu USB kablea</string>
 	<string name="enable_screen_sleep">Utzi pantailari lo egiten</string>
 	<!-- Description in preferences -->

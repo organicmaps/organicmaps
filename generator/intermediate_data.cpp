@@ -157,7 +157,7 @@ public:
   {
   }
 
-  ~RawMemPointStorageWriter()
+  ~RawMemPointStorageWriter() noexcept(false) override
   {
     m_fileWriter.Write(m_data.data(), m_data.size() * sizeof(LatLon));
   }
@@ -399,9 +399,9 @@ IntermediateDataWriter::IntermediateDataWriter(PointStorageWriterInterface & nod
 
 void IntermediateDataWriter::AddRelation(Key id, RelationElement const & e)
 {
-  static set<string> const types = {"multipolygon", "route", "boundary",
+  static set<string_view> const types = {"multipolygon", "route", "boundary",
                                     "associatedStreet", "building", "restriction"};
-  string const & relationType = e.GetType();
+  auto const relationType = e.GetType();
   if (!types.count(relationType))
     return;
 

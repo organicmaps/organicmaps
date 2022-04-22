@@ -307,7 +307,7 @@ void Editor::ClearAllLocalEdits()
   Invalidate();
 }
 
-void Editor::OnMapRegistered(platform::LocalCountryFile const & localFile)
+void Editor::OnMapRegistered(platform::LocalCountryFile const &)
 {
   // todo(@a, @m) Reloading edits only for |localFile| should be enough.
   LoadEdits();
@@ -670,10 +670,11 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
             try
             {
               auto const center = fti.m_object.GetMercator();
-
+              // Throws, see catch below.
               XMLFeature osmFeature = changeset.GetMatchingNodeFeatureFromOSM(center);
+
               // If we are here, it means that object already exists at the given point.
-              // To avoid nodes duplication, merge and apply changes to it instead of creating an new one.
+              // To avoid nodes duplication, merge and apply changes to it instead of creating a new one.
               XMLFeature const osmFeatureCopy = osmFeature;
               osmFeature.ApplyPatch(feature);
               // Check to avoid uploading duplicates into OSM.

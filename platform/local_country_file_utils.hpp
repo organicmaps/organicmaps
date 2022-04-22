@@ -21,9 +21,9 @@ void DeleteDownloaderFilesForCountry(int64_t version, std::string const & dataDi
 // Finds all local map files in |directory|. Version of these files is
 // passed as an argument. Also, performs cleanup described in comment
 // for FindAllLocalMapsAndCleanup().
-void FindAllLocalMapsInDirectoryAndCleanup(std::string const & directory, int64_t version,
-                                           int64_t latestVersion,
-                                           std::vector<LocalCountryFile> & localFiles);
+size_t FindAllLocalMapsInDirectoryAndCleanup(std::string const & directory, int64_t version,
+                                             int64_t latestVersion,
+                                             std::vector<LocalCountryFile> & localFiles);
 
 // Finds all local map files in resources and writable directory. For
 // Android, checks /Android/obb directory.  Subdirectories in the
@@ -67,13 +67,18 @@ bool ParseVersion(std::string const & s, int64_t & version);
 // If |dataDir| is empty (or is not set) the function assumes that maps are in writable dir.
 std::shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, CountryFile const & countryFile);
 std::shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, std::string const & dataDir,
-                                                         CountryFile const & countryFile);
+                                                              CountryFile const & countryFile);
+std::string PrepareDirToDownloadCountry(int64_t version, std::string const & dataDir);
 
 /// @note The function assumes the maps are located in writable dir/|dataDir|/|version| directory.
 /// If |dataDir| is empty (or is not set) the function assumes that maps are in writable dir.
 /// @{
+/// @param[in]  countryName Actually, same as storage::CountryId, like "Abkhazia".
+std::string GetFilePath(int64_t version, std::string const & dataDir,
+                        std::string const & countryName, MapFileType type);
 std::string GetFileDownloadPath(int64_t version, std::string const & dataDir,
-                                std::string const & mwmName, MapFileType type);
+                                std::string const & countryName, MapFileType type);
+
 inline std::string GetFileDownloadPath(int64_t version, std::string const & dataDir,
                                        CountryFile const & countryFile, MapFileType type)
 {
@@ -87,7 +92,8 @@ inline std::string GetFileDownloadPath(int64_t version, std::string const & mwmN
 
 std::unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, MapFileType type);
 
-// An API for managing country indexes.
+/// An API for managing country indexes.
+/// Not used now (except tests), but will be usefull for the Terrain index in future.
 class CountryIndexes
 {
 public:
@@ -98,8 +104,7 @@ public:
     Offsets
   };
 
-  /// Prepares (if necessary) directory for country indexes. Local file
-  /// should point to existing local country files.
+  /// Prepares (if necessary) directory for country indexes.
   /// @throw FileSystemException if any file system error occured.
   static void PreparePlaceOnDisk(LocalCountryFile const & localFile);
 
