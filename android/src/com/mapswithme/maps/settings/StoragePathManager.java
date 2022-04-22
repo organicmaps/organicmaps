@@ -131,11 +131,6 @@ public class StoragePathManager
     }
   }
 
-  boolean hasMoreThanOneStorage()
-  {
-    return mItems.size() > 1;
-  }
-
   List<StorageItem> getStorageItems()
   {
     return mItems;
@@ -228,13 +223,6 @@ public class StoragePathManager
           continue;
         }
 
-        final long freeSize = StorageUtils.getFreeBytesAtPath(path);
-        if (freeSize <= 0)
-        {
-          LOGGER.i(TAG, "Rejected " + path + ": not enough space");
-          continue;
-        }
-
         if (!dir.canWrite() || !StorageUtils.isDirWritable(path))
         {
           LOGGER.i(TAG, "Rejected " + path + ": not writable");
@@ -247,6 +235,7 @@ public class StoragePathManager
           continue;
         }
 
+        final long freeSize = StorageUtils.getFreeBytesAtPath(path);
         StorageItem item = new StorageItem(path, freeSize);
         if (!TextUtils.isEmpty(configDir) && configDir.equals(path))
         {
