@@ -395,10 +395,12 @@
 
   <style name="MwmWidget.BottomSheetDialog" parent="Theme.Material3.Light.BottomSheetDialog">
     <item name="colorSurface">?cardBackground</item>
+    <item name="elevationOverlayEnabled">false</item>
   </style>
 
   <style name="MwmWidget.Night.BottomSheetDialog" parent="Theme.Material3.Dark.BottomSheetDialog" >
     <item name="colorSurface">?cardBackground</item>
+    <item name="elevationOverlayEnabled">false</item>
   </style>
 
 </resources>

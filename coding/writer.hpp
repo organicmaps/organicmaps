@@ -22,10 +22,13 @@ public:
   DECLARE_EXCEPTION(SeekException, Exception);
   DECLARE_EXCEPTION(CreateDirException, Exception);
 
-  virtual ~Writer() {}
   virtual void Seek(uint64_t pos) = 0;
   virtual uint64_t Pos() const = 0;
   virtual void Write(void const * p, size_t size) = 0;
+
+  // Disable deletion via this interface, because some dtors in derived classes are noexcept(false).
+protected:
+  ~Writer() = default;
 };
 
 template <typename ContainerT>
@@ -82,7 +85,7 @@ public:
   {
   }
 
-  ~SubWriter() override
+  ~SubWriter()
   {
     ASSERT_EQUAL(m_offset, GetOffset(), ());
     if (m_pos != m_maxPos)

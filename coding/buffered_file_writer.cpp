@@ -13,7 +13,7 @@ BufferedFileWriter::BufferedFileWriter(std::string const & fileName,
   m_buf.reserve(bufferSize);
 }
 
-BufferedFileWriter::~BufferedFileWriter()
+BufferedFileWriter::~BufferedFileWriter() noexcept(false)
 {
   DropBuffer();
 }

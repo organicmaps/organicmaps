@@ -31,7 +31,7 @@ private:
 /// Retrieve setting
 /// @return false if setting is absent
 template <class Value>
-WARN_UNUSED_RESULT bool Get(std::string const & key, Value & outValue)
+[[nodiscard]] bool Get(std::string const & key, Value & outValue)
 {
   std::string strVal;
   return StringStorage::Instance().GetValue(key, strVal) && FromString(strVal, outValue);
@@ -71,7 +71,7 @@ public:
   }
 
   template <class Value>
-  WARN_UNUSED_RESULT static bool Get(std::string const & key, Value & outValue)
+  [[nodiscard]] static bool Get(std::string const & key, Value & outValue)
   {
     std::string strVal;
     return Instance().GetValue(key, strVal) && settings::FromString(strVal, outValue);

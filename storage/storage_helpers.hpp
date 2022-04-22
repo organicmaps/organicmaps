@@ -23,7 +23,6 @@ bool IsPointCoveredByDownloadedMaps(m2::PointD const & position, Storage const &
 bool IsDownloadFailed(Status status);
 
 bool IsEnoughSpaceForDownload(MwmSize mwmSize);
-bool IsEnoughSpaceForDownload(MwmSize mwmSizeDiff, MwmSize maxMwmSize);
 bool IsEnoughSpaceForDownload(CountryId const & countryId, Storage const & storage);
 bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage);
 

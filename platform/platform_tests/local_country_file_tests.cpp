@@ -43,10 +43,7 @@ UNIT_TEST(LocalCountryFile_ParseVersion)
   TEST(ParseVersion("150309", version), ());
   TEST_EQUAL(version, 150309, ());
 
-  TEST(ParseVersion("999999999999999999", version), ());
-  TEST_EQUAL(version, 999999999999999999, ());
-
-  TEST(!ParseVersion("1000000000000000000", version), ());
+  TEST(!ParseVersion("2111225", version), ());  // too many digits
   TEST(!ParseVersion("00000000000000000000000000000000123", version), ());
 
   TEST(!ParseVersion("", version), ());
@@ -59,9 +56,7 @@ UNIT_TEST(LocalCountryFile_ParseVersion)
 // Checks basic functionality of LocalCountryFile.
 UNIT_TEST(LocalCountryFile_Smoke)
 {
-  CountryFile countryFile("TestCountry");
-  countryFile.SetRemoteSize(1 /* mapSize */);
-
+  CountryFile countryFile("TestCountry", 1 /* size */, "sha1");
   LocalCountryFile localFile("/test-dir", countryFile, 150309);
 
   TEST_EQUAL("/test-dir/TestCountry" DATA_FILE_EXTENSION, localFile.GetPath(MapFileType::Map), ());
@@ -85,8 +80,7 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
 {
   Platform & platform = GetPlatform();
 
-  CountryFile countryFile("TestCountry");
-  countryFile.SetRemoteSize(1 /* mapSize */);
+  CountryFile countryFile("TestCountry", 1 /* size */, "sha1");
 
   for (int64_t version : {1, 150312})
   {
@@ -94,7 +88,7 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
     TEST(!localFile.OnDisk(MapFileType::Map), ());
     TEST(!localFile.OnDisk(MapFileType::Diff), ());
 
-    string const mapFileName = GetFileName(countryFile.GetName(), MapFileType::Map);
+    string const mapFileName = countryFile.GetFileName(MapFileType::Map);
     string const mapFileContents("map");
     ScopedFile testMapFile(mapFileName, mapFileContents);
 
@@ -146,28 +140,36 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
 
   TEST(dir4.Exists(), ());
 
-  TEST(!absentCountryIndexesDir.Exists(), ("Indexes for absent country weren't deleted."));
-  absentCountryIndexesDir.Reset();
+  // Useless CountryIndexes::DeleteFromDisk calls are removed.
+  //TEST(!absentCountryIndexesDir.Exists(), ("Indexes for absent country weren't deleted."));
+  //absentCountryIndexesDir.Reset();
 
   TEST(irelandIndexesDir.Exists(), ());
 }
 
 UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
 {
+  ScopedDir dataDir("101008");
+  auto const DataFilePath = [&dataDir](char const * file)
+  {
+    return dataDir.GetRelativePath() + "/" + file;
+  };
+
   ScopedDir oldDir("101009");
   ScopedDir latestDir("101010");
 
   ScopedFile toBeDeleted[] = {
-      {"Ireland.mwm.ready", ScopedFile::Mode::Create},
-      {"Netherlands.mwm.routing.downloading2", ScopedFile::Mode::Create},
-      {"Germany.mwm.ready3", ScopedFile::Mode::Create},
-      {"UK_England.mwm.resume4", ScopedFile::Mode::Create},
+      {DataFilePath("Ireland.mwm.ready"), ScopedFile::Mode::Create},
+      {DataFilePath("Netherlands.mwm.routing.downloading2"), ScopedFile::Mode::Create},
+      {DataFilePath("Germany.mwm.ready3"), ScopedFile::Mode::Create},
+      {DataFilePath("UK_England.mwm.resume4"), ScopedFile::Mode::Create},
       {base::JoinPath(oldDir.GetRelativePath(), "Russia_Central.mwm.downloading"),
        ScopedFile::Mode::Create}};
+
   ScopedFile toBeKept[] = {
-      {"Italy.mwm", ScopedFile::Mode::Create},
-      {"Spain.mwm", ScopedFile::Mode::Create},
-      {"Spain.mwm.routing", ScopedFile::Mode::Create},
+      {DataFilePath("Italy.mwm"), ScopedFile::Mode::Create},
+      {DataFilePath("Spain.mwm"), ScopedFile::Mode::Create},
+      {DataFilePath("Spain.mwm.routing"), ScopedFile::Mode::Create},
       {base::JoinPath(latestDir.GetRelativePath(), "Russia_Southern.mwm.downloading"),
        ScopedFile::Mode::Create}};
 
@@ -183,7 +185,9 @@ UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
 
   for (ScopedFile & file : toBeKept)
     TEST(file.Exists(), (file));
+
   TEST(latestDir.Exists(), (latestDir));
+  TEST(dataDir.Exists(), (dataDir));
 }
 
 // Creates test-dir and following files:

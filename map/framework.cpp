@@ -159,28 +159,19 @@ bool ParseSetGpsTrackMinAccuracyCommand(string const & query)
   GpsTrackFilter::StoreMinHorizontalAccuracy(value);
   return true;
 }
-/*
-string MakeSearchBookingUrl(booking::Api const & bookingApi, search::CityFinder & cityFinder,
-                            FeatureType & ft)
-{
-  string name;
-  auto const & info = ft.GetID().m_mwmId.GetInfo();
-  ASSERT(info, ());
-
-  int8_t lang = feature::GetNameForSearchOnBooking(info->GetRegionData(), ft.GetNames(), name);
-
-  if (lang == StringUtf8Multilang::kUnsupportedLanguageCode)
-    return {};
-
-  string city = cityFinder.GetCityName(feature::GetCenter(ft), lang);
-
-  return bookingApi.GetSearchUrl(city, name);
-}*/
 }  // namespace
 
-pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(LocalCountryFile const & localFile)
+pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(LocalCountryFile const & file)
 {
-  return m_featuresFetcher.RegisterMap(localFile);
+  auto const res = m_featuresFetcher.RegisterMap(file);
+  if (res.second == MwmSet::RegResult::Success)
+  {
+    auto const & id = res.first;
+    ASSERT(id.IsAlive(), ());
+    LOG(LINFO, ("Loaded", file.GetCountryName(), "map, of version", id.GetInfo()->GetVersion()));
+  }
+
+  return res;
 }
 
 void Framework::OnLocationError(TLocationError /*error*/)
@@ -383,8 +374,6 @@ Framework::Framework(FrameworkParams const & params)
 
   m_routingManager.SetTransitManager(&m_transitManager);
 
-  InitCityFinder();
-
   // Init storage with needed callback.
   m_storage.Init(bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
                  bind(&Framework::OnCountryFileDelete, this, _1, _2));
@@ -452,7 +441,7 @@ void Framework::ShowNode(storage::CountryId const & countryId)
   ShowRect(CalcLimitRect(countryId, GetStorage(), GetCountryInfoGetter()));
 }
 
-void Framework::OnCountryFileDownloaded(storage::CountryId const & countryId,
+void Framework::OnCountryFileDownloaded(storage::CountryId const &,
                                         storage::LocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
@@ -462,9 +451,8 @@ void Framework::OnCountryFileDownloaded(storage::CountryId const & countryId,
 
   if (localFile && localFile->OnDisk(MapFileType::Map))
   {
-    // Add downloaded map.
-    auto p = m_featuresFetcher.RegisterMap(*localFile);
-    MwmSet::MwmId const & id = p.first;
+    auto const res = RegisterMap(*localFile);
+    MwmSet::MwmId const & id = res.first;
     if (id.IsAlive())
       rect = id.GetInfo()->m_bordersRect;
   }
@@ -548,16 +536,7 @@ void Framework::RegisterAllMaps()
   vector<shared_ptr<LocalCountryFile>> maps;
   m_storage.GetLocalMaps(maps);
   for (auto const & localFile : maps)
-  {
-    auto p = RegisterMap(*localFile);
-    if (p.second != MwmSet::RegResult::Success)
-      continue;
-
-    MwmSet::MwmId const & id = p.first;
-    ASSERT(id.IsAlive(), ());
-
-    LOG(LINFO, ("Loaded", localFile->GetCountryName(), "map, of version", id.GetInfo()->GetVersion()));
-  }
+    UNUSED_VALUE(RegisterMap(*localFile));
 }
 
 void Framework::DeregisterAllMaps()
@@ -1198,7 +1177,9 @@ void Framework::InitCountryInfoGetter()
 
   auto const & platform = GetPlatform();
   m_infoGetter = CountryInfoReader::CreateCountryInfoGetter(platform);
-  m_infoGetter->SetAffiliations(&m_storage.GetAffiliations());
+
+  // Storage::GetAffiliations() pointer never changed.
+  m_infoGetter->SetAffiliations(m_storage.GetAffiliations());
 }
 
 void Framework::InitSearchAPI(size_t numThreads)
@@ -1237,6 +1218,7 @@ string Framework::GetCountryName(m2::PointD const & pt) const
   return info.m_name;
 }
 
+/*
 Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
 {
   auto const connectionStatus = Platform::ConnectionStatus();
@@ -1260,6 +1242,7 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
 
   return DoAfterUpdate::AskForUpdateMaps;
 }
+*/
 
 SearchAPI & Framework::GetSearchAPI()
 {
@@ -2755,7 +2738,7 @@ bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
 
 namespace
 {
-WARN_UNUSED_RESULT bool LocalizeStreet(DataSource const & dataSource, FeatureID const & fid,
+[[nodiscard]] bool LocalizeStreet(DataSource const & dataSource, FeatureID const & fid,
                                        osm::LocalizedStreet & result)
 {
   FeaturesLoaderGuard g(dataSource, fid.m_mwmId);
@@ -3109,15 +3092,6 @@ void Framework::CreateNote(osm::MapObject const & mapObject,
     DeactivateMapSelection(true /* notifyUI */);
 }
 
-storage::CountriesVec Framework::GetTopmostCountries(ms::LatLon const & latlon) const
-{
-  m2::PointD const point = mercator::FromLatLon(latlon);
-  auto const countryId = m_infoGetter->GetRegionCountryId(point);
-  storage::CountriesVec topmostCountryIds;
-  GetStorage().GetTopmostNodesFor(countryId, topmostCountryIds);
-  return topmostCountryIds;
-}
-
 void Framework::RunUITask(function<void()> fn)
 {
   GetPlatform().RunTask(Platform::Thread::Gui, move(fn));
@@ -3212,15 +3186,10 @@ void Framework::OnRouteFollow(routing::RouterType type)
 // RoutingManager::Delegate
 void Framework::RegisterCountryFilesOnRoute(shared_ptr<routing::NumMwmIds> ptr) const
 {
-  m_storage.ForEachCountryFile(
-      [&ptr](platform::CountryFile const & file) { ptr->RegisterFile(file); });
-}
-
-void Framework::InitCityFinder()
-{
-  ASSERT(!m_cityFinder, ());
-
-  m_cityFinder = make_unique<search::CityFinder>(m_featuresFetcher.GetDataSource());
+  m_storage.ForEachCountry([&ptr](storage::Country const & country)
+  {
+    ptr->RegisterFile(country.GetFile());
+  });
 }
 
 void Framework::SetPlacePageLocation(place_page::Info & info)

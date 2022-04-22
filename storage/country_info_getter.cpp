@@ -148,15 +148,24 @@ m2::RectD CountryInfoGetter::CalcLimitRect(std::string const & prefix) const
 m2::RectD CountryInfoGetter::GetLimitRectForLeaf(CountryId const & leafCountryId) const
 {
   auto const it = m_countryIndex.find(leafCountryId);
-  ASSERT(it != m_countryIndex.end(), ());
-  ASSERT_LESS(it->second, m_countries.size(), ());
-  return m_countries[it->second].m_rect;
+  if (it != m_countryIndex.end())
+  {
+    ASSERT_LESS(it->second, m_countries.size(), ());
+    return m_countries[it->second].m_rect;
+  }
+  else
+  {
+    // Full rect for World files.
+    return mercator::Bounds::FullRect();
+  }
 }
 
 void CountryInfoGetter::GetMatchedRegions(std::string const & affiliation,
                                           RegionIdVec & regions) const
 {
-  CHECK(m_affiliations, ());
+  // Once set, m_affiliations ptr is never changed (same as the content).
+  ASSERT(m_affiliations, ());
+
   auto it = m_affiliations->find(affiliation);
   if (it == m_affiliations->end())
     return;

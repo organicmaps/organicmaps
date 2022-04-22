@@ -36,13 +36,15 @@ void LocalCountryFile::SyncWithDisk()
   uint64_t size = 0;
 
   // Now we are not working with several files at the same time and diffs have greater priority.
+  Platform & platform = GetPlatform();
   for (MapFileType type : {MapFileType::Diff, MapFileType::Map})
   {
-    ASSERT_LESS(base::Underlying(type), m_files.size(), ());
+    auto const ut = base::Underlying(type);
+    ASSERT_LESS(ut, m_files.size(), ());
 
-    if (GetPlatform().GetFileSizeByFullPath(GetPath(type), size))
+    if (platform.GetFileSizeByFullPath(GetPath(type), size))
     {
-      m_files[base::Underlying(type)] = size;
+      m_files[ut] = size;
       break;
     }
   }
@@ -52,16 +54,18 @@ void LocalCountryFile::DeleteFromDisk(MapFileType type) const
 {
   ASSERT_LESS(base::Underlying(type), m_files.size(), ());
 
-  if (!OnDisk(type))
-    return;
-
-  if (!base::DeleteFileX(GetPath(type)))
+  if (OnDisk(type) && !base::DeleteFileX(GetPath(type)))
     LOG(LERROR, (type, "from", *this, "wasn't deleted from disk."));
 }
 
 string LocalCountryFile::GetPath(MapFileType type) const
 {
-  return base::JoinPath(m_directory, GetFileName(m_countryFile.GetName(), type));
+  return base::JoinPath(m_directory, GetFileName(type));
+}
+
+std::string LocalCountryFile::GetFileName(MapFileType type) const
+{
+  return m_countryFile.GetFileName(type);
 }
 
 uint64_t LocalCountryFile::GetSize(MapFileType type) const
@@ -74,14 +78,14 @@ uint64_t LocalCountryFile::GetSize(MapFileType type) const
 bool LocalCountryFile::HasFiles() const
 {
   return std::any_of(m_files.cbegin(), m_files.cend(),
-                     [](auto value) { return value.has_value(); });
+                     [](auto const & value) { return value.has_value(); });
 }
 
 bool LocalCountryFile::OnDisk(MapFileType type) const
 {
-  ASSERT_LESS(base::Underlying(type), m_files.size(), ());
-
-  return m_files[base::Underlying(type)].has_value();
+  auto const ut = base::Underlying(type);
+  ASSERT_LESS(ut, m_files.size(), ());
+  return m_files[ut].has_value();
 }
 
 bool LocalCountryFile::operator<(LocalCountryFile const & rhs) const
@@ -131,22 +135,21 @@ LocalCountryFile LocalCountryFile::MakeTemporary(string const & fullPath)
 
 string DebugPrint(LocalCountryFile const & file)
 {
-  ostringstream filesStream;
-  filesStream << "[";
+  ostringstream os;
+  os << "LocalCountryFile [" << file.m_directory << ", "
+     << DebugPrint(file.m_countryFile) << ", " << file.m_version << ", [";
+
   bool fileAdded = false;
   for (auto const & mapFile : file.m_files)
   {
     if (mapFile)
     {
-      filesStream << (fileAdded ? ", " : "") << *mapFile;
+      os << (fileAdded ? ", " : "") << *mapFile;
       fileAdded = true;
     }
   }
-  filesStream << "]";
 
-  ostringstream os;
-  os << "LocalCountryFile [" << file.m_directory << ", " << DebugPrint(file.m_countryFile) << ", "
-     << file.m_version << ", " << filesStream.str() << "]";
+  os << "]]";
   return os.str();
 }
 }  // namespace platform

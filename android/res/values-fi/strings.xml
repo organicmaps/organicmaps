@@ -43,9 +43,10 @@
 	<string name="close">Sulje</string>
 	<string name="unsupported_phone">Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.</string>
 	<string name="download">Lataa</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Irrota USB-kaapeli tai syötä muistikortti käyttääksesi Organic Maps -sovellusta</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta</string>
-	<string name="not_enough_memory">Ei tarpeeksi muistia sovelluksen avaamiseksi</string>
 	<string name="download_resources">Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %s dataa.</string>
 	<string name="download_resources_continue">Siirry karttaan</string>
 	<string name="downloading_country_can_proceed">Ladataan %s. Voit nyt jatkaa kartalle.</string>
@@ -664,7 +665,9 @@
 	<string name="elevation_profile_time">Aika:</string>
 	<string name="isolines_toast_zooms_1_10">Suurenna kartta nähdäksesi korkeuskäyrät</string>
 	<string name="download_map_title">Lataa maailmankartta</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Yhteysvirhe</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Irrota USB-kaapeli</string>
 	<string name="enable_screen_sleep">Salli näytön lepotila</string>
 	<!-- Description in preferences -->

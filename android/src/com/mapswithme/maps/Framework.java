@@ -186,20 +186,20 @@ public class Framework
 
   public static native void nativeRemovePlacePageActivationListener();
 
-  @UiThread
-  public static native String nativeGetOutdatedCountriesString();
-
-  @UiThread
-  @NonNull
-  public static native String[] nativeGetOutdatedCountries();
-
-  @UiThread
-  @DoAfterUpdate
-  public static native int nativeToDoAfterUpdate();
-
-  public static native boolean nativeIsDataVersionChanged();
-
-  public static native void nativeUpdateSavedDataVersion();
+//  @UiThread
+//  public static native String nativeGetOutdatedCountriesString();
+//
+//  @UiThread
+//  @NonNull
+//  public static native String[] nativeGetOutdatedCountries();
+//
+//  @UiThread
+//  @DoAfterUpdate
+//  public static native int nativeToDoAfterUpdate();
+//
+//  public static native boolean nativeIsDataVersionChanged();
+//
+//  public static native void nativeUpdateSavedDataVersion();
 
   public static native long nativeGetDataVersion();
 
@@ -308,9 +308,7 @@ public class Framework
   /**
    * Registers all maps(.mwms). Adds them to the models, generates indexes and does all necessary stuff.
    */
-  public static native void nativeRegisterMaps();
-
-  public static native void nativeDeregisterMaps();
+  public static native void nativeReloadWorldMaps();
 
   /**
    * Determines if currently is day or night at the given location. Used to switch day/night styles.

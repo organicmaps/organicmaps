@@ -500,8 +500,7 @@ void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) con
   ScreenBase screen = GetModelView();
   ForEachInRect(rect, [&](ref_ptr<OverlayHandle> const & h)
   {
-    auto const & overlayId = h->GetOverlayID();
-    ASSERT(overlayId.IsValid(), ());
+    ASSERT(h->GetOverlayID().IsValid(), ());
 
     if (!h->HasLinearFeatureShape() && h->IsVisible())
     {

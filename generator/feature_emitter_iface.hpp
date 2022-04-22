@@ -7,7 +7,10 @@ class FeatureBuilder;
 
 class FeatureEmitterIFace
 {
+  // Disable deletion via this interface, because some dtors in derived classes are noexcept(false).
+protected:
+  ~FeatureEmitterIFace() = default;
+
 public:
-  virtual ~FeatureEmitterIFace() {}
   virtual void operator() (feature::FeatureBuilder const &) = 0;
 };

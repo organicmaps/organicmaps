@@ -137,6 +137,7 @@ namespace android
 
     void AddLocalMaps();
     void RemoveLocalMaps();
+    void ReloadWorldMaps();
 
     m2::PointD GetViewportCenter() const;
 
@@ -156,7 +157,7 @@ namespace android
 
     void DeactivatePopup();
 
-    std::string GetOutdatedCountriesString();
+//    std::string GetOutdatedCountriesString();
 
     void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
     location::EMyPositionMode GetMyPositionMode();
@@ -188,7 +189,7 @@ namespace android
     bool IsDownloadOn3gEnabled();
     void EnableDownloadOn3g();
 
-    int ToDoAfterUpdate() const;
+//    int ToDoAfterUpdate() const;
 
     // PowerManager::Subscriber overrides:
     void OnPowerFacilityChanged(power_management::Facility const facility, bool enabled) override;

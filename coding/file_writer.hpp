@@ -38,7 +38,7 @@ public:
                       Op operation = OP_WRITE_TRUNCATE);
   FileWriter(FileWriter && rhs) = default;
 
-  ~FileWriter() override;
+  virtual ~FileWriter() noexcept(false);
 
   // Writer overrides:
   void Seek(uint64_t pos) override;
@@ -46,17 +46,13 @@ public:
   void Write(void const * p, size_t size) override;
 
   virtual uint64_t Size() const;
-  virtual void Flush();
+  virtual void Flush() noexcept(false);
 
   std::string const & GetName() const;
 
   static void DeleteFileX(std::string const & fName);
 
 protected:
-  base::FileData & GetFileData();
-  base::FileData const & GetFileData() const;
-
-private:
   std::unique_ptr<base::FileData> m_pFileData;
 };
 
@@ -92,10 +88,9 @@ public:
 
   TruncatingFileWriter(TruncatingFileWriter && rhs) = default;
 
-  // Writer overrides:
-  ~TruncatingFileWriter() override
+  ~TruncatingFileWriter() noexcept(false) override
   {
-    GetFileData().Flush();
-    GetFileData().Truncate(Pos());
+    m_pFileData->Flush();
+    m_pFileData->Truncate(Pos());
   }
 };

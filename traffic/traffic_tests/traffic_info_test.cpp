@@ -26,7 +26,7 @@ class TestMwmSet : public MwmSet
 {
 protected:
   // MwmSet overrides:
-  unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const override
+  unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const &) const override
   {
     unique_ptr<MwmInfo> info(new MwmInfo());
     info->m_version.SetFormat(version::Format::lastFormat);
