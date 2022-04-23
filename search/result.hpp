@@ -22,6 +22,11 @@
 #include <utility>
 #include <vector>
 
+// Define this option to DebugPrint provenance.
+#ifdef DEBUG
+//#define SEARCH_USE_PROVENANCE
+#endif
+
 namespace search
 {
 // Search result. Search returns a list of them, ordered by score.
@@ -129,24 +134,26 @@ public:
 
   RankingInfo const & GetRankingInfo() const { return m_info; }
 
-  std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
-
   template <typename Info>
   void SetRankingInfo(Info && info)
   {
     m_info = std::forward<Info>(info);
   }
 
+#ifdef SEARCH_USE_PROVENANCE
   template <typename Prov>
   void SetProvenance(Prov && prov)
   {
     m_provenance = std::forward<Prov>(prov);
   }
+#endif
 
   // Returns a representation of this result that is sent to the
   // statistics servers and later used to measure the quality of our
   // search engine.
   std::string ToStringForStats() const;
+
+  friend std::string DebugPrint(search::Result const & result);
 
 private:
   Type m_resultType;
@@ -165,7 +172,9 @@ private:
   // a search query. -1 if undefined.
   int32_t m_positionInResults = -1;
 
+#ifdef SEARCH_USE_PROVENANCE
   std::vector<ResultTracer::Branch> m_provenance;
+#endif
 
 public:
   // Careful when moving: the order of destructors is important.
@@ -173,7 +182,6 @@ public:
 };
 
 std::string DebugPrint(search::Result::Type type);
-std::string DebugPrint(search::Result const & result);
 
 class Results
 {

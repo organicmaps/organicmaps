@@ -177,8 +177,12 @@ string DebugPrint(Result const & result)
   os << "name: " << result.GetString();
   os << ", type: " << readableType;
   os << ", info: " << DebugPrint(result.GetRankingInfo());
-  if (!result.GetProvenance().empty())
-    os << ", provenance: " << ::DebugPrint(result.GetProvenance());
+
+#ifdef SEARCH_USE_PROVENANCE
+  if (!result.m_provenance.empty())
+    os << ", provenance: " << ::DebugPrint(result.m_provenance);
+#endif
+
   os << "]";
   return os.str();
 }

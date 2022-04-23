@@ -27,10 +27,10 @@
 
 #include "3party/opening_hours/opening_hours.hpp"
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 class SkipRegionInfo
@@ -67,7 +67,11 @@ public:
 // PreRankerResult ---------------------------------------------------------------------------------
 PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
                                  vector<ResultTracer::Branch> const & provenance)
-  : m_id(id), m_info(info), m_provenance(provenance)
+: m_id(id), m_info(info)
+, m_isRelaxed(base::IsExist(provenance, ResultTracer::Branch::Relaxed))
+#ifdef SEARCH_USE_PROVENANCE
+, m_provenance(provenance)
+#endif
 {
   ASSERT(m_id.IsValid(), ());
 
@@ -77,8 +81,7 @@ PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & in
 }
 
 // static
-bool PreRankerResult::LessRankAndPopularity(PreRankerResult const & lhs,
-                                            PreRankerResult const & rhs)
+bool PreRankerResult::LessRankAndPopularity(PreRankerResult const & lhs, PreRankerResult const & rhs)
 {
   if (lhs.m_info.m_rank != rhs.m_info.m_rank)
     return lhs.m_info.m_rank > rhs.m_info.m_rank;
@@ -271,8 +274,10 @@ string DebugPrint(RankerResult const & r)
      << "Name: " << r.GetName()
      << "; Type: " << classif().GetReadableObjectName(r.GetBestType());
 
-    if (!r.GetProvenance().empty())
-      ss << "; Provenance: " << ::DebugPrint(r.GetProvenance());
+#ifdef SEARCH_USE_PROVENANCE
+    if (!r.m_provenance.empty())
+      ss << "; Provenance: " << ::DebugPrint(r.m_provenance);
+#endif
 
      ss << "; " << DebugPrint(r.GetRankingInfo())
      << "; Linear model rank: " << r.GetLinearModelRank()

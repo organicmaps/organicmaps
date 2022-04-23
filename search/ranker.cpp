@@ -28,10 +28,10 @@
 #include <memory>
 #include <optional>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 template <typename Slice>
@@ -348,7 +348,10 @@ public:
     info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country,
                                 ftypes::IsCapitalChecker::Instance()(*ft), !info.m_allTokensUsed);
     r.SetRankingInfo(move(info));
-    r.m_provenance = move(preRankerResult.GetProvenance());
+
+#ifdef SEARCH_USE_PROVENANCE
+    r.m_provenance = preRankerResult.GetProvenance();
+#endif
 
     return r;
   }
@@ -648,7 +651,8 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
   }
 
   // todo(@m) Used because Result does not have a default constructor. Factor out?
-  auto mk = [&](RankerResult const & r) -> Result {
+  auto mk = [&](RankerResult const & r) -> Result
+  {
     switch (r.GetResultType())
     {
     case RankerResult::Type::Feature:
@@ -681,7 +685,11 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
     HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
 
   res.SetRankingInfo(rankerResult.GetRankingInfo());
+
+#ifdef SEARCH_USE_PROVENANCE
   res.SetProvenance(rankerResult.GetProvenance());
+#endif
+
   return res;
 }
 
