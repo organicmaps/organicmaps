@@ -22,10 +22,10 @@
 #include <iterator>
 #include <set>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 void SweepNearbyResults(double xEps, double yEps, set<FeatureID> const & prevEmit,
@@ -154,8 +154,8 @@ void PreRanker::Filter(bool viewportSearch)
     }
   };
 
-  auto comparePreRankerResults = [](PreRankerResult const & lhs,
-                                    PreRankerResult const & rhs) -> bool {
+  auto comparePreRankerResults = [](PreRankerResult const & lhs, PreRankerResult const & rhs)
+  {
     if (lhs.GetId() != rhs.GetId())
       return lhs.GetId() < rhs.GetId();
 
@@ -276,7 +276,8 @@ void PreRanker::FilterForViewportSearch()
 {
   auto const & viewport = m_params.m_viewport;
 
-  base::EraseIf(m_results, [&](PreRankerResult const & result) {
+  base::EraseIf(m_results, [&](PreRankerResult const & result)
+  {
     auto const & info = result.GetInfo();
     if (!viewport.IsPointInside(info.m_center))
       return true;
@@ -299,11 +300,10 @@ void PreRanker::FilterRelaxedResults(bool lastUpdate)
   }
   else
   {
-    auto const isNotRelaxed = [](PreRankerResult const & res) {
-      auto const & prov = res.GetProvenance();
-      return find(prov.begin(), prov.end(), ResultTracer::Branch::Relaxed) == prov.end();
-    };
-    auto const it = partition(m_results.begin(), m_results.end(), isNotRelaxed);
+    auto const it = partition(m_results.begin(), m_results.end(), [](PreRankerResult const & res)
+    {
+      return res.IsNotRelaxed();
+    });
     m_relaxedResults.insert(m_relaxedResults.end(), it, m_results.end());
     m_results.erase(it, m_results.end());
   }
