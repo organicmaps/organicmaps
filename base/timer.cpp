@@ -1,7 +1,6 @@
 #include "base/timer.hpp"
 
 #include "base/assert.hpp"
-#include "base/get_time.hpp"
 #include "base/gmtime.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -13,7 +12,7 @@
 #include <array>
 #include <chrono>
 #include <cstdio>
-#include <iomanip>
+#include <iomanip>  // std::get_time
 #include <sstream>
 
 #include <sys/time.h>
@@ -144,7 +143,7 @@ time_t StringToTimestamp(std::string const & s)
     // Parse UTC format: 1970-01-01T00:00:00Z
     tm t{};
     std::istringstream ss(s);
-    ss >> base::get_time(&t, "%Y-%m-%dT%H:%M:%SZ");
+    ss >> std::get_time(&t, "%Y-%m-%dT%H:%M:%SZ");
 
     if (!ss.fail() && IsValid(t))
       res = base::TimeGM(t);
@@ -155,7 +154,7 @@ time_t StringToTimestamp(std::string const & s)
     tm t1{}, t2{};
     char sign;
     std::istringstream ss(s);
-    ss >> base::get_time(&t1, "%Y-%m-%dT%H:%M:%S") >> sign >> base::get_time(&t2, "%H:%M");
+    ss >> std::get_time(&t1, "%Y-%m-%dT%H:%M:%S") >> sign >> std::get_time(&t2, "%H:%M");
 
     if (!ss.fail() && IsValid(t1))
     {
