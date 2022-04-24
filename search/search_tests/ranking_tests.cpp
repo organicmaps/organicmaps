@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "search/intermediate_result.hpp"
+#include "search/pre_ranker.hpp"
 #include "search/query_params.hpp"
 #include "search/ranking_utils.hpp"
 #include "search/ranking_info.hpp"
@@ -16,12 +18,12 @@
 #include <string>
 #include <vector>
 
+namespace ranking_tests
+{
 using namespace search;
 using namespace std;
 using namespace strings;
 
-namespace
-{
 NameScores GetScore(string const & name, string const & query, TokenRange const & tokenRange)
 {
   search::Delimiters delims;
@@ -105,4 +107,52 @@ UNIT_TEST(PreferCountry)
   // Country should be preferred even if cafe is much closer to viewport center.
   TEST_LESS(cafe.GetLinearModelRank(), country.GetLinearModelRank(),());
 }
-}  // namespace
+
+namespace
+{
+class MwmIdWrapper
+{
+  FeatureID m_id;
+public:
+  MwmIdWrapper(MwmSet::MwmId id) : m_id(move(id), 0) {}
+  FeatureID const & GetId() const { return m_id; }
+};
+
+size_t UniqueMwmIdCount(std::vector<MwmIdWrapper> & test)
+{
+  set<MwmSet::MwmId> mwmSet;
+  size_t count = 0;
+  MwmSet::MwmId curr;
+  PreRanker::ForEachMwmOrder(test, [&](MwmIdWrapper & w)
+  {
+    auto const & id = w.GetId().m_mwmId;
+    if (curr != id)
+    {
+      curr = id;
+      TEST(mwmSet.insert(curr).second, ());
+    }
+    ++count;
+  });
+
+  TEST_EQUAL(count, test.size(), ());
+  return mwmSet.size();
+}
+} // namespace
+
+UNIT_TEST(PreRanker_ForEachMwmOrder)
+{
+  MwmSet::MwmId id1(make_shared<MwmInfo>());
+  MwmSet::MwmId id2(make_shared<MwmInfo>());
+  MwmSet::MwmId id3(make_shared<MwmInfo>());
+
+  {
+    std::vector<MwmIdWrapper> test{id1, id1};
+    TEST_EQUAL(1, UniqueMwmIdCount(test), ());
+  }
+
+  {
+    std::vector<MwmIdWrapper> test{id1, id2, id1, id3, id2};
+    TEST_EQUAL(3, UniqueMwmIdCount(test), ());
+  }
+}
+} // namespace ranking_tests
