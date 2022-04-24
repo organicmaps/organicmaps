@@ -319,11 +319,15 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   public void onLocationError(int errCode)
   {
     mLogger.d(TAG, "onLocationError(): " + errCode);
-    if (errCode == ERROR_NOT_SUPPORTED && !(mLocationProvider instanceof AndroidNativeProvider))
+    if (errCode == ERROR_NOT_SUPPORTED &&
+        LocationUtils.areLocationServicesTurnedOn(mContext) &&
+        !(mLocationProvider instanceof AndroidNativeProvider))
     {
-      // Try to downgrade to native provider first before notifying the user.
+      // If location service is enabled, try to downgrade to the native provider first
+      // and restart the service before notifying the user.
       mLogger.d(TAG, "Downgrading to use native provider");
       mLocationProvider = new AndroidNativeProvider(mContext, this);
+      restart();
       return;
     }
 
