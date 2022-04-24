@@ -222,8 +222,7 @@ public class StoragePathManager
           LOGGER.i(TAG, "Rejected " + path + ": not a directory");
           continue;
         }
-
-        if (!dir.canWrite() || !StorageUtils.isDirWritable(path))
+        if (!dir.canWrite())
         {
           LOGGER.i(TAG, "Rejected " + path + ": not writable");
           continue;
@@ -443,7 +442,7 @@ public class StoragePathManager
         throw new IllegalStateException("Cannot move maps. New path is not a directory. New path : " + newDir);
       if (!oldDir.isDirectory())
         throw new IllegalStateException("Cannot move maps. Old path is not a directory. Old path : " + oldDir);
-      if (!StorageUtils.isDirWritable(fullNewPath))
+      if (!newDir.canWrite())
         throw new IllegalStateException("Cannot move maps. New path is not writable. New path : " + fullNewPath);
     }
 
