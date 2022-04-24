@@ -193,7 +193,8 @@ void RemoveDuplicatingLinear(vector<RankerResult> & results)
 {
   double constexpr kDistSameStreetMeters = 5000.0;
 
-  auto lessCmp = [](RankerResult const & r1, RankerResult const & r2) -> bool {
+  auto lessCmp = [](RankerResult const & r1, RankerResult const & r2)
+  {
     if (r1.GetGeomType() != r2.GetGeomType())
       return r1.GetGeomType() < r2.GetGeomType();
 
@@ -209,7 +210,8 @@ void RemoveDuplicatingLinear(vector<RankerResult> & results)
     return r1.GetLinearModelRank() > r2.GetLinearModelRank();
   };
 
-  auto equalCmp = [](RankerResult const & r1, RankerResult const & r2) -> bool {
+  auto equalCmp = [](RankerResult const & r1, RankerResult const & r2)
+  {
     // Note! Do compare for distance when filtering linear objects.
     // Otherwise we will skip the results for different parts of the map.
     return r1.GetGeomType() == feature::GeomType::Line && r1.IsEqualCommon(r2) &&
@@ -259,7 +261,8 @@ bool ResultExists(RankerResult const & p, vector<RankerResult> const & results,
                   double minDistanceOnMapBetweenResults)
 {
   // Filter equal features in different mwms.
-  auto equalCmp = [&p, &minDistanceOnMapBetweenResults](RankerResult const & r) -> bool {
+  auto equalCmp = [&p, &minDistanceOnMapBetweenResults](RankerResult const & r)
+  {
     if (p.GetResultType() == r.GetResultType() &&
         p.GetResultType() == RankerResult::Type::Feature)
     {
@@ -347,7 +350,7 @@ public:
     InitRankingInfo(*ft, center, preRankerResult, info);
     info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country,
                                 ftypes::IsCapitalChecker::Instance()(*ft), !info.m_allTokensUsed);
-    r.SetRankingInfo(move(info));
+    r.SetRankingInfo(info);
 
 #ifdef SEARCH_USE_PROVENANCE
     r.m_provenance = preRankerResult.GetProvenance();
@@ -399,8 +402,7 @@ private:
     if (name.empty())
     {
       ReverseGeocoder::Address addr;
-      LazyAddressGetter addressGetter(m_reverseGeocoder, center);
-      if (addressGetter.GetExactAddress(addr))
+      if (LazyAddressGetter(m_reverseGeocoder, center).GetExactAddress(addr))
       {
         unique_ptr<FeatureType> streetFeature;
 
@@ -633,36 +635,36 @@ void Ranker::Finish(bool cancelled)
   m_emitter.Finish(cancelled);
 }
 
-Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
-                          bool needHighlighting) const
+Result Ranker::MakeResult(RankerResult rankerResult, bool needAddress, bool needHighlighting) const
 {
-  string name = rankerResult.GetName();
-
-  string address;
-  if (needAddress)
-  {
-    LazyAddressGetter addressGetter(m_reverseGeocoder, rankerResult.GetCenter());
-
-    address = GetLocalizedRegionInfoForResult(rankerResult);
-
-    // Format full address only for suitable results.
-    if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
-      address = FormatFullAddress(addressGetter.GetNearbyAddress(), address);
-  }
-
   // todo(@m) Used because Result does not have a default constructor. Factor out?
-  auto mk = [&](RankerResult const & r) -> Result
+  auto mk = [&](RankerResult & r) -> Result
   {
+    string address;
+    if (needAddress)
+    {
+      address = GetLocalizedRegionInfoForResult(rankerResult);
+
+      // Format full address only for suitable results.
+      if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
+      {
+        address = FormatFullAddress(
+              LazyAddressGetter(m_reverseGeocoder, rankerResult.GetCenter()).GetNearbyAddress(), address);
+      }
+    }
+
+    string & name = rankerResult.m_str;
+
     switch (r.GetResultType())
     {
     case RankerResult::Type::Feature:
     case RankerResult::Type::Building:
     {
       auto const type = rankerResult.GetBestType(m_params.m_preferredTypes);
-      return Result(r.GetID(), r.GetCenter(), name, address, type, r.GetDetails());
+      return Result(r.GetID(), r.GetCenter(), move(name), move(address), type, move(r.m_details));
     }
-    case RankerResult::Type::LatLon: return Result(r.GetCenter(), name, address);
-    case RankerResult::Type::Postcode: return Result(r.GetCenter(), name);
+    case RankerResult::Type::LatLon: return Result(r.GetCenter(), move(name), move(address));
+    case RankerResult::Type::Postcode: return Result(r.GetCenter(), move(name));
     }
     ASSERT(false, ("Bad RankerResult type:", static_cast<size_t>(r.GetResultType())));
     UNREACHABLE();
@@ -684,10 +686,10 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
   if (needHighlighting)
     HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
 
-  res.SetRankingInfo(rankerResult.GetRankingInfo());
+  res.SetRankingInfo(rankerResult.m_info);
 
 #ifdef SEARCH_USE_PROVENANCE
-  res.SetProvenance(rankerResult.GetProvenance());
+  res.SetProvenance(move(rankerResult.m_provenance));
 #endif
 
   return res;
@@ -727,6 +729,7 @@ void Ranker::UpdateResults(bool lastUpdate)
     // is negligible.
     sort(m_tentativeResults.rbegin(), m_tentativeResults.rend(),
          base::LessBy(&RankerResult::GetLinearModelRank));
+
     ProcessSuggestions(m_tentativeResults);
   }
 
@@ -752,12 +755,14 @@ void Ranker::UpdateResults(bool lastUpdate)
         m_emitter.Emit();
     }
 
-    auto const & rankerResult = m_tentativeResults[i];
-
     if (count >= m_params.m_limit)
       break;
 
-    Result result = MakeResult(rankerResult, m_params.m_needAddress, m_params.m_needHighlighting);
+    auto & rankerResult = m_tentativeResults[i];
+    if (!m_params.m_viewportSearch)
+      LOG(LDEBUG, (rankerResult));
+
+    Result result = MakeResult(move(rankerResult), m_params.m_needAddress, m_params.m_needHighlighting);
 
     if (m_params.m_viewportSearch)
     {
@@ -766,11 +771,12 @@ void Ranker::UpdateResults(bool lastUpdate)
     }
     else
     {
-      LOG(LDEBUG, (rankerResult));
       if (m_emitter.AddResult(move(result)))
         ++count;
     }
   }
+
+  /// @todo Use deque for m_tentativeResults?
   m_tentativeResults.erase(m_tentativeResults.begin(), m_tentativeResults.begin() + i);
 
   // The last update must be handled by a call to Finish().
@@ -805,6 +811,10 @@ void Ranker::MakeRankerResults()
       continue;
     }
 
+    /// @todo Do not filter "equal" results by distance in Mode::Viewport mode.
+    /// Strange when (for example bus stops) not all results are highlighted.
+    /// @todo Is it ok to make duplication check for O(N) here?
+    /// Especially when we make RemoveDuplicatingLinear later.
     if (!ResultExists(*p, m_tentativeResults, m_params.m_minDistanceBetweenResultsM))
       m_tentativeResults.push_back(move(*p));
   };
@@ -883,32 +893,31 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
   }
 }
 
-void Ranker::ProcessSuggestions(vector<RankerResult> & vec) const
+void Ranker::ProcessSuggestions(vector<RankerResult> const & vec) const
 {
   if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
 
   size_t added = 0;
-  for (auto i = vec.begin(); i != vec.end();)
+  for (RankerResult const & r : vec)
   {
-    RankerResult const & r = *i;
+    if (added >= kMaxNumSuggests)
+      break;
 
     ftypes::LocalityType const type = GetLocalityIndex(r.GetTypes());
     if (type == ftypes::LocalityType::Country || type == ftypes::LocalityType::City || r.IsStreet())
     {
-      string suggestion;
-      GetSuggestion(r, m_params.m_query, m_params.m_tokens, m_params.m_prefix, suggestion);
-      if (!suggestion.empty() && added < kMaxNumSuggests)
+      string suggestion = GetSuggestion(r, m_params.m_query, m_params.m_tokens, m_params.m_prefix);
+      if (!suggestion.empty())
       {
         // todo(@m) RankingInfo is lost here. Should it be?
-        if (m_emitter.AddResult(Result(
-                MakeResult(r, false /* needAddress */, true /* needHighlighting */), suggestion)))
+        if (m_emitter.AddResult(Result(MakeResult(r, false /* needAddress */, true /* needHighlighting */),
+                                       move(suggestion))))
         {
           ++added;
         }
       }
     }
-    ++i;
   }
 }
 

@@ -50,7 +50,7 @@ void SweepNearbyResults(double xEps, double yEps, set<FeatureID> const & prevEmi
   vector<PreRankerResult> filtered;
   sweeper.Sweep([&filtered, &results](size_t i)
                 {
-                  filtered.push_back(results[i]);
+                  filtered.push_back(move(results[i]));
                 });
 
   results.swap(filtered);
@@ -172,9 +172,9 @@ void PreRanker::Filter(bool viewportSearch)
   m_results.erase(unique(m_results.begin(), m_results.end(), base::EqualsBy(&PreRankerResult::GetId)),
                   m_results.end());
 
-  bool const centersLoaded =
-      all_of(m_results.begin(), m_results.end(),
+  bool const centersLoaded = all_of(m_results.begin(), m_results.end(),
              [](PreRankerResult const & result) { return result.GetInfo().m_centerLoaded; });
+
   if (viewportSearch && centersLoaded)
   {
     FilterForViewportSearch();
@@ -248,7 +248,7 @@ void PreRanker::Filter(bool viewportSearch)
     }
   }
 
-  m_results.assign(filtered.begin(), filtered.end());
+  m_results.assign(make_move_iterator(filtered.begin()), make_move_iterator(filtered.end()));
 }
 
 void PreRanker::UpdateResults(bool lastUpdate)
@@ -295,7 +295,8 @@ void PreRanker::FilterRelaxedResults(bool lastUpdate)
 {
   if (lastUpdate)
   {
-    m_results.insert(m_results.end(), m_relaxedResults.begin(), m_relaxedResults.end());
+    m_results.insert(m_results.end(),
+                     make_move_iterator(m_relaxedResults.begin()), make_move_iterator(m_relaxedResults.end()));
     m_relaxedResults.clear();
   }
   else
@@ -304,7 +305,7 @@ void PreRanker::FilterRelaxedResults(bool lastUpdate)
     {
       return res.IsNotRelaxed();
     });
-    m_relaxedResults.insert(m_relaxedResults.end(), it, m_results.end());
+    m_relaxedResults.insert(m_relaxedResults.end(), make_move_iterator(it), make_move_iterator(m_results.end()));
     m_results.erase(it, m_results.end());
   }
 }

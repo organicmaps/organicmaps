@@ -9,17 +9,16 @@
 
 #include <vector>
 
-using namespace std;
-
 namespace search
 {
-void GetSuggestion(RankerResult const & res, string const & query, QueryTokens const & paramTokens,
-                   strings::UniString const & prefix, string & suggest)
+using namespace std;
+
+string GetSuggestion(RankerResult const & res, string const & query,
+                     QueryTokens const & paramTokens, strings::UniString const & prefix)
 {
   // Splits result's name.
-  search::Delimiters delims;
   vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(res.GetName()), base::MakeBackInsertFunctor(tokens), delims);
+  SplitUniString(NormalizeAndSimplifyString(res.GetName()), base::MakeBackInsertFunctor(tokens), Delimiters());
 
   // Finds tokens that are already present in the input query.
   vector<bool> tokensMatched(tokens.size());
@@ -45,9 +44,9 @@ void GetSuggestion(RankerResult const & res, string const & query, QueryTokens c
   // token of the |name| (for example, when user entered "Moscow"
   // without space at the end), we should not suggest anything.
   if (!prefixMatched || fullPrefixMatched)
-    return;
+    return {};
 
-  suggest = DropLastToken(query);
+  string suggest = DropLastToken(query);
 
   // Appends unmatched result's tokens to the suggestion.
   for (size_t i = 0; i < tokens.size(); ++i)
@@ -57,5 +56,7 @@ void GetSuggestion(RankerResult const & res, string const & query, QueryTokens c
     suggest.append(strings::ToUtf8(tokens[i]));
     suggest.push_back(' ');
   }
+
+  return suggest;
 }
 }  // namespace search

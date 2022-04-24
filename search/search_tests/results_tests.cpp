@@ -38,11 +38,10 @@ UNIT_TEST(Results_Sorting)
 UNIT_TEST(Result_PrependCity)
 {
   FeatureID const fid;
-  Result::Details const details;
 
   {
     Result r(fid, m2::PointD::Zero(), "" /* str */, "Moscow, Russia" /* address */,
-             0 /* featureType */, details);
+             0 /* featureType */, {} /* details */);
 
     r.PrependCity("Moscow");
     TEST_EQUAL(r.GetAddress(), "Moscow, Russia", ());
@@ -50,7 +49,7 @@ UNIT_TEST(Result_PrependCity)
 
   {
     Result r(fid, m2::PointD::Zero(), "улица Михася Лынькова" /* str */,
-             "Минская область, Беларусь" /* address */, 0 /* featureType */, details);
+             "Минская область, Беларусь" /* address */, 0 /* featureType */, {} /* details */);
 
     r.PrependCity("Минск");
     TEST_EQUAL(r.GetAddress(), "Минск, Минская область, Беларусь", ());
