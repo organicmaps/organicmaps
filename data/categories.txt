@@ -9035,7 +9035,7 @@ fa:توربین بادی
 # pt-BR:Búnquer|Bunker
 # ro:Buncăr
 # es:Búnker
-eu:# Bunkerra
+# eu:Bunkerra
 # sv:Bunker
 # th:บังเกอร์
 # tr:Sığınak
