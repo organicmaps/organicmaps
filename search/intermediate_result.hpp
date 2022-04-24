@@ -11,9 +11,7 @@
 
 #include "geometry/point2d.hpp"
 
-#include <cstdint>
 #include <string>
-#include <utility>
 #include <vector>
 
 class FeatureType;
@@ -111,12 +109,11 @@ public:
 
   bool IsStreet() const;
 
-  search::RankingInfo const & GetRankingInfo() const { return m_info; }
-
-  template <typename Info>
-  inline void SetRankingInfo(Info && info)
+  RankingInfo const & GetRankingInfo() const { return m_info; }
+  void SetRankingInfo(RankingInfo & info)
   {
-    m_info = std::forward<Info>(info);
+    // No sense to make move for RankingInfo.
+    m_info = info;
   }
 
   FeatureID const & GetID() const { return m_id; }
@@ -146,6 +143,7 @@ public:
 
 private:
   friend class RankerResultMaker;
+  friend class Ranker;
 
   struct RegionInfo
   {

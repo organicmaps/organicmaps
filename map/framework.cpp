@@ -2686,10 +2686,10 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
 {
   if (params.m_query == "?edits")
   {
-    osm::Editor::Stats const stats = osm::Editor::Instance().GetStats();
+    osm::Editor::Stats stats = osm::Editor::Instance().GetStats();
     search::Results results;
     results.AddResultNoChecks(search::Result("Uploaded: " + strings::to_string(stats.m_uploadedCount), "?edits"));
-    for (auto const & edit : stats.m_edits)
+    for (auto & edit : stats.m_edits)
     {
       FeatureID const & fid = edit.first;
 
@@ -2702,9 +2702,8 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       }
 
       feature::TypesHolder const types(*ft);
-      search::Result::Details details;
-      results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*ft), ft->GetReadableName(), edit.second,
-                                               types.GetBestType(), details));
+      results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*ft), string(ft->GetReadableName()),
+                                               move(edit.second), types.GetBestType(), {}));
     }
     params.m_onResults(results);
 

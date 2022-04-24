@@ -14,41 +14,41 @@ namespace search
 using namespace std;
 
 // Result ------------------------------------------------------------------------------------------
-Result::Result(FeatureID const & id, m2::PointD const & pt, string_view str,
-               string const & address, uint32_t featureType, Details const & details)
+Result::Result(FeatureID const & id, m2::PointD const & pt, string && str,
+               string && address, uint32_t featureType, Details && details)
   : m_resultType(Type::Feature)
   , m_id(id)
   , m_center(pt)
-  , m_str(str)
-  , m_address(address)
+  , m_str(move(str))
+  , m_address(move(address))
   , m_featureType(featureType)
-  , m_details(details)
+  , m_details(move(details))
 {
 }
 
-Result::Result(m2::PointD const & pt, string const & latlon, string const & address)
-  : m_resultType(Type::LatLon), m_center(pt), m_str(latlon), m_address(address)
+Result::Result(m2::PointD const & pt, string && latlon, string && address)
+  : m_resultType(Type::LatLon), m_center(pt), m_str(move(latlon)), m_address(move(address))
 {
 }
 
-Result::Result(m2::PointD const & pt, string const & postcode)
-  : m_resultType(Type::Postcode), m_center(pt), m_str(postcode)
+Result::Result(m2::PointD const & pt, string && postcode)
+  : m_resultType(Type::Postcode), m_center(pt), m_str(move(postcode))
 {
 }
 
-Result::Result(string const & str, string const & suggest)
-  : m_resultType(Type::PureSuggest), m_str(str), m_suggestionStr(suggest)
+Result::Result(string str, string && suggest)
+  : m_resultType(Type::PureSuggest), m_str(move(str)), m_suggestionStr(move(suggest))
 {
 }
 
-Result::Result(Result const & res, string const & suggest)
-  : m_id(res.m_id)
+Result::Result(Result && res, string && suggest)
+  : m_id(move(res.m_id))
   , m_center(res.m_center)
-  , m_str(res.m_str)
-  , m_address(res.m_address)
+  , m_str(move(res.m_str))
+  , m_address(move(res.m_address))
   , m_featureType(res.m_featureType)
-  , m_suggestionStr(suggest)
-  , m_hightlightRanges(res.m_hightlightRanges)
+  , m_suggestionStr(move(suggest))
+  , m_hightlightRanges(move(res.m_hightlightRanges))
 {
   m_resultType = m_id.IsValid() ? Type::SuggestFromFeature : Type::PureSuggest;
 }

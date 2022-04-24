@@ -16,8 +16,6 @@
 #include "defines.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 #include <string>
 #include <utility>
 #include <vector>
@@ -74,20 +72,20 @@ public:
   static auto constexpr kPopularityHighPriorityMinDistance = 50000.0;
 
   // For Type::Feature.
-  Result(FeatureID const & id, m2::PointD const & pt, std::string_view str,
-         std::string const & address, uint32_t featureType, Details const & meta);
+  Result(FeatureID const & id, m2::PointD const & pt, std::string && str,
+         std::string && address, uint32_t featureType, Details && meta);
 
   // For Type::LatLon.
-  Result(m2::PointD const & pt, std::string const & latlon, std::string const & address);
+  Result(m2::PointD const & pt, std::string && latlon, std::string && address);
 
   // For Type::Postcode.
-  Result(m2::PointD const & pt, std::string const & postcode);
+  Result(m2::PointD const & pt, std::string && postcode);
 
   // For Type::PureSuggest.
-  Result(std::string const & str, std::string const & suggest);
+  Result(std::string str, std::string && suggest);
 
   // For Type::SuggestFromFeature.
-  Result(Result const & res, std::string const & suggest);
+  Result(Result && res, std::string && suggest);
 
   Type GetResultType() const { return m_resultType; }
 
@@ -133,11 +131,10 @@ public:
   void SetPositionInResults(int32_t pos) { m_positionInResults = pos; }
 
   RankingInfo const & GetRankingInfo() const { return m_info; }
-
-  template <typename Info>
-  void SetRankingInfo(Info && info)
+  void SetRankingInfo(RankingInfo & info)
   {
-    m_info = std::forward<Info>(info);
+    // No sense to make move for RankingInfo.
+    m_info = info;
   }
 
 #ifdef SEARCH_USE_PROVENANCE
