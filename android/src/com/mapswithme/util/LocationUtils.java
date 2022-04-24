@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.provider.Settings;
 import android.view.Surface;
 
@@ -99,17 +100,20 @@ public class LocationUtils
     return newLocation.getAccuracy() < lastAccuracy;
   }
 
-
-  @SuppressLint("InlinedApi")
-  @SuppressWarnings("deprecation")
   public static boolean areLocationServicesTurnedOn(@NonNull Context context)
   {
-    final ContentResolver resolver = context.getContentResolver();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+    {
+      final LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+      return lm.isLocationEnabled();
+    }
+
     try
     {
-      return Settings.Secure.getInt(resolver, Settings.Secure.LOCATION_MODE)
+      return Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE)
              != Settings.Secure.LOCATION_MODE_OFF;
-    } catch (Settings.SettingNotFoundException e)
+    }
+    catch (Settings.SettingNotFoundException e)
     {
       e.printStackTrace();
       return false;
