@@ -87,21 +87,24 @@ void PreRanker::FillMissingFieldsInPreResults()
   unique_ptr<LazyCentersTable> centers;
   bool pivotFeaturesInitialized = false;
 
-  ForEach([&](PreRankerResult & r) {
+  ForEachMwmOrder(m_results, [&](PreRankerResult & r)
+  {
     FeatureID const & id = r.GetId();
     if (id.m_mwmId != mwmId)
     {
       mwmId = id.m_mwmId;
       mwmHandle = m_dataSource.GetMwmHandleById(mwmId);
+
       ranks.reset();
       centers.reset();
       if (mwmHandle.IsAlive())
       {
-        ranks = RankTable::Load(mwmHandle.GetValue()->m_cont, SEARCH_RANKS_FILE_TAG);
-        popularityRanks = RankTable::Load(mwmHandle.GetValue()->m_cont,
-                                          POPULARITY_RANKS_FILE_TAG);
-        ratings = RankTable::Load(mwmHandle.GetValue()->m_cont, RATINGS_FILE_TAG);
-        centers = make_unique<LazyCentersTable>(*mwmHandle.GetValue());
+        auto const * value = mwmHandle.GetValue();
+
+        ranks = RankTable::Load(value->m_cont, SEARCH_RANKS_FILE_TAG);
+        popularityRanks = RankTable::Load(value->m_cont, POPULARITY_RANKS_FILE_TAG);
+        ratings = RankTable::Load(value->m_cont, RATINGS_FILE_TAG);
+        centers = make_unique<LazyCentersTable>(*value);
       }
       if (!ranks)
         ranks = make_unique<DummyRankTable>();
