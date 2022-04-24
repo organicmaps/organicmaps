@@ -7,10 +7,10 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 SearchTest::SearchTest()
   : m_scopedLog(LDEBUG)
   , m_engine(m_dataSource, make_unique<storage::CountryInfoGetterForTesting>(), Engine::Params{})

@@ -6,12 +6,12 @@
 
 #include <utility>
 
-using namespace std;
-
 namespace search
 {
 namespace tests_support
 {
+using namespace std;
+
 TestSearchEngine::TestSearchEngine(DataSource & dataSource,
                                    unique_ptr<storage::CountryInfoGetter> infoGetter,
                                    Engine::Params const & params)

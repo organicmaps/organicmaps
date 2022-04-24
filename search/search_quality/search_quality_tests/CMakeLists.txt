@@ -1,6 +1,9 @@
 project(search_quality_tests)
 
-set(SRC sample_test.cpp)
+set(SRC
+  benchmark_tests.cpp
+  sample_test.cpp
+)
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
