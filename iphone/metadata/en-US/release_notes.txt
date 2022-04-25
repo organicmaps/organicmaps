@@ -1,19 +1,19 @@
-• New OSM data as of March 14, 2022
-• Display Wikipedia articles for well-known places
-• Fixed appearance of date pickers when editing opening hours
-• Fixed rare crashes after downloading maps
-• Select a proper light/dark CarPlay theme on the startup
-• Automatically switch CarPlay dark/light mode based on the system notification
-• Add date and time to My Position bookmarks
-• Fixed crash on the menu click after hiding the interface
-• Search for organic shops and restaurants!
-• Brighter roads in night mode
-• Darker farmlands and parking areas
-• Properly display parkings and parks over hospital grounds
-• Synced visibility for steps and footways
-• Fixed visibility of community_centre
-• Added bubble_tea
-• Removed transparent circles from some icons
-• Fixed museum icons
-• Improved routing algorithm
-• Improved Arabic, Romanian and Spanish translations
+• New OSM data as of April 15, 2022
+• Added Wikipedia articles for many objects (experimental)
+• Improved car route directions
+• Some speed and battery optimizations
+• Many routing improvements
+• Fixed subway routing in some cities
+• Added Euskara (Basque) translations
+• Improved Italian and DE translations
+• Draw oneway arrows more often
+• Removed town halls and gardens from sightseeing
+• Use phone from "mobile" OSM tag
+• Added more vending_machine types
+• Added landuse=education
+• Orange fill for school, kindergarten and landuse=education areas
+• Fixed Recycling category search
+• Fixed Internet access displaying
+• Fixed descriptions serialization in the edits.xml
+• Fixed font rendering
+• Follow our news in "?" dialog
