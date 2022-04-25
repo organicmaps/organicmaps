@@ -1,18 +1,1 @@
-• Yeni OSM harita verileri (14 Mart 2022)
-• Ünlü yerler için Vikipedi makalelerini görüntüleyin
-• Açık olunan saatleri düzenlerken çıkan tarih seçim alanının görünümü düzeltildi
-• Harita indirdikten sonra nadiren oluşan çökme hataları düzeltildi
-• CarPlay'de başlangıçta sizin için uygun olan açık/koyu temayı seçin
-• Sistem bildirimine göre CarPlay açık/koyu modunu otomatik olarak değiştirin
-• "Konumum" yer imlerine tarih ve saat ekleyin
-• Arayüz gizlendikten sonra menüye tıklarken oluşan çökme hatası düzeltildi
-• Organik mağaza ve restoran araması yapın!
-• Metro girişleri için iyileştirilmiş görünüm
-• Karanlık modda daha parlak yollar
-• Daha karanlık tarım arazileri ve parklar
-• Basamaklar ve kaldırımlar için senkronize görünürlük
-• Topluluk merkezlerinin görünümü düzeltildi
-• bubble_tea, water_well eklendi
-• Bazı ikonlardaki şeffaf daire kaldırıldı
-• Müze ikonları düzeltildi
-• İyileştirilmiş rota algoritması
+../en-US/release_notes.txt
