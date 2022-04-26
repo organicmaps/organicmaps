@@ -900,18 +900,17 @@ void Framework::SaveViewport()
     rect = modelView.GlobalRect();
   }
   else
-  {
     rect = m_currentModelView.GlobalRect();
-  }
-  settings::Set("ScreenClipRect", rect);
+
+  df::SaveViewportSetting(rect);
 }
 
 void Framework::LoadViewport()
 {
   m2::AnyRectD rect;
-  if (settings::Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
+  if (df::LoadViewportSetting(rect))
   {
-    if (m_drapeEngine != nullptr)
+    if (m_drapeEngine)
       m_drapeEngine->SetModelViewAnyRect(rect, false /* isAnim */, false /* useVisibleViewport */);
   }
   else
@@ -1073,12 +1072,6 @@ int Framework::GetDrawScale() const
     return df::GetDrawTileScale(m_currentModelView);
 
   return 0;
-}
-
-void Framework::RunFirstLaunchAnimation()
-{
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->RunFirstLaunchAnimation();
 }
 
 bool Framework::IsCountryLoaded(m2::PointD const & pt) const

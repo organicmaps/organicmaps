@@ -21,7 +21,19 @@ namespace
 {
 std::string const kLocationStateMode = "LastLocationStateMode";
 std::string const kLastEnterBackground = "LastEnterBackground";
+std::string const kLastViewport = "ScreenClipRect";
 }
+
+void SaveViewportSetting(m2::AnyRectD const & r)
+{
+  settings::Set(kLastViewport, r);
+}
+
+bool LoadViewportSetting(m2::AnyRectD & r)
+{
+  return settings::Get(kLastViewport, r) && GetWorldRect().IsRectInside(r.GetGlobalRect());
+}
+
 
 DrapeEngine::DrapeEngine(Params && params)
   : m_myPositionModeChanged(std::move(params.m_myPositionModeChanged))
@@ -46,8 +58,8 @@ DrapeEngine::DrapeEngine(Params && params)
   {
     // If the screen rect setting in follow and rotate mode is missing or invalid, it could cause
     // invalid animations, so the follow and rotate mode should be discarded.
-    m2::AnyRectD rect;
-    if (!(settings::Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect())))
+    m2::AnyRectD dummy;
+    if (!LoadViewportSetting(dummy))
       mode = Follow;
   }
 
@@ -881,13 +893,6 @@ void DrapeEngine::SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool 
 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<SetPosteffectEnabledMessage>(effect, enabled),
-                                  MessagePriority::Normal);
-}
-
-void DrapeEngine::RunFirstLaunchAnimation()
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<RunFirstLaunchAnimationMessage>(),
                                   MessagePriority::Normal);
 }
 

@@ -606,16 +606,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
     // If there is a location we need just to pass it to the listeners, so that
     // my position state machine will be switched to the FOLLOW state.
+    // Otherwise, restart location service to show alert dialog if any location error.
     if (mSavedLocation != null)
-    {
       notifyLocationUpdated();
-      mLogger.d(TAG, "Current location is available, so play the nice zoom animation");
-      Framework.nativeRunFirstLaunchAnimation();
-      return;
-    }
-
-    // Restart location service to show alert dialog if any location error.
-    restart();
+    else
+      restart();
   }
 
   @Nullable

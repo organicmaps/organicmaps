@@ -14,7 +14,6 @@ typedef void (^SearchInDownloaderCompletions)(NSArray<MWMMapSearchResult *> *res
 NS_SWIFT_NAME(FrameworkHelper)
 @interface MWMFrameworkHelper : NSObject
 
-+ (void)processFirstLaunch:(BOOL)hasLocation;
 + (void)setVisibleViewport:(CGRect)rect scaleFactor:(CGFloat)scale;
 + (void)setTheme:(MWMTheme)theme;
 + (MWMDayTime)daytimeAtLocation:(nullable CLLocation *)location;

@@ -324,9 +324,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   if ([FirstSession isFirstSession])
   {
     [MWMLocationManager start];
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [MWMFrameworkHelper processFirstLaunch:[MWMLocationManager isStarted]];
-    });
   }
   else
   {

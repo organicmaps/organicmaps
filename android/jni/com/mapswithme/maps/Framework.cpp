@@ -1658,12 +1658,6 @@ Java_com_mapswithme_maps_Framework_nativeIsRouteFinished(JNIEnv * env, jclass)
   return frm()->GetRoutingManager().IsRouteFinished();
 }
 
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeRunFirstLaunchAnimation(JNIEnv * env, jclass)
-{
-  frm()->RunFirstLaunchAnimation();
-}
-
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_Framework_nativeOpenRoutePointsTransaction(JNIEnv * env, jclass)
 {

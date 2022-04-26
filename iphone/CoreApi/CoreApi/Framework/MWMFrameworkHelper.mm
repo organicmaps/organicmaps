@@ -10,14 +10,6 @@
 
 @implementation MWMFrameworkHelper
 
-+ (void)processFirstLaunch:(BOOL)hasLocation {
-  auto &f = GetFramework();
-  if (!hasLocation)
-    f.SwitchMyPositionNextMode();
-  else
-    f.RunFirstLaunchAnimation();
-}
-
 + (void)setVisibleViewport:(CGRect)rect scaleFactor:(CGFloat)scale {
   CGFloat const x0 = rect.origin.x * scale;
   CGFloat const y0 = rect.origin.y * scale;

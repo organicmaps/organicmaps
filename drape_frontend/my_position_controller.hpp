@@ -167,10 +167,12 @@ private:
   location::EMyPositionMode m_mode;
   location::EMyPositionMode m_desiredInitMode;
   location::TMyPositionModeChanged m_modeChangeCallback;
-  Hints m_hints;
 
   bool m_isInRouting = false;
   bool m_isArrowGluedInRouting = false;
+  bool m_screenshotMode = false;
+
+  int m_followZoomLevel;
 
   bool m_needBlockAnimation;
   bool m_wasRotationInScaling;

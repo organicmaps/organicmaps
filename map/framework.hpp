@@ -560,8 +560,6 @@ public:
 
   int GetDrawScale() const;
 
-  void RunFirstLaunchAnimation();
-
   /// Set correct viewport, parse API, show balloon.
   bool ShowMapForURL(std::string const & url);
   url_scheme::ParsedMapApi::ParsingResult ParseAndSetApiURL(std::string const & url);

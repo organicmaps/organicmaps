@@ -361,8 +361,6 @@ public class Framework
   // Navigation.
   public static native boolean nativeIsRouteFinished();
 
-  public static native void nativeRunFirstLaunchAnimation();
-
   public static native int nativeOpenRoutePointsTransaction();
   public static native void nativeApplyRoutePointsTransaction(int transactionId);
   public static native void nativeCancelRoutePointsTransaction(int transactionId);

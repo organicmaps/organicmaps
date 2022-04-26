@@ -119,8 +119,9 @@ bool IsModeChangeViewport(location::EMyPositionMode mode)
 MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifier> notifier)
   : m_notifier(notifier)
   , m_modeChangeCallback(std::move(params.m_myPositionModeCallback))
-  , m_hints(params.m_hints)
   , m_isInRouting(params.m_isRoutingActive)
+  , m_screenshotMode(params.m_hints.m_screenshotMode)
+  , m_followZoomLevel(13)   // is taken from FrontendRenderer::CheckAndRunFirstLaunchAnimation()
   , m_needBlockAnimation(false)
   , m_wasRotationInScaling(false)
   , m_errorRadius(0.0)
@@ -151,12 +152,12 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
 {
   using namespace location;
 
-  if (m_hints.m_isFirstLaunch)
+  if (params.m_hints.m_isFirstLaunch)
   {
     m_mode = PendingPosition;
     m_desiredInitMode = Follow;
   }
-  else if (m_hints.m_isLaunchByDeepLink)
+  else if (params.m_hints.m_isLaunchByDeepLink)
   {
     m_mode = NotFollowNoPosition;
     m_desiredInitMode = NotFollow;
@@ -173,6 +174,9 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
     m_desiredInitMode = params.m_initMode;
     m_mode = (params.m_isRoutingActive || df::IsModeChangeViewport(m_desiredInitMode)) ?
                 PendingPosition : NotFollowNoPosition;
+
+    // If we restored state, do not make auto-zoom until user will trigger the location.
+    m_followZoomLevel = kDoNotChangeZoom;
   }
 
   m_pendingStarted = (m_mode == PendingPosition);
@@ -333,6 +337,7 @@ void MyPositionController::ResetRenderShape()
 
 void MyPositionController::NextMode(ScreenBase const & screen)
 {
+  m_followZoomLevel = kMaxScaleZoomLevel;
 
   // Skip switching to next mode while we are waiting for position.
   if (IsWaitingForLocation())
@@ -340,7 +345,6 @@ void MyPositionController::NextMode(ScreenBase const & screen)
     m_desiredInitMode = location::Follow;
     return;
   }
-
 
   // Start looking for location.
   if (m_mode == location::NotFollowNoPosition)
@@ -444,7 +448,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_positionIsObsolete = false;
   }
 
-  if (!m_isPositionAssigned)
+  if (m_followZoomLevel == kDoNotChangeZoom)
   {
     // If the position was never assigned, the new mode will be the desired one except next cases:
     location::EMyPositionMode newMode = m_desiredInitMode;
@@ -464,18 +468,15 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
     ChangeMode(newMode);
 
-    if (!m_hints.m_isFirstLaunch || !AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
+    if (m_mode == location::Follow)
     {
-      if (m_mode == location::Follow)
-      {
-        ChangeModelView(m_position, kDoNotChangeZoom);
-      }
-      else if (m_mode == location::FollowAndRotate)
-      {
-        ChangeModelView(m_position, m_drawDirection,
-                        m_isInRouting ? GetRoutingRotationPixelCenter() : m_visiblePixelRect.Center(),
-                        kDoNotChangeZoom);
-      }
+      ChangeModelView(m_position, kDoNotChangeZoom);
+    }
+    else if (m_mode == location::FollowAndRotate)
+    {
+      ChangeModelView(m_position, m_drawDirection,
+                      m_isInRouting ? GetRoutingRotationPixelCenter() : m_visiblePixelRect.Center(),
+                      kDoNotChangeZoom);
     }
   }
   else if (m_mode == location::PendingPosition)
@@ -488,22 +489,15 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     else
     {
       ChangeMode(location::Follow);
-      if (m_hints.m_isFirstLaunch)
+
+      if (GetZoomLevel(screen, m_position, m_errorRadius) <= m_followZoomLevel)
       {
-        if (!AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
-          ChangeModelView(m_position, kDoNotChangeZoom);
+        m2::PointD const size(m_errorRadius, m_errorRadius);
+        ChangeModelView(m2::RectD(m_position - size, m_position + size));
       }
       else
       {
-        if (GetZoomLevel(screen, m_position, m_errorRadius) <= kMaxScaleZoomLevel)
-        {
-          m2::PointD const size(m_errorRadius, m_errorRadius);
-          ChangeModelView(m2::RectD(m_position - size, m_position + size));
-        }
-        else
-        {
-          ChangeModelView(m_position, kMaxScaleZoomLevel);
-        }
+        ChangeModelView(m_position, m_followZoomLevel);
       }
     }
   }
@@ -614,7 +608,7 @@ void MyPositionController::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<
     m_shape->SetAccuracy(static_cast<float>(m_errorRadius));
     m_shape->SetRoutingMode(IsInRouting());
 
-    if (!m_hints.m_screenshotMode)
+    if (!m_screenshotMode)
     {
       m_shape->RenderAccuracy(context, mng, screen, zoomLevel, frameValues);
       m_shape->RenderMyPosition(context, mng, screen, zoomLevel, frameValues);

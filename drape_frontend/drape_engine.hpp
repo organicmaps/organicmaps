@@ -46,6 +46,9 @@ namespace df
 class UserMarksProvider;
 class MapDataProvider;
 
+void SaveViewportSetting(m2::AnyRectD const & r);
+bool LoadViewportSetting(m2::AnyRectD & r);
+
 class DrapeEngine
 {
 public:
@@ -240,8 +243,6 @@ public:
 
   void SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool enabled);
   void EnableDebugRectRendering(bool enabled);
-
-  void RunFirstLaunchAnimation();
 
   void ShowDebugInfo(bool shown);
 
