@@ -282,21 +282,6 @@ bool KeepRoundaboutTurnByHighwayClass(TurnCandidates const & possibleTurns,
   return false;
 }
 
-bool KeepTurnByIngoingEdges(m2::PointD const & junctionPoint,
-                            m2::PointD const & ingoingPointOneSegment,
-                            m2::PointD const & outgoingPoint, bool hasMultiTurns,
-                            size_t const ingoingEdgesCount)
-{
-  double const turnAngle =
-    base::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPointOneSegment, outgoingPoint));
-  bool const isGoStraightOrSlightTurn = IsGoStraightOrSlightTurn(IntermediateDirection(turnAngle));
-
-  // The code below is responsible for cases when there is only one way to leave the junction.
-  // Such junction has to be kept as a turn when it's not a slight turn and it has ingoing edges
-  // (one or more);
-  return hasMultiTurns || (!isGoStraightOrSlightTurn && ingoingEdgesCount > 0);
-}
-
 bool FixupLaneSet(CarDirection turn, vector<SingleLaneInfo> & lanes,
                   function<bool(LaneWay l, CarDirection t)> checker)
 {
@@ -1177,17 +1162,6 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
 
   if (IsGoStraightOrSlightTurn(turn.m_turn))
   {
-    auto const notSoCloseToTheTurnPoint = GetPointForTurn(
-        result, segmentIndexForIngoingPoint, numMwmIds, vehicleSettings.m_notSoCloseMaxPointsCount,
-        vehicleSettings.m_notSoCloseMaxDistMeters, false /* forward */);
-
-    // Removing a slight turn if there's only one way to leave the turn and there's no ingoing edges.
-    if (!KeepTurnByIngoingEdges(junctionPoint, notSoCloseToTheTurnPoint, outgoingPoint, hasMultiTurns, ingoingCount))
-    {
-      turn.m_turn = CarDirection::None;
-      return;
-    }
-
     // Removing a slight turn if ingoing and outgoing edges are not links and all other
     // possible ways out (except of uturn) are links.
     if (!turnInfo.m_ingoing.m_isLink && !turnInfo.m_outgoing.m_isLink &&
