@@ -555,8 +555,16 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("asphalt", "bad", "", "paved_bad");
   TestSurfaceTypes("asphalt", "", "0", "paved_bad");
 
+  TestSurfaceTypes("fine_gravel", "", "", "paved_bad");
   TestSurfaceTypes("fine_gravel", "intermediate", "", "paved_bad");
+
+  // We definitely should store more than 4 surface options.
+  // Gravel (widely used tag) always goes to unpaved_bad which is strange sometimes.
+  // At the same time, we can't definitely say that it's unpaved_good :)
+  TestSurfaceTypes("gravel", "excellent", "", "unpaved_good");
+  TestSurfaceTypes("gravel", "", "", "unpaved_bad");
   TestSurfaceTypes("gravel", "intermediate", "", "unpaved_bad");
+
   TestSurfaceTypes("paved", "intermediate", "", "paved_good");
   TestSurfaceTypes("", "intermediate", "", "unpaved_good");
 
