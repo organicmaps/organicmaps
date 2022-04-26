@@ -265,7 +265,7 @@ UNIT_TEST(SmallMap_Benchmark3)
   TEST_EQUAL(sum1, sum2, ());
   TEST_EQUAL(sum1, sum3, ());
   TEST_LESS(t2, t1, ());
-  TEST_LESS(t3, t2, ());
+  TEST(BenchmarkTimeLessOrNear(t3, t2, 0.05), (t3, t2));
   LOG(LINFO, ("unordered_map time =", t1, "SmallMap time =", t2, "SmallMapBase time =", t3));
 }
 #endif
