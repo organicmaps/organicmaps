@@ -8,8 +8,6 @@
 
 namespace settings
 {
-/// Current location state mode. @See location::EMyPositionMode.
-extern char const * kLocationStateMode;
 /// Metric or Feet.
 extern char const * kMeasurementUnits;
 
@@ -57,8 +55,9 @@ inline void Clear() { StringStorage::Instance().Clear(); }
 /// Use this function for running some stuff once according to date.
 /// @param[in]  date  Current date in format yymmdd.
 bool IsFirstLaunchForDate(int date);
-}
+} // namespace settings
 
+/*
 namespace marketing
 {
 class Settings : public platform::StringStorageBase
@@ -82,3 +81,4 @@ private:
   Settings();
 };
 }  // namespace marketing
+*/

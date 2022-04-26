@@ -279,20 +279,23 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
   auto const doStart = ^{
     auto &rm = GetFramework().GetRoutingManager();
     auto const routePoints = rm.GetRoutePoints();
-    if (routePoints.size() >= 2) {
+    if (routePoints.size() >= 2)
+    {
       auto p1 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
       auto p2 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
 
-      if (p1.isMyPosition && [MWMLocationManager lastLocation]) {
+      CLLocation *lastLocation = [MWMLocationManager lastLocation];
+      if (p1.isMyPosition && lastLocation)
+      {
         rm.FollowRoute();
         [[MWMMapViewControlsManager manager] onRouteStart];
         [MWMThemeManager setAutoUpdates:YES];
-      } else {
-        MWMAlertViewController *alertController = [MWMAlertViewController activeAlertController];
-        CLLocation *lastLocation = [MWMLocationManager lastLocation];
-        BOOL const needToRebuild =
-          lastLocation && !location_helpers::isMyPositionPendingOrNoPosition() && !p2.isMyPosition;
-        [alertController
+      }
+      else
+      {
+        BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !p2.isMyPosition;
+
+        [[MWMAlertViewController activeAlertController]
           presentPoint2PointAlertWithOkBlock:^{
             [self buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
                                                                   intermediateIndex:0]

@@ -104,7 +104,6 @@
 using namespace location;
 using namespace routing;
 using namespace storage;
-using namespace std::chrono;
 using namespace std::placeholders;
 using namespace std;
 
@@ -235,6 +234,11 @@ void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
 void Framework::SetMyPositionPendingTimeoutListener(df::DrapeEngine::UserPositionPendingTimeoutHandler && fn)
 {
   m_myPositionPendingTimeoutListener = move(fn);
+}
+
+EMyPositionMode Framework::GetMyPositionMode() const
+{
+  return m_drapeEngine ? m_drapeEngine->GetMyPositionMode() : PendingPosition;
 }
 
 TrafficManager & Framework::GetTrafficManager()
@@ -1141,10 +1145,7 @@ void Framework::MemoryWarning()
 
 void Framework::EnterBackground()
 {
-  m_startBackgroundTime = base::Timer::LocalTime();
-  settings::Set("LastEnterBackground", m_startBackgroundTime);
-
-  if (m_drapeEngine != nullptr)
+  if (m_drapeEngine)
     m_drapeEngine->OnEnterBackground();
 
   SaveViewport();
@@ -1161,12 +1162,8 @@ void Framework::EnterBackground()
 
 void Framework::EnterForeground()
 {
-  m_startForegroundTime = base::Timer::LocalTime();
-  if (m_drapeEngine != nullptr && m_startBackgroundTime != 0.0)
-  {
-    auto const secondsInBackground = m_startForegroundTime - m_startBackgroundTime;
-    m_drapeEngine->OnEnterForeground(secondsInBackground);
-  }
+  if (m_drapeEngine)
+    m_drapeEngine->OnEnterForeground();
 
   m_trafficManager.OnEnterForeground();
 }
@@ -1507,7 +1504,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       df::MapDataProvider(move(idReadFn), move(featureReadFn),
                           move(isCountryLoadedByNameFn), move(updateCurrentCountryFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, move(params.m_widgetsInitInfo),
-      make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
       move(myPositionModeChangedFn), allow3dBuildings,
       trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
@@ -1522,19 +1518,22 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   });
   m_drapeEngine->SetTapEventInfoListener([this](df::TapInfo const & tapInfo)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, tapInfo]() {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, tapInfo]()
+    {
       OnTapEvent(place_page::BuildInfo(tapInfo));
     });
   });
   m_drapeEngine->SetUserPositionListener([this](m2::PointD const & position, bool hasPosition)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, position, hasPosition](){
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, position, hasPosition]()
+    {
       OnUserPositionChanged(position, hasPosition);
     });
   });
   m_drapeEngine->SetUserPositionPendingTimeoutListener([this]()
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this](){
+    GetPlatform().RunTask(Platform::Thread::Gui, [this]()
+    {
       if (m_myPositionPendingTimeoutListener)
         m_myPositionPendingTimeoutListener();
     });
@@ -3235,11 +3234,6 @@ bool Framework::HaveTransit(m2::PointD const & pt) const
     return false;
 
   return handle.GetValue()->m_cont.IsExist(TRANSIT_FILE_TAG);
-}
-
-double Framework::GetLastBackgroundTime() const
-{
-  return m_startBackgroundTime;
 }
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)

@@ -177,10 +177,6 @@ protected:
 
   drape_ptr<df::DrapeEngine> m_drapeEngine;
 
-  // Time in seconds.
-  double m_startForegroundTime = 0.0;
-  double m_startBackgroundTime = 0.0;
-
   StorageDownloadingPolicy m_storageDownloadingPolicy;
   storage::Storage m_storage;
   bool m_enabledDiffs;
@@ -400,6 +396,8 @@ public:
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
   void SetMyPositionPendingTimeoutListener(df::DrapeEngine::UserPositionPendingTimeoutHandler && fn);
 
+  location::EMyPositionMode GetMyPositionMode() const;
+
 private:
   void OnUserPositionChanged(m2::PointD const & position, bool hasPosition);
 
@@ -411,9 +409,6 @@ public:
     int m_surfaceWidth = 0;
     int m_surfaceHeight = 0;
     gui::TWidgetsInitInfo m_widgetsInitInfo;
-
-    bool m_hasMyPositionState = false;
-    location::EMyPositionMode m_initialMyPositionState = location::PendingPosition;
 
     bool m_isChoosePositionMode = false;
     df::Hints m_hints;
@@ -741,7 +736,6 @@ private:
 public:
   // TipsApi::Delegate override.
   bool HaveTransit(m2::PointD const & pt) const;
-  double GetLastBackgroundTime() const;
 
   power_management::PowerManager & GetPowerManager() { return m_powerManager; }
 

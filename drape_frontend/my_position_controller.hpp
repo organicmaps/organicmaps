@@ -114,6 +114,7 @@ public:
   void StopLocationFollow();
   void NextMode(ScreenBase const & screen);
   void LoseLocation();
+  location::EMyPositionMode GetCurrentMode() const { return m_mode; }
 
   void OnEnterForeground(double backgroundTime);
   void OnEnterBackground();
@@ -191,7 +192,7 @@ private:
 
   base::Timer m_lastGPSBearingTimer;
   base::Timer m_pendingTimer;
-  bool m_pendingStarted = true;
+  bool m_pendingStarted;
   base::Timer m_routingNotFollowTimer;
   bool m_blockRoutingNotFollowTimer = false;
   base::Timer m_blockAutoZoomTimer;
