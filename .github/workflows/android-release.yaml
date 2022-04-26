@@ -159,6 +159,9 @@ jobs:
         run: |
           {
             cat ${{ env.RELEASE_NOTES }}
+            echo ""
+            echo "See [more details](https://organicmaps.app/news/) on our website when apps are published."
+            echo ""
             echo "sha256sum:"
             echo -e '\n```'
             (cd ./android/build/outputs/apk/web/release/ && sha256sum OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk) | tr -d '\n'
