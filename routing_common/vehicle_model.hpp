@@ -68,7 +68,7 @@ using HighwayBasedSpeeds = base::SmallMap<HighwayType, InOutCitySpeedKMpH>;
 /// \brief Params for calculation of an approximate speed on a feature.
 struct SpeedParams
 {
-  /// For unit tests compatibility.
+  /// @deprecated For unit tests compatibility.
   SpeedParams(bool forward, bool inCity, Maxspeed const & maxspeed)
     : m_maxspeed(maxspeed), m_defSpeedKmPH(kInvalidSpeed), m_inCity(inCity), m_forward(forward)
   {
@@ -291,6 +291,7 @@ public:
   bool IsPassThroughAllowed(FeatureType & f) const override;
   /// @}
 
+  // Made public to have simple access from unit tests.
 public:
   /// @returns true if |m_highwayTypes| or |m_addRoadTypes| contains |type| and false otherwise.
   bool IsRoadType(uint32_t type) const;
@@ -314,14 +315,6 @@ public:
            (m_onewayType == rhs.m_onewayType);
   }
 
-protected:
-  /// @returns a special restriction which is set to the feature.
-  virtual RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const;
-
-  void AddAdditionalRoadTypes(Classificator const & classif, AdditionalRoadsList const & roads);
-
-  uint32_t PrepareToMatchType(uint32_t type) const;
-
   /// \returns true if |types| is a oneway feature.
   /// \note According to OSM, tag "oneway" could have value "-1". That means it's a oneway feature
   /// with reversed geometry. In that case at map generation the geometry of such features
@@ -330,6 +323,14 @@ protected:
   bool HasOneWayType(feature::TypesHolder const & types) const;
 
   bool HasPassThroughType(feature::TypesHolder const & types) const;
+
+protected:
+  /// @returns a special restriction which is set to the feature.
+  virtual RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const;
+
+  void AddAdditionalRoadTypes(Classificator const & classif, AdditionalRoadsList const & roads);
+
+  uint32_t PrepareToMatchType(uint32_t type) const;
 
   SpeedKMpH GetSpeedWihtoutMaxspeed(FeatureType & f, SpeedParams params) const;
 

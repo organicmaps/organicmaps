@@ -662,4 +662,17 @@ using namespace std;
         mercator::FromLatLon(34.7068976, 33.1199084), {0., 0.},
         mercator::FromLatLon(34.7070505, 33.1198391), 670.077);
   }
+
+  UNIT_TEST(Crimea_UseGravelTertiary)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(45.362591, 36.471533), {0., 0.},
+        mercator::FromLatLon(45.475055, 36.341766), 18815.6);
+
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(45.470764, 36.331289), {0., 0.},
+        mercator::FromLatLon(45.424964, 36.080336), 55220.2);
+  }
 } // namespace route_test
