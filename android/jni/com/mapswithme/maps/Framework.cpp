@@ -106,8 +106,6 @@ enum MultiTouchAction
 Framework::Framework()
   : m_lastCompass(0.0)
   , m_isSurfaceDestroyed(false)
-  , m_currentMode(location::PendingPosition)
-  , m_isCurrentModeInitialized(false)
   , m_isChoosePositionMode(false)
 {
   m_work.GetTrafficManager().SetStateListener(bind(&Framework::TrafficStateChanged, this, _1));
@@ -234,8 +232,6 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
     p.m_surfaceHeight = oglFactory->GetHeight();
   }
   p.m_visualScale = static_cast<float>(dp::VisualScale(densityDpi));
-  p.m_hasMyPositionState = m_isCurrentModeInitialized;
-  p.m_initialMyPositionState = m_currentMode;
   p.m_isChoosePositionMode = m_isChoosePositionMode;
   p.m_hints.m_isFirstLaunch = firstLaunch;
   p.m_hints.m_isLaunchByDeepLink = launchByDeepLink;
@@ -253,7 +249,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   return true;
 }
 
-bool Framework::IsDrapeEngineCreated()
+bool Framework::IsDrapeEngineCreated() const
 {
   return m_work.IsDrapeEngineCreated();
 }
@@ -642,23 +638,12 @@ void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const
   m_myPositionModeSignal = fn;
 }
 
-location::EMyPositionMode Framework::GetMyPositionMode()
+location::EMyPositionMode Framework::GetMyPositionMode() const
 {
-  if (!m_isCurrentModeInitialized)
-  {
-    if (!settings::Get(settings::kLocationStateMode, m_currentMode))
-      m_currentMode = location::NotFollowNoPosition;
+  // No need in assertion here, return location::PendingPosition if no engine created.
+  //ASSERT(IsDrapeEngineCreated(), ());
 
-    m_isCurrentModeInitialized = true;
-  }
-
-  return m_currentMode;
-}
-
-void Framework::OnMyPositionModeChanged(location::EMyPositionMode mode)
-{
-  m_currentMode = mode;
-  m_isCurrentModeInitialized = true;
+  return m_work.GetMyPositionMode();
 }
 
 void Framework::SwitchMyPositionNextMode()

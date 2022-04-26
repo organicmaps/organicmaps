@@ -124,7 +124,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                NoConnectionListener,
                MapWidgetOffsetsProvider
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private final Logger mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
 
   public static final String EXTRA_TASK = "map_task";

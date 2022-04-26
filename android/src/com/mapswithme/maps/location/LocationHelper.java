@@ -154,12 +154,14 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   };
 
   @SuppressWarnings("FieldCanBeLocal")
-  private final LocationState.LocationPendingTimeoutListener mLocationPendingTimeoutListener =
-      () -> {
-        stop();
-        if (PermissionsUtils.isLocationGranted(mContext) && LocationUtils.areLocationServicesTurnedOn(mContext))
-          notifyLocationNotFound();
-      };
+  private final LocationState.LocationPendingTimeoutListener mLocationPendingTimeoutListener = () -> {
+    if (mActive)
+    {
+      stop();
+      if (PermissionsUtils.isLocationGranted(mContext) && LocationUtils.areLocationServicesTurnedOn(mContext))
+        notifyLocationNotFound();
+    }
+  };
 
   @Override
   public void initialize(@NotNull Context context)
@@ -246,7 +248,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
         mReceiverRegistered = false;
       }
 
-      start();
+      initialStart();
     }
     else
     {
@@ -440,9 +442,14 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
    */
   public void restart()
   {
-    mLogger.i(TAG, "restart()");
     stop();
     start();
+  }
+
+  private void initialStart()
+  {
+    if (LocationState.nativeGetMode() != LocationState.NOT_FOLLOW_NO_POSITION)
+      start();
   }
 
   /**
@@ -455,7 +462,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   {
     if (mActive)
     {
-      mLogger.i(TAG, "Provider '" + mLocationProvider + "' is already started");
+      mLogger.w(TAG, "Provider '" + mLocationProvider + "' is already started");
       return;
     }
 
@@ -492,7 +499,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     mLogger.i(TAG, "stop()");
     if (!mActive)
     {
-      mLogger.i(TAG, "Provider '" + mLocationProvider + "' is already stopped");
+      mLogger.w(TAG, "Provider '" + mLocationProvider + "' is already stopped");
       return;
     }
 
@@ -553,7 +560,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
     else
     {
-      restart();
+      initialStart();
     }
   }
 
@@ -597,9 +604,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
     mInFirstRun = false;
 
-    if (getMyPositionMode() != LocationState.NOT_FOLLOW_NO_POSITION)
-      throw new AssertionError("My position mode must be equal NOT_FOLLOW_NO_POSITION");
-
     // If there is a location we need just to pass it to the listeners, so that
     // my position state machine will be switched to the FOLLOW state.
     if (mSavedLocation != null)
@@ -610,12 +614,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       return;
     }
 
-    // If the location hasn't been obtained yet we need to switch to the next mode and wait for locations.
-    // Otherwise, try to restart location updates polling.
-    if (mActive)
-      switchToNextMode();
-    else
-      restart();
+    // Restart location service to show alert dialog if any location error.
+    restart();
   }
 
   @Nullable

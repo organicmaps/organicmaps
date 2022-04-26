@@ -1,7 +1,7 @@
 #include "drape_frontend/drape_engine.hpp"
 
-#include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
+#include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/my_position_controller.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -13,10 +13,16 @@
 
 #include <unordered_map>
 
-using namespace std::placeholders;
-
 namespace df
 {
+using namespace std::placeholders;
+
+namespace
+{
+std::string const kLocationStateMode = "LastLocationStateMode";
+std::string const kLastEnterBackground = "LastEnterBackground";
+}
+
 DrapeEngine::DrapeEngine(Params && params)
   : m_myPositionModeChanged(std::move(params.m_myPositionModeChanged))
   , m_viewport(std::move(params.m_viewport))
@@ -34,24 +40,20 @@ DrapeEngine::DrapeEngine(Params && params)
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();
   m_requestedTiles = make_unique_dp<RequestedTiles>();
 
-  location::EMyPositionMode mode = params.m_initialMyPositionMode.first;
-  if (!params.m_initialMyPositionMode.second && !settings::Get(settings::kLocationStateMode, mode))
-  {
-    mode = location::PendingPosition;
-  }
-  else if (mode == location::FollowAndRotate)
+  using namespace location;
+  EMyPositionMode mode = PendingPosition;
+  if (settings::Get(kLocationStateMode, mode) && mode == FollowAndRotate)
   {
     // If the screen rect setting in follow and rotate mode is missing or invalid, it could cause
     // invalid animations, so the follow and rotate mode should be discarded.
     m2::AnyRectD rect;
     if (!(settings::Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect())))
-      mode = location::Follow;
+      mode = Follow;
   }
 
   double timeInBackground = 0.0;
-  double lastEnterBackground = 0.0;
-  if (settings::Get("LastEnterBackground", lastEnterBackground))
-    timeInBackground = base::Timer::LocalTime() - lastEnterBackground;
+  if (settings::Get(kLastEnterBackground, timeInBackground))
+    timeInBackground = base::Timer::LocalTime() - timeInBackground;
 
   std::vector<PostprocessRenderer::Effect> effects;
 
@@ -448,9 +450,14 @@ void DrapeEngine::ModelViewChanged(ScreenBase const & screen)
 
 void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive)
 {
-  settings::Set(settings::kLocationStateMode, mode);
-  if (m_myPositionModeChanged != nullptr)
+  settings::Set(kLocationStateMode, mode);
+  if (m_myPositionModeChanged)
     m_myPositionModeChanged(mode, routingActive);
+}
+
+location::EMyPositionMode DrapeEngine::GetMyPositionMode() const
+{
+  return m_frontend->GetMyPositionMode();
 }
 
 void DrapeEngine::TapEvent(TapInfo const & tapInfo)
@@ -724,8 +731,9 @@ void DrapeEngine::SetKineticScrollEnabled(bool enabled)
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::OnEnterForeground(double backgroundTime)
+void DrapeEngine::OnEnterForeground()
 {
+  double const backgroundTime = base::Timer::LocalTime() - m_startBackgroundTime;
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<OnEnterForegroundMessage>(backgroundTime),
                                   MessagePriority::High);
@@ -733,6 +741,9 @@ void DrapeEngine::OnEnterForeground(double backgroundTime)
 
 void DrapeEngine::OnEnterBackground()
 {
+  m_startBackgroundTime = base::Timer::LocalTime();
+  settings::Set(kLastEnterBackground, m_startBackgroundTime);
+
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<OnEnterBackgroundMessage>(),
                                   MessagePriority::High);
