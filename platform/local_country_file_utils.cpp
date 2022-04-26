@@ -37,9 +37,9 @@ string GetAdditionalWorldScope()
 {
   return "r";
 }
-
+/*
 bool IsSpecialName(string const & name) { return name == "." || name == ".."; }
-
+*/
 bool IsDownloaderFile(string const & name)
 {
   static regex const filter(".*\\.(downloading|resume|ready)[0-9]?$");

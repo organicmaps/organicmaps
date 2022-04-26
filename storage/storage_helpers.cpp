@@ -50,7 +50,7 @@ bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage
   // - max MWM file size to apply diff patch (patches are applying one-by-one) = m_maxFileSizeInBytes
   // - final size difference between old and new MWMs = m_sizeDifference
 
-  MwmSize const diff = updateInfo.m_sizeDifference > 0 ? updateInfo.m_sizeDifference : 0;
+  [[maybe_unused]] MwmSize const diff = updateInfo.m_sizeDifference > 0 ? updateInfo.m_sizeDifference : 0;
 //  return IsEnoughSpaceForDownload(std::max(diff, updateInfo.m_totalDownloadSizeInBytes) +
 //                                  updateInfo.m_maxFileSizeInBytes);
 
@@ -61,7 +61,7 @@ bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage
   return IsEnoughSpaceForDownload(updateInfo.m_totalDownloadSizeInBytes);
 #else
   return IsEnoughSpaceForDownload(diff + updateInfo.m_maxFileSizeInBytes);
-#endif
+#endif  // OMIM_OS_IPHONE
 }
 
 m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,
