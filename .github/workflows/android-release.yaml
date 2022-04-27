@@ -3,7 +3,7 @@ on:
   workflow_dispatch: # Manual trigger
 
 env:
-  RELEASE_NOTES: android/src/google/play/release-notes/en-US/default.txt
+  RELEASE_NOTES: android/src/google/play/listings/en-US/whatsnew
   FDROID_VERSION: android/src/fdroid/play/version.yaml
 
 jobs:
