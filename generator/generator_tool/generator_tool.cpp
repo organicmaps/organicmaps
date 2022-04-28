@@ -223,12 +223,11 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     pl.SetResourceDir(FLAGS_user_resource_path);
     pl.SetSettingsDir(FLAGS_user_resource_path);
   }
+  if (!FLAGS_data_path.empty())
+    pl.SetWritableDirForTests(FLAGS_data_path);
 
-  string const path =
-      FLAGS_data_path.empty() ? pl.WritableDir() : base::AddSlashIfNeeded(FLAGS_data_path);
-
-  // So that stray GetWritablePathForFile calls do not crash the generator.
-  pl.SetWritableDirForTests(path);
+  std::string const path = pl.WritableDir();
+  CHECK(!path.empty(), ("Set --data_path to use generator toolchain."));
 
   feature::GenerateInfo genInfo;
   genInfo.m_verbose = FLAGS_verbose;

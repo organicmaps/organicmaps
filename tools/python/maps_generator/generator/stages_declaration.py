@@ -147,6 +147,7 @@ class StageDownloadDescriptions(Stage):
             env.gen_tool,
             out=env.get_subprocess_out(),
             err=env.get_subprocess_out(),
+            data_path=env.paths.data_path,
             intermediate_data_path=env.paths.intermediate_data_path,
             cache_path=env.paths.cache_path,
             user_resource_path=env.paths.user_resource_path,
