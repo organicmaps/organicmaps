@@ -53,6 +53,12 @@ def convert_planet(
 
 
 def step_download_and_convert_planet(env: Env, force_download: bool, **kwargs):
+    # Do not copy, convert, check a local .o5m planet dump, just symlink it instead.
+    src = settings.PLANET_URL
+    if src.startswith("file://") and src.endswith(".o5m"):
+        os.symlink(src[7:], env.paths.planet_o5m)
+        return
+
     if force_download or not is_verified(env.paths.planet_osm_pbf):
         download_files(
             {
@@ -72,6 +78,7 @@ def step_download_and_convert_planet(env: Env, force_download: bool, **kwargs):
         output=env.get_subprocess_out(),
         error=env.get_subprocess_out(),
     )
+
     os.remove(env.paths.planet_osm_pbf)
     os.remove(md5_ext(env.paths.planet_osm_pbf))
 
