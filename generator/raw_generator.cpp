@@ -240,24 +240,22 @@ bool RawGenerator::GenerateFilteredFeatures()
 
   Stats stats(100 * m_threadsCount /* logCallCountThreshold */);
 
-  size_t element_pos = 0;
-  std::vector<OsmElement> elements(m_chunkSize);
-  while (sourceProcessor->TryRead(elements[element_pos]))
+  bool isEnd = false;
+  do
   {
-    if (++element_pos != m_chunkSize)
-      continue;
+    std::vector<OsmElement> elements(m_chunkSize);
+    size_t idx = 0;
+    while (idx < m_chunkSize && sourceProcessor->TryRead(elements[idx]))
+      ++idx;
 
-    stats.Log(elements, reader.Pos());
-    translators.Emit(elements);
+    isEnd = idx < m_chunkSize;
+    stats.Log(elements, reader.Pos(), isEnd/* forcePrint */);
 
-    for (auto & e : elements)
-      e.Clear();
+    if (isEnd)
+      elements.resize(idx);
+    translators.Emit(std::move(elements));
 
-    element_pos = 0;
-  }
-  elements.resize(element_pos);
-  stats.Log(elements, reader.Pos(), true /* forcePrint */);
-  translators.Emit(std::move(elements));
+  } while (!isEnd);
 
   LOG(LINFO, ("Input was processed."));
   if (!translators.Finish())
