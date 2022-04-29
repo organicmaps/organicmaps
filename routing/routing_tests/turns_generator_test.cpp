@@ -436,44 +436,45 @@ UNIT_TEST(GetNextRoutePointIndex)
   // Forward direction.
   TEST(GetNextRoutePointIndex(resultTest,
                               RoutePointIndex({0 /* m_segmentIndex */, 0 /* m_pathIndex */}),
-                              NumMwmIds(), true /* forward */, nextIndex), ());
+                              NumMwmIds(), true /* forward */, true, nextIndex), ());
   TEST_EQUAL(nextIndex, RoutePointIndex({0 /* m_segmentIndex */, 1 /* m_pathIndex */}), ());
 
   TEST(GetNextRoutePointIndex(resultTest,
                               RoutePointIndex({0 /* m_segmentIndex */, 1 /* m_pathIndex */}),
-                              NumMwmIds(), true /* forward */, nextIndex), ());
+                              NumMwmIds(), true /* forward */, true, nextIndex), ());
   TEST_EQUAL(nextIndex, RoutePointIndex({0 /* m_segmentIndex */, 2 /* m_pathIndex */}), ());
 
   // Trying to get next item after the last item of the first segment.
+  // False because of too sharp turn angle.
   TEST(!GetNextRoutePointIndex(resultTest,
                                RoutePointIndex({0 /* m_segmentIndex */, 2 /* m_pathIndex */}),
-                               NumMwmIds(), true /* forward */, nextIndex), ());
+                               NumMwmIds(), true /* forward */, true, nextIndex), ());
 
   // Trying to get point about the end of the route.
   TEST(!GetNextRoutePointIndex(resultTest,
                                RoutePointIndex({1 /* m_segmentIndex */, 1 /* m_pathIndex */}),
-                               NumMwmIds(), true /* forward */, nextIndex), ());
+                               NumMwmIds(), true /* forward */, true, nextIndex), ());
 
   // Backward direction.
   // Moving in backward direction it's possible to get index of the first item of a segment.
   TEST(GetNextRoutePointIndex(resultTest,
                               RoutePointIndex({1 /* m_segmentIndex */, 1 /* m_pathIndex */}),
-                              NumMwmIds(), false /* forward */, nextIndex), ());
+                              NumMwmIds(), false /* forward */, true, nextIndex), ());
   TEST_EQUAL(nextIndex, RoutePointIndex({1 /* m_segmentIndex */, 0 /* m_pathIndex */}), ());
 
   TEST(GetNextRoutePointIndex(resultTest,
                               RoutePointIndex({0 /* m_segmentIndex */, 2 /* m_pathIndex */}),
-                              NumMwmIds(), false /* forward */, nextIndex), ());
+                              NumMwmIds(), false /* forward */, true, nextIndex), ());
   TEST_EQUAL(nextIndex, RoutePointIndex({0 /* m_segmentIndex */, 1 /* m_pathIndex */}), ());
 
   TEST(GetNextRoutePointIndex(resultTest,
                               RoutePointIndex({0 /* m_segmentIndex */, 1 /* m_pathIndex */}),
-                              NumMwmIds(), false /* forward */, nextIndex), ());
+                              NumMwmIds(), false /* forward */, true, nextIndex), ());
   TEST_EQUAL(nextIndex, RoutePointIndex({0 /* m_segmentIndex */, 0 /* m_pathIndex */}), ());
 
   // Trying to get point before the beginning.
   TEST(!GetNextRoutePointIndex(resultTest,
                                RoutePointIndex({0 /* m_segmentIndex */, 0 /* m_pathIndex */}),
-                               NumMwmIds(), false /* forward */, nextIndex), ());
+                               NumMwmIds(), false /* forward */, true, nextIndex), ());
 }
 }  // namespace

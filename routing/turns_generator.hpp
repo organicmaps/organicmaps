@@ -84,7 +84,7 @@ struct TurnInfo
  * of a segment. But it's impossible moving in forward direction.
  */
 bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const & index,
-                            NumMwmIds const & numMwmIds, bool forward, RoutePointIndex & nextIndex);
+                            NumMwmIds const & numMwmIds, bool const forward, bool const smoothOnly, RoutePointIndex & nextIndex);
 
 /*!
  * \brief Compute turn and time estimation structs for the abstract route result.

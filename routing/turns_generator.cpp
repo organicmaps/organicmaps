@@ -375,7 +375,7 @@ m2::PointD GetPointByIndex(TUnpackedPathSegments const & segments, RoutePointInd
  */
 m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegmentIndex,
                            NumMwmIds const & numMwmIds, size_t const maxPointsCount,
-                           double const maxDistMeters, bool forward)
+                           double const maxDistMeters, bool const forward)
 {
   auto const & segments = result.GetSegments();
   ASSERT_LESS(outgoingSegmentIndex, segments.size(), ());
@@ -396,9 +396,9 @@ m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegment
   size_t count = 0;
   double curDistanceMeters = 0.0;
 
-  ASSERT(GetNextRoutePointIndex(result, index, numMwmIds, forward, nextIndex), ());
+  ASSERT(GetNextRoutePointIndex(result, index, numMwmIds, forward, false, nextIndex), ());
 
-  while (GetNextRoutePointIndex(result, index, numMwmIds, forward, nextIndex))
+  do
   {
     nextPoint = GetPointByIndex(segments, nextIndex);
 
@@ -415,6 +415,7 @@ m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegment
     point = nextPoint;
     index = nextIndex;
   }
+  while (GetNextRoutePointIndex(result, index, numMwmIds, forward, true, nextIndex));
 
   return nextPoint;
 }
@@ -440,6 +441,17 @@ double GetOneSegmentTurnAngle(TurnInfo const & turnInfo)
                                                turnInfo.m_outgoing.m_path[1].GetPoint()));
 }
 
+double GetPathTurnAngle(LoadedPathSegment const & segment, size_t const pathIndex)
+{
+  ASSERT_GREATER_OR_EQUAL(segment.m_path.size(), 3, ());
+  ASSERT_GREATER(pathIndex, 0, ());
+  ASSERT_LESS(pathIndex, segment.m_path.size() - 1, ());
+
+  return base::RadToDeg(PiMinusTwoVectorsAngle(segment.m_path[pathIndex].GetPoint(),
+                                               segment.m_path[pathIndex - 1].GetPoint(),
+                                               segment.m_path[pathIndex + 1].GetPoint()));
+}
+
 /*!
  * \brief Calculates |nextIndex| which is an index of next route point at result.GetSegments()
  * in forward direction.
@@ -453,7 +465,7 @@ double GetOneSegmentTurnAngle(TurnInfo const & turnInfo)
  *  if |index| points at the first or intermediate point in turn segment returns the next one.
  * \returns true if |nextIndex| fills correctly and false otherwise.
  */
-bool GetNextCrossSegmentRoutePoint(IRoutingResult const & result, RoutePointIndex const & index,
+bool GetNextCrossSegmentRoutePoint(IRoutingResult const & result, RoutePointIndex const & index, bool const smoothOnly,
                                    NumMwmIds const & numMwmIds, RoutePointIndex & nextIndex)
 {
   auto const & segments = result.GetSegments();
@@ -476,7 +488,7 @@ bool GetNextCrossSegmentRoutePoint(IRoutingResult const & result, RoutePointInde
 
   double const oneSegmentTurnAngle = GetOneSegmentTurnAngle(turnInfo);
   CarDirection const oneSegmentDirection = IntermediateDirection(oneSegmentTurnAngle);
-  if (!IsGoStraightOrSlightTurn(oneSegmentDirection))
+  if (smoothOnly && !IsGoStraightOrSlightTurn(oneSegmentDirection))
     return false; // Too sharp turn angle.
 
   size_t ingoingCount = 0;
@@ -510,10 +522,19 @@ bool GetNextCrossSegmentRoutePoint(IRoutingResult const & result, RoutePointInde
   return false;
 }
 
-bool GetPrevInSegmentRoutePoint(RoutePointIndex const & index, RoutePointIndex & nextIndex)
+bool GetPrevInSegmentRoutePoint(IRoutingResult const & result, RoutePointIndex const & index, bool const smoothOnly, RoutePointIndex & nextIndex)
 {
   if (index.m_pathIndex == 0)
     return false;
+
+  auto const & segments = result.GetSegments();
+  if (smoothOnly && segments[index.m_segmentIndex].m_path.size() >= 3 && index.m_pathIndex < segments[index.m_segmentIndex].m_path.size() - 1)
+  {
+    double const oneSegmentTurnAngle = GetPathTurnAngle(segments[index.m_segmentIndex], index.m_pathIndex);
+    CarDirection const oneSegmentDirection = IntermediateDirection(oneSegmentTurnAngle);
+    if (!IsGoStraightOrSlightTurn(oneSegmentDirection))
+      return false; // Too sharp turn angle.
+  }
 
   nextIndex = {index.m_segmentIndex, index.m_pathIndex - 1};
   return true;
@@ -525,10 +546,15 @@ bool GetPrevInSegmentRoutePoint(RoutePointIndex const & index, RoutePointIndex &
  * the route) is checked. If the other way is "go straight" or "slight turn", turn.m_turn is set
  * to |turnToSet|.
  */
-void GoStraightCorrection(TurnCandidate const & notRouteCandidate, CarDirection turnToSet,
+void GoStraightCorrection(TurnCandidate const & notRouteCandidate, double const routeAngle, CarDirection const & turnToSet,
                           TurnItem & turn)
 {
   if (turn.m_turn != CarDirection::GoStraight)
+    return;
+
+  double const kMinAngleDiffToNotConfuse = 25.0;
+  
+  if (abs(notRouteCandidate.m_angle) > abs(routeAngle) + kMinAngleDiffToNotConfuse)
     return;
 
   if (!IsGoStraightOrSlightTurn(IntermediateDirection(notRouteCandidate.m_angle)))
@@ -572,16 +598,17 @@ bool TurnInfo::IsSegmentsValid() const
 }
 
 bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const & index,
-                            NumMwmIds const & numMwmIds, bool forward, RoutePointIndex & nextIndex)
+                            NumMwmIds const & numMwmIds, bool const forward, bool const smoothOnly,
+                            RoutePointIndex & nextIndex)
 {
   if (forward)
   {
-    if (!GetNextCrossSegmentRoutePoint(result, index, numMwmIds, nextIndex))
+    if (!GetNextCrossSegmentRoutePoint(result, index, smoothOnly, numMwmIds, nextIndex))
       return false;
   }
   else
   {
-    if (!GetPrevInSegmentRoutePoint(index, nextIndex))
+    if (!GetPrevInSegmentRoutePoint(result, index, smoothOnly, nextIndex))
       return false;
   }
 
@@ -934,7 +961,7 @@ CarDirection InvertDirection(CarDirection dir)
 CarDirection RightmostDirection(const double angle)
 {
   static vector<pair<double, CarDirection>> const kLowerBounds = {
-      {157., CarDirection::TurnSharpRight},
+      {145., CarDirection::TurnSharpRight},
       {50., CarDirection::TurnRight},
       {10., CarDirection::TurnSlightRight},
       // For sure it's incorrect to give directions TurnLeft or TurnSlighLeft if we need the rightmost turn.
@@ -953,12 +980,12 @@ CarDirection LeftmostDirection(const double angle)
 CarDirection IntermediateDirection(const double angle)
 {
   static vector<pair<double, CarDirection>> const kLowerBounds = {
-      {157., CarDirection::TurnSharpRight},
+      {145., CarDirection::TurnSharpRight},
       {50., CarDirection::TurnRight},
       {10., CarDirection::TurnSlightRight},
       {-10., CarDirection::GoStraight},
       {-50., CarDirection::TurnSlightLeft},
-      {-157., CarDirection::TurnLeft},
+      {-145., CarDirection::TurnLeft},
       {-180., CarDirection::TurnSharpLeft}};
 
   return FindDirectionByAngle(kLowerBounds, angle);
@@ -1047,7 +1074,70 @@ bool PathIsFakeLoop(std::vector<geometry::PointWithAltitude> const & path)
   return path.size() == 2 && path[0] == path[1];
 }
 
-void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex,
+double CalcTurnAngle(IRoutingResult const & result, 
+                     size_t const outgoingSegmentIndex,
+                     bool const isStartFakeLoop,
+                     TurnInfo const & turnInfo, 
+                     NumMwmIds const & numMwmIds, 
+                     RoutingSettings const & vehicleSettings)
+{
+  m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back().GetPoint();
+  size_t const segmentIndexForIngoingPoint = isStartFakeLoop ? outgoingSegmentIndex - 1 : outgoingSegmentIndex;
+
+  m2::PointD const ingoingPoint = GetPointForTurn(
+      result, segmentIndexForIngoingPoint, numMwmIds, vehicleSettings.m_maxIngoingPointsCount,
+      vehicleSettings.m_minIngoingDistMeters, false /* forward */);
+  m2::PointD const outgoingPoint = GetPointForTurn(
+      result, outgoingSegmentIndex, numMwmIds, vehicleSettings.m_maxOutgoingPointsCount,
+      vehicleSettings.m_minOutgoingDistMeters, true /* forward */);
+
+  double const turnAngle = base::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+  return turnAngle;
+}
+
+double CalcTurnBasicAngle(IRoutingResult const & result, 
+                     size_t const outgoingSegmentIndex,
+                     bool const isStartFakeLoop,
+                     TurnInfo const & turnInfo, 
+                     NumMwmIds const & numMwmIds)
+{
+  m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back().GetPoint();
+  size_t const segmentIndexForIngoingPoint = isStartFakeLoop ? outgoingSegmentIndex - 1 : outgoingSegmentIndex;
+
+  m2::PointD const ingoingPoint = GetPointForTurn(
+      result, segmentIndexForIngoingPoint, numMwmIds, 1,
+      100, false /* forward */);
+  m2::PointD const outgoingPoint = GetPointForTurn(
+      result, outgoingSegmentIndex, numMwmIds, 1,
+      100, true /* forward */);
+
+  double const turnAngle = base::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+  return turnAngle;
+}
+
+void CandidatesSegmentCorrectionByOutgoing(IRoutingResult const & result, 
+                     size_t const outgoingSegmentIndex,
+                     bool const isStartFakeLoop,
+                     TurnInfo const & turnInfo, 
+                     NumMwmIds const & numMwmIds,
+                     Segment const & firstOutgoingSeg,
+                     std::vector<TurnCandidate> & candidates)
+{
+  auto IsFirstOutgoingSeg = [&firstOutgoingSeg](TurnCandidate const & turnCandidate) { return turnCandidate.m_segment == firstOutgoingSeg; };
+  if (find_if(candidates.begin(), candidates.end(), IsFirstOutgoingSeg) == candidates.end())
+  {
+    double const turnAngle = CalcTurnBasicAngle(result, outgoingSegmentIndex, isStartFakeLoop, turnInfo, numMwmIds);
+    auto DoesAngleMatch = [&turnAngle](TurnCandidate const & turnCandidate) { return base::AlmostEqualAbs(turnCandidate.m_angle, turnAngle, 0.001); };
+    auto it = find_if(candidates.begin(), candidates.end(), DoesAngleMatch);
+    if (it != candidates.end())
+    {
+      ASSERT(it->m_segment.GetMwmId() != firstOutgoingSeg.GetMwmId(), ());
+      it->m_segment = firstOutgoingSeg;
+    }
+  }
+}
+
+void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmentIndex,
                       NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
                       TurnItem & turn)
 {
@@ -1086,19 +1176,6 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
                                         turnInfo.m_outgoing.m_path.front().GetPoint()),
               kFeaturesNearTurnMeters, ());
 
-  m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back().GetPoint();
-  size_t const segmentIndexForIngoingPoint = isStartFakeLoop ? outgoingSegmentIndex - 1 : outgoingSegmentIndex;
-
-  m2::PointD const ingoingPoint = GetPointForTurn(
-      result, segmentIndexForIngoingPoint, numMwmIds, vehicleSettings.m_maxIngoingPointsCount,
-      vehicleSettings.m_minIngoingDistMeters, false /* forward */);
-  m2::PointD const outgoingPoint = GetPointForTurn(
-      result, outgoingSegmentIndex, numMwmIds, vehicleSettings.m_maxOutgoingPointsCount,
-      vehicleSettings.m_minOutgoingDistMeters, true /* forward */);
-
-  double const turnAngle = base::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
-  CarDirection const intermediateDirection = IntermediateDirection(turnAngle);
-
   turn.m_keepAnyway = (!turnInfo.m_ingoing.m_isLink && turnInfo.m_outgoing.m_isLink);
   turn.m_sourceName = turnInfo.m_ingoing.m_name;
   turn.m_targetName = turnInfo.m_outgoing.m_name;
@@ -1107,6 +1184,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
   ASSERT_GREATER(turnInfo.m_ingoing.m_path.size(), 1, ());
   TurnCandidates nodes;
   size_t ingoingCount;
+  m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back().GetPoint();
   result.GetPossibleTurns(turnInfo.m_ingoing.m_segmentRange, junctionPoint, ingoingCount, nodes);
   if (nodes.isCandidatesAngleValid)
   {
@@ -1117,6 +1195,15 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
 
   if (nodes.candidates.size() == 0)
     return;
+
+  Segment firstOutgoingSeg;
+  bool const isFirstOutgoingSegValid =
+      turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg);
+  
+  // It's possible that |firstOutgoingSeg| is not contained in |turnCandidates|.
+  // It may happened if |firstOutgoingSeg| and candidates in |turnCandidates| are
+  // from different mwms.
+  CandidatesSegmentCorrectionByOutgoing(result, outgoingSegmentIndex, isStartFakeLoop, turnInfo, numMwmIds, firstOutgoingSeg, nodes.candidates);
 
   bool const hasMultiTurns = HasMultiTurns(numMwmIds, nodes, turnInfo);
   RemoveUTurnCandidate(turnInfo, numMwmIds, nodes.candidates);
@@ -1135,10 +1222,14 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
     return;
   }
 
+  double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, isStartFakeLoop,
+                                         turnInfo, numMwmIds, vehicleSettings);
+  CarDirection const intermediateDirection = IntermediateDirection(turnAngle);
+
   // Checking for exits from highways.
-  Segment firstOutgoingSeg;
-  bool const isFirstOutgoingSegValid =
-      turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg);
+  // Segment firstOutgoingSeg;
+  //bool const isFirstOutgoingSegValid =
+  //    turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg);
   if (isFirstOutgoingSegValid &&
       IsExit(nodes, turnInfo, firstOutgoingSeg, intermediateDirection, turn.m_turn))
   {
@@ -1164,6 +1255,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
   {
     // Removing a slight turn if ingoing and outgoing edges are not links and all other
     // possible ways out (except of uturn) are links.
+    /// @todo Add condition of links m_highwayClass to be higher.
     if (!turnInfo.m_ingoing.m_isLink && !turnInfo.m_outgoing.m_isLink &&
         turnInfo.m_ingoing.m_highwayClass == turnInfo.m_outgoing.m_highwayClass &&
         GetLinkCount(turnCandidates) + 1 == turnCandidates.size())
@@ -1183,23 +1275,37 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
     // to avoid ambiguity: 2 or more almost straight turns and GoStraight direction.
 
     // turnCandidates are sorted by angle from leftmost to rightmost.
-    if (turnCandidates.front().m_segment == firstOutgoingSeg)
+    // Normally no duplicates should be found. But if they are present we can't identify the leftmost/rightmost by order. 
+    if (adjacent_find(nodes.candidates.begin(), nodes.candidates.end(), base::EqualsBy(&TurnCandidate::m_angle)) == nodes.candidates.end())
     {
-      // The route goes along the leftmost candidate. 
-      turn.m_turn = LeftmostDirection(turnAngle);
-      // Compare with the closest left candidate.
-      GoStraightCorrection(turnCandidates[1], CarDirection::TurnSlightLeft, turn);
+      if (turnCandidates.front().m_segment == firstOutgoingSeg)
+      {
+          // The route goes along the leftmost candidate. 
+          turn.m_turn = LeftmostDirection(turnAngle);
+          // Compare with the closest left candidate.
+          GoStraightCorrection(turnCandidates[1], turnCandidates.front().m_angle, CarDirection::TurnSlightLeft, turn);
+      }
+      else if (turnCandidates.back().m_segment == firstOutgoingSeg)
+      {
+        // The route goes along the rightmost candidate. 
+        turn.m_turn = RightmostDirection(turnAngle);
+        // Compare with the closest right candidate.
+        GoStraightCorrection(turnCandidates[turnCandidates.size() - 2], turnCandidates.back().m_angle, CarDirection::TurnSlightRight, turn);
+      }
     }
-    else if (turnCandidates.back().m_segment == firstOutgoingSeg)
+    else
+      LOG(LWARNING, ("nodes.candidates are not expected to have same m_angle."));
+  }
+  else // turnCandidates.size() == 1
+  {
+    if (nodes.candidates.front().m_segment == firstOutgoingSeg)
     {
-      // The route goes along the rightmost candidate. 
-      turn.m_turn = RightmostDirection(turnAngle);
-      // Compare with the closest right candidate.
-      GoStraightCorrection(turnCandidates[turnCandidates.size() - 2], CarDirection::TurnSlightRight, turn);
+      if (ingoingCount <= 1)
+      {
+        turn.m_turn = CarDirection::None;
+        return;
+      }
     }
-    // Note. It's possible that |firstOutgoingSeg| is not contained in |turnCandidates|.
-    // It may happened if |firstOutgoingSeg| and candidates in |turnCandidates| are
-    // from different mwms.
   }
 }
 
