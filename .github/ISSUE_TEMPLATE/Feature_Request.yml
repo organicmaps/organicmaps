@@ -60,7 +60,7 @@ body:
     attributes:
       label: Expected behavior
       description: Describe what you expected to happen.
-      value: |
+      placeholder: |
         When clicking on the (...), (...) should be an option.
         ...
     validations:
