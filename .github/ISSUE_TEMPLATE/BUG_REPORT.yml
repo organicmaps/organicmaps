@@ -45,7 +45,7 @@ body:
     attributes:
       label: Bug prevalence
       description: "How often do you or others encounter this bug?"
-      placeholder: "Example: Whenever I visit the personal account page (1-2 times a week)"
+      placeholder: "Example: Whenever I visit (...) (1-2 times a week)"
     validations:
       required: true
   - type: textarea
@@ -72,7 +72,7 @@ body:
     attributes:
       label: Expected behavior
       description: Describe what you expected to happen.
-      value: |
+      placeholder: |
         When clicking on the (...), (...) should be an option.
         ...
     validations:
