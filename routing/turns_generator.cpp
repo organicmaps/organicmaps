@@ -1113,6 +1113,7 @@ void CandidatesSegmentCorrectionByOutgoing(IRoutingResult const & result,
     if (it != candidates.end())
     {
       ASSERT(it->m_segment.GetMwmId() != firstOutgoingSeg.GetMwmId(), ());
+      ASSERT(it->m_segment.GetSegmentIdx() == firstOutgoingSeg.GetSegmentIdx() && it->m_segment.IsForward() == firstOutgoingSeg.IsForward(), ());
       it->m_segment = firstOutgoingSeg;
     }
   }
