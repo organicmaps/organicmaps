@@ -1076,40 +1076,22 @@ bool PathIsFakeLoop(std::vector<geometry::PointWithAltitude> const & path)
 
 double CalcTurnAngle(IRoutingResult const & result, 
                      size_t const outgoingSegmentIndex,
-                     bool const isStartFakeLoop,
-                     TurnInfo const & turnInfo, 
-                     NumMwmIds const & numMwmIds, 
-                     RoutingSettings const & vehicleSettings)
+                     m2::PointD const & junctionPoint, 
+                     NumMwmIds const & numMwmIds,
+                     size_t maxIngoingPointsCount,
+                     double const maxIngoingDistMeters,
+                     size_t maxOutgoingPointsCount,
+                     double const maxOutgoingDistMeters)
 {
-  m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back().GetPoint();
+  bool const isStartFakeLoop = PathIsFakeLoop(result.GetSegments()[outgoingSegmentIndex - 1].m_path);
   size_t const segmentIndexForIngoingPoint = isStartFakeLoop ? outgoingSegmentIndex - 1 : outgoingSegmentIndex;
 
   m2::PointD const ingoingPoint = GetPointForTurn(
-      result, segmentIndexForIngoingPoint, numMwmIds, vehicleSettings.m_maxIngoingPointsCount,
-      vehicleSettings.m_minIngoingDistMeters, false /* forward */);
+      result, segmentIndexForIngoingPoint, numMwmIds, maxIngoingPointsCount,
+      maxIngoingDistMeters, false /* forward */);
   m2::PointD const outgoingPoint = GetPointForTurn(
-      result, outgoingSegmentIndex, numMwmIds, vehicleSettings.m_maxOutgoingPointsCount,
-      vehicleSettings.m_minOutgoingDistMeters, true /* forward */);
-
-  double const turnAngle = base::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
-  return turnAngle;
-}
-
-double CalcTurnBasicAngle(IRoutingResult const & result, 
-                     size_t const outgoingSegmentIndex,
-                     bool const isStartFakeLoop,
-                     TurnInfo const & turnInfo, 
-                     NumMwmIds const & numMwmIds)
-{
-  m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back().GetPoint();
-  size_t const segmentIndexForIngoingPoint = isStartFakeLoop ? outgoingSegmentIndex - 1 : outgoingSegmentIndex;
-
-  m2::PointD const ingoingPoint = GetPointForTurn(
-      result, segmentIndexForIngoingPoint, numMwmIds, 1,
-      100, false /* forward */);
-  m2::PointD const outgoingPoint = GetPointForTurn(
-      result, outgoingSegmentIndex, numMwmIds, 1,
-      100, true /* forward */);
+      result, outgoingSegmentIndex, numMwmIds, maxOutgoingPointsCount,
+      maxOutgoingDistMeters, true /* forward */);
 
   double const turnAngle = base::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
   return turnAngle;
@@ -1117,8 +1099,7 @@ double CalcTurnBasicAngle(IRoutingResult const & result,
 
 void CandidatesSegmentCorrectionByOutgoing(IRoutingResult const & result, 
                      size_t const outgoingSegmentIndex,
-                     bool const isStartFakeLoop,
-                     TurnInfo const & turnInfo, 
+                     m2::PointD const & junctionPoint, 
                      NumMwmIds const & numMwmIds,
                      Segment const & firstOutgoingSeg,
                      std::vector<TurnCandidate> & candidates)
@@ -1126,7 +1107,7 @@ void CandidatesSegmentCorrectionByOutgoing(IRoutingResult const & result,
   auto IsFirstOutgoingSeg = [&firstOutgoingSeg](TurnCandidate const & turnCandidate) { return turnCandidate.m_segment == firstOutgoingSeg; };
   if (find_if(candidates.begin(), candidates.end(), IsFirstOutgoingSeg) == candidates.end())
   {
-    double const turnAngle = CalcTurnBasicAngle(result, outgoingSegmentIndex, isStartFakeLoop, turnInfo, numMwmIds);
+    double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, junctionPoint, numMwmIds, 1, 0.0, 1, 0.0);
     auto DoesAngleMatch = [&turnAngle](TurnCandidate const & turnCandidate) { return base::AlmostEqualAbs(turnCandidate.m_angle, turnAngle, 0.001); };
     auto it = find_if(candidates.begin(), candidates.end(), DoesAngleMatch);
     if (it != candidates.end())
@@ -1203,7 +1184,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
   // It's possible that |firstOutgoingSeg| is not contained in |turnCandidates|.
   // It may happened if |firstOutgoingSeg| and candidates in |turnCandidates| are
   // from different mwms.
-  CandidatesSegmentCorrectionByOutgoing(result, outgoingSegmentIndex, isStartFakeLoop, turnInfo, numMwmIds, firstOutgoingSeg, nodes.candidates);
+  CandidatesSegmentCorrectionByOutgoing(result, outgoingSegmentIndex, junctionPoint, numMwmIds, firstOutgoingSeg, nodes.candidates);
 
   bool const hasMultiTurns = HasMultiTurns(numMwmIds, nodes, turnInfo);
   RemoveUTurnCandidate(turnInfo, numMwmIds, nodes.candidates);
@@ -1222,8 +1203,11 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
     return;
   }
 
-  double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, isStartFakeLoop,
-                                         turnInfo, numMwmIds, vehicleSettings);
+  double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, junctionPoint, numMwmIds,
+                                         vehicleSettings.m_maxIngoingPointsCount,
+                                         vehicleSettings.m_minIngoingDistMeters,
+                                         vehicleSettings.m_maxOutgoingPointsCount,
+                                         vehicleSettings.m_minOutgoingDistMeters);
   CarDirection const intermediateDirection = IntermediateDirection(turnAngle);
 
   // Checking for exits from highways.
