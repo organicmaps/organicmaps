@@ -310,7 +310,7 @@ void ForEachFeatureRawFormat(std::string const & filename, ToDo && toDo)
   {
     FeatureBuilder fb;
     ReadFromSourceRawFormat<SerializationPolicy>(src, fb);
-    toDo(fb, currPos);
+    toDo(std::move(fb), currPos);
     currPos = src.Pos();
   }
 }
@@ -319,7 +319,8 @@ template <class SerializationPolicy = serialization_policy::MinSize>
 std::vector<FeatureBuilder> ReadAllDatRawFormat(std::string const & fileName)
 {
   std::vector<FeatureBuilder> fbs;
-  ForEachFeatureRawFormat<SerializationPolicy>(fileName, [&](auto && fb, auto const &) {
+  ForEachFeatureRawFormat<SerializationPolicy>(fileName, [&](FeatureBuilder && fb, uint64_t)
+  {
     fbs.emplace_back(std::move(fb));
   });
   return fbs;

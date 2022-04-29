@@ -11,11 +11,11 @@
 #include <tuple>
 #include <utility>
 
+namespace generator
+{
 using namespace base::thread_pool::computational;
 using namespace feature;
 
-namespace generator
-{
 ProcessorCities::ProcessorCities(std::string const & temporaryMwmPath,
                                  AffiliationInterface const & affiliation,
                                  PlaceHelper & citiesHelper, size_t threadsCount)
@@ -37,7 +37,7 @@ void ProcessorCities::Process()
 
     std::vector<FeatureBuilder> cities;
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto  && fb, auto /* pos */)
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
     {
       if (PlaceHelper::IsPlace(fb))
         cities.emplace_back(std::move(fb));
@@ -50,8 +50,8 @@ void ProcessorCities::Process()
   }, m_threadsCount);
 
   Order(allCities);
-  for (auto const & city : allCities)
-    m_citiesHelper.Process(city);
+  for (auto & city : allCities)
+    m_citiesHelper.Process(std::move(city));
 
   AppendToMwmTmp(m_citiesHelper.GetFeatures(), m_affiliation, m_temporaryMwmPath, m_threadsCount);
 }
@@ -65,8 +65,10 @@ PlaceHelper::PlaceHelper()
 PlaceHelper::PlaceHelper(std::string const & filename)
   : PlaceHelper()
 {
-  feature::ForEachFeatureRawFormat<feature::serialization_policy::MaxAccuracy>(
-      filename, [&](auto const & fb, auto const &) { m_processor.Add(fb); });
+  ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(filename, [&](FeatureBuilder && fb, uint64_t)
+  {
+    m_processor.Add(std::move(fb));
+  });
 }
 
 // static
@@ -76,9 +78,9 @@ bool PlaceHelper::IsPlace(feature::FeatureBuilder const & fb)
   return type != ftype::GetEmptyValue() && !fb.GetName().empty() && NeedProcessPlace(fb);
 }
 
-bool PlaceHelper::Process(feature::FeatureBuilder const & fb)
+bool PlaceHelper::Process(feature::FeatureBuilder && fb)
 {
-  m_processor.Add(fb);
+  m_processor.Add(std::move(fb));
   return true;
 }
 

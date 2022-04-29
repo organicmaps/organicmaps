@@ -20,7 +20,6 @@
 #include <utility>
 #include <vector>
 
-
 namespace place_processor_tests
 {
 class IdGenerator
@@ -144,6 +143,13 @@ protected:
   feature::FeatureBuilder const kArea;
 };
 
+class PlaceProcessorTestFixture : public generator::PlaceProcessor
+{
+public:
+  using generator::PlaceProcessor::PlaceProcessor;
+  void Add(feature::FeatureBuilder fb) { generator::PlaceProcessor::Add(std::move(fb)); }
+};
+
 UNIT_CLASS_TEST(TestPlaceProcessor, EmptyTest)
 {
   std::vector<PlaceWithIDs> expected;
@@ -158,7 +164,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, OnePlacePointTest)
                     {{172.6314353942871, -43.493592271503786}});
 
   auto table = std::make_shared<generator::OsmIdToBoundariesTable>();
-  generator::PlaceProcessor pp(table);
+  PlaceProcessorTestFixture pp(table);
   pp.Add(point);
 
   std::vector<PlaceWithIDs> expected{{point, {point.GetMostGenericOsmId()}}};
@@ -169,7 +175,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, OnePlacePointTest)
 UNIT_CLASS_TEST(TestPlaceProcessor, OnePlaceAreaTest)
 {
   auto table = std::make_shared<generator::OsmIdToBoundariesTable>();
-  generator::PlaceProcessor pp(table);
+  PlaceProcessorTestFixture pp(table);
   pp.Add(kArea);
 
   std::vector<PlaceWithIDs> expected{
@@ -185,7 +191,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, PointInAreaTest)
                     {{172.6314353942871, -43.493592271503786}});
 
   auto table = std::make_shared<generator::OsmIdToBoundariesTable>();
-  generator::PlaceProcessor pp(table);
+  PlaceProcessorTestFixture pp(table);
   pp.Add(kArea);
   pp.Add(point);
 
@@ -204,7 +210,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, SameNamesButDifferentPlacesTest)
                     {{162.6314353942871, -33.493592271503786}});
 
   auto table = std::make_shared<generator::OsmIdToBoundariesTable>();
-  generator::PlaceProcessor pp(table);
+  PlaceProcessorTestFixture pp(table);
   pp.Add(kArea);
   pp.Add(point);
 
@@ -224,7 +230,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, SelectBestPlaceTest)
                                     OsmElement::EntityType::Node, {{162.63145, -33.4935}});
 
   auto table = std::make_shared<generator::OsmIdToBoundariesTable>();
-  generator::PlaceProcessor pp(table);
+  PlaceProcessorTestFixture pp(table);
   pp.Add(point1);
   pp.Add(point2);
 
@@ -766,7 +772,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, MinskDuplicatingCityFeatureTest)
                      {28.0607636, 64.1802131}});
 
   auto table = std::make_shared<generator::OsmIdToBoundariesTable>();
-  generator::PlaceProcessor pp(table);
+  PlaceProcessorTestFixture pp(table);
   pp.Add(areaPart1);
   pp.Add(areaPart2);
   pp.Add(areaPart3);
@@ -1325,7 +1331,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, VoronezhDuplicatingCityFeatureTest)
                      {39.5987153, 60.9017024}, {39.5946606, 60.8875289}});
 
   auto table = std::make_shared<generator::OsmIdToBoundariesTable>();
-  generator::PlaceProcessor pp(table);
+  PlaceProcessorTestFixture pp(table);
   pp.Add(areaPart1);
   pp.Add(areaPart2);
   pp.Add(point);
@@ -1389,7 +1395,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, KuznetsovoNearbyHamletsTest)
                      {39.9694614, 71.4609508}});
 
   auto table = std::make_shared<generator::OsmIdToBoundariesTable>();
-  generator::PlaceProcessor pp(table);
+  PlaceProcessorTestFixture pp(table);
   pp.Add(point1);
   pp.Add(point2);
   pp.Add(point3);

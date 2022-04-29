@@ -32,7 +32,7 @@ public:
 
   static bool IsPlace(feature::FeatureBuilder const & fb);
 
-  bool Process(feature::FeatureBuilder const & fb);
+  bool Process(feature::FeatureBuilder && fb);
   std::vector<feature::FeatureBuilder> GetFeatures();
   std::shared_ptr<OsmIdToBoundariesTable> GetTable() const;
 
@@ -92,10 +92,10 @@ std::vector<std::vector<std::string>> AppendToMwmTmp(std::vector<feature::Featur
   base::thread_pool::computational::ThreadPool pool(threadsCount);
   for (auto && p : countryToFbsIndexes)
   {
-    pool.SubmitWork([&, country{std::move(p.first)}, indexes{std::move(p.second)}]() {
+    pool.SubmitWork([&, country = std::move(p.first), indexes = std::move(p.second)]()
+    {
       auto const path = base::JoinPath(temporaryMwmPath, country + DATA_FILE_EXTENSION_TMP);
-      feature::FeatureBuilderWriter<SerializationPolicy> collector(
-            path, FileWriter::Op::OP_APPEND);
+      feature::FeatureBuilderWriter<SerializationPolicy> collector(path, FileWriter::Op::OP_APPEND);
       for (auto const index : indexes)
         collector.Write(fbs[index]);
     });
