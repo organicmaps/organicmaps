@@ -168,13 +168,13 @@ bool NeedProcessPlace(FeatureBuilder const & fb)
   return islandChecker(fb.GetTypes()) || localityChecker.GetType(GetPlaceType(fb)) != LocalityType::None;
 }
 
-void FeaturePlace::Append(FeatureBuilder const & fb)
+void FeaturePlace::Append(FeatureBuilder && fb)
 {
   if (m_fbs.empty() || IsWorsePlace(m_fbs[m_bestIndex], fb))
     m_bestIndex = m_fbs.size();
 
-  m_fbs.emplace_back(fb);
   m_allFbsLimitRect.Add(fb.GetLimitRect());
+  m_fbs.emplace_back(std::move(fb));
 }
 
 FeatureBuilder const & FeaturePlace::GetFb() const
@@ -254,7 +254,7 @@ std::vector<feature::FeatureBuilder> PlaceProcessor::ProcessPlaces(std::vector<I
   return finalPlaces;
 }
 
-void PlaceProcessor::Add(FeatureBuilder const & fb)
+void PlaceProcessor::Add(FeatureBuilder && fb)
 {
   auto const type = GetPlaceType(fb);
   if (type == ftype::GetEmptyValue() || !NeedProcessPlace(fb))
@@ -262,7 +262,8 @@ void PlaceProcessor::Add(FeatureBuilder const & fb)
 
   // Objects are grouped with the same name only. This does not guarantee that all objects describe the same place.
   // The logic for the separation of different places of the same name is implemented in the function ProcessPlaces().
-  m_nameToPlaces[std::string(fb.GetName())][fb.GetMostGenericOsmId()].Append(fb);
+  auto & place = m_nameToPlaces[std::string(fb.GetName())][fb.GetMostGenericOsmId()];
+  place.Append(std::move(fb));
 }
 
 }  // namespace generator

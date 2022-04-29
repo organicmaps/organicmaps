@@ -424,15 +424,15 @@ void FeatureBuilder::DeserializeFromIntermediate(Buffer & data)
   }
   else
   {
-    m_polygons.clear();
     uint32_t const count = ReadVarUint<uint32_t>(source);
-    ASSERT_GREATER( count, 0, (*this) );
+    ASSERT_GREATER(count, 0, (*this));
+    m_polygons.resize(count);
 
-    for (uint32_t i = 0; i < count; ++i)
+    for (auto & poly : m_polygons)
     {
-      m_polygons.push_back(PointSeq());
-      serial::LoadOuterPath(source, cp, m_polygons.back());
-      CalcRect(m_polygons.back(), m_limitRect);
+      poly.clear();
+      serial::LoadOuterPath(source, cp, poly);
+      CalcRect(poly, m_limitRect);
     }
 
     m_coastCell = ReadVarInt<int64_t>(source);
@@ -465,6 +465,7 @@ void FeatureBuilder::SerializeAccuratelyForIntermediate(Buffer & data) const
 
   // Save OSM IDs to link meta information with sorted features later.
   rw::WriteVectorOfPOD(sink, m_osmIds);
+
   // Check for correct serialization.
 #ifdef DEBUG
   Buffer tmp(data);
@@ -472,14 +473,15 @@ void FeatureBuilder::SerializeAccuratelyForIntermediate(Buffer & data) const
   fb.DeserializeAccuratelyFromIntermediate(tmp);
   ASSERT ( fb == *this, ("Source feature: ", *this, "Deserialized feature: ", fb) );
 #endif
-
 }
 
 void FeatureBuilder::DeserializeAccuratelyFromIntermediate(Buffer & data)
 {
   ArrayByteSource source(&data[0]);
   m_params.Read(source);
+
   m_limitRect.MakeEmpty();
+
   if (IsPoint())
   {
     ReadPOD(source, m_center);
@@ -487,14 +489,15 @@ void FeatureBuilder::DeserializeAccuratelyFromIntermediate(Buffer & data)
   }
   else
   {
-    m_polygons.clear();
     uint32_t const count = ReadVarUint<uint32_t>(source);
     ASSERT_GREATER(count, 0, (*this));
-    for (uint32_t i = 0; i < count; ++i)
+    m_polygons.resize(count);
+
+    for (auto & poly : m_polygons)
     {
-      m_polygons.push_back(PointSeq());
-      rw::ReadVectorOfPOD(source, m_polygons.back());
-      CalcRect(m_polygons.back(), m_limitRect);
+      poly.clear();
+      rw::ReadVectorOfPOD(source, poly);
+      CalcRect(poly, m_limitRect);
     }
 
     m_coastCell = ReadVarInt<int64_t>(source);

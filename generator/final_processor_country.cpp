@@ -128,7 +128,8 @@ void CountryFinalProcessor::Order()
 void CountryFinalProcessor::ProcessRoundabouts()
 {
   auto roundabouts = ReadDataMiniRoundabout(m_miniRoundaboutsFilename);
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path) {
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path)
+  {
     if (!IsCountry(name))
       return;
 
@@ -140,11 +141,12 @@ void CountryFinalProcessor::ProcessRoundabouts()
       transformer.SetLeftHandTraffic(data.Get(RegionData::Type::RD_DRIVING) == "l");
 
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto && fb, auto /* pos */) {
-        if (routing::IsRoad(fb.GetTypes()) && roundabouts.RoadExists(fb))
-          transformer.AddRoad(std::move(fb));
-        else
-          writer.Write(fb);
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
+    {
+      if (routing::IsRoad(fb.GetTypes()) && roundabouts.RoadExists(fb))
+        transformer.AddRoad(std::move(fb));
+      else
+        writer.Write(fb);
     });
 
     // Adds new way features generated from mini-roundabout nodes with those nodes ids.
@@ -166,7 +168,8 @@ bool DoesBuildingConsistOfParts(FeatureBuilder const & fbBuilding,
   BoostMultiPolygon partsUnion;
 
   double buildingArea = 0;
-  buildingPartsKDTree.ForEachInRect(fbBuilding.GetLimitRect(), [&](auto const & fbPart) {
+  buildingPartsKDTree.ForEachInRect(fbBuilding.GetLimitRect(), [&](auto const & fbPart)
+  {
     // Lazy initialization that will not occur with high probability
     if (bg::is_empty(building))
     {
@@ -206,20 +209,23 @@ void CountryFinalProcessor::ProcessBuildingParts()
   static auto const buildingPartClassifType = classificator.GetTypeByPath({"building:part"});
   static auto const buildingWithPartsClassifType = classificator.GetTypeByPath({"building", "has_parts"});
 
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path) {
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path)
+  {
     if (!IsCountry(name))
       return;
 
     // All "building:part" features in MWM
     m4::Tree<FeatureBuilder> buildingPartsKDTree;
 
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto && fb, auto /* pos */) {
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
+    {
       if (fb.IsArea() && fb.HasType(buildingPartClassifType))
-        buildingPartsKDTree.Add(fb);
+        buildingPartsKDTree.Add(std::move(fb));
     });
 
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto && fb, auto /* pos */) {
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
+    {
       if (fb.IsArea() &&
           fb.HasType(buildingClassifType) &&
           DoesBuildingConsistOfParts(fb, buildingPartsKDTree))
@@ -238,7 +244,8 @@ void CountryFinalProcessor::AddIsolines()
   // For generated isolines must be built isolines_info section based on the same
   // binary isolines file.
   IsolineFeaturesGenerator isolineFeaturesGenerator(m_isolinesPath);
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path) {
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path)
+  {
     if (!IsCountry(name))
       return;
 
@@ -249,9 +256,7 @@ void CountryFinalProcessor::AddIsolines()
 
 void CountryFinalProcessor::ProcessRoutingCityBoundaries()
 {
-  CHECK(
-      !m_routingCityBoundariesCollectorFilename.empty() && !m_routingCityBoundariesDumpPath.empty(),
-      ());
+  CHECK(!m_routingCityBoundariesCollectorFilename.empty() && !m_routingCityBoundariesDumpPath.empty(), ());
 
   RoutingCityBoundariesProcessor processor(m_routingCityBoundariesCollectorFilename,
                                            m_routingCityBoundariesDumpPath);
@@ -260,8 +265,7 @@ void CountryFinalProcessor::ProcessRoutingCityBoundaries()
 
 void CountryFinalProcessor::ProcessCities()
 {
-  auto citiesHelper =
-      m_citiesAreasTmpFilename.empty() ? PlaceHelper() : PlaceHelper(m_citiesAreasTmpFilename);
+  auto citiesHelper = m_citiesAreasTmpFilename.empty() ? PlaceHelper() : PlaceHelper(m_citiesAreasTmpFilename);
 
   ProcessorCities processorCities(m_temporaryMwmPath, *m_affiliations, citiesHelper, m_threadsCount);
   processorCities.Process();
@@ -289,7 +293,8 @@ void CountryFinalProcessor::ProcessCoastline()
 void CountryFinalProcessor::AddFakeNodes()
 {
   std::vector<feature::FeatureBuilder> fbs;
-  MixFakeNodes(m_fakeNodesFilename, [&](auto & element) {
+  MixFakeNodes(m_fakeNodesFilename, [&](auto & element)
+  {
     FeatureBuilder fb;
     fb.SetCenter(mercator::FromLatLon(element.m_lat, element.m_lon));
     fb.SetOsmId(base::MakeOsmNode(element.m_id));
@@ -302,7 +307,8 @@ void CountryFinalProcessor::AddFakeNodes()
 void CountryFinalProcessor::DropProhibitedSpeedCameras()
 {
   static auto const speedCameraType = classif().GetTypeByPath({"highway", "speed_camera"});
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path) {
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path)
+  {
     if (!IsCountry(country))
       return;
 
@@ -310,7 +316,8 @@ void CountryFinalProcessor::DropProhibitedSpeedCameras()
       return;
 
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto const & fb, auto /* pos */) {
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder const & fb, uint64_t)
+    {
       // Removing point features with speed cameras type from geometry index for some countries.
       if (fb.IsPoint() && fb.HasType(speedCameraType))
         return;

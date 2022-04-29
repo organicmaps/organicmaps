@@ -320,7 +320,8 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
   LOG(LINFO, ("Calculating middle points"));
   // Store cellIds for middle points.
   CalculateMidPoints midPoints;
-  ForEachFeatureRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos) {
+  ForEachFeatureRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos)
+  {
     midPoints(fb, pos);
   });
 

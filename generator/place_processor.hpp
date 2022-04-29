@@ -25,7 +25,7 @@ class FeaturePlace
 public:
   using FeaturesBuilders = std::vector<feature::FeatureBuilder>;
 
-  void Append(feature::FeatureBuilder const & fb);
+  void Append(feature::FeatureBuilder && fb);
   feature::FeatureBuilder const & GetFb() const;
   FeaturesBuilders const & GetFbs() const { return m_fbs; }
 
@@ -46,7 +46,7 @@ class PlaceProcessor
 public:
   PlaceProcessor(std::shared_ptr<OsmIdToBoundariesTable> boundariesTable = {});
 
-  void Add(feature::FeatureBuilder const & fb);
+  void Add(feature::FeatureBuilder && fb);
 
   using IDsContainerT = std::vector<base::GeoObjectId>;
   /// @param[out] ids To store correspondent IDs for test purposes if not nullptr.
