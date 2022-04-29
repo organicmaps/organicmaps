@@ -1,0 +1,92 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: checkboxes
+    id: before-posting
+    attributes:
+      label: "⚠️ Before submitting, please verify the following: ⚠️"
+      description: All conditions are **required**. Your issue can be closed if these are checked incorrectly.
+      options:
+        - label: This is a **bug**, not a question or a configuration issue.
+          required: true
+        - label: This issue is **not** already reported on Github (I've searched it).
+          required: true
+        - label: The Organic Maps app is **up to date**.
+          required: true
+        - label: I agree to follow Organic Maps [Code of Conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md) and [contributing guidelines](https://github.com/organicmaps/organicmaps/blob/master/docs/CONTRIBUTING.md).
+          required: true
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: What operating system are you seeing the problem on?
+      multiple: true
+      options:
+        - iOS
+        - Android
+        - HarmonyOS
+    validations:
+      required: true
+  - type: input
+    id: osVersion
+    attributes:
+      label: OS Version
+      description: "What is the verion of your operating system that your encountering this bug on?"
+      placeholder: "Example: iOS 15.4.1 or Android 12.1.0_r4 or HarmonyOS 2.0.0.222"
+    validations:
+      required: true
+  - type: input
+    id: prevalence
+    attributes:
+      label: Bug prevalence
+      description: "How often do you or others encounter this bug?"
+      placeholder: "Example: Whenever I visit the personal account page (1-2 times a week)"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Please provide a brief description of the bug in at least 1-2 sentences.
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Describe the steps to reproduce the bug.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: Describe what you expected to happen.
+      value: |
+        When clicking on the (...), (...) should be an option.
+        ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional info
+      description: Any additional information related to the issue. 📷 Screenshots are always useful!
+    validations:
+      required: false
