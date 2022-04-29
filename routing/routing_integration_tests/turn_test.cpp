@@ -735,7 +735,7 @@ UNIT_TEST(Russia_Moscow_MKADToSvoboda_TurnTest)
 }
 
 // Test that there's no turns if to follow MKAD.
-UNIT_TEST(Netherlands_Crazy_TurnTest)
+UNIT_TEST(Netherlands_Barneveld_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -750,23 +750,6 @@ UNIT_TEST(Netherlands_Crazy_TurnTest)
   // https://www.openstreetmap.org/directions?engine=graphhopper_car&route=52.16783%2C5.56589%3B52.16940%2C5.56270#map=19/52.16916/5.56537
   integration::TestTurnCount(route, 1);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
-}
-
-UNIT_TEST(Netherlands_Barneveld_TurnTest)
-{
-  TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                  mercator::FromLatLon(52.15866, 5.56538), {0., 0.},
-                                  mercator::FromLatLon(52.16667, 5.55663));
-
-  Route const & route = *routeResult.first;
-  RouterResultCode const result = routeResult.second;
-
-  TEST_EQUAL(result, RouterResultCode::NoError, ());
-
-  /// @todo iOS app makes some strange route here. The test is valid!
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
 UNIT_TEST(Belarus_Minsk_TurnTest)
