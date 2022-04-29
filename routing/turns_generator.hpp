@@ -58,10 +58,14 @@ struct RoutePointIndex
  */
 struct TurnInfo
 {
-  LoadedPathSegment const & m_ingoing;
-  LoadedPathSegment const & m_outgoing;
+  LoadedPathSegment const * m_ingoing;
+  LoadedPathSegment const * m_outgoing;
 
-  TurnInfo(LoadedPathSegment const & ingoingSegment, LoadedPathSegment const & outgoingSegment)
+  TurnInfo() : m_ingoing(nullptr), m_outgoing(nullptr)
+  {
+  }
+
+  TurnInfo(LoadedPathSegment const * ingoingSegment, LoadedPathSegment const * outgoingSegment)
       : m_ingoing(ingoingSegment), m_outgoing(outgoingSegment)
   {
   }
