@@ -15850,7 +15850,7 @@
     ja = リスト
     ko = 기울기
     nb = Lister
-    nl = lijsten
+    nl = Lijsten
     pl = Listy
     pt = Listas
     pt-BR = Listas
@@ -16042,6 +16042,7 @@
     fi = Tuo kirjamerkit
     fr = Importer des signets
     it = Importa luoghi preferiti
+    nl = Bladwijzers importeren
     pl = Import zakładek
     pt = Importar favoritos
     pt-BR = Importar favoritos
@@ -17463,7 +17464,7 @@
     ja = マップレイヤー
     ko = 맵 레이어
     nb = Kartlag
-    nl = Map layers
+    nl = Kaartweergave
     pl = Warstwy map
     pt = Camadas do mapa
     pt-BR = Camadas de mapa
@@ -18619,7 +18620,7 @@
     ja = 運転オプション
     ko = 운전 옵션
     nb = Kjørealternativer
-    nl = Omweginstellingen
+    nl = Route instellingen
     pl = Ustawienia objazdu
     pt = Configurações de direção
     pt-BR = Opções de direção
@@ -18733,7 +18734,7 @@
     ja = 未舗装道路
     ko = 비포장 도로
     nb = Uasfaltert vei
-    nl = Aardewegen
+    nl = Onverharde wegen
     pl = Drogi gruntowe
     pt = Estradas não pavimentadas
     pt-BR = Pistas sem pavimentação
@@ -18771,7 +18772,7 @@
     ja = フェリー航路
     ko = 여객선 교차로
     nb = Fergeoverganger
-    nl = Ferries
+    nl = Veerdiensten
     pl = Przeprawy promowe
     pt = Ferry
     pt-BR = Balsa
@@ -18809,7 +18810,7 @@
     ja = 高速道路
     ko = 고속도로
     nb = Motorvei
-    nl = Hoofdverkeerswegen
+    nl = Autosnelwegen
     pl = Autostrady
     pt = Autoestradas
     pt-BR = Autoestradas
@@ -22439,6 +22440,7 @@
     be = Паказваць на экране блакіроўкі
     de = Auf dem Sperrbildschirm anzeigen
     it = Mostra sulla schermata di blocco
+    nl = Toon op vergrendelscherm
     pl = Pokazuj na ekranie blokady
     ro = Arată pe ecranul de blocare
     ru = Показывать на экране блокировки
@@ -22452,6 +22454,7 @@
     be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.
     de = Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
+    nl = Indien ingeschakeld, hoeft het scherm niet te worden ontgrendeld wanneer de app actief is.
     pl = Po włączeniu nie musisz odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.
     ro = Când este activată, nu trebuie să deblochezi telefonul de fiecare dată când aplicația este în funcțiune.
     ru = Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.
