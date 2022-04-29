@@ -10,7 +10,7 @@
 using namespace routing;
 using namespace routing::turns;
 
-UNIT_TEST(RussiaMoscowNagatinoUturnTurnTest)
+UNIT_TEST(Russia_Moscow_NagatinoUturn_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -31,7 +31,7 @@ UNIT_TEST(RussiaMoscowNagatinoUturnTurnTest)
 }
 
 // Secondary should be preferred against residential.
-UNIT_TEST(StPetersburgSideRoadPenaltyTest)
+UNIT_TEST(StPetersburg_SideRoadPenalty_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -66,7 +66,7 @@ UNIT_TEST(Russia_Moscow_Lenigradskiy39Uturn_TurnTest)
   integration::TestRouteLength(route, 2050.);
 }
 
-UNIT_TEST(RussiaMoscowSalameiNerisUturnTurnTest)
+UNIT_TEST(Russia_Moscow_SalameiNerisUturn_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -100,7 +100,7 @@ UNIT_TEST(RussiaMoscowSalameiNerisUturnTurnTest)
 }
 
 // Fails because consider service roads are roundabout exits.
-UNIT_TEST(RussiaMoscowTrikotagniAndPohodniRoundaboutTurnTest)
+UNIT_TEST(Russia_Moscow_TrikotagniAndPohodniRoundabout_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -121,7 +121,7 @@ UNIT_TEST(RussiaMoscowTrikotagniAndPohodniRoundaboutTurnTest)
   integration::TestRouteLength(route, 387.);
 }
 
-UNIT_TEST(SwedenBarlangeRoundaboutTurnTest)
+UNIT_TEST(Sweden_BarlangeRoundabout_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -182,7 +182,7 @@ UNIT_TEST(Russia_Moscow_NoTurnsOnMKAD_TurnTest)
   integration::TestRouteLength(route, 43233.7);
 }
 
-UNIT_TEST(RussiaMoscowTTKVarshavskoeShosseOutTurnTest)
+UNIT_TEST(Russia_Moscow_TTKVarshavskoeShosseOut_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -197,7 +197,7 @@ UNIT_TEST(RussiaMoscowTTKVarshavskoeShosseOutTurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
-UNIT_TEST(RussiaMoscowTTKUTurnTest)
+UNIT_TEST(Russia_Moscow_TTKU_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -215,7 +215,7 @@ UNIT_TEST(RussiaMoscowTTKUTurnTest)
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
 
-UNIT_TEST(RussiaMoscowParallelResidentalUTurnAvoiding)
+UNIT_TEST(Russia_Moscow_ParallelResidentalUTurnAvoiding_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -255,7 +255,7 @@ UNIT_TEST(Russia_Moscow_PankratevskiPerBolshaySuharedskazPloschad_TurnTest)
   integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnSharpLeft);
 }
 
-UNIT_TEST(RussiaMoscowMKADPutilkovskeShosseTurnTest)
+UNIT_TEST(Russia_Moscow_MKADPutilkovskeShosse_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -270,7 +270,7 @@ UNIT_TEST(RussiaMoscowMKADPutilkovskeShosseTurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
-UNIT_TEST(RussiaMoscowPetushkovaShodniaReverTurnTest)
+UNIT_TEST(Russia_Moscow_PetushkovaShodniaRever_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -284,7 +284,7 @@ UNIT_TEST(RussiaMoscowPetushkovaShodniaReverTurnTest)
   integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
-UNIT_TEST(RussiaHugeRoundaboutTurnTest)
+UNIT_TEST(Russia_HugeRoundabout_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -306,7 +306,7 @@ UNIT_TEST(RussiaHugeRoundaboutTurnTest)
       .TestRoundAboutExitNum(5);
 }
 
-UNIT_TEST(BelarusMiskProspNezavisimostiMKADTurnTest)
+UNIT_TEST(Belarus_Misk_ProspNezavisimostiMKAD_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -323,7 +323,7 @@ UNIT_TEST(BelarusMiskProspNezavisimostiMKADTurnTest)
 
 // Test case: turning form one street to another one with the same name.
 // An end user shall be informed about this manoeuvre.
-UNIT_TEST(RussiaMoscowPetushkovaPetushkovaTest)
+UNIT_TEST(Russia_Moscow_PetushkovaPetushkova_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -340,7 +340,7 @@ UNIT_TEST(RussiaMoscowPetushkovaPetushkovaTest)
 
 // Test case: a route goes straight along a unnamed big link road when joined a small road.
 // An end user shall not be informed about such manoeuvres.
-UNIT_TEST(RussiaMoscowMKADLeningradkaTest)
+UNIT_TEST(Russia_Moscow_MKADLeningradka_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -370,7 +370,7 @@ UNIT_TEST(Belarus_Vitebsk_Shosseinai_TurnTest)
 }
 
 // A route goes straight along a big road ignoring joined small roads.
-UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
+UNIT_TEST(Thailand_Phuket_NearPrabarameeRoad_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -402,7 +402,7 @@ UNIT_TEST(Russia_Moscow_VarshavskoeShosseMKAD_TurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
-UNIT_TEST(RussiaMoscowBolshayaNikitskayaOkhotnyRyadTest)
+UNIT_TEST(Russia_Moscow_BolshayaNikitskayaOkhotnyRyad_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -418,7 +418,7 @@ UNIT_TEST(RussiaMoscowBolshayaNikitskayaOkhotnyRyadTest)
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
-UNIT_TEST(RussiaMoscowTverskajaOkhotnyRyadTest)
+UNIT_TEST(Russia_Moscow_TverskajaOkhotnyRyad_Test)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -433,7 +433,7 @@ UNIT_TEST(RussiaMoscowTverskajaOkhotnyRyadTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
 }
 
-UNIT_TEST(RussiaMoscowBolshoyKislovskiyPerBolshayaNikitinskayaUlTest)
+UNIT_TEST(Russia_Moscow_BolshoyKislovskiyPerBolshayaNikitinskayaUl_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -449,7 +449,7 @@ UNIT_TEST(RussiaMoscowBolshoyKislovskiyPerBolshayaNikitinskayaUlTest)
 }
 
 // Test case: a route goes in Moscow along Leningradskiy Prpt (towards city center).
-UNIT_TEST(RussiaMoscowLeningradskiyPrptToTheCenterUTurnTest)
+UNIT_TEST(Russia_Moscow_LeningradskiyPrptToTheCenterUTurn_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -478,7 +478,7 @@ UNIT_TEST(Switzerland_SamstagernBergstrasse_TurnTest)
   integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
-UNIT_TEST(RussiaMoscowMikoiankNoUTurnTest)
+UNIT_TEST(Russia_Moscow_MikoiankNoUTurn_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -524,7 +524,7 @@ UNIT_TEST(Russia_Moscow_LeningradskiyPrptDublToTTK_TurnTest)
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
-UNIT_TEST(RussiaMoscowSvobodaStTest)
+UNIT_TEST(Russia_Moscow_SvobodaSt_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -555,7 +555,7 @@ UNIT_TEST(Russia_Tiinsk_TurnTest)
       {CarDirection::TurnSlightLeft, CarDirection::TurnLeft});
 }
 
-UNIT_TEST(NetherlandsGorinchemBridgeTest)
+UNIT_TEST(Netherlands_GorinchemBridge_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -585,7 +585,7 @@ UNIT_TEST(Russia_Voronezh_ProspTruda_TurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
 }
 
-UNIT_TEST(GermanyFrankfurtAirportTest)
+UNIT_TEST(Germany_FrankfurtAirport_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -603,7 +603,7 @@ UNIT_TEST(GermanyFrankfurtAirportTest)
 }
 
 
-UNIT_TEST(GermanyFrankfurtAirport2Test)
+UNIT_TEST(Germany_FrankfurtAirport2_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -622,7 +622,7 @@ UNIT_TEST(GermanyFrankfurtAirport2Test)
 
 
 // Test on absence of unnecessary turn which may appear between two turns in the test.
-UNIT_TEST(RussiaKubinkaTest)
+UNIT_TEST(Russia_Kubinka_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -645,7 +645,7 @@ UNIT_TEST(RussiaKubinkaTest)
 }
 
 // Test on absence of unnecessary turn.
-UNIT_TEST(AustriaKitzbuhelTest)
+UNIT_TEST(Austria_Kitzbuhel_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -660,7 +660,7 @@ UNIT_TEST(AustriaKitzbuhelTest)
 }
 
 // Test on absence of unnecessary turn.
-UNIT_TEST(AustriaKitzbuhel2Test)
+UNIT_TEST(Austria_Kitzbuhel2_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -675,7 +675,7 @@ UNIT_TEST(AustriaKitzbuhel2Test)
 }
 
 // Test on absence of unnecessary turn in case of fake ingoing segment.
-UNIT_TEST(AustriaKitzbuhel3Test)
+UNIT_TEST(Austria_Kitzbuhel3_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -704,7 +704,7 @@ UNIT_TEST(Austria_BrixentalStrasse_TurnTest)
   integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
-UNIT_TEST(RussiaMoscowLeningradkaToMKADTest)
+UNIT_TEST(Russia_Moscow_LeningradkaToMKAD_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -719,7 +719,7 @@ UNIT_TEST(RussiaMoscowLeningradkaToMKADTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
-UNIT_TEST(RussiaMoscowMKADToSvobodaTest)
+UNIT_TEST(Russia_Moscow_MKADToSvoboda_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -752,7 +752,7 @@ UNIT_TEST(Netherlands_Crazy_TurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
 
-UNIT_TEST(NetherlandsBarneveldTest)
+UNIT_TEST(Netherlands_Barneveld_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -801,7 +801,7 @@ UNIT_TEST(England_London_ExitToLeft_TurnTest)
 }
 
 // Test on the route from Leninsky prospect to its frontage road and turns generated on the route.
-UNIT_TEST(RussiaMoscowLeninskyProspTest)
+UNIT_TEST(Russia_Moscow_LeninskyProsp_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -818,7 +818,7 @@ UNIT_TEST(RussiaMoscowLeninskyProspTest)
 }
 
 // Test on the route from TTK (primary) to a link.
-UNIT_TEST(RussiaMoscowTTKToLinkTest)
+UNIT_TEST(Russia_Moscow_TTKToLink_TurnTest)
 {
 TRouteResult const routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -834,7 +834,7 @@ TRouteResult const routeResult =
 }
 
 // Test on the turn from TTK (primary) to a secondary road.
-UNIT_TEST(RussiaMoscowTTKToBegovayAlleyaTest)
+UNIT_TEST(Russia_Moscow_TTKToBegovayAlleya_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -850,7 +850,7 @@ UNIT_TEST(RussiaMoscowTTKToBegovayAlleyaTest)
 }
 
 // Test on the turn from TTK (primary) to a service road. The angle of the turn is not slight.
-UNIT_TEST(RussiaMoscowTTKToServiceTest)
+UNIT_TEST(Russia_Moscow_TTKToService_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -866,7 +866,7 @@ UNIT_TEST(RussiaMoscowTTKToServiceTest)
 }
 
 // Test on a turn from TTK (primary) to an unclassified road. The angle of the turn is slight.
-UNIT_TEST(RussiaMoscowTTKToNMaslovkaTest)
+UNIT_TEST(Russia_Moscow_TTKToNMaslovka_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -881,7 +881,7 @@ UNIT_TEST(RussiaMoscowTTKToNMaslovkaTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
-UNIT_TEST(RussiaMoscowComplicatedTurnTest)
+UNIT_TEST(Russia_Moscow_Complicated_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -898,7 +898,7 @@ UNIT_TEST(RussiaMoscowComplicatedTurnTest)
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
 }
 
-UNIT_TEST(USATampaTest)
+UNIT_TEST(USA_Tampa_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -915,7 +915,7 @@ UNIT_TEST(USATampaTest)
 }
 
 // Test on go straight direction if it's possible to go through a roundabout.
-UNIT_TEST(RussiaMoscowMinskia1TurnTest)
+UNIT_TEST(Russia_Moscow_Minskia1_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -929,7 +929,7 @@ UNIT_TEST(RussiaMoscowMinskia1TurnTest)
   integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
-UNIT_TEST(RussiaMoscowMinskia2TurnTest)
+UNIT_TEST(Russia_Moscow_Minskia2_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -946,7 +946,7 @@ UNIT_TEST(RussiaMoscowMinskia2TurnTest)
 
 // This test on getting correct (far enough) outgoing turn point (result of method GetPointForTurn())
 // despite the fact that a small road adjoins immediately after the turn point.
-UNIT_TEST(RussiaMoscowBarikadnaiTurnTest)
+UNIT_TEST(Russia_Moscow_Barikadnai_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -962,7 +962,7 @@ UNIT_TEST(RussiaMoscowBarikadnaiTurnTest)
 }
 
 // This test on getting correct (far enough) outgoing turn point (result of method GetPointForTurn()).
-UNIT_TEST(RussiaMoscowKomsomolskyTurnTest)
+UNIT_TEST(Russia_Moscow_Komsomolsky_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -978,7 +978,7 @@ UNIT_TEST(RussiaMoscowKomsomolskyTurnTest)
 }
 
 // Test on no go straight direction in case of a route along a big road and pass smaller ones.
-UNIT_TEST(RussiaMoscowTTKNoGoStraightTurnTest)
+UNIT_TEST(Russia_Moscow_TTKNoGoStraight_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -992,7 +992,7 @@ UNIT_TEST(RussiaMoscowTTKNoGoStraightTurnTest)
   integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
-UNIT_TEST(RussiaMoscowLeninskyProsp2Test)
+UNIT_TEST(Russia_MoscowLeninskyProsp2_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -1008,7 +1008,7 @@ UNIT_TEST(RussiaMoscowLeninskyProsp2Test)
 }
 
 /*
-UNIT_TEST(RussiaMoscow_OnlyUTurnTest_1)
+UNIT_TEST(Russia_Moscow_OnlyUTurnTest1_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -1022,7 +1022,7 @@ UNIT_TEST(RussiaMoscow_OnlyUTurnTest_1)
   integration::TestRouteLength(route, 3854.44);
 }
 
-UNIT_TEST(RussiaMoscow_OnlyUTurnTest_1_WithDirection)
+UNIT_TEST(Russia_Moscow_OnlyUTurnTest1WithDirection_TurnTest)
 {
   auto const startDir = mercator::FromLatLon(55.90423, 37.40176);
   auto const endDir = mercator::FromLatLon(55.90218, 37.40433);
