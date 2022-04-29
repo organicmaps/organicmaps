@@ -87,7 +87,7 @@ void CountryFinalProcessor::SetIsolinesDir(std::string const & dir) { m_isolines
 
 void CountryFinalProcessor::Process()
 {
-  Order();
+  //Order();
 
   if (!m_routingCityBoundariesCollectorFilename.empty())
     ProcessRoutingCityBoundaries();
@@ -104,26 +104,28 @@ void CountryFinalProcessor::Process()
 
   //DropProhibitedSpeedCameras();
   ProcessBuildingParts();
-  Finish();
+
+  //Finish();
 }
 
+/*
 void CountryFinalProcessor::Order()
 {
-  ForEachMwmTmp(
-      m_temporaryMwmPath,
-      [&](auto const & country, auto const & path) {
-        if (!IsCountry(country))
-          return;
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path)
+  {
+    if (!IsCountry(country))
+      return;
 
-        auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(path);
-        generator::Order(fbs);
+    auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(path);
+    generator::Order(fbs);
 
-        FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path);
-        for (auto const & fb : fbs)
-          writer.Write(fb);
-      },
-      m_threadsCount);
+    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path);
+    for (auto const & fb : fbs)
+      writer.Write(fb);
+
+  }, m_threadsCount);
 }
+*/
 
 void CountryFinalProcessor::ProcessRoundabouts()
 {
@@ -280,7 +282,9 @@ void CountryFinalProcessor::ProcessCities()
 
 void CountryFinalProcessor::ProcessCoastline()
 {
-  auto fbs = ReadAllDatRawFormat(m_coastlineGeomFilename);
+  /// @todo We can remove MinSize at all.
+  auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(m_coastlineGeomFilename);
+
   auto const affiliations = AppendToMwmTmp(fbs, *m_affiliations, m_temporaryMwmPath, m_threadsCount);
   FeatureBuilderWriter<> collector(m_worldCoastsFilename);
   for (size_t i = 0; i < fbs.size(); ++i)
@@ -327,9 +331,11 @@ void CountryFinalProcessor::DropProhibitedSpeedCameras()
   }, m_threadsCount);
 }
 
+/*
 void CountryFinalProcessor::Finish()
 {
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path) {
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path)
+  {
     if (!IsCountry(country))
       return;
 
@@ -342,4 +348,6 @@ void CountryFinalProcessor::Finish()
 
   }, m_threadsCount);
 }
+*/
+
 }  // namespace generator

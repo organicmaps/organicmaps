@@ -53,7 +53,6 @@ std::unordered_map<uint64_t, LocalityData> LoadNodeToLocalityData(std::string co
 std::unordered_map<uint64_t, std::vector<feature::FeatureBuilder>> LoadNodeToBoundariesData(
     std::string const & filename)
 {
-  using MinAccuracy = feature::serialization_policy::MinSize;
   FileReader reader(filename);
   ReaderSource<FileReader> source(reader);
   uint64_t n = 0;
@@ -66,7 +65,7 @@ std::unordered_map<uint64_t, std::vector<feature::FeatureBuilder>> LoadNodeToBou
     source.Read(&nodeId, sizeof(nodeId));
 
     feature::FeatureBuilder featureBuilder;
-    feature::ReadFromSourceRawFormat<MinAccuracy>(source, featureBuilder);
+    feature::ReadFromSourceRawFormat(source, featureBuilder);
     result[nodeId].emplace_back(std::move(featureBuilder));
   }
 

@@ -33,7 +33,7 @@ public:
   void Process() override;
 
 private:
-  void Order();
+  //void Order();
   void ProcessRoutingCityBoundaries();
   void ProcessCities();
   void ProcessCoastline();
@@ -41,7 +41,7 @@ private:
   void AddFakeNodes();
   void AddIsolines();
   void DropProhibitedSpeedCameras();
-  void Finish();
+  //void Finish();
   void ProcessBuildingParts();
 
   bool IsCountry(std::string const & filename);
