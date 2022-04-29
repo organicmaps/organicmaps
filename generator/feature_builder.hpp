@@ -287,7 +287,7 @@ struct MaxAccuracy
 //}
 
 // Read feature from feature source.
-template <class SerializationPolicy = serialization_policy::MinSize, class Source>
+template <class SerializationPolicy = serialization_policy::MaxAccuracy, class Source>
 void ReadFromSourceRawFormat(Source & src, FeatureBuilder & fb)
 {
   uint32_t const sz = ReadVarUint<uint32_t>(src);
@@ -297,7 +297,7 @@ void ReadFromSourceRawFormat(Source & src, FeatureBuilder & fb)
 }
 
 // Process features in features file.
-template <class SerializationPolicy = serialization_policy::MinSize, class ToDo>
+template <class SerializationPolicy = serialization_policy::MaxAccuracy, class ToDo>
 void ForEachFeatureRawFormat(std::string const & filename, ToDo && toDo)
 {
   FileReader reader(filename);
@@ -315,7 +315,7 @@ void ForEachFeatureRawFormat(std::string const & filename, ToDo && toDo)
   }
 }
 
-template <class SerializationPolicy = serialization_policy::MinSize>
+template <class SerializationPolicy = serialization_policy::MaxAccuracy>
 std::vector<FeatureBuilder> ReadAllDatRawFormat(std::string const & fileName)
 {
   std::vector<FeatureBuilder> fbs;
@@ -326,7 +326,7 @@ std::vector<FeatureBuilder> ReadAllDatRawFormat(std::string const & fileName)
   return fbs;
 }
 
-template <class SerializationPolicy = serialization_policy::MinSize, class Writer = FileWriter>
+template <class SerializationPolicy = serialization_policy::MaxAccuracy, class Writer = FileWriter>
 class FeatureBuilderWriter
 {
 public:

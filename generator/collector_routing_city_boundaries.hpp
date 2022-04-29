@@ -98,8 +98,7 @@ public:
   void OrderCollectedData(std::string const & finalFileName, std::string const & dumpFilename);
 
 private:
-  using MinAccuracy = feature::serialization_policy::MinSize;
-  using FeatureWriter = feature::FeatureBuilderWriter<MinAccuracy>;
+  using FeatureWriter = feature::FeatureBuilderWriter<>;
 
   std::string m_nodeOsmIdToLocalityDataFilename;
   std::string m_nodeOsmIdToBoundariesFilename;
