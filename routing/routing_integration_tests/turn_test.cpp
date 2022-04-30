@@ -398,7 +398,7 @@ UNIT_TEST(Russia_Moscow_VarshavskoeShosseMKAD_TurnTest)
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
 
-  /// @todo No potential additioanal turn 0 (1 alternative way is link another is much smaller (service)).
+  /// @todo No potential additioanal turn 0 (one alternative way is link, another is much smaller (service)).
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
@@ -988,6 +988,90 @@ UNIT_TEST(Russia_MoscowLeninskyProsp2_TurnTest)
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
+}
+
+UNIT_TEST(Germany_ShuttleTrain_TurnTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(54.78152, 8.83952), {0., 0.},
+                                  mercator::FromLatLon(54.79281, 8.83466));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  // No turns on shutte train road.
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+}
+
+UNIT_TEST(Germany_ShuttleTrain2_TurnTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(54.90181, 8.32472), {0., 0.},
+                                  mercator::FromLatLon(54.91681, 8.31346));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  // No turns on shutte train road.
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSharpRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnLeft);
+}
+
+UNIT_TEST(Cyprus_Nicosia_TurnTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(35.12459, 33.34449), {0., 0.},
+                                  mercator::FromLatLon(35.14353, 33.34387));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  // No SlightTurns at not straight junctions. Issue #2262.
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+}
+
+UNIT_TEST(Cyprus_Nicosia2_TurnTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(35.14528, 33.34014), {0., 0.},
+                                  mercator::FromLatLon(35.13930, 33.34171));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  // No SlightTurns at not straight junctions.
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
+}
+
+UNIT_TEST(Cyprus_NicosiaPresidentialPark_TurnTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(35.15992, 33.34625), {0., 0.},
+                                  mercator::FromLatLon(35.15837, 33.35058));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
 }
 
 /*
