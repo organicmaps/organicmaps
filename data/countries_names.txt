@@ -30279,7 +30279,7 @@
   da = Västra Götaland
   nl = West Gotland
   fi = Länsi-Götanmaa
-  fr = Östra Götaland
+  fr = Västra Götaland
   de = Västra Götaland
   hu = Västra Götaland
   id = Västra Götaland
@@ -30287,7 +30287,7 @@
   ja = スイス中部
   ko = 바스트라 가타랜드
   nb = Västra Götaland
-  pl = Ostra Götaland
+  pl = Västra Götaland
   pt = Västra Götaland
   ro = Västra Götaland
   es = Västra Götaland
