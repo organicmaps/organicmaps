@@ -32,6 +32,8 @@ public:
   // FinalProcessorIntermediateMwmInterface overrides:
   void Process() override;
 
+  void ProcessBuildingParts();
+
 private:
   //void Order();
   void ProcessRoutingCityBoundaries();
@@ -42,7 +44,6 @@ private:
   void AddIsolines();
   void DropProhibitedSpeedCameras();
   //void Finish();
-  void ProcessBuildingParts();
 
   bool IsCountry(std::string const & filename);
 
