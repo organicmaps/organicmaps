@@ -171,7 +171,7 @@ bool RawGenerator::Execute()
 RawGenerator::FinalProcessorPtr RawGenerator::CreateCoslineFinalProcessor()
 {
   auto finalProcessor = std::make_shared<CoastlineFinalProcessor>(
-      m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME, DATA_FILE_EXTENSION_TMP));
+      m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME, DATA_FILE_EXTENSION_TMP), m_threadsCount);
   finalProcessor->SetCoastlinesFilenames(
       m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
       m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));

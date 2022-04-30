@@ -1,7 +1,7 @@
 #include "generator/final_processor_country.hpp"
 
 #include "generator/affiliation.hpp"
-#include "generator/boost_helpers.hpp"
+#include "generator/coastlines_generator.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/final_processor_utils.hpp"
 #include "generator/isolines_generator.hpp"
@@ -16,18 +16,10 @@
 
 #include "indexer/classificator.hpp"
 
+#include "geometry/region2d/binary_operators.hpp"
+
 #include "base/file_name_utils.hpp"
 #include "base/thread_pool_computational.hpp"
-
-#include <utility>
-#include <vector>
-
-#include <boost/geometry.hpp>
-#include <boost/geometry/geometries/register/point.hpp>
-#include <boost/geometry/geometries/register/ring.hpp>
-
-BOOST_GEOMETRY_REGISTER_POINT_2D(m2::PointD, double, boost::geometry::cs::cartesian, x, y)
-BOOST_GEOMETRY_REGISTER_RING(std::vector<m2::PointD>)
 
 namespace generator
 {
@@ -159,80 +151,106 @@ void CountryFinalProcessor::ProcessRoundabouts()
 }
 
 bool DoesBuildingConsistOfParts(FeatureBuilder const & fbBuilding,
-                                m4::Tree<FeatureBuilder> const & buildingPartsKDTree)
+                                m4::Tree<m2::RegionI> const & buildingPartsKDTree)
 {
-  namespace bg = boost::geometry;
-  using BoostPoint = bg::model::point<double, 2, bg::cs::cartesian>;
-  using BoostPolygon = bg::model::polygon<BoostPoint>;
-  using BoostMultiPolygon = bg::model::multi_polygon<BoostPolygon>;
+  m2::RegionI building;
+  m2::MultiRegionI partsUnion;
+  uint64_t buildingArea = 0;
+  bool isError = false;
 
-  BoostPolygon building;
-  BoostMultiPolygon partsUnion;
-
-  double buildingArea = 0;
-  buildingPartsKDTree.ForEachInRect(fbBuilding.GetLimitRect(), [&](auto const & fbPart)
+  // Make search query by native FeatureBuilder's rect.
+  buildingPartsKDTree.ForEachInRect(fbBuilding.GetLimitRect(), [&](m2::RegionI const & part)
   {
-    // Lazy initialization that will not occur with high probability
-    if (bg::is_empty(building))
-    {
-      generator::boost_helpers::FillPolygon(building, fbBuilding);
-      buildingArea = bg::area(building);
-    }
+    if (isError)
+      return;
 
-    BoostPolygon part;
-    generator::boost_helpers::FillPolygon(part, fbPart);
+    // Lazy initialization that will not occur with high probability
+    if (!building.IsValid())
+    {
+      building = coastlines_generator::CreateRegionI(fbBuilding.GetOuterGeometry());
+
+      {
+        /// @todo Patch to "normalize" region. Our relation multipolygon processor can produce regions
+        /// with 2 directions (CW, CCW) simultaneously, thus area check below will fail.
+        /// @see BuildingRelation, RegionArea_CommonEdges tests.
+        /// Should refactor relation -> FeatureBuilder routine.
+        m2::MultiRegionI rgns;
+        m2::AddRegion(building, rgns);
+        if (rgns.size() != 1)
+          LOG(LWARNING, ("Degenerated polygon splitted:", rgns.size(), fbBuilding.DebugPrintIDs()));
+
+        if (!rgns.empty())
+        {
+          // Select largest polygon.
+          size_t idx = 0;
+          for (size_t i = 0; i < rgns.size(); ++i)
+          {
+            uint64_t const s = rgns[i].CalculateArea();
+            if (s > buildingArea)
+            {
+              buildingArea = s;
+              idx = i;
+            }
+          }
+          building.Swap(rgns[idx]);
+        }
+        else
+        {
+          isError = true;
+          building = {};
+        }
+      }
+    }
 
     // Take parts that smaller than input building outline.
     // Example of a big building:part as a "stylobate" here:
     // https://www.openstreetmap.org/way/533683349#map=18/53.93091/27.65261
-    if (0.8 * bg::area(part) <= buildingArea)
-    {
-      BoostMultiPolygon newPartsUnion;
-      bg::union_(partsUnion, part, newPartsUnion);
-      partsUnion = std::move(newPartsUnion);
-    }
+    if (0.8 * part.CalculateArea() <= buildingArea)
+      m2::AddRegion(part, partsUnion);
   });
 
-  if (bg::is_empty(building))
+  if (!building.IsValid())
     return false;
 
-  BoostMultiPolygon partsWithinBuilding;
-  bg::intersection(building, partsUnion, partsWithinBuilding);
+  uint64_t const isectArea = m2::Area(m2::IntersectRegions(building, partsUnion));
+  // That doesn't work with *very* degenerated polygons like https://www.openstreetmap.org/way/629725974.
+  //CHECK(isectArea * 0.95 <= buildingArea, (isectArea, buildingArea, fbBuilding.DebugPrintIDs()));
 
-  // Consider a building as consisting of parts if the building footprint
-  // is covered with parts at least by 90%.
-  return bg::area(partsWithinBuilding) >= 0.9 * buildingArea;
+  // Consider building as consisting of parts if the building footprint is covered with parts at least by 90%.
+  return isectArea >= 0.9 * buildingArea;
 }
 
 void CountryFinalProcessor::ProcessBuildingParts()
 {
-  static auto const & classificator = classif();
-  static auto const buildingClassifType = classificator.GetTypeByPath({"building"});
-  static auto const buildingPartClassifType = classificator.GetTypeByPath({"building:part"});
-  static auto const buildingWithPartsClassifType = classificator.GetTypeByPath({"building", "has_parts"});
+  auto const & buildingChecker = ftypes::IsBuildingChecker::Instance();
+  auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
+  auto const & buildingHasPartsChecker = ftypes::IsBuildingHasPartsChecker::Instance();
 
   ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path)
   {
     if (!IsCountry(name))
       return;
 
-    // All "building:part" features in MWM
-    m4::Tree<FeatureBuilder> buildingPartsKDTree;
+    // All "building:part" regions in MWM
+    m4::Tree<m2::RegionI> buildingPartsKDTree;
 
     ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
     {
-      if (fb.IsArea() && fb.HasType(buildingPartClassifType))
-        buildingPartsKDTree.Add(std::move(fb));
+      if (fb.IsArea() && buildingPartChecker(fb.GetTypes()))
+      {
+        // Important trick! Add region by FeatureBuilder's native rect, to make search queries also by FB rects.
+        buildingPartsKDTree.Add(coastlines_generator::CreateRegionI(fb.GetOuterGeometry()), fb.GetLimitRect());
+      }
     });
 
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
     ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
     {
       if (fb.IsArea() &&
-          fb.HasType(buildingClassifType) &&
+          buildingChecker(fb.GetTypes()) &&
           DoesBuildingConsistOfParts(fb, buildingPartsKDTree))
       {
-        fb.AddType(buildingWithPartsClassifType);
+        fb.AddType(buildingHasPartsChecker.GetType());
         fb.GetParams().FinishAddingTypes();
       }
 

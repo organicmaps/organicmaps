@@ -10,7 +10,7 @@ namespace generator
 class CoastlineFinalProcessor : public FinalProcessorIntermediateMwmInterface
 {
 public:
-  explicit CoastlineFinalProcessor(std::string const & filename);
+  CoastlineFinalProcessor(std::string const & filename, size_t threadsCount);
 
   void SetCoastlinesFilenames(std::string const & geomFilename,
                               std::string const & rawGeomFilename);
@@ -20,6 +20,7 @@ public:
 
 private:
   std::string m_filename;
+  size_t m_threadsCount;
   std::string m_coastlineGeomFilename;
   std::string m_coastlineRawGeomFilename;
   CoastlineFeaturesGenerator m_generator;
