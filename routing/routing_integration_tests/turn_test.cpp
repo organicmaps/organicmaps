@@ -1055,7 +1055,7 @@ UNIT_TEST(Cyprus_Nicosia2_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
-  // No SlightTurns at not straight junctions.
+  // No SlightTurns at not straight junctions. Issue #2262.
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 2 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
@@ -1072,9 +1072,26 @@ UNIT_TEST(Cyprus_NicosiaPresidentialPark_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
+  // Issue #2438
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+}
+
+UNIT_TEST(Cyprus_NicosiaSchoolParking_TurnTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(35.15395, 33.35000), {0., 0.},
+                                  mercator::FromLatLon(35.15159, 33.34961));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  // Issue #2438
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
 
 /*
