@@ -29,6 +29,7 @@ struct LoadedPathSegment
   ftypes::HighwayClass m_highwayClass = ftypes::HighwayClass::Undefined;
   bool m_onRoundabout = false;
   bool m_isLink = false;
+  bool m_isOneWay = false;
 
   bool IsValid() const { return m_path.size() > 1; }
 };

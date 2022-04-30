@@ -168,7 +168,8 @@ UNIT_TEST(TurnsNearAltufievskoeShosseLongFakeSegmentTest)
 
   integration::TestTurnCount(route, 3 /* expectedTurnCount */);
 
-  /// @todo For some reason for both nodes.candidates of (turn_m_index == 3) angles are 0, but it is expected to be -90 and +90.
+  /// @todo Problem with outgoingTurns from RoutingEngineResult::GetPossibleTurns at (turn_m_index == 3)
+  /// For some reason for both of outgoingTurns angles are 0, but it is expected to be -90 and +90.
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);

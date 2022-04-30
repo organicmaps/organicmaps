@@ -65,6 +65,7 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
   pathSegment.m_highwayClass = highwayClass;
   pathSegment.m_isLink = ftypes::IsLinkChecker::Instance()(*ft);
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(*ft);
+  pathSegment.m_isOneWay = ftypes::IsOneWayChecker::Instance()(*ft);
 
   pathSegment.m_name = ft->GetName(StringUtf8Multilang::kDefaultCode);
 }

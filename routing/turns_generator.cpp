@@ -1259,7 +1259,10 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
   else // turnCandidates.size() == 1
   {
     ASSERT(turnCandidates.front().m_segment == firstOutgoingSeg, ());
-    if (ingoingCount <= 1)
+    ASSERT(!IsGoStraightOrSlightTurn(turn.m_turn), ("GoStraightOrSlightTurn are discarded before if turnCandidates.size() == 1"));
+    // IngoingCount includes ingoing segment and reversed outgoing (if it is not one-way).
+    // Both of them should be isnored. If any other one is present, turn is kept to prevent user from going to oneway alternative.
+    if (ingoingCount <= 1 + size_t(!turnInfo.m_outgoing->m_isOneWay))
     {
       turn.m_turn = CarDirection::None;
       return;

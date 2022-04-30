@@ -443,6 +443,9 @@ UNIT_TEST(Russia_Moscow_BolshoyKislovskiyPerBolshayaNikitinskayaUl_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
+  /// @todo Problem with outgoingTurns from RoutingEngineResult::GetPossibleTurns at (turn_m_index == 4)
+  /// For some reason it contains only one possible turn (+90), but it is expected that it will be two of them (-90 and +90).
+  /// This is the reason why the RightTurn is discarded.
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
