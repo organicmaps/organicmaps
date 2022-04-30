@@ -1001,41 +1001,6 @@ PedestrianDirection IntermediateDirectionPedestrian(const double angle)
   return FindDirectionByAngle(kLowerBounds, angle);
 }
 
-/// \returns true if one of the turn candidates goes along the ingoing route segment.
-bool OneOfTurnCandidatesGoesAlongIngoingSegment(NumMwmIds const & numMwmIds,
-                                                TurnCandidates const & turnCandidates,
-                                                TurnInfo const & turnInfo)
-{
-  Segment ingoingSegment;
-  if (!turnInfo.m_ingoing->m_segmentRange.GetLastSegment(numMwmIds, ingoingSegment))
-    return false;
-
-  for (auto const & c : turnCandidates.candidates)
-  {
-    if (c.m_segment.IsInverse(ingoingSegment))
-      return true;
-  }
-  return false;
-}
-
-/// \returns true if there are two or more possible ways which don't go along an ingoing segment
-/// and false otherwise.
-/// \example If a route goes along such graph edges:
-/// ...-->*<------>*<--->*<---------------->*<---...
-/// for each point which is drawn above HasMultiTurns() returns false
-/// despite the fact that for each point it's possible to go to two directions.
-bool HasMultiTurns(NumMwmIds const & numMwmIds, TurnCandidates const & turnCandidates,
-                   TurnInfo const & turnInfo)
-{
-  size_t const numTurnCandidates = turnCandidates.candidates.size();
-  if (numTurnCandidates <= 1)
-    return false;
-  if (numTurnCandidates > 2)
-    return true;
-
-  return !OneOfTurnCandidatesGoesAlongIngoingSegment(numMwmIds, turnCandidates, turnInfo);
-}
-
 void RemoveUTurnCandidate(TurnInfo const & turnInfo, NumMwmIds const & numMwmIds, std::vector<TurnCandidate> & turnCandidates)
 {
   Segment lastIngoingSegment;
@@ -1182,36 +1147,38 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
   result.GetPossibleTurns(turnInfo.m_ingoing->m_segmentRange, junctionPoint, ingoingCount, nodes);
   if (nodes.isCandidatesAngleValid)
   {
-    ASSERT(is_sorted(nodes.candidates.begin(), nodes.candidates
-        .end(), base::LessBy(&TurnCandidate::m_angle)),
+    ASSERT(is_sorted(nodes.candidates.begin(), nodes.candidates.end(), base::LessBy(&TurnCandidate::m_angle)),
            ("Turn candidates should be sorted by its angle field."));
   }
 
   if (nodes.candidates.size() == 0)
     return;
 
+  // No turns are needed on transported road.
+  if (turnInfo.m_ingoing->m_highwayClass == ftypes::HighwayClass::Transported &&
+      turnInfo.m_outgoing->m_highwayClass == ftypes::HighwayClass::Transported)
+    return;
+
   Segment firstOutgoingSeg;
-  bool const isFirstOutgoingSegValid =
-      turnInfo.m_outgoing->m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg);
+  bool const isFirstOutgoingSegValid = turnInfo.m_outgoing->m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg);
+  if (!isFirstOutgoingSegValid)
+    return;
   
   // It's possible that |firstOutgoingSeg| is not contained in |turnCandidates|.
   // It may happened if |firstOutgoingSeg| and candidates in |turnCandidates| are
   // from different mwms.
   CandidatesSegmentCorrectionByOutgoing(result, outgoingSegmentIndex, junctionPoint, numMwmIds, firstOutgoingSeg, nodes.candidates);
 
-  bool const hasMultiTurns = HasMultiTurns(numMwmIds, nodes, turnInfo);
   RemoveUTurnCandidate(turnInfo, numMwmIds, nodes.candidates);
   auto const & turnCandidates = nodes.candidates;
-  ASSERT(hasMultiTurns == (turnCandidates.size() >= 2), 
-         ("hasMultiTurns is true if there are two or more possible ways which don't go along an ingoing segment and false otherwise"));
-
+  
   // Check for enter or exit to/from roundabout.
   if (turnInfo.m_ingoing->m_onRoundabout || turnInfo.m_outgoing->m_onRoundabout)
   {
     bool const keepTurnByHighwayClass = KeepRoundaboutTurnByHighwayClass(nodes, turnInfo, numMwmIds);
     turn.m_turn = GetRoundaboutDirection(turnInfo.m_ingoing->m_onRoundabout,
                                          turnInfo.m_outgoing->m_onRoundabout, 
-                                         hasMultiTurns,
+                                         turnCandidates.size() > 1,
                                          keepTurnByHighwayClass);
     return;
   }
@@ -1224,11 +1191,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
   CarDirection const intermediateDirection = IntermediateDirection(turnAngle);
 
   // Checking for exits from highways.
-  // Segment firstOutgoingSeg;
-  //bool const isFirstOutgoingSegValid =
-  //    turnInfo.m_outgoing->m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg);
-  if (isFirstOutgoingSegValid &&
-      IsExit(nodes, turnInfo, firstOutgoingSeg, intermediateDirection, turn.m_turn))
+  if (IsExit(nodes, turnInfo, firstOutgoingSeg, intermediateDirection, turn.m_turn))
   {
     return;
   }
@@ -1273,7 +1236,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
 
     // turnCandidates are sorted by angle from leftmost to rightmost.
     // Normally no duplicates should be found. But if they are present we can't identify the leftmost/rightmost by order. 
-    if (adjacent_find(nodes.candidates.begin(), nodes.candidates.end(), base::EqualsBy(&TurnCandidate::m_angle)) == nodes.candidates.end())
+    if (adjacent_find(turnCandidates.begin(), turnCandidates.end(), base::EqualsBy(&TurnCandidate::m_angle)) == turnCandidates.end())
     {
       if (turnCandidates.front().m_segment == firstOutgoingSeg)
       {
@@ -1295,13 +1258,11 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
   }
   else // turnCandidates.size() == 1
   {
-    if (nodes.candidates.front().m_segment == firstOutgoingSeg)
+    ASSERT(turnCandidates.front().m_segment == firstOutgoingSeg, ());
+    if (ingoingCount <= 1)
     {
-      if (ingoingCount <= 1)
-      {
-        turn.m_turn = CarDirection::None;
-        return;
-      }
+      turn.m_turn = CarDirection::None;
+      return;
     }
   }
 }
@@ -1349,11 +1310,11 @@ void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t outgoingSe
     return;
   }
 
-  bool const roadForks = HasMultiTurns(numMwmIds, nodes, turnInfo);
+  RemoveUTurnCandidate(turnInfo, numMwmIds, nodes.candidates);
 
   // If there is no fork on the road we don't need to generate any turn. It is pointless because
   // there is no possibility of leaving the route.
-  if (!roadForks || (std::fabs(GetOneSegmentTurnAngle(turnInfo)) < kMaxForwardAngleActual && HasSingleForwardTurn(nodes)))
+  if (nodes.candidates.size() <= 1 || (std::fabs(GetOneSegmentTurnAngle(turnInfo)) < kMaxForwardAngleActual && HasSingleForwardTurn(nodes)))
     turn.m_pedestrianTurn = PedestrianDirection::None;
 }
 
