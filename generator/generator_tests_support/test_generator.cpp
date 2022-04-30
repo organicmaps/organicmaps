@@ -58,7 +58,7 @@ void TestRawGenerator::SetupTmpFolder(std::string const & tmpPath)
   CHECK(Platform::MkDirChecked(tmpPath), ());
 }
 
-void TestRawGenerator::BuildFB(std::string const & osmFilePath, std::string const & mwmName)
+void TestRawGenerator::BuildFB(std::string const & osmFilePath, std::string const & mwmName, bool makeWorld /* = false */)
 {
   m_genInfo.m_nodeStorageType = feature::GenerateInfo::NodeStorageType::Index;
   m_genInfo.m_osmFileName = osmFilePath;
@@ -76,7 +76,8 @@ void TestRawGenerator::BuildFB(std::string const & osmFilePath, std::string cons
   RawGenerator rawGenerator(m_genInfo);
   rawGenerator.ForceReloadCache();
 
-  rawGenerator.GenerateWorld(false /* cutBordersByWater */);
+  if (makeWorld)
+    rawGenerator.GenerateWorld(false /* cutBordersByWater */);
   rawGenerator.GenerateCountries(true /* isTests */);
 
   CHECK(rawGenerator.Execute(), ("Error generating", mwmName));

@@ -7,8 +7,8 @@
 #include "routing/maxspeeds.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/data_source.hpp"
-
+#include "indexer/feature_algo.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 namespace raw_generator_tests
 {
@@ -32,7 +32,7 @@ UNIT_CLASS_TEST(TestRawGenerator, Towns)
   uint32_t const villageType = classif().GetTypeByPath({"place", "village"});
 
   std::string const mwmName = "Towns";
-  BuildFB("./data/osm_test_data/towns.osm", mwmName);
+  BuildFB("./data/osm_test_data/towns.osm", mwmName, true /* makeWorld */);
 
   size_t count = 0;
   ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
@@ -158,6 +158,83 @@ UNIT_CLASS_TEST(TestRawGenerator, HighwayLinks)
 
   TEST_EQUAL(speedChecked, osmID2Speed.size(), ());
   TEST_EQUAL(noSpeed, osmNoSpeed.size(), ());
+}
+
+UNIT_CLASS_TEST(TestRawGenerator, Building3D)
+{
+  auto const & buildingChecker = ftypes::IsBuildingChecker::Instance();
+  auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
+  auto const & buildingHasPartsChecker = ftypes::IsBuildingHasPartsChecker::Instance();
+
+  std::string const mwmName = "Building3D";
+  BuildFB("./data/osm_test_data/building3D.osm", mwmName);
+
+  size_t buildings = 0, buildingParts = 0, buildingHasParts = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    auto const & types = fb.GetTypes();
+    if (buildingChecker(types))
+      ++buildings;
+    if (buildingPartChecker(types))
+      ++buildingParts;
+    if (buildingHasPartsChecker(types))
+      ++buildingHasParts;
+  });
+
+  TEST_EQUAL(buildings, 1, ());
+  TEST_GREATER(buildingParts, 0, ());
+  TEST_EQUAL(buildingHasParts, 1, ());
+}
+
+// https://www.openstreetmap.org/relation/13430355
+UNIT_CLASS_TEST(TestRawGenerator, BuildingRelation)
+{
+  auto const & buildingChecker = ftypes::IsBuildingChecker::Instance();
+  auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
+  auto const & buildingHasPartsChecker = ftypes::IsBuildingHasPartsChecker::Instance();
+
+  std::string const mwmName = "Building";
+  BuildFB("./data/osm_test_data/building_relation.osm", mwmName);
+
+  {
+    size_t buildings = 0, buildingParts = 0, buildingHasParts = 0;
+    ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+    {
+      auto const & types = fb.GetTypes();
+      if (buildingChecker(types))
+        ++buildings;
+      if (buildingPartChecker(types))
+        ++buildingParts;
+      if (buildingHasPartsChecker(types))
+        ++buildingHasParts;
+    });
+
+    /// @todo Should be 1, 3, 1 when will implement one FB with multiple polygons.
+    TEST_EQUAL(buildings, 2, ());
+    TEST_EQUAL(buildingParts, 3, ());
+    TEST_EQUAL(buildingHasParts, 2, ());
+  }
+
+  BuildFeatures(mwmName);
+
+  size_t features = 0;
+  double buildings = 0, buildingParts = 0;
+  ForEachFeature(mwmName, [&](std::unique_ptr<FeatureType> ft)
+  {
+    if (ft->GetGeomType() != feature::GeomType::Area)
+      return;
+
+    feature::TypesHolder types(*ft);
+    if (buildingChecker(types))
+      buildings += feature::CalcArea(*ft);
+    else if (buildingPartChecker(types))
+      buildingParts += feature::CalcArea(*ft);
+
+    ++features;
+  });
+
+  TEST_EQUAL(features, 5, ());
+  TEST_ALMOST_EQUAL_ABS(buildings, buildingParts, 1.0E-4, ());
 }
 
 } // namespace raw_generator_tests

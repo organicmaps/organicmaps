@@ -4,6 +4,8 @@
 #include "generator/generate_info.hpp"
 #include "generator/routing_helpers.hpp"
 
+#include "indexer/data_source.hpp"
+
 namespace generator
 {
 namespace tests_support
@@ -22,7 +24,7 @@ public:
 
   void SetupTmpFolder(std::string const & tmpPath);
 
-  void BuildFB(std::string const & osmFilePath, std::string const & mwmName);
+  void BuildFB(std::string const & osmFilePath, std::string const & mwmName, bool makeWorld = false);
   void BuildFeatures(std::string const & mwmName);
   void BuildSearch(std::string const & mwmName);
   void BuildRouting(std::string const & mwmName, std::string const & countryName);
@@ -36,6 +38,19 @@ public:
     {
       fn(fb);
     });
+  }
+
+  template <class FnT> void ForEachFeature(std::string const & mwmName, FnT && fn)
+  {
+    FrozenDataSource dataSource;
+    platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
+    auto const res = dataSource.RegisterMap(localFile);
+    CHECK_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+    FeaturesLoaderGuard guard(dataSource, res.first);
+    uint32_t const count = guard.GetNumFeatures();
+    for (uint32_t id = 0; id < count; ++id)
+      fn(guard.GetFeatureByIndex(id));
   }
 
   std::string GetMwmPath(std::string const & mwmName) const;

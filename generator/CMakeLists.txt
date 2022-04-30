@@ -5,7 +5,6 @@ set(SRC
   affiliation.hpp
   altitude_generator.cpp
   altitude_generator.hpp
-  boost_helpers.hpp
   borders.cpp
   borders.hpp
   boundary_postcodes_enricher.cpp
