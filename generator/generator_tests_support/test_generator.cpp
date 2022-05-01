@@ -4,6 +4,11 @@
 #include "generator/feature_sorter.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/raw_generator.hpp"
+
+#include "generator/maxspeeds_builder.hpp"
+#include "generator/restriction_generator.hpp"
+#include "generator/road_access_generator.hpp"
+#include "generator/routing_index_generator.hpp"
 #include "generator/search_index_builder.hpp"
 
 #include "indexer/classificator_loader.hpp"
@@ -99,6 +104,37 @@ void TestRawGenerator::BuildSearch(std::string const & mwmName)
     CHECK(generator::DeserializeBoundariesTable(GetCitiesBoundariesPath(), table), ());
     CHECK(generator::BuildCitiesBoundaries(GetMwmPath(mwmName), table), ());
   }
+}
+
+void TestRawGenerator::BuildRouting(std::string const & mwmName, std::string const & countryName)
+{
+  using namespace routing_builder;
+  CountryParentNameGetterFn const parentGetter = [&countryName](std::string const & name)
+  {
+    return (name != countryName ? countryName : std::string());
+  };
+
+  std::string const filePath = GetMwmPath(mwmName);
+  routing_builder::BuildRoutingIndex(filePath, countryName, parentGetter);
+
+  auto routingGraph = CreateIndexGraph(filePath, countryName, parentGetter);
+  CHECK(routingGraph, ());
+
+  /// @todo Laod OsmID2FeatureID map once and pass it to generator functions.
+  std::string const osmToFeatureFilename = filePath + OSM2FEATURE_FILE_EXTENSION;
+  BuildRoadRestrictions(*routingGraph, filePath, m_genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME),
+                        osmToFeatureFilename);
+  BuildRoadAccessInfo(filePath, m_genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME),
+                      osmToFeatureFilename);
+  BuildMaxspeedsSection(routingGraph.get(), filePath, osmToFeatureFilename,
+                        m_genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME));
+}
+
+routing::FeatureIdToOsmId TestRawGenerator::LoadFID2OsmID(std::string const & mwmName)
+{
+  routing::FeatureIdToOsmId ids;
+  CHECK(routing::ParseWaysFeatureIdToOsmIdMapping(GetMwmPath(mwmName) + OSM2FEATURE_FILE_EXTENSION, ids), ());
+  return ids;
 }
 
 std::string TestRawGenerator::GetMwmPath(std::string const & mwmName) const
