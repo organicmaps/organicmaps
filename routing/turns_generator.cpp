@@ -1062,7 +1062,11 @@ double CalcTurnAngle(IRoutingResult const & result,
   return turnAngle;
 }
 
-void CandidatesSegmentCorrectionByOutgoing(IRoutingResult const & result, 
+// It's possible that |firstOutgoingSeg| is not contained in |turnCandidates|.
+// It may happened if |firstOutgoingSeg| and candidates in |turnCandidates| are
+// from different mwms.
+// Let's identify it turnCandidates by angle and update according turnCandidate.
+void CorrectCandidatesSegmentByOutgoing(IRoutingResult const & result, 
                      size_t const outgoingSegmentIndex,
                      m2::PointD const & junctionPoint, 
                      NumMwmIds const & numMwmIds,
@@ -1135,7 +1139,7 @@ bool GetTurnInfo(IRoutingResult const & result, size_t const outgoingSegmentInde
 
 // turnCandidates are sorted by angle from leftmost to rightmost.
 // Normally no duplicates should be found. But if they are present we can't identify the leftmost/rightmost by order.
-void RightmostAndLeftmostCorrection(std::vector<TurnCandidate> const & turnCandidates, 
+void CorrectRightmostAndLeftmost(std::vector<TurnCandidate> const & turnCandidates, 
                                     Segment const & firstOutgoingSeg, 
                                     double turnAngle,
                                     TurnItem & turn)
@@ -1213,10 +1217,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
   if (!isFirstOutgoingSegValid)
     return;
   
-  // It's possible that |firstOutgoingSeg| is not contained in |turnCandidates|.
-  // It may happened if |firstOutgoingSeg| and candidates in |turnCandidates| are
-  // from different mwms.
-  CandidatesSegmentCorrectionByOutgoing(result, outgoingSegmentIndex, junctionPoint, numMwmIds, firstOutgoingSeg, nodes.candidates);
+  CorrectCandidatesSegmentByOutgoing(result, outgoingSegmentIndex, junctionPoint, numMwmIds, firstOutgoingSeg, nodes.candidates);
 
   RemoveUTurnCandidate(turnInfo, numMwmIds, nodes.candidates);
   auto const & turnCandidates = nodes.candidates;
@@ -1276,7 +1277,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
 
   if (turnCandidates.size() >= 2)
   {
-    RightmostAndLeftmostCorrection(turnCandidates, firstOutgoingSeg, turnAngle, turn);
+    CorrectRightmostAndLeftmost(turnCandidates, firstOutgoingSeg, turnAngle, turn);
   }
   else // turnCandidates.size() == 1
   {
