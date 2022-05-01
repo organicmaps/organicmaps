@@ -2,6 +2,7 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/generate_info.hpp"
+#include "generator/routing_helpers.hpp"
 
 namespace generator
 {
@@ -24,6 +25,9 @@ public:
   void BuildFB(std::string const & osmFilePath, std::string const & mwmName);
   void BuildFeatures(std::string const & mwmName);
   void BuildSearch(std::string const & mwmName);
+  void BuildRouting(std::string const & mwmName, std::string const & countryName);
+
+  routing::FeatureIdToOsmId LoadFID2OsmID(std::string const & mwmName);
 
   template <class FnT> void ForEachFB(std::string const & mwmName, FnT && fn)
   {

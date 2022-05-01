@@ -4,6 +4,8 @@
 
 #include "search/cities_boundaries_table.hpp"
 
+#include "routing/maxspeeds.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/data_source.hpp"
 
@@ -94,6 +96,68 @@ UNIT_CLASS_TEST(TestRawGenerator, Towns)
   }
 
   TEST_EQUAL(count, 2, ());
+}
+
+// https://github.com/organicmaps/organicmaps/issues/2475
+UNIT_CLASS_TEST(TestRawGenerator, HighwayLinks)
+{
+  std::string const mwmName = "Highways";
+  BuildFB("./data/osm_test_data/highway_links.osm", mwmName);
+
+  BuildFeatures(mwmName);
+  BuildRouting(mwmName, "Spain");
+
+  auto const fid2osm = LoadFID2OsmID(mwmName);
+
+  using namespace routing;
+  MaxspeedType from120 = 104; // like SpeedMacro::Speed104KmPH
+  std::unordered_map<uint64_t, uint16_t> osmID2Speed = {
+    { 23011515, from120 }, { 23011492, from120 }, { 10689329, from120 }, { 371581901, from120 },
+    { 1017695671, from120 }, { 577365212, from120 }, { 23011612, from120 }, { 1017695670, from120 },
+    { 304871606, from120 }, { 1017695669, from120 }, { 577365213, from120 }, { 369541035, from120 },
+    { 1014336646, from120 }, { 466365947, from120 }, { 23011511, from120 }
+  };
+  /// @todo Actually, better to assign speed for this way too.
+  std::unordered_set<uint64_t> osmNoSpeed = { 23691193, 1017695668 };
+
+  FrozenDataSource dataSource;
+  platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
+  auto const res = dataSource.RegisterMap(localFile);
+  CHECK_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+  auto const speeds = routing::LoadMaxspeeds(dataSource.GetMwmHandleById(res.first));
+  CHECK(speeds, ());
+
+  size_t speedChecked = 0, noSpeed = 0;
+
+  FeaturesLoaderGuard guard(dataSource, res.first);
+  uint32_t const count = guard.GetNumFeatures();
+  for (uint32_t id = 0; id < count; ++id)
+  {
+    auto const iOsmID = fid2osm.find(id);
+    if (iOsmID == fid2osm.end())
+      continue;
+    auto const osmID = iOsmID->second.GetSerialId();
+
+    auto const iSpeed = osmID2Speed.find(osmID);
+    if (iSpeed != osmID2Speed.end())
+    {
+      ++speedChecked;
+      auto const speed = speeds->GetMaxspeed(id);
+      TEST(speed.IsValid(), ());
+      TEST_EQUAL(speed.GetForward(), iSpeed->second, ());
+    }
+
+    auto const iNoSpeed = osmNoSpeed.find(osmID);
+    if (iNoSpeed != osmNoSpeed.end())
+    {
+      ++noSpeed;
+      TEST(!speeds->GetMaxspeed(id).IsValid(), ());
+    }
+  }
+
+  TEST_EQUAL(speedChecked, osmID2Speed.size(), ());
+  TEST_EQUAL(noSpeed, osmNoSpeed.size(), ());
 }
 
 } // namespace raw_generator_tests
