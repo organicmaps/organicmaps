@@ -1005,9 +1005,11 @@ UNIT_TEST(Germany_ShuttleTrain_TurnTest)
 
   // No turns on shutte train road.
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
+      {CarDirection::GoStraight, CarDirection::TurnSlightRight});
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
 
 UNIT_TEST(Germany_ShuttleTrain2_TurnTest)

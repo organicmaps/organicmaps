@@ -22,6 +22,7 @@ namespace
 // Angles in degrees for finding route segments with no actual forks.
 double constexpr kMaxForwardAngleCandidates = 95.0;
 double constexpr kMaxForwardAngleActual = 60.0;
+double constexpr kMinAngleDiffToNotConfuseStraightAndAlternative = 25.0;
 
 /// \brief Contains information about highway classes of the route goes through a turn
 /// and about highway classes of possible ways from the turn.
@@ -208,7 +209,8 @@ bool DiscardTurnByHighwayClass(TurnCandidates const & possibleTurns, TurnInfo co
 /// \param turnCandidates is all possible ways out from a junction except uturn.
 /// \param turnInfo is information about ingoing and outgoing segments of the route.
 /// it is supposed that current turn is GoStraight or SlightTurn
-bool DiscardTurnByNoAlignedAlternatives(TurnItem const & turnRoute, 
+bool DiscardTurnByNoAlignedAlternatives(TurnItem const & turnRoute,
+                                        double routeAngle,
                                         std::vector<TurnCandidate> const & turnCandidates, 
                                         TurnInfo const & turnInfo,
                                         NumMwmIds const & numMwmIds)
@@ -232,7 +234,7 @@ bool DiscardTurnByNoAlignedAlternatives(TurnItem const & turnRoute,
 
     if (turnRoute.m_turn == CarDirection::GoStraight && static_cast<int>(outgoingRouteRoadClass) >= static_cast<int>(ingoingRouteRoadClass))
     {
-      if (IsGoStraightOrSlightTurn(IntermediateDirection(t.m_angle)))
+      if (abs(t.m_angle) < abs(routeAngle) + kMinAngleDiffToNotConfuseStraightAndAlternative)
         return false;
     }
     else
@@ -551,10 +553,8 @@ void GoStraightCorrection(TurnCandidate const & notRouteCandidate, double const 
 {
   if (turn.m_turn != CarDirection::GoStraight)
     return;
-
-  double const kMinAngleDiffToNotConfuse = 25.0;
   
-  if (abs(notRouteCandidate.m_angle) > abs(routeAngle) + kMinAngleDiffToNotConfuse)
+  if (abs(notRouteCandidate.m_angle) > abs(routeAngle) + kMinAngleDiffToNotConfuseStraightAndAlternative)
     return;
 
   if (!IsGoStraightOrSlightTurn(IntermediateDirection(notRouteCandidate.m_angle)))
@@ -808,7 +808,7 @@ double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t end
 
 void FixupTurns(vector<geometry::PointWithAltitude> const & junctions, Route::TTurns & turnsDir)
 {
-  double const kMergeDistMeters = 30.0;
+  double const kMergeDistMeters = 15.0;
   // For turns that are not EnterRoundAbout exitNum is always equal to zero.
   // If a turn is EnterRoundAbout exitNum is a number of turns between two junctions:
   // (1) the route enters to the roundabout;
@@ -1126,6 +1126,55 @@ bool GetTurnInfo(IRoutingResult const & result, size_t const outgoingSegmentInde
   return true;
 }
 
+// If the route goes along the rightmost or the leftmost way among available ones:
+// 1. RightmostDirection or LeftmostDirection is selected
+// 2. If the turn direction is |CarDirection::GoStraight| 
+// and there's another GoStraight or SlightTurn turn
+// GoStraight is corrected to TurnSlightRight/TurnSlightLeft
+// to avoid ambiguity: 2 or more almost straight turns and GoStraight direction.
+
+// turnCandidates are sorted by angle from leftmost to rightmost.
+// Normally no duplicates should be found. But if they are present we can't identify the leftmost/rightmost by order.
+void RightmostAndLeftmostCorrection(std::vector<TurnCandidate> const & turnCandidates, 
+                                    Segment const & firstOutgoingSeg, 
+                                    double turnAngle,
+                                    TurnItem & turn)
+{
+  if (adjacent_find(turnCandidates.begin(), turnCandidates.end(), base::EqualsBy(&TurnCandidate::m_angle)) == turnCandidates.end())
+  {
+    for (auto candidate = turnCandidates.begin(); candidate != turnCandidates.end(); ++candidate)
+    {
+      if (candidate->m_segment == firstOutgoingSeg && candidate + 1 != turnCandidates.end())
+      {
+          // The route goes along the leftmost candidate. 
+          turn.m_turn = LeftmostDirection(turnAngle);
+          // Compare with the next candidate to the right.
+            GoStraightCorrection(*(candidate + 1), candidate->m_angle, CarDirection::TurnSlightLeft, turn);
+          break;
+      }
+      // Ignoring too sharp alternative candidates.
+      if (candidate->m_angle > -90)
+        break;
+    }
+    for (auto candidate = turnCandidates.rbegin(); candidate != turnCandidates.rend(); ++candidate)
+    {
+      if (candidate->m_segment == firstOutgoingSeg && candidate + 1 != turnCandidates.rend())
+      {
+        // The route goes along the rightmost candidate. 
+        turn.m_turn = RightmostDirection(turnAngle);
+        // Compare with the next candidate to the left.
+        GoStraightCorrection(*(candidate + 1), candidate->m_angle, CarDirection::TurnSlightRight, turn);
+        break;
+      }
+      // Ignoring too sharp alternative candidates.
+      if (candidate->m_angle < 90)
+        break;
+    };
+  }
+  else
+    LOG(LWARNING, ("nodes.candidates are not expected to have same m_angle."));
+}
+
 void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmentIndex,
                       NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
                       TurnItem & turn)
@@ -1204,7 +1253,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
   if (!turn.m_keepAnyway && IsGoStraightOrSlightTurn(turn.m_turn))
   {
     if (DiscardTurnByHighwayClass(nodes, turnInfo, numMwmIds, turn.m_turn) ||
-        DiscardTurnByNoAlignedAlternatives(turn, turnCandidates, turnInfo, numMwmIds))
+        DiscardTurnByNoAlignedAlternatives(turn, turnAngle, turnCandidates, turnInfo, numMwmIds))
     {
       turn.m_turn = CarDirection::None;
       return;
@@ -1227,34 +1276,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
 
   if (turnCandidates.size() >= 2)
   {
-    // If the route goes along the rightmost or the leftmost way among available ones:
-    // 1. RightmostDirection or LeftmostDirection is selected
-    // 2. If the turn direction is |CarDirection::GoStraight| 
-    // and there's another GoStraight or SlightTurn turn
-    // GoStraight is corrected to TurnSlightRight/TurnSlightLeft
-    // to avoid ambiguity: 2 or more almost straight turns and GoStraight direction.
-
-    // turnCandidates are sorted by angle from leftmost to rightmost.
-    // Normally no duplicates should be found. But if they are present we can't identify the leftmost/rightmost by order. 
-    if (adjacent_find(turnCandidates.begin(), turnCandidates.end(), base::EqualsBy(&TurnCandidate::m_angle)) == turnCandidates.end())
-    {
-      if (turnCandidates.front().m_segment == firstOutgoingSeg)
-      {
-          // The route goes along the leftmost candidate. 
-          turn.m_turn = LeftmostDirection(turnAngle);
-          // Compare with the closest left candidate.
-          GoStraightCorrection(turnCandidates[1], turnCandidates.front().m_angle, CarDirection::TurnSlightLeft, turn);
-      }
-      else if (turnCandidates.back().m_segment == firstOutgoingSeg)
-      {
-        // The route goes along the rightmost candidate. 
-        turn.m_turn = RightmostDirection(turnAngle);
-        // Compare with the closest right candidate.
-        GoStraightCorrection(turnCandidates[turnCandidates.size() - 2], turnCandidates.back().m_angle, CarDirection::TurnSlightRight, turn);
-      }
-    }
-    else
-      LOG(LWARNING, ("nodes.candidates are not expected to have same m_angle."));
+    RightmostAndLeftmostCorrection(turnCandidates, firstOutgoingSeg, turnAngle, turn);
   }
   else // turnCandidates.size() == 1
   {
