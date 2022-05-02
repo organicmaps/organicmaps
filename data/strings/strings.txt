@@ -1038,7 +1038,7 @@
     sk = Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s Organic Maps
     sv = Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda Organic Maps
     th = โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ Organic Maps
-    tr = Organic Maps’i kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın
+    tr = Organic Maps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın
     uk = Вимкніть USB кабель або вставте SD-карту
     vi = Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng Organic Maps
     zh-Hans = 请断开 USB 线或插入存储卡以使用 Organic Maps
@@ -1076,7 +1076,7 @@
     sk = Prosím, uvoľnite najprv miesto na SD karte/USB úložisku
     sv = Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda denna app.
     th = โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป
-    tr = Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın
+    tr = Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın
     uk = Недостатньо вільного місця на SD карті / в пам'яті пристрою для використання програми
     vi = Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng
     zh-Hans = 请在存储卡/ USB 储存设备上释放一些空间以 使用此应用
@@ -22314,12 +22314,14 @@
     comment = Used in DownloadResources startup screen
     en = Unable to create folder and move files on internal device's memory or sdcard
     ru = Не могу создать папку и переместить файлы на устройстве
+    tr = Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor
 
   [disk_error_title]
     tags = android
     comment = Used in DownloadResources startup screen
     en = Disk error
     ru = Ошибка диска
+    tr = Disk hatası
 
   [connection_failure]
     comment = Used in DownloadResources startup screen
