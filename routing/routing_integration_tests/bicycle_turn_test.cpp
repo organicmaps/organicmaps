@@ -19,12 +19,13 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleWayTurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  /// @todo 5 turns is ok here for now, IMHO. Probably the second turn is redundant.
-  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
-      {CarDirection::TurnSlightRight});
+  /// @todo Turn 3 is discarded since first segment of alternative way is too sharp.
+  integration::TestTurnCount(route, 4 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
   integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
-      {CarDirection::TurnLeft});
+      {CarDirection::TurnSlightLeft, CarDirection::TurnLeft});
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnSlightRight);
 
   integration::TestRouteLength(route, 753.0);
 }
@@ -125,7 +126,6 @@ UNIT_TEST(Russia_Moscow_TatishchevaOnewayCarRoad_TurnTest)
 
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
-  // @todo No potential additioanal GoStraight turn 2. Currently is kept because of 35 degrees TurnSlightLeft alternative.
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
   integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnRight);
 
@@ -170,6 +170,7 @@ UNIT_TEST(TurnsNearAltufievskoeShosseLongFakeSegmentTest)
 
   /// @todo Problem with outgoingTurns from RoutingEngineResult::GetPossibleTurns at (turn_m_index == 3)
   /// For some reason for both of outgoingTurns angles are 0, but it is expected to be -90 and +90.
+  /// But this does not prevent from proper directions.
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
@@ -206,7 +207,16 @@ UNIT_TEST(TurnsNearMKAD85kmShortFakeSegmentTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestTurnCount(route, 8 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 9 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::GoStraight);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::EnterRoundAbout);
+  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+  integration::GetNthTurn(route, 5).TestValid().TestDirection(CarDirection::EnterRoundAbout);
+  integration::GetNthTurn(route, 6).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+  integration::GetNthTurn(route, 7).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 8).TestValid().TestDirection(CarDirection::TurnLeft);
 
   integration::TestRouteLength(route, 1704.21);
 }
