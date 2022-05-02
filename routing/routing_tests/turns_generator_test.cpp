@@ -290,26 +290,6 @@ UNIT_TEST(TestGetRoundaboutDirection)
   TEST_EQUAL(GetRoundaboutDirection(true, false, false, false), CarDirection::LeaveRoundAbout, ());
 }
 
-UNIT_TEST(TestCheckRoundaboutEntrance)
-{
-  // The signature of CheckRoundaboutEntrance function is
-  // CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout)
-  TEST(!CheckRoundaboutEntrance(true, true), ());
-  TEST(!CheckRoundaboutEntrance(false, false), ());
-  TEST(!CheckRoundaboutEntrance(true, false), ());
-  TEST(CheckRoundaboutEntrance(false, true), ());
-}
-
-UNIT_TEST(TestCheckRoundaboutExit)
-{
-  // The signature of GetRoundaboutDirection function is
-  // CheckRoundaboutExit(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout)
-  TEST(!CheckRoundaboutExit(true, true), ());
-  TEST(!CheckRoundaboutExit(false, false), ());
-  TEST(CheckRoundaboutExit(true, false), ());
-  TEST(!CheckRoundaboutExit(false, true), ());
-}
-
 UNIT_TEST(TestInvertDirection)
 {
   TEST_EQUAL(InvertDirection(CarDirection::TurnSlightRight), CarDirection::TurnSlightLeft, ());

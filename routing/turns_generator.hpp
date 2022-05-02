@@ -144,18 +144,6 @@ CarDirection LeftmostDirection(double angle);
 CarDirection IntermediateDirection(double angle);
 
 /*!
- * \return Returns true if the route enters a roundabout.
- * That means isIngoingEdgeRoundabout is false and isOutgoingEdgeRoundabout is true.
- */
-bool CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout);
-
-/*!
- * \return Returns true if the route leaves a roundabout.
- * That means isIngoingEdgeRoundabout is true and isOutgoingEdgeRoundabout is false.
- */
-bool CheckRoundaboutExit(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout);
-
-/*!
  * \brief Calculates a turn instruction if the ingoing edge or (and) the outgoing edge belongs to a
  * roundabout.
  * \return Returns one of the following results:
