@@ -57,8 +57,8 @@ public:
   double m_minOutgoingDistMeters;
   size_t m_maxIngoingPointsCount;
   double m_minIngoingDistMeters;
-  // These 2 parameters are used during turns generation to calculate the angle between the turn
-  // point and one of the neighbour points to find out if the route turns significantly or not.
+  /// @todo These 2 parameters are not used anymore.
+  /// It should me removed. But desktop crashes after removal.
   size_t m_notSoCloseMaxPointsCount;
   double m_notSoCloseMaxDistMeters;
 };
