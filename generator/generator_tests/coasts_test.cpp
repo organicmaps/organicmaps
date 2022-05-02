@@ -34,7 +34,7 @@ protected:
   bool HasID(FeatureBuilder const & fb) const
   {
     TEST(fb.IsCoastCell(), ());
-    return (find(m_vID.begin(), m_vID.end(), fb.GetName()) != m_vID.end());
+    return base::IsExist(m_vID, fb.GetName());
   }
 
 private:

@@ -741,7 +741,7 @@ double Street::GetPrefixLength(size_t numSegs) const
   return length;
 }
 
-void Street::SetName(string const & name)
+void Street::SetName(string_view name)
 {
   m_name = name;
   m_processedName = strings::ToUtf8(GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */));
@@ -899,10 +899,9 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
     if (f->GetGeomType() == feature::GeomType::Line)
     {
       // Use default name as a primary compare key for merging.
-      string name;
-      if (!f->GetName(StringUtf8Multilang::kDefaultCode, name))
+      string_view const name = f->GetName(StringUtf8Multilang::kDefaultCode);
+      if (name.empty())
         continue;
-      ASSERT(!name.empty(), ());
 
       ++count;
 

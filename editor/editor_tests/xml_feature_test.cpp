@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 
-#include "3party/pugixml/src/pugixml.hpp"
+#include "3party/pugixml/pugixml/src/pugixml.hpp"
 
 using namespace editor;
 
@@ -160,6 +160,9 @@ UNIT_TEST(XMLFeature_HasTags)
   TEST(emptyFeature.HasAttribute("timestamp"), ());
 }
 
+UNIT_TEST(XMLFeature_FromXml)
+{
+  // Do not space-align this string literal constant. It will be compared below.
 auto const kTestNode = R"(<?xml version="1.0"?>
 <node lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z">
   <tag k="name" v="Gorki Park" />
@@ -172,8 +175,13 @@ auto const kTestNode = R"(<?xml version="1.0"?>
 </node>
 )";
 
-UNIT_TEST(XMLFeature_FromXml)
-{
+  std::map<std::string_view, std::string_view> kTestNames{
+    {"default", "Gorki Park"},
+    {"en", "Gorki Park"},
+    {"ru", "Парк Горького"},
+    {"int_name", "Gorky Park"}
+  };
+
   XMLFeature feature(kTestNode);
 
   std::stringstream sstr;
@@ -187,32 +195,23 @@ UNIT_TEST(XMLFeature_FromXml)
 
   TEST_EQUAL(feature.GetHouse(), "10", ());
   TEST_EQUAL(feature.GetCenter(), ms::LatLon(55.7978998, 37.4745280), ());
-  TEST_EQUAL(feature.GetName(), "Gorki Park", ());
-  TEST_EQUAL(feature.GetName("default"), "Gorki Park", ());
-  TEST_EQUAL(feature.GetName("en"), "Gorki Park", ());
-  TEST_EQUAL(feature.GetName("ru"), "Парк Горького", ());
-  TEST_EQUAL(feature.GetName("int_name"), "Gorky Park", ());
+  TEST_EQUAL(feature.GetName(), kTestNames["default"], ());
+  TEST_EQUAL(feature.GetName("default"), kTestNames["default"], ());
+  TEST_EQUAL(feature.GetName("en"), kTestNames["en"], ());
+  TEST_EQUAL(feature.GetName("ru"), kTestNames["ru"], ());
+  TEST_EQUAL(feature.GetName("int_name"), kTestNames["int_name"], ());
   TEST_EQUAL(feature.GetName("No such language"), "", ());
 
   TEST_EQUAL(feature.GetTagValue("opening_hours"), "Mo-Fr 08:15-17:30", ());
   TEST_EQUAL(feature.GetTagValue("amenity"), "atm", ());
   TEST_EQUAL(base::TimestampToString(feature.GetModificationTime()), "2015-11-27T21:13:32Z", ());
-}
 
-UNIT_TEST(XMLFeature_ForEachName)
-{
-  XMLFeature feature(kTestNode);
-  std::map<std::string, std::string> names;
-
-  feature.ForEachName(
-      [&names](std::string const & lang, std::string const & name) { names.emplace(lang, name); });
-
-  TEST_EQUAL(names,
-             (std::map<std::string, std::string>{{"default", "Gorki Park"},
-                                                 {"en", "Gorki Park"},
-                                                 {"ru", "Парк Горького"},
-                                                 {"int_name", "Gorky Park"}}),
-             ());
+  std::map<std::string_view, std::string_view> names;
+  feature.ForEachName([&names](std::string_view lang, std::string_view name)
+  {
+    names.emplace(lang, name);
+  });
+  TEST_EQUAL(names, kTestNames, ());
 }
 
 UNIT_TEST(XMLFeature_FromOSM)

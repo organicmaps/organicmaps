@@ -158,7 +158,6 @@ int main(int argc, char * argv[])
   }
 
   int returnCode = -1;
-  QString mapcssFilePath;
   if (eulaAccepted)   // User has accepted EULA
   {
     bool apiOpenGLES3 = false;
@@ -204,6 +203,7 @@ int main(int argc, char * argv[])
     FrameworkParams frameworkParams;
 
 #ifdef BUILD_DESIGNER
+    QString mapcssFilePath;
     if (argc >= 2 && platform.IsFileExistsByFullPath(argv[1]))
         mapcssFilePath = argv[1];
     if (0 == mapcssFilePath.length())
@@ -233,7 +233,11 @@ int main(int argc, char * argv[])
 
     Framework framework(frameworkParams);
     qt::MainWindow w(framework, apiOpenGLES3, std::move(screenshotParams),
-                     app.primaryScreen()->geometry(), mapcssFilePath);
+                     app.primaryScreen()->geometry()
+#ifdef BUILD_DESIGNER
+                     , mapcssFilePath
+#endif // BUILD_DESIGNER
+                     );
     w.show();
     returnCode = app.exec();
   }

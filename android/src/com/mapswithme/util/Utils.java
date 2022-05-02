@@ -264,16 +264,6 @@ public class Utils
     }
   }
 
-  public static void showTwitterPage(Activity activity)
-  {
-    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER)));
-  }
-
-  public static void showSupportUsPage(Activity activity)
-  {
-    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.SUPPORT_US)));
-  }
-
   public static void openUrl(@NonNull Context context, @Nullable String url)
   {
     if (TextUtils.isEmpty(url))
@@ -436,8 +426,18 @@ public class Utils
 
   public static void sendTo(@NonNull Context context, @NonNull String email)
   {
+    sendTo(context, email, "", "");
+  }
+
+  public static void sendTo(@NonNull Context context, @NonNull String email, @NonNull String subject)
+  {
+    sendTo(context, email, subject, "");
+  }
+
+  public static void sendTo(@NonNull Context context, @NonNull String email, @NonNull String subject, @NonNull String body)
+  {
     Intent intent = new Intent(Intent.ACTION_SENDTO);
-    intent.setData(Utils.buildMailUri(email, "", ""));
+    intent.setData(Utils.buildMailUri(email, subject, body));
     context.startActivity(intent);
   }
 

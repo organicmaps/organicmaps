@@ -264,6 +264,9 @@
 /* Text in menu */
 "website" = "Вэб-сайт";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Навіны";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -1440,7 +1443,7 @@
 
 "type.amenity.toilets" = "Toilet";
 
-"type.amenity.townhall" = "Town Hall";
+"type.amenity.townhall" = "Адміністрацыя";
 
 "type.amenity.university" = "University";
 
@@ -2171,6 +2174,8 @@
 "type.landuse.commercial" = "Commercial Area";
 
 "type.landuse.construction" = "Construction";
+
+"type.landuse.education" = "Адукацыйныя ўстановы";
 
 "type.landuse.farm" = "Farm";
 

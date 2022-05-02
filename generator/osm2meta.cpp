@@ -281,7 +281,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_airport_iata(string const & v
 
 string MetadataTagProcessorImpl::ValidateAndFormat_duration(string const & v) const
 {
-  if (!ftypes::IsFerryChecker::Instance()(m_params.m_types))
+  if (!ftypes::IsWayWithDurationChecker::Instance()(m_params.m_types))
     return {};
 
   auto const format = [](double hours) -> string {

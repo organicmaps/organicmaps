@@ -84,14 +84,9 @@ public:
     return c.IsTransition(s, isOutgoing);
   }
 
-  bool IsFeatureTransit(NumMwmId numMwmId, uint32_t featureId)
+  template <class FnT> void ForEachTransitSegmentId(NumMwmId numMwmId, uint32_t featureId, FnT && fn)
   {
-    return GetCrossMwmConnectorWithTransitions(numMwmId).IsFeatureCrossMwmConnector(featureId);
-  }
-
-  std::vector<uint32_t> const & GetTransitSegmentId(NumMwmId numMwmId, uint32_t featureId)
-  {
-    return GetCrossMwmConnectorWithTransitions(numMwmId).GetTransitSegmentId(featureId);
+    GetCrossMwmConnectorWithTransitions(numMwmId).ForEachTransitSegmentId(featureId, fn);
   }
 
   /// \brief Fills |twins| based on transitions defined in cross_mwm section.
@@ -121,8 +116,8 @@ public:
       // and the last parameter (|isEnter|) should be set to true.
       // If |isOutgoing| == false |s| should be an enter transition segment and the method below searches exits
       // and the last parameter (|isEnter|) should be set to false.
-      Segment const * twinSeg = connector.GetTransition(crossMwmId, s.GetSegmentIdx(), isOutgoing);
-      if (twinSeg == nullptr)
+      auto const twinSeg = connector.GetTransition(crossMwmId, s.GetSegmentIdx(), isOutgoing);
+      if (!twinSeg)
         continue;
 
       // Twins should have the same direction, because we assume that twins are the same segments
@@ -141,9 +136,9 @@ public:
       // build the route, because we fail in astar_algorithm.hpp CHECK(invariant) sometimes.
       auto const & sMwmId = m_dataSource.GetMwmIdByCountryFile(m_numMwmIds->GetFile(s.GetMwmId()));
       CHECK(sMwmId.IsAlive(), (s));
-      auto const & twinSegMwmId =
-          m_dataSource.GetMwmIdByCountryFile(m_numMwmIds->GetFile(twinSeg->GetMwmId()));
+      auto const & twinSegMwmId = m_dataSource.GetMwmIdByCountryFile(m_numMwmIds->GetFile(twinSeg->GetMwmId()));
       CHECK(twinSegMwmId.IsAlive(), (*twinSeg));
+
       if (sMwmId.GetInfo()->GetVersion() == twinSegMwmId.GetInfo()->GetVersion() ||
           SegmentsAreEqualByGeometry(s, *twinSeg))
       {
@@ -190,10 +185,12 @@ public:
     GetCrossMwmConnectorWithTransitions(numMwmId);
   }
 
-  std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter)
+  template <class FnT> void ForEachTransition(NumMwmId numMwmId, bool isEnter, FnT && fn)
   {
     auto const & connector = GetCrossMwmConnectorWithTransitions(numMwmId);
-    return isEnter ? connector.GetEnters() : connector.GetExits();
+
+    auto const wrapper = [&fn](uint32_t, Segment const & s) { fn(s); };
+    return isEnter ? connector.ForEachEnter(wrapper) : connector.ForEachExit(wrapper);
   }
 
 private:
@@ -266,22 +263,18 @@ private:
   template <typename Fn>
   CrossMwmConnector<CrossMwmId> const & Deserialize(NumMwmId numMwmId, Fn && fn)
   {
-    MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(numMwmId));
+    auto const & file = m_numMwmIds->GetFile(numMwmId);
+    MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
     if (!handle.IsAlive())
-      MYTHROW(RoutingException, ("Mwm", m_numMwmIds->GetFile(numMwmId), "cannot be loaded."));
+      MYTHROW(RoutingException, ("Mwm", file, "cannot be loaded."));
 
     MwmValue const * value = handle.GetValue();
-    CHECK(value != nullptr, ("Country file:", m_numMwmIds->GetFile(numMwmId)));
+    CHECK(value != nullptr, ("Country file:", file));
 
-    FilesContainerR::TReader const reader =
-        FilesContainerR::TReader(connector::GetReader<CrossMwmId>(value->m_cont));
+    FilesContainerR::TReader reader(connector::GetReader<CrossMwmId>(value->m_cont));
     ReaderSourceFile src(reader);
-    auto it = m_connectors.find(numMwmId);
-    if (it == m_connectors.end())
-      it = m_connectors
-               .emplace(numMwmId, CrossMwmConnector<CrossMwmId>(
-                                      numMwmId, connector::GetFeaturesOffset<CrossMwmId>()))
-               .first;
+    auto it = m_connectors.try_emplace(
+          numMwmId, CrossMwmConnector<CrossMwmId>(numMwmId, connector::GetFeaturesOffset<CrossMwmId>())).first;
 
     fn(m_vehicleType, it->second, src);
     return it->second;

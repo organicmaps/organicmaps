@@ -70,8 +70,6 @@ namespace android
     void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
 
     location::TMyPositionModeChanged m_myPositionModeSignal;
-    location::EMyPositionMode m_currentMode;
-    bool m_isCurrentModeInitialized;
 
     TrafficManager::TrafficStateChangedFn m_onTrafficStateChangedFn;
     TransitReadManager::TransitStateChangedFn m_onTransitStateChangedFn;
@@ -92,8 +90,8 @@ namespace android
     void OnCompassUpdated(location::CompassInfo const & info, bool forceRedraw);
 
     bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
-                           bool launchByDeepLink, int appVersionCode);
-    bool IsDrapeEngineCreated();
+                           bool launchByDeepLink, uint32_t appVersionCode);
+    bool IsDrapeEngineCreated() const;
     bool DestroySurfaceOnDetach();
     void DetachSurface(bool destroySurface);
     bool AttachSurface(JNIEnv * env, jobject jSurface);
@@ -137,6 +135,7 @@ namespace android
 
     void AddLocalMaps();
     void RemoveLocalMaps();
+    void ReloadWorldMaps();
 
     m2::PointD GetViewportCenter() const;
 
@@ -156,11 +155,10 @@ namespace android
 
     void DeactivatePopup();
 
-    std::string GetOutdatedCountriesString();
+//    std::string GetOutdatedCountriesString();
 
     void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
-    location::EMyPositionMode GetMyPositionMode();
-    void OnMyPositionModeChanged(location::EMyPositionMode mode);
+    location::EMyPositionMode GetMyPositionMode() const;
     void SwitchMyPositionNextMode();
 
     void SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn);
@@ -188,7 +186,7 @@ namespace android
     bool IsDownloadOn3gEnabled();
     void EnableDownloadOn3g();
 
-    int ToDoAfterUpdate() const;
+//    int ToDoAfterUpdate() const;
 
     // PowerManager::Subscriber overrides:
     void OnPowerFacilityChanged(power_management::Facility const facility, bool enabled) override;

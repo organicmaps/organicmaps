@@ -20,6 +20,7 @@ pt:Comida rápida
 pt-BR:Fast food
 ro:Fast food
 es:Comida rápida
+eu:Janari azkarra
 sv:Snabbmat
 th:อาหารจานด่วน
 tr:Fast food
@@ -53,6 +54,7 @@ pt:Bagel
 pt-BR:Bagel
 ro:Chiflă
 es:Bágel
+eu:Bagel
 sv:Bagel
 th:เบเกิล
 tr:Simit
@@ -86,6 +88,7 @@ pt:Pequeno-almoço
 pt-BR:Café da manhã
 ro:Mic dejun
 es:Desayunos
+eu:Gosariak
 sv:Frukost
 th:อาหารเช้า
 tr:Kahvaltı
@@ -119,6 +122,7 @@ pt:Hambúrguer
 pt-BR:Hambúrguer
 ro:Burger
 es:Hamburguesas
+eu:Hanburgesak
 sv:Hamburgare
 th:เบอร์เกอร์
 tr:Hamburger
@@ -134,6 +138,7 @@ cuisine-bubble_tea
 en:Bubble Tea|boba tea
 ru:Чай с шариками
 es:Té de burbujas
+eu:Burbuila tea
 uk:Бульбашковий чай
 be:Чай з бурбалкамі
 
@@ -159,6 +164,7 @@ pt:Bolo|padaria
 pt-BR:Bolo|padaria
 ro:Tort
 es:Tartas
+eu:Pastelak
 sv:Tårta
 th:เค้ก
 tr:Pasta
@@ -192,6 +198,7 @@ pt:Café|cafetaria
 pt-BR:Café|cafeteria
 ro:Cafea
 es:Café
+eu:Kafea
 sv:Kaffe
 th:กาแฟ
 tr:Kahve
@@ -226,6 +233,7 @@ pt:Caril
 pt-BR:Curry
 ro:Curry
 es:Curri
+eu:Curry
 sv:Curry
 th:กะหรี่
 tr:Köri
@@ -259,6 +267,7 @@ pt:Diner
 pt-BR:Lanchonete
 ro:Cină
 es:Cena
+eu:Afaria
 sv:Matställe
 th:ร้านอาหาร
 tr:Vagon restoran
@@ -292,6 +301,7 @@ pt:Donuts
 pt-BR:Rosquinha
 ro:Gogoașă
 es:Rosquillas
+eu:Donutsak
 sv:Munk
 th:โดนัท
 tr:Donut
@@ -325,6 +335,7 @@ pt:Peixe e batatas fritas
 pt-BR:Peixe e batatas fritas
 ro:Restaurant fish and chips
 es:Pescado rebozado con patatas
+eu:Arrain arrautza patatekin
 sv:Friterad fisk och pommes frites
 th:ปลาและมันฝรั่งทอด
 tr:Balık ve patates cipsi
@@ -358,6 +369,7 @@ pt:Fritos
 pt-BR:Fritura
 ro:Prăjit
 es:Frituras
+eu:Frijituak
 sv:Friterat
 th:ปลาเล็กปลาน้อย
 tr:Kızartma
@@ -391,6 +403,7 @@ pt:Grelhados
 pt-BR:Grelhada
 ro:Grătar
 es:Parrilla
+eu:Erretegia
 sv:Grill
 th:ย่าง
 tr:ızgara
@@ -424,6 +437,7 @@ pt:Cachorro-quente
 pt-BR:Cachorro-quente
 ro:Hot dog
 es:Perritos calientes
+eu:Txakur beroak
 sv:Varmkorv
 th:ฮอทดอก
 tr:Sosisli
@@ -457,6 +471,7 @@ pt:Gelados
 pt-BR:Sorvete
 ro:Înghețată
 es:Helados
+eu:Izozkiak
 sv:Glass
 th:ไอศกรีม
 tr:Dondurma
@@ -490,6 +505,7 @@ pt:Kebab
 pt-BR:Espetinho
 ro:Kebab
 es:Kebabs
+eu:Kebabak
 sv:Kebab
 th:เคบับ
 tr:Kebap
@@ -523,6 +539,7 @@ pt:Massa asiática
 pt-BR:Macarrão
 ro:Tăiței
 es:Tallarines
+eu:Fideoak
 sv:Nudlar
 th:บะหมี่
 tr:Erişte
@@ -556,6 +573,7 @@ pt:Panqueca|panquecas|crepes|crepe
 pt-BR:Panqueca|panquecas|crepes|crepe
 ro:Clătită|Crep
 es:Tortitas|Crepes
+eu:Krepeak
 sv:Pannkaka|Crêpe
 th:แพนเค้ก|เครป
 tr:Gözleme|Krep
@@ -589,6 +607,7 @@ pt:Massa
 pt-BR:Massa
 ro:Paste
 es:Pastas
+eu:Pasta
 sv:Pasta
 th:พาสต้า
 tr:Makarna
@@ -622,6 +641,7 @@ pt:Pizza|piza|pizaria
 pt-BR:Pizza|pizzaria|pizaria
 ro:Pizza
 es:Pizzas
+eu:Pizza
 sv:Pizza
 th:พิซซ่า
 tr:Pizza
@@ -655,6 +675,7 @@ pt:Lámen|rāmen|ramen
 pt-BR:Lámen|rāmen|ramen
 ro:Ramen
 es:Ramen
+eu:Ramen
 sv:Ramen
 th:ราเม็ง
 tr:Japon eriştesi
@@ -688,6 +709,7 @@ pt:Sanduíche|sanduíches|sande|sandes
 pt-BR:Sanduíche|sanduíches
 ro:Sandwich
 es:Sándwiches
+eu:Ogitartekoak
 sv:Smörgås
 th:แซนด์วิช
 tr:Sandviç
@@ -721,6 +743,7 @@ pt:Salsicha|salsichas
 pt-BR:Linguiça
 ro:Cârnat
 es:Salchichas
+eu:Saltxitxak
 sv:Korv
 th:ไส้กรอก
 tr:Sucuk
@@ -754,6 +777,7 @@ pt:Frutos do mar|peixe|peixes|marisco|mariscos|marisqueira
 pt-BR:Frutos do mar|peixe|peixes|marisco|mariscos|marisqueira
 ro:Fructe de mare|Pește
 es:Mariscos|Pescados
+eu:Itsaskia|Arraina
 sv:Skaldjur|Fisk
 th:อาหารทะเล|ปลา
 tr:Deniz ürünleri|Balık
@@ -787,6 +811,7 @@ pt:Soba|sobá
 pt-BR:Soba|sobá
 ro:Soba
 es:Soba
+eu:Soba
 sv:Soba
 th:โซบะ
 tr:Erişte
@@ -820,6 +845,7 @@ pt:Churrasqueira|churrascaria
 pt-BR:Churrascaria
 ro:Restaurant steakhouse
 es:Asador
+eu:Txu
 sv:Stekhus
 th:ร้านสเต๊ก
 tr:Et lokantası
@@ -853,6 +879,7 @@ pt:Sushi
 pt-BR:Sushi
 ro:Sushi
 es:Sushi
+eu:Sushia
 sv:Sushi
 th:ซูชิ
 tr:Suşi
@@ -886,6 +913,7 @@ pt:Tapas
 pt-BR:Tapas
 ro:Tapas
 es:Tapas
+eu:Txapelak
 sv:Tapas
 th:ทาปาส
 tr:Tapas
@@ -919,6 +947,7 @@ pt:Chá
 pt-BR:Chá
 ro:Ceai
 es:Té
+eu:Tea
 sv:Te
 th:ชา
 tr:Çay
@@ -952,6 +981,7 @@ pt:Vegana|vegetariana
 pt-BR:Vegana|vegetariana
 ro:Bucătărie vegan|Bucătărie vegetarian
 es:Cocina vegana|Cocina vegetariana
+eu:Sukaldaritza beganoa|Sukaldaritza begetarianoa
 sv:Vegansk mat|Vegetarisk mat
 th:อาหารมังสวิรัติ|อาหารมังสวิรัติ
 tr:Vegan mutfağı|Vejetaryen mutfağı
@@ -985,6 +1015,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha africana
 # ro:Bucătărie african
 # es:Cocina africana
+# eu:Afrikako sukaldaritza
 # sv:Afrikansk mat
 # th:อาหารแอฟริกัน
 # tr:Afrika mutfağı
@@ -1018,6 +1049,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha americana
 # ro:Bucătărie american
 # es:Cocina americana
+# eu:Sukalde amerikarra
 # sv:Amerikansk mat
 # th:อาหารอเมริกัน
 # tr:Amerikan mutfağı
@@ -1051,6 +1083,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha árabe
 # ro:Bucătărie arăbesc
 # es:Cocina árabe
+# eu:Sukaldaritza arabiarra
 # sv:Arabisk mat
 # th:อาหารอาหรับ
 # tr:Arap mutfağı
@@ -1084,6 +1117,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha argentina
 # ro:Bucătărie argentinian
 # es:Cocina argentina
+# eu:Argentinako sukaldaritza
 # sv:Argentinsk mat
 # th:อาหารอาเจนติน่า
 # tr:Arjantin mutfağı
@@ -1117,6 +1151,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha asiática
 # ro:Bucătărie asiatic
 # es:Cocina asiática
+# eu:Asiako sukaldaritza
 # sv:Asiatisk mat
 # th:อาหารเอเชีย
 # tr:Asya mutfağı
@@ -1150,6 +1185,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha austríaca
 # ro:Bucătărie austriac
 # es:Cocina austriaca
+# eu:Austriako sukaldaritza
 # sv:Österrikisk mat
 # th:อาหารออสเตรีย
 # tr:Avusturya mutfağı
@@ -1183,6 +1219,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha balcânica
 # ro:Bucătărie balcanic
 # es:Cocina balcánica
+# eu:Balkanetako sukaldaritza
 # sv:Balkansk mat
 # th:อาหารบอลข่าน
 # tr:Balkan mutfağı
@@ -1216,6 +1253,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Churrasco
 # ro:Grătar
 # es:Barbacoa
+# eu:Barbakoa
 # sv:Grillat
 # th:บาร์บีคิว
 # tr:Mangal
@@ -1249,6 +1287,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha bávara
 # ro:Bucătărie bavarez
 # es:Cocina bávara
+# eu:Bavariako sukaldaritza
 # sv:Bayersk mat
 # th:อาหารบาวาเรีย
 # tr:Bavyera mutfağı
@@ -1282,6 +1321,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Tigela com carne bovina|Gyudon
 # ro:Ciorbă de văcuță
 # es:Gyūdon
+# eu:Gyūdon
 # sv:Biff donburi
 # th:ชามเนื้อวัว
 # tr:Biftek tabağı
@@ -1315,6 +1355,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha brasileira
 # ro:Bucătărie brazilian
 # es:Cocina brasileña
+# eu:Brasilgo sukaldaritza
 # sv:Brasiliansk mat
 # th:อาหารบราซิล
 # tr:Brezilya mutfağı
@@ -1348,6 +1389,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Buschenschank|Heuriger
 # ro:Tavernă
 # es:Buschenschank
+# eu:Buschenschank
 # sv:Vintaverna
 # th:โรงเหล้า
 # tr:Buschenschank
@@ -1381,6 +1423,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha caribenha
 # ro:Bucătărie caribbean
 # es:Cocina caribeña
+# eu:Karibeko sukaldaritza
 # sv:Karibisk mat
 # th:อาหารแคริบเบียน
 # tr:Karayip mutfağı
@@ -1414,6 +1457,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Frango
 # ro:Pui
 # es:Pollos
+# eu:Oiloak
 # sv:Kyckling
 # th:ไก่
 # tr:Tavuk
@@ -1447,6 +1491,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha chinesa
 # ro:Bucătărie chinez
 # es:Cocina china
+# eu:Txinako sukaldaritza
 # sv:Kinesisk mat
 # th:อาหารจีน
 # tr:Çin mutfağı
@@ -1480,6 +1525,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha croata
 # ro:Bucătărie croat
 # es:Cocina croata
+# eu:Kroaziako sukaldaritza
 # sv:Kroatisk mat
 # th:อาหารโครเอเชีย
 # tr:Hırvat mutfağı
@@ -1513,6 +1559,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Iguarias regionais|delicatesse
 # ro:Delicacies
 # es:Delicatesen
+# eu:Delicatessen
 # sv:Delicacies
 # th:อาหารพิเศษ
 # tr:Şarküteri
@@ -1546,6 +1593,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha etíope
 # ro:Bucătărie etiopian
 # es:Cocina etíope
+# eu:Etiopiako sukaldaritza
 # sv:Etiopisk mat
 # th:อาหารเอธิโอเปีย
 # tr:Etiyopya mutfağı
@@ -1579,6 +1627,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha filipina
 # ro:Bucătărie filipinez
 # es:Cocina filipina
+# eu:Filipinetako sukaldaritza
 # sv:Filippinsk mat
 # th:อาหารฟิลิปปินส์
 # tr:Filipino mutfağı
@@ -1612,6 +1661,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Alta gastronomia
 # ro:Restaurant elegant
 # es:Restaurante elegante
+# eu:Jatetxe dotorea
 # sv:Lyxrestaurang
 # th:อาหารหรูหรา
 # tr:Birinci sınıf restoran
@@ -1645,6 +1695,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha francesa
 # ro:Bucătărie francez
 # es:Cocina francesa
+# eu:Frantziako sukaldaritza
 # sv:Fransk mat
 # th:อาหารฝรั่งเศส
 # tr:Fransız mutfağı
@@ -1678,6 +1729,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha georgiana
 # ro:Bucătărie georgian
 # es:Cocina georgiana
+# eu:Georgiako sukaldaritza
 # sv:Georgisk mat
 # th:อาหารจอร์เจีย
 # tr:Gürcistan mutfağı
@@ -1711,6 +1763,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha alemã
 # ro:Bucătărie german
 # es:Cocina alemana
+# eu:Alemaniako sukaldaritza
 # sv:Tysk mat
 # th:อาหารเยอรมัน
 # tr:Alman mutfağı
@@ -1744,6 +1797,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha grega
 # ro:Bucătărie grecesc
 # es:Cocina griega
+# eu:Greziako sukaldaritza
 # sv:Grekisk mat
 # th:อาหารกรีก
 # tr:Yunan mutfağı
@@ -1777,6 +1831,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Heuriger
 # ro:Heuriger
 # es:Heuriger
+# eu:Heuriger
 # sv:Vintaverna (heuriger)
 # th:โรงเหล้า
 # tr:Heuriger
@@ -1810,6 +1865,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha húngara
 # ro:Bucătărie maghiar
 # es:Cocina húngara
+# eu:Hungariako sukaldaritza
 # sv:Ungersk mat
 # th:อาหารฮังการี
 # tr:Macar mutfağı
@@ -1843,6 +1899,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha indiana
 # ro:Bucătărie indian
 # es:Cocina hindú
+# eu:Indiako sukaldaritza
 # sv:Indisk mat
 # th:อาหารอินเดีย
 # tr:Hint mutfağı
@@ -1876,6 +1933,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha indonésia
 # ro:Bucătărie indonezian
 # es:Cocina indonesia
+# eu:Indonesiako sukaldaritza
 # sv:Indonesisk mat
 # th:อาหารอินโดนีเซีย
 # tr:Endonezya mutfağı
@@ -1909,6 +1967,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha internacional
 # ro:Bucătărie internațional
 # es:Cocina internacional
+# eu:Nazioarteko sukaldea
 # sv:Internationell mat
 # th:อาหารนานาชาติ
 # tr:Uluslararası mutfak
@@ -1942,6 +2001,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha irlandesa
 # ro:Bucătărie irlandez
 # es:Cocina irlandesa
+# eu:Irlandako sukaldaritza
 # sv:Irländsk mat
 # th:อาหารไอริช
 # tr:Irlanda mutfağı
@@ -1975,6 +2035,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha italiana
 # ro:Bucătărie italian
 # es:Cocina italiana
+# eu:Sukaldaritza italiarra
 # sv:Italiensk mat
 # th:อาหารอิตาเลียน
 # tr:Italyan mutfağı
@@ -2008,6 +2069,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Pizza italiana|Piza italiana
 # ro:Italian, pizza
 # es:Cocina italiana, pizzas
+# eu:Italiako sukaldaritza, pizzak
 # sv:Italiensk, pizza
 # th:อาหารอิตาเลียน; พิซซ่า
 # tr:Italyan, pizza
@@ -2041,6 +2103,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha japonesa
 # ro:Bucătărie japonez
 # es:Cocina japonesa
+# eu:Japoniako sukaldaritza
 # sv:Japansk mat
 # th:อาหารญี่ปุ่น
 # tr:Japon mutfağı
@@ -2074,6 +2137,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha coreana
 # ro:Coreean
 # es:Cocina coreana
+# eu:Koreako sukaldaritza
 # sv:Koreansk mat
 # th:อาหารเกาหลี
 # tr:Kore mutfağı
@@ -2107,6 +2171,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha laosiana
 # ro:Bucătărie lao
 # es:Cocina laosiana
+# eu:Laosko sukaldaritza
 # sv:Laotisk mat
 # th:อาหารลาว
 # tr:Lao mutfağı
@@ -2140,6 +2205,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha libanesa
 # ro:Bucătărie libanez
 # es:Cocina libanesa
+# eu:Libanoko sukaldaritza
 # sv:Libanesisk mat
 # th:อาหารเลบานอน
 # tr:Lübnan mutfağı
@@ -2173,6 +2239,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha local
 # ro:Bucătărie local
 # es:Cocina local
+# eu:Bertako sukaldaritza
 # sv:Lokal mat
 # th:อาหารท้องถิ่น
 # tr:Yerel mutfak
@@ -2206,6 +2273,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha malgaxe
 # ro:Bucătărie malgaș
 # es:Cocina malgache
+# eu:Malgaxeko sukaldaritza
 # sv:Madagaskisk mat
 # th:มาดากัสการ์
 # tr:Malgaş mutfağı
@@ -2239,6 +2307,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha malaia
 # ro:Bucătărie malaysian
 # es:Cocina malaya
+# eu:Malaysiako sukaldaritza
 # sv:Malaysisk mat
 # th:อาหารมาเลเซีย
 # tr:Malezya mutfağı
@@ -2272,6 +2341,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha mediterrânea
 # ro:Bucătărie cu specific mediteranean
 # es:Cocina mediterránea
+# eu:Sukaldaritza mediterraneoa
 # sv:Medelhavsmat
 # th:อาหารเมดิเตอร์เรเนียน
 # tr:Akdeniz mutfağı
@@ -2305,6 +2375,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha mexicana
 # ro:Bucătărie mexican
 # es:Cocina mexicana
+# eu:Mexikoko sukaldea
 # sv:Mexikansk mat
 # th:อาหารเม็กซิกัน
 # tr:Meksika mutfağı
@@ -2338,6 +2409,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha marroquina
 # ro:Bucătărie marocan
 # es:Cocina marroquí
+# eu:Marokoko sukaldaritza
 # sv:Marockansk mat
 # th:อาหารโมร็อกโก
 # tr:Fas mutfağı
@@ -2371,6 +2443,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha oriental
 # ro:Bucătărie oriental
 # es:Cocina oriental
+# eu:Ekialdeko sukaldaritza
 # sv:Orientalisk mat
 # th:อาหารโอเรียนทอล
 # tr:Doğu mutfağı
@@ -2404,6 +2477,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha persa
 # ro:Bucătărie persan
 # es:Cocina persa
+# eu:Persiar sukaldaritza
 # sv:Persisk mat
 # th:อาหารเปอร์เซีย
 # tr:Iran mutfağı
@@ -2437,6 +2511,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha peruana
 # ro:Bucătărie peruan
 # es:Cocina peruana
+# eu:Peruko sukaldaritza
 # sv:Peruansk mat
 # th:อาหารเปรู
 # tr:Peru mutfağı
@@ -2470,6 +2545,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha polonesa
 # ro:Bucătărie polonez
 # es:Cocina polaca
+# eu:Poloniako sukaldaritza
 # sv:Polsk mat
 # th:อาหารโปแลนด์
 # tr:Polonya mutfağı
@@ -2503,6 +2579,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha portuguesa
 # ro:Bucătărie portughez
 # es:Cocina portuguesa
+# eu:Portugalgo sukaldaritza
 # sv:Portugisisk mat
 # th:อาหารโปรตุเกส
 # tr:Portekiz mutfağı
@@ -2536,6 +2613,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha regional
 # ro:Bucătărie regional
 # es:Cocina regional
+# eu:Eskualdeko sukaldaritza
 # sv:Regional mat
 # th:อาหารพื้นเมือง
 # tr:Bölgesel mutfak
@@ -2569,6 +2647,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha russa
 # ro:Bucătărie rusesc
 # es:Cocina rusa
+# eu:Errusiako sukaldaritza
 # sv:Rysk mat
 # th:อาหารรัสเซีย
 # tr:Rus mutfağı
@@ -2602,6 +2681,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Panquecas salgadas
 # ro:Clătite delicioase
 # es:Tortitas saladas
+# eu:Krepe gaziak
 # sv:Fyllda pannkakor
 # th:แพนเค้กแบบเค็ม
 # tr:Açma
@@ -2635,6 +2715,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha espanhola
 # ro:Bucătărie spaniol
 # es:Cocina española
+# eu:Espainiako Sukaldaritza
 # sv:Spansk mat
 # th:อาหารสเปน
 # tr:Ispanyol mutfağı
@@ -2668,6 +2749,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha tailandesa
 # ro:Bucătărie tailandez
 # es:Cocina tailandesa
+# eu:Thailandiako sukaldaritza
 # sv:Thailändsk mat
 # th:อาหารไทย
 # tr:Tayland mutfağı
@@ -2701,6 +2783,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha turca
 # ro:Bucătărie turcesc
 # es:Cocina turca
+# eu:Turkiako sukaldaritza
 # sv:Turkisk mat
 # th:ตุรกีอาหารตุรกี
 # tr:Türk mutfağı
@@ -2734,6 +2817,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # pt-BR:Cozinha vietnamita
 # ro:Bucătărie vietnamez
 # es:Cocina vietnamita
+# eu:Vietnamgo sukaldaritza
 # sv:Vietnamesisk mat
 # th:อาหารเวียดนาม
 # tr:Vietnam mutfağı

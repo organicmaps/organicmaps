@@ -79,9 +79,3 @@ inline void ForceUseValue(T const & t)
 #define UINT64_HI(x) (static_cast<uint32_t>(x >> 32))
 
 #define NOTIMPLEMENTED() ASSERT(false, ("Function", __func__, "is not implemented!"));
-
-#if defined(__GNUC__)
-#define WARN_UNUSED_RESULT __attribute__((warn_unused_result))
-#else
-#define WARN_UNUSED_RESULT
-#endif  // defined(__GNUC__)

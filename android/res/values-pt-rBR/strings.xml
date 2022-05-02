@@ -41,9 +41,10 @@
 	<string name="close">Fechar</string>
 	<string name="unsupported_phone">É necessário OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é compatível.</string>
 	<string name="download">Baixar</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Por favor libere primeiro algum espaço no cartão SD/armazenamento USB para utilizar o app</string>
-	<string name="not_enough_memory">Não há memória suficiente para executar o app</string>
 	<string name="download_resources">Antes de começar, vamos baixar um mapa mundial geral para o seu dispositivo.\n%s de memória serão utilizados.</string>
 	<string name="download_resources_continue">Ir para o mapa</string>
 	<string name="downloading_country_can_proceed">Baixando %s. Você pode\ncontinuar para o mapa agora.</string>
@@ -660,6 +661,7 @@
 	<string name="elevation_profile_time">Tempo:</string>
 	<string name="isolines_toast_zooms_1_10">Use o zoom para explorar as isolinhas</string>
 	<string name="download_map_title">Baixar mapa mundial</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Falha na coneção</string>
 	<string name="enable_screen_sleep">Permitir que a tela hiberne</string>
 	<!-- Description in preferences -->

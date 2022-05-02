@@ -7,11 +7,11 @@
 #include <string>
 #include <vector>
 
+namespace levenshtein_dfa_test
+{
 using namespace std;
 using namespace strings;
 
-namespace
-{
 enum class Status
 {
   Accepts,
@@ -282,6 +282,8 @@ UNIT_TEST(LevenshteinDFA_PrefixDFASmoke)
       }
     }
   };
+
+  /// @todo What do we check here?
   {
     generate(kAlphabet, 4, sources);
     generate(kAlphabet, 2, queries);
@@ -293,9 +295,9 @@ UNIT_TEST(LevenshteinDFA_PrefixDFASmoke)
         PrefixDFAModifier<LevenshteinDFA> dfa(LevenshteinDFA(source, 2 /* maxErrors */));
         auto it = dfa.Begin();
         for (auto const c : query)
-          DFAMove(it, strings::MakeUniString({c}));
+          DFAMove(it, std::string({c}));
       }
     }
   }
 }
-}  // namespace
+}  // namespace levenshtein_dfa_test

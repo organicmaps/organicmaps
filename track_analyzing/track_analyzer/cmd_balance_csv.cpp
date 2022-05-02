@@ -274,7 +274,7 @@ void CmdBalanceCsv(string const & csvPath, string const & distributionPath,
 
   // Calculating statistics.
   storage::Storage storage;
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  storage.RegisterAllLocalMaps();
   Stats stats;
   for (auto const & record : balancedTable)
   {

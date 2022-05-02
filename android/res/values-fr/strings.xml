@@ -43,9 +43,10 @@
 	<string name="close">Fermer</string>
 	<string name="unsupported_phone">L\'accélération OpenGL matérielle est exigée. Malheureusement, votre appareil n\'est pas pris en charge.</string>
 	<string name="download">Télécharger</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Veuillez d\'abord libérer de l\'espace sur la carte SD/le stockage USB afin d\'utiliser l\'appli</string>
-	<string name="not_enough_memory">Mémoire insuffisante pour lancer l\'appli</string>
 	<string name="download_resources">Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.\n%s de données sont nécessaires.</string>
 	<string name="download_resources_continue">Aller sur la carte</string>
 	<string name="downloading_country_can_proceed">%s en téléchargement. Vous pouvez\nmaintenant aller sur la carte.</string>
@@ -212,6 +213,8 @@
 	<string name="search_show_on_map">Voir sur la carte</string>
 	<!-- Text in menu -->
 	<string name="website">Site internet</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Nouvelles</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
@@ -670,7 +673,9 @@
 	<string name="elevation_profile_time">Temps:</string>
 	<string name="isolines_toast_zooms_1_10">Zoomez pour voir les courbes de niveaux</string>
 	<string name="download_map_title">Télécharcher la carte du monde</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Erreur de connexion</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Déconnectez le câble USB</string>
 	<string name="enable_screen_sleep">Autoriser l\'écran à dormir</string>
 	<!-- Description in preferences -->
@@ -1121,6 +1126,7 @@
 	<string name="type.landuse.churchyard">Cour d\'église</string>
 	<string name="type.landuse.commercial">Zone commerciale</string>
 	<string name="type.landuse.construction">Chantier de construction</string>
+	<string name="type.landuse.education">Établissements éducatifs</string>
 	<string name="type.landuse.farmland">Terrains agricoles</string>
 	<string name="type.landuse.farmyard">Ferme</string>
 	<string name="type.landuse.field">Champ</string>

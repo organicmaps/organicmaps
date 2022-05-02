@@ -176,7 +176,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Combined)
   TEST(params.IsTypeExist(GetType({"amenity", "school"})), ());
   TEST(params.IsTypeExist(GetType({"building"})), ());
 
-  std::string s;
+  std::string_view s;
   params.name.GetString(0, s);
   TEST_EQUAL(s, "Гимназия 15", ());
 
@@ -245,7 +245,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_PlaceState)
   TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "state", "USA"})), ());
 
-  std::string s;
+  std::string_view s;
   TEST(params.name.GetString(0, s), ());
   TEST_EQUAL(s, "California", ());
   TEST_GREATER(params.rank, 1, ());
@@ -555,8 +555,16 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("asphalt", "bad", "", "paved_bad");
   TestSurfaceTypes("asphalt", "", "0", "paved_bad");
 
+  TestSurfaceTypes("fine_gravel", "", "", "paved_bad");
   TestSurfaceTypes("fine_gravel", "intermediate", "", "paved_bad");
+
+  // We definitely should store more than 4 surface options.
+  // Gravel (widely used tag) always goes to unpaved_bad which is strange sometimes.
+  // At the same time, we can't definitely say that it's unpaved_good :)
+  TestSurfaceTypes("gravel", "excellent", "", "unpaved_good");
+  TestSurfaceTypes("gravel", "", "", "unpaved_bad");
   TestSurfaceTypes("gravel", "intermediate", "", "unpaved_bad");
+
   TestSurfaceTypes("paved", "intermediate", "", "paved_good");
   TestSurfaceTypes("", "intermediate", "", "unpaved_good");
 
@@ -678,7 +686,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Dibrugarh)
 
   TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "city"})), (params));
-  std::string name;
+  std::string_view name;
   TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), (params));
   TEST_EQUAL(name, "Dibrugarh", (params));
 }
@@ -918,7 +926,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Translations)
   TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "city"})), ());
 
-  std::string name;
+  std::string_view name;
   TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), (params));
   TEST_EQUAL(name, "Paris", (params));
   TEST(params.name.GetString(StringUtf8Multilang::kEnglishCode, name), (params));
@@ -982,7 +990,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_OldName)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    std::string s;
+    std::string_view s;
     params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
     TEST_EQUAL(s, "Улица Веткина", ());
     params.name.GetString(StringUtf8Multilang::GetLangIndex("old_name"), s);
@@ -999,7 +1007,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_OldName)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    std::string s;
+    std::string_view s;
     params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
     TEST_EQUAL(s, "Санкт-Петербург", ());
     params.name.GetString(StringUtf8Multilang::GetLangIndex("old_name"), s);
@@ -1019,7 +1027,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_AltName)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    std::string s;
+    std::string_view s;
     params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
     TEST_EQUAL(s, "Московский музей современного искусства", ());
     params.name.GetString(StringUtf8Multilang::GetLangIndex("alt_name"), s);
@@ -1034,7 +1042,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_AltName)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    std::string s;
+    std::string_view s;
     params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
     TEST_EQUAL(s, "Московский музей современного искусства", ());
     // We do not support alt_name:lang.
@@ -1053,7 +1061,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    std::string s;
+    std::string_view s;
     params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
     TEST_EQUAL(s, "Tokyo", ());
     params.name.GetString(StringUtf8Multilang::GetLangIndex("ja_kana"), s);
@@ -1068,7 +1076,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    std::string s;
+    std::string_view s;
     params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
     TEST_EQUAL(s, "Tokyo", ());
     // Save ja-Hira as ja_kana if there is no ja_kana.
@@ -1085,7 +1093,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    std::string s;
+    std::string_view s;
     params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
     TEST_EQUAL(s, "Tokyo", ());
     // Prefer ja_kana over ja-Hira. ja_kana tag goes first.
@@ -1102,7 +1110,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    std::string s;
+    std::string_view s;
     params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
     TEST_EQUAL(s, "Tokyo", ());
     // Prefer ja_kana over ja-Hira. ja-Hira tag goes first.
@@ -1371,9 +1379,12 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Metadata)
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"amenity", "restaurant"})), (params));
 
-    std::string buffer, desc;
-    TEST(params.GetMetadata().Get(feature::Metadata::FMD_DESCRIPTION, buffer), ());
-    StringUtf8Multilang::FromBuffer(std::move(buffer)).GetString(StringUtf8Multilang::GetLangIndex("ru"), desc);
+    std::string buffer(params.GetMetadata().Get(feature::Metadata::FMD_DESCRIPTION));
+    TEST(!buffer.empty(), ());
+    auto const mlStr = StringUtf8Multilang::FromBuffer(std::move(buffer));
+
+    std::string_view desc;
+    mlStr.GetString(StringUtf8Multilang::GetLangIndex("ru"), desc);
     TEST_EQUAL(desc, "Хорошие настойки", ());
   }
 }
@@ -2067,12 +2078,14 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"wheelchair", "yes"},
   };
 
+  using SV = std::string_view;
+
   auto const & cl = classif();
   for (auto const & type : oneTypes)
   {
     auto const params = GetFeatureBuilderParams({type});
     TEST_EQUAL(params.m_types.size(), 1, (type, params));
-    TEST(params.IsTypeExist(cl.GetTypeByPath({type.m_key, type.m_value})), (type, params));
+    TEST(params.IsTypeExist(cl.GetTypeByPath({SV(type.m_key), SV(type.m_value)})), (type, params));
   }
 
   Tags const exTypes = {
@@ -2083,7 +2096,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
   {
     auto const params = GetFeatureBuilderParams({type});
     TEST_GREATER(params.m_types.size(), 1, (type, params));
-    TEST(params.IsTypeExist(cl.GetTypeByPath({type.m_key, type.m_value})), (type, params));
+    TEST(params.IsTypeExist(cl.GetTypeByPath({SV(type.m_key), SV(type.m_value)})), (type, params));
   }
 }
 

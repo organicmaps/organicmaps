@@ -34,12 +34,11 @@ HolesProcessor::HolesProcessor(
 
 base::ControlFlow HolesProcessor::operator() (uint64_t /* id */, RelationElement const & e)
 {
-  std::string const type = e.GetType();
+  auto const type = e.GetType();
   if (!(type == "multipolygon" || type == "boundary"))
     return base::ControlFlow::Continue;
 
-  std::string role;
-  if (e.FindWay(m_id, role) && role == "outer")
+  if (auto const role = e.GetWayRole(m_id); role == "outer")
   {
     e.ForEachWay(*this);
     // Stop processing. Assume that "outer way" exists in one relation only.

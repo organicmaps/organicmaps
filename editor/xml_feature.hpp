@@ -12,7 +12,7 @@
 #include <iostream>
 #include <vector>
 
-#include "3party/pugixml/src/pugixml.hpp"
+#include "3party/pugixml/pugixml/src/pugixml.hpp"
 
 namespace osm
 {
@@ -114,13 +114,13 @@ public:
   template <typename Fn>
   void ForEachName(Fn && func) const
   {
-    static auto const kPrefixLen = strlen(kLocalName);
-    auto const tags = GetRootNode().select_nodes("tag");
-    for (auto const & tag : tags)
-    {
-      std::string const & key = tag.node().attribute("k").value();
+    size_t const kPrefixLen = strlen(kLocalName);
 
-      if (strings::StartsWith(key, kLocalName))
+    for (auto const & tag : GetRootNode().select_nodes("tag"))
+    {
+      std::string_view const key = tag.node().attribute("k").value();
+
+      if (key.substr(0, kPrefixLen) == kLocalName)
         func(key.substr(kPrefixLen), tag.node().attribute("v").value());
       else if (key == kDefaultName)
         func(kDefaultLang, tag.node().attribute("v").value());
@@ -133,9 +133,9 @@ public:
     }
   }
 
-  void SetName(std::string const & name);
-  void SetName(std::string const & lang, std::string const & name);
-  void SetName(uint8_t const langCode, std::string const & name);
+  void SetName(std::string_view name);
+  void SetName(std::string_view lang, std::string_view name);
+  void SetName(uint8_t const langCode, std::string_view name);
 
   std::string GetHouse() const;
   void SetHouse(std::string const & house);
@@ -164,9 +164,9 @@ public:
   //@}
 
   bool HasAnyTags() const;
-  bool HasTag(std::string const & key) const;
-  bool HasAttribute(std::string const & key) const;
-  bool HasKey(std::string const & key) const;
+  bool HasTag(std::string_view key) const;
+  bool HasAttribute(std::string_view key) const;
+  bool HasKey(std::string_view key) const;
 
   template <typename Fn>
   void ForEachTag(Fn && func) const
@@ -175,8 +175,8 @@ public:
       func(tag.node().attribute("k").value(), tag.node().attribute("v").value());
   }
 
-  std::string GetTagValue(std::string const & key) const;
-  void SetTagValue(std::string const & key, std::string value);
+  std::string GetTagValue(std::string_view key) const;
+  void SetTagValue(std::string_view key, std::string_view value);
 
   std::string GetAttribute(std::string const & key) const;
   void SetAttribute(std::string const & key, std::string const & value);

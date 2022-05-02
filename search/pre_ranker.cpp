@@ -22,10 +22,10 @@
 #include <iterator>
 #include <set>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 void SweepNearbyResults(double xEps, double yEps, set<FeatureID> const & prevEmit,
@@ -50,7 +50,7 @@ void SweepNearbyResults(double xEps, double yEps, set<FeatureID> const & prevEmi
   vector<PreRankerResult> filtered;
   sweeper.Sweep([&filtered, &results](size_t i)
                 {
-                  filtered.push_back(results[i]);
+                  filtered.push_back(move(results[i]));
                 });
 
   results.swap(filtered);
@@ -87,21 +87,24 @@ void PreRanker::FillMissingFieldsInPreResults()
   unique_ptr<LazyCentersTable> centers;
   bool pivotFeaturesInitialized = false;
 
-  ForEach([&](PreRankerResult & r) {
+  ForEachMwmOrder(m_results, [&](PreRankerResult & r)
+  {
     FeatureID const & id = r.GetId();
     if (id.m_mwmId != mwmId)
     {
       mwmId = id.m_mwmId;
       mwmHandle = m_dataSource.GetMwmHandleById(mwmId);
+
       ranks.reset();
       centers.reset();
       if (mwmHandle.IsAlive())
       {
-        ranks = RankTable::Load(mwmHandle.GetValue()->m_cont, SEARCH_RANKS_FILE_TAG);
-        popularityRanks = RankTable::Load(mwmHandle.GetValue()->m_cont,
-                                          POPULARITY_RANKS_FILE_TAG);
-        ratings = RankTable::Load(mwmHandle.GetValue()->m_cont, RATINGS_FILE_TAG);
-        centers = make_unique<LazyCentersTable>(*mwmHandle.GetValue());
+        auto const * value = mwmHandle.GetValue();
+
+        ranks = RankTable::Load(value->m_cont, SEARCH_RANKS_FILE_TAG);
+        popularityRanks = RankTable::Load(value->m_cont, POPULARITY_RANKS_FILE_TAG);
+        ratings = RankTable::Load(value->m_cont, RATINGS_FILE_TAG);
+        centers = make_unique<LazyCentersTable>(*value);
       }
       if (!ranks)
         ranks = make_unique<DummyRankTable>();
@@ -154,8 +157,8 @@ void PreRanker::Filter(bool viewportSearch)
     }
   };
 
-  auto comparePreRankerResults = [](PreRankerResult const & lhs,
-                                    PreRankerResult const & rhs) -> bool {
+  auto comparePreRankerResults = [](PreRankerResult const & lhs, PreRankerResult const & rhs)
+  {
     if (lhs.GetId() != rhs.GetId())
       return lhs.GetId() < rhs.GetId();
 
@@ -172,9 +175,9 @@ void PreRanker::Filter(bool viewportSearch)
   m_results.erase(unique(m_results.begin(), m_results.end(), base::EqualsBy(&PreRankerResult::GetId)),
                   m_results.end());
 
-  bool const centersLoaded =
-      all_of(m_results.begin(), m_results.end(),
+  bool const centersLoaded = all_of(m_results.begin(), m_results.end(),
              [](PreRankerResult const & result) { return result.GetInfo().m_centerLoaded; });
+
   if (viewportSearch && centersLoaded)
   {
     FilterForViewportSearch();
@@ -248,7 +251,7 @@ void PreRanker::Filter(bool viewportSearch)
     }
   }
 
-  m_results.assign(filtered.begin(), filtered.end());
+  m_results.assign(make_move_iterator(filtered.begin()), make_move_iterator(filtered.end()));
 }
 
 void PreRanker::UpdateResults(bool lastUpdate)
@@ -276,7 +279,8 @@ void PreRanker::FilterForViewportSearch()
 {
   auto const & viewport = m_params.m_viewport;
 
-  base::EraseIf(m_results, [&](PreRankerResult const & result) {
+  base::EraseIf(m_results, [&](PreRankerResult const & result)
+  {
     auto const & info = result.GetInfo();
     if (!viewport.IsPointInside(info.m_center))
       return true;
@@ -294,17 +298,17 @@ void PreRanker::FilterRelaxedResults(bool lastUpdate)
 {
   if (lastUpdate)
   {
-    m_results.insert(m_results.end(), m_relaxedResults.begin(), m_relaxedResults.end());
+    m_results.insert(m_results.end(),
+                     make_move_iterator(m_relaxedResults.begin()), make_move_iterator(m_relaxedResults.end()));
     m_relaxedResults.clear();
   }
   else
   {
-    auto const isNotRelaxed = [](PreRankerResult const & res) {
-      auto const & prov = res.GetProvenance();
-      return find(prov.begin(), prov.end(), ResultTracer::Branch::Relaxed) == prov.end();
-    };
-    auto const it = partition(m_results.begin(), m_results.end(), isNotRelaxed);
-    m_relaxedResults.insert(m_relaxedResults.end(), it, m_results.end());
+    auto const it = partition(m_results.begin(), m_results.end(), [](PreRankerResult const & res)
+    {
+      return res.IsNotRelaxed();
+    });
+    m_relaxedResults.insert(m_relaxedResults.end(), make_move_iterator(it), make_move_iterator(m_results.end()));
     m_results.erase(it, m_results.end());
   }
 }

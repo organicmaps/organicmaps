@@ -41,12 +41,9 @@ public:
   {
     if (f.GetGeomType() == feature::GeomType::Line)
     {
-      string name;
-      if (f.GetName(0, name) &&
-          find(streetNames.begin(), streetNames.end(), name) != streetNames.end())
-      {
+      string_view const name = f.GetName(StringUtf8Multilang::kDefaultCode);
+      if (!name.empty() && base::IsExist(streetNames, name))
         vect.push_back(f.GetID());
-      }
     }
   }
 
@@ -61,7 +58,7 @@ public:
 
 class CollectStreetIDs
 {
-  static bool GetKey(string const & name, string & key)
+  static bool GetKey(string_view name, string & key)
   {
     TEST(!name.empty(), ());
     key = strings::ToUtf8(search::GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */));
@@ -83,8 +80,8 @@ public:
   {
     if (f.GetGeomType() == feature::GeomType::Line)
     {
-      string name;
-      if (f.GetName(0, name) && ftypes::IsWayChecker::Instance()(f))
+      string_view const name = f.GetName(StringUtf8Multilang::kDefaultCode);
+      if (!name.empty() && ftypes::IsWayChecker::Instance()(f))
       {
         string key;
         if (GetKey(name, key))
@@ -346,7 +343,7 @@ UNIT_TEST(HS_StreetsCompare)
 
 namespace
 {
-string GetStreetKey(string const & name)
+string GetStreetKey(string_view name)
 {
   return strings::ToUtf8(search::GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */));
 }
@@ -415,8 +412,7 @@ UNIT_TEST(HS_MWMSearch)
     if (line.empty())
       continue;
 
-    vector<string> v;
-    strings::Tokenize(line, "|", base::MakeBackInsertFunctor(v));
+    auto const v = strings::Tokenize(line, "|");
 
     string key = GetStreetKey(v[0]);
     if (key.empty())

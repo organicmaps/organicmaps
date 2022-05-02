@@ -41,9 +41,10 @@
 	<string name="close">Fechar</string>
 	<string name="unsupported_phone">É necessário a acelaração OpenGL por hardware. Infelizmente o seu dispositivo não é compatível.</string>
 	<string name="download">Descarregar</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar o Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Por favor liberte primeiro algum espaço no cartão SD ou armazenamento USB para utilizar a aplicação</string>
-	<string name="not_enough_memory">Não há memória suficiente para executar a aplicação</string>
 	<string name="download_resources">Antes de começar, é recomendável descarregar o mapa mundial geral para o seu dispositivo.\nÉ necessário %s de espaço disponível.</string>
 	<string name="download_resources_continue">Ir ao mapa</string>
 	<string name="downloading_country_can_proceed">A descarregar %s. Agora pode\nver o mapa.</string>
@@ -210,6 +211,8 @@
 	<string name="search_show_on_map">Ver no mapa</string>
 	<!-- Text in menu -->
 	<string name="website">Site</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Notícias</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Comentários</string>
 	<!-- Text in menu -->
@@ -666,6 +669,7 @@
 	<string name="elevation_profile_time">Tempo:</string>
 	<string name="isolines_toast_zooms_1_10">Amplie o mapa para ver as curvas de nível</string>
 	<string name="download_map_title">Descarregar o mapa mundial</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Falha na coneção</string>
 	<string name="enable_screen_sleep">Permitir que o ecrã desligue</string>
 	<!-- Description in preferences -->

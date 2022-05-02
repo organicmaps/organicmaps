@@ -5,6 +5,7 @@
     de = Seilbahn
     el = Τελεφερίκ
     es = Transporte aéreo
+    eu = Aire Garraioa
     fr = Transport par câble aérien
     ja = 索道
     pl = Transport linowy
@@ -21,6 +22,7 @@
     de = Pendelbahn
     el = Τελεφερίκ
     es = Teleférico
+    eu = Teleferikoa
     fr = Téléphérique
     ja = ロープウェイ
     pl = Kolej linowa
@@ -37,6 +39,7 @@
     de = Sessellift
     el = Τελεφερίκ
     es = Telesilla
+    eu = Teleaulkia
     fr = Télésiège
     ja = チェアリフト
     pl = Wyciąg krzesełkowy
@@ -52,6 +55,7 @@
     de = Schlepplift
     el = Τελεφερίκ
     es = Telesquí
+    eu = Eski-igogailua
     fr = Téléski
     ja = 牽引リフト
     pl = Wyciąg orczykowy
@@ -68,6 +72,7 @@
     de = Gondelbahn
     el = Τελεφερίκ
     es = Telecabina
+    eu = Telekondola
     fr = Télécabine
     ja = ゴンドラ
     pl = Gondola kolejki linowej
@@ -84,6 +89,7 @@
     de = Kombibahn
     el = Τελεφερίκ
     es = Telecabina/telesilla
+    eu = Telekondola/teleaulkia
     ja = 混合リフト
     pl = Wyciąg mieszany
     pt = Teleférico híbrido
@@ -102,6 +108,7 @@
     de = Liftstation
     el = Σταθμός τελεφερίκ
     es = Estación de teleférico
+    eu = Teleferiko geltokia
     fi = Köysirata-asema
     fr = Remontées mécaniques
     hu = Felvonóállomás
@@ -129,6 +136,7 @@
     en = Airspace Infrastructure
     de = Luftverkehr
     es = Infraestructura aérea
+    eu = Aire azpiegitura
     ja = 空路
     pt = Via aérea
     pt-BR = Via aérea
@@ -146,6 +154,7 @@
     de = Flugplatz
     el = Αεροδρόμιο
     es = Aeropuerto
+    eu = Aireportua
     fa = فرودگاه
     fi = Lentokenttä
     fr = Aéroport
@@ -178,6 +187,7 @@
     de = Flughafen
     el = Αεροδρόμιο
     es = Aeropuerto
+    eu = Aireportua
     fa = فرودگاه
     fi = Lentokenttä
     fr = Aéroport
@@ -206,6 +216,7 @@
     en = Apron
     de = Vorfeld
     es = Plataforma
+    eu = Plataforma
     fr = Aire de stationnement pour aéronefs
     ja = エプロン
     pl = Płyta postojowa samolotów
@@ -220,6 +231,7 @@
   [type.aeroway.gate]
     en = Gate
     es = Puerta de embarque
+    eu = Ontziratzeko atea
     fr = Porte d'embarquement
     ja = 搭乗口
     pl = Wyjście lotniskowe
@@ -238,6 +250,7 @@
     de = Hubschrauberlandeplatz
     el = Ελικοδρόμιο
     es = Helipuerto
+    eu = Heliportua
     fa = پد فرود بالگرد
     fi = Helikopterialusta
     fr = Hélisurface
@@ -265,6 +278,7 @@
     en = Runway
     de = Start-/Landebahn
     es = Pista de despegue
+    eu = Pista
     fr = Piste d'aviation
     ja = 滑走路
     pl = Droga startowa
@@ -280,6 +294,7 @@
     en = Taxiway
     de = Rollweg
     es = Pista de rodaje
+    eu = Taxiway
     fr = Taxiway
     ja = 誘導路
     pl = Droga kołowania
@@ -295,6 +310,7 @@
     en = Terminal
     de = Terminal
     es = Terminal
+    eu = Terminala
     ja = 空港ターミナルビル
     pl = Terminal lotniskowy
     pt = Terminal de passageiros
@@ -314,6 +330,7 @@
     el = Εγκαταστάσεις υποδομής
     es = Infraestructura
     es-MX = Infraestructura
+    eu = Azpiegiturak
     fa = زیر ساخت
     fi = Infrastruktuurikohteet
     fr = Objets d'infrastructure
@@ -348,6 +365,7 @@
     el = Κέντρο καλών τεχνών
     es = Centro de arte
     es-MX = Centro de artes
+    eu = Arte galeria
     fa = مرکز هنری
     fi = Taidekeskus
     fr = Centre artistique
@@ -380,6 +398,7 @@
     da = Hæveautomat
     de = Geldautomat
     es = Cajero
+    eu = Kutxazain automatikoa
     fa = خودپرداز
     fi = Pankkiautomaatti
     fr = GAB
@@ -406,6 +425,7 @@
     cs = Banka
     el = Τράπεζα
     es = Banco
+    eu = Bankua
     fa = بانک
     fi = Pankki
     fr = Banque
@@ -429,6 +449,7 @@
     ar = حانة
     el = Μπαρ
     es = Bar
+    eu = Taberna
     fa = میکده
     fi = Baari
     hu = Bár
@@ -452,6 +473,7 @@
     de = Picknickplatz
     el = Χώρος εκδρομής
     es = Picnic
+    eu = Piknika
     fa = مکان پیک نیک
     fi = Piknikpaikat
     fr = Terrain de pique-nique
@@ -484,6 +506,7 @@
     de = Parkbank
     el = Παγκάκι
     es = Banco
+    eu = Bankua
     fa = سَکو
     fi = Penkki
     fr = Banc
@@ -516,6 +539,7 @@
     de = Fahrradständer
     el = Χώρος στάθμευσης ποδηλάτων
     es = Aparcamiento de bicis
+    eu = Bizikleta aparkalekua
     fa = پارکینگ دوچرخه
     fi = Polkupyöräpysäköinti
     fr = Parking à vélo
@@ -548,6 +572,7 @@
     de = Fahrradverleih
     el = Ενοικιάσεις ποδηλάτων
     es = Alquiler de bicicletas
+    eu = Bizikleta alokairua
     fa = مکان اجاره دوچرخه
     fi = Polkupyöränvuokraus
     fr = Location de vélos
@@ -605,6 +630,7 @@
     de = Bordell
     el = Πορνείο
     es = Burdel
+    eu = Bordela
     fa = فاحشه خانه
     fi = Bordelli
     fr = Maison de prostitution
@@ -637,6 +663,7 @@
     de = Geldwechselstelle
     el = Συνάλλαγμα
     es = Cambio de divisas
+    eu = Moneta-trukea
     fa = صرافی
     fi = Rahanvaihto
     fr = Bureau de change
@@ -669,6 +696,7 @@
     de = Busbahnhof
     el = Σταθμός λεωφορείων
     es = Estación de autobuses
+    eu = Autobus geltokia
     fa = حمل و نقل
     fi = Linja-autoasema
     fr = Gare routière
@@ -701,6 +729,7 @@
     de = Café
     el = Καφετέρια
     es = Café
+    eu = Kafea
     fa = کافه
     fi = Kahvila
     fr = Café
@@ -733,6 +762,7 @@
     de = Autoverleih
     el = Ενοικίαση αυτοκινήτου
     es = Coche de alquiler
+    eu = Alokairuko autoa
     fa = مکان اجاره ماشین
     fi = Autovuokraamo
     fr = Location de voitures
@@ -765,6 +795,7 @@
     de = Carsharing
     el = Παραχώρηση αυτοκινήτου
     es = Compartir coche
+    eu = Partekatu autoa
     fi = Autojen yhteiskäyttö
     fr = Station d'autopartage
     hu = Gépjármű megosztása
@@ -794,6 +825,7 @@
     de = Autowäsche
     el = Καθαρισμός αυτοκινήτων
     es = Lavado de coches
+    eu = Kotxe garbiketa
     fa = کارواش
     fi = Autopesula
     fr = Station de lavage
@@ -825,6 +857,7 @@
     de = Kasino
     el = Καζίνο
     es = Casino
+    eu = Kasinoa
     fa = قمارخانه
     fi = Kasino
     fr = Casino
@@ -856,6 +889,7 @@
     de = Ladestation
     el = Σταθμός φόρτισης
     es = Estación de carga
+    eu = Kargatzeko geltokia
     fa = ایستگاه شارژ
     fi = Latausasema
     fr = Station de recharge
@@ -888,6 +922,7 @@
     de = Kindertagesstätte
     el = Βρεφικός σταθμός
     es = Guardería
+    eu = Haurtzaindegia
     fa = شیرخوارگاه
     fi = Päivähoito
     fr = Garderie
@@ -920,6 +955,7 @@
     de = Kino
     el = Κινηματογράφος
     es = Cine
+    eu = Filmak
     fa = سرگرمی
     fi = Elokuvateatteri
     fr = Cinéma
@@ -950,6 +986,7 @@
     de = Klinik
     el = Κλινική
     es = Clínica
+    eu = Klinika
     fa = کلینیک
     fi = Klinikka
     fr = Clinique
@@ -982,6 +1019,7 @@
     de = Hochschule
     el = Κολέγιο
     es = Colegio
+    eu = Unibertsitatea
     fa = دانشگاه
     fr = Enseignement post-secondaire
     hu = Kollégium
@@ -1013,6 +1051,7 @@
     de = Bürgerhaus
     el = Κέντρο κοινότητας
     es = Centro comunitario
+    eu = Komunitate Zentroa
     fa = مرکزاجتماعی
     fi = Monitoimitalo
     fr = Centre communautaire
@@ -1045,6 +1084,7 @@
     de = Justizgebäude
     el = Δικαστικό μέγαρο
     es = Juzgado
+    eu = Auzitegia
     fa = دادگاه
     fi = Oikeustalo
     fr = Palais de justice
@@ -1077,6 +1117,7 @@
     de = Zahnarzt
     el = Οδοντίατρος
     es = Dentista
+    eu = Dentista
     fa = دندان پزشکی
     fi = Hammaslääkäri
     fr = Dentiste
@@ -1108,6 +1149,7 @@
     de = Arztpraxis
     el = Γιατροί
     es = Consulta del médico
+    eu = Kontsulta medikoa
     fa = کلینیک
     fi = Lääkärin vastaanotto
     fr = Cabinet médical
@@ -1139,6 +1181,7 @@
     de = Trinkwasser
     el = Πόσιμο νερό
     es = Agua potable
+    eu = Ur edangarria
     fa = اب اشامیدنی
     fi = Juomavesi
     fr = Eau potable
@@ -1171,6 +1214,7 @@
     de = Fahrschule
     el = Σχολή οδήγησης
     es = Autoescuela
+    eu = Autoeskola
     fa = اموزشگاه رانندگی
     fi = Autokoulu
     fr = Auto-école
@@ -1203,6 +1247,7 @@
     de = Botschaft
     el = Πρεσβεία
     es = Embajada
+    eu = Enbaxada
     fa = سفارت
     fi = Suurlähetystö
     fr = Ambassade
@@ -1235,6 +1280,7 @@
     de = Fast-Food
     el = Ταχυφαγίο
     es = Comida rápida
+    eu = Janari azkarra
     fa = فست فود
     fi = Pikaruokala
     fr = Restauration rapide
@@ -1267,6 +1313,7 @@
     de = Fähre
     el = Πορθμείο
     es = Transbordador
+    eu = Espazio-ontzia
     fa = حمل و نقل
     fi = Lautta
     fr = Terminal de ferry
@@ -1300,6 +1347,7 @@
     de = Feuerwehr
     el = Σταθμός πυρόσβεσης
     es = Parque de bomberos
+    eu = Suhiltzaileen parkea
     fa = ایستگاه اتش نشانی
     fi = Paloasema
     fr = Caserne de pompiers
@@ -1327,6 +1375,7 @@
   [type.amenity.food_court]
     en = Food Court
     es = Zona de comidas
+    eu = Jantokia
     fr = Aire de restauration
     ja = フードコート
     pl = Sekcja gastronomiczna
@@ -1345,6 +1394,7 @@
     de = Springbrunnen
     el = Συντριβάνι
     es = Fuente
+    eu = Iturria
     fa = فواره
     fi = Suihkulähde
     fr = Fontaine
@@ -1379,6 +1429,7 @@
     de = Tankstelle
     el = Βενζινάδικο
     es = Gasolinera
+    eu = Erregai-geltokia
     fa = سوخت
     fi = Huoltoasema
     fr = Station-service
@@ -1413,6 +1464,7 @@
     de = Friedhof
     el = Νεκροταφείο
     es = Cementerio
+    eu = Hilerria
     fa = قبرستان
     fi = Hautausmaa
     fr = Cimetière
@@ -1458,6 +1510,7 @@
     de = Krankenhaus
     el = Νοσοκομείο
     es = Hospital
+    eu = Ospitalea
     fa = بیمارستان
     fi = Sairaala
     fr = Hôpital
@@ -1490,6 +1543,7 @@
     de = Hochsitz
     el = Βάση σκόπευσης
     es = Galería de caza
+    eu = Ehiza galeria
     fa = شکارگاه
     fi = Metsästyspaikka
     fr = Mirador
@@ -1523,6 +1577,7 @@
     de = Eisstand
     el = Παγωτατζίδικο
     es = Heladería
+    eu = Izozki-denda
     fa = غذا
     fi = Jäätelökioski
     fr = Stand de crème glacée
@@ -1555,6 +1610,7 @@
     de = Internetcafé
     el = Καφετέρια με Ίντερνετ
     es = Cibercafé
+    eu = Cyberkafea
     fa = کافی نت
     fi = Internetkahvila
     fr = Cybercafé
@@ -1584,6 +1640,7 @@
     da = Børnehave
     el = Νηπιαγωγείο
     es = Guardería
+    eu = Haurtzaindegia
     fa = مهدکودک
     fi = Päiväkoti
     fr = Maternelle
@@ -1616,6 +1673,7 @@
     de = Bibliothek
     el = Βιβλιοθήκη
     es = Biblioteca
+    eu = Liburutegia
     fa = کتابخانه
     fi = Kirjasto
     fr = Bibliothèque
@@ -1648,6 +1706,7 @@
     de = Marktplatz
     el = Αγορά
     es = Mercado
+    eu = Merkatua
     fa = فروشگاه
     fi = Kauppatori
     fr = Marché
@@ -1680,6 +1739,7 @@
     de = Motorrad-Parkplatz
     el = Χώρος στάθμευσης μοτοσικλετών
     es = Aparcamiento de motos
+    eu = Motoentzako aparkalekua
     fa = پارکینگ موتورسیکلت
     fi = Moottoripyörien pysäköinti
     fr = Parking moto
@@ -1712,6 +1772,7 @@
     de = Nachtclub
     el = Νυχτερινό κέντρο διασκέδασης
     es = Discoteca
+    eu = Diskoteka
     fa = کلوپ شبانه
     fi = Yökerho
     fr = Discothèque
@@ -1744,6 +1805,7 @@
     de = Pflegeheim
     el = Γηροκομείο
     es = Residencia de ancianos
+    eu = Zaharren egoitza
     fa = خانه سالمندان
     fi = Hoitokoti
     fr = Maison de retraite
@@ -1776,6 +1838,7 @@
     de = Parkplatz
     el = Χώρος στάθμευσης
     es = Aparcamiento
+    eu = Aparkalekua
     fa = پارکینگ
     fi = Parkkipaikka
     fr = Stationnement
@@ -1807,6 +1870,7 @@
     de = Parkplatz
     el = Χώρος στάθμευσης
     es = Aparcamiento
+    eu = Aparkalekua
     fa = پارکینگ
     fi = Parkkipaikka
     fr = Stationnement
@@ -1839,6 +1903,7 @@
     de = Parkhaus
     el = Χώρος στάθμευσης
     es = Aparcamiento
+    eu = Aparkalekua
     fa = پارکینگ
     fi = Parkkipaikka
     fr = Stationnement
@@ -1871,6 +1936,7 @@
     de = Parkplatz
     el = Χώρος στάθμευσης
     es = Aparcamiento
+    eu = Aparkalekua
     fa = پارکینگ
     fi = Parkkipaikka
     fr = Stationnement
@@ -1902,6 +1968,7 @@
     de = P+R-Parkplatz
     el = Χώρος στάθμευσης
     es = Aparcamiento
+    eu = Aparkalekua
     fa = پارکینگ
     fi = Parkkipaikka
     fr = Parking relais
@@ -1934,6 +2001,7 @@
     de = Parkplatz
     el = Χώρος στάθμευσης
     es = Aparcamiento
+    eu = Aparkalekua
     fa = پارکینگ
     fi = Parkkipaikka
     fr = Stationnement
@@ -1966,6 +2034,7 @@
     de = Parkplatz
     el = Χώρος στάθμευσης
     es = Aparcamiento
+    eu = Aparkalekua
     fa = پارکینگ
     fi = Parkkipaikka
     fr = Stationnement
@@ -1998,6 +2067,7 @@
     de = Tiefgarage
     el = Χώρος στάθμευσης
     es = Aparcamiento
+    eu = Aparkalekua
     fa = پارکینگ
     fi = Parkkipaikka
     fr = Parking souterrain
@@ -2031,6 +2101,7 @@
     el = Χώρος στάθμευσης
     es = Plaza de aparcamiento
     es-MX = Plaza de aparcamiento
+    eu = Aparkaleku
     fa = جای پارک
     fi = Parkkipaikka
     fr = Place de stationnement
@@ -2065,6 +2136,7 @@
     el = Χώρος στάθμευσης
     es = Plaza de aparcamiento
     es-MX = Plaza de aparcamiento
+    eu = Aparkaleku
     fa = جای پارک
     fi = Parkkipaikka
     fr = Place de stationnement
@@ -2099,6 +2171,7 @@
     el = Χώρος στάθμευσης
     es = Plaza de aparcamiento
     es-MX = Plaza de aparcamiento
+    eu = Aparkaleku
     fa = جای پارک
     fi = Parkkipaikka
     fr = Place de stationnement
@@ -2133,6 +2206,7 @@
     el = Χώρος στάθμευσης
     es = Plaza de aparcamiento
     es-MX = Plaza de aparcamiento
+    eu = Aparkaleku
     fa = جای پارک
     fi = Parkkipaikka
     fr = Place de stationnement
@@ -2166,6 +2240,7 @@
     de = Bezahlterminal
     el = Τερματικό πληρωμών
     es = Terminal de pago
+    eu = Ordainketa terminala
     fa = دستگاه کارتخوان
     fi = Maksupääte
     fr = Terminal de paiement
@@ -2198,6 +2273,7 @@
     de = Apotheke
     el = Φαρμακείο
     es = Farmacia
+    eu = Farmazia
     fa = داروخانه
     fi = Apteekki
     fr = Pharmacie
@@ -2230,6 +2306,7 @@
     de = Anbetungsstätte
     el = Χώρος λατρείας
     es = Lugar de culto
+    eu = Kultu lekua
     fa = گردشگری
     fi = Uskonnollinen kohde
     fr = Lieu de culte
@@ -2262,6 +2339,7 @@
     de = Tempel
     el = Ναός
     es = Templo
+    eu = Tenplua
     fa = گردشگری
     fi = Temppeli
     hu = Templom
@@ -2293,6 +2371,7 @@
     de = Kirche
     el = Εκκλησία
     es = Iglesia
+    eu = Eliza
     fa = گردشگری
     fi = Kirkko
     fr = Église
@@ -2325,6 +2404,7 @@
     de = Tempel
     el = Ναός
     es = Templo
+    eu = Tenplua
     fa = گردشگری
     fi = Temppeli
     hu = Templom
@@ -2356,6 +2436,7 @@
     de = Synagoge
     el = Συναγωγή
     es = Sinagoga
+    eu = Sinagoga
     fa = گردشگری
     fi = Synagoga
     hu = Zsinagóga
@@ -2387,6 +2468,7 @@
     de = Moschee
     el = Τζαμί
     es = Mezquita
+    eu = Meskita
     fa = گردشگری
     fi = Moskeija
     fr = Mosquée
@@ -2419,6 +2501,7 @@
     de = Schrein
     el = Ιερό
     es = Ermita
+    eu = Ermita
     fa = گردشگری
     fi = Pyhäkkö
     fr = Sanctuaire
@@ -2451,6 +2534,7 @@
     de = Tempel
     el = Ναός
     es = Templo
+    eu = Tenplua
     fa = گردشگری
     fi = Temppeli
     hu = Templom
@@ -2482,6 +2566,7 @@
     de = Polizeistation
     el = Αστυνομία
     es = Policía
+    eu = Polizia
     fa = کلانتری
     fi = Poliisi
     hu = Rendőrség
@@ -2514,6 +2599,7 @@
     de = Briefkasten
     el = Ταχυδρομική θυρίδα
     es = Buzón
+    eu = Postontzia
     fa = صندوق پست
     fi = Postilaatikko
     fr = Boîte aux lettres
@@ -2547,6 +2633,7 @@
     el = Ταχυδρομείο
     es = Oficina de correos
     es-MX = Oficina de correos
+    eu = Posta bulegoa
     fa = دفتر پست
     fi = Postitoimisto
     fr = Bureau de poste
@@ -2576,6 +2663,7 @@
     en = Prison
     de = Gefängnis
     es = Prisión
+    eu = Kartzela
     ja = 刑務所
     pl = Więzienie
     pt = Prisão
@@ -2594,6 +2682,7 @@
     de = Kneipe
     el = Παμπ
     es = Pub
+    eu = Taberna
     fa = میکده
     fi = Pubi
     fr = Pub
@@ -2621,6 +2710,7 @@
     de = Bücherschrank
     el = Ανταλλαγή βιβλίων
     es = Intercambio de libros
+    eu = Liburu trukea
     fi = Kirjahylly
     fr = Microbibliothèque
     hu = Nyilvános könyvespolc
@@ -2655,6 +2745,7 @@
     de = Recyclinghof
     el = Κέντρο ανακύκλωσης
     es = Centro de reciclaje
+    eu = Birziklapen zentroa
     fa = مرکز بازیافت
     fi = Kierrätyskeskus
     fr = Centre de recyclage
@@ -2688,6 +2779,7 @@
     de = Wertstoffcontainer
     el = Κάδος ανακύκλωσης
     es = Contenedor de reciclaje
+    eu = Birziklatzeko edukiontzia
     fa = ظرف بازیافت
     fi = Kierrätysjäteastia
     fr = Conteneur de recyclage
@@ -2725,6 +2817,7 @@
     de = Batterien
     el = Μπαταρίες
     es = Baterías
+    eu = Bateriak
     fa = ﺎﻫ ﯼﺮﺗﺎﺑ
     fi = Paristot
     fr = Batteries
@@ -2760,6 +2853,7 @@
     de = Altkleider
     el = Παλιά ρούχα
     es = Ropa
+    eu = Arropa
     fa = لباسهای قدیمی
     fi = Vanhat vaatteet
     fr = Vêtement usagés
@@ -2793,6 +2887,7 @@
     de = Glas
     el = Γυάλινα μπουκάλια
     es = Envases de vidrio
+    eu = Beirazko ontziak
     fa = بطریهای شیشهای
     fi = Lasipullot
     fr = Verre
@@ -2826,6 +2921,7 @@
     de = Papier
     el = Απορρίμματα χαρτιού
     es = Papel
+    eu = Papera
     fa = پسماند کاغذ
     fi = Paperi- ja kartonkijäte
     fr = Papier usagé
@@ -2859,6 +2955,7 @@
     de = Kunststoff
     el = Πλαστικά απορρίμματα
     es = Plástico
+    eu = Plastikoa
     fa = پسماند پلاستیک
     fi = Muovijäte
     fr = Déchets plastiques
@@ -2892,6 +2989,7 @@
     de = Plastikflaschen
     el = Πλαστικά μπουκάλια
     es = Botellas de plástico
+    eu = Plastikozko botilak
     fa = بطریهای پلاستیک
     fi = Muovipullot
     fr = Collecte de bouteilles en plastique
@@ -2926,6 +3024,7 @@
     el = Παλιοσίδερα
     es = Residuos de metal
     es-MX = Desechos de metal
+    eu = Metal hondakinak
     fa = ضایعات فلزی
     fi = Metalliromu
     fr = Ferraille
@@ -2959,6 +3058,7 @@
     el = Ηλεκτρονικά απορρίμματα
     es = Residuos electrónicos
     es-MX = Desechos electrónicos
+    eu = Hondakin elektronikoak
     fa = پسماند الکترونیکی
     fi = Kodinkonejäte
     fr = Déchets d'équipements électriques
@@ -2988,6 +3088,7 @@
     be = Кардон
     de = Karton
     es = Cartón
+    eu = Kartoia
     ru = Картон
     tr = Karton
     uk = Картон
@@ -2997,6 +3098,7 @@
     be = Бляшаныя і алюмініевыя слоікі
     de = Dosen
     es = Latas
+    eu = Latak
     ru = Жестяные и алюминиевые банки
     tr = Teneke ve alüminyum kutular
     uk = Бляшані та алюмінієві банки
@@ -3006,6 +3108,7 @@
     be = Абутак
     de = Schuhe
     es = Calzado
+    eu = Oinetakoak
     ru = Обувь
     tr = Ayakkabılar
     uk = Взуття
@@ -3015,6 +3118,7 @@
     be = Арганіка / Харчовыя адходы
     de = Bio-Müll
     es = Orgánico
+    eu = Organikoa
     ru = Органика / Пищевые отходы
     tr = Yeşil/Organik Atık
     uk = Органіка / Харчові відходи
@@ -3024,6 +3128,7 @@
     be = Тэтрапак і аналагі
     de = Getränkekarton
     es = Cartones de bebida
+    eu = Edateko kartoiak
     ru = Тетрапак и аналоги
     tr = İçecek Kartonları
     uk = Тетрапак та аналоги
@@ -3034,6 +3139,7 @@
     cs = Restaurace
     el = Εστιατόριο
     es = Restaurante
+    eu = Jatetxea
     fa = غذا
     fi = Ravintola
     hu = Étterem
@@ -3072,6 +3178,7 @@
     de = Schule
     el = Σχολείο
     es = Escuela
+    eu = Eskola
     fa = مدرسه
     fi = Koulu
     fr = École
@@ -3102,6 +3209,7 @@
     de = Schutzhütte
     el = Καταφύγιο
     es = Refugio
+    eu = Aterpea
     fa = پناهگاه
     fi = Turvapaikka
     fr = Abri
@@ -3134,6 +3242,7 @@
     de = Dusche
     el = Ντους
     es = Ducha
+    eu = Dutxa
     fa = حمام
     fi = Suihku
     fr = Douche
@@ -3163,6 +3272,7 @@
     ar = سيارة أجرة
     el = Ταξί
     es = Taxi
+    eu = Taxia
     fa = تاکسی
     fi = Taksi
     id = Taksi
@@ -3187,6 +3297,7 @@
     de = Telefon
     el = Τηλέφωνο
     es = Teléfono
+    eu = Telefonoa
     fa = تلفن خانه
     fi = Puhelin
     fr = Téléphone
@@ -3219,6 +3330,7 @@
     de = Theater
     el = Θέατρο
     es = Teatro
+    eu = Antzerkia
     fa = سرگرمی
     fi = Teatteri
     fr = Théâtre
@@ -3250,6 +3362,7 @@
     de = Toilette
     el = Τουαλέτα
     es = WC
+    eu = Komuna
     fa = دستشویی
     fi = WC
     fr = Toilettes
@@ -3275,11 +3388,13 @@
   [type.amenity.townhall]
     en = Town Hall
     ar = مبنى البلدية
+    be = Адміністрацыя
     cs = Radnice
     da = Rådhus
     de = Rathaus
     el = Δημαρχείο
     es = Ayuntamiento
+    eu = Udaletxea
     fa = گردشگری
     fi = Kaupungintalo
     fr = Mairie
@@ -3294,12 +3409,12 @@
     pt = Câmara municipal ou junta de freguesia
     pt-BR = Prefeitura ou subprefeitura
     ro = Primărie
-    ru = Ратуша
+    ru = Администрация
     sk = Radnica
     sv = Rådhus
     th = ศาลากลางจังหวัด
     tr = Belediye Binası
-    uk = Ратуша
+    uk = Адміністрація
     vi = Trung tâm thành phố
     zh-Hans = 市政府
     zh-Hant = 市政廳
@@ -3312,6 +3427,7 @@
     de = Universität
     el = Πανεπιστήμιο
     es = Universidad
+    eu = Unibertsitatea
     fa = دانشگاه
     fi = Yliopisto
     fr = Université
@@ -3341,6 +3457,7 @@
     be = Гандлёвы аўтамат
     de = Verkaufsautomat
     es = Máquina expendedora
+    eu = Makina saltzailea
     fr = Distributeur automatique
     ja = 自動販売機
     pl = Automat sprzedający
@@ -3360,6 +3477,7 @@
     de = Zigarettenautomat
     el = Αυτόματος πωλητής τσιγάρων
     es = Máquina expendedora de tabaco
+    eu = Tabakoa saltzeko makina
     fa = ماشین سیگار فروشی
     fi = Savukeautomaatti
     fr = Distributeur de cigarettes
@@ -3389,6 +3507,7 @@
     be = Кававы аўтамат
     de = Kaffeeautomat
     es = Máquina expendedora de café
+    eu = Kafea saltzeko makina
     fr = Distributeur de café
     it = Distributore di caffè
     ru = Кофейный автомат
@@ -3399,6 +3518,7 @@
     be = Аўтамат з прэзерватывамі
     de = Kondomautomat
     es = Máquina expendedora de condones
+    eu = Kondoiak saltzeko makina
     fr = Distributeur de préservatifs
     it = Distributore di profilattici
     ru = Автомат с презервативами
@@ -3413,6 +3533,7 @@
     de = Getränkeautomat
     el = Αυτόματος πωλητής ποτών
     es = Máquina expendedora de bebidas
+    eu = Edari saltzeko makina
     fa = ماشین فروش نوشیدنی
     fi = Juoma-automaatti
     fr = Distributeur de boissons
@@ -3442,6 +3563,7 @@
     be = Аўтамат з ежай
     de = Essensautomat
     es = Máquina expendedora de comida
+    eu = Janaria saltzeko makina
     fr = Distributeur de aliments
     it = Distributore di alimenti
     ru = Автомат с едой
@@ -3452,6 +3574,7 @@
     be = Газетны аўтамат
     de = Zeitungsautomat
     es = Máquina expendedora de periódicos
+    eu = Egunkariak saltzeko makina
     fr = Distributeur de journaux
     it = Distributore di giornali
     ru = Газетный автомат
@@ -3466,6 +3589,7 @@
     de = Parkautomat
     el = Εισιτήρια στάθμευσης
     es = Máquina de pago de tique de aparcamiento
+    eu = Aparkatzeko txartelak ordaintzeko makina
     fa = پارکو متر
     fi = Pysäköintimaksuautomaatti
     fr = Horodateur
@@ -3500,6 +3624,7 @@
     el = Μηχάνημα αυτόματης πώλησης εισιτηρίων για τα μέσα μαζικής μεταφοράς
     es = Máquina expendedora de boletos para el transporte público
     es-MX = Máquina expendedora de billetes de transporte público
+    eu = Garraio publikorako txartelak saltzeko makina
     fa = دستگاه فروش خودکار بلیط های حمل و نقل عمومی
     fi = Julkisen liikenteen lippuautomaatti
     fr = Distributeur de billets de transport en commun
@@ -3530,6 +3655,7 @@
     be = Аўтамат з прысмакамі
     de = Süßigkeitenautomat
     es = Máquina expendedora de dulces
+    eu = Gozokiak saltzeko makina
     fr = Distributeur de bonbons
     it = Distributore di dolciumi
     ru = Автомат со сладостями
@@ -3540,6 +3666,7 @@
     be = Мяшкі дзеля экскрыментаў
     de = Hundekotbeutelspender
     es = Maquina expendedora de bolsas para excrementos
+    eu = Kaka poltsak saltzeko makina
     ru = Пакеты для экскрементов
     tr = Dışkı Torbası Dağıtıcı
     uk = Мішки для екскрементів
@@ -3549,6 +3676,7 @@
     be = Паштамат
     de = Paketstation
     es = Taquilla de paquetes
+    eu = Paketeen aldagela
     ru = Почтомат
     tr = Posta Kutusu
     uk = Поштомат
@@ -3569,6 +3697,7 @@
     de = Tierarzt
     el = Κτηνίατρος
     es = Clínica veterinaria
+    eu = Albaitaritzako klinika
     fa = دامپزشکی
     fi = Eläinlääkäri
     fr = Docteur vétérinaire
@@ -3601,6 +3730,7 @@
     de = Abfalleimer
     el = Κάδος απορριμμάτων
     es = Papelera
+    eu = Paper-ontzia
     fa = سطل زباله
     fi = Roska-astia
     fr = Poubelle
@@ -3633,6 +3763,7 @@
     de = Müllcontainer
     el = Διαχείριση απορριμμάτων
     es = Basura
+    eu = Zaborrontzia
     fa = زباله دانی
     fi = Roska
     fr = Déchets
@@ -3674,6 +3805,7 @@
     de = Wasseranschluss
     el = Παροχή νερού
     es = Fuente de agua
+    eu = Ur iturria
     fa = شیر آب قابل شرب
     fi = Vesipiste
     fr = Point d’eau
@@ -3702,6 +3834,7 @@
     en = Barrier
     de = Barriere
     es = Barrera
+    eu = Hesia
     fr = Barrière
     ja = 障害物
     pl = Bariera
@@ -3720,6 +3853,7 @@
     de = Block
     el = Εμπόδιο
     es = Bloque
+    eu = Blokea
     fa = بلوک
     fi = Este
     fr = Bloc
@@ -3752,6 +3886,7 @@
     de = Poller
     el = Πυλώνας
     es = Bolardo
+    eu = Bolardoa
     fa = ستون
     fi = Tolppa
     fr = Poteau
@@ -3784,6 +3919,7 @@
     de = Grenzkontrolle
     el = Έλεγχος συνόρων
     es = Control de fronteras
+    eu = Muga kontrola
     fa = کنترل مرزی
     fi = Rajavalvonta
     fr = Contrôle aux frontières
@@ -3813,6 +3949,7 @@
     be = Ланцуг
     de = Kette
     es = Cadena
+    eu = Katea
     fr = Chaîne
     ru = Цепь
     tr = Zincir
@@ -3822,6 +3959,7 @@
     en = City Wall
     de = Stadtmauer
     es = Muralla
+    eu = Horma
     fr = Muraille
     ja = 城壁
     pl = Mur miejski
@@ -3836,6 +3974,7 @@
     en = Cycle Barrier
     de = Umlaufschranke
     es = Barrera para bicicletas
+    eu = Bizikleta-hesia
     ja = バリカー
     pl = Bariera rowerowa
     pt = Barreira de bicicletas
@@ -3852,6 +3991,7 @@
     de = Durchgang
     el = Είσοδος
     es = Entrada
+    eu = Sarrera
     fa = ورودی
     fi = Sisäänkäynti
     fr = Entrée
@@ -3880,6 +4020,7 @@
     en = Fence
     de = Zaun
     es = Valla
+    eu = Hesia
     fr = Clôture
     ja = フェンス
     pl = Płot
@@ -3898,6 +4039,7 @@
     de = Tor
     el = Πύλη
     es = Puerta
+    eu = Ate
     fa = ورودی
     fi = Portti
     fr = Porte
@@ -3926,6 +4068,7 @@
     en = Hedge
     de = Hecke
     es = Seto
+    eu = Estaldura
     fr = Haie
     ja = 生垣
     pl = Żywopłot
@@ -3944,6 +4087,7 @@
     de = Schranke
     el = Ανυψούμενη μπάρα
     es = Barrera
+    eu = Hesia
     fa = اسانسور
     fi = Puomi
     fr = Barrière levante
@@ -3972,6 +4116,7 @@
     en = Retaining Wall
     de = Stützmauer
     es = Muro de contención
+    eu = Euste-horma
     fr = Mur de soutènement
     ja = 擁壁
     pl = Mur oporowy
@@ -3989,6 +4134,7 @@
     de = Zaunübertritt
     el = Τουρνικέ
     es = Escalón
+    eu = Urratsa
     fa = پلکان
     fi = Portaat
     fr = Échalier
@@ -4022,6 +4168,7 @@
     de = Schranke
     el = Ανυψούμενη μπάρα
     es = Barrera
+    eu = Hesia
     fa = اسانسور
     fi = Puomi
     fr = Barrière tournante
@@ -4054,6 +4201,7 @@
     de = Mautstelle
     el = Σταθμός διοδίων
     es = Peaje
+    eu = Bidesaria
     fa = گیشه عوارضی
     fi = Tietulliasema
     fr = Poste de péage
@@ -4082,6 +4230,7 @@
     en = Wall
     de = Mauer
     es = Muro
+    eu = Horma
     fr = Mur
     ja = 壁
     pl = Mur
@@ -4096,6 +4245,7 @@
     en = Boundary
     de = Grenze
     es = Frontera
+    eu = Muga
     ja = 境界線
     pl = Granica
     pt = Fronteira
@@ -4109,6 +4259,7 @@
     en = Administrative Boundary
     de = Verwaltungsgrenze
     es = Frontera administrativa
+    eu = Muga administratiboa
     ja = 行政境界
     pl = Granica administracyjna
     pt = Fronteira administrativa
@@ -4160,6 +4311,7 @@
   [type.boundary.administrative.city]
     en = City Boundary
     es = Frontera de ciudad
+    eu = Hiriko muga
     pl = Granica miasta
     pt = Fronteira de cidade
     pt-BR = Fronteira de cidade
@@ -4171,6 +4323,7 @@
   [type.boundary.administrative.country]
     en = National Border
     es = Frontera de país
+    eu = Herrialdeko muga
     pl = Granica państwa
     pt = Fronteira de país
     pt-BR = Fronteira de país
@@ -4182,6 +4335,7 @@
   [type.boundary.administrative.county]
     en = County Boundary
     es = Frontera de condado
+    eu = Eskualdeko muga
     pl = Granica hrabstwa
     pt = Fronteira de condado
     pt-BR = Fronteira de condado
@@ -4193,6 +4347,7 @@
   [type.boundary.administrative.municipality]
     en = Municipality Boundary
     es = Frontera de municipio
+    eu = Udalerriko muga
     pl = Granica gminy
     pt = Fronteira de município
     pt-BR = Fronteira de município
@@ -4203,12 +4358,14 @@
   [type.boundary.administrative.nation]
     ref = type.boundary.administrative.country
     es = Frontera de nación
+    eu = Nazio muga
     pt = Fronteira de nação
     pt-BR = Fronteira de nação
 
   [type.boundary.administrative.region]
     en = Regional Boundary
     es = Frontera de región
+    eu = Eskualdeko muga
     pl = Granica regionu
     pt = Fronteira de região
     pt-BR = Fronteira de região
@@ -4220,6 +4377,7 @@
   [type.boundary.administrative.state]
     en = State Boundary
     es = Frontera de estado
+    eu = Estatuko muga
     pl = Granica województwa
     pt = Fronteira de estado
     pt-BR = Fronteira de estado
@@ -4230,6 +4388,7 @@
   [type.boundary.administrative.suburb]
     en = Suburb Boundary
     es = Frontera de suburbio
+    eu = Auzoko muga
     pl = Granica przedmieść
     pt = Fronteira de subúrbio
     pt-BR = Fronteira de subúrbio
@@ -4247,6 +4406,7 @@
     el = Εθνικό πάρκο
     es = Parque nacional
     es-MX = Parque nacional
+    eu = Parke Nazionala
     fa = پارک ملی
     fi = Kansallispuisto
     fr = Parc national
@@ -4280,6 +4440,7 @@
     de = Gebäude
     el = Κτίριο
     es = Edificio
+    eu = Eraikin
     fa = ساختمان
     fi = Rakennus
     fr = Bâtiment
@@ -4312,6 +4473,7 @@
     de = Gebäude
     el = Κτίριο
     es = Edificio
+    eu = Eraikin
     fa = ساختمان
     fi = Rakennus
     fr = Bâtiment
@@ -4342,6 +4504,7 @@
     cs = Garáž
     el = Γκαράζ
     es = Garaje
+    eu = Garajea
     fa = گاراژ
     fi = Autotalli
     hu = Garázs
@@ -4370,6 +4533,7 @@
     de = Gebäude
     el = Κτίριο
     es = Edificio
+    eu = Eraikin
     fa = ساختمان
     fi = Rakennus
     fr = Bâtiment
@@ -4402,6 +4566,7 @@
     de = Bahnhof
     el = Σιδηροδρομικός σταθμός
     es = Estación de tren
+    eu = Tren geltokian
     fa = ایستگاه قطار
     fi = Rautatieasema
     fr = Gare
@@ -4429,6 +4594,7 @@
   [type.building.warehouse]
     en = Warehouse
     es = Almacén
+    eu = Denda
     fr = Entrepôt
     pt = Armazém
     pt-BR = Armazém
@@ -4457,6 +4623,7 @@
     de = Brauerei
     el = Ζυθοποιείο
     es = Fábrica de cerveza
+    eu = Garagardo fabrika
     fa = کارخانه ابجوسازی
     fi = Panimo
     fr = Brasserie artisanale
@@ -4489,6 +4656,7 @@
     de = Zimmermann
     el = Ξυλουργός
     es = Carpintero
+    eu = Arotza
     fa = نجار
     fi = Puuseppä
     fr = Charpentier
@@ -4521,6 +4689,7 @@
     de = Elektriker
     el = Ηλεκτρολόγος
     es = Electricista
+    eu = Elektrizista teknikaria
     fa = برق کار
     fi = Sähkömies
     fr = Électricien
@@ -4552,6 +4721,7 @@
     de = Landschaftsgärtner
     el = Κηπουρός
     es = Paisajista
+    eu = Paisaia
     fa = باغبان
     fi = Puutarhuri
     fr = Paysagiste
@@ -4584,6 +4754,7 @@
     de = Heizung
     el = Ψυκτικός
     es = Aire acondicionado
+    eu = Aire girotua
     fi = Ilmastointilaite
     fr = Climatiseur
     hu = Hűtés-fűtés szerelő
@@ -4615,6 +4786,7 @@
     de = Schlosser
     el = Μεταλλουργός
     es = Trabajador del metal
+    eu = Metalgintzako langilea
     fa = اهن کار
     fi = Metallimies
     fr = Métallo
@@ -4647,6 +4819,7 @@
     de = Maler
     el = Μπογιατζής
     es = Pintor
+    eu = Margolaria
     fa = نقاش
     fi = Maalari
     fr = Peintre
@@ -4679,6 +4852,7 @@
     de = Fotograf
     el = Φωτογράφος
     es = Fotógrafo
+    eu = Argazkilaria
     fa = عکاس
     fi = Valokuvaaja
     fr = Photographe
@@ -4711,6 +4885,7 @@
     de = Installateur
     el = Υδραυλικός
     es = Fontanero
+    eu = Iturgina
     fa = لوله کش
     fi = Putkimies
     fr = Plombier
@@ -4743,6 +4918,7 @@
     de = Schuhmacher
     el = Υποδηματοποιός
     es = Zapatero
+    eu = Zapataria
     fa = کفاش
     fi = Suutari
     fr = Cordonnier
@@ -4775,6 +4951,7 @@
     de = Schneider
     el = Ράφτης
     es = Sastre
+    eu = Jostun
     fa = خیاطی
     fi = Räätäli
     fr = Tailleur
@@ -4807,6 +4984,7 @@
     de = Afrikanische Küche
     el = Αφρικανική
     es = Cocina africana
+    eu = Afrikako sukaldaritza
     fi = Afrikkalainen keittiö
     fr = Cuisine africaine
     he = מטבח אפריקאי
@@ -4839,6 +5017,7 @@
     de = Amerikanische Küche
     el = Αμερικάνικη
     es = Cocina americana
+    eu = Sukalde amerikarra
     fi = Amerikkalainen keittiö
     fr = Cuisine américaine
     he = מטבח אמריקאי
@@ -4871,6 +5050,7 @@
     de = Arabische Küche
     el = Αραβική
     es = Cocina árabe
+    eu = Sukaldaritza arabiarra
     fi = Arabialainen keittiö
     fr = Cuisine arabe
     he = מטבח ערבי
@@ -4903,6 +5083,7 @@
     de = Argentinische Küche
     el = Αργεντίνικη
     es = Cocina argentina
+    eu = Argentinako sukaldaritza
     fi = Argentiinalainen keittiö
     fr = Cuisine argentine
     he = מטבח ארגטינאי
@@ -4935,6 +5116,7 @@
     de = Asiatische Küche
     el = Ασιάτικη
     es = Cocina asiática
+    eu = Asiar sukaldaritza
     fi = Aasialainen keittiö
     fr = Cuisine asiatique
     he = מטבח אסיאתי
@@ -4967,6 +5149,7 @@
     de = Österreichische Küche
     el = Αυστριακή
     es = Cocina austriaca
+    eu = Austriako sukaldaritza
     fi = Itävaltalainen keittiö
     fr = Cuisine autrichienne
     he = מטבח אוסטרי
@@ -4999,6 +5182,7 @@
     de = Bagel
     el = Κουλούρι
     es = Bágel
+    eu = Bagel
     fi = Bagel
     fr = Bagel
     he = בייגל
@@ -5031,6 +5215,7 @@
     de = Balkanküche
     el = Βαλκανίων
     es = Cocina balcánica
+    eu = Balkanetako sukaldaritza
     fi = Balkanilainen keittiö
     fr = Cuisine des Balkans
     he = מטבח בלקני
@@ -5063,6 +5248,7 @@
     de = Grill
     el = Μπάρμπεκιου
     es = Barbacoa
+    eu = Barbakoa
     fi = Grilli
     fr = Barbecue
     he = ברביקיו
@@ -5095,6 +5281,7 @@
     de = Bayerische Küche
     el = Βαυαρική
     es = Cocina bávara
+    eu = Bavariako sukaldaritza
     fi = Baijerilainen keittiö
     fr = Cuisine bavaroise
     he = מטבח של בוואריה
@@ -5127,6 +5314,7 @@
     de = Gyūdon
     el = Σούπα με βοδινό
     es = Gyūdon
+    eu = Gyudon
     fi = Naudanlihakulho
     fr = Donburi de bœuf
     he = קערת בשר בקר
@@ -5159,6 +5347,7 @@
     de = Brasilianische Küche
     el = Βραζιλιάνικη
     es = Cocina brasileña
+    eu = Brasilgo sukaldaritza
     fi = Brasilialainen keittiö
     fr = Cuisine brésilienne
     he = מטבח ברזילאי
@@ -5191,6 +5380,7 @@
     de = Frühstück
     el = Πρωινό
     es = Desayunos
+    eu = Gosariak
     fi = Aamiainen
     fr = Petit déjeuner
     he = ארוחת בוקר
@@ -5219,6 +5409,7 @@
     en = Bubble Tea
     be = Чай з бурбалкамі
     es = Té de burbujas
+    eu = Burbuila tea
     ru = Чай с шариками
     uk = Бульбашковий чай
 
@@ -5230,6 +5421,7 @@
     de = Burger
     el = Μπιφτέκι
     es = Hamburguesas
+    eu = Hanburgesak
     fi = Hampurilainen
     fr = Hamburger
     he = המבורגר
@@ -5262,6 +5454,7 @@
     de = Buschenschank
     el = Μπούσενσανκ (αυστριακή ταβέρνα)
     es = Buschenschank
+    eu = Buschenschank
     fi = Viinitaverna
     fr = Buschenschank
     he = בושנשאנק
@@ -5294,6 +5487,7 @@
     de = Kuchen
     el = Κέικ
     es = Tartas
+    eu = Pastelak
     fi = Kakku
     fr = Gâteau
     he = עוגה
@@ -5326,6 +5520,7 @@
     de = Karibische Küche
     el = Καραϊβική
     es = Cocina caribeña
+    eu = Karibeko sukaldaritza
     fi = Karibialainen keittiö
     fr = Cuisine des Caraïbes
     he = מטבח קריבי
@@ -5358,6 +5553,7 @@
     de = Hühnchen
     el = Κοτόπουλο
     es = Pollos
+    eu = Oiloak
     fi = Kana
     fr = Poulet
     he = עוף
@@ -5390,6 +5586,7 @@
     de = Chinesische Küche
     el = Κινέζικη
     es = Cocina china
+    eu = Txinako sukaldaritza
     fi = Kiinalainen keittiö
     fr = Cuisine chinoise
     he = מטבח סיני
@@ -5422,6 +5619,7 @@
     de = Kaffee
     el = Καφές
     es = Café
+    eu = Kafea
     fi = Kahvi
     fr = Café
     he = הֶפָק
@@ -5455,6 +5653,7 @@
     de = Crêpe
     el = Κρέπα
     es = Crepes
+    eu = Krepeak
     fi = Kreppi
     fr = Crêperie
     he = קרפ
@@ -5487,6 +5686,7 @@
     de = Kroatische Küche
     el = Κροατική
     es = Cocina croata
+    eu = Sukaldaritza croata
     fi = Kroatialainen keittiö
     fr = Cuisine croate
     he = מטבח קרואטי
@@ -5519,6 +5719,7 @@
     de = Curry
     el = Κάρι
     es = Curri
+    eu = Curry
     fi = Curry
     fr = Curry
     he = קארי
@@ -5551,6 +5752,7 @@
     de = Deli-Küche
     el = Εκλεκτά τρόφιμα
     es = Delicatesen
+    eu = Delitua
     fi = Herkkukauppa
     fr = Charcuterie
     he = מעדנייה
@@ -5583,6 +5785,7 @@
     de = Diner
     el = Μικροεστιατόριο
     es = Cena
+    eu = Afaria
     fi = Lounaskahvila
     fr = Diner américain
     he = דיינר
@@ -5615,6 +5818,7 @@
     de = Donuts
     el = Ντόνατ
     es = Rosquillas
+    eu = Donutsak
     fi = Donitsi
     fr = Donuts
     he = דונאט
@@ -5647,6 +5851,7 @@
     de = Äthiopische Küche
     el = Αιθιοπίας
     es = Cocina etíope
+    eu = Etiopiako sukaldaritza
     fi = Etiopialainen keittiö
     fr = Cuisine éthiopienne
     he = מטבח אתיופי
@@ -5679,6 +5884,7 @@
     de = Philippinische Küche
     el = Φιλιππινέζικη
     es = Cocina filipina
+    eu = Filipinetako sukaldaritza
     fi = Filippiiniläinen keittiö
     fr = Cuisine philippine
     he = מטבח פיליפיני
@@ -5711,6 +5917,7 @@
     de = Gehobene Küche
     el = Εκλεκτά εστιατόρια
     es = Restaurante elegante
+    eu = Jatetxe dotorea
     fi = Hieno ravintola
     fr = Restaurant gastronomique
     he = אכילה במסעדות יוקרה
@@ -5743,6 +5950,7 @@
     de = Fisch
     el = Ψάρια
     es = Pescados
+    eu = Arraina
     fi = Kala
     fr = Poisson
     he = דגים
@@ -5775,6 +5983,7 @@
     de = Fish and Chips
     el = Ψάρια και πατάτες
     es = Pescado rebozado con patatas
+    eu = Arrain arrautza patatekin
     fi = Fish & chips
     fr = Fish and chips
     he = פיש אנד צ'יפס
@@ -5807,6 +6016,7 @@
     de = Französische Küche
     el = Γαλλική
     es = Cocina francesa
+    eu = Frantziako sukaldaritza
     fi = Ranskalainen keittiö
     fr = Cuisine française
     he = מטבח צרפתי
@@ -5839,6 +6049,7 @@
     de = Pommes
     el = Τηγανητά
     es = Frituras
+    eu = Frijituak
     fi = Uppopaistettu
     fr = Friterie
     he = פריטורה
@@ -5871,6 +6082,7 @@
     de = Georgische Küche
     el = Γεωργιανή
     es = Cocina georgiana
+    eu = Georgiako sukaldaritza
     fi = Georgialainen keittiö
     fr = Cuisine géorgienne
     he = מטבח גיאורגי
@@ -5903,6 +6115,7 @@
     de = Deutsche Küche
     el = Γερμανική
     es = Cocina alemana
+    eu = Alemaniar sukaldaritza
     fi = Saksalainen keittiö
     fr = Cuisine allemande
     he = מטבח גרמני
@@ -5935,6 +6148,7 @@
     de = Griechische Küche
     el = Ελληνική
     es = Cocina griega
+    eu = Greziar sukaldaritza
     fi = Kreikkalainen keittiö
     fr = Cuisine grecque
     he = מטבח יווני
@@ -5967,6 +6181,7 @@
     de = Grill
     el = Ψησταριά
     es = Parrilla
+    eu = Erretegia
     fi = Grilli
     fr = Grill
     he = גריל
@@ -5999,6 +6214,7 @@
     de = Heuriger
     el = Χόιριγκερ
     es = Heuriger
+    eu = Heuriger
     fi = Viinitaverna
     fr = Heuriger
     he = הויריגר
@@ -6031,6 +6247,7 @@
     de = Hotdog
     el = Χοτ Ντογκ
     es = Perritos calientes
+    eu = Txakur beroak
     fi = Hotdog
     fr = Hot-dog
     he = נקניקיה
@@ -6063,6 +6280,7 @@
     de = Ungarische Küche
     el = Ουγγρική
     es = Cocina húngara
+    eu = Hungariako sukaldaritza
     fi = Unkarilainen keittiö
     fr = Cuisine hongroise
     he = מטבח הונגרי
@@ -6095,6 +6313,7 @@
     de = Eis
     el = Παγωτό
     es = Helados
+    eu = Izozkiak
     fi = Jäätelö
     fr = Crème glacée
     he = גלידה
@@ -6127,6 +6346,7 @@
     de = Indische Küche
     el = Ινδική
     es = Cocina hindú
+    eu = Indiako sukaldaritza
     fi = Intialainen keittiö
     fr = Cuisine indienne
     he = מטבח הודי
@@ -6159,6 +6379,7 @@
     de = Indonesische Küche
     el = Ινδονησιακή
     es = Cocina indonesia
+    eu = Indonesiako sukaldaritza
     fi = Indonesialainen keittiö
     fr = Cuisine indonésienne
     he = מטבח אינדונזי
@@ -6191,6 +6412,7 @@
     de = Internationale Küche
     el = Διεθνής
     es = Cocina internacional
+    eu = Nazioarteko sukaldea
     fi = Kansainvälinen keittiö
     fr = Cuisine internationale
     he = מטבח בינלאומי
@@ -6223,6 +6445,7 @@
     de = Irische Küche
     el = Ιρλανδέζικη
     es = Cocina irlandesa
+    eu = Irlandar sukaldaritza
     fi = Irlantilainen keittiö
     fr = Cuisine irlandaise
     he = מטבח אירי
@@ -6255,6 +6478,7 @@
     de = Italienische Küche
     el = Ιταλική
     es = Cocina italiana
+    eu = Italiako sukaldaritza
     fi = Italialainen keittiö
     fr = Cuisine italienne
     he = מטבח איטלקי
@@ -6287,6 +6511,7 @@
     de = Italienische Küche; Pizza
     el = Ιταλική, Πίτσα
     es = Cocina italiana, pizzas
+    eu = Italiako sukaldaritza, pizza
     fi = Italialainen, pizza
     fr = Italien, pizza
     he = מטבח איטלקי;פיצה
@@ -6319,6 +6544,7 @@
     de = Japanische Küche
     el = Ιαπωνική
     es = Cocina japonesa
+    eu = Japoniako sukaldaritza
     fi = Japanilainen keittiö
     fr = Cuisine japonaise
     he = מטבח יפני
@@ -6351,6 +6577,7 @@
     de = Kebap
     el = Κεμπάπ
     es = Kebabs
+    eu = Kebabak
     fi = Kebab
     fr = Kebab
     he = קבב
@@ -6383,6 +6610,7 @@
     de = Koreanische Küche
     el = Κορεάτικη
     es = Cocina coreana
+    eu = Koreako sukaldaritza
     fi = Korealainen
     fr = Cuisine coréenne
     he = מטבח קוריאני
@@ -6415,6 +6643,7 @@
     de = Laotische Küche
     el = Λάος
     es = Cocina laosiana
+    eu = Laosko sukaldaritza
     fi = Laosilainen keittiö
     fr = Cuisine laotienne
     he = מטבח לאו
@@ -6447,6 +6676,7 @@
     de = Libanesische Küche
     el = Λιβανέζικη
     es = Cocina libanesa
+    eu = Libanoko sukaldaritza
     fi = Libanonilainen keittiö
     fr = Cuisine libanaise
     he = מטבח לבנוני
@@ -6479,6 +6709,7 @@
     de = Lokale Küche
     el = Τοπική
     es = Cocina local
+    eu = Bertako sukaldaritza
     fi = Paikallinen keittiö
     fr = Cuisine locale
     he = מטבח מקומי
@@ -6511,6 +6742,7 @@
     de = Madegassische Küche
     el = Μαδαγασκάρης
     es = Cocina malgache
+    eu = Malgaxeko sukaldaritza
     fi = Madagaskarilainen keittiö
     fr = Cuisine malgache
     he = מלגאסי
@@ -6543,6 +6775,7 @@
     de = Malaysische Küche
     el = Μαλαισιανή
     es = Cocina malaya
+    eu = Malay sukaldaritza
     fi = Malesialainen keittiö
     fr = Cuisine malaisienne
     he = מטבח מלזי
@@ -6575,6 +6808,7 @@
     de = Mediterrane Küche
     el = Μεσογειακή
     es = Cocina mediterránea
+    eu = Sukaldaritza mediterraneoa
     fi = Välimeren keittiö keittiö
     fr = Cuisine méditerranéenne
     he = מטבח ים-תיכוני
@@ -6607,6 +6841,7 @@
     de = Mexikanische Küche
     el = Μεξικάνικη
     es = Cocina mexicana
+    eu = Mexikoko sukaldea
     fi = Meksikolainen keittiö
     fr = Cuisine mexicaine
     he = מטבח מקסיקני
@@ -6639,6 +6874,7 @@
     de = Marokkanische Küche
     el = Μαροκινή
     es = Cocina marroquí
+    eu = Marokoko sukaldaritza
     fi = Marokkolainen keittiö
     fr = Cuisine marocaine
     he = מטבח מרוקאי
@@ -6671,6 +6907,7 @@
     de = Nudeln
     el = Χυλοπίτες
     es = Tallarines
+    eu = Fideoak
     fi = Nuudeli
     fr = Nouilles
     he = אטריות
@@ -6703,6 +6940,7 @@
     de = Orientalische Küche
     el = Άπω Ανατολής
     es = Cocina oriental
+    eu = Ekialdeko sukaldaritza
     fi = Itämainen keittiö
     fr = Cuisine orientale
     he = מטבח מזרחי
@@ -6735,6 +6973,7 @@
     de = Pfannkuchen
     el = Τηγανίτα
     es = Tortitas
+    eu = Krepeak
     fi = Lettu
     fr = Crêpe
     he = פנקייק
@@ -6767,6 +7006,7 @@
     de = Pasta
     el = Ζυμαρικά
     es = Pastas
+    eu = Pasta
     fi = Pasta
     fr = Pâtes
     he = פסטה
@@ -6799,6 +7039,7 @@
     de = Persische Küche
     el = Περσική
     es = Cocina persa
+    eu = Persiar sukaldaritza
     fi = Persialainen keittiö
     fr = Cuisine persane
     he = מטבח פרסי
@@ -6831,6 +7072,7 @@
     de = Peruanische Küche
     el = Περουβιανή
     es = Cocina peruana
+    eu = Peruko sukaldaritza
     fi = Perulainen keittiö
     fr = Cuisine péruvienne
     he = מטבח פרואני
@@ -6863,6 +7105,7 @@
     de = Pizza
     el = Πίτσα
     es = Pizzas
+    eu = Pizza
     fi = Pitsa
     fr = Pizza
     he = פיצה
@@ -6895,6 +7138,7 @@
     de = Polnische Küche
     el = Πολωνέζικη
     es = Cocina polaca
+    eu = Poloniar sukaldaritza
     fi = Puolalainen keittiö
     fr = Cuisine polonaise
     he = מטבח פולני
@@ -6927,6 +7171,7 @@
     de = Portugiesische Küche
     el = Πορτογαλική
     es = Cocina portuguesa
+    eu = Portugalgo sukaldaritza
     fi = Portugalilainen keittiö
     fr = Cuisine portugaise
     he = מטבח פורטוגלי
@@ -6959,6 +7204,7 @@
     de = Ramen
     el = Ράμεν
     es = Ramen
+    eu = Ramen
     fi = Ramen
     fr = Râmen
     he = ראמן
@@ -6991,6 +7237,7 @@
     de = Regionale Küche
     el = Περιφερειακή
     es = Cocina regional
+    eu = Eskualdeko sukaldaritza
     fi = Alueellinen keittiö
     fr = Cuisine régionale
     he = מטבח אזורי
@@ -7023,6 +7270,7 @@
     de = Russische Küche
     el = Ρώσσικη
     es = Cocina rusa
+    eu = Errusiar sukaldaritza
     fi = Venäläinen keittiö
     fr = Cuisine russe
     he = מטבח רוסי
@@ -7055,6 +7303,7 @@
     de = Sandwich
     el = Σάντουιτς
     es = Sándwiches
+    eu = Ogitartekoak
     fi = Voileipä
     fr = Sandwich
     he = סנדוויץ'
@@ -7087,6 +7336,7 @@
     de = Wurst
     el = Λουκάνικο
     es = Salchichas
+    eu = Saltxitxak
     fi = Makkara
     fr = Saucisse
     he = נקניק
@@ -7119,6 +7369,7 @@
     de = Herzhafte Pfannkuchen
     el = Αλμυρές τηγανίτες
     es = Tortitas saladas
+    eu = Krepe gaziak
     fi = Suolaiset letut
     fr = Crêpes salées
     he = חביתיות טעימות
@@ -7151,6 +7402,7 @@
     de = Meeresfrüchte
     el = Θαλασσινά
     es = Mariscos
+    eu = Itsaskiak
     fi = Meren elävät
     fr = Fruits de mer
     he = מאכלי ים
@@ -7183,6 +7435,7 @@
     de = Soba
     el = Σόμπα (λεπτά μακαρόνια)
     es = Soba
+    eu = Soba
     fi = Sobanuudeli
     fr = Soba
     he = אטריות סובה
@@ -7215,6 +7468,7 @@
     de = Spanische Küche
     el = Ισπανική
     es = Cocina española
+    eu = Espainiako Sukaldaritza
     fi = Espanjalainen keittiö
     fr = Cuisine espagnole
     he = מטבח ספרדי
@@ -7247,6 +7501,7 @@
     de = Steakhaus
     el = Μπριζολάδικο
     es = Asador
+    eu = Txu
     fi = Pihviravintola
     fr = Grillades
     he = סטייקיה
@@ -7279,6 +7534,7 @@
     de = Sushi
     el = Σούσι
     es = Sushi
+    eu = Sushia
     fi = Sushi
     fr = Sushi
     he = סושי
@@ -7311,6 +7567,7 @@
     de = Tapas
     el = Τάπας
     es = Tapas
+    eu = Txapelak
     fi = Tapas
     fr = Tapas
     he = טאפאס
@@ -7343,6 +7600,7 @@
     de = Tee
     el = Τσάι
     es = Té
+    eu = Tea
     fi = Tee
     fr = Thé
     he = תה
@@ -7375,6 +7633,7 @@
     de = Thailändische Küche
     el = Ταϊλανδική
     es = Cocina tailandesa
+    eu = Thai sukaldaritza
     fi = Thaimaalainen keittiö
     fr = Cuisine thaï
     he = מטבח תאילנדי
@@ -7407,6 +7666,7 @@
     de = Türkische Küche
     el = Τουρκική
     es = Cocina turca
+    eu = Turkiar sukaldaritza
     fi = Turkkilainen keittiö
     fr = Cuisine turque
     he = מטבח תורכי
@@ -7439,6 +7699,7 @@
     de = Vegane Küche
     el = Για χορτοφάγους
     es = Cocina vegana
+    eu = Sukaldaritza beganoa
     fi = Vegaani keittiö
     fr = Cuisine végétalienne
     he = מטבח טבעוני
@@ -7471,6 +7732,7 @@
     de = Vegetarische Küche
     el = Χορτοφαγική
     es = Cocina vegetariana
+    eu = Sukaldaritza begetarianoa
     fi = Kasvis keittiö
     fr = Cuisine végétarienne
     he = מטבח צמחוני
@@ -7503,6 +7765,7 @@
     de = Vietnamesische Küche
     el = Βιετναμέζικη
     es = Cocina vietnamita
+    eu = Vietnamgo sukaldaritza
     fi = Vietnamilainen keittiö
     fr = Cuisine vietnamienne
     he = מטבח וייטנאמי
@@ -7547,6 +7810,7 @@
     de = Defibrillator
     el = Πρώτες βοήθειες
     es = Desfibrilador
+    eu = Desfibriladorea
     fa = دستگاه شوک
     fi = Defibrillaattori
     fr = Défibrillateur
@@ -7578,6 +7842,7 @@
     de = Hydrant
     el = Πυροσβεστικός κρουνός
     es = Boca de incendio
+    eu = Suteen hidrantea
     fa = شیر آتش‌نشانی
     fi = Paloposti
     fr = Bouche d’incendie
@@ -7610,6 +7875,7 @@
     de = Notruftelefon
     el = Τηλέφωνο έκτακτης ανάγκης
     es = Teléfono de emergencia
+    eu = Larrialdi zenbakia
     fa = تلفن اضطراری
     fi = Hätäpuhelin
     fr = Téléphone d'urgence
@@ -7642,6 +7908,7 @@
     de = Eingang
     el = Είσοδος
     es = Entrada
+    eu = Sarrera
     fa = ورودی
     fi = Sisäänkäynti
     fr = Entrée
@@ -7676,6 +7943,7 @@
     de = Medizinisches Labor
     el = Ιατρικό Εργαστήριο
     es = Laboratorio médico
+    eu = Medikuntza laborategia
     fa = ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ
     fi = Lääketieteellinen laboratorio
     fr = Laboratoire médical
@@ -7751,6 +8019,7 @@
     de = Bushaltestelle
     el = Στάση λεωφορείου
     es = Parada de autobús
+    eu = Autobus geltokia
     fa = حمل و نقل
     fi = Bussipysäkki
     fr = Arrêt de bus
@@ -7784,6 +8053,7 @@
     el = Οδός υπό κατασκευή
     es = Carretera en construcción
     es-MX = Carretera en construcción
+    eu = Eraikitzen ari diren errepidea
     fa = جاده در دست ساخت است
     fi = Rakenteilla oleva tie
     fr = Route en construction
@@ -7813,6 +8083,7 @@
     en = Cycle Path
     de = Radweg
     es = Ciclovía
+    eu = Bizikletabidea
     fr = Piste cyclable
     ja = 自転車道
     pl = Droga rowerowa
@@ -7842,6 +8113,7 @@
     en-GB = Lift
     de = Aufzug
     es = Ascensor
+    eu = Igogailua
     fr = Ascenseur
     ru = Лифт
     tr = Asansör
@@ -7855,6 +8127,7 @@
     de = Fußweg
     el = Διαδρομή
     es = Camino
+    eu = Bidea
     fa = مسیر
     fi = Polku
     fr = Chemin
@@ -7955,6 +8228,7 @@
     el = Πέρασμα
     es = Vado (de lugar)
     es-MX = Vado (de lugar)
+    eu = Ford (lekukoa)
     fa = گدار
     fi = Kahluupaikka
     fr = Gué
@@ -7987,6 +8261,7 @@
     de = Spielstraße
     el = Οδός
     es = Calle
+    eu = Kalea
     fa = جاده
     fi = Katu
     fr = Zone de rencontre
@@ -8027,6 +8302,7 @@
     de = Autobahn
     el = Οδός
     es = Calle
+    eu = Kalea
     fa = جاده
     fi = Katu
     fr = Autoroute
@@ -8073,6 +8349,7 @@
     de = Autobahnausfahrt
     el = Έξοδος
     es = Salida
+    eu = Irteera
     fa = تقاطع
     fi = Poistumistie
     fr = Sortie
@@ -8120,6 +8397,7 @@
     de = Weg
     el = Διαδρομή
     es = Camino
+    eu = Bidea
     fa = مسیر
     fi = Polku
     fr = Chemin
@@ -8203,6 +8481,7 @@
     de = Fußgängerzone
     el = Οδός
     es = Calle
+    eu = Kalea
     fa = جاده
     fi = Katu
     fr = Rue piétonne
@@ -8256,6 +8535,7 @@
     de = Hauptstraße
     el = Οδός
     es = Calle
+    eu = Kalea
     fa = جاده
     fi = Katu
     fr = Rue
@@ -8310,6 +8590,7 @@
     de = Rennbahn
     el = Πίστα αγώνων
     es = Circuito
+    eu = Zirkuitua
     fa = کانال
     fi = Kilparata
     fr = Circuit
@@ -8342,6 +8623,7 @@
     de = Wohnstraße
     el = Οδός
     es = Calle
+    eu = Kalea
     fa = جاده
     fi = Katu
     fr = Rue
@@ -8384,6 +8666,7 @@
     de = Rastplatz
     el = Χώρος ανάπαυσης αυτοκινητιστών
     es = Área de descanso
+    eu = Atseden gunea
     fi = Levähdyspaikka
     fr = Aire de repos
     hu = Pihenőzóna
@@ -8415,6 +8698,7 @@
     de = Straße
     el = Οδός
     es = Calle
+    eu = Kalea
     fa = جاده
     fi = Katu
     fr = Rue
@@ -8451,6 +8735,7 @@
     el = Γέφυρα
     es = Puente
     es-MX = Puente
+    eu = Zubia
     fa = پل
     fi = Silta
     fr = Pont
@@ -8489,6 +8774,7 @@
     el = Σήραγγα
     es = Túnel
     es-MX = Túnel
+    eu = Tunel
     fa = تونل
     fi = Tunneli
     fr = Tunnel
@@ -8523,6 +8809,7 @@
     de = Straße
     el = Οδός
     es = Calle
+    eu = Kalea
     fa = جاده
     fi = Katu
     fr = Rue
@@ -8579,6 +8866,7 @@
     de = Straße
     el = Οδός
     es = Calle
+    eu = Kalea
     fa = جاده
     fi = Katu
     fr = Rue
@@ -8659,6 +8947,7 @@
     de = Blitzer
     el = Κάμερα ταχύτητας
     es = Radar de velocidad
+    eu = Abiadura kamera
     fa = دوربین سرعت سنج
     fi = Nopeusvalvontakamera
     fr = Radar de vitesse
@@ -8691,6 +8980,7 @@
     de = Stufen
     el = Διαδρομή
     es = Camino
+    eu = Bidea
     fa = مسیر
     fi = Polku
     fr = Escaliers
@@ -8729,6 +9019,7 @@
     de = Straße
     el = Οδός
     es = Calle
+    eu = Kalea
     fa = جاده
     fi = Katu
     fr = Rue
@@ -8786,6 +9077,7 @@
     de = Straße
     el = Οδός
     es = Calle
+    eu = Kalea
     fa = جاده
     fi = Katu
     fr = Piste
@@ -8850,6 +9142,7 @@
     de = Verkehrsampel
     el = Φανάρια κυκλοφορίας
     es = Semáforos
+    eu = Semaforoak
     fa = چراغ راهنما
     fi = Liikennevalot
     fr = Feux de circulation
@@ -8882,6 +9175,7 @@
     de = Schnellstraße
     el = Οδός
     es = Calle
+    eu = Kalea
     fa = جاده
     fi = Katu
     fr = Voie rapide
@@ -8936,6 +9230,7 @@
     de = Straße
     el = Οδός
     es = Calle
+    eu = Kalea
     fa = جاده
     fi = Katu
     fr = Rue
@@ -9056,6 +9351,7 @@
     de = Ausgrabungsstätte
     el = Αρχαιολογικός χώρος
     es = Yacimiento arqueológico
+    eu = Aztarnategi arkeologikoa
     fa = گردشگری
     fi = Arkeologinen kohde
     fr = Site archéologique
@@ -9115,6 +9411,7 @@
     de = Burg
     el = Κάστρο
     es = Castillo
+    eu = Gaztelua
     fa = گردشگری
     fi = Linna
     fr = Château
@@ -9147,6 +9444,7 @@
     de = Burg
     el = Κάστρο
     es = Castillo
+    eu = Gaztelua
     fa = گردشگری
     fi = Linna
     fr = Château
@@ -9179,6 +9477,7 @@
     de = Schloss
     el = Κάστρο
     es = Castillo
+    eu = Gaztelua
     fa = گردشگری
     fi = Linna
     fr = Château
@@ -9361,6 +9660,7 @@
     cs = Zajímavost
     el = Μνημείο
     es = Monumento
+    eu = Monumentua
     fa = گردشگری
     fi = Monumentti
     fr = Monument
@@ -9388,6 +9688,7 @@
     de = Ruine
     el = Ερείπια
     es = Ruinas
+    eu = Hondakinak
     fa = گردشگری
     fi = Rauniot
     fr = Ruines
@@ -9420,6 +9721,7 @@
     de = Schiff
     el = Αξιοθέατο
     es = Turismo
+    eu = Turismoa
     fa = گردشگری
     fi = Nähtävyydet
     fr = Navire
@@ -9452,6 +9754,7 @@
     de = Grabstätte
     el = Αξιοθέατο
     es = Turismo
+    eu = Turismoa
     fa = گردشگری
     fi = Nähtävyydet
     fr = Tombe historique
@@ -9590,6 +9893,7 @@
     en = Roundabout
     de = Kreisverkehr
     es = Rotonda
+    eu = Biribilgunea
     fr = Rond-point
     ja = ラウンドアバウト
     pl = Rondo
@@ -9635,6 +9939,7 @@
     de = Wasserbecken
     el = Μια λεκάνη νερού
     es = Cuenca
+    eu = Arroa
     fa = حوضه آب
     fi = Vesisäiliö
     fr = Réservoir
@@ -9692,6 +9997,7 @@
     el = Αυλόγυρος εκκλησίας
     es = Camposanto
     es-MX = Camposanto
+    eu = Hilerria
     fa = حیاط کلیسا
     fi = Kirkon piha
     fr = Cour d'église
@@ -9743,6 +10049,15 @@
     uk = Будівництво
     zh-Hans = 建设区域
 
+  [type.landuse.education]
+    en = Educational Facilities
+    be = Адукацыйныя ўстановы
+    es = Instalaciones educativas
+    fr = Établissements éducatifs
+    it = Strutture didattiche
+    ru = Образовательные учреждения
+    uk = Освітній заклади
+
   [type.landuse.farm]
     en = Farm
     de = Bauernhof
@@ -9764,6 +10079,7 @@
     el = Αγροτική γη
     es = Tierras agrícolas
     es-MX = Terreno agrícola
+    eu = Nekazaritza-lurra
     fa = زمین کشاورزی
     fi = Maatalousmaa
     fr = Terrains agricoles
@@ -9821,6 +10137,7 @@
     de = Wald
     el = Δάσος
     es = Bosque
+    eu = Basoa
     fa = جنگل
     fi = Metsä
     fr = Forêt
@@ -9853,6 +10170,7 @@
     de = Nadelwald
     el = Δάσος
     es = Bosque
+    eu = Basoa
     fa = جنگل
     fi = Metsä
     fr = Forêt de conifères
@@ -9885,6 +10203,7 @@
     de = Laubwald
     el = Δάσος
     es = Bosque
+    eu = Basoa
     fa = جنگل
     fi = Metsä
     fr = Forêt de feuillus
@@ -9917,6 +10236,7 @@
     de = Mischwald
     el = Δάσος
     es = Bosque
+    eu = Basoa
     fa = جنگل
     fi = Metsä
     fr = Forêt
@@ -9962,6 +10282,7 @@
     el = Γκαζόν
     es = Césped
     es-MX = Césped
+    eu = Belarra
     fa = چمن زار
     fi = Ruohikko
     fr = Gazon
@@ -10034,6 +10355,7 @@
     el = Σκουπιδότοπος
     es = Vertedero
     es-MX = Vertedero
+    eu = Iraulketa
     fa = دفن گاه زباله
     fi = Kaatopaikka
     fr = Décharge
@@ -10120,6 +10442,7 @@
     el = Σιδηροδρομικές εγκαταστάσεις
     es = Instalaciones ferroviarias
     es-MX = Estructuras ferroviarias
+    eu = Trenbide instalazioak
     fa = محدوده راه آهن
     fi = Rautatierakennukset
     fr = Installations ferroviaires
@@ -10165,6 +10488,7 @@
     de = Wasserfläche
     el = Νερό
     es = Cuenca
+    eu = Arroa
     fa = اب
     fi = Vesi
     fr = Bassin de retenue
@@ -10282,6 +10606,7 @@
     el = Περιοχή για βόλτα σκύλων
     es = Parque para perros
     es-MX = Lugar para pasear al perro
+    eu = Txakur parkea
     fa = محدوده مخصوص سگ
     fi = Koirien ulkoilupaikka
     fr = Parc canin
@@ -10315,6 +10640,7 @@
     de = Fitnessstudio
     el = Κέντρο γυμναστικής
     es = Centro de fitness
+    eu = Fitness zentroa
     fa = باشگاه بدنسازی
     fi = Kuntosali
     fr = Centre fitness
@@ -10347,6 +10673,7 @@
     de = Fitnessstation
     el = Γυμναστήριο
     es = Gimnasio
+    eu = Gimnasioa
     fa = پارک سلامت
     fi = Kuntokeskus
     fr = Station de fitness
@@ -10379,6 +10706,7 @@
     de = Garten
     el = Κήπος αναψυχής
     es = Jardín
+    eu = Lorategi
     fa = گردشگری
     fi = Puutarha
     fr = Jardin
@@ -10411,6 +10739,7 @@
     de = Golfplatz
     el = Γήπεδο γκολφ
     es = Campo de golf
+    eu = Golf kurtsoa
     fa = زمین گلف
     fi = Golf-rata
     fr = Terrain de golf
@@ -10479,6 +10808,7 @@
     el = Φυσικό απόθεμα
     es = Territorio reservado
     es-MX = Reserva
+    eu = Erreserbatutako lurraldea
     fi = Luonnonsuojelualue
     fr = Réserve naturelle
     hu = Védett terület
@@ -10512,6 +10842,7 @@
     el = Πάρκο
     es = Parque
     es-MX = Parque
+    eu = Parkea
     fa = پارک
     fi = Puisto
     fr = Parc
@@ -10546,6 +10877,7 @@
     el = Πάρκο
     es = Parque
     es-MX = Parque
+    eu = Parkea
     fa = پارک
     fi = Puisto
     fr = Parc
@@ -10580,6 +10912,7 @@
     el = Πάρκο
     es = Parque
     es-MX = Parque
+    eu = Parkea
     fa = پارک
     fi = Puisto
     fr = Parc
@@ -10614,6 +10947,7 @@
     el = Πάρκο
     es = Parque
     es-MX = Parque
+    eu = Parkea
     fa = پارک
     fi = Puisto
     fr = Parc
@@ -10649,6 +10983,7 @@
     de = Picknicktisch
     el = Τραπέζι πικ-νικ
     es = Mesa de picnic
+    eu = Piknik mahaia
     fa = ﮏﯿﻨﮑﯿﭘ ﺰﯿﻣ
     fi = Piknik-pöytä
     fr = Table de pique-nique
@@ -10683,6 +11018,7 @@
     de = Sportplatz
     el = Γήπεδο αθλοπαιδιών
     es = Complejo deportivo
+    eu = Kiroldegia
     fa = زمین ورزشی
     fi = Urheilukenttä
     fr = Terrain de sport
@@ -10715,6 +11051,7 @@
     de = Spielplatz
     el = Παιδική χαρά
     es = Patio de recreo
+    eu = Jolastokia
     fa = زمین بازی
     fi = Leikkikenttä
     fr = Aire de jeu
@@ -10758,6 +11095,7 @@
     el = Σάουνα
     es = Sauna
     es-MX = Sauna
+    eu = Sauna
     fa = سونا
     fi = Sauna
     fr = Sauna
@@ -10804,6 +11142,7 @@
     de = Sportzentrum
     el = Αθλητικό κέντρο
     es = Polideportivo
+    eu = Kiroldegia
     fa = مرکزورزشی
     fi = Urheilukeskus
     fr = Centre sportif
@@ -10836,6 +11175,7 @@
     de = Kletterhalle
     el = Κέντρο αναρρίχησης
     es = Centro de escalada
+    eu = Eskalada zentroa
     fa = مرکز صعود
     fi = Kiipeilykeskus
     fr = Centre d'escalade
@@ -10868,6 +11208,7 @@
     de = Schießanlage
     el = Σκοπευτήριο
     es = Campo de tiro
+    eu = Tiro eremua
     fa = محل تیراندازی
     fi = Ampumarata
     fr = Centre de tir
@@ -10900,6 +11241,7 @@
     de = Schwimmhalle
     el = Κολυμβητήριο
     es = Centro de natación
+    eu = Igeriketa zentroa
     fa = استخرشنا
     fi = Uimahalli
     fr = Piscine
@@ -10931,6 +11273,7 @@
     da = Yoga center
     el = Στούντιο γιόγκα
     es = Centro de yoga
+    eu = Yoga zentroa
     fa = سالن یوگا
     fi = Joogastudio
     fr = Yoga
@@ -10962,6 +11305,7 @@
     de = Stadion
     el = Γήπεδο
     es = Estadio
+    eu = Estadioa
     fa = استادیوم
     fi = Stadion
     fr = Stade
@@ -10993,6 +11337,7 @@
     de = Schwimmbecken
     el = Πισίνα
     es = Piscina
+    eu = Igerilekua
     fa = استخرشنا
     fi = Uima-allas
     fr = Piscine
@@ -11040,6 +11385,7 @@
     de = Aquapark
     el = Υδάτινο πάρκο
     es = Parque acuático
+    eu = Ur-parkea
     fa = گردشگری
     fi = Vesipuisto
     fr = Centre aquatique
@@ -11113,6 +11459,7 @@
     de = Fabrikschornstein
     el = Καμινάδα εργοστασίου
     es = Chimenea de fábrica
+    eu = Fabrikako tximinia
     fi = Tehtaan piippu
     fr = Cheminée d'usine
     hu = Gyárkémény
@@ -11174,6 +11521,7 @@
     de = Leuchtturm
     el = Φάρος
     es = Faro
+    eu = Itsasargia
     fa = گردشگری
     fi = Majakka
     fr = Phare
@@ -11267,6 +11615,7 @@
     de = Überwachungskamera
     el = Κάμερα παρακολούθησης
     es = Cámara de vigilancia
+    eu = Zaintza Kamera
     fa = دوربین نظارتی
     fi = Valvontakamera
     fr = Caméra de surveillance
@@ -11299,6 +11648,7 @@
     de = Turm
     el = Πύργος
     es = Torre
+    eu = Dorrea
     fa = برج
     fi = Torni
     fr = Tour
@@ -11344,6 +11694,7 @@
     de = Wasserhahn
     el = Βρύση νερού
     es = Toma de agua
+    eu = Ura hartzea
     fa = شیراب
     fi = Vesihana
     fr = Robinet d'eau
@@ -11376,6 +11727,7 @@
     de = Wasserturm
     el = Υδατόπυργος
     es = Depósito de agua
+    eu = Ur depositua
     fa = منبع اب
     fi = Vesitorni
     fr = Château d'eau
@@ -11408,6 +11760,7 @@
     de = Brunnen
     el = Πηγάδι νερού
     es = Pozo
+    eu = Ur putzua
     fa = چاه اب
     fi = Kaivo
     fr = Puits à eau
@@ -11440,6 +11793,7 @@
     de = Windmühle
     el = Ανεμόμυλος
     es = Molino
+    eu = Haize-errota
     fa = توربین بادی
     fi = Tuulimylly
     fr = Moulin à vent
@@ -11499,6 +11853,7 @@
     de = Bunker
     el = Στρατιωτική αποθήκη
     es = Búnker
+    eu = Bunkerra
     fa = پناهگاه
     fi = Bunkkeri
     ja = 掩蔽壕
@@ -11560,6 +11915,7 @@
     de = Bucht
     el = Κόλπος
     es = Bahía
+    eu = Badia
     fa = خلیج
     fi = Lahti
     fr = Baie
@@ -11592,6 +11948,7 @@
     de = Strand
     el = Παραλία
     es = Playa
+    eu = Hondartza
     fa = ساحل
     fi = Ranta
     fr = Plage
@@ -11640,6 +11997,7 @@
     el = Ακρωτήρι
     es = Cabo
     es-MX = Cabo
+    eu = Lurmuturra
     fa = دماغه
     fi = Niemeke
     fr = Cap
@@ -11673,6 +12031,7 @@
     de = Höhle
     el = Σπήλαιο
     es = Cueva
+    eu = Haitzuloa
     fa = غار
     fi = Luola
     fr = Grotte
@@ -11734,6 +12093,7 @@
     el = Θερμοπίδακας
     es = Geiser
     es-MX = Géiser
+    eu = Geyser
     fa = چشمه آب گرم
     fi = Geysir
     fr = Geyser
@@ -11768,6 +12128,7 @@
     el = Παγετώνας
     es = Glaciar
     es-MX = Glaciar
+    eu = Glaziarra
     fa = یخچال طبیعی
     fi = Jäätikkö
     fr = Glacier
@@ -11802,6 +12163,7 @@
     el = Λιβάδι
     es = Campo
     es-MX = Campo
+    eu = Landa
     fa = کشتزار
     fi = Pelto
     fr = Champ
@@ -11863,6 +12225,7 @@
     de = See
     el = Λίμνη
     es = Lago
+    eu = Lakua
     fa = دریاچه
     fi = Järvi
     fr = Lac
@@ -11896,6 +12259,7 @@
     de = Teich
     el = Δεξαμενή
     es = Estanque
+    eu = Urmaela
     fa = تالاب
     fi = Lampi
     fr = Étang
@@ -11930,6 +12294,7 @@
     de = Reservoir
     el = Δεξαμενή
     es = Embalse
+    eu = Urtegia
     fa = مخزن
     fi = Säiliö
     fr = Réservoir
@@ -11965,6 +12330,7 @@
     de = Wasserbecken
     el = Μια λεκάνη νερού
     es = Cuenca
+    eu = Arroa
     fa = حوضه آب
     fi = Vesisäiliö
     fr = Réservoir
@@ -12000,6 +12366,7 @@
     de = Fluss
     el = Ποταμός
     es = Río
+    eu = Ibai
     fa = رودخانه
     fi = Joki
     fr = Rivière
@@ -12070,6 +12437,7 @@
     de = Gipfel
     el = Κορυφή
     es = Cima
+    eu = Goiena
     fa = قله
     fi = Huippu
     fr = Sommet
@@ -12127,6 +12495,7 @@
     el = Θαμνώδες περιοχή
     es = Matorrales
     es-MX = Maleza
+    eu = Sastrakak
     fa = بوته زار
     fi = Tiheiköt
     fr = Fourré
@@ -12160,6 +12529,7 @@
     de = Quelle
     el = Πηγή νερού
     es = Manantial
+    eu = Udaberria
     fa = چشمه
     fi = Lähde
     fr = Source
@@ -12193,6 +12563,7 @@
     el = Πορθμός
     es = Estrecho
     es-MX = Estrecho
+    eu = Estua
     fa = تنگه
     fi = Salmi
     fr = Détroit
@@ -12226,6 +12597,7 @@
     de = Baum
     el = Δέντρο
     es = Árbol
+    eu = Zuhaitza
     fa = درخت
     fi = Puu
     fr = Arbre
@@ -12284,6 +12656,7 @@
     de = Vulkan
     el = Ηφαίστειο
     es = Volcán
+    eu = Sumendi
     fa = اتشفشان
     fi = Tulivuori
     fr = Volcan
@@ -12318,6 +12691,7 @@
     de = Wasserfläche
     el = Σώμα νερού
     es = Cuerpo de agua
+    eu = Ur-masa
     fa = پهنه آبی
     fi = Vesimuodostuma
     fr = Étendue d'eau
@@ -12352,6 +12726,7 @@
     el = Υγρότοπος
     es = Terreno pantanoso
     es-MX = Tierra pantanosa
+    eu = Lur paduratsua
     fa = ناحیه تالابی
     fi = Suoperäinen seutu
     fr = Zone humide
@@ -12423,6 +12798,7 @@
     de = Büro
     el = Γραφείο
     es = Oficina
+    eu = Bulegoa
     fa = اداره
     fi = Toimisto
     fr = Bureau
@@ -12455,6 +12831,7 @@
     de = Niederlassung
     el = Γραφείο επιχείρησης
     es = Oficina
+    eu = Bulegoa
     fa = دفتر شرکت
     fi = Yhtiön toimisto
     fr = Bureaux d'entreprise
@@ -12487,6 +12864,7 @@
     de = Immobilienmakler
     el = Κτηματομεσίτης
     es = Agente inmobiliario
+    eu = Higiezinen agentea
     fa = بنگاه معاملات ملکی
     fi = Kiinteistönvälittäjä
     fr = Agence immobilière
@@ -12519,6 +12897,7 @@
     de = Regierungsstelle
     el = Κυβερνητικό γραφείο
     es = Oficina gubernamental
+    eu = Gobernu bulegoa
     fa = اداره دولتی
     fi = Viranomaistoimito
     fr = Administration publique
@@ -12551,6 +12930,7 @@
     de = Versicherungsbüro
     el = Ασφαλιστικό γραφείο
     es = Oficina de seguros
+    eu = Aseguru bulegoa
     fa = دفتر بیمه
     fi = Vakuutuslaitos
     fr = Bureau d’assurance
@@ -12583,6 +12963,7 @@
     de = Anwaltsbüro
     el = Δικηγόρος
     es = Despacho de abogados
+    eu = Abokatu Bulegoa
     fa = دفتر وکالت
     fi = Lakitoimisto
     fr = Cabinet d'avocat
@@ -12615,6 +12996,7 @@
     de = Büro einer Nichtregierungsorganisation
     el = Γραφείο ΜΚΟ
     es = Sede de ONG
+    eu = GKEen egoitza
     fa = دفتر سازمان خیریه
     fi = Valtioista riippumattoman järjestön toimisto
     fr = Bureau ONG
@@ -12649,6 +13031,7 @@
     de = Mobilfunkbetreiber
     el = Εταιρεία κινητής τηλεφωνίας
     es = Operadora de telefonía móvil
+    eu = Telefono mugikorren operadorea
     fa = اپراتور تلفن همراه
     fi = Matkapuhelinoperaattori
     fr = Opérateur mobile
@@ -12678,6 +13061,7 @@
     be = Эка
     de = Bio
     es = Orgánico
+    eu = Organikoa
     fr = Biologique
     it = Biologico
     nl = Biologisch
@@ -12709,6 +13093,7 @@
     de = Großstadt
     el = Πόλη
     es = Ciudad
+    eu = Herria
     fa = شهر
     fi = Kaupunki
     fr = Ville
@@ -12802,6 +13187,7 @@
     de = Kontinent
     el = Ήπειρος
     es = Continente
+    eu = Kontinentea
     fa = قاره
     fi = Maanosa
     hu = Kontinens
@@ -12831,6 +13217,7 @@
     de = Staat
     el = Χώρα
     es = País
+    eu = Herrialdea
     fa = کشور
     fi = Maa
     fr = Pays
@@ -12863,6 +13250,7 @@
     de = Kreis
     el = Δήμος
     es = Municipio
+    eu = Udalerria
     fa = بخش
     fi = Lääni
     fr = Comté
@@ -12895,6 +13283,7 @@
     de = Bauernhof
     el = Αγρόκτημα
     es = Granja
+    eu = Baserria
     fa = مزرعه
     fi = Maatila
     fr = Ferme
@@ -12927,6 +13316,7 @@
     de = Weiler
     el = Χωριουδάκι
     es = Aldea
+    eu = Herria
     fa = روستا
     fi = Pieni kylä
     fr = Hameau
@@ -12959,6 +13349,7 @@
     de = Insel
     el = Νησί
     es = Isla
+    eu = Uhartea
     fa = جزیره
     fi = Saari
     fr = Île
@@ -12991,6 +13382,7 @@
     de = kleine Insel
     el = Νησί
     es = Isla
+    eu = Uhartea
     fa = جزیره
     fi = Saari
     fr = Île
@@ -13036,6 +13428,7 @@
     de = Örtlichkeit
     el = Τοποθεσία
     es = Localidad
+    eu = Kokapena
     fa = محله
     fi = Paikkakunta
     fr = Lieu-dit
@@ -13079,6 +13472,7 @@
     de = Ozean
     el = Ωκεανός
     es = Océano
+    eu = Ozeanoa
     fa = اقیانوس
     fi = Valtameri
     fr = Océan
@@ -13106,6 +13500,7 @@
     de = Region
     el = Περιοχή
     es = Región
+    eu = Eskualdea
     fa = منطقه
     fi = Alue
     fr = Région
@@ -13135,6 +13530,7 @@
     de = Meer
     el = Θάλασσα
     es = Mar
+    eu = Itsasoa
     fa = دریا
     fi = Meri
     fr = Mer
@@ -13179,6 +13575,7 @@
     de = Bundesland
     el = Πολιτεία
     es = Estado
+    eu = Baldintza
     fa = ایالت
     fi = Lääni
     fr = État
@@ -13211,6 +13608,7 @@
     de = Bundesstaat
     el = Πολιτεία
     es = Estado
+    eu = Baldintza
     fa = ایالت
     fi = Lääni
     fr = État
@@ -13243,6 +13641,7 @@
     de = Stadtteil
     el = Προάστιο
     es = Barrio
+    eu = Auzoa
     fa = حومه
     fi = Esikaupunki
     fr = Quartier
@@ -13275,6 +13674,7 @@
     de = Stadt
     el = Κωμόπολη
     es = Pueblo
+    eu = Herria
     fa = شهر
     fi = Kaupunki
     fr = Ville
@@ -13307,6 +13707,7 @@
     de = Dorf
     el = Χωριό
     es = Pueblo
+    eu = Herria
     fa = روستا
     fi = Kylä
     hu = Falu
@@ -13396,6 +13797,7 @@
     de = Nieder-/Mittelspannungsmast
     el = Πυλώνες μεταφοράς ρεύματος
     es = Poste eléctrico
+    eu = Zutabe elektrikoa
     fa = برج قدرت
     fi = Sähköpylväs
     fr = Poteau électrique
@@ -13439,6 +13841,7 @@
     de = Umspannwerk
     el = Υποσταθμός
     es = Subestación
+    eu = Azpiestazioa
     fi = Muuntoasema
     fr = Poste électrique
     hu = Kapcsolószekrény
@@ -13469,6 +13872,7 @@
     de = Hochspannungsmast
     el = Πυλώνες μεταφοράς ρεύματος
     es = Poste eléctrico
+    eu = Zutabe elektrikoa
     fa = برج قدرت
     fi = Sähköpylväs
     fr = Poteau électrique
@@ -13517,6 +13921,7 @@
     en = Public Transport
     de = Öffentlicher Verkehr
     es = Transporte público
+    eu = Garraio publikoa
     ja = 公共交通機関
     pl = Transport publiczny
     pt = Transporte público
@@ -13667,6 +14072,7 @@
     el = Σιδηροδρομική διέλευση
     es = Cruce de ferrocarril
     es-MX = Cruce de ferrocarril
+    eu = Trenbide-pasagunea
     fa = تقاطع راه آهن
     fi = Rautatien tasoristeys
     fr = Passage à niveau
@@ -13734,6 +14140,7 @@
     el = Μονοαξονικός σιδηρόδρομος
     es = Tren de monorraíl
     es-MX = Monorraíl
+    eu = Tren monoraila
     fa = مونوریل
     fi = Monorail (kohorata)
     fr = Monorail
@@ -13869,6 +14276,7 @@
     el = Σιδηρόδρομος
     es = Ferrocarril
     es-MX = Línea de ferrocarril
+    eu = Trenbidea
     fa = راه آهن
     fi = Rautatie
     fr = Chemin de fer
@@ -14008,6 +14416,7 @@
     de = Bahnhof
     el = Σιδηροδρομικός σταθμός
     es = Estación de tren
+    eu = Tren geltokian
     fa = ایستگاه قطار
     fi = Rautatieasema
     fr = Gare
@@ -14051,6 +14460,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14083,6 +14493,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14115,6 +14526,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14147,6 +14559,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14179,6 +14592,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14211,6 +14625,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14243,6 +14658,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14275,6 +14691,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14307,6 +14724,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14339,6 +14757,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14371,6 +14790,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14403,6 +14823,7 @@
     de = U-Bahnstation
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14466,6 +14887,7 @@
     el = Είσοδος μετρό
     es = Entrada al metro
     es-MX = Entrada de metro
+    eu = Metroko sarrera
     fa = ورودی مترو
     fi = Metron sisäänkäynti
     fr = Entrée du métro
@@ -14499,6 +14921,7 @@
     de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14531,6 +14954,7 @@
     de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14563,6 +14987,7 @@
     de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14595,6 +15020,7 @@
     de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14627,6 +15053,7 @@
     de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14659,6 +15086,7 @@
     de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14691,6 +15119,7 @@
     de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14723,6 +15152,7 @@
     de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14755,6 +15185,7 @@
     de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14787,6 +15218,7 @@
     de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14819,6 +15251,7 @@
     de = U-Bahn-Eingang
     el = Μετρό
     es = Metro
+    eu = Metroa
     fa = حمل و نقل
     fi = Metro
     fr = Métro
@@ -14890,6 +15323,7 @@
     de = Straßenbahnhaltestelle
     el = Στάση τραμ
     es = Parada de tranvía
+    eu = Tranbiaren geltokia
     fa = ایستگاه قطار
     fi = Raitiovaunupysäkki
     fr = Arrêt de tramway
@@ -14986,6 +15420,7 @@
     de = Geschäft
     el = Κατάστημα
     es = Tienda
+    eu = Denda
     fa = فروشگاه
     fi = Kauppa
     fr = Magasin
@@ -15018,6 +15453,7 @@
     de = Spirituosengeschäft
     el = Κάβα
     es = Licorería
+    eu = Likore-denda
     fa = فروشگاه
     fi = Alkoholikauppa
     fr = Magasin de vins et spiritueux
@@ -15050,6 +15486,7 @@
     de = Bäckerei
     el = Αρτοποιείο
     es = Panadería
+    eu = Okindegia
     fa = فروشگاه
     fi = Leipomo
     fr = Boulangerie
@@ -15082,6 +15519,7 @@
     de = Schönheitssalon
     el = Σαλόνι αισθητικής
     es = Centro de belleza
+    eu = Apaindegia
     fa = سالن زیبایی
     fi = Kauneushoitola
     fr = Salon de beauté
@@ -15115,6 +15553,7 @@
     de = Getränke
     el = Οινοπνευματώδη
     es = Bebidas
+    eu = Edariak
     fa = فروشگاه
     fi = Juomat
     fr = Boissons
@@ -15147,6 +15586,7 @@
     de = Fahrradladen
     el = Κατάστημα ποδηλάτων
     es = Tienda de bicicletas
+    eu = Bizikleta denda
     fa = فروشگاه
     fi = Polkupyöräliike
     fr = Magasin de vélos
@@ -15178,6 +15618,7 @@
     de = Wettbüro
     el = Πράκτορας στοιχημάτων
     es = Casa de apuestas
+    eu = Apustu etxea
     fa = صحافی
     fi = Kustantaja
     hu = Fogadóiroda
@@ -15206,6 +15647,7 @@
     de = Büchergeschäft
     el = Βιβλιοπωλείο
     es = Librería
+    eu = Liburudenda
     fa = فروشگاه
     fi = Kirjakauppa
     fr = Librairie
@@ -15238,6 +15680,7 @@
     de = Metzgerei
     el = Κρεοπωλείο
     es = Carnicería
+    eu = Harategia
     fa = فروشگاه
     fi = Lihakauppias
     fr = Boucherie
@@ -15270,6 +15713,7 @@
     de = Autohaus
     el = Αντιπροσωπεία αυτοκινήτων
     es = Venta de coches
+    eu = Autoen salmenta
     fa = فروشگاه
     fi = Autokauppa
     fr = Concessionnaire automobile
@@ -15302,6 +15746,7 @@
     de = Autoteile
     el = Εξαρτήματα αυτοκινήτου
     es = Piezas de automóvil
+    eu = Autoen piezak
     fa = فروشگاه
     fi = Auton osat
     fr = Pièces de voiture
@@ -15334,6 +15779,7 @@
     de = Autowerkstatt
     el = Συνεργείο αυτοκινήτων
     es = Taller
+    eu = Tailerra
     fa = تعمیرگاه ماشین
     fi = Autokorjaamo
     fr = Réparation d'automobiles
@@ -15366,6 +15812,7 @@
     de = Reifenservice
     el = Βουλκανιζατέρ
     es = Reparación de neumáticos
+    eu = Pneumatikoen konponketa
     fa = اپاراتی
     fi = Rengashuolto
     fr = Réparation de pneus
@@ -15405,6 +15852,7 @@
     de = Drogerie
     el = Χημικά προϊόντα
     es = Droguería
+    eu = Botika
     fa = فروشگاه
     fi = Kosmetiikkamyymälä
     fr = Droguerie
@@ -15437,6 +15885,7 @@
     de = Schokoladengeschäft
     el = Κατάστημα
     es = Tienda
+    eu = Denda
     fa = فروشگاه
     fi = Kauppa
     fr = Chocolatier
@@ -15469,6 +15918,7 @@
     de = Bekleidungsgeschäft
     el = Κατάστημα ρούχων
     es = Tienda de ropa
+    eu = Arropa denda
     fa = لباس فروشی
     fi = Vaatekauppa
     fr = Boutique de vêtements
@@ -15501,6 +15951,7 @@
     de = Kaffeegeschäft
     el = Κατάστημα
     es = Tienda
+    eu = Denda
     fa = فروشگاه
     fi = Kauppa
     fr = Boutique de cafés
@@ -15533,6 +15984,7 @@
     de = Computergeschäft
     el = Κατάστημα πληροφορικής
     es = Tienda de informática
+    eu = Denda informatikoa
     fa = فروشگاه
     fi = Tietokonekauppa
     fr = Magasin d'informatique
@@ -15565,6 +16017,7 @@
     de = Süßwarengeschäft
     el = Γλυκά
     es = Confitería
+    eu = Gozogintza
     fa = فروشگاه
     fi = Makeiskauppa
     fr = Confiserie
@@ -15597,6 +16050,7 @@
     de = Gemischtwarenladen
     el = Ψιλικατζίδικο
     es = Tienda de barrio
+    eu = Auzoko denda
     fa = فروشگاه
     fi = Lähikauppa
     fr = Supérette
@@ -15629,6 +16083,7 @@
     de = Kopierladen
     el = Φωτοτυπείο
     es = Centro de copiado
+    eu = Kopiatu zentroa
     fa = فروشگاه چاپ و تکثیر
     fi = Painotalo
     fr = Boutique de photocopies
@@ -15661,6 +16116,7 @@
     de = Kosmetikgeschäft
     el = Καλλυντικά
     es = Productos cosméticos
+    eu = Produktu kosmetikoak
     fa = فروشگاه
     fi = Kosmetiikka
     fr = Produits de beauté
@@ -15693,6 +16149,7 @@
     de = Kaufhaus
     el = Πολυκατάστημα
     es = Grandes almacenes
+    eu = Denda handiak
     fa = مرکز خرید
     fi = Tavaratalo
     fr = Grand magasin
@@ -15725,6 +16182,7 @@
     de = Baumarkt
     el = Είδη κιγκαλερίας
     es = Ferretería
+    eu = Burdindegia
     fa = فروشگاه
     fi = Rautakauppa
     fr = Magasin de bricolage
@@ -15757,6 +16215,7 @@
     de = Chemische Reinigung
     el = Στεγνό καθάρισμα
     es = Tintorería
+    eu = Garbigailua
     fa = خشک شویی
     fi = Kuivapesula
     fr = Nettoyage à sec
@@ -15789,6 +16248,7 @@
     de = Elektronik
     el = Ηλεκτρονικά
     es = Electrónica
+    eu = Elektronika
     fa = فروشگاه
     fi = Elektroniikka
     fr = Magasin d'électroménager
@@ -15821,6 +16281,7 @@
     de = Erotikladen
     el = Κατάστημα ερωτικών ειδών
     es = Sex Shop
+    eu = Sexu denda
     fa = فروشگاه
     fi = Erotiikkaliike
     fr = Boutique érotique
@@ -15853,6 +16314,7 @@
     de = Textilgeschäft
     el = Κατάστημα
     es = Tienda
+    eu = Denda
     fa = فروشگاه
     fi = Kauppa
     fr = Magasin de tissus
@@ -15885,6 +16347,7 @@
     de = Florist
     el = Ανθοπωλείο
     es = Floristería
+    eu = Loradenda
     fa = فروشگاه
     fi = Floristi
     fr = Fleuriste
@@ -15918,6 +16381,7 @@
     de = Bestattungsinstitut
     el = Γραφεία τελετών
     es = Funeraria
+    eu = Tanatorioa
     fa = مسئول تشییع جنازه
     fi = Hautaustoimisto
     fr = Pompes funèbres
@@ -15950,6 +16414,7 @@
     de = Möbelgeschäft
     el = Κατάστημα επίπλων
     es = Tienda de muebles
+    eu = Altzari denda
     fa = فروشگاه
     fi = Huonekalukauppa
     fr = Magasin de meubles
@@ -15982,6 +16447,7 @@
     de = Gärtnerei
     el = Κατάστημα ειδών κήπου
     es = Vivero
+    eu = Haurtzaindegia
     fa = فروشگاه
     fi = Taimitarha
     fr = Jardinerie
@@ -16014,6 +16480,7 @@
     de = Geschenkladen
     el = Είδη δώρου
     es = Tienda de regalos
+    eu = Denda
     fa = فروشگاه
     fi = Lahjatavaraliike
     fr = Boutique de souvenirs
@@ -16046,6 +16513,7 @@
     de = Gemüseladen
     el = Μανάβικο
     es = Frutería
+    eu = Fruta denda
     fa = فروشگاه
     fi = Vihanneskauppias
     fr = Primeur
@@ -16078,6 +16546,7 @@
     de = Friseur
     el = Κομμωτής
     es = Peluquería
+    eu = Barber-denda
     fa = ارایشگاه
     fi = Kampaamo
     fr = Coiffeur
@@ -16110,6 +16579,7 @@
     de = Eisenwarengeschäft
     el = Είδη κιγκαλερίας
     es = Ferretería
+    eu = Burdindegia
     fa = فروشگاه
     fi = Rautakauppa
     fr = Quincaillerie
@@ -16142,6 +16612,7 @@
     de = Juweliergeschäft
     el = Κοσμηματοπωλείο
     es = Joyería
+    eu = Bitxiak
     fa = طلا فروشی
     fi = Korukauppa
     fr = Bijouterie
@@ -16171,6 +16642,7 @@
     ar = كشك
     el = Περίπτερο
     es = Quiosco
+    eu = Kioskoa
     fa = دَکهِ
     fi = Kioski
     fr = Kiosque
@@ -16199,6 +16671,7 @@
     de = Wäscherei
     el = Άπλυτα
     es = Lavandería
+    eu = Garbitegia
     fa = لباس شویی
     fi = Pesula
     fr = Laverie
@@ -16231,6 +16704,7 @@
     de = Einkaufszentrum
     el = Εμπορικό κέντρο
     es = Centro comercial
+    eu = Merkataritza-gune
     fa = فروشگاه
     fi = Ostoskeskus
     fr = Centre commercial
@@ -16262,6 +16736,7 @@
     de = Massagesalon
     el = Αίθουσα μασάζ
     es = Salón de masajes
+    eu = Masaje gela
     fa = سالن ماساژ
     fi = Hierontahuone
     fr = Salon de massage
@@ -16295,6 +16770,7 @@
     de = Handyladen
     el = Κινητή Τηλεφωνία
     es = Móviles
+    eu = Mugikorra
     fa = فروشگاه
     fi = Elektroniikkakauppa
     fr = Magasin de téléphonie mobile
@@ -16327,6 +16803,7 @@
     de = Geldverleiher
     el = Κατάστημα
     es = Tienda
+    eu = Denda
     fa = فروشگاه
     fi = Kauppa
     fr = Magasin
@@ -16359,6 +16836,7 @@
     de = Motorradladen
     el = Κατάστημα μοτοσυκλετών
     es = Tienda de motos
+    eu = Moto denda
     fa = فروشگاه
     fi = Moottoripyöräliike
     fr = Magasin de motos
@@ -16391,6 +16869,7 @@
     de = Musikgeschäft
     el = Κατάστημα
     es = Tienda
+    eu = Denda
     fa = فروشگاه
     fi = Kauppa
     fr = Disquaire
@@ -16423,6 +16902,7 @@
     de = Musikinstrumenteladen
     el = Κατάστημα
     es = Tienda
+    eu = Denda
     fa = فروشگاه
     fi = Kauppa
     fr = Magasin d'instruments de musique
@@ -16455,6 +16935,7 @@
     de = Zeitungsstand
     el = Εφημεριδοπώλης
     es = Puesto de venta de periódicos
+    eu = Kioskoa
     fa = فروشگاه
     fi = Lehtikioski
     fr = Kiosque à journaux
@@ -16487,6 +16968,7 @@
     de = Optiker
     el = Κατάστημα οπτικών
     es = Óptica
+    eu = Optika
     fa = فروشگاه
     fi = Optikko
     fr = Opticien
@@ -16519,6 +17001,7 @@
     de = Outdoor-Ausrüstung
     el = Εξοπλισμός υπαίθρου
     es = Equipamiento
+    eu = Ekipamendua
     fa = فروشگاه
     fi = Ulkoiluvarusteet
     fr = Matériel de loisirs de plein air
@@ -16551,6 +17034,7 @@
     de = Pfandleihe
     el = Ενεχυροδανειστήριο
     es = Casa de empeños
+    eu = Peoia
     fa = عتیقه فروشی
     fi = Panttilainaamo
     fr = Prêteur sur gages
@@ -16583,6 +17067,7 @@
     de = Tierhandlung
     el = Κατάστημα για κατοικίδια
     es = Tienda de mascotas
+    eu = Animali denda
     fa = فروشگاه
     fi = Eläinkauppa
     fr = Animalerie
@@ -16615,6 +17100,7 @@
     de = Fotofachgeschäft
     el = Φωτογραφείο
     es = Artículos de fotografía
+    eu = Argazkilaritza artikuluak
     fa = فروشگاه
     fi = Valokuvakauppa
     fr = Matériel de photographie
@@ -16647,6 +17133,7 @@
     de = Fischhändler
     el = Κατάστημα με θαλασσινά
     es = Pescadería
+    eu = Arrain-denda
     fa = فروشگاه
     fi = Kalakauppias
     fr = Poissonnier
@@ -16679,6 +17166,7 @@
     de = Schuhgeschäft
     el = Υποδηματοπωλείο
     es = Zapatería
+    eu = Zapata-denda
     fa = فروشگاه
     fi = Kenkäkauppa
     fr = Magasin de chaussures
@@ -16711,6 +17199,7 @@
     de = Sportartikel
     el = Αθλητικά είδη
     es = Artículos de deporte
+    eu = Kirol artikuluak
     fa = فروشگاه
     fi = Urheilukauppa
     fr = Articles de sport
@@ -16743,6 +17232,7 @@
     de = Schreibwarenladen
     el = Κατάστημα γραφικής ύλης
     es = Papelería
+    eu = Papergintza
     fa = لوازم التحریر
     fi = Kirjoitustarvikekauppa
     fr = Papeterie
@@ -16774,6 +17264,7 @@
     de = Supermarkt
     el = Σούπερ μάρκετ
     es = Supermercado
+    eu = Supermerkatua
     fa = فروشگاه
     fi = Supermarketti
     fr = Supermarché
@@ -16802,6 +17293,7 @@
     de = Tattoo-Studio
     el = Τατουάζ
     es = Tatuajes
+    eu = Tatuajeak
     fa = سالن خالکوبی
     fi = Tatuointiliike
     fr = Salon de tatouage
@@ -16834,6 +17326,7 @@
     de = Teegeschäft
     el = Κατάστημα
     es = Tienda
+    eu = Denda
     fa = فروشگاه
     fi = Kauppa
     fr = Boutique de thés
@@ -16866,6 +17359,7 @@
     de = Fahrkartenschalter
     el = Κατάστημα πώλησης εισιτηρίων
     es = Venta de entradas
+    eu = Sarreren salmenta
     fa = فروشگاه
     fi = Lippumyymälä
     fr = Billetterie
@@ -16898,6 +17392,7 @@
     de = Spielzeuggeschäft
     el = Κατάστημα παιχνιδιών
     es = Tienda de juguetes
+    eu = Jostailu denda
     fa = فروشگاه
     fi = Lelukauppa
     fr = Magasin de jouets
@@ -16930,6 +17425,7 @@
     de = Reisebüro
     el = Ταξιδιωτικό γραφείο
     es = Agencia de viajes
+    eu = Bidai agentzia
     fa = اژانس مسافرتی
     fi = Matkatoimisto
     fr = Agence de voyages
@@ -16962,6 +17458,7 @@
     de = Reifen-Shop
     el = Βουλκανιζατέρ
     es = Tienda de neumáticos
+    eu = Pneumatikoen denda
     fa = فروشگاه
     fi = Rengasliike
     fr = Magasin de pneus
@@ -16994,6 +17491,7 @@
     de = Billigladen
     el = Παντοπωλείο
     es = Tienda de Variedades
+    eu = Barietate Denda
     fa = فروشگاه
     fi = Halpakauppa
     fr = Bazar
@@ -17027,6 +17525,7 @@
     el = Βίντεο Κλαμπ
     es = Tienda de vídeo
     es-MX = Tienda de vídeo
+    eu = Bideo-denda
     fa = فروشگاه رسانه‌های تصویری
     fi = Videokauppa
     fr = Boutique de vidéos
@@ -17061,6 +17560,7 @@
     el = Κατάστημα βιντεοπαιχνιδιών
     es = Tienda de videojuegos
     es-MX = Tienda de videojuegos
+    eu = Bideo-jokoen denda
     fa = فروشگاه بازی‌های رایانه‌ای
     fi = Videopelikauppa
     fr = Boutique de jeux vidéo
@@ -17094,6 +17594,7 @@
     de = Wein- und Spirituosengeschäft
     el = Οινοπωλείο
     es = Tienda de vinos
+    eu = Ardo-denda
     fa = فروشگاه
     fi = Alkoholimyymälä
     fr = Caviste
@@ -17122,6 +17623,7 @@
     en = sport
     de = Sport
     es = Deporte
+    eu = Kirola
     fi = Urheilu
     ja = スポーツ
     pt = Desporto
@@ -17134,6 +17636,7 @@
     en = American Football
     de = American Football
     es = Fútbol americano
+    eu = Futbola
     fi = Amerikkalainen jalkapallo
     ja = アメリカンフットボール
     pl = Futbol amerykański
@@ -17147,6 +17650,7 @@
     en = Archery
     de = Bogenschießen
     es = Tiro con arco
+    eu = Arku-tiroa
     fi = Jousiammunta
     fr = Tir à l'arc
     ja = アーチェリー
@@ -17166,6 +17670,7 @@
     el = Στίβος
     es = Atletismo
     es-MX = Atletismo
+    eu = Atletismoa
     fa = ورزش
     fi = Yleisurheilu
     fr = Athlétisme
@@ -17195,6 +17700,7 @@
     en = Rugby
     de = Rugby
     es = Fútbol australiano
+    eu = Australiako futbol araua
     ja = オーストラリアンフットボール
     pt = Futebol australiano
     pt-BR = Futebol australiano
@@ -17206,6 +17712,7 @@
     en = Baseball
     de = Baseball
     es = Béisbol
+    eu = Beisbol
     ja = 野球
     pl = Baseball
     pt = Beisebol
@@ -17224,6 +17731,7 @@
     el = Μπάσκετ
     es = Baloncesto
     es-MX = Baloncesto
+    eu = Saskibaloia
     fa = بسکتبال
     fi = Koripallo
     fr = Basket-ball
@@ -17266,6 +17774,7 @@
     en = Cricket
     de = Cricket
     es = Críquet
+    eu = Kilkerra
     fi = Kriketti
     ja = クリケット
     pl = Krykiet
@@ -17280,6 +17789,7 @@
     en = Сurling
     de = Curling
     es = Curling
+    eu = Curling
     fi = Curling
     ja = カーリング
     pt = Curling
@@ -17292,6 +17802,7 @@
     en = Diving
     de = Tauchen
     es = Salto
+    eu = Salto egin
     ja = ダイビング
     pt = Mergulho
     pt-BR = Mergulho
@@ -17309,6 +17820,7 @@
     el = Ιππασία
     es = Equitación
     es-MX = Deporte hípico
+    eu = Zaldi-lasterketa
     fa = ورزش های سوارکاری
     fi = Hevosurheilu
     fr = Sport hippique
@@ -17338,6 +17850,7 @@
     en = Golf
     de = Golf
     es = Golf
+    eu = Golfa
     fi = Golf
     ja = ゴルフ
     pl = Golf
@@ -17352,6 +17865,7 @@
     en = Gymnastics
     de = Gymnastik
     es = Gimnasia
+    eu = Gimnasia
     fi = Voimistelu
     fr = Gymnastique
     ja = 体操競技
@@ -17367,6 +17881,7 @@
     en = Handball
     de = Handball
     es = Balonmano
+    eu = Eskubaloia
     fi = Käsipallo
     ja = ハンドボール
     pl = Piłka ręczna
@@ -17381,6 +17896,7 @@
     en = Various Sport
     de = verschiedene Sportarten
     es = Varios deportes
+    eu = Hainbat kirol
     ja = 複数
     pt = Vários desportos
     pt-BR = Vários desportos
@@ -17393,6 +17909,7 @@
     en = Scuba Diving
     de = Sporttauchen
     es = Submarinismo
+    eu = Urpekaritza
     fr = Plongée sous-marine
     ja = スクーバダイビング
     pl = Nurkowanie
@@ -17406,6 +17923,7 @@
     en = Shooting
     de = Sportschießen
     es = Tiro deportivo
+    eu = Kirolaren jaurtiketa
     fi = Ammunta
     fr = Sports de tir
     ja = 射撃競技
@@ -17421,6 +17939,7 @@
     en = Skiing
     de = Skisport
     es = Esquí
+    eu = Eskia
     fi = Hiihto
     fr = Ski
     ja = スキー
@@ -17434,6 +17953,7 @@
     en = Soccer (Football)
     de = Fußball
     es = Fútbol
+    eu = Futbola
     fi = Jalkapallo
     fr = Football
     ja = サッカー
@@ -17448,6 +17968,7 @@
     en = Swimming
     de = Schwimmen
     es = Natación
+    eu = Igeriketa
     fi = Uinti
     fr = Natation
     ja = 水泳
@@ -17468,6 +17989,7 @@
     el = Γήπεδο τένις
     es = Cancha de tenis
     es-MX = Cancha de tenis
+    eu = Tenis kantxa
     fa = زمین تنیس
     fi = Tenniskenttä
     fr = Court de tennis
@@ -17497,6 +18019,7 @@
     en = Tourism
     de = Tourismus
     es = Turismo
+    eu = Turismoa
     fi = Turismi
     ja = 観光
     pl = Turystyka
@@ -17515,6 +18038,7 @@
     de = Berghütte
     el = Ορεινό καταφύγιο
     es = Cabaña
+    eu = Kabina
     fi = Vuorimajoitus
     fr = Refuge de montagne
     hu = Hegyi menedék
@@ -17546,6 +18070,7 @@
     de = Ferienwohnung
     el = Διαμερίσματα
     es = Apartamentos
+    eu = Apartamentuak
     fa = اپارتمان
     fi = Loma-asunnot
     fr = Appart'hôtel
@@ -17578,6 +18103,7 @@
     de = Kunstwerk
     el = Έργα τέχνης
     es = Obras de arte
+    eu = Artelanak
     fa = گردشگری
     fi = Taideteos
     fr = Œuvre
@@ -17610,6 +18136,7 @@
     de = Kunstwerk
     el = Έργα τέχνης
     es = Obras de arte
+    eu = Artelanak
     fa = گردشگری
     fi = Taideteos
     fr = Œuvre
@@ -17642,6 +18169,7 @@
     de = Gemälde
     el = Έργα τέχνης
     es = Obras de arte
+    eu = Artelanak
     fa = گردشگری
     fi = Taideteos
     fr = Œuvre
@@ -17674,6 +18202,7 @@
     de = Skulptur
     el = Έργα τέχνης
     es = Obras de arte
+    eu = Artelanak
     fa = گردشگری
     fi = Taideteos
     fr = Œuvre
@@ -17706,6 +18235,7 @@
     de = Statue
     el = Έργα τέχνης
     es = Obras de arte
+    eu = Artelanak
     fa = گردشگری
     fi = Taideteos
     fr = Œuvre
@@ -17738,6 +18268,7 @@
     de = Sehenswürdigkeit
     el = Αξιοθέατα
     es = Atracción turística
+    eu = Erakarpen turistikoa
     fa = گردشگری
     fi = Nähtävyys
     hu = Látnivaló
@@ -17776,6 +18307,7 @@
     de = Zeltplatz
     el = Κάμπινγκ
     es = Campamento
+    eu = Kanpalekua
     fa = محل چادر زنی
     fi = Retkeily
     hu = Kemping
@@ -17804,6 +18336,7 @@
     de = Wohnwagenstellplatz
     el = Χώρος για τροχόσπιτα
     es = Zona de caravanas
+    eu = Karabana gunea
     fi = Asuntovaunupaikka
     fr = Aire de camping-car
     hu = Karaván pihenő
@@ -17834,6 +18367,7 @@
     de = Ferienhaus
     el = Σαλέ
     es = Chalé
+    eu = Txaleta
     fa = هتل
     fi = Alppimaja
     fr = Meublé de tourisme
@@ -17862,6 +18396,7 @@
     de = Galerie
     el = Αξιοθέατο
     es = Turismo
+    eu = Turismoa
     fa = گالری
     fi = Nähtävyydet
     fr = Galerie d'art
@@ -17894,6 +18429,7 @@
     de = Gästehaus
     el = Ξενώνας
     es = Casa de huéspedes
+    eu = Ostatua
     fa = هتل
     fi = Majatalo
     fr = Maison d'hôtes
@@ -17924,6 +18460,7 @@
     de = Herberge
     el = Πανδοχείο
     es = Albergue juvenil
+    eu = Gazteen aterpetxea
     fa = هتل
     fi = Hostelli
     fr = Auberge de jeunesse
@@ -17974,6 +18511,7 @@
     de = Touristeninformation
     el = Τουριστικές πληροφορίες
     es = Información
+    eu = Informazioa
     fa = گردشگری
     fi = Turisti-informaatio
     fr = Informations touristiques
@@ -18006,6 +18544,7 @@
     de = Informationstafel
     el = Πίνακας πληροφοριών
     es = Tablón de información
+    eu = Informazio taula
     fa = گردشگری
     fi = Informaatio
     fr = Panneau d'informations
@@ -18038,6 +18577,7 @@
     de = Wegweiser
     el = Τουριστικές πληροφορίες
     es = Información
+    eu = Informazioa
     fa = گردشگری
     fi = Turisti-informaatio
     fr = Poteaux indicateurs
@@ -18070,6 +18610,7 @@
     de = Touristenkarte
     el = Τουριστικός χάρτης
     es = Mapa turístico
+    eu = Mapa turistikoa
     fa = گردشگری
     fi = Turistikartta
     fr = Carte touristique
@@ -18102,6 +18643,7 @@
     de = Fremdenverkehrsamt
     el = Ενημέρωση τουριστών
     es = Oficina de turismo
+    eu = Turismo bulegoa
     fa = گردشگری
     fi = Turistitoimisto
     fr = Office de tourisme
@@ -18154,6 +18696,7 @@
     de = Museum
     el = Μουσείο
     es = Museo
+    eu = Museoa
     fa = گردشگری
     fi = Museo
     fr = Musée
@@ -18182,6 +18725,7 @@
     de = Picknickplatz
     el = Χώρος εκδρομής
     es = Picnic
+    eu = Piknika
     fa = مکان پیک نیک
     fi = Piknikpaikat
     fr = Terrain de pique-nique
@@ -18243,6 +18787,7 @@
     de = Freizeitpark
     el = Αξιοθέατο
     es = Parque de atracciones
+    eu = Parke tematiko
     fa = گردشگری
     fi = Huvipuisto
     fr = Parc d'attractions
@@ -18275,6 +18820,7 @@
     de = Aussichtspunkt
     el = Θέα
     es = Vista panorámica
+    eu = Bista panoramikoa
     fa = گردشگری
     fi = Näköalatasanne
     fr = Belvédère
@@ -18307,6 +18853,7 @@
     de = Wildnishütte
     el = Καλύβα
     es = Cabaña
+    eu = Kabina
     fa = کلبه‌ی صحرایی
     fi = Autiotupa
     fr = Refuge non gardé
@@ -18555,6 +19102,7 @@
     de = Schleusentor
     el = Φράγμα
     es = Compuerta
+    eu = Atea
     fi = Kanavasulku
     fr = Porte d'écluse
     hu = Zsilip
@@ -18587,6 +19135,7 @@
     de = Fluss
     el = Ποταμός
     es = Río
+    eu = Ibai
     fa = رودخانه
     fi = Joki
     fr = Rivière
@@ -18620,6 +19169,7 @@
     de = Fluss
     el = Ποταμός
     es = Río
+    eu = Ibai
     fa = رودخانه
     fi = Joki
     fr = Rivière
@@ -18653,6 +19203,7 @@
     de = Flussufer
     el = Ποταμός
     es = Río
+    eu = Ibai
     fa = رودخانه
     fi = Joki
     fr = Rivière
@@ -18686,6 +19237,7 @@
     de = Bach
     el = Ποταμός
     es = Río
+    eu = Ibai
     fa = رودخانه
     fi = Joki
     fr = Ruisseau
@@ -18719,6 +19271,7 @@
     de = Bach
     el = Ποταμός
     es = Río
+    eu = Ibai
     fa = رودخانه
     fi = Joki
     fr = Ruisseau
@@ -18752,6 +19305,7 @@
     de = Bach
     el = Ποταμός
     es = Río
+    eu = Ibai
     fa = رودخانه
     fi = Joki
     fr = Ruisseau
@@ -18785,6 +19339,7 @@
     de = Bach
     el = Ποταμός
     es = Río
+    eu = Ibai
     fa = رودخانه
     fi = Joki
     fr = Ruisseau
@@ -18817,6 +19372,7 @@
     de = Wasserfall
     el = Καταρράκτης
     es = Cascada
+    eu = Ur-jauzia
     fa = گردشگری
     fi = Vesiputous
     fr = Cascade
@@ -18856,6 +19412,7 @@
     en = Wheelchair
     de = Rollstuhl
     es = Silla de ruedas
+    eu = Gurpil-aulkia
     fi = Rullatuoli
     ja = 車椅子
     pt = Cadeiras de rodas
@@ -18874,6 +19431,7 @@
     el = Μερικώς εξοπλισμένο για άτομα με ειδικές ανάγκες
     es = Parcialmente equipado para discapacitados
     es-MX = Parcialmente equipado para discapacitados
+    eu = Ezinduentzako partzialki hornitua
     fa = دسترسی محدود با صندلی چرخ دار
     fi = Osittain varustettu vammaisille
     fr = Partiellement équipé pour l'usage des fauteuils roulants
@@ -18908,6 +19466,7 @@
     el = Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες
     es = No equipado para discapacitados
     es-MX = No equipado para discapacitados
+    eu = Ezinduentzako ekipatuta ez dago
     fa = بدون دسترسی با صندلی چرخ دار
     fi = Ei varustettu vammaisille
     fr = Non équipé pour l'usage des fauteuils roulants
@@ -18942,6 +19501,7 @@
     el = Εξοπλισμένο για άτομα με ειδικές ανάγκες
     es = Equipado para discapacitados
     es-MX = Equipado para discapacitados
+    eu = Ezinduentzako hornitua
     fa = دسترسی کامل با صندلی چرخ دار
     fi = Varustettu vammaisille
     fr = Équipé pour l'usage des fauteuils roulants
@@ -19120,6 +19680,7 @@
     de = Gebäude
     el = Κτίριο
     es = Edificio
+    eu = Eraikin
     fa = ساختما
     fi = Rakennus
     fr = Bâtiment

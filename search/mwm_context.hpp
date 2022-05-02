@@ -98,7 +98,7 @@ public:
   // Returns false if feature was deleted by user.
   std::unique_ptr<FeatureType> GetFeature(uint32_t index) const;
 
-  WARN_UNUSED_RESULT inline bool GetCenter(uint32_t index, m2::PointD & center)
+  [[nodiscard]] inline bool GetCenter(uint32_t index, m2::PointD & center)
   {
     return m_centers.Get(index, center);
   }

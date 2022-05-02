@@ -23,9 +23,6 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
-#include <iterator>
 #include <string>
 #include <vector>
 
@@ -96,7 +93,7 @@ public:
   // Makes the final result that is shown to the user from a ranker's result.
   // |needAddress| and |needHighlighting| enable filling of optional fields
   // that may take a considerable amount of time to compute.
-  Result MakeResult(RankerResult const & r, bool needAddress, bool needHighlighting) const;
+  Result MakeResult(RankerResult rankerResult, bool needAddress, bool needHighlighting) const;
 
   void SuggestStrings();
 
@@ -124,7 +121,7 @@ private:
   void GetBestMatchName(FeatureType & f, std::string & name) const;
   void MatchForSuggestions(strings::UniString const & token, int8_t locale,
                            std::string const & prolog);
-  void ProcessSuggestions(std::vector<RankerResult> & vec) const;
+  void ProcessSuggestions(std::vector<RankerResult> const & vec) const;
 
   std::string GetLocalizedRegionInfoForResult(RankerResult const & result) const;
 

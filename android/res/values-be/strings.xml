@@ -44,9 +44,10 @@
 	<string name="close">Зачыніць</string>
 	<string name="unsupported_phone">Дадатак патрабуе апаратна паскоранага OpenGL. Нажаль, ваша прылада не падтрымліваецца.</string>
 	<string name="download">Спампаваць</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Калі ласка, адлучыце USB кабель альбо ўстаўце карту памяці каб карыстацца Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Калі ласка, спачатку вызваліце трохі месца на SD карце/USB сховішчы каб карыстацца дататкам</string>
-	<string name="not_enough_memory">Недастаткова памяці для запуска дадатка</string>
 	<string name="download_resources">Перад пачаткам працы дазвольце нам спампаваць агульную мапу свету на вашу прыладу.\nГэта патрабуе %s дадзеных.</string>
 	<string name="download_resources_continue">Перайскі да мапы</string>
 	<string name="downloading_country_can_proceed">Спампоўваецца %s. Можаце зараз\nперайсці да мапы.</string>
@@ -215,6 +216,8 @@
 	<string name="search_show_on_map">Паглядзець на мапе</string>
 	<!-- Text in menu -->
 	<string name="website">Вэб-сайт</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Навіны</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Водгук</string>
 	<!-- Text in menu -->
@@ -675,7 +678,9 @@
 	<string name="elevation_profile_time">Час:</string>
 	<string name="isolines_toast_zooms_1_10">Павялічце маштаб, каб пабачыць рэльеф</string>
 	<string name="download_map_title">Спампаваць мапу света</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Памылка падлучэння</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Адлучыце USB кабель</string>
 	<string name="enable_screen_sleep">Дазволіць экрану засынаць</string>
 	<!-- Description in preferences -->
@@ -712,6 +717,7 @@
 	<string name="type.recycling.green_waste">Арганіка / Харчовыя адходы</string>
 	<string name="type.recycling.cartons">Тэтрапак і аналагі</string>
 	<string name="type.amenity.sanitary_dump_station">Зліў для прыбіральняў транспартных сродкаў</string>
+	<string name="type.amenity.townhall">Адміністрацыя</string>
 	<string name="type.amenity.vending_machine">Гандлёвы аўтамат</string>
 	<string name="type.amenity.vending_machine.cigarettes">Аўтамат з цыгарэтамі</string>
 	<string name="type.amenity.vending_machine.coffee">Кававы аўтамат</string>
@@ -833,6 +839,7 @@
 	<string name="type.landuse.cemetery">Могілкі</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Хрысціянскія могілкі</string>
+	<string name="type.landuse.education">Адукацыйныя ўстановы</string>
 	<string name="type.leisure.marina">Прычал</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
 	<string name="type.man_made.survey_point">Геадэзічны пункт</string>

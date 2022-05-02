@@ -9,7 +9,6 @@
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
-#include "base/macros.hpp"
 #include "base/task_loop.hpp"
 #include "base/thread_pool_delayed.hpp"
 
@@ -155,11 +154,11 @@ public:
   void SetResourceDir(std::string const & path);
 
   /// Creates the directory in the filesystem.
-  WARN_UNUSED_RESULT static EError MkDir(std::string const & dirName);
+  [[nodiscard]] static EError MkDir(std::string const & dirName);
 
   /// Creates the directory. Returns true on success.
   /// Returns false and logs the reason on failure.
-  WARN_UNUSED_RESULT static bool MkDirChecked(std::string const & dirName);
+  [[nodiscard]] static bool MkDirChecked(std::string const & dirName);
 
   // Creates the directory path dirName.
   // The function will create all parent directories necessary to create the directory.
@@ -167,7 +166,7 @@ public:
   // If the path already exists when this function is called, it will return true.
   // If it was possible to create only a part of the directories, the function will returns false
   // and will not restore the previous state of the file system.
-  WARN_UNUSED_RESULT static bool MkDirRecursively(std::string const & dirName);
+  [[nodiscard]] static bool MkDirRecursively(std::string const & dirName);
 
   /// Removes empty directory from the filesystem.
   static EError RmDir(std::string const & dirName);
@@ -244,7 +243,6 @@ public:
     NOT_ENOUGH_SPACE
   };
   TStorageStatus GetWritableStorageStatus(uint64_t neededSize) const;
-  uint64_t GetWritableStorageSpace() const;
 
   // Please note, that number of active cores can vary at runtime.
   // DO NOT assume for the same return value between calls.

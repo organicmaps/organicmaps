@@ -44,9 +44,10 @@
 	<string name="close">Закрити</string>
 	<string name="unsupported_phone">Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.</string>
 	<string name="download">Завантажити</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Вимкніть USB кабель або вставте SD-карту</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Недостатньо вільного місця на SD карті / в пам\'яті пристрою для використання програми</string>
-	<string name="not_enough_memory">Недостатньо пам\'яті для запуску програми</string>
 	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.\nВона потребує %s даних.</string>
 	<string name="download_resources_continue">Перейти на мапу</string>
 	<string name="downloading_country_can_proceed">Поки завантажується %s\nви можете користуватися програмою.</string>
@@ -210,6 +211,8 @@
 	<string name="search_show_on_map">Подивитись на мапі</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Новини</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Відгук</string>
 	<!-- Text in menu -->
@@ -800,7 +803,7 @@
 	<string name="type.amenity.telephone">Телефон</string>
 	<string name="type.amenity.theatre">Театр</string>
 	<string name="type.amenity.toilets">Туалет</string>
-	<string name="type.amenity.townhall">Ратуша</string>
+	<string name="type.amenity.townhall">Адміністрація</string>
 	<string name="type.amenity.university">Університет</string>
 	<string name="type.amenity.vending_machine">Торговий автомат</string>
 	<string name="type.amenity.vending_machine.cigarettes">Автомат з цигарками</string>
@@ -1170,6 +1173,7 @@
 	<string name="type.landuse.churchyard">Церковний двір</string>
 	<string name="type.landuse.commercial">Комерційні ділянки</string>
 	<string name="type.landuse.construction">Будівництво</string>
+	<string name="type.landuse.education">Освітній заклади</string>
 	<string name="type.landuse.farm">Ферма</string>
 	<string name="type.landuse.farmland">Сільськогосподарська земля</string>
 	<string name="type.landuse.farmyard">Сільськогосподарська земля</string>

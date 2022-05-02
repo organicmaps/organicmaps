@@ -106,8 +106,6 @@ enum MultiTouchAction
 Framework::Framework()
   : m_lastCompass(0.0)
   , m_isSurfaceDestroyed(false)
-  , m_currentMode(location::PendingPosition)
-  , m_isCurrentModeInitialized(false)
   , m_isChoosePositionMode(false)
 {
   m_work.GetTrafficManager().SetStateListener(bind(&Framework::TrafficStateChanged, this, _1));
@@ -171,7 +169,7 @@ bool Framework::DestroySurfaceOnDetach()
 }
 
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
-                                  bool launchByDeepLink, int appVersionCode)
+                                  bool launchByDeepLink, uint32_t appVersionCode)
 {
   // Vulkan is supported only since Android 8.0, because some Android devices with Android 7.x
   // have fatal driver issue, which can lead to process termination and whole OS destabilization.
@@ -234,8 +232,6 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
     p.m_surfaceHeight = oglFactory->GetHeight();
   }
   p.m_visualScale = static_cast<float>(dp::VisualScale(densityDpi));
-  p.m_hasMyPositionState = m_isCurrentModeInitialized;
-  p.m_initialMyPositionState = m_currentMode;
   p.m_isChoosePositionMode = m_isChoosePositionMode;
   p.m_hints.m_isFirstLaunch = firstLaunch;
   p.m_hints.m_isLaunchByDeepLink = launchByDeepLink;
@@ -253,7 +249,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   return true;
 }
 
-bool Framework::IsDrapeEngineCreated()
+bool Framework::IsDrapeEngineCreated() const
 {
   return m_work.IsDrapeEngineCreated();
 }
@@ -554,6 +550,13 @@ void Framework::RemoveLocalMaps()
   m_work.DeregisterAllMaps();
 }
 
+void Framework::ReloadWorldMaps()
+{
+  /// @todo Can invent more optimal routine to remove/add World files only.
+  RemoveLocalMaps();
+  AddLocalMaps();
+}
+
 void Framework::ReplaceBookmark(kml::MarkId markId, kml::BookmarkData & bm)
 {
   m_work.GetBookmarkManager().GetEditSession().UpdateBookmark(markId, bm);
@@ -574,6 +577,7 @@ void Framework::DeactivatePopup()
   m_work.DeactivateMapSelection(false);
 }
 
+/*
 string Framework::GetOutdatedCountriesString()
 {
   vector<Country const *> countries;
@@ -595,6 +599,7 @@ string Framework::GetOutdatedCountriesString()
 
   return res;
 }
+*/
 
 void Framework::SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn)
 {
@@ -633,23 +638,12 @@ void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const
   m_myPositionModeSignal = fn;
 }
 
-location::EMyPositionMode Framework::GetMyPositionMode()
+location::EMyPositionMode Framework::GetMyPositionMode() const
 {
-  if (!m_isCurrentModeInitialized)
-  {
-    if (!settings::Get(settings::kLocationStateMode, m_currentMode))
-      m_currentMode = location::NotFollowNoPosition;
+  // No need in assertion here, return location::PendingPosition if no engine created.
+  //ASSERT(IsDrapeEngineCreated(), ());
 
-    m_isCurrentModeInitialized = true;
-  }
-
-  return m_currentMode;
-}
-
-void Framework::OnMyPositionModeChanged(location::EMyPositionMode mode)
-{
-  m_currentMode = mode;
-  m_isCurrentModeInitialized = true;
+  return m_work.GetMyPositionMode();
 }
 
 void Framework::SwitchMyPositionNextMode()
@@ -702,10 +696,12 @@ void Framework::EnableDownloadOn3g()
   m_work.GetDownloadingPolicy().EnableCellularDownload(true);
 }
 
+/*
 int Framework::ToDoAfterUpdate() const
 {
   return (int) m_work.ToDoAfterUpdate();
 }
+*/
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)
 {
@@ -946,6 +942,7 @@ Java_com_mapswithme_maps_Framework_nativeFormatSpeed(JNIEnv * env, jclass, jdoub
   return jni::ToJavaString(env, measurement_utils::FormatSpeed(speed));
 }
 
+/*
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountriesString(JNIEnv * env, jclass)
 {
@@ -983,6 +980,7 @@ Java_com_mapswithme_maps_Framework_nativeUpdateSavedDataVersion(JNIEnv * env, jc
 {
   frm()->UpdateSavedDataVersion();
 }
+*/
 
 JNIEXPORT jlong JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetDataVersion(JNIEnv * env, jclass)
@@ -1500,15 +1498,9 @@ Java_com_mapswithme_maps_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclas
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeRegisterMaps(JNIEnv * env, jclass)
+Java_com_mapswithme_maps_Framework_nativeReloadWorldMaps(JNIEnv * env, jclass)
 {
-  frm()->RegisterAllMaps();
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeDeregisterMaps(JNIEnv * env, jclass)
-{
-  frm()->DeregisterAllMaps();
+  g_framework->ReloadWorldMaps();
 }
 
 JNIEXPORT jboolean JNICALL

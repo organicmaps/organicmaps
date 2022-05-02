@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/margin_base_plus"
+            android:layout_marginStart="@dimen/margin_base_plus"
             android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
@@ -61,6 +61,11 @@
                 android:layout_marginEnd="@dimen/margin_base"
                 android:textAppearance="@style/MwmTextAppearance.Body1"
                 android:text="@string/about_description"/>
+
+      <TextView android:id="@+id/news"
+          style="@style/MwmWidget.TextView.Item"
+          android:text="@string/news"
+          app:drawableStartCompat="@drawable/ic_news"/>
 
       <TextView android:id="@+id/faq"
           style="@style/MwmWidget.TextView.Item"
@@ -105,6 +110,11 @@
                 android:text="@string/website"
                 app:drawableStartCompat="@drawable/ic_website"/>
 
+      <TextView android:id="@+id/email"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/email"
+                app:drawableStartCompat="@drawable/ic_email"/>
+
       <TextView android:id="@+id/facebook"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/facebook"
@@ -119,6 +129,16 @@
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/instagram"
                 app:drawableStartCompat="@drawable/ic_instagram"/>
+
+      <TextView android:id="@+id/matrix"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/matrix"
+                app:drawableStartCompat="@drawable/ic_matrix"/>
+
+      <TextView android:id="@+id/openstreetmap"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/openstreetmap"
+                app:drawableStartCompat="@drawable/ic_openstreetmap"/>
 
       <View android:layout_width="match_parent"
             android:layout_height="1dp"

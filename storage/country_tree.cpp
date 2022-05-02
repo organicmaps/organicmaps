@@ -77,13 +77,8 @@ public:
   {
     Country country(id, parent);
     if (mapSize)
-    {
-      CountryFile countryFile(id);
-      countryFile.SetRemoteSize(mapSize);
-      countryFile.SetSha1(mapSha1);
-      country.SetFile(countryFile);
-    }
-    return &m_countries.AddAtDepth(depth, country);
+      country.SetFile(CountryFile{id, mapSize, mapSha1});
+    return &m_countries.AddAtDepth(depth, std::move(country));
   }
 
   void InsertOldMwmMapping(CountryId const & newId, CountryId const & oldId) override
@@ -171,13 +166,13 @@ public:
 
 // CountryTree::Node -------------------------------------------------------------------------------
 
-CountryTree::Node * CountryTree::Node::AddAtDepth(size_t level, Country const & value)
+CountryTree::Node * CountryTree::Node::AddAtDepth(size_t level, Country && value)
 {
   Node * node = this;
   while (--level > 0 && !node->m_children.empty())
     node = node->m_children.back().get();
   ASSERT_EQUAL(level, 0, ());
-  return node->Add(value);
+  return node->Add(std::move(value));
 }
 
 CountryTree::Node const & CountryTree::Node::Parent() const
@@ -253,9 +248,9 @@ void CountryTree::Node::ForEachAncestorExceptForTheRoot(
   m_parent->ForEachAncestorExceptForTheRoot(f);
 }
 
-CountryTree::Node * CountryTree::Node::Add(Country const & value)
+CountryTree::Node * CountryTree::Node::Add(Country && value)
 {
-  m_children.emplace_back(std::make_unique<Node>(value, this));
+  m_children.emplace_back(std::make_unique<Node>(std::move(value), this));
   return m_children.back().get();
 }
 
@@ -273,22 +268,22 @@ CountryTree::Node & CountryTree::GetRoot()
   return *m_countryTree;
 }
 
-Country & CountryTree::AddAtDepth(size_t level, Country const & value)
+Country & CountryTree::AddAtDepth(size_t level, Country && value)
 {
   Node * added = nullptr;
   if (level == 0)
   {
     ASSERT(IsEmpty(), ());
-    m_countryTree = std::make_unique<Node>(value, nullptr);  // Creating the root node.
+    m_countryTree = std::make_unique<Node>(std::move(value), nullptr);  // Creating the root node.
     added = m_countryTree.get();
   }
   else
   {
-    added = m_countryTree->AddAtDepth(level, value);
+    added = m_countryTree->AddAtDepth(level, std::move(value));
   }
 
   ASSERT(added, ());
-  m_countryTreeMap.insert(make_pair(value.Name(), added));
+  m_countryTreeMap.insert(make_pair(added->Value().Name(), added));
   return added->Value();
 }
 
@@ -443,6 +438,21 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countri
   return version;
 }
 
+namespace
+{
+unique_ptr<Reader> GetReaderImpl(Platform & pl, string const & file, string const & scope)
+{
+  try
+  {
+    return pl.GetReader(file, scope);
+  }
+  catch (RootException const &)
+  {
+  }
+  return nullptr;
+}
+} // namespace
+
 int64_t LoadCountriesFromFile(string const & path, CountryTree & countries,
                               Affiliations & affiliations,
                               CountryNameSynonyms & countryNameSynonyms,
@@ -450,9 +460,47 @@ int64_t LoadCountriesFromFile(string const & path, CountryTree & countries,
                               MwmTopCountryGeoIds & mwmTopCountryGeoIds)
 {
   string json;
-  ReaderPtr<Reader>(GetPlatform().GetReader(path)).ReadAsString(json);
-  return LoadCountriesFromBuffer(json, countries, affiliations, countryNameSynonyms,
-                                 mwmTopCityGeoIds, mwmTopCountryGeoIds);
+  int64_t version = -1;
+
+  // Choose the latest version from "resource" or "writable":
+  // w > r in case of autoupdates
+  // r > w in case of a new countries file with an updated app
+
+  auto & pl = GetPlatform();
+  auto reader = GetReaderImpl(pl, path, "fr");
+  if (reader)
+  {
+    reader->ReadAsString(json);
+    version = LoadCountriesFromBuffer(json, countries, affiliations, countryNameSynonyms,
+                                      mwmTopCityGeoIds, mwmTopCountryGeoIds);
+  }
+
+  reader = GetReaderImpl(pl, path, "w");
+  if (reader)
+  {
+    CountryTree newCountries;
+    Affiliations newAffs;
+    CountryNameSynonyms newSyms;
+    MwmTopCityGeoIds newCityIds;
+    MwmTopCountryGeoIds newCountryIds;
+
+    reader->ReadAsString(json);
+    int64_t const newVersion = LoadCountriesFromBuffer(json, newCountries, newAffs, newSyms,
+                                                       newCityIds, newCountryIds);
+
+    if (newVersion > version)
+    {
+      version = newVersion;
+
+      countries = std::move(newCountries);
+      affiliations = std::move(newAffs);
+      countryNameSynonyms = std::move(newSyms);
+      mwmTopCityGeoIds = std::move(newCityIds);
+      mwmTopCountryGeoIds = std::move(newCountryIds);
+    }
+  }
+
+  return version;
 }
 
 void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryInfo> & id2info)

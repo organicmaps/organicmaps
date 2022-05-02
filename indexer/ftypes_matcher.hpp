@@ -183,7 +183,6 @@ public:
 // Suburb > Neighbourhood > Residential
 enum class SuburbType
 {
-  None = -1,
   Residential = 0,
   Neighbourhood,
   Suburb,
@@ -243,6 +242,8 @@ class IsOneWayChecker : public BaseChecker
   IsOneWayChecker();
 public:
   DECLARE_CHECKER_INSTANCE(IsOneWayChecker);
+
+  uint32_t GetType() const { return m_types[0]; }
 };
 
 class IsRoundAboutChecker : public BaseChecker
@@ -285,8 +286,6 @@ class IsPoiChecker : public BaseChecker
 {
   IsPoiChecker();
 public:
-  static std::set<std::string> const kPoiTypes;
-
   DECLARE_CHECKER_INSTANCE(IsPoiChecker);
 };
 
@@ -413,27 +412,27 @@ public:
 class IsEatChecker : public BaseChecker
 {
 public:
-  enum class Type
-  {
-    Cafe,
-    Bakery,
-    FastFood,
-    Restaurant,
-    Bar,
-    Pub,
-    Biergarten,
+//  enum class Type
+//  {
+//    Cafe = 0,
+//    Bakery,
+//    FastFood,
+//    Restaurant,
+//    Bar,
+//    Pub,
+//    Biergarten,
 
-    Count
-  };
+//    Count
+//  };
 
   DECLARE_CHECKER_INSTANCE(IsEatChecker);
 
-  Type GetType(uint32_t t) const;
+//  Type GetType(uint32_t t) const;
 
 private:
   IsEatChecker();
 
-  std::array<std::pair<uint32_t, Type>, base::Underlying(Type::Count)> m_sortedTypes;
+//  std::array<uint32_t, base::Underlying(Type::Count)> m_eat2clType;
 };
 
 class IsCuisineChecker : public BaseChecker
@@ -480,11 +479,14 @@ public:
   DECLARE_CHECKER_INSTANCE(IsMotorwayJunctionChecker);
 };
 
-class IsFerryChecker : public BaseChecker
+/// Exotic OSM ways that potentially have "duration" tag.
+class IsWayWithDurationChecker : public BaseChecker
 {
-  IsFerryChecker();
+  IsWayWithDurationChecker();
 public:
-  DECLARE_CHECKER_INSTANCE(IsFerryChecker);
+  DECLARE_CHECKER_INSTANCE(IsWayWithDurationChecker);
+
+  uint32_t GetMotorVehicleRailway() const { return m_types[1]; }
 };
 
 /// Type of locality (do not change values and order - they have detalization order)

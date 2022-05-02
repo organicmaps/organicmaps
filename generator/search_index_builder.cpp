@@ -67,17 +67,13 @@ public:
     ifstream stream(fPath.c_str());
 
     string line;
-    vector<string> tokens;
-
     while (stream.good())
     {
       getline(stream, line);
       if (line.empty())
         continue;
 
-      tokens.clear();
-      strings::Tokenize(line, ":,", base::MakeBackInsertFunctor(tokens));
-
+      auto tokens = strings::Tokenize(line, ":,");
       if (tokens.size() > 1)
       {
         strings::Trim(tokens[0]);
@@ -88,7 +84,7 @@ public:
           // For example, the hypothetical "Russia" -> "Russian Federation" mapping
           // would have the feature with name "Russia" match the request "federation". It would be wrong.
           CHECK(tokens[i].find_first_of(" \t") == string::npos, ());
-          m_map.insert(make_pair(tokens[0], tokens[i]));
+          m_map.emplace(tokens[0], tokens[i]);
         }
       }
     }
@@ -192,18 +188,18 @@ struct FeatureNameInserter
     }
   }
 
-  void operator()(signed char lang, string const & name) const
+  void operator()(signed char lang, string_view name) const
   {
-    strings::UniString const uniName = search::NormalizeAndSimplifyString(name);
-
     // split input string on tokens
     search::QueryTokens tokens;
-    SplitUniString(uniName, base::MakeBackInsertFunctor(tokens), search::Delimiters());
+    SplitUniString(search::NormalizeAndSimplifyString(name),
+                   base::MakeBackInsertFunctor(tokens), search::Delimiters());
 
     // add synonyms for input native string
     if (m_synonyms)
     {
-      m_synonyms->ForEach(name, [&](string const & utf8str)
+      /// @todo Avoid creating temporary std::string.
+      m_synonyms->ForEach(std::string(name), [&](string const & utf8str)
                           {
                             tokens.push_back(search::NormalizeAndSimplifyString(utf8str));
                           });
@@ -246,10 +242,10 @@ bool InsertPostcodes(FeatureType & f, function<void(strings::UniString const &)>
   using namespace search;
 
   auto const & postBoxChecker = ftypes::IsPostBoxChecker::Instance();
-  string const postcode = f.GetMetadata(feature::Metadata::FMD_POSTCODE);
+  auto const postcode = f.GetMetadata(feature::Metadata::FMD_POSTCODE);
   vector<string> postcodes;
   if (!postcode.empty())
-    postcodes.push_back(postcode);
+    postcodes.push_back(std::string(postcode));
 
   bool useNameAsPostcode = false;
   if (postBoxChecker(f))
@@ -257,13 +253,13 @@ bool InsertPostcodes(FeatureType & f, function<void(strings::UniString const &)>
     auto const & names = f.GetNames();
     if (names.CountLangs() == 1)
     {
-      string defaultName;
+      string_view defaultName;
       names.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
       if (!defaultName.empty() && LooksLikePostcode(defaultName, false /* isPrefix */))
       {
         // In UK it's common practice to set outer postcode as postcode and outer + inner as ref.
         // We convert ref to name at FeatureBuilder.
-        postcodes.push_back(defaultName);
+        postcodes.push_back(std::string(defaultName));
         useNameAsPostcode = true;
       }
     }
@@ -330,21 +326,23 @@ public:
 
     if (ftypes::IsAirportChecker::Instance()(types))
     {
-      string const iata = f.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
+      auto const iata = f.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
       if (!iata.empty())
         inserter(StringUtf8Multilang::kDefaultCode, iata);
     }
 
     // Index operator to support "Sberbank ATM" for objects with amenity=atm and operator=Sberbank.
-    string const op = f.GetMetadata(feature::Metadata::FMD_OPERATOR);
+    auto const op = f.GetMetadata(feature::Metadata::FMD_OPERATOR);
     if (!op.empty())
       inserter(StringUtf8Multilang::kDefaultCode, op);
 
-    string const brand = f.GetMetadata(feature::Metadata::FMD_BRAND);
+    auto const brand = f.GetMetadata(feature::Metadata::FMD_BRAND);
     if (!brand.empty())
     {
       auto const & brands = indexer::GetDefaultBrands();
-      brands.ForEachNameByKey(brand, [&inserter](indexer::BrandsHolder::Brand::Name const & name) {
+      /// @todo Avoid temporary string when unordered_map will allow search by string_view.
+      brands.ForEachNameByKey(std::string(brand), [&inserter](indexer::BrandsHolder::Brand::Name const & name)
+      {
         inserter(name.m_locale, name.m_name);
       });
     }
@@ -394,8 +392,7 @@ void ReadAddressData(string const & filename, vector<feature::AddressData> & add
   }
 }
 
-bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string const & streetName,
-                    uint32_t & result)
+bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string_view streetName, uint32_t & result)
 {
   bool const hasStreet = !streetName.empty();
   if (hasStreet)

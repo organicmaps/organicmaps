@@ -227,12 +227,24 @@ std::string & TrimLeft(std::string & s)
 
 std::string & TrimRight(std::string & s)
 {
-  s.erase(std::find_if(s.crbegin(), s.crend(), [](auto c) { return !std::isspace(c); }).base(),
-          s.end());
+  s.erase(std::find_if(s.crbegin(), s.crend(), [](auto c) { return !std::isspace(c); }).base(), s.end());
   return s;
 }
 
 std::string & Trim(std::string & s) { return TrimLeft(TrimRight(s)); }
+
+std::string_view & Trim(std::string_view & sv)
+{
+  auto const beg = std::find_if(sv.cbegin(), sv.cend(), [](auto c) { return !std::isspace(c); });
+  if (beg != sv.end())
+  {
+    auto const end = std::find_if(sv.crbegin(), sv.crend(), [](auto c) { return !std::isspace(c); }).base();
+    sv = std::string_view(beg, std::distance(beg, end));
+  }
+  else
+    sv = {};
+  return sv;
+}
 
 std::string & Trim(std::string & s, char const * anyOf)
 {
@@ -265,7 +277,7 @@ bool EqualNoCase(std::string const & s1, std::string const & s2)
   return MakeLowerCase(s1) == MakeLowerCase(s2);
 }
 
-UniString MakeUniString(std::string const & utf8s)
+UniString MakeUniString(std::string_view utf8s)
 {
   UniString result;
   utf8::unchecked::utf8to32(utf8s.begin(), utf8s.end(), std::back_inserter(result));
@@ -279,11 +291,13 @@ std::string ToUtf8(UniString const & s)
   return result;
 }
 
-bool IsASCIIString(std::string const & str)
+bool IsASCIIString(std::string_view sv)
 {
-  for (size_t i = 0; i < str.size(); ++i)
-    if (str[i] & 0x80)
+  for (auto c : sv)
+  {
+    if (c & 0x80)
       return false;
+  }
   return true;
 }
 
@@ -447,10 +461,10 @@ bool AlmostEqual(std::string const & str1, std::string const & str2, size_t mism
 void ParseCSVRow(std::string const & s, char const delimiter, std::vector<std::string> & target)
 {
   target.clear();
-  using It = TokenizeIterator<SimpleDelimiter, std::string::const_iterator, true>;
-  for (It it(s, SimpleDelimiter(delimiter)); it; ++it)
+  TokenizeIterator<SimpleDelimiter, std::string::const_iterator, true /* KeepEmptyTokens */> it(s.begin(), s.end(), delimiter);
+  for (; it; ++it)
   {
-    std::string column = *it;
+    std::string column(*it);
     strings::Trim(column);
     target.push_back(move(column));
   }

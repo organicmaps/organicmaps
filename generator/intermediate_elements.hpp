@@ -10,6 +10,7 @@
 #include <functional>
 #include <limits>
 #include <map>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <utility>
@@ -71,21 +72,6 @@ struct WayElement
     for (uint64_t & e : m_nodes)
       e = ReadVarUint<uint64_t>(r);
   }
-
-  std::string ToString() const
-  {
-    std::stringstream ss;
-    ss << m_nodes.size() << " " << m_wayOsmId;
-    return ss.str();
-  }
-
-  std::string Dump() const
-  {
-    std::stringstream ss;
-    for (auto const & e : m_nodes)
-      ss << e << ";";
-    return ss.str();
-  }
 };
 
 class RelationElement
@@ -96,47 +82,30 @@ public:
   std::vector<Member> m_nodes;
   std::vector<Member> m_ways;
   std::vector<Member> m_relations;
-  std::map<std::string, std::string> m_tags;
+  // std::less<> is for transparent find using string_view.
+  std::map<std::string, std::string, std::less<>> m_tags;
 
   bool IsValid() const { return !(m_nodes.empty() && m_ways.empty() && m_relations.empty()); }
 
-  std::string GetTagValue(std::string const & key) const
+  std::string_view GetTagValue(std::string_view key) const
   {
-    auto it = m_tags.find(key);
-    return ((it != m_tags.end()) ? it->second : std::string());
+    auto const it = m_tags.find(key);
+    return it == m_tags.end() ? std::string_view() : it->second;
   }
 
-  std::string GetType() const { return GetTagValue("type"); }
-  bool FindWay(uint64_t id, std::string & role) const { return FindRoleImpl(m_ways, id, role); }
-  bool FindNode(uint64_t id, std::string & role) const { return FindRoleImpl(m_nodes, id, role); }
-  bool FindRelation(uint64_t id, std::string & role) const { return FindRoleImpl(m_relations, id, role); }
+  std::string_view GetType() const { return GetTagValue("type"); }
+  /// @returns (empty if absent) role for the way with given id.
+  std::string_view GetWayRole(uint64_t id) const { return FindRoleImpl(m_ways, id); }
+  /// @returns (empty if absent) role for the node with given id.
+  std::string_view GetNodeRole(uint64_t id) const { return FindRoleImpl(m_nodes, id); }
+  /// @returns (empty if absent) role for the relation with given id.
+  std::string_view GetRelationRole(uint64_t id) const { return FindRoleImpl(m_relations, id); }
 
   template <class ToDo>
   void ForEachWay(ToDo & toDo) const
   {
     for (size_t i = 0; i < m_ways.size(); ++i)
       toDo(m_ways[i].first, m_ways[i].second);
-  }
-
-  std::string GetNodeRole(uint64_t const id) const
-  {
-    std::string role;
-    UNUSED_VALUE(FindNode(id, role));
-    return role;
-  }
-
-  std::string GetWayRole(uint64_t const id) const
-  {
-    std::string role;
-    UNUSED_VALUE(FindWay(id, role));
-    return role;
-  }
-
-  std::string GetRelationRole(uint64_t const id) const
-  {
-    std::string role;
-    UNUSED_VALUE(FindRelation(id, role));
-    return role;
   }
 
   void Swap(RelationElement & rhs)
@@ -153,7 +122,8 @@ public:
     auto StringWriter = [&writer, this](std::string const & str)
     {
       CHECK_LESS(str.size(), std::numeric_limits<uint16_t>::max(),
-                 ("Can't store std::string greater then 65535 bytes", Dump()));
+                 ("Can't store std::string greater then 65535 bytes", *this));
+
       uint16_t sz = static_cast<uint16_t>(str.size());
       writer.Write(&sz, sizeof(sz));
       writer.Write(str.data(), sz);
@@ -192,7 +162,7 @@ public:
   {
     ReaderSource<TReader> r(reader);
 
-    auto StringReader = [&r](std::string & str)
+    auto const StringReader = [&r](std::string & str)
     {
       uint16_t sz = 0;
       r.Read(&sz, sizeof(sz));
@@ -200,7 +170,7 @@ public:
       r.Read(&str[0], sz);
     };
 
-    auto MembersReader = [&r, &StringReader](std::vector<Member> & members)
+    auto const MembersReader = [&r, &StringReader](std::vector<Member> & members)
     {
       uint64_t count = ReadVarUint<uint64_t>(r);
       members.resize(count);
@@ -219,7 +189,7 @@ public:
 
     // decode m_tags
     m_tags.clear();
-    uint64_t count = ReadVarUint<uint64_t>(r);
+    uint64_t const count = ReadVarUint<uint64_t>(r);
     for (uint64_t i = 0; i < count; ++i)
     {
       std::pair<std::string, std::string> kv;
@@ -231,36 +201,28 @@ public:
     }
   }
 
-  std::string ToString() const
+  friend std::string DebugPrint(RelationElement const & element)
   {
     std::stringstream ss;
-    ss << m_nodes.size() << " " << m_ways.size() << " " << m_tags.size();
-    return ss.str();
-  }
-
-  std::string Dump() const
-  {
-    std::stringstream ss;
-    for (auto const & e : m_nodes)
+    for (auto const & e : element.m_tags)
+      ss << e.first << "=" << e.second << std::endl;
+    for (auto const & e : element.m_nodes)
       ss << "n{" << e.first << "," << e.second << "};";
-    for (auto const & e : m_ways)
+    for (auto const & e : element.m_ways)
       ss << "w{" << e.first << "," << e.second << "};";
-    for (auto const & e : m_tags)
+    for (auto const & e : element.m_tags)
       ss << "t{" << e.first << "," << e.second << "};";
     return ss.str();
   }
 
 protected:
-  bool FindRoleImpl(std::vector<Member> const & container, uint64_t id, std::string & role) const
+  static std::string_view FindRoleImpl(std::vector<Member> const & container, uint64_t id)
   {
     for (auto const & e : container)
     {
       if (e.first == id)
-      {
-        role = e.second;
-        return true;
-      }
+        return e.second;
     }
-    return false;
+    return {};
   }
 };

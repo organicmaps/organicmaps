@@ -59,8 +59,8 @@ UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
 
   integration::TestTurnCount(route, 3 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
 
 UNIT_TEST(RussiaMoscowSalameiNerisNoUTurnBicycleWayTurnTest)
@@ -133,14 +133,13 @@ UNIT_TEST(RussiaMoscowSvobodiOnewayBicycleWayTurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  /// @todo The first turn is redundant, IMHO.
-  integration::TestTurnCount(route, 7 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 6 /* expectedTurnCount */);
 
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightRight);
   integration::GetNthTurn(route, 3).TestValid().TestOneOfDirections(
       {CarDirection::TurnSlightLeft, CarDirection::TurnLeft});
-  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnSlightLeft);
   integration::GetNthTurn(route, 5).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 6).TestValid().TestDirection(CarDirection::TurnLeft);
 
@@ -197,9 +196,7 @@ UNIT_TEST(TurnsNearMKAD85kmShortFakeSegmentTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  // 4 is absolutely wrong here. Seems like old route ignored fences here:
-  // https://www.openstreetmap.org/way/1005920588
-  integration::TestTurnCount(route, 11 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 8 /* expectedTurnCount */);
 
   integration::TestRouteLength(route, 1704.21);
 }

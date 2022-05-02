@@ -37,16 +37,17 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
       // Documentation is inconsistent with the code: "returns null if no locations are available".
       // https://developers.google.com/android/reference/com/google/android/gms/location/LocationResult#getLastLocation()
       //noinspection ConstantConditions
-      if (location == null)
-        return;
-      mListener.onLocationChanged(location);
+      if (location != null)
+        mListener.onLocationChanged(location);
     }
 
     @Override
     public void onLocationAvailability(@NonNull LocationAvailability availability)
     {
-      if (!availability.isLocationAvailable())
-        mListener.onLocationError(ERROR_GPS_OFF);
+      if (!availability.isLocationAvailable()) {
+        LOGGER.w(TAG, "isLocationAvailable returned false");
+        //mListener.onLocationError(ERROR_GPS_OFF);
+      }
     }
   }
 

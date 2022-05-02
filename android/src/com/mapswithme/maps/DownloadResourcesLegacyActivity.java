@@ -50,7 +50,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
 
   // Error codes, should match the same codes in JNI
   private static final int ERR_DOWNLOAD_SUCCESS = 0;
-  private static final int ERR_NOT_ENOUGH_MEMORY = -1;
+  private static final int ERR_DISK_ERROR = -1;
   private static final int ERR_NOT_ENOUGH_FREE_SPACE = -2;
   private static final int ERR_STORAGE_DISCONNECTED = -3;
   private static final int ERR_DOWNLOAD_ERROR = -4;
@@ -350,15 +350,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
     {
     case ERR_NOT_ENOUGH_FREE_SPACE:
       return R.string.not_enough_free_space_on_sdcard;
-
     case ERR_STORAGE_DISCONNECTED:
       return R.string.disconnect_usb_cable;
-
     case ERR_DOWNLOAD_ERROR:
       return (ConnectionState.INSTANCE.isConnected() ? R.string.download_has_failed
                                             : R.string.common_check_internet_connection_dialog);
     default:
-      return R.string.not_enough_memory;
+      assert(res == ERR_DISK_ERROR);
+      return R.string.disk_error;
     }
   }
 
@@ -367,13 +366,15 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   {
     switch (res)
     {
+      case ERR_NOT_ENOUGH_FREE_SPACE:
+        return R.string.routing_not_enough_space;
       case ERR_STORAGE_DISCONNECTED:
         return R.string.disconnect_usb_cable_title;
-
       case ERR_DOWNLOAD_ERROR:
         return R.string.connection_failure;
       default:
-        return R.string.routing_not_enough_space;
+        assert(res == ERR_DISK_ERROR);
+        return R.string.disk_error_title;
     }
   }
 
@@ -404,10 +405,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   {
     if (result == ERR_NO_MORE_FILES)
     {
-      // World and WorldCoasts has been downloaded, we should register maps again to correctly add them to the model and generate indexes etc.
-      // TODO fix the hack when separate download of World-s will be removed or refactored
-      Framework.nativeDeregisterMaps();
-      Framework.nativeRegisterMaps();
+      // World and WorldCoasts has been downloaded, we should register maps again to correctly add them to the model.
+      Framework.nativeReloadWorldMaps();
+
       if (mCurrentCountry != null && mChbDownloadCountry.isChecked())
       {
         CountryItem item = CountryItem.fill(mCurrentCountry);

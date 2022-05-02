@@ -391,7 +391,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
   WriteCsvTableHeader(cout);
 
   storage::Storage storage;
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  storage.RegisterAllLocalMaps();
   FrozenDataSource dataSource;
   auto numMwmIds = CreateNumMwmIds(storage);
 

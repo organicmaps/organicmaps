@@ -3427,10 +3427,14 @@ cont {
 cont {
   name: "amenity-college"
   element {
-    scale: 17
+    scale: 16
+    area {
+      color: 16311482
+      priority: -15981
+    }
     symbol {
       name: "college-m"
-      priority: 16650
+      priority: 16019
     }
     caption {
       primary {
@@ -3438,14 +3442,37 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15650
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16311482
+      priority: -15981
+    }
+    symbol {
+      name: "college-m"
+      priority: 16019
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 16000
     }
   }
   element {
     scale: 18
+    area {
+      color: 16311482
+      priority: -15981
+    }
     symbol {
       name: "college-m"
-      priority: 16650
+      priority: 16019
     }
     caption {
       primary {
@@ -3454,14 +3481,18 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15650
+      priority: 16000
     }
   }
   element {
     scale: 19
+    area {
+      color: 16311482
+      priority: -15981
+    }
     symbol {
       name: "college-m"
-      priority: 16650
+      priority: 16019
     }
     caption {
       primary {
@@ -3470,7 +3501,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15650
+      priority: 16000
     }
   }
 }
@@ -4790,9 +4821,13 @@ cont {
   name: "amenity-kindergarten"
   element {
     scale: 17
+    area {
+      color: 16311482
+      priority: -15981
+    }
     symbol {
       name: "kindergarten-m"
-      priority: 16601
+      priority: 16019
     }
     caption {
       primary {
@@ -4800,14 +4835,18 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15601
+      priority: 16000
     }
   }
   element {
     scale: 18
+    area {
+      color: 16311482
+      priority: -15981
+    }
     symbol {
       name: "kindergarten-m"
-      priority: 16601
+      priority: 16019
     }
     caption {
       primary {
@@ -4816,14 +4855,18 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15601
+      priority: 16000
     }
   }
   element {
     scale: 19
+    area {
+      color: 16311482
+      priority: -15981
+    }
     symbol {
       name: "kindergarten-m"
-      priority: 16601
+      priority: 16019
     }
     caption {
       primary {
@@ -4832,7 +4875,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15601
+      priority: 16000
     }
   }
 }
@@ -7661,9 +7704,13 @@ cont {
   name: "amenity-school"
   element {
     scale: 17
+    area {
+      color: 16311482
+      priority: -15981
+    }
     symbol {
       name: "school-m"
-      priority: 16631
+      priority: 16019
     }
     caption {
       primary {
@@ -7671,14 +7718,18 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15631
+      priority: 16000
     }
   }
   element {
     scale: 18
+    area {
+      color: 16311482
+      priority: -15981
+    }
     symbol {
       name: "school-m"
-      priority: 16631
+      priority: 16019
     }
     caption {
       primary {
@@ -7687,14 +7738,18 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15631
+      priority: 16000
     }
   }
   element {
     scale: 19
+    area {
+      color: 16311482
+      priority: -15981
+    }
     symbol {
       name: "school-m"
-      priority: 16631
+      priority: 16019
     }
     caption {
       primary {
@@ -7703,7 +7758,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: 15631
+      priority: 16000
     }
   }
 }
@@ -8085,11 +8140,11 @@ cont {
     scale: 14
     area {
       color: 16311482
-      priority: -15991
+      priority: -15981
     }
     symbol {
       name: "college-s"
-      priority: 16009
+      priority: 16019
       min_distance: 12
     }
     caption {
@@ -8106,11 +8161,11 @@ cont {
     scale: 15
     area {
       color: 16311482
-      priority: -15991
+      priority: -15981
     }
     symbol {
       name: "college-m"
-      priority: 16009
+      priority: 16019
       min_distance: 12
     }
     caption {
@@ -8127,7 +8182,7 @@ cont {
     scale: 15
     area {
       color: 16311482
-      priority: -15991
+      priority: -15981
     }
     caption {
       primary {
@@ -8143,11 +8198,11 @@ cont {
     scale: 16
     area {
       color: 16311482
-      priority: -15991
+      priority: -15981
     }
     symbol {
       name: "college-m"
-      priority: 16009
+      priority: 16019
       min_distance: 11
     }
     caption {
@@ -8164,7 +8219,7 @@ cont {
     scale: 16
     area {
       color: 16311482
-      priority: -15991
+      priority: -15981
     }
     caption {
       primary {
@@ -8180,11 +8235,11 @@ cont {
     scale: 17
     area {
       color: 16311482
-      priority: -15991
+      priority: -15981
     }
     symbol {
       name: "college-m"
-      priority: 16009
+      priority: 16019
       min_distance: 10
     }
     caption {
@@ -8201,7 +8256,7 @@ cont {
     scale: 17
     area {
       color: 16311482
-      priority: -15991
+      priority: -15981
     }
     caption {
       primary {
@@ -8217,11 +8272,11 @@ cont {
     scale: 18
     area {
       color: 16311482
-      priority: -15991
+      priority: -15981
     }
     symbol {
       name: "college-m"
-      priority: 16009
+      priority: 16019
     }
     caption {
       primary {
@@ -8238,7 +8293,7 @@ cont {
     scale: 18
     area {
       color: 16311482
-      priority: -15991
+      priority: -15981
     }
     caption {
       primary {
@@ -8254,11 +8309,11 @@ cont {
     scale: 19
     area {
       color: 16311482
-      priority: -15991
+      priority: -15981
     }
     symbol {
       name: "college-m"
-      priority: 16009
+      priority: 16019
     }
     caption {
       primary {
@@ -8275,7 +8330,7 @@ cont {
     scale: 19
     area {
       color: 16311482
-      priority: -15991
+      priority: -15981
     }
     caption {
       primary {
@@ -30986,8 +31041,8 @@ cont {
       priority: 1475
       pathsym {
         name: "arrow-xs"
-        step: 144.0
-        offset: 80.0
+        step: 44.0
+        offset: 30.0
       }
     }
   }
@@ -30997,8 +31052,8 @@ cont {
       priority: 1475
       pathsym {
         name: "arrow-s"
-        step: 144.0
-        offset: 120.0
+        step: 54.0
+        offset: 50.0
       }
     }
   }
@@ -31008,8 +31063,8 @@ cont {
       priority: 1475
       pathsym {
         name: "arrow-s"
-        step: 184.0
-        offset: 160.0
+        step: 64.0
+        offset: 70.0
       }
     }
   }
@@ -31019,8 +31074,8 @@ cont {
       priority: 1475
       pathsym {
         name: "arrow-m"
-        step: 184.0
-        offset: 200.0
+        step: 74.0
+        offset: 90.0
       }
     }
   }
@@ -31030,8 +31085,8 @@ cont {
       priority: 1475
       pathsym {
         name: "arrow-m"
-        step: 184.0
-        offset: 200.0
+        step: 74.0
+        offset: 90.0
       }
     }
   }
@@ -32181,6 +32236,30 @@ cont {
         color: 6710886
       }
       priority: 15029
+    }
+  }
+}
+cont {
+  name: "landuse-education"
+  element {
+    scale: 17
+    area {
+      color: 16311482
+      priority: -15991
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16311482
+      priority: -15991
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16311482
+      priority: -15991
     }
   }
 }

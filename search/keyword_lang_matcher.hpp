@@ -60,7 +60,7 @@ public:
   }
 
   // Returns the Score of the name (greater is better).
-  Score CalcScore(int8_t lang, std::string const & name) const;
+  Score CalcScore(int8_t lang, std::string_view name) const;
   Score CalcScore(int8_t lang, strings::UniString const & name) const;
   Score CalcScore(int8_t lang, strings::UniString const * tokens, size_t count) const;
 

@@ -73,7 +73,7 @@ Java_com_mapswithme_maps_MapFragment_nativeCreateEngine(JNIEnv * env, jclass cla
                                                         jint appVersionCode)
 {
   return g_framework->CreateDrapeEngine(env, surface, density, firstLaunch, isLaunchByDeepLink,
-                                        appVersionCode);
+                                        base::asserted_cast<uint32_t>(appVersionCode));
 }
 
 JNIEXPORT jboolean JNICALL

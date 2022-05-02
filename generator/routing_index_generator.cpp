@@ -506,21 +506,26 @@ void CalcCrossMwmConnectors(
 
   timer.Reset();
 
-  for (auto const & transition : transitions)
   {
-    for (size_t i = 0; i < connectors.size(); ++i)
+    std::vector<typename CrossMwmConnector<CrossMwmId>::Builder> builders;
+    for (auto & c : connectors)
+      builders.emplace_back(c, transitions.size());
+
+    for (auto const & transition : transitions)
     {
-      VehicleMask const mask = GetVehicleMask(static_cast<VehicleType>(i));
-      CrossMwmConnectorSerializer::AddTransition(transition, mask, connectors[i]);
+      for (size_t i = 0; i < builders.size(); ++i)
+      {
+        VehicleMask const mask = GetVehicleMask(static_cast<VehicleType>(i));
+        CrossMwmConnectorSerializer::AddTransition(transition, mask, builders[i]);
+      }
     }
   }
 
   for (size_t i = 0; i < connectors.size(); ++i)
   {
-    auto const vehicleType = static_cast<VehicleType>(i);
-    auto const & connector = connectors[i];
-    LOG(LINFO, (vehicleType, "model. Number of enters:", connector.GetEnters().size(),
-                "Number of exits:", connector.GetExits().size()));
+    auto const & c = connectors[i];
+    LOG(LINFO, (static_cast<VehicleType>(i), "model.",
+                "Number of enters:", c.GetNumEnters(), "Number of exits:", c.GetNumExits()));
   }
 }
 
@@ -546,15 +551,15 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   DeserializeIndexGraph(mwmValue, VehicleType::Car, graph);
 
   map<Segment, map<Segment, RouteWeight>> weights;
-  auto const numEnters = connector.GetEnters().size();
   size_t foundCount = 0;
   size_t notFoundCount = 0;
-  for (size_t i = 0; i < numEnters; ++i)
+
+  uint32_t const numEnters = connector.GetNumEnters();
+  uint32_t i = 0;
+  connector.ForEachEnter([&](uint32_t, Segment const & enter)
   {
     if (i % 10 == 0)
       LOG(LINFO, ("Building leaps:", i, "/", numEnters, "waves passed"));
-
-    Segment const & enter = connector.GetEnter(i);
 
     using Algorithm =
         AStarAlgorithm<JointSegment, JointEdge, RouteWeight>;
@@ -586,13 +591,13 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
         } /* visitVertex */,
         context);
 
-    for (Segment const & exit : connector.GetExits())
+    connector.ForEachExit([&](uint32_t, Segment const & exit)
     {
       auto const it = visitedVertexes.find(exit.GetFeatureId());
       if (it == visitedVertexes.cend())
       {
         ++notFoundCount;
-        continue;
+        return;
       }
 
       uint32_t const id = exit.GetSegmentIdx();
@@ -636,8 +641,8 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
           break;
         }
       }
-    }
-  }
+    });
+  });
 
   connector.FillWeights([&](Segment const & enter, Segment const & exit) {
     auto it0 = weights.find(enter);

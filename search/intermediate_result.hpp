@@ -11,9 +11,7 @@
 
 #include "geometry/point2d.hpp"
 
-#include <cstdint>
 #include <string>
-#include <utility>
 #include <vector>
 
 class FeatureType;
@@ -54,9 +52,14 @@ public:
   uint8_t GetRank() const { return m_info.m_rank; }
   uint8_t GetPopularity() const { return m_info.m_popularity; }
   PreRankingInfo const & GetInfo() const { return m_info; }
+
+#ifdef SEARCH_USE_PROVENANCE
   std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
+#endif
+
   size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
   size_t GetMatchedTokensNumber() const { return m_matchedTokensNumber; }
+  bool IsNotRelaxed() const { return !m_isRelaxed; }
 
   void SetRank(uint8_t rank) { m_info.m_rank = rank; }
   void SetPopularity(uint8_t popularity) { m_info.m_popularity = popularity; }
@@ -68,15 +71,16 @@ public:
   }
 
 private:
-  friend class RankerResult;
-
   FeatureID m_id;
   PreRankingInfo m_info;
 
-  size_t m_matchedTokensNumber = 0;
+  size_t m_matchedTokensNumber;
+  bool m_isRelaxed;
 
+#ifdef SEARCH_USE_PROVENANCE
   // The call path in the Geocoder that leads to this result.
   std::vector<ResultTracer::Branch> m_provenance;
+#endif
 };
 
 // Second result class. Objects are created during reading of features.
@@ -94,22 +98,22 @@ public:
 
   /// For Type::Feature and Type::Building.
   RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
-               std::string const & displayName, std::string const & fileName);
+               std::string displayName, std::string const & fileName);
+  RankerResult(FeatureType & ft, m2::PointD const & pivot, std::string const & fileName);
 
   /// For Type::LatLon.
   RankerResult(double lat, double lon);
 
   /// For Type::Postcode.
-  RankerResult(m2::PointD const & coord, std::string const & postcode);
+  RankerResult(m2::PointD const & coord, std::string_view postcode);
 
   bool IsStreet() const;
 
-  search::RankingInfo const & GetRankingInfo() const { return m_info; }
-
-  template <typename Info>
-  inline void SetRankingInfo(Info && info)
+  RankingInfo const & GetRankingInfo() const { return m_info; }
+  void SetRankingInfo(RankingInfo & info)
   {
-    m_info = std::forward<Info>(info);
+    // No sense to make move for RankingInfo.
+    m_info = info;
   }
 
   FeatureID const & GetID() const { return m_id; }
@@ -131,10 +135,15 @@ public:
 
   uint32_t GetBestType(std::vector<uint32_t> const & preferredTypes = {}) const;
 
+#ifdef SEARCH_USE_PROVENANCE
   std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
+#endif
+
+  friend std::string DebugPrint(RankerResult const & r);
 
 private:
   friend class RankerResultMaker;
+  friend class Ranker;
 
   struct RegionInfo
   {
@@ -161,11 +170,11 @@ private:
   feature::GeomType m_geomType = feature::GeomType::Undefined;
   Result::Details m_details;
 
+#ifdef SEARCH_USE_PROVENANCE
   // The call path in the Geocoder that leads to this result.
   std::vector<ResultTracer::Branch> m_provenance;
+#endif
 };
 
 void FillDetails(FeatureType & ft, Result::Details & meta);
-
-std::string DebugPrint(RankerResult const & r);
 }  // namespace search

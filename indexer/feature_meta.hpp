@@ -23,16 +23,16 @@ public:
     return it != m_metadata.end();
   }
 
-  std::string Get(uint8_t type) const
+  std::string_view Get(uint8_t type) const
   {
+    std::string_view sv;
     auto const it = m_metadata.find(type);
-    return (it == m_metadata.end()) ? std::string() : it->second;
-  }
-
-  bool Get(uint8_t type, std::string & value) const
-  {
-    value = Get(type);
-    return !value.empty();
+    if (it != m_metadata.end())
+    {
+      sv = it->second;
+      ASSERT(!sv.empty(), ());
+    }
+    return sv;
   }
 
   std::vector<uint8_t> GetPresentTypes() const
@@ -80,19 +80,24 @@ public:
 protected:
   friend bool indexer::MetadataDeserializer::Get(uint32_t id, MetadataBase & meta);
 
-  // TODO: Change uint8_t to appropriate type when FMD_COUNT reaches 256.
-  void Set(uint8_t type, std::string const & value)
+  std::string_view Set(uint8_t type, std::string value)
   {
+    std::string_view sv;
+
     if (value.empty())
       m_metadata.erase(type);
     else
     {
-      auto res = m_metadata.try_emplace(type, value);
+      auto res = m_metadata.try_emplace(type, std::move(value));
       if (!res.second)
-        res.first->second = value;
+        res.first->second = std::move(value);
+      sv = res.first->second;
     }
+
+    return sv;
   }
 
+  /// @todo Change uint8_t to appropriate type when FMD_COUNT reaches 256.
   std::map<uint8_t, std::string> m_metadata;
 };
 
@@ -154,17 +159,21 @@ public:
   /// Used to normalize tags like "contact:phone", "phone" and "contact:mobile" to a common metadata enum value.
   static bool TypeFromString(std::string const & osmTagKey, EType & outType);
 
-  std::vector<Metadata::EType> GetKeys() const;
+  template <class FnT> void ForEachKey(FnT && fn) const
+  {
+    for (auto const & e : m_metadata)
+      fn(static_cast<Metadata::EType>(e.first));
+  }
 
-  using MetadataBase::Has;
-  using MetadataBase::Get;
   bool Has(EType type) const { return MetadataBase::Has(static_cast<uint8_t>(type)); }
-  std::string Get(EType type) const { return MetadataBase::Get(static_cast<uint8_t>(type)); }
-  bool Get(EType type, std::string & value) const { return MetadataBase::Get(static_cast<uint8_t>(type), value);  }
+  std::string_view Get(EType type) const { return MetadataBase::Get(static_cast<uint8_t>(type)); }
 
-  using MetadataBase::Set;
-  void Set(EType type, std::string const & value) { MetadataBase::Set(static_cast<uint8_t>(type), value); }
+  std::string_view Set(EType type, std::string value)
+  {
+    return MetadataBase::Set(static_cast<uint8_t>(type), std::move(value));
+  }
   void Drop(EType type) { Set(type, std::string()); }
+
   std::string GetWikiURL() const;
 };
 
@@ -183,7 +192,7 @@ public:
     MetadataBase::Set(base::Underlying(type), s);
   }
 
-  std::string Get(Type type) const { return MetadataBase::Get(base::Underlying(type)); }
+  std::string_view Get(Type type) const { return MetadataBase::Get(base::Underlying(type)); }
 };
 
 class RegionData : public MetadataBase

@@ -12,8 +12,9 @@ namespace
 std::vector<int> const kAltClasses = {1000, 500, 100, 50, 10};
 int const kNamedAltStep = 50;
 int const kNamedAltRange = 150;
+std::string_view const kIsoline = "isoline";
 std::string const kTypePrefix = "step_";
-std::string const kTypeZero = "zero";
+std::string_view const kTypeZero = "zero";
 
 std::string GetIsolineName(int altitude, int step, int minAltitude, int maxAltitude)
 {
@@ -31,12 +32,14 @@ IsolineFeaturesGenerator::IsolineFeaturesGenerator(std::string const & isolinesD
   : m_isolinesDir(isolinesDir)
 {
   ASSERT(std::is_sorted(kAltClasses.cbegin(), kAltClasses.cend(), std::greater<int>()), ());
+  Classificator const & c = classif();
+
   for (auto alt : kAltClasses)
   {
     auto const type = kTypePrefix + strings::to_string(alt);
-    m_altClassToType[alt] = classif().GetTypeByPath({"isoline", type});
+    m_altClassToType[alt] = c.GetTypeByPath({kIsoline, type});
   }
-  m_altClassToType[0] = classif().GetTypeByPath({"isoline", kTypeZero});
+  m_altClassToType[0] = c.GetTypeByPath({kIsoline, kTypeZero});
 }
 
 uint32_t IsolineFeaturesGenerator::GetIsolineType(int altitude) const

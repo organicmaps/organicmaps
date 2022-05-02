@@ -95,7 +95,7 @@ StringT log2vis(StringT const & str)
   return out;
 }
 
-StringT log2vis(std::string const & utf8)
+StringT log2vis(std::string_view utf8)
 {
   auto uni = strings::MakeUniString(utf8);
   if (utf8.size() == uni.size())

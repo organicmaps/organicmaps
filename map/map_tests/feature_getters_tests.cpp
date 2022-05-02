@@ -14,10 +14,11 @@
 #include <cstdint>
 #include <vector>
 
-using namespace std;
 
 UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
 {
+  using namespace std;
+
   Framework frm(FrameworkParams(false /* m_enableDiffs */));
   frm.DeregisterAllMaps();
   frm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
@@ -53,14 +54,11 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
     // Restaurant in the building.
     auto const id = frm.GetFeatureAtPoint(mercator::FromLatLon(53.89395, 27.567365));
     TEST(id.IsValid(), ());
-    frm.GetDataSource().ReadFeature(
-        [&](FeatureType & ft) {
-          string name;
-          ft.GetName(StringUtf8Multilang::kDefaultCode, name);
-          TEST_EQUAL("Родны Кут", name, ());
-          TEST(!isBuilding(ft), ());
-        },
-        id);
+    frm.GetDataSource().ReadFeature([&](FeatureType & ft)
+    {
+      TEST_EQUAL("Родны Кут", ft.GetName(StringUtf8Multilang::kDefaultCode), ());
+      TEST(!isBuilding(ft), ());
+    }, id);
   }
 
   {

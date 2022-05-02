@@ -44,8 +44,8 @@
 	<string name="close">بستن</string>
 	<string name="unsupported_phone">نیازمند است. متاسفانه دستگاه شما از ان پشتیبانی نمی کندOpenGLبرنامه برای اجرا به</string>
 	<string name="download">دانلود</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">لطفا مقداری از فضای ذخیره سازی را آزاد نمایید</string>
-	<string name="not_enough_memory">حافظه کافی برای اجرای برنامه وجود ندارد</string>
 	<string name="download_resources">قبل از استفاده از اپلیکیشن, اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم.\nمقدار %s از حافظه شما اشغال می شود.</string>
 	<string name="download_resources_continue">برو به نقشه</string>
 	<string name="downloading_country_can_proceed">درحال دانلود %s. شما اکنون می توانید\nبه نقشه بروید.</string>
@@ -199,6 +199,8 @@
 	<string name="search_show_on_map">مشاهده بر روی نقشه</string>
 	<!-- Text in menu -->
 	<string name="website">وب سایت</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">ﺭﺎﺒﺧﺍ</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">بازخورد</string>
 	<!-- Text in menu -->

@@ -32,7 +32,7 @@ enum class Internet
 };
 std::string DebugPrint(Internet internet);
 /// @param[in]  inet  Should be lowercase like in DebugPrint.
-Internet InternetFromString(std::string const & inet);
+Internet InternetFromString(std::string_view inet);
 
 // Object details in the sorted order, visible to users.
 // Must correspond MapObject.java
@@ -81,15 +81,15 @@ public:
   /// @name Metadata fields.
   //@{
   std::vector<Props> AvailableProperties() const;
-  std::string GetPhone() const;
-  std::string GetFax() const;
-  std::string GetEmail() const;
-  std::string GetWebsite() const;
-  std::string GetFacebookPage() const;
-  std::string GetInstagramPage() const;
-  std::string GetTwitterPage() const;
-  std::string GetVkPage() const;
-  std::string GetLinePage() const;
+  std::string_view GetPhone() const;
+  std::string_view GetFax() const;
+  std::string_view GetEmail() const;
+  std::string_view GetWebsite() const;
+  std::string_view GetFacebookPage() const;
+  std::string_view GetInstagramPage() const;
+  std::string_view GetTwitterPage() const;
+  std::string_view GetVkPage() const;
+  std::string_view GetLinePage() const;
   Internet GetInternet() const;
 
   /// @returns non-localized cuisines keys.
@@ -104,19 +104,19 @@ public:
   std::string FormatCuisines() const;
   std::vector<std::string> GetRoadShields() const;
   std::string FormatRoadShields() const;
-  std::string GetOpeningHours() const;
-  std::string GetOperator() const;
+  std::string_view GetOpeningHours() const;
+  std::string_view GetOperator() const;
   int GetStars() const;
   /// @returns formatted elevation in feet or meters, or empty string.
   std::string GetElevationFormatted() const;
   bool GetElevation(double & outElevationInMeters) const;
   /// @returns URL to Wikipedia or empty string.
   std::string GetWikipediaLink() const;
-  std::string GetFlats() const;
-  std::string GetBuildingLevels() const;
-  std::string GetLevel() const;
+  std::string_view GetFlats() const;
+  std::string_view GetBuildingLevels() const;
+  std::string_view GetLevel() const;
   ftraits::WheelchairAvailability GetWheelchairType() const;
-  std::string GetAirportIata() const;
+  std::string_view GetAirportIata() const;
 
   // TODO(Vlad, yunikkk): Use Props enum + getters instead of direct metadata access.
   // TODO: Remove this method.

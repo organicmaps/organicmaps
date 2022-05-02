@@ -23,6 +23,44 @@ namespace feature
   // - languages that we know are similar to |lang|;
   std::vector<int8_t> GetSimilar(int8_t deviceLang);
 
+  struct NameParamsIn
+  {
+    NameParamsIn(StringUtf8Multilang const & src_, RegionData const & regionData_,
+                 int8_t deviceLang_, bool allowTranslit_)
+      : src(src_), regionData(regionData_), deviceLang(deviceLang_), allowTranslit(allowTranslit_)
+    {
+    }
+    NameParamsIn(StringUtf8Multilang const & src, RegionData const & regionData,
+                 std::string_view deviceLang, bool allowTranslit);
+
+    StringUtf8Multilang const & src;
+    RegionData const & regionData;
+    int8_t const deviceLang;
+    bool allowTranslit;
+
+    bool IsNativeOrSimilarLang() const;
+  };
+
+  struct NameParamsOut
+  {
+    /// In case when primary name is empty it will be propagated from secondary and secondary will be
+    /// cleared. In case when primary name contains secondary name then secondary will be cleared.
+    std::string_view primary, secondary;
+    std::string transliterated;
+
+    /// Call this fuction to get primary name when allowTranslit == true.
+    std::string_view GetPrimary() const
+    {
+      return (!primary.empty() ? primary : std::string_view(transliterated));
+    }
+
+    void Clear()
+    {
+      primary = secondary = {};
+      transliterated.clear();
+    }
+  };
+
   /// When the language of the device is equal to one of the languages of the MWM
   /// (or similar to device languages) only single name scheme is used. See GetReadableName method.
   /// Primary name using priority:
@@ -36,11 +74,7 @@ namespace feature
   /// - international name;
   /// - country language name;
   /// - english name.
-  /// In case when primary name is empty it will be propagated from secondary and secondary will be
-  /// cleared. In case when primary name contains secondary name then secondary will be cleared.
-  void GetPreferredNames(RegionData const & regionData, StringUtf8Multilang const & src,
-                         int8_t const deviceLang, bool allowTranslit, std::string & primary,
-                         std::string & secondary);
+  void GetPreferredNames(NameParamsIn const & in, NameParamsOut & out);
 
   /// When MWM contains user's language (or similar to device languages if provided),
   /// the priority is the following:
@@ -60,19 +94,17 @@ namespace feature
   /// - transliterated name (if allowed);
   /// - default name;
   /// - country language name.
-  void GetReadableName(RegionData const & regionData, StringUtf8Multilang const & src,
-                       int8_t const deviceLang, bool allowTranslit, std::string & out);
+  void GetReadableName(NameParamsIn const & in, NameParamsOut & out);
 
   /// Returns language id as return result and name for search on booking in the @name parameter,
   ///  the priority is the following:
   /// - default name;
   /// - country language name;
   /// - english name.
-  int8_t GetNameForSearchOnBooking(RegionData const & regionData, StringUtf8Multilang const & src,
-                                   std::string & name);
+  //int8_t GetNameForSearchOnBooking(RegionData const & regionData, StringUtf8Multilang const & src, std::string & name);
 
   /// Returns preferred name when only the device language is available.
-  bool GetPreferredName(StringUtf8Multilang const & src, int8_t deviceLang, std::string & out);
+  bool GetPreferredName(StringUtf8Multilang const & src, int8_t deviceLang, std::string_view & out);
 
   /// Returns priority list of language codes for feature description,
   /// the priority is the following:

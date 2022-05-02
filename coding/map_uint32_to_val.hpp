@@ -154,7 +154,7 @@ public:
 
   // Tries to get |value| for key identified by |id|.  Returns
   // false if table does not have entry for this id.
-  WARN_UNUSED_RESULT bool Get(uint32_t id, Value & value)
+  [[nodiscard]] bool Get(uint32_t id, Value & value)
   {
     if (id >= m_ids.size() || !m_ids[id])
       return false;
@@ -165,7 +165,7 @@ public:
 
     auto & entry = m_cache[base];
     if (entry.empty())
-      entry = GetImpl(id);
+      entry = GetImpl(rank);
 
     value = entry[offset];
     return true;
@@ -173,7 +173,7 @@ public:
 
   // Tries to get |value| for key identified by |id|.  Returns
   // false if table does not have entry for this id.
-  WARN_UNUSED_RESULT bool GetThreadsafe(uint32_t id, Value & value) const
+  [[nodiscard]] bool GetThreadsafe(uint32_t id, Value & value) const
   {
     if (id >= m_ids.size() || !m_ids[id])
       return false;
@@ -181,7 +181,7 @@ public:
     uint32_t const rank = static_cast<uint32_t>(m_ids.rank(id));
     uint32_t const offset = rank % kBlockSize;
 
-    auto const entry = GetImpl(id);
+    auto const entry = GetImpl(rank);
 
     value = entry[offset];
     return true;
@@ -221,29 +221,19 @@ public:
   uint64_t Count() const { return m_ids.num_ones(); }
 
 private:
-  std::vector<Value> GetImpl(uint32_t id) const
+  std::vector<Value> GetImpl(uint32_t rank) const
   {
-    ASSERT_LESS(id, m_ids.size(), ());
-    ASSERT(m_ids[id], ());
-
-    uint32_t const rank = static_cast<uint32_t>(m_ids.rank(id));
     uint32_t const base = rank / kBlockSize;
 
     std::vector<Value> values(kBlockSize);
 
     auto const start = m_offsets.select(base);
-    auto const end = base + 1 < m_offsets.num_ones()
-                         ? m_offsets.select(base + 1)
-                         : m_header.m_endOffset - m_header.m_variablesOffset;
+    auto const end = base + 1 < m_offsets.num_ones() ? m_offsets.select(base + 1) + m_header.m_variablesOffset
+                                                     : m_header.m_endOffset;
 
-    std::vector<uint8_t> data(static_cast<size_t>(end - start));
+    NonOwningReaderSource src(m_reader, m_header.m_variablesOffset + start, end);
+    m_readBlockCallback(src, kBlockSize, values);
 
-    m_reader.Read(m_header.m_variablesOffset + start, data.data(), data.size());
-
-    MemReader mreader(data.data(), data.size());
-    NonOwningReaderSource msource(mreader);
-
-    m_readBlockCallback(msource, kBlockSize, values);
     return values;
   }
 

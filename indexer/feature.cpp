@@ -705,70 +705,46 @@ FeatureType::GeomStat FeatureType::GetTrianglesSize(int scale)
   return GeomStat(sz, m_triangles.size());
 }
 
-void FeatureType::GetPreferredNames(string & primary, string & secondary)
+std::pair<std::string_view, std::string_view> FeatureType::GetPreferredNames()
 {
-  if (!HasName())
-    return;
-
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
-  if (!mwmInfo)
-    return;
-
-  ParseCommon();
-
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, false /* allowTranslit */,
-                      primary, secondary);
+  feature::NameParamsOut out;
+  GetPreferredNames(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()), out);
+  return { out.primary, out.secondary };
 }
 
-void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, string & primary,
-                                    string & secondary)
+void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out)
 {
   if (!HasName())
     return;
 
   auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
   if (!mwmInfo)
     return;
 
   ParseCommon();
 
-  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit,
-                      primary, secondary);
+  feature::GetPreferredNames({ GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit }, out);
 }
 
-void FeatureType::GetReadableName(string & name)
+string_view FeatureType::GetReadableName()
 {
-  if (!HasName())
-    return;
-
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
-  if (!mwmInfo)
-    return;
-
-  ParseCommon();
-
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, false /* allowTranslit */,
-                    name);
+  feature::NameParamsOut out;
+  GetReadableName(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()), out);
+  return out.primary;
 }
 
-void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, string & name)
+void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out)
 {
   if (!HasName())
     return;
 
   auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
   if (!mwmInfo)
     return;
 
   ParseCommon();
 
-  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit, name);
+  feature::GetReadableName({ GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit }, out);
 }
 
 string const & FeatureType::GetHouseNumber()
@@ -777,13 +753,19 @@ string const & FeatureType::GetHouseNumber()
   return m_params.house.Get();
 }
 
-bool FeatureType::GetName(int8_t lang, string & name)
+string_view FeatureType::GetName(int8_t lang)
 {
   if (!HasName())
-    return false;
+    return {};
 
   ParseCommon();
-  return m_params.name.GetString(lang, name);
+
+  // We don't store empty names.
+  string_view name;
+  if (m_params.name.GetString(lang, name))
+    ASSERT(!name.empty(), ());
+
+  return name;
 }
 
 uint8_t FeatureType::GetRank()
@@ -806,19 +788,18 @@ feature::Metadata const & FeatureType::GetMetadata()
   return m_metadata;
 }
 
-std::string FeatureType::GetMetadata(feature::Metadata::EType type)
+std::string_view FeatureType::GetMetadata(feature::Metadata::EType type)
 {
   ParseMetaIds();
-  if (m_metadata.Has(type))
-    return m_metadata.Get(type);
 
-  auto const it = base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; });
-  if (it == m_metaIds.end())
-    return {};
-
-  auto value = m_metadataDeserializer->GetMetaById(it->second);
-  m_metadata.Set(type, value);
-  return value;
+  auto meta = m_metadata.Get(type);
+  if (meta.empty())
+  {
+    auto const it = base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; });
+    if (it != m_metaIds.end())
+      meta = m_metadata.Set(type, m_metadataDeserializer->GetMetaById(it->second));
+  }
+  return meta;
 }
 
 bool FeatureType::HasMetadata(feature::Metadata::EType type)

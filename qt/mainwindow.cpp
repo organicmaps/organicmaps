@@ -4,6 +4,7 @@
 #include "qt/mainwindow.hpp"
 #include "qt/mwms_borders_selection.hpp"
 #include "qt/osm_auth_dialog.hpp"
+#include "qt/popup_menu_holder.hpp"
 #include "qt/preferences_dialog.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/scale_slider.hpp"
@@ -18,6 +19,7 @@
 
 #include "defines.hpp"
 
+#include <functional>
 #include <sstream>
 
 #include "std/target_os.hpp"
@@ -33,55 +35,31 @@
 #endif // BUILD_DESIGNER
 
 #include <QtGui/QCloseEvent>
-#include <QtWidgets/QAction>
 #include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
-#include <QtWidgets/QToolButton>
 
+#ifdef OMIM_OS_WINDOWS
 #define IDM_ABOUT_DIALOG        1001
 #define IDM_PREFERENCES_DIALOG  1002
+#endif
 
 #ifndef NO_DOWNLOADER
 #include "qt/update_dialog.hpp"
 #include "qt/info_dialog.hpp"
-
-#include "indexer/classificator.hpp"
-
-#include <QtCore/QFile>
-
 #endif // NO_DOWNLOADER
 
+namespace qt
+{
 namespace
 {
-using namespace qt;
-
-struct button_t
-{
-  QString name;
-  char const * icon;
-  char const * slot;
-};
-
-void add_buttons(QToolBar * pBar, button_t buttons[], size_t count, QObject * pReceiver)
-{
-  for (size_t i = 0; i < count; ++i)
-  {
-    if (buttons[i].icon)
-      pBar->addAction(QIcon(buttons[i].icon), buttons[i].name, pReceiver, buttons[i].slot);
-    else
-      pBar->addSeparator();
-  }
-}
-
 void FormatMapSize(uint64_t sizeInBytes, std::string & units, size_t & sizeToDownload)
 {
   int const mbInBytes = 1024 * 1024;
@@ -103,60 +81,17 @@ void FormatMapSize(uint64_t sizeInBytes, std::string & units, size_t & sizeToDow
   }
 }
 
-DrawWidget::SelectionMode ConvertFromMwmsBordersSelection(qt::MwmsBordersSelection::Response mode)
-{
-  switch (mode)
-  {
-  case MwmsBordersSelection::Response::MwmsBordersByPolyFiles:
-  {
-    return DrawWidget::SelectionMode::MwmsBordersByPolyFiles;
-  }
-  case MwmsBordersSelection::Response::MwmsBordersWithVerticesByPolyFiles:
-  {
-    return DrawWidget::SelectionMode::MwmsBordersWithVerticesByPolyFiles;
-  }
-  case MwmsBordersSelection::Response::MwmsBordersByPackedPolygon:
-  {
-    return DrawWidget::SelectionMode::MwmsBordersByPackedPolygon;
-  }
-  case MwmsBordersSelection::Response::MwmsBordersWithVerticesByPackedPolygon:
-  {
-    return DrawWidget::SelectionMode::MwmsBordersWithVerticesByPackedPolygon;
-  }
-  case MwmsBordersSelection::Response::BoundingBoxByPolyFiles:
-  {
-    return DrawWidget::SelectionMode::BoundingBoxByPolyFiles;
-  }
-  case MwmsBordersSelection::Response::BoundingBoxByPackedPolygon:
-  {
-    return DrawWidget::SelectionMode::BoundingBoxByPackedPolygon;
-  }
-  default:
-    UNREACHABLE();
-  }
-}
-
-bool IsMwmsBordersSelectionMode(DrawWidget::SelectionMode mode)
-{
-  return mode == DrawWidget::SelectionMode::MwmsBordersByPolyFiles ||
-         mode == DrawWidget::SelectionMode::MwmsBordersWithVerticesByPolyFiles ||
-         mode == DrawWidget::SelectionMode::MwmsBordersByPackedPolygon ||
-         mode == DrawWidget::SelectionMode::MwmsBordersWithVerticesByPackedPolygon;
-}
 }  // namespace
 
-namespace qt
-{
 // Defined in osm_auth_dialog.cpp.
 extern char const * kTokenKeySetting;
 extern char const * kTokenSecretSetting;
 
 MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
                        std::unique_ptr<ScreenshotParams> && screenshotParams,
-                       QRect const & screenGeometry,
-                       QString const &
+                       QRect const & screenGeometry
 #ifdef BUILD_DESIGNER
-                       mapcssFilePath
+                       , QString const & mapcssFilePath
 #endif
                        )
   : m_Docks{}
@@ -190,8 +125,7 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
     setFixedSize(width, height + statusBar()->height());
   }
 
-  QObject::connect(m_pDrawWidget, &common::MapWidget::BeforeEngineCreation, this,
-                   &MainWindow::OnBeforeEngineCreation);
+  connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
 
   CreateCountryStatusControls();
   CreateNavigationBar();
@@ -274,10 +208,7 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
 
   m_pDrawWidget->UpdateAfterSettingsChanged();
   
-  if (RoutingSettings::IsCacheEnabled())
-    RoutingSettings::LoadSettings(m_pDrawWidget->GetFramework());
-  else
-    RoutingSettings::ResetSettings();
+  RoutingSettings::LoadSession(m_pDrawWidget->GetFramework());
 }
 
 #if defined(Q_WS_WIN)
@@ -340,148 +271,104 @@ void MainWindow::CreateNavigationBar()
   }
 
   {
-    m_selectLayerTrafficAction = new QAction(QIcon(":/navig64/traffic.png"), tr("Traffic"), this);
-    m_selectLayerTrafficAction->setCheckable(true);
-    m_selectLayerTrafficAction->setChecked(m_pDrawWidget->GetFramework().LoadTrafficEnabled());
-    connect(m_selectLayerTrafficAction, &QAction::triggered, this, &MainWindow::OnTrafficEnabled);
+    using namespace std::placeholders;
 
-    m_selectLayerTransitAction =
-        new QAction(QIcon(":/navig64/subway.png"), tr("Public transport"), this);
-    m_selectLayerTransitAction->setCheckable(true);
-    m_selectLayerTransitAction->setChecked(
-        m_pDrawWidget->GetFramework().LoadTransitSchemeEnabled());
-    connect(m_selectLayerTransitAction, &QAction::triggered, this, &MainWindow::OnTransitEnabled);
+    m_layers = new PopupMenuHolder(this);
 
-    m_selectLayerIsolinesAction =
-        new QAction(QIcon(":/navig64/isolines.png"), tr("Isolines"), this);
-    m_selectLayerIsolinesAction->setCheckable(true);
-    m_selectLayerIsolinesAction->setChecked(m_pDrawWidget->GetFramework().LoadIsolinesEnabled());
-    connect(m_selectLayerIsolinesAction, &QAction::triggered, this, &MainWindow::OnIsolinesEnabled);
+    m_layers->addAction(QIcon(":/navig64/traffic.png"), tr("Traffic"),
+                        std::bind(&MainWindow::OnLayerEnabled, this, LayerType::TRAFFIC), true);
+    m_layers->setChecked(LayerType::TRAFFIC, m_pDrawWidget->GetFramework().LoadTrafficEnabled());
 
-    auto layersMenu = new QMenu();
-    layersMenu->addAction(m_selectLayerTrafficAction);
-    layersMenu->addAction(m_selectLayerTransitAction);
-    layersMenu->addAction(m_selectLayerIsolinesAction);
+    m_layers->addAction(QIcon(":/navig64/subway.png"), tr("Public transport"),
+                        std::bind(&MainWindow::OnLayerEnabled, this, LayerType::TRANSIT), true);
+    m_layers->setChecked(LayerType::TRANSIT, m_pDrawWidget->GetFramework().LoadTransitSchemeEnabled());
 
-    m_selectLayerButton = new QToolButton();
-    m_selectLayerButton->setPopupMode(QToolButton::MenuButtonPopup);
-    m_selectLayerButton->setMenu(layersMenu);
-    m_selectLayerButton->setIcon(QIcon(":/navig64/layers.png"));
-    pToolBar->addWidget(m_selectLayerButton);
+    m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Isolines"),
+                        std::bind(&MainWindow::OnLayerEnabled, this, LayerType::ISOLINES), true);
+    m_layers->setChecked(LayerType::ISOLINES, m_pDrawWidget->GetFramework().LoadIsolinesEnabled());
+
+    pToolBar->addWidget(m_layers->create());
+    m_layers->setMainIcon(QIcon(":/navig64/layers.png"));
+
     pToolBar->addSeparator();
 
-    m_bookmarksAction = pToolBar->addAction(QIcon(":/navig64/bookmark.png"), tr("Show bookmarks and tracks"),
-                                            this, SLOT(OnBookmarksAction()));
+    pToolBar->addAction(QIcon(":/navig64/bookmark.png"), tr("Show bookmarks and tracks"),
+                        this, SLOT(OnBookmarksAction()));
     pToolBar->addSeparator();
 
 #ifndef BUILD_DESIGNER
-    m_selectStartRoutePoint = new QAction(QIcon(":/navig64/point-start.png"),
-                                          tr("Start point"), this);
-    connect(m_selectStartRoutePoint, &QAction::triggered, this, &MainWindow::OnStartPointSelected);
+    m_routing = new PopupMenuHolder(this);
 
-    m_selectFinishRoutePoint = new QAction(QIcon(":/navig64/point-finish.png"),
-                                           tr("Finish point"), this);
-    connect(m_selectFinishRoutePoint, &QAction::triggered, this, &MainWindow::OnFinishPointSelected);
+    // The order should be the same as in "enum class RouteMarkType".
+    m_routing->addAction(QIcon(":/navig64/point-start.png"), tr("Start point"),
+                         std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Start), false);
+    m_routing->addAction(QIcon(":/navig64/point-intermediate.png"), tr("Intermediate point"),
+                         std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Intermediate), false);
+    m_routing->addAction(QIcon(":/navig64/point-finish.png"), tr("Finish point"),
+                         std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Finish), false);
 
-    m_selectIntermediateRoutePoint = new QAction(QIcon(":/navig64/point-intermediate.png"),
-                                                 tr("Intermediate point"), this);
-    connect(m_selectIntermediateRoutePoint, &QAction::triggered, this, &MainWindow::OnIntermediatePointSelected);
+    QToolButton * toolBtn = m_routing->create();
+    toolBtn->setToolTip(tr("Select mode and use SHIFT + LMB to set point"));
+    pToolBar->addWidget(toolBtn);
+    m_routing->setCurrent(m_pDrawWidget->GetRoutePointAddMode());
 
-    auto routePointsMenu = new QMenu();
-    routePointsMenu->addAction(m_selectStartRoutePoint);
-    routePointsMenu->addAction(m_selectFinishRoutePoint);
-    routePointsMenu->addAction(m_selectIntermediateRoutePoint);
-    m_routePointsToolButton = new QToolButton();
-    m_routePointsToolButton->setPopupMode(QToolButton::MenuButtonPopup);
-    m_routePointsToolButton->setMenu(routePointsMenu);
-    switch (m_pDrawWidget->GetRoutePointAddMode())
-    {
-    case RouteMarkType::Start:
-      m_routePointsToolButton->setIcon(m_selectStartRoutePoint->icon());
-      break;
-    case RouteMarkType::Finish:
-      m_routePointsToolButton->setIcon(m_selectFinishRoutePoint->icon());
-      break;
-    case RouteMarkType::Intermediate:
-      m_routePointsToolButton->setIcon(m_selectIntermediateRoutePoint->icon());
-      break;
-    }
-    pToolBar->addWidget(m_routePointsToolButton);
-    auto routingAction = pToolBar->addAction(QIcon(":/navig64/routing.png"), tr("Follow route"),
-                                             this, SLOT(OnFollowRoute()));
-    routingAction->setToolTip(tr("Follow route"));
-    auto clearAction = pToolBar->addAction(QIcon(":/navig64/clear-route.png"), tr("Clear route"),
-                                           this, SLOT(OnClearRoute()));
-    clearAction->setToolTip(tr("Clear route"));
-
-    auto settingsRoutingAction = pToolBar->addAction(QIcon(":/navig64/settings-routing.png"),
-                                                     tr("Routing settings"), this,
-                                                     SLOT(OnRoutingSettings()));
-    settingsRoutingAction->setToolTip(tr("Routing settings"));
+    QAction * act = pToolBar->addAction(QIcon(":/navig64/routing.png"), tr("Follow route"), this, SLOT(OnFollowRoute()));
+    act->setToolTip(tr("Build route and use ALT + LMB to emulate current position"));
+    pToolBar->addAction(QIcon(":/navig64/clear-route.png"), tr("Clear route"), this, SLOT(OnClearRoute()));
+    pToolBar->addAction(QIcon(":/navig64/settings-routing.png"), tr("Routing settings"), this, SLOT(OnRoutingSettings()));
 
     pToolBar->addSeparator();
 
     m_pCreateFeatureAction = pToolBar->addAction(QIcon(":/navig64/select.png"), tr("Create Feature"),
                                                  this, SLOT(OnCreateFeatureClicked()));
     m_pCreateFeatureAction->setCheckable(true);
-    m_pCreateFeatureAction->setToolTip(tr("Please select position on a map."));
+    m_pCreateFeatureAction->setToolTip(tr("Push to select position, next push to create Feature"));
     m_pCreateFeatureAction->setShortcut(QKeySequence::New);
 
     pToolBar->addSeparator();
 
-    m_selectionMode = pToolBar->addAction(QIcon(":/navig64/selectmode.png"), tr("Selection mode"),
-                                          this, SLOT(OnSwitchSelectionMode()));
-    m_selectionMode->setCheckable(true);
-    m_selectionMode->setToolTip(tr("Turn on/off selection mode"));
+    m_selection = new PopupMenuHolder(this);
 
-    m_selectionCityBoundariesMode =
-        pToolBar->addAction(QIcon(":/navig64/city_boundaries.png"), tr("City boundaries selection mode"),
-                            this, SLOT(OnSwitchCityBoundariesSelectionMode()));
-    m_selectionCityBoundariesMode->setCheckable(true);
+    // The order should be the same as in "enum class SelectionMode".
+    m_selection->addAction(QIcon(":/navig64/selectmode.png"), tr("Roads selection mode"),
+                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::Features), true);
+    m_selection->addAction(QIcon(":/navig64/city_boundaries.png"), tr("City boundaries selection mode"),
+                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityBoundaries), true);
+    m_selection->addAction(QIcon(":/navig64/city_roads.png"), tr("City roads selection mode"),
+                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityRoads), true);
+    m_selection->addAction(QIcon(":/navig64/test.png"), tr("Cross MWM segments selection mode"),
+                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CrossMwmSegments), true);
+    m_selection->addAction(QIcon(":/navig64/borders_selection.png"), tr("MWMs borders selection mode"),
+                           this, SLOT(OnSwitchMwmsBordersSelectionMode()), true);
 
-    m_selectionCityRoadsMode =
-        pToolBar->addAction(QIcon(":/navig64/city_roads.png"), tr("City roads selection mode"),
-                            this, SLOT(OnSwitchCityRoadsSelectionMode()));
-    m_selectionCityRoadsMode->setCheckable(true);
+    toolBtn = m_selection->create();
+    toolBtn->setToolTip(tr("Select mode and use RMB to define selection box"));
+    pToolBar->addWidget(toolBtn);
 
-    m_selectionMwmsBordersMode =
-      pToolBar->addAction(QIcon(":/navig64/borders_selection.png"), tr("MWMs borders selection mode"),
-                          this, SLOT(OnSwitchMwmsBordersSelectionMode()));
-    m_selectionMwmsBordersMode->setCheckable(true);
+    pToolBar->addAction(QIcon(":/navig64/clear.png"), tr("Clear selection"), this, SLOT(OnClearSelection()));
 
     pToolBar->addSeparator();
 
 #endif // NOT BUILD_DESIGNER
 
     // Add search button with "checked" behavior.
-    m_pSearchAction = pToolBar->addAction(QIcon(":/navig64/search.png"), tr("Search"),
+    m_pSearchAction = pToolBar->addAction(QIcon(":/navig64/search.png"), tr("Offline Search"),
                                           this, SLOT(OnSearchButtonClicked()));
     m_pSearchAction->setCheckable(true);
-    m_pSearchAction->setToolTip(tr("Offline Search"));
     m_pSearchAction->setShortcut(QKeySequence::Find);
 
-    m_rulerAction = pToolBar->addAction(QIcon(":/navig64/ruler.png"), tr("Ruler"),
-                                        this, SLOT(OnRulerEnabled()));
+    m_rulerAction = pToolBar->addAction(QIcon(":/navig64/ruler.png"), tr("Ruler"), this, SLOT(OnRulerEnabled()));
+    m_rulerAction->setToolTip(tr("Check this button and use ALT + LMB to set points"));
     m_rulerAction->setCheckable(true);
     m_rulerAction->setChecked(false);
-
-    pToolBar->addSeparator();
-
-    m_clearSelection = pToolBar->addAction(QIcon(":/navig64/clear.png"), tr("Clear selection"),
-                                           this, SLOT(OnClearSelection()));
-    m_clearSelection->setToolTip(tr("Clear selection"));
 
     pToolBar->addSeparator();
 
 // #ifndef OMIM_OS_LINUX
     // add my position button with "checked" behavior
 
-    m_pMyPositionAction = pToolBar->addAction(QIcon(":/navig64/location.png"),
-                                           tr("My Position"),
-                                           this,
-                                           SLOT(OnMyPosition()));
+    m_pMyPositionAction = pToolBar->addAction(QIcon(":/navig64/location.png"), tr("My Position"), this, SLOT(OnMyPosition()));
     m_pMyPositionAction->setCheckable(true);
-    m_pMyPositionAction->setToolTip(tr("My Position"));
 // #endif
 
 #ifdef BUILD_DESIGNER
@@ -539,16 +426,12 @@ void MainWindow::CreateNavigationBar()
 #endif // BUILD_DESIGNER
   }
 
+  pToolBar->addSeparator();
   qt::common::ScaleSlider::Embed(Qt::Vertical, *pToolBar, *m_pDrawWidget);
+
 #ifndef NO_DOWNLOADER
-  {
-    // add mainframe actions
-    button_t arr[] = {
-      { QString(), 0, 0 },
-      { tr("Download Maps"), ":/navig64/download.png", SLOT(ShowUpdateDialog()) }
-    };
-    add_buttons(pToolBar, arr, ARRAY_SIZE(arr), this);
-  }
+  pToolBar->addSeparator();
+  pToolBar->addAction(QIcon(":/navig64/download.png"), tr("Download Maps"), this, SLOT(ShowUpdateDialog()));
 #endif // NO_DOWNLOADER
 
   if (m_screenshotMode)
@@ -692,61 +575,37 @@ void MainWindow::OnCreateFeatureClicked()
   }
 }
 
-void MainWindow::OnSwitchSelectionMode()
+void MainWindow::OnSwitchSelectionMode(SelectionMode mode)
 {
-  m_selectionCityBoundariesMode->setChecked(false);
-  m_selectionCityRoadsMode->setChecked(false);
-  m_selectionMwmsBordersMode->setChecked(false);
-
-  m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::Features);
-}
-
-void MainWindow::OnSwitchCityBoundariesSelectionMode()
-{
-  m_selectionMode->setChecked(false);
-  m_selectionCityRoadsMode->setChecked(false);
-  m_selectionMwmsBordersMode->setChecked(false);
-
-  m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::CityBoundaries);
-}
-
-void MainWindow::OnSwitchCityRoadsSelectionMode()
-{
-  m_selectionMode->setChecked(false);
-  m_selectionCityBoundariesMode->setChecked(false);
-  m_selectionMwmsBordersMode->setChecked(false);
-
-  m_pDrawWidget->SetSelectionMode(DrawWidget::SelectionMode::CityRoads);
+  if (m_selection->isChecked(mode))
+  {
+    m_selection->setCurrent(mode);
+    m_pDrawWidget->SetSelectionMode(mode);
+  }
+  else
+    OnClearSelection();
 }
 
 void MainWindow::OnSwitchMwmsBordersSelectionMode()
 {
   MwmsBordersSelection dlg(this);
   auto const response = dlg.ShowModal();
-  if (response == MwmsBordersSelection::Response::Cancelled)
+  if (response == SelectionMode::Cancelled)
   {
-    if (m_pDrawWidget->SelectionModeIsSet() &&
-        IsMwmsBordersSelectionMode(m_pDrawWidget->GetSelectionMode()))
-    {
-      m_pDrawWidget->DropSelectionMode();
-    }
-
-    m_selectionMwmsBordersMode->setChecked(false);
+    m_pDrawWidget->DropSelectionIfMWMBordersMode();
     return;
   }
 
-  m_selectionMode->setChecked(false);
-  m_selectionCityBoundariesMode->setChecked(false);
-  m_selectionCityRoadsMode->setChecked(false);
-
-  m_selectionMwmsBordersMode->setChecked(true);
-
-  m_pDrawWidget->SetSelectionMode(ConvertFromMwmsBordersSelection(response));
+  m_selection->setCurrent(SelectionMode::MWMBorders);
+  m_pDrawWidget->SetSelectionMode(response);
 }
 
 void MainWindow::OnClearSelection()
 {
   m_pDrawWidget->GetFramework().GetDrapeApi().Clear();
+  m_pDrawWidget->SetSelectionMode({});
+
+  m_selection->setMainIcon({});
 }
 
 void MainWindow::OnSearchButtonClicked()
@@ -997,60 +856,40 @@ void MainWindow::OnRetryDownloadClicked()
   GetFramework().GetStorage().RetryDownloadNode(m_lastCountry);
 }
 
-void MainWindow::SetEnabledTraffic(bool enable)
+void MainWindow::SetLayerEnabled(LayerType type, bool enable)
 {
-  m_selectLayerTrafficAction->setChecked(enable);
-  m_pDrawWidget->GetFramework().GetTrafficManager().SetEnabled(enable);
-  m_pDrawWidget->GetFramework().SaveTrafficEnabled(enable);
-}
-
-void MainWindow::SetEnabledTransit(bool enable)
-{
-  m_selectLayerTransitAction->setChecked(enable);
-  m_pDrawWidget->GetFramework().GetTransitManager().EnableTransitSchemeMode(enable);
-  m_pDrawWidget->GetFramework().SaveTransitSchemeEnabled(enable);
-}
-
-void MainWindow::SetEnabledIsolines(bool enable)
-{
-  m_selectLayerIsolinesAction->setChecked(enable);
-  m_pDrawWidget->GetFramework().GetIsolinesManager().SetEnabled(enable);
-  m_pDrawWidget->GetFramework().SaveIsolinesEnabled(enable);
-}
-
-void MainWindow::OnTrafficEnabled()
-{
-  bool const enabled = m_selectLayerTrafficAction->isChecked();
-  SetEnabledTraffic(enabled);
-
-  if (enabled)
+  auto & frm = m_pDrawWidget->GetFramework();
+  switch (type)
   {
-    SetEnabledTransit(false);
-    SetEnabledIsolines(false);
+  case LayerType::TRAFFIC:
+    frm.GetTrafficManager().SetEnabled(enable);
+    frm.SaveTrafficEnabled(enable);
+    break;
+  case LayerType::TRANSIT:
+    frm.GetTransitManager().EnableTransitSchemeMode(enable);
+    frm.SaveTransitSchemeEnabled(enable);
+    break;
+  case LayerType::ISOLINES:
+    frm.GetIsolinesManager().SetEnabled(enable);
+    frm.SaveIsolinesEnabled(enable);
+    break;
+  default:
+    UNREACHABLE();
+    break;
   }
 }
 
-void MainWindow::OnTransitEnabled()
+void MainWindow::OnLayerEnabled(LayerType layer)
 {
-  bool const enabled = m_selectLayerTransitAction->isChecked();
-  SetEnabledTransit(enabled);
-
-  if (enabled)
+  for (size_t i = 0; i < LayerType::COUNT; ++i)
   {
-    SetEnabledIsolines(false);
-    SetEnabledTraffic(false);
-  }
-}
-
-void MainWindow::OnIsolinesEnabled()
-{
-  bool const enabled = m_selectLayerIsolinesAction->isChecked();
-  SetEnabledIsolines(enabled);
-
-  if (enabled)
-  {
-    SetEnabledTraffic(false);
-    SetEnabledTransit(false);
+    if (i == layer)
+      SetLayerEnabled(static_cast<LayerType>(i), m_layers->isChecked(i));
+    else
+    {
+      m_layers->setChecked(i, false);
+      SetLayerEnabled(static_cast<LayerType>(i), false);
+    }
   }
 }
 
@@ -1059,22 +898,10 @@ void MainWindow::OnRulerEnabled()
   m_pDrawWidget->SetRuler(m_rulerAction->isChecked());
 }
 
-void MainWindow::OnStartPointSelected()
+void MainWindow::OnRoutePointSelected(RouteMarkType type)
 {
-  m_routePointsToolButton->setIcon(m_selectStartRoutePoint->icon());
-  m_pDrawWidget->SetRoutePointAddMode(RouteMarkType::Start);
-}
-
-void MainWindow::OnFinishPointSelected()
-{
-  m_routePointsToolButton->setIcon(m_selectFinishRoutePoint->icon());
-  m_pDrawWidget->SetRoutePointAddMode(RouteMarkType::Finish);
-}
-
-void MainWindow::OnIntermediatePointSelected()
-{
-  m_routePointsToolButton->setIcon(m_selectIntermediateRoutePoint->icon());
-  m_pDrawWidget->SetRoutePointAddMode(RouteMarkType::Intermediate);
+  m_routing->setCurrent(type);
+  m_pDrawWidget->SetRoutePointAddMode(type);
 }
 
 void MainWindow::OnFollowRoute()

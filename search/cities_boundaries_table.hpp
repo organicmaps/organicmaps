@@ -6,11 +6,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include <cstdint>
-#include <sstream>
 #include <string>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 class DataSource;
@@ -31,11 +28,6 @@ public:
 
     Boundaries(std::vector<indexer::CityBoundary> const & boundaries, double eps)
       : m_boundaries(boundaries), m_eps(eps)
-    {
-    }
-
-    Boundaries(std::vector<indexer::CityBoundary> && boundaries, double eps)
-      : m_boundaries(std::move(boundaries)), m_eps(eps)
     {
     }
 
@@ -60,15 +52,7 @@ public:
         fn(m_boundaries[i], i);
     }
 
-    friend std::string DebugPrint(Boundaries const & boundaries)
-    {
-      std::ostringstream os;
-      os << "Boundaries [";
-      os << ::DebugPrint(boundaries.m_boundaries) << ", ";
-      os << "eps: " << boundaries.m_eps;
-      os << "]";
-      return os.str();
-    }
+    friend std::string DebugPrint(Boundaries const & boundaries);
 
   private:
     std::vector<indexer::CityBoundary> m_boundaries;

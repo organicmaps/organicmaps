@@ -99,10 +99,43 @@ public:
   bool HaveFullyMatchedResult() const { return m_haveFullyMatchedResult; }
   size_t Limit() const { return m_params.m_limit; }
 
-  template <typename Fn>
-  void ForEach(Fn && fn)
+  // Iterate results per-MWM clusters.
+  // Made it "static template" for easy unit tests implementing.
+  template <class T, class FnT>
+  static void ForEachMwmOrder(std::vector<T> & vec, FnT && fn)
   {
-    std::for_each(m_results.begin(), m_results.end(), std::forward<Fn>(fn));
+    size_t const count = vec.size();
+    if (count == 0)
+      return;
+
+    std::set<MwmSet::MwmId> processed;
+
+    size_t next = 0;
+    bool nextAssigned;
+
+    do
+    {
+      fn(vec[next]);
+
+      MwmSet::MwmId const mwmId = vec[next].GetId().m_mwmId;
+
+      nextAssigned = false;
+      for (size_t i = next + 1; i < count; ++i)
+      {
+        auto const & currId = vec[i].GetId().m_mwmId;
+        if (currId == mwmId)
+        {
+          fn(vec[i]);
+        }
+        else if (!nextAssigned && processed.count(currId) == 0)
+        {
+          next = i;
+          nextAssigned = true;
+        }
+      }
+
+      processed.insert(mwmId);
+    } while (nextAssigned);
   }
 
   void ClearCaches();

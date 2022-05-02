@@ -39,16 +39,20 @@ area[place=islet]
 area[natural=glacier],
 area[natural=beach],
 area[leisure=beach_resort],
-area[amenity=university],
 area[aeroway=airport][aerodrome=international],
 area[aeroway=aerodrome][aerodrome=international],
 area[aeroway=airport],
-area[aeroway=aerodrome]
+area[aeroway=aerodrome],
+area[landuse=education],
 {z-index: 1;}
 
 area[amenity=hospital],
 area[amenity=doctors],
 area[healthcare=laboratory],
+area[amenity=university],
+area[amenity=college],
+area[amenity=school],
+area[amenity=kindergarten],
 {z-index: 2;}
 
 area[landuse=industrial],
@@ -458,8 +462,12 @@ area|z16-[public_transport=platform],
 area|z16-[amenity=place_of_worship],
 area|z16-[railway=platform],
 area|z16-[sport=soccer],
+area|z16-[amenity=college],
+area|z17-[amenity=school],
+area|z17-[amenity=kindergarten],
 area|z17-[leisure=playground],
 area|z17-[sport=multi],
+area|z17-[landuse=education],
 {fill-position: background;	fill-opacity: 1;}
 
 /* 7.1 Industrial */
@@ -479,7 +487,11 @@ area|z14-[amenity=doctors]
 
 /* 7.3 University & Sport */
 
-area|z14-[amenity=university]
+area|z14-[amenity=university],
+area|z16-[amenity=college],
+area|z17-[amenity=school],
+area|z17-[amenity=kindergarten],
+area|z17-[landuse=education],
 {fill-color: @university;}
 
 area|z15-[leisure=pitch],

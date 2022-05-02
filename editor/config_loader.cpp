@@ -11,7 +11,7 @@
 #include <fstream>
 #include <iterator>
 
-#include "3party/pugixml/src/pugixml.hpp"
+#include "3party/pugixml/pugixml/src/pugixml.hpp"
 
 namespace editor
 {
@@ -182,7 +182,7 @@ bool ConfigLoader::SaveHash(string const & hash, string const & filePath)
       ofstream ofs(fileName, ofstream::out);
       if (!ofs.is_open())
         return false;
-      
+
       ofs.write(hash.data(), hash.size());
       return true;
     });

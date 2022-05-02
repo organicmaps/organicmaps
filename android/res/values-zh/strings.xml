@@ -41,9 +41,10 @@
 	<string name="close">关闭</string>
 	<string name="unsupported_phone">硬件加速的 OpenGL 是必需的。遗憾的是您的设备不支持此功能。</string>
 	<string name="download">下载</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">请断开 USB 线或插入存储卡以使用 Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">请在存储卡/ USB 储存设备上释放一些空间以 使用此应用</string>
-	<string name="not_enough_memory">没有足够的内存来启动应用程序</string>
 	<string name="download_resources">在您开始前请让我们下载通用世界地图至您的设备中。\n它需要%s的 数据。</string>
 	<string name="download_resources_continue">前往地图</string>
 	<string name="downloading_country_can_proceed">下载 %s。您现在可\n前往地图。</string>
@@ -209,6 +210,8 @@
 	<string name="search_show_on_map">在地图上查看</string>
 	<!-- Text in menu -->
 	<string name="website">网站</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">新闻</string>
 	<!-- Text in menu -->
 	<string name="facebook">脸书</string>
 	<!-- Text in menu -->

@@ -41,9 +41,10 @@
 	<string name="close">Cerrar</string>
 	<string name="unsupported_phone">La aplicación requiere OpenGL acelerado por hardware. Lamentablemente, su dispositivo no es compatible.</string>
 	<string name="download">Descargar</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Por favor desconectar el cable USB o insertar la memoria SD para usar Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Por favor liberar espacio en la memoria SD/almacenamiento USB para usar la aplicación</string>
-	<string name="not_enough_memory">No hay suficiente memoria para iniciar la aplicación</string>
 	<string name="download_resources">Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general.\nSe requieren %s de datos.</string>
 	<string name="download_resources_continue">Ir al mapa</string>
 	<string name="downloading_country_can_proceed">Descargando %s. Puede ahora\nproceder al mapa</string>
@@ -210,6 +211,8 @@
 	<string name="search_show_on_map">Ver en el mapa</string>
 	<!-- Text in menu -->
 	<string name="website">Sitio web</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Noticias</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Comentarios</string>
 	<!-- Text in menu -->
@@ -670,7 +673,9 @@
 	<string name="elevation_profile_time">Lapso:</string>
 	<string name="isolines_toast_zooms_1_10">Amplía el mapa para ver las isolíneas</string>
 	<string name="download_map_title">Descarga mapa mundial</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Problema de conexión</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Desconecte el cable USB</string>
 	<string name="enable_screen_sleep">Permitir que la pantalla duerma</string>
 	<!-- Description in preferences -->
@@ -1145,6 +1150,7 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Cementerio</string>
 	<string name="type.landuse.churchyard">Camposanto</string>
+	<string name="type.landuse.education">Instalaciones educativas</string>
 	<string name="type.landuse.farmland">Tierras agrícolas</string>
 	<string name="type.landuse.forest">Bosque</string>
 	<string name="type.landuse.forest.coniferous">Bosque</string>

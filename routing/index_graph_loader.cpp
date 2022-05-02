@@ -169,8 +169,8 @@ unique_ptr<IndexGraph> IndexGraphLoaderImpl::CreateIndexGraph(NumMwmId numMwmId)
   base::Timer timer;
   MwmValue const & mwmValue = *handle.GetValue();
   DeserializeIndexGraph(mwmValue, m_vehicleType, *graph);
-  LOG(LINFO, (ROUTING_FILE_TAG, "section for", file.GetName(), "loaded in", timer.ElapsedSeconds(),
-      "seconds"));
+  LOG(LINFO, (ROUTING_FILE_TAG, "section for", file.GetName(), "loaded in", timer.ElapsedSeconds(), "seconds"));
+
   return graph;
 }
 
@@ -216,12 +216,22 @@ void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, I
 {
   FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(ROUTING_FILE_TAG));
   ReaderSource<FilesContainerR::TReader> src(reader);
+
   IndexGraphSerializer::Deserialize(graph, src, GetVehicleMask(vehicleType));
-  RestrictionLoader restrictionLoader(mwmValue, graph);
-  if (restrictionLoader.HasRestrictions())
+
+  // Do not load restrictions (relation type = restriction) for pedestrian routing.
+  // https://wiki.openstreetmap.org/wiki/Relation:restriction
+  /// @todo OSM has 49 (April 2022) restriction:foot relations. We should use them someday,
+  /// starting from generator and saving like access, according to the vehicleType.
+  ASSERT(vehicleType != VehicleType::Transit, ());
+  if (vehicleType != VehicleType::Pedestrian)
   {
-    graph.SetRestrictions(restrictionLoader.StealRestrictions());
-    graph.SetUTurnRestrictions(restrictionLoader.StealNoUTurnRestrictions());
+    RestrictionLoader restrictionLoader(mwmValue, graph);
+    if (restrictionLoader.HasRestrictions())
+    {
+      graph.SetRestrictions(restrictionLoader.StealRestrictions());
+      graph.SetUTurnRestrictions(restrictionLoader.StealNoUTurnRestrictions());
+    }
   }
 
   RoadAccess roadAccess;

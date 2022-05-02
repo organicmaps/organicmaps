@@ -7,8 +7,6 @@ import sys
 def langs_order(lang):
     if lang == 'en':
         return '0'
-    elif lang == 'ru':
-        return '1'
     return lang
 
 
@@ -96,7 +94,7 @@ if __name__ == '__main__':
     fout = sys.stdout if options.output == '-' else open(options.output, 'w')
 
     if not options.langs:
-        langs = 'en ru ar cs da nl fi fr de hu id it ja ko nb pl pt ro es sv th tr uk vi zh-Hans zh-Hant he sk'.split()
+        langs = 'en en-AU en-GB en-UK ar be cs da de es es-MX eu he nl fi fr hu id it ja ko nb pl pt pt-BR ro ru sk sv th tr uk vi zh-Hans zh-Hant'.split()
     elif options.langs == '?':
         langs = None
     else:

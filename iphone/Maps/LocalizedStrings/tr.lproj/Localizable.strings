@@ -264,6 +264,9 @@
 /* Text in menu */
 "website" = "Web Sitesi";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Haberler";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -563,7 +566,7 @@
 "closed_now" = "Şu anda kapalı";
 
 /* Place Page opening hours text */
-"daily" = "Günlük";
+"daily" = "Her gün";
 
 "twentyfour_seven" = "7/24";
 
@@ -2171,6 +2174,8 @@
 "type.landuse.commercial" = "Ticari Alan";
 
 "type.landuse.construction" = "Yapı";
+
+"type.landuse.education" = "Educational Facilities";
 
 "type.landuse.farm" = "Çiftlik";
 

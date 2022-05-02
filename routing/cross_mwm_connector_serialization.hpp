@@ -184,8 +184,8 @@ public:
 
       std::vector<uint8_t> & buffer = weightBuffers[i];
       WriteWeights(connector.m_weights, buffer);
-      auto const numEnters = base::checked_cast<uint32_t>(connector.GetEnters().size());
-      auto const numExits = base::checked_cast<uint32_t>(connector.GetExits().size());
+      auto const numEnters = base::checked_cast<uint32_t>(connector.GetNumEnters());
+      auto const numExits = base::checked_cast<uint32_t>(connector.GetNumExits());
       auto const vehicleType = static_cast<VehicleType>(i);
       header.AddSection(Section(buffer.size(), numEnters, numExits, vehicleType));
     }
@@ -211,11 +211,14 @@ public:
     VehicleMask const requiredMask = GetVehicleMask(requiredVehicle);
     auto const numTransitions = base::checked_cast<size_t>(header.GetNumTransitions());
 
-    for (size_t i = 0; i < numTransitions; ++i)
     {
-      Transition<CrossMwmId> transition;
-      transition.Deserialize(header.GetBitsPerCrossMwmId(), header.GetBitsPerMask(), src);
-      AddTransition(transition, requiredMask, connector);
+      typename CrossMwmConnector<CrossMwmId>::Builder builder(connector, numTransitions);
+      for (size_t i = 0; i < numTransitions; ++i)
+      {
+        Transition<CrossMwmId> transition;
+        transition.Deserialize(header.GetBitsPerCrossMwmId(), header.GetBitsPerMask(), src);
+        AddTransition(transition, requiredMask, builder);
+      }
     }
 
     if (src.Pos() != weightsOffset)
@@ -233,8 +236,8 @@ public:
         continue;
       }
 
-      size_t const numEnters = connector.GetEnters().size();
-      size_t const numExits = connector.GetExits().size();
+      size_t const numEnters = connector.GetNumEnters();
+      size_t const numExits = connector.GetNumExits();
 
       if (base::checked_cast<size_t>(section.GetNumEnters()) != numEnters)
       {
@@ -266,7 +269,7 @@ public:
 
     src.Skip(connector.m_weightsOffset);
 
-    size_t const amount = connector.GetEnters().size() * connector.GetExits().size();
+    size_t const amount = connector.GetNumEnters() * connector.GetNumExits();
     connector.m_weights.reserve(amount);
 
     BitReader<Source> reader(src);
@@ -291,14 +294,14 @@ public:
 
   template <class CrossMwmId>
   static void AddTransition(Transition<CrossMwmId> const & transition, VehicleMask requiredMask,
-                            CrossMwmConnector<CrossMwmId> & connector)
+                            typename CrossMwmConnector<CrossMwmId>::Builder & builder)
   {
     if ((transition.GetRoadMask() & requiredMask) == 0)
       return;
 
     bool const isOneWay = (transition.GetOneWayMask() & requiredMask) != 0;
-    connector.AddTransition(transition.GetCrossMwmId(), transition.GetFeatureId(),
-                            transition.GetSegmentIdx(), isOneWay, transition.ForwardIsEnter());
+    builder.AddTransition(transition.GetCrossMwmId(), transition.GetFeatureId(),
+                          transition.GetSegmentIdx(), isOneWay, transition.ForwardIsEnter());
   }
 
 private:

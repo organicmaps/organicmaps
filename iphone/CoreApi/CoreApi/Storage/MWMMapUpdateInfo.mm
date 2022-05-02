@@ -10,7 +10,7 @@
   self = [super init];
   if (self) {
     _numberOfFiles = updateInfo.m_numberOfMwmFilesToUpdate;
-    _updateSize = updateInfo.m_totalUpdateSizeInBytes;
+    _updateSize = updateInfo.m_totalDownloadSizeInBytes;
     _differenceSize = updateInfo.m_sizeDifference;
   }
   return self;

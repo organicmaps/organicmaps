@@ -385,4 +385,22 @@
   <style name="TextAppearance.Large.Inverse" parent="MwmTextAppearance.Body1.Light">
     <item name="android:textSize">@dimen/text_size_toolbar</item>
   </style>
+
+  <style name="MwmWidget.BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
+    <item name="android:background">?cardBackground</item>
+    <item name="backgroundTint">?cardBackground</item>
+    <item name="behavior_hideable">false</item>
+    <item name="shapeAppearance">@style/ShapeAppearance.Material3.LargeComponent</item>
+  </style>
+
+  <style name="MwmWidget.BottomSheetDialog" parent="Theme.Material3.Light.BottomSheetDialog">
+    <item name="colorSurface">?cardBackground</item>
+    <item name="elevationOverlayEnabled">false</item>
+  </style>
+
+  <style name="MwmWidget.Night.BottomSheetDialog" parent="Theme.Material3.Dark.BottomSheetDialog" >
+    <item name="colorSurface">?cardBackground</item>
+    <item name="elevationOverlayEnabled">false</item>
+  </style>
+
 </resources>

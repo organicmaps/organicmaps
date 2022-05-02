@@ -44,9 +44,10 @@
 	<string name="close">Затваряне</string>
 	<string name="unsupported_phone">Приложението изисква хардуерно ускорение на OpenGL. За съжаление вашето устройство не се поддържа.</string>
 	<string name="download">Изтегляне</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Моля, изключете USB кабела или поставете карта с памет.</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Моля, първо освободете място на SD картата/USB паметта, за да можете да използвате приложението.</string>
-	<string name="not_enough_memory">Няма достатъчно памет за стартиране на приложението</string>
 	<string name="download_resources">Преди да започнете да използвате приложението, позволете ни да изтеглим общата карта на света на вашето устройство.\nТова ще използва %s от паметта.</string>
 	<string name="download_resources_continue">Към картата</string>
 	<string name="downloading_country_can_proceed">Изтегляне на %s. Вече можете да преминете към картата.</string>
@@ -212,6 +213,8 @@
 	<string name="search_show_on_map">Преглед на картата</string>
 	<!-- Text in menu -->
 	<string name="website">Уебсайт</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Новини</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Обратна връзка</string>
 	<!-- Text in menu -->
@@ -625,7 +628,9 @@
 	<string name="elevation_profile_time">Време:</string>
 	<string name="isolines_toast_zooms_1_10">Увеличете мащаба, за да разгледате изолиниите</string>
 	<string name="download_map_title">Изтегляне на картата на света</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Неуспешно свързване</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Изключване на USB кабел</string>
 	<string name="enable_screen_sleep">Позволяване на екрана да заспи</string>
 	<!-- Description in preferences -->

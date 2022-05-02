@@ -50,8 +50,8 @@ namespace routing
 VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const & featureTypeLimits,
                            SurfaceInitList const & featureTypeSurface, HighwayBasedInfo const & info)
 : m_highwayBasedInfo(info)
-, m_onewayType(classif.GetTypeByPath({"hwtag", "oneway"}))
-, m_railwayVehicleType(classif.GetTypeByPath({"railway", "rail", "motor_vehicle"}))
+, m_onewayType(ftypes::IsOneWayChecker::Instance().GetType())
+, m_railwayVehicleType(ftypes::IsWayWithDurationChecker::Instance().GetMotorVehicleRailway())
 {
   m_roadTypes.Reserve(featureTypeLimits.size());
   for (auto const & v : featureTypeLimits)
@@ -202,8 +202,9 @@ SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedPa
       ASSERT(s, ("Key:", *hwType, "is not found."));
       speed = s->GetSpeed(isCityRoad);
 
-      // Override 'default' speed from params, but take into account ETA/Weight factor.
-      if (params.m_defSpeedKmPH != kInvalidSpeed)
+      // Override the global default speed with the MWM's saved default speed if they are not significantly differ (2x),
+      // to avoid anomaly peaks (especially for tracks).
+      if (params.m_defSpeedKmPH != kInvalidSpeed && fabs(speed.m_weight - params.m_defSpeedKmPH) / speed.m_weight < 1.0)
       {
         double const factor = speed.m_eta / speed.m_weight;
         speed.m_weight = params.m_defSpeedKmPH;
@@ -301,8 +302,7 @@ VehicleModelFactory::VehicleModelFactory(
 shared_ptr<VehicleModelInterface> VehicleModelFactory::GetVehicleModel() const
 {
   auto const itr = m_models.find("");
-  ASSERT(itr != m_models.end(), ("No default vehicle model. VehicleModelFactory was not "
-                                 "properly constructed"));
+  ASSERT(itr != m_models.end(), ());
   return itr->second;
 }
 

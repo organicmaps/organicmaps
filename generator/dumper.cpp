@@ -72,9 +72,8 @@ namespace feature
     void operator()(FeatureType & f, uint32_t)
     {
       ++m_totalCount;
-      string s1, s2;
-      f.GetPreferredNames(s1, s2);
-      if (!s1.empty())
+      auto const [primary, secondary] = f.GetPreferredNames();
+      if (!primary.empty())
         ++m_namesCount;
 
       m_currFeatureTypes.clear();
@@ -125,7 +124,7 @@ namespace feature
   public:
     TokensContainerT m_stats;
 
-    void operator()(int8_t langCode, string const & name)
+    void operator()(int8_t langCode, string_view name)
     {
       CHECK(!name.empty(), ("Feature name is empty"));
 
@@ -217,17 +216,18 @@ namespace feature
   void DumpFeatureNames(string const & fPath, string const & lang)
   {
     int8_t const langIndex = StringUtf8Multilang::GetLangIndex(lang);
-    auto printName = [&](int8_t langCode, string const & name) {
-      CHECK(!name.empty(), ("Feature name is empty"));
-      if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
-        cout << StringUtf8Multilang::GetLangByCode(langCode) << ' ' << name << endl;
-      else if (langCode == langIndex)
-        cout << name << endl;
-    };
 
     feature::ForEachFeature(fPath, [&](FeatureType & f, uint32_t)
-                            {
-                              f.ForEachName(printName);
-                            });
+    {
+      f.ForEachName([&](int8_t langCode, string_view name)
+      {
+        CHECK(!name.empty(), ("Feature name is empty"));
+
+        if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
+          cout << StringUtf8Multilang::GetLangByCode(langCode) << ' ' << name << endl;
+        else if (langCode == langIndex)
+          cout << name << endl;
+      });
+    });
   }
 }  // namespace feature

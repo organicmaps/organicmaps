@@ -46,7 +46,7 @@ public:
     bool m_blendingEnabled = false;
   };
 
-  VulkanPipeline(VkDevice device, int appVersionCode);
+  VulkanPipeline(VkDevice device, uint32_t appVersionCode);
   void Dump(VkDevice device);
   void Destroy(VkDevice device);
   void ResetCache(VkDevice device);
@@ -55,7 +55,7 @@ public:
   VkPipeline GetPipeline(VkDevice device, PipelineKey const & key);
 
 private:
-  int const m_appVersionCode;
+  uint32_t const m_appVersionCode;
   VkPipelineCache m_vulkanPipelineCache;
 
   using PipelineCache = std::map<PipelineKey, VkPipeline>;

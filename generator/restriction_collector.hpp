@@ -100,7 +100,7 @@ private:
   std::string m_restrictionPath;
 };
 
-void FromString(std::string const & str, Restriction::Type & type);
-void FromString(std::string const & str, RestrictionWriter::ViaType & type);
-void FromString(std::string const & str, double & number);
+void FromString(std::string_view str, Restriction::Type & type);
+void FromString(std::string_view str, RestrictionWriter::ViaType & type);
+void FromString(std::string_view str, double & number);
 }  // namespace routing_builder

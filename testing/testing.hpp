@@ -9,9 +9,12 @@
 
 #include <string>
 
+// TestRegister is static to avoid this warning:
+// No previous extern declaration for non-static variable 'g_testRegister_TESTNAME'
+// note: declare 'static' if the variable is not intended to be used outside of this translation unit
 #define UNIT_TEST(name)                                                  \
   void UnitTest_##name();                                                \
-  TestRegister g_testRegister_##name(#name, __FILE__, &UnitTest_##name); \
+  static TestRegister g_testRegister_##name(#name, __FILE__, &UnitTest_##name); \
   void UnitTest_##name()
 
 #define UNIT_CLASS_TEST(CLASS, NAME)               \
@@ -31,7 +34,7 @@ DECLARE_EXCEPTION(TestFailureException, RootException);
 
 namespace base
 {
-inline void OnTestFailed(SrcPoint const & srcPoint, std::string const & msg)
+[[noreturn]] inline void OnTestFailed(SrcPoint const & srcPoint, std::string const & msg)
 {
   LOG(LINFO, ("FAILED"));
   LOG(LINFO, (::DebugPrint(srcPoint.FileName()) + ":" + ::DebugPrint(srcPoint.Line()), msg));
@@ -202,7 +205,7 @@ CommandLineOptions const & GetTestingOptions();
     {                                                                                           \
       X;                                                                                        \
     }                                                                                           \
-    catch (exception const &)                                                                   \
+    catch (std::exception const &)                                                              \
     {                                                                                           \
       expected_exception = true;                                                                \
     }                                                                                           \
@@ -223,6 +226,12 @@ CommandLineOptions const & GetTestingOptions();
     try                                                                                         \
     {                                                                                           \
       X;                                                                                        \
+    }                                                                                           \
+    catch (RootException const & ex)                                                            \
+    {                                                                                           \
+      ::base::OnTestFailed(SRC(),                                                               \
+                           ::base::Message("Unexpected exception at TEST(" #X ")",              \
+                           ::base::Message(ex.Msg()), ::base::Message msg));                    \
     }                                                                                           \
     catch (...)                                                                                 \
     {                                                                                           \

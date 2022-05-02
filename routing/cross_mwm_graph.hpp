@@ -95,14 +95,12 @@ public:
 
   void Clear();
 
-  // \returns transitions for mwm with id |numMwmId| for CrossMwmIndexGraph.
-  std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter)
+  template <class FnT> void ForEachTransition(NumMwmId numMwmId, bool isEnter, FnT && fn)
   {
-    CHECK(CrossMwmSectionExists(numMwmId), ("Should be used in LeapsOnly mode only. LeapsOnly mode requires CrossMwmIndexGraph."));
-    return m_crossMwmIndexGraph.GetTransitions(numMwmId, isEnter);
+    CHECK(CrossMwmSectionExists(numMwmId), ("Should be used in LeapsOnly mode only"));
+    return m_crossMwmIndexGraph.ForEachTransition(numMwmId, isEnter, fn);
   }
 
-  bool IsFeatureTransit(NumMwmId numMwmId, uint32_t featureId);
   /// \brief Checks whether feature where |segment| is placed is a cross mwm connector.
   ///        If yes twin-segments are saved to |twins|.
   void GetTwinFeature(Segment const & segment, bool isOutgoing, std::vector<Segment> & twins);
@@ -117,9 +115,7 @@ private:
   /// \brief Fills |neighbors| with number mwm id of all loaded neighbors of |numMwmId| and
   /// sets |allNeighborsHaveCrossMwmSection| to true if all loaded neighbors have cross mwm section
   /// and to false otherwise.
-  void GetAllLoadedNeighbors(NumMwmId numMwmId,
-                             std::vector<NumMwmId> & neighbors,
-                             bool & allNeighborsHaveCrossMwmSection);
+  bool GetAllLoadedNeighbors(NumMwmId numMwmId, std::vector<NumMwmId> & neighbors);
   /// \brief Deserizlize transitions for mwm with |ids|.
   void DeserializeTransitions(std::vector<NumMwmId> const & mwmIds);
   void DeserializeTransitTransitions(std::vector<NumMwmId> const & mwmIds);

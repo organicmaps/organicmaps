@@ -264,6 +264,9 @@
 /* Text in menu */
 "website" = "Site internet";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Nouvelles";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -2171,6 +2174,8 @@
 "type.landuse.commercial" = "Zone commerciale";
 
 "type.landuse.construction" = "Chantier de construction";
+
+"type.landuse.education" = "Établissements éducatifs";
 
 "type.landuse.farm" = "Farm";
 

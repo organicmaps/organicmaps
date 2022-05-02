@@ -83,6 +83,7 @@ The OM community abides by the [CNCF code of conduct](CODE_OF_CONDUCT.md).
 
 - [Directories structure](STRUCTURE.md)
 - [C++ Style Guide](CPP_STYLE.md).
+- [Java Style Guide](JAVA_STYLE.md).
 - [Objective-C Style Guide](OBJC_STYLE.md).
 - [Pull Request Guide](PR_GUIDE.md).
 - [How to write a commit message](COMMIT_MESSAGES.md).

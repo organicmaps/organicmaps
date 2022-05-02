@@ -264,6 +264,9 @@
 /* Text in menu */
 "website" = "网站";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "新闻";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -2171,6 +2174,8 @@
 "type.landuse.commercial" = "商务办公用地";
 
 "type.landuse.construction" = "建设区域";
+
+"type.landuse.education" = "Educational Facilities";
 
 "type.landuse.farm" = "农田";
 

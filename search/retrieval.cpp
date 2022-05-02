@@ -207,7 +207,8 @@ pair<bool, bool> MatchFeatureByNameAndType(EditableMapObject const & emo,
     return {true, true};
 
   pair<bool, bool> matchedByName = {false, false};
-  emo.GetNameMultilang().ForEach([&](int8_t lang, string const & name) {
+  emo.GetNameMultilang().ForEach([&](int8_t lang, string_view name)
+  {
     if (name.empty() || !request.HasLang(lang))
       return base::ControlFlow::Continue;
 
@@ -226,9 +227,8 @@ pair<bool, bool> MatchFeatureByNameAndType(EditableMapObject const & emo,
 
 bool MatchFeatureByPostcode(EditableMapObject const & emo, TokenSlice const & slice)
 {
-  string const postcode = emo.GetPostcode();
   vector<UniString> tokens;
-  NormalizeAndTokenizeString(postcode, tokens, Delimiters());
+  NormalizeAndTokenizeString(emo.GetPostcode(), tokens, Delimiters());
   if (slice.Size() > tokens.size())
     return false;
   for (size_t i = 0; i < slice.Size(); ++i)

@@ -14,7 +14,6 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
-#include "base/macros.hpp"
 #include "base/scope_guard.hpp"
 
 #include <cstdint>
@@ -48,7 +47,12 @@ public:
     m_targetDir = GetPlatform().WritableDir();
 
     auto const & intermediateDir = base::JoinPath(m_targetDir, kTmpDirName);
-    UNUSED_VALUE(Platform::MkDir(intermediateDir));
+    if (auto const ret = Platform::MkDir(intermediateDir);
+        ret != Platform::EError::ERR_OK &&
+        ret != Platform::EError::ERR_FILE_ALREADY_EXISTS)
+    {
+      MYTHROW(FileSystemException, ("Can't create intermediateDir", intermediateDir));
+    }
     m_intermediateDir = intermediateDir;
   }
 

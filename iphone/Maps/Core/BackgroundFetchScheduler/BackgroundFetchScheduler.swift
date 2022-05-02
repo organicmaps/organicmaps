@@ -51,6 +51,7 @@ final class BackgroundFetchScheduler: NSObject {
       case .newData: return 3
       case .noData: return 1
       case .failed: return 2
+      @unknown default: fatalError("Unexpected case in UIBackgroundFetchResult switch")
     }
   }
 }

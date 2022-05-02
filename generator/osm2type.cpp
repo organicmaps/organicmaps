@@ -624,7 +624,7 @@ void PreprocessElement(OsmElement * p)
     bool first = true;
     while (iter)
     {
-      string normalized = *iter;
+      string normalized(*iter);
       strings::Trim(normalized, " ");
       collapse(' ', normalized);
       replace(normalized.begin(), normalized.end(), ' ', '_');
@@ -661,9 +661,9 @@ void PreprocessElement(OsmElement * p)
   {
     strings::MakeLowerCaseInplace(aerodromeTypes);
     bool first = true;
-    for (auto type : strings::Tokenize(aerodromeTypes, ",;"))
+    for (auto type : strings::Tokenize<std::string>(aerodromeTypes, ",;"))
     {
-      strings::Trim(type, " ");
+      strings::Trim(type);
 
       if (first)
         p->UpdateTag(kAerodromeTypeKey, [&type](auto & value) { value = type; });

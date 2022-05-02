@@ -6,6 +6,6 @@ namespace bidi
 {
 
 strings::UniString log2vis(strings::UniString const & str);
-strings::UniString log2vis(std::string const & utf8);
+strings::UniString log2vis(std::string_view utf8);
 
 } // namespace bidi

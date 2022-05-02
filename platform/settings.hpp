@@ -8,8 +8,6 @@
 
 namespace settings
 {
-/// Current location state mode. @See location::EMyPositionMode.
-extern char const * kLocationStateMode;
 /// Metric or Feet.
 extern char const * kMeasurementUnits;
 
@@ -31,7 +29,7 @@ private:
 /// Retrieve setting
 /// @return false if setting is absent
 template <class Value>
-WARN_UNUSED_RESULT bool Get(std::string const & key, Value & outValue)
+[[nodiscard]] bool Get(std::string const & key, Value & outValue)
 {
   std::string strVal;
   return StringStorage::Instance().GetValue(key, strVal) && FromString(strVal, outValue);
@@ -57,8 +55,9 @@ inline void Clear() { StringStorage::Instance().Clear(); }
 /// Use this function for running some stuff once according to date.
 /// @param[in]  date  Current date in format yymmdd.
 bool IsFirstLaunchForDate(int date);
-}
+} // namespace settings
 
+/*
 namespace marketing
 {
 class Settings : public platform::StringStorageBase
@@ -71,7 +70,7 @@ public:
   }
 
   template <class Value>
-  WARN_UNUSED_RESULT static bool Get(std::string const & key, Value & outValue)
+  [[nodiscard]] static bool Get(std::string const & key, Value & outValue)
   {
     std::string strVal;
     return Instance().GetValue(key, strVal) && settings::FromString(strVal, outValue);
@@ -82,3 +81,4 @@ private:
   Settings();
 };
 }  // namespace marketing
+*/

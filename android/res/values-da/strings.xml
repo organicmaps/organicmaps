@@ -41,9 +41,10 @@
 	<string name="close">Luk</string>
 	<string name="unsupported_phone">En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.</string>
 	<string name="download">Download</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app</string>
-	<string name="not_enough_memory">Ikke nok hukommelse til at åbne app</string>
 	<string name="download_resources">Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %s af data.</string>
 	<string name="download_resources_continue">Gå til kort</string>
 	<string name="downloading_country_can_proceed">Downloader %s. Du kan nu\nfortsætte til kortet.</string>
@@ -205,6 +206,8 @@
 	<string name="search_show_on_map">Vis på kortet</string>
 	<!-- Text in menu -->
 	<string name="website">Hjemmeside</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Nyheder</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->

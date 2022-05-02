@@ -5,6 +5,8 @@
 
 #include "platform/platform.hpp"
 
+#include "std/target_os.hpp"
+
 namespace storage
 {
 bool IsPointCoveredByDownloadedMaps(m2::PointD const & position,
@@ -28,28 +30,38 @@ bool IsEnoughSpaceForDownload(MwmSize mwmSize)
          Platform::TStorageStatus::STORAGE_OK;
 }
 
-bool IsEnoughSpaceForDownload(MwmSize mwmSizeDiff, MwmSize maxMwmSize)
-{
-  // Mwm size is less than |maxMwmSize|. In case of map update at first we download updated map
-  // and only after that we do delete the obsolete map. So in such a case we might need up to
-  // |maxMwmSize| of extra space.
-  return IsEnoughSpaceForDownload(mwmSizeDiff + maxMwmSize);
-}
-
 bool IsEnoughSpaceForDownload(CountryId const & countryId, Storage const & storage)
 {
   NodeAttrs nodeAttrs;
   storage.GetNodeAttrs(countryId, nodeAttrs);
+
   return IsEnoughSpaceForDownload(nodeAttrs.m_mwmSize);
 }
 
 bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage)
 {
   Storage::UpdateInfo updateInfo;
-  
   storage.GetUpdateInfo(countryId, updateInfo);
-  MwmSize spaceNeedForUpdate = updateInfo.m_sizeDifference > 0 ? updateInfo.m_sizeDifference : 0;
-  return IsEnoughSpaceForDownload(spaceNeedForUpdate, storage.GetMaxMwmSizeBytes());
+
+  /// @todo Review this logic when Storage::ApplyDiff will be restored.
+
+  // 1. For unlimited concurrent downloading process with "download and apply diff" strategy:
+  // - download and save all MWMs or Diffs = m_totalDownloadSizeInBytes
+  // - max MWM file size to apply diff patch (patches are applying one-by-one) = m_maxFileSizeInBytes
+  // - final size difference between old and new MWMs = m_sizeDifference
+
+  [[maybe_unused]] MwmSize const diff = updateInfo.m_sizeDifference > 0 ? updateInfo.m_sizeDifference : 0;
+//  return IsEnoughSpaceForDownload(std::max(diff, updateInfo.m_totalDownloadSizeInBytes) +
+//                                  updateInfo.m_maxFileSizeInBytes);
+
+  // 2. For the current "download and replace" strategy:
+  // - Android and Desktop has 1 simultaneous download
+  // - iOS has unlimited simultaneous downloads
+#ifdef OMIM_OS_IPHONE
+  return IsEnoughSpaceForDownload(updateInfo.m_totalDownloadSizeInBytes);
+#else
+  return IsEnoughSpaceForDownload(diff + updateInfo.m_maxFileSizeInBytes);
+#endif  // OMIM_OS_IPHONE
 }
 
 m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,

@@ -107,7 +107,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     grid->addWidget(houseLineEdit, row++, 1);
 
     grid->addWidget(new QLabel(kPostcodeObjectName), row, 0);
-    QLineEdit * postcodeEdit = new QLineEdit(QString::fromStdString(emo.GetPostcode()));
+    QLineEdit * postcodeEdit = new QLineEdit(QString::fromStdString(std::string(emo.GetPostcode())));
     postcodeEdit->setObjectName(kPostcodeObjectName);
     grid->addWidget(postcodeEdit, row++, 1);
   }
@@ -251,12 +251,8 @@ void EditorDialog::OnSave()
     case osm::Props::ContactLine: m_feature.SetLinePage(v); break;
     case osm::Props::Internet: ASSERT(false, ("Is handled separately above."));
     case osm::Props::Cuisine:
-    {
-      std::vector<std::string> cuisines;
-      strings::Tokenize(v, ";", base::MakeBackInsertFunctor(cuisines));
-      m_feature.SetCuisines(cuisines);
-    }
-    break;
+      m_feature.SetCuisines(strings::Tokenize(v, ";"));
+      break;
     case osm::Props::OpeningHours: m_feature.SetOpeningHours(v); break;
     case osm::Props::Stars:
     {

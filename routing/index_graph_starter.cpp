@@ -176,8 +176,12 @@ bool IndexGraphStarter::CheckLength(RouteWeight const & weight)
   // Allow pass-through <-> non-pass-through zone changes if start or end belongs
   // to no-pass-through zone (have to leave or arrive at living neighbourhood).
 
-  int8_t const changesAllowed =
-      (HasNoPassThroughAllowed(m_start) ? 1 : 0) + (HasNoPassThroughAllowed(m_finish) ? 1 : 0);
+  /// @todo By VNG: Additional 2 changes to relax this restriction. Or should enchance this mechanics to allow
+  /// pass through say living_street into lower class road (track/road/unclassified?).
+  /// This additional penalty will be included in RouteWeight::GetIntegratedWeight().
+  /// @see RussiaMoscowNotCrossingTollRoadTest
+
+  int8_t const changesAllowed = 2 + (HasNoPassThroughAllowed(m_start) ? 1 : 0) + (HasNoPassThroughAllowed(m_finish) ? 1 : 0);
 
   return weight.GetNumPassThroughChanges() <= changesAllowed &&
          m_graph.CheckLength(weight, m_startToFinishDistanceM);

@@ -24,7 +24,7 @@ string DebugPrint(VehicleType vehicleType)
 
 string ToString(VehicleType vehicleType) { return DebugPrint(vehicleType); }
 
-void FromString(string const & s, VehicleType & vehicleType)
+void FromString(string_view s, VehicleType & vehicleType)
 {
   if (s == "Pedestrian")
     vehicleType = VehicleType::Pedestrian;

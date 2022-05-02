@@ -1,7 +1,5 @@
 package com.mapswithme.maps.help;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,15 +55,18 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     ((TextView) root.findViewById(R.id.data_version))
         .setText(getString(R.string.data_version, localDate(Framework.nativeGetDataVersion())));
 
+    setupItem(R.id.news, true, root);
     setupItem(R.id.web, true, root);
+    setupItem(R.id.email, true, root);
     setupItem(R.id.github, false, root);
     setupItem(R.id.telegram, false, root);
     setupItem(R.id.instagram, false, root);
     setupItem(R.id.facebook, false, root);
     setupItem(R.id.twitter, false, root);
+    setupItem(R.id.matrix, true, root);
+    setupItem(R.id.openstreetmap, true, root);
     setupItem(R.id.faq, true, root);
     setupItem(R.id.report, true, root);
-    //noinspection ConstantConditions
     if ("google".equalsIgnoreCase(BuildConfig.FLAVOR))
     {
       TextView view = root.findViewById(R.id.support_us);
@@ -103,51 +104,36 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   @Override
   public void onClick(View v)
   {
-    switch (v.getId())
-    {
-    case R.id.web:
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.WEB_SITE)));
-      break;
-
-    case R.id.github:
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.GITHUB)));
-      break;
-
-    case R.id.telegram:
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TELEGRAM)));
-      break;
-
-    case R.id.instagram:
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.INSTAGRAM)));
-      break;
-
-    case R.id.facebook:
+    final int id = v.getId();
+    if (id == R.id.web)
+      openLink(Constants.Url.WEB_SITE);
+    else if (id == R.id.news)
+      openLink(Constants.Url.NEWS);
+    else if (id == R.id.email)
+      Utils.sendTo(getContext(), BuildConfig.SUPPORT_MAIL, "Organic Maps");
+    else if (id == R.id.github)
+      openLink(Constants.Url.GITHUB);
+    else if (id == R.id.telegram)
+      openLink(Constants.Url.TELEGRAM);
+    else if (id == R.id.instagram)
+      openLink(Constants.Url.INSTAGRAM);
+    else if (id == R.id.facebook)
       Utils.showFacebookPage(getActivity());
-      break;
-
-    case R.id.twitter:
-      Utils.showTwitterPage(getActivity());
-      break;
-
-    case R.id.faq:
+    else if (id == R.id.twitter)
+      openLink(Constants.Url.TWITTER);
+    else if (id == R.id.matrix)
+      openLink(Constants.Url.MATRIX);
+    else if (id == R.id.openstreetmap)
+      openLink(Constants.Url.OSM_ABOUT);
+    else if (id == R.id.faq)
       ((HelpActivity) getActivity()).stackFragment(FaqFragment.class, getString(R.string.faq), null);
-      break;
-
-    case R.id.report:
+    else if (id == R.id.report)
       Utils.sendFeedback(getActivity());
-      break;
-
-    case R.id.support_us:
-      Utils.showSupportUsPage(getActivity());
-      break;
-
-    case R.id.rate:
+    else if (id == R.id.support_us)
+      openLink(Constants.Url.SUPPORT_US);
+    else if (id == R.id.rate)
       Utils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
-      break;
-
-    case R.id.copyright:
+    else if (id == R.id.copyright)
       ((HelpActivity) getActivity()).stackFragment(CopyrightFragment.class, getString(R.string.copyright), null);
-      break;
-    }
   }
 }

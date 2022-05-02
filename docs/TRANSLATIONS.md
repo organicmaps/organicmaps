@@ -7,8 +7,12 @@ Adding and updating translations is easy!
 
 Please prepend `[strings]` to your commit message and add [Developers Certificate of Origin](CONTRIBUTING.md#legal-requirements) to it.
 
-Then run a `utils/unix/generate_localizations.sh` script and add the changes as a separate `[strings] Regenerated` commit.
+Then run a `tools/unix/generate_localizations.sh` script and add the changes as a separate `[strings] Regenerated` commit.
 But if you can't run it - don't worry, its not mandatory!
+
+## Requirements
+
+To run the `tools/unix/generate_localizations.sh` script, it is necessary to have installed `ruby`.
 
 ## Translation files
 
@@ -60,7 +64,7 @@ OM uses a custom version of the [Twine](https://github.com/organicmaps/twine)
 tool (resides in `tools/twine/` submodule) to generate platfrom-native (Android, iOS)
 localization files from a single translation file.
 
-The `utils/unix/generate_localizations.sh` script launches this conversion
+The `tools/unix/generate_localizations.sh` script launches this conversion
 (and installs Twine beforehand if necessary).
 
 Search keywords translation files use a custom format described in the beginning of `data/categories.txt`.

@@ -28,6 +28,8 @@
 #include <linux/limits.h>  // PATH_MAX
 #include <netinet/in.h>
 
+#include <QStandardPaths>  // writableLocation GenericConfigLocation
+
 namespace
 {
 // Web service ip to check internet connection. Now it's a GitHub.com IP.
@@ -83,8 +85,10 @@ Platform::Platform()
   auto const homeDir = GetEnv("HOME");
   CHECK(homeDir, ("Can't retrieve home directory"));
 
-  // ~/.config/OMaps/
-  m_settingsDir = JoinPath(*homeDir, ".config", "OMaps");
+  // XDG config directory, usually ~/.config/OMaps/
+  m_settingsDir = JoinPath(
+      QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation).toStdString(),
+      "OMaps");
   if (!IsFileExistsByFullPath(JoinPath(m_settingsDir, SETTINGS_FILE_NAME)) && !MkDirRecursively(m_settingsDir))
     MYTHROW(FileSystemException, ("Can't create directory", m_settingsDir));
   m_settingsDir += '/';

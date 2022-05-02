@@ -21,7 +21,7 @@ strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s);
 
 // This function should be used for all search strings normalization.
 // It does some magic text transformation which greatly helps us to improve our search.
-strings::UniString NormalizeAndSimplifyString(std::string const & s);
+strings::UniString NormalizeAndSimplifyString(std::string_view s);
 
 // Replace abbreviations which can be split during tokenization with full form.
 // Eg. "пр-т" -> "проспект".
@@ -30,32 +30,36 @@ void PreprocessBeforeTokenization(strings::UniString & query);
 template <class Delims, typename Fn>
 void SplitUniString(strings::UniString const & uniS, Fn && f, Delims const & delims)
 {
-  for (strings::TokenizeIterator<Delims> iter(uniS, delims); iter; ++iter)
+  /// @todo Make string_view analog for strings::UniString.
+
+  using namespace strings;
+  TokenizeIterator<Delims, UniString::const_iterator> iter(uniS.begin(), uniS.end(), delims);
+  for (; iter; ++iter)
     f(iter.GetUniString());
 }
 
 template <typename Tokens, typename Delims>
-void NormalizeAndTokenizeString(std::string const & s, Tokens & tokens, Delims const & delims)
+void NormalizeAndTokenizeString(std::string_view s, Tokens & tokens, Delims const & delims)
 {
   SplitUniString(NormalizeAndSimplifyString(s), ::base::MakeBackInsertFunctor(tokens), delims);
 }
 
 template <typename Tokens>
-void NormalizeAndTokenizeString(std::string const & s, Tokens & tokens)
+void NormalizeAndTokenizeString(std::string_view s, Tokens & tokens)
 {
   SplitUniString(NormalizeAndSimplifyString(s), ::base::MakeBackInsertFunctor(tokens),
                  search::Delimiters());
 }
 
 template <typename Tokens>
-void NormalizeAndTokenizeAsUtf8(std::string const & s, Tokens & tokens)
+void NormalizeAndTokenizeAsUtf8(std::string_view s, Tokens & tokens)
 {
   tokens.clear();
   auto const fn = [&](strings::UniString const & s) { tokens.emplace_back(strings::ToUtf8(s)); };
   SplitUniString(NormalizeAndSimplifyString(s), fn, search::Delimiters());
 }
 
-inline std::vector<std::string> NormalizeAndTokenizeAsUtf8(std::string const & s)
+inline std::vector<std::string> NormalizeAndTokenizeAsUtf8(std::string_view s)
 {
   std::vector<std::string> result;
   NormalizeAndTokenizeAsUtf8(s, result);
@@ -80,16 +84,16 @@ bool TokenizeStringAndCheckIfLastTokenIsPrefix(strings::UniString const & s,
 }
 
 template <class Tokens, class Delims>
-bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string const & s, Tokens & tokens,
+bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string_view sv, Tokens & tokens,
                                                Delims const & delims)
 {
-  return TokenizeStringAndCheckIfLastTokenIsPrefix(NormalizeAndSimplifyString(s), tokens, delims);
+  return TokenizeStringAndCheckIfLastTokenIsPrefix(NormalizeAndSimplifyString(sv), tokens, delims);
 }
 
 // Chops off the last query token (the "prefix" one) from |str|.
 std::string DropLastToken(std::string const & str);
 
-strings::UniString GetStreetNameAsKey(std::string const & name, bool ignoreStreetSynonyms);
+strings::UniString GetStreetNameAsKey(std::string_view name, bool ignoreStreetSynonyms);
 
 // *NOTE* The argument string must be normalized and simplified.
 bool IsStreetSynonym(strings::UniString const & s);

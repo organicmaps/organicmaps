@@ -44,14 +44,15 @@ MatchedCity GetMatchedCity(m2::PointD const & point, vector<City> const & cities
   for (auto const & city : cities)
     selector(city.m_item);
 
-  string name;
+  string_view name;
   FeatureID id;
-  selector.WithBestLocality([&](LocalityItem const & item) {
+  selector.WithBestLocality([&](LocalityItem const & item)
+  {
     item.GetName(StringUtf8Multilang::kEnglishCode, name);
     id = item.m_id;
   });
 
-  return {name, id};
+  return {std::string(name), id};
 }
 
 UNIT_TEST(LocalitySelector_Test1)

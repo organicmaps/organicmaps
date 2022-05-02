@@ -2,6 +2,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
@@ -180,10 +181,14 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int const zoom
                               feature::GeomType const type, drule::text_type_t const mainTextType,
                               bool const auxCaptionExists)
 {
+  feature::NameParamsOut out;
   if (auxCaptionExists || type == feature::GeomType::Line)
-    f.GetPreferredNames(true /* allowTranslit */, deviceLang, m_mainText, m_auxText);
+    f.GetPreferredNames(true /* allowTranslit */, deviceLang, out);
   else
-    f.GetReadableName(true /* allowTranslit */, deviceLang, m_mainText);
+    f.GetReadableName(true /* allowTranslit */, deviceLang, out);
+
+  m_mainText = out.GetPrimary();
+  m_auxText = out.secondary;
 
   // Set max text size to avoid VB/IB overflow in rendering.
   size_t constexpr kMaxTextSize = 200;

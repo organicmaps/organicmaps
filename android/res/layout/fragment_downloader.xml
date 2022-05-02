@@ -32,7 +32,8 @@
     android:layout_alignParentEnd="true"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginBottom="@dimen/margin_base"
-    android:src="?fabAdd"/>
+    android:tint="?android:textColorPrimaryInverse"
+    android:src="@drawable/ic_plus"/>
 
   <com.mapswithme.maps.widget.PlaceholderView
     android:id="@+id/placeholder"

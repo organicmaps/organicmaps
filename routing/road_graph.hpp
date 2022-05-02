@@ -34,28 +34,28 @@ class Edge
 
 public:
   Edge() = default;
-  Edge(Edge const &) = default;
-  Edge & operator=(Edge const &) = default;
+
+  using JunctionPointT = geometry::PointWithAltitude;
 
   static Edge MakeReal(FeatureID const & featureId, bool forward, uint32_t segId,
-                       geometry::PointWithAltitude const & startJunction,
-                       geometry::PointWithAltitude const & endJunction);
+                       JunctionPointT const & startJunction,
+                       JunctionPointT const & endJunction);
   static Edge MakeFakeWithRealPart(FeatureID const & featureId, uint32_t fakeSegmentId,
                                    bool forward, uint32_t segId,
-                                   geometry::PointWithAltitude const & startJunction,
-                                   geometry::PointWithAltitude const & endJunction);
-  static Edge MakeFake(geometry::PointWithAltitude const & startJunction,
-                       geometry::PointWithAltitude const & endJunction);
-  static Edge MakeFake(geometry::PointWithAltitude const & startJunction,
-                       geometry::PointWithAltitude const & endJunction, Edge const & prototype);
+                                   JunctionPointT const & startJunction,
+                                   JunctionPointT const & endJunction);
+  static Edge MakeFake(JunctionPointT const & startJunction,
+                       JunctionPointT const & endJunction);
+  static Edge MakeFake(JunctionPointT const & startJunction,
+                       JunctionPointT const & endJunction, Edge const & prototype);
 
-  inline FeatureID GetFeatureId() const { return m_featureId; }
+  inline FeatureID const & GetFeatureId() const { return m_featureId; }
   inline bool IsForward() const { return m_forward; }
   inline uint32_t GetSegId() const { return m_segId; }
   inline uint32_t GetFakeSegmentId() const { return m_fakeSegmentId; }
 
-  inline geometry::PointWithAltitude const & GetStartJunction() const { return m_startJunction; }
-  inline geometry::PointWithAltitude const & GetEndJunction() const { return m_endJunction; }
+  inline JunctionPointT const & GetStartJunction() const { return m_startJunction; }
+  inline JunctionPointT const & GetEndJunction() const { return m_endJunction; }
 
   inline m2::PointD const & GetStartPoint() const { return m_startJunction.GetPoint(); }
   inline m2::PointD const & GetEndPoint() const { return m_endJunction.GetPoint(); }
@@ -80,8 +80,7 @@ public:
 
 private:
   Edge(Type type, FeatureID const & featureId, uint32_t fakeSegmentId, bool forward, uint32_t segId,
-       geometry::PointWithAltitude const & startJunction,
-       geometry::PointWithAltitude const & endJunction);
+       JunctionPointT const & startJunction, JunctionPointT const & endJunction);
 
   friend std::string DebugPrint(Edge const & r);
 
@@ -97,10 +96,10 @@ private:
   uint32_t m_segId = 0;
 
   // Start point of the segment on the road.
-  geometry::PointWithAltitude m_startJunction;
+  JunctionPointT m_startJunction;
 
   // End point of the segment on the road.
-  geometry::PointWithAltitude m_endJunction;
+  JunctionPointT m_endJunction;
 
   // Note. If |m_forward| == true index of |m_startJunction| point at the feature |m_featureId|
   // is less than index |m_endJunction|.
@@ -115,17 +114,19 @@ private:
 class RoadGraphBase
 {
 public:
+  using JunctionPointT = Edge::JunctionPointT;
+
   /// Small buffered vector to store ingoing/outgoing node's edges.
   using EdgeListT = SmallList<Edge>;
   /// Big container to store full path edges.
   using EdgeVector = std::vector<Edge>;
 
   /// Finds all nearest outgoing edges, that route to the junction.
-  virtual void GetOutgoingEdges(geometry::PointWithAltitude const & junction,
+  virtual void GetOutgoingEdges(JunctionPointT const & junction,
                                 EdgeListT & edges) const = 0;
 
   /// Finds all nearest ingoing edges, that route to the junction.
-  virtual void GetIngoingEdges(geometry::PointWithAltitude const & junction,
+  virtual void GetIngoingEdges(JunctionPointT const & junction,
                                EdgeListT & edges) const = 0;
 
   /// Returns max speed in KM/H
@@ -135,7 +136,7 @@ public:
   virtual void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const = 0;
 
   /// @return Types for specified junction
-  virtual void GetJunctionTypes(geometry::PointWithAltitude const & junction,
+  virtual void GetJunctionTypes(JunctionPointT const & junction,
                                 feature::TypesHolder & types) const = 0;
 
   virtual void GetRouteEdges(EdgeVector & routeEdges) const;
@@ -148,10 +149,10 @@ protected:
 class IRoadGraph : public RoadGraphBase
 {
 public:
-  using Vertex = geometry::PointWithAltitude;
+  using Vertex = JunctionPointT;
   using Edge = routing::Edge;
   using Weight = double;
-  using PointWithAltitudeVec = buffer_vector<geometry::PointWithAltitude, 32>;
+  using PointWithAltitudeVec = buffer_vector<JunctionPointT, 32>;
 
   enum class Mode
   {
@@ -166,7 +167,7 @@ public:
     RoadInfo();
     RoadInfo(RoadInfo && ri);
     RoadInfo(bool bidirectional, double speedKMPH,
-             std::initializer_list<geometry::PointWithAltitude> const & points);
+             std::initializer_list<JunctionPointT> const & points);
     RoadInfo(RoadInfo const &) = default;
     RoadInfo & operator=(RoadInfo const &) = default;
 
@@ -191,7 +192,7 @@ public:
   class ICrossEdgesLoader
   {
   public:
-    ICrossEdgesLoader(geometry::PointWithAltitude const & cross, IRoadGraph::Mode mode,
+    ICrossEdgesLoader(JunctionPointT const & cross, IRoadGraph::Mode mode,
                       EdgeListT & edges)
       : m_cross(cross), m_mode(mode), m_edges(edges)
     {
@@ -235,7 +236,7 @@ public:
       }
     }
 
-    geometry::PointWithAltitude const m_cross;
+    JunctionPointT const m_cross;
     IRoadGraph::Mode const m_mode;
     EdgeListT & m_edges;
   };
@@ -243,7 +244,7 @@ public:
   class CrossOutgoingLoader : public ICrossEdgesLoader
   {
   public:
-    CrossOutgoingLoader(geometry::PointWithAltitude const & cross, IRoadGraph::Mode mode,
+    CrossOutgoingLoader(JunctionPointT const & cross, IRoadGraph::Mode mode,
                         EdgeListT & edges)
       : ICrossEdgesLoader(cross, mode, edges)
     {
@@ -258,7 +259,7 @@ public:
   class CrossIngoingLoader : public ICrossEdgesLoader
   {
   public:
-    CrossIngoingLoader(geometry::PointWithAltitude const & cross, IRoadGraph::Mode mode,
+    CrossIngoingLoader(JunctionPointT const & cross, IRoadGraph::Mode mode,
                        EdgeListT & edges)
       : ICrossEdgesLoader(cross, mode, edges)
     {
@@ -270,10 +271,10 @@ public:
                    bool bidirectional) override;
   };
 
-  void GetOutgoingEdges(geometry::PointWithAltitude const & junction,
+  void GetOutgoingEdges(JunctionPointT const & junction,
                         EdgeListT & edges) const override;
 
-  void GetIngoingEdges(geometry::PointWithAltitude const & junction,
+  void GetIngoingEdges(JunctionPointT const & junction,
                        EdgeListT & edges) const override;
 
   /// Removes all fake turns and vertices from the graph.
@@ -281,8 +282,8 @@ public:
 
   /// Adds fake edges from fake position rp to real vicinity
   /// positions.
-  void AddFakeEdges(geometry::PointWithAltitude const & junction,
-                    std::vector<std::pair<Edge, geometry::PointWithAltitude>> const & vicinities);
+  void AddFakeEdges(JunctionPointT const & junction,
+                    std::vector<std::pair<Edge, JunctionPointT>> const & vicinities);
   void AddOutgoingFakeEdge(Edge const & e);
   void AddIngoingFakeEdge(Edge const & e);
 
@@ -303,7 +304,7 @@ public:
   /// @return Array of pairs of Edge and projection point on the Edge. If there is no the closest edges
   /// then returns empty array.
   virtual void FindClosestEdges(m2::RectD const & /*rect*/, uint32_t /*count*/,
-      std::vector<std::pair<Edge, geometry::PointWithAltitude>> & /*vicinities*/) const {};
+      std::vector<std::pair<Edge, JunctionPointT>> & /*vicinities*/) const {};
 
   /// \returns Vector of pairs FeatureID and corresponding RoadInfo for road features
   /// lying in |rect|.
@@ -323,19 +324,19 @@ public:
   virtual void ClearState() {}
 
   /// \brief Finds all outgoing regular (non-fake) edges for junction.
-  void GetRegularOutgoingEdges(geometry::PointWithAltitude const & junction,
+  void GetRegularOutgoingEdges(JunctionPointT const & junction,
                                EdgeListT & edges) const;
   /// \brief Finds all ingoing regular (non-fake) edges for junction.
-  void GetRegularIngoingEdges(geometry::PointWithAltitude const & junction,
+  void GetRegularIngoingEdges(JunctionPointT const & junction,
                               EdgeListT & edges) const;
   /// \brief Finds all outgoing fake edges for junction.
-  void GetFakeOutgoingEdges(geometry::PointWithAltitude const & junction, EdgeListT & edges) const;
+  void GetFakeOutgoingEdges(JunctionPointT const & junction, EdgeListT & edges) const;
   /// \brief Finds all ingoing fake edges for junction.
-  void GetFakeIngoingEdges(geometry::PointWithAltitude const & junction, EdgeListT & edges) const;
+  void GetFakeIngoingEdges(JunctionPointT const & junction, EdgeListT & edges) const;
 
 private:
-  using EdgeCacheT = std::map<geometry::PointWithAltitude, EdgeListT>;
-  void AddEdge(geometry::PointWithAltitude const & j, Edge const & e, EdgeCacheT & edges);
+  using EdgeCacheT = std::map<JunctionPointT, EdgeListT>;
+  void AddEdge(JunctionPointT const & j, Edge const & e, EdgeCacheT & edges);
 
   template <typename Fn>
   void ForEachFakeEdge(Fn && fn)
@@ -364,16 +365,16 @@ std::string DebugPrint(IRoadGraph::Mode mode);
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
                                             std::initializer_list<m2::PointD> const & points);
 
-inline void JunctionsToPoints(std::vector<geometry::PointWithAltitude> const & junctions,
-                              std::vector<m2::PointD> & points)
+template <class PointT>
+void JunctionsToPoints(std::vector<PointT> const & junctions, std::vector<m2::PointD> & points)
 {
   points.resize(junctions.size());
   for (size_t i = 0; i < junctions.size(); ++i)
     points[i] = junctions[i].GetPoint();
 }
 
-inline void JunctionsToAltitudes(std::vector<geometry::PointWithAltitude> const & junctions,
-                                 geometry::Altitudes & altitudes)
+template <class PointT>
+void JunctionsToAltitudes(std::vector<PointT> const & junctions, geometry::Altitudes & altitudes)
 {
   altitudes.resize(junctions.size());
   for (size_t i = 0; i < junctions.size(); ++i)

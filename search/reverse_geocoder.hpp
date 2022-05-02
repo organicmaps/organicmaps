@@ -42,7 +42,7 @@ class ReverseGeocoder
     std::string m_name;
 
     Object() : m_distanceMeters(-1.0) {}
-    Object(FeatureID const & id, double dist, std::string const & name)
+    Object(FeatureID const & id, double dist, std::string_view name)
       : m_id(id), m_distanceMeters(dist), m_name(name)
     {
     }
@@ -63,7 +63,7 @@ public:
     StringUtf8Multilang m_multilangName;
 
     Street() = default;
-    Street(FeatureID const & id, double dist, std::string const & name,
+    Street(FeatureID const & id, double dist, std::string_view name,
            StringUtf8Multilang const & multilangName)
       : Object(id, dist, name), m_multilangName(multilangName)
     {
@@ -117,7 +117,7 @@ public:
 
   /// Returns a feature id of street from |streets| whose name best matches |keyName|
   /// or empty value if the match was not found.
-  static std::optional<uint32_t> GetMatchedStreetIndex(std::string const & keyName,
+  static std::optional<uint32_t> GetMatchedStreetIndex(std::string_view keyName,
                                                        std::vector<Street> const & streets);
 
   /// @return Sorted by distance streets vector for the specified MwmId.

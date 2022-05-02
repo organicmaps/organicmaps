@@ -201,25 +201,20 @@ template <typename TRegion>
 unique_ptr<RankTable> LoadRankTable(unique_ptr<TRegion> && region)
 {
   if (!region || !region->ImmutableData())
-    return unique_ptr<RankTable>();
+    return {};
 
   if (region->Size() < kHeaderSize)
   {
     LOG(LERROR, ("Invalid RankTable format."));
-    return unique_ptr<RankTable>();
+    return {};
   }
 
-  RankTable::Version const version =
-      static_cast<RankTable::Version>(region->ImmutableData()[kVersionOffset]);
-  switch (version)
-  {
-  case RankTable::V0:
+  RankTable::Version const version = static_cast<RankTable::Version>(region->ImmutableData()[kVersionOffset]);
+  if (version == RankTable::V0)
     return RankTableV0::Load(move(region));
-  case RankTable::VERSION_COUNT:
-    ASSERT(false, ("Wrong rank table version."));
-    return unique_ptr<RankTable>();
-  }
-  return unique_ptr<RankTable>();
+
+  LOG(LERROR, ("Wrong rank table version."));
+  return {};
 }
 
 uint8_t CalcEventRank(FeatureType & /*ft*/)

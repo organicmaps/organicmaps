@@ -92,6 +92,11 @@ public final class OsmOAuth
                   .apply();
   }
 
+  public static String getHistoryUrl(@NonNull Context context)
+  {
+    return nativeGetHistoryUrl(getUsername(context));
+  }
+
   /**
    * Some redirect urls indicates that user wasn't registered before.
    * Initial auth url should be reloaded to get correct {@link #URL_PARAM_VERIFIER} then.
@@ -127,6 +132,10 @@ public final class OsmOAuth
   @WorkerThread
   @Nullable
   public static native String nativeGetOsmUsername(String token, String secret);
+
+  @WorkerThread
+  @NonNull
+  public static native String nativeGetHistoryUrl(String user);
 
   /**
    * @return < 0 if failed to get changesets count.

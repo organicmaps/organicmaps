@@ -121,7 +121,6 @@ public:
     bool IsAlive() const { return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED); }
     bool IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const;
 
-    std::shared_ptr<MwmInfo> & GetInfo() { return m_info; }
     std::shared_ptr<MwmInfo> const & GetInfo() const { return m_info; }
 
     bool operator==(MwmId const & rhs) const { return GetInfo() == rhs.GetInfo(); }

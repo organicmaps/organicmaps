@@ -122,4 +122,10 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetOsmChangesetsCount(JNIEnv * en
     return prefs.m_changesets;
   return -1;
 }
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetHistoryUrl(JNIEnv * env, jclass, jstring user)
+{
+  return jni::ToJavaString(env, OsmOAuth::ServerAuth().GetHistoryURL(jni::ToNativeString(env, user)));
+}
 } // extern "C"

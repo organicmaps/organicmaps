@@ -6,7 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:theme="?navButtonsTheme"
-  android:layout_marginBottom="@dimen/nav_menu_height"
+  android:layout_marginBottom="@dimen/nav_numbers_height"
   android:padding="@dimen/nav_frame_padding"
   android:layoutDirection="ltr"
   tools:background="@color/bg_primary">

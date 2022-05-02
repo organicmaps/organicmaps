@@ -20,7 +20,7 @@ public:
   {
     struct Name
     {
-      Name(std::string name, int8_t locale) : m_name(name), m_locale(locale) {}
+      Name(std::string_view name, int8_t locale) : m_name(name), m_locale(locale) {}
 
       bool operator==(Name const & rhs) const;
       bool operator<(Name const & rhs) const;

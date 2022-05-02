@@ -24,7 +24,7 @@ void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
   };
 
   storage.Init(didDownload, [](CountryId const &, LocalFilePtr const) { return false; });
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  storage.RegisterAllLocalMaps();
   storage.Subscribe(changeCountryFunction, progress);
   storage.SetDownloadingServersForTesting({kTestWebServer});
 }

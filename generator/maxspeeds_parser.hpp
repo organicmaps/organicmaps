@@ -32,5 +32,5 @@ std::string UnitsToString(measurement_utils::Units units);
 
 /// \brief Converts string to measurement_utils::Units.
 /// \note |units| should be "Metric" or "Imperial".
-measurement_utils::Units StringToUnits(std::string const & units);
+measurement_utils::Units StringToUnits(std::string_view units);
 }  // namespace generator

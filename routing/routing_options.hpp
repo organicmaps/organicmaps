@@ -58,5 +58,15 @@ RoutingOptions::Road ChooseMainRoutingOptionRoad(RoutingOptions options);
 std::string DebugPrint(RoutingOptions const & routingOptions);
 std::string DebugPrint(RoutingOptions::Road type);
 
-}  // namespace routing
+/// Options guard for debugging/tests.
+class RoutingOptionSetter
+{
+public:
+  explicit RoutingOptionSetter(RoutingOptions::RoadType roadsMask);
+  explicit RoutingOptionSetter(RoutingOptions::Road road);
+  ~RoutingOptionSetter();
 
+private:
+  RoutingOptions m_saved;
+};
+}  // namespace routing

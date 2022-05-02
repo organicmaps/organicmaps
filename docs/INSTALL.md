@@ -79,14 +79,17 @@ Ensure that you have at least 20GB of free space.
 
 Install Cmake (**3.18.1** minimum), Boost, Qt 5 and other dependencies.
 
-_Ubuntu 20.04:_
+Installing *ccache* can speed up active development.
+
+_Ubuntu 20.04, 22.04:_
 
 ```bash
 sudo apt-get update && sudo apt-get install -y \
     build-essential \
     cmake \
     clang \
-    python \
+    ninja-build \
+    python3 \
     qtbase5-dev \
     libc++-dev \
     libfreetype-dev \
@@ -102,6 +105,8 @@ _Fedora:_
 ```bash
 sudo dnf install -y \
     clang \
+    cmake \
+    ninja-build \
     freetype-devel \
     libicu-devel \
     libstdc++-devel \

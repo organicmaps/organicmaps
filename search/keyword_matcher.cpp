@@ -32,7 +32,7 @@ void KeywordMatcher::SetKeywords(strings::UniString const * keywords, size_t cou
   m_prefix = prefix;
 }
 
-KeywordMatcher::Score KeywordMatcher::CalcScore(string const & name) const
+KeywordMatcher::Score KeywordMatcher::CalcScore(string_view name) const
 {
   return CalcScore(NormalizeAndSimplifyString(name));
 }

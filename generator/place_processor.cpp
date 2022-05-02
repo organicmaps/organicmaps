@@ -189,7 +189,7 @@ uint8_t FeaturePlace::GetRank() const
   return GetFb().GetRank();
 }
 
-std::string FeaturePlace::GetName() const
+std::string_view FeaturePlace::GetName() const
 {
   return GetFb().GetName();
 }
@@ -276,7 +276,9 @@ std::string PlaceProcessor::GetKey(FeatureBuilder const & fb)
 {
   auto type = GetPlaceType(fb);
   ftype::TruncValue(type, 2);
-  return fb.GetName() + "/" + std::to_string(type);
+
+  std::string const name(fb.GetName());
+  return name + "/" + std::to_string(type);
 }
 
 void PlaceProcessor::Add(FeatureBuilder const & fb)

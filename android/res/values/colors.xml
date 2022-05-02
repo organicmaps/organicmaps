@@ -85,8 +85,6 @@
 
   <color name="bg_menu">#CCFFFFFF</color>
   <color name="bg_menu_night">#CC2D3237</color>
-  <color name="bg_menu_open">#FFFFFFFF</color>
-  <color name="bg_menu_open_night">#FF2D3237</color>
 
   <color name="bg_statusbar">#197841</color>
   <color name="bg_statusbar_night">#14181C</color>
