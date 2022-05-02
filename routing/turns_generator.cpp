@@ -354,6 +354,23 @@ m2::PointD GetPointByIndex(TUnpackedPathSegments const & segments, RoutePointInd
   return segments[index.m_segmentIndex].m_path[index.m_pathIndex].GetPoint();
 }
 
+double CalcEstimatedTimeToPass(double distance, ftypes::HighwayClass highwayClass)
+{
+  double speed = 0;
+  switch (highwayClass)
+  {
+    case ftypes::HighwayClass::Trunk:         speed = 100000.0/60/60; break;
+    case ftypes::HighwayClass::Primary:       speed = 70000.0/60/60; break;
+    case ftypes::HighwayClass::Secondary:     speed = 70000.0/60/60; break;
+    case ftypes::HighwayClass::Tertiary:      speed = 50000.0/60/60; break;
+    case ftypes::HighwayClass::LivingStreet:  speed = 20000.0/60/60; break;
+    case ftypes::HighwayClass::Service:       speed = 10000.0/60/60; break;
+    case ftypes::HighwayClass::Pedestrian:    speed = 50000.0/60/60; break;
+    default:                                  speed = 500000.0/60/60; break;
+  }
+  return distance / speed;
+}
+
 /*!
  * \brief Returns ingoing point or outgoing point for turns.
  * These points belong to the route but they often are not neighbor of junction point.
@@ -397,6 +414,11 @@ m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegment
   m2::PointD nextPoint;
   size_t count = 0;
   double curDistanceMeters = 0.0;
+  double curTime = 0.0;
+
+  // There is no need to go too far for low-speed roads.
+  // So additional time limit is applied.
+  double maxTime = 3.0;
 
   ASSERT(GetNextRoutePointIndex(result, index, numMwmIds, forward, false, nextIndex), ());
 
@@ -410,8 +432,11 @@ m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegment
     if (point == nextPoint && outgoingSegmentIndex + 1 == segments.size())
       return nextPoint;
 
-    curDistanceMeters += mercator::DistanceOnEarth(point, nextPoint);
-    if (curDistanceMeters > maxDistMeters || ++count >= maxPointsCount)
+    double distanceMeters = mercator::DistanceOnEarth(point, nextPoint);
+    curDistanceMeters += distanceMeters;
+    curTime += CalcEstimatedTimeToPass(distanceMeters, segments[nextIndex.m_segmentIndex].m_highwayClass);
+
+    if (curTime > maxTime || ++count >= maxPointsCount || curDistanceMeters > maxDistMeters)
       return nextPoint;
 
     point = nextPoint;
