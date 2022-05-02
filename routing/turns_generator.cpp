@@ -215,7 +215,7 @@ bool DiscardTurnByNoAlignedAlternatives(TurnItem const & turnRoute,
                                         TurnInfo const & turnInfo,
                                         NumMwmIds const & numMwmIds)
 {
-  double constexpr kMaxAbsAngleSameRoadClass = 70.0;
+  double constexpr kMinAbsAngleDiffSameRoadClass = 35.0;
 
   ftypes::HighwayClass outgoingRouteRoadClass = turnInfo.m_outgoing->m_highwayClass;
   ftypes::HighwayClass ingoingRouteRoadClass = turnInfo.m_ingoing->m_highwayClass;
@@ -234,6 +234,7 @@ bool DiscardTurnByNoAlignedAlternatives(TurnItem const & turnRoute,
 
     if (turnRoute.m_turn == CarDirection::GoStraight && static_cast<int>(outgoingRouteRoadClass) >= static_cast<int>(ingoingRouteRoadClass))
     {
+      // Can't discard turn if alternative cadidate's angle is not enough sharp compared to the route.
       if (abs(t.m_angle) < abs(routeAngle) + kMinAngleDiffToNotConfuseStraightAndAlternative)
         return false;
     }
@@ -248,9 +249,8 @@ bool DiscardTurnByNoAlignedAlternatives(TurnItem const & turnRoute,
       }
       else if (highwayClass == outgoingRouteRoadClass)
       {
-        // Any alternative turn to a similar road keeps the turn direction if the turn's angle is less than
-        // kMaxAbsAngleSameRoadClass degrees (wider than SlightTurn).
-        if (fabs(t.m_angle) < kMaxAbsAngleSameRoadClass)
+        // Can't discard turn if alternative cadidate's angle is not enough sharp compared to the route.
+        if (abs(t.m_angle) < abs(routeAngle) + kMinAbsAngleDiffSameRoadClass)
           return false;
       }
       else // static_cast<int>(highwayClass) > static_cast<int>(outgoingRouteRoadClass)
@@ -579,6 +579,7 @@ void GoStraightCorrection(TurnCandidate const & notRouteCandidate, double const 
   if (turn.m_turn != CarDirection::GoStraight)
     return;
   
+  // No need to coorect turn if alternative cadidate's angle is sharp enough compared to the route.
   if (abs(notRouteCandidate.m_angle) > abs(routeAngle) + kMinAngleDiffToNotConfuseStraightAndAlternative)
     return;
 
