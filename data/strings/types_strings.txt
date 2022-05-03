@@ -12850,7 +12850,7 @@
     sk = Sídlo spoločnosti
     sv = Företagskontor
     th = สำนักงานบริษัท
-    tr = Şirket bürosu
+    tr = Şirket Bürosu
     uk = Організація
     vi = Văn phòng công ty
     zh-Hans = 企业公司
@@ -15572,7 +15572,7 @@
     sk = Nápoje
     sv = Drinkar
     th = เครื่องดื่ม
-    tr = İçecek
+    tr = İçecekler
     uk = Напої
     vi = Đồ uống
     zh-Hans = 饮料店
