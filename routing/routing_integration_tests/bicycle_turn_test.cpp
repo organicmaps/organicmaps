@@ -19,12 +19,14 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleWayTurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  /// @todo Turn 3 is discarded since first segment of alternative way is too sharp.
   integration::TestTurnCount(route, 4 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
   integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
       {CarDirection::TurnSlightLeft, CarDirection::TurnLeft});
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
+  /// @todo Turn 3 is discarded since first segment of alternative way is too sharp.
+  /// Can be fixed if more segments of alternative way will be considered (just like selected route segments).
+  /// But now it's unavailable from IRoutingResult::GetPossibleTurns().
   integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnSlightRight);
 
   integration::TestRouteLength(route, 753.0);
@@ -232,8 +234,6 @@ UNIT_TEST(TurnsNearKhladkombinatTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  /// @todo Seems like a bug here. Redundant first turn now, but also I'd expect one more turn
-  /// before oneway road (we are on bicycle). Should fix algo and test.
   integration::TestTurnCount(route, 2 /* expectedTurnCount */);
 
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);

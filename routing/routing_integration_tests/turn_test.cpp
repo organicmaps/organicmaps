@@ -227,7 +227,7 @@ UNIT_TEST(Russia_Moscow_ParallelResidentalUTurnAvoiding_TurnTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 2 /* expectedTurnCount */);
-  // Checking a turn in case going from a not-link to a link
+  // Checking a turn in case going from a not-link to a link.
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
 }
@@ -442,7 +442,7 @@ UNIT_TEST(Russia_Moscow_BolshoyKislovskiyPerBolshayaNikitinskayaUl_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
-  /// @todo Problem with outgoingTurns from RoutingEngineResult::GetPossibleTurns at (turn_m_index == 4)
+  /// @todo Problem with outgoingTurns from RoutingEngineResult::GetPossibleTurns at (turn_m_index == 4).
   /// For some reason it contains only one possible turn (+90), but it is expected that it will be two of them (-90 and +90).
   /// This is the reason why the RightTurn is discarded.
   TEST_EQUAL(result, RouterResultCode::NoError, ());
@@ -635,15 +635,14 @@ UNIT_TEST(Russia_Kubinka_TurnTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  /// @todo This test is obsolete.
-  /*
   Route const & route = *routeResult.first;
-  integration::TestTurnCount(route, 2);
+  integration::TestTurnCount(route, 5);
 
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
-  integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
-      {CarDirection::TurnSlightLeft, CarDirection::TurnLeft});
-  */
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnLeft);
 }
 
 // Test on absence of unnecessary turn.
@@ -1073,7 +1072,7 @@ UNIT_TEST(Cyprus_NicosiaPresidentialPark_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
-  // Issue #2438
+  // Issue #2438.
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
@@ -1089,7 +1088,7 @@ UNIT_TEST(Cyprus_NicosiaSchoolParking_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
-  // Issue #2438
+  // Issue #2438.
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
