@@ -398,7 +398,6 @@ UNIT_TEST(Russia_Moscow_VarshavskoeShosseMKAD_TurnTest)
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
 
-  /// @todo No potential additioanal turn 0 (one alternative way is link, another is much smaller (service)).
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
@@ -1096,7 +1095,7 @@ UNIT_TEST(Cyprus_NicosiaSchoolParking_TurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
 
-/*
+
 UNIT_TEST(Russia_Moscow_OnlyUTurnTest1_TurnTest)
 {
   TRouteResult const routeResult =
@@ -1108,9 +1107,14 @@ UNIT_TEST(Russia_Moscow_OnlyUTurnTest1_TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestRouteLength(route, 3854.44);
+  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::EnterRoundAbout);
+  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
 }
-
+/*
 UNIT_TEST(Russia_Moscow_OnlyUTurnTest1WithDirection_TurnTest)
 {
   auto const startDir = mercator::FromLatLon(55.90423, 37.40176);
