@@ -131,11 +131,6 @@ public class StoragePathManager
     }
   }
 
-  boolean hasMoreThanOneStorage()
-  {
-    return mItems.size() > 1;
-  }
-
   List<StorageItem> getStorageItems()
   {
     return mItems;
@@ -227,15 +222,7 @@ public class StoragePathManager
           LOGGER.i(TAG, "Rejected " + path + ": not a directory");
           continue;
         }
-
-        final long freeSize = StorageUtils.getFreeBytesAtPath(path);
-        if (freeSize <= 0)
-        {
-          LOGGER.i(TAG, "Rejected " + path + ": not enough space");
-          continue;
-        }
-
-        if (!dir.canWrite() || !StorageUtils.isDirWritable(path))
+        if (!dir.canWrite())
         {
           LOGGER.i(TAG, "Rejected " + path + ": not writable");
           continue;
@@ -247,6 +234,7 @@ public class StoragePathManager
           continue;
         }
 
+        final long freeSize = StorageUtils.getFreeBytesAtPath(path);
         StorageItem item = new StorageItem(path, freeSize);
         if (!TextUtils.isEmpty(configDir) && configDir.equals(path))
         {
@@ -454,7 +442,7 @@ public class StoragePathManager
         throw new IllegalStateException("Cannot move maps. New path is not a directory. New path : " + newDir);
       if (!oldDir.isDirectory())
         throw new IllegalStateException("Cannot move maps. Old path is not a directory. Old path : " + oldDir);
-      if (!StorageUtils.isDirWritable(fullNewPath))
+      if (!newDir.canWrite())
         throw new IllegalStateException("Cannot move maps. New path is not writable. New path : " + fullNewPath);
     }
 

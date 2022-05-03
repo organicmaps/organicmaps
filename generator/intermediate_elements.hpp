@@ -72,21 +72,6 @@ struct WayElement
     for (uint64_t & e : m_nodes)
       e = ReadVarUint<uint64_t>(r);
   }
-
-  std::string ToString() const
-  {
-    std::stringstream ss;
-    ss << m_nodes.size() << " " << m_wayOsmId;
-    return ss.str();
-  }
-
-  std::string Dump() const
-  {
-    std::stringstream ss;
-    for (auto const & e : m_nodes)
-      ss << e << ";";
-    return ss.str();
-  }
 };
 
 class RelationElement
@@ -137,7 +122,8 @@ public:
     auto StringWriter = [&writer, this](std::string const & str)
     {
       CHECK_LESS(str.size(), std::numeric_limits<uint16_t>::max(),
-                 ("Can't store std::string greater then 65535 bytes", Dump()));
+                 ("Can't store std::string greater then 65535 bytes", *this));
+
       uint16_t sz = static_cast<uint16_t>(str.size());
       writer.Write(&sz, sizeof(sz));
       writer.Write(str.data(), sz);
@@ -215,34 +201,28 @@ public:
     }
   }
 
-  std::string ToString() const
+  friend std::string DebugPrint(RelationElement const & element)
   {
     std::stringstream ss;
-    ss << m_nodes.size() << " " << m_ways.size() << " " << m_tags.size();
-    return ss.str();
-  }
-
-  std::string Dump() const
-  {
-    std::stringstream ss;
-    for (auto const & e : m_nodes)
+    for (auto const & e : element.m_tags)
+      ss << e.first << "=" << e.second << std::endl;
+    for (auto const & e : element.m_nodes)
       ss << "n{" << e.first << "," << e.second << "};";
-    for (auto const & e : m_ways)
+    for (auto const & e : element.m_ways)
       ss << "w{" << e.first << "," << e.second << "};";
-    for (auto const & e : m_tags)
+    for (auto const & e : element.m_tags)
       ss << "t{" << e.first << "," << e.second << "};";
     return ss.str();
   }
 
 protected:
-  std::string_view FindRoleImpl(std::vector<Member> const & container, uint64_t id) const
+  static std::string_view FindRoleImpl(std::vector<Member> const & container, uint64_t id)
   {
     for (auto const & e : container)
     {
       if (e.first == id)
         return e.second;
     }
-
     return {};
   }
 };

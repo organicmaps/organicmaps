@@ -31,8 +31,15 @@ protected:
   ~Writer() = default;
 };
 
-template <typename ContainerT>
-class MemWriter : public Writer
+// 'MemWriter<std::vector<char>>' has virtual functions but non-virtual destructor
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnon-virtual-dtor"
+#endif  // __clang__
+template <typename ContainerT> class MemWriter : public Writer
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 {
 public:
   explicit MemWriter(ContainerT & data) : m_Data(data), m_Pos(0)

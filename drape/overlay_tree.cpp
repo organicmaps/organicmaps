@@ -223,7 +223,8 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
 void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
                                ref_ptr<OverlayHandle> const & parentOverlay)
 {
-  ASSERT(handle->GetOverlayID().IsValid(), ());
+  /// @todo Fires when updating country (delete-add) ?!
+  //ASSERT(handle->GetOverlayID().IsValid(), ());
   ASSERT(IsNeedUpdate(), ());
 
 #ifdef DEBUG_OVERLAYS_OUTPUT

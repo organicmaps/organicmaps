@@ -59,7 +59,6 @@ public:
            double vs,
            double fontsScaleFactor,
            gui::TWidgetsInitInfo && info,
-           std::pair<location::EMyPositionMode, bool> const & initialMyPositionMode,
            location::TMyPositionModeChanged && myPositionModeChanged,
            bool allow3dBuildings,
            bool trafficEnabled,
@@ -80,7 +79,6 @@ public:
       , m_vs(vs)
       , m_fontsScaleFactor(fontsScaleFactor)
       , m_info(std::move(info))
-      , m_initialMyPositionMode(initialMyPositionMode)
       , m_myPositionModeChanged(std::move(myPositionModeChanged))
       , m_allow3dBuildings(allow3dBuildings)
       , m_trafficEnabled(trafficEnabled)
@@ -207,7 +205,7 @@ public:
 
   void SetKineticScrollEnabled(bool enabled);
 
-  void OnEnterForeground(double backgroundTime);
+  void OnEnterForeground();
   void OnEnterBackground();
 
   using TRequestSymbolsSizeCallback = std::function<void(std::map<std::string, m2::PointF> &&)>;
@@ -250,6 +248,8 @@ public:
   void UpdateVisualScale(double vs, bool needStopRendering);
   void UpdateMyPositionRoutingOffset(bool useDefault, int offsetY);
 
+  location::EMyPositionMode GetMyPositionMode() const;
+
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);
   void PostUserEvent(drape_ptr<UserEvent> && e);
@@ -290,6 +290,8 @@ private:
   bool m_kineticScrollEnabled = true;
 
   std::atomic<dp::DrapeID> m_drapeIdGenerator = 0;
+
+  double m_startBackgroundTime = 0;
 
   friend class DrapeApi;
 };

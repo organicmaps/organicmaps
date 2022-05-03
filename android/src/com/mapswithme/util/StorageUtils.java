@@ -250,26 +250,6 @@ public class StorageUtils
     }
   }
 
-  /**
-   * Check if directory is writable. On some devices with KitKat (eg, Samsung S4) simple File.canWrite() returns
-   * true for some actually read only directories on sdcard.
-   * see https://code.google.com/p/android/issues/detail?id=66369 for details
-   *
-   * @param path path to ckeck
-   * @return result
-   */
-  @SuppressWarnings("ResultOfMethodCallIgnored")
-  public static boolean isDirWritable(String path)
-  {
-    File f = new File(path, "mapsme_test_dir");
-    f.mkdir();
-    if (!f.exists())
-      return false;
-
-    f.delete();
-    return true;
-  }
-
   public static long getFreeBytesAtPath(String path)
   {
     long size = 0;

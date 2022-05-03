@@ -70,7 +70,7 @@ array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguages> co
      {"lt", "Lietuvių", {}},
      {"old_name", "Old/Previous name", {"Any-Latin"}},  // Was "la" before December 2018.
      {"kk", "Қазақ", {"Kazakh-Latin/BGN"}},
-     {StringUtf8Multilang::kReservedLang /* gsw */, "", {}},
+     {"mr", "मराठी", {"Any-Latin"}},  // Was kReservedLang "gsw" before March 2022
      {"et", "Eesti", {}},
      {"ku", "Kurdish", {"Any-Latin"}},
      {"mn", "Mongolian", {"Mongolian-Latin/BGN"}},
