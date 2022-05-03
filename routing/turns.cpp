@@ -173,7 +173,6 @@ string DebugPrint(TurnItem const & turnItem)
       << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_exitNum = " << turnItem.m_exitNum
       << ", m_sourceName = " << turnItem.m_sourceName
       << ", m_targetName = " << turnItem.m_targetName
-      << ", m_keepAnyway = " << turnItem.m_keepAnyway
       << ", m_pedestrianDir = " << DebugPrint(turnItem.m_pedestrianTurn)
       << " ]" << endl;
   return out.str();

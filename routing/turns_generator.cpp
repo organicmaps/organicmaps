@@ -169,6 +169,9 @@ bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
     return false;
   }
 
+  if (!turnInfo.m_ingoing->m_isLink && turnInfo.m_outgoing->m_isLink)
+    return false;
+
   // Minimum difference between alternative cadidate's angle and the route to ignore this candidate.
   double constexpr kMinAbsAngleDiffSameRoadClass = 35.0;
   // Maximum difference between HighwayClasses of the route segments and
@@ -1172,7 +1175,6 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
   if (!validTurnInfo)
     return;
 
-  turn.m_keepAnyway = (!turnInfo.m_ingoing->m_isLink && turnInfo.m_outgoing->m_isLink);
   turn.m_sourceName = turnInfo.m_ingoing->m_name;
   turn.m_targetName = turnInfo.m_outgoing->m_name;
   turn.m_turn = CarDirection::None;
@@ -1234,7 +1236,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
 
   if (IsGoStraightOrSlightTurn(turn.m_turn))
   {
-    if (!turn.m_keepAnyway && CanDiscardTurnByHighwayClassOrAngles(turn.m_turn, turnAngle, turnCandidates, turnInfo, numMwmIds))
+    if (CanDiscardTurnByHighwayClassOrAngles(turn.m_turn, turnAngle, turnCandidates, turnInfo, numMwmIds))
     {
       turn.m_turn = CarDirection::None;
       return;
