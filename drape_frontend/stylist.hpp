@@ -17,13 +17,6 @@ namespace drule { class BaseRule; }
 
 namespace df
 {
-class IsBuildingHasPartsChecker : public ftypes::BaseChecker
-{
-  IsBuildingHasPartsChecker();
-public:
-  DECLARE_CHECKER_INSTANCE(IsBuildingHasPartsChecker);
-};
-
 class IsHatchingTerritoryChecker : public ftypes::BaseChecker
 {
   IsHatchingTerritoryChecker();

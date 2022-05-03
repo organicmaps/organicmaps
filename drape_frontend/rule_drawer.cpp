@@ -246,7 +246,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
   bool isBuildingOutline = false;
   if (f.GetLayer() >= 0)
   {
-    bool const hasParts = IsBuildingHasPartsChecker::Instance()(f);
+    bool const hasParts = ftypes::IsBuildingHasPartsChecker::Instance()(f);
     bool const isPart = ftypes::IsBuildingPartChecker::Instance()(f);
 
     // Looks like nonsense, but there are some osm objects with types

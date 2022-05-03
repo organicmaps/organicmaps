@@ -162,11 +162,6 @@ uint8_t const LineStyleFlag  = 1 << 2;
 uint8_t const PointStyleFlag = 1 << 3;
 }  // namespace
 
-IsBuildingHasPartsChecker::IsBuildingHasPartsChecker()
-{
-  m_types.push_back(classif().GetTypeByPath({"building", "has_parts"}));
-}
-
 IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
 {
   Classificator const & c = classif();
