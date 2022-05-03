@@ -422,6 +422,11 @@ IsBuildingPartChecker::IsBuildingPartChecker() : BaseChecker(1 /* level */)
   m_types.push_back(classif().GetTypeByPath({"building:part"}));
 }
 
+IsBuildingHasPartsChecker::IsBuildingHasPartsChecker() : BaseChecker(2 /* level */)
+{
+  m_types.push_back(classif().GetTypeByPath({"building", "has_parts"}));
+}
+
 IsIsolineChecker::IsIsolineChecker() : BaseChecker(1 /* level */)
 {
   m_types.push_back(classif().GetTypeByPath({"isoline"}));

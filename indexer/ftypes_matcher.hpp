@@ -264,7 +264,6 @@ class IsBuildingChecker : public BaseChecker
 {
   IsBuildingChecker();
 public:
-  uint32_t GetMainType() const { return m_types[0]; }
   DECLARE_CHECKER_INSTANCE(IsBuildingChecker);
 };
 
@@ -273,6 +272,15 @@ class IsBuildingPartChecker : public ftypes::BaseChecker
   IsBuildingPartChecker();
 public:
   DECLARE_CHECKER_INSTANCE(IsBuildingPartChecker);
+};
+
+class IsBuildingHasPartsChecker : public ftypes::BaseChecker
+{
+  IsBuildingHasPartsChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsBuildingHasPartsChecker);
+
+  uint32_t GetType() const { return m_types[0]; }
 };
 
 class IsIsolineChecker : public BaseChecker
