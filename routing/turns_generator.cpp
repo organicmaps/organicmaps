@@ -165,8 +165,8 @@ bool CanDiscardTurnByHighwayClass(std::vector<TurnCandidate> const & turnCandida
 /// * - the route leads from one big road to another one;
 /// * - and the other possible turns lead to small roads or these turns too sharp.
 /// * Returns false otherwise.
-/// \param routeDirection is route direction
-/// \param routeAngle is route angle
+/// \param routeDirection is route direction.
+/// \param routeAngle is route angle.
 /// \param turnCandidates is all possible ways out from a junction except uturn.
 /// \param turnInfo is information about ingoing and outgoing segments of the route.
 bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
@@ -1211,7 +1211,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
     // IngoingCount includes ingoing segment and reversed outgoing (if it is not one-way).
     // If any other one is present, turn (not straight or slight) is kept to prevent user from going to oneway alternative.
 
-    /// @todo Min abs angle of ingoing ones should be considered. If it's much bigger than route angle - ignore ingoing.
+    /// @todo Min abs angle of ingoing ones should be considered. If it's much bigger than route angle - ignore ingoing ones.
     /// Now this data is not available from IRoutingResult::GetPossibleTurns().
     if (ingoingCount <= 1 + size_t(!turnInfo.m_outgoing->m_isOneWay))
       return;
