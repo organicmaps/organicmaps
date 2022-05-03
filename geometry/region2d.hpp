@@ -67,17 +67,17 @@ struct DefEqualInt
 };
 
 template <int floating>
-struct Traitsype;
+struct TraitsType;
 
 template <>
-struct Traitsype<1>
+struct TraitsType<1>
 {
   typedef DefEqualFloat EqualType;
   typedef double BigType;
 };
 
 template <>
-struct Traitsype<0>
+struct TraitsType<0>
 {
   typedef DefEqualInt EqualType;
   typedef int64_t BigType;
@@ -91,7 +91,7 @@ public:
   using Value = Point;
   using Coord = typename Point::value_type;
   using Container = std::vector<Point>;
-  using Traits = detail::Traitsype<std::is_floating_point<Coord>::value>;
+  using Traits = detail::TraitsType<std::is_floating_point<Coord>::value>;
 
   /// @name Needed for boost region concept.
   //@{
@@ -304,22 +304,25 @@ public:
     return AtBorder(pt, delta, typename Traits::EqualType());
   }
 
-  double CalculateArea() const
+  typename Traits::BigType CalculateArea() const
   {
-    double area = 0.0;
+    // Use BigType to prevent CrossProduct overflow.
+    using BigCoord = typename Traits::BigType;
+    using BigPoint = ::m2::Point<BigCoord>;
+    BigCoord area = 0;
 
     if (m_points.empty())
       return area;
 
     size_t const numPoints = m_points.size();
-    Point prev = m_points[numPoints - 1];
+    BigPoint prev(m_points[numPoints - 1]);
     for (size_t i = 0; i < numPoints; ++i)
     {
-      Point const curr = m_points[i];
+      BigPoint const curr(m_points[i]);
       area += CrossProduct(prev, curr);
       prev = curr;
     }
-    area = 0.5 * std::fabs(area);
+    area = base::Abs(area) / 2;
 
     return area;
   }
