@@ -1035,13 +1035,15 @@ UNIT_TEST(Cyprus_Nicosia_TurnTest)
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                   mercator::FromLatLon(35.12459, 33.34449), {0., 0.},
-                                  mercator::FromLatLon(35.14353, 33.34387));
+                                  mercator::FromLatLon(35.13832, 33.34741));
 
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
   // No SlightTurns at not straight junctions. Issue #2262.
   TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestRouteLength(route, 1941.);
+
   integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
