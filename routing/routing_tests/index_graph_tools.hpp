@@ -129,6 +129,8 @@ public:
   ~TestIndexGraphLoader() override = default;
 
   IndexGraph & GetIndexGraph(NumMwmId mwmId) override;
+  Geometry & GetGeometry(NumMwmId mwmId) override;
+
   std::vector<RouteSegment::SpeedCamera> GetSpeedCameraInfo(Segment const & segment) override
   {
     return {};
