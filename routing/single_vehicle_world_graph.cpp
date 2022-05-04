@@ -203,7 +203,7 @@ vector<RouteSegment::SpeedCamera> SingleVehicleWorldGraph::GetSpeedCamInfo(Segme
 
 RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)
 {
-  return m_loader->GetIndexGraph(mwmId).GetRoadGeometry(featureId);
+  return m_loader->GetGeometry(mwmId).GetRoad(featureId);
 }
 
 void SingleVehicleWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing,
