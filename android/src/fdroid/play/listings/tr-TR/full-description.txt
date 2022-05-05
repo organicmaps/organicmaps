@@ -2,6 +2,7 @@
 ‣ Küçük ekibimiz tarafından, boş zamanlarımızda kendi paramız ve kullanıcılarımızdan gelen bağışlar/katkılar kullanılarak sürekli olarak geliştirilmektedir.
 ‣ Haritada yanlış veya eksik bir şey varsa, lütfen <b>OpenStreetMap'te</b> düzeltin ve gelecekteki harita güncellemelerinde değişikliklerinizi görün.
 ‣ Navigasyon veya arama çalışmıyorsa, lütfen bize e-posta gönderin. <i>HER</i> e-postayı yanıtlıyoruz ve en kısa sürede düzelteceğiz.
+
 <b>Geri bildiriminiz ve 5 yıldızlı yorumlarınız bizim için en iyi motivasyon kaynağı!</b>
 
 Önemli Özellikler:
