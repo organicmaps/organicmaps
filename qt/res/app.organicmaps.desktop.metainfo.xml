@@ -107,6 +107,26 @@
   </screenshots>
 
   <releases>
+   <release version="2022.04.27-2" date="2022-04-27">
+     <description>
+       <ul>
+         <li>New OSM data as of April 15, 2022</li>
+         <li>Fixed annoying "Location is Disabled"</li>
+         <li>Show search results on map works!</li>
+         <li>Experimental Wikipedia articles everywhere</li>
+         <li>Improved car directions</li>
+         <li>Speed and battery optimizations</li>
+         <li>Routing improvements</li>
+         <li>Fixed subway in some cities</li>
+         <li>Added Euskara (Basque) translations</li>
+         <li>Improved Italian and German translations</li>
+         <li>Fixed menu colors and refreshed navigation menu</li>
+         <li>Added news, matrix, email, OSM links</li>
+         <li>RTL layout fixes</li>
+       </ul>
+       <p>The full changelog: organicmaps.app</p>
+     </description>
+   </release>
    <release version="2022.03.23-4" date="2022-03-23">
      <description>
        <ul>
