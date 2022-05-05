@@ -1,1 +1,17 @@
-../en-US/release_notes.txt
+• Yeni OSM harita verileri (15 Nisan 2022)
+• Çoğu obje için Vikipedi makalesi eklendi (deneysel)
+• İyileştirilmiş araba rotaları
+• Bazı hız ve pil optimizasyonları
+• Birçok yönlendirme iyileştirmesi
+• Bazı şehirlerde metro rotaları düzeltildi
+• Tek yönlü oklar artık daha sık
+• Belediye binaları ve bahçeler "gezilecek yerler" kategorisinden kaldırıldı
+• Artık telefon için "mobile" OSM etiketi kullanılıyor
+• Daha fazla vending_machine türü eklendi
+• Eğitim alanları eklendi
+• Okullar, anaokulları ve eğitim alanları için turuncu dolgu
+• Geri Dönüşüm kategorisi araması düzeltildi
+• İnternet erişimi bilgilerinde düzeltmeler
+• edit.xml'de açıklamaların serileştirilmesi düzeltildi
+• Yazı tipi görüntülemede düzeltmeler
+• "?" bölümünden Organic Maps haberlerini takip edin
