@@ -2696,7 +2696,7 @@
     sk = Pohostinstvo
     sv = Krog
     th = ผับ
-    tr = Bar
+    tr = Meyhane
     uk = Паб
     vi = Quán rượu
     zh-Hans = 酒馆
@@ -3678,7 +3678,7 @@
     es = Taquilla de paquetes
     eu = Paketeen aldagela
     ru = Почтомат
-    tr = Posta Kutusu
+    tr = Kilitlenebilen Kutu Dolaplar
     uk = Поштомат
 
   [type.amenity.vending_machine.fuel]
@@ -3782,7 +3782,7 @@
     sk = Odpadky
     sv = Avfallscontainer
     th = ขยะ
-    tr = Çöp Kutusu
+    tr = Çöp Konteyneri
     uk = Сміттєвий контейнер
     vi = Xử lý chất thải
     zh-Hans = 大型垃圾箱
@@ -9555,7 +9555,7 @@
     sk = Pomník
     sv = Minnesmärke
     th = ที่ระลึก
-    tr = Anıt
+    tr = Abide
     uk = Меморіал
     vi = Đài tưởng niệm
     zh-Hans = 纪念物
@@ -11713,7 +11713,7 @@
     sk = Vodovodný kohútik
     sv = Vattenkran
     th = ก๊อกน้ำ
-    tr = Çeşme Suyu
+    tr = Su Musluğu
     uk = Водопровідний кран
     vi = Vòi nước
     zh-Hans = 水龙头
@@ -12850,7 +12850,7 @@
     sk = Sídlo spoločnosti
     sv = Företagskontor
     th = สำนักงานบริษัท
-    tr = Şirket bürosu
+    tr = Şirket Bürosu
     uk = Організація
     vi = Văn phòng công ty
     zh-Hans = 企业公司
@@ -12916,7 +12916,7 @@
     sk = Štátny úrad
     sv = Ämbetsverk
     th = หน่วยงานราชการ
-    tr = Devlet dairesi
+    tr = Devlet Dairesi
     uk = Держустанова
     vi = Văn phòng chính phủ
     zh-Hans = 政府办公点
@@ -12949,7 +12949,7 @@
     sk = Poisťovňa
     sv = Försäkringskontor
     th = สำนักงานประกันภัย
-    tr = Sigorta Acentası
+    tr = Sigorta Acentesi
     uk = Страхова компанія
     vi = Văn phòng bảo hiểm
     zh-Hans = 保险公司
@@ -12982,7 +12982,7 @@
     sk = Advokátska kancelária
     sv = Advokatkontor
     th = สำนักงานทนายความ
-    tr = Avukatlık bürosu
+    tr = Avukatlık Bürosu
     uk = Адвокат
     vi = Văn phòng luật sư
     zh-Hans = 律师事务所
@@ -13050,7 +13050,7 @@
     sk = Mobilný operátor
     sv = Mobiloperatör
     th = ผู้ให้บริการโทรศัพท์มือถือ
-    tr = Cep telefonu operatörü
+    tr = Cep Telefonu Operatörü
     uk = Телекомунікаційна компанія
     vi = Điều hành di động
     zh-Hans = 电信办公室
@@ -15572,7 +15572,7 @@
     sk = Nápoje
     sv = Drinkar
     th = เครื่องดื่ม
-    tr = İçecek
+    tr = İçecekler
     uk = Напої
     vi = Đồ uống
     zh-Hans = 饮料店
@@ -18089,7 +18089,7 @@
     sk = Apartmány
     sv = Lägenheter
     th = อพาร์ตเมนต์
-    tr = Apart otel
+    tr = Apart Otel
     uk = Апартаменти
     vi = Căn hộ
     zh-Hans = 公寓
