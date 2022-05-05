@@ -1146,8 +1146,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
                       TurnItem & turn)
 {
   TurnInfo turnInfo;
-  bool validTurnInfo = GetTurnInfo(result, outgoingSegmentIndex, vehicleSettings, turnInfo);
-  if (!validTurnInfo)
+  if (!GetTurnInfo(result, outgoingSegmentIndex, vehicleSettings, turnInfo))
     return;
 
   turn.m_sourceName = turnInfo.m_ingoing->m_name;
@@ -1227,8 +1226,7 @@ void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t const outg
                                 RoutingSettings const & vehicleSettings, TurnItem & turn)
 {
   TurnInfo turnInfo;
-  bool validTurnInfo = GetTurnInfo(result, outgoingSegmentIndex, vehicleSettings, turnInfo);
-  if (!validTurnInfo)
+  if (!GetTurnInfo(result, outgoingSegmentIndex, vehicleSettings, turnInfo))
     return;
 
   double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, numMwmIds, vehicleSettings);
