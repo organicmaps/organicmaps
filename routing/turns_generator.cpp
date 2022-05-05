@@ -767,19 +767,6 @@ RouterResultCode MakeTurnAnnotationPedestrian(
   return RouterResultCode::NoError;
 }
 
-double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t endPointIndex,
-                                          vector<m2::PointD> const & points)
-{
-  ASSERT_LESS(endPointIndex, points.size(), ());
-  ASSERT_LESS_OR_EQUAL(startPointIndex, endPointIndex, ());
-
-  double mercatorDistanceBetweenTurns = 0;
-  for (uint32_t i = startPointIndex; i != endPointIndex; ++i)
-    mercatorDistanceBetweenTurns += points[i].Length(points[i + 1]);
-
-  return mercatorDistanceBetweenTurns;
-}
-
 void FixupTurns(vector<geometry::PointWithAltitude> const & junctions, Route::TTurns & turnsDir)
 {
   double const kMergeDistMeters = 15.0;

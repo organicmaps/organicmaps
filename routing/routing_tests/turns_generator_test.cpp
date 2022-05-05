@@ -337,17 +337,6 @@ UNIT_TEST(TestIntermediateDirection)
   TEST_EQUAL(IntermediateDirection(-170.), CarDirection::TurnSharpLeft, ());
 }
 
-UNIT_TEST(TestCalculateMercatorDistanceAlongRoute)
-{
-  vector<m2::PointD> const points = {{0., 0.}, {0., 1.}, {0., 1.}, {1., 1.}};
-
-  uint32_t const lastPointIdx = static_cast<uint32_t>(points.size() - 1);
-  TEST_EQUAL(CalculateMercatorDistanceAlongPath(0, lastPointIdx, points), 2., ());
-  TEST_EQUAL(CalculateMercatorDistanceAlongPath(1, 1, points), 0., ());
-  TEST_EQUAL(CalculateMercatorDistanceAlongPath(1, 2, points), 0., ());
-  TEST_EQUAL(CalculateMercatorDistanceAlongPath(0, 1, points), 1., ());
-}
-
 UNIT_TEST(TestCheckUTurnOnRoute)
 {
   TUnpackedPathSegments pathSegments(4, LoadedPathSegment());

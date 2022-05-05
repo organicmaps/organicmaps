@@ -112,11 +112,6 @@ RouterResultCode MakeTurnAnnotationPedestrian(
     base::Cancellable const & cancellable, std::vector<geometry::PointWithAltitude> & points,
     Route::TTurns & turnsDir, Route::TStreets & streets, std::vector<Segment> & segments);
 
-// Returns the distance in mercator units for the path of points for the range [startPointIndex,
-// endPointIndex].
-double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t endPointIndex,
-                                          std::vector<m2::PointD> const & points);
-
 /*!
  * \brief Selects lanes which are recommended for an end user.
  */
