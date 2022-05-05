@@ -1,6 +1,7 @@
 #include "routing/turns_generator.hpp"
 
 #include "routing/router.hpp"
+#include "platform/measurement_utils.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
@@ -13,19 +14,19 @@
 #include <sstream>
 #include <numeric>
 
-using namespace routing;
-using namespace routing::turns;
+namespace routing
+{
+namespace turns
+{
 using namespace std;
 using namespace ftypes;
 
-namespace
-{
 // Angles in degrees for finding route segments with no actual forks.
 double constexpr kMaxForwardAngleCandidates = 95.0;
 double constexpr kMaxForwardAngleActual = 60.0;
 
 // Min difference of route and alternative turn abs angles in degrees
-// to ignore alternative alternative turn (when route direction is GoStraight).
+// to ignore alternative turn (when route direction is GoStraight).
 double constexpr kMinAbsAngleDiffForStraightRoute = 25.0;
 
 // Min difference of route and alternative turn abs angles in degrees 
@@ -61,7 +62,7 @@ bool IsSmallRoad(HighwayClass hwClass)
 /// \note The function makes a decision about turn based on geometry of the route and turn
 /// candidates, so it works correctly for both left and right hand traffic.
 CarDirection TryToGetExitDirection(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
-            Segment const & firstOutgoingSeg, CarDirection const intermediateDirection)
+                                   Segment const & firstOutgoingSeg, CarDirection const intermediateDirection)
 {
   if (!possibleTurns.isCandidatesAngleValid)
     return CarDirection::None;
@@ -330,19 +331,19 @@ m2::PointD GetPointByIndex(TUnpackedPathSegments const & segments, RoutePointInd
 
 double CalcEstimatedTimeToPass(double distanceMeters, HighwayClass highwayClass)
 {
-  double speedMetersPerSecond = 0;
+  double speedKmph = 0;
   switch (highwayClass)
   {
-    case HighwayClass::Trunk:         speedMetersPerSecond = 100000.0/60/60; break;
-    case HighwayClass::Primary:       speedMetersPerSecond = 70000.0/60/60; break;
-    case HighwayClass::Secondary:     speedMetersPerSecond = 70000.0/60/60; break;
-    case HighwayClass::Tertiary:      speedMetersPerSecond = 50000.0/60/60; break;
-    case HighwayClass::LivingStreet:  speedMetersPerSecond = 20000.0/60/60; break;
-    case HighwayClass::Service:       speedMetersPerSecond = 10000.0/60/60; break;
-    case HighwayClass::Pedestrian:    speedMetersPerSecond = 50000.0/60/60; break;
-    default:                          speedMetersPerSecond = 500000.0/60/60; break;
+    case HighwayClass::Trunk:         speedKmph = 100.0; break;
+    case HighwayClass::Primary:       speedKmph = 70.0; break;
+    case HighwayClass::Secondary:     speedKmph = 70.0; break;
+    case HighwayClass::Tertiary:      speedKmph = 50.0; break;
+    case HighwayClass::LivingStreet:  speedKmph = 20.0; break;
+    case HighwayClass::Service:       speedKmph = 10.0; break;
+    case HighwayClass::Pedestrian:    speedKmph = 5.0; break;
+    default:                          speedKmph = 50.0; break;
   }
-  return distanceMeters / speedMetersPerSecond;
+  return distanceMeters / measurement_utils::KmphToMps(speedKmph);
 }
 
 /*!
@@ -532,7 +533,7 @@ bool GetPrevInSegmentRoutePoint(IRoutingResult const & result, RoutePointIndex c
  * If the other way is not sharp enough, turn.m_turn is set to |turnToSet|.
  */
 void CorrectGoStraight(TurnCandidate const & notRouteCandidate, double const routeAngle, CarDirection const & turnToSet,
-                          TurnItem & turn)
+                       TurnItem & turn)
 {
   if (turn.m_turn != CarDirection::GoStraight)
     return;
@@ -553,12 +554,7 @@ double CalcRouteDistanceM(vector<geometry::PointWithAltitude> const & junctions,
 
   return res;
 }
-}  // namespace
 
-namespace routing
-{
-namespace turns
-{
 // RoutePointIndex ---------------------------------------------------------------------------------
 bool RoutePointIndex::operator==(RoutePointIndex const & index) const
 {
@@ -886,7 +882,7 @@ void SelectRecommendedLanes(Route::TTurns & turnsDir)
 }
 
 CarDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout,
-                                     bool isMultiTurnJunction, bool keepTurnByHighwayClass)
+                                    bool isMultiTurnJunction, bool keepTurnByHighwayClass)
 {
   if (isIngoingEdgeRoundabout && isOutgoingEdgeRoundabout)
   {
@@ -905,7 +901,7 @@ CarDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoin
   return CarDirection::None;
 }
 
-CarDirection GetRoundaboutDirection(TurnInfo const turnInfo, TurnCandidates const & nodes, NumMwmIds const & numMwmIds)
+CarDirection GetRoundaboutDirection(TurnInfo const & turnInfo, TurnCandidates const & nodes, NumMwmIds const & numMwmIds)
 {  
   bool const keepTurnByHighwayClass = KeepRoundaboutTurnByHighwayClass(nodes, turnInfo, numMwmIds);
   return GetRoundaboutDirection(turnInfo.m_ingoing->m_onRoundabout, turnInfo.m_outgoing->m_onRoundabout, 
@@ -1104,8 +1100,8 @@ bool GetTurnInfo(IRoutingResult const & result, size_t const outgoingSegmentInde
 // GoStraight is corrected to TurnSlightRight/TurnSlightLeft
 // to avoid ambiguity for GoStraight direction: 2 or more almost straight turns.
 void CorrectRightmostAndLeftmost(std::vector<TurnCandidate> const & turnCandidates, 
-                                    Segment const & firstOutgoingSeg, double const turnAngle,
-                                    TurnItem & turn)
+                                 Segment const & firstOutgoingSeg, double const turnAngle,
+                                 TurnItem & turn)
 {
   // turnCandidates are sorted by angle from leftmost to rightmost.
   // Normally no duplicates should be found. But if they are present we can't identify the leftmost/rightmost by order.
@@ -1226,7 +1222,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
     CorrectRightmostAndLeftmost(turnCandidates, firstOutgoingSeg, turnAngle, turn);
 }
 
-void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t outgoingSegmentIndex,
+void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t const outgoingSegmentIndex,
                                 NumMwmIds const & numMwmIds,
                                 RoutingSettings const & vehicleSettings, TurnItem & turn)
 {
@@ -1272,7 +1268,7 @@ void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t outgoingSe
     turn.m_pedestrianTurn = PedestrianDirection::None;
 }
 
-size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t outgoingSegmentIndex,
+size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSegmentIndex,
                          NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
                          TurnItem & turn)
 {
