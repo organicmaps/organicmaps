@@ -1011,8 +1011,7 @@ bool PathIsFakeLoop(std::vector<geometry::PointWithAltitude> const & path)
 }
 
 double CalcTurnAngle(IRoutingResult const & result, 
-                     size_t const outgoingSegmentIndex,
-                     m2::PointD const & junctionPoint, 
+                     size_t const outgoingSegmentIndex, 
                      NumMwmIds const & numMwmIds,
                      RoutingSettings const & vehicleSettings)
 {
@@ -1026,6 +1025,7 @@ double CalcTurnAngle(IRoutingResult const & result,
       result, outgoingSegmentIndex, numMwmIds, vehicleSettings.m_maxOutgoingPointsCount,
       vehicleSettings.m_minOutgoingDistMeters, true /* forward */);
 
+  m2::PointD const junctionPoint = result.GetSegments()[outgoingSegmentIndex].m_path.front().GetPoint();
   return base::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
 }
 
@@ -1189,7 +1189,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
     return;
   }
 
-  double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, junctionPoint, numMwmIds, vehicleSettings);
+  double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, numMwmIds, vehicleSettings);
 
   CarDirection const intermediateDirection = IntermediateDirection(turnAngle);
 
@@ -1231,8 +1231,7 @@ void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t const outg
   if (!validTurnInfo)
     return;
 
-  m2::PointD const junctionPoint = turnInfo.m_ingoing->m_path.back().GetPoint();
-  double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, junctionPoint, numMwmIds, vehicleSettings);
+  double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, numMwmIds, vehicleSettings);
 
   turn.m_sourceName = turnInfo.m_ingoing->m_name;
   turn.m_targetName = turnInfo.m_outgoing->m_name;
@@ -1242,6 +1241,7 @@ void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t const outg
 
   TurnCandidates nodes;
   size_t ingoingCount = 0;
+  m2::PointD const junctionPoint = turnInfo.m_ingoing->m_path.back().GetPoint();
   result.GetPossibleTurns(turnInfo.m_ingoing->m_segmentRange, junctionPoint, ingoingCount, nodes);
   if (nodes.isCandidatesAngleValid)
   {
