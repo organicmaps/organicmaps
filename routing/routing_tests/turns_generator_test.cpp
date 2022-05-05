@@ -290,26 +290,6 @@ UNIT_TEST(TestGetRoundaboutDirection)
   TEST_EQUAL(GetRoundaboutDirection(true, false, false, false), CarDirection::LeaveRoundAbout, ());
 }
 
-UNIT_TEST(TestCheckRoundaboutEntrance)
-{
-  // The signature of CheckRoundaboutEntrance function is
-  // CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout)
-  TEST(!CheckRoundaboutEntrance(true, true), ());
-  TEST(!CheckRoundaboutEntrance(false, false), ());
-  TEST(!CheckRoundaboutEntrance(true, false), ());
-  TEST(CheckRoundaboutEntrance(false, true), ());
-}
-
-UNIT_TEST(TestCheckRoundaboutExit)
-{
-  // The signature of GetRoundaboutDirection function is
-  // CheckRoundaboutExit(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout)
-  TEST(!CheckRoundaboutExit(true, true), ());
-  TEST(!CheckRoundaboutExit(false, false), ());
-  TEST(CheckRoundaboutExit(true, false), ());
-  TEST(!CheckRoundaboutExit(false, true), ());
-}
-
 UNIT_TEST(TestInvertDirection)
 {
   TEST_EQUAL(InvertDirection(CarDirection::TurnSlightRight), CarDirection::TurnSlightLeft, ());
@@ -355,17 +335,6 @@ UNIT_TEST(TestIntermediateDirection)
   TEST_EQUAL(IntermediateDirection(-20.), CarDirection::TurnSlightLeft, ());
   TEST_EQUAL(IntermediateDirection(-90.), CarDirection::TurnLeft, ());
   TEST_EQUAL(IntermediateDirection(-170.), CarDirection::TurnSharpLeft, ());
-}
-
-UNIT_TEST(TestCalculateMercatorDistanceAlongRoute)
-{
-  vector<m2::PointD> const points = {{0., 0.}, {0., 1.}, {0., 1.}, {1., 1.}};
-
-  uint32_t const lastPointIdx = static_cast<uint32_t>(points.size() - 1);
-  TEST_EQUAL(CalculateMercatorDistanceAlongPath(0, lastPointIdx, points), 2., ());
-  TEST_EQUAL(CalculateMercatorDistanceAlongPath(1, 1, points), 0., ());
-  TEST_EQUAL(CalculateMercatorDistanceAlongPath(1, 2, points), 0., ());
-  TEST_EQUAL(CalculateMercatorDistanceAlongPath(0, 1, points), 1., ());
 }
 
 UNIT_TEST(TestCheckUTurnOnRoute)
@@ -445,6 +414,7 @@ UNIT_TEST(GetNextRoutePointIndex)
   TEST_EQUAL(nextIndex, RoutePointIndex({0 /* m_segmentIndex */, 2 /* m_pathIndex */}), ());
 
   // Trying to get next item after the last item of the first segment.
+  // False because of too sharp turn angle.
   TEST(!GetNextRoutePointIndex(resultTest,
                                RoutePointIndex({0 /* m_segmentIndex */, 2 /* m_pathIndex */}),
                                NumMwmIds(), true /* forward */, nextIndex), ());

@@ -58,10 +58,14 @@ struct RoutePointIndex
  */
 struct TurnInfo
 {
-  LoadedPathSegment const & m_ingoing;
-  LoadedPathSegment const & m_outgoing;
+  LoadedPathSegment const * m_ingoing;
+  LoadedPathSegment const * m_outgoing;
 
-  TurnInfo(LoadedPathSegment const & ingoingSegment, LoadedPathSegment const & outgoingSegment)
+  TurnInfo() : m_ingoing(nullptr), m_outgoing(nullptr)
+  {
+  }
+
+  TurnInfo(LoadedPathSegment const * ingoingSegment, LoadedPathSegment const * outgoingSegment)
       : m_ingoing(ingoingSegment), m_outgoing(outgoingSegment)
   {
   }
@@ -84,7 +88,7 @@ struct TurnInfo
  * of a segment. But it's impossible moving in forward direction.
  */
 bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const & index,
-                            NumMwmIds const & numMwmIds, bool forward, RoutePointIndex & nextIndex);
+                            NumMwmIds const & numMwmIds, bool const forward, RoutePointIndex & nextIndex);
 
 /*!
  * \brief Compute turn and time estimation structs for the abstract route result.
@@ -107,11 +111,6 @@ RouterResultCode MakeTurnAnnotationPedestrian(
     IRoutingResult const & result, NumMwmIds const & numMwmIds, VehicleType const & vehicleType,
     base::Cancellable const & cancellable, std::vector<geometry::PointWithAltitude> & points,
     Route::TTurns & turnsDir, Route::TStreets & streets, std::vector<Segment> & segments);
-
-// Returns the distance in mercator units for the path of points for the range [startPointIndex,
-// endPointIndex].
-double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t endPointIndex,
-                                          std::vector<m2::PointD> const & points);
 
 /*!
  * \brief Selects lanes which are recommended for an end user.
@@ -138,18 +137,6 @@ CarDirection LeftmostDirection(double angle);
  * or if there is only one possible way.
  */
 CarDirection IntermediateDirection(double angle);
-
-/*!
- * \return Returns true if the route enters a roundabout.
- * That means isIngoingEdgeRoundabout is false and isOutgoingEdgeRoundabout is true.
- */
-bool CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout);
-
-/*!
- * \return Returns true if the route leaves a roundabout.
- * That means isIngoingEdgeRoundabout is true and isOutgoingEdgeRoundabout is false.
- */
-bool CheckRoundaboutExit(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout);
 
 /*!
  * \brief Calculates a turn instruction if the ingoing edge or (and) the outgoing edge belongs to a

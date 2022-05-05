@@ -297,7 +297,10 @@ TestTurn GetNthTurn(routing::Route const & route, uint32_t turnNumber)
   vector<turns::TurnItem> turns;
   route.GetTurnsForTesting(turns);
   if (turnNumber >= turns.size())
+  {
+    ASSERT(false, ());
     return TestTurn();
+  }
 
   TurnItem const & turn = turns[turnNumber];
   return TestTurn(route.GetPoly().GetPoint(turn.m_index), turn.m_turn, turn.m_exitNum);
