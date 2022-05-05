@@ -160,8 +160,7 @@ void FileGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
 }
 
 // RoadGeometry ------------------------------------------------------------------------------------
-RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH,
-                           Points const & points)
+RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH, Points const & points)
   : m_forwardSpeed{weightSpeedKMpH, etaSpeedKMpH}, m_backwardSpeed(m_forwardSpeed)
   , m_isOneWay(oneWay), m_valid(true), m_isPassThroughAllowed(false), m_inCity(false)
 {
@@ -256,11 +255,13 @@ double RoadGeometry::GetRoadLengthM() const
 // Geometry ----------------------------------------------------------------------------------------
 Geometry::Geometry(unique_ptr<GeometryLoader> loader, size_t roadsCacheSize)
   : m_loader(move(loader))
-  , m_featureIdToRoad(make_unique<RoutingFifoCache>(
-        roadsCacheSize,
-        [this](uint32_t featureId, RoadGeometry & road) { m_loader->Load(featureId, road); }))
 {
   CHECK(m_loader, ());
+
+  m_featureIdToRoad = make_unique<RoutingCacheT>(roadsCacheSize, [this](uint32_t featureId, RoadGeometry & road)
+  {
+    m_loader->Load(featureId, road);
+  });
 }
 
 RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
