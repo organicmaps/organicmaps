@@ -304,12 +304,19 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     mLogger.d(TAG, "onLocationChanged, location = " + location);
 
     if (!LocationUtils.isAccuracySatisfied(location))
-      return;
-
-    if (mSavedLocation != null && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
     {
-      mLogger.d(TAG, "The new " + location + " is worse than the last " +  mSavedLocation);
+      mLogger.w(TAG, "Unsatisfied accuracy for location = " + location);
       return;
+    }
+
+    if (mSavedLocation != null)
+    {
+      final boolean isTrustedFused = mLocationProvider.trustFusedLocations() && LocationUtils.isFromFusedProvider(location);
+      if (!isTrustedFused && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
+      {
+        mLogger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
+        return;
+      }
     }
 
     mSavedLocation = location;
