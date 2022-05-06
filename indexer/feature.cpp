@@ -6,7 +6,6 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/map_object.hpp"
-#include "indexer/postcodes.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/shared_load_info.hpp"
 
@@ -188,13 +187,10 @@ uint8_t ReadByte(TSource & src)
 FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buffer,
                          indexer::MetadataDeserializer * metadataDeserializer)
   : m_loadInfo(loadInfo)
-  , m_data(buffer)
+  , m_data(std::move(buffer))
   , m_metadataDeserializer(metadataDeserializer)
 {
-  CHECK(m_loadInfo, ());
-
-  ASSERT(m_loadInfo->GetMWMFormat() >= version::Format::v11 && m_metadataDeserializer,
-         (m_loadInfo->GetMWMFormat()));
+  CHECK(m_loadInfo && m_metadataDeserializer, ());
 
   m_header = Header(m_data);
 }
@@ -522,23 +518,10 @@ void FeatureType::ParseMetadata()
   try
   {
     UNUSED_VALUE(m_metadataDeserializer->Get(m_id.m_index, m_metadata));
-
-    // December 19 - September 20 mwm compatibility
-    auto postcodesReader = m_loadInfo->GetPostcodesReader();
-    if (postcodesReader)
-    {
-      auto postcodes = indexer::Postcodes::Load(*postcodesReader->GetPtr());
-      CHECK(postcodes, ());
-      string postcode;
-      auto const havePostcode = postcodes->Get(m_id.m_index, postcode);
-      CHECK(!havePostcode || !postcode.empty(), (havePostcode, postcode));
-      if (havePostcode)
-        m_metadata.Set(feature::Metadata::FMD_POSTCODE, postcode);
-    }
   }
   catch (Reader::OpenException const &)
   {
-    // now ignore exception because not all mwm have needed sections
+    LOG(LERROR, ("Error reading metadata", m_id));
   }
 
   m_parsed.m_metadata = true;
@@ -556,7 +539,7 @@ void FeatureType::ParseMetaIds()
   }
   catch (Reader::OpenException const &)
   {
-    // now ignore exception because not all mwm have needed sections
+    LOG(LERROR, ("Error reading metadata", m_id));
   }
 
   m_parsed.m_metaIds = true;
