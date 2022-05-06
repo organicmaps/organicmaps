@@ -146,7 +146,8 @@ void Framework::VisualizeCrossMwmTransitionsInRect(m2::RectD const & rect)
 
       FilesContainerR::TReader reader(routing::connector::GetReader<CrossMwmID>(handle.GetValue()->m_cont));
       ReaderSource src(reader);
-      routing::CrossMwmConnectorSerializer::DeserializeTransitions(routing::VehicleType::Car, connector, src);
+      routing::CrossMwmConnectorBuilder<CrossMwmID> builder(connector);
+      builder.DeserializeTransitions(routing::VehicleType::Car, src);
 
       static uint32_t counter = 0;
       colors.emplace(mwmId, colorList[counter++ % std::size(colorList)]);

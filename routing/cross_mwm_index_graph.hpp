@@ -43,18 +43,6 @@ inline FilesContainerR::TReader GetReader<TransitId>(FilesContainerR const & con
 }
 
 template <typename CrossMwmId>
-uint32_t constexpr GetFeaturesOffset() noexcept
-{
-  return 0;
-}
-
-template <>
-uint32_t constexpr GetFeaturesOffset<TransitId>() noexcept
-{
-  return FakeFeatureIds::kTransitGraphFeaturesStart;
-}
-
-template <typename CrossMwmId>
 void AssertConnectorIsFound(NumMwmId neighbor, bool isConnectorFound)
 {
   CHECK(isConnectorFound, ("Connector for mwm with number mwm id", neighbor, "was not deserialized."));
@@ -165,7 +153,15 @@ public:
     c.GetIngoingEdgeList(s, edges);
   }
 
-  void Clear() { m_connectors.clear(); }
+//  void Clear()
+//  {
+//    m_connectors.clear();
+//  }
+  void Purge()
+  {
+    ConnectersMapT tmp;
+    tmp.swap(m_connectors);
+  }
 
   bool InCache(NumMwmId numMwmId) const { return m_connectors.count(numMwmId) != 0; }
 
@@ -175,9 +171,10 @@ public:
     if (it != m_connectors.cend())
       return it->second;
 
-    return Deserialize(
-        numMwmId,
-        CrossMwmConnectorSerializer::DeserializeTransitions<ReaderSourceFile, CrossMwmId>);
+    return Deserialize(numMwmId, [this](CrossMwmConnectorBuilder<CrossMwmId> & builder, auto & src)
+    {
+      builder.DeserializeTransitions(m_vehicleType, src);
+    });
   }
 
   void LoadCrossMwmConnectorWithTransitions(NumMwmId numMwmId)
@@ -251,8 +248,10 @@ private:
     if (c.WeightsWereLoaded())
       return c;
 
-    return Deserialize(
-        numMwmId, CrossMwmConnectorSerializer::DeserializeWeights<ReaderSourceFile, CrossMwmId>);
+    return Deserialize(numMwmId,  [](CrossMwmConnectorBuilder<CrossMwmId> & builder, auto & src)
+    {
+      builder.DeserializeWeights(src);
+    });
   }
 
   /// \brief Deserializes connectors for an mwm with |numMwmId|.
@@ -273,10 +272,12 @@ private:
 
     FilesContainerR::TReader reader(connector::GetReader<CrossMwmId>(value->m_cont));
     ReaderSourceFile src(reader);
-    auto it = m_connectors.try_emplace(
-          numMwmId, CrossMwmConnector<CrossMwmId>(numMwmId, connector::GetFeaturesOffset<CrossMwmId>())).first;
+    auto it = m_connectors.emplace(numMwmId, CrossMwmConnector<CrossMwmId>(numMwmId)).first;
 
-    fn(m_vehicleType, it->second, src);
+    CrossMwmConnectorBuilder<CrossMwmId> builder(it->second);
+    builder.ApplyNumerationOffset();
+
+    fn(builder, src);
     return it->second;
   }
 
@@ -291,6 +292,7 @@ private:
   /// * with loaded transition segments and with loaded weights
   ///   (after a call to CrossMwmConnectorSerializer::DeserializeTransitions()
   ///   and CrossMwmConnectorSerializer::DeserializeWeights())
-  std::map<NumMwmId, CrossMwmConnector<CrossMwmId>> m_connectors;
+  using ConnectersMapT = std::map<NumMwmId, CrossMwmConnector<CrossMwmId>>;
+  ConnectersMapT m_connectors;
 };
 }  // namespace routing

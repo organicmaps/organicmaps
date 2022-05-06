@@ -8,6 +8,8 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
+#include "coding/sparse_vector.hpp"
+
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 
@@ -35,60 +37,11 @@ std::string DebugPrint(WeightsLoadState state);
 }  // namespace connector
 
 /// @param CrossMwmId Encoded OSM feature (way) ID that should be equal and unique in all MWMs.
-template <typename CrossMwmId>
-class CrossMwmConnector final
+template <typename CrossMwmId> class CrossMwmConnector final
 {
 public:
-  /// Used in generator or tests. Should initialize with some valid mwm id here
-  /// not to conflict with @see JointSegment::IsFake().
-  CrossMwmConnector() : m_mwmId(kGeneratorMwmId) {}
-
-  /// Used in client router.
-  CrossMwmConnector(NumMwmId mwmId, uint32_t featureNumerationOffset)
-    : m_mwmId(mwmId), m_featureNumerationOffset(featureNumerationOffset)
-  {
-  }
-
-  /// Builder component, which makes inner containers optimization after adding transitions.
-  class Builder
-  {
-    CrossMwmConnector & m_c;
-
-  public:
-    Builder(CrossMwmConnector & c, size_t count) : m_c(c)
-    {
-      m_c.m_transitions.reserve(count);
-    }
-    ~Builder()
-    {
-      // Sort by FeatureID to make lower_bound queries.
-      std::sort(m_c.m_transitions.begin(), m_c.m_transitions.end(), LessKT());
-    }
-
-    void AddTransition(CrossMwmId const & crossMwmId, uint32_t featureId, uint32_t segmentIdx,
-                       bool oneWay, bool forwardIsEnter)
-    {
-      featureId += m_c.m_featureNumerationOffset;
-
-      Transition transition(m_c.m_entersCount, m_c.m_exitsCount, crossMwmId, oneWay, forwardIsEnter);
-
-      if (forwardIsEnter)
-        ++m_c.m_entersCount;
-      else
-        ++m_c.m_exitsCount;
-
-      if (!oneWay)
-      {
-        if (forwardIsEnter)
-          ++m_c.m_exitsCount;
-        else
-          ++m_c.m_entersCount;
-      }
-
-      m_c.m_transitions.emplace_back(Key(featureId, segmentIdx), transition);
-      m_c.m_crossMwmIdToFeatureId.emplace(crossMwmId, featureId);
-    }
-  };
+  /// Should initialize with some valid mwm id here not to conflict with @see JointSegment::IsFake().
+  explicit CrossMwmConnector(NumMwmId mwmId = kGeneratorMwmId) : m_mwmId(mwmId) {}
 
   template <class FnT> void ForEachTransitSegmentId(uint32_t featureId, FnT && fn) const
   {
@@ -206,7 +159,7 @@ public:
   uint32_t GetNumEnters() const { return m_entersCount; }
   uint32_t GetNumExits() const { return m_exitsCount; }
 
-  bool HasWeights() const { return !m_weights.empty(); }
+  bool HasWeights() const { return !m_weights.Empty(); }
   bool IsEmpty() const { return m_entersCount == 0 && m_exitsCount == 0; }
 
   bool WeightsWereLoaded() const
@@ -221,25 +174,30 @@ public:
     UNREACHABLE();
   }
 
-  template <typename CalcWeight>
-  void FillWeights(CalcWeight && calcWeight)
+  size_t GetWeightIndex(size_t enterIdx, size_t exitIdx) const
   {
-    CHECK_EQUAL(m_weightsLoadState, connector::WeightsLoadState::Unknown, ());
-    CHECK(m_weights.empty(), ());
+    ASSERT_LESS(enterIdx, m_entersCount, ());
+    ASSERT_LESS(exitIdx, m_exitsCount, ());
+    return enterIdx * m_exitsCount + exitIdx;
+  }
 
-    m_weights.resize(m_entersCount * m_exitsCount);
-    ForEachEnter([&](uint32_t enterIdx, Segment const & enter)
-    {
-      ForEachExit([&](uint32_t exitIdx, Segment const & exit)
-      {
-        auto const weight = calcWeight(enter, exit);
-        // Edges weights should be >= astar heuristic, so use std::ceil.
-        m_weights[GetWeightIndex(enterIdx, exitIdx)] = static_cast<connector::Weight>(std::ceil(weight));
-      });
-    });
+  using WeightT = connector::Weight;
+  WeightT GetWeight(size_t enterIdx, size_t exitIdx) const
+  {
+    auto const idx = GetWeightIndex(enterIdx, exitIdx);
+    return (m_weights.Has(idx) ? m_weights.Get(idx) : connector::kNoRoute);
+  }
+
+  size_t GetMemorySize() const
+  {
+    return (m_transitions.capacity() * sizeof(KeyTransitionT) +
+            m_crossMwmIdToFeatureId.size() * sizeof(typename MwmID2FeatureIDMapT::value_type) +
+            m_weights.GetMemorySize());
   }
 
 private:
+  template <class T> friend class CrossMwmConnectorBuilder;
+
   struct Key
   {
     Key(uint32_t featureId, uint32_t segmentIdx) : m_featureId(featureId), m_segmentIdx(segmentIdx)
@@ -283,8 +241,6 @@ private:
     bool m_forwardIsEnter : 1;
   };
 
-  friend class CrossMwmConnectorSerializer;
-
   void AddEdge(Segment const & segment, uint32_t enterIdx, uint32_t exitIdx, EdgeListT & edges) const
   {
     auto const weight = GetWeight(enterIdx, exitIdx);
@@ -308,22 +264,7 @@ private:
     return *tr;
   }
 
-  size_t GetWeightIndex(size_t enterIdx, size_t exitIdx) const
-  {
-    ASSERT_LESS(enterIdx, m_entersCount, ());
-    ASSERT_LESS(exitIdx, m_exitsCount, ());
-
-    size_t const i = enterIdx * m_exitsCount + exitIdx;
-    ASSERT_LESS(i, m_weights.size(), ());
-    return i;
-  }
-
-  connector::Weight GetWeight(size_t enterIdx, size_t exitIdx) const
-  {
-    return m_weights[GetWeightIndex(enterIdx, exitIdx)];
-  }
-
-  NumMwmId const m_mwmId;
+  NumMwmId m_mwmId;
   uint32_t m_entersCount = 0;
   uint32_t m_exitsCount = 0;
 
@@ -345,18 +286,17 @@ private:
   };
   std::vector<KeyTransitionT> m_transitions;
 
-  std::unordered_map<CrossMwmId, uint32_t, connector::HashKey> m_crossMwmIdToFeatureId;
+  using MwmID2FeatureIDMapT = std::unordered_map<CrossMwmId, uint32_t, connector::HashKey>;
+  MwmID2FeatureIDMapT m_crossMwmIdToFeatureId;
 
+  /// @name Used for lazy weights loading.
+  /// @{
   connector::WeightsLoadState m_weightsLoadState = connector::WeightsLoadState::Unknown;
-  // For some connectors we may need to shift features with some offset.
-  // For example for versions and transit section compatibility we number transit features
-  // starting from 0 in mwm and shift them with |m_featureNumerationOffset| in runtime.
-  uint32_t const m_featureNumerationOffset = 0;
   uint64_t m_weightsOffset = 0;
-  connector::Weight m_granularity = 0;
+  WeightT m_granularity = 0;
+  /// @}
 
   // Weight is the time required for the route to pass edge, measured in seconds rounded upwards.
-  /// @todo Store some fast! succinct vector instead of raw matrix m_entersCount * m_exitsCount.
-  std::vector<connector::Weight> m_weights;
+  coding::SparseVector<WeightT> m_weights;
 };
 }  // namespace routing
