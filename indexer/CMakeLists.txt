@@ -99,8 +99,6 @@ set(SRC
   metadata_serdes.hpp
   mwm_set.cpp
   mwm_set.hpp
-  postcodes.cpp
-  postcodes.hpp
   postcodes_matcher.cpp  # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
   postcodes_matcher.hpp  # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
   rank_table.cpp
