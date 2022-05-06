@@ -57,8 +57,8 @@ public:
   explicit EliasFanoMap(unique_ptr<Reader> && reader) : m_reader(move(reader))
   {
     ASSERT(m_reader, ());
-    auto readBlockCallback = [](auto & source, uint32_t blockSize, vector<uint32_t> & values) {
-      CHECK_GREATER(blockSize, 0, ());
+    auto readBlockCallback = [](auto & source, uint32_t blockSize, vector<uint32_t> & values)
+    {
       values.resize(blockSize);
       values[0] = ReadVarUint<uint32_t>(source);
 
@@ -66,8 +66,7 @@ public:
       {
         // Feature ids for all real features are less than numeric_limits<int32_t>::max()
         // so we can use delta coding with int32_t difference type.
-        auto const delta = ReadVarInt<int32_t>(source);
-        values[i] = base::asserted_cast<uint32_t>(values[i - 1] + delta);
+        values[i] = base::asserted_cast<uint32_t>(values[i - 1] + ReadVarInt<int32_t>(source));
       }
     };
 
