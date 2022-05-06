@@ -27,4 +27,5 @@ abstract class BaseLocationProvider
 
   protected abstract void start(long interval);
   protected abstract void stop();
+  protected boolean trustFusedLocations() { return false; }
 }

@@ -111,4 +111,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     mFusedLocationClient.removeLocationUpdates(mCallback);
     mActive = false;
   }
+
+  @Override
+  protected boolean trustFusedLocations() { return true; }
 }

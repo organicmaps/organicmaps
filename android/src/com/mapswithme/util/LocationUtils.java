@@ -89,9 +89,7 @@ public class LocationUtils
 
   public static boolean isLocationBetterThanLast(@NonNull Location newLocation, @NonNull Location lastLocation)
   {
-    if (isFromFusedProvider(newLocation))
-      return true;
-
+    // As described in isAccuracySatisfied, GPS may have zero accuracy "for some reasons".
     if (isFromGpsProvider(lastLocation) && lastLocation.getAccuracy() == 0.0f)
       return true;
 
