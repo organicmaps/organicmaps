@@ -36,8 +36,14 @@ namespace succinct { namespace mapper {
     typedef boost::function<void()> deleter_t;
 
     template <typename T> // T must be a POD
-    class mappable_vector : boost::noncopyable {
+    class mappable_vector
+    {
     public:
+        mappable_vector(mappable_vector const &) = delete;
+        mappable_vector & operator=(mappable_vector const &) = delete;
+        mappable_vector(mappable_vector &&) = default;
+        mappable_vector & operator=(mappable_vector &&) = default;
+
         typedef T value_type;
         typedef const T* iterator;
         typedef const T* const_iterator;
