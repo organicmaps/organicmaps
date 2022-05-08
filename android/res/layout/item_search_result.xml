@@ -83,6 +83,7 @@
       android:layout_marginTop="@dimen/margin_quarter"
       android:layout_marginEnd="@dimen/margin_half"
       android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textStyle="italic"
       android:maxLines="2"
       android:ellipsize="end"
       tools:text="Russia, Moscow &amp; Central, Moscow"/>
