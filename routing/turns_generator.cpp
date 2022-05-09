@@ -182,10 +182,6 @@ bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
   if (turnCandidates.size() < 2)
     return true;
 
-  // If route goes from non-link to link then turn can't be discarded.
-  if (!turnInfo.m_ingoing->m_isLink && turnInfo.m_outgoing->m_isLink)
-    return false;
-
   HighwayClass outgoingRouteRoadClass = turnInfo.m_outgoing->m_highwayClass;
   HighwayClass ingoingRouteRoadClass = turnInfo.m_ingoing->m_highwayClass;
 
@@ -200,6 +196,10 @@ bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
     // Let's consider all outgoing segments except for route outgoing segment.
     if (t.m_segment == firstOutgoingSegment)
       continue;
+
+    // If route goes from non-link to link and there is not too sharp candidate then turn can't be discarded.
+    if (!turnInfo.m_ingoing->m_isLink && turnInfo.m_outgoing->m_isLink && abs(t.m_angle) < abs(routeAngle) + 70)
+      return false;
 
     HighwayClass candidateRoadClass = t.m_highwayClass;
 
