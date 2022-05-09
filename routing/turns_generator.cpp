@@ -645,28 +645,28 @@ RouterResultCode MakeTurnAnnotationPedestrian(
 void FixupTurns(vector<geometry::PointWithAltitude> const & junctions, Route::TTurns & turnsDir)
 {
   double const kMergeDistMeters = 15.0;
-  // For turns that are not EnterRoundAbout exitNum is always equal to zero.
+  // For turns that are not EnterRoundAbout/ExitRoundAbout exitNum is always equal to zero.
   // If a turn is EnterRoundAbout exitNum is a number of turns between two junctions:
   // (1) the route enters to the roundabout;
   // (2) the route leaves the roundabout;
   uint32_t exitNum = 0;
-  // If a roundabout is worked up the roundabout value junctions to the turn
-  // of the enter to the roundabout. If not, roundabout is equal to nullptr.
-  TurnItem * roundabout = nullptr;
+  TurnItem * currentEnterRoundAbout = nullptr;
 
   for (size_t idx = 0; idx < turnsDir.size(); )
   {
     TurnItem & t = turnsDir[idx];
-    if (roundabout && t.m_turn != CarDirection::StayOnRoundAbout &&
-        t.m_turn != CarDirection::LeaveRoundAbout)
+    if (currentEnterRoundAbout && t.m_turn != CarDirection::StayOnRoundAbout && t.m_turn != CarDirection::LeaveRoundAbout)
     {
+      ASSERT(false, ("Only StayOnRoundAbout or LeaveRoundAbout are expected after EnterRoundAbout."));
       exitNum = 0;
-      roundabout = nullptr;
+      currentEnterRoundAbout = nullptr;
     }
     else if (t.m_turn == CarDirection::EnterRoundAbout)
     {
-      ASSERT(!roundabout, ());
-      roundabout = &t;
+      ASSERT(!currentEnterRoundAbout, ("It's not expected to find new EnterRoundAbout until previous EnterRoundAbout was leaved."));
+      currentEnterRoundAbout = &t;
+      ASSERT(exitNum == 0, ("exitNum is reset at start and after LeaveRoundAbout."));
+      exitNum = 0;
     }
     else if (t.m_turn == CarDirection::StayOnRoundAbout)
     {
@@ -674,11 +674,14 @@ void FixupTurns(vector<geometry::PointWithAltitude> const & junctions, Route::TT
       turnsDir.erase(turnsDir.begin() + idx);
       continue;
     }
-    else if (roundabout && t.m_turn == CarDirection::LeaveRoundAbout)
+    else if (t.m_turn == CarDirection::LeaveRoundAbout)
     {
-      roundabout->m_exitNum = exitNum + 1; // For EnterRoundAbout turn.
-      t.m_exitNum = roundabout->m_exitNum; // For LeaveRoundAbout turn.
-      roundabout = nullptr;
+      // It's possible for car to be on roundabout without entering it
+      // if route calculation started at roundabout (e.g. if user made full turn on roundabout).
+      if (currentEnterRoundAbout)
+        currentEnterRoundAbout->m_exitNum = exitNum + 1;
+      t.m_exitNum = exitNum + 1; // For LeaveRoundAbout turn.
+      currentEnterRoundAbout = nullptr;
       exitNum = 0;
     }
 
