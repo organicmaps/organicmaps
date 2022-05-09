@@ -8,6 +8,7 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
+#include "coding/map_uint32_to_val.hpp"
 #include "coding/sparse_vector.hpp"
 
 #include "base/assert.hpp"
@@ -23,7 +24,10 @@ namespace connector
 {
 double constexpr kNoRoute = 0.0;
 
+/// @todo Can we make cross-mwm Weight in minutes and store it as uint16_t?
+/// Will get 2x less memory without quality loss (minutes is fine granularity for cross-mwm routing).
 using Weight = uint32_t;
+Weight constexpr kNoRouteStored = 0;
 
 enum class WeightsLoadState
 {
@@ -164,7 +168,7 @@ public:
 
   bool WeightsWereLoaded() const
   {
-    switch (m_weightsLoadState)
+    switch (m_weights.m_loadState)
     {
     case connector::WeightsLoadState::Unknown:
     case connector::WeightsLoadState::ReadyToLoad: return false;
@@ -184,8 +188,8 @@ public:
   using WeightT = connector::Weight;
   WeightT GetWeight(size_t enterIdx, size_t exitIdx) const
   {
-    auto const idx = GetWeightIndex(enterIdx, exitIdx);
-    return (m_weights.Has(idx) ? m_weights.Get(idx) : connector::kNoRoute);
+    WeightT weight;
+    return (m_weights.Get(GetWeightIndex(enterIdx, exitIdx), weight) ? weight : connector::kNoRouteStored);
   }
 
   size_t GetMemorySize() const
@@ -244,7 +248,7 @@ private:
   void AddEdge(Segment const & segment, uint32_t enterIdx, uint32_t exitIdx, EdgeListT & edges) const
   {
     auto const weight = GetWeight(enterIdx, exitIdx);
-    if (weight != connector::kNoRoute)
+    if (weight != connector::kNoRouteStored)
       edges.emplace_back(segment, RouteWeight::FromCrossMwmWeight(weight));
   }
 
@@ -289,14 +293,45 @@ private:
   using MwmID2FeatureIDMapT = std::unordered_map<CrossMwmId, uint32_t, connector::HashKey>;
   MwmID2FeatureIDMapT m_crossMwmIdToFeatureId;
 
-  /// @name Used for lazy weights loading.
-  /// @{
-  connector::WeightsLoadState m_weightsLoadState = connector::WeightsLoadState::Unknown;
-  uint64_t m_weightsOffset = 0;
-  WeightT m_granularity = 0;
-  /// @}
-
   // Weight is the time required for the route to pass edge, measured in seconds rounded upwards.
-  coding::SparseVector<WeightT> m_weights;
+  struct Weights
+  {
+    connector::WeightsLoadState m_loadState = connector::WeightsLoadState::Unknown;
+    uint64_t m_offset = 0;
+    WeightT m_granularity = 0;
+    uint16_t m_version;
+
+    coding::SparseVector<WeightT> m_v1;
+
+    std::unique_ptr<MapUint32ToValue<WeightT>> m_v2;
+    std::unique_ptr<Reader> m_reader;
+
+    bool Empty() const
+    {
+      if (m_version < 2)
+        return m_v1.Empty();
+      else
+        return m_v2 == nullptr;
+    }
+
+    bool Get(uint32_t idx, WeightT & weight) const
+    {
+      if (m_version < 2)
+      {
+        if (m_v1.Has(idx))
+        {
+          weight = m_v1.Get(idx);
+          return true;
+        }
+        else
+          return false;
+      }
+      else
+      {
+        return m_v2->Get(idx, weight);
+      }
+    }
+
+  } m_weights;
 };
 }  // namespace routing
