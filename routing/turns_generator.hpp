@@ -40,17 +40,8 @@ namespace turns
  */
 using TGetIndexFunction = std::function<size_t(std::pair<size_t, size_t>)>;
 
-/*!
- * \brief Index of point in TUnpackedPathSegments. |m_segmentIndex| is a zero based index in vector
- * TUnpackedPathSegments. |m_pathIndex| in a zero based index in LoadedPathSegment::m_path.
- */
-struct RoutePointIndex
-{
-  size_t m_segmentIndex = 0;
-  size_t m_pathIndex = 0;
+struct RoutePointIndex;
 
-  bool operator==(RoutePointIndex const & index) const;
-};
 
 /*!
  * \brief Calculates |nextIndex| which is an index of next route point at result.GetSegments().
@@ -141,7 +132,5 @@ void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t outgoingSe
 size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t outgoingSegmentIndex,
                          NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
                          TurnItem & turn);
-
-std::string DebugPrint(RoutePointIndex const & index);
 }  // namespace routing
 }  // namespace turns

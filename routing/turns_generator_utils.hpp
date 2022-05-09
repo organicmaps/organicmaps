@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/ftypes_matcher.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 namespace routing
 {
@@ -65,6 +66,40 @@ CarDirection LeftmostDirection(double const angle);
 CarDirection IntermediateDirection(double const angle);
 
 PedestrianDirection IntermediateDirectionPedestrian(double const angle);
+
+double CalcEstimatedTimeToPass(double const distanceMeters, ftypes::HighwayClass const highwayClass);
+
+/// \returns true if |path| is loop connected to the PartOfReal segments.
+bool PathIsFakeLoop(std::vector<geometry::PointWithAltitude> const & path);
+
+// Returns distance in meters between |junctions[start]| and |junctions[end]|.
+double CalcRouteDistanceM(vector<geometry::PointWithAltitude> const & junctions, uint32_t start,
+                          uint32_t end);
+
+/*!
+ * \brief Index of point in TUnpackedPathSegments. |m_segmentIndex| is a zero based index in vector
+ * TUnpackedPathSegments. |m_pathIndex| in a zero based index in LoadedPathSegment::m_path.
+ */
+struct RoutePointIndex
+{
+  size_t m_segmentIndex = 0;
+  size_t m_pathIndex = 0;
+
+  bool operator==(RoutePointIndex const & index) const;
+};
+
+std::string DebugPrint(RoutePointIndex const & index);
+
+RoutePointIndex GetFirstOutgoingPointIndex(size_t const outgoingSegmentIndex);
+
+RoutePointIndex GetLastIngoingPointIndex(TUnpackedPathSegments const & segments,
+                                         size_t const outgoingSegmentIndex);
+
+double CalcOneSegmentTurnAngle(TurnInfo const & turnInfo);
+double CalcPathTurnAngle(LoadedPathSegment const & segment, size_t const pathIndex);
+
+m2::PointD GetPointByIndex(TUnpackedPathSegments const & segments, RoutePointIndex const & index);
+
 
 }  // namespace turns
 }  // namespace routing

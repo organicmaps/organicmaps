@@ -107,6 +107,39 @@ PedestrianDirection IntermediateDirectionPedestrian(double const angle)
   return FindDirectionByAngle(kLowerBounds, angle);
 }
 
+double CalcEstimatedTimeToPass(double const distanceMeters, HighwayClass const highwayClass)
+{
+  double speedKmph = 0;
+  switch (highwayClass)
+  {
+    case HighwayClass::Trunk:         speedKmph = 100.0; break;
+    case HighwayClass::Primary:       speedKmph = 70.0; break;
+    case HighwayClass::Secondary:     speedKmph = 70.0; break;
+    case HighwayClass::Tertiary:      speedKmph = 50.0; break;
+    case HighwayClass::LivingStreet:  speedKmph = 20.0; break;
+    case HighwayClass::Service:       speedKmph = 10.0; break;
+    case HighwayClass::Pedestrian:    speedKmph = 5.0; break;
+    default:                          speedKmph = 50.0; break;
+  }
+  return distanceMeters / measurement_utils::KmphToMps(speedKmph);
+}
+
+bool PathIsFakeLoop(std::vector<geometry::PointWithAltitude> const & path)
+{
+  return path.size() == 2 && path[0] == path[1];
+}
+
+double CalcRouteDistanceM(vector<geometry::PointWithAltitude> const & junctions, uint32_t start,
+                          uint32_t end)
+{
+  double res = 0.0;
+
+  for (uint32_t i = start + 1; i < end; ++i)
+    res += mercator::DistanceOnEarth(junctions[i - 1].GetPoint(), junctions[i].GetPoint());
+
+  return res;
+}
+
 // TurnInfo ----------------------------------------------------------------------------------------
 bool TurnInfo::IsSegmentsValid() const
 {
@@ -116,6 +149,60 @@ bool TurnInfo::IsSegmentsValid() const
     return false;
   }
   return true;
+}
+
+// RoutePointIndex ---------------------------------------------------------------------------------
+bool RoutePointIndex::operator==(RoutePointIndex const & index) const
+{
+  return m_segmentIndex == index.m_segmentIndex && m_pathIndex == index.m_pathIndex;
+}
+
+string DebugPrint(RoutePointIndex const & index)
+{
+  stringstream out;
+  out << "RoutePointIndex [ m_segmentIndex == " << index.m_segmentIndex
+      << ", m_pathIndex == " << index.m_pathIndex << " ]" << endl;
+  return out.str();
+}
+
+RoutePointIndex GetFirstOutgoingPointIndex(size_t outgoingSegmentIndex)
+{
+  return RoutePointIndex({outgoingSegmentIndex, 0 /* m_pathIndex */});
+}
+
+RoutePointIndex GetLastIngoingPointIndex(TUnpackedPathSegments const & segments,
+                                         size_t const outgoingSegmentIndex)
+{
+  ASSERT_GREATER(outgoingSegmentIndex, 0, ());
+  ASSERT(segments[outgoingSegmentIndex - 1].IsValid(), ());
+  return RoutePointIndex({outgoingSegmentIndex - 1,
+                          segments[outgoingSegmentIndex - 1].m_path.size() - 1 /* m_pathIndex */});
+}
+
+m2::PointD GetPointByIndex(TUnpackedPathSegments const & segments, RoutePointIndex const & index)
+{
+  return segments[index.m_segmentIndex].m_path[index.m_pathIndex].GetPoint();
+}
+
+double CalcOneSegmentTurnAngle(TurnInfo const & turnInfo)
+{
+  ASSERT_GREATER_OR_EQUAL(turnInfo.m_ingoing->m_path.size(), 2, ());
+  ASSERT_GREATER_OR_EQUAL(turnInfo.m_outgoing->m_path.size(), 2, ());
+
+  return base::RadToDeg(PiMinusTwoVectorsAngle(turnInfo.m_ingoing->m_path.back().GetPoint(),
+                                               turnInfo.m_ingoing->m_path[turnInfo.m_ingoing->m_path.size() - 2].GetPoint(),
+                                               turnInfo.m_outgoing->m_path[1].GetPoint()));
+}
+
+double CalcPathTurnAngle(LoadedPathSegment const & segment, size_t const pathIndex)
+{
+  ASSERT_GREATER_OR_EQUAL(segment.m_path.size(), 3, ());
+  ASSERT_GREATER(pathIndex, 0, ());
+  ASSERT_LESS(pathIndex, segment.m_path.size() - 1, ());
+
+  return base::RadToDeg(PiMinusTwoVectorsAngle(segment.m_path[pathIndex].GetPoint(),
+                                               segment.m_path[pathIndex - 1].GetPoint(),
+                                               segment.m_path[pathIndex + 1].GetPoint()));
 }
 
 }  // namespace turns
