@@ -210,11 +210,17 @@ protected:
   void CheckBitsPerCrossMwmId(uint32_t bitsPerCrossMwmId) const;
 
 public:
-  template <class Source>
-  void DeserializeTransitions(VehicleType requiredVehicle, Source & src)
+  void DeserializeTransitions(VehicleType requiredVehicle, FilesContainerR::TReader & reader)
   {
-    CHECK(m_c.m_weightsLoadState == connector::WeightsLoadState::Unknown, ());
+    DeserializeTransitions(requiredVehicle, *(reader.GetPtr()));
+  }
 
+  template <class Reader>
+  void DeserializeTransitions(VehicleType requiredVehicle, Reader & reader)
+  {
+    CHECK(m_c.m_weights.m_loadState == connector::WeightsLoadState::Unknown, ());
+
+    NonOwningReaderSource src(reader);
     Header header;
     header.Deserialize(src);
     CheckBitsPerCrossMwmId(header.GetBitsPerCrossMwmId());
@@ -259,46 +265,77 @@ public:
                                          ", connector:", numExits));
       }
 
-      m_c.m_weightsOffset = weightsOffset;
-      m_c.m_granularity = header.GetGranularity();
-      m_c.m_weightsLoadState = connector::WeightsLoadState::ReadyToLoad;
+      m_c.m_weights.m_offset = weightsOffset;
+      m_c.m_weights.m_granularity = header.GetGranularity();
+      m_c.m_weights.m_version = header.GetVersion();
+      m_c.m_weights.m_loadState = connector::WeightsLoadState::ReadyToLoad;
       return;
     }
 
-    m_c.m_weightsLoadState = connector::WeightsLoadState::NotExists;
+    m_c.m_weights.m_loadState = connector::WeightsLoadState::NotExists;
   }
 
-  template <class Source>
-  void DeserializeWeights(Source & src)
+  void DeserializeWeights(FilesContainerR::TReader & reader)
   {
-    CHECK(m_c.m_weightsLoadState == connector::WeightsLoadState::ReadyToLoad, ());
-    CHECK_GREATER(m_c.m_granularity, 0, ());
+    DeserializeWeights(*(reader.GetPtr()));
+  }
 
-    src.Skip(m_c.m_weightsOffset);
+  /// @param[in]  reader  Initialized reader for the whole section (makes Skip inside).
+  template <class Reader>
+  void DeserializeWeights(Reader & reader)
+  {
+    CHECK(m_c.m_weights.m_loadState == connector::WeightsLoadState::ReadyToLoad, ());
+    CHECK_GREATER(m_c.m_weights.m_granularity, 0, ());
 
     size_t const amount = m_c.GetNumEnters() * m_c.GetNumExits();
 
-    // Do reserve memory here to avoid a lot of reallocations.
-    // SparseVector will shrink final vector if needed.
-    coding::SparseVectorBuilder<Weight> builder(amount);
-    BitReader<Source> reader(src);
-
-    Weight prev = 1;
-    for (size_t i = 0; i < amount; ++i)
+    if (m_c.m_weights.m_version < 2)
     {
-      if (reader.Read(1) != kNoRouteBit)
+      NonOwningReaderSource src(reader);
+      src.Skip(m_c.m_weights.m_offset);
+
+      // Do reserve memory here to avoid a lot of reallocations.
+      // SparseVector will shrink final vector if needed.
+      coding::SparseVectorBuilder<Weight> builder(amount);
+      BitReader bitReader(src);
+
+      Weight prev = 1;
+      for (size_t i = 0; i < amount; ++i)
       {
-        Weight const delta = ReadDelta<Weight>(reader) - 1;
-        Weight const current = DecodeZigZagDelta(prev, delta);
-        builder.PushValue(current * m_c.m_granularity);
-        prev = current;
+        if (bitReader.Read(1) != kNoRouteBit)
+        {
+          Weight const delta = ReadDelta<Weight>(bitReader) - 1;
+          Weight const current = DecodeZigZagDelta(prev, delta);
+          builder.PushValue(current * m_c.m_weights.m_granularity);
+          prev = current;
+        }
+        else
+          builder.PushEmpty();
       }
-      else
-        builder.PushEmpty();
+
+      m_c.m_weights.m_v1 = builder.Build();
+    }
+    else
+    {
+      m_c.m_weights.m_reader = reader.CreateSubReader(m_c.m_weights.m_offset, reader.Size() - m_c.m_weights.m_offset);
+      m_c.m_weights.m_v2 = MapUint32ToValue<Weight>::Load(*(m_c.m_weights.m_reader),
+        [granularity = m_c.m_weights.m_granularity](NonOwningReaderSource & source, uint32_t blockSize,
+                                                    std::vector<Weight> & values)
+        {
+          values.resize(blockSize);
+
+          uint32_t prev = ReadVarUint<uint32_t>(source);
+          values[0] = granularity * prev;
+
+          for (size_t i = 1; i < blockSize && source.Size() > 0; ++i)
+          {
+            prev += ReadVarInt<int32_t>(source);
+            values[i] = granularity * prev;
+          }
+        });
     }
 
-    m_c.m_weights = builder.Build();
-    m_c.m_weightsLoadState = connector::WeightsLoadState::Loaded;
+    m_c.m_weights.m_loadState = connector::WeightsLoadState::Loaded;
   }
 
 protected:
@@ -316,7 +353,10 @@ protected:
   using Weight = connector::Weight;
   using WeightsLoadState = connector::WeightsLoadState;
 
-  static uint32_t constexpr kLastVersion = 1;
+  // 0 - initial version
+  // 1 - removed dummy GeometryCodingParams
+  // 2 - store weights as MapUint32ToValue
+  static uint32_t constexpr kLastVersion = 2;
   static uint8_t constexpr kNoRouteBit = 0;
   static uint8_t constexpr kRouteBit = 1;
 
@@ -420,6 +460,7 @@ protected:
 
     void AddSection(Section const & section) { m_sections.push_back(section); }
 
+    uint32_t GetVersion() const { return m_version; }
     uint32_t GetNumTransitions() const { return m_numTransitions; }
     uint64_t GetSizeTransitions() const { return m_sizeTransitions; }
     Weight GetGranularity() const { return m_granularity; }
@@ -467,24 +508,34 @@ private:
       transition.Serialize(bitsPerOsmId, bitsPerMask, memWriter);
   }
 
+  static uint16_t constexpr kBlockSize = 256;
+
+  using Weight = typename BaseT::Weight;
+  using IdxWeightT = std::pair<uint32_t, Weight>;
+
   void WriteWeights(std::vector<uint8_t> & buffer) const
   {
-    MemWriter<std::vector<uint8_t>> memWriter(buffer);
-    BitWriter<MemWriter<std::vector<uint8_t>>> writer(memWriter);
-
-    connector::Weight prevWeight = 1;
+    MapUint32ToValueBuilder<Weight> builder;
     for (auto const & w : m_weights)
+      builder.Put(w.first, w.second);
+
+    MemWriter writer(buffer);
+    builder.Freeze(writer, [](auto & writer, auto beg, auto end)
     {
-      if (w != connector::kNoRoute)
+      auto const NextStoredValue = [&beg]()
       {
-        writer.Write(BaseT::kRouteBit, 1);
-        auto const storedWeight = (w + BaseT::kGranularity - 1) / BaseT::kGranularity;
-        WriteDelta(writer, EncodeZigZagDelta(prevWeight, storedWeight) + 1);
-        prevWeight = storedWeight;
+        return (*beg++ + BaseT::kGranularity - 1) / BaseT::kGranularity;
+      };
+
+      Weight prev = NextStoredValue();
+      WriteVarUint(writer, prev);
+      while (beg != end)
+      {
+        Weight const storedWeight = NextStoredValue();
+        WriteVarInt(writer, static_cast<int32_t>(storedWeight) - static_cast<int32_t>(prev));
+        prev = storedWeight;
       }
-      else
-        writer.Write(BaseT::kNoRouteBit, 1);
-    }
+    }, kBlockSize);
   }
 
 public:
@@ -513,11 +564,15 @@ public:
     std::vector<uint8_t> weightsBuf;
     if (!m_weights.empty())
     {
+      std::sort(m_weights.begin(), m_weights.end(), base::LessBy(&IdxWeightT::first));
       WriteWeights(weightsBuf);
+
       header.AddSection(typename BaseT::Section(
                         weightsBuf.size(), m_connector.GetNumEnters(), m_connector.GetNumExits(), m_vehicleType));
     }
 
+    // Use buffer serialization above, because BaseT::Header is not plain (vector<Section>)
+    // and we are not able to calculate its final size.
     header.Serialize(sink);
     sink.Write(transitionsBuf.data(), transitionsBuf.size());
     sink.Write(weightsBuf.data(), weightsBuf.size());
@@ -538,16 +593,27 @@ public:
   {
     CHECK(m_vehicleType != VehicleType::Count, ("PrepareConnector should be called"));
 
-    m_weights.resize(m_connector.GetNumEnters() * m_connector.GetNumExits());
+    m_weights.reserve(m_connector.GetNumEnters() * m_connector.GetNumExits());
     m_connector.ForEachEnter([&](uint32_t enterIdx, Segment const & enter)
     {
       m_connector.ForEachExit([&](uint32_t exitIdx, Segment const & exit)
       {
-        auto const weight = calcWeight(enter, exit);
+        auto const w = calcWeight(enter, exit);
+        CHECK_LESS(w, std::numeric_limits<Weight>::max(), ());
+
         // Edges weights should be >= astar heuristic, so use std::ceil.
-        m_weights[m_connector.GetWeightIndex(enterIdx, exitIdx)] = static_cast<connector::Weight>(std::ceil(weight));
+        if (w != connector::kNoRoute)
+          m_weights.emplace_back(m_connector.GetWeightIndex(enterIdx, exitIdx), static_cast<Weight>(std::ceil(w)));
       });
     });
+  }
+
+  /// Used in tests only.
+  void SetAndWriteWeights(std::vector<IdxWeightT> && weights, std::vector<uint8_t> & buffer)
+  {
+    m_weights = std::move(weights);
+    std::sort(m_weights.begin(), m_weights.end(), base::LessBy(&IdxWeightT::first));
+    WriteWeights(buffer);
   }
 
 private:
@@ -556,7 +622,7 @@ private:
 
   // Weights for the current prepared connector. Used for VehicleType::Car only now.
   typename BaseT::ConnectorT m_connector;
-  std::vector<typename BaseT::Weight> m_weights;
+  std::vector<IdxWeightT> m_weights;
   VehicleType m_vehicleType = VehicleType::Count;
 };
 

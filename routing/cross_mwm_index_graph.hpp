@@ -270,14 +270,13 @@ private:
     MwmValue const * value = handle.GetValue();
     CHECK(value != nullptr, ("Country file:", file));
 
-    FilesContainerR::TReader reader(connector::GetReader<CrossMwmId>(value->m_cont));
-    ReaderSourceFile src(reader);
     auto it = m_connectors.emplace(numMwmId, CrossMwmConnector<CrossMwmId>(numMwmId)).first;
 
     CrossMwmConnectorBuilder<CrossMwmId> builder(it->second);
     builder.ApplyNumerationOffset();
 
-    fn(builder, src);
+    auto reader = connector::GetReader<CrossMwmId>(value->m_cont);
+    fn(builder, reader);
     return it->second;
   }
 
