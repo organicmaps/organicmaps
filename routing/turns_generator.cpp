@@ -540,7 +540,10 @@ void CorrectGoStraight(TurnCandidate const & notRouteCandidate, double const rou
   
   // Correct turn if alternative cadidate's angle is not sharp enough compared to the route.
   if (abs(notRouteCandidate.m_angle) < abs(routeAngle) + kMinAbsAngleDiffForStraightRoute)
+  {
+    LOG(LDEBUG, ("Turn: ", turn.m_index, " GoStraight correction."));
     turn.m_turn = turnToSet;
+  }
 }
 
 // Returns distance in meters between |junctions[start]| and |junctions[end]|.
@@ -1098,32 +1101,44 @@ void CorrectRightmostAndLeftmost(std::vector<TurnCandidate> const & turnCandidat
     return;
   }
 
+  double constexpr kMaxAbsAngleConsideredLeftOrRightMost = 90;
+
+  // Go from left to right to findout if the route goes through the leftmost candidate and fixes can be applied.
+  // Other candidates which are sharper than kMaxAbsAngleConsideredLeftOrRightMost are ignored.
   for (auto candidate = turnCandidates.begin(); candidate != turnCandidates.end(); ++candidate)
   {
     if (candidate->m_segment == firstOutgoingSeg && candidate + 1 != turnCandidates.end())
     {
-        // The route goes along the leftmost candidate. 
-        turn.m_turn = LeftmostDirection(turnAngle);
-        // Compare with the next candidate to the right.
-          CorrectGoStraight(*(candidate + 1), candidate->m_angle, CarDirection::TurnSlightLeft, turn);
-        break;
+      // The route goes along the leftmost candidate. 
+      turn.m_turn = LeftmostDirection(turnAngle);
+      if (IntermediateDirection(turnAngle) != turn.m_turn)
+        LOG(LDEBUG, ("Turn: ", turn.m_index, " LeftmostDirection correction."));
+      // Compare with the next candidate to the right.
+      CorrectGoStraight(*(candidate + 1), candidate->m_angle, CarDirection::TurnSlightLeft, turn);
+      break;
     }
-    // Ignoring too sharp alternative candidates.
-    if (candidate->m_angle > -90)
+    // Check if this candidate is considered as leftmost as not too sharp.
+    // If yes - this candidate is leftmost, not route's one. 
+    if (candidate->m_angle > -kMaxAbsAngleConsideredLeftOrRightMost)
       break;
   }
+  // Go from right to left to findout if the route goes through the rightmost candidate anf fixes can be applied.
+  // Other candidates which are sharper than kMaxAbsAngleConsideredLeftOrRightMost are ignored.
   for (auto candidate = turnCandidates.rbegin(); candidate != turnCandidates.rend(); ++candidate)
   {
     if (candidate->m_segment == firstOutgoingSeg && candidate + 1 != turnCandidates.rend())
     {
       // The route goes along the rightmost candidate. 
       turn.m_turn = RightmostDirection(turnAngle);
+      if (IntermediateDirection(turnAngle) != turn.m_turn)
+        LOG(LDEBUG, ("Turn: ", turn.m_index, " RighmostDirection correction."));
       // Compare with the next candidate to the left.
       CorrectGoStraight(*(candidate + 1), candidate->m_angle, CarDirection::TurnSlightRight, turn);
       break;
     }
-    // Ignoring too sharp alternative candidates.
-    if (candidate->m_angle < 90)
+    // Check if this candidate is considered as rightmost as not too sharp.
+    // If yes - this candidate is rightmost, not route's one.
+    if (candidate->m_angle < kMaxAbsAngleConsideredLeftOrRightMost)
       break;
   };
 }
