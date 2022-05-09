@@ -53,27 +53,6 @@ struct RoutePointIndex
 };
 
 /*!
- * \brief The TurnInfo structure is a representation of a junction.
- * It has ingoing and outgoing edges and method to check if these edges are valid.
- */
-struct TurnInfo
-{
-  LoadedPathSegment const * m_ingoing;
-  LoadedPathSegment const * m_outgoing;
-
-  TurnInfo() : m_ingoing(nullptr), m_outgoing(nullptr)
-  {
-  }
-
-  TurnInfo(LoadedPathSegment const * ingoingSegment, LoadedPathSegment const * outgoingSegment)
-      : m_ingoing(ingoingSegment), m_outgoing(outgoingSegment)
-  {
-  }
-
-  bool IsSegmentsValid() const;
-};
-
-/*!
  * \brief Calculates |nextIndex| which is an index of next route point at result.GetSegments().
  * |nextIndex| may be calculated in forward and backward direction.
  * \returns true if |nextIndex| is calculated and false otherwise. This method returns false
@@ -121,22 +100,6 @@ void FixupTurnsPedestrian(std::vector<geometry::PointWithAltitude> const & junct
                           Route::TTurns & turnsDir);
 
 inline size_t GetFirstSegmentPointIndex(std::pair<size_t, size_t> const & p) { return p.first; }
-
-CarDirection InvertDirection(CarDirection dir);
-
-/*!
- * \param angle is an angle of a turn. It belongs to a range [-180, 180].
- * \return correct direction if the route follows along the rightmost possible way.
- */
-CarDirection RightmostDirection(double angle);
-CarDirection LeftmostDirection(double angle);
-
-/*!
- * \param angle is an angle of a turn. It belongs to a range [-180, 180].
- * \return correct direction if the route follows not along one of two outermost ways
- * or if there is only one possible way.
- */
-CarDirection IntermediateDirection(double angle);
 
 /*!
  * \brief Calculates a turn instruction if the ingoing edge or (and) the outgoing edge belongs to a

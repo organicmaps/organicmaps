@@ -4,6 +4,7 @@
 #include "routing/route.hpp"
 #include "routing/routing_result_graph.hpp"
 #include "routing/turns.hpp"
+#include "routing/turns_generator_utils.hpp"
 #include "routing/turns_generator.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
