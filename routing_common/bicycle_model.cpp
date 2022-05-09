@@ -424,8 +424,10 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayB
   m_bidirBicycleType = cl.GetTypeByPath({"hwtag", "bidir_bicycle"});
   m_onedirBicycleType = cl.GetTypeByPath({"hwtag", "onedir_bicycle"});
 
+  // Assign 90% of max cycleway speed for bicycle=yes to keep choosing most preferred cycleway.
+  double const factor = 0.9;
   AddAdditionalRoadTypes(cl, {
-      {std::move(hwtagYesBicycle), m_maxModelSpeed},
+      {std::move(hwtagYesBicycle), {m_maxModelSpeed.m_inCity * factor, m_maxModelSpeed.m_outCity * factor}},
       {{"route", "ferry"}, bicycle_model::kDefaultSpeeds.Get(HighwayType::RouteFerry)},
       {{"man_made", "pier"}, bicycle_model::kDefaultSpeeds.Get(HighwayType::ManMadePier)}
   });
