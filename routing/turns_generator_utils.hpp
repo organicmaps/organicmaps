@@ -8,6 +8,8 @@ struct LoadedPathSegment;
 
 namespace turns
 {
+enum class CarDirection;
+enum class PedestrianDirection;
 /*!
  * \brief The TurnInfo structure is a representation of a junction.
  * It has ingoing and outgoing edges and method to check if these edges are valid.
