@@ -30,6 +30,10 @@ double constexpr kMaxForwardAngleActual = 60.0;
 // to ignore alternative turn (when route direction is GoStraight).
 double constexpr kMinAbsAngleDiffForStraightRoute = 25.0;
 
+// Min difference of route and alternative turn abs angles in degrees
+// to ignore alternative turn (when route direction is bigger and GoStraight).
+double constexpr kMinAbsAngleDiffForBigStraightRoute = 5;
+
 // Min difference of route and alternative turn abs angles in degrees 
 // to ignore this alternative candidate (when alternative road is the same or smaller).
 double constexpr kMinAbsAngleDiffForSameOrSmallerRoad = 35.0;
@@ -41,10 +45,6 @@ int constexpr kMinHighwayClassDiff = -2;
 // Min difference between HighwayClasses of the route segment and alternative turn segment
 // to ignore this alternative candidate (when alternative road is service).
 int constexpr kMinHighwayClassDiffForService = -1;
-
-// Min difference between HighwayClasses of the route segment and alternative turn segment
-// to ignore this alternative candidate (when route direction is GoStraight).
-int constexpr kMinHighwayClassDiffForStraightRoute = -1;
 
 /// \brief Return |CarDirection::ExitHighwayToRight| or |CarDirection::ExitHighwayToLeft|
 /// or return |CarDirection::None| if no exit is detected.
@@ -209,8 +209,10 @@ bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
     
     if (routeDirection == CarDirection::GoStraight)
     {
-      // If outgoing route road is significantly larger than candidate, the candidate can be ignored.
-      if (CalcDiffRoadClasses(outgoingRouteRoadClass, candidateRoadClass) <= kMinHighwayClassDiffForStraightRoute)
+      // If alternative cadidate's road size is smaller
+      // and it's angle is not very close to the route's one - it can be ignored.
+      if (CalcDiffRoadClasses(outgoingRouteRoadClass, candidateRoadClass) < 0 &&
+          abs(t.m_angle) > abs(routeAngle) + kMinAbsAngleDiffForBigStraightRoute)
         continue;
 
       // If outgoing route road is the same or large than ingoing
@@ -805,6 +807,8 @@ bool HasSingleForwardTurn(TurnCandidates const & turnCandidates)
   return foundForwardTurn;
 }
 
+/// \returns angle, wchis is calculated using several backward and forward segments 
+/// from junction to consider smooth turns and remove noise.
 double CalcTurnAngle(IRoutingResult const & result, 
                      size_t const outgoingSegmentIndex, 
                      NumMwmIds const & numMwmIds,
@@ -1019,7 +1023,21 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
       return;
   }
 
-  if (CanDiscardTurnByHighwayClassOrAngles(intermediateDirection, turnAngle, turnCandidates, turnInfo, numMwmIds))
+  // This angle is calculated using only 1 segment back and forward, not like turnAngle.
+  double turnOneSegmentAngle = CalcOneSegmentTurnAngle(turnInfo);
+
+  // To not discard some disputable turns let's use max by modulus from turnOneSegmentAngle and turnAngle.
+  // It's natural since angles of turnCandidates are calculated in IRoutingResult::GetPossibleTurns() 
+  // according to CalcOneSegmentTurnAngle logic. And to be safe turnAngle is used too.
+  double turnAngleToCompare = turnAngle;
+  if (turnOneSegmentAngle <= 0 && turnAngle <= 0)
+    turnAngleToCompare = min(turnOneSegmentAngle, turnAngle);
+  else if (turnOneSegmentAngle >= 0 && turnAngle >= 0)
+    turnAngleToCompare = max(turnOneSegmentAngle, turnAngle);
+  else if (abs(turnOneSegmentAngle) > 10)
+    LOG(LWARNING, ("Significant angles are expected to have the same sign."));
+
+  if (CanDiscardTurnByHighwayClassOrAngles(intermediateDirection, turnAngleToCompare, turnCandidates, turnInfo, numMwmIds))
     return;
 
   turn.m_turn = intermediateDirection;
