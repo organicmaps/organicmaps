@@ -19,17 +19,29 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleWayTurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestTurnCount(route, 4 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
-  integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
-      {CarDirection::TurnSlightLeft, CarDirection::TurnLeft});
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
-  /// @todo Turn 3 is discarded since first segment of alternative way is too sharp.
-  /// Can be fixed if more segments of alternative way will be considered (just like selected route segments).
-  /// But now it's unavailable from IRoutingResult::GetPossibleTurns().
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightRight);
 
   integration::TestRouteLength(route, 753.0);
+}
+
+UNIT_TEST(SpainTenerifeSlightTurnMain_TurnTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
+                                  mercator::FromLatLon(28.09214, -16.73121), {0.0, 0.0},
+                                  mercator::FromLatLon(28.09227, -16.7303));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  // Turn is needed because the route goes to the one of symmetric ways.
+  // It's complicated since route way has tag tertiary and alternative way - residential.
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
 UNIT_TEST(RussiaMoscowGerPanfilovtsev22BicycleWayTurnTest)
