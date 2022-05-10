@@ -2,7 +2,6 @@
 #include "platform/measurement_utils.hpp"
 #include "geometry/mercator.hpp"
 #include "routing/turns.hpp"
-#include "routing/loaded_path_segment.hpp"
 
 namespace routing
 {
@@ -34,7 +33,7 @@ T FindDirectionByAngle(std::vector<std::pair<double, T>> const & lowerBounds, do
   ASSERT_GREATER_OR_EQUAL(angle, -180., (angle));
   ASSERT_LESS_OR_EQUAL(angle, 180., (angle));
   ASSERT(!lowerBounds.empty(), ());
-  ASSERT(is_sorted(lowerBounds.rbegin(), lowerBounds.rend(), base::LessBy(&pair<double, T>::first)),
+  ASSERT(is_sorted(lowerBounds.rbegin(), lowerBounds.rend(), base::LessBy(&std::pair<double, T>::first)),
          ());
 
   for (auto const & lower : lowerBounds)
@@ -163,9 +162,9 @@ bool RoutePointIndex::operator==(RoutePointIndex const & index) const
 
 std::string DebugPrint(RoutePointIndex const & index)
 {
-  stringstream out;
+  std::stringstream out;
   out << "RoutePointIndex [ m_segmentIndex == " << index.m_segmentIndex
-      << ", m_pathIndex == " << index.m_pathIndex << " ]" << endl;
+      << ", m_pathIndex == " << index.m_pathIndex << " ]" << std::endl;
   return out.str();
 }
 

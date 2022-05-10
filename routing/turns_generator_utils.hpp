@@ -2,11 +2,10 @@
 
 #include "indexer/ftypes_matcher.hpp"
 #include "geometry/point_with_altitude.hpp"
+#include "routing/loaded_path_segment.hpp"
 
 namespace routing
 {
-struct LoadedPathSegment;
-
 namespace turns
 {
 enum class CarDirection;
