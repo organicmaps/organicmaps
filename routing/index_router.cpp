@@ -843,6 +843,10 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
   if (result != RouterResultCode::NoError)
     return result;
 
+  // Purge cross-mwm-graph cache memory before calculating subroutes for each MWM.
+  // CrossMwmConnector takes a lot of memory with its weights matrix now.
+  starter.GetGraph().GetCrossMwmGraph().Purge();
+
   vector<Segment> subrouteWithoutPostprocessing;
   ASSERT_EQUAL(starter.GetGraph().GetMode(), WorldGraphMode::LeapsOnly, ());
   RouterResultCode const leapsResult = ProcessLeapsJoints(routingResult.m_path, delegate, starter,

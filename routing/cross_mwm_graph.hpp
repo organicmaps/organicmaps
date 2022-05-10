@@ -93,7 +93,8 @@ public:
 
   void GetIngoingEdgeList(Segment const & s, EdgeListT & edges);
 
-  void Clear();
+  //void Clear();
+  void Purge();
 
   template <class FnT> void ForEachTransition(NumMwmId numMwmId, bool isEnter, FnT && fn)
   {

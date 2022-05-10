@@ -30,7 +30,6 @@ set(SRC
   cross_border_graph.hpp
   cross_mwm_connector.cpp
   cross_mwm_connector.hpp
-  cross_mwm_connector_serialization.cpp
   cross_mwm_connector_serialization.hpp
   cross_mwm_graph.cpp
   cross_mwm_graph.hpp

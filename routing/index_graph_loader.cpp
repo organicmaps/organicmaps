@@ -38,12 +38,15 @@ public:
 
   // IndexGraphLoader overrides:
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) override;
+  Geometry & GetGeometry(NumMwmId numMwmId) override;
   vector<RouteSegment::SpeedCamera> GetSpeedCameraInfo(Segment const & segment) override;
   void Clear() override;
 
 private:
+  using GeometryPtrT = shared_ptr<Geometry>;
+  GeometryPtrT CreateGeometry(NumMwmId numMwmId);
   using GraphPtrT = unique_ptr<IndexGraph>;
-  GraphPtrT CreateIndexGraph(NumMwmId numMwmId);
+  GraphPtrT CreateIndexGraph(NumMwmId numMwmId, GeometryPtrT & geometry);
 
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
@@ -52,7 +55,13 @@ private:
   shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;
 
-  unordered_map<NumMwmId, GraphPtrT> m_graphs;
+  struct GraphAttrs
+  {
+    GeometryPtrT m_geometry;
+    // May be nullptr, because it has "lazy" loading.
+    GraphPtrT m_graph;
+  };
+  unordered_map<NumMwmId, GraphAttrs> m_graphs;
 
   using CamerasMapT = map<SegmentCoord, vector<RouteSegment::SpeedCamera>>;
   unordered_map<NumMwmId, CamerasMapT> m_cachedCameras;
@@ -84,10 +93,24 @@ IndexGraphLoaderImpl::IndexGraphLoaderImpl(
 
 IndexGraph & IndexGraphLoaderImpl::GetIndexGraph(NumMwmId numMwmId)
 {
-  auto res = m_graphs.try_emplace(numMwmId, GraphPtrT{});
+  auto res = m_graphs.try_emplace(numMwmId, GraphAttrs());
+  if (res.second || res.first->second.m_graph == nullptr)
+  {
+    // Create graph using (or initializing) existing geometry.
+    res.first->second.m_graph = CreateIndexGraph(numMwmId, res.first->second.m_geometry);
+  }
+  return *(res.first->second.m_graph);
+}
+
+Geometry & IndexGraphLoaderImpl::GetGeometry(NumMwmId numMwmId)
+{
+  auto res = m_graphs.try_emplace(numMwmId, GraphAttrs());
   if (res.second)
-    res.first->second = CreateIndexGraph(numMwmId);
-  return *(res.first->second);
+  {
+    // Create geometry only, graph stays nullptr.
+    res.first->second.m_geometry = CreateGeometry(numMwmId);
+  }
+  return *(res.first->second.m_geometry);
 }
 
 IndexGraphLoaderImpl::CamerasMapT const & IndexGraphLoaderImpl::ReceiveSpeedCamsFromMwm(NumMwmId numMwmId)
@@ -150,7 +173,7 @@ vector<RouteSegment::SpeedCamera> IndexGraphLoaderImpl::GetSpeedCameraInfo(Segme
   return cameras;
 }
 
-unique_ptr<IndexGraph> IndexGraphLoaderImpl::CreateIndexGraph(NumMwmId numMwmId)
+IndexGraphLoaderImpl::GraphPtrT IndexGraphLoaderImpl::CreateIndexGraph(NumMwmId numMwmId, GeometryPtrT & geometry)
 {
   platform::CountryFile const & file = m_numMwmIds->GetFile(numMwmId);
   MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
@@ -160,10 +183,10 @@ unique_ptr<IndexGraph> IndexGraphLoaderImpl::CreateIndexGraph(NumMwmId numMwmId)
   shared_ptr<VehicleModelInterface> vehicleModel =
       m_vehicleModelFactory->GetVehicleModelForCountry(file.GetName());
 
-  auto geometry = make_shared<Geometry>(GeometryLoader::Create(
-      m_dataSource, handle, vehicleModel, m_loadAltitudes));
+  if (!geometry)
+    geometry = make_shared<Geometry>(GeometryLoader::Create(m_dataSource, handle, vehicleModel, m_loadAltitudes));
 
-  auto graph = make_unique<IndexGraph>(std::move(geometry), m_estimator, m_avoidRoutingOptions);
+  auto graph = make_unique<IndexGraph>(geometry, m_estimator, m_avoidRoutingOptions);
   graph->SetCurrentTimeGetter(m_currentTimeGetter);
 
   base::Timer timer;
@@ -172,6 +195,19 @@ unique_ptr<IndexGraph> IndexGraphLoaderImpl::CreateIndexGraph(NumMwmId numMwmId)
   LOG(LINFO, (ROUTING_FILE_TAG, "section for", file.GetName(), "loaded in", timer.ElapsedSeconds(), "seconds"));
 
   return graph;
+}
+
+IndexGraphLoaderImpl::GeometryPtrT IndexGraphLoaderImpl::CreateGeometry(NumMwmId numMwmId)
+{
+  platform::CountryFile const & file = m_numMwmIds->GetFile(numMwmId);
+  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
+  if (!handle.IsAlive())
+    MYTHROW(RoutingException, ("Can't get mwm handle for", file));
+
+  shared_ptr<VehicleModelInterface> vehicleModel =
+      m_vehicleModelFactory->GetVehicleModelForCountry(file.GetName());
+
+  return make_shared<Geometry>(GeometryLoader::Create(m_dataSource, handle, vehicleModel, m_loadAltitudes));
 }
 
 void IndexGraphLoaderImpl::Clear() { m_graphs.clear(); }

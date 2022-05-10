@@ -176,10 +176,16 @@ void CrossMwmGraph::GetIngoingEdgeList(Segment const & exit, EdgeListT & edges)
     m_crossMwmIndexGraph.GetIngoingEdgeList(exit, edges);
 }
 
-void CrossMwmGraph::Clear()
+//void CrossMwmGraph::Clear()
+//{
+//  m_crossMwmIndexGraph.Clear();
+//  m_crossMwmTransitGraph.Clear();
+//}
+
+void CrossMwmGraph::Purge()
 {
-  m_crossMwmIndexGraph.Clear();
-  m_crossMwmTransitGraph.Clear();
+  m_crossMwmIndexGraph.Purge();
+  m_crossMwmTransitGraph.Purge();
 }
 
 void CrossMwmGraph::GetTwinFeature(Segment const & segment, bool isOutgoing, vector<Segment> & twins)

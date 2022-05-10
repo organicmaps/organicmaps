@@ -194,7 +194,7 @@ struct HighwayBasedInfo
   {
   }
 
-  HighwayBasedSpeeds const & m_speeds;
+  HighwayBasedSpeeds m_speeds;
   HighwayBasedFactors const & m_factors;
 };
 

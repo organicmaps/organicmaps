@@ -76,6 +76,8 @@ public:
   RoadJointIds const & GetRoad(uint32_t featureId) const { return m_roadIndex.GetRoad(featureId); }
   RoadGeometry const & GetRoadGeometry(uint32_t featureId) const { return m_geometry->GetRoad(featureId); }
 
+  Geometry & GetGeometry() const { return *m_geometry; }
+
   RoadAccess::Type GetAccessType(Segment const & segment) const
   {
     return m_roadAccess.GetAccessWithoutConditional(segment.GetFeatureId()).first;

@@ -111,6 +111,11 @@ IndexGraph & TestIndexGraphLoader::GetIndexGraph(NumMwmId mwmId)
   return GetGraph(m_graphs, mwmId);
 }
 
+Geometry & TestIndexGraphLoader::GetGeometry(NumMwmId mwmId)
+{
+  return GetIndexGraph(mwmId).GetGeometry();
+}
+
 void TestIndexGraphLoader::Clear() { m_graphs.clear(); }
 
 void TestIndexGraphLoader::AddGraph(NumMwmId mwmId, unique_ptr<IndexGraph> graph)
