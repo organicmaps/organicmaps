@@ -1,4 +1,8 @@
 #include "routing/turns_generator_utils.hpp"
+#include "platform/measurement_utils.hpp"
+#include "geometry/mercator.hpp"
+#include "routing/turns.hpp"
+#include "routing/loaded_path_segment.hpp"
 
 namespace routing
 {
@@ -25,7 +29,7 @@ int CalcDiffRoadClasses(HighwayClass const left, HighwayClass const right)
 }
 
 template <class T>
-T FindDirectionByAngle(vector<pair<double, T>> const & lowerBounds, double const angle)
+T FindDirectionByAngle(std::vector<std::pair<double, T>> const & lowerBounds, double const angle)
 {
   ASSERT_GREATER_OR_EQUAL(angle, -180., (angle));
   ASSERT_LESS_OR_EQUAL(angle, 180., (angle));
@@ -66,7 +70,7 @@ CarDirection InvertDirection(CarDirection const dir)
 
 CarDirection RightmostDirection(double const angle)
 {
-  static vector<pair<double, CarDirection>> const kLowerBounds = {
+  static std::vector<std::pair<double, CarDirection>> const kLowerBounds = {
       {145., CarDirection::TurnSharpRight},
       {50., CarDirection::TurnRight},
       {10., CarDirection::TurnSlightRight},
@@ -85,7 +89,7 @@ CarDirection LeftmostDirection(double const angle)
 
 CarDirection IntermediateDirection(double const angle)
 {
-  static vector<pair<double, CarDirection>> const kLowerBounds = {
+  static std::vector<std::pair<double, CarDirection>> const kLowerBounds = {
       {145., CarDirection::TurnSharpRight},
       {50., CarDirection::TurnRight},
       {10., CarDirection::TurnSlightRight},
@@ -99,7 +103,7 @@ CarDirection IntermediateDirection(double const angle)
 
 PedestrianDirection IntermediateDirectionPedestrian(double const angle)
 {
-  static vector<pair<double, PedestrianDirection>> const kLowerBounds = {
+  static std::vector<std::pair<double, PedestrianDirection>> const kLowerBounds = {
       {10.0, PedestrianDirection::TurnRight},
       {-10.0, PedestrianDirection::GoStraight},
       {-180.0, PedestrianDirection::TurnLeft}};
@@ -129,7 +133,7 @@ bool PathIsFakeLoop(std::vector<geometry::PointWithAltitude> const & path)
   return path.size() == 2 && path[0] == path[1];
 }
 
-double CalcRouteDistanceM(vector<geometry::PointWithAltitude> const & junctions, uint32_t start,
+double CalcRouteDistanceM(std::vector<geometry::PointWithAltitude> const & junctions, uint32_t start,
                           uint32_t end)
 {
   double res = 0.0;
@@ -157,7 +161,7 @@ bool RoutePointIndex::operator==(RoutePointIndex const & index) const
   return m_segmentIndex == index.m_segmentIndex && m_pathIndex == index.m_pathIndex;
 }
 
-string DebugPrint(RoutePointIndex const & index)
+std::string DebugPrint(RoutePointIndex const & index)
 {
   stringstream out;
   out << "RoutePointIndex [ m_segmentIndex == " << index.m_segmentIndex

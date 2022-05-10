@@ -47,7 +47,7 @@ int CalcDiffRoadClasses(ftypes::HighwayClass const left, ftypes::HighwayClass co
  * The second paramer (angle) shall belong to the range [-180; 180] and is measured in degrees.
  */
 template <class T>
-T FindDirectionByAngle(vector<pair<double, T>> const & lowerBounds, double const angle);
+T FindDirectionByAngle(std::vector<std::pair<double, T>> const & lowerBounds, double const angle);
 
 CarDirection InvertDirection(CarDirection const dir);
 
@@ -73,7 +73,7 @@ double CalcEstimatedTimeToPass(double const distanceMeters, ftypes::HighwayClass
 bool PathIsFakeLoop(std::vector<geometry::PointWithAltitude> const & path);
 
 // Returns distance in meters between |junctions[start]| and |junctions[end]|.
-double CalcRouteDistanceM(vector<geometry::PointWithAltitude> const & junctions, uint32_t start,
+double CalcRouteDistanceM(std::vector<geometry::PointWithAltitude> const & junctions, uint32_t start,
                           uint32_t end);
 
 /*!
@@ -82,8 +82,8 @@ double CalcRouteDistanceM(vector<geometry::PointWithAltitude> const & junctions,
  */
 struct RoutePointIndex
 {
-  size_t m_segmentIndex = 0;
-  size_t m_pathIndex = 0;
+  std::size_t m_segmentIndex = 0;
+  std::size_t m_pathIndex = 0;
 
   bool operator==(RoutePointIndex const & index) const;
 };

@@ -246,7 +246,7 @@ bool KeepRoundaboutTurnByHighwayClass(TurnCandidates const & possibleTurns,
   return false;
 }
 
-bool FixupLaneSet(CarDirection turn, vector<SingleLaneInfo> & lanes,
+bool FixupLaneSet(CarDirection turn, std::vector<SingleLaneInfo> & lanes,
                   function<bool(LaneWay l, CarDirection t)> checker)
 {
   bool isLaneConformed = false;
@@ -472,9 +472,9 @@ bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const
 RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
                                     VehicleType const & vehicleType,
                                     base::Cancellable const & cancellable,
-                                    vector<geometry::PointWithAltitude> & junctions,
+                                    std::vector<geometry::PointWithAltitude> & junctions,
                                     Route::TTurns & turnsDir, Route::TStreets & streets,
-                                    vector<Segment> & segments)
+                                    std::vector<Segment> & segments)
 {
   LOG(LDEBUG, ("Shortest path length:", result.GetPathLength()));
 
@@ -567,8 +567,8 @@ RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds con
 
 RouterResultCode MakeTurnAnnotationPedestrian(
     IRoutingResult const & result, NumMwmIds const & numMwmIds, VehicleType const & vehicleType,
-    base::Cancellable const & cancellable, vector<geometry::PointWithAltitude> & junctions,
-    Route::TTurns & turnsDir, Route::TStreets & streets, vector<Segment> & segments)
+    base::Cancellable const & cancellable, std::vector<geometry::PointWithAltitude> & junctions,
+    Route::TTurns & turnsDir, Route::TStreets & streets, std::vector<Segment> & segments)
 {
   LOG(LDEBUG, ("Shortest path length:", result.GetPathLength()));
 
@@ -644,7 +644,7 @@ RouterResultCode MakeTurnAnnotationPedestrian(
   return RouterResultCode::NoError;
 }
 
-void FixupTurns(vector<geometry::PointWithAltitude> const & junctions, Route::TTurns & turnsDir)
+void FixupTurns(std::vector<geometry::PointWithAltitude> const & junctions, Route::TTurns & turnsDir)
 {
   double const kMergeDistMeters = 15.0;
   // For turns that are not EnterRoundAbout/ExitRoundAbout exitNum is always equal to zero.
@@ -705,7 +705,7 @@ void FixupTurns(vector<geometry::PointWithAltitude> const & junctions, Route::TT
   SelectRecommendedLanes(turnsDir);
 }
 
-void FixupTurnsPedestrian(vector<geometry::PointWithAltitude> const & junctions,
+void FixupTurnsPedestrian(std::vector<geometry::PointWithAltitude> const & junctions,
                           Route::TTurns & turnsDir)
 {
   double const kMergeDistMeters = 15.0;
@@ -734,7 +734,7 @@ void SelectRecommendedLanes(Route::TTurns & turnsDir)
 {
   for (auto & t : turnsDir)
   {
-    vector<SingleLaneInfo> & lanes = t.m_lanes;
+    std::vector<SingleLaneInfo> & lanes = t.m_lanes;
     if (lanes.empty())
       continue;
     CarDirection const turn = t.m_turn;
