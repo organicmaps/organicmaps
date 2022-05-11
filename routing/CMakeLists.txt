@@ -164,6 +164,8 @@ set(SRC
   turn_candidate.hpp
   turns.cpp
   turns.hpp
+  turns_generator_utils.cpp
+  turns_generator_utils.hpp
   turns_generator.cpp
   turns_generator.hpp
   turns_notification_manager.cpp

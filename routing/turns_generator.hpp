@@ -40,38 +40,8 @@ namespace turns
  */
 using TGetIndexFunction = std::function<size_t(std::pair<size_t, size_t>)>;
 
-/*!
- * \brief Index of point in TUnpackedPathSegments. |m_segmentIndex| is a zero based index in vector
- * TUnpackedPathSegments. |m_pathIndex| in a zero based index in LoadedPathSegment::m_path.
- */
-struct RoutePointIndex
-{
-  size_t m_segmentIndex = 0;
-  size_t m_pathIndex = 0;
+struct RoutePointIndex;
 
-  bool operator==(RoutePointIndex const & index) const;
-};
-
-/*!
- * \brief The TurnInfo structure is a representation of a junction.
- * It has ingoing and outgoing edges and method to check if these edges are valid.
- */
-struct TurnInfo
-{
-  LoadedPathSegment const * m_ingoing;
-  LoadedPathSegment const * m_outgoing;
-
-  TurnInfo() : m_ingoing(nullptr), m_outgoing(nullptr)
-  {
-  }
-
-  TurnInfo(LoadedPathSegment const * ingoingSegment, LoadedPathSegment const * outgoingSegment)
-      : m_ingoing(ingoingSegment), m_outgoing(outgoingSegment)
-  {
-  }
-
-  bool IsSegmentsValid() const;
-};
 
 /*!
  * \brief Calculates |nextIndex| which is an index of next route point at result.GetSegments().
@@ -122,22 +92,6 @@ void FixupTurnsPedestrian(std::vector<geometry::PointWithAltitude> const & junct
 
 inline size_t GetFirstSegmentPointIndex(std::pair<size_t, size_t> const & p) { return p.first; }
 
-CarDirection InvertDirection(CarDirection dir);
-
-/*!
- * \param angle is an angle of a turn. It belongs to a range [-180, 180].
- * \return correct direction if the route follows along the rightmost possible way.
- */
-CarDirection RightmostDirection(double angle);
-CarDirection LeftmostDirection(double angle);
-
-/*!
- * \param angle is an angle of a turn. It belongs to a range [-180, 180].
- * \return correct direction if the route follows not along one of two outermost ways
- * or if there is only one possible way.
- */
-CarDirection IntermediateDirection(double angle);
-
 /*!
  * \brief Calculates a turn instruction if the ingoing edge or (and) the outgoing edge belongs to a
  * roundabout.
@@ -178,7 +132,5 @@ void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t outgoingSe
 size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t outgoingSegmentIndex,
                          NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
                          TurnItem & turn);
-
-std::string DebugPrint(RoutePointIndex const & index);
 }  // namespace routing
 }  // namespace turns
