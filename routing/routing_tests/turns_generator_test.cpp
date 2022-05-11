@@ -19,12 +19,12 @@
 #include <string>
 #include <vector>
 
+namespace turn_generator_test
+{
 using namespace routing;
 using namespace std;
 using namespace turns;
 
-namespace
-{
 // It's a dummy class to wrap |segments| for tests.
 class RoutingResultTest : public IRoutingResult
 {
@@ -447,4 +447,4 @@ UNIT_TEST(GetNextRoutePointIndex)
                                RoutePointIndex({0 /* m_segmentIndex */, 0 /* m_pathIndex */}),
                                NumMwmIds(), false /* forward */, nextIndex), ());
 }
-}  // namespace
+} // namespace turn_generator_test

@@ -34,7 +34,7 @@ double constexpr kMinAbsAngleDiffForStraightRoute = 25.0;
 // to ignore alternative turn (when route direction is bigger and GoStraight).
 double constexpr kMinAbsAngleDiffForBigStraightRoute = 5;
 
-// Min difference of route and alternative turn abs angles in degrees 
+// Min difference of route and alternative turn abs angles in degrees
 // to ignore this alternative candidate (when alternative road is the same or smaller).
 double constexpr kMinAbsAngleDiffForSameOrSmallerRoad = 35.0;
 
@@ -61,7 +61,7 @@ CarDirection TryToGetExitDirection(TurnCandidates const & possibleTurns, TurnInf
 
   if (!turnInfo.m_outgoing->m_isLink && !(IsSmallRoad(turnInfo.m_outgoing->m_highwayClass) && IsGoStraightOrSlightTurn(intermediateDirection)))
     return CarDirection::None;
-  
+
   // At this point it is known that the route goes form a highway to a link road or to a small road
   // which has a slight angle with the highway.
 
@@ -107,7 +107,7 @@ CarDirection TryToGetExitDirection(TurnCandidates const & possibleTurns, TurnInf
 /// * Returns false otherwise.
 /// \param turnCandidates is all possible ways out from a junction.
 /// \param turnInfo is information about ingoing and outgoing segments of the route.
-bool CanDiscardTurnByHighwayClass(std::vector<TurnCandidate> const & turnCandidates, 
+bool CanDiscardTurnByHighwayClass(std::vector<TurnCandidate> const & turnCandidates,
                                   TurnInfo const & turnInfo,
                                   NumMwmIds const & numMwmIds)
 {
@@ -137,7 +137,7 @@ bool CanDiscardTurnByHighwayClass(std::vector<TurnCandidate> const & turnCandida
     // If route's road is significantly larger than candidate's service road, the candidate can be ignored.
     if (CalcDiffRoadClasses(maxRouteRoadClass, candidateRoadClass) <= kMinHighwayClassDiffForService && candidateRoadClass == HighwayClass::Service)
       continue;
-      
+
     return false;
   }
 
@@ -154,13 +154,13 @@ bool CanDiscardTurnByHighwayClass(std::vector<TurnCandidate> const & turnCandida
 /// \param turnInfo is information about ingoing and outgoing segments of the route.
 bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
                                           double const routeAngle,
-                                          std::vector<TurnCandidate> const & turnCandidates, 
+                                          std::vector<TurnCandidate> const & turnCandidates,
                                           TurnInfo const & turnInfo,
                                           NumMwmIds const & numMwmIds)
 {
   if (!IsGoStraightOrSlightTurn(routeDirection))
     return false;
-    
+
   if (turnCandidates.size() < 2)
     return true;
 
@@ -193,8 +193,8 @@ bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
     if (CalcDiffRoadClasses(outgoingRouteRoadClass, candidateRoadClass) <= kMinHighwayClassDiffForService && candidateRoadClass == HighwayClass::Service)
       continue;
 
-    // If igngoing and outgoing edges are not links 
-    // and outgoing route road is the same or large than ingoing 
+    // If igngoing and outgoing edges are not links
+    // and outgoing route road is the same or large than ingoing
     // then candidate-link can be ignored.
     if (!turnInfo.m_ingoing->m_isLink && !turnInfo.m_outgoing->m_isLink &&
         CalcDiffRoadClasses(outgoingRouteRoadClass, ingoingRouteRoadClass) <= 0 &&
@@ -206,7 +206,7 @@ bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
     if (CalcDiffRoadClasses(outgoingRouteRoadClass, candidateRoadClass) <= 0 &&
         abs(t.m_angle) > abs(routeAngle) + kMinAbsAngleDiffForSameOrSmallerRoad)
       continue;
-    
+
     if (routeDirection == CarDirection::GoStraight)
     {
       // If alternative cadidate's road size is smaller
@@ -432,7 +432,7 @@ bool GetPrevInSegmentRoutePoint(IRoutingResult const & result, RoutePointIndex c
 }
 
 /*!
- * \brief Corrects |turn.m_turn| if |turn.m_turn == CarDirection::GoStraight|. 
+ * \brief Corrects |turn.m_turn| if |turn.m_turn == CarDirection::GoStraight|.
  * If the other way is not sharp enough, turn.m_turn is set to |turnToSet|.
  */
 void CorrectGoStraight(TurnCandidate const & notRouteCandidate, double const routeAngle, CarDirection const & turnToSet,
@@ -440,7 +440,7 @@ void CorrectGoStraight(TurnCandidate const & notRouteCandidate, double const rou
 {
   if (turn.m_turn != CarDirection::GoStraight)
     return;
-  
+
   // Correct turn if alternative cadidate's angle is not sharp enough compared to the route.
   if (abs(notRouteCandidate.m_angle) < abs(routeAngle) + kMinAbsAngleDiffForStraightRoute)
   {
@@ -769,9 +769,9 @@ CarDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoin
 }
 
 CarDirection GetRoundaboutDirection(TurnInfo const & turnInfo, TurnCandidates const & nodes, NumMwmIds const & numMwmIds)
-{  
+{
   bool const keepTurnByHighwayClass = KeepRoundaboutTurnByHighwayClass(nodes, turnInfo, numMwmIds);
-  return GetRoundaboutDirection(turnInfo.m_ingoing->m_onRoundabout, turnInfo.m_outgoing->m_onRoundabout, 
+  return GetRoundaboutDirection(turnInfo.m_ingoing->m_onRoundabout, turnInfo.m_outgoing->m_onRoundabout,
                                 nodes.candidates.size() > 1, keepTurnByHighwayClass);
 }
 
@@ -807,10 +807,10 @@ bool HasSingleForwardTurn(TurnCandidates const & turnCandidates)
   return foundForwardTurn;
 }
 
-/// \returns angle, wchis is calculated using several backward and forward segments 
+/// \returns angle, wchis is calculated using several backward and forward segments
 /// from junction to consider smooth turns and remove noise.
-double CalcTurnAngle(IRoutingResult const & result, 
-                     size_t const outgoingSegmentIndex, 
+double CalcTurnAngle(IRoutingResult const & result,
+                     size_t const outgoingSegmentIndex,
                      NumMwmIds const & numMwmIds,
                      RoutingSettings const & vehicleSettings)
 {
@@ -894,11 +894,11 @@ bool GetTurnInfo(IRoutingResult const & result, size_t const outgoingSegmentInde
 
 // If the route goes along the rightmost or the leftmost way among available ones:
 // 1. RightmostDirection or LeftmostDirection is selected
-// 2. If the turn direction is |CarDirection::GoStraight| 
+// 2. If the turn direction is |CarDirection::GoStraight|
 // and there's another not sharp enough turn
 // GoStraight is corrected to TurnSlightRight/TurnSlightLeft
 // to avoid ambiguity for GoStraight direction: 2 or more almost straight turns.
-void CorrectRightmostAndLeftmost(std::vector<TurnCandidate> const & turnCandidates, 
+void CorrectRightmostAndLeftmost(std::vector<TurnCandidate> const & turnCandidates,
                                  Segment const & firstOutgoingSeg, double const turnAngle,
                                  TurnItem & turn)
 {
@@ -918,7 +918,7 @@ void CorrectRightmostAndLeftmost(std::vector<TurnCandidate> const & turnCandidat
   {
     if (candidate->m_segment == firstOutgoingSeg && candidate + 1 != turnCandidates.end())
     {
-      // The route goes along the leftmost candidate. 
+      // The route goes along the leftmost candidate.
       turn.m_turn = LeftmostDirection(turnAngle);
       if (IntermediateDirection(turnAngle) != turn.m_turn)
         LOG(LDEBUG, ("Turn: ", turn.m_index, " LeftmostDirection correction."));
@@ -927,7 +927,7 @@ void CorrectRightmostAndLeftmost(std::vector<TurnCandidate> const & turnCandidat
       break;
     }
     // Check if this candidate is considered as leftmost as not too sharp.
-    // If yes - this candidate is leftmost, not route's one. 
+    // If yes - this candidate is leftmost, not route's one.
     if (candidate->m_angle > -kMaxAbsAngleConsideredLeftOrRightMost)
       break;
   }
@@ -937,7 +937,7 @@ void CorrectRightmostAndLeftmost(std::vector<TurnCandidate> const & turnCandidat
   {
     if (candidate->m_segment == firstOutgoingSeg && candidate + 1 != turnCandidates.rend())
     {
-      // The route goes along the rightmost candidate. 
+      // The route goes along the rightmost candidate.
       turn.m_turn = RightmostDirection(turnAngle);
       if (IntermediateDirection(turnAngle) != turn.m_turn)
         LOG(LDEBUG, ("Turn: ", turn.m_index, " RighmostDirection correction."));
@@ -986,12 +986,12 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
   bool const isFirstOutgoingSegValid = turnInfo.m_outgoing->m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg);
   if (!isFirstOutgoingSegValid)
     return;
-  
+
   CorrectCandidatesSegmentByOutgoing(turnInfo, firstOutgoingSeg, nodes.candidates);
 
   RemoveUTurnCandidate(turnInfo, numMwmIds, nodes.candidates);
   auto const & turnCandidates = nodes.candidates;
-  
+
   // Check for enter or exit to/from roundabout.
   if (turnInfo.m_ingoing->m_onRoundabout || turnInfo.m_outgoing->m_onRoundabout)
   {
@@ -1027,7 +1027,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
   double turnOneSegmentAngle = CalcOneSegmentTurnAngle(turnInfo);
 
   // To not discard some disputable turns let's use max by modulus from turnOneSegmentAngle and turnAngle.
-  // It's natural since angles of turnCandidates are calculated in IRoutingResult::GetPossibleTurns() 
+  // It's natural since angles of turnCandidates are calculated in IRoutingResult::GetPossibleTurns()
   // according to CalcOneSegmentTurnAngle logic. And to be safe turnAngle is used too.
   double turnAngleToCompare = turnAngle;
   if (turnOneSegmentAngle <= 0 && turnAngle <= 0)
@@ -1042,7 +1042,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmen
 
   turn.m_turn = intermediateDirection;
 
-  if (turnCandidates.size() >= 2)  
+  if (turnCandidates.size() >= 2)
     CorrectRightmostAndLeftmost(turnCandidates, firstOutgoingSeg, turnAngle, turn);
 }
 

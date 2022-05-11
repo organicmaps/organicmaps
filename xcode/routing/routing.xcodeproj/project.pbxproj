@@ -218,6 +218,8 @@
 		A1616E2E1B6B60B3003F078E /* astar_progress.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1616E2D1B6B60B3003F078E /* astar_progress.hpp */; };
 		AC4DEB4D2822A116003908B3 /* small_list.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC4DEB4B2822A116003908B3 /* small_list.hpp */; };
 		AC4DEB4E2822A116003908B3 /* small_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC4DEB4C2822A116003908B3 /* small_list.cpp */; };
+		AC53BEF0282BE95B00E6DE59 /* turns_generator_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC53BEEE282BE95B00E6DE59 /* turns_generator_utils.hpp */; };
+		AC53BEF1282BE95B00E6DE59 /* turns_generator_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC53BEEF282BE95B00E6DE59 /* turns_generator_utils.cpp */; };
 		ACAE44A427426EDB0054DD15 /* junction_visitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACAE44A327426EDB0054DD15 /* junction_visitor.cpp */; };
 		D51A9C14242E379D00F750F8 /* fake_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D51A9C13242E379C00F750F8 /* fake_graph.cpp */; };
 		D526BA79241FC5580076E0B0 /* guides_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D526BA75241FC5580076E0B0 /* guides_graph.cpp */; };
@@ -500,6 +502,8 @@
 		A1616E2D1B6B60B3003F078E /* astar_progress.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = astar_progress.hpp; sourceTree = "<group>"; };
 		AC4DEB4B2822A116003908B3 /* small_list.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = small_list.hpp; sourceTree = "<group>"; };
 		AC4DEB4C2822A116003908B3 /* small_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = small_list.cpp; sourceTree = "<group>"; };
+		AC53BEEE282BE95B00E6DE59 /* turns_generator_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turns_generator_utils.hpp; sourceTree = "<group>"; };
+		AC53BEEF282BE95B00E6DE59 /* turns_generator_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_generator_utils.cpp; sourceTree = "<group>"; };
 		ACAE44A327426EDB0054DD15 /* junction_visitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = junction_visitor.cpp; sourceTree = "<group>"; };
 		D51A9C13242E379C00F750F8 /* fake_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fake_graph.cpp; sourceTree = "<group>"; };
 		D5208C632423681300A9A8B6 /* guides_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_tests.cpp; sourceTree = "<group>"; };
@@ -833,6 +837,8 @@
 				56099E271CC7C97D00A7772A /* turn_candidate.hpp */,
 				674F9BC61B0A580E00704FFA /* turns_generator.cpp */,
 				674F9BC71B0A580E00704FFA /* turns_generator.hpp */,
+				AC53BEEF282BE95B00E6DE59 /* turns_generator_utils.cpp */,
+				AC53BEEE282BE95B00E6DE59 /* turns_generator_utils.hpp */,
 				6741AA9A1BF35331002C974C /* turns_notification_manager.cpp */,
 				6741AA9B1BF35331002C974C /* turns_notification_manager.hpp */,
 				67C7D4251B4EB48F00FE41AA /* turns_sound_settings.cpp */,
@@ -964,6 +970,7 @@
 				0C5FEC6B1DDE193F0017688C /* road_point.hpp in Headers */,
 				56099E2B1CC7C97D00A7772A /* turn_candidate.hpp in Headers */,
 				405F48DC1F6AD01C005BA81A /* routing_result.hpp in Headers */,
+				AC53BEF0282BE95B00E6DE59 /* turns_generator_utils.hpp in Headers */,
 				D549BEBF25765CFB009131F2 /* dummy_world_graph.hpp in Headers */,
 				56FEAA6E219E8A610073DF5F /* maxspeeds_serialization.hpp in Headers */,
 				D57834C12562ED5F0020A420 /* cross_border_graph.hpp in Headers */,
@@ -1263,6 +1270,7 @@
 				4065EA851F8260010094DEF3 /* transit_graph_loader.cpp in Sources */,
 				674F9BCC1B0A580E00704FFA /* features_road_graph.cpp in Sources */,
 				0C5FEC5E1DDE192A0017688C /* geometry.cpp in Sources */,
+				AC53BEF1282BE95B00E6DE59 /* turns_generator_utils.cpp in Sources */,
 				5610731C221ABF96008447B2 /* speed_camera_prohibition.cpp in Sources */,
 				44B284C723F5A21300A3FBB7 /* opening_hours_serdes.cpp in Sources */,
 				D52EF20225260E1500DFEB57 /* directions_engine.cpp in Sources */,
