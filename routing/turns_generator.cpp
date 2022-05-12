@@ -487,8 +487,7 @@ RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds con
 
   RoutingSettings const vehicleSettings = GetRoutingSettings(vehicleType);
 
-  for (auto loadedSegmentIt = loadedSegments.cbegin(); loadedSegmentIt != loadedSegments.cend();
-       ++loadedSegmentIt)
+  for (auto loadedSegmentIt = loadedSegments.cbegin(); loadedSegmentIt != loadedSegments.cend(); ++loadedSegmentIt)
   {
     CHECK(loadedSegmentIt->IsValid(), ());
 
@@ -560,16 +559,18 @@ RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds con
   junctions.front() = result.GetStartPoint();
   junctions.back() = result.GetEndPoint();
 
+  uint32_t turn_index = static_cast<uint32_t>(junctions.size() - 1);
+
   if (vehicleType == VehicleType::Pedestrian)
   {
-    turnsDir.emplace_back(TurnItem(base::asserted_cast<uint32_t>(junctions.size()) - 1,
-                                   PedestrianDirection::ReachedYourDestination));
+    turnsDir.emplace_back(TurnItem(turn_index, PedestrianDirection::ReachedYourDestination));
 
     FixupTurnsPedestrian(junctions, turnsDir);
   }
+  else
   {
-    turnsDir.emplace_back(TurnItem(base::asserted_cast<uint32_t>(junctions.size()) - 1,
-       CarDirection::ReachedYourDestination));
+    turnsDir.emplace_back(TurnItem(turn_index, CarDirection::ReachedYourDestination));
+
     FixupTurns(junctions, turnsDir);
   }
 
