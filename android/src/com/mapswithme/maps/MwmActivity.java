@@ -151,7 +151,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
-  private final StoragePathManager mPathManager = new StoragePathManager();
 
   @Nullable
   private MapFragment mMapFragment;

@@ -1,12 +1,9 @@
 package com.mapswithme.maps.settings;
 
-import android.app.Activity;
 import android.app.Application;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Environment;
@@ -14,16 +11,10 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-
-import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.StorageUtils;
-import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -39,69 +30,62 @@ import java.util.Set;
 
 public class StoragePathManager
 {
+  static final String TAG = StoragePathManager.class.getName();
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
   private static final String[] MOVABLE_EXTS = Framework.nativeGetMovableFilesExts();
-  static final FilenameFilter MOVABLE_FILES_FILTER = new FilenameFilter()
+  static final FilenameFilter MOVABLE_FILES_FILTER = (dir, filename) ->
   {
-    @Override
-    public boolean accept(File dir, String filename)
-    {
-      for (String ext : MOVABLE_EXTS)
-        if (filename.endsWith(ext))
-          return true;
+    for (String ext : MOVABLE_EXTS)
+      if (filename.endsWith(ext))
+        return true;
 
-      return false;
-    }
+    return false;
   };
-
-  interface MoveFilesListener
-  {
-    void moveFilesFinished(String newPath);
-
-    void moveFilesFailed(int errorCode);
-  }
 
   interface OnStorageListChangedListener
   {
     void onStorageListChanged(List<StorageItem> storageItems, int currentStorageIndex);
   }
 
-  public static final int NO_ERROR = 0;
-  public static final int IOEXCEPTION_ERROR = 1;
-  public static final int NULL_ERROR = 1;
-
-  static final String TAG = StoragePathManager.class.getName();
-
   private OnStorageListChangedListener mStoragesChangedListener;
-  private MoveFilesListener mMoveFilesListener;
-
   private BroadcastReceiver mInternalReceiver;
-  private Activity mActivity;
+  private Context mContext;
   private final List<StorageItem> mItems = new ArrayList<>();
   private int mCurrentStorageIndex = -1;
 
+  public StoragePathManager(@NonNull Context context)
+  {
+    mContext = context;
+  }
+
+  protected void finalize() throws Throwable
+  {
+    // Make sure watchers are detached.
+    stopExternalStorageWatching();
+    super.finalize();
+  }
+
   /**
    * Observes status of connected media and retrieves list of available external storages.
+   *
+   * TODO: ATM its used to update settings UI only - watch and handle storage changes constantly at the app level
    */
-  void startExternalStorageWatching(Activity activity, final @Nullable OnStorageListChangedListener storagesChangedListener, @Nullable MoveFilesListener moveFilesListener)
+  public void startExternalStorageWatching(final @Nullable OnStorageListChangedListener storagesChangedListener)
   {
-    mActivity = activity;
     mStoragesChangedListener = storagesChangedListener;
-    mMoveFilesListener = moveFilesListener;
     mInternalReceiver = new BroadcastReceiver()
     {
       @Override
       public void onReceive(Context context, Intent intent)
       {
-        updateExternalStorages(mActivity.getApplication());
+        updateExternalStorages();
 
         if (mStoragesChangedListener != null)
           mStoragesChangedListener.onStorageListChanged(mItems, mCurrentStorageIndex);
       }
     };
 
-    mActivity.registerReceiver(mInternalReceiver, getMediaChangesIntentFilter());
-    updateExternalStorages(mActivity.getApplication());
+    mContext.registerReceiver(mInternalReceiver, getMediaChangesIntentFilter());
   }
 
   private static IntentFilter getMediaChangesIntentFilter()
@@ -121,22 +105,22 @@ public class StoragePathManager
     return filter;
   }
 
-  void stopExternalStorageWatching()
+  public void stopExternalStorageWatching()
   {
     if (mInternalReceiver != null)
     {
-      mActivity.unregisterReceiver(mInternalReceiver);
+      mContext.unregisterReceiver(mInternalReceiver);
       mInternalReceiver = null;
       mStoragesChangedListener = null;
     }
   }
 
-  List<StorageItem> getStorageItems()
+  public List<StorageItem> getStorageItems()
   {
     return mItems;
   }
 
-  int getCurrentStorageIndex()
+  public int getCurrentStorageIndex()
   {
     return mCurrentStorageIndex;
   }
@@ -151,10 +135,8 @@ public class StoragePathManager
    *  3. Application-specific directory on the internal memory.
    *
    * Directories are checked for the free space and the write access.
-   *
-   * @param application Application
    */
-  private void updateExternalStorages(Application application)
+  public void updateExternalStorages() throws AssertionError
   {
     List<File> candidates = new ArrayList<>();
 
@@ -165,7 +147,7 @@ public class StoragePathManager
       candidates.add(new File(configDir));
 
     // External storages (SD cards and other).
-    for (File dir : application.getExternalFilesDirs(null))
+    for (File dir : mContext.getExternalFilesDirs(null))
     {
       // There was an evidence that `dir` can be null on some Samsungs.
       // https://github.com/organicmaps/organicmaps/issues/632
@@ -194,7 +176,7 @@ public class StoragePathManager
 
     // Internal storage must always exists, but Android is unpredictable.
     // https://github.com/organicmaps/organicmaps/issues/632
-    File internalDir = application.getFilesDir();
+    File internalDir = mContext.getFilesDir();
     if (internalDir != null)
       candidates.add(internalDir);
 
@@ -259,56 +241,6 @@ public class StoragePathManager
     }
   }
 
-  void changeStorage(int newIndex)
-  {
-    final StorageItem oldItem = (mCurrentStorageIndex != -1) ? mItems.get(mCurrentStorageIndex) : null;
-    final StorageItem item = mItems.get(newIndex);
-    final String path = item.getFullPath();
-
-    final File f = new File(path);
-    if (!f.exists() && !f.mkdirs())
-    {
-      LOGGER.e(TAG, "Can't create directory: " + path);
-      return;
-    }
-
-    new AlertDialog.Builder(mActivity)
-        .setCancelable(false)
-        .setTitle(R.string.move_maps)
-        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            setStoragePath(mActivity, new MoveFilesListener()
-            {
-              @Override
-              public void moveFilesFinished(String newPath)
-              {
-                updateExternalStorages(mActivity.getApplication());
-                if (mMoveFilesListener != null)
-                  mMoveFilesListener.moveFilesFinished(newPath);
-              }
-
-              @Override
-              public void moveFilesFailed(int errorCode)
-              {
-                updateExternalStorages(mActivity.getApplication());
-                if (mMoveFilesListener != null)
-                  mMoveFilesListener.moveFilesFailed(errorCode);
-              }
-            }, item, oldItem, R.string.wait_several_minutes);
-          }
-        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-          }
-        }).create().show();
-  }
-
   /**
    * Dumb way to determine whether the storage contains Organic Maps data.
    * <p>The algorithm is quite simple:
@@ -355,12 +287,10 @@ public class StoragePathManager
    */
   public static String findMapsStorage(@NonNull Application application)
   {
-    StoragePathManager instance = new StoragePathManager();
-    instance.updateExternalStorages(application);
+    StoragePathManager instance = new StoragePathManager(application);
+    instance.updateExternalStorages();
 
     List<StorageItem> items = instance.getStorageItems();
-    if (items.isEmpty())
-      throw new IllegalStateException("No storages found");
 
     for (StorageItem item : items)
     {
@@ -381,70 +311,16 @@ public class StoragePathManager
     return defaultDir;
   }
 
-  private void setStoragePath(@NonNull final Activity context,
-                              @NonNull final MoveFilesListener listener,
-                              @NonNull final StorageItem newStorage,
-                              @Nullable final StorageItem oldStorage, final int messageId)
-  {
-    final ProgressDialog dialog = DialogUtils.createModalProgressDialog(context, messageId);
-    dialog.show();
-
-    ThreadPool.getStorage().execute(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        final int result = changeStorage(newStorage, oldStorage);
-
-        UiThread.run(new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            if (dialog.isShowing())
-              dialog.dismiss();
-
-            if (result == NO_ERROR)
-              listener.moveFilesFinished(newStorage.mPath);
-            else
-              listener.moveFilesFailed(result);
-
-            updateExternalStorages(mActivity.getApplication());
-          }
-        });
-      }
-    });
-  }
-
+  /**
+   * Moves map files.
+   */
   @SuppressWarnings("ResultOfMethodCallIgnored")
-  private static int changeStorage(StorageItem newStorage, StorageItem oldStorage)
+  public static boolean moveStorage(@NonNull final String newPath, @NonNull final String oldPath)
   {
-    final String fullNewPath = newStorage.getFullPath();
+    LOGGER.i(TAG, "Begin moving maps from " + oldPath + " to " + newPath);
 
-    // According to changeStorage code above, oldStorage can be null.
-    if (oldStorage == null)
-    {
-      LOGGER.w(TAG, "Old storage path is null. New path is: " + fullNewPath);
-      return NULL_ERROR;
-    }
-
-    LOGGER.i(TAG, "Begin moving maps from " + oldStorage.getFullPath() +
-        " to " + newStorage.getFullPath());
-
-    final File oldDir = new File(oldStorage.getFullPath());
-    final File newDir = new File(fullNewPath);
-    if (!newDir.exists())
-      newDir.mkdir();
-
-    if (BuildConfig.DEBUG)
-    {
-      if (!newDir.isDirectory())
-        throw new IllegalStateException("Cannot move maps. New path is not a directory. New path : " + newDir);
-      if (!oldDir.isDirectory())
-        throw new IllegalStateException("Cannot move maps. Old path is not a directory. Old path : " + oldDir);
-      if (!newDir.canWrite())
-        throw new IllegalStateException("Cannot move maps. New path is not writable. New path : " + fullNewPath);
-    }
+    final File oldDir = new File(oldPath);
+    final File newDir = new File(newPath);
 
     ArrayList<String> relPaths = new ArrayList<>();
     StorageUtils.listFilesRecursively(oldDir, "", MOVABLE_FILES_FILTER, relPaths);
@@ -468,23 +344,15 @@ public class StoragePathManager
         LOGGER.e(TAG, "Failed to move " + oldFiles[i].getPath() + " to " + newFiles[i].getPath());
         // In the case of failure delete all new files.  Old files will
         // be lost if new files were just moved from old locations.
+        // TODO: Delete old files only after all of them were copied to the new location.
         StorageUtils.removeFilesInDirectory(newDir, newFiles);
-        return IOEXCEPTION_ERROR;
+        return false;
       }
     }
     LOGGER.i(TAG, "End moving maps");
 
-    UiThread.run(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        Framework.nativeSetWritableDir(fullNewPath);
-      }
-    });
+    UiThread.run(() -> Framework.nativeSetWritableDir(newPath));
 
-    // Delete old files because new files were successfully created.
-    StorageUtils.removeFilesInDirectory(oldDir, oldFiles);
-    return NO_ERROR;
+    return true;
   }
 }
