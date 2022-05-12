@@ -281,7 +281,7 @@ using namespace std;
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 18256.0);
+    integration::TestRouteTime(route, 18045.9);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
@@ -390,7 +390,7 @@ using namespace std;
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 6349.9);
+    integration::TestRouteTime(route, 6210.24);
   }
 
   UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
@@ -674,5 +674,14 @@ using namespace std;
         integration::GetVehicleComponents(VehicleType::Car),
         mercator::FromLatLon(45.470764, 36.331289), {0., 0.},
         mercator::FromLatLon(45.424964, 36.080336), 55220.2);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/2475
+  UNIT_TEST(Spain_LinksJunction)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(38.8031, 0.0383), {0., 0.},
+        mercator::FromLatLon(38.8228, 0.0357), 3479.63);
   }
 } // namespace route_test
