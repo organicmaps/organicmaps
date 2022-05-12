@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 
+import androidx.annotation.NonNull;
 import com.mapswithme.maps.R;
 
 import java.util.ArrayList;
@@ -14,16 +15,14 @@ import java.util.List;
 
 class StoragePathAdapter extends BaseAdapter
 {
-  private final StoragePathManager mStoragePathManager;
   private final LayoutInflater mInflater;
 
   private final List<StorageItem> mItems = new ArrayList<>();
   private int mCurrentStorageIndex = -1;
   private long mSizeNeeded;
 
-  StoragePathAdapter(StoragePathManager storagePathManager, Activity context)
+  public StoragePathAdapter(@NonNull Activity context)
   {
-    mStoragePathManager = storagePathManager;
     mInflater = context.getLayoutInflater();
   }
 
@@ -60,12 +59,6 @@ class StoragePathAdapter extends BaseAdapter
     return convertView;
   }
 
-  public void onItemClick(int position)
-  {
-    if (isStorageBigEnough(position) && position != mCurrentStorageIndex)
-      mStoragePathManager.changeStorage(position);
-  }
-
   public void update(List<StorageItem> items, int currentItemIndex, long dirSize)
   {
     mSizeNeeded = dirSize;
@@ -76,7 +69,7 @@ class StoragePathAdapter extends BaseAdapter
     notifyDataSetChanged();
   }
 
-  private boolean isStorageBigEnough(int index)
+  public boolean isStorageBigEnough(int index)
   {
     return mItems.get(index).mFreeSize >= mSizeNeeded;
   }
