@@ -398,6 +398,8 @@ UNIT_TEST(Russia_ZgradPanfilovskyUndergroundCrossing_TurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
+  integration::TestRouteLength(route, 151.0);
+
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 3, ());
@@ -417,6 +419,8 @@ UNIT_TEST(Russia_Moscow_HydroprojectBridgeCrossing_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestRouteLength(route, 334.0);
 
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
@@ -439,6 +443,8 @@ UNIT_TEST(Belarus_Minsk_RenaissanceHotelUndergroundCross_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestRouteLength(route, 127.0);
 
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
@@ -476,8 +482,10 @@ UNIT_TEST(Russia_Moscow_SevTushinoParkPedestrianOnePoint_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+
   integration::TestRouteLength(route, 0.0);
+
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
 UNIT_TEST(MoscowKashirskoe16ToVorobeviGori)
@@ -563,6 +571,8 @@ UNIT_TEST(NoTurnOnForkingRoad_TurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
+  integration::TestRouteLength(route, 51.2);
+
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 2, ());
@@ -579,6 +589,8 @@ UNIT_TEST(NoTurnOnForkingRoad2_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestRouteLength(route, 300.0);
 
   // Unfortunatelly, we don't have SlightRight for pedestrians, but current turns are OK.
   // https://www.openstreetmap.org/directions?engine=graphhopper_foot&route=55.68336%2C37.49492%3B55.68488%2C37.49789
