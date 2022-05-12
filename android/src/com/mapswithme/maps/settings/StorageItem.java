@@ -9,11 +9,20 @@ public class StorageItem
   private final String mPath;
   // Free size.
   private final long mFreeSize;
+  // Total size.
+  private final long mTotalSize;
+  // User-visible description.
+  private final String mLabel;
+  // Is it read-only storage?
+  private final boolean mReadonly;
 
-  public StorageItem(String path, long size)
+  public StorageItem(String path, long freeSize, long totalSize, final String label, boolean isReadonly)
   {
     mPath = path;
-    mFreeSize = size;
+    mFreeSize = freeSize;
+    mTotalSize = totalSize;
+    mLabel = label;
+    mReadonly = isReadonly;
   }
 
   @Override
@@ -37,12 +46,6 @@ public class StorageItem
     return 0;
   }
 
-  @Override
-  public String toString()
-  {
-    return mPath + ", " + mFreeSize;
-  }
-
   public String getFullPath()
   {
     return mPath;
@@ -51,5 +54,20 @@ public class StorageItem
   public long getFreeSize()
   {
     return mFreeSize;
+  }
+
+  public long getTotalSize()
+  {
+    return mTotalSize;
+  }
+
+  public String getLabel()
+  {
+    return mLabel;
+  }
+
+  public boolean isReadonly()
+  {
+    return mReadonly;
   }
 }

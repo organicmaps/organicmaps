@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.text.format.Formatter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -15,7 +17,6 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.dialog.DialogUtils;
-import com.mapswithme.util.Constants;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.ThreadPool;
@@ -23,7 +24,6 @@ import com.mapswithme.util.concurrency.UiThread;
 
 import java.io.File;
 import java.util.List;
-import java.util.Locale;
 
 public class StoragePathFragment extends BaseSettingsFragment
     implements OnBackPressListener
@@ -60,7 +60,7 @@ public class StoragePathFragment extends BaseSettingsFragment
   {
     super.onResume();
     mPathManager.startExternalStorageWatching((items, idx) -> updateList());
-    mPathManager.updateExternalStorages();
+    mPathManager.scanAvailableStorages();
     updateList();
   }
 
@@ -88,7 +88,7 @@ public class StoragePathFragment extends BaseSettingsFragment
   private void updateList()
   {
     long dirSize = getWritableDirSize();
-    mHeader.setText(getString(R.string.maps) + ": " + getSizeString(dirSize));
+    mHeader.setText(getString(R.string.maps_storage_downloaded) + ": " + Formatter.formatShortFileSize(getActivity(), dirSize));
     mAdapter.update(dirSize);
   }
 
@@ -100,10 +100,11 @@ public class StoragePathFragment extends BaseSettingsFragment
   public void changeStorage(int newIndex)
   {
     final int currentIndex = mPathManager.getCurrentStorageIndex();
-    if (newIndex == currentIndex || currentIndex == -1 || !mAdapter.isStorageBigEnough(newIndex))
+    final List<StorageItem> items = mPathManager.getStorageItems();
+    if (newIndex == currentIndex || currentIndex == -1 || items.get(newIndex).isReadonly()
+        || !mAdapter.isStorageBigEnough(newIndex))
       return;
 
-    final List<StorageItem> items = mPathManager.getStorageItems();
     final String oldPath = items.get(currentIndex).getFullPath();
     final String newPath = items.get(newIndex).getFullPath();
 
@@ -135,36 +136,16 @@ public class StoragePathFragment extends BaseSettingsFragment
 
            if (!result)
            {
-             final String message = "Error moving maps files";
              new AlertDialog.Builder(requireActivity())
-                 .setTitle(message)
+                 .setTitle(R.string.move_maps_error)
                  .setPositiveButton(R.string.report_a_bug,
-                                    (dlg, which) -> Utils.sendBugReport(requireActivity(), message))
+                                    (dlg, which) -> Utils.sendBugReport(requireActivity(), "Error moving map files"))
                  .show();
            }
-           mPathManager.updateExternalStorages();
+           mPathManager.scanAvailableStorages();
            updateList();
           });
       });
-  }
-
-  static String getSizeString(long size)
-  {
-    final String[] units = { "Kb", "Mb", "Gb" };
-
-    long current = Constants.KB;
-    int i = 0;
-    for (; i < units.length; ++i)
-    {
-      final long bound = Constants.KB * current;
-      if (size < bound)
-        break;
-
-      current = bound;
-    }
-
-    // left 1 digit after the comma and add postfix string
-    return String.format(Locale.US, "%.1f %s", (double) size / current, units[i]);
   }
 
   @Override
