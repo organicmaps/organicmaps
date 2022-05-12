@@ -45,7 +45,7 @@ public class StoragePathFragment extends BaseSettingsFragment
   {
     View root = super.onCreateView(inflater, container, savedInstanceState);
     mPathManager = new StoragePathManager(requireActivity());
-    mAdapter = new StoragePathAdapter(requireActivity());
+    mAdapter = new StoragePathAdapter(mPathManager, requireActivity());
 
     mHeader = root.findViewById(R.id.header);
     mList = root.findViewById(R.id.list);
@@ -89,7 +89,7 @@ public class StoragePathFragment extends BaseSettingsFragment
   {
     long dirSize = getWritableDirSize();
     mHeader.setText(getString(R.string.maps) + ": " + getSizeString(dirSize));
-    mAdapter.update(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), dirSize);
+    mAdapter.update(dirSize);
   }
 
   /**

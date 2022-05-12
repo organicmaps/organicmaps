@@ -6,11 +6,11 @@ package com.mapswithme.maps.settings;
 public class StorageItem
 {
   // Path to the root of writable directory.
-  public final String mPath;
+  private final String mPath;
   // Free size.
-  public final long mFreeSize;
+  private final long mFreeSize;
 
-  StorageItem(String path, long size)
+  public StorageItem(String path, long size)
   {
     mPath = path;
     mFreeSize = size;
@@ -26,7 +26,7 @@ public class StorageItem
     StorageItem other = (StorageItem) o;
     // Storage equal is considered equal, either its path OR size equals to another one's.
     // Size of storage free space can change dynamically, so that hack provides us with better results identifying the same storages.
-    return mFreeSize == other.mFreeSize || mPath.equals(other.mPath);
+    return mFreeSize == other.getFreeSize() || mPath.equals(other.getFullPath());
   }
 
   @Override

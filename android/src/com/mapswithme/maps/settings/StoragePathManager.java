@@ -294,19 +294,20 @@ public class StoragePathManager
 
     for (StorageItem item : items)
     {
-      if (containsMapData(item.mPath))
+      String path = item.getFullPath();
+      if (containsMapData(path))
       {
-        LOGGER.i(TAG, "Found maps files at " + item.mPath);
-        return item.mPath;
+        LOGGER.i(TAG, "Found maps files at " + path);
+        return path;
       }
       else
       {
-        LOGGER.i(TAG, "No maps files found at " + item.mPath);
+        LOGGER.i(TAG, "No maps files found at " + path);
       }
     }
 
     // Use the first item by default.
-    final String defaultDir = items.get(0).mPath;
+    final String defaultDir = items.get(0).getFullPath();
     LOGGER.i(TAG, "Using default directory: " + defaultDir);
     return defaultDir;
   }
