@@ -45,13 +45,6 @@ public:
   }
 
 protected:
-  // RoutingTest overrides:
-  unique_ptr<routing::DirectionsEngine> CreateDirectionsEngine(
-      shared_ptr<routing::NumMwmIds> numMwmIds) override
-  {
-    return std::make_unique<routing::PedestrianDirectionsEngine>(m_dataSource, move(numMwmIds));
-  }
-
   unique_ptr<routing::VehicleModelFactoryInterface> CreateModelFactory() override
   {
     unique_ptr<routing::VehicleModelFactoryInterface> factory(

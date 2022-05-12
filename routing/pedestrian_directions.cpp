@@ -12,8 +12,7 @@ using namespace std;
 
 namespace routing
 {
-PedestrianDirectionsEngine::PedestrianDirectionsEngine(DataSource const & dataSource,
-                                                       shared_ptr<NumMwmIds> numMwmIds)
+PedestrianDirectionsEngine::PedestrianDirectionsEngine(MwmDataSource & dataSource, shared_ptr<NumMwmIds> numMwmIds)
   : DirectionsEngine(dataSource, move(numMwmIds))
 {
 }

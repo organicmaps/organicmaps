@@ -108,8 +108,7 @@ public:
   using VehicleModelPtrT = std::shared_ptr<VehicleModelInterface>;
 
   /// @param[in] handle should be alive, its caller responsibility to check it.
-  static std::unique_ptr<GeometryLoader> Create(DataSource const & dataSource,
-                                                MwmSet::MwmHandle const & handle,
+  static std::unique_ptr<GeometryLoader> Create(MwmSet::MwmHandle const & handle,
                                                 VehicleModelPtrT const & vehicleModel,
                                                 bool loadAltitudes);
 

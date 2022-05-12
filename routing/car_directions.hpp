@@ -19,7 +19,7 @@ namespace routing
 class CarDirectionsEngine : public DirectionsEngine
 {
 public:
-  CarDirectionsEngine(DataSource const & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
+  CarDirectionsEngine(MwmDataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
 
   // DirectionsEngine override:
   bool Generate(IndexRoadGraph const & graph, std::vector<geometry::PointWithAltitude> const & path,

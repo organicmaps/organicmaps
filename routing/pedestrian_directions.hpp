@@ -18,7 +18,7 @@ namespace routing
 class PedestrianDirectionsEngine : public DirectionsEngine
 {
 public:
-  PedestrianDirectionsEngine(DataSource const & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
+  PedestrianDirectionsEngine(MwmDataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
 
   // DirectionsEngine override:
   bool Generate(IndexRoadGraph const & graph, std::vector<geometry::PointWithAltitude> const & path,

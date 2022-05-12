@@ -11,19 +11,17 @@
 #include <memory>
 #include <vector>
 
-class DataSource;
-
 namespace routing
 {
+class MwmDataSource;
 class IndexGraphStarter;
 
 class IndexRoadGraph : public RoadGraphBase
 {
 public:
-  IndexRoadGraph(std::shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarter & starter,
-                 std::vector<Segment> const & segments,
+  IndexRoadGraph(IndexGraphStarter & starter, std::vector<Segment> const & segments,
                  std::vector<geometry::PointWithAltitude> const & junctions,
-                 DataSource & dataSource);
+                 MwmDataSource & dataSource);
 
   // IRoadGraphBase overrides:
   virtual void GetOutgoingEdges(geometry::PointWithAltitude const & junction,
@@ -43,8 +41,7 @@ private:
   using SegmentListT = SmallList<Segment>;
   SegmentListT const & GetSegments(geometry::PointWithAltitude const & junction, bool isOutgoing) const;
 
-  DataSource & m_dataSource;
-  std::shared_ptr<NumMwmIds> m_numMwmIds;
+  MwmDataSource & m_dataSource;
   IndexGraphStarter & m_starter;
   std::vector<Segment> m_segments;
   std::map<geometry::PointWithAltitude, SegmentListT> m_beginToSegment;

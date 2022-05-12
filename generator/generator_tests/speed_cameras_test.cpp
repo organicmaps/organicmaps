@@ -20,6 +20,7 @@
 #include "routing_common/maxspeed_conversion.hpp"
 
 #include "indexer/classificator_loader.hpp"
+#include "indexer/features_offsets_table.hpp"
 #include "indexer/index_builder.hpp"
 #include "indexer/map_style_reader.hpp"
 

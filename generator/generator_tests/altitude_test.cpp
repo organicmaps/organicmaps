@@ -134,7 +134,9 @@ void TestAltitudes(DataSource const & dataSource, MwmSet::MwmId const & mwmId,
                    std::string const & mwmPath, bool hasAltitudeExpected,
                    AltitudeGetter & expectedAltitudes)
 {
-  AltitudeLoaderCached loader(dataSource, mwmId);
+  auto const handle = dataSource.GetMwmHandleById(mwmId);
+  TEST(handle.IsAlive(), ());
+  AltitudeLoaderCached loader(*handle.GetValue());
   TEST_EQUAL(loader.HasAltitudes(), hasAltitudeExpected, ());
 
   auto processor = [&expectedAltitudes, &loader](FeatureType & f, uint32_t const & id)

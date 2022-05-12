@@ -1,4 +1,6 @@
 #include "indexer/data_source.hpp"
+#include "indexer/scale_index.hpp"
+#include "indexer/unique_index.hpp"
 
 #include "platform/mwm_version.hpp"
 
@@ -57,15 +59,16 @@ public:
       // iterate through intervals
       for (auto const & i : intervals)
       {
-        index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint64_t /* key */, uint32_t value) {
-          if (!checkUnique(value))
-            return;
-          m_fn(value, *src);
+        index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint64_t /* key */, uint32_t value)
+        {
+          if (checkUnique(value))
+            m_fn(value, *src);
         });
         if (m_stop())
           break;
       }
     }
+
     // Check created features container.
     // Need to do it on a per-mwm basis, because Drape relies on features in a sorted order.
     // Touched (created, edited) features reading.
@@ -231,9 +234,10 @@ void DataSource::ForEachInIntervals(ReaderCallback const & fn, covering::Coverin
 void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect,
                                         int scale) const
 {
-  auto readFeatureId = [&f](uint32_t index, FeatureSource & src) {
+  auto readFeatureId = [&f](uint32_t index, FeatureSource & src)
+  {
     if (src.GetFeatureStatus(index) != FeatureStatus::Deleted)
-      f(src.GetFeatureId(index));
+      f({ src.GetMwmId(), index });
   };
 
   ReadMWMFunctor readFunctor(*m_factory, readFeatureId);
@@ -313,6 +317,7 @@ void DataSource::ReadFeatures(FeatureCallback const & fn, vector<FeatureID> cons
           ft = src->GetModifiedFeature(fidIter->m_index);
         else
           ft = src->GetOriginalFeature(fidIter->m_index);
+
         CHECK(ft, ());
         fn(*ft);
       } while (++fidIter != endIter && id == fidIter->m_mwmId);
