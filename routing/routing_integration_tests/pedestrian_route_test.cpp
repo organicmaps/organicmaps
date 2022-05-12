@@ -387,7 +387,7 @@ UNIT_TEST(CrossMwmRussiaPStaiToBelarusDrazdy)
       mercator::FromLatLon(55.01437, 30.8858), 4835.76);
 }
 
-UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
+UNIT_TEST(Russia_ZgradPanfilovskyUndergroundCrossing_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Pedestrian),
@@ -407,7 +407,7 @@ UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
   TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
-UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
+UNIT_TEST(Russia_Moscow_HydroprojectBridgeCrossing_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Pedestrian),
@@ -429,7 +429,7 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
   TEST_EQUAL(t[4].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
-UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
+UNIT_TEST(Belarus_Minsk_RenaissanceHotelUndergroundCross_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Pedestrian),
@@ -467,7 +467,7 @@ UNIT_TEST(MoscowChistiePrudiSelectPointsInConnectedGraph)
       mercator::FromLatLon(55.76593, 37.63893), 134.02);
 }
 
-UNIT_TEST(RussiaMoscowSevTushinoParkPedestrianOnePointTurnTest)
+UNIT_TEST(Russia_Moscow_SevTushinoParkPedestrianOnePoint_TurnTest)
 {
   m2::PointD const point = mercator::FromLatLon(55.8719, 37.4464);
   TRouteResult const routeResult = integration::CalculateRoute(
@@ -553,7 +553,7 @@ UNIT_TEST(RussiaSmolenskAriaFeatureCrossingBorderWithFord)
       mercator::FromLatLon(55.01867, 30.91285), 298.6);
 }
 
-UNIT_TEST(NoTurnOnForkingRoad)
+UNIT_TEST(NoTurnOnForkingRoad_TurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
@@ -570,7 +570,7 @@ UNIT_TEST(NoTurnOnForkingRoad)
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::TurnLeft, ());
 }
 
-UNIT_TEST(NoTurnOnForkingRoad2)
+UNIT_TEST(NoTurnOnForkingRoad2_TurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
