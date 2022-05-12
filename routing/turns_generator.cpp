@@ -480,7 +480,7 @@ RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds con
 
   if (cancellable.IsCancelled())
     return RouterResultCode::Cancelled;
-  // Annotate turns.
+
   size_t skipTurnSegments = 0;
   auto const & loadedSegments = result.GetSegments();
   segments.reserve(loadedSegments.size());
@@ -492,32 +492,41 @@ RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds con
   {
     CHECK(loadedSegmentIt->IsValid(), ());
 
-    // Street names. I put empty names too, to avoid freezing old street name while riding on
-    // unnamed street.
+    // Street names contain empty names too for avoiding of freezing of old street name while
+    // moving along unnamed street.
     streets.emplace_back(max(junctions.size(), static_cast<size_t>(1)) - 1, loadedSegmentIt->m_name);
 
     // Turns information.
     if (!junctions.empty() && skipTurnSegments == 0)
     {
-      TurnItem turnItem;
-      turnItem.m_index = static_cast<uint32_t>(junctions.size() - 1);
-
       auto const outgoingSegmentDist = distance(loadedSegments.begin(), loadedSegmentIt);
       CHECK_GREATER(outgoingSegmentDist, 0, ());
       auto const outgoingSegmentIndex = static_cast<size_t>(outgoingSegmentDist);
 
-      skipTurnSegments = CheckUTurnOnRoute(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);
+      TurnItem turnItem;
+      turnItem.m_index = static_cast<uint32_t>(junctions.size() - 1);
 
-      if (turnItem.m_turn == CarDirection::None)
-        GetTurnDirection(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);
-
-      // Lane information.
-      if (turnItem.m_turn != CarDirection::None)
+      if (vehicleType == VehicleType::Pedestrian)
       {
-        auto const & ingoingSegment = loadedSegments[outgoingSegmentIndex - 1];
-        turnItem.m_lanes = ingoingSegment.m_lanes;
-        turnsDir.push_back(move(turnItem));
+        GetTurnDirectionPedestrian(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);
       }
+      else
+      {
+        skipTurnSegments = CheckUTurnOnRoute(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);
+
+        if (turnItem.m_turn == CarDirection::None)
+          GetTurnDirection(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);
+
+        // Lane information.
+        if (turnItem.m_turn != CarDirection::None)
+        {
+          auto const & ingoingSegment = loadedSegments[outgoingSegmentIndex - 1];
+          turnItem.m_lanes = ingoingSegment.m_lanes;
+        }
+      }
+
+      if (!turnItem.IsTurnNone())
+        turnsDir.push_back(move(turnItem));
     }
 
     if (skipTurnSegments > 0)
@@ -551,24 +560,38 @@ RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds con
   junctions.front() = result.GetStartPoint();
   junctions.back() = result.GetEndPoint();
 
-  turnsDir.emplace_back(TurnItem(base::asserted_cast<uint32_t>(junctions.size()) - 1,
-      CarDirection::ReachedYourDestination));
-  FixupTurns(junctions, turnsDir);
+  if (vehicleType == VehicleType::Pedestrian)
+  {
+    turnsDir.emplace_back(TurnItem(base::asserted_cast<uint32_t>(junctions.size()) - 1,
+                                   PedestrianDirection::ReachedYourDestination));
+
+    FixupTurnsPedestrian(junctions, turnsDir);
+  }
+  {
+    turnsDir.emplace_back(TurnItem(base::asserted_cast<uint32_t>(junctions.size()) - 1,
+       CarDirection::ReachedYourDestination));
+    FixupTurns(junctions, turnsDir);
+  }
 
 #ifdef DEBUG
   for (auto const & t : turnsDir)
   {
-    LOG(LDEBUG, (GetTurnString(t.m_turn), ":", t.m_index, t.m_sourceName, "-",
+    if (vehicleType == VehicleType::Pedestrian)
+      LOG(LDEBUG, (t.m_pedestrianTurn, ":", t.m_index, t.m_sourceName, "-", t.m_targetName));
+    else
+      LOG(LDEBUG, (GetTurnString(t.m_turn), ":", t.m_index, t.m_sourceName, "-",
                  t.m_targetName, "exit:", t.m_exitNum));
   }
 #endif
   return RouterResultCode::NoError;
 }
 
-RouterResultCode MakeTurnAnnotationPedestrian(
-    IRoutingResult const & result, NumMwmIds const & numMwmIds, VehicleType const & vehicleType,
-    base::Cancellable const & cancellable, std::vector<geometry::PointWithAltitude> & junctions,
-    Route::TTurns & turnsDir, Route::TStreets & streets, std::vector<Segment> & segments)
+RouterResultCode MakeTurnAnnotationPedestrian(IRoutingResult const & result, NumMwmIds const & numMwmIds,
+                                    VehicleType const & vehicleType,
+                                    base::Cancellable const & cancellable,
+                                    std::vector<geometry::PointWithAltitude> & junctions,
+                                    Route::TTurns & turnsDir, Route::TStreets & streets,
+                                    std::vector<Segment> & segments)
 {
   LOG(LDEBUG, ("Shortest path length:", result.GetPathLength()));
 
@@ -588,41 +611,63 @@ RouterResultCode MakeTurnAnnotationPedestrian(
 
     // Street names contain empty names too for avoiding of freezing of old street name while
     // moving along unnamed street.
-    streets.emplace_back(max(junctions.size(), static_cast<size_t>(1)) - 1,
-                         loadedSegmentIt->m_name);
+    streets.emplace_back(max(junctions.size(), static_cast<size_t>(1)) - 1, loadedSegmentIt->m_name);
 
     // Turns information.
     if (!junctions.empty() && skipTurnSegments == 0)
     {
       auto const outgoingSegmentDist = distance(loadedSegments.begin(), loadedSegmentIt);
       CHECK_GREATER(outgoingSegmentDist, 0, ());
-
       auto const outgoingSegmentIndex = static_cast<size_t>(outgoingSegmentDist);
 
       TurnItem turnItem;
       turnItem.m_index = static_cast<uint32_t>(junctions.size() - 1);
-      GetTurnDirectionPedestrian(result, outgoingSegmentIndex, numMwmIds, vehicleSettings,
-                                 turnItem);
 
-      if (turnItem.m_pedestrianTurn != PedestrianDirection::None)
+      if (vehicleType == VehicleType::Pedestrian)
+      {
+        GetTurnDirectionPedestrian(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);
+      }
+      else
+      {
+        skipTurnSegments = CheckUTurnOnRoute(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);
+
+        if (turnItem.m_turn == CarDirection::None)
+          GetTurnDirection(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);
+
+        // Lane information.
+        if (turnItem.m_turn != CarDirection::None)
+        {
+          auto const & ingoingSegment = loadedSegments[outgoingSegmentIndex - 1];
+          turnItem.m_lanes = ingoingSegment.m_lanes;
+        }
+      }
+
+      if (!turnItem.IsTurnNone())
         turnsDir.push_back(move(turnItem));
     }
 
     if (skipTurnSegments > 0)
       --skipTurnSegments;
 
+    // Path geometry.
     CHECK_GREATER_OR_EQUAL(loadedSegmentIt->m_path.size(), 2, ());
-
-    junctions.insert(junctions.end(),
-                     loadedSegmentIt == loadedSegments.cbegin()
-                         ? loadedSegmentIt->m_path.cbegin()
-                         : loadedSegmentIt->m_path.cbegin() + 1,
+    // Note. Every LoadedPathSegment in TUnpackedPathSegments contains LoadedPathSegment::m_path
+    // of several Junctions. Last PointWithAltitude in a LoadedPathSegment::m_path is equal to first
+    // junction in next LoadedPathSegment::m_path in vector TUnpackedPathSegments:
+    // *---*---*---*---*       *---*           *---*---*---*
+    //                 *---*---*   *---*---*---*
+    // To prevent having repetitions in |junctions| list it's necessary to take the first point only
+    // from the first item of |loadedSegments|. The beginning should be ignored for the rest
+    // |m_path|.
+    junctions.insert(junctions.end(), loadedSegmentIt == loadedSegments.cbegin()
+                                          ? loadedSegmentIt->m_path.cbegin()
+                                          : loadedSegmentIt->m_path.cbegin() + 1,
                      loadedSegmentIt->m_path.cend());
-
     segments.insert(segments.end(), loadedSegmentIt->m_segments.cbegin(),
                     loadedSegmentIt->m_segments.cend());
   }
 
+  // Path found. Points will be replaced by start and end edges junctions.
   if (junctions.size() == 1)
     junctions.push_back(junctions.front());
 
@@ -632,14 +677,28 @@ RouterResultCode MakeTurnAnnotationPedestrian(
   junctions.front() = result.GetStartPoint();
   junctions.back() = result.GetEndPoint();
 
-  turnsDir.emplace_back(TurnItem(base::asserted_cast<uint32_t>(junctions.size()) - 1,
-                                 PedestrianDirection::ReachedYourDestination));
+  if (vehicleType == VehicleType::Pedestrian)
+  {
+    turnsDir.emplace_back(TurnItem(base::asserted_cast<uint32_t>(junctions.size()) - 1,
+                                   PedestrianDirection::ReachedYourDestination));
 
-  FixupTurnsPedestrian(junctions, turnsDir);
+    FixupTurnsPedestrian(junctions, turnsDir);
+  }
+  {
+    turnsDir.emplace_back(TurnItem(base::asserted_cast<uint32_t>(junctions.size()) - 1,
+       CarDirection::ReachedYourDestination));
+    FixupTurns(junctions, turnsDir);
+  }
 
 #ifdef DEBUG
-  for (auto t : turnsDir)
-    LOG(LDEBUG, (t.m_pedestrianTurn, ":", t.m_index, t.m_sourceName, "-", t.m_targetName));
+  for (auto const & t : turnsDir)
+  {
+    if (vehicleType == VehicleType::Pedestrian)
+      LOG(LDEBUG, (t.m_pedestrianTurn, ":", t.m_index, t.m_sourceName, "-", t.m_targetName));
+    else
+      LOG(LDEBUG, (GetTurnString(t.m_turn), ":", t.m_index, t.m_sourceName, "-",
+                 t.m_targetName, "exit:", t.m_exitNum));
+  }
 #endif
   return RouterResultCode::NoError;
 }
