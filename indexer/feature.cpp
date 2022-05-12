@@ -700,7 +700,7 @@ void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, featu
   if (!HasName())
     return;
 
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
+  auto const & mwmInfo = m_id.m_mwmId.GetInfo();
   if (!mwmInfo)
     return;
 
@@ -721,7 +721,7 @@ void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, feature
   if (!HasName())
     return;
 
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
+  auto const & mwmInfo = m_id.m_mwmId.GetInfo();
   if (!mwmInfo)
     return;
 

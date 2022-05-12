@@ -72,7 +72,7 @@ public:
 
   std::vector<m2::PointD> GetTrianglesAsPoints(int scale);
 
-  void SetID(FeatureID const & id) { m_id = id; }
+  void SetID(FeatureID id) { m_id = std::move(id); }
   FeatureID const & GetID() const { return m_id; }
 
   void ResetGeometry();

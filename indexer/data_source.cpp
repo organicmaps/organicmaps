@@ -168,15 +168,13 @@ unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const & lo
   auto info = make_unique<MwmInfoEx>();
   info->m_bordersRect = h.GetBounds();
 
-  pair<int, int> const scaleR = h.GetScaleRange();
+  auto const scaleR = h.GetScaleRange();
   info->m_minScale = static_cast<uint8_t>(scaleR.first);
   info->m_maxScale = static_cast<uint8_t>(scaleR.second);
   info->m_version = value.GetMwmVersion();
-  // Copying to drop the const qualifier.
-  feature::RegionData regionData(value.GetRegionData());
-  info->m_data = regionData;
+  value.m_factory.MoveRegionData(info->m_data);
 
-  return unique_ptr<MwmInfo>(move(info));
+  return info;
 }
 
 unique_ptr<MwmValue> DataSource::CreateValue(MwmInfo & info) const
@@ -189,7 +187,7 @@ unique_ptr<MwmValue> DataSource::CreateValue(MwmInfo & info) const
 
   p->SetTable(dynamic_cast<MwmInfoEx &>(info));
   ASSERT(p->GetHeader().IsMWMSuitable(), ());
-  return unique_ptr<MwmValue>(move(p));
+  return p;
 }
 
 pair<MwmSet::MwmId, MwmSet::RegResult> DataSource::RegisterMap(LocalCountryFile const & localFile)
