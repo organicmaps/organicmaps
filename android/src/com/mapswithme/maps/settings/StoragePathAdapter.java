@@ -1,17 +1,19 @@
 package com.mapswithme.maps.settings;
 
 import android.app.Activity;
-import android.view.LayoutInflater;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.format.Formatter;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 
-import androidx.annotation.NonNull;
 import com.mapswithme.maps.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.UiUtils;
 
 class StoragePathAdapter extends BaseAdapter
 {
@@ -50,10 +52,29 @@ class StoragePathAdapter extends BaseAdapter
       convertView = mActivity.getLayoutInflater().inflate(R.layout.item_storage, parent, false);
 
     StorageItem item = mPathManager.getStorageItems().get(position);
+    final boolean isCurrent = position == mPathManager.getCurrentStorageIndex();
     CheckedTextView checkedView = (CheckedTextView) convertView;
-    checkedView.setText(item.getFullPath() + ": " + StoragePathFragment.getSizeString(item.getFreeSize()));
-    checkedView.setChecked(position == mPathManager.getCurrentStorageIndex());
-    checkedView.setEnabled(position == mPathManager.getCurrentStorageIndex() || isStorageBigEnough(position));
+    checkedView.setChecked(isCurrent);
+    checkedView.setEnabled(!item.isReadonly() && (isStorageBigEnough(position) || isCurrent));
+
+    final String size = mActivity.getString(R.string.maps_storage_free_size,
+                                            Formatter.formatShortFileSize(mActivity, item.getFreeSize()),
+                                            Formatter.formatShortFileSize(mActivity, item.getTotalSize()));
+
+    SpannableStringBuilder sb = new SpannableStringBuilder(item.getLabel() + "\n" + size);
+    sb.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(mActivity, android.R.attr.textColorSecondary)),
+               sb.length() - size.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    sb.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(mActivity, R.dimen.text_size_body_3)),
+               sb.length() - size.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+    final String path = item.getFullPath() + (item.isReadonly() ? " (read-only)" : "");
+    sb.append("\n" + path);
+    sb.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(mActivity, android.R.attr.textColorSecondary)),
+               sb.length() - path.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    sb.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(mActivity, R.dimen.text_size_body_4)),
+               sb.length() - path.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+    checkedView.setText(sb);
 
     return convertView;
   }

@@ -342,44 +342,6 @@
     zh-Hans = 发表评论
     zh-Hant = 撰寫評論
 
-  [maps]
-    comment = View and button titles for accessibility
-    tags = android,ios
-    en = Maps
-    ar = الخرائط
-    be = Мапы
-    bg = Карти
-    cs = Mapy
-    da = Kort
-    de = Karten
-    el = Χάρτες
-    es = Mapas
-    eu = Mapak
-    fa = نقشه ها
-    fi = Kartat
-    fr = Cartes
-    he = מפות
-    hu = Térképek
-    id = Peta
-    it = Mappe
-    ja = マップ
-    ko = 지도
-    nb = Kart
-    nl = Kaarten
-    pl = Mapy
-    pt = Mapas
-    pt-BR = Mapas
-    ro = Hărţi
-    ru = Карты
-    sk = Mapy
-    sv = Kartor
-    th = แผนที่
-    tr = Haritalar
-    uk = Мапи
-    vi = Bản đồ
-    zh-Hans = 地图
-    zh-Hant = 地圖
-
   [mb]
     comment = Settings/Downloader - size string, only strings different from English should be translated
     tags = android
@@ -1835,6 +1797,80 @@
     zh-Hans = 选取地图应该下载的位置
     zh-Hant = 請選擇下載地圖後要放的位置
 
+  [maps_storage_downloaded]
+    comment = E.g. "Downloaded maps: 500Mb" in Maps Storage settings
+    tags = android
+    en = Downloaded maps
+    ar = الخرائط
+    be = Мапы
+    bg = Карти
+    cs = Mapy
+    da = Kort
+    de = Karten
+    el = Χάρτες
+    es = Mapas
+    eu = Mapak
+    fa = نقشه ها
+    fi = Kartat
+    fr = Cartes
+    he = מפות
+    hu = Térképek
+    id = Peta
+    it = Mappe
+    ja = マップ
+    ko = 지도
+    nb = Kart
+    nl = Kaarten
+    pl = Mapy
+    pt = Mapas
+    pt-BR = Mapas
+    ro = Hărţi
+    ru = Загруженные карты
+    sk = Mapy
+    sv = Kartor
+    th = แผนที่
+    tr = Haritalar
+    uk = Завантаженнi мапи
+    vi = Bản đồ
+    zh-Hans = 地图
+    zh-Hant = 地圖
+
+  [maps_storage_internal]
+    comment = Internal storage type in Maps Storage settings (not accessible by the user)
+    tags = android
+    en = Internal hidden storage
+    ru = Внутренний скрытый накопитель
+    uk = Внутрішнє зховане сховище
+
+  [maps_storage_shared]
+    comment = Shared storage type in Maps Storage settings (a primary storage usually)
+    tags = android
+    en = Internal shared storage
+    be = Унутранае абагуленае сховішча
+    ru = Внутренний общий накопитель
+    uk = Внутрішнє спільне сховище
+
+  [maps_storage_removable]
+    comment = Removable external storage type in Maps Storage settings, e.g. an SD card
+    tags = android
+    en = SD card
+    be = SD-карта
+    ru = SD-карта
+    uk = SD-карта
+
+  [maps_storage_external]
+    comment = Generic external storage type in Maps Storage settings
+    tags = android
+    en = External shared storage
+    ru = Внешний общий накопитель
+    uk = Зовнiшне спільне сховище
+
+  [maps_storage_free_size]
+    comment = Free space out of total storage size in Maps Storage settings, e.g. "300 MB free (of 2 GB)"
+    tags = android
+    en = %1$@ free (of %2$@)
+    ru = %1$@ свободно (из %2$@)
+
   [move_maps]
     comment = Question dialog for transferring maps from one storage to another
     tags = android
@@ -1872,6 +1908,12 @@
     vi = Di chuyển bản đồ?
     zh-Hans = 移动地图？
     zh-Hant = 移動地圖？
+
+  [move_maps_error]
+    comment = Error moving map files from one storage to another
+    tags = android
+    en = Error moving map files
+    ru = Ошибка перемещения файлов карт
 
   [wait_several_minutes]
     comment = Ask to wait user several minutes (some long process in modal dialog).
@@ -5228,7 +5270,7 @@
     zh-Hant = 全部取消
 
   [downloader_downloaded_subtitle]
-    comment = Downloaded maps category
+    comment = Downloaded maps list header
     tags = android,ios
     en = Downloaded
     ar = تم تنزيلها
@@ -5375,6 +5417,7 @@
     zh-Hant = 在我附近
 
   [downloader_status_maps]
+    comment = In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10"
     tags = android,ios
     en = Maps
     ar = الخرائط

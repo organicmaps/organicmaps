@@ -334,7 +334,7 @@ CGFloat const kAnimationDuration = .05;
   if (!_listHeader)
     _listHeader = [MWMDownloaderDialogHeader headerForOwnerAlert:self];
 
-  [_listHeader setTitle:[NSString stringWithFormat:@"%@ (%@)", L(@"maps"), @(m_countries.size())]
+  [_listHeader setTitle:[NSString stringWithFormat:@"%@ (%@)", L(@"downloader_status_maps"), @(m_countries.size())]
                    size:self.countriesSize];
   return _listHeader;
 }
