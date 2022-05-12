@@ -68,7 +68,7 @@ bool PedestrianDirectionsEngine::Generate(IndexRoadGraph const & graph,
 
   RoutingEngineResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
   auto const res =
-      MakeTurnAnnotationPedestrian(resultGraph, *m_numMwmIds, m_vehicleType, cancellable,
+      MakeTurnAnnotation(resultGraph, *m_numMwmIds, m_vehicleType, cancellable,
                                    routeGeometry, turns, streetNames, segments);
 
   if (res != RouterResultCode::NoError)

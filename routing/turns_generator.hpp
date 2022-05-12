@@ -77,11 +77,6 @@ RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds con
                                     Route::TTurns & turnsDir, Route::TStreets & streets,
                                     std::vector<Segment> & segments);
 
-RouterResultCode MakeTurnAnnotationPedestrian(
-    IRoutingResult const & result, NumMwmIds const & numMwmIds, VehicleType const & vehicleType,
-    base::Cancellable const & cancellable, std::vector<geometry::PointWithAltitude> & points,
-    Route::TTurns & turnsDir, Route::TStreets & streets, std::vector<Segment> & segments);
-
 /*!
  * \brief Selects lanes which are recommended for an end user.
  */
