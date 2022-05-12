@@ -469,6 +469,26 @@ bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const
   return true;
 }
 
+// Normally loadedSegments structure is:
+// - Start point. Fake loop LoadedPathSegment with 1 segment of zero length.
+// - Straight jump from start point to the beginning of real route. LoadedPathSegment with 1 segment.
+// - Real route. N LoadedPathSegments, each with arbitrary amount of segments. N >= 1.
+// - Straight jump from the end of real route to finish point. LoadedPathSegment with 1 segment.
+// - Finish point. Fake loop LoadedPathSegment with 1 segment of zero length.
+// So minimal amount of segments is 5.
+
+// Resulting structure of turnsDir:
+// No Turn for 0th segment (no ingoing). m_index == 0.
+// No Turn for 1st segment (ingoing fake loop) - at start point. m_index == 1.
+// No Turn for 2nd (ingoing == jump) - at beginning of real route. m_index == 2.
+// Possible turn for next N-1 segments. m_index >= 3.
+// No Turn for (2 + N + 1)th segment (outgoing jump) - at finish point. m_index = 3 + M.
+// No Turn for (2 + N + 2)th segment (outgoing fake loop) - at finish point. m_index == 4 + M.
+// Added ReachedYourDestination - at finish point. m_index == 4 + M.
+// Where M - total amount of all segments from all LoadedPathSegments (size of |segments|).
+// So minimum m_index of ReachedYourDestination is 5 (real route with single segment),
+// and minimal |turnsDir| is - single ReachedYourDestination with m_index == 5.
+
 RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
                                     VehicleType const & vehicleType,
                                     base::Cancellable const & cancellable,
