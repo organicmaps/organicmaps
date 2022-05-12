@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/data_source.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/road_graph.hpp"
 
@@ -16,8 +17,6 @@
 #include <utility>
 #include <vector>
 
-class DataSource;
-
 namespace openlr
 {
 // TODO(mgsergio): Inherit from FeaturesRoadGraph.
@@ -29,7 +28,7 @@ public:
   using EdgeVector = routing::FeaturesRoadGraph::EdgeVector;
   using Junction = geometry::PointWithAltitude;
 
-  Graph(DataSource const & dataSource, std::shared_ptr<routing::CarModelFactory> carModelFactory);
+  Graph(DataSource & dataSource, std::shared_ptr<routing::CarModelFactory> carModelFactory);
 
   // Appends edges such as that edge.GetStartJunction() == junction to the |edges|.
   void GetOutgoingEdges(geometry::PointWithAltitude const & junction, EdgeListT & edges);
@@ -55,6 +54,7 @@ public:
 
   using EdgeCacheT = std::map<Junction, EdgeListT>;
 private:
+  routing::MwmDataSource m_dataSource;
   routing::FeaturesRoadGraph m_graph;
   EdgeCacheT m_outgoingCache, m_ingoingCache;
 };

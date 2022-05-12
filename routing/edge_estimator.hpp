@@ -29,7 +29,7 @@ public:
   };
 
   EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
-    DataSource * dataSourcePtr = nullptr, std::shared_ptr<NumMwmIds> numMwmIds = nullptr);
+                DataSource * dataSourcePtr = nullptr, std::shared_ptr<NumMwmIds> numMwmIds = nullptr);
   virtual ~EdgeEstimator() = default;
 
   double CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const;
@@ -68,7 +68,7 @@ private:
   SpeedKMpH const m_offroadSpeedKMpH;
 
   //DataSource * m_dataSourcePtr;
-  std::shared_ptr<NumMwmIds> m_numMwmIds;
+  //std::shared_ptr<NumMwmIds> m_numMwmIds;
   //std::unordered_map<NumMwmId, double> m_leapWeightSpeedMpS;
 
   double ComputeDefaultLeapWeightSpeed() const;

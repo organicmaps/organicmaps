@@ -142,7 +142,8 @@ unique_ptr<routing::IRouter> RoutingTest::CreateRouter(string const & name)
 void RoutingTest::GetNearestEdges(m2::PointD const & pt,
                                   vector<pair<routing::Edge, geometry::PointWithAltitude>> & edges)
 {
-  routing::FeaturesRoadGraph graph(m_dataSource, m_mode, CreateModelFactory());
+  MwmDataSource dataSource(m_dataSource, nullptr /* numMwmIDs */);
+  routing::FeaturesRoadGraph graph(dataSource, m_mode, CreateModelFactory());
   graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(
                              pt, routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
                          1 /* count */, edges);

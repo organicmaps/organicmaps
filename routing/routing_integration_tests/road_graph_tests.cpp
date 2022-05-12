@@ -40,7 +40,8 @@ UNIT_TEST(FakeEdgesCombinatorialExplosion)
   for (auto const & file : localFiles)
     dataSource.Register(file);
 
-  FeaturesRoadGraph graph(dataSource, IRoadGraph::Mode::ObeyOnewayTag,
+  MwmDataSource routingSource(dataSource, nullptr /* numMwmIDs */);
+  FeaturesRoadGraph graph(routingSource, IRoadGraph::Mode::ObeyOnewayTag,
                           std::make_shared<CarModelFactory>(CountryParentNameGetterFn()));
   geometry::PointWithAltitude const j(m2::PointD(mercator::FromLatLon(50.73208, -1.21279)),
                                       geometry::kDefaultAltitudeMeters);

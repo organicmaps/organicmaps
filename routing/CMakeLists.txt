@@ -35,6 +35,7 @@ set(SRC
   cross_mwm_graph.hpp
   cross_mwm_ids.hpp
   cross_mwm_index_graph.hpp
+  data_source.hpp
   directions_engine.cpp
   directions_engine.hpp
   directions_engine_helpers.cpp

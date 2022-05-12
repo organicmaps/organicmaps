@@ -1,6 +1,6 @@
 #include "indexer/altitude_loader.hpp"
 
-#include "indexer/data_source.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/succinct_mapper.hpp"
@@ -32,14 +32,8 @@ void LoadAndMap(size_t dataSize, ReaderSource<FilesContainerR::TReader> & src, T
 }
 }  // namespace
 
-AltitudeLoaderBase::AltitudeLoaderBase(DataSource const & dataSource, MwmSet::MwmId const & mwmId)
-  : m_handle(dataSource.GetMwmHandleById(mwmId))
+AltitudeLoaderBase::AltitudeLoaderBase(MwmValue const & mwmValue)
 {
-  if (!m_handle.IsAlive())
-    return;
-
-  auto const & mwmValue = *m_handle.GetValue();
-
   m_countryFileName = mwmValue.GetCountryFileName();
 
   if (!mwmValue.m_cont.IsExist(ALTITUDES_FILE_TAG))

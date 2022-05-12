@@ -4,6 +4,7 @@
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
+#include "indexer/features_offsets_table.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
@@ -50,8 +51,8 @@ void TestConcurrentAccessToFeatures(string const & mwm)
               "threads simultaneously.", local));
 
   mutex guardCtorMtx;
-  auto parseGeometries = [&guardCtorMtx, &featureNumber, &dataSource, &handle,
-                          &local](vector<m2::PointD> & points) {
+  auto parseGeometries = [&](vector<m2::PointD> & points)
+  {
     unique_lock<mutex> guardCtor(guardCtorMtx);
     FeaturesLoaderGuard guard(dataSource, handle.GetId());
     guardCtor.unlock();

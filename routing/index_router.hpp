@@ -4,6 +4,7 @@
 #include "routing/base/astar_progress.hpp"
 #include "routing/base/routing_result.hpp"
 
+#include "routing/data_source.hpp"
 #include "routing/directions_engine.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/fake_edges_container.hpp"
@@ -34,8 +35,6 @@
 #include <string>
 #include <utility>
 #include <vector>
-
-class DataSource;
 
 namespace traffic { class TrafficCache; }
 
@@ -182,14 +181,14 @@ private:
                                       std::vector<Segment> & output);
   RouterResultCode RedressRoute(std::vector<Segment> const & segments,
                                 base::Cancellable const & cancellable, IndexGraphStarter & starter,
-                                Route & route) const;
+                                Route & route);
 
   bool AreSpeedCamerasProhibited(NumMwmId mwmID) const;
   bool AreMwmsNear(IndexGraphStarter const & starter) const;
-  bool DoesTransitSectionExist(NumMwmId numMwmId) const;
+  bool DoesTransitSectionExist(NumMwmId numMwmId);
 
   RouterResultCode ConvertTransitResult(std::set<NumMwmId> const & mwmIds,
-                                        RouterResultCode resultCode) const;
+                                        RouterResultCode resultCode);
 
   /// \brief Fills |speedcamProhibitedMwms| with mwms which are crossed by |segments|
   /// where speed cameras are prohibited.
@@ -210,7 +209,7 @@ private:
 
   template <typename Vertex, typename Edge, typename Weight, typename AStarParams>
   RouterResultCode FindPath(AStarParams & params, std::set<NumMwmId> const & mwmIds,
-                            RoutingResult<Vertex, Weight> & routingResult) const
+                            RoutingResult<Vertex, Weight> & routingResult)
   {
     AStarAlgorithm<Vertex, Edge, Weight> algorithm;
     return ConvertTransitResult(
@@ -235,7 +234,7 @@ private:
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
   std::string const m_name;
-  DataSource & m_dataSource;
+  MwmDataSource m_dataSource;
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
 
   TCountryFileFn const m_countryFileFn;
@@ -243,7 +242,7 @@ private:
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
   std::shared_ptr<TrafficStash> m_trafficStash;
-  FeaturesRoadGraph m_roadGraph;
+  FeaturesRoadGraphBase m_roadGraph;
 
   std::shared_ptr<EdgeEstimator> m_estimator;
   std::unique_ptr<DirectionsEngine> m_directionsEngine;

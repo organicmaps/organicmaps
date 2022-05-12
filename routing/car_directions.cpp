@@ -16,8 +16,7 @@ namespace routing
 {
 using namespace std;
 
-CarDirectionsEngine::CarDirectionsEngine(DataSource const & dataSource,
-                                         shared_ptr<NumMwmIds> numMwmIds)
+CarDirectionsEngine::CarDirectionsEngine(MwmDataSource & dataSource, shared_ptr<NumMwmIds> numMwmIds)
   : DirectionsEngine(dataSource, move(numMwmIds))
 {
 }

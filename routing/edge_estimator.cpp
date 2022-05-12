@@ -16,6 +16,8 @@
 #include <algorithm>
 #include <unordered_map>
 
+namespace routing
+{
 using namespace routing;
 using namespace std;
 using namespace traffic;
@@ -69,8 +71,6 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
 }
 }  // namespace
 
-namespace routing
-{
 double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
                                  geometry::Altitude altitudeM)
 {
@@ -119,11 +119,11 @@ double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangen
 
 // EdgeEstimator -----------------------------------------------------------------------------------
 EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
-                             DataSource * /*dataSourcePtr*/, std::shared_ptr<NumMwmIds> numMwmIds)
+                             DataSource * /*dataSourcePtr*/, std::shared_ptr<NumMwmIds> /*numMwmIds*/)
   : m_maxWeightSpeedMpS(KMPH2MPS(maxWeightSpeedKMpH))
   , m_offroadSpeedKMpH(offroadSpeedKMpH)
   //, m_dataSourcePtr(dataSourcePtr)
-  , m_numMwmIds(numMwmIds)
+  //, m_numMwmIds(numMwmIds)
 {
   CHECK_GREATER(m_offroadSpeedKMpH.m_weight, 0.0, ());
   CHECK_GREATER(m_offroadSpeedKMpH.m_eta, 0.0, ());

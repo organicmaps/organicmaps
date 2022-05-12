@@ -1,8 +1,6 @@
 #include "indexer/feature_source.hpp"
 
-using namespace std;
-
-string ToString(FeatureStatus fs)
+std::string ToString(FeatureStatus fs)
 {
   switch (fs)
   {
@@ -21,7 +19,7 @@ FeatureSource::FeatureSource(MwmSet::MwmHandle const & handle) : m_handle(handle
     return;
 
   auto const & value = *m_handle.GetValue();
-  m_vector = make_unique<FeaturesVector>(value.m_cont, value.GetHeader(), value.m_table.get());
+  m_vector = std::make_unique<FeaturesVector>(value.m_cont, value.GetHeader(), value.m_table.get());
 }
 
 size_t FeatureSource::GetNumFeatures() const
@@ -29,16 +27,16 @@ size_t FeatureSource::GetNumFeatures() const
   if (!m_handle.IsAlive())
     return 0;
 
-  ASSERT(m_vector.get(), ());
+  ASSERT(m_vector, ());
   return m_vector->GetNumFeatures();
 }
 
-unique_ptr<FeatureType> FeatureSource::GetOriginalFeature(uint32_t index) const
+std::unique_ptr<FeatureType> FeatureSource::GetOriginalFeature(uint32_t index) const
 {
   ASSERT(m_handle.IsAlive(), ());
-  ASSERT(m_vector != nullptr, ());
+  ASSERT(m_vector, ());
   auto ft = m_vector->GetByIndex(index);
-  ft->SetID(FeatureID(m_handle.GetId(), index));
+  ft->SetID({ GetMwmId(), index });
   return ft;
 }
 
@@ -47,9 +45,9 @@ FeatureStatus FeatureSource::GetFeatureStatus(uint32_t index) const
   return FeatureStatus::Untouched;
 }
 
-unique_ptr<FeatureType> FeatureSource::GetModifiedFeature(uint32_t index) const { return {}; }
+std::unique_ptr<FeatureType> FeatureSource::GetModifiedFeature(uint32_t index) const { return {}; }
 
 void FeatureSource::ForEachAdditionalFeature(m2::RectD const & rect, int scale,
-                                             function<void(uint32_t)> const & fn) const
+                                             std::function<void(uint32_t)> const & fn) const
 {
 }

@@ -1,6 +1,5 @@
 #pragma once
 #include "indexer/feature_altitude.hpp"
-#include "indexer/mwm_set.hpp"
 
 #include "coding/memory_region.hpp"
 
@@ -10,16 +9,17 @@
 #include <string>
 #include <vector>
 
+#include "3party/succinct/elias_fano.hpp"
 #include "3party/succinct/rs_bit_vector.hpp"
 
-class DataSource;
+class MwmValue;
 
 namespace feature
 {
 class AltitudeLoaderBase
 {
 public:
-  AltitudeLoaderBase(DataSource const & dataSource, MwmSet::MwmId const & mwmId);
+  explicit AltitudeLoaderBase(MwmValue const & mwmValue);
 
   /// \returns altitude of feature with |featureId|. All items of the returned vector are valid
   /// or the returned vector is empty.
@@ -37,14 +37,13 @@ private:
   std::unique_ptr<FilesContainerR::TReader> m_reader;
   AltitudeHeader m_header;
   std::string m_countryFileName;
-  MwmSet::MwmHandle m_handle;
 };
 
 class AltitudeLoaderCached : public AltitudeLoaderBase
 {
 public:
-  AltitudeLoaderCached(DataSource const & dataSource, MwmSet::MwmId const & mwmId)
-    : AltitudeLoaderBase(dataSource, mwmId)
+  explicit AltitudeLoaderCached(MwmValue const & mwmValue)
+    : AltitudeLoaderBase(mwmValue)
   {
   }
 
