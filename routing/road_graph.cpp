@@ -44,20 +44,19 @@ void SplitEdge(Edge const & ab, geometry::PointWithAltitude const & p, vector<Ed
 
 // Edge ------------------------------------------------------------------------
 // static
-Edge Edge::MakeReal(FeatureID const & featureId, bool forward, uint32_t segId,
+Edge Edge::MakeReal(FeatureID featureId, bool forward, uint32_t segId,
                     JunctionPointT const & startJunction,
                     JunctionPointT const & endJunction)
 {
-  return {Type::Real, featureId, kInvalidFakeSegmentId, forward, segId, startJunction, endJunction};
+  return {Type::Real, std::move(featureId), kInvalidFakeSegmentId, forward, segId, startJunction, endJunction};
 }
 
 // static
-Edge Edge::MakeFakeWithRealPart(FeatureID const & featureId, uint32_t fakeSegmentId, bool forward,
+Edge Edge::MakeFakeWithRealPart(FeatureID featureId, uint32_t fakeSegmentId, bool forward,
                                 uint32_t segId, JunctionPointT const & startJunction,
                                 JunctionPointT const & endJunction)
 {
-  return {Type::FakeWithRealPart, featureId, fakeSegmentId, forward,
-          segId, startJunction, endJunction};
+  return {Type::FakeWithRealPart, std::move(featureId), fakeSegmentId, forward, segId, startJunction, endJunction};
 }
 
 // static
@@ -79,10 +78,10 @@ Edge Edge::MakeFake(JunctionPointT const & startJunction,
   return e;
 }
 
-Edge::Edge(Type type, FeatureID const & featureId, uint32_t fakeSegmentId, bool forward, uint32_t segId,
+Edge::Edge(Type type, FeatureID featureId, uint32_t fakeSegmentId, bool forward, uint32_t segId,
            JunctionPointT const & startJunction, JunctionPointT const & endJunction)
   : m_type(type)
-  , m_featureId(featureId)
+  , m_featureId(std::move(featureId))
   , m_forward(forward)
   , m_segId(segId)
   , m_startJunction(startJunction)

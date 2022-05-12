@@ -4,15 +4,11 @@
 #include "indexer/feature_source.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "base/macros.hpp"
-
 #include <cstdint>
 #include <functional>
 #include <memory>
 #include <utility>
 #include <vector>
-
-#include "defines.hpp"
 
 class DataSource : public MwmSet
 {
