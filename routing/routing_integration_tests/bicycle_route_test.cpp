@@ -64,7 +64,7 @@ UNIT_TEST(NetherlandsAmsterdamBicycleYes)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  TEST_ALMOST_EQUAL_ABS(route.GetTotalTimeSec(), 300.0, 10.0, ());
+  TEST_ALMOST_EQUAL_ABS(route.GetTotalTimeSec(), 336.0, 10.0, ());
 }
 
 // This test on tag cycleway=opposite for a streets which have oneway=yes.
@@ -164,10 +164,11 @@ UNIT_TEST(SpainTenerifeVilaflorAdeje)
 // Two tests on not building route against traffic on road with oneway:bicycle=yes.
 UNIT_TEST(MunichRoadWithOnewayBicycleYes1)
 {
+  /// @todo Should combine TurnSlightLeft, TurnLeft, TurnLeft into UTurnLeft?
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Bicycle),
-      mercator::FromLatLon(48.15995, 11.56296), {0.0, 0.0},
-      mercator::FromLatLon(48.16027, 11.56306), 296.247 /* expectedRouteMeters */);
+      mercator::FromLatLon(48.1601673, 11.5630245), {0.0, 0.0},
+      mercator::FromLatLon(48.1606349, 11.5631699), 279.515 /* expectedRouteMeters */);
 }
 
 UNIT_TEST(MunichRoadWithOnewayBicycleYes2)
