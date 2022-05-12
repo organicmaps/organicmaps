@@ -57,7 +57,9 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(3.0, 20.0))},
 };
 
-SpeedKMpH constexpr kSpeedOffroadKMpH = {3.0 /* weight */, 3.0 /* eta */};
+// https://github.com/organicmaps/organicmaps/issues/2492
+// 3 kmph (was before) is a big default offroad speed, almost as normal walking speed.
+SpeedKMpH constexpr kSpeedOffroadKMpH = {0.5 /* weight */, 3.0 /* eta */};
 
 // Default
 VehicleModel::LimitsInitList const kPedestrianOptionsDefault = {
@@ -269,28 +271,13 @@ VehicleModel::SurfaceInitList const kPedestrianSurface = {
 
 namespace routing
 {
-PedestrianModel::PedestrianModel()
-  : VehicleModel(classif(), pedestrian_model::kPedestrianOptionsDefault, pedestrian_model::kPedestrianSurface,
-                 {pedestrian_model::kDefaultSpeeds, pedestrian_model::kDefaultFactors})
+PedestrianModel::PedestrianModel() : PedestrianModel(pedestrian_model::kPedestrianOptionsDefault)
 {
-  Init();
 }
 
 PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & speedLimits)
   : VehicleModel(classif(), speedLimits, pedestrian_model::kPedestrianSurface,
                 {pedestrian_model::kDefaultSpeeds, pedestrian_model::kDefaultFactors})
-{
-  Init();
-}
-
-SpeedKMpH PedestrianModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
-{
-  return VehicleModel::GetSpeedWihtoutMaxspeed(f, speedParams);
-}
-
-SpeedKMpH const & PedestrianModel::GetOffroadSpeed() const { return pedestrian_model::kSpeedOffroadKMpH; }
-
-void PedestrianModel::Init()
 {
   std::vector<std::string> hwtagYesFoot = {"hwtag", "yesfoot"};
 
@@ -303,6 +290,13 @@ void PedestrianModel::Init()
       {{"man_made", "pier"}, pedestrian_model::kDefaultSpeeds.Get(HighwayType::ManMadePier)}
   });
 }
+
+SpeedKMpH PedestrianModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
+{
+  return VehicleModel::GetSpeedWihtoutMaxspeed(f, speedParams);
+}
+
+SpeedKMpH const & PedestrianModel::GetOffroadSpeed() const { return pedestrian_model::kSpeedOffroadKMpH; }
 
 VehicleModelInterface::RoadAvailability PedestrianModel::GetRoadAvailability(feature::TypesHolder const & types) const
 {
