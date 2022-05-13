@@ -163,11 +163,11 @@ IndexGraphLoaderImpl::GraphPtrT IndexGraphLoaderImpl::CreateIndexGraph(NumMwmId 
   MwmSet::MwmHandle const & handle = m_dataSource.GetHandle(numMwmId);
   MwmValue const * value = handle.GetValue();
 
-  shared_ptr<VehicleModelInterface> vehicleModel =
-      m_vehicleModelFactory->GetVehicleModelForCountry(value->GetCountryFileName());
-
   if (!geometry)
-    geometry = make_shared<Geometry>(GeometryLoader::Create(handle, vehicleModel, m_loadAltitudes));
+  {
+    auto vehicleModel = m_vehicleModelFactory->GetVehicleModelForCountry(value->GetCountryFileName());
+    geometry = make_shared<Geometry>(GeometryLoader::Create(handle, std::move(vehicleModel), m_loadAltitudes));
+  }
 
   auto graph = make_unique<IndexGraph>(geometry, m_estimator, m_avoidRoutingOptions);
   graph->SetCurrentTimeGetter(m_currentTimeGetter);
@@ -184,10 +184,8 @@ IndexGraphLoaderImpl::GeometryPtrT IndexGraphLoaderImpl::CreateGeometry(NumMwmId
   MwmSet::MwmHandle const & handle = m_dataSource.GetHandle(numMwmId);
   MwmValue const * value = handle.GetValue();
 
-  shared_ptr<VehicleModelInterface> vehicleModel =
-      m_vehicleModelFactory->GetVehicleModelForCountry(value->GetCountryFileName());
-
-  return make_shared<Geometry>(GeometryLoader::Create(handle, vehicleModel, m_loadAltitudes));
+  auto vehicleModel = m_vehicleModelFactory->GetVehicleModelForCountry(value->GetCountryFileName());
+  return make_shared<Geometry>(GeometryLoader::Create(handle, std::move(vehicleModel), m_loadAltitudes));
 }
 
 void IndexGraphLoaderImpl::Clear() { m_graphs.clear(); }
