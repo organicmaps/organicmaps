@@ -176,19 +176,17 @@
 
 - (BOOL)openUrl:(NSString *)urlString inSafari:(BOOL)safari
 {
-  NSURL * url = [[NSURL alloc] initWithString:urlString];
-  if (!url)
+  NSURLComponents * urlc = [NSURLComponents componentsWithString:urlString];
+  if (!urlc)
   {
     NSAssert(false, @"Invalid URL %@", urlString);
     return NO;
   }
-  NSString * scheme = url.scheme;
-  if (!([scheme isEqualToString:@"https"] || [scheme isEqualToString:@"http"]))
-  {
-    NSAssert(false, @"Incorrect url scheme %@", scheme);
-    return NO;
-  }
+  // Some links in OSM do not have a scheme: www.some.link
+  if (!urlc.scheme)
+    urlc.scheme = @"http";
 
+  NSURL * url = urlc.URL;
   if (safari)
   {
     [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
