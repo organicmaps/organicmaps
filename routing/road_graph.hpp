@@ -303,8 +303,9 @@ public:
   /// Finds the closest edges to the center of |rect|.
   /// @return Array of pairs of Edge and projection point on the Edge. If there is no the closest edges
   /// then returns empty array.
+  using EdgeProjectionT = std::pair<Edge, JunctionPointT>;
   virtual void FindClosestEdges(m2::RectD const & /*rect*/, uint32_t /*count*/,
-      std::vector<std::pair<Edge, JunctionPointT>> & /*vicinities*/) const {};
+                                std::vector<EdgeProjectionT> & /*vicinities*/) const {};
 
   /// \returns Vector of pairs FeatureID and corresponding RoadInfo for road features
   /// lying in |rect|.

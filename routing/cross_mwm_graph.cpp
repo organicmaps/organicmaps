@@ -20,19 +20,16 @@ using namespace std;
 
 CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds,
                              shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                             shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                              VehicleType vehicleType, CountryRectFn const & countryRectFn,
                              MwmDataSource & dataSource)
   : m_dataSource(dataSource)
   , m_numMwmIds(numMwmIds)
   , m_numMwmTree(numMwmTree)
-  , m_vehicleModelFactory(vehicleModelFactory)
   , m_countryRectFn(countryRectFn)
   , m_crossMwmIndexGraph(m_dataSource, vehicleType)
   , m_crossMwmTransitGraph(m_dataSource, VehicleType::Transit)
 {
   CHECK(m_numMwmIds, ());
-  CHECK(m_vehicleModelFactory, ());
   CHECK_NOT_EQUAL(vehicleType, VehicleType::Transit, ());
 }
 

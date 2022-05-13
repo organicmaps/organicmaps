@@ -33,8 +33,8 @@ public:
 
   void AddInformationSource(IRoadGraph::FullRoadInfo const & roadInfo);
 
-  void MakeResult(std::vector<std::pair<Edge, geometry::PointWithAltitude>> & res,
-                  size_t maxCountFeatures);
+  using EdgeProjectionT = std::pair<Edge, geometry::PointWithAltitude>;
+  void MakeResult(std::vector<EdgeProjectionT> & res, size_t maxCountFeatures);
 
 private:
   struct Candidate
@@ -51,9 +51,9 @@ private:
   };
 
   void AddResIf(Candidate const & candidate, bool forward, size_t maxCountFeatures,
-                std::vector<std::pair<Edge, geometry::PointWithAltitude>> & res) const;
+                std::vector<EdgeProjectionT> & res) const;
   void CandidateToResult(Candidate const & candidate, size_t maxCountFeatures,
-                         std::vector<std::pair<Edge, geometry::PointWithAltitude>> & res) const;
+                         std::vector<EdgeProjectionT> & res) const;
 
   m2::PointD const m_point;
   std::vector<Candidate> m_candidates;
