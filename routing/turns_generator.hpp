@@ -1,16 +1,9 @@
 #pragma once
 
-#include "routing/loaded_path_segment.hpp"
-#include "routing/route.hpp"
-#include "routing/router.hpp"
-#include "routing/routing_callbacks.hpp"
+#include "routing/routing_settings.hpp"
 #include "routing/routing_result_graph.hpp"
-#include "routing/segment.hpp"
 #include "routing/turn_candidate.hpp"
 #include "routing/turns.hpp"
-#include "routing/vehicle_mask.hpp"
-
-#include "traffic/traffic_info.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 

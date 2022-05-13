@@ -11,7 +11,6 @@
 
 #include "geometry/point_with_altitude.hpp"
 
-#include "base/assert.hpp"
 #include "base/cancellable.hpp"
 
 #include <memory>

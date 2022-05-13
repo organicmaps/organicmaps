@@ -1,19 +1,10 @@
 #include "routing/car_directions.hpp"
 
-#include "routing/fake_feature_ids.hpp"
-#include "routing/road_point.hpp"
-#include "routing/router_delegate.hpp"
-#include "routing/routing_exceptions.hpp"
-#include "routing/routing_result_graph.hpp"
 #include "routing/turns.hpp"
 #include "routing/turns_generator.hpp"
 #include "routing/turns_generator_utils.hpp"
 
 #include "geometry/angles.hpp"
-
-#include "base/assert.hpp"
-
-#include <algorithm>
 
 namespace routing
 {

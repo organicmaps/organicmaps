@@ -1,17 +1,11 @@
 #include "routing/turns_generator.hpp"
-#include "routing/turns_generator_utils.hpp"
 
+#include "routing/turns_generator_utils.hpp"
 #include "routing/router.hpp"
-#include "platform/measurement_utils.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
-#include "base/checked_cast.hpp"
 #include "base/stl_helpers.hpp"
-
-#include <cmath>
-#include <sstream>
-#include <numeric>
 
 namespace routing
 {

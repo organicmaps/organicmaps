@@ -1,16 +1,10 @@
 #include "routing/pedestrian_directions.hpp"
 
-#include "routing/road_graph.hpp"
 #include "routing/turns_generator.hpp"
 #include "routing/turns.hpp"
 #include "routing/turns_generator_utils.hpp"
 
-#include "base/assert.hpp"
-#include "base/logging.hpp"
-
 #include <utility>
-
-using namespace std;
 
 namespace routing
 {
@@ -20,6 +14,7 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine(DataSource const & dataSo
 {
 }
 
+using namespace std;
 using namespace turns;
 
 // Angles in degrees for finding route segments with no actual forks.
@@ -51,6 +46,8 @@ size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & resul
     ASSERT(is_sorted(nodes.candidates.begin(), nodes.candidates.end(), base::LessBy(&TurnCandidate::m_angle)),
            ("Turn candidates should be sorted by its angle field."));
   }
+
+  /// @todo Proper handling of isCandidatesAngleValid == False, when we don't have angles of candidates.
 
   if (nodes.candidates.size() == 0)
     return 0;

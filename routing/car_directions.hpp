@@ -1,14 +1,8 @@
 #pragma once
 
 #include "routing/directions_engine.hpp"
-#include "routing/route.hpp"
-#include "routing/segment.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
-
-#include "indexer/data_source.hpp"
-
-#include "geometry/point_with_altitude.hpp"
 
 #include <map>
 #include <memory>

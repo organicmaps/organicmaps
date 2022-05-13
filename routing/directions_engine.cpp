@@ -1,4 +1,5 @@
 #include "routing/directions_engine.hpp"
+
 #include "routing/fake_feature_ids.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_callbacks.hpp"
@@ -288,6 +289,13 @@ bool DirectionsEngine::Generate(IndexRoadGraph const & graph,
   // so size of |segments| is not equal to size of |routeEdges|.
   if (!segments.empty())
     CHECK_EQUAL(segments.size(), routeEdges.size(), ());
+
+
+  CHECK_EQUAL(
+      routeGeometry.size(), path.size(),
+      ("routeGeometry and path have different sizes. routeGeometry size:", routeGeometry.size(),
+       "path size:", path.size(), "segments size:", segments.size(), "routeEdges size:", routeEdges.size()));
+
   return true;
 }
 
@@ -398,13 +406,6 @@ RouterResultCode DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector
 
   FixupTurns(junctions, turnsDir);
 
-/*
-  CHECK_EQUAL(
-      routeGeometry.size(), pathSize,
-      ("routeGeometry and path have different sizes. routeGeometry size:", routeGeometry.size(),
-       "path size:", pathSize, "segments size:", segments.size(), "routeEdges size:",
-       routeEdges.size(), "resultGraph.GetSegments() size:", resultGraph.GetSegments().size()));
-*/
   return RouterResultCode::NoError;
 }
 
