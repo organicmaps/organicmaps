@@ -2,6 +2,8 @@
 
 #include "routing/road_graph.hpp"
 #include "routing/turns_generator.hpp"
+#include "routing/turns.hpp"
+#include "routing/turns_generator_utils.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -18,68 +20,93 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine(DataSource const & dataSo
 {
 }
 
-bool PedestrianDirectionsEngine::Generate(IndexRoadGraph const & graph,
-                                          vector<geometry::PointWithAltitude> const & path,
-                                          base::Cancellable const & cancellable,
-                                          Route::TTurns & turns, Route::TStreets & streetNames,
-                                          vector<geometry::PointWithAltitude> & routeGeometry,
-                                          vector<Segment> & segments)
+using namespace turns;
+
+// Angles in degrees for finding route segments with no actual forks.
+double constexpr kMaxForwardAngleCandidates = 95.0;
+double constexpr kMaxForwardAngleActual = 60.0;
+
+size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmentIndex,
+                                   NumMwmIds const & numMwmIds,
+                                   RoutingSettings const & vehicleSettings, TurnItem & turn)
 {
-  CHECK(m_numMwmIds, ());
+  TurnInfo turnInfo;
+  if (!GetTurnInfo(result, outgoingSegmentIndex, vehicleSettings, turnInfo))
+    return 0;
 
-  m_adjacentEdges.clear();
-  m_pathSegments.clear();
-  turns.clear();
-  streetNames.clear();
-  segments.clear();
+  double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, numMwmIds, vehicleSettings);
 
-  IndexRoadGraph::EdgeVector routeEdges;
+  turn.m_sourceName = turnInfo.m_ingoing->m_name;
+  turn.m_targetName = turnInfo.m_outgoing->m_name;
+  turn.m_pedestrianTurn = PedestrianDirection::None;
 
-  CHECK_NOT_EQUAL(m_vehicleType, VehicleType::Count, (m_vehicleType));
+  ASSERT_GREATER(turnInfo.m_ingoing->m_path.size(), 1, ());
 
-  if (m_vehicleType == VehicleType::Transit)
+  TurnCandidates nodes;
+  size_t ingoingCount = 0;
+  m2::PointD const junctionPoint = turnInfo.m_ingoing->m_path.back().GetPoint();
+  result.GetPossibleTurns(turnInfo.m_ingoing->m_segmentRange, junctionPoint, ingoingCount, nodes);
+  if (nodes.isCandidatesAngleValid)
   {
-    routeGeometry = path;
-    graph.GetRouteSegments(segments);
-    graph.GetRouteEdges(routeEdges);
-    turns.emplace_back(routeEdges.size(), turns::PedestrianDirection::ReachedYourDestination);
-    return true;
+    ASSERT(is_sorted(nodes.candidates.begin(), nodes.candidates.end(), base::LessBy(&TurnCandidate::m_angle)),
+           ("Turn candidates should be sorted by its angle field."));
   }
 
-  routeGeometry.clear();
+  if (nodes.candidates.size() == 0)
+    return 0;
 
-  if (path.size() <= 1)
-    return false;
+  turn.m_pedestrianTurn = IntermediateDirectionPedestrian(turnAngle);
 
-  size_t const pathSize = path.size();
+  if (turn.m_pedestrianTurn == PedestrianDirection::GoStraight)
+  {
+    turn.m_pedestrianTurn = PedestrianDirection::None;
+    return 0;
+  }
 
-  graph.GetRouteEdges(routeEdges);
+  RemoveUTurnCandidate(turnInfo, numMwmIds, nodes.candidates);
 
-  if (routeEdges.empty())
-    return false;
+  // If there is no fork on the road we don't need to generate any turn. It is pointless because
+  // there is no possibility of leaving the route.
+  if (nodes.candidates.size() <= 1)
+    turn.m_pedestrianTurn = PedestrianDirection::None;
+  if (std::fabs(CalcOneSegmentTurnAngle(turnInfo)) < kMaxForwardAngleActual && HasSingleForwardTurn(nodes, kMaxForwardAngleCandidates))
+    turn.m_pedestrianTurn = PedestrianDirection::None;
 
-  if (cancellable.IsCancelled())
-    return false;
-
-  FillPathSegmentsAndAdjacentEdgesMap(graph, path, routeEdges, cancellable);
-
-  if (cancellable.IsCancelled())
-    return false;
-
-  RoutingEngineResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
-  auto const res =
-      MakeTurnAnnotation(resultGraph, *m_numMwmIds, m_vehicleType, cancellable,
-                                   routeGeometry, turns, streetNames, segments);
-
-  if (res != RouterResultCode::NoError)
-    return false;
-
-  CHECK_EQUAL(
-      routeGeometry.size(), pathSize,
-      ("routeGeometry and path have different sizes. routeGeometry size:", routeGeometry.size(),
-       "path size:", pathSize, "segments size:", segments.size(), "routeEdges size:",
-       routeEdges.size(), "resultGraph.GetSegments() size:", resultGraph.GetSegments().size()));
-
-  return true;
+  return 0;
 }
+
+void PedestrianDirectionsEngine::FixupTurns(std::vector<geometry::PointWithAltitude> const & junctions,
+                                            Route::TTurns & turnsDir)
+{
+  uint32_t turn_index = static_cast<uint32_t>(junctions.size() - 1);
+  turnsDir.emplace_back(TurnItem(turn_index, PedestrianDirection::ReachedYourDestination));
+
+  double const kMergeDistMeters = 15.0;
+
+  for (size_t idx = 0; idx < turnsDir.size();)
+  {
+    bool const prevStepNoTurn =
+        idx > 0 && turnsDir[idx - 1].m_pedestrianTurn == PedestrianDirection::GoStraight;
+    bool const needToTurn = turnsDir[idx].m_pedestrianTurn == PedestrianDirection::TurnLeft ||
+                            turnsDir[idx].m_pedestrianTurn == PedestrianDirection::TurnRight;
+
+    // Merging turns which are closer to each other under some circumstance.
+    if (prevStepNoTurn && needToTurn &&
+        CalcRouteDistanceM(junctions, turnsDir[idx - 1].m_index, turnsDir[idx].m_index) <
+            kMergeDistMeters)
+    {
+      turnsDir.erase(turnsDir.begin() + idx - 1);
+      continue;
+    }
+
+    ++idx;
+  }
+
+#ifdef DEBUG
+  for (auto const & t : turnsDir)
+    LOG(LDEBUG, (GetTurnString(t.m_turn), ":", t.m_index, t.m_sourceName, "-",
+                 t.m_targetName, "exit:", t.m_exitNum));
+#endif
+}
+
 }  // namespace routing

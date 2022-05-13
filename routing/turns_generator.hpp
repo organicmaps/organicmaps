@@ -41,7 +41,7 @@ namespace turns
 using TGetIndexFunction = std::function<size_t(std::pair<size_t, size_t>)>;
 
 struct RoutePointIndex;
-
+struct TurnInfo;
 
 /*!
  * \brief Calculates |nextIndex| which is an index of next route point at result.GetSegments().
@@ -60,72 +60,55 @@ struct RoutePointIndex;
 bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const & index,
                             NumMwmIds const & numMwmIds, bool const forward, RoutePointIndex & nextIndex);
 
-/*!
- * \brief Compute turn and time estimation structs for the abstract route result.
- * \param result abstract routing result to annotate.
- * \param delegate Routing callbacks delegate.
- * \param points Storage for unpacked points of the path.
- * \param turnsDir output turns annotation storage.
- * \param streets output street names along the path.
- * \param segments route segments.
- * \return routing operation result code.
- */
-RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
-                                    VehicleType const & vehicleType,
-                                    base::Cancellable const & cancellable,
-                                    std::vector<geometry::PointWithAltitude> & points,
-                                    Route::TTurns & turnsDir, Route::TStreets & streets,
-                                    std::vector<Segment> & segments);
-
-/*!
- * \brief Selects lanes which are recommended for an end user.
- */
-void SelectRecommendedLanes(Route::TTurns & turnsDir);
-void FixupTurns(std::vector<geometry::PointWithAltitude> const & points, Route::TTurns & turnsDir);
-void FixupTurnsPedestrian(std::vector<geometry::PointWithAltitude> const & junctions,
-                          Route::TTurns & turnsDir);
-
 inline size_t GetFirstSegmentPointIndex(std::pair<size_t, size_t> const & p) { return p.first; }
 
-/*!
- * \brief Calculates a turn instruction if the ingoing edge or (and) the outgoing edge belongs to a
- * roundabout.
- * \return Returns one of the following results:
- * - TurnDirection::EnterRoundAbout if the ingoing edge does not belong to a roundabout
- *   and the outgoing edge belongs to a roundabout.
- * - TurnDirection::StayOnRoundAbout if the ingoing edge and the outgoing edge belong to a
- * roundabout
- *   and there is a reasonalbe way to leave the junction besides the outgoing edge.
- *   This function does not return TurnDirection::StayOnRoundAbout for small ways to leave the
- * roundabout.
- * - TurnDirection::NoTurn if the ingoing edge and the outgoing edge belong to a roundabout
- *   (a) and there is a single way (outgoing edge) to leave the junction.
- *   (b) and there is a way(s) besides outgoing edge to leave the junction (the roundabout)
- *       but it is (they are) relevantly small.
- */
-CarDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout,
-                                    bool isMultiTurnJunction, bool keepTurnByHighwayClass);
+bool GetTurnInfo(IRoutingResult const & result, size_t const outgoingSegmentIndex,
+                 RoutingSettings const & vehicleSettings,
+                 TurnInfo & turnInfo);
+
+/// \returns angle, wchis is calculated using several backward and forward segments
+/// from junction to consider smooth turns and remove noise.
+double CalcTurnAngle(IRoutingResult const & result,
+                     size_t const outgoingSegmentIndex,
+                     NumMwmIds const & numMwmIds,
+                     RoutingSettings const & vehicleSettings);
+
+void RemoveUTurnCandidate(TurnInfo const & turnInfo, NumMwmIds const & numMwmIds, std::vector<TurnCandidate> & turnCandidates);
+
+/// \returns true if there is exactly 1 turn in |turnCandidates| with angle less then
+/// |kMaxForwardAngleCandidates|.
+bool HasSingleForwardTurn(TurnCandidates const & turnCandidates, float maxForwardAngleCandidates);
+
+// It's possible that |firstOutgoingSeg| is not contained in |turnCandidates|.
+// It may happened if |firstOutgoingSeg| and candidates in |turnCandidates| are from different mwms.
+// Let's identify it in turnCandidates by angle and update according turnCandidate.
+void CorrectCandidatesSegmentByOutgoing(TurnInfo const & turnInfo, Segment const & firstOutgoingSeg,
+                                        std::vector<TurnCandidate> & candidates);
 
 /*!
- * \brief GetTurnDirection makes a primary decision about turns on the route.
- * \param outgoingSegmentIndex index of an outgoing segments in vector result.GetSegments().
- * \param turn is used for keeping the result of turn calculation.
+ * \brief Returns ingoing point or outgoing point for turns.
+ * These points belong to the route but they often are not neighbor of junction point.
+ * To calculate the resulting point the function implements the following steps:
+ * - going from junction point along route path according to the direction which is set in GetPointIndex().
+ * - until one of following conditions is fulfilled:
+ *   - more than |maxPointsCount| points are passed (returns the maxPointsCount-th point);
+ *   - the length of passed parts of segment exceeds maxDistMeters;
+ *     (returns the next point after the event)
+ *   - an important bifurcation point is reached in case of outgoing point is looked up (forward == true).
+ * \param result information about the route. |result.GetSegments()| is composed of LoadedPathSegment.
+ * Each LoadedPathSegment is composed of several Segments. The sequence of Segments belongs to
+ * single feature and does not split by other features.
+ * \param outgoingSegmentIndex index in |segments|. Junction point noticed above is the first point
+ * of |outgoingSegmentIndex| segment in |result.GetSegments()|.
+ * \param maxPointsCount maximum number between the returned point and junction point.
+ * \param maxDistMeters maximum distance between the returned point and junction point.
+ * \param forward is direction of moving along the route to calculate the returned point.
+ * If forward == true the direction is to route finish. If forward == false the direction is to route start.
+ * \return an ingoing or outgoing point for a turn calculation.
  */
-void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex,
-                      NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
-                      TurnItem & turn);
-void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t outgoingSegmentIndex,
-                                NumMwmIds const & numMwmIds,
-                                RoutingSettings const & vehicleSettings, TurnItem & turn);
+m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegmentIndex,
+                           NumMwmIds const & numMwmIds, size_t const maxPointsCount,
+                           double const maxDistMeters, bool const forward);
 
-/*!
- * \brief Finds an U-turn that starts from master segment and returns how many segments it lasts.
- * \returns an index in |segments| that has the opposite direction with master segment
- * (|segments[currentSegment - 1]|) and 0 if there is no UTurn.
- * \warning |currentSegment| must be greater than 0.
- */
-size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t outgoingSegmentIndex,
-                         NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
-                         TurnItem & turn);
 }  // namespace routing
 }  // namespace turns

@@ -34,6 +34,14 @@ struct TurnInfo
 bool IsHighway(ftypes::HighwayClass hwClass, bool isLink);
 bool IsSmallRoad(ftypes::HighwayClass hwClass);
 
+// Min difference between HighwayClasses of the route segment and alternative turn segment
+// to ignore this alternative candidate.
+int constexpr kMinHighwayClassDiff = -2;
+
+// Min difference between HighwayClasses of the route segment and alternative turn segment
+// to ignore this alternative candidate (when alternative road is service).
+int constexpr kMinHighwayClassDiffForService = -1;
+
 /// * \returns difference between highway classes.
 /// * It should be considered that bigger roads have smaller road class.
 int CalcDiffRoadClasses(ftypes::HighwayClass const left, ftypes::HighwayClass const right);
@@ -72,8 +80,7 @@ double CalcEstimatedTimeToPass(double const distanceMeters, ftypes::HighwayClass
 bool PathIsFakeLoop(std::vector<geometry::PointWithAltitude> const & path);
 
 // Returns distance in meters between |junctions[start]| and |junctions[end]|.
-double CalcRouteDistanceM(std::vector<geometry::PointWithAltitude> const & junctions, uint32_t start,
-                          uint32_t end);
+double CalcRouteDistanceM(std::vector<geometry::PointWithAltitude> const & junctions, uint32_t start, uint32_t end);
 
 /*!
  * \brief Index of point in TUnpackedPathSegments. |m_segmentIndex| is a zero based index in vector
@@ -91,8 +98,7 @@ std::string DebugPrint(RoutePointIndex const & index);
 
 RoutePointIndex GetFirstOutgoingPointIndex(size_t const outgoingSegmentIndex);
 
-RoutePointIndex GetLastIngoingPointIndex(TUnpackedPathSegments const & segments,
-                                         size_t const outgoingSegmentIndex);
+RoutePointIndex GetLastIngoingPointIndex(TUnpackedPathSegments const & segments, size_t const outgoingSegmentIndex);
 
 double CalcOneSegmentTurnAngle(TurnInfo const & turnInfo);
 double CalcPathTurnAngle(LoadedPathSegment const & segment, size_t const pathIndex);

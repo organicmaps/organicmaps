@@ -20,11 +20,11 @@ class PedestrianDirectionsEngine : public DirectionsEngine
 public:
   PedestrianDirectionsEngine(DataSource const & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
 
-  // DirectionsEngine override:
-  bool Generate(IndexRoadGraph const & graph, std::vector<geometry::PointWithAltitude> const & path,
-                base::Cancellable const & cancellable, Route::TTurns & turns,
-                Route::TStreets & streetNames,
-                std::vector<geometry::PointWithAltitude> & routeGeometry,
-                std::vector<Segment> & segments) override;
+protected:
+  virtual size_t GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmentIndex,
+                                  NumMwmIds const & numMwmIds,
+                                  RoutingSettings const & vehicleSettings, TurnItem & turn);
+  virtual void FixupTurns(std::vector<geometry::PointWithAltitude> const & junctions,
+                          Route::TTurns & turnsDir);
 };
 }  // namespace routing
