@@ -60,7 +60,7 @@ RouterResultCode RegionsRouter::CalculateSubrouteNoLeapsMode(IndexGraphStarter &
   Visitor visitor(starter, m_delegate, kVisitPeriod, progress);
 
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
-      starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
+      starter, starter.GetStartSegment(), starter.GetFinishSegment(),
       m_delegate.GetCancellable(), std::move(visitor), AStarLengthChecker(starter));
 
   params.m_badReducedWeight = [](Weight const & reduced, Weight const & current)
