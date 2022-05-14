@@ -133,18 +133,34 @@ private:
     using RoadInfoT = IRoadGraph::FullRoadInfo;
     using EdgeProjectionT = IndexRouter::EdgeProjectionT;
 
+    // The idea here is to store dead-ends from the successful previous call, not to filter
+    // dead-end candidates if they belong to one graph's cluster (island).
+    std::set<Segment> m_deadEnds[2];
+    std::vector<Segment> m_startSegments;
+
+    static uint32_t constexpr kFirstSearchDistanceM = 40;
+
   public:
     PointsOnEdgesSnapping(IndexRouter & router, WorldGraph & graph) : m_router(router), m_graph(graph) {}
 
+    /// @return 0 - ok, 1 - start not found, 2 - finish not found.
+    int Snap(m2::PointD const & start, m2::PointD const & finish, m2::PointD const & direction,
+             FakeEnding & startEnding, FakeEnding & finishEnding, bool & startIsCodirectional);
+
+    void SetNextStartSegment(Segment const & seg) { m_startSegments = {seg}; }
+
   private:
-    /// \brief Removes all roads from |roads| which goes to dead ends and all road which
-    /// is not good according to |worldGraph|. For car routing there are roads with hwtag nocar as well.
+    void FillDeadEndsCache(m2::PointD const & point);
+
+    /// \brief Removes all roads from |roads| that go to dead ends and all roads that
+    /// are not good according to |worldGraph|. For car routing there are roads with hwtag nocar as well.
     /// \param checkpoint which is used to look for the closest segment in a road. The closest segment
     /// is used then to check if it's a dead end.
-    void EraseIfDeadEnd(m2::PointD const & checkpoint, std::vector<RoadInfoT> & roads) const;
+    void EraseIfDeadEnd(m2::PointD const & checkpoint, std::vector<RoadInfoT> & roads,
+                        std::set<Segment> & deadEnds) const;
 
     /// \returns true if a segment (|point|, |edgeProjection.second|) crosses one of segments
-    /// in |fences| except for a one which has the same geometry with |edgeProjection.first|.
+    /// in |fences| except for the one which has the same geometry with |edgeProjection.first|.
     static bool IsFencedOff(m2::PointD const & point, EdgeProjectionT const & edgeProjection,
                             std::vector<RoadInfoT> const & fences);
 
@@ -160,11 +176,11 @@ private:
                                              std::vector<EdgeProjectionT> const & candidates,
                                              Edge & closestCodirectionalEdge);
 
-    /// \brief Finds the best segments (edges) which may be considered as starts or finishes
+    /// \brief Finds best segments (edges) that may be considered as starts or finishes
     /// of the route. According to current implementation the closest to |checkpoint| segment which
     /// is almost codirectianal to |direction| is the best.
     /// If there's no an almost codirectional segment in the neighbourhood then all not dead end
-    /// candidates which may be reached without crossing road graph will be added to |bestSegments|.
+    /// candidates that may be reached without crossing the road graph will be added to |bestSegments|.
     /// \param isOutgoing == true if |checkpoint| is considered as the start of the route.
     /// isOutgoing == false if |checkpoint| is considered as the finish of the route.
     /// \param bestSegmentIsAlmostCodirectional is filled with true if |bestSegment| is chosen
@@ -172,11 +188,11 @@ private:
     /// \return true if the best segment is found and false otherwise.
     /// \note Candidates in |bestSegments| are sorted from better to worse.
     bool FindBestSegments(m2::PointD const & checkpoint, m2::PointD const & direction, bool isOutgoing,
-                          std::vector<Segment> & bestSegments, bool & bestSegmentIsAlmostCodirectional) const;
+                          std::vector<Segment> & bestSegments, bool & bestSegmentIsAlmostCodirectional);
 
     bool FindBestEdges(m2::PointD const & checkpoint, m2::PointD const & direction, bool isOutgoing,
                        double closestEdgesRadiusM,
-                       std::vector<Edge> & bestEdges, bool & bestSegmentIsAlmostCodirectional) const;
+                       std::vector<Edge> & bestEdges, bool & bestSegmentIsAlmostCodirectional);
   };
 
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.

@@ -188,9 +188,7 @@ bool IsDeadEndCached(Segment const & segment, bool isOutgoing, bool useRoutingOp
   set<Segment> visitedSegments;
   if (IsDeadEnd(segment, isOutgoing, useRoutingOptions, worldGraph, visitedSegments))
   {
-    auto const beginIt = make_move_iterator(visitedSegments.begin());
-    auto const endIt = make_move_iterator(visitedSegments.end());
-    deadEnds.insert(beginIt, endIt);
+    deadEnds.insert(visitedSegments.begin(), visitedSegments.end());
     return true;
   }
 
@@ -554,21 +552,8 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
 
   vector<Segment> segments;
 
-  PointsOnEdgesSnapping snapping(*this, *graph);
-
-  vector<Segment> startSegments;
-  bool startSegmentIsAlmostCodirectionalDirection = false;
-  bool const foundStart =
-      snapping.FindBestSegments(checkpoints.GetPointFrom(), startDirection, true /* isOutgoing */,
-                       startSegments, startSegmentIsAlmostCodirectionalDirection);
-
   m_guides.SetGuidesGraphParams(guidesMwmId, m_estimator->GetMaxWeightSpeedMpS());
   m_guides.ConnectToGuidesGraph(checkpoints.GetPoints());
-
-  if (!m_guides.IsActive() && !foundStart)
-  {
-    return RouterResultCode::StartPointNotFound;
-  }
 
   uint32_t const startIdx = ConnectTracksOnGuidesToOsm(checkpoints.GetPoints(), *graph);
   ConnectCheckpointsOnGuidesToOsm(checkpoints.GetPoints(), *graph);
@@ -582,43 +567,35 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
   auto progress = make_shared<AStarProgress>();
   double const checkpointsLength = checkpoints.GetSummaryLengthBetweenPointsMeters();
 
-  for (size_t i = checkpoints.GetPassedIdx(); i < checkpoints.GetNumSubroutes(); ++i)
+  PointsOnEdgesSnapping snapping(*this, *graph);
+  size_t const subroutesCount = checkpoints.GetNumSubroutes();
+  for (size_t i = checkpoints.GetPassedIdx(); i < subroutesCount; ++i)
   {
-    bool const isFirstSubroute = i == checkpoints.GetPassedIdx();
-    bool const isLastSubroute = i == checkpoints.GetNumSubroutes() - 1;
     auto const & startCheckpoint = checkpoints.GetPoint(i);
     auto const & finishCheckpoint = checkpoints.GetPoint(i + 1);
 
+    FakeEnding startFakeEnding = m_guides.GetFakeEnding(i);
     FakeEnding finishFakeEnding = m_guides.GetFakeEnding(i + 1);
 
-    vector<Segment> finishSegments;
-    bool dummy = false;
-
-    // Stop building route if |finishCheckpoint| is not connected to OSM and is not connected to
-    // the guides graph.
-    if (!snapping.FindBestSegments(finishCheckpoint, m2::PointD::Zero() /* direction */,
-                          false /* isOutgoing */, finishSegments,
-                          dummy /* bestSegmentIsAlmostCodirectional */) &&
-        finishFakeEnding.m_projections.empty())
+    bool isStartSegmentStrictForward = (m_vehicleType == VehicleType::Car);
+    if (startFakeEnding.m_projections.empty() || finishFakeEnding.m_projections.empty())
     {
-      return isLastSubroute ? RouterResultCode::EndPointNotFound
-                            : RouterResultCode::IntermediatePointNotFound;
+      bool const isFirstSubroute = (i == checkpoints.GetPassedIdx());
+      bool const isLastSubroute = (i == subroutesCount - 1);
+
+      bool startIsCodirectional = false;
+      switch (snapping.Snap(startCheckpoint, finishCheckpoint, startDirection,
+                            startFakeEnding, finishFakeEnding, startIsCodirectional))
+      {
+      case 1: return RouterResultCode::StartPointNotFound;
+      case 2: return isLastSubroute ? RouterResultCode::EndPointNotFound : RouterResultCode::IntermediatePointNotFound;
+      }
+
+      if (isFirstSubroute)
+        isStartSegmentStrictForward = startIsCodirectional;
     }
 
-    bool isStartSegmentStrictForward = (m_vehicleType == VehicleType::Car);
-    if (isFirstSubroute)
-      isStartSegmentStrictForward = startSegmentIsAlmostCodirectionalDirection;
-
-    FakeEnding startFakeEnding = m_guides.GetFakeEnding(i);
-
-    if (startFakeEnding.m_projections.empty())
-      startFakeEnding = MakeFakeEnding(startSegments, startCheckpoint, *graph);
-
-    if (finishFakeEnding.m_projections.empty())
-      finishFakeEnding = MakeFakeEnding(finishSegments, finishCheckpoint, *graph);
-
-    uint32_t const fakeNumerationStart =
-        starter ? starter->GetNumFakeSegments() + startIdx : startIdx;
+    uint32_t const fakeNumerationStart = starter ? starter->GetNumFakeSegments() + startIdx : startIdx;
     IndexGraphStarter subrouteStarter(startFakeEnding, finishFakeEnding, fakeNumerationStart,
                                       isStartSegmentStrictForward, *graph);
 
@@ -656,12 +633,14 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
                            subrouteStarter.GetFinishJunction().ToPointWithAltitude(),
                            subrouteSegmentsBegin, subrouteSegmentsEnd);
     subrouteSegmentsBegin = subrouteSegmentsEnd;
-    // For every subroute except for the first one the last real segment is used  as a start
-    // segment. It's implemented this way to prevent jumping from one road to another one using a
-    // via point.
-    startSegments.resize(1);
-    bool const hasRealOrPart = GetLastRealOrPart(subrouteStarter, subroute, startSegments[0]);
-    CHECK(hasRealOrPart, ("No real or part of real segments in route."));
+
+    // For every subroute except for the first one the last real segment is used as a next start segment.
+    // It's implemented this way to prevent jumping from one road to another one using a via point.
+    Segment nextSegment;
+    CHECK(GetLastRealOrPart(subrouteStarter, subroute, nextSegment),
+          ("No real or part of real segments in route."));
+    snapping.SetNextStartSegment(nextSegment);
+
     if (!starter)
       starter = make_unique<IndexGraphStarter>(move(subrouteStarter));
     else
@@ -989,28 +968,72 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
                                         move(transitGraphLoader), m_estimator);
 }
 
+int IndexRouter::PointsOnEdgesSnapping::Snap(
+        m2::PointD const & start, m2::PointD const & finish, m2::PointD const & direction,
+        FakeEnding & startEnding, FakeEnding & finishEnding, bool & startIsCodirectional)
+{
+  if (m_startSegments.empty())  // A first call for the first starting point
+  {
+    FillDeadEndsCache(finish);
+
+    if (!FindBestSegments(start, direction, true /* isOutgoing */, m_startSegments, startIsCodirectional))
+      return 1;
+  }
+
+  vector<Segment> finishSegments;
+  bool dummy;
+  if (!FindBestSegments(finish, {} /* direction */, false /* isOutgoing */, finishSegments, dummy))
+    return 2;
+
+  // One of startEnding or finishEnding will be empty here.
+  if (startEnding.m_projections.empty())
+    startEnding = MakeFakeEnding(m_startSegments, start, m_graph);
+
+  if (finishEnding.m_projections.empty())
+    finishEnding = MakeFakeEnding(finishSegments, finish, m_graph);
+
+  return 0;
+}
+
+void IndexRouter::PointsOnEdgesSnapping::FillDeadEndsCache(m2::PointD const & point)
+{
+  auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, kFirstSearchDistanceM);
+  auto closestRoads = m_router.m_roadGraph.FindRoads(rect, [this](FeatureID const & fid)
+  {
+    auto const & info = fid.m_mwmId.GetInfo();
+    return m_router.m_numMwmIds->ContainsFile(info->GetLocalFile().GetCountryFile());
+  });
+
+  m_deadEnds[0].clear();
+  EraseIfDeadEnd(point, closestRoads, m_deadEnds[0]);
+
+  vector<EdgeProjectionT> candidates;
+  m_deadEnds[1].clear();
+  RoadsToNearestEdges(point, closestRoads, [this](EdgeProjectionT const & proj)
+  {
+    auto const segment = GetSegmentByEdge(proj.first);
+    return !IsDeadEndCached(segment, true /* isOutgoing */, true /* useRoutingOptions */, m_graph, m_deadEnds[1]);
+  }, candidates);
+}
+
 void IndexRouter::PointsOnEdgesSnapping::EraseIfDeadEnd(
-        m2::PointD const & checkpoint, vector<RoadInfoT> & roads) const
+        m2::PointD const & checkpoint, vector<RoadInfoT> & roads, std::set<Segment> & deadEnds) const
 {
   // |deadEnds| cache is necessary to minimize number of calls a time consumption IsDeadEnd() method.
-  set<Segment> deadEnds;
   base::EraseIf(roads, [&](RoadInfoT const & fullRoadInfo)
   {
-    CHECK_GREATER_OR_EQUAL(fullRoadInfo.m_roadInfo.m_junctions.size(), 2, ());
-    auto const squaredDistAndIndex = m2::CalcMinSquaredDistance(fullRoadInfo.m_roadInfo.m_junctions.begin(),
-                                                                fullRoadInfo.m_roadInfo.m_junctions.end(),
-                                                                checkpoint);
-    auto const segmentId = squaredDistAndIndex.second;
+    auto const & junctions = fullRoadInfo.m_roadInfo.m_junctions;
+    CHECK_GREATER_OR_EQUAL(junctions.size(), 2, ());
+    auto const squaredDistAndIndex = m2::CalcMinSquaredDistance(junctions.begin(), junctions.end(), checkpoint);
 
     // Note. Checking if an edge goes to a dead end is a time consumption process.
     // So the number of checked edges should be minimized as possible.
     // Below a heuristic is used. If the closest to |checkpoint| segment of a feature
     // in forward direction is a dead end all segments of the feature is considered as dead ends.
     auto const segment = GetSegmentByEdge(Edge::MakeReal(fullRoadInfo.m_featureId, true /* forward */,
-                                                         segmentId,
-                                                         fullRoadInfo.m_roadInfo.m_junctions[0],
-                                                         fullRoadInfo.m_roadInfo.m_junctions[1]));
-    return IsDeadEndCached(segment, true /* isOutgoing */, false /* useRoutingOptions */, m_graph, deadEnds);
+                                                         squaredDistAndIndex.second, junctions[0], junctions[1]));
+    return (IsDeadEndCached(segment, true /* isOutgoing */, false /* useRoutingOptions */, m_graph, deadEnds) &&
+            m_deadEnds[0].count(segment) == 0);
   });
 }
 
@@ -1103,10 +1126,10 @@ bool IndexRouter::PointsOnEdgesSnapping::FindClosestCodirectionalEdge(
 
 bool IndexRouter::PointsOnEdgesSnapping::FindBestSegments(
         m2::PointD const & checkpoint, m2::PointD const & direction, bool isOutgoing,
-        vector<Segment> & bestSegments, bool & bestSegmentIsAlmostCodirectional) const
+        vector<Segment> & bestSegments, bool & bestSegmentIsAlmostCodirectional)
 {
   vector<Edge> bestEdges;
-  if (!FindBestEdges(checkpoint, direction, isOutgoing, 40.0 /* closestEdgesRadiusM */,
+  if (!FindBestEdges(checkpoint, direction, isOutgoing, kFirstSearchDistanceM /* closestEdgesRadiusM */,
                      bestEdges, bestSegmentIsAlmostCodirectional))
   {
     if (!FindBestEdges(checkpoint, direction, isOutgoing, 500.0 /* closestEdgesRadiusM */,
@@ -1130,7 +1153,7 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestSegments(
 
 bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(
         m2::PointD const & checkpoint, m2::PointD const & direction, bool isOutgoing, double closestEdgesRadiusM,
-        vector<Edge> & bestEdges, bool & bestSegmentIsAlmostCodirectional) const
+        vector<Edge> & bestEdges, bool & bestSegmentIsAlmostCodirectional)
 {
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(checkpoint, closestEdgesRadiusM);
   auto closestRoads = m_router.m_roadGraph.FindRoads(rect, [this](FeatureID const & fid)
@@ -1139,22 +1162,18 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(
     return m_router.m_numMwmIds->ContainsFile(info->GetLocalFile().GetCountryFile());
   });
 
-  /// @todo Do not remove "dead ends" if:
-  /// - roads are start and end checkpoints simultaneously (https://github.com/organicmaps/organicmaps/issues/2492)
-  /// - roads end on MWM border (https://github.com/organicmaps/organicmaps/issues/788)
-
+  set<Segment> deadEnds[2];
   // Removing all dead ends from |closestRoads|. Then some candidates will be taken from |closestRoads|.
   // It's necessary to remove all dead ends for all |closestRoads| before IsFencedOff().
   // If to remove all fenced off by other features from |checkpoint| candidates at first,
   // only dead ends candidates may be left. And then the dead end candidates will be removed
   // as well as dead ends. It often happens near airports.
-  EraseIfDeadEnd(checkpoint, closestRoads);
+  EraseIfDeadEnd(checkpoint, closestRoads, deadEnds[0]);
 
   // Sorting from the closest features to the further ones. The idea is the closer
   // a feature to a |checkpoint| the more chances that it crosses the segment
   // |checkpoint|, projections of |checkpoint| on feature edges. It confirmed with benchmarks.
-  sort(closestRoads.begin(), closestRoads.end(),
-       [&checkpoint](IRoadGraph::FullRoadInfo const & lhs, IRoadGraph::FullRoadInfo const & rhs)
+  sort(closestRoads.begin(), closestRoads.end(), [&checkpoint](RoadInfoT const & lhs, RoadInfoT const & rhs)
   {
     auto const & lj = lhs.m_roadInfo.m_junctions;
     auto const & rj = rhs.m_roadInfo.m_junctions;
@@ -1172,12 +1191,14 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(
   // Then in |IsDeadEndCached(..., true /* useRoutingOptions */, ...)| below we ignore
   // candidates if it's a dead end taking into acount routing options. We ignore candidates as well
   // if they don't match RoutingOptions.
-  set<Segment> deadEnds;
-  auto const isGood = [&](pair<Edge, geometry::PointWithAltitude> const & edgeProj)
+  auto const isGood = [&](EdgeProjectionT const & edgeProj)
   {
     auto const segment = GetSegmentByEdge(edgeProj.first);
-    if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */, m_graph, deadEnds))
+    if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */, m_graph, deadEnds[1]) &&
+        m_deadEnds[1].count(segment) == 0)
+    {
       return false;
+    }
 
     // Removing all candidates which are fenced off by the road graph (|closestRoads|) from |checkpoint|.
     return !IsFencedOff(checkpoint, edgeProj, closestRoads);
@@ -1189,6 +1210,9 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(
 
   if (candidates.empty())
     return false;
+
+  m_deadEnds[0].swap(deadEnds[0]);
+  m_deadEnds[1].swap(deadEnds[1]);
 
   // Looking for the closest codirectional edge. If it's not found add all good candidates.
   Edge closestCodirectionalEdge;
@@ -1454,9 +1478,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       output.clear();
       while (!paths.empty())
       {
-        output.insert(output.end(),
-                      make_move_iterator(paths.front().begin()),
-                      make_move_iterator(paths.front().end()));
+        output.insert(output.end(), paths.front().begin(), paths.front().end());
         paths.pop_front();
       }
       finalWeight = currentWeight;
