@@ -742,7 +742,7 @@ RouterResultCode IndexRouter::CalculateSubrouteJointsMode(
 
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
       jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
-      nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
+      delegate.GetCancellable(), move(visitor),
       AStarLengthChecker(starter));
 
   RoutingResult<Vertex, Weight> routingResult;
@@ -769,7 +769,7 @@ RouterResultCode IndexRouter::CalculateSubrouteNoLeapsMode(
   Visitor visitor(starter, delegate, kVisitPeriod, progress);
 
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
-      starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
+      starter, starter.GetStartSegment(), starter.GetFinishSegment(),
       delegate.GetCancellable(), move(visitor), AStarLengthChecker(starter));
 
   RoutingResult<Vertex, Weight> routingResult;
@@ -804,7 +804,7 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
 
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
       leapsGraph, leapsGraph.GetStartSegment(), leapsGraph.GetFinishSegment(),
-      nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
+      delegate.GetCancellable(), move(visitor),
       AStarLengthChecker(starter));
 
   params.m_badReducedWeight = [](Weight const &, Weight const &)
@@ -892,12 +892,12 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 
   AStarAlgorithm<Vertex, Edge, Weight> algorithm;
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AdjustLengthChecker> params(
-      starter, starter.GetStartSegment(), {} /* finalVertex */, &prevEdges,
+      starter, starter.GetStartSegment(), {} /* finalVertex */,
       delegate.GetCancellable(), move(visitor), AdjustLengthChecker(starter));
 
   RoutingResult<Segment, RouteWeight> result;
   auto const resultCode =
-      ConvertResult<Vertex, Edge, Weight>(algorithm.AdjustRoute(params, result));
+      ConvertResult<Vertex, Edge, Weight>(algorithm.AdjustRoute(params, prevEdges, result));
   if (resultCode != RouterResultCode::NoError)
     return resultCode;
 
@@ -1367,7 +1367,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
       AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
           jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
-          nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
+          delegate.GetCancellable(), move(visitor),
           AStarLengthChecker(starter));
 
       resultCode = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult);

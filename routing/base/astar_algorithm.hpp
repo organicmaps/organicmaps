@@ -71,11 +71,10 @@ public:
   struct ParamsBase
   {
     ParamsBase(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-               std::vector<Edge> const * prevRoute, base::Cancellable const & cancellable)
+               base::Cancellable const & cancellable)
         : m_graph(graph)
         , m_startVertex(startVertex)
         , m_finalVertex(finalVertex)
-        , m_prevRoute(prevRoute)
         , m_cancellable(cancellable)
     {
     }
@@ -86,7 +85,6 @@ public:
     // Used for FindPath, FindPathBidirectional.
     Vertex const m_finalVertex;
     // Used for AdjustRoute.
-    std::vector<Edge> const * const m_prevRoute;
     base::Cancellable const & m_cancellable;
     std::function<bool(Weight, Weight)> m_badReducedWeight = [](Weight, Weight) { return true; };
   };
@@ -99,10 +97,10 @@ public:
   struct Params : public ParamsBase
   {
     Params(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-           std::vector<Edge> const * prevRoute, base::Cancellable const & cancellable,
+           base::Cancellable const & cancellable,
            Visitor && onVisitedVertexCallback = astar::DefaultVisitor(),
            LengthChecker && checkLengthCallback = astar::DefaultLengthChecker())
-      : ParamsBase(graph, startVertex, finalVertex, prevRoute, cancellable)
+      : ParamsBase(graph, startVertex, finalVertex, cancellable)
       , m_onVisitedVertexCallback(std::forward<Visitor>(onVisitedVertexCallback))
       , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
     {
@@ -116,9 +114,8 @@ public:
   struct ParamsForTests : public ParamsBase
   {
     ParamsForTests(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-                   std::vector<Edge> const * prevRoute,
                    LengthChecker && checkLengthCallback = astar::DefaultLengthChecker())
-      : ParamsBase(graph, startVertex, finalVertex, prevRoute, m_dummy)
+      : ParamsBase(graph, startVertex, finalVertex, m_dummy)
       , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
     {
     }
@@ -217,6 +214,7 @@ public:
   // Expects |params.m_checkLengthCallback| to check wave propagation limit.
   template <typename P>
   typename AStarAlgorithm<Vertex, Edge, Weight>::Result AdjustRoute(P & params,
+                                                                    std::vector<Edge> const & prevRoute,
                                                                     RoutingResult<Vertex, Weight> & result) const;
 
 private:
@@ -722,12 +720,11 @@ template <typename Vertex, typename Edge, typename Weight>
 template <typename P>
 typename AStarAlgorithm<Vertex, Edge, Weight>::Result
 AStarAlgorithm<Vertex, Edge, Weight>::AdjustRoute(P & params,
+                                                  std::vector<Edge> const & prevRoute,
                                                   RoutingResult<Vertex, Weight> & result) const
 {
   auto & graph = params.m_graph;
   auto const & startVertex = params.m_startVertex;
-  auto const & prevRoute = *params.m_prevRoute;
-
   CHECK(!prevRoute.empty(), ());
 
   result.Clear();
