@@ -43,6 +43,7 @@
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
+#include "base/limited_priority_queue.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
@@ -746,8 +747,7 @@ RouterResultCode IndexRouter::CalculateSubrouteJointsMode(
       AStarLengthChecker(starter));
 
   RoutingResult<Vertex, Weight> routingResult;
-  RouterResultCode const result =
-      FindPath<Vertex, Edge, Weight>(params, {} /* mwmIds */, routingResult);
+  RouterResultCode const result = FindPath<Vertex, Edge, Weight>(params, {} /* mwmIds */, routingResult);
 
   if (result != RouterResultCode::NoError)
     return result;
@@ -788,54 +788,106 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
     RouterDelegate const & delegate, shared_ptr<AStarProgress> const & progress,
     vector<Segment> & subroute)
 {
-  LeapsGraph leapsGraph(starter, MwmHierarchyHandler(m_numMwmIds, m_countryParentNameGetterFn));
-
   using Vertex = LeapsGraph::Vertex;
   using Edge = LeapsGraph::Edge;
   using Weight = LeapsGraph::Weight;
 
-  AStarSubProgress leapsProgress(mercator::ToLatLon(checkpoints.GetPoint(subrouteIdx)),
-                                 mercator::ToLatLon(checkpoints.GetPoint(subrouteIdx + 1)),
-                                 kLeapsStageContribution);
-  progress->AppendSubProgress(leapsProgress);
-
-  using Visitor = JunctionVisitor<LeapsGraph>;
-  Visitor visitor(leapsGraph, delegate, kVisitPeriodForLeaps, progress);
-
-  AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
-      leapsGraph, leapsGraph.GetStartSegment(), leapsGraph.GetFinishSegment(),
-      delegate.GetCancellable(), move(visitor),
-      AStarLengthChecker(starter));
-
-  params.m_badReducedWeight = [](Weight const &, Weight const &)
+  // Get cross-mwm routes-candidates.
+  std::vector<RoutingResultT> candidates;
   {
-    /// @see CrossMwmConnector::GetTransition comment.
-    /// Unfortunately, reduced weight invariant in LeapsOnly mode doesn't work with the workaround above.
-    return false;
-  };
+    LeapsGraph leapsGraph(starter, MwmHierarchyHandler(m_numMwmIds, m_countryParentNameGetterFn));
 
-  RoutingResult<Vertex, Weight> routingResult;
-  RouterResultCode const result =
-      FindPath<Vertex, Edge, Weight>(params, {} /* mwmIds */, routingResult);
+    AStarSubProgress leapsProgress(mercator::ToLatLon(checkpoints.GetPoint(subrouteIdx)),
+                                   mercator::ToLatLon(checkpoints.GetPoint(subrouteIdx + 1)),
+                                   kLeapsStageContribution);
+    SCOPE_GUARD(progressGuard, [&progress]() { progress->PushAndDropLastSubProgress(); });
+    progress->AppendSubProgress(leapsProgress);
 
-  progress->PushAndDropLastSubProgress();
+    // No need to call CheckLength in cross-mwm routine, thus we avoid calling GetRoadGeometry().
+    struct AlwaysTrue
+    {
+      bool operator() (Weight const &) const { return true; }
+    };
 
-  if (result != RouterResultCode::NoError)
-    return result;
+    using Visitor = JunctionVisitor<LeapsGraph>;
+    AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AlwaysTrue> params(
+        leapsGraph, leapsGraph.GetStartSegment(), leapsGraph.GetFinishSegment(),
+        delegate.GetCancellable(), Visitor(leapsGraph, delegate, kVisitPeriodForLeaps, progress),
+        AlwaysTrue());
+
+    params.m_badReducedWeight = [](Weight const &, Weight const &)
+    {
+      /// @see CrossMwmConnector::GetTransition comment.
+      /// Unfortunately, reduced weight invariant in LeapsOnly mode doesn't work with the workaround above.
+      return false;
+    };
+
+    std::set<std::pair<Vertex, Vertex>> edges;
+    std::set<Vertex> keys[2];    // 0 - end vertex of the first edge; 1 - beg vertex of the last edge
+
+    size_t constexpr kMaxNumRoutes = 20;
+    base::limited_priority_queue<RoutingResultT, RoutingResultT::LessWeight> routes(kMaxNumRoutes);
+
+    using AlgoT = AStarAlgorithm<Vertex, Edge, Weight>;
+    AlgoT algorithm;
+    auto const result = algorithm.FindPathBidirectionalEx(params, [&routes, &edges, &keys](RoutingResultT && route)
+    {
+      if (routes.size() > kMaxNumRoutes && routes.top().m_distance <= route.m_distance)
+        return false;
+
+      // Take unique routes by key vertices.
+      size_t const pathSize = route.m_path.size();
+      ASSERT_GREATER(pathSize, 2, ());
+      auto const & beg = route.m_path[1];
+      auto const & end = route.m_path[pathSize - 2];
+      if (edges.insert({beg, end}).second)
+      {
+        keys[0].insert(beg);
+        keys[1].insert(end);
+        routes.push(std::move(route));
+      }
+
+      /// @todo Looks like there is no big deal in this constant due to the bidirectional search.
+      /// But still Zalau -> Tiburg lasts 2 minutes here.
+      // Continue until got 5 different first/last edges. Bigger maxVertices - bigger calculation time.
+      //size_t const maxVertices = std::min(size_t(5), std::max(size_t(2), (50 + pathSize) / pathSize));
+      size_t constexpr maxVertices = 5;
+
+      return keys[0].size() >= maxVertices && keys[1].size() >= maxVertices;
+    });
+
+    if (result != AlgoT::Result::OK)
+      return ConvertResult<Vertex, Edge, Weight>(result);
+
+    candidates = routes.move();
+    sort(candidates.begin(), candidates.end(), [](RoutingResultT const & l, RoutingResultT const & r)
+    {
+      return l.m_distance < r.m_distance;
+    });
+  }
 
   // Purge cross-mwm-graph cache memory before calculating subroutes for each MWM.
   // CrossMwmConnector takes a lot of memory with its weights matrix now.
   starter.GetGraph().GetCrossMwmGraph().Purge();
 
-  vector<Segment> subrouteWithoutPostprocessing;
   ASSERT_EQUAL(starter.GetGraph().GetMode(), WorldGraphMode::LeapsOnly, ());
-  RouterResultCode const leapsResult = ProcessLeapsJoints(routingResult.m_path, delegate, starter,
-                                                          progress, subrouteWithoutPostprocessing);
 
-  if (leapsResult != RouterResultCode::NoError)
-    return leapsResult;
+  RoutingResultT result;
+  RoutesCacheT cache;
+  for (auto const & e : candidates)
+  {
+    LOG(LDEBUG, ("Process leaps:", e.m_distance, e.m_path));
 
-  LeapsPostProcessor leapsPostProcessor(subrouteWithoutPostprocessing, starter);
+    SCOPE_GUARD(progressGuard, [&progress]() { progress->PushAndDropLastSubProgress(); });
+    progress->AppendSubProgress(AStarSubProgress((1.0 - kLeapsStageContribution) / candidates.size()));
+
+    ProcessLeapsJoints(e.m_path, delegate, starter, progress, cache, result);
+  }
+
+  if (result.Empty())
+    return RouterResultCode::RouteNotFound;
+
+  LeapsPostProcessor leapsPostProcessor(result.m_path, starter);
   subroute = leapsPostProcessor.GetProcessedPath();
 
   return RouterResultCode::NoError;
@@ -1237,20 +1289,11 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
                                                  RouterDelegate const & delegate,
                                                  IndexGraphStarter & starter,
                                                  shared_ptr<AStarProgress> const & progress,
-                                                 vector<Segment> & output)
+                                                 RoutesCacheT & cache,
+                                                 RoutingResultT & result)
 {
-  LOG(LDEBUG, ("Leaps path:", input));
+  CHECK_GREATER_OR_EQUAL(input.size(), 4, ());
 
-  SCOPE_GUARD(progressGuard, [&progress]() {
-    progress->PushAndDropLastSubProgress();
-  });
-
-  progress->AppendSubProgress(AStarSubProgress(1.0 - kLeapsStageContribution));
-
-  CHECK_GREATER_OR_EQUAL(input.size(), 4,
-                         ("Route in LeapsOnly mode must have at least start and finish leaps."));
-
-  LOG(LINFO, ("Start process leaps with Joints."));
   WorldGraph & worldGraph = starter.GetGraph();
 
   // For all leaps except the first leap which connects start to mwm exit in LeapsOnly mode we need
@@ -1295,16 +1338,51 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       arrBegEnd.emplace_back(startLeapEnd, finishLeapStart);
   }
 
-  RouteWeight finalWeight = GetAStarWeightMax<RouteWeight>();
   for (auto const & eBegEnd : arrBegEnd)
   {
     size_t const startLeapEnd = eBegEnd.first;
     size_t const finishLeapStart = eBegEnd.second;
+    size_t maxStart = 0;
 
-    auto fillMwmIds = [&](size_t start, size_t end, set<NumMwmId> & mwmIds)
+    auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraphMode mode)
     {
-      mwmIds.clear();
+      ASSERT_LESS(start, input.size(), ());
+      ASSERT_LESS(end, input.size(), ());
 
+      // Prepare sub-progress.
+      maxStart = max(maxStart, start);
+      auto const contribCoef = static_cast<double>(end - maxStart + 1) / input.size() / arrBegEnd.size();
+      auto const startPoint = starter.GetPoint(input[start], true /* front */);
+      auto const endPoint = starter.GetPoint(input[end], true /* front */);
+      progress->AppendSubProgress({startPoint, endPoint, contribCoef});
+
+      RoutingResultT * resPtr = nullptr;
+      SCOPE_GUARD(progressGuard, [&]()
+      {
+        if (resPtr)
+          progress->PushAndDropLastSubProgress();
+        else
+          progress->DropLastSubProgress();
+      });
+
+      // Check if segment was already calculated.
+      auto itCache = cache.insert({{input[start], input[end]}, {}});
+      resPtr = &itCache.first->second;
+      if (!itCache.second)
+      {
+        LOG(LDEBUG, ("Returned from cache:", input[start], input[end]));
+        return resPtr;
+      }
+      LOG(LDEBUG, ("Calculating sub-route:", input[start], input[end]));
+
+      // VNG: I don't like this strategy with clearing previous caches, taking into account
+      // that all MWMs were quite likely already loaded before in calculating Leaps path.
+      // Clear previous loaded graphs to not spend too much memory at one time.
+      //worldGraph.ClearCachedGraphs();
+      worldGraph.SetMode(mode);
+
+      // Fill needed MWMs.
+      set<NumMwmId> mwmIds;
       if (start == startLeapEnd)
         mwmIds = starter.GetStartMwms();
 
@@ -1316,75 +1394,47 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         if (input[i].GetMwmId() != kFakeNumMwmId)
           mwmIds.insert(input[i].GetMwmId());
       }
-    };
-
-    set<NumMwmId> mwmIds;
-    IndexGraphStarterJoints<IndexGraphStarter> jointStarter(starter);
-    size_t maxStart = 0;
-
-    auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraphMode mode,
-                                       RoutingResult<JointSegment, RouteWeight> & routingResult)
-    {
-      ASSERT_LESS(start, input.size(), ());
-      ASSERT_LESS(end, input.size(), ());
-
-      // VNG: I don't like this strategy with clearing previous caches, taking into account
-      // that all MWMs were quite likely already loaded before in calculating Leaps path.
-      // Clear previous loaded graphs to not spend too much memory at one time.
-      //worldGraph.ClearCachedGraphs();
-
-      // Clear previous info about route.
-      routingResult.Clear();
-      jointStarter.Reset();
-
-      worldGraph.SetMode(mode);
-      jointStarter.Init(input[start], input[end]);
-
-      fillMwmIds(start, end, mwmIds);
 
       using JointsStarter = IndexGraphStarterJoints<IndexGraphStarter>;
+      JointsStarter jointStarter(starter);
+      jointStarter.Init(input[start], input[end]);
 
       using Vertex = JointsStarter::Vertex;
       using Edge = JointsStarter::Edge;
       using Weight = JointsStarter::Weight;
 
-      maxStart = max(maxStart, start);
-      auto const contribCoef = static_cast<double>(end - maxStart + 1) / input.size() / arrBegEnd.size();
-      auto const startPoint = starter.GetPoint(input[start], true /* front */);
-      auto const endPoint = starter.GetPoint(input[end], true /* front */);
-      progress->AppendSubProgress({startPoint, endPoint, contribCoef});
-
-      RouterResultCode resultCode = RouterResultCode::NoError;
-      SCOPE_GUARD(progressGuard, [&]() {
-        if (resultCode == RouterResultCode::NoError)
-          progress->PushAndDropLastSubProgress();
-        else
-          progress->DropLastSubProgress();
-      });
-
       using Visitor = JunctionVisitor<JointsStarter>;
-      Visitor visitor(jointStarter, delegate, kVisitPeriod, progress);
-
       AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
           jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
-          delegate.GetCancellable(), move(visitor),
+          delegate.GetCancellable(), Visitor(jointStarter, delegate, kVisitPeriod, progress),
           AStarLengthChecker(starter));
 
-      resultCode = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult);
-      return resultCode;
+      RoutingResult<JointSegment, RouteWeight> route;
+      if (FindPath<Vertex, Edge, Weight>(params, mwmIds, route) == RouterResultCode::NoError)
+      {
+        resPtr->m_path = ProcessJoints(route.m_path, jointStarter);
+        resPtr->m_distance = route.m_distance;
+      }
+      else
+      {
+        cache.erase(itCache.first);
+        resPtr = nullptr;
+      }
+
+      return resPtr;
     };
 
-    deque<vector<Segment>> paths;
+    vector<vector<Segment>> paths;
     size_t prevStart = numeric_limits<size_t>::max();
-    auto const tryBuildRoute = [&](size_t start, size_t end, WorldGraphMode mode,
-                                   RoutingResult<JointSegment, RouteWeight> & routingResult)
+    auto const tryBuildRoute = [&](size_t start, size_t end, WorldGraphMode mode)
     {
-      RouterResultCode const result = runAStarAlgorithm(start, end, mode, routingResult);
-      if (result == RouterResultCode::NoError)
+      auto const * res = runAStarAlgorithm(start, end, mode);
+      if (res)
       {
-        vector<Segment> subroute = ProcessJoints(routingResult.m_path, jointStarter);
+        auto const & subroute = res->m_path;
         CHECK(!subroute.empty(), ());
 
+        /// @todo Strange logic IMHO, when we remove previous (useless?) calculated path.
         if (start == prevStart && !paths.empty())
           paths.pop_back();
 
@@ -1395,24 +1445,24 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
         dropFirstSegment = true;
         prevStart = start;
-        return true;
+      }
+      else
+      {
+        // This may happen when "Avoid roads option" is enabled.
+        // Cross-mwm LeapsGraph returns paths regardless of this option.
+        LOG(LINFO, ("Can not find path from:", starter.GetPoint(input[start], input[start].IsForward()),
+                                        "to:", starter.GetPoint(input[end], input[end].IsForward())));
       }
 
-      LOG(LINFO, ("Can not find path",
-        "from:", starter.GetPoint(input[start], input[start].IsForward()),
-        "to:", starter.GetPoint(input[end], input[end].IsForward())));
-
-      return false;
+      return res;
     };
 
     size_t lastPrev = 0;
-    size_t prev = 0;
-    size_t next = 0;
-    RoutingResult<JointSegment, RouteWeight> routingResult;
     RouteWeight currentWeight = GetAStarWeightZero<RouteWeight>();
 
     for (size_t i = startLeapEnd; i <= finishLeapStart; ++i)
     {
+      size_t prev, next;
       if (i == startLeapEnd)
       {
         prev = 0;
@@ -1429,7 +1479,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         next = i + 1;
       }
 
-      if (!tryBuildRoute(prev, next, WorldGraphMode::JointSingleMwm, routingResult))
+      RoutingResultT const * res = nullptr;
+      if (res = tryBuildRoute(prev, next, WorldGraphMode::JointSingleMwm); !res)
       {
         auto const prevPoint = starter.GetPoint(input[next], true);
         // |next + 1| - is the twin of |next|
@@ -1452,7 +1503,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         else
           next += 2;
 
-        if (!tryBuildRoute(prev, next, WorldGraphMode::Joints, routingResult))
+        if (res = tryBuildRoute(prev, next, WorldGraphMode::Joints); !res)
         {
           // Already in start
           if (prev == 0)
@@ -1462,7 +1513,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
           if (prev == 0)
             dropFirstSegment = false;
 
-          if (!tryBuildRoute(prev, next, WorldGraphMode::Joints, routingResult))
+          if (res = tryBuildRoute(prev, next, WorldGraphMode::Joints); !res)
             return RouterResultCode::RouteNotFound;
         }
       }
@@ -1470,18 +1521,22 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       lastPrev = prev;
       i = next;
 
-      currentWeight += routingResult.m_distance;
+      currentWeight += res->m_distance;
     }
 
-    if (currentWeight < finalWeight)
+    // Update final result if new route is better.
+    if (result.Empty() || currentWeight < result.m_distance)
     {
-      output.clear();
-      while (!paths.empty())
+      if (!result.m_path.empty())
       {
-        output.insert(output.end(), paths.front().begin(), paths.front().end());
-        paths.pop_front();
+        LOG(LDEBUG, ("Found better route, old weight =", result.m_distance, "new weight =", currentWeight));
+        result.m_path.clear();
       }
-      finalWeight = currentWeight;
+
+      for (auto const & e : paths)
+        result.m_path.insert(result.m_path.end(), e.begin(), e.end());
+
+      result.m_distance = currentWeight;
     }
   }
 
