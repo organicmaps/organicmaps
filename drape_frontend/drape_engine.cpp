@@ -51,9 +51,8 @@ DrapeEngine::DrapeEngine(Params && params)
       mode = Follow;
   }
 
-  double timeInBackground = 0.0;
-  if (settings::Get(kLastEnterBackground, timeInBackground))
-    timeInBackground = base::Timer::LocalTime() - timeInBackground;
+  if (!settings::Get(kLastEnterBackground, m_startBackgroundTime))
+    m_startBackgroundTime = base::Timer::LocalTime();
 
   std::vector<PostprocessRenderer::Effect> effects;
 
@@ -69,7 +68,7 @@ DrapeEngine::DrapeEngine(Params && params)
   //}
 
   MyPositionController::Params mpParams(mode,
-                                        timeInBackground,
+                                        base::Timer::LocalTime() - m_startBackgroundTime,
                                         params.m_hints,
                                         params.m_isRoutingActive,
                                         params.m_isAutozoomEnabled,
