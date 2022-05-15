@@ -22300,7 +22300,7 @@
     es = Descarga mapa mundial
     eu = Deskargatu munduko mapa
     fi = Lataa maailmankartta
-    fr = Télécharcher la carte du monde
+    fr = Télécharger la carte du monde
     it = Scarica la mappa del mondo
     pl = Pobierz mapę świata
     pt = Descarregar o mapa mundial
