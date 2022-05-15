@@ -22,18 +22,18 @@ public:
   {
   }
 
-  void push(T const & t)
+  void push(T t)
   {
     if (m_queue.size() < m_maxSize)
     {
-      m_queue.push_back(t);
+      m_queue.push_back(std::move(t));
       push_heap(m_queue.begin(), m_queue.end(), m_compare);
     }
     else if (m_compare(t, top()))
     {
       // This can be optimized by writing decrease_head_heap().
       pop_heap(m_queue.begin(), m_queue.end(), m_compare);
-      m_queue.back() = t;
+      m_queue.back() = std::move(t);
       push_heap(m_queue.begin(), m_queue.end(), m_compare);
     }
   }
@@ -76,6 +76,8 @@ public:
   }
 
   void reserve(size_t n) { m_queue.reserve(n); }
+
+  std::vector<T> move() { return std::move(m_queue); }
 
 private:
   std::vector<T> m_queue;
