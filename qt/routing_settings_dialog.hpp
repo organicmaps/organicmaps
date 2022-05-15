@@ -20,6 +20,7 @@ public:
   static void LoadSession(Framework & framework);
 
   static bool TurnsEnabled();
+  static bool UseDebugGuideTrack();
   static std::optional<ms::LatLon> GetCoords(bool start);
 
   RoutingSettings(QWidget * parent, Framework & framework);
@@ -40,6 +41,7 @@ private:
 
   QComboBox * m_routerType;
   QCheckBox * m_showTurnsCheckbox;
+  QCheckBox * m_useDebugGuideCheckbox;
   QCheckBox * m_saveSessionCheckbox;
 };
 }  // namespace qt
