@@ -40,7 +40,7 @@ UNIT_TEST(Zgrad924aToFilaretovskyChurch)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.9844, 37.1808), {0., 0.},
-      mercator::FromLatLon(55.9915, 37.1808), 1109.0);
+      mercator::FromLatLon(55.9915, 37.1808), 1225.82);
 }
 
 UNIT_TEST(Zgrad924aTo1145)
@@ -135,7 +135,7 @@ UNIT_TEST(SwedenStockholmSlussenHiltonToMaritimeMuseum)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(59.32046, 18.06924), {0.0, 0.0},
-      mercator::FromLatLon(59.32751, 18.09092), 3442.0);
+      mercator::FromLatLon(59.32751, 18.09092), 3700.35);
 }
 
 UNIT_TEST(SwedenStockholmSlussenHiltonToAfChapmanHostel)
@@ -295,7 +295,7 @@ UNIT_TEST(RussiaSaintPetersburgMoyka93ToAlexanderColumn)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(59.9241, 30.323), {0., 0.},
-      mercator::FromLatLon(59.939, 30.3159), 2247.0);
+      mercator::FromLatLon(59.939, 30.3159), 2424.6);
 }
 
 UNIT_TEST(RussiaSaintPetersburgMoyka93ToMarsovoPole)
