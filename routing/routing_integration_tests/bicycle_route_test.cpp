@@ -162,7 +162,7 @@ UNIT_TEST(SpainTenerifeVilaflorAdeje)
 }
 
 // Two tests on not building route against traffic on road with oneway:bicycle=yes.
-UNIT_TEST(MunichRoadWithOnewayBicycleYes1)
+UNIT_TEST(Munich_OnewayBicycle1)
 {
   /// @todo Should combine TurnSlightLeft, TurnLeft, TurnLeft into UTurnLeft?
   integration::CalculateRouteAndTestRouteLength(
@@ -171,10 +171,19 @@ UNIT_TEST(MunichRoadWithOnewayBicycleYes1)
       mercator::FromLatLon(48.1606349, 11.5631699), 279.515 /* expectedRouteMeters */);
 }
 
-UNIT_TEST(MunichRoadWithOnewayBicycleYes2)
+UNIT_TEST(Munich_OnewayBicycle2)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(48.17819, 11.57286), {0.0, 0.0},
       mercator::FromLatLon(48.17867, 11.57303), 201.532 /* expectedRouteMeters */);
+}
+
+// https://github.com/organicmaps/organicmaps/issues/1603
+UNIT_TEST(London_GreenwichTunnel)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(51.4817397, -0.0100070258), {0.0, 0.0},
+      mercator::FromLatLon(51.4883739, -0.00809729298), 1222.44 /* expectedRouteMeters */);
 }
