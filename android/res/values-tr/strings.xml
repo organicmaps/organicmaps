@@ -44,9 +44,9 @@
 	<string name="unsupported_phone">Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.</string>
 	<string name="download">İndir</string>
 	<!-- Used in DownloadResources startup screen -->
-	<string name="disconnect_usb_cable">Organic Maps’i kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
+	<string name="disconnect_usb_cable">Organic Maps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
 	<!-- Used in DownloadResources startup screen -->
-	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
+	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
 	<string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\n%s alan gerekli.</string>
 	<string name="download_resources_continue">Haritaya Git</string>
 	<string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya\ngidebilirsiniz.</string>
@@ -680,6 +680,10 @@
 	<string name="isolines_toast_zooms_1_10">İzohipsleri görmek için haritayı büyütün</string>
 	<string name="download_map_title">Dünya haritasını indir</string>
 	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">Disk hatası</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Bağlantı hatası</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">USB kablosunu çıkarın</string>
@@ -784,7 +788,7 @@
 	<string name="type.amenity.post_box">Posta Kutusu</string>
 	<string name="type.amenity.post_office">Postane</string>
 	<string name="type.amenity.prison">Hapishane</string>
-	<string name="type.amenity.pub">Bar</string>
+	<string name="type.amenity.pub">Meyhane</string>
 	<string name="type.amenity.public_bookcase">Kitap Değişimi</string>
 
 	<!-- SECTION: Types: Recycling -->
@@ -821,11 +825,11 @@
 	<string name="type.amenity.vending_machine.parking_tickets">Otopark Fişi</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Toplu Taşıma Biletleri için Otomatlar</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Dışkı Torbası Dağıtıcı</string>
-	<string name="type.amenity.parcel_locker">Posta Kutusu</string>
+	<string name="type.amenity.parcel_locker">Kilitlenebilen Kutu Dolaplar</string>
 	<string name="type.amenity.vending_machine.fuel">Yakıt Dağıtıcı</string>
 	<string name="type.amenity.veterinary">Veteriner</string>
 	<string name="type.amenity.waste_basket">Çöp Kutusu</string>
-	<string name="type.amenity.waste_disposal">Çöp Kutusu</string>
+	<string name="type.amenity.waste_disposal">Çöp Konteyneri</string>
 	<string name="type.amenity.waste_transfer_station">Atık Transfer İstasyonu</string>
 	<string name="type.amenity.water_point">Karavanlar için Su Noktası</string>
 	<string name="type.barrier">Bariyer</string>
@@ -1157,7 +1161,7 @@
 	<string name="type.historic.castle.stately">Kale</string>
 	<string name="type.historic.citywalls">Şehir Duvarı</string>
 	<string name="type.historic.fort">Hisar</string>
-	<string name="type.historic.memorial">Anıt</string>
+	<string name="type.historic.memorial">Abide</string>
 	<string name="type.historic.memorial.plaque">Hatıra Plaketi</string>
 	<string name="type.historic.memorial.sculpture">Heykel</string>
 	<string name="type.historic.memorial.statue">Heykel</string>
@@ -1256,7 +1260,7 @@
 	<string name="type.man_made.surveillance">Güvenlik Kamerası</string>
 	<string name="type.man_made.tower">Kule</string>
 	<string name="type.man_made.wastewater_plant">Atıksu Tesisi</string>
-	<string name="type.man_made.water_tap">Çeşme Suyu</string>
+	<string name="type.man_made.water_tap">Su Musluğu</string>
 	<string name="type.man_made.water_tower">Su Kulesi</string>
 	<string name="type.man_made.water_well">Su Kuyusu</string>
 	<string name="type.man_made.windmill">Yel Değirmeni</string>
@@ -1303,13 +1307,13 @@
 	<string name="type.natural.wetland.marsh">Sulak Alan</string>
 	<string name="type.noexit">Çıkmaz</string>
 	<string name="type.office">Ofis</string>
-	<string name="type.office.company">Şirket bürosu</string>
+	<string name="type.office.company">Şirket Bürosu</string>
 	<string name="type.office.estate_agent">Emlakçı</string>
-	<string name="type.office.government">Devlet dairesi</string>
-	<string name="type.office.insurance">Sigorta Acentası</string>
-	<string name="type.office.lawyer">Avukatlık bürosu</string>
+	<string name="type.office.government">Devlet Dairesi</string>
+	<string name="type.office.insurance">Sigorta Acentesi</string>
+	<string name="type.office.lawyer">Avukatlık Bürosu</string>
 	<string name="type.office.ngo">STK Binası</string>
-	<string name="type.office.telecommunication">Cep telefonu operatörü</string>
+	<string name="type.office.telecommunication">Cep Telefonu Operatörü</string>
 	<string name="type.place">Yer</string>
 	<string name="type.place.city">Şehir</string>
 	<string name="type.place.city.capital">Başkent</string>
@@ -1433,7 +1437,7 @@
 	<string name="type.shop.alcohol">İçki dükkanı</string>
 	<string name="type.shop.bakery">Fırın</string>
 	<string name="type.shop.beauty">Güzellik Salonu</string>
-	<string name="type.shop.beverages">İçecek</string>
+	<string name="type.shop.beverages">İçecekler</string>
 	<string name="type.shop.bicycle">Bisikletçi</string>
 	<string name="type.shop.bookmaker">Bahisçi</string>
 	<string name="type.shop.books">Kitapçı</string>
@@ -1521,7 +1525,7 @@
 	<string name="type.sport.tennis">Tenis Kortu</string>
 	<string name="type.tourism">Turizm</string>
 	<string name="type.tourism.alpine_hut">Dağda Konaklama</string>
-	<string name="type.tourism.apartment">Apart otel</string>
+	<string name="type.tourism.apartment">Apart Otel</string>
 	<string name="type.tourism.artwork">Sanat</string>
 	<string name="type.tourism.artwork.architecture">Sanatsal Mimari</string>
 	<string name="type.tourism.artwork.painting">Sanat Eserleri</string>
