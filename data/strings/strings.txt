@@ -22447,7 +22447,7 @@
     it = Mostra sulla schermata di blocco
     nl = Toon op vergrendelscherm
     pl = Pokazuj na ekranie blokady
-    pt-BR = Mostrar quando a tela de bloqueio está ativada
+    pt-BR = Mostrar na tela de bloqueio ativada
     ro = Arată pe ecranul de blocare
     ru = Показывать на экране блокировки
     tr = Kilit ekranında göster
