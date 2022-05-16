@@ -30,10 +30,10 @@ void CarDirectionsEngine::FixupTurns(std::vector<geometry::PointWithAltitude> co
 
 void FixupCarTurns(std::vector<geometry::PointWithAltitude> const & junctions, Route::TTurns & turnsDir)
 {
-  uint32_t turn_index = static_cast<uint32_t>(junctions.size() - 1);
+  uint32_t turn_index = base::asserted_cast<uint32_t>(junctions.size() - 1);
   turnsDir.emplace_back(TurnItem(turn_index, CarDirection::ReachedYourDestination));
 
-  double const kMergeDistMeters = 15.0;
+  double constexpr kMergeDistMeters = 15.0;
   // For turns that are not EnterRoundAbout/ExitRoundAbout exitNum is always equal to zero.
   // If a turn is EnterRoundAbout exitNum is a number of turns between two junctions:
   // (1) the route enters to the roundabout;
@@ -171,11 +171,11 @@ bool KeepRoundaboutTurnByHighwayClass(TurnCandidates const & possibleTurns,
                                       TurnInfo const & turnInfo, NumMwmIds const & numMwmIds)
 {
   Segment firstOutgoingSegment;
-  bool const validFirstOutgoingSeg = turnInfo.m_outgoing->m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSegment);
+  turnInfo.m_outgoing->m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSegment);
 
   for (auto const & t : possibleTurns.candidates)
   {
-    if (!validFirstOutgoingSeg || t.m_segment == firstOutgoingSegment)
+    if (t.m_segment == firstOutgoingSegment)
       continue;
     if (t.m_highwayClass != HighwayClass::Service)
       return true;
@@ -268,11 +268,8 @@ bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
   HighwayClass outgoingRouteRoadClass = turnInfo.m_outgoing->m_highwayClass;
   HighwayClass ingoingRouteRoadClass = turnInfo.m_ingoing->m_highwayClass;
 
-  // The turn should be kept if there's no any information about feature id of outgoing segment
-  // just to be on the safe side. It may happen in case of outgoing segment is a finish segment.
   Segment firstOutgoingSegment;
-  if (!turnInfo.m_outgoing->m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSegment))
-    return false;
+  turnInfo.m_outgoing->m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSegment);
 
   for (auto const & t : turnCandidates)
   {
@@ -280,8 +277,12 @@ bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
     if (t.m_segment == firstOutgoingSegment)
       continue;
 
+    // Min difference of route and alternative turn abs angles in degrees
+    // to ignore this alternative candidate (when route goes from non-link to link).
+    double constexpr kMinAbsAngleDiffForGoLink = 70.0;
+
     // If route goes from non-link to link and there is not too sharp candidate then turn can't be discarded.
-    if (!turnInfo.m_ingoing->m_isLink && turnInfo.m_outgoing->m_isLink && abs(t.m_angle) < abs(routeAngle) + 70)
+    if (!turnInfo.m_ingoing->m_isLink && turnInfo.m_outgoing->m_isLink && abs(t.m_angle) < abs(routeAngle) + kMinAbsAngleDiffForGoLink)
       return false;
 
     HighwayClass candidateRoadClass = t.m_highwayClass;

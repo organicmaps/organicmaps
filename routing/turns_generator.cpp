@@ -277,13 +277,18 @@ void CorrectCandidatesSegmentByOutgoing(TurnInfo const & turnInfo, Segment const
   auto it = find_if(candidates.begin(), candidates.end(), IsFirstOutgoingSeg);
   if (it == candidates.end())
   {
-    auto DoesAngleMatch = [&turnAngle](TurnCandidate const & turnCandidate)
-    { return base::AlmostEqualAbs(turnCandidate.m_angle, turnAngle, 0.001) || abs(turnCandidate.m_angle) + abs(turnAngle) > 359.999; };
+    // firstOutgoingSeg not found. Try to match by angle.
+    auto DoesAngleMatch = [&turnAngle](TurnCandidate const & candidate)
+    {
+      return base::AlmostEqualAbs(candidate.m_angle, turnAngle, 0.001) || abs(candidate.m_angle) + abs(turnAngle) > 359.999;
+    };
     auto it = find_if(candidates.begin(), candidates.end(), DoesAngleMatch);
     if (it != candidates.end())
     {
+      // Match by angle. Update candidate's segment.
       ASSERT(it->m_segment.GetMwmId() != firstOutgoingSeg.GetMwmId(), ());
-      ASSERT(it->m_segment.GetSegmentIdx() == firstOutgoingSeg.GetSegmentIdx() && it->m_segment.IsForward() == firstOutgoingSeg.IsForward(), ());
+      ASSERT(it->m_segment.GetSegmentIdx() == firstOutgoingSeg.GetSegmentIdx(), ());
+      ASSERT(it->m_segment.IsForward() == firstOutgoingSeg.IsForward(), ());
       it->m_segment = firstOutgoingSeg;
     }
     else if (nodes.isCandidatesAngleValid)
@@ -294,8 +299,10 @@ void CorrectCandidatesSegmentByOutgoing(TurnInfo const & turnInfo, Segment const
       if (candidates.size() == 1)
       {
         ASSERT(candidates.front().m_segment.GetMwmId() != firstOutgoingSeg.GetMwmId(), ());
-        ASSERT(candidates.front().m_segment.GetSegmentIdx() == firstOutgoingSeg.GetSegmentIdx() && candidates.front().m_segment.IsForward() == firstOutgoingSeg.IsForward(), ());
+        ASSERT(candidates.front().m_segment.GetSegmentIdx() == firstOutgoingSeg.GetSegmentIdx(), ());
+        ASSERT(candidates.front().m_segment.IsForward() == firstOutgoingSeg.IsForward(), ());
         candidates.front().m_segment = firstOutgoingSeg;
+        candidates.front().m_angle = turnAngle;
         nodes.isCandidatesAngleValid = true;
         LOG(LWARNING, ("but since candidates.size() == 1, this was fixed."));
       }
@@ -303,7 +310,7 @@ void CorrectCandidatesSegmentByOutgoing(TurnInfo const & turnInfo, Segment const
         LOG(LWARNING, ("and since candidates.size() > 1, this can't be fixed."));
     }
   }
-  else
+  else // firstOutgoingSeg is found.
   {
     if (nodes.isCandidatesAngleValid)
       ASSERT((base::AlmostEqualAbs(it->m_angle, turnAngle, 0.001) || abs(it->m_angle) + abs(turnAngle) > 359.999), ());

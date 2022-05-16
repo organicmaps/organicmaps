@@ -353,9 +353,7 @@ RouterResultCode DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector
     // Turns information.
     if (!junctions.empty() && skipTurnSegments == 0)
     {
-      auto const outgoingSegmentDist = distance(loadedSegments.begin(), loadedSegmentIt);
-      CHECK_GREATER(outgoingSegmentDist, 0, ());
-      auto const outgoingSegmentIndex = static_cast<size_t>(outgoingSegmentDist);
+      size_t const outgoingSegmentIndex = base::asserted_cast<size_t>(distance(loadedSegments.begin(), loadedSegmentIt));
 
       TurnItem turnItem;
       turnItem.m_index = static_cast<uint32_t>(junctions.size() - 1);

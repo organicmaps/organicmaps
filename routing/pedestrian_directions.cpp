@@ -79,7 +79,7 @@ size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & resul
 void PedestrianDirectionsEngine::FixupTurns(std::vector<geometry::PointWithAltitude> const & junctions,
                                             Route::TTurns & turnsDir)
 {
-  uint32_t turn_index = static_cast<uint32_t>(junctions.size() - 1);
+  uint32_t turn_index = base::asserted_cast<uint32_t>(junctions.size() - 1);
   turnsDir.emplace_back(TurnItem(turn_index, PedestrianDirection::ReachedYourDestination));
 
   double const kMergeDistMeters = 15.0;
