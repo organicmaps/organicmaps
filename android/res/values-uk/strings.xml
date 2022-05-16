@@ -17,8 +17,6 @@
 	<string name="downloading">Завантажується…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Кілометри</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Мапи</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">МБ</string>
 	<string name="gb">ГБ</string>
@@ -81,6 +79,16 @@
 	<string name="maps_storage">Зберігати мапи до</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Виберіть місце, куди повинні бути завантажені мапи</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Завантаженнi мапи</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Внутрішнє зховане сховище</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Внутрішнє спільне сховище</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">SD-карта</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">Зовнiшне спільне сховище</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Перемістити мапи?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -231,11 +239,12 @@
 	<string name="downloader_update_all_button">Оновити всі</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Скасувати всі</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Завантажено</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">В черзі</string>
 	<string name="downloader_near_me_subtitle">Поблизу</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Мапи</string>
 	<string name="downloader_download_all_button">Завантажити всі</string>
 	<string name="downloader_downloading">Завантажується:</string>

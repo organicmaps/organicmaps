@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Напісаць водгук";
 
-/* View and button titles for accessibility */
-"maps" = "Мапы";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Мілі";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Абнавіць усё";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Спампаваныя";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Каля мяне";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Мапы";
 
 "downloader_download_all_button" = "Спампаваць усё";

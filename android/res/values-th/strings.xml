@@ -17,8 +17,6 @@
 	<string name="downloading">กำลังดาวน์โหลด…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">กิโลเมตร</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">แผนที่</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -80,6 +78,8 @@
 	<string name="maps_storage">บันทึกแผนที่ไปยัง</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">เลือกสถานที่ที่ต้องการดาวน์โหลดใช้แผนที่</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">แผนที่</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">ลบแผนที่?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -228,11 +228,12 @@
 	<string name="downloader_update_all_button">อัปเดตทั้งหมด</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">ยกเลิกทั้งหมด</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">ดาวน์โหลดแล้ว</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">ต่อแถว</string>
 	<string name="downloader_near_me_subtitle">ใกล้ฉัน</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">แผนที่</string>
 	<string name="downloader_download_all_button">ดาวน์โหลดทั้งหมด</string>
 	<string name="downloader_downloading">กำลังดาวน์โหลด:</string>

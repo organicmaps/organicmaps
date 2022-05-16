@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Αφήστε μια κριτική";
 
-/* View and button titles for accessibility */
-"maps" = "Χάρτες";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Μίλια";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Ενημέρωση όλων";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Έγινε λήψη";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Κοντά μου";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Χάρτες";
 
 "downloader_download_all_button" = "Λήψη όλων";

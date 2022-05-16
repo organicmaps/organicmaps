@@ -17,8 +17,6 @@
 	<string name="downloading">درحال دانلود</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">کیلومتر</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">نقشه ها</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">مگابایت</string>
 	<string name="gb">گیگابایت</string>
@@ -77,6 +75,8 @@
 	<string name="maps_storage">ذخیره نقشه ها در</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">مسیری را که نقشه ها باید در ان دانلود شود را انتخاب کنید</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">نقشه ها</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">ایا نقشه ها جابه جا شود؟</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -219,11 +219,12 @@
 	<string name="downloader_update_all_button">اپدیت همه</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">لغو همه</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">دانلود شده</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">صف</string>
 	<string name="downloader_near_me_subtitle">نزدیک من</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">نقشه ها</string>
 	<string name="downloader_download_all_button">دانلود همه</string>
 	<string name="downloader_downloading">درحال دانلود:</string>

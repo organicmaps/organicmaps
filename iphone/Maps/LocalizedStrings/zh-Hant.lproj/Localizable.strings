@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "撰寫評論";
 
-/* View and button titles for accessibility */
-"maps" = "地圖";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "英哩";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "已下載";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "在我附近";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "地圖";
 
 "downloader_download_all_button" = "下載全部";

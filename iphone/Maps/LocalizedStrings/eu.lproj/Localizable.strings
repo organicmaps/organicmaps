@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Idatzi iritzia";
 
-/* View and button titles for accessibility */
-"maps" = "Mapak";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Milia";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Eguneratu guztiak";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Alta";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Nigandik gertu";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Mapak";
 
 "downloader_download_all_button" = "Deskargatu guztiak";

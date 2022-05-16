@@ -17,8 +17,6 @@
 	<string name="downloading">下载…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">千米</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">地图</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">英里</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -78,6 +76,8 @@
 	<string name="maps_storage">将地图保存到</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">选取地图应该下载的位置</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">地图</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">移动地图？</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -234,11 +234,12 @@
 	<string name="downloader_update_all_button">更新全部</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">全部取消</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">已下载</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">已排队</string>
 	<string name="downloader_near_me_subtitle">在我附近</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">地图</string>
 	<string name="downloader_download_all_button">下载全部</string>
 	<string name="downloader_downloading">正在下载：</string>
