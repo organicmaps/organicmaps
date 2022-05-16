@@ -17,8 +17,6 @@
 	<string name="downloading">Se descarcă…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometri</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Hărţi</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mile</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -78,6 +76,8 @@
 	<string name="maps_storage">Salvează hărțile în</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Alege locul în care vrei să fie descărcate hărțile</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Hărţi</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Muți hărțile?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -233,11 +233,12 @@
 	<string name="downloader_update_all_button">Actualizează tot</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Anulează tot</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Descărcate</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">În așteptare</string>
 	<string name="downloader_near_me_subtitle">Lângă mine</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Hărți</string>
 	<string name="downloader_download_all_button">Descarcă tot</string>
 	<string name="downloader_downloading">Se descarcă:</string>

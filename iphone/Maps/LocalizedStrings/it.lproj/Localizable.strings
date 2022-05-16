@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Lascia una recensione";
 
-/* View and button titles for accessibility */
-"maps" = "Mappe";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Miglia";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Aggiorna tutte";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Scaricate";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Vicino a me";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Mappe";
 
 "downloader_download_all_button" = "Scarica tutte";

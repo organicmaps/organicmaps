@@ -17,8 +17,6 @@
 	<string name="downloading">Downloaden…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometers</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Kaarten</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mijlen</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -75,6 +73,8 @@
 	<string name="maps_storage">Kaarten opslaan in</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Selecteer de plaats waar kaarten naar gedownload zouden moeten worden</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Kaarten</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Kaarten verplaatsen?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -228,11 +228,12 @@
 	<string name="downloader_update_all_button">Update alles</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Alles annuleren</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Gedownload</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">In de wachtrij</string>
 	<string name="downloader_near_me_subtitle">Bij mij in de buurt</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Kaarten</string>
 	<string name="downloader_download_all_button">Alles downloaden</string>
 	<string name="downloader_downloading">Aan het downloaden:</string>
@@ -518,11 +519,13 @@
 	<string name="setting_emulate_bad_storage">Slechte opslag emuleren</string>
 	<string name="core_entrance">Ingang</string>
 	<string name="error_enter_correct_name">Voer een juiste naam in</string>
-	<string name="bookmark_lists">lijsten</string>
+	<string name="bookmark_lists">Lijsten</string>
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Alles verbergen</string>
 	<string name="bookmark_lists_show_all">Alles weergeven</string>
 	<string name="bookmarks_create_new_group">Nieuwe lijst maken</string>
+	<!-- Bookmark categories screen -->
+	<string name="bookmarks_import">Bladwijzers importeren</string>
 	<string name="bookmarks_error_message_share_general">Delen is onmogelijk wegens een toepassingsfout</string>
 	<string name="bookmarks_error_title_share_empty">Deelfout</string>
 	<string name="bookmarks_error_message_share_empty">Een lege lijst kan niet gedeeld worden</string>
@@ -556,7 +559,7 @@
 	<string name="terms_of_use">Gebruiksvoorwaarden</string>
 	<string name="button_layer_traffic">Verkeer</string>
 	<string name="button_layer_subway">Metro</string>
-	<string name="layers_title">Map layers</string>
+	<string name="layers_title">Kaartweergave</string>
 	<string name="subway_data_unavailable">Metrokaart is niet beschikbaar</string>
 	<string name="bookmarks_empty_list_title">Deze lijst is leeg</string>
 	<string name="bookmarks_empty_list_message">Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram</string>
@@ -582,12 +585,12 @@
 	<string name="power_managment_setting_manual_max">Maximale energiebesparing</string>
 	<string name="enable_logging_warning_message">Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.</string>
 	<string name="access_rules_author_only">Wordt online bewerkt</string>
-	<string name="driving_options_title">Omweginstellingen</string>
+	<string name="driving_options_title">Route instellingen</string>
 	<string name="driving_options_subheader">Vermijden op elke route</string>
 	<string name="avoid_tolls">Tolwegen</string>
-	<string name="avoid_unpaved">Aardewegen</string>
-	<string name="avoid_ferry">Ferries</string>
-	<string name="avoid_motorways">Hoofdverkeerswegen</string>
+	<string name="avoid_unpaved">Onverharde wegen</string>
+	<string name="avoid_ferry">Veerdiensten</string>
+	<string name="avoid_motorways">Autosnelwegen</string>
 	<string name="unable_to_calc_alert_title">Kan route niet opbouwen</string>
 	<string name="unable_to_calc_alert_subtitle">Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw</string>
 	<string name="define_to_avoid_btn">Omwegen configureren</string>
@@ -661,6 +664,10 @@
 	<string name="enable_screen_sleep">Laat het scherm slapen</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Indien ingeschakeld, mag het scherm slapen na een periode van inactiviteit.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Toon op vergrendelscherm</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Indien ingeschakeld, hoeft het scherm niet te worden ontgrendeld wanneer de app actief is.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

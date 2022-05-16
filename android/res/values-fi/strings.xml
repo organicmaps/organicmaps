@@ -17,8 +17,6 @@
 	<string name="downloading">Ladataan…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometrit</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Kartat</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">Mt</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -80,6 +78,8 @@
 	<string name="maps_storage">Tallenna kartat kohteeseen</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Valitse karttojen latauskohde</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Kartat</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Siirrä karttoja?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -232,11 +232,12 @@
 	<string name="downloader_update_all_button">Päivitä kaikki</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Peruuta kaikki</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Ladatut</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Jonossa</string>
 	<string name="downloader_near_me_subtitle">Lähelläni</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Kartat</string>
 	<string name="downloader_download_all_button">Lataa kaikki</string>
 	<string name="downloader_downloading">Ladataan:</string>

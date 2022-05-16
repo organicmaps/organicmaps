@@ -17,8 +17,6 @@
 	<string name="downloading">Téléchargement…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">kilomètres</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Cartes</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">Mo</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -80,6 +78,8 @@
 	<string name="maps_storage">Enregistrer les cartes dans</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Sélectionner l\'emplacement où les cartes devraient être téléchargées</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Cartes</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Déplacer les cartes ?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -233,11 +233,12 @@
 	<string name="downloader_update_all_button">Tout mettre à jour</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Tout annuler</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Téléchargé</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">En file d\'attente</string>
 	<string name="downloader_near_me_subtitle">Près de moi</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Cartes</string>
 	<string name="downloader_download_all_button">Télécharger tout</string>
 	<string name="downloader_downloading">Téléchargement en cours :</string>

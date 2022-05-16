@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Để lại Đánh giá";
 
-/* View and button titles for accessibility */
-"maps" = "Bản đồ";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Dặm";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Cập nhật tất cả";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Đã tải xuống";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Gần tôi";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Bản đồ";
 
 "downloader_download_all_button" = "Tải xuống tất cả";
