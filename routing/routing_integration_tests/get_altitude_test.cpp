@@ -40,11 +40,12 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId,
   TEST_NOT_EQUAL(country, LocalCountryFile(), ());
   TEST(country.HasFiles(), (country));
 
-  pair<MwmSet::MwmId, MwmSet::RegResult> const regResult = dataSource.RegisterMap(country);
-  TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
-  TEST(regResult.first.IsAlive(), ());
+  pair<MwmSet::MwmId, MwmSet::RegResult> const res = dataSource.RegisterMap(country);
+  TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
+  auto const handle = dataSource.GetMwmHandleById(res.first);
+  TEST(handle.IsAlive(), ());
 
-  auto altitudeLoader = make_unique<AltitudeLoaderCached>(dataSource, regResult.first /* mwmId */);
+  auto altitudeLoader = make_unique<AltitudeLoaderCached>(*handle.GetValue());
 
   ForEachFeature(country.GetPath(MapFileType::Map), [&](FeatureType & f, uint32_t const & id)
   {

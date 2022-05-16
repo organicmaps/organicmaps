@@ -160,10 +160,7 @@ void TestSerialization(CrossMwmConnectorBuilderEx<CrossMwmId> & builder)
 
   CrossMwmBuilderTestFixture<CrossMwmId> test;
 
-  {
-    ReaderSource<MemReader> source(reader);
-    test.builder.DeserializeTransitions(VehicleType::Car, source);
-  }
+  test.builder.DeserializeTransitions(VehicleType::Car, reader);
 
   TestConnectorConsistency(test.connector);
 
@@ -187,10 +184,7 @@ void TestSerialization(CrossMwmConnectorBuilderEx<CrossMwmId> & builder)
   TEST(!test.connector.WeightsWereLoaded(), ());
   TEST(!test.connector.HasWeights(), ());
 
-  {
-    ReaderSource<MemReader> source(reader);
-    test.builder.DeserializeWeights(source);
-  }
+  test.builder.DeserializeWeights(reader);
 
   TEST(test.connector.WeightsWereLoaded(), ());
   TEST(test.connector.HasWeights(), ());
@@ -253,10 +247,7 @@ void TestWeightsSerialization()
   NumMwmId const mwmId = kGeneratorMwmId;
   CrossMwmBuilderTestFixture<CrossMwmId> test(mwmId);
 
-  {
-    ReaderSource<MemReader> source(reader);
-    test.builder.DeserializeTransitions(VehicleType::Car, source);
-  }
+  test.builder.DeserializeTransitions(VehicleType::Car, reader);
 
   TestConnectorConsistency(test.connector);
 
@@ -266,10 +257,7 @@ void TestWeightsSerialization()
   TEST(!test.connector.WeightsWereLoaded(), ());
   TEST(!test.connector.HasWeights(), ());
 
-  {
-    ReaderSource<MemReader> source(reader);
-    test.builder.DeserializeWeights(source);
-  }
+  test.builder.DeserializeWeights(reader);
 
   TEST(test.connector.WeightsWereLoaded(), ());
   TEST(test.connector.HasWeights(), ());

@@ -57,6 +57,8 @@
 #include <map>
 #include <optional>
 
+namespace routing
+{
 using namespace routing;
 using namespace std;
 
@@ -116,7 +118,7 @@ shared_ptr<VehicleModelFactoryInterface> CreateVehicleModelFactory(
 
 unique_ptr<DirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
                                                     shared_ptr<NumMwmIds> numMwmIds,
-                                                    DataSource & dataSource)
+                                                    MwmDataSource & dataSource)
 {
   switch (vehicleType)
   {
@@ -196,8 +198,7 @@ bool IsDeadEndCached(Segment const & segment, bool isOutgoing, bool useRoutingOp
 }
 }  // namespace
 
-namespace routing
-{
+
 // IndexRouter::BestEdgeComparator ----------------------------------------------------------------
 IndexRouter::BestEdgeComparator::BestEdgeComparator(m2::PointD const & point, m2::PointD const & direction)
   : m_point(point), m_direction(direction)
@@ -251,7 +252,7 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
   , m_name("astar-bidirectional-" + ToString(m_vehicleType))
-  , m_dataSource(dataSource)
+  , m_dataSource(dataSource, numMwmIds)
   , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType, countryParentNameGetterFn))
   , m_countryFileFn(countryFileFn)
   , m_countryRectFn(countryRectFn)
@@ -366,8 +367,8 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
         if (code != RouterResultCode::RouteNotFound)
           return code;
 
-        LOG(LWARNING, ("Can't adjust route, do full rebuild, prev start:",
-                       mercator::ToLatLon(m_lastRoute->GetStart()), ", start:", mercator::ToLatLon(startPoint), ", finish:", mercator::ToLatLon(finalPoint)));
+        LOG(LWARNING, ("Can't adjust route, do full rebuild, prev start:", mercator::ToLatLon(m_lastRoute->GetStart()),
+                       "start:", mercator::ToLatLon(startPoint), "finish:", mercator::ToLatLon(finalPoint)));
       }
     }
 
@@ -971,8 +972,7 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 
   auto indexGraphLoader = IndexGraphLoader::Create(
       m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
-      m_loadAltitudes, m_numMwmIds, m_vehicleModelFactory, m_estimator, m_dataSource,
-      routingOptions);
+      m_loadAltitudes, m_vehicleModelFactory, m_estimator, m_dataSource, routingOptions);
 
   if (m_vehicleType != VehicleType::Transit)
   {
@@ -983,7 +983,7 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
     return graph;
   }
 
-  auto transitGraphLoader = TransitGraphLoader::Create(m_dataSource, m_numMwmIds, m_estimator);
+  auto transitGraphLoader = TransitGraphLoader::Create(m_dataSource, m_estimator);
   return make_unique<TransitWorldGraph>(move(crossMwmGraph), move(indexGraphLoader),
                                         move(transitGraphLoader), m_estimator);
 }
@@ -1137,9 +1137,6 @@ bool IndexRouter::FindBestEdges(m2::PointD const & checkpoint,
                                 bool & bestSegmentIsAlmostCodirectional) const
 {
   CHECK(m_vehicleModelFactory, ());
-  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(pointCountryFile);
-  if (!handle.IsAlive())
-    MYTHROW(MwmIsNotAliveException, ("Can't get mwm handle for", pointCountryFile));
 
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(checkpoint, closestEdgesRadiusM);
   auto closestRoads = m_roadGraph.FindRoads(rect, [this](FeatureID const & fid)
@@ -1474,7 +1471,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
 RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
                                            base::Cancellable const & cancellable,
-                                           IndexGraphStarter & starter, Route & route) const
+                                           IndexGraphStarter & starter, Route & route)
 {
   CHECK(!segments.empty(), ());
   vector<geometry::PointWithAltitude> junctions;
@@ -1484,7 +1481,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   for (size_t i = 0; i < numPoints; ++i)
     junctions.emplace_back(starter.GetRouteJunction(segments, i).ToPointWithAltitude());
 
-  IndexRoadGraph roadGraph(m_numMwmIds, starter, segments, junctions, m_dataSource);
+  IndexRoadGraph roadGraph(starter, segments, junctions, m_dataSource);
   starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
 
   Route::TTimes times;
@@ -1542,7 +1539,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
 
 bool IndexRouter::AreSpeedCamerasProhibited(NumMwmId mwmID) const
 {
-  if (::AreSpeedCamerasProhibited(m_numMwmIds->GetFile(mwmID)))
+  if (routing::AreSpeedCamerasProhibited(m_numMwmIds->GetFile(mwmID)))
   {
     // Not a big overhead here, but can cache flag in IndexRouter and reset it via
     // Framework -> RoutingSession -> IndexRouter.
@@ -1561,11 +1558,11 @@ bool IndexRouter::AreMwmsNear(IndexGraphStarter const & starter) const
   {
     m2::RectD const & rect = m_countryRectFn(m_numMwmIds->GetFile(startMwmId).GetName());
     bool found = false;
-    m_numMwmTree->ForEachInRect(rect,
-                                [&finishMwmIds, &found](NumMwmId id) {
-                                  if (!found && finishMwmIds.count(id) > 0)
-                                    found = true;
-                                });
+    m_numMwmTree->ForEachInRect(rect, [&finishMwmIds, &found](NumMwmId id)
+    {
+      if (!found && finishMwmIds.count(id) > 0)
+        found = true;
+    });
     if (found)
       return true;
   }
@@ -1573,21 +1570,13 @@ bool IndexRouter::AreMwmsNear(IndexGraphStarter const & starter) const
   return false;
 }
 
-bool IndexRouter::DoesTransitSectionExist(NumMwmId numMwmId) const
+bool IndexRouter::DoesTransitSectionExist(NumMwmId numMwmId)
 {
-  CHECK(m_numMwmIds, ());
-  platform::CountryFile const & file = m_numMwmIds->GetFile(numMwmId);
-
-  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
-  if (!handle.IsAlive())
-    MYTHROW(RoutingException, ("Can't get mwm handle for", file));
-
-  MwmValue const & mwmValue = *handle.GetValue();
-  return mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG);
+  return m_dataSource.GetSectionStatus(numMwmId, TRANSIT_FILE_TAG) == MwmDataSource::SectionExists;
 }
 
 RouterResultCode IndexRouter::ConvertTransitResult(set<NumMwmId> const & mwmIds,
-                                                   RouterResultCode resultCode) const
+                                                   RouterResultCode resultCode)
 {
   if (m_vehicleType != VehicleType::Transit || resultCode != RouterResultCode::RouteNotFound)
     return resultCode;

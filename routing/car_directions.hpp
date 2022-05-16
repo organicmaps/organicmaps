@@ -14,7 +14,7 @@ namespace routing
 class CarDirectionsEngine : public DirectionsEngine
 {
 public:
-  CarDirectionsEngine(DataSource const & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
+  CarDirectionsEngine(MwmDataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
 
 protected:
   virtual size_t GetTurnDirection(turns::IRoutingResult const & result, size_t const outgoingSegmentIndex,

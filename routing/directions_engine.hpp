@@ -7,7 +7,7 @@
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
-#include "indexer/data_source.hpp"
+#include "indexer/feature.hpp"
 
 #include "geometry/point_with_altitude.hpp"
 
@@ -18,7 +18,6 @@
 
 namespace routing
 {
-
 namespace turns
 {
 class IRoutingResult;
@@ -26,11 +25,12 @@ struct TurnItem;
 }
 
 enum class RouterResultCode;
+class MwmDataSource;
 
 class DirectionsEngine
 {
 public:
-  DirectionsEngine(DataSource const & dataSource, std::shared_ptr<NumMwmIds> numMwmIds)
+  DirectionsEngine(MwmDataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIds)
     : m_dataSource(dataSource), m_numMwmIds(numMwmIds)
   {
     CHECK(m_numMwmIds, ());
@@ -64,8 +64,7 @@ protected:
                                   RoutingSettings const & vehicleSettings, turns::TurnItem & turn) = 0;
   virtual void FixupTurns(std::vector<geometry::PointWithAltitude> const & junctions,
                           Route::TTurns & turnsDir) = 0;
-
-  FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
+  std::unique_ptr<FeatureType> GetFeature(FeatureID const & featureId);
   void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment);
   void GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges,
                                        Edge const & inEdge, uint32_t startSegId, uint32_t endSegId,
@@ -85,9 +84,8 @@ protected:
   AdjacentEdgesMap m_adjacentEdges;
   TUnpackedPathSegments m_pathSegments;
 
-  DataSource const & m_dataSource;
+  MwmDataSource & m_dataSource;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
-  std::unique_ptr<FeaturesLoaderGuard> m_loader;
   VehicleType m_vehicleType = VehicleType::Count;
 
 private:

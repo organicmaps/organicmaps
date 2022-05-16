@@ -1,7 +1,7 @@
 # Translations
 
 Adding and updating translations is easy!
-1. Change the translation file you want, e.g. [strings.txt](../data/strings/strings.txt)
+1. Change the translation file you want, e.g. [strings.txt](../data/strings/strings.txt) ([raw text version](https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/strings/strings.txt))
 2. Commit your changes
 3. Send a pull request!
 

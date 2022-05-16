@@ -1386,7 +1386,7 @@
 
 "type.amenity.prison" = "Hapishane";
 
-"type.amenity.pub" = "Bar";
+"type.amenity.pub" = "Meyhane";
 
 "type.amenity.public_bookcase" = "Kitap Değişimi";
 
@@ -1469,7 +1469,7 @@
 
 "type.amenity.vending_machine.excrement_bags" = "Dışkı Torbası Dağıtıcı";
 
-"type.amenity.parcel_locker" = "Posta Kutusu";
+"type.amenity.parcel_locker" = "Kilitlenebilen Kutu Dolaplar";
 
 "type.amenity.vending_machine.fuel" = "Yakıt Dağıtıcı";
 
@@ -1477,7 +1477,7 @@
 
 "type.amenity.waste_basket" = "Çöp Kutusu";
 
-"type.amenity.waste_disposal" = "Çöp Kutusu";
+"type.amenity.waste_disposal" = "Çöp Konteyneri";
 
 "type.amenity.waste_transfer_station" = "Atık Transfer İstasyonu";
 
@@ -2101,7 +2101,7 @@
 
 "type.historic.fort" = "Hisar";
 
-"type.historic.memorial" = "Anıt";
+"type.historic.memorial" = "Abide";
 
 "type.historic.memorial.plaque" = "Hatıra Plaketi";
 
@@ -2327,7 +2327,7 @@
 
 "type.man_made.wastewater_plant" = "Atıksu Tesisi";
 
-"type.man_made.water_tap" = "Çeşme Suyu";
+"type.man_made.water_tap" = "Su Musluğu";
 
 "type.man_made.water_tower" = "Su Kulesi";
 
@@ -2425,19 +2425,19 @@
 
 "type.office" = "Ofis";
 
-"type.office.company" = "Şirket bürosu";
+"type.office.company" = "Şirket Bürosu";
 
 "type.office.estate_agent" = "Emlakçı";
 
-"type.office.government" = "Devlet dairesi";
+"type.office.government" = "Devlet Dairesi";
 
-"type.office.insurance" = "Sigorta Acentası";
+"type.office.insurance" = "Sigorta Acentesi";
 
-"type.office.lawyer" = "Avukatlık bürosu";
+"type.office.lawyer" = "Avukatlık Bürosu";
 
 "type.office.ngo" = "STK Binası";
 
-"type.office.telecommunication" = "Cep telefonu operatörü";
+"type.office.telecommunication" = "Cep Telefonu Operatörü";
 
 "type.organic.only" = "Organic";
 
@@ -2699,7 +2699,7 @@
 
 "type.shop.beauty" = "Güzellik Salonu";
 
-"type.shop.beverages" = "İçecek";
+"type.shop.beverages" = "İçecekler";
 
 "type.shop.bicycle" = "Bisikletçi";
 
@@ -2875,7 +2875,7 @@
 
 "type.tourism.alpine_hut" = "Dağda Konaklama";
 
-"type.tourism.apartment" = "Apart otel";
+"type.tourism.apartment" = "Apart Otel";
 
 "type.tourism.artwork" = "Sanat";
 

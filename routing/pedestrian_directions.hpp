@@ -12,7 +12,7 @@ namespace routing
 class PedestrianDirectionsEngine : public DirectionsEngine
 {
 public:
-  PedestrianDirectionsEngine(DataSource const & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
+  PedestrianDirectionsEngine(MwmDataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
 
 protected:
   virtual size_t GetTurnDirection(turns::IRoutingResult const & result, size_t const outgoingSegmentIndex,

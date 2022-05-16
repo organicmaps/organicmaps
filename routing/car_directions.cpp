@@ -12,8 +12,7 @@ using namespace std;
 using namespace turns;
 using namespace ftypes;
 
-CarDirectionsEngine::CarDirectionsEngine(DataSource const & dataSource,
-                                         shared_ptr<NumMwmIds> numMwmIds)
+CarDirectionsEngine::CarDirectionsEngine(MwmDataSource & dataSource, shared_ptr<NumMwmIds> numMwmIds)
   : DirectionsEngine(dataSource, move(numMwmIds))
 {
 }

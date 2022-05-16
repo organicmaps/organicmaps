@@ -40,13 +40,10 @@ public:
     bool const m_multipointsOnly;
   };
 
-  OpenLRDecoder(std::vector<FrozenDataSource> const & dataSources,
+  OpenLRDecoder(std::vector<FrozenDataSource> & dataSources,
                 CountryParentNameGetter const & countryParentNameGetter);
 
   // Maps partner segments to mwm paths. |segments| should be sorted by partner id.
-  void DecodeV1(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
-                std::vector<DecodedPath> & paths);
-
   void DecodeV2(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
                 std::vector<DecodedPath> & paths);
 
@@ -58,7 +55,7 @@ private:
   void Decode(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
               std::vector<DecodedPath> & paths);
 
-  std::vector<FrozenDataSource> const & m_dataSources;
+  std::vector<FrozenDataSource> & m_dataSources;
   CountryParentNameGetter m_countryParentNameGetter;
 };
 }  // namespace openlr

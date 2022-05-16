@@ -69,14 +69,15 @@ public:
     }
   }
 
+  using Id2OsmMapT = MapUint32ToValue<uint64_t>;
 private:
   DataSource const & m_dataSource;
   MwmSet::MwmId m_mwmId;
   FilesContainerR::TReader m_reader;
 
-  std::unique_ptr<MapUint32ToValue<uint64_t>> m_mapNodes;
-  std::unique_ptr<MapUint32ToValue<uint64_t>> m_mapWays;
-  std::unique_ptr<MapUint32ToValue<uint64_t>> m_mapRelations;
+  std::unique_ptr<Id2OsmMapT> m_mapNodes;
+  std::unique_ptr<Id2OsmMapT> m_mapWays;
+  std::unique_ptr<Id2OsmMapT> m_mapRelations;
 
   std::unique_ptr<Reader> m_nodesReader;
   std::unique_ptr<Reader> m_waysReader;
@@ -285,6 +286,8 @@ public:
     EnsurePadding(sink, offset);
   }
 
+  using Id2OsmMapT = FeatureIdToGeoObjectIdOneWay::Id2OsmMapT;
+
   template <typename Reader>
   static void DeserializeV0(Reader & reader, HeaderV0 const & header,
                             FeatureIdToGeoObjectIdOneWay & map)
@@ -297,10 +300,9 @@ public:
     map.m_waysReader = reader.CreateSubReader(header.m_waysOffset, waysSize);
     map.m_relationsReader = reader.CreateSubReader(header.m_relationsOffset, relationsSize);
 
-    map.m_mapNodes = MapUint32ToValue<uint64_t>::Load(*map.m_nodesReader, ReadBlockCallback);
-    map.m_mapWays = MapUint32ToValue<uint64_t>::Load(*map.m_waysReader, ReadBlockCallback);
-    map.m_mapRelations =
-        MapUint32ToValue<uint64_t>::Load(*map.m_relationsReader, ReadBlockCallback);
+    map.m_mapNodes = Id2OsmMapT::Load(*map.m_nodesReader, ReadBlockCallback);
+    map.m_mapWays = Id2OsmMapT::Load(*map.m_waysReader, ReadBlockCallback);
+    map.m_mapRelations = Id2OsmMapT::Load(*map.m_relationsReader, ReadBlockCallback);
   }
 
   template <typename Reader>
@@ -357,10 +359,9 @@ private:
   static void ReadBlockCallback(NonOwningReaderSource & src, uint32_t blockSize,
                                 std::vector<uint64_t> & values)
   {
-    values.clear();
     values.reserve(blockSize);
-    for (size_t i = 0; i < blockSize && src.Size() > 0; ++i)
-      values.emplace_back(ReadVarUint<uint64_t>(src));
+    while (src.Size() > 0)
+      values.push_back(ReadVarUint<uint64_t>(src));
   }
 
   static void WriteBlockCallback(Writer & writer, std::vector<uint64_t>::const_iterator begin,

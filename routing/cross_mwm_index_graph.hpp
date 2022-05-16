@@ -2,12 +2,12 @@
 
 #include "routing/cross_mwm_connector.hpp"
 #include "routing/cross_mwm_connector_serialization.hpp"
+#include "routing/data_source.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
-#include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
 
 #include "geometry/point2d.hpp"
@@ -60,9 +60,8 @@ class CrossMwmIndexGraph final
 public:
   using ReaderSourceFile = ReaderSource<FilesContainerR::TReader>;
 
-  CrossMwmIndexGraph(DataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIds,
-                     VehicleType vehicleType)
-    : m_dataSource(dataSource), m_numMwmIds(numMwmIds), m_vehicleType(vehicleType)
+  CrossMwmIndexGraph(MwmDataSource & dataSource, VehicleType vehicleType)
+    : m_dataSource(dataSource), m_vehicleType(vehicleType)
   {
   }
 
@@ -122,9 +121,9 @@ public:
       // There are same in common, but in case of different version of mwms
       // their's geometry can differ from each other. Because of this we can not
       // build the route, because we fail in astar_algorithm.hpp CHECK(invariant) sometimes.
-      auto const & sMwmId = m_dataSource.GetMwmIdByCountryFile(m_numMwmIds->GetFile(s.GetMwmId()));
+      auto const & sMwmId = m_dataSource.GetMwmId(s.GetMwmId());
       CHECK(sMwmId.IsAlive(), (s));
-      auto const & twinSegMwmId = m_dataSource.GetMwmIdByCountryFile(m_numMwmIds->GetFile(twinSeg->GetMwmId()));
+      auto const & twinSegMwmId = m_dataSource.GetMwmId(twinSeg->GetMwmId());
       CHECK(twinSegMwmId.IsAlive(), (*twinSeg));
 
       if (sMwmId.GetInfo()->GetVersion() == twinSegMwmId.GetInfo()->GetVersion() ||
@@ -195,23 +194,18 @@ private:
   {
     std::vector<m2::PointD> geometry;
 
-    auto const & handle = m_dataSource.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(segment.GetMwmId()));
-    if (!handle.IsAlive())
+    auto const mwmId = m_dataSource.GetMwmId(segment.GetMwmId());
+    if (!mwmId.IsAlive())
       return geometry;
 
-    auto const & mwmId = handle.GetId();
+    auto ft = m_dataSource.GetFeature({ mwmId, segment.GetFeatureId() });
+    ft->ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-    auto const & featureId = FeatureID(mwmId, segment.GetFeatureId());
+    size_t const count = ft->GetPointsCount();
+    geometry.reserve(count);
+    for (uint32_t i = 0; i < count; ++i)
+      geometry.emplace_back(ft->GetPoint(i));
 
-    auto const fillGeometry = [&geometry](FeatureType & ftype)
-    {
-      ftype.ParseGeometry(FeatureType::BEST_GEOMETRY);
-      geometry.reserve(ftype.GetPointsCount());
-      for (uint32_t i = 0; i < ftype.GetPointsCount(); ++i)
-        geometry.emplace_back(ftype.GetPoint(i));
-    };
-
-    m_dataSource.ReadFeature(fillGeometry, featureId);
     return geometry;
   }
 
@@ -262,27 +256,19 @@ private:
   template <typename Fn>
   CrossMwmConnector<CrossMwmId> const & Deserialize(NumMwmId numMwmId, Fn && fn)
   {
-    auto const & file = m_numMwmIds->GetFile(numMwmId);
-    MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
-    if (!handle.IsAlive())
-      MYTHROW(RoutingException, ("Mwm", file, "cannot be loaded."));
+    MwmValue const & mwmValue = m_dataSource.GetMwmValue(numMwmId);
 
-    MwmValue const * value = handle.GetValue();
-    CHECK(value != nullptr, ("Country file:", file));
-
-    FilesContainerR::TReader reader(connector::GetReader<CrossMwmId>(value->m_cont));
-    ReaderSourceFile src(reader);
     auto it = m_connectors.emplace(numMwmId, CrossMwmConnector<CrossMwmId>(numMwmId)).first;
 
     CrossMwmConnectorBuilder<CrossMwmId> builder(it->second);
     builder.ApplyNumerationOffset();
 
-    fn(builder, src);
+    auto reader = connector::GetReader<CrossMwmId>(mwmValue.m_cont);
+    fn(builder, reader);
     return it->second;
   }
 
-  DataSource & m_dataSource;
-  std::shared_ptr<NumMwmIds> m_numMwmIds;
+  MwmDataSource & m_dataSource;
   VehicleType m_vehicleType;
 
   /// \note |m_connectors| contains cache with transition segments and leap edges.

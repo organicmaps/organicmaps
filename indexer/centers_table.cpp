@@ -73,17 +73,15 @@ unique_ptr<CentersTable> CentersTable::LoadV1(Reader & reader)
   Header header;
   header.Read(reader);
 
-  auto geometryParamsSubreader =
-      reader.CreateSubReader(header.m_geometryParamsOffset, header.m_geometryParamsSize);
-  if (!geometryParamsSubreader)
-    return {};
-  NonOwningReaderSource geometryParamsSource(*geometryParamsSubreader);
+  NonOwningReaderSource src(reader, header.m_geometryParamsOffset,
+                            header.m_geometryParamsOffset + header.m_geometryParamsSize);
+
   serial::GeometryCodingParams codingParams;
-  codingParams.Load(geometryParamsSource);
-  auto minX = ReadPrimitiveFromSource<uint32_t>(geometryParamsSource);
-  auto minY = ReadPrimitiveFromSource<uint32_t>(geometryParamsSource);
-  auto maxX = ReadPrimitiveFromSource<uint32_t>(geometryParamsSource);
-  auto maxY = ReadPrimitiveFromSource<uint32_t>(geometryParamsSource);
+  codingParams.Load(src);
+  auto minX = ReadPrimitiveFromSource<uint32_t>(src);
+  auto minY = ReadPrimitiveFromSource<uint32_t>(src);
+  auto maxX = ReadPrimitiveFromSource<uint32_t>(src);
+  auto maxY = ReadPrimitiveFromSource<uint32_t>(src);
   m2::RectD limitRect(PointUToPointD({minX, minY}, kPointCoordBits),
                       PointUToPointD({maxX, maxY}, kPointCoordBits));
 
@@ -102,15 +100,16 @@ bool CentersTable::Init(Reader & reader, serial::GeometryCodingParams const & co
   m_limitRect = limitRect;
   // Decodes block encoded by writeBlockCallback from CentersTableBuilder::Freeze.
   auto const readBlockCallback = [&](NonOwningReaderSource & source, uint32_t blockSize,
-                                     vector<m2::PointU> & values) {
-    values.resize(blockSize);
-    uint64_t delta = ReadVarUint<uint64_t>(source);
-    values[0] = coding::DecodePointDeltaFromUint(delta, m_codingParams.GetBasePoint());
+                                     vector<m2::PointU> & values)
+  {
+    values.reserve(blockSize);
 
-    for (size_t i = 1; i < blockSize && source.Size() > 0; ++i)
+    auto prev = m_codingParams.GetBasePoint();
+    while (source.Size() > 0)
     {
-      delta = ReadVarUint<uint64_t>(source);
-      values[i] = coding::DecodePointDeltaFromUint(delta, values[i - 1]);
+      auto const pt = coding::DecodePointDeltaFromUint(ReadVarUint<uint64_t>(source), prev);
+      values.push_back(pt);
+      prev = pt;
     }
   };
 

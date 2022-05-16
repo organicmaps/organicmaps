@@ -1,5 +1,6 @@
 #include "routing/directions_engine.hpp"
 
+#include "routing/data_source.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_callbacks.hpp"
@@ -18,6 +19,8 @@
 #include <cstdlib>
 #include <utility>
 
+namespace routing
+{
 namespace
 {
 bool IsFakeFeature(uint32_t featureId)
@@ -27,8 +30,6 @@ bool IsFakeFeature(uint32_t featureId)
 }
 }  // namespace
 
-namespace routing
-{
 using namespace routing::turns;
 using namespace std;
 using namespace traffic;
@@ -37,14 +38,13 @@ void DirectionsEngine::Clear()
 {
   m_adjacentEdges.clear();
   m_pathSegments.clear();
-  m_loader.reset();
 }
 
-FeaturesLoaderGuard & DirectionsEngine::GetLoader(MwmSet::MwmId const & id)
+std::unique_ptr<FeatureType> DirectionsEngine::GetFeature(FeatureID const & featureId)
 {
-  if (!m_loader || id != m_loader->GetId())
-    m_loader = make_unique<FeaturesLoaderGuard>(m_dataSource, id);
-  return *m_loader;
+  if (IsFakeFeature(featureId.m_index))
+    return nullptr;
+  return m_dataSource.GetFeature(featureId);
 }
 
 void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
@@ -53,10 +53,7 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
   if (!featureId.IsValid())
     return;
 
-  if (IsFakeFeature(featureId.m_index))
-    return;
-
-  auto ft = GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index);
+  auto ft = GetFeature(featureId);
   if (!ft)
     return;
 
@@ -91,11 +88,7 @@ void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT con
     if (edge.IsFake())
       continue;
 
-    auto const & outFeatureId = edge.GetFeatureId();
-    if (IsFakeFeature(outFeatureId.m_index))
-      continue;
-
-    auto ft = GetLoader(outFeatureId.m_mwmId).GetFeatureByIndex(outFeatureId.m_index);
+    auto ft = GetFeature(edge.GetFeatureId());
     if (!ft)
       continue;
 

@@ -1,12 +1,11 @@
 #include "routing/index_road_graph.hpp"
 
+#include "routing/data_source.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/transit_graph.hpp"
-
-#include "indexer/data_source.hpp"
 
 #include <cstdint>
 #include <utility>
@@ -15,11 +14,10 @@ using namespace std;
 
 namespace routing
 {
-IndexRoadGraph::IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarter & starter,
-                               vector<Segment> const & segments,
+IndexRoadGraph::IndexRoadGraph(IndexGraphStarter & starter, vector<Segment> const & segments,
                                vector<geometry::PointWithAltitude> const & junctions,
-                               DataSource & dataSource)
-  : m_dataSource(dataSource), m_numMwmIds(move(numMwmIds)), m_starter(starter), m_segments(segments)
+                               MwmDataSource & dataSource)
+  : m_dataSource(dataSource), m_starter(starter), m_segments(segments)
 {
   //    j0     j1     j2     j3
   //    *--s0--*--s1--*--s2--*
@@ -72,8 +70,7 @@ void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & type
     return;
   }
 
-  FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
-  auto ft = loader.GetFeatureByIndex(featureId.m_index);
+  auto ft = m_dataSource.GetFeature(featureId);
   if (!ft)
   {
     LOG(LERROR, ("Can't load types for feature", featureId));
@@ -107,9 +104,7 @@ void IndexRoadGraph::GetRouteEdges(EdgeVector & edges) const
       Segment real = segment;
       if (m_starter.ConvertToReal(real))
       {
-        platform::CountryFile const & file = m_numMwmIds->GetFile(real.GetMwmId());
-        MwmSet::MwmId const mwmId = m_dataSource.GetMwmIdByCountryFile(file);
-        edges.push_back(Edge::MakeFakeWithRealPart(FeatureID(mwmId, real.GetFeatureId()),
+        edges.push_back(Edge::MakeFakeWithRealPart({ m_dataSource.GetMwmId(real.GetMwmId()), real.GetFeatureId() },
                                                    segment.GetSegmentIdx(),
                                                    real.IsForward(), real.GetSegmentIdx(),
                                                    junctionFrom, junctionTo));
@@ -121,10 +116,8 @@ void IndexRoadGraph::GetRouteEdges(EdgeVector & edges) const
     }
     else
     {
-      platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
-      MwmSet::MwmId const mwmId = m_dataSource.GetMwmIdByCountryFile(file);
-      edges.push_back(Edge::MakeReal(FeatureID(mwmId, segment.GetFeatureId()), segment.IsForward(),
-                                     segment.GetSegmentIdx(), junctionFrom, junctionTo));
+      edges.push_back(Edge::MakeReal({ m_dataSource.GetMwmId(segment.GetMwmId()), segment.GetFeatureId() },
+                                     segment.IsForward(), segment.GetSegmentIdx(), junctionFrom, junctionTo));
     }
   }
 }
@@ -150,11 +143,8 @@ void IndexRoadGraph::GetEdges(geometry::PointWithAltitude const & junction, bool
       if (IndexGraphStarter::IsFakeSegment(segment))
         continue;
 
-      platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
-      MwmSet::MwmId const mwmId = m_dataSource.GetMwmIdByCountryFile(file);
-
-      edges.push_back(Edge::MakeReal(
-          FeatureID(mwmId, segment.GetFeatureId()), segment.IsForward(), segment.GetSegmentIdx(),
+      edges.push_back(Edge::MakeReal({ m_dataSource.GetMwmId(segment.GetMwmId()), segment.GetFeatureId() },
+          segment.IsForward(), segment.GetSegmentIdx(),
           m_starter.GetJunction(segment, false /* front */).ToPointWithAltitude(),
           m_starter.GetJunction(segment, true /* front */).ToPointWithAltitude()));
     }
