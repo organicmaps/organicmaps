@@ -102,7 +102,7 @@
     nl = Downloaden annuleren
     pl = Anuluj pobieranie
     pt = Cancelar descarregamento
-    pt-BR = Cancelar baixar
+    pt-BR = Cancelar download
     ro = Anulează descărcarea
     ru = Отменить загрузку
     sk = Zrušiť sťahovanie
@@ -215,7 +215,7 @@
     nl = Downloaden is mislukt. Tik om het opnieuw te proberen.
     pl = Nie udało się pobrać. Proszę nacisnąć, aby spróbować ponownie.
     pt = O descarregamento falhou, toque novamente para tentar de novo.
-    pt-BR = O baixar falhou, toque para tentar de novo.
+    pt-BR = O download falhou, toque para tentar de novo.
     ro = Descărcarea a eșuat. Atinge pentru a încearca din nou.
     ru = Ошибка загрузки. Нажмите, чтобы повторить попытку
     sk = Sťahovanie zlyhalo, skúste to znova.
@@ -660,7 +660,7 @@
     nl = U heeft momenteel alle locatieservices voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen
     pl = Usługi lokalizacji są aktualnie wyłączone dla tego urządzenia lub aplikacji. Proszę włączyć je w ustawieniach.
     pt = Atualmente tem todos os serviços de localização para este dispositivo ou aplicação desativados. Por favor ative-os nas definições do sistema.
-    pt-BR = Atualmente todos os Serviços de Localização para este dispositivo ou aplicação estão desativados. Por favor ative-os em Configurações.
+    pt-BR = Atualmente todos os serviços de localização para este dispositivo ou aplicativo estão desativados. Por favor ative-os em configurações.
     ro = În prezent, toate serviciile de localizare pentru acest dispozitiv sau aplicație sunt dezactivate. Le poți activa din setări.
     ru = Геолокация выключена в настройках устройства. Пожалуйста, включите её для удобного использования программы.
     sk = Aktuálne máte všetky možnosti pre určovanie polohy vypnuté. Prosím, povoľte ich v Nastaveniach.
@@ -1032,7 +1032,7 @@
     nl = Verwijder de USB kabel of plaats een geheugenkaart om Organic Maps te gebruiken
     pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z Organic Maps
     pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar o Organic Maps
-    pt-BR = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar Organic Maps
+    pt-BR = Por favor desconecte o cabo USB ou insira um cartão de memória para utilizar o Organic Maps
     ro = Deconectează cablul USB sau introdu un card de memorie pentru a utiliza Organic Maps
     ru = Отключите USB кабель или вставьте SD-карту
     sk = Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s Organic Maps
@@ -1293,7 +1293,7 @@
     nl = Pauzeren
     pl = Wstrzymaj
     pt = Pausar
-    pt-BR = Pausas
+    pt-BR = Pausar
     ro = Pauză
     ru = Приостановить
     sk = Pauza
@@ -1595,7 +1595,7 @@
     nl = Mijn plaatsen
     pl = Moje miejsca
     pt = Os meus locais
-    pt-BR = Meus Locais
+    pt-BR = Meus locais
     ro = Locurile mele
     ru = Мои Метки
     sk = Moje miesta
@@ -2396,7 +2396,7 @@
     nl = Nachtleven
     pl = Życie nocne
     pt = Vida noturna
-    pt-BR = Vida Noturna
+    pt-BR = Vida noturna
     ro = Viață nocturnă
     ru = Ночная жизнь
     sk = Nočný život
@@ -2827,7 +2827,7 @@
     nl = Notities
     pl = Notatki
     pt = Notas
-    pt-BR = Notas
+    pt-BR = Anotações
     ro = Detalii
     ru = Примечание
     sk = Poznámky
@@ -2887,7 +2887,7 @@
     nl = Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!
     pl = Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!
     pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!
-    pt-BR = Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Por favor os abra se você tiver o Organic Maps instalado. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android com o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!
+    pt-BR = Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Se tiver instalado o Organic Maps, pode abri-los agora. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android via o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!
     ro = Bună!\n\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/
     ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
     tr = Merhaba!\n\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ile seyahat etmenin keyfini çıkarın!
@@ -3108,7 +3108,7 @@
     nl = Sorry, instellingen voor kaartopslag zijn momenteel uitgeschakeld.
     pl = Przepraszamy, ustawienia pamięci mapy są aktualnie wyłączone.
     pt = Lamentamos, as definições do armazenamento do mapa estão atualmente desativadas.
-    pt-BR = Lamentamos, as configurações do Map Storage estão atualmente desativadas.
+    pt-BR = Lamentamos, as configurações do armazenamento do mapa estão desativadas.
     ro = Opțiunile pentru stocarea hărților sunt dezactivate în acest moment.
     ru = Извините, настройки места хранения карт сейчас недоступны.
     sk = Prepáčte, nastavenie uloženia máp je dočasne nedostupné.
@@ -3183,7 +3183,7 @@
     nl = Hey, kijk naar mijn huidige locatie op Organic Maps! %1$@ of %2$@ Heeft u geen offline-kaarten? Download ze hier: https://omaps.app/get
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
     pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@ Não tem um mapa offline instalado? Descarregue em https://omaps.app/get
-    pt-BR = Veja onde estou agora. Abra o link: %1$@ ou %2$@ Não tem um aplicativo de mapa offline? Baixe aqui: https://omaps.app/get
+    pt-BR = Veja onde estou agora. Abra o link: %1$@ ou %2$@ Não tem mapas offline instalados? Baixe aqui: https://omaps.app/get
     ro = Poți vedea poziția mea pe harta Organic Maps! %1$@ sau %2$@ Nu ai descărcat aplicația? O poți descărca de aici: https://omaps.app/get
     ru = Смотри где я сейчас. Жми %1$@ или %2$@
     sk = Pozri kde som. Otvor odkaz: %1$@ alebo %2$@
@@ -3257,7 +3257,7 @@
     nl = Hey, kijk naar mijn huidige locatie op Organic Maps!
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps
     pt = Veja a minha localização atual no mapa Organic Maps!
-    pt-BR = Veja a minha localização atual no mapa Organic Maps!
+    pt-BR = Veja no mapa a minha localização atual via Organic Maps!
     ro = Poți vedea poziția mea pe harta Organic Maps!
     ru = Посмотри на карте Organic Maps, где я сейчас нахожусь
     sk = Pozrite si moju aktuálnu polohu na mape Organic Maps
@@ -4563,7 +4563,7 @@
     nl = Dit laat u toe het afgelegde traject voor een bepaalde periode te registreren en te bekijken op de kaart. Merk op: activatie van deze functie veroorzaakt een hoger batterijverbruik. Het traject wordt automatisch van de kaart verwijderd nadat het tijdsinterval verloopt.
     pl = Umożliwia na pewien okres zapisanie przebytej trasy i obejrzenie jej na mapie. Uwaga: włączenie tej funkcji spowoduje większe zużycie baterii. Trasa zostanie usunięta z mapy automatycznie po upływie określonego czasu.
     pt = Permite-lhe gravar um caminho percorrido durante um determinado período e vê-lo no papa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.
-    pt-BR = Permite você salvar um caminho percorrido durante um determinado período e o ver no papa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.
+    pt-BR = Permite salvar um caminho percorrido durante um determinado período de tempo e vê-lo no mapa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente apagada do mapa após um intervalo de tempo.
     ro = Permite înregistrarea traseului parcurs pentru o anumită perioadă de timp și urmărește-l pe hartă. Atenție: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.
     ru = Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.
     sk = Umožňuje zaznamenať precestovanú trasu za určité obdobie a zobraziť ju na mape. Upozornenie: zapnutie tejto funkcie spôsobí vyššiu spotrebu batérie. Trasa sa z mapy automaticky odstráni po uplynutí časového intervalu.
@@ -5994,7 +5994,7 @@
     nl = Voor het creëren van een route is het nodig dat alle kaarten van uw locatie naar uw bestemming gedownload en bijgewerkt zijn.
     pl = Tworzenie tras wymaga pobrania i zaktualizowania wszystkich map od Twojej lokalizacji do celu podróży.
     pt = É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.
-    pt-BR = É necessário baixar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.
+    pt-BR = Para criar uma rota é necessário baixar e atualizar todos os mapas desde sua localização atual até o destino.
     ro = Pentru a crea un traseu, este necesar ca toate hărțile, de la poziția ta până la destinație să fie descărcate și actualizate
     ru = Для создания маршрута необходимо загрузить и обновить все карты на пути следования.
     sv = Att kunna skapa en navigeringsväg kräver att alla kartorna från din plats till din destination är nerladdade och uppdaterade.
@@ -6592,7 +6592,7 @@
     nl = Lichtblauw
     pl = Jasnoniebieski
     pt = Azul Claro
-    pt-BR = Azul Claro
+    pt-BR = Azul claro
     ro = Albastru deschis
     ru = Голубой
     sk = Svetlo modrá
@@ -8006,7 +8006,7 @@
     nl = Selecteer de kaart
     pl = Wybierz mapę
     pt = Selecionar mapa
-    pt-BR = Selecionar Mapa
+    pt-BR = Selecionar mapa
     ro = Alege harta
     ru = Выбрать карту
     sk = Vybrať mapu
@@ -8404,7 +8404,7 @@
     nl = Zoekgeschiedenis
     pl = Historia wyszukiwania
     pt = Histórico de pesquisas
-    pt-BR = Histórico de Busca
+    pt-BR = Histórico de busca
     ro = Istoricul căutărilor
     ru = История поиска
     sk = História vyhľadávania
@@ -8819,7 +8819,7 @@
     nl = Schema verwijderen
     pl = Usuń harmonogram
     pt = Eliminar horário
-    pt-BR = Apagar Horário
+    pt-BR = Apagar horário
     ro = Elimină planificarea
     ru = Удалить расписание
     sk = Zmazať rozvrh
@@ -9000,7 +9000,7 @@
     nl = Openingstijden
     pl = Godziny pracy
     pt = Horário de funcionamento
-    pt-BR = Horário de Funcionamento
+    pt-BR = Horário de funcionamento
     ro = Ore de deschidere
     ru = Время работы
     sk = Otváracie hodiny
@@ -9036,7 +9036,7 @@
     nl = Geavanceerde modus
     pl = Tryb zaawansowany
     pt = Modo avançado
-    pt-BR = Modo Avançado
+    pt-BR = Modo avançado
     ro = Mod Avansat
     ru = Расширенный режим
     sk = Rozšírený režim
@@ -9072,7 +9072,7 @@
     nl = Eenvoudige modus
     pl = Tryb prosty
     pt = Modo simples
-    pt-BR = Modo Simples
+    pt-BR = Modo simples
     ro = Mod Simplu
     ru = Простой режим
     sk = Jednoduchý režim
@@ -9252,7 +9252,7 @@
     nl = Je hebt de wereldkaart gewijzigd. Verberg dit niet! Vertel het je vrienden en bewerk het samen.
     pl = Dokonałeś zmian na mapie świata. Nie kryj się z tym! Powiadom znajomych i edytujcie mapę razem.
     pt = Alterou o mapa mundial. Não mantenha as alterações para si mesmo! Diga aos seus amigos e editem-no juntos.
-    pt-BR = Você modificou o mapa-múndi. Não esconda isto! Diga aos seus amigos e editem-no juntos.
+    pt-BR = Você modificou o mapa-múndi. Não esconda isto! Diga aos seus amigos e edite junto com eles.
     ro = Ai modificat harta lumii. Nu ascunde acest lucru! Spune-le prietenilor și modificați-o împreună.
     ru = Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.
     sk = Zmenili ste mapu sveta. Nemusíte to skrývať! Povedzte o tom svojim priateľom a začnite ju spolu upravovať.
@@ -9939,7 +9939,7 @@
     nl = Registeren
     pl = Zarejestruj się
     pt = Crie uma conta no OSM
-    pt-BR = Cadastrar-se
+    pt-BR = Abra uma conta no OSM
     ro = Înscrie-te
     ru = Зарегистрироваться
     sk = Zaregistrovať sa
@@ -10717,7 +10717,7 @@
     nl = Selecteer Keuken
     pl = Wybierz kuchnię
     pt = Selecione a culinária
-    pt-BR = Selecione a Culinária
+    pt-BR = Selecione a culinária
     ro = Alege bucătăria
     ru = Выбрать кухню
     sk = Vyberte si kuchyňu
@@ -10874,7 +10874,7 @@
     nl = Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.
     pl = Wszystkie zmiany dotyczące mapy zostaną usunięte wraz z nią.
     pt = Todas as alterações ao mapa serão eliminadas juntamente com o mapa.
-    pt-BR = Todas as alterações ao mapa serão eliminadas juntamente com o mapa.
+    pt-BR = Todas as edições no mapa serão excluídas juntamente com o mapa.
     ro = Toate modificările aduse hărții vor fi șterse împreună cu harta.
     ru = Вместе с картой удалятся и внесенные вами правки на этой карте.
     sk = Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.
@@ -11630,7 +11630,7 @@
     nl = Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.
     pl = Dodawaj nowe miejsca do mapy i edytuj już istniejące bezpośrednio z poziomu aplikacji.
     pt = Adicione novos lugares ao mapa e edite os já existentes diretamente a partir da aplicação.
-    pt-BR = Adicione novos lugares ao mapa e edite os já existentes diretamente a partir do app.
+    pt-BR = Adicione novos lugares ao mapa e edite os já existentes diretamente no aplicativo.
     ro = Adaugă locuri noi pe hartă și modifică-le pe cele existente direct din aplicație.
     ru = Добавляйте новые объекты и редактируйте старые прямо из приложения.
     sk = Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.
@@ -12173,7 +12173,7 @@
     nl = Notitie sturen naar de OSM-editors
     pl = Poinformuj redaktorów OSM
     pt = Enviar nota aos editores OSM
-    pt-BR = Envie uma nota para os editores OSM
+    pt-BR = Envie uma observação para os editores do OSM
     ro = Trimite un mesaj către editorii OSM
     ru = Отправить заметку редакторам OSM
     sk = Odoslať poznámku OSM editorom
@@ -13722,7 +13722,7 @@
     nl = Voer het juiste telefoonnummer in
     pl = Wprowadź poprawny numer telefonu
     pt = Introduza um número de telefone correto
-    pt-BR = Insira o número correto do telefone
+    pt-BR = Digite um número de telefone correto
     ro = Introdu un număr de telefon corect
     ru = Введите корректный номер телефона
     sk = Zadajte správne telefónne číslo
@@ -13758,7 +13758,7 @@
     nl = Voer een geldig webadres in
     pl = Wpisz prawidłowy adres strony internetowej
     pt = Preencha com um endereço válido na Internet
-    pt-BR = Preencha com um endereço válido na internet
+    pt-BR = Digite um endereço de site válido
     ro = Introdu o adresă web corectă
     ru = Введите корректный веб-адрес
     sk = Zadajte platnú webovú adresu
@@ -13794,7 +13794,7 @@
     nl = Voer een geldig emailadres in
     pl = Wpisz prawidłowy email
     pt = Preencha com um endereço válido de email
-    pt-BR = Preencha com um endereço válido de email
+    pt-BR = Digite um endereço de email válido
     ro = Introdu un e-mail valabil
     ru = Введите корректный email
     sk = Zadajte platný email
@@ -14264,7 +14264,7 @@
     nl = Organic Maps is een gratis en open-source offline kaartentoepassing. Geen advertenties. Geen volgen. Als je een fout op de kaart ziet, corrigeer deze dan in OpenStreetMap. Het project is gemaakt door enthousiastelingen in onze vrije tijd, dus we hebben uw feedback en ondersteuning nodig.
     pl = Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, napraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.
     pt = Organic Maps é uma aplicação gratuita e de código aberto de mapas offline. Sem anúncios. Sem seguimento. Se vir um erro no mapa, por favor repare-o em OpenStreetMap. O projecto é criado por entusiastas no nosso tempo livre, por isso precisamos do seu feedback e apoio.
-    pt-BR = Organic Maps é uma aplicação gratuita e de código aberto de mapas off-line. Sem anúncios. Sem rastreamento. Se você vir um erro no mapa, por favor, corrija em OpenStreetMap. O projeto é criado por entusiastas em nosso tempo livre, então precisamos de seu feedback e suporte.
+    pt-BR = Organic Maps é um aplicativo gratuito e de código aberto de mapas offline. Sem anúncios. Sem rastreamento. Se você vir um erro no mapa, por favor, corrija em OpenStreetMap. O projeto é criado por entusiastas em seu tempo livre, então precisamos de seu feedback e suporte.
     ro = Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi
     ru = Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора пресональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!
     sk = Organic Maps je bezplatná offline aplikácia máp s otvoreným zdrojom. Žiadne reklamy. Žiadne sledovanie. Ak na mape vidíte chybu, opravte ju v OpenStreetMap. Projekt vytvárajú nadšenci v našom voľnom čase, preto potrebujeme vašu spätnú väzbu a podporu.
@@ -14846,7 +14846,7 @@
     nl = Om de verkeersgegevens weer te geven, moet de applicatie bijgewerkt worden.
     pl = Aby wyświetlić dane o ruchu, należy zaktualizować aplikację.
     pt = Para mostrar os dados de tráfego, a aplicação tem de ser atualizada.
-    pt-BR = Para mostrar os dados de tráfego, a aplicação deve ser atualizada.
+    pt-BR = Para mostrar os dados de tráfego, o aplicativo deve ser atualizado.
     ro = Pentru a afişa datele privind traficul, aplicația trebuie actualizată.
     ru = Для отображения пробок необходимо обновить приложение.
     sk = Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.
@@ -15067,7 +15067,7 @@
     nl = We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     pl = Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     pt = Utilizamos o sistema TTS para as instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
-    pt-BR = Utilizamos o sistema TTS para instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    pt-BR = Utilizamos o TTS (texto-para-voz) do sistema para instruções de voz. Muitos dispositivos do Android usam o TTS do Google, você pode baixá-lo ou atualizá-lo no Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     ro = Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive Android folosesc Google TTS. Poți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     ru = Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     sk = Na hlasové pokyny používame systém TTS. Mnohé zariadenia s Adroidom používajú Google TTS, ktorý si môžete stiahnuť alebo aktualizovať z obchodu Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
@@ -15330,7 +15330,7 @@
     nl = Voeg eindpunt toe om een route te plannen
     pl = Aby zaplanować trasę, dodaj punkt końcowy
     pt = Adicionar final da viagem para planear uma rota
-    pt-BR = Adicionar final da viagem para planejar uma rota
+    pt-BR = Adicionar ponto final da viagem para planejar uma rota
     ro = Adaugă un punct de sosire pentru a planifica un traseu
     ru = Добавьте конечную точку, чтобы построить маршрут
     sk = Pridaním cieľového bodu naplánujete trasu
@@ -15404,7 +15404,7 @@
     nl = Route beheren
     pl = Zarządzaj trasą
     pt = Gerir rota
-    pt-BR = Gerir rota
+    pt-BR = Gerenciar rota
     ro = Gestionare traseu
     ru = Изменить маршрут
     sk = Spravovať trasu
@@ -17277,7 +17277,7 @@
     nl = Wij kunnen uw gegevens gebruiken om Organic Maps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.
     pl = Możemy używać Twoich danych do usprawnienia działania Organic Maps. Zmiany zostaną zastosowane po ponownym uruchomieniu aplikacji.
     pt = Podemos utilizar os seus dados para melhorar a experiência no Organic Maps. As alterações entrarão em vigor quando reiniciar a aplicação.
-    pt-BR = Nós podemor utilizar seus dados para melhorar a experiência Organic Maps As mudanças terão efeitos após reiniciar o app.
+    pt-BR = Nós podemos utilizar seus dados para melhorar a experiência no Organic Maps. As mudanças terão efeitos após reiniciar o app.
     ro = Putem folosi datele tale pentru a îmbunătăți Organic Maps. Modificările vor intra în vigoare după repornirea aplicației.
     ru = Мы можем использовать ваши данные, чтобы развивать и улучшать Organic Maps. Изменения вступят в силу после перезапуска приложения.
     sk = Vaše údaje môžeme použiť na zlepšenie skúseností s programom Organic Maps. Zmeny sa prejavia po reštartovaní aplikácie.
@@ -17657,7 +17657,7 @@
     nl = Er is een fout opgetreden
     pl = Wystąpił błąd
     pt = Surgiu um erro
-    pt-BR = Um erro ocorreu
+    pt-BR = Ocorreu um erro
     ro = A apărut o eroare
     ru = Произошла ошибка
     sk = Vyskytla sa chyba
@@ -18015,7 +18015,7 @@
     nl = Er is een fout opgetreden tijdens het laden van tags, probeer het opnieuw
     pl = Wystąpił błąd podczas pobierania tagów, spróbuj ponownie
     pt = Surgiu um erro ao carregar as etiquetas, por favor tente novamente
-    pt-BR = Um erro ocorreu enquanto carregava as etiquetas, por favor, tente novamente
+    pt-BR = Ocorreu um erro enquanto carregava as etiquetas, por favor, tente novamente
     ro = A apărut o eroare la încărcarea etichetelor, încearcă din nou
     ru = Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз
     sk = Počas načítavania značiek sa vyskytla chyba, skúste to znova
@@ -18547,7 +18547,7 @@
     nl = Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.
     pl = Ta opcja zostaje włączona do logowania działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.
     pt = Esta opção ativa o registo das ações para diagnóstico. Pode ser útil para os programadores descobrirem o problema na aplicação. Ative esta opção apenas a pedido dos programadores do Organic Maps.
-    pt-BR = A opção ativa para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.
+    pt-BR = A opção ativa logging para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.
     ro = Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.
     ru = Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении.
     sk = Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory Organic Maps.
@@ -18889,7 +18889,7 @@
     nl = Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw
     pl = Niestety, nie udało nam się zbudować trasy, która posiada obrane opcje. Zmień ustawienia i spróbuj ponownie
     pt = Infelizmente não não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente
-    pt-BR = Infelizmente, não não conseguimos encontrar uma rota provavelmente por causa da opção escolhidas. Por favor, altere as configurações e tente novamente
+    pt-BR = Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas. Por favor, altere as configurações e tente novamente
     ro = Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.
     ru = К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку
     sk = Bohužiaľ sme nemohli nájsť trasu pravdepodobne z dôvodu definovaných možností. Zmeňte nastavenia a skúste to prosím znova
@@ -20211,7 +20211,7 @@
     nl = Over cameras
     pl = Info o kamerach
     pt = Avisos de velocidade
-    pt-BR = Alertas de vel.
+    pt-BR = Alertas de velocidade
     ro = Info radare
     ru = Инфо о камерах
     sk = Rýchl. upozorn.
@@ -21077,7 +21077,7 @@
     nl = Zwemmen
     pl = Pływanie
     pt = Natação
-    pt-BR = Nado
+    pt-BR = Natação
     ro = Înot
     ru = Плавание
     sk = Plávanie
@@ -21561,7 +21561,7 @@
     nl = Metro-navigatie is nog niet beschikbaar in deze regio
     pl = Nawigacja metrem nie jest jeszcze tutaj dostępna
     pt = A navegação de metropolitano ainda não está disponível nesta região
-    pt-BR = A navegação por metrô nesta região ainda não está disponível
+    pt-BR = A navegação por metrô ainda não está disponível nesta região
     ro = Navigarea pentru metrou nu este încă disponibilă în această regiune
     ru = Навигация на метро ещё недоступна в данном регионе
     sk = Navigácia metra v tejto oblasti ešte nie je k dispozícii
@@ -22315,6 +22315,7 @@
     en = Unable to create folder and move files on internal device's memory or sdcard
     ru = Не могу создать папку и переместить файлы на устройстве
     tr = Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor
+    pt-BR = Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo
 
   [disk_error_title]
     tags = android
@@ -22322,6 +22323,7 @@
     en = Disk error
     ru = Ошибка диска
     tr = Disk hatası
+    pt-BR = Erro do armazenamento
 
   [connection_failure]
     comment = Used in DownloadResources startup screen
@@ -22355,6 +22357,7 @@
     fr = Déconnectez le câble USB
     it = Scollegare il cavo USB
     pl = Odłącz kabel USB
+    pt-BR = Desconecte o cabo USB
     ro = Deconectează cablul USB
     ru = Отсоедините USB кабель
     tr = USB kablosunu çıkarın
@@ -22444,6 +22447,7 @@
     it = Mostra sulla schermata di blocco
     nl = Toon op vergrendelscherm
     pl = Pokazuj na ekranie blokady
+    pt-BR = Mostrar quando a tela de bloqueio está ativada
     ro = Arată pe ecranul de blocare
     ru = Показывать на экране блокировки
     tr = Kilit ekranında göster
@@ -22458,6 +22462,7 @@
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
     nl = Indien ingeschakeld, hoeft het scherm niet te worden ontgrendeld wanneer de app actief is.
     pl = Po włączeniu nie musisz odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.
+    pt-BR = Quando ativado, você não precisará debloquear seu dispositivo toda vez que o aplicativo estiver funcionando
     ro = Când este activată, nu trebuie să deblochezi telefonul de fiecare dată când aplicația este în funcțiune.
     ru = Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.
     tr = Etkinleştirildiğinde, uygulama çalışırken her seferinde cihazınızın kilidini açmanıza gerek kalmaz.
@@ -22647,6 +22652,7 @@
     fr = Supprimer la route
     it = Elimina percorso
     pl = Usuwanie trasy
+    pt-BR = Apagar rota
     ro = Elimină traseul
     ru = Удалить трек
     tr = Kaydı Sil
@@ -22663,6 +22669,7 @@
     fr = Nom de la route
     it = Nome percorso
     pl = Nazwa trasy
+    pt-BR = Nome da rota
     ro = Numele traseului
     ru = Название трека
     tr = Kayıt Adı
@@ -22679,6 +22686,7 @@
     fr = Déplacer
     it = Sposta
     pl = Przenieś
+    pt-BR = Mover
     ro = Mută
     ru = Переместить
     tr = Taşı
