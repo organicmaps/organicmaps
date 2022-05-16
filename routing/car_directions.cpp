@@ -429,6 +429,8 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
            ("Turn candidates should be sorted by its angle field."));
   }
 
+  /// @todo Proper handling of isCandidatesAngleValid == False, when we don't have angles of candidates.
+
   if (nodes.candidates.size() == 0)
     return;
 
@@ -437,11 +439,10 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
     return;
 
   Segment firstOutgoingSeg;
-  bool const isFirstOutgoingSegValid = turnInfo.m_outgoing->m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg);
-  if (!isFirstOutgoingSegValid)
+  if (!turnInfo.m_outgoing->m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg))
     return;
 
-  CorrectCandidatesSegmentByOutgoing(turnInfo, firstOutgoingSeg, nodes.candidates);
+  CorrectCandidatesSegmentByOutgoing(turnInfo, firstOutgoingSeg, nodes);
 
   RemoveUTurnCandidate(turnInfo, numMwmIds, nodes.candidates);
   auto const & turnCandidates = nodes.candidates;
@@ -496,7 +497,7 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
 
   turn.m_turn = intermediateDirection;
 
-  if (turnCandidates.size() >= 2)
+  if (turnCandidates.size() >= 2 && nodes.isCandidatesAngleValid)
     CorrectRightmostAndLeftmost(turnCandidates, firstOutgoingSeg, turnAngle, turn);
 }
 

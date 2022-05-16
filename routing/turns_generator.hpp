@@ -76,7 +76,7 @@ bool HasSingleForwardTurn(TurnCandidates const & turnCandidates, float maxForwar
 // It may happened if |firstOutgoingSeg| and candidates in |turnCandidates| are from different mwms.
 // Let's identify it in turnCandidates by angle and update according turnCandidate.
 void CorrectCandidatesSegmentByOutgoing(TurnInfo const & turnInfo, Segment const & firstOutgoingSeg,
-                                        std::vector<TurnCandidate> & candidates);
+                                        TurnCandidates & nodes);
 
 /*!
  * \brief Returns ingoing point or outgoing point for turns.

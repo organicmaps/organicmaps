@@ -8,13 +8,13 @@
 
 namespace routing
 {
+using namespace std;
+using namespace turns;
+
 PedestrianDirectionsEngine::PedestrianDirectionsEngine(MwmDataSource & dataSource, shared_ptr<NumMwmIds> numMwmIds)
   : DirectionsEngine(dataSource, move(numMwmIds))
 {
 }
-
-using namespace std;
-using namespace turns;
 
 // Angles in degrees for finding route segments with no actual forks.
 double constexpr kMaxForwardAngleCandidates = 95.0;
@@ -59,6 +59,11 @@ size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & resul
     return 0;
   }
 
+  Segment firstOutgoingSeg;
+  if (!turnInfo.m_outgoing->m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSeg))
+    return 0;
+
+  CorrectCandidatesSegmentByOutgoing(turnInfo, firstOutgoingSeg, nodes);
   RemoveUTurnCandidate(turnInfo, numMwmIds, nodes.candidates);
 
   // If there is no fork on the road we don't need to generate any turn. It is pointless because
