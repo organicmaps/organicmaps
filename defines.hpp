@@ -98,7 +98,7 @@
 #define ROUTING_CITY_BOUNDARIES_TMP_FILENAME "routing_city_boundaries" DATA_FILE_EXTENSION_TMP
 #define ROUTING_CITY_BOUNDARIES_DUMP_FILENAME "routing_city_boundaries.bin"
 #define CROSS_MWM_OSM_WAYS_DIR "cross_mwm_osm_ways"
-#define TEMP_ADDR_FILENAME "tempaddr"
+#define TEMP_ADDR_EXTENSION ".tempaddr"
 
 #define TRAFFIC_FILE_EXTENSION ".traffic"
 
