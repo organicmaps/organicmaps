@@ -22356,17 +22356,17 @@
     tags = android
     comment = Used in DownloadResources startup screen
     en = Unable to create folder and move files on internal device's memory or sdcard
+    pt-BR = Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo
     ru = Не могу создать папку и переместить файлы на устройстве
     tr = Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor
-    pt-BR = Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo
 
   [disk_error_title]
     tags = android
     comment = Used in DownloadResources startup screen
     en = Disk error
+    pt-BR = Erro do armazenamento
     ru = Ошибка диска
     tr = Disk hatası
-    pt-BR = Erro do armazenamento
 
   [connection_failure]
     comment = Used in DownloadResources startup screen
