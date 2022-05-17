@@ -180,7 +180,7 @@ void TestMwmBuilder::Finish()
           ("Can't build postcodes section."));
   }
 
-  UNUSED_VALUE(base::DeleteFileX(path + TEMP_ADDR_FILENAME));
+  UNUSED_VALUE(base::DeleteFileX(path + TEMP_ADDR_EXTENSION));
 
   if (m_type == DataHeader::MapType::World)
   {

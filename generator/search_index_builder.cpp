@@ -541,7 +541,7 @@ bool BuildSearchIndexFromDataFile(std::string const & country, feature::Generate
     if (filename != WORLD_FILE_NAME && filename != WORLD_COASTS_FILE_NAME)
     {
       FileWriter writer(addrFilePath);
-      auto const addrsFile = info.GetIntermediateFileName(country + DATA_FILE_EXTENSION, TEMP_ADDR_FILENAME);
+      auto const addrsFile = info.GetIntermediateFileName(country + DATA_FILE_EXTENSION, TEMP_ADDR_EXTENSION);
       BuildAddressTable(readContainer, addrsFile, writer, threadsCount);
       LOG(LINFO, ("Search address table size =", writer.Size()));
     }
