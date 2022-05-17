@@ -177,7 +177,9 @@ bool KeepRoundaboutTurnByHighwayClass(TurnCandidates const & possibleTurns,
   {
     if (t.m_segment == firstOutgoingSegment)
       continue;
-    if (t.m_highwayClass != HighwayClass::Service)
+    // For roundabouts of Tertiary and less significant class count every road.
+    // For more significant roundabouts - ignore service roads.
+    if (turnInfo.m_outgoing->m_highwayClass >= HighwayClass::Tertiary || t.m_highwayClass != HighwayClass::Service)
       return true;
   }
   return false;
