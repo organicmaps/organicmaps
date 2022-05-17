@@ -43,14 +43,11 @@ namespace feature
 
   static constexpr int kMaxTypesCount = HEADER_MASK_TYPE + 1;
 
-  enum Layer
+  enum Layer : int8_t
   {
-    LAYER_LOW = -11,
-
+    LAYER_LOW = -10,
     LAYER_EMPTY = 0,
-    LAYER_TRANSPARENT_TUNNEL = 11,
-
-    LAYER_HIGH = 12
+    LAYER_HIGH = 10
   };
 
   class TypesHolder
@@ -143,7 +140,7 @@ struct FeatureParamsBase
   int8_t layer;
   uint8_t rank;
 
-  FeatureParamsBase() : layer(0), rank(0) {}
+  FeatureParamsBase() : layer(feature::LAYER_EMPTY), rank(0) {}
 
   void MakeZero();
 

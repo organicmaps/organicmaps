@@ -17,15 +17,15 @@ namespace
 {
 enum Type
 {
-  Line      =               1,
-  Area      = Line       << 1,
-  Symbol    = Area       << 1,
-  Caption   = Symbol     << 1,
-  Circle    = Caption    << 1,
-  PathText  = Circle     << 1,
-  Waymarker = PathText   << 1,
-  Shield    = Waymarker  << 1,
-  CountOfType = PathText + 1
+  Line      = 1 << 0,
+  Area      = 1 << 1,
+  Symbol    = 1 << 2,
+  Caption   = 1 << 3,
+  Circle    = 1 << 4,
+  PathText  = 1 << 5,
+  Waymarker = 1 << 6,
+  Shield    = 1 << 7,
+  CountOfType = Shield + 1
 };
 
 inline drule::rule_type_t Convert(Type t)
@@ -52,7 +52,7 @@ inline bool IsTypeOf(drule::Key const & key, int flags)
   int currentFlag = Line;
   while (currentFlag < CountOfType)
   {
-    Type type = Type(flags & currentFlag);
+    Type const type = Type(flags & currentFlag);
     if (type != 0 && key.m_type == Convert(type))
       return true;
 
@@ -60,11 +60,6 @@ inline bool IsTypeOf(drule::Key const & key, int flags)
   }
 
   return false;
-}
-
-bool IsMiddleTunnel(int const layer, double const depth)
-{
-  return layer != feature::LAYER_EMPTY && depth < 19000;
 }
 
 class Aggregator
@@ -109,11 +104,23 @@ private:
   void ProcessKey(drule::Key const & key)
   {
     double depth = key.m_priority;
-    if (IsMiddleTunnel(m_depthLayer, depth) && IsTypeOf(key, Line))
+    if (m_depthLayer != feature::LAYER_EMPTY)
     {
-      double const layerPart = m_depthLayer * drule::layer_base_priority;
-      double const depthPart = fmod(depth, drule::layer_base_priority);
-      depth = layerPart + depthPart;
+      if (IsTypeOf(key, Line))
+      {
+        double const layerPart = m_depthLayer * drule::layer_base_priority;
+        double const depthPart = fmod(depth, drule::layer_base_priority);
+        depth = layerPart + depthPart;
+      }
+      else if (IsTypeOf(key, Area))
+      {
+        // Area styles have big negative priorities (like -15000), so just add layer correction.
+        depth += m_depthLayer * drule::layer_base_priority;
+      }
+      else
+      {
+        /// @todo Take into account depth-layer for "point-styles". Like priority in OverlayHandle?
+      }
     }
 
     drule::BaseRule const * const dRule = drule::rules().Find(key);
@@ -137,9 +144,6 @@ private:
   void Init()
   {
     m_depthLayer = m_f.GetLayer();
-    if (m_depthLayer == feature::LAYER_TRANSPARENT_TUNNEL)
-      m_depthLayer = feature::LAYER_EMPTY;
-
     if (m_geomType == feature::GeomType::Point)
       m_priorityModifier = (double)m_f.GetPopulation() / 7E9;
     else
