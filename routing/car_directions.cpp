@@ -152,18 +152,6 @@ CarDirection GetRoundaboutDirectionBasic(bool isIngoingEdgeRoundabout, bool isOu
   return CarDirection::None;
 }
 
-// Min difference of route and alternative turn abs angles in degrees
-// to ignore alternative turn (when route direction is GoStraight).
-double constexpr kMinAbsAngleDiffForStraightRoute = 25.0;
-
-// Min difference of route and alternative turn abs angles in degrees
-// to ignore alternative turn (when route direction is bigger and GoStraight).
-double constexpr kMinAbsAngleDiffForBigStraightRoute = 5;
-
-// Min difference of route and alternative turn abs angles in degrees
-// to ignore this alternative candidate (when alternative road is the same or smaller).
-double constexpr kMinAbsAngleDiffForSameOrSmallerRoad = 35.0;
-
 /*!
  * \brief Returns false when other possible turns leads to service roads;
  */
@@ -246,6 +234,18 @@ CarDirection TryToGetExitDirection(TurnCandidates const & possibleTurns, TurnInf
   }
   return CarDirection::None;
 }
+
+// Min difference of route and alternative turn abs angles in degrees
+// to ignore alternative turn (when route direction is GoStraight).
+double constexpr kMinAbsAngleDiffForStraightRoute = 25.0;
+
+// Min difference of route and alternative turn abs angles in degrees
+// to ignore alternative turn (when route direction is bigger and GoStraight).
+double constexpr kMinAbsAngleDiffForBigStraightRoute = 5;
+
+// Min difference of route and alternative turn abs angles in degrees
+// to ignore this alternative candidate (when alternative road is the same or smaller).
+double constexpr kMinAbsAngleDiffForSameOrSmallerRoad = 35.0;
 
 /// * \returns true when
 /// * - the route leads from one big road to another one;
