@@ -44,9 +44,10 @@ void FixupCarTurns(std::vector<geometry::PointWithAltitude> const & junctions, R
   for (size_t idx = 0; idx < turnsDir.size(); )
   {
     TurnItem & t = turnsDir[idx];
-    if (currentEnterRoundAbout && t.m_turn != CarDirection::StayOnRoundAbout && t.m_turn != CarDirection::LeaveRoundAbout)
+    if (currentEnterRoundAbout && t.m_turn != CarDirection::StayOnRoundAbout
+        && t.m_turn != CarDirection::LeaveRoundAbout && t.m_turn != CarDirection::ReachedYourDestination)
     {
-      ASSERT(false, ("Only StayOnRoundAbout or LeaveRoundAbout are expected after EnterRoundAbout."));
+      ASSERT(false, ("Only StayOnRoundAbout, LeaveRoundAbout or ReachedYourDestination are expected after EnterRoundAbout."));
       exitNum = 0;
       currentEnterRoundAbout = nullptr;
     }
