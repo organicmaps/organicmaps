@@ -320,6 +320,10 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
       }
     }
 
+    int const layer = ft.GetLayer();
+    if (layer != feature::LAYER_EMPTY)
+      addStringFn("Layer = " + std::to_string(layer));
+
     menu.addSeparator();
   }, m_framework.PtoG(pt));
 

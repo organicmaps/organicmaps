@@ -935,11 +935,12 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
       {"layer", "*",
        [&params](string & /* k */, string & v) {
          // Get layer.
-         if (params.layer == 0)
+         if (params.layer == feature::LAYER_EMPTY)
          {
+           // atoi error value (0) should match empty layer constant.
+           static_assert(feature::LAYER_EMPTY == 0);
            params.layer = atoi(v.c_str());
-           int8_t const bound = 10;
-           params.layer = base::Clamp(params.layer, static_cast<int8_t>(-bound), bound);
+           params.layer = base::Clamp(params.layer, int8_t(feature::LAYER_LOW), int8_t(feature::LAYER_HIGH));
          }
        }},
   });
