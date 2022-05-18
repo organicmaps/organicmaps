@@ -37,6 +37,7 @@ set(SRC
   data_source.hpp
   data_source_helpers.cpp
   data_source_helpers.hpp
+  displacement_manager.hpp
   drawing_rule_def.cpp
   drawing_rule_def.hpp
   drawing_rules.cpp
