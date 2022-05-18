@@ -199,18 +199,18 @@ void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, dp::FontDecl 
     params.m_isSdf = df::VisualParams::Instance().IsSdfPrefered();
 }
 
-dp::Anchor GetAnchor(CaptionDefProto const * capRule)
+dp::Anchor GetAnchor(int offsetX, int offsetY)
 {
-  if (capRule->offset_y() != 0)
+  if (offsetY != 0)
   {
-    if (capRule->offset_y() > 0)
+    if (offsetY > 0)
       return dp::Top;
     else
       return dp::Bottom;
   }
-  if (capRule->offset_x() != 0)
+  if (offsetX != 0)
   {
-    if (capRule->offset_x() > 0)
+    if (offsetX > 0)
       return dp::Left;
     else
       return dp::Right;
@@ -218,16 +218,10 @@ dp::Anchor GetAnchor(CaptionDefProto const * capRule)
   return dp::Center;
 }
 
-m2::PointF GetOffset(CaptionDefProto const * capRule)
+m2::PointF GetOffset(int offsetX, int offsetY)
 {
   double const vs = VisualParams::Instance().GetVisualScale();
-  m2::PointF result(0, 0);
-  if (capRule != nullptr)
-  {
-    result.x = static_cast<float>(capRule->offset_x() * vs);
-    result.y = static_cast<float>(capRule->offset_y() * vs);
-  }
-  return result;
+  return { static_cast<float>(offsetX * vs), static_cast<float>(offsetY * vs) };
 }
 
 uint16_t CalculateNavigationPoiPriority()
@@ -423,10 +417,10 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   params.m_featureId = m_id;
 
   auto & titleDecl = params.m_titleDecl;
-  titleDecl.m_anchor = GetAnchor(primaryProto);
+  titleDecl.m_anchor = GetAnchor(primaryProto->offset_x(), primaryProto->offset_y());
   titleDecl.m_primaryText = m_captions.GetMainText();
   titleDecl.m_primaryTextFont = decl;
-  titleDecl.m_primaryOffset = GetOffset(primaryProto);
+  titleDecl.m_primaryOffset = GetOffset(primaryProto->offset_x(), primaryProto->offset_y());
   titleDecl.m_primaryOptional = primaryProto->is_optional();
   titleDecl.m_secondaryOptional = true;
 
@@ -565,6 +559,15 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
       textParams.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
                                                                  : SpecialDisplacement::None;
     }
+
+    /// @todo Hardcoded styles-bug patch. The patch is ok, but probably should enhance (or fire assert) styles?
+    /// @see https://github.com/organicmaps/organicmaps/issues/2573
+    if (hasPOI && textParams.m_titleDecl.m_anchor == dp::Anchor::Center)
+    {
+      textParams.m_titleDecl.m_anchor = GetAnchor(0, 1);
+      textParams.m_titleDecl.m_primaryOffset = GetOffset(0, 1);
+    }
+
     textParams.m_specialPriority = specialModePriority;
     textParams.m_startOverlayRank = hasPOI ? dp::OverlayRank1 : dp::OverlayRank0;
     m_insertShape(make_unique_dp<TextShape>(m2::PointD(m_centerPoint), textParams, m_tileKey, symbolSize,
