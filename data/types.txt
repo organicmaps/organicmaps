@@ -1222,7 +1222,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-mapswithme
+*natural|water|tunnel
 *place|square
 *tourism|artwork|architecture
 *tourism|artwork|sculpture
