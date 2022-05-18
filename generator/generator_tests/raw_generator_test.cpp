@@ -237,4 +237,24 @@ UNIT_CLASS_TEST(TestRawGenerator, BuildingRelation)
   TEST_ALMOST_EQUAL_ABS(buildings, buildingParts, 1.0E-4, ());
 }
 
+UNIT_CLASS_TEST(TestRawGenerator, AreaHighway)
+{
+  std::string const mwmName = "AreaHighway";
+  BuildFB("./data/osm_test_data/highway_area.osm", mwmName);
+
+  uint32_t const waterType = classif().GetTypeByPath({"natural", "water", "tunnel"});
+  uint32_t const pedestrianType = classif().GetTypeByPath({"highway", "pedestrian", "area"});
+
+  size_t waters = 0, pedestrians = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.HasType(waterType))
+      ++waters;
+    if (fb.HasType(pedestrianType))
+      ++pedestrians;
+  });
+
+  TEST_EQUAL(waters, 2, ());
+  TEST_EQUAL(pedestrians, 4, ());
+}
 } // namespace raw_generator_tests

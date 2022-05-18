@@ -642,16 +642,25 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
 
   bool isSubway = false;
   bool isLightRail = false;
+  bool isPlatform = false;
+  bool isStopPosition = false;
   bool isBus = false;
   bool isTram = false;
+
   bool isCapital = false;
 
+  bool isMultipolygon = false;
+
+  /// @todo Rearrange processing code with accumulating tags for: PT, Surface, Cuisine, Artwork, Memorial, ...
+  /// Process in separate components (with unit-tests), like DetermineSurface.
   TagProcessor(p).ApplyRules({
       {"bridge", "yes", [&layer] { layer = "1"; }},
       {"tunnel", "yes", [&layer] { layer = "-1"; }},
       {"layer", "*", [&hasLayer] { hasLayer = true; }},
 
       {"railway", "subway_entrance", [&isSubway] { isSubway = true; }},
+      {"public_transport", "platform", [&isPlatform] { isPlatform = true; }},
+      {"public_transport", "stop_position", [&isStopPosition] { isStopPosition = true; }},
       {"bus", "yes", [&isBus] { isBus = true; }},
       {"trolleybus", "yes", [&isBus] { isBus = true; }},
       {"tram", "yes", [&isTram] { isTram = true; }},
@@ -662,38 +671,35 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
       {"station", "light_rail", [&isLightRail] { isLightRail = true; }},
 
       {"capital", "yes", [&isCapital] { isCapital = true; }},
+
+      {"type", "multipolygon", [&isMultipolygon] { isMultipolygon = true; }},
   });
 
   if (!hasLayer && layer)
     p->AddTag("layer", layer);
 
-  // Tag 'city' is needed for correct selection of metro icons.
-  if ((isSubway || isLightRail) && p->m_type == OsmElement::EntityType::Node)
+  if (p->m_type == OsmElement::EntityType::Node)
   {
-    string const city = MatchCity(p);
-    if (!city.empty())
-      p->AddTag("city", city);
+    // Tag 'city' is needed for correct selection of metro icons.
+    if (isSubway || isLightRail)
+    {
+      string const city = MatchCity(p);
+      if (!city.empty())
+        p->AddTag("city", city);
+    }
+
+    // Convert public_transport tags to the older schema.
+    if (isPlatform && isBus)
+      p->AddTag("highway", "bus_stop");
+    if (isStopPosition && isTram)
+      p->AddTag("railway", "tram_stop");
+  }
+  else if (p->m_type == OsmElement::EntityType::Relation && isMultipolygon)
+  {
+    p->AddTag("area", "yes");
   }
 
   p->AddTag("psurface", DetermineSurface(p));
-
-  // Convert public_transport tags to the older schema.
-  for (auto const & tag : p->m_tags)
-  {
-    if (tag.m_key == "public_transport")
-    {
-      if (tag.m_value == "platform" && isBus)
-      {
-        if (p->m_type == OsmElement::EntityType::Node)
-          p->AddTag("highway", "bus_stop");
-      }
-      else if (tag.m_value == "stop_position" && isTram && p->m_type == OsmElement::EntityType::Node)
-      {
-        p->AddTag("railway", "tram_stop");
-      }
-      break;
-    }
-  }
 
   p->UpdateTag("attraction", [](string & value)
   {
