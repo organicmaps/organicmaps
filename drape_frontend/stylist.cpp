@@ -159,11 +159,6 @@ private:
   double m_priorityModifier;
   int m_depthLayer;
 };
-
-uint8_t const CoastlineFlag  = 1;
-uint8_t const AreaStyleFlag  = 1 << 1;
-uint8_t const LineStyleFlag  = 1 << 2;
-uint8_t const PointStyleFlag = 1 << 3;
 }  // namespace
 
 IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
@@ -256,65 +251,14 @@ void CaptionDescription::ProcessMainTextType(drule::text_type_t const & mainText
   }
 }
 
-Stylist::Stylist()
-  : m_state(0)
-{}
-
-bool Stylist::IsCoastLine() const
-{
-  return (m_state & CoastlineFlag) != 0;
-}
-
-bool Stylist::AreaStyleExists() const
-{
-  return (m_state & AreaStyleFlag) != 0;
-}
-
-bool Stylist::LineStyleExists() const
-{
-  return (m_state & LineStyleFlag) != 0;
-}
-
-bool Stylist::PointStyleExists() const
-{
-  return (m_state & PointStyleFlag) != 0;
-}
-
 CaptionDescription const & Stylist::GetCaptionDescription() const
 {
   return m_captionDescriptor;
 }
 
-void Stylist::ForEachRule(Stylist::TRuleCallback const & fn) const
-{
-  typedef rules_t::const_iterator const_iter;
-  for (const_iter it = m_rules.begin(); it != m_rules.end(); ++it)
-    fn(*it);
-}
-
 bool Stylist::IsEmpty() const
 {
   return m_rules.empty();
-}
-
-void Stylist::RaiseCoastlineFlag()
-{
-  m_state |= CoastlineFlag;
-}
-
-void Stylist::RaiseAreaStyleFlag()
-{
-  m_state |= AreaStyleFlag;
-}
-
-void Stylist::RaiseLineStyleFlag()
-{
-  m_state |= LineStyleFlag;
-}
-
-void Stylist::RaisePointStyleFlag()
-{
-  m_state |= PointStyleFlag;
 }
 
 CaptionDescription & Stylist::GetCaptionDescriptionImpl()
@@ -338,23 +282,25 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
   if (keys.empty())
     return false;
 
+  s.m_isHatchingArea = IsHatchingTerritoryChecker::Instance()(types);
+
   drule::MakeUnique(keys);
 
   if (geomType.second)
-    s.RaiseCoastlineFlag();
+    s.m_isCoastline = true;
 
   auto const mainGeomType = feature::GeomType(geomType.first);
 
   switch (mainGeomType)
   {
   case feature::GeomType::Point:
-    s.RaisePointStyleFlag();
+    s.m_pointStyleExists = true;
     break;
   case feature::GeomType::Line :
-    s.RaiseLineStyleFlag();
+    s.m_lineStyleExists = true;
     break;
   case feature::GeomType::Area :
-    s.RaiseAreaStyleFlag();
+    s.m_areaStyleExists = true;
     break;
   default:
     ASSERT(false, ());
@@ -370,9 +316,9 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
   aggregator.AggregateStyleFlags(keys, descr.IsNameExists());
 
   if (aggregator.m_pointStyleFound)
-    s.RaisePointStyleFlag();
+    s.m_pointStyleExists = true;
   if (aggregator.m_lineStyleFound)
-    s.RaiseLineStyleFlag();
+    s.m_lineStyleExists = true;
 
   s.m_rules.swap(aggregator.m_rules);
 

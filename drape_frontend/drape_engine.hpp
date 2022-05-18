@@ -177,7 +177,7 @@ public:
                     FeatureID const & featureID, bool isAnim, bool isGeometrySelectionAllowed,
                     bool isSelectionShapeVisible);
   void DeselectObject();
-  
+
   dp::DrapeID AddSubroute(SubrouteConstPtr subroute);
   void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing);
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom,
@@ -231,12 +231,15 @@ public:
                    ScenarioManager::ScenarioCallback const & onStartFn,
                    ScenarioManager::ScenarioCallback const & onFinishFn);
 
-  // Custom features are features which we render different way.
-  // Value in the map shows if the feature is skipped in process of geometry generation.
-  // For all custom features (if they are overlays) statistics will be gathered.
+  /// @name Custom features are features that we render in a different way.
+  /// Value in the map shows if the feature is skipped in process of geometry generation.
+  /// For all custom features (if they are overlays) statistics will be gathered.
+  /// @todo Not used now, suspect that it was used for some Ads POIs.
+  /// @{
   void SetCustomFeatures(df::CustomFeatures && ids);
   void RemoveCustomFeatures(MwmSet::MwmId const & mwmId);
   void RemoveAllCustomFeatures();
+  /// @}
 
   void SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool enabled);
   void EnableDebugRectRendering(bool enabled);

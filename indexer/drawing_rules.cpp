@@ -16,6 +16,8 @@
 
 #include <google/protobuf/text_format.h>
 
+namespace drule
+{
 using namespace std;
 
 namespace
@@ -33,13 +35,7 @@ namespace
   }
 } // namespace
 
-namespace drule
-{
-
 BaseRule::BaseRule() : m_type(node | way)
-{}
-
-BaseRule::~BaseRule()
 {}
 
 void BaseRule::CheckCacheSize(size_t s)
@@ -187,12 +183,12 @@ uint32_t RulesHolder::GetColor(std::string const & name) const
 
 void RulesHolder::ClearCaches()
 {
-  ForEachRule(bind(static_cast<void (BaseRule::*)()>(&BaseRule::MakeEmptyID), placeholders::_4));
+  ForEachRule([](BaseRule * p) { p->MakeEmptyID(); });
 }
 
 void RulesHolder::ResizeCaches(size_t s)
 {
-  ForEachRule(bind(&BaseRule::CheckCacheSize, placeholders::_4, s));
+  ForEachRule([s](BaseRule * p) { p->CheckCacheSize(s); });
 }
 
 namespace

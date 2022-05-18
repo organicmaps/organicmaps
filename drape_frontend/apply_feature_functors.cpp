@@ -29,6 +29,7 @@
 #include "drape/utils/projection.hpp"
 
 #include "base/logging.hpp"
+#include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -283,45 +284,40 @@ bool IsColoredRoadShield(ftypes::RoadShield const & shield)
          shield.m_type == ftypes::RoadShieldType::Generic_Orange;
 }
 
-dp::FontDecl GetRoadShieldTextFont(dp::FontDecl const & baseFont, ftypes::RoadShield const & shield)
+void UpdateRoadShieldTextFont(dp::FontDecl & font, ftypes::RoadShield const & shield)
 {
-  dp::FontDecl f = baseFont;
-  f.m_outlineColor = dp::Color::Transparent();
+  font.m_outlineColor = dp::Color::Transparent();
 
   using ftypes::RoadShieldType;
 
-  static std::unordered_map<int, df::ColorConstant> kColors = {
-      {base::Underlying(RoadShieldType::Generic_Green), kRoadShieldWhiteTextColor},
-      {base::Underlying(RoadShieldType::Generic_Blue), kRoadShieldWhiteTextColor},
-      {base::Underlying(RoadShieldType::UK_Highway), kRoadShieldUKYellowTextColor},
-      {base::Underlying(RoadShieldType::US_Interstate), kRoadShieldWhiteTextColor},
-      {base::Underlying(RoadShieldType::US_Highway), kRoadShieldBlackTextColor},
-      {base::Underlying(RoadShieldType::Generic_Red), kRoadShieldWhiteTextColor},
-      {base::Underlying(RoadShieldType::Generic_Orange), kRoadShieldBlackTextColor}
+  static base::SmallMapBase<RoadShieldType, df::ColorConstant> kColors = {
+      {RoadShieldType::Generic_Green, kRoadShieldWhiteTextColor},
+      {RoadShieldType::Generic_Blue, kRoadShieldWhiteTextColor},
+      {RoadShieldType::UK_Highway, kRoadShieldUKYellowTextColor},
+      {RoadShieldType::US_Interstate, kRoadShieldWhiteTextColor},
+      {RoadShieldType::US_Highway, kRoadShieldBlackTextColor},
+      {RoadShieldType::Generic_Red, kRoadShieldWhiteTextColor},
+      {RoadShieldType::Generic_Orange, kRoadShieldBlackTextColor}
   };
 
-  auto it = kColors.find(base::Underlying(shield.m_type));
-  if (it != kColors.end())
-    f.m_color = df::GetColorConstant(it->second);
-
-  return f;
+  if (auto const * cl = kColors.Find(shield.m_type); cl)
+    font.m_color = df::GetColorConstant(*cl);
 }
 
 dp::Color GetRoadShieldColor(dp::Color const & baseColor, ftypes::RoadShield const & shield)
 {
   using ftypes::RoadShieldType;
 
-  static std::unordered_map<int, df::ColorConstant> kColors = {
-      {base::Underlying(RoadShieldType::Generic_Green), kRoadShieldGreenBackgroundColor},
-      {base::Underlying(RoadShieldType::Generic_Blue), kRoadShieldBlueBackgroundColor},
-      {base::Underlying(RoadShieldType::UK_Highway), kRoadShieldGreenBackgroundColor},
-      {base::Underlying(RoadShieldType::Generic_Red), kRoadShieldRedBackgroundColor},
-      {base::Underlying(RoadShieldType::Generic_Orange), kRoadShieldOrangeBackgroundColor}
+  static base::SmallMapBase<ftypes::RoadShieldType, df::ColorConstant> kColors = {
+      {RoadShieldType::Generic_Green, kRoadShieldGreenBackgroundColor},
+      {RoadShieldType::Generic_Blue, kRoadShieldBlueBackgroundColor},
+      {RoadShieldType::UK_Highway, kRoadShieldGreenBackgroundColor},
+      {RoadShieldType::Generic_Red, kRoadShieldRedBackgroundColor},
+      {RoadShieldType::Generic_Orange, kRoadShieldOrangeBackgroundColor}
   };
 
-  auto it = kColors.find(base::Underlying(shield.m_type));
-  if (it != kColors.end())
-    return df::GetColorConstant(it->second);
+  if (auto const * cl = kColors.Find(shield.m_type); cl)
+    return df::GetColorConstant(*cl);
 
   return baseColor;
 }
@@ -974,9 +970,9 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   m2::PointF const shieldTextOffset = GetShieldOffset(anchor, borderWidth, borderHeight);
 
   // Text properties.
-  dp::FontDecl baseFont;
-  ShieldRuleProtoToFontDecl(m_shieldRule, baseFont);
-  dp::FontDecl font = GetRoadShieldTextFont(baseFont, shield);
+  dp::FontDecl font;
+  ShieldRuleProtoToFontDecl(m_shieldRule, font);
+  UpdateRoadShieldTextFont(font, shield);
   textParams.m_tileCenter = m_tileRect.Center();
   textParams.m_depthTestEnabled = false;
   textParams.m_depth = m_depth;
