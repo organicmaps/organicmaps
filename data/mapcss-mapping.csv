@@ -1220,7 +1220,7 @@ deprecated|deprecated;1221;x
 deprecated|deprecated;1222;x
 deprecated|deprecated;1223;x
 deprecated|deprecated;1224;x
-deprecated|deprecated;1225;x
+natural|water|tunnel;[natural=water][tunnel?];;name;int_name;1225;
 place|square;1226;
 tourism|artwork|architecture;[tourism=artwork][artwork_type=architecture],[tourism=artwork][type=architecture];;name;int_name;1227;
 tourism|artwork|sculpture;[tourism=artwork][artwork_type=sculpture],[tourism=artwork][type=sculpture];;name;int_name;1228;
