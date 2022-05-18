@@ -65,9 +65,8 @@ namespace feature
   //@}
 
   /// @return (geometry type, is coastline)
-  std::pair<int, bool> GetDrawRule(TypesHolder const & types, int level, drule::KeysT & keys);
-  void GetDrawRule(std::vector<uint32_t> const & types, int level, GeomType geomType,
-                   drule::KeysT & keys);
+  void GetDrawRule(TypesHolder const & types, int level, drule::KeysT & keys);
+  void GetDrawRule(std::vector<uint32_t> const & types, int level, GeomType geomType, drule::KeysT & keys);
   void FilterRulesByRuntimeSelector(FeatureType & f, int zoomLevel, drule::KeysT & keys);
 
   /// Used to check whether user types belong to particular classificator set.

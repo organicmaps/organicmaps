@@ -65,7 +65,7 @@ inline bool IsTypeOf(drule::Key const & key, int flags)
 class Aggregator
 {
 public:
-  Aggregator(FeatureType & f, feature::GeomType const type, int const zoomLevel, int const keyCount)
+  Aggregator(FeatureType & f, feature::GeomType const type, int const zoomLevel, size_t const keyCount)
     : m_pointStyleFound(false)
     , m_lineStyleFound(false)
     , m_auxCaptionFound(false)
@@ -275,7 +275,7 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
     return false;
 
   drule::KeysT keys;
-  auto const geomType = feature::GetDrawRule(types, zoomLevel, keys);
+  feature::GetDrawRule(types, zoomLevel, keys);
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
@@ -286,10 +286,8 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
 
   drule::MakeUnique(keys);
 
-  if (geomType.second)
-    s.m_isCoastline = true;
-
-  auto const mainGeomType = feature::GeomType(geomType.first);
+  s.m_isCoastline = types.Has(classif().GetCoastType());
+  auto const mainGeomType = types.GetGeomType();
 
   switch (mainGeomType)
   {
@@ -307,7 +305,7 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
     return false;
   }
 
-  Aggregator aggregator(f, mainGeomType, zoomLevel, static_cast<int>(keys.size()));
+  Aggregator aggregator(f, mainGeomType, zoomLevel, keys.size());
   aggregator.AggregateKeys(keys);
 
   CaptionDescription & descr = s.GetCaptionDescriptionImpl();
@@ -327,15 +325,13 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
 
 double GetFeaturePriority(FeatureType & f, int const zoomLevel)
 {
+  feature::TypesHolder types(f);
   drule::KeysT keys;
-  std::pair<int, bool> const geomType =
-      feature::GetDrawRule(feature::TypesHolder(f), zoomLevel, keys);
+  feature::GetDrawRule(types, zoomLevel, keys);
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
-  auto const mainGeomType = feature::GeomType(geomType.first);
-
-  Aggregator aggregator(f, mainGeomType, zoomLevel, static_cast<int>(keys.size()));
+  Aggregator aggregator(f, types.GetGeomType(), zoomLevel, keys.size());
   aggregator.AggregateKeys(keys);
 
   double maxPriority = kMinPriority;

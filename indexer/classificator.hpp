@@ -99,13 +99,21 @@ public:
 
   std::pair<int, int> GetDrawScaleRange() const;
 
-  template <typename ToDo>
-  void ForEachObject(ToDo && toDo)
+  /// @name Iterate first level children only.
+  /// @{
+  template <class ToDo> void ForEachObject(ToDo && toDo)
   {
-    for (size_t i = 0; i < m_objs.size(); ++i)
-      toDo(&m_objs[i]);
+    for (auto & e: m_objs)
+      toDo(&e);
   }
+  template <class ToDo> void ForEachObject(ToDo && toDo) const
+  {
+    for (auto const & e: m_objs)
+      toDo(e);
+  }
+  /// @}
 
+  // Recursive sub-tree iteration.
   template <typename ToDo>
   void ForEachObjectInTree(ToDo && toDo, uint32_t const start) const
   {
@@ -227,20 +235,16 @@ public:
                                          root);
   }
 
-  /// @name Used only in feature_visibility.cpp, not for public use.
-  //@{
-  template <typename ToDo>
-  typename ToDo::ResultType ProcessObjects(uint32_t type, ToDo & toDo) const;
-
   ClassifObject const * GetObject(uint32_t type) const;
   std::string GetFullObjectName(uint32_t type) const;
   std::vector<std::string> GetFullObjectNamePath(uint32_t type) const;
-  //@}
 
   /// @return Object name to show in UI (not for debug purposes).
   std::string GetReadableObjectName(uint32_t type) const;
 
 private:
+  template <class ToDo> void ForEachPathObject(uint32_t type, ToDo && toDo) const;
+
   static ClassifObject * AddV(ClassifObject * parent, std::string const & key,
                               std::string const & value);
 
