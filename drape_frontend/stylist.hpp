@@ -51,18 +51,21 @@ private:
 class Stylist
 {
 public:
-  Stylist();
+  bool m_isCoastline = false;
+  bool m_areaStyleExists = false;
+  bool m_lineStyleExists = false;
+  bool m_pointStyleExists = false;
+  bool m_isHatchingArea = false;
 
-  bool IsCoastLine() const;
-  bool AreaStyleExists() const;
-  bool LineStyleExists() const;
-  bool PointStyleExists() const;
-
+public:
   CaptionDescription const & GetCaptionDescription() const;
 
   using TRuleWrapper = std::pair<drule::BaseRule const *, double>;
-  using TRuleCallback = std::function<void(TRuleWrapper const &)>;
-  void ForEachRule(TRuleCallback const & fn) const;
+  template <class ToDo> void ForEachRule(ToDo && toDo) const
+  {
+    for (auto const & r : m_rules)
+      toDo(r);
+  }
 
   bool IsEmpty() const;
 
@@ -70,18 +73,12 @@ private:
   friend bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool buildings3d,
                           Stylist & s);
 
-  void RaiseCoastlineFlag();
-  void RaiseAreaStyleFlag();
-  void RaiseLineStyleFlag();
-  void RaisePointStyleFlag();
-
   CaptionDescription & GetCaptionDescriptionImpl();
 
 private:
   typedef buffer_vector<TRuleWrapper, 8> rules_t;
   rules_t m_rules;
 
-  uint8_t m_state;
   CaptionDescription m_captionDescriptor;
 };
 

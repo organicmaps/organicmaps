@@ -35,6 +35,8 @@
 #include <utility>
 #include <vector>
 
+namespace df
+{
 using namespace std::placeholders;
 
 namespace
@@ -144,18 +146,8 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
     }
   }
 }
-
-bool UsePreciseFeatureCenter(FeatureType & f)
-{
-  // Add here types for which we want to calculate precise feature center (by best geometry).
-  // Warning! Large amount of such objects can reduce performance.
-  UNUSED_VALUE(f);
-  return false;
-}
 }  // namespace
 
-namespace df
-{
 RuleDrawer::RuleDrawer(TDrawerCallback const & drawerFn,
                        TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
@@ -215,11 +207,16 @@ bool RuleDrawer::CheckCancelled()
   return m_wasCancelled;
 }
 
+bool RuleDrawer::IsDiscardCustomFeature(FeatureID const & id) const
+{
+  return m_customFeaturesContext && m_customFeaturesContext->NeedDiscardGeometry(id);
+}
+
 bool RuleDrawer::CheckCoastlines(FeatureType & f, Stylist const & s)
 {
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
 
-  if (s.IsCoastLine() &&
+  if (s.m_isCoastline &&
       zoomLevel > scales::GetUpperWorldScale() &&
       f.GetID().m_mwmId.GetInfo()->GetType() == MwmInfo::COASTS)
   {
@@ -246,14 +243,16 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
   bool isBuildingOutline = false;
   if (f.GetLayer() >= 0)
   {
-    bool const hasParts = ftypes::IsBuildingHasPartsChecker::Instance()(f);
-    bool const isPart = ftypes::IsBuildingPartChecker::Instance()(f);
+    feature::TypesHolder const types(f);
+    using namespace ftypes;
+
+    bool const hasParts = IsBuildingHasPartsChecker::Instance()(types);
+    bool const isPart = IsBuildingPartChecker::Instance()(types);
 
     // Looks like nonsense, but there are some osm objects with types
     // highway-path-bridge and building (sic!) at the same time (pedestrian crossing).
-    isBuilding = (isPart || ftypes::IsBuildingChecker::Instance()(f)) &&
-        !ftypes::IsBridgeChecker::Instance()(f) &&
-        !ftypes::IsTunnelChecker::Instance()(f);
+    isBuilding = (isPart || IsBuildingChecker::Instance()(types)) &&
+                  !IsBridgeChecker::Instance()(types) && !IsTunnelChecker::Instance()(types);
 
     isBuildingOutline = isBuilding && hasParts && !isPart;
     is3dBuilding = m_context->Is3dBuildingsEnabled() && (isBuilding && !isBuildingOutline);
@@ -283,10 +282,11 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
   }
   else
   {
-    hatchingArea = IsHatchingTerritoryChecker::Instance()(f);
+    // Put here in case if we have hatching and 3D-building at the same time? :)
+    hatchingArea = s.m_isHatchingArea;
   }
 
-  bool applyPointStyle = s.PointStyleExists();
+  bool applyPointStyle = s.m_pointStyleExists;
   if (applyPointStyle)
   {
     if (!is3dBuilding)
@@ -304,21 +304,15 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
                          s.GetCaptionDescription(), hatchingArea);
   f.ForEachTriangle(apply, zoomLevel);
   if (applyPointStyle)
-  {
-    if (UsePreciseFeatureCenter(f))
-    {
-      f.ResetGeometry();
-      featureCenter = feature::GetCenter(f, FeatureType::BEST_GEOMETRY);
-    }
     apply(featureCenter, true /* hasArea */);
-  }
 
   if (CheckCancelled())
     return;
 
   s.ForEachRule(std::bind(&ApplyAreaFeature::ProcessAreaRule, &apply, _1));
 
-  if (!m_customFeaturesContext || !m_customFeaturesContext->NeedDiscardGeometry(f.GetID()))
+  /// @todo Can we put this check in the beginning of this function?
+  if (!IsDiscardCustomFeature(f.GetID()))
     apply.Finish(m_context->GetTextureManager());
 }
 
@@ -414,7 +408,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s,
 void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
                                    TInsertShapeFn const & insertShape, int & minVisibleScale)
 {
-  if (m_customFeaturesContext && m_customFeaturesContext->NeedDiscardGeometry(f.GetID()))
+  if (IsDiscardCustomFeature(f.GetID()))
     return;
 
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
@@ -465,10 +459,10 @@ void RuleDrawer::operator()(FeatureType & f)
 
 #ifdef DEBUG
   // Validate on feature styles
-  if (!s.AreaStyleExists())
+  if (!s.m_areaStyleExists)
   {
-    int checkFlag = s.PointStyleExists() ? 1 : 0;
-    checkFlag += s.LineStyleExists() ? 1 : 0;
+    int checkFlag = s.m_pointStyleExists ? 1 : 0;
+    checkFlag += s.m_lineStyleExists ? 1 : 0;
     ASSERT(checkFlag == 1, ());
   }
 #endif
@@ -483,17 +477,17 @@ void RuleDrawer::operator()(FeatureType & f)
     m_mapShapes[index].push_back(std::move(shape));
   };
 
-  if (s.AreaStyleExists())
+  if (s.m_areaStyleExists)
   {
     ProcessAreaStyle(f, s, insertShape, minVisibleScale);
   }
-  else if (s.LineStyleExists())
+  else if (s.m_lineStyleExists)
   {
     ProcessLineStyle(f, s, insertShape, minVisibleScale);
   }
   else
   {
-    ASSERT(s.PointStyleExists(), ());
+    ASSERT(s.m_pointStyleExists, ());
     ProcessPointStyle(f, s, insertShape, minVisibleScale);
   }
 
