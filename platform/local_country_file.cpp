@@ -14,15 +14,14 @@
 #include <algorithm>
 #include <sstream>
 
-using namespace std;
-
 namespace platform
 {
+using namespace std;
+
 LocalCountryFile::LocalCountryFile() : m_version(0) {}
 
-LocalCountryFile::LocalCountryFile(string const & directory, CountryFile const & countryFile,
-                                   int64_t version)
-  : m_directory(directory), m_countryFile(countryFile), m_version(version)
+LocalCountryFile::LocalCountryFile(string directory, CountryFile countryFile, int64_t version)
+: m_directory(std::move(directory)), m_countryFile(std::move(countryFile)), m_version(version)
 {
 }
 
@@ -115,10 +114,9 @@ bool LocalCountryFile::ValidateIntegrity() const
 }
 
 // static
-LocalCountryFile LocalCountryFile::MakeForTesting(string const & countryFileName, int64_t version)
+LocalCountryFile LocalCountryFile::MakeForTesting(string countryFileName, int64_t version)
 {
-  CountryFile const countryFile(countryFileName);
-  LocalCountryFile localFile(GetPlatform().WritableDir(), countryFile, version);
+  LocalCountryFile localFile(GetPlatform().WritableDir(), CountryFile(std::move(countryFileName)), version);
   localFile.SyncWithDisk();
   return localFile;
 }
@@ -130,7 +128,7 @@ LocalCountryFile LocalCountryFile::MakeTemporary(string const & fullPath)
   base::GetNameFromFullPath(name);
   base::GetNameWithoutExt(name);
 
-  return LocalCountryFile(base::GetDirectory(fullPath), CountryFile(name), 0 /* version */);
+  return LocalCountryFile(base::GetDirectory(fullPath), CountryFile(std::move(name)), 0 /* version */);
 }
 
 string DebugPrint(LocalCountryFile const & file)

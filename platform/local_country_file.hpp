@@ -33,7 +33,7 @@ public:
   // directory. Note that no disk operations are not performed until
   // SyncWithDisk() is called.
   // The directory must contain a full path to the country file.
-  LocalCountryFile(std::string const & directory, CountryFile const & countryFile, int64_t version);
+  LocalCountryFile(std::string directory, CountryFile countryFile, int64_t version);
 
   // Syncs internal state like availability of files, their sizes etc. with disk.
   // Generality speaking it's not always true. To know it for sure it's necessary to read a mwm in
@@ -76,7 +76,7 @@ public:
 
   // Creates LocalCountryFile for test purposes, for a country region
   // with countryFileName (without any extensions). Automatically performs sync with disk.
-  static LocalCountryFile MakeForTesting(std::string const & countryFileName, int64_t version = 0);
+  static LocalCountryFile MakeForTesting(std::string countryFileName, int64_t version = 0);
 
   // Used in generator only to simplify getting instance from path.
   static LocalCountryFile MakeTemporary(std::string const & fullPath);
