@@ -10016,12 +10016,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 100
-    }
   }
   element {
     scale: 13
@@ -10039,12 +10033,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 120
-    }
   }
   element {
     scale: 14
@@ -10061,12 +10049,6 @@ cont {
         stroke_color: 871230427
       }
       priority: 16423
-    }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 175
     }
   }
   element {
@@ -10093,12 +10075,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 250
-    }
   }
   element {
     scale: 16
@@ -10123,12 +10099,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 300
-    }
   }
   element {
     scale: 17
@@ -10152,12 +10122,6 @@ cont {
         stroke_color: 872415231
       }
       priority: 16423
-    }
-    shield {
-      height: 10
-      color: 16777215
-      priority: 16423
-      min_distance: 350
     }
   }
   element {
@@ -10240,12 +10204,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 100
-    }
   }
   element {
     scale: 13
@@ -10263,12 +10221,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 120
-    }
   }
   element {
     scale: 14
@@ -10285,12 +10237,6 @@ cont {
         stroke_color: 871230427
       }
       priority: 16423
-    }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 175
     }
   }
   element {
@@ -10317,12 +10263,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 250
-    }
   }
   element {
     scale: 16
@@ -10347,12 +10287,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 300
-    }
   }
   element {
     scale: 17
@@ -10376,12 +10310,6 @@ cont {
         stroke_color: 872415231
       }
       priority: 16423
-    }
-    shield {
-      height: 10
-      color: 16777215
-      priority: 16423
-      min_distance: 350
     }
   }
   element {
@@ -10464,12 +10392,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 100
-    }
   }
   element {
     scale: 13
@@ -10486,12 +10408,6 @@ cont {
         stroke_color: 452984831
       }
       priority: 16423
-    }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 120
     }
   }
   element {
@@ -10525,12 +10441,6 @@ cont {
         stroke_color: 871230427
       }
       priority: 16423
-    }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 175
     }
   }
   element {
@@ -10573,12 +10483,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 250
-    }
   }
   element {
     scale: 16
@@ -10619,12 +10523,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 300
-    }
   }
   element {
     scale: 17
@@ -10664,12 +10562,6 @@ cont {
         stroke_color: 872415231
       }
       priority: 16423
-    }
-    shield {
-      height: 10
-      color: 16777215
-      priority: 16423
-      min_distance: 350
     }
   }
   element {
@@ -10784,12 +10676,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 100
-    }
   }
   element {
     scale: 13
@@ -10807,12 +10693,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 120
-    }
   }
   element {
     scale: 14
@@ -10829,12 +10709,6 @@ cont {
         stroke_color: 871230427
       }
       priority: 16423
-    }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 175
     }
   }
   element {
@@ -10860,12 +10734,6 @@ cont {
         stroke_color: 871230427
       }
       priority: 16423
-    }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 250
     }
   }
   element {
@@ -10893,12 +10761,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 300
-    }
   }
   element {
     scale: 17
@@ -10924,12 +10786,6 @@ cont {
         stroke_color: 872415231
       }
       priority: 16423
-    }
-    shield {
-      height: 10
-      color: 16777215
-      priority: 16423
-      min_distance: 350
     }
   }
   element {
@@ -13357,12 +13213,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 100
-    }
   }
   element {
     scale: 13
@@ -13380,12 +13230,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 120
-    }
   }
   element {
     scale: 14
@@ -13402,12 +13246,6 @@ cont {
         stroke_color: 871230427
       }
       priority: 16423
-    }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 175
     }
   }
   element {
@@ -13591,12 +13429,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 100
-    }
   }
   element {
     scale: 13
@@ -13613,12 +13445,6 @@ cont {
         stroke_color: 452984831
       }
       priority: 16423
-    }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 120
     }
   }
   element {
@@ -13652,12 +13478,6 @@ cont {
         stroke_color: 871230427
       }
       priority: 16423
-    }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 175
     }
   }
   element {
@@ -13921,12 +13741,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 100
-    }
   }
   element {
     scale: 13
@@ -13944,12 +13758,6 @@ cont {
       }
       priority: 16423
     }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 120
-    }
   }
   element {
     scale: 14
@@ -13966,12 +13774,6 @@ cont {
         stroke_color: 871230427
       }
       priority: 16423
-    }
-    shield {
-      height: 9
-      color: 16777215
-      priority: 16423
-      min_distance: 175
     }
   }
   element {
@@ -26101,6 +25903,478 @@ cont {
 }
 cont {
   name: "natural-water-river"
+  element {
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 1
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 2
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 3
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 4
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 5
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 6
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 7
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 8
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 9
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 10
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 10
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 10
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 11
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 11
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 11
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 12
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 12
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 12
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=1000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=1000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=1000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=1000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=1000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=1000000"
+  }
+}
+cont {
+  name: "natural-water-tunnel"
   element {
     area {
       color: 9163744

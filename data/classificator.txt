@@ -634,6 +634,7 @@ world  +
             pond  -
             reservoir  -
             river  -
+            tunnel  -
             {}
         wetland  +
             bog  -
