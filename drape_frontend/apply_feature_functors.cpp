@@ -1089,7 +1089,7 @@ bool ApplyLineFeatureAdditional::CheckShieldsNearby(m2::PointD const & shieldPos
 }
 
 void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
-                                        std::set<ftypes::RoadShield> && roadShields,
+                                        ftypes::RoadShieldsSetT const & roadShields,
                                         GeneratedRoadShields & generatedRoadShields)
 {
   if (m_clippedSplines.empty())

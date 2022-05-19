@@ -195,7 +195,7 @@ public:
                              std::vector<m2::SharedSpline> const & clippedSplines);
 
   void ProcessLineRule(Stylist::TRuleWrapper const & rule);
-  void Finish(ref_ptr<dp::TextureManager> texMng, std::set<ftypes::RoadShield> && roadShields,
+  void Finish(ref_ptr<dp::TextureManager> texMng, ftypes::RoadShieldsSetT const & roadShields,
               GeneratedRoadShields & generatedRoadShields);
 
 private:
