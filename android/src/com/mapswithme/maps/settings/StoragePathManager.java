@@ -33,8 +33,7 @@ public class StoragePathManager
   static final String TAG = StoragePathManager.class.getName();
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
   private static final String[] MOVABLE_EXTS = Framework.nativeGetMovableFilesExts();
-  static final FilenameFilter MOVABLE_FILES_FILTER = (dir, filename) ->
-  {
+  static final FilenameFilter MOVABLE_FILES_FILTER = (dir, filename) -> {
     for (String ext : MOVABLE_EXTS)
       if (filename.endsWith(ext))
         return true;
@@ -50,8 +49,9 @@ public class StoragePathManager
   private OnStorageListChangedListener mStoragesChangedListener;
   private BroadcastReceiver mInternalReceiver;
   private Context mContext;
-  private final List<StorageItem> mItems = new ArrayList<>();
-  private int mCurrentStorageIndex = -1;
+
+  public final List<StorageItem> mStorages = new ArrayList<>();
+  public int mCurrentStorageIndex = -1;
 
   public StoragePathManager(@NonNull Context context)
   {
@@ -81,7 +81,7 @@ public class StoragePathManager
         scanAvailableStorages();
 
         if (mStoragesChangedListener != null)
-          mStoragesChangedListener.onStorageListChanged(mItems, mCurrentStorageIndex);
+          mStoragesChangedListener.onStorageListChanged(mStorages, mCurrentStorageIndex);
       }
     };
 
@@ -113,16 +113,6 @@ public class StoragePathManager
       mInternalReceiver = null;
       mStoragesChangedListener = null;
     }
-  }
-
-  public List<StorageItem> getStorageItems()
-  {
-    return mItems;
-  }
-
-  public int getCurrentStorageIndex()
-  {
-    return mCurrentStorageIndex;
   }
 
   /**
@@ -239,10 +229,10 @@ public class StoragePathManager
                                           : (isEmulated ? mContext.getString(R.string.maps_storage_shared)
                                                         : mContext.getString(R.string.maps_storage_external)));
 
-      StorageItem item = new StorageItem(path, freeSize, totalSize, label, isReadonly);
-      mItems.add(item);
+      StorageItem storage = new StorageItem(path, freeSize, totalSize, label, isReadonly);
+      mStorages.add(storage);
       if (isCurrent)
-        mCurrentStorageIndex = mItems.size() - 1;
+        mCurrentStorageIndex = mStorages.size() - 1;
       LOGGER.i(TAG, "Accepted " + commentedPath);
     }
     catch (SecurityException | IOException ex)
@@ -264,7 +254,7 @@ public class StoragePathManager
     LOGGER.i(TAG, "Currently configured storage: " + (TextUtils.isEmpty(configPath) ? "N/A" : configPath));
 
     LOGGER.i(TAG, "Begin scanning storages");
-    mItems.clear();
+    mStorages.clear();
     mCurrentStorageIndex = -1;
 
     // External storages (SD cards and other).
@@ -278,7 +268,7 @@ public class StoragePathManager
 
     LOGGER.i(TAG, "End scanning storages");
 
-    if (mItems.isEmpty())
+    if (mStorages.isEmpty())
       // Shut down the app.
       throw new AssertionError("Can't find available storages");
 
@@ -301,26 +291,25 @@ public class StoragePathManager
   private static boolean containsMapData(String storagePath)
   {
     File path = new File(storagePath);
-    File[] candidates = path.listFiles((pathname) ->
+    File[] candidates = path.listFiles((pathname) -> {
+      if (!pathname.isDirectory())
+        return false;
+
+      try
       {
-       if (!pathname.isDirectory())
-         return false;
+        String name = pathname.getName();
+        if (name.length() != 6)
+          return false;
 
-       try
-       {
-         String name = pathname.getName();
-         if (name.length() != 6)
-           return false;
+        int version = Integer.valueOf(name);
+        return (version > 120000 && version <= 999999);
+      }
+      catch (NumberFormatException ignored)
+      {
+      }
 
-         int version = Integer.valueOf(name);
-         return (version > 120000 && version <= 999999);
-       }
-       catch (NumberFormatException ignored)
-       {
-       }
-
-       return false;
-      });
+      return false;
+    });
 
     return (candidates != null && candidates.length > 0 &&
             candidates[0].list().length > 0);
@@ -337,11 +326,12 @@ public class StoragePathManager
     StoragePathManager mgr = new StoragePathManager(application);
     mgr.scanAvailableStorages();
     String path = null;
-    final int currentIdx = mgr.getCurrentStorageIndex();
+    final List<StorageItem> storages = mgr.mStorages;
+    final int currentIdx = mgr.mCurrentStorageIndex;
 
     if (currentIdx != -1)
     {
-      path = mgr.getStorageItems().get(currentIdx).getFullPath();
+      path = storages.get(currentIdx).mPath;
       if (containsMapData(path))
       {
         LOGGER.i(TAG, "Found map files at the currently configured " + path);
@@ -354,11 +344,11 @@ public class StoragePathManager
     }
 
     LOGGER.i(TAG, "Looking for map files in available storages...");
-    for (int idx = 0; idx < mgr.getStorageItems().size(); ++idx)
+    for (int idx = 0; idx < storages.size(); ++idx)
     {
       if (idx == currentIdx)
         continue;
-      path = mgr.getStorageItems().get(idx).getFullPath();
+      path = storages.get(idx).mPath;
       if (containsMapData(path))
       {
         LOGGER.i(TAG, "Found map files at " + path);
@@ -371,7 +361,7 @@ public class StoragePathManager
     }
 
     // Use the first storage by default.
-    path = mgr.getStorageItems().get(0).getFullPath();
+    path = storages.get(0).mPath;
     LOGGER.i(TAG, "Using default storage: " + path);
     return path;
   }

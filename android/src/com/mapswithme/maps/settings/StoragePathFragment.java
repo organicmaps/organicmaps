@@ -2,13 +2,12 @@ package com.mapswithme.maps.settings;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.text.format.Formatter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -99,14 +98,14 @@ public class StoragePathFragment extends BaseSettingsFragment
    */
   public void changeStorage(int newIndex)
   {
-    final int currentIndex = mPathManager.getCurrentStorageIndex();
-    final List<StorageItem> items = mPathManager.getStorageItems();
-    if (newIndex == currentIndex || currentIndex == -1 || items.get(newIndex).isReadonly()
+    final int currentIndex = mPathManager.mCurrentStorageIndex;
+    final List<StorageItem> storages = mPathManager.mStorages;
+    if (newIndex == currentIndex || currentIndex == -1 || storages.get(newIndex).mIsReadonly
         || !mAdapter.isStorageBigEnough(newIndex))
       return;
 
-    final String oldPath = items.get(currentIndex).getFullPath();
-    final String newPath = items.get(newIndex).getFullPath();
+    final String oldPath = storages.get(currentIndex).mPath;
+    final String newPath = storages.get(newIndex).mPath;
 
     new AlertDialog.Builder(requireActivity())
         .setCancelable(false)
@@ -125,27 +124,25 @@ public class StoragePathFragment extends BaseSettingsFragment
     final ProgressDialog dialog = DialogUtils.createModalProgressDialog(requireActivity(), R.string.wait_several_minutes);
     dialog.show();
 
-    ThreadPool.getStorage().execute(() ->
-      {
-        final boolean result = mPathManager.moveStorage(newPath, oldPath);
+    ThreadPool.getStorage().execute(() -> {
+      final boolean result = mPathManager.moveStorage(newPath, oldPath);
 
-        UiThread.run(() ->
-          {
-           if (dialog.isShowing())
-             dialog.dismiss();
+      UiThread.run(() -> {
+        if (dialog.isShowing())
+          dialog.dismiss();
 
-           if (!result)
-           {
-             new AlertDialog.Builder(requireActivity())
-                 .setTitle(R.string.move_maps_error)
-                 .setPositiveButton(R.string.report_a_bug,
-                                    (dlg, which) -> Utils.sendBugReport(requireActivity(), "Error moving map files"))
-                 .show();
-           }
-           mPathManager.scanAvailableStorages();
-           updateList();
-          });
+        if (!result)
+        {
+          new AlertDialog.Builder(requireActivity())
+              .setTitle(R.string.move_maps_error)
+              .setPositiveButton(R.string.report_a_bug,
+                                 (dlg, which) -> Utils.sendBugReport(requireActivity(), "Error moving map files"))
+              .show();
+        }
+        mPathManager.scanAvailableStorages();
+        updateList();
       });
+    });
   }
 
   @Override

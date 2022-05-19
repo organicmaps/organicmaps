@@ -30,13 +30,13 @@ class StoragePathAdapter extends BaseAdapter
   @Override
   public int getCount()
   {
-    return (mPathManager.getStorageItems() == null ? 0 : mPathManager.getStorageItems().size());
+    return (mPathManager.mStorages == null ? 0 : mPathManager.mStorages.size());
   }
 
   @Override
   public StorageItem getItem(int position)
   {
-    return mPathManager.getStorageItems().get(position);
+    return mPathManager.mStorages.get(position);
   }
 
   @Override
@@ -51,23 +51,23 @@ class StoragePathAdapter extends BaseAdapter
     if (convertView == null)
       convertView = mActivity.getLayoutInflater().inflate(R.layout.item_storage, parent, false);
 
-    StorageItem item = mPathManager.getStorageItems().get(position);
-    final boolean isCurrent = position == mPathManager.getCurrentStorageIndex();
+    StorageItem item = mPathManager.mStorages.get(position);
+    final boolean isCurrent = position == mPathManager.mCurrentStorageIndex;
     CheckedTextView checkedView = (CheckedTextView) convertView;
     checkedView.setChecked(isCurrent);
-    checkedView.setEnabled(!item.isReadonly() && (isStorageBigEnough(position) || isCurrent));
+    checkedView.setEnabled(!item.mIsReadonly && (isStorageBigEnough(position) || isCurrent));
 
     final String size = mActivity.getString(R.string.maps_storage_free_size,
-                                            Formatter.formatShortFileSize(mActivity, item.getFreeSize()),
-                                            Formatter.formatShortFileSize(mActivity, item.getTotalSize()));
+                                            Formatter.formatShortFileSize(mActivity, item.mFreeSize),
+                                            Formatter.formatShortFileSize(mActivity, item.mTotalSize));
 
-    SpannableStringBuilder sb = new SpannableStringBuilder(item.getLabel() + "\n" + size);
+    SpannableStringBuilder sb = new SpannableStringBuilder(item.mLabel + "\n" + size);
     sb.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(mActivity, android.R.attr.textColorSecondary)),
                sb.length() - size.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     sb.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(mActivity, R.dimen.text_size_body_3)),
                sb.length() - size.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-    final String path = item.getFullPath() + (item.isReadonly() ? " (read-only)" : "");
+    final String path = item.mPath + (item.mIsReadonly ? " (read-only)" : "");
     sb.append("\n" + path);
     sb.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(mActivity, android.R.attr.textColorSecondary)),
                sb.length() - path.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -87,6 +87,6 @@ class StoragePathAdapter extends BaseAdapter
 
   public boolean isStorageBigEnough(int index)
   {
-    return mPathManager.getStorageItems().get(index).getFreeSize() >= mSizeNeeded;
+    return mPathManager.mStorages.get(index).mFreeSize >= mSizeNeeded;
   }
 }
