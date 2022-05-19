@@ -52,6 +52,7 @@ public class StoragePathManager
 
   public final List<StorageItem> mStorages = new ArrayList<>();
   public int mCurrentStorageIndex = -1;
+  private StorageItem mEmulatedStorage = null;
 
   public StoragePathManager(@NonNull Context context)
   {
@@ -117,6 +118,8 @@ public class StoragePathManager
 
   /**
    * Adds a storage into the list if it passes sanity checks.
+   * Internal storage is omitted if it backs an emulated one (unless internal is the current one),
+   * hence internal should be fed to this method last.
    */
   private void addStorageOption(File dir, boolean isInternal, String configPath)
   {
@@ -143,6 +146,22 @@ public class StoragePathManager
                       (isCurrent ? "currently configured, " : "") +
                       (isInternal ? "internal" : "external") + ", " +
                       freeSize + " available out of " + totalSize + " bytes";
+
+      // Check if internal and emulated are the same physical device.
+      // Allow for some divergence in freeSize because there could have been file operations inbetween free space checks.
+      if (isInternal && mEmulatedStorage != null && mEmulatedStorage.mTotalSize == totalSize
+          && mEmulatedStorage.mFreeSize > freeSize - 1024 * 1024
+          && mEmulatedStorage.mFreeSize < freeSize + 1024 * 1024)
+      {
+        final String emulated = ", backs emulated (" + mEmulatedStorage.mPath + ")";
+        // Allow duplicating internal storage if its the current one (for migration purposes).
+        if (!isCurrent)
+        {
+          LOGGER.i(TAG, "Duplicate" + emulated + ": " + commentedPath);
+          return;
+        }
+        commentedPath += emulated;
+      }
 
       boolean isEmulated = false;
       boolean isRemovable = false;
@@ -215,13 +234,6 @@ public class StoragePathManager
         else
           return;
       }
-      if (isEmulated)
-      {
-        // TODO: External emulated storage can be backed either by internal or adopted external storage.
-        // https://github.com/organicmaps/organicmaps/issues/2451
-        LOGGER.i(TAG, "Emulated storage: " + commentedPath);
-        return;
-      }
 
       if (TextUtils.isEmpty(label))
         label = isInternal ? mContext.getString(R.string.maps_storage_internal)
@@ -233,6 +245,8 @@ public class StoragePathManager
       mStorages.add(storage);
       if (isCurrent)
         mCurrentStorageIndex = mStorages.size() - 1;
+      if (isEmulated)
+        mEmulatedStorage = storage;
       LOGGER.i(TAG, "Accepted " + commentedPath);
     }
     catch (SecurityException | IOException ex)
@@ -243,9 +257,6 @@ public class StoragePathManager
 
   /**
    * Updates the list of available storages.
-   * The scan order is following:
-   *  1. App-specific directories on shared/external storage devices.
-   *  2. App-specific directory in the internal memory.
    */
   public void scanAvailableStorages() throws AssertionError
   {
@@ -256,6 +267,7 @@ public class StoragePathManager
     LOGGER.i(TAG, "Begin scanning storages");
     mStorages.clear();
     mCurrentStorageIndex = -1;
+    mEmulatedStorage = null;
 
     // External storages (SD cards and other).
     for (File externalDir : mContext.getExternalFilesDirs(null))
@@ -279,14 +291,8 @@ public class StoragePathManager
   }
 
   /**
-   * Dumb way to determine whether the storage contains Organic Maps data.
-   * <p>The algorithm is quite simple:
-   * <ul>
-   *   <li>Find all writable storages;</li>
-   *   <li>If there is a directory with version-like name (e.g. "160602")…</li>
-   *   <li>…and it is not empty…</li>
-   *   <li>…we got it!</li>
-   * </ul>
+   * Determine whether the storage contains map files
+   * by checking for non-empty directories with version-like names (e.g. "220415").
    */
   private static boolean containsMapData(String storagePath)
   {
@@ -316,10 +322,26 @@ public class StoragePathManager
   }
 
   /**
+   * Get storage with the most free space.
+   */
+  public StorageItem getBiggestStorage()
+  {
+    StorageItem res = null;
+    for (StorageItem storage : mStorages)
+    {
+      if (res == null || res.mFreeSize < storage.mFreeSize)
+      {
+        res = storage;
+      }
+    }
+    return res;
+  }
+
+  /**
    * Returns an available storage with existing maps files.
    * Checks the currently configured storage first,
-   * then scans other storages. Defaults to the first available option if no maps files found
-   * (see scanAvailableStorages() for the scan order details).
+   * then scans other storages. If no maps files found
+   * defaults to the storage with the most free space.
    */
   public static String findMapsStorage(@NonNull Application application)
   {
@@ -360,9 +382,8 @@ public class StoragePathManager
       }
     }
 
-    // Use the first storage by default.
-    path = storages.get(0).mPath;
-    LOGGER.i(TAG, "Using default storage: " + path);
+    path = mgr.getBiggestStorage().mPath;
+    LOGGER.i(TAG, "Defaulting to a storage with the most free space: " + path);
     return path;
   }
 
