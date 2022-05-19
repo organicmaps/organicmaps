@@ -34,6 +34,8 @@ private:
     std::move(rhs.m_static, rhs.m_static + rhs.m_size, m_static);
   }
 
+  static constexpr size_t SwitchCapacity() { return 3*N/2 + 1; }
+
 public:
   typedef T value_type;
   typedef T const & const_reference;
@@ -283,11 +285,12 @@ public:
     {
       if (m_size < N)
       {
-        Swap(m_static[m_size++], t);
+        m_static[m_size] = std::move(t);
+        ++m_size; // keep basic exception safety here
         return;
       }
       else
-        SwitchToDynamic(N + 1);
+        SwitchToDynamic(SwitchCapacity());
     }
 
     m_dynamic.push_back(std::move(t));
@@ -314,16 +317,17 @@ public:
     }
     else
     {
-      // Construct value first in case of reallocation and m_vec.emplace_back(m_vec[0]).
-      value_type v(std::forward<Args>(args)...);
       if (m_size < N)
       {
-        Swap(v, m_static[m_size++]);
+        m_static[m_size] = value_type(std::forward<Args>(args)...);
+        ++m_size; // keep basic exception safety here
       }
       else
       {
-        SwitchToDynamic(N + 1);
-        m_dynamic.push_back(std::move(v));
+        // Construct value first in case of reallocation and m_vec.emplace_back(m_vec[0]).
+        value_type value(std::forward<Args>(args)...);
+        SwitchToDynamic(SwitchCapacity());
+        m_dynamic.push_back(std::move(value));
       }
     }
   }
