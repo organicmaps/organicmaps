@@ -199,20 +199,22 @@ void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::Point
   for (auto const & segment : segments)
     length += glsl::length(segment.m_points[EndPoint] - segment.m_points[StartPoint]);
 
-  geometryBufferData.emplace_back(GeometryBufferData<GeometryBuffer>());
+  geometryBufferData.push_back({});
 
   uint32_t constexpr kMinVertices = 5000;
   double constexpr kMinExtent = mercator::Bounds::kRangeX / (1 << 10);
 
   float depth = baseDepth;
   float const depthStep = rs::kRouteDepth / (1 + segments.size());
-  for (auto i = static_cast<int>(segments.size() - 1); i >= 0; i--)
+  int const lastIndex = static_cast<int>(segments.size() - 1);
+  for (int i = lastIndex; i >= 0; i--)
   {
     auto & geomBufferData = geometryBufferData.back();
     auto & geometry = geomBufferData.m_geometry;
+    auto & joinsGeometry = geomBufferData.m_joinsGeometry;
 
     UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
-                 (i < static_cast<int>(segments.size()) - 1) ? &segments[i + 1] : nullptr);
+                  i < lastIndex ? &segments[i + 1] : nullptr);
 
     geomBufferData.m_boundingBox.Add(glsl::FromVec2(segments[i].m_points[StartPoint]));
     geomBufferData.m_boundingBox.Add(glsl::FromVec2(segments[i].m_points[EndPoint]));
@@ -257,10 +259,8 @@ void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::Point
     geometry.emplace_back(endPivot, glsl::vec2(0, 0),
                           glsl::vec3(length, 0, rs::kCenter), segments[i].m_color);
 
-    auto & joinsGeometry = geomBufferData.m_joinsGeometry;
-
     // Generate joins.
-    if (segments[i].m_generateJoin && i < static_cast<int>(segments.size()) - 1)
+    if (segments[i].m_generateJoin && i < lastIndex)
     {
       glsl::vec2 n1 = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_leftNormals[EndPoint] :
                                                             segments[i].m_rightNormals[EndPoint];
@@ -270,10 +270,8 @@ void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::Point
       float widthScalar = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_rightWidthScalar[EndPoint].x :
                                                                 segments[i].m_leftWidthScalar[EndPoint].x;
 
-      std::vector<glsl::vec2> normals;
-      normals.reserve(24);
-      GenerateJoinNormals(dp::RoundJoin, n1, n2, 1.0f, segments[i].m_hasLeftJoin[EndPoint],
-                          widthScalar, normals);
+      std::vector<glsl::vec2> normals = GenerateJoinNormals(
+            dp::RoundJoin, n1, n2, 1.0f, segments[i].m_hasLeftJoin[EndPoint], widthScalar);
 
       rs::GenerateJoinsTriangles(endPivot, normals, segments[i].m_color, glsl::vec2(length, 0),
                                  segments[i].m_hasLeftJoin[EndPoint], joinsGeometry);
@@ -282,23 +280,19 @@ void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::Point
     // Generate caps.
     if (i == 0)
     {
-      std::vector<glsl::vec2> normals;
-      normals.reserve(24);
-      GenerateCapNormals(dp::RoundCap, segments[i].m_leftNormals[StartPoint],
-                         segments[i].m_rightNormals[StartPoint], -segments[i].m_tangent,
-                         1.0f, true /* isStart */, normals);
+      std::vector<glsl::vec2> normals = GenerateCapNormals(
+            dp::RoundCap, segments[i].m_leftNormals[StartPoint], segments[i].m_rightNormals[StartPoint],
+            -segments[i].m_tangent, 1.0f, true /* isStart */);
 
       rs::GenerateJoinsTriangles(startPivot, normals, segments[i].m_color, glsl::vec2(startLength, 0),
                                  true, joinsGeometry);
     }
 
-    if (i == static_cast<int>(segments.size()) - 1)
+    if (i == lastIndex)
     {
-      std::vector<glsl::vec2> normals;
-      normals.reserve(24);
-      GenerateCapNormals(dp::RoundCap, segments[i].m_leftNormals[EndPoint],
-                         segments[i].m_rightNormals[EndPoint], segments[i].m_tangent,
-                         1.0f, false /* isStart */, normals);
+      std::vector<glsl::vec2> normals = GenerateCapNormals(
+            dp::RoundCap, segments[i].m_leftNormals[EndPoint], segments[i].m_rightNormals[EndPoint],
+            segments[i].m_tangent, 1.0f, false /* isStart */);
 
       rs::GenerateJoinsTriangles(endPivot, normals, segments[i].m_color, glsl::vec2(length, 0),
                                  true, joinsGeometry);
@@ -307,7 +301,7 @@ void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::Point
     auto const verticesCount = geomBufferData.m_geometry.size() + geomBufferData.m_joinsGeometry.size();
     auto const extent = std::max(geomBufferData.m_boundingBox.SizeX(), geomBufferData.m_boundingBox.SizeY());
     if (verticesCount > kMinVertices && extent > kMinExtent)
-      geometryBufferData.emplace_back(GeometryBufferData<GeometryBuffer>());
+      geometryBufferData.push_back({});
 
     length = startLength;
   }
@@ -324,6 +318,9 @@ void RouteShape::PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::
   segments.reserve(path.size() - 1);
   ConstructLineSegments(path, std::vector<glsl::vec4>(), segments);
 
+  auto & geometry = geometryBufferData.m_geometry;
+  auto & joinsGeometry = geometryBufferData.m_joinsGeometry;
+
   m2::RectF tr = texRect;
   tr.setMinX(static_cast<float>(texRect.minX() * (1.0 - kArrowTailSize) + texRect.maxX() * kArrowTailSize));
   tr.setMaxX(static_cast<float>(texRect.minX() * kArrowHeadSize + texRect.maxX() * (1.0 - kArrowHeadSize)));
@@ -332,8 +329,6 @@ void RouteShape::PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::
   float const depthInc = depthStep / (segments.size() + 1);
   for (size_t i = 0; i < segments.size(); i++)
   {
-    auto & geometry = geometryBufferData.m_geometry;
-
     UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
                  (i < segments.size() - 1) ? &segments[i + 1] : nullptr);
 
@@ -369,8 +364,6 @@ void RouteShape::PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::
     geometry.emplace_back(endPivot, rightNormalEnd, uvRight);
     geometry.emplace_back(endPivot, glsl::vec2(0, 0), uvCenter);
 
-    auto & joinsGeometry = geometryBufferData.m_joinsGeometry;
-
     // Generate joins.
     if (segments[i].m_generateJoin && i < segments.size() - 1)
     {
@@ -382,14 +375,10 @@ void RouteShape::PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::
       float widthScalar = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_rightWidthScalar[EndPoint].x :
                                                                 segments[i].m_leftWidthScalar[EndPoint].x;
 
-      int const kAverageSize = 24;
-      std::vector<glsl::vec2> normals;
-      normals.reserve(kAverageSize);
       std::vector<glsl::vec2> uv;
-      uv.reserve(kAverageSize);
-
-      GenerateJoinNormals(dp::RoundJoin, n1, n2, 1.0f, segments[i].m_hasLeftJoin[EndPoint],
-                          widthScalar, normals, &uv);
+      std::vector<glsl::vec2> normals = GenerateJoinNormals(
+            dp::RoundJoin, n1, n2, 1.0f, segments[i].m_hasLeftJoin[EndPoint],
+            widthScalar, &uv);
 
       ASSERT_EQUAL(normals.size(), uv.size(), ());
 

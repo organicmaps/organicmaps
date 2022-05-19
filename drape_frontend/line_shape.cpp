@@ -137,7 +137,7 @@ public:
 
 protected:
   using V = TVertex;
-  using TGeometryBuffer = std::vector<V>;
+  using TGeometryBuffer = gpu::VBReservedSizeT<V>;
 
   TGeometryBuffer m_geometry;
   TGeometryBuffer m_joinGeom;
@@ -169,7 +169,7 @@ class SolidLineBuilder : public BaseLineBuilder<gpu::LineVertex>
     TTexCoord m_color;
   };
 
-  using TCapBuffer = std::vector<CapVertex>;
+  using TCapBuffer = gpu::VBUnknownSizeT<CapVertex>;
 
 public:
   using BuilderParams = BaseBuilderParams;
@@ -230,7 +230,7 @@ public:
   void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft)
   {
     float const halfWidth = GetHalfWidth();
-    m_geometry.emplace_back(V(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)), m_colorCoord));
+    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)), m_colorCoord);
   }
 
   void SubmitJoin(glsl::vec2 const & pos)
@@ -252,16 +252,15 @@ private:
     static float const kSqrt3 = sqrt(3.0f);
     float const radius = GetHalfWidth();
 
-    m_capGeometry.reserve(3);
-    m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_params.m_depth),
-                                      CapVertex::TNormal(-radius * kSqrt3, -radius, radius),
-                                      CapVertex::TTexCoord(m_colorCoord)));
-    m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_params.m_depth),
-                                      CapVertex::TNormal(radius * kSqrt3, -radius, radius),
-                                      CapVertex::TTexCoord(m_colorCoord)));
-    m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_params.m_depth),
-                                      CapVertex::TNormal(0, 2.0f * radius, radius),
-                                      CapVertex::TTexCoord(m_colorCoord)));
+    m_capGeometry.emplace_back(CapVertex::TPosition(pos, m_params.m_depth),
+                               CapVertex::TNormal(-radius * kSqrt3, -radius, radius),
+                               CapVertex::TTexCoord(m_colorCoord));
+    m_capGeometry.emplace_back(CapVertex::TPosition(pos, m_params.m_depth),
+                               CapVertex::TNormal(radius * kSqrt3, -radius, radius),
+                               CapVertex::TTexCoord(m_colorCoord));
+    m_capGeometry.emplace_back(CapVertex::TPosition(pos, m_params.m_depth),
+                               CapVertex::TNormal(0, 2.0f * radius, radius),
+                               CapVertex::TTexCoord(m_colorCoord));
   }
 
 private:
@@ -292,7 +291,7 @@ public:
 
   void SubmitVertex(glsl::vec3 const & pivot)
   {
-    m_geometry.emplace_back(V(pivot, m_colorCoord));
+    m_geometry.emplace_back(pivot, m_colorCoord);
   }
 
 private:
@@ -336,8 +335,8 @@ public:
   void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft, float offsetFromStart)
   {
     float const halfWidth = GetHalfWidth();
-    m_geometry.emplace_back(V(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)),
-                              m_colorCoord, m_texCoordGen.GetTexCoordsByDistance(offsetFromStart)));
+    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)),
+                            m_colorCoord, m_texCoordGen.GetTexCoordsByDistance(offsetFromStart));
   }
 
 private:
@@ -373,8 +372,8 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
     if (path[i].EqualDxDy(path[i - 1], 1.0E-5))
       continue;
 
-    glsl::vec2 const p1 = glsl::ToVec2(ConvertToLocal(path[i - 1], m_params.m_tileCenter, kShapeCoordScalar));
-    glsl::vec2 const p2 = glsl::ToVec2(ConvertToLocal(path[i], m_params.m_tileCenter, kShapeCoordScalar));
+    glsl::vec2 const p1 = ToShapeVertex2(path[i - 1]);
+    glsl::vec2 const p2 = ToShapeVertex2(path[i]);
     glsl::vec2 tangent, leftNormal, rightNormal;
     CalculateTangentAndNormals(p1, p2, tangent, leftNormal, rightNormal);
 
@@ -416,7 +415,7 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
     generateJoins = false;
 
   // build geometry
-  glsl::vec2 firstPoint = glsl::ToVec2(ConvertToLocal(path.front(), m_params.m_tileCenter, kShapeCoordScalar));
+  glsl::vec2 firstPoint = ToShapeVertex2(path.front());
   glsl::vec2 lastPoint;
   bool hasConstructedSegments = false;
   for (size_t i = 1; i < path.size(); ++i)
@@ -424,8 +423,8 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
     if (path[i].EqualDxDy(path[i - 1], 1.0E-5))
       continue;
 
-    glsl::vec2 const p1 = glsl::ToVec2(ConvertToLocal(path[i - 1], m_params.m_tileCenter, kShapeCoordScalar));
-    glsl::vec2 const p2 = glsl::ToVec2(ConvertToLocal(path[i], m_params.m_tileCenter, kShapeCoordScalar));
+    glsl::vec2 const p1 = ToShapeVertex2(path[i - 1]);
+    glsl::vec2 const p2 = ToShapeVertex2(path[i]);
     glsl::vec2 tangent, leftNormal, rightNormal;
     CalculateTangentAndNormals(p1, p2, tangent, leftNormal, rightNormal);
 
@@ -460,11 +459,8 @@ void LineShape::Construct<SimpleSolidLineBuilder>(SimpleSolidLineBuilder & build
   ASSERT_GREATER(path.size(), 1, ());
 
   // Build geometry.
-  for (size_t i = 0; i < path.size(); ++i)
-  {
-    glsl::vec2 const p = glsl::ToVec2(ConvertToLocal(path[i], m_params.m_tileCenter, kShapeCoordScalar));
-    builder.SubmitVertex(glsl::vec3(p, m_params.m_depth));
-  }
+  for (m2::PointD const & pt : path)
+    builder.SubmitVertex(glsl::vec3(ToShapeVertex2(pt), m_params.m_depth));
 }
 
 bool LineShape::CanBeSimplified(int & lineWidth) const
@@ -511,8 +507,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
       SimpleSolidLineBuilder::BuilderParams p;
       commonParamsBuilder(p);
 
-      auto builder =
-          std::make_unique<SimpleSolidLineBuilder>(p, m_spline->GetPath().size(), lineWidth);
+      auto builder = std::make_unique<SimpleSolidLineBuilder>(p, m_spline->GetPath().size(), lineWidth);
       Construct<SimpleSolidLineBuilder>(*builder);
       m_lineShapeInfo = move(builder);
     }
@@ -520,6 +515,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     {
       SolidLineBuilder::BuilderParams p;
       commonParamsBuilder(p);
+
       auto builder = std::make_unique<SolidLineBuilder>(p, m_spline->GetPath().size());
       Construct<SolidLineBuilder>(*builder);
       m_lineShapeInfo = move(builder);
