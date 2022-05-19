@@ -17,6 +17,7 @@
 
 namespace df
 {
+
 AreaShape::AreaShape(std::vector<m2::PointD> && triangleList, BuildingOutline && buildingOutline,
                      AreaViewParams const & params)
   : m_vertexes(std::move(triangleList))
@@ -53,14 +54,10 @@ void AreaShape::DrawArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batch
 {
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 
-  buffer_vector<gpu::AreaVertex, 128> vertexes;
-  vertexes.resize(m_vertexes.size());
-  std::transform(m_vertexes.begin(), m_vertexes.end(), vertexes.begin(), [&uv, this](m2::PointD const & vertex)
-  {
-    return gpu::AreaVertex(
-      glsl::vec3(glsl::ToVec2(ConvertToLocal(m2::PointD(vertex), m_params.m_tileCenter, kShapeCoordScalar)),
-                 m_params.m_depth), uv);
-  });
+  gpu::VBReservedSizeT<gpu::AreaVertex> vertexes;
+  vertexes.reserve(m_vertexes.size());
+  for (m2::PointD const & vertex : m_vertexes)
+    vertexes.emplace_back(ToShapeVertex3(vertex), uv);
 
   auto state = CreateRenderState(gpu::Program::Area, DepthLayer::GeometryLayer);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
@@ -75,14 +72,10 @@ void AreaShape::DrawArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batch
   {
     glsl::vec2 const ouv = glsl::ToVec2(outlineUv);
 
-    std::vector<gpu::AreaVertex> vertices;
+    gpu::VBReservedSizeT<gpu::AreaVertex> vertices;
     vertices.reserve(m_buildingOutline.m_vertices.size());
-    for (size_t i = 0; i < m_buildingOutline.m_vertices.size(); i++)
-    {
-      glsl::vec2 const pos = glsl::ToVec2(ConvertToLocal(m_buildingOutline.m_vertices[i],
-                                                         m_params.m_tileCenter, kShapeCoordScalar));
-      vertices.emplace_back(glsl::vec3(pos, m_params.m_depth), ouv);
-    }
+    for (m2::PointD const & vertex : m_buildingOutline.m_vertices)
+      vertices.emplace_back(ToShapeVertex3(vertex), ouv);
 
     auto outlineState = CreateRenderState(gpu::Program::AreaOutline, DepthLayer::GeometryLayer);
     outlineState.SetDepthTestEnabled(m_params.m_depthTestEnabled);
@@ -105,18 +98,16 @@ void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
   for (auto const & v : m_vertexes)
     bbox.Add(v);
 
-  double const maxU = bbox.SizeX() * m_params.m_baseGtoPScale / hatchingTexture->GetWidth();
-  double const maxV = bbox.SizeY() * m_params.m_baseGtoPScale / hatchingTexture->GetHeight();
+  double const maxU = m_params.m_baseGtoPScale / hatchingTexture->GetWidth();
+  double const maxV = m_params.m_baseGtoPScale / hatchingTexture->GetHeight();
 
-  buffer_vector<gpu::HatchingAreaVertex, 128> vertexes;
-  vertexes.resize(m_vertexes.size());
-  for (size_t i = 0; i < m_vertexes.size(); ++i)
+  gpu::VBReservedSizeT<gpu::HatchingAreaVertex> vertexes;
+  vertexes.reserve(m_vertexes.size());
+  for (m2::PointD const & vertex : m_vertexes)
   {
-    vertexes[i].m_position = glsl::vec3(glsl::ToVec2(ConvertToLocal(m_vertexes[i], m_params.m_tileCenter,
-                                                                    kShapeCoordScalar)), m_params.m_depth);
-    vertexes[i].m_colorTexCoord = uv;
-    vertexes[i].m_maskTexCoord.x = static_cast<float>(maxU * (m_vertexes[i].x - bbox.minX()) / bbox.SizeX());
-    vertexes[i].m_maskTexCoord.y = static_cast<float>(maxV * (m_vertexes[i].y - bbox.minY()) / bbox.SizeY());
+    vertexes.emplace_back(ToShapeVertex3(vertex), uv,
+                          glsl::vec2(static_cast<float>(maxU * (vertex.x - bbox.minX())),
+                                     static_cast<float>(maxV * (vertex.y - bbox.minY()))));
   }
 
   auto state = CreateRenderState(gpu::Program::HatchingArea, DepthLayer::GeometryLayer);
@@ -139,7 +130,7 @@ void AreaShape::DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
 
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 
-  std::vector<gpu::Area3dVertex> vertexes;
+  gpu::VBReservedSizeT<gpu::Area3dVertex> vertexes;
   vertexes.reserve(m_vertexes.size() + m_buildingOutline.m_normals.size() * 6);
 
   for (size_t i = 0; i < m_buildingOutline.m_normals.size(); i++)
@@ -147,10 +138,8 @@ void AreaShape::DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
     int const startIndex = m_buildingOutline.m_indices[i * 2];
     int const endIndex = m_buildingOutline.m_indices[i * 2 + 1];
 
-    glsl::vec2 const startPt = glsl::ToVec2(ConvertToLocal(m_buildingOutline.m_vertices[startIndex],
-                                                           m_params.m_tileCenter, kShapeCoordScalar));
-    glsl::vec2 const endPt = glsl::ToVec2(ConvertToLocal(m_buildingOutline.m_vertices[endIndex],
-                                                         m_params.m_tileCenter, kShapeCoordScalar));
+    glsl::vec2 const startPt = ToShapeVertex2(m_buildingOutline.m_vertices[startIndex]);
+    glsl::vec2 const endPt = ToShapeVertex2(m_buildingOutline.m_vertices[endIndex]);
 
     glsl::vec3 normal(glsl::ToVec2(m_buildingOutline.m_normals[i]), 0.0f);
     vertexes.emplace_back(glsl::vec3(startPt, -m_params.m_minPosZ), normal, uv);
@@ -163,11 +152,8 @@ void AreaShape::DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
   }
 
   glsl::vec3 const normal(0.0f, 0.0f, -1.0f);
-  for (auto const & vertex : m_vertexes)
-  {
-    glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(vertex, m_params.m_tileCenter, kShapeCoordScalar));
-    vertexes.emplace_back(glsl::vec3(pt, -m_params.m_posZ), normal, uv);
-  }
+  for (m2::PointD const & vertex : m_vertexes)
+    vertexes.emplace_back(glsl::vec3(ToShapeVertex2(vertex), -m_params.m_posZ), normal, uv);
 
   auto state = CreateRenderState(gpu::Program::Area3d, DepthLayer::Geometry3dLayer);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
@@ -189,17 +175,13 @@ void AreaShape::DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
     outlineState.SetBlending(dp::Blending(false /* isEnabled */));
     outlineState.SetDrawAsLine(true);
 
-    std::vector<gpu::AreaVertex> vertices;
-    vertices.reserve(m_buildingOutline.m_vertices.size());
-    for (size_t i = 0; i < m_buildingOutline.m_vertices.size(); i++)
-    {
-      glsl::vec2 const pos = glsl::ToVec2(ConvertToLocal(m_buildingOutline.m_vertices[i],
-                                                         m_params.m_tileCenter, kShapeCoordScalar));
-      vertices.emplace_back(gpu::AreaVertex(glsl::vec3(pos, -m_params.m_posZ), ouv));
-    }
+    gpu::VBReservedSizeT<gpu::AreaVertex> olVertexes;
+    olVertexes.reserve(m_buildingOutline.m_vertices.size());
+    for (m2::PointD const & vertex : m_buildingOutline.m_vertices)
+      olVertexes.emplace_back(glsl::vec3(ToShapeVertex2(vertex), -m_params.m_posZ), ouv);
 
-    dp::AttributeProvider outlineProvider(1, static_cast<uint32_t>(vertices.size()));
-    outlineProvider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertices.data()));
+    dp::AttributeProvider outlineProvider(1, static_cast<uint32_t>(olVertexes.size()));
+    outlineProvider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(olVertexes.data()));
     batcher->InsertLineRaw(context, outlineState, make_ref(&outlineProvider), m_buildingOutline.m_indices);
   }
 }

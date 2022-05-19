@@ -143,9 +143,11 @@ UNIT_TEST(SmallMap_Benchmark1)
 
 UNIT_TEST(SmallMap_Benchmark2)
 {
+  using namespace std;
+
   uint32_t i = 0;
   // Dataset is similar to routing::VehicleModelFactory.
-  std::unordered_map<std::string, std::shared_ptr<int>> uMap = {
+  unordered_map<string, shared_ptr<int>> uMap = {
     {"", make_shared<int>(i++)},
     {"Australia", make_shared<int>(i++)},
     {"Austria", make_shared<int>(i++)},

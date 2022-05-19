@@ -17,9 +17,12 @@ struct BaseVertex
   using TTexCoord = glsl::vec2;
 };
 
+template <class T> using VBUnknownSizeT = buffer_vector<T, 128>;
+template <class T> using VBReservedSizeT = std::vector<T>;
+
 struct AreaVertex : BaseVertex
 {
-  AreaVertex();
+  AreaVertex() = default;
   AreaVertex(TPosition const & position, TTexCoord const & colorTexCoord);
 
   TPosition m_position;
@@ -30,7 +33,7 @@ struct AreaVertex : BaseVertex
 
 struct Area3dVertex : BaseVertex
 {
-  Area3dVertex();
+  Area3dVertex() = default;
   Area3dVertex(TPosition const & position, const TPosition & normal, TTexCoord const & colorTexCoord);
 
   TPosition m_position;
@@ -44,7 +47,7 @@ struct HatchingAreaVertex : BaseVertex
 {
   using TMaskTexCoord = glsl::vec2;
 
-  HatchingAreaVertex();
+  HatchingAreaVertex() = default;
   HatchingAreaVertex(TPosition const & position, TTexCoord const & colorTexCoord,
                      TMaskTexCoord const & maskTexCoord);
 
@@ -57,7 +60,7 @@ struct HatchingAreaVertex : BaseVertex
 
 struct SolidTexturingVertex : BaseVertex
 {
-  SolidTexturingVertex();
+  SolidTexturingVertex() = default;
   SolidTexturingVertex(TPosition3d const & position, TNormal const & normal, TTexCoord const & colorTexCoord);
 
   TPosition3d m_position;
@@ -67,11 +70,9 @@ struct SolidTexturingVertex : BaseVertex
   static dp::BindingInfo const & GetBindingInfo();
 };
 
-using TSolidTexVertexBuffer = buffer_vector<SolidTexturingVertex, 128>;
-
 struct MaskedTexturingVertex : BaseVertex
 {
-  MaskedTexturingVertex();
+  MaskedTexturingVertex() = default;
   MaskedTexturingVertex(TPosition3d const & position, TNormal const & normal,
                         TTexCoord const & colorTexCoord, TTexCoord const & maskTexCoord);
   TPosition3d m_position;
@@ -84,7 +85,7 @@ struct MaskedTexturingVertex : BaseVertex
 
 struct TextStaticVertex : BaseVertex
 {
-  TextStaticVertex();
+  TextStaticVertex() = default;
   TextStaticVertex(TTexCoord const & colorTexCoord, TTexCoord const & maskTexCoord);
 
   TTexCoord m_colorTexCoord;
@@ -93,12 +94,12 @@ struct TextStaticVertex : BaseVertex
   static dp::BindingInfo const & GetBindingInfo();
 };
 
-using TTextStaticVertexBuffer = buffer_vector<TextStaticVertex, 128>;
+using TTextStaticVertexBuffer = VBReservedSizeT<TextStaticVertex>;
 
 struct TextOutlinedStaticVertex : BaseVertex
 {
 public:
-  TextOutlinedStaticVertex();
+  TextOutlinedStaticVertex() = default;
   TextOutlinedStaticVertex(TTexCoord const & colorTexCoord, TTexCoord const & outlineTexCoord,
                            TTexCoord const & maskTexCoord);
 
@@ -109,11 +110,11 @@ public:
   static dp::BindingInfo const & GetBindingInfo();
 };
 
-using TTextOutlinedStaticVertexBuffer = buffer_vector<TextOutlinedStaticVertex, 128>;
+using TTextOutlinedStaticVertexBuffer = VBReservedSizeT<TextOutlinedStaticVertex>;
 
 struct TextDynamicVertex : BaseVertex
 {
-  TextDynamicVertex();
+  TextDynamicVertex() = default;
   TextDynamicVertex(TPosition3d const & position, TNormal const & normal);
 
   TPosition3d m_position;
@@ -123,13 +124,13 @@ struct TextDynamicVertex : BaseVertex
   static uint32_t GetDynamicStreamID();
 };
 
-using TTextDynamicVertexBuffer = buffer_vector<TextDynamicVertex, 128>;
+using TTextDynamicVertexBuffer = VBReservedSizeT<TextDynamicVertex>;
 
 struct LineVertex : BaseVertex
 {
   using TNormal = glsl::vec3;
 
-  LineVertex();
+  LineVertex() = default;
   LineVertex(TPosition const & position, TNormal const & normal, TTexCoord const & color);
 
   TPosition m_position;
@@ -144,7 +145,7 @@ struct DashedLineVertex : BaseVertex
   using TNormal = glsl::vec3;
   using TMaskTexCoord = glsl::vec4;
 
-  DashedLineVertex();
+  DashedLineVertex() = default;
   DashedLineVertex(TPosition const & position, TNormal const & normal,
                    TTexCoord const & color, TMaskTexCoord const & mask);
 
@@ -161,7 +162,7 @@ struct RouteVertex : BaseVertex
   using TLength = glsl::vec3;
   using TColor = glsl::vec4;
 
-  RouteVertex();
+  RouteVertex() = default;
   RouteVertex(TPosition const & position, TNormal const & normal,
               TLength const & length, TColor const & color);
 
@@ -179,7 +180,7 @@ struct RouteMarkerVertex : BaseVertex
   using TNormal = glsl::vec3;
   using TColor = glsl::vec4;
 
-  RouteMarkerVertex();
+  RouteMarkerVertex() = default;
   RouteMarkerVertex(TPosition const & position, TNormal const & normal,
                     TColor const & color);
 
@@ -195,7 +196,7 @@ struct ColoredSymbolVertex : BaseVertex
   using TNormal = glsl::vec4;
   using TTexCoord = glsl::vec4;
 
-  ColoredSymbolVertex();
+  ColoredSymbolVertex() = default;
   ColoredSymbolVertex(TPosition const & position, TNormal const & normal,
                       TTexCoord const & colorTexCoord);
 
