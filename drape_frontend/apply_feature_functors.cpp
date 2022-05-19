@@ -404,12 +404,12 @@ BaseApplyFeature::BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const
 
 void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto,
                                             CaptionDefProto const * secondaryProto,
-                                            float depth, TextViewParams & params) const
+                                            double depth, TextViewParams & params) const
 {
   dp::FontDecl decl;
   CaptionDefProtoToFontDecl(primaryProto, decl);
 
-  params.m_depth = depth;
+  params.m_depth = static_cast<float>(depth);
   params.m_featureId = m_id;
 
   auto & titleDecl = params.m_titleDecl;
@@ -463,23 +463,20 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
   if (!m_hasPoint)
     return;
 
-  drule::BaseRule const * pRule = rule.first;
-  auto const depth = static_cast<float>(rule.second);
-
-  SymbolRuleProto const * symRule = pRule->GetSymbol();
+  SymbolRuleProto const * symRule = rule.m_rule->GetSymbol();
   if (symRule != nullptr)
   {
-    m_symbolDepth = depth;
+    m_symbolDepth = rule.m_depth;
     m_symbolRule = symRule;
   }
 
-  bool const isNode = (pRule->GetType() & drule::node) != 0;
-  CaptionDefProto const * capRule = pRule->GetCaption(0);
+  bool const isNode = (rule.m_rule->GetType() & drule::node) != 0;
+  CaptionDefProto const * capRule = rule.m_rule->GetCaption(0);
   if (capRule && isNode)
   {
     TextViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
+    ExtractCaptionParams(capRule, rule.m_rule->GetCaption(1), rule.m_depth, params);
     params.m_depthLayer = m_depthLayer;
     params.m_depthTestEnabled = m_depthLayer != DepthLayer::NavigationLayer &&
       m_depthLayer != DepthLayer::OverlayLayer;
@@ -575,12 +572,11 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
 ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                    FeatureID const & id, double currentScaleGtoP, bool isBuilding,
                                    bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
-                                   uint8_t rank, CaptionDescription const & captions, bool hatchingArea)
+                                   uint8_t rank, CaptionDescription const & captions)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ, DepthLayer::OverlayLayer)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_skipAreaGeometry(skipAreaGeometry)
-  , m_hatchingArea(hatchingArea)
   , m_currentScaleGtoP(currentScaleGtoP)
 {}
 
@@ -743,21 +739,18 @@ void ApplyAreaFeature::CalculateBuildingOutline(bool calculateNormals, BuildingO
 
 void ApplyAreaFeature::ProcessAreaRule(Stylist::TRuleWrapper const & rule)
 {
-  drule::BaseRule const * pRule = rule.first;
-  auto const depth = static_cast<float>(rule.second);
-
-  AreaRuleProto const * areaRule = pRule->GetArea();
+  AreaRuleProto const * areaRule = rule.m_rule->GetArea();
   if (areaRule && !m_triangles.empty())
   {
     AreaViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    params.m_depth = depth;
+    params.m_depth = static_cast<float>(rule.m_depth);
     params.m_color = ToDrapeColor(areaRule->color());
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_minPosZ = m_minPosZ;
     params.m_posZ = m_posZ;
-    params.m_hatching = m_hatchingArea;
+    params.m_hatching = rule.m_hatching;
     params.m_baseGtoPScale = static_cast<float>(m_currentScaleGtoP);
 
     BuildingOutline outline;
@@ -837,10 +830,8 @@ bool ApplyLineFeatureGeometry::HasGeometry() const
 void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rule)
 {
   ASSERT(HasGeometry(), ());
-  drule::BaseRule const * pRule = rule.first;
-  float const depth = static_cast<float>(rule.second);
 
-  LineDefProto const * pLineRule = pRule->GetLine();
+  LineDefProto const * pLineRule = rule.m_rule->GetLine();
   if (pLineRule == nullptr)
     return;
 
@@ -879,7 +870,7 @@ void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rul
     PathSymProto const & symRule = pLineRule->pathsym();
     PathSymbolViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    params.m_depth = depth;
+    params.m_depth = static_cast<float>(rule.m_depth);
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_symbolName = symRule.name();
@@ -896,7 +887,7 @@ void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rul
     LineViewParams params;
     params.m_tileCenter = m_tileRect.Center();
     Extract(pLineRule, params);
-    params.m_depth = depth;
+    params.m_depth = static_cast<float>(rule.m_depth);
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_baseGtoPScale = m_currentScaleGtoP;
@@ -934,18 +925,17 @@ void ApplyLineFeatureAdditional::ProcessLineRule(Stylist::TRuleWrapper const & r
   if (m_clippedSplines.empty())
     return;
 
-  drule::BaseRule const * pRule = rule.first;
-  m_depth = static_cast<float>(rule.second);
+  m_depth = static_cast<float>(rule.m_depth);
 
-  ShieldRuleProto const * pShieldRule = pRule->GetShield();
+  ShieldRuleProto const * pShieldRule = rule.m_rule->GetShield();
   if (pShieldRule != nullptr)
     m_shieldRule = pShieldRule;
 
-  bool const isWay = (pRule->GetType() & drule::way) != 0;
+  bool const isWay = (rule.m_rule->GetType() & drule::way) != 0;
   if (!isWay)
     return;
 
-  CaptionDefProto const * pCaptionRule = pRule->GetCaption(0);
+  CaptionDefProto const * pCaptionRule = rule.m_rule->GetCaption(0);
   if (pCaptionRule != nullptr && pCaptionRule->height() > 2 && !m_captions.GetMainText().empty())
     m_captionRule = pCaptionRule;
 }

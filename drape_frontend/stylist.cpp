@@ -138,7 +138,7 @@ private:
     if (lineRule != nullptr && (lineRule->width() < 1e-5 && !lineRule->has_pathsym()))
       return;
 
-    m_rules.emplace_back(std::make_pair(dRule, depth));
+    m_rules.push_back({ dRule, depth, key.m_hatching });
   }
 
   void Init()
@@ -274,22 +274,39 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
       !ftypes::IsBuildingChecker::Instance()(types))
     return false;
 
+  Classificator const & cl = classif();
+  auto const & hatchingChecker = IsHatchingTerritoryChecker::Instance();
+  auto const geomType = types.GetGeomType();
+
   drule::KeysT keys;
-  feature::GetDrawRule(types, zoomLevel, keys);
+  size_t idx = 0;
+  for (uint32_t t : types)
+  {
+    cl.GetObject(t)->GetSuitable(zoomLevel, geomType, keys);
+
+    if (hatchingChecker(t))
+    {
+      while (idx < keys.size())
+      {
+        if (keys[idx].m_type == drule::area)
+          keys[idx].m_hatching = true;
+        ++idx;
+      }
+    }
+    else
+      idx = keys.size();
+  }
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
   if (keys.empty())
     return false;
 
-  s.m_isHatchingArea = IsHatchingTerritoryChecker::Instance()(types);
-
   drule::MakeUnique(keys);
 
-  s.m_isCoastline = types.Has(classif().GetCoastType());
-  auto const mainGeomType = types.GetGeomType();
+  s.m_isCoastline = types.Has(cl.GetCoastType());
 
-  switch (mainGeomType)
+  switch (geomType)
   {
   case feature::GeomType::Point:
     s.m_pointStyleExists = true;
@@ -305,11 +322,11 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
     return false;
   }
 
-  Aggregator aggregator(f, mainGeomType, zoomLevel, keys.size());
+  Aggregator aggregator(f, geomType, zoomLevel, keys.size());
   aggregator.AggregateKeys(keys);
 
   CaptionDescription & descr = s.GetCaptionDescriptionImpl();
-  descr.Init(f, deviceLang, zoomLevel, mainGeomType, aggregator.m_mainTextType, aggregator.m_auxCaptionFound);
+  descr.Init(f, deviceLang, zoomLevel, geomType, aggregator.m_mainTextType, aggregator.m_auxCaptionFound);
 
   aggregator.AggregateStyleFlags(keys, descr.IsNameExists());
 
@@ -337,8 +354,8 @@ double GetFeaturePriority(FeatureType & f, int const zoomLevel)
   double maxPriority = kMinPriority;
   for (auto const & rule : aggregator.m_rules)
   {
-    if (rule.second > maxPriority)
-      maxPriority = rule.second;
+    if (rule.m_depth > maxPriority)
+      maxPriority = rule.m_depth;
   }
 
   return maxPriority;

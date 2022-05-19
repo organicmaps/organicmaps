@@ -170,7 +170,7 @@ void ReadTransitTask::Do()
       {
         stylist.ForEachRule([&](df::Stylist::TRuleWrapper const & rule)
         {
-          auto const * symRule = rule.first->GetSymbol();
+          auto const * symRule = rule.m_rule->GetSymbol();
           if (symRule != nullptr)
             featureInfo.m_gateSymbolName = symRule->name();
         });

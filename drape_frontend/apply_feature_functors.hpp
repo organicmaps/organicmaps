@@ -49,7 +49,7 @@ public:
 protected:
   void ExtractCaptionParams(CaptionDefProto const * primaryProto,
                             CaptionDefProto const * secondaryProto,
-                            float depth, TextViewParams & params) const;
+                            double depth, TextViewParams & params) const;
   std::string ExtractHotelInfo() const;
 
   TInsertShapeFn m_insertShape;
@@ -99,7 +99,7 @@ public:
   ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                    FeatureID const & id, double currentScaleGtoP, bool isBuilding,
                    bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
-                   uint8_t rank, CaptionDescription const & captions, bool hatchingArea);
+                   uint8_t rank, CaptionDescription const & captions);
 
   using TBase::operator ();
 
@@ -150,7 +150,6 @@ private:
   float const m_minPosZ;
   bool const m_isBuilding;
   bool const m_skipAreaGeometry;
-  bool const m_hatchingArea;
   double const m_currentScaleGtoP;
 };
 
