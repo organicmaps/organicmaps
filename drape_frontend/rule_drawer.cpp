@@ -262,8 +262,6 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
 
   m2::PointD featureCenter;
 
-  bool hatchingArea = false;
-
   float areaHeight = 0.0f;
   float areaMinHeight = 0.0f;
   if (is3dBuilding)
@@ -279,11 +277,6 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
 
     rectMercator = mercator::MetersToXY(lon, lat, minHeightInMeters);
     areaMinHeight = static_cast<float>((rectMercator.SizeX() + rectMercator.SizeY()) * 0.5);
-  }
-  else
-  {
-    // Put here in case if we have hatching and 3D-building at the same time? :)
-    hatchingArea = s.m_isHatchingArea;
   }
 
   bool applyPointStyle = s.m_pointStyleExists;
@@ -301,7 +294,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
                          m_currentScaleGtoP, isBuilding,
                          m_context->Is3dBuildingsEnabled() && isBuildingOutline,
                          areaMinHeight, areaHeight, minVisibleScale, f.GetRank(),
-                         s.GetCaptionDescription(), hatchingArea);
+                         s.GetCaptionDescription());
   f.ForEachTriangle(apply, zoomLevel);
   if (applyPointStyle)
     apply(featureCenter, true /* hasArea */);
@@ -428,7 +421,7 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
   if (CheckCancelled())
     return;
 
-  s.ForEachRule(bind(&ApplyPointFeature::ProcessPointRule, &apply, _1));
+  s.ForEachRule(std::bind(&ApplyPointFeature::ProcessPointRule, &apply, _1));
   apply.Finish(m_context->GetTextureManager());
 }
 

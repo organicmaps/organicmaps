@@ -55,12 +55,17 @@ public:
   bool m_areaStyleExists = false;
   bool m_lineStyleExists = false;
   bool m_pointStyleExists = false;
-  bool m_isHatchingArea = false;
 
 public:
   CaptionDescription const & GetCaptionDescription() const;
 
-  using TRuleWrapper = std::pair<drule::BaseRule const *, double>;
+  struct TRuleWrapper
+  {
+    drule::BaseRule const * m_rule;
+    double m_depth;
+    bool m_hatching;
+  };
+
   template <class ToDo> void ForEachRule(ToDo && toDo) const
   {
     for (auto const & r : m_rules)
