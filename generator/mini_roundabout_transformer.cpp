@@ -310,7 +310,7 @@ std::vector<feature::FeatureBuilder> MiniRoundaboutTransformer::ProcessRoundabou
 
         if (!foundSurrogateRoad)
         {
-          LOG(LERROR, ("Not found road for mini_roundabout", mercator::FromLatLon(rb.m_coord)));
+          LOG(LERROR, ("Road not found for mini_roundabout", rb.m_coord));
           continue;
         }
       }

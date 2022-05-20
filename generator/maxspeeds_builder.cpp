@@ -121,8 +121,39 @@ public:
       uint32_t const fid = seg.GetFeatureId();
       return Segment(0, fid, seg.GetSegmentIdx() > 0 ? 0 : GetLastIndex(fid), seg.IsForward());
     };
+    auto const GetHighwayType = [&](uint32_t fid)
+    {
+      return GetRoad(fid).GetHighwayType();
+    };
 
     auto const & converter = GetMaxspeedConverter();
+    using HwTypeT = std::optional<routing::HighwayType>;
+    auto const CalculateSpeed = [&](uint32_t parentFID, Maxspeed const & s, HwTypeT hwType) -> std::optional<SpeedInUnits>
+    {
+      HwTypeT const parentHwType = GetHighwayType(parentFID);
+      if (!parentHwType)
+        return {};
+
+      // Set speed as-is from parent link.
+      if (parentHwType == hwType)
+        return {{s.GetForward(), s.GetUnits()}};
+
+      using routing::HighwayType;
+      if ((*parentHwType == HighwayType::HighwayMotorway && hwType == HighwayType::HighwayMotorwayLink) ||
+          (*parentHwType == HighwayType::HighwayTrunk && hwType == HighwayType::HighwayTrunkLink) ||
+          (*parentHwType == HighwayType::HighwayPrimary && hwType == HighwayType::HighwayPrimaryLink) ||
+          (*parentHwType == HighwayType::HighwaySecondary && hwType == HighwayType::HighwaySecondaryLink) ||
+          (*parentHwType == HighwayType::HighwayTertiary && hwType == HighwayType::HighwayTertiaryLink))
+      {
+        // Reduce factor from parent road. See DontUseLinksWhenRidingOnMotorway test.
+        // 0.85, this factor should be greater than sqrt(2) / 2 - prefer diagonal link to square path.
+        return converter.ClosestValidMacro(
+              { base::asserted_cast<MaxspeedType>(std::lround(s.GetForward() * 0.85)), s.GetUnits() });
+      }
+
+      return {};
+    };
+
     ForEachFeature(m_dataPath, [&](FeatureType & ft, uint32_t fid)
     {
       if (!routing::IsCarRoad(TypesHolder(ft)))
@@ -149,6 +180,8 @@ public:
         // 0 - not updated, 1 - goto next iteration, 2 - updated
         int status;
 
+        HwTypeT const hwType = GetHighwayType(fid);
+
         // Check ingoing first, then - outgoing.
         for (bool direction : { false, true })
         {
@@ -174,26 +207,30 @@ public:
               Segment const target = e.GetTarget();
 
               uint32_t const targetFID = target.GetFeatureId();
-              LOG_MAX_SPEED(("Edge target =", target, "; osmid =", GetOsmID(targetFID).GetSerialId()));
+              uint64_t const targetOsmID = GetOsmID(targetFID).GetSerialId();
+              LOG_MAX_SPEED(("Edge target =", target, "; osmid =", targetOsmID));
 
               Maxspeed const * s = GetSpeed(targetFID);
               if (s)
               {
                 if (routing::IsNumeric(s->GetForward()))
                 {
-                  status = 2;
+                  auto const speed = CalculateSpeed(targetFID, *s, hwType);
+                  if (speed)
+                  {
+                    status = 2;
 
-                  // Main thing here is to reduce the speed, relative to a parent. So use 0.7 factor.
-                  auto const speed = converter.ClosestValidMacro(
-                        SpeedInUnits(std::lround(s->GetForward() * 0.7), s->GetUnits()));
-                  maxSpeed->SetUnits(s->GetUnits());
-                  maxSpeed->SetForward(speed.GetSpeed());
+                    maxSpeed->SetForward(speed->GetSpeed());
+                    maxSpeed->SetUnits(speed->GetUnits());
 
-                  LOG(LINFO, ("Updated link speed for way", osmID, "with", *maxSpeed));
-                  break;
+                    LOG(LINFO, ("Updated link speed for way", osmID, "with", *maxSpeed, "from", targetOsmID));
+                    break;
+                  }
                 }
                 else if (s->GetForward() == routing::kCommonMaxSpeedValue &&
-                         reviewed.find(targetFID) == reviewed.end())
+                         reviewed.size() < 4 &&   // limit with some reasonable transitions
+                         reviewed.find(targetFID) == reviewed.end() &&
+                         hwType == GetHighwayType(targetFID))
                 {
                   LOG_MAX_SPEED(("Add reviewed"));
 
