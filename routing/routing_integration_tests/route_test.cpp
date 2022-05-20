@@ -720,4 +720,25 @@ using namespace std;
         mercator::FromLatLon(55.7083688, 37.6213856), {0., 0.},
         mercator::FromLatLon(55.724623, 37.62588), 1921.88);
   }
+
+  // https://github.com/organicmaps/organicmaps/issues/1727
+  // https://github.com/organicmaps/organicmaps/issues/2020
+  // https://github.com/organicmaps/organicmaps/issues/2057
+  UNIT_TEST(DontUseLinksWhenRidingOnMotorway)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(32.16881, 34.90656), {0., 0.},
+        mercator::FromLatLon(32.1588823, 34.9330855), 2847.33);
+
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(43.587808, 1.495385), {0., 0.},
+        mercator::FromLatLon(43.600145, 1.490489), 1457.16);
+
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(34.0175371, -84.3272339), {0., 0.},
+        mercator::FromLatLon(34.0298011, -84.3182477), 1609.76);
+  }
 } // namespace route_test
