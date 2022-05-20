@@ -1,6 +1,6 @@
 name: Android Release
 on:
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch:  # Manual trigger
 
 env:
   RELEASE_NOTES: android/src/google/play/release-notes/en-US/default.txt
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v2
         with:
-          fetch-depth: 100 # enough to get all commits for the current day
+          fetch-depth: 100  # Enough to get all commits for the last day.
           ssh-key: ${{ secrets.RELEASE_SSH_KEY }}
 
       - name: Tag
@@ -23,16 +23,12 @@ jobs:
         shell: bash
         run: |
           set -x
-          timestamp=$(date +%s)
           git config user.name '${{ github.actor }}'
           git config user.email '${{ github.actor }}@users.noreply.github.com'
-          export GIT_COMMITTER_DATE=$timestamp
-          export GIT_AUTHOR_DATE=$timestamp
-          current_date=$(date -d @$timestamp '+%Y-%m-%d')
-          build=$(($(git rev-list --count --after="${current_date}T00:00:00Z" HEAD) + 1))
-          version=$(date -d @$timestamp '+%Y.%m.%d')
-          code=$(date -d @$timestamp '+%y%m%d')$(printf "%02d" ${build})
-          tag=${version}-${build}-android
+          version=$(tools/unix/version.sh ios_version)
+          build=$(tools/unix/version.sh ios_build)
+          code=$(tools/unix/version.sh android_code)
+          tag=$(tools/unix/version.sh android_name)-android
           echo "::set-output name=version::$version"
           echo "::set-output name=build::$build"
           echo "::set-output name=tag::$tag"
