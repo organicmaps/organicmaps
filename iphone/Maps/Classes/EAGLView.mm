@@ -171,7 +171,7 @@ double getExactDPI(double contentScaleFactor)
   p.m_surfaceHeight = height;
   p.m_visualScale = dp::VisualScale(getExactDPI(self.contentScaleFactor));
   p.m_hints.m_isFirstLaunch = [FirstSession isFirstSession];
-  p.m_hints.m_isLaunchByDeepLink = self.isLaunchByDeepLink;
+  p.m_hints.m_isLaunchByDeepLink = DeepLinkHandler.shared.isLaunchedByDeeplink;
 
   [self.widgetsManager setupWidgets:p];
   GetFramework().CreateDrapeEngine(make_ref(m_factory), std::move(p));

@@ -317,8 +317,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   if (self.needDeferFocusNotification)
     [self onGetFocus:self.deferredFocusValue];
 
-  BOOL const isLaunchedByDeeplink = DeepLinkHandler.shared.isLaunchedByDeeplink;
-  [self.mapView setLaunchByDeepLink:isLaunchedByDeeplink];
   [MWMRouter restoreRouteIfNeeded];
 
   self.view.clipsToBounds = YES;
@@ -340,12 +338,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
-  if (isLaunchedByDeeplink)
-    (void)[DeepLinkHandler.shared handleDeepLink];
-  else
+  /// @todo: Uncomment update dialog when will be ready to handle big traffic bursts.
+  /*
+  if (!DeepLinkHandler.shared.isLaunchedByDeeplink)
   {
-    /// @todo: Uncomment update dialog when will be ready to handle big traffic bursts.
-    /*
     auto const todo = GetFramework().ToDoAfterUpdate();
     switch (todo) {
       case Framework::DoAfterUpdate::Migrate:
@@ -356,8 +352,8 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
         [self presentViewController:[MWMAutoupdateController instanceWithPurpose:todo] animated:YES completion:nil];
         break;
     }
-    */
   }
+  */
 }
 
 - (void)viewDidLayoutSubviews {
