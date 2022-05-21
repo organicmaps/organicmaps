@@ -59,7 +59,7 @@ tools/unix/translate_categories.sh "Route"
 
 ## Technical details
 
-Most of the translation files (strings, types_strings...) are in Twine file format ([syntax reference](../tools/twine/README.md)).
+Most of the translation files (strings, types_strings...) are in Twine file format ([syntax reference](https://github.com/organicmaps/twine/blob/organicmaps/README.md)).
 OM uses a custom version of the [Twine](https://github.com/organicmaps/twine)
 tool (resides in `tools/twine/` submodule) to generate platfrom-native (Android, iOS)
 localization files from a single translation file.
