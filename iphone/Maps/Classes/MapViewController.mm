@@ -154,23 +154,26 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 - (void)onMapObjectDeselected:(bool)switchFullScreenMode {
   [self hidePlacePage];
 
-  BOOL const isSearchResult = [MWMSearchManager manager].state == MWMSearchManagerStateResult;
+  MWMSearchManager * searchManager = MWMSearchManager.manager;
+  BOOL const isSearchResult = searchManager.state == MWMSearchManagerStateResult;
   BOOL const isNavigationDashboardHidden = [MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden;
   if (isSearchResult) {
     if (isNavigationDashboardHidden) {
-      [MWMSearchManager manager].state = MWMSearchManagerStateMapSearch;
+      searchManager.state = MWMSearchManagerStateMapSearch;
     } else {
-      [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
+      searchManager.state = MWMSearchManagerStateHidden;
     }
   }
 
   if (!switchFullScreenMode)
     return;
 
+  // TODO(AB): Switch to full screen mode directly from the tap, in one place, instead of
+  // every call to onMapObjectDeselected.
   if (DeepLinkHandler.shared.isLaunchedByDeeplink)
     return;
 
-  BOOL const isSearchHidden = [MWMSearchManager manager].state == MWMSearchManagerStateHidden;
+  BOOL const isSearchHidden = searchManager.state == MWMSearchManagerStateHidden;
   if (isSearchHidden && isNavigationDashboardHidden) {
     self.controlsManager.hidden = !self.controlsManager.hidden;
   }
