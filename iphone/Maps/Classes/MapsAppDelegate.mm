@@ -126,6 +126,7 @@ using namespace osm_auth_ios;
   [self enableTTSForTheFirstTime];
 
   [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
+  // application:openUrl:options is called later for deep links if YES is returned.
   return YES;
 }
 
