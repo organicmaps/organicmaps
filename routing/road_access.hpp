@@ -25,7 +25,7 @@ public:
     // Moving through the road is prohibited.
     No,
 
-    // Moving through the road requires a special permission.
+    // General public access is not allowed. Access is granted with individual permission only.
     Private,
 
     // No pass through the road is allowed; however, it can
@@ -37,7 +37,12 @@ public:
     Yes,
 
     // The number of different road types.
-    Count
+    Count,
+
+    /// @todo Generator only, not serialized option.
+    // https://github.com/organicmaps/organicmaps/issues/2600
+    // Open only to people who have obtained a permit granting them access, but permit is ordinarily granted.
+    Permit,
   };
 
   enum class Confidence

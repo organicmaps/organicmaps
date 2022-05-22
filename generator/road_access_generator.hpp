@@ -126,7 +126,7 @@ public:
 
 private:
   RoadAccessByVehicleType m_roadAccessByVehicleType;
-  bool m_valid = true;
+  bool m_valid;
 };
 
 class AccessConditionalTagParser

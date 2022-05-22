@@ -76,8 +76,8 @@ void LoadRoadAccess(string const & mwmFilePath, VehicleType vehicleType, RoadAcc
 }
 
 // todo(@m) This helper function is almost identical to the one in restriction_test.cpp.
-RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(string const & roadAccessContent,
-                                                                   string const & mappingContent)
+RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(
+    string const & raContent, string const & mappingContent, string const & raContitionalContent = {})
 {
   classificator::Load();
 
@@ -94,7 +94,8 @@ RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(string const 
 
   // Creating a file with road access.
   string const roadAccessRelativePath = base::JoinPath(kTestDir, kRoadAccessFilename);
-  ScopedFile const roadAccessFile(roadAccessRelativePath, roadAccessContent);
+  ScopedFile const raFile(roadAccessRelativePath, raContent);
+  ScopedFile const raConditionalFile(roadAccessRelativePath + CONDITIONAL_EXT, raContitionalContent);
 
   // Creating osm ids to feature ids mapping.
   string const mappingRelativePath = base::JoinPath(kTestDir, kOsmIdsToFeatureIdsName);
@@ -133,6 +134,13 @@ feature::FeatureBuilder MakeFbForTest(OsmElement element)
   feature::FeatureBuilder result;
   ftype::GetNameAndType(&element, result.GetParams());
   return result;
+}
+
+string GetFileContent(string const & name)
+{
+  ifstream stream(name);
+  TEST(stream.is_open(), ());
+  return string(istreambuf_iterator<char>(stream), istreambuf_iterator<char>());
 }
 
 UNIT_TEST(RoadAccess_Smoke)
@@ -181,6 +189,29 @@ UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
 
   TEST_EQUAL(bicycleRoadAccess.GetAccessWithoutConditional(3 /* featureId */),
              make_pair(RoadAccess::Type::No, RoadAccess::Confidence::Sure), ());
+}
+
+UNIT_TEST(RoadAccessWriter_Permit)
+{
+  classificator::Load();
+
+  auto const filename = generator_tests::GetFileName();
+  SCOPE_GUARD(_, bind(Platform::RemoveFileIfExists, cref(filename)));
+
+  auto const w = MakeOsmElementWithNodes(1 /* id */,
+                                         {{"highway", "motorway"}, {"access", "no"}, {"motor_vehicle", "permit"}},
+                                         OsmElement::EntityType::Way, {1, 2});
+
+  auto c = make_shared<RoadAccessWriter>(filename);
+  c->CollectFeature(MakeFbForTest(w), w);
+
+  c->Finish();
+  c->Finalize();
+
+  string const correctAnswer = "Pedestrian No 1 0\n"
+                               "Bicycle No 1 0\n"
+                               "Car Private 1 0\n";
+  TEST_EQUAL(GetFileContent(filename), correctAnswer, ());
 }
 
 UNIT_TEST(RoadAccessWriter_Merge)
@@ -236,18 +267,12 @@ UNIT_TEST(RoadAccessWriter_Merge)
 
   c1->Finalize();
 
-  ifstream stream;
-  stream.exceptions(fstream::failbit | fstream::badbit);
-  stream.open(filename);
-  std::stringstream buffer;
-  buffer << stream.rdbuf();
-
   string const correctAnswer = "Car Private 1 2\n"
                                "Car Private 2 3\n";
-  TEST_EQUAL(buffer.str(), correctAnswer, ());
+  TEST_EQUAL(GetFileContent(filename), correctAnswer, ());
 }
 
-UNIT_TEST(RoadAccessCoditionalParse)
+UNIT_TEST(RoadAccessCoditional_Parse)
 {
   AccessConditionalTagParser parser;
 
@@ -317,13 +342,22 @@ UNIT_TEST(RoadAccessCoditionalParse)
 
   for (auto const & tag : tags)
   {
-    for (auto const & test : tests)
+    for (auto const & [value, answer] : tests)
     {
-      auto const & [value, answer] = test;
       auto const access = parser.ParseAccessConditionalTag(tag, value);
       TEST(access == answer, (value, tag));
     }
   }
+}
+
+UNIT_TEST(RoadAccessCoditional_Collect)
+{
+  // Exotic cases
+  auto const roadAccessAllTypes = SaveAndLoadRoadAccess(
+        {}, R"(578127581, 0,)", R"(Car	578127581	1	No	wind_speed>=65)");
+  auto const carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
+  TEST_EQUAL(carRoadAccess.GetAccess(0 /* featureId */, RouteWeight{}),
+             make_pair(RoadAccess::Type::Yes, RoadAccess::Confidence::Sure), ());
 }
 
 UNIT_TEST(RoadAccessWriter_ConditionalMerge)
@@ -364,17 +398,12 @@ UNIT_TEST(RoadAccessWriter_ConditionalMerge)
 
   c1->Finalize(true /*isStable*/);
 
-  ifstream stream;
-  stream.exceptions(fstream::failbit | fstream::badbit);
-  stream.open(filename + ROAD_ACCESS_CONDITIONAL_EXT);
-  string const resultFile((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
-
   string const expectedFile =
       "Car\t1\t1\tNo\tMo-Su\t\n"
       "Car\t2\t1\tPrivate\t10:00-20:00\t\n"
       "Car\t3\t2\tPrivate\t12:00-19:00\tNo\tMo-Su\t\n";
 
-  TEST_EQUAL(resultFile, expectedFile, ());
+  TEST_EQUAL(GetFileContent(filename + CONDITIONAL_EXT), expectedFile, ());
 }
 
 UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
@@ -400,11 +429,6 @@ UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
   c1->Finish();
   c1->Finalize(true /*isStable*/);
 
-  ifstream stream;
-  stream.exceptions(fstream::failbit | fstream::badbit);
-  stream.open(filename + ROAD_ACCESS_CONDITIONAL_EXT);
-  string const resultFile((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
-
   string const expectedFile =
       "Bicycle\t1\t1\tNo\tMar - Nov\t\n"
       "Bicycle\t2\t1\tNo\tMar - Nov\t\n"
@@ -413,6 +437,6 @@ UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
       "Pedestrian\t1\t1\tNo\tMar - Nov\t\n"
       "Pedestrian\t2\t1\tNo\tMar - Nov\t\n";
 
-  TEST_EQUAL(resultFile, expectedFile, ());
+  TEST_EQUAL(GetFileContent(filename + CONDITIONAL_EXT), expectedFile, ());
 }
 }  // namespace road_access_test
