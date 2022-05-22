@@ -6,6 +6,9 @@
 #include <chrono>
 #include <sstream>
 
+namespace routing
+{
+
 namespace
 {
 std::string const kNames[] = {"No", "Private", "Destination", "Yes", "Count"};
@@ -28,8 +31,6 @@ void PrintKV(std::ostringstream & oss, KV const & kvs, size_t maxKVToShow)
 }
 }  // namespace
 
-namespace routing
-{
 /** RoadAccess --------------------------------------------------------------------------------------
  * @todo (bykoinako) It's a fast fix for release. The idea behind it is to remember the time of
  * creation RoadAccess instance and return it instead of getting time when m_currentTimeGetter() is
@@ -148,8 +149,8 @@ std::string ToString(RoadAccess::Type type)
 {
   if (type <= RoadAccess::Type::Count)
     return kNames[static_cast<size_t>(type)];
-  ASSERT(false, ("Bad road access type", static_cast<size_t>(type)));
-  return "Bad RoadAccess::Type";
+  CHECK(false, ("Bad road access type", static_cast<size_t>(type)));
+  return {};
 }
 
 void FromString(std::string_view s, RoadAccess::Type & result)
@@ -162,7 +163,6 @@ void FromString(std::string_view s, RoadAccess::Type & result)
       return;
     }
   }
-  result = RoadAccess::Type::Count;
   CHECK(false, ("Could not read RoadAccess from the string", s));
 }
 
