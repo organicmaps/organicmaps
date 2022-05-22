@@ -1,0 +1,4 @@
+<resources>
+
+    <style name="Theme.Android" parent="android:Theme.Material.Light.DarkActionBar" />
+</resources>
