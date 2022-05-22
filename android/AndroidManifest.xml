@@ -795,5 +795,9 @@
     <!-- Disable Google's anonymous stats collection -->
     <meta-data android:name="android.webkit.WebView.MetricsOptOut" android:value="true" />
 
+    <!-- For android Auto -->
+    <meta-data android:name="com.google.android.gms.car.application"
+        android:resource="@xml/automotive_app_desc"/>
+
   </application>
 </manifest>
