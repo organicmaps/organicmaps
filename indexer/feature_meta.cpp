@@ -185,7 +185,7 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_AIRPORT_IATA: return "iata";
   case Metadata::FMD_BRAND: return "brand";
   case Metadata::FMD_DURATION: return "duration";
-  case Metadata::FMD_DESCRIPTION: CHECK(false, ("Description can store many strings in different languages and should be processed separately."));  // fallthrough
+  case Metadata::FMD_DESCRIPTION: return "description";
   case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
   };
 
@@ -207,7 +207,11 @@ string DebugPrint(Metadata const & metadata)
       else
         res += "; ";
 
-      res.append(DebugPrint(t)).append("=").append(sv);
+      res.append(DebugPrint(t)).append("=");
+      if (t == Metadata::FMD_DESCRIPTION)
+        res += DebugPrint(StringUtf8Multilang::FromBuffer(std::string(sv)));
+      else
+        res.append(sv);
     }
   }
   res += "]";
