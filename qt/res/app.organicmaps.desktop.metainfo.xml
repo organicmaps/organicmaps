@@ -107,6 +107,20 @@
   </screenshots>
 
   <releases>
+   <release version="2022.05.24-2" date="2022-05-24">
+     <description>
+       <ul>
+         <li>Fixed road shields rendering in some places</li>
+         <li>Improved car and pedestrian directions</li>
+         <li>Improved cross-region routing</li>
+         <li>Fixed some pedestrian/bike/car routing issues</li>
+         <li>Some performance optimizations</li>
+         <li>Fixed some translations</li>
+         <li>Added Marathi language</li>
+         <li>Added Devanagari font</li>
+       </ul>
+     </description>
+   </release>
    <release version="2022.04.27-2" date="2022-04-27">
      <description>
        <ul>
