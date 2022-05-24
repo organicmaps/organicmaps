@@ -4,6 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="auto">
 
+  <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="32" />
+
+
   <uses-feature
       android:glEsVersion="0x00020000"
       android:required="true"/>
