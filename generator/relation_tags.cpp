@@ -103,6 +103,7 @@ void RelationTagsWay::Process(RelationElement const & e)
   bool const processAssociatedStreet = type == "associatedStreet" &&
                                        Base::IsKeyTagExists("addr:housenumber") &&
                                        !Base::IsKeyTagExists("addr:street");
+  bool const isAssociatedStreet = type == "associatedStreet";
   bool const isHighway = Base::IsKeyTagExists("highway");
 
   for (auto const & p : e.m_tags)
@@ -121,6 +122,9 @@ void RelationTagsWay::Process(RelationElement const & e)
     {
       continue;
     }
+
+    if (isAssociatedStreet && p.first == "wikipedia")
+      continue;
 
     if (!isBoundary && p.first == "boundary")
       continue;
