@@ -1,1 +1,9 @@
-../en-US/release_notes.txt
+• Yeni OSM harita verileri (15 Mayıs 2022)
+• Fixed low memory crash for car routing
+• İyileştirilmiş araba ve yaya yönlendirmeleri
+• İyileştirilmiş bölgeler arası yönlendirme
+• Bazı yaya/bisiklet/araba yönlendirme sorunları düzeltildi
+• Bazı performans optimizasyonları
+• ASCII olmayan URL'lerin ve http(s) içermeyen URL'lerin açılması düzeltildi
+• Bazı çeviriler düzeltildi
+• Devanagari yazı tipi eklendi
