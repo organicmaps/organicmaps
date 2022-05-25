@@ -4,6 +4,6 @@
 • İyileştirilmiş bölgeler arası yönlendirme
 • Bazı yaya/bisiklet/araba yönlendirme sorunları düzeltildi
 • Bazı performans optimizasyonları
-• ASCII olmayan URL'lerin ve http(s) içermeyen URL'lerin açılması düzeltildi
+• ASCII olmayan ve http(s) içermeyen URL'lerin açılması düzeltildi
 • Bazı çeviriler düzeltildi
 • Devanagari yazı tipi eklendi
