@@ -1,5 +1,5 @@
 • Yeni OSM harita verileri (15 Mayıs 2022)
-• Fixed low memory crash for car routing
+• Araba rotalarında düşük bellek çökmesi düzeltildi
 • İyileştirilmiş araba ve yaya yönlendirmeleri
 • İyileştirilmiş bölgeler arası yönlendirme
 • Bazı yaya/bisiklet/araba yönlendirme sorunları düzeltildi
