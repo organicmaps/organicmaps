@@ -4,8 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="auto">
 
-  <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="32" />
-
 
   <uses-feature
       android:glEsVersion="0x00020000"
@@ -67,9 +65,7 @@
       android:supportsRtl="true"
       android:networkSecurityConfig="@xml/network_security_config">
 
-    <meta-data
-        android:name="com.google.android.gms.car.application"
-        android:resource="@xml/automotive_app_desc"/>
+
 
     <activity
       android:name="com.mapswithme.maps.SplashActivity"
@@ -807,6 +803,14 @@
     <!-- For android Auto -->
     <meta-data android:name="com.google.android.gms.car.application"
         android:resource="@xml/automotive_app_desc"/>
+
+    <service
+        android:name=".HelloWorldService"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="androidx.car.app.CarAppService" />
+      </intent-filter>
+    </service>
 
   </application>
 </manifest>
