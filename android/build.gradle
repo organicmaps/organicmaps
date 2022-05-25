@@ -104,6 +104,9 @@ dependencies {
   testImplementation "junit:junit:$jUnitVersion"
   testImplementation "org.mockito:mockito-core:$mockitoVersion"
   testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+
+  //Android Auto
+  implementation "androidx.car.app:app:1.2.0-rc01"
 }
 
 def run(cmd) {
