@@ -38,7 +38,9 @@ public:
   ~TestMwmBuilder();
 
   void Add(TestFeature const & feature);
+  void AddSafe(TestFeature const & feature);
   bool Add(feature::FeatureBuilder & fb);
+
   void SetUKPostcodesData(std::string const & postcodesPath,
                           std::shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter);
   void SetMwmLanguages(std::vector<std::string> const & languages);

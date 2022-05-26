@@ -99,6 +99,21 @@ namespace
   /// The functions names and set of types looks strange now and definitely should be revised.
   /// @{
 
+  bool IsUsefulStandaloneType(uint32_t type, GeomType g = GeomType::Undefined)
+  {
+    auto const & cl = classif();
+
+    static uint32_t const shuttle = cl.GetTypeByPath({"route", "shuttle_train"});
+    if ((g == GeomType::Line || g == GeomType::Undefined) && type == shuttle)
+      return true;
+
+    static uint32_t const region = cl.GetTypeByPath({"place", "region"});
+    if ((g == GeomType::Point || g == GeomType::Undefined) && type == region)
+      return true;
+
+    return false;
+  }
+
   /// Warning: Geometry of features with always existing types will be indexed in mwm on all
   /// zoom levels. If you add an always existing type to drawing types, the displacement of icons
   /// may work not correctly.
@@ -108,12 +123,11 @@ namespace
     if (!cl.IsTypeValid(type))
       return false;
 
-    static uint32_t const shuttle = cl.GetTypeByPath({"route", "shuttle_train"});
+    if (IsUsefulStandaloneType(type, g))
+      return true;
+
     static uint32_t const internet = cl.GetTypeByPath({"internet_access"});
     static uint32_t const complexEntry = cl.GetTypeByPath({"complex_entry"});
-
-    if ((g == GeomType::Line || g == GeomType::Undefined) && type == shuttle)
-      return true;
 
     uint8_t const typeLevel = ftype::GetLevel(type);
     ftype::TruncValue(type, 1);
@@ -128,7 +142,7 @@ namespace
       {
         static uint32_t const arrTypes[] = {
             cl.GetTypeByPath({"organic"}),
-            cl.GetTypeByPath({"recycling"})
+            cl.GetTypeByPath({"recycling"}),
         };
         if (base::IsExist(arrTypes, type))
           return true;
@@ -155,6 +169,7 @@ namespace
     static uint32_t const roundabout = cl.GetTypeByPath({"junction", "roundabout"});
     static uint32_t const psurface = cl.GetTypeByPath({"psurface"});
 
+    /// @todo "roundabout" type itself has caption drawing rules (for point junctions?).
     if ((g == GeomType::Line || g == GeomType::Undefined) && type == roundabout)
       return true;
 
@@ -179,13 +194,13 @@ bool IsUsefulType(uint32_t type)
   return IsUsefulNondrawableType(type) || classif().GetObject(type)->IsDrawableAny();
 }
 
-bool IsDrawableLike(vector<uint32_t> const & types, GeomType geomType)
+bool CanGenerateLike(vector<uint32_t> const & types, GeomType geomType)
 {
   Classificator const & c = classif();
 
   for (uint32_t t : types)
   {
-    if (c.GetObject(t)->IsDrawableLike(geomType, false /* emptyName */))
+    if (IsUsefulStandaloneType(t, geomType) || c.GetObject(t)->IsDrawableLike(geomType, false /* emptyName */))
       return true;
   }
   return false;
@@ -235,12 +250,10 @@ bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level)
 
 bool IsUsefulType(uint32_t t, GeomType geomType, bool emptyName)
 {
-  Classificator const & c = classif();
-
   if (IsUsefulNondrawableType(t, geomType))
     return true;
 
-  ClassifObject const * obj = c.GetObject(t);
+  ClassifObject const * obj = classif().GetObject(t);
   CHECK(obj, ());
 
   if (obj->IsDrawableLike(geomType, emptyName))
@@ -254,14 +267,6 @@ bool IsUsefulType(uint32_t t, GeomType geomType, bool emptyName)
   }
 
   return false;
-}
-
-bool HasUsefulType(vector<uint32_t> const & types, GeomType geomType, bool emptyName)
-{
-  return any_of(types.begin(), types.end(), [&](uint32_t t)
-  {
-    return IsUsefulType(t, geomType, emptyName);
-  });
 }
 
 bool RemoveUselessTypes(vector<uint32_t> & types, GeomType geomType, bool emptyName)

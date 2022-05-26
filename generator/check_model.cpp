@@ -10,37 +10,38 @@
 
 #include <vector>
 
-using namespace feature;
-
 namespace check_model
 {
-  void ReadFeatures(std::string const & fName)
+using namespace feature;
+
+void ReadFeatures(std::string const & fName)
+{
+  Classificator const & c = classif();
+
+  FeaturesVectorTest(fName).GetVector().ForEach([&](FeatureType & ft, uint32_t)
   {
-    Classificator const & c = classif();
+    TypesHolder types(ft);
 
-    FeaturesVectorTest(fName).GetVector().ForEach([&](FeatureType & ft, uint32_t) {
-      TypesHolder types(ft);
+    std::vector<uint32_t> vTypes;
+    for (uint32_t t : types)
+    {
+      CHECK_EQUAL(c.GetTypeForIndex(c.GetIndexForType(t)), t, ());
+      vTypes.push_back(t);
+    }
 
-      std::vector<uint32_t> vTypes;
-      for (uint32_t t : types)
-      {
-        CHECK_EQUAL(c.GetTypeForIndex(c.GetIndexForType(t)), t, ());
-        vTypes.push_back(t);
-      }
+    sort(vTypes.begin(), vTypes.end());
+    CHECK(unique(vTypes.begin(), vTypes.end()) == vTypes.end(), ());
 
-      sort(vTypes.begin(), vTypes.end());
-      CHECK(unique(vTypes.begin(), vTypes.end()) == vTypes.end(), ());
+    m2::RectD const r = ft.GetLimitRect(FeatureType::BEST_GEOMETRY);
+    CHECK(r.IsValid(), ());
 
-      m2::RectD const r = ft.GetLimitRect(FeatureType::BEST_GEOMETRY);
-      CHECK(r.IsValid(), ());
+    GeomType const type = ft.GetGeomType();
+    if (type == GeomType::Line)
+      CHECK_GREATER(ft.GetPointsCount(), 1, ());
 
-      GeomType const type = ft.GetGeomType();
-      if (type == GeomType::Line)
-        CHECK_GREATER(ft.GetPointsCount(), 1, ());
+    CHECK(CanGenerateLike(vTypes, ft.GetGeomType()), ());
+  });
 
-      IsDrawableLike(vTypes, ft.GetGeomType());
-    });
-
-    LOG(LINFO, ("OK"));
-  }
+  LOG(LINFO, ("OK"));
 }
+} // namespace check_model

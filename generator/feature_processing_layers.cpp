@@ -14,10 +14,10 @@
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 
-using namespace feature;
-
 namespace generator
 {
+using namespace feature;
+
 namespace
 {
 void FixLandType(FeatureBuilder & fb)
@@ -158,30 +158,29 @@ void RepresentationLayer::HandleArea(FeatureBuilder & fb, FeatureBuilderParams c
 // static
 bool RepresentationLayer::CanBeArea(FeatureParams const & params)
 {
-  return feature::IsDrawableLike(params.m_types, feature::GeomType::Area);
+  return CanGenerateLike(params.m_types, feature::GeomType::Area);
 }
 
 // static
 bool RepresentationLayer::CanBePoint(FeatureParams const & params)
 {
-  return feature::IsDrawableLike(params.m_types, feature::GeomType::Point);
+  return CanGenerateLike(params.m_types, feature::GeomType::Point);
 }
 
 // static
 bool RepresentationLayer::CanBeLine(FeatureParams const & params)
 {
-  return feature::IsDrawableLike(params.m_types, feature::GeomType::Line);
+  return CanGenerateLike(params.m_types, feature::GeomType::Line);
 }
 
 void PrepareFeatureLayer::Handle(FeatureBuilder & fb)
 {
-  auto const type = fb.GetGeomType();
-  auto & params = fb.GetParams();
-  feature::RemoveUselessTypes(params.m_types, type);
-  fb.PreSerializeAndRemoveUselessNamesForIntermediate();
-  FixLandType(fb);
-  if (feature::HasUsefulType(params.m_types, type))
+  if (feature::RemoveUselessTypes(fb.GetParams().m_types, fb.GetGeomType()))
+  {
+    fb.PreSerializeAndRemoveUselessNamesForIntermediate();
+    FixLandType(fb);
     LayerBase::Handle(fb);
+  }
 }
 
 void RepresentationCoastlineLayer::Handle(FeatureBuilder & fb)
