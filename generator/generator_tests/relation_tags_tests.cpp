@@ -37,13 +37,117 @@ private:
   std::unordered_map<generator::cache::Key, RelationElement> & m_mapping;
 };
 
+UNIT_TEST(Process_route_with_ref) {
+  /* Prepare relations data:
+   * Relation 1:
+   *   - type = route
+   *   - route = road
+   *   - ref = E-99
+   *   - members: [
+   *       Way 10:
+   *         - highway = motorway
+   *       Way 11:
+   *         - highway = motorway
+   *         - ref = F-16
+   *     ]
+   */
 
-UNIT_TEST() {
+  // Create relation.
+  std::vector<RelationElement::Member> testMembers = {{10, ""},
+                                                      {11, ""}};
+
+  RelationElement e1;
+  e1.m_ways = testMembers;
+  e1.m_tags.emplace("type", "route");
+  e1.m_tags.emplace("route", "road");
+  e1.m_tags.emplace("ref", "E-99");
+
+  std::unordered_map<generator::cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
+  TestOSMElementCacheReader reader(m_IdToRelation);
+
+  // Create buildings polygons.
+  auto road10 = MakeOsmElement(10, {{"highway", "motorway"}},
+  OsmElement::EntityType::Way);
+
+  auto road11 = MakeOsmElement(11, {{"highway", "motorway"},
+    {"ref", "F-16"}},
+  OsmElement::EntityType::Way);
+
+  // Process road tags using relation tags.
+  RelationTagsWay rtw;
+
+  rtw.Reset(10, &road10);
+  rtw(1, reader);
+
+  rtw.Reset(11, &road11);
+  rtw(1, reader);
+
+  // Verify ways tags.
+  TEST_EQUAL(road10.GetTag("ref"), "E-99", ());
+  TEST_EQUAL(road11.GetTag("ref"), "F-16", ());
+}
+
+UNIT_TEST(Process_route_with_ref_network) {
+  /* Prepare relations data:
+   * Relation 1:
+   *   - type = route
+   *   - route = road
+   *   - ref = SP60
+   *   - network = IT:RA
+   *   - members: [
+   *       Way 10:
+   *         - highway = motorway
+   *         - name = Via Corleto
+   *       Way 11:
+   *         - highway = motorway
+   *         - ref = SP60
+   *     ]
+   */
+
+  // Create relation.
+  std::vector<RelationElement::Member> testMembers = {{10, ""},
+                                                      {11, ""}};
+
+  RelationElement e1;
+  e1.m_ways = testMembers;
+  e1.m_tags.emplace("type", "route");
+  e1.m_tags.emplace("route", "road");
+  e1.m_tags.emplace("ref", "SP60");
+  e1.m_tags.emplace("network", "IT:RA");
+
+  std::unordered_map<generator::cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
+  TestOSMElementCacheReader reader(m_IdToRelation);
+
+  // Create buildings polygons.
+  auto road10 = MakeOsmElement(10, {{"highway", "motorway"},
+    {"name", "Via Corleto"}},
+  OsmElement::EntityType::Way);
+
+  auto road11 = MakeOsmElement(11, {{"highway", "motorway"},
+    {"ref", "SP62"}},
+  OsmElement::EntityType::Way);
+
+  // Process road tags using relation tags.
+  RelationTagsWay rtw;
+
+  rtw.Reset(10, &road10);
+  rtw(1, reader);
+
+  rtw.Reset(11, &road11);
+  rtw(1, reader);
+
+  // Verify ways tags.
+  TEST_EQUAL(road10.GetTag("ref"), "IT:RA/SP60", ());
+  TEST_EQUAL(road11.GetTag("ref"), "SP62", ());
+}
+
+UNIT_TEST(Process_associatedStreet) {
   /* Prepare relations data:
    * Relation 1:
    *   - type = associatedStreet
    *   - name = Main street
    *   - wikipedia = en:Main Street
+   *   - place =
    *   - members: [
    *       Way 2:
    *         - building = yes
@@ -95,5 +199,65 @@ UNIT_TEST() {
   TEST_EQUAL(buildingWay3.GetTag("addr:street"), "The Main Street", ());
   TEST_EQUAL(buildingWay3.HasTag("wikipedia"), true, ());
 }
+
+UNIT_TEST(Process_boundary) {
+  /* Prepare relations data:
+   * Relation 1:
+   *   - type = boundary
+   *   - place = peninsula
+   *   - name = Penisola italiana
+   *   - members: [
+   *       Way 5:
+   *         - natural = coastline
+   *       Way 6:
+   *         - natural = coastline
+   *         - name = Cala Rossa
+   *     ]
+   */
+
+  // Create relation.
+  std::vector<RelationElement::Member> testMembers = {{5, "outer"},
+                                                      {6, "outer"}};
+
+  RelationElement e1;
+  e1.m_ways = testMembers;
+  e1.m_tags.emplace("type", "boundary");
+  e1.m_tags.emplace("place", "peninsula");
+  e1.m_tags.emplace("name", "Penisola italiana");
+  e1.m_tags.emplace("name:en", "Italian Peninsula");
+  e1.m_tags.emplace("wikidata", "Q145694");
+
+  std::unordered_map<generator::cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
+  TestOSMElementCacheReader reader(m_IdToRelation);
+
+  // Create buildings polygons.
+  auto outerWay5 = MakeOsmElement(5, {{"natural", "coastline"}},
+  OsmElement::EntityType::Way);
+
+  auto outerWay6 = MakeOsmElement(6, {{"natural", "coastline"},
+    {"name", "Cala Rossa"}},
+  OsmElement::EntityType::Way);
+
+  // Process way tags using relation tags.
+  RelationTagsWay rtw;
+
+  rtw.Reset(5, &outerWay5);
+  rtw(1, reader);
+
+  rtw.Reset(6, &outerWay6);
+  rtw(1, reader);
+
+  // Verify ways tags.
+  TEST_EQUAL(outerWay5.HasTag("place"), false, ());
+  TEST_EQUAL(outerWay5.HasTag("name"), false, ());
+  TEST_EQUAL(outerWay5.HasTag("name:en"), false, ());
+  TEST_EQUAL(outerWay5.GetTag("wikidata"), "Q145694", ());
+
+  TEST_EQUAL(outerWay6.HasTag("place"), false, ());
+  TEST_EQUAL(outerWay6.HasTag("name"), true, ());
+  TEST_EQUAL(outerWay6.HasTag("name:en"), false, ());
+  TEST_EQUAL(outerWay6.GetTag("wikidata"), "Q145694", ());
+}
+
 
 }
