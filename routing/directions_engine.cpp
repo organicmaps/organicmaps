@@ -183,14 +183,10 @@ void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     prevJunctions.push_back(prevJunction);
     prevSegments.push_back(ConvertEdgeToSegment(*m_numMwmIds, inEdge));
 
-    if (!IsJoint(ingoingEdges, outgoingEdges, inEdge, routeEdges[i], isCurrJunctionFinish,
-                 inFeatureId.IsValid()))
-    {
+    if (!isCurrJunctionFinish && inFeatureId.IsValid() && !IsJoint(ingoingEdges, outgoingEdges, inEdge, routeEdges[i]))
       continue;
-    }
 
-    CHECK_EQUAL(prevJunctions.size(),
-                static_cast<size_t>(abs(static_cast<int32_t>(inSegId - startSegId)) + 1), ());
+    CHECK_EQUAL(prevJunctions.size(), static_cast<size_t>(abs(int(inSegId) - int(startSegId)) + 1), ());
 
     prevJunctions.push_back(currJunction);
 
