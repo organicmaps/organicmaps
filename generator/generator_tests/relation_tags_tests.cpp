@@ -4,6 +4,7 @@
 #include "generator/relation_tags.hpp"
 #include "generator/intermediate_data.hpp"
 
+// TODO: Rewrite this tests using RelationTagsEnricher with some test mock of IntermediateDataReaderInterface.
 namespace relation_tags_tests
 {
 using namespace feature;
@@ -69,7 +70,6 @@ UNIT_TEST(Process_route_with_ref)
 
   // Create roads.
   auto road10 = MakeOsmElement(10, {{"highway", "motorway"}}, OsmElement::EntityType::Way);
-
   auto road11 = MakeOsmElement(11, {{"highway", "motorway"}, {"ref", "F-16"}}, OsmElement::EntityType::Way);
 
   // Process roads tags using relation tags.
@@ -100,7 +100,7 @@ UNIT_TEST(Process_route_with_ref_network)
    *         - name = Via Corleto
    *       Way 11:
    *         - highway = motorway
-   *         - ref = SP60
+   *         - ref = SP62
    *     ]
    */
 
@@ -119,7 +119,6 @@ UNIT_TEST(Process_route_with_ref_network)
 
   // Create roads.
   auto road10 = MakeOsmElement(10, {{"highway", "motorway"}, {"name", "Via Corleto"}}, OsmElement::EntityType::Way);
-
   auto road11 = MakeOsmElement(11, {{"highway", "motorway"}, {"ref", "SP62"}}, OsmElement::EntityType::Way);
 
   // Process roads tags using relation tags.
@@ -133,7 +132,7 @@ UNIT_TEST(Process_route_with_ref_network)
 
   // Verify roads tags.
   TEST_EQUAL(road10.GetTag("ref"), "IT:RA/SP60", ());
-  TEST_EQUAL(road11.GetTag("ref"), "SP62", ());
+  TEST_EQUAL(road11.GetTag("ref"), "SP62", ()); // TODO: Check refs inheritance (expected "IT:RA/SP60;SP62")
 }
 
 UNIT_TEST(Process_associatedStreet)
@@ -169,7 +168,6 @@ UNIT_TEST(Process_associatedStreet)
 
   // Create buildings polygons.
   auto buildingWay2 = MakeOsmElement(2, {{"building", "yes"}, {"addr:housenumber", "121"}}, OsmElement::EntityType::Way);
-
   auto buildingWay3 = MakeOsmElement(3, {{"auto const", "yes"}, {"addr:housenumber", "123"}, {"addr:street", "The Main Street"}, {"wikipedia", "en:Mega Theater"}}, OsmElement::EntityType::Way);
 
   // Process buildings tags using relation tags.
@@ -221,7 +219,6 @@ UNIT_TEST(Process_boundary)
 
   // Create ways.
   auto outerWay5 = MakeOsmElement(5, {{"natural", "coastline"}}, OsmElement::EntityType::Way);
-
   auto outerWay6 = MakeOsmElement(6, {{"natural", "coastline"}, {"name", "Cala Rossa"}}, OsmElement::EntityType::Way);
 
   // Process ways tags using relation tags.
