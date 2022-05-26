@@ -68,10 +68,7 @@ void DirectedGraph::GetEdgesList(Vertex const & v, bool isOutgoing, EdgeListT & 
 {
   adj = isOutgoing ? m_outgoing[v] : m_ingoing[v];
 }
-}  // namespace routing_tests
 
-namespace routing
-{
 using namespace std;
 
 namespace
@@ -114,7 +111,7 @@ class RoadGraph : public Algorithm::Graph
 {
 public:
 
-  explicit RoadGraph(IRoadGraph const & roadGraph)
+  explicit RoadGraph(RoadGraphIFace const & roadGraph)
     : m_roadGraph(roadGraph), m_maxSpeedMPS(KMPH2MPS(roadGraph.GetMaxSpeedKMpH()))
   {}
 
@@ -164,7 +161,7 @@ public:
   }
 
 private:
-  IRoadGraph const & m_roadGraph;
+  RoadGraphIFace const & m_roadGraph;
   double const m_maxSpeedMPS;
 };
 
@@ -200,7 +197,7 @@ string DebugPrint(TestAStarBidirectionalAlgo::Result const & value)
 
 // *************************** AStar-bidirectional routing algorithm implementation ***********************
 TestAStarBidirectionalAlgo::Result TestAStarBidirectionalAlgo::CalculateRoute(
-    IRoadGraph const & graph, geometry::PointWithAltitude const & startPos,
+    RoadGraphIFace const & graph, geometry::PointWithAltitude const & startPos,
     geometry::PointWithAltitude const & finalPos,
     RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path)
 {
@@ -211,4 +208,4 @@ TestAStarBidirectionalAlgo::Result TestAStarBidirectionalAlgo::CalculateRoute(
   Algorithm::Result const res = Algorithm().FindPathBidirectional(params, path);
   return Convert(res);
 }
-}  // namespace routing
+}  // namespace routing_tests

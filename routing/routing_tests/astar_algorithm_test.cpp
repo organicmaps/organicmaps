@@ -11,9 +11,10 @@
 #include <utility>
 #include <vector>
 
-namespace routing_test
+namespace astar_algorithm_test
 {
 using namespace routing;
+using namespace routing_test;
 using namespace std;
 
 using Algorithm = AStarAlgorithm<uint32_t, SimpleEdge, double>;
@@ -151,4 +152,4 @@ UNIT_TEST(AdjustRouteOutOfLimit)
   TEST_EQUAL(code, Algorithm::Result::NoPath, ());
   TEST(result.m_path.empty(), ());
 }
-}  // namespace routing_test
+}  // namespace astar_algorithm_test

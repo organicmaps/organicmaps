@@ -129,9 +129,6 @@ public:
   virtual void GetIngoingEdges(JunctionPointT const & junction,
                                EdgeListT & edges) const = 0;
 
-  /// Returns max speed in KM/H
-  virtual double GetMaxSpeedKMpH() const = 0;
-
   /// @return Types for the specified edge
   virtual void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const = 0;
 
@@ -286,15 +283,6 @@ public:
                     std::vector<std::pair<Edge, JunctionPointT>> const & vicinities);
   void AddOutgoingFakeEdge(Edge const & e);
   void AddIngoingFakeEdge(Edge const & e);
-
-  /// Returns RoadInfo for a road corresponding to featureId.
-  virtual RoadInfo GetRoadInfo(FeatureID const & featureId, SpeedParams const & speedParams) const = 0;
-
-  /// Returns speed in KM/H for a road corresponding to featureId.
-  virtual double GetSpeedKMpH(FeatureID const & featureId, SpeedParams const & speedParams) const = 0;
-
-  /// Returns speed in KM/H for a road corresponding to edge.
-  double GetSpeedKMpH(Edge const & edge, SpeedParams const & speedParams) const;
 
   /// Calls edgesLoader on each feature which is close to cross.
   virtual void ForEachFeatureClosestToCross(m2::PointD const & cross,

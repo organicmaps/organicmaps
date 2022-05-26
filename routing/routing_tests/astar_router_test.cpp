@@ -19,12 +19,12 @@
 
 #include <vector>
 
+namespace astar_router_test
+{
 using namespace routing;
 using namespace routing_test;
 using namespace std;
 
-namespace
-{
 void TestAStarRouterMock(geometry::PointWithAltitude const & startPos,
                          geometry::PointWithAltitude const & finalPos,
                          vector<geometry::PointWithAltitude> const & expected)
@@ -52,8 +52,6 @@ void AddRoad(RoadGraphMockSource & graph, initializer_list<m2::PointD> const & p
   double const speedKMpH = graph.GetMaxSpeedKMpH();
   graph.AddRoad(routing::MakeRoadInfoForTesting(true /* bidir */, speedKMpH, points));
 }
-
-}  // namespace
 
 UNIT_TEST(AStarRouter_Graph2_Simple1)
 {
@@ -332,3 +330,4 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad3)
              ());
   TEST(base::AlmostEqualAbs(result.m_distance, 814412., 1.), ("Distance error:", result.m_distance));
 }
+} // namespace astar_router_test

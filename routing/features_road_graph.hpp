@@ -81,9 +81,6 @@ public:
 
   /// @name IRoadGraph overrides
   /// @{
-  RoadInfo GetRoadInfo(FeatureID const & featureId, SpeedParams const & speedParams) const override;
-  double GetSpeedKMpH(FeatureID const & featureId, SpeedParams const & speedParams) const override;
-  double GetMaxSpeedKMpH() const override;
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgesLoader) const override;
   void FindClosestEdges(m2::RectD const & rect, uint32_t count,
@@ -98,7 +95,6 @@ public:
   /// @}
 
   bool IsRoad(FeatureType & ft) const;
-  IRoadGraph::PointWithAltitudeVec GetRoadGeom(FeatureType & ft) const;
 
 protected:
   MwmDataSource & m_dataSource;
