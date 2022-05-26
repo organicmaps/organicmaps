@@ -1,4 +1,4 @@
-package com.mapswithme.maps;
+package com.androidAuto;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;

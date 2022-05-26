@@ -1,4 +1,4 @@
-package com.mapswithme.maps;
+package com.androidAuto;
 
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
