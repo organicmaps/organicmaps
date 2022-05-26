@@ -4,6 +4,7 @@
 #include "generator/cities_ids_builder.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
+#include "generator/feature_merger.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/postcode_points_builder.hpp"
@@ -31,6 +32,10 @@
 
 #include <memory>
 
+namespace generator
+{
+namespace tests_support
+{
 using namespace std;
 using namespace feature;
 
@@ -55,10 +60,6 @@ bool WriteRegionDataForTests(string const & path, vector<string> const & languag
 }
 }  // namespace
 
-namespace generator
-{
-namespace tests_support
-{
 TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, DataHeader::MapType type,
                                uint32_t version)
   : m_file(file)
@@ -82,9 +83,28 @@ void TestMwmBuilder::Add(TestFeature const & feature)
   CHECK(Add(fb), (fb));
 }
 
+void TestMwmBuilder::AddSafe(TestFeature const & feature)
+{
+  FeatureBuilder fb;
+  feature.Serialize(fb);
+  (void)Add(fb);
+}
+
 bool TestMwmBuilder::Add(FeatureBuilder & fb)
 {
   CHECK(m_collector, ("It's not possible to add features after call to Finish()."));
+
+  switch (m_type)
+  {
+  case DataHeader::MapType::Country:
+    if (!feature::PreprocessForCountryMap(fb))
+      return false;
+    break;
+  case DataHeader::MapType::World:
+    if (!feature::PreprocessForWorldMap(fb))
+      return false;
+    break;
+  }
 
   auto const & isCityTownOrVillage = ftypes::IsCityTownOrVillageChecker::Instance();
   if (isCityTownOrVillage(fb.GetTypes()) && fb.GetGeomType() == GeomType::Area)

@@ -194,8 +194,7 @@ bool FeatureBuilder::RemoveInvalidTypes()
   if (!m_params.FinishAddingTypes())
     return false;
 
-  return RemoveUselessTypes(m_params.m_types, m_params.GetGeomType(),
-                            m_params.IsEmptyNames());
+  return RemoveUselessTypes(m_params.m_types, m_params.GetGeomType(), m_params.IsEmptyNames());
 }
 
 TypesHolder FeatureBuilder::GetTypesHolder() const
