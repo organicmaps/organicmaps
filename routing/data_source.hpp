@@ -46,6 +46,13 @@ public:
     : m_dataSource(dataSource), m_numMwmIDs(std::move(numMwmIDs))
   {}
 
+  void FreeHandles()
+  {
+    m_features.release();
+    m_handles.clear();
+    m_handles2.clear();
+  }
+
   bool IsLoaded(platform::CountryFile const & file) const { return m_dataSource.IsLoaded(file); }
 
   enum SectionStatus

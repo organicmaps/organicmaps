@@ -288,6 +288,7 @@ void IndexRouter::ClearState()
 {
   m_roadGraph.ClearState();
   m_directionsEngine->Clear();
+  m_dataSource.FreeHandles();
 }
 
 bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point,
@@ -341,8 +342,9 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
 
   try
   {
-    SCOPE_GUARD(featureRoadGraphClear, [this]{
-      this->ClearState();
+    SCOPE_GUARD(featureRoadGraphClear, [this]
+    {
+      ClearState();
     });
 
     if (adjustToPrevRoute && m_lastRoute && m_lastFakeEdges &&
