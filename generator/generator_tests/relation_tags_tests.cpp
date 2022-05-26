@@ -39,7 +39,8 @@ private:
   std::unordered_map<generator::cache::Key, RelationElement> & m_mapping;
 };
 
-UNIT_TEST(Process_route_with_ref) {
+UNIT_TEST(Process_route_with_ref)
+{
   /* Prepare relations data:
    * Relation 1:
    *   - type = route
@@ -85,7 +86,8 @@ UNIT_TEST(Process_route_with_ref) {
   TEST_EQUAL(road11.GetTag("ref"), "F-16", ());
 }
 
-UNIT_TEST(Process_route_with_ref_network) {
+UNIT_TEST(Process_route_with_ref_network)
+{
   /* Prepare relations data:
    * Relation 1:
    *   - type = route
@@ -134,7 +136,8 @@ UNIT_TEST(Process_route_with_ref_network) {
   TEST_EQUAL(road11.GetTag("ref"), "SP62", ());
 }
 
-UNIT_TEST(Process_associatedStreet) {
+UNIT_TEST(Process_associatedStreet)
+{
   /* Prepare relations data:
    * Relation 1:
    *   - type = associatedStreet
@@ -186,7 +189,8 @@ UNIT_TEST(Process_associatedStreet) {
   TEST_EQUAL(buildingWay3.HasTag("wikipedia"), true, ());
 }
 
-UNIT_TEST(Process_boundary) {
+UNIT_TEST(Process_boundary)
+{
   /* Prepare relations data:
    * Relation 1:
    *   - type = boundary
@@ -240,6 +244,5 @@ UNIT_TEST(Process_boundary) {
   TEST_EQUAL(outerWay6.HasTag("name:en"), false, ());
   TEST_EQUAL(outerWay6.GetTag("wikidata"), "Q145694", ());
 }
-
 
 }
