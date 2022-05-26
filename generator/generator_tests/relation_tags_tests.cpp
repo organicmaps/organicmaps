@@ -2,7 +2,7 @@
 
 #include "generator/generator_tests/common.hpp"
 #include "generator/relation_tags.hpp"
-
+#include "generator/intermediate_data.hpp"
 
 namespace relation_tags_tests
 {
