@@ -6,9 +6,9 @@
 
 namespace relation_tags_tests
 {
-using namespace generator_tests;
-using namespace generator;
 using namespace feature;
+using namespace generator;
+using namespace generator_tests;
 using namespace std;
 
 // In memory relations storage (copy-n-paste from collector_building_parts_tests.cpp).
@@ -21,7 +21,9 @@ public:
   }
 
   // OSMElementCacheReaderInterface overrides:
-  bool Read(generator::cache::Key /* id */, WayElement & /* value */) override { UNREACHABLE(); }
+  bool Read(generator::cache::Key /* id */, WayElement & /* value */) override {
+    CHECK(false, ("Should not be called"));
+  }
 
   bool Read(generator::cache::Key id, RelationElement & value) override
   {
@@ -53,8 +55,7 @@ UNIT_TEST(Process_route_with_ref) {
    */
 
   // Create relation.
-  std::vector<RelationElement::Member> testMembers = {{10, ""},
-                                                      {11, ""}};
+  std::vector<RelationElement::Member> testMembers = {{10, ""}, {11, ""}};
 
   RelationElement e1;
   e1.m_ways = testMembers;
@@ -65,15 +66,12 @@ UNIT_TEST(Process_route_with_ref) {
   std::unordered_map<generator::cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
   TestOSMElementCacheReader reader(m_IdToRelation);
 
-  // Create buildings polygons.
-  auto road10 = MakeOsmElement(10, {{"highway", "motorway"}},
-  OsmElement::EntityType::Way);
+  // Create roads.
+  auto road10 = MakeOsmElement(10, {{"highway", "motorway"}}, OsmElement::EntityType::Way);
 
-  auto road11 = MakeOsmElement(11, {{"highway", "motorway"},
-    {"ref", "F-16"}},
-  OsmElement::EntityType::Way);
+  auto road11 = MakeOsmElement(11, {{"highway", "motorway"}, {"ref", "F-16"}}, OsmElement::EntityType::Way);
 
-  // Process road tags using relation tags.
+  // Process roads tags using relation tags.
   RelationTagsWay rtw;
 
   rtw.Reset(10, &road10);
@@ -82,7 +80,7 @@ UNIT_TEST(Process_route_with_ref) {
   rtw.Reset(11, &road11);
   rtw(1, reader);
 
-  // Verify ways tags.
+  // Verify roads tags.
   TEST_EQUAL(road10.GetTag("ref"), "E-99", ());
   TEST_EQUAL(road11.GetTag("ref"), "F-16", ());
 }
@@ -105,8 +103,7 @@ UNIT_TEST(Process_route_with_ref_network) {
    */
 
   // Create relation.
-  std::vector<RelationElement::Member> testMembers = {{10, ""},
-                                                      {11, ""}};
+  std::vector<RelationElement::Member> testMembers = {{10, ""}, {11, ""}};
 
   RelationElement e1;
   e1.m_ways = testMembers;
@@ -118,16 +115,12 @@ UNIT_TEST(Process_route_with_ref_network) {
   std::unordered_map<generator::cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
   TestOSMElementCacheReader reader(m_IdToRelation);
 
-  // Create buildings polygons.
-  auto road10 = MakeOsmElement(10, {{"highway", "motorway"},
-    {"name", "Via Corleto"}},
-  OsmElement::EntityType::Way);
+  // Create roads.
+  auto road10 = MakeOsmElement(10, {{"highway", "motorway"}, {"name", "Via Corleto"}}, OsmElement::EntityType::Way);
 
-  auto road11 = MakeOsmElement(11, {{"highway", "motorway"},
-    {"ref", "SP62"}},
-  OsmElement::EntityType::Way);
+  auto road11 = MakeOsmElement(11, {{"highway", "motorway"}, {"ref", "SP62"}}, OsmElement::EntityType::Way);
 
-  // Process road tags using relation tags.
+  // Process roads tags using relation tags.
   RelationTagsWay rtw;
 
   rtw.Reset(10, &road10);
@@ -136,7 +129,7 @@ UNIT_TEST(Process_route_with_ref_network) {
   rtw.Reset(11, &road11);
   rtw(1, reader);
 
-  // Verify ways tags.
+  // Verify roads tags.
   TEST_EQUAL(road10.GetTag("ref"), "IT:RA/SP60", ());
   TEST_EQUAL(road11.GetTag("ref"), "SP62", ());
 }
@@ -160,8 +153,7 @@ UNIT_TEST(Process_associatedStreet) {
    */
 
   // Create relation.
-  std::vector<RelationElement::Member> testMembers = {{2, "house"},
-                                                      {3, "house"}};
+  std::vector<RelationElement::Member> testMembers = {{2, "house"}, {3, "house"}};
 
   RelationElement e1;
   e1.m_ways = testMembers;
@@ -173,17 +165,11 @@ UNIT_TEST(Process_associatedStreet) {
   TestOSMElementCacheReader reader(m_IdToRelation);
 
   // Create buildings polygons.
-  auto buildingWay2 = MakeOsmElement(2, {{"building", "yes"},
-    {"addr:housenumber", "121"}},
-  OsmElement::EntityType::Way);
+  auto buildingWay2 = MakeOsmElement(2, {{"building", "yes"}, {"addr:housenumber", "121"}}, OsmElement::EntityType::Way);
 
-  auto buildingWay3 = MakeOsmElement(3, {{"auto const", "yes"},
-    {"addr:housenumber", "123"},
-    {"addr:street", "The Main Street"},
-    {"wikipedia", "en:Mega Theater"}},
-  OsmElement::EntityType::Way);
+  auto buildingWay3 = MakeOsmElement(3, {{"auto const", "yes"}, {"addr:housenumber", "123"}, {"addr:street", "The Main Street"}, {"wikipedia", "en:Mega Theater"}}, OsmElement::EntityType::Way);
 
-  // Process way tags using relation tags.
+  // Process buildings tags using relation tags.
   RelationTagsWay rtw;
 
   rtw.Reset(2, &buildingWay2);
@@ -216,8 +202,7 @@ UNIT_TEST(Process_boundary) {
    */
 
   // Create relation.
-  std::vector<RelationElement::Member> testMembers = {{5, "outer"},
-                                                      {6, "outer"}};
+  std::vector<RelationElement::Member> testMembers = {{5, "outer"}, {6, "outer"}};
 
   RelationElement e1;
   e1.m_ways = testMembers;
@@ -230,15 +215,12 @@ UNIT_TEST(Process_boundary) {
   std::unordered_map<generator::cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
   TestOSMElementCacheReader reader(m_IdToRelation);
 
-  // Create buildings polygons.
-  auto outerWay5 = MakeOsmElement(5, {{"natural", "coastline"}},
-  OsmElement::EntityType::Way);
+  // Create ways.
+  auto outerWay5 = MakeOsmElement(5, {{"natural", "coastline"}}, OsmElement::EntityType::Way);
 
-  auto outerWay6 = MakeOsmElement(6, {{"natural", "coastline"},
-    {"name", "Cala Rossa"}},
-  OsmElement::EntityType::Way);
+  auto outerWay6 = MakeOsmElement(6, {{"natural", "coastline"}, {"name", "Cala Rossa"}}, OsmElement::EntityType::Way);
 
-  // Process way tags using relation tags.
+  // Process ways tags using relation tags.
   RelationTagsWay rtw;
 
   rtw.Reset(5, &outerWay5);
