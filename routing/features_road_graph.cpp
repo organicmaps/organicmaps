@@ -138,26 +138,6 @@ private:
   IRoadGraph::ICrossEdgesLoader & m_edgesLoader;
 };
 
-IRoadGraph::RoadInfo FeaturesRoadGraphBase::GetRoadInfo(FeatureID const & featureId,
-                                                        SpeedParams const & speedParams) const
-{
-  RoadInfo const & ri = GetCachedRoadInfo(featureId, speedParams);
-  ASSERT_GREATER(ri.m_speedKMPH, 0.0, ());
-  return ri;
-}
-
-double FeaturesRoadGraphBase::GetSpeedKMpH(FeatureID const & featureId, SpeedParams const & speedParams) const
-{
-  double const speedKMPH = GetCachedRoadInfo(featureId, speedParams).m_speedKMPH;
-  ASSERT_GREATER(speedKMPH, 0.0, ());
-  return speedKMPH;
-}
-
-double FeaturesRoadGraphBase::GetMaxSpeedKMpH() const
-{
-  return m_vehicleModel.GetMaxWeightSpeed();
-}
-
 void FeaturesRoadGraphBase::ForEachFeatureClosestToCross(
       m2::PointD const & cross, ICrossEdgesLoader & edgesLoader) const
 {
@@ -253,14 +233,6 @@ void FeaturesRoadGraphBase::ClearState()
 bool FeaturesRoadGraphBase::IsRoad(FeatureType & ft) const
 {
   return m_vehicleModel.IsRoad(ft);
-}
-
-IRoadGraph::PointWithAltitudeVec FeaturesRoadGraphBase::GetRoadGeom(FeatureType & ft) const
-{
-  FeatureID const & featureId = ft.GetID();
-  IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
-  CHECK_EQUAL(roadInfo.m_speedKMPH, kInvalidSpeedKMPH, ());
-  return roadInfo.m_junctions;
 }
 
 bool FeaturesRoadGraphBase::IsOneWay(FeatureType & ft) const

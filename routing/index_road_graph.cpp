@@ -45,16 +45,6 @@ void IndexRoadGraph::GetIngoingEdges(geometry::PointWithAltitude const & junctio
   GetEdges(junction, false, edges);
 }
 
-double IndexRoadGraph::GetMaxSpeedKMpH() const
-{
-  // Value doesn't matter.
-  // It is used in CalculateMaxSpeedTimes only.
-  // Then SingleMwmRouter::RedressRoute overwrites time values.
-  //
-  // TODO: remove this stub after transfering Bicycle and Pedestrian to index routing.
-  return 0.0;
-}
-
 void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const
 {
   if (edge.IsFake())

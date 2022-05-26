@@ -28,7 +28,6 @@ public:
                                 EdgeListT & edges) const override;
   virtual void GetIngoingEdges(geometry::PointWithAltitude const & junction,
                                EdgeListT & edges) const override;
-  virtual double GetMaxSpeedKMpH() const override;
   virtual void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const override;
   virtual void GetJunctionTypes(geometry::PointWithAltitude const & junction,
                                 feature::TypesHolder & types) const override;
