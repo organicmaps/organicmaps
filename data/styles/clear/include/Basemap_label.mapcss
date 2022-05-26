@@ -404,7 +404,6 @@ node|z13-[place=hamlet]
 
 /* 4.4 Districts & Small localities */
 
-node|z8-9[place=region],
 node|z10-14[place=suburb],
 node|z13-[place=locality],
 node|z13-[place=neighbourhood],
@@ -433,7 +432,6 @@ node|z13-14[place=suburb]
 node|z13-14[place=suburb]::int_name
 {font-size: 10;}
 
-node|z8-9[place=region],
 node|z13-[place=locality],
 node|z13-[place=neighbourhood],
 node|z14-[place=farm],
