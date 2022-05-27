@@ -72,6 +72,10 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
     outType = Metadata::FMD_INTERNET;
   else if (k == "ele")
     outType = Metadata::FMD_ELE;
+  else if (k == "destination")
+    outType = Metadata::FMD_DESTINATION;
+  else if (k == "destination:ref")
+    outType = Metadata::FMD_DESTINATION_REF;
   else if (k == "turn:lanes")
     outType = Metadata::FMD_TURN_LANES;
   else if (k == "turn:lanes:forward")
@@ -169,6 +173,8 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_CONTACT_LINE: return "contact:line";
   case Metadata::FMD_INTERNET: return "internet_access";
   case Metadata::FMD_ELE: return "ele";
+  case Metadata::FMD_DESTINATION: return "desination";
+  case Metadata::FMD_DESTINATION_REF: return "desination:ref";
   case Metadata::FMD_TURN_LANES: return "turn:lanes";
   case Metadata::FMD_TURN_LANES_FORWARD: return "turn:lanes:forward";
   case Metadata::FMD_TURN_LANES_BACKWARD: return "turn:lanes:backward";
