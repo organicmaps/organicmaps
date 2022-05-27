@@ -66,16 +66,18 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(*ft);
   pathSegment.m_isOneWay = ftypes::IsOneWayChecker::Instance()(*ft);
 
-  string name;
-  if (!ft->GetRoadNumber().empty())
-    name = "[" + ft->GetRoadNumber() + "] ";
-  name += ft->GetName(StringUtf8Multilang::kDefaultCode);
-  name = ft->GetName(StringUtf8Multilang::kDefaultCode);
-  if (name.empty())
-    if (!ft->GetMetadata(feature::Metadata::FMD_DESTINATION_REF).empty())
-    name = "[" + string(ft->GetMetadata(feature::Metadata::FMD_DESTINATION_REF)) + "] ";
-    name += ft->GetMetadata(feature::Metadata::FMD_DESTINATION);
-  pathSegment.m_name = name;
+  if (pathSegment.m_isLink)
+  {
+    if (auto const & dst_number = ft->GetMetadata(feature::Metadata::FMD_DESTINATION_REF); !dst_number.empty())
+      pathSegment.m_name = "[" + string(dst_number) + "] ";
+    pathSegment.m_name += ft->GetMetadata(feature::Metadata::FMD_DESTINATION);
+  }
+  else
+  {
+    if (auto const & road_number = ft->GetRoadNumber(); !road_number.empty())
+      pathSegment.m_name = "[" + road_number + "] ";
+    pathSegment.m_name += ft->GetName(StringUtf8Multilang::kDefaultCode);
+  }
 }
 
 void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges,
