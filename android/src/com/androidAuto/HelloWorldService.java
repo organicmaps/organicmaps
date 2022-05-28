@@ -23,8 +23,7 @@ public final class HelloWorldService extends CarAppService {
             @Override
             @NonNull
             public Screen onCreateScreen(@Nullable Intent intent) {
-                return null;
-              //  return new HelloWorldScreen(getCarContext());
+                return new HelloWorldScreen(getCarContext());
             }
         };
     }
