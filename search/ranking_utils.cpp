@@ -35,7 +35,8 @@ CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice c
 {
   QuerySlice slice(tokens);
   vector<TokenInfo> infos(slice.Size());
-  ForEachCategoryType(slice, locales, categories, [&holder, &infos](size_t i, uint32_t t) {
+  ForEachCategoryType(slice, locales, categories, [&holder, &infos](size_t i, uint32_t t)
+  {
     ASSERT_LESS(i, infos.size(), ());
     auto & info = infos[i];
 
@@ -46,12 +47,14 @@ CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice c
 
   // Note that m_inFeatureTypes implies m_isCategoryToken.
 
-  m_pureCategories = all_of(infos.begin(), infos.end(), [](TokenInfo const & info) {
+  m_pureCategories = all_of(infos.begin(), infos.end(), [](TokenInfo const & info)
+  {
     ASSERT(!info.m_inFeatureTypes || info.m_isCategoryToken, ());
-    return info.m_inFeatureTypes != 0;
+    return info.m_inFeatureTypes;
   });
 
-  m_falseCategories = all_of(infos.begin(), infos.end(), [](TokenInfo const & info) {
+  m_falseCategories = all_of(infos.begin(), infos.end(), [](TokenInfo const & info)
+  {
     return !info.m_inFeatureTypes && info.m_isCategoryToken;
   });
 }
@@ -113,14 +116,13 @@ bool IsStopWord(UniString const & s)
   return kStopWords.count(s) > 0;
 }
 
-void PrepareStringForMatching(string const & name, vector<strings::UniString> & tokens)
+void PrepareStringForMatching(string_view name, vector<strings::UniString> & tokens)
 {
-  auto filter = [&tokens](strings::UniString const & token)
+  SplitUniString(NormalizeAndSimplifyString(name), [&tokens](strings::UniString const & token)
   {
     if (!IsStopWord(token))
       tokens.push_back(token);
-  };
-  SplitUniString(NormalizeAndSimplifyString(name), filter, Delimiters());
+  }, Delimiters());
 }
 
 string DebugPrint(NameScore const & score)

@@ -8,13 +8,12 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
+#include "coding/map_uint32_to_val.hpp"
+#include "coding/sparse_vector.hpp"
+
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 
-#include <cmath>
-#include <cstdint>
-#include <limits>
-#include <map>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -23,10 +22,12 @@ namespace routing
 {
 namespace connector
 {
-uint32_t constexpr kFakeIndex = std::numeric_limits<uint32_t>::max();
 double constexpr kNoRoute = 0.0;
 
+/// @todo Can we make cross-mwm Weight in minutes and store it as uint16_t?
+/// Will get 2x less memory without quality loss (minutes is fine granularity for cross-mwm routing).
 using Weight = uint32_t;
+Weight constexpr kNoRouteStored = 0;
 
 enum class WeightsLoadState
 {
@@ -40,70 +41,28 @@ std::string DebugPrint(WeightsLoadState state);
 }  // namespace connector
 
 /// @param CrossMwmId Encoded OSM feature (way) ID that should be equal and unique in all MWMs.
-template <typename CrossMwmId>
-class CrossMwmConnector final
+template <typename CrossMwmId> class CrossMwmConnector final
 {
 public:
-  CrossMwmConnector() : m_mwmId(kFakeNumMwmId) {}
-  CrossMwmConnector(NumMwmId mwmId, uint32_t featureNumerationOffset)
-    : m_mwmId(mwmId), m_featureNumerationOffset(featureNumerationOffset)
+  /// Should initialize with some valid mwm id here not to conflict with @see JointSegment::IsFake().
+  explicit CrossMwmConnector(NumMwmId mwmId = kGeneratorMwmId) : m_mwmId(mwmId) {}
+
+  template <class FnT> void ForEachTransitSegmentId(uint32_t featureId, FnT && fn) const
   {
-  }
-
-  void AddTransition(CrossMwmId const & crossMwmId, uint32_t featureId, uint32_t segmentIdx, bool oneWay,
-                     bool forwardIsEnter)
-  {
-    featureId += m_featureNumerationOffset;
-
-    Transition<CrossMwmId> transition(connector::kFakeIndex, connector::kFakeIndex, crossMwmId,
-                                      oneWay, forwardIsEnter);
-
-    if (forwardIsEnter)
+    auto it = std::lower_bound(m_transitions.begin(), m_transitions.end(), Key{featureId, 0}, LessKT());
+    while (it != m_transitions.end() && it->first.m_featureId == featureId)
     {
-      transition.m_enterIdx = base::asserted_cast<uint32_t>(m_enters.size());
-      m_enters.emplace_back(m_mwmId, featureId, segmentIdx, true /* forward */);
+      if (fn(it->first.m_segmentIdx))
+        break;
+      ++it;
     }
-    else
-    {
-      transition.m_exitIdx = base::asserted_cast<uint32_t>(m_exits.size());
-      m_exits.emplace_back(m_mwmId, featureId, segmentIdx, true /* forward */);
-    }
-
-    if (!oneWay)
-    {
-      if (forwardIsEnter)
-      {
-        transition.m_exitIdx = base::asserted_cast<uint32_t>(m_exits.size());
-        m_exits.emplace_back(m_mwmId, featureId, segmentIdx, false /* forward */);
-      }
-      else
-      {
-        transition.m_enterIdx = base::asserted_cast<uint32_t>(m_enters.size());
-        m_enters.emplace_back(m_mwmId, featureId, segmentIdx, false /* forward */);
-      }
-    }
-
-    m_transitions[Key(featureId, segmentIdx)] = transition;
-    m_crossMwmIdToFeatureId.emplace(crossMwmId, featureId);
-    m_transitFeatureIdToSegmentId[featureId].emplace_back(segmentIdx);
-  }
-
-  bool IsFeatureCrossMwmConnector(uint32_t featureId) const
-  {
-    return m_transitFeatureIdToSegmentId.find(featureId) != m_transitFeatureIdToSegmentId.cend();
-  }
-
-  std::vector<uint32_t> const & GetTransitSegmentId(uint32_t featureId) const
-  {
-    auto it = m_transitFeatureIdToSegmentId.find(featureId);
-    CHECK(it != m_transitFeatureIdToSegmentId.cend(), ());
-    return it->second;
   }
 
   bool IsTransition(Segment const & segment, bool isOutgoing) const
   {
-    auto const it = m_transitions.find(Key(segment.GetFeatureId(), segment.GetSegmentIdx()));
-    if (it == m_transitions.cend())
+    Key const key(segment.GetFeatureId(), segment.GetSegmentIdx());
+    auto const it = std::lower_bound(m_transitions.begin(), m_transitions.end(), key, LessKT());
+    if (it == m_transitions.end() || !(it->first == key))
       return false;
 
     auto const & transition = it->second;
@@ -124,91 +83,92 @@ public:
     return GetTransition(segment).m_crossMwmId;
   }
 
-  // returns nullptr if there is no transition for such cross mwm id.
-  Segment const * GetTransition(CrossMwmId const & crossMwmId, uint32_t segmentIdx, bool isEnter) const
+  /// @return {} if there is no transition for such cross mwm id.
+  std::optional<Segment> GetTransition(CrossMwmId const & crossMwmId, uint32_t segmentIdx, bool isEnter) const
   {
     auto const fIt = m_crossMwmIdToFeatureId.find(crossMwmId);
     if (fIt == m_crossMwmIdToFeatureId.cend())
-      return nullptr;
+      return {};
 
     uint32_t const featureId = fIt->second;
 
-    auto tIt = m_transitions.find(Key(featureId, segmentIdx));
-    if (tIt == m_transitions.cend())
+    Transition const * transition = GetTransition(featureId, segmentIdx);
+    if (transition == nullptr)
     {
       /// @todo By VNG: Workaround until cross-mwm transitions generator investigation.
       /// https://github.com/organicmaps/organicmaps/issues/1736
       /// Actually, the fix is valid, because transition features can have segment = 1 when leaving MWM
       /// and segment = 2 when entering MWM due to *not precise* packed MWM borders.
       if (isEnter)
-        tIt = m_transitions.find(Key(featureId, segmentIdx + 1));
+        transition = GetTransition(featureId, ++segmentIdx);
       else if (segmentIdx > 0)
-        tIt = m_transitions.find(Key(featureId, segmentIdx - 1));
+        transition = GetTransition(featureId, --segmentIdx);
 
-      if (tIt == m_transitions.cend())
-        return nullptr;
+      if (transition == nullptr)
+        return {};
     }
 
-    auto const & transition = tIt->second;
-    CHECK_EQUAL(transition.m_crossMwmId, crossMwmId, ("fId:", featureId, ", segId:", segmentIdx));
-    bool const isForward = transition.m_forwardIsEnter == isEnter;
-    if (transition.m_oneWay && !isForward)
-      return nullptr;
+    ASSERT_EQUAL(transition->m_crossMwmId, crossMwmId, ("fId:", featureId, ", segId:", segmentIdx));
+    bool const isForward = transition->m_forwardIsEnter == isEnter;
+    if (transition->m_oneWay && !isForward)
+      return {};
 
-    Segment const & segment =
-        isEnter ? GetEnter(transition.m_enterIdx) : GetExit(transition.m_exitIdx);
-    CHECK_EQUAL(segment.IsForward(), isForward, ("fId:", featureId, ", segId:", segmentIdx));
-
-    return &segment;
+    return Segment(m_mwmId, featureId, segmentIdx, isForward);
   }
 
   using EdgeListT = SmallList<SegmentEdge>;
 
+  template <class FnT> void ForEachEnter(FnT && fn) const
+  {
+    for (auto const & [key, transit] : m_transitions)
+    {
+      if (transit.m_forwardIsEnter)
+        fn(transit.m_enterIdx, Segment(m_mwmId, key.m_featureId, key.m_segmentIdx, true));
+
+      if (!transit.m_oneWay && !transit.m_forwardIsEnter)
+        fn(transit.m_enterIdx, Segment(m_mwmId, key.m_featureId, key.m_segmentIdx, false));
+    }
+  }
+
+  template <class FnT> void ForEachExit(FnT && fn) const
+  {
+    for (auto const & [key, transit] : m_transitions)
+    {
+      if (!transit.m_forwardIsEnter)
+        fn(transit.m_exitIdx, Segment(m_mwmId, key.m_featureId, key.m_segmentIdx, true));
+
+      if (!transit.m_oneWay && transit.m_forwardIsEnter)
+        fn(transit.m_exitIdx, Segment(m_mwmId, key.m_featureId, key.m_segmentIdx, false));
+    }
+  }
+
   void GetOutgoingEdgeList(Segment const & segment, EdgeListT & edges) const
   {
-    auto const & transition = GetTransition(segment);
-    CHECK_NOT_EQUAL(transition.m_enterIdx, connector::kFakeIndex, ());
-    auto const enterIdx = transition.m_enterIdx;
-    for (size_t exitIdx = 0; exitIdx < m_exits.size(); ++exitIdx)
+    auto const enterIdx = GetTransition(segment).m_enterIdx;
+    ForEachExit([enterIdx, this, &edges](uint32_t exitIdx, Segment const & s)
     {
-      auto const weight = GetWeight(enterIdx, exitIdx);
-      AddEdge(m_exits[exitIdx], weight, edges);
-    }
+      AddEdge(s, enterIdx, exitIdx, edges);
+    });
   }
 
   void GetIngoingEdgeList(Segment const & segment, EdgeListT & edges) const
   {
-    auto const & transition = GetTransition(segment);
-    CHECK_NOT_EQUAL(transition.m_exitIdx, connector::kFakeIndex, ());
-    auto const exitIdx = transition.m_exitIdx;
-    for (size_t enterIdx = 0; enterIdx < m_enters.size(); ++enterIdx)
+    auto const exitIdx = GetTransition(segment).m_exitIdx;
+    ForEachEnter([exitIdx, this, &edges](uint32_t enterIdx, Segment const & s)
     {
-      auto const weight = GetWeight(enterIdx, exitIdx);
-      AddEdge(m_enters[enterIdx], weight, edges);
-    }
+      AddEdge(s, enterIdx, exitIdx, edges);
+    });
   }
 
-  std::vector<Segment> const & GetEnters() const { return m_enters; }
-  std::vector<Segment> const & GetExits() const { return m_exits; }
+  uint32_t GetNumEnters() const { return m_entersCount; }
+  uint32_t GetNumExits() const { return m_exitsCount; }
 
-  Segment const & GetEnter(size_t i) const
-  {
-    ASSERT_LESS(i, m_enters.size(), ());
-    return m_enters[i];
-  }
-
-  Segment const & GetExit(size_t i) const
-  {
-    ASSERT_LESS(i, m_exits.size(), ());
-    return m_exits[i];
-  }
-
-  bool HasWeights() const { return !m_weights.empty(); }
-  bool IsEmpty() const { return m_enters.empty() && m_exits.empty(); }
+  bool HasWeights() const { return !m_weights.Empty(); }
+  bool IsEmpty() const { return m_entersCount == 0 && m_exitsCount == 0; }
 
   bool WeightsWereLoaded() const
   {
-    switch (m_weightsLoadState)
+    switch (m_weights.m_loadState)
     {
     case connector::WeightsLoadState::Unknown:
     case connector::WeightsLoadState::ReadyToLoad: return false;
@@ -218,58 +178,55 @@ public:
     UNREACHABLE();
   }
 
-  template <typename CalcWeight>
-  void FillWeights(CalcWeight && calcWeight)
+  size_t GetWeightIndex(size_t enterIdx, size_t exitIdx) const
   {
-    CHECK_EQUAL(m_weightsLoadState, connector::WeightsLoadState::Unknown, ());
-    CHECK(m_weights.empty(), ());
+    ASSERT_LESS(enterIdx, m_entersCount, ());
+    ASSERT_LESS(exitIdx, m_exitsCount, ());
+    return enterIdx * m_exitsCount + exitIdx;
+  }
 
-    m_weights.reserve(m_enters.size() * m_exits.size());
-    for (Segment const & enter : m_enters)
-    {
-      for (Segment const & exit : m_exits)
-      {
-        auto const weight = calcWeight(enter, exit);
-        // Edges weights should be >= astar heuristic, so use std::ceil.
-        m_weights.push_back(static_cast<connector::Weight>(std::ceil(weight)));
-      }
-    }
+  using WeightT = connector::Weight;
+  WeightT GetWeight(size_t enterIdx, size_t exitIdx) const
+  {
+    WeightT weight;
+    return (m_weights.Get(GetWeightIndex(enterIdx, exitIdx), weight) ? weight : connector::kNoRouteStored);
+  }
+
+  size_t GetMemorySize() const
+  {
+    return (m_transitions.capacity() * sizeof(KeyTransitionT) +
+            m_crossMwmIdToFeatureId.size() * sizeof(typename MwmID2FeatureIDMapT::value_type) +
+            m_weights.GetMemorySize());
   }
 
 private:
+  template <class T> friend class CrossMwmConnectorBuilder;
+
   struct Key
   {
-    Key() = default;
-
     Key(uint32_t featureId, uint32_t segmentIdx) : m_featureId(featureId), m_segmentIdx(segmentIdx)
     {
     }
 
     bool operator==(Key const & key) const
     {
-      return m_featureId == key.m_featureId && m_segmentIdx == key.m_segmentIdx;
+      return (m_featureId == key.m_featureId && m_segmentIdx == key.m_segmentIdx);
+    }
+
+    bool operator<(Key const & key) const
+    {
+      if (m_featureId == key.m_featureId)
+        return m_segmentIdx < key.m_segmentIdx;
+      return m_featureId < key.m_featureId;
     }
 
     uint32_t m_featureId = 0;
     uint32_t m_segmentIdx = 0;
   };
 
-  struct HashKey
-  {
-    size_t operator()(Key const & key) const
-    {
-      return std::hash<uint64_t>()((static_cast<uint64_t>(key.m_featureId) << 32) +
-                                   static_cast<uint64_t>(key.m_segmentIdx));
-    }
-  };
-
-  template <typename CrossMwmIdInner>
   struct Transition
   {
-    Transition() = default;
-
-    Transition(uint32_t enterIdx, uint32_t exitIdx, CrossMwmIdInner const & crossMwmId, bool oneWay,
-               bool forwardIsEnter)
+    Transition(uint32_t enterIdx, uint32_t exitIdx, CrossMwmId crossMwmId, bool oneWay, bool forwardIsEnter)
       : m_enterIdx(enterIdx)
       , m_exitIdx(exitIdx)
       , m_crossMwmId(crossMwmId)
@@ -278,60 +235,103 @@ private:
     {
     }
 
-    uint32_t m_enterIdx = 0;
-    uint32_t m_exitIdx = 0;
-    CrossMwmIdInner m_crossMwmId = CrossMwmIdInner();
-    bool m_oneWay = false;
-    // Transition represents both forward and backward segments with same featureId, segmentIdx.
-    // m_forwardIsEnter == true means: forward segment is enter to mwm:
-    // Enter means: m_backPoint is outside mwm borders, m_frontPoint is inside.
-    bool m_forwardIsEnter = false;
+    uint32_t m_enterIdx;
+    uint32_t m_exitIdx;
+    CrossMwmId m_crossMwmId;
+
+    // false - Transition represents both forward and backward segments with same featureId, segmentIdx.
+    bool m_oneWay : 1;
+    // true - forward segment is enter to mwm, enter means: m_backPoint is outside mwm borders, m_frontPoint is inside.
+    bool m_forwardIsEnter : 1;
   };
 
-  friend class CrossMwmConnectorSerializer;
-
-  void AddEdge(Segment const & segment, connector::Weight weight,
-               EdgeListT & edges) const
+  void AddEdge(Segment const & segment, uint32_t enterIdx, uint32_t exitIdx, EdgeListT & edges) const
   {
-    // @TODO Double and uint32_t are compared below. This comparison should be fixed.
-    if (weight != connector::kNoRoute)
+    auto const weight = GetWeight(enterIdx, exitIdx);
+    if (weight != connector::kNoRouteStored)
       edges.emplace_back(segment, RouteWeight::FromCrossMwmWeight(weight));
   }
 
-  CrossMwmConnector<CrossMwmId>::Transition<CrossMwmId> const & GetTransition(
-      Segment const & segment) const
+  Transition const * GetTransition(uint32_t featureId, uint32_t segmentIdx) const
   {
-    auto const it = m_transitions.find(Key(segment.GetFeatureId(), segment.GetSegmentIdx()));
-    CHECK(it != m_transitions.cend(), ("Not a transition segment:", segment));
-    return it->second;
+    Key key(featureId, segmentIdx);
+    auto const it = std::lower_bound(m_transitions.begin(), m_transitions.end(), key, LessKT());
+    if (it == m_transitions.end() || !(it->first == key))
+      return nullptr;
+    return &(it->second);
   }
 
-  connector::Weight GetWeight(size_t enterIdx, size_t exitIdx) const
+  Transition const & GetTransition(Segment const & segment) const
   {
-    ASSERT_LESS(enterIdx, m_enters.size(), ());
-    ASSERT_LESS(exitIdx, m_exits.size(), ());
-
-    size_t const i = enterIdx * m_exits.size() + exitIdx;
-    ASSERT_LESS(i, m_weights.size(), ());
-    return m_weights[i];
+    Transition const * tr = GetTransition(segment.GetFeatureId(), segment.GetSegmentIdx());
+    CHECK(tr, (segment));
+    return *tr;
   }
 
-  NumMwmId const m_mwmId;
-  std::vector<Segment> m_enters;
-  std::vector<Segment> m_exits;
-  std::map<uint32_t, std::vector<uint32_t>> m_transitFeatureIdToSegmentId;
-  std::unordered_map<Key, Transition<CrossMwmId>, HashKey> m_transitions;
-  std::unordered_map<CrossMwmId, uint32_t, connector::HashKey> m_crossMwmIdToFeatureId;
-  connector::WeightsLoadState m_weightsLoadState = connector::WeightsLoadState::Unknown;
-  // For some connectors we may need to shift features with some offset.
-  // For example for versions and transit section compatibility we number transit features
-  // starting from 0 in mwm and shift them with |m_featureNumerationOffset| in runtime.
-  uint32_t const m_featureNumerationOffset = 0;
-  uint64_t m_weightsOffset = 0;
-  connector::Weight m_granularity = 0;
-  // |m_weights| stores edge weights.
-  // Weight is the time required for the route to pass edges.
-  // Weight is measured in seconds rounded upwards.
-  std::vector<connector::Weight> m_weights;
+  NumMwmId m_mwmId;
+  uint32_t m_entersCount = 0;
+  uint32_t m_exitsCount = 0;
+
+  using KeyTransitionT = std::pair<Key, Transition>;
+  struct LessKT
+  {
+    bool operator()(KeyTransitionT const & l, KeyTransitionT const & r) const
+    {
+      return l.first < r.first;
+    }
+    bool operator()(KeyTransitionT const & l, Key const & r) const
+    {
+      return l.first < r;
+    }
+    bool operator()(Key const & l, KeyTransitionT const & r) const
+    {
+      return l < r.first;
+    }
+  };
+  std::vector<KeyTransitionT> m_transitions;
+
+  using MwmID2FeatureIDMapT = std::unordered_map<CrossMwmId, uint32_t, connector::HashKey>;
+  MwmID2FeatureIDMapT m_crossMwmIdToFeatureId;
+
+  // Weight is the time required for the route to pass edge, measured in seconds rounded upwards.
+  struct Weights
+  {
+    connector::WeightsLoadState m_loadState = connector::WeightsLoadState::Unknown;
+    uint64_t m_offset = 0;
+    WeightT m_granularity = 0;
+    uint16_t m_version;
+
+    coding::SparseVector<WeightT> m_v1;
+
+    std::unique_ptr<MapUint32ToValue<WeightT>> m_v2;
+    std::unique_ptr<Reader> m_reader;
+
+    bool Empty() const
+    {
+      if (m_version < 2)
+        return m_v1.Empty();
+      else
+        return m_v2 == nullptr;
+    }
+
+    bool Get(uint32_t idx, WeightT & weight) const
+    {
+      if (m_version < 2)
+      {
+        if (m_v1.Has(idx))
+        {
+          weight = m_v1.Get(idx);
+          return true;
+        }
+        else
+          return false;
+      }
+      else
+      {
+        return m_v2->Get(idx, weight);
+      }
+    }
+
+  } m_weights;
 };
 }  // namespace routing

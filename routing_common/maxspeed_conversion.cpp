@@ -23,6 +23,11 @@ bool SpeedInUnits::IsNumeric() const
   return routing::IsNumeric(m_speed);
 }
 
+MaxspeedType SpeedInUnits::GetSpeedKmPH() const
+{
+  return static_cast<MaxspeedType>(ToSpeedKmPH(m_speed, m_units));
+}
+
 // Maxspeed ----------------------------------------------------------------------------------------
 Maxspeed::Maxspeed(Units units, MaxspeedType forward, MaxspeedType backward)
   : m_units(units), m_forward(forward), m_backward(backward)
@@ -77,12 +82,12 @@ bool FeatureMaxspeed::operator==(FeatureMaxspeed const & rhs) const
 
 SpeedInUnits FeatureMaxspeed::GetForwardSpeedInUnits() const
 {
-  return SpeedInUnits(GetMaxspeed().GetForward(), GetMaxspeed().GetUnits());
+  return SpeedInUnits(m_maxspeed.GetForward(), m_maxspeed.GetUnits());
 }
 
 SpeedInUnits FeatureMaxspeed::GetBackwardSpeedInUnits() const
 {
-  return SpeedInUnits(GetMaxspeed().GetBackward(), GetMaxspeed().GetUnits());
+  return SpeedInUnits(m_maxspeed.GetBackward(), m_maxspeed.GetUnits());
 }
 
 // MaxspeedConverter -------------------------------------------------------------------------------
@@ -305,12 +310,6 @@ SpeedInUnits MaxspeedConverter::ClosestValidMacro(SpeedInUnits const & speed) co
   return it->first;
 }
 
-bool MaxspeedConverter::IsValidMacro(uint8_t macro) const
-{
-  ASSERT_LESS(macro, m_macroToSpeed.size(), ());
-  return m_macroToSpeed[macro].IsValid();
-}
-
 // static
 MaxspeedConverter const & MaxspeedConverter::Instance()
 {
@@ -328,15 +327,10 @@ bool HaveSameUnits(SpeedInUnits const & lhs, SpeedInUnits const & rhs)
   return lhs.GetUnits() == rhs.GetUnits() || !lhs.IsNumeric() || !rhs.IsNumeric();
 }
 
-bool IsFeatureIdLess(FeatureMaxspeed const & lhs, FeatureMaxspeed const & rhs)
-{
-  return lhs.IsFeatureIdLess(rhs);
-}
-
 bool IsNumeric(MaxspeedType speed)
 {
-  return speed != kNoneMaxSpeed && speed != kWalkMaxSpeed && speed != kInvalidSpeed &&
-         speed != kCommonMaxSpeedValue;
+  return (speed != kInvalidSpeed && speed != kNoneMaxSpeed &&
+          speed != kWalkMaxSpeed && speed != kCommonMaxSpeedValue);
 }
 
 string DebugPrint(Maxspeed maxspeed)

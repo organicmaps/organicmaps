@@ -17,17 +17,15 @@
 	<string name="downloading">Letöltés…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilométer</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Térképek</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mérföld</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Saját helyzet</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Később</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Keresés</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Keresés a térképen</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Ezen az eszközön jelenleg minden helyzetmeghatározó szolgáltatás ki van kapcsolva. Kérjük kapcsolja be ezeket a Beállítások között.</string>
@@ -41,9 +39,10 @@
 	<string name="close">Bezár</string>
 	<string name="unsupported_phone">Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.</string>
 	<string name="download">Letöltés</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a Organic Maps használatához</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!</string>
-	<string name="not_enough_memory">Nincs elegendő memória az alkalmazás futtatásához</string>
 	<string name="download_resources">Első használat előtt letöltjük a világtérképet.\n%s tárolóhely szükséges.</string>
 	<string name="download_resources_continue">Térképhez ugrás</string>
 	<string name="downloading_country_can_proceed">%s letöltése. Mos továbbléphet\na térképhez.</string>
@@ -77,6 +76,8 @@
 	<string name="maps_storage">Térképek mentése ide:</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Válassza ki, hogy hova töltsük le a térképeket</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Térképek</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Áthelyezzük a térképeket?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -123,6 +124,8 @@
 	<string name="post">Posta</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Rendőrség</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Újrahasznosítás</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -203,6 +206,8 @@
 	<string name="search_show_on_map">Megtekintés a térképen</string>
 	<!-- Text in menu -->
 	<string name="website">Honlap</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Hírek</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Visszajelzés</string>
 	<!-- Text in menu -->
@@ -217,17 +222,16 @@
 	<string name="copyright">Szerzői jog</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Hibabejelentés</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Mindegyik frissítése</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Mindent visszavon</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Letöltve</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Várólistás</string>
 	<string name="downloader_near_me_subtitle">A közelemben</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Térképek</string>
 	<string name="downloader_download_all_button">Mindegyik letöltése</string>
 	<string name="downloader_downloading">Letöltés:</string>
@@ -243,6 +247,8 @@
 	<string name="downloader_delete_map">Térkép törlése</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Térkép frissítése</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play-szolgáltatások</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Használja a Google Play szolgáltatást, hogy szert tegyen aktuális helyszínéről</string>
 	<!-- Text for routing error dialog -->
@@ -288,8 +294,6 @@
 	<string name="gray">Szürke</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Kékes Szürke</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Igen</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Az útvonal követése során, kérjük, vegye figyelembe az alábbiakat:</string>
@@ -359,7 +363,7 @@
 	<string name="editor_example_values">Példa értékek</string>
 	<string name="editor_correct_mistake">Hiba javítása</string>
 	<string name="editor_add_select_location">Elhelyezkedés</string>
-	<string name="editor_report_problem_desription_1">Kérjük, írd le részletesen a problémát, hogy az OpenStreeMap csapata kijavíthassa.</string>
+	<string name="editor_report_problem_desription_1">Kérjük, írd le részletesen a problémát, hogy az OpenStreetMap csapata kijavíthassa.</string>
 	<string name="editor_report_problem_desription_2">Vagy végezd el te magad a javítást itt: https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Küldés</string>
 	<string name="editor_report_problem_title">Probléma</string>
@@ -444,6 +448,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mf</string>
+	<!-- A unit of measure -->
 	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">ó</string>
@@ -542,6 +547,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d út</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Követési beállítások</string>
 	<string name="crash_reports">Hibajelentés</string>
 	<string name="crash_reports_description">A Organic Maps fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.</string>
@@ -591,6 +597,14 @@
 	<string name="avoid_toll_roads_placepage">Fizetős utak elkerülése</string>
 	<string name="avoid_unpaved_roads_placepage">Kövezetlen utak elkerülése</string>
 	<string name="avoid_ferry_crossing_placepage">Kompátkelők elkerülése</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Igen</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Nem</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Igen</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Nem</string>
 	<string name="ok">Oké</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Rendezd…</string>
@@ -875,34 +889,51 @@
 	<string name="type.healthcare.laboratory">Orvosi laboratórium</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Alagút</string>
 	<string name="type.highway.bus_stop">Buszmegálló</string>
 	<string name="type.highway.construction">Útépítés</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Alagút</string>
 	<string name="type.highway.footway">Ösvény</string>
 	<string name="type.highway.footway.alpine_hiking">Ösvény</string>
 	<string name="type.highway.footway.area">Ösvény</string>
-	<string name="type.highway.footway.bridge">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Híd</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Ösvény</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Ösvény</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Ösvény</string>
 	<string name="type.highway.footway.hiking">Ösvény</string>
 	<string name="type.highway.footway.mountain_hiking">Ösvény</string>
 	<string name="type.highway.footway.permissive">Ösvény</string>
-	<string name="type.highway.footway.tunnel">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Alagút</string>
 	<string name="type.highway.ford">Gázló</string>
 	<string name="type.highway.living_street">Utca</string>
-	<string name="type.highway.living_street.bridge">Utca</string>
-	<string name="type.highway.living_street.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Alagút</string>
 	<string name="type.highway.motorway">Utca</string>
-	<string name="type.highway.motorway.bridge">Utca</string>
-	<string name="type.highway.motorway.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Alagút</string>
 	<string name="type.highway.motorway_junction">Kijárat</string>
 	<string name="type.highway.motorway_link">Utca</string>
-	<string name="type.highway.motorway_link.bridge">Utca</string>
-	<string name="type.highway.motorway_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Alagút</string>
 	<string name="type.highway.path">Ösvény</string>
 	<string name="type.highway.path.alpine_hiking">Ösvény</string>
 	<string name="type.highway.path.bicycle">Ösvény</string>
-	<string name="type.highway.path.bridge">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Híd</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Ösvény</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Ösvény</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Ösvény</string>
@@ -910,51 +941,75 @@
 	<string name="type.highway.path.horse">Ösvény</string>
 	<string name="type.highway.path.mountain_hiking">Ösvény</string>
 	<string name="type.highway.path.permissive">Ösvény</string>
-	<string name="type.highway.path.tunnel">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Alagút</string>
 	<string name="type.highway.pedestrian">Utca</string>
 	<string name="type.highway.pedestrian.area">Utca</string>
-	<string name="type.highway.pedestrian.bridge">Utca</string>
-	<string name="type.highway.pedestrian.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Alagút</string>
 	<string name="type.highway.primary">Utca</string>
-	<string name="type.highway.primary.bridge">Utca</string>
-	<string name="type.highway.primary.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Alagút</string>
 	<string name="type.highway.primary_link">Utca</string>
-	<string name="type.highway.primary_link.bridge">Utca</string>
-	<string name="type.highway.primary_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Alagút</string>
 	<string name="type.highway.raceway">Versenypálya</string>
 	<string name="type.highway.residential">Utca</string>
 	<string name="type.highway.residential.area">Utca</string>
-	<string name="type.highway.residential.bridge">Utca</string>
-	<string name="type.highway.residential.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Alagút</string>
 	<string name="type.highway.rest_area">Pihenőzóna</string>
 	<string name="type.highway.road">Utca</string>
-	<string name="type.highway.road.bridge">Utca</string>
-	<string name="type.highway.road.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Alagút</string>
 	<string name="type.highway.secondary">Utca</string>
-	<string name="type.highway.secondary.bridge">Utca</string>
-	<string name="type.highway.secondary.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Alagút</string>
 	<string name="type.highway.secondary_link">Utca</string>
-	<string name="type.highway.secondary_link.bridge">Utca</string>
-	<string name="type.highway.secondary_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Alagút</string>
 	<string name="type.highway.service">Utca</string>
 	<string name="type.highway.service.area">Utca</string>
-	<string name="type.highway.service.bridge">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Híd</string>
 	<string name="type.highway.service.driveway">Utca</string>
 	<string name="type.highway.service.parking_aisle">Utca</string>
-	<string name="type.highway.service.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Alagút</string>
 	<string name="type.highway.speed_camera">Traffipax</string>
 	<string name="type.highway.steps">Ösvény</string>
-	<string name="type.highway.steps.bridge">Ösvény</string>
-	<string name="type.highway.steps.tunnel">Ösvény</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Alagút</string>
 	<string name="type.highway.tertiary">Utca</string>
-	<string name="type.highway.tertiary.bridge">Utca</string>
-	<string name="type.highway.tertiary.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Alagút</string>
 	<string name="type.highway.tertiary_link">Utca</string>
-	<string name="type.highway.tertiary_link.bridge">Utca</string>
-	<string name="type.highway.tertiary_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Alagút</string>
 	<string name="type.highway.track">Utca</string>
 	<string name="type.highway.track.area">Utca</string>
-	<string name="type.highway.track.bridge">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Híd</string>
 	<string name="type.highway.track.grade1">Utca</string>
 	<string name="type.highway.track.grade2">Utca</string>
 	<string name="type.highway.track.grade3">Utca</string>
@@ -962,18 +1017,25 @@
 	<string name="type.highway.track.grade5">Utca</string>
 	<string name="type.highway.track.no.access">Utca</string>
 	<string name="type.highway.track.permissive">Utca</string>
-	<string name="type.highway.track.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Alagút</string>
 	<string name="type.highway.traffic_signals">Közlekedési lámpák</string>
 	<string name="type.highway.trunk">Utca</string>
-	<string name="type.highway.trunk.bridge">Utca</string>
-	<string name="type.highway.trunk.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Alagút</string>
 	<string name="type.highway.trunk_link">Utca</string>
-	<string name="type.highway.trunk_link.bridge">Utca</string>
-	<string name="type.highway.trunk_link.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Alagút</string>
 	<string name="type.highway.unclassified">Utca</string>
 	<string name="type.highway.unclassified.area">Utca</string>
-	<string name="type.highway.unclassified.bridge">Utca</string>
-	<string name="type.highway.unclassified.tunnel">Utca</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Híd</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Alagút</string>
 	<string name="type.area_highway.footway">Ösvény</string>
 	<string name="type.area_highway.living_street">Utca</string>
 	<string name="type.area_highway.motorway">Utca</string>

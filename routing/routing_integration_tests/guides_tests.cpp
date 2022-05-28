@@ -9,10 +9,10 @@
 
 #include <algorithm>
 
+namespace guides_tests
+{
 using namespace routing;
 
-namespace
-{
 // Test guide track is laid crosswise the OSM road graph. It doesn't match the OSM roads so we
 // can test route length, time and points number and it is enough to guarantee that the route
 // built during the test is the route through the guide which we expect.
@@ -100,9 +100,9 @@ UNIT_TEST(Guides_StartPointOnTrack)
   Checkpoints const checkpoints{mercator::FromLatLon(48.14168, 11.57244),
                                 mercator::FromLatLon(48.13741, 11.56095)};
 
-  double const expectedDistM = 1272.3;
-  double const expectedTimeS = 1192.0;
-  size_t const expectedPointsCount = 67;
+  double const expectedDistM = 1200.45;
+  double const expectedTimeS = 1142.43;
+  size_t const expectedPointsCount = 52;
 
   TestGuideRoute(checkpoints, expectedDistM, expectedTimeS, expectedPointsCount);
 }
@@ -115,10 +115,10 @@ UNIT_TEST(Guides_MultipleIntermediatePoints)
        mercator::FromLatLon(48.14192, 11.57548), mercator::FromLatLon(48.14106, 11.57279),
        mercator::FromLatLon(48.14044, 11.57061)});
 
-  double const expectedDistM = 1221.11;
-  double const expectedTimeS = 1096.6;
-  size_t const expectedPointsCount = 67;
+  double const expectedDistM = 1258.05;
+  double const expectedTimeS = 1113.8;
+  size_t const expectedPointsCount = 77;
 
   TestGuideRoute(checkpoints, expectedDistM, expectedTimeS, expectedPointsCount);
 }
-}  // namespace
+} // namespace guides_tests

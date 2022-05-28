@@ -21,7 +21,7 @@
 #include <sstream>
 #include <unordered_set>
 
-namespace
+namespace routing_builder
 {
 using namespace routing;
 
@@ -30,21 +30,18 @@ char const kOnly[] = "Only";
 char const kNoUTurn[] = "NoUTurn";
 char const kOnlyUTurn[] = "OnlyUTurn";
 
-bool ParseLineOfWayIds(strings::SimpleTokenizer & iter, std::vector<base::GeoObjectId> & numbers)
+template <class TokenizerT> bool ParseLineOfWayIds(TokenizerT & iter, std::vector<base::GeoObjectId> & numbers)
 {
   uint64_t number = 0;
   for (; iter; ++iter)
   {
-    if (!strings::to_uint64(*iter, number))
+    if (!strings::to_uint(*iter, number))
       return false;
     numbers.push_back(base::MakeOsmWay(number));
   }
   return true;
 }
-}  // namespace
 
-namespace routing
-{
 m2::PointD constexpr RestrictionCollector::kNoCoords;
 
 RestrictionCollector::RestrictionCollector(std::string const & osmIdsToFeatureIdPath,
@@ -333,7 +330,7 @@ void RestrictionCollector::AddFeatureId(uint32_t featureId, base::GeoObjectId os
   ::routing::AddFeatureId(osmId, featureId, m_osmIdToFeatureIds);
 }
 
-void FromString(std::string const & str, Restriction::Type & type)
+void FromString(std::string_view str, Restriction::Type & type)
 {
   if (str == kNo)
   {
@@ -364,7 +361,7 @@ void FromString(std::string const & str, Restriction::Type & type)
   UNREACHABLE();
 }
 
-void FromString(std::string const & str, RestrictionWriter::ViaType & type)
+void FromString(std::string_view str, RestrictionWriter::ViaType & type)
 {
   if (str == RestrictionWriter::kNodeString)
   {
@@ -382,8 +379,8 @@ void FromString(std::string const & str, RestrictionWriter::ViaType & type)
                 "or", RestrictionWriter::kWayString));
 }
 
-void FromString(std::string const & str, double & number)
+void FromString(std::string_view str, double & number)
 {
-  CHECK(strings::to_double(str.c_str(), number), ());
+  CHECK(strings::to_double(str, number), ());
 }
-}  // namespace routing
+}  // namespace routing_builder

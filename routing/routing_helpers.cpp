@@ -1,12 +1,12 @@
 #include "routing/routing_helpers.hpp"
 
+#include "routing/directions_engine.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/road_point.hpp"
 #include "routing/segment.hpp"
+#include "routing/traffic_stash.hpp"
 #include "routing/world_graph.hpp"
-
-#include "traffic/traffic_info.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -163,10 +163,10 @@ Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge)
     return Segment();
   }
 
-  NumMwmId const numMwmId =
-      numMwmIds.GetId(edge.GetFeatureId().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
+  auto const & fID = edge.GetFeatureId();
+  NumMwmId const numMwmId = numMwmIds.GetId(fID.m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
 
-  return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
+  return Segment(numMwmId, fID.m_index, edge.GetSegId(), edge.IsForward());
 }
 
 bool SegmentCrossesRect(m2::Segment2D const & segment, m2::RectD const & rect)

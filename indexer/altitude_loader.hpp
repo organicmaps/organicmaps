@@ -1,6 +1,5 @@
 #pragma once
 #include "indexer/feature_altitude.hpp"
-#include "indexer/mwm_set.hpp"
 
 #include "coding/memory_region.hpp"
 
@@ -10,30 +9,23 @@
 #include <string>
 #include <vector>
 
+#include "3party/succinct/elias_fano.hpp"
 #include "3party/succinct/rs_bit_vector.hpp"
 
-class DataSource;
+class MwmValue;
 
 namespace feature
 {
-// @TODO(bykoianko) |m_altitudeAvailability| and |m_featureTable| are saved without
-// taking into account endianness. It should be fixed. The plan is
-// * to use one bit form AltitudeHeader::m_version for keeping information about endianness. (Zero
-//   should be used for big endian.)
-// * to check the endianness of the reader and the bit while reading and to use an appropriate
-//   methods for reading.
-class AltitudeLoader
+class AltitudeLoaderBase
 {
 public:
-  AltitudeLoader(DataSource const & dataSource, MwmSet::MwmId const & mwmId);
+  explicit AltitudeLoaderBase(MwmValue const & mwmValue);
 
   /// \returns altitude of feature with |featureId|. All items of the returned vector are valid
   /// or the returned vector is empty.
-  geometry::Altitudes const & GetAltitudes(uint32_t featureId, size_t pointCount);
+  geometry::Altitudes GetAltitudes(uint32_t featureId, size_t pointCount);
 
   bool HasAltitudes() const;
-
-  void ClearCache() { m_cache.clear(); }
 
 private:
   std::unique_ptr<CopiedMemoryRegion> m_altitudeAvailabilityRegion;
@@ -43,9 +35,25 @@ private:
   succinct::elias_fano m_featureTable;
 
   std::unique_ptr<FilesContainerR::TReader> m_reader;
-  std::map<uint32_t, geometry::Altitudes> m_cache;
   AltitudeHeader m_header;
   std::string m_countryFileName;
-  MwmSet::MwmHandle m_handle;
+};
+
+class AltitudeLoaderCached : public AltitudeLoaderBase
+{
+public:
+  explicit AltitudeLoaderCached(MwmValue const & mwmValue)
+    : AltitudeLoaderBase(mwmValue)
+  {
+  }
+
+  /// \returns altitude of feature with |featureId|. All items of the returned vector are valid
+  /// or the returned vector is empty.
+  geometry::Altitudes const & GetAltitudes(uint32_t featureId, size_t pointCount);
+
+  void ClearCache() { m_cache.clear(); }
+
+private:
+  std::map<uint32_t, geometry::Altitudes> m_cache;
 };
 }  // namespace feature

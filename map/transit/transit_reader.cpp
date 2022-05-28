@@ -160,7 +160,9 @@ void ReadTransitTask::Do()
   m_readFeaturesFn([this](FeatureType & ft)
   {
     auto & featureInfo = m_transitInfo->m_features[ft.GetID()];
-    ft.GetReadableName(featureInfo.m_title);
+
+    featureInfo.m_title = ft.GetReadableName();
+
     if (featureInfo.m_isGate)
     {
       df::Stylist stylist;
@@ -168,7 +170,7 @@ void ReadTransitTask::Do()
       {
         stylist.ForEachRule([&](df::Stylist::TRuleWrapper const & rule)
         {
-          auto const * symRule = rule.first->GetSymbol();
+          auto const * symRule = rule.m_rule->GetSymbol();
           if (symRule != nullptr)
             featureInfo.m_gateSymbolName = symRule->name();
         });
@@ -176,6 +178,7 @@ void ReadTransitTask::Do()
     }
     featureInfo.m_point = feature::GetCenter(ft);
   }, features);
+
   m_success = true;
 }
 

@@ -1,8 +1,7 @@
-#include "routing/routing_tests/index_graph_tools.hpp"
-
 #include "testing/testing.hpp"
 
 #include "routing/opening_hours_serdes.hpp"
+#include "routing/routing_tests/index_graph_tools.hpp"
 
 #include "coding/bit_streams.hpp"
 #include "coding/reader.hpp"
@@ -15,16 +14,16 @@
 #include <string>
 #include <vector>
 
+namespace opening_hours_serdes_tests
+{
 using namespace routing;
 using namespace routing_test;
 
 using Buffer = std::vector<uint8_t>;
 
-namespace
+struct OHSerDesTestFixture
 {
-struct BitReaderWriter
-{
-  BitReaderWriter()
+  OHSerDesTestFixture()
     : m_memWriter(m_buffer)
     , m_bitWriter(std::make_unique<BitWriter<MemWriter<Buffer>>>(m_memWriter))
   {
@@ -152,7 +151,7 @@ void TestMonth(osmoh::RuleSequence const & rule, Month startMonth, Month endMont
             0 /* endDay */);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_EnableTests_1)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_EnableTests_1)
 {
   TEST(!IsEnabled(OpeningHoursSerDes::Header::Bits::Year), ());
   Enable(OpeningHoursSerDes::Header::Bits::Year);
@@ -167,7 +166,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_EnableTests_1)
   TEST(IsEnabled(OpeningHoursSerDes::Header::Bits::Minutes), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_EnableTests_2)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_EnableTests_2)
 {
   Enable(OpeningHoursSerDes::Header::Bits::Year);
   Enable(OpeningHoursSerDes::Header::Bits::WeekDay);
@@ -185,7 +184,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_EnableTests_2)
 
 // Test on serialization ranges where start is later than end.
 // It is wrong but still possible data.
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_CannotSerialize)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_CannotSerialize)
 {
   Enable(OpeningHoursSerDes::Header::Bits::Year);
   Enable(OpeningHoursSerDes::Header::Bits::Month);
@@ -193,7 +192,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_CannotSerialize)
   TEST(!Serialize("2020 May 20 - 2018 Nov 30"), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_YearOnly)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_YearOnly)
 {
   Enable(OpeningHoursSerDes::Header::Bits::Year);
 
@@ -208,7 +207,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_YearOnly)
   TestYear(rule, 2019, 2090);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_YearAndMonthOnly)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_YearAndMonthOnly)
 {
   Enable(OpeningHoursSerDes::Header::Bits::Year);
   Enable(OpeningHoursSerDes::Header::Bits::Month);
@@ -225,7 +224,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_YearAndMonthOnly)
   TestMonth(rule, 2019, Month::Apr, 10, 2051, Month::May, 19);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Weekday_1)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Weekday_1)
 {
   Enable(OpeningHoursSerDes::Header::Bits::WeekDay);
 
@@ -240,7 +239,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Weekday_1)
   TestWeekday(rule, Weekday::Monday, Weekday::Friday);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Weekday_2)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Weekday_2)
 {
   Enable(OpeningHoursSerDes::Header::Bits::WeekDay);
 
@@ -258,7 +257,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Weekday_2)
   TestWeekday(rule, Weekday::Friday, Weekday::Sunday);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Weekday_Hours_1)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Weekday_Hours_1)
 {
   Enable(OpeningHoursSerDes::Header::Bits::WeekDay);
   Enable(OpeningHoursSerDes::Header::Bits::Hours);
@@ -301,7 +300,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Weekday_Hours_1)
   }
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Off_SerDes_1_AndUsage)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Off_SerDes_1_AndUsage)
 {
   SerializeEverything();
   EnableAll();
@@ -324,7 +323,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Off_SerDes_1_AndUsage)
   TEST(oh.IsClosed(GetUnixtimeByDate(2020, Month::Feb, Weekday::Monday, 17 /* hh */, 30 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Off_SerDes_2)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Off_SerDes_2)
 {
   SerializeEverything();
   EnableAll();
@@ -360,7 +359,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Off_SerDes_2)
   TestModifier(rule, osmoh::RuleSequence::Modifier::Closed);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_OffJustOff)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_OffJustOff)
 {
   SerializeEverything();
   EnableAll();
@@ -376,7 +375,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_OffJustOff)
   TestModifier(rule, osmoh::RuleSequence::Modifier::Closed);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_OffJustClosed)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_OffJustClosed)
 {
   SerializeEverything();
   EnableAll();
@@ -392,7 +391,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_OffJustClosed)
   TestModifier(rule, osmoh::RuleSequence::Modifier::Closed);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Open)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Open)
 {
   SerializeEverything();
   EnableAll();
@@ -410,7 +409,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Open)
     TEST(oh.IsOpen(someMoment), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_TimeIsOver00)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_TimeIsOver00)
 {
   SerializeEverything();
   EnableAll();
@@ -428,7 +427,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_TimeIsOver00)
   TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Tuesday, 06 /* hh */, 30 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_DefaultOpen)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_DefaultOpen)
 {
   SerializeEverything();
   EnableAll();
@@ -446,7 +445,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_DefaultOpen)
   TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Sunday, 13 /* hh */, 30 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_SkipRuleOldYear)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_SkipRuleOldYear)
 {
   SerializeEverything();
   EnableAll();
@@ -463,7 +462,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_SkipRuleOldYear)
   TestTime(rule, 7, 0, 17, 0);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_10_plus)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_10_plus)
 {
   SerializeEverything();
   EnableAll();
@@ -487,7 +486,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_10_plus)
   TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Mar, Weekday::Saturday, 00 /* hh */, 30 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_24_7)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_24_7)
 {
   EnableAll();
 
@@ -498,7 +497,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_24_7)
   TEST(oh.IsTwentyFourHours(), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_ExamplesFromOsmAccessConditional_1)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_ExamplesFromOsmAccessConditional_1)
 {
   EnableAll();
 
@@ -513,7 +512,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_ExamplesFromOsmAccessConditi
   TestMonth(rule, Month::Apr, 1, Month::Jun, 30);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_ExamplesFromOsmAccessConditional_2)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_ExamplesFromOsmAccessConditional_2)
 {
   EnableAll();
 
@@ -528,7 +527,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_ExamplesFromOsmAccessConditi
   TestTime(rule, 22, 0, 6, 0);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_ExamplesFromOsmAccessConditional_3)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_ExamplesFromOsmAccessConditional_3)
 {
   EnableAll();
 
@@ -547,7 +546,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_ExamplesFromOsmAccessConditi
   TestTime(rule, 21, 30, 7, 0);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_ExamplesFromOsmAccessConditional_4)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_ExamplesFromOsmAccessConditional_4)
 {
   EnableAll();
 
@@ -562,7 +561,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_ExamplesFromOsmAccessConditi
   TestMonth(rule, Month::Apr, Month::Oct);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_ExamplesFromOsmAccessConditional_5)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_ExamplesFromOsmAccessConditional_5)
 {
   EnableAll();
 
@@ -582,7 +581,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_ExamplesFromOsmAccessConditi
   TestTime(rule, 15, 0, 16, 0);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_ExamplesFromOsmAccessConditional_6)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_ExamplesFromOsmAccessConditional_6)
 {
   SerializeEverything();
   EnableAll();
@@ -602,7 +601,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_ExamplesFromOsmAccessConditi
   TestTime(rule, 11, 0, 18, 0);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_EnableForRouting_1)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_EnableForRouting_1)
 {
   EnableForRouting();
 
@@ -617,7 +616,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_EnableForRouting_1)
   TestWeekday(rule, Weekday::Sunday, Weekday::None);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_EnableForRouting_2)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_EnableForRouting_2)
 {
   EnableForRouting();
 
@@ -669,7 +668,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_EnableForRouting_2)
   TestTime(rule, 12, 0, 12, 30);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_WeekdayAndHolidayOff)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_WeekdayAndHolidayOff)
 {
   SerializeEverything();
   EnableAll();
@@ -694,7 +693,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_WeekdayAndHolidayOff)
   TestModifier(rule, osmoh::RuleSequence::Modifier::Closed);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_WeekDay_OneDay)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_WeekDay_OneDay)
 {
   EnableAll();
 
@@ -710,7 +709,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_WeekDay_OneDay)
   TestTime(rule, 16, 0, 20, 0);
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Hours_Usage_1)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Hours_Usage_1)
 {
   EnableAll();
 
@@ -723,7 +722,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Hours_Usage_1)
   TEST(oh.IsClosed(GetUnixtimeByDate(2020, Month::Feb, Weekday::Monday, 07 /* hh */, 30 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Weekday_Usage_1)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Weekday_Usage_1)
 {
   EnableAll();
 
@@ -736,7 +735,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Weekday_Usage_1)
   TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Wednesday, 17 /* hh */, 30 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Weekday_Usage_2)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Weekday_Usage_2)
 {
   EnableAll();
 
@@ -751,7 +750,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Weekday_Usage_2)
   TEST(oh.IsClosed(GetUnixtimeByDate(2023, Month::Apr, Weekday::Saturday, 8 /* hh */, 30 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Weekday_Usage_3)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Weekday_Usage_3)
 {
   EnableAll();
 
@@ -764,7 +763,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Weekday_Usage_3)
   TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, 7, 03 /* hh */, 30 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Month_Usage)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Month_Usage)
 {
   EnableAll();
 
@@ -777,7 +776,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_Month_Usage)
   TEST(oh.IsClosed(GetUnixtimeByDate(2020, Month::Feb, 5, 17 /* hh */, 30 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_MonthDay_Usage)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_MonthDay_Usage)
 {
   EnableAll();
 
@@ -793,7 +792,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_MonthDay_Usage)
   TEST(oh.IsOpen(GetUnixtimeByDate(2021, Month::Mar, 26, 19 /* hh */, 00 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_MonthDayYear_Usage)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_MonthDayYear_Usage)
 {
   EnableAll();
 
@@ -809,7 +808,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_MonthDayYear_Usage)
   TEST(oh.IsClosed(GetUnixtimeByDate(2052, Month::Mar, 26, 19 /* hh */, 00 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_MonthHours_Usage)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_MonthHours_Usage)
 {
   EnableAll();
 
@@ -824,7 +823,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_MonthHours_Usage)
   TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::May, 6, 01 /* hh */, 32 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_InverseMonths_Usage_1)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_InverseMonths_Usage_1)
 {
   EnableAll();
 
@@ -841,7 +840,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_InverseMonths_Usage_1)
   TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, 20, 20 /* hh */, 00 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_InverseMonths_Usage_2)
+UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_InverseMonths_Usage_2)
 {
   EnableAll();
 
@@ -860,4 +859,4 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_InverseMonths_Usage_2)
   TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Apr, 20, 20 /* hh */, 00 /* mm */)), ());
   TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::May, 20, 20 /* hh */, 00 /* mm */)), ());
 }
-} // namespace
+} // namespace opening_hours_serdes_tests

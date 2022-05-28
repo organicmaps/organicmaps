@@ -3,6 +3,7 @@
 #include "routing/coding.hpp"
 #include "routing/cross_mwm_connector.hpp"
 #include "routing/cross_mwm_ids.hpp"
+#include "routing/fake_feature_ids.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -20,9 +21,7 @@
 
 #include <algorithm>
 #include <array>
-#include <cstdint>
 #include <limits>
-#include <type_traits>
 #include <vector>
 
 namespace routing
@@ -35,27 +34,77 @@ static uint8_t constexpr kLineIdBits = 32;
 
 inline uint32_t constexpr CalcBitsPerTransitId() { return 2 * kStopIdBits + kLineIdBits; }
 
-template <class CrossMwmId>
-inline void CheckBitsPerCrossMwmId(uint32_t bitsPerCrossMwmId)
+template <typename CrossMwmId> uint32_t constexpr GetFeaturesOffset() noexcept;
+template <> uint32_t constexpr GetFeaturesOffset<base::GeoObjectId>() noexcept
 {
-  CHECK_LESS_OR_EQUAL(bitsPerCrossMwmId, kOsmIdBits, ());
+  return 0;
 }
-
-template <>
-inline void CheckBitsPerCrossMwmId<TransitId>(uint32_t bitsPerCrossMwmId)
+template <> uint32_t constexpr GetFeaturesOffset<TransitId>() noexcept
 {
-  CHECK_EQUAL(bitsPerCrossMwmId, CalcBitsPerTransitId(), ());
+  return FakeFeatureIds::kTransitGraphFeaturesStart;
 }
 }  // namespace connector
 
-template <typename CrossMwmId>
-using CrossMwmConnectorPerVehicleType =
-    std::array<CrossMwmConnector<CrossMwmId>, static_cast<size_t>(VehicleType::Count)>;
-
-class CrossMwmConnectorSerializer final
+/// Builder class for deserialization.
+template <typename CrossMwmId> class CrossMwmConnectorBuilder
 {
+protected:
+  using ConnectorT = CrossMwmConnector<CrossMwmId>;
+  ConnectorT & m_c;
+
+  // For some connectors we may need to shift features with some offset.
+  // For example for versions and transit section compatibility we number transit features
+  // starting from 0 in mwm and shift them with |m_featureNumerationOffset| in runtime.
+  uint32_t m_featureNumerationOffset = 0;
+
 public:
-  template <typename CrossMwmId>
+  explicit CrossMwmConnectorBuilder(ConnectorT & c) : m_c(c) {}
+
+  /// Called only in cross-mwm-graph when deserialization connectors.
+  void ApplyNumerationOffset()
+  {
+    m_featureNumerationOffset = connector::GetFeaturesOffset<CrossMwmId>();
+  }
+
+  void AddTransition(CrossMwmId const & crossMwmId, uint32_t featureId, uint32_t segmentIdx,
+                     bool oneWay, bool forwardIsEnter)
+  {
+    featureId += m_featureNumerationOffset;
+
+    typename ConnectorT::Transition transition(m_c.m_entersCount, m_c.m_exitsCount,
+                                               crossMwmId, oneWay, forwardIsEnter);
+
+    if (forwardIsEnter)
+      ++m_c.m_entersCount;
+    else
+      ++m_c.m_exitsCount;
+
+    if (!oneWay)
+    {
+      if (forwardIsEnter)
+        ++m_c.m_exitsCount;
+      else
+        ++m_c.m_entersCount;
+    }
+
+    m_c.m_transitions.emplace_back(typename ConnectorT::Key(featureId, segmentIdx), transition);
+    m_c.m_crossMwmIdToFeatureId.emplace(crossMwmId, featureId);
+  }
+
+protected:
+  template <class GetTransition>
+  void FillTransitions(size_t count, VehicleType requiredVehicle, GetTransition && getter)
+  {
+    auto const vhMask = GetVehicleMask(requiredVehicle);
+
+    m_c.m_transitions.reserve(count);
+    for (size_t i = 0; i < count; ++i)
+      AddTransition(getter(i), vhMask);
+
+    // Sort by FeatureID to make lower_bound queries.
+    std::sort(m_c.m_transitions.begin(), m_c.m_transitions.end(), typename ConnectorT::LessKT());
+  }
+
   class Transition final
   {
   public:
@@ -73,14 +122,14 @@ public:
     }
 
     template <class Sink>
-    void WriteCrossMwmId(base::GeoObjectId const & id, uint8_t bits, BitWriter<Sink> & w) const
+    static void WriteCrossMwmId(base::GeoObjectId const & id, uint8_t bits, BitWriter<Sink> & w)
     {
       CHECK_LESS_OR_EQUAL(bits, connector::kOsmIdBits, ());
       w.WriteAtMost64Bits(id.GetEncodedId(), bits);
     }
 
     template <class Sink>
-    void WriteCrossMwmId(connector::TransitId const & id, uint8_t bitsPerCrossMwmId, BitWriter<Sink> & w) const
+    static void WriteCrossMwmId(connector::TransitId const & id, uint8_t bitsPerCrossMwmId, BitWriter<Sink> & w)
     {
       CHECK_EQUAL(bitsPerCrossMwmId, connector::CalcBitsPerTransitId(), ("Wrong TransitId size."));
       w.WriteAtMost64Bits(id.m_stop1Id, connector::kStopIdBits);
@@ -107,8 +156,7 @@ public:
     }
 
     template <class Source>
-    void ReadCrossMwmId(uint8_t bitsPerCrossMwmId, BitReader<Source> & reader,
-                        connector::TransitId & readed)
+    static void ReadCrossMwmId(uint8_t bitsPerCrossMwmId, BitReader<Source> & reader, connector::TransitId & readed)
     {
       CHECK_EQUAL(bitsPerCrossMwmId, connector::CalcBitsPerTransitId(), ("Wrong TransitId size."));
       readed.m_stop1Id = reader.ReadAtMost64Bits(connector::kStopIdBits);
@@ -117,7 +165,7 @@ public:
     };
 
     template <class Source>
-    void ReadCrossMwmId(uint8_t bits, BitReader<Source> & reader, base::GeoObjectId & osmId)
+    static void ReadCrossMwmId(uint8_t bits, BitReader<Source> & reader, base::GeoObjectId & osmId)
     {
       CHECK_LESS_OR_EQUAL(bits, connector::kOsmIdBits, ());
       // We lost data about transition type after compression (look at CalcBitsPerCrossMwmId method)
@@ -151,7 +199,7 @@ public:
     VehicleMask GetOneWayMask() const { return m_oneWayMask; }
 
   private:
-    CrossMwmId m_crossMwmId = CrossMwmId();
+    CrossMwmId m_crossMwmId{};
     uint32_t m_featureId = 0;
     uint32_t m_segmentIdx = 0;
     VehicleMask m_roadMask = 0;
@@ -159,70 +207,39 @@ public:
     bool m_forwardIsEnter = false;
   };
 
-  CrossMwmConnectorSerializer() = delete;
+  void CheckBitsPerCrossMwmId(uint32_t bitsPerCrossMwmId) const;
 
-  template <class Sink, class CrossMwmId>
-  static void Serialize(std::vector<Transition<CrossMwmId>> const & transitions,
-                        CrossMwmConnectorPerVehicleType<CrossMwmId> const & connectors,
-                        Sink & sink)
+public:
+  void DeserializeTransitions(VehicleType requiredVehicle, FilesContainerR::TReader & reader)
   {
-    uint32_t const bitsPerCrossMwmId = CalcBitsPerCrossMwmId(transitions);
-    auto const bitsPerMask = GetBitsPerMask<uint8_t>();
-    std::vector<uint8_t> transitionsBuf;
-    WriteTransitions(transitions, bitsPerCrossMwmId, bitsPerMask, transitionsBuf);
-
-    Header header(base::checked_cast<uint32_t>(transitions.size()),
-                  base::checked_cast<uint64_t>(transitionsBuf.size()),
-                  bitsPerCrossMwmId, bitsPerMask);
-    std::vector<std::vector<uint8_t>> weightBuffers(connectors.size());
-
-    for (size_t i = 0; i < connectors.size(); ++i)
-    {
-      auto const & connector = connectors[i];
-      if (connector.m_weights.empty())
-        continue;
-
-      std::vector<uint8_t> & buffer = weightBuffers[i];
-      WriteWeights(connector.m_weights, buffer);
-      auto const numEnters = base::checked_cast<uint32_t>(connector.GetEnters().size());
-      auto const numExits = base::checked_cast<uint32_t>(connector.GetExits().size());
-      auto const vehicleType = static_cast<VehicleType>(i);
-      header.AddSection(Section(buffer.size(), numEnters, numExits, vehicleType));
-    }
-
-    header.Serialize(sink);
-    FlushBuffer(transitionsBuf, sink);
-
-    for (auto & buffer : weightBuffers)
-      FlushBuffer(buffer, sink);
+    DeserializeTransitions(requiredVehicle, *(reader.GetPtr()));
   }
 
-  template <class Source, class CrossMwmId>
-  static void DeserializeTransitions(VehicleType requiredVehicle, CrossMwmConnector<CrossMwmId> & connector,
-                                     Source & src)
+  template <class Reader>
+  void DeserializeTransitions(VehicleType requiredVehicle, Reader & reader)
   {
-    CHECK(connector.m_weightsLoadState == connector::WeightsLoadState::Unknown, ());
+    CHECK(m_c.m_weights.m_loadState == connector::WeightsLoadState::Unknown, ());
 
+    NonOwningReaderSource src(reader);
     Header header;
     header.Deserialize(src);
-    connector::CheckBitsPerCrossMwmId<CrossMwmId>(header.GetBitsPerCrossMwmId());
+    CheckBitsPerCrossMwmId(header.GetBitsPerCrossMwmId());
 
     uint64_t weightsOffset = src.Pos() + header.GetSizeTransitions();
-    VehicleMask const requiredMask = GetVehicleMask(requiredVehicle);
     auto const numTransitions = base::checked_cast<size_t>(header.GetNumTransitions());
 
-    for (size_t i = 0; i < numTransitions; ++i)
+    FillTransitions(numTransitions, requiredVehicle, [&header, &src](size_t)
     {
-      Transition<CrossMwmId> transition;
+      Transition transition;
       transition.Deserialize(header.GetBitsPerCrossMwmId(), header.GetBitsPerMask(), src);
-      AddTransition(transition, requiredMask, connector);
-    }
+      return transition;
+    });
 
     if (src.Pos() != weightsOffset)
     {
       MYTHROW(CorruptedDataException,
               ("Wrong position", src.Pos(), "after decoding transitions, expected:",
-               connector.m_weightsOffset, "size:", header.GetSizeTransitions()));
+               weightsOffset, "size:", header.GetSizeTransitions()));
     }
 
     for (Section const & section : header.GetSections())
@@ -233,8 +250,8 @@ public:
         continue;
       }
 
-      size_t const numEnters = connector.GetEnters().size();
-      size_t const numExits = connector.GetExits().size();
+      size_t const numEnters = m_c.GetNumEnters();
+      size_t const numExits = m_c.GetNumExits();
 
       if (base::checked_cast<size_t>(section.GetNumEnters()) != numEnters)
       {
@@ -248,66 +265,98 @@ public:
                                          ", connector:", numExits));
       }
 
-      connector.m_weightsOffset = weightsOffset;
-      connector.m_granularity = header.GetGranularity();
-      connector.m_weightsLoadState = connector::WeightsLoadState::ReadyToLoad;
+      m_c.m_weights.m_offset = weightsOffset;
+      m_c.m_weights.m_granularity = header.GetGranularity();
+      m_c.m_weights.m_version = header.GetVersion();
+      m_c.m_weights.m_loadState = connector::WeightsLoadState::ReadyToLoad;
       return;
     }
 
-    connector.m_weightsLoadState = connector::WeightsLoadState::NotExists;
+    m_c.m_weights.m_loadState = connector::WeightsLoadState::NotExists;
   }
 
-  template <class Source, class CrossMwmId>
-  static void DeserializeWeights(VehicleType /* vehicle */, CrossMwmConnector<CrossMwmId> & connector,
-                                 Source & src)
+  void DeserializeWeights(FilesContainerR::TReader & reader)
   {
-    CHECK(connector.m_weightsLoadState == connector::WeightsLoadState::ReadyToLoad, ());
-    CHECK_GREATER(connector.m_granularity, 0, ());
+    DeserializeWeights(*(reader.GetPtr()));
+  }
 
-    src.Skip(connector.m_weightsOffset);
+  /// @param[in]  reader  Initialized reader for the whole section (makes Skip inside).
+  template <class Reader>
+  void DeserializeWeights(Reader & reader)
+  {
+    CHECK(m_c.m_weights.m_loadState == connector::WeightsLoadState::ReadyToLoad, ());
+    CHECK_GREATER(m_c.m_weights.m_granularity, 0, ());
 
-    size_t const amount = connector.GetEnters().size() * connector.GetExits().size();
-    connector.m_weights.reserve(amount);
+    size_t const amount = m_c.GetNumEnters() * m_c.GetNumExits();
 
-    BitReader<Source> reader(src);
-
-    Weight prev = 1;
-    for (size_t i = 0; i < amount; ++i)
+    if (m_c.m_weights.m_version < 2)
     {
-      if (reader.Read(1) == kNoRouteBit)
+      NonOwningReaderSource src(reader);
+      src.Skip(m_c.m_weights.m_offset);
+
+      // Do reserve memory here to avoid a lot of reallocations.
+      // SparseVector will shrink final vector if needed.
+      coding::SparseVectorBuilder<Weight> builder(amount);
+      BitReader bitReader(src);
+
+      Weight prev = 1;
+      for (size_t i = 0; i < amount; ++i)
       {
-        connector.m_weights.push_back(connector::kNoRoute);
-        continue;
+        if (bitReader.Read(1) != kNoRouteBit)
+        {
+          Weight const delta = ReadDelta<Weight>(bitReader) - 1;
+          Weight const current = DecodeZigZagDelta(prev, delta);
+          builder.PushValue(current * m_c.m_weights.m_granularity);
+          prev = current;
+        }
+        else
+          builder.PushEmpty();
       }
 
-      Weight const delta = ReadDelta<Weight>(reader) - 1;
-      Weight const current = DecodeZigZagDelta(prev, delta);
-      connector.m_weights.push_back(current * connector.m_granularity);
-      prev = current;
+      m_c.m_weights.m_v1 = builder.Build();
+    }
+    else
+    {
+      m_c.m_weights.m_reader = reader.CreateSubReader(m_c.m_weights.m_offset, reader.Size() - m_c.m_weights.m_offset);
+      m_c.m_weights.m_v2 = MapUint32ToValue<Weight>::Load(*(m_c.m_weights.m_reader),
+        [granularity = m_c.m_weights.m_granularity](NonOwningReaderSource & source, uint32_t blockSize,
+                                                    std::vector<Weight> & values)
+        {
+          values.resize(blockSize);
+
+          uint32_t prev = ReadVarUint<uint32_t>(source);
+          values[0] = granularity * prev;
+
+          for (size_t i = 1; i < blockSize && source.Size() > 0; ++i)
+          {
+            prev += ReadVarInt<int32_t>(source);
+            values[i] = granularity * prev;
+          }
+        });
     }
 
-    connector.m_weightsLoadState = connector::WeightsLoadState::Loaded;
+    m_c.m_weights.m_loadState = connector::WeightsLoadState::Loaded;
   }
 
-  template <class CrossMwmId>
-  static void AddTransition(Transition<CrossMwmId> const & transition, VehicleMask requiredMask,
-                            CrossMwmConnector<CrossMwmId> & connector)
+protected:
+  bool AddTransition(Transition const & transition, VehicleMask requiredMask)
   {
     if ((transition.GetRoadMask() & requiredMask) == 0)
-      return;
+      return false;
 
     bool const isOneWay = (transition.GetOneWayMask() & requiredMask) != 0;
-    connector.AddTransition(transition.GetCrossMwmId(), transition.GetFeatureId(),
-                            transition.GetSegmentIdx(), isOneWay, transition.ForwardIsEnter());
+    AddTransition(transition.GetCrossMwmId(), transition.GetFeatureId(),
+                  transition.GetSegmentIdx(), isOneWay, transition.ForwardIsEnter());
+    return true;
   }
 
-private:
   using Weight = connector::Weight;
   using WeightsLoadState = connector::WeightsLoadState;
 
-  static uint32_t constexpr kVersion0 = 0;
-  static uint32_t constexpr kVersion1 = 1;
-  static uint32_t constexpr kLastVersion = kVersion1;
+  // 0 - initial version
+  // 1 - removed dummy GeometryCodingParams
+  // 2 - store weights as MapUint32ToValue
+  static uint32_t constexpr kLastVersion = 2;
   static uint8_t constexpr kNoRouteBit = 0;
   static uint8_t constexpr kRouteBit = 1;
 
@@ -362,8 +411,7 @@ private:
   public:
     Header() = default;
 
-    Header(uint32_t numTransitions, uint64_t sizeTransitions, uint32_t bitsPerCrossMwmId,
-           uint8_t bitsPerMask)
+    Header(uint32_t numTransitions, uint64_t sizeTransitions, uint32_t bitsPerCrossMwmId, uint8_t bitsPerMask)
       : m_numTransitions(numTransitions)
       , m_sizeTransitions(sizeTransitions)
       , m_bitsPerCrossMwmId(bitsPerCrossMwmId)
@@ -390,7 +438,7 @@ private:
     void Deserialize(Source & src)
     {
       m_version = ReadPrimitiveFromSource<decltype(m_version)>(src);
-      if (m_version != kVersion0 && m_version != kVersion1)
+      if (m_version > kLastVersion)
       {
         MYTHROW(CorruptedDataException, ("Unknown cross mwm section version ", m_version,
                                          ", current version ", kLastVersion));
@@ -399,7 +447,7 @@ private:
       m_numTransitions = ReadPrimitiveFromSource<decltype(m_numTransitions)>(src);
       m_sizeTransitions = ReadPrimitiveFromSource<decltype(m_sizeTransitions)>(src);
       m_granularity = ReadPrimitiveFromSource<decltype(m_granularity)>(src);
-      if (m_version == kVersion0)
+      if (m_version == 0)
         serial::GeometryCodingParams().Load(src);
       m_bitsPerCrossMwmId = ReadPrimitiveFromSource<decltype(m_bitsPerCrossMwmId)>(src);
       m_bitsPerMask = ReadPrimitiveFromSource<decltype(m_bitsPerMask)>(src);
@@ -412,6 +460,7 @@ private:
 
     void AddSection(Section const & section) { m_sections.push_back(section); }
 
+    uint32_t GetVersion() const { return m_version; }
     uint32_t GetNumTransitions() const { return m_numTransitions; }
     uint64_t GetSizeTransitions() const { return m_sizeTransitions; }
     Weight GetGranularity() const { return m_granularity; }
@@ -428,56 +477,170 @@ private:
     uint8_t m_bitsPerMask = 0;
     std::vector<Section> m_sections;
   };
+};
 
-  static uint32_t CalcBitsPerCrossMwmId(
-      std::vector<Transition<base::GeoObjectId>> const & transitions)
-  {
-    uint64_t serial = 0;
-    for (auto const & transition : transitions)
-      serial = std::max(serial, transition.GetCrossMwmId().GetSerialId());
+template <>
+inline void CrossMwmConnectorBuilder<base::GeoObjectId>::CheckBitsPerCrossMwmId(uint32_t bitsPerCrossMwmId) const
+{
+  CHECK_LESS_OR_EQUAL(bitsPerCrossMwmId, connector::kOsmIdBits, ());
+}
 
-    // Note that we lose base::GeoObjectId::Type bits here, remember about
-    // it in ReadCrossMwmId method.
-    return bits::NumUsedBits(serial);
-  }
+template <>
+inline void CrossMwmConnectorBuilder<connector::TransitId>::CheckBitsPerCrossMwmId(uint32_t bitsPerCrossMwmId) const
+{
+  CHECK_EQUAL(bitsPerCrossMwmId, connector::CalcBitsPerTransitId(), ());
+}
 
-  static uint32_t CalcBitsPerCrossMwmId(
-      std::vector<Transition<connector::TransitId>> const & /* transitions */)
-  {
-    return connector::CalcBitsPerTransitId();
-  }
+/// Builder class for generator and tests.
+template <typename CrossMwmId>
+class CrossMwmConnectorBuilderEx : public CrossMwmConnectorBuilder<CrossMwmId>
+{
+  using BaseT = CrossMwmConnectorBuilder<CrossMwmId>;
 
-  template <typename T>
-  static T GetBitsPerMask()
-  {
-    static_assert(static_cast<size_t>(VehicleType::Count) <=
-                      static_cast<size_t>(std::numeric_limits<T>::max()),
-                  "Can't pack VehicleType::Count into chosen type");
-    return static_cast<T>(VehicleType::Count);
-  }
+private:
+  uint32_t CalcBitsPerCrossMwmId() const;
 
-  template <class Sink>
-  static void FlushBuffer(std::vector<uint8_t> & buffer, Sink & sink)
-  {
-    sink.Write(buffer.data(), buffer.size());
-    buffer.clear();
-  }
-
-  template <typename CrossMwmId>
-  static void WriteTransitions(std::vector<Transition<CrossMwmId>> const & transitions,
-                               uint32_t bitsPerOsmId, uint8_t bitsPerMask,
-                               std::vector<uint8_t> & buffer)
+  void WriteTransitions(int32_t bitsPerOsmId, uint8_t bitsPerMask, std::vector<uint8_t> & buffer) const
   {
     MemWriter<std::vector<uint8_t>> memWriter(buffer);
 
-    for (auto const & transition : transitions)
+    for (auto const & transition : m_transitions)
       transition.Serialize(bitsPerOsmId, bitsPerMask, memWriter);
   }
 
-  static void WriteWeights(std::vector<Weight> const & weights, std::vector<uint8_t> & buffer);
+  static uint16_t constexpr kBlockSize = 256;
+
+  using Weight = typename BaseT::Weight;
+  using IdxWeightT = std::pair<uint32_t, Weight>;
+
+  void WriteWeights(std::vector<uint8_t> & buffer) const
+  {
+    MapUint32ToValueBuilder<Weight> builder;
+    for (auto const & w : m_weights)
+      builder.Put(w.first, w.second);
+
+    MemWriter writer(buffer);
+    builder.Freeze(writer, [](auto & writer, auto beg, auto end)
+    {
+      auto const NextStoredValue = [&beg]()
+      {
+        return (*beg++ + BaseT::kGranularity - 1) / BaseT::kGranularity;
+      };
+
+      Weight prev = NextStoredValue();
+      WriteVarUint(writer, prev);
+      while (beg != end)
+      {
+        Weight const storedWeight = NextStoredValue();
+        WriteVarInt(writer, static_cast<int32_t>(storedWeight) - static_cast<int32_t>(prev));
+        prev = storedWeight;
+      }
+    }, kBlockSize);
+  }
+
+public:
+  CrossMwmConnectorBuilderEx() : BaseT(m_connector) {}
+
+  void AddTransition(CrossMwmId const & crossMwmId, uint32_t featureId, uint32_t segmentIdx,
+                     VehicleMask roadMask, VehicleMask oneWayMask, bool forwardIsEnter)
+  {
+    m_transitions.emplace_back(crossMwmId, featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter);
+  }
+
+  size_t GetTransitionsCount() const { return m_transitions.size(); }
+
+  template <class Sink>
+  void Serialize(Sink & sink)
+  {
+    uint32_t const bitsPerCrossMwmId = CalcBitsPerCrossMwmId();
+    auto const bitsPerMask = uint8_t(VehicleType::Count);
+    std::vector<uint8_t> transitionsBuf;
+    WriteTransitions(bitsPerCrossMwmId, bitsPerMask, transitionsBuf);
+
+    typename BaseT::Header header(base::checked_cast<uint32_t>(m_transitions.size()),
+                                  base::checked_cast<uint64_t>(transitionsBuf.size()),
+                                  bitsPerCrossMwmId, bitsPerMask);
+
+    std::vector<uint8_t> weightsBuf;
+    if (!m_weights.empty())
+    {
+      std::sort(m_weights.begin(), m_weights.end(), base::LessBy(&IdxWeightT::first));
+      WriteWeights(weightsBuf);
+
+      header.AddSection(typename BaseT::Section(
+                        weightsBuf.size(), m_connector.GetNumEnters(), m_connector.GetNumExits(), m_vehicleType));
+    }
+
+    // Use buffer serialization above, because BaseT::Header is not plain (vector<Section>)
+    // and we are not able to calculate its final size.
+    header.Serialize(sink);
+    sink.Write(transitionsBuf.data(), transitionsBuf.size());
+    sink.Write(weightsBuf.data(), weightsBuf.size());
+  }
+
+  typename BaseT::ConnectorT const & PrepareConnector(VehicleType requiredVehicle)
+  {
+    m_vehicleType = requiredVehicle;
+    BaseT::FillTransitions(m_transitions.size(), m_vehicleType, [this](size_t i)
+    {
+      return m_transitions[i];
+    });
+    return m_connector;
+  }
+
+  template <class CalcWeight>
+  void FillWeights(CalcWeight && calcWeight)
+  {
+    CHECK(m_vehicleType != VehicleType::Count, ("PrepareConnector should be called"));
+
+    m_weights.reserve(m_connector.GetNumEnters() * m_connector.GetNumExits());
+    m_connector.ForEachEnter([&](uint32_t enterIdx, Segment const & enter)
+    {
+      m_connector.ForEachExit([&](uint32_t exitIdx, Segment const & exit)
+      {
+        auto const w = calcWeight(enter, exit);
+        CHECK_LESS(w, std::numeric_limits<Weight>::max(), ());
+
+        // Edges weights should be >= astar heuristic, so use std::ceil.
+        if (w != connector::kNoRoute)
+          m_weights.emplace_back(m_connector.GetWeightIndex(enterIdx, exitIdx), static_cast<Weight>(std::ceil(w)));
+      });
+    });
+  }
+
+  /// Used in tests only.
+  void SetAndWriteWeights(std::vector<IdxWeightT> && weights, std::vector<uint8_t> & buffer)
+  {
+    m_weights = std::move(weights);
+    std::sort(m_weights.begin(), m_weights.end(), base::LessBy(&IdxWeightT::first));
+    WriteWeights(buffer);
+  }
+
+private:
+  // All accumulated transitions with road-mask inside.
+  std::vector<typename BaseT::Transition> m_transitions;
+
+  // Weights for the current prepared connector. Used for VehicleType::Car only now.
+  typename BaseT::ConnectorT m_connector;
+  std::vector<IdxWeightT> m_weights;
+  VehicleType m_vehicleType = VehicleType::Count;
 };
 
-static_assert(connector::kOsmIdBits == 64, "Wrong kOsmIdBits.");
-static_assert(connector::kStopIdBits == 64, "Wrong kStopIdBits.");
-static_assert(connector::kLineIdBits == 32, "Wrong kLineIdBits.");
+template <>
+inline uint32_t CrossMwmConnectorBuilderEx<base::GeoObjectId>::CalcBitsPerCrossMwmId() const
+{
+  uint64_t serial = 0;
+  for (auto const & transition : m_transitions)
+    serial = std::max(serial, transition.GetCrossMwmId().GetSerialId());
+
+  // Note that we lose base::GeoObjectId::Type bits here, remember about it in ReadCrossMwmId method.
+  return bits::NumUsedBits(serial);
+}
+
+template <>
+inline uint32_t CrossMwmConnectorBuilderEx<connector::TransitId>::CalcBitsPerCrossMwmId() const
+{
+  return connector::CalcBitsPerTransitId();
+}
+
 }  // namespace routing

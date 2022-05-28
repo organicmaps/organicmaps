@@ -10,13 +10,13 @@
 
 #include <functional>
 
-using namespace std::chrono;
-using namespace std;
-
 namespace search
 {
 namespace tests_support
 {
+using namespace std::chrono;
+using namespace std;
+
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
                                      string const & locale, Mode mode, m2::RectD const & viewport)
   : m_engine(engine)

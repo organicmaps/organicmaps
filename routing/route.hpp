@@ -1,6 +1,5 @@
 #pragma once
 
-#include "routing/road_graph.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/routing_settings.hpp"
 #include "routing/segment.hpp"
@@ -10,8 +9,6 @@
 #include "routing/base/followed_polyline.hpp"
 
 #include "traffic/speed_groups.hpp"
-
-#include "indexer/feature_altitude.hpp"
 
 #include "platform/country_file.hpp"
 
@@ -281,7 +278,7 @@ public:
 
   std::string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly.GetPolyline(); }
-  
+
   size_t GetCurrentSubrouteIdx() const { return m_currentSubrouteIdx; }
   std::vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
 
@@ -317,7 +314,7 @@ public:
   bool GetNextTurns(std::vector<turns::TurnItemDist> & turns) const;
 
   void GetCurrentDirectionPoint(m2::PointD & pt) const;
-  
+
   bool MoveIterator(location::GpsInfo const & info);
 
   /// \brief Finds projection of |location| to the nearest route and sets |routeMatchingInfo|

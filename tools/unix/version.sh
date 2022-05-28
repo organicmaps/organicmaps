@@ -16,20 +16,25 @@ Where format is one of the following arguments:
 EOF
 }
 
-DATE_OF_THE_LAST_COMMIT=$(git log -1 --date=format:%Y.%m.%d --pretty=format:%cd)
-function commits_count {
-  git rev-list --count --after="${DATE_OF_THE_LAST_COMMIT//./-}T00:00:00Z" HEAD
-}
+# Note: other ways to get date use the "when commit was rebased" date.
+# This approach counts a number of commits each day based on author's commit date.
+COUNT_AND_DATE=( $(git log --date=short --pretty=format:%ad --date=format:'%Y.%m.%d' --since="30 days ago" | sort | uniq -c | tail -1) )
+if [ -z "$COUNT_AND_DATE" ]; then
+  # Fallback: use today's date if there were no commits since last month.
+  COUNT_AND_DATE=( 0 $(date +%Y.%m.%d) )
+fi
+DATE=${COUNT_AND_DATE[1]}
+COUNT=${COUNT_AND_DATE[0]}
 
 case "${1:-}" in
   ios_version)
-    echo $DATE_OF_THE_LAST_COMMIT
+    echo $DATE
     ;;
   ios_build)
-    commits_count
+    echo $COUNT
     ;;
   android_name)
-    echo $DATE_OF_THE_LAST_COMMIT-$(commits_count)
+    echo $DATE-$COUNT
     ;;
   # RR_yy_MM_dd_CC
   # RR - reserved to identify special markets, max value is 21.
@@ -40,8 +45,8 @@ case "${1:-}" in
   # 21_00_00_00_00 is the the greatest value Google Play allows for versionCode.
   # See https://developer.android.com/studio/publish/versioning for details.
   android_code)
-    CUT_YEAR=${DATE_OF_THE_LAST_COMMIT:2}
-    echo ${CUT_YEAR//./}$(printf %02d $(commits_count))
+    CUT_YEAR=${DATE:2}
+    echo ${CUT_YEAR//./}$(printf %02d $COUNT)
     ;;
   git_hash)
     git describe --match="" --always --abbrev=8 --dirty

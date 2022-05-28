@@ -10,7 +10,7 @@
 "cancel" = "Cancelar";
 
 /* Button which interrupts country download */
-"cancel_download" = "Cancelar baixar";
+"cancel_download" = "Cancelar download";
 
 /* Button which deletes downloaded country */
 "delete" = "Apagar";
@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Deixe uma avaliação";
 
-/* View and button titles for accessibility */
-"maps" = "Mapas";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Milhas";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Minha posição";
 
 /* Update maps later/Buy pro version later button text */
@@ -78,7 +75,7 @@
 "bookmarks" = "Favoritos";
 
 /* Default bookmark list name */
-"core_my_places" = "Meus Locais";
+"core_my_places" = "Meus locais";
 
 /* Editor title above street and house number */
 "address" = "Endereço";
@@ -123,7 +120,7 @@
 "atm" = "Caixa eletrônico";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Vida Noturna";
+"nightlife" = "Vida noturna";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
 "children" = "Feriados em família";
@@ -146,6 +143,9 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Polícia";
 
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
+
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Reciclagem";
 
@@ -155,7 +155,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "RV Facilities";
 
-"share_bookmarks_email_body" = "Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Por favor os abra se você tiver o Organic Maps instalado. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android com o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!";
+"share_bookmarks_email_body" = "Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Se tiver instalado o Organic Maps, pode abri-los agora. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android via o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Carregando favoritos";
@@ -176,7 +176,7 @@
 "bookmark_share_email_subject" = "Veja o meu marcador no mapa do Organic Maps.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Veja a minha localização atual no mapa Organic Maps!";
+"my_position_share_email_subject" = "Veja no mapa a minha localização atual via Organic Maps!";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Compartilhar";
@@ -252,7 +252,7 @@
 
 "duration_1_day" = "1 dia";
 
-"recent_track_help_text" = "Permite você salvar um caminho percorrido durante um determinado período e o ver no papa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.";
+"recent_track_help_text" = "Permite salvar um caminho percorrido durante um determinado período de tempo e vê-lo no mapa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente apagada do mapa após um intervalo de tempo.";
 
 "placepage_distance" = "Distância";
 
@@ -260,6 +260,9 @@
 
 /* Text in menu */
 "website" = "Site";
+
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Notícias";
 
 /* Text in menu */
 "github" = "GitHub";
@@ -295,7 +298,7 @@
 "faq" = "Perguntas e respostas";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "How to support us?";
+"how_to_support_us" = "Como nos apoiar?";
 
 /* Button in the main Help dialog */
 "copyright" = "Direitos autorais";
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Calibração da bússola";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Atualizar tudo";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Baixado";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Perto de mim";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Mapas";
 
 "downloader_download_all_button" = "Baixar tudo";
@@ -362,7 +363,7 @@
 "routing_download_maps_along" = "Baixar todos os mapas ao longo do trajeto";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "É necessário baixar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.";
+"routing_requires_all_map" = "Para criar uma rota é necessário baixar e atualizar todos os mapas desde sua localização atual até o destino.";
 
 /* bookmark button text */
 "bookmark" = "favorito";
@@ -399,7 +400,7 @@
 "deep_purple" = "Lilás escuro";
 
 /* light blue color */
-"light_blue" = "Azul Claro";
+"light_blue" = "Azul claro";
 
 /* cyan color */
 "cyan" = "Ciano";
@@ -418,9 +419,6 @@
 
 /* blue gray color */
 "blue_gray" = "Azul escuro";
-
-/* Wi-Fi available */
-"WiFi_available" = "Sim";
 
 
 /********** Routing dialogs strings **********/
@@ -467,7 +465,7 @@
 
 "dialog_routing_select_closer_end" = "Selecione um ponto de chegada mais perto de uma estrada.";
 
-"dialog_routing_change_intermediate" = "Unable to locate the intermediate point.";
+"dialog_routing_change_intermediate" = "Não foi possível localizar o ponto intermédio.";
 
 "dialog_routing_intermediate_not_determined" = "Ajuste seu ponto intermédio.";
 
@@ -511,7 +509,7 @@
 
 "search_not_found_query" = "Por favor, tente outro termo de busca.";
 
-"search_history_title" = "Histórico de Busca";
+"search_history_title" = "Histórico de busca";
 
 "search_history_text" = "Visualizar as buscas recentes.";
 
@@ -531,7 +529,7 @@
 
 "editor_time_add" = "Adicionar horário";
 
-"editor_time_delete" = "Apagar Horário";
+"editor_time_delete" = "Apagar horário";
 
 /* Text for allday switch. */
 "editor_time_allday" = "O Dia Todo (24 horas)";
@@ -542,11 +540,11 @@
 
 "editor_time_add_closed" = "Inserir Horas Sem Funcionamento";
 
-"editor_time_title" = "Horário de Funcionamento";
+"editor_time_title" = "Horário de funcionamento";
 
-"editor_time_advanced" = "Modo Avançado";
+"editor_time_advanced" = "Modo avançado";
 
-"editor_time_simple" = "Modo Simples";
+"editor_time_simple" = "Modo simples";
 
 "editor_hours_closed" = "Horas Sem Funcionamento";
 
@@ -554,7 +552,7 @@
 
 "editor_add_select_location" = "Local";
 
-"editor_done_dialog_1" = "Você modificou o mapa-múndi. Não esconda isto! Diga aos seus amigos e editem-no juntos.";
+"editor_done_dialog_1" = "Você modificou o mapa-múndi. Não esconda isto! Diga aos seus amigos e edite junto com eles.";
 
 "share_with_friends" = "Compartilhar com amigos";
 
@@ -580,7 +578,7 @@
 
 "no_osm_account" = "Sem conta no OpenStreetMap?";
 
-"register_at_openstreetmap" = "Cadastrar-se";
+"register_at_openstreetmap" = "Abra uma conta no OSM";
 
 "password_8_chars_min" = "Senha (mínimo de 8 caracteres)";
 
@@ -621,7 +619,7 @@
 
 "cuisine" = "Culinária";
 
-"select_cuisine" = "Selecione a Culinária";
+"select_cuisine" = "Selecione a culinária";
 
 /* login text field */
 "email_or_username" = "Email ou nome de usuário";
@@ -630,7 +628,7 @@
 
 "please_note" = "Aviso";
 
-"downloader_delete_map_dialog" = "Todas as alterações ao mapa serão eliminadas juntamente com o mapa.";
+"downloader_delete_map_dialog" = "Todas as edições no mapa serão excluídas juntamente com o mapa.";
 
 "downloader_update_maps" = "Atualizar mapas";
 
@@ -662,7 +660,7 @@
 
 "editor_edit_place_category_title" = "Categoria";
 
-"whatsnew_editor_message_1" = "Adicione novos lugares ao mapa e edite os já existentes diretamente a partir do app.";
+"whatsnew_editor_message_1" = "Adicione novos lugares ao mapa e edite os já existentes diretamente no aplicativo.";
 
 "dialog_incorrect_feature_position" = "Mudar local";
 
@@ -696,7 +694,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Local desconhecido";
 
-"editor_other_info" = "Envie uma nota para os editores OSM";
+"editor_other_info" = "Envie uma observação para os editores do OSM";
 
 "editor_detailed_description_hint" = "Comentário detalhado";
 
@@ -743,6 +741,7 @@
 
 "mile" = "mi";
 
+/* A unit of measure */
 "foot" = "ft";
 
 "miles_per_hour" = "mph";
@@ -780,11 +779,11 @@
 "text_more_button" = "…mais";
 
 /* Phone number error message */
-"error_enter_correct_phone" = "Insira o número correto do telefone";
+"error_enter_correct_phone" = "Digite um número de telefone correto";
 
-"error_enter_correct_web" = "Preencha com um endereço válido na internet";
+"error_enter_correct_web" = "Digite um endereço de site válido";
 
-"error_enter_correct_email" = "Preencha com um endereço válido de email";
+"error_enter_correct_email" = "Digite um endereço de email válido";
 
 "refresh" = "Atualizar";
 
@@ -811,7 +810,7 @@
 "recent_track_background_dialog_message" = "O Organic Maps usa sua localização geográfica em segundo plano para registrar sua rota recente.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps é uma aplicação gratuita e de código aberto de mapas off-line. Sem anúncios. Sem rastreamento. Se você vir um erro no mapa, por favor, corrija em OpenStreetMap. O projeto é criado por entusiastas em nosso tempo livre, então precisamos de seu feedback e suporte.";
+"about_description" = "Organic Maps é um aplicativo gratuito e de código aberto de mapas offline. Sem anúncios. Sem rastreamento. Se você vir um erro no mapa, por favor, corrija em OpenStreetMap. O projeto é criado por entusiastas em seu tempo livre, então precisamos de seu feedback e suporte.";
 
 "general_settings" = "Definições gerais";
 
@@ -846,7 +845,7 @@
 "big_font" = "Aumentar tamanho da fonte no mapa";
 
 /* "traffic" as in road congestion */
-"traffic_update_app_message" = "Para mostrar os dados de tráfego, a aplicação deve ser atualizada.";
+"traffic_update_app_message" = "Para mostrar os dados de tráfego, o aplicativo deve ser atualizado.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Não existem dados de tráfego";
@@ -864,9 +863,9 @@
 
 "routing_add_start_point" = "Adicionar ponto de partida para planejar uma rota";
 
-"routing_add_finish_point" = "Adicionar final da viagem para planejar uma rota";
+"routing_add_finish_point" = "Adicionar ponto final da viagem para planejar uma rota";
 
-"planning_route_manage_route" = "Gerir rota";
+"planning_route_manage_route" = "Gerenciar rota";
 
 "button_plan" = "Planejar";
 
@@ -941,7 +940,7 @@
 
 "subway_data_unavailable" = "Mapa de metrô está indisponível";
 
-"title_error_downloading_bookmarks" = "Um erro ocorreu";
+"title_error_downloading_bookmarks" = "Ocorreu um erro";
 
 "popular_place" = "Popular";
 
@@ -955,7 +954,7 @@
 
 "bookmark_list_description_hint" = "Digite uma descrição (texto ou html)";
 
-"tags_loading_error_subtitle" = "Um erro ocorreu enquanto carregava as etiquetas, por favor, tente novamente";
+"tags_loading_error_subtitle" = "Ocorreu um erro enquanto carregava as etiquetas, por favor, tente novamente";
 
 "download_button" = "Baixar";
 
@@ -995,7 +994,7 @@
 
 "unable_to_calc_alert_title" = "Incapaz de calcular rota";
 
-"unable_to_calc_alert_subtitle" = "Infelizmente, não não conseguimos encontrar uma rota provavelmente por causa da opção escolhidas. Por favor, altere as configurações e tente novamente";
+"unable_to_calc_alert_subtitle" = "Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas. Por favor, altere as configurações e tente novamente";
 
 "define_to_avoid_btn" = "Definir as estradas a serem evitadas";
 
@@ -1025,9 +1024,17 @@
 
 "redirect_route_alert" = "Você deseja retraçar a rota?";
 
-"redirect_route_yes" = "Sim";
+/* A generic "Yes" button in dialogs */
+"yes" = "Sim";
 
-"redirect_route_no" = "Não";
+/* A generic "No" button in dialogs */
+"no" = "Não";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Sim";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Não";
 
 "trip_finished" = "Você chegou!";
 
@@ -1065,7 +1072,7 @@
 
 "speedcams_alert_title_carplay_1" = "Radares";
 
-"speedcams_alert_title_carplay_2" = "Alertas de vel.";
+"speedcams_alert_title_carplay_2" = "Alertas de velocidade";
 
 "download_map_carplay" = "Por favor, baixe mapas no app Organic Maps em seu dispositivo";
 
@@ -1106,7 +1113,7 @@
 
 "parks" = "Parques";
 
-"swim_places" = "Nado";
+"swim_places" = "Natação";
 
 "mountains" = "Montanhas";
 
@@ -1130,7 +1137,7 @@
 
 "religious_places" = "Lugares religiosos";
 
-"transit_not_found" = "A navegação por metrô nesta região ainda não está disponível";
+"transit_not_found" = "A navegação por metrô ainda não está disponível nesta região";
 
 "dialog_pedestrian_route_is_long_header" = "Rota por metrô não encontrada";
 
@@ -1181,13 +1188,13 @@
 "whats_new_auto_update_button_later" = "Atualizar manualmente mais tarde";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Apagar rota";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Nome da rota";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Mover";
 
 /* edit track screen title */
 "track_title" = "Percurso";
@@ -1442,11 +1449,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Máquina de venda de cigarros";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Máquina de venda de bebidas";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Máquina venda de tíquetes de estacionamento";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Máquinas automáticas de venda de passagens de transporte público";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1601,6 +1618,8 @@
 "type.cuisine.brazilian" = "Cozinha brasileira";
 
 "type.cuisine.breakfast" = "Café da manhã";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Hambúrguer";
 
@@ -1765,11 +1784,13 @@
 
 "type.highway.bridleway" = "Caminho para cavaleiros";
 
-"type.highway.bridleway.bridge" = "Caminho para cavaleiros";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Ponte";
 
 "type.highway.bridleway.permissive" = "Caminho para cavaleiros";
 
-"type.highway.bridleway.tunnel" = "Caminho para cavaleiros";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Túnel";
 
 "type.highway.bus_stop" = "Ponto de ônibus";
 
@@ -1777,11 +1798,13 @@
 
 "type.highway.cycleway" = "Ciclovia";
 
-"type.highway.cycleway.bridge" = "Ciclovia";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Ponte";
 
 "type.highway.cycleway.permissive" = "Ciclovia";
 
-"type.highway.cycleway.tunnel" = "Ciclovia";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Túnel";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1814,8 @@
 
 "type.highway.footway.area" = "Caminho pedonal";
 
-"type.highway.footway.bridge" = "Caminho pedonal";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Ponte";
 
 "type.highway.footway.demanding_alpine_hiking" = "Caminho pedonal";
 
@@ -1805,29 +1829,36 @@
 
 "type.highway.footway.permissive" = "Caminho pedonal";
 
-"type.highway.footway.tunnel" = "Caminho pedonal";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Túnel";
 
 "type.highway.ford" = "Rio raso";
 
 "type.highway.living_street" = "Zona de coexistência";
 
-"type.highway.living_street.bridge" = "Zona de coexistência";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Ponte";
 
-"type.highway.living_street.tunnel" = "Zona de coexistência";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Túnel";
 
 "type.highway.motorway" = "Rodovia";
 
-"type.highway.motorway.bridge" = "Rodovia";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Ponte";
 
-"type.highway.motorway.tunnel" = "Rodovia";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Túnel";
 
 "type.highway.motorway_junction" = "Saída de rodovia";
 
 "type.highway.motorway_link" = "Rodovia";
 
-"type.highway.motorway_link.bridge" = "Rodovia";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Ponte";
 
-"type.highway.motorway_link.tunnel" = "Rodovia";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Túnel";
 
 "type.highway.path" = "Caminho";
 
@@ -1835,7 +1866,8 @@
 
 "type.highway.path.bicycle" = "Caminho";
 
-"type.highway.path.bridge" = "Caminho";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Ponte";
 
 "type.highway.path.demanding_alpine_hiking" = "Caminho";
 
@@ -1851,27 +1883,34 @@
 
 "type.highway.path.permissive" = "Caminho";
 
-"type.highway.path.tunnel" = "Caminho";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Túnel";
 
 "type.highway.pedestrian" = "Rua pedonal";
 
 "type.highway.pedestrian.area" = "Rua pedonal";
 
-"type.highway.pedestrian.bridge" = "Rua pedonal";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Ponte";
 
-"type.highway.pedestrian.tunnel" = "Rua pedonal";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Túnel";
 
 "type.highway.primary" = "Estrada";
 
-"type.highway.primary.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Ponte";
 
-"type.highway.primary.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Túnel";
 
 "type.highway.primary_link" = "Estrada";
 
-"type.highway.primary_link.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Ponte";
 
-"type.highway.primary_link.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Túnel";
 
 "type.highway.raceway" = "Pista de corrida";
 
@@ -1879,41 +1918,51 @@
 
 "type.highway.residential.area" = "Rua residencial";
 
-"type.highway.residential.bridge" = "Rua residencial";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Ponte";
 
-"type.highway.residential.tunnel" = "Rua residencial";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Túnel";
 
 "type.highway.rest_area" = "Área de descanso";
 
 "type.highway.road" = "Estrada";
 
-"type.highway.road.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Ponte";
 
-"type.highway.road.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Túnel";
 
 "type.highway.secondary" = "Estrada";
 
-"type.highway.secondary.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Ponte";
 
-"type.highway.secondary.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Túnel";
 
 "type.highway.secondary_link" = "Estrada";
 
-"type.highway.secondary_link.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Ponte";
 
-"type.highway.secondary_link.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Túnel";
 
 "type.highway.service" = "Estrada de acesso ou serviço";
 
 "type.highway.service.area" = "Estrada de acesso ou serviço";
 
-"type.highway.service.bridge" = "Estrada de acesso ou serviço";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Ponte";
 
 "type.highway.service.driveway" = "Estrada de acesso ou serviço";
 
 "type.highway.service.parking_aisle" = "Estrada de estacionamento";
 
-"type.highway.service.tunnel" = "Estrada de acesso ou serviço";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Túnel";
 
 "type.highway.services" = "Área de serviços de estrada";
 
@@ -1921,27 +1970,34 @@
 
 "type.highway.steps" = "Escadas";
 
-"type.highway.steps.bridge" = "Escadas";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Ponte";
 
-"type.highway.steps.tunnel" = "Escadas";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Túnel";
 
 "type.highway.tertiary" = "Estrada";
 
-"type.highway.tertiary.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Ponte";
 
-"type.highway.tertiary.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Túnel";
 
 "type.highway.tertiary_link" = "Estrada";
 
-"type.highway.tertiary_link.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Ponte";
 
-"type.highway.tertiary_link.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Túnel";
 
 "type.highway.track" = "Estrada rústica";
 
 "type.highway.track.area" = "Estrada rústica";
 
-"type.highway.track.bridge" = "Estrada rústica";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Ponte";
 
 "type.highway.track.grade1" = "Estrada rústica";
 
@@ -1957,29 +2013,36 @@
 
 "type.highway.track.permissive" = "Estrada rústica";
 
-"type.highway.track.tunnel" = "Estrada rústica";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Túnel";
 
 "type.highway.traffic_signals" = "Semáforo";
 
 "type.highway.trunk" = "Via expressa";
 
-"type.highway.trunk.bridge" = "Via expressa";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Ponte";
 
-"type.highway.trunk.tunnel" = "Via expressa";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Túnel";
 
 "type.highway.trunk_link" = "Via expressa";
 
-"type.highway.trunk_link.bridge" = "Via expressa";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Ponte";
 
-"type.highway.trunk_link.tunnel" = "Via expressa";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Túnel";
 
 "type.highway.unclassified" = "Estrada sem classificação";
 
 "type.highway.unclassified.area" = "Estrada sem classificação";
 
-"type.highway.unclassified.bridge" = "Estrada sem classificação";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Ponte";
 
-"type.highway.unclassified.tunnel" = "Estrada sem classificação";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Túnel";
 
 "type.area_highway.cycleway" = "Ciclovia";
 
@@ -2110,6 +2173,8 @@
 
 "type.landuse.construction" = "Construção";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Fazenda";
 
 "type.landuse.farmland" = "Campo agrícola";
@@ -2236,6 +2301,8 @@
 
 "type.man_made.cutline" = "Aceiro";
 
+"type.man_made.survey_point" = "Survey Point";
+
 "type.man_made.flagpole" = "Flagpole";
 
 "type.man_made.lighthouse" = "Farol";
@@ -2312,7 +2379,7 @@
 
 "type.natural.water.pond" = "Lagoa";
 
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "Reservatório";
 
 "type.natural.water.basin" = "Reservatório";
 
@@ -2369,6 +2436,10 @@
 "type.office.ngo" = "Escritório de ONG";
 
 "type.office.telecommunication" = "Operadora de telecomunicações";
+
+"type.organic.only" = "Orgânico";
+
+"type.organic.yes" = "Orgânico";
 
 "type.place" = "Local";
 

@@ -14,31 +14,36 @@
 #include <algorithm>
 #include <sstream>
 
-using namespace std;
-
 namespace platform
 {
+using namespace std;
+
 LocalCountryFile::LocalCountryFile() : m_version(0) {}
 
-LocalCountryFile::LocalCountryFile(string const & directory, CountryFile const & countryFile,
-                                   int64_t version)
-  : m_directory(directory), m_countryFile(countryFile), m_version(version)
+LocalCountryFile::LocalCountryFile(string directory, CountryFile countryFile, int64_t version)
+: m_directory(std::move(directory)), m_countryFile(std::move(countryFile)), m_version(version)
 {
 }
 
 void LocalCountryFile::SyncWithDisk()
 {
+  // World files from resources have an empty directory. See todo in the header.
+  if (m_directory.empty())
+    return;
+
   m_files = {};
   uint64_t size = 0;
 
   // Now we are not working with several files at the same time and diffs have greater priority.
+  Platform & platform = GetPlatform();
   for (MapFileType type : {MapFileType::Diff, MapFileType::Map})
   {
-    ASSERT_LESS(base::Underlying(type), m_files.size(), ());
+    auto const ut = base::Underlying(type);
+    ASSERT_LESS(ut, m_files.size(), ());
 
-    if (GetPlatform().GetFileSizeByFullPath(GetPath(type), size))
+    if (platform.GetFileSizeByFullPath(GetPath(type), size))
     {
-      m_files[base::Underlying(type)] = size;
+      m_files[ut] = size;
       break;
     }
   }
@@ -48,16 +53,18 @@ void LocalCountryFile::DeleteFromDisk(MapFileType type) const
 {
   ASSERT_LESS(base::Underlying(type), m_files.size(), ());
 
-  if (!OnDisk(type))
-    return;
-
-  if (!base::DeleteFileX(GetPath(type)))
+  if (OnDisk(type) && !base::DeleteFileX(GetPath(type)))
     LOG(LERROR, (type, "from", *this, "wasn't deleted from disk."));
 }
 
 string LocalCountryFile::GetPath(MapFileType type) const
 {
-  return base::JoinPath(m_directory, GetFileName(m_countryFile.GetName(), type));
+  return base::JoinPath(m_directory, GetFileName(type));
+}
+
+std::string LocalCountryFile::GetFileName(MapFileType type) const
+{
+  return m_countryFile.GetFileName(type);
 }
 
 uint64_t LocalCountryFile::GetSize(MapFileType type) const
@@ -70,14 +77,14 @@ uint64_t LocalCountryFile::GetSize(MapFileType type) const
 bool LocalCountryFile::HasFiles() const
 {
   return std::any_of(m_files.cbegin(), m_files.cend(),
-                     [](auto value) { return value.has_value(); });
+                     [](auto const & value) { return value.has_value(); });
 }
 
 bool LocalCountryFile::OnDisk(MapFileType type) const
 {
-  ASSERT_LESS(base::Underlying(type), m_files.size(), ());
-
-  return m_files[base::Underlying(type)].has_value();
+  auto const ut = base::Underlying(type);
+  ASSERT_LESS(ut, m_files.size(), ());
+  return m_files[ut].has_value();
 }
 
 bool LocalCountryFile::operator<(LocalCountryFile const & rhs) const
@@ -107,10 +114,9 @@ bool LocalCountryFile::ValidateIntegrity() const
 }
 
 // static
-LocalCountryFile LocalCountryFile::MakeForTesting(string const & countryFileName, int64_t version)
+LocalCountryFile LocalCountryFile::MakeForTesting(string countryFileName, int64_t version)
 {
-  CountryFile const countryFile(countryFileName);
-  LocalCountryFile localFile(GetPlatform().WritableDir(), countryFile, version);
+  LocalCountryFile localFile(GetPlatform().WritableDir(), CountryFile(std::move(countryFileName)), version);
   localFile.SyncWithDisk();
   return localFile;
 }
@@ -122,27 +128,26 @@ LocalCountryFile LocalCountryFile::MakeTemporary(string const & fullPath)
   base::GetNameFromFullPath(name);
   base::GetNameWithoutExt(name);
 
-  return LocalCountryFile(base::GetDirectory(fullPath), CountryFile(name), 0 /* version */);
+  return LocalCountryFile(base::GetDirectory(fullPath), CountryFile(std::move(name)), 0 /* version */);
 }
 
 string DebugPrint(LocalCountryFile const & file)
 {
-  ostringstream filesStream;
-  filesStream << "[";
+  ostringstream os;
+  os << "LocalCountryFile [" << file.m_directory << ", "
+     << DebugPrint(file.m_countryFile) << ", " << file.m_version << ", [";
+
   bool fileAdded = false;
   for (auto const & mapFile : file.m_files)
   {
     if (mapFile)
     {
-      filesStream << (fileAdded ? ", " : "") << *mapFile;
+      os << (fileAdded ? ", " : "") << *mapFile;
       fileAdded = true;
     }
   }
-  filesStream << "]";
 
-  ostringstream os;
-  os << "LocalCountryFile [" << file.m_directory << ", " << DebugPrint(file.m_countryFile) << ", "
-     << file.m_version << ", " << filesStream.str() << "]";
+  os << "]]";
   return os.str();
 }
 }  // namespace platform

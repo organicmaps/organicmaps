@@ -2,6 +2,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <cstdint>
 #include <iosfwd>
@@ -248,7 +249,7 @@ void MergeRules(osmoh::TRuleSequences & dstRules, osmoh::TRuleSequences const & 
 {
   for (auto const & rule : srcRules)
   {
-    if (std::find(dstRules.begin(), dstRules.end(), rule) == dstRules.end())
+    if (!base::IsExist(dstRules, rule))
       dstRules.push_back(rule);
   }
 }

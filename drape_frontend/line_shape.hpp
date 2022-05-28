@@ -42,6 +42,11 @@ public:
             ref_ptr<dp::TextureManager> textures) const override;
 
 private:
+  glsl::vec2 ToShapeVertex2(m2::PointD const & vertex) const
+  {
+    return glsl::ToVec2(ConvertToLocal(vertex, m_params.m_tileCenter, kShapeCoordScalar));
+  }
+
   template <typename TBuilder>
   void Construct(TBuilder & builder) const;
 

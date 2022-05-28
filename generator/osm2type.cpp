@@ -28,10 +28,10 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 namespace ftype
 {
+using namespace std;
+
 namespace
 {
 template <typename ToDo>
@@ -464,7 +464,7 @@ string DetermineSurface(OsmElement * p)
 
   auto const Has = [](base::StringIL const & il, std::string const & v)
   {
-    return std::find(il.begin(), il.end(), v) != il.end();
+    return base::IsExist(il, v);
   };
 
   bool isPaved = false;
@@ -624,7 +624,7 @@ void PreprocessElement(OsmElement * p)
     bool first = true;
     while (iter)
     {
-      string normalized = *iter;
+      string normalized(*iter);
       strings::Trim(normalized, " ");
       collapse(' ', normalized);
       replace(normalized.begin(), normalized.end(), ' ', '_');
@@ -661,9 +661,9 @@ void PreprocessElement(OsmElement * p)
   {
     strings::MakeLowerCaseInplace(aerodromeTypes);
     bool first = true;
-    for (auto type : strings::Tokenize(aerodromeTypes, ",;"))
+    for (auto type : strings::Tokenize<std::string>(aerodromeTypes, ",;"))
     {
-      strings::Trim(type, " ");
+      strings::Trim(type);
 
       if (first)
         p->UpdateTag(kAerodromeTypeKey, [&type](auto & value) { value = type; });
@@ -935,11 +935,12 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
       {"layer", "*",
        [&params](string & /* k */, string & v) {
          // Get layer.
-         if (params.layer == 0)
+         if (params.layer == feature::LAYER_EMPTY)
          {
+           // atoi error value (0) should match empty layer constant.
+           static_assert(feature::LAYER_EMPTY == 0);
            params.layer = atoi(v.c_str());
-           int8_t const bound = 10;
-           params.layer = base::Clamp(params.layer, static_cast<int8_t>(-bound), bound);
+           params.layer = base::Clamp(params.layer, int8_t(feature::LAYER_LOW), int8_t(feature::LAYER_HIGH));
          }
        }},
   });

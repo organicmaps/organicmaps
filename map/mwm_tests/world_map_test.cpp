@@ -13,7 +13,7 @@ UNIT_TEST(World_Capitals)
 {
   classificator::Load();
   auto const capitalType = classif().GetTypeByPath({"place", "city", "capital", "2"});
-  std::set<std::string> testCapitals = { "Lisbon", "Warsaw", "Kyiv", "Roseau" };
+  std::set<std::string_view> testCapitals = { "Lisbon", "Warsaw", "Kyiv", "Roseau" };
 
   platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeForTesting(WORLD_FILE_NAME));
 
@@ -41,8 +41,8 @@ UNIT_TEST(World_Capitals)
     if (found)
       ++capitalsCount;
 
-    std::string name;
-    if (ft->GetName(StringUtf8Multilang::kEnglishCode, name) && testCapitals.count(name) > 0)
+    std::string_view const name = ft->GetName(StringUtf8Multilang::kEnglishCode);
+    if (testCapitals.count(name) > 0)
       TEST(found, (name));
   }
 

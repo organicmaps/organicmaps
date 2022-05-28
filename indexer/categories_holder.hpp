@@ -66,15 +66,15 @@ public:
   // Should match codes in the array below.
   static int8_t constexpr kEnglishCode = 1;
   static int8_t constexpr kUnsupportedLocaleCode = -1;
-  static int8_t constexpr kSimplifiedChineseCode = 37;
-  static int8_t constexpr kTraditionalChineseCode = 38;
+  static int8_t constexpr kSimplifiedChineseCode = 38;
+  static int8_t constexpr kTraditionalChineseCode = 39;
   // *NOTE* These constants should be updated when adding new
   // translation to categories.txt. When editing, keep in mind to check
   // CategoriesHolder::MapLocaleToInteger() and
   // CategoriesHolder::MapIntegerToLocale() as their implementations
   // strongly depend on the contents of the variable.
   // TODO: Refactor for more flexibility and to avoid breaking rules in two methods mentioned above.
-  static std::array<CategoriesHolder::Mapping, 38> constexpr kLocaleMapping = {{
+  static std::array<CategoriesHolder::Mapping, 39> constexpr kLocaleMapping = {{
       {"en", kEnglishCode},
       {"en-AU", 2},
       {"en-GB", 3},
@@ -88,29 +88,30 @@ public:
       {"el", 11},
       {"es", 12},
       {"es-MX", 13},
-      {"fa", 14},
-      {"fi", 15},
-      {"fr", 16},
-      {"he", 17},
-      {"hu", 18},
-      {"id", 19},
-      {"it", 20},
-      {"ja", 21},
-      {"ko", 22},
-      {"nb", 23},
-      {"nl", 24},
-      {"pl", 25},
-      {"pt", 26},
-      {"pt-BR", 27},
-      {"ro", 28},
-      {"ru", 29},
-      {"sk", 30},
-      {"sv", 31},
-      {"sw", 32},
-      {"th", 33},
-      {"tr", 34},
-      {"uk", 35},
-      {"vi", 36},
+      {"eu", 14},
+      {"fa", 15},
+      {"fi", 16},
+      {"fr", 17},
+      {"he", 18},
+      {"hu", 19},
+      {"id", 20},
+      {"it", 21},
+      {"ja", 22},
+      {"ko", 23},
+      {"nb", 24},
+      {"nl", 25},
+      {"pl", 26},
+      {"pt", 27},
+      {"pt-BR", 28},
+      {"ro", 29},
+      {"ru", 30},
+      {"sk", 31},
+      {"sv", 32},
+      {"sw", 33},
+      {"th", 34},
+      {"tr", 35},
+      {"uk", 36},
+      {"vi", 37},
       {"zh-Hans", kSimplifiedChineseCode},
       {"zh-Hant", kTraditionalChineseCode},
   }};
@@ -194,7 +195,7 @@ public:
 
   // Converts any language |locale| from UI to the corresponding
   // internal integer code.
-  static int8_t MapLocaleToInteger(std::string const & locale);
+  static int8_t MapLocaleToInteger(std::string_view const locale);
 
   // Returns corresponding string representation for an internal
   // integer |code|. Returns an empty string in case of invalid

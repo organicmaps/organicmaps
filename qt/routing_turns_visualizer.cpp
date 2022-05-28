@@ -38,6 +38,6 @@ std::string RoutingTurnsVisualizer::GetId(routing::turns::TurnItem const & turn)
 
   std::string const index = std::to_string(turn.m_index);
 
-  return index + " " + maneuver;
+  return index + " " + maneuver + (turn.m_exitNum != 0 ? ":" + std::to_string(turn.m_exitNum) : "");
 }
 }  // namespace qt

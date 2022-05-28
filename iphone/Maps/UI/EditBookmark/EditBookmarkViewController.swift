@@ -197,7 +197,7 @@ extension EditBookmarkViewController: MWMButtonCellDelegate {
   func cellDidPressButton(_ cell: UITableViewCell) {
     BookmarksManager.shared().deleteBookmark(bookmarkId)
     if let placePageData = placePageData {
-      FrameworkHelper.updatePlacePageData()
+      FrameworkHelper.updateAfterDeleteBookmark()
       placePageData.updateBookmarkStatus()
     }
     goBack()

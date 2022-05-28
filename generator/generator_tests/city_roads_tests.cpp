@@ -55,13 +55,10 @@ unique_ptr<CityRoads> LoadCityRoads(LocalCountryFile const & country)
   FrozenDataSource dataSource;
   auto const regResult = dataSource.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
-  auto const & mwmId = regResult.first;
 
-  MwmSet::MwmHandle handle(dataSource.GetMwmHandleById(mwmId));
-  if (!handle.IsAlive())
-    return make_unique<CityRoads>();
-
-  return routing::LoadCityRoads(dataSource, handle);
+  MwmSet::MwmHandle handle(dataSource.GetMwmHandleById(regResult.first));
+  TEST(handle.IsAlive(), ());
+  return routing::LoadCityRoads(handle);
 }
 
 /// \brief Builds mwm with city_roads section, read the section and compare original feature ids
@@ -84,7 +81,7 @@ void TestCityRoadsBuilding(vector<uint32_t> && cityRoadFeatureIds)
   // Adding city_roads section to mwm.
   string const mwmFullPath = base::JoinPath(writableDir, mwmRelativePath);
   vector<uint32_t> originalCityRoadFeatureIds = cityRoadFeatureIds;
-  SerializeCityRoads(mwmFullPath, move(cityRoadFeatureIds));
+  routing_builder::SerializeCityRoads(mwmFullPath, move(cityRoadFeatureIds));
 
   auto const cityRoads = LoadCityRoads(country);
   TEST(cityRoads, ());

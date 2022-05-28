@@ -101,11 +101,11 @@ bool LooksLikePostcode(StringSliceBase const & slice, bool isPrefix)
   return GetPostcodesMatcher().HasString(slice, isPrefix);
 }
 
-bool LooksLikePostcode(string const & s, bool isPrefix)
+bool LooksLikePostcode(string_view sv, bool isPrefix)
 {
   vector<UniString> tokens;
   bool const lastTokenIsPrefix =
-      TokenizeStringAndCheckIfLastTokenIsPrefix(s, tokens, search::Delimiters());
+      TokenizeStringAndCheckIfLastTokenIsPrefix(sv, tokens, search::Delimiters());
 
   return LooksLikePostcode(StringSlice(tokens), isPrefix && lastTokenIsPrefix);
 }

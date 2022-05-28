@@ -17,19 +17,17 @@
 	<string name="downloading">Ladataan…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometrit</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Kartat</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">Mt</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mailit</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Sijaintini</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Myöhemmin</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Haku</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Hae kartalta</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.</string>
@@ -43,9 +41,10 @@
 	<string name="close">Sulje</string>
 	<string name="unsupported_phone">Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.</string>
 	<string name="download">Lataa</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Irrota USB-kaapeli tai syötä muistikortti käyttääksesi Organic Maps -sovellusta</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta</string>
-	<string name="not_enough_memory">Ei tarpeeksi muistia sovelluksen avaamiseksi</string>
 	<string name="download_resources">Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %s dataa.</string>
 	<string name="download_resources_continue">Siirry karttaan</string>
 	<string name="downloading_country_can_proceed">Ladataan %s. Voit nyt jatkaa kartalle.</string>
@@ -79,6 +78,8 @@
 	<string name="maps_storage">Tallenna kartat kohteeseen</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Valitse karttojen latauskohde</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Kartat</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Siirrä karttoja?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -125,6 +126,8 @@
 	<string name="post">Posti</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Poliisi</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Kierrätys</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -209,6 +212,8 @@
 	<string name="search_show_on_map">Näytä kartalla</string>
 	<!-- Text in menu -->
 	<string name="website">Kotisivut</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Uutiset</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Palaute</string>
 	<!-- Text in menu -->
@@ -223,17 +228,16 @@
 	<string name="copyright">Tekijänoikeudet</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Ilmoita virheestä</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Päivitä kaikki</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Peruuta kaikki</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Ladatut</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Jonossa</string>
 	<string name="downloader_near_me_subtitle">Lähelläni</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Kartat</string>
 	<string name="downloader_download_all_button">Lataa kaikki</string>
 	<string name="downloader_downloading">Ladataan:</string>
@@ -249,6 +253,8 @@
 	<string name="downloader_delete_map">Poista kartta</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Päivitä kartta</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play Palvelut</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Käytä Google Play -palveluita sijaintisi selvittämiseksi</string>
 	<!-- Text for routing error dialog -->
@@ -294,8 +300,6 @@
 	<string name="gray">Harmaa</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Harmaan sininen</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Kyllä</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Muista seuraavat asiat seuratessasi reittiä:</string>
@@ -450,6 +454,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
+	<!-- A unit of measure -->
 	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">t</string>
@@ -550,6 +555,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d radat</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Paikannusasetukset</string>
 	<string name="crash_reports">Kaatumisraportti</string>
 	<string name="crash_reports_description">Me saatamme käyttää tietojasi parantaaksemme Organic Maps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.</string>
@@ -599,6 +605,14 @@
 	<string name="avoid_toll_roads_placepage">Vältä maksullisia teitä</string>
 	<string name="avoid_unpaved_roads_placepage">Vältä maanteitä</string>
 	<string name="avoid_ferry_crossing_placepage">Vältä lautan käyttöä</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Kyllä</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Ei</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Kyllä</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Ei</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Järjestä…</string>
@@ -652,7 +666,9 @@
 	<string name="elevation_profile_time">Aika:</string>
 	<string name="isolines_toast_zooms_1_10">Suurenna kartta nähdäksesi korkeuskäyrät</string>
 	<string name="download_map_title">Lataa maailmankartta</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Yhteysvirhe</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Irrota USB-kaapeli</string>
 	<string name="enable_screen_sleep">Salli näytön lepotila</string>
 	<!-- Description in preferences -->
@@ -886,34 +902,51 @@
 	<string name="type.healthcare.laboratory">Lääketieteellinen laboratorio</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunneli</string>
 	<string name="type.highway.bus_stop">Bussipysäkki</string>
 	<string name="type.highway.construction">Rakenteilla oleva tie</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunneli</string>
 	<string name="type.highway.footway">Polku</string>
 	<string name="type.highway.footway.alpine_hiking">Polku</string>
 	<string name="type.highway.footway.area">Polku</string>
-	<string name="type.highway.footway.bridge">Polku</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Silta</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Polku</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Polku</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Polku</string>
 	<string name="type.highway.footway.hiking">Polku</string>
 	<string name="type.highway.footway.mountain_hiking">Polku</string>
 	<string name="type.highway.footway.permissive">Polku</string>
-	<string name="type.highway.footway.tunnel">Polku</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Tunneli</string>
 	<string name="type.highway.ford">Kahluupaikka</string>
 	<string name="type.highway.living_street">Katu</string>
-	<string name="type.highway.living_street.bridge">Katu</string>
-	<string name="type.highway.living_street.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tunneli</string>
 	<string name="type.highway.motorway">Katu</string>
-	<string name="type.highway.motorway.bridge">Katu</string>
-	<string name="type.highway.motorway.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Tunneli</string>
 	<string name="type.highway.motorway_junction">Poistumistie</string>
 	<string name="type.highway.motorway_link">Katu</string>
-	<string name="type.highway.motorway_link.bridge">Katu</string>
-	<string name="type.highway.motorway_link.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunneli</string>
 	<string name="type.highway.path">Polku</string>
 	<string name="type.highway.path.alpine_hiking">Polku</string>
 	<string name="type.highway.path.bicycle">Polku</string>
-	<string name="type.highway.path.bridge">Polku</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Silta</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Polku</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Polku</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Polku</string>
@@ -921,51 +954,75 @@
 	<string name="type.highway.path.horse">Polku</string>
 	<string name="type.highway.path.mountain_hiking">Polku</string>
 	<string name="type.highway.path.permissive">Polku</string>
-	<string name="type.highway.path.tunnel">Polku</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunneli</string>
 	<string name="type.highway.pedestrian">Katu</string>
 	<string name="type.highway.pedestrian.area">Katu</string>
-	<string name="type.highway.pedestrian.bridge">Katu</string>
-	<string name="type.highway.pedestrian.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Tunneli</string>
 	<string name="type.highway.primary">Katu</string>
-	<string name="type.highway.primary.bridge">Katu</string>
-	<string name="type.highway.primary.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tunneli</string>
 	<string name="type.highway.primary_link">Katu</string>
-	<string name="type.highway.primary_link.bridge">Katu</string>
-	<string name="type.highway.primary_link.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunneli</string>
 	<string name="type.highway.raceway">Kilparata</string>
 	<string name="type.highway.residential">Katu</string>
 	<string name="type.highway.residential.area">Katu</string>
-	<string name="type.highway.residential.bridge">Katu</string>
-	<string name="type.highway.residential.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tunneli</string>
 	<string name="type.highway.rest_area">Levähdyspaikka</string>
 	<string name="type.highway.road">Katu</string>
-	<string name="type.highway.road.bridge">Katu</string>
-	<string name="type.highway.road.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunneli</string>
 	<string name="type.highway.secondary">Katu</string>
-	<string name="type.highway.secondary.bridge">Katu</string>
-	<string name="type.highway.secondary.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tunneli</string>
 	<string name="type.highway.secondary_link">Katu</string>
-	<string name="type.highway.secondary_link.bridge">Katu</string>
-	<string name="type.highway.secondary_link.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tunneli</string>
 	<string name="type.highway.service">Katu</string>
 	<string name="type.highway.service.area">Katu</string>
-	<string name="type.highway.service.bridge">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Silta</string>
 	<string name="type.highway.service.driveway">Katu</string>
 	<string name="type.highway.service.parking_aisle">Katu</string>
-	<string name="type.highway.service.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tunneli</string>
 	<string name="type.highway.speed_camera">Nopeusvalvontakamera</string>
 	<string name="type.highway.steps">Polku</string>
-	<string name="type.highway.steps.bridge">Polku</string>
-	<string name="type.highway.steps.tunnel">Polku</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunneli</string>
 	<string name="type.highway.tertiary">Katu</string>
-	<string name="type.highway.tertiary.bridge">Katu</string>
-	<string name="type.highway.tertiary.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tunneli</string>
 	<string name="type.highway.tertiary_link">Katu</string>
-	<string name="type.highway.tertiary_link.bridge">Katu</string>
-	<string name="type.highway.tertiary_link.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tunneli</string>
 	<string name="type.highway.track">Katu</string>
 	<string name="type.highway.track.area">Katu</string>
-	<string name="type.highway.track.bridge">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Silta</string>
 	<string name="type.highway.track.grade1">Katu</string>
 	<string name="type.highway.track.grade2">Katu</string>
 	<string name="type.highway.track.grade3">Katu</string>
@@ -973,18 +1030,25 @@
 	<string name="type.highway.track.grade5">Katu</string>
 	<string name="type.highway.track.no.access">Katu</string>
 	<string name="type.highway.track.permissive">Katu</string>
-	<string name="type.highway.track.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tunneli</string>
 	<string name="type.highway.traffic_signals">Liikennevalot</string>
 	<string name="type.highway.trunk">Katu</string>
-	<string name="type.highway.trunk.bridge">Katu</string>
-	<string name="type.highway.trunk.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tunneli</string>
 	<string name="type.highway.trunk_link">Katu</string>
-	<string name="type.highway.trunk_link.bridge">Katu</string>
-	<string name="type.highway.trunk_link.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tunneli</string>
 	<string name="type.highway.unclassified">Katu</string>
 	<string name="type.highway.unclassified.area">Katu</string>
-	<string name="type.highway.unclassified.bridge">Katu</string>
-	<string name="type.highway.unclassified.tunnel">Katu</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Silta</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tunneli</string>
 	<string name="type.area_highway.cycleway">Pyörätie</string>
 	<string name="type.area_highway.footway">Kävelytie</string>
 	<string name="type.area_highway.living_street">Katu</string>

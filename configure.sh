@@ -129,7 +129,16 @@ if [ ! -d "$BASE_PATH/3party/boost/tools" ]; then
   echo "Try 'git submodule update --init --recursive'"
   exit 1
 fi
+
 cd "$BASE_PATH/3party/boost/"
-./bootstrap.sh
-./b2 headers
+if [[ "$OSTYPE" == msys ]]; then
+  echo "For Windows please run:"
+  echo "cd 3party\\boost"
+  echo "bootstrap.bat"
+  echo "b2 headers"
+  echo "cd ..\\.."
+else
+  ./bootstrap.sh
+  ./b2 headers
+fi
 cd "$BASE_PATH"

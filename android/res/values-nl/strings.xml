@@ -17,15 +17,13 @@
 	<string name="downloading">Downloaden…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometers</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Kaarten</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mijlen</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Mijn locatie</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Zoeken</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Op de kaart zoeken</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">U heeft momenteel alle locatieservices voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen</string>
@@ -38,9 +36,10 @@
 	<string name="connection_settings">Verbindingsinstellingen</string>
 	<string name="close">Sluiten</string>
 	<string name="unsupported_phone">Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Verwijder de USB kabel of plaats een geheugenkaart om Organic Maps te gebruiken</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Maak eerst ruimte vrij op de SD-kaart/USB-opslag om de app te gebruiken</string>
-	<string name="not_enough_memory">Niet genoeg geheugen om de app te starten</string>
 	<string name="download_resources">Voordat u start, laten we de algemene wereldkaart naar uw apparaat downloaden.\nDeze neemt %s in beslag.</string>
 	<string name="download_resources_continue">Ga naar de kaart</string>
 	<string name="downloading_country_can_proceed">%s aan het downloaden. U kunt nu\ndoorgaan naar de kaart.</string>
@@ -74,6 +73,8 @@
 	<string name="maps_storage">Kaarten opslaan in</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Selecteer de plaats waar kaarten naar gedownload zouden moeten worden</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Kaarten</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Kaarten verplaatsen?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -120,6 +121,8 @@
 	<string name="post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Politie</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Recycling</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -205,6 +208,8 @@
 	<string name="search_show_on_map">Op kaart bekijken</string>
 	<!-- Text in menu -->
 	<string name="website">Website</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Nieuws</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
@@ -219,17 +224,16 @@
 	<string name="copyright">Auteursrechten</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Meld een fout</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Update alles</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Alles annuleren</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Gedownload</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">In de wachtrij</string>
 	<string name="downloader_near_me_subtitle">Bij mij in de buurt</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Kaarten</string>
 	<string name="downloader_download_all_button">Alles downloaden</string>
 	<string name="downloader_downloading">Aan het downloaden:</string>
@@ -245,6 +249,8 @@
 	<string name="downloader_delete_map">Kaart verwijderen</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Kaart bijwerken</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play-services</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Gebruik de diensten van Google Play om uw huidige locatie te bepalen</string>
 	<!-- Text for routing error dialog -->
@@ -290,8 +296,6 @@
 	<string name="gray">Grijs</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Grijsblauw</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Ja</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Belangrijk bij het volgen van een route:</string>
@@ -446,6 +450,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mijl</string>
+	<!-- A unit of measure -->
 	<string name="foot">voet</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">u</string>
@@ -514,11 +519,13 @@
 	<string name="setting_emulate_bad_storage">Slechte opslag emuleren</string>
 	<string name="core_entrance">Ingang</string>
 	<string name="error_enter_correct_name">Voer een juiste naam in</string>
-	<string name="bookmark_lists">lijsten</string>
+	<string name="bookmark_lists">Lijsten</string>
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Alles verbergen</string>
 	<string name="bookmark_lists_show_all">Alles weergeven</string>
 	<string name="bookmarks_create_new_group">Nieuwe lijst maken</string>
+	<!-- Bookmark categories screen -->
+	<string name="bookmarks_import">Bladwijzers importeren</string>
 	<string name="bookmarks_error_message_share_general">Delen is onmogelijk wegens een toepassingsfout</string>
 	<string name="bookmarks_error_title_share_empty">Deelfout</string>
 	<string name="bookmarks_error_message_share_empty">Een lege lijst kan niet gedeeld worden</string>
@@ -544,6 +551,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d routes</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Tracking-instellingen</string>
 	<string name="crash_reports">Crash rapport</string>
 	<string name="crash_reports_description">Wij kunnen uw gegevens gebruiken om Organic Maps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.</string>
@@ -551,7 +559,7 @@
 	<string name="terms_of_use">Gebruiksvoorwaarden</string>
 	<string name="button_layer_traffic">Verkeer</string>
 	<string name="button_layer_subway">Metro</string>
-	<string name="layers_title">Map layers</string>
+	<string name="layers_title">Kaartweergave</string>
 	<string name="subway_data_unavailable">Metrokaart is niet beschikbaar</string>
 	<string name="bookmarks_empty_list_title">Deze lijst is leeg</string>
 	<string name="bookmarks_empty_list_message">Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram</string>
@@ -577,12 +585,12 @@
 	<string name="power_managment_setting_manual_max">Maximale energiebesparing</string>
 	<string name="enable_logging_warning_message">Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.</string>
 	<string name="access_rules_author_only">Wordt online bewerkt</string>
-	<string name="driving_options_title">Omweginstellingen</string>
+	<string name="driving_options_title">Route instellingen</string>
 	<string name="driving_options_subheader">Vermijden op elke route</string>
 	<string name="avoid_tolls">Tolwegen</string>
-	<string name="avoid_unpaved">Aardewegen</string>
-	<string name="avoid_ferry">Ferries</string>
-	<string name="avoid_motorways">Hoofdverkeerswegen</string>
+	<string name="avoid_unpaved">Onverharde wegen</string>
+	<string name="avoid_ferry">Veerdiensten</string>
+	<string name="avoid_motorways">Autosnelwegen</string>
 	<string name="unable_to_calc_alert_title">Kan route niet opbouwen</string>
 	<string name="unable_to_calc_alert_subtitle">Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw</string>
 	<string name="define_to_avoid_btn">Omwegen configureren</string>
@@ -593,6 +601,14 @@
 	<string name="avoid_toll_roads_placepage">Tolwegen vermijden</string>
 	<string name="avoid_unpaved_roads_placepage">Aardewegen vermijden</string>
 	<string name="avoid_ferry_crossing_placepage">Ferries vermijden</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Ja</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Nee</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Ja</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Nee</string>
 	<string name="ok">Goed</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sorteer…</string>
@@ -648,6 +664,10 @@
 	<string name="enable_screen_sleep">Laat het scherm slapen</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Indien ingeschakeld, mag het scherm slapen na een periode van inactiviteit.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Toon op vergrendelscherm</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Indien ingeschakeld, hoeft het scherm niet te worden ontgrendeld wanneer de app actief is.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>
@@ -869,34 +889,51 @@
 	<string name="type.healthcare.laboratory">Medisch laboratorium</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Bushalte</string>
 	<string name="type.highway.construction">Baan in aanbouw</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunnel</string>
 	<string name="type.highway.footway">Pad</string>
 	<string name="type.highway.footway.alpine_hiking">Pad</string>
 	<string name="type.highway.footway.area">Pad</string>
-	<string name="type.highway.footway.bridge">Pad</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Brug</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Pad</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Pad</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Pad</string>
 	<string name="type.highway.footway.hiking">Pad</string>
 	<string name="type.highway.footway.mountain_hiking">Pad</string>
 	<string name="type.highway.footway.permissive">Pad</string>
-	<string name="type.highway.footway.tunnel">Pad</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Voorde</string>
 	<string name="type.highway.living_street">Straat</string>
-	<string name="type.highway.living_street.bridge">Straat</string>
-	<string name="type.highway.living_street.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tunnel</string>
 	<string name="type.highway.motorway">Straat</string>
-	<string name="type.highway.motorway.bridge">Straat</string>
-	<string name="type.highway.motorway.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Tunnel</string>
 	<string name="type.highway.motorway_junction">Afrit</string>
 	<string name="type.highway.motorway_link">Straat</string>
-	<string name="type.highway.motorway_link.bridge">Straat</string>
-	<string name="type.highway.motorway_link.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Pad</string>
 	<string name="type.highway.path.alpine_hiking">Pad</string>
 	<string name="type.highway.path.bicycle">Pad</string>
-	<string name="type.highway.path.bridge">Pad</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Brug</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Pad</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Pad</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Pad</string>
@@ -904,51 +941,75 @@
 	<string name="type.highway.path.horse">Pad</string>
 	<string name="type.highway.path.mountain_hiking">Pad</string>
 	<string name="type.highway.path.permissive">Pad</string>
-	<string name="type.highway.path.tunnel">Pad</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Straat</string>
 	<string name="type.highway.pedestrian.area">Straat</string>
-	<string name="type.highway.pedestrian.bridge">Straat</string>
-	<string name="type.highway.pedestrian.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Tunnel</string>
 	<string name="type.highway.primary">Straat</string>
-	<string name="type.highway.primary.bridge">Straat</string>
-	<string name="type.highway.primary.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tunnel</string>
 	<string name="type.highway.primary_link">Straat</string>
-	<string name="type.highway.primary_link.bridge">Straat</string>
-	<string name="type.highway.primary_link.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunnel</string>
 	<string name="type.highway.raceway">Racebaan</string>
 	<string name="type.highway.residential">Straat</string>
 	<string name="type.highway.residential.area">Straat</string>
-	<string name="type.highway.residential.bridge">Straat</string>
-	<string name="type.highway.residential.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tunnel</string>
 	<string name="type.highway.rest_area">Parkeerplaats</string>
 	<string name="type.highway.road">Straat</string>
-	<string name="type.highway.road.bridge">Straat</string>
-	<string name="type.highway.road.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Straat</string>
-	<string name="type.highway.secondary.bridge">Straat</string>
-	<string name="type.highway.secondary.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tunnel</string>
 	<string name="type.highway.secondary_link">Straat</string>
-	<string name="type.highway.secondary_link.bridge">Straat</string>
-	<string name="type.highway.secondary_link.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tunnel</string>
 	<string name="type.highway.service">Straat</string>
 	<string name="type.highway.service.area">Straat</string>
-	<string name="type.highway.service.bridge">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Brug</string>
 	<string name="type.highway.service.driveway">Straat</string>
 	<string name="type.highway.service.parking_aisle">Straat</string>
-	<string name="type.highway.service.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tunnel</string>
 	<string name="type.highway.speed_camera">Flitspaal</string>
 	<string name="type.highway.steps">Pad</string>
-	<string name="type.highway.steps.bridge">Pad</string>
-	<string name="type.highway.steps.tunnel">Pad</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary">Straat</string>
-	<string name="type.highway.tertiary.bridge">Straat</string>
-	<string name="type.highway.tertiary.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary_link">Straat</string>
-	<string name="type.highway.tertiary_link.bridge">Straat</string>
-	<string name="type.highway.tertiary_link.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tunnel</string>
 	<string name="type.highway.track">Straat</string>
 	<string name="type.highway.track.area">Straat</string>
-	<string name="type.highway.track.bridge">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Brug</string>
 	<string name="type.highway.track.grade1">Straat</string>
 	<string name="type.highway.track.grade2">Straat</string>
 	<string name="type.highway.track.grade3">Straat</string>
@@ -956,18 +1017,25 @@
 	<string name="type.highway.track.grade5">Straat</string>
 	<string name="type.highway.track.no.access">Straat</string>
 	<string name="type.highway.track.permissive">Straat</string>
-	<string name="type.highway.track.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Verkeerslichten</string>
 	<string name="type.highway.trunk">Straat</string>
-	<string name="type.highway.trunk.bridge">Straat</string>
-	<string name="type.highway.trunk.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tunnel</string>
 	<string name="type.highway.trunk_link">Straat</string>
-	<string name="type.highway.trunk_link.bridge">Straat</string>
-	<string name="type.highway.trunk_link.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tunnel</string>
 	<string name="type.highway.unclassified">Straat</string>
 	<string name="type.highway.unclassified.area">Straat</string>
-	<string name="type.highway.unclassified.bridge">Straat</string>
-	<string name="type.highway.unclassified.tunnel">Straat</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Brug</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tunnel</string>
 	<string name="type.area_highway.footway">Pad</string>
 	<string name="type.area_highway.living_street">Straat</string>
 	<string name="type.area_highway.motorway">Straat</string>
@@ -1084,6 +1152,8 @@
 	<string name="type.office.lawyer">Advocatenkantoor</string>
 	<string name="type.office.ngo">NGO-kantoor</string>
 	<string name="type.office.telecommunication">Mobiele provider</string>
+	<string name="type.organic.only">Biologisch</string>
+	<string name="type.organic.yes">Biologisch</string>
 	<string name="type.place.city">Stad</string>
 	<string name="type.place.city.capital">Hoofdstad</string>
 	<string name="type.place.city.capital.10">Stad</string>

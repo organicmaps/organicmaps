@@ -17,17 +17,15 @@
 	<string name="downloading">Laddar ner…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometer</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Kartor</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Min position</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Senare</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Sök</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Sök karta</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Du har inaktiverat alla platstjänster för denna enhet eller program. Vänligen aktivera dem i Inställningar.</string>
@@ -41,9 +39,10 @@
 	<string name="close">Stäng</string>
 	<string name="unsupported_phone">Hårdvaruaccelererad OpenGL krävs. Din enhet stöds tyvärr inte.</string>
 	<string name="download">Ladda ner</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda denna app.</string>
-	<string name="not_enough_memory">Inte tillräckligt med utrymme för att starta appen</string>
 	<string name="download_resources">Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %s data.</string>
 	<string name="download_resources_continue">Gå till karta</string>
 	<string name="downloading_country_can_proceed">Laddar ner %s. Du kan nu\n fortsätta till kartan.</string>
@@ -77,6 +76,8 @@
 	<string name="maps_storage">Spara kartor i</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Välj en plats dit kartor ska laddas ner</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Kartor</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Flytta kartor?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -203,6 +204,8 @@
 	<string name="search_show_on_map">Visa på kartan</string>
 	<!-- Text in menu -->
 	<string name="website">Webbplats</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Nyheter</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
@@ -221,11 +224,12 @@
 	<string name="downloader_update_all_button">Uppdatera alla</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Avbryt alla</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Nedladdade</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Köade</string>
 	<string name="downloader_near_me_subtitle">Nära mig</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Kartor</string>
 	<string name="downloader_download_all_button">Ladda ned alla</string>
 	<string name="downloader_downloading">Ladda ner:</string>
@@ -241,6 +245,8 @@
 	<string name="downloader_delete_map">Radera karta</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Uppdatera karta</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play-tjänster</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Använd Google Play Services för att bestämma din aktuella position</string>
 	<!-- Text for routing error dialog -->
@@ -286,8 +292,6 @@
 	<string name="gray">Grå</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Ljusblå grå</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Ja</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">När du följer vägen, kom ihåg att:</string>
@@ -357,7 +361,7 @@
 	<string name="editor_example_values">Exempelvärden</string>
 	<string name="editor_correct_mistake">Korrigera fel</string>
 	<string name="editor_add_select_location">Plats</string>
-	<string name="editor_report_problem_desription_1">Beskriv problemet i detalj så att OpenStreeMaps community kan lösa felet.</string>
+	<string name="editor_report_problem_desription_1">Beskriv problemet i detalj så att OpenStreetMaps community kan lösa felet.</string>
 	<string name="editor_report_problem_desription_2">Eller gör det själv på https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Skicka</string>
 	<string name="editor_report_problem_title">Problem</string>
@@ -442,6 +446,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mile</string>
+	<!-- A unit of measure -->
 	<string name="foot">fot</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
@@ -540,6 +545,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d spår</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Spårningsinställningar</string>
 	<string name="crash_reports">Olycksrapport</string>
 	<string name="crash_reports_description">Vi kan komma att använda din data för att förbättra Organic Maps upplevelsen. Ändringarna kommer träda i kraft när du startar om appen.</string>
@@ -589,6 +595,14 @@
 	<string name="avoid_toll_roads_placepage">Undvik betalvägar</string>
 	<string name="avoid_unpaved_roads_placepage">Undvik kärrvägar</string>
 	<string name="avoid_ferry_crossing_placepage">Undvik färjetrafik</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Ja</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Nej</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Ja</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Nej</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortera…</string>
@@ -870,34 +884,51 @@
 	<string name="type.healthcare.laboratory">Medicinskt laboratorium</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Busshållplats</string>
 	<string name="type.highway.construction">Väg under uppförande</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunnel</string>
 	<string name="type.highway.footway">Gångväg</string>
 	<string name="type.highway.footway.alpine_hiking">Gångväg</string>
 	<string name="type.highway.footway.area">Gångväg</string>
-	<string name="type.highway.footway.bridge">Gångväg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Bro</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Gångväg</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Gångväg</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Gångväg</string>
 	<string name="type.highway.footway.hiking">Gångväg</string>
 	<string name="type.highway.footway.mountain_hiking">Gångväg</string>
 	<string name="type.highway.footway.permissive">Gångväg</string>
-	<string name="type.highway.footway.tunnel">Gångväg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Vadställe</string>
 	<string name="type.highway.living_street">Gata</string>
-	<string name="type.highway.living_street.bridge">Gata</string>
-	<string name="type.highway.living_street.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tunnel</string>
 	<string name="type.highway.motorway">Gata</string>
-	<string name="type.highway.motorway.bridge">Gata</string>
-	<string name="type.highway.motorway.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Tunnel</string>
 	<string name="type.highway.motorway_junction">Avfart</string>
 	<string name="type.highway.motorway_link">Gata</string>
-	<string name="type.highway.motorway_link.bridge">Gata</string>
-	<string name="type.highway.motorway_link.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Gångväg</string>
 	<string name="type.highway.path.alpine_hiking">Gångväg</string>
 	<string name="type.highway.path.bicycle">Gångväg</string>
-	<string name="type.highway.path.bridge">Gångväg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Bro</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Gångväg</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Gångväg</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Gångväg</string>
@@ -905,51 +936,75 @@
 	<string name="type.highway.path.horse">Gångväg</string>
 	<string name="type.highway.path.mountain_hiking">Gångväg</string>
 	<string name="type.highway.path.permissive">Gångväg</string>
-	<string name="type.highway.path.tunnel">Gångväg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Gata</string>
 	<string name="type.highway.pedestrian.area">Gata</string>
-	<string name="type.highway.pedestrian.bridge">Gata</string>
-	<string name="type.highway.pedestrian.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Tunnel</string>
 	<string name="type.highway.primary">Gata</string>
-	<string name="type.highway.primary.bridge">Gata</string>
-	<string name="type.highway.primary.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tunnel</string>
 	<string name="type.highway.primary_link">Gata</string>
-	<string name="type.highway.primary_link.bridge">Gata</string>
-	<string name="type.highway.primary_link.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunnel</string>
 	<string name="type.highway.raceway">Racerbana</string>
 	<string name="type.highway.residential">Gata</string>
 	<string name="type.highway.residential.area">Gata</string>
-	<string name="type.highway.residential.bridge">Gata</string>
-	<string name="type.highway.residential.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tunnel</string>
 	<string name="type.highway.rest_area">Viloplats</string>
 	<string name="type.highway.road">Gata</string>
-	<string name="type.highway.road.bridge">Gata</string>
-	<string name="type.highway.road.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Gata</string>
-	<string name="type.highway.secondary.bridge">Gata</string>
-	<string name="type.highway.secondary.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tunnel</string>
 	<string name="type.highway.secondary_link">Gata</string>
-	<string name="type.highway.secondary_link.bridge">Gata</string>
-	<string name="type.highway.secondary_link.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tunnel</string>
 	<string name="type.highway.service">Gata</string>
 	<string name="type.highway.service.area">Gata</string>
-	<string name="type.highway.service.bridge">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Bro</string>
 	<string name="type.highway.service.driveway">Gata</string>
 	<string name="type.highway.service.parking_aisle">Gata</string>
-	<string name="type.highway.service.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tunnel</string>
 	<string name="type.highway.speed_camera">Hastighetskamera</string>
 	<string name="type.highway.steps">Gångväg</string>
-	<string name="type.highway.steps.bridge">Gångväg</string>
-	<string name="type.highway.steps.tunnel">Gångväg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary">Gata</string>
-	<string name="type.highway.tertiary.bridge">Gata</string>
-	<string name="type.highway.tertiary.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary_link">Gata</string>
-	<string name="type.highway.tertiary_link.bridge">Gata</string>
-	<string name="type.highway.tertiary_link.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tunnel</string>
 	<string name="type.highway.track">Gata</string>
 	<string name="type.highway.track.area">Gata</string>
-	<string name="type.highway.track.bridge">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Bro</string>
 	<string name="type.highway.track.grade1">Gata</string>
 	<string name="type.highway.track.grade2">Gata</string>
 	<string name="type.highway.track.grade3">Gata</string>
@@ -957,18 +1012,25 @@
 	<string name="type.highway.track.grade5">Gata</string>
 	<string name="type.highway.track.no.access">Gata</string>
 	<string name="type.highway.track.permissive">Gata</string>
-	<string name="type.highway.track.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Trafikljus</string>
 	<string name="type.highway.trunk">Gata</string>
-	<string name="type.highway.trunk.bridge">Gata</string>
-	<string name="type.highway.trunk.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tunnel</string>
 	<string name="type.highway.trunk_link">Gata</string>
-	<string name="type.highway.trunk_link.bridge">Gata</string>
-	<string name="type.highway.trunk_link.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tunnel</string>
 	<string name="type.highway.unclassified">Gata</string>
 	<string name="type.highway.unclassified.area">Gata</string>
-	<string name="type.highway.unclassified.bridge">Gata</string>
-	<string name="type.highway.unclassified.tunnel">Gata</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Bro</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tunnel</string>
 	<string name="type.area_highway.footway">Gångväg</string>
 	<string name="type.area_highway.living_street">Gata</string>
 	<string name="type.area_highway.motorway">Gata</string>

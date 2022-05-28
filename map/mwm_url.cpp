@@ -82,7 +82,7 @@ std::array<std::string, 4> const kAvailableSchemes = {{"mapswithme", "mwm", "map
 
 ParsedMapApi::UrlType GetUrlType(url::Url const & url)
 {
-  if (std::find(kAvailableSchemes.begin(), kAvailableSchemes.end(), url.GetScheme()) == kAvailableSchemes.end())
+  if (!base::IsExist(kAvailableSchemes, url.GetScheme()))
     return ParsedMapApi::UrlType::Incorrect;
 
   auto const & type = url.GetHost();

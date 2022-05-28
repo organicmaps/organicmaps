@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "평 남기기";
 
-/* View and button titles for accessibility */
-"maps" = "지도";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "마일";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "나의 위치";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "치안대";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi 인터넷";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "재활용";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "웹사이트";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "소식";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "나침반 보정";
 
-/* Search category */
-"wifi" = "WiFi 인터넷";
-
 /* Update all button text */
 "downloader_update_all_button" = "모두 업데이트";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "다운로드";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "내 근처";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "지도";
 
 "downloader_download_all_button" = "모두 다운로드";
@@ -418,9 +419,6 @@
 
 /* blue gray color */
 "blue_gray" = "청회색";
-
-/* Wi-Fi available */
-"WiFi_available" = "네";
 
 
 /********** Routing dialogs strings **********/
@@ -743,6 +741,7 @@
 
 "mile" = "mi";
 
+/* A unit of measure */
 "foot" = "풋";
 
 "miles_per_hour" = "mph";
@@ -1025,9 +1024,17 @@
 
 "redirect_route_alert" = "루트를 재구축하길 원하시나요?";
 
-"redirect_route_yes" = "네";
+/* A generic "Yes" button in dialogs */
+"yes" = "네";
 
-"redirect_route_no" = "아니오";
+/* A generic "No" button in dialogs */
+"no" = "아니오";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "네";
+
+/* E.g. "WiFi:No" */
+"no_available" = "아니오";
 
 "trip_finished" = "도착했습니다!";
 
@@ -1442,11 +1449,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "담배자판기";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "음료자동판매기";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "주차티켓판매기";
 
 "type.amenity.vending_machine.public_transport_tickets" = "대중교통표 자동판매기";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1601,6 +1618,8 @@
 "type.cuisine.brazilian" = "브라질식 음식";
 
 "type.cuisine.breakfast" = "아침 식사";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "햄버거";
 
@@ -1765,11 +1784,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "다리";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "터널";
 
 "type.highway.bus_stop" = "버스 정류장";
 
@@ -1777,11 +1798,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "다리";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "터널";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1814,8 @@
 
 "type.highway.footway.area" = "길";
 
-"type.highway.footway.bridge" = "길";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "다리";
 
 "type.highway.footway.demanding_alpine_hiking" = "길";
 
@@ -1805,29 +1829,36 @@
 
 "type.highway.footway.permissive" = "길";
 
-"type.highway.footway.tunnel" = "길";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "터널";
 
 "type.highway.ford" = "여울";
 
 "type.highway.living_street" = "거리";
 
-"type.highway.living_street.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "다리";
 
-"type.highway.living_street.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "터널";
 
 "type.highway.motorway" = "거리";
 
-"type.highway.motorway.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "다리";
 
-"type.highway.motorway.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "터널";
 
 "type.highway.motorway_junction" = "Road Exit";
 
 "type.highway.motorway_link" = "거리";
 
-"type.highway.motorway_link.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "다리";
 
-"type.highway.motorway_link.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "터널";
 
 "type.highway.path" = "길";
 
@@ -1835,7 +1866,8 @@
 
 "type.highway.path.bicycle" = "길";
 
-"type.highway.path.bridge" = "길";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "다리";
 
 "type.highway.path.demanding_alpine_hiking" = "길";
 
@@ -1851,27 +1883,34 @@
 
 "type.highway.path.permissive" = "길";
 
-"type.highway.path.tunnel" = "길";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "터널";
 
 "type.highway.pedestrian" = "거리";
 
 "type.highway.pedestrian.area" = "거리";
 
-"type.highway.pedestrian.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "다리";
 
-"type.highway.pedestrian.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "터널";
 
 "type.highway.primary" = "거리";
 
-"type.highway.primary.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "다리";
 
-"type.highway.primary.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "터널";
 
 "type.highway.primary_link" = "거리";
 
-"type.highway.primary_link.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "다리";
 
-"type.highway.primary_link.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "터널";
 
 "type.highway.raceway" = "경마장";
 
@@ -1879,41 +1918,51 @@
 
 "type.highway.residential.area" = "거리";
 
-"type.highway.residential.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "다리";
 
-"type.highway.residential.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "터널";
 
 "type.highway.rest_area" = "휴게소";
 
 "type.highway.road" = "거리";
 
-"type.highway.road.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "다리";
 
-"type.highway.road.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "터널";
 
 "type.highway.secondary" = "거리";
 
-"type.highway.secondary.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "다리";
 
-"type.highway.secondary.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "터널";
 
 "type.highway.secondary_link" = "거리";
 
-"type.highway.secondary_link.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "다리";
 
-"type.highway.secondary_link.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "터널";
 
 "type.highway.service" = "거리";
 
 "type.highway.service.area" = "거리";
 
-"type.highway.service.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "다리";
 
 "type.highway.service.driveway" = "거리";
 
 "type.highway.service.parking_aisle" = "거리";
 
-"type.highway.service.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "터널";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1970,34 @@
 
 "type.highway.steps" = "길";
 
-"type.highway.steps.bridge" = "길";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "다리";
 
-"type.highway.steps.tunnel" = "길";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "터널";
 
 "type.highway.tertiary" = "거리";
 
-"type.highway.tertiary.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "다리";
 
-"type.highway.tertiary.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "터널";
 
 "type.highway.tertiary_link" = "거리";
 
-"type.highway.tertiary_link.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "다리";
 
-"type.highway.tertiary_link.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "터널";
 
 "type.highway.track" = "거리";
 
 "type.highway.track.area" = "거리";
 
-"type.highway.track.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "다리";
 
 "type.highway.track.grade1" = "거리";
 
@@ -1957,29 +2013,36 @@
 
 "type.highway.track.permissive" = "거리";
 
-"type.highway.track.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "터널";
 
 "type.highway.traffic_signals" = "신호등";
 
 "type.highway.trunk" = "거리";
 
-"type.highway.trunk.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "다리";
 
-"type.highway.trunk.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "터널";
 
 "type.highway.trunk_link" = "거리";
 
-"type.highway.trunk_link.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "다리";
 
-"type.highway.trunk_link.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "터널";
 
 "type.highway.unclassified" = "거리";
 
 "type.highway.unclassified.area" = "거리";
 
-"type.highway.unclassified.bridge" = "거리";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "다리";
 
-"type.highway.unclassified.tunnel" = "거리";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "터널";
 
 "type.area_highway.cycleway" = "Cycle Path";
 
@@ -2110,6 +2173,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "농지";
@@ -2235,6 +2300,8 @@
 "type.man_made.chimney" = "공장 굴뚝";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2369,6 +2436,10 @@
 "type.office.ngo" = "NGO 사무실";
 
 "type.office.telecommunication" = "이동통신 사업자";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "place";
 

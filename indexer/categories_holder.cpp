@@ -95,25 +95,21 @@ void ProcessName(CategoriesHolder::Category::Name name, vector<string> const & g
   }
 }
 
-void ProcessCategory(string const & line, vector<string> & groups, vector<uint32_t> & types)
+void ProcessCategory(string_view line, vector<string> & groups, vector<uint32_t> & types)
 {
   // Check if category is a group reference.
   if (line[0] == '@')
   {
     CHECK((groups.empty() || !types.empty()), ("Two groups in a group definition, line:", line));
-    groups.push_back(line);
+    groups.push_back(string(line));
     return;
   }
 
-  // Split category to subcategories for classificator.
-  vector<string> v;
-  strings::Tokenize(line, "-", base::MakeBackInsertFunctor(v));
-
   // Get classificator type.
-  uint32_t const type = classif().GetTypeByPathSafe(v);
-  if (type == 0)
+  uint32_t const type = classif().GetTypeByPathSafe(strings::Tokenize(line, "-"));
+  if (type == Classificator::INVALID_TYPE)
   {
-    LOG(LWARNING, ("Invalid type:", v, "; during parsing the line:", line));
+    LOG(LWARNING, ("Invalid type when parsing the line:", line));
     return;
   }
 
@@ -315,14 +311,12 @@ bool CategoriesHolder::IsTypeExist(uint32_t type) const
 }
 
 // static
-int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
+int8_t CategoriesHolder::MapLocaleToInteger(string_view const locale)
 {
   ASSERT(!kLocaleMapping.empty(), ());
-  ASSERT_EQUAL(string(kLocaleMapping[0].m_name), "en", ());
+  ASSERT_EQUAL(kLocaleMapping[0].m_name, string_view("en"), ());
   ASSERT_EQUAL(kLocaleMapping[0].m_code, kEnglishCode, ());
-  ASSERT(
-      find(kDisabledLanguages.begin(), kDisabledLanguages.end(), "en") == kDisabledLanguages.end(),
-      ());
+  ASSERT(!base::IsExist(kDisabledLanguages, string_view("en")), ());
 
   for (auto it = kLocaleMapping.crbegin(); it != kLocaleMapping.crend(); ++it)
   {
@@ -333,7 +327,7 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
   // Special cases for different Chinese variations
   if (locale.find("zh") == 0)
   {
-    string lower = locale;
+    string lower(locale);
     strings::AsciiToLower(lower);
 
     for (char const * s : {"hant", "tw", "hk", "mo"})

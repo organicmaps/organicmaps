@@ -31,11 +31,10 @@ public:
   {
     m2::RectF const & mask = glyph.GetTexRect();
 
-    using TSV = gpu::TextStaticVertex;
-    m_buffer.emplace_back(TSV(m_colorCoord, glsl::ToVec2(mask.LeftTop())));
-    m_buffer.emplace_back(TSV(m_colorCoord, glsl::ToVec2(mask.LeftBottom())));
-    m_buffer.emplace_back(TSV(m_colorCoord, glsl::ToVec2(mask.RightTop())));
-    m_buffer.emplace_back(TSV(m_colorCoord, glsl::ToVec2(mask.RightBottom())));
+    m_buffer.emplace_back(m_colorCoord, glsl::ToVec2(mask.LeftTop()));
+    m_buffer.emplace_back(m_colorCoord, glsl::ToVec2(mask.LeftBottom()));
+    m_buffer.emplace_back(m_colorCoord, glsl::ToVec2(mask.RightTop()));
+    m_buffer.emplace_back(m_colorCoord, glsl::ToVec2(mask.RightBottom()));
   }
 
 protected:
@@ -79,11 +78,10 @@ public:
       m_penPosition.x -= (xOffset + dp::kSdfBorder * m_textRatio);
     }
 
-    using TDV = gpu::TextDynamicVertex;
-    m_buffer.emplace_back(TDV(m_pivot, m_pixelOffset + m_penPosition + glsl::vec2(xOffset, bottomVector)));
-    m_buffer.emplace_back(TDV(m_pivot, m_pixelOffset + m_penPosition + glsl::vec2(xOffset, upVector)));
-    m_buffer.emplace_back(TDV(m_pivot, m_pixelOffset + m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
-    m_buffer.emplace_back(TDV(m_pivot, m_pixelOffset + m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
+    m_buffer.emplace_back(m_pivot, m_pixelOffset + m_penPosition + glsl::vec2(xOffset, bottomVector));
+    m_buffer.emplace_back(m_pivot, m_pixelOffset + m_penPosition + glsl::vec2(xOffset, upVector));
+    m_buffer.emplace_back(m_pivot, m_pixelOffset + m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector));
+    m_buffer.emplace_back(m_pivot, m_pixelOffset + m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector));
     m_penPosition += glsl::vec2(glyph.GetAdvanceX() * m_textRatio, glyph.GetAdvanceY() * m_textRatio);
   }
 
@@ -111,12 +109,11 @@ public:
 
   void operator() (dp::TextureManager::GlyphRegion const & glyph)
   {
-    using TOSV = gpu::TextOutlinedStaticVertex;
     m2::RectF const & mask = glyph.GetTexRect();
-    m_buffer.emplace_back(TOSV(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop())));
-    m_buffer.emplace_back(TOSV(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftBottom())));
-    m_buffer.emplace_back(TOSV(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightTop())));
-    m_buffer.emplace_back(TOSV(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightBottom())));
+    m_buffer.emplace_back(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop()));
+    m_buffer.emplace_back(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftBottom()));
+    m_buffer.emplace_back(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightTop()));
+    m_buffer.emplace_back(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightBottom()));
   }
 
 protected:
@@ -399,6 +396,7 @@ void StraightTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion con
                                              gpu::TTextStaticVertexBuffer & staticBuffer) const
 {
   TextGeometryGenerator staticGenerator(colorRegion, staticBuffer);
+  staticBuffer.reserve(4 * m_metrics.size());
   Cache(staticGenerator);
 }
 
@@ -407,6 +405,7 @@ void StraightTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion con
                                              gpu::TTextOutlinedStaticVertexBuffer & staticBuffer) const
 {
   TextOutlinedGeometryGenerator outlinedGenerator(colorRegion, outlineRegion, staticBuffer);
+  staticBuffer.reserve(4 * m_metrics.size());
   Cache(outlinedGenerator);
 }
 
@@ -420,6 +419,7 @@ void StraightTextLayout::CacheDynamicGeometry(glsl::vec2 const & pixelOffset,
                                               gpu::TTextDynamicVertexBuffer & dynamicBuffer) const
 {
   StraightTextGeometryGenerator generator(m_pivot, pixelOffset, m_textSizeRatio, dynamicBuffer);
+  dynamicBuffer.reserve(4 * m_metrics.size());
   Cache(generator);
 }
 
@@ -435,6 +435,7 @@ void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const &
                                          gpu::TTextOutlinedStaticVertexBuffer & staticBuffer) const
 {
   TextOutlinedGeometryGenerator gen(colorRegion, outlineRegion, staticBuffer);
+  staticBuffer.reserve(4 * m_metrics.size());
   std::for_each(m_metrics.begin(), m_metrics.end(), gen);
 }
 
@@ -442,6 +443,7 @@ void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const &
                                          gpu::TTextStaticVertexBuffer & staticBuffer) const
 {
   TextGeometryGenerator gen(colorRegion, staticBuffer);
+  staticBuffer.reserve(4 * m_metrics.size());
   std::for_each(m_metrics.begin(), m_metrics.end(), gen);
 }
 
@@ -449,8 +451,6 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
                                           m2::PointD const & globalPivot,
                                           gpu::TTextDynamicVertexBuffer & buffer) const
 {
-  using TDV = gpu::TextDynamicVertex;
-
   float const halfLength = 0.5f * GetPixelLength();
 
   m2::Spline::iterator beginIter = iter;
@@ -483,7 +483,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
 
     m2::PointD const baseVector = penIter.m_pos - pxPivot;
     m2::PointD const currentTangent = penIter.m_avrDir.Normalize();
-    
+
     if (fabs(xAdvance) > kEps)
       penIter.Advance(advanceSign * xAdvance);
     m2::PointD const newTangent = penIter.m_avrDir.Normalize();
@@ -500,10 +500,10 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
 
     size_t baseIndex = 4 * i;
 
-    buffer[baseIndex + 0] = TDV(pivot, formingVector + normal * bottomVector + tangent * xOffset);
-    buffer[baseIndex + 1] = TDV(pivot, formingVector + normal * upVector + tangent * xOffset);
-    buffer[baseIndex + 2] = TDV(pivot, formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset));
-    buffer[baseIndex + 3] = TDV(pivot, formingVector + normal * upVector + tangent * (pxSize.x + xOffset));
+    buffer[baseIndex + 0] = {pivot, formingVector + normal * bottomVector + tangent * xOffset};
+    buffer[baseIndex + 1] = {pivot, formingVector + normal * upVector + tangent * xOffset};
+    buffer[baseIndex + 2] = {pivot, formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset)};
+    buffer[baseIndex + 3] = {pivot, formingVector + normal * upVector + tangent * (pxSize.x + xOffset)};
 
     if (i > 0)
     {

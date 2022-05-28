@@ -3,7 +3,6 @@
 #include "platform/localization.hpp"
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
-#include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -16,15 +15,6 @@ static inline NSString * formattedDistance(double const & meters) {
 
   auto const localizedUnits = platform::GetLocalizedDistanceUnits();
   return @(measurement_utils::FormatDistanceWithLocalization(meters, localizedUnits.m_high, localizedUnits.m_low).c_str());
-}
-
-static inline BOOL isMyPositionPendingOrNoPosition()
-{
-  location::EMyPositionMode mode;
-  if (!settings::Get(settings::kLocationStateMode, mode))
-    return true;
-  return mode == location::EMyPositionMode::PendingPosition ||
-         mode == location::EMyPositionMode::NotFollowNoPosition;
 }
 
 static inline ms::LatLon ToLatLon(m2::PointD const & p) { return mercator::ToLatLon(p); }
@@ -46,4 +36,4 @@ static inline MWMMyPositionMode mwmMyPositionMode(location::EMyPositionMode mode
   case location::EMyPositionMode::FollowAndRotate: return MWMMyPositionModeFollowAndRotate;
   }
 }
-}  // namespace MWMLocationHelpers
+} // namespace location_helpers

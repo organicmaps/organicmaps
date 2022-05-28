@@ -43,12 +43,10 @@ search_base::MemTextIndex BuildMemTextIndex(vector<string> const & docsCollectio
 
   for (size_t docId = 0; docId < docsCollection.size(); ++docId)
   {
-    strings::SimpleTokenizer tok(docsCollection[docId], " ");
-    while (tok)
+    strings::Tokenize(docsCollection[docId], " ", [&memIndex, docId](std::string_view tok)
     {
-      memIndex.AddPosting(*tok, static_cast<uint32_t>(docId));
-      ++tok;
-    }
+      memIndex.AddPosting(std::string(tok), static_cast<uint32_t>(docId));
+    });
   }
 
   return memIndex;

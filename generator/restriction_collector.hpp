@@ -19,9 +19,11 @@
 #include <utility>
 #include <vector>
 
-namespace routing
+namespace routing_builder
 {
 class TestRestrictionCollector;
+using Restriction = routing::Restriction;
+
 /// This class collects all relations with type restriction and save feature ids of
 /// their road feature in text file for using later.
 class RestrictionCollector
@@ -30,7 +32,7 @@ public:
   static m2::PointD constexpr kNoCoords =
       m2::PointD(std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
 
-  RestrictionCollector(std::string const & osmIdsToFeatureIdPath, IndexGraph & graph);
+  RestrictionCollector(std::string const & osmIdsToFeatureIdPath, routing::IndexGraph & graph);
 
   bool Process(std::string const & restrictionPath);
 
@@ -78,7 +80,7 @@ private:
   bool CheckAndProcessUTurn(Restriction::Type & restrictionType, m2::PointD const & coords,
                             std::vector<uint32_t> & featureIds) const;
 
-  Joint::Id GetFirstCommonJoint(uint32_t firstFeatureId, uint32_t secondFeatureId) const;
+  routing::Joint::Id GetFirstCommonJoint(uint32_t firstFeatureId, uint32_t secondFeatureId) const;
 
   bool FeatureHasPointWithCoords(uint32_t featureId, m2::PointD const & coords) const;
   /// \brief Adds a restriction (vector of osm id).
@@ -91,14 +93,14 @@ private:
                       std::vector<base::GeoObjectId> const & osmIds);
 
   std::vector<Restriction> m_restrictions;
-  OsmIdToFeatureIds m_osmIdToFeatureIds;
+  routing::OsmIdToFeatureIds m_osmIdToFeatureIds;
 
-  IndexGraph & m_indexGraph;
+  routing::IndexGraph & m_indexGraph;
 
   std::string m_restrictionPath;
 };
 
-void FromString(std::string const & str, Restriction::Type & type);
-void FromString(std::string const & str, RestrictionWriter::ViaType & type);
-void FromString(std::string const & str, double & number);
-}  // namespace routing
+void FromString(std::string_view str, Restriction::Type & type);
+void FromString(std::string_view str, RestrictionWriter::ViaType & type);
+void FromString(std::string_view str, double & number);
+}  // namespace routing_builder

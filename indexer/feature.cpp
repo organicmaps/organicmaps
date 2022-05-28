@@ -6,7 +6,6 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/map_object.hpp"
-#include "indexer/postcodes.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/shared_load_info.hpp"
 
@@ -188,13 +187,10 @@ uint8_t ReadByte(TSource & src)
 FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buffer,
                          indexer::MetadataDeserializer * metadataDeserializer)
   : m_loadInfo(loadInfo)
-  , m_data(buffer)
+  , m_data(std::move(buffer))
   , m_metadataDeserializer(metadataDeserializer)
 {
-  CHECK(m_loadInfo, ());
-
-  ASSERT(m_loadInfo->GetMWMFormat() >= version::Format::v11 && m_metadataDeserializer,
-         (m_loadInfo->GetMWMFormat()));
+  CHECK(m_loadInfo && m_metadataDeserializer, ());
 
   m_header = Header(m_data);
 }
@@ -275,21 +271,20 @@ void FeatureType::ParseTypes()
   ArrayByteSource source(m_data.data() + typesOffset);
 
   size_t const count = GetTypesCount();
-  uint32_t index = 0;
-  try
+  for (size_t i = 0; i < count; ++i)
   {
-    for (size_t i = 0; i < count; ++i)
+    uint32_t index = ReadVarUint<uint32_t>(source);
+    uint32_t const type = c.GetTypeForIndex(index);
+    if (type > 0)
+      m_types[i] = type;
+    else
     {
-      index = ReadVarUint<uint32_t>(source);
-      m_types[i] = c.GetTypeForIndex(index);
+      // Possible for newer MWMs with added types.
+      LOG(LWARNING, ("Incorrect type index for feature. FeatureID:", m_id, ". Incorrect index:", index,
+                   ". Loaded feature types:", m_types, ". Total count of types:", count));
+
+      m_types[i] = c.GetStubType();
     }
-  }
-  catch (std::out_of_range const & ex)
-  {
-    LOG(LERROR, ("Incorrect type index for feature.FeatureID:", m_id, ". Incorrect index:", index,
-                 ". Loaded feature types:", m_types, ". Total count of types:", count,
-                 ". Header:", m_header));
-    throw;
   }
 
   m_offsets.m_common = CalcOffset(source, m_data.data());
@@ -523,23 +518,10 @@ void FeatureType::ParseMetadata()
   try
   {
     UNUSED_VALUE(m_metadataDeserializer->Get(m_id.m_index, m_metadata));
-
-    // December 19 - September 20 mwm compatibility
-    auto postcodesReader = m_loadInfo->GetPostcodesReader();
-    if (postcodesReader)
-    {
-      auto postcodes = indexer::Postcodes::Load(*postcodesReader->GetPtr());
-      CHECK(postcodes, ());
-      string postcode;
-      auto const havePostcode = postcodes->Get(m_id.m_index, postcode);
-      CHECK(!havePostcode || !postcode.empty(), (havePostcode, postcode));
-      if (havePostcode)
-        m_metadata.Set(feature::Metadata::FMD_POSTCODE, postcode);
-    }
   }
   catch (Reader::OpenException const &)
   {
-    // now ignore exception because not all mwm have needed sections
+    LOG(LERROR, ("Error reading metadata", m_id));
   }
 
   m_parsed.m_metadata = true;
@@ -557,7 +539,7 @@ void FeatureType::ParseMetaIds()
   }
   catch (Reader::OpenException const &)
   {
-    // now ignore exception because not all mwm have needed sections
+    LOG(LERROR, ("Error reading metadata", m_id));
   }
 
   m_parsed.m_metaIds = true;
@@ -586,7 +568,8 @@ string FeatureType::DebugString(int scale)
   Classificator const & c = classif();
 
   string res = "Types";
-  for (size_t i = 0; i < GetTypesCount(); ++i)
+  uint32_t const count = GetTypesCount();
+  for (size_t i = 0; i < count; ++i)
     res += (" : " + c.GetReadableObjectName(m_types[i]));
   res += "\n";
 
@@ -705,70 +688,46 @@ FeatureType::GeomStat FeatureType::GetTrianglesSize(int scale)
   return GeomStat(sz, m_triangles.size());
 }
 
-void FeatureType::GetPreferredNames(string & primary, string & secondary)
+std::pair<std::string_view, std::string_view> FeatureType::GetPreferredNames()
 {
-  if (!HasName())
-    return;
-
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
-  if (!mwmInfo)
-    return;
-
-  ParseCommon();
-
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, false /* allowTranslit */,
-                      primary, secondary);
+  feature::NameParamsOut out;
+  GetPreferredNames(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()), out);
+  return { out.primary, out.secondary };
 }
 
-void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, string & primary,
-                                    string & secondary)
+void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out)
 {
   if (!HasName())
     return;
 
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
+  auto const & mwmInfo = m_id.m_mwmId.GetInfo();
   if (!mwmInfo)
     return;
 
   ParseCommon();
 
-  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit,
-                      primary, secondary);
+  feature::GetPreferredNames({ GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit }, out);
 }
 
-void FeatureType::GetReadableName(string & name)
+string_view FeatureType::GetReadableName()
 {
-  if (!HasName())
-    return;
-
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
-  if (!mwmInfo)
-    return;
-
-  ParseCommon();
-
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, false /* allowTranslit */,
-                    name);
+  feature::NameParamsOut out;
+  GetReadableName(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()), out);
+  return out.primary;
 }
 
-void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, string & name)
+void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out)
 {
   if (!HasName())
     return;
 
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
+  auto const & mwmInfo = m_id.m_mwmId.GetInfo();
   if (!mwmInfo)
     return;
 
   ParseCommon();
 
-  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit, name);
+  feature::GetReadableName({ GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit }, out);
 }
 
 string const & FeatureType::GetHouseNumber()
@@ -777,13 +736,19 @@ string const & FeatureType::GetHouseNumber()
   return m_params.house.Get();
 }
 
-bool FeatureType::GetName(int8_t lang, string & name)
+string_view FeatureType::GetName(int8_t lang)
 {
   if (!HasName())
-    return false;
+    return {};
 
   ParseCommon();
-  return m_params.name.GetString(lang, name);
+
+  // We don't store empty names.
+  string_view name;
+  if (m_params.name.GetString(lang, name))
+    ASSERT(!name.empty(), ());
+
+  return name;
 }
 
 uint8_t FeatureType::GetRank()
@@ -806,19 +771,18 @@ feature::Metadata const & FeatureType::GetMetadata()
   return m_metadata;
 }
 
-std::string FeatureType::GetMetadata(feature::Metadata::EType type)
+std::string_view FeatureType::GetMetadata(feature::Metadata::EType type)
 {
   ParseMetaIds();
-  if (m_metadata.Has(type))
-    return m_metadata.Get(type);
 
-  auto const it = base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; });
-  if (it == m_metaIds.end())
-    return {};
-
-  auto value = m_metadataDeserializer->GetMetaById(it->second);
-  m_metadata.Set(type, value);
-  return value;
+  auto meta = m_metadata.Get(type);
+  if (meta.empty())
+  {
+    auto const it = base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; });
+    if (it != m_metaIds.end())
+      meta = m_metadata.Set(type, m_metadataDeserializer->GetMetaById(it->second));
+  }
+  return meta;
 }
 
 bool FeatureType::HasMetadata(feature::Metadata::EType type)

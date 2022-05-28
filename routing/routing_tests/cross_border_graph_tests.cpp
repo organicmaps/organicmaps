@@ -116,7 +116,6 @@ UNIT_TEST(CrossBorderGraph_SerDes)
   std::string const fileName = "CrossBorderGraph_SerDes.test";
 
   storage::Storage storage;
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   std::shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
 
   CrossBorderGraph graph1;

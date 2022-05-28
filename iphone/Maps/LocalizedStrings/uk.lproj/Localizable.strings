@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Написати відгук";
 
-/* View and button titles for accessibility */
-"maps" = "Мапи";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Милі";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Моє місцезнаходження";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Поліція";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Переробка відходів";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Вебсайт";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Новини";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Калібрування компаса";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Оновити всі";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Завантажено";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Поблизу";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Мапи";
 
 "downloader_download_all_button" = "Завантажити всі";
@@ -418,9 +419,6 @@
 
 /* blue gray color */
 "blue_gray" = "Сіро-блакитний";
-
-/* Wi-Fi available */
-"WiFi_available" = "Так";
 
 
 /********** Routing dialogs strings **********/
@@ -743,6 +741,7 @@
 
 "mile" = "ми";
 
+/* A unit of measure */
 "foot" = "фут";
 
 "miles_per_hour" = "ми/год";
@@ -1025,9 +1024,17 @@
 
 "redirect_route_alert" = "Бажаєте перебудувати маршрут?";
 
-"redirect_route_yes" = "Так";
+/* A generic "Yes" button in dialogs */
+"yes" = "Так";
 
-"redirect_route_no" = "Ні";
+/* A generic "No" button in dialogs */
+"no" = "Ні";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Так";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Ні";
 
 "trip_finished" = "Ви прибули!";
 
@@ -1434,7 +1441,7 @@
 
 "type.amenity.toilets" = "Туалет";
 
-"type.amenity.townhall" = "Ратуша";
+"type.amenity.townhall" = "Адміністрація";
 
 "type.amenity.university" = "Університет";
 
@@ -1442,11 +1449,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Автомат з цигарками";
 
+"type.amenity.vending_machine.coffee" = "Кавовий автомат";
+
+"type.amenity.vending_machine.condoms" = "Автомат з презервативами";
+
 "type.amenity.vending_machine.drinks" = "Автомат з напоями";
+
+"type.amenity.vending_machine.food" = "Автомат з їжею";
+
+"type.amenity.vending_machine.newspapers" = "Газетний автомат";
 
 "type.amenity.vending_machine.parking_tickets" = "Паркомат";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Автомат з продажу квитків";
+
+"type.amenity.vending_machine.sweets" = "Автомат із солодощами";
 
 "type.amenity.vending_machine.excrement_bags" = "Мішки для екскрементів";
 
@@ -1564,7 +1581,7 @@
 
 "type.craft.hvac" = "Кондиціонери";
 
-"type.craft.metal_construction" = "Кування металу";
+"type.craft.metal_construction" = "Металоконструкції";
 
 "type.craft.painter" = "Маляр";
 
@@ -1601,6 +1618,8 @@
 "type.cuisine.brazilian" = "Бразильська кухня";
 
 "type.cuisine.breakfast" = "Сніданки";
+
+"type.cuisine.bubble_tea" = "Бульбашковий чай";
 
 "type.cuisine.burger" = "Бургери";
 
@@ -1765,11 +1784,13 @@
 
 "type.highway.bridleway" = "Кінна доріжка";
 
-"type.highway.bridleway.bridge" = "Кінна доріжка";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Міст";
 
 "type.highway.bridleway.permissive" = "Кінна доріжка";
 
-"type.highway.bridleway.tunnel" = "Кінна доріжка";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Тунель";
 
 "type.highway.bus_stop" = "Зупинка";
 
@@ -1777,11 +1798,13 @@
 
 "type.highway.cycleway" = "Велодоріжка";
 
-"type.highway.cycleway.bridge" = "Велодоріжка";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Міст";
 
 "type.highway.cycleway.permissive" = "Велодоріжка";
 
-"type.highway.cycleway.tunnel" = "Велодоріжка";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Тунель";
 
 "type.highway.elevator" = "Ліфт";
 
@@ -1791,7 +1814,8 @@
 
 "type.highway.footway.area" = "Пішохідна зона";
 
-"type.highway.footway.bridge" = "Пішохідна доріжка";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Міст";
 
 "type.highway.footway.demanding_alpine_hiking" = "Стежка";
 
@@ -1805,29 +1829,36 @@
 
 "type.highway.footway.permissive" = "Пішохідна доріжка";
 
-"type.highway.footway.tunnel" = "Пішохідна доріжка";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Тунель";
 
 "type.highway.ford" = "Брід";
 
 "type.highway.living_street" = "Житлова зона";
 
-"type.highway.living_street.bridge" = "Житлова зона";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Міст";
 
-"type.highway.living_street.tunnel" = "Житлова зона";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Тунель";
 
 "type.highway.motorway" = "Автомагістраль";
 
-"type.highway.motorway.bridge" = "Автомагістраль";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Міст";
 
-"type.highway.motorway.tunnel" = "Автомагістраль";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Тунель";
 
 "type.highway.motorway_junction" = "З'їзд";
 
 "type.highway.motorway_link" = "З'їзд з автомагістралі";
 
-"type.highway.motorway_link.bridge" = "З'їзд з автомагістралі";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Міст";
 
-"type.highway.motorway_link.tunnel" = "З'їзд з автомагістралі";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Тунель";
 
 "type.highway.path" = "Стежка";
 
@@ -1835,7 +1866,8 @@
 
 "type.highway.path.bicycle" = "Велопішохідна доріжка";
 
-"type.highway.path.bridge" = "Стежка";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Міст";
 
 "type.highway.path.demanding_alpine_hiking" = "Стежка";
 
@@ -1851,27 +1883,34 @@
 
 "type.highway.path.permissive" = "Стежка";
 
-"type.highway.path.tunnel" = "Стежка";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Тунель";
 
 "type.highway.pedestrian" = "Пішохідна вулиця";
 
 "type.highway.pedestrian.area" = "Пішохідна зона";
 
-"type.highway.pedestrian.bridge" = "Пішохідна вулиця";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Міст";
 
-"type.highway.pedestrian.tunnel" = "Пішохідна вулиця";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Тунель";
 
 "type.highway.primary" = "Шосе";
 
-"type.highway.primary.bridge" = "Шосе";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Міст";
 
-"type.highway.primary.tunnel" = "Шосе";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Тунель";
 
 "type.highway.primary_link" = "З'їзд з шосе";
 
-"type.highway.primary_link.bridge" = "З'їзд з шосе";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Міст";
 
-"type.highway.primary_link.tunnel" = "З'їзд з шосе";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Тунель";
 
 "type.highway.raceway" = "Гоночний трек";
 
@@ -1879,41 +1918,51 @@
 
 "type.highway.residential.area" = "Вулиця";
 
-"type.highway.residential.bridge" = "Вулиця";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Міст";
 
-"type.highway.residential.tunnel" = "Вулиця";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Тунель";
 
 "type.highway.rest_area" = "Зона відпочинку";
 
 "type.highway.road" = "Дорога";
 
-"type.highway.road.bridge" = "Дорога";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Міст";
 
-"type.highway.road.tunnel" = "Дорога";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Тунель";
 
 "type.highway.secondary" = "Автодорога";
 
-"type.highway.secondary.bridge" = "Автодорога";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Міст";
 
-"type.highway.secondary.tunnel" = "Автодорога";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Тунель";
 
 "type.highway.secondary_link" = "З'їзд з автодороги";
 
-"type.highway.secondary_link.bridge" = "З'їзд з автодороги";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Міст";
 
-"type.highway.secondary_link.tunnel" = "З'їзд з автодороги";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Тунель";
 
 "type.highway.service" = "Проїзд";
 
 "type.highway.service.area" = "Проїзд";
 
-"type.highway.service.bridge" = "Проїзд";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Міст";
 
 "type.highway.service.driveway" = "Під'їзд";
 
 "type.highway.service.parking_aisle" = "Паркувальний проїзд";
 
-"type.highway.service.tunnel" = "Проїзд";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Тунель";
 
 "type.highway.services" = "Зона обслуговування";
 
@@ -1921,27 +1970,34 @@
 
 "type.highway.steps" = "Сходи";
 
-"type.highway.steps.bridge" = "Сходи";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Міст";
 
-"type.highway.steps.tunnel" = "Сходи";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Тунель";
 
 "type.highway.tertiary" = "Дорога";
 
-"type.highway.tertiary.bridge" = "Дорога";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Міст";
 
-"type.highway.tertiary.tunnel" = "Дорога";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Тунель";
 
 "type.highway.tertiary_link" = "З'їзд з дороги";
 
-"type.highway.tertiary_link.bridge" = "З'їзд з дороги";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Міст";
 
-"type.highway.tertiary_link.tunnel" = "З'їзд з дороги";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Тунель";
 
 "type.highway.track" = "Ґрунтівка";
 
 "type.highway.track.area" = "Ґрунтівка";
 
-"type.highway.track.bridge" = "Ґрунтівка";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Міст";
 
 "type.highway.track.grade1" = "Ґрунтівка";
 
@@ -1957,29 +2013,36 @@
 
 "type.highway.track.permissive" = "Ґрунтівка";
 
-"type.highway.track.tunnel" = "Ґрунтівка";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Тунель";
 
 "type.highway.traffic_signals" = "Світлофор";
 
 "type.highway.trunk" = "Траса";
 
-"type.highway.trunk.bridge" = "Траса";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Міст";
 
-"type.highway.trunk.tunnel" = "Траса";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Тунель";
 
 "type.highway.trunk_link" = "З'їзд з траси";
 
-"type.highway.trunk_link.bridge" = "З'їзд з траси";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Міст";
 
-"type.highway.trunk_link.tunnel" = "З'їзд з траси";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Тунель";
 
 "type.highway.unclassified" = "Невелика дорога";
 
 "type.highway.unclassified.area" = "Невелика дорога";
 
-"type.highway.unclassified.bridge" = "Невелика дорога";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Міст";
 
-"type.highway.unclassified.tunnel" = "Невелика дорога";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Тунель";
 
 "type.area_highway.cycleway" = "Велодоріжка";
 
@@ -2110,6 +2173,8 @@
 
 "type.landuse.construction" = "Будівництво";
 
+"type.landuse.education" = "Освітній заклади";
+
 "type.landuse.farm" = "Ферма";
 
 "type.landuse.farmland" = "Сільськогосподарська земля";
@@ -2235,6 +2300,8 @@
 "type.man_made.chimney" = "Заводська труба";
 
 "type.man_made.cutline" = "Просіка";
+
+"type.man_made.survey_point" = "Геодезичний пункт";
 
 "type.man_made.flagpole" = "Флагшток";
 
@@ -2362,13 +2429,17 @@
 
 "type.office.government" = "Держустанова";
 
-"type.office.insurance" = "Офіс страхової компанії";
+"type.office.insurance" = "Страхова компанія";
 
 "type.office.lawyer" = "Адвокат";
 
-"type.office.ngo" = "Офіс громадської організації";
+"type.office.ngo" = "Недержавна організація";
 
-"type.office.telecommunication" = "Мобільний оператор";
+"type.office.telecommunication" = "Телекомунікаційна компанія";
+
+"type.organic.only" = "Еко";
+
+"type.organic.yes" = "Еко";
 
 "type.place" = "Мicце";
 
@@ -2814,11 +2885,11 @@
 
 "type.tourism.artwork.statue" = "Витвір мистецтва";
 
-"type.tourism.attraction" = "Пам’ятка";
+"type.tourism.attraction" = "Пам’ятне місце";
 
-"type.tourism.attraction.animal" = "Пам’ятка";
+"type.tourism.attraction.animal" = "Пам’ятне місце";
 
-"type.tourism.attraction.specified" = "Пам’ятка";
+"type.tourism.attraction.specified" = "Пам’ятне місце";
 
 "type.tourism.camp_site" = "Кемпінг";
 

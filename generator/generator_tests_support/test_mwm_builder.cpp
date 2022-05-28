@@ -91,7 +91,7 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
   {
     auto const & metadata = fb.GetMetadata();
     uint64_t testId;
-    CHECK(strings::to_uint64(metadata.Get(Metadata::FMD_TEST_ID), testId), ());
+    CHECK(strings::to_uint(metadata.Get(Metadata::FMD_TEST_ID), testId), ());
     m_boundariesTable.Append(testId, indexer::CityBoundary(fb.GetOuterGeometry()));
 
     auto const center = fb.GetGeometryCenter();
@@ -136,6 +136,7 @@ void TestMwmBuilder::Finish()
   GenerateInfo info;
   info.m_targetDir = m_file.GetDirectory();
   info.m_tmpDir = m_file.GetDirectory();
+  info.m_intermediateDir = m_file.GetDirectory();
   info.m_versionDate = static_cast<uint32_t>(base::YYMMDDToSecondsSinceEpoch(m_version));
   CHECK(GenerateFinalFeatures(info, m_file.GetCountryFile().GetName(), m_type),
         ("Can't sort features."));

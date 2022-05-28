@@ -16,14 +16,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="GQP-ns-cE1">
+                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="GQP-ns-cE1">
                         <rect key="frame" x="16" y="0.0" width="128" height="180"/>
                         <locale key="locale" localeIdentifier="ru"/>
                         <connections>
                             <action selector="openValueChanged" destination="KGk-i7-Jjw" eventType="valueChanged" id="abn-DQ-iYH"/>
                         </connections>
                     </datePicker>
-                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="w7f-Rh-vzg">
+                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="w7f-Rh-vzg">
                         <rect key="frame" x="176" y="0.0" width="128" height="180"/>
                         <locale key="locale" localeIdentifier="ru"/>
                         <connections>

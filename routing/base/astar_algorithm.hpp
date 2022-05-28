@@ -71,11 +71,10 @@ public:
   struct ParamsBase
   {
     ParamsBase(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-               std::vector<Edge> const * prevRoute, base::Cancellable const & cancellable)
+               base::Cancellable const & cancellable)
         : m_graph(graph)
         , m_startVertex(startVertex)
         , m_finalVertex(finalVertex)
-        , m_prevRoute(prevRoute)
         , m_cancellable(cancellable)
     {
     }
@@ -86,7 +85,6 @@ public:
     // Used for FindPath, FindPathBidirectional.
     Vertex const m_finalVertex;
     // Used for AdjustRoute.
-    std::vector<Edge> const * const m_prevRoute;
     base::Cancellable const & m_cancellable;
     std::function<bool(Weight, Weight)> m_badReducedWeight = [](Weight, Weight) { return true; };
   };
@@ -99,10 +97,10 @@ public:
   struct Params : public ParamsBase
   {
     Params(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-           std::vector<Edge> const * prevRoute, base::Cancellable const & cancellable,
+           base::Cancellable const & cancellable,
            Visitor && onVisitedVertexCallback = astar::DefaultVisitor(),
            LengthChecker && checkLengthCallback = astar::DefaultLengthChecker())
-      : ParamsBase(graph, startVertex, finalVertex, prevRoute, cancellable)
+      : ParamsBase(graph, startVertex, finalVertex, cancellable)
       , m_onVisitedVertexCallback(std::forward<Visitor>(onVisitedVertexCallback))
       , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
     {
@@ -116,9 +114,8 @@ public:
   struct ParamsForTests : public ParamsBase
   {
     ParamsForTests(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-                   std::vector<Edge> const * prevRoute,
                    LengthChecker && checkLengthCallback = astar::DefaultLengthChecker())
-      : ParamsBase(graph, startVertex, finalVertex, prevRoute, m_dummy)
+      : ParamsBase(graph, startVertex, finalVertex, m_dummy)
       , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
     {
     }
@@ -210,13 +207,24 @@ public:
   template <typename P>
   Result FindPath(P & params, RoutingResult<Vertex, Weight> & result) const;
 
-  template <typename P>
-  Result FindPathBidirectional(P & params, RoutingResult<Vertex, Weight> & result) const;
+  template <class P, class Emitter>
+  Result FindPathBidirectionalEx(P & params, Emitter && emitter) const;
+
+  template <class P>
+  Result FindPathBidirectional(P & params, RoutingResult<Vertex, Weight> & result) const
+  {
+    return FindPathBidirectionalEx(params, [&result](RoutingResult<Vertex, Weight> && res)
+    {
+      result = std::move(res);
+      return true;
+    });
+  }
 
   // Adjust route to the previous one.
   // Expects |params.m_checkLengthCallback| to check wave propagation limit.
   template <typename P>
   typename AStarAlgorithm<Vertex, Edge, Weight>::Result AdjustRoute(P & params,
+                                                                    std::vector<Edge> const & prevRoute,
                                                                     RoutingResult<Vertex, Weight> & result) const;
 
 private:
@@ -559,10 +567,9 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPath(P & params, RoutingResult<Vertex,
 }
 
 template <typename Vertex, typename Edge, typename Weight>
-template <typename P>
+template <class P, class Emitter>
 typename AStarAlgorithm<Vertex, Edge, Weight>::Result
-AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
-                                                            RoutingResult<Vertex, Weight> & result) const
+AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectionalEx(P & params, Emitter && emitter) const
 {
   auto const epsilon = params.m_weightEpsilon;
   auto & graph = params.m_graph;
@@ -576,8 +583,8 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
   auto & backwardParents = backward.GetParents();
 
   bool foundAnyPath = false;
-  auto bestPathReducedLength = kZeroDistance;
-  auto bestPathRealLength = kZeroDistance;
+  Weight bestPathReducedLength = kZeroDistance;
+  Weight bestPathRealLength = kZeroDistance;
 
   forward.UpdateDistance(State(startVertex, kZeroDistance));
   forward.queue.push(State(startVertex, kZeroDistance, forward.ConsistentHeuristic(startVertex)));
@@ -592,17 +599,19 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
   BidirectionalStepContext * cur = &forward;
   BidirectionalStepContext * nxt = &backward;
 
-  auto const getResult = [&]()
+  auto const EmitResult = [cur, nxt, &bestPathRealLength, &emitter]()
   {
-    if (!params.m_checkLengthCallback(bestPathRealLength))
-      return Result::NoPath;
+    // No problem if length check fails, but we still emit the result.
+    // Happens with "transit" route because of length, haven't seen with regular car route.
+    //ASSERT(params.m_checkLengthCallback(bestPathRealLength), ());
 
+    RoutingResult<Vertex, Weight> result;
     ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent, result.m_path);
     result.m_distance = bestPathRealLength;
     if (!cur->forward)
       reverse(result.m_path.begin(), result.m_path.end());
 
-    return Result::OK;
+    return emitter(std::move(result));
   };
 
   typename Graph::EdgeListT adj;
@@ -640,7 +649,12 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
       // different real path lengths.
 
       if (curTop + nxtTop >= bestPathReducedLength - epsilon)
-        return getResult();
+      {
+        if (EmitResult())
+          return Result::OK;
+        else
+          foundAnyPath = false;
+      }
     }
 
     State const stateV = cur->queue.top();
@@ -713,7 +727,10 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
   }
 
   if (foundAnyPath)
-    return getResult();
+  {
+    (void)EmitResult();
+    return Result::OK;
+  }
 
   return Result::NoPath;
 }
@@ -722,12 +739,11 @@ template <typename Vertex, typename Edge, typename Weight>
 template <typename P>
 typename AStarAlgorithm<Vertex, Edge, Weight>::Result
 AStarAlgorithm<Vertex, Edge, Weight>::AdjustRoute(P & params,
+                                                  std::vector<Edge> const & prevRoute,
                                                   RoutingResult<Vertex, Weight> & result) const
 {
   auto & graph = params.m_graph;
   auto const & startVertex = params.m_startVertex;
-  auto const & prevRoute = *params.m_prevRoute;
-
   CHECK(!prevRoute.empty(), ());
 
   result.Clear();

@@ -16,17 +16,28 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
-
-using namespace indexer;
-using namespace std;
+#include <sstream>
 
 namespace search
 {
+using namespace indexer;
+using namespace std;
+
 // CitiesBoundariesTable::Boundaries ---------------------------------------------------------------
 bool CitiesBoundariesTable::Boundaries::HasPoint(m2::PointD const & p) const
 {
   return any_of(m_boundaries.begin(), m_boundaries.end(),
                 [&](CityBoundary const & b) { return b.HasPoint(p, m_eps); });
+}
+
+std::string DebugPrint(CitiesBoundariesTable::Boundaries const & boundaries)
+{
+  std::ostringstream os;
+  os << "Boundaries [";
+  os << ::DebugPrint(boundaries.m_boundaries) << ", ";
+  os << "eps: " << boundaries.m_eps;
+  os << "]";
+  return os.str();
 }
 
 // CitiesBoundariesTable ---------------------------------------------------------------------------
@@ -70,24 +81,27 @@ bool CitiesBoundariesTable::Load()
     return false;
   }
 
-  ASSERT_EQUAL(all.size(), localities.PopCount(), ());
   if (all.size() != localities.PopCount())
   {
-    LOG(LERROR,
-        ("Wrong number of boundaries, expected:", localities.PopCount(), "actual:", all.size()));
+    LOG(LERROR, ("Wrong number of boundaries, expected:", localities.PopCount(), "actual:", all.size()));
     return false;
   }
 
   m_mwmId = context.GetId();
   m_table.clear();
   m_eps = precision;
-  size_t boundary = 0;
-  localities.ForEach([&](uint64_t fid) {
-    ASSERT_LESS(boundary, all.size(), ());
-    m_table[base::asserted_cast<uint32_t>(fid)] = move(all[boundary]);
-    ++boundary;
+  size_t idx = 0, notEmpty = 0;
+  localities.ForEach([&](uint64_t fid)
+  {
+    if (!all[idx].empty())
+    {
+      CHECK(m_table.emplace(base::asserted_cast<uint32_t>(fid), std::move(all[idx])).second, ());
+      ++notEmpty;
+    }
+    ++idx;
   });
-  ASSERT_EQUAL(boundary, all.size(), ());
+
+  LOG(LDEBUG, ("Localities count =", idx, "; with boundary =", notEmpty));
   return true;
 }
 
@@ -115,7 +129,7 @@ void GetCityBoundariesInRectForTesting(CitiesBoundariesTable const & table, m2::
   {
     for (auto const & cb : kv.second)
     {
-      if (rect.IsIntersect(m2::RectD(cb.m_bbox.Min(), cb.m_bbox.Max())))
+      if (rect.IsIntersect(cb.m_bbox.ToRect()))
       {
         featureIds.push_back(kv.first);
         break;

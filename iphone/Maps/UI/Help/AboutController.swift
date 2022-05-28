@@ -71,6 +71,7 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
     let appVersion = CopyableLabel()
     appVersion.translatesAutoresizingMaskIntoConstraints = false
     appVersion.styleName = "blackPrimaryText"
+    appVersion.adjustsFontSizeToFitWidth = true
     let appInfo = AppInfo.shared();
     // Use strong left-to-right unicode direction characters for the app version.
     appVersion.text = String(format: L("version"), "\u{2066}\(appInfo.bundleVersion)-\(appInfo.buildNumber)\u{2069}")
@@ -115,7 +116,7 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
 
   // Update didSelect... delegate after modifying this list.
   private let labels = [
-    ["faq", "report_a_bug", "how_to_support_us", "rate_the_app"],
+    ["news", "faq", "report_a_bug", "how_to_support_us", "rate_the_app"],
     ["telegram", "github", "website", "email", "facebook", "twitter", "instagram", "matrix", "openstreetmap"],
     ["privacy_policy", "terms_of_use", "copyright"],
   ]
@@ -167,10 +168,11 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
       case 0: self.openUrl("https://organicmaps.app/donate/")
       // First buttons section.
       case 1: switch indexPath[1] {
-        case 0: self.navigationController?.pushViewController(FaqController(), animated: true)
-        case 1: sendEmailWith(header: "Organic Maps Bugreport", toRecipients: [kiOSEmail])
-        case 2: self.openUrl("https://organicmaps.app/support-us/")
-        case 3: UIApplication.shared.rateApp()
+        case 0: self.openUrl("https://organicmaps.app/news/")
+        case 1: self.navigationController?.pushViewController(FaqController(), animated: true)
+        case 2: sendEmailWith(header: "Organic Maps Bugreport", toRecipients: [kiOSEmail])
+        case 3: self.openUrl("https://organicmaps.app/support-us/")
+        case 4: UIApplication.shared.rateApp()
         default: fatalError("Invalid cell0 \(indexPath)")
       }
       // Second section. Open urls in external Safari so logged-in users can easily follow us.
@@ -183,7 +185,7 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
         case 5: self.openUrl("https://twitter.com/OrganicMapsApp", inSafari: true)
         case 6: self.openUrl("https://www.instagram.com/organicmaps.app", inSafari: true)
         case 7: self.openUrl("https://matrix.to/#/%23organicmaps:matrix.org", inSafari: true)
-        case 8: self.openUrl("https://www.openstreetmap.org/about", inSafari: true)
+        case 8: self.openUrl("https://wiki.openstreetmap.org/wiki/About_OpenStreetMap", inSafari: true)
         default: fatalError("Invalid cell1 \(indexPath)")
       }
       // Third section.

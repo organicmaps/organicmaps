@@ -20,18 +20,18 @@ public:
   JointSegment() = default;
   JointSegment(Segment const & from, Segment const & to);
 
-  void SetFeatureId(uint32_t id) { m_featureId = id; }
   uint32_t GetFeatureId() const { return m_featureId; }
   NumMwmId GetMwmId() const { return m_numMwmId; }
-  void SetMwmId(NumMwmId id) { m_numMwmId = id; }
   uint32_t GetStartSegmentId() const { return m_startSegmentId; }
   uint32_t GetEndSegmentId() const { return m_endSegmentId; }
   uint32_t GetSegmentId(bool start) const { return start ? m_startSegmentId : m_endSegmentId; }
   bool IsForward() const { return m_forward; }
 
+  void AssignID(Segment const & seg);
+  void AssignID(JointSegment const & seg);
+
   static JointSegment MakeFake(uint32_t fakeId, uint32_t featureId = kInvalidFeatureId);
   bool IsFake() const;
-  bool IsRealSegment() const { return !IsFake(); }
 
   Segment GetSegment(bool start) const;
 

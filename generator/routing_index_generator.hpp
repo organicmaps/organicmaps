@@ -6,7 +6,7 @@
 #include <functional>
 #include <string>
 
-namespace routing
+namespace routing_builder
 {
 using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
 

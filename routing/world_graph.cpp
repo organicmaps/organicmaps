@@ -48,25 +48,22 @@ void WorldGraph::SetAStarParents(bool forward, Parents<JointSegment> & parents) 
 void WorldGraph::DropAStarParents() {}
 
 bool WorldGraph::AreWavesConnectible(Parents<Segment> & forwardParents, Segment const & commonVertex,
-                                     Parents<Segment> & backwardParents,
-                                     std::function<uint32_t(Segment const &)> && fakeFeatureConverter)
+                                     Parents<Segment> & backwardParents)
 {
   return true;
 }
 
 bool WorldGraph::AreWavesConnectible(Parents<JointSegment> & forwardParents, JointSegment const & commonVertex,
                                      Parents<JointSegment> & backwardParents,
-                                     std::function<uint32_t(JointSegment const &)> && fakeFeatureConverter)
+                                     FakeConverterT const & fakeFeatureConverter)
 {
   return true;
 }
 
 void WorldGraph::SetRoutingOptions(RoutingOptions /* routingOption */) {}
 
-std::vector<Segment> const & WorldGraph::GetTransitions(NumMwmId numMwmId, bool isEnter)
+void WorldGraph::ForEachTransition(NumMwmId numMwmId, bool isEnter, TransitionFnT const & fn)
 {
-  static std::vector<Segment> const kEmpty;
-  return kEmpty;
 }
 
 CrossMwmGraph & WorldGraph::GetCrossMwmGraph()

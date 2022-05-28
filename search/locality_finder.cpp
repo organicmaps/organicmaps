@@ -99,14 +99,14 @@ public:
     if (population == 0)
       return;
 
-    auto const names = ft->GetNames();
+    auto const & names = ft->GetNames();
     auto const center = ft->GetCenter();
 
     CitiesBoundariesTable::Boundaries boundaries;
     auto const fid = ft->GetID();
     m_boundaries.Get(fid, boundaries);
 
-    m_holder.Add(LocalityItem(names, center, boundaries, population, fid));
+    m_holder.Add(LocalityItem(names, center, std::move(boundaries), population, fid));
     m_loadedIds.insert(id);
   }
 
@@ -141,8 +141,8 @@ int GetVillagesScale()
 
 // LocalityItem ------------------------------------------------------------------------------------
 LocalityItem::LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center,
-                           Boundaries const & boundaries, uint64_t population, FeatureID const & id)
-  : m_names(names), m_center(center), m_boundaries(boundaries), m_population(population), m_id(id)
+                           Boundaries && boundaries, uint64_t population, FeatureID const & id)
+  : m_names(names), m_center(center), m_boundaries(std::move(boundaries)), m_population(population), m_id(id)
 {
 }
 

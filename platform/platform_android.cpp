@@ -91,7 +91,7 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchSc
     {
     case 'w':
     {
-      string const path = m_writableDir + file;
+      string const path = base::JoinPath(m_writableDir, file);
       if (IsFileExistsByFullPath(path))
         return make_unique<FileReader>(path, logPageSize, logPageCount);
       break;
@@ -99,7 +99,7 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchSc
 
     case 's':
     {
-      string const path = m_settingsDir + file;
+      string const path = base::JoinPath(m_settingsDir, file);
       if (IsFileExistsByFullPath(path))
         return make_unique<FileReader>(path, logPageSize, logPageCount);
       break;

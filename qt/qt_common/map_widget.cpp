@@ -63,7 +63,6 @@ void MapWidget::BindHotkeys(QWidget & parent)
       {Qt::Key_Minus, SLOT(ScaleMinus())},
       {Qt::ALT + Qt::Key_Equal, SLOT(ScalePlusLight())},
       {Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight())},
-      {Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight())},
 #ifdef ENABLE_AA_SWITCH
       {Qt::ALT + Qt::Key_A, SLOT(AntialiasingOn())},
       {Qt::ALT + Qt::Key_S, SLOT(AntialiasingOff())},
@@ -301,9 +300,7 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
     addStringFn(concat);
 
     // Name
-    std::string name;
-    ft.GetReadableName(name);
-    addStringFn(name);
+    addStringFn(std::string(ft.GetReadableName()));
 
     // Address
     auto const info = GetFeatureAddressInfo(m_framework, ft);
@@ -314,7 +311,7 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
       // Maxspeed
       auto const & dataSource = m_framework.GetDataSource();
       auto const handle = dataSource.GetMwmHandleById(ft.GetID().m_mwmId);
-      auto const speeds = routing::LoadMaxspeeds(dataSource, handle);
+      auto const speeds = routing::LoadMaxspeeds(handle);
       if (speeds)
       {
         auto const speed = speeds->GetMaxspeed(ft.GetID().m_index);
@@ -322,6 +319,10 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
           addStringFn(DebugPrint(speed));
       }
     }
+
+    int const layer = ft.GetLayer();
+    if (layer != feature::LAYER_EMPTY)
+      addStringFn("Layer = " + std::to_string(layer));
 
     menu.addSeparator();
   }, m_framework.PtoG(pt));

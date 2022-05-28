@@ -31,7 +31,7 @@ class RuleDrawer
 public:
   using TDrawerCallback = std::function<void(FeatureType &, Stylist &)>;
   using TCheckCancelledCallback = std::function<bool()>;
-  using TIsCountryLoadedByNameFn = std::function<bool(std::string const &)>;
+  using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
   using TInsertShapeFn = std::function<void(drape_ptr<MapShape> && shape)>;
 
   RuleDrawer(TDrawerCallback const & drawerFn,
@@ -57,6 +57,8 @@ private:
   bool CheckCoastlines(FeatureType & f, Stylist const & s);
 
   bool CheckCancelled();
+
+  bool IsDiscardCustomFeature(FeatureID const & id) const;
 
   TDrawerCallback m_callback;
   TCheckCancelledCallback m_checkCancelled;

@@ -199,11 +199,11 @@ class RouteShape
 {
 public:
   using RV = gpu::RouteVertex;
-  using GeometryBuffer = buffer_vector<RV, 128>;
+  using GeometryBuffer = gpu::VBUnknownSizeT<RV>;
   using AV = gpu::SolidTexturingVertex;
-  using ArrowGeometryBuffer = buffer_vector<AV, 128>;
+  using ArrowGeometryBuffer = gpu::VBUnknownSizeT<AV>;
   using MV = gpu::RouteMarkerVertex;
-  using MarkersGeometryBuffer = buffer_vector<MV, 32>;
+  using MarkersGeometryBuffer = gpu::VBUnknownSizeT<MV>;
 
   static drape_ptr<df::SubrouteData> CacheRoute(ref_ptr<dp::GraphicsContext> context,
                                                 dp::DrapeID subrouteId, SubrouteConstPtr subroute,

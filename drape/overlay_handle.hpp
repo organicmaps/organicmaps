@@ -25,7 +25,7 @@
 
 namespace dp
 {
-enum OverlayRank
+enum OverlayRank : uint8_t
 {
   OverlayRank0 = 0,
   OverlayRank1,
@@ -53,13 +53,22 @@ struct OverlayID
     : m_featureId(featureId)
   {}
 
-  OverlayID(FeatureID const & featureId, kml::MarkId markId, m2::PointI const & tileCoords,
-            uint32_t index)
+  OverlayID(FeatureID const & featureId, kml::MarkId markId, m2::PointI const & tileCoords, uint32_t index)
     : m_featureId(featureId)
     , m_markId(markId)
     , m_tileCoords(tileCoords)
     , m_index(index)
   {}
+
+  bool IsValid() const
+  {
+    return m_featureId.IsValid() || m_markId != kml::kInvalidMarkId;
+  }
+
+  static OverlayID GetLowerKey(FeatureID const & featureID)
+  {
+    return {featureID, 0, {-1, -1}, 0};
+  }
 
   auto AsTupleOfRefs() const
   {
@@ -99,15 +108,15 @@ public:
   using Rects = std::vector<m2::RectF>;
 
   OverlayHandle(OverlayID const & id, dp::Anchor anchor,
-                uint64_t priority, int minVisibleScale, bool isBillboard);
+                uint64_t priority, uint8_t minVisibleScale, bool isBillboard);
 
-  virtual ~OverlayHandle() {}
+  virtual ~OverlayHandle() = default;
 
-  bool IsVisible() const;
-  void SetIsVisible(bool isVisible);
+  bool IsVisible() const { return m_isVisible; }
+  void SetIsVisible(bool isVisible) { m_isVisible = isVisible; }
 
-  int GetMinVisibleScale() const;
-  bool IsBillboard() const;
+  uint8_t GetMinVisibleScale() const { return m_minVisibleScale; }
+  bool IsBillboard() const { return m_isBillboard; }
 
   virtual m2::PointD GetPivot(ScreenBase const & screen, bool perspective) const;
 
@@ -135,8 +144,8 @@ public:
   bool HasDynamicAttributes() const;
   void AddDynamicAttribute(BindingInfo const & binding, uint32_t offset, uint32_t count);
 
-  OverlayID const & GetOverlayID() const;
-  uint64_t const & GetPriority() const;
+  OverlayID const & GetOverlayID() const { return m_id; }
+  uint64_t const & GetPriority() const { return m_priority; }
 
   virtual uint64_t GetPriorityMask() const { return kPriorityMaskAll; }
 
@@ -145,10 +154,12 @@ public:
 
   virtual bool Enable3dExtention() const { return true; }
 
-  int GetOverlayRank() const { return m_overlayRank; }
-  void SetOverlayRank(int overlayRank) { m_overlayRank = overlayRank; }
+  using RankT = uint8_t;  // Same as OverlayRank
+  RankT GetOverlayRank() const { return m_overlayRank; }
+  void SetOverlayRank(RankT overlayRank) { m_overlayRank = overlayRank; }
 
-  void SetCachingEnable(bool enable);
+  void EnableCaching(bool enable);
+  bool IsCachingEnabled() const { return m_caching; }
 
   void SetReady(bool isReady) { m_isReady = isReady; }
   bool IsReady() const { return m_isReady; }
@@ -168,9 +179,9 @@ protected:
   dp::Anchor const m_anchor;
   uint64_t const m_priority;
 
-  int m_overlayRank;
   double m_extendingSize;
   double m_pivotZ;
+  RankT m_overlayRank;
 
   using TOffsetNode = std::pair<BindingInfo, MutateRegion>;
   TOffsetNode const & GetOffsetNode(uint8_t bufferID) const;
@@ -179,16 +190,24 @@ protected:
   m2::RectD GetPixelRectPerspective(ScreenBase const & screen) const;
 
 private:
-  int m_minVisibleScale;
-  bool const m_isBillboard;
-  bool m_isVisible;
+  uint8_t m_minVisibleScale;
 
   dp::IndexStorage m_indexes;
   struct LessOffsetNode
   {
+    typedef bool is_transparent;
+
     bool operator()(TOffsetNode const & node1, TOffsetNode const & node2) const
     {
       return node1.first.GetID() < node2.first.GetID();
+    }
+    bool operator()(uint8_t node1, TOffsetNode const & node2) const
+    {
+      return node1 < node2.first.GetID();
+    }
+    bool operator()(TOffsetNode const & node1, uint8_t node2) const
+    {
+      return node1.first.GetID() < node2;
     }
   };
 
@@ -196,15 +215,19 @@ private:
 
   std::set<TOffsetNode, LessOffsetNode> m_offsets;
 
-  bool m_enableCaching;
   mutable Rects m_extendedShapeCache;
-  mutable bool m_extendedShapeDirty;
   mutable m2::RectD m_extendedRectCache;
-  mutable bool m_extendedRectDirty;
 
-  bool m_isReady = false;
-  bool m_isSpecialLayerOverlay = false;
-  bool m_displayFlag = false;
+  bool const m_isBillboard : 1;
+  bool m_isVisible : 1;
+
+  bool m_caching : 1;
+  mutable bool m_extendedShapeDirty : 1;
+  mutable bool m_extendedRectDirty : 1;
+
+  bool m_isReady : 1;
+  bool m_isSpecialLayerOverlay : 1;
+  bool m_displayFlag : 1;
 };
 
 class SquareHandle : public OverlayHandle

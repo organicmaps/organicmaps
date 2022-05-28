@@ -22,9 +22,11 @@
 #include <functional>
 #include <sstream>
 
+namespace qt
+{
 namespace
 {
-bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt, int & zoom)
+bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt, uint8_t & zoom)
 {
   // Order in string is: lat, lon, zoom.
   strings::SimpleTokenizer iter(s, delim);
@@ -33,10 +35,10 @@ bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt, int 
 
   double lat;
   double lon;
-  int zoomLevel;
+  uint8_t zoomLevel;
   if (strings::to_double(*iter, lat) && mercator::ValidLat(lat) && ++iter &&
       strings::to_double(*iter, lon) && mercator::ValidLon(lon) && ++iter &&
-      strings::to_int(*iter, zoomLevel) &&
+      strings::to_uint(*iter, zoomLevel) &&
       zoomLevel >= 1 && zoomLevel <= scales::GetUpperStyleScale())
   {
     pt = mercator::FromLatLon(lat, lon);
@@ -46,7 +48,7 @@ bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt, int 
   return false;
 }
 
-bool ParseRect(std::string const & s, char const * delim, m2::RectD & rect)
+bool ParseRect(std::string_view s, char const * delim, m2::RectD & rect)
 {
   // Order in string is: latLeftBottom, lonLeftBottom, latRigthTop, lonRigthTop.
   strings::SimpleTokenizer iter(s, delim);
@@ -73,7 +75,7 @@ bool ParsePointsStr(std::string const & pointsStr, std::list<std::pair<m2::Point
 {
   strings::SimpleTokenizer tupleIter(pointsStr, ";");
   m2::PointD pt;
-  int zoom;
+  uint8_t zoom;
   while (tupleIter)
   {
     if (ParsePoint(*tupleIter, ", \t", pt, zoom))
@@ -111,8 +113,6 @@ bool ParseRectsStr(std::string const & rectsStr, std::list<m2::RectD> & rects)
 }
 }  // namespace
 
-namespace qt
-{
 Screenshoter::Screenshoter(ScreenshotParams const & screenshotParams, Framework & framework,
                            QOpenGLWidget * widget)
   : m_screenshotParams(screenshotParams)

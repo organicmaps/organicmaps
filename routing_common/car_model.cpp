@@ -46,12 +46,6 @@ VehicleModel::LimitsInitList const kCarOptionsDefault = {
     {{"highway", "living_street"}, true},
     {{"highway", "road"}, true},
     {{"highway", "track"}, true}
-    /// @todo: Add to classificator
-    //{ {"highway", "shuttle_train"},  10 },
-    //{ {"highway", "ferry"},          5  },
-    //{ {"highway", "default"},        10 },
-    /// @todo: Check type
-    //{ {"highway", "construction"},   40 },
 };
 
 VehicleModel::LimitsInitList const kCarOptionsNoPassThroughLivingStreet = {
@@ -134,12 +128,14 @@ VehicleModel::AdditionalRoadsList const kAdditionalRoads = {
     {{"route", "ferry"}, kHighwayBasedSpeeds.Get(HighwayType::RouteFerry)},
     {{"man_made", "pier"}, kHighwayBasedSpeeds.Get(HighwayType::ManMadePier)}};
 
+/// @todo Should make some compare constrains (like in CarModel_TrackVsGravelTertiary test)
+/// to better fit these factors with reality. I have no idea, how they were set.
 VehicleModel::SurfaceInitList const kCarSurface = {
   // {{surfaceType, surfaceType}, {weightFactor, etaFactor}}
   {{"psurface", "paved_good"}, {1.0, 1.0}},
   {{"psurface", "paved_bad"}, {0.5, 0.5}},
   {{"psurface", "unpaved_good"}, {0.4, 0.8}},
-  {{"psurface", "unpaved_bad"}, {0.1, 0.3}}
+  {{"psurface", "unpaved_bad"}, {0.2, 0.3}}
 };
 
 // Names must be the same with country names from countries.txt

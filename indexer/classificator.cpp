@@ -58,9 +58,9 @@ void ClassifObject::AddDrawRule(drule::Key const & k)
   m_drawRule.insert(i, k);
 }
 
-ClassifObjectPtr ClassifObject::BinaryFind(string const & s) const
+ClassifObjectPtr ClassifObject::BinaryFind(string_view const s) const
 {
-  auto const i = lower_bound(m_objs.begin(), m_objs.end(), s, less_name_t());
+  auto const i = lower_bound(m_objs.begin(), m_objs.end(), s, LessName());
   if ((i == m_objs.end()) || ((*i).m_name != s))
     return ClassifObjectPtr(0, 0);
   else
@@ -85,7 +85,7 @@ void ClassifObject::LoadPolicy::EndChilds()
 void ClassifObject::Sort()
 {
   sort(m_drawRule.begin(), m_drawRule.end(), less_scales());
-  sort(m_objs.begin(), m_objs.end(), less_name_t());
+  sort(m_objs.begin(), m_objs.end(), LessName());
   for_each(m_objs.begin(), m_objs.end(), bind(&ClassifObject::Sort, placeholders::_1));
 }
 
@@ -364,6 +364,7 @@ void Classificator::ReadClassificator(istream & s)
   m_root.Sort();
 
   m_coastType = GetTypeByPath({ "natural", "coastline" });
+  m_stubType = GetTypeByPath({ "mapswithme" });
 }
 
 template <typename Iter>
@@ -377,7 +378,7 @@ uint32_t Classificator::GetTypeByPathImpl(Iter beg, Iter end) const
   {
     ClassifObjectPtr ptr = p->BinaryFind(*beg++);
     if (!ptr)
-      return 0;
+      return INVALID_TYPE;
 
     ftype::PushValue(type, ptr.GetIndex());
     p = ptr.get();
@@ -386,7 +387,7 @@ uint32_t Classificator::GetTypeByPathImpl(Iter beg, Iter end) const
   return type;
 }
 
-uint32_t Classificator::GetTypeByPathSafe(vector<string> const & path) const
+uint32_t Classificator::GetTypeByPathSafe(vector<string_view> const & path) const
 {
   return GetTypeByPathImpl(path.begin(), path.end());
 }
@@ -394,14 +395,21 @@ uint32_t Classificator::GetTypeByPathSafe(vector<string> const & path) const
 uint32_t Classificator::GetTypeByPath(vector<string> const & path) const
 {
   uint32_t const type = GetTypeByPathImpl(path.cbegin(), path.cend());
-  ASSERT_NOT_EQUAL(type, 0, (path));
+  ASSERT_NOT_EQUAL(type, INVALID_TYPE, (path));
+  return type;
+}
+
+uint32_t Classificator::GetTypeByPath(vector<string_view> const & path) const
+{
+  uint32_t const type = GetTypeByPathImpl(path.cbegin(), path.cend());
+  ASSERT_NOT_EQUAL(type, INVALID_TYPE, (path));
   return type;
 }
 
 uint32_t Classificator::GetTypeByPath(initializer_list<char const *> const & lst) const
 {
   uint32_t const type = GetTypeByPathImpl(lst.begin(), lst.end());
-  ASSERT_NOT_EQUAL(type, 0, (lst));
+  ASSERT_NOT_EQUAL(type, INVALID_TYPE, (lst));
   return type;
 }
 
@@ -420,6 +428,50 @@ void Classificator::Clear()
 {
   ClassifObject("world").Swap(m_root);
   m_mapping.Clear();
+}
+
+template <class ToDo> void Classificator::ForEachPathObject(uint32_t type, ToDo && toDo) const
+{
+  ClassifObject const * p = &m_root;
+  uint8_t i = 0;
+
+  uint8_t v;
+  while (ftype::GetValue(type, i, v))
+  {
+    ++i;
+    p = p->GetObject(v);
+    toDo(p);
+  }
+}
+
+ClassifObject const * Classificator::GetObject(uint32_t type) const
+{
+  ClassifObject const * res = nullptr;
+  ForEachPathObject(type, [&res](ClassifObject const * p)
+  {
+    res = p;
+  });
+  return res;
+}
+
+std::string Classificator::GetFullObjectName(uint32_t type) const
+{
+  std::string res;
+  ForEachPathObject(type, [&res](ClassifObject const * p)
+  {
+    res = res + p->GetName() + '|';
+  });
+  return res;
+}
+
+std::vector<std::string> Classificator::GetFullObjectNamePath(uint32_t type) const
+{
+  std::vector<std::string> res;
+  ForEachPathObject(type, [&res](ClassifObject const * p)
+  {
+    res.push_back(p->GetName());
+  });
+  return res;
 }
 
 string Classificator::GetReadableObjectName(uint32_t type) const

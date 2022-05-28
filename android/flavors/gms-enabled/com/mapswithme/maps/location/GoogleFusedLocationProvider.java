@@ -37,16 +37,17 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
       // Documentation is inconsistent with the code: "returns null if no locations are available".
       // https://developers.google.com/android/reference/com/google/android/gms/location/LocationResult#getLastLocation()
       //noinspection ConstantConditions
-      if (location == null)
-        return;
-      mListener.onLocationChanged(location);
+      if (location != null)
+        mListener.onLocationChanged(location);
     }
 
     @Override
     public void onLocationAvailability(@NonNull LocationAvailability availability)
     {
-      if (!availability.isLocationAvailable())
-        mListener.onLocationError(ERROR_GPS_OFF);
+      if (!availability.isLocationAvailable()) {
+        LOGGER.w(TAG, "isLocationAvailable returned false");
+        //mListener.onLocationError(ERROR_GPS_OFF);
+      }
     }
   }
 
@@ -75,6 +76,9 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     final LocationRequest locationRequest = LocationRequest.create();
     locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     locationRequest.setInterval(interval);
+    // Wait a few seconds for accurate locations initially, when accurate locations could not be computed on the device immediately.
+    // https://github.com/organicmaps/organicmaps/issues/2149
+    locationRequest.setWaitForAccurateLocation(true);
     LOGGER.d(TAG, "Request Google fused provider to provide locations at this interval = "
         + interval + " ms");
     locationRequest.setFastestInterval(interval / 2);
@@ -107,4 +111,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     mFusedLocationClient.removeLocationUpdates(mCallback);
     mActive = false;
   }
+
+  @Override
+  protected boolean trustFusedLocations() { return true; }
 }

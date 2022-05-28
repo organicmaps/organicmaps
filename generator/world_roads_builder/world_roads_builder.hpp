@@ -17,6 +17,7 @@
 #include <set>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 namespace routing
@@ -26,8 +27,8 @@ struct RoadData
 {
   RoadData() = default;
 
-  RoadData(std::set<std::string> const & regions, OsmElement const & way)
-    : m_regions(regions), m_way(way)
+  RoadData(std::set<std::string> regions, OsmElement && way)
+    : m_regions(std::move(regions)), m_way(std::move(way))
   {
   }
 

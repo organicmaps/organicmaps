@@ -122,24 +122,27 @@
     <item name="android:textAllCaps">true</item>
   </style>
 
-  <style name="MwmTextAppearance.RoutingNumber">
-    <item name="android:textSize">@dimen/text_size_routing_number</item>
+  <style name="MwmTextAppearance.NavMenu">
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="MwmTextAppearance.NavMenu.Time">
+    <item name="android:textSize">@dimen/text_size_nav_menu_number</item>
+    <item name="android:textColor">?colorAccent</item>
+  </style>
+
+  <style name="MwmTextAppearance.NavMenu.Time.Dimension">
+    <item name="android:textSize">@dimen/text_size_nav_menu_dimension</item>
+  </style>
+
+  <style name="MwmTextAppearance.NavMenu.Number">
+    <item name="android:textSize">@dimen/text_size_nav_menu_number</item>
     <item name="android:textColor">?android:textColorPrimary</item>
-    <item name="android:textStyle">bold</item>
   </style>
 
-  <style name="MwmTextAppearance.RoutingNumber.Navigation">
-    <item name="android:textSize">@dimen/text_size_nav_number</item>
-  </style>
-
-  <style name="MwmTextAppearance.RoutingDimension">
-    <item name="android:textSize">@dimen/text_size_routing_dimension</item>
+  <style name="MwmTextAppearance.NavMenu.Number.Dimension">
+    <item name="android:textSize">@dimen/text_size_nav_menu_dimension</item>
     <item name="android:textColor">?android:textColorSecondary</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-
-  <style name="MwmTextAppearance.RoutingDimension.Inline" parent="MwmTextAppearance.RoutingNumber">
-    <item name="android:textSize">@dimen/text_size_routing_dimension_inline</item>
   </style>
 
   <style name="MwmTextAppearance.RoutingDetail">

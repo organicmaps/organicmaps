@@ -6,13 +6,11 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
-import android.os.SystemClock;
 import android.provider.Settings;
 import android.view.Surface;
 
 import androidx.annotation.NonNull;
 
-import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -62,39 +60,9 @@ public class LocationUtils
     return res;
   }
 
-  public static boolean isExpired(Location l, long millis, long expirationMillis)
+  public static double getTimeDiff(@NonNull Location lastLocation, @NonNull Location newLocation)
   {
-    long timeDiff;
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-      timeDiff = (SystemClock.elapsedRealtimeNanos() - l.getElapsedRealtimeNanos()) / 1000000;
-    else
-      timeDiff = System.currentTimeMillis() - millis;
-    return (timeDiff > expirationMillis);
-  }
-
-  public static double getTimeDiff(Location lastLocation, Location newLocation)
-  {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-      return (newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos()) * 1.0E-9;
-    else
-    {
-      long time = newLocation.getTime();
-      long lastTime = lastLocation.getTime();
-      if (!isSameLocationProvider(newLocation.getProvider(), lastLocation.getProvider()))
-      {
-        // Do compare current and previous system times in case when
-        // we have incorrect time settings on a device.
-        time = System.currentTimeMillis();
-        lastTime = LocationHelper.INSTANCE.getSavedLocationTime();
-      }
-
-      return (time - lastTime) * 1.0E-3;
-    }
-  }
-
-  private static boolean isSameLocationProvider(String p1, String p2)
-  {
-    return (p1 != null && p1.equals(p2));
+    return (newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos()) * 1.0E-9;
   }
 
   public static boolean isFromGpsProvider(@NonNull Location location)
@@ -121,9 +89,7 @@ public class LocationUtils
 
   public static boolean isLocationBetterThanLast(@NonNull Location newLocation, @NonNull Location lastLocation)
   {
-    if (isFromFusedProvider(newLocation))
-      return true;
-
+    // As described in isAccuracySatisfied, GPS may have zero accuracy "for some reasons".
     if (isFromGpsProvider(lastLocation) && lastLocation.getAccuracy() == 0.0f)
       return true;
 
@@ -132,17 +98,20 @@ public class LocationUtils
     return newLocation.getAccuracy() < lastAccuracy;
   }
 
-
-  @SuppressLint("InlinedApi")
-  @SuppressWarnings("deprecation")
   public static boolean areLocationServicesTurnedOn(@NonNull Context context)
   {
-    final ContentResolver resolver = context.getContentResolver();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+    {
+      final LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+      return lm.isLocationEnabled();
+    }
+
     try
     {
-      return Settings.Secure.getInt(resolver, Settings.Secure.LOCATION_MODE)
+      return Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE)
              != Settings.Secure.LOCATION_MODE_OFF;
-    } catch (Settings.SettingNotFoundException e)
+    }
+    catch (Settings.SettingNotFoundException e)
     {
       e.printStackTrace();
       return false;

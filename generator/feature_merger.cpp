@@ -343,11 +343,9 @@ public:
   bool operator() (uint32_t type) const
   {
     std::pair<int, int> const range = feature::GetDrawableScaleRange(type);
-    // We have feature types without any drawing rules.
-    // This case was processed before:
-    // - feature::TypeAlwaysExists;
-    // - FeatureBuilder::RemoveInvalidTypes;
-    // Don't delete them here.
+
+    // Don't remove non-drawable types here, since this case is processed before
+    // feature::TypeAlwaysExists or FeatureBuilder::RemoveInvalidTypes.
     if (m_doNotRemoveSpecialTypes && range.first == -1)
     {
       ASSERT(range.second == -1, ());

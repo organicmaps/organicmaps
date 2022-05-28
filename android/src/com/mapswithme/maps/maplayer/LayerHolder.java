@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 
-import java.util.Objects;
-
 class LayerHolder extends RecyclerView.ViewHolder
 {
   @NonNull
@@ -22,9 +20,9 @@ class LayerHolder extends RecyclerView.ViewHolder
   @NonNull
   final View mNewMarker;
   @Nullable
-  BottomSheetItem mItem;
+  LayerBottomSheetItem mItem;
   @Nullable
-  OnItemClickListener<BottomSheetItem> mListener;
+  OnItemClickListener<LayerBottomSheetItem> mListener;
 
   LayerHolder(@NonNull View root)
   {
@@ -35,20 +33,9 @@ class LayerHolder extends RecyclerView.ViewHolder
     mButton.setOnClickListener(this::onItemClicked);
   }
 
-  @NonNull
-  public BottomSheetItem getItem()
+  public void onItemClicked(@NonNull View v)
   {
-    return Objects.requireNonNull(mItem);
-  }
-
-  @NonNull
-  public OnItemClickListener<BottomSheetItem> getListener()
-  {
-    return Objects.requireNonNull(mListener);
-  }
-
-  private void onItemClicked(@NonNull View v)
-  {
-    getListener().onItemClick(v, getItem());
+    if (mListener != null && mItem != null)
+      mListener.onItemClick(v, mItem);
   }
 }

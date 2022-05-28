@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "发表评论";
 
-/* View and button titles for accessibility */
-"maps" = "地图";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "英里";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "我的位置";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "警察";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "无线网络";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "回收";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "网站";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "新闻";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "指南针校准";
 
-/* Search category */
-"wifi" = "无线网络";
-
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "已下载";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "在我附近";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "地图";
 
 "downloader_download_all_button" = "下载全部";
@@ -418,9 +419,6 @@
 
 /* blue gray color */
 "blue_gray" = "蓝灰色";
-
-/* Wi-Fi available */
-"WiFi_available" = "是";
 
 
 /********** Routing dialogs strings **********/
@@ -743,6 +741,7 @@
 
 "mile" = "英里";
 
+/* A unit of measure */
 "foot" = "英尺";
 
 "miles_per_hour" = "英里每小时";
@@ -1025,9 +1024,17 @@
 
 "redirect_route_alert" = "想重建路线?";
 
-"redirect_route_yes" = "是";
+/* A generic "Yes" button in dialogs */
+"yes" = "是";
 
-"redirect_route_no" = "否";
+/* A generic "No" button in dialogs */
+"no" = "否";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "是";
+
+/* E.g. "WiFi:No" */
+"no_available" = "否";
 
 "trip_finished" = "您已到达!";
 
@@ -1442,11 +1449,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "香烟售货机";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "饮料售货机";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "停车缴费机";
 
 "type.amenity.vending_machine.public_transport_tickets" = "公共交通售票机";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1601,6 +1618,8 @@
 "type.cuisine.brazilian" = "巴西菜";
 
 "type.cuisine.breakfast" = "早餐";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "汉堡包";
 
@@ -1765,11 +1784,13 @@
 
 "type.highway.bridleway" = "马道";
 
-"type.highway.bridleway.bridge" = "马道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "桥";
 
 "type.highway.bridleway.permissive" = "马道";
 
-"type.highway.bridleway.tunnel" = "马道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "隧道";
 
 "type.highway.bus_stop" = "公交站";
 
@@ -1777,11 +1798,13 @@
 
 "type.highway.cycleway" = "自行车道";
 
-"type.highway.cycleway.bridge" = "自行车道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "桥";
 
 "type.highway.cycleway.permissive" = "自行车道";
 
-"type.highway.cycleway.tunnel" = "自行车道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "隧道";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1814,8 @@
 
 "type.highway.footway.area" = "步行道路";
 
-"type.highway.footway.bridge" = "步行道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "桥";
 
 "type.highway.footway.demanding_alpine_hiking" = "步行道路";
 
@@ -1805,29 +1829,36 @@
 
 "type.highway.footway.permissive" = "步行道路";
 
-"type.highway.footway.tunnel" = "步行道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "隧道";
 
 "type.highway.ford" = "浅滩";
 
 "type.highway.living_street" = "生活性街道";
 
-"type.highway.living_street.bridge" = "生活性街道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "桥";
 
-"type.highway.living_street.tunnel" = "生活性街道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "隧道";
 
 "type.highway.motorway" = "高速公路";
 
-"type.highway.motorway.bridge" = "高速公路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "桥";
 
-"type.highway.motorway.tunnel" = "高速公路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "隧道";
 
 "type.highway.motorway_junction" = "出口";
 
 "type.highway.motorway_link" = "高速公路连接路";
 
-"type.highway.motorway_link.bridge" = "高速公路连接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "桥";
 
-"type.highway.motorway_link.tunnel" = "高速公路连接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "隧道";
 
 "type.highway.path" = "小道";
 
@@ -1835,7 +1866,8 @@
 
 "type.highway.path.bicycle" = "小道";
 
-"type.highway.path.bridge" = "小道";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "桥";
 
 "type.highway.path.demanding_alpine_hiking" = "小道";
 
@@ -1851,27 +1883,34 @@
 
 "type.highway.path.permissive" = "小道";
 
-"type.highway.path.tunnel" = "小道";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "隧道";
 
 "type.highway.pedestrian" = "步行街";
 
 "type.highway.pedestrian.area" = "步行区域";
 
-"type.highway.pedestrian.bridge" = "步行街";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "桥";
 
-"type.highway.pedestrian.tunnel" = "步行街";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "隧道";
 
 "type.highway.primary" = "主要道路";
 
-"type.highway.primary.bridge" = "主要道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "桥";
 
-"type.highway.primary.tunnel" = "主要道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "隧道";
 
 "type.highway.primary_link" = "主要道路连接路";
 
-"type.highway.primary_link.bridge" = "主要道路连接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "桥";
 
-"type.highway.primary_link.tunnel" = "主要道路连接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "隧道";
 
 "type.highway.raceway" = "赛车场";
 
@@ -1879,41 +1918,51 @@
 
 "type.highway.residential.area" = "住宅区道路";
 
-"type.highway.residential.bridge" = "住宅区道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "桥";
 
-"type.highway.residential.tunnel" = "住宅区道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "隧道";
 
 "type.highway.rest_area" = "休息区";
 
 "type.highway.road" = "道路";
 
-"type.highway.road.bridge" = "道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "桥";
 
-"type.highway.road.tunnel" = "道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "隧道";
 
 "type.highway.secondary" = "次要道路";
 
-"type.highway.secondary.bridge" = "次要道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "桥";
 
-"type.highway.secondary.tunnel" = "次要道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "隧道";
 
 "type.highway.secondary_link" = "次要道路连接路";
 
-"type.highway.secondary_link.bridge" = "次要道路连接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "桥";
 
-"type.highway.secondary_link.tunnel" = "次要道路连接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "隧道";
 
 "type.highway.service" = "辅助道路";
 
 "type.highway.service.area" = "辅助道路";
 
-"type.highway.service.bridge" = "辅助道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "桥";
 
 "type.highway.service.driveway" = "车道";
 
 "type.highway.service.parking_aisle" = "停车场通道";
 
-"type.highway.service.tunnel" = "辅助道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "隧道";
 
 "type.highway.services" = "服务区";
 
@@ -1921,27 +1970,34 @@
 
 "type.highway.steps" = "阶梯";
 
-"type.highway.steps.bridge" = "阶梯";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "桥";
 
-"type.highway.steps.tunnel" = "阶梯";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "隧道";
 
 "type.highway.tertiary" = "三级道路";
 
-"type.highway.tertiary.bridge" = "三级道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "桥";
 
-"type.highway.tertiary.tunnel" = "三级道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "隧道";
 
 "type.highway.tertiary_link" = "三级道路连接路";
 
-"type.highway.tertiary_link.bridge" = "三级道路连接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "桥";
 
-"type.highway.tertiary_link.tunnel" = "三级道路连接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "隧道";
 
 "type.highway.track" = "土路";
 
 "type.highway.track.area" = "土路";
 
-"type.highway.track.bridge" = "土路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "桥";
 
 "type.highway.track.grade1" = "土路";
 
@@ -1957,29 +2013,36 @@
 
 "type.highway.track.permissive" = "土路";
 
-"type.highway.track.tunnel" = "土路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "隧道";
 
 "type.highway.traffic_signals" = "交通信号灯";
 
 "type.highway.trunk" = "干线道路";
 
-"type.highway.trunk.bridge" = "干线道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "桥";
 
-"type.highway.trunk.tunnel" = "干线道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "隧道";
 
 "type.highway.trunk_link" = "干线道路连接路";
 
-"type.highway.trunk_link.bridge" = "干线道路连接路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "桥";
 
-"type.highway.trunk_link.tunnel" = "干线道路连接路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "隧道";
 
 "type.highway.unclassified" = "道路";
 
 "type.highway.unclassified.area" = "道路";
 
-"type.highway.unclassified.bridge" = "道路";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "桥";
 
-"type.highway.unclassified.tunnel" = "道路";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "隧道";
 
 "type.area_highway.cycleway" = "自行车道";
 
@@ -2110,6 +2173,8 @@
 
 "type.landuse.construction" = "建设区域";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "农田";
 
 "type.landuse.farmland" = "农业用地";
@@ -2235,6 +2300,8 @@
 "type.man_made.chimney" = "工厂烟囱";
 
 "type.man_made.cutline" = "树林分界线";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2369,6 +2436,10 @@
 "type.office.ngo" = "非政府组织办公室";
 
 "type.office.telecommunication" = "电信办公室";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "地点";
 

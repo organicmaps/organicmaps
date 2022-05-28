@@ -27,10 +27,10 @@
 
 #include "3party/opening_hours/opening_hours.hpp"
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 class SkipRegionInfo
@@ -67,7 +67,11 @@ public:
 // PreRankerResult ---------------------------------------------------------------------------------
 PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
                                  vector<ResultTracer::Branch> const & provenance)
-  : m_id(id), m_info(info), m_provenance(provenance)
+: m_id(id), m_info(info)
+, m_isRelaxed(base::IsExist(provenance, ResultTracer::Branch::Relaxed))
+#ifdef SEARCH_USE_PROVENANCE
+, m_provenance(provenance)
+#endif
 {
   ASSERT(m_id.IsValid(), ());
 
@@ -77,8 +81,7 @@ PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & in
 }
 
 // static
-bool PreRankerResult::LessRankAndPopularity(PreRankerResult const & lhs,
-                                            PreRankerResult const & rhs)
+bool PreRankerResult::LessRankAndPopularity(PreRankerResult const & lhs, PreRankerResult const & rhs)
 {
   if (lhs.m_info.m_rank != rhs.m_info.m_rank)
     return lhs.m_info.m_rank > rhs.m_info.m_rank;
@@ -132,10 +135,10 @@ bool PreRankerResult::CategoriesComparator::operator()(PreRankerResult const & l
 
 // RankerResult ------------------------------------------------------------------------------------
 RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
-                           string const & displayName, string const & fileName)
+                           string displayName, string const & fileName)
   : m_id(f.GetID())
   , m_types(f)
-  , m_str(displayName)
+  , m_str(std::move(displayName))
   , m_resultType(ftypes::IsBuildingChecker::Instance()(m_types) ? Type::Building : Type::Feature)
   , m_geomType(f.GetGeomType())
 {
@@ -150,13 +153,19 @@ RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::Point
   FillDetails(f, m_details);
 }
 
+RankerResult::RankerResult(FeatureType & ft, m2::PointD const & pivot, std::string const & fileName)
+  : RankerResult(ft, feature::GetCenter(ft, FeatureType::WORST_GEOMETRY),
+                 pivot, std::string(ft.GetReadableName()), fileName)
+{
+}
+
 RankerResult::RankerResult(double lat, double lon)
   : m_str("(" + measurement_utils::FormatLatLon(lat, lon) + ")"), m_resultType(Type::LatLon)
 {
   m_region.SetParams(string(), mercator::FromLatLon(lat, lon));
 }
 
-RankerResult::RankerResult(m2::PointD const & coord, string const & postcode)
+RankerResult::RankerResult(m2::PointD const & coord, string_view postcode)
   : m_str(postcode), m_resultType(Type::Postcode)
 {
   m_region.SetParams(string(), coord);
@@ -231,19 +240,20 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   details.m_airportIata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
   details.m_brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
 
-  string const openHours = ft.GetMetadata(feature::Metadata::FMD_OPEN_HOURS);
+  /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
+  std::string const openHours(ft.GetMetadata(feature::Metadata::FMD_OPEN_HOURS));
   if (!openHours.empty())
   {
-    osmoh::OpeningHours const oh(openHours);
-    // TODO: We should check closed/open time for specific feature's timezone.
+    osmoh::OpeningHours const oh((std::string(openHours)));
+    /// @todo We should check closed/open time for specific feature's timezone.
     time_t const now = time(nullptr);
     if (oh.IsValid() && !oh.IsUnknown(now))
       details.m_isOpenNow = oh.IsOpen(now) ? osm::Yes : osm::No;
     // In else case value us osm::Unknown, it's set in preview's constructor.
   }
 
-  if (strings::to_int(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
-    details.m_stars = base::Clamp(details.m_stars, 0, 5);
+  if (strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
+    details.m_stars = std::min(details.m_stars, uint8_t(5));
   else
     details.m_stars = 0;
 
@@ -264,8 +274,10 @@ string DebugPrint(RankerResult const & r)
      << "Name: " << r.GetName()
      << "; Type: " << classif().GetReadableObjectName(r.GetBestType());
 
-    if (!r.GetProvenance().empty())
-      ss << "; Provenance: " << ::DebugPrint(r.GetProvenance());
+#ifdef SEARCH_USE_PROVENANCE
+    if (!r.m_provenance.empty())
+      ss << "; Provenance: " << ::DebugPrint(r.m_provenance);
+#endif
 
      ss << "; " << DebugPrint(r.GetRankingInfo())
      << "; Linear model rank: " << r.GetLinearModelRank()

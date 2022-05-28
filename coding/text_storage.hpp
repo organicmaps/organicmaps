@@ -75,15 +75,15 @@ public:
     }
   }
 
-  void Append(std::string const & s)
+  void Append(std::string_view sv)
   {
     ASSERT(!m_blocks.empty(), ());
 
     ASSERT_LESS(m_pool.size(), m_blockSize, ());
 
     ++m_blocks.back().m_subs;
-    m_pool.append(s);
-    m_lengths.push_back(s.size());
+    m_pool.append(sv);
+    m_lengths.push_back(sv.size());
 
     if (m_pool.size() >= m_blockSize)
     {
@@ -183,25 +183,25 @@ public:
   template <typename Reader>
   void Read(Reader & reader)
   {
-    auto const indexOffset = ReadPrimitiveFromPos<uint64_t, Reader>(reader, 0);
+    auto const indexOffset = ReadPrimitiveFromPos<uint64_t>(reader, 0);
 
     NonOwningReaderSource source(reader);
     source.Skip(indexOffset);
 
-    auto const numBlocks = ReadVarUint<uint64_t, NonOwningReaderSource>(source);
+    auto const numBlocks = ReadVarUint<uint64_t>(source);
     m_blocks.assign(static_cast<size_t>(numBlocks), {});
 
     uint64_t prevOffset = 8;  // 8 bytes for the offset of the data section
     for (uint64_t i = 0; i < numBlocks; ++i)
     {
-      auto const delta = ReadVarUint<uint64_t, NonOwningReaderSource>(source);
+      auto const delta = ReadVarUint<uint64_t>(source);
       CHECK_GREATER_OR_EQUAL(prevOffset + delta, prevOffset, ());
       prevOffset += delta;
 
       auto & block = m_blocks[static_cast<size_t>(i)];
       block.m_offset = prevOffset;
       block.m_from = i == 0 ? 0 : m_blocks[static_cast<size_t>(i - 1)].To();
-      block.m_subs = ReadVarUint<uint64_t, NonOwningReaderSource>(source);
+      block.m_subs = ReadVarUint<uint64_t>(source);
       CHECK_GREATER_OR_EQUAL(block.m_from + block.m_subs, block.m_from, ());
     }
   }
@@ -262,7 +262,7 @@ public:
         CHECK_GREATER_OR_EQUAL(sub.m_offset + sub.m_length, sub.m_offset, ());
         offset += sub.m_length;
       }
-      BWTCoder::ReadAndDecodeBlock(source, std::back_inserter(entry.m_value));
+      entry.m_value = BWTCoder::ReadAndDecodeBlock(source);
     }
 
     ASSERT_GREATER_OR_EQUAL(stringIx, bi.From(), ());
@@ -274,7 +274,8 @@ public:
     auto const & si = entry.m_subs[stringIx];
     auto const & value = entry.m_value;
     ASSERT_LESS_OR_EQUAL(si.m_offset + si.m_length, value.size(), ());
-    return value.substr(static_cast<size_t>(si.m_offset), static_cast<size_t>(si.m_length));
+    auto const beg = value.begin() + si.m_offset;
+    return std::string(beg, beg + si.m_length);
   }
 
 private:
@@ -289,8 +290,8 @@ private:
 
   struct CacheEntry
   {
-    std::string m_value;             // concatenation of the strings
-    std::vector<StringInfo> m_subs;  // indices of individual strings
+    BWTCoder::BufferT m_value;        // concatenation of the strings
+    std::vector<StringInfo> m_subs;   // indices of individual strings
   };
 
   BlockedTextStorageIndex m_index;

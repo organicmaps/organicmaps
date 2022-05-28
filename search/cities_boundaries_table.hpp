@@ -6,11 +6,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include <cstdint>
-#include <sstream>
 #include <string>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 class DataSource;
@@ -34,11 +31,6 @@ public:
     {
     }
 
-    Boundaries(std::vector<indexer::CityBoundary> && boundaries, double eps)
-      : m_boundaries(std::move(boundaries)), m_eps(eps)
-    {
-    }
-
     // Returns true iff |p| is inside any of the regions bounded by
     // |*this|.
     bool HasPoint(m2::PointD const & p) const;
@@ -54,17 +46,13 @@ public:
       return rect;
     }
 
-    std::vector<indexer::CityBoundary> const & GetBoundariesForTesting() const { return m_boundaries; }
-
-    friend std::string DebugPrint(Boundaries const & boundaries)
+    template <class FnT> void ForEachBoundary(FnT && fn) const
     {
-      std::ostringstream os;
-      os << "Boundaries [";
-      os << ::DebugPrint(boundaries.m_boundaries) << ", ";
-      os << "eps: " << boundaries.m_eps;
-      os << "]";
-      return os.str();
+      for (size_t i = 0; i < m_boundaries.size(); ++i)
+        fn(m_boundaries[i], i);
     }
+
+    friend std::string DebugPrint(Boundaries const & boundaries);
 
   private:
     std::vector<indexer::CityBoundary> m_boundaries;

@@ -40,7 +40,7 @@ UNIT_TEST(Zgrad924aToFilaretovskyChurch)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.9844, 37.1808), {0., 0.},
-      mercator::FromLatLon(55.9915, 37.1808), 1109.0);
+      mercator::FromLatLon(55.9915, 37.1808), 1225.82);
 }
 
 UNIT_TEST(Zgrad924aTo1145)
@@ -135,7 +135,7 @@ UNIT_TEST(SwedenStockholmSlussenHiltonToMaritimeMuseum)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(59.32046, 18.06924), {0.0, 0.0},
-      mercator::FromLatLon(59.32751, 18.09092), 3442.0);
+      mercator::FromLatLon(59.32751, 18.09092), 3700.35);
 }
 
 UNIT_TEST(SwedenStockholmSlussenHiltonToAfChapmanHostel)
@@ -295,7 +295,7 @@ UNIT_TEST(RussiaSaintPetersburgMoyka93ToAlexanderColumn)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(59.9241, 30.323), {0., 0.},
-      mercator::FromLatLon(59.939, 30.3159), 2247.0);
+      mercator::FromLatLon(59.939, 30.3159), 2424.6);
 }
 
 UNIT_TEST(RussiaSaintPetersburgMoyka93ToMarsovoPole)
@@ -387,7 +387,7 @@ UNIT_TEST(CrossMwmRussiaPStaiToBelarusDrazdy)
       mercator::FromLatLon(55.01437, 30.8858), 4835.76);
 }
 
-UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
+UNIT_TEST(Russia_ZgradPanfilovskyUndergroundCrossing_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Pedestrian),
@@ -398,6 +398,8 @@ UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
+  integration::TestRouteLength(route, 151.0);
+
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 3, ());
@@ -407,7 +409,7 @@ UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
   TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
-UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
+UNIT_TEST(Russia_Moscow_HydroprojectBridgeCrossing_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Pedestrian),
@@ -417,6 +419,8 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestRouteLength(route, 334.0);
 
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
@@ -429,7 +433,7 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
   TEST_EQUAL(t[4].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
-UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
+UNIT_TEST(Belarus_Minsk_RenaissanceHotelUndergroundCross_TurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Pedestrian),
@@ -439,6 +443,8 @@ UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestRouteLength(route, 127.0);
 
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
@@ -467,7 +473,7 @@ UNIT_TEST(MoscowChistiePrudiSelectPointsInConnectedGraph)
       mercator::FromLatLon(55.76593, 37.63893), 134.02);
 }
 
-UNIT_TEST(RussiaMoscowSevTushinoParkPedestrianOnePointTurnTest)
+UNIT_TEST(Russia_Moscow_SevTushinoParkPedestrianOnePoint_TurnTest)
 {
   m2::PointD const point = mercator::FromLatLon(55.8719, 37.4464);
   TRouteResult const routeResult = integration::CalculateRoute(
@@ -476,8 +482,10 @@ UNIT_TEST(RussiaMoscowSevTushinoParkPedestrianOnePointTurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+
   integration::TestRouteLength(route, 0.0);
+
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
 UNIT_TEST(MoscowKashirskoe16ToVorobeviGori)
@@ -553,7 +561,7 @@ UNIT_TEST(RussiaSmolenskAriaFeatureCrossingBorderWithFord)
       mercator::FromLatLon(55.01867, 30.91285), 298.6);
 }
 
-UNIT_TEST(NoTurnOnForkingRoad)
+UNIT_TEST(NoTurnOnForkingRoad_TurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
@@ -563,6 +571,8 @@ UNIT_TEST(NoTurnOnForkingRoad)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
+  integration::TestRouteLength(route, 51.2);
+
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 2, ());
@@ -570,7 +580,7 @@ UNIT_TEST(NoTurnOnForkingRoad)
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::TurnLeft, ());
 }
 
-UNIT_TEST(NoTurnOnForkingRoad2)
+UNIT_TEST(NoTurnOnForkingRoad2_TurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
@@ -579,6 +589,8 @@ UNIT_TEST(NoTurnOnForkingRoad2)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestRouteLength(route, 300.0);
 
   // Unfortunatelly, we don't have SlightRight for pedestrians, but current turns are OK.
   // https://www.openstreetmap.org/directions?engine=graphhopper_foot&route=55.68336%2C37.49492%3B55.68488%2C37.49789

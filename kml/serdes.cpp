@@ -578,7 +578,7 @@ void SaveTrackData(KmlWriter::WriterWrapper & writer, TrackData const & trackDat
   writer << kIndent2 << "</Placemark>\n";
 }
 
-bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt,
+bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt,
                 geometry::Altitude & altitude)
 {
   // Order in string is: lon, lat, z.
@@ -604,13 +604,13 @@ bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt,
   return false;
 }
 
-bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt)
+bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt)
 {
   geometry::Altitude dummyAltitude;
   return ParsePoint(s, delim, pt, dummyAltitude);
 }
 
-bool ParsePointWithAltitude(std::string const & s, char const * delim,
+bool ParsePointWithAltitude(std::string_view s, char const * delim,
                             geometry::PointWithAltitude & point)
 {
   geometry::Altitude altitude = geometry::kInvalidAltitude;
@@ -700,20 +700,15 @@ void KmlParser::ParseLineCoordinates(std::string const & s, char const * blockSe
 {
   m_geometryType = GEOMETRY_TYPE_LINE;
 
-  strings::SimpleTokenizer tupleIter(s, blockSeparator);
-  while (tupleIter)
+  strings::Tokenize(s, blockSeparator, [&](std::string_view v)
   {
     geometry::PointWithAltitude point;
-    if (ParsePointWithAltitude(*tupleIter, coordSeparator, point))
+    if (ParsePointWithAltitude(v, coordSeparator, point))
     {
-      if (m_pointsWithAltitudes.empty() ||
-          !AlmostEqualAbs(m_pointsWithAltitudes.back(), point, kMwmPointAccuracy))
-      {
-        m_pointsWithAltitudes.emplace_back(std::move(point));
-      }
+      if (m_pointsWithAltitudes.empty() || !AlmostEqualAbs(m_pointsWithAltitudes.back(), point, kMwmPointAccuracy))
+        m_pointsWithAltitudes.emplace_back(point);
     }
-    ++tupleIter;
-  }
+  });
 }
 
 bool KmlParser::MakeValid()
@@ -1180,7 +1175,7 @@ void KmlParser::CharData(std::string value)
           for (strings::SimpleTokenizer tupleIter(value, ","); tupleIter; ++tupleIter)
           {
             CompilationId compilationId = kInvalidCompilationId;
-            if (!strings::to_uint64(*tupleIter, compilationId))
+            if (!strings::to_uint(*tupleIter, compilationId))
             {
               m_compilations.clear();
               break;

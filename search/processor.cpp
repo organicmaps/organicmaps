@@ -266,7 +266,7 @@ void Processor::SetQuery(string const & query)
 
   vector<strings::UniString> tokens;
   {
-    search::DelimitersWithExceptions delims(vector<strings::UniChar>{'#'});
+    search::DelimitersWithExceptions delims({'#'});
     auto normalizedQuery = NormalizeAndSimplifyString(query);
     PreprocessBeforeTokenization(normalizedQuery);
     SplitUniString(normalizedQuery, base::MakeBackInsertFunctor(tokens), delims);
@@ -738,7 +738,7 @@ void Processor::SearchPlusCode()
 void Processor::SearchPostcode()
 {
   // Create a copy of the query to trim it in-place.
-  string query(m_query);
+  string_view query(m_query);
   strings::Trim(query);
 
   if (!LooksLikePostcode(query, !m_prefix.empty()))
@@ -885,6 +885,23 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
   m_preRanker.Init(params);
 }
 
+namespace
+{
+class NotInPreffered : public ftypes::BaseChecker
+{
+  NotInPreffered() : ftypes::BaseChecker(1)
+  {
+    base::StringIL const types[] = { {"organic"}, {"internet_access"} };
+    auto const & c = classif();
+    for (auto const & e : types)
+      m_types.push_back(c.GetTypeByPath(e));
+  }
+
+public:
+  DECLARE_CHECKER_INSTANCE(NotInPreffered);
+};
+} // namespace
+
 void Processor::InitRanker(Geocoder::Params const & geocoderParams,
                            SearchParams const & searchParams)
 {
@@ -898,7 +915,11 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_limit = searchParams.m_maxNumResults;
   params.m_pivot = m_position ? *m_position : GetViewport().Center();
   params.m_pivotRegion = GetPivotRegion();
+
   params.m_preferredTypes = m_preferredTypes;
+  // Remove "secondary" category types from preferred.
+  base::EraseIf(params.m_preferredTypes, NotInPreffered::Instance());
+
   params.m_suggestsEnabled = searchParams.m_suggestsEnabled;
   params.m_needAddress = searchParams.m_needAddress;
   params.m_needHighlighting = searchParams.m_needHighlighting && !geocoderParams.IsCategorialRequest();
@@ -946,11 +967,9 @@ void Processor::EmitFeatureIfExists(vector<shared_ptr<MwmInfo>> const & infos,
     auto ft = guard->GetFeatureByIndex(fid);
     if (!ft)
       continue;
-    auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
-    string name;
-    ft->GetReadableName(name);
+
     m_emitter.AddResultNoChecks(m_ranker.MakeResult(
-        RankerResult(*ft, center, m2::PointD() /* pivot */, name, guard->GetCountryFileName()),
+        RankerResult(*ft, m2::PointD() /* pivot */, guard->GetCountryFileName()),
         true /* needAddress */, true /* needHighlighting */));
     m_emitter.Emit();
   }
@@ -969,6 +988,7 @@ void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const
     auto ft = guard->GetFeatureByIndex(fid);
     if (!ft)
       continue;
+
     auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
     double dist = center.SquaredLength(m_viewport.Center());
     auto pivot = m_viewport.Center();
@@ -984,13 +1004,13 @@ void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const
     results.emplace_back(dist, pivot, guard->GetCountryFileName(), move(ft));
     guards.push_back(move(guard));
   }
+
   sort(results.begin(), results.end());
+
   for (auto const & [dist, pivot, country, ft] : results)
   {
-    auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
-    string name;
-    ft->GetReadableName(name);
-    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, center, pivot, name, country),
+    /// @todo We make duplicating feature::GetCenter call in RankerResult.
+    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, pivot, country),
                                                     true /* needAddress */,
                                                     true /* needHighlighting */));
     m_emitter.Emit();

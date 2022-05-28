@@ -4,7 +4,9 @@
 #include "routing/route.hpp"
 #include "routing/routing_result_graph.hpp"
 #include "routing/turns.hpp"
+#include "routing/turns_generator_utils.hpp"
 #include "routing/turns_generator.hpp"
+#include "routing/car_directions.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
@@ -18,12 +20,12 @@
 #include <string>
 #include <vector>
 
+namespace turn_generator_test
+{
 using namespace routing;
 using namespace std;
 using namespace turns;
 
-namespace
-{
 // It's a dummy class to wrap |segments| for tests.
 class RoutingResultTest : public IRoutingResult
 {
@@ -177,10 +179,9 @@ UNIT_TEST(TestFixupTurns)
   // is used for initialization of vector<TurnItem> below.
   Route::TTurns turnsDir1 = {{0, CarDirection::EnterRoundAbout},
                              {1, CarDirection::StayOnRoundAbout},
-                             {2, CarDirection::LeaveRoundAbout},
-                             {3, CarDirection::ReachedYourDestination}};
+                             {2, CarDirection::LeaveRoundAbout}};
 
-  FixupTurns(pointsMerc1, turnsDir1);
+  FixupCarTurns(pointsMerc1, turnsDir1);
   Route::TTurns const expectedTurnDir1 = {{0, CarDirection::EnterRoundAbout, 2},
                                           {2, CarDirection::LeaveRoundAbout, 2},
                                           {3, CarDirection::ReachedYourDestination}};
@@ -193,10 +194,9 @@ UNIT_TEST(TestFixupTurns)
       {{kSquareNearZero.maxX(), kSquareNearZero.maxY()}, geometry::kDefaultAltitudeMeters},
   };
   Route::TTurns turnsDir2 = {{0, CarDirection::GoStraight},
-                             {1, CarDirection::TurnLeft},
-                             {2, CarDirection::ReachedYourDestination}};
+                             {1, CarDirection::TurnLeft}};
 
-  FixupTurns(pointsMerc2, turnsDir2);
+  FixupCarTurns(pointsMerc2, turnsDir2);
   Route::TTurns const expectedTurnDir2 = {{1, CarDirection::TurnLeft},
                                           {2, CarDirection::ReachedYourDestination}};
   TEST_EQUAL(turnsDir2, expectedTurnDir2, ());
@@ -207,10 +207,9 @@ UNIT_TEST(TestFixupTurns)
       {{kSquareNearZero.minX(), kSquareNearZero.maxY()}, geometry::kDefaultAltitudeMeters},
       {{kSquareNearZero.maxX(), kSquareNearZero.maxY()}, geometry::kDefaultAltitudeMeters},
   };
-  Route::TTurns turnsDir3 = {{1, CarDirection::TurnRight},
-                             {2, CarDirection::ReachedYourDestination}};
+  Route::TTurns turnsDir3 = {{1, CarDirection::TurnRight}};
 
-  FixupTurns(pointsMerc3, turnsDir3);
+  FixupCarTurns(pointsMerc3, turnsDir3);
   Route::TTurns const expectedTurnDir3 = {{1, CarDirection::TurnRight},
                                           {2, CarDirection::ReachedYourDestination}};
   TEST_EQUAL(turnsDir3, expectedTurnDir3, ());
@@ -282,32 +281,12 @@ UNIT_TEST(TestGetRoundaboutDirection)
   // The signature of GetRoundaboutDirection function is
   // GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout,
   //     bool isMultiTurnJunction, bool keepTurnByHighwayClass)
-  TEST_EQUAL(GetRoundaboutDirection(true, true, true, true), CarDirection::StayOnRoundAbout, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, true, true, false), CarDirection::None, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, true, false, true), CarDirection::None, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, true, false, false), CarDirection::None, ());
-  TEST_EQUAL(GetRoundaboutDirection(false, true, false, true), CarDirection::EnterRoundAbout, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, false, false, false), CarDirection::LeaveRoundAbout, ());
-}
-
-UNIT_TEST(TestCheckRoundaboutEntrance)
-{
-  // The signature of CheckRoundaboutEntrance function is
-  // CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout)
-  TEST(!CheckRoundaboutEntrance(true, true), ());
-  TEST(!CheckRoundaboutEntrance(false, false), ());
-  TEST(!CheckRoundaboutEntrance(true, false), ());
-  TEST(CheckRoundaboutEntrance(false, true), ());
-}
-
-UNIT_TEST(TestCheckRoundaboutExit)
-{
-  // The signature of GetRoundaboutDirection function is
-  // CheckRoundaboutExit(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout)
-  TEST(!CheckRoundaboutExit(true, true), ());
-  TEST(!CheckRoundaboutExit(false, false), ());
-  TEST(CheckRoundaboutExit(true, false), ());
-  TEST(!CheckRoundaboutExit(false, true), ());
+  TEST_EQUAL(GetRoundaboutDirectionBasic(true, true, true, true), CarDirection::StayOnRoundAbout, ());
+  TEST_EQUAL(GetRoundaboutDirectionBasic(true, true, true, false), CarDirection::None, ());
+  TEST_EQUAL(GetRoundaboutDirectionBasic(true, true, false, true), CarDirection::None, ());
+  TEST_EQUAL(GetRoundaboutDirectionBasic(true, true, false, false), CarDirection::None, ());
+  TEST_EQUAL(GetRoundaboutDirectionBasic(false, true, false, true), CarDirection::EnterRoundAbout, ());
+  TEST_EQUAL(GetRoundaboutDirectionBasic(true, false, false, false), CarDirection::LeaveRoundAbout, ());
 }
 
 UNIT_TEST(TestInvertDirection)
@@ -328,17 +307,17 @@ UNIT_TEST(TestRightmostDirection)
   TEST_EQUAL(RightmostDirection(90.), CarDirection::TurnRight, ());
   TEST_EQUAL(RightmostDirection(45.), CarDirection::TurnSlightRight, ());
   TEST_EQUAL(RightmostDirection(0.), CarDirection::GoStraight, ());
-  TEST_EQUAL(RightmostDirection(-20.), CarDirection::TurnSlightLeft, ());
-  TEST_EQUAL(RightmostDirection(-90.), CarDirection::TurnLeft, ());
-  TEST_EQUAL(RightmostDirection(-170.), CarDirection::TurnSharpLeft, ());
+  TEST_EQUAL(RightmostDirection(-20.), CarDirection::GoStraight, ());
+  TEST_EQUAL(RightmostDirection(-90.), CarDirection::GoStraight, ());
+  TEST_EQUAL(RightmostDirection(-170.), CarDirection::GoStraight, ());
 }
 
 UNIT_TEST(TestLeftmostDirection)
 {
-  TEST_EQUAL(LeftmostDirection(180.), CarDirection::TurnSharpRight, ());
-  TEST_EQUAL(LeftmostDirection(170.), CarDirection::TurnSharpRight, ());
-  TEST_EQUAL(LeftmostDirection(90.), CarDirection::TurnRight, ());
-  TEST_EQUAL(LeftmostDirection(45.), CarDirection::TurnSlightRight, ());
+  TEST_EQUAL(LeftmostDirection(180.), CarDirection::GoStraight, ());
+  TEST_EQUAL(LeftmostDirection(170.), CarDirection::GoStraight, ());
+  TEST_EQUAL(LeftmostDirection(90.), CarDirection::GoStraight, ());
+  TEST_EQUAL(LeftmostDirection(45.), CarDirection::GoStraight, ());
   TEST_EQUAL(LeftmostDirection(0.), CarDirection::GoStraight, ());
   TEST_EQUAL(LeftmostDirection(-20.), CarDirection::TurnSlightLeft, ());
   TEST_EQUAL(LeftmostDirection(-90.), CarDirection::TurnLeft, ());
@@ -355,17 +334,6 @@ UNIT_TEST(TestIntermediateDirection)
   TEST_EQUAL(IntermediateDirection(-20.), CarDirection::TurnSlightLeft, ());
   TEST_EQUAL(IntermediateDirection(-90.), CarDirection::TurnLeft, ());
   TEST_EQUAL(IntermediateDirection(-170.), CarDirection::TurnSharpLeft, ());
-}
-
-UNIT_TEST(TestCalculateMercatorDistanceAlongRoute)
-{
-  vector<m2::PointD> const points = {{0., 0.}, {0., 1.}, {0., 1.}, {1., 1.}};
-
-  uint32_t const lastPointIdx = static_cast<uint32_t>(points.size() - 1);
-  TEST_EQUAL(CalculateMercatorDistanceAlongPath(0, lastPointIdx, points), 2., ());
-  TEST_EQUAL(CalculateMercatorDistanceAlongPath(1, 1, points), 0., ());
-  TEST_EQUAL(CalculateMercatorDistanceAlongPath(1, 2, points), 0., ());
-  TEST_EQUAL(CalculateMercatorDistanceAlongPath(0, 1, points), 1., ());
 }
 
 UNIT_TEST(TestCheckUTurnOnRoute)
@@ -445,6 +413,7 @@ UNIT_TEST(GetNextRoutePointIndex)
   TEST_EQUAL(nextIndex, RoutePointIndex({0 /* m_segmentIndex */, 2 /* m_pathIndex */}), ());
 
   // Trying to get next item after the last item of the first segment.
+  // False because of too sharp turn angle.
   TEST(!GetNextRoutePointIndex(resultTest,
                                RoutePointIndex({0 /* m_segmentIndex */, 2 /* m_pathIndex */}),
                                NumMwmIds(), true /* forward */, nextIndex), ());
@@ -476,4 +445,4 @@ UNIT_TEST(GetNextRoutePointIndex)
                                RoutePointIndex({0 /* m_segmentIndex */, 0 /* m_pathIndex */}),
                                NumMwmIds(), false /* forward */, nextIndex), ());
 }
-}  // namespace
+} // namespace turn_generator_test

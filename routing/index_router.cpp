@@ -19,6 +19,7 @@
 #include "routing/routing_options.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
 #include "routing/speed_camera_prohibition.hpp"
+#include "routing/traffic_stash.hpp"
 #include "routing/transit_world_graph.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -34,6 +35,7 @@
 #include "platform/mwm_traits.hpp"
 #include "platform/settings.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/polyline2d.hpp"
@@ -41,6 +43,7 @@
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
+#include "base/limited_priority_queue.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
@@ -55,6 +58,8 @@
 #include <map>
 #include <optional>
 
+namespace routing
+{
 using namespace routing;
 using namespace std;
 
@@ -114,7 +119,7 @@ shared_ptr<VehicleModelFactoryInterface> CreateVehicleModelFactory(
 
 unique_ptr<DirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
                                                     shared_ptr<NumMwmIds> numMwmIds,
-                                                    DataSource & dataSource)
+                                                    MwmDataSource & dataSource)
 {
   switch (vehicleType)
   {
@@ -184,9 +189,7 @@ bool IsDeadEndCached(Segment const & segment, bool isOutgoing, bool useRoutingOp
   set<Segment> visitedSegments;
   if (IsDeadEnd(segment, isOutgoing, useRoutingOptions, worldGraph, visitedSegments))
   {
-    auto const beginIt = make_move_iterator(visitedSegments.begin());
-    auto const endIt = make_move_iterator(visitedSegments.end());
-    deadEnds.insert(beginIt, endIt);
+    deadEnds.insert(visitedSegments.begin(), visitedSegments.end());
     return true;
   }
 
@@ -194,8 +197,7 @@ bool IsDeadEndCached(Segment const & segment, bool isOutgoing, bool useRoutingOp
 }
 }  // namespace
 
-namespace routing
-{
+
 // IndexRouter::BestEdgeComparator ----------------------------------------------------------------
 IndexRouter::BestEdgeComparator::BestEdgeComparator(m2::PointD const & point, m2::PointD const & direction)
   : m_point(point), m_direction(direction)
@@ -243,13 +245,13 @@ double IndexRouter::BestEdgeComparator::GetSquaredDist(Edge const & edge) const
 // IndexRouter ------------------------------------------------------------------------------------
 IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                          CountryParentNameGetterFn const & countryParentNameGetterFn,
-                         TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
+                         TCountryFileFn const & countryFileFn, CountryRectFn const & countryRectFn,
                          shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
                          traffic::TrafficCache const & trafficCache, DataSource & dataSource)
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
   , m_name("astar-bidirectional-" + ToString(m_vehicleType))
-  , m_dataSource(dataSource)
+  , m_dataSource(dataSource, numMwmIds)
   , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType, countryParentNameGetterFn))
   , m_countryFileFn(countryFileFn)
   , m_countryRectFn(countryRectFn)
@@ -271,7 +273,6 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   CHECK(!m_name.empty(), ());
   CHECK(m_numMwmIds, ());
   CHECK(m_numMwmTree, ());
-  CHECK(m_vehicleModelFactory, ());
   CHECK(m_estimator, ());
   CHECK(m_directionsEngine, ());
 }
@@ -283,19 +284,11 @@ unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraph()
   return worldGraph;
 }
 
-bool IndexRouter::FindBestSegments(m2::PointD const & checkpoint, m2::PointD const & direction,
-                                   bool isOutgoing, WorldGraph & worldGraph,
-                                   vector<Segment> & bestSegments)
-{
-  bool dummy;
-  return FindBestSegments(checkpoint, direction, isOutgoing, worldGraph, bestSegments,
-                          dummy /* best segment is almost codirectional */);
-}
-
 void IndexRouter::ClearState()
 {
   m_roadGraph.ClearState();
   m_directionsEngine->Clear();
+  m_dataSource.FreeHandles();
 }
 
 bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point,
@@ -303,7 +296,7 @@ bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point,
                                               EdgeProj & proj)
 {
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, radius);
-  std::vector<std::pair<Edge, geometry::PointWithAltitude>> candidates;
+  std::vector<EdgeProjectionT> candidates;
 
   uint32_t const count = direction.IsAlmostZero() ? 1 : 4;
   m_roadGraph.FindClosestEdges(rect, count, candidates);
@@ -321,7 +314,7 @@ bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point,
 
   // We have direction so we can find the closest codirectional edge.
   Edge codirectionalEdge;
-  if (!FindClosestCodirectionalEdge(point, direction, candidates, codirectionalEdge))
+  if (!PointsOnEdgesSnapping::FindClosestCodirectionalEdge(point, direction, candidates, codirectionalEdge))
     return false;
 
   for (auto const & [edge, projection] : candidates)
@@ -349,8 +342,9 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
 
   try
   {
-    SCOPE_GUARD(featureRoadGraphClear, [this]{
-      this->ClearState();
+    SCOPE_GUARD(featureRoadGraphClear, [this]
+    {
+      ClearState();
     });
 
     if (adjustToPrevRoute && m_lastRoute && m_lastFakeEdges &&
@@ -364,8 +358,8 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
         if (code != RouterResultCode::RouteNotFound)
           return code;
 
-        LOG(LWARNING, ("Can't adjust route, do full rebuild, prev start:",
-                       mercator::ToLatLon(m_lastRoute->GetStart()), ", start:", mercator::ToLatLon(startPoint), ", finish:", mercator::ToLatLon(finalPoint)));
+        LOG(LWARNING, ("Can't adjust route, do full rebuild, prev start:", mercator::ToLatLon(m_lastRoute->GetStart()),
+                       "start:", mercator::ToLatLon(startPoint), "finish:", mercator::ToLatLon(finalPoint)));
       }
     }
 
@@ -379,15 +373,23 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
   }
 }
 
-std::vector<Segment> IndexRouter::GetBestSegments(m2::PointD const & checkpoint, WorldGraph & graph)
+std::vector<Segment> IndexRouter::GetBestOutgoingSegments(m2::PointD const & checkpoint, WorldGraph & graph)
 {
-  bool startSegmentIsAlmostCodirectional = false;
+  bool dummy = false;
   std::vector<Segment> segments;
 
-  FindBestSegments(checkpoint, m2::PointD::Zero() /* startDirection */, true /* isOutgoing */,
-                   graph, segments, startSegmentIsAlmostCodirectional);
+  PointsOnEdgesSnapping snapping(*this, graph);
+  snapping.FindBestSegments(checkpoint, m2::PointD::Zero() /* startDirection */, true /* isOutgoing */, segments, dummy);
 
   return segments;
+}
+
+bool IndexRouter::GetBestOutgoingEdges(m2::PointD const & checkpoint, WorldGraph & graph, std::vector<Edge> & edges)
+{
+  bool dummy = false;
+  PointsOnEdgesSnapping snapping(*this, graph);
+  return snapping.FindBestEdges(checkpoint, m2::PointD::Zero() /* startDirection */, true /* isOutgoing */,
+                                FeaturesRoadGraph::kClosestEdgesRadiusM, edges, dummy);
 }
 
 void IndexRouter::AppendPartsOfReal(LatLonWithAltitude const & point1,
@@ -424,7 +426,7 @@ void IndexRouter::ConnectCheckpointsOnGuidesToOsm(std::vector<m2::PointD> const 
       continue;
 
     auto const & checkpoint = checkpoints[checkpointIdx];
-    auto const & bestSegmentsOsm = GetBestSegments(checkpoint, graph);
+    auto const & bestSegmentsOsm = GetBestOutgoingSegments(checkpoint, graph);
     if (bestSegmentsOsm.empty())
       continue;
 
@@ -450,7 +452,7 @@ uint32_t IndexRouter::ConnectTracksOnGuidesToOsm(std::vector<m2::PointD> const &
       auto & link = osmConnections[i];
       geometry::PointWithAltitude const & proj = link.m_projectedPoint;
 
-      auto const & segmentsProj = GetBestSegments(proj.GetPoint(), graph);
+      auto const & segmentsProj = GetBestOutgoingSegments(proj.GetPoint(), graph);
       if (segmentsProj.empty())
         continue;
 
@@ -553,19 +555,8 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
 
   vector<Segment> segments;
 
-  vector<Segment> startSegments;
-  bool startSegmentIsAlmostCodirectionalDirection = false;
-  bool const foundStart =
-      FindBestSegments(checkpoints.GetPointFrom(), startDirection, true /* isOutgoing */, *graph,
-                       startSegments, startSegmentIsAlmostCodirectionalDirection);
-
   m_guides.SetGuidesGraphParams(guidesMwmId, m_estimator->GetMaxWeightSpeedMpS());
   m_guides.ConnectToGuidesGraph(checkpoints.GetPoints());
-
-  if (!m_guides.IsActive() && !foundStart)
-  {
-    return RouterResultCode::StartPointNotFound;
-  }
 
   uint32_t const startIdx = ConnectTracksOnGuidesToOsm(checkpoints.GetPoints(), *graph);
   ConnectCheckpointsOnGuidesToOsm(checkpoints.GetPoints(), *graph);
@@ -579,43 +570,35 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
   auto progress = make_shared<AStarProgress>();
   double const checkpointsLength = checkpoints.GetSummaryLengthBetweenPointsMeters();
 
-  for (size_t i = checkpoints.GetPassedIdx(); i < checkpoints.GetNumSubroutes(); ++i)
+  PointsOnEdgesSnapping snapping(*this, *graph);
+  size_t const subroutesCount = checkpoints.GetNumSubroutes();
+  for (size_t i = checkpoints.GetPassedIdx(); i < subroutesCount; ++i)
   {
-    bool const isFirstSubroute = i == checkpoints.GetPassedIdx();
-    bool const isLastSubroute = i == checkpoints.GetNumSubroutes() - 1;
     auto const & startCheckpoint = checkpoints.GetPoint(i);
     auto const & finishCheckpoint = checkpoints.GetPoint(i + 1);
 
+    FakeEnding startFakeEnding = m_guides.GetFakeEnding(i);
     FakeEnding finishFakeEnding = m_guides.GetFakeEnding(i + 1);
 
-    vector<Segment> finishSegments;
-    bool dummy = false;
-
-    // Stop building route if |finishCheckpoint| is not connected to OSM and is not connected to
-    // the guides graph.
-    if (!FindBestSegments(finishCheckpoint, m2::PointD::Zero() /* direction */,
-                          false /* isOutgoing */, *graph, finishSegments,
-                          dummy /* bestSegmentIsAlmostCodirectional */) &&
-        finishFakeEnding.m_projections.empty())
+    bool isStartSegmentStrictForward = (m_vehicleType == VehicleType::Car);
+    if (startFakeEnding.m_projections.empty() || finishFakeEnding.m_projections.empty())
     {
-      return isLastSubroute ? RouterResultCode::EndPointNotFound
-                            : RouterResultCode::IntermediatePointNotFound;
+      bool const isFirstSubroute = (i == checkpoints.GetPassedIdx());
+      bool const isLastSubroute = (i == subroutesCount - 1);
+
+      bool startIsCodirectional = false;
+      switch (snapping.Snap(startCheckpoint, finishCheckpoint, startDirection,
+                            startFakeEnding, finishFakeEnding, startIsCodirectional))
+      {
+      case 1: return RouterResultCode::StartPointNotFound;
+      case 2: return isLastSubroute ? RouterResultCode::EndPointNotFound : RouterResultCode::IntermediatePointNotFound;
+      }
+
+      if (isFirstSubroute)
+        isStartSegmentStrictForward = startIsCodirectional;
     }
 
-    bool isStartSegmentStrictForward = (m_vehicleType == VehicleType::Car);
-    if (isFirstSubroute)
-      isStartSegmentStrictForward = startSegmentIsAlmostCodirectionalDirection;
-
-    FakeEnding startFakeEnding = m_guides.GetFakeEnding(i);
-
-    if (startFakeEnding.m_projections.empty())
-      startFakeEnding = MakeFakeEnding(startSegments, startCheckpoint, *graph);
-
-    if (finishFakeEnding.m_projections.empty())
-      finishFakeEnding = MakeFakeEnding(finishSegments, finishCheckpoint, *graph);
-
-    uint32_t const fakeNumerationStart =
-        starter ? starter->GetNumFakeSegments() + startIdx : startIdx;
+    uint32_t const fakeNumerationStart = starter ? starter->GetNumFakeSegments() + startIdx : startIdx;
     IndexGraphStarter subrouteStarter(startFakeEnding, finishFakeEnding, fakeNumerationStart,
                                       isStartSegmentStrictForward, *graph);
 
@@ -653,12 +636,14 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
                            subrouteStarter.GetFinishJunction().ToPointWithAltitude(),
                            subrouteSegmentsBegin, subrouteSegmentsEnd);
     subrouteSegmentsBegin = subrouteSegmentsEnd;
-    // For every subroute except for the first one the last real segment is used  as a start
-    // segment. It's implemented this way to prevent jumping from one road to another one using a
-    // via point.
-    startSegments.resize(1);
-    bool const hasRealOrPart = GetLastRealOrPart(subrouteStarter, subroute, startSegments[0]);
-    CHECK(hasRealOrPart, ("No real or part of real segments in route."));
+
+    // For every subroute except for the first one the last real segment is used as a next start segment.
+    // It's implemented this way to prevent jumping from one road to another one using a via point.
+    Segment nextSegment;
+    CHECK(GetLastRealOrPart(subrouteStarter, subroute, nextSegment),
+          ("No real or part of real segments in route."));
+    snapping.SetNextStartSegment(nextSegment);
+
     if (!starter)
       starter = make_unique<IndexGraphStarter>(move(subrouteStarter));
     else
@@ -760,12 +745,11 @@ RouterResultCode IndexRouter::CalculateSubrouteJointsMode(
 
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
       jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
-      nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
+      delegate.GetCancellable(), move(visitor),
       AStarLengthChecker(starter));
 
   RoutingResult<Vertex, Weight> routingResult;
-  RouterResultCode const result =
-      FindPath<Vertex, Edge, Weight>(params, {} /* mwmIds */, routingResult);
+  RouterResultCode const result = FindPath<Vertex, Edge, Weight>(params, {} /* mwmIds */, routingResult);
 
   if (result != RouterResultCode::NoError)
     return result;
@@ -787,7 +771,7 @@ RouterResultCode IndexRouter::CalculateSubrouteNoLeapsMode(
   Visitor visitor(starter, delegate, kVisitPeriod, progress);
 
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
-      starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
+      starter, starter.GetStartSegment(), starter.GetFinishSegment(),
       delegate.GetCancellable(), move(visitor), AStarLengthChecker(starter));
 
   RoutingResult<Vertex, Weight> routingResult;
@@ -806,50 +790,106 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
     RouterDelegate const & delegate, shared_ptr<AStarProgress> const & progress,
     vector<Segment> & subroute)
 {
-  LeapsGraph leapsGraph(starter, MwmHierarchyHandler(m_numMwmIds, m_countryParentNameGetterFn));
-
   using Vertex = LeapsGraph::Vertex;
   using Edge = LeapsGraph::Edge;
   using Weight = LeapsGraph::Weight;
 
-  AStarSubProgress leapsProgress(mercator::ToLatLon(checkpoints.GetPoint(subrouteIdx)),
-                                 mercator::ToLatLon(checkpoints.GetPoint(subrouteIdx + 1)),
-                                 kLeapsStageContribution);
-  progress->AppendSubProgress(leapsProgress);
-
-  using Visitor = JunctionVisitor<LeapsGraph>;
-  Visitor visitor(leapsGraph, delegate, kVisitPeriodForLeaps, progress);
-
-  AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
-      leapsGraph, leapsGraph.GetStartSegment(), leapsGraph.GetFinishSegment(),
-      nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
-      AStarLengthChecker(starter));
-
-  params.m_badReducedWeight = [](Weight const &, Weight const &)
+  // Get cross-mwm routes-candidates.
+  std::vector<RoutingResultT> candidates;
   {
-    /// @see CrossMwmConnector::GetTransition comment.
-    /// Unfortunately, reduced weight invariant in LeapsOnly mode doesn't work with the workaround above.
-    return false;
-  };
+    LeapsGraph leapsGraph(starter, MwmHierarchyHandler(m_numMwmIds, m_countryParentNameGetterFn));
 
-  RoutingResult<Vertex, Weight> routingResult;
-  RouterResultCode const result =
-      FindPath<Vertex, Edge, Weight>(params, {} /* mwmIds */, routingResult);
+    AStarSubProgress leapsProgress(mercator::ToLatLon(checkpoints.GetPoint(subrouteIdx)),
+                                   mercator::ToLatLon(checkpoints.GetPoint(subrouteIdx + 1)),
+                                   kLeapsStageContribution);
+    SCOPE_GUARD(progressGuard, [&progress]() { progress->PushAndDropLastSubProgress(); });
+    progress->AppendSubProgress(leapsProgress);
 
-  progress->PushAndDropLastSubProgress();
+    // No need to call CheckLength in cross-mwm routine, thus we avoid calling GetRoadGeometry().
+    struct AlwaysTrue
+    {
+      bool operator() (Weight const &) const { return true; }
+    };
 
-  if (result != RouterResultCode::NoError)
-    return result;
+    using Visitor = JunctionVisitor<LeapsGraph>;
+    AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AlwaysTrue> params(
+        leapsGraph, leapsGraph.GetStartSegment(), leapsGraph.GetFinishSegment(),
+        delegate.GetCancellable(), Visitor(leapsGraph, delegate, kVisitPeriodForLeaps, progress),
+        AlwaysTrue());
 
-  vector<Segment> subrouteWithoutPostprocessing;
+    params.m_badReducedWeight = [](Weight const &, Weight const &)
+    {
+      /// @see CrossMwmConnector::GetTransition comment.
+      /// Unfortunately, reduced weight invariant in LeapsOnly mode doesn't work with the workaround above.
+      return false;
+    };
+
+    std::set<std::pair<Vertex, Vertex>> edges;
+    std::set<Vertex> keys[2];    // 0 - end vertex of the first edge; 1 - beg vertex of the last edge
+
+    size_t constexpr kMaxNumRoutes = 20;
+    base::limited_priority_queue<RoutingResultT, RoutingResultT::LessWeight> routes(kMaxNumRoutes);
+
+    using AlgoT = AStarAlgorithm<Vertex, Edge, Weight>;
+    AlgoT algorithm;
+    auto const result = algorithm.FindPathBidirectionalEx(params, [&routes, &edges, &keys](RoutingResultT && route)
+    {
+      if (routes.size() > kMaxNumRoutes && routes.top().m_distance <= route.m_distance)
+        return false;
+
+      // Take unique routes by key vertices.
+      size_t const pathSize = route.m_path.size();
+      ASSERT_GREATER(pathSize, 2, ());
+      auto const & beg = route.m_path[1];
+      auto const & end = route.m_path[pathSize - 2];
+      if (edges.insert({beg, end}).second)
+      {
+        keys[0].insert(beg);
+        keys[1].insert(end);
+        routes.push(std::move(route));
+      }
+
+      /// @todo Looks like there is no big deal in this constant due to the bidirectional search.
+      /// But still Zalau -> Tiburg lasts 2 minutes here.
+      // Continue until got 5 different first/last edges. Bigger maxVertices - bigger calculation time.
+      //size_t const maxVertices = std::min(size_t(5), std::max(size_t(2), (50 + pathSize) / pathSize));
+      size_t constexpr maxVertices = 5;
+
+      return keys[0].size() >= maxVertices && keys[1].size() >= maxVertices;
+    });
+
+    if (result != AlgoT::Result::OK)
+      return ConvertResult<Vertex, Edge, Weight>(result);
+
+    candidates = routes.move();
+    sort(candidates.begin(), candidates.end(), [](RoutingResultT const & l, RoutingResultT const & r)
+    {
+      return l.m_distance < r.m_distance;
+    });
+  }
+
+  // Purge cross-mwm-graph cache memory before calculating subroutes for each MWM.
+  // CrossMwmConnector takes a lot of memory with its weights matrix now.
+  starter.GetGraph().GetCrossMwmGraph().Purge();
+
   ASSERT_EQUAL(starter.GetGraph().GetMode(), WorldGraphMode::LeapsOnly, ());
-  RouterResultCode const leapsResult = ProcessLeapsJoints(routingResult.m_path, delegate, starter,
-                                                          progress, subrouteWithoutPostprocessing);
 
-  if (leapsResult != RouterResultCode::NoError)
-    return leapsResult;
+  RoutingResultT result;
+  RoutesCacheT cache;
+  for (auto const & e : candidates)
+  {
+    LOG(LDEBUG, ("Process leaps:", e.m_distance, e.m_path));
 
-  LeapsPostProcessor leapsPostProcessor(subrouteWithoutPostprocessing, starter);
+    SCOPE_GUARD(progressGuard, [&progress]() { progress->PushAndDropLastSubProgress(); });
+    progress->AppendSubProgress(AStarSubProgress((1.0 - kLeapsStageContribution) / candidates.size()));
+
+    ProcessLeapsJoints(e.m_path, delegate, starter, progress, cache, result);
+  }
+
+  if (result.Empty())
+    return RouterResultCode::RouteNotFound;
+
+  LeapsPostProcessor leapsPostProcessor(result.m_path, starter);
   subroute = leapsPostProcessor.GetProcessedPath();
 
   return RouterResultCode::NoError;
@@ -867,7 +907,8 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   vector<Segment> startSegments;
   m2::PointD const & pointFrom = checkpoints.GetPointFrom();
   bool bestSegmentIsAlmostCodirectional = false;
-  if (!FindBestSegments(pointFrom, startDirection, true /* isOutgoing */, *graph, startSegments,
+  PointsOnEdgesSnapping snapping(*this, *graph);
+  if (!snapping.FindBestSegments(pointFrom, startDirection, true /* isOutgoing */, startSegments,
                         bestSegmentIsAlmostCodirectional))
   {
     return RouterResultCode::StartPointNotFound;
@@ -905,12 +946,12 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 
   AStarAlgorithm<Vertex, Edge, Weight> algorithm;
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AdjustLengthChecker> params(
-      starter, starter.GetStartSegment(), {} /* finalVertex */, &prevEdges,
+      starter, starter.GetStartSegment(), {} /* finalVertex */,
       delegate.GetCancellable(), move(visitor), AdjustLengthChecker(starter));
 
   RoutingResult<Segment, RouteWeight> result;
   auto const resultCode =
-      ConvertResult<Vertex, Edge, Weight>(algorithm.AdjustRoute(params, result));
+      ConvertResult<Vertex, Edge, Weight>(algorithm.AdjustRoute(params, prevEdges, result));
   if (resultCode != RouterResultCode::NoError)
     return resultCode;
 
@@ -959,14 +1000,13 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
   LOG(LINFO, ("Avoid next roads:", routingOptions));
 
   auto crossMwmGraph = make_unique<CrossMwmGraph>(
-      m_numMwmIds, m_numMwmTree, m_vehicleModelFactory,
+      m_numMwmIds, m_numMwmTree,
       m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
       m_countryRectFn, m_dataSource);
 
   auto indexGraphLoader = IndexGraphLoader::Create(
       m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
-      m_loadAltitudes, m_numMwmIds, m_vehicleModelFactory, m_estimator, m_dataSource,
-      routingOptions);
+      m_loadAltitudes, m_vehicleModelFactory, m_estimator, m_dataSource, routingOptions);
 
   if (m_vehicleType != VehicleType::Transit)
   {
@@ -977,39 +1017,83 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
     return graph;
   }
 
-  auto transitGraphLoader = TransitGraphLoader::Create(m_dataSource, m_numMwmIds, m_estimator);
+  auto transitGraphLoader = TransitGraphLoader::Create(m_dataSource, m_estimator);
   return make_unique<TransitWorldGraph>(move(crossMwmGraph), move(indexGraphLoader),
                                         move(transitGraphLoader), m_estimator);
 }
 
-void IndexRouter::EraseIfDeadEnd(WorldGraph & worldGraph, m2::PointD const & checkpoint,
-                                 vector<IRoadGraph::FullRoadInfo> & roads) const
+int IndexRouter::PointsOnEdgesSnapping::Snap(
+        m2::PointD const & start, m2::PointD const & finish, m2::PointD const & direction,
+        FakeEnding & startEnding, FakeEnding & finishEnding, bool & startIsCodirectional)
+{
+  if (m_startSegments.empty())  // A first call for the first starting point
+  {
+    FillDeadEndsCache(finish);
+
+    if (!FindBestSegments(start, direction, true /* isOutgoing */, m_startSegments, startIsCodirectional))
+      return 1;
+  }
+
+  vector<Segment> finishSegments;
+  bool dummy;
+  if (!FindBestSegments(finish, {} /* direction */, false /* isOutgoing */, finishSegments, dummy))
+    return 2;
+
+  // One of startEnding or finishEnding will be empty here.
+  if (startEnding.m_projections.empty())
+    startEnding = MakeFakeEnding(m_startSegments, start, m_graph);
+
+  if (finishEnding.m_projections.empty())
+    finishEnding = MakeFakeEnding(finishSegments, finish, m_graph);
+
+  return 0;
+}
+
+void IndexRouter::PointsOnEdgesSnapping::FillDeadEndsCache(m2::PointD const & point)
+{
+  auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, kFirstSearchDistanceM);
+  auto closestRoads = m_router.m_roadGraph.FindRoads(rect, [this](FeatureID const & fid)
+  {
+    auto const & info = fid.m_mwmId.GetInfo();
+    return m_router.m_numMwmIds->ContainsFile(info->GetLocalFile().GetCountryFile());
+  });
+
+  m_deadEnds[0].clear();
+  EraseIfDeadEnd(point, closestRoads, m_deadEnds[0]);
+
+  vector<EdgeProjectionT> candidates;
+  m_deadEnds[1].clear();
+  RoadsToNearestEdges(point, closestRoads, [this](EdgeProjectionT const & proj)
+  {
+    auto const segment = GetSegmentByEdge(proj.first);
+    return !IsDeadEndCached(segment, true /* isOutgoing */, true /* useRoutingOptions */, m_graph, m_deadEnds[1]);
+  }, candidates);
+}
+
+void IndexRouter::PointsOnEdgesSnapping::EraseIfDeadEnd(
+        m2::PointD const & checkpoint, vector<RoadInfoT> & roads, std::set<Segment> & deadEnds) const
 {
   // |deadEnds| cache is necessary to minimize number of calls a time consumption IsDeadEnd() method.
-  set<Segment> deadEnds;
-  base::EraseIf(roads, [&deadEnds, &worldGraph, &checkpoint, this](auto const & fullRoadInfo) {
-    CHECK_GREATER_OR_EQUAL(fullRoadInfo.m_roadInfo.m_junctions.size(), 2, ());
-    auto const squaredDistAndIndex = m2::CalcMinSquaredDistance(fullRoadInfo.m_roadInfo.m_junctions.begin(),
-                                                                fullRoadInfo.m_roadInfo.m_junctions.end(),
-                                                                checkpoint);
-    auto const segmentId = squaredDistAndIndex.second;
+  base::EraseIf(roads, [&](RoadInfoT const & fullRoadInfo)
+  {
+    auto const & junctions = fullRoadInfo.m_roadInfo.m_junctions;
+    CHECK_GREATER_OR_EQUAL(junctions.size(), 2, ());
+    auto const squaredDistAndIndex = m2::CalcMinSquaredDistance(junctions.begin(), junctions.end(), checkpoint);
 
     // Note. Checking if an edge goes to a dead end is a time consumption process.
     // So the number of checked edges should be minimized as possible.
     // Below a heuristic is used. If the closest to |checkpoint| segment of a feature
     // in forward direction is a dead end all segments of the feature is considered as dead ends.
     auto const segment = GetSegmentByEdge(Edge::MakeReal(fullRoadInfo.m_featureId, true /* forward */,
-                                                         segmentId,
-                                                         fullRoadInfo.m_roadInfo.m_junctions[0],
-                                                         fullRoadInfo.m_roadInfo.m_junctions[1]));
-    return IsDeadEndCached(segment, true /* isOutgoing */, false /* useRoutingOptions */, worldGraph,
-                           deadEnds);
+                                                         squaredDistAndIndex.second, junctions[0], junctions[1]));
+    return (IsDeadEndCached(segment, true /* isOutgoing */, false /* useRoutingOptions */, m_graph, deadEnds) &&
+            m_deadEnds[0].count(segment) == 0);
   });
 }
 
-bool IndexRouter::IsFencedOff(m2::PointD const & point,
-                              pair<Edge, geometry::PointWithAltitude> const & edgeProjection,
-                              vector<IRoadGraph::FullRoadInfo> const & fences) const
+// static
+bool IndexRouter::PointsOnEdgesSnapping::IsFencedOff(
+        m2::PointD const & point, EdgeProjectionT const & edgeProjection, vector<RoadInfoT> const & fences)
 {
   auto const & edge = edgeProjection.first;
   auto const & projPoint = edgeProjection.second.GetPoint();
@@ -1044,9 +1128,10 @@ bool IndexRouter::IsFencedOff(m2::PointD const & point,
   return false;
 }
 
-void IndexRouter::RoadsToNearestEdges(
-    m2::PointD const & point, vector<IRoadGraph::FullRoadInfo> const & roads,
-    IsEdgeProjGood const & isGood, vector<pair<Edge, geometry::PointWithAltitude>> & edgeProj) const
+// static
+void IndexRouter::PointsOnEdgesSnapping::RoadsToNearestEdges(
+        m2::PointD const & point, vector<RoadInfoT> const & roads,
+        IsEdgeProjGood const & isGood, vector<EdgeProjectionT> & edgeProj)
 {
   NearestEdgeFinder finder(point, isGood);
   for (auto const & road : roads)
@@ -1055,24 +1140,24 @@ void IndexRouter::RoadsToNearestEdges(
   finder.MakeResult(edgeProj, kMaxRoadCandidates);
 }
 
-Segment IndexRouter::GetSegmentByEdge(Edge const & edge) const
+Segment IndexRouter::PointsOnEdgesSnapping::GetSegmentByEdge(Edge const & edge) const
 {
   auto const & featureId = edge.GetFeatureId();
   auto const & info = featureId.m_mwmId.GetInfo();
   CHECK(info, ());
-  auto const numMwmId = m_numMwmIds->GetId(info->GetLocalFile().GetCountryFile());
+  auto const numMwmId = m_router.m_numMwmIds->GetId(info->GetLocalFile().GetCountryFile());
   return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
 }
 
-bool IndexRouter::FindClosestCodirectionalEdge(
-    m2::PointD const & point, m2::PointD const & direction,
-    vector<pair<Edge, geometry::PointWithAltitude>> const & candidates,
-    Edge & closestCodirectionalEdge) const
+// static
+bool IndexRouter::PointsOnEdgesSnapping::FindClosestCodirectionalEdge(
+        m2::PointD const & point, m2::PointD const & direction,
+        vector<EdgeProjectionT> const & candidates, Edge & closestCodirectionalEdge)
 {
   double constexpr kInvalidDist = numeric_limits<double>::max();
   double squareDistToClosestCodirectionalEdgeM = kInvalidDist;
 
-  BestEdgeComparator bestEdgeComparator(point, direction);
+  IndexRouter::BestEdgeComparator bestEdgeComparator(point, direction);
   if (!bestEdgeComparator.IsDirectionValid())
     return false;
 
@@ -1093,23 +1178,20 @@ bool IndexRouter::FindClosestCodirectionalEdge(
   return squareDistToClosestCodirectionalEdgeM != kInvalidDist;
 }
 
-bool IndexRouter::FindBestSegments(m2::PointD const & checkpoint, m2::PointD const & direction,
-                                   bool isOutgoing, WorldGraph & worldGraph,
-                                   vector<Segment> & bestSegments,
-                                   bool & bestSegmentIsAlmostCodirectional) const
+bool IndexRouter::PointsOnEdgesSnapping::FindBestSegments(
+        m2::PointD const & checkpoint, m2::PointD const & direction, bool isOutgoing,
+        vector<Segment> & bestSegments, bool & bestSegmentIsAlmostCodirectional)
 {
-  auto const file = platform::CountryFile(m_countryFileFn(checkpoint));
-
   vector<Edge> bestEdges;
-  if (!FindBestEdges(checkpoint, file, direction, isOutgoing, 40.0 /* closestEdgesRadiusM */,
-                     worldGraph, bestEdges, bestSegmentIsAlmostCodirectional))
+  if (!FindBestEdges(checkpoint, direction, isOutgoing, kFirstSearchDistanceM /* closestEdgesRadiusM */,
+                     bestEdges, bestSegmentIsAlmostCodirectional))
   {
-    if (!FindBestEdges(checkpoint, file, direction, isOutgoing, 500.0 /* closestEdgesRadiusM */,
-                       worldGraph, bestEdges, bestSegmentIsAlmostCodirectional) &&
+    if (!FindBestEdges(checkpoint, direction, isOutgoing, 500.0 /* closestEdgesRadiusM */,
+                       bestEdges, bestSegmentIsAlmostCodirectional) &&
                        bestEdges.size() < kMaxRoadCandidates)
     {
-      if (!FindBestEdges(checkpoint, file, direction, isOutgoing, 2000.0 /* closestEdgesRadiusM */,
-                         worldGraph, bestEdges, bestSegmentIsAlmostCodirectional))
+      if (!FindBestEdges(checkpoint, direction, isOutgoing, 2000.0 /* closestEdgesRadiusM */,
+                         bestEdges, bestSegmentIsAlmostCodirectional))
       {
         return false;
       }
@@ -1123,37 +1205,29 @@ bool IndexRouter::FindBestSegments(m2::PointD const & checkpoint, m2::PointD con
   return true;
 }
 
-bool IndexRouter::FindBestEdges(m2::PointD const & checkpoint,
-                                platform::CountryFile const & pointCountryFile,
-                                m2::PointD const & direction, bool isOutgoing,
-                                double closestEdgesRadiusM, WorldGraph & worldGraph,
-                                vector<Edge> & bestEdges,
-                                bool & bestSegmentIsAlmostCodirectional) const
+bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(
+        m2::PointD const & checkpoint, m2::PointD const & direction, bool isOutgoing, double closestEdgesRadiusM,
+        vector<Edge> & bestEdges, bool & bestSegmentIsAlmostCodirectional)
 {
-  CHECK(m_vehicleModelFactory, ());
-  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(pointCountryFile);
-  if (!handle.IsAlive())
-    MYTHROW(MwmIsNotAliveException, ("Can't get mwm handle for", pointCountryFile));
-
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(checkpoint, closestEdgesRadiusM);
-  auto closestRoads = m_roadGraph.FindRoads(rect, [this](FeatureID const & fid)
+  auto closestRoads = m_router.m_roadGraph.FindRoads(rect, [this](FeatureID const & fid)
   {
     auto const & info = fid.m_mwmId.GetInfo();
-    return m_numMwmIds->ContainsFile(info->GetLocalFile().GetCountryFile());
+    return m_router.m_numMwmIds->ContainsFile(info->GetLocalFile().GetCountryFile());
   });
 
+  set<Segment> deadEnds[2];
   // Removing all dead ends from |closestRoads|. Then some candidates will be taken from |closestRoads|.
   // It's necessary to remove all dead ends for all |closestRoads| before IsFencedOff().
   // If to remove all fenced off by other features from |checkpoint| candidates at first,
   // only dead ends candidates may be left. And then the dead end candidates will be removed
   // as well as dead ends. It often happens near airports.
-  EraseIfDeadEnd(worldGraph, checkpoint, closestRoads);
+  EraseIfDeadEnd(checkpoint, closestRoads, deadEnds[0]);
 
   // Sorting from the closest features to the further ones. The idea is the closer
   // a feature to a |checkpoint| the more chances that it crosses the segment
   // |checkpoint|, projections of |checkpoint| on feature edges. It confirmed with benchmarks.
-  sort(closestRoads.begin(), closestRoads.end(),
-       [&checkpoint](IRoadGraph::FullRoadInfo const & lhs, IRoadGraph::FullRoadInfo const & rhs)
+  sort(closestRoads.begin(), closestRoads.end(), [&checkpoint](RoadInfoT const & lhs, RoadInfoT const & rhs)
   {
     auto const & lj = lhs.m_roadInfo.m_junctions;
     auto const & rj = rhs.m_roadInfo.m_junctions;
@@ -1171,27 +1245,31 @@ bool IndexRouter::FindBestEdges(m2::PointD const & checkpoint,
   // Then in |IsDeadEndCached(..., true /* useRoutingOptions */, ...)| below we ignore
   // candidates if it's a dead end taking into acount routing options. We ignore candidates as well
   // if they don't match RoutingOptions.
-  set<Segment> deadEnds;
-  auto const isGood = [&](pair<Edge, geometry::PointWithAltitude> const & edgeProj)
+  auto const isGood = [&](EdgeProjectionT const & edgeProj)
   {
     auto const segment = GetSegmentByEdge(edgeProj.first);
-    if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */,  worldGraph, deadEnds))
+    if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */, m_graph, deadEnds[1]) &&
+        m_deadEnds[1].count(segment) == 0)
+    {
       return false;
+    }
 
     // Removing all candidates which are fenced off by the road graph (|closestRoads|) from |checkpoint|.
     return !IsFencedOff(checkpoint, edgeProj, closestRoads);
   };
 
   // Getting closest edges from |closestRoads| if they are correct according to isGood() function.
-  vector<pair<Edge, geometry::PointWithAltitude>> candidates;
+  vector<EdgeProjectionT> candidates;
   RoadsToNearestEdges(checkpoint, closestRoads, isGood, candidates);
 
   if (candidates.empty())
     return false;
 
+  m_deadEnds[0].swap(deadEnds[0]);
+  m_deadEnds[1].swap(deadEnds[1]);
+
   // Looking for the closest codirectional edge. If it's not found add all good candidates.
   Edge closestCodirectionalEdge;
-  BestEdgeComparator bestEdgeComparator(checkpoint, direction);
   bestSegmentIsAlmostCodirectional =
       FindClosestCodirectionalEdge(checkpoint, direction, candidates, closestCodirectionalEdge);
 
@@ -1213,20 +1291,11 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
                                                  RouterDelegate const & delegate,
                                                  IndexGraphStarter & starter,
                                                  shared_ptr<AStarProgress> const & progress,
-                                                 vector<Segment> & output)
+                                                 RoutesCacheT & cache,
+                                                 RoutingResultT & result)
 {
-  LOG(LDEBUG, ("Leaps path:", input));
+  CHECK_GREATER_OR_EQUAL(input.size(), 4, ());
 
-  SCOPE_GUARD(progressGuard, [&progress]() {
-    progress->PushAndDropLastSubProgress();
-  });
-
-  progress->AppendSubProgress(AStarSubProgress(1.0 - kLeapsStageContribution));
-
-  CHECK_GREATER_OR_EQUAL(input.size(), 4,
-                         ("Route in LeapsOnly mode must have at least start and finish leaps."));
-
-  LOG(LINFO, ("Start process leaps with Joints."));
   WorldGraph & worldGraph = starter.GetGraph();
 
   // For all leaps except the first leap which connects start to mwm exit in LeapsOnly mode we need
@@ -1271,16 +1340,51 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       arrBegEnd.emplace_back(startLeapEnd, finishLeapStart);
   }
 
-  RouteWeight finalWeight = GetAStarWeightMax<RouteWeight>();
   for (auto const & eBegEnd : arrBegEnd)
   {
     size_t const startLeapEnd = eBegEnd.first;
     size_t const finishLeapStart = eBegEnd.second;
+    size_t maxStart = 0;
 
-    auto fillMwmIds = [&](size_t start, size_t end, set<NumMwmId> & mwmIds)
+    auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraphMode mode)
     {
-      mwmIds.clear();
+      ASSERT_LESS(start, input.size(), ());
+      ASSERT_LESS(end, input.size(), ());
 
+      // Prepare sub-progress.
+      maxStart = max(maxStart, start);
+      auto const contribCoef = static_cast<double>(end - maxStart + 1) / input.size() / arrBegEnd.size();
+      auto const startPoint = starter.GetPoint(input[start], true /* front */);
+      auto const endPoint = starter.GetPoint(input[end], true /* front */);
+      progress->AppendSubProgress({startPoint, endPoint, contribCoef});
+
+      RoutingResultT * resPtr = nullptr;
+      SCOPE_GUARD(progressGuard, [&]()
+      {
+        if (resPtr)
+          progress->PushAndDropLastSubProgress();
+        else
+          progress->DropLastSubProgress();
+      });
+
+      // Check if segment was already calculated.
+      auto itCache = cache.insert({{input[start], input[end]}, {}});
+      resPtr = &itCache.first->second;
+      if (!itCache.second)
+      {
+        LOG(LDEBUG, ("Returned from cache:", input[start], input[end]));
+        return resPtr;
+      }
+      LOG(LDEBUG, ("Calculating sub-route:", input[start], input[end]));
+
+      // VNG: I don't like this strategy with clearing previous caches, taking into account
+      // that all MWMs were quite likely already loaded before in calculating Leaps path.
+      // Clear previous loaded graphs to not spend too much memory at one time.
+      //worldGraph.ClearCachedGraphs();
+      worldGraph.SetMode(mode);
+
+      // Fill needed MWMs.
+      set<NumMwmId> mwmIds;
       if (start == startLeapEnd)
         mwmIds = starter.GetStartMwms();
 
@@ -1292,73 +1396,47 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         if (input[i].GetMwmId() != kFakeNumMwmId)
           mwmIds.insert(input[i].GetMwmId());
       }
-    };
-
-    set<NumMwmId> mwmIds;
-    IndexGraphStarterJoints<IndexGraphStarter> jointStarter(starter);
-    size_t maxStart = 0;
-
-    auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraphMode mode,
-                                       RoutingResult<JointSegment, RouteWeight> & routingResult)
-    {
-      ASSERT_LESS(start, input.size(), ());
-      ASSERT_LESS(end, input.size(), ());
-
-      // Clear previous loaded graphs to not spend too much memory at one time.
-      worldGraph.ClearCachedGraphs();
-
-      // Clear previous info about route.
-      routingResult.Clear();
-      jointStarter.Reset();
-
-      worldGraph.SetMode(mode);
-      jointStarter.Init(input[start], input[end]);
-
-      fillMwmIds(start, end, mwmIds);
 
       using JointsStarter = IndexGraphStarterJoints<IndexGraphStarter>;
+      JointsStarter jointStarter(starter);
+      jointStarter.Init(input[start], input[end]);
 
       using Vertex = JointsStarter::Vertex;
       using Edge = JointsStarter::Edge;
       using Weight = JointsStarter::Weight;
 
-      maxStart = max(maxStart, start);
-      auto const contribCoef = static_cast<double>(end - maxStart + 1) / input.size() / arrBegEnd.size();
-      auto const startPoint = starter.GetPoint(input[start], true /* front */);
-      auto const endPoint = starter.GetPoint(input[end], true /* front */);
-      progress->AppendSubProgress({startPoint, endPoint, contribCoef});
-
-      RouterResultCode resultCode = RouterResultCode::NoError;
-      SCOPE_GUARD(progressGuard, [&]() {
-        if (resultCode == RouterResultCode::NoError)
-          progress->PushAndDropLastSubProgress();
-        else
-          progress->DropLastSubProgress();
-      });
-
       using Visitor = JunctionVisitor<JointsStarter>;
-      Visitor visitor(jointStarter, delegate, kVisitPeriod, progress);
-
       AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
           jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
-          nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
+          delegate.GetCancellable(), Visitor(jointStarter, delegate, kVisitPeriod, progress),
           AStarLengthChecker(starter));
 
-      resultCode = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult);
-      return resultCode;
+      RoutingResult<JointSegment, RouteWeight> route;
+      if (FindPath<Vertex, Edge, Weight>(params, mwmIds, route) == RouterResultCode::NoError)
+      {
+        resPtr->m_path = ProcessJoints(route.m_path, jointStarter);
+        resPtr->m_distance = route.m_distance;
+      }
+      else
+      {
+        cache.erase(itCache.first);
+        resPtr = nullptr;
+      }
+
+      return resPtr;
     };
 
-    deque<vector<Segment>> paths;
+    vector<vector<Segment>> paths;
     size_t prevStart = numeric_limits<size_t>::max();
-    auto const tryBuildRoute = [&](size_t start, size_t end, WorldGraphMode mode,
-                                   RoutingResult<JointSegment, RouteWeight> & routingResult)
+    auto const tryBuildRoute = [&](size_t start, size_t end, WorldGraphMode mode)
     {
-      RouterResultCode const result = runAStarAlgorithm(start, end, mode, routingResult);
-      if (result == RouterResultCode::NoError)
+      auto const * res = runAStarAlgorithm(start, end, mode);
+      if (res)
       {
-        vector<Segment> subroute = ProcessJoints(routingResult.m_path, jointStarter);
+        auto const & subroute = res->m_path;
         CHECK(!subroute.empty(), ());
 
+        /// @todo Strange logic IMHO, when we remove previous (useless?) calculated path.
         if (start == prevStart && !paths.empty())
           paths.pop_back();
 
@@ -1369,24 +1447,24 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
         dropFirstSegment = true;
         prevStart = start;
-        return true;
+      }
+      else
+      {
+        // This may happen when "Avoid roads option" is enabled.
+        // Cross-mwm LeapsGraph returns paths regardless of this option.
+        LOG(LINFO, ("Can not find path from:", starter.GetPoint(input[start], input[start].IsForward()),
+                                        "to:", starter.GetPoint(input[end], input[end].IsForward())));
       }
 
-      LOG(LINFO, ("Can not find path",
-        "from:", starter.GetPoint(input[start], input[start].IsForward()),
-        "to:", starter.GetPoint(input[end], input[end].IsForward())));
-
-      return false;
+      return res;
     };
 
     size_t lastPrev = 0;
-    size_t prev = 0;
-    size_t next = 0;
-    RoutingResult<JointSegment, RouteWeight> routingResult;
     RouteWeight currentWeight = GetAStarWeightZero<RouteWeight>();
 
     for (size_t i = startLeapEnd; i <= finishLeapStart; ++i)
     {
+      size_t prev, next;
       if (i == startLeapEnd)
       {
         prev = 0;
@@ -1403,7 +1481,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         next = i + 1;
       }
 
-      if (!tryBuildRoute(prev, next, WorldGraphMode::JointSingleMwm, routingResult))
+      RoutingResultT const * res = nullptr;
+      if (res = tryBuildRoute(prev, next, WorldGraphMode::JointSingleMwm); !res)
       {
         auto const prevPoint = starter.GetPoint(input[next], true);
         // |next + 1| - is the twin of |next|
@@ -1426,7 +1505,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         else
           next += 2;
 
-        if (!tryBuildRoute(prev, next, WorldGraphMode::Joints, routingResult))
+        if (res = tryBuildRoute(prev, next, WorldGraphMode::Joints); !res)
         {
           // Already in start
           if (prev == 0)
@@ -1436,7 +1515,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
           if (prev == 0)
             dropFirstSegment = false;
 
-          if (!tryBuildRoute(prev, next, WorldGraphMode::Joints, routingResult))
+          if (res = tryBuildRoute(prev, next, WorldGraphMode::Joints); !res)
             return RouterResultCode::RouteNotFound;
         }
       }
@@ -1444,20 +1523,22 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       lastPrev = prev;
       i = next;
 
-      currentWeight += routingResult.m_distance;
+      currentWeight += res->m_distance;
     }
 
-    if (currentWeight < finalWeight)
+    // Update final result if new route is better.
+    if (result.Empty() || currentWeight < result.m_distance)
     {
-      output.clear();
-      while (!paths.empty())
+      if (!result.m_path.empty())
       {
-        output.insert(output.end(),
-                      make_move_iterator(paths.front().begin()),
-                      make_move_iterator(paths.front().end()));
-        paths.pop_front();
+        LOG(LDEBUG, ("Found better route, old weight =", result.m_distance, "new weight =", currentWeight));
+        result.m_path.clear();
       }
-      finalWeight = currentWeight;
+
+      for (auto const & e : paths)
+        result.m_path.insert(result.m_path.end(), e.begin(), e.end());
+
+      result.m_distance = currentWeight;
     }
   }
 
@@ -1466,7 +1547,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
 RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
                                            base::Cancellable const & cancellable,
-                                           IndexGraphStarter & starter, Route & route) const
+                                           IndexGraphStarter & starter, Route & route)
 {
   CHECK(!segments.empty(), ());
   vector<geometry::PointWithAltitude> junctions;
@@ -1476,7 +1557,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   for (size_t i = 0; i < numPoints; ++i)
     junctions.emplace_back(starter.GetRouteJunction(segments, i).ToPointWithAltitude());
 
-  IndexRoadGraph roadGraph(m_numMwmIds, starter, segments, junctions, m_dataSource);
+  IndexRoadGraph roadGraph(starter, segments, junctions, m_dataSource);
   starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
 
   Route::TTimes times;
@@ -1534,7 +1615,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
 
 bool IndexRouter::AreSpeedCamerasProhibited(NumMwmId mwmID) const
 {
-  if (::AreSpeedCamerasProhibited(m_numMwmIds->GetFile(mwmID)))
+  if (routing::AreSpeedCamerasProhibited(m_numMwmIds->GetFile(mwmID)))
   {
     // Not a big overhead here, but can cache flag in IndexRouter and reset it via
     // Framework -> RoutingSession -> IndexRouter.
@@ -1553,11 +1634,11 @@ bool IndexRouter::AreMwmsNear(IndexGraphStarter const & starter) const
   {
     m2::RectD const & rect = m_countryRectFn(m_numMwmIds->GetFile(startMwmId).GetName());
     bool found = false;
-    m_numMwmTree->ForEachInRect(rect,
-                                [&finishMwmIds, &found](NumMwmId id) {
-                                  if (!found && finishMwmIds.count(id) > 0)
-                                    found = true;
-                                });
+    m_numMwmTree->ForEachInRect(rect, [&finishMwmIds, &found](NumMwmId id)
+    {
+      if (!found && finishMwmIds.count(id) > 0)
+        found = true;
+    });
     if (found)
       return true;
   }
@@ -1565,21 +1646,13 @@ bool IndexRouter::AreMwmsNear(IndexGraphStarter const & starter) const
   return false;
 }
 
-bool IndexRouter::DoesTransitSectionExist(NumMwmId numMwmId) const
+bool IndexRouter::DoesTransitSectionExist(NumMwmId numMwmId)
 {
-  CHECK(m_numMwmIds, ());
-  platform::CountryFile const & file = m_numMwmIds->GetFile(numMwmId);
-
-  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
-  if (!handle.IsAlive())
-    MYTHROW(RoutingException, ("Can't get mwm handle for", file));
-
-  MwmValue const & mwmValue = *handle.GetValue();
-  return mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG);
+  return m_dataSource.GetSectionStatus(numMwmId, TRANSIT_FILE_TAG) == MwmDataSource::SectionExists;
 }
 
 RouterResultCode IndexRouter::ConvertTransitResult(set<NumMwmId> const & mwmIds,
-                                                   RouterResultCode resultCode) const
+                                                   RouterResultCode resultCode)
 {
   if (m_vehicleType != VehicleType::Transit || resultCode != RouterResultCode::RouteNotFound)
     return resultCode;

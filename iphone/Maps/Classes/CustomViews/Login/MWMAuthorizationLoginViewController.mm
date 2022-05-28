@@ -106,13 +106,7 @@ using namespace osm_auth_ios;
 
 - (IBAction)historyTap
 {
-  [self openUrl:[NSString stringWithFormat:
-#ifdef DEBUG
-                 @"https://master.apis.dev.openstreetmap.org/user/%@/history"
-#else
-                 @"https://www.openstreetmap.org/user/%@/history"
-#endif
-                 , OSMUserName()]];
+  [self openUrl:@(OsmOAuth::ServerAuth().GetHistoryURL([OSMUserName() UTF8String]).c_str())];
 }
 
 - (void)logout

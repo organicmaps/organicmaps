@@ -166,6 +166,7 @@ public:
   SpeedCameraManager const & GetSpeedCamManager() const { return m_speedCameraManager; }
 
   std::shared_ptr<Route> GetRouteForTests() const { return m_route; }
+  void SetGuidesForTests(GuidesTracks guides) { m_router->SetGuidesTracks(std::move(guides)); }
 
   double GetCompletionPercent() const;
 

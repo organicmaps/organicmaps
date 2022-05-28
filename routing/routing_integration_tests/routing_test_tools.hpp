@@ -3,6 +3,8 @@
 #include "routing/index_router.hpp"
 #include "routing/routing_callbacks.hpp"
 
+#include "traffic/traffic_cache.hpp"
+
 #include "storage/country_info_getter.hpp"
 
 #include "map/features_fetcher.hpp"

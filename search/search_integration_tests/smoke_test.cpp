@@ -42,7 +42,8 @@ public:
     fb.GetMetadata().Set(Metadata::FMD_TEST_ID, strings::to_string(m_id));
     fb.SetCenter(m_center);
 
-    m_names.ForEach([&](int8_t langCode, string const & name) {
+    m_names.ForEach([&](int8_t langCode, string_view name)
+    {
       if (!name.empty())
       {
         auto const lang = StringUtf8Multilang::GetLangByCode(langCode);
@@ -241,14 +242,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
 
     TestPOI poi(m2::PointD(1.0, 1.0), "poi", "en");
 
-    auto typeTokens = strings::Tokenize(classif().GetFullObjectName(type), "|");
-    if (ftypes::IsRecyclingTypeChecker::Instance()(type))
-    {
-      // recycling=XXX types are not drawable/visible alone.
-      poi.SetTypes({{"amenity", "recycling", "container"}, std::move(typeTokens)});
-    }
-    else
-      poi.SetTypes({std::move(typeTokens)});
+    poi.SetTypes({strings::Tokenize<std::string>(classif().GetFullObjectName(type), "|")});
 
     auto id = BuildMwm(countryName, DataHeader::MapType::Country,
                        [&](TestMwmBuilder & builder) { builder.Add(poi); });

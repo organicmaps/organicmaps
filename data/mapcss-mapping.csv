@@ -53,7 +53,7 @@ waterway|riverbank;52;
 highway|path|bicycle;[highway=path][bicycle?];;name;int_name;53;
 landuse|meadow;54;
 highway|living_street;55;
-deprecated|deprecated;56;x
+man_made|survey_point;56;
 natural|peak;57;
 highway|motorway;58;
 highway|steps;59;
@@ -76,7 +76,7 @@ landuse|industrial;75;
 barrier|wall;76;
 amenity|post_box;77;
 place|town;78;
-power|line;79;
+power|line;[power=line][!location];;name;int_name;79;
 landuse|farmyard;80;
 highway|residential|bridge;[highway=residential][bridge?];;name;int_name;81;
 railway|rail|bridge;[railway=rail][bridge?];;name;int_name;82;
@@ -256,7 +256,7 @@ deprecated|deprecated;255;x
 piste:type|downhill|intermediate;[piste:type=downhill][piste:difficulty=intermediate];;name;int_name;256;
 railway|subway_entrance;257;
 deprecated|deprecated;258;x
-man_made|pipeline;259;
+man_made|pipeline;[man_made=pipeline][!location];;name;int_name;259;
 route|ferry;260;
 highway|trunk_link|bridge;[highway=trunk_link][bridge?];;name;int_name;261;
 landuse|military;262;
@@ -302,7 +302,7 @@ man_made|storage_tank;301;
 man_made|silo;302;
 power|generator;303;
 highway|pedestrian|bridge;[highway=pedestrian][bridge?];;name;int_name;304;
-man_made|pipeline|overground;[man_made=pipeline][location=overground];;name;int_name;305;
+man_made|pipeline|overground;[man_made=pipeline][location=overground];x;name;int_name;305;man_made|pipeline
 natural|saddle;306;
 mountain_pass;[mountain_pass];;name;int_name;307;
 highway|raceway;308;
@@ -389,7 +389,7 @@ place|city|capital;[place=city][capital?];;name;int_name;388;
 aerialway|cable_car;389;
 piste:type|downhill;390;
 sport|american_football;391;
-deprecated|deprecated;392;x
+landuse|education;392;
 man_made|cairn;393;
 railway|preserved|bridge;[railway=preserved][bridge?];;name;int_name;394;
 highway|path|demanding_alpine_hiking;[highway=path][sac_scale=demanding_alpine_hiking];;name;int_name;395;
@@ -542,7 +542,7 @@ deprecated|deprecated;541;x
 amenity|speed_trap;542;highway|speed_camera
 area:highway|track;543;
 area:highway|primary;544;
-power|line|underground;[power=line][location=underground];;name;int_name;545;
+deprecated|deprecated;545;x
 deprecated|deprecated;546;x
 deprecated|deprecated;547;x
 deprecated|deprecated;548;x
@@ -1120,13 +1120,13 @@ wheelchair|yes;1121;
 wheelchair|no;1122;
 wheelchair|limited;1123;
 building|has_parts;1124;
-deprecated|deprecated;1125;x
-deprecated|deprecated;1126;x
-deprecated|deprecated;1127;x
-deprecated|deprecated;1128;x
-deprecated|deprecated;1129;x
-deprecated|deprecated;1130;x
-deprecated|deprecated;1131;x
+organic|only;1125;
+organic|yes;1126;
+amenity|vending_machine|coffee;[amenity=vending_machine][vending=coffee];;name;int_name;1127;
+amenity|vending_machine|condoms;[amenity=vending_machine][vending=condoms];;name;int_name;1128;
+amenity|vending_machine|food;[amenity=vending_machine][vending=food];;name;int_name;1129;
+amenity|vending_machine|newspapers;[amenity=vending_machine][vending=newspapers];;name;int_name;1130;
+amenity|vending_machine|sweets;[amenity=vending_machine][vending=sweets];;name;int_name;1131;
 deprecated|deprecated;1132;x
 deprecated|deprecated;1133;x
 deprecated|deprecated;1134;x
@@ -1220,7 +1220,7 @@ deprecated|deprecated;1221;x
 deprecated|deprecated;1222;x
 deprecated|deprecated;1223;x
 deprecated|deprecated;1224;x
-deprecated|deprecated;1225;x
+natural|water|tunnel;[natural=water][tunnel?];;name;int_name;1225;
 place|square;1226;
 tourism|artwork|architecture;[tourism=artwork][artwork_type=architecture],[tourism=artwork][type=architecture];;name;int_name;1227;
 tourism|artwork|sculpture;[tourism=artwork][artwork_type=sculpture],[tourism=artwork][type=sculpture];;name;int_name;1228;
@@ -1319,7 +1319,7 @@ cuisine|peruvian;1320;
 cuisine|fine_dining;1321;
 cuisine|tea;1322;
 natural|geyser;1323;
-deprecated|deprecated;1324;x
+cuisine|bubble_tea;1324;
 natural|hot_spring;1325;
 amenity|parking_space;1326;
 amenity|parking_space|underground;[amenity=parking_space][parking=underground];;name;int_name;1327;

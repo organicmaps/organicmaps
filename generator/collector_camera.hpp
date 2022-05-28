@@ -12,35 +12,17 @@
 #include <unordered_map>
 #include <vector>
 
-namespace generator_tests
-{
-class TestCameraCollector;
-}  // namespace generator_tests
-namespace generator
-{
-namespace cache
-{
-class IntermediateDataReaderInterface;
-}  // namespace cache
-}  // namespace generator
-
-struct OsmElement;
-
 template <typename T>
 class ReaderSource;
 
 class FileReader;
-
 class FileWriter;
 
-namespace feature
-{
-class FeatureBuilder;
-}  // namespace feature
-
 // TODO (@gmoryes) move members of m_routingTagsProcessor to generator
-namespace routing
+namespace routing_builder
 {
+class TestCameraCollector;
+
 /// \brief Returns formatted speed in km per hour.
 /// \param maxSpeedString - text with speed. Possible format:
 ///                         "130" - means 130 km per hour.
@@ -109,9 +91,9 @@ private:
 
 class CameraCollector : public generator::CollectorInterface
 {
-public:
-  friend class generator_tests::TestCameraCollector;
+  friend class TestCameraCollector;
 
+public:
   explicit CameraCollector(std::string const & filename);
 
   // generator::CollectorInterface overrides:
@@ -133,4 +115,4 @@ protected:
 private:
   CameraProcessor m_processor;
 };
-}  // namespace routing
+}  // namespace routing_builder

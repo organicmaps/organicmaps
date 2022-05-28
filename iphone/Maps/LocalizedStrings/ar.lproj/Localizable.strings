@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "اترك تعليق";
 
-/* View and button titles for accessibility */
-"maps" = "الخرائط";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "ميل";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "موقعي";
 
 /* Update maps later/Buy pro version later button text */
@@ -146,6 +143,9 @@
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "شرطة";
 
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "واي-فاي";
+
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "إعادة تدوير";
 
@@ -194,7 +194,7 @@
 "version" = "الاصدار: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap: %@ ﺕﺎﻧﺎﻴﺑ";
+"data_version" = "OpenStreetMap بيانات %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "المسارات";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "الموقع الإلكتروني";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "ﺭﺎﺒﺧﺃ";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -292,7 +295,7 @@
 "help" = "مساعدة";
 
 /* Button in the main Help dialog */
-"faq" = "ﺔﺑﻮﺟﺃﻭ ﺔﻠﺌﺳﺃ";
+"faq" = "اسئلة واجوبة";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "كيف تدعم لنا؟";
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "معايرة البوصلة";
 
-/* Search category */
-"wifi" = "واي-فاي";
-
 /* Update all button text */
 "downloader_update_all_button" = "تحديث الكل";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "تم تنزيلها";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "بالقرب مني";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "الخرائط";
 
 "downloader_download_all_button" = "تنزيل الكل";
@@ -418,9 +419,6 @@
 
 /* blue gray color */
 "blue_gray" = "رمادي أزرق";
-
-/* Wi-Fi available */
-"WiFi_available" = "نعم";
 
 
 /********** Routing dialogs strings **********/
@@ -743,6 +741,7 @@
 
 "mile" = "ميل";
 
+/* A unit of measure */
 "foot" = "قدم";
 
 "miles_per_hour" = "ميل/ساعة";
@@ -1025,9 +1024,17 @@
 
 "redirect_route_alert" = "هل تريد إعادة تحديد الطريق?";
 
-"redirect_route_yes" = "نعم";
+/* A generic "Yes" button in dialogs */
+"yes" = "نعم";
 
-"redirect_route_no" = "لا";
+/* A generic "No" button in dialogs */
+"no" = "لا";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "نعم";
+
+/* E.g. "WiFi:No" */
+"no_available" = "لا";
 
 "trip_finished" = "لقد وصلت!";
 
@@ -1442,11 +1449,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "ماكينة بيع سجائر";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "ماكينة بيع مشروبات";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "ماكينة دفع تذاكر الموقف";
 
 "type.amenity.vending_machine.public_transport_tickets" = "آلة بيع تذاكر النقل العام";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1601,6 +1618,8 @@
 "type.cuisine.brazilian" = "مطبخ برازيلي";
 
 "type.cuisine.breakfast" = "فطور";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "برغر";
 
@@ -1765,11 +1784,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "كوبري";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "نفق";
 
 "type.highway.bus_stop" = "موقف حافلة";
 
@@ -1777,11 +1798,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "كوبري";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "نفق";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1814,8 @@
 
 "type.highway.footway.area" = "مسار";
 
-"type.highway.footway.bridge" = "مسار";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "كوبري";
 
 "type.highway.footway.demanding_alpine_hiking" = "مسار";
 
@@ -1805,29 +1829,36 @@
 
 "type.highway.footway.permissive" = "مسار";
 
-"type.highway.footway.tunnel" = "مسار";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "نفق";
 
 "type.highway.ford" = "مخاضة";
 
 "type.highway.living_street" = "شارع";
 
-"type.highway.living_street.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "كوبري";
 
-"type.highway.living_street.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "نفق";
 
 "type.highway.motorway" = "شارع";
 
-"type.highway.motorway.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "كوبري";
 
-"type.highway.motorway.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "نفق";
 
 "type.highway.motorway_junction" = "مخرج";
 
 "type.highway.motorway_link" = "شارع";
 
-"type.highway.motorway_link.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "كوبري";
 
-"type.highway.motorway_link.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "نفق";
 
 "type.highway.path" = "مسار";
 
@@ -1835,7 +1866,8 @@
 
 "type.highway.path.bicycle" = "مسار";
 
-"type.highway.path.bridge" = "مسار";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "كوبري";
 
 "type.highway.path.demanding_alpine_hiking" = "مسار";
 
@@ -1851,27 +1883,34 @@
 
 "type.highway.path.permissive" = "مسار";
 
-"type.highway.path.tunnel" = "مسار";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "نفق";
 
 "type.highway.pedestrian" = "شارع";
 
 "type.highway.pedestrian.area" = "شارع";
 
-"type.highway.pedestrian.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "كوبري";
 
-"type.highway.pedestrian.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "نفق";
 
 "type.highway.primary" = "شارع";
 
-"type.highway.primary.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "كوبري";
 
-"type.highway.primary.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "نفق";
 
 "type.highway.primary_link" = "شارع";
 
-"type.highway.primary_link.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "كوبري";
 
-"type.highway.primary_link.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "نفق";
 
 "type.highway.raceway" = "مسار سباق";
 
@@ -1879,41 +1918,51 @@
 
 "type.highway.residential.area" = "شارع";
 
-"type.highway.residential.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "كوبري";
 
-"type.highway.residential.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "نفق";
 
 "type.highway.rest_area" = "استراحة";
 
 "type.highway.road" = "شارع";
 
-"type.highway.road.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "كوبري";
 
-"type.highway.road.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "نفق";
 
 "type.highway.secondary" = "شارع";
 
-"type.highway.secondary.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "كوبري";
 
-"type.highway.secondary.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "نفق";
 
 "type.highway.secondary_link" = "شارع";
 
-"type.highway.secondary_link.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "كوبري";
 
-"type.highway.secondary_link.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "نفق";
 
 "type.highway.service" = "شارع";
 
 "type.highway.service.area" = "شارع";
 
-"type.highway.service.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "كوبري";
 
 "type.highway.service.driveway" = "شارع";
 
 "type.highway.service.parking_aisle" = "شارع";
 
-"type.highway.service.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "نفق";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1970,34 @@
 
 "type.highway.steps" = "مسار";
 
-"type.highway.steps.bridge" = "مسار";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "كوبري";
 
-"type.highway.steps.tunnel" = "مسار";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "نفق";
 
 "type.highway.tertiary" = "شارع";
 
-"type.highway.tertiary.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "كوبري";
 
-"type.highway.tertiary.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "نفق";
 
 "type.highway.tertiary_link" = "شارع";
 
-"type.highway.tertiary_link.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "كوبري";
 
-"type.highway.tertiary_link.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "نفق";
 
 "type.highway.track" = "شارع";
 
 "type.highway.track.area" = "شارع";
 
-"type.highway.track.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "كوبري";
 
 "type.highway.track.grade1" = "شارع";
 
@@ -1957,29 +2013,36 @@
 
 "type.highway.track.permissive" = "شارع";
 
-"type.highway.track.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "نفق";
 
 "type.highway.traffic_signals" = "إشارات مرور";
 
 "type.highway.trunk" = "شارع";
 
-"type.highway.trunk.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "كوبري";
 
-"type.highway.trunk.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "نفق";
 
 "type.highway.trunk_link" = "شارع";
 
-"type.highway.trunk_link.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "كوبري";
 
-"type.highway.trunk_link.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "نفق";
 
 "type.highway.unclassified" = "شارع";
 
 "type.highway.unclassified.area" = "شارع";
 
-"type.highway.unclassified.bridge" = "شارع";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "كوبري";
 
-"type.highway.unclassified.tunnel" = "شارع";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "نفق";
 
 "type.area_highway.cycleway" = "Cycle Path";
 
@@ -2110,6 +2173,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "حقل";
@@ -2235,6 +2300,8 @@
 "type.man_made.chimney" = "مدخنة مصنع";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2369,6 +2436,10 @@
 "type.office.ngo" = "مكتب مؤسسة خيرية";
 
 "type.office.telecommunication" = "شركة اتصالات";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "place";
 

@@ -17,15 +17,13 @@
 	<string name="downloading">מוריד….</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">ק\"מ</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">מפות</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">מ\"ב</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">מיקומי</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">מאוחר יותר</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">חפש במפה</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">שרותי המיקום של מכשיר או ישום זה זה כבויים. הכנס ל \"הגדרות\" Settings)) כדי להדליקם.</string>
@@ -37,9 +35,10 @@
 	<string name="close">סגור</string>
 	<string name="unsupported_phone">נדרש מאיץ חומרה OpenGL. לצערינו מכשיר זה אינו נתמך.</string>
 	<string name="download">הורד</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש  ב Organic Maps.</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">אנא פנה שטח אחסון על ה SD card/USB כדי להשתמש בישום</string>
-	<string name="not_enough_memory">אין מספיק זכרון כדי להפעיל הישום</string>
 	<string name="download_resources">תחילה, נוריד למכשירך מפה כללית של העולם.\nדורש %s של נתונים.</string>
 	<string name="download_resources_continue">עבור למפה</string>
 	<string name="downloading_country_can_proceed">מוריד %s. תוכל עתה\nלהמשיך למפה.</string>
@@ -71,6 +70,8 @@
 	<string name="settings">הגדרות</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">בחר הכתובת במחשבך לשמירת המפות שתוריד</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">מפות</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">להעביר המפות?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -155,6 +156,8 @@
 	<string name="pref_zoom_title">כפתורי זום</string>
 	<string name="pref_zoom_summary">הצג על המסך</string>
 	<string name="search_show_on_map">ראה במפה</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">תוֹשׁדָחֲ</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">דרגו את האפליקציה</string>
 	<!-- Text in menu -->
@@ -179,8 +182,6 @@
 	<string name="downloader_delete_map">מחק מפה</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">עדכן מפה</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">כן</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">בעת נסיעה לאורך המסלול, שים לב לדברים הבאים:</string>
@@ -215,6 +216,8 @@
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps היא אפליקציית מפות לא מקוונות בחינם ובקוד פתוח. ללא פרסומות. אין מעקב. אם אתה רואה שגיאה במפה, אנא תקן אותה ב-OpenStreetMap. הפרויקט נוצר על ידי חובבים בזמננו הפנוי, אז אנו זקוקים למשוב ולתמיכה שלכם.</string>
 	<string name="transliteration_title">תעתיק ללטינית</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">כן</string>
 
 	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="enable_screen_sleep">אפשר למסך לישון</string>
@@ -309,6 +312,96 @@
 	<string name="type.cuisine.vegetarian">מטבח צמחוני</string>
 	<string name="type.cuisine.vietnamese">מטבח וייטנאמי</string>
 	<string name="type.healthcare.laboratory">תיאופר הדבעמ</string>
+
+	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">מִנהָרָה</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">לְגַשֵׁר</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">מִנהָרָה</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.landuse.basin">אגן מים</string>

@@ -17,6 +17,12 @@
   <a href="https://f-droid.org/en/packages/app.organicmaps/">
     <img src="docs/badges/fdroid.png" width="180">
   </a>
+  <a href='https://flathub.org/apps/details/app.organicmaps.desktop'>
+    <img alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png" width="180"/>
+  </a>
+  <a href="https://repology.org/project/organicmaps/versions">
+    <img src="https://repology.org/badge/vertical-allrepos/organicmaps.svg" width="180" alt="Packaging status">
+  </a>
 </p>
 
 <p float="left">

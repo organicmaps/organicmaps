@@ -35,7 +35,7 @@ public:
   // Methods return values for best stored feature builder.
   base::GeoObjectId GetMostGenericOsmId() const;
   uint8_t GetRank() const;
-  std::string GetName() const;
+  std::string_view GetName() const;
   StringUtf8Multilang const & GetMultilangName() const;
   bool IsPoint() const;
   m2::RectD const & GetLimitRect() const;

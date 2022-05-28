@@ -62,6 +62,7 @@ set(SRC
   sha1.hpp
   simple_dense_coding.cpp
   simple_dense_coding.hpp
+  sparse_vector.hpp
   streams.hpp
   streams_common.hpp
   streams_sink.hpp

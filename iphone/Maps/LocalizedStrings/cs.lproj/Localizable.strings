@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Zpětná vazba";
 
-/* View and button titles for accessibility */
-"maps" = "Mapy";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Míle";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Moje poloha";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Policie";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Recyklace";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Webové stránky";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Zprávy";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Kalibrace kompasu";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Aktualizovat vše";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Staženo";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Poblíž mě";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Mapy";
 
 "downloader_download_all_button" = "Stáhnout vše";
@@ -418,9 +419,6 @@
 
 /* blue gray color */
 "blue_gray" = "Modrošedá";
-
-/* Wi-Fi available */
-"WiFi_available" = "Ano";
 
 
 /********** Routing dialogs strings **********/
@@ -743,6 +741,7 @@
 
 "mile" = "mil";
 
+/* A unit of measure */
 "foot" = "stopa";
 
 "miles_per_hour" = "mil/h";
@@ -1025,9 +1024,17 @@
 
 "redirect_route_alert" = "Chcete přestavět trasu?";
 
-"redirect_route_yes" = "Ano";
+/* A generic "Yes" button in dialogs */
+"yes" = "Ano";
 
-"redirect_route_no" = "Ne";
+/* A generic "No" button in dialogs */
+"no" = "Ne";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Ano";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Ne";
 
 "trip_finished" = "Přijeli jste!";
 
@@ -1442,11 +1449,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Automat na cigarety";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Automat na nápoje";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Parkovací automat";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Prodejní automat lístků na městskou dopravu";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1601,6 +1618,8 @@
 "type.cuisine.brazilian" = "Brazilská kuchyně";
 
 "type.cuisine.breakfast" = "Snídaně";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Burger";
 
@@ -1765,11 +1784,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Most";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunel";
 
 "type.highway.bus_stop" = "Autobusová zastávka";
 
@@ -1777,11 +1798,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Most";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunel";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1814,8 @@
 
 "type.highway.footway.area" = "Cesta";
 
-"type.highway.footway.bridge" = "Cesta";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Most";
 
 "type.highway.footway.demanding_alpine_hiking" = "Cesta";
 
@@ -1805,29 +1829,36 @@
 
 "type.highway.footway.permissive" = "Cesta";
 
-"type.highway.footway.tunnel" = "Cesta";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunel";
 
 "type.highway.ford" = "Brod";
 
 "type.highway.living_street" = "Ulice";
 
-"type.highway.living_street.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Most";
 
-"type.highway.living_street.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunel";
 
 "type.highway.motorway" = "Ulice";
 
-"type.highway.motorway.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Most";
 
-"type.highway.motorway.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunel";
 
 "type.highway.motorway_junction" = "Dopravní uzel";
 
 "type.highway.motorway_link" = "Ulice";
 
-"type.highway.motorway_link.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Most";
 
-"type.highway.motorway_link.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunel";
 
 "type.highway.path" = "Cesta";
 
@@ -1835,7 +1866,8 @@
 
 "type.highway.path.bicycle" = "Cesta";
 
-"type.highway.path.bridge" = "Cesta";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Most";
 
 "type.highway.path.demanding_alpine_hiking" = "Cesta";
 
@@ -1851,27 +1883,34 @@
 
 "type.highway.path.permissive" = "Cesta";
 
-"type.highway.path.tunnel" = "Cesta";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunel";
 
 "type.highway.pedestrian" = "Ulice";
 
 "type.highway.pedestrian.area" = "Ulice";
 
-"type.highway.pedestrian.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Most";
 
-"type.highway.pedestrian.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunel";
 
 "type.highway.primary" = "Ulice";
 
-"type.highway.primary.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Most";
 
-"type.highway.primary.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunel";
 
 "type.highway.primary_link" = "Ulice";
 
-"type.highway.primary_link.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Most";
 
-"type.highway.primary_link.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunel";
 
 "type.highway.raceway" = "Závodiště";
 
@@ -1879,41 +1918,51 @@
 
 "type.highway.residential.area" = "Ulice";
 
-"type.highway.residential.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Most";
 
-"type.highway.residential.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunel";
 
 "type.highway.rest_area" = "Odpočívadlo";
 
 "type.highway.road" = "Ulice";
 
-"type.highway.road.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Most";
 
-"type.highway.road.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunel";
 
 "type.highway.secondary" = "Ulice";
 
-"type.highway.secondary.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Most";
 
-"type.highway.secondary.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunel";
 
 "type.highway.secondary_link" = "Ulice";
 
-"type.highway.secondary_link.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Most";
 
-"type.highway.secondary_link.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunel";
 
 "type.highway.service" = "Ulice";
 
 "type.highway.service.area" = "Ulice";
 
-"type.highway.service.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Most";
 
 "type.highway.service.driveway" = "Ulice";
 
 "type.highway.service.parking_aisle" = "Ulice";
 
-"type.highway.service.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunel";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1970,34 @@
 
 "type.highway.steps" = "Cesta";
 
-"type.highway.steps.bridge" = "Cesta";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Most";
 
-"type.highway.steps.tunnel" = "Cesta";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunel";
 
 "type.highway.tertiary" = "Ulice";
 
-"type.highway.tertiary.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Most";
 
-"type.highway.tertiary.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunel";
 
 "type.highway.tertiary_link" = "Ulice";
 
-"type.highway.tertiary_link.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Most";
 
-"type.highway.tertiary_link.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunel";
 
 "type.highway.track" = "Ulice";
 
 "type.highway.track.area" = "Ulice";
 
-"type.highway.track.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Most";
 
 "type.highway.track.grade1" = "Ulice";
 
@@ -1957,29 +2013,36 @@
 
 "type.highway.track.permissive" = "Ulice";
 
-"type.highway.track.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunel";
 
 "type.highway.traffic_signals" = "Semafor";
 
 "type.highway.trunk" = "Ulice";
 
-"type.highway.trunk.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Most";
 
-"type.highway.trunk.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunel";
 
 "type.highway.trunk_link" = "Ulice";
 
-"type.highway.trunk_link.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Most";
 
-"type.highway.trunk_link.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunel";
 
 "type.highway.unclassified" = "Ulice";
 
 "type.highway.unclassified.area" = "Ulice";
 
-"type.highway.unclassified.bridge" = "Ulice";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Most";
 
-"type.highway.unclassified.tunnel" = "Ulice";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunel";
 
 "type.area_highway.cycleway" = "Cycle Path";
 
@@ -2110,6 +2173,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Orná půda";
@@ -2235,6 +2300,8 @@
 "type.man_made.chimney" = "Tovární komín";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2369,6 +2436,10 @@
 "type.office.ngo" = "Kancelář nevládní organizace";
 
 "type.office.telecommunication" = "Mobilní operátor";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "place";
 

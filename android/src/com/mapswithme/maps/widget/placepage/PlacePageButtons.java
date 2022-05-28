@@ -2,7 +2,6 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,13 +11,13 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
-import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetFragment;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -182,7 +181,7 @@ public final class PlacePageButtons
     // Must not be used outside
     MORE(
         R.string.placepage_more_button,
-        new ImageResources(R.drawable.bs_ic_more),
+        new ImageResources(R.drawable.ic_more),
         ButtonType.MORE),
 
     CALL(
@@ -309,27 +308,22 @@ public final class PlacePageButtons
     }
   }
 
-  private void showPopup(final List<PlacePageButton> buttons)
+  private ArrayList<MenuBottomSheetItem> getMenuItems(final List<PlacePageButton> buttons)
   {
-    BottomSheetHelper.Builder bs = new BottomSheetHelper.Builder(mPlacePage.getActivity());
+    ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
     for (int i = mMaxButtons; i < buttons.size(); i++)
     {
       PlacePageButton bsItem = buttons.get(i);
       int iconRes = bsItem.getIcon().getEnabledStateResId(mPlacePage.getContext());
-      bs.sheet(i, iconRes, bsItem.getTitle());
+      items.add(new MenuBottomSheetItem(bsItem.getTitle(), iconRes, () -> mItemListener.onItemClick(bsItem)));
     }
+    return items;
+  }
 
-    BottomSheet bottomSheet = bs.listener(new MenuItem.OnMenuItemClickListener()
-    {
-      @Override
-      public boolean onMenuItemClick(MenuItem item)
-      {
-        mItemListener.onItemClick(buttons.get(item.getItemId()));
-        return true;
-      }
-    }).build();
-    BottomSheetHelper.tint(bottomSheet);
-    bottomSheet.show();
+  private void showPopup(final List<PlacePageButton> buttons)
+  {
+    new MenuBottomSheetFragment(getMenuItems(buttons))
+        .show(mPlacePage.getActivity().getSupportFragmentManager(), "moreBottomSheet");
   }
 
   private View createButton(@NonNull final List<PlacePageButton> items,

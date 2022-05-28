@@ -29,7 +29,7 @@ public:
   public:
     using NodeCallback = std::function<void(Node const &)>;
 
-    Node(Country const & value, Node * parent) : m_value(value), m_parent(parent) {}
+    Node(Country && value, Node * parent) : m_value(std::move(value)), m_parent(parent) {}
 
     Country const & Value() const { return m_value; }
     Country & Value() { return m_value; }
@@ -43,7 +43,7 @@ public:
     /// \param value is a value of node which will be added.
     /// \note This method does not let to add a node to an arbitrary place in the tree.
     /// It's posible to add children only from "right side".
-    Node * AddAtDepth(size_t level, Country const & value);
+    Node * AddAtDepth(size_t level, Country && value);
 
     bool HasParent() const { return m_parent != nullptr; }
 
@@ -74,7 +74,7 @@ public:
     void ForEachAncestorExceptForTheRoot(NodeCallback const & f) const;
 
   private:
-    Node * Add(Country const & value);
+    Node * Add(Country && value);
 
     Country m_value;
 
@@ -91,7 +91,7 @@ public:
 
   Node & GetRoot();
 
-  Country & AddAtDepth(size_t level, Country const & value);
+  Country & AddAtDepth(size_t level, Country && value);
 
   /// Deletes all children and makes tree empty
   void Clear();

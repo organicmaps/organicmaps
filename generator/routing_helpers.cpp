@@ -42,7 +42,7 @@ bool ParseWaysOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
 }
 
 bool ParseWaysFeatureIdToOsmIdMapping(string const & osmIdsToFeatureIdPath,
-                                      map<uint32_t, base::GeoObjectId> & featureIdToOsmId)
+                                      FeatureIdToOsmId & featureIdToOsmId)
 {
   featureIdToOsmId.clear();
   bool idsAreOk = true;

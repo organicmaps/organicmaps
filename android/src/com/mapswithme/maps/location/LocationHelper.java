@@ -124,7 +124,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @Nullable
   private Location mSavedLocation;
   private MapObject mMyPosition;
-  private long mSavedLocationTime;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private SensorHelper mSensorHelper;
@@ -155,12 +154,14 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   };
 
   @SuppressWarnings("FieldCanBeLocal")
-  private final LocationState.LocationPendingTimeoutListener mLocationPendingTimeoutListener =
-      () -> {
-        stop();
-        if (PermissionsUtils.isLocationGranted(mContext) && LocationUtils.areLocationServicesTurnedOn(mContext))
-          notifyLocationNotFound();
-      };
+  private final LocationState.LocationPendingTimeoutListener mLocationPendingTimeoutListener = () -> {
+    if (mActive)
+    {
+      stop();
+      if (PermissionsUtils.isLocationGranted(mContext) && LocationUtils.areLocationServicesTurnedOn(mContext))
+        notifyLocationNotFound();
+    }
+  };
 
   @Override
   public void initialize(@NotNull Context context)
@@ -203,14 +204,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   }
 
   /**
-   * <p>Obtains last known saved location. It depends on "My position" button mode and is erased on "No follow, no position" one.
-   * <p>If you need the location regardless of the button's state, use {@link #getLastKnownLocation()}.
-   * @return {@code null} if no location is saved or "My position" button is in "No follow, no position" mode.
+   * Obtains last known location.
+   * @return {@code null} if no location is saved.
    */
   @Nullable
   public Location getSavedLocation() { return mSavedLocation; }
-
-  public long getSavedLocationTime() { return mSavedLocationTime; }
 
   public void switchToNextMode()
   {
@@ -250,7 +248,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
         mReceiverRegistered = false;
       }
 
-      start();
+      initialStart();
     }
     else
     {
@@ -306,17 +304,23 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     mLogger.d(TAG, "onLocationChanged, location = " + location);
 
     if (!LocationUtils.isAccuracySatisfied(location))
-      return;
-
-    if (mSavedLocation != null && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
     {
-      mLogger.d(TAG, "The new " + location + " is worse than the last " +  mSavedLocation);
+      mLogger.w(TAG, "Unsatisfied accuracy for location = " + location);
       return;
+    }
+
+    if (mSavedLocation != null)
+    {
+      final boolean isTrustedFused = mLocationProvider.trustFusedLocations() && LocationUtils.isFromFusedProvider(location);
+      if (!isTrustedFused && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
+      {
+        mLogger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
+        return;
+      }
     }
 
     mSavedLocation = location;
     mMyPosition = null;
-    mSavedLocationTime = System.currentTimeMillis();
     notifyLocationUpdated();
   }
 
@@ -324,11 +328,15 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   public void onLocationError(int errCode)
   {
     mLogger.d(TAG, "onLocationError(): " + errCode);
-    if (errCode == ERROR_NOT_SUPPORTED && !(mLocationProvider instanceof AndroidNativeProvider))
+    if (errCode == ERROR_NOT_SUPPORTED &&
+        LocationUtils.areLocationServicesTurnedOn(mContext) &&
+        !(mLocationProvider instanceof AndroidNativeProvider))
     {
-      // Try to downgrade to native provider first before notifying the user.
+      // If location service is enabled, try to downgrade to the native provider first
+      // and restart the service before notifying the user.
       mLogger.d(TAG, "Downgrading to use native provider");
       mLocationProvider = new AndroidNativeProvider(mContext, this);
+      restart();
       return;
     }
 
@@ -441,9 +449,14 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
    */
   public void restart()
   {
-    mLogger.i(TAG, "restart()");
     stop();
     start();
+  }
+
+  private void initialStart()
+  {
+    if (LocationState.nativeGetMode() != LocationState.NOT_FOLLOW_NO_POSITION)
+      start();
   }
 
   /**
@@ -456,7 +469,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   {
     if (mActive)
     {
-      mLogger.i(TAG, "Provider '" + mLocationProvider + "' is already started");
+      mLogger.w(TAG, "Provider '" + mLocationProvider + "' is already started");
       return;
     }
 
@@ -493,7 +506,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     mLogger.i(TAG, "stop()");
     if (!mActive)
     {
-      mLogger.i(TAG, "Provider '" + mLocationProvider + "' is already stopped");
+      mLogger.w(TAG, "Provider '" + mLocationProvider + "' is already stopped");
       return;
     }
 
@@ -554,7 +567,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
     else
     {
-      restart();
+      initialStart();
     }
   }
 
@@ -598,9 +611,6 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
     mInFirstRun = false;
 
-    if (getMyPositionMode() != LocationState.NOT_FOLLOW_NO_POSITION)
-      throw new AssertionError("My position mode must be equal NOT_FOLLOW_NO_POSITION");
-
     // If there is a location we need just to pass it to the listeners, so that
     // my position state machine will be switched to the FOLLOW state.
     if (mSavedLocation != null)
@@ -611,22 +621,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       return;
     }
 
-    // If the location hasn't been obtained yet we need to switch to the next mode and wait for locations.
-    // Otherwise, try to restart location updates polling.
-    if (mActive)
-      switchToNextMode();
-    else
-      restart();
-  }
-
-  /**
-   * Obtains last known location regardless of "My position" button state.
-   * @return {@code null} on failure.
-   */
-  @Nullable
-  public Location getLastKnownLocation()
-  {
-    return mSavedLocation;
+    // Restart location service to show alert dialog if any location error.
+    restart();
   }
 
   @Nullable

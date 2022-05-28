@@ -53,7 +53,7 @@ mapswithme
 *highway|path|bicycle
 *landuse|meadow
 *highway|living_street
-mapswithme
+*man_made|survey_point
 *natural|peak
 *highway|motorway
 *highway|steps
@@ -302,7 +302,7 @@ mapswithme
 *man_made|silo
 *power|generator
 *highway|pedestrian|bridge
-*man_made|pipeline|overground
+man_made|pipeline
 *natural|saddle
 *mountain_pass
 *highway|raceway
@@ -389,7 +389,7 @@ mapswithme
 *aerialway|cable_car
 *piste:type|downhill
 *sport|american_football
-mapswithme
+*landuse|education
 *man_made|cairn
 *railway|preserved|bridge
 *highway|path|demanding_alpine_hiking
@@ -542,7 +542,7 @@ mapswithme
 highway|speed_camera
 *area:highway|track
 *area:highway|primary
-*power|line|underground
+mapswithme
 mapswithme
 mapswithme
 mapswithme
@@ -1122,13 +1122,13 @@ mapswithme
 *wheelchair|no
 *wheelchair|limited
 *building|has_parts
-mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
+*organic|only
+*organic|yes
+*amenity|vending_machine|coffee
+*amenity|vending_machine|condoms
+*amenity|vending_machine|food
+*amenity|vending_machine|newspapers
+*amenity|vending_machine|sweets
 mapswithme
 mapswithme
 mapswithme
@@ -1222,7 +1222,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-mapswithme
+*natural|water|tunnel
 *place|square
 *tourism|artwork|architecture
 *tourism|artwork|sculpture
@@ -1321,7 +1321,7 @@ mapswithme
 *cuisine|fine_dining
 *cuisine|tea
 *natural|geyser
-mapswithme
+*cuisine|bubble_tea
 *natural|hot_spring
 *amenity|parking_space
 *amenity|parking_space|underground

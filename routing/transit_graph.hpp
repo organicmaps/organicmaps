@@ -5,7 +5,6 @@
 #include "routing/fake_graph.hpp"
 #include "routing/fake_vertex.hpp"
 #include "routing/latlon_with_altitude.hpp"
-#include "routing/road_graph.hpp"
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
 

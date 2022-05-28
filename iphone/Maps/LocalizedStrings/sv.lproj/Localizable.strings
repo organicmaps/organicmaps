@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Skriv en recension";
 
-/* View and button titles for accessibility */
-"maps" = "Kartor";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mil";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Min position";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Polis";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Återvinning";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Webbplats";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Nyheter";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Kompasskalibrering";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Uppdatera alla";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Nedladdade";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Nära mig";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Kartor";
 
 "downloader_download_all_button" = "Ladda ned alla";
@@ -418,9 +419,6 @@
 
 /* blue gray color */
 "blue_gray" = "Ljusblå grå";
-
-/* Wi-Fi available */
-"WiFi_available" = "Ja";
 
 
 /********** Routing dialogs strings **********/
@@ -743,6 +741,7 @@
 
 "mile" = "mile";
 
+/* A unit of measure */
 "foot" = "fot";
 
 "miles_per_hour" = "mph";
@@ -1025,9 +1024,17 @@
 
 "redirect_route_alert" = "Räknar om rutten?";
 
-"redirect_route_yes" = "Ja";
+/* A generic "Yes" button in dialogs */
+"yes" = "Ja";
 
-"redirect_route_no" = "Nej";
+/* A generic "No" button in dialogs */
+"no" = "Nej";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Ja";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Nej";
 
 "trip_finished" = "Du är framme!";
 
@@ -1442,11 +1449,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Cigarettmaskin";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Läskautomat";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Parkeringsautomat";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Biljettautomat";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1601,6 +1618,8 @@
 "type.cuisine.brazilian" = "Brasiliansk mat";
 
 "type.cuisine.breakfast" = "Frukost";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Hamburgare";
 
@@ -1765,11 +1784,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Bro";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunnel";
 
 "type.highway.bus_stop" = "Busshållplats";
 
@@ -1777,11 +1798,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Bro";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunnel";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1814,8 @@
 
 "type.highway.footway.area" = "Gångväg";
 
-"type.highway.footway.bridge" = "Gångväg";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Bro";
 
 "type.highway.footway.demanding_alpine_hiking" = "Gångväg";
 
@@ -1805,29 +1829,36 @@
 
 "type.highway.footway.permissive" = "Gångväg";
 
-"type.highway.footway.tunnel" = "Gångväg";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunnel";
 
 "type.highway.ford" = "Vadställe";
 
 "type.highway.living_street" = "Gata";
 
-"type.highway.living_street.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Bro";
 
-"type.highway.living_street.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunnel";
 
 "type.highway.motorway" = "Gata";
 
-"type.highway.motorway.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Bro";
 
-"type.highway.motorway.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunnel";
 
 "type.highway.motorway_junction" = "Avfart";
 
 "type.highway.motorway_link" = "Gata";
 
-"type.highway.motorway_link.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Bro";
 
-"type.highway.motorway_link.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunnel";
 
 "type.highway.path" = "Gångväg";
 
@@ -1835,7 +1866,8 @@
 
 "type.highway.path.bicycle" = "Gångväg";
 
-"type.highway.path.bridge" = "Gångväg";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Bro";
 
 "type.highway.path.demanding_alpine_hiking" = "Gångväg";
 
@@ -1851,27 +1883,34 @@
 
 "type.highway.path.permissive" = "Gångväg";
 
-"type.highway.path.tunnel" = "Gångväg";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunnel";
 
 "type.highway.pedestrian" = "Gata";
 
 "type.highway.pedestrian.area" = "Gata";
 
-"type.highway.pedestrian.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Bro";
 
-"type.highway.pedestrian.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunnel";
 
 "type.highway.primary" = "Gata";
 
-"type.highway.primary.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Bro";
 
-"type.highway.primary.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunnel";
 
 "type.highway.primary_link" = "Gata";
 
-"type.highway.primary_link.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Bro";
 
-"type.highway.primary_link.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunnel";
 
 "type.highway.raceway" = "Racerbana";
 
@@ -1879,41 +1918,51 @@
 
 "type.highway.residential.area" = "Gata";
 
-"type.highway.residential.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Bro";
 
-"type.highway.residential.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunnel";
 
 "type.highway.rest_area" = "Viloplats";
 
 "type.highway.road" = "Gata";
 
-"type.highway.road.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Bro";
 
-"type.highway.road.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunnel";
 
 "type.highway.secondary" = "Gata";
 
-"type.highway.secondary.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Bro";
 
-"type.highway.secondary.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunnel";
 
 "type.highway.secondary_link" = "Gata";
 
-"type.highway.secondary_link.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Bro";
 
-"type.highway.secondary_link.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunnel";
 
 "type.highway.service" = "Gata";
 
 "type.highway.service.area" = "Gata";
 
-"type.highway.service.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Bro";
 
 "type.highway.service.driveway" = "Gata";
 
 "type.highway.service.parking_aisle" = "Gata";
 
-"type.highway.service.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunnel";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1970,34 @@
 
 "type.highway.steps" = "Gångväg";
 
-"type.highway.steps.bridge" = "Gångväg";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Bro";
 
-"type.highway.steps.tunnel" = "Gångväg";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunnel";
 
 "type.highway.tertiary" = "Gata";
 
-"type.highway.tertiary.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Bro";
 
-"type.highway.tertiary.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunnel";
 
 "type.highway.tertiary_link" = "Gata";
 
-"type.highway.tertiary_link.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Bro";
 
-"type.highway.tertiary_link.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunnel";
 
 "type.highway.track" = "Gata";
 
 "type.highway.track.area" = "Gata";
 
-"type.highway.track.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Bro";
 
 "type.highway.track.grade1" = "Gata";
 
@@ -1957,29 +2013,36 @@
 
 "type.highway.track.permissive" = "Gata";
 
-"type.highway.track.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunnel";
 
 "type.highway.traffic_signals" = "Trafikljus";
 
 "type.highway.trunk" = "Gata";
 
-"type.highway.trunk.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Bro";
 
-"type.highway.trunk.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunnel";
 
 "type.highway.trunk_link" = "Gata";
 
-"type.highway.trunk_link.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Bro";
 
-"type.highway.trunk_link.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunnel";
 
 "type.highway.unclassified" = "Gata";
 
 "type.highway.unclassified.area" = "Gata";
 
-"type.highway.unclassified.bridge" = "Gata";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Bro";
 
-"type.highway.unclassified.tunnel" = "Gata";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunnel";
 
 "type.area_highway.cycleway" = "Cycle Path";
 
@@ -2110,6 +2173,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Jordbruksmark";
@@ -2235,6 +2300,8 @@
 "type.man_made.chimney" = "Fabriksskorsten";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2369,6 +2436,10 @@
 "type.office.ngo" = "Kontor för icke-statlig organisation";
 
 "type.office.telecommunication" = "Mobiloperatör";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "place";
 

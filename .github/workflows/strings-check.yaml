@@ -3,8 +3,8 @@ on:
   workflow_dispatch: # Manual trigger
   pull_request:
     paths:
-      - 'data/strings/strings.txt'
-      - 'data/strings/types_strings.txt'
+      - data/strings/strings.txt
+      - data/strings/types_strings.txt
 
 jobs:
   validate-translation-strings:

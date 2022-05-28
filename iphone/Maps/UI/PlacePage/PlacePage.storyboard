@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TtY-w3-kOi">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TtY-w3-kOi" userLabel="Background View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -52,7 +52,7 @@
                                     <outlet property="delegate" destination="bX8-ZQ-XDA" id="ASo-bI-N1l"/>
                                 </connections>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZh-69-00e">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZh-69-00e" userLabel="Divider View">
                                 <rect key="frame" x="0.0" y="617" width="375" height="1"/>
                                 <color key="backgroundColor" systemColor="separatorColor"/>
                                 <constraints>
@@ -803,7 +803,6 @@
                             <constraint firstItem="A9s-da-nap" firstAttribute="leading" secondItem="2IW-oU-HLV" secondAttribute="leading" id="2E9-CD-9Tw"/>
                             <constraint firstItem="EVy-Wt-5En" firstAttribute="centerY" secondItem="A9s-da-nap" secondAttribute="centerY" id="2O4-Ge-lKN"/>
                             <constraint firstAttribute="trailing" secondItem="43E-TR-OSz" secondAttribute="trailing" id="ORJ-zz-5Od"/>
-                            <constraint firstItem="A9s-da-nap" firstAttribute="centerY" secondItem="2IW-oU-HLV" secondAttribute="centerYWithinMargins" id="SP4-I9-BrL"/>
                             <constraint firstAttribute="trailing" secondItem="EVy-Wt-5En" secondAttribute="trailing" constant="8" id="VCX-dn-JVo"/>
                             <constraint firstAttribute="bottom" secondItem="43E-TR-OSz" secondAttribute="bottom" id="YIW-PC-dgZ"/>
                             <constraint firstItem="43E-TR-OSz" firstAttribute="leading" secondItem="A9s-da-nap" secondAttribute="trailing" id="bpy-jU-MhU"/>
@@ -1797,6 +1796,7 @@
                     <size key="freeformSize" width="375" height="59"/>
                     <connections>
                         <outlet property="expandView" destination="Gdy-g5-gbM" id="rzi-mb-hUi"/>
+                        <outlet property="headerView" destination="fqh-H3-eji" id="Z2K-Wd-hRO"/>
                         <outlet property="shadowView" destination="spW-XI-KSY" id="kLc-R7-Rij"/>
                         <outlet property="titleLabel" destination="lR4-to-4wX" id="l4F-JL-aNb"/>
                         <outlet property="view" destination="xTs-NP-HcT" id="jQF-X9-Xlv"/>

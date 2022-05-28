@@ -487,6 +487,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       }
     }
 
+    using namespace routing_builder;
+
     if (FLAGS_make_routing_index)
     {
       if (!countryParentGetter)
@@ -501,13 +503,13 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       string const restrictionsFilename = genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME);
       string const roadAccessFilename = genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
 
-      routing::BuildRoutingIndex(dataFile, country, *countryParentGetter);
-      auto routingGraph = routing::CreateIndexGraph(path, dataFile, country, *countryParentGetter);
+      BuildRoutingIndex(dataFile, country, *countryParentGetter);
+      auto routingGraph = CreateIndexGraph(dataFile, country, *countryParentGetter);
       CHECK(routingGraph, ());
 
       /// @todo CHECK return result doesn't work now for some small countries like Somalie.
-      if (!routing::BuildRoadRestrictions(*routingGraph, dataFile, restrictionsFilename, osmToFeatureFilename) ||
-          !routing::BuildRoadAccessInfo(dataFile, roadAccessFilename, osmToFeatureFilename))
+      if (!BuildRoadRestrictions(*routingGraph, dataFile, restrictionsFilename, osmToFeatureFilename) ||
+          !BuildRoadAccessInfo(dataFile, roadAccessFilename, osmToFeatureFilename))
       {
         LOG(LERROR, ("Routing build failed for", dataFile));
       }
@@ -516,7 +518,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       {
         string const maxspeedsFilename = genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME);
         LOG(LINFO, ("Generating maxspeeds section for", dataFile, "using", maxspeedsFilename));
-        routing::BuildMaxspeedsSection(routingGraph.get(), dataFile, osmToFeatureFilename, maxspeedsFilename);
+        BuildMaxspeedsSection(routingGraph.get(), dataFile, osmToFeatureFilename, maxspeedsFilename);
       }
     }
 
@@ -526,7 +528,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       LOG(LINFO, ("Generating cities boundaries roads for", dataFile));
       auto const boundariesPath =
           genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME);
-      if (!routing::BuildCityRoads(dataFile, boundariesPath))
+      if (!BuildCityRoads(dataFile, boundariesPath))
         LOG(LCRITICAL, ("Generating city roads error."));
     }
 
@@ -544,25 +546,25 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
       if (FLAGS_make_cross_mwm)
       {
-        routing::BuildRoutingCrossMwmSection(path, dataFile, country, genInfo.m_intermediateDir,
-                                             *countryParentGetter, osmToFeatureFilename,
-                                             FLAGS_disable_cross_mwm_progress);
+        BuildRoutingCrossMwmSection(path, dataFile, country, genInfo.m_intermediateDir,
+                                    *countryParentGetter, osmToFeatureFilename,
+                                    FLAGS_disable_cross_mwm_progress);
       }
 
       if (FLAGS_make_transit_cross_mwm_experimental)
       {
         if (!transitEdgeFeatureIds.empty())
         {
-          routing::BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
-                                               transitEdgeFeatureIds,
-                                               true /* experimentalTransit */);
+          BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
+                                      transitEdgeFeatureIds,
+                                      true /* experimentalTransit */);
         }
       }
       else if (FLAGS_make_transit_cross_mwm)
       {
-        routing::BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
-                                             transitEdgeFeatureIds,
-                                             false /* experimentalTransit */);
+        BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
+                                    transitEdgeFeatureIds,
+                                    false /* experimentalTransit */);
       }
     }
 

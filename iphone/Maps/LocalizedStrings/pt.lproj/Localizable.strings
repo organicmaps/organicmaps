@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Faça uma avaliação";
 
-/* View and button titles for accessibility */
-"maps" = "Mapas";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Milhas";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "A minha posição";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Polícia";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Reciclagem";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Site";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Notícias";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Calibração da bússola";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Atualizar tudo";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Descarregado";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Perto de mim";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Mapas";
 
 "downloader_download_all_button" = "Descarregar tudo";
@@ -418,9 +419,6 @@
 
 /* blue gray color */
 "blue_gray" = "Azul-cinza";
-
-/* Wi-Fi available */
-"WiFi_available" = "Sim";
 
 
 /********** Routing dialogs strings **********/
@@ -743,6 +741,7 @@
 
 "mile" = "mi";
 
+/* A unit of measure */
 "foot" = "ft";
 
 "miles_per_hour" = "mph";
@@ -1025,9 +1024,17 @@
 
 "redirect_route_alert" = "Quer recalcular o percurso?";
 
-"redirect_route_yes" = "Sim";
+/* A generic "Yes" button in dialogs */
+"yes" = "Sim";
 
-"redirect_route_no" = "Não";
+/* A generic "No" button in dialogs */
+"no" = "Não";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Sim";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Não";
 
 "trip_finished" = "Chegou ao destino!";
 
@@ -1442,11 +1449,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Máquina de venda de cigarros";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Máquina de venda de bebidas";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Máquina venda de bilhetes de estacionamento";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Máquina venda de bilhetes de transporte público";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1601,6 +1618,8 @@
 "type.cuisine.brazilian" = "Cozinha brasileira";
 
 "type.cuisine.breakfast" = "Pequeno almoço";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Hambúrguer";
 
@@ -1765,11 +1784,13 @@
 
 "type.highway.bridleway" = "Caminho para cavaleiros";
 
-"type.highway.bridleway.bridge" = "Caminho para cavaleiros";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Ponte";
 
 "type.highway.bridleway.permissive" = "Caminho para cavaleiros";
 
-"type.highway.bridleway.tunnel" = "Caminho para cavaleiros";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Túnel";
 
 "type.highway.bus_stop" = "Paragem de autocarros";
 
@@ -1777,11 +1798,13 @@
 
 "type.highway.cycleway" = "Ciclovia";
 
-"type.highway.cycleway.bridge" = "Ciclovia";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Ponte";
 
 "type.highway.cycleway.permissive" = "Ciclovia";
 
-"type.highway.cycleway.tunnel" = "Ciclovia";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Túnel";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1814,8 @@
 
 "type.highway.footway.area" = "Caminho pedonal";
 
-"type.highway.footway.bridge" = "Caminho pedonal";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Ponte";
 
 "type.highway.footway.demanding_alpine_hiking" = "Caminho pedonal";
 
@@ -1805,29 +1829,36 @@
 
 "type.highway.footway.permissive" = "Caminho pedonal";
 
-"type.highway.footway.tunnel" = "Caminho pedonal";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Túnel";
 
 "type.highway.ford" = "Vau";
 
 "type.highway.living_street" = "Zona de coexistência";
 
-"type.highway.living_street.bridge" = "Zona de coexistência";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Ponte";
 
-"type.highway.living_street.tunnel" = "Zona de coexistência";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Túnel";
 
 "type.highway.motorway" = "Autoestrada";
 
-"type.highway.motorway.bridge" = "Autoestrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Ponte";
 
-"type.highway.motorway.tunnel" = "Autoestrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Túnel";
 
 "type.highway.motorway_junction" = "Saída de autoestrada";
 
 "type.highway.motorway_link" = "Ligação a autoestrada";
 
-"type.highway.motorway_link.bridge" = "Ligação a autoestrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Ponte";
 
-"type.highway.motorway_link.tunnel" = "Ligação a autoestrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Túnel";
 
 "type.highway.path" = "Caminho";
 
@@ -1835,7 +1866,8 @@
 
 "type.highway.path.bicycle" = "Caminho";
 
-"type.highway.path.bridge" = "Caminho";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Ponte";
 
 "type.highway.path.demanding_alpine_hiking" = "Caminho";
 
@@ -1851,27 +1883,34 @@
 
 "type.highway.path.permissive" = "Caminho";
 
-"type.highway.path.tunnel" = "Caminho";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Túnel";
 
 "type.highway.pedestrian" = "Rua pedonal";
 
 "type.highway.pedestrian.area" = "Rua pedonal";
 
-"type.highway.pedestrian.bridge" = "Rua pedonal";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Ponte";
 
-"type.highway.pedestrian.tunnel" = "Rua pedonal";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Túnel";
 
 "type.highway.primary" = "Estrada primária";
 
-"type.highway.primary.bridge" = "Estrada primária";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Ponte";
 
-"type.highway.primary.tunnel" = "Estrada primária";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Túnel";
 
 "type.highway.primary_link" = "Estrada primária";
 
-"type.highway.primary_link.bridge" = "Estrada primária";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Ponte";
 
-"type.highway.primary_link.tunnel" = "Estrada primária";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Túnel";
 
 "type.highway.raceway" = "Pista de corridas";
 
@@ -1879,41 +1918,51 @@
 
 "type.highway.residential.area" = "Rua residencial";
 
-"type.highway.residential.bridge" = "Rua residencial";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Ponte";
 
-"type.highway.residential.tunnel" = "Rua residencial";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Túnel";
 
 "type.highway.rest_area" = "Área de descanso";
 
 "type.highway.road" = "Estrada";
 
-"type.highway.road.bridge" = "Estrada";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Ponte";
 
-"type.highway.road.tunnel" = "Estrada";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Túnel";
 
 "type.highway.secondary" = "Estrada secundária";
 
-"type.highway.secondary.bridge" = "Estrada secundária";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Ponte";
 
-"type.highway.secondary.tunnel" = "Estrada secundária";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Túnel";
 
 "type.highway.secondary_link" = "Estrada secundária";
 
-"type.highway.secondary_link.bridge" = "Estrada secundária";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Ponte";
 
-"type.highway.secondary_link.tunnel" = "Estrada secundária";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Túnel";
 
 "type.highway.service" = "Estrada de acesso ou serviço";
 
 "type.highway.service.area" = "Estrada de acesso ou serviço";
 
-"type.highway.service.bridge" = "Estrada de acesso ou serviço";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Ponte";
 
 "type.highway.service.driveway" = "Estrada de acesso ou serviço";
 
 "type.highway.service.parking_aisle" = "Estrada de estacionamento";
 
-"type.highway.service.tunnel" = "Estrada de acesso ou serviço";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Túnel";
 
 "type.highway.services" = "Área de serviço";
 
@@ -1921,27 +1970,34 @@
 
 "type.highway.steps" = "Escadas";
 
-"type.highway.steps.bridge" = "Escadas";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Ponte";
 
-"type.highway.steps.tunnel" = "Escadas";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Túnel";
 
 "type.highway.tertiary" = "Estrada terciária";
 
-"type.highway.tertiary.bridge" = "Estrada terciária";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Ponte";
 
-"type.highway.tertiary.tunnel" = "Estrada terciária";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Túnel";
 
 "type.highway.tertiary_link" = "Estrada terciária";
 
-"type.highway.tertiary_link.bridge" = "Estrada terciária";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Ponte";
 
-"type.highway.tertiary_link.tunnel" = "Estrada terciária";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Túnel";
 
 "type.highway.track" = "Carreiro florestal ou agrícola";
 
 "type.highway.track.area" = "Carreiro florestal ou agrícola";
 
-"type.highway.track.bridge" = "Carreiro florestal ou agrícola";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Ponte";
 
 "type.highway.track.grade1" = "Carreiro florestal ou agrícola";
 
@@ -1957,29 +2013,36 @@
 
 "type.highway.track.permissive" = "Carreiro florestal ou agrícola";
 
-"type.highway.track.tunnel" = "Carreiro florestal ou agrícola";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Túnel";
 
 "type.highway.traffic_signals" = "Semáforo";
 
 "type.highway.trunk" = "Via rápida";
 
-"type.highway.trunk.bridge" = "Via rápida";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Ponte";
 
-"type.highway.trunk.tunnel" = "Via rápida";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Túnel";
 
 "type.highway.trunk_link" = "Via rápida";
 
-"type.highway.trunk_link.bridge" = "Via rápida";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Ponte";
 
-"type.highway.trunk_link.tunnel" = "Via rápida";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Túnel";
 
 "type.highway.unclassified" = "Estrada sem classificação";
 
 "type.highway.unclassified.area" = "Estrada sem classificação";
 
-"type.highway.unclassified.bridge" = "Estrada sem classificação";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Ponte";
 
-"type.highway.unclassified.tunnel" = "Estrada sem classificação";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Túnel";
 
 "type.area_highway.cycleway" = "Ciclovia";
 
@@ -2110,6 +2173,8 @@
 
 "type.landuse.construction" = "Construção";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Quinta";
 
 "type.landuse.farmland" = "Campo agrícola";
@@ -2235,6 +2300,8 @@
 "type.man_made.chimney" = "Chaminé de fábrica";
 
 "type.man_made.cutline" = "Atalhada";
+
+"type.man_made.survey_point" = "Survey Point";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2369,6 +2436,10 @@
 "type.office.ngo" = "Escritório de ONG";
 
 "type.office.telecommunication" = "Operadora de telecomunicações";
+
+"type.organic.only" = "Orgânico";
+
+"type.organic.yes" = "Orgânico";
 
 "type.place" = "Local";
 

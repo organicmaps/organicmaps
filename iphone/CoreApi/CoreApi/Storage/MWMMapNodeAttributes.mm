@@ -80,7 +80,7 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status) {
 
     storage::Storage::UpdateInfo updateInfo;
     if (GetFramework().GetStorage().GetUpdateInfo([countryId UTF8String], updateInfo)) {
-      _totalUpdateSizeBytes = updateInfo.m_totalUpdateSizeInBytes;
+      _totalUpdateSizeBytes = updateInfo.m_totalDownloadSizeInBytes;
     } else {
       _totalUpdateSizeBytes = 0;
     }

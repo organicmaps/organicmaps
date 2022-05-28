@@ -187,11 +187,8 @@ using namespace storage;
   auto &f = GetFramework();
   f.GetBookmarkManager().GetEditSession().DeleteBookmark(data.bookmarkData.bookmarkId);
 
-  auto buildInfo = f.GetCurrentPlacePageInfo().GetBuildInfo();
-  buildInfo.m_match = place_page::BuildInfo::Match::FeatureOnly;
-  buildInfo.m_userMarkId = kml::kInvalidMarkId;
-  buildInfo.m_source = place_page::BuildInfo::Source::Other;
-  f.UpdatePlacePageInfoForCurrentSelection(buildInfo);
+  [MWMFrameworkHelper updateAfterDeleteBookmark];
+
   [data updateBookmarkStatus];
 }
 

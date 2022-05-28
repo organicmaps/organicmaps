@@ -1,37 +1,37 @@
 package com.mapswithme.maps.settings;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.util.Constants;
+import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.concurrency.ThreadPool;
+import com.mapswithme.util.concurrency.UiThread;
 
 import java.io.File;
 import java.util.List;
-import java.util.Locale;
 
 public class StoragePathFragment extends BaseSettingsFragment
-                              implements StoragePathManager.MoveFilesListener,
-                                         OnBackPressListener
+    implements OnBackPressListener
 {
   private TextView mHeader;
   private ListView mList;
 
   private StoragePathAdapter mAdapter;
-  private final StoragePathManager mPathManager = new StoragePathManager();
+  private StoragePathManager mPathManager;
 
   @Override
   protected int getLayoutRes()
@@ -43,17 +43,13 @@ public class StoragePathFragment extends BaseSettingsFragment
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     View root = super.onCreateView(inflater, container, savedInstanceState);
+    mPathManager = new StoragePathManager(requireActivity());
+    mAdapter = new StoragePathAdapter(mPathManager, requireActivity());
 
     mHeader = root.findViewById(R.id.header);
     mList = root.findViewById(R.id.list);
-    mList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-    {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-      {
-        mAdapter.onItemClick(position);
-      }
-    });
+    mList.setOnItemClickListener((parent, view, position, id) -> changeStorage(position));
+    mList.setAdapter(mAdapter);
 
     return root;
   }
@@ -62,27 +58,16 @@ public class StoragePathFragment extends BaseSettingsFragment
   public void onResume()
   {
     super.onResume();
-    mPathManager.startExternalStorageWatching(getActivity(), new StoragePathManager.OnStorageListChangedListener()
-    {
-      @Override
-      public void onStorageListChanged(List<StorageItem> storageItems, int currentStorageIndex)
-      {
-        updateList();
-      }
-    }, this);
-
-    if (mAdapter == null)
-      mAdapter = new StoragePathAdapter(mPathManager, getActivity());
-
+    mPathManager.startExternalStorageWatching((items, idx) -> updateList());
+    mPathManager.scanAvailableStorages();
     updateList();
-    mList.setAdapter(mAdapter);
   }
 
   @Override
   public void onPause()
   {
-    super.onPause();
     mPathManager.stopExternalStorageWatching();
+    super.onPause();
   }
 
   static long getWritableDirSize()
@@ -102,52 +87,62 @@ public class StoragePathFragment extends BaseSettingsFragment
   private void updateList()
   {
     long dirSize = getWritableDirSize();
-    mHeader.setText(getString(R.string.maps) + ": " + getSizeString(dirSize));
-
-    if (mAdapter != null)
-      mAdapter.update(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), dirSize);
+    mHeader.setText(getString(R.string.maps_storage_downloaded) + ": " + Formatter.formatShortFileSize(getActivity(), dirSize));
+    mAdapter.update(dirSize);
   }
 
-  @Override
-  public void moveFilesFinished(String newPath)
+  /**
+   * Asks for user confirmation and starts to move to a new storage location.
+   *
+   * @param newIndex new storage location index
+   */
+  public void changeStorage(int newIndex)
   {
-    updateList();
-  }
-
-  @Override
-  public void moveFilesFailed(int errorCode)
-  {
-    if (!isAdded())
+    final int currentIndex = mPathManager.mCurrentStorageIndex;
+    final List<StorageItem> storages = mPathManager.mStorages;
+    if (newIndex == currentIndex || currentIndex == -1 || storages.get(newIndex).mIsReadonly
+        || !mAdapter.isStorageBigEnough(newIndex))
       return;
 
-    final String message = "Failed to move maps with internal error: " + errorCode;
-    final Activity activity = getActivity();
-    if (activity.isFinishing())
-      return;
+    final String oldPath = storages.get(currentIndex).mPath;
+    final String newPath = storages.get(newIndex).mPath;
 
-    new AlertDialog.Builder(activity)
-        .setTitle(message)
-        .setPositiveButton(R.string.report_a_bug,
-                           (dialog, which) -> Utils.sendBugReport(activity, message)).show();
+    new AlertDialog.Builder(requireActivity())
+        .setCancelable(false)
+        .setTitle(R.string.move_maps)
+        .setPositiveButton(R.string.ok, (dlg, which) -> moveStorage(newPath, oldPath))
+        .setNegativeButton(R.string.cancel, (dlg, which) -> dlg.dismiss())
+        .create()
+        .show();
   }
 
-  static String getSizeString(long size)
+  /**
+   * Shows a progress dialog and runs a move files thread.
+   */
+  private void moveStorage(@NonNull final String newPath, @NonNull final String oldPath)
   {
-    final String[] units = { "Kb", "Mb", "Gb" };
+    final ProgressDialog dialog = DialogUtils.createModalProgressDialog(requireActivity(), R.string.wait_several_minutes);
+    dialog.show();
 
-    long current = Constants.KB;
-    int i = 0;
-    for (; i < units.length; ++i)
-    {
-      final long bound = Constants.KB * current;
-      if (size < bound)
-        break;
+    ThreadPool.getStorage().execute(() -> {
+      final boolean result = mPathManager.moveStorage(newPath, oldPath);
 
-      current = bound;
-    }
+      UiThread.run(() -> {
+        if (dialog.isShowing())
+          dialog.dismiss();
 
-    // left 1 digit after the comma and add postfix string
-    return String.format(Locale.US, "%.1f %s", (double) size / current, units[i]);
+        if (!result)
+        {
+          new AlertDialog.Builder(requireActivity())
+              .setTitle(R.string.move_maps_error)
+              .setPositiveButton(R.string.report_a_bug,
+                                 (dlg, which) -> Utils.sendBugReport(requireActivity(), "Error moving map files"))
+              .show();
+        }
+        mPathManager.scanAvailableStorages();
+        updateList();
+      });
+    });
   }
 
   @Override

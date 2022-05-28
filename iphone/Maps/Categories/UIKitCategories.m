@@ -176,19 +176,26 @@
 
 - (BOOL)openUrl:(NSString *)urlString inSafari:(BOOL)safari
 {
-  NSURL * url = [[NSURL alloc] initWithString:urlString];
-  if (!url)
+  // TODO: This is a temporary workaround to open cyrillic/non-ASCII URLs.
+  // URLs in OSM are stored in UTF-8. NSURL documentation says:
+  // > Must be a URL that conforms to RFC 2396. This method parses URLString according to RFCs 1738 and 1808.
+  // This deprecated method (almost) properly encodes whole string, while leaving & and / not encoded.
+  // A better way to encode the URL string should be:
+  // 1. Split the (non-ASCII) string into components (host, path, query, fragment, etc.)
+  // 2. Encode each component separately (they have different rules).
+  // 3. Merge them back into the string and create NSURL.
+  NSString * encoded = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  NSURLComponents * urlc = [NSURLComponents componentsWithString:encoded];
+  if (!urlc)
   {
     NSAssert(false, @"Invalid URL %@", urlString);
     return NO;
   }
-  NSString * scheme = url.scheme;
-  if (!([scheme isEqualToString:@"https"] || [scheme isEqualToString:@"http"]))
-  {
-    NSAssert(false, @"Incorrect url scheme %@", scheme);
-    return NO;
-  }
+  // Some links in OSM do not have a scheme: www.some.link
+  if (!urlc.scheme)
+    urlc.scheme = @"http";
 
+  NSURL * url = urlc.URL;
   if (safari)
   {
     [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];

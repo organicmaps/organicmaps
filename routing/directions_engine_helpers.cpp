@@ -60,7 +60,7 @@ geometry::PointWithAltitude RoutingEngineResult::GetEndPoint() const
 
 bool IsJoint(IRoadGraph::EdgeListT const & ingoingEdges,
              IRoadGraph::EdgeListT const & outgoingEdges, Edge const & ingoingRouteEdge,
-             Edge const & outgoingRouteEdge, bool isCurrJunctionFinish, bool isInEdgeReal)
+             Edge const & outgoingRouteEdge)
 {
   // When feature id is changed at a junction this junction should be considered as a joint.
   //
@@ -76,11 +76,6 @@ bool IsJoint(IRoadGraph::EdgeListT const & ingoingEdges,
   //            |        |
   //   *--Seg0--*--Seg1--*
   // The common point of segments 0, 1 and 4 should be considered as a joint.
-  if (!isInEdgeReal)
-    return true;
-
-  if (isCurrJunctionFinish)
-    return true;
 
   if (ingoingRouteEdge.GetFeatureId() != outgoingRouteEdge.GetFeatureId())
     return true;

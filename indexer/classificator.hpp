@@ -46,11 +46,19 @@ public:
 
 class ClassifObject
 {
-  struct less_name_t
+  struct LessName
   {
     bool operator() (ClassifObject const & r1, ClassifObject const & r2) const
     {
       return (r1.m_name < r2.m_name);
+    }
+    bool operator() (ClassifObject const & r1, std::string_view r2) const
+    {
+      return (r1.m_name < r2);
+    }
+    bool operator() (std::string_view r1, ClassifObject const & r2) const
+    {
+      return (r1 < r2.m_name);
     }
   };
 
@@ -71,7 +79,7 @@ public:
 
   /// @name Find substitution when reading osm features.
   //@{
-  ClassifObjectPtr BinaryFind(std::string const & s) const;
+  ClassifObjectPtr BinaryFind(std::string_view const s) const;
   //@}
 
   void Sort();
@@ -91,13 +99,21 @@ public:
 
   std::pair<int, int> GetDrawScaleRange() const;
 
-  template <typename ToDo>
-  void ForEachObject(ToDo && toDo)
+  /// @name Iterate first level children only.
+  /// @{
+  template <class ToDo> void ForEachObject(ToDo && toDo)
   {
-    for (size_t i = 0; i < m_objs.size(); ++i)
-      toDo(&m_objs[i]);
+    for (auto & e: m_objs)
+      toDo(&e);
   }
+  template <class ToDo> void ForEachObject(ToDo && toDo) const
+  {
+    for (auto const & e: m_objs)
+      toDo(e);
+  }
+  /// @}
 
+  // Recursive sub-tree iteration.
   template <typename ToDo>
   void ForEachObjectInTree(ToDo && toDo, uint32_t const start) const
   {
@@ -172,22 +188,30 @@ public:
 
   bool HasTypesMapping() const { return m_mapping.IsLoaded(); }
 
-  /// @return 0 in case of nonexisting type
-  uint32_t GetTypeByPathSafe(std::vector<std::string> const & path) const;
+  static constexpr uint32_t INVALID_TYPE = IndexAndTypeMapping::INVALID_TYPE;
+
+  /// @name Type by \a path in classificator tree, for example {"natural", "caostline"}.
+  ///@{
+  /// @return INVALID_TYPE in case of nonexisting type
+  uint32_t GetTypeByPathSafe(std::vector<std::string_view> const & path) const;
   /// Invokes ASSERT in case of nonexisting type
   uint32_t GetTypeByPath(std::vector<std::string> const & path) const;
+  uint32_t GetTypeByPath(std::vector<std::string_view> const & path) const;
   uint32_t GetTypeByPath(std::initializer_list<char const *> const & lst) const;
+  ///@}
+
   /// @see GetReadableObjectName().
-  /// @returns 0 in case of nonexisting type.
+  /// @returns INVALID_TYPE in case of nonexisting type.
   uint32_t GetTypeByReadableObjectName(std::string const & name) const;
-  //@}
 
   uint32_t GetIndexForType(uint32_t t) const { return m_mapping.GetIndex(t); }
-  // Throws std::out_of_range exception.
+
+  /// @return INVALID_TYPE if \a ind is out of bounds.
   uint32_t GetTypeForIndex(uint32_t i) const { return m_mapping.GetType(i); }
   bool IsTypeValid(uint32_t t) const { return m_mapping.HasIndex(t); }
 
   inline uint32_t GetCoastType() const { return m_coastType; }
+  inline uint32_t GetStubType() const { return m_stubType; }
 
   /// @name used in osm2type.cpp, not for public use.
   //@{
@@ -211,32 +235,26 @@ public:
                                          root);
   }
 
-  /// @name Used only in feature_visibility.cpp, not for public use.
-  //@{
-  template <typename ToDo>
-  typename ToDo::ResultType ProcessObjects(uint32_t type, ToDo & toDo) const;
-
   ClassifObject const * GetObject(uint32_t type) const;
   std::string GetFullObjectName(uint32_t type) const;
   std::vector<std::string> GetFullObjectNamePath(uint32_t type) const;
-  //@}
 
   /// @return Object name to show in UI (not for debug purposes).
   std::string GetReadableObjectName(uint32_t type) const;
 
 private:
+  template <class ToDo> void ForEachPathObject(uint32_t type, ToDo && toDo) const;
+
   static ClassifObject * AddV(ClassifObject * parent, std::string const & key,
                               std::string const & value);
 
-  /// Return type by path in classificator tree, for example
-  /// path = ["natural", "caostline"].
-  //@{
   template <typename Iter>
   uint32_t GetTypeByPathImpl(Iter beg, Iter end) const;
 
   ClassifObject m_root;
   IndexAndTypeMapping m_mapping;
   uint32_t m_coastType = 0;
+  uint32_t m_stubType = 0;
 
   DISALLOW_COPY_AND_MOVE(Classificator);
 };

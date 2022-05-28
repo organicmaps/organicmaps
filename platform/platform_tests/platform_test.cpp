@@ -58,7 +58,7 @@ UNIT_TEST(WritableDir)
 UNIT_TEST(WritablePathForFile)
 {
   Platform & pl = GetPlatform();
-  std::string const p1 = pl.WritableDir() + TEST_FILE_NAME;
+  std::string const p1 = base::JoinPath(pl.WritableDir(), TEST_FILE_NAME);
   std::string const p2 = pl.WritablePathForFile(TEST_FILE_NAME);
   TEST_EQUAL(p1, p2, ());
 }
@@ -181,26 +181,29 @@ UNIT_TEST(GetFileSize)
   TEST(!pl.GetFileSizeByName("adsmngfuwrbfyfwe", size), ());
   TEST(!pl.IsFileExistsByFullPath("adsmngfuwrbfyfwe"), ());
 
+  char const kContent[] = "HOHOHO";
+  size_t const kSize = ARRAY_SIZE(kContent);
   std::string const fileName = pl.WritablePathForFile(TEST_FILE_NAME);
   {
     FileWriter testFile(fileName);
-    testFile.Write("HOHOHO", 6);
+    testFile.Write(kContent, kSize);
   }
   size = 0;
   TEST(Platform::GetFileSizeByFullPath(fileName, size), ());
-  TEST_EQUAL(size, 6, ());
+  TEST_EQUAL(size, kSize, ());
 
   FileWriter::DeleteFileX(fileName);
+  TEST(!pl.IsFileExistsByFullPath(fileName), ());
 
   {
-    FileWriter testFile(pl.WritablePathForFile(TEST_FILE_NAME));
-    testFile.Write("HOHOHO", 6);
+    FileWriter testFile(fileName);
+    testFile.Write(kContent, kSize);
   }
   size = 0;
   TEST(pl.GetFileSizeByName(TEST_FILE_NAME, size), ());
-  TEST_EQUAL(size, 6, ());
+  TEST_EQUAL(size, kSize, ());
 
-  FileWriter::DeleteFileX(pl.WritablePathForFile(TEST_FILE_NAME));
+  FileWriter::DeleteFileX(fileName);
 }
 
 UNIT_TEST(CpuCores)

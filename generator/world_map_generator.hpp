@@ -210,10 +210,10 @@ class WorldMapGenerator
       LOG_SHORT(LINFO, ("Output World file:", worldFilename));
     }
 
-    ~EmitterImpl() override
+    ~EmitterImpl()
     {
       Classificator const & c = classif();
-      
+
       std::stringstream ss;
       ss << std::endl;
       for (auto const & p : m_mapTypes)

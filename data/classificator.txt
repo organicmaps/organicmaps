@@ -117,11 +117,16 @@ world  +
         university  -
         vending_machine  +
             cigarettes  -
+            coffee  -
+            condoms  -
             drinks  -
             excrement_bags  -
+            food  -
             fuel  -
+            newspapers  -
             parking_tickets  -
             public_transport_tickets  -
+            sweets  -
             {}
         veterinary  -
         waste_basket  -
@@ -222,6 +227,7 @@ world  +
         beef_bowl  -
         brazilian  -
         breakfast  -
+        bubble_tea  -
         burger  -
         buschenschank  -
         cake  -
@@ -502,6 +508,7 @@ world  +
         churchyard  -
         commercial  -
         construction  -
+        education  -
         farm  -
         farmland  -
         farmyard  -
@@ -575,12 +582,11 @@ world  +
         lighthouse  -
         mast  -
         pier  -
-        pipeline  +
-            overground  -
-            {}
+        pipeline  -
         silo  -
         storage_tank  -
         surveillance  -
+        survey_point  -
         tower  -
         wastewater_plant  -
         water_tap  -
@@ -628,6 +634,7 @@ world  +
             pond  -
             reservoir  -
             river  -
+            tunnel  -
             {}
         wetland  +
             bog  -
@@ -644,6 +651,10 @@ world  +
         lawyer  -
         ngo  -
         telecommunication  -
+        {}
+    organic  +
+        only  -
+        yes  -
         {}
     piste:lift  +
         j-bar  -
@@ -702,9 +713,7 @@ world  +
         {}
     power  +
         generator  -
-        line  +
-            underground  -
-            {}
+        line  -
         minor_line  -
         pole  -
         station  -

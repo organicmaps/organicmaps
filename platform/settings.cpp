@@ -16,11 +16,10 @@
 #include <iostream>
 #include <sstream>
 
-using namespace std;
-
 namespace settings
 {
-char const * kLocationStateMode = "LastLocationStateMode";
+using namespace std;
+
 char const * kMeasurementUnits = "Units";
 
 StringStorage::StringStorage() : StringStorageBase(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME)) {}
@@ -367,6 +366,7 @@ bool IsFirstLaunchForDate(int date)
 }
 }  // namespace settings
 
+/*
 namespace marketing
 {
 Settings::Settings() : platform::StringStorageBase(GetPlatform().SettingsPathForFile(MARKETING_SETTINGS_FILE_NAME)) {}
@@ -378,3 +378,4 @@ Settings & Settings::Instance()
   return instance;
 }
 }  // namespace marketing
+*/

@@ -48,7 +48,8 @@ string EncodeDecodeBlock(string const & s)
     MemReader reader(data.data(), data.size());
     ReaderSource<MemReader> source(reader);
 
-    BWTCoder::ReadAndDecodeBlock(source, back_inserter(result));
+    auto const buffer = BWTCoder::ReadAndDecodeBlock(source);
+    result.assign(buffer.begin(), buffer.end());
   }
 
   return result;

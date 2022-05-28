@@ -24,7 +24,7 @@ public:
 
   bool Contains(T const & key) const
   {
-    return std::find(std::begin(m_vec), std::end(m_vec), key) != std::end(m_vec);
+    return base::IsExist(m_vec, key);
   }
 
 private:

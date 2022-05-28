@@ -27,7 +27,8 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 {
   QGridLayout * grid = new QGridLayout();
   int row = 0;
-  {  // Coordinates.
+
+  {
     grid->addWidget(new QLabel("lat, lon"), row, 0);
     ms::LatLon const ll = info.GetLatLon();
     string const llstr =
@@ -36,49 +37,55 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(label, row++, 1);
   }
+
   {
     grid->addWidget(new QLabel("CountryId"), row, 0);
     QLabel * label = new QLabel(QString::fromStdString(info.GetCountryId()));
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(label, row++, 1);
   }
-  // Title/Name/Custom Name.
-  if (!info.GetTitle().empty())
+
+  if (auto const & title = info.GetTitle(); !title.empty())
   {
     grid->addWidget(new QLabel("Title"), row, 0);
-    QLabel * label = new QLabel(QString::fromStdString(info.GetTitle()));
+    QLabel * label = new QLabel(QString::fromStdString(title));
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(label, row++, 1);
   }
-  // Subtitle.
-  if (info.IsFeature())
+
+  if (auto const & subTitle = info.GetSubtitle(); !subTitle.empty())
   {
     grid->addWidget(new QLabel("Subtitle"), row, 0);
-    QLabel * label = new QLabel(QString::fromStdString(info.GetSubtitle()));
+    QLabel * label = new QLabel(QString::fromStdString(subTitle));
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(label, row++, 1);
   }
-  {  // Address.
+
+  {
     grid->addWidget(new QLabel("Address"), row, 0);
     QLabel * label = new QLabel(QString::fromStdString(address.FormatAddress()));
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(label, row++, 1);
   }
+
   if (info.IsBookmark())
   {
     grid->addWidget(new QLabel("Bookmark"), row, 0);
     grid->addWidget(new QLabel("Yes"), row++, 1);
   }
+
   if (info.IsMyPosition())
   {
     grid->addWidget(new QLabel("MyPosition"), row, 0);
     grid->addWidget(new QLabel("Yes"), row++, 1);
   }
+
   if (info.HasApiUrl())
   {
     grid->addWidget(new QLabel("Api URL"), row, 0);
     grid->addWidget(new QLabel(QString::fromStdString(info.GetApiUrl())), row++, 1);
   }
+
   if (info.IsFeature())
   {
     grid->addWidget(new QLabel("Feature ID"), row, 0);
@@ -91,6 +98,13 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     labelT->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(labelT, row++, 1);
   }
+
+  if (auto const & descr = info.GetDescription(); !descr.empty())
+  {
+    grid->addWidget(new QLabel("Description size"), row, 0);
+    grid->addWidget(new QLabel(QString::fromStdString(std::to_string(descr.size()))), row++, 1);
+  }
+
   for (auto const prop : info.AvailableProperties())
   {
     QString k;

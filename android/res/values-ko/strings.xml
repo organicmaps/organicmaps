@@ -17,17 +17,15 @@
 	<string name="downloading">다운로드 중…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">킬로미터</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">지도</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">마일</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">나의 위치</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">후</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">검색하기</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">지도 검색하기</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">현재 이 장치나 애플리케이션을 위한 전 위치 서비스를 불능시키셨습니다. 설정에서 이를 작동시켜 주시기 바랍니다.</string>
@@ -41,9 +39,10 @@
 	<string name="close">닫기</string>
 	<string name="unsupported_phone">하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.</string>
 	<string name="download">다운로드</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Organic Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오</string>
-	<string name="not_enough_memory">응용 프로그램을 실행하기위한 메모리가 충분하지 않다</string>
 	<string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%s 데이터가 필요합니다.</string>
 	<string name="download_resources_continue">지도로 이동</string>
 	<string name="downloading_country_can_proceed">%s다운로드. 이제지도를 진행할 수 있습니다.</string>
@@ -77,6 +76,8 @@
 	<string name="maps_storage">지도 저장 위치:</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">지도가 다운로드될 곳을 선택합니다</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">지도</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">지도를 이동합니까?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -123,6 +124,8 @@
 	<string name="post">우편</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">치안대</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi 인터넷</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">재활용</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -203,6 +206,8 @@
 	<string name="search_show_on_map">지도 보기</string>
 	<!-- Text in menu -->
 	<string name="website">웹사이트</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">소식</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">피드백</string>
 	<!-- Text in menu -->
@@ -217,17 +222,16 @@
 	<string name="copyright">저작권</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">오류 신고</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi 인터넷</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">모두 업데이트</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">모두 취소</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">다운로드</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">대기</string>
 	<string name="downloader_near_me_subtitle">내 근처</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">지도</string>
 	<string name="downloader_download_all_button">모두 다운로드</string>
 	<string name="downloader_downloading">다운로드 중:</string>
@@ -243,6 +247,8 @@
 	<string name="downloader_delete_map">지도 삭제</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">지도 업데이트</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play 서비스</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Google Play 서비스를 사용하여 현재 위치 정보 얻기</string>
 	<!-- Text for routing error dialog -->
@@ -288,8 +294,6 @@
 	<string name="gray">회색</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">청회색</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">네</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">경로를 따라갈 때는 다음 사항에 주의해 주세요:</string>
@@ -359,7 +363,7 @@
 	<string name="editor_example_values">예제</string>
 	<string name="editor_correct_mistake">입력 수정</string>
 	<string name="editor_add_select_location">위치</string>
-	<string name="editor_report_problem_desription_1">OpenStreeMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.</string>
+	<string name="editor_report_problem_desription_1">OpenStreetMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.</string>
 	<string name="editor_report_problem_desription_2">아니면, 다음에서 스스로 가능: https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">전송</string>
 	<string name="editor_report_problem_title">문제</string>
@@ -444,6 +448,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/시</string>
 	<string name="mile">mi</string>
+	<!-- A unit of measure -->
 	<string name="foot">풋</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">t</string>
@@ -541,6 +546,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d 추적</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">추적 설정</string>
 	<string name="crash_reports">오류 보고서</string>
 	<string name="crash_reports_description">당사는 Organic Maps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.</string>
@@ -590,6 +596,14 @@
 	<string name="avoid_toll_roads_placepage">유료 도로 피하기</string>
 	<string name="avoid_unpaved_roads_placepage">비포장 도로 피하기</string>
 	<string name="avoid_ferry_crossing_placepage">여객선 횡단길 피하기</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">네</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">아니오</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">네</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">아니오</string>
 	<string name="ok">OK</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">분류…</string>
@@ -875,33 +889,50 @@
 	<string name="type.healthcare.laboratory">의료 연구실</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">터널</string>
 	<string name="type.highway.bus_stop">버스 정류장</string>
 	<string name="type.highway.construction">공사 중 도로</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">터널</string>
 	<string name="type.highway.footway">길</string>
 	<string name="type.highway.footway.alpine_hiking">길</string>
 	<string name="type.highway.footway.area">길</string>
-	<string name="type.highway.footway.bridge">길</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">다리</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">길</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">길</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">길</string>
 	<string name="type.highway.footway.hiking">길</string>
 	<string name="type.highway.footway.mountain_hiking">길</string>
 	<string name="type.highway.footway.permissive">길</string>
-	<string name="type.highway.footway.tunnel">길</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">터널</string>
 	<string name="type.highway.ford">여울</string>
 	<string name="type.highway.living_street">거리</string>
-	<string name="type.highway.living_street.bridge">거리</string>
-	<string name="type.highway.living_street.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">터널</string>
 	<string name="type.highway.motorway">거리</string>
-	<string name="type.highway.motorway.bridge">거리</string>
-	<string name="type.highway.motorway.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">터널</string>
 	<string name="type.highway.motorway_link">거리</string>
-	<string name="type.highway.motorway_link.bridge">거리</string>
-	<string name="type.highway.motorway_link.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">터널</string>
 	<string name="type.highway.path">길</string>
 	<string name="type.highway.path.alpine_hiking">길</string>
 	<string name="type.highway.path.bicycle">길</string>
-	<string name="type.highway.path.bridge">길</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">다리</string>
 	<string name="type.highway.path.demanding_alpine_hiking">길</string>
 	<string name="type.highway.path.demanding_mountain_hiking">길</string>
 	<string name="type.highway.path.difficult_alpine_hiking">길</string>
@@ -909,51 +940,75 @@
 	<string name="type.highway.path.horse">길</string>
 	<string name="type.highway.path.mountain_hiking">길</string>
 	<string name="type.highway.path.permissive">길</string>
-	<string name="type.highway.path.tunnel">길</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">터널</string>
 	<string name="type.highway.pedestrian">거리</string>
 	<string name="type.highway.pedestrian.area">거리</string>
-	<string name="type.highway.pedestrian.bridge">거리</string>
-	<string name="type.highway.pedestrian.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">터널</string>
 	<string name="type.highway.primary">거리</string>
-	<string name="type.highway.primary.bridge">거리</string>
-	<string name="type.highway.primary.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">터널</string>
 	<string name="type.highway.primary_link">거리</string>
-	<string name="type.highway.primary_link.bridge">거리</string>
-	<string name="type.highway.primary_link.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">터널</string>
 	<string name="type.highway.raceway">경마장</string>
 	<string name="type.highway.residential">거리</string>
 	<string name="type.highway.residential.area">거리</string>
-	<string name="type.highway.residential.bridge">거리</string>
-	<string name="type.highway.residential.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">터널</string>
 	<string name="type.highway.rest_area">휴게소</string>
 	<string name="type.highway.road">거리</string>
-	<string name="type.highway.road.bridge">거리</string>
-	<string name="type.highway.road.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">터널</string>
 	<string name="type.highway.secondary">거리</string>
-	<string name="type.highway.secondary.bridge">거리</string>
-	<string name="type.highway.secondary.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">터널</string>
 	<string name="type.highway.secondary_link">거리</string>
-	<string name="type.highway.secondary_link.bridge">거리</string>
-	<string name="type.highway.secondary_link.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">터널</string>
 	<string name="type.highway.service">거리</string>
 	<string name="type.highway.service.area">거리</string>
-	<string name="type.highway.service.bridge">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">다리</string>
 	<string name="type.highway.service.driveway">거리</string>
 	<string name="type.highway.service.parking_aisle">거리</string>
-	<string name="type.highway.service.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">터널</string>
 	<string name="type.highway.speed_camera">스피드 카메라</string>
 	<string name="type.highway.steps">길</string>
-	<string name="type.highway.steps.bridge">길</string>
-	<string name="type.highway.steps.tunnel">길</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">터널</string>
 	<string name="type.highway.tertiary">거리</string>
-	<string name="type.highway.tertiary.bridge">거리</string>
-	<string name="type.highway.tertiary.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">터널</string>
 	<string name="type.highway.tertiary_link">거리</string>
-	<string name="type.highway.tertiary_link.bridge">거리</string>
-	<string name="type.highway.tertiary_link.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">터널</string>
 	<string name="type.highway.track">거리</string>
 	<string name="type.highway.track.area">거리</string>
-	<string name="type.highway.track.bridge">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">다리</string>
 	<string name="type.highway.track.grade1">거리</string>
 	<string name="type.highway.track.grade2">거리</string>
 	<string name="type.highway.track.grade3">거리</string>
@@ -961,18 +1016,25 @@
 	<string name="type.highway.track.grade5">거리</string>
 	<string name="type.highway.track.no.access">거리</string>
 	<string name="type.highway.track.permissive">거리</string>
-	<string name="type.highway.track.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">터널</string>
 	<string name="type.highway.traffic_signals">신호등</string>
 	<string name="type.highway.trunk">거리</string>
-	<string name="type.highway.trunk.bridge">거리</string>
-	<string name="type.highway.trunk.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">터널</string>
 	<string name="type.highway.trunk_link">거리</string>
-	<string name="type.highway.trunk_link.bridge">거리</string>
-	<string name="type.highway.trunk_link.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">터널</string>
 	<string name="type.highway.unclassified">거리</string>
 	<string name="type.highway.unclassified.area">거리</string>
-	<string name="type.highway.unclassified.bridge">거리</string>
-	<string name="type.highway.unclassified.tunnel">거리</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">다리</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">터널</string>
 	<string name="type.area_highway.footway">길</string>
 	<string name="type.area_highway.living_street">거리</string>
 	<string name="type.area_highway.motorway">거리</string>

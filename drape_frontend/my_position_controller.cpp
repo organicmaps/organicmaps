@@ -118,10 +118,6 @@ bool IsModeChangeViewport(location::EMyPositionMode mode)
 
 MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifier> notifier)
   : m_notifier(notifier)
-  , m_mode(params.m_isRoutingActive || df::IsModeChangeViewport(params.m_initMode)
-               ? location::PendingPosition
-               : location::NotFollowNoPosition)
-  , m_desiredInitMode(params.m_initMode)
   , m_modeChangeCallback(std::move(params.m_myPositionModeCallback))
   , m_hints(params.m_hints)
   , m_isInRouting(params.m_isRoutingActive)
@@ -153,22 +149,33 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_blockAutoZoomNotifyId(DrapeNotifier::kInvalidId)
   , m_updateLocationNotifyId(DrapeNotifier::kInvalidId)
 {
+  using namespace location;
+
+  m_mode = PendingPosition;
   if (m_hints.m_isFirstLaunch)
   {
-    m_mode = location::NotFollowNoPosition;
-    m_desiredInitMode = location::Follow;
+    m_desiredInitMode = Follow;
   }
   else if (m_hints.m_isLaunchByDeepLink)
   {
-    m_desiredInitMode = location::NotFollow;
+    m_desiredInitMode = NotFollow;
   }
   else if (params.m_timeInBackground >= kMaxTimeInBackgroundSec)
   {
-    m_mode = location::PendingPosition;
-    m_desiredInitMode = location::Follow;
+    m_desiredInitMode = Follow;
+  }
+  else
+  {
+    m_desiredInitMode = params.m_initMode;
+
+    // Do not start position if we ended previous session without it.
+    if (!params.m_isRoutingActive && m_desiredInitMode == NotFollowNoPosition)
+      m_mode = NotFollowNoPosition;
   }
 
-  if (m_modeChangeCallback != nullptr)
+  m_pendingStarted = (m_mode == PendingPosition);
+
+  if (m_modeChangeCallback)
     m_modeChangeCallback(m_mode, m_isInRouting);
 }
 
@@ -324,7 +331,6 @@ void MyPositionController::ResetRenderShape()
 
 void MyPositionController::NextMode(ScreenBase const & screen)
 {
-
   // Skip switching to next mode while we are waiting for position.
   if (IsWaitingForLocation())
   {
@@ -332,12 +338,18 @@ void MyPositionController::NextMode(ScreenBase const & screen)
     return;
   }
 
-
   // Start looking for location.
   if (m_mode == location::NotFollowNoPosition)
   {
     ResetNotification(m_locationWaitingNotifyId);
     ChangeMode(location::PendingPosition);
+
+    if (!m_isPositionAssigned)
+    {
+      // This is the first user location request (button touch) after controller's initialization
+      // with some previous not Follow state. The new mode will be Follow to center on the position.
+      m_desiredInitMode = location::Follow;
+    }
     return;
   }
 
@@ -437,15 +449,16 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
   if (!m_isPositionAssigned)
   {
-    // If the position was never assigned, the new mode will be desired one except the case when
-    // we touch the map during the pending of position. In this case the current mode must be
-    // NotFollowNoPosition, new mode will be NotFollow to prevent spontaneous map snapping.
+    // If the position was never assigned, the new mode will be the desired one except next cases:
     location::EMyPositionMode newMode = m_desiredInitMode;
     if (m_mode == location::NotFollowNoPosition)
     {
+      // We touch the map during the PendingPosition mode and current mode was converted into NotFollowNoPosition.
+      // New mode will be NotFollow to prevent spontaneous map snapping.
       ResetRoutingNotFollowTimer();
       newMode = location::NotFollow;
     }
+
     ChangeMode(newMode);
 
     if (!m_hints.m_isFirstLaunch || !AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
@@ -645,7 +658,7 @@ void MyPositionController::ChangeMode(location::EMyPositionMode newMode)
   }
 
   m_mode = newMode;
-  if (m_modeChangeCallback != nullptr)
+  if (m_modeChangeCallback)
     m_modeChangeCallback(m_mode, m_isInRouting);
 }
 
@@ -653,7 +666,7 @@ bool MyPositionController::IsWaitingForLocation() const
 {
   if (m_mode == location::NotFollowNoPosition)
     return false;
-  
+
   if (!m_isPositionAssigned)
     return true;
 
@@ -742,7 +755,7 @@ void MyPositionController::UpdateViewport(int zoomLevel)
 {
   if (IsWaitingForLocation())
     return;
-  
+
   if (m_mode == location::Follow)
   {
     ChangeModelView(m_position, zoomLevel);
@@ -759,7 +772,7 @@ m2::PointD MyPositionController::GetRotationPixelCenter() const
 {
   if (m_mode == location::Follow)
     return m_visiblePixelRect.Center();
-  
+
   if (m_mode == location::FollowAndRotate)
     return m_isInRouting ? GetRoutingRotationPixelCenter() : m_visiblePixelRect.Center();
 

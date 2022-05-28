@@ -33,6 +33,6 @@ VehicleMask constexpr kTransitMask = GetVehicleMask(VehicleType::Transit);
 
 std::string DebugPrint(VehicleType vehicleType);
 std::string ToString(VehicleType vehicleType);
-void FromString(std::string const & s, VehicleType & vehicleType);
+void FromString(std::string_view s, VehicleType & vehicleType);
 std::string DebugPrint(VehicleMask vehicleMask);
 }  // namespace routing

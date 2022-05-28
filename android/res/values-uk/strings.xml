@@ -17,20 +17,18 @@
 	<string name="downloading">Завантажується…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Кілометри</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Мапи</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">МБ</string>
 	<string name="gb">ГБ</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Милі</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Моє місцезнаходження</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Не зараз</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Пошук</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Пошук на мапі</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.</string>
@@ -44,9 +42,10 @@
 	<string name="close">Закрити</string>
 	<string name="unsupported_phone">Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.</string>
 	<string name="download">Завантажити</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Вимкніть USB кабель або вставте SD-карту</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Недостатньо вільного місця на SD карті / в пам\'яті пристрою для використання програми</string>
-	<string name="not_enough_memory">Недостатньо пам\'яті для запуску програми</string>
 	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.\nВона потребує %s даних.</string>
 	<string name="download_resources_continue">Перейти на мапу</string>
 	<string name="downloading_country_can_proceed">Поки завантажується %s\nви можете користуватися програмою.</string>
@@ -80,6 +79,18 @@
 	<string name="maps_storage">Зберігати мапи до</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Виберіть місце, куди повинні бути завантажені мапи</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Завантаженнi мапи</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Внутрішнє приватне сховище</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Внутрішнє спільне сховище</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">SD-карта</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">Зовнiшне спільне сховище</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">%1$s вільно з %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Перемістити мапи?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -126,6 +137,8 @@
 	<string name="post">Пошта</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Поліція</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Переробка відходів</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -208,6 +221,8 @@
 	<string name="search_show_on_map">Подивитись на мапі</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Новини</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Відгук</string>
 	<!-- Text in menu -->
@@ -222,17 +237,16 @@
 	<string name="copyright">Копірайт</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Сповістити про помилку</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Оновити всі</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Скасувати всі</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Завантажено</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">В черзі</string>
 	<string name="downloader_near_me_subtitle">Поблизу</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Мапи</string>
 	<string name="downloader_download_all_button">Завантажити всі</string>
 	<string name="downloader_downloading">Завантажується:</string>
@@ -248,6 +262,8 @@
 	<string name="downloader_delete_map">Видалити мапу</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Оновити мапу</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Сервіси Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Щоб визначити ваше поточне місцезнаходження, використовуйте сервіси Google Play</string>
 	<!-- Text for routing error dialog -->
@@ -293,8 +309,6 @@
 	<string name="gray">Сірий</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Сіро-блакитний</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Так</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Під час руху за маршрутом пам\'ятайте:</string>
@@ -453,6 +467,7 @@
 	<string name="kilometer">км</string>
 	<string name="kilometers_per_hour">км/год</string>
 	<string name="mile">ми</string>
+	<!-- A unit of measure -->
 	<string name="foot">фут</string>
 	<string name="miles_per_hour">ми/год</string>
 	<string name="hour">год</string>
@@ -559,6 +574,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d треків</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Налаштування супроводу</string>
 	<string name="crash_reports">Звіти про помилки</string>
 	<string name="crash_reports_description">Ми можемо використовувати ваші дані, щоб розвивати та покращувати Organic Maps. Зміни вступлять у силу після перезапуску програми</string>
@@ -608,6 +624,14 @@
 	<string name="avoid_toll_roads_placepage">Уникати платних доріг</string>
 	<string name="avoid_unpaved_roads_placepage">Уникати ґрунтових доріг</string>
 	<string name="avoid_ferry_crossing_placepage">Уникати поромних переправ</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Так</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Ні</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Так</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Ні</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортувати</string>
@@ -790,13 +814,18 @@
 	<string name="type.amenity.telephone">Телефон</string>
 	<string name="type.amenity.theatre">Театр</string>
 	<string name="type.amenity.toilets">Туалет</string>
-	<string name="type.amenity.townhall">Ратуша</string>
+	<string name="type.amenity.townhall">Адміністрація</string>
 	<string name="type.amenity.university">Університет</string>
 	<string name="type.amenity.vending_machine">Торговий автомат</string>
 	<string name="type.amenity.vending_machine.cigarettes">Автомат з цигарками</string>
+	<string name="type.amenity.vending_machine.coffee">Кавовий автомат</string>
+	<string name="type.amenity.vending_machine.condoms">Автомат з презервативами</string>
 	<string name="type.amenity.vending_machine.drinks">Автомат з напоями</string>
+	<string name="type.amenity.vending_machine.food">Автомат з їжею</string>
+	<string name="type.amenity.vending_machine.newspapers">Газетний автомат</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Паркомат</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Автомат з продажу квитків</string>
+	<string name="type.amenity.vending_machine.sweets">Автомат із солодощами</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Мішки для екскрементів</string>
 	<string name="type.amenity.parcel_locker">Поштомат</string>
 	<string name="type.amenity.vending_machine.fuel">Паливна колонка</string>
@@ -851,7 +880,7 @@
 	<string name="type.craft.electrician">Електрик</string>
 	<string name="type.craft.gardener">Садівник</string>
 	<string name="type.craft.hvac">Кондиціонери</string>
-	<string name="type.craft.metal_construction">Кування металу</string>
+	<string name="type.craft.metal_construction">Металоконструкції</string>
 	<string name="type.craft.painter">Маляр</string>
 	<string name="type.craft.photographer">Фотограф</string>
 	<string name="type.craft.plumber">Сантехнік</string>
@@ -870,6 +899,7 @@
 	<string name="type.cuisine.beef_bowl">Тарілка з яловичиною</string>
 	<string name="type.cuisine.brazilian">Бразильська кухня</string>
 	<string name="type.cuisine.breakfast">Сніданки</string>
+	<string name="type.cuisine.bubble_tea">Бульбашковий чай</string>
 	<string name="type.cuisine.burger">Бургери</string>
 	<string name="type.cuisine.buschenschank">Домашня таверна (бушеншанк)</string>
 	<string name="type.cuisine.cake">Кондитерська</string>
@@ -951,42 +981,55 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Дорога</string>
 	<string name="type.highway.bridleway">Кінна доріжка</string>
-	<string name="type.highway.bridleway.bridge">Кінна доріжка</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Міст</string>
 	<string name="type.highway.bridleway.permissive">Кінна доріжка</string>
-	<string name="type.highway.bridleway.tunnel">Кінна доріжка</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Тунель</string>
 	<string name="type.highway.bus_stop">Зупинка</string>
 	<string name="type.highway.construction">Дорога, що будується</string>
 	<string name="type.highway.cycleway">Велодоріжка</string>
-	<string name="type.highway.cycleway.bridge">Велодоріжка</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Міст</string>
 	<string name="type.highway.cycleway.permissive">Велодоріжка</string>
-	<string name="type.highway.cycleway.tunnel">Велодоріжка</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Тунель</string>
 	<string name="type.highway.elevator">Ліфт</string>
 	<string name="type.highway.footway">Пішохідна доріжка</string>
 	<string name="type.highway.footway.alpine_hiking">Стежка</string>
 	<string name="type.highway.footway.area">Пішохідна зона</string>
-	<string name="type.highway.footway.bridge">Пішохідна доріжка</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Міст</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Стежка</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Стежка</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Стежка</string>
 	<string name="type.highway.footway.hiking">Стежка</string>
 	<string name="type.highway.footway.mountain_hiking">Стежка</string>
 	<string name="type.highway.footway.permissive">Пішохідна доріжка</string>
-	<string name="type.highway.footway.tunnel">Пішохідна доріжка</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Тунель</string>
 	<string name="type.highway.ford">Брід</string>
 	<string name="type.highway.living_street">Житлова зона</string>
-	<string name="type.highway.living_street.bridge">Житлова зона</string>
-	<string name="type.highway.living_street.tunnel">Житлова зона</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Тунель</string>
 	<string name="type.highway.motorway">Автомагістраль</string>
-	<string name="type.highway.motorway.bridge">Автомагістраль</string>
-	<string name="type.highway.motorway.tunnel">Автомагістраль</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Тунель</string>
 	<string name="type.highway.motorway_junction">З\'їзд</string>
 	<string name="type.highway.motorway_link">З\'їзд з автомагістралі</string>
-	<string name="type.highway.motorway_link.bridge">З\'їзд з автомагістралі</string>
-	<string name="type.highway.motorway_link.tunnel">З\'їзд з автомагістралі</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Тунель</string>
 	<string name="type.highway.path">Стежка</string>
 	<string name="type.highway.path.alpine_hiking">Стежка</string>
 	<string name="type.highway.path.bicycle">Велопішохідна доріжка</string>
-	<string name="type.highway.path.bridge">Стежка</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Міст</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Стежка</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Стежка</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Стежка</string>
@@ -994,52 +1037,76 @@
 	<string name="type.highway.path.horse">Кінна стежка</string>
 	<string name="type.highway.path.mountain_hiking">Стежка</string>
 	<string name="type.highway.path.permissive">Стежка</string>
-	<string name="type.highway.path.tunnel">Стежка</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Тунель</string>
 	<string name="type.highway.pedestrian">Пішохідна вулиця</string>
 	<string name="type.highway.pedestrian.area">Пішохідна зона</string>
-	<string name="type.highway.pedestrian.bridge">Пішохідна вулиця</string>
-	<string name="type.highway.pedestrian.tunnel">Пішохідна вулиця</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Тунель</string>
 	<string name="type.highway.primary">Шосе</string>
-	<string name="type.highway.primary.bridge">Шосе</string>
-	<string name="type.highway.primary.tunnel">Шосе</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Тунель</string>
 	<string name="type.highway.primary_link">З\'їзд з шосе</string>
-	<string name="type.highway.primary_link.bridge">З\'їзд з шосе</string>
-	<string name="type.highway.primary_link.tunnel">З\'їзд з шосе</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Тунель</string>
 	<string name="type.highway.raceway">Гоночний трек</string>
 	<string name="type.highway.residential">Вулиця</string>
 	<string name="type.highway.residential.area">Вулиця</string>
-	<string name="type.highway.residential.bridge">Вулиця</string>
-	<string name="type.highway.residential.tunnel">Вулиця</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Тунель</string>
 	<string name="type.highway.rest_area">Зона відпочинку</string>
 	<string name="type.highway.road">Дорога</string>
-	<string name="type.highway.road.bridge">Дорога</string>
-	<string name="type.highway.road.tunnel">Дорога</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Тунель</string>
 	<string name="type.highway.secondary">Автодорога</string>
-	<string name="type.highway.secondary.bridge">Автодорога</string>
-	<string name="type.highway.secondary.tunnel">Автодорога</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Тунель</string>
 	<string name="type.highway.secondary_link">З\'їзд з автодороги</string>
-	<string name="type.highway.secondary_link.bridge">З\'їзд з автодороги</string>
-	<string name="type.highway.secondary_link.tunnel">З\'їзд з автодороги</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Тунель</string>
 	<string name="type.highway.service">Проїзд</string>
 	<string name="type.highway.service.area">Проїзд</string>
-	<string name="type.highway.service.bridge">Проїзд</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Міст</string>
 	<string name="type.highway.service.driveway">Під\'їзд</string>
 	<string name="type.highway.service.parking_aisle">Паркувальний проїзд</string>
-	<string name="type.highway.service.tunnel">Проїзд</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Тунель</string>
 	<string name="type.highway.services">Зона обслуговування</string>
 	<string name="type.highway.speed_camera">Камера швидкості</string>
 	<string name="type.highway.steps">Сходи</string>
-	<string name="type.highway.steps.bridge">Сходи</string>
-	<string name="type.highway.steps.tunnel">Сходи</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Тунель</string>
 	<string name="type.highway.tertiary">Дорога</string>
-	<string name="type.highway.tertiary.bridge">Дорога</string>
-	<string name="type.highway.tertiary.tunnel">Дорога</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Тунель</string>
 	<string name="type.highway.tertiary_link">З\'їзд з дороги</string>
-	<string name="type.highway.tertiary_link.bridge">З\'їзд з дороги</string>
-	<string name="type.highway.tertiary_link.tunnel">З\'їзд з дороги</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Тунель</string>
 	<string name="type.highway.track">Ґрунтівка</string>
 	<string name="type.highway.track.area">Ґрунтівка</string>
-	<string name="type.highway.track.bridge">Ґрунтівка</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Міст</string>
 	<string name="type.highway.track.grade1">Ґрунтівка</string>
 	<string name="type.highway.track.grade2">Ґрунтівка</string>
 	<string name="type.highway.track.grade3">Ґрунтівка</string>
@@ -1047,18 +1114,25 @@
 	<string name="type.highway.track.grade5">Ґрунтівка</string>
 	<string name="type.highway.track.no.access">Ґрунтівка</string>
 	<string name="type.highway.track.permissive">Ґрунтівка</string>
-	<string name="type.highway.track.tunnel">Ґрунтівка</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Тунель</string>
 	<string name="type.highway.traffic_signals">Світлофор</string>
 	<string name="type.highway.trunk">Траса</string>
-	<string name="type.highway.trunk.bridge">Траса</string>
-	<string name="type.highway.trunk.tunnel">Траса</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Тунель</string>
 	<string name="type.highway.trunk_link">З\'їзд з траси</string>
-	<string name="type.highway.trunk_link.bridge">З\'їзд з траси</string>
-	<string name="type.highway.trunk_link.tunnel">З\'їзд з траси</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Тунель</string>
 	<string name="type.highway.unclassified">Невелика дорога</string>
 	<string name="type.highway.unclassified.area">Невелика дорога</string>
-	<string name="type.highway.unclassified.bridge">Невелика дорога</string>
-	<string name="type.highway.unclassified.tunnel">Невелика дорога</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Міст</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Тунель</string>
 	<string name="type.area_highway.cycleway">Велодоріжка</string>
 	<string name="type.area_highway.footway">Пішохідна доріжка</string>
 	<string name="type.area_highway.living_street">Житлова зона</string>
@@ -1110,6 +1184,7 @@
 	<string name="type.landuse.churchyard">Церковний двір</string>
 	<string name="type.landuse.commercial">Комерційні ділянки</string>
 	<string name="type.landuse.construction">Будівництво</string>
+	<string name="type.landuse.education">Освітній заклади</string>
 	<string name="type.landuse.farm">Ферма</string>
 	<string name="type.landuse.farmland">Сільськогосподарська земля</string>
 	<string name="type.landuse.farmyard">Сільськогосподарська земля</string>
@@ -1173,6 +1248,7 @@
 	<string name="type.man_made.cairn">Тур</string>
 	<string name="type.man_made.chimney">Заводська труба</string>
 	<string name="type.man_made.cutline">Просіка</string>
+	<string name="type.man_made.survey_point">Геодезичний пункт</string>
 	<string name="type.man_made.flagpole">Флагшток</string>
 	<string name="type.man_made.lighthouse">Маяк</string>
 	<string name="type.man_made.mast">Щогла/вишка</string>
@@ -1232,10 +1308,12 @@
 	<string name="type.office.company">Організація</string>
 	<string name="type.office.estate_agent">Агенція нерухомості</string>
 	<string name="type.office.government">Держустанова</string>
-	<string name="type.office.insurance">Офіс страхової компанії</string>
+	<string name="type.office.insurance">Страхова компанія</string>
 	<string name="type.office.lawyer">Адвокат</string>
-	<string name="type.office.ngo">Офіс громадської організації</string>
-	<string name="type.office.telecommunication">Мобільний оператор</string>
+	<string name="type.office.ngo">Недержавна організація</string>
+	<string name="type.office.telecommunication">Телекомунікаційна компанія</string>
+	<string name="type.organic.only">Еко</string>
+	<string name="type.organic.yes">Еко</string>
 	<string name="type.place">Мicце</string>
 	<string name="type.place.city">Місто</string>
 	<string name="type.place.city.capital">Столиця</string>
@@ -1451,9 +1529,9 @@
 	<string name="type.tourism.artwork.painting">Витвір мистецтва</string>
 	<string name="type.tourism.artwork.sculpture">Витвір мистецтва</string>
 	<string name="type.tourism.artwork.statue">Витвір мистецтва</string>
-	<string name="type.tourism.attraction">Пам’ятка</string>
-	<string name="type.tourism.attraction.animal">Пам’ятка</string>
-	<string name="type.tourism.attraction.specified">Пам’ятка</string>
+	<string name="type.tourism.attraction">Пам’ятне місце</string>
+	<string name="type.tourism.attraction.animal">Пам’ятне місце</string>
+	<string name="type.tourism.attraction.specified">Пам’ятне місце</string>
 	<string name="type.tourism.camp_site">Кемпінг</string>
 	<string name="type.tourism.caravan_site">Кемпінг для автобудинків</string>
 	<string name="type.tourism.chalet">Шале</string>

@@ -79,6 +79,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d rastreos</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Configuraciones de rastreo</string>
 	<string name="crash_reports">Reporte de fallas</string>
 	<string name="crash_reports_description">Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios surtirán efecto después de que reinicie la aplicación.</string>
@@ -128,6 +129,14 @@
 	<string name="avoid_toll_roads_placepage">Evitar las carreteras de peaje</string>
 	<string name="avoid_unpaved_roads_placepage">Evitar los caminos de tierra</string>
 	<string name="avoid_ferry_crossing_placepage">Evitar los trasbordadores de ferri</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Sí</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">No</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Sí</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">No</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ordenar…</string>
@@ -191,21 +200,102 @@
 	<string name="type.amenity.post_office">Oficina de correos</string>
 
 	<!-- SECTION: Types: Recycling -->
-	<string name="type.amenity.recycling">Contenedor de reciclaje</string>
-	<string name="type.amenity.recycling.container">Contenedor de reciclaje</string>
-	<string name="type.recycling.clothes">Ropa vieja</string>
-	<string name="type.recycling.glass_bottles">Envase de vidrio</string>
-	<string name="type.recycling.paper">Desechos de papel</string>
-	<string name="type.recycling.plastic">Desechos de plástico</string>
-	<string name="type.recycling.plastic_bottles">Botellas de plástico</string>
 	<string name="type.recycling.scrap_metal">Desechos de metal</string>
 	<string name="type.recycling.small_appliances">Desechos electrónicos</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de billetes de transporte público</string>
 	<string name="type.boundary.national_park">Parque nacional</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Túnel</string>
 	<string name="type.highway.construction">Carretera en construcción</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Túnel</string>
 	<string name="type.highway.ford">Vado (de lugar)</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Túnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Puente</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Túnel</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.landuse.churchyard">Camposanto</string>

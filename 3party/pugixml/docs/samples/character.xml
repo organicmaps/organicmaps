@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<network>
-	<animation clip="idle" flags="loop" />
-	<animation clip="run" flags="loop" />
-	<animation clip="attack" />
-
-	<?include transitions.xml?>
-</network>

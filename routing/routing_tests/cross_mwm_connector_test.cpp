@@ -7,34 +7,41 @@
 
 #include "base/geo_object_id.hpp"
 
+namespace cross_mwm_connector_test
+{
 using namespace routing;
 using namespace routing::connector;
 using namespace std;
 
 namespace
 {
-NumMwmId constexpr mwmId = 777;
+NumMwmId constexpr kTestMwmId = 777;
 
-template <typename CrossMwmId>
-CrossMwmConnector<CrossMwmId> CreateConnector()
+template <typename CrossMwmId> struct CrossMwmBuilderTestFixture
 {
-  return CrossMwmConnector<CrossMwmId>(mwmId, 0 /* featuresNumerationOffset */);
-}
+  CrossMwmConnector<CrossMwmId> connector;
+  CrossMwmConnectorBuilder<CrossMwmId> builder;
+
+  explicit CrossMwmBuilderTestFixture(NumMwmId numMwmId = kTestMwmId)
+    : connector(numMwmId), builder(connector)
+  {
+  }
+};
 
 template <typename CrossMwmId>
 void TestConnectorConsistency(CrossMwmConnector<CrossMwmId> const & connector)
 {
-  for (Segment const & enter : connector.GetEnters())
+  connector.ForEachEnter([&connector](uint32_t, Segment const & enter)
   {
     TEST(connector.IsTransition(enter, false /* isOutgoing */), ("enter:", enter));
     TEST(!connector.IsTransition(enter, true /* isOutgoing */), ("enter:", enter));
-  }
+  });
 
-  for (Segment const & exit : connector.GetExits())
+  connector.ForEachExit([&connector](uint32_t, Segment const & exit)
   {
     TEST(!connector.IsTransition(exit, false /* isOutgoing */), ("exit:", exit));
     TEST(connector.IsTransition(exit, true /* isOutgoing */), ("exit:", exit));
-  }
+  });
 }
 
 template <typename CrossMwmId>
@@ -54,25 +61,21 @@ void TestOneWayEnter(CrossMwmId const & crossMwmId)
 {
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
-  auto connector = CreateConnector<CrossMwmId>();
-  connector.AddTransition(crossMwmId, featureId, segmentIdx, true /* oneWay */,
-                          true /* forwardIsEnter */);
 
-  TestConnectorConsistency(connector);
-  TEST_EQUAL(connector.GetEnters().size(), 1, ());
-  TEST_EQUAL(connector.GetExits().size(), 0, ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                               true /* isOutgoing */),
-       ());
-  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                              false /* isOutgoing */),
-       ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
-                               true /* isOutgoing */),
-       ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
-                               false /* isOutgoing */),
-       ());
+  CrossMwmBuilderTestFixture<CrossMwmId> test;
+  test.builder.AddTransition(crossMwmId, featureId, segmentIdx, true /* oneWay */, true /* forwardIsEnter */);
+
+  TestConnectorConsistency(test.connector);
+  TEST_EQUAL(test.connector.GetNumEnters(), 1, ());
+  TEST_EQUAL(test.connector.GetNumExits(), 0, ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, true /* forward */),
+                                    true /* isOutgoing */), ());
+  TEST(test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, true /* forward */),
+                                   false /* isOutgoing */), ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, false /* forward */),
+                                    true /* isOutgoing */), ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, false /* forward */),
+                                    false /* isOutgoing */), ());
 }
 
 template <typename CrossMwmId>
@@ -80,25 +83,21 @@ void TestOneWayExit(CrossMwmId const & crossMwmId)
 {
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
-  auto connector = CreateConnector<CrossMwmId>();
-  connector.AddTransition(crossMwmId, featureId, segmentIdx, true /* oneWay */,
-                          false /* forwardIsEnter */);
 
-  TestConnectorConsistency(connector);
-  TEST_EQUAL(connector.GetEnters().size(), 0, ());
-  TEST_EQUAL(connector.GetExits().size(), 1, ());
-  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                              true /* isOutgoing */),
-       ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                               false /* isOutgoing */),
-       ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
-                               true /* isOutgoing */),
-       ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
-                               false /* isOutgoing */),
-       ());
+  CrossMwmBuilderTestFixture<CrossMwmId> test;
+  test.builder.AddTransition(crossMwmId, featureId, segmentIdx, true /* oneWay */, false /* forwardIsEnter */);
+
+  TestConnectorConsistency(test.connector);
+  TEST_EQUAL(test.connector.GetNumEnters(), 0, ());
+  TEST_EQUAL(test.connector.GetNumExits(), 1, ());
+  TEST(test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, true /* forward */),
+                                   true /* isOutgoing */), ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, true /* forward */),
+                                    false /* isOutgoing */), ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, false /* forward */),
+                                    true /* isOutgoing */), ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, false /* forward */),
+                                    false /* isOutgoing */), ());
 }
 
 template <typename CrossMwmId>
@@ -106,124 +105,96 @@ void TestTwoWayEnter(CrossMwmId const & crossMwmId)
 {
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
-  auto connector = CreateConnector<CrossMwmId>();
-  connector.AddTransition(crossMwmId, featureId, segmentIdx, false /* oneWay */,
-                          true /* forwardIsEnter */);
 
-  TestConnectorConsistency(connector);
-  TEST_EQUAL(connector.GetEnters().size(), 1, ());
-  TEST_EQUAL(connector.GetExits().size(), 1, ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                               true /* isOutgoing */),
-       ());
-  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                              false /* isOutgoing */),
-       ());
-  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
-                              true /* isOutgoing */),
-       ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
-                               false /* isOutgoing */),
-       ());
+  CrossMwmBuilderTestFixture<CrossMwmId> test;
+  test.builder.AddTransition(crossMwmId, featureId, segmentIdx, false /* oneWay */, true /* forwardIsEnter */);
+
+  TestConnectorConsistency(test.connector);
+  TEST_EQUAL(test.connector.GetNumEnters(), 1, ());
+  TEST_EQUAL(test.connector.GetNumExits(), 1, ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, true /* forward */),
+                                    true /* isOutgoing */), ());
+  TEST(test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, true /* forward */),
+                                   false /* isOutgoing */), ());
+  TEST(test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, false /* forward */),
+                                   true /* isOutgoing */), ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, false /* forward */),
+                                    false /* isOutgoing */), ());
 }
+
 template <typename CrossMwmId>
 void TestTwoWayExit(CrossMwmId const & crossMwmId)
 {
   uint32_t constexpr featureId = 1;
   uint32_t constexpr segmentIdx = 1;
-  auto connector = CreateConnector<CrossMwmId>();
-  connector.AddTransition(crossMwmId, featureId, segmentIdx, false /* oneWay */,
-                          false /* forwardIsEnter */);
 
-  TestConnectorConsistency(connector);
-  TEST_EQUAL(connector.GetEnters().size(), 1, ());
-  TEST_EQUAL(connector.GetExits().size(), 1, ());
-  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                              true /* isOutgoing */),
-       ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, true /* forward */),
-                               false /* isOutgoing */),
-       ());
-  TEST(!connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
-                               true /* isOutgoing */),
-       ());
-  TEST(connector.IsTransition(Segment(mwmId, featureId, segmentIdx, false /* forward */),
-                              false /* isOutgoing */),
-       ());
+  CrossMwmBuilderTestFixture<CrossMwmId> test;
+  test.builder.AddTransition(crossMwmId, featureId, segmentIdx, false /* oneWay */, false /* forwardIsEnter */);
+
+  TestConnectorConsistency(test.connector);
+  TEST_EQUAL(test.connector.GetNumEnters(), 1, ());
+  TEST_EQUAL(test.connector.GetNumExits(), 1, ());
+  TEST(test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, true /* forward */),
+                                   true /* isOutgoing */), ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, true /* forward */),
+                                    false /* isOutgoing */), ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, false /* forward */),
+                                    true /* isOutgoing */), ());
+  TEST(test.connector.IsTransition(Segment(kTestMwmId, featureId, segmentIdx, false /* forward */),
+                                   false /* isOutgoing */), ());
 }
 
 template <typename CrossMwmId>
-void TestSerialization(vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> const & transitions)
+void TestSerialization(CrossMwmConnectorBuilderEx<CrossMwmId> & builder)
 {
   double constexpr kEdgesWeight = 4444.0;
 
   vector<uint8_t> buffer;
-  {
-    CrossMwmConnectorPerVehicleType<CrossMwmId> connectors;
-    CrossMwmConnector<CrossMwmId> & carConnector = connectors[static_cast<size_t>(VehicleType::Car)];
-    for (auto const & transition : transitions)
-      CrossMwmConnectorSerializer::AddTransition(transition, kCarMask, carConnector);
+  builder.PrepareConnector(VehicleType::Car);
+  builder.FillWeights([&](Segment const &, Segment const &) { return kEdgesWeight; });
 
-    carConnector.FillWeights(
-        [&](Segment const & enter, Segment const & exit) { return kEdgesWeight; });
+  MemWriter<vector<uint8_t>> writer(buffer);
+  builder.Serialize(writer);
 
-    serial::GeometryCodingParams const codingParams;
-    MemWriter<vector<uint8_t>> writer(buffer);
-    CrossMwmConnectorSerializer::Serialize(transitions, connectors, writer);
-  }
+  MemReader reader(buffer.data(), buffer.size());
 
-  auto connector = CreateConnector<CrossMwmId>();
-  {
-    MemReader reader(buffer.data(), buffer.size());
-    ReaderSource<MemReader> source(reader);
-    CrossMwmConnectorSerializer::DeserializeTransitions(VehicleType::Car, connector, source);
-  }
+  CrossMwmBuilderTestFixture<CrossMwmId> test;
 
-  TestConnectorConsistency(connector);
+  test.builder.DeserializeTransitions(VehicleType::Car, reader);
 
-  TEST_EQUAL(connector.GetEnters().size(), 2, ());
-  TEST_EQUAL(connector.GetExits().size(), 1, ());
+  TestConnectorConsistency(test.connector);
 
-  TEST(!connector.IsTransition(Segment(mwmId, 0, 0, true), true /* isOutgoing */), ());
+  TEST_EQUAL(test.connector.GetNumEnters(), 2, ());
+  TEST_EQUAL(test.connector.GetNumExits(), 1, ());
 
-  TEST(!connector.IsTransition(Segment(mwmId, 10, 1, true /* forward */), true /* isOutgoing */),
-       ());
-  TEST(connector.IsTransition(Segment(mwmId, 10, 1, true /* forward */), false /* isOutgoing */),
-       ());
-  TEST(!connector.IsTransition(Segment(mwmId, 10, 1, false /* forward */), true /* isOutgoing */),
-       ());
-  TEST(!connector.IsTransition(Segment(mwmId, 10, 1, false /* forward */), false /* isOutgoing */),
-       ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, 0, 0, true), true /* isOutgoing */), ());
 
-  TEST(!connector.IsTransition(Segment(mwmId, 20, 2, true /* forward */), true /* isOutgoing */),
-       ());
-  TEST(connector.IsTransition(Segment(mwmId, 20, 2, true /* forward */), false /* isOutgoing */),
-       ());
-  TEST(connector.IsTransition(Segment(mwmId, 20, 2, false /* forward */), true /* isOutgoing */),
-       ());
-  TEST(!connector.IsTransition(Segment(mwmId, 20, 2, false /* forward */), false /* isOutgoing */),
-       ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, 10, 1, true /* forward */), true /* isOutgoing */), ());
+  TEST(test.connector.IsTransition(Segment(kTestMwmId, 10, 1, true /* forward */), false /* isOutgoing */), ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, 10, 1, false /* forward */), true /* isOutgoing */), ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, 10, 1, false /* forward */), false /* isOutgoing */), ());
 
-  TEST(!connector.IsTransition(Segment(mwmId, 30, 3, true /* forward */), true /* isOutgoing */),
-       ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, 20, 2, true /* forward */), true /* isOutgoing */), ());
+  TEST(test.connector.IsTransition(Segment(kTestMwmId, 20, 2, true /* forward */), false /* isOutgoing */), ());
+  TEST(test.connector.IsTransition(Segment(kTestMwmId, 20, 2, false /* forward */), true /* isOutgoing */), ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, 20, 2, false /* forward */), false /* isOutgoing */), ());
 
-  TEST(!connector.WeightsWereLoaded(), ());
-  TEST(!connector.HasWeights(), ());
+  TEST(!test.connector.IsTransition(Segment(kTestMwmId, 30, 3, true /* forward */), true /* isOutgoing */), ());
 
-  {
-    MemReader reader(buffer.data(), buffer.size());
-    ReaderSource<MemReader> source(reader);
-    CrossMwmConnectorSerializer::DeserializeWeights(VehicleType::Car, connector, source);
-  }
-  TEST(connector.WeightsWereLoaded(), ());
-  TEST(connector.HasWeights(), ());
+  TEST(!test.connector.WeightsWereLoaded(), ());
+  TEST(!test.connector.HasWeights(), ());
 
-  TestOutgoingEdges(connector, Segment(mwmId, 10, 1, true /* forward */),
-                    {{Segment(mwmId, 20, 2, false /* forward */),
+  test.builder.DeserializeWeights(reader);
+
+  TEST(test.connector.WeightsWereLoaded(), ());
+  TEST(test.connector.HasWeights(), ());
+
+  TestOutgoingEdges(test.connector, Segment(kTestMwmId, 10, 1, true /* forward */),
+                    {{Segment(kTestMwmId, 20, 2, false /* forward */),
                       RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
 
-  TestOutgoingEdges(connector, Segment(mwmId, 20, 2, true /* forward */),
-                    {{Segment(mwmId, 20, 2, false /* forward */),
+  TestOutgoingEdges(test.connector, Segment(kTestMwmId, 20, 2, true /* forward */),
+                    {{Segment(kTestMwmId, 20, 2, false /* forward */),
                       RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
 }
 
@@ -241,131 +212,125 @@ template <typename CrossMwmId>
 void TestWeightsSerialization()
 {
   size_t constexpr kNumTransitions = 3;
-  vector<double> const weights = {
-      4.0, 20.0, connector::kNoRoute, 12.0, connector::kNoRoute, 40.0, 48.0, 24.0, 12.0};
-  TEST_EQUAL(weights.size(), kNumTransitions * kNumTransitions, ());
+  uint32_t constexpr segmentIdx = 1;
+  double const weights[] = { 4.0, 20.0, connector::kNoRoute, 12.0, connector::kNoRoute, 40.0, 48.0, 24.0, 12.0 };
+  TEST_EQUAL(std::size(weights), kNumTransitions * kNumTransitions, ());
+
+  std::map<std::pair<Segment, Segment>, double> expectedWeights;
 
   vector<uint8_t> buffer;
   {
-    vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> transitions;
-    for (uint32_t featureId = 0; featureId < kNumTransitions; ++featureId)
+    CrossMwmConnectorBuilderEx<CrossMwmId> builder;
+    for (uint32_t featureId : { 2, 0, 1 })  // reshuffled
     {
       CrossMwmId id;
       GetCrossMwmId(featureId, id);
-      transitions.emplace_back(id, featureId, 1 /* segmentIdx */, kCarMask, 0 /* oneWayMask */,
-                               true /* forwardIsEnter */);
+      builder.AddTransition(id, featureId, segmentIdx, kCarMask, 0 /* oneWayMask */, true /* forwardIsEnter */);
     }
 
-    CrossMwmConnectorPerVehicleType<CrossMwmId> connectors;
-    CrossMwmConnector<CrossMwmId> & carConnector = connectors[static_cast<size_t>(VehicleType::Car)];
-    for (auto const & transition : transitions)
-      CrossMwmConnectorSerializer::AddTransition(transition, kCarMask, carConnector);
+    builder.PrepareConnector(VehicleType::Car);
 
-    int weightIdx = 0;
-    carConnector.FillWeights(
-        [&](Segment const & enter, Segment const & exit) { return weights[weightIdx++]; });
+    size_t weightIdx = 0;
+    builder.FillWeights([&](Segment const & enter, Segment const & exit)
+    {
+      double const w = weights[weightIdx++];
+      TEST(expectedWeights.insert({{enter, exit}, w}).second, ());
+      return w;
+    });
 
-    serial::GeometryCodingParams const codingParams;
     MemWriter<vector<uint8_t>> writer(buffer);
-    CrossMwmConnectorSerializer::Serialize(transitions, connectors, writer);
+    builder.Serialize(writer);
   }
 
-  auto connector = CreateConnector<CrossMwmId>();
-  {
-    MemReader reader(buffer.data(), buffer.size());
-    ReaderSource<MemReader> source(reader);
-    CrossMwmConnectorSerializer::DeserializeTransitions(VehicleType::Car, connector, source);
-  }
+  MemReader reader(buffer.data(), buffer.size());
 
-  TestConnectorConsistency(connector);
+  NumMwmId const mwmId = kGeneratorMwmId;
+  CrossMwmBuilderTestFixture<CrossMwmId> test(mwmId);
 
-  TEST_EQUAL(connector.GetEnters().size(), kNumTransitions, ());
-  TEST_EQUAL(connector.GetExits().size(), kNumTransitions, ());
+  test.builder.DeserializeTransitions(VehicleType::Car, reader);
 
-  TEST(!connector.WeightsWereLoaded(), ());
-  TEST(!connector.HasWeights(), ());
+  TestConnectorConsistency(test.connector);
 
-  {
-    MemReader reader(buffer.data(), buffer.size());
-    ReaderSource<MemReader> source(reader);
-    CrossMwmConnectorSerializer::DeserializeWeights(VehicleType::Car, connector, source);
-  }
-  TEST(connector.WeightsWereLoaded(), ());
-  TEST(connector.HasWeights(), ());
+  TEST_EQUAL(test.connector.GetNumEnters(), kNumTransitions, ());
+  TEST_EQUAL(test.connector.GetNumExits(), kNumTransitions, ());
 
-  int weightIdx = 0;
+  TEST(!test.connector.WeightsWereLoaded(), ());
+  TEST(!test.connector.HasWeights(), ());
+
+  test.builder.DeserializeWeights(reader);
+
+  TEST(test.connector.WeightsWereLoaded(), ());
+  TEST(test.connector.HasWeights(), ());
 
   for (uint32_t enterId = 0; enterId < kNumTransitions; ++enterId)
   {
-    Segment const enter(mwmId, enterId, 1, true /* forward */);
     vector<SegmentEdge> expectedEdges;
+
+    Segment const enter(mwmId, enterId, segmentIdx, true /* forward */);
     for (uint32_t exitId = 0; exitId < kNumTransitions; ++exitId)
     {
-      auto const weight = weights[weightIdx];
-      if (weight != connector::kNoRoute)
-      {
-        expectedEdges.emplace_back(Segment(mwmId, exitId, 1 /* segmentIdx */, false /* forward */),
-                                   RouteWeight::FromCrossMwmWeight(weight));
-      }
-      ++weightIdx;
+      Segment const exit(mwmId, exitId, segmentIdx, false /* forward */);
+
+      auto const it = expectedWeights.find({enter, exit});
+      TEST(it != expectedWeights.end(), ());
+      if (it->second != connector::kNoRoute)
+        expectedEdges.emplace_back(exit, RouteWeight::FromCrossMwmWeight(it->second));
     }
 
-    TestOutgoingEdges(connector, enter, expectedEdges);
+    TestOutgoingEdges(test.connector, enter, expectedEdges);
   }
 }
 }  // namespace
 
-namespace routing_test
-{
-UNIT_TEST(OneWayEnter)
+UNIT_TEST(CMWMC_OneWayEnter)
 {
   TestOneWayEnter(base::MakeOsmWay(1ULL));
   TestOneWayEnter(TransitId(1 /* stop 1 id */, 2 /* stop 2 id */, 1 /* line id */));
 }
 
-UNIT_TEST(OneWayExit)
+UNIT_TEST(CMWMC_OneWayExit)
 {
   TestOneWayExit(base::MakeOsmWay(1ULL));
   TestOneWayExit(TransitId(1 /* stop 1 id */, 2 /* stop 2 id */, 1 /* line id */));
 }
 
-UNIT_TEST(TwoWayEnter)
+UNIT_TEST(CMWMC_TwoWayEnter)
 {
   TestTwoWayEnter(base::MakeOsmWay(1ULL));
   TestTwoWayEnter(TransitId(1 /* stop 1 id */, 2 /* stop 2 id */, 1 /* line id */));
 }
 
-UNIT_TEST(TwoWayExit)
+UNIT_TEST(CMWMC_TwoWayExit)
 {
   TestTwoWayExit(base::MakeOsmWay(1ULL));
   TestTwoWayExit(TransitId(1 /* stop 1 id */, 2 /* stop 2 id */, 1 /* line id */));
 }
 
-UNIT_TEST(Serialization)
+UNIT_TEST(CMWMC_Serialization)
 {
   {
-    vector<CrossMwmConnectorSerializer::Transition<base::GeoObjectId>> const transitions = {
-        /* osmId featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter,
-           backPoint, frontPoint */
-        {base::MakeOsmWay(100ULL), 10, 1, kCarMask, kCarMask, true},
-        {base::MakeOsmWay(200ULL), 20, 2, kCarMask, 0, true},
-        {base::MakeOsmWay(300ULL), 30, 3, kPedestrianMask, kCarMask, true}};
-    TestSerialization(transitions);
+    CrossMwmConnectorBuilderEx<base::GeoObjectId> builder;
+    // osmId featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter
+    builder.AddTransition(base::MakeOsmWay(100ULL), 10, 1, kCarMask, kCarMask, true);
+    builder.AddTransition(base::MakeOsmWay(200ULL), 20, 2, kCarMask, 0, true);
+    builder.AddTransition(base::MakeOsmWay(300ULL), 30, 3, kPedestrianMask, kCarMask, true);
+    TestSerialization(builder);
   }
+
   {
-    vector<CrossMwmConnectorSerializer::Transition<TransitId>> const transitions = {
-        /* osmId featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter, backPoint, frontPoint */
-        {TransitId(1ULL /* stop 1 id */, 2ULL /* stop 2 id */, 1ULL /* line id */), 10, 1, kCarMask,
-         kCarMask, true},
-        {TransitId(1ULL, 3ULL, 1ULL), 20, 2, kCarMask, 0, true},
-        {TransitId(1ULL, 3ULL, 2ULL), 30, 3, kPedestrianMask, kCarMask, true}};
-    TestSerialization(transitions);
+    CrossMwmConnectorBuilderEx<TransitId> builder;
+    // osmId featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter
+    builder.AddTransition(TransitId(1ULL /* stop 1 id */, 2ULL /* stop 2 id */, 1ULL /* line id */),
+                          10, 1, kCarMask, kCarMask, true);
+    builder.AddTransition(TransitId(1ULL, 3ULL, 1ULL), 20, 2, kCarMask, 0, true);
+    builder.AddTransition(TransitId(1ULL, 3ULL, 2ULL), 30, 3, kPedestrianMask, kCarMask, true);
+    TestSerialization(builder);
   }
 }
 
-UNIT_TEST(WeightsSerialization)
+UNIT_TEST(CMWMC_WeightsSerialization)
 {
   TestWeightsSerialization<base::GeoObjectId>();
   TestWeightsSerialization<TransitId>();
 }
-}  // namespace routing_test
+} // namespace cross_mwm_connector_test

@@ -6,6 +6,8 @@
 
 #include "routing/restrictions_serialization.hpp"
 
+#include "traffic/traffic_cache.hpp"
+
 #include "indexer/classificator_loader.hpp"
 
 #include "platform/platform.hpp"
@@ -23,12 +25,13 @@
 #include <utility>
 #include <vector>
 
+namespace routing_builder
+{
 using namespace generator;
 using namespace platform;
 using namespace platform::tests_support;
+using namespace routing;
 
-namespace routing
-{
 std::string const kTestDir = "test-restrictions";
 std::string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
 
@@ -105,7 +108,7 @@ std::string const kosmIdsToFeatureIdsContentForTwoCubeGraph =
 
 RelationElement MakeRelationElement(std::vector<RelationElement::Member> const & nodes,
                                     std::vector<RelationElement::Member> const & ways,
-                                    std::map<std::string, std::string> const & tags)
+                                    std::map<std::string, std::string, std::less<>> const & tags)
 {
   RelationElement r;
   r.m_nodes = nodes;
@@ -226,7 +229,7 @@ UNIT_TEST(RestrictionWriter_Merge)
 
   auto c1 = std::make_shared<RestrictionWriter>(filename, nullptr /* cache */);
   auto c2 = c1->Clone();
-  std::map<std::string, std::string> const tags = {{"type", "restriction"},
+  std::map<std::string, std::string, std::less<>> const tags = {{"type", "restriction"},
                                                    {"restriction", "no_right_turn"}};
   c1->CollectRelation(MakeRelationElement({} /* nodes */, {{1, "via"}, {11, "from"}, {21, "to"}} /* ways */, tags /* tags */));
   c2->CollectRelation(MakeRelationElement({} /* nodes */, {{2, "via"}, {12, "from"}, {22, "to"}} /* ways */, tags /* tags */));
@@ -249,4 +252,4 @@ UNIT_TEST(RestrictionWriter_Merge)
                                     "No,way,14,4,24\n";
   TEST_EQUAL(buffer.str(), correctAnswer, ());
 }
-}  // namespace
+}  // namespace routing_builder

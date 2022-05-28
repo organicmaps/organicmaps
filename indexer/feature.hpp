@@ -20,6 +20,7 @@
 namespace feature
 {
 class SharedLoadInfo;
+struct NameParamsOut; // Include feature_utils.hpp when using
 }
 
 namespace osm
@@ -71,7 +72,7 @@ public:
 
   std::vector<m2::PointD> GetTrianglesAsPoints(int scale);
 
-  void SetID(FeatureID const & id) { m_id = id; }
+  void SetID(FeatureID id) { m_id = std::move(id); }
   FeatureID const & GetID() const { return m_id; }
 
   void ResetGeometry();
@@ -136,18 +137,16 @@ public:
   std::string const & GetHouseNumber();
 
   /// @name Get names for feature.
-  /// @param[out] defaultName corresponds to osm tag "name"
-  /// @param[out] intName optionally choosen from tags "name:<lang_code>" by the algorithm
   //@{
-  /// Just get feature names.
-  void GetPreferredNames(std::string & defaultName, std::string & intName);
-  void GetPreferredNames(bool allowTranslit, int8_t deviceLang, std::string & defaultName,
-                         std::string & intName);
-  /// Get one most suitable name for user.
-  void GetReadableName(std::string & name);
-  void GetReadableName(bool allowTranslit, int8_t deviceLang, std::string & name);
+  /// @return {primary, secondary} names
+  std::pair<std::string_view, std::string_view> GetPreferredNames();
+  void GetPreferredNames(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out);
 
-  bool GetName(int8_t lang, std::string & name);
+  /// Get one most suitable name for user.
+  std::string_view GetReadableName();
+  void GetReadableName(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out);
+
+  std::string_view GetName(int8_t lang);
   //@}
 
   uint8_t GetRank();
@@ -157,7 +156,7 @@ public:
   feature::Metadata const & GetMetadata();
 
   // Gets single metadata string. Does not parse all metadata.
-  std::string GetMetadata(feature::Metadata::EType type);
+  std::string_view GetMetadata(feature::Metadata::EType type);
   bool HasMetadata(feature::Metadata::EType type);
 
   /// @name Statistic functions.
@@ -190,14 +189,15 @@ public:
 private:
   struct ParsedFlags
   {
-    bool m_types = false;
-    bool m_common = false;
-    bool m_header2 = false;
-    bool m_points = false;
-    bool m_triangles = false;
-    bool m_metadata = false;
-    bool m_metaIds = false;
+    bool m_types : 1;
+    bool m_common : 1;
+    bool m_header2 : 1;
+    bool m_points : 1;
+    bool m_triangles : 1;
+    bool m_metadata : 1;
+    bool m_metaIds : 1;
 
+    ParsedFlags() { Reset(); }
     void Reset()
     {
       m_types = m_common = m_header2 = m_points = m_triangles = m_metadata = m_metaIds = false;

@@ -1,52 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
-  android:background="?attr/cardBackground"
-  android:paddingTop="@dimen/margin_quarter"
-  android:paddingBottom="@dimen/margin_quarter"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content">
-  <ImageView
-    android:id="@+id/сlose_btn"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:minHeight="@dimen/menu_list_item_height"
-    android:src="@drawable/ic_drop_down"
-    android:tint="@color/icon_tint"
-    android:paddingStart="@dimen/margin_base"
-    android:paddingEnd="@dimen/margin_base"
-    android:background="?attr/selectableItemBackgroundBorderless"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
   <TextView
     android:id="@+id/layers_text"
-    android:minHeight="@dimen/menu_list_item_height"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:paddingStart="@dimen/margin_base"
-    android:paddingEnd="@dimen/margin_base"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintEnd_toStartOf="@id/сlose_btn"
-    android:visibility="visible"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_base"
     android:text="@string/layers_title"
-    android:textAppearance="@style/MwmTextAppearance.Body2"/>
+    android:textAppearance="?fontHeadline6" />
+
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler"
-    android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_base"
     android:minHeight="@dimen/toggle_map_layer_frame_height"
     android:paddingStart="@dimen/margin_base"
-    android:paddingEnd="@dimen/margin_base"
-    app:layout_constraintTop_toBottomOf="@id/layers_text">
-  </androidx.recyclerview.widget.RecyclerView>
-
-  <View
-    app:layout_constraintBottom_toTopOf="@id/recycler"
-    android:background="?android:attr/listDivider"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/divider_height"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:paddingEnd="@dimen/margin_base" />
+</LinearLayout>

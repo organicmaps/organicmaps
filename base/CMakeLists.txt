@@ -29,7 +29,6 @@ set(SRC
   file_name_utils.hpp
   geo_object_id.cpp
   geo_object_id.hpp
-  get_time.hpp
   gmtime.cpp
   gmtime.hpp
   internal/message.cpp

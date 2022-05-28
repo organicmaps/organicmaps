@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <vector>
 
+namespace sample_test
+{
 using namespace search;
 using namespace std;
 
@@ -31,9 +33,9 @@ void SampleTest::Init()
   m_cuba.m_locale = "en";
   m_cuba.m_pos = m2::PointD{37.618706, 99.53730574302003};
   m_cuba.m_viewport = {37.1336, 67.1349, 38.0314, 67.7348};
-  search::Sample::Result cubaRes;
+  Sample::Result cubaRes;
   cubaRes.m_name = strings::MakeUniString("Cuba");
-  cubaRes.m_relevance = search::Sample::Result::Relevance::Relevant;
+  cubaRes.m_relevance = Sample::Result::Relevance::Relevant;
   cubaRes.m_types.push_back("place-country");
   cubaRes.m_pos = {-80.832886, 15.521132748163712};
   cubaRes.m_houseNumber = "";
@@ -45,9 +47,9 @@ void SampleTest::Init()
   m_riga.m_locale = "en";
   m_riga.m_pos = m2::PointD{37.65376, 98.51110651930014};
   m_riga.m_viewport = {37.5064, 67.0476, 37.7799, 67.304};
-  search::Sample::Result rigaRes;
+  Sample::Result rigaRes;
   rigaRes.m_name = strings::MakeUniString("Rīga");
-  rigaRes.m_relevance = search::Sample::Result::Relevance::Vital;
+  rigaRes.m_relevance = Sample::Result::Relevance::Vital;
   rigaRes.m_types.push_back("place-city-capital-2");
   rigaRes.m_pos = {24.105186, 107.7819569220319};
   rigaRes.m_houseNumber = "";
@@ -174,3 +176,4 @@ UNIT_CLASS_TEST(SampleTest, SerDes)
   sort(actual.begin(), actual.end());
   TEST_EQUAL(expected, actual, ());
 }
+} // namespace sample_test

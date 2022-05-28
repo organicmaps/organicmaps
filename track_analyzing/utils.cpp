@@ -94,8 +94,7 @@ MatchedTrack const & GetMatchedTrack(MwmToMatchedTracks const & mwmToMatchedTrac
 
 std::string GetCurrentVersionMwmFile(storage::Storage const & storage, std::string const & mwmName)
 {
-  return base::JoinPath(GetPlatform().WritableDir(), to_string(storage.GetCurrentDataVersion()),
-                      mwmName + DATA_FILE_EXTENSION);
+  return storage.GetFilePath(mwmName, MapFileType::Map);
 }
 
 void ForEachTrackFile(

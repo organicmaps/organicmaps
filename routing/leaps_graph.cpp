@@ -85,14 +85,13 @@ void LeapsGraph::GetEdgesListFromStart(EdgeListT & edges) const
   for (auto const mwmId : m_starter.GetStartMwms())
   {
     // Connect start to all exits (|isEnter| == false).
-    auto const & exits = m_starter.GetGraph().GetTransitions(mwmId, false /* isEnter */);
-    for (auto const & exit : exits)
+    m_starter.GetGraph().ForEachTransition(mwmId, false /* isEnter */, [&](Segment const & exit)
     {
       auto const & exitFrontPoint = m_starter.GetPoint(exit, true /* front */);
       auto const weight = m_starter.GetGraph().CalcLeapWeight(m_startPoint, exitFrontPoint, mwmId);
 
       edges.emplace_back(exit, weight);
-    }
+    });
   }
 }
 
@@ -101,14 +100,13 @@ void LeapsGraph::GetEdgesListToFinish(EdgeListT & edges) const
   for (auto const mwmId : m_starter.GetFinishMwms())
   {
     // Connect finish to all enters (|isEnter| == true).
-    auto const & enters = m_starter.GetGraph().GetTransitions(mwmId, true /* isEnter */);
-    for (auto const & enter : enters)
+    m_starter.GetGraph().ForEachTransition(mwmId, true /* isEnter */, [&](Segment const & enter)
     {
       auto const & enterFrontPoint = m_starter.GetPoint(enter, true /* front */);
       auto const weight = m_starter.GetGraph().CalcLeapWeight(enterFrontPoint, m_finishPoint, mwmId);
 
       edges.emplace_back(enter, weight);
-    }
+    });
   }
 }
 

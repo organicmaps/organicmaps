@@ -1,4 +1,5 @@
 #pragma once
+#include "routing_algorithm.hpp"
 
 #include "routing/road_graph.hpp"
 
@@ -11,18 +12,20 @@
 namespace routing_test
 {
 
-class RoadGraphMockSource : public routing::IRoadGraph
+class RoadGraphMockSource : public RoadGraphIFace
 {
 public:
   void AddRoad(RoadInfo && ri);
 
   inline size_t GetRoadCount() const { return m_roads.size(); }
 
-  // routing::IRoadGraph overrides:
+  /// @name RoadGraphIFace overrides:
+  /// @{
   RoadInfo GetRoadInfo(FeatureID const & f, routing::SpeedParams const & speedParams) const override;
-  double GetSpeedKMpH(FeatureID const & featureId,
-                      routing::SpeedParams const & speedParams) const override;
+  double GetSpeedKMpH(FeatureID const & featureId, routing::SpeedParams const & speedParams) const override;
   double GetMaxSpeedKMpH() const override;
+  /// @}
+
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgeLoader) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;

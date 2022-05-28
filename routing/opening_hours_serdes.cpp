@@ -101,13 +101,11 @@ void OpeningHoursSerDes::Enable(OpeningHoursSerDes::Header::Bits bit)
 
 bool OpeningHoursSerDes::IsEnabled(OpeningHoursSerDes::Header::Bits bit) const
 {
-  auto const supIt = std::find(m_supportedFeatures.cbegin(), m_supportedFeatures.cend(), bit);
-  auto const unsupIt = std::find(m_unsupportedFeatures.cbegin(), m_unsupportedFeatures.cend(), bit);
+  bool const sup = base::IsExist(m_supportedFeatures, bit);
+  bool const unsup = base::IsExist(m_unsupportedFeatures, bit);
 
-  CHECK((supIt == m_supportedFeatures.cend() && unsupIt != m_unsupportedFeatures.cend()) ||
-        (supIt != m_supportedFeatures.cend() && unsupIt == m_unsupportedFeatures.cend()), ());
-
-  return supIt != m_supportedFeatures.cend();
+  CHECK((!sup && unsup) || (sup && !unsup), ());
+  return sup;
 }
 
 OpeningHoursSerDes::Header OpeningHoursSerDes::CreateHeader(osmoh::RuleSequence const & rule) const

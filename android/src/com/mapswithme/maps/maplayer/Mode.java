@@ -25,14 +25,6 @@ public enum Mode
         {
           TrafficManager.INSTANCE.setEnabled(isEnabled);
         }
-
-        @Override
-        public void toggle(@NonNull Context context)
-        {
-          TrafficManager.INSTANCE.toggle();
-          SubwayManager.from(context).setEnabled(false);
-          IsolinesManager.from(context).setEnabled(false);
-        }
       },
   SUBWAY
       {
@@ -46,14 +38,6 @@ public enum Mode
         public void setEnabled(@NonNull Context context, boolean isEnabled)
         {
           SubwayManager.from(context).setEnabled(isEnabled);
-        }
-
-        @Override
-        public void toggle(@NonNull Context context)
-        {
-          SubwayManager.from(context).toggle();
-          TrafficManager.INSTANCE.setEnabled(false);
-          IsolinesManager.from(context).setEnabled(false);
         }
       },
 
@@ -70,21 +54,11 @@ public enum Mode
         {
           IsolinesManager.from(context).setEnabled(isEnabled);
         }
-
-        @Override
-        public void toggle(@NonNull Context context)
-        {
-          IsolinesManager.from(context).toggle();
-          TrafficManager.INSTANCE.setEnabled(false);
-          SubwayManager.from(context).setEnabled(false);
-        }
       };
   
   public abstract boolean isEnabled(@NonNull Context context);
 
   public abstract void setEnabled(@NonNull Context context, boolean isEnabled);
-
-  public abstract void toggle(@NonNull Context context);
 
   public boolean isNew(@NonNull Context context)
   {

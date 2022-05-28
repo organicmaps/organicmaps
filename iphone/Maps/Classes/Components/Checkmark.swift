@@ -90,6 +90,8 @@ class Checkmark: UIControl {
       top = floor((bounds.height - height) / 2)
     case .fill:
       height = bounds.height
+    @unknown default:
+      fatalError("Unexpected case in contentVerticalAlignment switch")
     }
     
     imageView.frame = CGRect(x: left, y: top, width: width, height: height)

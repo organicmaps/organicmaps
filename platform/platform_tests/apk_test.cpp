@@ -5,6 +5,7 @@
 #include "coding/zip_reader.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/thread.hpp"
 #include "base/thread_pool.hpp"
 #include "base/logging.hpp"
@@ -14,89 +15,88 @@
 #include <numeric>
 #include <string>
 
-using namespace std;
-
-namespace
+namespace apk_test
 {
-  char const * arrFiles[] = {
-    "copyright.html",
-    "resources-mdpi_clear/symbols.sdf",
-    "resources-mdpi_clear/symbols.png",
-    "resources-hdpi_clear/symbols.sdf",
-    "resources-hdpi_clear/symbols.png",
-    "resources-xhdpi_clear/symbols.sdf",
-    "resources-xhdpi_clear/symbols.png",
-    "categories.txt",
-    "categories_cuisines.txt",
-    "classificator.txt",
-    "types.txt",
-    "fonts_blacklist.txt",
-    "fonts_whitelist.txt",
-    "languages.txt",
-    "unicode_blocks.txt",
-    "drules_proto_clear.bin",
-    "external_resources.txt",
-    "packed_polygons.bin",
-    "countries.txt"
-  };
+using std::string, std::vector;
 
-  class ApkTester : public threads::IRoutine
+char const * arrFiles[] = {
+  "copyright.html",
+  "resources-mdpi_clear/symbols.sdf",
+  "resources-mdpi_clear/symbols.png",
+  "resources-hdpi_clear/symbols.sdf",
+  "resources-hdpi_clear/symbols.png",
+  "resources-xhdpi_clear/symbols.sdf",
+  "resources-xhdpi_clear/symbols.png",
+  "categories.txt",
+  "categories_cuisines.txt",
+  "classificator.txt",
+  "types.txt",
+  "fonts_blacklist.txt",
+  "fonts_whitelist.txt",
+  "languages.txt",
+  "unicode_blocks.txt",
+  "drules_proto_clear.bin",
+  "packed_polygons.bin",
+  "countries.txt"
+};
+
+class ApkTester : public threads::IRoutine
+{
+  static const int COUNT = ARRAY_SIZE(arrFiles);
+  string const & m_cont;
+
+public:
+  explicit ApkTester(string const & cont) : m_cont(cont), m_hashes(COUNT)
   {
-    static const int COUNT = ARRAY_SIZE(arrFiles);
-    string const & m_cont;
+  }
 
-  public:
-    explicit ApkTester(string const & cont) : m_cont(cont), m_hashes(COUNT)
+  virtual void Do()
+  {
+    string const prefix("assets/");
+
+    while (true)
     {
-    }
-
-    virtual void Do()
-    {
-      string const prefix("assets/");
-
-      while (true)
+      size_t ind = rand() % COUNT;
+      if (m_hashes[ind] != 0)
       {
-        size_t ind = rand() % COUNT;
-        if (m_hashes[ind] != 0)
-        {
-          ind = COUNT;
-          for (size_t i = 0; i < COUNT; ++i)
-            if (m_hashes[i] == 0)
-            {
-              ind = i;
-              break;
-            }
-        }
+        ind = COUNT;
+        for (size_t i = 0; i < COUNT; ++i)
+          if (m_hashes[i] == 0)
+          {
+            ind = i;
+            break;
+          }
+      }
 
-        if (ind == COUNT)
-          break;
+      if (ind == COUNT)
+        break;
 
-        try
-        {
-          ZipFileReader reader(m_cont, prefix + arrFiles[ind]);
+      try
+      {
+        ZipFileReader reader(m_cont, prefix + arrFiles[ind]);
 
-          size_t const size = reader.Size();
-          vector<char> buffer(size);
-          reader.Read(0, &buffer[0], size);
+        size_t const size = reader.Size();
+        vector<char> buffer(size);
+        reader.Read(0, &buffer[0], size);
 
-          m_hashes[ind] = accumulate(buffer.begin(), buffer.end(), static_cast<uint64_t>(0));
-        }
-        catch (Reader::Exception const & ex)
-        {
-          LOG(LERROR, (ex.Msg()));
-          break;
-        }
+        m_hashes[ind] = accumulate(buffer.begin(), buffer.end(), static_cast<uint64_t>(0));
+      }
+      catch (Reader::Exception const & ex)
+      {
+        LOG(LERROR, (ex.Msg()));
+        break;
       }
     }
+  }
 
-    vector<uint64_t> m_hashes;
-  };
-}
+  vector<uint64_t> m_hashes;
+};
 
+/*
 UNIT_TEST(ApkReader_Multithreaded)
 {
   /// @todo Update test with current apk path.
-  string const path = GetPlatform().WritableDir() + "../android/MapsWithMePro/bin/MapsWithMePro-production.apk";
+  string const path = base::JoinPath(GetPlatform().WritableDir(), "../android/MapsWithMePro/bin/MapsWithMePro-production.apk");
 
   uint64_t size;
   if (!base::GetFileSize(path, size))
@@ -122,4 +122,5 @@ UNIT_TEST(ApkReader_Multithreaded)
     PtrT p = dynamic_cast<PtrT>(pool.GetRoutine(i));
     TEST_EQUAL(etalon->m_hashes, p->m_hashes, ());
   }
-}
+*/
+}  // namespace apk_test

@@ -4,6 +4,8 @@
 
 #include "generator/gen_mwm_info.hpp"
 
+#include "routing/traffic_stash.hpp"
+
 #include "routing_common/car_model.hpp"
 
 #include "coding/file_writer.hpp"
@@ -27,7 +29,7 @@ void ReEncodeOsmIdsToFeatureIdsMapping(std::string const & mappingContent, std::
     strings::SimpleTokenizer idIter(line, ", \t" /* id delimiters */);
     uint64_t osmId = 0;
     TEST(idIter, ());
-    TEST(strings::to_uint64(*idIter, osmId), ("Cannot convert to uint64_t:", *idIter));
+    TEST(strings::to_uint(*idIter, osmId), ("Cannot convert to uint64_t:", *idIter));
     TEST(idIter, ("Wrong feature ids to osm ids mapping."));
     ++idIter;
 

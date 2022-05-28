@@ -202,12 +202,11 @@ public:
       if (isSdf)
       {
         sdf_image::SdfImage const img(bitmap.rows, bitmap.pitch, bitmap.buffer, m_sdfScale * kSdfBorder);
-        imageWidth = img.GetWidth() * scale;
-        imageHeight = img.GetHeight() * scale;
+        imageWidth = std::round(img.GetWidth() * scale);
+        imageHeight = std::round(img.GetHeight() * scale);
 
-        size_t const bufferSize = bitmap.rows * bitmap.pitch;
-        data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
-        memcpy(&(*data)[0], bitmap.buffer, bufferSize);
+        data = SharedBufferManager::instance().reserveSharedBuffer(bitmap.rows * bitmap.pitch);
+        memcpy(data->data(), bitmap.buffer, data->size());
       }
       else
       {
@@ -215,16 +214,16 @@ public:
         imageHeight += 2 * border;
         imageWidth += 2 * border;
 
-        size_t const bufferSize = imageWidth * imageHeight;
-        data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
-        memset(data->data(), 0, data->size());
+        data = SharedBufferManager::instance().reserveSharedBuffer(imageWidth * imageHeight);
+        auto ptr = data->data();
+        memset(ptr, 0, data->size());
 
         for (size_t row = border; row < bitmap.rows + border; ++row)
         {
           size_t const dstBaseIndex = row * imageWidth + border;
           size_t const srcBaseIndex = (row - border) * bitmap.pitch;
           for (int column = 0; column < bitmap.pitch; ++column)
-            data->data()[dstBaseIndex + column] = bitmap.buffer[srcBaseIndex + column];
+            ptr[dstBaseIndex + column] = bitmap.buffer[srcBaseIndex + column];
         }
       }
     }
@@ -287,6 +286,8 @@ public:
   {
     return m_readyGlyphs.find(std::make_pair(code, fixedHeight)) != m_readyGlyphs.end();
   }
+
+  std::string GetName() const { return std::string(m_fontFace->family_name) + ':' + m_fontFace->style_name; }
 
 private:
   ReaderPtr<Reader> m_fontReader;
@@ -488,15 +489,27 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
     }
   }
 
-  std::ostringstream ss;
+  m_impl->m_lastUsedBlock = m_impl->m_blocks.end();
+
+  LOG(LDEBUG, ("How unicode blocks are mapped on font files:"));
+
+  // We don't have black list for now.
+  ASSERT_EQUAL(m_impl->m_fonts.size(), params.m_fonts.size(), ());
+
   for (auto const & b : m_impl->m_blocks)
   {
-    if (b.m_fontsWeight.empty())
-      ss << b.m_name << ", ";
+    auto const & weights = b.m_fontsWeight;
+    ASSERT_LESS_OR_EQUAL(weights.size(), m_impl->m_fonts.size(), ());
+    if (weights.empty())
+    {
+      LOG_SHORT(LDEBUG, (b.m_name, "is unsupported"));
+    }
+    else
+    {
+      size_t const ind = std::distance(weights.begin(), std::max_element(weights.begin(), weights.end()));
+      LOG_SHORT(LDEBUG, (b.m_name, "is in", params.m_fonts[ind]));
+    }
   }
-  LOG(LINFO, ("Unsupported unicode blocks:", ss.str()));
-
-  m_impl->m_lastUsedBlock = m_impl->m_blocks.end();
 }
 
 GlyphManager::~GlyphManager()

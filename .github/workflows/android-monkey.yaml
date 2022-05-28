@@ -19,7 +19,7 @@ jobs:
         shell: bash
         run: |
           DIRS="android base drape drape_frontend editor ge0 map platform routing search shaders storage traffic transit"
-          if [ '${{ github.event_name }}' != 'schedule' ] ||
+          if [ '${{ github.event_name }}' != 'schedule' ] || 
              [ $(git rev-list --count --since="24 hours" HEAD $DIRS) -gt 0 ]; then
             echo "::set-output name=updated::true"
           else
@@ -40,13 +40,6 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y ninja-build
-          # Hack needed to make ninja visible to cmake during NDK builds.
-          # See https://issuetracker.google.com/issues/206099937
-          CMAKE_DIR=$(dirname $(which cmake))
-          NINJA_DIR=$(dirname $(which ninja))
-          if [ "$CMAKE_DIR" != "$NINJA_DIR" ]; then
-            ln -s "$(which ninja)" "$CMAKE_DIR/ninja"
-          fi
 
       - name: Set up JDK 11
         uses: actions/setup-java@v1
@@ -54,7 +47,7 @@ jobs:
           java-version: 11
 
       - name: Install Google SDK
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
 
       - name: Checkout sources
         uses: actions/checkout@v2

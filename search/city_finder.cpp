@@ -15,17 +15,23 @@ CityFinder::CityFinder(DataSource const & dataSource)
 
 string CityFinder::GetCityName(m2::PointD const & p, int8_t lang)
 {
-  string city;
-  m_finder.GetLocality(
-      p, [&](LocalityItem const & item) { item.GetSpecifiedOrDefaultName(lang, city); });
-  return city;
+  string_view city;
+  m_finder.GetLocality(p, [&](LocalityItem const & item)
+  {
+    item.GetSpecifiedOrDefaultName(lang, city);
+  });
+
+  // Return string, because m_finder.GetLocality() is not persistent.
+  return std::string(city);
 }
 
 string CityFinder::GetCityReadableName(m2::PointD const & p)
 {
-  string city;
+  string_view city;
   m_finder.GetLocality(p, [&](LocalityItem const & item) { item.GetReadableName(city); });
-  return city;
+
+  // Return string, because m_finder.GetLocality() is not persistent.
+  return std::string(city);
 }
 
 FeatureID CityFinder::GetCityFeatureID(m2::PointD const & p)

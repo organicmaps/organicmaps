@@ -26,10 +26,14 @@
 	<string name="version">Toleo: %s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Data ya OpenStreetMap: %s</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Habari</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Maswali na majibu</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Jinsi ya kutuunga mkono?</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Huduma za Google Play</string>
 	<!-- deep purple color -->
 	<string name="deep_purple">Zambarau Iliyoiva</string>
 	<!-- light blue color -->
@@ -105,6 +109,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">Njia %d</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Mipangilio ya ufuatiliaji</string>
 	<string name="crash_reports">Ripoti ya kuharibika</string>
 	<string name="crash_reports_description">Tunaweza kutumia data yako kuboresha uzoefu wa Organic Maps Mabadiliko yataanza kutumika baada ya kuwasha upya programu.</string>
@@ -154,6 +159,14 @@
 	<string name="avoid_toll_roads_placepage">Epuka barabara za kulipia</string>
 	<string name="avoid_unpaved_roads_placepage">Epuka barabara za vumbi</string>
 	<string name="avoid_ferry_crossing_placepage">Epuka vivuko vya feri</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Ndio</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Hapana</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Ndio</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Hapana</string>
 	<string name="ok">Sawa</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ainisha…</string>
@@ -224,7 +237,95 @@
 	<string name="type.healthcare.laboratory">Maabara ya Matibabu</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Mtaro</string>
 	<string name="type.highway.construction">Barabara inatengenezwa</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Mtaro</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Daraja</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Mtaro</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.landuse.basin">Bonde la Maji</string>

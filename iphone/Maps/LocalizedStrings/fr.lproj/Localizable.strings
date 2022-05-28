@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Laisser une critique";
 
-/* View and button titles for accessibility */
-"maps" = "Cartes";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Miles";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Ma position";
 
 /* Update maps later/Buy pro version later button text */
@@ -114,7 +111,7 @@
 "hotel" = "Hôtel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Site touristique";
+"tourism" = "Sites touristiques";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
 "entertainment" = "Divertissement";
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Police";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Recyclage";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Site internet";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Nouvelles";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Étalonnage de la boussole";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Tout mettre à jour";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Téléchargé";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Près de moi";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Cartes";
 
 "downloader_download_all_button" = "Télécharger tout";
@@ -418,9 +419,6 @@
 
 /* blue gray color */
 "blue_gray" = "Gris-bleu";
-
-/* Wi-Fi available */
-"WiFi_available" = "Oui";
 
 
 /********** Routing dialogs strings **********/
@@ -743,7 +741,8 @@
 
 "mile" = "mi";
 
-"foot" = "pied";
+/* A unit of measure */
+"foot" = "ft";
 
 "miles_per_hour" = "mph";
 
@@ -1025,9 +1024,17 @@
 
 "redirect_route_alert" = "Voulez-vous reconstruire l'itinéraire ?";
 
-"redirect_route_yes" = "Oui";
+/* A generic "Yes" button in dialogs */
+"yes" = "Oui";
 
-"redirect_route_no" = "Non";
+/* A generic "No" button in dialogs */
+"no" = "Non";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Oui";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Non";
 
 "trip_finished" = "Vous êtes arrivé !";
 
@@ -1442,11 +1449,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Distributeur de cigarettes";
 
+"type.amenity.vending_machine.coffee" = "Distributeur de café";
+
+"type.amenity.vending_machine.condoms" = "Distributeur de préservatifs";
+
 "type.amenity.vending_machine.drinks" = "Distributeur de boissons";
+
+"type.amenity.vending_machine.food" = "Distributeur de aliments";
+
+"type.amenity.vending_machine.newspapers" = "Distributeur de journaux";
 
 "type.amenity.vending_machine.parking_tickets" = "Horodateur";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Distributeur de billets de transport en commun";
+
+"type.amenity.vending_machine.sweets" = "Distributeur de bonbons";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1601,6 +1618,8 @@
 "type.cuisine.brazilian" = "Cuisine brésilienne";
 
 "type.cuisine.breakfast" = "Petit déjeuner";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Hamburger";
 
@@ -1765,11 +1784,13 @@
 
 "type.highway.bridleway" = "Chemin pour cavalier";
 
-"type.highway.bridleway.bridge" = "Chemin pour cavalier";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Pont";
 
 "type.highway.bridleway.permissive" = "Chemin pour cavalier";
 
-"type.highway.bridleway.tunnel" = "Chemin pour cavalier";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunnel";
 
 "type.highway.bus_stop" = "Arrêt de bus";
 
@@ -1777,11 +1798,13 @@
 
 "type.highway.cycleway" = "Piste cyclable";
 
-"type.highway.cycleway.bridge" = "Piste cyclable";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Pont";
 
 "type.highway.cycleway.permissive" = "Piste cyclable";
 
-"type.highway.cycleway.tunnel" = "Piste cyclable";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunnel";
 
 "type.highway.elevator" = "Ascenseur";
 
@@ -1791,7 +1814,8 @@
 
 "type.highway.footway.area" = "Chemin";
 
-"type.highway.footway.bridge" = "Chemin";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Pont";
 
 "type.highway.footway.demanding_alpine_hiking" = "Chemin";
 
@@ -1805,29 +1829,36 @@
 
 "type.highway.footway.permissive" = "Chemin";
 
-"type.highway.footway.tunnel" = "Chemin";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunnel";
 
 "type.highway.ford" = "Gué";
 
 "type.highway.living_street" = "Zone de rencontre";
 
-"type.highway.living_street.bridge" = "Zone de rencontre";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Pont";
 
-"type.highway.living_street.tunnel" = "Zone de rencontre";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunnel";
 
 "type.highway.motorway" = "Autoroute";
 
-"type.highway.motorway.bridge" = "Autoroute";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Pont";
 
-"type.highway.motorway.tunnel" = "Autoroute";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunnel";
 
 "type.highway.motorway_junction" = "Sortie";
 
 "type.highway.motorway_link" = "Autoroute";
 
-"type.highway.motorway_link.bridge" = "Autoroute";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Pont";
 
-"type.highway.motorway_link.tunnel" = "Autoroute";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunnel";
 
 "type.highway.path" = "Chemin";
 
@@ -1835,7 +1866,8 @@
 
 "type.highway.path.bicycle" = "Chemin";
 
-"type.highway.path.bridge" = "Chemin";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Pont";
 
 "type.highway.path.demanding_alpine_hiking" = "Chemin";
 
@@ -1851,27 +1883,34 @@
 
 "type.highway.path.permissive" = "Chemin";
 
-"type.highway.path.tunnel" = "Chemin";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunnel";
 
 "type.highway.pedestrian" = "Rue piétonne";
 
 "type.highway.pedestrian.area" = "Rue piétonne";
 
-"type.highway.pedestrian.bridge" = "Rue piétonne";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Pont";
 
-"type.highway.pedestrian.tunnel" = "Rue piétonne";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunnel";
 
 "type.highway.primary" = "Rue";
 
-"type.highway.primary.bridge" = "Rue";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Pont";
 
-"type.highway.primary.tunnel" = "Rue";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunnel";
 
 "type.highway.primary_link" = "Rue";
 
-"type.highway.primary_link.bridge" = "Rue";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Pont";
 
-"type.highway.primary_link.tunnel" = "Rue";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunnel";
 
 "type.highway.raceway" = "Circuit";
 
@@ -1879,41 +1918,51 @@
 
 "type.highway.residential.area" = "Rue";
 
-"type.highway.residential.bridge" = "Rue";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Pont";
 
-"type.highway.residential.tunnel" = "Rue";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunnel";
 
 "type.highway.rest_area" = "Aire de repos";
 
 "type.highway.road" = "Rue";
 
-"type.highway.road.bridge" = "Rue";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Pont";
 
-"type.highway.road.tunnel" = "Rue";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunnel";
 
 "type.highway.secondary" = "Rue";
 
-"type.highway.secondary.bridge" = "Rue";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Pont";
 
-"type.highway.secondary.tunnel" = "Rue";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunnel";
 
 "type.highway.secondary_link" = "Rue";
 
-"type.highway.secondary_link.bridge" = "Rue";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Pont";
 
-"type.highway.secondary_link.tunnel" = "Rue";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunnel";
 
 "type.highway.service" = "Rue";
 
 "type.highway.service.area" = "Rue";
 
-"type.highway.service.bridge" = "Rue";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Pont";
 
 "type.highway.service.driveway" = "Rue";
 
 "type.highway.service.parking_aisle" = "Allée";
 
-"type.highway.service.tunnel" = "Rue";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunnel";
 
 "type.highway.services" = "Aire de service";
 
@@ -1921,27 +1970,34 @@
 
 "type.highway.steps" = "Escaliers";
 
-"type.highway.steps.bridge" = "Escaliers";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Pont";
 
-"type.highway.steps.tunnel" = "Escaliers";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunnel";
 
 "type.highway.tertiary" = "Rue";
 
-"type.highway.tertiary.bridge" = "Rue";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Pont";
 
-"type.highway.tertiary.tunnel" = "Rue";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunnel";
 
 "type.highway.tertiary_link" = "Rue";
 
-"type.highway.tertiary_link.bridge" = "Rue";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Pont";
 
-"type.highway.tertiary_link.tunnel" = "Rue";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunnel";
 
 "type.highway.track" = "Piste";
 
 "type.highway.track.area" = "Piste";
 
-"type.highway.track.bridge" = "Piste";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Pont";
 
 "type.highway.track.grade1" = "Piste";
 
@@ -1957,29 +2013,36 @@
 
 "type.highway.track.permissive" = "Piste";
 
-"type.highway.track.tunnel" = "Piste";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunnel";
 
 "type.highway.traffic_signals" = "Feux de circulation";
 
 "type.highway.trunk" = "Voie rapide";
 
-"type.highway.trunk.bridge" = "Voie rapide";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Pont";
 
-"type.highway.trunk.tunnel" = "Voie rapide";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunnel";
 
 "type.highway.trunk_link" = "Voie rapide";
 
-"type.highway.trunk_link.bridge" = "Voie rapide";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Pont";
 
-"type.highway.trunk_link.tunnel" = "Voie rapide";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunnel";
 
 "type.highway.unclassified" = "Rue";
 
 "type.highway.unclassified.area" = "Rue";
 
-"type.highway.unclassified.bridge" = "Rue";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Pont";
 
-"type.highway.unclassified.tunnel" = "Rue";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunnel";
 
 "type.area_highway.cycleway" = "Piste cyclable";
 
@@ -2110,6 +2173,8 @@
 
 "type.landuse.construction" = "Chantier de construction";
 
+"type.landuse.education" = "Établissements éducatifs";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Terrains agricoles";
@@ -2235,6 +2300,8 @@
 "type.man_made.chimney" = "Cheminée d'usine";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Borne géodésique";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2369,6 +2436,10 @@
 "type.office.ngo" = "Bureau ONG";
 
 "type.office.telecommunication" = "Opérateur mobile";
+
+"type.organic.only" = "Biologique";
+
+"type.organic.yes" = "Biologique";
 
 "type.place" = "place";
 

@@ -1,5 +1,7 @@
 #include "drape/attribute_provider.hpp"
+
 #include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
 
 #ifdef DEBUG
   #define INIT_CHECK_INFO(x) m_checkInfo = std::vector<bool>((std::vector<bool>::size_type)(x), false);
@@ -97,8 +99,7 @@ void AttributeProvider::UpdateStream(uint8_t streamIndex, ref_ptr<void> data)
 #ifdef DEBUG
 void AttributeProvider::CheckStreams() const
 {
-  ASSERT(std::find(m_checkInfo.begin(), m_checkInfo.end(), false) == m_checkInfo.end(),
-         ("Not all streams initialized"));
+  ASSERT(!base::IsExist(m_checkInfo, false), ("Not all streams initialized"));
 }
 
 void AttributeProvider::InitCheckStream(uint8_t streamIndex)

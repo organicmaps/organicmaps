@@ -221,7 +221,6 @@ public:
 
 private:
   std::string FormatSubtitle(bool withType) const;
-  void GetPrefferedNames(std::string & primaryName, std::string & secondaryName) const;
   std::string GetBookmarkName();
   /// @returns empty string or GetStars() count of ★ symbol.
   std::string FormatStars() const;

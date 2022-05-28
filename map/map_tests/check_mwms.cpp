@@ -9,6 +9,8 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "coding/var_serial_vector.hpp"
+
 #include "base/logging.hpp"
 
 #include <cstdint>
@@ -18,19 +20,24 @@
 
 #include "defines.hpp"
 
+namespace check_mwms
+{
+using namespace platform;
 using namespace std;
 
 UNIT_TEST(CheckMWM_LoadAll)
 {
-  Platform & platform = GetPlatform();
-  vector<platform::LocalCountryFile> localFiles;
-  platform::FindAllLocalMapsInDirectoryAndCleanup(platform.WritableDir(), 0 /* version */,
-                                                  -1 /* latestVersion */, localFiles);
+  // Parse root WritableDir folder. Expect at least World, WorldCoasts, minsk-pass.
+  vector<LocalCountryFile> localFiles;
+  size_t const count = FindAllLocalMapsInDirectoryAndCleanup(GetPlatform().WritableDir(), 0 /* version */,
+                                                             -1 /* latestVersion */, localFiles);
+  TEST_EQUAL(count, localFiles.size(), ());
+  TEST_GREATER_OR_EQUAL(count, 3, ());
 
   FeaturesFetcher m;
   m.InitClassificator();
 
-  for (platform::LocalCountryFile const & localFile : localFiles)
+  for (auto const & localFile : localFiles)
   {
     LOG(LINFO, ("Found mwm:", localFile));
     try
@@ -73,11 +80,14 @@ UNIT_TEST(CheckMWM_GeomIndex)
   // Count objects for each scale bucket.
   map<size_t, uint64_t> resCount;
   for (size_t i = 0; i < scale2Index.size(); ++i)
+  {
     scale2Index[i]->ForEach([i, &resCount](uint64_t, uint32_t)
     {
       ++resCount[i];
     }, beg, end);
+  }
 
   // Print results.
   LOG(LINFO, (resCount));
 }
+} // namespace check_mwms

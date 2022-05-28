@@ -2,10 +2,6 @@
 
 #include "routing/routing_helpers.hpp"
 
-#include "routing_common/bicycle_model.hpp"
-#include "routing_common/car_model.hpp"
-#include "routing_common/pedestrian_model.hpp"
-
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_visibility.hpp"
@@ -286,14 +282,8 @@ void FeatureBuilder::RemoveUselessNames()
 {
   if (!m_params.name.IsEmpty() && !IsCoastCell())
   {
-    // Use lambda syntax to correctly compile according to standard:
-    // http://en.cppreference.com/w/cpp/algorithm/remove
-    //     The signature of the predicate function should be equivalent to the following:
-    //     bool pred(const Type &a);
-    // Without it on clang-libc++ on Linux we get:
-    // candidate template ignored: substitution failure
-    //      [with _Tp = bool (unsigned int) const]: reference to function type 'bool (unsigned int) const' cannot have 'const'
-    //      qualifier
+    // Remove names for boundary-administrative-* features.
+    // AFAIR, they were very messy in search because they contain places' names.
     auto const typeRemover = [](uint32_t type)
     {
       static TypeSetChecker const checkBoundary({ "boundary", "administrative" });
@@ -303,18 +293,19 @@ void FeatureBuilder::RemoveUselessNames()
     auto types = GetTypesHolder();
     if (types.RemoveIf(typeRemover))
     {
+      // Remove only if there are no other text-style types in feature (e.g. highway).
       pair<int, int> const range = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT);
       if (range.first == -1)
         m_params.name.Clear();
     }
 
     // We want to skip alt_name which is almost equal to name.
-    std::string altName;
-    std::string name;
-    if (m_params.name.GetString("alt_name", altName) && m_params.name.GetString("default", name) &&
+    std::string_view name, altName;
+    if (m_params.name.GetString(StringUtf8Multilang::kAltNameCode, altName) &&
+        m_params.name.GetString(StringUtf8Multilang::kDefaultCode, name) &&
         search::NormalizeAndSimplifyString(altName) == search::NormalizeAndSimplifyString(name))
     {
-      m_params.name.RemoveString("alt_name");
+      m_params.name.RemoveString(StringUtf8Multilang::kAltNameCode);
     }
   }
 }
@@ -586,16 +577,16 @@ int FeatureBuilder::GetMinFeatureDrawScale() const
   return (minScale == -1 ? 1000 : minScale);
 }
 
-bool FeatureBuilder::AddName(string const & lang, string const & name)
+bool FeatureBuilder::AddName(string_view lang, string_view name)
 {
   return m_params.AddName(lang, name);
 }
 
-string FeatureBuilder::GetName(int8_t lang) const
+string_view FeatureBuilder::GetName(int8_t lang) const
 {
-  string s;
-  VERIFY(m_params.name.GetString(lang, s) != s.empty(), ());
-  return s;
+  string_view sv;
+  CHECK(m_params.name.GetString(lang, sv) != sv.empty(), ());
+  return sv;
 }
 
 size_t FeatureBuilder::GetPointsCount() const
@@ -623,20 +614,25 @@ bool FeatureBuilder::IsDrawableInRange(int lowScale, int highScale) const
 
 bool FeatureBuilder::PreSerializeAndRemoveUselessNamesForMwm(SupportingData const & data)
 {
-  // make flags actual before header serialization
+  // We don't need empty features without geometry.
   GeomType const geomType = m_params.GetGeomType();
   if (geomType == GeomType::Line)
   {
     if (data.m_ptsMask == 0 && data.m_innerPts.empty())
+    {
+      LOG(LWARNING, ("Skip feature with empty geometry", GetMostGenericOsmId()));
       return false;
+    }
   }
   else if (geomType == GeomType::Area)
   {
     if (data.m_trgMask == 0 && data.m_innerTrg.empty())
+    {
+      LOG(LWARNING, ("Skip feature with empty geometry", GetMostGenericOsmId()));
       return false;
+    }
   }
 
-  // we don't need empty features without geometry
   return PreSerializeAndRemoveUselessNamesForIntermediate();
 }
 
@@ -784,7 +780,7 @@ string DebugPrint(FeatureBuilder const & fb)
 
   out << " " << DebugPrint(fb.GetLimitRect())
       << " " << DebugPrint(fb.GetParams())
-      << " " << ::DebugPrint(fb.GetOsmIds());
+      << " " << ::DebugPrint(fb.m_osmIds);
   return out.str();
 }
 

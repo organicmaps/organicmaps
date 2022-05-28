@@ -10,26 +10,28 @@
 
 #include <array>
 #include <cstdint>
-#include <fstream>
 #include <map>
 #include <memory>
 #include <optional>
 #include <ostream>
 #include <set>
-#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
-struct OsmElement;
-class FeatureParams;
 
-namespace generator
+// The road accessibility information is collected in the same manner
+// as the restrictions are.
+// See generator/restriction_generator.hpp for details.
+namespace routing_builder
 {
+using RoadAccess = routing::RoadAccess;
+using VehicleType = routing::VehicleType;
+
 struct AccessConditional
 {
   AccessConditional() = default;
-  AccessConditional(routing::RoadAccess::Type accessType, std::string const & openingHours)
+  AccessConditional(RoadAccess::Type accessType, std::string const & openingHours)
       : m_accessType(accessType), m_openingHours(openingHours)
   {
   }
@@ -39,21 +41,10 @@ struct AccessConditional
     return std::tie(m_accessType, m_openingHours) == std::tie(rhs.m_accessType, rhs.m_openingHours);
   }
 
-  routing::RoadAccess::Type m_accessType = routing::RoadAccess::Type::Count;
+  RoadAccess::Type m_accessType = RoadAccess::Type::Count;
   std::string m_openingHours;
 };
 
-namespace cache
-{
-class IntermediateDataReaderInterface;
-}  // namespace cache
-}  // namespace generator
-
-// The road accessibility information is collected in the same manner
-// as the restrictions are.
-// See generator/restriction_generator.hpp for details.
-namespace routing
-{
 class RoadAccessTagProcessor
 {
 public:
@@ -88,7 +79,7 @@ private:
   std::unordered_map<uint64_t, RoadAccess::Type> m_barriersWithoutAccessTag;
   std::unordered_map<uint64_t, RoadAccess::Type> m_barriersWithAccessTag;
   std::unordered_map<uint64_t, RoadAccess::Type> m_wayToAccess;
-  std::unordered_map<uint64_t, std::vector<generator::AccessConditional>> m_wayToAccessConditional;
+  std::unordered_map<uint64_t, std::vector<AccessConditional>> m_wayToAccessConditional;
 };
 
 class RoadAccessWriter : public generator::CollectorInterface
@@ -145,7 +136,7 @@ public:
   static AccessConditionalTagParser const & Instance();
 
   AccessConditionalTagParser();
-  std::vector<generator::AccessConditional> ParseAccessConditionalTag(
+  std::vector<AccessConditional> ParseAccessConditionalTag(
       std::string const & tag, std::string const & value) const;
 
 private:
@@ -163,4 +154,4 @@ private:
 // road accessibility information for one mwm file.
 bool BuildRoadAccessInfo(std::string const & dataFilePath, std::string const & roadAccessPath,
                          std::string const & osmIdsToFeatureIdsPath);
-}  // namespace routing
+}  // namespace routing_builder

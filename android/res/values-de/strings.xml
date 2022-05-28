@@ -17,19 +17,17 @@
 	<string name="downloading">Wird heruntergeladen…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometer</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Karten</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Meilen</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Mein Standort</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Später</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Suche</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Auf der Karte suchen</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Ortungsdienste sind für dieses Gerät oder die App deaktiviert. Bitte aktivieren Sie diese in den Einstellungen.</string>
@@ -43,9 +41,10 @@
 	<string name="close">Schließen</string>
 	<string name="unsupported_phone">Das Programm benötigt OpenGL, um zu funktionieren. Leider wird Ihr Gerät nicht unterstützt.</string>
 	<string name="download">Herunterladen</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um Organic Maps zu verwenden</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen</string>
-	<string name="not_enough_memory">Nicht genügend Speicher, um die Anwendung zu starten</string>
 	<string name="download_resources">Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %s Speicherplatz benötigt.</string>
 	<string name="download_resources_continue">Zur Karte</string>
 	<string name="downloading_country_can_proceed">%s wird heruntergeladen. Sie können jetzt\nzur Karte weitergehen.</string>
@@ -79,6 +78,8 @@
 	<string name="maps_storage">Karten speichern auf</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Wählen Sie den Speicherort, an den die Karten heruntergeladen werden sollen</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Karten</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Karten verschieben?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -125,6 +126,8 @@
 	<string name="post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Polizeistation</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WLAN</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Recycling</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -209,6 +212,8 @@
 	<string name="search_show_on_map">Auf der Karte ansehen</string>
 	<!-- Text in menu -->
 	<string name="website">Webseite</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Nachrichten</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
@@ -223,17 +228,16 @@
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Fehler melden</string>
-	<!-- Search category -->
-	<string name="wifi">WLAN</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Alle aktualisieren</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Alle abbrechen</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Heruntergeladen</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">In der Warteschlange</string>
 	<string name="downloader_near_me_subtitle">In meiner Nähe</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Karten</string>
 	<string name="downloader_download_all_button">Alle herunterladen</string>
 	<string name="downloader_downloading">Gerade wird heruntergeladen:</string>
@@ -249,6 +253,8 @@
 	<string name="downloader_delete_map">Karte löschen</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Karte aktualisieren</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play-Dienste</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Nutzen Sie die Google Play-Dienste, um Ihren aktuellen Standort zu erhalten</string>
 	<!-- Text for routing error dialog -->
@@ -294,8 +300,6 @@
 	<string name="gray">Grau</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Graublau</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Ja</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Wenn Sie der Route folgen, beachten Sie bitte:</string>
@@ -365,7 +369,7 @@
 	<string name="editor_example_values">Beispiele</string>
 	<string name="editor_correct_mistake">Fehler korrigieren</string>
 	<string name="editor_add_select_location">Position</string>
-	<string name="editor_report_problem_desription_1">Bitte beschreiben Sie das Problem detailliert, damit die OpenStreeMap-Gemeinschaft den Fehler beheben kann.</string>
+	<string name="editor_report_problem_desription_1">Bitte beschreiben Sie das Problem detailliert, damit die OpenStreetMap-Gemeinschaft den Fehler beheben kann.</string>
 	<string name="editor_report_problem_desription_2">Oder kümmern Sie sich selbst darum auf https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Senden</string>
 	<string name="editor_report_problem_title">Problem</string>
@@ -453,6 +457,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km / h</string>
 	<string name="mile">mi</string>
+	<!-- A unit of measure -->
 	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
@@ -557,6 +562,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d Strecken</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Einstellungen der Begleitung</string>
 	<string name="crash_reports">Berichte über die Fehler</string>
 	<string name="crash_reports_description">Wir können Ihre Daten benutzen, um Organic Maps zu entwickeln und zu verbessern. Die Änderungen werden nach dem Neustart der App in Kraft treten.</string>
@@ -606,6 +612,14 @@
 	<string name="avoid_toll_roads_placepage">Mautstraßen vermeiden</string>
 	<string name="avoid_unpaved_roads_placepage">Erdwege vermeiden</string>
 	<string name="avoid_ferry_crossing_placepage">Fährstellen vermeiden</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Ja</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Nein</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Ja</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Nein</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortieren…</string>
@@ -659,11 +673,17 @@
 	<string name="elevation_profile_time">Dauer:</string>
 	<string name="isolines_toast_zooms_1_10">Karte vergrößern, um Isolinien zu sehen</string>
 	<string name="download_map_title">Download der Weltkarte</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Verbindungsfehler</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">USB-Kabel trennen</string>
 	<string name="enable_screen_sleep">Bildschirm schlafen lassen</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Wenn diese Option aktiviert ist, kann der Bildschirm nach einer gewissen Zeit der Inaktivität in den Ruhezustand versetzt werden.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Auf dem Sperrbildschirm anzeigen</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Seilbahn</string>
@@ -783,13 +803,21 @@
 	<string name="type.amenity.university">Universität</string>
 	<string name="type.amenity.vending_machine">Verkaufsautomat</string>
 	<string name="type.amenity.vending_machine.cigarettes">Zigarettenautomat</string>
+	<string name="type.amenity.vending_machine.coffee">Kaffeeautomat</string>
+	<string name="type.amenity.vending_machine.condoms">Kondomautomat</string>
 	<string name="type.amenity.vending_machine.drinks">Getränkeautomat</string>
+	<string name="type.amenity.vending_machine.food">Essensautomat</string>
+	<string name="type.amenity.vending_machine.newspapers">Zeitungsautomat</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parkautomat</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Fahrkartenautomat</string>
+	<string name="type.amenity.vending_machine.sweets">Süßigkeitenautomat</string>
+	<string name="type.amenity.vending_machine.excrement_bags">Hundekotbeutelspender</string>
+	<string name="type.amenity.parcel_locker">Paketstation</string>
 	<string name="type.amenity.vending_machine.fuel">Tankautomat</string>
 	<string name="type.amenity.veterinary">Tierarzt</string>
 	<string name="type.amenity.waste_basket">Abfalleimer</string>
 	<string name="type.amenity.waste_disposal">Müllcontainer</string>
+	<string name="type.amenity.waste_transfer_station">Müllumladestation</string>
 	<string name="type.amenity.water_point">Wasseranschluss</string>
 	<string name="type.barrier">Barriere</string>
 	<string name="type.barrier.block">Block</string>
@@ -930,42 +958,55 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Straße</string>
 	<string name="type.highway.bridleway">Reitweg</string>
-	<string name="type.highway.bridleway.bridge">Reitweg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Brücke</string>
 	<string name="type.highway.bridleway.permissive">Reitweg</string>
-	<string name="type.highway.bridleway.tunnel">Reitweg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Bushaltestelle</string>
 	<string name="type.highway.construction">Straße im Bau</string>
 	<string name="type.highway.cycleway">Radweg</string>
-	<string name="type.highway.cycleway.bridge">Radweg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Brücke</string>
 	<string name="type.highway.cycleway.permissive">Radweg</string>
-	<string name="type.highway.cycleway.tunnel">Radweg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunnel</string>
 	<string name="type.highway.elevator">Aufzug</string>
 	<string name="type.highway.footway">Fußweg</string>
 	<string name="type.highway.footway.alpine_hiking">Alpinwanderweg</string>
 	<string name="type.highway.footway.area">Fußweg</string>
-	<string name="type.highway.footway.bridge">Fußweg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Brücke</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Anspruchsvoller Alpinwanderweg</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Anspruchsvoller Bergwanderweg</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Schwieriger Alpinwanderweg</string>
 	<string name="type.highway.footway.hiking">Wanderweg</string>
 	<string name="type.highway.footway.mountain_hiking">Bergwanderweg</string>
 	<string name="type.highway.footway.permissive">Fußweg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Fußgängertunnel</string>
 	<string name="type.highway.ford">Furt</string>
 	<string name="type.highway.living_street">Spielstraße</string>
-	<string name="type.highway.living_street.bridge">Spielstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.living_street.tunnel">Spielstraßentunnel</string>
 	<string name="type.highway.motorway">Autobahn</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway.bridge">Autobahnbrücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway.tunnel">Autobahntunnel</string>
 	<string name="type.highway.motorway_junction">Autobahnausfahrt</string>
 	<string name="type.highway.motorway_link">Autobahnauffahrt</string>
-	<string name="type.highway.motorway_link.bridge">Autobahnauffahrt</string>
-	<string name="type.highway.motorway_link.tunnel">Autobahnauffahrt</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Weg</string>
 	<string name="type.highway.path.alpine_hiking">Alpinwanderweg</string>
 	<string name="type.highway.path.bicycle">Radweg</string>
-	<string name="type.highway.path.bridge">Weg</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Brücke</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Anspruchsvoller Alpinwanderweg</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Anspruchsvoller Bergwanderweg</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Schwieriger Alpinwanderweg</string>
@@ -973,52 +1014,76 @@
 	<string name="type.highway.path.horse">Reitweg</string>
 	<string name="type.highway.path.mountain_hiking">Bergwanderweg</string>
 	<string name="type.highway.path.permissive">Weg</string>
-	<string name="type.highway.path.tunnel">Weg</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Fußgängerzone</string>
 	<string name="type.highway.pedestrian.area">Fußgängerzone</string>
-	<string name="type.highway.pedestrian.bridge">Fußgängerzone</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.pedestrian.tunnel">Fußgängertunnel</string>
 	<string name="type.highway.primary">Hauptstraße</string>
-	<string name="type.highway.primary.bridge">Hauptstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.primary.tunnel">Hauptstraßentunnel</string>
 	<string name="type.highway.primary_link">Hauptstraße</string>
-	<string name="type.highway.primary_link.bridge">Hauptstraße</string>
-	<string name="type.highway.primary_link.tunnel">Hauptstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunnel</string>
 	<string name="type.highway.raceway">Rennbahn</string>
 	<string name="type.highway.residential">Wohnstraße</string>
 	<string name="type.highway.residential.area">Wohnstraße</string>
-	<string name="type.highway.residential.bridge">Wohnstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.residential.tunnel">Wohnstraßentunnel</string>
 	<string name="type.highway.rest_area">Rastplatz</string>
 	<string name="type.highway.road">Straße</string>
-	<string name="type.highway.road.bridge">Straße</string>
-	<string name="type.highway.road.tunnel">Straßentunnel</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Straße</string>
-	<string name="type.highway.secondary.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary.tunnel">Straßentunnel</string>
 	<string name="type.highway.secondary_link">Straße</string>
-	<string name="type.highway.secondary_link.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary_link.tunnel">Straßentunnel</string>
 	<string name="type.highway.service">Straße</string>
 	<string name="type.highway.service.area">Straße</string>
-	<string name="type.highway.service.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Brücke</string>
 	<string name="type.highway.service.driveway">Zufahrt</string>
 	<string name="type.highway.service.parking_aisle">Straße</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.service.tunnel">Straßentunnel</string>
 	<string name="type.highway.services">Raststätte</string>
 	<string name="type.highway.speed_camera">Blitzer</string>
 	<string name="type.highway.steps">Stufen</string>
-	<string name="type.highway.steps.bridge">Stufen</string>
-	<string name="type.highway.steps.tunnel">Stufen</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary">Straße</string>
-	<string name="type.highway.tertiary.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary.tunnel">Straßentunnel</string>
 	<string name="type.highway.tertiary_link">Straße</string>
-	<string name="type.highway.tertiary_link.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary_link.tunnel">Straßentunnel</string>
 	<string name="type.highway.track">Straße</string>
 	<string name="type.highway.track.area">Straße</string>
-	<string name="type.highway.track.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Brücke</string>
 	<string name="type.highway.track.grade1">Straße</string>
 	<string name="type.highway.track.grade2">Straße</string>
 	<string name="type.highway.track.grade3">Straße</string>
@@ -1026,17 +1091,24 @@
 	<string name="type.highway.track.grade5">Straße</string>
 	<string name="type.highway.track.no.access">Straße</string>
 	<string name="type.highway.track.permissive">Straße</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Straßentunnel</string>
 	<string name="type.highway.traffic_signals">Verkehrsampel</string>
 	<string name="type.highway.trunk">Schnellstraße</string>
-	<string name="type.highway.trunk.bridge">Schnellstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">Schnellstraßentunnel</string>
 	<string name="type.highway.trunk_link">Schnellstraße</string>
-	<string name="type.highway.trunk_link.bridge">Schnellstraße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk_link.tunnel">Straßentunnel</string>
 	<string name="type.highway.unclassified">Straße</string>
 	<string name="type.highway.unclassified.area">Straße</string>
-	<string name="type.highway.unclassified.bridge">Straße</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Brücke</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">Straßentunnel</string>
 	<string name="type.area_highway.cycleway">Radweg</string>
 	<string name="type.area_highway.footway">Weg</string>
@@ -1100,7 +1172,7 @@
 	<string name="type.landuse.industrial">Industriegebiet</string>
 	<string name="type.landuse.landfill">Müllhalde</string>
 	<string name="type.landuse.meadow">Wiese</string>
-	<string name="type.landuse.military">Militärisch genutztes Gebiet</string>
+	<string name="type.landuse.military">Militärgebiet</string>
 	<string name="type.landuse.orchard">Obstplantage</string>
 	<string name="type.landuse.quarry">Steinbruch</string>
 	<string name="type.landuse.railway">Eisenbahnanlagen</string>
@@ -1145,6 +1217,7 @@
 	<string name="type.man_made.cairn">Steinhaufen</string>
 	<string name="type.man_made.chimney">Fabrikschornstein</string>
 	<string name="type.man_made.cutline">Schneise</string>
+	<string name="type.man_made.survey_point">Vermessungspunkt</string>
 	<string name="type.man_made.lighthouse">Leuchtturm</string>
 	<string name="type.man_made.pier">Anlegestelle</string>
 	<string name="type.man_made.silo">Silo</string>
@@ -1204,6 +1277,8 @@
 	<string name="type.office.lawyer">Anwaltsbüro</string>
 	<string name="type.office.ngo">Büro einer Nichtregierungsorganisation</string>
 	<string name="type.office.telecommunication">Mobilfunkbetreiber</string>
+	<string name="type.organic.only">Bio</string>
+	<string name="type.organic.yes">Bio</string>
 	<string name="type.place">Ort</string>
 	<string name="type.place.city">Großstadt</string>
 	<string name="type.place.city.capital">Hauptstadt</string>

@@ -15,7 +15,7 @@ function BuildDrawingRules() {
   # Cleanup
   rm "$DATA_PATH"/drules_proto$suffix.{bin,txt} || true
   # Run script to build style
-  python "$OMIM_PATH/tools/kothic/src/libkomwm.py" --txt \
+  python3 "$OMIM_PATH/tools/kothic/src/libkomwm.py" --txt \
     -s "$DATA_PATH/styles/$styleType/style-$styleName/style.mapcss" \
     -o "$DATA_PATH/drules_proto$suffix"
 }
@@ -37,10 +37,10 @@ BuildDrawingRules vehicle  night _vehicle_dark
 cp $OMIM_PATH/data/drules_proto_clear.bin $OMIM_PATH/data/drules_proto_design.bin
 
 echo "Exporting transit colors"
-python "$OMIM_PATH/tools/python/transit/transit_colors_export.py" \
+python3 "$OMIM_PATH/tools/python/transit/transit_colors_export.py" \
   "$DATA_PATH/colors.txt" > /dev/null
 
 echo "Merging default and vehicle styles"
-python "$OMIM_PATH/tools/python/stylesheet/drules_merge.py" \
+python3 "$OMIM_PATH/tools/python/stylesheet/drules_merge.py" \
   "$DATA_PATH/drules_proto_clear.bin" "$DATA_PATH/drules_proto_vehicle_clear.bin" \
   "$DATA_PATH/drules_proto.bin" "$DATA_PATH/drules_proto.txt" > /dev/null

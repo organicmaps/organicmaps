@@ -1351,7 +1351,8 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
       m_selectionShape->Hide();
     if (!m_myPositionController->IsModeChangeViewport())
     {
-      if (m2::PointD startPosition; m_selectionShape->IsVisible(modelView, startPosition))
+      m2::PointD startPosition;
+      if (m_selectionShape->IsVisible(modelView, startPosition))
         m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
     }
 
@@ -2246,7 +2247,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
     return key.m_zoomLevel == m_currentZoomLevel &&
            (key.m_x < result.m_minTileX || key.m_x >= result.m_maxTileX ||
            key.m_y < result.m_minTileY || key.m_y >= result.m_maxTileY ||
-           std::find(tilesToDelete.begin(), tilesToDelete.end(), key) != tilesToDelete.end());
+           base::IsExist(tilesToDelete, key));
   };
   for (RenderLayer & layer : m_layers)
     layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));

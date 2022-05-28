@@ -32,7 +32,7 @@ struct RoadShield
   std::string m_additionalText;
 
   RoadShield() = default;
-  RoadShield(RoadShieldType const & type, std::string const & name)
+  RoadShield(RoadShieldType const & type, std::string_view name)
   : m_type(type), m_name(name)
   {}
   RoadShield(RoadShieldType const & type, std::string const & name,
@@ -50,13 +50,20 @@ struct RoadShield
     }
     return m_additionalText < other.m_additionalText;
   }
+
+  inline bool operator==(RoadShield const & other) const
+  {
+    return (m_type == other.m_type && m_name == other.m_name && m_additionalText == other.m_additionalText);
+  }
 };
 
 // Use specific country road shield styles based on mwm feature belongs to.
-std::set<RoadShield> GetRoadShields(FeatureType & f);
+using RoadShieldsSetT = buffer_vector<RoadShield, 2>;
+RoadShieldsSetT GetRoadShields(FeatureType & f);
+RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & roadNumber);
 
 // Simple parsing without specific country styles.
-std::set<RoadShield> GetRoadShields(std::string const & rawRoadNumber);
+RoadShieldsSetT GetRoadShields(std::string const & rawRoadNumber);
 
 std::string DebugPrint(RoadShieldType shieldType);
 std::string DebugPrint(RoadShield const & shield);

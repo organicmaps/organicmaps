@@ -2,6 +2,7 @@
 ‣ Küçük ekibimiz tarafından, boş zamanlarımızda kendi paramız ve kullanıcılarımızdan gelen bağışlar/katkılar kullanılarak sürekli olarak geliştirilmektedir.
 ‣ Haritada yanlış veya eksik bir şey varsa, lütfen <b>OpenStreetMap'te</b> düzeltin ve gelecekteki harita güncellemelerinde değişikliklerinizi görün.
 ‣ Navigasyon veya arama çalışmıyorsa, lütfen bize e-posta gönderin. <i>HER</i> e-postayı yanıtlıyoruz ve en kısa sürede düzelteceğiz.
+
 <b>Geri bildiriminiz ve 5 yıldızlı yorumlarınız bizim için en iyi motivasyon kaynağı!</b>
 
 Önemli Özellikler:
@@ -45,7 +46,7 @@ Organic Maps'te <b>gizliliğin temel bir insan hakkı olduğuna</b> inanıyoruz:
 
 Exodus Gizlilik Raporuna göre sıfır izleyici ve yalnızca minimum düzeyde izinler gerekir.
 
-Ek ayrıntılar ve SSS için lütfen <b><i>organicmaps.app</i></b> adresini ziyaret edin. Telegram'daki @OrganicMapsApp adresinden bizimle doğrudan iletişime geçin.
+Ek ayrıntılar ve SSS için lütfen <b><i>organicmaps.app</i></b> adresini ziyaret edin. Telegram'daki @OrganicMapsTR adresinden bizimle doğrudan iletişime geçin.
 
 Gözetlemeyi reddedin - özgürlüğünüzü kucaklayın.
 <b>Organic Maps'i deneyin!</b>

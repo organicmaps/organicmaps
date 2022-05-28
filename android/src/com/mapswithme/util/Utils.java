@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.text.format.DateUtils;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -263,16 +264,6 @@ public class Utils
     }
   }
 
-  public static void showTwitterPage(Activity activity)
-  {
-    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER)));
-  }
-
-  public static void showSupportUsPage(Activity activity)
-  {
-    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.SUPPORT_US)));
-  }
-
   public static void openUrl(@NonNull Context context, @Nullable String url)
   {
     if (TextUtils.isEmpty(url))
@@ -435,8 +426,18 @@ public class Utils
 
   public static void sendTo(@NonNull Context context, @NonNull String email)
   {
+    sendTo(context, email, "", "");
+  }
+
+  public static void sendTo(@NonNull Context context, @NonNull String email, @NonNull String subject)
+  {
+    sendTo(context, email, subject, "");
+  }
+
+  public static void sendTo(@NonNull Context context, @NonNull String email, @NonNull String subject, @NonNull String body)
+  {
     Intent intent = new Intent(Intent.ACTION_SENDTO);
-    intent.setData(Utils.buildMailUri(email, "", ""));
+    intent.setData(Utils.buildMailUri(email, subject, body));
     context.startActivity(intent);
   }
 
@@ -619,6 +620,19 @@ public class Utils
       LOGGER.e(TAG, "Failed to get value for string '" + key + "'", e);
     }
     return key;
+  }
+
+  /**
+   * Returns a name for a new bookmark created off the current GPS location.
+   * The name includes current time and date in locale-specific format.
+   *
+   * @return bookmark name with time and date.
+   */
+  @NonNull
+  public static String getMyPositionBookmarkName(@NonNull Context context)
+  {
+    return DateUtils.formatDateTime(context, System.currentTimeMillis(),
+                                    DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR);
   }
 
   @NonNull

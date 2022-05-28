@@ -27,6 +27,8 @@ public class FloatingSearchToolbarController extends SearchToolbarController
   {
     super(activity.getWindow().getDecorView(), activity);
     mListener = listener;
+    // We only want to detect a click on the input and not allow editing.
+    disableQueryEditing();
   }
 
   @Override
@@ -39,10 +41,8 @@ public class FloatingSearchToolbarController extends SearchToolbarController
   @Override
   protected void onQueryClick(@Nullable String query)
   {
-    super.onQueryClick(query);
     if (mListener != null)
       mListener.onSearchQueryClick(getQuery());
-    hide();
   }
 
   @Override
@@ -101,6 +101,11 @@ public class FloatingSearchToolbarController extends SearchToolbarController
     mVisibilityListener = visibilityListener;
   }
 
+  @Override
+  protected boolean useExtendedToolbar()
+  {
+    return false;
+  }
 
   public interface SearchToolbarListener
   {

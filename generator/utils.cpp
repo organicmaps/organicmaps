@@ -81,27 +81,6 @@ std::unique_ptr<FeatureType> FeatureGetter::GetFeatureByIndex(uint32_t index) co
   return m_guard->GetFeatureByIndex(index);
 }
 
-void LoadDataSource(DataSource & dataSource)
-{
-  std::vector<platform::LocalCountryFile> localFiles;
-
-  Platform & platform = GetPlatform();
-  platform::FindAllLocalMapsInDirectoryAndCleanup(platform.WritableDir(), 0 /* version */,
-                                                  -1 /* latestVersion */, localFiles);
-  for (auto const & localFile : localFiles)
-  {
-    LOG(LINFO, ("Found mwm:", localFile));
-    try
-    {
-      dataSource.RegisterMap(localFile);
-    }
-    catch (RootException const & ex)
-    {
-      CHECK(false, (ex.Msg(), "Bad mwm file:", localFile));
-    }
-  }
-}
-
 bool ParseFeatureIdToOsmIdMapping(std::string const & path,
                                   std::unordered_map<uint32_t, base::GeoObjectId> & mapping)
 {
@@ -116,10 +95,11 @@ bool ParseFeatureIdToTestIdMapping(std::string const & path,
                                    std::unordered_map<uint32_t, uint64_t> & mapping)
 {
   bool success = true;
-  feature::ForEachFeature(path, [&](FeatureType & feature, uint32_t fid) {
+  feature::ForEachFeature(path, [&](FeatureType & feature, uint32_t fid)
+  {
     auto const testIdStr = feature.GetMetadata(feature::Metadata::FMD_TEST_ID);
     uint64_t testId;
-    if (!strings::to_uint64(testIdStr, testId))
+    if (!strings::to_uint(testIdStr, testId))
     {
       LOG(LERROR, ("Can't parse test id from:", testIdStr, "for the feature", fid));
       success = false;
@@ -172,17 +152,19 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
 
   MapcssRules rules;
 
-  auto const processShort = [&rules](std::string const & typeString) {
-    auto const typeTokens = strings::Tokenize(typeString, "|");
+  auto const processShort = [&rules](std::string const & typeString)
+  {
+    auto typeTokens = strings::Tokenize<std::string>(typeString, "|");
     CHECK(typeTokens.size() == 2, (typeString));
     MapcssRule rule;
     rule.m_tags = {{typeTokens[0], typeTokens[1]}};
-    rules.push_back({typeTokens, rule});
+    rules.emplace_back(std::move(typeTokens), std::move(rule));
   };
 
   auto const processFull = [&rules](std::string const & typeString,
-                                    std::string const & selectorsString) {
-    auto const typeTokens = strings::Tokenize(typeString, "|");
+                                    std::string const & selectorsString)
+  {
+    auto const typeTokens = strings::Tokenize<std::string>(typeString, "|");
     for (auto const & selector : strings::Tokenize(selectorsString, ","))
     {
       CHECK(!selector.empty(), (selectorsString));
@@ -190,12 +172,12 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
       CHECK_EQUAL(selector.back(), ']', (selectorsString));
 
       MapcssRule rule;
-      auto tags = strings::Tokenize(selector, "[");
+      auto tags = strings::Tokenize<std::string>(selector, "[");
       for (auto & rawTag : tags)
       {
         strings::Trim(rawTag, "]");
         CHECK(!rawTag.empty(), (selector, tags));
-        auto tag = strings::Tokenize(rawTag, "=");
+        auto tag = strings::Tokenize<std::string>(rawTag, "=");
         if (tag.size() == 1)
         {
           CHECK(!tag[0].empty(), (rawTag));
@@ -209,10 +191,10 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
         else
         {
           CHECK_EQUAL(tag.size(), 2, (tag));
-          rule.m_tags.push_back({tag[0], tag[1]});
+          rule.m_tags.emplace_back(tag[0], tag[1]);
         }
       }
-      rules.push_back({typeTokens, rule});
+      rules.emplace_back(typeTokens, std::move(rule));
     }
   };
 

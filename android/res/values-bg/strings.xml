@@ -17,20 +17,18 @@
 	<string name="downloading">Теглене…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Километри</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Карти</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">МБ</string>
 	<string name="gb">ГБ</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Мили</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Мое местоположение</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">По-късно</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Търсене</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Търсене в карта</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">В момента всички услуги за местоположение за това устройство или приложение са деактивирани. Моля, разрешете ги в Настройки.</string>
@@ -44,9 +42,10 @@
 	<string name="close">Затваряне</string>
 	<string name="unsupported_phone">Приложението изисква хардуерно ускорение на OpenGL. За съжаление вашето устройство не се поддържа.</string>
 	<string name="download">Изтегляне</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Моля, изключете USB кабела или поставете карта с памет.</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Моля, първо освободете място на SD картата/USB паметта, за да можете да използвате приложението.</string>
-	<string name="not_enough_memory">Няма достатъчно памет за стартиране на приложението</string>
 	<string name="download_resources">Преди да започнете да използвате приложението, позволете ни да изтеглим общата карта на света на вашето устройство.\nТова ще използва %s от паметта.</string>
 	<string name="download_resources_continue">Към картата</string>
 	<string name="downloading_country_can_proceed">Изтегляне на %s. Вече можете да преминете към картата.</string>
@@ -80,6 +79,8 @@
 	<string name="maps_storage">Запаметяване на карти в</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Изберете мястото, където картите трябва да се изтеглят</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Карти</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Преместване на карти?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -126,6 +127,8 @@
 	<string name="post">Поща</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Полиция</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Рециклиране</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -210,6 +213,8 @@
 	<string name="search_show_on_map">Преглед на картата</string>
 	<!-- Text in menu -->
 	<string name="website">Уебсайт</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">Новини</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Обратна връзка</string>
 	<!-- Text in menu -->
@@ -224,17 +229,16 @@
 	<string name="copyright">Авторски права</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Докладване на проблем</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Обновяване на всичко</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Отмяна на всичко</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Изтеглено</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">На опашка</string>
 	<string name="downloader_near_me_subtitle">Близо до мен</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Карти</string>
 	<string name="downloader_download_all_button">Изтегляне на всичко</string>
 	<string name="downloader_downloading">Теглене:</string>
@@ -250,6 +254,8 @@
 	<string name="downloader_delete_map">Изтриване на карта</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Обнояване на карта</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Услуги за Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Използвайте услугите на Google Play, за да определите текущото си местоположение</string>
 	<!-- Text for routing error dialog -->
@@ -279,8 +285,6 @@
 	<string name="brown">Кафяво</string>
 	<!-- pink color -->
 	<string name="pink">Розово</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Да</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Когато следвате маршрута, моля, имайте предвид:</string>
@@ -350,7 +354,7 @@
 	<string name="editor_example_values">Примерни стойности</string>
 	<string name="editor_correct_mistake">Поправяне на грешка</string>
 	<string name="editor_add_select_location">Местоположение</string>
-	<string name="editor_report_problem_desription_1">Моля, опишете подробно проблема, за да може общността на OpenStreeMap да отстрани грешката.</string>
+	<string name="editor_report_problem_desription_1">Моля, опишете подробно проблема, за да може общността на OpenStreetMap да отстрани грешката.</string>
 	<string name="editor_report_problem_desription_2">Или го направете сами на https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Изпращане</string>
 	<string name="editor_report_problem_title">Проблем</string>
@@ -436,6 +440,7 @@
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
 	<string name="mile">ми</string>
+	<!-- A unit of measure -->
 	<string name="foot">фут</string>
 	<string name="hour">ч</string>
 	<string name="minute">мин</string>
@@ -537,6 +542,7 @@
 	  <item quantity="one">%d пътека</item>
 	  <item quantity="other">%d пътеки</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Настройки за проследяване</string>
 	<string name="crash_reports">Доклад за срив</string>
 	<string name="crash_reports_description">Можем да използваме данни ви, за да подобрим изживяването с Organic Maps. Промените ще влязат в сила, след рестартиране на приложението.</string>
@@ -583,6 +589,14 @@
 	<string name="avoid_toll_roads_placepage">Избягване на платени пътища</string>
 	<string name="avoid_unpaved_roads_placepage">Избягвайте неасфалтирани пътища</string>
 	<string name="avoid_ferry_crossing_placepage">Избягване на преходи с ферибот</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Да</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">Не</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Да</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">Не</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортиране…</string>
@@ -615,7 +629,9 @@
 	<string name="elevation_profile_time">Време:</string>
 	<string name="isolines_toast_zooms_1_10">Увеличете мащаба, за да разгледате изолиниите</string>
 	<string name="download_map_title">Изтегляне на картата на света</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Неуспешно свързване</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Изключване на USB кабел</string>
 	<string name="enable_screen_sleep">Позволяване на екрана да заспи</string>
 	<!-- Description in preferences -->
@@ -623,12 +639,105 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
+	<string name="type.craft.metal_construction">Метални конструкции</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
 
+	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Тунел</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Мост</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Тунел</string>
+
 	<!-- SECTION: Types: Historic -->
+	<string name="type.historic.archaeological_site">Археологически сайт</string>
 	<string name="type.landuse.basin">Резервоар</string>
 	<string name="type.leisure.picnic_table">Маса за пикник</string>
 	<string name="type.natural.water.reservoir">Резервоар</string>
 	<string name="type.natural.water.basin">Резервоар</string>
 	<string name="type.natural.water">Воден басейн</string>
+	<string name="type.office.telecommunication">Телекомуникационна компания</string>
 </resources>

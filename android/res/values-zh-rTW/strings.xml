@@ -17,17 +17,15 @@
 	<string name="downloading">下載中…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">公里</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">地圖</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">英哩</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">我的位置</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">稍後</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">搜尋</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">搜尋地圖</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">您目前裝置所有的定位服務或相關應用程式是處於停用的狀態，請從系統設定中選擇啟用。</string>
@@ -41,9 +39,10 @@
 	<string name="close">關閉</string>
 	<string name="unsupported_phone">需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！</string>
 	<string name="download">下載</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">如要繼續使用，請先釋放一些 SD 卡/ USB 儲存空間</string>
-	<string name="not_enough_memory">沒有足夠的記憶體以啟動應用程式</string>
 	<string name="download_resources">在您開始之前，先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %s。</string>
 	<string name="download_resources_continue">跳到地圖</string>
 	<string name="downloading_country_can_proceed">正在下載 %s。您現在 可以繼續使用地圖了</string>
@@ -77,6 +76,8 @@
 	<string name="maps_storage">將地圖儲存至</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">請選擇下載地圖後要放的位置</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">地圖</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">移動地圖？</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -123,6 +124,8 @@
 	<string name="post">郵局</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">警察局</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">無線網路</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">回收</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -208,6 +211,8 @@
 	<string name="search_show_on_map">在地圖上查看</string>
 	<!-- Text in menu -->
 	<string name="website">網站</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">消息</string>
 	<!-- Text in menu -->
 	<string name="facebook">臉書</string>
 	<!-- Text in menu -->
@@ -228,17 +233,16 @@
 	<string name="copyright">版權</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">報告錯誤</string>
-	<!-- Search category -->
-	<string name="wifi">無線網路</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">更新全部</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">全部取消</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">已下載</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">已佇列</string>
 	<string name="downloader_near_me_subtitle">在我附近</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">地圖</string>
 	<string name="downloader_download_all_button">下載全部</string>
 	<string name="downloader_downloading">正在下載：</string>
@@ -254,6 +258,8 @@
 	<string name="downloader_delete_map">刪除地圖</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">更新地圖</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play 服務</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">使用 Google Play 服務來獲得您的目前位置</string>
 	<!-- Text for routing error dialog -->
@@ -299,8 +305,6 @@
 	<string name="gray">灰色</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">藍灰色</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">是</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">依照路線行進時，請牢記：</string>
@@ -372,7 +376,7 @@
 	<string name="editor_example_values">範例值</string>
 	<string name="editor_correct_mistake">修正錯誤</string>
 	<string name="editor_add_select_location">位置</string>
-	<string name="editor_report_problem_desription_1">請詳細描述此問題以便 OpenStreeMap 社群修復此錯誤。</string>
+	<string name="editor_report_problem_desription_1">請詳細描述此問題以便 OpenStreetMap 社群修復此錯誤。</string>
 	<string name="editor_report_problem_desription_2">或者在 https://www.openstreetmap.org/ 上親自修復此錯誤</string>
 	<string name="editor_report_problem_send_button">發送</string>
 	<string name="editor_report_problem_title">問題</string>
@@ -387,7 +391,7 @@
 	<string name="day_off">沒有營業</string>
 	<string name="today">今天</string>
 	<string name="edit_opening_hours">編輯營業時間</string>
-	<string name="no_osm_account">沒有 OpenStreeMap 帳號嗎？</string>
+	<string name="no_osm_account">沒有 OpenStreetMap 帳號嗎？</string>
 	<string name="register_at_openstreetmap">註冊</string>
 	<string name="login">登入</string>
 	<string name="password">密碼</string>
@@ -458,6 +462,7 @@
 	<string name="kilometer">公里</string>
 	<string name="kilometers_per_hour">公里每小時</string>
 	<string name="mile">英哩</string>
+	<!-- A unit of measure -->
 	<string name="foot">英尺</string>
 	<string name="miles_per_hour">英哩每小時</string>
 	<string name="hour">小時</string>
@@ -561,6 +566,7 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d 軌跡</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">跟蹤設置</string>
 	<string name="crash_reports">錯誤報告</string>
 	<string name="crash_reports_description">我們可以使用您的數據來開發和改進Organic Maps。更改將再重新啟動 app 後生效。</string>
@@ -610,6 +616,14 @@
 	<string name="avoid_toll_roads_placepage">規避收費公路</string>
 	<string name="avoid_unpaved_roads_placepage">規避土路</string>
 	<string name="avoid_ferry_crossing_placepage">規避渡輪渡口</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">是</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">否</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">是</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">否</string>
 	<string name="ok">好</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">分類……</string>
@@ -662,6 +676,7 @@
 	<string name="elevation_profile_distance">距離：</string>
 	<string name="elevation_profile_time">時間：</string>
 	<string name="isolines_toast_zooms_1_10">放大地圖以查看等高線</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">拔除 USB 線</string>
 	<string name="enable_screen_sleep">允许螢幕進入休眠狀態</string>
 	<!-- Description in preferences -->
@@ -909,34 +924,51 @@
 	<string name="type.healthcare.laboratory">醫學實驗室</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">隧道</string>
 	<string name="type.highway.bus_stop">巴士站</string>
 	<string name="type.highway.construction">在建道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">隧道</string>
 	<string name="type.highway.footway">人行步道</string>
 	<string name="type.highway.footway.alpine_hiking">人行步道</string>
 	<string name="type.highway.footway.area">人行步道</string>
-	<string name="type.highway.footway.bridge">人行步道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">橋</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">人行步道</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">人行步道</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">人行步道</string>
 	<string name="type.highway.footway.hiking">人行步道</string>
 	<string name="type.highway.footway.mountain_hiking">人行步道</string>
 	<string name="type.highway.footway.permissive">人行步道</string>
-	<string name="type.highway.footway.tunnel">人行步道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">隧道</string>
 	<string name="type.highway.ford">淺灘</string>
 	<string name="type.highway.living_street">路</string>
-	<string name="type.highway.living_street.bridge">路</string>
-	<string name="type.highway.living_street.tunnel">路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">隧道</string>
 	<string name="type.highway.motorway">高速公路</string>
-	<string name="type.highway.motorway.bridge">高速公路</string>
-	<string name="type.highway.motorway.tunnel">高速公路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">隧道</string>
 	<string name="type.highway.motorway_junction">交流道</string>
 	<string name="type.highway.motorway_link">高速公路連接路</string>
-	<string name="type.highway.motorway_link.bridge">高速公路連接路</string>
-	<string name="type.highway.motorway_link.tunnel">高速公路連接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">隧道</string>
 	<string name="type.highway.path">人行步道</string>
 	<string name="type.highway.path.alpine_hiking">人行步道</string>
 	<string name="type.highway.path.bicycle">人行步道</string>
-	<string name="type.highway.path.bridge">人行步道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">橋</string>
 	<string name="type.highway.path.demanding_alpine_hiking">人行步道</string>
 	<string name="type.highway.path.demanding_mountain_hiking">人行步道</string>
 	<string name="type.highway.path.difficult_alpine_hiking">人行步道</string>
@@ -944,52 +976,76 @@
 	<string name="type.highway.path.horse">人行步道</string>
 	<string name="type.highway.path.mountain_hiking">人行步道</string>
 	<string name="type.highway.path.permissive">人行步道</string>
-	<string name="type.highway.path.tunnel">人行步道</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">隧道</string>
 	<string name="type.highway.pedestrian">路</string>
 	<string name="type.highway.pedestrian.area">路</string>
-	<string name="type.highway.pedestrian.bridge">路</string>
-	<string name="type.highway.pedestrian.tunnel">路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">隧道</string>
 	<string name="type.highway.primary">主要道路</string>
-	<string name="type.highway.primary.bridge">主要道路</string>
-	<string name="type.highway.primary.tunnel">主要道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">隧道</string>
 	<string name="type.highway.primary_link">主要道路連接路</string>
-	<string name="type.highway.primary_link.bridge">主要道路連接路</string>
-	<string name="type.highway.primary_link.tunnel">主要道路連接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">隧道</string>
 	<string name="type.highway.raceway">跑道</string>
 	<string name="type.highway.residential">住宅區道路</string>
 	<string name="type.highway.residential.area">住宅區道路</string>
-	<string name="type.highway.residential.bridge">住宅區道路</string>
-	<string name="type.highway.residential.tunnel">住宅區道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">隧道</string>
 	<string name="type.highway.rest_area">休息區</string>
 	<string name="type.highway.road">道路</string>
-	<string name="type.highway.road.bridge">道路</string>
-	<string name="type.highway.road.tunnel">道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">隧道</string>
 	<string name="type.highway.secondary">次要道路</string>
-	<string name="type.highway.secondary.bridge">次要道路</string>
-	<string name="type.highway.secondary.tunnel">次要道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">隧道</string>
 	<string name="type.highway.secondary_link">次要道路連接路</string>
-	<string name="type.highway.secondary_link.bridge">次要道路連接路</string>
-	<string name="type.highway.secondary_link.tunnel">次要道路連接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">隧道</string>
 	<string name="type.highway.service">輔助道路</string>
 	<string name="type.highway.service.area">輔助道路</string>
-	<string name="type.highway.service.bridge">輔助道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">橋</string>
 	<string name="type.highway.service.driveway">車道</string>
 	<string name="type.highway.service.parking_aisle">停車場通道</string>
-	<string name="type.highway.service.tunnel">輔助道路</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">隧道</string>
 	<string name="type.highway.services">服務區</string>
 	<string name="type.highway.speed_camera">測速照相機</string>
 	<string name="type.highway.steps">人行步道</string>
-	<string name="type.highway.steps.bridge">人行步道</string>
-	<string name="type.highway.steps.tunnel">人行步道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">隧道</string>
 	<string name="type.highway.tertiary">三级道路</string>
-	<string name="type.highway.tertiary.bridge">三级道路</string>
-	<string name="type.highway.tertiary.tunnel">三级道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">隧道</string>
 	<string name="type.highway.tertiary_link">三级道路連接路</string>
-	<string name="type.highway.tertiary_link.bridge">三级道路連接路</string>
-	<string name="type.highway.tertiary_link.tunnel">三级道路連接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">隧道</string>
 	<string name="type.highway.track">土路</string>
 	<string name="type.highway.track.area">土路</string>
-	<string name="type.highway.track.bridge">土路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">橋</string>
 	<string name="type.highway.track.grade1">土路</string>
 	<string name="type.highway.track.grade2">土路</string>
 	<string name="type.highway.track.grade3">土路</string>
@@ -997,18 +1053,25 @@
 	<string name="type.highway.track.grade5">土路</string>
 	<string name="type.highway.track.no.access">土路</string>
 	<string name="type.highway.track.permissive">土路</string>
-	<string name="type.highway.track.tunnel">土路</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">隧道</string>
 	<string name="type.highway.traffic_signals">紅綠燈</string>
 	<string name="type.highway.trunk">主幹道</string>
-	<string name="type.highway.trunk.bridge">主幹道</string>
-	<string name="type.highway.trunk.tunnel">主幹道</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">隧道</string>
 	<string name="type.highway.trunk_link">主幹道連接路</string>
-	<string name="type.highway.trunk_link.bridge">主幹道連接路</string>
-	<string name="type.highway.trunk_link.tunnel">主幹道連接路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">隧道</string>
 	<string name="type.highway.unclassified">道路</string>
 	<string name="type.highway.unclassified.area">道路</string>
-	<string name="type.highway.unclassified.bridge">道路</string>
-	<string name="type.highway.unclassified.tunnel">道路</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">橋</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">隧道</string>
 	<string name="type.area_highway.footway">人行步道</string>
 	<string name="type.area_highway.living_street">路</string>
 	<string name="type.area_highway.motorway">高速公路</string>

@@ -96,7 +96,8 @@ UNIT_TEST(ReaderStreamBuf)
   string const name = "test.txt";
 
   {
-    WriterStreamBuf buffer(new FileWriter(name));
+    FileWriter writer(name);
+    WriterStreamBuf buffer(writer);
     ostream s(&buffer);
     s << "hey!" << '\n' << 1 << '\n' << 3.14 << '\n' << 0x0102030405060708ull << endl;
   }

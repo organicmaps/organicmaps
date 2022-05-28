@@ -166,7 +166,8 @@ public:
     for (int i = scalesStart; i >= 0; --i)
     {
       int const level = m_header.GetScale(i);
-      if (fb.IsDrawableInRange(i > 0 ? m_header.GetScale(i - 1) + 1 : 0, PatchScaleBound(level)))
+      if (fb.IsDrawableInRange(scales::PatchMinDrawableScale(i > 0 ? m_header.GetScale(i - 1) + 1 : 0),
+                               scales::PatchMaxDrawableScale(level)))
       {
         bool const isCoast = fb.IsCoastCell();
         m2::RectD const rect = fb.GetLimitRect();

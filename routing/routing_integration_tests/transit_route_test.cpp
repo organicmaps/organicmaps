@@ -82,7 +82,7 @@ UNIT_TEST(Transit_Vatikan_NotEnoughGraphDataAtThenEnd)
                                   mercator::FromLatLon(41.89543, 12.41481), {0.0, 0.0},
                                   mercator::FromLatLon(41.89203, 12.46263));
 
-  // TODO (@gmoryes) here must be RouteNotFound.
+  /// @todo Returns valid route now with long pedestrian part in the end, I don't see problems here.
   TEST_EQUAL(routeResult.second, RouterResultCode::TransitRouteNotFoundTooLongPedestrian, ());
 }
 

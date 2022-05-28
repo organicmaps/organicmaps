@@ -2,6 +2,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
@@ -16,15 +17,15 @@ namespace
 {
 enum Type
 {
-  Line      =               1,
-  Area      = Line       << 1,
-  Symbol    = Area       << 1,
-  Caption   = Symbol     << 1,
-  Circle    = Caption    << 1,
-  PathText  = Circle     << 1,
-  Waymarker = PathText   << 1,
-  Shield    = Waymarker  << 1,
-  CountOfType = PathText + 1
+  Line      = 1 << 0,
+  Area      = 1 << 1,
+  Symbol    = 1 << 2,
+  Caption   = 1 << 3,
+  Circle    = 1 << 4,
+  PathText  = 1 << 5,
+  Waymarker = 1 << 6,
+  Shield    = 1 << 7,
+  CountOfType = Shield + 1
 };
 
 inline drule::rule_type_t Convert(Type t)
@@ -51,7 +52,7 @@ inline bool IsTypeOf(drule::Key const & key, int flags)
   int currentFlag = Line;
   while (currentFlag < CountOfType)
   {
-    Type type = Type(flags & currentFlag);
+    Type const type = Type(flags & currentFlag);
     if (type != 0 && key.m_type == Convert(type))
       return true;
 
@@ -61,15 +62,10 @@ inline bool IsTypeOf(drule::Key const & key, int flags)
   return false;
 }
 
-bool IsMiddleTunnel(int const layer, double const depth)
-{
-  return layer != feature::LAYER_EMPTY && depth < 19000;
-}
-
 class Aggregator
 {
 public:
-  Aggregator(FeatureType & f, feature::GeomType const type, int const zoomLevel, int const keyCount)
+  Aggregator(FeatureType & f, feature::GeomType const type, int const zoomLevel, size_t const keyCount)
     : m_pointStyleFound(false)
     , m_lineStyleFound(false)
     , m_auxCaptionFound(false)
@@ -108,11 +104,23 @@ private:
   void ProcessKey(drule::Key const & key)
   {
     double depth = key.m_priority;
-    if (IsMiddleTunnel(m_depthLayer, depth) && IsTypeOf(key, Line))
+    if (m_depthLayer != feature::LAYER_EMPTY)
     {
-      double const layerPart = m_depthLayer * drule::layer_base_priority;
-      double const depthPart = fmod(depth, drule::layer_base_priority);
-      depth = layerPart + depthPart;
+      if (IsTypeOf(key, Line))
+      {
+        double const layerPart = m_depthLayer * drule::layer_base_priority;
+        double const depthPart = fmod(depth, drule::layer_base_priority);
+        depth = layerPart + depthPart;
+      }
+      else if (IsTypeOf(key, Area))
+      {
+        // Area styles have big negative priorities (like -15000), so just add layer correction.
+        depth += m_depthLayer * drule::layer_base_priority;
+      }
+      else
+      {
+        /// @todo Take into account depth-layer for "point-styles". Like priority in OverlayHandle?
+      }
     }
 
     drule::BaseRule const * const dRule = drule::rules().Find(key);
@@ -130,15 +138,12 @@ private:
     if (lineRule != nullptr && (lineRule->width() < 1e-5 && !lineRule->has_pathsym()))
       return;
 
-    m_rules.emplace_back(std::make_pair(dRule, depth));
+    m_rules.push_back({ dRule, depth, key.m_hatching });
   }
 
   void Init()
   {
     m_depthLayer = m_f.GetLayer();
-    if (m_depthLayer == feature::LAYER_TRANSPARENT_TUNNEL)
-      m_depthLayer = feature::LAYER_EMPTY;
-
     if (m_geomType == feature::GeomType::Point)
       m_priorityModifier = (double)m_f.GetPopulation() / 7E9;
     else
@@ -154,17 +159,7 @@ private:
   double m_priorityModifier;
   int m_depthLayer;
 };
-
-uint8_t const CoastlineFlag  = 1;
-uint8_t const AreaStyleFlag  = 1 << 1;
-uint8_t const LineStyleFlag  = 1 << 2;
-uint8_t const PointStyleFlag = 1 << 3;
 }  // namespace
-
-IsBuildingHasPartsChecker::IsBuildingHasPartsChecker()
-{
-  m_types.push_back(classif().GetTypeByPath({"building", "has_parts"}));
-}
 
 IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
 {
@@ -180,10 +175,14 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int const zoom
                               feature::GeomType const type, drule::text_type_t const mainTextType,
                               bool const auxCaptionExists)
 {
+  feature::NameParamsOut out;
   if (auxCaptionExists || type == feature::GeomType::Line)
-    f.GetPreferredNames(true /* allowTranslit */, deviceLang, m_mainText, m_auxText);
+    f.GetPreferredNames(true /* allowTranslit */, deviceLang, out);
   else
-    f.GetReadableName(true /* allowTranslit */, deviceLang, m_mainText);
+    f.GetReadableName(true /* allowTranslit */, deviceLang, out);
+
+  m_mainText = out.GetPrimary();
+  m_auxText = out.secondary;
 
   // Set max text size to avoid VB/IB overflow in rendering.
   size_t constexpr kMaxTextSize = 200;
@@ -252,65 +251,14 @@ void CaptionDescription::ProcessMainTextType(drule::text_type_t const & mainText
   }
 }
 
-Stylist::Stylist()
-  : m_state(0)
-{}
-
-bool Stylist::IsCoastLine() const
-{
-  return (m_state & CoastlineFlag) != 0;
-}
-
-bool Stylist::AreaStyleExists() const
-{
-  return (m_state & AreaStyleFlag) != 0;
-}
-
-bool Stylist::LineStyleExists() const
-{
-  return (m_state & LineStyleFlag) != 0;
-}
-
-bool Stylist::PointStyleExists() const
-{
-  return (m_state & PointStyleFlag) != 0;
-}
-
 CaptionDescription const & Stylist::GetCaptionDescription() const
 {
   return m_captionDescriptor;
 }
 
-void Stylist::ForEachRule(Stylist::TRuleCallback const & fn) const
-{
-  typedef rules_t::const_iterator const_iter;
-  for (const_iter it = m_rules.begin(); it != m_rules.end(); ++it)
-    fn(*it);
-}
-
 bool Stylist::IsEmpty() const
 {
   return m_rules.empty();
-}
-
-void Stylist::RaiseCoastlineFlag()
-{
-  m_state |= CoastlineFlag;
-}
-
-void Stylist::RaiseAreaStyleFlag()
-{
-  m_state |= AreaStyleFlag;
-}
-
-void Stylist::RaiseLineStyleFlag()
-{
-  m_state |= LineStyleFlag;
-}
-
-void Stylist::RaisePointStyleFlag()
-{
-  m_state |= PointStyleFlag;
 }
 
 CaptionDescription & Stylist::GetCaptionDescriptionImpl()
@@ -326,8 +274,28 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
       !ftypes::IsBuildingChecker::Instance()(types))
     return false;
 
+  Classificator const & cl = classif();
+  auto const & hatchingChecker = IsHatchingTerritoryChecker::Instance();
+  auto const geomType = types.GetGeomType();
+
   drule::KeysT keys;
-  auto const geomType = feature::GetDrawRule(types, zoomLevel, keys);
+  size_t idx = 0;
+  for (uint32_t t : types)
+  {
+    cl.GetObject(t)->GetSuitable(zoomLevel, geomType, keys);
+
+    if (hatchingChecker(t))
+    {
+      while (idx < keys.size())
+      {
+        if (keys[idx].m_type == drule::area)
+          keys[idx].m_hatching = true;
+        ++idx;
+      }
+    }
+    else
+      idx = keys.size();
+  }
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
@@ -336,39 +304,36 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
 
   drule::MakeUnique(keys);
 
-  if (geomType.second)
-    s.RaiseCoastlineFlag();
+  s.m_isCoastline = types.Has(cl.GetCoastType());
 
-  auto const mainGeomType = feature::GeomType(geomType.first);
-
-  switch (mainGeomType)
+  switch (geomType)
   {
   case feature::GeomType::Point:
-    s.RaisePointStyleFlag();
+    s.m_pointStyleExists = true;
     break;
   case feature::GeomType::Line :
-    s.RaiseLineStyleFlag();
+    s.m_lineStyleExists = true;
     break;
   case feature::GeomType::Area :
-    s.RaiseAreaStyleFlag();
+    s.m_areaStyleExists = true;
     break;
   default:
     ASSERT(false, ());
     return false;
   }
 
-  Aggregator aggregator(f, mainGeomType, zoomLevel, static_cast<int>(keys.size()));
+  Aggregator aggregator(f, geomType, zoomLevel, keys.size());
   aggregator.AggregateKeys(keys);
 
   CaptionDescription & descr = s.GetCaptionDescriptionImpl();
-  descr.Init(f, deviceLang, zoomLevel, mainGeomType, aggregator.m_mainTextType, aggregator.m_auxCaptionFound);
+  descr.Init(f, deviceLang, zoomLevel, geomType, aggregator.m_mainTextType, aggregator.m_auxCaptionFound);
 
   aggregator.AggregateStyleFlags(keys, descr.IsNameExists());
 
   if (aggregator.m_pointStyleFound)
-    s.RaisePointStyleFlag();
+    s.m_pointStyleExists = true;
   if (aggregator.m_lineStyleFound)
-    s.RaiseLineStyleFlag();
+    s.m_lineStyleExists = true;
 
   s.m_rules.swap(aggregator.m_rules);
 
@@ -377,22 +342,20 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
 
 double GetFeaturePriority(FeatureType & f, int const zoomLevel)
 {
+  feature::TypesHolder types(f);
   drule::KeysT keys;
-  std::pair<int, bool> const geomType =
-      feature::GetDrawRule(feature::TypesHolder(f), zoomLevel, keys);
+  feature::GetDrawRule(types, zoomLevel, keys);
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
-  auto const mainGeomType = feature::GeomType(geomType.first);
-
-  Aggregator aggregator(f, mainGeomType, zoomLevel, static_cast<int>(keys.size()));
+  Aggregator aggregator(f, types.GetGeomType(), zoomLevel, keys.size());
   aggregator.AggregateKeys(keys);
 
   double maxPriority = kMinPriority;
   for (auto const & rule : aggregator.m_rules)
   {
-    if (rule.second > maxPriority)
-      maxPriority = rule.second;
+    if (rule.m_depth > maxPriority)
+      maxPriority = rule.m_depth;
   }
 
   return maxPriority;

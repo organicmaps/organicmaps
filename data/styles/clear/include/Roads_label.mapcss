@@ -180,8 +180,8 @@ line|z10-[highway=trunk_link],
 line|z10-[highway=primary],
 line|z10-[highway=primary_link],
 line|z12-[highway=secondary],
-line|z12-[highway=residential],
-line|z12-[highway=tertiary]
+line|z15-[highway=tertiary],
+line|z18-[highway=residential],
 {shield-font-size: 9;shield-text-color: @shield_text;shield-text-halo-radius: 0;shield-text-halo-color: @shield_text_halo;shield-color: @shield;shield-outline-radius: 1;shield-outline-color: @shield_outline;-x-me-icon-priority: 20000;}
 
 line|z10[highway=motorway],
@@ -251,7 +251,6 @@ line|z17[highway=trunk_link],
 line|z17[highway=primary],
 line|z17[highway=primary_link],
 line|z17[highway=secondary],
-line|z17[highway=residential],
 line|z17[highway=tertiary]
 {shield-font-size: 10;shield-min-distance: 300;-x-me-icon-priority: 75000;}
 line|z18[highway=motorway],
@@ -529,13 +528,13 @@ line|z17-[route=ferry_motorcar]
 /* line|z15-[highway=primary][hwtag=oneway]::arrows <-- не работает по типам магистралей */
 
 line|z15[hwtag=oneway]::arrows
-{pattern-offset: 80;pattern-image: arrow-xs.svg;pattern-spacing: 160;}
+{pattern-offset: 30;pattern-image: arrow-xs.svg;pattern-spacing: 60;}
 line|z16[hwtag=oneway]::arrows
-{pattern-offset: 120;pattern-image: arrow-s.svg;pattern-spacing: 160;}
+{pattern-offset: 50;pattern-image: arrow-s.svg;pattern-spacing: 70;}
 line|z17[hwtag=oneway]::arrows
-{pattern-offset: 160;pattern-image: arrow-s.svg;pattern-spacing: 200;}
+{pattern-offset: 70;pattern-image: arrow-s.svg;pattern-spacing: 80;}
 line|z18-[hwtag=oneway]::arrows
-{pattern-offset: 200;pattern-image: arrow-m.svg;pattern-spacing: 200;}
+{pattern-offset: 90;pattern-image: arrow-m.svg;pattern-spacing: 90;}
 
 /* 13.JUNCTION  */
 

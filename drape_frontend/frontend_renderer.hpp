@@ -150,6 +150,8 @@ public:
 
   drape_ptr<ScenarioManager> const & GetScenarioManager() const;
 
+  location::EMyPositionMode GetMyPositionMode() const { return m_myPositionController->GetCurrentMode(); }
+
 protected:
   void AcceptMessage(ref_ptr<Message> message) override;
   std::unique_ptr<threads::IRoutine> CreateRoutine() override;

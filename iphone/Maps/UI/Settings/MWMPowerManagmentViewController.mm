@@ -43,25 +43,11 @@ using namespace power_management;
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
 
   _selectedCell = selectedCell;
-  NSString * statisticValue = @"";
-  Scheme scheme = Scheme::None;
+  Scheme scheme = Scheme::Auto;
   if ([selectedCell isEqual:self.never])
-  {
-    statisticValue = @"never";
     scheme = Scheme::Normal;
-  }
   else if ([selectedCell isEqual:self.manualMax])
-  {
-    statisticValue = @"max";
     scheme = Scheme::EconomyMaximum;
-  }
-  else if ([selectedCell isEqual:self.automatic])
-  {
-    statisticValue = @"auto";
-    scheme = Scheme::Auto;
-  }
-  
-  CHECK_NOT_EQUAL(scheme, Scheme::None, ());
   
   GetFramework().GetPowerManager().SetScheme(scheme);
 }

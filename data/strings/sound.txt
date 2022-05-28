@@ -9,6 +9,7 @@
     de = Halten Sie sich rechts.
     el = Μείνετε δεξιά.
     es = Mantente a la derecha.
+    eu = Egon eskuinera.
     fa = به راست برانید.
     fi = Pysy oikealla.
     fr = Serrez à droite.
@@ -43,6 +44,7 @@
     de = Rechts abbiegen.
     el = Στρίψε δεξιά.
     es = Gire a la derecha.
+    eu = Biratu eskuinera.
     fa = به راست بپیچید.
     fi = Käänny oikealle.
     fr = Tournez à droite.
@@ -77,6 +79,7 @@
     de = Scharf rechts.
     el = Απότομα δεξιά.
     es = Gire bruscamente a la derecha.
+    eu = Eman bira itxia eskuinera.
     fa = منتها الیه سمت راست.
     fi = Jyrkkä oikea.
     fr = À droite toute.
@@ -111,6 +114,7 @@
     de = Fahren Sie in den Kreisverkehr ein.
     el = Μπείτε στην κυκλική διασταύρωση.
     es = Entre a la rotonda.
+    eu = Sartu biribilgunera.
     fa = به میدان وارد شوید.
     fi = Aja liikenneympyrään.
     fr = Prenez le rond-point.
@@ -145,6 +149,7 @@
     de = Aus dem Kreisverkehr ausfahren.
     el = Βγείτε από την κυκλική διασταύρωση.
     es = Salga de la rotonda.
+    eu = Irten biribilgunetik.
     fa = از میدان خارج شوید.
     fi = Poistu liikenneympyrästä.
     fr = Sortir du rond-point.
@@ -179,6 +184,7 @@
     de = Halten Sie sich links.
     el = Μείνετε αριστερά.
     es = Mantente a la izquierda.
+    eu = Egon ezkerrera.
     fa = به چپ برانید.
     fi = Pysy vasemmalla.
     fr = Serrez à gauche.
@@ -213,6 +219,7 @@
     de = Links abbiegen.
     el = Στρίψε αριστερά.
     es = Gire a la izquierda.
+    eu = Biratu ezkerrera.
     fa = به چپ بپیچید.
     fi = Käänny vasemmalle.
     fr = Tournez à gauche.
@@ -247,6 +254,7 @@
     de = Scharf links.
     el = Απότομα αριστερά.
     es = Gire bruscamente a la izquierda.
+    eu = Eman bira itxia ezkerrera.
     fa = منتها الیه سمت چپ.
     fi = Jyrkkä vasen.
     fr = À gauche toute.
@@ -281,6 +289,7 @@
     de = Wenden Sie.
     el = Κάντε στροφή 180 μοιρών.
     es = Cambie de sentido.
+    eu = Norabidea aldatu.
     fa = دور بزنید.
     fi = Tee U-käännös.
     fr = Faites demi-tour.
@@ -315,6 +324,7 @@
     de = Fahren Sie geradeaus.
     el = Συνεχίστε ευθεία.
     es = Continúe recto.
+    eu = Zuzen jarraitu.
     fa = مستقیم بروید.
     fi = Aja suoraan.
     fr = Continuez tout droit.
@@ -349,6 +359,7 @@
     de = Ausfahrt.
     el = Εξοδος.
     es = Salida.
+    eu = Irteera.
     fa = خروج.
     fi = Poistu.
     fr = Sortie.
@@ -383,6 +394,7 @@
     de = Werden Sie ankommen.
     el = Θα φτάσετε.
     es = Llegará a su destino.
+    eu = Zure helmugara iritsiko zara.
     fa = شما خواهید رسید.
     fi = Olet perillä.
     fr = Vous arriverez.
@@ -417,6 +429,7 @@
     de = Sie sind angekommen.
     el = Έχετε φτάσει.
     es = Ha llegado a su destino.
+    eu = Helmugara iritsi zara.
     fa = شما رسیده اید.
     fi = Olet saapunut.
     fr = Vous êtes arrivé.
@@ -451,6 +464,7 @@
     de = In fünfzig Metern
     el = Σε πενήντα μέτρα
     es = En cincuenta metros
+    eu = Berrogeita hamar metrotan
     fa = در پنجاه متری
     fi = Viidenkymmenen metrin päässä
     fr = Dans cinquante mètres
@@ -485,6 +499,7 @@
     de = In einhundert Metern
     el = Σε εκατό μέτρα
     es = En cien metros
+    eu = Ehun metrotan
     fa = در صد متری
     fi = Sadan metrin päässä
     fr = Dans cents mètres
@@ -519,6 +534,7 @@
     de = In zweihundert Metern
     el = Σε διακόσια μέτρα
     es = En doscientos metros
+    eu = Berrehun metrotan
     fa = در دویست و پنجاه متری
     fi = Kahdensadan metrin päässä
     fr = Dans deux cents mètres
@@ -553,6 +569,7 @@
     de = In zweihundertfünfzig Metern
     el = Σε διακόσια πενήντα μέτρα
     es = En doscientos cincuenta metros
+    eu = Berrehun eta berrogeita hamar metrotan
     fa = در دوصد و پنجاه متر
     fi = Kahdensadanviidenkymmenen metrin päässä
     fr = Dans deux cents cinquante mètres
@@ -587,6 +604,7 @@
     de = In dreihundert Metern
     el = Σε τριακόσια μέτρα
     es = En trescientos metros
+    eu = Hirurehun metrotan
     fa = در سیصد متری
     fi = Kolmensadan metrin päässä
     fr = Dans trois cents mètres
@@ -621,6 +639,7 @@
     de = In vierhundert Metern
     el = Σε τετρακόσια μέτρα
     es = En cuatrocientos metros
+    eu = Laurehun metrotan
     fa = در چهارصد متری
     fi = Neljänsadan metrin päässä
     fr = Dans quatre cents mètres
@@ -655,6 +674,7 @@
     de = In fünfhundert Metern
     el = Σε πεντακόσια μέτρα
     es = En quinientos metros
+    eu = Bostehun metrotan
     fa = در پانصد متری
     fi = Viidensadan metrin päässä
     fr = Dans cinq cents mètres
@@ -689,6 +709,7 @@
     de = In sechshundert Metern
     el = Σε εξακόσια μέτρα
     es = En seiscientos metros
+    eu = Seiehun metrotan
     fa = در ششصد متری
     fi = Kuudensadan metrin päässä
     fr = Dans six cents mètres
@@ -723,6 +744,7 @@
     de = In siebenhundert Metern
     el = Σε επτακόσια μέτρα
     es = En setecientos metros
+    eu = Zazpiehun metrotan
     fa = در هفتصد متری
     fi = Seitsemänsadan metrin päässä
     fr = Dans sept cents mètres
@@ -757,6 +779,7 @@
     de = In siebenhundertfünfzig Metern
     el = Σε επτακόσια πενήντα μέτρα
     es = En setecientos cincuenta metros
+    eu = Zazpiehun eta berrogeita hamar metrotan
     fa = در هفتصد و پنجاه متری
     fi = Seitsemänsadanviidenkymmenen metrin päässä
     fr = Dans sept cents cinquante mètres
@@ -791,6 +814,7 @@
     de = In achthundert Metern
     el = Σε οκτακόσια μέτρα
     es = En ochocientos metros
+    eu = Zortziehun metrotan
     fa = در هشتصد متری
     fi = Kahdeksansadan metrin päässä
     fr = Dans huit cents mètres
@@ -825,6 +849,7 @@
     de = In neunhundert Metern
     el = Σε εννιακόσια μέτρα
     es = En novecientos metros
+    eu = Bederatziehun metrotan
     fa = در نهصد متری
     fi = Yhdeksänsadan metrin päässä
     fr = Dans neuf cents mètres
@@ -859,6 +884,7 @@
     de = In einem Kilometer
     el = Σε ένα χιλιόμετρο
     es = En un kilómetro
+    eu = Kilometro batean
     fa = در یک کیلومتری
     fi = Yhden kilometrin päässä
     fr = Dans un kilomètre
@@ -893,6 +919,7 @@
     de = In anderthalb Kilometern
     el = Σε ενάμισυ χιλιόμετρο
     es = En un kilómetro y medio
+    eu = Kilometro eta erdian
     fa = در یک و نیم کیلومتری
     fi = Puolentoista kilomertin päässä
     fr = Dans un virgule cinq kilomètre
@@ -927,6 +954,7 @@
     de = In zwei Kilometern
     el = Σε δύο χιλιόμετρα
     es = En dos kilómetros
+    eu = Bi kilometrotan
     fa = در دو کیلومتری
     fi = Kahden kilometrin päässä
     fr = Dans deux kilomètres
@@ -961,6 +989,7 @@
     de = In zweieinhalb Kilometern
     el = Σε δυόμισι χιλιόμετρα
     es = En dos kilómetros y medio
+    eu = Bi kilometro eta erdian
     fa = در دو و نیم کیلومتری
     fi = Kahden ja puolen kilometrin päässä
     fr = Dans deux virgule cinq kilomètres
@@ -995,6 +1024,7 @@
     de = In drei Kilometern
     el = Σε τρία χιλιόμετρα
     es = En tres kilómetros
+    eu = Hiru kilometrotan
     fa = در سه کیلومتری
     fi = Kolmen kilometrin päässä
     fr = Dans trois kilomètres
@@ -1029,6 +1059,7 @@
     de = Danach
     el = Στη συνέχεια
     es = Después
+    eu = Gero
     fa = سپس
     fi = Sitten
     fr = Puis
@@ -1036,7 +1067,7 @@
     hr = Zatim
     hu = Majd
     id = Lalu.
-    it = Quindi
+    it = Poi
     ja = その先
     ko = 그 다음
     nl = Daarna
@@ -1063,6 +1094,7 @@
     de = Nehmen Sie die erste Ausfahrt.
     el = Πάρτε την πρώτη έξοδο.
     es = Tome la primera salida.
+    eu = Hartu lehen irteera.
     fa = اولین خروجی را داخل شوید
     fi = Poistu seuraavassa liittymässä.
     fr = Prenez la première sortie.
@@ -1097,6 +1129,7 @@
     de = Nehmen Sie die zweite Ausfahrt.
     el = Πάρτε τη δεύτερη έξοδο.
     es = Tome la segunda salida.
+    eu = Hartu bigarren irteera.
     fa = دومین خروجی را داخل شوید.
     fi = Poistu toisessa liittymässä.
     fr = Prenez la deuxième sortie.
@@ -1131,6 +1164,7 @@
     de = Nehmen Sie die dritte Ausfahrt.
     el = Πάρτε την τρίτη έξοδο.
     es = Tome la tercera salida.
+    eu = Hartu hirugarren irteera.
     fa = سومین خروجی را داخل شوید.
     fi = Poistu kolmannessa liittymässä.
     fr = Prenez la troisième sortie.
@@ -1165,6 +1199,7 @@
     de = Nehmen Sie die vierte Ausfahrt.
     el = Πάρτε την τέταρτη έξοδο.
     es = Tome la cuarta salida.
+    eu = Hartu laugarren irteera.
     fa = چهارمین خروجی را داخل شوید.
     fi = Poistu neljännessä liittymässä.
     fr = Prenez la quatrième sortie.
@@ -1199,6 +1234,7 @@
     de = Nehmen Sie die fünfte Ausfahrt.
     el = Πάρτε την πέμπτη έξοδο.
     es = Tome la quinta salida.
+    eu = Hartu bosgarren irteera.
     fa = پنجمین خروجی را داخل شوید.
     fi = Poistu viidennessä liittymässä.
     fr = Prenez la cinquième sortie.
@@ -1233,6 +1269,7 @@
     de = Nehmen Sie die sechste Ausfahrt.
     el = Πάρτε την έκτη έξοδο.
     es = Tome la sexta salida.
+    eu = Hartu seigarren irteera.
     fa = ششمین خروجی را داخل شوید.
     fi = Poistu kuudennessa liittymässä.
     fr = Prenez la sixième sortie.
@@ -1267,6 +1304,7 @@
     de = Nehmen Sie die siebte Ausfahrt.
     el = Πάρτε την έβδομη έξοδο.
     es = Tome la séptima salida.
+    eu = Hartu zazpigarren irteera.
     fa = هفتمین خروجی را داخل شوید.
     fi = Poistu seitsemännessä liittymässä.
     fr = Prenez la septième sortie.
@@ -1301,6 +1339,7 @@
     de = Nehmen Sie die achte Ausfahrt.
     el = Πάρτε την όγδοη έξοδο.
     es = Tome la octava salida.
+    eu = Hartu zortzigarren irteera.
     fa = هشتمین خروجی را داخل شوید.
     fi = Poistu kahdeksannessa liittymässä.
     fr = Prenez la huitième sortie.
@@ -1335,6 +1374,7 @@
     de = Nehmen Sie die neunte Ausfahrt.
     el = Πάρτε την ένατη έξοδο.
     es = Tome la novena salida.
+    eu = Hartu bederatzigarren irteera.
     fa = نهمین خروجی را داخل شوید.
     fi = Poistu yhdeksännessä liittymässä.
     fr = Prenez la neuvième sortie.
@@ -1369,6 +1409,7 @@
     de = Nehmen Sie die zehnte Ausfahrt.
     el = Πάρτε την δέκατη έξοδο.
     es = Tome la décima salida.
+    eu = Hartu hamargarren irteera.
     fa = دهمین خروجی را داخل شوید.
     fi = Poistu kymmenennessä liittymässä.
     fr = Prenez la dixième sortie.
@@ -1403,6 +1444,7 @@
     de = Nehmen Sie die elfte Ausfahrt.
     el = Πάρτε την ενδέκατη έξοδο.
     es = Tome la undécima salida.
+    eu = Hartu hamaikagarren irteera.
     fa = یازدهمین خروجی را داخل شوید.
     fi = Poistu yhdennessätoista liittymässä.
     fr = Prenez la onzième sortie.
@@ -1437,6 +1479,7 @@
     de = In fünfzig Fuß
     el = Σε πενήντα πόδια
     es = En cincuenta pies
+    eu = Berrogeita hamar oinetan
     fa = در پنجاه قدمی
     fi = Viidenkymmenen jalan päässä
     fr = Dans cinquante pieds
@@ -1471,6 +1514,7 @@
     de = In einhundert Fuß
     el = Σε εκατό πόδια
     es = En cien pies
+    eu = Ehun oinetan
     fa = در یک صد قدمی
     fi = Sadan jalan päässä
     fr = Dans cent pieds
@@ -1505,6 +1549,7 @@
     de = In zweihundert Fuß
     el = Σε διακόσια πόδια
     es = En doscientos pies
+    eu = Berrehun oinetan
     fa = در دویست قدمی
     fi = Kahdensadan jalan päässä
     fr = Dans deux cents pieds
@@ -1539,6 +1584,7 @@
     de = In dreihundert Fuß
     el = Στα τριακόσια πόδια
     es = En trescientos pies
+    eu = Hirurehun oinetan
     fa = در سیصد قدمی
     fi = Kolmensadan jalan päässä
     fr = Dans trois cents pieds
@@ -1573,6 +1619,7 @@
     de = In vierhundert Fuß
     el = Σε τετρακόσια πόδια
     es = En cuatrocientos pies
+    eu = Laurehun oinetan
     fa = در چهارصد قدمی
     fi = Neljänsadan jalan päässä
     fr = Dans quatre cents pieds
@@ -1607,6 +1654,7 @@
     de = In fünfhundert Fuß
     el = Σε πεντακόσια πόδια
     es = En quinientos pies
+    eu = Bostehun oinetan
     fa = در پانصد قدمی
     fi = Viidensadan jalan päässä
     fr = Dans cinq cents pieds
@@ -1641,6 +1689,7 @@
     de = In sechshundert Fuß
     el = Σε εξακόσια πόδια
     es = En seiscientos pies
+    eu = Seiehun oinetan
     fa = در ششصد قدمی
     fi = Kuudensadan jalan päässä
     fr = Dans six cents pieds
@@ -1675,6 +1724,7 @@
     de = In siebenhundert Fuß
     el = Σε επτακόσια πόδια
     es = En setecientos pies
+    eu = Zazpiehun oinetan
     fa = در هفتصد قدمی
     fi = Seitsemänsadan jalan päässä
     fr = Dans sept cents pieds
@@ -1709,6 +1759,7 @@
     de = In achthundert Fuß
     el = Σε οκτακόσια πόδια
     es = En ochocientos pies
+    eu = Zortziehun oinetan
     fa = در هشتصد قدمی
     fi = Kahdeksansadan jalan päässä
     fr = Dans huit cents pieds
@@ -1743,6 +1794,7 @@
     de = In neunhundert Fuß
     el = Σε εννιακόσια πόδια
     es = En novecientos pies
+    eu = Bederatziehun oinetan
     fa = در نه صد قدمی
     fi = Yhdeksänsadan jalan päässä
     fr = Dans neuf cents pieds
@@ -1777,6 +1829,7 @@
     de = In eintausend Fuß
     el = Σε χίλια πόδια
     es = En mil pies
+    eu = Mila oinetan
     fa = در یک هزار قدمی
     fi = Tuhannen jalan päässä
     fr = Dans mille pieds
@@ -1811,6 +1864,7 @@
     de = In eintausendfünfhundert Fuß
     el = Σε χίλια πεντακόσια πόδια
     es = En mil quinientos pies
+    eu = Mila bostehun oinetan
     fa = در یک هزار و پانصد قدمی
     fi = Tuhannenviidensadan jalan päässä
     fr = Dans mille cinq cents pieds
@@ -1845,6 +1899,7 @@
     de = In zweitausend Fuß
     el = Σε δύο χιλιάδες πόδια
     es = En dos mil pies
+    eu = Bi mila oinetan
     fa = در دو هزار قدمی
     fi = Kahdentuhannen jalan päässä
     fr = Dans deux mille pieds
@@ -1879,6 +1934,7 @@
     de = In zweitausendfünfhundert Fuß
     el = Σε δυόμισυ χιλιάδες πόδια
     es = En dos mil quinientos pies
+    eu = Bi mila bostehun oinetan
     fa = در پانصد و بیست قدمی
     fi = Kahdentuhannenviidensadan jalan päässä
     fr = Dans deux mille cinq cents pieds
@@ -1913,6 +1969,7 @@
     de = In dreitausend Fuß
     el = Σε τρεις χιλιάδες πόδια
     es = En tres mil pies
+    eu = Hiru mila oinetan
     fa = در سه هزار قدمی
     fi = Kolmentuhannen jalan päässä
     fr = Dans trois mille pieds
@@ -1947,6 +2004,7 @@
     de = In dreitausendfünfhundert Fuß
     el = Σε τρισύμιση χιλιάδες πόδια
     es = En tres mil quinientos pies
+    eu = Hiru mila bostehun oinetan
     fa = در سه هزار و پانصد قدمی
     fi = Kolmentuhannenviidensadan jalan päässä
     fr = Dans trois mille cinq cents pieds
@@ -1981,6 +2039,7 @@
     de = In viertausend Fuß
     el = Σε τέσσερις χιλιάδες πόδια
     es = En cuatro mil pies
+    eu = Lau mila oinetan
     fa = در چهار هزار قدمی
     fi = Neljäntuhannen jalan päässä
     fr = Dans quatre mille pieds
@@ -2015,6 +2074,7 @@
     de = In viertausendfünfhundert Fuß
     el = Σε τεσσερισήμισι χιλιάδες πόδια
     es = En cuatro mil quinientos pies
+    eu = Lau mila bostehun oinetan
     fa = در چهار هزار و پانصد قدمی
     fi = Neljäntuhannenviidensadan jalan päässä
     fr = Dans quatre mille cinq cents pieds
@@ -2049,6 +2109,7 @@
     de = In fünftausend Fuß
     el = Σε πέντε χιλιάδες πόδια
     es = En cinco mil pies
+    eu = Bost mila oinetan
     fa = در پنج هزار قدمی
     fi = Viidentuhannen jalan päässä
     fr = Dans cinq mille pieds
@@ -2083,6 +2144,7 @@
     de = In einer Meile
     el = Σε ένα μίλι
     es = En una milla
+    eu = Milia batean
     fa = در یک مایلی
     fi = Mailin päässä
     fr = Dans un mile
@@ -2117,6 +2179,7 @@
     de = In anderthalb Meilen
     el = Σε ενάμισυ μίλι
     es = En una milla y media
+    eu = Milia eta erdian
     fa = در یک و نیم مایلی
     fi = Puolentoista mailin päässä
     fr = Dans un virgule cinq mile
@@ -2151,6 +2214,7 @@
     de = In zwei Meilen
     el = Σε δύο μίλια
     es = En dos millas
+    eu = Bi miliaetan
     fa = در دو مایلی
     fi = Kahden mailin päässä
     fr = Dans deux miles
@@ -2185,6 +2249,7 @@
     de = Kamera vorne
     el = Κάμερα παρακάτω
     es = Cámara adelante
+    eu = Kamera aurrera
     es-MX = Cámara próxima
     fa = به دوربین نزدیک می شوید
     fi = Edessä on kamera

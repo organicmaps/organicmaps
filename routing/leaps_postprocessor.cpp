@@ -127,10 +127,7 @@ std::vector<Segment> LeapsPostProcessor::GetProcessedPath()
   {
     CHECK(m_path.begin() + prevIndex <= m_path.begin() + interval.m_left, ());
     output.insert(output.end(), m_path.begin() + prevIndex, m_path.begin() + interval.m_left);
-
-    auto leftIt = std::make_move_iterator(interval.m_path.begin());
-    auto rightIt = std::make_move_iterator(interval.m_path.end());
-    output.insert(output.end(), leftIt, rightIt);
+    output.insert(output.end(), interval.m_path.begin(), interval.m_path.end());
 
     prevIndex = interval.m_right + 1;
   }

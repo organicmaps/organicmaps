@@ -17,20 +17,18 @@
 	<string name="downloading">درحال دانلود</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">کیلومتر</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">نقشه ها</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">مگابایت</string>
 	<string name="gb">گیگابایت</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">مایل</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">مکان من</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">بعداً</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">جست‌وجو</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">جست‌وجوی نقشه</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">سرویس موقعیت مکانی شما غیر فعال است .لطفا جهت کارکرد صحیح نرم افزار ان را فعال کنید.</string>
@@ -44,8 +42,8 @@
 	<string name="close">بستن</string>
 	<string name="unsupported_phone">نیازمند است. متاسفانه دستگاه شما از ان پشتیبانی نمی کندOpenGLبرنامه برای اجرا به</string>
 	<string name="download">دانلود</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">لطفا مقداری از فضای ذخیره سازی را آزاد نمایید</string>
-	<string name="not_enough_memory">حافظه کافی برای اجرای برنامه وجود ندارد</string>
 	<string name="download_resources">قبل از استفاده از اپلیکیشن, اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم.\nمقدار %s از حافظه شما اشغال می شود.</string>
 	<string name="download_resources_continue">برو به نقشه</string>
 	<string name="downloading_country_can_proceed">درحال دانلود %s. شما اکنون می توانید\nبه نقشه بروید.</string>
@@ -77,6 +75,8 @@
 	<string name="maps_storage">ذخیره نقشه ها در</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">مسیری را که نقشه ها باید در ان دانلود شود را انتخاب کنید</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">نقشه ها</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">ایا نقشه ها جابه جا شود؟</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -123,6 +123,8 @@
 	<string name="post">صندوق پست</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">پلیس</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">وای فای</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">بازیافت</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -197,6 +199,8 @@
 	<string name="search_show_on_map">مشاهده بر روی نقشه</string>
 	<!-- Text in menu -->
 	<string name="website">وب سایت</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">ﺭﺎﺒﺧﺍ</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">بازخورد</string>
 	<!-- Text in menu -->
@@ -211,17 +215,16 @@
 	<string name="copyright">حق نشر و کپی رایت</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">گزارش خطا</string>
-	<!-- Search category -->
-	<string name="wifi">وای فای</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">اپدیت همه</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">لغو همه</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">دانلود شده</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">صف</string>
 	<string name="downloader_near_me_subtitle">نزدیک من</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">نقشه ها</string>
 	<string name="downloader_download_all_button">دانلود همه</string>
 	<string name="downloader_downloading">درحال دانلود:</string>
@@ -237,6 +240,8 @@
 	<string name="downloader_delete_map">حذف نقشه</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">به روز رسانی نقشه</string>
+	<!-- Preference title -->
+	<string name="google_play_services">خدمات Google Play</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">استفاده از Google Play Services برای تعیین موقعیت کنونی شما</string>
 	<!-- Text for routing error dialog -->
@@ -282,8 +287,6 @@
 	<string name="gray">خاکستری</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">خاکستری کبود</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">بلی</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">زمانی که مسیری را دنبال می کنید لطفا به یاد داشته باشید:</string>
@@ -442,6 +445,7 @@
 	<string name="kilometer">کیلومتر</string>
 	<string name="kilometers_per_hour">کیلومتربرساعت (km/h)</string>
 	<string name="mile">مایل</string>
+	<!-- A unit of measure -->
 	<string name="foot">فوت</string>
 	<string name="miles_per_hour">مایل بر ساعت (mph)</string>
 	<string name="hour">ساعت</string>
@@ -543,6 +547,7 @@
 	  <item quantity="one">%d رد</item>
 	  <item quantity="other">%d رد</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">تنظیمات ردیابی</string>
 	<string name="crash_reports">گزارش خرابی</string>
 	<string name="crash_reports_description">ما از داده‌های شما برای بهبود Organic Maps استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.</string>
@@ -592,6 +597,14 @@
 	<string name="avoid_toll_roads_placepage">اجتناب از جاده های دارای عوارض</string>
 	<string name="avoid_unpaved_roads_placepage">اجتناب از جاده های آسفالت نشده</string>
 	<string name="avoid_ferry_crossing_placepage">اجتناب از گذرگاه های کشتی</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">بله</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">خیر</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">بلی</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">خیر</string>
 	<string name="ok">موافقت کردن</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">مرتب سازی…</string>
@@ -789,34 +802,51 @@
 	<string name="type.healthcare.laboratory">ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ</string>
 
 	<!-- SECTION: Types: Roads -->
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">تونل</string>
 	<string name="type.highway.bus_stop">حمل و نقل</string>
 	<string name="type.highway.construction">جاده در دست ساخت است</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">تونل</string>
 	<string name="type.highway.footway">مسیر</string>
 	<string name="type.highway.footway.alpine_hiking">مسیر</string>
 	<string name="type.highway.footway.area">مسیر</string>
-	<string name="type.highway.footway.bridge">مسیر</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">پل</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">مسیر</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">مسیر</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">مسیر</string>
 	<string name="type.highway.footway.hiking">مسیر</string>
 	<string name="type.highway.footway.mountain_hiking">مسیر</string>
 	<string name="type.highway.footway.permissive">مسیر</string>
-	<string name="type.highway.footway.tunnel">مسیر</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">تونل</string>
 	<string name="type.highway.ford">گدار</string>
 	<string name="type.highway.living_street">جاده</string>
-	<string name="type.highway.living_street.bridge">جاده</string>
-	<string name="type.highway.living_street.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">تونل</string>
 	<string name="type.highway.motorway">جاده</string>
-	<string name="type.highway.motorway.bridge">جاده</string>
-	<string name="type.highway.motorway.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">تونل</string>
 	<string name="type.highway.motorway_junction">تقاطع</string>
 	<string name="type.highway.motorway_link">جاده</string>
-	<string name="type.highway.motorway_link.bridge">جاده</string>
-	<string name="type.highway.motorway_link.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">تونل</string>
 	<string name="type.highway.path">مسیر</string>
 	<string name="type.highway.path.alpine_hiking">مسیر</string>
 	<string name="type.highway.path.bicycle">مسیر</string>
-	<string name="type.highway.path.bridge">مسیر</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">پل</string>
 	<string name="type.highway.path.demanding_alpine_hiking">مسیر</string>
 	<string name="type.highway.path.demanding_mountain_hiking">مسیر</string>
 	<string name="type.highway.path.difficult_alpine_hiking">مسیر</string>
@@ -824,50 +854,74 @@
 	<string name="type.highway.path.horse">مسیر</string>
 	<string name="type.highway.path.mountain_hiking">مسیر</string>
 	<string name="type.highway.path.permissive">مسیر</string>
-	<string name="type.highway.path.tunnel">مسیر</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">تونل</string>
 	<string name="type.highway.pedestrian">جاده</string>
 	<string name="type.highway.pedestrian.area">جاده</string>
-	<string name="type.highway.pedestrian.bridge">جاده</string>
-	<string name="type.highway.pedestrian.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">تونل</string>
 	<string name="type.highway.primary">جاده</string>
-	<string name="type.highway.primary.bridge">جاده</string>
-	<string name="type.highway.primary.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">تونل</string>
 	<string name="type.highway.primary_link">جاده</string>
-	<string name="type.highway.primary_link.bridge">جاده</string>
-	<string name="type.highway.primary_link.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">تونل</string>
 	<string name="type.highway.raceway">کانال</string>
 	<string name="type.highway.residential">جاده</string>
 	<string name="type.highway.residential.area">جاده</string>
-	<string name="type.highway.residential.bridge">جاده</string>
-	<string name="type.highway.residential.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">تونل</string>
 	<string name="type.highway.road">جاده</string>
-	<string name="type.highway.road.bridge">جاده</string>
-	<string name="type.highway.road.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">تونل</string>
 	<string name="type.highway.secondary">جاده</string>
-	<string name="type.highway.secondary.bridge">جاده</string>
-	<string name="type.highway.secondary.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">تونل</string>
 	<string name="type.highway.secondary_link">جاده</string>
-	<string name="type.highway.secondary_link.bridge">جاده</string>
-	<string name="type.highway.secondary_link.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">تونل</string>
 	<string name="type.highway.service">جاده</string>
 	<string name="type.highway.service.area">جاده</string>
-	<string name="type.highway.service.bridge">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">پل</string>
 	<string name="type.highway.service.driveway">جاده</string>
 	<string name="type.highway.service.parking_aisle">جاده</string>
-	<string name="type.highway.service.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">تونل</string>
 	<string name="type.highway.speed_camera">دوربین سرعت سنج</string>
 	<string name="type.highway.steps">مسیر</string>
-	<string name="type.highway.steps.bridge">مسیر</string>
-	<string name="type.highway.steps.tunnel">مسیر</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">تونل</string>
 	<string name="type.highway.tertiary">جاده</string>
-	<string name="type.highway.tertiary.bridge">جاده</string>
-	<string name="type.highway.tertiary.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">تونل</string>
 	<string name="type.highway.tertiary_link">جاده</string>
-	<string name="type.highway.tertiary_link.bridge">جاده</string>
-	<string name="type.highway.tertiary_link.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">تونل</string>
 	<string name="type.highway.track">جاده</string>
 	<string name="type.highway.track.area">جاده</string>
-	<string name="type.highway.track.bridge">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">پل</string>
 	<string name="type.highway.track.grade1">جاده</string>
 	<string name="type.highway.track.grade2">جاده</string>
 	<string name="type.highway.track.grade3">جاده</string>
@@ -875,18 +929,25 @@
 	<string name="type.highway.track.grade5">جاده</string>
 	<string name="type.highway.track.no.access">جاده</string>
 	<string name="type.highway.track.permissive">جاده</string>
-	<string name="type.highway.track.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">تونل</string>
 	<string name="type.highway.traffic_signals">چراغ راهنما</string>
 	<string name="type.highway.trunk">جاده</string>
-	<string name="type.highway.trunk.bridge">جاده</string>
-	<string name="type.highway.trunk.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">تونل</string>
 	<string name="type.highway.trunk_link">جاده</string>
-	<string name="type.highway.trunk_link.bridge">جاده</string>
-	<string name="type.highway.trunk_link.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">تونل</string>
 	<string name="type.highway.unclassified">جاده</string>
 	<string name="type.highway.unclassified.area">جاده</string>
-	<string name="type.highway.unclassified.bridge">جاده</string>
-	<string name="type.highway.unclassified.tunnel">جاده</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">پل</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">تونل</string>
 	<string name="type.area_highway.footway">مسیر</string>
 	<string name="type.area_highway.living_street">جاده</string>
 	<string name="type.area_highway.motorway">جاده</string>

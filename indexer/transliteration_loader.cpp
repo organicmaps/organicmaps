@@ -5,6 +5,7 @@
 #include "coding/transliteration.hpp"
 #include "coding/zip_reader.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 
@@ -16,7 +17,7 @@ void InitTransliterationInstanceWithDefaultDirs()
 
 #if defined(OMIM_OS_ANDROID)
   char const kICUDataFile[] = "icudt70l.dat";
-  if (!pl.IsFileExistsByFullPath(pl.WritableDir() + kICUDataFile))
+  if (!pl.IsFileExistsByFullPath(base::JoinPath(pl.WritableDir(), kICUDataFile)))
   {
     try
     {

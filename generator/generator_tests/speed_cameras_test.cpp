@@ -20,6 +20,7 @@
 #include "routing_common/maxspeed_conversion.hpp"
 
 #include "indexer/classificator_loader.hpp"
+#include "indexer/features_offsets_table.hpp"
 #include "indexer/index_builder.hpp"
 #include "indexer/map_style_reader.hpp"
 
@@ -172,6 +173,7 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   GenerateInfo genInfo;
   genInfo.m_fileName = kTestMwm;
   genInfo.m_bucketNames.push_back(kTestMwm);
+  genInfo.m_cacheDir = testDirFullPath;
   genInfo.m_tmpDir = testDirFullPath;
   genInfo.m_targetDir = testDirFullPath;
   genInfo.m_intermediateDir = testDirFullPath;

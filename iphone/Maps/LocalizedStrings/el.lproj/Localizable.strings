@@ -26,13 +26,10 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Αφήστε μια κριτική";
 
-/* View and button titles for accessibility */
-"maps" = "Χάρτες";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Μίλια";
 
-/* View and button titles for accessibility */
+/* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Η θέση μου";
 
 /* Update maps later/Buy pro version later button text */
@@ -145,6 +142,9 @@
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Αστυνομία";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+"wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
 "recycling" = "Ανακύκλωση";
@@ -261,6 +261,9 @@
 /* Text in menu */
 "website" = "Ιστότοπος";
 
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Νέα";
+
 /* Text in menu */
 "github" = "GitHub";
 
@@ -312,13 +315,10 @@
 /* Settings item title */
 "pref_calibration_title" = "Βαθμονόμηση πυξίδας";
 
-/* Search category */
-"wifi" = "WiFi";
-
 /* Update all button text */
 "downloader_update_all_button" = "Ενημέρωση όλων";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Έγινε λήψη";
 
 /* Downloaded maps category */
@@ -329,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Κοντά μου";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Χάρτες";
 
 "downloader_download_all_button" = "Λήψη όλων";
@@ -418,9 +419,6 @@
 
 /* blue gray color */
 "blue_gray" = "Γκρίζο μπλε";
-
-/* Wi-Fi available */
-"WiFi_available" = "Ναι";
 
 
 /********** Routing dialogs strings **********/
@@ -743,6 +741,7 @@
 
 "mile" = "mi";
 
+/* A unit of measure */
 "foot" = "ft";
 
 "miles_per_hour" = "mph";
@@ -1025,9 +1024,17 @@
 
 "redirect_route_alert" = "Θα θέλατε να τροποποιήσετε τη διαδρομή;";
 
-"redirect_route_yes" = "Ναι";
+/* A generic "Yes" button in dialogs */
+"yes" = "Ναι";
 
-"redirect_route_no" = "Όχι";
+/* A generic "No" button in dialogs */
+"no" = "Όχι";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Ναι";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Όχι";
 
 "trip_finished" = "Έχετε φτάσει!";
 
@@ -1442,11 +1449,21 @@
 
 "type.amenity.vending_machine.cigarettes" = "Αυτόματος πωλητής τσιγάρων";
 
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Αυτόματος πωλητής ποτών";
+
+"type.amenity.vending_machine.food" = "Food Dispenser";
+
+"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Εισιτήρια στάθμευσης";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Μηχάνημα αυτόματης πώλησης εισιτηρίων για τα μέσα μαζικής μεταφοράς";
+
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
@@ -1601,6 +1618,8 @@
 "type.cuisine.brazilian" = "Βραζιλιάνικη";
 
 "type.cuisine.breakfast" = "Πρωινό";
+
+"type.cuisine.bubble_tea" = "Bubble Tea";
 
 "type.cuisine.burger" = "Μπιφτέκι";
 
@@ -1765,11 +1784,13 @@
 
 "type.highway.bridleway" = "Bridle Path";
 
-"type.highway.bridleway.bridge" = "Bridle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Γέφυρα";
 
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-"type.highway.bridleway.tunnel" = "Bridle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Σήραγγα";
 
 "type.highway.bus_stop" = "Στάση λεωφορείου";
 
@@ -1777,11 +1798,13 @@
 
 "type.highway.cycleway" = "Cycle Path";
 
-"type.highway.cycleway.bridge" = "Cycle Path";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Γέφυρα";
 
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-"type.highway.cycleway.tunnel" = "Cycle Path";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Σήραγγα";
 
 "type.highway.elevator" = "Elevator";
 
@@ -1791,7 +1814,8 @@
 
 "type.highway.footway.area" = "Διαδρομή";
 
-"type.highway.footway.bridge" = "Διαδρομή";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Γέφυρα";
 
 "type.highway.footway.demanding_alpine_hiking" = "Διαδρομή";
 
@@ -1805,29 +1829,36 @@
 
 "type.highway.footway.permissive" = "Διαδρομή";
 
-"type.highway.footway.tunnel" = "Διαδρομή";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Σήραγγα";
 
 "type.highway.ford" = "Πέρασμα";
 
 "type.highway.living_street" = "Οδός";
 
-"type.highway.living_street.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Γέφυρα";
 
-"type.highway.living_street.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Σήραγγα";
 
 "type.highway.motorway" = "Οδός";
 
-"type.highway.motorway.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Γέφυρα";
 
-"type.highway.motorway.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Σήραγγα";
 
 "type.highway.motorway_junction" = "Έξοδος";
 
 "type.highway.motorway_link" = "Οδός";
 
-"type.highway.motorway_link.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Γέφυρα";
 
-"type.highway.motorway_link.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Σήραγγα";
 
 "type.highway.path" = "Διαδρομή";
 
@@ -1835,7 +1866,8 @@
 
 "type.highway.path.bicycle" = "Διαδρομή";
 
-"type.highway.path.bridge" = "Διαδρομή";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Γέφυρα";
 
 "type.highway.path.demanding_alpine_hiking" = "Διαδρομή";
 
@@ -1851,27 +1883,34 @@
 
 "type.highway.path.permissive" = "Διαδρομή";
 
-"type.highway.path.tunnel" = "Διαδρομή";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Σήραγγα";
 
 "type.highway.pedestrian" = "Οδός";
 
 "type.highway.pedestrian.area" = "Οδός";
 
-"type.highway.pedestrian.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Γέφυρα";
 
-"type.highway.pedestrian.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Σήραγγα";
 
 "type.highway.primary" = "Οδός";
 
-"type.highway.primary.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Γέφυρα";
 
-"type.highway.primary.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Σήραγγα";
 
 "type.highway.primary_link" = "Οδός";
 
-"type.highway.primary_link.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Γέφυρα";
 
-"type.highway.primary_link.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Σήραγγα";
 
 "type.highway.raceway" = "Πίστα αγώνων";
 
@@ -1879,41 +1918,51 @@
 
 "type.highway.residential.area" = "Οδός";
 
-"type.highway.residential.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Γέφυρα";
 
-"type.highway.residential.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Σήραγγα";
 
 "type.highway.rest_area" = "Χώρος ανάπαυσης αυτοκινητιστών";
 
 "type.highway.road" = "Οδός";
 
-"type.highway.road.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Γέφυρα";
 
-"type.highway.road.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Σήραγγα";
 
 "type.highway.secondary" = "Οδός";
 
-"type.highway.secondary.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Γέφυρα";
 
-"type.highway.secondary.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Σήραγγα";
 
 "type.highway.secondary_link" = "Οδός";
 
-"type.highway.secondary_link.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Γέφυρα";
 
-"type.highway.secondary_link.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Σήραγγα";
 
 "type.highway.service" = "Οδός";
 
 "type.highway.service.area" = "Οδός";
 
-"type.highway.service.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Γέφυρα";
 
 "type.highway.service.driveway" = "Οδός";
 
 "type.highway.service.parking_aisle" = "Οδός";
 
-"type.highway.service.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Σήραγγα";
 
 "type.highway.services" = "Service Area";
 
@@ -1921,27 +1970,34 @@
 
 "type.highway.steps" = "Διαδρομή";
 
-"type.highway.steps.bridge" = "Διαδρομή";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Γέφυρα";
 
-"type.highway.steps.tunnel" = "Διαδρομή";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Σήραγγα";
 
 "type.highway.tertiary" = "Οδός";
 
-"type.highway.tertiary.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Γέφυρα";
 
-"type.highway.tertiary.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Σήραγγα";
 
 "type.highway.tertiary_link" = "Οδός";
 
-"type.highway.tertiary_link.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Γέφυρα";
 
-"type.highway.tertiary_link.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Σήραγγα";
 
 "type.highway.track" = "Οδός";
 
 "type.highway.track.area" = "Οδός";
 
-"type.highway.track.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Γέφυρα";
 
 "type.highway.track.grade1" = "Οδός";
 
@@ -1957,29 +2013,36 @@
 
 "type.highway.track.permissive" = "Οδός";
 
-"type.highway.track.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Σήραγγα";
 
 "type.highway.traffic_signals" = "Φανάρια κυκλοφορίας";
 
 "type.highway.trunk" = "Οδός";
 
-"type.highway.trunk.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Γέφυρα";
 
-"type.highway.trunk.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Σήραγγα";
 
 "type.highway.trunk_link" = "Οδός";
 
-"type.highway.trunk_link.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Γέφυρα";
 
-"type.highway.trunk_link.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Σήραγγα";
 
 "type.highway.unclassified" = "Οδός";
 
 "type.highway.unclassified.area" = "Οδός";
 
-"type.highway.unclassified.bridge" = "Οδός";
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Γέφυρα";
 
-"type.highway.unclassified.tunnel" = "Οδός";
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Σήραγγα";
 
 "type.area_highway.cycleway" = "Cycle Path";
 
@@ -2110,6 +2173,8 @@
 
 "type.landuse.construction" = "Construction";
 
+"type.landuse.education" = "Educational Facilities";
+
 "type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Αγροτική γη";
@@ -2235,6 +2300,8 @@
 "type.man_made.chimney" = "Καμινάδα εργοστασίου";
 
 "type.man_made.cutline" = "Cutline";
+
+"type.man_made.survey_point" = "Γεωδαιτικό σημείο";
 
 "type.man_made.flagpole" = "Flagpole";
 
@@ -2369,6 +2436,10 @@
 "type.office.ngo" = "Γραφείο ΜΚΟ";
 
 "type.office.telecommunication" = "Εταιρεία κινητής τηλεφωνίας";
+
+"type.organic.only" = "Organic";
+
+"type.organic.yes" = "Organic";
 
 "type.place" = "place";
 

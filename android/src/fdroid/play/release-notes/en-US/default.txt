@@ -1,1 +1,11 @@
-../../../../google/play/release-notes/en-US/default.txt
+• New OSM data as of May 15, 2022
+• Improved car and pedestrian directions
+• Improved cross-region routing
+• Fixed some pedestrian/bike/car routing issues
+• Improved SD-card storage setting
+• Fixed GPS search on start
+• Fixed accidental postion jumps near WiFi
+• Some performance optimizations
+• Fixed some translations
+• Added Marathi language
+• Added Devanagari font

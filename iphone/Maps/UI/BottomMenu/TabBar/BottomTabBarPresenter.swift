@@ -8,12 +8,9 @@ protocol BottomTabBarPresenterProtocol: AnyObject {
 }
 
 class BottomTabBarPresenter: NSObject {
-  private weak var view: BottomTabBarViewProtocol?
   private let interactor: BottomTabBarInteractorProtocol
   
-  init(view: BottomTabBarViewProtocol, 
-       interactor: BottomTabBarInteractorProtocol) {
-    self.view = view
+  init(interactor: BottomTabBarInteractorProtocol) {
     self.interactor = interactor
   }
 }

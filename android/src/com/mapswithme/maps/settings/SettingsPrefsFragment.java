@@ -1,6 +1,5 @@
 package com.mapswithme.maps.settings;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -51,8 +50,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 {
   private static final int REQUEST_INSTALL_DATA = 1;
 
-  @NonNull
-  private final StoragePathManager mPathManager = new StoragePathManager();
   @Nullable
   private Preference mStoragePref;
 
@@ -70,31 +67,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private final Map<String, LanguageData> mLanguages = new HashMap<>();
   private LanguageData mCurrentLanguage;
   private String mSelectedLanguage;
-
-  private boolean singleStorageOnly()
-  {
-    return !mPathManager.hasMoreThanOneStorage();
-  }
-
-  private void updateStoragePrefs()
-  {
-    Preference old = findPreference(getString(R.string.pref_storage));
-
-    if (singleStorageOnly())
-    {
-      if (old != null)
-      {
-        removePreference(getString(R.string.pref_settings_general), old);
-      }
-    }
-    else
-    {
-      if (old == null && mStoragePref != null)
-      {
-        getPreferenceScreen().addPreference(mStoragePref);
-      }
-    }
-  }
 
   private final Preference.OnPreferenceChangeListener mEnabledListener = new Preference.OnPreferenceChangeListener()
   {
@@ -285,7 +257,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     mLangInfo = findPreference(getString(R.string.pref_tts_info));
     mLangInfoLink = findPreference(getString(R.string.pref_tts_info_link));
     initLangInfoLink();
-    updateStoragePrefs();
     initStoragePrefCallbacks();
     initMeasureUnitsPrefsCallbacks();
     initZoomPrefsCallbacks();
@@ -818,31 +789,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       return;
 
     category.removePreference(preference);
-  }
-
-  @Override
-  public void onAttach(Context context)
-  {
-    super.onAttach(context);
-
-    if (!(context instanceof Activity))
-      return;
-
-    mPathManager.startExternalStorageWatching((Activity) context, new StoragePathManager.OnStorageListChangedListener()
-    {
-      @Override
-      public void onStorageListChanged(List<StorageItem> storageItems, int currentStorageIndex)
-      {
-        updateStoragePrefs();
-      }
-    }, null);
-  }
-
-  @Override
-  public void onDetach()
-  {
-    super.onDetach();
-    mPathManager.stopExternalStorageWatching();
   }
 
   enum ThemeMode

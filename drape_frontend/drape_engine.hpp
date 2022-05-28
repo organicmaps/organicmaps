@@ -59,7 +59,6 @@ public:
            double vs,
            double fontsScaleFactor,
            gui::TWidgetsInitInfo && info,
-           std::pair<location::EMyPositionMode, bool> const & initialMyPositionMode,
            location::TMyPositionModeChanged && myPositionModeChanged,
            bool allow3dBuildings,
            bool trafficEnabled,
@@ -80,7 +79,6 @@ public:
       , m_vs(vs)
       , m_fontsScaleFactor(fontsScaleFactor)
       , m_info(std::move(info))
-      , m_initialMyPositionMode(initialMyPositionMode)
       , m_myPositionModeChanged(std::move(myPositionModeChanged))
       , m_allow3dBuildings(allow3dBuildings)
       , m_trafficEnabled(trafficEnabled)
@@ -179,7 +177,7 @@ public:
                     FeatureID const & featureID, bool isAnim, bool isGeometrySelectionAllowed,
                     bool isSelectionShapeVisible);
   void DeselectObject();
-  
+
   dp::DrapeID AddSubroute(SubrouteConstPtr subroute);
   void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing);
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom,
@@ -207,7 +205,7 @@ public:
 
   void SetKineticScrollEnabled(bool enabled);
 
-  void OnEnterForeground(double backgroundTime);
+  void OnEnterForeground();
   void OnEnterBackground();
 
   using TRequestSymbolsSizeCallback = std::function<void(std::map<std::string, m2::PointF> &&)>;
@@ -233,12 +231,15 @@ public:
                    ScenarioManager::ScenarioCallback const & onStartFn,
                    ScenarioManager::ScenarioCallback const & onFinishFn);
 
-  // Custom features are features which we render different way.
-  // Value in the map shows if the feature is skipped in process of geometry generation.
-  // For all custom features (if they are overlays) statistics will be gathered.
+  /// @name Custom features are features that we render in a different way.
+  /// Value in the map shows if the feature is skipped in process of geometry generation.
+  /// For all custom features (if they are overlays) statistics will be gathered.
+  /// @todo Not used now, suspect that it was used for some Ads POIs.
+  /// @{
   void SetCustomFeatures(df::CustomFeatures && ids);
   void RemoveCustomFeatures(MwmSet::MwmId const & mwmId);
   void RemoveAllCustomFeatures();
+  /// @}
 
   void SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool enabled);
   void EnableDebugRectRendering(bool enabled);
@@ -249,6 +250,8 @@ public:
 
   void UpdateVisualScale(double vs, bool needStopRendering);
   void UpdateMyPositionRoutingOffset(bool useDefault, int offsetY);
+
+  location::EMyPositionMode GetMyPositionMode() const;
 
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);
@@ -290,6 +293,8 @@ private:
   bool m_kineticScrollEnabled = true;
 
   std::atomic<dp::DrapeID> m_drapeIdGenerator = 0;
+
+  double m_startBackgroundTime = 0;
 
   friend class DrapeApi;
 };

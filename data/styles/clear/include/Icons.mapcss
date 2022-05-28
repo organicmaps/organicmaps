@@ -159,8 +159,6 @@ node[amenity=casino],
 area[amenity=casino],
 node[shop=money_lender],
 area[shop=money_lender],
-node[amenity=kindergarten],
-area[amenity=kindergarten],
 node[amenity=childcare],
 area[amenity=childcare],
 node[amenity=post_office],
@@ -222,8 +220,6 @@ node[amenity=shelter],
 area[amenity=shelter],
 node[highway=rest_area],
 area[highway=rest_area],
-node[amenity=school],
-area[amenity=school],
 node[amenity=bicycle_rental],
 area[amenity=bicycle_rental],
 node[amenity=car_wash],
@@ -288,8 +284,6 @@ node[amenity=bank],
 area[amenity=bank],
 node[amenity=courthouse],
 area[amenity=courthouse],
-node[amenity=college],
-area[amenity=college],
 node[amenity=cinema],
 area[amenity=cinema],
 node[amenity=police],
@@ -426,12 +420,10 @@ node[historic=castle],
 area[historic=castle]
 {z-index: 2890;}
 
-node[amenity=hospital],
 node[building=hospital],
 area[building=hospital],
 node[building=university],
 area[building=university],
-area[amenity=hospital],
 node[amenity=pharmacy],
 area[amenity=pharmacy]
 {z-index: 2900;}
@@ -464,6 +456,7 @@ area[public_transport=station]
 
 node[railway=station],
 node[amenity=ferry_terminal],
+node[railway=subway_entrance][city=moscow],
 node[railway=station][transport=subway]
 {z-index: 2990;}
 
@@ -666,15 +659,9 @@ node|z14-[railway=station][transport=subway]::int_name,
 node|z16-[railway=subway_entrance]::int_name,
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;text-optional: true;}
 
-node|z12-[railway=station][transport=subway][city=moscow],
-node|z12-[railway=station][transport=subway][city=spb],
-node|z16-[railway=subway_entrance][city=moscow],
 node|z17-[railway=tram_stop],
 area|z17-[railway=tram_stop]
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;text-optional: true;}
-node|z12-[railway=station][transport=subway][city=moscow]::int_name,
-node|z12-[railway=station][transport=subway][city=spb]::int_name,
-node|z16-[railway=subway_entrance][city=moscow]::int_name,
 node|z17-[railway=tram_stop]::int_name,
 area|z17-[railway=tram_stop]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;text-optional: true;}
@@ -1163,8 +1150,8 @@ area|z14[amenity=community_centre]
 node|z15[amenity=community_centre],
 area|z15[amenity=community_centre]
 {icon-image: tourism-m.svg;icon-min-distance: 24;}
-node|z16[amenity=community_centre],
-area|z16[amenity=community_centre]
+node|z16-[amenity=community_centre],
+area|z16-[amenity=community_centre]
 {icon-image: tourism-m.svg;icon-min-distance: 16;}
 
 /* 4.2 Apartament */
@@ -1255,14 +1242,16 @@ area|z15-[tourism=camp_site]
 
 node|z16-[tourism=picnic_site],
 area|z16-[tourism=picnic_site],
-node|z16-[amenity=shelter],
-area|z16-[amenity=shelter],
 node|z16-[highway=rest_area],
 area|z16-[highway=rest_area]
 {icon-image: picnic-m.svg;icon-min-distance: 10;}
 node|z16-[leisure=picnic_table],
 area|z16-[leisure=picnic_table]
 {icon-image: picnic_table-m.svg;icon-min-distance: 10;}
+
+node|z16-[amenity=shelter],
+area|z16-[amenity=shelter]
+{icon-image: shelter-m.svg;icon-min-distance: 10;}
 
 node|z16[tourism=caravan_site],
 area|z16[tourism=caravan_site]
@@ -1389,6 +1378,9 @@ node|z16-[leisure=dog_park],
 area|z16-[leisure=dog_park],
 node|z16-[man_made=windmill],
 area|z16-[man_made=windmill],
+node|z16-[man_made=survey_point],
+node|z16-[amenity=college],
+area|z16-[amenity=college],
 node|z17-[amenity=pharmacy],
 area|z17-[amenity=pharmacy],
 node|z17-[amenity=clinic],
@@ -1413,8 +1405,6 @@ node|z17-[amenity=childcare],
 area|z17-[amenity=childcare],
 node|z17-[amenity=school],
 area|z17-[amenity=school],
-node|z17-[amenity=college],
-area|z17-[amenity=college],
 node|z17-[amenity=cinema],
 area|z17-[amenity=cinema],
 node|z17-[amenity=police],
@@ -1514,6 +1504,10 @@ area|z18-[shop=massage]
 
 /* 5.1 Hospital */
 
+area|z15-[amenity=hospital],
+node|z15-[amenity=hospital],
+{-x-me-text-priority:16000;}
+
 area|z14[amenity=hospital]
 {icon-image: hospital-s.svg;icon-min-distance: 8;}
 node|z15[amenity=hospital]
@@ -1588,9 +1582,15 @@ node|z18-[amenity=university][!name],
 area|z18-[amenity=university][!name]
 {}
 
+node|z16-[amenity=college],
+area|z16-[amenity=college]
+{icon-image: college-m.svg; -x-me-text-priority:16000;}
+node|z18-[amenity=college],
+area|z18-[amenity=college]
+{font-size: 11;text-optional: true;}
 node|z17-[amenity=kindergarten],
 area|z17-[amenity=kindergarten]
-{icon-image: kindergarten-m.svg;}
+{icon-image: kindergarten-m.svg; -x-me-text-priority:16000;}
 node|z18-[amenity=kindergarten],
 area|z18-[amenity=kindergarten]
 {font-size: 11;text-optional: true;}
@@ -1602,17 +1602,10 @@ area|z18-[amenity=childcare]
 {font-size: 11;text-optional: true;}
 node|z17-[amenity=school],
 area|z17-[amenity=school]
-{icon-image: school-m.svg;}
+{icon-image: school-m.svg; -x-me-text-priority:16000;}
 node|z18-[amenity=school],
 area|z18-[amenity=school]
 {font-size: 11;text-optional: true;}
-node|z17-[amenity=college],
-area|z17-[amenity=college]
-{icon-image: college-m.svg;}
-node|z18-[amenity=college],
-area|z18-[amenity=college]
-{font-size: 11;text-optional: true;}
-
 /* 5.3 Sport */
 
 node|z13-14[leisure=stadium]
@@ -2008,7 +2001,7 @@ area|z17-[aeroway=gate]
 {icon-image: gate-m.svg;font-size: 11;}
 node|z18-[aeroway=gate],
 area|z18-[aeroway=gate]
-{icon-image: gate-m.svg;tfont-size: 11;z-index: 24200;}/*check*/
+{icon-image: gate-m.svg;font-size: 11;z-index: 24200;}/*check*/
 
 node|z17-[amenity=bureau_de_change]
 {icon-image: banknote-m.svg;font-size: 11;text-optional: true;}
@@ -2058,8 +2051,8 @@ node|z18-[amenity=bbq],
 area|z18-[amenity=bbq]
 {icon-image: bbq-m.svg;font-size: 11;-x-me-text-priority:16000;text-optional: true;}
 
-node|z19-[man_made=survey_point]
-{icon-image: survey_point-m.svg;}
+node|z16-[man_made=survey_point]
+{icon-image: survey_point-m.svg;font-size: 11;text-optional: true;}
 
 /* 6. SHOP */
 

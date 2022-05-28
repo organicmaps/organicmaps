@@ -97,7 +97,9 @@ struct OsmElement
 
   std::vector<uint64_t> const & Nodes() const { return m_nodes; }
   std::vector<Member> const & Members() const { return m_members; }
+  std::vector<Member> & Members() { return m_members; }
   std::vector<Tag> const & Tags() const { return m_tags; }
+  std::vector<Tag> & Tags() { return m_tags; }
 
   bool IsNode() const { return m_type == EntityType::Node; }
   bool IsWay() const { return m_type == EntityType::Way; }

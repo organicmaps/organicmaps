@@ -132,7 +132,6 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
 
   m_isTablet = isTablet;
   m_resourcesDir = jni::ToNativeString(env, apkPath);
-  m_privateDir = jni::ToNativeString(env, privatePath);
   m_tmpDir = jni::ToNativeString(env, tmpPath);
   SetWritableDir(jni::ToNativeString(env, writablePath));
   LOG(LINFO, ("Apk path = ", m_resourcesDir));

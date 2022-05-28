@@ -243,9 +243,9 @@ UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
 
   // Set is used here because disputed territories may occur as leaves several times.
   set<CountryId> storageLeaves;
-  storage.ForEachInSubtree(storage.GetRootId(), [&](CountryId const & countryId, bool groupNode) {
-    if (!groupNode)
-      storageLeaves.insert(countryId);
+  storage.ForEachCountry([&](Country const & country)
+  {
+    storageLeaves.insert(country.Name());
   });
 
   TEST_EQUAL(countries.size(), storageLeaves.size(), ());
@@ -353,8 +353,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
         times[i] = t1 - t0;
       }
 
-      avgTimeByCountry[countryId] =
-          base::AverageStats<double>(times.begin(), times.end()).GetAverage();
+      avgTimeByCountry[countryId] = base::AverageStats<double>(times).GetAverage();
 
       if (longest.empty() || avgTimeByCountry[longest] < avgTimeByCountry[countryId])
         longest = countryId;
@@ -396,8 +395,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
         times[i] = t1 - t0;
       }
 
-      avgTimeByCountry[countryId] =
-          base::AverageStats<double>(times.begin(), times.end()).GetAverage();
+      avgTimeByCountry[countryId] = base::AverageStats<double>(times).GetAverage();
 
       if (longest.empty() || avgTimeByCountry[longest] < avgTimeByCountry[countryId])
         longest = countryId;

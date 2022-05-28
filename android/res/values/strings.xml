@@ -17,20 +17,18 @@
 	<string name="downloading">Downloading…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometers</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Maps</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<string name="gb">GB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Miles</string>
-	<!-- View and button titles for accessibility -->
+	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">My Position</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Later</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Search</string>
-	<!-- Search box placeholder text -->
+	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Search Map</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">You currently have all Location Services for this device or application disabled. Please enable them in Settings.</string>
@@ -44,9 +42,10 @@
 	<string name="close">Close</string>
 	<string name="unsupported_phone">The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.</string>
 	<string name="download">Download</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Please disconnect USB cable or insert memory card to use Organic Maps</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Please free up some space on the SD card/USB storage first in order to use the app</string>
-	<string name="not_enough_memory">Not enough memory to launch app</string>
 	<string name="download_resources">Before you start using the app, allow us to download the general world map to your device.\nIt will use %s of storage.</string>
 	<string name="download_resources_continue">Go to Map</string>
 	<string name="downloading_country_can_proceed">Downloading %s. You can now\nproceed to the map.</string>
@@ -80,8 +79,22 @@
 	<string name="maps_storage">Save maps to</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Select the place where maps should be downloaded to</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Downloaded maps</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Internal private storage</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Internal shared storage</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">SD card</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">External shared storage</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">%1$s free of %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Move maps?</string>
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">Error moving map files</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">This can take several minutes.\nPlease wait…</string>
 	<!-- Measurement units title in settings activity -->
@@ -126,6 +139,8 @@
 	<string name="post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Police</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
 	<string name="recycling">Recycling</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
@@ -213,6 +228,8 @@
 	<string name="search_show_on_map">View on map</string>
 	<!-- Text in menu -->
 	<string name="website">Website</string>
+	<!-- Text in About menu, opens Organic Maps news website -->
+	<string name="news">News</string>
 	<!-- Text in menu -->
 	<string name="github">GitHub</string>
 	<!-- Text in menu -->
@@ -245,17 +262,16 @@
 	<string name="copyright">Copyright</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Report a bug</string>
-	<!-- Search category -->
-	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Update All</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Cancel All</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Downloaded</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Queued</string>
 	<string name="downloader_near_me_subtitle">Near me</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Maps</string>
 	<string name="downloader_download_all_button">Download All</string>
 	<string name="downloader_downloading">Downloading:</string>
@@ -271,6 +287,8 @@
 	<string name="downloader_delete_map">Delete Map</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Update Map</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Google Play Services</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Use Google Play Services to determine your current location</string>
 	<!-- Text for routing error dialog -->
@@ -316,8 +334,6 @@
 	<string name="gray">Gray</string>
 	<!-- blue gray color -->
 	<string name="blue_gray">Blue Gray</string>
-	<!-- Wi-Fi available -->
-	<string name="WiFi_available">Yes</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">When following the route, please keep in mind:</string>
@@ -389,7 +405,7 @@
 	<string name="editor_example_values">Example Values</string>
 	<string name="editor_correct_mistake">Correct mistake</string>
 	<string name="editor_add_select_location">Location</string>
-	<string name="editor_report_problem_desription_1">Please describe the problem in detail so that the OpenStreeMap community can fix the error.</string>
+	<string name="editor_report_problem_desription_1">Please describe the problem in detail so that the OpenStreetMap community can fix the error.</string>
 	<string name="editor_report_problem_desription_2">Or do it yourself at https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Send</string>
 	<string name="editor_report_problem_title">Issue</string>
@@ -477,6 +493,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
+	<!-- A unit of measure -->
 	<string name="foot">ft</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
@@ -587,6 +604,7 @@
 	  <item quantity="one">%d track</item>
 	  <item quantity="other">%d tracks</item>
 	</plurals>
+	<!-- used to choose between the Google and Android location services -->
 	<string name="subtittle_opt_out">Tracking settings</string>
 	<string name="crash_reports">Crash report</string>
 	<string name="crash_reports_description">We may use your data to improve Organic Maps experience. Changes will take effect after you restart the app.</string>
@@ -636,6 +654,14 @@
 	<string name="avoid_toll_roads_placepage">Avoid toll roads</string>
 	<string name="avoid_unpaved_roads_placepage">Avoid unpaved roads</string>
 	<string name="avoid_ferry_crossing_placepage">Avoid ferry crossings</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Yes</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">No</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Yes</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">No</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sort…</string>
@@ -689,7 +715,13 @@
 	<string name="elevation_profile_time">Time:</string>
 	<string name="isolines_toast_zooms_1_10">Zoom in to explore isolines</string>
 	<string name="download_map_title">Download the world map</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">Unable to create folder and move files on internal device\'s memory or sdcard</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">Disk error</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Connection failure</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Disconnect USB cable</string>
 	<string name="enable_screen_sleep">Allow screen to sleep</string>
 	<!-- Description in preferences -->
@@ -825,9 +857,14 @@
 	<string name="type.amenity.university">University</string>
 	<string name="type.amenity.vending_machine">Vending Machine</string>
 	<string name="type.amenity.vending_machine.cigarettes">Cigarette Dispenser</string>
+	<string name="type.amenity.vending_machine.coffee">Coffee Dispenser</string>
+	<string name="type.amenity.vending_machine.condoms">Condoms Dispenser</string>
 	<string name="type.amenity.vending_machine.drinks">Drinks Dispenser</string>
+	<string name="type.amenity.vending_machine.food">Food Dispenser</string>
+	<string name="type.amenity.vending_machine.newspapers">Newspapers Dispenser</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parking Tickets</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Ticket Machine</string>
+	<string name="type.amenity.vending_machine.sweets">Sweets Dispenser</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Excrement Bags Dispenser</string>
 	<string name="type.amenity.parcel_locker">Parcel Locker</string>
 	<string name="type.amenity.vending_machine.fuel">Fuel Dispenser</string>
@@ -905,6 +942,7 @@
 	<string name="type.cuisine.beef_bowl">Beef Bowl</string>
 	<string name="type.cuisine.brazilian">Brazilian</string>
 	<string name="type.cuisine.breakfast">Breakfast</string>
+	<string name="type.cuisine.bubble_tea">Bubble Tea</string>
 	<string name="type.cuisine.burger">Burger</string>
 	<string name="type.cuisine.buschenschank">Buschenschank</string>
 	<string name="type.cuisine.cake">Cake</string>
@@ -987,42 +1025,55 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">Highway</string>
 	<string name="type.highway.bridleway">Bridle Path</string>
-	<string name="type.highway.bridleway.bridge">Bridle Path</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.bridleway.bridge">Bridge</string>
 	<string name="type.highway.bridleway.permissive">Bridle Path</string>
-	<string name="type.highway.bridleway.tunnel">Bridle Path</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.bridleway.tunnel">Tunnel</string>
 	<string name="type.highway.bus_stop">Bus Stop</string>
 	<string name="type.highway.construction">Road Under Construction</string>
 	<string name="type.highway.cycleway">Cycle Path</string>
-	<string name="type.highway.cycleway.bridge">Cycle Path</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.cycleway.bridge">Bridge</string>
 	<string name="type.highway.cycleway.permissive">Cycle Path</string>
-	<string name="type.highway.cycleway.tunnel">Cycle Path</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.cycleway.tunnel">Tunnel</string>
 	<string name="type.highway.elevator">Elevator</string>
 	<string name="type.highway.footway">Foot Path</string>
 	<string name="type.highway.footway.alpine_hiking">Path</string>
 	<string name="type.highway.footway.area">Pedestrian Zone</string>
-	<string name="type.highway.footway.bridge">Foot Path</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.footway.bridge">Pedestrian Bridge</string>
 	<string name="type.highway.footway.demanding_alpine_hiking">Path</string>
 	<string name="type.highway.footway.demanding_mountain_hiking">Path</string>
 	<string name="type.highway.footway.difficult_alpine_hiking">Path</string>
 	<string name="type.highway.footway.hiking">Path</string>
 	<string name="type.highway.footway.mountain_hiking">Path</string>
 	<string name="type.highway.footway.permissive">Foot Path</string>
-	<string name="type.highway.footway.tunnel">Foot Path</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.footway.tunnel">Pedestrian Tunnel</string>
 	<string name="type.highway.ford">Ford</string>
 	<string name="type.highway.living_street">Living Street</string>
-	<string name="type.highway.living_street.bridge">Living Street</string>
-	<string name="type.highway.living_street.tunnel">Living Street</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.living_street.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.living_street.tunnel">Tunnel</string>
 	<string name="type.highway.motorway">Motorway</string>
-	<string name="type.highway.motorway.bridge">Motorway</string>
-	<string name="type.highway.motorway.tunnel">Motorway</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway.bridge">Motorway Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway.tunnel">Motorway Tunnel</string>
 	<string name="type.highway.motorway_junction">Road Exit</string>
 	<string name="type.highway.motorway_link">Motorway Ramp</string>
-	<string name="type.highway.motorway_link.bridge">Motorway Ramp</string>
-	<string name="type.highway.motorway_link.tunnel">Motorway Ramp</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.motorway_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Path</string>
 	<string name="type.highway.path.alpine_hiking">Path</string>
 	<string name="type.highway.path.bicycle">Cycle &amp; Foot Path</string>
-	<string name="type.highway.path.bridge">Path</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.path.bridge">Bridge</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Path</string>
 	<string name="type.highway.path.demanding_mountain_hiking">Path</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Path</string>
@@ -1030,52 +1081,76 @@
 	<string name="type.highway.path.horse">Bridle Path</string>
 	<string name="type.highway.path.mountain_hiking">Path</string>
 	<string name="type.highway.path.permissive">Path</string>
-	<string name="type.highway.path.tunnel">Path</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Pedestrian Street</string>
 	<string name="type.highway.pedestrian.area">Pedestrian Zone</string>
-	<string name="type.highway.pedestrian.bridge">Pedestrian Street</string>
-	<string name="type.highway.pedestrian.tunnel">Pedestrian Street</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.pedestrian.bridge">Pedestrian Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.pedestrian.tunnel">Pedestrian Tunnel</string>
 	<string name="type.highway.primary">Primary Road</string>
-	<string name="type.highway.primary.bridge">Primary Road</string>
-	<string name="type.highway.primary.tunnel">Primary Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary.tunnel">Tunnel</string>
 	<string name="type.highway.primary_link">Primary Road Ramp</string>
-	<string name="type.highway.primary_link.bridge">Primary Road Ramp</string>
-	<string name="type.highway.primary_link.tunnel">Primary Road Ramp</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.primary_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.primary_link.tunnel">Tunnel</string>
 	<string name="type.highway.raceway">Racetrack</string>
 	<string name="type.highway.residential">Street</string>
 	<string name="type.highway.residential.area">Street</string>
-	<string name="type.highway.residential.bridge">Street</string>
-	<string name="type.highway.residential.tunnel">Street</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.residential.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.residential.tunnel">Tunnel</string>
 	<string name="type.highway.rest_area">Rest Area</string>
 	<string name="type.highway.road">Road</string>
-	<string name="type.highway.road.bridge">Road</string>
-	<string name="type.highway.road.tunnel">Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.road.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.road.tunnel">Tunnel</string>
 	<string name="type.highway.secondary">Secondary Road</string>
-	<string name="type.highway.secondary.bridge">Secondary Road</string>
-	<string name="type.highway.secondary.tunnel">Secondary Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary.tunnel">Tunnel</string>
 	<string name="type.highway.secondary_link">Secondary Road Ramp</string>
-	<string name="type.highway.secondary_link.bridge">Secondary Road Ramp</string>
-	<string name="type.highway.secondary_link.tunnel">Secondary Road Ramp</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.secondary_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.secondary_link.tunnel">Tunnel</string>
 	<string name="type.highway.service">Service Road</string>
 	<string name="type.highway.service.area">Service Road</string>
-	<string name="type.highway.service.bridge">Service Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.service.bridge">Bridge</string>
 	<string name="type.highway.service.driveway">Driveway</string>
 	<string name="type.highway.service.parking_aisle">Parking Aisle</string>
-	<string name="type.highway.service.tunnel">Service Road</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.service.tunnel">Tunnel</string>
 	<string name="type.highway.services">Service Area</string>
 	<string name="type.highway.speed_camera">Speed Camera</string>
 	<string name="type.highway.steps">Stairs</string>
-	<string name="type.highway.steps.bridge">Stairs</string>
-	<string name="type.highway.steps.tunnel">Stairs</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.steps.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.steps.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary">Tertiary Road</string>
-	<string name="type.highway.tertiary.bridge">Tertiary Road</string>
-	<string name="type.highway.tertiary.tunnel">Tertiary Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary.tunnel">Tunnel</string>
 	<string name="type.highway.tertiary_link">Tertiary Road Ramp</string>
-	<string name="type.highway.tertiary_link.bridge">Tertiary Road Ramp</string>
-	<string name="type.highway.tertiary_link.tunnel">Tertiary Road Ramp</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.tertiary_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.tertiary_link.tunnel">Tunnel</string>
 	<string name="type.highway.track">Track</string>
 	<string name="type.highway.track.area">Track</string>
-	<string name="type.highway.track.bridge">Track</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.track.bridge">Bridge</string>
 	<string name="type.highway.track.grade1">Track</string>
 	<string name="type.highway.track.grade2">Track</string>
 	<string name="type.highway.track.grade3">Track</string>
@@ -1083,18 +1158,25 @@
 	<string name="type.highway.track.grade5">Track</string>
 	<string name="type.highway.track.no.access">Track</string>
 	<string name="type.highway.track.permissive">Track</string>
-	<string name="type.highway.track.tunnel">Track</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Traffic Lights</string>
 	<string name="type.highway.trunk">National Highway</string>
-	<string name="type.highway.trunk.bridge">National Highway</string>
-	<string name="type.highway.trunk.tunnel">National Highway</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk.tunnel">Tunnel</string>
 	<string name="type.highway.trunk_link">National Highway Ramp</string>
-	<string name="type.highway.trunk_link.bridge">National Highway Ramp</string>
-	<string name="type.highway.trunk_link.tunnel">National Highway Ramp</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.trunk_link.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.trunk_link.tunnel">Tunnel</string>
 	<string name="type.highway.unclassified">Minor Road</string>
 	<string name="type.highway.unclassified.area">Minor Road</string>
-	<string name="type.highway.unclassified.bridge">Minor Road</string>
-	<string name="type.highway.unclassified.tunnel">Minor Road</string>
+	<!-- These translations are used for all type.highway.*.bridge. -->
+	<string name="type.highway.unclassified.bridge">Bridge</string>
+	<!-- These translations are used for all type.highway.*.tunnel. -->
+	<string name="type.highway.unclassified.tunnel">Tunnel</string>
 	<string name="type.area_highway.cycleway">Cycle Path</string>
 	<string name="type.area_highway.footway">Foot Path</string>
 	<string name="type.area_highway.living_street">Living Street</string>
@@ -1161,6 +1243,7 @@
 	<string name="type.landuse.churchyard">Churchyard</string>
 	<string name="type.landuse.commercial">Commercial Area</string>
 	<string name="type.landuse.construction">Construction</string>
+	<string name="type.landuse.education">Educational Facilities</string>
 	<string name="type.landuse.farm">Farm</string>
 	<string name="type.landuse.farmland">Farmland</string>
 	<string name="type.landuse.farmyard">Farmyard</string>
@@ -1224,6 +1307,7 @@
 	<string name="type.man_made.cairn">Cairn</string>
 	<string name="type.man_made.chimney">Factory Chimney</string>
 	<string name="type.man_made.cutline">Cutline</string>
+	<string name="type.man_made.survey_point">Survey Point</string>
 	<string name="type.man_made.flagpole">Flagpole</string>
 	<string name="type.man_made.lighthouse">Lighthouse</string>
 	<string name="type.man_made.mast">Mast</string>
@@ -1289,8 +1373,10 @@
 	<string name="type.office.government">Government Office</string>
 	<string name="type.office.insurance">Insurance Office</string>
 	<string name="type.office.lawyer">Lawyer</string>
-	<string name="type.office.ngo">NGO Office</string>
-	<string name="type.office.telecommunication">Mobile Operator</string>
+	<string name="type.office.ngo">Non-Governmental Organization</string>
+	<string name="type.office.telecommunication">Telecom Company</string>
+	<string name="type.organic.only">Organic</string>
+	<string name="type.organic.yes">Organic</string>
 	<string name="type.place">place</string>
 	<string name="type.place.city">City</string>
 	<string name="type.place.city.capital">Capital</string>
@@ -1437,7 +1523,7 @@
 	<string name="type.shop.confectionery">Sweets</string>
 	<string name="type.shop.convenience">Convenience Store</string>
 	<string name="type.shop.copyshop">Copy Shop</string>
-	<string name="type.shop.cosmetics">Beauty Care</string>
+	<string name="type.shop.cosmetics">Cosmetics</string>
 	<string name="type.shop.department_store">Department Store</string>
 	<string name="type.shop.doityourself">Hardware Store</string>
 	<string name="type.shop.dry_cleaning">Dry Cleaning</string>

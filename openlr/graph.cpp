@@ -38,8 +38,8 @@ void GetRegularEdges(geometry::PointWithAltitude const & junction, IRoadGraph co
 }
 }  // namespace
 
-Graph::Graph(DataSource const & dataSource, shared_ptr<CarModelFactory> carModelFactory)
-  : m_graph(dataSource, IRoadGraph::Mode::ObeyOnewayTag, carModelFactory)
+Graph::Graph(DataSource & dataSource, shared_ptr<CarModelFactory> carModelFactory)
+  : m_dataSource(dataSource, nullptr /* numMwmIDs */), m_graph(m_dataSource, IRoadGraph::Mode::ObeyOnewayTag, carModelFactory)
 {
 }
 

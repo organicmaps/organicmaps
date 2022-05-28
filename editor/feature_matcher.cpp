@@ -306,6 +306,6 @@ double ScoreTriangulatedGeometriesByPoints(vector<m2::PointD> const & lhs,
                                           return p1 < p2 && !p1.EqualDxDy(p2, mercator::kPointEqualityEps);
                                         }).GetCount();
 
-  return static_cast<double>(matched) / lhs.size();
+  return static_cast<double>(matched) / static_cast<double>(lhs.size());
 }
 }  // namespace matcher

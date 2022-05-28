@@ -32,7 +32,6 @@ public:
   Segment const & GetSegment(bool /* start */) const { return *this; }
   NumMwmId GetMwmId() const { return m_mwmId; }
   uint32_t GetFeatureId() const { return m_featureId; }
-  void SetFeatureId(uint32_t id) { m_featureId = id; }
   uint32_t GetSegmentIdx() const { return m_segmentIdx; }
   bool IsForward() const { return m_forward; }
 

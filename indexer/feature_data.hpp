@@ -43,14 +43,11 @@ namespace feature
 
   static constexpr int kMaxTypesCount = HEADER_MASK_TYPE + 1;
 
-  enum Layer
+  enum Layer : int8_t
   {
-    LAYER_LOW = -11,
-
+    LAYER_LOW = -10,
     LAYER_EMPTY = 0,
-    LAYER_TRANSPARENT_TUNNEL = 11,
-
-    LAYER_HIGH = 12
+    LAYER_HIGH = 10
   };
 
   class TypesHolder
@@ -62,32 +59,36 @@ namespace feature
     explicit TypesHolder(GeomType geomType) : m_geomType(geomType) {}
     explicit TypesHolder(FeatureType & f);
 
-    static TypesHolder FromTypesIndexes(std::vector<uint32_t> const & indexes);
-
     void Assign(uint32_t type)
     {
       m_types[0] = type;
       m_size = 1;
     }
 
-    /// Accumulation function.
+    template <class IterT> void Assign(IterT beg, IterT end)
+    {
+      m_size = std::distance(beg, end);
+      CHECK_LESS_OR_EQUAL(m_size, kMaxTypesCount, ());
+      std::copy(beg, end, m_types.begin());
+    }
+
     void Add(uint32_t type)
     {
-      ASSERT_LESS(m_size, kMaxTypesCount, ());
-      if (m_size < kMaxTypesCount)
-        m_types[m_size++] = type;
+      CHECK_LESS(m_size, kMaxTypesCount, ());
+      m_types[m_size++] = type;
     }
 
     GeomType GetGeomType() const { return m_geomType; }
 
     size_t Size() const { return m_size; }
     bool Empty() const { return (m_size == 0); }
-    Types::const_iterator cbegin() const { return m_types.cbegin(); }
-    Types::const_iterator cend() const { return m_types.cbegin() + m_size; }
-    Types::const_iterator begin() const { return m_types.cbegin(); }
-    Types::const_iterator end() const { return m_types.cbegin() + m_size; }
-    Types::iterator begin() { return m_types.begin(); }
-    Types::iterator end() { return m_types.begin() + m_size; }
+
+    auto cbegin() const { return m_types.cbegin(); }
+    auto cend() const { return m_types.cbegin() + m_size; }
+    auto begin() const { return m_types.cbegin(); }
+    auto end() const { return m_types.cbegin() + m_size; }
+    auto begin() { return m_types.begin(); }
+    auto end() { return m_types.begin() + m_size; }
 
     /// Assume that m_types is already sorted by SortBySpec function.
     uint32_t GetBestType() const
@@ -96,7 +97,7 @@ namespace feature
       return (m_size > 0 ? m_types[0] : 0);
     }
 
-    bool Has(uint32_t t) const { return std::find(begin(), end(), t) != end(); }
+    bool Has(uint32_t t) const { return base::IsExist(*this, t); }
 
     template <typename Fn>
     bool RemoveIf(Fn && fn)
@@ -114,8 +115,6 @@ namespace feature
     /// Sort types by it's specification (more detailed type goes first).
     void SortBySpec();
 
-    /// Returns true if this->m_types and other.m_types contain same values
-    /// in any order. Works in O(n log n).
     bool Equals(TypesHolder const & other) const;
 
     std::vector<std::string> ToObjectNames() const;
@@ -133,7 +132,6 @@ namespace feature
                           FeatureParamsBase const & params);
 }  // namespace feature
 
-/// Feature description struct.
 struct FeatureParamsBase
 {
   StringUtf8Multilang name;
@@ -142,7 +140,7 @@ struct FeatureParamsBase
   int8_t layer;
   uint8_t rank;
 
-  FeatureParamsBase() : layer(0), rank(0) {}
+  FeatureParamsBase() : layer(feature::LAYER_EMPTY), rank(0) {}
 
   void MakeZero();
 
@@ -222,7 +220,7 @@ public:
 
   void ClearName();
 
-  bool AddName(std::string const & lang, std::string const & s);
+  bool AddName(std::string_view lang, std::string_view s);
   bool AddHouseName(std::string const & s);
   bool AddHouseNumber(std::string houseNumber);
 
@@ -235,10 +233,6 @@ public:
   /// Special function to replace a regular railway station type with
   /// the special subway type for the correspondent city.
   void SetRwSubwayType(char const * cityName);
-
-  /// @param skipType2  Do not accumulate this type if skipType2 != 0.
-  /// '2' means 2-level type in classificator tree (also skip child types).
-  void AddTypes(FeatureParams const & rhs, uint32_t skipType2);
 
   bool FinishAddingTypes();
 

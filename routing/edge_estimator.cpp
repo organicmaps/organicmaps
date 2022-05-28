@@ -1,10 +1,12 @@
 #include "routing/edge_estimator.hpp"
+
+#include "routing/geometry.hpp"
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/routing_helpers.hpp"
+#include "routing/traffic_stash.hpp"
 
 #include "traffic/speed_groups.hpp"
-#include "traffic/traffic_info.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/point_with_altitude.hpp"
@@ -14,6 +16,8 @@
 #include <algorithm>
 #include <unordered_map>
 
+namespace routing
+{
 using namespace routing;
 using namespace std;
 using namespace traffic;
@@ -67,8 +71,6 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
 }
 }  // namespace
 
-namespace routing
-{
 double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
                                  geometry::Altitude altitudeM)
 {
@@ -117,11 +119,11 @@ double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangen
 
 // EdgeEstimator -----------------------------------------------------------------------------------
 EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
-                             DataSource * /*dataSourcePtr*/, std::shared_ptr<NumMwmIds> numMwmIds)
+                             DataSource * /*dataSourcePtr*/, std::shared_ptr<NumMwmIds> /*numMwmIds*/)
   : m_maxWeightSpeedMpS(KMPH2MPS(maxWeightSpeedKMpH))
   , m_offroadSpeedKMpH(offroadSpeedKMpH)
   //, m_dataSourcePtr(dataSourcePtr)
-  , m_numMwmIds(numMwmIds)
+  //, m_numMwmIds(numMwmIds)
 {
   CHECK_GREATER(m_offroadSpeedKMpH.m_weight, 0.0, ());
   CHECK_GREATER(m_offroadSpeedKMpH.m_eta, 0.0, ());
@@ -143,8 +145,10 @@ double EdgeEstimator::ComputeDefaultLeapWeightSpeed() const
 
   /// @todo By VNG: Current m_maxWeightSpeedMpS is > 120 km/h, so estimating speed was > 60km/h
   /// for start/end fake edges by straight line! I strongly believe that this is very! optimistic.
-  /// Set factor to 2.5, see a good example here https://github.com/organicmaps/organicmaps/issues/1071.
-  return m_maxWeightSpeedMpS / 2.5;
+  /// Set factor to 2.15:
+  /// - lower bound Russia_MoscowDesnogorsk (https://github.com/organicmaps/organicmaps/issues/1071)
+  /// - upper bound RussiaSmolenskRussiaMoscowTimeTest
+  return m_maxWeightSpeedMpS / 2.15;
 }
 
 /*

@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -127,6 +128,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private RecyclerView mFullWeekOpeningHours;
   private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
   private View mWifi;
+  private TextView mTvWiFi;
   private View mEmail;
   private TextView mTvEmail;
   private View mOperator;
@@ -370,6 +372,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mOpeningHoursAdapter = new PlaceOpeningHoursAdapter();
     mFullWeekOpeningHours.setAdapter(mOpeningHoursAdapter);
     mWifi = findViewById(R.id.ll__place_wifi);
+    mTvWiFi = findViewById(R.id.tv__place_wifi);
     mEmail = findViewById(R.id.ll__place_email);
     mEmail.setOnClickListener(this);
     mTvEmail = findViewById(R.id.tv__place_email);
@@ -401,7 +404,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mWvBookmarkNote = mBookmarkFrame.findViewById(R.id.wv__bookmark_notes);
     final WebSettings settings = mWvBookmarkNote.getSettings();
     settings.setJavaScriptEnabled(false);
-    settings.setDefaultTextEncodingName("utf-8");
+    settings.setDefaultTextEncodingName("UTF-8");
     mTvBookmarkNote = mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
     mTvBookmarkNote.setOnLongClickListener(this);
     initEditMapObjectBtn();
@@ -847,7 +850,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedCuisine(), mCuisine, mTvCuisine);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, null);
-    refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
+    refreshWiFi(mapObject);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours(mapObject);
     refreshSocialLinks(mapObject);
@@ -918,7 +921,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
     }
 
     // Show whole week time table.
-    mOpeningHoursAdapter.setTimetables(timetables);
+    Locale locale = getResources().getConfiguration().locale;
+    int firstDayOfWeek = Calendar.getInstance(locale).getFirstDayOfWeek();
+    mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
     UiUtils.show(mFullWeekOpeningHours);
 
     // Show today's open time + non-business time.
@@ -963,6 +968,19 @@ public class PlacePageView extends NestedScrollViewClickFixed
       UiUtils.clearTextAndHide(mTodayNonBusinessTime);
     else
       UiUtils.setTextAndShow(mTodayNonBusinessTime, TimeFormatUtils.formatNonBusinessTime(closedTimespans, hoursClosedLabel));
+  }
+
+  private void refreshWiFi(@NonNull MapObject mapObject)
+  {
+    final String inet = mapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET);
+    if (!TextUtils.isEmpty(inet))
+    {
+      mWifi.setVisibility(View.VISIBLE);
+      /// @todo Better (but harder) to wrap C++ osm::Internet into Java, instead of comparing with "no".
+      mTvWiFi.setText(TextUtils.equals(inet, "no") ? R.string.no_available : R.string.yes_available);
+    }
+    else
+      mWifi.setVisibility(View.GONE);
   }
 
   private void refreshSocialLinks(@NonNull MapObject mapObject)
@@ -1071,7 +1089,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     if (StringUtils.nativeIsHtml(notes))
     {
-      mWvBookmarkNote.loadData(notes, Utils.TEXT_HTML, Utils.UTF_8);
+      // According to loadData documentation, HTML should be either base64 or percent encoded.
+      // Default UTF-8 encoding for all content is set above in WebSettings.
+      final String b64encoded = Base64.encodeToString(notes.getBytes(), Base64.DEFAULT);
+      mWvBookmarkNote.loadData(b64encoded, Utils.TEXT_HTML, "base64");
       UiUtils.show(mWvBookmarkNote);
       UiUtils.hide(mTvBookmarkNote);
     }

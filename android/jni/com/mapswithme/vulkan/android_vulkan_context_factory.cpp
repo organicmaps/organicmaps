@@ -25,7 +25,7 @@ public:
   DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
                     VkPhysicalDeviceProperties const & gpuProperties, VkDevice device,
                     uint32_t renderingQueueFamilyIndex,
-                    ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, int appVersionCode,
+                    ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, uint32_t appVersionCode,
                     bool hasPartialTextureUpdates)
     : dp::vulkan::VulkanBaseContext(
           vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex, objectManager,
@@ -86,7 +86,7 @@ public:
 };
 }  // namespace
 
-AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode, int sdkVersion)
+AndroidVulkanContextFactory::AndroidVulkanContextFactory(uint32_t appVersionCode, int sdkVersion)
 {
   if (InitVulkan() == 0)
   {
@@ -98,8 +98,8 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode, int
   appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
   appInfo.pNext = nullptr;
   appInfo.apiVersion = VK_MAKE_VERSION(1, 0, 0);
-  appInfo.applicationVersion = static_cast<uint32_t>(appVersionCode);
-  appInfo.engineVersion = static_cast<uint32_t>(appVersionCode);
+  appInfo.applicationVersion = appVersionCode;
+  appInfo.engineVersion = appVersionCode;
   appInfo.pApplicationName = "OMaps";
   appInfo.pEngineName = "Drape Engine";
 

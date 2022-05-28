@@ -39,13 +39,11 @@
 #include <tuple>
 #include <utility>
 
+namespace integration
+{
 using namespace routing;
 using namespace routing_test;
 using namespace std;
-
-using TRouterFactory =
-    function<unique_ptr<IRouter>(DataSource & dataSource, TCountryFileFn const & countryFileFn,
-                                 shared_ptr<NumMwmIds> numMwmIds)>;
 
 namespace
 {
@@ -53,8 +51,6 @@ double constexpr kErrorMeters = 1.0;
 double constexpr kErrorSeconds = 1.0;
 }  // namespace
 
-namespace integration
-{
 shared_ptr<FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile> const & localFiles)
 {
   size_t const maxOpenFileNumber = 4096;
@@ -118,8 +114,15 @@ unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
 
 void GetAllLocalFiles(vector<LocalCountryFile> & localFiles)
 {
-  platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */,
-                                       localFiles);
+  platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */, localFiles);
+
+  // Leave only real country files for routing test.
+  localFiles.erase(std::remove_if(localFiles.begin(), localFiles.end(), [](LocalCountryFile const & file)
+  {
+    auto const & name = file.GetCountryName();
+    return name == WORLD_FILE_NAME || name == WORLD_COASTS_FILE_NAME;
+  }), localFiles.end());
+
   for (auto & file : localFiles)
     file.SyncWithDisk();
 }
@@ -294,7 +297,10 @@ TestTurn GetNthTurn(routing::Route const & route, uint32_t turnNumber)
   vector<turns::TurnItem> turns;
   route.GetTurnsForTesting(turns);
   if (turnNumber >= turns.size())
+  {
+    ASSERT(false, ());
     return TestTurn();
+  }
 
   TurnItem const & turn = turns[turnNumber];
   return TestTurn(route.GetPoly().GetPoint(turn.m_index), turn.m_turn, turn.m_exitNum);
