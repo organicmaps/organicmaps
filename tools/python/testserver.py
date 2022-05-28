@@ -29,8 +29,8 @@ same name as ours. If we don't someone else will kill us.
 
 from __future__ import print_function
 
-from BaseHTTPServer import BaseHTTPRequestHandler
-from BaseHTTPServer import HTTPServer
+from http.server import BaseHTTPRequestHandler
+from http.server import HTTPServer
 from ResponseProvider import Payload
 from ResponseProvider import ResponseProvider
 from ResponseProvider import ResponseProviderMixin
@@ -184,7 +184,7 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
         headers = self.prepare_headers()
         payload = self.response_provider.response_for_url_and_headers(self.path, headers)
         if payload.response_code() >= 300:
-            length = int(self.headers.getheader('content-length'))
+            length = int(self.headers.get('content-length'))
             self.dispatch_response(Payload(self.rfile.read(length)))
         else:
             self.dispatch_response(payload)

@@ -4,7 +4,7 @@ import logging
 
 import os
 import re
-import urllib2
+import urllib3
 import socket
 from subprocess import Popen, PIPE
 from time import sleep
@@ -12,6 +12,9 @@ import sys
 
 
 import logging
+
+from urllib3.exceptions import HTTPError
+
 
 class SiblingKiller:
     
@@ -62,7 +65,7 @@ class SiblingKiller:
                 serving_pid = self.serving_process_id()
                 if serving_pid:
                     logging.debug("There is a serving sibling with process id: {}".format(serving_pid))
-                    self.kill(pids=map(lambda x: x != serving_pid, sibs))
+                    self.kill(pids=list(map(lambda x: x != serving_pid, sibs)))
                     self.__allow_serving = False
                     return
             else:
@@ -111,10 +114,10 @@ class SiblingKiller:
 
     def process_using_port(self, port):
         lsof = lambda x : (self.exec_command("lsof -a -p{process} -i4".format(process=str(x))), x) #ignore the return code
-        listenning_on_port = lambda (info_line, id) : info_line and info_line.endswith("(LISTEN)") and str(port) in info_line
-        ids = lambda (info_line, id) : id
+        listenning_on_port = lambda info_line, id : info_line and info_line.endswith("(LISTEN)") and str(port) in info_line
+        ids = lambda info_line, id : id
 
-        listening_process = map(ids, filter(listenning_on_port, map(lsof, self.all_pids)))
+        listening_process = list(map(ids, filter(listenning_on_port, map(lsof, self.all_pids))))
         
         if len(listening_process) > 1:
             pass
@@ -149,9 +152,10 @@ class SiblingKiller:
     def ping(self):
         html = str()
         try:
-            response = urllib2.urlopen('http://localhost:{port}/ping'.format(port=self.port), timeout=self.ping_timeout);
+            http = urllib3.PoolManager(timeout=self.ping_timeout)
+            response = http.request('GET', 'http://localhost:{port}/ping'.format(port=self.port))
             html = response.read()
-        except (urllib2.URLError, socket.timeout):
+        except (HTTPError, socket.timeout):
             pass
 
         logging.debug("Pinging returned html: {}".format(html))
@@ -160,9 +164,9 @@ class SiblingKiller:
 
 
     def serving_process_id(self):
-        resp = str()
         try:
-            response = urllib2.urlopen('http://localhost:{port}/id'.format(port=self.port), timeout=self.ping_timeout);
+            http = urllib3.PoolManager(timeout=self.ping_timeout)
+            response = http.request('GET', 'http://localhost:{port}/id'.format(port=self.port))
             resp = response.read()
             id = int(resp)
             return id

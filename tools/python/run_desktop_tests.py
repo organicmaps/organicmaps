@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 """
 This script is mainly for running autotests on the build server, however, it
@@ -24,9 +24,12 @@ from random import shuffle
 import random
 import socket
 import subprocess
+
+from urllib3.exceptions import HTTPError
+
 import testserver
 import time
-import urllib2
+import urllib3
 
 import logging
 
@@ -79,7 +82,7 @@ class TestRunner:
         self.boost_tests = options.boost_tests
 
         if self.runlist:
-            logging.warn("-i or -b option found, the -e option will be ignored")
+            logging.warning("-i or -b option found, the -e option will be ignored")
 
         self.workspace_path = options.folder
         self.data_path = (" --data_path={0}".format(options.data_path) if options.data_path else "")
@@ -98,8 +101,9 @@ class TestRunner:
         if self.keep_alive:
             return
         try:
-            urllib2.urlopen('http://localhost:{port}/kill'.format(port=PORT), timeout=5)
-        except (urllib2.URLError, socket.timeout):
+            http = urllib3.PoolManager(timeout=5)
+            http.request('GET', 'http://localhost:{port}/kill'.format(port=PORT), timeout=5)
+        except (HTTPError, socket.timeout):
             logging.info("Failed to stop the server...")
 
     def categorize_tests(self):
@@ -118,7 +122,7 @@ class TestRunner:
             not_found = filter(not_on_disk, self.skiplist)
             tests_to_run = filter(lambda x: x not in local_skiplist, test_files_in_dir)
         else:
-            tests_to_run = filter(on_disk, self.runlist)
+            tests_to_run = list(filter(on_disk, self.runlist))
             shuffle(tests_to_run)
 
             not_found = filter(not_on_disk, self.runlist)
