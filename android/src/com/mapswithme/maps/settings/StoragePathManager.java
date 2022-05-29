@@ -32,6 +32,7 @@ public class StoragePathManager
 {
   static final String TAG = StoragePathManager.class.getName();
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
+  private static final String DATA_FILE_EXT = Framework.nativeGetDataFileExt();
   private static final String[] MOVABLE_EXTS = Framework.nativeGetMovableFilesExts();
   static final FilenameFilter MOVABLE_FILES_FILTER = (dir, filename) -> {
     for (String ext : MOVABLE_EXTS)
@@ -291,34 +292,11 @@ public class StoragePathManager
   }
 
   /**
-   * Determine whether the storage contains map files
-   * by checking for non-empty directories with version-like names (e.g. "220415").
+   * Determine whether the storage contains map files.
    */
   private static boolean containsMapData(String storagePath)
   {
-    File path = new File(storagePath);
-    File[] candidates = path.listFiles((pathname) -> {
-      if (!pathname.isDirectory())
-        return false;
-
-      try
-      {
-        String name = pathname.getName();
-        if (name.length() != 6)
-          return false;
-
-        int version = Integer.valueOf(name);
-        return (version > 120000 && version <= 999999);
-      }
-      catch (NumberFormatException ignored)
-      {
-      }
-
-      return false;
-    });
-
-    return (candidates != null && candidates.length > 0 &&
-            candidates[0].list().length > 0);
+    return StorageUtils.getDirSizeRecursively(new File(storagePath), (dir, filename) -> filename.endsWith(DATA_FILE_EXT)) > 0;
   }
 
   /**
