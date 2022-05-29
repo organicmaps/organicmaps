@@ -252,17 +252,24 @@ public class StorageUtils
 
   public static long getDirSizeRecursively(File file, FilenameFilter fileFilter)
   {
-    if (file.isDirectory())
+    try
     {
-      long dirSize = 0;
-      for (File child : file.listFiles())
-        dirSize += getDirSizeRecursively(child, fileFilter);
+      if (file.isDirectory())
+      {
+        long dirSize = 0;
+        for (File child : file.listFiles())
+          dirSize += getDirSizeRecursively(child, fileFilter);
 
-      return dirSize;
+        return dirSize;
+      }
+
+      if (fileFilter.accept(file.getParentFile(), file.getName()))
+        return file.length();
     }
-
-    if (fileFilter.accept(file.getParentFile(), file.getName()))
-      return file.length();
+    catch (Exception e)
+    {
+      LOGGER.e(TAG, "Can't calculate file or directory size", e);
+    }
 
     return 0;
   }
