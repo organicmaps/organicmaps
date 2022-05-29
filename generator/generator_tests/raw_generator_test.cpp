@@ -75,7 +75,8 @@ UNIT_CLASS_TEST(TestRawGenerator, Towns)
   // Iterate for features in World.
   count = 0;
   FeaturesLoaderGuard guard(dataSource, mwmIDs[1]);
-  for (size_t id = 0; id < guard.GetNumFeatures(); ++id)
+  size_t const numFeatures = guard.GetNumFeatures();
+  for (size_t id = 0; id < numFeatures; ++id)
   {
     auto ft = guard.GetFeatureByIndex(id);
 
@@ -256,5 +257,60 @@ UNIT_CLASS_TEST(TestRawGenerator, AreaHighway)
 
   TEST_EQUAL(waters, 2, ());
   TEST_EQUAL(pedestrians, 4, ());
+}
+
+UNIT_CLASS_TEST(TestRawGenerator, Place_Region)
+{
+  static uint32_t regionType = classif().GetTypeByPath({"place", "region"});
+
+  std::string const mwmName = "Region";
+  std::string const worldMwmName = WORLD_FILE_NAME;
+  BuildFB("./data/osm_test_data/place_region.osm", mwmName, true /* makeWorld */);
+
+  size_t worldRegions = 0, countryRegions = 0;
+
+  ForEachFB(worldMwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.HasType(regionType))
+    {
+      TEST(!fb.GetName().empty(), ());
+      ++worldRegions;
+    }
+  });
+
+  TEST_EQUAL(worldRegions, 1, ());
+  worldRegions = 0;
+
+  // Prepare features data source.
+  FrozenDataSource dataSource;
+  for (auto const & name : { mwmName, worldMwmName })
+  {
+    BuildFeatures(name);
+    BuildSearch(name);
+
+    platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeTemporary(GetMwmPath(name)));
+    auto res = dataSource.RegisterMap(localFile);
+    TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+    FeaturesLoaderGuard guard(dataSource, res.first);
+    size_t const numFeatures = guard.GetNumFeatures();
+    for (size_t id = 0; id < numFeatures; ++id)
+    {
+      auto ft = guard.GetFeatureByIndex(id);
+      if (feature::TypesHolder(*ft).Has(regionType))
+      {
+        TEST_EQUAL(ft->GetGeomType(), feature::GeomType::Point, ());
+        TEST(!ft->GetName(StringUtf8Multilang::kDefaultCode).empty(), ());
+
+        if (name == worldMwmName)
+          ++worldRegions;
+        else
+          ++countryRegions;
+      }
+    }
+  }
+
+  TEST_EQUAL(worldRegions, 1, ());
+  TEST_EQUAL(countryRegions, 0, ());
 }
 } // namespace raw_generator_tests
