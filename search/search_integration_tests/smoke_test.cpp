@@ -20,13 +20,13 @@
 
 #include <string>
 
+namespace smoke_test
+{
 using namespace feature;
 using namespace generator::tests_support;
+using namespace search;
 using namespace search::tests_support;
 using namespace std;
-
-namespace search
-{
 
 class IncorrectCountry : public TestCountry
 {
@@ -245,7 +245,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     poi.SetTypes({strings::Tokenize<std::string>(classif().GetFullObjectName(type), "|")});
 
     auto id = BuildMwm(countryName, DataHeader::MapType::Country,
-                       [&](TestMwmBuilder & builder) { builder.Add(poi); });
+                       [&](TestMwmBuilder & builder) { builder.AddSafe(poi); });
 
     SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(2.0, 2.0)));
     {
@@ -326,5 +326,4 @@ UNIT_CLASS_TEST(SmokeTest, PoiWithAddress)
     TEST(ResultsMatch("Starbucks Main street 27 ", rules), ());
   }
 }
-
-}  // namespace search
+} // namespace smoke_test

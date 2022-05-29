@@ -36,15 +36,14 @@
 #include <tuple>
 #include <vector>
 
+namespace processor_test
+{
 using namespace feature;
 using namespace generator::tests_support;
+using namespace search;
 using namespace search::tests_support;
 using namespace std;
 
-namespace search
-{
-namespace
-{
 class TestAirport : public TestPOI
 {
 public:
@@ -2743,7 +2742,7 @@ UNIT_CLASS_TEST(ProcessorTest, AvoidMatchAroundPivotInMwmWithCity)
 
   TestCity minsk({-10.0, -10.0}, "Minsk", "en", 10 /* rank */);
   // World.mwm should intersect viewport.
-  TestPOI dummy({10.0, 10.0}, "", "en");
+  TestCity dummy({10.0, 10.0}, "Dummy", "en", 1 /* rank */);
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder) {
     builder.Add(minsk);
@@ -3028,5 +3027,4 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_MultipleOldNames)
   checkResult("Ленинград", "Санкт-Петербург (Ленинград)");
   checkResult("Петроград", "Санкт-Петербург (Петроград)");
 }
-}  // namespace
-}  // namespace search
+} // namespace processor_test

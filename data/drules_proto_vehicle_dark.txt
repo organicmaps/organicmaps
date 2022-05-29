@@ -33588,29 +33588,6 @@ cont {
   }
 }
 cont {
-  name: "place-region"
-  element {
-    scale: 8
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 9
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-      }
-      priority: 15000
-    }
-  }
-}
-cont {
   name: "place-sea"
   element {
     scale: 4

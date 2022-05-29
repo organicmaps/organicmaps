@@ -472,14 +472,16 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
     if (m_framework.GetRoutingManager().GetCurrentRouterType() == routing::RouterType::Pedestrian)
     {
       LOG(LDEBUG, ("Distance:", loc.m_distToTarget, loc.m_targetUnitsSuffix, "Time:", loc.m_time,
-                   "Pedestrian turn:", DebugPrint(loc.m_pedestrianTurn),
-                   "Distance to turn:", loc.m_distToTurn, loc.m_turnUnitsSuffix));
+                   DebugPrint(loc.m_pedestrianTurn),
+                   "in", loc.m_distToTurn, loc.m_turnUnitsSuffix,
+                   "to", loc.m_targetName));
     }
     else
     {
       LOG(LDEBUG, ("Distance:", loc.m_distToTarget, loc.m_targetUnitsSuffix, "Time:", loc.m_time,
-                   "Turn:", routing::turns::GetTurnString(loc.m_turn), "(", loc.m_distToTurn,
-                   loc.m_turnUnitsSuffix, ") Roundabout exit number:", loc.m_exitNum));
+                   GetTurnString(loc.m_turn), (loc.m_exitNum != 0 ? ":" + std::to_string(loc.m_exitNum) : ""),
+                   "in", loc.m_distToTurn, loc.m_turnUnitsSuffix,
+                   "to", loc.m_targetName));
     }
   }
 }

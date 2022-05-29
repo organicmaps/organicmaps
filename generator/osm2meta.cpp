@@ -146,6 +146,16 @@ string MetadataTagProcessorImpl::ValidateAndFormat_ele(string const & v) const
   return measurement_utils::OSMDistanceToMetersString(v);
 }
 
+string MetadataTagProcessorImpl::ValidateAndFormat_destination(string const & v) const
+{
+  return v;
+}
+
+string MetadataTagProcessorImpl::ValidateAndFormat_destination_ref(string const & v) const
+{
+  return v;
+}
+
 string MetadataTagProcessorImpl::ValidateAndFormat_turn_lanes(string const & v) const
 {
   return v;
@@ -446,6 +456,8 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_CONTACT_LINE: valid = osm::ValidateAndFormat_contactLine(v); break;
   case Metadata::FMD_INTERNET: valid = ValidateAndFormat_internet(v); break;
   case Metadata::FMD_ELE: valid = ValidateAndFormat_ele(v); break;
+  case Metadata::FMD_DESTINATION: valid = ValidateAndFormat_destination(v); break;
+  case Metadata::FMD_DESTINATION_REF: valid = ValidateAndFormat_destination_ref(v); break;
   case Metadata::FMD_TURN_LANES: valid = ValidateAndFormat_turn_lanes(v); break;
   case Metadata::FMD_TURN_LANES_FORWARD: valid = ValidateAndFormat_turn_lanes_forward(v); break;
   case Metadata::FMD_TURN_LANES_BACKWARD: valid = ValidateAndFormat_turn_lanes_backward(v); break;

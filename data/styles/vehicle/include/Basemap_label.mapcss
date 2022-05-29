@@ -373,7 +373,6 @@ node|z13-[place=hamlet]
 
 /* 4.4 Districts & Small localities */
 
-node|z8-9[place=region],
 node|z13-[place=locality],
 node|z14-[place=farm],
 node|z14-[place=isolated_dwelling],
@@ -383,16 +382,15 @@ node|z14-[place=farm]::int_name,
 node|z14-[place=isolated_dwelling]::int_name,
 {text: int_name;text-color: @district_label;}
 
-/*node|z10[place=suburb]
+/*
+node|z10[place=suburb]
 {font-size: 8;}
 node|z11[place=suburb]
 {font-size: 9;}
 node|z12[place=suburb]
-{font-size: 10;}*/
+{font-size: 10;}
+*/
 
-
-
-node|z8-9[place=region],
 node|z13-[place=locality],
 node|z14-[place=farm],
 node|z14-[place=isolated_dwelling],
