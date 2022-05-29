@@ -33,6 +33,54 @@ public class StorageUtils
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
   private final static String TAG = StorageUtils.class.getSimpleName();
 
+  public static boolean isDirWritable(File dir)
+  {
+    LOGGER.d(TAG, "isDirWritable: checking " + dir.getPath());
+    if (!dir.isDirectory())
+    {
+      LOGGER.w(TAG, "isDirWritable: not a dir");
+      return false;
+    }
+
+    if (dir.list() == null)
+      LOGGER.w(TAG, "isDirWritable: list() returned null");
+
+    final File newDir = new File(dir, "om_test_dir");
+    if (!newDir.mkdir())
+      LOGGER.w(TAG, "isDirWritable: not created");
+    if (!newDir.exists())
+    {
+      LOGGER.w(TAG, "isDirWritable: created, but not exists");
+      return false;
+    }
+
+    if (!newDir.canWrite())
+      LOGGER.w(TAG, "isDirWritable: created, but not writable");
+    if (!newDir.canRead())
+      LOGGER.w(TAG, "isDirWritable: created, but not readable");
+    if (newDir.list() == null)
+      LOGGER.w(TAG, "isDirWritable: created, but list() returns null");
+
+    if (!newDir.delete())
+      LOGGER.w(TAG, "isDirWritable: created, but not deleted");
+
+    File testFile = new File(dir, "220515");
+    if (testFile.exists())
+    {
+      LOGGER.i(TAG, "isDirWritable: 220515/ exists!");
+      if (!testFile.canRead())
+        LOGGER.w(TAG, "isDirWritable: 220515/ is not readable");
+    }
+    testFile = new File(dir, "220515/World.mwm");
+    if (testFile.exists()) {
+      LOGGER.i(TAG, "isDirWritable: 220515/World.mwm exists!");
+      if (!testFile.canRead())
+        LOGGER.w(TAG, "isDirWritable: 220515/World.mwm is not readable");
+    }
+
+    return true;
+  }
+
   @NonNull
   public static String getApkPath(@NonNull Application application)
   {
@@ -168,7 +216,10 @@ public class StorageUtils
   {
     File[] list = dir.listFiles();
     if (list == null)
+    {
+      LOGGER.w(TAG, "listFilesRecursively listFiles() returned null for " + dir.getPath());
       return;
+    }
 
     for (File file : list)
     {
@@ -191,7 +242,7 @@ public class StorageUtils
     final File[] list = dir.listFiles();
     if (list == null)
     {
-      LOGGER.w(TAG, "getDirSizeRecursively dirFiles returned null");
+      LOGGER.w(TAG, "getDirSizeRecursively listFiles() returned null for " + dir.getPath());
       return 0;
     }
 
