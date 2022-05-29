@@ -1036,6 +1036,12 @@ Java_com_mapswithme_maps_Framework_nativeGetSettingsDir(JNIEnv * env, jclass)
   return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
 }
 
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetDataFileExt(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, DATA_FILE_EXTENSION);
+}
+
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetMovableFilesExts(JNIEnv * env, jclass)
 {
