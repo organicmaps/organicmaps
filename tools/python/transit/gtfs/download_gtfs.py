@@ -42,12 +42,13 @@ def download_gtfs_sources_mobilitydb(path):
             csv_file.write(url_content)
     except requests.exceptions.HTTPError as http_err:
         logger.error(
-            f"HTTP error {http_err} downloading zip from {URL_MOBILITYDB_GTFS_SOURCE}. Update URL_MOBILITYDB_GTFS_SOURCE to a working url.")
+            f"HTTP error {http_err} downloading zip from {URL_MOBILITYDB_GTFS_SOURCE}")
+
 
 def get_gtfs_urls_mobilitydb(path):
     """Extracts the feed urls from the downloaded csv file"""
     download_gtfs_sources_mobilitydb(path)
-    file = open(RAW_FILE_MOBILITYDB,encoding="UTF-8")
+    file = open(RAW_FILE_MOBILITYDB, encoding='UTF-8')
     raw_sources = csv.DictReader(file)
     next(raw_sources)
     urls = [field["urls.direct_download"] for field in raw_sources]
