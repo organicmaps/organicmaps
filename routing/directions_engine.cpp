@@ -66,7 +66,18 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(*ft);
   pathSegment.m_isOneWay = ftypes::IsOneWayChecker::Instance()(*ft);
 
-  pathSegment.m_name = ft->GetName(StringUtf8Multilang::kDefaultCode);
+  if (pathSegment.m_isLink)
+  {
+    if (auto const & dst_number = ft->GetMetadata(feature::Metadata::FMD_DESTINATION_REF); !dst_number.empty())
+      pathSegment.m_name = "[" + string(dst_number) + "] ";
+    pathSegment.m_name += ft->GetMetadata(feature::Metadata::FMD_DESTINATION);
+  }
+  else
+  {
+    if (auto const & road_number = ft->GetRoadNumber(); !road_number.empty())
+      pathSegment.m_name = "[" + road_number + "] ";
+    pathSegment.m_name += ft->GetName(StringUtf8Multilang::kDefaultCode);
+  }
 }
 
 void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges,
