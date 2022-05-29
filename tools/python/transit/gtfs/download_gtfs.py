@@ -234,7 +234,6 @@ def main():
     parser.add_argument(
         "-T",
         "--transitland_api_key",
-        required=True,
         help="user key for working with transitland API v2"
     )
 
@@ -248,10 +247,15 @@ def main():
 
     if args.mode in ["fullrun", "load_feed_urls"]:
 
-        if args.source in ["all", "transitland"]:
-            crawl_transitland_for_feed_urls(args.path, args.transitland_api_key)
         if args.source in ["all", "mobilitydb"]:
             get_gtfs_urls_mobilitydb(args.path)
+        if args.source in ["all", "transitland"]:
+            if not args.transitland_api_key:
+                logger.error(
+                    "No key provided for Transit Land. Set transitland_api_key argument."
+                )
+                return
+            crawl_transitland_for_feed_urls(args.path, args.transitland_api_key)
 
     if args.mode in ["fullrun", "load_feed_zips"]:
 
