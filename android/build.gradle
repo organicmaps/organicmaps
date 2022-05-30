@@ -26,7 +26,7 @@ buildscript {
   ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:7.2.0'
+    classpath 'com.android.tools.build:gradle:7.2.1'
 
     if (googleMobileServicesEnabled) {
       println("Building with Google Mobile Services")
@@ -86,7 +86,7 @@ dependencies {
   implementation 'androidx.recyclerview:recyclerview:1.2.1'
   implementation 'androidx.work:work-runtime:2.7.1'
   implementation 'com.github.bumptech.glide:glide:4.13.2'
-  implementation 'com.google.android.material:material:1.7.0-alpha01'
+  implementation 'com.google.android.material:material:1.7.0-alpha02'
   implementation 'com.google.code.gson:gson:2.9.0'
   implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
   implementation 'com.trafi:anchor-bottom-sheet-behavior:0.14-alpha'
@@ -95,8 +95,8 @@ dependencies {
 
   // Test Dependencies
   testImplementation 'junit:junit:4.13.2'
-  testImplementation 'org.mockito:mockito-core:4.5.1'
-  testImplementation 'org.mockito:mockito-inline:4.5.1'
+  testImplementation 'org.mockito:mockito-core:4.6.0'
+  testImplementation 'org.mockito:mockito-inline:4.6.0'
 }
 
 def run(cmd) {
