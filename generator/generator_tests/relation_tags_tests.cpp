@@ -4,29 +4,28 @@
 #include "generator/relation_tags.hpp"
 #include "generator/intermediate_data.hpp"
 
-// TODO: Rewrite this tests using RelationTagsEnricher with some test mock of IntermediateDataReaderInterface.
+// TODO: Rewrite these tests using RelationTagsEnricher with some test mock of IntermediateDataReaderInterface.
 namespace relation_tags_tests
 {
 using namespace feature;
 using namespace generator;
 using namespace generator_tests;
-using namespace std;
 
 // In memory relations storage (copy-n-paste from collector_building_parts_tests.cpp).
-class TestOSMElementCacheReader : public generator::cache::OSMElementCacheReaderInterface
+class TestOSMElementCacheReader : public cache::OSMElementCacheReaderInterface
 {
 public:
-  TestOSMElementCacheReader(std::unordered_map<generator::cache::Key, RelationElement> & m)
+  TestOSMElementCacheReader(std::unordered_map<cache::Key, RelationElement> & m)
     : m_mapping(m)
   {
   }
 
   // OSMElementCacheReaderInterface overrides:
-  bool Read(generator::cache::Key /* id */, WayElement & /* value */) override {
+  bool Read(cache::Key /* id */, WayElement & /* value */) override {
     CHECK(false, ("Should not be called"));
   }
 
-  bool Read(generator::cache::Key id, RelationElement & value) override
+  bool Read(cache::Key id, RelationElement & value) override
   {
     auto const it = m_mapping.find(id);
     if (it == std::cend(m_mapping))
@@ -37,7 +36,7 @@ public:
   }
 
 private:
-  std::unordered_map<generator::cache::Key, RelationElement> & m_mapping;
+  std::unordered_map<cache::Key, RelationElement> & m_mapping;
 };
 
 UNIT_TEST(Process_route_with_ref)
@@ -65,7 +64,7 @@ UNIT_TEST(Process_route_with_ref)
   e1.m_tags.emplace("route", "road");
   e1.m_tags.emplace("ref", "E-99");
 
-  std::unordered_map<generator::cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
+  std::unordered_map<cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
   TestOSMElementCacheReader reader(m_IdToRelation);
 
   // Create roads.
@@ -114,7 +113,7 @@ UNIT_TEST(Process_route_with_ref_network)
   e1.m_tags.emplace("ref", "SP60");
   e1.m_tags.emplace("network", "IT:RA");
 
-  std::unordered_map<generator::cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
+  std::unordered_map<cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
   TestOSMElementCacheReader reader(m_IdToRelation);
 
   // Create roads.
@@ -163,7 +162,7 @@ UNIT_TEST(Process_associatedStreet)
   e1.m_tags.emplace("name", "Main Street");
   e1.m_tags.emplace("wikipedia", "en:Main Street");
 
-  std::unordered_map<generator::cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
+  std::unordered_map<cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
   TestOSMElementCacheReader reader(m_IdToRelation);
 
   // Create buildings polygons.
@@ -214,7 +213,7 @@ UNIT_TEST(Process_boundary)
   e1.m_tags.emplace("name:en", "Italian Peninsula");
   e1.m_tags.emplace("wikidata", "Q145694");
 
-  std::unordered_map<generator::cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
+  std::unordered_map<cache::Key, RelationElement> m_IdToRelation = {{1, e1}};
   TestOSMElementCacheReader reader(m_IdToRelation);
 
   // Create ways.
