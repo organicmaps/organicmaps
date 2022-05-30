@@ -253,27 +253,33 @@ public class StorageUtils
   /**
    * Returns 0 in case of the error or if no files have passed the filter.
    */
-  public static long getDirSizeRecursively(File file, FilenameFilter fileFilter)
+  public static long getDirSizeRecursively(File dir, FilenameFilter fileFilter)
   {
-    if (file.isDirectory())
+    long dirSize = 0;
+
+    try
     {
-      final File[] list = file.listFiles();
+      final File[] list = dir.listFiles();
       if (list == null)
       {
         LOGGER.w(TAG, "getDirSizeRecursively dirFiles returned null");
         return 0;
       }
-      long dirSize = 0;
-      for (File child : list)
-        dirSize += getDirSizeRecursively(child, fileFilter);
 
-      return dirSize;
+      for (File child : list)
+      {
+        if (child.isDirectory())
+          dirSize += getDirSizeRecursively(child, fileFilter);
+        else if (fileFilter.accept(dir, child.getName()))
+          dirSize += child.length();
+      }
+    }
+    catch (SecurityException e)
+    {
+      LOGGER.e(TAG, "Can't calculate size of directory " + dir.getPath(), e);
     }
 
-    if (fileFilter.accept(file.getParentFile(), file.getName()))
-      return file.length();
-
-    return 0;
+    return dirSize;
   }
 
   @SuppressWarnings("ResultOfMethodCallIgnored")
