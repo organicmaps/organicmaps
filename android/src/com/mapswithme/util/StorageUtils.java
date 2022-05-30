@@ -250,12 +250,21 @@ public class StorageUtils
     }
   }
 
+  /**
+   * Returns 0 in case of the error or if no files have passed the filter.
+   */
   public static long getDirSizeRecursively(File file, FilenameFilter fileFilter)
   {
     if (file.isDirectory())
     {
+      final File[] list = file.listFiles();
+      if (list == null)
+      {
+        LOGGER.w(TAG, "getDirSizeRecursively dirFiles returned null");
+        return 0;
+      }
       long dirSize = 0;
-      for (File child : file.listFiles())
+      for (File child : list)
         dirSize += getDirSizeRecursively(child, fileFilter);
 
       return dirSize;
@@ -270,7 +279,10 @@ public class StorageUtils
   @SuppressWarnings("ResultOfMethodCallIgnored")
   public static void removeEmptyDirectories(File dir)
   {
-    for (File file : dir.listFiles())
+    final File[] list = dir.listFiles();
+    if (list == null)
+      return;
+    for (File file : list)
     {
       if (!file.isDirectory())
         continue;
