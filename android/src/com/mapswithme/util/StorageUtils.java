@@ -323,8 +323,6 @@ public class StorageUtils
    */
   public static void listContentProviderFilesRecursively(ContentResolver contentResolver, Uri rootUri, UriVisitor filter)
   {
-    ArrayList<Uri> result = new ArrayList<>();
-
     Uri rootDir = DocumentsContract.buildChildDocumentsUriUsingTree(rootUri, DocumentsContract.getTreeDocumentId(rootUri));
     Queue<Uri> directories = new LinkedBlockingQueue<>();
     directories.add(rootDir);

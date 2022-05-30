@@ -49,7 +49,7 @@ public class StoragePathManager
 
   private OnStorageListChangedListener mStoragesChangedListener;
   private BroadcastReceiver mInternalReceiver;
-  private Context mContext;
+  private final Context mContext;
 
   public final List<StorageItem> mStorages = new ArrayList<>();
   public int mCurrentStorageIndex = -1;
@@ -131,21 +131,20 @@ public class StoragePathManager
       return;
     }
 
-    String path = null;
+    String path;
     try {
       path = dir.getCanonicalPath();
     } catch (IOException e) {
       LOGGER.e(TAG, "IOException at getCanonicalPath " + e);
       return;
     }
-    String commentedPath = null;
     // Add the trailing separator because the native code assumes that all paths have it.
     path = StorageUtils.addTrailingSeparator(path);
     final boolean isCurrent = path.equals(configPath);
     final long totalSize = dir.getTotalSpace();
     final long freeSize = dir.getUsableSpace();
 
-    commentedPath = path + (StorageUtils.addTrailingSeparator(dir.getPath()).equals(path)
+    String commentedPath = path + (StorageUtils.addTrailingSeparator(dir.getPath()).equals(path)
                             ? "" : " (" + dir.getPath() + ")") + " - " +
                     (isCurrent ? "currently configured, " : "") +
                     (isInternal ? "internal" : "external") + ", " +
@@ -177,7 +176,7 @@ public class StoragePathManager
       // Get additional storage information for Android 7+.
       if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
       {
-        final StorageManager sm = (StorageManager) mContext.getSystemService(mContext.STORAGE_SERVICE);
+        final StorageManager sm = (StorageManager) mContext.getSystemService(Context.STORAGE_SERVICE);
         if (sm != null)
         {
           final StorageVolume sv = sm.getStorageVolume(dir);
@@ -291,7 +290,7 @@ public class StoragePathManager
     for (StorageItem storage : mStorages)
     {
       if ((res == null || res.mFreeSize < storage.mFreeSize)
-          && storage.mIsReadonly == false && !storage.equals(mInternalStorage))
+          && !storage.mIsReadonly && !storage.equals(mInternalStorage))
         res = storage;
     }
 
@@ -307,7 +306,7 @@ public class StoragePathManager
   {
     StoragePathManager mgr = new StoragePathManager(application);
     mgr.scanAvailableStorages();
-    String path = null;
+    String path;
     final List<StorageItem> storages = mgr.mStorages;
     final int currentIdx = mgr.mCurrentStorageIndex;
 
