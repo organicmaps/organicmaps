@@ -131,111 +131,111 @@ public class StoragePathManager
       return;
     }
 
+    String path = null;
+    try {
+      path = dir.getCanonicalPath();
+    } catch (IOException e) {
+      LOGGER.e(TAG, "IOException at getCanonicalPath " + e);
+      return;
+    }
     String commentedPath = null;
-    try
+    // Add the trailing separator because the native code assumes that all paths have it.
+    path = StorageUtils.addTrailingSeparator(path);
+    final boolean isCurrent = path.equals(configPath);
+    final long totalSize = dir.getTotalSpace();
+    final long freeSize = dir.getUsableSpace();
+
+    commentedPath = path + (StorageUtils.addTrailingSeparator(dir.getPath()).equals(path)
+                            ? "" : " (" + dir.getPath() + ")") + " - " +
+                    (isCurrent ? "currently configured, " : "") +
+                    (isInternal ? "internal" : "external") + ", " +
+                    freeSize + " available out of " + totalSize + " bytes";
+
+    boolean isEmulated = false;
+    boolean isRemovable = false;
+    boolean isReadonly = false;
+    String state = null;
+    String label = null;
+    if (!isInternal)
     {
-      // Add the trailing separator because the native code assumes that all paths have it.
-      final String path = StorageUtils.addTrailingSeparator(dir.getCanonicalPath());
-      final boolean isCurrent = path.equals(configPath);
-      final long totalSize = dir.getTotalSpace();
-      final long freeSize = dir.getUsableSpace();
-
-      commentedPath = path + (StorageUtils.addTrailingSeparator(dir.getPath()).equals(path)
-                              ? "" : " (" + dir.getPath() + ")") + " - " +
-                      (isCurrent ? "currently configured, " : "") +
-                      (isInternal ? "internal" : "external") + ", " +
-                      freeSize + " available out of " + totalSize + " bytes";
-
-      boolean isEmulated = false;
-      boolean isRemovable = false;
-      boolean isReadonly = false;
-      String state = null;
-      String label = null;
-      if (!isInternal)
+      try
       {
-        try
-        {
-          isEmulated = Environment.isExternalStorageEmulated(dir);
-          isRemovable = Environment.isExternalStorageRemovable(dir);
-          state = Environment.getExternalStorageState(dir);
-          commentedPath += (isEmulated ? ", emulated" : "") +
-                           (isRemovable ? ", removable" : "") +
-                           (state != null ? ", state=" + state : "");
-        }
-        catch (IllegalArgumentException e)
-        {
-          // Thrown if the dir is not a valid storage device.
-          // https://github.com/organicmaps/organicmaps/issues/538
-          LOGGER.w(TAG, "isExternalStorage checks failed for " + commentedPath);
-        }
+        isEmulated = Environment.isExternalStorageEmulated(dir);
+        isRemovable = Environment.isExternalStorageRemovable(dir);
+        state = Environment.getExternalStorageState(dir);
+        commentedPath += (isEmulated ? ", emulated" : "") +
+                         (isRemovable ? ", removable" : "") +
+                         (state != null ? ", state=" + state : "");
+      }
+      catch (IllegalArgumentException e)
+      {
+        // Thrown if the dir is not a valid storage device.
+        // https://github.com/organicmaps/organicmaps/issues/538
+        LOGGER.w(TAG, "isExternalStorage checks failed for " + commentedPath);
+      }
 
-        // Get additional storage information for Android 7+.
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
+      // Get additional storage information for Android 7+.
+      if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
+      {
+        final StorageManager sm = (StorageManager) mContext.getSystemService(mContext.STORAGE_SERVICE);
+        if (sm != null)
         {
-          final StorageManager sm = (StorageManager) mContext.getSystemService(mContext.STORAGE_SERVICE);
-          if (sm != null)
+          final StorageVolume sv = sm.getStorageVolume(dir);
+          if (sv != null)
           {
-            final StorageVolume sv = sm.getStorageVolume(dir);
-            if (sv != null)
-            {
-              label = sv.getDescription(mContext);
-              commentedPath += (sv.isPrimary() ? ", primary" : "") +
-                               (!TextUtils.isEmpty(sv.getUuid()) ? ", uuid=" + sv.getUuid() : "") +
-                               (!TextUtils.isEmpty(label) ? ", label='" + label + "'": "");
-            }
-            else
-              LOGGER.w(TAG, "Can't get StorageVolume for " + commentedPath);
+            label = sv.getDescription(mContext);
+            commentedPath += (sv.isPrimary() ? ", primary" : "") +
+                             (!TextUtils.isEmpty(sv.getUuid()) ? ", uuid=" + sv.getUuid() : "") +
+                             (!TextUtils.isEmpty(label) ? ", label='" + label + "'": "");
           }
           else
-            LOGGER.w(TAG, "Can't get StorageManager for " + commentedPath);
+            LOGGER.w(TAG, "Can't get StorageVolume for " + commentedPath);
         }
-      }
-
-      if (state != null && !Environment.MEDIA_MOUNTED.equals(state)
-          && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
-      {
-        LOGGER.w(TAG, "Not mounted: " + commentedPath);
-        return;
-      }
-      if (!dir.exists())
-      {
-        LOGGER.w(TAG, "Not exists: " + commentedPath);
-        return;
-      }
-      if (!dir.isDirectory())
-      {
-        LOGGER.w(TAG, "Not a directory: " + commentedPath);
-        return;
-      }
-      if (!dir.canWrite() || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
-      {
-        isReadonly = true;
-        LOGGER.w(TAG, "Not writable: " + commentedPath);
-        // Keep using currently configured storage even if its read-only.
-        if (isCurrent)
-          commentedPath += ", read-only";
         else
-          return;
+          LOGGER.w(TAG, "Can't get StorageManager for " + commentedPath);
       }
-
-      if (TextUtils.isEmpty(label))
-        label = isInternal ? mContext.getString(R.string.maps_storage_internal)
-                           : (isRemovable ? mContext.getString(R.string.maps_storage_removable)
-                                          : (isEmulated ? mContext.getString(R.string.maps_storage_shared)
-                                                        : mContext.getString(R.string.maps_storage_external)));
-
-      StorageItem storage = new StorageItem(path, freeSize, totalSize, label, isReadonly);
-      mStorages.add(storage);
-      if (isCurrent)
-        mCurrentStorageIndex = mStorages.size() - 1;
-      if (isInternal)
-        mInternalStorage = storage;
-      LOGGER.i(TAG, "Accepted " + commentedPath);
     }
-    catch (SecurityException | IOException ex)
+
+    if (state != null && !Environment.MEDIA_MOUNTED.equals(state)
+        && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
     {
-      LOGGER.e(TAG, "Error: " + (commentedPath != null ? commentedPath : "(" + dir.getPath() + ")"), ex);
+      LOGGER.w(TAG, "Not mounted: " + commentedPath);
+      return;
     }
+    if (!dir.exists())
+    {
+      LOGGER.w(TAG, "Not exists: " + commentedPath);
+      return;
+    }
+    if (!dir.isDirectory())
+    {
+      LOGGER.w(TAG, "Not a directory: " + commentedPath);
+      return;
+    }
+    if (!dir.canWrite() || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+    {
+      isReadonly = true;
+      LOGGER.w(TAG, "Not writable: " + commentedPath);
+      // Keep using currently configured storage even if its read-only.
+      if (isCurrent)
+        commentedPath += ", read-only";
+      else
+        return;
+    }
+
+    if (TextUtils.isEmpty(label))
+      label = isInternal ? mContext.getString(R.string.maps_storage_internal)
+                         : (isRemovable ? mContext.getString(R.string.maps_storage_removable)
+                                        : (isEmulated ? mContext.getString(R.string.maps_storage_shared)
+                                                      : mContext.getString(R.string.maps_storage_external)));
+
+    StorageItem storage = new StorageItem(path, freeSize, totalSize, label, isReadonly);
+    mStorages.add(storage);
+    if (isCurrent)
+      mCurrentStorageIndex = mStorages.size() - 1;
+    if (isInternal)
+      mInternalStorage = storage;
+    LOGGER.i(TAG, "Accepted " + commentedPath);
   }
 
   /**
