@@ -146,6 +146,29 @@ public class StoragePathManager
                       (isInternal ? "internal" : "external") + ", " +
                       freeSize + " available out of " + totalSize + " bytes";
 
+      /**
+       Removal of a second condition ("&& mEmulatedStorage.mFreeSize < 0") or a whole "if" block
+       leads to a VerifyError on Android 5 reproducible in android emulator using Nexus S API 21
+       with an Android 5.0 x86_64 AOSP (w/o Google APIs) image (also on a Honor 4C with Android 5.1.1).
+       Log:
+          I/art: Verification error in void com.mapswithme.maps.settings.StoragePathManager.addStorageOption(java.io.File, boolean, java.lang.String)
+          I/art: couldn't find method android.os.storage.StorageManager.getStorageVolume (Ljava/io/File;)Landroid/os/storage/StorageVolume;
+          I/art: void com.mapswithme.maps.settings.StoragePathManager.addStorageOption(java.io.File, boolean, java.lang.String) failed to verify: Set register to unknown type ConflictragePathManager.addStorageOption(java.io.File, boolean, java.lang.String): [0x109]
+          I/art:
+          E/art: Verification failed on class com.mapswithme.maps.settings.StoragePathManager in /data/app/app.organicmaps.beta-2/base.apk because: Verifier rejected class com.mapswithme.maps.settings.StoragePathManager due to bad method void com.mapswithme.maps.settings.StoragePathManager.addStorageOption(java.io.File, boolean, java.lang.String)
+          D/AndroidRuntime: Shutting down VM
+          E/AndroidRuntime: FATAL EXCEPTION: main
+              Process: app.organicmaps.beta, PID: 7188
+              java.lang.VerifyError: Verifier rejected class com.mapswithme.maps.settings.StoragePathManager due to bad method void com.mapswithme.maps.settings.StoragePathManager.addStorageOption(java.io.File, boolean, java.lang.String) (declaration of 'com.mapswithme.maps.settings.StoragePathManager' appears in /data/app/app.organicmaps.beta-2/base.apk)
+       */
+      if (
+          mInternalStorage != null
+          && mInternalStorage.mFreeSize < 0
+      )
+      {
+        commentedPath += " *VerifyError test case*";
+      }
+
       boolean isEmulated = false;
       boolean isRemovable = false;
       boolean isReadonly = false;
