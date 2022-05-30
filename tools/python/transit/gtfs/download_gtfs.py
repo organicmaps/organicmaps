@@ -48,7 +48,7 @@ def download_gtfs_sources_mobilitydb(path):
 def get_gtfs_urls_mobilitydb(path):
     """Extracts the feed urls from the downloaded csv file"""
     download_gtfs_sources_mobilitydb(path)
-    file = open(RAW_FILE_MOBILITYDB, encoding='UTF-8')
+    file = open(os.path.join(path, RAW_FILE_MOBILITYDB), encoding='UTF-8')
     raw_sources = csv.DictReader(file)
     next(raw_sources)
     urls = [field["urls.direct_download"] for field in raw_sources]
