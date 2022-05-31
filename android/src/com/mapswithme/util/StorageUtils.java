@@ -255,30 +255,21 @@ public class StorageUtils
    */
   public static long getDirSizeRecursively(File dir, FilenameFilter fileFilter)
   {
+    final File[] list = dir.listFiles();
+    if (list == null)
+    {
+      LOGGER.w(TAG, "getDirSizeRecursively dirFiles returned null");
+      return 0;
+    }
+
     long dirSize = 0;
-
-    try
+    for (File child : list)
     {
-      final File[] list = dir.listFiles();
-      if (list == null)
-      {
-        LOGGER.w(TAG, "getDirSizeRecursively dirFiles returned null");
-        return 0;
-      }
-
-      for (File child : list)
-      {
-        if (child.isDirectory())
-          dirSize += getDirSizeRecursively(child, fileFilter);
-        else if (fileFilter.accept(dir, child.getName()))
-          dirSize += child.length();
-      }
+      if (child.isDirectory())
+        dirSize += getDirSizeRecursively(child, fileFilter);
+      else if (fileFilter.accept(dir, child.getName()))
+        dirSize += child.length();
     }
-    catch (SecurityException e)
-    {
-      LOGGER.e(TAG, "Can't calculate size of directory " + dir.getPath(), e);
-    }
-
     return dirSize;
   }
 

@@ -205,28 +205,20 @@ public class StoragePathManager
       return;
     }
 
-    try
+    if (!dir.exists())
     {
-      if (!dir.exists())
-      {
-        LOGGER.w(TAG, "Not exists: " + commentedPath);
-        return;
-      }
-      if (!dir.isDirectory())
-      {
-        LOGGER.w(TAG, "Not a directory: " + commentedPath);
-        return;
-      }
-      if (!dir.canWrite() || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
-      {
-        isReadonly = true;
-        commentedPath = "read-only " + commentedPath;
-      }
-    }
-    catch (SecurityException e)
-    {
-      LOGGER.e(TAG, "Error checking " + commentedPath, e);
+      LOGGER.w(TAG, "Not exists: " + commentedPath);
       return;
+    }
+    if (!dir.isDirectory())
+    {
+      LOGGER.w(TAG, "Not a directory: " + commentedPath);
+      return;
+    }
+    if (!dir.canWrite() || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+    {
+      isReadonly = true;
+      commentedPath = "read-only " + commentedPath;
     }
 
     if (TextUtils.isEmpty(label))
