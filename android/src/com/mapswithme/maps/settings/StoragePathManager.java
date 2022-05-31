@@ -132,10 +132,13 @@ public class StoragePathManager
     }
 
     String path;
-    try {
+    try
+    {
       path = dir.getCanonicalPath();
-    } catch (IOException e) {
-      LOGGER.e(TAG, "IOException at getCanonicalPath " + e);
+    }
+    catch (IOException e)
+    {
+      LOGGER.e(TAG, "IOException at getCanonicalPath for " + dir.getPath(), e);
       return;
     }
     // Add the trailing separator because the native code assumes that all paths have it.
@@ -145,10 +148,10 @@ public class StoragePathManager
     final long freeSize = dir.getUsableSpace();
 
     String commentedPath = path + (StorageUtils.addTrailingSeparator(dir.getPath()).equals(path)
-                            ? "" : " (" + dir.getPath() + ")") + " - " +
-                    (isCurrent ? "currently configured, " : "") +
-                    (isInternal ? "internal" : "external") + ", " +
-                    freeSize + " available out of " + totalSize + " bytes";
+                                   ? "" : " (" + dir.getPath() + ")") + " - " +
+                           (isCurrent ? "currently configured, " : "") +
+                           (isInternal ? "internal" : "external") + ", " +
+                           freeSize + " available of " + totalSize + " bytes";
 
     boolean isEmulated = false;
     boolean isRemovable = false;
@@ -170,7 +173,7 @@ public class StoragePathManager
       {
         // Thrown if the dir is not a valid storage device.
         // https://github.com/organicmaps/organicmaps/issues/538
-        LOGGER.w(TAG, "isExternalStorage checks failed for " + commentedPath);
+        LOGGER.w(TAG, "External storage checks failed for " + commentedPath);
       }
 
       // Get additional storage information for Android 7+.
@@ -185,7 +188,7 @@ public class StoragePathManager
             label = sv.getDescription(mContext);
             commentedPath += (sv.isPrimary() ? ", primary" : "") +
                              (!TextUtils.isEmpty(sv.getUuid()) ? ", uuid=" + sv.getUuid() : "") +
-                             (!TextUtils.isEmpty(label) ? ", label='" + label + "'": "");
+                             (!TextUtils.isEmpty(label) ? ", label='" + label + "'" : "");
           }
           else
             LOGGER.w(TAG, "Can't get StorageVolume for " + commentedPath);
@@ -201,25 +204,29 @@ public class StoragePathManager
       LOGGER.w(TAG, "Not mounted: " + commentedPath);
       return;
     }
-    if (!dir.exists())
+
+    try
     {
-      LOGGER.w(TAG, "Not exists: " + commentedPath);
-      return;
-    }
-    if (!dir.isDirectory())
-    {
-      LOGGER.w(TAG, "Not a directory: " + commentedPath);
-      return;
-    }
-    if (!dir.canWrite() || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
-    {
-      isReadonly = true;
-      LOGGER.w(TAG, "Not writable: " + commentedPath);
-      // Keep using currently configured storage even if its read-only.
-      if (isCurrent)
-        commentedPath += ", read-only";
-      else
+      if (!dir.exists())
+      {
+        LOGGER.w(TAG, "Not exists: " + commentedPath);
         return;
+      }
+      if (!dir.isDirectory())
+      {
+        LOGGER.w(TAG, "Not a directory: " + commentedPath);
+        return;
+      }
+      if (!dir.canWrite() || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+      {
+        isReadonly = true;
+        commentedPath = "read-only " + commentedPath;
+      }
+    }
+    catch (SecurityException e)
+    {
+      LOGGER.e(TAG, "Error checking " + commentedPath, e);
+      return;
     }
 
     if (TextUtils.isEmpty(label))
