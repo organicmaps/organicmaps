@@ -46,7 +46,6 @@ public final class Constants
 
   public static class Email
   {
-    public static final String FEEDBACK = "android@organicmaps.app";
     public static final String SUPPORT = BuildConfig.SUPPORT_MAIL;
     public static final String RATING = "rating@organicmaps.app";
 
