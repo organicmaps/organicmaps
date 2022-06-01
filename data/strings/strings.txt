@@ -8909,7 +8909,7 @@
     nl = Elke dag (dag en nacht)
     pl = Całą dobę (24 godziny)
     pt = Todo o dia (24 horas)
-    pt-BR = O Dia Todo (24 horas)
+    pt-BR = O dia todo (24 horas)
     ro = Toată ziua (24 ore)
     ru = Весь день (24 часа)
     sk = Nepretržite (24 hodín)
@@ -10598,6 +10598,7 @@
     eu = Sartu kale-izena
     fa = ﺪﯿﻨﮐ ﺩﺭﺍﻭ ﺍﺭ ﻥﺎﺑﺎﯿﺧ ﻡﺎﻧ
     it = Inserire il nome della via
+    pt-BR = Por favor, digite o nome da rua
     ro = Introdu numele străzii
     ru = Введите название улицы
     tr = Lütfen bir sokak adı girin
@@ -11107,7 +11108,7 @@
     nl = Controleer je instellingen en zorg ervoor dat het apparaat is verbonden met het internet.
     pl = Sprawdź swoje ustawienia i upewnij się, że urządzenie ma połączenie z Internetem.
     pt = Por favor, verifique as suas opções e certifique-se que o dispositivo está ligado à Internet.
-    pt-BR = Por favor, verifique as suas configurações e certifique-se de que o dispositivo está conectado à Internet.
+    pt-BR = Por favor, verifique as suas configurações e certifique-se de que o dispositivo está conectado à internet.
     ro = Verifică dacă dispozitivul tău este conectat la internet.
     ru = Проверьте настройки и убедитесь, что устройство подключено к интернету.
     sk = Prosím, skontrolujte svoje nastavenia a uistite sa, že váš počítač je pripojený k internetu.
@@ -12843,7 +12844,7 @@
     nl = 3. Selecteer Terwijl Je de App Gebruikt
     pl = 3. Zaznacz Podczas korzystania z aplikacji
     pt = 3. Selecione "Durante a utilização da aplicação"
-    pt-BR = 3. Selecione Durante Uso do Aplicativo
+    pt-BR = 3. Selecione "Durante uso do aplicativo"
     ro = 3. Alege „În timp ce folosești aplicația”
     ru = 3. Выберите «При использовании программы»
     sk = 3. Vyberte si počas používania aplikácie
@@ -13709,6 +13710,7 @@
     en = Please indicate the reason for deleting the place
     be = Калі ласка, укажыце прычыну выдалення
     it = Indicare il motivo dell' eliminazione del luogo
+    pt-BR = Por favor, explica o motivo pelo qual você está retirando o local
     ro = Indică motivul pentru care ai eliminat locul
     ru = Пожалуйста, укажите причину удаления
     tr = Lütfen bu yerin silinmesinin nedenini belirtin
@@ -16991,7 +16993,7 @@
     nl = Geen internet verbinding
     pl = Brak połączenia z internetem
     pt = Sem ligação à Internet
-    pt-BR = Sem conexão com a Internet
+    pt-BR = Sem conexão com a internet
     ro = Nicio conexiune la internet
     ru = Нет интернет соединения
     sk = Žiadne internetové pripojenie
