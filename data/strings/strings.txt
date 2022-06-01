@@ -1840,6 +1840,7 @@
     tags = android
     en = Internal private storage
     be = Унутранае прыватнае сховішча
+    pt-BR = Armazenamento interno privado
     ru = Внутренний скрытый накопитель
     uk = Внутрішнє приватне сховище
 
@@ -1848,6 +1849,7 @@
     tags = android
     en = Internal shared storage
     be = Унутранае абагуленае сховішча
+    pt-BR = Armazenamento interno compartilhado
     ru = Внутренний общий накопитель
     uk = Внутрішнє спільне сховище
 
@@ -1856,6 +1858,7 @@
     tags = android
     en = SD card
     be = SD-карта
+    pt-BR = Cartão SD
     ru = SD-карта
     uk = SD-карта
 
@@ -1864,6 +1867,7 @@
     tags = android
     en = External shared storage
     be = Знешняе абагульнае сховішча
+    pt-BR = Armazenamento externo compartilhado
     ru = Внешний общий накопитель
     uk = Зовнiшне спільне сховище
 
@@ -1872,6 +1876,7 @@
     tags = android
     en = %1$@ free of %2$@
     be = %1$@ вольна з %2$@
+    pt-BR = %1$@ livre de %2$@
     ru = %1$@ свободно из %2$@
     uk = %1$@ вільно з %2$@
 
@@ -1917,6 +1922,7 @@
     comment = Error moving map files from one storage to another
     tags = android
     en = Error moving map files
+    pt-BR = Erro ao mover arquivos de mapas
     ru = Ошибка перемещения файлов карт
 
   [wait_several_minutes]
@@ -15114,7 +15120,7 @@
     nl = We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     pl = Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     pt = Utilizamos o sistema TTS para as instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
-    pt-BR = Utilizamos o TTS (texto-para-voz) do sistema para instruções de voz. Muitos dispositivos do Android usam o TTS do Google, você pode baixá-lo ou atualizá-lo no Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    pt-BR = Utilizamos o sistema TTS (texto-para-voz) para instruções de voz. Muitos dispositivos do Android usam o TTS do Google, você pode baixá-lo ou atualizá-lo no Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     ro = Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive Android folosesc Google TTS. Poți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     ru = Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     sk = Na hlasové pokyny používame systém TTS. Mnohé zariadenia s Adroidom používajú Google TTS, ktorý si môžete stiahnuť alebo aktualizovať z obchodu Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
@@ -22494,7 +22500,7 @@
     it = Mostra sulla schermata di blocco
     nl = Toon op vergrendelscherm
     pl = Pokazuj na ekranie blokady
-    pt-BR = Mostrar na tela de bloqueio ativada
+    pt-BR = Mostrar na tela de bloqueio
     ro = Arată pe ecranul de blocare
     ru = Показывать на экране блокировки
     tr = Kilit ekranında göster
