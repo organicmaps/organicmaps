@@ -66,8 +66,7 @@ public class StorageUtils
     if (dir != null)
       return dir.getAbsolutePath();
 
-    Log.e(StorageUtils.class.getSimpleName(),
-          "Cannot get the external files directory for some reasons", new Throwable());
+    Log.e(TAG, "Cannot get the external files directory for some reasons", new Throwable());
     return null;
   }
 

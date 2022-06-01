@@ -44,7 +44,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
 {
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private Logger mLogger;
+  private final Logger mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   public final static String TAG = "MwmApplication";
 
   private AppBackgroundTracker mBackgroundTracker;
@@ -100,8 +100,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   @NonNull
   public static SharedPreferences prefs(@NonNull Context context)
   {
-    String prefFile = context.getString(R.string.pref_file_name);
-    return context.getSharedPreferences(prefFile, MODE_PRIVATE);
+    return context.getSharedPreferences(context.getString(R.string.pref_file_name), MODE_PRIVATE);
   }
 
   @Override
@@ -116,13 +115,13 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public void onCreate()
   {
     super.onCreate();
-    LoggerFactory.INSTANCE.initialize(this);
-    mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-    getLogger().d(TAG, "Application is created");
+    mLogger.i(TAG, "Initializing application");
+    LoggerFactory.INSTANCE.initFileLogging(this);
+
     // Set configuration directory as early as possible.
     // Other methods may explicitly use Config, which requires settingsDir to be set.
     final String settingsPath = StorageUtils.getSettingsPath(this);
-    getLogger().d(TAG, "Settings path = " + settingsPath);
+    mLogger.d(TAG, "Settings path = " + settingsPath);
     try
     {
       StorageUtils.createDirectory(settingsPath);
@@ -168,16 +167,15 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     if (mPlatformInitialized)
       return;
 
-    final Logger log = getLogger();
     final String apkPath = StorageUtils.getApkPath(this);
-    log.d(TAG, "Apk path = " + apkPath);
+    mLogger.d(TAG, "Apk path = " + apkPath);
     // Note: StoragePathManager uses Config, which requires initConfig() to be called.
     final String writablePath = StoragePathManager.findMapsStorage(this);
-    log.d(TAG, "Writable path = " + writablePath);
+    mLogger.d(TAG, "Writable path = " + writablePath);
     final String privatePath = StorageUtils.getPrivatePath(this);
-    log.d(TAG, "Private path = " + privatePath);
+    mLogger.d(TAG, "Private path = " + privatePath);
     final String tempPath = StorageUtils.getTempPath(this);
-    log.d(TAG, "Temp path = " + tempPath);
+    mLogger.d(TAG, "Temp path = " + tempPath);
 
     // If platform directories are not created it means that native part of app will not be able
     // to work at all. So, we just ignore native part initialization in this case, e.g. when the
@@ -195,7 +193,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
 
     Editor.init(this);
     mPlatformInitialized = true;
-    log.i(TAG, "Platform initialized");
+    mLogger.i(TAG, "Platform initialized");
   }
 
   private void createPlatformDirectories(@NonNull String writablePath,
@@ -231,7 +229,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     IsolinesManager.from(this).initialize(null);
     mBackgroundTracker.addListener(this);
 
-    getLogger().i(TAG, "Framework initialized");
+    mLogger.i(TAG, "Framework initialized");
     mFrameworkInitialized = true;
   }
 
@@ -296,12 +294,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   private static native void nativeProcessTask(long taskPointer);
   private static native void nativeAddLocalization(String name, String value);
   private static native void nativeOnTransit(boolean foreground);
-
-  @NonNull
-  public Logger getLogger()
-  {
-    return mLogger;
-  }
 
   public boolean isFirstLaunch()
   {

@@ -9,11 +9,9 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.Utils;
-
 import net.jcip.annotations.Immutable;
 
 import java.io.File;
@@ -36,8 +34,8 @@ class FileLoggerStrategy implements LoggerStrategy
   @NonNull
   private final Application mApplication;
 
-  FileLoggerStrategy(@NonNull Application application, @NonNull String filePath,
-                     @NonNull Executor executor)
+  public FileLoggerStrategy(@NonNull Application application, @NonNull String filePath,
+                            @NonNull Executor executor)
   {
     mApplication = application;
     mFilePath = filePath;

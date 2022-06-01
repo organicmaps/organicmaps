@@ -21,7 +21,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.TwoStatePreference;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
@@ -481,16 +480,11 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    final boolean isLoggingEnabled = LoggerFactory.INSTANCE.isFileLoggingEnabled();
-    ((TwoStatePreference) pref).setChecked(isLoggingEnabled);
-    pref.setOnPreferenceChangeListener(
-        (preference, newValue) ->
-        {
-          boolean newVal = (Boolean) newValue;
-          if (isLoggingEnabled != newVal)
-            LoggerFactory.INSTANCE.setFileLoggingEnabled(newVal);
-          return true;
-        });
+    ((TwoStatePreference) pref).setChecked(LoggerFactory.INSTANCE.isFileLoggingEnabled);
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      LoggerFactory.INSTANCE.setFileLoggingEnabled((Boolean) newValue);
+      return true;
+    });
   }
 
   private void initEmulationBadStorage()
