@@ -7,13 +7,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.StorageUtils;
-
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 
@@ -23,6 +20,10 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * By default uses Android's system logger.
+ * After an initFileLogging() call can use a custom file logging implementation.
+ */
 @ThreadSafe
 public class LoggerFactory
 {
@@ -45,50 +46,63 @@ public class LoggerFactory
   }
 
   public final static LoggerFactory INSTANCE = new LoggerFactory();
+  public boolean isFileLoggingEnabled = false;
+
   @NonNull
   @GuardedBy("this")
   private final EnumMap<Type, BaseLogger> mLoggers = new EnumMap<>(Type.class);
-  private final static String CORE_TAG = "OMapsCore";
+  private final static String TAG = LoggerFactory.class.getSimpleName();
+  private final static String CORE_TAG = "OMcore";
   @Nullable
   @GuardedBy("this")
   private ExecutorService mFileLoggerExecutor;
   @Nullable
   private Application mApplication;
+  private String mLogsFolder;
 
   private LoggerFactory()
   {
+    Log.i(LoggerFactory.class.getSimpleName(), "Logging started");
   }
 
-  public void initialize(@NonNull Application application)
+  public void initFileLogging(@NonNull Application application)
   {
+    getLogger(Type.MISC).i(TAG, "Init file logging");
     mApplication = application;
+    mLogsFolder = StorageUtils.getLogsFolder(mApplication);
+
+    final SharedPreferences prefs = MwmApplication.prefs(mApplication);
+    // File logging is enabled by default for beta builds.
+    isFileLoggingEnabled = prefs.getBoolean(mApplication.getString(R.string.pref_enable_logging),
+                                            BuildConfig.BUILD_TYPE.equals("beta"));
+    getLogger(Type.MISC).i(TAG, "Logging config: isFileLoggingEnabled: " + isFileLoggingEnabled +
+                                "; logs folder: " + mLogsFolder);
+
+    // Set native logging level, save into shared preferences, update already created loggers if any.
+    switchFileLoggingEnabled(isFileLoggingEnabled);
   }
 
-  public boolean isFileLoggingEnabled()
+  private void switchFileLoggingEnabled(boolean enabled)
   {
-    if (mApplication == null)
-    {
-      if (BuildConfig.DEBUG)
-        throw new IllegalStateException("Application is not created," +
-                                        "but logger is used!");
-      return false;
-    }
-
-    SharedPreferences prefs = MwmApplication.prefs(mApplication);
-    String enableLoggingKey = mApplication.getString(R.string.pref_enable_logging);
-    //noinspection ConstantConditions
-    return prefs.getBoolean(enableLoggingKey, BuildConfig.BUILD_TYPE.equals("beta"));
+    getLogger(Type.MISC).i(TAG, "Switch isFileLoggingEnabled to " + enabled);
+    isFileLoggingEnabled = enabled;
+    nativeToggleCoreDebugLogs(enabled || BuildConfig.DEBUG);
+    MwmApplication.prefs(mApplication)
+                  .edit()
+                  .putBoolean(mApplication.getString(R.string.pref_enable_logging), enabled)
+                  .apply();
+    updateLoggers();
+    getLogger(Type.MISC).i(TAG, "File logging " + (enabled ? " started to " + mLogsFolder : "stopped"));
   }
 
+  /**
+   * Throws a NullPointerException if initFileLogging() was not called before.
+   */
   public void setFileLoggingEnabled(boolean enabled)
   {
     Objects.requireNonNull(mApplication);
-    nativeToggleCoreDebugLogs(enabled);
-    SharedPreferences prefs = MwmApplication.prefs(mApplication);
-    SharedPreferences.Editor editor = prefs.edit();
-    String enableLoggingKey = mApplication.getString(R.string.pref_enable_logging);
-    editor.putBoolean(enableLoggingKey, enabled).apply();
-    updateLoggers();
+    if (isFileLoggingEnabled != enabled)
+      switchFileLoggingEnabled(enabled);
   }
 
   @NonNull
@@ -112,21 +126,22 @@ public class LoggerFactory
     }
   }
 
+  /**
+   * Does nothing if initFileLogging() was not called before.
+   */
   public synchronized void zipLogs(@Nullable OnZipCompletedListener listener)
   {
     if (mApplication == null)
       return;
 
-    String logsFolder = StorageUtils.getLogsFolder(mApplication);
-
-    if (TextUtils.isEmpty(logsFolder))
+    if (TextUtils.isEmpty(mLogsFolder))
     {
       if (listener != null)
         listener.onCompleted(false);
       return;
     }
 
-    Runnable task = new ZipLogsTask(mApplication, logsFolder, logsFolder + ".zip", listener);
+    Runnable task = new ZipLogsTask(mApplication, mLogsFolder, mLogsFolder + ".zip", listener);
     getFileLoggerExecutor().execute(task);
   }
 
@@ -140,16 +155,15 @@ public class LoggerFactory
   @NonNull
   private LoggerStrategy createLoggerStrategy(@NonNull Type type)
   {
-    if (isFileLoggingEnabled() && mApplication != null)
+    if (isFileLoggingEnabled && mApplication != null)
     {
-      nativeToggleCoreDebugLogs(true);
-      String logsFolder = StorageUtils.getLogsFolder(mApplication);
-      if (!TextUtils.isEmpty(logsFolder))
-        return new FileLoggerStrategy(mApplication,logsFolder + File.separator
-                                      + type.name().toLowerCase() + ".log", getFileLoggerExecutor());
+      if (!TextUtils.isEmpty(mLogsFolder))
+      {
+        return new FileLoggerStrategy(mApplication, mLogsFolder + File.separator + type.name()
+                                                                                       .toLowerCase() + ".log", getFileLoggerExecutor());
+      }
     }
-
-    return new LogCatStrategy();
+    return new LogCatStrategy(isFileLoggingEnabled || BuildConfig.DEBUG);
   }
 
   @NonNull
@@ -182,7 +196,6 @@ public class LoggerFactory
       default:
         logger.v(CORE_TAG, msg);
     }
-    CrashlyticsUtils.INSTANCE.log(level, CORE_TAG, msg);
   }
 
   private static native void nativeToggleCoreDebugLogs(boolean enabled);
