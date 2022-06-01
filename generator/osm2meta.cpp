@@ -148,10 +148,23 @@ string MetadataTagProcessorImpl::ValidateAndFormat_ele(string const & v) const
 
 string MetadataTagProcessorImpl::ValidateAndFormat_destination(string const & v) const
 {
-  return v;
+  string r;
+  strings::Tokenize(v, ";", [&](std::string_view d)
+  {
+    if (r.empty())
+      r = d;
+    else
+      r += "; " + string(strings::Trim(d));
+  });
+  return r;
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_destination_ref(string const & v) const
+{
+  return v;
+}
+
+string MetadataTagProcessorImpl::ValidateAndFormat_junction_ref(string const & v) const
 {
   return v;
 }
@@ -458,6 +471,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_ELE: valid = ValidateAndFormat_ele(v); break;
   case Metadata::FMD_DESTINATION: valid = ValidateAndFormat_destination(v); break;
   case Metadata::FMD_DESTINATION_REF: valid = ValidateAndFormat_destination_ref(v); break;
+  case Metadata::FMD_JUNCTION_REF: valid = ValidateAndFormat_junction_ref(v); break;
   case Metadata::FMD_TURN_LANES: valid = ValidateAndFormat_turn_lanes(v); break;
   case Metadata::FMD_TURN_LANES_FORWARD: valid = ValidateAndFormat_turn_lanes_forward(v); break;
   case Metadata::FMD_TURN_LANES_BACKWARD: valid = ValidateAndFormat_turn_lanes_backward(v); break;

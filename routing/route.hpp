@@ -64,15 +64,30 @@ public:
     uint8_t m_maxSpeedKmPH = 0;
   };
 
+  struct RoadNameInfo
+  {
+    bool m_isLink;
+    // This is for street/road. |m_ref| |m_name|.
+    std::string m_ref; // Number of street/road .g. "CA 85".
+    std::string m_name; // E.g "Johnson Ave.".
+    // This is for 1st segment of link after junction. Exit |junction_ref| to |m_destination_ref| for |m_destination|.
+    std::string m_junction_ref; // Number of junction e.g. "398B".
+    std::string m_destination_ref; // Number of next road, e.g. "CA 85", Sometimes "CA 85 South".
+    std::string m_destination; // E.g. "Cupertino".
+    bool HasBasicTextInfo() const { return !m_ref.empty() || !m_name.empty(); }
+    bool HasExitInfo() const { return m_isLink || !m_junction_ref.empty() || !m_destination_ref.empty() || !m_destination.empty(); }
+    RoadNameInfo() { m_isLink = false; }
+  };
+
   RouteSegment(Segment const & segment, turns::TurnItem const & turn,
-               geometry::PointWithAltitude const & junction, std::string const & street,
+               geometry::PointWithAltitude const & junction, RoadNameInfo const & roadNameInfo,
                double distFromBeginningMeters, double distFromBeginningMerc,
                double timeFromBeginningS, traffic::SpeedGroup traffic,
                std::unique_ptr<TransitInfo> transitInfo)
     : m_segment(segment)
     , m_turn(turn)
     , m_junction(junction)
-    , m_street(street)
+    , m_roadNameInfo(roadNameInfo)
     , m_distFromBeginningMeters(distFromBeginningMeters)
     , m_distFromBeginningMerc(distFromBeginningMerc)
     , m_timeFromBeginningS(timeFromBeginningS)
@@ -89,7 +104,7 @@ public:
   Segment const & GetSegment() const { return m_segment; }
   Segment & GetSegment() { return m_segment; }
   geometry::PointWithAltitude const & GetJunction() const { return m_junction; }
-  std::string const & GetStreet() const { return m_street; }
+  RoadNameInfo const & GetRoadNameInfo() const { return m_roadNameInfo; }
   traffic::SpeedGroup GetTraffic() const { return m_traffic; }
   turns::TurnItem const & GetTurn() const { return m_turn; }
 
@@ -116,8 +131,8 @@ private:
   /// The furthest point of the segment from the beginning of the route along the route.
   geometry::PointWithAltitude m_junction;
 
-  /// Street name of |m_segment| if any. Otherwise |m_street| is empty.
-  std::string m_street;
+  /// RoadNameInfo of |m_segment| if any. Otherwise |m_roadInfo| is empty.
+  RoadNameInfo m_roadNameInfo;
 
   /// Distance from the route (not the subroute) beginning to the farthest end of |m_segment| in meters.
   double m_distFromBeginningMeters = 0.0;
@@ -147,7 +162,7 @@ public:
   using TTurns = std::vector<turns::TurnItem>;
   using TTimeItem = std::pair<uint32_t, double>;
   using TTimes = std::vector<TTimeItem>;
-  using TStreetItem = std::pair<uint32_t, std::string>;
+  using TStreetItem = std::pair<uint32_t, RouteSegment::RoadNameInfo>;
   using TStreets = std::vector<TStreetItem>;
 
   class SubrouteAttrs final
@@ -299,11 +314,11 @@ public:
   /// set with MoveIterator() method. If it's not possible returns nullopt.
   std::optional<turns::TurnItem> GetCurrentIteratorTurn() const;
 
-  /// \brief Returns a name of a street where the user rides at this moment.
-  void GetCurrentStreetName(std::string & name) const;
+  /// \brief Returns name info of a street where the user rides at this moment.
+  void GetCurrentStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const;
 
-  /// \brief Returns a name of a street next to idx point of the path. Function avoids short unnamed links.
-  void GetStreetNameAfterIdx(uint32_t idx, std::string & name) const;
+  /// \brief Return name info of a street according to next turn.
+  void GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const;
 
   /// \brief Gets turn information after the turn next to the nearest one.
   /// \param distanceToTurnMeters is a distance from current position to the second turn.
@@ -389,6 +404,9 @@ private:
   double GetPolySegAngle(size_t ind) const;
   void GetClosestTurn(size_t segIdx, turns::TurnItem & turn) const;
   size_t ConvertPointIdxToSegmentIdx(size_t pointIdx) const;
+
+  /// \brief Returns a name info of a street next to idx point of the path.
+  void GetStreetNameAfterIdx(uint32_t idx, RouteSegment::RoadNameInfo & roadNameInfo) const;
 
   /// \returns Estimated time to pass the route segment with |segIdx|.
   double GetTimeToPassSegSec(size_t segIdx) const;
