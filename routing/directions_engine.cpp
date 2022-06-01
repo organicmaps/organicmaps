@@ -66,18 +66,12 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(*ft);
   pathSegment.m_isOneWay = ftypes::IsOneWayChecker::Instance()(*ft);
 
-  if (pathSegment.m_isLink)
-  {
-    if (auto const & dst_number = ft->GetMetadata(feature::Metadata::FMD_DESTINATION_REF); !dst_number.empty())
-      pathSegment.m_name = "[" + string(dst_number) + "] ";
-    pathSegment.m_name += ft->GetMetadata(feature::Metadata::FMD_DESTINATION);
-  }
-  else
-  {
-    if (auto const & road_number = ft->GetRoadNumber(); !road_number.empty())
-      pathSegment.m_name = "[" + road_number + "] ";
-    pathSegment.m_name += ft->GetName(StringUtf8Multilang::kDefaultCode);
-  }
+  pathSegment.m_roadNameInfo.m_isLink = pathSegment.m_isLink;
+  pathSegment.m_roadNameInfo.m_junction_ref = ft->GetMetadata(feature::Metadata::FMD_JUNCTION_REF);
+  pathSegment.m_roadNameInfo.m_destination_ref = ft->GetMetadata(feature::Metadata::FMD_DESTINATION_REF);
+  pathSegment.m_roadNameInfo.m_destination = ft->GetMetadata(feature::Metadata::FMD_DESTINATION);
+  pathSegment.m_roadNameInfo.m_ref = ft->GetRoadNumber();
+  pathSegment.m_roadNameInfo.m_name = ft->GetName(StringUtf8Multilang::kDefaultCode);
 }
 
 void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges,
@@ -355,7 +349,7 @@ RouterResultCode DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector
 
     // Street names contain empty names too for avoiding of freezing of old street name while
     // moving along unnamed street.
-    streets.emplace_back(max(junctions.size(), static_cast<size_t>(1)) - 1, loadedSegmentIt->m_name);
+    streets.emplace_back(max(junctions.size(), static_cast<size_t>(1)) - 1, loadedSegmentIt->m_roadNameInfo);
 
     // Turns information.
     if (!junctions.empty() && skipTurnSegments == 0)

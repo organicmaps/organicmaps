@@ -418,8 +418,8 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
   if (!GetTurnInfo(result, outgoingSegmentIndex, vehicleSettings, turnInfo))
     return;
 
-  turn.m_sourceName = turnInfo.m_ingoing->m_name;
-  turn.m_targetName = turnInfo.m_outgoing->m_name;
+  turn.m_sourceName = turnInfo.m_ingoing->m_roadNameInfo.m_name;
+  turn.m_targetName = turnInfo.m_outgoing->m_roadNameInfo.m_name;
   turn.m_turn = CarDirection::None;
 
   ASSERT_GREATER(turnInfo.m_ingoing->m_path.size(), 1, ());
@@ -531,7 +531,7 @@ size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSeg
     if (checkedSegment.m_path.size() < 2)
       return 0;
 
-    if (checkedSegment.m_name == masterSegment.m_name &&
+    if (checkedSegment.m_roadNameInfo.m_name == masterSegment.m_roadNameInfo.m_name &&
         checkedSegment.m_highwayClass == masterSegment.m_highwayClass &&
         checkedSegment.m_isLink == masterSegment.m_isLink && !checkedSegment.m_onRoundabout)
     {
@@ -555,7 +555,7 @@ size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSeg
       }
 
       // Avoid the UTurn on unnamed roads inside the rectangle based distinct.
-      if (checkedSegment.m_name.empty())
+      if (checkedSegment.m_roadNameInfo.m_name.empty())
         return 0;
 
       // Avoid returning to the same edge after uturn somewere else.

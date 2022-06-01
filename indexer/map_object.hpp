@@ -181,6 +181,7 @@ std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
 
     case Metadata::FMD_DESTINATION:
     case Metadata::FMD_DESTINATION_REF:
+    case Metadata::FMD_JUNCTION_REF:
     case Metadata::FMD_TURN_LANES:
     case Metadata::FMD_TURN_LANES_FORWARD:
     case Metadata::FMD_TURN_LANES_BACKWARD:
