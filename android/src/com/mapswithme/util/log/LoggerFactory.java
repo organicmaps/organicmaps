@@ -35,14 +35,8 @@ public class LoggerFactory
 
   public interface OnZipCompletedListener
   {
-    /**
-     * Indicates about completion of zipping operation.
-     * <p>
-     * <b>NOTE:</b> called from the logger thread
-     * </p>
-     * @param success indicates about a status of zipping operation
-     */
-    void onCompleted(boolean success);
+    // Called from the logger thread.
+    public void onCompleted(final boolean success, @Nullable final String zipPath);
   }
 
   public final static LoggerFactory INSTANCE = new LoggerFactory();
@@ -92,7 +86,7 @@ public class LoggerFactory
                   .putBoolean(mApplication.getString(R.string.pref_enable_logging), enabled)
                   .apply();
     updateLoggers();
-    getLogger(Type.MISC).i(TAG, "File logging " + (enabled ? " started to " + mLogsFolder : "stopped"));
+    getLogger(Type.MISC).i(TAG, "File logging " + (enabled ? "started to " + mLogsFolder : "stopped"));
   }
 
   /**
@@ -137,7 +131,7 @@ public class LoggerFactory
     if (TextUtils.isEmpty(mLogsFolder))
     {
       if (listener != null)
-        listener.onCompleted(false);
+        listener.onCompleted(false, null);
       return;
     }
 

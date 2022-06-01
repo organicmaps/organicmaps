@@ -98,14 +98,6 @@ public class StorageUtils
     return externalDir + File.separator + LOGS_FOLDER;
   }
 
-  @Nullable
-  static String getLogsZipPath(@NonNull Application application)
-  {
-    String zipFile = getExternalFilesDir(application) + File.separator + LOGS_FOLDER + ".zip";
-    File file = new File(zipFile);
-    return file.isFile() && file.exists() ? zipFile : null;
-  }
-
   @NonNull
   public static String getApkPath(@NonNull Application application)
   {
