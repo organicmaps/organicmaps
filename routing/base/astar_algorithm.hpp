@@ -207,6 +207,7 @@ public:
   template <typename P>
   Result FindPath(P & params, RoutingResult<Vertex, Weight> & result) const;
 
+  /// Fetch routes until \a emitter returns false.
   template <class P, class Emitter>
   Result FindPathBidirectionalEx(P & params, Emitter && emitter) const;
 
@@ -215,6 +216,7 @@ public:
   {
     return FindPathBidirectionalEx(params, [&result](RoutingResult<Vertex, Weight> && res)
     {
+      // Fetch first (best) route and stop.
       result = std::move(res);
       return true;
     });

@@ -834,6 +834,7 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
     AlgoT algorithm;
     auto const result = algorithm.FindPathBidirectionalEx(params, [&routes, &edges, &keys](RoutingResultT && route)
     {
+      // Routes fetching is not necessary ordered by m_distance, so continue search.
       if (routes.size() > kMaxNumRoutes && routes.top().m_distance <= route.m_distance)
         return false;
 
@@ -858,7 +859,7 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       return keys[0].size() >= maxVertices && keys[1].size() >= maxVertices;
     });
 
-    if (result != AlgoT::Result::OK)
+    if (routes.empty() || result == AlgoT::Result::Cancelled)
       return ConvertResult<Vertex, Edge, Weight>(result);
 
     candidates = routes.move();
