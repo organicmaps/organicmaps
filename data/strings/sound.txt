@@ -20,6 +20,7 @@
     it = Rimani sulla destra.
     ja = 右を維持してください。
     ko = 오른쪽에 두기.
+    mr = उजवीकडे ठेवा.
     nl = Rechts aanhouden.
     pl = Trzymaj się prawej strony.
     pt = Mantenha-se à direita.
@@ -55,6 +56,7 @@
     it = Gira a destra.
     ja = 右に曲がります。
     ko = 우회전하십시오.
+    mr = उजवीकडे वळा.
     nl = Sla rechtsaf.
     pl = Skręć w prawo.
     pt = Vire à direita.
@@ -90,6 +92,7 @@
     it = Svoltare a destra.
     ja = 急に右折。
     ko = 급우회전.
+    mr = तीव्र उजवे वळण
     nl = Scherp rechtsaf.
     pl = Ostro w prawo.
     pt = Curva acentuada à direita.
@@ -125,6 +128,7 @@
     it = Entra nella rotonda.
     ja = ロータリー入口です。
     ko = 로터리 진입입니다.
+    mr = चौकात प्रवेश करा.
     nl = Rij de rotonde op.
     pl = Wjedź na rondo.
     pt = Entre na rotunda.
@@ -160,6 +164,7 @@
     it = Esci dalla rotonda.
     ja = ロータリーから抜けてください。
     ko = 원형 교차로에서 나갑니다.
+    mr = चौकातून बाहेर पडा.
     nl = Verlaat de rotonde.
     pl = Zjazd z ronda.
     pt = Saia da rotunda.
@@ -195,6 +200,7 @@
     it = Rimani sulla sinistra.
     ja = 左を維持してください。
     ko = 왼쪽에 두기.
+    mr = डावीकडे ठेवा.
     nl = Links aanhouden.
     pl = Trzymaj się lewej strony.
     pt = Mantenha-se à esquerda.
@@ -230,6 +236,7 @@
     it = Gira a sinistra.
     ja = 左に曲がります。
     ko = 좌회전하십시오.
+    mr = डावीकडे वळा.
     nl = Sla linksaf.
     pl = Skręć w lewo.
     pt = Vire à esquerda.
@@ -265,6 +272,7 @@
     it = Svoltare a sinistra.
     ja = 急に左折。
     ko = 급좌회전.
+    mr = तीव्र डावे वळण
     nl = Scherp linksaf.
     pl = Ostro w lewo.
     pt = Curva acentuada à esquerda.
@@ -300,6 +308,7 @@
     it = Effettua un'inversione a U.
     ja = Uターンです。
     ko = 유턴입니다.
+    mr = यू-टर्न घ्या.
     nl = Keer om.
     pl = Zawróć.
     pt = Faça inversão de marcha.
@@ -335,6 +344,7 @@
     it = Sempre dritto.
     ja = 直進です。
     ko = 직진입니다.
+    mr = सरळ जा.
     nl = Rij rechtdoor.
     pl = Jedź prosto.
     pt = Siga em frente.
@@ -370,6 +380,7 @@
     it = Uscita.
     ja = 出口.
     ko = 출구.
+    mr = बाहेर पडा.
     nl = Verlaat.
     pl = Zjazd.
     pt = Saída.
@@ -405,6 +416,7 @@
     it = Arriverai.
     ja = 到着します。
     ko = 도착할 예정입니다.
+    mr = तुम्ही पोहोचाल.
     nl = Arriveert u.
     pl = Dojedziesz.
     pt = Você vai chegar.
@@ -440,6 +452,7 @@
     it = Sei arrivato.
     ja = 到着。
     ko = 도착했습니다.
+    mr = तुम्ही पोहोचला आहात.
     nl = Bestemming bereikt.
     pl = Jesteś u celu.
     pt = Chegou.
@@ -475,6 +488,7 @@
     it = Tra cinquanta metri
     ja = 五十メートル先
     ko = 오십 미터 앞
+    mr = पन्नास मीटर मध्ये
     nl = Over vijftig meter
     pl = Za pięćdziesiąt metrów
     pt = A cinquenta metros
@@ -510,6 +524,7 @@
     it = Tra cento metri
     ja = 百メートル先
     ko = 백 미터 앞
+    mr = शंभर मीटर मध्ये
     nl = Over honderd meter
     pl = Za sto metrów
     pt = A cem metros
@@ -545,6 +560,7 @@
     it = Tra duecento metri
     ja = 二百メートル先
     ko = 이백 미터 앞
+    mr = दोनशे मीटर मध्ये
     nl = Over tweehonderd meter
     pl = Za dwieście metrów
     pt = A duzentos metros
@@ -580,6 +596,7 @@
     it = Tra duecento cinquanta metri
     ja = 二百五十メートル先
     ko = 이백오십 미터 앞
+    mr = अडीचशे मीटर मध्ये
     nl = Over tweehonderdvijftig meter
     pl = Za dwieście pięćdziesiąt metrów
     pt = A duzentos e cinquenta metros
@@ -615,6 +632,7 @@
     it = Tra trecento metri
     ja = 三百メートル先
     ko = 삼백 미터 앞
+    mr = तीनशे मीटर मध्ये
     nl = Over driehonderd meter
     pl = Za trzysta metrów
     pt = A trezentos metros
@@ -650,6 +668,7 @@
     it = Tra quattrocento metri
     ja = 四百メートル先
     ko = 사백 미터 앞
+    mr = चारशे मीटर मध्ये
     nl = Over vierhonderd meter
     pl = Za czterysta metrów
     pt = A quatrocentos metros
@@ -685,6 +704,7 @@
     it = Tra cinquecento metri
     ja = 五百メートル先
     ko = 오백 미터 앞
+    mr = पाचशे मीटर मध्ये
     nl = Over vijfhonderd meter
     pl = Za pięćset metrów
     pt = A quinhentos metros
@@ -720,6 +740,7 @@
     it = Tra seicento metri
     ja = 六百メートル先
     ko = 육백 미터 앞
+    mr = सहाशे मीटर मध्ये
     nl = Over zeshonderd meter
     pl = Za sześćset metrów
     pt = A seiscentos metros
@@ -755,6 +776,7 @@
     it = Tra settecento metri
     ja = 七百メートル先
     ko = 칠백 미터 앞
+    mr = सातशे मीटर मध्ये
     nl = Over zevenhonderd meter
     pl = Za siedemset metrów
     pt = A setecentos metros
@@ -790,6 +812,7 @@
     it = Tra settecento cinquanta metri
     ja = 七百五十メートル先
     ko = 칠백오십 미터 앞
+    mr = साडेसातशे मीटर मध्ये
     nl = Over zevenhonderdvijftig meter
     pl = Za siedemset pięćdziesiąt metrów
     pt = A setecentos e cinquenta metros
@@ -825,6 +848,7 @@
     it = Tra ottocento metri
     ja = 八百メートル先
     ko = 팔백 미터 앞
+    mr = आठशे मीटर मध्ये
     nl = Over achthonderd meter
     pl = Za osiemset metrów
     pt = A oitocentos metros
@@ -860,6 +884,7 @@
     it = Tra novecento metri
     ja = 九百メートル先
     ko = 구백 미터 앞
+    mr = नऊशे मीटर मध्ये
     nl = Over negenhonderd meter
     pl = Za dziewięćset metrów
     pt = A novecentos metros
@@ -895,6 +920,7 @@
     it = Tra un chilometro
     ja = 一キロ先
     ko = 일 킬로미터 앞
+    mr = एक किलोमीटर मध्ये
     nl = Over één kilometer
     pl = Za kilometr
     pt = A um quilómetro
@@ -930,6 +956,7 @@
     it = Tra un chilometro e mezzo
     ja = 一.五キロ先
     ko = 일점오 킬로미터 앞
+    mr = दीड किलोमीटरमध्ये
     nl = Over anderhalve kilometer
     pl = Za półtora kilometra
     pt = A um quilómetro e meio
@@ -965,6 +992,7 @@
     it = Tra due chilometri
     ja = 二キロ先
     ko = 이 킬로미터 앞
+    mr = दोन किलोमीटर मध्ये
     nl = Over twee kilometer
     pl = Za dwa kilometry
     pt = A dois quilómetros
@@ -1000,6 +1028,7 @@
     it = Tra due chilometri e mezzo
     ja = 二.五キロ先
     ko = 이점오 킬로미터 앞
+    mr = अडीच किलोमीटरमध्ये
     nl = Over tweeëneenhalve kilometer
     pl = Za dwa i pół kilometra
     pt = A dois quilómetros e meio
@@ -1035,6 +1064,7 @@
     it = Tra tre chilometri
     ja = 三キロ先
     ko = 삼 킬로미터 앞
+    mr = तीन किलोमीटर मध्ये
     nl = Over drie kilometer
     pl = Za trzy kilometry
     pt = A três quilômetros
@@ -1070,6 +1100,7 @@
     it = Poi
     ja = その先
     ko = 그 다음
+    mr = मग
     nl = Daarna
     pl = Następnie
     pt = Depois
@@ -1105,6 +1136,7 @@
     it = Prendi la prima uscita.
     ja = 一番目の出口です。
     ko = 첫 번째 출구입니다.
+    mr = पहिला निर्गमन घ्या
     nl = Neem de eerste afslag.
     pl = Zjedź pierwszym zjazdem.
     pt = Saia na primeira saída.
@@ -1140,6 +1172,7 @@
     it = Prendi la seconda uscita.
     ja = 二番目の出口です。
     ko = 두 번째 출구입니다.
+    mr = दुसरा निर्गमन घ्या
     nl = Neem de tweede afslag.
     pl = Zjedź drugim zjazdem.
     pt = Saia na segunda saída.
@@ -1175,6 +1208,7 @@
     it = Prendi la terza uscita.
     ja = 三番目の出口です。
     ko = 세 번째 출구입니다.
+    mr = तिसरा निर्गमन घ्या
     nl = Neem de derde afslag.
     pl = Zjedź trzecim zjazdem.
     pt = Saia na terceira saída.
@@ -1210,6 +1244,7 @@
     it = Prendi la quarta uscita.
     ja = 四番目の出口です。
     ko = 네 번째 출구입니다.
+    mr = चौथा निर्गमन घ्या
     nl = Neem de vierde afslag.
     pl = Zjedź czwartym zjazdem.
     pt = Saia na quarta saída.
@@ -1245,6 +1280,7 @@
     it = Prendi la quinta uscita.
     ja = 五番目の出口です。
     ko = 다섯 번째 출구입니다.
+    mr = पाचवा निर्गमन घ्या
     nl = Neem de vijfde afslag.
     pl = Zjedź piątym zjazdem.
     pt = Saia na quinta saída.
@@ -1280,6 +1316,7 @@
     it = Prendi la sesta uscita.
     ja = 六番目の出口です。
     ko = 여섯 번째 출구입니다.
+    mr = सहावा निर्गमन घ्या
     nl = Neem de zesde afslag.
     pl = Zjedź szóstym zjazdem.
     pt = Saia na sexta saída.
@@ -1315,6 +1352,7 @@
     it = Prendi la settima uscita.
     ja = 七番目の出口です。
     ko = 일곱 번째 출구입니다.
+    mr = सातवा निर्गमन घ्या
     nl = Neem de zevende afslag.
     pl = Zjedź siódmym zjazdem.
     pt = Saia na sétima saída.
@@ -1350,6 +1388,7 @@
     it = Prendi l'ottava uscita.
     ja = 八番目の出口です。
     ko = 여덟 번째 출구입니다.
+    mr = आठवा निर्गमन घ्या
     nl = Neem de achtste afslag.
     pl = Zjedź ósmym zjazdem.
     pt = Saia na oitava saída.
@@ -1385,6 +1424,7 @@
     it = Prendi la nona uscita.
     ja = 九番目の出口です。
     ko = 아홉 번째 출구입니다.
+    mr = नववा निर्गमन घ्या
     nl = Neem de negende afslag.
     pl = Zjedź dziewiątym zjazdem.
     pt = Saia na nona saída.
@@ -1420,6 +1460,7 @@
     it = Prendi la decima uscita.
     ja = 十番目の出口です。
     ko = 열 번째 출구입니다.
+    mr = दहावा निर्गमन घ्या
     nl = Neem de tiende afslag.
     pl = Zjedź dziesiątym zjazdem.
     pt = Saia na décima saída.
@@ -1455,6 +1496,7 @@
     it = Prendi l'undicesima uscita.
     ja = 十一番目の出口です。
     ko = 열한 번째 출구입니다.
+    mr = अकरावा निर्गमन घ्या
     nl = Neem de elfde afslag.
     pl = Zjedź jedenastym zjazdem.
     pt = Saia na décima primeira saída.
@@ -1490,6 +1532,7 @@
     it = Tra cinquanta piedi
     ja = 五十フィート先
     ko = 오십 피트 앞
+    mr = पन्नास फुटांत
     nl = Over vijftig voet
     pl = Za pięćdziesiąt stóp
     pt = A cinquenta pés
@@ -1525,6 +1568,7 @@
     it = Tra cento piedi
     ja = 百フィート先
     ko = 백 피트 앞
+    mr = शंभर फुटात
     nl = Over honderd voet
     pl = Za sto stóp
     pt = A cem pés
@@ -1560,6 +1604,7 @@
     it = Tra duecento piedi
     ja = 二百フィート先
     ko = 이백 피트 앞
+    mr = दोनशे फुटांत
     nl = Over tweehonderd voet
     pl = Za dwieście stóp
     pt = A duzentos pés
@@ -1595,6 +1640,7 @@
     it = Tra trecento piedi
     ja = 三百フィート先
     ko = 삼백 피트 앞
+    mr = तीनशे फुटांत
     nl = Over driehonderd voet
     pl = Za trzysta stóp
     pt = A trezentos pés
@@ -1630,6 +1676,7 @@
     it = Tra quattrocento piedi
     ja = 四百フィート先
     ko = 사백 피트 앞
+    mr = चारशे फुटांत
     nl = Over vierhonderd voet
     pl = Za czterysta stóp
     pt = A quatrocentos pés
@@ -1665,6 +1712,7 @@
     it = Tra cinquecento piedi
     ja = 五百フィート先
     ko = 오백 피트 앞
+    mr = पाचशे फुटात
     nl = Over vijfhonderd voet
     pl = Za pięćset stóp
     pt = A quinhentos pés
@@ -1700,6 +1748,7 @@
     it = Tra seicento piedi
     ja = 六百フィート先
     ko = 육백 피트 앞
+    mr = सहाशे फुटांत
     nl = Over zeshonderd voet
     pl = Za sześćset stóp
     pt = A seiscentos pés
@@ -1735,6 +1784,7 @@
     it = Tra settecento piedi
     ja = 七百フィート先
     ko = 칠백 피트 앞
+    mr = सातशे फुटांत
     nl = Over zevenhonderd voet
     pl = Za siedemset stóp
     pt = A setecentos pés
@@ -1770,6 +1820,7 @@
     it = Tra ottocento piedi
     ja = 八百フィート先
     ko = 팔백 피트 앞
+    mr = आठशे फुटांत
     nl = Over achthonderd voet
     pl = Za osiemset stóp
     pt = A oitocentos pés
@@ -1805,6 +1856,7 @@
     it = Tra novecento piedi
     ja = 九百フィート先
     ko = 구백 피트 앞
+    mr = नऊशे फुटांत
     nl = Over negenhonderd voet
     pl = Za dziewięćset stóp
     pt = A novecentos pés
@@ -1840,6 +1892,7 @@
     it = Tra mille piedi
     ja = 千フィート先
     ko = 천 피트 앞
+    mr = एक हजार फुटात
     nl = Over duizend voet
     pl = Za tysiąc stóp
     pt = A mil pés
@@ -1875,6 +1928,7 @@
     it = Tra mille cinquecento piedi
     ja = 千五百フィート先
     ko = 천오백 피트 앞
+    mr = पंधराशे फुटांत
     nl = Over vijftienhonderd voet
     pl = Za tysiąc pięćset stóp
     pt = A mil e quinhentos pés
@@ -1910,6 +1964,7 @@
     it = Tra duemila piedi
     ja = 二千フィート先
     ko = 이천 피트 앞
+    mr = दोन हजार फुटात
     nl = Over tweeduizend voet
     pl = Za dwa tysiące stóp
     pt = A dois mil pés
@@ -1945,6 +2000,7 @@
     it = Tra duemila cinquecento piedi
     ja = 二千五百フィート先
     ko = 이천오백 피트 앞
+    mr = पंचवीसशे फुटांत
     nl = Over vijfentwintighonderd voet
     pl = Za dwa i pół tysiąca stóp
     pt = A dois mil e quinhentos pés
@@ -1980,6 +2036,7 @@
     it = Tra tremila piedi
     ja = 三千フィート先
     ko = 삼천 피트 앞
+    mr = तीन हजार फुटात
     nl = Over drieduizend voet
     pl = Za trzy tysiące stóp
     pt = A três mil pés
@@ -2015,6 +2072,7 @@
     it = Tra tremila cinquecento piedi
     ja = 三千五百フィート先
     ko = 삼천오백 피트 앞
+    mr = पस्तीसशे फुटांत
     nl = Over vijfendertighonderd voet
     pl = Za trzy i pół tysiąca stóp
     pt = A três mil e quinhentos pés
@@ -2050,6 +2108,7 @@
     it = Tra quattromila piedi
     ja = 四千フィート先
     ko = 사천 피트 앞
+    mr = चार हजार फुटात
     nl = Over vierduizend voet
     pl = Za cztery tysiące stóp
     pt = A quatro mil pés
@@ -2085,6 +2144,7 @@
     it = Tra quattromila cinquecento piedi
     ja = 四千五百フィート先
     ko = 사천오백 피트 앞
+    mr = पंचेचाळीसशे फुटांत
     nl = Over vijfenveertighonderd voet
     pl = Za cztery i pół tysiąca stóp
     pt = A quatro mil e quinhentos pés
@@ -2120,6 +2180,7 @@
     it = Tra cinquemila piedi
     ja = 五千フィート先
     ko = 오천 피트 앞
+    mr = पाच हजार फुटात
     nl = Over vijfduizend voet
     pl = Za pięć tysięcy stóp
     pt = A cinco mil pés
@@ -2155,6 +2216,7 @@
     it = Tra un miglio
     ja = 一マイル先
     ko = 일 마일 앞
+    mr = एक मैल मध्ये
     nl = Over één mijl
     pl = Za jedną milę
     pt = A uma milha
@@ -2190,6 +2252,7 @@
     it = Tra un miglio e mezzo
     ja = 一.五マイル先
     ko = 일점오 마일 앞
+    mr = दीड मैल मध्ये
     nl = Over anderhalve mijl
     pl = Za półtorej mili
     pt = A uma milha e meia
@@ -2225,6 +2288,7 @@
     it = Tra due miglia
     ja = 二マイル先
     ko = 이 마일 앞
+    mr = दोन मैल मध्ये
     nl = Over twee mijl
     pl = Za dwie mile
     pt = A duas milhas
@@ -2259,6 +2323,7 @@
     it = Autovelox in prossimità
     ja = この先にある自動速度違反取締装置
     ko = 전방에 카메라
+    mr = पुढे कॅमेरा आहे
     nb = Kommer til kamera
     nl = Camera in zicht
     pl = Kamera z przodu
