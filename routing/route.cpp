@@ -134,26 +134,26 @@ void Route::GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) con
 // If exit is true, returns m_junction_ref, m_destination_ref, m_destination, m_name.
 // Handling of incomplete data or non-standard data:
 // - We go trough 400m to find first segment with existing data.
-// Bit for link we go through all segments till we reach non-link segment,
-// Sometimes links are really long (e.g. 1km+ in USA) and they have no tags.
+// But for link we go through all segments till we reach non-link segment,
+// This is for really long links (e.g. 1km+ in USA) which have no tags.
 // - Normally for link both destination and destination:ref tags exist together.
-// But sometimes only destination tag exists for link. And destination:ref can be calculated
-// by checking next segments of route until link will end and normal r will start.
-// Hopefully it will have ref tag. So we can show it instead of destination:ref.
-// Also we can add info about it's name.
-// - Sometimes exit is not tagged as link (e.g. if new r starts here).
+// But sometimes only |destination| tag exists for link. And |destination:ref| can be calculated
+// by checking next segments of route until link will end and normal road will start.
+// Hopefully it will have |ref| tag. So we can use it instead of |destination:ref|.
+// Also we can use info about it's |name|. It can be useful if no |destination| tag.
+// - Sometimes exit is not tagged as link (e.g. if new road starts here).
 // At the same time they can have all useful tags just like link.
-// Usually destination:ref=ref in such cases, or only 1st part of destination:ref can match.
+// Usually |destination:ref| = |ref| in such cases, or only 1st part of |destination:ref| can match.
 void Route::GetStreetNameAfterIdx(uint32_t idx, RouteSegment::RoadNameInfo & roadNameInfo) const
 {
   auto const iterIdx = m_poly.GetIterToIndex(idx);
   if (!IsValid() || !iterIdx.IsValid())
     return;
 
+  // Info about 1st segment with existing basic (non-link) info after link.
   RouteSegment::RoadNameInfo roadNameInfoNext;
 
-  size_t i = idx;
-  for (; i < m_poly.GetPolyline().GetSize(); ++i)
+  for (size_t i = idx; i < m_poly.GetPolyline().GetSize(); ++i)
   {
     // Note. curIter.m_ind == 0 means route iter at zero point. No corresponding route segments at
     // |m_routeSegments| in this case. |name| should be cleared.
@@ -172,10 +172,10 @@ void Route::GetStreetNameAfterIdx(uint32_t idx, RouteSegment::RoadNameInfo & roa
     }
     else if (r.HasExitInfo() && !roadNameInfo.HasExitInfo())
       roadNameInfo = r;
-    // For exit wait for non-exit
+    // For exit wait for non-exit.
     else if (roadNameInfo.HasExitInfo() && !r.m_isLink)
       continue;
-
+    // For non-exits check only during first |kSteetNameLinkMeters|.
     auto const furtherIter = m_poly.GetIterToIndex(i);
     CHECK(furtherIter.IsValid(), ());
     if (m_poly.GetDistanceM(iterIdx, furtherIter) > kSteetNameLinkMeters)
@@ -184,6 +184,7 @@ void Route::GetStreetNameAfterIdx(uint32_t idx, RouteSegment::RoadNameInfo & roa
 
   if (roadNameInfo.HasExitInfo())
   {
+    // Use basic info from |roadNameInfoNext| to update |roadNameInfo|.
     if (roadNameInfo.m_destination_ref.empty())
       roadNameInfo.m_destination_ref = roadNameInfoNext.m_ref;
     roadNameInfo.m_name = roadNameInfoNext.m_name;

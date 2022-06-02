@@ -341,6 +341,11 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   return m_state;
 }
 
+// For next street returns "[ref] name" .
+// For highway exits (or main roads with exit info) returns "[junction:ref]: [target:ref] > target".
+// If no |target| - it will be replaced by |name| of next street.
+// If no |target:ref| - it will be replaced by |ref| of next road.
+// So if link has no info at all, "[ref] name" of next road will be returned (as for next street).
 void GetFullRoadName(RouteSegment::RoadNameInfo & road, string & name)
 {
   if (auto const & sh = ftypes::GetRoadShields(road.m_ref); !sh.empty())
