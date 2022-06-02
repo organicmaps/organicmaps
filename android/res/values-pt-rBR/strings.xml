@@ -78,8 +78,20 @@
 	<string name="maps_storage_summary">Selecione o local para onde os mapas devem ser baixados</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
 	<string name="maps_storage_downloaded">Mapas</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Armazenamento interno privado</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Armazenamento interno compartilhado</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">Cartão SD</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">Armazenamento externo compartilhado</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">%1$s livre de %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Mover mapas?</string>
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">Erro ao mover arquivos de mapas</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Isto pode demorar alguns minutos.\nPor favor aguarde…</string>
 	<!-- Measurement units title in settings activity -->
@@ -352,7 +364,7 @@
 	<string name="editor_time_add">Adicionar horário</string>
 	<string name="editor_time_delete">Apagar horário</string>
 	<!-- Text for allday switch. -->
-	<string name="editor_time_allday">O Dia Todo (24 horas)</string>
+	<string name="editor_time_allday">O dia todo (24 horas)</string>
 	<string name="editor_time_open">Aberto</string>
 	<string name="editor_time_close">Fechado</string>
 	<string name="editor_time_add_closed">Inserir Horas Sem Funcionamento</string>
@@ -393,6 +405,8 @@
 	<string name="details">Detalhes</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Adicionar uma rua</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">Por favor, digite o nome da rua</string>
 	<string name="choose_language">Escolher um idioma</string>
 	<string name="choose_street">Escolher uma rua</string>
 	<string name="postal_code">CEP</string>
@@ -404,7 +418,7 @@
 	<string name="downloader_update_maps">Atualizar mapas</string>
 	<string name="downloader_mwm_migration_dialog">Para criar um itinerário é necessário atualizar todos os mapas e, em seguida, planejá-lo novamente.</string>
 	<string name="downloader_search_field_hint">Encontrar o mapa</string>
-	<string name="common_check_internet_connection_dialog">Por favor, verifique as suas configurações e certifique-se de que o dispositivo está conectado à Internet.</string>
+	<string name="common_check_internet_connection_dialog">Por favor, verifique as suas configurações e certifique-se de que o dispositivo está conectado à internet.</string>
 	<string name="downloader_no_space_title">Não há espaço suficiente</string>
 	<string name="downloader_no_space_message">Por favor, remova os dados desnecessários</string>
 	<string name="editor_login_error_dialog">Erro no login.</string>
@@ -464,6 +478,8 @@
 	<string name="editor_remove_place_message">Remover local adicionado?</string>
 	<string name="editor_remove_place_button">Remover</string>
 	<string name="editor_place_doesnt_exist">O lugar não existe</string>
+	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+	<string name="delete_place_empty_comment_error">Por favor, explica o motivo pelo qual você está retirando o local</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Digite um número de telefone correto</string>
 	<string name="error_enter_correct_web">Digite um endereço de site válido</string>
@@ -501,7 +517,7 @@
 	<string name="feedback_general">Opinão geral</string>
 	<string name="on">Lig.</string>
 	<string name="off">Deslig.</string>
-	<string name="prefs_languages_information">Utilizamos o TTS (texto-para-voz) do sistema para instruções de voz. Muitos dispositivos do Android usam o TTS do Google, você pode baixá-lo ou atualizá-lo no Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information">Utilizamos o sistema TTS (texto-para-voz) para instruções de voz. Muitos dispositivos do Android usam o TTS do Google, você pode baixá-lo ou atualizá-lo no Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off_link">Para obter mais informações, consulte este guia.</string>
 	<string name="transliteration_title">Transliteração para alfabeto latino</string>
 	<string name="learn_more">Saber mais</string>
@@ -538,7 +554,7 @@
 	  <item quantity="one">%d arquivo foi encontrado. Você vai ver depois da conversão.</item>
 	  <item quantity="other">%d arquivos foram encontrados. Você os verá depois da conversão.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Sem conexão com a Internet</string>
+	<string name="common_check_internet_connection_dialog_title">Sem conexão com a internet</string>
 	<plurals name="objects">
 	  <item quantity="one">%d objeto</item>
 	  <item quantity="other">%d objetos</item>
@@ -674,7 +690,7 @@
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Quando ativada, a tela poderá hibernar após um período de inatividade.</string>
 	<!-- A preference title; keep short! -->
-	<string name="enable_show_on_lock_screen">Mostrar na tela de bloqueio ativada</string>
+	<string name="enable_show_on_lock_screen">Mostrar na tela de bloqueio</string>
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Quando ativado, você não precisará debloquear seu dispositivo toda vez que o aplicativo estiver funcionando</string>
 
