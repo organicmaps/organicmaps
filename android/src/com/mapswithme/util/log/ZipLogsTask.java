@@ -30,14 +30,10 @@ class ZipLogsTask implements Runnable
   private final String mZipPath;
   @Nullable
   private final LoggerFactory.OnZipCompletedListener mOnCompletedListener;
-  @NonNull
-  private final Application mApplication;
 
-  ZipLogsTask(@NonNull Application application, @NonNull String logsPath,
-              @NonNull String zipPath,
-              @Nullable LoggerFactory.OnZipCompletedListener onCompletedListener)
+  ZipLogsTask(@NonNull String logsPath, @NonNull String zipPath,
+              @NonNull LoggerFactory.OnZipCompletedListener onCompletedListener)
   {
-    mApplication = application;
     mLogsPath = logsPath;
     mZipPath = zipPath;
     mOnCompletedListener = onCompletedListener;
@@ -133,7 +129,7 @@ class ZipLogsTask implements Runnable
         InputStreamReader reader = new InputStreamReader(process.getInputStream());
         FileWriter writer = new FileWriter(file))
     {
-      FileLoggerStrategy.WriteTask.writeSystemInformation(mApplication, writer);
+      LoggerFactory.INSTANCE.writeSystemInformation(writer);
       char[] buffer = new char[10000];
       do
       {

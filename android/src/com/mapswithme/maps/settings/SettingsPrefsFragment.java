@@ -482,7 +482,12 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
     ((TwoStatePreference) pref).setChecked(LoggerFactory.INSTANCE.isFileLoggingEnabled);
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
-      LoggerFactory.INSTANCE.setFileLoggingEnabled((Boolean) newValue);
+      if (!LoggerFactory.INSTANCE.setFileLoggingEnabled((Boolean) newValue))
+      {
+        // It's a very rare condition when debugging, so we can do without translation.
+        Utils.showSnackbar(getView(), "Can't create a logs folder!");
+        return false;
+      }
       return true;
     });
   }
