@@ -107,6 +107,14 @@
   </screenshots>
 
   <releases>
+   <release version="2022.05.31-10" date="2022-05-31">
+     <description>
+       <ul>
+         <li>Do not draw place=region.</li>
+         <li>Fix crash on routing.</li>
+       </ul>
+     </description>
+   </release>
    <release version="2022.05.24-2" date="2022-05-24">
      <description>
        <ul>
