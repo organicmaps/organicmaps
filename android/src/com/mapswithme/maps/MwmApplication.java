@@ -121,16 +121,11 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     // Set configuration directory as early as possible.
     // Other methods may explicitly use Config, which requires settingsDir to be set.
     final String settingsPath = StorageUtils.getSettingsPath(this);
-    mLogger.d(TAG, "Settings path = " + settingsPath);
-    try
-    {
-      StorageUtils.createDirectory(settingsPath);
-      nativeSetSettingsDir(settingsPath);
-    } catch (IOException e)
-    {
-      // We have nothing to do here.
+    if (!StorageUtils.createDirectory(settingsPath))
       throw new AssertionError("Can't create settingsDir " + settingsPath);
-    }
+    mLogger.d(TAG, "Settings path = " + settingsPath);
+    nativeSetSettingsDir(settingsPath);
+
     mMainLoopHandler = new Handler(getMainLooper());
     ConnectionState.INSTANCE.initialize(this);
     CrashlyticsUtils.INSTANCE.initialize(this);
@@ -202,9 +197,9 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   {
     SharedPropertiesUtils.emulateBadExternalStorage(this);
 
-    StorageUtils.createDirectory(writablePath);
-    StorageUtils.createDirectory(privatePath);
-    StorageUtils.createDirectory(tempPath);
+    StorageUtils.requireDirectory(writablePath);
+    StorageUtils.requireDirectory(privatePath);
+    StorageUtils.requireDirectory(tempPath);
   }
 
   private void initNativeFramework()

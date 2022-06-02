@@ -6,15 +6,12 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
-
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -36,67 +33,6 @@ public class StorageUtils
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
   private final static String TAG = StorageUtils.class.getSimpleName();
-  private final static String LOGS_FOLDER = "logs";
-
-  /**
-   * Checks if external storage is available for read and write
-   *
-   * @return true if external storage is mounted and ready for reading/writing
-   */
-  private static boolean isExternalStorageWritable()
-  {
-    String state = Environment.getExternalStorageState();
-    return Environment.MEDIA_MOUNTED.equals(state);
-  }
-
-  /**
-   * Safely returns the external files directory path with the preliminary
-   * checking the availability of the mentioned directory
-   *
-   * @return the absolute path of external files directory or null if directory can not be obtained
-   * @see Context#getExternalFilesDir(String)
-   */
-  @Nullable
-  private static String getExternalFilesDir(@NonNull Application application)
-  {
-    if (!isExternalStorageWritable())
-      return null;
-
-    File dir = application.getExternalFilesDir(null);
-    if (dir != null)
-      return dir.getAbsolutePath();
-
-    Log.e(TAG, "Cannot get the external files directory for some reasons", new Throwable());
-    return null;
-  }
-
-  /**
-   * Check existence of the folder for writing the logs. If that folder is absent this method will
-   * try to create it and all missed parent folders.
-   * @return true - if folder exists, otherwise - false
-   */
-  public static boolean ensureLogsFolderExistence(@NonNull Application application)
-  {
-    String externalDir = StorageUtils.getExternalFilesDir(application);
-    if (TextUtils.isEmpty(externalDir))
-      return false;
-
-    File folder = new File(externalDir + File.separator + LOGS_FOLDER);
-    boolean success = true;
-    if (!folder.exists())
-      success = folder.mkdirs();
-    return success;
-  }
-
-  @Nullable
-  public static String getLogsFolder(@NonNull Application application)
-  {
-    if (!ensureLogsFolderExistence(application))
-      return null;
-
-    String externalDir = StorageUtils.getExternalFilesDir(application);
-    return externalDir + File.separator + LOGS_FOLDER;
-  }
 
   @NonNull
   public static String getApkPath(@NonNull Application application)
@@ -139,16 +75,21 @@ public class StorageUtils
     return addTrailingSeparator(application.getCacheDir().getAbsolutePath());
   }
 
-  public static void createDirectory(@NonNull String path) throws IOException
+  public static boolean createDirectory(@NonNull final String path)
   {
-    File directory = new File(path);
+    final File directory = new File(path);
     if (!directory.exists() && !directory.mkdirs())
     {
-      IOException error = new IOException("Can't create directories for: " + path);
-      LOGGER.e(TAG, "Can't create directories for: " + path);
-      CrashlyticsUtils.INSTANCE.logException(error);
-      throw error;
+      LOGGER.e(TAG, "Can't create directory " + path);
+      return false;
     }
+    return true;
+  }
+
+  public static void requireDirectory(@Nullable final String path) throws IOException
+  {
+    if (!createDirectory(path))
+      throw new IOException("Can't create directory " + path);
   }
 
   static long getFileSize(@NonNull String path)
