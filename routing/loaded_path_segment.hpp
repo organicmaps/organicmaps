@@ -3,6 +3,7 @@
 #include "routing/road_point.hpp"
 #include "routing/turns.hpp"
 #include "routing/segment.hpp"
+#include "routing/route.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
