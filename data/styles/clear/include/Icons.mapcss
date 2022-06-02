@@ -1937,7 +1937,7 @@ area|z18-[office=diplomatic]
 
 node|z17-[amenity=bicycle_rental],
 area|z17-[amenity=bicycle_rental]
-{icon-image: bicycle-m.svg;text-optional: true;}
+{icon-image: bicycle-rental.svg;text-optional: true;}
 node|z18-[amenity=bicycle_rental],
 area|z18-[amenity=bicycle_rental]
 {font-size: 11;text-optional: true;}
