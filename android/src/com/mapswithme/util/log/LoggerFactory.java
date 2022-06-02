@@ -85,7 +85,7 @@ public class LoggerFactory
 
   /**
    * Ensures logs folder exists.
-   * Tries to create it and/or re-get a path from the system.
+   * Tries to create it and/or re-get a path from the system, falling back to the internal storage.
    * Switches off file logging if nothing had helped.
    *
    * Its important to have only system logging here to avoid infinite loop
@@ -104,19 +104,17 @@ public class LoggerFactory
       return mLogsFolder;
 
     mLogsFolder = null;
-    File dir = mApplication.getExternalFilesDir(null);
-    if (dir != null)
+    mLogsFolder = createLogsFolder(mApplication.getExternalFilesDir(null));
+    if (mLogsFolder == null)
     {
-      final String path = dir.getAbsolutePath() + File.separator + "logs";
-      if (StorageUtils.createDirectory(path))
-        mLogsFolder = path;
-      else
-        Log.e(TAG, "Can't create a logs folder");
+      mLogsFolder = createLogsFolder(mApplication.getFilesDir());
     }
 
-    if (isFileLoggingEnabled && TextUtils.isEmpty(mLogsFolder))
+    if (mLogsFolder == null)
     {
-      switchFileLoggingEnabled(false);
+      Log.e(TAG, "Can't create any logs folder");
+      if (isFileLoggingEnabled)
+        switchFileLoggingEnabled(false);
     }
 
     return mLogsFolder;
@@ -132,6 +130,19 @@ public class LoggerFactory
       return false;
     }
     return true;
+  }
+
+  // Only system logging allowed, see ensureLogsFolder().
+  @Nullable
+  private synchronized String createLogsFolder(@Nullable final File dir)
+  {
+    if (dir != null)
+    {
+      final String path = dir.getPath() + File.separator + "logs";
+      if (createDir(path))
+        return path;
+    }
+    return null;
   }
 
   // Only system logging allowed, see ensureLogsFolder().
