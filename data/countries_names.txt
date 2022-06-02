@@ -61,6 +61,7 @@
   el = Αφγανιστάν
   he = אפגניסטן
   sk = Afganistan
+  mr = अफगाणिस्तान
 
 [Alabama]
   en = Alabama
@@ -125,6 +126,7 @@
   el = Αλβανία
   he = אלבניה
   sk = Albánsko
+  mr = अल्बेनिया
 
 [Algeria]
   en = Algeria
@@ -157,6 +159,7 @@
   el = Αλγερία
   he = אלג'יריה
   sk = Alžírsko
+  mr = अल्जेरिया
 
 [Algeria_Central]
   en = Algeria — Centre
@@ -283,6 +286,7 @@
   el = Αγκόλα
   he = אנגולה
   sk = Angola
+  mr = अंगोला
 
 [Anguilla]
   en = Anguilla
@@ -347,6 +351,7 @@
   el = Ανταρκτική
   he = אנטארקטיקה
   sk = Antarktída
+  mr = अंटार्क्टिका
 
 [Antigua and Barbuda]
   en = Antigua and Barbuda
@@ -411,6 +416,7 @@
   el = Αργεντινή
   he = ארגנטינה
   sk = Argentína
+  mr = अर्जेंटिना
 
 [Argentina_Buenos Aires_North]
   en = Buenos Aires Province — North
@@ -692,6 +698,7 @@
   el = Αρμενία
   he = ארמניה
   sk = Arménsko
+  mr = आर्मेनिया
 
 [Australia]
   en = Australia
@@ -724,6 +731,7 @@
   el = Αυστραλία
   he = אוסטרליה
   sk = Austrália
+  mr = ऑस्ट्रेलिया
 
 [Australia_Melbourne]
   en = Melbourne
@@ -1004,6 +1012,7 @@
   el = Αυστρία
   he = אוסטריה
   sk = Rakúsko
+  mr = ऑस्ट्रिया
 
 [Austria_Burgenland]
   en = Burgenland
@@ -1315,6 +1324,7 @@
   el = Αζερμπαϊτζάν
   he = אזרבייג'ן
   sk = Azerbajdžan
+  mr = अझरबैजान
 
 [Azerbaijan Region]
   en = Azerbaijan
@@ -1379,6 +1389,7 @@
   el = Μπαχρέιν
   he = בחריין
   sk = Bahrajn
+  mr = बहारीन
 
 [Bangladesh]
   en = Bangladesh
@@ -1411,6 +1422,7 @@
   el = Μπαγκλαντές
   he = בנגלדש
   sk = Bangladéš
+  mr = बांगलादेश
 
 [Barbados]
   en = Barbados
@@ -1443,6 +1455,7 @@
   el = Μπαρμπάντος
   he = ברבדוס
   sk = Barbados
+  mr = बार्बाडोस
 
 [Belarus]
   en = Belarus
@@ -1475,6 +1488,7 @@
   el = Λευκορωσία
   he = בלארוס
   sk = Bielorusko
+  mr = बेलारूस
 
 [Belarus_Brest Region]
   en = Brest Region
@@ -1693,6 +1707,7 @@
   el = Βέλγιο
   he = בלגיה
   sk = Belgicko
+  mr = बेल्जियम
 
 [Belgium_Antwerp]
   en = Antwerp Province
@@ -2099,6 +2114,7 @@
   el = Βερμούδες
   he = ברמודה
   sk = Bermudy
+  mr = बर्म्युडा
 
 [Bhutan]
   en = Bhutan
@@ -2131,6 +2147,7 @@
   el = Μπουτάν
   he = בהוטן
   sk = Bhután
+  mr = भूतान
 
 [Bolivia]
   en = Bolivia
@@ -2163,6 +2180,7 @@
   el = Βολιβία
   he = בוליביה
   sk = Bolívia
+  mr = बोलिव्हिया
 
 [Bolivia_North]
   en = Bolivia – North
@@ -2263,6 +2281,7 @@
   el = Βοσνία Ερζεγοβίνη
   he = בוסניה והרצגובינה
   sk = Bosna a Hercegovina
+  mr = बोस्निया आणि हर्जेगोविना
 
 [Bosnia and Herzegovina_Brcko district of Bosnia and Herzegowina]
   en = Brčko District
@@ -2388,6 +2407,7 @@
   el = Μποτσουάνα
   he = בוטסואנה
   sk = Botswana
+  mr = बोत्सवाना
 
 [Brazil]
   en = Brazil
@@ -2420,6 +2440,7 @@
   el = Βραζιλία
   he = ברזיל
   sk = Brazília
+  mr = ब्राझील
 
 [Brazil_Bahia]
   en = Bahia
@@ -3074,6 +3095,7 @@
   el = Μπρουνέι
   he = ברוניי
   sk = Brunej
+  mr = ब्रुनेई
 
 [Bulgaria]
   en = Bulgaria
@@ -3106,6 +3128,7 @@
   el = Βουλγαρία
   he = בולגריה
   sk = Bulharsko
+  mr = बल्गेरिया
 
 [Burkina Faso]
   en = Burkina Faso
@@ -3170,6 +3193,7 @@
   el = Μπουρούντι
   he = בורונדי
   sk = Burundi
+  mr = बुरुंडी
 
 [California]
   en = California
@@ -3234,6 +3258,7 @@
   el = Καμπότζη
   he = קמבודיה
   sk = Kambodža
+  mr = कंबोडिया
 
 [Cameroon]
   en = Cameroon
@@ -3266,6 +3291,7 @@
   el = Καμερούν
   he = קמרון
   sk = Kamerun
+  mr = कॅमेरून
 
 [Cameroon_Central]
   en = Cameroon — Centre
@@ -3392,6 +3418,7 @@
   el = Καναδάς
   he = קנדה
   sk = Kanada
+  mr = कॅनडा
 
 [Canada_Alberta]
   en = Alberta
@@ -5665,6 +5692,7 @@
   el = Τσαντ
   he = צ'אד
   sk = Čad
+  mr = चाड
 
 [Chile]
   en = Chile
@@ -5697,6 +5725,7 @@
   el = Χιλή
   he = צ'ילה
   sk = Čile
+  mr = चिली
 
 [Chile_North]
   en = Chile — North
@@ -6659,6 +6688,7 @@
   el = Κολομβία
   he = קולומביה
   sk = Kolumbia
+  mr = कोलंबिया
 
 [Colombia_East]
   en = Colombia — East
@@ -6944,6 +6974,7 @@
   el = Κόστα Ρίκα
   he = קוסטה ריקה
   sk = Kostarika
+  mr = कॉस्टा रिका
 
 [Cote dIvoire]
   en = Ivory Coast
@@ -7008,6 +7039,7 @@
   el = Κριμαϊκή Χερσόνησος
   he = חצי האי קרים
   sk = Krym
+  mr = क्रिमियन द्वीपकल्प
 
 [Croatia]
   en = Croatia
@@ -7040,6 +7072,7 @@
   el = Κροατία
   he = קרואטיה
   sk = Chorvátsko
+  mr = क्रोएशिया
 
 [Cuba]
   en = Cuba
@@ -7072,6 +7105,7 @@
   el = Κούβα
   he = קובה
   sk = Kuba
+  mr = क्युबा
 
 [Cyprus]
   en = Cyprus
@@ -7104,6 +7138,7 @@
   el = Κύπρος
   he = קפריסין
   sk = Cyprus
+  mr = सायप्रस
 
 [Czech Republic]
   en = Czech Republic
@@ -7136,6 +7171,7 @@
   el = Δημοκρατία της Τσεχίας
   he = צ'כיה
   sk = Česko
+  mr = झेक प्रजासत्ताक
 
 [Czech_Jihovychod_Jihomoravsky kraj]
   en = South Moravian Region
@@ -7633,6 +7669,7 @@
   el = Δανία
   he = דנמרק
   sk = Dánsko
+  mr = डेन्मार्क
 
 [Denmark_Capital Region of Denmark]
   en = Capital Region of Denmark
@@ -7820,6 +7857,7 @@
   el = Τζιμπουτί
   he = ג'יבוטי
   sk = Džibutsko
+  mr = जिबूती
 
 [Dominica]
   en = Dominica
@@ -7852,6 +7890,7 @@
   el = Ντομίνικα
   he = דומיניקה
   sk = Dominika
+  mr = डोमिनिका
 
 [Dominican Republic]
   en = Dominican Republic
@@ -7948,6 +7987,7 @@
   el = Ισημερινός
   he = אקוודור
   sk = Ekvádor
+  mr = इक्वेडोर
 
 [Egypt]
   en = Egypt
@@ -7980,6 +8020,7 @@
   el = Αίγυπτος
   he = מצרים
   sk = Egypt
+  mr = इजिप्त
 
 [El Salvador]
   en = El Salvador
@@ -8108,6 +8149,7 @@
   el = Εσθονία
   he = אסטוניה
   sk = Estónsko
+  mr = एस्टोनिया
 
 [Estonia_East]
   en = Estonia — East
@@ -8202,6 +8244,7 @@
   el = Αιθιοπία
   he = אתיופיה
   sk = Etiópia
+  mr = इथिओपिया
 
 [Falkland Islands]
   en = Falkland Islands
@@ -8362,6 +8405,7 @@
   el = Φινλανδία
   he = פינלנד
   sk = Fínsko
+  mr = फिनलंड
 
 [Finland_Eastern Finland]
   en = Eastern Finland
@@ -8612,6 +8656,7 @@
   el = Γαλλία
   he = צרפת
   sk = Francúzsko
+  mr = फ्रान्स
 
 [France_Alsace]
   en = Alsace
@@ -12089,6 +12134,7 @@
   el = Γερμανία
   he = גרמניה
   sk = Nemecko
+  mr = जर्मनी
 
 [Germany_Baden-Wurttemberg]
   en = Baden-Württemberg
@@ -13640,6 +13686,7 @@
   el = Γκάνα
   he = גאנה
   sk = Ghana
+  mr = घाना
 
 [Gibraltar]
   en = Gibraltar
@@ -13672,6 +13719,7 @@
   el = Γιβραλτάρ
   he = גיברלטר
   sk = Gibraltár
+  mr = जिब्राल्टर
 
 [Greece]
   en = Greece
@@ -13704,6 +13752,7 @@
   el = Ελλάδα
   he = יוון
   sk = Grécko
+  mr = ग्रीस
 
 [Greece_Decentralized Administration of Aegean]
   en = Aegean
@@ -13953,6 +14002,7 @@
   el = Γροιλανδία
   he = גרינלנד
   sk = Grónsko
+  mr = ग्रीनलँड
 
 [Grenada]
   en = Grenada
@@ -14177,6 +14227,7 @@
   el = Γουιάνα
   he = גיאנה
   sk = Guyana
+  mr = गयाना
 
 [Haiti]
   en = Haiti
@@ -14209,6 +14260,7 @@
   el = Αϊτή
   he = האיטי
   sk = Haiti
+  mr = हैती
 
 [Honduras]
   en = Honduras
@@ -14241,6 +14293,7 @@
   el = Ονδούρα
   he = הונדורס
   sk = Honduras
+  mr = होंडुरास
 
 [Hungary]
   en = Hungary
@@ -14273,6 +14326,7 @@
   el = Ουγγαρία
   he = הונגריה
   sk = Maďarsko
+  mr = हंगेरी
 
 [Hungary_Kozep-Magyarorszag]
   en = Central Hungary
@@ -14398,6 +14452,7 @@
   el = Ισλανδία
   he = איסלנד
   sk = Island
+  mr = आइसलँड
 
 [Illinois]
   en = Illinois
@@ -14462,6 +14517,7 @@
   el = Ινδία
   he = הודו
   sk = India
+  mr = भारत
 
 [India_Andaman and Nicobar Islands]
   en = Andaman and Nicobar Islands
@@ -14493,6 +14549,7 @@
   el = Νησιά Άνταμαν και Νικομπάρ
   he = איי אנדמן וניקובר
   sk = Andamany a Nikobary
+  mr = अंदमान आणि निकोबार बेट
 
 [India_Andhra Pradesh]
   en = Andhra Pradesh
@@ -14524,6 +14581,7 @@
   el = Άντρα Πραντές
   he = אנדרה פראדש
   sk = Ándhrapradéš
+  mr = आंध्र प्रदेश
 
 [India_Arunachal Pradesh]
   en = Arunachal Pradesh
@@ -14555,6 +14613,7 @@
   el = Αρουνάτσαλ Πραντές
   he = ארונאצ'ל פרדש
   sk = Arunáčalpradéš
+  mr = अरुणाचल प्रदेश
 
 [India_Assam]
   en = Assam
@@ -14586,6 +14645,7 @@
   el = Ασσάμ
   he = אסאם
   sk = Ásam
+  mr = आसाम
 
 [India_Bihar]
   en = Bihar
@@ -14617,6 +14677,7 @@
   el = Μπιχάρ
   he = ביהר
   sk = Bihár
+  mr = बिहार
 
 [India_Chandigarh]
   en = Chandigarh
@@ -14648,6 +14709,7 @@
   el = Τσάντιγκαρ
   he = צ'אנדיגאר
   sk = Čandígarh
+  mr = चंदीगड
 
 [India_Chhattisgarh]
   en = Chhattisgarh
@@ -14679,6 +14741,7 @@
   el = Τσατίσγκαρ
   he = צ'האטיסגאר
   sk = Čhattísgarh
+  mr = छत्तीसगड
 
 [India_Delhi]
   en = Delhi
@@ -14710,6 +14773,7 @@
   el = Δελχί
   he = דלהי
   sk = Dillí
+  mr = दिल्ली
 
 [India_Goa]
   en = Goa
@@ -14741,6 +14805,7 @@
   el = Γκόα
   he = גואה
   sk = Goa
+  mr = गोवा
 
 [India_Gujarat]
   en = Gujarat
@@ -14772,6 +14837,7 @@
   el = Γκουτζαράτ
   he = גוג'אראט
   sk = Gudžarát
+  mr = गुजरात
 
 [India_Haryana]
   en = Haryana
@@ -14803,6 +14869,7 @@
   el = Χαριάνα
   he = הריאנה
   sk = Harijána
+  mr = हरियाणा
 
 [India_Himachal Pradesh]
   en = Himachal Pradesh
@@ -14834,6 +14901,7 @@
   el = Χιματσάλ Πραντές
   he = הימאצ'אל פראדש
   sk = Himáčalpradéš
+  mr = हिमाचल प्रदेश
 
 [India_Jammu and Kashmir]
   en = Jammu and Kashmir
@@ -14865,6 +14933,7 @@
   el = Τζαμού και Κασμίρ
   he = ג'אמו וקשמיר
   sk = Džammú a Kašmír
+  mr = जम्मू आणि काश्मीर
 
 [India_Jharkhand]
   en = Jharkhand
@@ -14896,6 +14965,7 @@
   el = Τζαρκάντ
   he = ג'הרקאנד
   sk = Džhárkhand
+  mr = झारखंड
 
 [India_Karnataka]
   en = Karnataka
@@ -14927,6 +14997,7 @@
   el = Καρνάτακα
   he = קארנאטקה
   sk = Karnátaka
+  mr = कर्नाटक
 
 [India_Kerala]
   en = Kerala
@@ -14958,6 +15029,7 @@
   el = Κεράλα
   he = קרלה
   sk = Kérala
+  mr = केरळ
 
 [India_Lakshadweep]
   en = Lakshadweep
@@ -14989,6 +15061,7 @@
   el = Λακσαντγουίπ
   he = לקשאדוויפ
   sk = Lakadivy
+  mr = लक्षद्वीप
 
 [India_Madhya Pradesh]
   en = Madhya Pradesh
@@ -15020,6 +15093,7 @@
   el = Μάντια Πραντές
   he = מאדהיה פראדש
   sk = Madhjapradéš
+  mr = मध्य प्रदेश
 
 [India_Maharashtra]
   en = Maharashtra
@@ -15051,6 +15125,7 @@
   el = Μαχαράστρα
   he = מהאראשטרה
   sk = Maháraštra
+  mr = महाराष्ट्र
 
 [India_Manipur]
   en = Manipur
@@ -15082,6 +15157,7 @@
   el = Μανιπούρ
   he = מאניפור
   sk = Manípur
+  mr = मणिपूर
 
 [India_Meghalaya]
   en = Meghalaya
@@ -15113,6 +15189,7 @@
   el = Μεγκαλάια
   he = מגהלאיה
   sk = Meghálaj
+  mr = मेघालय
 
 [India_Mizoram]
   en = Mizoram
@@ -15144,6 +15221,7 @@
   el = Μιζοράμ
   he = מיזוראם
   sk = Mizorám
+  mr = मिझोराम
 
 [India_Nagaland]
   en = Nagaland
@@ -15175,6 +15253,7 @@
   el = Ναγκάλαντ
   he = נאגאלנד
   sk = Nágsko
+  mr = नागालँड
 
 [India_Odisha]
   en = Odisha
@@ -15206,6 +15285,7 @@
   el = Οντισά
   he = אוריסה
   sk = Urísa
+  mr = ओडिशा
 
 [India_Punjab]
   en = Punjab
@@ -15237,6 +15317,7 @@
   el = Πουνζαμπ
   he = פנג'אב
   sk = Pandžáb
+  mr = पंजाब
 
 [India_Rajasthan]
   en = Rajasthan
@@ -15268,6 +15349,7 @@
   el = Ρατζαστάν
   he = ראג'סטאן
   sk = Radžastan
+  mr = राजस्थान
 
 [India_Sikkim]
   en = Sikkim
@@ -15299,6 +15381,7 @@
   el = Σικκίμ
   he = סיקים
   sk = Sikkim
+  mr = सिक्कीम
 
 [India_Tamil Nadu]
   en = Tamil Nadu
@@ -15330,6 +15413,7 @@
   el = Ταμίλ Ναντού
   he = טאמיל נאדו
   sk = Tamilnádu
+  mr = तामिळनाडू
 
 [India_Telangana]
   en = Telangana
@@ -15361,6 +15445,7 @@
   el = Τελανγκάνα
   he = טלנגנה
   sk = Telangana
+  mr = तेलंगणा
 
 [India_Tripura]
   en = Tripura
@@ -15392,6 +15477,7 @@
   el = Τριπούρα
   he = טריפורה
   sk = Tripura
+  mr = त्रिपुरा
 
 [India_Uttar Pradesh]
   en = Uttar Pradesh
@@ -15423,6 +15509,7 @@
   el = Ουτάρ Πραντές
   he = אוטר פראדש
   sk = Uttarpradéš
+  mr = उत्तर प्रदेश
 
 [India_Uttarakhand]
   en = Uttarakhand
@@ -15454,6 +15541,7 @@
   el = Ουταρακάντ
   he = אוטראקהאנד
   sk = Uttarákhand
+  mr = उत्तराखंड
 
 [India_West Bengal]
   en = West Bengal
@@ -15485,6 +15573,7 @@
   el = Δυτική Βεγγάλη
   he = מערב בנגל
   sk = Západné Bengálsko
+  mr = पश्चिम बंगाल
 
 [Indiana]
   en = Indiana
@@ -15549,6 +15638,7 @@
   el = Ινδονησία
   he = אינדונזיה
   sk = Indonézia
+  mr = इंडोनेशिया
 
 [Indonesia_Central]
   en = Sulawesi, Kalimantan
@@ -15830,6 +15920,7 @@
   el = Ιράν
   he = איראן
   sk = Irán
+  mr = इराण
 
 [Iran_North]
   en = Iran — North
@@ -15924,6 +16015,7 @@
   el = Ιράκ
   he = עיראק
   sk = Irak
+  mr = इराक
 
 [Ireland]
   en = Ireland
@@ -15956,6 +16048,7 @@
   el = Ιρλανδία
   he = אירלנד
   sk = Írsko
+  mr = आयर्लंड
 
 [Ireland_Connacht]
   en = Connacht
@@ -16144,6 +16237,7 @@
   el = Ισραήλ
   he = ישראל
   sk = Izrael
+  mr = इस्रायल
 
 [Israel Region]
   en = Israel
@@ -16208,6 +16302,7 @@
   el = Ιταλία
   he = איטליה
   sk = Taliansko
+  mr = इटली
 
 [Italy_Abruzzo]
   en = Abruzzo
@@ -18131,6 +18226,7 @@
   el = Τζαμάικα
   he = ג'מייקה
   sk = Jamajka
+  mr = जमैका
 
 [Japan]
   en = Japan
@@ -18163,6 +18259,7 @@
   el = Ιαπωνία
   he = יפן
   sk = Japonsko
+  mr = जपान
 
 [Japan_Chubu Region]
   en = Chūbu Region
@@ -18194,6 +18291,7 @@
   el = Περιοχή Τσούμπου
   he = צ'ובו
   sk = Čúbu
+  mr = चुबू प्रदेश
 
 [Japan_Chubu Region_Aichi]
   en = Aichi Prefecture
@@ -18225,6 +18323,7 @@
   el = Περιφέρεια Αίτσι
   he = אאיצ'י
   sk = Aiči
+  mr = आयची
 
 [Japan_Chubu Region_Fukui]
   en = Fukui Prefecture
@@ -18256,6 +18355,7 @@
   el = Περιφέρεια Φουκούι
   he = פוקואי
   sk = Fukui
+  mr = फुकुई
 
 [Japan_Chubu Region_Gifu]
   en = Gifu Prefecture
@@ -18349,6 +18449,7 @@
   el = Περιφέρεια Ναγκάνο
   he = נאגנו
   sk = Nagano
+  mr = नागानो
 
 [Japan_Chubu Region_Niigata]
   en = Niigata Prefecture
@@ -18380,6 +18481,7 @@
   el = Περιφέρεια Νιιγκάτα
   he = ניאיגטה
   sk = Niigata
+  mr = निगाता
 
 [Japan_Chubu Region_Shizuoka]
   en = Shizuoka Prefecture
@@ -18411,6 +18513,7 @@
   el = Περιφέρεια Σιζουόκα
   he = שיזואוקה
   sk = Šizuoka
+  mr = शिझुओका
 
 [Japan_Chubu Region_Toyama]
   en = Toyama Prefecture
@@ -18473,6 +18576,7 @@
   el = Περιφέρεια Γιαμανάσι
   he = יאמאנאשי
   sk = Jamanaši
+  mr = यामानाशी
 
 [Japan_Chugoku Region]
   en = Chūgoku Region
@@ -18504,6 +18608,7 @@
   el = Περιφέρεια Τσουγκόκου
   he = צ'וגוקו
   sk = Čúgoku
+  mr = चुगोकू
 
 [Japan_Chugoku Region_Hiroshima]
   en = Hiroshima Prefecture
@@ -18535,6 +18640,7 @@
   el = Περιφέρεια Χιροσίμα
   he = הירושימה
   sk = Hirošima
+  mr = हिरोशिमा
 
 [Japan_Chugoku Region_Okayama]
   en = Okayama Prefecture
@@ -18566,6 +18672,7 @@
   el = Περιφέρεια Οκαγιάμα
   he = אוקיאמה
   sk = Okajama
+  mr = ओकायामा
 
 [Japan_Chugoku Region_Shimane]
   en = Shimane Prefecture
@@ -18597,6 +18704,7 @@
   el = Περιφέρεια Σιμάνε
   he = שימאנה
   sk = Šimane
+  mr = शिमाने
 
 [Japan_Chugoku Region_Tottori]
   en = Tottori Prefecture
@@ -18628,6 +18736,7 @@
   el = Περιφέρεια Τοτόρι
   he = טוטורי
   sk = Tottori
+  mr = तोतोरी
 
 [Japan_Chugoku Region_Yamaguchi]
   en = Yamaguchi Prefecture
@@ -18659,6 +18768,7 @@
   el = Περιφέρεια Γιαμαγκούτσι
   he = יאמגוצ'י
   sk = Jamaguči
+  mr = यामागुची
 
 [Japan_Hokkaido Region]
   en = Hokkaidō
@@ -18690,6 +18800,7 @@
   el = Χοκάιντο
   he = הוקאידו
   sk = Hokkaido
+  mr = होक्काइदो
 
 [Japan_Hokkaido Region_East]
   en = Hokkaidō — East
@@ -18814,6 +18925,7 @@
   el = Επαρχία Κάντο
   he = קאנטו
   sk = Kantó
+  mr = कांतो
 
 [Japan_Kanto_Chiba]
   en = Chiba Prefecture
@@ -18845,6 +18957,7 @@
   el = Νομός Τσίμπα
   he = צ'יבה
   sk = Čiba
+  mr = चिबा
 
 [Japan_Kanto_Gunma]
   en = Gunma Prefecture
@@ -18938,6 +19051,7 @@
   el = Νομός Καναγκάβα
   he = קנאגווה
   sk = Kanagawa
+  mr = कानागावा
 
 [Japan_Kanto_Saitama]
   en = Saitama Prefecture
@@ -18969,6 +19083,7 @@
   el = Νομός Σαϊτάμα
   he = סאיטאמה
   sk = Saitama
+  mr = साइतामा
 
 [Japan_Kanto_Tochigi]
   en = Tochigi Prefecture
@@ -19000,6 +19115,7 @@
   el = Νομός Τοχίγκι
   he = טוצ'יגי
   sk = Točigi
+  mr = तोचिगी
 
 [Japan_Kanto_Tokyo]
   en = Tokyo Prefecture
@@ -19031,6 +19147,7 @@
   el = Νομός Τόκιο
   he = טוקיו
   sk = Tokio
+  mr = तोक्यो
 
 [Japan_Kinki Region]
   en = Kansai Region
@@ -19124,6 +19241,7 @@
   el = Νομός Νάρα
   he = נארה
   sk = Nara
+  mr = नारा
 
 [Japan_Kinki Region_Osaka]
   en = Ōsaka Prefecture
@@ -19155,6 +19273,7 @@
   el = Νομός Οζάκα
   he = אוסקה
   sk = Osaka
+  mr = ओसाका
 
 [Japan_Kinki Region_Wakayama]
   en = Wakayama Prefecture
@@ -19186,6 +19305,7 @@
   el = Νομός Γουακαγιάμα
   he = וקאיאמה
   sk = Wakajama
+  mr = वाकायामा
 
 [Japan_Kyushu Region]
   en = Kyushu
@@ -19217,6 +19337,7 @@
   el = Κιούσου
   he = קיושו
   sk = Kjúšu
+  mr = क्युशू
 
 [Japan_Kyushu Region_Fukuoka]
   en = Fukuoka Prefecture
@@ -19248,6 +19369,7 @@
   el = Νομός Φουκουόκα
   he = פוקואוקה
   sk = Fukuoka
+  mr = फुकुओका
 
 [Japan_Kyushu Region_Kagoshima]
   en = Kagoshima Prefecture
@@ -19279,6 +19401,7 @@
   el = Νομός Καγκοσίμα
   he = קגושימה
   sk = Kagošima
+  mr = कागोशिमा
 
 [Japan_Kyushu Region_Kumamoto]
   en = Kumamoto Prefecture
@@ -19310,6 +19433,7 @@
   el = Νομός Κουμαμότο
   he = קוממוטו
   sk = Kumamoto
+  mr = कुमामोतो
 
 [Japan_Kyushu Region_Miyazaki]
   en = Miyazaki Prefecture
@@ -19341,6 +19465,7 @@
   el = Νομός Μιγιαζάκι
   he = מיאזקי
   sk = Mijazaki
+  mr = मियाझाकी
 
 [Japan_Kyushu Region_Nagasaki]
   en = Nagasaki Prefecture
@@ -19372,6 +19497,7 @@
   el = Νομός Ναγκασάκι
   he = נגסאקי
   sk = Nagasaki
+  mr = नागासाकी
 
 [Japan_Kyushu Region_Oita]
   en = Ōita Prefecture
@@ -19434,6 +19560,7 @@
   el = Νομός Οκινάουα
   he = אוקינאווה
   sk = Okinawa
+  mr = ओकिनावा
 
 [Japan_Kyushu Region_Saga]
   en = Saga Prefecture
@@ -19620,6 +19747,7 @@
   el = Νομός Κιότο
   he = קיוטו
   sk = Kjóto
+  mr = क्योतो
 
 [Japan_Shikoku Region_Tokushima]
   en = Tokushima Prefecture
@@ -19682,6 +19810,7 @@
   el = Περιοχή Τοχόκου
   he = טוהוקו
   sk = Tóhoku
+  mr = तोहोकू
 
 [Japan_Tohoku_Akita]
   en = Akita Prefecture
@@ -19713,6 +19842,7 @@
   el = Νομός Ακίτα
   he = אקיטה
   sk = Akita
+  mr = आकिता
 
 [Japan_Tohoku_Aomori]
   en = Aomori Prefecture
@@ -19775,6 +19905,7 @@
   el = Νομός Φουκουσίμα
   he = פוקושימה
   sk = Fukušima
+  mr = फुकुशिमा
 
 [Japan_Tohoku_Iwate]
   en = Iwate Prefecture
@@ -19964,6 +20095,7 @@
   el = Ιορδανία
   he = ירדן
   sk = Jordánsko
+  mr = जॉर्डन
 
 [Kansas]
   en = Kansas
@@ -20028,6 +20160,7 @@
   el = Καζακστάν
   he = קזחסטן
   sk = Kazachstan
+  mr = कझाकस्तान
 
 [Kentucky]
   en = Kentucky
@@ -20092,6 +20225,7 @@
   el = Κένυα
   he = קניה
   sk = Keňa
+  mr = केनिया
 
 [Kingdom of Lesotho]
   en = Lesotho
@@ -20188,6 +20322,7 @@
   el = Κουβέιτ
   he = כווית
   sk = Kuvajt
+  mr = कुवेत
 
 [Kyrgyzstan]
   en = Kyrgyzstan
@@ -20316,6 +20451,7 @@
   el = Λίβανος
   he = לבנון
   sk = Libanon
+  mr = लेबनॉन
 
 [Liberia]
   en = Liberia
@@ -20348,6 +20484,7 @@
   el = Λιβερία
   he = ליבריה
   sk = Libéria
+  mr = लायबेरिया
 
 [Libya]
   en = Libya
@@ -20380,6 +20517,7 @@
   el = Λιβύη
   he = לוב
   sk = Líbya
+  mr = लिबिया
 
 [Liechtenstein]
   en = Liechtenstein
@@ -20412,6 +20550,7 @@
   el = Λίχτενσταϊν
   he = ליכטנשטיין
   sk = Lichtenštajnsko
+  mr = लिकटेंस्टाईन
 
 [Lithuania]
   en = Lithuania
@@ -20444,6 +20583,7 @@
   el = Λιθουανία
   he = ליטא
   sk = Litva
+  mr = लिथुआनिया
 
 [Louisiana]
   en = Louisiana
@@ -20508,6 +20648,7 @@
   el = Λουξεμβούργο
   he = לוקסמבורג
   sk = Luxembursko
+  mr = लक्झेंबर्ग
 
 [Macedonia]
   en = Macedonia
@@ -20540,6 +20681,7 @@
   el = ΠΓΔ Μακεδονίας
   he = מקדוניה
   sk = Macedónsko
+  mr = मॅसेडोनिया
 
 [Madagascar]
   en = Madagascar
@@ -20572,6 +20714,7 @@
   el = Μαδαγασκάρη
   he = מדגסקר
   sk = Madagaskar
+  mr = मादागास्कर
 
 [Malawi]
   en = Malawi
@@ -20636,6 +20779,7 @@
   el = Μαλαισία
   he = מלזיה
   sk = Malajzia
+  mr = मलेशिया
 
 [Maldives]
   en = Maldives
@@ -20668,6 +20812,7 @@
   el = Μαλδίβες
   he = האיים המלדיביים
   sk = Maldivy
+  mr = मालदीव
 
 [Mali]
   en = Mali
@@ -20700,6 +20845,7 @@
   el = Μάλι
   he = מאלי
   sk = Mali
+  mr = माली
 
 [Malta]
   en = Malta
@@ -20732,6 +20878,7 @@
   el = Μάλτα
   he = מלטה
   sk = Malta
+  mr = माल्टा
 
 [Marshall Islands]
   en = Marshall Islands
@@ -20924,6 +21071,7 @@
   el = Μαυρίκιος
   he = מאוריציוס
   sk = Maurícius
+  mr = मॉरिशस
 
 [Mexico]
   en = Mexico
@@ -20956,6 +21104,7 @@
   el = Μεξικό
   he = מקסיקו
   sk = Mexiko
+  mr = मेक्सिको
 
 [Mexico_California]
   en = Baja California
@@ -21301,6 +21450,7 @@
   el = Μολδαβία
   he = מולדובה
   sk = Moldavsko
+  mr = मोल्दोव्हा
 
 [Monaco]
   en = Monaco
@@ -21333,6 +21483,7 @@
   el = Μονακό
   he = מונאקו
   sk = Monako
+  mr = मोनॅको
 
 [Mongolia]
   en = Mongolia
@@ -21365,6 +21516,7 @@
   el = Μογγολία
   he = מונגוליה
   sk = Mongolsko
+  mr = मंगोलिया
 
 [Montenegro]
   en = Montenegro
@@ -21461,6 +21613,7 @@
   el = Μαρόκο
   he = מרוקו
   sk = Maroko
+  mr = मोरोक्को
 
 [Morocco_Doukkala-Abda]
   en = Doukkala-Abda
@@ -21649,6 +21802,7 @@
   el = Μιανμάρ
   he = מיאנמר
   sk = Mjanmarsko
+  mr = म्यानमार
 
 [Nagorno-Karabakh]
   en = Nagorno-Karabakh
@@ -21713,6 +21867,7 @@
   el = Ναμίμπια
   he = נמיביה
   sk = Namíbia
+  mr = नामिबिया
 
 [Nauru]
   en = Nauru
@@ -21777,6 +21932,7 @@
   el = Νεπάλ
   he = נפאל
   sk = Nepál
+  mr = नेपाळ
 
 [Nepal_East]
   en = Nepal — East
@@ -22711,6 +22867,7 @@
   el = Νέα Ζηλανδία
   he = ניו זילנד
   sk = Nový Zéland
+  mr = न्युझीलँड
 
 [New Zealand North_Auckland]
   en = North — Auckland
@@ -22931,6 +23088,7 @@
   el = Νιγηρία
   he = ניגריה
   sk = Nigéria
+  mr = नायजेरिया
 
 [Niue]
   en = Niue
@@ -23059,6 +23217,7 @@
   el = Βόρεια Κορέα
   he = קוריאה הצפונית
   sk = Kórejská ľudovodemokratická republika
+  mr = उत्तर कोरिया
 
 [Norway]
   en = Norway
@@ -23091,6 +23250,7 @@
   el = Νορβηγία
   he = נורבגיה
   sk = Nórsko
+  mr = नॉर्वे
 
 [Norway_Bouvet Island]
   en = Bouvet Island
@@ -23497,6 +23657,7 @@
   el = Ομάν
   he = עומאן
   sk = Omán
+  mr = ओमान
 
 [Oregon]
   en = Oregon
@@ -23561,6 +23722,7 @@
   el = Πακιστάν
   he = פקיסטן
   sk = Pakistan
+  mr = पाकिस्तान
 
 [Palau]
   en = Palau
@@ -23721,6 +23883,7 @@
   el = Παπουασία-Νέα Γουινέα
   he = פפואה גינאה החדשה
   sk = Papua-Nová Guinea
+  mr = पापुआ न्यू गिनी
 
 [Paraguay]
   en = Paraguay
@@ -23753,6 +23916,7 @@
   el = Παραγουάη
   he = פרגוואי
   sk = Paraguaj
+  mr = पॅराग्वे
 
 [Pennsylvania]
   en = Pennsylvania
@@ -23817,6 +23981,7 @@
   el = Κίνα
   he = הרפובליקה העממית של סין
   sk = Čína
+  mr = चीन
 
 [Peru]
   en = Peru
@@ -23849,6 +24014,7 @@
   el = Περού
   he = פרו
   sk = Peru
+  mr = पेरू
 
 [Peru_North]
   en = Peru — North
@@ -23943,6 +24109,7 @@
   el = Φιλιππίνες
   he = הפיליפינים
   sk = Filipíny
+  mr = फिलीपिन्स
 
 [Philippines_Luzon_Manila]
   en = Metro Manila
@@ -24162,6 +24329,7 @@
   el = Πολωνία
   he = פולין
   sk = Poľsko
+  mr = पोलंड
 
 [Poland_Greater Poland Voivodeship]
   en = Greater Poland Voivodeship
@@ -24690,6 +24858,7 @@
   el = Πορτογαλία
   he = פורטוגל
   sk = Portugalsko
+  mr = पोर्तुगाल
 
 [Portugal_North]
   en = Portugal — North
@@ -24784,6 +24953,7 @@
   el = Κατάρ
   he = קטאר
   sk = Katar
+  mr = कतार
 
 [Republic of Kosovo]
   en = Kosovo
@@ -27732,6 +27902,7 @@
   el = Ρωσία
   he = רוסיה
   sk = Rusko
+  mr = रशिया
 
 [Rwanda]
   en = Rwanda
@@ -27764,6 +27935,7 @@
   el = Ρουάντα
   he = רואנדה
   sk = Rwanda
+  mr = रवांडा
 
 [Sahrawi Arab Democratic Republic]
   en = Sahrawi Arab Democratic Republic
@@ -28116,6 +28288,7 @@
   el = Σαουδική Αραβία
   he = ערב הסעודית
   sk = Saudská Arábia
+  mr = सौदी अरेबिया
 
 [Senegal]
   en = Senegal
@@ -28148,6 +28321,7 @@
   el = Σενεγάλη
   he = סנגל
   sk = Senegal
+  mr = सेनेगल
 
 [Serbia]
   en = Serbia
@@ -28180,6 +28354,7 @@
   el = Σερβία
   he = סרביה
   sk = Srbsko
+  mr = सर्बिया
 
 [Seychelles]
   en = Seychelles
@@ -28212,6 +28387,7 @@
   el = Σεϋχέλλες
   he = סיישל
   sk = Seychely
+  mr = सेशेल्स
 
 [Sierra Leone]
   en = Sierra Leone
@@ -28244,6 +28420,7 @@
   el = Σιέρα Λεόνε
   he = סיירה לאון
   sk = Sierra Leone
+  mr = सिएरा लिओन
 
 [Singapore]
   en = Singapore
@@ -28276,6 +28453,7 @@
   el = Σιγκαπούρη
   he = סינגפור
   sk = Singapur
+  mr = सिंगापूर
 
 [Slovakia]
   en = Slovakia
@@ -28308,6 +28486,7 @@
   el = Σλοβακία
   he = סלובקיה
   sk = Slovensko
+  mr = स्लोव्हाकिया
 
 [Slovakia_Region of Banska Bystrica]
   en = Banská Bystrica Region
@@ -28588,6 +28767,7 @@
   el = Σλοβενία
   he = סלובניה
   sk = Slovinsko
+  mr = स्लोव्हेनिया
 
 [Solomon Islands]
   en = Solomon Islands
@@ -28620,6 +28800,7 @@
   el = Νησιά Σολομώντα
   he = איי שלמה
   sk = Šalamúnove ostrovy
+  mr = सॉलोमन बेटे
 
 [Somalia]
   en = Somalia
@@ -28652,6 +28833,7 @@
   el = Σομαλία
   he = סומליה
   sk = Somálsko
+  mr = सोमालिया
 
 [South Africa]
   en = South Africa
@@ -28684,6 +28866,7 @@
   el = Νότια Αφρική
   he = דרום אפריקה
   sk = Južná Afrika
+  mr = दक्षिण आफ्रिका
 
 [South Africa_Eastern Cape]
   en = Eastern Cape
@@ -29059,6 +29242,7 @@
   el = Νότια Κορέα
   he = קוריאה הדרומית
   sk = Kórejská republika
+  mr = दक्षिण कोरिया
 
 [South Korea_North]
   en = South Korea — North
@@ -29217,6 +29401,7 @@
   el = Ισπανία
   he = ספרד
   sk = Španielsko
+  mr = स्पेन
 
 [Spain_Andalusia]
   en = Andalusia
@@ -29953,6 +30138,7 @@
   el = Σρι Λάνκα
   he = סרי לנקה
   sk = Srí Lanka
+  mr = श्रीलंका
 
 [Sudan]
   en = Sudan
@@ -29985,6 +30171,7 @@
   el = Σουδάν
   he = סודאן
   sk = Sudán
+  mr = सुदान
 
 [Suriname]
   en = Suriname
@@ -30084,6 +30271,7 @@
   el = Σουηδία
   he = שבדיה
   sk = Švédsko
+  mr = स्वीडन
 
 [Sweden_Bergslagen]
   en = Bergslagen
@@ -30333,6 +30521,7 @@
   el = Ελβετία
   he = שווייץ
   sk = Švajčiarsko
+  mr = स्वित्झर्लंड
 
 [Switzerland_Central]
   en = Central Switzerland
@@ -30582,6 +30771,7 @@
   el = Συρία
   he = סוריה
   sk = Sýria
+  mr = सीरिया
 
 [Taiwan]
   en = Taiwan
@@ -30614,6 +30804,7 @@
   el = Ταϊβάν
   he = הרפובליקה הסינית
   sk = Taiwan
+  mr = तैवान
 
 [Tajikistan]
   en = Tajikistan
@@ -30646,6 +30837,7 @@
   el = Τατζικιστάν
   he = טג'יקיסטן
   sk = Tadžikistan
+  mr = ताजिकिस्तान
 
 [Tanzania]
   en = Tanzania
@@ -30678,6 +30870,7 @@
   el = Τανζανία
   he = טנזניה
   sk = Tanzánia
+  mr = टांझानिया
 
 [Tennessee]
   en = Tennessee
@@ -30774,6 +30967,7 @@
   el = Ταϊλάνδη
   he = תאילנד
   sk = Thajsko
+  mr = थायलंड
 
 [Thailand_North]
   en = Thailand — North
@@ -31028,6 +31222,7 @@
   el = Τρινιντάντ και Τομπάγκο
   he = טרינידד וטובגו
   sk = Trinidad a Tobago
+  mr = त्रिनिदाद आणि टोबॅगो
 
 [Tunisia]
   en = Tunisia
@@ -31092,6 +31287,7 @@
   el = Τουρκία
   he = טורקיה
   sk = Turecko
+  mr = तुर्की
 
 [Turkey_Aegean Region]
   en = Aegean Region
@@ -31310,6 +31506,7 @@
   el = Τουρκμενιστάν
   he = טורקמניסטן
   sk = Turkménsko
+  mr = तुर्कमेनिस्तान
 
 [Turks and Caicos Islands]
   en = Turks and Caicos Islands
@@ -31963,6 +32160,7 @@
   el = Αλάσκα
   he = אלסקה
   sk = Aljaška
+  mr = अलास्का
 
 [US_Arizona_Flagstaff]
   en = Flagstaff
@@ -35967,6 +36165,7 @@
   el = Ουγκάντα
   he = אוגנדה
   sk = Uganda
+  mr = युगांडा
 
 [Ukraine]
   en = Ukraine
@@ -35999,6 +36198,7 @@
   el = Ουκρανία
   he = אוקראינה
   sk = Ukrajina
+  mr = युक्रेन
 
 [Ukraine_Cherkasy Oblast]
   en = Cherkasy Oblast
@@ -36775,6 +36975,7 @@
   el = Ηνωμένα Αραβικά Εμιράτα
   he = איחוד האמירויות הערביות
   sk = Spojené arabské emiráty
+  mr = संयुक्त अरब अमिराती
 
 [United Kingdom]
   en = United Kingdom
@@ -36807,6 +37008,7 @@
   el = Ηνωμένο Βασίλειο
   he = הממלכה המאוחדת
   sk = Spojené kráľovstvo
+  mr = युनायटेड किंगडम
 
 [United States Virgin Islands]
   en = United States Virgin Islands
@@ -36871,6 +37073,7 @@
   el = Ηνωμένες Πολιτείες της Αμερικής
   he = ארצות הברית
   sk = Spojené štáty
+  mr = युनायटेड स्टेट्स ऑफ अमेरिका
 
 [Uruguay]
   en = Uruguay
@@ -36903,6 +37106,7 @@
   el = Ουρουγουάη
   he = אורוגוואי
   sk = Uruguaj
+  mr = उरुग्वे
 
 [Uzbekistan]
   en = Uzbekistan
@@ -36935,6 +37139,7 @@
   el = Ουζμπεκιστάν
   he = אוזבקיסטן
   sk = Uzbekistan
+  mr = उझबेकिस्तान
 
 [Vanuatu]
   en = Vanuatu
@@ -36999,6 +37204,7 @@
   el = Βενεζουέλα
   he = ונצואלה
   sk = Venezuela
+  mr = व्हेनेझुएला
 
 [Vietnam]
   en = Vietnam
@@ -37031,6 +37237,7 @@
   el = Βιετνάμ
   he = וייטנאם
   sk = Vietnam
+  mr = व्हिएतनाम
 
 [Virginia]
   en = Virginia
@@ -37223,6 +37430,7 @@
   el = Υεμένη
   he = תימן
   sk = Jemen
+  mr = येमेन
 
 [Zambia]
   en = Zambia
@@ -37255,6 +37463,7 @@
   el = Ζάμπια
   he = זמביה
   sk = Zambia
+  mr = झांबिया
 
 [Zimbabwe]
   en = Zimbabwe
@@ -37287,6 +37496,7 @@
   el = Ζιμπάμπουε
   he = זימבבואה
   sk = Zimbabwe
+  mr = झिंबाब्वे
 
 [Argentina_Santa Fe]
   en = Santa Fe Province
@@ -38434,6 +38644,7 @@
   el = Καρνατάκα — Βόρεια
   he = קארנאטקה — צָפוֹן
   sk = Karnátaka — Sever
+  mr = कर्नाटक - उत्तर
 
 [India_Karnataka_South]
   en = Karnataka — South
@@ -38465,6 +38676,7 @@
   el = Καρνατάκα — Νότια
   he = קארנאטקה — דָרוֹם
   sk = Karnátaka — Juh
+  mr = कर्नाटक - दक्षिण
 
 [Iran_East]
   en = Iran — East
@@ -46921,6 +47133,7 @@
   ja = ポートブレア
   uk = Порт-Блер
   el = Πορτ Μπλερ, Γουαντόρ, Φεραγκάντζ
+  mr = पोर्ट ब्लेअर, वंदूर, फेरारगंज
 
 [India_Andhra Pradesh Description]
   en = Vijayawada, Visakhapatnam, Guntur
@@ -46928,10 +47141,12 @@
   ja = ヴィジャヤワーダ, ヴィシャーカパトナム, グントゥール
   uk = Віджаявада, Вішакхапатнам
   el = Βιτζαγιαουάντα, Βισακαπατνάμ, Γκουντούρ
+  mr = विजयवाडा, विशाखापट्टणम, गुंटूर
 
 [India_Arunachal Pradesh Description]
   en = Koloriang, Along
   el = Κολοριάν, Αλόνγκ
+  mr = कोलोरियांग, सोबत
 
 [India_Assam Description]
   en = Guwahati, Silchar, Jorhat
@@ -46939,6 +47154,7 @@
   ja = グワーハーティー, スィルチャル, ジョールハート
   uk = Ґувахаті
   el = Γκαουχάτι, Σιλχάρ, Γιορχάτ
+  mr = गुवाहाटी, सिलचर, जोरहाट
 
 [India_Bihar Description]
   en = Buxar, Patna, Gaya
@@ -46946,6 +47162,7 @@
   ja = パトナ, ガヤー
   uk = Патна, Гая
   el = Μπουξάρ, Πάτνα, Γκάγια
+  mr = बक्सर, पाटणा, गया
 
 [India_Chandigarh Description]
   en = Chandigarh, Palsora, Kaheri
@@ -46953,6 +47170,7 @@
   ja = チャンディーガル
   uk = Чандігарх
   el = Τσάντιγκαρ, Παλσόρα, Καχέρι
+  mr = चंदीगड, पलसोरा, कहेरी
 
 [India_Chhattisgarh Description]
   en = Bilaspur, Ambikapur, Bhilai
@@ -46960,6 +47178,7 @@
   ja = ビラースプル, ビラーイー
   uk = Бхілаі
   el = Μπιλασπάρ, Αμπικαπούρ, Μπλιχάι
+  mr = बिलासपूर, अंबिकापूर, भिलाई
 
 [India_Delhi Description]
   en = Delhi, New Delhi, Nankheri
@@ -46988,6 +47207,7 @@
   el = Δελχί, Νέο Δελχί, Νανκχερί
   he = ניו דלהי
   sk = Naí Dillí
+  mr = दिल्ली, नवी दिल्ली, नानखेरी
 
 [India_Goa Description]
   en = Panaji, Margao, Bicholim
@@ -46996,6 +47216,7 @@
   pt = Pangim, Margão
   uk = Панаджи
   el = Πανατζί, Μαργκάο, Μπιτσολίμ
+  mr = पणजी, मडगाव, बिचोलीम
 
 [India_Gujarat Description]
   en = Ahmedabad, Jamnagar, Surat
@@ -47005,15 +47226,18 @@
   pl = Ahmadabad
   uk = Ахмедабад
   el = Αχμενταμπάντ, Τζαμναγκάρ, Σουράτ
+  mr = अहमदाबाद, जामनगर, सुरत
 
 [India_Haryana Description]
   en = Panchkula, Rewari, Rohtak
   ja = パンチクラー, レーワーリー, ロータク
   el = Παμτσκούλα, Ρεβάρι, Ροχτάκ
+  mr = पंचकुला, रेवाडी, रोहतक
 
 [India_Himachal Pradesh Description]
   en = Nurpur, Mandi, Bharmour
   el = Νουρπούρ, Μάντι, Μπαρμούρ
+  mr = नूरपूर, मंडी, भरमौर
 
 [India_Jammu and Kashmir Description]
   en = Srinagar, Jammu, Udhampur
@@ -47022,6 +47246,7 @@
   pl = Śrinagar, Dżammu
   uk = Срінаґар
   el = Σριναγκάρ, Τζαμού, Ουντχαμπούρ
+  mr = श्रीनगर, जम्मू, उधमपूर
 
 [India_Jharkhand Description]
   en = Ranchi, Dhanbad, Jamshedpur
@@ -47029,12 +47254,14 @@
   ja = ラーンチー, ダンバード, ジャムシェードプル
   uk = Ранчі, Дханбад, Джамшедпур
   el = Ράντσι, Νανμπάντ, Τζάμσεντπουρ
+  mr = रांची, धनबाद, जमशेदपूर
 
 [India_Karnataka_North Description]
   en = Belagavi, Hubballi, Mangaluru
   ru = Хубли-Дхарва, Мангалор
   ja = フッバッリ, マンガロール
   el = Μπελαγκάβι, Χουμπλί, Μανγκαλόρ
+  mr = बेलगावी, हुब्बल्ली, मंगळुरु
 
 [India_Karnataka_South Description]
   en = Bengaluru, Mysuru, Kolar Gold Fields
@@ -47042,6 +47269,7 @@
   de = Bangalore
   ja = バンガロール, マイソール
   el = Μπανγκαλόρ, Μυσουρού, Κόλαρ Γκολντ Φιλντς
+  mr = बेंगळुरू, म्हैसूर, कोलार गोल्ड फील्ड्स
 
 [India_Kerala Description]
   en = Thiruvananthapuram, Ernakulam, Thrissur
@@ -47049,10 +47277,12 @@
   ja = ティルヴァナンタプラム, エルナクラム, トリシュール
   uk = Тируванантапурам
   el = Τιρουβανανταπουράν, ΕρνΑκουλάμ, Θρισούρ
+  mr = तिरुवनंतपुरम, एर्नाकुलम, त्रिशूर
 
 [India_Lakshadweep Description]
   en = Kavaratti, Minicoy, agatti village center
   el = Καβαράτι, Μίνικόι, Αγκάτι Βίλατζ Σεντρ
+  mr = कावरत्ती, मिनिकॉय, अगट्टी गाव केंद्र
 
 [India_Madhya Pradesh Description]
   en = Indore, Bhopal, Gwalior
@@ -47060,6 +47290,7 @@
   ja = インドール, ボーパール, グワーリヤル
   uk = Індаур, Бхопал, Гваліор
   el = Ιντόρε, Μποπάλ, Γκβαλιόρ
+  mr = इंदूर, भोपाळ, ग्वाल्हेर
 
 [India_Maharashtra Description]
   en = Mumbai, Pune, Nagpur
@@ -47072,25 +47303,30 @@
   uk = Мумбаї, Наґпур
   el = Βομβάη, Πούνα, Ναγκπούρ
   sk = Bombaj
+  mr = मुंबई, पुणे, नागपूर
 
 [India_Manipur Description]
   en = Imphal, Imphal, Jiribam
   ja = インパール, インパール
   el = Ιμπχάλ, Ιμπχάλ, Τζιριμπάμ
+  mr = इंफाळ, इंफाळ, जिरीबम
 
 [India_Meghalaya Description]
   en = Shillong, Garobandha, Betasing
   ja = シロン
   el = Σιλόνγκ, Γκαρομπάντα, Μπετασίνγκ
+  mr = शिलाँग, गरोबंध, बेतासिंग
 
 [India_Mizoram Description]
   en = Aizawl, Lunglei, Mamit
   ja = アイザウル
   el = Αίτσαβλ, Λούνγκλάι, Μαμίτ
+  mr = आयझॉल, लुंगलेई, ममित
 
 [India_Nagaland Description]
   en = Kohima, Peren
   el = Κοχίμα, Περέν
+  mr = कोहिमा, पेरेन
 
 [India_Odisha Description]
   en = Cuttack, Rourkela, Brahmapur
@@ -47098,12 +47334,14 @@
   ja = カタク, ラーウルケーラー, ベーランプル
   uk = Каттак, Берхампур
   el = Κουτάκα, Ρούρκελ, Μπέρχαμπουρ
+  mr = कटक, राउरकेला, ब्रह्मपूर
 
 [India_Punjab Description]
   en = Jalandhar, Amritsar, Bathinda
   ru = Джаландхар, Амритсар
   ja = ジャランダル, アムリトサル, バシンダ
   el = Τζαλαντάρ, Αμριτσάρ, Μπατίντα
+  mr = जालंधर, अमृतसर, भटिंडा
 
 [India_Rajasthan Description]
   en = Jaipur, Jodhpur, Kota
@@ -47111,12 +47349,14 @@
   ja = ジャイプル, ジョードプル, コーター
   uk = Джайпур, Джодхпур, Кота
   el = Τζαϊπούρ, Τζοντπούρ, Κότα
+  mr = जयपूर, जोधपूर, कोटा
 
 [India_Sikkim Description]
   en = Gangtok, Gayzing, Jorethang
   nl = Gangtok
   ja = ガントク
   el = Γκανγκτόκ, Γκαιζίνγκ, Γιορεθάνγκ
+  mr = गंगटोक, गेझिंग, जोरथांग
 
 [India_Tamil Nadu Description]
   en = Chennai, Kanyakumari, Namakkal
@@ -47127,6 +47367,7 @@
   pl = Ćennaj
   uk = Ченнаї
   el = Τσενάι Κανιακουμάρι, Ναμακάλ
+  mr = चेन्नई, कन्याकुमारी, नमक्कल
 
 [India_Telangana Description]
   en = Hyderabad, Warangal, Khammam
@@ -47134,11 +47375,13 @@
   ja = ハイデラバード, ワランガル
   uk = Варангал
   el = Χαϊντεραμπάντ, Βαρανγκάλ, Καμάν
+  mr = हैदराबाद, वारंगल, खम्मम
 
 [India_Tripura Description]
   en = Agartala, Bisramganj, Belonia
   ja = アガルタラ
   el = Αγκαρτάλα, Μπισράμ Γκάνζ, Μπελόνια
+  mr = आगरतळा, बिस्रामगंज, बेलोनिया
 
 [India_Uttar Pradesh Description]
   en = Allahabad, Lucknow, Varanasi
@@ -47146,12 +47389,14 @@
   ja = イラーハーバード, ラクナウ, ワーラーナシー
   uk = Аллахабад, Лакнау
   el = Αλαχαμπάντ, Λάκναου, Βαρανάσι
+  mr = अलाहाबाद, लखनौ, वाराणसी
 
 [India_Uttarakhand Description]
   en = Dehradun, Roorkee, Haridwār
   ru = Дехрадун
   ja = デヘラードゥーン, ルールキー, ハリドワール
   el = Ντεχραντούν, Ρόρκε, Χαριντβάρ
+  mr = डेहराडून, रुरकी, हरिद्वार
 
 [India_West Bengal Description]
   en = Kolkata, Siliguri, Asansol
@@ -47163,6 +47408,7 @@
   es = Calcuta
   uk = Колката, Асансол
   el = Καλκούτα, Σιλιγκούρι, Ασανσόλ
+  mr = कोलकाता, सिलीगुडी, आसनसोल
 
 [Indonesia_Central Description]
   en = Makassar, Samarinda, Pontianak
@@ -56625,6 +56871,7 @@ zh-Hant = 卡納塔克邦
 el = Καρνατάκα
 he = קארנאטקה
 sk = Karnátaka
+mr = कर्नाटक
 
 [India_Karnataka_South Short]
 en = Karnataka
@@ -56656,6 +56903,7 @@ zh-Hant = 卡納塔克邦
 el = Καρνατάκα
 he = קארנאטקה
 sk = Karnátaka
+mr = कर्नाटक
 
 [Russia_Krasnoyarsk Krai_North Short]
 en = Krasnoyarsk Krai
