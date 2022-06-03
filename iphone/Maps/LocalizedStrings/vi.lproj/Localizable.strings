@@ -503,6 +503,10 @@
 
 "history" = "Lịch sử";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Đã đóng";
 
 "search_not_found" = "Xin lỗi, tôi không tìm thấy kết quả nào.";

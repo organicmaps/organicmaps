@@ -503,6 +503,10 @@
 
 "history" = "История";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Затворено";
 
 "search_not_found" = "За съжаление не са намерени резултати.";

@@ -503,6 +503,10 @@
 
 "history" = "Geçmiş";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Kapalı";
 
 "search_not_found" = "Üzgünüz, hiç bir şey bulamadık.";

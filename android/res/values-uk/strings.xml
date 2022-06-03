@@ -350,6 +350,8 @@
 	<string name="routing_arrive">Прибуття в %s</string>
 	<string name="categories">Категорії</string>
 	<string name="history">Історія</string>
+	<string name="opens_in">Відкривається через %s</string>
+	<string name="closes_in">Зачиняється через %s</string>
 	<string name="closed">Зачинено</string>
 	<string name="search_not_found">На жаль, нічого не знайдено.</string>
 	<string name="search_not_found_query">Спробуйте змінити запит.</string>

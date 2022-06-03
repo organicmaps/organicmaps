@@ -503,6 +503,10 @@
 
 "history" = "Historikk";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Stengt";
 
 "search_not_found" = "Beklager, jeg fant ingenting.";

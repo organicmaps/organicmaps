@@ -503,6 +503,10 @@
 
 "history" = "履歴";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "閉鎖";
 
 "search_not_found" = "申し訳ありませんが該当するものは見つかりませんでした。";

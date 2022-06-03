@@ -503,6 +503,10 @@
 
 "history" = "記錄";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "已關閉";
 
 "search_not_found" = "很抱歉，找不到任何東西。";

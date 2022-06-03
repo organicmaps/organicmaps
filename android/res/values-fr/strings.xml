@@ -342,6 +342,8 @@
 	<string name="routing_arrive">Arrivée: %s</string>
 	<string name="categories">Catégories</string>
 	<string name="history">Historique</string>
+	<string name="opens_in">Ouvert dans %s</string>
+	<string name="closes_in">Fermé dans %s</string>
 	<string name="closed">Fermé</string>
 	<string name="search_not_found">Désolé, je n\'ai rien trouvé.</string>
 	<string name="search_not_found_query">Veuillez essayer un autre mot-clé.</string>

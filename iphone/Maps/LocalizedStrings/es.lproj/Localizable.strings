@@ -503,6 +503,10 @@
 
 "history" = "Historial";
 
+"opens_in" = "Abre en %@";
+
+"closes_in" = "Cierra en %@";
+
 "closed" = "Cerrado";
 
 "search_not_found" = "Lo siento, no he encontrado nada.";

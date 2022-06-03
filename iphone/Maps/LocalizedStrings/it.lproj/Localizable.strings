@@ -503,6 +503,10 @@
 
 "history" = "Cronologia";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Chiuso";
 
 "search_not_found" = "Non ho trovato nulla.";

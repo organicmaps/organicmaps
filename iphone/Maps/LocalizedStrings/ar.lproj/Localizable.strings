@@ -503,6 +503,10 @@
 
 "history" = "السجل";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "مغلق";
 
 "search_not_found" = "المعذرة، لم أعثر على أي شيء.";

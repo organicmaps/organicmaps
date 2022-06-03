@@ -503,6 +503,10 @@
 
 "history" = "Historie";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Zavřeno";
 
 "search_not_found" = "Omlouvám se, nic nenalezeno.";

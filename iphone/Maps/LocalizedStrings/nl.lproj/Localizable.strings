@@ -503,6 +503,10 @@
 
 "history" = "Geschiedenis";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Gesloten";
 
 "search_not_found" = "Sorry, ik heb niets gevonden.";
