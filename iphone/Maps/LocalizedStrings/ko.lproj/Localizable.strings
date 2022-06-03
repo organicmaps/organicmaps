@@ -503,6 +503,10 @@
 
 "history" = "내역";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "닫음";
 
 "search_not_found" = "죄송합니다. 아무것도 찾지 못했습니다.";

@@ -503,6 +503,10 @@
 
 "history" = "Archív";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Zatvorené";
 
 "search_not_found" = "Ľutujeme, ale nič sme nenašli.";
