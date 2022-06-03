@@ -100,7 +100,7 @@ public class LoggerFactory
   {
     Objects.requireNonNull(mApplication);
 
-    if (mLogsFolder != null && createDir(mLogsFolder))
+    if (mLogsFolder != null && createWritableDir(mLogsFolder))
       return mLogsFolder;
 
     mLogsFolder = null;
@@ -121,12 +121,17 @@ public class LoggerFactory
   }
 
   // Only system logging allowed, see ensureLogsFolder().
-  private synchronized boolean createDir(@NonNull final String path)
+  private synchronized boolean createWritableDir(@NonNull final String path)
   {
     final File dir = new File(path);
     if (!dir.exists() && !dir.mkdirs())
     {
       Log.e(TAG, "Can't create a logs folder " + path);
+      return false;
+    }
+    if (!dir.canWrite())
+    {
+      Log.e(TAG, "Can't write to a logs folder " + path);
       return false;
     }
     return true;
@@ -139,7 +144,7 @@ public class LoggerFactory
     if (dir != null)
     {
       final String path = dir.getPath() + File.separator + "logs";
-      if (createDir(path))
+      if (createWritableDir(path))
         return path;
     }
     return null;
