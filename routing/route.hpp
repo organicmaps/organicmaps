@@ -66,17 +66,16 @@ public:
 
   struct RoadNameInfo
   {
-    bool m_isLink;
     // This is for street/road. |m_ref| |m_name|.
-    std::string m_ref; // Number of street/road .g. "CA 85".
     std::string m_name; // E.g "Johnson Ave.".
+    std::string m_ref; // Number of street/road e.g. "CA 85".
     // This is for 1st segment of link after junction. Exit |junction_ref| to |m_destination_ref| for |m_destination|.
     std::string m_junction_ref; // Number of junction e.g. "398B".
-    std::string m_destination_ref; // Number of next road, e.g. "CA 85", Sometimes "CA 85 South".
+    std::string m_destination_ref; // Number of next road, e.g. "CA 85", Sometimes "CA 85 South". Usually match |m_ref| of next main road.
     std::string m_destination; // E.g. "Cupertino".
+    bool m_isLink = false;
     bool HasBasicTextInfo() const { return !m_ref.empty() || !m_name.empty(); }
     bool HasExitInfo() const { return m_isLink || !m_junction_ref.empty() || !m_destination_ref.empty() || !m_destination.empty(); }
-    RoadNameInfo() { m_isLink = false; }
   };
 
   RouteSegment(Segment const & segment, turns::TurnItem const & turn,
@@ -314,6 +313,9 @@ public:
   /// set with MoveIterator() method. If it's not possible returns nullopt.
   std::optional<turns::TurnItem> GetCurrentIteratorTurn() const;
 
+  /// \brief Returns a name info of a street next to idx point of the path.
+  void GetStreetNameAfterIdx(uint32_t idx, RouteSegment::RoadNameInfo & roadNameInfo) const;
+
   /// \brief Returns name info of a street where the user rides at this moment.
   void GetCurrentStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const;
 
@@ -404,9 +406,6 @@ private:
   double GetPolySegAngle(size_t ind) const;
   void GetClosestTurn(size_t segIdx, turns::TurnItem & turn) const;
   size_t ConvertPointIdxToSegmentIdx(size_t pointIdx) const;
-
-  /// \brief Returns a name info of a street next to idx point of the path.
-  void GetStreetNameAfterIdx(uint32_t idx, RouteSegment::RoadNameInfo & roadNameInfo) const;
 
   /// \returns Estimated time to pass the route segment with |segIdx|.
   double GetTimeToPassSegSec(size_t segIdx) const;

@@ -183,19 +183,16 @@ void TestTurnCount(routing::Route const & route, uint32_t expectedTurnCount)
 
 void TestCurrentStreetName(routing::Route const & route, string const & expectedStreetName)
 {
-  string streetName;
-  route.GetCurrentStreetName(streetName);
-  TEST_EQUAL(streetName, expectedStreetName, ());
+  RouteSegment::RoadNameInfo roadNameInfo;
+  route.GetCurrentStreetName(roadNameInfo);
+  TEST_EQUAL(roadNameInfo.m_name, expectedStreetName, ());
 }
 
 void TestNextStreetName(routing::Route const & route, string const & expectedStreetName)
 {
-  string streetName;
-  double distance;
-  turns::TurnItem turn;
-  route.GetCurrentTurn(distance, turn);
-  route.GetStreetNameAfterIdx(turn.m_index, streetName);
-  TEST_EQUAL(streetName, expectedStreetName, ());
+  RouteSegment::RoadNameInfo roadNameInfo;
+  route.GetNextTurnStreetName(roadNameInfo);
+  TEST_EQUAL(roadNameInfo.m_name, expectedStreetName, ());
 }
 
 void TestRouteLength(Route const & route, double expectedRouteMeters, double relativeError)
