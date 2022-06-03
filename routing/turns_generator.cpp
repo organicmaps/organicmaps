@@ -292,7 +292,8 @@ void CorrectCandidatesSegmentByOutgoing(TurnInfo const & turnInfo, Segment const
       it->m_segment = firstOutgoingSeg;
     }
     else if (nodes.isCandidatesAngleValid)
-      ASSERT(false, ("Can't match any candidate with firstOutgoingSegment but isCandidatesAngleValid == true."));
+      // Typically all candidates are from one mwm, and missed one (firstOutgoingSegment) from another.
+      LOG(LWARNING, ("Can't match any candidate with firstOutgoingSegment but isCandidatesAngleValid == true."));
     else
     {
       LOG(LWARNING, ("Can't match any candidate with firstOutgoingSegment and isCandidatesAngleValid == false"));
