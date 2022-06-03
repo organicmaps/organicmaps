@@ -109,6 +109,7 @@ area[amenity=grave_yard]
 {z-index: 44;}
 
 area[highway=pedestrian][area?],
+area[amenity=parking_space],
 area[area:highway=pedestrian],
 area[highway=footway][area?][!sac_scale],
 area[area:highway=footway],
@@ -593,10 +594,15 @@ area|z10-[landuse=farmland],
 area|z10-[landuse=farmyard],
 {fill-position: background; fill-color: @farmland; fill-opacity: 1;}
 
+
 /* Parking */
 
 area|z15-[amenity=parking]
 {fill-color: @parking;}
+
+area|z16-[amenity=parking_space]
+{fill-color: @parking_space; fill-opacity: 0.3;}
+
 
 /* 8.BUILDINGS */
 

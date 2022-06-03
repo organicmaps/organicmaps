@@ -10,6 +10,7 @@
 	4.2 Aerodrome
   4.3 Barriers
   4.4 Buildings
+  4.5 Parking
 5.ROADS
   5.1 All roads
 	5.2 Bridges
@@ -65,7 +66,6 @@
 @hospital: #F8D9D9;
 @industrial: #E4E2EB;
 @sport: #D1CDA7;
-@parking: #F2F2BC;
 @military: #E53935;
 @farmland: #EBE4A5;
 
@@ -89,6 +89,10 @@
 @building_dark: #C2C0B3;
 @building_border: #A1A096;
 @building_dark_border: #9B9A8F;
+
+/* 4.5 Parking */
+@parking: #F2F2BC;
+@parking_space: #FFFFFF;
 
 /* 5.ROADS */
 /* 5.1 All roads */
