@@ -32,6 +32,7 @@ public class StoragePathManager
 {
   static final String TAG = StoragePathManager.class.getName();
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
+  private static final String DATA_FILE_EXT = Framework.nativeGetDataFileExt();
   private static final String[] MOVABLE_EXTS = Framework.nativeGetMovableFilesExts();
   static final FilenameFilter MOVABLE_FILES_FILTER = (dir, filename) -> {
     for (String ext : MOVABLE_EXTS)
@@ -48,11 +49,11 @@ public class StoragePathManager
 
   private OnStorageListChangedListener mStoragesChangedListener;
   private BroadcastReceiver mInternalReceiver;
-  private Context mContext;
+  private final Context mContext;
 
   public final List<StorageItem> mStorages = new ArrayList<>();
   public int mCurrentStorageIndex = -1;
-  private StorageItem mEmulatedStorage = null;
+  private StorageItem mInternalStorage = null;
 
   public StoragePathManager(@NonNull Context context)
   {
@@ -118,8 +119,6 @@ public class StoragePathManager
 
   /**
    * Adds a storage into the list if it passes sanity checks.
-   * Internal storage is omitted if it backs an emulated one (unless internal is the current one),
-   * hence internal should be fed to this method last.
    */
   private void addStorageOption(File dir, boolean isInternal, String configPath)
   {
@@ -132,127 +131,109 @@ public class StoragePathManager
       return;
     }
 
-    String commentedPath = null;
+    String path;
     try
     {
-      // Add the trailing separator because the native code assumes that all paths have it.
-      final String path = StorageUtils.addTrailingSeparator(dir.getCanonicalPath());
-      final boolean isCurrent = path.equals(configPath);
-      final long totalSize = dir.getTotalSpace();
-      final long freeSize = dir.getUsableSpace();
+      path = dir.getCanonicalPath();
+    }
+    catch (IOException e)
+    {
+      LOGGER.e(TAG, "IOException at getCanonicalPath for " + dir.getPath(), e);
+      return;
+    }
+    // Add the trailing separator because the native code assumes that all paths have it.
+    path = StorageUtils.addTrailingSeparator(path);
+    final boolean isCurrent = path.equals(configPath);
+    final long totalSize = dir.getTotalSpace();
+    final long freeSize = dir.getUsableSpace();
 
-      commentedPath = path + (StorageUtils.addTrailingSeparator(dir.getPath()).equals(path)
-                              ? "" : " (" + dir.getPath() + ")") + " - " +
-                      (isCurrent ? "currently configured, " : "") +
-                      (isInternal ? "internal" : "external") + ", " +
-                      freeSize + " available out of " + totalSize + " bytes";
+    String commentedPath = path + (StorageUtils.addTrailingSeparator(dir.getPath()).equals(path)
+                                   ? "" : " (" + dir.getPath() + ")") + " - " +
+                           (isCurrent ? "currently configured, " : "") +
+                           (isInternal ? "internal" : "external") + ", " +
+                           freeSize + " available of " + totalSize + " bytes";
 
-      // Check if internal and emulated are the same physical device.
-      // Allow for some divergence in freeSize because there could have been file operations inbetween free space checks.
-      if (isInternal && mEmulatedStorage != null && mEmulatedStorage.mTotalSize == totalSize
-          && mEmulatedStorage.mFreeSize > freeSize - 1024 * 1024
-          && mEmulatedStorage.mFreeSize < freeSize + 1024 * 1024)
+    boolean isEmulated = false;
+    boolean isRemovable = false;
+    boolean isReadonly = false;
+    String state = null;
+    String label = null;
+    if (!isInternal)
+    {
+      try
       {
-        final String emulated = ", backs emulated (" + mEmulatedStorage.mPath + ")";
-        // Allow duplicating internal storage if its the current one (for migration purposes).
-        if (!isCurrent)
-        {
-          LOGGER.i(TAG, "Duplicate" + emulated + ": " + commentedPath);
-          return;
-        }
-        commentedPath += emulated;
+        isEmulated = Environment.isExternalStorageEmulated(dir);
+        isRemovable = Environment.isExternalStorageRemovable(dir);
+        state = Environment.getExternalStorageState(dir);
+        commentedPath += (isEmulated ? ", emulated" : "") +
+                         (isRemovable ? ", removable" : "") +
+                         (state != null ? ", state=" + state : "");
+      }
+      catch (IllegalArgumentException e)
+      {
+        // Thrown if the dir is not a valid storage device.
+        // https://github.com/organicmaps/organicmaps/issues/538
+        LOGGER.w(TAG, "External storage checks failed for " + commentedPath);
       }
 
-      boolean isEmulated = false;
-      boolean isRemovable = false;
-      boolean isReadonly = false;
-      String state = null;
-      String label = null;
-      if (!isInternal)
+      // Get additional storage information for Android 7+.
+      if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
       {
-        try
+        final StorageManager sm = (StorageManager) mContext.getSystemService(Context.STORAGE_SERVICE);
+        if (sm != null)
         {
-          isEmulated = Environment.isExternalStorageEmulated(dir);
-          isRemovable = Environment.isExternalStorageRemovable(dir);
-          state = Environment.getExternalStorageState(dir);
-          commentedPath += (isEmulated ? ", emulated" : "") +
-                           (isRemovable ? ", removable" : "") +
-                           (state != null ? ", state=" + state : "");
-        }
-        catch (IllegalArgumentException e)
-        {
-          // Thrown if the dir is not a valid storage device.
-          // https://github.com/organicmaps/organicmaps/issues/538
-          LOGGER.w(TAG, "isExternalStorage checks failed for " + commentedPath);
-        }
-
-        // Get additional storage information for Android 7+.
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
-        {
-          final StorageManager sm = (StorageManager) mContext.getSystemService(mContext.STORAGE_SERVICE);
-          if (sm != null)
+          final StorageVolume sv = sm.getStorageVolume(dir);
+          if (sv != null)
           {
-            final StorageVolume sv = sm.getStorageVolume(dir);
-            if (sv != null)
-            {
-              label = sv.getDescription(mContext);
-              commentedPath += (sv.isPrimary() ? ", primary" : "") +
-                               (!TextUtils.isEmpty(sv.getUuid()) ? ", uuid=" + sv.getUuid() : "") +
-                               (!TextUtils.isEmpty(label) ? ", label='" + label + "'": "");
-            }
-            else
-              LOGGER.w(TAG, "Can't get StorageVolume for " + commentedPath);
+            label = sv.getDescription(mContext);
+            commentedPath += (sv.isPrimary() ? ", primary" : "") +
+                             (!TextUtils.isEmpty(sv.getUuid()) ? ", uuid=" + sv.getUuid() : "") +
+                             (!TextUtils.isEmpty(label) ? ", label='" + label + "'" : "");
           }
           else
-            LOGGER.w(TAG, "Can't get StorageManager for " + commentedPath);
+            LOGGER.w(TAG, "Can't get StorageVolume for " + commentedPath);
         }
-      }
-
-      if (state != null && !Environment.MEDIA_MOUNTED.equals(state)
-          && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
-      {
-        LOGGER.w(TAG, "Not mounted: " + commentedPath);
-        return;
-      }
-      if (!dir.exists())
-      {
-        LOGGER.w(TAG, "Not exists: " + commentedPath);
-        return;
-      }
-      if (!dir.isDirectory())
-      {
-        LOGGER.w(TAG, "Not a directory: " + commentedPath);
-        return;
-      }
-      if (!dir.canWrite() || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
-      {
-        isReadonly = true;
-        LOGGER.w(TAG, "Not writable: " + commentedPath);
-        // Keep using currently configured storage even if its read-only.
-        if (isCurrent)
-          commentedPath += ", read-only";
         else
-          return;
+          LOGGER.w(TAG, "Can't get StorageManager for " + commentedPath);
       }
-
-      if (TextUtils.isEmpty(label))
-        label = isInternal ? mContext.getString(R.string.maps_storage_internal)
-                           : (isRemovable ? mContext.getString(R.string.maps_storage_removable)
-                                          : (isEmulated ? mContext.getString(R.string.maps_storage_shared)
-                                                        : mContext.getString(R.string.maps_storage_external)));
-
-      StorageItem storage = new StorageItem(path, freeSize, totalSize, label, isReadonly);
-      mStorages.add(storage);
-      if (isCurrent)
-        mCurrentStorageIndex = mStorages.size() - 1;
-      if (isEmulated)
-        mEmulatedStorage = storage;
-      LOGGER.i(TAG, "Accepted " + commentedPath);
     }
-    catch (SecurityException | IOException ex)
+
+    if (state != null && !Environment.MEDIA_MOUNTED.equals(state)
+        && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
     {
-      LOGGER.e(TAG, "Error: " + (commentedPath != null ? commentedPath : "(" + dir.getPath() + ")"), ex);
+      LOGGER.w(TAG, "Not mounted: " + commentedPath);
+      return;
     }
+
+    if (!dir.exists())
+    {
+      LOGGER.w(TAG, "Not exists: " + commentedPath);
+      return;
+    }
+    if (!dir.isDirectory())
+    {
+      LOGGER.w(TAG, "Not a directory: " + commentedPath);
+      return;
+    }
+    if (!dir.canWrite() || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+    {
+      isReadonly = true;
+      commentedPath = "read-only " + commentedPath;
+    }
+
+    if (TextUtils.isEmpty(label))
+      label = isInternal ? mContext.getString(R.string.maps_storage_internal)
+                         : (isRemovable ? mContext.getString(R.string.maps_storage_removable)
+                                        : (isEmulated ? mContext.getString(R.string.maps_storage_shared)
+                                                      : mContext.getString(R.string.maps_storage_external)));
+
+    StorageItem storage = new StorageItem(path, freeSize, totalSize, label, isReadonly);
+    mStorages.add(storage);
+    if (isCurrent)
+      mCurrentStorageIndex = mStorages.size() - 1;
+    if (isInternal)
+      mInternalStorage = storage;
+    LOGGER.i(TAG, "Accepted " + commentedPath);
   }
 
   /**
@@ -267,7 +248,7 @@ public class StoragePathManager
     LOGGER.i(TAG, "Begin scanning storages");
     mStorages.clear();
     mCurrentStorageIndex = -1;
-    mEmulatedStorage = null;
+    mInternalStorage = null;
 
     // External storages (SD cards and other).
     for (File externalDir : mContext.getExternalFilesDirs(null))
@@ -291,63 +272,40 @@ public class StoragePathManager
   }
 
   /**
-   * Determine whether the storage contains map files
-   * by checking for non-empty directories with version-like names (e.g. "220415").
+   * Determine whether the storage contains map files.
    */
   private static boolean containsMapData(String storagePath)
   {
-    File path = new File(storagePath);
-    File[] candidates = path.listFiles((pathname) -> {
-      if (!pathname.isDirectory())
-        return false;
-
-      try
-      {
-        String name = pathname.getName();
-        if (name.length() != 6)
-          return false;
-
-        int version = Integer.valueOf(name);
-        return (version > 120000 && version <= 999999);
-      }
-      catch (NumberFormatException ignored)
-      {
-      }
-
-      return false;
-    });
-
-    return (candidates != null && candidates.length > 0 &&
-            candidates[0].list().length > 0);
+    return StorageUtils.getDirSizeRecursively(new File(storagePath), (dir, filename) -> filename.endsWith(DATA_FILE_EXT)) > 0;
   }
 
   /**
-   * Get storage with the most free space.
+   * Get a writable non-internal storage with the most free space.
+   * Returns an internal storage if no other options are suitable.
    */
-  public StorageItem getBiggestStorage()
+  public StorageItem getDefaultStorage()
   {
     StorageItem res = null;
     for (StorageItem storage : mStorages)
     {
-      if (res == null || res.mFreeSize < storage.mFreeSize)
-      {
+      if ((res == null || res.mFreeSize < storage.mFreeSize)
+          && !storage.mIsReadonly && !storage.equals(mInternalStorage))
         res = storage;
-      }
     }
-    return res;
+
+    return res != null ? res : mInternalStorage;
   }
 
   /**
    * Returns an available storage with existing maps files.
-   * Checks the currently configured storage first,
-   * then scans other storages. If no maps files found
-   * defaults to the storage with the most free space.
+   * Checks the currently configured storage first, then scans other storages.
+   * If no map files found uses getDefaultStorage().
    */
   public static String findMapsStorage(@NonNull Application application)
   {
     StoragePathManager mgr = new StoragePathManager(application);
     mgr.scanAvailableStorages();
-    String path = null;
+    String path;
     final List<StorageItem> storages = mgr.mStorages;
     final int currentIdx = mgr.mCurrentStorageIndex;
 
@@ -382,8 +340,8 @@ public class StoragePathManager
       }
     }
 
-    path = mgr.getBiggestStorage().mPath;
-    LOGGER.i(TAG, "Defaulting to a storage with the most free space: " + path);
+    path = mgr.getDefaultStorage().mPath;
+    LOGGER.i(TAG, "Using default storage " + path);
     return path;
   }
 

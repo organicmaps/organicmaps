@@ -212,6 +212,8 @@ public class Framework
 
   public static native void nativeDeactivatePopup();
 
+  public static native String nativeGetDataFileExt();
+
   public static native String[] nativeGetMovableFilesExts();
 
   public static native String[] nativeGetBookmarksFilesExts();

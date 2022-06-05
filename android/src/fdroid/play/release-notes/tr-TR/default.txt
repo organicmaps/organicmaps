@@ -1,0 +1,4 @@
+Bu bir hata düzeltme sürümüdür
+• Son sürümde indirilen haritaların gözükmemesine sebep olan hata düzeltildi.
+Eğer bu hatadan etkilendiyseniz, uygulama ayarlarından "Haritaları şuraya kaydet:" ayarını açın ve "Internal private storage" (/data/data/... yolu ile gözüken) seçeneğini seçin. Ardından haritaları taşımak için Tamam'a dokunun ve gözükmeyen tüm haritalarınız geri gelecektir! Sonrasında istediğiniz bir depolama seçeneğine geçebilirsiniz.
+• Artık place=region metinleri haritada çizilmiyor.

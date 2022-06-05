@@ -2555,7 +2555,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bicycle-m"
+      name: "bicycle-rental"
       priority: 16631
     }
     caption {
@@ -2571,7 +2571,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bicycle-m"
+      name: "bicycle-rental"
       priority: 16631
     }
     caption {
@@ -2587,7 +2587,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bicycle-m"
+      name: "bicycle-rental"
       priority: 16631
     }
     caption {
@@ -29987,7 +29987,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "monument-m"
+      name: "plaque"
       priority: 16844
       min_distance: 12
     }
@@ -29995,7 +29995,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "monument-m"
+      name: "plaque"
       priority: 16844
       min_distance: 12
     }

@@ -28,7 +28,6 @@ public class StoragePathFragment extends BaseSettingsFragment
     implements OnBackPressListener
 {
   private TextView mHeader;
-  private ListView mList;
 
   private StoragePathAdapter mAdapter;
   private StoragePathManager mPathManager;
@@ -47,7 +46,7 @@ public class StoragePathFragment extends BaseSettingsFragment
     mAdapter = new StoragePathAdapter(mPathManager, requireActivity());
 
     mHeader = root.findViewById(R.id.header);
-    mList = root.findViewById(R.id.list);
+    ListView mList = root.findViewById(R.id.list);
     mList.setOnItemClickListener((parent, view, position, id) -> changeStorage(position));
     mList.setAdapter(mAdapter);
 
@@ -125,7 +124,7 @@ public class StoragePathFragment extends BaseSettingsFragment
     dialog.show();
 
     ThreadPool.getStorage().execute(() -> {
-      final boolean result = mPathManager.moveStorage(newPath, oldPath);
+      final boolean result = StoragePathManager.moveStorage(newPath, oldPath);
 
       UiThread.run(() -> {
         if (dialog.isShowing())

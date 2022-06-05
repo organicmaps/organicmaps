@@ -30,7 +30,9 @@ public:
   }
 
   // OSMElementCacheReaderInterface overrides:
-  bool Read(generator::cache::Key /* id */, WayElement & /* value */) override { UNREACHABLE(); }
+  bool Read(generator::cache::Key /* id */, WayElement & /* value */) override {
+    CHECK(false, ("Should not be called"));
+  }
 
   bool Read(generator::cache::Key id, RelationElement & value) override
   {

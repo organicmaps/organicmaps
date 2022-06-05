@@ -17705,7 +17705,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "monument-m"
+      name: "plaque"
       priority: 16776
       min_distance: 12
     }
@@ -17713,7 +17713,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "monument-m"
+      name: "plaque"
       priority: 16776
       min_distance: 12
     }

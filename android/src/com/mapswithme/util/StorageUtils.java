@@ -250,27 +250,36 @@ public class StorageUtils
     }
   }
 
-  public static long getDirSizeRecursively(File file, FilenameFilter fileFilter)
+  /**
+   * Returns 0 in case of the error or if no files have passed the filter.
+   */
+  public static long getDirSizeRecursively(File dir, FilenameFilter fileFilter)
   {
-    if (file.isDirectory())
+    final File[] list = dir.listFiles();
+    if (list == null)
     {
-      long dirSize = 0;
-      for (File child : file.listFiles())
-        dirSize += getDirSizeRecursively(child, fileFilter);
-
-      return dirSize;
+      LOGGER.w(TAG, "getDirSizeRecursively dirFiles returned null");
+      return 0;
     }
 
-    if (fileFilter.accept(file.getParentFile(), file.getName()))
-      return file.length();
-
-    return 0;
+    long dirSize = 0;
+    for (File child : list)
+    {
+      if (child.isDirectory())
+        dirSize += getDirSizeRecursively(child, fileFilter);
+      else if (fileFilter.accept(dir, child.getName()))
+        dirSize += child.length();
+    }
+    return dirSize;
   }
 
   @SuppressWarnings("ResultOfMethodCallIgnored")
   public static void removeEmptyDirectories(File dir)
   {
-    for (File file : dir.listFiles())
+    final File[] list = dir.listFiles();
+    if (list == null)
+      return;
+    for (File file : list)
     {
       if (!file.isDirectory())
         continue;
@@ -311,8 +320,6 @@ public class StorageUtils
    */
   public static void listContentProviderFilesRecursively(ContentResolver contentResolver, Uri rootUri, UriVisitor filter)
   {
-    ArrayList<Uri> result = new ArrayList<>();
-
     Uri rootDir = DocumentsContract.buildChildDocumentsUriUsingTree(rootUri, DocumentsContract.getTreeDocumentId(rootUri));
     Queue<Uri> directories = new LinkedBlockingQueue<>();
     directories.add(rootDir);
