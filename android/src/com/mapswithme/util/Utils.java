@@ -818,7 +818,7 @@ public class Utils
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mEmail });
         intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + mSubject);
-        //TODO: if zipping logs failed send a short text attachment with system info and logs zipping error/stacktrace.
+        // TODO: Send a short text attachment with system info and logs if zipping logs failed 
         if (success)
         {
           final Uri uri = StorageUtils.getUriForFilePath(activity, zipPath);
@@ -841,7 +841,7 @@ public class Utils
         }
         catch (ActivityNotFoundException e)
         {
-          LOGGER.w("No activities found which can handle sending a support message.", e);
+          LOGGER.w(TAG, "No activities found which can handle sending a support message.", e);
         }
       });
     }

@@ -93,12 +93,12 @@ public class LoggerFactory
    *
    * @return logs folder path, null if it can't be created
    *
-   * NOTE: throws a NullPointerException if initFileLogging() was not called before.
+   * NOTE: initFileLogging() must be called before.
    */
   @Nullable
   public synchronized String ensureLogsFolder()
   {
-    Objects.requireNonNull(mApplication);
+    assert mApplication != null : "mApplication must be initialized first by calling initFileLogging()";
 
     if (mLogsFolder != null && createWritableDir(mLogsFolder))
       return mLogsFolder;
@@ -106,9 +106,7 @@ public class LoggerFactory
     mLogsFolder = null;
     mLogsFolder = createLogsFolder(mApplication.getExternalFilesDir(null));
     if (mLogsFolder == null)
-    {
       mLogsFolder = createLogsFolder(mApplication.getFilesDir());
-    }
 
     if (mLogsFolder == null)
     {
@@ -167,13 +165,15 @@ public class LoggerFactory
 
   /**
    * Returns false if file logging can't be enabled.
-   * NOTE: Throws a NullPointerException if initFileLogging() was not called before.
+   *
+   * NOTE: initFileLogging() must be called before.
    */
   public boolean setFileLoggingEnabled(boolean enabled)
   {
-    Objects.requireNonNull(mApplication);
+    assert mApplication != null : "mApplication must be initialized first by calling initFileLogging()";
 
     if (isFileLoggingEnabled != enabled)
+    {
       if (enabled && ensureLogsFolder() == null)
       {
         Log.e(TAG, "Can't enable file logging: there is no logs folder.");
@@ -181,6 +181,7 @@ public class LoggerFactory
       }
       else
         switchFileLoggingEnabled(enabled);
+    }
 
     return true;
   }
@@ -204,11 +205,11 @@ public class LoggerFactory
   }
 
   /**
-   * Throws a NullPointerException if initFileLogging() was not called before.
+   * NOTE: initFileLogging() must be called before.
    */
   public synchronized void zipLogs(@NonNull OnZipCompletedListener listener)
   {
-    Objects.requireNonNull(mApplication);
+    assert mApplication != null : "mApplication must be initialized first by calling initFileLogging()";
 
     if (ensureLogsFolder() == null)
     {
@@ -269,17 +270,17 @@ public class LoggerFactory
   }
 
   /**
-   * Throws a NullPointerException if initFileLogging() was not called before.
+   * NOTE: initFileLogging() must be called before.
    */
   public void writeSystemInformation(@NonNull final FileWriter fw) throws IOException
   {
-    Objects.requireNonNull(mApplication);
+    assert mApplication != null : "mApplication must be initialized first by calling initFileLogging()";
 
-    fw.write("Android version: " + Build.VERSION.SDK_INT + "\n");
-    fw.write("Device: " + Utils.getFullDeviceModel() + "\n");
-    fw.write("App version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME + "\n");
-    fw.write("Locale : " + Locale.getDefault());
-    fw.write("\nNetworks : ");
+    fw.write("Android version: " + Build.VERSION.SDK_INT);
+    fw.write("\nDevice: " + Utils.getFullDeviceModel());
+    fw.write("\nApp version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME);
+    fw.write("\nLocale: " + Locale.getDefault());
+    fw.write("\nNetworks: ");
     final ConnectivityManager manager = (ConnectivityManager) mApplication.getSystemService(Context.CONNECTIVITY_SERVICE);
     if (manager != null)
       // TODO: getAllNetworkInfo() is deprecated, for alternatives check

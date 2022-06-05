@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.DocumentsContract;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -80,7 +79,9 @@ public class StorageUtils
     final File directory = new File(path);
     if (!directory.exists() && !directory.mkdirs())
     {
-      LOGGER.e(TAG, "Can't create directory " + path);
+      final String errMsg = "Can't create directory " + path;
+      LOGGER.e(TAG, errMsg);
+      CrashlyticsUtils.INSTANCE.logException(new IOException(errMsg));
       return false;
     }
     return true;
