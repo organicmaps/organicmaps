@@ -58,7 +58,7 @@ static_assert(std::is_trivially_copyable<LatLonPos>::value, "");
 class PointStorageWriterInterface
 {
 public:
-  virtual ~PointStorageWriterInterface() noexcept(false) = default;
+  virtual ~PointStorageWriterInterface() noexcept(false) {};
   virtual void AddPoint(uint64_t id, double lat, double lon) = 0;
   virtual uint64_t GetNumProcessedPoints() const = 0;
 };
