@@ -101,9 +101,10 @@ size_t CarDirectionsEngine::GetTurnDirection(IRoutingResult const & result, size
                                              NumMwmIds const & numMwmIds,
                                              RoutingSettings const & vehicleSettings, TurnItem & turnItem)
 {
-  // This is for jump from initial point to start of the route.
+  // This is for jump from initial point to start of the route. No direction is given.
   /// @todo Sometimes results of GetPossibleTurns are empty, sometimes are invalid.
-  ///E.g. Google Maps until you reach destination will guide you go to the left or to the right of first road.
+  /// The best will be to fix GetPossibleTurns(). It will allow us to use following approach.
+  /// E.g. Google Maps until you reach the destination will guide you to go to the left or to the right of the first road.
   if (turnItem.m_index == 2)
     return 0;
 

@@ -148,11 +148,12 @@ string MetadataTagProcessorImpl::ValidateAndFormat_ele(string const & v) const
 
 string MetadataTagProcessorImpl::ValidateAndFormat_destination(string const & v) const
 {
+  // Normalization. "a ;b;  c "  " -> "a; b; c".
   string r;
   strings::Tokenize(v, ";", [&](std::string_view d)
   {
     if (r.empty())
-      r = d;
+      r = string(strings::Trim(d));
     else
       r += "; " + string(strings::Trim(d));
   });
