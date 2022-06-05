@@ -46,6 +46,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   private static final String ERROR_LOADING_DIALOG_TAG = "error_loading_dialog";
   private static final int ERROR_LOADING_DIALOG_REQ_CODE = 234;
 
+  private static final int REQ_CODE_API_RESULT = 10;
+
   public static final String EXTRA_COUNTRY = "country";
 
   // Error codes, should match the same codes in JNI
@@ -394,11 +396,26 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
       intent.putExtra(MwmActivity.EXTRA_TASK, mMapTaskToForward);
       intent.putExtra(MwmActivity.EXTRA_LAUNCH_BY_DEEP_LINK, true);
       mMapTaskToForward = null;
+
+      // Wait for the result from MwmActivity for API callers
+      startActivityForResult(intent, REQ_CODE_API_RESULT);
+      return;
     }
 
     startActivity(intent);
-
     finish();
+  }
+
+  protected void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    switch (requestCode)
+    {
+    case REQ_CODE_API_RESULT:
+      setResult(resultCode, data);
+      finish();
+    default:
+      super.onActivityResult(requestCode, resultCode, data);
+    }
   }
 
   private void finishFilesDownload(int result)

@@ -2,11 +2,9 @@ package com.mapswithme.maps.intent;
 
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,15 +29,10 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
-import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.StorageUtils;
-import com.mapswithme.util.StringUtils;
-import com.mapswithme.util.UTM;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.ThreadPool;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
 import java.util.List;
@@ -326,9 +319,6 @@ public class Factory
       switch (result.getUrlType())
       {
         case ParsingResult.TYPE_INCORRECT:
-        case ParsingResult.TYPE_CATALOGUE:
-        case ParsingResult.TYPE_CATALOGUE_PATH:
-        case ParsingResult.TYPE_SUBSCRIPTION:
           return false;
 
         case ParsingResult.TYPE_MAP:
@@ -358,8 +348,9 @@ public class Factory
           }
           SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap);
           return true;
-        case ParsingResult.TYPE_LEAD:
-          return true;
+        case ParsingResult.TYPE_LOCATION:
+            target.showPositionChooserForAPI();
+            return true;
       }
 
       return false;

@@ -92,6 +92,8 @@ ParsedMapApi::UrlType GetUrlType(url::Url const & url)
     return ParsedMapApi::UrlType::Route;
   if (type == "search")
     return ParsedMapApi::UrlType::Search;
+  if (type == "location")
+    return ParsedMapApi::UrlType::Location;
 
   return ParsedMapApi::UrlType::Incorrect;
 }
@@ -201,6 +203,10 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
         return false;
 
       m_request = request;
+      return true;
+    }
+    case UrlType::Location:
+    {
       return true;
     }
   }

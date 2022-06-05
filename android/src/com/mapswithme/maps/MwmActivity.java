@@ -78,7 +78,6 @@ import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.settings.DrivingOptionsActivity;
 import com.mapswithme.maps.settings.RoadType;
 import com.mapswithme.maps.settings.SettingsActivity;
-import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.menu.MainMenu;
@@ -158,6 +157,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mPositionChooser;
+  enum PositionChooserMode {
+    NONE,
+    EDITOR,
+    API
+  };
+  @NonNull
+  private PositionChooserMode mPositionChooserMode = PositionChooserMode.NONE;
 
   private RoutingPlanInplaceController mRoutingPlanInplaceController;
 
@@ -499,15 +505,34 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final Toolbar toolbar = mPositionChooser.findViewById(R.id.toolbar_position_chooser);
     UiUtils.extendViewWithStatusBar(toolbar);
     UiUtils.showHomeUpButton(toolbar);
-    toolbar.setNavigationOnClickListener(v -> closePositionChooser());
+    toolbar.setNavigationOnClickListener(v -> {
+      closePositionChooser();
+      if (mPositionChooserMode == PositionChooserMode.API)
+        finish();
+    });
     mPositionChooser.findViewById(R.id.done).setOnClickListener(
         v ->
         {
+          switch (mPositionChooserMode)
+          {
+          case API:
+            Intent apiResult = new Intent();
+            double[] center = Framework.nativeGetScreenRectCenter();
+            apiResult.putExtra("lat", center[0]);
+            apiResult.putExtra("lon", center[1]);
+            setResult(Activity.RESULT_OK, apiResult);
+            finish();
+            break;
+          case EDITOR:
+            if (Framework.nativeIsDownloadedMapAtScreenCenter())
+              startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
+            else
+              DialogUtils.showAlertDialog(MwmActivity.this, R.string.message_invalid_feature_position);
+            break;
+          case NONE:
+            throw new IllegalStateException("Unexpected mPositionChooserMode");
+          }
           closePositionChooser();
-          if (Framework.nativeIsDownloadedMapAtScreenCenter())
-            startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
-          else
-            DialogUtils.showAlertDialog(MwmActivity.this, R.string.message_invalid_feature_position);
         });
     UiUtils.hide(mPositionChooser);
   }
@@ -536,8 +561,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.show();
   }
 
-  public void showPositionChooser(boolean isBusiness, boolean applyPosition)
+  public void showPositionChooserForAPI()
   {
+    showPositionChooser(PositionChooserMode.API, false, false);
+  }
+
+  public void showPositionChooserForEditor(boolean isBusiness, boolean applyPosition)
+  {
+    showPositionChooser(PositionChooserMode.EDITOR, isBusiness, applyPosition);
+  }
+
+  private void showPositionChooser(PositionChooserMode mode, boolean isBusiness, boolean applyPosition)
+  {
+    mPositionChooserMode = mode;
     closeFloatingToolbarsAndPanels(false);
     UiUtils.show(mPositionChooser);
     setFullscreen(true);
@@ -549,6 +585,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     UiUtils.hide(mPositionChooser);
     Framework.nativeTurnOffChoosePositionMode();
     setFullscreen(false);
+    if (mPositionChooserMode == PositionChooserMode.API)
+      finish();
+    mPositionChooserMode = PositionChooserMode.NONE;
   }
 
   private void initMap(boolean isLaunchByDeepLink)
@@ -2022,7 +2061,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onAddPlaceOptionSelected()
   {
     closeFloatingPanels();
-    showPositionChooser(false, false);
+    showPositionChooserForEditor(false, false);
   }
 
   public void onDownloadMapsOptionSelected()

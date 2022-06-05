@@ -1272,12 +1272,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void addOrganisation()
   {
-    getActivity().showPositionChooser(true, false);
+    getActivity().showPositionChooserForEditor(true, false);
   }
 
   private void addPlace()
   {
-    getActivity().showPositionChooser(false, true);
+    getActivity().showPositionChooserForEditor(false, true);
   }
 
   @Override
