@@ -341,6 +341,20 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   return m_state;
 }
 
+string FormatRoadDestination(string const & v)
+{
+  // Normalization. "a ;b;  c,d "  " -> "a; b; c; d".
+  string r;
+  strings::Tokenize(v, " ;,", [&](std::string_view d)
+  {
+    if (r.empty())
+      r = d;
+    else
+      r += "; " + string(d);
+  });
+  return r;
+}
+
 // For next street returns "[ref] name" .
 // For highway exits (or main roads with exit info) returns "[junction:ref]: [target:ref] > target".
 // If no |target| - it will be replaced by |name| of next street.
@@ -363,7 +377,7 @@ void GetFullRoadName(RouteSegment::RoadNameInfo & road, string & name)
       name += string(name.empty() ? "" : ": ") + "[" + road.m_destination_ref + "]";
 
     if (!road.m_destination.empty())
-      name += string(name.empty() ? "" : " ") + "> " + road.m_destination;
+      name += string(name.empty() ? "" : " ") + "> " + FormatRoadDestination(road.m_destination);
     else if (!road.m_name.empty())
       name += (road.m_destination_ref.empty() ? string(name.empty() ? "" : " ") : ": ") + road.m_name;
   }
