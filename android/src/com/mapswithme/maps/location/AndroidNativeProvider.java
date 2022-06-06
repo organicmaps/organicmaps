@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.MwmApplication;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 
 class AndroidNativeProvider extends BaseLocationProvider
@@ -54,7 +52,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   private boolean mActive = false;
   static private int MIN_PROVIDER_COUNT = 2; // PASSIVE is always available
 
-  @NotNull
+  @NonNull
   final private NativeLocationListener mNativeLocationListener = new NativeLocationListener();
 
   AndroidNativeProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener)
