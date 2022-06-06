@@ -27,8 +27,6 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-import org.jetbrains.annotations.NotNull;
-
 public enum LocationHelper implements Initializable<Context>, AppBackgroundTracker.OnTransitionListener, BaseLocationProvider.Listener
 {
   INSTANCE;
@@ -164,7 +162,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   };
 
   @Override
-  public void initialize(@NotNull Context context)
+  public void initialize(@NonNull Context context)
   {
     mContext = context;
     mSensorHelper = new SensorHelper(context);
