@@ -84,9 +84,8 @@ Installing *ccache* can speed up active development.
 _Ubuntu 20.04, 22.04:_
 
 ```bash
-sudo apt-get update && sudo apt-get install -y \
+sudo apt update && sudo apt install -y \
     build-essential \
-    cmake \
     clang \
     ninja-build \
     python3 \
@@ -98,6 +97,18 @@ sudo apt-get update && sudo apt-get install -y \
     libqt5svg5-dev \
     libsqlite3-dev \
     zlib1g-dev
+```
+
+For Ubuntu 20.04 the version of `cmake` that ships with Ubuntu is too old; a more recent version can be installed using `snap`:
+
+```bash
+sudo snap install --classic cmake
+```
+
+For Ubuntu 22.04 `cmake` may be installed using `snap` as well, or alternatively by using `apt`:
+
+```bash
+sudo apt install -y cmake
 ```
 
 _Fedora:_
