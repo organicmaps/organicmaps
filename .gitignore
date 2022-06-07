@@ -178,4 +178,4 @@ tools/python/routing/etc/*.ini
 
 # Screenshots
 screenshots
-android/src/google/play/listings/??-??/graphics/*
+android/src/google/play/listings/??-??/graphics
