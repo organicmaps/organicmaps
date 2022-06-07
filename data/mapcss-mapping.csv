@@ -465,7 +465,7 @@ deprecated|deprecated;464;x
 deprecated|deprecated;465;x
 piste:type|downhill|expert;[piste:type=downhill][piste:difficulty=expert];;name;int_name;466;
 landuse|salt_pond;467;
-deprecated|deprecated;468;x
+cemetery|grave;468;
 railway|monorail|bridge;[railway=monorail][bridge?];;name;int_name;469;
 area:highway|steps;470;
 deprecated|deprecated;471;x

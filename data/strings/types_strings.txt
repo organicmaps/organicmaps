@@ -4762,6 +4762,43 @@
     uk = Склад
     zh-Hans = 仓库
 
+  [type.cemetery.grave]
+    en = Grave
+    ar = ﺮﻴﻄﺧ
+    be = Магіла
+    bg = Гроб
+    cs = Hrob
+    da = Grav
+    de = Grab
+    el = Τάφος
+    es = Tumba
+    eu = Hilobia
+    fa = ﺮﺒﻗ
+    fi = Hauta
+    fr = La tombe
+    he = רבק
+    hu = Sír
+    id = Kuburan
+    it = La tomba
+    ja = 墓
+    ko = 무덤
+    nb = Grav
+    nl = Graf
+    pl = Mogiła
+    pt = Túmulo
+    pt-BR = Túmulo
+    ro = Mormânt
+    ru = Могила
+    sk = Hrob
+    sv = Grav
+    sw = Kaburi
+    th = หลุมฝังศพ
+    tr = Mezar
+    uk = Могила
+    vi = Phần mộ
+    zh-Hans = 墓穴
+    zh-Hant = 墓穴
+
   [type.craft]
     en = Craft
     fr = Artisanat
