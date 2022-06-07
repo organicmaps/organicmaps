@@ -42,3 +42,15 @@ UNIT_TEST(ValidateAndFormat_building_levels)
   TEST_EQUAL(tp.ValidateAndFormat_building_levels("2.51"), "2.5", ());
   TEST_EQUAL(tp.ValidateAndFormat_building_levels("250"), "", ("Too many levels."));
 }
+
+UNIT_TEST(ValidateAndFormat_destination)
+{
+  FeatureBuilderParams params;
+  MetadataTagProcessorImpl tp(params);
+  TEST_EQUAL(tp.ValidateAndFormat_destination("a1 a2"), "a1 a2", ());
+  TEST_EQUAL(tp.ValidateAndFormat_destination("b1-b2"), "b1-b2", ());
+  TEST_EQUAL(tp.ValidateAndFormat_destination("  c,d ;"), "c; d", ());
+  TEST_EQUAL(tp.ValidateAndFormat_destination("e,;f;  g;"), "e; f; g", ());
+  TEST_EQUAL(tp.ValidateAndFormat_destination(""), "", ());
+  TEST_EQUAL(tp.ValidateAndFormat_destination("a1 a2;b1-b2;  c,d ;e,;f;  ;g"), "a1 a2; b1-b2; c; d; e; f; g", ());
+}
