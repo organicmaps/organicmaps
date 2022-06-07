@@ -101,6 +101,13 @@ size_t CarDirectionsEngine::GetTurnDirection(IRoutingResult const & result, size
                                              NumMwmIds const & numMwmIds,
                                              RoutingSettings const & vehicleSettings, TurnItem & turnItem)
 {
+  // This is for jump from initial point to start of the route. No direction is given.
+  /// @todo Sometimes results of GetPossibleTurns are empty, sometimes are invalid.
+  /// The best will be to fix GetPossibleTurns(). It will allow us to use following approach.
+  /// E.g. Google Maps until you reach the destination will guide you to go to the left or to the right of the first road.
+  if (turnItem.m_index == 2)
+    return 0;
+
   size_t skipTurnSegments = CheckUTurnOnRoute(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);
 
   if (turnItem.m_turn == CarDirection::None)
@@ -418,8 +425,8 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
   if (!GetTurnInfo(result, outgoingSegmentIndex, vehicleSettings, turnInfo))
     return;
 
-  turn.m_sourceName = turnInfo.m_ingoing->m_name;
-  turn.m_targetName = turnInfo.m_outgoing->m_name;
+  turn.m_sourceName = turnInfo.m_ingoing->m_roadNameInfo.m_name;
+  turn.m_targetName = turnInfo.m_outgoing->m_roadNameInfo.m_name;
   turn.m_turn = CarDirection::None;
 
   ASSERT_GREATER(turnInfo.m_ingoing->m_path.size(), 1, ());
@@ -531,7 +538,7 @@ size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSeg
     if (checkedSegment.m_path.size() < 2)
       return 0;
 
-    if (checkedSegment.m_name == masterSegment.m_name &&
+    if (checkedSegment.m_roadNameInfo.m_name == masterSegment.m_roadNameInfo.m_name &&
         checkedSegment.m_highwayClass == masterSegment.m_highwayClass &&
         checkedSegment.m_isLink == masterSegment.m_isLink && !checkedSegment.m_onRoundabout)
     {
@@ -555,7 +562,7 @@ size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSeg
       }
 
       // Avoid the UTurn on unnamed roads inside the rectangle based distinct.
-      if (checkedSegment.m_name.empty())
+      if (checkedSegment.m_roadNameInfo.m_name.empty())
         return 0;
 
       // Avoid returning to the same edge after uturn somewere else.

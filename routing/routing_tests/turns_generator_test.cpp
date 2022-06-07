@@ -339,7 +339,7 @@ UNIT_TEST(TestIntermediateDirection)
 UNIT_TEST(TestCheckUTurnOnRoute)
 {
   TUnpackedPathSegments pathSegments(4, LoadedPathSegment());
-  pathSegments[0].m_name = "A road";
+  pathSegments[0].m_roadNameInfo = {"A road", "", "", "", "", false};
   pathSegments[0].m_weight = 1;
   pathSegments[0].m_highwayClass = ftypes::HighwayClass::Trunk;
   pathSegments[0].m_onRoundabout = false;

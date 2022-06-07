@@ -3,6 +3,7 @@
 #include "routing/road_point.hpp"
 #include "routing/turns.hpp"
 #include "routing/segment.hpp"
+#include "routing/route.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
@@ -22,7 +23,7 @@ struct LoadedPathSegment
 {
   std::vector<geometry::PointWithAltitude> m_path;
   std::vector<turns::SingleLaneInfo> m_lanes;
-  std::string m_name;
+  RouteSegment::RoadNameInfo m_roadNameInfo;
   double m_weight = 0.0; /*!< Time in seconds to pass the segment. */
   SegmentRange m_segmentRange;
   std::vector<Segment> m_segments; /*!< Traffic segments for |m_path|. */

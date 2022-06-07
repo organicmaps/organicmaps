@@ -422,7 +422,7 @@ using namespace std;
     for (auto const & routeSegment : routeSegments)
     {
       TEST(routeSegment.GetSpeedCams().empty(),
-           (routeSegment.GetSegment(), routeSegment.GetStreet()));
+           (routeSegment.GetSegment(), routeSegment.GetRoadNameInfo().m_name));
     }
   }
 

@@ -30,8 +30,8 @@ size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & resul
 
   double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, numMwmIds, vehicleSettings);
 
-  turn.m_sourceName = turnInfo.m_ingoing->m_name;
-  turn.m_targetName = turnInfo.m_outgoing->m_name;
+  turn.m_sourceName = turnInfo.m_ingoing->m_roadNameInfo.m_name;
+  turn.m_targetName = turnInfo.m_outgoing->m_roadNameInfo.m_name;
   turn.m_pedestrianTurn = PedestrianDirection::None;
 
   ASSERT_GREATER(turnInfo.m_ingoing->m_path.size(), 1, ());

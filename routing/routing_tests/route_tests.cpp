@@ -29,7 +29,9 @@ static Route::TTurns const kTestTurns(
     {turns::TurnItem(1, turns::CarDirection::TurnLeft),
      turns::TurnItem(2, turns::CarDirection::TurnRight),
      turns::TurnItem(4, turns::CarDirection::ReachedYourDestination)});
-static Route::TStreets const kTestNames({{0, "Street1"}, {1, "Street2"}, {4, "Street3"}});
+static Route::TStreets const kTestNames({{0, {"Street1", "", "", "", "", false}},
+                                         {1, {"Street2", "", "", "", "", false}},
+                                         {4, {"Street3", "", "", "", "", false}}});
 static Route::TTimes const kTestTimes({Route::TTimeItem(1, 5), Route::TTimeItem(3, 10),
                                       Route::TTimeItem(4, 15)});
 
@@ -39,11 +41,15 @@ static Route::TTurns const kTestTurns2(
      turns::TurnItem(2, turns::CarDirection::TurnRight),
      turns::TurnItem(3, turns::CarDirection::None),
      turns::TurnItem(4, turns::CarDirection::ReachedYourDestination)});
-static vector<string> const kTestNames2 = {"Street0", "Street1", "Street2", "", "Street3"};
+static vector<RouteSegment::RoadNameInfo> const kTestNames2 = {{"Street0", "", "", "", "", false},
+                                                               {"Street1", "", "", "", "", false},
+                                                               {"Street2", "", "", "", "", false},
+                                                               {"", "", "", "", "", false},
+                                                               {"Street3", "", "", "", "", false}};
 static vector<double> const kTestTimes2 = {0.0, 5.0, 6.0, 10.0, 15.0};
 
 void GetTestRouteSegments(vector<m2::PointD> const & routePoints, Route::TTurns const & turns,
-                          vector<string> const & streets, vector<double> const & times,
+                          vector<RouteSegment::RoadNameInfo> const & streets, vector<double> const & times,
                           vector<RouteSegment> & routeSegments)
 {
   CHECK_EQUAL(routePoints.size(), turns.size(), ());
@@ -290,7 +296,7 @@ UNIT_TEST(SelfIntersectedRouteMatchingTest)
 
   Route route("TestRouter", 0 /* route id */);
   route.SetGeometry(kRouteGeometry.begin(), kRouteGeometry.end());
-  
+
   vector<RouteSegment> routeSegments;
   GetTestRouteSegments(kRouteGeometry, kTestTurns2, kTestNames2, kTestTimes2, routeSegments);
   route.SetRouteSegments(move(routeSegments));
@@ -346,30 +352,30 @@ UNIT_TEST(RouteNameTest)
   GetTestRouteSegments(kTestGeometry, kTestTurns2, kTestNames2, kTestTimes2, routeSegments);
   route.SetRouteSegments(move(routeSegments));
 
-  string name;
-  route.GetCurrentStreetName(name);
-  TEST_EQUAL(name, "Street1", ());
+  RouteSegment::RoadNameInfo roadNameInfo;
+  route.GetCurrentStreetName(roadNameInfo);
+  TEST_EQUAL(roadNameInfo.m_name, "Street1", (roadNameInfo.m_name));
 
-  route.GetStreetNameAfterIdx(0, name);
-  TEST_EQUAL(name, "Street1", ());
+  route.GetStreetNameAfterIdx(0, roadNameInfo);
+  TEST_EQUAL(roadNameInfo.m_name, "Street1", (roadNameInfo.m_name));
 
-  route.GetStreetNameAfterIdx(1, name);
-  TEST_EQUAL(name, "Street1", ());
+  route.GetStreetNameAfterIdx(1, roadNameInfo);
+  TEST_EQUAL(roadNameInfo.m_name, "Street1", (roadNameInfo.m_name));
 
-  route.GetStreetNameAfterIdx(2, name);
-  TEST_EQUAL(name, "Street2", ());
+  route.GetStreetNameAfterIdx(2, roadNameInfo);
+  TEST_EQUAL(roadNameInfo.m_name, "Street2", (roadNameInfo.m_name));
 
-  route.GetStreetNameAfterIdx(3, name);
-  TEST_EQUAL(name, "Street3", ());
+  route.GetStreetNameAfterIdx(3, roadNameInfo);
+  TEST_EQUAL(roadNameInfo.m_name, "Street3", (roadNameInfo.m_name));
 
-  route.GetStreetNameAfterIdx(4, name);
-  TEST_EQUAL(name, "Street3", ());
+  route.GetStreetNameAfterIdx(4, roadNameInfo);
+  TEST_EQUAL(roadNameInfo.m_name, "Street3", (roadNameInfo.m_name));
 
   location::GpsInfo info;
   info.m_longitude = 1.0;
   info.m_latitude = 2.0;
   route.MoveIterator(info);
-  route.GetCurrentStreetName(name);
-  TEST_EQUAL(name, "Street2", ());
+  route.GetCurrentStreetName(roadNameInfo);
+  TEST_EQUAL(roadNameInfo.m_name, "Street2", (roadNameInfo.m_name));
 }
 }  // namespace route_tests
