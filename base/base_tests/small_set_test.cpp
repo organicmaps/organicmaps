@@ -137,7 +137,7 @@ UNIT_TEST(SmallMap_Benchmark1)
 
   TEST_EQUAL(sum1, sum2, ());
   // At this moment, we have rare t2 > t1 on Linux CI.
-  TEST(BenchmarkTimeLessOrNear(t2, t1, 0.1), (t2, t1));
+  TEST(BenchmarkTimeLessOrNear(t2, t1, 0.3), (t2, t1));
   LOG(LINFO, ("unordered_map time =", t1, "SmallMap time =", t2));
 }
 
