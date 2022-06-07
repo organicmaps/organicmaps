@@ -1248,18 +1248,15 @@ void TestTrim(std::string const & str, std::string const & expected)
 
 UNIT_TEST(Trim)
 {
-  std::string const kStrWithoutSpaces = "string";
-
-  std::string strWithLeftSpaces = "  " + kStrWithoutSpaces;
-  TEST_EQUAL(strings::TrimLeft(strWithLeftSpaces), kStrWithoutSpaces, ());
-
-  std::string strWithRightSpaces = kStrWithoutSpaces + "  ";
-  TEST_EQUAL(strings::TrimRight(strWithRightSpaces), kStrWithoutSpaces, ());
+  std::string str = "string";
 
   TestTrim("", "");
   TestTrim("  ", "");
-  TestTrim(kStrWithoutSpaces, kStrWithoutSpaces);
-  TestTrim("  " + kStrWithoutSpaces, kStrWithoutSpaces);
-  TestTrim(kStrWithoutSpaces + "  ", kStrWithoutSpaces);
-  TestTrim("  " + kStrWithoutSpaces + "  ", kStrWithoutSpaces);
+  TestTrim(str, str);
+  TestTrim("  " + str, str);
+  TestTrim(str + "  ", str);
+  TestTrim("  " + str + "  ", str);
+
+  strings::Trim(str, "tsgn");
+  TEST_EQUAL(str, "ri", ());
 }
