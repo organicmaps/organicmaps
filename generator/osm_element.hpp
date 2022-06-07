@@ -48,7 +48,7 @@ struct OsmElement
   struct Tag
   {
     Tag() = default;
-    Tag(std::string const & key, std::string const & value) : m_key(key), m_value(value) {}
+    Tag(std::string_view key, std::string_view value) : m_key(key), m_value(value) {}
 
     bool operator==(Tag const & other) const
     {
