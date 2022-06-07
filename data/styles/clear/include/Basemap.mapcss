@@ -679,35 +679,30 @@ area|z18-[building=train_station],
 
 /* 8.3 Barrier */
 
-line|z16-[barrier=wall],
 line|z16-[barrier=city_wall],
-line|z16-[barrier=retaining_wall],
-line|z16-[barrier=hedge],
 line|z16-[barrier=fence],
+line|z16-[barrier=hedge],
+line|z16-[barrier=retaining_wall],
+line|z16-[barrier=wall],
 line|z16-[historic=citywalls],
-{color: @fence;opacity: 1;}
+{color: @fence; width: 1.0; dashes: 1.0,1.0; opacity: 0.5;}
 
-line|z16[barrier=wall],
-line|z16[barrier=city_wall],
-line|z16[barrier=retaining_wall],
-line|z16[barrier=fence],
-line|z16[barrier=hedge],
-line|z16[historic=citywalls],
-{width: 0.7;dashes: 0.12,0.12;opacity: 0.5;}
-line|z17-[barrier=wall],
 line|z17-[barrier=city_wall],
-line|z17-[barrier=retaining_wall],
 line|z17-[barrier=fence],
 line|z17-[barrier=hedge],
+line|z17-[barrier=retaining_wall],
+line|z17-[barrier=wall],
 line|z17-[historic=citywalls],
-{width: 1.0;dashes: 0.25,0.25;opacity:0.7;}
-line|z18-[barrier=wall],
+{width: 1.5; dashes: 2.0,2.0; opacity:0.7;}
+
 line|z18-[barrier=city_wall],
-line|z18-[barrier=retaining_wall],
 line|z18-[barrier=fence],
 line|z18-[barrier=hedge],
+line|z18-[barrier=retaining_wall],
+line|z18-[barrier=wall],
 line|z18-[historic=citywalls],
-{width: 1.4;dashes: 0.3,0.3;}
+{width: 2.0; dashes: 2.4,2.4; opacity: 1;}
+
 
 /* 9. ISOLINES */
 
