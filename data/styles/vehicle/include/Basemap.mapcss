@@ -113,7 +113,6 @@ line[waterway=riverbank],
 line[waterway=stream],
 line[waterway=canal],
 line[natural=strait],
-line[waterway=lock],
 line[waterway=ditch],
 line[waterway=drain],
 {z-index: 50;}
@@ -328,7 +327,6 @@ line|z10-[waterway=river],
 line|z10-[waterway=riverbank],
 line|z13-[waterway=canal],
 line|z13-[natural=strait],
-line|z16-[waterway=lock],
 {opacity: 1;color: @river;}
 
 /* 6.1 Area water(lake,pond etc.) */
@@ -385,8 +383,6 @@ line|z15-[natural=strait],
 line|z15-[waterway=stream][intermittent=yes]
 {width: 1.4;dashes: 4.95,4.95;}*/
 
-line|z16-[waterway=lock],
-{width: 1.5;}
 node|z16-[waterway=lock_gate],
 {icon-image: dot-m.svg;}
 

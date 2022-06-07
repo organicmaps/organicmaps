@@ -12638,6 +12638,43 @@
     zh-Hans = 湖
     zh-Hant = 湖泊
 
+  [type.natural.water.lock]
+    en = Lock Chamber
+    ar = ﻞﻔﻘﻟﺍ ﺔﻓﺮﻏ
+    be = Шлюзавая камера
+    bg = Заключваща камера
+    cs = Zámková komora
+    da = Låsekammer
+    de = Schleusenkammer
+    el = Θάλαμος κλειδαριάς
+    es = Cámara de bloqueo
+    eu = Sarraila Ganbera
+    fa = ﻞﻔﻗ ﻕﺎﺗﺍ
+    fi = Lukko kammio
+    fr = Chambre de verrouillage
+    he = לוענמ את
+    hu = Zsilipkamra
+    id = Ruang Kunci
+    it = Camera di blocco
+    ja = ロックチャンバー
+    ko = 잠금 챔버
+    nb = Låsekammer
+    nl = Slotkamer
+    pl = Komora zamka
+    pt = Câmara de Bloqueio
+    pt-BR = Câmara de Bloqueio
+    ro = Camera de blocare
+    ru = Шлюзовая камера
+    sk = Uzamykacia komora
+    sv = Låskammare
+    sw = Chumba cha kufuli
+    th = ห้องล็อค
+    tr = Kilit Odası
+    uk = Замкова камера
+    vi = Khoang khóa
+    zh-Hans = 锁室
+    zh-Hant = 鎖室
+
   [type.natural.water.pond]
     en = Pond
     ar = بركة
@@ -19704,16 +19741,6 @@
     tr = Lağım
     uk = Водовiдвiд
     zh-Hans = 渠
-
-  [type.waterway.lock]
-    en = Waterway Lock
-    de = Schleuse
-    fr = Écluse
-    pt = Eclusa
-    pt-BR = Eclusa
-    ru = Шлюз
-    tr = Kanal Havuzu
-    uk = Шлюз
 
   [type.waterway.lock_gate]
     en = Lock Gate
