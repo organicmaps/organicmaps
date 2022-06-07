@@ -47,6 +47,8 @@ area[landuse=cemetery],
 node[landuse=cemetery],
 area[amenity=grave_yard],
 node[amenity=grave_yard],
+node[cemetery=grave],
+area[cemetery=grave],
 {z-index: 800;}
 
 line[isoline],
@@ -626,18 +628,12 @@ node|z15-[landuse=quarry],
 /* 	7.4 Cemetry */
 
 area|z15-[landuse=cemetery],
-node|z15-[landuse=cemetery],
-area|z17-[amenity=grave_yard],
-node|z17-[amenity=grave_yard],
-{text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
-
-area|z15-16[landuse=cemetery]
-{icon-image: cemetery-m.svg;}
-area|z17-[landuse=cemetery],
 node|z17-[landuse=cemetery],
 area|z17-[amenity=grave_yard],
 node|z17-[amenity=grave_yard],
-{icon-image: cemetery-m.svg;}
+node|z17-[cemetery=grave],
+area|z17-[cemetery=grave],
+{icon-image: cemetery-m.svg; text: name; text-offset: 1; font-size: 10; text-color: @poi_label;}
 
 /* 	7.5 Pedestrian areas */
 

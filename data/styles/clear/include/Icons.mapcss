@@ -988,7 +988,7 @@ area|z17-[historic=wayside_shrine],
 node|z17-[historic=archaeological_site],
 area|z17-[historic=archaeological_site],
 node|z17-[amenity=arts_centre],
-area|z17-[amenity=arts_centre]
+area|z17-[amenity=arts_centre],
 {text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-optional: true;}
 
 node|z12-14[historic=fort],
