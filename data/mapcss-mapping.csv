@@ -947,8 +947,8 @@ office|government;947;
 office|estate_agent;[office=estate_agent],[shop=estate_agent];;name;int_name;948;
 office|lawyer;949;
 office;[office];;name;int_name;950;
-deprecated|deprecated;951;x
-deprecated|deprecated;952;x
+natural|earth_bank;951;
+man_made|embankment;952;
 amenity|ferry_terminal;953;
 amenity;[amenity];;name;int_name;954;
 shop|furniture;955;

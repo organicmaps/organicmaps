@@ -1414,9 +1414,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cliff)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    /// @todo natural=cliff is not drawable now ..
-    TEST_EQUAL(params.m_types.size(), 0, (params));
-    //TEST(params.IsTypeExist(GetType({"natural", "cliff"})), (params));
+    TEST(params.IsTypeExist(GetType({"natural", "cliff"})), (params));
   }
 }
 
@@ -1664,6 +1662,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"boundary", "national_park"},
     {"building", "has_parts"},
     {"building", "train_station"},
+    {"cemetery", "grave"},
     {"craft", "brewery"},
     {"craft", "carpenter"},
     {"craft", "electrician"},
@@ -1867,6 +1866,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"man_made", "breakwater"},
     {"man_made", "chimney"},
     {"man_made", "cutline"},
+    {"man_made", "embankment"},
     {"man_made", "lighthouse"},
     {"man_made", "survey_point"},
     {"man_made", "pier"},
@@ -1880,7 +1880,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"natural", "beach"},
     {"natural", "cape"},
     {"natural", "cave_entrance"},
+    {"natural", "cliff"},
     {"natural", "coastline"},
+    {"natural", "earth_bank"},
     {"natural", "geyser"},
     {"natural", "glacier"},
     {"natural", "grassland"},
