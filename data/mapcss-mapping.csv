@@ -495,8 +495,8 @@ deprecated|deprecated;494;x
 amenity|parking|park_and_ride;[amenity=parking][parking=park_and_ride];;name;int_name;495;
 deprecated|deprecated;496;x
 deprecated|deprecated;497;x
-deprecated|deprecated;498;x
-waterway|lock;499;
+natural|water|lock;[natural=water][water=lock];;name;int_name;498;
+waterway|lock;499;waterway|canal
 deprecated|deprecated;500;x
 deprecated|deprecated;501;x
 deprecated|deprecated;502;x
