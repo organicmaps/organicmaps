@@ -148,18 +148,18 @@ string MetadataTagProcessorImpl::ValidateAndFormat_ele(string const & v) const
 
 string MetadataTagProcessorImpl::ValidateAndFormat_destination(string const & v) const
 {
+  // Normalization. "a1 a2;b1-b2;  c,d ;e,;f;  ;g" -> "a1 a2; b1-b2; c; d; e; f; g"
+  string r;
+  strings::Tokenize(v, ";,", [&](std::string_view d)
   {
-   // Normalization. "a1 a2;b1-b2;  c,d "  " -> "a1 a2; b1-b2; c; d".
-   string r;
-   strings::Tokenize(v, ";,", [&](std::string_view d)
-   {
-     if (r.empty())
-       r = strings::Trim(d);
-     else
-       r += "; " + string(strings::Trim(d));
-   });
-   return r;
- }
+    strings::Trim(d);
+    if (d.empty())
+      return;
+    if (!r.empty())
+      r += "; ";
+    r.append(d);
+  });
+  return r;
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_destination_ref(string const & v) const
