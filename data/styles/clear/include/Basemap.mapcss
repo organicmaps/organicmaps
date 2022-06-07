@@ -703,6 +703,21 @@ line|z18-[barrier=wall],
 line|z18-[historic=citywalls],
 {width: 2.0; dashes: 2.4,2.4; opacity: 1;}
 
+/* ToDo: Make linear style with small triangles pointing downwards, when drape will be ready */
+line|z16-[natural=cliff],
+line|z16-[natural=earth_bank],
+line|z16-[man_made=embankment],
+{color: @fence; width: 1.0; opacity: 0.5;}
+
+line|z17[natural=cliff],
+line|z17[natural=earth_bank],
+line|z17[man_made=embankment],
+{width: 2.0; opacity: 0.7;}
+
+line|z18-[natural=cliff],
+line|z18-[natural=earth_bank],
+line|z18-[man_made=embankment],
+{width: 3.0; opacity: 1;}
 
 /* 9. ISOLINES */
 
