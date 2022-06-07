@@ -637,6 +637,7 @@ line|z18[man_made=cutline],
 line|z19-[man_made=cutline],
 {width: 6;}
 
+
 /* 8.2 Building */
 
 area|z14[building],
@@ -665,7 +666,7 @@ area|z17[building:part],
 area|z17[waterway=dam],
 area|z17[landuse=garages],
 area|z17[building=train_station],
-{fill-color: @building_dark;opacity: 0.9;casing-width: 1;casing-color: @building_dark_border;}
+{fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
 
 area|z17-[aeroway=terminal],
 area|z18-[building],
@@ -673,7 +674,8 @@ area|z18-[building:part],
 area|z18-[waterway=dam],
 area|z18-[landuse=garages],
 area|z18-[building=train_station],
-{fill-color: @building_dark;opacity: 1;casing-width: 1;casing-color: @building_dark_border;}
+{fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
+
 
 /* 8.3 Barrier */
 
