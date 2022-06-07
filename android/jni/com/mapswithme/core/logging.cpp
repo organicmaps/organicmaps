@@ -31,12 +31,12 @@ void AndroidMessage(LogLevel level, SrcPoint const & src, std::string const & s)
   }
 
   ScopedEnv env(jni::GetJVM());
-  static jmethodID const logCoreMsgMethod = jni::GetStaticMethodID(env.get(), g_loggerFactoryClazz,
+  static jmethodID const logCoreMsgMethod = jni::GetStaticMethodID(env.get(), g_loggerClazz,
      "logCoreMessage", "(ILjava/lang/String;)V");
 
   std::string const out = DebugPrint(src) + " " + s;
   jni::TScopedLocalRef msg(env.get(), jni::ToJavaString(env.get(), out));
-  env->CallStaticVoidMethod(g_loggerFactoryClazz, logCoreMsgMethod, pr, msg.get());
+  env->CallStaticVoidMethod(g_loggerClazz, logCoreMsgMethod, pr, msg.get());
 }
 
 void AndroidLogMessage(LogLevel level, SrcPoint const & src, std::string const & s)
@@ -68,18 +68,4 @@ void ToggleDebugLogs(bool enabled)
   else
     g_LogLevel = LINFO;
 }
-}
-
-extern "C" {
-
-void DbgPrintC(char const * format, ...)
-{
-  va_list argptr;
-  va_start(argptr, format);
-
-  __android_log_vprint(ANDROID_LOG_INFO, "OMaps_Debug", format, argptr);
-
-  va_end(argptr);
-}
-
 }

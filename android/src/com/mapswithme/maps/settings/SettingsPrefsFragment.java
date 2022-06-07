@@ -480,7 +480,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    ((TwoStatePreference) pref).setChecked(LoggerFactory.INSTANCE.isFileLoggingEnabled);
+    ((TwoStatePreference) pref).setChecked(LoggerFactory.INSTANCE.isFileLoggingEnabled());
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       if (!LoggerFactory.INSTANCE.setFileLoggingEnabled((Boolean) newValue))
       {

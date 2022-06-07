@@ -1,9 +1,5 @@
 package com.mapswithme.util.log;
 
-import android.app.Application;
-import android.text.TextUtils;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -18,21 +14,20 @@ import java.io.InputStreamReader;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-
 class ZipLogsTask implements Runnable
 {
-  private final static String TAG = ZipLogsTask.class.getSimpleName();
-  private final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final Logger LOGGER = new Logger(Logger.Scope.MAIN, ZipLogsTask.class);
+
   private final static int BUFFER_SIZE = 2048;
   @NonNull
   private final String mLogsPath;
   @NonNull
   private final String mZipPath;
   @Nullable
-  private final LoggerFactory.OnZipCompletedListener mOnCompletedListener;
+  private final LogsManager.OnZipCompletedListener mOnCompletedListener;
 
   ZipLogsTask(@NonNull String logsPath, @NonNull String zipPath,
-              @NonNull LoggerFactory.OnZipCompletedListener onCompletedListener)
+              @NonNull LogsManager.OnZipCompletedListener onCompletedListener)
   {
     mLogsPath = logsPath;
     mZipPath = zipPath;
@@ -61,7 +56,7 @@ class ZipLogsTask implements Runnable
     }
     catch (Exception e)
     {
-      Log.e(TAG, "Failed to zip file '" + sourcePath + "' to location '" + toLocation + "'", e);
+      LOGGER.e("Failed to zip file '" + sourcePath + "' to location '" + toLocation + "'", e);
       return false;
     }
     return true;
@@ -101,14 +96,6 @@ class ZipLogsTask implements Runnable
     }
   }
 
-  private static String getLastPathComponent(String filePath)
-  {
-    String[] segments = filePath.split(File.separator);
-    if (segments.length == 0)
-      return "";
-    return segments[segments.length - 1];
-  }
-
   private void saveSystemLogcat(String path)
   {
     final String cmd = "logcat -d -v time";
@@ -119,7 +106,7 @@ class ZipLogsTask implements Runnable
     }
     catch (IOException e)
     {
-      LOGGER.e(TAG, "Failed to get system logcat", e);
+      LOGGER.e("Failed to get system logcat", e);
       return;
     }
 
@@ -129,7 +116,7 @@ class ZipLogsTask implements Runnable
         InputStreamReader reader = new InputStreamReader(process.getInputStream());
         FileWriter writer = new FileWriter(file))
     {
-      LoggerFactory.INSTANCE.writeSystemInformation(writer);
+      writer.write(LogsManager.INSTANCE.getSystemInformation());
       char[] buffer = new char[10000];
       do
       {
@@ -141,8 +128,7 @@ class ZipLogsTask implements Runnable
     }
     catch (Throwable e)
     {
-      LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-      LOGGER.e(TAG, "Failed to save system logcat to " + path, e);
+      LOGGER.e("Failed to save system logcat to " + path, e);
     }
   }
 }
