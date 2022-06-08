@@ -524,7 +524,7 @@ public:
                                               {"GR.", RoadShieldType::Generic_White}, // Blue font.
                                               {"LF.", RoadShieldType::Generic_White}, // Blue font.
                                               {"İK.", RoadShieldType::Generic_White}, // Blue font.
-                                              // South Cyprus
+                                              // South Cyprus.
                                               {"A", RoadShieldType::Generic_Green},   // Yellow font. Hexagon.
                                               {"B", RoadShieldType::Generic_Blue},    // Yellow font.
                                               {"E", RoadShieldType::Generic_Blue},    // Yellow font.
