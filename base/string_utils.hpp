@@ -106,12 +106,10 @@ void AsciiToLower(std::string & s);
 // All triming functions return a reference on an input string.
 // They do in-place trimming. In general, it does not work for any unicode whitespace except
 // ASCII U+0020 one.
-std::string & TrimLeft(std::string & s);
-std::string & TrimRight(std::string & s);
-std::string & Trim(std::string & s);
-std::string_view & Trim(std::string_view & sv);
+void Trim(std::string & s);
+void Trim(std::string_view & sv);
 /// Remove any characters that contain in "anyOf" on left and right side of string s
-std::string & Trim(std::string & s, char const * anyOf);
+void Trim(std::string & s, std::string_view anyOf);
 
 // Replace the first match of the search substring in the input with the format string.
 // str - An input string

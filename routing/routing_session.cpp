@@ -10,6 +10,8 @@
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
 
+#include "indexer/road_shields_parser.hpp"
+
 #include <utility>
 
 using namespace location;
@@ -339,6 +341,41 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   return m_state;
 }
 
+// For next street returns "[ref] name" .
+// For highway exits (or main roads with exit info) returns "[junction:ref]: [target:ref] > target".
+// If no |target| - it will be replaced by |name| of next street.
+// If no |target:ref| - it will be replaced by |ref| of next road.
+// So if link has no info at all, "[ref] name" of next will be returned (as for next street).
+void GetFullRoadName(RouteSegment::RoadNameInfo & road, string & name)
+{
+  if (auto const & sh = ftypes::GetRoadShields(road.m_ref); !sh.empty())
+    road.m_ref = sh[0].m_name;
+  if (auto const & sh = ftypes::GetRoadShields(road.m_destination_ref); !sh.empty())
+    road.m_destination_ref = sh[0].m_name;
+
+  name.clear();
+  if (road.HasExitInfo())
+  {
+    if (!road.m_junction_ref.empty())
+      name = "[" + road.m_junction_ref + "]";
+
+    if (!road.m_destination_ref.empty())
+      name += string(name.empty() ? "" : ": ") + "[" + road.m_destination_ref + "]";
+
+    if (!road.m_destination.empty())
+      name += string(name.empty() ? "" : " ") + "> " + road.m_destination;
+    else if (!road.m_name.empty())
+      name += (road.m_destination_ref.empty() ? string(name.empty() ? "" : " ") : ": ") + road.m_name;
+  }
+  else
+  {
+    if (!road.m_ref.empty())
+      name = "[" + road.m_ref + "]";
+    if (!road.m_name.empty())
+      name += (name.empty() ? "" : " ") + road.m_name;
+  }
+}
+
 void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -376,8 +413,12 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   info.m_exitNum = turn.m_exitNum;
   info.m_time = static_cast<int>(max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
-  m_route->GetCurrentStreetName(info.m_sourceName);
-  m_route->GetStreetNameAfterIdx(turn.m_index, info.m_targetName);
+  RouteSegment::RoadNameInfo sourceRoadNameInfo, targetRoadNameInfo;
+  m_route->GetCurrentStreetName(sourceRoadNameInfo);
+  GetFullRoadName(sourceRoadNameInfo, info.m_sourceName);
+  m_route->GetNextTurnStreetName(targetRoadNameInfo);
+  GetFullRoadName(targetRoadNameInfo, info.m_targetName);
+
   info.m_completionPercent = GetCompletionPercent();
 
   // Lane information and next street name.

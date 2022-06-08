@@ -164,38 +164,39 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
   auto const processFull = [&rules](std::string const & typeString,
                                     std::string const & selectorsString)
   {
+    ASSERT(!typeString.empty(), ());
+    ASSERT(!selectorsString.empty(), ());
+
     auto const typeTokens = strings::Tokenize<std::string>(typeString, "|");
-    for (auto const & selector : strings::Tokenize(selectorsString, ","))
+    strings::Tokenize(selectorsString, ",", [&typeTokens, &rules](std::string_view selector)
     {
-      CHECK(!selector.empty(), (selectorsString));
-      CHECK_EQUAL(selector[0], '[', (selectorsString));
-      CHECK_EQUAL(selector.back(), ']', (selectorsString));
+      ASSERT_EQUAL(selector.front(), '[', ());
+      ASSERT_EQUAL(selector.back(), ']', ());
 
       MapcssRule rule;
-      auto tags = strings::Tokenize<std::string>(selector, "[");
-      for (auto & rawTag : tags)
+      strings::Tokenize(selector, "[]", [&rule](std::string_view kv)
       {
-        strings::Trim(rawTag, "]");
-        CHECK(!rawTag.empty(), (selector, tags));
-        auto tag = strings::Tokenize<std::string>(rawTag, "=");
+        auto const tag = strings::Tokenize(kv, "=");
         if (tag.size() == 1)
         {
-          CHECK(!tag[0].empty(), (rawTag));
-          auto const forbidden = tag[0][0] == '!';
-          strings::Trim(tag[0], "?!");
+          auto const forbidden = (tag[0][0] == '!');
+
+          std::string v(tag[0]);
+          strings::Trim(v, "?!");
           if (forbidden)
-            rule.m_forbiddenKeys.push_back(tag[0]);
+            rule.m_forbiddenKeys.push_back(std::move(v));
           else
-            rule.m_mandatoryKeys.push_back(tag[0]);
+            rule.m_mandatoryKeys.push_back(std::move(v));
         }
         else
         {
-          CHECK_EQUAL(tag.size(), 2, (tag));
+          ASSERT_EQUAL(tag.size(), 2, (tag));
           rule.m_tags.emplace_back(tag[0], tag[1]);
         }
-      }
+      });
+
       rules.emplace_back(typeTokens, std::move(rule));
-    }
+    });
   };
 
   // Mapcss-mapping maps tags to types.

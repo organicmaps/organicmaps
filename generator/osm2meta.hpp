@@ -18,6 +18,7 @@ struct MetadataTagProcessorImpl
   std::string ValidateAndFormat_ele(std::string const & v) const;
   std::string ValidateAndFormat_destination(std::string const & v) const;
   std::string ValidateAndFormat_destination_ref(std::string const & v) const;
+  std::string ValidateAndFormat_junction_ref(std::string const & v) const;
   std::string ValidateAndFormat_turn_lanes(std::string const & v) const;
   std::string ValidateAndFormat_turn_lanes_forward(std::string const & v) const;
   std::string ValidateAndFormat_turn_lanes_backward(std::string const & v) const;
