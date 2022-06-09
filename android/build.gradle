@@ -82,7 +82,6 @@ dependencies {
   implementation 'androidx.appcompat:appcompat:1.4.1'
   implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
   implementation 'androidx.fragment:fragment:1.4.1'
-  implementation 'androidx.multidex:multidex:2.0.1'
   implementation 'androidx.preference:preference:1.2.0'
   implementation 'androidx.recyclerview:recyclerview:1.2.1'
   implementation 'androidx.work:work-runtime:2.7.1'
