@@ -63,10 +63,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   private final Object mMainQueueToken = new Object();
   @NonNull
   private final MapManager.StorageCallback mStorageCallbacks = new StorageCallbackImpl();
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private MediaPlayerWrapper mPlayer;
-  private boolean mFirstLaunch;
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -260,17 +257,11 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     Counters.resetAppSessionCounters(context);
   }
 
+  // Called from jni
   @SuppressWarnings("unused")
   void forwardToMainThread(final long taskPointer)
   {
-    Message m = Message.obtain(mMainLoopHandler, new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        nativeProcessTask(taskPointer);
-      }
-    });
+    Message m = Message.obtain(mMainLoopHandler, () -> nativeProcessTask(taskPointer));
     m.obj = mMainQueueToken;
     mMainLoopHandler.sendMessage(m);
   }
@@ -289,11 +280,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   private static native void nativeProcessTask(long taskPointer);
   private static native void nativeAddLocalization(String name, String value);
   private static native void nativeOnTransit(boolean foreground);
-
-  public boolean isFirstLaunch()
-  {
-    return mFirstLaunch;
-  }
 
   @Override
   public void onTransit(boolean foreground)

@@ -108,7 +108,7 @@ public class StorageUtils
 
   /**
    * Copy data from a URI into a local file.
-   * @param resolve content resolver
+   * @param resolver content resolver
    * @param from a source URI.
    * @param to a destination file
    * @return true on success and false if the provider recently crashed.

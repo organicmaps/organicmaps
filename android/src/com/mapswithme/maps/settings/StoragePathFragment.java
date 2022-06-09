@@ -46,9 +46,9 @@ public class StoragePathFragment extends BaseSettingsFragment
     mAdapter = new StoragePathAdapter(mPathManager, requireActivity());
 
     mHeader = root.findViewById(R.id.header);
-    ListView mList = root.findViewById(R.id.list);
-    mList.setOnItemClickListener((parent, view, position, id) -> changeStorage(position));
-    mList.setAdapter(mAdapter);
+    final ListView list = root.findViewById(R.id.list);
+    list.setOnItemClickListener((parent, view, position, id) -> changeStorage(position));
+    list.setAdapter(mAdapter);
 
     return root;
   }

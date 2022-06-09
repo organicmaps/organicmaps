@@ -78,7 +78,6 @@ import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.settings.DrivingOptionsActivity;
 import com.mapswithme.maps.settings.RoadType;
 import com.mapswithme.maps.settings.SettingsActivity;
-import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.menu.MainMenu;
@@ -124,14 +123,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
                NoConnectionListener,
                MapWidgetOffsetsProvider
 {
-  private final Logger mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = MwmActivity.class.getSimpleName();
-
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
   public static final String EXTRA_BACK_URL = "back_url";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
-  private static final String EXTRA_ONBOARDING_TIP = "extra_onboarding_tip";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
                                                      DownloaderFragment.class.getName(),
@@ -155,18 +150,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   private MapFragment mMapFragment;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private View mPositionChooser;
 
   private RoutingPlanInplaceController mRoutingPlanInplaceController;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private NavigationController mNavigationController;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private MainMenu mMainMenu;
 
   private PanelAnimator mPanelAnimator;
@@ -183,7 +172,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private MenuBottomSheetFragment mMainMenuBottomSheet;
   @Nullable
   private NavigationButtonsAnimationController mNavAnimationController;
-  @SuppressWarnings("NullableProblems")
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private MapLayersController mToggleMapLayerController;
 
@@ -202,10 +191,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private Bundle mSavedForTabletState;
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
-  @SuppressWarnings("NullableProblems")
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private PlacePageController mPlacePageController;
-  @SuppressWarnings("NullableProblems")
 
   public interface LeftAnimationTrackListener
   {
@@ -427,10 +415,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     if (savedInstanceState == null && RoutingController.get().hasSavedRoute())
-    {
       addTask(new Factory.RestoreRouteTask());
-      return;
-    }
   }
 
   private void initBottomSheets()
@@ -661,12 +646,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (interceptBackPress())
       return true;
 
-    if (removeCurrentFragment(true))
-    {
-      return true;
-    }
-
-    return false;
+    return removeCurrentFragment(true);
   }
 
   private void closeAllFloatingPanelsTablet()
@@ -790,7 +770,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  protected void onSaveInstanceState(Bundle outState)
+  protected void onSaveInstanceState(@NonNull Bundle outState)
   {
     mPlacePageController.onSave(outState);
     if (!mIsTabletLayout && RoutingController.get().isPlanning())
@@ -1130,14 +1110,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return false;
 
     if (animate)
-      mPanelAnimator.hide(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          removeFragmentImmediate(fragment);
-        }
-      });
+      mPanelAnimator.hide(() -> removeFragmentImmediate(fragment));
     else
       removeFragmentImmediate(fragment);
 
@@ -1971,47 +1944,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  static abstract class AbstractClickMenuDelegate implements ClickMenuDelegate
-  {
-    @NonNull
-    private final MwmActivity mActivity;
-    @NonNull
-    private final MainMenu.Item mItem;
-
-    AbstractClickMenuDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
-    {
-      mActivity = activity;
-      mItem = item;
-    }
-
-    @NonNull
-    public MwmActivity getActivity()
-    {
-      return mActivity;
-    }
-
-    @NonNull
-    public MainMenu.Item getItem()
-    {
-      return mItem;
-    }
-
-    @Override
-    public final void onMenuItemClick()
-    {
-      onMenuItemClickInternal();
-    }
-
-    abstract void onMenuItemClickInternal();
-  }
-
   private class ToolbarLayoutChangeListener implements ViewTreeObserver.OnGlobalLayoutListener
   {
     @Override
     public void onGlobalLayout()
     {
       mSearchController.getToolbar().getViewTreeObserver()
-                       .removeGlobalOnLayoutListener(this);
+                       .removeOnGlobalLayoutListener(this);
 
       adjustCompassAndTraffic(UiUtils.isVisible(mSearchController.getToolbar())
                               ? calcFloatingViewsOffset()
