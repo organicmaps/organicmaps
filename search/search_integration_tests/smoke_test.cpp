@@ -117,8 +117,11 @@ UNIT_CLASS_TEST(SmokeTest, Smoke)
 
   SetViewport(m2::RectD(m2::PointD(0, 0), m2::PointD(100, 100)));
   {
-    Rules rules = {ExactMatch(id, wineShop)};
-    TEST(ResultsMatch("wine ", rules), ());
+    Rules rules = {ExactMatch(id, tequilaShop)};
+    /// @todo Passing "wine" will interpret request as "categorial" only
+    /// (see IsCategorialRequest() after adding craft-winery category).
+    /// Should avoid this strange logic in search core and pass "categorial" request flag via input SearchParams.
+    TEST(ResultsMatch("tequila ", rules), ());
   }
 
   {
