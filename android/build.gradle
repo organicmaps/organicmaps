@@ -314,7 +314,8 @@ android {
       signingConfig signingConfigs.debug
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
       resValue 'string', 'app_name', project.ext.appName  + ' ' + '(Debug)'
-      ndk.debugSymbolLevel = 'SYMBOL_TABLE'
+      // Do not generate separate debug symbols for debug apps, because we don't distribute them.
+      ndk.debugSymbolLevel = 'none'
 
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
@@ -330,9 +331,9 @@ android {
       proguardFile('proguard-mwm.txt')
       resValue 'string', 'app_id', android.defaultConfig.applicationId
       resValue 'string', 'app_name', project.ext.appName
-      ndk {
-        debugSymbolLevel 'SYMBOL_TABLE'
-      }
+      // Full size symbols are too big for Google, 217mb aab vs 95mb.
+      ndk.debugSymbolLevel = 'symbol_table'
+
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
           nativeSymbolUploadEnabled true
@@ -347,9 +348,9 @@ android {
       matchingFallbacks = ['debug', 'release']
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
       resValue 'string', 'app_name', project.ext.appName + ' ' + '(Beta)'
-      ndk {
-        debugSymbolLevel 'SYMBOL_TABLE'
-      }
+      // Full size symbols are too big for Google, 217mb aab vs 95mb.
+      ndk.debugSymbolLevel = 'symbol_table'
+
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
           nativeSymbolUploadEnabled true
