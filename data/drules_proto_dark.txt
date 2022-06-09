@@ -9439,7 +9439,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
+      width: 1.0
       color: 2151957572
       dashdot {
         dd: 1.0
@@ -9451,11 +9451,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
+      width: 1.5
       color: 1296319556
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.0
+        dd: 2.0
       }
       priority: 1456
     }
@@ -9463,11 +9463,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1296319556
+      width: 2.0
+      color: 4473924
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1456
     }
@@ -9475,11 +9475,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1296319556
+      width: 2.0
+      color: 4473924
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1456
     }
@@ -9553,7 +9553,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
+      width: 1.0
       color: 2151957572
       dashdot {
         dd: 1.0
@@ -9565,11 +9565,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
+      width: 1.5
       color: 1296319556
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.0
+        dd: 2.0
       }
       priority: 1456
     }
@@ -9577,11 +9577,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1296319556
+      width: 2.0
+      color: 4473924
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1456
     }
@@ -9589,11 +9589,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1296319556
+      width: 2.0
+      color: 4473924
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1456
     }
@@ -9667,7 +9667,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
+      width: 1.0
       color: 2151957572
       dashdot {
         dd: 1.0
@@ -9679,11 +9679,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
+      width: 1.5
       color: 1296319556
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.0
+        dd: 2.0
       }
       priority: 1456
     }
@@ -9691,11 +9691,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1296319556
+      width: 2.0
+      color: 4473924
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1456
     }
@@ -9703,11 +9703,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1296319556
+      width: 2.0
+      color: 4473924
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1456
     }
@@ -9788,7 +9788,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
+      width: 1.0
       color: 2151957572
       dashdot {
         dd: 1.0
@@ -9800,11 +9800,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
+      width: 1.5
       color: 1296319556
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.0
+        dd: 2.0
       }
       priority: 1456
     }
@@ -9812,11 +9812,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1296319556
+      width: 2.0
+      color: 4473924
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1456
     }
@@ -9824,11 +9824,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1296319556
+      width: 2.0
+      color: 4473924
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1456
     }
@@ -10092,7 +10092,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
+      width: 1.0
       color: 2151957572
       dashdot {
         dd: 1.0
@@ -10104,11 +10104,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
+      width: 1.5
       color: 1296319556
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.0
+        dd: 2.0
       }
       priority: 1456
     }
@@ -10116,11 +10116,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1296319556
+      width: 2.0
+      color: 4473924
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1456
     }
@@ -10128,11 +10128,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1296319556
+      width: 2.0
+      color: 4473924
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1456
     }
@@ -11437,6 +11437,124 @@ cont {
   }
 }
 cont {
+  name: "cemetery-grave"
+  element {
+    scale: 17
+    symbol {
+      name: "cemetery-m"
+      priority: 16398
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15398
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "cemetery-m"
+      priority: 16398
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15398
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "cemetery-m"
+      priority: 16398
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15398
+    }
+  }
+}
+cont {
+  name: "craft-beekeeper"
+  element {
+    scale: 18
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+}
+cont {
+  name: "craft-blacksmith"
+  element {
+    scale: 18
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+}
+cont {
   name: "craft-brewery"
   element {
     scale: 18
@@ -11507,6 +11625,41 @@ cont {
   }
 }
 cont {
+  name: "craft-confectionery"
+  element {
+    scale: 18
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+}
+cont {
   name: "craft-electrician"
   element {
     scale: 18
@@ -11542,7 +11695,77 @@ cont {
   }
 }
 cont {
+  name: "craft-electronics_repair"
+  element {
+    scale: 18
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+}
+cont {
   name: "craft-gardener"
+  element {
+    scale: 18
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+}
+cont {
+  name: "craft-handicraft"
   element {
     scale: 18
     symbol {
@@ -11752,6 +11975,41 @@ cont {
   }
 }
 cont {
+  name: "craft-sawmill"
+  element {
+    scale: 18
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+}
+cont {
   name: "craft-shoemaker"
   element {
     scale: 18
@@ -11788,6 +12046,41 @@ cont {
 }
 cont {
   name: "craft-tailor"
+  element {
+    scale: 18
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hand-m"
+      priority: 16601
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15601
+    }
+  }
+}
+cont {
+  name: "craft-winery"
   element {
     scale: 18
     symbol {
@@ -29689,7 +29982,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
+      width: 1.0
       color: 2151957572
       dashdot {
         dd: 1.0
@@ -29701,11 +29994,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
+      width: 1.5
       color: 1296319556
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.0
+        dd: 2.0
       }
       priority: 1456
     }
@@ -29713,11 +30006,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1296319556
+      width: 2.0
+      color: 4473924
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1456
     }
@@ -29725,11 +30018,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1296319556
+      width: 2.0
+      color: 4473924
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1456
     }
@@ -38010,6 +38303,41 @@ cont {
   }
 }
 cont {
+  name: "man_made-embankment"
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 2151957572
+      priority: 1000
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 1296319556
+      priority: 1000
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 4473924
+      priority: 1000
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 3.0
+      color: 4473924
+      priority: 1000
+    }
+  }
+}
+cont {
   name: "man_made-flagpole"
   element {
     scale: 15
@@ -39482,6 +39810,41 @@ cont {
   }
 }
 cont {
+  name: "natural-cliff"
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 2151957572
+      priority: 1000
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 1296319556
+      priority: 1000
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 4473924
+      priority: 1000
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 3.0
+      color: 4473924
+      priority: 1000
+    }
+  }
+}
+cont {
   name: "natural-coastline"
   element {
     area {
@@ -39620,6 +39983,41 @@ cont {
     area {
       color: 8738
       priority: -16709
+    }
+  }
+}
+cont {
+  name: "natural-earth_bank"
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 2151957572
+      priority: 1000
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 1296319556
+      priority: 1000
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 4473924
+      priority: 1000
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 3.0
+      color: 4473924
+      priority: 1000
     }
   }
 }
@@ -41639,6 +42037,350 @@ cont {
 }
 cont {
   name: "natural-water-lake"
+  element {
+    area {
+      color: 8738
+      priority: -15030
+    }
+  }
+  element {
+    scale: 1
+    area {
+      color: 8738
+      priority: -15030
+    }
+  }
+  element {
+    scale: 2
+    area {
+      color: 8738
+      priority: -15030
+    }
+  }
+  element {
+    scale: 3
+    area {
+      color: 8738
+      priority: -15030
+    }
+  }
+  element {
+    scale: 4
+    area {
+      color: 8738
+      priority: -15030
+    }
+  }
+  element {
+    scale: 5
+    area {
+      color: 8738
+      priority: -15030
+    }
+  }
+  element {
+    scale: 6
+    area {
+      color: 8738
+      priority: -15030
+    }
+  }
+  element {
+    scale: 7
+    area {
+      color: 8738
+      priority: -15030
+    }
+  }
+  element {
+    scale: 8
+    area {
+      color: 8738
+      priority: -15030
+    }
+  }
+  element {
+    scale: 9
+    area {
+      color: 8738
+      priority: -15030
+    }
+  }
+  element {
+    scale: 10
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 9
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 10
+    area {
+      color: 8738
+      priority: -15030
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 11
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 9
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 11
+    area {
+      color: 8738
+      priority: -15030
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 12
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 9
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 12
+    area {
+      color: 8738
+      priority: -15030
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 9
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 8738
+      priority: -15030
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 8738
+      priority: -15030
+    }
+    caption {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 15970
+    }
+    apply_if: "bbox_area<4000000"
+  }
+}
+cont {
+  name: "natural-water-lock"
   element {
     area {
       color: 8738
@@ -68034,14 +68776,6 @@ cont {
   element {
     scale: 16
     lines {
-      width: 5.0
-      color: 3158064
-      dashdot {
-      }
-      priority: 1969
-      cap: BUTTCAP
-    }
-    lines {
       width: 3.0
       color: 1295201075
       priority: 1970
@@ -68065,16 +68799,8 @@ cont {
   element {
     scale: 17
     lines {
-      width: 6.5
-      color: 4671303
-      dashdot {
-      }
-      priority: 1969
-      cap: BUTTCAP
-    }
-    lines {
       width: 4.5
-      color: 439563059
+      color: 1295201075
       priority: 1970
     }
     area {
@@ -68096,16 +68822,8 @@ cont {
   element {
     scale: 18
     lines {
-      width: 8.0
-      color: 4671303
-      dashdot {
-      }
-      priority: 1969
-      cap: BUTTCAP
-    }
-    lines {
       width: 6.0
-      color: 3355443
+      color: 1295201075
       priority: 1970
     }
     area {
@@ -68127,16 +68845,8 @@ cont {
   element {
     scale: 19
     lines {
-      width: 10.0
-      color: 4671303
-      dashdot {
-      }
-      priority: 1969
-      cap: BUTTCAP
-    }
-    lines {
       width: 8.0
-      color: 3355443
+      color: 1295201075
       priority: 1970
     }
     area {
@@ -68373,41 +69083,6 @@ cont {
         dd: 1.0
       }
       priority: 1970
-    }
-  }
-}
-cont {
-  name: "waterway-lock"
-  element {
-    scale: 16
-    lines {
-      width: 1.5
-      color: 401446
-      priority: -15600
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.5
-      color: 401446
-      priority: -15600
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.5
-      color: 401446
-      priority: -15600
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 1.5
-      color: 401446
-      priority: -15600
     }
   }
 }

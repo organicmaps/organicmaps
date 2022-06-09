@@ -4077,8 +4077,8 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
-      color: 2147483648
+      width: 1.0
+      color: 2157549977
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -4089,11 +4089,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 1291845632
+      width: 1.5
+      color: 1301911961
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.0
+        dd: 2.0
       }
       priority: 1505
     }
@@ -4101,11 +4101,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1291845632
+      width: 2.0
+      color: 10066329
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1505
     }
@@ -4113,11 +4113,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1291845632
+      width: 2.0
+      color: 10066329
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1505
     }
@@ -4128,8 +4128,8 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
-      color: 2147483648
+      width: 1.0
+      color: 2157549977
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -4140,11 +4140,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 1291845632
+      width: 1.5
+      color: 1301911961
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.0
+        dd: 2.0
       }
       priority: 1505
     }
@@ -4152,11 +4152,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1291845632
+      width: 2.0
+      color: 10066329
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1505
     }
@@ -4164,11 +4164,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1291845632
+      width: 2.0
+      color: 10066329
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1505
     }
@@ -4179,8 +4179,8 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
-      color: 2147483648
+      width: 1.0
+      color: 2157549977
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -4191,11 +4191,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 1291845632
+      width: 1.5
+      color: 1301911961
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.0
+        dd: 2.0
       }
       priority: 1505
     }
@@ -4203,11 +4203,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1291845632
+      width: 2.0
+      color: 10066329
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1505
     }
@@ -4215,11 +4215,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1291845632
+      width: 2.0
+      color: 10066329
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1505
     }
@@ -4289,6 +4289,57 @@ cont {
         offset_y: 1
       }
       priority: 15858
+    }
+  }
+}
+cont {
+  name: "barrier-retaining_wall"
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 2157549977
+      dashdot {
+        dd: 1.0
+        dd: 1.0
+      }
+      priority: 1505
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.5
+      color: 1301911961
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 1505
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 2.0
+      color: 10066329
+      dashdot {
+        dd: 2.4
+        dd: 2.4
+      }
+      priority: 1505
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 2.0
+      color: 10066329
+      dashdot {
+        dd: 2.4
+        dd: 2.4
+      }
+      priority: 1505
     }
   }
 }
@@ -4412,8 +4463,8 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.7
-      color: 2147483648
+      width: 1.0
+      color: 2157549977
       dashdot {
         dd: 1.0
         dd: 1.0
@@ -4424,11 +4475,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 1291845632
+      width: 1.5
+      color: 1301911961
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.0
+        dd: 2.0
       }
       priority: 1505
     }
@@ -4436,11 +4487,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.4
-      color: 1291845632
+      width: 2.0
+      color: 10066329
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1505
     }
@@ -4448,11 +4499,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.4
-      color: 1291845632
+      width: 2.0
+      color: 10066329
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 2.4
+        dd: 2.4
       }
       priority: 1505
     }
@@ -17494,6 +17545,57 @@ cont {
   }
 }
 cont {
+  name: "historic-citywalls"
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 2157549977
+      dashdot {
+        dd: 1.0
+        dd: 1.0
+      }
+      priority: 1505
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.5
+      color: 1301911961
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 1505
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 2.0
+      color: 10066329
+      dashdot {
+        dd: 2.4
+        dd: 2.4
+      }
+      priority: 1505
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 2.0
+      color: 10066329
+      dashdot {
+        dd: 2.4
+        dd: 2.4
+      }
+      priority: 1505
+    }
+  }
+}
+cont {
   name: "historic-fort"
   element {
     scale: 12
@@ -22321,6 +22423,41 @@ cont {
   }
 }
 cont {
+  name: "man_made-embankment"
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 2157549977
+      priority: 1000
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 1301911961
+      priority: 1000
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 10066329
+      priority: 1000
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 3.0
+      color: 10066329
+      priority: 1000
+    }
+  }
+}
+cont {
   name: "man_made-pier"
   element {
     scale: 13
@@ -22908,6 +23045,41 @@ cont {
   }
 }
 cont {
+  name: "natural-cliff"
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 2157549977
+      priority: 1000
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 1301911961
+      priority: 1000
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 10066329
+      priority: 1000
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 3.0
+      color: 10066329
+      priority: 1000
+    }
+  }
+}
+cont {
   name: "natural-coastline"
   element {
     area {
@@ -23046,6 +23218,41 @@ cont {
     area {
       color: 9163744
       priority: -16711
+    }
+  }
+}
+cont {
+  name: "natural-earth_bank"
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 2157549977
+      priority: 1000
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 1301911961
+      priority: 1000
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.0
+      color: 10066329
+      priority: 1000
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 3.0
+      color: 10066329
+      priority: 1000
     }
   }
 }
@@ -24487,6 +24694,478 @@ cont {
 }
 cont {
   name: "natural-water-lake"
+  element {
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 1
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 2
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 3
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 4
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 5
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 6
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 7
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 8
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 9
+    area {
+      color: 9163744
+      priority: -15071
+    }
+  }
+  element {
+    scale: 10
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 10
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 10
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 11
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 11
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 11
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 12
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 12
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 12
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 13
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 14
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=1000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 15
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=1000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 16
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=1000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 17
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=1000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 18
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=1000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=80000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area>=4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    apply_if: "bbox_area<4000000"
+  }
+  element {
+    scale: 19
+    area {
+      color: 9163744
+      priority: -15071
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4495803
+      }
+      priority: 15929
+    }
+    apply_if: "bbox_area>=1000000"
+  }
+}
+cont {
+  name: "natural-water-lock"
   element {
     area {
       color: 9163744
@@ -42433,14 +43112,6 @@ cont {
   element {
     scale: 15
     lines {
-      width: 4.0
-      color: 13947850
-      dashdot {
-      }
-      priority: 1928
-      cap: BUTTCAP
-    }
-    lines {
       width: 2.0
       color: 2160576191
       priority: 1929
@@ -42458,14 +43129,6 @@ cont {
   element {
     scale: 16
     lines {
-      width: 5.0
-      color: 13947850
-      dashdot {
-      }
-      priority: 1928
-      cap: BUTTCAP
-    }
-    lines {
       width: 3.0
       color: 2160576191
       priority: 1929
@@ -42481,14 +43144,6 @@ cont {
   }
   element {
     scale: 17
-    lines {
-      width: 6.5
-      color: 13947850
-      dashdot {
-      }
-      priority: 1928
-      cap: BUTTCAP
-    }
     lines {
       width: 4.5
       color: 2160576191
@@ -42506,14 +43161,6 @@ cont {
   element {
     scale: 18
     lines {
-      width: 8.0
-      color: 13947850
-      dashdot {
-      }
-      priority: 1928
-      cap: BUTTCAP
-    }
-    lines {
       width: 6.0
       color: 2160576191
       priority: 1929
@@ -42529,14 +43176,6 @@ cont {
   }
   element {
     scale: 19
-    lines {
-      width: 10.0
-      color: 13947850
-      dashdot {
-      }
-      priority: 1928
-      cap: BUTTCAP
-    }
     lines {
       width: 8.0
       color: 2160576191
@@ -42768,41 +43407,6 @@ cont {
         dd: 1.0
         dd: 1.0
       }
-      priority: 1929
-    }
-  }
-}
-cont {
-  name: "waterway-lock"
-  element {
-    scale: 16
-    lines {
-      width: 1.5
-      color: 3584191
-      priority: 1929
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.5
-      color: 3584191
-      priority: 1929
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.5
-      color: 3584191
-      priority: 1929
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 1.5
-      color: 3584191
       priority: 1929
     }
   }
