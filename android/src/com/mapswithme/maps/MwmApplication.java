@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 
 import androidx.annotation.NonNull;
-import androidx.multidex.MultiDex;
 
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.NotificationChannelFactory;
@@ -100,14 +99,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     return context.getSharedPreferences(context.getString(R.string.pref_file_name), MODE_PRIVATE);
   }
 
-  @Override
-  protected void attachBaseContext(Context base)
-  {
-    super.attachBaseContext(base);
-    MultiDex.install(this);
-  }
-
-  @SuppressWarnings("ResultOfMethodCallIgnored")
   @Override
   public void onCreate()
   {
