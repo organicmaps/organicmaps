@@ -513,6 +513,27 @@ public:
   }
 };
 
+class CyprusRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit CyprusRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {// North Cuprus.
+                                              {"D.", RoadShieldType::Generic_Blue},   // White font.
+                                              {"GM.", RoadShieldType::Generic_White}, // Blue font.
+                                              {"GZ.", RoadShieldType::Generic_White}, // Blue font.
+                                              {"GR.", RoadShieldType::Generic_White}, // Blue font.
+                                              {"LF.", RoadShieldType::Generic_White}, // Blue font.
+                                              {"İK.", RoadShieldType::Generic_White}, // Blue font.
+                                              // South Cyprus.
+                                              {"A", RoadShieldType::Generic_Green},   // Yellow font. Hexagon.
+                                              {"B", RoadShieldType::Generic_Blue},    // Yellow font.
+                                              {"E", RoadShieldType::Generic_Blue},    // Yellow font.
+                                              {"F", RoadShieldType::Generic_Blue},    // Yellow font.
+                                              {"U", RoadShieldType::Generic_Blue}})   // Yellow font.
+  {
+  }
+};
+
 class MexicoRoadShieldParser : public RoadShieldParser
 {
 public:
@@ -606,6 +627,8 @@ RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & 
     return MalaysiaRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Mexico")
     return MexicoRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Cyprus")
+    return CyprusRoadShieldParser(roadNumber).GetRoadShields();
 
   return SimpleRoadShieldParser(roadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields();
 }
