@@ -7,7 +7,6 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,8 +18,7 @@ public enum CrashlyticsUtils implements Initializable<Context>
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private Context mContext;
-  private final static String TAG = CrashlyticsUtils.class.getSimpleName();
-  private final static Logger mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.THIRD_PARTY);
+  private static final String TAG = CrashlyticsUtils.class.getSimpleName();
 
   public void logException(@NonNull Throwable exception)
   {
@@ -58,11 +56,11 @@ public enum CrashlyticsUtils implements Initializable<Context>
   {
     if (isEnabled)
     {
-      mLogger.d(TAG, "Crashlytics enabled");
+      Logger.d(TAG, "Crashlytics enabled");
     }
     else
     {
-      mLogger.d(TAG, "Crashlytics disabled");
+      Logger.d(TAG, "Crashlytics disabled");
     }
     FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(isEnabled);
   }

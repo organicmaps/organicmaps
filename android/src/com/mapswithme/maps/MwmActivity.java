@@ -26,7 +26,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -96,8 +95,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.bottomsheet.MenuBottomSheetFragment;
 import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Objects;

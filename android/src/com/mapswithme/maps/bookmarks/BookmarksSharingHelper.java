@@ -5,20 +5,17 @@ import android.app.ProgressDialog;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.util.SharingUtils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 public enum BookmarksSharingHelper
 {
   INSTANCE;
 
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BookmarksSharingHelper.class.getSimpleName();
 
   @Nullable
@@ -51,8 +48,7 @@ public enum BookmarksSharingHelper
         DialogUtils.showAlertDialog(context, R.string.dialog_routing_system_error,
                                     R.string.bookmarks_error_message_share_general);
         String catName = BookmarkManager.INSTANCE.getCategoryById(result.getCategoryId()).getName();
-        LOGGER.e(TAG, "Failed to share bookmark category '" + catName + "', error code: "
-                      + result.getCode());
+        Logger.e(TAG, "Failed to share bookmark category '" + catName + "', error code: " + result.getCode());
         break;
       default:
         throw new AssertionError("Unsupported bookmark sharing code: " + result.getCode());

@@ -7,8 +7,6 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
-import androidx.annotation.UiThread;
-
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsingResult;
@@ -22,8 +20,6 @@ import com.mapswithme.maps.routing.TransitRouteInfo;
 import com.mapswithme.maps.settings.SettingsPrefsFragment;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.util.Constants;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -34,9 +30,6 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class Framework
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = Framework.class.getSimpleName();
-
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({MAP_STYLE_CLEAR, MAP_STYLE_DARK, MAP_STYLE_VEHICLE_CLEAR, MAP_STYLE_VEHICLE_DARK})
 

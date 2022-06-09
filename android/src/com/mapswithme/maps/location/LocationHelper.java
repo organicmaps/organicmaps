@@ -10,7 +10,6 @@ import android.location.LocationManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -25,7 +24,6 @@ import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 public enum LocationHelper implements Initializable<Context>, AppBackgroundTracker.OnTransitionListener, BaseLocationProvider.Listener
 {
@@ -67,8 +65,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       // to play nice zoom animation once a user will leave first screens and will see a map.
       if (mInFirstRun)
       {
-        mLogger.d(TAG, "Location update is obtained and must be ignored, " +
-                       "because the app is in a first run mode");
+        Logger.d(TAG, "Location update is obtained and must be ignored, because the app is in a first run mode");
         return;
       }
 
@@ -100,8 +97,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     @Override
     public void onLocationError(int errorCode)
     {
-      mLogger.d(TAG, "onLocationError errorCode = " + errorCode +
-          ", current state = " + LocationState.nameOf(getMyPositionMode()));
+      Logger.d(TAG, "onLocationError errorCode = " + errorCode +
+               ", current state = " + LocationState.nameOf(getMyPositionMode()));
       mSavedLocation = null;
       nativeOnLocationError(errorCode);
       if (mUiCallback != null)
@@ -115,8 +112,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
   };
 
-  private final static String TAG = LocationHelper.class.getSimpleName();
-  private final Logger mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
+  private static final String TAG = LocationHelper.class.getSimpleName();
   @NonNull
   private final Listeners<LocationListener> mListeners = new Listeners<>();
   @Nullable
@@ -144,10 +140,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     public void onMyPositionModeChanged(int newMode)
     {
       notifyMyPositionModeChanged(newMode);
-      mLogger.d(TAG, "onMyPositionModeChanged mode = " + LocationState.nameOf(newMode));
+      Logger.d(TAG, "onMyPositionModeChanged mode = " + LocationState.nameOf(newMode));
 
       if (mUiCallback == null)
-        mLogger.d(TAG, "UI is not ready to listen my position changes, i.e. it's not attached yet.");
+        Logger.d(TAG, "UI is not ready to listen my position changes, i.e. it's not attached yet.");
     }
   };
 
@@ -210,7 +206,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   public void switchToNextMode()
   {
-    mLogger.d(TAG, "switchToNextMode()");
+    Logger.d(TAG, "switchToNextMode()");
     LocationState.nativeSwitchToNextMode();
   }
 
@@ -224,7 +220,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   public void setStopLocationUpdateByUser(boolean isStopped)
   {
-    mLogger.d(TAG, "Set stop location update by user: " + isStopped);
+    Logger.d(TAG, "Set stop location update by user: " + isStopped);
     mLocationUpdateStoppedByUser = isStopped;
   }
 
@@ -238,7 +234,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   {
     if (foreground)
     {
-      mLogger.d(TAG, "Resumed in foreground");
+      Logger.d(TAG, "Resumed in foreground");
 
       if (mReceiverRegistered)
       {
@@ -250,7 +246,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     }
     else
     {
-      mLogger.d(TAG, "Stopped in background");
+      Logger.d(TAG, "Stopped in background");
 
       if (!mReceiverRegistered)
       {
@@ -288,7 +284,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     // too often can result in poor UI performance.
     if (RoutingController.get().isNavigating() && Framework.nativeIsRouteFinished())
     {
-      mLogger.d(TAG, "End point is reached");
+      Logger.d(TAG, "End point is reached");
       restart();
       if (mUiCallback != null)
         mUiCallback.onRoutingFinish();
@@ -299,11 +295,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @Override
   public void onLocationChanged(@NonNull Location location)
   {
-    mLogger.d(TAG, "onLocationChanged, location = " + location);
+    Logger.d(TAG, "onLocationChanged, location = " + location);
 
     if (!LocationUtils.isAccuracySatisfied(location))
     {
-      mLogger.w(TAG, "Unsatisfied accuracy for location = " + location);
+      Logger.w(TAG, "Unsatisfied accuracy for location = " + location);
       return;
     }
 
@@ -312,7 +308,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
       final boolean isTrustedFused = mLocationProvider.trustFusedLocations() && LocationUtils.isFromFusedProvider(location);
       if (!isTrustedFused && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
       {
-        mLogger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
+        Logger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
         return;
       }
     }
@@ -325,14 +321,14 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @Override
   public void onLocationError(int errCode)
   {
-    mLogger.d(TAG, "onLocationError(): " + errCode);
+    Logger.d(TAG, "onLocationError(): " + errCode);
     if (errCode == ERROR_NOT_SUPPORTED &&
         LocationUtils.areLocationServicesTurnedOn(mContext) &&
         !(mLocationProvider instanceof AndroidNativeProvider))
     {
       // If location service is enabled, try to downgrade to the native provider first
       // and restart the service before notifying the user.
-      mLogger.d(TAG, "Downgrading to use native provider");
+      Logger.d(TAG, "Downgrading to use native provider");
       mLocationProvider = new AndroidNativeProvider(mContext, this);
       restart();
       return;
@@ -345,7 +341,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   private void notifyMyPositionModeChanged(int newMode)
   {
-    mLogger.d(TAG, "notifyMyPositionModeChanged(): " + LocationState.nameOf(newMode));
+    Logger.d(TAG, "notifyMyPositionModeChanged(): " + LocationState.nameOf(newMode));
 
     if (mUiCallback != null)
       mUiCallback.onMyPositionModeChanged(newMode);
@@ -353,7 +349,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   private void notifyLocationNotFound()
   {
-    mLogger.d(TAG, "notifyLocationNotFound()");
+    Logger.d(TAG, "notifyLocationNotFound()");
     if (mUiCallback != null)
       mUiCallback.onLocationNotFound();
   }
@@ -366,8 +362,8 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void addListener(@NonNull LocationListener listener)
   {
-    mLogger.d(TAG, "addListener(): " + listener);
-    mLogger.d(TAG, " - listener count was: " + mListeners.getSize());
+    Logger.d(TAG, "addListener(): " + listener);
+    Logger.d(TAG, " - listener count was: " + mListeners.getSize());
 
     mListeners.register(listener);
     if (mSavedLocation != null)
@@ -381,17 +377,17 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
    */
   public void removeListener(@NonNull LocationListener listener)
   {
-    mLogger.d(TAG, "removeListener(), listener: " + listener);
-    mLogger.d(TAG, " - listener count was: " + mListeners.getSize());
+    Logger.d(TAG, "removeListener(), listener: " + listener);
+    Logger.d(TAG, " - listener count was: " + mListeners.getSize());
     mListeners.unregister(listener);
   }
 
   private void calcLocationUpdatesInterval()
   {
-    mLogger.d(TAG, "calcLocationUpdatesInterval()");
+    Logger.d(TAG, "calcLocationUpdatesInterval()");
     if (RoutingController.get().isNavigating())
     {
-      mLogger.d(TAG, "calcLocationUpdatesInterval(), it's navigation mode");
+      Logger.d(TAG, "calcLocationUpdatesInterval(), it's navigation mode");
       final @Framework.RouterType int router = Framework.nativeGetRouter();
       switch (router)
       {
@@ -467,28 +463,28 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   {
     if (mActive)
     {
-      mLogger.w(TAG, "Provider '" + mLocationProvider + "' is already started");
+      Logger.w(TAG, "Provider '" + mLocationProvider + "' is already started");
       return;
     }
 
     if (isLocationUpdateStoppedByUser())
     {
-      mLogger.d(TAG, "Location updates are stopped by the user manually, so skip provider start"
-                          + " until the user starts it manually.");
+      Logger.d(TAG, "Location updates are stopped by the user manually, so skip provider start"
+               + " until the user starts it manually.");
       onLocationError(ERROR_GPS_OFF);
       return;
     }
 
     long oldInterval = mInterval;
-    mLogger.d(TAG, "Old time interval (ms): " + oldInterval);
+    Logger.d(TAG, "Old time interval (ms): " + oldInterval);
     calcLocationUpdatesInterval();
     if (!PermissionsUtils.isLocationGranted(mContext))
     {
-      mLogger.w(TAG, "Dynamic permissions ACCESS_COARSE_LOCATION and/or ACCESS_FINE_LOCATION are granted");
+      Logger.w(TAG, "Dynamic permissions ACCESS_COARSE_LOCATION and/or ACCESS_FINE_LOCATION are granted");
       onLocationError(ERROR_DENIED);
       return;
     }
-    mLogger.i(TAG, "start(): interval = " + mInterval + " provider = '" + mLocationProvider + "' mInFirstRun = " + mInFirstRun);
+    Logger.i(TAG, "start(): interval = " + mInterval + " provider = '" + mLocationProvider + "' mInFirstRun = " + mInFirstRun);
     checkForAgpsUpdates();
     mLocationProvider.start(mInterval);
     mSensorHelper.start();
@@ -501,10 +497,10 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
    */
   public void stop()
   {
-    mLogger.i(TAG, "stop()");
+    Logger.i(TAG, "stop()");
     if (!mActive)
     {
-      mLogger.w(TAG, "Provider '" + mLocationProvider + "' is already stopped");
+      Logger.w(TAG, "Provider '" + mLocationProvider + "' is already stopped");
       return;
     }
 
@@ -522,11 +518,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     long currentTimestamp = System.currentTimeMillis();
     if (previousTimestamp + AGPS_EXPIRATION_TIME_MS > currentTimestamp)
     {
-      mLogger.d(TAG, "A-GPS should be up to date");
+      Logger.d(TAG, "A-GPS should be up to date");
       return;
     }
 
-    mLogger.d(TAG, "Requesting new A-GPS data");
+    Logger.d(TAG, "Requesting new A-GPS data");
     Config.setAgpsTimestamp(currentTimestamp);
     final LocationManager manager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
     manager.sendExtraCommand(LocationManager.GPS_PROVIDER, "force_xtra_injection", null);
@@ -539,11 +535,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void attach(@NonNull UiCallback callback)
   {
-    mLogger.d(TAG, "attach() callback = " + callback);
+    Logger.d(TAG, "attach() callback = " + callback);
 
     if (mUiCallback != null)
     {
-      mLogger.d(TAG, " - already attached. Skip.");
+      Logger.d(TAG, " - already attached. Skip.");
       return;
     }
 
@@ -559,7 +555,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
     if (mActive)
     {
-      mLogger.d(TAG, "attach() provider '" + mLocationProvider + "' is active, just add the listener");
+      Logger.d(TAG, "attach() provider '" + mLocationProvider + "' is active, just add the listener");
       if (mSavedLocation != null)
         mCoreLocationListener.onLocationUpdated(mSavedLocation);
     }
@@ -575,11 +571,11 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void detach(boolean delayed)
   {
-    mLogger.d(TAG, "detach(), delayed: " + delayed);
+    Logger.d(TAG, "detach(), delayed: " + delayed);
 
     if (mUiCallback == null)
     {
-      mLogger.d(TAG, " - already detached. Skip.");
+      Logger.d(TAG, " - already detached. Skip.");
       return;
     }
 
@@ -596,14 +592,14 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   @UiThread
   public void onEnteredIntoFirstRun()
   {
-    mLogger.i(TAG, "onEnteredIntoFirstRun");
+    Logger.i(TAG, "onEnteredIntoFirstRun");
     mInFirstRun = true;
   }
 
   @UiThread
   public void onExitFromFirstRun()
   {
-    mLogger.i(TAG, "onExitFromFirstRun");
+    Logger.i(TAG, "onExitFromFirstRun");
     if (!mInFirstRun)
       throw new AssertionError("Must be called only after 'onEnteredIntoFirstRun' method!");
 
@@ -614,7 +610,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     if (mSavedLocation != null)
     {
       notifyLocationUpdated();
-      mLogger.d(TAG, "Current location is available, so play the nice zoom animation");
+      Logger.d(TAG, "Current location is available, so play the nice zoom animation");
       Framework.nativeRunFirstLaunchAnimation();
       return;
     }

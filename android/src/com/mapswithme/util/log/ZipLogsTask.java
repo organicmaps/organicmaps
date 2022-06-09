@@ -16,7 +16,7 @@ import java.util.zip.ZipOutputStream;
 
 class ZipLogsTask implements Runnable
 {
-  private static final Logger LOGGER = new Logger(Logger.Scope.MAIN, ZipLogsTask.class);
+  private static final String TAG = ZipLogsTask.class.getSimpleName();
 
   private final static int BUFFER_SIZE = 2048;
   @NonNull
@@ -56,7 +56,7 @@ class ZipLogsTask implements Runnable
     }
     catch (Exception e)
     {
-      LOGGER.e("Failed to zip file '" + sourcePath + "' to location '" + toLocation + "'", e);
+      Logger.e(TAG, "Failed to zip file '" + sourcePath + "' to location '" + toLocation + "'", e);
       return false;
     }
     return true;
@@ -106,7 +106,7 @@ class ZipLogsTask implements Runnable
     }
     catch (IOException e)
     {
-      LOGGER.e("Failed to get system logcat", e);
+      Logger.e(TAG, "Failed to get system logcat", e);
       return;
     }
 
@@ -128,7 +128,7 @@ class ZipLogsTask implements Runnable
     }
     catch (Throwable e)
     {
-      LOGGER.e("Failed to save system logcat to " + path, e);
+      Logger.e(TAG, "Failed to save system logcat to " + path, e);
     }
   }
 }

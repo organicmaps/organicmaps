@@ -4,11 +4,9 @@ import android.os.AsyncTask;
 import android.util.Base64;
 
 import com.mapswithme.util.Constants;
-import com.mapswithme.util.HttpClient;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
@@ -24,8 +22,7 @@ import java.util.concurrent.Executors;
 @SuppressWarnings("unused")
 class ChunkTask extends AsyncTask<Void, byte[], Integer>
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.DOWNLOADER);
-  private static final String TAG = "ChunkTask";
+  private static final String TAG = ChunkTask.class.getSimpleName();
 
   private static final int TIMEOUT_IN_SECONDS = 10;
 
@@ -190,9 +187,9 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
       if ((isChunk && err != HttpURLConnection.HTTP_PARTIAL) || (!isChunk && err != HttpURLConnection.HTTP_OK))
       {
         // we've set error code so client should be notified about the error
-        LOGGER.w(TAG, "Error for " + urlConnection.getURL() +
-                   ": Server replied with code " + err +
-                   ", aborting download. " + Utils.mapPrettyPrint(requestParams));
+        Logger.w(TAG, "Error for " + urlConnection.getURL() +
+                 ": Server replied with code " + err +
+                 ", aborting download. " + Utils.mapPrettyPrint(requestParams));
         return INCONSISTENT_FILE_SIZE;
       }
 
@@ -207,9 +204,9 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
         if (contentLength != mExpectedFileSize)
         {
           // we've set error code so client should be notified about the error
-          LOGGER.w(TAG, "Error for " + urlConnection.getURL() +
-                     ": Invalid file size received (" + contentLength + ") while expecting " + mExpectedFileSize +
-                     ". Aborting download.");
+          Logger.w(TAG, "Error for " + urlConnection.getURL() +
+                   ": Invalid file size received (" + contentLength + ") while expecting " + mExpectedFileSize +
+                   ". Aborting download.");
           return INCONSISTENT_FILE_SIZE;
         }
         // @TODO Else display received web page to user - router is redirecting us to some page
@@ -218,11 +215,11 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
       return downloadFromStream(new BufferedInputStream(urlConnection.getInputStream(), 65536));
     } catch (final MalformedURLException ex)
     {
-      LOGGER.e(TAG, "Invalid url: " + mUrl, ex);
+      Logger.e(TAG, "Invalid url: " + mUrl, ex);
       return INVALID_URL;
     } catch (final IOException ex)
     {
-      LOGGER.d(TAG, "IOException in doInBackground for URL: " + mUrl, ex);
+      Logger.d(TAG, "IOException in doInBackground for URL: " + mUrl, ex);
       return IO_EXCEPTION;
     } finally
     {
@@ -246,7 +243,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
         break;
       } catch (final IOException ex)
       {
-        LOGGER.e(TAG, "IOException in downloadFromStream for chunk size: " + size, ex);
+        Logger.e(TAG, "IOException in downloadFromStream for chunk size: " + size, ex);
       }
     }
 

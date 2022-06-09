@@ -11,7 +11,6 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.base.DataChangedListener;
 import com.mapswithme.maps.base.Observable;
@@ -20,7 +19,6 @@ import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.UTM;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -77,7 +75,6 @@ public enum BookmarkManager
 
   static String[] BOOKMARKS_EXTENSIONS = Framework.nativeGetBookmarksFilesExts();
 
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BookmarkManager.class.getSimpleName();
 
   @NonNull
@@ -412,7 +409,7 @@ public enum BookmarkManager
   @MainThread
   public void loadBookmarksFile(@NonNull String path, boolean isTemporaryFile)
   {
-    LOGGER.d(TAG, "Loading bookmarks file from: " + path);
+    Logger.d(TAG, "Loading bookmarks file from: " + path);
     nativeLoadBookmarksFile(path, isTemporaryFile);
   }
 
@@ -474,18 +471,18 @@ public enum BookmarkManager
     String filename = getBookmarksFilenameFromUri(resolver, uri);
     if (filename == null)
     {
-      LOGGER.w(TAG, "Missing path in bookmarks URI: " + uri);
+      Logger.w(TAG, "Missing path in bookmarks URI: " + uri);
       return false;
     }
 
-    LOGGER.w(TAG, "Downloading bookmarks file " + uri);
+    Logger.w(TAG, "Downloading bookmarks file " + uri);
     File tempFile = new File(tempDir, filename);
     try
     {
       StorageUtils.copyFile(resolver, uri, tempFile);
     } catch (IOException e)
     {
-      LOGGER.w(TAG, "Failed to download bookmarks file from " + uri, e);
+      Logger.w(TAG, "Failed to download bookmarks file from " + uri, e);
       return false;
     }
 

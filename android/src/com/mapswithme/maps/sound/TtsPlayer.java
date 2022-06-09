@@ -10,7 +10,6 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -18,7 +17,6 @@ import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.base.MediaPlayerWrapper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +41,6 @@ public enum TtsPlayer implements Initializable<Context>
 {
   INSTANCE;
 
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = TtsPlayer.class.getSimpleName();
   private static final Locale DEFAULT_LOCALE = Locale.US;
   private static final float SPEECH_RATE = 1.2f;
@@ -152,7 +149,7 @@ public enum TtsPlayer implements Initializable<Context>
     mTts = new TextToSpeech(context, status -> {
       if (status == TextToSpeech.ERROR)
       {
-        LOGGER.e(TAG, "Failed to initialize TextToSpeach");
+        Logger.e(TAG, "Failed to initialize TextToSpeach");
         lockDown();
         mInitializing = false;
         return;
@@ -273,11 +270,11 @@ public enum TtsPlayer implements Initializable<Context>
         outList.add(new LanguageData(codes[i], names[i], mTts));
       }
       catch (LanguageData.NotAvailableException ignored) {
-        LOGGER.e(TAG, "Failed to get usable languages " + ignored.getMessage());
+        Logger.w(TAG, "Failed to get usable languages " + ignored.getMessage());
       }
       catch (IllegalArgumentException e)
       {
-        LOGGER.e(TAG, "Failed to get usable languages", e);
+        Logger.e(TAG, "Failed to get usable languages", e);
         lockDown();
         return false;
       }
