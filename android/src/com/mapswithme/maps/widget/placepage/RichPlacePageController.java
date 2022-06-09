@@ -7,14 +7,12 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -22,7 +20,6 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 import java.util.Objects;
@@ -31,10 +28,10 @@ public class RichPlacePageController implements PlacePageController, LocationLis
                                                 View.OnLayoutChangeListener,
                                                 Closable
 {
+  private static final String TAG = RichPlacePageController.class.getSimpleName();
+
   private static final float ANCHOR_RATIO = 0.3f;
   private static final float PREVIEW_PLUS_RATIO = 0.45f;
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = RichPlacePageController.class.getSimpleName();
   private static final int ANIM_CHANGE_PEEK_HEIGHT_MS = 100;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -184,7 +181,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   {
     if (mPeekHeightAnimating)
     {
-      Log.d(TAG, "Peek animation in progress, ignore.");
+      Logger.d(TAG, "Peek animation in progress, ignore.");
       return;
     }
 
@@ -196,7 +193,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     int currentState = mPlacePageBehavior.getState();
     if (PlacePageUtils.isSettlingState(currentState) || PlacePageUtils.isDraggingState(currentState))
     {
-      LOGGER.d(TAG, "Sheet state inappropriate, ignore.");
+      Logger.d(TAG, "Sheet state inappropriate, ignore.");
       return;
     }
 
@@ -313,7 +310,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   {
     if (mPlacePageBehavior.getPeekHeight() == 0)
     {
-      LOGGER.d(TAG, "Layout change ignored, peek height not calculated yet");
+      Logger.d(TAG, "Layout change ignored, peek height not calculated yet");
       return;
     }
 

@@ -5,15 +5,12 @@ import android.content.Context;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 
@@ -23,9 +20,6 @@ public enum SearchEngine implements NativeSearchListener,
                                     Initializable<Void>
 {
   INSTANCE;
-
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = SearchEngine.class.getSimpleName();
 
   // Query, which results are shown on the map.
   @Nullable

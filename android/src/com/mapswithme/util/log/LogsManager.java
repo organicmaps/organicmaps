@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
  * After an initFileLogging() call can use a custom file logging implementation.
  *
  * Its important to have only system logging here to avoid infinite loop
- * (file loggers call getEnabledLogsFolder() in preparation to write).
+ * (Logger calls getEnabledLogsFolder() in preparation to write).
  */
 @ThreadSafe
 public class LogsManager

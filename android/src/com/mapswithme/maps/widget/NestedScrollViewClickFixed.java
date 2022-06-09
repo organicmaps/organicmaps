@@ -17,8 +17,6 @@
 
 package androidx.core.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -27,7 +25,6 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.FocusFinder;
 import android.view.KeyEvent;
@@ -57,8 +54,11 @@ import androidx.core.view.ScrollingView;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityRecordCompat;
+import com.mapswithme.util.log.Logger;
 
 import java.util.List;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * NestedScrollViewClickFixed is just like {@link android.widget.ScrollView}, but it supports acting
@@ -67,11 +67,10 @@ import java.util.List;
  */
 public class NestedScrollViewClickFixed extends FrameLayout implements NestedScrollingParent2,
                                                              NestedScrollingChild2, ScrollingView {
+    private static final String TAG = NestedScrollViewClickFixed.class.getSimpleName();
     static final int ANIMATED_SCROLL_GAP = 250;
 
     static final float MAX_SCROLL_FACTOR = 0.5f;
-
-    private static final String TAG = "NestedScrollViewClickFixed";
 
     /**
      * Interface definition for a callback to be invoked when the scroll
@@ -719,8 +718,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
 
                 final int pointerIndex = ev.findPointerIndex(activePointerId);
                 if (pointerIndex == -1) {
-                    Log.e(TAG, "Invalid pointerId=" + activePointerId
-                               + " in onInterceptTouchEvent");
+                    Logger.e(TAG, "Invalid pointerId=" + activePointerId + " in onInterceptTouchEvent");
                     break;
                 }
 
@@ -835,7 +833,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
             case MotionEvent.ACTION_MOVE:
                 final int activePointerIndex = ev.findPointerIndex(mActivePointerId);
                 if (activePointerIndex == -1) {
-                    Log.e(TAG, "Invalid pointerId=" + mActivePointerId + " in onTouchEvent");
+                    Logger.e(TAG, "Invalid pointerId=" + mActivePointerId + " in onTouchEvent");
                     break;
                 }
 

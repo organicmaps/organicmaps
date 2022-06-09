@@ -27,9 +27,7 @@ package com.mapswithme.util;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
-
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -51,11 +49,11 @@ import java.util.zip.InflaterInputStream;
 
 public final class HttpClient
 {
+  private static final String TAG = HttpClient.class.getSimpleName();
+
   public static final String HEADER_AUTHORIZATION = "Authorization";
-  private final static String TAG = HttpClient.class.getSimpleName();
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.NETWORK);
 
   public static Params run(@NonNull final Params p) throws IOException, NullPointerException
   {
@@ -64,7 +62,7 @@ public final class HttpClient
 
     HttpURLConnection connection = null;
 
-    LOGGER.d(TAG, "Connecting to " + Utils.makeUrlSafe(p.url));
+    Logger.d(TAG, "Connecting to " + Utils.makeUrlSafe(p.url));
 
     try
     {
@@ -121,7 +119,7 @@ public final class HttpClient
           {
             os.close();
           }
-          LOGGER.d(TAG, "Sent " + p.httpMethod + " with content of size " + p.data.length);
+          Logger.d(TAG, "Sent " + p.httpMethod + " with content of size " + p.data.length);
         }
         else
         {
@@ -137,13 +135,13 @@ public final class HttpClient
           }
           istream.close(); // IOException
           ostream.close(); // IOException
-          LOGGER.d(TAG, "Sent " + p.httpMethod + " with file of size " + file.length());
+          Logger.d(TAG, "Sent " + p.httpMethod + " with file of size " + file.length());
         }
       }
       // GET data from the server or receive response body
       p.httpResponseCode = connection.getResponseCode();
-      LOGGER.d(TAG, "Received HTTP " + p.httpResponseCode + " from server, content encoding = "
-                    + connection.getContentEncoding() + ", for request = " + Utils.makeUrlSafe(p.url));
+      Logger.d(TAG, "Received HTTP " + p.httpResponseCode + " from server, content encoding = " +
+               connection.getContentEncoding() + ", for request = " + Utils.makeUrlSafe(p.url));
 
       if (p.httpResponseCode >= 300 && p.httpResponseCode < 400)
         p.receivedUrl = connection.getHeaderField("Location");
