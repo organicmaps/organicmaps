@@ -18,7 +18,6 @@ class ZipLogsTask implements Runnable
 {
   private static final String TAG = ZipLogsTask.class.getSimpleName();
 
-  private final static int BUFFER_SIZE = 2048;
   @NonNull
   private final String mLogsPath;
   @NonNull
@@ -77,17 +76,18 @@ class ZipLogsTask implements Runnable
       }
       else
       {
-        byte[] data = new byte[BUFFER_SIZE];
+        final int bufSize = 8 * 1024;
+        byte[] data = new byte[bufSize];
         String unmodifiedFilePath = file.getPath();
         String relativePath = unmodifiedFilePath.substring(basePathLength);
         try (
             FileInputStream fi = new FileInputStream(unmodifiedFilePath);
-            BufferedInputStream origin = new BufferedInputStream(fi, BUFFER_SIZE))
+            BufferedInputStream origin = new BufferedInputStream(fi, bufSize))
         {
           ZipEntry entry = new ZipEntry(relativePath);
           out.putNextEntry(entry);
           int count;
-          while ((count = origin.read(data, 0, BUFFER_SIZE)) != -1)
+          while ((count = origin.read(data, 0, bufSize)) != -1)
           {
             out.write(data, 0, count);
           }

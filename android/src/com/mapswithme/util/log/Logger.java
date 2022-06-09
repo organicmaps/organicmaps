@@ -145,7 +145,7 @@ public final class Logger
         if (!file.exists() || file.length() > MAX_SIZE)
         {
           fw = new FileWriter(file, false);
-          fw.write(LogsManager.INSTANCE.getSystemInformation()); //todo: write in a separate file and add a timestamp
+          fw.write(LogsManager.INSTANCE.getSystemInformation());
         }
         else
         {
