@@ -4812,6 +4812,14 @@
     uk = Майстерня
     zh-Hans = 工艺作坊
 
+  [type.craft.beekeeper]
+    en = beekeeper
+    ru = Пчеловод
+
+  [type.craft.blacksmith]
+    en = Blacksmith
+    ru = Кузнец
+
   [type.craft.brewery]
     en = Craft Brewery
     ar = مصنع جعة
@@ -4880,6 +4888,10 @@
     zh-Hans = 木匠
     zh-Hant = 木工
 
+  [type.craft.confectionery]
+    en = Confectionery
+    ru = Кондитер
+
   [type.craft.electrician]
     en = Electrician
     ar = كهربائي
@@ -4912,6 +4924,10 @@
     vi = Thợ điện
     zh-Hans = 电工
     zh-Hant = 電工
+
+  [type.craft.electronics_repair]
+    en = Electronics repair
+    ru = Ремонт электроники
 
   [type.craft.gardener]
     en = Gardener
@@ -4946,6 +4962,10 @@
     vi = Người thiết kế và xây dựng cảnh quan
     zh-Hans = 园艺工
     zh-Hant = 園藝師
+
+  [type.craft.handicraft]
+    en = Handicraft
+    ru = Декоративный мастер
 
   [type.craft.hvac]
     en = Hvac
@@ -5115,6 +5135,10 @@
     zh-Hans = 管道工
     zh-Hant = 水管工人
 
+  [type.craft.sawmill]
+    en = Sawmill
+    ru = Лесопилка
+
   [type.craft.shoemaker]
     en = Shoe Repair
     ar = تصليح الاحذية
@@ -5148,6 +5172,10 @@
     vi = Sửa giày
     zh-Hans = 鞋匠
     zh-Hant = 修鞋工
+
+  [type.craft.winery]
+    en = Winery
+    ru = Винодельня
 
   [type.craft.tailor]
     en = Tailor

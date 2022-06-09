@@ -73,6 +73,8 @@ cliff=yes         : natural=cliff
 office=notary : office=lawyer
 office=administrative : office=government
 
+craft=dressmaker : craft=tailor
+
 cycleway=opposite_lane : oneway:bicycle=no
 
 power=transformer : power=substation

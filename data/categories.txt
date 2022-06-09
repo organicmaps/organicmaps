@@ -1767,7 +1767,7 @@ el:Κατάστημα πληροφορικής
 sk:Obchod s výpočtovou technikou
 fa:فروشگاه کامپیوتر
 
-shop-confectionery|@food
+shop-confectionery|craft-confectionery
 en:4Sweets|4confectionery|candies|candy store|U+1F36C|U+1F36D|cake shop|sweetshop|tuck shop|pastry|candy shop|cake shop
 en-AU:Lollies|Candy
 ru:4Кондитерская|кондитерские изделия|сладости|торты|десерты|пирожные
@@ -7085,6 +7085,14 @@ sk:Mobilný operátor
 fa:اپراتور تلفن همراه
 mr:दूरसंचार कंपनी
 
+craft-beekeeper
+en:Beekeeper
+ru:Пчеловод
+
+craft-blacksmith
+en:Blacksmith
+ru:Кузнец
+
 craft-brewery
 en:Craft brewery|4Brewery|brew house|beer|beer bar|craft beer
 ru:5Пивоварня|пивзавод|производство пива|пивоваренный завод
@@ -7189,6 +7197,14 @@ el:Ηλεκτρολόγος
 sk:4Elektrikár
 fa:برق کار
 mr:इलेक्ट्रिशियन|विद्युत कामगार
+
+craft-electronics_repair
+en:Electronics repair
+ru:Ремонт электроники
+
+craft-handicraft
+en:Handicraft
+ru:Декоратор
 
 craft-metal_construction
 en:5Metal Worker
@@ -7295,6 +7311,10 @@ el:Υποδηματοποιός|τσαγκάρης
 sk:Oprava obuvy
 fa:کفاش
 mr:चांभार
+
+craft-winery
+en:4Winery|Wine
+ru:4Винодельня|Вино
 
 craft-tailor
 en:4Tailor|clothes alteration|alterations
