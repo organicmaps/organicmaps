@@ -11,15 +11,18 @@ import android.os.Build;
 import android.os.Debug;
 import android.util.Log;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.util.Utils;
 import net.jcip.annotations.ThreadSafe;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -62,9 +65,7 @@ public class LogsManager
     mApplication = application;
 
     final SharedPreferences prefs = MwmApplication.prefs(mApplication);
-    // File logging is enabled by default for beta builds.
-    mIsFileLoggingEnabled = prefs.getBoolean(mApplication.getString(R.string.pref_enable_logging),
-                                             BuildConfig.BUILD_TYPE.equals("beta"));
+    mIsFileLoggingEnabled = prefs.getBoolean(mApplication.getString(R.string.pref_enable_logging), false);
     Log.i(TAG, "isFileLoggingEnabled preference: " + mIsFileLoggingEnabled);
     mIsFileLoggingEnabled = mIsFileLoggingEnabled && ensureLogsFolder() != null;
 
@@ -136,6 +137,11 @@ public class LogsManager
       Log.e(TAG, "Can't write to a logs folder " + path);
       return false;
     }
+    if (dir.getUsableSpace() < 256)
+    {
+      Log.e(TAG, "There is no free space on storage with a logs folder " + path);
+      return false;
+    }
     return true;
   }
 
@@ -154,6 +160,7 @@ public class LogsManager
   private void switchFileLoggingEnabled(boolean enabled)
   {
     mIsFileLoggingEnabled = enabled;
+    // Only Debug builds log DEBUG level to Android system log.
     nativeToggleCoreDebugLogs(enabled || BuildConfig.DEBUG);
     MwmApplication.prefs(mApplication)
                   .edit()
@@ -218,40 +225,56 @@ public class LogsManager
   {
     assertFileLoggingInit();
 
-    String res = "Android version: " + Build.VERSION.SDK_INT +
-                 "\nDevice: " + Utils.getFullDeviceModel() +
-                 "\nApp version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME +
-                 "\nLocale: " + Locale.getDefault() +
-                 "\nNetworks: ";
+    final DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
+    final StringBuilder sb = new StringBuilder(512);
+    sb.append("Datetime: ").append(fmt.format(new Date()))
+      .append("\n\nAndroid version: ")
+      .append(Build.VERSION.CODENAME.equals("REL") ? Build.VERSION.RELEASE : Build.VERSION.CODENAME)
+      .append(" (API ").append(Build.VERSION.SDK_INT).append(')');
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+      sb.append(", security patch level: ").append(Build.VERSION.SECURITY_PATCH);
+    sb.append(", os.version: " + System.getProperty("os.version", "N/A"))
+      .append("\nDevice: ");
+    if (!Build.MODEL.toLowerCase().startsWith(Build.MANUFACTURER.toLowerCase()))
+      sb.append(Build.MANUFACTURER).append(' ');
+    sb.append(Build.MODEL).append(" (").append(Build.DEVICE).append(')');
+    sb.append("\nSupported ABIs:");
+    for (String abi : Build.SUPPORTED_ABIS)
+      sb.append(' ').append(abi);
+    sb.append("\nApp version: ").append(BuildConfig.APPLICATION_ID).append(' ').append(BuildConfig.VERSION_NAME)
+      .append("\nLocale: ").append(Locale.getDefault())
+      .append("\nNetworks: ");
     final ConnectivityManager manager = (ConnectivityManager) mApplication.getSystemService(Context.CONNECTIVITY_SERVICE);
     if (manager != null)
       // TODO: getAllNetworkInfo() is deprecated, for alternatives check
       // https://stackoverflow.com/questions/32547006/connectivitymanager-getnetworkinfoint-deprecated
       for (NetworkInfo info : manager.getAllNetworkInfo())
-        res += "\n\t" + info.toString();
-    res += "\nLocation providers: ";
+        sb.append("\n\t").append(info.toString());
+    sb.append("\nLocation providers:");
     final LocationManager locMngr = (android.location.LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
     if (locMngr != null)
       for (String provider : locMngr.getProviders(true))
-        res += provider + " ";
+        sb.append(' ').append(provider);
+    sb.append("\n\n");
 
-    return res + "\n\n";
+    return sb.toString();
   }
 
   // Called from JNI.
   @SuppressWarnings("unused")
   @NonNull
+  @Keep
   public static String getMemoryInfo(@NonNull Context context)
   {
     final Debug.MemoryInfo debugMI = new Debug.MemoryInfo();
     Debug.getMemoryInfo(debugMI);
     final ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
-    final ActivityManager activityManager =
-        (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+    final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
     activityManager.getMemoryInfo(mi);
 
-    StringBuilder log = new StringBuilder("Memory info: ");
-    log.append(" Debug.getNativeHeapSize() = ")
+    final StringBuilder log = new StringBuilder(256);
+    log.append("Memory info: ")
+       .append(" Debug.getNativeHeapSize() = ")
        .append(Debug.getNativeHeapSize() / 1024)
        .append("KB; Debug.getNativeHeapAllocatedSize() = ")
        .append(Debug.getNativeHeapAllocatedSize() / 1024)
@@ -266,11 +289,11 @@ public class LogsManager
        .append("KB; mi.threshold = ")
        .append(mi.threshold / 1024)
        .append("KB; mi.lowMemory = ")
-       .append(mi.lowMemory);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-    {
-      log.append(" mi.totalMem = ").append(mi.totalMem / 1024).append("KB;");
-    }
+       .append(mi.lowMemory)
+       .append("; mi.totalMem = ")
+       .append(mi.totalMem / 1024)
+       .append("KB;");
+
     return log.toString();
   }
 

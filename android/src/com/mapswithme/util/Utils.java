@@ -228,15 +228,6 @@ public class Utils
     return Uri.parse(uriString);
   }
 
-  public static String getFullDeviceModel()
-  {
-    String model = Build.MODEL;
-    if (!model.startsWith(Build.MANUFACTURER))
-      model = Build.MANUFACTURER + " " + model;
-
-    return model;
-  }
-
   public static void openAppInMarket(Activity activity, String url)
   {
     final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

@@ -270,7 +270,7 @@ public:
 
   /// @return information about kinds of memory which are relevant for a platform.
   /// This method is implemented for iOS and Android only.
-  /// @TODO Add implementation
+  /// @TODO remove as its not used anywhere?
   std::string GetMemoryInfo() const;
 
   static EConnectionType ConnectionStatus();
