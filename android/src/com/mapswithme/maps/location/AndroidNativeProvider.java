@@ -44,13 +44,13 @@ class AndroidNativeProvider extends BaseLocationProvider
     {
       LOGGER.d(TAG, "Status changed for location provider: " + provider + "; new status = " + status);
     }
-  };
+  }
 
-  @NonNull
+    @NonNull
   private final LocationManager mLocationManager;
   private int mProviderCount = 0;
   private boolean mActive = false;
-  static private int MIN_PROVIDER_COUNT = 2; // PASSIVE is always available
+  static private final int MIN_PROVIDER_COUNT = 2; // PASSIVE is always available
 
   @NonNull
   final private NativeLocationListener mNativeLocationListener = new NativeLocationListener();

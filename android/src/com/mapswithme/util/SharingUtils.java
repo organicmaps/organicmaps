@@ -100,7 +100,7 @@ public class SharingUtils
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
     final String text = context.getString(R.string.share_bookmarks_email_body);
-    intent.putExtra(Intent.EXTRA_TEXT, text.toString());
+    intent.putExtra(Intent.EXTRA_TEXT, text);
 
     final Uri fileUri = StorageUtils.getUriForFilePath(context, fileName);
     intent.putExtra(android.content.Intent.EXTRA_STREAM, fileUri);
