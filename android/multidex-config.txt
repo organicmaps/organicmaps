@@ -1,4 +1,3 @@
-com/google/firebase/iid/Registrar.class
 com/mapswithme/maps/api/ParsingResult.class
 com/mapswithme/maps/bookmarks/data/Bookmark.class
 com/mapswithme/maps/bookmarks/data/ElevationInfo.class
