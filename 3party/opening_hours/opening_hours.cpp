@@ -889,9 +889,19 @@ bool OpeningHours::IsOpen(time_t const dateTime) const
   return osmoh::IsOpen(m_rule, dateTime);
 }
 
+time_t OpeningHours::GetNextTimeOpen(time_t const dateTime) const
+{
+  return osmoh::GetNextTimeOpen(m_rule, dateTime);
+}
+
 bool OpeningHours::IsClosed(time_t const dateTime) const
 {
   return osmoh::IsClosed(m_rule, dateTime);
+}
+
+time_t OpeningHours::GetNextTimeClosed(time_t const dateTime) const
+{
+  return osmoh::GetNextTimeClosed(m_rule, dateTime);
 }
 
 bool OpeningHours::IsUnknown(time_t const dateTime) const

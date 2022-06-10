@@ -701,7 +701,9 @@ public:
   OpeningHours(TRuleSequences const & rule);
 
   bool IsOpen(time_t const dateTime) const;
+  time_t GetNextTimeOpen(time_t const dateTime) const;
   bool IsClosed(time_t const dateTime) const;
+  time_t GetNextTimeClosed(time_t const dateTime) const;
   bool IsUnknown(time_t const dateTime) const;
 
   bool IsValid() const;
