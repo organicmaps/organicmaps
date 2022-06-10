@@ -277,7 +277,7 @@ int main(int argc, char * argv[])
     }
     g_lastTestOK = true;
 
-    uint64_t const elapsed = timer.ElapsedNano();
+    uint64_t const elapsed = timer.ElapsedNanoseconds();
     LOG(LINFO, ("Test took", elapsed / 1000000, "ms\n"));
   }
 
