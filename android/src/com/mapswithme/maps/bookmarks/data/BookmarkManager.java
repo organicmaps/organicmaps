@@ -865,9 +865,9 @@ public enum BookmarkManager
   @SortingType
   private native int[] nativeGetAvailableSortingTypes(long catId, boolean hasMyPosition);
 
-  private native boolean nativeGetSortedCategory(long catId, @SortingType int sortingType,
-                                                 boolean hasMyPosition, double lat, double lon,
-                                                 long timestamp);
+  private native void nativeGetSortedCategory(long catId, @SortingType int sortingType,
+                                              boolean hasMyPosition, double lat, double lon,
+                                              long timestamp);
 
   @NonNull
   private static native String nativeGetBookmarkName(@IntRange(from = 0) long bookmarkId);
