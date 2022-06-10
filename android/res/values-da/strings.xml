@@ -781,6 +781,7 @@
 	<string name="type.building.address">Bygning</string>
 	<string name="type.building.has_parts">Bygning</string>
 	<string name="type.building.train_station">Togstation</string>
+	<string name="type.cemetery.grave">Grav</string>
 	<string name="type.craft.brewery">Bryggeri</string>
 	<string name="type.craft.carpenter">Tømrer</string>
 	<string name="type.craft.electrician">Elektriker</string>
@@ -1111,6 +1112,7 @@
 	<string name="type.natural.glacier">Gletsjer</string>
 	<string name="type.natural.grassland">Mark</string>
 	<string name="type.natural.water.lake">Sø</string>
+	<string name="type.natural.water.lock">Låsekammer</string>
 	<string name="type.natural.water.pond">Dam</string>
 	<string name="type.natural.water.reservoir">Reservoir</string>
 	<string name="type.natural.water.basin">Vandbassin</string>

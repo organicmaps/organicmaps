@@ -1569,15 +1569,27 @@
 
 "type.building.warehouse" = "Depo";
 
+"type.cemetery.grave" = "Mezar";
+
 "type.craft" = "Zanaat";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Bira Fabrikası";
 
 "type.craft.carpenter" = "Marangoz";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektrikçi";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Bahçe Düzenleyici";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Klimacı";
 
@@ -1589,7 +1601,11 @@
 
 "type.craft.plumber" = "Tesisatçı";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Ayakkabı Tamircisi";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Terzi";
 
@@ -2377,6 +2393,8 @@
 
 "type.natural.water.lake" = "Göl";
 
+"type.natural.water.lock" = "Kilit Odası";
+
 "type.natural.water.pond" = "Gölet";
 
 "type.natural.water.reservoir" = "Rezervuar";
@@ -2954,8 +2972,6 @@
 "type.waterway.drain" = "Lağım";
 
 "type.waterway.drain.tunnel" = "Lağım";
-
-"type.waterway.lock" = "Kanal Havuzu";
 
 "type.waterway.lock_gate" = "Kilit Kapısı";
 

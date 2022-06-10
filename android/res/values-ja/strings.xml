@@ -817,6 +817,7 @@
 	<string name="type.building.garage">車庫</string>
 	<string name="type.building.has_parts">建物</string>
 	<string name="type.building.train_station">鉄道駅</string>
+	<string name="type.cemetery.grave">墓</string>
 	<string name="type.craft">工房</string>
 	<string name="type.craft.brewery">醸造所</string>
 	<string name="type.craft.carpenter">大工</string>
@@ -1214,6 +1215,7 @@
 	<string name="type.natural.heath">ヒース</string>
 	<string name="type.natural.hot_spring">温泉</string>
 	<string name="type.natural.water.lake">湖</string>
+	<string name="type.natural.water.lock">ロックチャンバー</string>
 	<string name="type.natural.water.pond">池</string>
 	<string name="type.natural.water.reservoir">貯水池</string>
 	<string name="type.natural.water.basin">水地</string>

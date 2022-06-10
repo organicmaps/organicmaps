@@ -848,6 +848,7 @@
 	<string name="type.building.has_parts">Eraikin</string>
 	<string name="type.building.train_station">Tren geltokian</string>
 	<string name="type.building.warehouse">Denda</string>
+	<string name="type.cemetery.grave">Hilobia</string>
 	<string name="type.craft.brewery">Garagardo fabrika</string>
 	<string name="type.craft.carpenter">Arotza</string>
 	<string name="type.craft.electrician">Elektrizista teknikaria</string>
@@ -1183,6 +1184,7 @@
 	<string name="type.natural.glacier">Glaziarra</string>
 	<string name="type.natural.grassland">Landa</string>
 	<string name="type.natural.water.lake">Lakua</string>
+	<string name="type.natural.water.lock">Sarraila Ganbera</string>
 	<string name="type.natural.water.pond">Urmaela</string>
 	<string name="type.natural.water.reservoir">Urtegia</string>
 	<string name="type.natural.water.basin">Arroa</string>

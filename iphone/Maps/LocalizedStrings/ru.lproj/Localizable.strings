@@ -1569,15 +1569,27 @@
 
 "type.building.warehouse" = "Склад";
 
+"type.cemetery.grave" = "Могила";
+
 "type.craft" = "Мастерская";
+
+"type.craft.beekeeper" = "Пчеловод";
+
+"type.craft.blacksmith" = "Кузнец";
 
 "type.craft.brewery" = "Крафтовое пиво";
 
 "type.craft.carpenter" = "Столяр";
 
+"type.craft.confectionery" = "Кондитер";
+
 "type.craft.electrician" = "Электрик";
 
+"type.craft.electronics_repair" = "Ремонт электроники";
+
 "type.craft.gardener" = "Садовник";
+
+"type.craft.handicraft" = "Декоративный мастер";
 
 "type.craft.hvac" = "Кондиционеры";
 
@@ -1589,7 +1601,11 @@
 
 "type.craft.plumber" = "Сантехник";
 
+"type.craft.sawmill" = "Лесопилка";
+
 "type.craft.shoemaker" = "Ремонт обуви";
+
+"type.craft.winery" = "Винодельня";
 
 "type.craft.tailor" = "Ателье";
 
@@ -2377,6 +2393,8 @@
 
 "type.natural.water.lake" = "Озеро";
 
+"type.natural.water.lock" = "Шлюзовая камера";
+
 "type.natural.water.pond" = "Пруд";
 
 "type.natural.water.reservoir" = "Водохранилище";
@@ -2954,8 +2972,6 @@
 "type.waterway.drain" = "Водоотвод";
 
 "type.waterway.drain.tunnel" = "Водоотвод";
-
-"type.waterway.lock" = "Шлюз";
 
 "type.waterway.lock_gate" = "Шлюз";
 

@@ -1569,15 +1569,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Graf";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Brouwerij";
 
 "type.craft.carpenter" = "Timmerman";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektricien";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Tuinarchitect";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Airconditioning";
 
@@ -1589,7 +1601,11 @@
 
 "type.craft.plumber" = "Loodgieter";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Schoenmaker";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Kleermaker";
 
@@ -2377,6 +2393,8 @@
 
 "type.natural.water.lake" = "Meer";
 
+"type.natural.water.lock" = "Slotkamer";
+
 "type.natural.water.pond" = "Plas";
 
 "type.natural.water.reservoir" = "Reservoir";
@@ -2954,8 +2972,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Gesloten poort";
 

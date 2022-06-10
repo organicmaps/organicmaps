@@ -1569,15 +1569,27 @@
 
 "type.building.warehouse" = "Denda";
 
+"type.cemetery.grave" = "Hilobia";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Garagardo fabrika";
 
 "type.craft.carpenter" = "Arotza";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektrizista teknikaria";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Paisaia";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Aire girotua";
 
@@ -1589,7 +1601,11 @@
 
 "type.craft.plumber" = "Iturgina";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Zapataria";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Jostun";
 
@@ -2377,6 +2393,8 @@
 
 "type.natural.water.lake" = "Lakua";
 
+"type.natural.water.lock" = "Sarraila Ganbera";
+
 "type.natural.water.pond" = "Urmaela";
 
 "type.natural.water.reservoir" = "Urtegia";
@@ -2954,8 +2972,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Atea";
 

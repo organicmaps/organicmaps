@@ -1569,15 +1569,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "ﺮﺒﻗ";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "کارخانه ابجوسازی";
 
 "type.craft.carpenter" = "نجار";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "برق کار";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "باغبان";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Hvac";
 
@@ -1589,7 +1601,11 @@
 
 "type.craft.plumber" = "لوله کش";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "کفاش";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "خیاطی";
 
@@ -2377,6 +2393,8 @@
 
 "type.natural.water.lake" = "دریاچه";
 
+"type.natural.water.lock" = "ﻞﻔﻗ ﻕﺎﺗﺍ";
+
 "type.natural.water.pond" = "تالاب";
 
 "type.natural.water.reservoir" = "مخزن";
@@ -2954,8 +2972,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Lock Gate";
 

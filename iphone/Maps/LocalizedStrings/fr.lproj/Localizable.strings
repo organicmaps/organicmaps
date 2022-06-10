@@ -1569,15 +1569,27 @@
 
 "type.building.warehouse" = "Entrepôt";
 
+"type.cemetery.grave" = "La tombe";
+
 "type.craft" = "Artisanat";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Brasserie artisanale";
 
 "type.craft.carpenter" = "Charpentier";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Électricien";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Paysagiste";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Climatiseur";
 
@@ -1589,7 +1601,11 @@
 
 "type.craft.plumber" = "Plombier";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Cordonnier";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Tailleur";
 
@@ -2377,6 +2393,8 @@
 
 "type.natural.water.lake" = "Lac";
 
+"type.natural.water.lock" = "Chambre de verrouillage";
+
 "type.natural.water.pond" = "Étang";
 
 "type.natural.water.reservoir" = "Réservoir";
@@ -2954,8 +2972,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Écluse";
 
 "type.waterway.lock_gate" = "Porte d'écluse";
 

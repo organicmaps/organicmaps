@@ -809,6 +809,7 @@
 	<string name="type.building.garage">Garaj</string>
 	<string name="type.building.has_parts">Clădire</string>
 	<string name="type.building.train_station">Feroviar</string>
+	<string name="type.cemetery.grave">Mormânt</string>
 	<string name="type.craft.brewery">Berărie</string>
 	<string name="type.craft.carpenter">Tâmplar</string>
 	<string name="type.craft.gardener">Peisagist</string>
@@ -1139,6 +1140,7 @@
 	<string name="type.natural.glacier">Ghețar</string>
 	<string name="type.natural.grassland">Câmp</string>
 	<string name="type.natural.water.lake">Lac</string>
+	<string name="type.natural.water.lock">Camera de blocare</string>
 	<string name="type.natural.water.pond">Heleșteu</string>
 	<string name="type.natural.water.reservoir">Rezervor</string>
 	<string name="type.natural.water.basin">Bazin de apă</string>

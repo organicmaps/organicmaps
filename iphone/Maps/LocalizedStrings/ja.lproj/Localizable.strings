@@ -1569,15 +1569,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "墓";
+
 "type.craft" = "工房";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "醸造所";
 
 "type.craft.carpenter" = "大工";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "電気技師";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "造園家";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "冷暖房空調";
 
@@ -1589,7 +1601,11 @@
 
 "type.craft.plumber" = "配管工";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "靴修理";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "仕立て屋";
 
@@ -2377,6 +2393,8 @@
 
 "type.natural.water.lake" = "湖";
 
+"type.natural.water.lock" = "ロックチャンバー";
+
 "type.natural.water.pond" = "池";
 
 "type.natural.water.reservoir" = "貯水池";
@@ -2954,8 +2972,6 @@
 "type.waterway.drain" = "用水路";
 
 "type.waterway.drain.tunnel" = "用水路";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "水門";
 

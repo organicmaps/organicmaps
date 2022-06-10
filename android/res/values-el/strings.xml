@@ -787,6 +787,7 @@
 	<string name="type.building.garage">Γκαράζ</string>
 	<string name="type.building.has_parts">Κτίριο</string>
 	<string name="type.building.train_station">Σιδηροδρομικός σταθμός</string>
+	<string name="type.cemetery.grave">Τάφος</string>
 	<string name="type.craft.brewery">Ζυθοποιείο</string>
 	<string name="type.craft.carpenter">Ξυλουργός</string>
 	<string name="type.craft.electrician">Ηλεκτρολόγος</string>
@@ -1123,6 +1124,7 @@
 	<string name="type.natural.glacier">Παγετώνας</string>
 	<string name="type.natural.grassland">Λιβάδι</string>
 	<string name="type.natural.water.lake">Λίμνη</string>
+	<string name="type.natural.water.lock">Θάλαμος κλειδαριάς</string>
 	<string name="type.natural.water.pond">Δεξαμενή</string>
 	<string name="type.natural.water.reservoir">Δεξαμενή</string>
 	<string name="type.natural.water.basin">Μια λεκάνη νερού</string>

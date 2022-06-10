@@ -799,6 +799,7 @@
 	<string name="type.building.garage">Autotalli</string>
 	<string name="type.building.has_parts">Rakennus</string>
 	<string name="type.building.train_station">Rautatieasema</string>
+	<string name="type.cemetery.grave">Hauta</string>
 	<string name="type.craft.brewery">Panimo</string>
 	<string name="type.craft.carpenter">Puuseppä</string>
 	<string name="type.craft.electrician">Sähkömies</string>
@@ -1133,6 +1134,7 @@
 	<string name="type.natural.glacier">Jäätikkö</string>
 	<string name="type.natural.grassland">Pelto</string>
 	<string name="type.natural.water.lake">Järvi</string>
+	<string name="type.natural.water.lock">Lukko kammio</string>
 	<string name="type.natural.water.pond">Lampi</string>
 	<string name="type.natural.water.reservoir">Säiliö</string>
 	<string name="type.natural.water.basin">Vesisäiliö</string>
