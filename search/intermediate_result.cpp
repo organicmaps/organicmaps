@@ -248,8 +248,12 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     /// @todo We should check closed/open time for specific feature's timezone.
     time_t const now = time(nullptr);
     if (oh.IsValid() && !oh.IsUnknown(now))
+    {
       details.m_isOpenNow = oh.IsOpen(now) ? osm::Yes : osm::No;
-    // In else case value us osm::Unknown, it's set in preview's constructor.
+      // In else case value is osm::Unknown, it's set in preview's constructor.
+      details.m_minutesUntilOpen = (oh.GetNextTimeOpen(now) - now) / 60;
+      details.m_minutesUntilClosed = (oh.GetNextTimeClosed(now) - now) / 60;
+    }
   }
 
   if (strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))

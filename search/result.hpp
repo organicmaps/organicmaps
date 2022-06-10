@@ -65,6 +65,10 @@ public:
     // Valid for any result.
     osm::YesNoUnknown m_isOpenNow = osm::Unknown;
 
+    uint16_t m_minutesUntilOpen = 0;
+
+    uint16_t m_minutesUntilClosed = 0;
+
     bool m_isInitialized = false;
   };
 
@@ -98,6 +102,8 @@ public:
   bool IsHotel() const { return m_details.m_isHotel; }
 
   osm::YesNoUnknown IsOpenNow() const { return m_details.m_isOpenNow; }
+  uint16_t GetMinutesUntilOpen() const { return m_details.m_minutesUntilOpen; }
+  uint16_t GetMinutesUntilClosed() const { return m_details.m_minutesUntilClosed; }
   int GetStarsCount() const { return m_details.m_stars; }
 
   bool IsSuggest() const;
