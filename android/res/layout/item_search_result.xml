@@ -8,30 +8,12 @@
   android:minHeight="@dimen/search_item_height"
   android:padding="@dimen/margin_base"
   tools:background="#20FF0000">
-  <FrameLayout
-    android:id="@+id/metadata_container"
-    android:layout_alignParentEnd="true"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <TextView
-      android:id="@+id/closed"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:gravity="bottom"
-      android:paddingStart="@dimen/margin_half"
-      android:paddingEnd="@dimen/margin_half"
-      android:paddingTop="@dimen/margin_eighth"
-      android:paddingBottom="@dimen/margin_eighth"
-      android:textAppearance="@style/MwmTextAppearance.Body4.Light"
-      android:text="@string/closed"/>
-  </FrameLayout>
 
   <TextView
       android:id="@+id/title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
-      android:layout_toStartOf="@id/metadata_container"
       android:textAppearance="@style/MwmTextAppearance.Body1"
       android:ellipsize="end"
       android:maxLines="2"
@@ -43,7 +25,7 @@
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
       android:layout_below="@id/title"
-      android:layout_toStartOf="@id/cost"
+      android:layout_toStartOf="@id/costopen"
       android:layout_marginEnd="@dimen/margin_half"
       android:layout_marginTop="@dimen/margin_quarter"
       android:textAppearance="@style/MwmTextAppearance.Body3"
@@ -52,28 +34,43 @@
       tools:text="Hotel \u2022 \u2605\u2605\u2605\u2605\u2605"/>
 
   <LinearLayout
-    android:id="@+id/cost"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_alignParentEnd="true"
-    android:layout_alignTop="@id/description"
-    android:visibility="invisible"
-    android:gravity="center">
+      android:id="@+id/costopen"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_alignTop="@id/description">
+
+    <LinearLayout
+        android:id="@+id/cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        android:gravity="center">
+
+      <TextView
+          android:id="@+id/price_category"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:singleLine="true"
+          tools:text="$$$"/>
+
+      <ImageView
+          android:id="@+id/sale"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_quarter"
+          android:src="?saleIcon"/>
+
+    </LinearLayout>
 
     <TextView
-      android:id="@+id/price_category"
+      android:id="@+id/open"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:singleLine="true"
-      tools:text="$$$"/>
+      android:text="@string/closed"
+      android:textAppearance="@style/MwmTextAppearance.Body3" />
 
-    <ImageView
-      android:id="@+id/sale"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/margin_quarter"
-      android:src="?saleIcon"/>
   </LinearLayout>
 
   <TextView
@@ -96,7 +93,7 @@
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
     android:layout_alignBaseline="@id/region"
-    android:layout_below="@id/metadata_container"
+    android:layout_below="@id/description"
     android:textAppearance="@style/MwmTextAppearance.Body3"
     android:textColor="?colorAccent"
     tools:text="500 km"/>
