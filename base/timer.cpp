@@ -19,12 +19,6 @@
 
 namespace base
 {
-Timer::Timer(bool start/* = true*/)
-{
-  if (start)
-    Reset();
-}
-
 // static
 double Timer::LocalTime()
 {
@@ -171,32 +165,6 @@ time_t StringToTimestamp(std::string const & s)
   return res;
 }
 
-HighResTimer::HighResTimer(bool start/* = true*/)
-{
-  if (start)
-    Reset();
-}
-
-void HighResTimer::Reset()
-{
-  m_start = std::chrono::high_resolution_clock::now();
-}
-
-uint64_t HighResTimer::ElapsedNano() const
-{
-  return std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - m_start).count();
-}
-
-uint64_t HighResTimer::ElapsedMillis() const
-{
-  return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - m_start).count();
-}
-
-double HighResTimer::ElapsedSeconds() const
-{
-  return std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - m_start).count();
-}
-
 time_t SecondsSinceEpochToTimeT(uint64_t secondsSinceEpoch)
 {
   std::chrono::time_point<std::chrono::system_clock> const tpoint{std::chrono::seconds(secondsSinceEpoch)};
@@ -220,7 +188,7 @@ ScopedTimerWithLog::~ScopedTimerWithLog()
   {
   case Measure::MilliSeconds:
   {
-    LOG(LINFO, (m_name, "time:", m_timer.ElapsedMillis(), "ms"));
+    LOG(LINFO, (m_name, "time:", m_timer.ElapsedMilliseconds(), "ms"));
     return;
   }
   case Measure::Seconds:

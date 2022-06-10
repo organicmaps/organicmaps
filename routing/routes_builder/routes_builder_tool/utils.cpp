@@ -25,6 +25,11 @@
 #include <thread>
 #include <tuple>
 
+
+namespace routing
+{
+namespace routes_builder
+{
 using namespace routing_quality;
 
 namespace
@@ -58,10 +63,6 @@ routing::VehicleType ConvertVehicleTypeFromString(std::string const & str)
 }
 }  // namespace
 
-namespace routing
-{
-namespace routes_builder
-{
 void BuildRoutes(std::string const & routesPath,
                  std::string const & dumpPath,
                  uint64_t startFrom,
@@ -180,8 +181,9 @@ void BuildRoutesWithApi(std::unique_ptr<api::RoutingApi> routingApi,
 
   size_t rps = 0;
   base::HighResTimer timer;
-  auto const getElapsedMilliSeconds = [&timer]() {
-    double ms = timer.ElapsedNano() / 1e6;
+  auto const getElapsedMilliSeconds = [&timer]()
+  {
+    auto const ms = timer.ElapsedMilliseconds();
     LOG(LDEBUG, ("Elapsed:", ms, "ms"));
     return ms;
   };
@@ -191,9 +193,10 @@ void BuildRoutesWithApi(std::unique_ptr<api::RoutingApi> routingApi,
     timer.Reset();
   };
 
-  auto const sleepIfNeed = [&]() {
-    double constexpr kMsInSecond = 1000.0;
-    if (getElapsedMilliSeconds() > kMsInSecond)
+  auto const sleepIfNeed = [&]()
+  {
+    // Greater than 1 second.
+    if (getElapsedMilliSeconds() > 1000)
     {
       drop();
       return;
@@ -210,7 +213,8 @@ void BuildRoutesWithApi(std::unique_ptr<api::RoutingApi> routingApi,
 
   size_t count = 0;
   size_t prevDumpedNumber = 0;
-  auto const dump = [&]() {
+  auto const dump = [&]()
+  {
     for (size_t i = 0; i < count; ++i)
     {
       std::string filepath =

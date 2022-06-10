@@ -226,7 +226,7 @@ void IndexGraph::SetRestrictions(RestrictionVec && restrictions)
     m_restrictionsBackward[restriction.front()].emplace_back(next(restriction.begin()), restriction.end());
   }
 
-  LOG(LDEBUG, ("Restrictions are loaded in:", timer.ElapsedNano() / 1e6, "ms"));
+  LOG(LDEBUG, ("Restrictions are loaded in:", timer.ElapsedMilliseconds(), "ms"));
 }
 
 void IndexGraph::SetUTurnRestrictions(vector<RestrictionUTurn> && noUTurnRestrictions)

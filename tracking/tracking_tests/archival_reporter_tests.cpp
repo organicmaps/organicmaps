@@ -66,26 +66,27 @@ UNIT_TEST(PacketCar_OperationsConsistency)
   location::GpsInfo point = GetStartingPoint();
   traffic::SpeedGroup sg = traffic::SpeedGroup::G0;
 
-  base::HighResTimer timerStart;
+  base::HighResTimer timer;
+
   for (size_t i = 0; i < kItemsForDump; ++i)
   {
     archive.Add(point, sg);
     UpdateLocation(point);
     UpdateSpeedGroup(sg);
   }
+
   auto const track = archive.Extract();
 
-  base::HighResTimer timerStartSaving;
+  LOG(LINFO, ("Duration of dumping", timer.ElapsedMilliseconds(), "ms"));
+
+  timer.Reset();
   std::string const fileName = "archival_reporter_car.track";
   {
     FileWriter writer(fileName);
     CHECK(archive.Write(writer), ());
   }
 
-  LOG(LINFO, ("Duration of serializing",
-              timerStart.ElapsedMillis() - timerStartSaving.ElapsedMillis(), "ms"));
-  LOG(LINFO,
-      ("Duration of dumping", timerStart.ElapsedMillis() - timerStartSaving.ElapsedMillis(), "ms"));
+  LOG(LINFO, ("Duration of serializing", timer.ElapsedMilliseconds(), "ms"));
 
   uint64_t sizeBytes;
   CHECK(GetPlatform().GetFileSizeByFullPath(fileName, sizeBytes), ());
