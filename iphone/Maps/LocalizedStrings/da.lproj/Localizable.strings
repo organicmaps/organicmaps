@@ -1569,15 +1569,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Grav";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Bryggeri";
 
 "type.craft.carpenter" = "Tømrer";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektriker";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Gartner";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Blikkenslager";
 
@@ -1589,7 +1601,11 @@
 
 "type.craft.plumber" = "VVS-mand";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Skomager";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Skrædder";
 
@@ -2377,6 +2393,8 @@
 
 "type.natural.water.lake" = "Sø";
 
+"type.natural.water.lock" = "Låsekammer";
+
 "type.natural.water.pond" = "Dam";
 
 "type.natural.water.reservoir" = "Reservoir";
@@ -2954,8 +2972,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Låseport";
 

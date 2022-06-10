@@ -226,6 +226,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>
+	<string name="type.cemetery.grave">רבק</string>
 	<string name="type.cuisine.african">מטבח אפריקאי</string>
 	<string name="type.cuisine.american">מטבח אמריקאי</string>
 	<string name="type.cuisine.arab">מטבח ערבי</string>
@@ -406,6 +407,7 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.landuse.basin">אגן מים</string>
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>
+	<string name="type.natural.water.lock">לוענמ את</string>
 	<string name="type.natural.water.reservoir">מאגר</string>
 	<string name="type.natural.water.basin">אגן מים</string>
 	<string name="type.natural.water">גוף מים</string>

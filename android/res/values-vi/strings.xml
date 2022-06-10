@@ -786,6 +786,7 @@
 	<string name="type.building.garage">Gara</string>
 	<string name="type.building.has_parts">Tòa nhà</string>
 	<string name="type.building.train_station">Đường tàu hỏa</string>
+	<string name="type.cemetery.grave">Phần mộ</string>
 	<string name="type.craft.brewery">Nhà máy bia</string>
 	<string name="type.craft.carpenter">Thợ mộc</string>
 	<string name="type.craft.electrician">Thợ điện</string>
@@ -1119,6 +1120,7 @@
 	<string name="type.natural.glacier">Sông băng</string>
 	<string name="type.natural.grassland">Cánh đồng</string>
 	<string name="type.natural.water.lake">Hồ</string>
+	<string name="type.natural.water.lock">Khoang khóa</string>
 	<string name="type.natural.water.pond">Ao</string>
 	<string name="type.natural.water.reservoir">Hồ chứa</string>
 	<string name="type.natural.water.basin">Một chậu nước</string>

@@ -839,6 +839,7 @@
 	<string name="type.building.has_parts">建筑物</string>
 	<string name="type.building.train_station">火车站建筑</string>
 	<string name="type.building.warehouse">仓库</string>
+	<string name="type.cemetery.grave">墓穴</string>
 	<string name="type.craft">工艺作坊</string>
 	<string name="type.craft.brewery">酿酒厂</string>
 	<string name="type.craft.carpenter">木匠</string>
@@ -1232,6 +1233,7 @@
 	<string name="type.natural.heath">荒野</string>
 	<string name="type.natural.hot_spring">温泉</string>
 	<string name="type.natural.water.lake">湖</string>
+	<string name="type.natural.water.lock">锁室</string>
 	<string name="type.natural.water.pond">池塘</string>
 	<string name="type.natural.water.reservoir">水库</string>
 	<string name="type.natural.water.basin">水盆地</string>

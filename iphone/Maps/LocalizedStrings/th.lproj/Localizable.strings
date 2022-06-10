@@ -1569,15 +1569,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "หลุมฝังศพ";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "โรงเบียร์";
 
 "type.craft.carpenter" = "ช่างไม้";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "ช่างไฟฟ้า";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "คนจัดสวน";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "ระบบปรับอากาศ";
 
@@ -1589,7 +1601,11 @@
 
 "type.craft.plumber" = "ช่างประปา";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "ช่างซ่อมรองเท้า";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "ช่างตัดเสื้อ";
 
@@ -2377,6 +2393,8 @@
 
 "type.natural.water.lake" = "ทะเลสาบ";
 
+"type.natural.water.lock" = "ห้องล็อค";
+
 "type.natural.water.pond" = "บ่อ";
 
 "type.natural.water.reservoir" = "อ่างเก็บน้ำ";
@@ -2954,8 +2972,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "ประตูระบายน้ำ";
 

@@ -877,6 +877,7 @@
 	<string name="type.building.has_parts">Bina</string>
 	<string name="type.building.train_station">Tren İstasyonu</string>
 	<string name="type.building.warehouse">Depo</string>
+	<string name="type.cemetery.grave">Mezar</string>
 	<string name="type.craft">Zanaat</string>
 	<string name="type.craft.brewery">Bira Fabrikası</string>
 	<string name="type.craft.carpenter">Marangoz</string>
@@ -1285,6 +1286,7 @@
 	<string name="type.natural.heath">Çalı</string>
 	<string name="type.natural.hot_spring">Kaplıca</string>
 	<string name="type.natural.water.lake">Göl</string>
+	<string name="type.natural.water.lock">Kilit Odası</string>
 	<string name="type.natural.water.pond">Gölet</string>
 	<string name="type.natural.water.reservoir">Rezervuar</string>
 	<string name="type.natural.water.basin">Havza</string>
@@ -1567,7 +1569,6 @@
 	<string name="type.waterway.dock">Rıhtım</string>
 	<string name="type.waterway.drain">Lağım</string>
 	<string name="type.waterway.drain.tunnel">Lağım</string>
-	<string name="type.waterway.lock">Kanal Havuzu</string>
 	<string name="type.waterway.lock_gate">Kilit Kapısı</string>
 	<string name="type.waterway.river">Nehir</string>
 	<string name="type.waterway.river.tunnel">Nehir</string>

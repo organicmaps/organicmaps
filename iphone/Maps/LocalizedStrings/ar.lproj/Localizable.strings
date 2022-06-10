@@ -1569,15 +1569,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "ﺮﻴﻄﺧ";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "مصنع جعة";
 
 "type.craft.carpenter" = "نجار";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "كهربائي";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "مهندس مناظر";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "تكييف";
 
@@ -1589,7 +1601,11 @@
 
 "type.craft.plumber" = "سمكري";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "تصليح الاحذية";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "خياط";
 
@@ -2377,6 +2393,8 @@
 
 "type.natural.water.lake" = "بحيرة";
 
+"type.natural.water.lock" = "ﻞﻔﻘﻟﺍ ﺔﻓﺮﻏ";
+
 "type.natural.water.pond" = "بركة";
 
 "type.natural.water.reservoir" = "خزان";
@@ -2954,8 +2972,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "بوابة هويس";
 

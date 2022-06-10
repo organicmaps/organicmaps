@@ -824,6 +824,7 @@
 	<string name="type.building.has_parts">Bâtiment</string>
 	<string name="type.building.train_station">Gare</string>
 	<string name="type.building.warehouse">Entrepôt</string>
+	<string name="type.cemetery.grave">La tombe</string>
 	<string name="type.craft">Artisanat</string>
 	<string name="type.craft.brewery">Brasserie artisanale</string>
 	<string name="type.craft.carpenter">Charpentier</string>
@@ -1202,6 +1203,7 @@
 	<string name="type.natural.heath">Lande</string>
 	<string name="type.natural.hot_spring">Source chaude</string>
 	<string name="type.natural.water.lake">Lac</string>
+	<string name="type.natural.water.lock">Chambre de verrouillage</string>
 	<string name="type.natural.water.pond">Étang</string>
 	<string name="type.natural.water.reservoir">Réservoir</string>
 	<string name="type.natural.water.basin">Réservoir</string>
@@ -1411,7 +1413,6 @@
 	<string name="type.waterway.ditch">Fossé</string>
 	<string name="type.waterway.ditch.tunnel">Fossé</string>
 	<string name="type.waterway.dock">Cale</string>
-	<string name="type.waterway.lock">Écluse</string>
 	<string name="type.waterway.lock_gate">Porte d\'écluse</string>
 	<string name="type.waterway.river">Rivière</string>
 	<string name="type.waterway.river.tunnel">Rivière</string>

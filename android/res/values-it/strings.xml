@@ -812,6 +812,7 @@
 	<string name="type.building.address">Edificio</string>
 	<string name="type.building.has_parts">Edificio</string>
 	<string name="type.building.train_station">Stazione ferroviaria</string>
+	<string name="type.cemetery.grave">La tomba</string>
 	<string name="type.craft.brewery">Birrificio</string>
 	<string name="type.craft.carpenter">Falegname</string>
 	<string name="type.craft.electrician">Elettricista</string>
@@ -1145,6 +1146,7 @@
 	<string name="type.natural.glacier">Ghiacciaio</string>
 	<string name="type.natural.grassland">Campo</string>
 	<string name="type.natural.water.lake">Lago</string>
+	<string name="type.natural.water.lock">Camera di blocco</string>
 	<string name="type.natural.water.pond">Stagno</string>
 	<string name="type.natural.water.reservoir">Serbatoio</string>
 	<string name="type.natural.water.basin">Bacino d\'acqua</string>

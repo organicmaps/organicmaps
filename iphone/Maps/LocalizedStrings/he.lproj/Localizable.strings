@@ -1569,15 +1569,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "רבק";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Craft Brewery";
 
 "type.craft.carpenter" = "Carpenter";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Electrician";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Gardener";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Hvac";
 
@@ -1589,7 +1601,11 @@
 
 "type.craft.plumber" = "Plumber";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Shoe Repair";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Tailor";
 
@@ -2377,6 +2393,8 @@
 
 "type.natural.water.lake" = "Lake";
 
+"type.natural.water.lock" = "לוענמ את";
+
 "type.natural.water.pond" = "Pond";
 
 "type.natural.water.reservoir" = "מאגר";
@@ -2954,8 +2972,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Lock Gate";
 

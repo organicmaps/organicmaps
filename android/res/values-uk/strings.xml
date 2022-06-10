@@ -874,6 +874,7 @@
 	<string name="type.building.has_parts">Будівля</string>
 	<string name="type.building.train_station">Залізничний вокзал</string>
 	<string name="type.building.warehouse">Склад</string>
+	<string name="type.cemetery.grave">Могила</string>
 	<string name="type.craft">Майстерня</string>
 	<string name="type.craft.brewery">Пивоварня</string>
 	<string name="type.craft.carpenter">Столяр</string>
@@ -1282,6 +1283,7 @@
 	<string name="type.natural.heath">Пустище</string>
 	<string name="type.natural.hot_spring">Горяче джерело</string>
 	<string name="type.natural.water.lake">Озеро</string>
+	<string name="type.natural.water.lock">Замкова камера</string>
 	<string name="type.natural.water.pond">Ставок</string>
 	<string name="type.natural.water.reservoir">Водосховище</string>
 	<string name="type.natural.water.basin">Резервуар</string>
@@ -1564,7 +1566,6 @@
 	<string name="type.waterway.dock">Причал</string>
 	<string name="type.waterway.drain">Водовiдвiд</string>
 	<string name="type.waterway.drain.tunnel">Водовiдвiд</string>
-	<string name="type.waterway.lock">Шлюз</string>
 	<string name="type.waterway.lock_gate">Шлюз</string>
 	<string name="type.waterway.river">Річка</string>
 	<string name="type.waterway.river.tunnel">Річка</string>

@@ -789,6 +789,7 @@
 	<string name="type.building.garage">อาคารจอดรถ</string>
 	<string name="type.building.has_parts">อาคาร</string>
 	<string name="type.building.train_station">สถานีรถไฟ</string>
+	<string name="type.cemetery.grave">หลุมฝังศพ</string>
 	<string name="type.craft.brewery">โรงเบียร์</string>
 	<string name="type.craft.carpenter">ช่างไม้</string>
 	<string name="type.craft.electrician">ช่างไฟฟ้า</string>
@@ -1124,6 +1125,7 @@
 	<string name="type.natural.glacier">ธารน้ำแข็ง</string>
 	<string name="type.natural.grassland">ทุ่งหญ้า</string>
 	<string name="type.natural.water.lake">ทะเลสาบ</string>
+	<string name="type.natural.water.lock">ห้องล็อค</string>
 	<string name="type.natural.water.pond">บ่อ</string>
 	<string name="type.natural.water.reservoir">อ่างเก็บน้ำ</string>
 	<string name="type.natural.water.basin">อ่างน้ำ</string>

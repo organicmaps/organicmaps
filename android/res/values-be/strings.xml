@@ -747,6 +747,7 @@
 	<string name="type.barrier.chain">Ланцуг</string>
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
+	<string name="type.cemetery.grave">Магіла</string>
 	<string name="type.craft.metal_construction">Металаканструкцыі</string>
 	<string name="type.cuisine.bubble_tea">Чай з бурбалкамі</string>
 	<string name="type.emergency.defibrillator">Дэфібрылятар</string>
@@ -861,6 +862,7 @@
 	<string name="type.mountain_pass">Перавал</string>
 	<string name="type.natural.beach.sand">Пяшчаны пляж</string>
 	<string name="type.natural.beach.gravel">Галечны пляж</string>
+	<string name="type.natural.water.lock">Шлюзавая камера</string>
 	<string name="type.natural.water.pond">Сажалка</string>
 	<string name="type.natural.water.reservoir">Вадасховішча</string>
 	<string name="type.natural.water.basin">Рэзервуар</string>

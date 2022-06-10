@@ -791,6 +791,7 @@
 	<string name="type.building.garage">جراج</string>
 	<string name="type.building.has_parts">مبنى</string>
 	<string name="type.building.train_station">محطة سكك حديدية</string>
+	<string name="type.cemetery.grave">ﺮﻴﻄﺧ</string>
 	<string name="type.craft.brewery">مصنع جعة</string>
 	<string name="type.craft.carpenter">نجار</string>
 	<string name="type.craft.electrician">كهربائي</string>
@@ -1126,6 +1127,7 @@
 	<string name="type.natural.glacier">كتلة جليدية</string>
 	<string name="type.natural.grassland">ملعب</string>
 	<string name="type.natural.water.lake">بحيرة</string>
+	<string name="type.natural.water.lock">ﻞﻔﻘﻟﺍ ﺔﻓﺮﻏ</string>
 	<string name="type.natural.water.pond">بركة</string>
 	<string name="type.natural.water.reservoir">خزان</string>
 	<string name="type.natural.water.basin">حوض المياه</string>

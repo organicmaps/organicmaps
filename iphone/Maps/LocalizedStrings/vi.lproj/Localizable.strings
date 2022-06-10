@@ -1569,15 +1569,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Phần mộ";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Nhà máy bia";
 
 "type.craft.carpenter" = "Thợ mộc";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Thợ điện";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Người thiết kế và xây dựng cảnh quan";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Điều hòa nhiệt độ";
 
@@ -1589,7 +1601,11 @@
 
 "type.craft.plumber" = "Thợ đường ống";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Sửa giày";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Thợ may";
 
@@ -2377,6 +2393,8 @@
 
 "type.natural.water.lake" = "Hồ";
 
+"type.natural.water.lock" = "Khoang khóa";
+
 "type.natural.water.pond" = "Ao";
 
 "type.natural.water.reservoir" = "Hồ chứa";
@@ -2954,8 +2972,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Cổng Khóa";
 

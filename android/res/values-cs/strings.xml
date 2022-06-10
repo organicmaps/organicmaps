@@ -787,6 +787,7 @@
 	<string name="type.building.garage">Garáž</string>
 	<string name="type.building.has_parts">Stavba</string>
 	<string name="type.building.train_station">Železniční stanice</string>
+	<string name="type.cemetery.grave">Hrob</string>
 	<string name="type.craft.brewery">Pivovar</string>
 	<string name="type.craft.carpenter">Truhlář</string>
 	<string name="type.craft.electrician">Elektrikář</string>
@@ -1120,6 +1121,7 @@
 	<string name="type.natural.glacier">Ledovec</string>
 	<string name="type.natural.grassland">Pole</string>
 	<string name="type.natural.water.lake">Jezero</string>
+	<string name="type.natural.water.lock">Zámková komora</string>
 	<string name="type.natural.water.pond">Rybník</string>
 	<string name="type.natural.water.reservoir">Nádrž</string>
 	<string name="type.natural.water.basin">Vodní nádrž</string>

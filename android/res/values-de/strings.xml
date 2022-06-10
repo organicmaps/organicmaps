@@ -852,6 +852,7 @@
 	<string name="type.building.address">Gebäude</string>
 	<string name="type.building.has_parts">Gebäude</string>
 	<string name="type.building.train_station">Bahnhof</string>
+	<string name="type.cemetery.grave">Grab</string>
 	<string name="type.craft.brewery">Brauerei</string>
 	<string name="type.craft.carpenter">Zimmermann</string>
 	<string name="type.craft.electrician">Elektriker</string>
@@ -1249,6 +1250,7 @@
 	<string name="type.natural.heath">Heide</string>
 	<string name="type.natural.hot_spring">Thermalquelle</string>
 	<string name="type.natural.water.lake">See</string>
+	<string name="type.natural.water.lock">Schleusenkammer</string>
 	<string name="type.natural.water.pond">Teich</string>
 	<string name="type.natural.water.reservoir">Reservoir</string>
 	<string name="type.natural.water.basin">Wasserbecken</string>
@@ -1528,7 +1530,6 @@
 	<string name="type.waterway.dock">Dock</string>
 	<string name="type.waterway.drain">Abfluss</string>
 	<string name="type.waterway.drain.tunnel">Abfluss</string>
-	<string name="type.waterway.lock">Schleuse</string>
 	<string name="type.waterway.lock_gate">Schleusentor</string>
 	<string name="type.waterway.river">Fluss</string>
 	<string name="type.waterway.river.tunnel">Fluss</string>
