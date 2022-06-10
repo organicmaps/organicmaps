@@ -32,11 +32,14 @@ public class SearchResult implements PopularityProvider
     public final String airportIata;
     public final String roadShields;
     public final int openNow;
+    public final int minutesUntilOpen;
+    public final int minutesUntilClosed;
     public final boolean hasPopularityHigherPriority;
 
     public Description(FeatureId featureId, String featureType, String region, String distance,
                        String cuisine, String brand, String airportIata, String roadShields,
-                       int openNow, boolean hasPopularityHigherPriority)
+                       int openNow, int minutesUntilOpen, int minutesUntilClosed,
+                       boolean hasPopularityHigherPriority)
     {
       this.featureId = featureId;
       this.featureType = featureType;
@@ -47,6 +50,8 @@ public class SearchResult implements PopularityProvider
       this.airportIata = airportIata;
       this.roadShields = roadShields;
       this.openNow = openNow;
+      this.minutesUntilOpen = minutesUntilOpen;
+      this.minutesUntilClosed = minutesUntilClosed;
       this.hasPopularityHigherPriority = hasPopularityHigherPriority;
     }
   }
