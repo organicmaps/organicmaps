@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Aluguer de bicicletas";
 
+"type.amenity.bicycle_repair_station" = "Estação de conserto de bicicletas";
+
 "type.amenity.biergarten" = "Jardim da cerveja";
 
 "type.amenity.brothel" = "Bordel";

@@ -674,6 +674,7 @@
 	<string name="type.amenity.bench">سَکو</string>
 	<string name="type.amenity.bicycle_parking">پارکینگ دوچرخه</string>
 	<string name="type.amenity.bicycle_rental">مکان اجاره دوچرخه</string>
+	<string name="type.amenity.bicycle_repair_station">ایستگاه تعمیر دوچرخه</string>
 	<string name="type.amenity.biergarten">غذا</string>
 	<string name="type.amenity.brothel">فاحشه خانه</string>
 	<string name="type.amenity.bureau_de_change">صرافی</string>

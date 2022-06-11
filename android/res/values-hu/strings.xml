@@ -674,6 +674,7 @@
 	<string name="type.amenity.bench">Pad</string>
 	<string name="type.amenity.bicycle_parking">Kerékpárparkoló</string>
 	<string name="type.amenity.bicycle_rental">Kerékpárkölcsönző</string>
+	<string name="type.amenity.bicycle_repair_station">Kerékpárjavító állomás</string>
 	<string name="type.amenity.biergarten">Sörkert</string>
 	<string name="type.amenity.brothel">Bordélyház</string>
 	<string name="type.amenity.bureau_de_change">Pénzváltó</string>

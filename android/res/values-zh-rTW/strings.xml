@@ -707,6 +707,7 @@
 	<string name="type.amenity.bench">長板凳</string>
 	<string name="type.amenity.bicycle_parking">腳踏車停放區</string>
 	<string name="type.amenity.bicycle_rental">自行車出租</string>
+	<string name="type.amenity.bicycle_repair_station">自行車維修站</string>
 	<string name="type.amenity.biergarten">啤酒花園</string>
 	<string name="type.amenity.brothel">妓院</string>
 	<string name="type.amenity.bureau_de_change">匯率</string>

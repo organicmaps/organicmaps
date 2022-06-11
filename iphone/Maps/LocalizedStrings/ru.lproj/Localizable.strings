@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Велопрокат";
 
+"type.amenity.bicycle_repair_station" = "Станция ремонта велосипедов";
+
 "type.amenity.biergarten" = "Пивная под открытым небом";
 
 "type.amenity.brothel" = "Бордель";

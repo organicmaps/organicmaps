@@ -681,6 +681,7 @@
 	<string name="type.amenity.bench">Zitbank</string>
 	<string name="type.amenity.bicycle_parking">Fietsenstalling</string>
 	<string name="type.amenity.bicycle_rental">Fietsverhuur</string>
+	<string name="type.amenity.bicycle_repair_station">Fiets reparatie station</string>
 	<string name="type.amenity.brothel">Bordeel</string>
 	<string name="type.amenity.bureau_de_change">Wisselkantoor</string>
 	<string name="type.amenity.bus_station">Busstation</string>

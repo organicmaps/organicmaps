@@ -706,6 +706,7 @@
 	<string name="type.amenity.bench">Ławka</string>
 	<string name="type.amenity.bicycle_parking">Parking dla rowerów</string>
 	<string name="type.amenity.bicycle_rental">Wynajem rowerów</string>
+	<string name="type.amenity.bicycle_repair_station">Stacja naprawy rowerów</string>
 	<string name="type.amenity.biergarten">Ogródek piwny</string>
 	<string name="type.amenity.brothel">Burdel</string>
 	<string name="type.amenity.bureau_de_change">Kantor</string>

@@ -619,7 +619,7 @@
     zh-Hans = 自行车出租点
     zh-Hant = 自行車出租
 
-    [type.amenity.bicycle_repair_station]
+  [type.amenity.bicycle_repair_station]
     en = Bicycle Repair Station
     ar = محطة تصليح الدراجات
     cs = Stanice na opravu jízdních kol

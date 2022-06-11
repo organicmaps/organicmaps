@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Fahrradverleih";
 
+"type.amenity.bicycle_repair_station" = "Fahrrad-Reparaturstation";
+
 "type.amenity.biergarten" = "Biergarten";
 
 "type.amenity.brothel" = "Bordell";

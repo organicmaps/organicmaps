@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Sykkelutleie";
 
+"type.amenity.bicycle_repair_station" = "Sykkelreparasjonsstasjon";
+
 "type.amenity.biergarten" = "Uteservering";
 
 "type.amenity.brothel" = "Bordell";

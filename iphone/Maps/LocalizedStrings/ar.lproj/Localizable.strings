@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "تأجير دراجات";
 
+"type.amenity.bicycle_repair_station" = "محطة تصليح الدراجات";
+
 "type.amenity.biergarten" = "متجر بيرة";
 
 "type.amenity.brothel" = "دعارة";

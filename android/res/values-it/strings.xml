@@ -700,6 +700,7 @@
 	<string name="type.amenity.bench">Panchina</string>
 	<string name="type.amenity.bicycle_parking">Parcheggio biciclette</string>
 	<string name="type.amenity.bicycle_rental">Noleggio biciclette</string>
+	<string name="type.amenity.bicycle_repair_station">Stazione di riparazione biciclette</string>
 	<string name="type.amenity.brothel">Bordello</string>
 	<string name="type.amenity.bureau_de_change">Cambio valute</string>
 	<string name="type.amenity.bus_station">Autostazione</string>

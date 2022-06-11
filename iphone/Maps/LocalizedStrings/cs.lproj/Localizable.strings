@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Půjčovna kol";
 
+"type.amenity.bicycle_repair_station" = "Stanice na opravu jízdních kol";
+
 "type.amenity.biergarten" = "Hospoda se zahrádkou";
 
 "type.amenity.brothel" = "Nevěstinec";
