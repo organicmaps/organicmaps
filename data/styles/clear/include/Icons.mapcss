@@ -222,6 +222,8 @@ node[highway=rest_area],
 area[highway=rest_area],
 node[amenity=bicycle_rental],
 area[amenity=bicycle_rental],
+node[amenity=bicycle_repair_station],
+area[amenity=bicycle_repair_station],
 node[amenity=car_wash],
 area[amenity=car_wash],
 node[amenity=car_rental],
@@ -1423,6 +1425,8 @@ node|z17-[amenity=shower],
 area|z17-[amenity=shower],
 node|z17-[amenity=bicycle_rental],
 area|z17-[amenity=bicycle_rental],
+node|z17-[amenity=bicycle_repair_station],
+area|z17-[amenity=bicycle_repair_station],
 node|z17-[amenity=post_office],
 area|z17-[amenity=post_office],
 node|z17-[power=station],
@@ -1940,6 +1944,13 @@ area|z17-[amenity=bicycle_rental]
 {icon-image: bicycle-rental.svg;text-optional: true;}
 node|z18-[amenity=bicycle_rental],
 area|z18-[amenity=bicycle_rental]
+{font-size: 11;text-optional: true;}
+
+node|z17-[amenity=bicycle_repair_station],
+area|z17-[amenity=bicycle_repair_station]
+{icon-image: bicycle-repair-station.svg;text-optional: true;}
+node|z18-[amenity=bicycle_repair_station],
+area|z18-[amenity=bicycle_repair_station]
 {font-size: 11;text-optional: true;}
 
 node|z17-[amenity=post_office],

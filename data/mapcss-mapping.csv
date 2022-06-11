@@ -269,7 +269,7 @@ natural|cave_entrance;[natural=cave_entrance],[natural=cave];;name;int_name;268;
 highway|tertiary|tunnel;[highway=tertiary][tunnel?];;name;int_name;269;
 landuse|landfill;270;
 amenity|bicycle_rental;271;
-deprecated|deprecated;272;x
+amenity|bicycle_repair_station;272;
 highway|tertiary_link;273;
 landuse|greenfield;274;
 tourism|alpine_hut;275;
