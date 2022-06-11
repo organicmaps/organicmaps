@@ -27,6 +27,7 @@ world  +
         bench  -
         bicycle_parking  -
         bicycle_rental  -
+        bicycle_repair_station  -
         biergarten  -
         brothel  -
         bureau_de_change  -

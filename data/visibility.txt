@@ -27,6 +27,7 @@ world  00000000000000000000  +
         bench  00000000000000000000  -
         bicycle_parking  00000000000000000000  -
         bicycle_rental  00000000000000000000  -
+        bicycle_repair_station  00000000000000000000  -
         biergarten  00000000000000000000  -
         brothel  00000000000000000000  -
         bureau_de_change  00000000000000000000  -

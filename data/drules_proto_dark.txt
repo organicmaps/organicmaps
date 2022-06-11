@@ -2602,6 +2602,57 @@ cont {
   }
 }
 cont {
+  name: "amenity-bicycle_repair_station"
+  element {
+    scale: 17
+    symbol {
+      name: "bicycle-repair-station"
+      priority: 16631
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15631
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "bicycle-repair-station"
+      priority: 16631
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15631
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "bicycle-repair-station"
+      priority: 16631
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15631
+    }
+  }
+}
+cont {
   name: "amenity-biergarten"
   element {
     scale: 15
