@@ -1,11 +1,52 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>cable-car-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="cable-car-m" fill-rule="nonzero">
-            <rect id="Rectangle" fill="#FFFFFF" opacity="0.6" x="0" y="0" width="24" height="24" rx="2.5"></rect>
-            <rect id="Rectangle" fill="#2F6499" x="1" y="1" width="22" height="22" rx="2"></rect>
-            <path d="M16.8,15.458 L16.8,9.55 C16.8,7.597 14.973,7.17 12.593,7.107 L13.125,6.05 L15.4,6.05 L15.4,5 L8.4,5 L8.4,6.05 L11.725,6.05 L11.193,7.114 C9.002,7.177 7,7.611 7,9.55 L7,15.458 C7,16.473 7.833,17.32 8.813,17.537 L7.7,18.65 L7.7,19 L9.261,19 L10.661,17.6 L13.3,17.6 L14.7,19 L16.1,19 L16.1,18.65 L15.05,17.6 L14.994,17.6 C16.177,17.6 16.8,16.641 16.8,15.458 Z M11.9,16.55 C11.319,16.55 10.85,16.081 10.85,15.5 C10.85,14.919 11.319,14.45 11.9,14.45 C12.481,14.45 12.95,14.919 12.95,15.5 C12.95,16.081 12.481,16.55 11.9,16.55 Z M15.4,13.4 L8.4,13.4 L8.4,9.9 L15.4,9.9 L15.4,13.4 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
-</svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="cable-car-m.svg"
+   xml:space="preserve"
+   inkscape:export-filename="../../../../../../../Bilder/om/cable-car/cable-car-m.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs14" /><sodipodi:namedview
+     id="namedview12"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false" /><title
+     id="title2">cable-car-m</title><g
+     id="Page-1"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd"><g
+       id="cable-car-m"
+       fill-rule="nonzero"><rect
+         id="Rectangle"
+         fill="#ffffff"
+         opacity="0.6"
+         x="0"
+         y="0"
+         width="24"
+         height="24"
+         rx="2.5" /><rect
+         id="rect5"
+         fill="#2f6499"
+         x="1"
+         y="1"
+         width="22"
+         height="22"
+         rx="2" /><path
+         d="m 5,10.327933 6.3,-1.73583 v 1.905874 H 8.5000002 a 1.4000001,1.4170041 0 0 0 -1.4000001,1.417005 v 5.668013 A 1.4000001,1.4170041 0 0 0 8.5000002,19 H 15.5 a 1.4000001,1.4170041 0 0 0 1.4,-1.417005 V 11.914982 A 1.4000001,1.4170041 0 0 0 15.5,10.497977 H 12.700001 V 8.2024293 L 19,6.466599 V 5 L 5,8.8613343 Z m 6.3,1.587049 v 2.125504 H 8.5000002 v -2.125504 z m 4.2,0 v 2.125504 h -2.799999 v -2.125504 z"
+         id="path243"
+         style="fill:#ffffff;fill-opacity:1;stroke-width:0.704238" /></g></g></svg>
