@@ -619,6 +619,34 @@
     zh-Hans = 自行车出租点
     zh-Hant = 自行車出租
 
+    [type.amenity.bicycle_repair_station]
+    en = Bicycle Repair Station
+    ar = محطة تصليح الدراجات
+    cs = Stanice na opravu jízdních kol
+    da = Cykelreparationsstation
+    de = Fahrrad-Reparaturstation
+    es = Estación de reparación de bicicletas
+    fa = ایستگاه تعمیر دوچرخه
+    fi = Polkupyörän korjausasema
+    fr = Station de réparation de vélos
+    hu = Kerékpárjavító állomás
+    it = Stazione di riparazione biciclette
+    ja = 自転車修理ステーション
+    ko = 자전거 수리소
+    nb = Sykkelreparasjonsstasjon
+    nl = Fiets reparatie station
+    pl = Stacja naprawy rowerów
+    pt = Estação de conserto de bicicletas
+    pt-BR = Estação de conserto de bicicletas
+    ru = Станция ремонта велосипедов
+    sw = Cykelreparationsstation
+    th = สถานีซ่อมจักรยาน
+    tr = Bisiklet tamir istasyonu
+    uk = Станція ремонту велосипедів
+    vi = trạm sửa xe đạp
+    zh-Hans = 自行车维修站
+    zh-Hant = 自行車維修站
+
   [type.amenity.biergarten]
     en = Biergarten
     ar = متجر بيرة

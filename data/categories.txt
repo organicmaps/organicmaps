@@ -3208,6 +3208,28 @@ sk:2Požičovňa bicyklov|bicykle|požičovňa
 sw:Kodi ya baiskeli|baiskeli|kodi
 fa:مکان اجاره دوچرخه
 
+amenity-bicycle_repair_station
+en:4Bicycle Repair Station|cycle|bike|4repair of bicycles
+ar:تصليح الدراجات
+cs:Oprava jízdních kol|4jízdní kolo|3kolo|Oprava
+da:4Cykel reparation
+de:4Fahrradreparatur|Radservicestation|Radreparatur
+es:Reparación de bicicletas|4bicicleta
+fa:تعمیر دوچرخه
+fi:Polkupyörän korjaus
+fr:Réparation de vélos|vélo|bicyclette|réparation
+hu:4Kerékpár javítás|kerékpár
+it:Riparazione di biciclette|4bicicletta|bici
+ja:自転車修理
+ko:자전거 수리
+nl:4Fiets reparatie
+pt:Conserto de bicicleta|4bicicleta
+ru:4Велоремонт|велосипед|ремонт|ремонт велосипедов
+tr:4Bisiklet tamiri|4Bisiklet
+uk:4Велоремонт|велосипед|ремонт|ремонт велосипедів
+zh-Hans:1自行车修理
+zh-Hant:1自行車修理
+
 amenity-car_sharing
 en:Car Share|3carsharing|car|sharing|U+1F697|U+1F698|U+1F699|carpool|carsharing services|car sharing|4rideshare
 ru:3Каршеринг|аренда машин|аренда
