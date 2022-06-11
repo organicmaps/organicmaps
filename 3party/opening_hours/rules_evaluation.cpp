@@ -408,7 +408,10 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
         tm tm = MakeTimetuple(dateTime);
         tm.tm_hour = 0;
         tm.tm_min = 0;
-        dateTimeToCheck = mktime(&tm) + i * (24 * 60 * 60);
+        dateTimeToCheck = mktime(&tm);
+        if (dateTimeToCheck == -1)
+          continue;
+        dateTimeToCheck += i * (24 * 60 * 60);
 
         if (dateTimeToCheck < dateTime || dateTimeToCheck > dateTimeResult)
           continue;
@@ -427,7 +430,10 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
           tm tm = MakeTimetuple(dateTime);
           tm.tm_hour = time.GetEnd().GetHourMinutes().GetHoursCount();
           tm.tm_min = time.GetEnd().GetHourMinutes().GetMinutesCount();
-          dateTimeToCheck = mktime(&tm) + i * (24 * 60 * 60) + 60;  // 1 minute offset
+          dateTimeToCheck = mktime(&tm);
+          if (dateTimeToCheck == -1)
+            continue;
+          dateTimeToCheck += i * (24 * 60 * 60) + 60;  // 1 minute offset
 
           if (dateTimeToCheck < dateTime || dateTimeToCheck > dateTimeResult)
             continue;
@@ -444,7 +450,10 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
           tm tm = MakeTimetuple(dateTime);
           tm.tm_hour = time.GetStart().GetHourMinutes().GetHoursCount();
           tm.tm_min = time.GetStart().GetHourMinutes().GetMinutesCount();
-          dateTimeToCheck = mktime(&tm) + i * (24 * 60 * 60);
+          dateTimeToCheck = mktime(&tm);
+          if (dateTimeToCheck == -1)
+            continue;
+          dateTimeToCheck += i * (24 * 60 * 60);
           
           if (dateTimeToCheck < dateTime || dateTimeToCheck > dateTimeResult)
             continue;
