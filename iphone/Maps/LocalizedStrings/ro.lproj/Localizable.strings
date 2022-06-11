@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Închiriere de biciclete";
 
+"type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
+
 "type.amenity.biergarten" = "Berărie";
 
 "type.amenity.brothel" = "Bordel";

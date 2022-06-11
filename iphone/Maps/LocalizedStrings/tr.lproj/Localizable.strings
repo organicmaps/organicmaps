@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Bisiklet Kiralama";
 
+"type.amenity.bicycle_repair_station" = "Bisiklet tamir istasyonu";
+
 "type.amenity.biergarten" = "Bira Bahçesi";
 
 "type.amenity.brothel" = "Genelev";

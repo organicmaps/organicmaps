@@ -678,6 +678,7 @@
 	<string name="type.amenity.bench">مقعد طويل</string>
 	<string name="type.amenity.bicycle_parking">أماكن وقوف للدراجات</string>
 	<string name="type.amenity.bicycle_rental">تأجير دراجات</string>
+	<string name="type.amenity.bicycle_repair_station">محطة تصليح الدراجات</string>
 	<string name="type.amenity.biergarten">متجر بيرة</string>
 	<string name="type.amenity.brothel">دعارة</string>
 	<string name="type.amenity.bureau_de_change">تحويل عملات</string>

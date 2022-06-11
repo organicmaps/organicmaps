@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "自行車出租";
 
+"type.amenity.bicycle_repair_station" = "自行車維修站";
+
 "type.amenity.biergarten" = "啤酒花園";
 
 "type.amenity.brothel" = "妓院";

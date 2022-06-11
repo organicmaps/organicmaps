@@ -704,6 +704,7 @@
 	<string name="type.amenity.bench">Banc</string>
 	<string name="type.amenity.bicycle_parking">Parking à vélo</string>
 	<string name="type.amenity.bicycle_rental">Location de vélos</string>
+	<string name="type.amenity.bicycle_repair_station">Station de réparation de vélos</string>
 	<string name="type.amenity.brothel">Maison de prostitution</string>
 	<string name="type.amenity.bureau_de_change">Bureau de change</string>
 	<string name="type.amenity.bus_station">Gare routière</string>

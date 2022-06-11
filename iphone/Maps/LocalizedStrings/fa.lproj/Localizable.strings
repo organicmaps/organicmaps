@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "مکان اجاره دوچرخه";
 
+"type.amenity.bicycle_repair_station" = "ایستگاه تعمیر دوچرخه";
+
 "type.amenity.biergarten" = "غذا";
 
 "type.amenity.brothel" = "فاحشه خانه";

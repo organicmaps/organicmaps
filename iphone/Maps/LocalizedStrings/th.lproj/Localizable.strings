@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "จักรยานให้เช่า";
 
+"type.amenity.bicycle_repair_station" = "สถานีซ่อมจักรยาน";
+
 "type.amenity.biergarten" = "ลานเบียร์";
 
 "type.amenity.brothel" = "ซ่อง";

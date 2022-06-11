@@ -683,6 +683,7 @@
 	<string name="type.amenity.bench">ベンチ</string>
 	<string name="type.amenity.bicycle_parking">駐輪場</string>
 	<string name="type.amenity.bicycle_rental">レンタサイクル</string>
+	<string name="type.amenity.bicycle_repair_station">自転車修理ステーション</string>
 	<string name="type.amenity.biergarten">ビアガーデン</string>
 	<string name="type.amenity.brothel">売春宿</string>
 	<string name="type.amenity.bureau_de_change">外貨両替所</string>

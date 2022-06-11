@@ -718,6 +718,7 @@
 	<string name="type.amenity.bench">Лавка</string>
 	<string name="type.amenity.bicycle_parking">Велостоянка</string>
 	<string name="type.amenity.bicycle_rental">Велопрокат</string>
+	<string name="type.amenity.bicycle_repair_station">Станція ремонту велосипедів</string>
 	<string name="type.amenity.biergarten">Пивна під відкритим небом</string>
 	<string name="type.amenity.brothel">Бордель</string>
 	<string name="type.amenity.bureau_de_change">Обмін валют</string>

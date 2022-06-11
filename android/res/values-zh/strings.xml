@@ -696,6 +696,7 @@
 	<string name="type.amenity.bench">长凳</string>
 	<string name="type.amenity.bicycle_parking">自行车停车处</string>
 	<string name="type.amenity.bicycle_rental">自行车出租点</string>
+	<string name="type.amenity.bicycle_repair_station">自行车维修站</string>
 	<string name="type.amenity.biergarten">啤酒花园</string>
 	<string name="type.amenity.brothel">妓院</string>
 	<string name="type.amenity.bureau_de_change">货币兑换</string>

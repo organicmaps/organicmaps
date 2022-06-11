@@ -674,6 +674,7 @@
 	<string name="type.amenity.bench">Xe đạp</string>
 	<string name="type.amenity.bicycle_parking">Chỗ Đậu Xe Đạp</string>
 	<string name="type.amenity.bicycle_rental">Cho thuê xe đạp</string>
+	<string name="type.amenity.bicycle_repair_station">trạm sửa xe đạp</string>
 	<string name="type.amenity.biergarten">Vườn bia</string>
 	<string name="type.amenity.brothel">Giải trí</string>
 	<string name="type.amenity.bureau_de_change">Tỉ giá hiện tại</string>

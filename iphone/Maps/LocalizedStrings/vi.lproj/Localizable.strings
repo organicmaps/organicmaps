@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Cho thuê xe đạp";
 
+"type.amenity.bicycle_repair_station" = "trạm sửa xe đạp";
+
 "type.amenity.biergarten" = "Vườn bia";
 
 "type.amenity.brothel" = "Giải trí";

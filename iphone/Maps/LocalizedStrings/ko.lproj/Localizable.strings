@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "자전거 대여";
 
+"type.amenity.bicycle_repair_station" = "자전거 수리소";
+
 "type.amenity.biergarten" = "비어가르텐";
 
 "type.amenity.brothel" = "사창가";

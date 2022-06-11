@@ -722,6 +722,7 @@
 	<string name="type.amenity.bench">Bank</string>
 	<string name="type.amenity.bicycle_parking">Bisiklet Park Yeri</string>
 	<string name="type.amenity.bicycle_rental">Bisiklet Kiralama</string>
+	<string name="type.amenity.bicycle_repair_station">Bisiklet tamir istasyonu</string>
 	<string name="type.amenity.biergarten">Bira Bahçesi</string>
 	<string name="type.amenity.brothel">Genelev</string>
 	<string name="type.amenity.bureau_de_change">Döviz Bürosu</string>

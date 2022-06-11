@@ -688,6 +688,7 @@
 	<string name="type.amenity.bench">Penkki</string>
 	<string name="type.amenity.bicycle_parking">Polkupyöräpysäköinti</string>
 	<string name="type.amenity.bicycle_rental">Polkupyöränvuokraus</string>
+	<string name="type.amenity.bicycle_repair_station">Polkupyörän korjausasema</string>
 	<string name="type.amenity.brothel">Bordelli</string>
 	<string name="type.amenity.bureau_de_change">Rahanvaihto</string>
 	<string name="type.amenity.bus_station">Linja-autoasema</string>

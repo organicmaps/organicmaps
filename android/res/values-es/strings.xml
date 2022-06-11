@@ -708,6 +708,7 @@
 	<string name="type.amenity.bench">Banco</string>
 	<string name="type.amenity.bicycle_parking">Aparcamiento de bicis</string>
 	<string name="type.amenity.bicycle_rental">Alquiler de bicicletas</string>
+	<string name="type.amenity.bicycle_repair_station">Estación de reparación de bicicletas</string>
 	<string name="type.amenity.biergarten">Biergarten</string>
 	<string name="type.amenity.brothel">Burdel</string>
 	<string name="type.amenity.bureau_de_change">Cambio de divisas</string>

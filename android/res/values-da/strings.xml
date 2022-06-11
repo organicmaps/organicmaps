@@ -675,6 +675,7 @@
 	<string name="type.amenity.bench">Bænk</string>
 	<string name="type.amenity.bicycle_parking">Cykelparkering</string>
 	<string name="type.amenity.bicycle_rental">Cykeludlejning</string>
+	<string name="type.amenity.bicycle_repair_station">Cykelreparationsstation</string>
 	<string name="type.amenity.brothel">Bordel</string>
 	<string name="type.amenity.bureau_de_change">Vekselbureau</string>
 	<string name="type.amenity.bus_station">Busstation</string>

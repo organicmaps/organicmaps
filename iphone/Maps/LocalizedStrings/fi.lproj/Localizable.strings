@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Polkupyöränvuokraus";
 
+"type.amenity.bicycle_repair_station" = "Polkupyörän korjausasema";
+
 "type.amenity.biergarten" = "Biergarten";
 
 "type.amenity.brothel" = "Bordelli";
