@@ -178,15 +178,15 @@ public:
     UNREACHABLE();
   }
 
-  size_t GetWeightIndex(size_t enterIdx, size_t exitIdx) const
+  uint32_t GetWeightIndex(uint32_t enterIdx, uint32_t exitIdx) const
   {
     ASSERT_LESS(enterIdx, m_entersCount, ());
     ASSERT_LESS(exitIdx, m_exitsCount, ());
-    return enterIdx * m_exitsCount + exitIdx;
+    return base::asserted_cast<uint32_t>(size_t(enterIdx) * m_exitsCount + exitIdx);
   }
 
   using WeightT = connector::Weight;
-  WeightT GetWeight(size_t enterIdx, size_t exitIdx) const
+  WeightT GetWeight(uint32_t enterIdx, uint32_t exitIdx) const
   {
     WeightT weight;
     return (m_weights.Get(GetWeightIndex(enterIdx, exitIdx), weight) ? weight : connector::kNoRouteStored);
