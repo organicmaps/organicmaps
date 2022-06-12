@@ -9,7 +9,10 @@
 # Enabling shrinking causes
 # Execution failed for task ':minifyFdroidReleaseWithR8'.
 # > com.android.tools.r8.CompilationFailedException: Compilation failed to complete
--dontshrink
+# Optimizing leads to crashes like
+# No pending exception expected: java.lang.ClassNotFoundException: Didn't find class "com.mapswithme.util.HttpClient"
+# It requires to manually mark all methods and classes called from NDK.
+-dontoptimize
 
 -keepnames class * implements com.mapswithme.util.Gsonable {
   !transient <fields>;
