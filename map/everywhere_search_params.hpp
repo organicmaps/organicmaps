@@ -21,6 +21,7 @@ struct EverywhereSearchParams
   std::string m_query;
   std::string m_inputLocale;
   std::optional<std::chrono::steady_clock::duration> m_timeout;
+  bool m_isCategory = false;
 
   OnResults m_onResults;
 };

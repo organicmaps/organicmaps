@@ -127,25 +127,26 @@ public enum SearchEngine implements NativeSearchListener,
    * @return whether search was actually started.
    */
   @MainThread
-  public boolean search(@NonNull Context context, String query, long timestamp, boolean hasLocation,
-                        double lat, double lon)
+  public boolean search(@NonNull Context context, String query, boolean isCategory,
+                        long timestamp, boolean hasLocation, double lat, double lon)
   {
-    return nativeRunSearch(query.getBytes(StandardCharsets.UTF_8), Language.getKeyboardLocale(context),
-                           timestamp, hasLocation, lat, lon);
+    return nativeRunSearch(query.getBytes(StandardCharsets.UTF_8), isCategory,
+            Language.getKeyboardLocale(context), timestamp, hasLocation, lat, lon);
   }
 
   @MainThread
-  public void searchInteractive(@NonNull String query, @NonNull String locale, long timestamp,
-                                       boolean isMapAndTable)
+  public void searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale,
+                                long timestamp, boolean isMapAndTable)
   {
-    nativeRunInteractiveSearch(query.getBytes(StandardCharsets.UTF_8), locale, timestamp, isMapAndTable);
+    nativeRunInteractiveSearch(query.getBytes(StandardCharsets.UTF_8), isCategory,
+            locale, timestamp, isMapAndTable);
   }
 
   @MainThread
-  public void searchInteractive(@NonNull Context context, @NonNull String query, long timestamp,
-                                boolean isMapAndTable)
+  public void searchInteractive(@NonNull Context context, @NonNull String query, boolean isCategory,
+                                long timestamp, boolean isMapAndTable)
   {
-    searchInteractive(query, Language.getKeyboardLocale(context), timestamp, isMapAndTable);
+    searchInteractive(query, isCategory, Language.getKeyboardLocale(context), timestamp, isMapAndTable);
   }
 
   @MainThread
@@ -223,13 +224,15 @@ public enum SearchEngine implements NativeSearchListener,
   /**
    * @param bytes utf-8 formatted bytes of query.
    */
-  private static native boolean nativeRunSearch(byte[] bytes, String language, long timestamp, boolean hasLocation,
+  private static native boolean nativeRunSearch(byte[] bytes, boolean isCategory,
+                                                String language, long timestamp, boolean hasLocation,
                                                 double lat, double lon);
 
   /**
    * @param bytes utf-8 formatted query bytes
    */
-  private static native void nativeRunInteractiveSearch(byte[] bytes, String language, long timestamp,
+  private static native void nativeRunInteractiveSearch(byte[] bytes, boolean isCategory,
+                                                        String language, long timestamp,
                                                         boolean isMapAndTable);
 
   /**

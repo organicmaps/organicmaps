@@ -29,7 +29,8 @@ API_AVAILABLE(ios(12.0))
   self.inputLocale = inputLocale;
   self.lastResults = @[];
   self.completionHandler = completionHandler;
-  [MWMSearch searchQuery:text forInputLocale:inputLocale];
+  /// @todo Didn't find pure category request in CarPlay.
+  [MWMSearch searchQuery:text forInputLocale:inputLocale withCategory:NO];
 }
 
 - (void)saveLastQuery {

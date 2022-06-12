@@ -129,7 +129,8 @@ NSString *GetLocalizedTypeName(search::Result const &result) {
     case MWMSearchItemTypeSuggestion: {
       auto const &suggestion = [MWMSearch resultWithContainerIndex:containerIndex];
       NSString *suggestionString = @(suggestion.GetSuggestionString().c_str());
-      [delegate searchText:suggestionString forInputLocale:nil];
+      /// @todo Pass withCategory:YES if we tap on category suggestion (not street or city)?
+      [delegate searchText:suggestionString forInputLocale:nil withCategory:NO];
     }
   }
 }

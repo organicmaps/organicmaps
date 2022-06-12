@@ -32,6 +32,8 @@ public:
                     std::string const & locale, Mode mode, m2::RectD const & viewport);
   TestSearchRequest(TestSearchEngine & engine, SearchParams const & params);
 
+  void SetCategorial() { m_params.m_categorialRequest = true; }
+
   // Initiates the search and waits for it to finish.
   void Run();
 

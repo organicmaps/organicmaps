@@ -132,7 +132,7 @@ using Observers = NSHashTable<Observer>;
   GetFramework().GetSearchAPI().SaveSearchQuery(make_pair(locale, text));
 }
 
-+ (void)searchQuery:(NSString *)query forInputLocale:(NSString *)inputLocale {
++ (void)searchQuery:(NSString *)query forInputLocale:(NSString *)inputLocale withCategory:(BOOL)isCategory {
   if (!query)
     return;
 
@@ -142,11 +142,15 @@ using Observers = NSHashTable<Observer>;
     manager->m_everywhereParams.m_inputLocale = locale;
     manager->m_viewportParams.m_inputLocale = locale;
   }
+
   manager.lastQuery = query.precomposedStringWithCompatibilityMapping;
   std::string const text = manager.lastQuery.UTF8String;
   manager->m_everywhereParams.m_query = text;
   manager->m_viewportParams.m_query = text;
   manager.textChanged = YES;
+
+  manager->m_everywhereParams.m_isCategory = manager->m_viewportParams.m_isCategory = (isCategory == YES);
+
   [manager update];
 }
 

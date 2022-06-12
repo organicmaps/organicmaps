@@ -97,7 +97,7 @@ using Observers = NSHashTable<Observer>;
   NSString *text = textField.text;
   if (text.length > 0) {
     [self beginSearch];
-    [MWMSearch searchQuery:text forInputLocale:textField.textInputMode.primaryLanguage];
+    [MWMSearch searchQuery:text forInputLocale:textField.textInputMode.primaryLanguage withCategory:NO];
   } else {
     [self endSearch];
   }
@@ -135,11 +135,11 @@ using Observers = NSHashTable<Observer>;
 
 #pragma mark - MWMSearchTabbedViewProtocol
 
-- (void)searchText:(NSString *)text forInputLocale:(NSString *)locale {
+- (void)searchText:(NSString *)text forInputLocale:(NSString *)locale withCategory:(BOOL)isCategory {
   [self beginSearch];
   self.searchTextField.text = text;
   NSString *inputLocale = locale ?: self.searchTextField.textInputMode.primaryLanguage;
-  [MWMSearch searchQuery:text forInputLocale:inputLocale];
+  [MWMSearch searchQuery:text forInputLocale:inputLocale withCategory:isCategory];
 }
 
 - (void)dismissKeyboard {
@@ -176,7 +176,7 @@ using Observers = NSHashTable<Observer>;
   if (self.state == MWMSearchManagerStateTableSearch || self.state == MWMSearchManagerStateMapSearch) {
     NSString *text = self.searchTextField.text;
     if (text.length != 0)
-      [MWMSearch searchQuery:text forInputLocale:self.searchTextField.textInputMode.primaryLanguage];
+      [MWMSearch searchQuery:text forInputLocale:self.searchTextField.textInputMode.primaryLanguage withCategory:NO];
   }
 }
 
@@ -413,8 +413,11 @@ using Observers = NSHashTable<Observer>;
   }
 }
 
-- (void)searchTabController:(MWMSearchTabViewController *)viewController didSearch:(NSString *)didSearch {
-  [self searchText:didSearch forInputLocale:[[AppInfo sharedInfo] languageId]];
+- (void)searchTabController:(MWMSearchTabViewController *)viewController
+                  didSearch:(NSString *)didSearch
+               withCategory:(BOOL)isCategory
+{
+  [self searchText:didSearch forInputLocale:[[AppInfo sharedInfo] languageId] withCategory:isCategory];
 }
 
 - (MWMSearchTableViewController *)tableViewController {
