@@ -2,7 +2,7 @@
 
 Here is the basic workflow to update styles:
 1. Edit the styles file you want, e.g. [`Roads.mapcss`](../data/styles/clear/include/Roads.mapcss)
-2. Run the `tools/unix/generate_drules.sh` script (python2 is required)
+2. Run the `tools/unix/generate_drules.sh` script
 3. Test how your changes look in the app
 4. Commit your edits and files changed by the script
 5. Send a pull request!
