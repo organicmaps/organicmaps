@@ -108,8 +108,8 @@ jobs:
           CXX: ${{ matrix.compiler.CXX }}
         # -g1 should slightly reduce build time.
         run: |
-          echo "Building ${{ matrix.params.CMAKE_BUILD_TYPE }}"
-          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} -DCMAKE_CXX_FLAGS=-g1
+          echo "Building ${{ matrix.CMAKE_BUILD_TYPE }}"
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} -DCMAKE_C_FLAGS=-g1 -DCMAKE_CXX_FLAGS=-g1
 
       - name: Compile
         shell: bash
