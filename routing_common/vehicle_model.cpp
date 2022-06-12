@@ -75,7 +75,7 @@ VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const &
     ASSERT_LESS_OR_EQUAL(speedFactor.m_eta, 1.0, ());
     ASSERT_GREATER(speedFactor.m_weight, 0.0, ());
     ASSERT_GREATER(speedFactor.m_eta, 0.0, ());
-    m_surfaceFactors.Insert(classif.GetTypeByPath(v.m_type), v.m_factor);
+    m_surfaceFactors.Insert(classif.GetTypeByPath(v.m_type), speedFactor);
   }
 }
 
