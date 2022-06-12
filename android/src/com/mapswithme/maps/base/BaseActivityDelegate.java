@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.ViewServer;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -55,13 +54,11 @@ public class BaseActivityDelegate
   public void onDestroy()
   {
     logLifecycleMethod("onDestroy()");
-    ViewServer.get(mActivity.get()).removeWindow(mActivity.get());
   }
 
   public void onPostCreate()
   {
     logLifecycleMethod("onPostCreate()");
-    ViewServer.get(mActivity.get()).addWindow(mActivity.get());
   }
 
   public void onStart()
@@ -77,7 +74,6 @@ public class BaseActivityDelegate
   public void onResume()
   {
     logLifecycleMethod("onResume()");
-    ViewServer.get(mActivity.get()).setFocusedWindow(mActivity.get());
     Utils.showOnLockScreen(Config.isShowOnLockScreenEnabled(), mActivity.get());
   }
 
