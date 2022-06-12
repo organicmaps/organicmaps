@@ -26,13 +26,13 @@ public:
 
   void LoadCitiesBoundaries() { m_engine.LoadCitiesBoundaries(); }
 
-  std::weak_ptr<search::ProcessorHandle> Search(search::SearchParams const & params);
+  std::weak_ptr<ProcessorHandle> Search(SearchParams const & params);
 
   storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
 
 private:
   std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
-  search::Engine m_engine;
+  Engine m_engine;
 };
 }  // namespace tests_support
 }  // namespace search

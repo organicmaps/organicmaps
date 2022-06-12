@@ -68,8 +68,6 @@ public:
   {
     SetTypes({{"shop", "alcohol"}});
   }
-
-  ~AlcoShop() override = default;
 };
 
 class SubwayStation : public TestPOI
@@ -80,8 +78,6 @@ public:
   {
     SetTypes({{"railway", "station", "subway"}});
   }
-
-  ~SubwayStation() override = default;
 };
 
 class SubwayStationMoscow : public TestPOI
@@ -92,8 +88,6 @@ public:
   {
     SetTypes({{"railway", "station", "subway", "moscow"}});
   }
-
-  ~SubwayStationMoscow() override = default;
 };
 
 UNIT_CLASS_TEST(SmokeTest, Smoke)
@@ -105,7 +99,8 @@ UNIT_CLASS_TEST(SmokeTest, Smoke)
   AlcoShop brandyShop(m2::PointD(0, 1), "Brandy shop", "en");
   AlcoShop vodkaShop(m2::PointD(1, 1), "Russian vodka shop", "en");
 
-  auto id = BuildMwm(kCountryName, DataHeader::MapType::Country, [&](TestMwmBuilder & builder) {
+  auto id = BuildMwm(kCountryName, DataHeader::MapType::Country, [&](TestMwmBuilder & builder)
+  {
     builder.Add(wineShop);
     builder.Add(tequilaShop);
     builder.Add(brandyShop);
@@ -117,18 +112,16 @@ UNIT_CLASS_TEST(SmokeTest, Smoke)
 
   SetViewport(m2::RectD(m2::PointD(0, 0), m2::PointD(100, 100)));
   {
-    Rules rules = {ExactMatch(id, tequilaShop)};
-    /// @todo Passing "wine" will interpret request as "categorial" only
-    /// (see IsCategorialRequest() after adding craft-winery category).
-    /// Should avoid this strange logic in search core and pass "categorial" request flag via input SearchParams.
-    TEST(ResultsMatch("tequila ", rules), ());
+    Rules rules = {ExactMatch(id, wineShop)};
+    TEST(ResultsMatch("wine ", rules), ());
   }
 
-  {
-    Rules rules = {ExactMatch(id, wineShop), ExactMatch(id, tequilaShop),
-                   ExactMatch(id, brandyShop), ExactMatch(id, vodkaShop)};
-    TEST(ResultsMatch("shop ", rules), ());
-  }
+  Rules const allRule = { ExactMatch(id, wineShop), ExactMatch(id, tequilaShop),
+                          ExactMatch(id, brandyShop), ExactMatch(id, vodkaShop) };
+
+  TEST(ResultsMatch("shop ", allRule), ());
+  TEST(ResultsMatch("alcohol ", allRule), ());
+  TEST(CategoryMatch("алкоголь", allRule, "ru"), ());
 }
 
 UNIT_CLASS_TEST(SmokeTest, DeepCategoryTest)
@@ -232,6 +225,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     notSupportedTypes.insert(cl.GetTypeByPath(tags));
 
   auto const & holder = GetDefaultCategories();
+
   auto testCategory = [&](uint32_t type, CategoriesHolder::Category const &)
   {
     if (invisibleTypes.find(type) != invisibleTypes.end())
@@ -250,11 +244,10 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     auto id = BuildMwm(countryName, DataHeader::MapType::Country,
                        [&](TestMwmBuilder & builder) { builder.AddSafe(poi); });
 
-    SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(2.0, 2.0)));
     {
       Rules rules = {ExactMatch(id, poi)};
-      auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode) + " ";
-      TEST(ResultsMatch(query, categoryIsSearchable ? rules : Rules{}), (query));
+      auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode);
+      TEST(CategoryMatch(query, categoryIsSearchable ? rules : Rules{}), (query));
     }
     DeregisterMap(countryName);
   };

@@ -290,12 +290,13 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearch(
-      JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp,
-      jboolean hasPosition, jdouble lat, jdouble lon)
+      JNIEnv * env, jclass clazz, jbyteArray bytes, jboolean isCategory,
+      jstring lang, jlong timestamp, jboolean hasPosition, jdouble lat, jdouble lon)
   {
     search::EverywhereSearchParams params;
     params.m_query = jni::ToNativeString(env, bytes);
     params.m_inputLocale = jni::ToNativeString(env, lang);
+    params.m_isCategory = isCategory;
     params.m_onResults = bind(&OnResults, _1, _2, timestamp, false, hasPosition, lat, lon);
     bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(params);
     if (searchStarted)
@@ -304,12 +305,13 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL Java_com_mapswithme_maps_search_SearchEngine_nativeRunInteractiveSearch(
-      JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp,
-      jboolean isMapAndTable)
+      JNIEnv * env, jclass clazz, jbyteArray bytes, jboolean isCategory,
+      jstring lang, jlong timestamp, jboolean isMapAndTable)
   {
     search::ViewportSearchParams vparams;
     vparams.m_query = jni::ToNativeString(env, bytes);
     vparams.m_inputLocale = jni::ToNativeString(env, lang);
+    vparams.m_isCategory = isCategory;
 
     // TODO (@alexzatsepin): set up vparams.m_onCompleted here and use
     // HotelsClassifier for hotel queries detection.

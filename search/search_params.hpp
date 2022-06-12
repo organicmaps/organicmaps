@@ -30,7 +30,7 @@ struct SearchParams
   static double constexpr kDefaultVillageSearchRadiusM = 2e5;
 
   using TimeDurationT = base::Timer::DurationT;
-  /// @todo Short timeouts leads to a non-working search on slow devices. Design a better solution.
+  /// @todo Short timeouts lead to a non-working search on slow devices. Design a better solution.
   static TimeDurationT constexpr kDefaultTimeout = std::chrono::seconds(8);
   static TimeDurationT constexpr kDefaultDesktopTimeout = std::chrono::seconds(8);
 
@@ -91,6 +91,9 @@ struct SearchParams
 
   // Needed to highlight matching parts of search result names.
   bool m_needHighlighting = false;
+
+  /// True if you need *pure* category results, without names/addresses/etc matching.
+  bool m_categorialRequest = false;
 
   bookmarks::GroupId m_bookmarksGroupId = bookmarks::kInvalidGroupId;
 

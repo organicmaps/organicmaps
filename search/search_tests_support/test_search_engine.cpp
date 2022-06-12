@@ -26,7 +26,7 @@ TestSearchEngine::TestSearchEngine(DataSource & dataSource, Engine::Params const
 {
 }
 
-weak_ptr<::search::ProcessorHandle> TestSearchEngine::Search(::search::SearchParams const & params)
+weak_ptr<ProcessorHandle> TestSearchEngine::Search(SearchParams const & params)
 {
   return m_engine.Search(params);
 }

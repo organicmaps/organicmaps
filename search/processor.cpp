@@ -253,7 +253,7 @@ void Processor::SetInputLocale(string const & locale)
   m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 }
 
-void Processor::SetQuery(string const & query)
+void Processor::SetQuery(string const & query, bool categorialRequest /* = false */)
 {
   m_query = query;
   m_tokens.clear();
@@ -319,20 +319,23 @@ void Processor::SetQuery(string const & query)
   // Get preferred types to show in results.
   m_preferredTypes.clear();
   auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
-  m_isCategorialRequest = FillCategories(tokenSlice, GetCategoryLocales(), m_categories, m_preferredTypes);
 
-  if (!m_isCategorialRequest)
+  m_isCategorialRequest = categorialRequest;
+
+  auto const locales = GetCategoryLocales();
+  if (!FillCategories(tokenSlice, locales, m_categories, m_preferredTypes))
   {
     // Try to match query to cuisine categories.
-    bool const isCuisineRequest = FillCategories(
-        tokenSlice, GetCategoryLocales(), GetDefaultCuisineCategories(), m_cuisineTypes);
-
-    if (isCuisineRequest)
+    if (FillCategories(tokenSlice, locales, GetDefaultCuisineCategories(), m_cuisineTypes))
     {
+      /// @todo What if I'd like to find "Burger" street? @see "BurgerStreet" test.
       m_isCategorialRequest = true;
       m_preferredTypes = ftypes::IsEatChecker::Instance().GetTypes();
     }
+  }
 
+  if (!m_isCategorialRequest)
+  {
     // Assign tokens and prefix to scorer.
     m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
 
@@ -601,7 +604,7 @@ void Processor::Search(SearchParams const & params)
 
   SetInputLocale(params.m_inputLocale);
 
-  SetQuery(params.m_query);
+  SetQuery(params.m_query, params.m_categorialRequest);
   SetViewport(viewport);
 
   // Used to store the earliest available cancellation status:
@@ -802,12 +805,9 @@ void Processor::InitParams(QueryParams & params) const
   else
     params.InitWithPrefix(m_tokens.begin(), m_tokens.end(), m_prefix);
 
-  // Add names of categories (and synonyms).
   Classificator const & c = classif();
-  auto addCategorySynonyms = [&](size_t i, uint32_t t) {
-    uint32_t const index = c.GetIndexForType(t);
-    params.GetTypeIndices(i).push_back(index);
-  };
+
+  // Add names of categories (and synonyms).
   auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
   params.SetCategorialRequest(m_isCategorialRequest);
   if (m_isCategorialRequest)
@@ -822,11 +822,14 @@ void Processor::InitParams(QueryParams & params) const
   else
   {
     // todo(@m, @y). Shall we match prefix tokens for categories?
-    ForEachCategoryTypeFuzzy(tokenSlice, addCategorySynonyms);
+    ForEachCategoryTypeFuzzy(tokenSlice, [&c, &params](size_t i, uint32_t t)
+    {
+      uint32_t const index = c.GetIndexForType(t);
+      params.GetTypeIndices(i).push_back(index);
+    });
   }
 
-  // Remove all type indices for streets, as they're considired
-  // individually.
+  // Remove all type indices for streets, as they're considired individually.
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
   {
     auto & token = params.GetToken(i);
@@ -837,8 +840,10 @@ void Processor::InitParams(QueryParams & params) const
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
     base::SortUnique(params.GetTypeIndices(i));
 
-  m_keywordsScorer.ForEachLanguage(
-      [&](int8_t lang) { params.GetLangs().Insert(static_cast<uint64_t>(lang)); });
+  m_keywordsScorer.ForEachLanguage([&params](int8_t lang)
+  {
+    params.GetLangs().Insert(static_cast<uint64_t>(lang));
+  });
 }
 
 void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams const & searchParams)
