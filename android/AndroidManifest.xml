@@ -813,6 +813,9 @@
         <action android:name="androidx.car.app.CarAppService" />
       </intent-filter>
     </service>
+    <meta-data
+        android:name="androidx.car.app.minCarApiLevel"
+        android:value="1"/>
 
   </application>
 </manifest>
