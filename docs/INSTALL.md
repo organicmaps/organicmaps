@@ -247,7 +247,7 @@ Install Android SDK and NDK:
 - Select "Android 12.0 (S) / API Level 31" SDK.
 - Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
-- Select "NDK (Side by side)" version **23.1.7779620**.
+- Select "NDK (Side by side)" version **24.0.8215888**.
 - Select "CMake" version **3.18.1**.
 - Click "Apply" and wait for downloads and installation to finish.
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
