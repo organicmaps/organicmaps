@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Faça uma avaliação";
 
-/* View and button titles for accessibility */
-"maps" = "Mapas";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Milhas";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Atualizar tudo";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Descarregado";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Perto de mim";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Mapas";
 
 "downloader_download_all_button" = "Descarregar tudo";
@@ -1254,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Aluguer de bicicletas";
 
+"type.amenity.bicycle_repair_station" = "Estação de conserto de bicicletas";
+
 "type.amenity.biergarten" = "Jardim da cerveja";
 
 "type.amenity.brothel" = "Bordel";
@@ -1571,15 +1571,27 @@
 
 "type.building.warehouse" = "Armazém";
 
+"type.cemetery.grave" = "Túmulo";
+
 "type.craft" = "Ofícios";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Cervejaria artesanal";
 
 "type.craft.carpenter" = "Carpinteiro";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Eletricista";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Jardineiro";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Instalador de ar-condicionado";
 
@@ -1591,7 +1603,11 @@
 
 "type.craft.plumber" = "Picheleiro";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Sapateiro";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Alfaiate";
 
@@ -2379,6 +2395,8 @@
 
 "type.natural.water.lake" = "Lago";
 
+"type.natural.water.lock" = "Câmara de Bloqueio";
+
 "type.natural.water.pond" = "Lagoa";
 
 "type.natural.water.reservoir" = "Reservatório";
@@ -2956,8 +2974,6 @@
 "type.waterway.drain" = "Valeta de drenagem";
 
 "type.waterway.drain.tunnel" = "Valeta de drenagem";
-
-"type.waterway.lock" = "Eclusa";
 
 "type.waterway.lock_gate" = "Comporta de eclusa";
 

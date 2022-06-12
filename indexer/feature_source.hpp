@@ -29,26 +29,26 @@ class FeatureSource
 {
 public:
   explicit FeatureSource(MwmSet::MwmHandle const & handle);
-  virtual ~FeatureSource() {}
+  virtual ~FeatureSource() = default;
 
   size_t GetNumFeatures() const;
 
   std::unique_ptr<FeatureType> GetOriginalFeature(uint32_t index) const;
 
-  FeatureID GetFeatureId(uint32_t index) const { return FeatureID(m_handle.GetId(), index); }
+  MwmSet::MwmId const & GetMwmId() const { return m_handle.GetId(); }
 
   virtual FeatureStatus GetFeatureStatus(uint32_t index) const;
 
   virtual std::unique_ptr<FeatureType> GetModifiedFeature(uint32_t index) const;
 
-  // Runs |fn| for each feature, that is not present in the mwm. 
+  // Runs |fn| for each feature, that is not present in the mwm.
   virtual void ForEachAdditionalFeature(m2::RectD const & rect, int scale,
                                         std::function<void(uint32_t)> const & fn) const;
 
 protected:
   MwmSet::MwmHandle const & m_handle;
   std::unique_ptr<FeaturesVector> m_vector;
-};  // class FeatureSource
+};
 
 // Lightweight FeatureSource factory. Each DataSource owns factory object.
 class FeatureSourceFactory

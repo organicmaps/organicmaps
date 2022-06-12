@@ -17,8 +17,6 @@
 	<string name="downloading">Sťahovanie…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometre</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Mapy</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Míle</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -78,6 +76,8 @@
 	<string name="maps_storage">Uložiť mapy do</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Vyberte miesto, kam by mali byť mapy sťahované</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Mapy</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Presunúť mapy?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -226,11 +226,12 @@
 	<string name="downloader_update_all_button">Aktualizovať všetko</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Zrušiť všetko</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Stiahnuté</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">V rade</string>
 	<string name="downloader_near_me_subtitle">Neďaleko mňa</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Mapy</string>
 	<string name="downloader_download_all_button">Stiahnuť všetko</string>
 	<string name="downloader_downloading">Sťahovanie:</string>
@@ -784,6 +785,7 @@
 	<string name="type.building.garage">Garáž</string>
 	<string name="type.building.has_parts">Budova</string>
 	<string name="type.building.train_station">Železničná stanica</string>
+	<string name="type.cemetery.grave">Hrob</string>
 	<string name="type.craft.brewery">Pivovar</string>
 	<string name="type.craft.carpenter">Tesár</string>
 	<string name="type.craft.electrician">Elektrikár</string>
@@ -1115,6 +1117,7 @@
 	<string name="type.natural.glacier">Ľadovec</string>
 	<string name="type.natural.grassland">Lúka</string>
 	<string name="type.natural.water.lake">Jazero</string>
+	<string name="type.natural.water.lock">Uzamykacia komora</string>
 	<string name="type.natural.water.pond">Rybník</string>
 	<string name="type.natural.water.reservoir">Nádrž</string>
 	<string name="type.natural.water.basin">Vodná nádrž</string>

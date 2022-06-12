@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Idatzi iritzia";
 
-/* View and button titles for accessibility */
-"maps" = "Mapak";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Milia";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Eguneratu guztiak";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Alta";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Nigandik gertu";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Mapak";
 
 "downloader_download_all_button" = "Deskargatu guztiak";
@@ -1254,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Bizikleta alokairua";
 
+"type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
+
 "type.amenity.biergarten" = "Biergarten";
 
 "type.amenity.brothel" = "Bordela";
@@ -1571,15 +1571,27 @@
 
 "type.building.warehouse" = "Denda";
 
+"type.cemetery.grave" = "Hilobia";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Garagardo fabrika";
 
 "type.craft.carpenter" = "Arotza";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektrizista teknikaria";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Paisaia";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Aire girotua";
 
@@ -1591,7 +1603,11 @@
 
 "type.craft.plumber" = "Iturgina";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Zapataria";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Jostun";
 
@@ -2379,6 +2395,8 @@
 
 "type.natural.water.lake" = "Lakua";
 
+"type.natural.water.lock" = "Sarraila Ganbera";
+
 "type.natural.water.pond" = "Urmaela";
 
 "type.natural.water.reservoir" = "Urtegia";
@@ -2956,8 +2974,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Atea";
 

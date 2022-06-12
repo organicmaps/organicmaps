@@ -21,6 +21,7 @@ namespace
 {
 char constexpr kDelim[] = " ,\t";
 std::string const kShowTurnsSettings = "show_turns_desktop";
+std::string const kUseDebugGuideSettings = "use_debug_guide_desktop";
 std::string const kUseCachedRoutingSettings = "use_cached_settings_desktop";
 std::string const kStartCoordsCachedSettings = "start_coords_desktop";
 std::string const kFinishCoordsCachedSettings = "finish_coords_desktop";
@@ -38,6 +39,16 @@ bool RoutingSettings::TurnsEnabled()
 {
   bool enabled = false;
   if (settings::Get(kShowTurnsSettings, enabled))
+    return enabled;
+
+  return false;
+}
+
+// static
+bool RoutingSettings::UseDebugGuideTrack()
+{
+  bool enabled = false;
+  if (settings::Get(kUseDebugGuideSettings, enabled))
     return enabled;
 
   return false;
@@ -80,6 +91,7 @@ void RoutingSettings::LoadSession(Framework & framework)
   {
     settings::Delete(kUseCachedRoutingSettings);
     settings::Delete(kShowTurnsSettings);
+    settings::Delete(kUseDebugGuideSettings);
     settings::Delete(kStartCoordsCachedSettings);
     settings::Delete(kFinishCoordsCachedSettings);
     settings::Delete(kRouterTypeCachedSettings);
@@ -125,6 +137,9 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework)
 
     m_showTurnsCheckbox = new QCheckBox({}, frame);
     form->addRow("Show turns:", m_showTurnsCheckbox);
+
+    m_useDebugGuideCheckbox = new QCheckBox({}, frame);
+    form->addRow("Use debug guide track:", m_useDebugGuideCheckbox);
 
     layout->addWidget(frame);
   }
@@ -173,6 +188,7 @@ bool RoutingSettings::ValidateAndSaveCoordsFromInput()
 bool RoutingSettings::SaveSettings()
 {
   settings::Set(kShowTurnsSettings, m_showTurnsCheckbox->isChecked());
+  settings::Set(kUseDebugGuideSettings, m_useDebugGuideCheckbox->isChecked());
   settings::Set(kUseCachedRoutingSettings, m_saveSessionCheckbox->isChecked());
   settings::Set(kRouterTypeCachedSettings, m_routerType->currentIndex());
   return ValidateAndSaveCoordsFromInput();
@@ -196,9 +212,13 @@ void RoutingSettings::LoadSettings()
   settings::TryGet(kShowTurnsSettings, showTurns);
   m_showTurnsCheckbox->setChecked(showTurns);
 
-  bool setChecked = false;
-  settings::TryGet(kUseCachedRoutingSettings, setChecked);
-  m_saveSessionCheckbox->setChecked(setChecked);
+  bool useGuides = false;
+  settings::TryGet(kUseDebugGuideSettings, useGuides);
+  m_useDebugGuideCheckbox->setChecked(useGuides);
+
+  bool saveSession = false;
+  settings::TryGet(kUseCachedRoutingSettings, saveSession);
+  m_saveSessionCheckbox->setChecked(saveSession);
 }
 
 void RoutingSettings::ShowModal()

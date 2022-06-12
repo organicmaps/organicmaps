@@ -1,9 +1,9 @@
 #include "routing/cross_mwm_graph.hpp"
 
+#include "routing/data_source.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/transit_graph.hpp"
 
-#include "indexer/data_source.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
@@ -20,19 +20,16 @@ using namespace std;
 
 CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds,
                              shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                             shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                              VehicleType vehicleType, CountryRectFn const & countryRectFn,
-                             DataSource & dataSource)
+                             MwmDataSource & dataSource)
   : m_dataSource(dataSource)
   , m_numMwmIds(numMwmIds)
   , m_numMwmTree(numMwmTree)
-  , m_vehicleModelFactory(vehicleModelFactory)
   , m_countryRectFn(countryRectFn)
-  , m_crossMwmIndexGraph(dataSource, numMwmIds, vehicleType)
-  , m_crossMwmTransitGraph(dataSource, numMwmIds, VehicleType::Transit)
+  , m_crossMwmIndexGraph(m_dataSource, vehicleType)
+  , m_crossMwmTransitGraph(m_dataSource, VehicleType::Transit)
 {
   CHECK(m_numMwmIds, ());
-  CHECK(m_vehicleModelFactory, ());
   CHECK_NOT_EQUAL(vehicleType, VehicleType::Transit, ());
 }
 
@@ -176,10 +173,16 @@ void CrossMwmGraph::GetIngoingEdgeList(Segment const & exit, EdgeListT & edges)
     m_crossMwmIndexGraph.GetIngoingEdgeList(exit, edges);
 }
 
-void CrossMwmGraph::Clear()
+//void CrossMwmGraph::Clear()
+//{
+//  m_crossMwmIndexGraph.Clear();
+//  m_crossMwmTransitGraph.Clear();
+//}
+
+void CrossMwmGraph::Purge()
 {
-  m_crossMwmIndexGraph.Clear();
-  m_crossMwmTransitGraph.Clear();
+  m_crossMwmIndexGraph.Purge();
+  m_crossMwmTransitGraph.Purge();
 }
 
 void CrossMwmGraph::GetTwinFeature(Segment const & segment, bool isOutgoing, vector<Segment> & twins)
@@ -199,16 +202,14 @@ void CrossMwmGraph::GetTwinFeature(Segment const & segment, bool isOutgoing, vec
   });
 }
 
-CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId,
-                                                     string const & sectionName) const
+CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId, string const & sectionName) const
 {
-  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(numMwmId));
-  if (!handle.IsAlive())
-    return MwmStatus::NotLoaded;
-
-  MwmValue const * value = handle.GetValue();
-  CHECK(value != nullptr, ("Country file:", m_numMwmIds->GetFile(numMwmId)));
-  return value->m_cont.IsExist(sectionName) ? MwmStatus::SectionExists : MwmStatus::NoSection;
+  switch (m_dataSource.GetSectionStatus(numMwmId, sectionName))
+  {
+  case MwmDataSource::MwmNotLoaded: return MwmStatus::NotLoaded;
+  case MwmDataSource::SectionExists: return MwmStatus::SectionExists;
+  case MwmDataSource::NoSection: return MwmStatus::NoSection;
+  }
 }
 
 CrossMwmGraph::MwmStatus CrossMwmGraph::GetCrossMwmStatus(NumMwmId numMwmId) const

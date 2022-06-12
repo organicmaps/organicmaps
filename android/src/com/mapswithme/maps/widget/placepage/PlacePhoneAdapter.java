@@ -71,7 +71,7 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
 
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
   {
-    private TextView mPhone;
+    private final TextView mPhone;
 
     public ViewHolder(@NonNull View itemView)
     {

@@ -430,6 +430,50 @@ void Classificator::Clear()
   m_mapping.Clear();
 }
 
+template <class ToDo> void Classificator::ForEachPathObject(uint32_t type, ToDo && toDo) const
+{
+  ClassifObject const * p = &m_root;
+  uint8_t i = 0;
+
+  uint8_t v;
+  while (ftype::GetValue(type, i, v))
+  {
+    ++i;
+    p = p->GetObject(v);
+    toDo(p);
+  }
+}
+
+ClassifObject const * Classificator::GetObject(uint32_t type) const
+{
+  ClassifObject const * res = nullptr;
+  ForEachPathObject(type, [&res](ClassifObject const * p)
+  {
+    res = p;
+  });
+  return res;
+}
+
+std::string Classificator::GetFullObjectName(uint32_t type) const
+{
+  std::string res;
+  ForEachPathObject(type, [&res](ClassifObject const * p)
+  {
+    res = res + p->GetName() + '|';
+  });
+  return res;
+}
+
+std::vector<std::string> Classificator::GetFullObjectNamePath(uint32_t type) const
+{
+  std::vector<std::string> res;
+  ForEachPathObject(type, [&res](ClassifObject const * p)
+  {
+    res.push_back(p->GetName());
+  });
+  return res;
+}
+
 string Classificator::GetReadableObjectName(uint32_t type) const
 {
   string s = GetFullObjectName(type);

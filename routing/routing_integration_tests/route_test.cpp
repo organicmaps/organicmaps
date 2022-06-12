@@ -281,7 +281,7 @@ using namespace std;
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 18256.0);
+    integration::TestRouteTime(route, 18045.9);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
@@ -390,7 +390,7 @@ using namespace std;
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 6349.9);
+    integration::TestRouteTime(route, 6210.24);
   }
 
   UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
@@ -422,7 +422,7 @@ using namespace std;
     for (auto const & routeSegment : routeSegments)
     {
       TEST(routeSegment.GetSpeedCams().empty(),
-           (routeSegment.GetSegment(), routeSegment.GetStreet()));
+           (routeSegment.GetSegment(), routeSegment.GetRoadNameInfo().m_name));
     }
   }
 
@@ -674,5 +674,71 @@ using namespace std;
         integration::GetVehicleComponents(VehicleType::Car),
         mercator::FromLatLon(45.470764, 36.331289), {0., 0.},
         mercator::FromLatLon(45.424964, 36.080336), 55220.2);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/2475
+  UNIT_TEST(Spain_LinksJunction)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(38.8031, 0.0383), {0., 0.},
+        mercator::FromLatLon(38.8228, 0.0357), 3479.63);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/1773
+  UNIT_TEST(Netherlands_CrossMwm_A15)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(51.847656, 4.089189), {0., 0.},
+        mercator::FromLatLon(51.651632, 4.725924), 70596.3);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/2494
+  UNIT_TEST(Netherlands_CrossMwm_GoudaToApenheul)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(52.0181, 4.7111), {0., 0.},
+        mercator::FromLatLon(52.2153, 5.9187), 103576);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/2285
+  UNIT_TEST(Hawaii_KeepH1)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(21.277841, -157.779314), {0., 0.},
+        mercator::FromLatLon(21.296098, -157.823823), 5289.31);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/1668
+  UNIT_TEST(Russia_Moscow_KeepPrimary)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(55.7083688, 37.6213856), {0., 0.},
+        mercator::FromLatLon(55.724623, 37.62588), 1921.88);
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/1727
+  // https://github.com/organicmaps/organicmaps/issues/2020
+  // https://github.com/organicmaps/organicmaps/issues/2057
+  UNIT_TEST(DontUseLinksWhenRidingOnMotorway)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(32.16881, 34.90656), {0., 0.},
+        mercator::FromLatLon(32.1588823, 34.9330855), 2847.33);
+
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(43.587808, 1.495385), {0., 0.},
+        mercator::FromLatLon(43.600145, 1.490489), 1457.16);
+
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        mercator::FromLatLon(34.0175371, -84.3272339), {0., 0.},
+        mercator::FromLatLon(34.0298011, -84.3182477), 1609.76);
   }
 } // namespace route_test

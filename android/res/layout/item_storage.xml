@@ -6,4 +6,5 @@
     android:layout_height="wrap_content"
     android:minHeight="@dimen/height_item_oneline"
     android:checkMark="?android:attr/listChoiceIndicatorSingle"
+    android:minLines="3"
     tools:text="/storage/mnt/"/>

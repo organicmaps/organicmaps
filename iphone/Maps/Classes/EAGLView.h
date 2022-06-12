@@ -9,7 +9,6 @@
 @property(nonatomic) MWMMapWidgets * widgetsManager;
 
 @property(nonatomic, readonly) BOOL drapeEngineCreated;
-@property(nonatomic, getter=isLaunchByDeepLink) BOOL launchByDeepLink;
 @property(nonatomic, readonly) CGSize pixelSize;
 @property(nonatomic, readonly) BOOL graphicContextInitialized;
 

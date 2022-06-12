@@ -151,28 +151,26 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
 {
   using namespace location;
 
+  m_mode = PendingPosition;
   if (m_hints.m_isFirstLaunch)
   {
-    m_mode = PendingPosition;
     m_desiredInitMode = Follow;
   }
   else if (m_hints.m_isLaunchByDeepLink)
   {
-    m_mode = NotFollowNoPosition;
     m_desiredInitMode = NotFollow;
   }
   else if (params.m_timeInBackground >= kMaxTimeInBackgroundSec)
   {
-    m_mode = PendingPosition;
     m_desiredInitMode = Follow;
   }
   else
   {
-    // Restore PendingPosition mode (and start location service on platform side accordingly)
-    // if we have routing mode or FollowXXX desired mode (usually loaded from settings).
     m_desiredInitMode = params.m_initMode;
-    m_mode = (params.m_isRoutingActive || df::IsModeChangeViewport(m_desiredInitMode)) ?
-                PendingPosition : NotFollowNoPosition;
+
+    // Do not start position if we ended previous session without it.
+    if (!params.m_isRoutingActive && m_desiredInitMode == NotFollowNoPosition)
+      m_mode = NotFollowNoPosition;
   }
 
   m_pendingStarted = (m_mode == PendingPosition);
@@ -333,7 +331,6 @@ void MyPositionController::ResetRenderShape()
 
 void MyPositionController::NextMode(ScreenBase const & screen)
 {
-
   // Skip switching to next mode while we are waiting for position.
   if (IsWaitingForLocation())
   {
@@ -341,12 +338,18 @@ void MyPositionController::NextMode(ScreenBase const & screen)
     return;
   }
 
-
   // Start looking for location.
   if (m_mode == location::NotFollowNoPosition)
   {
     ResetNotification(m_locationWaitingNotifyId);
     ChangeMode(location::PendingPosition);
+
+    if (!m_isPositionAssigned)
+    {
+      // This is the first user location request (button touch) after controller's initialization
+      // with some previous not Follow state. The new mode will be Follow to center on the position.
+      m_desiredInitMode = location::Follow;
+    }
     return;
   }
 
@@ -454,12 +457,6 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
       // New mode will be NotFollow to prevent spontaneous map snapping.
       ResetRoutingNotFollowTimer();
       newMode = location::NotFollow;
-    }
-    else if (m_mode == location::PendingPosition && newMode < location::Follow)
-    {
-      // This is the first user location request (button touch) after controller's initialization
-      // with some previous not Follow state. New mode will be Follow to move on current position.
-      newMode = location::Follow;
     }
 
     ChangeMode(newMode);

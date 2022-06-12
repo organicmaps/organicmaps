@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Laisser une critique";
 
-/* View and button titles for accessibility */
-"maps" = "Cartes";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Miles";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Tout mettre à jour";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Téléchargé";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Près de moi";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Cartes";
 
 "downloader_download_all_button" = "Télécharger tout";
@@ -1254,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Location de vélos";
 
+"type.amenity.bicycle_repair_station" = "Station de réparation de vélos";
+
 "type.amenity.biergarten" = "Biergarten";
 
 "type.amenity.brothel" = "Maison de prostitution";
@@ -1571,15 +1571,27 @@
 
 "type.building.warehouse" = "Entrepôt";
 
+"type.cemetery.grave" = "La tombe";
+
 "type.craft" = "Artisanat";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Brasserie artisanale";
 
 "type.craft.carpenter" = "Charpentier";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Électricien";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Paysagiste";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Climatiseur";
 
@@ -1591,7 +1603,11 @@
 
 "type.craft.plumber" = "Plombier";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Cordonnier";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Tailleur";
 
@@ -2379,6 +2395,8 @@
 
 "type.natural.water.lake" = "Lac";
 
+"type.natural.water.lock" = "Chambre de verrouillage";
+
 "type.natural.water.pond" = "Étang";
 
 "type.natural.water.reservoir" = "Réservoir";
@@ -2956,8 +2974,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Écluse";
 
 "type.waterway.lock_gate" = "Porte d'écluse";
 

@@ -1,19 +1,10 @@
-• New OSM data as of April 15, 2022
-• Added Wikipedia articles for many objects (experimental)
-• Improved car route directions
-• Some speed and battery optimizations
-• Many routing improvements
-• Fixed subway routing in some cities
-• Added Euskara (Basque) translations
-• Improved Italian and DE translations
-• Draw oneway arrows more often
-• Removed town halls and gardens from sightseeing
-• Use phone from "mobile" OSM tag
-• Added more vending_machine types
-• Added landuse=education
-• Orange fill for school, kindergarten and landuse=education areas
-• Fixed Recycling category search
-• Fixed Internet access displaying
-• Fixed descriptions serialization in the edits.xml
-• Fixed font rendering
-• Follow our news in "?" dialog
+• New OSM data as of May 15, 2022
+• Fixed low memory crash for car routing
+• Improved car and pedestrian directions
+• Improved cross-region routing
+• Fixed some pedestrian/bike/car routing issues
+• Some performance optimizations
+• Fixed opening non-ASCII URLs and URLs without http(s)
+• Fixed some translations
+• Added Marathi language
+• Added Devanagari font

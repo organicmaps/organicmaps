@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Напісаць водгук";
 
-/* View and button titles for accessibility */
-"maps" = "Мапы";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Мілі";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Абнавіць усё";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Спампаваныя";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Каля мяне";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Мапы";
 
 "downloader_download_all_button" = "Спампаваць усё";
@@ -1254,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Bicycle Rental";
 
+"type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
+
 "type.amenity.biergarten" = "Biergarten";
 
 "type.amenity.brothel" = "Brothel";
@@ -1571,15 +1571,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Магіла";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Craft Brewery";
 
 "type.craft.carpenter" = "Carpenter";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Electrician";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Gardener";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Hvac";
 
@@ -1591,7 +1603,11 @@
 
 "type.craft.plumber" = "Plumber";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Shoe Repair";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Tailor";
 
@@ -2379,6 +2395,8 @@
 
 "type.natural.water.lake" = "Lake";
 
+"type.natural.water.lock" = "Шлюзавая камера";
+
 "type.natural.water.pond" = "Сажалка";
 
 "type.natural.water.reservoir" = "Вадасховішча";
@@ -2956,8 +2974,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Lock Gate";
 

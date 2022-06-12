@@ -90,10 +90,7 @@ std::vector<routing::Edge> GetBestPedestrianEdges(D const & destination, C && co
     if (countryFileGetter(destination.GetPoint()) != countryId)
       return edges;
 
-    bool dummy = false;
-    indexRouter.FindBestEdges(destination.GetPoint(), platform::CountryFile(countryId),
-                              m2::PointD::Zero() /* direction */, true /* isOutgoing */,
-                              FeaturesRoadGraph::kClosestEdgesRadiusM, *worldGraph, edges, dummy);
+    indexRouter.GetBestOutgoingEdges(destination.GetPoint(), *worldGraph, edges);
     return edges;
   }
   catch (MwmIsNotAliveException const & e)

@@ -162,19 +162,18 @@ struct TurnItem
       : m_index(std::numeric_limits<uint32_t>::max()),
         m_turn(CarDirection::None),
         m_exitNum(0),
-        m_keepAnyway(false),
         m_pedestrianTurn(PedestrianDirection::None)
   {
   }
 
   TurnItem(uint32_t idx, CarDirection t, uint32_t exitNum = 0)
-      : m_index(idx), m_turn(t), m_exitNum(exitNum), m_keepAnyway(false)
+      : m_index(idx), m_turn(t), m_exitNum(exitNum)
       , m_pedestrianTurn(PedestrianDirection::None)
   {
   }
 
   TurnItem(uint32_t idx, PedestrianDirection p)
-      : m_index(idx), m_turn(CarDirection::None), m_exitNum(0), m_keepAnyway(false)
+      : m_index(idx), m_turn(CarDirection::None), m_exitNum(0)
       , m_pedestrianTurn(p)
   {
   }
@@ -183,7 +182,7 @@ struct TurnItem
   {
     return m_index == rhs.m_index && m_turn == rhs.m_turn && m_lanes == rhs.m_lanes &&
            m_exitNum == rhs.m_exitNum && m_sourceName == rhs.m_sourceName &&
-           m_targetName == rhs.m_targetName && m_keepAnyway == rhs.m_keepAnyway &&
+           m_targetName == rhs.m_targetName &&
            m_pedestrianTurn == rhs.m_pedestrianTurn;
   }
 
@@ -204,11 +203,6 @@ struct TurnItem
   uint32_t m_exitNum;                  /*!< Number of exit on roundabout. */
   std::string m_sourceName;            /*!< Name of the street which the ingoing edge belongs to */
   std::string m_targetName;            /*!< Name of the street which the outgoing edge belongs to */
-  /*!
-   * \brief m_keepAnyway is true if the turn shall not be deleted
-   * and shall be demonstrated to an end user.
-   */
-  bool m_keepAnyway;
   /*!
    * \brief m_pedestrianTurn is type of corresponding direction for a pedestrian, or None
    * if there is no pedestrian specific direction

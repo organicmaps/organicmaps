@@ -72,6 +72,12 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
     outType = Metadata::FMD_INTERNET;
   else if (k == "ele")
     outType = Metadata::FMD_ELE;
+  else if (k == "destination")
+    outType = Metadata::FMD_DESTINATION;
+  else if (k == "destination:ref")
+    outType = Metadata::FMD_DESTINATION_REF;
+  else if (k == "junction:ref")
+    outType = Metadata::FMD_JUNCTION_REF;
   else if (k == "turn:lanes")
     outType = Metadata::FMD_TURN_LANES;
   else if (k == "turn:lanes:forward")
@@ -169,6 +175,9 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_CONTACT_LINE: return "contact:line";
   case Metadata::FMD_INTERNET: return "internet_access";
   case Metadata::FMD_ELE: return "ele";
+  case Metadata::FMD_DESTINATION: return "destination";
+  case Metadata::FMD_DESTINATION_REF: return "destination:ref";
+  case Metadata::FMD_JUNCTION_REF: return "junction:ref";
   case Metadata::FMD_TURN_LANES: return "turn:lanes";
   case Metadata::FMD_TURN_LANES_FORWARD: return "turn:lanes:forward";
   case Metadata::FMD_TURN_LANES_BACKWARD: return "turn:lanes:backward";
@@ -185,7 +194,7 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_AIRPORT_IATA: return "iata";
   case Metadata::FMD_BRAND: return "brand";
   case Metadata::FMD_DURATION: return "duration";
-  case Metadata::FMD_DESCRIPTION: CHECK(false, ("Description can store many strings in different languages and should be processed separately."));  // fallthrough
+  case Metadata::FMD_DESCRIPTION: return "description";
   case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
   };
 
@@ -207,7 +216,11 @@ string DebugPrint(Metadata const & metadata)
       else
         res += "; ";
 
-      res.append(DebugPrint(t)).append("=").append(sv);
+      res.append(DebugPrint(t)).append("=");
+      if (t == Metadata::FMD_DESCRIPTION)
+        res += DebugPrint(StringUtf8Multilang::FromBuffer(std::string(sv)));
+      else
+        res.append(sv);
     }
   }
   res += "]";

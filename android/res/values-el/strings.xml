@@ -17,8 +17,6 @@
 	<string name="downloading">Λήψη…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Χιλιόμετρα</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Χάρτες</string>
 	<string name="gb">GB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Μίλια</string>
@@ -79,6 +77,8 @@
 	<string name="maps_storage">Αποθήκευση χαρτών στο</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Επιλέξτε από που θα γίνει λήψη χαρτών</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Χάρτες</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Να γίνει μετακίνηση χαρτών;</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -227,11 +227,12 @@
 	<string name="downloader_update_all_button">Ενημέρωση όλων</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Ακύρωση όλων</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Έγινε λήψη</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">στην ουρά</string>
 	<string name="downloader_near_me_subtitle">Κοντά μου</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Χάρτες</string>
 	<string name="downloader_download_all_button">Λήψη όλων</string>
 	<string name="downloader_downloading">Λήψη:</string>
@@ -786,6 +787,7 @@
 	<string name="type.building.garage">Γκαράζ</string>
 	<string name="type.building.has_parts">Κτίριο</string>
 	<string name="type.building.train_station">Σιδηροδρομικός σταθμός</string>
+	<string name="type.cemetery.grave">Τάφος</string>
 	<string name="type.craft.brewery">Ζυθοποιείο</string>
 	<string name="type.craft.carpenter">Ξυλουργός</string>
 	<string name="type.craft.electrician">Ηλεκτρολόγος</string>
@@ -1122,6 +1124,7 @@
 	<string name="type.natural.glacier">Παγετώνας</string>
 	<string name="type.natural.grassland">Λιβάδι</string>
 	<string name="type.natural.water.lake">Λίμνη</string>
+	<string name="type.natural.water.lock">Θάλαμος κλειδαριάς</string>
 	<string name="type.natural.water.pond">Δεξαμενή</string>
 	<string name="type.natural.water.reservoir">Δεξαμενή</string>
 	<string name="type.natural.water.basin">Μια λεκάνη νερού</string>

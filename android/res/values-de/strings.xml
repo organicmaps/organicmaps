@@ -17,8 +17,6 @@
 	<string name="downloading">Wird heruntergeladen…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometer</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Karten</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -80,6 +78,8 @@
 	<string name="maps_storage">Karten speichern auf</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Wählen Sie den Speicherort, an den die Karten heruntergeladen werden sollen</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Karten</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Karten verschieben?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -232,11 +232,12 @@
 	<string name="downloader_update_all_button">Alle aktualisieren</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Alle abbrechen</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Heruntergeladen</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">In der Warteschlange</string>
 	<string name="downloader_near_me_subtitle">In meiner Nähe</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Karten</string>
 	<string name="downloader_download_all_button">Alle herunterladen</string>
 	<string name="downloader_downloading">Gerade wird heruntergeladen:</string>
@@ -707,6 +708,7 @@
 	<string name="type.amenity.bench">Parkbank</string>
 	<string name="type.amenity.bicycle_parking">Fahrradständer</string>
 	<string name="type.amenity.bicycle_rental">Fahrradverleih</string>
+	<string name="type.amenity.bicycle_repair_station">Fahrrad-Reparaturstation</string>
 	<string name="type.amenity.brothel">Bordell</string>
 	<string name="type.amenity.bureau_de_change">Geldwechselstelle</string>
 	<string name="type.amenity.bus_station">Busbahnhof</string>
@@ -851,6 +853,7 @@
 	<string name="type.building.address">Gebäude</string>
 	<string name="type.building.has_parts">Gebäude</string>
 	<string name="type.building.train_station">Bahnhof</string>
+	<string name="type.cemetery.grave">Grab</string>
 	<string name="type.craft.brewery">Brauerei</string>
 	<string name="type.craft.carpenter">Zimmermann</string>
 	<string name="type.craft.electrician">Elektriker</string>
@@ -1248,6 +1251,7 @@
 	<string name="type.natural.heath">Heide</string>
 	<string name="type.natural.hot_spring">Thermalquelle</string>
 	<string name="type.natural.water.lake">See</string>
+	<string name="type.natural.water.lock">Schleusenkammer</string>
 	<string name="type.natural.water.pond">Teich</string>
 	<string name="type.natural.water.reservoir">Reservoir</string>
 	<string name="type.natural.water.basin">Wasserbecken</string>
@@ -1527,7 +1531,6 @@
 	<string name="type.waterway.dock">Dock</string>
 	<string name="type.waterway.drain">Abfluss</string>
 	<string name="type.waterway.drain.tunnel">Abfluss</string>
-	<string name="type.waterway.lock">Schleuse</string>
 	<string name="type.waterway.lock_gate">Schleusentor</string>
 	<string name="type.waterway.river">Fluss</string>
 	<string name="type.waterway.river.tunnel">Fluss</string>

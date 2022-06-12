@@ -20,10 +20,10 @@
 #include <utility>
 #include <vector>
 
-class DataSource;
-
 namespace routing
 {
+class MwmDataSource;
+
 /// \brief Getting information for cross mwm routing.
 class CrossMwmGraph final
 {
@@ -37,9 +37,8 @@ public:
 
   CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds,
                 std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                 VehicleType vehicleType, CountryRectFn const & countryRectFn,
-                DataSource & dataSource);
+                MwmDataSource & dataSource);
 
   /// \brief Transition segment is a segment which is crossed by mwm border. That means
   /// start and finish of such segment have to lie in different mwms. If a segment is
@@ -93,7 +92,8 @@ public:
 
   void GetIngoingEdgeList(Segment const & s, EdgeListT & edges);
 
-  void Clear();
+  //void Clear();
+  void Purge();
 
   template <class FnT> void ForEachTransition(NumMwmId numMwmId, bool isEnter, FnT && fn)
   {
@@ -120,10 +120,9 @@ private:
   void DeserializeTransitions(std::vector<NumMwmId> const & mwmIds);
   void DeserializeTransitTransitions(std::vector<NumMwmId> const & mwmIds);
 
-  DataSource & m_dataSource;
+  MwmDataSource & m_dataSource;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
-  std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
   CountryRectFn const & m_countryRectFn;
   CrossMwmIndexGraph<base::GeoObjectId> m_crossMwmIndexGraph;
   CrossMwmIndexGraph<connector::TransitId> m_crossMwmTransitGraph;

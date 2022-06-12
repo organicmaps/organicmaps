@@ -10,6 +10,7 @@
 namespace routing
 {
 using OsmIdToFeatureIds = std::map<base::GeoObjectId, std::vector<uint32_t>>;
+/// @todo Make vector as FeatureID is continuous.
 using FeatureIdToOsmId = std::map<uint32_t, base::GeoObjectId>;
 
 // Adds |featureId| and corresponding |osmId| to |osmIdToFeatureIds|.

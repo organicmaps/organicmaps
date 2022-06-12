@@ -17,8 +17,6 @@
 	<string name="downloading">מוריד….</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">ק\"מ</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">מפות</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">מ\"ב</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -72,6 +70,8 @@
 	<string name="settings">הגדרות</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">בחר הכתובת במחשבך לשמירת המפות שתוריד</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">מפות</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">להעביר המפות?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -226,6 +226,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>
+	<string name="type.cemetery.grave">רבק</string>
 	<string name="type.cuisine.african">מטבח אפריקאי</string>
 	<string name="type.cuisine.american">מטבח אמריקאי</string>
 	<string name="type.cuisine.arab">מטבח ערבי</string>
@@ -406,6 +407,7 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.landuse.basin">אגן מים</string>
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>
+	<string name="type.natural.water.lock">לוענמ את</string>
 	<string name="type.natural.water.reservoir">מאגר</string>
 	<string name="type.natural.water.basin">אגן מים</string>
 	<string name="type.natural.water">גוף מים</string>

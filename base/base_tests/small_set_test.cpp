@@ -137,15 +137,17 @@ UNIT_TEST(SmallMap_Benchmark1)
 
   TEST_EQUAL(sum1, sum2, ());
   // At this moment, we have rare t2 > t1 on Linux CI.
-  TEST(BenchmarkTimeLessOrNear(t2, t1, 0.1), (t2, t1));
+  TEST(BenchmarkTimeLessOrNear(t2, t1, 0.3), (t2, t1));
   LOG(LINFO, ("unordered_map time =", t1, "SmallMap time =", t2));
 }
 
 UNIT_TEST(SmallMap_Benchmark2)
 {
+  using namespace std;
+
   uint32_t i = 0;
   // Dataset is similar to routing::VehicleModelFactory.
-  std::unordered_map<std::string, std::shared_ptr<int>> uMap = {
+  unordered_map<string, shared_ptr<int>> uMap = {
     {"", make_shared<int>(i++)},
     {"Australia", make_shared<int>(i++)},
     {"Austria", make_shared<int>(i++)},

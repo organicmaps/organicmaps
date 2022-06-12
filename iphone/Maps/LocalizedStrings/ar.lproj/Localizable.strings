@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "اترك تعليق";
 
-/* View and button titles for accessibility */
-"maps" = "الخرائط";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "ميل";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "تحديث الكل";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "تم تنزيلها";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "بالقرب مني";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "الخرائط";
 
 "downloader_download_all_button" = "تنزيل الكل";
@@ -1254,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "تأجير دراجات";
 
+"type.amenity.bicycle_repair_station" = "محطة تصليح الدراجات";
+
 "type.amenity.biergarten" = "متجر بيرة";
 
 "type.amenity.brothel" = "دعارة";
@@ -1571,15 +1571,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "ﺮﻴﻄﺧ";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "مصنع جعة";
 
 "type.craft.carpenter" = "نجار";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "كهربائي";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "مهندس مناظر";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "تكييف";
 
@@ -1591,7 +1603,11 @@
 
 "type.craft.plumber" = "سمكري";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "تصليح الاحذية";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "خياط";
 
@@ -2379,6 +2395,8 @@
 
 "type.natural.water.lake" = "بحيرة";
 
+"type.natural.water.lock" = "ﻞﻔﻘﻟﺍ ﺔﻓﺮﻏ";
+
 "type.natural.water.pond" = "بركة";
 
 "type.natural.water.reservoir" = "خزان";
@@ -2956,8 +2974,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "بوابة هويس";
 

@@ -1,7 +1,6 @@
 #pragma once
 #include "indexer/data_factory.hpp"
 
-#include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/mwm_version.hpp"
 
@@ -115,7 +114,7 @@ public:
     friend class MwmSet;
 
     MwmId() = default;
-    MwmId(std::shared_ptr<MwmInfo> const & info) : m_info(info) {}
+    explicit MwmId(std::shared_ptr<MwmInfo> const & info) : m_info(info) {}
 
     void Reset() { m_info.reset(); }
     bool IsAlive() const { return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED); }
@@ -155,14 +154,11 @@ public:
 
     MwmHandle & operator=(MwmHandle && handle);
 
-  protected:
-    MwmId m_mwmId;
-
   private:
     friend class MwmSet;
-
     MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, std::unique_ptr<MwmValue> && value);
 
+    MwmId m_mwmId;
     MwmSet * m_mwmSet;
     std::unique_ptr<MwmValue> m_value;
 
@@ -286,6 +282,7 @@ public:
 
   /// Get ids of all mwms. Some of them may be with not active status.
   /// In that case, LockValue returns NULL.
+  /// @todo In fact, std::shared_ptr<MwmInfo> is a MwmId. Seems like better to make vector<MwmId> interface.
   void GetMwmsInfo(std::vector<std::shared_ptr<MwmInfo>> & info) const;
 
   // Clears caches and mwm's registry. All known mwms won't be marked as DEREGISTERED.

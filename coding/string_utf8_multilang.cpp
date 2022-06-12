@@ -295,9 +295,15 @@ string DebugPrint(StringUtf8Multilang const & s)
 {
   string result;
 
-  s.ForEach([&result](int8_t code, string_view name)
+  bool isFirst = true;
+  s.ForEach([&result, &isFirst](int8_t code, string_view name)
   {
-    result.append(StringUtf8Multilang::GetLangByCode(code)).append(":").append(name).append(" ");
+    if (isFirst)
+      isFirst = false;
+    else
+      result += ' ';
+
+    result.append(StringUtf8Multilang::GetLangByCode(code)).append(":").append(name);
   });
 
   return result;

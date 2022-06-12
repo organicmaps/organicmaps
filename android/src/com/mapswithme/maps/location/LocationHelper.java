@@ -27,8 +27,6 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-import org.jetbrains.annotations.NotNull;
-
 public enum LocationHelper implements Initializable<Context>, AppBackgroundTracker.OnTransitionListener, BaseLocationProvider.Listener
 {
   INSTANCE;
@@ -164,7 +162,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
   };
 
   @Override
-  public void initialize(@NotNull Context context)
+  public void initialize(@NonNull Context context)
   {
     mContext = context;
     mSensorHelper = new SensorHelper(context);
@@ -304,12 +302,19 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
     mLogger.d(TAG, "onLocationChanged, location = " + location);
 
     if (!LocationUtils.isAccuracySatisfied(location))
-      return;
-
-    if (mSavedLocation != null && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
     {
-      mLogger.d(TAG, "The new " + location + " is worse than the last " +  mSavedLocation);
+      mLogger.w(TAG, "Unsatisfied accuracy for location = " + location);
       return;
+    }
+
+    if (mSavedLocation != null)
+    {
+      final boolean isTrustedFused = mLocationProvider.trustFusedLocations() && LocationUtils.isFromFusedProvider(location);
+      if (!isTrustedFused && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
+      {
+        mLogger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
+        return;
+      }
     }
 
     mSavedLocation = location;

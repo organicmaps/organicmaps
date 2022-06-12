@@ -17,8 +17,6 @@
 	<string name="downloading">جاري التنزيل…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">كيلومتر</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">الخرائط</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">م.ب.</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -80,6 +78,8 @@
 	<string name="maps_storage">تخزين الخرائط</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">اختر المكان الذي ينبغي تنزيل الخرائط  فيه.</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">الخرائط</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">هل تريد نقل الخرائط؟</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -228,11 +228,12 @@
 	<string name="downloader_update_all_button">تحديث الكل</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">إلغاء الكل</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">تم تنزيلها</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">مَصْفوف</string>
 	<string name="downloader_near_me_subtitle">بالقرب مني</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">الخرائط</string>
 	<string name="downloader_download_all_button">تنزيل الكل</string>
 	<string name="downloader_downloading">يتم تنزيل:</string>
@@ -677,6 +678,7 @@
 	<string name="type.amenity.bench">مقعد طويل</string>
 	<string name="type.amenity.bicycle_parking">أماكن وقوف للدراجات</string>
 	<string name="type.amenity.bicycle_rental">تأجير دراجات</string>
+	<string name="type.amenity.bicycle_repair_station">محطة تصليح الدراجات</string>
 	<string name="type.amenity.biergarten">متجر بيرة</string>
 	<string name="type.amenity.brothel">دعارة</string>
 	<string name="type.amenity.bureau_de_change">تحويل عملات</string>
@@ -790,6 +792,7 @@
 	<string name="type.building.garage">جراج</string>
 	<string name="type.building.has_parts">مبنى</string>
 	<string name="type.building.train_station">محطة سكك حديدية</string>
+	<string name="type.cemetery.grave">ﺮﻴﻄﺧ</string>
 	<string name="type.craft.brewery">مصنع جعة</string>
 	<string name="type.craft.carpenter">نجار</string>
 	<string name="type.craft.electrician">كهربائي</string>
@@ -1125,6 +1128,7 @@
 	<string name="type.natural.glacier">كتلة جليدية</string>
 	<string name="type.natural.grassland">ملعب</string>
 	<string name="type.natural.water.lake">بحيرة</string>
+	<string name="type.natural.water.lock">ﻞﻔﻘﻟﺍ ﺔﻓﺮﻏ</string>
 	<string name="type.natural.water.pond">بركة</string>
 	<string name="type.natural.water.reservoir">خزان</string>
 	<string name="type.natural.water.basin">حوض المياه</string>

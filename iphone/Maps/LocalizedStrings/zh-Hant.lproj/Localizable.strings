@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "撰寫評論";
 
-/* View and button titles for accessibility */
-"maps" = "地圖";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "英哩";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "已下載";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "在我附近";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "地圖";
 
 "downloader_download_all_button" = "下載全部";
@@ -1254,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "自行車出租";
 
+"type.amenity.bicycle_repair_station" = "自行車維修站";
+
 "type.amenity.biergarten" = "啤酒花園";
 
 "type.amenity.brothel" = "妓院";
@@ -1571,15 +1571,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "墓穴";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "釀酒廠";
 
 "type.craft.carpenter" = "木工";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "電工";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "園藝師";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "空調設備";
 
@@ -1591,7 +1603,11 @@
 
 "type.craft.plumber" = "水管工人";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "修鞋工";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "裁縫師";
 
@@ -2379,6 +2395,8 @@
 
 "type.natural.water.lake" = "湖泊";
 
+"type.natural.water.lock" = "鎖室";
+
 "type.natural.water.pond" = "潭";
 
 "type.natural.water.reservoir" = "水庫";
@@ -2956,8 +2974,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "閘門";
 

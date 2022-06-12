@@ -17,8 +17,6 @@
 	<string name="downloading">A descarregar…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Quilómetros</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Mapas</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Milhas</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -78,6 +76,8 @@
 	<string name="maps_storage">Guardar mapas em</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Selecione o local onde os mapas devem ser descarregados</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Mapas</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Mover mapas?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -231,11 +231,12 @@
 	<string name="downloader_update_all_button">Atualizar tudo</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Cancelar tudo</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Descarregado</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Na fila</string>
 	<string name="downloader_near_me_subtitle">Perto de mim</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Mapas</string>
 	<string name="downloader_download_all_button">Descarregar tudo</string>
 	<string name="downloader_downloading">A descarregar:</string>
@@ -701,6 +702,7 @@
 	<string name="type.amenity.bench">Assento</string>
 	<string name="type.amenity.bicycle_parking">Estacionamento de bicicletas</string>
 	<string name="type.amenity.bicycle_rental">Aluguer de bicicletas</string>
+	<string name="type.amenity.bicycle_repair_station">Estação de conserto de bicicletas</string>
 	<string name="type.amenity.biergarten">Jardim da cerveja</string>
 	<string name="type.amenity.brothel">Bordel</string>
 	<string name="type.amenity.bureau_de_change">Casa de câmbio</string>
@@ -845,6 +847,7 @@
 	<string name="type.building.has_parts">Edifício</string>
 	<string name="type.building.train_station">Estação de comboios</string>
 	<string name="type.building.warehouse">Armazém</string>
+	<string name="type.cemetery.grave">Túmulo</string>
 	<string name="type.craft">Ofícios</string>
 	<string name="type.craft.brewery">Cervejaria artesanal</string>
 	<string name="type.craft.carpenter">Carpinteiro</string>
@@ -1244,6 +1247,7 @@
 	<string name="type.natural.heath">Charneca</string>
 	<string name="type.natural.hot_spring">Nascente de água quente</string>
 	<string name="type.natural.water.lake">Lago</string>
+	<string name="type.natural.water.lock">Câmara de Bloqueio</string>
 	<string name="type.natural.water.pond">Lagoa</string>
 	<string name="type.natural.water.reservoir">Reservatório</string>
 	<string name="type.natural.water.basin">Reservatório</string>
@@ -1526,7 +1530,6 @@
 	<string name="type.waterway.dock">Doca</string>
 	<string name="type.waterway.drain">Valeta de drenagem</string>
 	<string name="type.waterway.drain.tunnel">Valeta de drenagem</string>
-	<string name="type.waterway.lock">Eclusa</string>
 	<string name="type.waterway.lock_gate">Comporta de eclusa</string>
 	<string name="type.waterway.river">Rio</string>
 	<string name="type.waterway.river.tunnel">Rio</string>

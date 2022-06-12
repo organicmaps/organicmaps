@@ -17,8 +17,6 @@
 	<string name="downloading">Đang tải xuống…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilômét</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Bản đồ</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Dặm</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -78,6 +76,8 @@
 	<string name="maps_storage">Lưu bản đồ vào</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Chọn vị trí nơi bản đồ sẽ được tải về</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Bản đồ</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Di chuyển bản đồ?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -226,11 +226,12 @@
 	<string name="downloader_update_all_button">Cập nhật tất cả</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Hủy tất cả</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Đã tải xuống</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Đã xếp hàng chờ</string>
 	<string name="downloader_near_me_subtitle">Gần tôi</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Bản đồ</string>
 	<string name="downloader_download_all_button">Tải xuống tất cả</string>
 	<string name="downloader_downloading">Đang tải về:</string>
@@ -673,6 +674,7 @@
 	<string name="type.amenity.bench">Xe đạp</string>
 	<string name="type.amenity.bicycle_parking">Chỗ Đậu Xe Đạp</string>
 	<string name="type.amenity.bicycle_rental">Cho thuê xe đạp</string>
+	<string name="type.amenity.bicycle_repair_station">trạm sửa xe đạp</string>
 	<string name="type.amenity.biergarten">Vườn bia</string>
 	<string name="type.amenity.brothel">Giải trí</string>
 	<string name="type.amenity.bureau_de_change">Tỉ giá hiện tại</string>
@@ -785,6 +787,7 @@
 	<string name="type.building.garage">Gara</string>
 	<string name="type.building.has_parts">Tòa nhà</string>
 	<string name="type.building.train_station">Đường tàu hỏa</string>
+	<string name="type.cemetery.grave">Phần mộ</string>
 	<string name="type.craft.brewery">Nhà máy bia</string>
 	<string name="type.craft.carpenter">Thợ mộc</string>
 	<string name="type.craft.electrician">Thợ điện</string>
@@ -1118,6 +1121,7 @@
 	<string name="type.natural.glacier">Sông băng</string>
 	<string name="type.natural.grassland">Cánh đồng</string>
 	<string name="type.natural.water.lake">Hồ</string>
+	<string name="type.natural.water.lock">Khoang khóa</string>
 	<string name="type.natural.water.pond">Ao</string>
 	<string name="type.natural.water.reservoir">Hồ chứa</string>
 	<string name="type.natural.water.basin">Một chậu nước</string>

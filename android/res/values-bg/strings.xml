@@ -17,8 +17,6 @@
 	<string name="downloading">Теглене…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Километри</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Карти</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">МБ</string>
 	<string name="gb">ГБ</string>
@@ -81,6 +79,8 @@
 	<string name="maps_storage">Запаметяване на карти в</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Изберете мястото, където картите трябва да се изтеглят</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Карти</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Преместване на карти?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -233,11 +233,12 @@
 	<string name="downloader_update_all_button">Обновяване на всичко</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Отмяна на всичко</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Изтеглено</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">На опашка</string>
 	<string name="downloader_near_me_subtitle">Близо до мен</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Карти</string>
 	<string name="downloader_download_all_button">Изтегляне на всичко</string>
 	<string name="downloader_downloading">Теглене:</string>
@@ -638,6 +639,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
+	<string name="type.cemetery.grave">Гроб</string>
 	<string name="type.craft.metal_construction">Метални конструкции</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
 
@@ -735,6 +737,7 @@
 	<string name="type.historic.archaeological_site">Археологически сайт</string>
 	<string name="type.landuse.basin">Резервоар</string>
 	<string name="type.leisure.picnic_table">Маса за пикник</string>
+	<string name="type.natural.water.lock">Заключваща камера</string>
 	<string name="type.natural.water.reservoir">Резервоар</string>
 	<string name="type.natural.water.basin">Резервоар</string>
 	<string name="type.natural.water">Воден басейн</string>

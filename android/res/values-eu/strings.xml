@@ -17,8 +17,6 @@
 	<string name="downloading">Deskargatzen…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometroak</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Mapak</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Milia</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -78,6 +76,8 @@
 	<string name="maps_storage">Mapak gordetzeko</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Hautatu mapak non deskargatu behar diren</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Mapak</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Mapak mugitu?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -231,11 +231,12 @@
 	<string name="downloader_update_all_button">Eguneratu guztiak</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Guztiak bertan behera utzi</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Alta</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Ilaran</string>
 	<string name="downloader_near_me_subtitle">Nigandik gertu</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Mapak</string>
 	<string name="downloader_download_all_button">Deskargatu guztiak</string>
 	<string name="downloader_downloading">Deskargatzen:</string>
@@ -847,6 +848,7 @@
 	<string name="type.building.has_parts">Eraikin</string>
 	<string name="type.building.train_station">Tren geltokian</string>
 	<string name="type.building.warehouse">Denda</string>
+	<string name="type.cemetery.grave">Hilobia</string>
 	<string name="type.craft.brewery">Garagardo fabrika</string>
 	<string name="type.craft.carpenter">Arotza</string>
 	<string name="type.craft.electrician">Elektrizista teknikaria</string>
@@ -1182,6 +1184,7 @@
 	<string name="type.natural.glacier">Glaziarra</string>
 	<string name="type.natural.grassland">Landa</string>
 	<string name="type.natural.water.lake">Lakua</string>
+	<string name="type.natural.water.lock">Sarraila Ganbera</string>
 	<string name="type.natural.water.pond">Urmaela</string>
 	<string name="type.natural.water.reservoir">Urtegia</string>
 	<string name="type.natural.water.basin">Arroa</string>

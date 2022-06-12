@@ -1,7 +1,7 @@
 # Translations
 
 Adding and updating translations is easy!
-1. Change the translation file you want, e.g. [strings.txt](../data/strings/strings.txt)
+1. Change the translation file you want, e.g. [strings.txt](../data/strings/strings.txt) ([raw text version](https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/strings/strings.txt))
 2. Commit your changes
 3. Send a pull request!
 
@@ -45,7 +45,7 @@ To find strings without translations substitute `ar` with your language code and
 ```
 tools/python/strings_utils.py -l ar -pm
 ```
-By default it searches `strings.txt`, to check `types_strings.txt` add a `-t` option.
+By default, it searches `strings.txt`, to check `types_strings.txt` add a `-t` option.
 There are many more other options, e.g. print various translation statistics, validate and re-format translation files.
 Check `tools/python/strings_utils.py -h` to see all of them.
 
@@ -59,9 +59,9 @@ tools/unix/translate_categories.sh "Route"
 
 ## Technical details
 
-Most of the translation files (strings, types_strings...) are in Twine file format ([syntax reference](../tools/twine/README.md)).
+Most of the translation files (strings, types_strings...) are in Twine file format ([syntax reference](https://github.com/organicmaps/twine/blob/organicmaps/README.md)).
 OM uses a custom version of the [Twine](https://github.com/organicmaps/twine)
-tool (resides in `tools/twine/` submodule) to generate platfrom-native (Android, iOS)
+tool (resides in `tools/twine/` submodule) to generate platform-native (Android, iOS)
 localization files from a single translation file.
 
 The `tools/unix/generate_localizations.sh` script launches this conversion

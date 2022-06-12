@@ -127,7 +127,6 @@ line[waterway=riverbank],
 line[waterway=stream],
 line[waterway=canal],
 line[natural=strait],
-line[waterway=lock],
 line[waterway=ditch],
 line[waterway=drain],
 {z-index: 50;}
@@ -360,7 +359,6 @@ line|z13-[waterway=stream],
 line|z13-[waterway=stream][intermittent=yes],
 line|z13-[waterway=canal],
 line|z13-[natural=strait],
-line|z16-[waterway=lock],
 {opacity: 1;color: @river;-x-me-line-priority: -15600;}
 
 /* 6.1 Area water(lake,pond etc.) */
@@ -418,8 +416,6 @@ line|z15-[natural=strait],
 line|z15-[waterway=stream][intermittent=yes]
 {width: 1.4;dashes: 4.95,4.95;}
 
-line|z16-[waterway=lock],
-{width: 1.5;}
 node|z16-[waterway=lock_gate],
 {icon-image: dot-m.svg;}
 
@@ -641,6 +637,7 @@ line|z18[man_made=cutline],
 line|z19-[man_made=cutline],
 {width: 6;}
 
+
 /* 8.2 Building */
 
 area|z14[building],
@@ -669,7 +666,7 @@ area|z17[building:part],
 area|z17[waterway=dam],
 area|z17[landuse=garages],
 area|z17[building=train_station],
-{fill-color: @building_dark;opacity: 0.9;casing-width: 1;casing-color: @building_dark_border;}
+{fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
 
 area|z17-[aeroway=terminal],
 area|z18-[building],
@@ -677,39 +674,50 @@ area|z18-[building:part],
 area|z18-[waterway=dam],
 area|z18-[landuse=garages],
 area|z18-[building=train_station],
-{fill-color: @building_dark;opacity: 1;casing-width: 1;casing-color: @building_dark_border;}
+{fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
+
 
 /* 8.3 Barrier */
 
-line|z16-[barrier=wall],
 line|z16-[barrier=city_wall],
-line|z16-[barrier=retaining_wall],
-line|z16-[barrier=hedge],
 line|z16-[barrier=fence],
+line|z16-[barrier=hedge],
+line|z16-[barrier=retaining_wall],
+line|z16-[barrier=wall],
 line|z16-[historic=citywalls],
-{color: @fence;opacity: 1;}
+{color: @fence; width: 1.0; dashes: 1.0,1.0; opacity: 0.5;}
 
-line|z16[barrier=wall],
-line|z16[barrier=city_wall],
-line|z16[barrier=retaining_wall],
-line|z16[barrier=fence],
-line|z16[barrier=hedge],
-line|z16[historic=citywalls],
-{width: 0.7;dashes: 0.12,0.12;opacity: 0.5;}
-line|z17-[barrier=wall],
 line|z17-[barrier=city_wall],
-line|z17-[barrier=retaining_wall],
 line|z17-[barrier=fence],
 line|z17-[barrier=hedge],
+line|z17-[barrier=retaining_wall],
+line|z17-[barrier=wall],
 line|z17-[historic=citywalls],
-{width: 1.0;dashes: 0.25,0.25;opacity:0.7;}
-line|z18-[barrier=wall],
+{width: 1.5; dashes: 2.0,2.0; opacity:0.7;}
+
 line|z18-[barrier=city_wall],
-line|z18-[barrier=retaining_wall],
 line|z18-[barrier=fence],
 line|z18-[barrier=hedge],
+line|z18-[barrier=retaining_wall],
+line|z18-[barrier=wall],
 line|z18-[historic=citywalls],
-{width: 1.4;dashes: 0.3,0.3;}
+{width: 2.0; dashes: 2.4,2.4; opacity: 1;}
+
+/* ToDo: Make linear style with small triangles pointing downwards, when drape will be ready */
+line|z16-[natural=cliff],
+line|z16-[natural=earth_bank],
+line|z16-[man_made=embankment],
+{color: @fence; width: 1.0; opacity: 0.5;}
+
+line|z17[natural=cliff],
+line|z17[natural=earth_bank],
+line|z17[man_made=embankment],
+{width: 2.0; opacity: 0.7;}
+
+line|z18-[natural=cliff],
+line|z18-[natural=earth_bank],
+line|z18-[man_made=embankment],
+{width: 3.0; opacity: 1;}
 
 /* 9. ISOLINES */
 

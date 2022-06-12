@@ -17,8 +17,6 @@
 	<string name="downloading">Downloading…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometers</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Maps</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<string name="gb">GB</string>
@@ -81,8 +79,22 @@
 	<string name="maps_storage">Save maps to</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Select the place where maps should be downloaded to</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Downloaded maps</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Internal private storage</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Internal shared storage</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">SD card</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">External shared storage</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">%1$s free of %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Move maps?</string>
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">Error moving map files</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">This can take several minutes.\nPlease wait…</string>
 	<!-- Measurement units title in settings activity -->
@@ -254,11 +266,12 @@
 	<string name="downloader_update_all_button">Update All</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Cancel All</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Downloaded</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Queued</string>
 	<string name="downloader_near_me_subtitle">Near me</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Maps</string>
 	<string name="downloader_download_all_button">Download All</string>
 	<string name="downloader_downloading">Downloading:</string>
@@ -744,6 +757,7 @@
 	<string name="type.amenity.bench">Bench</string>
 	<string name="type.amenity.bicycle_parking">Bicycle Parking</string>
 	<string name="type.amenity.bicycle_rental">Bicycle Rental</string>
+	<string name="type.amenity.bicycle_repair_station">Bicycle Repair Station</string>
 	<string name="type.amenity.biergarten">Biergarten</string>
 	<string name="type.amenity.brothel">Brothel</string>
 	<string name="type.amenity.bureau_de_change">Currency Exchange</string>
@@ -904,17 +918,25 @@
 	<string name="type.building.has_parts">Building</string>
 	<string name="type.building.train_station">Train Station</string>
 	<string name="type.building.warehouse">Warehouse</string>
+	<string name="type.cemetery.grave">Grave</string>
 	<string name="type.craft">Craft</string>
+	<string name="type.craft.beekeeper">beekeeper</string>
+	<string name="type.craft.blacksmith">Blacksmith</string>
 	<string name="type.craft.brewery">Craft Brewery</string>
 	<string name="type.craft.carpenter">Carpenter</string>
+	<string name="type.craft.confectionery">Confectionery</string>
 	<string name="type.craft.electrician">Electrician</string>
+	<string name="type.craft.electronics_repair">Electronics repair</string>
 	<string name="type.craft.gardener">Gardener</string>
+	<string name="type.craft.handicraft">Handicraft</string>
 	<string name="type.craft.hvac">Hvac</string>
 	<string name="type.craft.metal_construction">Metal Worker</string>
 	<string name="type.craft.painter">Painter</string>
 	<string name="type.craft.photographer">Photographer</string>
 	<string name="type.craft.plumber">Plumber</string>
+	<string name="type.craft.sawmill">Sawmill</string>
 	<string name="type.craft.shoemaker">Shoe Repair</string>
+	<string name="type.craft.winery">Winery</string>
 	<string name="type.craft.tailor">Tailor</string>
 	<string name="type.cuisine.african">African</string>
 	<string name="type.cuisine.american">American</string>
@@ -1332,6 +1354,7 @@
 	<string name="type.natural.heath">Heath</string>
 	<string name="type.natural.hot_spring">Hot Spring</string>
 	<string name="type.natural.water.lake">Lake</string>
+	<string name="type.natural.water.lock">Lock Chamber</string>
 	<string name="type.natural.water.pond">Pond</string>
 	<string name="type.natural.water.reservoir">Reservoir</string>
 	<string name="type.natural.water.basin">Basin</string>
@@ -1621,7 +1644,6 @@
 	<string name="type.waterway.dock">Waterway Dock</string>
 	<string name="type.waterway.drain">Drain</string>
 	<string name="type.waterway.drain.tunnel">Drain</string>
-	<string name="type.waterway.lock">Waterway Lock</string>
 	<string name="type.waterway.lock_gate">Lock Gate</string>
 	<string name="type.waterway.river">River</string>
 	<string name="type.waterway.river.tunnel">River</string>

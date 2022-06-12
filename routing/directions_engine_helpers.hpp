@@ -53,5 +53,5 @@ private:
 /// of a new LoadedPathSegment.
 bool IsJoint(IRoadGraph::EdgeListT const & ingoingEdges,
              IRoadGraph::EdgeListT const & outgoingEdges, Edge const & ingoingRouteEdge,
-             Edge const & outgoingRouteEdge, bool isCurrJunctionFinish, bool isInEdgeReal);
+             Edge const & outgoingRouteEdge);
 }  // namespace routing

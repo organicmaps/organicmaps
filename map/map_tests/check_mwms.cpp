@@ -9,6 +9,8 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "coding/var_serial_vector.hpp"
+
 #include "base/logging.hpp"
 
 #include <cstdint>

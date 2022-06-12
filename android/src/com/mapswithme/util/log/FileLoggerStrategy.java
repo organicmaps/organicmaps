@@ -1,19 +1,9 @@
 package com.mapswithme.util.log;
 
-import android.app.Application;
-import android.content.Context;
-import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.util.StorageUtils;
-import com.mapswithme.util.Utils;
-
 import net.jcip.annotations.Immutable;
 
 import java.io.File;
@@ -30,17 +20,13 @@ class FileLoggerStrategy implements LoggerStrategy
 {
   private static final String TAG = FileLoggerStrategy.class.getSimpleName();
   @NonNull
-  private final String mFilePath;
+  private final String mFileName;
   @NonNull
   private final Executor mExecutor;
-  @NonNull
-  private final Application mApplication;
 
-  FileLoggerStrategy(@NonNull Application application, @NonNull String filePath,
-                     @NonNull Executor executor)
+  public FileLoggerStrategy(@NonNull String fileName, @NonNull Executor executor)
   {
-    mApplication = application;
-    mFilePath = filePath;
+    mFileName = fileName;
     mExecutor = executor;
   }
 
@@ -113,10 +99,15 @@ class FileLoggerStrategy implements LoggerStrategy
 
   private void write(@NonNull final String data)
   {
-    mExecutor.execute(new WriteTask(mApplication, mFilePath, data, Thread.currentThread().getName()));
+    final String logsPath = LoggerFactory.INSTANCE.ensureLogsFolder();
+    if (logsPath == null)
+      Log.e(TAG, "Couldn't log to " + mFileName + ": " + data);
+    else
+      mExecutor.execute(new WriteTask(logsPath + File.separator + mFileName,
+                                      data, Thread.currentThread().getName()));
   }
 
-  static class WriteTask implements Runnable
+  private static class WriteTask implements Runnable
   {
     private static final int MAX_SIZE = 3000000;
     @NonNull
@@ -125,13 +116,9 @@ class FileLoggerStrategy implements LoggerStrategy
     private final String mData;
     @NonNull
     private final String mCallingThread;
-    @NonNull
-    private final Application mApplication;
 
-    private WriteTask(@NonNull Application application, @NonNull String filePath,
-                      @NonNull String data, @NonNull String callingThread)
+    private WriteTask(@NonNull String filePath, @NonNull String data, @NonNull String callingThread)
     {
-      mApplication = application;
       mFilePath = filePath;
       mData = data;
       mCallingThread = callingThread;
@@ -147,7 +134,7 @@ class FileLoggerStrategy implements LoggerStrategy
         if (!file.exists() || file.length() > MAX_SIZE)
         {
           fw = new FileWriter(file, false);
-          writeSystemInformation(mApplication, fw);
+          LoggerFactory.INSTANCE.writeSystemInformation(fw);
         }
         else
         {
@@ -158,8 +145,7 @@ class FileLoggerStrategy implements LoggerStrategy
       }
       catch (IOException e)
       {
-        Log.e(TAG, "Failed to write the string: " + mData, e);
-        Log.i(TAG, "Logs folder exists: " + StorageUtils.ensureLogsFolderExistence(mApplication));
+        Log.e(TAG, "Failed to log: " + mData, e);
       }
       finally
       {
@@ -170,27 +156,9 @@ class FileLoggerStrategy implements LoggerStrategy
           }
           catch (IOException e)
           {
-            Log.e(TAG, "Failed to close file: " + mData, e);
+            Log.e(TAG, "Failed to close file " + mFilePath, e);
           }
       }
-    }
-
-    static void writeSystemInformation(@NonNull Application application, @NonNull FileWriter fw)
-        throws IOException
-    {
-      fw.write("Android version: " + Build.VERSION.SDK_INT + "\n");
-      fw.write("Device: " + Utils.getFullDeviceModel() + "\n");
-      fw.write("App version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME + "\n");
-      fw.write("Locale : " + Locale.getDefault());
-      fw.write("\nNetworks : ");
-      final ConnectivityManager manager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
-      for (NetworkInfo info : manager.getAllNetworkInfo())
-        fw.write(info.toString());
-      fw.write("\nLocation providers: ");
-      final LocationManager locMngr = (android.location.LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
-      for (String provider: locMngr.getProviders(true))
-        fw.write(provider + " ");
-      fw.write("\n\n");
     }
   }
 }

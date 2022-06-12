@@ -1,16 +1,3 @@
-# obfuscate supportV7 menu subclasses. it fixes bug with some Samsung and other devices ROMS based on android 4.2.2.
-# more details here : https://code.google.com/p/android/issues/detail?id=78377
--keep class !android.support.v7.internal.view.menu.**,** {*;}
-# support library bug
--dontwarn android.support.**
-
-# parse
--dontwarn com.squareup.okhttp.**
--dontwarn okio.**
-
--dontoptimize
--keepattributes **
-
 # Gson support
 -keep class com.mapswithme.util.Gsonable
 -keep class * implements com.mapswithme.util.Gsonable
@@ -18,6 +5,11 @@
 -keepclassmembernames class * implements com.mapswithme.util.Gsonable {
   !transient <fields>;
 }
+
+# Enabling shrinking causes
+# Execution failed for task ':minifyFdroidReleaseWithR8'.
+# > com.android.tools.r8.CompilationFailedException: Compilation failed to complete
+-dontshrink
 
 -keepnames class * implements com.mapswithme.util.Gsonable {
   !transient <fields>;

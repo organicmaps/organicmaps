@@ -343,16 +343,23 @@ public class Utils
     }
   }
 
+  // subject is optional (could be an empty string).
+
+  /**
+   * @param subject could be an empty string
+   */
   public static void sendBugReport(@NonNull Activity activity, @NonNull String subject)
   {
+    subject = "Organic Maps Bugreport" + (TextUtils.isEmpty(subject) ? "" : ": " + subject);
     LoggerFactory.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, subject,
                                                                    Constants.Email.SUPPORT));
   }
 
+  // TODO: Don't send logs with general feedback, send system information only (version, device name, connectivity, etc.)
   public static void sendFeedback(@NonNull Activity activity)
   {
     LoggerFactory.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, "Organic Maps Feedback",
-                                                                   Constants.Email.FEEDBACK));
+                                                                   Constants.Email.SUPPORT));
   }
 
   public static void navigateToParent(@Nullable Activity activity)
@@ -799,10 +806,11 @@ public class Utils
     }
 
     @Override
-    public void onCompleted(final boolean success)
+    public void onCompleted(final boolean success, @Nullable final String zipPath)
     {
+      //TODO: delete zip file after its sent.
       UiThread.run(() -> {
-        Activity activity = mActivityRef.get();
+        final Activity activity = mActivityRef.get();
         if (activity == null)
           return;
 
@@ -810,21 +818,18 @@ public class Utils
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mEmail });
         intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + mSubject);
+        // TODO: Send a short text attachment with system info and logs if zipping logs failed 
         if (success)
         {
-          String logsZipFile = StorageUtils.getLogsZipPath(activity.getApplication());
-          if (!TextUtils.isEmpty(logsZipFile))
-          {
-            Uri uri = StorageUtils.getUriForFilePath(activity, logsZipFile);
-            intent.putExtra(Intent.EXTRA_STREAM, uri);
-            // Properly set permissions for intent, see
-            // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
-            intent.setData(uri);
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-              intent.setClipData(ClipData.newRawUri("", uri));
-              intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            }
+          final Uri uri = StorageUtils.getUriForFilePath(activity, zipPath);
+          intent.putExtra(Intent.EXTRA_STREAM, uri);
+          // Properly set permissions for intent, see
+          // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
+          intent.setData(uri);
+          intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+          if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+            intent.setClipData(ClipData.newRawUri("", uri));
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
           }
         }
         // Do this so some email clients don't complain about empty body.
@@ -836,7 +841,7 @@ public class Utils
         }
         catch (ActivityNotFoundException e)
         {
-          CrashlyticsUtils.INSTANCE.logException(e);
+          LOGGER.w(TAG, "No activities found which can handle sending a support message.", e);
         }
       });
     }

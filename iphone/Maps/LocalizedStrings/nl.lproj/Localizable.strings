@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Laat een review achter";
 
-/* View and button titles for accessibility */
-"maps" = "Kaarten";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mijlen";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Update alles";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Gedownload";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Bij mij in de buurt";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Kaarten";
 
 "downloader_download_all_button" = "Alles downloaden";
@@ -885,7 +883,7 @@
 
 "error_enter_correct_name" = "Voer een juiste naam in";
 
-"bookmark_lists" = "lijsten";
+"bookmark_lists" = "Lijsten";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "Alles verbergen";
@@ -938,7 +936,7 @@
 
 "button_layer_subway" = "Metro";
 
-"layers_title" = "Map layers";
+"layers_title" = "Kaartweergave";
 
 "subway_data_unavailable" = "Metrokaart is niet beschikbaar";
 
@@ -982,17 +980,17 @@
 
 "power_managment_setting_manual_max" = "Maximale energiebesparing";
 
-"driving_options_title" = "Omweginstellingen";
+"driving_options_title" = "Route instellingen";
 
 "driving_options_subheader" = "Vermijden op elke route";
 
 "avoid_tolls" = "Tolwegen";
 
-"avoid_unpaved" = "Aardewegen";
+"avoid_unpaved" = "Onverharde wegen";
 
-"avoid_ferry" = "Ferries";
+"avoid_ferry" = "Veerdiensten";
 
-"avoid_motorways" = "Hoofdverkeerswegen";
+"avoid_motorways" = "Autosnelwegen";
 
 "unable_to_calc_alert_title" = "Kan route niet opbouwen";
 
@@ -1253,6 +1251,8 @@
 "type.amenity.bicycle_parking" = "Fietsenstalling";
 
 "type.amenity.bicycle_rental" = "Fietsverhuur";
+
+"type.amenity.bicycle_repair_station" = "Fiets reparatie station";
 
 "type.amenity.biergarten" = "Biergarten";
 
@@ -1571,15 +1571,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Graf";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Brouwerij";
 
 "type.craft.carpenter" = "Timmerman";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektricien";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Tuinarchitect";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Airconditioning";
 
@@ -1591,7 +1603,11 @@
 
 "type.craft.plumber" = "Loodgieter";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Schoenmaker";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Kleermaker";
 
@@ -2379,6 +2395,8 @@
 
 "type.natural.water.lake" = "Meer";
 
+"type.natural.water.lock" = "Slotkamer";
+
 "type.natural.water.pond" = "Plas";
 
 "type.natural.water.reservoir" = "Reservoir";
@@ -2956,8 +2974,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Gesloten poort";
 

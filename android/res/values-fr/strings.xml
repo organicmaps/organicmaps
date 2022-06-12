@@ -17,8 +17,6 @@
 	<string name="downloading">Téléchargement…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">kilomètres</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Cartes</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">Mo</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -80,6 +78,8 @@
 	<string name="maps_storage">Enregistrer les cartes dans</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Sélectionner l\'emplacement où les cartes devraient être téléchargées</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Cartes</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Déplacer les cartes ?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -233,11 +233,12 @@
 	<string name="downloader_update_all_button">Tout mettre à jour</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Tout annuler</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Téléchargé</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">En file d\'attente</string>
 	<string name="downloader_near_me_subtitle">Près de moi</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Cartes</string>
 	<string name="downloader_download_all_button">Télécharger tout</string>
 	<string name="downloader_downloading">Téléchargement en cours :</string>
@@ -672,7 +673,7 @@
 	<string name="elevation_profile_distance">Distance :</string>
 	<string name="elevation_profile_time">Temps:</string>
 	<string name="isolines_toast_zooms_1_10">Zoomez pour voir les courbes de niveaux</string>
-	<string name="download_map_title">Télécharcher la carte du monde</string>
+	<string name="download_map_title">Télécharger la carte du monde</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Erreur de connexion</string>
 	<!-- Used in DownloadResources startup screen -->
@@ -703,6 +704,7 @@
 	<string name="type.amenity.bench">Banc</string>
 	<string name="type.amenity.bicycle_parking">Parking à vélo</string>
 	<string name="type.amenity.bicycle_rental">Location de vélos</string>
+	<string name="type.amenity.bicycle_repair_station">Station de réparation de vélos</string>
 	<string name="type.amenity.brothel">Maison de prostitution</string>
 	<string name="type.amenity.bureau_de_change">Bureau de change</string>
 	<string name="type.amenity.bus_station">Gare routière</string>
@@ -823,6 +825,7 @@
 	<string name="type.building.has_parts">Bâtiment</string>
 	<string name="type.building.train_station">Gare</string>
 	<string name="type.building.warehouse">Entrepôt</string>
+	<string name="type.cemetery.grave">La tombe</string>
 	<string name="type.craft">Artisanat</string>
 	<string name="type.craft.brewery">Brasserie artisanale</string>
 	<string name="type.craft.carpenter">Charpentier</string>
@@ -1201,6 +1204,7 @@
 	<string name="type.natural.heath">Lande</string>
 	<string name="type.natural.hot_spring">Source chaude</string>
 	<string name="type.natural.water.lake">Lac</string>
+	<string name="type.natural.water.lock">Chambre de verrouillage</string>
 	<string name="type.natural.water.pond">Étang</string>
 	<string name="type.natural.water.reservoir">Réservoir</string>
 	<string name="type.natural.water.basin">Réservoir</string>
@@ -1410,7 +1414,6 @@
 	<string name="type.waterway.ditch">Fossé</string>
 	<string name="type.waterway.ditch.tunnel">Fossé</string>
 	<string name="type.waterway.dock">Cale</string>
-	<string name="type.waterway.lock">Écluse</string>
 	<string name="type.waterway.lock_gate">Porte d\'écluse</string>
 	<string name="type.waterway.river">Rivière</string>
 	<string name="type.waterway.river.tunnel">Rivière</string>

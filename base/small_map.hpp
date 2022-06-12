@@ -83,6 +83,19 @@ public:
     return nullptr;
   }
 
+  void Replace(Key const & k, Value v)
+  {
+    auto & theMap = this->m_map;
+    auto it = std::lower_bound(theMap.begin(), theMap.end(), k,
+                               [](ValueType const & l, Key const & r)
+    {
+      return l.first < r;
+    });
+
+    ASSERT(it != theMap.end() && it->first == k, ());
+    it->second = std::move(v);
+  }
+
   Value const & Get(Key const & k) const
   {
     Value const * v = Find(k);

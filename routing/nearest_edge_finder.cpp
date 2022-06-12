@@ -11,7 +11,7 @@ namespace routing
 using namespace std;
 
 NearestEdgeFinder::NearestEdgeFinder(m2::PointD const & point, IsEdgeProjGood const & isEdgeProjGood)
-    : m_point(point), m_isEdgeProjGood(isEdgeProjGood)
+  : m_point(point), m_isEdgeProjGood(isEdgeProjGood)
 {
 }
 
@@ -79,8 +79,7 @@ void NearestEdgeFinder::AddInformationSource(IRoadGraph::FullRoadInfo const & ro
   m_candidates.emplace_back(res);
 }
 
-void NearestEdgeFinder::MakeResult(vector<pair<Edge, geometry::PointWithAltitude>> & res,
-                                   size_t maxCountFeatures)
+void NearestEdgeFinder::MakeResult(vector<EdgeProjectionT> & res, size_t maxCountFeatures)
 {
   sort(m_candidates.begin(), m_candidates.end(), [](Candidate const & r1, Candidate const & r2)
   {
@@ -89,7 +88,7 @@ void NearestEdgeFinder::MakeResult(vector<pair<Edge, geometry::PointWithAltitude
 
   res.clear();
   res.reserve(maxCountFeatures);
-  
+
   for (Candidate const & candidate : m_candidates)
   {
     CandidateToResult(candidate, maxCountFeatures, res);
@@ -98,9 +97,8 @@ void NearestEdgeFinder::MakeResult(vector<pair<Edge, geometry::PointWithAltitude
   }
 }
 
-void NearestEdgeFinder::CandidateToResult(
-    Candidate const & candidate, size_t maxCountFeatures,
-    vector<pair<Edge, geometry::PointWithAltitude>> & res) const
+void NearestEdgeFinder::CandidateToResult(Candidate const & candidate, size_t maxCountFeatures,
+                                          vector<EdgeProjectionT> & res) const
 {
   AddResIf(candidate, true /* forward */, maxCountFeatures, res);
 
@@ -109,15 +107,16 @@ void NearestEdgeFinder::CandidateToResult(
 }
 
 void NearestEdgeFinder::AddResIf(Candidate const & candidate, bool forward, size_t maxCountFeatures,
-                                 vector<pair<Edge, geometry::PointWithAltitude>> & res) const
+                                 vector<EdgeProjectionT> & res) const
 {
   if (res.size() >= maxCountFeatures)
     return;
 
   geometry::PointWithAltitude const & start = forward ? candidate.m_segStart : candidate.m_segEnd;
   geometry::PointWithAltitude const & end = forward ? candidate.m_segEnd : candidate.m_segStart;
-  auto const & edge = Edge::MakeReal(candidate.m_fid, forward, candidate.m_segId, start,end);
-  auto const & edgeProj = make_pair(edge, candidate.m_projPoint);
+
+  Edge const edge = Edge::MakeReal(candidate.m_fid, forward, candidate.m_segId, start,end);
+  EdgeProjectionT const edgeProj(edge, candidate.m_projPoint);
   if (m_isEdgeProjGood && !m_isEdgeProjGood(edgeProj))
     return;
 

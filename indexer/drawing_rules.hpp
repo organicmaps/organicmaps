@@ -39,7 +39,7 @@ namespace drule
     static uint32_t const empty_id = 0xFFFFFFFF;
 
     BaseRule();
-    virtual ~BaseRule();
+    virtual ~BaseRule() = default;
 
     void CheckCacheSize(size_t s);
 
@@ -105,18 +105,15 @@ namespace drule
 
     void LoadFromBinaryProto(std::string const & s);
 
-    template <class ToDo> void ForEachRule(ToDo toDo)
+    template <class ToDo> void ForEachRule(ToDo && toDo)
     {
-      for (RulesMap::const_iterator i = m_rules.begin(); i != m_rules.end(); ++i)
+      for (auto const & rule : m_rules)
       {
         for (int j = 0; j < count_of_rules; ++j)
         {
-          std::vector<uint32_t> const & v = i->second[j];
+          std::vector<uint32_t> const & v = rule.second[j];
           for (size_t k = 0; k < v.size(); ++k)
-          {
-            // scale, type, rule
-            toDo(i->first, j, v[k], m_container[j][v[k]]);
-          }
+            toDo(m_container[j][v[k]]);
         }
       }
     }

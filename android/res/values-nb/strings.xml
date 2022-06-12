@@ -17,8 +17,6 @@
 	<string name="downloading">Laster ned …</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometer</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Kart</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -80,6 +78,8 @@
 	<string name="maps_storage">Lagre kart på</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Velg hvor du vil at kartene skal lastes ned til</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Kart</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Flytt kart?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -228,11 +228,12 @@
 	<string name="downloader_update_all_button">Oppdater alle</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Avbryt alle</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Lastet ned</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Lagt i kø</string>
 	<string name="downloader_near_me_subtitle">I nærheten</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Kart</string>
 	<string name="downloader_download_all_button">Last ned alle</string>
 	<string name="downloader_downloading">Laster ned:</string>
@@ -671,6 +672,7 @@
 	<string name="type.amenity.bench">Benk</string>
 	<string name="type.amenity.bicycle_parking">Sykkelparkering</string>
 	<string name="type.amenity.bicycle_rental">Sykkelutleie</string>
+	<string name="type.amenity.bicycle_repair_station">Sykkelreparasjonsstasjon</string>
 	<string name="type.amenity.biergarten">Uteservering</string>
 	<string name="type.amenity.brothel">Bordell</string>
 	<string name="type.amenity.bureau_de_change">Valutaveksling</string>
@@ -782,6 +784,7 @@
 	<string name="type.building.garage">Verksted</string>
 	<string name="type.building.has_parts">Bygning</string>
 	<string name="type.building.train_station">Togstasjon</string>
+	<string name="type.cemetery.grave">Grav</string>
 	<string name="type.craft.brewery">Bryggeri</string>
 	<string name="type.craft.carpenter">Snekker</string>
 	<string name="type.craft.electrician">Elektriker</string>
@@ -1113,6 +1116,7 @@
 	<string name="type.natural.glacier">Isbre</string>
 	<string name="type.natural.grassland">Slette</string>
 	<string name="type.natural.water.lake">Innsjø</string>
+	<string name="type.natural.water.lock">Låsekammer</string>
 	<string name="type.natural.water.pond">Dam</string>
 	<string name="type.natural.water.reservoir">Reservoar</string>
 	<string name="type.natural.water.basin">Vannvask</string>

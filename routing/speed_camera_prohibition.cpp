@@ -9,7 +9,7 @@ namespace
 {
 // List of country names where mwm should be generated without speed cameras.
 std::vector<std::string> kSpeedCamerasProhibitedCountries = {
-    "Cyprus", "Macedonia", "Switzerland", "Turkey",
+    "Macedonia", "Switzerland", "Turkey",
 };
 
 // List of country names where an end user should be warned about speed cameras.

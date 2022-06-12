@@ -323,64 +323,101 @@ MergedFeatureBuilder * FeatureTypesProcessor::operator() (FeatureBuilder const &
   return p;
 }
 
-
-namespace feature
+class TypeCheckBase
 {
-
-class RemoveSolver
-{
-  int m_lowScale, m_upScale;
-  bool m_doNotRemoveSpecialTypes;
+protected:
+  static uint32_t GetRegionType()
+  {
+    static uint32_t regionType = classif().GetTypeByPath({"place", "region"});
+    return regionType;
+  }
 
 public:
-  RemoveSolver(int lowScale, int upScale, bool doNotRemoveSpecialTypes)
-    : m_lowScale(lowScale)
-    , m_upScale(upScale)
-    , m_doNotRemoveSpecialTypes(doNotRemoveSpecialTypes)
+  int m_lowScale, m_upScale;
+
+  TypeCheckBase(int lowScale, int upScale)
+    : m_lowScale(lowScale), m_upScale(upScale)
   {
   }
 
-  bool operator() (uint32_t type) const
+  using RangeT = std::pair<int, int>;
+  static RangeT GetScaleRange(uint32_t type)
   {
-    std::pair<int, int> const range = feature::GetDrawableScaleRange(type);
+    return feature::GetDrawableScaleRange(type);
+  }
 
-    // Don't remove non-drawable types here, since this case is processed before
-    // feature::TypeAlwaysExists or FeatureBuilder::RemoveInvalidTypes.
-    if (m_doNotRemoveSpecialTypes && range.first == -1)
-    {
-      ASSERT(range.second == -1, ());
-      return false;
-    }
-
-    // Remove when |type| is invisible.
-    return (range.first == -1 || (range.first > m_upScale || range.second < m_lowScale));
+  static bool IsEmptyRange(RangeT const & range) { return range.first == -1; }
+  bool IsBadRange(RangeT const & range) const
+  {
+    return (range.first > m_upScale || range.second < m_lowScale);
   }
 };
 
-bool PreprocessForWorldMap(FeatureBuilder & fb)
+class TypeCheckWorld : public TypeCheckBase
 {
-  int const upperScale = scales::GetUpperWorldScale();
+public:
+  bool m_isRegion = false;
 
-  if (fb.RemoveTypesIf(RemoveSolver(0, upperScale, false /* doNotRemoveSpecialTypes */)))
+  TypeCheckWorld() : TypeCheckBase(0, scales::GetUpperWorldScale())
   {
-    return false;
   }
 
-  fb.RemoveNameIfInvisible(0, upperScale);
+  /// @return true If |type| should be removed.
+  bool operator() (uint32_t type)
+  {
+    // Keep place=region types in World.mwm for search, even when they are not visible.
+    if (type == GetRegionType())
+    {
+      m_isRegion = true;
+      return false;
+    }
+
+    auto const range = GetScaleRange(type);
+    return IsEmptyRange(range) || IsBadRange(range);
+  }
+};
+
+class TypeCheckCountry : public TypeCheckBase
+{
+public:
+  TypeCheckCountry() : TypeCheckBase(scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale())
+  {
+  }
+
+  /// @return true If |type| should be removed.
+  bool operator() (uint32_t type) const
+  {
+    // Do not keep place=region in countries.
+    if (type == GetRegionType())
+      return true;
+
+    auto const range = GetScaleRange(type);
+
+    // Don't remove non-drawable types here, since this case is processed before
+    // feature::TypeAlwaysExists or FeatureBuilder::RemoveInvalidTypes.
+    if (IsEmptyRange(range))
+      return false;
+
+    return IsBadRange(range);
+  }
+};
+
+namespace feature
+{
+bool PreprocessForWorldMap(FeatureBuilder & fb)
+{
+  TypeCheckWorld checker;
+  if (fb.RemoveTypesIf(checker))
+    return false;
+
+  if (!checker.m_isRegion)
+    fb.RemoveNameIfInvisible(checker.m_lowScale, checker.m_upScale);
 
   return true;
 }
 
 bool PreprocessForCountryMap(FeatureBuilder & fb)
 {
-  using namespace scales;
-
-  if (fb.RemoveTypesIf(RemoveSolver(GetUpperWorldScale() + 1, GetUpperStyleScale(),
-                                    true /* doNotRemoveSpecialTypes */)))
-  {
-    return false;
-  }
-
-  return true;
+  return !fb.RemoveTypesIf(TypeCheckCountry());
 }
-}
+} // namespace feature

@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Legg inn en vurdering";
 
-/* View and button titles for accessibility */
-"maps" = "Kart";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Miles";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Oppdater alle";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Lastet ned";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "I nærheten";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Kart";
 
 "downloader_download_all_button" = "Last ned alle";
@@ -1254,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Sykkelutleie";
 
+"type.amenity.bicycle_repair_station" = "Sykkelreparasjonsstasjon";
+
 "type.amenity.biergarten" = "Uteservering";
 
 "type.amenity.brothel" = "Bordell";
@@ -1571,15 +1571,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Grav";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Bryggeri";
 
 "type.craft.carpenter" = "Snekker";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektriker";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Anleggsgartner";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Klimaanlegg";
 
@@ -1591,7 +1603,11 @@
 
 "type.craft.plumber" = "Rørlegger";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Skoreparasjon";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Skredder";
 
@@ -2379,6 +2395,8 @@
 
 "type.natural.water.lake" = "Innsjø";
 
+"type.natural.water.lock" = "Låsekammer";
+
 "type.natural.water.pond" = "Dam";
 
 "type.natural.water.reservoir" = "Reservoar";
@@ -2956,8 +2974,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Sluseport";
 

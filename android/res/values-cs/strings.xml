@@ -17,8 +17,6 @@
 	<string name="downloading">Stahování…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometry</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Mapy</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Míle</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -78,6 +76,8 @@
 	<string name="maps_storage">Uložit mapy na</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Vyberte místo, kam by měly být mapy stahovány</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Mapy</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Přesunout mapy?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -226,11 +226,12 @@
 	<string name="downloader_update_all_button">Aktualizovat vše</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Zrušit vše</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Staženo</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Ve frontě</string>
 	<string name="downloader_near_me_subtitle">Poblíž mě</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Mapy</string>
 	<string name="downloader_download_all_button">Stáhnout vše</string>
 	<string name="downloader_downloading">Probíhá stahování:</string>
@@ -675,6 +676,7 @@
 	<string name="type.amenity.bench">Lavička</string>
 	<string name="type.amenity.bicycle_parking">Parkování kol</string>
 	<string name="type.amenity.bicycle_rental">Půjčovna kol</string>
+	<string name="type.amenity.bicycle_repair_station">Stanice na opravu jízdních kol</string>
 	<string name="type.amenity.biergarten">Hospoda se zahrádkou</string>
 	<string name="type.amenity.brothel">Nevěstinec</string>
 	<string name="type.amenity.bureau_de_change">Směnárna</string>
@@ -786,6 +788,7 @@
 	<string name="type.building.garage">Garáž</string>
 	<string name="type.building.has_parts">Stavba</string>
 	<string name="type.building.train_station">Železniční stanice</string>
+	<string name="type.cemetery.grave">Hrob</string>
 	<string name="type.craft.brewery">Pivovar</string>
 	<string name="type.craft.carpenter">Truhlář</string>
 	<string name="type.craft.electrician">Elektrikář</string>
@@ -1119,6 +1122,7 @@
 	<string name="type.natural.glacier">Ledovec</string>
 	<string name="type.natural.grassland">Pole</string>
 	<string name="type.natural.water.lake">Jezero</string>
+	<string name="type.natural.water.lock">Zámková komora</string>
 	<string name="type.natural.water.pond">Rybník</string>
 	<string name="type.natural.water.reservoir">Nádrž</string>
 	<string name="type.natural.water.basin">Vodní nádrž</string>

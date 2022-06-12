@@ -17,8 +17,6 @@
 	<string name="downloading">กำลังดาวน์โหลด…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">กิโลเมตร</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">แผนที่</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -80,6 +78,8 @@
 	<string name="maps_storage">บันทึกแผนที่ไปยัง</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">เลือกสถานที่ที่ต้องการดาวน์โหลดใช้แผนที่</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">แผนที่</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">ลบแผนที่?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -228,11 +228,12 @@
 	<string name="downloader_update_all_button">อัปเดตทั้งหมด</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">ยกเลิกทั้งหมด</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">ดาวน์โหลดแล้ว</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">ต่อแถว</string>
 	<string name="downloader_near_me_subtitle">ใกล้ฉัน</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">แผนที่</string>
 	<string name="downloader_download_all_button">ดาวน์โหลดทั้งหมด</string>
 	<string name="downloader_downloading">กำลังดาวน์โหลด:</string>
@@ -675,6 +676,7 @@
 	<string name="type.amenity.bench">ม้านั่ง</string>
 	<string name="type.amenity.bicycle_parking">ที่จอดจักรยาน</string>
 	<string name="type.amenity.bicycle_rental">จักรยานให้เช่า</string>
+	<string name="type.amenity.bicycle_repair_station">สถานีซ่อมจักรยาน</string>
 	<string name="type.amenity.biergarten">ลานเบียร์</string>
 	<string name="type.amenity.brothel">ซ่อง</string>
 	<string name="type.amenity.bureau_de_change">แลกเปลี่ยนเงินตรา</string>
@@ -788,6 +790,7 @@
 	<string name="type.building.garage">อาคารจอดรถ</string>
 	<string name="type.building.has_parts">อาคาร</string>
 	<string name="type.building.train_station">สถานีรถไฟ</string>
+	<string name="type.cemetery.grave">หลุมฝังศพ</string>
 	<string name="type.craft.brewery">โรงเบียร์</string>
 	<string name="type.craft.carpenter">ช่างไม้</string>
 	<string name="type.craft.electrician">ช่างไฟฟ้า</string>
@@ -1123,6 +1126,7 @@
 	<string name="type.natural.glacier">ธารน้ำแข็ง</string>
 	<string name="type.natural.grassland">ทุ่งหญ้า</string>
 	<string name="type.natural.water.lake">ทะเลสาบ</string>
+	<string name="type.natural.water.lock">ห้องล็อค</string>
 	<string name="type.natural.water.pond">บ่อ</string>
 	<string name="type.natural.water.reservoir">อ่างเก็บน้ำ</string>
 	<string name="type.natural.water.basin">อ่างน้ำ</string>

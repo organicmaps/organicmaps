@@ -17,8 +17,6 @@
 	<string name="downloading">ダウンロード中…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">キロメートル</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">マップ</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">マイル</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -78,6 +76,8 @@
 	<string name="maps_storage">地図の保存先</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">マップのダウンロード先を選択してください</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">マップ</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">マップを移動させますか？</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -224,11 +224,12 @@
 	<string name="downloader_update_all_button">全てをアップデート</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">すべてキャンセル</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">ダウンロード済み</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">待ち行列型の</string>
 	<string name="downloader_near_me_subtitle">付近</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">地図</string>
 	<string name="downloader_download_all_button">全てをダウンロード</string>
 	<string name="downloader_downloading">ダウンロード中：</string>
@@ -682,6 +683,7 @@
 	<string name="type.amenity.bench">ベンチ</string>
 	<string name="type.amenity.bicycle_parking">駐輪場</string>
 	<string name="type.amenity.bicycle_rental">レンタサイクル</string>
+	<string name="type.amenity.bicycle_repair_station">自転車修理ステーション</string>
 	<string name="type.amenity.biergarten">ビアガーデン</string>
 	<string name="type.amenity.brothel">売春宿</string>
 	<string name="type.amenity.bureau_de_change">外貨両替所</string>
@@ -816,6 +818,7 @@
 	<string name="type.building.garage">車庫</string>
 	<string name="type.building.has_parts">建物</string>
 	<string name="type.building.train_station">鉄道駅</string>
+	<string name="type.cemetery.grave">墓</string>
 	<string name="type.craft">工房</string>
 	<string name="type.craft.brewery">醸造所</string>
 	<string name="type.craft.carpenter">大工</string>
@@ -1213,6 +1216,7 @@
 	<string name="type.natural.heath">ヒース</string>
 	<string name="type.natural.hot_spring">温泉</string>
 	<string name="type.natural.water.lake">湖</string>
+	<string name="type.natural.water.lock">ロックチャンバー</string>
 	<string name="type.natural.water.pond">池</string>
 	<string name="type.natural.water.reservoir">貯水池</string>
 	<string name="type.natural.water.basin">水地</string>

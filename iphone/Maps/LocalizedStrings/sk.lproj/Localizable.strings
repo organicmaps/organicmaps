@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Spätná väzba";
 
-/* View and button titles for accessibility */
-"maps" = "Mapy";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Míle";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Aktualizovať všetko";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Stiahnuté";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Neďaleko mňa";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Mapy";
 
 "downloader_download_all_button" = "Stiahnuť všetko";
@@ -1254,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Požičovňa bicyklov";
 
+"type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
+
 "type.amenity.biergarten" = "Piváreň";
 
 "type.amenity.brothel" = "Nevestinec";
@@ -1571,15 +1571,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Hrob";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Pivovar";
 
 "type.craft.carpenter" = "Tesár";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektrikár";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Záhradníctvo";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Vzduchotechnika";
 
@@ -1591,7 +1603,11 @@
 
 "type.craft.plumber" = "Klampiarstvo";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Oprava obuvy";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Krajčírstvo";
 
@@ -2379,6 +2395,8 @@
 
 "type.natural.water.lake" = "Jazero";
 
+"type.natural.water.lock" = "Uzamykacia komora";
+
 "type.natural.water.pond" = "Rybník";
 
 "type.natural.water.reservoir" = "Nádrž";
@@ -2956,8 +2974,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Stavidlo";
 

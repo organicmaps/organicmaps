@@ -1,39 +1,43 @@
 package com.mapswithme.util.log;
 
 import android.util.Log;
-
-import com.mapswithme.maps.BuildConfig;
-
 import net.jcip.annotations.Immutable;
 
 @Immutable
 class LogCatStrategy implements LoggerStrategy
 {
+  private final boolean mIsDebug;
+
+  public LogCatStrategy(final boolean isDebug)
+  {
+    mIsDebug = isDebug;
+  }
+
   @Override
   public void v(String tag, String msg)
   {
-    if (canLog())
+    if (mIsDebug)
       Log.v(tag, msg);
   }
 
   @Override
   public void v(String tag, String msg, Throwable tr)
   {
-    if (canLog())
+    if (mIsDebug)
       Log.v(tag, msg, tr);
   }
 
   @Override
   public void d(String tag, String msg)
   {
-    if (canLog())
+    if (mIsDebug)
       Log.d(tag, msg);
   }
 
   @Override
   public void d(String tag, String msg, Throwable tr)
   {
-    if (canLog())
+    if (mIsDebug)
       Log.d(tag, msg, tr);
   }
 
@@ -77,10 +81,5 @@ class LogCatStrategy implements LoggerStrategy
   public void e(String tag, String msg, Throwable tr)
   {
     Log.e(tag, msg, tr);
-  }
-
-  private static boolean canLog()
-  {
-    return BuildConfig.DEBUG;
   }
 }

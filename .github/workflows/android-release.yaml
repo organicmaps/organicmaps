@@ -1,9 +1,9 @@
 name: Android Release
 on:
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch:  # Manual trigger
 
 env:
-  RELEASE_NOTES: android/src/google/play/listings/en-US/whatsnew
+  RELEASE_NOTES: android/src/google/play/release-notes/en-US/default.txt
   FDROID_VERSION: android/src/fdroid/play/version.yaml
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v2
         with:
-          fetch-depth: 100 # enough to get all commits for the current day
+          fetch-depth: 100  # Enough to get all commits for the last day.
           ssh-key: ${{ secrets.RELEASE_SSH_KEY }}
 
       - name: Tag
@@ -23,16 +23,14 @@ jobs:
         shell: bash
         run: |
           set -x
-          timestamp=$(date +%s)
           git config user.name '${{ github.actor }}'
           git config user.email '${{ github.actor }}@users.noreply.github.com'
-          export GIT_COMMITTER_DATE=$timestamp
-          export GIT_AUTHOR_DATE=$timestamp
-          current_date=$(date -d @$timestamp '+%Y-%m-%d')
-          build=$(($(git rev-list --count --after="${current_date}T00:00:00Z" HEAD) + 1))
-          version=$(date -d @$timestamp '+%Y.%m.%d')
-          code=$(date -d @$timestamp '+%y%m%d')$(printf "%02d" ${build})
-          tag=${version}-${build}-android
+          version=$(tools/unix/version.sh ios_version)
+          # +1 because below a "Bump versions" commit is created.
+          # TODO: Find a way to refactor FDroid versioning without that additional commit.
+          build=$(($(tools/unix/version.sh ios_build) + 1))
+          code=$(($(tools/unix/version.sh android_code) + 1))
+          tag=$version-$build-android
           echo "::set-output name=version::$version"
           echo "::set-output name=build::$build"
           echo "::set-output name=tag::$tag"
@@ -75,13 +73,6 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y ninja-build
-          # Hack needed to make ninja visible to cmake during NDK builds.
-          # See https://issuetracker.google.com/issues/206099937
-          CMAKE_DIR=$(dirname $(which cmake))
-          NINJA_DIR=$(dirname $(which ninja))
-          if [ "$CMAKE_DIR" != "$NINJA_DIR" ]; then
-            ln -s "$(which ninja)" "$CMAKE_DIR/ninja"
-          fi
 
       - name: Set up JDK 11
         uses: actions/setup-java@v1

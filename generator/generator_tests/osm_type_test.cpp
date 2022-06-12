@@ -1414,9 +1414,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cliff)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    /// @todo natural=cliff is not drawable now ..
-    TEST_EQUAL(params.m_types.size(), 0, (params));
-    //TEST(params.IsTypeExist(GetType({"natural", "cliff"})), (params));
+    TEST(params.IsTypeExist(GetType({"natural", "cliff"})), (params));
   }
 }
 
@@ -1664,17 +1662,25 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"boundary", "national_park"},
     {"building", "has_parts"},
     {"building", "train_station"},
+    {"cemetery", "grave"},
+    {"craft", "beekeeper"},
+    {"craft", "blacksmith"},
     {"craft", "brewery"},
     {"craft", "carpenter"},
+    {"craft", "confectionery"},
     {"craft", "electrician"},
+    {"craft", "electronics_repair"},
     {"craft", "gardener"},
+    {"craft", "handicraft"},
     {"craft", "hvac"},
     {"craft", "metal_construction"},
     {"craft", "painter"},
     {"craft", "photographer"},
     {"craft", "plumber"},
+    {"craft", "sawmill"},
     {"craft", "shoemaker"},
     {"craft", "tailor"},
+    {"craft", "winery"},
     {"cuisine", "african"},
     {"cuisine", "american"},
     {"cuisine", "arab"},
@@ -1867,6 +1873,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"man_made", "breakwater"},
     {"man_made", "chimney"},
     {"man_made", "cutline"},
+    {"man_made", "embankment"},
     {"man_made", "lighthouse"},
     {"man_made", "survey_point"},
     {"man_made", "pier"},
@@ -1880,7 +1887,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"natural", "beach"},
     {"natural", "cape"},
     {"natural", "cave_entrance"},
+    {"natural", "cliff"},
     {"natural", "coastline"},
+    {"natural", "earth_bank"},
     {"natural", "geyser"},
     {"natural", "glacier"},
     {"natural", "grassland"},
@@ -2066,7 +2075,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"waterway", "ditch"},
     {"waterway", "dock"},
     {"waterway", "drain"},
-    {"waterway", "lock"},
     {"waterway", "lock_gate"},
     {"waterway", "river"},
     {"waterway", "riverbank"},
@@ -2296,6 +2304,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"natural", "water", "reservoir"}, {{"natural", "water"}, {"water", "reservoir"}}},
     {{"natural", "water", "river"}, {{"natural", "water"}, {"water", "river"}}},
     {{"natural", "water", "basin"}, {{"natural", "water"}, {"water", "basin"}}},
+    {{"natural", "water", "lock"}, {{"natural", "water"}, {"water", "lock"}}},
     {{"natural", "wetland", "bog"}, {{"natural", "wetland"}, {"wetland", "bog"}}},
     {{"natural", "wetland", "marsh"}, {{"natural", "wetland"}, {"wetland", "marsh"}}},
     {{"office"}, {{"office", "any_value"}}},

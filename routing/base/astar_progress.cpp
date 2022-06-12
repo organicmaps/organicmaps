@@ -31,7 +31,9 @@ AStarSubProgress::AStarSubProgress(double contributionCoef)
 
 double AStarSubProgress::UpdateProgress(ms::LatLon const & current, ms::LatLon const & finish)
 {
-  ASSERT_NOT_EQUAL(m_fullDistance, 0.0, ());
+  // to avoid 0/0
+  if (m_fullDistance < 1.0E-6)
+    return m_currentProgress;
 
   double const dist = ms::DistanceOnEarth(current, finish);
   double & toUpdate = finish == m_finishPoint ? m_forwardDistance : m_backwardDistance;

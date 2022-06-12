@@ -176,7 +176,7 @@
 		45789EE321353CA3009955CC /* program_manager_metal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = program_manager_metal.mm; sourceTree = "<group>"; };
 		45789EE52135464D009955CC /* metal_program_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metal_program_params.hpp; sourceTree = "<group>"; };
 		45789EE62135464D009955CC /* metal_program_params.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_program_params.mm; sourceTree = "<group>"; };
-		4598437C21394BE000F8CAB2 /* shaders_metal.metallib */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "archive.metal-library"; path = shaders_metal.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
+		4598437C21394BE000F8CAB2 /* shaders_metal.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = shaders_metal.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DAC3652399214F000BC50D /* libvulkan_wrapper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libvulkan_wrapper.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBF7916F2146D8EC00D27BD8 /* system.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = system.metal; sourceTree = "<group>"; };
 		BBF7917221493AFC00D27BD8 /* arrow3d.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = arrow3d.metal; sourceTree = "<group>"; };

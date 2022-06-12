@@ -17,8 +17,6 @@
 	<string name="downloading">Laddar ner…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometer</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Kartor</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -78,6 +76,8 @@
 	<string name="maps_storage">Spara kartor i</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Välj en plats dit kartor ska laddas ner</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Kartor</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Flytta kartor?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -224,11 +224,12 @@
 	<string name="downloader_update_all_button">Uppdatera alla</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Avbryt alla</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Nedladdade</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Köade</string>
 	<string name="downloader_near_me_subtitle">Nära mig</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Kartor</string>
 	<string name="downloader_download_all_button">Ladda ned alla</string>
 	<string name="downloader_downloading">Ladda ner:</string>
@@ -781,6 +782,7 @@
 	<string name="type.building.address">Byggnad</string>
 	<string name="type.building.has_parts">Byggnad</string>
 	<string name="type.building.train_station">Tågstation</string>
+	<string name="type.cemetery.grave">Grav</string>
 	<string name="type.craft.brewery">Bryggeri</string>
 	<string name="type.craft.carpenter">Snickare</string>
 	<string name="type.craft.electrician">Elektriker</string>
@@ -1111,6 +1113,7 @@
 	<string name="type.natural.glacier">Glaciär</string>
 	<string name="type.natural.grassland">Fältet</string>
 	<string name="type.natural.water.lake">Sjö</string>
+	<string name="type.natural.water.lock">Låskammare</string>
 	<string name="type.natural.water.pond">Damm</string>
 	<string name="type.natural.water.reservoir">Reservoar</string>
 	<string name="type.natural.water.basin">Vattenbassäng</string>

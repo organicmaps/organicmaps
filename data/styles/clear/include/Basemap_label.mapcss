@@ -47,6 +47,8 @@ area[landuse=cemetery],
 node[landuse=cemetery],
 area[amenity=grave_yard],
 node[amenity=grave_yard],
+node[cemetery=grave],
+area[cemetery=grave],
 {z-index: 800;}
 
 line[isoline],
@@ -404,7 +406,6 @@ node|z13-[place=hamlet]
 
 /* 4.4 Districts & Small localities */
 
-node|z8-9[place=region],
 node|z10-14[place=suburb],
 node|z13-[place=locality],
 node|z13-[place=neighbourhood],
@@ -433,7 +434,6 @@ node|z13-14[place=suburb]
 node|z13-14[place=suburb]::int_name
 {font-size: 10;}
 
-node|z8-9[place=region],
 node|z13-[place=locality],
 node|z13-[place=neighbourhood],
 node|z14-[place=farm],
@@ -628,18 +628,12 @@ node|z15-[landuse=quarry],
 /* 	7.4 Cemetry */
 
 area|z15-[landuse=cemetery],
-node|z15-[landuse=cemetery],
-area|z17-[amenity=grave_yard],
-node|z17-[amenity=grave_yard],
-{text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
-
-area|z15-16[landuse=cemetery]
-{icon-image: cemetery-m.svg;}
-area|z17-[landuse=cemetery],
 node|z17-[landuse=cemetery],
 area|z17-[amenity=grave_yard],
 node|z17-[amenity=grave_yard],
-{icon-image: cemetery-m.svg;}
+node|z17-[cemetery=grave],
+area|z17-[cemetery=grave],
+{icon-image: cemetery-m.svg; text: name; text-offset: 1; font-size: 10; text-color: @poi_label;}
 
 /* 	7.5 Pedestrian areas */
 

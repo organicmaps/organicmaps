@@ -4,6 +4,7 @@
 #include "routing/fake_feature_ids.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/road_point.hpp"
+#include "routing/route.hpp"
 #include "routing/segment.hpp"
 #include "routing/traffic_stash.hpp"
 #include "routing/world_graph.hpp"
@@ -68,7 +69,7 @@ void FillSegmentInfo(vector<Segment> const & segments,
         ++turnIdx;
     }
 
-    string curStreet;
+    RouteSegment::RoadNameInfo curStreet;
     if (!streets.empty())
     {
       CHECK_LESS_OR_EQUAL(streetIdx, streets.size(), ());

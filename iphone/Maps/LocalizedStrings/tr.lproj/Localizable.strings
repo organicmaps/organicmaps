@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Bir Yorum Bırak";
 
-/* View and button titles for accessibility */
-"maps" = "Haritalar";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mil";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Tümünü güncelle";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "İndirilenler";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Yakınlarımda";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Haritalar";
 
 "downloader_download_all_button" = "Hepsini İndir";
@@ -1254,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Bisiklet Kiralama";
 
+"type.amenity.bicycle_repair_station" = "Bisiklet tamir istasyonu";
+
 "type.amenity.biergarten" = "Bira Bahçesi";
 
 "type.amenity.brothel" = "Genelev";
@@ -1386,7 +1386,7 @@
 
 "type.amenity.prison" = "Hapishane";
 
-"type.amenity.pub" = "Bar";
+"type.amenity.pub" = "Meyhane";
 
 "type.amenity.public_bookcase" = "Kitap Değişimi";
 
@@ -1469,7 +1469,7 @@
 
 "type.amenity.vending_machine.excrement_bags" = "Dışkı Torbası Dağıtıcı";
 
-"type.amenity.parcel_locker" = "Posta Kutusu";
+"type.amenity.parcel_locker" = "Kilitlenebilen Kutu Dolaplar";
 
 "type.amenity.vending_machine.fuel" = "Yakıt Dağıtıcı";
 
@@ -1477,7 +1477,7 @@
 
 "type.amenity.waste_basket" = "Çöp Kutusu";
 
-"type.amenity.waste_disposal" = "Çöp Kutusu";
+"type.amenity.waste_disposal" = "Çöp Konteyneri";
 
 "type.amenity.waste_transfer_station" = "Atık Transfer İstasyonu";
 
@@ -1571,15 +1571,27 @@
 
 "type.building.warehouse" = "Depo";
 
+"type.cemetery.grave" = "Mezar";
+
 "type.craft" = "Zanaat";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Bira Fabrikası";
 
 "type.craft.carpenter" = "Marangoz";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektrikçi";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Bahçe Düzenleyici";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Klimacı";
 
@@ -1591,7 +1603,11 @@
 
 "type.craft.plumber" = "Tesisatçı";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Ayakkabı Tamircisi";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Terzi";
 
@@ -2101,7 +2117,7 @@
 
 "type.historic.fort" = "Hisar";
 
-"type.historic.memorial" = "Anıt";
+"type.historic.memorial" = "Abide";
 
 "type.historic.memorial.plaque" = "Hatıra Plaketi";
 
@@ -2327,7 +2343,7 @@
 
 "type.man_made.wastewater_plant" = "Atıksu Tesisi";
 
-"type.man_made.water_tap" = "Çeşme Suyu";
+"type.man_made.water_tap" = "Su Musluğu";
 
 "type.man_made.water_tower" = "Su Kulesi";
 
@@ -2379,6 +2395,8 @@
 
 "type.natural.water.lake" = "Göl";
 
+"type.natural.water.lock" = "Kilit Odası";
+
 "type.natural.water.pond" = "Gölet";
 
 "type.natural.water.reservoir" = "Rezervuar";
@@ -2425,19 +2443,19 @@
 
 "type.office" = "Ofis";
 
-"type.office.company" = "Şirket bürosu";
+"type.office.company" = "Şirket Bürosu";
 
 "type.office.estate_agent" = "Emlakçı";
 
-"type.office.government" = "Devlet dairesi";
+"type.office.government" = "Devlet Dairesi";
 
-"type.office.insurance" = "Sigorta Acentası";
+"type.office.insurance" = "Sigorta Acentesi";
 
-"type.office.lawyer" = "Avukatlık bürosu";
+"type.office.lawyer" = "Avukatlık Bürosu";
 
 "type.office.ngo" = "STK Binası";
 
-"type.office.telecommunication" = "Cep telefonu operatörü";
+"type.office.telecommunication" = "Cep Telefonu Operatörü";
 
 "type.organic.only" = "Organic";
 
@@ -2699,7 +2717,7 @@
 
 "type.shop.beauty" = "Güzellik Salonu";
 
-"type.shop.beverages" = "İçecek";
+"type.shop.beverages" = "İçecekler";
 
 "type.shop.bicycle" = "Bisikletçi";
 
@@ -2875,7 +2893,7 @@
 
 "type.tourism.alpine_hut" = "Dağda Konaklama";
 
-"type.tourism.apartment" = "Apart otel";
+"type.tourism.apartment" = "Apart Otel";
 
 "type.tourism.artwork" = "Sanat";
 
@@ -2956,8 +2974,6 @@
 "type.waterway.drain" = "Lağım";
 
 "type.waterway.drain.tunnel" = "Lağım";
-
-"type.waterway.lock" = "Kanal Havuzu";
 
 "type.waterway.lock_gate" = "Kilit Kapısı";
 

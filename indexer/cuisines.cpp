@@ -9,23 +9,27 @@
 
 #include <algorithm>
 
-using namespace std;
-
 namespace osm
 {
+using namespace std;
+
 Cuisines::Cuisines()
 {
-  auto const add = [&](auto const *, uint32_t type) {
-    auto const cuisine = classif().GetFullObjectNamePath(type);
-    CHECK_EQUAL(cuisine.size(), 2, (cuisine));
-    m_allCuisines.emplace_back(
-        cuisine[1], platform::GetLocalizedTypeName(classif().GetReadableObjectName(type)));
-  };
+  auto const & c = classif();
 
-  auto const cuisineType = classif().GetTypeByPath({"cuisine"});
-  classif().GetObject(cuisineType)->ForEachObjectInTree(add, cuisineType);
-  sort(m_allCuisines.begin(), m_allCuisines.end(),
-       [](auto const & lhs, auto const & rhs) { return lhs.second < rhs.second; });
+  /// @todo Better to have GetObjectByPath().
+  // Assume that "cuisine" hierarchy is one-level.
+  uint32_t const cuisineType = c.GetTypeByPath({"cuisine"});
+  c.GetObject(cuisineType)->ForEachObject([this](ClassifObject const & o)
+  {
+    auto const & name = o.GetName();
+    m_allCuisines.emplace_back(name, platform::GetLocalizedTypeName("cuisine-" + name));
+  });
+
+  sort(m_allCuisines.begin(), m_allCuisines.end(), [](auto const & lhs, auto const & rhs)
+  {
+    return lhs.second < rhs.second;
+  });
 }
 
 // static

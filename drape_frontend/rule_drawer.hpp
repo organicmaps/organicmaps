@@ -58,6 +58,8 @@ private:
 
   bool CheckCancelled();
 
+  bool IsDiscardCustomFeature(FeatureID const & id) const;
+
   TDrawerCallback m_callback;
   TCheckCancelledCallback m_checkCancelled;
   TIsCountryLoadedByNameFn m_isLoadedFn;

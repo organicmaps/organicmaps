@@ -5,15 +5,19 @@ package com.mapswithme.maps.settings;
  */
 public class StorageItem
 {
-  // Path to the root of writable directory.
   public final String mPath;
-  // Free size.
   public final long mFreeSize;
+  public final long mTotalSize;
+  public final String mLabel;
+  public final boolean mIsReadonly;
 
-  StorageItem(String path, long size)
+  public StorageItem(String path, long freeSize, long totalSize, final String label, boolean isReadonly)
   {
     mPath = path;
-    mFreeSize = size;
+    mFreeSize = freeSize;
+    mTotalSize = totalSize;
+    mLabel = label;
+    mIsReadonly = isReadonly;
   }
 
   @Override
@@ -24,9 +28,7 @@ public class StorageItem
     if (o == null || !(o instanceof StorageItem))
       return false;
     StorageItem other = (StorageItem) o;
-    // Storage equal is considered equal, either its path OR size equals to another one's.
-    // Size of storage free space can change dynamically, so that hack provides us with better results identifying the same storages.
-    return mFreeSize == other.mFreeSize || mPath.equals(other.mPath);
+    return mPath.equals(other.mPath);
   }
 
   @Override
@@ -35,21 +37,5 @@ public class StorageItem
     // Yes, do not put StorageItem to Hash containers, performance will be awful.
     // At least such hash is compatible with hacky equals.
     return 0;
-  }
-
-  @Override
-  public String toString()
-  {
-    return mPath + ", " + mFreeSize;
-  }
-
-  public String getFullPath()
-  {
-    return mPath;
-  }
-
-  public long getFreeSize()
-  {
-    return mFreeSize;
   }
 }

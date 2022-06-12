@@ -17,8 +17,6 @@
 	<string name="downloading">다운로드 중…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">킬로미터</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">지도</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">마일</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -78,6 +76,8 @@
 	<string name="maps_storage">지도 저장 위치:</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">지도가 다운로드될 곳을 선택합니다</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">지도</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">지도를 이동합니까?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -226,11 +226,12 @@
 	<string name="downloader_update_all_button">모두 업데이트</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">모두 취소</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">다운로드</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">대기</string>
 	<string name="downloader_near_me_subtitle">내 근처</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">지도</string>
 	<string name="downloader_download_all_button">모두 다운로드</string>
 	<string name="downloader_downloading">다운로드 중:</string>
@@ -672,6 +673,7 @@
 	<string name="type.amenity.bench">벤치</string>
 	<string name="type.amenity.bicycle_parking">자전거 주차장</string>
 	<string name="type.amenity.bicycle_rental">자전거 대여</string>
+	<string name="type.amenity.bicycle_repair_station">자전거 수리소</string>
 	<string name="type.amenity.biergarten">비어가르텐</string>
 	<string name="type.amenity.brothel">사창가</string>
 	<string name="type.amenity.bureau_de_change">환전</string>
@@ -785,6 +787,7 @@
 	<string name="type.building.garage">차고</string>
 	<string name="type.building.has_parts">건물</string>
 	<string name="type.building.train_station">기차역</string>
+	<string name="type.cemetery.grave">무덤</string>
 	<string name="type.craft.brewery">양조장</string>
 	<string name="type.craft.carpenter">목수</string>
 	<string name="type.craft.electrician">전기기술자</string>
@@ -1119,6 +1122,7 @@
 	<string name="type.natural.glacier">빙하</string>
 	<string name="type.natural.grassland">밭</string>
 	<string name="type.natural.water.lake">호수</string>
+	<string name="type.natural.water.lock">잠금 챔버</string>
 	<string name="type.natural.water.pond">연못이</string>
 	<string name="type.natural.water.reservoir">저수지</string>
 	<string name="type.natural.water.basin">저수지</string>

@@ -219,21 +219,12 @@ void AsciiToLower(std::string & s)
   });
 }
 
-std::string & TrimLeft(std::string & s)
+void Trim(std::string & s)
 {
-  s.erase(s.begin(), std::find_if(s.cbegin(), s.cend(), [](auto c) { return !std::isspace(c); }));
-  return s;
+  boost::trim_if(s, ::isspace);
 }
 
-std::string & TrimRight(std::string & s)
-{
-  s.erase(std::find_if(s.crbegin(), s.crend(), [](auto c) { return !std::isspace(c); }).base(), s.end());
-  return s;
-}
-
-std::string & Trim(std::string & s) { return TrimLeft(TrimRight(s)); }
-
-std::string_view & Trim(std::string_view & sv)
+void Trim(std::string_view & sv)
 {
   auto const beg = std::find_if(sv.cbegin(), sv.cend(), [](auto c) { return !std::isspace(c); });
   if (beg != sv.end())
@@ -243,13 +234,11 @@ std::string_view & Trim(std::string_view & sv)
   }
   else
     sv = {};
-  return sv;
 }
 
-std::string & Trim(std::string & s, char const * anyOf)
+void Trim(std::string & s, std::string_view anyOf)
 {
   boost::trim_if(s, boost::is_any_of(anyOf));
-  return s;
 }
 
 bool ReplaceFirst(std::string & str, std::string const & from, std::string const & to)

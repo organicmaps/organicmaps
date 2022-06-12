@@ -1,4 +1,6 @@
 #include "indexer/data_source.hpp"
+#include "indexer/scale_index.hpp"
+#include "indexer/unique_index.hpp"
 
 #include "platform/mwm_version.hpp"
 
@@ -57,15 +59,16 @@ public:
       // iterate through intervals
       for (auto const & i : intervals)
       {
-        index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint64_t /* key */, uint32_t value) {
-          if (!checkUnique(value))
-            return;
-          m_fn(value, *src);
+        index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint64_t /* key */, uint32_t value)
+        {
+          if (checkUnique(value))
+            m_fn(value, *src);
         });
         if (m_stop())
           break;
       }
     }
+
     // Check created features container.
     // Need to do it on a per-mwm basis, because Drape relies on features in a sorted order.
     // Touched (created, edited) features reading.
@@ -165,15 +168,13 @@ unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const & lo
   auto info = make_unique<MwmInfoEx>();
   info->m_bordersRect = h.GetBounds();
 
-  pair<int, int> const scaleR = h.GetScaleRange();
+  auto const scaleR = h.GetScaleRange();
   info->m_minScale = static_cast<uint8_t>(scaleR.first);
   info->m_maxScale = static_cast<uint8_t>(scaleR.second);
   info->m_version = value.GetMwmVersion();
-  // Copying to drop the const qualifier.
-  feature::RegionData regionData(value.GetRegionData());
-  info->m_data = regionData;
+  value.m_factory.MoveRegionData(info->m_data);
 
-  return unique_ptr<MwmInfo>(move(info));
+  return info;
 }
 
 unique_ptr<MwmValue> DataSource::CreateValue(MwmInfo & info) const
@@ -186,7 +187,7 @@ unique_ptr<MwmValue> DataSource::CreateValue(MwmInfo & info) const
 
   p->SetTable(dynamic_cast<MwmInfoEx &>(info));
   ASSERT(p->GetHeader().IsMWMSuitable(), ());
-  return unique_ptr<MwmValue>(move(p));
+  return p;
 }
 
 pair<MwmSet::MwmId, MwmSet::RegResult> DataSource::RegisterMap(LocalCountryFile const & localFile)
@@ -231,9 +232,10 @@ void DataSource::ForEachInIntervals(ReaderCallback const & fn, covering::Coverin
 void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect,
                                         int scale) const
 {
-  auto readFeatureId = [&f](uint32_t index, FeatureSource & src) {
+  auto readFeatureId = [&f](uint32_t index, FeatureSource & src)
+  {
     if (src.GetFeatureStatus(index) != FeatureStatus::Deleted)
-      f(src.GetFeatureId(index));
+      f({ src.GetMwmId(), index });
   };
 
   ReadMWMFunctor readFunctor(*m_factory, readFeatureId);
@@ -313,6 +315,7 @@ void DataSource::ReadFeatures(FeatureCallback const & fn, vector<FeatureID> cons
           ft = src->GetModifiedFeature(fidIter->m_index);
         else
           ft = src->GetOriginalFeature(fidIter->m_index);
+
         CHECK(ft, ());
         fn(*ft);
       } while (++fidIter != endIter && id == fidIter->m_mwmId);

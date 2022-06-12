@@ -33,10 +33,10 @@ class RoadAttrsGetter;
 class RoadGeometry final
 {
 public:
-  using Points = buffer_vector<m2::PointD, 32>;
-
   RoadGeometry() : m_isOneWay(false), m_valid(false), m_isPassThroughAllowed(false), m_inCity(false) {}
+
   /// Used in tests.
+  using Points = std::vector<m2::PointD>;
   RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH, Points const & points);
 
   /// @param[in] altitudes May be nullptr.
@@ -86,7 +86,7 @@ public:
   double GetRoadLengthM() const;
 
 private:
-  buffer_vector<LatLonWithAltitude, 32> m_junctions;
+  std::vector<LatLonWithAltitude> m_junctions;
 
   SpeedKMpH m_forwardSpeed;
   SpeedKMpH m_backwardSpeed;
@@ -108,8 +108,7 @@ public:
   using VehicleModelPtrT = std::shared_ptr<VehicleModelInterface>;
 
   /// @param[in] handle should be alive, its caller responsibility to check it.
-  static std::unique_ptr<GeometryLoader> Create(DataSource const & dataSource,
-                                                MwmSet::MwmHandle const & handle,
+  static std::unique_ptr<GeometryLoader> Create(MwmSet::MwmHandle const & handle,
                                                 VehicleModelPtrT const & vehicleModel,
                                                 bool loadAltitudes);
 
@@ -147,10 +146,10 @@ public:
   }
 
 private:
-  using RoutingFifoCache =
-      FifoCache<uint32_t, RoadGeometry, ska::bytell_hash_map<uint32_t, RoadGeometry>>;
+  /// @todo Use LRU cache?
+  using RoutingCacheT = FifoCache<uint32_t, RoadGeometry, ska::bytell_hash_map<uint32_t, RoadGeometry>>;
 
   std::unique_ptr<GeometryLoader> m_loader;
-  std::unique_ptr<RoutingFifoCache> m_featureIdToRoad;
+  std::unique_ptr<RoutingCacheT> m_featureIdToRoad;
 };
 }  // namespace routing

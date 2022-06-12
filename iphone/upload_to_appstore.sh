@@ -9,15 +9,12 @@ cd "$SCRIPT_DIR/.."
 ./configure.sh git@github.com:organicmaps/organicmaps-keys
 cd "$SCRIPT_DIR"
 
-# Generate version numbers.
-DATE_OF_LAST_COMMIT=$(git log -1 --date=format:%Y-%m-%d --pretty=format:%cd)
-NUMBER_OF_COMMITS_ON_THAT_DAY=$(git rev-list --count --after="${DATE_OF_LAST_COMMIT}T00:00:00" HEAD)
-# Replace '-' with '.'
-IOS_VERSION="${DATE_OF_LAST_COMMIT//-/.}"
+IOS_BUILD=$($SCRIPT_DIR/../tools/unix/version.sh ios_build)
+IOS_VERSION=$($SCRIPT_DIR/../tools/unix/version.sh ios_version)
 
 BUILD_DIR="$SCRIPT_DIR/build"
 mkdir -p "$BUILD_DIR"
-ARCHIVE_PATH="$BUILD_DIR/OM-$IOS_VERSION-$NUMBER_OF_COMMITS_ON_THAT_DAY.xcarchive"
+ARCHIVE_PATH="$BUILD_DIR/OM-$IOS_VERSION-$IOS_BUILD.xcarchive"
 IPA_PATH="$BUILD_DIR"
 rm -rf "$ARCHIVE_PATH"
 
@@ -27,9 +24,10 @@ xcodebuild archive \
     -workspace "$SCRIPT_DIR/../xcode/omim.xcworkspace" \
     -configuration Release \
     -scheme OMaps \
+    -destination generic/platform=iOS \
     -archivePath "$ARCHIVE_PATH" \
     MARKETING_VERSION="$IOS_VERSION" \
-    CURRENT_PROJECT_VERSION="$NUMBER_OF_COMMITS_ON_THAT_DAY"
+    CURRENT_PROJECT_VERSION="$IOS_BUILD"
 
 
 # Create a plist with upload options.
@@ -61,6 +59,6 @@ xcodebuild -exportArchive \
 
 
 echo "Build was successfully uploaded! Please don't forget to tag it with release notes using:"
-TAG="$IOS_VERSION-$NUMBER_OF_COMMITS_ON_THAT_DAY-ios"
+TAG="$IOS_VERSION-$IOS_BUILD-ios"
 echo "git tag -a $TAG"
 echo "git push origin $TAG"

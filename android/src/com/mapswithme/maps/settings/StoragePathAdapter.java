@@ -1,42 +1,42 @@
 package com.mapswithme.maps.settings;
 
 import android.app.Activity;
-import android.view.LayoutInflater;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.format.Formatter;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 
 import com.mapswithme.maps.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.UiUtils;
 
 class StoragePathAdapter extends BaseAdapter
 {
-  private final StoragePathManager mStoragePathManager;
-  private final LayoutInflater mInflater;
-
-  private final List<StorageItem> mItems = new ArrayList<>();
-  private int mCurrentStorageIndex = -1;
+  private final StoragePathManager mPathManager;
+  private final Activity mActivity;
   private long mSizeNeeded;
 
-  StoragePathAdapter(StoragePathManager storagePathManager, Activity context)
+  public StoragePathAdapter(StoragePathManager pathManager, Activity activity)
   {
-    mStoragePathManager = storagePathManager;
-    mInflater = context.getLayoutInflater();
+    mPathManager = pathManager;
+    mActivity = activity;
   }
 
   @Override
   public int getCount()
   {
-    return (mItems == null ? 0 : mItems.size());
+    return (mPathManager.mStorages == null ? 0 : mPathManager.mStorages.size());
   }
 
   @Override
   public StorageItem getItem(int position)
   {
-    return mItems.get(position);
+    return mPathManager.mStorages.get(position);
   }
 
   @Override
@@ -49,35 +49,44 @@ class StoragePathAdapter extends BaseAdapter
   public View getView(int position, View convertView, ViewGroup parent)
   {
     if (convertView == null)
-      convertView = mInflater.inflate(R.layout.item_storage, parent, false);
+      convertView = mActivity.getLayoutInflater().inflate(R.layout.item_storage, parent, false);
 
-    StorageItem item = mItems.get(position);
+    StorageItem item = mPathManager.mStorages.get(position);
+    final boolean isCurrent = position == mPathManager.mCurrentStorageIndex;
     CheckedTextView checkedView = (CheckedTextView) convertView;
-    checkedView.setText(item.mPath + ": " + StoragePathFragment.getSizeString(item.mFreeSize));
-    checkedView.setChecked(position == mCurrentStorageIndex);
-    checkedView.setEnabled(position == mCurrentStorageIndex || isStorageBigEnough(position));
+    checkedView.setChecked(isCurrent);
+    checkedView.setEnabled(!item.mIsReadonly && (isStorageBigEnough(position) || isCurrent));
+
+    final String size = mActivity.getString(R.string.maps_storage_free_size,
+                                            Formatter.formatShortFileSize(mActivity, item.mFreeSize),
+                                            Formatter.formatShortFileSize(mActivity, item.mTotalSize));
+
+    SpannableStringBuilder sb = new SpannableStringBuilder(item.mLabel + "\n" + size);
+    sb.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(mActivity, android.R.attr.textColorSecondary)),
+               sb.length() - size.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    sb.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(mActivity, R.dimen.text_size_body_3)),
+               sb.length() - size.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+    final String path = item.mPath + (item.mIsReadonly ? " (read-only)" : "");
+    sb.append("\n" + path);
+    sb.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(mActivity, android.R.attr.textColorSecondary)),
+               sb.length() - path.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    sb.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(mActivity, R.dimen.text_size_body_4)),
+               sb.length() - path.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+    checkedView.setText(sb);
 
     return convertView;
   }
 
-  public void onItemClick(int position)
-  {
-    if (isStorageBigEnough(position) && position != mCurrentStorageIndex)
-      mStoragePathManager.changeStorage(position);
-  }
-
-  public void update(List<StorageItem> items, int currentItemIndex, long dirSize)
+  public void update(long dirSize)
   {
     mSizeNeeded = dirSize;
-    mItems.clear();
-    mItems.addAll(items);
-    mCurrentStorageIndex = currentItemIndex;
-
     notifyDataSetChanged();
   }
 
-  private boolean isStorageBigEnough(int index)
+  public boolean isStorageBigEnough(int index)
   {
-    return mItems.get(index).mFreeSize >= mSizeNeeded;
+    return mPathManager.mStorages.get(index).mFreeSize >= mSizeNeeded;
   }
 }

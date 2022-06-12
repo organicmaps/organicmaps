@@ -17,8 +17,6 @@
 	<string name="downloading">Загружается…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Километры</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Карты</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">МБ</string>
 	<string name="gb">ГБ</string>
@@ -81,8 +79,22 @@
 	<string name="maps_storage">Сохранять карты в</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Выберите место, где будут храниться загруженные карты</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Загруженные карты</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Внутренний скрытый накопитель</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Внутренний общий накопитель</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">SD-карта</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">Внешний общий накопитель</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">%1$s свободно из %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Переместить карты?</string>
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">Ошибка перемещения файлов карт</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Это может занять несколько минут.\nПожалуйста, подождите…</string>
 	<!-- Measurement units title in settings activity -->
@@ -236,11 +248,12 @@
 	<string name="downloader_update_all_button">Обновить все</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Отменить все</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Загруженные</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">В очереди</string>
 	<string name="downloader_near_me_subtitle">Возле меня</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Карт</string>
 	<string name="downloader_download_all_button">Загрузить все</string>
 	<string name="downloader_downloading">Загружается:</string>
@@ -730,6 +743,7 @@
 	<string name="type.amenity.bench">Скамейка</string>
 	<string name="type.amenity.bicycle_parking">Велостоянка</string>
 	<string name="type.amenity.bicycle_rental">Велопрокат</string>
+	<string name="type.amenity.bicycle_repair_station">Станция ремонта велосипедов</string>
 	<string name="type.amenity.biergarten">Пивная под открытым небом</string>
 	<string name="type.amenity.brothel">Бордель</string>
 	<string name="type.amenity.bureau_de_change">Обмен валюты</string>
@@ -890,17 +904,25 @@
 	<string name="type.building.has_parts">Здание</string>
 	<string name="type.building.train_station">Ж/д вокзал</string>
 	<string name="type.building.warehouse">Склад</string>
+	<string name="type.cemetery.grave">Могила</string>
 	<string name="type.craft">Мастерская</string>
+	<string name="type.craft.beekeeper">Пчеловод</string>
+	<string name="type.craft.blacksmith">Кузнец</string>
 	<string name="type.craft.brewery">Крафтовое пиво</string>
 	<string name="type.craft.carpenter">Столяр</string>
+	<string name="type.craft.confectionery">Кондитер</string>
 	<string name="type.craft.electrician">Электрик</string>
+	<string name="type.craft.electronics_repair">Ремонт электроники</string>
 	<string name="type.craft.gardener">Садовник</string>
+	<string name="type.craft.handicraft">Декоративный мастер</string>
 	<string name="type.craft.hvac">Кондиционеры</string>
 	<string name="type.craft.metal_construction">Металлоконструкции</string>
 	<string name="type.craft.painter">Маляр</string>
 	<string name="type.craft.photographer">Фотограф</string>
 	<string name="type.craft.plumber">Сантехник</string>
+	<string name="type.craft.sawmill">Лесопилка</string>
 	<string name="type.craft.shoemaker">Ремонт обуви</string>
+	<string name="type.craft.winery">Винодельня</string>
 	<string name="type.craft.tailor">Ателье</string>
 	<string name="type.cuisine.african">Африканская кухня</string>
 	<string name="type.cuisine.american">Американская кухня</string>
@@ -1301,6 +1323,7 @@
 	<string name="type.natural.heath">Пустошь</string>
 	<string name="type.natural.hot_spring">Горячий источник</string>
 	<string name="type.natural.water.lake">Озеро</string>
+	<string name="type.natural.water.lock">Шлюзовая камера</string>
 	<string name="type.natural.water.pond">Пруд</string>
 	<string name="type.natural.water.reservoir">Водохранилище</string>
 	<string name="type.natural.water.basin">Резервуар</string>
@@ -1590,7 +1613,6 @@
 	<string name="type.waterway.dock">Причал</string>
 	<string name="type.waterway.drain">Водоотвод</string>
 	<string name="type.waterway.drain.tunnel">Водоотвод</string>
-	<string name="type.waterway.lock">Шлюз</string>
 	<string name="type.waterway.lock_gate">Шлюз</string>
 	<string name="type.waterway.river">Река</string>
 	<string name="type.waterway.river.tunnel">Река</string>

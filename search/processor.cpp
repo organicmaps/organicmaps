@@ -885,6 +885,23 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
   m_preRanker.Init(params);
 }
 
+namespace
+{
+class NotInPreffered : public ftypes::BaseChecker
+{
+  NotInPreffered() : ftypes::BaseChecker(1)
+  {
+    base::StringIL const types[] = { {"organic"}, {"internet_access"} };
+    auto const & c = classif();
+    for (auto const & e : types)
+      m_types.push_back(c.GetTypeByPath(e));
+  }
+
+public:
+  DECLARE_CHECKER_INSTANCE(NotInPreffered);
+};
+} // namespace
+
 void Processor::InitRanker(Geocoder::Params const & geocoderParams,
                            SearchParams const & searchParams)
 {
@@ -901,12 +918,7 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
 
   params.m_preferredTypes = m_preferredTypes;
   // Remove "secondary" category types from preferred.
-  base::EraseIf(params.m_preferredTypes, [](uint32_t type)
-  {
-    static uint32_t const organic = classif().GetTypeByPath({"organic"});
-    ftype::TruncValue(type, 1);
-    return (organic == type);
-  });
+  base::EraseIf(params.m_preferredTypes, NotInPreffered::Instance());
 
   params.m_suggestsEnabled = searchParams.m_suggestsEnabled;
   params.m_needAddress = searchParams.m_needAddress;

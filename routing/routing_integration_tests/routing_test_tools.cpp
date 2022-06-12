@@ -183,19 +183,16 @@ void TestTurnCount(routing::Route const & route, uint32_t expectedTurnCount)
 
 void TestCurrentStreetName(routing::Route const & route, string const & expectedStreetName)
 {
-  string streetName;
-  route.GetCurrentStreetName(streetName);
-  TEST_EQUAL(streetName, expectedStreetName, ());
+  RouteSegment::RoadNameInfo roadNameInfo;
+  route.GetCurrentStreetName(roadNameInfo);
+  TEST_EQUAL(roadNameInfo.m_name, expectedStreetName, ());
 }
 
 void TestNextStreetName(routing::Route const & route, string const & expectedStreetName)
 {
-  string streetName;
-  double distance;
-  turns::TurnItem turn;
-  route.GetCurrentTurn(distance, turn);
-  route.GetStreetNameAfterIdx(turn.m_index, streetName);
-  TEST_EQUAL(streetName, expectedStreetName, ());
+  RouteSegment::RoadNameInfo roadNameInfo;
+  route.GetNextTurnStreetName(roadNameInfo);
+  TEST_EQUAL(roadNameInfo.m_name, expectedStreetName, ());
 }
 
 void TestRouteLength(Route const & route, double expectedRouteMeters, double relativeError)
@@ -297,7 +294,10 @@ TestTurn GetNthTurn(routing::Route const & route, uint32_t turnNumber)
   vector<turns::TurnItem> turns;
   route.GetTurnsForTesting(turns);
   if (turnNumber >= turns.size())
+  {
+    ASSERT(false, ());
     return TestTurn();
+  }
 
   TurnItem const & turn = turns[turnNumber];
   return TestTurn(route.GetPoly().GetPoint(turn.m_index), turn.m_turn, turn.m_exitNum);

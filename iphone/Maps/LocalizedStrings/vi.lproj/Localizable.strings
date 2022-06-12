@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Để lại Đánh giá";
 
-/* View and button titles for accessibility */
-"maps" = "Bản đồ";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Dặm";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Cập nhật tất cả";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Đã tải xuống";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Gần tôi";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Bản đồ";
 
 "downloader_download_all_button" = "Tải xuống tất cả";
@@ -1254,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Cho thuê xe đạp";
 
+"type.amenity.bicycle_repair_station" = "trạm sửa xe đạp";
+
 "type.amenity.biergarten" = "Vườn bia";
 
 "type.amenity.brothel" = "Giải trí";
@@ -1571,15 +1571,27 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Phần mộ";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Nhà máy bia";
 
 "type.craft.carpenter" = "Thợ mộc";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Thợ điện";
 
+"type.craft.electronics_repair" = "Electronics repair";
+
 "type.craft.gardener" = "Người thiết kế và xây dựng cảnh quan";
+
+"type.craft.handicraft" = "Handicraft";
 
 "type.craft.hvac" = "Điều hòa nhiệt độ";
 
@@ -1591,7 +1603,11 @@
 
 "type.craft.plumber" = "Thợ đường ống";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Sửa giày";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Thợ may";
 
@@ -2379,6 +2395,8 @@
 
 "type.natural.water.lake" = "Hồ";
 
+"type.natural.water.lock" = "Khoang khóa";
+
 "type.natural.water.pond" = "Ao";
 
 "type.natural.water.reservoir" = "Hồ chứa";
@@ -2956,8 +2974,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Cổng Khóa";
 

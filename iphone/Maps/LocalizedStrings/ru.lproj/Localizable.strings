@@ -26,9 +26,6 @@
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Написать отзыв";
 
-/* View and button titles for accessibility */
-"maps" = "Карты";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Мили";
 
@@ -321,7 +318,7 @@
 /* Update all button text */
 "downloader_update_all_button" = "Обновить все";
 
-/* Downloaded maps category */
+/* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Загруженные";
 
 /* Downloaded maps category */
@@ -332,6 +329,7 @@
 
 "downloader_near_me_subtitle" = "Возле меня";
 
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Карт";
 
 "downloader_download_all_button" = "Загрузить все";
@@ -1254,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Велопрокат";
 
+"type.amenity.bicycle_repair_station" = "Станция ремонта велосипедов";
+
 "type.amenity.biergarten" = "Пивная под открытым небом";
 
 "type.amenity.brothel" = "Бордель";
@@ -1571,15 +1571,27 @@
 
 "type.building.warehouse" = "Склад";
 
+"type.cemetery.grave" = "Могила";
+
 "type.craft" = "Мастерская";
+
+"type.craft.beekeeper" = "Пчеловод";
+
+"type.craft.blacksmith" = "Кузнец";
 
 "type.craft.brewery" = "Крафтовое пиво";
 
 "type.craft.carpenter" = "Столяр";
 
+"type.craft.confectionery" = "Кондитер";
+
 "type.craft.electrician" = "Электрик";
 
+"type.craft.electronics_repair" = "Ремонт электроники";
+
 "type.craft.gardener" = "Садовник";
+
+"type.craft.handicraft" = "Декоративный мастер";
 
 "type.craft.hvac" = "Кондиционеры";
 
@@ -1591,7 +1603,11 @@
 
 "type.craft.plumber" = "Сантехник";
 
+"type.craft.sawmill" = "Лесопилка";
+
 "type.craft.shoemaker" = "Ремонт обуви";
+
+"type.craft.winery" = "Винодельня";
 
 "type.craft.tailor" = "Ателье";
 
@@ -2379,6 +2395,8 @@
 
 "type.natural.water.lake" = "Озеро";
 
+"type.natural.water.lock" = "Шлюзовая камера";
+
 "type.natural.water.pond" = "Пруд";
 
 "type.natural.water.reservoir" = "Водохранилище";
@@ -2956,8 +2974,6 @@
 "type.waterway.drain" = "Водоотвод";
 
 "type.waterway.drain.tunnel" = "Водоотвод";
-
-"type.waterway.lock" = "Шлюз";
 
 "type.waterway.lock_gate" = "Шлюз";
 

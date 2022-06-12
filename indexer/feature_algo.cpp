@@ -103,4 +103,17 @@ double GetMinDistanceMeters(FeatureType & ft, m2::PointD const & pt)
 {
   return GetMinDistanceMeters(ft, pt, FeatureType::BEST_GEOMETRY);
 }
+
+double CalcArea(FeatureType & ft)
+{
+  double area = 0;
+  if (ft.GetGeomType() == GeomType::Area)
+  {
+    ft.ForEachTriangle([&area](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+    {
+      area += m2::GetTriangleArea(p1, p2, p3);
+    }, FeatureType::BEST_GEOMETRY);
+  }
+  return area;
+}
 }  // namespace feature

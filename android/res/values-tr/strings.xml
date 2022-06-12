@@ -17,8 +17,6 @@
 	<string name="downloading">İndiriliyor…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometre</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Haritalar</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -44,9 +42,9 @@
 	<string name="unsupported_phone">Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.</string>
 	<string name="download">İndir</string>
 	<!-- Used in DownloadResources startup screen -->
-	<string name="disconnect_usb_cable">Organic Maps’i kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
+	<string name="disconnect_usb_cable">Organic Maps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
 	<!-- Used in DownloadResources startup screen -->
-	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
+	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
 	<string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\n%s alan gerekli.</string>
 	<string name="download_resources_continue">Haritaya Git</string>
 	<string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya\ngidebilirsiniz.</string>
@@ -80,6 +78,8 @@
 	<string name="maps_storage">Haritaları şuraya kaydet:</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Haritaların indirileceği yeri seçin</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Haritalar</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Haritalar taşınsın mı?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -235,11 +235,12 @@
 	<string name="downloader_update_all_button">Tümünü güncelle</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Tümünü İptal Et</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">İndirilenler</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Sıraya alındı</string>
 	<string name="downloader_near_me_subtitle">Yakınlarımda</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Haritalar</string>
 	<string name="downloader_download_all_button">Hepsini İndir</string>
 	<string name="downloader_downloading">İndiriliyor:</string>
@@ -680,6 +681,10 @@
 	<string name="isolines_toast_zooms_1_10">İzohipsleri görmek için haritayı büyütün</string>
 	<string name="download_map_title">Dünya haritasını indir</string>
 	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">Disk hatası</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Bağlantı hatası</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">USB kablosunu çıkarın</string>
@@ -717,6 +722,7 @@
 	<string name="type.amenity.bench">Bank</string>
 	<string name="type.amenity.bicycle_parking">Bisiklet Park Yeri</string>
 	<string name="type.amenity.bicycle_rental">Bisiklet Kiralama</string>
+	<string name="type.amenity.bicycle_repair_station">Bisiklet tamir istasyonu</string>
 	<string name="type.amenity.biergarten">Bira Bahçesi</string>
 	<string name="type.amenity.brothel">Genelev</string>
 	<string name="type.amenity.bureau_de_change">Döviz Bürosu</string>
@@ -784,7 +790,7 @@
 	<string name="type.amenity.post_box">Posta Kutusu</string>
 	<string name="type.amenity.post_office">Postane</string>
 	<string name="type.amenity.prison">Hapishane</string>
-	<string name="type.amenity.pub">Bar</string>
+	<string name="type.amenity.pub">Meyhane</string>
 	<string name="type.amenity.public_bookcase">Kitap Değişimi</string>
 
 	<!-- SECTION: Types: Recycling -->
@@ -821,11 +827,11 @@
 	<string name="type.amenity.vending_machine.parking_tickets">Otopark Fişi</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Toplu Taşıma Biletleri için Otomatlar</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Dışkı Torbası Dağıtıcı</string>
-	<string name="type.amenity.parcel_locker">Posta Kutusu</string>
+	<string name="type.amenity.parcel_locker">Kilitlenebilen Kutu Dolaplar</string>
 	<string name="type.amenity.vending_machine.fuel">Yakıt Dağıtıcı</string>
 	<string name="type.amenity.veterinary">Veteriner</string>
 	<string name="type.amenity.waste_basket">Çöp Kutusu</string>
-	<string name="type.amenity.waste_disposal">Çöp Kutusu</string>
+	<string name="type.amenity.waste_disposal">Çöp Konteyneri</string>
 	<string name="type.amenity.waste_transfer_station">Atık Transfer İstasyonu</string>
 	<string name="type.amenity.water_point">Karavanlar için Su Noktası</string>
 	<string name="type.barrier">Bariyer</string>
@@ -872,6 +878,7 @@
 	<string name="type.building.has_parts">Bina</string>
 	<string name="type.building.train_station">Tren İstasyonu</string>
 	<string name="type.building.warehouse">Depo</string>
+	<string name="type.cemetery.grave">Mezar</string>
 	<string name="type.craft">Zanaat</string>
 	<string name="type.craft.brewery">Bira Fabrikası</string>
 	<string name="type.craft.carpenter">Marangoz</string>
@@ -1157,7 +1164,7 @@
 	<string name="type.historic.castle.stately">Kale</string>
 	<string name="type.historic.citywalls">Şehir Duvarı</string>
 	<string name="type.historic.fort">Hisar</string>
-	<string name="type.historic.memorial">Anıt</string>
+	<string name="type.historic.memorial">Abide</string>
 	<string name="type.historic.memorial.plaque">Hatıra Plaketi</string>
 	<string name="type.historic.memorial.sculpture">Heykel</string>
 	<string name="type.historic.memorial.statue">Heykel</string>
@@ -1256,7 +1263,7 @@
 	<string name="type.man_made.surveillance">Güvenlik Kamerası</string>
 	<string name="type.man_made.tower">Kule</string>
 	<string name="type.man_made.wastewater_plant">Atıksu Tesisi</string>
-	<string name="type.man_made.water_tap">Çeşme Suyu</string>
+	<string name="type.man_made.water_tap">Su Musluğu</string>
 	<string name="type.man_made.water_tower">Su Kulesi</string>
 	<string name="type.man_made.water_well">Su Kuyusu</string>
 	<string name="type.man_made.windmill">Yel Değirmeni</string>
@@ -1280,6 +1287,7 @@
 	<string name="type.natural.heath">Çalı</string>
 	<string name="type.natural.hot_spring">Kaplıca</string>
 	<string name="type.natural.water.lake">Göl</string>
+	<string name="type.natural.water.lock">Kilit Odası</string>
 	<string name="type.natural.water.pond">Gölet</string>
 	<string name="type.natural.water.reservoir">Rezervuar</string>
 	<string name="type.natural.water.basin">Havza</string>
@@ -1303,13 +1311,13 @@
 	<string name="type.natural.wetland.marsh">Sulak Alan</string>
 	<string name="type.noexit">Çıkmaz</string>
 	<string name="type.office">Ofis</string>
-	<string name="type.office.company">Şirket bürosu</string>
+	<string name="type.office.company">Şirket Bürosu</string>
 	<string name="type.office.estate_agent">Emlakçı</string>
-	<string name="type.office.government">Devlet dairesi</string>
-	<string name="type.office.insurance">Sigorta Acentası</string>
-	<string name="type.office.lawyer">Avukatlık bürosu</string>
+	<string name="type.office.government">Devlet Dairesi</string>
+	<string name="type.office.insurance">Sigorta Acentesi</string>
+	<string name="type.office.lawyer">Avukatlık Bürosu</string>
 	<string name="type.office.ngo">STK Binası</string>
-	<string name="type.office.telecommunication">Cep telefonu operatörü</string>
+	<string name="type.office.telecommunication">Cep Telefonu Operatörü</string>
 	<string name="type.place">Yer</string>
 	<string name="type.place.city">Şehir</string>
 	<string name="type.place.city.capital">Başkent</string>
@@ -1433,7 +1441,7 @@
 	<string name="type.shop.alcohol">İçki dükkanı</string>
 	<string name="type.shop.bakery">Fırın</string>
 	<string name="type.shop.beauty">Güzellik Salonu</string>
-	<string name="type.shop.beverages">İçecek</string>
+	<string name="type.shop.beverages">İçecekler</string>
 	<string name="type.shop.bicycle">Bisikletçi</string>
 	<string name="type.shop.bookmaker">Bahisçi</string>
 	<string name="type.shop.books">Kitapçı</string>
@@ -1521,7 +1529,7 @@
 	<string name="type.sport.tennis">Tenis Kortu</string>
 	<string name="type.tourism">Turizm</string>
 	<string name="type.tourism.alpine_hut">Dağda Konaklama</string>
-	<string name="type.tourism.apartment">Apart otel</string>
+	<string name="type.tourism.apartment">Apart Otel</string>
 	<string name="type.tourism.artwork">Sanat</string>
 	<string name="type.tourism.artwork.architecture">Sanatsal Mimari</string>
 	<string name="type.tourism.artwork.painting">Sanat Eserleri</string>
@@ -1562,7 +1570,6 @@
 	<string name="type.waterway.dock">Rıhtım</string>
 	<string name="type.waterway.drain">Lağım</string>
 	<string name="type.waterway.drain.tunnel">Lağım</string>
-	<string name="type.waterway.lock">Kanal Havuzu</string>
 	<string name="type.waterway.lock_gate">Kilit Kapısı</string>
 	<string name="type.waterway.river">Nehir</string>
 	<string name="type.waterway.river.tunnel">Nehir</string>

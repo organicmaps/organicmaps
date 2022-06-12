@@ -12,133 +12,43 @@
 #include <algorithm>
 #include <array>
 
-using namespace std;
-
-template <typename ToDo>
-typename ToDo::ResultType Classificator::ProcessObjects(uint32_t type, ToDo & toDo) const
-{
-  typedef typename ToDo::ResultType ResultType;
-  ResultType res = ResultType(); // default initialization
-
-  ClassifObject const * p = GetObject(type);
-  if (p != &m_root)
-  {
-    ASSERT(p, ());
-    toDo(p, res);
-  }
-  return res;
-}
-
-ClassifObject const * Classificator::GetObject(uint32_t type) const
-{
-  ClassifObject const * p = &m_root;
-  uint8_t i = 0;
-
-  // get the final ClassifObject
-  uint8_t v;
-  while (ftype::GetValue(type, i, v))
-  {
-    ++i;
-    p = p->GetObject(v);
-  }
-
-  return p;
-}
-
-string Classificator::GetFullObjectName(uint32_t type) const
-{
-  ClassifObject const * p = &m_root;
-  uint8_t i = 0;
-  string s;
-
-  // get the final ClassifObject
-  uint8_t v;
-  while (ftype::GetValue(type, i, v))
-  {
-    ++i;
-    p = p->GetObject(v);
-    s = s + p->GetName() + '|';
-  }
-
-  return s;
-}
-
-vector<string> Classificator::GetFullObjectNamePath(uint32_t type) const
-{
-  ClassifObject const * p = &m_root;
-  uint8_t i = 0;
-  vector<string> res;
-
-  // get the final ClassifObject
-  uint8_t v;
-  while (ftype::GetValue(type, i, v))
-  {
-    ++i;
-    p = p->GetObject(v);
-    res.push_back(p->GetName());
-  }
-
-  return res;
-}
-
 namespace feature
 {
+using namespace std;
+
 namespace
 {
-  class DrawRuleGetter
-  {
-    int m_scale;
-    GeomType m_gt;
-    drule::KeysT & m_keys;
-
-  public:
-    DrawRuleGetter(int scale, GeomType gt, drule::KeysT & keys)
-      : m_scale(scale), m_gt(gt), m_keys(keys)
-    {
-    }
-
-    typedef bool ResultType;
-
-    void operator() (ClassifObject const *)
-    {
-    }
-    bool operator() (ClassifObject const * p, bool & res)
-    {
-      res = true;
-      p->GetSuitable(min(m_scale, scales::GetUpperStyleScale()), m_gt, m_keys);
-      return false;
-    }
-  };
+int CorrectScale(int scale)
+{
+  CHECK_LESS_OR_EQUAL(scale, scales::GetUpperStyleScale(), ());
+  return min(scale, scales::GetUpperStyleScale());
 }
+} // namespace
 
-pair<int, bool> GetDrawRule(TypesHolder const & types, int level,
-                            drule::KeysT & keys)
+void GetDrawRule(TypesHolder const & types, int level, drule::KeysT & keys)
 {
   ASSERT ( keys.empty(), () );
   Classificator const & c = classif();
 
-  DrawRuleGetter doRules(level, types.GetGeomType(), keys);
+  auto const geomType = types.GetGeomType();
+  level = CorrectScale(level);
   for (uint32_t t : types)
-    (void)c.ProcessObjects(t, doRules);
-
-  return make_pair(static_cast<int>(types.GetGeomType()), types.Has(c.GetCoastType()));
+    c.GetObject(t)->GetSuitable(level, geomType, keys);
 }
 
 void GetDrawRule(vector<uint32_t> const & types, int level, GeomType geomType, drule::KeysT & keys)
-
 {
   ASSERT ( keys.empty(), () );
   Classificator const & c = classif();
 
-  DrawRuleGetter doRules(level, geomType, keys);
-
+  level = CorrectScale(level);
   for (uint32_t t : types)
-    (void)c.ProcessObjects(t, doRules);
+    c.GetObject(t)->GetSuitable(level, geomType, keys);
 }
 
 void FilterRulesByRuntimeSelector(FeatureType & f, int zoomLevel, drule::KeysT & keys)
 {
-  keys.erase_if([&f, zoomLevel](drule::Key const & key)->bool
+  keys.erase_if([&f, zoomLevel](drule::Key const & key)
   {
     drule::BaseRule const * const rule = drule::rules().Find(key);
     if (rule == nullptr)
@@ -149,52 +59,6 @@ void FilterRulesByRuntimeSelector(FeatureType & f, int zoomLevel, drule::KeysT &
 
 namespace
 {
-  class IsDrawableChecker
-  {
-    int m_scale;
-
-  public:
-    explicit IsDrawableChecker(int scale) : m_scale(scale) {}
-
-    typedef bool ResultType;
-
-    void operator() (ClassifObject const *) {}
-    bool operator() (ClassifObject const * p, bool & res)
-    {
-      if (p->IsDrawable(m_scale))
-      {
-        res = true;
-        return true;
-      }
-      return false;
-    }
-  };
-
-  class IsDrawableLikeChecker
-  {
-    GeomType m_geomType;
-    bool m_emptyName;
-
-  public:
-    IsDrawableLikeChecker(GeomType geomType, bool emptyName = false)
-      : m_geomType(geomType), m_emptyName(emptyName)
-    {
-    }
-
-    typedef bool ResultType;
-
-    void operator() (ClassifObject const *) {}
-    bool operator() (ClassifObject const * p, bool & res)
-    {
-      if (p->IsDrawableLike(m_geomType, m_emptyName))
-      {
-        res = true;
-        return true;
-      }
-      return false;
-    }
-  };
-
   class IsDrawableRulesChecker
   {
     int m_scale;
@@ -210,10 +74,7 @@ namespace
       m_arr[2] = rules & RULE_SYMBOL;
     }
 
-    typedef bool ResultType;
-
-    void operator() (ClassifObject const *) {}
-    bool operator() (ClassifObject const * p, bool & res)
+    bool operator() (ClassifObject const * p) const
     {
       drule::KeysT keys;
       p->GetSuitable(m_scale, m_gt, keys);
@@ -224,7 +85,6 @@ namespace
             (m_arr[1] && k.m_type == drule::pathtext) ||
             (m_arr[2] && k.m_type == drule::symbol))
         {
-          res = true;
           return true;
         }
       }
@@ -239,6 +99,21 @@ namespace
   /// The functions names and set of types looks strange now and definitely should be revised.
   /// @{
 
+  bool IsUsefulStandaloneType(uint32_t type, GeomType g = GeomType::Undefined)
+  {
+    auto const & cl = classif();
+
+    static uint32_t const shuttle = cl.GetTypeByPath({"route", "shuttle_train"});
+    if ((g == GeomType::Line || g == GeomType::Undefined) && type == shuttle)
+      return true;
+
+    static uint32_t const region = cl.GetTypeByPath({"place", "region"});
+    if ((g == GeomType::Point || g == GeomType::Undefined) && type == region)
+      return true;
+
+    return false;
+  }
+
   /// Warning: Geometry of features with always existing types will be indexed in mwm on all
   /// zoom levels. If you add an always existing type to drawing types, the displacement of icons
   /// may work not correctly.
@@ -248,12 +123,11 @@ namespace
     if (!cl.IsTypeValid(type))
       return false;
 
-    static uint32_t const shuttle = cl.GetTypeByPath({"route", "shuttle_train"});
+    if (IsUsefulStandaloneType(type, g))
+      return true;
+
     static uint32_t const internet = cl.GetTypeByPath({"internet_access"});
     static uint32_t const complexEntry = cl.GetTypeByPath({"complex_entry"});
-
-    if ((g == GeomType::Line || g == GeomType::Undefined) && type == shuttle)
-      return true;
 
     uint8_t const typeLevel = ftype::GetLevel(type);
     ftype::TruncValue(type, 1);
@@ -268,7 +142,7 @@ namespace
       {
         static uint32_t const arrTypes[] = {
             cl.GetTypeByPath({"organic"}),
-            cl.GetTypeByPath({"recycling"})
+            cl.GetTypeByPath({"recycling"}),
         };
         if (base::IsExist(arrTypes, type))
           return true;
@@ -295,6 +169,7 @@ namespace
     static uint32_t const roundabout = cl.GetTypeByPath({"junction", "roundabout"});
     static uint32_t const psurface = cl.GetTypeByPath({"psurface"});
 
+    /// @todo "roundabout" type itself has caption drawing rules (for point junctions?).
     if ((g == GeomType::Line || g == GeomType::Undefined) && type == roundabout)
       return true;
 
@@ -319,14 +194,15 @@ bool IsUsefulType(uint32_t type)
   return IsUsefulNondrawableType(type) || classif().GetObject(type)->IsDrawableAny();
 }
 
-bool IsDrawableLike(vector<uint32_t> const & types, GeomType geomType)
+bool CanGenerateLike(vector<uint32_t> const & types, GeomType geomType)
 {
   Classificator const & c = classif();
 
-  IsDrawableLikeChecker doCheck(geomType);
   for (uint32_t t : types)
-    if (c.ProcessObjects(t, doCheck))
+  {
+    if (IsUsefulStandaloneType(t, geomType) || c.GetObject(t)->IsDrawableLike(geomType, false /* emptyName */))
       return true;
+  }
   return false;
 }
 
@@ -363,10 +239,9 @@ bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD limitRe
 bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level)
 {
   Classificator const & c = classif();
-  IsDrawableChecker doCheck(level);
   for (uint32_t t : types)
   {
-    if (TypeAlwaysExists(t) || c.ProcessObjects(t, doCheck))
+    if (TypeAlwaysExists(t) || c.GetObject(t)->IsDrawable(level))
       return true;
   }
 
@@ -375,37 +250,29 @@ bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level)
 
 bool IsUsefulType(uint32_t t, GeomType geomType, bool emptyName)
 {
-  Classificator const & c = classif();
-
   if (IsUsefulNondrawableType(t, geomType))
     return true;
 
-  IsDrawableLikeChecker doCheck(geomType, emptyName);
-  if (c.ProcessObjects(t, doCheck))
+  ClassifObject const * obj = classif().GetObject(t);
+  CHECK(obj, ());
+
+  if (obj->IsDrawableLike(geomType, emptyName))
     return true;
 
-  // IsDrawableLikeChecker checks only unique area styles,
-  // so we need to take into account point styles too.
+  // IsDrawableLike checks only unique area styles, so we need to take into account point styles too.
   if (geomType == GeomType::Area)
   {
-    IsDrawableLikeChecker doCheck(GeomType::Point, emptyName);
-    if (c.ProcessObjects(t, doCheck))
+    if (obj->IsDrawableLike(GeomType::Point, emptyName))
       return true;
   }
 
   return false;
 }
 
-bool HasUsefulType(vector<uint32_t> const & types, GeomType geomType, bool emptyName)
-{
-  return any_of(types.begin(), types.end(), [&](uint32_t t) {
-    return IsUsefulType(t, geomType, emptyName);
-  });
-}
-
 bool RemoveUselessTypes(vector<uint32_t> & types, GeomType geomType, bool emptyName)
 {
-  base::EraseIf(types, [&] (uint32_t t) {
+  base::EraseIf(types, [&] (uint32_t t)
+  {
     return !IsUsefulType(t, geomType, emptyName);
   });
 
@@ -473,33 +340,13 @@ namespace
     }
   }
 
-  class DoGetScalesRange
-  {
-    pair<int, int> m_scales;
-  public:
-    DoGetScalesRange() : m_scales(1000, -1000) {}
-    typedef bool ResultType;
-
-    void operator() (ClassifObject const *) {}
-    bool operator() (ClassifObject const * p, bool & res)
-    {
-      res = true;
-      AddRange(m_scales, p->GetDrawScaleRange());
-      return false;
-    }
-
-    pair<int, int> GetScale() const
-    {
-      return (m_scales.first > m_scales.second ? make_pair(-1, -1) : m_scales);
-    }
-  };
-}
+  pair<int, int> kInvalidScalesRange(-1, -1);
+} // namespace
 
 pair<int, int> GetDrawableScaleRange(uint32_t type)
 {
-  DoGetScalesRange doGet;
-  (void)classif().ProcessObjects(type, doGet);
-  return doGet.GetScale();
+  auto const res = classif().GetObject(type)->GetDrawScaleRange();
+  return (res.first > res.second ? kInvalidScalesRange : res);
 }
 
 pair<int, int> GetDrawableScaleRange(TypesHolder const & types)
@@ -509,7 +356,7 @@ pair<int, int> GetDrawableScaleRange(TypesHolder const & types)
   for (uint32_t t : types)
     AddRange(res, GetDrawableScaleRange(t));
 
-  return (res.first > res.second ? make_pair(-1, -1) : res);
+  return (res.first > res.second ? kInvalidScalesRange : res);
 }
 
 bool IsVisibleInRange(uint32_t type, pair<int, int> const & scaleRange)
@@ -518,11 +365,12 @@ bool IsVisibleInRange(uint32_t type, pair<int, int> const & scaleRange)
   if (TypeAlwaysExists(type))
     return true;
 
-  Classificator const & c = classif();
+  ClassifObject const * obj = classif().GetObject(type);
+  CHECK(obj, ());
+
   for (int scale = scaleRange.first; scale <= scaleRange.second; ++scale)
   {
-    IsDrawableChecker doCheck(scale);
-    if (c.ProcessObjects(type, doCheck))
+    if (obj->IsDrawable(scale))
       return true;
   }
   return false;
@@ -536,12 +384,14 @@ namespace
 
     IsDrawableRulesChecker doCheck(level, types.GetGeomType(), rules);
     for (uint32_t t : types)
-      if (c.ProcessObjects(t, doCheck))
+    {
+      if (doCheck(c.GetObject(t)))
         return true;
+    }
 
     return false;
   }
-}
+} // namespace
 
 pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rules)
 {
@@ -557,7 +407,7 @@ pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rule
   }
 
   if (lowL == -1)
-    return make_pair(-1, -1);
+    return kInvalidScalesRange;
 
   int highL = lowL;
   for (int level = upBound; level > lowL; --level)
@@ -569,7 +419,7 @@ pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rule
     }
   }
 
-  return make_pair(lowL, highL);
+  return {lowL, highL};
 }
 
 TypeSetChecker::TypeSetChecker(initializer_list<char const *> const & lst)

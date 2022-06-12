@@ -17,8 +17,6 @@
 	<string name="downloading">Letöltés…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilométer</string>
-	<!-- View and button titles for accessibility -->
-	<string name="maps">Térképek</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mérföld</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -78,6 +76,8 @@
 	<string name="maps_storage">Térképek mentése ide:</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Válassza ki, hogy hova töltsük le a térképeket</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">Térképek</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Áthelyezzük a térképeket?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -226,11 +226,12 @@
 	<string name="downloader_update_all_button">Mindegyik frissítése</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Mindent visszavon</string>
-	<!-- Downloaded maps category -->
+	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">Letöltve</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Várólistás</string>
 	<string name="downloader_near_me_subtitle">A közelemben</string>
+	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">Térképek</string>
 	<string name="downloader_download_all_button">Mindegyik letöltése</string>
 	<string name="downloader_downloading">Letöltés:</string>
@@ -673,6 +674,7 @@
 	<string name="type.amenity.bench">Pad</string>
 	<string name="type.amenity.bicycle_parking">Kerékpárparkoló</string>
 	<string name="type.amenity.bicycle_rental">Kerékpárkölcsönző</string>
+	<string name="type.amenity.bicycle_repair_station">Kerékpárjavító állomás</string>
 	<string name="type.amenity.biergarten">Sörkert</string>
 	<string name="type.amenity.brothel">Bordélyház</string>
 	<string name="type.amenity.bureau_de_change">Pénzváltó</string>
@@ -785,6 +787,7 @@
 	<string name="type.building.garage">Garázs</string>
 	<string name="type.building.has_parts">Épület</string>
 	<string name="type.building.train_station">Vonatmegálló</string>
+	<string name="type.cemetery.grave">Sír</string>
 	<string name="type.craft.brewery">Sörfőzde</string>
 	<string name="type.craft.carpenter">Ács</string>
 	<string name="type.craft.electrician">Villanyszerelő</string>
@@ -1117,6 +1120,7 @@
 	<string name="type.natural.glacier">Gleccser</string>
 	<string name="type.natural.grassland">Mező</string>
 	<string name="type.natural.water.lake">Tó</string>
+	<string name="type.natural.water.lock">Zsilipkamra</string>
 	<string name="type.natural.water.pond">Tavacska</string>
 	<string name="type.natural.water.reservoir">Rezervoár</string>
 	<string name="type.natural.water.basin">Vízgyűjtő</string>
