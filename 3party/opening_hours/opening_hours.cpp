@@ -22,9 +22,16 @@
   THE SOFTWARE.
 */
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-copy"
+#endif  // __clang__
 #include "opening_hours.hpp"
 #include "rules_evaluation.hpp"
 #include "parse_opening_hours.hpp"
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 
 #include <algorithm>
 #include <cstdlib>
