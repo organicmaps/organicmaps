@@ -4,8 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+@Keep
 public class FeatureId implements Parcelable
 {
   public static final Creator<FeatureId> CREATOR = new Creator<FeatureId>()

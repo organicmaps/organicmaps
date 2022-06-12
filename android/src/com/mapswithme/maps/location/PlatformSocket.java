@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.net.SSLCertificateSocketFactory;
 import android.os.SystemClock;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.BuildConfig;
@@ -28,6 +29,7 @@ import java.net.SocketTimeoutException;
  * <p>
  * <b>All public methods are blocking and shouldn't be called from the main thread.</b>
  */
+@Keep
 class PlatformSocket
 {
   private static final String TAG = PlatformSocket.class.getSimpleName();

@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 
@@ -7,6 +8,7 @@ import com.mapswithme.maps.widget.StackedButtonDialogFragment;
 
 import java.util.concurrent.TimeUnit;
 
+@Keep
 public final class NetworkPolicy
 {
   public enum Type

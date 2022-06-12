@@ -7,6 +7,7 @@ import android.provider.OpenableColumns;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@MainThread
+@MainThread @Keep
 public enum BookmarkManager
 {
   INSTANCE;

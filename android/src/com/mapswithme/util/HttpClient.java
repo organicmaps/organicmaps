@@ -26,6 +26,7 @@ package com.mapswithme.util;
 
 import android.text.TextUtils;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import com.mapswithme.util.log.Logger;
 
@@ -47,6 +48,7 @@ import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
 
+@Keep
 public final class HttpClient
 {
   private static final String TAG = HttpClient.class.getSimpleName();
@@ -224,6 +226,7 @@ public final class HttpClient
     return in;
   }
 
+  @Keep
   private static class Params
   {
     public void setHeaders(@NonNull KeyValue[] array)

@@ -1,5 +1,6 @@
 package com.mapswithme.maps.routing;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Represents TransitRouteInfo from core.
  */
+@Keep
 public class TransitRouteInfo
 {
   @NonNull

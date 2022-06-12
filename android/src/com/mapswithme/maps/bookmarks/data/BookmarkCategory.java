@@ -1,17 +1,17 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.PluralsRes;
 import androidx.annotation.StringRes;
 
 import com.mapswithme.maps.R;
 
+@Keep
 public class BookmarkCategory implements Parcelable
 {
   private final long mId;

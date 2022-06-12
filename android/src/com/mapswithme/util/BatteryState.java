@@ -7,6 +7,7 @@ import android.os.BatteryManager;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.MwmApplication;
@@ -14,6 +15,7 @@ import com.mapswithme.maps.MwmApplication;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+@Keep
 public final class BatteryState
 {
   public static final byte CHARGING_STATUS_UNKNOWN = 0;

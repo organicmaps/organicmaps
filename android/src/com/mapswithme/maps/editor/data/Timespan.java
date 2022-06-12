@@ -1,5 +1,8 @@
 package com.mapswithme.maps.editor.data;
 
+import androidx.annotation.Keep;
+
+@Keep
 public class Timespan
 {
   public final HoursMinutes start;

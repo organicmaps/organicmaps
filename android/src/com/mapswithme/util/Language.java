@@ -5,10 +5,12 @@ import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import java.util.Locale;
 
+@Keep
 public class Language
 {
   // Locale.getLanguage() returns even 3-letter codes, not that we need in the C++ core,

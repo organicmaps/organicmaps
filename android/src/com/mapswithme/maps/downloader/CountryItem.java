@@ -2,6 +2,7 @@ package com.mapswithme.maps.downloader;
 
 import android.text.TextUtils;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -9,6 +10,7 @@ import androidx.annotation.Nullable;
  * Class representing a single item in countries hierarchy.
  * Fields are filled by native code.
  */
+@Keep
 public final class CountryItem implements Comparable<CountryItem>
 {
   private static String sRootId;

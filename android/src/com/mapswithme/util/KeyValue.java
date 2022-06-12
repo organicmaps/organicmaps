@@ -1,11 +1,13 @@
 package com.mapswithme.util;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+@Keep
 public final class KeyValue implements Serializable
 {
   private static final long serialVersionUID = -3079360274128509979L;

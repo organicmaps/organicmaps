@@ -1,11 +1,13 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+@Keep
 public class BookmarkSharingResult
 {
   @Retention(RetentionPolicy.SOURCE)

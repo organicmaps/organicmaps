@@ -1,8 +1,11 @@
 package com.mapswithme.maps.api;
 
+import androidx.annotation.Keep;
+
 /**
  * Represents url_scheme::RoutePoint from core.
  */
+@Keep
 public class RoutePoint
 {
   public final double mLat;

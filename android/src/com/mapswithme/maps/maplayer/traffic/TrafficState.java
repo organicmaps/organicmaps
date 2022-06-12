@@ -1,5 +1,6 @@
 package com.mapswithme.maps.maplayer.traffic;
 
+import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 
@@ -90,7 +91,7 @@ enum TrafficState
   interface StateChangeListener
   {
     // This method is called from JNI layer.
-    @SuppressWarnings("unused")
+    @SuppressWarnings("unused") @Keep
     @MainThread
     void onTrafficStateChanged(int state);
   }

@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.work.Constraints;
 import androidx.work.Data;
@@ -9,6 +10,7 @@ import androidx.work.WorkManager;
 import com.google.gson.Gson;
 import com.mapswithme.util.log.Logger;
 
+@Keep
 public class HttpBackgroundUploader extends AbstractHttpUploader
 {
   private static final String TAG = HttpBackgroundUploader.class.getSimpleName();

@@ -4,12 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+@Keep
 public class HoursMinutes implements Parcelable
 {
   public final long hours;

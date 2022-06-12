@@ -1,5 +1,8 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import androidx.annotation.Keep;
+
+@Keep
 public class DistanceAndAzimut
 {
   private final String mDistance;

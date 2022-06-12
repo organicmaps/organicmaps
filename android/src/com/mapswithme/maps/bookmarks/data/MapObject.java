@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.text.TextUtils;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -20,6 +21,7 @@ import java.util.List;
 
 // TODO(yunikkk): Refactor. Displayed information is different from edited information, and it's better to
 // separate them. Simple getters from jni place_page::Info and osm::EditableFeature should be enough.
+@Keep
 public class MapObject implements PopularityProvider, PlacePageData
 {
   // Order must correspond indexer/map_object.hpp

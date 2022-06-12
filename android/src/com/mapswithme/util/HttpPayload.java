@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Keep
 public class HttpPayload
 {
   @NonNull

@@ -1,10 +1,12 @@
 package com.mapswithme.maps.routing;
 
+import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
 
 /**
  * Represents RouteMarkData from core.
  */
+@Keep
 public class RouteMarkData
 {
   @Nullable

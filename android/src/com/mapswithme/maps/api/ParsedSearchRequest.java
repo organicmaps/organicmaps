@@ -1,13 +1,14 @@
 package com.mapswithme.maps.api;
 
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
  * Represents url_scheme::SearchRequest from core.
  */
-
+@Keep
 public final class ParsedSearchRequest
 {
     @NonNull

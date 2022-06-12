@@ -1,11 +1,13 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Keep
 public class SortedBlock
 {
   @NonNull

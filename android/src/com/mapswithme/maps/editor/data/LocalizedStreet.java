@@ -1,7 +1,9 @@
 package com.mapswithme.maps.editor.data;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+@Keep
 public class LocalizedStreet
 {
   public final String defaultName;

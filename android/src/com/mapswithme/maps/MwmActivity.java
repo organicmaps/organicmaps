@@ -18,6 +18,7 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
 import androidx.annotation.CallSuper;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
@@ -1115,7 +1116,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   // Called from JNI.
-  @Override
+  @Override @Keep
   public void onPlacePageActivated(@NonNull PlacePageData data)
   {
     if (data instanceof MapObject)
@@ -1138,7 +1139,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   // Called from JNI.
-  @Override
+  @Override @Keep
   public void onPlacePageDeactivated(boolean switchFullScreenMode)
   {
     if (switchFullScreenMode)

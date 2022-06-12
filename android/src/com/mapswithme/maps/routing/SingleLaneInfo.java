@@ -1,5 +1,8 @@
 package com.mapswithme.maps.routing;
 
+import androidx.annotation.Keep;
+
+@Keep
 public class SingleLaneInfo
 {
   byte[] mLane;

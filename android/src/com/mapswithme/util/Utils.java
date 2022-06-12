@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.DimenRes;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -53,6 +54,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+@Keep
 public class Utils
 {
   private static final String TAG = Utils.class.getSimpleName();

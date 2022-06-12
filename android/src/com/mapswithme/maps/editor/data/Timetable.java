@@ -1,8 +1,10 @@
 package com.mapswithme.maps.editor.data;
 
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+@Keep
 public class Timetable
 {
   public final Timespan workingTimespan;

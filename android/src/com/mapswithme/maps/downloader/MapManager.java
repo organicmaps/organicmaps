@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.DialogInterface;
 import android.text.TextUtils;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -21,7 +22,7 @@ import java.util.List;
 @UiThread
 public final class MapManager
 {
-  @SuppressWarnings("unused")
+  @SuppressWarnings("unused") @Keep
   public static class StorageCallbackData
   {
     public final String countryId;

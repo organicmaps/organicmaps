@@ -3,8 +3,10 @@ package com.mapswithme.maps.search;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+@Keep
 public class Popularity implements Parcelable
 {
   @NonNull

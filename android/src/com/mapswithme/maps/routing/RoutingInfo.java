@@ -3,10 +3,12 @@ package com.mapswithme.maps.routing;
 import android.widget.ImageView;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.R;
 
+@Keep
 public class RoutingInfo
 {
   // Target (end point of route).

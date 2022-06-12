@@ -1,5 +1,6 @@
 package com.mapswithme.maps.search;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.bookmarks.data.FeatureId;
@@ -7,7 +8,7 @@ import com.mapswithme.maps.bookmarks.data.FeatureId;
 /**
  * Class instances are created from native code.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings("unused") @Keep
 public class SearchResult implements PopularityProvider
 {
   public static final int TYPE_SUGGEST = 0;
@@ -20,7 +21,7 @@ public class SearchResult implements PopularityProvider
 
   public static final SearchResult EMPTY = new SearchResult("", "", 0, 0,
                                                             new int[] {});
-
+  @Keep
   public static class Description
   {
     public final FeatureId featureId;

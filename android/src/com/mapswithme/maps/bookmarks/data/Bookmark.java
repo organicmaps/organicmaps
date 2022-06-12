@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Parcel;
 
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -13,7 +14,7 @@ import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.util.Constants;
 
 // TODO consider refactoring to remove hack with MapObject unmarshalling itself and Bookmark at the same time.
-@SuppressLint("ParcelCreator")
+@SuppressLint("ParcelCreator") @Keep
 public class Bookmark extends MapObject
 {
   private Icon mIcon;

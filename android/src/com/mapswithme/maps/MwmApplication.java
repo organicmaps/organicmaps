@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.NotificationChannelFactory;
@@ -246,8 +247,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     Counters.resetAppSessionCounters(context);
   }
 
-  // Called from jni
-  @SuppressWarnings("unused")
+  @SuppressWarnings("unused") @Keep
   void forwardToMainThread(final long taskPointer)
   {
     Message m = Message.obtain(mMainLoopHandler, () -> nativeProcessTask(taskPointer));

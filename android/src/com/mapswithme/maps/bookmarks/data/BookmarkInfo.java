@@ -1,11 +1,13 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.GeoUtils;
 
+@Keep
 public class BookmarkInfo
 {
   private final long mCategoryId;

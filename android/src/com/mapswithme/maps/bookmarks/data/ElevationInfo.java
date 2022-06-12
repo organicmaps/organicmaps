@@ -3,8 +3,8 @@ package com.mapswithme.maps.bookmarks.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 
@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+@Keep
 public class ElevationInfo implements PlacePageData
 {
   private final long mId;
@@ -132,6 +133,7 @@ public class ElevationInfo implements PlacePageData
     dest.writeTypedList(mPoints);
   }
 
+  @Keep
   public static class Point implements Parcelable
   {
     private final double mDistance;

@@ -4,6 +4,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Base64;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.util.log.Logger;
@@ -24,6 +25,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
+@Keep
 public final class HttpUploader extends AbstractHttpUploader
 {
   private static final String TAG = HttpUploader.class.getSimpleName();
@@ -234,6 +236,7 @@ public final class HttpUploader extends AbstractHttpUploader
     writer.flush();
   }
 
+  @Keep
   static class Result
   {
     private final int mHttpCode;

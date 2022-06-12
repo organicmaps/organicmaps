@@ -1,7 +1,10 @@
 package com.mapswithme.maps.search;
 
+import androidx.annotation.Keep;
+
 public interface NativeMapSearchListener
 {
+  @Keep
   class Result
   {
     public final String countryId;
