@@ -531,6 +531,7 @@ area|z15-[waterway=waterfall]
 node|z17-[waterway=waterfall],
 area|z17-[waterway=waterfall]
 {icon-image: waterfall-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
+
 node|z10-[natural=volcano],
 area|z10-[natural=volcano]
 {icon-image: volcano-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
@@ -1834,6 +1835,9 @@ area|z17-[leisure=marina]
 
 node|z16-[amenity=fountain],
 area|z16-[amenity=fountain]
+{icon-image: fountain-s.svg;icon-min-distance: 20;}
+node|z19-[amenity=fountain],
+area|z19-[amenity=fountain]
 {icon-image: fountain-m.svg;icon-min-distance: 20;}
 
 node|z14[man_made=lighthouse],
