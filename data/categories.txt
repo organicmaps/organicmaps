@@ -3224,6 +3224,7 @@ ja:自転車修理
 ko:자전거 수리
 nl:4Fiets reparatie
 pt:Conserto de bicicleta|4bicicleta
+pt-BR:Oficina de bicicletas|4bicicleta
 ru:4Велоремонт|велосипед|ремонт|ремонт велосипедов
 tr:4Bisiklet tamiri|4Bisiklet
 uk:4Велоремонт|велосипед|ремонт|ремонт велосипедів
@@ -4783,7 +4784,7 @@ it:WC
 ja:お手洗い|便所|厠
 pl:wc|ubikacja|wychodek
 pt:Casa de banho|WC|Sanitários|lavatório
-pt-BR:toalete|wc|sanitários
+pt-BR:toalete|wc|sanitários|lavabo|privada
 es:3Baños|aseos|3lavabo|inodoro|baño|wc
 eu:3Komunak|3konketa
 sv:WC|toalett
