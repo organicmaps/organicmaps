@@ -35,7 +35,7 @@ import java.util.concurrent.Executors;
  * (Logger calls getEnabledLogsFolder() in preparation to write).
  */
 @ThreadSafe
-public class LogsManager
+public final class LogsManager
 {
   public interface OnZipCompletedListener
   {
@@ -246,10 +246,12 @@ public class LogsManager
       .append("\nNetworks: ");
     final ConnectivityManager manager = (ConnectivityManager) mApplication.getSystemService(Context.CONNECTIVITY_SERVICE);
     if (manager != null)
+    {
       // TODO: getAllNetworkInfo() is deprecated, for alternatives check
       // https://stackoverflow.com/questions/32547006/connectivitymanager-getnetworkinfoint-deprecated
       for (NetworkInfo info : manager.getAllNetworkInfo())
         sb.append("\n\t").append(info.toString());
+    }
     sb.append("\nLocation providers:");
     final LocationManager locMngr = (android.location.LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
     if (locMngr != null)
