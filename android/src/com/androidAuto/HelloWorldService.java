@@ -10,33 +10,42 @@ import androidx.car.app.Screen;
 import androidx.car.app.Session;
 import androidx.car.app.validation.HostValidator;
 
-public final class HelloWorldService extends CarAppService {
+public final class HelloWorldService extends CarAppService
+{
 
-    public HelloWorldService() {
-        // Exported services must have an empty public constructor.
-    }
+  public HelloWorldService()
+  {
+    // Exported services must have an empty public constructor.
+  }
 
-    @Override
-    @NonNull
-    public Session onCreateSession() {
-        return new Session() {
-            @Override
-            @NonNull
-            public Screen onCreateScreen(@Nullable Intent intent) {
-                return new HelloWorldScreen(getCarContext());
-            }
-        };
-    }
+  @Override
+  @NonNull
+  public Session onCreateSession()
+  {
+    return new Session()
+    {
+      @Override
+      @NonNull
+      public Screen onCreateScreen(@Nullable Intent intent)
+      {
+        return new HelloWorldScreen(getCarContext());
+      }
+    };
+  }
 
-    @NonNull
-    @Override
-    public HostValidator createHostValidator() {
-        if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
-            return HostValidator.ALLOW_ALL_HOSTS_VALIDATOR;
-        } else {
-            return new HostValidator.Builder(getApplicationContext())
-                    .addAllowedHosts(androidx.car.app.R.array.hosts_allowlist_sample)
-                    .build();
-        }
+  @NonNull
+  @Override
+  public HostValidator createHostValidator()
+  {
+    if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0)
+    {
+      return HostValidator.ALLOW_ALL_HOSTS_VALIDATOR;
     }
+    else
+    {
+      return new HostValidator.Builder(getApplicationContext())
+          .addAllowedHosts(androidx.car.app.R.array.hosts_allowlist_sample)
+          .build();
+    }
+  }
 }
