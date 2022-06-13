@@ -73,29 +73,56 @@ public final class Logger
     log(Log.ERROR, tag, msg, tr);
   }
 
-  // Called from JNI to proxy native code logging.
-  @SuppressWarnings("unused")
-  @Keep
-  private static void logCoreMessage(int level, String msg)
+  // Index of stacktrace depth where the original log method call resides.
+  private static final int CALL_STACK_INDEX = 3;
+
+  @NonNull
+  private static String getSourcePoint()
   {
-    log(level, CORE_TAG, msg, null);
+    final StackTraceElement[] stackTrace = new Throwable().getStackTrace();
+    assert stackTrace.length > CALL_STACK_INDEX : "Synthetic stacktrace doesn't have enough elements";
+
+    final StackTraceElement st = stackTrace[CALL_STACK_INDEX];
+    StringBuilder sb = new StringBuilder(80);
+    final String fileName = st.getFileName();
+    if (fileName != null)
+    {
+      sb.append(fileName);
+      final int lineNumber = st.getLineNumber();
+      if (lineNumber >= 0)
+        sb.append(':').append(lineNumber);
+      sb.append(' ');
+    }
+    sb.append(st.getMethodName()).append("()");
+    return sb.toString();
   }
 
-  public static void log(int level, @NonNull String tag, @NonNull String msg, @Nullable Throwable tr)
+  // Also called from JNI to proxy native code logging (with tag == null).
+  @Keep
+  private static void log(int level, @Nullable String tag, @NonNull String msg, @Nullable Throwable tr)
   {
     final String logsFolder = LogsManager.INSTANCE.getEnabledLogsFolder();
-    if (logsFolder != null)
+
+    if (logsFolder != null || BuildConfig.DEBUG || level >= Log.INFO)
     {
-      final String data = getLevelChar(level) + "/" + tag + ": " + msg + (tr != null ? '\n' + Log.getStackTraceString(tr) : "");
-      LogsManager.EXECUTOR.execute(new WriteTask(logsFolder + File.separator + FILENAME,
-                                                 data, Thread.currentThread().getName()));
-    }
-    else if (BuildConfig.DEBUG || level >= Log.INFO)
-    {
-      // Only Debug builds log DEBUG level to Android system log.
+      final StringBuilder sb = new StringBuilder(180);
+      // Add source point info for file logging, debug builds and ERRORs if its not from core.
+      if (tag != null && (logsFolder != null || BuildConfig.DEBUG || level == Log.ERROR))
+        sb.append(getSourcePoint()).append(": ");
+      sb.append(msg);
       if (tr != null)
-        msg += '\n' + Log.getStackTraceString(tr);
-      Log.println(level, tag, msg);
+        sb.append('\n').append(Log.getStackTraceString(tr));
+      if (tag == null)
+        tag = CORE_TAG;
+
+      if (logsFolder != null)
+      {
+        sb.insert(0, String.valueOf(getLevelChar(level)) + '/' + tag + ": ");
+        LogsManager.EXECUTOR.execute(new WriteTask(logsFolder + File.separator + FILENAME,
+                                                   sb.toString(), Thread.currentThread().getName()));
+      }
+      else
+        Log.println(level, tag, sb.toString());
     }
   }
 
@@ -151,8 +178,8 @@ public final class Logger
         {
           fw = new FileWriter(mFilePath, true);
         }
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
-        fw.write(formatter.format(new Date()) + " " + mCallingThread + ": " + mData + "\n");
+        final DateFormat fmt = new SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.US);
+        fw.write(fmt.format(new Date()) + " (" + mCallingThread + ") " + mData + "\n");
       }
       catch (IOException e)
       {
