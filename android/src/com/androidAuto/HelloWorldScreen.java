@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.Screen;
 import androidx.car.app.model.Action;
-import androidx.car.app.model.Pane;
-import androidx.car.app.model.PaneTemplate;
-import androidx.car.app.model.Row;
+import androidx.car.app.model.ActionStrip;
 import androidx.car.app.model.Template;
+import androidx.car.app.navigation.NavigationManager;
+import androidx.car.app.navigation.model.NavigationTemplate;
+
+import static androidx.car.app.model.Action.BACK;
 
 public class HelloWorldScreen extends Screen
 {
@@ -20,9 +22,13 @@ public class HelloWorldScreen extends Screen
   @Override
   public Template onGetTemplate()
   {
-    Row row = new Row.Builder().setTitle("Hello AA Organic Maps!").build();
-    return new PaneTemplate.Builder(new Pane.Builder().addRow(row).build())
-        .setHeaderAction(Action.APP_ICON)
-        .build();
+    NavigationTemplate.Builder builder = new NavigationTemplate.Builder();
+    Action back = BACK;
+
+    ActionStrip.Builder actionStripBuilder = new ActionStrip.Builder();
+    actionStripBuilder.addAction(back).addAction(new Action.Builder().setTitle("Test").build());
+    builder.setActionStrip(actionStripBuilder.build());
+    NavigationManager navigationManager = getCarContext().getCarService(NavigationManager.class);
+    return builder.build();
   }
 }
