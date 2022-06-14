@@ -6093,24 +6093,133 @@ sw:Bwawa la kuogelea
 fa:استخرشنا
 mr:जलतरण तलाव
 
-sport-equestrian
-en:Equestrian Sports
-ru:Конный спорт
-bg:Коне|спорт|езда
-nl:Paardensport|ruitersport
-ko:승마|마술 스포츠
-pl:Jazda konna
-fr:Sport équestre
-hu:Lovassportok
-de:Pferdesport
-it:Equitazione
-es:Deportes ecuestres
-eu:Zaldi-kirolak
-pt:Desportos equestres
-pt-BR:Esportes equestres
-tr:Binicilik
-el:Ιππασία
-mr:घोडेस्वार खेळ
+sport-american_football
+en:American Football
+ar:كرة القدم الأمريكية
+cs:americký fotbal
+da:amerikansk fodbold
+de:Amerikanischer Fußball
+el:αμερικάνικο ποδόσφαιρο
+es:fútbol americano
+es-MX:fútbol americano
+eu:Futbol amerikarra
+fa:فوتبال آمریکایی
+fi:Amerikkalainen jalkapallo
+fr:football américain
+hu:amerikai foci
+id:Sepak Bola Amerika
+it:Football americano
+ja:アメリカンフットボール
+ko:미식 축구
+mr:अमेरिकन फुटबॉल
+nb:amerikansk fotball
+nl:Amerikaans voetbal
+pl:futbol amerykański
+pt:futebol americano
+pt-BR:futebol americano
+ro:fotbal american
+ru:американский футбол
+sk:americký futbal
+sv:amerikansk fotboll
+sw:Soka ya Marekani
+th:อเมริกันฟุตบอล
+tr:Amerikan futbolu
+uk:американський футбол
+vi:Bóng bầu dục Mỹ
+zh-Hans:美式足球
+zh-Hant:美式足球
+
+sport-archery
+en:Archery
+ar:الرماية
+cs:Lukostřelba
+da:Bueskydning
+de:Bogenschießen
+el:Τοξοβολία
+es:Tiro al arco
+es-MX:Tiro al arco
+eu:Arku-tiroa
+fa:تیراندازی با کمان
+fi:Jousiammunta
+fr:Tir à l'arc
+hu:Íjászat
+id:Panahan
+it:Tiro con l'arco
+ja:アーチェリー
+ko:양궁
+mr:धनुर्विद्या
+nb:Bueskyting
+nl:Boogschieten
+pl:Łucznictwo
+pt:Tiro com arco
+pt-BR:Tiro com arco
+ro:TIR cu arcul
+ru:Стрельба из лука
+sk:Lukostreľba
+sv:Bågskytte
+sw:Upigaji mishale
+th:ยิงธนู
+tr:Okçuluk
+uk:Стрільба з лука
+vi:Bắn cung
+zh-Hans:射箭
+zh-Hant:射箭
+
+sport-athletics
+en:Athletics
+ru:Лёгкая атлетика
+bg:атклетика|лека
+es:Atletismo
+eu:Atletismoa
+nl:Atletiek
+ko:체육시설
+pl:Lekkoatletyka
+fi:Yleisurheilu
+fr:Athlétisme
+de:Leichtathletik
+it:Atletica leggera
+hu:Atlétika
+pt:Atletismo
+pt-BR:Atletismo
+tr:Atletik
+el:Στίβος
+mr:शरीरिक कसरती|ऍथलेटिक्स
+
+sport-baseball
+en:Baseball
+ar:البيسبول
+cs:Baseball
+da:Baseball
+de:Baseball
+el:Μπέιζμπολ
+es:Béisbol
+es-MX:Béisbol
+eu:Beisbol
+fa:بیسبال
+fi:Baseball
+fr:Base-ball
+hu:Baseball
+id:Baseball
+it:Baseball
+ja:野球
+ko:야구
+mr:बेसबॉल
+nb:Baseball
+nl:Basketbal
+pl:Baseball
+pt:Beisebol
+pt-BR:Beisebol
+ro:Baseball
+ru:Бейсбол
+sk:Baseball
+sv:Baseboll
+sw:Baseball
+th:เบสบอล
+tr:Beyzbol
+uk:бейсбол
+vi:Bóng chày
+zh-Hans:棒球
+zh-Hant:棒球
 
 sport-basketball
 en:Basketball
@@ -6135,25 +6244,420 @@ fa:بسکتبال
 el:Καλαθόσφαιρα
 mr:बास्केटबॉल
 
-sport-athletics
-en:Athletics
-ru:Лёгкая атлетика
-bg:атклетика|лека
-es:Atletismo
-eu:Atletismoa
-nl:Atletiek
-ko:체육시설
-pl:Lekkoatletyka
-fi:Yleisurheilu
-fr:Athlétisme
-de:Leichtathletik
-it:Atletica leggera
-hu:Atlétika
-pt:Atletismo
-pt-BR:Atletismo
-tr:Atletik
-el:Στίβος
-mr:शरीरिक कसरती|ऍथलेटिक्स
+sport-bowls
+en:Bowls
+ar:لعبة البولينج
+de:Bowls
+es:Bolos sobre hierba
+fr:Boulingrin
+id:Boling lapangan
+it:Bowls
+ja:ローンボウルズ
+pl:Kręgle
+ru:Игра в боулз|Кегли
+tr:Kuka Oynu
+uk:Кеглi
+zh-Hans:草地滾球|保龄球
+zh-Hant:草地滾球|保齡球
+
+sport-cricket
+en:Cricket
+de:Cricket
+es:Críquet
+eu:Kilkerra
+fi:Kriketti
+fr:Cricket
+hu:Krikett
+it:Cricket
+ja:クリケット
+mr:क्रिकेट
+pl:Krykiet
+pt:Críquete
+pt-BR:Críquete
+ru:Крикет
+tr:Kriket
+uk:Крикет
+zh-Hans = 板球
+zh-Hant = 板球
+
+sport-curling
+en:Curling
+ar:الشباك
+cs:Curling
+da:Curling
+de:Eisstockschießen
+el:Κέρλινγκ
+es:Curling
+es-MX:Curling
+eu:Curling
+fa:فر کردن
+fi:Curling
+fr:Curling
+hu:Curling
+id:Keriting
+it:Arricciatura
+ja:カーリング
+ko:컬링
+mr:कर्लिंग
+nb:Curling
+nl:Curling
+pl:Wijący się
+pt:Ondulação
+pt-BR:Ondulação
+ro:Curling
+ru:Вьющийся
+sk:Curling
+sv:Curling
+sw:Kukunja
+th:ดัดผม
+tr:kıvırma
+uk:керлінг
+vi:Quăn
+zh-Hans:冰壶
+zh-Hant:冰壺
+
+sport-diving
+en:Diving
+ar:الغوص
+cs:Potápění
+da:Dykning
+de:Tauchen
+el:Καταδύσεις
+es:Buceo
+es-MX:Buceo
+eu:Urpekaritza
+fa:شیرجه زدن
+fi:Sukellus
+fr:Plongée
+hu:Búvárkodás
+id:Menyelam
+it:Immersione
+ja:ダイビング
+ko:다이빙
+mr:डायव्हिंग
+nb:Dykking
+nl:Duiken
+pl:Nurkowanie
+pt:Mergulhando
+pt-BR:Mergulhando
+ro:Scufundări
+ru:Подводное плавание
+sk:Potápanie
+sv:Dykning
+sw:Kupiga mbizi
+th:ดำน้ำ
+tr:Dalış
+uk:Дайвінг
+vi:Lặn
+zh-Hans:潜水
+zh-Hant:潛水
+
+sport-equestrian
+en:Equestrian Sports
+ru:Конный спорт
+bg:Коне|спорт|езда
+nl:Paardensport|ruitersport
+ko:승마|마술 스포츠
+pl:Jazda konna
+fr:Sport équestre
+hu:Lovassportok
+de:Pferdesport
+it:Equitazione
+es:Deportes ecuestres
+eu:Zaldi-kirolak
+pt:Desportos equestres
+pt-BR:Esportes equestres
+tr:Binicilik
+el:Ιππασία
+mr:घोडेस्वार खेळ
+
+sport-golf
+en:Golf
+ar:الجولف
+cs:Golf
+da:Golf
+de:Golf
+el:Γκολφ
+es:Golf
+es-MX:Golf
+eu:Golfa
+fa:گلف
+fi:Golf
+fr:Le golf
+hu:Golf
+id:Golf
+it:Golf
+ja:ゴルフ
+ko:골프
+mr:गोल्फ
+nb:Golf
+nl:Golf
+pl:Golf
+pt:Golfe
+pt-BR:Golfe
+ro:Golf
+ru:Гольф
+sk:Golf
+sv:Golf
+sw:Gofu
+th:กอล์ฟ
+tr:Golf
+uk:Гольф
+vi:Golf
+zh-Hans:高尔夫球
+zh-Hant:高爾夫球
+
+sport-gymnastics
+en:Gymnastics
+ar:رياضة بدنية
+cs:Gymnastika
+da:Gymnastik
+de:Gymnastik
+el:Γυμναστική
+es:Gimnasia
+es-MX:Gimnasia
+eu:Gimnasia
+fa:ژیمناستیک
+fi:Voimistelu
+fr:Gymnastique
+hu:Gimnasztika
+id:Olahraga senam
+it:Ginnastica
+ja:体操
+ko:체조
+mr:जिम्नॅस्टिक्स
+nb:Gymnastikk
+nl:Gymnastiek
+pl:Gimnastyka
+pt:Ginástica
+pt-BR:Ginástica
+ro:Gimnastică
+ru:Гимнастика
+sk:Gymnastika
+sv:Gymnastik
+sw:Gymnastics
+th:ยิมนาสติก
+tr:Jimnastik
+uk:Гімнастика
+vi:Thể dục
+zh-Hans:体操
+zh-Hant:體操
+
+sport-handball
+en:Handball
+ar:كرة اليد
+cs:Házená
+da:Håndbold
+de:Handball
+el:Τόπι
+es:Balonmano
+es-MX:Balonmano
+eu:Eskubaloia
+fa:هندبال
+fi:Käsipallo
+fr:Handball
+hu:Kézilabda
+id:Bola tangan
+it:Palla a mano
+ja:ハンドボール
+ko:핸드볼
+mr:हँडबॉल
+nb:Håndball
+nl:Handbal
+pl:Gra w piłkę ręczną
+pt:Handebol
+pt-BR:Handebol
+ro:Handbal
+ru:Гандбол
+sk:Hádzaná
+sv:Handboll
+sw:Mpira wa mikono
+th:แฮนด์บอล
+tr:Hentbol
+uk:Гандбол
+vi:bóng ném
+zh-Hans:手球
+zh-Hant:手球
+
+sport-scuba_diving
+en:Scuba diving
+ar:الغوص
+cs:Potápění
+da:Scuba dykning
+de:Gerätetauchen
+el:Κατάδυση
+es:Submarinismo
+es-MX:Submarinismo
+eu:Urpekaritza
+fa:غواصی
+fi:Sukellus
+fr:Plongée sous-marine
+hu:Búvárkodás
+id:Selam scuba
+it:Immersioni in subacquea
+ja:スキューバダイビング
+ko:스쿠버 다이빙
+mr:स्कूबा डायव्हिंग
+nb:Dykking
+nl:Duiken
+pl:Nurkowanie
+pt:Mergulho
+pt-BR:Mergulho
+ro:Scufundări
+ru:Подводное плавание с аквалангом
+sk:Potápanie
+sv:Dykning
+sw:Upigaji mbizi wa Scuba
+th:ดำน้ำลึก
+tr:Dalma
+uk:Підводне плавання
+vi:Môn lặn
+zh-Hans:水肺潜水
+zh-Hant:水肺潛水
+
+sport-shooting
+en:Shooting
+ar:اطلاق الرصاص
+cs:Střílení
+da:Skydning
+de:Schießen
+el:Κυνήγι
+es:Tiroteo
+es-MX:Tiroteo
+eu:Tiroketa
+fa:تیراندازی کردن
+fi:Ammunta
+fr:Tournage
+hu:Lövés
+id:Penembakan
+it:Tiro
+ja:撮影
+ko:촬영
+mr:शूटिंग
+nb:Skyting
+nl:schieten
+pl:Strzelanie
+pt:Filmagem
+pt-BR:Filmagem
+ro:Filmare
+ru:Стрельба
+sk:Streľba
+sv:Skytte
+sw:Kupiga risasi
+th:ยิงปืน
+tr:Çekim
+uk:Зйомка
+vi:Chụp
+zh-Hans:射击
+zh-Hant:射擊
+
+sport-skiing
+en:Skiing
+ar:التزحلق
+cs:Lyžování
+da:Stå på ski
+de:Skifahren
+el:Χιονοδρόμια
+es:Esquí
+es-MX:Esquí
+eu:Eskia
+fa:اسکی
+fi:Hiihto
+fr:Ski
+hu:Síelés
+id:bermain ski
+it:Sciare
+ja:スキー
+ko:스키 타기
+mr:स्कीइंग
+nb:Stå på ski
+nl:Skiën
+pl:Jazda na nartach
+pt:Esquiar
+pt-BR:Esquiar
+ro:Schi
+ru:Катание на лыжах
+sk:Lyžovanie
+sv:Skidåkning
+sw:Skii
+th:เล่นสกี
+tr:Kayak yapmak
+uk:Катання на лижах
+vi:Trượt tuyết
+zh-Hans:滑雪
+zh-Hant:滑雪
+
+sport-soccer
+en:Soccer
+ar:كرة القدم
+cs:Fotbal
+da:Fodbold
+de:Fußball
+el:Ποδόσφαιρο
+es:Fútbol
+es-MX:Fútbol
+eu:Futbola
+fa:فوتبال
+fi:Jalkapallo
+fr:Football
+hu:Futball
+id:Sepak bola
+it:Calcio
+ja:サッカー
+ko:축구
+mr:सॉकर
+nb:Fotball
+nl:Voetbal
+pl:Piłka nożna
+pt:Futebol
+pt-BR:Futebol
+ro:Fotbal
+ru:Футбольный
+sk:futbal
+sv:Fotboll
+sw:Soka
+th:ฟุตบอล
+tr:Futbol
+uk:футбол
+vi:Bóng đá
+zh-Hans:足球
+zh-Hant:足球
+
+sport-tennis
+en:Tennis
+ar:تنس
+cs:Tenis
+da:Tennis
+de:Tennis
+el:Τένις
+es:Tenis
+es-MX:Tenis
+eu:Tenisa
+fa:تنیس
+fi:Tennis
+fr:Tennis
+hu:Tenisz
+id:Tenis
+it:Tennis
+ja:テニス
+ko:테니스
+mr:टेनिस
+nb:Tennis
+nl:Tennis
+pl:Tenis ziemny
+pt:tênis
+pt-BR:tênis
+ro:Tenis
+ru:Большой теннис
+sk:tenis
+sv:Tennis
+sw:Tenisi
+th:เทนนิส
+tr:Tenis
+uk:теніс
+vi:Quần vợt
+zh-Hans:网球
+zh-Hant:網球
 
 building
 en:Building|U+1F3E0|U+1F3E1|U+1F3E2
