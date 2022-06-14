@@ -1,11 +1,12 @@
 #pragma once
 
 #include "drape/color.hpp"
+#include "drape/font_texture.hpp"
 #include "drape/glyph_generator.hpp"
 #include "drape/glyph_manager.hpp"
 #include "drape/pointers.hpp"
+#include "drape/stipple_pen_resource.hpp"   // for PenPatternT
 #include "drape/texture.hpp"
-#include "drape/font_texture.hpp"
 
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
@@ -19,8 +20,6 @@
 
 namespace dp
 {
-extern std::string const kDefaultSymbolsTexture;
-
 class HWTextureAllocator;
 
 class TextureManager
@@ -70,7 +69,7 @@ public:
     StippleRegion() : BaseRegion() {}
 
     uint32_t GetMaskPixelLength() const;
-    uint32_t GetPatternPixelLength() const;
+    //uint32_t GetPatternPixelLength() const;
   };
 
   class ColorRegion : public BaseRegion
@@ -98,8 +97,7 @@ public:
   void GetSymbolRegion(std::string const & symbolName, SymbolRegion & region);
   bool HasSymbolRegion(std::string const & symbolName) const;
 
-  typedef buffer_vector<uint8_t, 8> TStipplePattern;
-  void GetStippleRegion(TStipplePattern const & pen, StippleRegion & region);
+  void GetStippleRegion(PenPatternT const & pen, StippleRegion & region);
   void GetColorRegion(Color const & color, ColorRegion & region);
 
   using TMultilineText = buffer_vector<strings::UniString, 4>;
