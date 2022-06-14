@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
     <title>drinking-water-s</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="drinking-water-s" fill-rule="nonzero">
-            <path d="M8.11111111,12 C6.67611556,12 5,11.2 5,9.2 C5,7.8 7.44444444,4.8 8.11111111,4 C8.77777778,4.8 11.2222222,7.8 11.2222222,9.2 C11.2222222,11.2 9.54610667,12 8.11111111,12 L8.11111111,12 Z" id="Path" fill="#14A0C2"></path>
+    <g fill="none" fill-rule="evenodd" opacity=".6">
+        <g fill-rule="nonzero">
+            <path d="m8.0000001 14c-2.1524932 0-4.6666666-1.2-4.6666666-4.2 0-2.1 3.6666666-6.6 4.6666666-7.8 1.0000001 1.2 4.6666659 5.7 4.6666659 7.8 0 3-2.514172 4.2-4.6666659 4.2z" fill="#14a0c2" style="stroke-width:1.5"/>
         </g>
     </g>
 </svg>
