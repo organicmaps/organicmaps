@@ -1,2 +1,9 @@
 # Every JNI-called class and method should have a @Keep annotation to properly work and to avoid
-# being manually added as -keep in this file.
+# being manually added as -keep in this file, for details see
+# https://developer.android.com/studio/build/shrink-code#keep-code
+
+# Don't obfuscate to keep logs readable
+-dontobfuscate
+
+# TODO: ATM leads to a build failure with an ERROR:R8: java.lang.NullPointerException
+-dontoptimize

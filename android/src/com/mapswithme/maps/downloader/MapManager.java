@@ -47,6 +47,7 @@ public final class MapManager
   }
 
   @SuppressWarnings("unused")
+  @Keep
   interface CurrentCountryChangedListener
   {
     void onCurrentCountryChanged(String countryId);

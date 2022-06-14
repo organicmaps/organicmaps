@@ -2,6 +2,7 @@ package com.mapswithme.maps.search;
 
 import android.content.Context;
 
+import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ public enum SearchEngine implements NativeSearchListener,
   private String mQuery;
 
   @Override
+  @Keep
   public void onResultsUpdate(@NonNull final SearchResult[] results, final long timestamp)
   {
     UiThread.run(
@@ -38,6 +40,7 @@ public enum SearchEngine implements NativeSearchListener,
   }
 
   @Override
+  @Keep
   public void onResultsEnd(final long timestamp)
   {
     UiThread.run(
@@ -50,6 +53,7 @@ public enum SearchEngine implements NativeSearchListener,
   }
 
   @Override
+  @Keep
   public void onMapSearchResults(final NativeMapSearchListener.Result[] results, final long timestamp, final boolean isLast)
   {
     UiThread.run(
@@ -61,6 +65,7 @@ public enum SearchEngine implements NativeSearchListener,
         });
   }
 
+  @Keep
   public void onBookmarkSearchResultsUpdate(@Nullable long[] bookmarkIds, long timestamp)
   {
     for (NativeBookmarkSearchListener listener : mBookmarkListeners)
@@ -68,6 +73,7 @@ public enum SearchEngine implements NativeSearchListener,
     mBookmarkListeners.finishIterate();
   }
 
+  @Keep
   public void onBookmarkSearchResultsEnd(@Nullable long[] bookmarkIds, long timestamp)
   {
     for (NativeBookmarkSearchListener listener : mBookmarkListeners)

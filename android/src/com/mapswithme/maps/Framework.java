@@ -6,6 +6,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.Keep;
 import androidx.annotation.Size;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
@@ -73,6 +74,7 @@ public class Framework
   }
 
   @SuppressWarnings("unused")
+  @Keep
   public interface RoutingListener
   {
     @MainThread
@@ -80,6 +82,7 @@ public class Framework
   }
 
   @SuppressWarnings("unused")
+  @Keep
   public interface RoutingProgressListener
   {
     @MainThread

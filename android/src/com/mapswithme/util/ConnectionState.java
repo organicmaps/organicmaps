@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -143,6 +144,7 @@ public enum ConnectionState implements Initializable<Context>
 
   // Called from JNI.
   @SuppressWarnings("unused")
+  @Keep
   public static byte getConnectionState()
   {
     return INSTANCE.requestCurrentType().getNativeRepresentation();

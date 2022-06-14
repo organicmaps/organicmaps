@@ -247,7 +247,8 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     Counters.resetAppSessionCounters(context);
   }
 
-  @SuppressWarnings("unused") @Keep
+  @SuppressWarnings("unused")
+  @Keep
   void forwardToMainThread(final long taskPointer)
   {
     Message m = Message.obtain(mMainLoopHandler, () -> nativeProcessTask(taskPointer));

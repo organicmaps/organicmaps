@@ -222,6 +222,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     runTasks();
   }
 
+  @Keep
   @Override
   public void onRenderingInitializationFinished()
   {

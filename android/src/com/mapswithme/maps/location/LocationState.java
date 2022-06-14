@@ -1,5 +1,6 @@
 package com.mapswithme.maps.location;
 
+import androidx.annotation.Keep;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 
@@ -8,6 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 
 public final class LocationState
 {
+  @Keep
   interface ModeChangeListener
   {
     @SuppressWarnings("unused")
