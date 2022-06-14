@@ -8,13 +8,12 @@ target_link_libraries(${PROJECT_NAME} opening_hours)
 
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux") 
-  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND cp -a "${CMAKE_CURRENT_SOURCE_DIR}/opening-count.lst" "${CMAKE_BINARY_DIR}/"
-    COMMENT "Copying opening-count.lst file for testing"
-  )
+  set(COPY_CMD cp -u)
 else()
-  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND rsync -a "${CMAKE_CURRENT_SOURCE_DIR}/opening-count.lst" "${CMAKE_BINARY_DIR}/"
-    COMMENT "Copying opening-count.lst file for testing"
-  )
+  set(COPY_CMD rsync -a)
 endif()
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+  COMMAND ${COPY_CMD} "${CMAKE_CURRENT_SOURCE_DIR}/opening-count.lst" "${CMAKE_BINARY_DIR}/"
+  COMMENT "Copying opening-count.lst file for testing"
+)
