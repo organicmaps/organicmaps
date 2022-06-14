@@ -525,9 +525,6 @@ area|z11[waterway=waterfall]
 node|z12-[waterway=waterfall],
 area|z12-[waterway=waterfall]
 {icon-image: waterfall-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
-node|z15-[waterway=waterfall],
-area|z15-[waterway=waterfall]
-{icon-image: waterfall-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
 node|z17-[waterway=waterfall],
 area|z17-[waterway=waterfall]
 {icon-image: waterfall-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
