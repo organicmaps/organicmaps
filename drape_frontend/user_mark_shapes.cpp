@@ -28,6 +28,8 @@
 
 namespace df
 {
+namespace
+{
 std::array<double, 20> const kLineWidthZoomFactor =
 {
 // 1   2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20
@@ -35,14 +37,6 @@ std::array<double, 20> const kLineWidthZoomFactor =
 };
 int const kLineSimplifyLevelEnd = 15;
 
-std::string DebugPrint(ColoredSymbolViewParams const & csvp)
-{
-  return DebugPrint(csvp.m_anchor) + DebugPrint(csvp.m_color) +
-         DebugPrint(csvp.m_sizeInPixels) + DebugPrint(csvp.m_offset);
-}
-
-namespace
-{
 template <typename TCreateVector>
 void AlignFormingNormals(TCreateVector const & fn, dp::Anchor anchor, dp::Anchor first,
                          dp::Anchor second, glsl::vec2 & firstNormal, glsl::vec2 & secondNormal)
