@@ -642,6 +642,15 @@ node|z15-[man_made=water_tap],
 area|z15-[man_made=water_tap],
 node|z15-[man_made=water_well],
 area|z15-[man_made=water_well],
+{icon-image: drinking-water-s.svg;icon-min-distance: 36;text-optional: true;}
+node|z19-[amenity=water_point],
+area|z19-[amenity=water_point],
+node|z19-[amenity=drinking_water],
+area|z19-[amenity=drinking_water],
+node|z19-[man_made=water_tap],
+area|z19-[man_made=water_tap],
+node|z19-[man_made=water_well],
+area|z19-[man_made=water_well],
 {icon-image: drinking-water-m.svg;icon-min-distance: 36;text-optional: true;}
 
 /* 3. TRANSPORT */
