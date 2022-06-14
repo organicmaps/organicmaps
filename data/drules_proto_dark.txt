@@ -3852,7 +3852,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -3860,7 +3860,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -3868,7 +3868,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -3876,7 +3876,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -4280,7 +4280,7 @@ cont {
       priority: -15428
     }
     symbol {
-      name: "fountain-m"
+      name: "fountain-s"
       priority: 16572
       min_distance: 20
     }
@@ -4300,7 +4300,7 @@ cont {
       priority: -15428
     }
     symbol {
-      name: "fountain-m"
+      name: "fountain-s"
       priority: 16572
       min_distance: 20
     }
@@ -4320,7 +4320,7 @@ cont {
       priority: -15428
     }
     symbol {
-      name: "fountain-m"
+      name: "fountain-s"
       priority: 16572
       min_distance: 20
     }
@@ -8961,7 +8961,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -8969,7 +8969,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -8977,7 +8977,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -8985,7 +8985,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -38828,7 +38828,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -38836,7 +38836,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -38844,7 +38844,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -38852,7 +38852,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -38871,7 +38871,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -38879,7 +38879,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -38887,7 +38887,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -38895,7 +38895,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-s"
       priority: 16582
       min_distance: 36
     }
@@ -70022,7 +70022,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "waterfall-m"
+      name: "waterfall-s"
       priority: 16592
     }
     caption {
@@ -70038,7 +70038,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "waterfall-m"
+      name: "waterfall-s"
       priority: 16592
     }
     caption {
