@@ -2172,7 +2172,7 @@ da:4Togstation|4station|3jernbane
 nl:4Station|4spoorwegen|spoor|3trein
 fi:Rautatieasema
 fr:3Gare|4chemin de fer|3train
-de:4Bahnhof|3Haltepunkt|3Station|Zug|Bahn|ÖPNV
+de:4Bahnhof|3Haltepunkt|3Station|Zug|Bahn|ÖPNV|Hbf
 hu:3Vasútállomás|Vasúti megálló|Vonatmegálló|4vonat|4megálló
 id:Rel kereta api
 it:3Stazione ferroviaria|3treno
@@ -4795,7 +4795,7 @@ sk:3Toalety|wc
 mr:शौचालय
 
 amenity-university
-en:4University|U+1F393
+en:4University|U+1F393|Uni
 ru:4Университет|вуз|4институт
 bg:4Университет|ВУЗ|кампус|4институт|корпус
 ar:جامعة
