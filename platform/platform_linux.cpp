@@ -107,6 +107,7 @@ Platform::Platform()
         JoinPath(*execDir, "..", "organicmaps", "data"),  // build-omim-{debug,release}
         JoinPath(*execDir, "..", "share"),  // installed version with packages
         JoinPath(*execDir, "..", "OMaps"),  // installed version without packages
+        JoinPath(*execDir, "..", "share", "organicmaps", "data"),  // flatpak-build
     };
     for (auto const & dir : dirsToScan)
     {
@@ -122,7 +123,12 @@ Platform::Platform()
   // Use ~/.local/share/OMaps if resources directory was not writable.
   if (!m_resourcesDir.empty() && m_writableDir.empty())
   {
-    m_writableDir = JoinPath(*homeDir, ".local", "share", "OMaps");
+    // The writableLocation does the same for AppDataLocation, AppLocalDataLocation,
+    // and GenericDataLocation. Provided, that test mode is not enabled, then
+    // first it checks ${XDG_DATA_HOME}, if empty then it falls back to ${HOME}/.local/share
+    m_writableDir = JoinPath(QStandardPaths::writableLocation(
+        QStandardPaths::AppDataLocation).toStdString(), "OMaps");
+  
     if (!MkDirRecursively(m_writableDir))
       MYTHROW(FileSystemException, ("Can't create writable directory:", m_writableDir));
   }
