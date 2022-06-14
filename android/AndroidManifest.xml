@@ -29,6 +29,9 @@
   <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <!--Permissions For android Auto -->
+  <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES"/>
+  <uses-permission android:name="androidx.car.app.ACCESS_SURFACE"/>
   <!--
     https://developer.android.com/reference/androidx/core/app/JobIntentService:
     When running on Android O, the JobScheduler will take care of wake locks
