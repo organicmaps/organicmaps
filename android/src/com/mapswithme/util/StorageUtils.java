@@ -31,6 +31,43 @@ public class StorageUtils
 {
   private static final String TAG = StorageUtils.class.getSimpleName();
 
+  public static boolean isDirWritable(File dir)
+  {
+    final String path = dir.getPath();
+    Logger.d(TAG, "Checking for writability " + path);
+    if (!dir.isDirectory())
+    {
+      Logger.w(TAG, "Not a directory: " + path);
+      return false;
+    }
+
+    // Extra logging to facilitate debugging writability issues,
+    // e.g. https://github.com/organicmaps/organicmaps/issues/2684
+    if (!dir.exists())
+      Logger.w(TAG, "Not exists: " + path);
+    if (!dir.canWrite())
+      Logger.w(TAG, "Not writable: " + path);
+    if (!dir.canRead())
+      Logger.w(TAG, "Not readable: " + path);
+    if (dir.list() == null)
+      Logger.w(TAG, "Not listable: " + path);
+
+    final File newDir = new File(dir, "om_test_dir");
+    final String newPath = newDir.getPath();
+    if (!newDir.mkdir())
+      Logger.w(TAG, "Failed to create the test dir: " + newPath);
+    if (!newDir.exists())
+    {
+      Logger.w(TAG, "The test dir doesn't exist: " + newPath);
+      return false;
+    }
+
+    if (!newDir.delete())
+      Logger.w(TAG, "Failed to delete the test dir: " + newPath);
+
+    return true;
+  }
+
   @NonNull
   public static String getApkPath(@NonNull Application application)
   {
@@ -166,7 +203,10 @@ public class StorageUtils
   {
     File[] list = dir.listFiles();
     if (list == null)
+    {
+      Logger.w(TAG, "listFilesRecursively listFiles() returned null for " + dir.getPath());
       return;
+    }
 
     for (File file : list)
     {
@@ -189,7 +229,7 @@ public class StorageUtils
     final File[] list = dir.listFiles();
     if (list == null)
     {
-      Logger.w(TAG, "getDirSizeRecursively dirFiles returned null");
+      Logger.w(TAG, "getDirSizeRecursively listFiles() returned null for " + dir.getPath());
       return 0;
     }
 
