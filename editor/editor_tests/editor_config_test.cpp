@@ -48,12 +48,13 @@ UNIT_TEST(EditorConfig_TypeDescription)
     TEST_EQUAL(desc.GetEditableFields(), fields, ());
   }
   {
-    // Select amenity-bank because it goes first in config.
+    // Test that amenity-bank is selected as it goes first in config.
     editor::TypeAggregatedDescription desc;
-    TEST(config.GetTypeDescription({"amenity-bar", "amenity-bank"}, desc), ());
+    TEST(config.GetTypeDescription({"amenity-bicycle_rental", "amenity-bank"}, desc), ());
     TEST(desc.IsNameEditable(), ());
     TEST(desc.IsAddressEditable(), ());
     auto fields = poi;
+    fields.push_back(EType::FMD_INTERNET);
     base::SortUnique(fields);
     TEST_EQUAL(desc.GetEditableFields(), fields, ());
   }
