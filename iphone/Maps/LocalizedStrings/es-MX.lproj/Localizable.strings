@@ -1525,7 +1525,7 @@
 
 "type.boundary.administrative.11" = "Frontera administrativa";
 
-"type.boundary.administrative.2" = "National Border";
+"type.boundary.administrative.2" = "Frontera de país";
 
 "type.boundary.administrative.3" = "Frontera administrativa";
 
@@ -1587,7 +1587,7 @@
 
 "type.craft.electrician" = "Electricista";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Paisajista";
 
@@ -1828,22 +1828,22 @@
 
 "type.highway.footway" = "Camino";
 
-"type.highway.footway.alpine_hiking" = "Path";
+"type.highway.footway.alpine_hiking" = "Camino";
 
 "type.highway.footway.area" = "Camino";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Puente";
 
-"type.highway.footway.demanding_alpine_hiking" = "Path";
+"type.highway.footway.demanding_alpine_hiking" = "Camino";
 
-"type.highway.footway.demanding_mountain_hiking" = "Path";
+"type.highway.footway.demanding_mountain_hiking" = "Camino";
 
-"type.highway.footway.difficult_alpine_hiking" = "Path";
+"type.highway.footway.difficult_alpine_hiking" = "Camino";
 
-"type.highway.footway.hiking" = "Path";
+"type.highway.footway.hiking" = "Camino";
 
-"type.highway.footway.mountain_hiking" = "Path";
+"type.highway.footway.mountain_hiking" = "Camino";
 
 "type.highway.footway.permissive" = "Camino";
 
@@ -2381,6 +2381,10 @@
 
 "type.natural.cliff" = "Cliff";
 
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Embankment";
+
 "type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "Géiser";
@@ -2577,7 +2581,7 @@
 
 "type.railway.funicular.tunnel" = "Funicular";
 
-"type.railway.halt" = "Train Station";
+"type.railway.halt" = "Estación de tren";
 
 "type.railway.level_crossing" = "Cruce de ferrocarril";
 

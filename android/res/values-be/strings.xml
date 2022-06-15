@@ -862,6 +862,9 @@
 	<string name="type.mountain_pass">Перавал</string>
 	<string name="type.natural.beach.sand">Пяшчаны пляж</string>
 	<string name="type.natural.beach.gravel">Галечны пляж</string>
+	<string name="type.natural.cliff">Уцёс</string>
+	<string name="type.natural.earth_bank">Абрыў</string>
+	<string name="type.man_made.embankment">Насып</string>
 	<string name="type.natural.water.lock">Шлюзавая камера</string>
 	<string name="type.natural.water.pond">Сажалка</string>
 	<string name="type.natural.water.reservoir">Вадасховішча</string>

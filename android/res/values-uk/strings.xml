@@ -1276,7 +1276,9 @@
 	<string name="type.natural.beach.gravel">Гальковий пляж</string>
 	<string name="type.natural.cape">Мис</string>
 	<string name="type.natural.cave_entrance">Печера</string>
-	<string name="type.natural.cliff">Обрив</string>
+	<string name="type.natural.cliff">Урвище</string>
+	<string name="type.natural.earth_bank">Обрив</string>
+	<string name="type.man_made.embankment">Насип</string>
 	<string name="type.natural.coastline">Берегова лiнiя</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Льодовик</string>

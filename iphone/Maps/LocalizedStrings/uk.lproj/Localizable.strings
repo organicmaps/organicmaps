@@ -1587,7 +1587,7 @@
 
 "type.craft.electrician" = "Електрик";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Садівник";
 
@@ -2379,7 +2379,11 @@
 
 "type.natural.cave_entrance" = "Печера";
 
-"type.natural.cliff" = "Обрив";
+"type.natural.cliff" = "Урвище";
+
+"type.natural.earth_bank" = "Обрив";
+
+"type.man_made.embankment" = "Насип";
 
 "type.natural.coastline" = "Берегова лiнiя";
 

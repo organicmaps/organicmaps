@@ -1315,7 +1315,9 @@
 	<string name="type.natural.beach.gravel">Галечный пляж</string>
 	<string name="type.natural.cape">Мыс</string>
 	<string name="type.natural.cave_entrance">Пещера</string>
-	<string name="type.natural.cliff">Обрыв</string>
+	<string name="type.natural.cliff">Утёс</string>
+	<string name="type.natural.earth_bank">Обрыв</string>
+	<string name="type.man_made.embankment">Насыпь</string>
 	<string name="type.natural.coastline">Береговая линия</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Ледник</string>

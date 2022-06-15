@@ -1587,7 +1587,7 @@
 
 "type.craft.electrician" = "Elektrikář";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Zahradník";
 
@@ -2379,7 +2379,11 @@
 
 "type.natural.cave_entrance" = "Jeskyně";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Útes";
+
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Násyp";
 
 "type.natural.coastline" = "Coastline";
 

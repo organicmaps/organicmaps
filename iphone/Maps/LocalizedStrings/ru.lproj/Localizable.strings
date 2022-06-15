@@ -2379,7 +2379,11 @@
 
 "type.natural.cave_entrance" = "Пещера";
 
-"type.natural.cliff" = "Обрыв";
+"type.natural.cliff" = "Утёс";
+
+"type.natural.earth_bank" = "Обрыв";
+
+"type.man_made.embankment" = "Насыпь";
 
 "type.natural.coastline" = "Береговая линия";
 

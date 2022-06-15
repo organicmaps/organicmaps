@@ -1587,7 +1587,7 @@
 
 "type.craft.electrician" = "Elektrikçi";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Bahçe Düzenleyici";
 
@@ -2380,6 +2380,10 @@
 "type.natural.cave_entrance" = "Mağara";
 
 "type.natural.cliff" = "Uçurum";
+
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Embankment";
 
 "type.natural.coastline" = "Kıyı Şeridi";
 

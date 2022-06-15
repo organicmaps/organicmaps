@@ -9258,11 +9258,11 @@
     en = Driveway
     de = Zufahrt
     mr = चालकमार्ग
+    pt-BR = Via de acesso
     ru = Подъезд
     uk = Під'їзд
     zh-Hans = 车道
     zh-Hant = 車道
-    pt-BR = Via de acesso
 
   [type.highway.service.parking_aisle]
     ref = type.highway.service
@@ -9652,7 +9652,6 @@
     ref = type.highway.footway
     de = Weg
     fi = Kävelytie
-    pt-BR = Caminho pedonal
 
   [type.area_highway.living_street]
     ref = type.highway.living_street
@@ -9662,7 +9661,6 @@
   [type.area_highway.motorway]
     ref = type.highway.motorway
     fi = Moottoritie
-    pt-BR = Rodovia
 
   [type.area_highway.path]
     ref = type.highway.path
@@ -10387,12 +10385,10 @@
     comment = In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship.
     ref = type.amenity.grave_yard
     en = Cemetery
-    pt-BR = Cemitério
 
   [type.landuse.cemetery.christian]
     ref = type.amenity.grave_yard.christian
     en = Christian Cemetery
-    pt-BR = Cemitério cristão
 
   [type.landuse.churchyard]
     en = Churchyard
@@ -12549,8 +12545,10 @@
   [type.natural.cliff]
     en = Cliff
     be = Уцёс
+    cs = Útes
     de = Klippe
     fr = Falaise
+    hu = Szikla
     ja = 崖
     mr = कडा
     nl = Klif
@@ -12558,6 +12556,7 @@
     pt = Falésia
     pt-BR = Falésia
     ru = Утёс
+    sk = Útes
     tr = Uçurum
     uk = Урвище
     zh-Hans = 峭壁
@@ -12571,7 +12570,10 @@
   [type.man_made.embankment]
     en = Embankment
     be = Насып
+    cs = Násyp
+    hu = Töltés
     ru = Насыпь
+    sk = Násyp
     uk = Насип
 
   [type.natural.coastline]

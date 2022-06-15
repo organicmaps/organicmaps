@@ -926,7 +926,7 @@
 	<string name="type.craft.carpenter">Carpenter</string>
 	<string name="type.craft.confectionery">Confectionery</string>
 	<string name="type.craft.electrician">Electrician</string>
-	<string name="type.craft.electronics_repair">Electronics repair</string>
+	<string name="type.craft.electronics_repair">Electronics Repair</string>
 	<string name="type.craft.gardener">Gardener</string>
 	<string name="type.craft.handicraft">Handicraft</string>
 	<string name="type.craft.hvac">Hvac</string>
@@ -1347,6 +1347,8 @@
 	<string name="type.natural.cape">Cape</string>
 	<string name="type.natural.cave_entrance">Cave</string>
 	<string name="type.natural.cliff">Cliff</string>
+	<string name="type.natural.earth_bank">Earth Bank</string>
+	<string name="type.man_made.embankment">Embankment</string>
 	<string name="type.natural.coastline">Coastline</string>
 	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">Glacier</string>
