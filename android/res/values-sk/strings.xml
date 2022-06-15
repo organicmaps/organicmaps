@@ -1113,6 +1113,8 @@
 	<string name="type.natural.bay">Záliv</string>
 	<string name="type.natural.cape">Mys</string>
 	<string name="type.natural.cave_entrance">Jaskyňa</string>
+	<string name="type.natural.cliff">Útes</string>
+	<string name="type.man_made.embankment">Násyp</string>
 	<string name="type.natural.geyser">Gejzír</string>
 	<string name="type.natural.glacier">Ľadovec</string>
 	<string name="type.natural.grassland">Lúka</string>

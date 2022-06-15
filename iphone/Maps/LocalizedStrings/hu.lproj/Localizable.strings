@@ -1587,7 +1587,7 @@
 
 "type.craft.electrician" = "Villanyszerelő";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Kertész";
 
@@ -2379,7 +2379,11 @@
 
 "type.natural.cave_entrance" = "Barlang";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Szikla";
+
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Töltés";
 
 "type.natural.coastline" = "Coastline";
 

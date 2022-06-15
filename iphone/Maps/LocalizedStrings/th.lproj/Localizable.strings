@@ -1587,7 +1587,7 @@
 
 "type.craft.electrician" = "ช่างไฟฟ้า";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "คนจัดสวน";
 
@@ -2380,6 +2380,10 @@
 "type.natural.cave_entrance" = "ถ้ำ";
 
 "type.natural.cliff" = "Cliff";
+
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Embankment";
 
 "type.natural.coastline" = "Coastline";
 

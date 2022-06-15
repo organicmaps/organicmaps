@@ -1587,7 +1587,7 @@
 
 "type.craft.electrician" = "電気技師";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "造園家";
 
@@ -2380,6 +2380,10 @@
 "type.natural.cave_entrance" = "洞窟";
 
 "type.natural.cliff" = "崖";
+
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Embankment";
 
 "type.natural.coastline" = "海岸線";
 
