@@ -20,6 +20,11 @@ namespace dp
 // Based on ./data/patterns.txt, all paterns have 2 entries now.
 using PenPatternT = buffer_vector<uint8_t, 2>;
 
+inline bool IsTrianglePattern(PenPatternT const & p)
+{
+  return p.size() == 4;
+}
+
 class StipplePenKey : public Texture::Key
 {
 public:
@@ -39,28 +44,35 @@ class StipplePenRasterizator
 public:
   explicit StipplePenRasterizator(StipplePenKey const & key);
 
-  uint32_t GetSize() const;
+  m2::PointU GetSize() const { return { m_pixelLength, m_height }; }
 
-  void Rasterize(uint8_t * buffer);
+  void Rasterize(uint8_t * buffer) const;
+
+private:
+  void RasterizeDash(uint8_t * buffer) const;
+  void RasterizeTriangle(uint8_t * buffer) const;
+  void ClonePattern(uint8_t * pixels) const;
 
 private:
   StipplePenKey m_key;
-  uint32_t m_pixelLength;
+  uint32_t m_patternLength, m_pixelLength;
+  uint32_t m_height;
 };
 
 class StipplePenResourceInfo : public Texture::ResourceInfo
 {
 public:
-  StipplePenResourceInfo(m2::RectF const & texRect, uint32_t pixelLength)
-    : Texture::ResourceInfo(texRect), m_pixelLength(pixelLength)
+  StipplePenResourceInfo(m2::RectF const & texRect, m2::PointU const & pixelSize)
+    : Texture::ResourceInfo(texRect), m_pixelSize(pixelSize)
   {
   }
 
   virtual Texture::ResourceType GetType() const { return Texture::ResourceType::StipplePen; }
-  uint32_t GetMaskPixelLength() const { return m_pixelLength; }
+
+  m2::PointU GetMaskPixelSize() const { return m_pixelSize; }
 
 private:
-  uint32_t m_pixelLength;
+  m2::PointU m_pixelSize;
 };
 
 class StipplePenPacker
@@ -68,7 +80,7 @@ class StipplePenPacker
 public:
   explicit StipplePenPacker(m2::PointU const & canvasSize);
 
-  m2::RectU PackResource(uint32_t width);
+  m2::RectU PackResource(m2::PointU const & size);
   m2::RectF MapTextureCoords(m2::RectU const & pixelRect) const;
 
 private:

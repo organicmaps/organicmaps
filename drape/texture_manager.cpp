@@ -39,7 +39,7 @@ uint32_t const kGlyphsTextureSize = 1024;
 size_t const kInvalidGlyphGroup = std::numeric_limits<size_t>::max();
 
 // Reserved for elements like RuleDrawer or other LineShapes.
-uint32_t const kReservedPatterns = 10;
+uint32_t const kReservedPatterns = 0;
 size_t const kReservedColors = 20;
 
 float const kGlyphAreaMultiplier = 1.2f;
@@ -186,10 +186,6 @@ m2::RectF const & TextureManager::BaseRegion::GetTexRect() const
   return m_info->GetTexRect();
 }
 
-TextureManager::GlyphRegion::GlyphRegion()
-  : BaseRegion()
-{}
-
 float TextureManager::GlyphRegion::GetOffsetX() const
 {
   ASSERT(m_info->GetType() == Texture::ResourceType::Glyph, ());
@@ -214,10 +210,10 @@ float TextureManager::GlyphRegion::GetAdvanceY() const
   return ref_ptr<GlyphInfo>(m_info)->GetMetrics().m_yAdvance;
 }
 
-uint32_t TextureManager::StippleRegion::GetMaskPixelLength() const
+m2::PointU TextureManager::StippleRegion::GetMaskPixelSize() const
 {
   ASSERT(m_info->GetType() == Texture::ResourceType::StipplePen, ());
-  return ref_ptr<StipplePenResourceInfo>(m_info)->GetMaskPixelLength();
+  return ref_ptr<StipplePenResourceInfo>(m_info)->GetMaskPixelSize();
 }
 
 //uint32_t TextureManager::StippleRegion::GetPatternPixelLength() const
@@ -454,19 +450,35 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   patterns.reserve(kMinStippleTextureHeight);
 
   double const visualScale = params.m_visualScale;
-  ParsePatternsList(params.m_patterns, [&patterns, visualScale](buffer_vector<double, 8> const & pattern)
+  uint32_t rowsCount = 0;
+  ParsePatternsList(params.m_patterns, [&](buffer_vector<double, 8> const & pattern)
   {
     patterns.push_back({});
-    for (size_t i = 0; i < pattern.size(); i++)
-      patterns.back().push_back(static_cast<uint8_t>(pattern[i] * visualScale));
+    auto & added = patterns.back();
+    for (double d : pattern)
+      added.push_back(static_cast<uint8_t>(d * visualScale));
+
+    if (IsTrianglePattern(added))
+    {
+      rowsCount = rowsCount + added[2] + added[3];
+    }
+    else
+    {
+      ASSERT_EQUAL(added.size(), 2, ());
+      ++rowsCount;
+    }
   });
-  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(StipplePenTextureSize(patterns.size(), m_maxTextureSize),
+
+  // We don't filter duplicates in rowsCount (it is bigger than unique count),
+  // but they will be filtered in ReservePattern call.
+  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(StipplePenTextureSize(rowsCount, m_maxTextureSize),
                                                           make_ref(m_textureAllocator));
+
   LOG(LDEBUG, ("Patterns texture size =", m_stipplePenTexture->GetWidth(), m_stipplePenTexture->GetHeight()));
 
-  ref_ptr<StipplePenTexture> stipplePenTextureTex = make_ref(m_stipplePenTexture);
+  ref_ptr<StipplePenTexture> stipplePenTex = make_ref(m_stipplePenTexture);
   for (auto const & p : patterns)
-    stipplePenTextureTex->ReservePattern(p);
+    stipplePenTex->ReservePattern(p);
 
   // Initialize colors (reserved ./data/colors.txt lines count).
   std::vector<dp::Color> colors;
@@ -475,8 +487,10 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   {
     colors.push_back(color);
   });
+
   m_colorTexture = make_unique_dp<ColorTexture>(ColorTextureSize(colors.size(), m_maxTextureSize),
                                                 make_ref(m_textureAllocator));
+
   LOG(LDEBUG, ("Colors texture size =", m_colorTexture->GetWidth(), m_colorTexture->GetHeight()));
 
   ref_ptr<ColorTexture> colorTex = make_ref(m_colorTexture);

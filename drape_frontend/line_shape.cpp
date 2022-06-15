@@ -27,24 +27,18 @@ class TextureCoordGenerator
 {
 public:
   explicit TextureCoordGenerator(dp::TextureManager::StippleRegion const & region)
-    : m_region(region)
-    , m_maskLength(static_cast<float>(m_region.GetMaskPixelLength()))
+    : m_region(region), m_maskSize(m_region.GetMaskPixelSize())
   {}
 
-  glsl::vec4 GetTexCoordsByDistance(float distance) const
-  {
-    return GetTexCoords(distance / m_maskLength);
-  }
-
-  glsl::vec4 GetTexCoords(float offset) const
+  glsl::vec4 GetTexCoordsByDistance(float distance, bool isLeft) const
   {
     m2::RectF const & texRect = m_region.GetTexRect();
-    return glsl::vec4(offset, texRect.minX(), texRect.SizeX(), texRect.Center().y);
+    return { distance / GetMaskLength(), texRect.minX(), texRect.SizeX(), isLeft ? texRect.minY() : texRect.maxY() };
   }
 
-  float GetMaskLength() const
+  uint32_t GetMaskLength() const
   {
-    return m_maskLength;
+    return m_maskSize.x;
   }
 
   dp::TextureManager::StippleRegion const & GetRegion() const
@@ -54,7 +48,7 @@ public:
 
 private:
   dp::TextureManager::StippleRegion const m_region;
-  float const m_maskLength;
+  m2::PointU const m_maskSize;
 };
 
 struct BaseBuilderParams
@@ -320,7 +314,7 @@ public:
   int GetDashesCount(float const globalLength) const
   {
     float const pixelLen = globalLength * m_baseGtoPScale;
-    return static_cast<int>((pixelLen + m_texCoordGen.GetMaskLength() - 1) / m_texCoordGen.GetMaskLength());
+    return (pixelLen + m_texCoordGen.GetMaskLength() - 1) / m_texCoordGen.GetMaskLength();
   }
 
   dp::RenderState GetState() override
@@ -336,7 +330,7 @@ public:
   {
     float const halfWidth = GetHalfWidth();
     m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)),
-                            m_colorCoord, m_texCoordGen.GetTexCoordsByDistance(offsetFromStart));
+                            m_colorCoord, m_texCoordGen.GetTexCoordsByDistance(offsetFromStart, isLeft));
   }
 
 private:
@@ -482,20 +476,18 @@ bool LineShape::CanBeSimplified(int & lineWidth) const
 
 void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
 {
-  float const pxHalfWidth = m_params.m_width / 2.0f;
-
-  dp::TextureManager::ColorRegion colorRegion;
-  textures->GetColorRegion(m_params.m_color, colorRegion);
-
-  auto commonParamsBuilder = [&](BaseBuilderParams & p)
+  auto commonParamsBuilder = [this, textures](BaseBuilderParams & p)
   {
+    dp::TextureManager::ColorRegion colorRegion;
+    textures->GetColorRegion(m_params.m_color, colorRegion);
+
     p.m_cap = m_params.m_cap;
     p.m_color = colorRegion;
     p.m_depthTestEnabled = m_params.m_depthTestEnabled;
     p.m_depth = m_params.m_depth;
     p.m_depthLayer = m_params.m_depthLayer;
     p.m_join = m_params.m_join;
-    p.m_pxHalfWidth = pxHalfWidth;
+    p.m_pxHalfWidth = m_params.m_width / 2;
   };
 
   if (m_params.m_pattern.empty())
@@ -530,7 +522,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     commonParamsBuilder(p);
     p.m_stipple = maskRegion;
     p.m_baseGtoP = m_params.m_baseGtoPScale;
-    p.m_glbHalfWidth = pxHalfWidth / m_params.m_baseGtoPScale;
+    p.m_glbHalfWidth = p.m_pxHalfWidth / m_params.m_baseGtoPScale;
 
     auto builder = std::make_unique<DashedLineBuilder>(p, m_spline->GetPath().size());
     Construct<DashedLineBuilder>(*builder);
