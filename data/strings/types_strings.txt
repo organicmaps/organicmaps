@@ -4954,7 +4954,7 @@
     zh-Hant = 電工
 
   [type.craft.electronics_repair]
-    en = Electronics repair
+    en = Electronics Repair
     ru = Ремонт электроники
 
   [type.craft.gardener]
@@ -12548,6 +12548,7 @@
 
   [type.natural.cliff]
     en = Cliff
+    be = Уцёс
     de = Klippe
     fr = Falaise
     ja = 崖
@@ -12556,10 +12557,22 @@
     pl = Klif
     pt = Falésia
     pt-BR = Falésia
-    ru = Обрыв
+    ru = Утёс
     tr = Uçurum
-    uk = Обрив
+    uk = Урвище
     zh-Hans = 峭壁
+
+  [type.natural.earth_bank]
+    en = Earth Bank
+    be = Абрыў
+    ru = Обрыв
+    uk = Обрив
+
+  [type.man_made.embankment]
+    en = Embankment
+    be = Насып
+    ru = Насыпь
+    uk = Насип
 
   [type.natural.coastline]
     en = Coastline
