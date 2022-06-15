@@ -55,8 +55,6 @@ public:
   class GlyphRegion : public BaseRegion
   {
   public:
-    GlyphRegion();
-
     float GetOffsetX() const;
     float GetOffsetY() const;
     float GetAdvanceX() const;
@@ -66,16 +64,12 @@ public:
   class StippleRegion : public BaseRegion
   {
   public:
-    StippleRegion() : BaseRegion() {}
-
-    uint32_t GetMaskPixelLength() const;
+    m2::PointU GetMaskPixelSize() const;
     //uint32_t GetPatternPixelLength() const;
   };
 
   class ColorRegion : public BaseRegion
   {
-  public:
-    ColorRegion() : BaseRegion() {}
   };
 
   struct Params

@@ -14,7 +14,7 @@ namespace
 {
 void TestPacker(StipplePenPacker & packer, uint32_t width, m2::RectU const & expect)
 {
-  TEST_EQUAL(packer.PackResource(width), expect, ());
+  TEST_EQUAL(packer.PackResource({ width, 1 }), expect, ());
 }
 
 bool IsRectsEqual(m2::RectF const & r1, m2::RectF const & r2)
