@@ -4841,16 +4841,21 @@
     zh-Hans = 工艺作坊
 
   [type.craft.beekeeper]
-    en = beekeeper
+    en = Beekeeper
+    be = Пчаляр
     ru = Пчеловод
+    uk = Бджоляр
 
   [type.craft.blacksmith]
     en = Blacksmith
-    ru = Кузнец
+    be = Кузня
+    ru = Кузница
+    uk = Кузня
 
   [type.craft.brewery]
     en = Craft Brewery
     ar = مصنع جعة
+    be = Крафтавы бровар
     cs = Pivovar
     da = Bryggeri
     de = Brauerei
@@ -4872,12 +4877,12 @@
     pt = Cervejaria artesanal
     pt-BR = Cervejaria artesanal
     ro = Berărie
-    ru = Крафтовое пиво
+    ru = Крафтовая пивоварня
     sk = Pivovar
     sv = Bryggeri
     th = โรงเบียร์
     tr = Bira Fabrikası
-    uk = Пивоварня
+    uk = Крафтова пивоварня
     vi = Nhà máy bia
     zh-Hans = 酿酒厂
     zh-Hant = 釀酒廠
@@ -4993,11 +4998,14 @@
 
   [type.craft.handicraft]
     en = Handicraft
-    ru = Декоративный мастер
+    ru = Ремесленная мастерская
 
   [type.craft.hvac]
-    en = Hvac
+    comment = Heating, Ventilation, and Air Conditioning
+    en = HVAC
     ar = تكييف
+    be = Ацяпленне, вентыляцыя і кандыцыянаванне
+    bg = Отопление, вентилация и климатизация
     cs = HVAC
     da = Blikkenslager
     de = Heizung
@@ -5015,12 +5023,12 @@
     pl = Klimatyzacja
     pt = Instalador de ar-condicionado
     pt-BR = Ar-condicionado
-    ru = Кондиционеры
+    ru = Отопление, вентиляция и кондиционирование
     sk = Vzduchotechnika
     sv = Vvs
     th = ระบบปรับอากาศ
     tr = Klimacı
-    uk = Кондиціонери
+    uk = Опалення, вентиляція та кондиціювання повітря
     vi = Điều hòa nhiệt độ
     zh-Hans = 暖通工程师
     zh-Hant = 空調設備
