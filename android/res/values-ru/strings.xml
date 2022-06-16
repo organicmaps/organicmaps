@@ -907,15 +907,16 @@
 	<string name="type.cemetery.grave">Могила</string>
 	<string name="type.craft">Мастерская</string>
 	<string name="type.craft.beekeeper">Пчеловод</string>
-	<string name="type.craft.blacksmith">Кузнец</string>
-	<string name="type.craft.brewery">Крафтовое пиво</string>
+	<string name="type.craft.blacksmith">Кузница</string>
+	<string name="type.craft.brewery">Крафтовая пивоварня</string>
 	<string name="type.craft.carpenter">Столяр</string>
 	<string name="type.craft.confectionery">Кондитер</string>
 	<string name="type.craft.electrician">Электрик</string>
 	<string name="type.craft.electronics_repair">Ремонт электроники</string>
 	<string name="type.craft.gardener">Садовник</string>
-	<string name="type.craft.handicraft">Декоративный мастер</string>
-	<string name="type.craft.hvac">Кондиционеры</string>
+	<string name="type.craft.handicraft">Ремесленная мастерская</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">Отопление, вентиляция и кондиционирование</string>
 	<string name="type.craft.metal_construction">Металлоконструкции</string>
 	<string name="type.craft.painter">Маляр</string>
 	<string name="type.craft.photographer">Фотограф</string>

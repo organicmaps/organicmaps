@@ -884,6 +884,7 @@
 	<string name="type.craft.carpenter">Marangoz</string>
 	<string name="type.craft.electrician">Elektrikçi</string>
 	<string name="type.craft.gardener">Bahçe Düzenleyici</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Klimacı</string>
 	<string name="type.craft.metal_construction">Dökümcü</string>
 	<string name="type.craft.painter">Boyacı</string>

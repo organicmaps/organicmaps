@@ -827,6 +827,7 @@
 	<string name="type.craft.carpenter">木工</string>
 	<string name="type.craft.electrician">電工</string>
 	<string name="type.craft.gardener">園藝師</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">空調設備</string>
 	<string name="type.craft.metal_construction">鐵工</string>
 	<string name="type.craft.painter">油漆工</string>

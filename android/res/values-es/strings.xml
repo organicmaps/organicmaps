@@ -871,6 +871,7 @@
 	<string name="type.craft.carpenter">Carpintero</string>
 	<string name="type.craft.electrician">Electricista</string>
 	<string name="type.craft.gardener">Paisajista</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Aire acondicionado</string>
 	<string name="type.craft.metal_construction">Trabajador del metal</string>
 	<string name="type.craft.painter">Pintor</string>

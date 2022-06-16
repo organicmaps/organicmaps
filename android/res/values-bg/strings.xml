@@ -640,6 +640,8 @@
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
 	<string name="type.cemetery.grave">Гроб</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">Отопление, вентилация и климатизация</string>
 	<string name="type.craft.metal_construction">Метални конструкции</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
 

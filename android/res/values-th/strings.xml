@@ -795,6 +795,7 @@
 	<string name="type.craft.carpenter">ช่างไม้</string>
 	<string name="type.craft.electrician">ช่างไฟฟ้า</string>
 	<string name="type.craft.gardener">คนจัดสวน</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">ระบบปรับอากาศ</string>
 	<string name="type.craft.metal_construction">ช่างเหล็ก</string>
 	<string name="type.craft.painter">ช่างทาสี</string>

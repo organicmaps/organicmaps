@@ -805,6 +805,7 @@
 	<string name="type.craft.carpenter">Puuseppä</string>
 	<string name="type.craft.electrician">Sähkömies</string>
 	<string name="type.craft.gardener">Puutarhuri</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ilmastointilaite</string>
 	<string name="type.craft.metal_construction">Metallimies</string>
 	<string name="type.craft.painter">Maalari</string>

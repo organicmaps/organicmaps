@@ -853,6 +853,7 @@
 	<string name="type.craft.carpenter">Arotza</string>
 	<string name="type.craft.electrician">Elektrizista teknikaria</string>
 	<string name="type.craft.gardener">Paisaia</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Aire girotua</string>
 	<string name="type.craft.metal_construction">Metalgintzako langilea</string>
 	<string name="type.craft.painter">Margolaria</string>
