@@ -703,22 +703,21 @@ line|z18-[barrier=wall],
 line|z18-[historic=citywalls],
 {width: 2.0; dashes: 2.5,2.5; opacity: 1;}
 
-/* ToDo: Make linear style with small triangles pointing downwards, when drape will be ready */
-line|z16[natural=cliff],
-line|z16[natural=earth_bank],
-line|z16[man_made=embankment],
-{color: @path; width: 1.0; opacity: 0.5;}
-
-line|z17-[natural=cliff],
-line|z17-[natural=earth_bank],
-line|z17-[man_made=embankment],
 /*
   4 values tuple: dash (===), triangle base (tb), triangle height, base height.
   ===\tb /===  - base height
       \ /    | - triangle height
 
-  Set width = 6 to be equal with triangle height + base height.
+  Line 'width' should be equal with triangle height + base height.
 */
+line|z16[natural=cliff],
+line|z16[natural=earth_bank],
+line|z16[man_made=embankment],
+{color: @path; width: 4; dashes: 2,2,3,1; opacity: 0.5;}
+
+line|z17-[natural=cliff],
+line|z17-[natural=earth_bank],
+line|z17-[man_made=embankment],
 {color: @path; width: 7.0; dashes: 4,4,5,2; opacity: 1;}
 
 /* 9. ISOLINES */
