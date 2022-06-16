@@ -812,7 +812,7 @@ bool UserEventStream::CheckDrag(array<Touch, 2> const & touches, double threshol
 
 bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
 {
-  double const kDragThreshold = pow(VisualParams::Instance().GetDragThreshold(), 2);
+  double const kDragThreshold = base::Pow2(VisualParams::Instance().GetDragThreshold());
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
 

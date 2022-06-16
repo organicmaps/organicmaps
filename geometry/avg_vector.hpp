@@ -49,7 +49,7 @@ private:
   {
     T res = 0;
     for (size_t i = 0; i < Dim; ++i)
-      res += std::pow(a1[i] - a2[i], 2);
+      res += base::Pow2(a1[i] - a2[i]);
 
     return std::sqrt(res);
   }

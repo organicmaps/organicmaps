@@ -333,7 +333,7 @@ m2::SharedSpline SimplifySpline(UserLineRenderParams const & renderInfo, double 
   m2::SharedSpline spline;
   spline.Reset(new m2::Spline(renderInfo.m_spline->GetSize()));
 
-  static double const kMinSegmentLength = std::pow(4.0 * vs, 2);
+  static double const kMinSegmentLength = base::Pow2(4.0 * vs);
   m2::PointD lastAddedPoint;
   for (auto const & point : renderInfo.m_spline->GetPath())
   {
