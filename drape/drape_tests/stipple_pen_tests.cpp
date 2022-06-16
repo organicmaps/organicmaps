@@ -5,6 +5,8 @@
 
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/texture.hpp"
+#include "drape/tm_read_resources.hpp"
+
 
 namespace stipple_pen_tests
 {
@@ -38,5 +40,46 @@ UNIT_TEST(StippleTest_Pack)
   m2::RectF mapped = packer.MapTextureCoords(m2::RectU(0, 0, 256, 1));
   TEST(IsRectsEqual(mapped, m2::RectF(0.5f / 512.0f, 0.5f / 8.0f,
                                       255.5f / 512.0f, 0.5f / 8.0f)), ());
+}
+
+UNIT_TEST(StippleTest_EqualPatterns)
+{
+  using PatternT = std::array<double, 2>;
+  std::vector<PatternT> patterns;
+
+  using namespace dp::impl;
+  ParsePatternsList("./data/patterns.txt", [&patterns](buffer_vector<double, 8> const & p)
+  {
+    if (p.size() == 2)
+      patterns.push_back({p[0], p[1]});
+  });
+
+  auto const IsEqualPatterns = [](PatternT const & p1, PatternT const & p2)
+  {
+    for (double scale : { 1, 2, 3 })
+    {
+      if ((PatternFloat2Pixel(scale * p1[0]) != PatternFloat2Pixel(scale * p2[0])) ||
+          (PatternFloat2Pixel(scale * p1[1]) != PatternFloat2Pixel(scale * p2[1])))
+        return false;
+    }
+    return true;
+  };
+  auto const IsAlmostEqualPatterns = [](PatternT const & p1, PatternT const & p2)
+  {
+    double const scale = 3;
+    return (fabs(scale * p1[0] - scale * p2[0]) + fabs(scale * p1[1] - scale * p2[1])) < 1;
+  };
+
+  size_t const count = patterns.size();
+  for (size_t i = 0; i < count - 1; ++i)
+  {
+    for (size_t j = i + 1; j < count; ++j)
+    {
+      if (IsEqualPatterns(patterns[i], patterns[j]))
+        LOG(LINFO, ("Equal:", patterns[i], patterns[j]));
+      else if (IsAlmostEqualPatterns(patterns[i], patterns[j]))
+        LOG(LINFO, ("Almost equal:", patterns[i], patterns[j]));
+    }
+  }
 }
 } // namespace stipple_pen_tests
