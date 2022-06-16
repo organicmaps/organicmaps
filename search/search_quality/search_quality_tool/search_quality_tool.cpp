@@ -189,8 +189,8 @@ void CalcStatistics(vector<double> const & a, double & avg, double & maximum, do
   if (a.size() > 0)
     avg /= n;
 
-  for (auto const x : a)
-    var += pow(static_cast<double>(x) - avg, 2);
+  for (double const x : a)
+    var += base::Pow2(x - avg);
   if (a.size() > 1)
     var /= n - 1;
   stdDev = sqrt(var);
