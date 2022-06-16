@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.18)
 
-project(omim C CXX)
+set(LANGUAGES C CXX)
+if (APPLE)
+  # OBJC/OBJCXX are needed to skip m/mm files in Unity builds.
+  # https://gitlab.kitware.com/cmake/cmake/-/issues/21963
+  list(APPEND LANGUAGES OBJC OBJCXX)
+endif()
+project(omim ${LANGUAGES})
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
