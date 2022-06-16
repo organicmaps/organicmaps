@@ -608,11 +608,9 @@ public class Utils
   @NonNull
   public static String getStringValueByKey(@NonNull Context context, @NonNull String key)
   {
-    @StringRes
-    int id = getStringIdByKey(context, key);
     try
     {
-      return context.getString(id);
+      return context.getString(getStringIdByKey(context, key));
     }
     catch (Resources.NotFoundException e)
     {
@@ -722,19 +720,7 @@ public class Utils
   @NonNull
   private static String getLocalizedFeatureByKey(@NonNull Context context, @NonNull String key)
   {
-    @StringRes
-    int id = getStringIdByKey(context, key);
-
-    try
-    {
-      return context.getString(id);
-    }
-    catch (Resources.NotFoundException e)
-    {
-      Logger.e(TAG, "Failed to get localized string for key '" + key + "'", e);
-    }
-
-    return key;
+    return getStringValueByKey(context, key);
   }
 
   @NonNull
