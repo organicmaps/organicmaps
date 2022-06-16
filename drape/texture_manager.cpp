@@ -1,23 +1,17 @@
 #include "drape/texture_manager.hpp"
-#include "drape/symbols_texture.hpp"
+
+#include "drape/gl_functions.hpp"
 #include "drape/font_texture.hpp"
+#include "drape/symbols_texture.hpp"
 #include "drape/static_texture.hpp"
 #include "drape/stipple_pen_resource.hpp"
-#include "drape/texture_of_colors.hpp"
-#include "drape/gl_functions.hpp"
 #include "drape/support_manager.hpp"
+#include "drape/texture_of_colors.hpp"
+#include "drape/tm_read_resources.hpp"
 #include "drape/utils/glyph_usage_tracker.hpp"
 
-#include "platform/platform.hpp"
-
-#include "coding/reader.hpp"
-#include "coding/reader_streambuf.hpp"
-
-#include "base/buffer_vector.hpp"
 #include "base/file_name_utils.hpp"
-#include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -39,7 +33,7 @@ uint32_t const kGlyphsTextureSize = 1024;
 size_t const kInvalidGlyphGroup = std::numeric_limits<size_t>::max();
 
 // Reserved for elements like RuleDrawer or other LineShapes.
-uint32_t const kReservedPatterns = 0;
+uint32_t const kReservedPatterns = 10;
 size_t const kReservedColors = 20;
 
 float const kGlyphAreaMultiplier = 1.2f;
@@ -73,44 +67,11 @@ void ParseColorsList(std::string const & colorsFile, ToDo toDo)
   }
 }
 
-template <typename ToDo>
-void ParsePatternsList(std::string const & patternsFile, ToDo && toDo)
-{
-  ReaderStreamBuf buffer(GetPlatform().GetReader(patternsFile));
-  std::istream is(&buffer);
-
-  std::string line;
-  while (std::getline(is, line))
-  {
-    buffer_vector<double, 8> pattern;
-    strings::Tokenize(line, " ", [&](std::string_view token)
-    {
-      double d = 0.0;
-      VERIFY(strings::to_double(token, d), ());
-      pattern.push_back(d);
-    });
-
-    bool isValid = true;
-    for (size_t i = 0; i < pattern.size(); i++)
-    {
-      if (fabs(pattern[i]) < 1e-5)
-      {
-        LOG(LWARNING, ("Pattern was skipped", line));
-        isValid = false;
-        break;
-      }
-    }
-
-    if (isValid)
-      toDo(pattern);
-  }
-}
-
 m2::PointU StipplePenTextureSize(size_t patternsCount, uint32_t maxTextureSize)
 {
   uint32_t const sz = base::NextPowOf2(static_cast<uint32_t>(patternsCount) + kReservedPatterns);
   // No problem if assert will fire here. Just pen texture will be 2x bigger :)
-  ASSERT_LESS_OR_EQUAL(sz, kMinStippleTextureHeight, ());
+  //ASSERT_LESS_OR_EQUAL(sz, kMinStippleTextureHeight, (patternsCount));
   uint32_t const stippleTextureHeight = std::min(maxTextureSize, std::max(sz, kMinStippleTextureHeight));
 
   return m2::PointU(kStippleTextureWidth, stippleTextureHeight);
@@ -120,7 +81,7 @@ m2::PointU ColorTextureSize(size_t colorsCount, uint32_t maxTextureSize)
 {
   uint32_t const sz = static_cast<uint32_t>(floor(sqrt(colorsCount + kReservedColors)));
   // No problem if assert will fire here. Just color texture will be 2x bigger :)
-  ASSERT_LESS_OR_EQUAL(sz, kMinColorTextureSize, ());
+  ASSERT_LESS_OR_EQUAL(sz, kMinColorTextureSize, (colorsCount));
   uint32_t colorTextureSize = std::max(base::NextPowOf2(sz), kMinColorTextureSize);
 
   colorTextureSize *= ColorTexture::GetColorSizeInPixels();
@@ -446,31 +407,30 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   }
 
   // Initialize patterns (reserved ./data/patterns.txt lines count).
-  std::vector<PenPatternT> patterns;
-  patterns.reserve(kMinStippleTextureHeight);
+  std::set<PenPatternT> patterns;
 
   double const visualScale = params.m_visualScale;
   uint32_t rowsCount = 0;
-  ParsePatternsList(params.m_patterns, [&](buffer_vector<double, 8> const & pattern)
+  impl::ParsePatternsList(params.m_patterns, [&](buffer_vector<double, 8> const & pattern)
   {
-    patterns.push_back({});
-    auto & added = patterns.back();
+    PenPatternT toAdd;
     for (double d : pattern)
-      added.push_back(static_cast<uint8_t>(d * visualScale));
+      toAdd.push_back(impl::PatternFloat2Pixel(d * visualScale));
 
-    if (IsTrianglePattern(added))
+    if (!patterns.insert(toAdd).second)
+      return;
+
+    if (IsTrianglePattern(toAdd))
     {
-      rowsCount = rowsCount + added[2] + added[3];
+      rowsCount = rowsCount + toAdd[2] + toAdd[3];
     }
     else
     {
-      ASSERT_EQUAL(added.size(), 2, ());
+      ASSERT_EQUAL(toAdd.size(), 2, ());
       ++rowsCount;
     }
   });
 
-  // We don't filter duplicates in rowsCount (it is bigger than unique count),
-  // but they will be filtered in ReservePattern call.
   m_stipplePenTexture = make_unique_dp<StipplePenTexture>(StipplePenTextureSize(rowsCount, m_maxTextureSize),
                                                           make_ref(m_textureAllocator));
 

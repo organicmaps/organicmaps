@@ -93,6 +93,7 @@ set(SRC
   texture_of_colors.cpp
   texture_of_colors.hpp
   texture_types.hpp
+  tm_read_resources.hpp
   uniform_value.cpp
   uniform_value.hpp
   utils/glyph_usage_tracker.cpp
