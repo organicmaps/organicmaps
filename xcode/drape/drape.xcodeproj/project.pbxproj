@@ -720,7 +720,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87C91DBE4F4900E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
-				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					UCONFIG_USE_LOCAL,

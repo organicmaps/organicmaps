@@ -958,7 +958,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CB1DBE508400E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
-				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"U_DISABLE_RENAMING=1",
