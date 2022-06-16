@@ -1575,7 +1575,7 @@
 
 "type.craft" = "工房";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1593,6 +1593,7 @@
 
 "type.craft.handicraft" = "Handicraft";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "冷暖房空調";
 
 "type.craft.metal_construction" = "金属工";

@@ -818,6 +818,7 @@
 	<string name="type.craft.carpenter">Falegname</string>
 	<string name="type.craft.electrician">Elettricista</string>
 	<string name="type.craft.gardener">Giardiniere</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Impianti HVAC</string>
 	<string name="type.craft.metal_construction">Fabbro</string>
 	<string name="type.craft.painter">Imbianchino</string>

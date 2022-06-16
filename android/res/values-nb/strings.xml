@@ -789,6 +789,7 @@
 	<string name="type.craft.carpenter">Snekker</string>
 	<string name="type.craft.electrician">Elektriker</string>
 	<string name="type.craft.gardener">Anleggsgartner</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Klimaanlegg</string>
 	<string name="type.craft.metal_construction">Metallarbeider</string>
 	<string name="type.craft.painter">Maler</string>

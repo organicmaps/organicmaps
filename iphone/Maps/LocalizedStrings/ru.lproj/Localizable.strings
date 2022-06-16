@@ -810,7 +810,7 @@
 "recent_track_background_dialog_message" = "Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора пресональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!";
+"about_description" = "Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора персональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!";
 
 "general_settings" = "Общие настройки";
 
@@ -1577,9 +1577,9 @@
 
 "type.craft.beekeeper" = "Пчеловод";
 
-"type.craft.blacksmith" = "Кузнец";
+"type.craft.blacksmith" = "Кузница";
 
-"type.craft.brewery" = "Крафтовое пиво";
+"type.craft.brewery" = "Крафтовая пивоварня";
 
 "type.craft.carpenter" = "Столяр";
 
@@ -1591,9 +1591,10 @@
 
 "type.craft.gardener" = "Садовник";
 
-"type.craft.handicraft" = "Декоративный мастер";
+"type.craft.handicraft" = "Ремесленная мастерская";
 
-"type.craft.hvac" = "Кондиционеры";
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Отопление, вентиляция и кондиционирование";
 
 "type.craft.metal_construction" = "Металлоконструкции";
 

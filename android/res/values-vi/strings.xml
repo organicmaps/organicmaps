@@ -792,6 +792,7 @@
 	<string name="type.craft.carpenter">Thợ mộc</string>
 	<string name="type.craft.electrician">Thợ điện</string>
 	<string name="type.craft.gardener">Người thiết kế và xây dựng cảnh quan</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Điều hòa nhiệt độ</string>
 	<string name="type.craft.metal_construction">Nhà kim khí</string>
 	<string name="type.craft.painter">Họa sỹ</string>

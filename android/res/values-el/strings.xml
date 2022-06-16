@@ -792,6 +792,7 @@
 	<string name="type.craft.carpenter">Ξυλουργός</string>
 	<string name="type.craft.electrician">Ηλεκτρολόγος</string>
 	<string name="type.craft.gardener">Κηπουρός</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ψυκτικός</string>
 	<string name="type.craft.metal_construction">Μεταλλουργός</string>
 	<string name="type.craft.painter">Μπογιατζής</string>

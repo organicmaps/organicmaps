@@ -793,6 +793,7 @@
 	<string name="type.craft.carpenter">Timmerman</string>
 	<string name="type.craft.electrician">Elektricien</string>
 	<string name="type.craft.gardener">Tuinarchitect</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Airconditioning</string>
 	<string name="type.craft.metal_construction">Metaalarbeider</string>
 	<string name="type.craft.painter">Schilder</string>

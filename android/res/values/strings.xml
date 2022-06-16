@@ -920,7 +920,7 @@
 	<string name="type.building.warehouse">Warehouse</string>
 	<string name="type.cemetery.grave">Grave</string>
 	<string name="type.craft">Craft</string>
-	<string name="type.craft.beekeeper">beekeeper</string>
+	<string name="type.craft.beekeeper">Beekeeper</string>
 	<string name="type.craft.blacksmith">Blacksmith</string>
 	<string name="type.craft.brewery">Craft Brewery</string>
 	<string name="type.craft.carpenter">Carpenter</string>
@@ -929,7 +929,8 @@
 	<string name="type.craft.electronics_repair">Electronics Repair</string>
 	<string name="type.craft.gardener">Gardener</string>
 	<string name="type.craft.handicraft">Handicraft</string>
-	<string name="type.craft.hvac">Hvac</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">HVAC</string>
 	<string name="type.craft.metal_construction">Metal Worker</string>
 	<string name="type.craft.painter">Painter</string>
 	<string name="type.craft.photographer">Photographer</string>

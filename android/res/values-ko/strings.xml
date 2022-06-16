@@ -792,6 +792,7 @@
 	<string name="type.craft.carpenter">목수</string>
 	<string name="type.craft.electrician">전기기술자</string>
 	<string name="type.craft.gardener">조경사</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">냉난방기</string>
 	<string name="type.craft.metal_construction">금속공</string>
 	<string name="type.craft.painter">페인트공</string>

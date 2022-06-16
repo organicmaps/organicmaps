@@ -787,6 +787,7 @@
 	<string name="type.craft.carpenter">Snickare</string>
 	<string name="type.craft.electrician">Elektriker</string>
 	<string name="type.craft.gardener">Trädgårdsmästare</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Vvs</string>
 	<string name="type.craft.metal_construction">Metallarbetare</string>
 	<string name="type.craft.painter">Målare</string>

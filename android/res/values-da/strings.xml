@@ -787,6 +787,7 @@
 	<string name="type.craft.carpenter">Tømrer</string>
 	<string name="type.craft.electrician">Elektriker</string>
 	<string name="type.craft.gardener">Gartner</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Blikkenslager</string>
 	<string name="type.craft.metal_construction">Metalarbejder</string>
 	<string name="type.craft.painter">Maler</string>

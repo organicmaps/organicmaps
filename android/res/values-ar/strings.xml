@@ -797,6 +797,7 @@
 	<string name="type.craft.carpenter">نجار</string>
 	<string name="type.craft.electrician">كهربائي</string>
 	<string name="type.craft.gardener">مهندس مناظر</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">تكييف</string>
 	<string name="type.craft.metal_construction">عامل معادن</string>
 	<string name="type.craft.painter">رسام</string>
