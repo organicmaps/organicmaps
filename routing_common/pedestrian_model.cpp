@@ -34,8 +34,8 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     // {highway class : InOutCitySpeedKMpH(in city(weight, eta), out city(weight eta))}
     {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
     {HighwayType::HighwayTrunkLink, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
-    {HighwayType::HighwayPrimary, InOutCitySpeedKMpH(SpeedKMpH(3.0, 5.0))},
-    {HighwayType::HighwayPrimaryLink, InOutCitySpeedKMpH(SpeedKMpH(3.0, 5.0))},
+    {HighwayType::HighwayPrimary, InOutCitySpeedKMpH(SpeedKMpH(2.0, 5.0))},
+    {HighwayType::HighwayPrimaryLink, InOutCitySpeedKMpH(SpeedKMpH(2.0, 5.0))},
     {HighwayType::HighwaySecondary, InOutCitySpeedKMpH(SpeedKMpH(3.0, 5.0))},
     {HighwayType::HighwaySecondaryLink, InOutCitySpeedKMpH(SpeedKMpH(3.0, 5.0))},
     {HighwayType::HighwayTertiary, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
