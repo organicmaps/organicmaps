@@ -807,7 +807,7 @@ void ApplyLineFeatureGeometry::operator() (m2::PointD const & point)
   }
   else
   {
-    static double minSegmentLength = pow(4.0 * df::VisualParams::Instance().GetVisualScale(), 2);
+    static double minSegmentLength = base::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale());
     if (m_simplify &&
         ((m_spline->GetSize() > 1 && point.SquaredLength(m_lastAddedPoint) * m_sqrScale < minSegmentLength) ||
         m_spline->IsPrelonging(point)))

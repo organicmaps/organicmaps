@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Půjčovna kol";
 
+"type.amenity.bicycle_repair_station" = "Stanice na opravu jízdních kol";
+
 "type.amenity.biergarten" = "Hospoda se zahrádkou";
 
 "type.amenity.brothel" = "Nevěstinec";
@@ -1569,16 +1571,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Hrob";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Pivovar";
 
 "type.craft.carpenter" = "Truhlář";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektrikář";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Zahradník";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
 
 "type.craft.metal_construction" = "Kovodílna";
@@ -1589,7 +1604,11 @@
 
 "type.craft.plumber" = "Instalatér";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Opravna obuvi";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Krejčí";
 
@@ -2361,7 +2380,11 @@
 
 "type.natural.cave_entrance" = "Jeskyně";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Útes";
+
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Násyp";
 
 "type.natural.coastline" = "Coastline";
 
@@ -2376,6 +2399,8 @@
 "type.natural.hot_spring" = "Hot Spring";
 
 "type.natural.water.lake" = "Jezero";
+
+"type.natural.water.lock" = "Zámková komora";
 
 "type.natural.water.pond" = "Rybník";
 
@@ -2954,8 +2979,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Stavidlo";
 

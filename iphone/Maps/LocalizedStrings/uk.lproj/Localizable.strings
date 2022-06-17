@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Велопрокат";
 
+"type.amenity.bicycle_repair_station" = "Станція ремонту велосипедів";
+
 "type.amenity.biergarten" = "Пивна під відкритим небом";
 
 "type.amenity.brothel" = "Бордель";
@@ -1569,17 +1571,30 @@
 
 "type.building.warehouse" = "Склад";
 
+"type.cemetery.grave" = "Могила";
+
 "type.craft" = "Майстерня";
 
-"type.craft.brewery" = "Пивоварня";
+"type.craft.beekeeper" = "Бджоляр";
+
+"type.craft.blacksmith" = "Кузня";
+
+"type.craft.brewery" = "Крафтова пивоварня";
 
 "type.craft.carpenter" = "Столяр";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Електрик";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Садівник";
 
-"type.craft.hvac" = "Кондиціонери";
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Опалення, вентиляція та кондиціювання повітря";
 
 "type.craft.metal_construction" = "Металоконструкції";
 
@@ -1589,7 +1604,11 @@
 
 "type.craft.plumber" = "Сантехнік";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Ремонт взуття";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Ательє";
 
@@ -2361,7 +2380,11 @@
 
 "type.natural.cave_entrance" = "Печера";
 
-"type.natural.cliff" = "Обрив";
+"type.natural.cliff" = "Урвище";
+
+"type.natural.earth_bank" = "Обрив";
+
+"type.man_made.embankment" = "Насип";
 
 "type.natural.coastline" = "Берегова лiнiя";
 
@@ -2376,6 +2399,8 @@
 "type.natural.hot_spring" = "Горяче джерело";
 
 "type.natural.water.lake" = "Озеро";
+
+"type.natural.water.lock" = "Замкова камера";
 
 "type.natural.water.pond" = "Ставок";
 
@@ -2954,8 +2979,6 @@
 "type.waterway.drain" = "Водовiдвiд";
 
 "type.waterway.drain.tunnel" = "Водовiдвiд";
-
-"type.waterway.lock" = "Шлюз";
 
 "type.waterway.lock_gate" = "Шлюз";
 

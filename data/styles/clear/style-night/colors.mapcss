@@ -79,11 +79,13 @@
 
 /* 4.3 Barriers */
 @fence: #444444;
+@hedge: #143C14;
+@cliff: #7D4F23;
 
 /* 4.4 Buildings */
 
-@building: #222222;
-@building_dark: #333333;
+@building: #2A2A2A;
+@building_dark: #3B3B3B;
 @building_border: #303030;
 @building_dark_border: #474747;
 
@@ -101,11 +103,11 @@
 @residential: #4B4643;
 @unclassified: #4B4643;
 @pedestrian: #4D4744;
-@footway: #3F3A37;
+@footway: #4B4643;
 @cycleway: #6E3D47;
 @construction: #332F2D;
-@track: #2B2827;
-@path: #A05012;
+@track: #5F532D;
+@path: #944A12;
 @bridleway: #2B2827;
 
 /* 5.2 Bridges */

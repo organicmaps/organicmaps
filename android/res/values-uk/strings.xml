@@ -718,6 +718,7 @@
 	<string name="type.amenity.bench">Лавка</string>
 	<string name="type.amenity.bicycle_parking">Велостоянка</string>
 	<string name="type.amenity.bicycle_rental">Велопрокат</string>
+	<string name="type.amenity.bicycle_repair_station">Станція ремонту велосипедів</string>
 	<string name="type.amenity.biergarten">Пивна під відкритим небом</string>
 	<string name="type.amenity.brothel">Бордель</string>
 	<string name="type.amenity.bureau_de_change">Обмін валют</string>
@@ -874,12 +875,16 @@
 	<string name="type.building.has_parts">Будівля</string>
 	<string name="type.building.train_station">Залізничний вокзал</string>
 	<string name="type.building.warehouse">Склад</string>
+	<string name="type.cemetery.grave">Могила</string>
 	<string name="type.craft">Майстерня</string>
-	<string name="type.craft.brewery">Пивоварня</string>
+	<string name="type.craft.beekeeper">Бджоляр</string>
+	<string name="type.craft.blacksmith">Кузня</string>
+	<string name="type.craft.brewery">Крафтова пивоварня</string>
 	<string name="type.craft.carpenter">Столяр</string>
 	<string name="type.craft.electrician">Електрик</string>
 	<string name="type.craft.gardener">Садівник</string>
-	<string name="type.craft.hvac">Кондиціонери</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">Опалення, вентиляція та кондиціювання повітря</string>
 	<string name="type.craft.metal_construction">Металоконструкції</string>
 	<string name="type.craft.painter">Маляр</string>
 	<string name="type.craft.photographer">Фотограф</string>
@@ -1274,7 +1279,9 @@
 	<string name="type.natural.beach.gravel">Гальковий пляж</string>
 	<string name="type.natural.cape">Мис</string>
 	<string name="type.natural.cave_entrance">Печера</string>
-	<string name="type.natural.cliff">Обрив</string>
+	<string name="type.natural.cliff">Урвище</string>
+	<string name="type.natural.earth_bank">Обрив</string>
+	<string name="type.man_made.embankment">Насип</string>
 	<string name="type.natural.coastline">Берегова лiнiя</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Льодовик</string>
@@ -1282,6 +1289,7 @@
 	<string name="type.natural.heath">Пустище</string>
 	<string name="type.natural.hot_spring">Горяче джерело</string>
 	<string name="type.natural.water.lake">Озеро</string>
+	<string name="type.natural.water.lock">Замкова камера</string>
 	<string name="type.natural.water.pond">Ставок</string>
 	<string name="type.natural.water.reservoir">Водосховище</string>
 	<string name="type.natural.water.basin">Резервуар</string>
@@ -1564,7 +1572,6 @@
 	<string name="type.waterway.dock">Причал</string>
 	<string name="type.waterway.drain">Водовiдвiд</string>
 	<string name="type.waterway.drain.tunnel">Водовiдвiд</string>
-	<string name="type.waterway.lock">Шлюз</string>
 	<string name="type.waterway.lock_gate">Шлюз</string>
 	<string name="type.waterway.river">Річка</string>
 	<string name="type.waterway.river.tunnel">Річка</string>

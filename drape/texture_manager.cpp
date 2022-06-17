@@ -1,22 +1,17 @@
 #include "drape/texture_manager.hpp"
-#include "drape/symbols_texture.hpp"
+
+#include "drape/gl_functions.hpp"
 #include "drape/font_texture.hpp"
+#include "drape/symbols_texture.hpp"
 #include "drape/static_texture.hpp"
 #include "drape/stipple_pen_resource.hpp"
-#include "drape/texture_of_colors.hpp"
-#include "drape/gl_functions.hpp"
 #include "drape/support_manager.hpp"
+#include "drape/texture_of_colors.hpp"
+#include "drape/tm_read_resources.hpp"
 #include "drape/utils/glyph_usage_tracker.hpp"
 
-#include "platform/platform.hpp"
-
-#include "coding/reader.hpp"
-
-#include "base/buffer_vector.hpp"
 #include "base/file_name_utils.hpp"
-#include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -28,13 +23,16 @@
 
 namespace dp
 {
+namespace
+{
 uint32_t const kMaxTextureSize = 1024;
-uint32_t const kStippleTextureWidth = 512;
+uint32_t const kStippleTextureWidth = 512;  /// @todo Should be equal with kMaxStipplePenLength?
 uint32_t const kMinStippleTextureHeight = 64;
 uint32_t const kMinColorTextureSize = 32;
 uint32_t const kGlyphsTextureSize = 1024;
 size_t const kInvalidGlyphGroup = std::numeric_limits<size_t>::max();
 
+// Reserved for elements like RuleDrawer or other LineShapes.
 uint32_t const kReservedPatterns = 10;
 size_t const kReservedColors = 20;
 
@@ -44,8 +42,6 @@ float const kGlyphAreaCoverage = 0.9f;
 std::string const kSymbolTextures[] = { "symbols" };
 uint32_t const kDefaultSymbolsIndex = 0;
 
-namespace
-{
 void MultilineTextToUniString(TextureManager::TMultilineText const & text, strings::UniString & outString)
 {
   size_t cnt = 0;
@@ -58,80 +54,36 @@ void MultilineTextToUniString(TextureManager::TMultilineText const & text, strin
     outString.append(str.begin(), str.end());
 }
 
-std::string ReadFileToString(std::string const & filename)
-{
-  std::string result;
-  try
-  {
-    ReaderPtr<Reader>(GetPlatform().GetReader(filename)).ReadAsString(result);
-  }
-  catch(RootException const & e)
-  {
-    LOG(LWARNING, ("Error reading file ", filename, " : ", e.what()));
-    return "";
-  }
-  return result;
-}
-
 template <typename ToDo>
 void ParseColorsList(std::string const & colorsFile, ToDo toDo)
 {
-  std::istringstream fin(ReadFileToString(colorsFile));
-  while (true)
+  ReaderStreamBuf buffer(GetPlatform().GetReader(colorsFile));
+  std::istream is(&buffer);
+  while (is.good())
   {
     uint32_t color;
-    fin >> color;
-    if (!fin)
-      break;
-
+    is >> color;
     toDo(dp::Extract(color));
   }
-}
-
-template <typename ToDo>
-void ParsePatternsList(std::string const & patternsFile, ToDo && toDo)
-{
-  strings::Tokenize(ReadFileToString(patternsFile), "\n", [&](std::string_view patternStr)
-  {
-    if (patternStr.empty())
-      return;
-
-    buffer_vector<double, 8> pattern;
-    strings::Tokenize(patternStr, " ", [&](std::string_view token)
-    {
-      double d = 0.0;
-      VERIFY(strings::to_double(token, d), ());
-      pattern.push_back(d);
-    });
-
-    bool isValid = true;
-    for (size_t i = 0; i < pattern.size(); i++)
-    {
-      if (fabs(pattern[i]) < 1e-5)
-      {
-        LOG(LWARNING, ("Pattern was skipped", patternStr));
-        isValid = false;
-        break;
-      }
-    }
-
-    if (isValid)
-      toDo(pattern);
-  });
 }
 
 m2::PointU StipplePenTextureSize(size_t patternsCount, uint32_t maxTextureSize)
 {
   uint32_t const sz = base::NextPowOf2(static_cast<uint32_t>(patternsCount) + kReservedPatterns);
-  uint32_t const stippleTextureHeight =
-      std::min(maxTextureSize, std::max(sz, kMinStippleTextureHeight));
+  // No problem if assert will fire here. Just pen texture will be 2x bigger :)
+  //ASSERT_LESS_OR_EQUAL(sz, kMinStippleTextureHeight, (patternsCount));
+  uint32_t const stippleTextureHeight = std::min(maxTextureSize, std::max(sz, kMinStippleTextureHeight));
+
   return m2::PointU(kStippleTextureWidth, stippleTextureHeight);
 }
 
 m2::PointU ColorTextureSize(size_t colorsCount, uint32_t maxTextureSize)
 {
   uint32_t const sz = static_cast<uint32_t>(floor(sqrt(colorsCount + kReservedColors)));
+  // No problem if assert will fire here. Just color texture will be 2x bigger :)
+  ASSERT_LESS_OR_EQUAL(sz, kMinColorTextureSize, (colorsCount));
   uint32_t colorTextureSize = std::max(base::NextPowOf2(sz), kMinColorTextureSize);
+
   colorTextureSize *= ColorTexture::GetColorSizeInPixels();
   colorTextureSize = std::min(maxTextureSize, colorTextureSize);
   return m2::PointU(colorTextureSize, colorTextureSize);
@@ -195,10 +147,6 @@ m2::RectF const & TextureManager::BaseRegion::GetTexRect() const
   return m_info->GetTexRect();
 }
 
-TextureManager::GlyphRegion::GlyphRegion()
-  : BaseRegion()
-{}
-
 float TextureManager::GlyphRegion::GetOffsetX() const
 {
   ASSERT(m_info->GetType() == Texture::ResourceType::Glyph, ());
@@ -223,17 +171,17 @@ float TextureManager::GlyphRegion::GetAdvanceY() const
   return ref_ptr<GlyphInfo>(m_info)->GetMetrics().m_yAdvance;
 }
 
-uint32_t TextureManager::StippleRegion::GetMaskPixelLength() const
+m2::PointU TextureManager::StippleRegion::GetMaskPixelSize() const
 {
   ASSERT(m_info->GetType() == Texture::ResourceType::StipplePen, ());
-  return ref_ptr<StipplePenResourceInfo>(m_info)->GetMaskPixelLength();
+  return ref_ptr<StipplePenResourceInfo>(m_info)->GetMaskPixelSize();
 }
 
-uint32_t TextureManager::StippleRegion::GetPatternPixelLength() const
-{
-  ASSERT(m_info->GetType() == Texture::ResourceType::StipplePen, ());
-  return ref_ptr<StipplePenResourceInfo>(m_info)->GetPatternPixelLength();
-}
+//uint32_t TextureManager::StippleRegion::GetPatternPixelLength() const
+//{
+//  ASSERT(m_info->GetType() == Texture::ResourceType::StipplePen, ());
+//  return ref_ptr<StipplePenResourceInfo>(m_info)->GetPatternPixelLength();
+//}
 
 void TextureManager::Release()
 {
@@ -437,9 +385,9 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
     GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
 
   // Initialize symbols.
-  for (size_t i = 0; i < ARRAY_SIZE(kSymbolTextures); ++i)
+  for (auto const & texName : kSymbolTextures)
   {
-    m_symbolTextures.push_back(make_unique_dp<SymbolsTexture>(context, m_resPostfix, kSymbolTextures[i],
+    m_symbolTextures.push_back(make_unique_dp<SymbolsTexture>(context, m_resPostfix, texName,
                                                               make_ref(m_textureAllocator)));
   }
 
@@ -458,37 +406,56 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
                                                         dp::TextureFormat::Alpha, make_ref(m_textureAllocator));
   }
 
-  // Initialize patterns.
-  buffer_vector<buffer_vector<uint8_t, 8>, 64> patterns;
+  // Initialize patterns (reserved ./data/patterns.txt lines count).
+  std::set<PenPatternT> patterns;
+
   double const visualScale = params.m_visualScale;
-  ParsePatternsList(params.m_patterns, [&patterns, visualScale](buffer_vector<double, 8> const & pattern)
+  uint32_t rowsCount = 0;
+  impl::ParsePatternsList(params.m_patterns, [&](buffer_vector<double, 8> const & pattern)
   {
-    buffer_vector<uint8_t, 8> p;
-    for (size_t i = 0; i < pattern.size(); i++)
-      p.push_back(static_cast<uint8_t>(pattern[i] * visualScale));
-    patterns.push_back(std::move(p));
+    PenPatternT toAdd;
+    for (double d : pattern)
+      toAdd.push_back(impl::PatternFloat2Pixel(d * visualScale));
+
+    if (!patterns.insert(toAdd).second)
+      return;
+
+    if (IsTrianglePattern(toAdd))
+    {
+      rowsCount = rowsCount + toAdd[2] + toAdd[3];
+    }
+    else
+    {
+      ASSERT_EQUAL(toAdd.size(), 2, ());
+      ++rowsCount;
+    }
   });
-  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(StipplePenTextureSize(patterns.size(), m_maxTextureSize),
+
+  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(StipplePenTextureSize(rowsCount, m_maxTextureSize),
                                                           make_ref(m_textureAllocator));
+
   LOG(LDEBUG, ("Patterns texture size =", m_stipplePenTexture->GetWidth(), m_stipplePenTexture->GetHeight()));
 
-  ref_ptr<StipplePenTexture> stipplePenTextureTex = make_ref(m_stipplePenTexture);
-  for (auto it = patterns.begin(); it != patterns.end(); ++it)
-    stipplePenTextureTex->ReservePattern(*it);
+  ref_ptr<StipplePenTexture> stipplePenTex = make_ref(m_stipplePenTexture);
+  for (auto const & p : patterns)
+    stipplePenTex->ReservePattern(p);
 
-  // Initialize colors.
-  buffer_vector<dp::Color, 256> colors;
+  // Initialize colors (reserved ./data/colors.txt lines count).
+  std::vector<dp::Color> colors;
+  colors.reserve(512);
   ParseColorsList(params.m_colors, [&colors](dp::Color const & color)
   {
     colors.push_back(color);
   });
+
   m_colorTexture = make_unique_dp<ColorTexture>(ColorTextureSize(colors.size(), m_maxTextureSize),
                                                 make_ref(m_textureAllocator));
+
   LOG(LDEBUG, ("Colors texture size =", m_colorTexture->GetWidth(), m_colorTexture->GetHeight()));
 
   ref_ptr<ColorTexture> colorTex = make_ref(m_colorTexture);
-  for (auto it = colors.begin(); it != colors.end(); ++it)
-    colorTex->ReserveColor(*it);
+  for (auto const & c : colors)
+    colorTex->ReserveColor(c);
 
   // Initialize glyphs.
   m_glyphManager = make_unique_dp<GlyphManager>(params.m_glyphMngParams);
@@ -558,7 +525,7 @@ bool TextureManager::HasSymbolRegion(std::string const & symbolName) const
   return false;
 }
 
-void TextureManager::GetStippleRegion(TStipplePattern const & pen, StippleRegion & region)
+void TextureManager::GetStippleRegion(PenPatternT const & pen, StippleRegion & region)
 {
   CHECK(m_isInitialized, ());
   GetRegionBase(make_ref(m_stipplePenTexture), region, StipplePenKey(pen));

@@ -782,6 +782,7 @@
 	<string name="type.building.garage">Garasi</string>
 	<string name="type.building.has_parts">Gedung</string>
 	<string name="type.building.train_station">Rel kereta api</string>
+	<string name="type.cemetery.grave">Kuburan</string>
 	<string name="type.craft.brewery">Toko minuman</string>
 	<string name="type.craft.carpenter">Tukang kayu</string>
 	<string name="type.craft.electrician">Tukang listrik</string>
@@ -1113,6 +1114,7 @@
 	<string name="type.natural.glacier">Gletser</string>
 	<string name="type.natural.grassland">Ladang</string>
 	<string name="type.natural.water.lake">Danau</string>
+	<string name="type.natural.water.lock">Ruang Kunci</string>
 	<string name="type.natural.water.pond">Kolam</string>
 	<string name="type.natural.water.reservoir">Waduk</string>
 	<string name="type.natural.water.basin">Sebuah baskom air</string>

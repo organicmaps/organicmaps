@@ -223,6 +223,7 @@
 	<!-- SECTION: Types -->
 	<string name="type.amenity">Kistawishi</string>
 	<string name="type.amenity.arts_centre">Kituo cha sanaa</string>
+	<string name="type.amenity.bicycle_repair_station">Cykelreparationsstation</string>
 	<string name="type.amenity.parking_space">Sehemu ya maegesho</string>
 	<string name="type.amenity.parking_space.permissive">Sehemu ya maegesho</string>
 	<string name="type.amenity.parking_space.private">Sehemu ya maegesho</string>
@@ -233,6 +234,7 @@
 	<string name="type.recycling.batteries">Betri</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Mashine ya kuuzia tiketi za usafiri wa umma</string>
 	<string name="type.boundary.national_park">Hifadhi ya taifa</string>
+	<string name="type.cemetery.grave">Kaburi</string>
 	<string name="type.cuisine.coffee_shop">Kahawa</string>
 	<string name="type.healthcare.laboratory">Maabara ya Matibabu</string>
 
@@ -346,6 +348,7 @@
 	<string name="type.natural.geyser">Chemchem ya maji moto</string>
 	<string name="type.natural.glacier">Mto barafu</string>
 	<string name="type.natural.grassland">Shamba</string>
+	<string name="type.natural.water.lock">Chumba cha kufuli</string>
 	<string name="type.natural.water.reservoir">Hifadhi</string>
 	<string name="type.natural.water.basin">Bonde la Maji</string>
 	<string name="type.natural.scrub">Eneo la Vichaka</string>

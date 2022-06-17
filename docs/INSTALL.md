@@ -84,9 +84,8 @@ Installing *ccache* can speed up active development.
 _Ubuntu 20.04, 22.04:_
 
 ```bash
-sudo apt-get update && sudo apt-get install -y \
+sudo apt update && sudo apt install -y \
     build-essential \
-    cmake \
     clang \
     ninja-build \
     python3 \
@@ -98,6 +97,18 @@ sudo apt-get update && sudo apt-get install -y \
     libqt5svg5-dev \
     libsqlite3-dev \
     zlib1g-dev
+```
+
+For Ubuntu 20.04 the version of `cmake` that ships with Ubuntu is too old; a more recent version can be installed using `snap`:
+
+```bash
+sudo snap install --classic cmake
+```
+
+For Ubuntu 22.04 `cmake` may be installed using `snap` as well, or alternatively by using `apt`:
+
+```bash
+sudo apt install -y cmake
 ```
 
 _Fedora:_
@@ -236,7 +247,7 @@ Install Android SDK and NDK:
 - Select "Android 12.0 (S) / API Level 31" SDK.
 - Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
-- Select "NDK (Side by side)" version **23.1.7779620**.
+- Select "NDK (Side by side)" version **24.0.8215888**.
 - Select "CMake" version **3.18.1**.
 - Click "Apply" and wait for downloads and installation to finish.
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".

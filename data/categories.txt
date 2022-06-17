@@ -1767,7 +1767,7 @@ el:Κατάστημα πληροφορικής
 sk:Obchod s výpočtovou technikou
 fa:فروشگاه کامپیوتر
 
-shop-confectionery|@food
+shop-confectionery|craft-confectionery
 en:4Sweets|4confectionery|candies|candy store|U+1F36C|U+1F36D|cake shop|sweetshop|tuck shop|pastry|candy shop|cake shop
 en-AU:Lollies|Candy
 ru:4Кондитерская|кондитерские изделия|сладости|торты|десерты|пирожные
@@ -2172,7 +2172,7 @@ da:4Togstation|4station|3jernbane
 nl:4Station|4spoorwegen|spoor|3trein
 fi:Rautatieasema
 fr:3Gare|4chemin de fer|3train
-de:4Bahnhof|3Haltepunkt|3Station|Zug|Bahn|ÖPNV
+de:4Bahnhof|3Haltepunkt|3Station|Zug|Bahn|ÖPNV|Hbf
 hu:3Vasútállomás|Vasúti megálló|Vonatmegálló|4vonat|4megálló
 id:Rel kereta api
 it:3Stazione ferroviaria|3treno
@@ -3207,6 +3207,29 @@ el:Ενοικιάσεις ποδηλάτων|δίκυκλο|ποδήλατο|ε�
 sk:2Požičovňa bicyklov|bicykle|požičovňa
 sw:Kodi ya baiskeli|baiskeli|kodi
 fa:مکان اجاره دوچرخه
+
+amenity-bicycle_repair_station
+en:4Bicycle Repair Station|cycle|bike|4repair of bicycles
+ar:تصليح الدراجات
+cs:Oprava jízdních kol|4jízdní kolo|3kolo|Oprava
+da:4Cykel reparation
+de:4Fahrradreparatur|Radservicestation|Radreparatur
+es:Reparación de bicicletas|4bicicleta
+fa:تعمیر دوچرخه
+fi:Polkupyörän korjaus
+fr:Réparation de vélos|vélo|bicyclette|réparation
+hu:4Kerékpár javítás|kerékpár
+it:Riparazione di biciclette|4bicicletta|bici
+ja:自転車修理
+ko:자전거 수리
+nl:4Fiets reparatie
+pt:Conserto de bicicleta|4bicicleta
+pt-BR:Oficina de bicicletas|4bicicleta
+ru:4Велоремонт|велосипед|ремонт|ремонт велосипедов
+tr:4Bisiklet tamiri|4Bisiklet
+uk:4Велоремонт|велосипед|ремонт|ремонт велосипедів
+zh-Hans:1自行车修理
+zh-Hant:1自行車修理
 
 amenity-car_sharing
 en:Car Share|3carsharing|car|sharing|U+1F697|U+1F698|U+1F699|carpool|carsharing services|car sharing|4rideshare
@@ -4761,7 +4784,7 @@ it:WC
 ja:お手洗い|便所|厠
 pl:wc|ubikacja|wychodek
 pt:Casa de banho|WC|Sanitários|lavatório
-pt-BR:toalete|wc|sanitários
+pt-BR:toalete|wc|sanitários|lavabo|privada
 es:3Baños|aseos|3lavabo|inodoro|baño|wc
 eu:3Komunak|3konketa
 sv:WC|toalett
@@ -4772,7 +4795,7 @@ sk:3Toalety|wc
 mr:शौचालय
 
 amenity-university
-en:4University|U+1F393
+en:4University|U+1F393|Uni
 ru:4Университет|вуз|4институт
 bg:4Университет|ВУЗ|кампус|4институт|корпус
 ar:جامعة
@@ -7085,6 +7108,14 @@ sk:Mobilný operátor
 fa:اپراتور تلفن همراه
 mr:दूरसंचार कंपनी
 
+craft-beekeeper
+en:Beekeeper
+ru:Пчеловод
+
+craft-blacksmith
+en:Blacksmith
+ru:Кузнец
+
 craft-brewery
 en:Craft brewery|4Brewery|brew house|beer|beer bar|craft beer
 ru:5Пивоварня|пивзавод|производство пива|пивоваренный завод
@@ -7189,6 +7220,14 @@ el:Ηλεκτρολόγος
 sk:4Elektrikár
 fa:برق کار
 mr:इलेक्ट्रिशियन|विद्युत कामगार
+
+craft-electronics_repair
+en:Electronics repair
+ru:Ремонт электроники
+
+craft-handicraft
+en:Handicraft
+ru:Декоратор
 
 craft-metal_construction
 en:5Metal Worker
@@ -7295,6 +7334,10 @@ el:Υποδηματοποιός|τσαγκάρης
 sk:Oprava obuvy
 fa:کفاش
 mr:चांभार
+
+craft-winery
+en:4Winery|Wine
+ru:4Винодельня|Вино
 
 craft-tailor
 en:4Tailor|clothes alteration|alterations

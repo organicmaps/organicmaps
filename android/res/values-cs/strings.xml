@@ -676,6 +676,7 @@
 	<string name="type.amenity.bench">Lavička</string>
 	<string name="type.amenity.bicycle_parking">Parkování kol</string>
 	<string name="type.amenity.bicycle_rental">Půjčovna kol</string>
+	<string name="type.amenity.bicycle_repair_station">Stanice na opravu jízdních kol</string>
 	<string name="type.amenity.biergarten">Hospoda se zahrádkou</string>
 	<string name="type.amenity.brothel">Nevěstinec</string>
 	<string name="type.amenity.bureau_de_change">Směnárna</string>
@@ -787,10 +788,12 @@
 	<string name="type.building.garage">Garáž</string>
 	<string name="type.building.has_parts">Stavba</string>
 	<string name="type.building.train_station">Železniční stanice</string>
+	<string name="type.cemetery.grave">Hrob</string>
 	<string name="type.craft.brewery">Pivovar</string>
 	<string name="type.craft.carpenter">Truhlář</string>
 	<string name="type.craft.electrician">Elektrikář</string>
 	<string name="type.craft.gardener">Zahradník</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">HVAC</string>
 	<string name="type.craft.metal_construction">Kovodílna</string>
 	<string name="type.craft.painter">Malíř</string>
@@ -1116,10 +1119,13 @@
 	<string name="type.natural.beach">Pláž</string>
 	<string name="type.natural.cape">Mys</string>
 	<string name="type.natural.cave_entrance">Jeskyně</string>
+	<string name="type.natural.cliff">Útes</string>
+	<string name="type.man_made.embankment">Násyp</string>
 	<string name="type.natural.geyser">Gejzír</string>
 	<string name="type.natural.glacier">Ledovec</string>
 	<string name="type.natural.grassland">Pole</string>
 	<string name="type.natural.water.lake">Jezero</string>
+	<string name="type.natural.water.lock">Zámková komora</string>
 	<string name="type.natural.water.pond">Rybník</string>
 	<string name="type.natural.water.reservoir">Nádrž</string>
 	<string name="type.natural.water.basin">Vodní nádrž</string>

@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Penyewaan Sepeda";
 
+"type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
+
 "type.amenity.biergarten" = "Biergarten";
 
 "type.amenity.brothel" = "Hiburan";
@@ -1569,17 +1571,30 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Kuburan";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Toko minuman";
 
 "type.craft.carpenter" = "Tukang kayu";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Tukang listrik";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Tukang kebun";
 
-"type.craft.hvac" = "Hvac";
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "HVAC";
 
 "type.craft.metal_construction" = "Tukang besi";
 
@@ -1589,7 +1604,11 @@
 
 "type.craft.plumber" = "Tukang pipa";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Tukang sepatu";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Tukang jahit";
 
@@ -2363,6 +2382,10 @@
 
 "type.natural.cliff" = "Cliff";
 
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Embankment";
+
 "type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "Geiser";
@@ -2376,6 +2399,8 @@
 "type.natural.hot_spring" = "Hot Spring";
 
 "type.natural.water.lake" = "Danau";
+
+"type.natural.water.lock" = "Ruang Kunci";
 
 "type.natural.water.pond" = "Kolam";
 
@@ -2954,8 +2979,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Gerbang pengunci";
 

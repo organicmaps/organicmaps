@@ -848,8 +848,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
   {
     Rules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2)};
 
-    TEST(ResultsMatch("hotel ", rules), ());
-    TEST(ResultsMatch("hôTeL ", rules), ());
+    TEST(CategoryMatch("hotel ", rules), ());
+    TEST(CategoryMatch("hôTeL ", rules), ());
   }
 
   {
@@ -858,14 +858,13 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
     // A category with a rare name. The word "Entertainment"
     // occurs exactly once in the list of categories and starts
     // with a capital letter. This is a test for normalization.
-    TEST(ResultsMatch("entertainment ", rules), ());
+    TEST(CategoryMatch("entertainment ", rules), ());
   }
 
   {
     Rules const rules = {ExactMatch(wonderlandId, hotel1), ExactMatch(wonderlandId, hotel2)};
 
-    auto request = MakeRequest("гостиница ", "ru");
-    TEST(ResultsMatch(request->Results(), rules), ());
+    TEST(CategoryMatch("гостиница ", rules, "ru"), ());
   }
 
   {
@@ -874,8 +873,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
     // Hotel unicode character: both a synonym and and emoji.
     uint32_t const hotelEmojiCodepoint = 0x0001F3E8;
     strings::UniString const hotelUniString(1, hotelEmojiCodepoint);
-    auto request = MakeRequest(ToUtf8(hotelUniString));
-    TEST(ResultsMatch(request->Results(), rules), ());
+
+    TEST(CategoryMatch(ToUtf8(hotelUniString), rules), ());
   }
 
   {
@@ -3027,4 +3026,31 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_MultipleOldNames)
   checkResult("Ленинград", "Санкт-Петербург (Ленинград)");
   checkResult("Петроград", "Санкт-Петербург (Петроград)");
 }
+
+/// @todo We are not ready for this test yet.
+/*
+UNIT_CLASS_TEST(ProcessorTest, BurgerStreet)
+{
+  string const countryName = "Wonderland";
+
+  TestPOI burger({1.0, 1.0}, "Dummy", "en");
+  burger.SetTypes({{"amenity", "fast_food"}, {"cuisine", "burger"}});
+
+  TestStreet street({{2.0, 2.0}, {3.0, 3.0}}, "Burger street", "en");
+  street.SetHighwayType("residential");
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
+    builder.Add(burger);
+    builder.Add(street);
+  });
+
+  SetViewport(m2::RectD(0, 0, 3, 3));
+
+  {
+    Rules rules{ExactMatch(countryId, burger), ExactMatch(countryId, street)};
+    TEST(ResultsMatch("burger", rules), ());
+  }
+}
+*/
 } // namespace processor_test

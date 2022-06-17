@@ -708,6 +708,7 @@
 	<string name="type.amenity.bench">Banco</string>
 	<string name="type.amenity.bicycle_parking">Aparcamiento de bicis</string>
 	<string name="type.amenity.bicycle_rental">Alquiler de bicicletas</string>
+	<string name="type.amenity.bicycle_repair_station">Estación de reparación de bicicletas</string>
 	<string name="type.amenity.biergarten">Biergarten</string>
 	<string name="type.amenity.brothel">Burdel</string>
 	<string name="type.amenity.bureau_de_change">Cambio de divisas</string>
@@ -865,10 +866,12 @@
 	<string name="type.building.has_parts">Edificio</string>
 	<string name="type.building.train_station">Estación de tren</string>
 	<string name="type.building.warehouse">Almacén</string>
+	<string name="type.cemetery.grave">Tumba</string>
 	<string name="type.craft.brewery">Fábrica de cerveza</string>
 	<string name="type.craft.carpenter">Carpintero</string>
 	<string name="type.craft.electrician">Electricista</string>
 	<string name="type.craft.gardener">Paisajista</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Aire acondicionado</string>
 	<string name="type.craft.metal_construction">Trabajador del metal</string>
 	<string name="type.craft.painter">Pintor</string>
@@ -1201,6 +1204,7 @@
 	<string name="type.natural.glacier">Glaciar</string>
 	<string name="type.natural.grassland">Campo</string>
 	<string name="type.natural.water.lake">Lago</string>
+	<string name="type.natural.water.lock">Cámara de bloqueo</string>
 	<string name="type.natural.water.pond">Estanque</string>
 	<string name="type.natural.water.reservoir">Embalse</string>
 	<string name="type.natural.water.basin">Cuenca</string>

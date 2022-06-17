@@ -720,6 +720,7 @@
 	<string name="type.amenity.bench">Assento</string>
 	<string name="type.amenity.bicycle_parking">Bicicletário</string>
 	<string name="type.amenity.bicycle_rental">Aluguel de bicicletas</string>
+	<string name="type.amenity.bicycle_repair_station">Oficina de conserto de bicicletas</string>
 	<string name="type.amenity.biergarten">Jardim da cerveja</string>
 	<string name="type.amenity.brothel">Bordel</string>
 	<string name="type.amenity.bureau_de_change">Casa de câmbio</string>
@@ -864,11 +865,13 @@
 	<string name="type.building.has_parts">Edifício</string>
 	<string name="type.building.train_station">Estação de trem</string>
 	<string name="type.building.warehouse">Armazém</string>
+	<string name="type.cemetery.grave">Túmulo</string>
 	<string name="type.craft">Ofícios</string>
 	<string name="type.craft.brewery">Cervejaria artesanal</string>
 	<string name="type.craft.carpenter">Carpinteiro</string>
 	<string name="type.craft.electrician">Eletricista</string>
 	<string name="type.craft.gardener">Jardineiro</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Ar-condicionado</string>
 	<string name="type.craft.metal_construction">Serralheiro metálico</string>
 	<string name="type.craft.painter">Pintor</string>
@@ -972,74 +975,75 @@
 	<string name="type.highway">Rodovia</string>
 	<string name="type.highway.bridleway">Caminho para cavaleiros</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.bridleway.bridge">Ponte</string>
-	<string name="type.highway.bridleway.permissive">Caminho para cavaleiros</string>
+	<string name="type.highway.bridleway.bridge">Ponte para cavaleiros</string>
+	<string name="type.highway.bridleway.permissive">Caminho para cavaleiros permissivo</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.bridleway.tunnel">Túnel</string>
+	<string name="type.highway.bridleway.tunnel">Túnel para cavaleiros</string>
 	<string name="type.highway.bus_stop">Ponto de ônibus</string>
 	<string name="type.highway.construction">Pista em construção</string>
 	<string name="type.highway.cycleway">Ciclovia</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.cycleway.bridge">Ponte</string>
-	<string name="type.highway.cycleway.permissive">Ciclovia</string>
+	<string name="type.highway.cycleway.bridge">Ponte para ciclistas</string>
+	<string name="type.highway.cycleway.permissive">Caminho para ciclistas permissivo</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.cycleway.tunnel">Túnel</string>
+	<string name="type.highway.cycleway.tunnel">Túnel para ciclistas</string>
+	<string name="type.highway.elevator">Elevador</string>
 	<string name="type.highway.footway">Caminho pedonal</string>
 	<string name="type.highway.footway.alpine_hiking">Caminho pedonal</string>
-	<string name="type.highway.footway.area">Caminho pedonal</string>
+	<string name="type.highway.footway.area">Área de pedestres</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.footway.bridge">Ponte</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Caminho pedonal</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Caminho pedonal</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Caminho pedonal</string>
+	<string name="type.highway.footway.bridge">Ponte para pedestres</string>
+	<string name="type.highway.footway.demanding_alpine_hiking">Caminho pedonal difícil</string>
+	<string name="type.highway.footway.demanding_mountain_hiking">Caminho pedonal difícil</string>
+	<string name="type.highway.footway.difficult_alpine_hiking">Caminho pedonal difícil</string>
 	<string name="type.highway.footway.hiking">Caminho pedonal</string>
 	<string name="type.highway.footway.mountain_hiking">Caminho pedonal</string>
 	<string name="type.highway.footway.permissive">Caminho pedonal</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.footway.tunnel">Túnel</string>
+	<string name="type.highway.footway.tunnel">Túnel para pedestres</string>
 	<string name="type.highway.ford">Rio raso</string>
 	<string name="type.highway.living_street">Zona de coexistência</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.living_street.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.living_street.tunnel">Túnel</string>
+	<string name="type.highway.living_street.tunnel">Túnel rodoviário</string>
 	<string name="type.highway.motorway">Rodovia</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.motorway.bridge">Ponte</string>
+	<string name="type.highway.motorway.bridge">Ponte rodoviária</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.motorway.tunnel">Túnel</string>
+	<string name="type.highway.motorway.tunnel">Túnel rodoviário</string>
 	<string name="type.highway.motorway_junction">Saída de rodovia</string>
-	<string name="type.highway.motorway_link">Rodovia</string>
+	<string name="type.highway.motorway_link">Acesso a rodovia</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway_link.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Túnel</string>
 	<string name="type.highway.path">Caminho</string>
-	<string name="type.highway.path.alpine_hiking">Caminho</string>
-	<string name="type.highway.path.bicycle">Caminho</string>
+	<string name="type.highway.path.alpine_hiking">Caminho pedonal</string>
+	<string name="type.highway.path.bicycle">Caminho para ciclistas</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Ponte</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Caminho</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Caminho</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Caminho</string>
-	<string name="type.highway.path.hiking">Caminho</string>
-	<string name="type.highway.path.horse">Caminho</string>
-	<string name="type.highway.path.mountain_hiking">Caminho</string>
+	<string name="type.highway.path.demanding_alpine_hiking">Caminho pedonal difícil</string>
+	<string name="type.highway.path.demanding_mountain_hiking">Caminho pedonal difícil</string>
+	<string name="type.highway.path.difficult_alpine_hiking">Caminho pedonal difícil</string>
+	<string name="type.highway.path.hiking">Caminho pedonal</string>
+	<string name="type.highway.path.horse">Caminho para cavaleiros</string>
+	<string name="type.highway.path.mountain_hiking">Caminho pedonal</string>
 	<string name="type.highway.path.permissive">Caminho</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Túnel</string>
 	<string name="type.highway.pedestrian">Rua pedonal</string>
 	<string name="type.highway.pedestrian.area">Rua pedonal</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.pedestrian.bridge">Ponte</string>
+	<string name="type.highway.pedestrian.bridge">Ponte para pedestres</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.pedestrian.tunnel">Túnel</string>
+	<string name="type.highway.pedestrian.tunnel">Túnel para pedestres</string>
 	<string name="type.highway.primary">Estrada</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.primary.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.primary.tunnel">Túnel</string>
-	<string name="type.highway.primary_link">Estrada</string>
+	<string name="type.highway.primary.tunnel">Túnel rodoviário</string>
+	<string name="type.highway.primary_link">Saída de rodovia</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.primary_link.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1050,7 +1054,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.residential.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.residential.tunnel">Túnel</string>
+	<string name="type.highway.residential.tunnel">Túnel residencial</string>
 	<string name="type.highway.rest_area">Área de descanso</string>
 	<string name="type.highway.road">Estrada</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1061,20 +1065,20 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.secondary.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.secondary.tunnel">Túnel</string>
-	<string name="type.highway.secondary_link">Estrada</string>
+	<string name="type.highway.secondary.tunnel">Túnel rodoviário</string>
+	<string name="type.highway.secondary_link">Saída de rodovia</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.secondary_link.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.secondary_link.tunnel">Túnel</string>
+	<string name="type.highway.secondary_link.tunnel">Túnel rodoviário</string>
 	<string name="type.highway.service">Estrada de acesso ou serviço</string>
 	<string name="type.highway.service.area">Estrada de acesso ou serviço</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.service.bridge">Ponte</string>
-	<string name="type.highway.service.driveway">Estrada de acesso ou serviço</string>
+	<string name="type.highway.service.driveway">Via de acesso</string>
 	<string name="type.highway.service.parking_aisle">Estrada de estacionamento</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.service.tunnel">Túnel</string>
+	<string name="type.highway.service.tunnel">Túnel rodoviário</string>
 	<string name="type.highway.services">Área de serviços de estrada</string>
 	<string name="type.highway.speed_camera">Radar de velocidade</string>
 	<string name="type.highway.steps">Escadas</string>
@@ -1086,12 +1090,12 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.tertiary.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.tertiary.tunnel">Túnel</string>
-	<string name="type.highway.tertiary_link">Estrada</string>
+	<string name="type.highway.tertiary.tunnel">Túnel rodoviário</string>
+	<string name="type.highway.tertiary_link">Saída de rodovia</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.tertiary_link.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.tertiary_link.tunnel">Túnel</string>
+	<string name="type.highway.tertiary_link.tunnel">Túnel rodoviário</string>
 	<string name="type.highway.track">Estrada rústica</string>
 	<string name="type.highway.track.area">Estrada rústica</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1104,36 +1108,36 @@
 	<string name="type.highway.track.no.access">Estrada rústica</string>
 	<string name="type.highway.track.permissive">Estrada rústica</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.track.tunnel">Túnel</string>
+	<string name="type.highway.track.tunnel">Túnel rodoviário</string>
 	<string name="type.highway.traffic_signals">Semáforo</string>
 	<string name="type.highway.trunk">Via expressa</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.trunk.tunnel">Túnel</string>
-	<string name="type.highway.trunk_link">Via expressa</string>
+	<string name="type.highway.trunk.tunnel">Túnel rodoviário</string>
+	<string name="type.highway.trunk_link">Saída de rodovia</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk_link.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.trunk_link.tunnel">Túnel</string>
+	<string name="type.highway.trunk_link.tunnel">Túnel rodoviário</string>
 	<string name="type.highway.unclassified">Estrada sem classificação</string>
 	<string name="type.highway.unclassified.area">Estrada sem classificação</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.unclassified.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.unclassified.tunnel">Túnel</string>
-	<string name="type.area_highway.cycleway">Ciclovia</string>
+	<string name="type.highway.unclassified.tunnel">Túnel rodoviário</string>
+	<string name="type.area_highway.cycleway">Caminho para ciclistas</string>
 	<string name="type.area_highway.footway">Caminho pedonal</string>
-	<string name="type.area_highway.living_street">Zona de coexistência</string>
+	<string name="type.area_highway.living_street">Rua residencial</string>
 	<string name="type.area_highway.motorway">Rodovia</string>
 	<string name="type.area_highway.path">Caminho</string>
-	<string name="type.area_highway.pedestrian">Rua pedonal</string>
+	<string name="type.area_highway.pedestrian">Caminho pedonal</string>
 	<string name="type.area_highway.primary">Estrada</string>
 	<string name="type.area_highway.residential">Rua residencial</string>
 	<string name="type.area_highway.secondary">Estrada</string>
 	<string name="type.area_highway.service">Estrada de acesso ou serviço</string>
 	<string name="type.area_highway.tertiary">Estrada</string>
-	<string name="type.area_highway.steps">Escadas</string>
+	<string name="type.area_highway.steps">Travessia</string>
 	<string name="type.area_highway.track">Pista para desportos não motorizados</string>
 	<string name="type.area_highway.trunk">Via expressa</string>
 	<string name="type.area_highway.unclassified">Estrada sem classificação</string>
@@ -1173,6 +1177,7 @@
 	<string name="type.landuse.churchyard">Adro de igreja</string>
 	<string name="type.landuse.commercial">Área comercial</string>
 	<string name="type.landuse.construction">Construção</string>
+	<string name="type.landuse.education">Instituições educacionais</string>
 	<string name="type.landuse.farm">Fazenda</string>
 	<string name="type.landuse.farmland">Campo agrícola</string>
 	<string name="type.landuse.farmyard">Pátio de fazenda</string>
@@ -1239,6 +1244,8 @@
 	<string name="type.man_made.pier">Píer</string>
 	<string name="type.man_made.pipeline">Pipeline</string>
 	<string name="type.man_made.pipeline.overground">Pipeline aéreo</string>
+	<string name="type.man_made.silo">Silo</string>
+	<string name="type.man_made.storage_tank">Tanque de armazenagem</string>
 	<string name="type.man_made.surveillance">Câmara de vigilância</string>
 	<string name="type.man_made.tower">Torre</string>
 	<string name="type.man_made.wastewater_plant">Estação de tratamento de esgoto</string>
@@ -1263,7 +1270,9 @@
 	<string name="type.natural.heath">Charneca</string>
 	<string name="type.natural.hot_spring">Nascente de água quente</string>
 	<string name="type.natural.water.lake">Lago</string>
+	<string name="type.natural.water.lock">Câmara de Bloqueio</string>
 	<string name="type.natural.water.pond">Lagoa</string>
+	<string name="type.natural.water.reservoir">Reservatório</string>
 	<string name="type.natural.water.basin">Reservatório</string>
 	<string name="type.natural.water.river">Rio</string>
 	<string name="type.natural.land">Campo</string>
@@ -1346,7 +1355,7 @@
 	<string name="type.railway.funicular">Funicular</string>
 	<string name="type.railway.funicular.bridge">Funicular</string>
 	<string name="type.railway.funicular.tunnel">Funicular</string>
-	<string name="type.railway.halt">Estação de trem</string>
+	<string name="type.railway.halt">Ponto de parada</string>
 	<string name="type.railway.level_crossing">Passagem em nível</string>
 	<string name="type.railway.light_rail">Metrô de superfície</string>
 	<string name="type.railway.light_rail.bridge">Metrô de superfície</string>
@@ -1544,7 +1553,6 @@
 	<string name="type.waterway.dock">Doca</string>
 	<string name="type.waterway.drain">Valeta de drenagem</string>
 	<string name="type.waterway.drain.tunnel">Valeta de drenagem</string>
-	<string name="type.waterway.lock">Eclusa</string>
 	<string name="type.waterway.lock_gate">Comporta de eclusa</string>
 	<string name="type.waterway.river">Rio</string>
 	<string name="type.waterway.river.tunnel">Rio</string>

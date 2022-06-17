@@ -29,8 +29,8 @@
   8.3 Pedestrian & other brige 13-22 ZOOM
   8.4 Cycleway 13-22 ZOOM
   8.5 Construction & Proposed 13-22 ZOOM
-  8.6 Track & Path 14-22 ZOOM
-  8.7 Footway 14-22 ZOOM
+  8.6 Track & Path 16-22 ZOOM
+  8.7 Footway 18-22 ZOOM
   8.8 Footway & Path tunnel 17-22 ZOOM
   8.9 Bridleway 14-22 ZOOM
   8.10 Steps 16-22 ZOOM
@@ -919,7 +919,7 @@ line|z19-[highway=construction],
 line|z19-[highway=proposed]
 {width: 6;dashes: 18,6.2;}
 
-/* 8.6 Track & Path 14-22 ZOOM */
+/* 8.6 Track & Path 16-22 ZOOM */
 
 line|z14-[highway=track][tracktype=grade1],
 line|z14-[psurface=unpaved_good],
@@ -947,45 +947,37 @@ line|z19-[psurface=unpaved_good],
 line|z19-[psurface=unpaved_bad]
 {width: 4;dashes: 6.3,2.7;}
 
-/*line|z14[highway=track],
-line|z14[highway=path],
-line|z14[route=hiking]
-{width:0.9;dashes: 2.52,1.35;}
-line|z15[highway=track],
-line|z15[highway=path],
-line|z15[route=hiking]
-{width:1.1;dashes: 2.7,1.26;}
+
 line|z16[highway=track],
-line|z16[highway=path],
-line|z16[route=hiking]
-{width:1.8;dashes: 3.6,1.8;}
+{color: @track; opacity: 1; width: 1.1; dashes: 6,2.5;}
 line|z17[highway=track],
-line|z17[highway=path],
-line|z17[route=hiking]
-{width:2;dashes: 4.5,1.8;}
+{width: 1.4; dashes: 6,2.5;}
 line|z18[highway=track],
-line|z18[highway=path],
-line|z18[route=hiking]
-{width:3;dashes: 7.2,2.7;}
+{width: 1.9; dashes: 7,3;}
 line|z19-[highway=track],
+{width: 2.5; dashes: 7,3;}
+
+
+line|z17[highway=path],
+line|z17[route=hiking],
+line|z17[highway=footway][sac_scale],
+{color: @path; opacity: 1; width: 0.9; dashes: 3.5,2;}
+line|z18[highway=path],
+line|z18[route=hiking],
+line|z18[highway=footway][sac_scale],
+{width: 1.1; dashes: 3.5,2;}
 line|z19-[highway=path],
-line|z19-[route=hiking]
-{width: 4;dashes: 9,3.6;}*/
+line|z19-[route=hiking],
+line|z19-[highway=footway][sac_scale],
+{width: 1.5; dashes: 4,2.5;}
 
-/* 8.7 Footway 14-22 ZOOM */
 
-/*line|z14[highway=footway]
-{width: 1;dashes: 2.7,1.26;}
-line|z15[highway=footway]
-{width: 1.7;dashes: 2.7,1.26;}
-line|z16[highway=footway]
-{width: 2;dashes: 3.6,1.8;}
-line|z17[highway=footway]
-{width: 2.4;dashes: 4.5,1.8;}
-line|z18[highway=footway]
-{width: 3.4;dashes: 7.2,2.7;}
-line|z19-[highway=footway],
-{width: 4;dashes: 9,3.6;}*/
+/* 8.7 Footway 18-22 ZOOM */
+
+line|z18-[highway=footway]
+{color: @footway; opacity: 1; width: 1.5; dashes: 5,2;}
+line|z19-[highway=footway]
+{width: 2; dashes: 5,2;}
 
 /* 8.8 Footway & Path tunnel 17-22 ZOOM */
 

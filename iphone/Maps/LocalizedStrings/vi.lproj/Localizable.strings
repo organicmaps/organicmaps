@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Cho thuê xe đạp";
 
+"type.amenity.bicycle_repair_station" = "trạm sửa xe đạp";
+
 "type.amenity.biergarten" = "Vườn bia";
 
 "type.amenity.brothel" = "Giải trí";
@@ -1569,16 +1571,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Phần mộ";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Nhà máy bia";
 
 "type.craft.carpenter" = "Thợ mộc";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Thợ điện";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Người thiết kế và xây dựng cảnh quan";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Điều hòa nhiệt độ";
 
 "type.craft.metal_construction" = "Nhà kim khí";
@@ -1589,7 +1604,11 @@
 
 "type.craft.plumber" = "Thợ đường ống";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Sửa giày";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Thợ may";
 
@@ -2363,6 +2382,10 @@
 
 "type.natural.cliff" = "Cliff";
 
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Embankment";
+
 "type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "Suối nước nóng";
@@ -2376,6 +2399,8 @@
 "type.natural.hot_spring" = "Hot Spring";
 
 "type.natural.water.lake" = "Hồ";
+
+"type.natural.water.lock" = "Khoang khóa";
 
 "type.natural.water.pond" = "Ao";
 
@@ -2954,8 +2979,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Cổng Khóa";
 

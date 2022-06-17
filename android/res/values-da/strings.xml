@@ -675,6 +675,7 @@
 	<string name="type.amenity.bench">Bænk</string>
 	<string name="type.amenity.bicycle_parking">Cykelparkering</string>
 	<string name="type.amenity.bicycle_rental">Cykeludlejning</string>
+	<string name="type.amenity.bicycle_repair_station">Cykelreparationsstation</string>
 	<string name="type.amenity.brothel">Bordel</string>
 	<string name="type.amenity.bureau_de_change">Vekselbureau</string>
 	<string name="type.amenity.bus_station">Busstation</string>
@@ -781,10 +782,12 @@
 	<string name="type.building.address">Bygning</string>
 	<string name="type.building.has_parts">Bygning</string>
 	<string name="type.building.train_station">Togstation</string>
+	<string name="type.cemetery.grave">Grav</string>
 	<string name="type.craft.brewery">Bryggeri</string>
 	<string name="type.craft.carpenter">Tømrer</string>
 	<string name="type.craft.electrician">Elektriker</string>
 	<string name="type.craft.gardener">Gartner</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Blikkenslager</string>
 	<string name="type.craft.metal_construction">Metalarbejder</string>
 	<string name="type.craft.painter">Maler</string>
@@ -1111,6 +1114,7 @@
 	<string name="type.natural.glacier">Gletsjer</string>
 	<string name="type.natural.grassland">Mark</string>
 	<string name="type.natural.water.lake">Sø</string>
+	<string name="type.natural.water.lock">Låsekammer</string>
 	<string name="type.natural.water.pond">Dam</string>
 	<string name="type.natural.water.reservoir">Reservoir</string>
 	<string name="type.natural.water.basin">Vandbassin</string>

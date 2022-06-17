@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "จักรยานให้เช่า";
 
+"type.amenity.bicycle_repair_station" = "สถานีซ่อมจักรยาน";
+
 "type.amenity.biergarten" = "ลานเบียร์";
 
 "type.amenity.brothel" = "ซ่อง";
@@ -1569,16 +1571,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "หลุมฝังศพ";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "โรงเบียร์";
 
 "type.craft.carpenter" = "ช่างไม้";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "ช่างไฟฟ้า";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "คนจัดสวน";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "ระบบปรับอากาศ";
 
 "type.craft.metal_construction" = "ช่างเหล็ก";
@@ -1589,7 +1604,11 @@
 
 "type.craft.plumber" = "ช่างประปา";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "ช่างซ่อมรองเท้า";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "ช่างตัดเสื้อ";
 
@@ -2363,6 +2382,10 @@
 
 "type.natural.cliff" = "Cliff";
 
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Embankment";
+
 "type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "นำ้พุร้อน";
@@ -2376,6 +2399,8 @@
 "type.natural.hot_spring" = "Hot Spring";
 
 "type.natural.water.lake" = "ทะเลสาบ";
+
+"type.natural.water.lock" = "ห้องล็อค";
 
 "type.natural.water.pond" = "บ่อ";
 
@@ -2954,8 +2979,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "ประตูระบายน้ำ";
 

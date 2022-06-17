@@ -11,8 +11,7 @@
 
 namespace dp
 {
-uint32_t const kMaxStipplePenLength = 512;
-uint32_t const kStippleHeight = 1;
+uint32_t const kMaxStipplePenLength = 512;  /// @todo Should be equal with kStippleTextureWidth?
 
 StipplePenPacker::StipplePenPacker(m2::PointU const & canvasSize)
   : m_canvasSize(canvasSize)
@@ -21,146 +20,157 @@ StipplePenPacker::StipplePenPacker(m2::PointU const & canvasSize)
   ASSERT_GREATER_OR_EQUAL(canvasSize.x, kMaxStipplePenLength, ());
 }
 
-m2::RectU StipplePenPacker::PackResource(uint32_t width)
+m2::RectU StipplePenPacker::PackResource(m2::PointU const & size)
 {
   ASSERT_LESS(m_currentRow, m_canvasSize.y, ());
-  ASSERT_LESS_OR_EQUAL(width, m_canvasSize.x, ());
-  uint32_t yOffset = m_currentRow;
-  m_currentRow += kStippleHeight;
-  return m2::RectU(0, yOffset, width, yOffset + kStippleHeight);
+  ASSERT_LESS_OR_EQUAL(size.x, m_canvasSize.x, ());
+  uint32_t const yOffset = m_currentRow;
+  m_currentRow += size.y;
+  return m2::RectU(0, yOffset, size.x, m_currentRow);
 }
 
 m2::RectF StipplePenPacker::MapTextureCoords(m2::RectU const & pixelRect) const
 {
-  return m2::RectF((pixelRect.minX() + 0.5f) / m_canvasSize.x,
-                   (pixelRect.minY() + 0.5f) / m_canvasSize.y,
-                   (pixelRect.maxX() - 0.5f) / m_canvasSize.x,
-                   (pixelRect.maxY() - 0.5f) / m_canvasSize.y);
-}
-
-StipplePenHandle::StipplePenHandle(buffer_vector<uint8_t, 8> const & pattern)
-  : m_keyValue(0)
-{
-  Init(pattern);
-}
-
-StipplePenHandle::StipplePenHandle(StipplePenKey const & info)
-  : m_keyValue(0)
-{
-  Init(info.m_pattern);
-}
-
-void StipplePenHandle::Init(buffer_vector<uint8_t, 8> const & pattern)
-{
-  // encoding scheme
-  // 63 - 61 bits = size of pattern in range [0 : 8]
-  // 60 - 53 bits = first value of pattern in range [1 : 128]
-  // 52 - 45 bits = second value of pattern
-  // ....
-  // 0 - 5 bits = reserved
-
-  ASSERT(pattern.size() >= 1 && pattern.size() < 9, (pattern.size()));
-  uint32_t const patternSize = static_cast<uint32_t>(pattern.size());
-
-  m_keyValue = patternSize - 1; // we code value 1 as 000 and value 8 as 111
-  for (size_t i = 0; i < patternSize; ++i)
-  {
-    m_keyValue <<=7;
-    ASSERT_GREATER(pattern[i], 0, ()); // we have 7 bytes for value. value = 1 encode like 0000000
-    ASSERT_LESS(pattern[i], 129, ()); // value = 128 encode like 1111111
-    uint32_t value = pattern[i] - 1;
-    m_keyValue += value;
-  }
-
-  m_keyValue <<= ((8 - patternSize) * 7 + 5);
+  return { (pixelRect.minX() + 0.5f) / m_canvasSize.x,
+           (pixelRect.minY() + 0.5f) / m_canvasSize.y,
+           (pixelRect.maxX() - 0.5f) / m_canvasSize.x,
+           (pixelRect.maxY() - 0.5f) / m_canvasSize.y };
 }
 
 StipplePenRasterizator::StipplePenRasterizator(StipplePenKey const & key)
   : m_key(key)
 {
-  m_patternLength = std::accumulate(m_key.m_pattern.begin(), m_key.m_pattern.end(), 0);
+  if (IsTrianglePattern(m_key.m_pattern))
+  {
+    m_patternLength = 2 * m_key.m_pattern[0] + m_key.m_pattern[1];
+    m_height = m_key.m_pattern[2] + m_key.m_pattern[3];
+  }
+  else
+  {
+    m_patternLength = std::accumulate(m_key.m_pattern.begin(), m_key.m_pattern.end(), 0);
+    m_height = 1;
+  }
+
   uint32_t const availableSize = kMaxStipplePenLength - 2; // the first and the last pixel reserved
   ASSERT(m_patternLength > 0 && m_patternLength < availableSize, (m_patternLength, availableSize));
   uint32_t const count = floor(availableSize / m_patternLength);
   m_pixelLength = count * m_patternLength;
 }
 
-uint32_t StipplePenRasterizator::GetSize() const
+void StipplePenRasterizator::Rasterize(uint8_t * buffer) const
 {
-  return m_pixelLength;
+  if (IsTrianglePattern(m_key.m_pattern))
+    RasterizeTriangle(buffer);
+  else
+    RasterizeDash(buffer);
 }
 
-uint32_t StipplePenRasterizator::GetPatternSize() const
+void StipplePenRasterizator::RasterizeDash(uint8_t * pixels) const
 {
-  return m_patternLength;
-}
+  // No problem here, but we use 2 entries patterns now (dash length, space length).
+  ASSERT_EQUAL(m_key.m_pattern.size(), 2, ());
 
-void StipplePenRasterizator::Rasterize(void * buffer)
-{
-  ASSERT(!m_key.m_pattern.empty(), ());
-  uint8_t * pixels = static_cast<uint8_t *>(buffer);
-  uint16_t offset = 1;
-  buffer_vector<uint8_t, 8> pattern = m_key.m_pattern;
-  for (size_t i = 0; i < pattern.size(); ++i)
+  uint32_t offset = 1;
+  for (size_t i = 0; i < m_key.m_pattern.size(); ++i)
   {
-    uint8_t value = (i & 0x1) == 0 ? 255 : 0;
-    uint8_t length = m_key.m_pattern[i];
-    memset(pixels + offset, value, length * sizeof(uint8_t));
+    uint8_t const length = m_key.m_pattern[i];
+    ASSERT(length > 0, ());
+
+    memset(pixels + offset, (i & 0x1) == 0 ? 255 : 0, length);
     offset += length;
   }
 
-  uint8_t period = offset - 1;
+  ClonePattern(pixels);
+}
 
+void StipplePenRasterizator::ClonePattern(uint8_t * pixels) const
+{
+  uint32_t offset = m_patternLength + 1;
   while (offset < m_pixelLength + 1)
   {
-    memcpy(pixels + offset, pixels + 1, period);
-    offset += period;
+    memcpy(pixels + offset, pixels + 1, m_patternLength);
+    offset += m_patternLength;
   }
 
-  ASSERT_LESS(offset, kMaxStipplePenLength, ());
+  ASSERT_EQUAL(offset, m_pixelLength + 1, ());
 
   pixels[0] = pixels[1];
   pixels[offset] = pixels[offset - 1];
 }
 
+void StipplePenRasterizator::RasterizeTriangle(uint8_t * pixels) const
+{
+  // 4 values: dash (===), triangle base (tb), triangle height, base height.
+  // Triangle should go on the right.
+  // ===\tb /===  - base height
+  //     \/     | - triangle height
+
+  uint8_t baseH = m_key.m_pattern[3];
+  ASSERT(baseH > 0, ());
+
+  while (baseH > 0)
+  {
+    memset(pixels, 255, m_pixelLength + 2);
+
+    pixels += kMaxStipplePenLength;
+    --baseH;
+  }
+
+  uint8_t trgH = m_key.m_pattern[2];
+  ASSERT(trgH > 0, ());
+  double const tan = m_key.m_pattern[1] / double(trgH);
+  ASSERT(tan > 0, ());
+
+  while (trgH > 0)
+  {
+    uint8_t const base = std::round(trgH * tan);
+    uint32_t const left = (m_patternLength - base) / 2;
+    memset(pixels + 1, 0, left);
+    memset(pixels + left + 1, 255, base);
+    memset(pixels + left + 1 + base, 0, m_patternLength - left - base);
+
+    ClonePattern(pixels);
+
+    pixels += kMaxStipplePenLength;
+    --trgH;
+  }
+}
+
 ref_ptr<Texture::ResourceInfo> StipplePenIndex::ReserveResource(bool predefined, StipplePenKey const & key,
                                                                 bool & newResource)
 {
-  std::lock_guard<std::mutex> g(m_mappingLock);
-
-  newResource = false;
-  StipplePenHandle handle(key);
   TResourceMapping & resourceMapping = predefined ? m_predefinedResourceMapping : m_resourceMapping;
-  TResourceMapping::iterator it = resourceMapping.find(handle);
+  auto it = resourceMapping.find(key);
   if (it != resourceMapping.end())
+  {
+    newResource = false;
     return make_ref(&it->second);
-
+  }
   newResource = true;
 
   StipplePenRasterizator resource(key);
-  m2::RectU pixelRect = m_packer.PackResource(resource.GetSize());
+  m2::RectU const pixelRect = m_packer.PackResource(resource.GetSize());
   {
     std::lock_guard<std::mutex> g(m_lock);
-    m_pendingNodes.push_back(std::make_pair(pixelRect, resource));
+    m_pendingNodes.emplace_back(pixelRect, resource);
   }
 
-  auto res = resourceMapping.emplace(handle, StipplePenResourceInfo(m_packer.MapTextureCoords(pixelRect),
-                                                                    resource.GetSize(),
-                                                                    resource.GetPatternSize()));
+  auto res = resourceMapping.emplace(key, StipplePenResourceInfo(m_packer.MapTextureCoords(pixelRect),
+                                                                 resource.GetSize()));
   ASSERT(res.second, ());
   return make_ref(&res.first->second);
 }
 
 ref_ptr<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const & key, bool & newResource)
 {
-  StipplePenHandle handle(key);
-  TResourceMapping::iterator it = m_predefinedResourceMapping.find(handle);
+  auto it = m_predefinedResourceMapping.find(key);
   if (it != m_predefinedResourceMapping.end())
   {
     newResource = false;
     return make_ref(&it->second);
   }
 
+  std::lock_guard<std::mutex> g(m_mappingLock);
   return ReserveResource(false /* predefined */, key, newResource);
 }
 
@@ -175,31 +185,32 @@ void StipplePenIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_
     m_pendingNodes.swap(pendingNodes);
   }
 
+  uint32_t height = 0;
+  for (auto const & n : pendingNodes)
+    height += n.second.GetSize().y;
+
+  uint32_t const reserveBufferSize = base::NextPowOf2(height * kMaxStipplePenLength);
+
   SharedBufferManager & mng = SharedBufferManager::instance();
-  uint32_t const bytesPerNode = kMaxStipplePenLength * kStippleHeight;
-  uint32_t reserveBufferSize = base::NextPowOf2(static_cast<uint32_t>(pendingNodes.size()) * bytesPerNode);
   SharedBufferManager::shared_buffer_ptr_t ptr = mng.reserveSharedBuffer(reserveBufferSize);
   uint8_t * rawBuffer = SharedBufferManager::GetRawPointer(ptr);
   memset(rawBuffer, 0, reserveBufferSize);
-  for (size_t i = 0; i < pendingNodes.size(); ++i)
-    pendingNodes[i].second.Rasterize(rawBuffer + i * bytesPerNode);
 
-  texture->UploadData(context, 0, pendingNodes.front().first.minY(), kMaxStipplePenLength,
-                      static_cast<uint32_t>(pendingNodes.size()) * kStippleHeight, make_ref(rawBuffer));
+  uint8_t * pixels = rawBuffer;
+  for (auto const & n : pendingNodes)
+  {
+    n.second.Rasterize(pixels);
+    pixels += (kMaxStipplePenLength * n.second.GetSize().y);
+  }
+
+  texture->UploadData(context, 0, pendingNodes.front().first.minY(), kMaxStipplePenLength, height, make_ref(rawBuffer));
 
   mng.freeSharedBuffer(reserveBufferSize, ptr);
 }
 
-void StipplePenTexture::ReservePattern(buffer_vector<uint8_t, 8> const & pattern)
+void StipplePenTexture::ReservePattern(PenPatternT const & pattern)
 {
   bool newResource = false;
   m_indexer->ReserveResource(true /* predefined */, StipplePenKey(pattern), newResource);
-}
-
-std::string DebugPrint(StipplePenHandle const & key)
-{
-  std::ostringstream out;
-  out << "0x" << std::hex << key.m_keyValue;
-  return out.str();
 }
 }  // namespace dp

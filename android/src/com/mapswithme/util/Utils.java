@@ -11,10 +11,10 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
-import android.text.format.DateUtils;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.AndroidRuntimeException;
 import android.view.View;
@@ -31,7 +31,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import com.google.android.material.snackbar.Snackbar;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
@@ -39,7 +38,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.log.LogsManager;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -56,14 +55,16 @@ import java.util.TimeZone;
 
 public class Utils
 {
+  private static final String TAG = Utils.class.getSimpleName();
+
   @StringRes
   public static final int INVALID_ID = 0;
   public static final String UTF_8 = "utf-8";
   public static final String TEXT_HTML = "text/html; charset=utf-8";
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = "Utils";
 
-  private Utils() {}
+  private Utils()
+  {
+  }
 
   public static boolean isMarshmallowOrLater()
   {
@@ -227,15 +228,6 @@ public class Utils
     return Uri.parse(uriString);
   }
 
-  public static String getFullDeviceModel()
-  {
-    String model = Build.MODEL;
-    if (!model.startsWith(Build.MANUFACTURER))
-      model = Build.MANUFACTURER + " " + model;
-
-    return model;
-  }
-
   public static void openAppInMarket(Activity activity, String url)
   {
     final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -247,7 +239,7 @@ public class Utils
       activity.startActivity(marketIntent);
     } catch (ActivityNotFoundException e)
     {
-      LOGGER.e(TAG, "Failed to start activity", e);
+      Logger.e(TAG, "Failed to start activity", e);
     }
   }
 
@@ -337,22 +329,29 @@ public class Utils
         }
         catch (IOException e)
         {
-          LOGGER.e(TAG, "Failed to close '" + each + "'" , e);
+          Logger.e(TAG, "Failed to close '" + each + "'", e);
         }
       }
     }
   }
 
+  // subject is optional (could be an empty string).
+
+  /**
+   * @param subject could be an empty string
+   */
   public static void sendBugReport(@NonNull Activity activity, @NonNull String subject)
   {
-    LoggerFactory.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, subject,
-                                                                   Constants.Email.SUPPORT));
+    subject = "Organic Maps Bugreport" + (TextUtils.isEmpty(subject) ? "" : ": " + subject);
+    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, subject,
+                                                                 Constants.Email.SUPPORT));
   }
 
+  // TODO: Don't send logs with general feedback, send system information only (version, device name, connectivity, etc.)
   public static void sendFeedback(@NonNull Activity activity)
   {
-    LoggerFactory.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, "Organic Maps Feedback",
-                                                                   Constants.Email.FEEDBACK));
+    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, "Organic Maps Feedback",
+                                                                 Constants.Email.SUPPORT));
   }
 
   public static void navigateToParent(@Nullable Activity activity)
@@ -451,7 +450,7 @@ public class Utils
     }
     catch (ActivityNotFoundException e)
     {
-      LOGGER.e(TAG, "Failed to call phone", e);
+      Logger.e(TAG, "Failed to call phone", e);
     }
   }
 
@@ -463,14 +462,14 @@ public class Utils
     }
     catch (ActivityNotFoundException e)
     {
-      LOGGER.e(TAG, "Failed to open system connection settings", e);
+      Logger.e(TAG, "Failed to open system connection settings", e);
       try
       {
         context.startActivity(new Intent(Settings.ACTION_SETTINGS));
       }
       catch (ActivityNotFoundException ex)
       {
-        LOGGER.e(TAG, "Failed to open system settings", ex);
+        Logger.e(TAG, "Failed to open system settings", ex);
       }
     }
   }
@@ -509,7 +508,7 @@ public class Utils
     }
     catch (Throwable e)
     {
-      LOGGER.e(TAG, "Failed to obtain a currency for locale: " + locale, e);
+      Logger.e(TAG, "Failed to obtain a currency for locale: " + locale, e);
       return null;
     }
   }
@@ -550,8 +549,8 @@ public class Utils
     }
     catch (Throwable e)
     {
-      LOGGER.e(TAG, "Failed to format string for price = " + price
-                    + " and currencyCode = " + currencyCode, e);
+      Logger.e(TAG, "Failed to format string for price = " + price
+               + " and currencyCode = " + currencyCode, e);
       text = (price + " " + currencyCode);
     }
     return text;
@@ -566,7 +565,7 @@ public class Utils
     }
     catch (Throwable e)
     {
-      LOGGER.e(TAG, "Failed to obtain currency symbol by currency code = " + currencyCode, e);
+      Logger.e(TAG, "Failed to obtain currency symbol by currency code = " + currencyCode, e);
     }
 
     return currencyCode;
@@ -591,7 +590,7 @@ public class Utils
     }
     catch (RuntimeException e)
     {
-      LOGGER.e(TAG, "Failed to get string with id '" + key + "'", e);
+      Logger.e(TAG, "Failed to get string with id '" + key + "'", e);
       if (BuildConfig.BUILD_TYPE.equals("debug") || BuildConfig.BUILD_TYPE.equals("beta"))
       {
         Toast.makeText(context, "Add string id for '" + key + "'!", Toast.LENGTH_LONG).show();
@@ -609,15 +608,13 @@ public class Utils
   @NonNull
   public static String getStringValueByKey(@NonNull Context context, @NonNull String key)
   {
-    @StringRes
-    int id = getStringIdByKey(context, key);
     try
     {
-      return context.getString(id);
+      return context.getString(getStringIdByKey(context, key));
     }
     catch (Resources.NotFoundException e)
     {
-      LOGGER.e(TAG, "Failed to get value for string '" + key + "'", e);
+      Logger.e(TAG, "Failed to get value for string '" + key + "'", e);
     }
     return key;
   }
@@ -723,19 +720,7 @@ public class Utils
   @NonNull
   private static String getLocalizedFeatureByKey(@NonNull Context context, @NonNull String key)
   {
-    @StringRes
-    int id = getStringIdByKey(context, key);
-
-    try
-    {
-      return context.getString(id);
-    }
-    catch (Resources.NotFoundException e)
-    {
-      LOGGER.e(TAG, "Failed to get localized string for key '" + key + "'", e);
-    }
-
-    return key;
+    return getStringValueByKey(context, key);
   }
 
   @NonNull
@@ -781,7 +766,7 @@ public class Utils
     return firstChar + string.substring(1).toLowerCase();
   }
 
-  private static class SupportInfoWithLogsCallback implements LoggerFactory.OnZipCompletedListener
+  private static class SupportInfoWithLogsCallback implements LogsManager.OnZipCompletedListener
   {
     @NonNull
     private final WeakReference<Activity> mActivityRef;
@@ -799,10 +784,11 @@ public class Utils
     }
 
     @Override
-    public void onCompleted(final boolean success)
+    public void onCompleted(final boolean success, @Nullable final String zipPath)
     {
+      //TODO: delete zip file after its sent.
       UiThread.run(() -> {
-        Activity activity = mActivityRef.get();
+        final Activity activity = mActivityRef.get();
         if (activity == null)
           return;
 
@@ -810,21 +796,18 @@ public class Utils
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mEmail });
         intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + mSubject);
+        // TODO: Send a short text attachment with system info and logs if zipping logs failed 
         if (success)
         {
-          String logsZipFile = StorageUtils.getLogsZipPath(activity.getApplication());
-          if (!TextUtils.isEmpty(logsZipFile))
-          {
-            Uri uri = StorageUtils.getUriForFilePath(activity, logsZipFile);
-            intent.putExtra(Intent.EXTRA_STREAM, uri);
-            // Properly set permissions for intent, see
-            // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
-            intent.setData(uri);
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-              intent.setClipData(ClipData.newRawUri("", uri));
-              intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            }
+          final Uri uri = StorageUtils.getUriForFilePath(activity, zipPath);
+          intent.putExtra(Intent.EXTRA_STREAM, uri);
+          // Properly set permissions for intent, see
+          // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
+          intent.setData(uri);
+          intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+          if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+            intent.setClipData(ClipData.newRawUri("", uri));
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
           }
         }
         // Do this so some email clients don't complain about empty body.
@@ -836,7 +819,7 @@ public class Utils
         }
         catch (ActivityNotFoundException e)
         {
-          CrashlyticsUtils.INSTANCE.logException(e);
+          Logger.w(TAG, "No activities found which can handle sending a support message.", e);
         }
       });
     }

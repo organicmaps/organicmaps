@@ -1,6 +1,7 @@
+import CoreFoundation
 @objc(MWMSearchTabViewControllerDelegate)
 protocol SearchTabViewControllerDelegate: AnyObject {
-  func searchTabController(_ viewContoller: SearchTabViewController, didSearch: String)
+  func searchTabController(_ viewContoller: SearchTabViewController, didSearch: String, withCategory: Bool)
 }
 
 @objc(MWMSearchTabViewController)
@@ -53,13 +54,13 @@ extension SearchTabViewController: SearchCategoriesViewControllerDelegate {
   func categoriesViewController(_ viewController: SearchCategoriesViewController,
                                 didSelect category: String) {
     let query = L(category) + " "
-    delegate?.searchTabController(self, didSearch: query)
+    delegate?.searchTabController(self, didSearch: query, withCategory: true)
   }
 }
 
 extension SearchTabViewController: SearchHistoryViewControllerDelegate {
   func searchHistoryViewController(_ viewController: SearchHistoryViewController,
                              didSelect query: String) {
-    delegate?.searchTabController(self, didSearch: query)
+    delegate?.searchTabController(self, didSearch: query, withCategory: false)
   }
 }

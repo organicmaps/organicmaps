@@ -823,7 +823,7 @@
 		670947321BDF9B82005014C0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					670947391BDF9B82005014C0 = {
 						CreatedOnToolsVersion = 7.1;
@@ -958,7 +958,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CB1DBE508400E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
-				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"U_DISABLE_RENAMING=1",

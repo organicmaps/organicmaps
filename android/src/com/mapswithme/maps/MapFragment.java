@@ -16,23 +16,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
-import com.mapswithme.util.Counters;
-import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 public class MapFragment extends BaseMwmFragment
                       implements View.OnTouchListener,
                                  SurfaceHolder.Callback
 {
   public static final String ARG_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MapFragment.class.getSimpleName();
 
   // Should correspond to android::MultiTouchAction from Framework.cpp
@@ -160,11 +155,11 @@ public class MapFragment extends BaseMwmFragment
   {
     if (isThemeChangingProcess())
     {
-      LOGGER.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceCreated' callback");
+      Logger.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceCreated' callback");
       return;
     }
 
-    LOGGER.d(TAG, "surfaceCreated, mSurfaceCreated = " + mSurfaceCreated);
+    Logger.d(TAG, "surfaceCreated, mSurfaceCreated = " + mSurfaceCreated);
     final Surface surface = surfaceHolder.getSurface();
     if (nativeIsEngineCreated())
     {
@@ -220,11 +215,11 @@ public class MapFragment extends BaseMwmFragment
   {
     if (isThemeChangingProcess())
     {
-      LOGGER.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceChanged' callback");
+      Logger.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceChanged' callback");
       return;
     }
 
-    LOGGER.d(TAG, "surfaceChanged, mSurfaceCreated = " + mSurfaceCreated);
+    Logger.d(TAG, "surfaceChanged, mSurfaceCreated = " + mSurfaceCreated);
     if (!mSurfaceCreated || (!mRequireResize && surfaceHolder.isCreating()))
       return;
 
@@ -241,13 +236,13 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceDestroyed(SurfaceHolder surfaceHolder)
   {
-    LOGGER.d(TAG, "surfaceDestroyed");
+    Logger.d(TAG, "surfaceDestroyed");
     destroySurface();
   }
 
   void destroySurface()
   {
-    LOGGER.d(TAG, "destroySurface, mSurfaceCreated = " + mSurfaceCreated +
+    Logger.d(TAG, "destroySurface, mSurfaceCreated = " + mSurfaceCreated +
              ", mSurfaceAttached = " + mSurfaceAttached + ", isAdded = " + isAdded());
     if (!mSurfaceCreated || !mSurfaceAttached || !isAdded())
       return;
@@ -288,14 +283,14 @@ public class MapFragment extends BaseMwmFragment
   {
     super.onStart();
     nativeSetRenderingInitializationFinishedListener(mMapRenderingListener);
-    LOGGER.d(TAG, "onStart");
+    Logger.d(TAG, "onStart");
   }
 
   public void onStop()
   {
     super.onStop();
     nativeSetRenderingInitializationFinishedListener(null);
-    LOGGER.d(TAG, "onStop");
+    Logger.d(TAG, "onStop");
   }
 
   private boolean isThemeChangingProcess()

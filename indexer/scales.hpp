@@ -36,12 +36,6 @@ namespace scales
   int GetScaleLevel(double ratio);
   int GetScaleLevel(m2::RectD const & r);
 
-  /// @return such ration, that GetScaleLevel(ration) == level
-  double GetRationForLevel(double level);
-
-  /// @return such rect, that GetScaleLevel(rect) == level
-  m2::RectD GetRectForLevel(double level, m2::PointD const & center);
-
   double GetEpsilonForLevel(int level);
   double GetEpsilonForSimplify(int level);
   bool IsGoodForLevel(int level, m2::RectD const & r);

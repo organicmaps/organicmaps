@@ -704,6 +704,7 @@
 	<string name="type.amenity.bench">Banc</string>
 	<string name="type.amenity.bicycle_parking">Parking à vélo</string>
 	<string name="type.amenity.bicycle_rental">Location de vélos</string>
+	<string name="type.amenity.bicycle_repair_station">Station de réparation de vélos</string>
 	<string name="type.amenity.brothel">Maison de prostitution</string>
 	<string name="type.amenity.bureau_de_change">Bureau de change</string>
 	<string name="type.amenity.bus_station">Gare routière</string>
@@ -824,11 +825,13 @@
 	<string name="type.building.has_parts">Bâtiment</string>
 	<string name="type.building.train_station">Gare</string>
 	<string name="type.building.warehouse">Entrepôt</string>
+	<string name="type.cemetery.grave">La tombe</string>
 	<string name="type.craft">Artisanat</string>
 	<string name="type.craft.brewery">Brasserie artisanale</string>
 	<string name="type.craft.carpenter">Charpentier</string>
 	<string name="type.craft.electrician">Électricien</string>
 	<string name="type.craft.gardener">Paysagiste</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Climatiseur</string>
 	<string name="type.craft.metal_construction">Métallo</string>
 	<string name="type.craft.painter">Peintre</string>
@@ -1202,6 +1205,7 @@
 	<string name="type.natural.heath">Lande</string>
 	<string name="type.natural.hot_spring">Source chaude</string>
 	<string name="type.natural.water.lake">Lac</string>
+	<string name="type.natural.water.lock">Chambre de verrouillage</string>
 	<string name="type.natural.water.pond">Étang</string>
 	<string name="type.natural.water.reservoir">Réservoir</string>
 	<string name="type.natural.water.basin">Réservoir</string>
@@ -1411,7 +1415,6 @@
 	<string name="type.waterway.ditch">Fossé</string>
 	<string name="type.waterway.ditch.tunnel">Fossé</string>
 	<string name="type.waterway.dock">Cale</string>
-	<string name="type.waterway.lock">Écluse</string>
 	<string name="type.waterway.lock_gate">Porte d\'écluse</string>
 	<string name="type.waterway.river">Rivière</string>
 	<string name="type.waterway.river.tunnel">Rivière</string>

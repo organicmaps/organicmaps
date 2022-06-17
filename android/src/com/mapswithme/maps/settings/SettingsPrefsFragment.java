@@ -21,7 +21,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.TwoStatePreference;
-
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
@@ -40,7 +39,7 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.log.LogsManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -481,16 +480,16 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    final boolean isLoggingEnabled = LoggerFactory.INSTANCE.isFileLoggingEnabled();
-    ((TwoStatePreference) pref).setChecked(isLoggingEnabled);
-    pref.setOnPreferenceChangeListener(
-        (preference, newValue) ->
-        {
-          boolean newVal = (Boolean) newValue;
-          if (isLoggingEnabled != newVal)
-            LoggerFactory.INSTANCE.setFileLoggingEnabled(newVal);
-          return true;
-        });
+    ((TwoStatePreference) pref).setChecked(LogsManager.INSTANCE.isFileLoggingEnabled());
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      if (!LogsManager.INSTANCE.setFileLoggingEnabled((Boolean) newValue))
+      {
+        // It's a very rare condition when debugging, so we can do without translation.
+        Utils.showSnackbar(getView(), "ERROR: Can't create a logs folder!");
+        return false;
+      }
+      return true;
+    });
   }
 
   private void initEmulationBadStorage()

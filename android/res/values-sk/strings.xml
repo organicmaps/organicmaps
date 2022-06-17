@@ -785,10 +785,12 @@
 	<string name="type.building.garage">Garáž</string>
 	<string name="type.building.has_parts">Budova</string>
 	<string name="type.building.train_station">Železničná stanica</string>
+	<string name="type.cemetery.grave">Hrob</string>
 	<string name="type.craft.brewery">Pivovar</string>
 	<string name="type.craft.carpenter">Tesár</string>
 	<string name="type.craft.electrician">Elektrikár</string>
 	<string name="type.craft.gardener">Záhradníctvo</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Vzduchotechnika</string>
 	<string name="type.craft.metal_construction">Kovorobotník</string>
 	<string name="type.craft.painter">Maliar natierač</string>
@@ -1112,10 +1114,13 @@
 	<string name="type.natural.bay">Záliv</string>
 	<string name="type.natural.cape">Mys</string>
 	<string name="type.natural.cave_entrance">Jaskyňa</string>
+	<string name="type.natural.cliff">Útes</string>
+	<string name="type.man_made.embankment">Násyp</string>
 	<string name="type.natural.geyser">Gejzír</string>
 	<string name="type.natural.glacier">Ľadovec</string>
 	<string name="type.natural.grassland">Lúka</string>
 	<string name="type.natural.water.lake">Jazero</string>
+	<string name="type.natural.water.lock">Uzamykacia komora</string>
 	<string name="type.natural.water.pond">Rybník</string>
 	<string name="type.natural.water.reservoir">Nádrž</string>
 	<string name="type.natural.water.basin">Vodná nádrž</string>

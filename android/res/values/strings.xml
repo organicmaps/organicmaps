@@ -757,6 +757,7 @@
 	<string name="type.amenity.bench">Bench</string>
 	<string name="type.amenity.bicycle_parking">Bicycle Parking</string>
 	<string name="type.amenity.bicycle_rental">Bicycle Rental</string>
+	<string name="type.amenity.bicycle_repair_station">Bicycle Repair Station</string>
 	<string name="type.amenity.biergarten">Biergarten</string>
 	<string name="type.amenity.brothel">Brothel</string>
 	<string name="type.amenity.bureau_de_change">Currency Exchange</string>
@@ -917,17 +918,26 @@
 	<string name="type.building.has_parts">Building</string>
 	<string name="type.building.train_station">Train Station</string>
 	<string name="type.building.warehouse">Warehouse</string>
+	<string name="type.cemetery.grave">Grave</string>
 	<string name="type.craft">Craft</string>
+	<string name="type.craft.beekeeper">Beekeeper</string>
+	<string name="type.craft.blacksmith">Blacksmith</string>
 	<string name="type.craft.brewery">Craft Brewery</string>
 	<string name="type.craft.carpenter">Carpenter</string>
+	<string name="type.craft.confectionery">Confectionery</string>
 	<string name="type.craft.electrician">Electrician</string>
+	<string name="type.craft.electronics_repair">Electronics Repair</string>
 	<string name="type.craft.gardener">Gardener</string>
-	<string name="type.craft.hvac">Hvac</string>
+	<string name="type.craft.handicraft">Handicraft</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">HVAC</string>
 	<string name="type.craft.metal_construction">Metal Worker</string>
 	<string name="type.craft.painter">Painter</string>
 	<string name="type.craft.photographer">Photographer</string>
 	<string name="type.craft.plumber">Plumber</string>
+	<string name="type.craft.sawmill">Sawmill</string>
 	<string name="type.craft.shoemaker">Shoe Repair</string>
+	<string name="type.craft.winery">Winery</string>
 	<string name="type.craft.tailor">Tailor</string>
 	<string name="type.cuisine.african">African</string>
 	<string name="type.cuisine.american">American</string>
@@ -1338,6 +1348,8 @@
 	<string name="type.natural.cape">Cape</string>
 	<string name="type.natural.cave_entrance">Cave</string>
 	<string name="type.natural.cliff">Cliff</string>
+	<string name="type.natural.earth_bank">Earth Bank</string>
+	<string name="type.man_made.embankment">Embankment</string>
 	<string name="type.natural.coastline">Coastline</string>
 	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">Glacier</string>
@@ -1345,6 +1357,7 @@
 	<string name="type.natural.heath">Heath</string>
 	<string name="type.natural.hot_spring">Hot Spring</string>
 	<string name="type.natural.water.lake">Lake</string>
+	<string name="type.natural.water.lock">Lock Chamber</string>
 	<string name="type.natural.water.pond">Pond</string>
 	<string name="type.natural.water.reservoir">Reservoir</string>
 	<string name="type.natural.water.basin">Basin</string>
@@ -1634,7 +1647,6 @@
 	<string name="type.waterway.dock">Waterway Dock</string>
 	<string name="type.waterway.drain">Drain</string>
 	<string name="type.waterway.drain.tunnel">Drain</string>
-	<string name="type.waterway.lock">Waterway Lock</string>
 	<string name="type.waterway.lock_gate">Lock Gate</string>
 	<string name="type.waterway.river">River</string>
 	<string name="type.waterway.river.tunnel">River</string>

@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Kerékpárkölcsönző";
 
+"type.amenity.bicycle_repair_station" = "Kerékpárjavító állomás";
+
 "type.amenity.biergarten" = "Sörkert";
 
 "type.amenity.brothel" = "Bordélyház";
@@ -1569,16 +1571,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Sír";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Sörfőzde";
 
 "type.craft.carpenter" = "Ács";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Villanyszerelő";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Kertész";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Hűtés-fűtés szerelő";
 
 "type.craft.metal_construction" = "Lakatos";
@@ -1589,7 +1604,11 @@
 
 "type.craft.plumber" = "Vízvezeték-szerelő";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Cipész";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Szabó";
 
@@ -2361,7 +2380,11 @@
 
 "type.natural.cave_entrance" = "Barlang";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Szikla";
+
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Töltés";
 
 "type.natural.coastline" = "Coastline";
 
@@ -2376,6 +2399,8 @@
 "type.natural.hot_spring" = "Hot Spring";
 
 "type.natural.water.lake" = "Tó";
+
+"type.natural.water.lock" = "Zsilipkamra";
 
 "type.natural.water.pond" = "Tavacska";
 
@@ -2954,8 +2979,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Zsilip";
 

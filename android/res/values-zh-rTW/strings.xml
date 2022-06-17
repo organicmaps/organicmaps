@@ -707,6 +707,7 @@
 	<string name="type.amenity.bench">長板凳</string>
 	<string name="type.amenity.bicycle_parking">腳踏車停放區</string>
 	<string name="type.amenity.bicycle_rental">自行車出租</string>
+	<string name="type.amenity.bicycle_repair_station">自行車維修站</string>
 	<string name="type.amenity.biergarten">啤酒花園</string>
 	<string name="type.amenity.brothel">妓院</string>
 	<string name="type.amenity.bureau_de_change">匯率</string>
@@ -821,10 +822,12 @@
 	<string name="type.building.garage">車庫</string>
 	<string name="type.building.has_parts">建築物</string>
 	<string name="type.building.train_station">鐵道</string>
+	<string name="type.cemetery.grave">墓穴</string>
 	<string name="type.craft.brewery">釀酒廠</string>
 	<string name="type.craft.carpenter">木工</string>
 	<string name="type.craft.electrician">電工</string>
 	<string name="type.craft.gardener">園藝師</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">空調設備</string>
 	<string name="type.craft.metal_construction">鐵工</string>
 	<string name="type.craft.painter">油漆工</string>
@@ -1164,6 +1167,7 @@
 	<string name="type.natural.glacier">冰川</string>
 	<string name="type.natural.grassland">田野</string>
 	<string name="type.natural.water.lake">湖泊</string>
+	<string name="type.natural.water.lock">鎖室</string>
 	<string name="type.natural.water.pond">潭</string>
 	<string name="type.natural.water.reservoir">水庫</string>
 	<string name="type.natural.water.basin">水庫</string>

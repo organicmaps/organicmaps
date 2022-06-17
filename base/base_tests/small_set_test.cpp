@@ -121,7 +121,7 @@ UNIT_TEST(SmallMap_Benchmark1)
 
   // 3. Run unordered_map.
   {
-    base::Timer timer;
+    base::HighResTimer timer;
     for (auto i : indices)
       sum1 += (uMap.find(i) != uMap.end() ? 1 : 0);
     t1 = timer.ElapsedMilliseconds();
@@ -129,7 +129,7 @@ UNIT_TEST(SmallMap_Benchmark1)
 
   // 4. Run SmallMap.
   {
-    base::Timer timer;
+    base::HighResTimer timer;
     for (auto i : indices)
       sum2 += (sMap.Find(i) ? 1 : 0);
     t2 = timer.ElapsedMilliseconds();
@@ -193,7 +193,7 @@ UNIT_TEST(SmallMap_Benchmark2)
 
   // 3. Run unordered_map.
   {
-    base::Timer timer;
+    base::HighResTimer timer;
     for (auto i : indices)
     {
       auto const it = uMap.find(keys[i]);
@@ -205,7 +205,7 @@ UNIT_TEST(SmallMap_Benchmark2)
 
   // 4. Run SmallMap.
   {
-    base::Timer timer;
+    base::HighResTimer timer;
     for (auto i : indices)
     {
       auto const * p = sMap.Find(keys[i]);
@@ -242,7 +242,7 @@ UNIT_TEST(SmallMap_Benchmark3)
 
   // 3. Run unordered_map.
   {
-    base::Timer timer;
+    base::HighResTimer timer;
     for (auto i : indices)
       sum1 += uMap.find(keys[i])->second;
     t1 = timer.ElapsedMilliseconds();
@@ -250,7 +250,7 @@ UNIT_TEST(SmallMap_Benchmark3)
 
   // 4. Run SmallMap.
   {
-    base::Timer timer;
+    base::HighResTimer timer;
     for (auto i : indices)
       sum2 += *sMap.Find(keys[i]);
     t2 = timer.ElapsedMilliseconds();
@@ -258,7 +258,7 @@ UNIT_TEST(SmallMap_Benchmark3)
 
   // 5. Run SmallMapBase.
   {
-    base::Timer timer;
+    base::HighResTimer timer;
     for (auto i : indices)
       sum3 += *sbMap.Find(keys[i]);
     t3 = timer.ElapsedMilliseconds();

@@ -674,6 +674,7 @@
 	<string name="type.amenity.bench">Xe đạp</string>
 	<string name="type.amenity.bicycle_parking">Chỗ Đậu Xe Đạp</string>
 	<string name="type.amenity.bicycle_rental">Cho thuê xe đạp</string>
+	<string name="type.amenity.bicycle_repair_station">trạm sửa xe đạp</string>
 	<string name="type.amenity.biergarten">Vườn bia</string>
 	<string name="type.amenity.brothel">Giải trí</string>
 	<string name="type.amenity.bureau_de_change">Tỉ giá hiện tại</string>
@@ -786,10 +787,12 @@
 	<string name="type.building.garage">Gara</string>
 	<string name="type.building.has_parts">Tòa nhà</string>
 	<string name="type.building.train_station">Đường tàu hỏa</string>
+	<string name="type.cemetery.grave">Phần mộ</string>
 	<string name="type.craft.brewery">Nhà máy bia</string>
 	<string name="type.craft.carpenter">Thợ mộc</string>
 	<string name="type.craft.electrician">Thợ điện</string>
 	<string name="type.craft.gardener">Người thiết kế và xây dựng cảnh quan</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Điều hòa nhiệt độ</string>
 	<string name="type.craft.metal_construction">Nhà kim khí</string>
 	<string name="type.craft.painter">Họa sỹ</string>
@@ -1119,6 +1122,7 @@
 	<string name="type.natural.glacier">Sông băng</string>
 	<string name="type.natural.grassland">Cánh đồng</string>
 	<string name="type.natural.water.lake">Hồ</string>
+	<string name="type.natural.water.lock">Khoang khóa</string>
 	<string name="type.natural.water.pond">Ao</string>
 	<string name="type.natural.water.reservoir">Hồ chứa</string>
 	<string name="type.natural.water.basin">Một chậu nước</string>

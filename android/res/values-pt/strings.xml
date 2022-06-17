@@ -702,6 +702,7 @@
 	<string name="type.amenity.bench">Assento</string>
 	<string name="type.amenity.bicycle_parking">Estacionamento de bicicletas</string>
 	<string name="type.amenity.bicycle_rental">Aluguer de bicicletas</string>
+	<string name="type.amenity.bicycle_repair_station">Estação de conserto de bicicletas</string>
 	<string name="type.amenity.biergarten">Jardim da cerveja</string>
 	<string name="type.amenity.brothel">Bordel</string>
 	<string name="type.amenity.bureau_de_change">Casa de câmbio</string>
@@ -846,11 +847,13 @@
 	<string name="type.building.has_parts">Edifício</string>
 	<string name="type.building.train_station">Estação de comboios</string>
 	<string name="type.building.warehouse">Armazém</string>
+	<string name="type.cemetery.grave">Túmulo</string>
 	<string name="type.craft">Ofícios</string>
 	<string name="type.craft.brewery">Cervejaria artesanal</string>
 	<string name="type.craft.carpenter">Carpinteiro</string>
 	<string name="type.craft.electrician">Eletricista</string>
 	<string name="type.craft.gardener">Jardineiro</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Instalador de ar-condicionado</string>
 	<string name="type.craft.metal_construction">Serralheiro metálico</string>
 	<string name="type.craft.painter">Pintor</string>
@@ -1245,6 +1248,7 @@
 	<string name="type.natural.heath">Charneca</string>
 	<string name="type.natural.hot_spring">Nascente de água quente</string>
 	<string name="type.natural.water.lake">Lago</string>
+	<string name="type.natural.water.lock">Câmara de Bloqueio</string>
 	<string name="type.natural.water.pond">Lagoa</string>
 	<string name="type.natural.water.reservoir">Reservatório</string>
 	<string name="type.natural.water.basin">Reservatório</string>
@@ -1527,7 +1531,6 @@
 	<string name="type.waterway.dock">Doca</string>
 	<string name="type.waterway.drain">Valeta de drenagem</string>
 	<string name="type.waterway.drain.tunnel">Valeta de drenagem</string>
-	<string name="type.waterway.lock">Eclusa</string>
 	<string name="type.waterway.lock_gate">Comporta de eclusa</string>
 	<string name="type.waterway.river">Rio</string>
 	<string name="type.waterway.river.tunnel">Rio</string>

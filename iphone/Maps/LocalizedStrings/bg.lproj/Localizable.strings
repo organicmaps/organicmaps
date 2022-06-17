@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Bicycle Rental";
 
+"type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
+
 "type.amenity.biergarten" = "Biergarten";
 
 "type.amenity.brothel" = "Brothel";
@@ -1569,17 +1571,30 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "Гроб";
+
 "type.craft" = "Craft";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Craft Brewery";
 
 "type.craft.carpenter" = "Carpenter";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Electrician";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Gardener";
 
-"type.craft.hvac" = "Hvac";
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Отопление, вентилация и климатизация";
 
 "type.craft.metal_construction" = "Метални конструкции";
 
@@ -1589,7 +1604,11 @@
 
 "type.craft.plumber" = "Plumber";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Shoe Repair";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Tailor";
 
@@ -2363,6 +2382,10 @@
 
 "type.natural.cliff" = "Cliff";
 
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Embankment";
+
 "type.natural.coastline" = "Coastline";
 
 "type.natural.geyser" = "Geyser";
@@ -2376,6 +2399,8 @@
 "type.natural.hot_spring" = "Hot Spring";
 
 "type.natural.water.lake" = "Lake";
+
+"type.natural.water.lock" = "Заключваща камера";
 
 "type.natural.water.pond" = "Pond";
 
@@ -2954,8 +2979,6 @@
 "type.waterway.drain" = "Drain";
 
 "type.waterway.drain.tunnel" = "Drain";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Lock Gate";
 

@@ -2310,7 +2310,7 @@
     be = Наперадзе камера
     cs = Radar vpředu
     da = Kamera foran dig
-    de = Kamera vorne
+    de = Blitzer voraus
     el = Κάμερα παρακάτω
     es = Cámara adelante
     eu = Kamera aurrera

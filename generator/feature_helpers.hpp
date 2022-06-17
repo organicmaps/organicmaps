@@ -100,7 +100,7 @@ void SimplifyPoints(DistanceFn distFn, int level, PointsContainer const & in, Po
   if (in.size() < 2)
     return;
 
-  double const eps = std::pow(scales::GetEpsilonForSimplify(level), 2);
+  double const eps = base::Pow2(scales::GetEpsilonForSimplify(level));
 
   SimplifyNearOptimal(20, in.begin(), in.end(), eps, distFn,
                       AccumulateSkipSmallTrg<DistanceFn, m2::PointD>(distFn, out, eps));

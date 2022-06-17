@@ -20,7 +20,6 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -30,8 +29,7 @@ import java.util.List;
 
 public class StoragePathManager
 {
-  static final String TAG = StoragePathManager.class.getName();
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
+  private static final String TAG = StoragePathManager.class.getSimpleName();
   private static final String DATA_FILE_EXT = Framework.nativeGetDataFileExt();
   private static final String[] MOVABLE_EXTS = Framework.nativeGetMovableFilesExts();
   static final FilenameFilter MOVABLE_FILES_FILTER = (dir, filename) -> {
@@ -127,7 +125,7 @@ public class StoragePathManager
     // https://github.com/organicmaps/organicmaps/issues/632
     if (dir == null)
     {
-      LOGGER.w(TAG, "The system returned 'null' " + (isInternal ? "internal" : "external") + " storage");
+      Logger.w(TAG, "The system returned 'null' " + (isInternal ? "internal" : "external") + " storage");
       return;
     }
 
@@ -138,11 +136,14 @@ public class StoragePathManager
     }
     catch (IOException e)
     {
-      LOGGER.e(TAG, "IOException at getCanonicalPath for " + dir.getPath(), e);
+      Logger.e(TAG, "IOException at getCanonicalPath for " + dir.getPath(), e);
       return;
     }
     // Add the trailing separator because the native code assumes that all paths have it.
     path = StorageUtils.addTrailingSeparator(path);
+    // Ensure we check the same path we save into storages list later.
+    dir = new File(path);
+
     final boolean isCurrent = path.equals(configPath);
     final long totalSize = dir.getTotalSpace();
     final long freeSize = dir.getUsableSpace();
@@ -173,7 +174,7 @@ public class StoragePathManager
       {
         // Thrown if the dir is not a valid storage device.
         // https://github.com/organicmaps/organicmaps/issues/538
-        LOGGER.w(TAG, "External storage checks failed for " + commentedPath);
+        Logger.w(TAG, "External storage checks failed for " + commentedPath);
       }
 
       // Get additional storage information for Android 7+.
@@ -191,32 +192,37 @@ public class StoragePathManager
                              (!TextUtils.isEmpty(label) ? ", label='" + label + "'" : "");
           }
           else
-            LOGGER.w(TAG, "Can't get StorageVolume for " + commentedPath);
+            Logger.w(TAG, "Can't get StorageVolume for " + commentedPath);
         }
         else
-          LOGGER.w(TAG, "Can't get StorageManager for " + commentedPath);
+          Logger.w(TAG, "Can't get StorageManager for " + commentedPath);
       }
     }
 
     if (state != null && !Environment.MEDIA_MOUNTED.equals(state)
         && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
     {
-      LOGGER.w(TAG, "Not mounted: " + commentedPath);
+      Logger.w(TAG, "Not mounted: " + commentedPath);
       return;
     }
 
     if (!dir.exists())
     {
-      LOGGER.w(TAG, "Not exists: " + commentedPath);
+      Logger.w(TAG, "Not exists: " + commentedPath);
       return;
     }
     if (!dir.isDirectory())
     {
-      LOGGER.w(TAG, "Not a directory: " + commentedPath);
+      Logger.w(TAG, "Not a directory: " + commentedPath);
       return;
     }
-    if (!dir.canWrite() || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+
+    // For writability check use a test dir creation instead of canWrite() to get more information
+    // and avoid possible false negatives.
+    if (!StorageUtils.isDirWritable(dir))
     {
+      if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+        Logger.w(TAG, "Mounted read-only: " + commentedPath);
       isReadonly = true;
       commentedPath = "read-only " + commentedPath;
     }
@@ -233,7 +239,7 @@ public class StoragePathManager
       mCurrentStorageIndex = mStorages.size() - 1;
     if (isInternal)
       mInternalStorage = storage;
-    LOGGER.i(TAG, "Accepted " + commentedPath);
+    Logger.i(TAG, "Accepted " + commentedPath);
   }
 
   /**
@@ -243,9 +249,9 @@ public class StoragePathManager
   {
     // Current configured storage directory, can be empty on the first run.
     final String configPath = Config.getStoragePath();
-    LOGGER.i(TAG, "Currently configured storage: " + (TextUtils.isEmpty(configPath) ? "N/A" : configPath));
+    Logger.i(TAG, "Currently configured storage: " + (TextUtils.isEmpty(configPath) ? "N/A" : configPath));
 
-    LOGGER.i(TAG, "Begin scanning storages");
+    Logger.i(TAG, "Begin scanning storages");
     mStorages.clear();
     mCurrentStorageIndex = -1;
     mInternalStorage = null;
@@ -259,7 +265,7 @@ public class StoragePathManager
     File internalDir = mContext.getFilesDir();
     addStorageOption(internalDir, true, configPath);
 
-    LOGGER.i(TAG, "End scanning storages");
+    Logger.i(TAG, "End scanning storages");
 
     if (mStorages.isEmpty())
       // Shut down the app.
@@ -267,7 +273,7 @@ public class StoragePathManager
 
     if (!TextUtils.isEmpty(configPath) && mCurrentStorageIndex == -1)
     {
-      LOGGER.w(TAG, "Currently configured storage is not available!");
+      Logger.w(TAG, "Currently configured storage is not available!");
     }
   }
 
@@ -314,16 +320,16 @@ public class StoragePathManager
       path = storages.get(currentIdx).mPath;
       if (containsMapData(path))
       {
-        LOGGER.i(TAG, "Found map files at the currently configured " + path);
+        Logger.i(TAG, "Found map files at the currently configured " + path);
         return path;
       }
       else
       {
-        LOGGER.w(TAG, "No map files found at the currenly configured " + path);
+        Logger.w(TAG, "No map files found at the currenly configured " + path);
       }
     }
 
-    LOGGER.i(TAG, "Looking for map files in available storages...");
+    Logger.i(TAG, "Looking for map files in available storages...");
     for (int idx = 0; idx < storages.size(); ++idx)
     {
       if (idx == currentIdx)
@@ -331,17 +337,17 @@ public class StoragePathManager
       path = storages.get(idx).mPath;
       if (containsMapData(path))
       {
-        LOGGER.i(TAG, "Found map files at " + path);
+        Logger.i(TAG, "Found map files at " + path);
         return path;
       }
       else
       {
-        LOGGER.i(TAG, "No map files found at " + path);
+        Logger.i(TAG, "No map files found at " + path);
       }
     }
 
     path = mgr.getDefaultStorage().mPath;
-    LOGGER.i(TAG, "Using default storage " + path);
+    Logger.i(TAG, "Using default storage " + path);
     return path;
   }
 
@@ -351,7 +357,7 @@ public class StoragePathManager
   @SuppressWarnings("ResultOfMethodCallIgnored")
   public static boolean moveStorage(@NonNull final String newPath, @NonNull final String oldPath)
   {
-    LOGGER.i(TAG, "Begin moving maps from " + oldPath + " to " + newPath);
+    Logger.i(TAG, "Begin moving maps from " + oldPath + " to " + newPath);
 
     final File oldDir = new File(oldPath);
     final File newDir = new File(newPath);
@@ -369,13 +375,13 @@ public class StoragePathManager
 
     for (int i = 0; i < oldFiles.length; ++i)
     {
-      LOGGER.i(TAG, "Moving " + oldFiles[i].getPath() + " to " + newFiles[i].getPath());
+      Logger.i(TAG, "Moving " + oldFiles[i].getPath() + " to " + newFiles[i].getPath());
       File parent = newFiles[i].getParentFile();
       if (parent != null)
         parent.mkdirs();
       if (!MapManager.nativeMoveFile(oldFiles[i].getPath(), newFiles[i].getPath()))
       {
-        LOGGER.e(TAG, "Failed to move " + oldFiles[i].getPath() + " to " + newFiles[i].getPath());
+        Logger.e(TAG, "Failed to move " + oldFiles[i].getPath() + " to " + newFiles[i].getPath());
         // In the case of failure delete all new files.  Old files will
         // be lost if new files were just moved from old locations.
         // TODO: Delete old files only after all of them were copied to the new location.
@@ -383,7 +389,7 @@ public class StoragePathManager
         return false;
       }
     }
-    LOGGER.i(TAG, "End moving maps");
+    Logger.i(TAG, "End moving maps");
 
     UiThread.run(() -> Framework.nativeSetWritableDir(newPath));
 

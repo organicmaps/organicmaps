@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "レンタサイクル";
 
+"type.amenity.bicycle_repair_station" = "自転車修理ステーション";
+
 "type.amenity.biergarten" = "ビアガーデン";
 
 "type.amenity.brothel" = "売春宿";
@@ -1569,16 +1571,29 @@
 
 "type.building.warehouse" = "Warehouse";
 
+"type.cemetery.grave" = "墓";
+
 "type.craft" = "工房";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "醸造所";
 
 "type.craft.carpenter" = "大工";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "電気技師";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "造園家";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "冷暖房空調";
 
 "type.craft.metal_construction" = "金属工";
@@ -1589,7 +1604,11 @@
 
 "type.craft.plumber" = "配管工";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "靴修理";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "仕立て屋";
 
@@ -2363,6 +2382,10 @@
 
 "type.natural.cliff" = "崖";
 
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Embankment";
+
 "type.natural.coastline" = "海岸線";
 
 "type.natural.geyser" = "間欠泉";
@@ -2376,6 +2399,8 @@
 "type.natural.hot_spring" = "温泉";
 
 "type.natural.water.lake" = "湖";
+
+"type.natural.water.lock" = "ロックチャンバー";
 
 "type.natural.water.pond" = "池";
 
@@ -2954,8 +2979,6 @@
 "type.waterway.drain" = "用水路";
 
 "type.waterway.drain.tunnel" = "用水路";
-
-"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "水門";
 

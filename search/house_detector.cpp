@@ -630,7 +630,7 @@ ParsedNumber::ParsedNumber(string const & number, bool american) : m_fullN(numbe
     switch (number[curr])
     {
     case ' ':
-    case '\t': 
+    case '\t':
       ++curr;
       break;
     case ',':
@@ -784,7 +784,7 @@ HouseDetector::StreetPtr HouseDetector::FindConnection(Street const * st, bool b
 
   StreetPtr resStreet(0, false);
   double resDistance = numeric_limits<double>::max();
-  double const minSqDistance = pow(m_metersToMercator * STREET_CONNECTION_LENGTH_M, 2);
+  double const minSqDistance = base::Pow2(m_metersToMercator * STREET_CONNECTION_LENGTH_M);
 
   for (size_t i = 0; i < m_end2st.size(); ++i)
   {

@@ -619,6 +619,34 @@
     zh-Hans = 自行车出租点
     zh-Hant = 自行車出租
 
+  [type.amenity.bicycle_repair_station]
+    en = Bicycle Repair Station
+    ar = محطة تصليح الدراجات
+    cs = Stanice na opravu jízdních kol
+    da = Cykelreparationsstation
+    de = Fahrrad-Reparaturstation
+    es = Estación de reparación de bicicletas
+    fa = ایستگاه تعمیر دوچرخه
+    fi = Polkupyörän korjausasema
+    fr = Station de réparation de vélos
+    hu = Kerékpárjavító állomás
+    it = Stazione di riparazione biciclette
+    ja = 自転車修理ステーション
+    ko = 자전거 수리소
+    nb = Sykkelreparasjonsstasjon
+    nl = Fiets reparatie station
+    pl = Stacja naprawy rowerów
+    pt = Estação de conserto de bicicletas
+    pt-BR = Oficina de conserto de bicicletas
+    ru = Станция ремонта велосипедов
+    sw = Cykelreparationsstation
+    th = สถานีซ่อมจักรยาน
+    tr = Bisiklet tamir istasyonu
+    uk = Станція ремонту велосипедів
+    vi = trạm sửa xe đạp
+    zh-Hans = 自行车维修站
+    zh-Hant = 自行車維修站
+
   [type.amenity.biergarten]
     en = Biergarten
     ar = متجر بيرة
@@ -4762,6 +4790,43 @@
     uk = Склад
     zh-Hans = 仓库
 
+  [type.cemetery.grave]
+    en = Grave
+    ar = ﺮﻴﻄﺧ
+    be = Магіла
+    bg = Гроб
+    cs = Hrob
+    da = Grav
+    de = Grab
+    el = Τάφος
+    es = Tumba
+    eu = Hilobia
+    fa = ﺮﺒﻗ
+    fi = Hauta
+    fr = La tombe
+    he = רבק
+    hu = Sír
+    id = Kuburan
+    it = La tomba
+    ja = 墓
+    ko = 무덤
+    nb = Grav
+    nl = Graf
+    pl = Mogiła
+    pt = Túmulo
+    pt-BR = Túmulo
+    ro = Mormânt
+    ru = Могила
+    sk = Hrob
+    sv = Grav
+    sw = Kaburi
+    th = หลุมฝังศพ
+    tr = Mezar
+    uk = Могила
+    vi = Phần mộ
+    zh-Hans = 墓穴
+    zh-Hant = 墓穴
+
   [type.craft]
     en = Craft
     fr = Artisanat
@@ -4775,9 +4840,22 @@
     uk = Майстерня
     zh-Hans = 工艺作坊
 
+  [type.craft.beekeeper]
+    en = Beekeeper
+    be = Пчаляр
+    ru = Пчеловод
+    uk = Бджоляр
+
+  [type.craft.blacksmith]
+    en = Blacksmith
+    be = Кузня
+    ru = Кузница
+    uk = Кузня
+
   [type.craft.brewery]
     en = Craft Brewery
     ar = مصنع جعة
+    be = Крафтавы бровар
     cs = Pivovar
     da = Bryggeri
     de = Brauerei
@@ -4799,12 +4877,12 @@
     pt = Cervejaria artesanal
     pt-BR = Cervejaria artesanal
     ro = Berărie
-    ru = Крафтовое пиво
+    ru = Крафтовая пивоварня
     sk = Pivovar
     sv = Bryggeri
     th = โรงเบียร์
     tr = Bira Fabrikası
-    uk = Пивоварня
+    uk = Крафтова пивоварня
     vi = Nhà máy bia
     zh-Hans = 酿酒厂
     zh-Hant = 釀酒廠
@@ -4843,6 +4921,10 @@
     zh-Hans = 木匠
     zh-Hant = 木工
 
+  [type.craft.confectionery]
+    en = Confectionery
+    ru = Кондитер
+
   [type.craft.electrician]
     en = Electrician
     ar = كهربائي
@@ -4875,6 +4957,10 @@
     vi = Thợ điện
     zh-Hans = 电工
     zh-Hant = 電工
+
+  [type.craft.electronics_repair]
+    en = Electronics Repair
+    ru = Ремонт электроники
 
   [type.craft.gardener]
     en = Gardener
@@ -4910,9 +4996,16 @@
     zh-Hans = 园艺工
     zh-Hant = 園藝師
 
+  [type.craft.handicraft]
+    en = Handicraft
+    ru = Ремесленная мастерская
+
   [type.craft.hvac]
-    en = Hvac
+    comment = Heating, Ventilation, and Air Conditioning
+    en = HVAC
     ar = تكييف
+    be = Ацяпленне, вентыляцыя і кандыцыянаванне
+    bg = Отопление, вентилация и климатизация
     cs = HVAC
     da = Blikkenslager
     de = Heizung
@@ -4930,12 +5023,12 @@
     pl = Klimatyzacja
     pt = Instalador de ar-condicionado
     pt-BR = Ar-condicionado
-    ru = Кондиционеры
+    ru = Отопление, вентиляция и кондиционирование
     sk = Vzduchotechnika
     sv = Vvs
     th = ระบบปรับอากาศ
     tr = Klimacı
-    uk = Кондиціонери
+    uk = Опалення, вентиляція та кондиціювання повітря
     vi = Điều hòa nhiệt độ
     zh-Hans = 暖通工程师
     zh-Hant = 空調設備
@@ -5078,6 +5171,10 @@
     zh-Hans = 管道工
     zh-Hant = 水管工人
 
+  [type.craft.sawmill]
+    en = Sawmill
+    ru = Лесопилка
+
   [type.craft.shoemaker]
     en = Shoe Repair
     ar = تصليح الاحذية
@@ -5111,6 +5208,10 @@
     vi = Sửa giày
     zh-Hans = 鞋匠
     zh-Hant = 修鞋工
+
+  [type.craft.winery]
+    en = Winery
+    ru = Винодельня
 
   [type.craft.tailor]
     en = Tailor
@@ -8202,15 +8303,18 @@
     ref = type.highway.road.bridge
     ja = 馬道(橋)
     pl = Most drogowy dla koni
+    pt-BR = Ponte para cavaleiros
 
   [type.highway.bridleway.permissive]
     ref = type.highway.bridleway
     pl = Droga dla koni ograniczona
+    pt-BR = Caminho para cavaleiros permissivo
 
   [type.highway.bridleway.tunnel]
     ref = type.highway.road.tunnel
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
+    pt-BR = Túnel para cavaleiros
 
   [type.highway.bus_stop]
     en = Bus Stop
@@ -8302,15 +8406,18 @@
     ref = type.highway.road.bridge
     ja = 自転車道(橋)
     pl = Most drogowy dla rowerów
+    pt-BR = Ponte para ciclistas
 
   [type.highway.cycleway.permissive]
     ref = type.highway.cycleway
     pl = Droga rowerowa ograniczona
+    pt-BR = Caminho para ciclistas permissivo
 
   [type.highway.cycleway.tunnel]
     ref = type.highway.road.tunnel
     ja = 自転車道(トンネル)
     pl = Tunel drogowy dla rowerów
+    pt-BR = Túnel para ciclistas
 
   [type.highway.elevator]
     en = Elevator
@@ -8320,6 +8427,7 @@
     eu = Igogailua
     fr = Ascenseur
     mr = उद्वाहक(लिफ्ट)
+    pt-BR = Elevador
     ru = Лифт
     tr = Asansör
     uk = Ліфт
@@ -8371,6 +8479,7 @@
     en = Pedestrian Zone
     mr = पादचारी झोन
     pl = Obszar chodnika
+    pt-BR = Área de pedestres
     ru = Пешеходная зона
     tr = Yaya Alanı
     uk = Пішохідна зона
@@ -8380,27 +8489,28 @@
     en = Pedestrian Bridge
     mr = पादचारी पूल
     pl = Most dla pieszych
+    pt-BR = Ponte para pedestres
     ru = Пешеходный мост
 
   [type.highway.footway.demanding_alpine_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Alpinwanderweg
     pt = Caminho pedonal
-    pt-BR = Caminho pedonal
+    pt-BR = Caminho pedonal difícil
     zh-Hans = 步行道路
 
   [type.highway.footway.demanding_mountain_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Bergwanderweg
     pt = Caminho pedonal
-    pt-BR = Caminho pedonal
+    pt-BR = Caminho pedonal difícil
     zh-Hans = 步行道路
 
   [type.highway.footway.difficult_alpine_hiking]
     ref = type.highway.path
     de = Schwieriger Alpinwanderweg
     pt = Caminho pedonal
-    pt-BR = Caminho pedonal
+    pt-BR = Caminho pedonal difícil
     zh-Hans = 步行道路
 
   [type.highway.footway.hiking]
@@ -8426,6 +8536,7 @@
     de = Fußgängertunnel
     mr = पादचारी बोगदा
     pl = Tunel dla pieszych
+    pt-BR = Túnel para pedestres
     ru = Пешеходный тоннель
 
   [type.highway.ford]
@@ -8503,6 +8614,7 @@
     ref = type.highway.road.tunnel
     de = Spielstraßentunnel
     pl = Tunel ulicy
+    pt-BR = Túnel rodoviário
 
   [type.highway.motorway]
     en = Motorway
@@ -8544,6 +8656,7 @@
     de = Autobahnbrücke
     mr = महामार्ग पूल
     pl = Most drogowy
+    pt-BR = Ponte rodoviária
     ru = Автомобильный мост
 
   [type.highway.motorway.tunnel]
@@ -8552,6 +8665,7 @@
     de = Autobahntunnel
     mr = महामार्ग बोगदा
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
     ru = Автомобильный тоннель
 
   [type.highway.motorway_junction]
@@ -8592,6 +8706,7 @@
     de = Autobahnauffahrt
     mr = महामार्ग उतार
     pt = Ligação a autoestrada
+    pt-BR = Acesso a rodovia
     ru = Съезд с автомагистрали
     tr = Otoyol Rampası
     uk = З'їзд з автомагістралі
@@ -8642,6 +8757,7 @@
     ref = type.highway.path
     de = Alpinwanderweg
     pl = Ścieżka wspinaczkowa
+    pt-BR = Caminho pedonal
 
   [type.highway.path.bicycle]
     ref = type.highway.path
@@ -8649,6 +8765,7 @@
     de = Radweg
     mr = सायकल आणि पाऊलवाट
     pl = Ścieżka dla rowerów
+    pt-BR = Caminho para ciclistas
     ru = Велопешеходная дорожка
     tr = Bisiklet ve Yürüyüş Yolu
     uk = Велопішохідна доріжка
@@ -8659,23 +8776,28 @@
   [type.highway.path.demanding_alpine_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Alpinwanderweg
+    pt-BR = Caminho pedonal difícil
 
   [type.highway.path.demanding_mountain_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Bergwanderweg
+    pt-BR = Caminho pedonal difícil
 
   [type.highway.path.difficult_alpine_hiking]
     ref = type.highway.path
     de = Schwieriger Alpinwanderweg
+    pt-BR = Caminho pedonal difícil
 
   [type.highway.path.hiking]
     ref = type.highway.path
     de = Wanderweg
+    pt-BR = Caminho pedonal
 
   [type.highway.path.horse]
     ref = type.highway.path
     en = Bridle Path
     de = Reitweg
+    pt-BR = Caminho para cavaleiros
     ru = Конная тропа
     tr = Atlı Yolu
     uk = Кінна стежка
@@ -8683,6 +8805,7 @@
   [type.highway.path.mountain_hiking]
     ref = type.highway.path
     de = Bergwanderweg
+    pt-BR = Caminho pedonal
 
   [type.highway.path.permissive]
     ref = type.highway.path
@@ -8738,6 +8861,7 @@
     en = Pedestrian Bridge
     mr = पादचारी पूल
     pl = Most pasażu pieszego
+    pt-BR = Ponte para pedestres
     ru = Пешеходный мост
 
   [type.highway.pedestrian.tunnel]
@@ -8746,6 +8870,7 @@
     de = Fußgängertunnel
     mr = पादचारी बोगदा
     pl = Tunel pasażu pieszego
+    pt-BR = Túnel para pedestres
     ru = Пешеходный тоннель
 
   [type.highway.primary]
@@ -8789,11 +8914,13 @@
     ref = type.highway.road.tunnel
     de = Hauptstraßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.primary_link]
     ref = type.highway.primary
     en = Primary Road Ramp
     mr = प्राथमिक मार्ग उतार
+    pt-BR = Saída de rodovia
     ru = Съезд с шоссе
     uk = З'їзд з шосе
     zh-Hans = 主要道路连接路
@@ -8882,6 +9009,7 @@
   [type.highway.residential.tunnel]
     ref = type.highway.road.tunnel
     de = Wohnstraßentunnel
+    pt-BR = Túnel residencial
 
   [type.highway.rest_area]
     en = Rest Area
@@ -9071,11 +9199,13 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.secondary_link]
     ref = type.highway.secondary
     en = Secondary Road Ramp
     mr = दुय्यम मार्ग उतार
+    pt-BR = Saída de rodovia
     ru = Съезд с автодороги
     uk = З'їзд з автодороги
     zh-Hans = 次要道路连接路
@@ -9088,6 +9218,7 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.service]
     en = Service Road
@@ -9135,6 +9266,7 @@
     en = Driveway
     de = Zufahrt
     mr = चालकमार्ग
+    pt-BR = Via de acesso
     ru = Подъезд
     uk = Під'їзд
     zh-Hans = 车道
@@ -9158,6 +9290,7 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.services]
     en = Service Area
@@ -9289,11 +9422,13 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.tertiary_link]
     ref = type.highway.tertiary
     en = Tertiary Road Ramp
     mr = तृतीयक मार्ग उतार
+    pt-BR = Saída de rodovia
     ru = Съезд с дороги
     tr = Üçüncül Yol Rampası
     uk = З'їзд з дороги
@@ -9307,6 +9442,7 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.track]
     en = Track
@@ -9373,6 +9509,7 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.traffic_signals]
     en = Traffic Lights
@@ -9448,11 +9585,13 @@
   [type.highway.trunk.tunnel]
     ref = type.highway.road.tunnel
     de = Schnellstraßentunnel
+    pt-BR = Túnel rodoviário
 
   [type.highway.trunk_link]
     ref = type.highway.trunk
     en = National Highway Ramp
     mr = राष्ट्रीय महामार्ग उतार
+    pt-BR = Saída de rodovia
     ru = Съезд с трассы
     uk = З'їзд з траси
     zh-Hans = 干线道路连接路
@@ -9464,6 +9603,7 @@
   [type.highway.trunk_link.tunnel]
     ref = type.highway.road.tunnel
     de = Straßentunnel
+    pt-BR = Túnel rodoviário
 
   [type.highway.unclassified]
     en = Minor Road
@@ -9509,10 +9649,12 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.area_highway.cycleway]
     ref = type.highway.cycleway
     fi = Pyörätie
+    pt-BR = Caminho para ciclistas
 
   [type.area_highway.footway]
     ref = type.highway.footway
@@ -9522,6 +9664,7 @@
   [type.area_highway.living_street]
     ref = type.highway.living_street
     de = Wohnstraße
+    pt-BR = Rua residencial
 
   [type.area_highway.motorway]
     ref = type.highway.motorway
@@ -9533,6 +9676,7 @@
   [type.area_highway.pedestrian]
     ref = type.highway.pedestrian
     fi = Kävelykatu
+    pt-BR = Caminho pedonal
 
   [type.area_highway.primary]
     ref = type.highway.primary
@@ -9552,6 +9696,7 @@
   [type.area_highway.steps]
     ref = type.highway.steps
     fi = Portaat
+    pt-BR = Travessia
 
   [type.area_highway.track]
     ref = type.highway.track
@@ -10323,6 +10468,7 @@
     fr = Établissements éducatifs
     it = Strutture didattiche
     mr = शैक्षणिक सुविधा
+    pt-BR = Instituições educacionais
     ru = Образовательные учреждения
     uk = Освітній заклади
 
@@ -11923,6 +12069,7 @@
     be = Сілас
     de = Silo
     mr = पेव(धान्यसाठा)
+    pt-BR = Silo
     ru = Элеватор
     tr = Ambar
     uk = Силос
@@ -11933,6 +12080,7 @@
     de = Speichertank
     fr = Réservoir
     mr = साठवण टाकी
+    pt-BR = Tanque de armazenagem
     ru = Резервуар
     tr = Depolama Tankı
     uk = Резервуар
@@ -12404,18 +12552,37 @@
 
   [type.natural.cliff]
     en = Cliff
+    be = Уцёс
+    cs = Útes
     de = Klippe
     fr = Falaise
+    hu = Szikla
     ja = 崖
     mr = कडा
     nl = Klif
     pl = Klif
     pt = Falésia
     pt-BR = Falésia
-    ru = Обрыв
+    ru = Утёс
+    sk = Útes
     tr = Uçurum
-    uk = Обрив
+    uk = Урвище
     zh-Hans = 峭壁
+
+  [type.natural.earth_bank]
+    en = Earth Bank
+    be = Абрыў
+    ru = Обрыв
+    uk = Обрив
+
+  [type.man_made.embankment]
+    en = Embankment
+    be = Насып
+    cs = Násyp
+    hu = Töltés
+    ru = Насыпь
+    sk = Násyp
+    uk = Насип
 
   [type.natural.coastline]
     en = Coastline
@@ -12601,6 +12768,43 @@
     zh-Hans = 湖
     zh-Hant = 湖泊
 
+  [type.natural.water.lock]
+    en = Lock Chamber
+    ar = ﻞﻔﻘﻟﺍ ﺔﻓﺮﻏ
+    be = Шлюзавая камера
+    bg = Заключваща камера
+    cs = Zámková komora
+    da = Låsekammer
+    de = Schleusenkammer
+    el = Θάλαμος κλειδαριάς
+    es = Cámara de bloqueo
+    eu = Sarraila Ganbera
+    fa = ﻞﻔﻗ ﻕﺎﺗﺍ
+    fi = Lukko kammio
+    fr = Chambre de verrouillage
+    he = לוענמ את
+    hu = Zsilipkamra
+    id = Ruang Kunci
+    it = Camera di blocco
+    ja = ロックチャンバー
+    ko = 잠금 챔버
+    nb = Låsekammer
+    nl = Slotkamer
+    pl = Komora zamka
+    pt = Câmara de Bloqueio
+    pt-BR = Câmara de Bloqueio
+    ro = Camera de blocare
+    ru = Шлюзовая камера
+    sk = Uzamykacia komora
+    sv = Låskammare
+    sw = Chumba cha kufuli
+    th = ห้องล็อค
+    tr = Kilit Odası
+    uk = Замкова камера
+    vi = Khoang khóa
+    zh-Hans = 锁室
+    zh-Hant = 鎖室
+
   [type.natural.water.pond]
     en = Pond
     ar = بركة
@@ -12661,6 +12865,7 @@
     nl = Reservoir
     pl = Zbiornik
     pt = Reservatório
+    pt-BR = Reservatório
     ro = Rezervor
     ru = Водохранилище
     sk = Nádrž
@@ -14480,6 +14685,7 @@
     de = Haltepunkt
     pl = Przystanek kolejowy
     pt = Apeadeiro
+    pt-BR = Ponto de parada
     zh-Hans = 小站
     zh-Hant = 小站
 
@@ -19667,16 +19873,6 @@
     tr = Lağım
     uk = Водовiдвiд
     zh-Hans = 渠
-
-  [type.waterway.lock]
-    en = Waterway Lock
-    de = Schleuse
-    fr = Écluse
-    pt = Eclusa
-    pt-BR = Eclusa
-    ru = Шлюз
-    tr = Kanal Havuzu
-    uk = Шлюз
 
   [type.waterway.lock_gate]
     en = Lock Gate

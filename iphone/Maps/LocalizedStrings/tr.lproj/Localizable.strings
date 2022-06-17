@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Bisiklet Kiralama";
 
+"type.amenity.bicycle_repair_station" = "Bisiklet tamir istasyonu";
+
 "type.amenity.biergarten" = "Bira Bahçesi";
 
 "type.amenity.brothel" = "Genelev";
@@ -1569,16 +1571,29 @@
 
 "type.building.warehouse" = "Depo";
 
+"type.cemetery.grave" = "Mezar";
+
 "type.craft" = "Zanaat";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Bira Fabrikası";
 
 "type.craft.carpenter" = "Marangoz";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Elektrikçi";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Bahçe Düzenleyici";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Klimacı";
 
 "type.craft.metal_construction" = "Dökümcü";
@@ -1589,7 +1604,11 @@
 
 "type.craft.plumber" = "Tesisatçı";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Ayakkabı Tamircisi";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Terzi";
 
@@ -2363,6 +2382,10 @@
 
 "type.natural.cliff" = "Uçurum";
 
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Embankment";
+
 "type.natural.coastline" = "Kıyı Şeridi";
 
 "type.natural.geyser" = "Gayzer";
@@ -2376,6 +2399,8 @@
 "type.natural.hot_spring" = "Kaplıca";
 
 "type.natural.water.lake" = "Göl";
+
+"type.natural.water.lock" = "Kilit Odası";
 
 "type.natural.water.pond" = "Gölet";
 
@@ -2954,8 +2979,6 @@
 "type.waterway.drain" = "Lağım";
 
 "type.waterway.drain.tunnel" = "Lağım";
-
-"type.waterway.lock" = "Kanal Havuzu";
 
 "type.waterway.lock_gate" = "Kilit Kapısı";
 

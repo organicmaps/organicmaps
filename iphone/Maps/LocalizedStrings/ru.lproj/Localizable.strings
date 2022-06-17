@@ -810,7 +810,7 @@
 "recent_track_background_dialog_message" = "Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора пресональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!";
+"about_description" = "Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора персональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!";
 
 "general_settings" = "Общие настройки";
 
@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Велопрокат";
 
+"type.amenity.bicycle_repair_station" = "Станция ремонта велосипедов";
+
 "type.amenity.biergarten" = "Пивная под открытым небом";
 
 "type.amenity.brothel" = "Бордель";
@@ -1569,17 +1571,30 @@
 
 "type.building.warehouse" = "Склад";
 
+"type.cemetery.grave" = "Могила";
+
 "type.craft" = "Мастерская";
 
-"type.craft.brewery" = "Крафтовое пиво";
+"type.craft.beekeeper" = "Пчеловод";
+
+"type.craft.blacksmith" = "Кузница";
+
+"type.craft.brewery" = "Крафтовая пивоварня";
 
 "type.craft.carpenter" = "Столяр";
 
+"type.craft.confectionery" = "Кондитер";
+
 "type.craft.electrician" = "Электрик";
+
+"type.craft.electronics_repair" = "Ремонт электроники";
 
 "type.craft.gardener" = "Садовник";
 
-"type.craft.hvac" = "Кондиционеры";
+"type.craft.handicraft" = "Ремесленная мастерская";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Отопление, вентиляция и кондиционирование";
 
 "type.craft.metal_construction" = "Металлоконструкции";
 
@@ -1589,7 +1604,11 @@
 
 "type.craft.plumber" = "Сантехник";
 
+"type.craft.sawmill" = "Лесопилка";
+
 "type.craft.shoemaker" = "Ремонт обуви";
+
+"type.craft.winery" = "Винодельня";
 
 "type.craft.tailor" = "Ателье";
 
@@ -2361,7 +2380,11 @@
 
 "type.natural.cave_entrance" = "Пещера";
 
-"type.natural.cliff" = "Обрыв";
+"type.natural.cliff" = "Утёс";
+
+"type.natural.earth_bank" = "Обрыв";
+
+"type.man_made.embankment" = "Насыпь";
 
 "type.natural.coastline" = "Береговая линия";
 
@@ -2376,6 +2399,8 @@
 "type.natural.hot_spring" = "Горячий источник";
 
 "type.natural.water.lake" = "Озеро";
+
+"type.natural.water.lock" = "Шлюзовая камера";
 
 "type.natural.water.pond" = "Пруд";
 
@@ -2954,8 +2979,6 @@
 "type.waterway.drain" = "Водоотвод";
 
 "type.waterway.drain.tunnel" = "Водоотвод";
-
-"type.waterway.lock" = "Шлюз";
 
 "type.waterway.lock_gate" = "Шлюз";
 

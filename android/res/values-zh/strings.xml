@@ -696,6 +696,7 @@
 	<string name="type.amenity.bench">长凳</string>
 	<string name="type.amenity.bicycle_parking">自行车停车处</string>
 	<string name="type.amenity.bicycle_rental">自行车出租点</string>
+	<string name="type.amenity.bicycle_repair_station">自行车维修站</string>
 	<string name="type.amenity.biergarten">啤酒花园</string>
 	<string name="type.amenity.brothel">妓院</string>
 	<string name="type.amenity.bureau_de_change">货币兑换</string>
@@ -839,11 +840,13 @@
 	<string name="type.building.has_parts">建筑物</string>
 	<string name="type.building.train_station">火车站建筑</string>
 	<string name="type.building.warehouse">仓库</string>
+	<string name="type.cemetery.grave">墓穴</string>
 	<string name="type.craft">工艺作坊</string>
 	<string name="type.craft.brewery">酿酒厂</string>
 	<string name="type.craft.carpenter">木匠</string>
 	<string name="type.craft.electrician">电工</string>
 	<string name="type.craft.gardener">园艺工</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">暖通工程师</string>
 	<string name="type.craft.metal_construction">金属制造工</string>
 	<string name="type.craft.painter">油漆匠</string>
@@ -1232,6 +1235,7 @@
 	<string name="type.natural.heath">荒野</string>
 	<string name="type.natural.hot_spring">温泉</string>
 	<string name="type.natural.water.lake">湖</string>
+	<string name="type.natural.water.lock">锁室</string>
 	<string name="type.natural.water.pond">池塘</string>
 	<string name="type.natural.water.reservoir">水库</string>
 	<string name="type.natural.water.basin">水盆地</string>

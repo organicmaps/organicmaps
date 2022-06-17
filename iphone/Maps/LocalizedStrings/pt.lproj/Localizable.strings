@@ -1252,6 +1252,8 @@
 
 "type.amenity.bicycle_rental" = "Aluguer de bicicletas";
 
+"type.amenity.bicycle_repair_station" = "Estação de conserto de bicicletas";
+
 "type.amenity.biergarten" = "Jardim da cerveja";
 
 "type.amenity.brothel" = "Bordel";
@@ -1569,16 +1571,29 @@
 
 "type.building.warehouse" = "Armazém";
 
+"type.cemetery.grave" = "Túmulo";
+
 "type.craft" = "Ofícios";
+
+"type.craft.beekeeper" = "Beekeeper";
+
+"type.craft.blacksmith" = "Blacksmith";
 
 "type.craft.brewery" = "Cervejaria artesanal";
 
 "type.craft.carpenter" = "Carpinteiro";
 
+"type.craft.confectionery" = "Confectionery";
+
 "type.craft.electrician" = "Eletricista";
+
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Jardineiro";
 
+"type.craft.handicraft" = "Handicraft";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Instalador de ar-condicionado";
 
 "type.craft.metal_construction" = "Serralheiro metálico";
@@ -1589,7 +1604,11 @@
 
 "type.craft.plumber" = "Picheleiro";
 
+"type.craft.sawmill" = "Sawmill";
+
 "type.craft.shoemaker" = "Sapateiro";
+
+"type.craft.winery" = "Winery";
 
 "type.craft.tailor" = "Alfaiate";
 
@@ -2363,6 +2382,10 @@
 
 "type.natural.cliff" = "Falésia";
 
+"type.natural.earth_bank" = "Earth Bank";
+
+"type.man_made.embankment" = "Embankment";
+
 "type.natural.coastline" = "Linha costeira";
 
 "type.natural.geyser" = "Gêiser";
@@ -2376,6 +2399,8 @@
 "type.natural.hot_spring" = "Nascente de água quente";
 
 "type.natural.water.lake" = "Lago";
+
+"type.natural.water.lock" = "Câmara de Bloqueio";
 
 "type.natural.water.pond" = "Lagoa";
 
@@ -2954,8 +2979,6 @@
 "type.waterway.drain" = "Valeta de drenagem";
 
 "type.waterway.drain.tunnel" = "Valeta de drenagem";
-
-"type.waterway.lock" = "Eclusa";
 
 "type.waterway.lock_gate" = "Comporta de eclusa";
 

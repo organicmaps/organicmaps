@@ -5,14 +5,12 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
-
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 public abstract class MwmJobIntentService extends JobIntentService
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = MwmJobIntentService.class.getSimpleName();
 
   @NonNull
   protected String getTag()
@@ -27,11 +25,11 @@ public abstract class MwmJobIntentService extends JobIntentService
   {
     MwmApplication app = MwmApplication.from(this);
     String msg = "onHandleWork: " + intent;
-    LOGGER.i(getTag(), msg);
+    Logger.i(TAG, msg);
     CrashlyticsUtils.INSTANCE.log(Log.INFO, getTag(), msg);
     if (!app.arePlatformAndCoreInitialized())
     {
-      LOGGER.w(getTag(), "Application is not initialized, ignoring " + intent);
+      Logger.w(TAG, "Application is not initialized, ignoring " + intent);
       return;
     }
 

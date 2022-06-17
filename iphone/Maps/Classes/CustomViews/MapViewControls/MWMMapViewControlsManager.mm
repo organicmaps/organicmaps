@@ -106,7 +106,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     return NO;
 
   self.searchManager.state = MWMSearchManagerStateTableSearch;
-  [self.searchManager searchText:text forInputLocale:locale];
+  [self.searchManager searchText:text forInputLocale:locale withCategory:NO];
   return YES;
 }
 

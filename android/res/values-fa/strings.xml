@@ -674,6 +674,7 @@
 	<string name="type.amenity.bench">سَکو</string>
 	<string name="type.amenity.bicycle_parking">پارکینگ دوچرخه</string>
 	<string name="type.amenity.bicycle_rental">مکان اجاره دوچرخه</string>
+	<string name="type.amenity.bicycle_repair_station">ایستگاه تعمیر دوچرخه</string>
 	<string name="type.amenity.biergarten">غذا</string>
 	<string name="type.amenity.brothel">فاحشه خانه</string>
 	<string name="type.amenity.bureau_de_change">صرافی</string>
@@ -785,6 +786,7 @@
 	<string name="type.building.garage">گاراژ</string>
 	<string name="type.building.has_parts">ساختمان</string>
 	<string name="type.building.train_station">ایستگاه قطار</string>
+	<string name="type.cemetery.grave">ﺮﺒﻗ</string>
 	<string name="type.craft.brewery">کارخانه ابجوسازی</string>
 	<string name="type.craft.carpenter">نجار</string>
 	<string name="type.craft.electrician">برق کار</string>
@@ -1031,6 +1033,7 @@
 	<string name="type.natural.glacier">یخچال طبیعی</string>
 	<string name="type.natural.grassland">کشتزار</string>
 	<string name="type.natural.water.lake">دریاچه</string>
+	<string name="type.natural.water.lock">ﻞﻔﻗ ﻕﺎﺗﺍ</string>
 	<string name="type.natural.water.pond">تالاب</string>
 	<string name="type.natural.water.reservoir">مخزن</string>
 	<string name="type.natural.water.basin">حوضه آب</string>

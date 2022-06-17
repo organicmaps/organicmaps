@@ -7,19 +7,22 @@
 
 namespace base
 {
-/// Cross platform timer
-class Timer
+namespace impl
 {
-  std::chrono::steady_clock::time_point m_startTime;
+template <class ClockT> class StdTimer
+{
+  typename ClockT::time_point m_startTime;
 
 public:
-  explicit Timer(bool start = true);
+  explicit StdTimer(bool start = true)
+  {
+    if (start)
+      Reset();
+  }
 
-  /// @return current UTC time in seconds, elapsed from 1970.
-  static double LocalTime();
-
+  using DurationT = typename ClockT::duration;
   /// @return Elapsed time from start (@see Reset).
-  inline std::chrono::steady_clock::duration TimeElapsed() const { return std::chrono::steady_clock::now() - m_startTime; }
+  inline DurationT TimeElapsed() const { return ClockT::now() - m_startTime; }
 
   template <typename Duration>
   inline Duration TimeElapsedAs() const
@@ -31,7 +34,21 @@ public:
   inline uint64_t ElapsedMilliseconds() const { return TimeElapsedAs<std::chrono::milliseconds>().count(); }
   inline uint64_t ElapsedNanoseconds() const { return TimeElapsedAs<std::chrono::nanoseconds>().count(); }
 
-  inline void Reset() { m_startTime = std::chrono::steady_clock::now(); }
+  inline void Reset() { m_startTime = ClockT::now(); }
+};
+} // namespace impl
+
+
+/// Cross platform timer
+class Timer : public impl::StdTimer<std::chrono::steady_clock>
+{
+  using BaseT = impl::StdTimer<std::chrono::steady_clock>;
+
+public:
+  using BaseT::BaseT;
+
+  /// @return current UTC time in seconds, elapsed from 1970.
+  static double LocalTime();
 };
 
 std::string FormatCurrentTime();
@@ -62,19 +79,7 @@ time_t StringToTimestamp(std::string const & s);
 
 
 /// High resolution timer to use in comparison tests.
-class HighResTimer
-{
-  typedef std::chrono::high_resolution_clock::time_point PointT;
-  PointT m_start;
-
-public:
-  explicit HighResTimer(bool start = true);
-
-  void Reset();
-  uint64_t ElapsedNano() const;
-  uint64_t ElapsedMillis() const;
-  double ElapsedSeconds() const;
-};
+using HighResTimer = impl::StdTimer<std::chrono::high_resolution_clock>;
 
 class ScopedTimerWithLog
 {

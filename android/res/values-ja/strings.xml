@@ -683,6 +683,7 @@
 	<string name="type.amenity.bench">ベンチ</string>
 	<string name="type.amenity.bicycle_parking">駐輪場</string>
 	<string name="type.amenity.bicycle_rental">レンタサイクル</string>
+	<string name="type.amenity.bicycle_repair_station">自転車修理ステーション</string>
 	<string name="type.amenity.biergarten">ビアガーデン</string>
 	<string name="type.amenity.brothel">売春宿</string>
 	<string name="type.amenity.bureau_de_change">外貨両替所</string>
@@ -817,11 +818,13 @@
 	<string name="type.building.garage">車庫</string>
 	<string name="type.building.has_parts">建物</string>
 	<string name="type.building.train_station">鉄道駅</string>
+	<string name="type.cemetery.grave">墓</string>
 	<string name="type.craft">工房</string>
 	<string name="type.craft.brewery">醸造所</string>
 	<string name="type.craft.carpenter">大工</string>
 	<string name="type.craft.electrician">電気技師</string>
 	<string name="type.craft.gardener">造園家</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">冷暖房空調</string>
 	<string name="type.craft.metal_construction">金属工</string>
 	<string name="type.craft.painter">塗装工</string>
@@ -1214,6 +1217,7 @@
 	<string name="type.natural.heath">ヒース</string>
 	<string name="type.natural.hot_spring">温泉</string>
 	<string name="type.natural.water.lake">湖</string>
+	<string name="type.natural.water.lock">ロックチャンバー</string>
 	<string name="type.natural.water.pond">池</string>
 	<string name="type.natural.water.reservoir">貯水池</string>
 	<string name="type.natural.water.basin">水地</string>

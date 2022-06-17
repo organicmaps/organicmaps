@@ -21,7 +21,7 @@ jclass g_httpClientClazz;
 jclass g_httpParamsClazz;
 jclass g_platformSocketClazz;
 jclass g_utilsClazz;
-jclass g_loggerFactoryClazz;
+jclass g_loggerClazz;
 jclass g_keyValueClazz;
 jclass g_httpUploaderClazz;
 jclass g_httpPayloadClazz;
@@ -48,7 +48,7 @@ JNI_OnLoad(JavaVM * jvm, void *)
   g_httpParamsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpClient$Params");
   g_platformSocketClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/location/PlatformSocket");
   g_utilsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/Utils");
-  g_loggerFactoryClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/log/LoggerFactory");
+  g_loggerClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/log/Logger");
   g_keyValueClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/KeyValue");
   g_httpUploaderClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpUploader");
   g_httpPayloadClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpPayload");
@@ -74,7 +74,7 @@ JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_httpParamsClazz);
   env->DeleteGlobalRef(g_platformSocketClazz);
   env->DeleteGlobalRef(g_utilsClazz);
-  env->DeleteGlobalRef(g_loggerFactoryClazz);
+  env->DeleteGlobalRef(g_loggerClazz);
   env->DeleteGlobalRef(g_keyValueClazz);
   env->DeleteGlobalRef(g_httpUploaderClazz);
   env->DeleteGlobalRef(g_httpPayloadClazz);

@@ -706,6 +706,7 @@
 	<string name="type.amenity.bench">Ławka</string>
 	<string name="type.amenity.bicycle_parking">Parking dla rowerów</string>
 	<string name="type.amenity.bicycle_rental">Wynajem rowerów</string>
+	<string name="type.amenity.bicycle_repair_station">Stacja naprawy rowerów</string>
 	<string name="type.amenity.biergarten">Ogródek piwny</string>
 	<string name="type.amenity.brothel">Burdel</string>
 	<string name="type.amenity.bureau_de_change">Kantor</string>
@@ -846,11 +847,13 @@
 	<string name="type.building.garage">Garaż</string>
 	<string name="type.building.has_parts">Część budynku</string>
 	<string name="type.building.train_station">Dworzec kolejowy</string>
+	<string name="type.cemetery.grave">Mogiła</string>
 	<string name="type.craft">Rzemiosło</string>
 	<string name="type.craft.brewery">Browar</string>
 	<string name="type.craft.carpenter">Stolarz</string>
 	<string name="type.craft.electrician">Elektryk</string>
 	<string name="type.craft.gardener">Ogrodnik</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Klimatyzacja</string>
 	<string name="type.craft.metal_construction">Ślusarz, obrabiacz metalu</string>
 	<string name="type.craft.painter">Malarz</string>
@@ -1237,6 +1240,7 @@
 	<string name="type.natural.heath">Wrzosowisko</string>
 	<string name="type.natural.hot_spring">Gorące źródło</string>
 	<string name="type.natural.water.lake">Jezioro</string>
+	<string name="type.natural.water.lock">Komora zamka</string>
 	<string name="type.natural.water.pond">Staw</string>
 	<string name="type.natural.water.reservoir">Zbiornik</string>
 	<string name="type.natural.water.basin">Zbiornik</string>

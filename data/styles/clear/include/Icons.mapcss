@@ -222,6 +222,8 @@ node[highway=rest_area],
 area[highway=rest_area],
 node[amenity=bicycle_rental],
 area[amenity=bicycle_rental],
+node[amenity=bicycle_repair_station],
+area[amenity=bicycle_repair_station],
 node[amenity=car_wash],
 area[amenity=car_wash],
 node[amenity=car_rental],
@@ -523,12 +525,10 @@ area|z11[waterway=waterfall]
 node|z12-[waterway=waterfall],
 area|z12-[waterway=waterfall]
 {icon-image: waterfall-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
-node|z15-[waterway=waterfall],
-area|z15-[waterway=waterfall]
-{icon-image: waterfall-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
 node|z17-[waterway=waterfall],
 area|z17-[waterway=waterfall]
 {icon-image: waterfall-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
+
 node|z10-[natural=volcano],
 area|z10-[natural=volcano]
 {icon-image: volcano-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
@@ -642,6 +642,15 @@ node|z15-[man_made=water_tap],
 area|z15-[man_made=water_tap],
 node|z15-[man_made=water_well],
 area|z15-[man_made=water_well],
+{icon-image: drinking-water-s.svg;icon-min-distance: 36;text-optional: true;}
+node|z19-[amenity=water_point],
+area|z19-[amenity=water_point],
+node|z19-[amenity=drinking_water],
+area|z19-[amenity=drinking_water],
+node|z19-[man_made=water_tap],
+area|z19-[man_made=water_tap],
+node|z19-[man_made=water_well],
+area|z19-[man_made=water_well],
 {icon-image: drinking-water-m.svg;icon-min-distance: 36;text-optional: true;}
 
 /* 3. TRANSPORT */
@@ -988,7 +997,7 @@ area|z17-[historic=wayside_shrine],
 node|z17-[historic=archaeological_site],
 area|z17-[historic=archaeological_site],
 node|z17-[amenity=arts_centre],
-area|z17-[amenity=arts_centre]
+area|z17-[amenity=arts_centre],
 {text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-optional: true;}
 
 node|z12-14[historic=fort],
@@ -1083,6 +1092,8 @@ node|z15-[tourism=viewpoint]
 
 node|z16-[tourism=information]
 {icon-image: information-m.svg;text-offset: 1;icon-min-distance: 10;}
+node|z16-[tourism=information][information=guidepost]
+{icon-image: guidepost.svg;text-offset: 1;icon-min-distance: 10;}
 
 node|z16[historic=boundary_stone],
 area|z16[historic=boundary_stone],
@@ -1423,6 +1434,8 @@ node|z17-[amenity=shower],
 area|z17-[amenity=shower],
 node|z17-[amenity=bicycle_rental],
 area|z17-[amenity=bicycle_rental],
+node|z17-[amenity=bicycle_repair_station],
+area|z17-[amenity=bicycle_repair_station],
 node|z17-[amenity=post_office],
 area|z17-[amenity=post_office],
 node|z17-[power=station],
@@ -1830,6 +1843,9 @@ area|z17-[leisure=marina]
 
 node|z16-[amenity=fountain],
 area|z16-[amenity=fountain]
+{icon-image: fountain-s.svg;icon-min-distance: 20;}
+node|z19-[amenity=fountain],
+area|z19-[amenity=fountain]
 {icon-image: fountain-m.svg;icon-min-distance: 20;}
 
 node|z14[man_made=lighthouse],
@@ -1940,6 +1956,13 @@ area|z17-[amenity=bicycle_rental]
 {icon-image: bicycle-rental.svg;text-optional: true;}
 node|z18-[amenity=bicycle_rental],
 area|z18-[amenity=bicycle_rental]
+{font-size: 11;text-optional: true;}
+
+node|z17-[amenity=bicycle_repair_station],
+area|z17-[amenity=bicycle_repair_station]
+{icon-image: bicycle-repair-station.svg;text-optional: true;}
+node|z18-[amenity=bicycle_repair_station],
+area|z18-[amenity=bicycle_repair_station]
 {font-size: 11;text-optional: true;}
 
 node|z17-[amenity=post_office],

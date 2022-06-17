@@ -27,6 +27,7 @@ world  +
         bench  -
         bicycle_parking  -
         bicycle_rental  -
+        bicycle_repair_station  -
         biergarten  -
         brothel  -
         bureau_de_change  -
@@ -199,19 +200,29 @@ world  +
         train_station  -
         {}
     building:part  -
+    cemetery  +
+        grave  -
+        {}
     complex_entry  -
     craft  +
+        beekeeper  -
+        blacksmith  -
         brewery  -
         carpenter  -
+        confectionery  -
         electrician  -
+        electronics_repair  -
         gardener  -
+        handicraft  -
         hvac  -
         metal_construction  -
         painter  -
         photographer  -
         plumber  -
+        sawmill  -
         shoemaker  -
         tailor  -
+        winery  -
         {}
     cuisine  +
         african  -
@@ -578,6 +589,7 @@ world  +
         cairn  -
         chimney  -
         cutline  -
+        embankment  -
         flagpole  -
         lighthouse  -
         mast  -
@@ -613,6 +625,7 @@ world  +
         cave_entrance  -
         cliff  -
         coastline  -
+        earth_bank  -
         geyser  -
         glacier  -
         grassland  -
@@ -631,6 +644,7 @@ world  +
         water  +
             basin  -
             lake  -
+            lock  -
             pond  -
             reservoir  -
             river  -
@@ -981,7 +995,6 @@ world  +
         drain  +
             tunnel  -
             {}
-        lock  -
         lock_gate  -
         river  +
             tunnel  -

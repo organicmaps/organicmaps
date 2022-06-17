@@ -17,76 +17,70 @@
 
 namespace dp
 {
+// Based on ./data/patterns.txt, all paterns have 2 entries now.
+using PenPatternT = buffer_vector<uint8_t, 2>;
+
+inline bool IsTrianglePattern(PenPatternT const & p)
+{
+  return p.size() == 4;
+}
+
 class StipplePenKey : public Texture::Key
 {
 public:
   StipplePenKey() = default;
-  StipplePenKey(buffer_vector<uint8_t, 8> const & pattern) : m_pattern(pattern) {}
+  explicit StipplePenKey(PenPatternT const & pattern) : m_pattern(pattern) {}
+
   virtual Texture::ResourceType GetType() const { return Texture::ResourceType::StipplePen; }
 
-  buffer_vector<uint8_t, 8> m_pattern;
-};
+  bool operator<(StipplePenKey const & rhs) const { return m_pattern < rhs.m_pattern; }
+  bool operator==(StipplePenKey const & rhs) const { return m_pattern == rhs.m_pattern; }
 
-class StipplePenHandle
-{
-public:
-  StipplePenHandle(uint64_t value) : m_keyValue(value) {} // don't use this ctor. Only for tests
-  StipplePenHandle(buffer_vector<uint8_t, 8> const & pattern);
-  StipplePenHandle(StipplePenKey const & info);
-
-  bool operator == (StipplePenHandle const & other) const { return m_keyValue == other.m_keyValue; }
-  bool operator < (StipplePenHandle const & other) const { return m_keyValue < other.m_keyValue; }
-
-private:
-  void Init(buffer_vector<uint8_t, 8> const & pattern);
-
-private:
-  friend std::string DebugPrint(StipplePenHandle const &);
-  uint64_t m_keyValue;
+  PenPatternT m_pattern;
 };
 
 class StipplePenRasterizator
 {
 public:
-  StipplePenRasterizator() : m_pixelLength(0), m_patternLength(0) {}
-  StipplePenRasterizator(StipplePenKey const & key);
+  explicit StipplePenRasterizator(StipplePenKey const & key);
 
-  uint32_t GetSize() const;
-  uint32_t GetPatternSize() const;
+  m2::PointU GetSize() const { return { m_pixelLength, m_height }; }
 
-  void Rasterize(void * buffer);
+  void Rasterize(uint8_t * buffer) const;
+
+private:
+  void RasterizeDash(uint8_t * buffer) const;
+  void RasterizeTriangle(uint8_t * buffer) const;
+  void ClonePattern(uint8_t * pixels) const;
 
 private:
   StipplePenKey m_key;
-  uint32_t m_pixelLength;
-  uint32_t m_patternLength;
+  uint32_t m_patternLength, m_pixelLength;
+  uint32_t m_height;
 };
 
 class StipplePenResourceInfo : public Texture::ResourceInfo
 {
 public:
-  StipplePenResourceInfo(m2::RectF const & texRect, uint32_t pixelLength, uint32_t patternLength)
-    : Texture::ResourceInfo(texRect)
-    , m_pixelLength(pixelLength)
-    , m_patternLength(patternLength)
+  StipplePenResourceInfo(m2::RectF const & texRect, m2::PointU const & pixelSize)
+    : Texture::ResourceInfo(texRect), m_pixelSize(pixelSize)
   {
   }
 
   virtual Texture::ResourceType GetType() const { return Texture::ResourceType::StipplePen; }
-  uint32_t GetMaskPixelLength() const { return m_pixelLength; }
-  uint32_t GetPatternPixelLength() const { return m_patternLength; }
+
+  m2::PointU GetMaskPixelSize() const { return m_pixelSize; }
 
 private:
-  uint32_t m_pixelLength;
-  uint32_t m_patternLength;
+  m2::PointU m_pixelSize;
 };
 
 class StipplePenPacker
 {
 public:
-  StipplePenPacker(m2::PointU const & canvasSize);
+  explicit StipplePenPacker(m2::PointU const & canvasSize);
 
-  m2::RectU PackResource(uint32_t width);
+  m2::RectU PackResource(m2::PointU const & size);
   m2::RectF MapTextureCoords(m2::RectU const & pixelRect) const;
 
 private:
@@ -97,19 +91,28 @@ private:
 class StipplePenIndex
 {
 public:
-  StipplePenIndex(m2::PointU const & canvasSize) : m_packer(canvasSize) {}
+  explicit StipplePenIndex(m2::PointU const & canvasSize) : m_packer(canvasSize) {}
+  /// @param[out] newResource Needed for the generic DynamicTexture code.
+  /// @{
+  // Called from TextureManager::Init and fills m_predefinedResourceMapping, no need in m_mappingLock.
   ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, StipplePenKey const & key,
                                                  bool & newResource);
+  // Checks m_predefinedResourceMapping, fills m_resourceMapping, locks m_mappingLock.
   ref_ptr<Texture::ResourceInfo> MapResource(StipplePenKey const & key, bool & newResource);
+  /// @}
   void UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture);
 
 private:
-  typedef std::map<StipplePenHandle, StipplePenResourceInfo> TResourceMapping;
+  // std::unordered_map can be better here
+  typedef std::map<StipplePenKey, StipplePenResourceInfo> TResourceMapping;
   typedef std::pair<m2::RectU, StipplePenRasterizator> TPendingNode;
-  typedef buffer_vector<TPendingNode, 32> TPendingNodes;
+  typedef std::vector<TPendingNode> TPendingNodes;
 
+  // Initialized once via ReserveResource.
   TResourceMapping m_predefinedResourceMapping;
+  // Filled async via MapResource, protected with m_mappingLock.
   TResourceMapping m_resourceMapping;
+
   TPendingNodes m_pendingNodes;
   StipplePenPacker m_packer;
 
@@ -117,12 +120,11 @@ private:
   std::mutex m_mappingLock;
 };
 
-std::string DebugPrint(StipplePenHandle const & key);
-
 class StipplePenTexture : public DynamicTexture<StipplePenIndex, StipplePenKey,
                                                 Texture::ResourceType::StipplePen>
 {
   using TBase = DynamicTexture<StipplePenIndex, StipplePenKey, Texture::ResourceType::StipplePen>;
+
 public:
   StipplePenTexture(m2::PointU const & size, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size)
@@ -134,7 +136,7 @@ public:
 
   ~StipplePenTexture() override { TBase::Reset(); }
 
-  void ReservePattern(buffer_vector<uint8_t, 8> const & pattern);
+  void ReservePattern(PenPatternT const & pattern);
 
 private:
   StipplePenIndex m_index;
