@@ -1,1 +1,11 @@
-../en-US/release_notes.txt
+• Yeni OSM harita verileri (13 Haziran 2022)
+• Bölgeler arası ve diğer rota düzeltmeleri ve iyileştirmeleri
+• Artık çitler, uçak ve gemi binme noktaları, surlar, uçurumlar, patikalar, raylar daha iyi görüntüleniyor
+• İşaret direği, levha, bisiklet kiralama için simgeler eklendi
+• craft=* hizmet yerleri eklendi
+• Daha büyük içme suyu, şelale ve çeşme simgeleri
+• Kategorilerde arama sonuçları artık ada göre eşleştirilmiyor
+• Bisiklet tamircisi, mezarlar (cemetery=grave), doğal su yolları eklendi
+• Kıbrıs için yol numara tabelaları
+• Bir sonraki dönüşteki sokak artık daha iyi görüntüleniyor
+• Alan biçimlerinin katmanları artık daha düzgün gösteriliyor

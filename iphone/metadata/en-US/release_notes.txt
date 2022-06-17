@@ -1,10 +1,11 @@
-• New OSM data as of May 15, 2022
-• Fixed low memory crash for car routing
-• Improved car and pedestrian directions
-• Improved cross-region routing
-• Fixed some pedestrian/bike/car routing issues
-• Some performance optimizations
-• Fixed opening non-ASCII URLs and URLs without http(s)
-• Fixed some translations
-• Added Marathi language
-• Added Devanagari font
+• New OSM data as of June 13, 2022
+• Cross-region and other routing fixes
+• Nicer fences, city walls, paths/tracks, waterfalls, fountains & drinking_water
+• Added icons for guidepost, plaque, bicycle rental
+• Typing category like "food" in the search also matches features' names
+• Added cliffs, embankments, bicycle repair stations, graves, water tunnels, craft=*
+• Townhalls and some crafts can be added in the Editor
+• Road shields for Cyprus
+• Better displaying of the next turn street
+• Layers of area styles are rendered properly
+• Added Marathi localization

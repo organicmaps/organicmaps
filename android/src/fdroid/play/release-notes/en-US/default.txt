@@ -1,5 +1,10 @@
-This is a hotfix release. Please see previous release notes on our website for more details.
-
-• Fixed disappearing of downloaded maps files bug introduced in the last release.
-If you were affected, please open "Save maps to" in OM settings and switch to "Internal private storage" (with a /data/data/... path). Then tap OK to move maps, and all your disappeared maps will be back shortly! After that, you can switch to a storage option of your choice.
-• Do not draw place=region.
+• New OSM data as of June 13, 2022
+• Cross-region and other routing fixes
+• Nicer fences, city walls, paths/tracks, waterfalls, fountains & drinking_water
+• Added icons for guidepost, plaque, bicycle rental
+• Typing category like "food" in the search also matches features' names
+• Added cliffs, embankments, bicycle repair stations, graves, water tunnels, craft=*
+• Road shields for Cyprus
+• Better displaying of the next turn street
+• Added Marathi localization
+• Logs fallback to internal storage
