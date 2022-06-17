@@ -173,7 +173,7 @@ private:
   m2::SharedSpline m_spline;
   std::vector<m2::SharedSpline> m_clippedSplines;
   float m_currentScaleGtoP;
-  double m_sqrScale;
+  double m_minSegmentSqrLength;
   m2::PointD m_lastAddedPoint;
   bool m_simplify;
   bool m_smooth;

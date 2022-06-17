@@ -294,7 +294,10 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
       }
     }
     else
+    {
+      // GetSuitable function appends 'keys' vector, so move start index accordingly.
       idx = keys.size();
+    }
   }
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);

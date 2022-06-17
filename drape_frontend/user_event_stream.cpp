@@ -141,7 +141,9 @@ UserEventStream::UserEventStream()
   , m_animationSystem(AnimationSystem::Instance())
   , m_startDragOrg(m2::PointD::Zero())
   , m_startDoubleTapAndHold(m2::PointD::Zero())
-{}
+  , m_dragThreshold(base::Pow2(VisualParams::Instance().GetDragThreshold()))
+{
+}
 
 void UserEventStream::AddEvent(drape_ptr<UserEvent> && event)
 {
@@ -812,8 +814,7 @@ bool UserEventStream::CheckDrag(array<Touch, 2> const & touches, double threshol
 
 bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
 {
-  double const kDragThreshold = base::Pow2(VisualParams::Instance().GetDragThreshold());
-  size_t touchCount = GetValidTouchesCount(touches);
+  size_t const touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
 
   switch (m_state)
@@ -821,7 +822,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
   case STATE_EMPTY:
     if (touchCount == 1)
     {
-      if (CheckDrag(touches, kDragThreshold))
+      if (CheckDrag(touches, m_dragThreshold))
         BeginDrag(touches[0]);
       else
         isMapTouch = false;
@@ -834,10 +835,12 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
   case STATE_TAP_TWO_FINGERS:
     if (touchCount == 2)
     {
-      auto const threshold = static_cast<float>(kDragThreshold);
+      float const threshold = static_cast<float>(m_dragThreshold);
       if (m_twoFingersTouches[0].SquaredLength(touches[0].m_location) > threshold ||
           m_twoFingersTouches[1].SquaredLength(touches[1].m_location) > threshold)
+      {
         BeginScale(touches[0], touches[1]);
+      }
       else
         isMapTouch = false;
     }
@@ -848,13 +851,13 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
     break;
   case STATE_TAP_DETECTION:
   case STATE_WAIT_DOUBLE_TAP:
-    if (CheckDrag(touches, kDragThreshold))
+    if (CheckDrag(touches, m_dragThreshold))
       CancelTapDetector();
     else
       isMapTouch = false;
     break;
   case STATE_WAIT_DOUBLE_TAP_HOLD:
-    if (CheckDrag(touches, kDragThreshold))
+    if (CheckDrag(touches, m_dragThreshold))
       StartDoubleTapAndHold(touches[0]);
     break;
   case STATE_DOUBLE_TAP_HOLD:
