@@ -5020,7 +5020,7 @@
     fi = Ilmastointilaite
     fr = Climatiseur
     hu = Hűtés-fűtés szerelő
-    it = Impianti HVAC | Impianti di climatizzazione
+    it = Impianti HVAC
     ja = 冷暖房空調
     ko = 냉난방기
     nb = Klimaanlegg
