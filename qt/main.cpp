@@ -153,6 +153,10 @@ int main(int argc, char * argv[])
       reader.ReadAsString(buffer);
     }
     qt::InfoDialog eulaDialog(qAppName(), buffer.c_str(), nullptr, {"Accept", "Decline"});
+
+    //This intro screen should be visible not going off the edge on phones or other less wide devices:
+    eulaDialog.setMinimumWidth(250);
+    
     eulaAccepted = (eulaDialog.exec() == 1);
     settings::Set(settingsEULA, eulaAccepted);
   }
