@@ -327,17 +327,15 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Textur
   }
 }
 
-m2::SharedSpline SimplifySpline(UserLineRenderParams const & renderInfo, double sqrScale)
+m2::SharedSpline SimplifySpline(UserLineRenderParams const & renderInfo, double minSqrLength)
 {
-  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   m2::SharedSpline spline;
   spline.Reset(new m2::Spline(renderInfo.m_spline->GetSize()));
 
-  static double const kMinSegmentLength = base::Pow2(4.0 * vs);
   m2::PointD lastAddedPoint;
   for (auto const & point : renderInfo.m_spline->GetPath())
   {
-    if (spline->GetSize() > 1 && point.SquaredLength(lastAddedPoint) * sqrScale < kMinSegmentLength)
+    if (spline->GetSize() > 1 && point.SquaredLength(lastAddedPoint) < minSqrLength)
     {
       spline->ReplacePoint(point);
     }
@@ -568,15 +566,13 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
   CHECK_GREATER(tileKey.m_zoomLevel, 0, ());
   CHECK_LESS(tileKey.m_zoomLevel - 1, static_cast<int>(kLineWidthZoomFactor.size()), ());
 
-  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  double const vs = df::VisualParams::Instance().GetVisualScale();
   bool const simplify = tileKey.m_zoomLevel <= kLineSimplifyLevelEnd;
 
-  double sqrScale = 1.0;
+  // This var is used only if simplify == true.
+  double minSegmentSqrLength = 1.0;
   if (simplify)
-  {
-    double const currentScaleGtoP = 1.0 / GetScreenScale(tileKey.m_zoomLevel);
-    sqrScale = currentScaleGtoP * currentScaleGtoP;
-  }
+    minSegmentSqrLength = base::Pow2(4.0 * vs * GetScreenScale(tileKey.m_zoomLevel));
 
   for (auto id : linesId)
   {
@@ -604,7 +600,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
     m2::SharedSpline spline = renderInfo.m_spline;
     if (simplify)
-      spline = SimplifySpline(renderInfo, sqrScale);
+      spline = SimplifySpline(renderInfo, minSegmentSqrLength);
 
     if (spline->GetSize() < 2)
       continue;
@@ -623,8 +619,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         params.m_depthTestEnabled = true;
         params.m_depth = layer.m_depth;
         params.m_depthLayer = renderInfo.m_depthLayer;
-        params.m_width = static_cast<float>(layer.m_width * vs *
-          kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
+        params.m_width = static_cast<float>(layer.m_width * vs * kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
         params.m_minVisibleScale = 1;
         params.m_rank = 0;
 
