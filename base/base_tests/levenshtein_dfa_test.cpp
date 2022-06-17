@@ -270,14 +270,12 @@ UNIT_TEST(LevenshteinDFA_PrefixDFASmoke)
   auto generate = [](vector<char> const & alphabet, size_t size, vector<string> & result)
   {
     result.clear();
-    result.resize(pow(alphabet.size(), size));
+    result.resize(base::PowUint(alphabet.size(), size));
     for (size_t letterNumber = 0;  letterNumber < size; ++letterNumber)
     {
       for (size_t i = 0; i < result.size(); ++i)
       {
-        auto const letterIndex =
-            static_cast<size_t>(i / pow(alphabet.size(), size - letterNumber - 1)) %
-            alphabet.size();
+        auto const letterIndex = (i / base::PowUint(alphabet.size(), size - letterNumber - 1)) % alphabet.size();
         result[i].push_back(alphabet[letterIndex]);
       }
     }

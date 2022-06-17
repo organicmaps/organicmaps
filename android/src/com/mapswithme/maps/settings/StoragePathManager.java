@@ -141,6 +141,9 @@ public class StoragePathManager
     }
     // Add the trailing separator because the native code assumes that all paths have it.
     path = StorageUtils.addTrailingSeparator(path);
+    // Ensure we check the same path we save into storages list later.
+    dir = new File(path);
+
     final boolean isCurrent = path.equals(configPath);
     final long totalSize = dir.getTotalSpace();
     final long freeSize = dir.getUsableSpace();
@@ -213,8 +216,13 @@ public class StoragePathManager
       Logger.w(TAG, "Not a directory: " + commentedPath);
       return;
     }
-    if (!dir.canWrite() || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+
+    // For writability check use a test dir creation instead of canWrite() to get more information
+    // and avoid possible false negatives.
+    if (!StorageUtils.isDirWritable(dir))
     {
+      if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+        Logger.w(TAG, "Mounted read-only: " + commentedPath);
       isReadonly = true;
       commentedPath = "read-only " + commentedPath;
     }

@@ -39,10 +39,7 @@ public:
     return ((fabs(x - p.x) < eps) && (fabs(y - p.y) < eps));
   }
 
-  T SquaredLength(Point<T> const & p) const { return pow(x - p.x, 2.0) + pow(y - p.y, 2.0); }
-
-  T SquaredLength() const { return x * x + y * y; }
-
+  T SquaredLength(Point<T> const & p) const { return base::Pow2(x - p.x) + base::Pow2(y - p.y); }
   double Length(Point<T> const & p) const { return std::sqrt(SquaredLength(p)); }
 
   bool IsAlmostZero() const { return AlmostEqualULPs(*this, Point<T>(0, 0)); }
@@ -112,6 +109,8 @@ public:
   }
 
   /// @name VectorOperationsOnPoint
+  /// @{
+  T SquaredLength() const { return x * x + y * y; }
   double Length() const { return std::sqrt(SquaredLength()); }
 
   Point<T> Normalize() const
@@ -158,6 +157,7 @@ public:
     x = org.x + oldX * dx.x + y * dy.x;
     y = org.y + oldX * dx.y + y * dy.y;
   }
+  /// @}
 
   struct Hash
   {

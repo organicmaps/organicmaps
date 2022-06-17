@@ -238,8 +238,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     string const countryName = "Wonderland";
 
     TestPOI poi(m2::PointD(1.0, 1.0), "poi", "en");
-
-    poi.SetTypes({strings::Tokenize<std::string>(classif().GetFullObjectName(type), "|")});
+    poi.SetType(type);
 
     auto id = BuildMwm(countryName, DataHeader::MapType::Country,
                        [&](TestMwmBuilder & builder) { builder.AddSafe(poi); });
