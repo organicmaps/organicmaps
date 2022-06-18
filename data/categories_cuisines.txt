@@ -247,7 +247,7 @@ sk:Kari
 
 cuisine-diner
 en:Diner
-ru:Дайнер
+ru:Закусочная
 bg:Крайпътен ресторант
 ar:العشاء
 cs:Večeře
@@ -417,7 +417,7 @@ sk:Gril
 
 cuisine-hotdog|@fastfood
 en:Hotdog
-ru:Хот-доги
+ru:Хот-доги|хотдог
 bg:Хотдог
 ar:هوت دوغ
 cs:Hot dog
@@ -893,7 +893,7 @@ sk:Suši
 
 cuisine-tapas
 en:Tapas
-ru:Тапас-бар
+ru:Тапас-бар|Тапас
 bg:Тапас
 ar:تاباس
 cs:Tapas
@@ -927,7 +927,7 @@ sk:Tapas
 
 cuisine-tea
 en:Tea
-ru:Чайная
+ru:Чайная|Чай
 bg:Чай
 ar:شاي
 cs:Čaj
