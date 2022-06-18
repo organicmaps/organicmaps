@@ -61,6 +61,8 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchSc
       searchScope = "f";
     else
     {
+      ASSERT(ext != ".kml", ("BookmarkManager is responsible for that"));
+
       if (ext == DATA_FILE_EXTENSION)
       {
         if (strings::StartsWith(file, WORLD_COASTS_FILE_NAME) || strings::StartsWith(file, WORLD_FILE_NAME))
@@ -68,8 +70,6 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchSc
         else
           searchScope = "w";
       }
-      else if (ext == BOOKMARKS_FILE_EXTENSION)
-        searchScope = "w";
       else if (file == SETTINGS_FILE_NAME)
         searchScope = "s";
       else

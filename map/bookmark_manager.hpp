@@ -152,7 +152,7 @@ public:
 
     void AttachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
     void DetachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
-      
+
     Track * GetTrackForEdit(kml::TrackId trackId);
 
     void MoveTrack(kml::TrackId trackID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
@@ -364,15 +364,10 @@ public:
   void FilterInvalidBookmarks(kml::MarkIdCollection & bookmarks) const;
   void FilterInvalidTracks(kml::TrackIdCollection & tracks) const;
 
-  /// These functions are public for unit tests only. You shouldn't call them from client code.
   void EnableTestMode(bool enable);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, KmlFileType fileType) const;
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = true);
-  static std::string RemoveInvalidSymbols(std::string const & name, std::string const & defaultName);
-  static std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string const & fileExt);
-  static std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
-  static std::string GetActualBookmarksDirectory();
   static std::string GetTracksSortedBlockName();
   static std::string GetOthersSortedBlockName();
   static std::string GetNearMeSortedBlockName();
@@ -614,7 +609,6 @@ private:
 
   void NotifyAboutStartAsyncLoading();
   void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection);
-  std::optional<std::string> GetKMLPath(std::string const & filePath);
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
 
@@ -638,7 +632,6 @@ private:
 
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
   KMLDataCollectionPtr PrepareToSaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
-  bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file);
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
   template <typename UniquityChecker>
