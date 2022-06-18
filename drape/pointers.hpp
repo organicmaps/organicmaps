@@ -129,25 +129,22 @@ public:
   template<typename TResult>
   operator ref_ptr<TResult>() const
   {
-    static_assert(std::is_base_of<TResult, T>::value || std::is_base_of<T, TResult>::value ||
-                  std::is_void<T>::value || std::is_void<TResult>::value, "");
+    TResult * res;
+
+    if constexpr(std::is_base_of<TResult, T>::value || std::is_void<TResult>::value)
+      res = m_ptr;
+    else
+    {
+      /// @todo I'd prefer separate down_cast<ref_ptr<TResult>> function, but the codebase already relies on it.
+      static_assert(std::is_base_of<T, TResult>::value);
+      res = static_cast<TResult *>(m_ptr);
+      ASSERT_EQUAL(dynamic_cast<TResult *>(m_ptr), res, ("Avoid multiple inheritance"));
+    }
 
 #if defined(TRACK_POINTERS)
-    return ref_ptr<TResult>(static_cast<TResult *>(m_ptr), m_isOwnerUnique);
+    return ref_ptr<TResult>(res, m_isOwnerUnique);
 #else
-    return ref_ptr<TResult>(static_cast<TResult *>(m_ptr));
-#endif
-  }
-
-  template<typename TResult>
-  ref_ptr<TResult> downcast() const
-  {
-    ASSERT(dynamic_cast<TResult *>(m_ptr) != nullptr, ());
-
-#if defined(TRACK_POINTERS)
-    return ref_ptr<TResult>(static_cast<TResult *>(m_ptr), m_isOwnerUnique);
-#else
-    return ref_ptr<TResult>(static_cast<TResult *>(m_ptr));
+    return ref_ptr<TResult>(res);
 #endif
   }
 

@@ -139,7 +139,7 @@ void HWTextureApple::Create(ref_ptr<dp::GraphicsContext> context, Params const &
 {
   TBase::Create(context, params, data);
 
-  m_allocator = m_params.m_allocator.downcast<HWTextureAllocatorApple>();
+  m_allocator = m_params.m_allocator;
   m_directBuffer = m_allocator->CVCreatePixelBuffer(m_params.m_width, m_params.m_height, params.m_format);
 
   glConst layout, pixelType;
