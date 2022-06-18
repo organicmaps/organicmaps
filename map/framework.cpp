@@ -2,6 +2,7 @@
 #include "map/benchmark_tools.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/user_mark.hpp"
+#include "map/track_mark.hpp"
 
 #include "ge0/geo_url_parser.hpp"
 #include "ge0/parser.hpp"

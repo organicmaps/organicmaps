@@ -60,7 +60,6 @@
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume"
 #define DOWNLOADING_FILE_EXTENSION ".downloading"
-#define BOOKMARKS_FILE_EXTENSION ".kml"
 #define TRANSIT_FILE_EXTENSION ".transit.json"
 
 #define GEOM_INDEX_TMP_EXT ".geomidx.tmp"

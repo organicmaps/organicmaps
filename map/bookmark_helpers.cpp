@@ -6,7 +6,6 @@
 #include "kml/serdes_binary.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature_utils.hpp"
 
 #include "platform/localization.hpp"
 #include "platform/platform.hpp"
@@ -15,11 +14,9 @@
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
-#include "coding/sha1.hpp"
 #include "coding/zip_reader.hpp"
 
 #include "base/file_name_utils.hpp"
-#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include <map>
@@ -206,11 +203,76 @@ void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
       t.m_layers.emplace_back(kml::KmlParser::GetDefaultTrackLayer());
   }
 }
+
+// Returns extension with a dot in a lower case.
+std::string GetFileExt(std::string const & filePath)
+{
+  return strings::MakeLowerCase(base::GetFileExtension(filePath));
+}
+
+std::string GetFileName(std::string const & filePath)
+{
+  std::string ret = filePath;
+  base::GetNameFromFullPath(ret);
+  return ret;
+}
+
+bool IsBadCharForPath(char c)
+{
+  for (char illegalChar : {':', '/', '\\', '<', '>', '\"', '|', '?', '*'})
+  {
+    if (c < ' ' || illegalChar == c)
+      return true;
+  }
+
+  return false;
+}
 }  // namespace
+
+std::string GetBookmarksDirectory()
+{
+  return base::JoinPath(GetPlatform().SettingsDir(), "bookmarks");
+}
+
+std::string RemoveInvalidSymbols(std::string const & name)
+{
+  // Remove not allowed symbols.
+  std::string res;
+  res.reserve(name.size());
+  for (auto c : name)
+  {
+    if (!IsBadCharForPath(c))
+      res.push_back(c);
+  }
+  return res;
+}
+
+std::string GenerateUniqueFileName(const std::string & path, std::string name, std::string const & ext)
+{
+  // Remove extension, if file name already contains it.
+  if (strings::EndsWith(name, ext))
+    name.resize(name.size() - ext.size());
+
+  size_t counter = 1;
+  std::string suffix;
+  while (Platform::IsFileExistsByFullPath(base::JoinPath(path, name + suffix + ext)))
+    suffix = strings::to_string(counter++);
+  return base::JoinPath(path, name + suffix + ext);
+}
+
+std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
+{
+  std::string filePath = RemoveInvalidSymbols(fileName);
+  if (filePath.empty())
+    filePath = kDefaultBookmarksFileName;
+
+  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath));
+}
 
 std::string const kKmzExtension = ".kmz";
 std::string const kKmlExtension = ".kml";
 std::string const kKmbExtension = ".kmb";
+std::string const kDefaultBookmarksFileName = "Bookmarks";
 
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType)
 {
@@ -229,46 +291,61 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType
   return kmlData;
 }
 
-std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string & kmlHash)
+std::string GetKMLPath(std::string const & filePath)
 {
-  std::string unarchievedPath;
-  try
+  std::string const fileExt = GetFileExt(filePath);
+  std::string fileSavePath;
+  if (fileExt == kKmlExtension)
   {
-    ZipFileReader::FileList files;
-    ZipFileReader::FilesList(file, files);
-    if (files.empty())
-      return nullptr;
+    fileSavePath = GenerateValidAndUniqueFilePathForKML(GetFileName(filePath));
+    if (!base::CopyFileX(filePath, fileSavePath))
+      return {};
+  }
+  else if (fileExt == kKmbExtension)
+  {
+    auto kmlData = LoadKmlFile(filePath, KmlFileType::Binary);
+    if (kmlData == nullptr)
+      return {};
 
-    auto fileName = files.front().first;
-    for (auto const & f : files)
+    fileSavePath = GenerateValidAndUniqueFilePathForKML(GetFileName(filePath));
+    if (!SaveKmlFileByExt(*kmlData, fileSavePath))
+      return {};
+  }
+  else if (fileExt == kKmzExtension)
+  {
+    try
     {
-      if (strings::MakeLowerCase(base::GetFileExtension(f.first)) == kKmlExtension)
+      ZipFileReader::FileList files;
+      ZipFileReader::FilesList(filePath, files);
+      std::string kmlFileName;
+      std::string ext;
+      for (size_t i = 0; i < files.size(); ++i)
       {
-        fileName = f.first;
-        break;
+        ext = GetFileExt(files[i].first);
+        if (ext == kKmlExtension)
+        {
+          kmlFileName = files[i].first;
+          break;
+        }
       }
+      if (kmlFileName.empty())
+        return {};
+
+      fileSavePath = GenerateValidAndUniqueFilePathForKML(kmlFileName);
+      ZipFileReader::UnzipFile(filePath, kmlFileName, fileSavePath);
     }
-    unarchievedPath = file + ".raw";
-    ZipFileReader::UnzipFile(file, fileName, unarchievedPath);
+    catch (RootException const & e)
+    {
+      LOG(LWARNING, ("Error unzipping file", filePath, e.Msg()));
+      return {};
+    }
   }
-  catch (ZipFileReader::OpenException const & ex)
+  else
   {
-    LOG(LWARNING, ("Could not open zip file", ex.what()));
-    return nullptr;
+    LOG(LWARNING, ("Unknown file type", filePath));
+    return {};
   }
-  catch (std::exception const & ex)
-  {
-    LOG(LWARNING, ("Unexpected exception on openning zip file", ex.what()));
-    return nullptr;
-  }
-
-  if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
-    return nullptr;
-
-  SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, unarchievedPath));
-
-  kmlHash = coding::SHA1::CalculateBase64(unarchievedPath);
-  return LoadKmlFile(unarchievedPath, KmlFileType::Text);
+  return fileSavePath;
 }
 
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType)
@@ -341,6 +418,13 @@ bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileT
   });
 }
 
+bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file)
+{
+  auto const ext = base::GetFileExtension(file);
+  return SaveKmlFileSafe(kmlData, file, ext == kKmbExtension ? KmlFileType::Binary
+                                                             : KmlFileType::Text);
+}
+
 bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType)
 {
   try
@@ -386,8 +470,7 @@ void ResetIds(kml::FileData & kmlData)
 
 bool TruncType(std::string & type)
 {
-  static std::string const kDelim = "-";
-  auto const pos = type.rfind(kDelim);
+  auto const pos = type.rfind('-');
   if (pos == std::string::npos)
     return false;
   type.resize(pos);
