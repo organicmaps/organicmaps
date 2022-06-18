@@ -1,25 +1,23 @@
 #include "testing/testing.hpp"
 
 #include "map/bookmark_helpers.hpp"
-#include "map/framework.hpp"
-#include "map/user_mark_id_storage.hpp"
 
 #include "platform/platform.hpp"
 
-#include "coding/zip_reader.hpp"
-
 #include "base/scope_guard.hpp"
 
-#include <string>
-#include <utility>
 
 UNIT_TEST(KMZ_UnzipTest)
 {
-  UserMarkIdStorage::Instance().EnableSaving(false);
-
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test.kmz");
-  std::string kmlHash;
-  auto kmlData = LoadKmzFile(kmzFile, kmlHash);
+  std::string const filePath = GetKMLPath(kmzFile);
+
+  TEST(!filePath.empty(), ());
+  SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
+
+  TEST(strings::EndsWith(filePath, "doc.kml"), (filePath));
+
+  auto const kmlData = LoadKmlFile(filePath, KmlFileType::Text);
   TEST(kmlData != nullptr, ());
 
   TEST_EQUAL(kmlData->m_bookmarksData.size(), 6, ("Category wrong number of bookmarks"));
