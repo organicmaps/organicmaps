@@ -2,8 +2,6 @@
 
 #include <iterator>
 
-using namespace std::placeholders;
-
 namespace dp
 {
 GlyphGenerator::GlyphGenerator(uint32_t sdfScale)

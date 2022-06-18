@@ -478,9 +478,8 @@ void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
   // For Vulkan we use m_texturesToCleanup to defer textures destroying.
   for (size_t i = 0; i < m_symbolTextures.size(); ++i)
   {
-    ASSERT(m_symbolTextures[i] != nullptr, ());
-    ASSERT(dynamic_cast<SymbolsTexture *>(m_symbolTextures[i].get()) != nullptr, ());
     ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTextures[i]);
+    ASSERT(symbolsTexture != nullptr, ());
 
     if (context->GetApiVersion() != dp::ApiVersion::Vulkan)
       symbolsTexture->Invalidate(context, m_resPostfix, make_ref(m_textureAllocator));
@@ -495,34 +494,27 @@ void TextureManager::GetTexturesToCleanup(std::vector<drape_ptr<HWTexture>> & te
   std::swap(textures, m_texturesToCleanup);
 }
 
-void TextureManager::GetSymbolRegion(std::string const & symbolName, SymbolRegion & region)
+bool TextureManager::GetSymbolRegionSafe(std::string const & symbolName, SymbolRegion & region)
 {
   CHECK(m_isInitialized, ());
   for (size_t i = 0; i < m_symbolTextures.size(); ++i)
   {
-    ASSERT(m_symbolTextures[i] != nullptr, ());
     ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTextures[i]);
+    ASSERT(symbolsTexture != nullptr, ());
     if (symbolsTexture->IsSymbolContained(symbolName))
     {
       GetRegionBase(symbolsTexture, region, SymbolsTexture::SymbolKey(symbolName));
       region.SetTextureIndex(static_cast<uint32_t>(i));
-      return;
+      return true;
     }
   }
-  LOG(LWARNING, ("Detected using of unknown symbol ", symbolName));
+  return false;
 }
 
-bool TextureManager::HasSymbolRegion(std::string const & symbolName) const
+void TextureManager::GetSymbolRegion(std::string const & symbolName, SymbolRegion & region)
 {
-  CHECK(m_isInitialized, ());
-  for (size_t i = 0; i < m_symbolTextures.size(); ++i)
-  {
-    ASSERT(m_symbolTextures[i] != nullptr, ());
-    ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTextures[i]);
-    if (symbolsTexture->IsSymbolContained(symbolName))
-      return true;
-  }
-  return false;
+  if (!GetSymbolRegionSafe(symbolName, region))
+    LOG(LWARNING, ("Detected using of unknown symbol ", symbolName));
 }
 
 void TextureManager::GetStippleRegion(PenPatternT const & pen, StippleRegion & region)
@@ -551,6 +543,7 @@ void TextureManager::GetGlyphRegions(strings::UniString const & text, int fixedH
   CalcGlyphRegions<strings::UniString, TGlyphsBuffer>(text, fixedHeight, regions);
 }
 
+/*
 uint32_t TextureManager::GetAbsentGlyphsCount(ref_ptr<Texture> texture,
                                               strings::UniString const & text,
                                               int fixedHeight) const
@@ -573,6 +566,7 @@ uint32_t TextureManager::GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultili
     count += GetAbsentGlyphsCount(texture, text[i], fixedHeight);
   return count;
 }
+*/
 
 bool TextureManager::AreGlyphsReady(strings::UniString const & str, int fixedHeight) const
 {

@@ -13,8 +13,6 @@
 #include <functional>
 #include <iterator>
 
-using namespace std::placeholders;
-
 namespace dp
 {
 GlyphPacker::GlyphPacker(const m2::PointU & size)
@@ -258,11 +256,12 @@ void GlyphIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<T
 
     uint8_t * srcMemory = SharedBufferManager::GetRawPointer(glyph.m_image.m_data);
     texture->UploadData(context, zeroPoint.x, zeroPoint.y, rect.SizeX(), rect.SizeY(), make_ref(srcMemory));
-    
+
     glyph.m_image.Destroy();
   }
 }
 
+/*
 uint32_t GlyphIndex::GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const
 {
   uint32_t count = 0;
@@ -273,4 +272,5 @@ uint32_t GlyphIndex::GetAbsentGlyphsCount(strings::UniString const & text, int f
   }
   return count;
 }
+*/
 }  // namespace dp

@@ -88,8 +88,8 @@ public:
   void OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context);
   void GetTexturesToCleanup(std::vector<drape_ptr<HWTexture>> & textures);
 
+  bool GetSymbolRegionSafe(std::string const & symbolName, SymbolRegion & region);
   void GetSymbolRegion(std::string const & symbolName, SymbolRegion & region);
-  bool HasSymbolRegion(std::string const & symbolName) const;
 
   void GetStippleRegion(PenPatternT const & pen, StippleRegion & region);
   void GetColorRegion(Color const & color, ColorRegion & region);
@@ -202,10 +202,10 @@ private:
     FillResults<HybridGlyphGroup>(text, fixedHeight, buffers, group);
   }
 
-  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text,
-                                int fixedHeight) const;
-  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text,
-                                int fixedHeight) const;
+//  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text,
+//                                int fixedHeight) const;
+//  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text,
+//                                int fixedHeight) const;
 
   void UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context);
   bool HasAsyncRoutines() const;
