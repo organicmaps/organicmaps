@@ -20102,6 +20102,7 @@
     ref = no
     be = Няма
     tr = Yok
+    ru = Нет
 
   [trip_finished]
     tags = ios
