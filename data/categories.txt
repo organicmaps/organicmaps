@@ -6117,7 +6117,7 @@ mr:अमेरिकन फुटबॉल
 nb:Amerikansk fotball
 nl:Amerikaans voetbal
 pl:Futbol amerykański
-pt:Futebol americano
+pt:Futebol Americano
 pt-BR:Futebol americano
 ro:Fotbal american
 ru:Aмериканский футбол
@@ -6173,7 +6173,7 @@ sport-athletics
 en:Athletics
 ar:ألعاب القوى
 be:Лёгкая атлетыка
-bg:атклетика|лека
+bg:Атлетика|лека
 cs:Atletika
 da:Atletik
 de:Leichtathletik
@@ -6193,8 +6193,8 @@ mr:शरीरिक कसरती|ऍथलेटिक्स
 nb:Friidrett
 nl:Atletiek
 pl:Lekkoatletyka
-pt-BR:Atletismo
 pt:Atletismo
+pt-BR:Atletismo
 ro:Atletism
 ru:Лёгкая атлетика
 tr:Atletik
@@ -6224,13 +6224,13 @@ it:Football australiano
 ja:オーストラリアンフットボール
 ko:오스트레일리안 풋볼
 mr:रग्बी|ऑस्ट्रेलियन फुटबॉल
-nb:australsk fotball
+nb:Australsk fotball
 nl:Australian football
-pl: Futbol australijski
+pl:Futbol australijski
+pt:Futebol Australiano
 pt-BR:Futebol australiano
-pt:Futebol australiano
 ro:Fotbal australian
-ru: Австралийский футбол
+ru:Австралийский футбол
 tr:Avustralya futbolu
 uk:Австралійський футбол
 vi:Bóng bầu dục Úc
@@ -6261,7 +6261,7 @@ mr:बेसबॉल
 nb:Baseball
 nl:Basketbal
 pl:Baseball
-pt:Beisebol
+pt:Basebol
 pt-BR:Beisebol
 ro:Baseball
 ru:Бейсбол
@@ -6270,7 +6270,7 @@ sv:Baseboll
 sw:Baseball
 th:เบสบอล
 tr:Beyzbol
-uk:бейсбол
+uk:Бейсбол
 vi:Bóng chày
 zh-Hans:棒球
 zh-Hant:棒球
@@ -6279,7 +6279,7 @@ sport-basketball
 en:Basketball
 ar:كرة سلة
 be:Баскетбол
-bg:баскетбол|игрище|
+bg:Баскетбол|игрище
 da:Basketball
 de:Basketball
 el:Καλαθόσφαιρα
@@ -6298,8 +6298,8 @@ mr:बास्केटबॉल
 nb:Basketball
 nl:Basketbal
 pl:Koszykówka|basketball
-pt-BR:Basquetebol
 pt:Basquetebol
+pt-BR:Basquetebol
 ro:Baschet
 ru:Баскетбол
 tr:Basketbol
@@ -6327,12 +6327,13 @@ nb:Bowls
 nl:Bowls
 pl:Kręgle
 pt:Lawn bowls
+pt-BR:Lawn bowls
 ru:Боулз
 sv:Bowls
 tr:Kuka Oynu
 uk:Боулз
-zh-Hans:草地滾球|保龄球
-zh-Hant:草地滾球|保齡球
+zh-Hans:草地滾球
+zh-Hant:草地滾球
 
 sport-cricket
 en:Cricket
@@ -6424,8 +6425,8 @@ ko:승마|마술 스포츠
 mr:घोडेस्वार खेळ
 nl:Paardensport|ruitersport
 pl:Jazda konna
+pt:Desportos Equestres
 pt-BR:Esportes equestres
-pt:Desportos equestres
 ro:Călărie
 ru:Конный спорт
 sv:Hästhållning
@@ -6535,7 +6536,7 @@ mr:हँडबॉल
 nb:Håndball
 nl:Handbal
 pl:Gra w piłkę ręczną
-pt:Handebol
+pt:Andebol
 pt-BR:Handebol
 ro:Handbal
 ru:Гандбол
@@ -6573,8 +6574,8 @@ mr:स्कूबा डायव्हिंग
 nb:Dykking
 nl:Duiken
 pl:Nurkowanie
-pt:Mergulho
-pt-BR:Mergulho
+pt:Mergulho autônomo
+pt-BR:Mergulho autônomo
 ro:Scufundări
 ru:Место для дайвинга
 sk:Potápanie
@@ -6611,8 +6612,8 @@ mr:शूटिंग
 nb:Skyting
 nl:schieten
 pl:Strzelanie
-pt:Filmagem
-pt-BR:Filmagem
+pt:Tiroteio|Esportes de tiro
+pt-BR:Tiroteio|Esportes de tiro
 ro:Filmare
 ru:Стрельба
 sk:Streľba
@@ -6649,8 +6650,8 @@ mr:स्कीइंग
 nb:Stå på ski
 nl:Skiën
 pl:Jazda na nartach
-pt:Esquiar
-pt-BR:Esquiar
+pt:Esqui
+pt-BR:Esqui
 ro:Schi
 ru:Катание на лыжах
 sk:Lyžovanie
@@ -6691,12 +6692,12 @@ pt:Futebol
 pt-BR:Futebol
 ro:Fotbal
 ru:Футбол
-sk:futbal
+sk:Futbal
 sv:Fotboll
 sw:Soka
 th:ฟุตบอล
 tr:Futbol
-uk:футбол
+uk:Футбол
 vi:Bóng đá
 zh-Hans:足球
 zh-Hant:足球
@@ -6725,7 +6726,7 @@ mr:टेनिस
 nb:Tennis
 nl:Tennis
 pl:Tenis ziemny
-pt:Tênis
+pt:Ténis
 pt-BR:Tênis
 ro:Tenis
 ru:Большой теннис
