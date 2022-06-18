@@ -8315,6 +8315,7 @@
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
     pt-BR = Túnel para cavaleiros
+    ru = Дорожный туннель для лошадей
 
   [type.highway.bus_stop]
     en = Bus Stop
@@ -8418,6 +8419,7 @@
     ja = 自転車道(トンネル)
     pl = Tunel drogowy dla rowerów
     pt-BR = Túnel para ciclistas
+    ru = Дорожный туннель для велосипедов
 
   [type.highway.elevator]
     en = Elevator
@@ -8473,6 +8475,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     zh-Hans = 步行道路
+    ru = Пешеходная тропа
 
   [type.highway.footway.area]
     ref = type.highway.footway
@@ -8498,6 +8501,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal difícil
     zh-Hans = 步行道路
+    ru = Непростая пешеходная тропа
 
   [type.highway.footway.demanding_mountain_hiking]
     ref = type.highway.path
@@ -8505,6 +8509,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal difícil
     zh-Hans = 步行道路
+    ru = Непростая пешеходная тропа
 
   [type.highway.footway.difficult_alpine_hiking]
     ref = type.highway.path
@@ -8512,6 +8517,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal difícil
     zh-Hans = 步行道路
+    ru = Сложная пешеходная тропа
 
   [type.highway.footway.hiking]
     ref = type.highway.path
@@ -8519,6 +8525,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     zh-Hans = 步行道路
+    ru = Пешеходная тропа
 
   [type.highway.footway.mountain_hiking]
     ref = type.highway.path
@@ -8526,6 +8533,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     zh-Hans = 步行道路
+    ru = Пешеходная тропа
 
   [type.highway.footway.permissive]
     ref = type.highway.footway
@@ -8615,6 +8623,7 @@
     de = Spielstraßentunnel
     pl = Tunel ulicy
     pt-BR = Túnel rodoviário
+    ru = Уличный тоннель
 
   [type.highway.motorway]
     en = Motorway
@@ -8915,6 +8924,7 @@
     de = Hauptstraßentunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
+    ru = Автомобильный тоннель
 
   [type.highway.primary_link]
     ref = type.highway.primary
@@ -9200,6 +9210,7 @@
     de = Straßentunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
+    ru = Автомобильный тоннель
 
   [type.highway.secondary_link]
     ref = type.highway.secondary
@@ -9219,6 +9230,7 @@
     de = Straßentunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
+    ru = Автомобильный тоннель
 
   [type.highway.service]
     en = Service Road
@@ -9260,6 +9272,7 @@
   [type.highway.service.bridge]
     ref = type.highway.road.bridge
     pl = Most drogowy
+    ru = Автодорожный мост
 
   [type.highway.service.driveway]
     ref = type.highway.service
@@ -9291,6 +9304,7 @@
     de = Straßentunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
+    ru = Автомобильный тоннель
 
   [type.highway.services]
     en = Service Area
@@ -9423,6 +9437,7 @@
     de = Straßentunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
+    ru = Автомобильный тоннель
 
   [type.highway.tertiary_link]
     ref = type.highway.tertiary
@@ -9443,6 +9458,7 @@
     de = Straßentunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
+    ru = Автомобильный тоннель
 
   [type.highway.track]
     en = Track
@@ -9510,6 +9526,7 @@
     de = Straßentunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
+    ru = Автомобильный тоннель
 
   [type.highway.traffic_signals]
     en = Traffic Lights
@@ -9650,6 +9667,7 @@
     de = Straßentunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
+    ru = Тоннель
 
   [type.area_highway.cycleway]
     ref = type.highway.cycleway
