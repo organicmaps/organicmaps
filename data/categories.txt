@@ -6096,35 +6096,37 @@ mr:जलतरण तलाव
 sport-american_football
 en:American Football
 ar:كرة القدم الأمريكية
-cs:americký fotbal
-da:amerikansk fodbold
+be:Амерыканскі футбол
+cs:Americký fotbal
+da:Amerikansk fodbold
 de:Amerikanischer Fußball
 el:αμερικάνικο ποδόσφαιρο
-es:fútbol americano
-es-MX:fútbol americano
+es:Fútbol americano
+es-MX:Fútbol americano
 eu:Futbol amerikarra
 fa:فوتبال آمریکایی
 fi:Amerikkalainen jalkapallo
-fr:football américain
-hu:amerikai foci
+fr:Football américain
+he:כדורגל אמריקאי
+hu:Amerikai foci
 id:Sepak Bola Amerika
 it:Football americano
 ja:アメリカンフットボール
 ko:미식 축구
 mr:अमेरिकन फुटबॉल
-nb:amerikansk fotball
+nb:Amerikansk fotball
 nl:Amerikaans voetbal
-pl:futbol amerykański
-pt:futebol americano
-pt-BR:futebol americano
-ro:fotbal american
-ru:американский футбол
-sk:americký futbal
-sv:amerikansk fotboll
+pl:Futbol amerykański
+pt:Futebol americano
+pt-BR:Futebol americano
+ro:Fotbal american
+ru:Aмериканский футбол
+sk:Americký futbal
+sv:Amerikansk fotboll
 sw:Soka ya Marekani
 th:อเมริกันฟุตบอล
 tr:Amerikan futbolu
-uk:американський футбол
+uk:Американський футбол
 vi:Bóng bầu dục Mỹ
 zh-Hans:美式足球
 zh-Hant:美式足球
@@ -6132,6 +6134,7 @@ zh-Hant:美式足球
 sport-archery
 en:Archery
 ar:الرماية
+be:Стральба з лука
 cs:Lukostřelba
 da:Bueskydning
 de:Bogenschießen
@@ -6142,6 +6145,7 @@ eu:Arku-tiroa
 fa:تیراندازی با کمان
 fi:Jousiammunta
 fr:Tir à l'arc
+he:קַשׁתוּת
 hu:Íjászat
 id:Panahan
 it:Tiro con l'arco
@@ -6167,27 +6171,76 @@ zh-Hant:射箭
 
 sport-athletics
 en:Athletics
-ru:Лёгкая атлетика
+ar:ألعاب القوى
+be:Лёгкая атлетыка
 bg:атклетика|лека
+cs:Atletika
+da:Atletik
+de:Leichtathletik
+el:Στίβος
 es:Atletismo
 eu:Atletismoa
-nl:Atletiek
-ko:체육시설
-pl:Lekkoatletyka
+fa:ورزشکاری
 fi:Yleisurheilu
 fr:Athlétisme
-de:Leichtathletik
-it:Atletica leggera
+he:אַתלֵטִיקָה
 hu:Atlétika
-pt:Atletismo
-pt-BR:Atletismo
-tr:Atletik
-el:Στίβος
+id:Atletik
+it:Atletica leggera
+ja:陸上競技
+ko:체육시설
 mr:शरीरिक कसरती|ऍथलेटिक्स
+nb:Friidrett
+nl:Atletiek
+pl:Lekkoatletyka
+pt-BR:Atletismo
+pt:Atletismo
+ro:Atletism
+ru:Лёгкая атлетика
+tr:Atletik
+uk:Легка атлетика
+vi:Thế vận hội
+zh-Hans:竞技
+zh-Hant:競技
+
+sport-australian_football
+en:Australian Football
+ar:كرة القدم الأسترالية
+be:Аўстралійскі футбол
+bg:Австралийски футбол
+cs:Australský fotbal
+da:Australsk fodbold
+de:Australian Football
+el:Αυστραλιανό ποδόσφαιρο
+es:Fútbol australiano
+eu:Australiako futbol araua
+fa:فوتبال استرالیایی
+fi:Australialainen jalkapallo
+fr:Football australien
+he:פוטבול אוסטרלי
+hu:Ausztrál futball
+id:Sepak bola Australia
+it:Football australiano
+ja:オーストラリアンフットボール
+ko:오스트레일리안 풋볼
+mr:रग्बी|ऑस्ट्रेलियन फुटबॉल
+nb:australsk fotball
+nl:Australian football
+pl: Futbol australijski
+pt-BR:Futebol australiano
+pt:Futebol australiano
+ro:Fotbal australian
+ru: Австралийский футбол
+tr:Avustralya futbolu
+uk:Австралійський футбол
+vi:Bóng bầu dục Úc
+zh-Hans:澳式足球
+zh-Hant:澳式足球
 
 sport-baseball
 en:Baseball
 ar:البيسبول
+be:Бейсбол
 cs:Baseball
 da:Baseball
 de:Baseball
@@ -6198,6 +6251,7 @@ eu:Beisbol
 fa:بیسبال
 fi:Baseball
 fr:Base-ball
+he:בייסבול
 hu:Baseball
 id:Baseball
 it:Baseball
@@ -6223,157 +6277,168 @@ zh-Hant:棒球
 
 sport-basketball
 en:Basketball
-ru:Баскетбол
+ar:كرة سلة
+be:Баскетбол
 bg:баскетбол|игрище|
+da:Basketball
 de:Basketball
+el:Καλαθόσφαιρα
 es:Baloncesto
 eu:Saskibaloia
-nl:Basketbal
-ko:농구
-pl:Koszykówka|basketball
+fa:بسکتبال
 fi:Koripallo
 fr:Basket-ball
-de:Basketball
-it:Pallacanestro
+he:כדורסל
 hu:Kosárlabda
-pt:Basquetebol
-pt-BR:Basquetebol
-tr:Basketbol
-da:Basketball
-fa:بسکتبال
-el:Καλαθόσφαιρα
+id:Bola basket
+it:Pallacanestro
+ja:バスケットボール
+ko:농구
 mr:बास्केटबॉल
+nb:Basketball
+nl:Basketbal
+pl:Koszykówka|basketball
+pt-BR:Basquetebol
+pt:Basquetebol
+ro:Baschet
+ru:Баскетбол
+tr:Basketbol
+uk:Баскетбол
+vi:Bóng rổ
+zh-Hans:篮球
+zh-Hant:籃球
 
 sport-bowls
 en:Bowls
 ar:لعبة البولينج
+be:Боўлз
 de:Bowls
 es:Bolos sobre hierba
+fa:لعبة البولينج
+fi:Nurmikeilailu
 fr:Boulingrin
+he:כדורת דשא
 id:Boling lapangan
 it:Bowls
 ja:ローンボウルズ
+ko:론볼
+mr:लॉन बोलिंग
+nb:Bowls
+nl:Bowls
 pl:Kręgle
-ru:Игра в боулз|Кегли
+pt:Lawn bowls
+ru:Боулз
+sv:Bowls
 tr:Kuka Oynu
-uk:Кеглi
+uk:Боулз
 zh-Hans:草地滾球|保龄球
 zh-Hant:草地滾球|保齡球
 
 sport-cricket
 en:Cricket
+ar:كريكت
+be:Крикет
+cs:Kriket
 de:Cricket
 es:Críquet
 eu:Kilkerra
+fa:کریکت
 fi:Kriketti
 fr:Cricket
+he:קריקט
 hu:Krikett
+id:Kriket
 it:Cricket
 ja:クリケット
+ko:크리켓
 mr:क्रिकेट
+nb:Cricket
+nl:Cricket
 pl:Krykiet
 pt:Críquete
 pt-BR:Críquete
 ru:Крикет
 tr:Kriket
 uk:Крикет
+vi:Cricket
 zh-Hans = 板球
 zh-Hant = 板球
 
 sport-curling
 en:Curling
-ar:الشباك
+ar:كيرلنغ
+be:Кёрлінг
 cs:Curling
 da:Curling
-de:Eisstockschießen
+de:Eisstockschießen|Curling
 el:Κέρλινγκ
 es:Curling
 es-MX:Curling
 eu:Curling
-fa:فر کردن
+fa:کرلینگ
 fi:Curling
 fr:Curling
+he:קרלינג
 hu:Curling
-id:Keriting
-it:Arricciatura
+id:Curling
+it:Curling
 ja:カーリング
 ko:컬링
 mr:कर्लिंग
 nb:Curling
 nl:Curling
-pl:Wijący się
-pt:Ondulação
-pt-BR:Ondulação
+pl:Curling
+pt:Curling
+pt-BR:Curling
 ro:Curling
-ru:Вьющийся
+ru:Кёрлинг
 sk:Curling
 sv:Curling
 sw:Kukunja
-th:ดัดผม
-tr:kıvırma
-uk:керлінг
-vi:Quăn
+th:เคอร์ลิง
+tr:Körling
+uk:Керлінг
+vi:Bi đá trên băng
 zh-Hans:冰壶
 zh-Hant:冰壺
 
-sport-diving
-en:Diving
-ar:الغوص
-cs:Potápění
-da:Dykning
-de:Tauchen
-el:Καταδύσεις
-es:Buceo
-es-MX:Buceo
-eu:Urpekaritza
-fa:شیرجه زدن
-fi:Sukellus
-fr:Plongée
-hu:Búvárkodás
-id:Menyelam
-it:Immersione
-ja:ダイビング
-ko:다이빙
-mr:डायव्हिंग
-nb:Dykking
-nl:Duiken
-pl:Nurkowanie
-pt:Mergulhando
-pt-BR:Mergulhando
-ro:Scufundări
-ru:Подводное плавание
-sk:Potápanie
-sv:Dykning
-sw:Kupiga mbizi
-th:ดำน้ำ
-tr:Dalış
-uk:Дайвінг
-vi:Lặn
-zh-Hans:潜水
-zh-Hant:潛水
-
 sport-equestrian
 en:Equestrian Sports
-ru:Конный спорт
+ar:فروسية
+be:Конны спорт
 bg:Коне|спорт|езда
-nl:Paardensport|ruitersport
-ko:승마|마술 스포츠
-pl:Jazda konna
-fr:Sport équestre
-hu:Lovassportok
-de:Pferdesport
-it:Equitazione
+da:Ridesport
+de:Reitsport
+el:Ιππασία
 es:Deportes ecuestres
 eu:Zaldi-kirolak
-pt:Desportos equestres
-pt-BR:Esportes equestres
-tr:Binicilik
-el:Ιππασία
+fa:سوارکاری
+fi:Ratsastus
+fr:Sport équestre
+he:רכיבה
+hu:Lovassportok
+id:Berkuda
+it:Equitazione
+ja:馬術
+ko:승마|마술 스포츠
 mr:घोडेस्वार खेळ
+nl:Paardensport|ruitersport
+pl:Jazda konna
+pt-BR:Esportes equestres
+pt:Desportos equestres
+ro:Călărie
+ru:Конный спорт
+sv:Hästhållning
+tr:Binicilik
+uk:Кінний спорт
+vi:Môn cưỡi ngựa
+zh-Hans:马术运动
+zh-Hant:馬術運動
 
 sport-golf
 en:Golf
 ar:الجولف
+be:Гольф
 cs:Golf
 da:Golf
 de:Golf
@@ -6384,6 +6449,7 @@ eu:Golfa
 fa:گلف
 fi:Golf
 fr:Le golf
+he:גולף
 hu:Golf
 id:Golf
 it:Golf
@@ -6410,6 +6476,7 @@ zh-Hant:高爾夫球
 sport-gymnastics
 en:Gymnastics
 ar:رياضة بدنية
+be:Гімнастыка
 cs:Gymnastika
 da:Gymnastik
 de:Gymnastik
@@ -6420,6 +6487,7 @@ eu:Gimnasia
 fa:ژیمناستیک
 fi:Voimistelu
 fr:Gymnastique
+he:התעמלות
 hu:Gimnasztika
 id:Olahraga senam
 it:Ginnastica
@@ -6446,6 +6514,7 @@ zh-Hant:體操
 sport-handball
 en:Handball
 ar:كرة اليد
+be:Гандбол
 cs:Házená
 da:Håndbold
 de:Handball
@@ -6456,6 +6525,7 @@ eu:Eskubaloia
 fa:هندبال
 fi:Käsipallo
 fr:Handball
+he:כדוריד
 hu:Kézilabda
 id:Bola tangan
 it:Palla a mano
@@ -6479,9 +6549,11 @@ vi:bóng ném
 zh-Hans:手球
 zh-Hant:手球
 
+# Used to tag a scuba diving site
 sport-scuba_diving
-en:Scuba diving
+en:Scuba diving site
 ar:الغوص
+be:Месца для дайвінга
 cs:Potápění
 da:Scuba dykning
 de:Gerätetauchen
@@ -6504,20 +6576,21 @@ pl:Nurkowanie
 pt:Mergulho
 pt-BR:Mergulho
 ro:Scufundări
-ru:Подводное плавание с аквалангом
+ru:Место для дайвинга
 sk:Potápanie
 sv:Dykning
 sw:Upigaji mbizi wa Scuba
 th:ดำน้ำลึก
 tr:Dalma
-uk:Підводне плавання
+uk:Місце для дайвінгу
 vi:Môn lặn
 zh-Hans:水肺潜水
 zh-Hant:水肺潛水
 
 sport-shooting
 en:Shooting
-ar:اطلاق الرصاص
+ar:رماية
+be:Стральба
 cs:Střílení
 da:Skydning
 de:Schießen
@@ -6525,14 +6598,15 @@ el:Κυνήγι
 es:Tiroteo
 es-MX:Tiroteo
 eu:Tiroketa
-fa:تیراندازی کردن
+fa:ورزش تیراندازی
 fi:Ammunta
 fr:Tournage
+he:ירי ספורטיבי
 hu:Lövés
 id:Penembakan
 it:Tiro
 ja:撮影
-ko:촬영
+ko:사격 경기
 mr:शूटिंग
 nb:Skyting
 nl:schieten
@@ -6546,7 +6620,7 @@ sv:Skytte
 sw:Kupiga risasi
 th:ยิงปืน
 tr:Çekim
-uk:Зйомка
+uk:Стрільба
 vi:Chụp
 zh-Hans:射击
 zh-Hant:射擊
@@ -6554,6 +6628,7 @@ zh-Hant:射擊
 sport-skiing
 en:Skiing
 ar:التزحلق
+be:Катанне на лыжах
 cs:Lyžování
 da:Stå på ski
 de:Skifahren
@@ -6564,8 +6639,9 @@ eu:Eskia
 fa:اسکی
 fi:Hiihto
 fr:Ski
+he:סקי
 hu:Síelés
-id:bermain ski
+id:Bermain ski
 it:Sciare
 ja:スキー
 ko:스키 타기
@@ -6590,6 +6666,7 @@ zh-Hant:滑雪
 sport-soccer
 en:Soccer
 ar:كرة القدم
+be:Футбол
 cs:Fotbal
 da:Fodbold
 de:Fußball
@@ -6600,6 +6677,7 @@ eu:Futbola
 fa:فوتبال
 fi:Jalkapallo
 fr:Football
+he:כדורגל
 hu:Futball
 id:Sepak bola
 it:Calcio
@@ -6612,7 +6690,7 @@ pl:Piłka nożna
 pt:Futebol
 pt-BR:Futebol
 ro:Fotbal
-ru:Футбольный
+ru:Футбол
 sk:futbal
 sv:Fotboll
 sw:Soka
@@ -6626,6 +6704,7 @@ zh-Hant:足球
 sport-tennis
 en:Tennis
 ar:تنس
+be:Тэніс
 cs:Tenis
 da:Tennis
 de:Tennis
@@ -6636,6 +6715,7 @@ eu:Tenisa
 fa:تنیس
 fi:Tennis
 fr:Tennis
+he:טֶנִיס
 hu:Tenisz
 id:Tenis
 it:Tennis
@@ -6645,16 +6725,16 @@ mr:टेनिस
 nb:Tennis
 nl:Tennis
 pl:Tenis ziemny
-pt:tênis
-pt-BR:tênis
+pt:Tênis
+pt-BR:Tênis
 ro:Tenis
 ru:Большой теннис
-sk:tenis
+sk:Tenis
 sv:Tennis
 sw:Tenisi
 th:เทนนิส
 tr:Tenis
-uk:теніс
+uk:Tеніс
 vi:Quần vợt
 zh-Hans:网球
 zh-Hant:網球
