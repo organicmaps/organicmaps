@@ -693,6 +693,13 @@ std::ostream & operator<<(std::ostream & ost, RuleSequence::Modifier const modif
 std::ostream & operator<<(std::ostream & ost, RuleSequence const & sequence);
 std::ostream & operator<<(std::ostream & ost, TRuleSequences const & sequences);
 
+enum class RuleState
+{
+  Open,
+  Closed,
+  Unknown
+};
+
 class OpeningHours
 {
 public:
@@ -701,10 +708,18 @@ public:
   OpeningHours(TRuleSequences const & rule);
 
   bool IsOpen(time_t const dateTime) const;
-  time_t GetNextTimeOpen(time_t const dateTime) const;
   bool IsClosed(time_t const dateTime) const;
-  time_t GetNextTimeClosed(time_t const dateTime) const;
   bool IsUnknown(time_t const dateTime) const;
+
+  struct InfoT
+  {
+    RuleState state;
+    /// Calculated only if state != RuleState::Unknown.
+    time_t nextTimeOpen;
+    time_t nextTimeClosed;
+  };
+
+  InfoT GetInfo(time_t const dateTime) const;
 
   bool IsValid() const;
 
