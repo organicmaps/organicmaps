@@ -19692,7 +19692,7 @@
 
   [type.tourism.information.guidepost]
     en = Guidepost
-    ar = معلومات سياحية
+    ar = دليل
     be = Даведнік
     bg = Пътеводител
     cs = Rozcestník
@@ -19721,10 +19721,10 @@
     sk = Smerovník
     sv = Vägledning
     sw = Chapisho la mwongozo
-    th = ข้อมูลการท่องเที่ยว
-    tr = Turist Bilgilendirme
+    th = ไกด์โพส
+    tr = Kılavuz direği
     uk = Путівник
-    vi = Thông tin du lịch
+    vi = Hướng dẫn
     zh-Hans = 指路牌
     zh-Hant = 指路牌
 
