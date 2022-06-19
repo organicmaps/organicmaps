@@ -889,24 +889,34 @@ bool OpeningHours::IsOpen(time_t const dateTime) const
   return osmoh::IsOpen(m_rule, dateTime);
 }
 
-time_t OpeningHours::GetNextTimeOpen(time_t const dateTime) const
-{
-  return osmoh::GetNextTimeOpen(m_rule, dateTime);
-}
-
 bool OpeningHours::IsClosed(time_t const dateTime) const
 {
   return osmoh::IsClosed(m_rule, dateTime);
 }
 
-time_t OpeningHours::GetNextTimeClosed(time_t const dateTime) const
-{
-  return osmoh::GetNextTimeClosed(m_rule, dateTime);
-}
-
 bool OpeningHours::IsUnknown(time_t const dateTime) const
 {
   return osmoh::IsUnknown(m_rule, dateTime);
+}
+
+OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime) const
+{
+  InfoT info;
+  info.state = GetState(m_rule, dateTime);
+  if (info.state != RuleState::Unknown)
+  {
+   if (info.state == RuleState::Open)
+      info.nextTimeOpen = dateTime;
+    else
+      info.nextTimeOpen = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Open);
+
+    if (info.state == RuleState::Closed)
+      info.nextTimeClosed = dateTime;
+    else
+      info.nextTimeClosed = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Closed);
+  }
+
+  return info;
 }
 
 bool OpeningHours::IsValid() const

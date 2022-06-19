@@ -391,10 +391,6 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
   time_t dateTimeResult = kTimeTMax;
   time_t dateTimeToCheck;
 
-  // Check current state
-  if (GetState(rules, dateTime) == state)
-    return dateTime;
-
   // Check in the next 7 days
   for (int i = 0; i < 7; i++)
   {
@@ -420,9 +416,9 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
           dateTimeResult = dateTimeToCheck;
       }
 
-      if (state == RuleState::Open && it->GetModifier() == RuleSequence::Modifier::Closed ||
-          state == RuleState::Closed && 
-          (it->GetModifier() == RuleSequence::Modifier::Open || it->GetModifier() == RuleSequence::Modifier::DefaultOpen))
+      if ((state == RuleState::Open && it->GetModifier() == RuleSequence::Modifier::Closed) ||
+          (state == RuleState::Closed &&
+          (it->GetModifier() == RuleSequence::Modifier::Open || it->GetModifier() == RuleSequence::Modifier::DefaultOpen)))
       {
         // Check the ending time of each rule
         for (auto const & time : times)
@@ -454,7 +450,7 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
           if (dateTimeToCheck == -1)
             continue;
           dateTimeToCheck += i * (24 * 60 * 60);
-          
+
           if (dateTimeToCheck < dateTime || dateTimeToCheck > dateTimeResult)
             continue;
 

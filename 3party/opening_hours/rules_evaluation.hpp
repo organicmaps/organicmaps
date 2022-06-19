@@ -6,12 +6,6 @@
 
 namespace osmoh
 {
-enum class RuleState
-{
-  Open,
-  Closed,
-  Unknown
-};
 
 RuleState GetState(TRuleSequences const & rules, time_t const dateTime);
 
@@ -24,6 +18,8 @@ inline bool IsOpen(TRuleSequences const & rules, time_t const dateTime)
 
 inline time_t GetNextTimeOpen(TRuleSequences const & rules, time_t const dateTime)
 {
+  if (GetState(rules, dateTime) == RuleState::Open)
+    return dateTime;
   return GetNextTimeState(rules, dateTime, RuleState::Open);
 }
 
@@ -34,6 +30,8 @@ inline bool IsClosed(TRuleSequences const & rules, time_t const dateTime)
 
 inline time_t GetNextTimeClosed(TRuleSequences const & rules, time_t const dateTime)
 {
+  if (GetState(rules, dateTime) == RuleState::Closed)
+    return dateTime;
   return GetNextTimeState(rules, dateTime, RuleState::Closed);
 }
 
