@@ -6702,6 +6702,44 @@ vi:Bóng đá
 zh-Hans:足球
 zh-Hant:足球
 
+sport-swimming
+en:Swimming
+ar:سباحة
+be:Плаванне
+bg:Плуване
+cs:Plavání
+da:Svømning
+de:Schwimmen
+el:Κολύμβηση
+es:Natación
+eu:Igeriketa
+fa:شنا
+fi:Uinti
+fr:Natation
+he:שחייה
+hu:Úszás
+id:Berenang
+it:Nuoto
+ja:水泳
+ko:수영
+mr:जलतरण
+nb:Svømming
+nl:Zwemmen
+pl:Pływanie
+pt:Natação desportiva
+pt-BR:Natação esportiva
+ro:Natație
+ru:Плавание
+sk:Plávanie
+sv:Simning
+sw:Kuogelea
+th:การว่ายน้ำ
+tr:Yüzme
+uk:Плавання
+vi: Bơi
+zh-Hans:游泳
+zh-Hant:游泳
+
 sport-tennis
 en:Tennis
 ar:تنس
