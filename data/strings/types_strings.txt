@@ -18897,6 +18897,7 @@
     zh-Hant = 各種運動
 
   [type.sport.scuba_diving]
+    comment = Used to tag a scuba diving site.
     en = Scuba diving site
     ar = الغوص
     be = Месца для дайвінга
