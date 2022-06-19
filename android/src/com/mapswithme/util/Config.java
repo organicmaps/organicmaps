@@ -133,6 +133,11 @@ public final class Config
     return getString(KEY_APP_STORAGE);
   }
 
+  public static void setStoragePath(String path)
+  {
+    setString(KEY_APP_STORAGE, path);
+  }
+
   public static boolean isTtsEnabled()
   {
     return getBool(KEY_TTS_ENABLED, true);

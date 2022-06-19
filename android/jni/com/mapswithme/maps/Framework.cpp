@@ -1058,7 +1058,7 @@ Java_com_mapswithme_maps_Framework_nativeGetBookmarksFilesExts(JNIEnv * env, jcl
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeSetWritableDir(JNIEnv * env, jclass, jstring jNewPath)
+Java_com_mapswithme_maps_Framework_nativeChangeWritableDir(JNIEnv * env, jclass, jstring jNewPath)
 {
   string newPath = jni::ToNativeString(env, jNewPath);
   g_framework->RemoveLocalMaps();

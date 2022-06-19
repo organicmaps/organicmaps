@@ -156,7 +156,6 @@ void Platform::OnExternalStorageStatusChanged(bool isAvailable)
 void Platform::SetWritableDir(std::string const & dir)
 {
   m_writableDir = dir;
-  settings::Set("StoragePath", m_writableDir);
   LOG(LINFO, ("Writable path = ", m_writableDir));
 }
 
