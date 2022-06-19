@@ -19718,7 +19718,7 @@
     pt = Poste com direções
     pt-BR = Poste com direções
     ro = Postul de ghidare
-    ru = Путеводитель
+    ru = Указательный столб
     sk = Smerovník
     sv = Vägledning
     sw = Chapisho la mwongozo
