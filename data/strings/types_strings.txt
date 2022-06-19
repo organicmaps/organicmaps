@@ -19724,7 +19724,7 @@
     sw = Chapisho la mwongozo
     th = ไกด์โพส
     tr = Kılavuz direği
-    uk = Путівник
+    uk = Вказівний стовп
     vi = Hướng dẫn
     zh-Hans = 指路牌
     zh-Hant = 指路牌
