@@ -217,7 +217,7 @@ public class Framework
 
   public static native String nativeGetWritableDir();
 
-  public static native void nativeSetWritableDir(String newPath);
+  public static native void nativeChangeWritableDir(String newPath);
 
   // Routing.
   public static native boolean nativeIsRoutingActive();

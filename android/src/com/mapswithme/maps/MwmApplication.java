@@ -150,7 +150,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
 
     final String apkPath = StorageUtils.getApkPath(this);
     Logger.d(TAG, "Apk path = " + apkPath);
-    // Note: StoragePathManager uses Config, which requires initConfig() to be called.
+    // Note: StoragePathManager uses Config, which requires SettingsDir to be set.
     final String writablePath = StoragePathManager.findMapsStorage(this);
     Logger.d(TAG, "Writable path = " + writablePath);
     final String privatePath = StorageUtils.getPrivatePath(this);
@@ -169,7 +169,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
                        tempPath,
                        BuildConfig.FLAVOR,
                        BuildConfig.BUILD_TYPE, UiUtils.isTablet(this));
-
+    Config.setStoragePath(writablePath);
     Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled(this));
 
     Editor.init(this);

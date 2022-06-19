@@ -15,7 +15,7 @@ extern "C"
   }
 
   // void nativeInitPlatform(String apkPath, String storagePath, String privatePath, String tmpPath,
-  // String obbGooglePath, String flavorName, String buildType, boolean isTablet);
+  // String flavorName, String buildType, boolean isTablet);
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MwmApplication_nativeInitPlatform(JNIEnv * env, jobject thiz,
                                                              jstring apkPath, jstring writablePath,
