@@ -1455,7 +1455,7 @@ bool WorldFeed::SetFeed(gtfs::Feed && feed)
   LOG(LINFO, ("Filled stop timetables and road graph edges."));
 
   auto const [badShapesCount, goodShapesCount] = ModifyShapes();
-  LOG(LINFO, ("Modified shapes.", "Good Shapes", goodShapesCount, "Bad Shapes", badShapesCount));
+  LOG(LINFO, ("Modified shapes."));
 
   if (goodShapesCount == 0 && badShapesCount >= 0)
   {
