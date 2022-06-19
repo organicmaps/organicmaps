@@ -19142,7 +19142,7 @@
     ar = مساكن جبلية
     cs = Ubytování v horách
     da = Bjerg logi
-    de = Berghütte
+    de = bewirtschaftete Schutzhütte
     el = Ορεινό καταφύγιο
     es = Cabaña
     eu = Kabina
@@ -19983,7 +19983,7 @@
     ar = كوخ برية
     cs = Chata v divočině
     da = Vildmarkshytte
-    de = Wildnishütte
+    de = unbewirtschaftete Schutzhütte
     el = Καλύβα
     es = Cabaña
     eu = Kabina
