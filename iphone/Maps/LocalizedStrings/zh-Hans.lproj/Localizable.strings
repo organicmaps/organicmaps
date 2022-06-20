@@ -503,6 +503,10 @@
 
 "history" = "历史";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "已关闭";
 
 "search_not_found" = "抱歉，没有找到任何东西。";

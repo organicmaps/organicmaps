@@ -503,6 +503,10 @@
 
 "history" = "Grabatu";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Itxita";
 
 "search_not_found" = "Barkatu, ez dut ezer aurkitu.";

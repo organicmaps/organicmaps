@@ -503,6 +503,10 @@
 
 "history" = "Ιστορικό";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Κλειστό";
 
 "search_not_found" = "Ωχ, δεν βρέθηκαν αποτελέσματα.";

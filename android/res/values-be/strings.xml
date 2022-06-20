@@ -355,6 +355,8 @@
 	<string name="routing_arrive">Прыбыццё а %s</string>
 	<string name="categories">Катэгорыі</string>
 	<string name="history">Гісторыя</string>
+	<string name="opens_in">Адчыняецца праз %s</string>
+	<string name="closes_in">Зачыняецца праз %s</string>
 	<string name="closed">Зачынена</string>
 	<string name="search_not_found">Нічога не знойдзена.</string>
 	<string name="search_not_found_query">Паспрабуйце змяніць умовы пошуку.</string>

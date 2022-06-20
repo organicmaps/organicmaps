@@ -357,6 +357,8 @@
 	<string name="routing_arrive">Прибытие в %s</string>
 	<string name="categories">Категории</string>
 	<string name="history">История</string>
+	<string name="opens_in">Открывается через %s</string>
+	<string name="closes_in">Закроется через %s</string>
 	<string name="closed">Закрыто</string>
 	<string name="search_not_found">К сожалению, мы ничего не нашли.</string>
 	<string name="search_not_found_query">Попробуйте изменить условия поиска.</string>

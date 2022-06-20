@@ -1,6 +1,7 @@
 package com.mapswithme.maps.search;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.SpannableStringBuilder;
@@ -32,8 +33,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   private final SearchFragment mSearchFragment;
   @Nullable
   private SearchResult[] mResults;
-  @NonNull
-  private final Drawable mClosedMarkerBackground;
 
   static abstract class SearchDataViewHolder extends RecyclerView.ViewHolder
   {
@@ -135,7 +134,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     @NonNull
     final TextView mName;
     @NonNull
-    final View mClosedMarker;
+    final TextView mOpen;
     @NonNull
     final TextView mDescription;
     @NonNull
@@ -196,12 +195,10 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       super(view);
       mFrame = view;
       mName = view.findViewById(R.id.title);
-      mClosedMarker = view.findViewById(R.id.closed);
+      mOpen = view.findViewById(R.id.open);
       mDescription =  view.findViewById(R.id.description);
       mRegion = view.findViewById(R.id.region);
       mDistance = view.findViewById(R.id.distance);
-
-      mClosedMarker.setBackground(mClosedMarkerBackground);
     }
 
     @Override
@@ -215,23 +212,57 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     {
       super.bind(result, order);
       setBackground();
-      // TODO: Support also "Open Now" mark.
 
-      UiUtils.showIf(isClosedVisible(), mClosedMarker);
+      formatOpeningHours(mResult);
       UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(mResult));
       UiUtils.setTextAndHideIfEmpty(mRegion, mResult.description.region);
       UiUtils.setTextAndHideIfEmpty(mDistance, mResult.description.distance);
     }
 
-    private boolean isClosedVisible()
+    private void formatOpeningHours(SearchResult result)
     {
-      boolean isClosed = mResult.description.openNow == SearchResult.OPEN_NOW_NO;
-      if (!isClosed)
-        return false;
+      final Resources resources = mSearchFragment.getResources();
 
-      boolean isNotPopular = mResult.getPopularity().getType() == Popularity.Type.NOT_POPULAR;
+      switch (result.description.openNow)
+      {
+        case SearchResult.OPEN_NOW_YES:
+          if (result.description.minutesUntilClosed < 60)   // less than 1 hour
+          {
+            final String time = result.description.minutesUntilClosed + " " +
+                          resources.getString(R.string.minute);
+            final String string = resources.getString(R.string.closes_in, time);
 
-      return isNotPopular || !mResult.description.hasPopularityHigherPriority;
+            UiUtils.setTextAndShow(mOpen, string);
+            mOpen.setTextColor(resources.getColor(R.color.base_yellow));
+          }
+          else
+          {
+            UiUtils.setTextAndShow(mOpen, resources.getString(R.string.editor_time_open));
+            mOpen.setTextColor(resources.getColor(R.color.base_green));
+          }
+          break;
+
+        case SearchResult.OPEN_NOW_NO:
+          if (result.description.minutesUntilOpen < 60) // less than 1 hour
+          {
+            final String time = result.description.minutesUntilOpen + " " +
+                          resources.getString(R.string.minute);
+            final String string = resources.getString(R.string.opens_in, time);
+
+            UiUtils.setTextAndShow(mOpen, string);
+            mOpen.setTextColor(resources.getColor(R.color.base_red));
+          }
+          else
+          {
+            UiUtils.setTextAndShow(mOpen, resources.getString(R.string.closed));
+            mOpen.setTextColor(resources.getColor(R.color.base_red));
+          }
+          break;
+
+        default:
+          UiUtils.hide(mOpen);
+          break;
+      }
     }
 
     private void setBackground()
@@ -251,10 +282,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   SearchAdapter(SearchFragment fragment)
   {
     mSearchFragment = fragment;
-    mClosedMarkerBackground = fragment.getResources().getDrawable(
-        ThemeUtils.isNightTheme(fragment.requireContext()) ?
-        R.drawable.search_closed_marker_night :
-        R.drawable.search_closed_marker);
   }
 
   @Override

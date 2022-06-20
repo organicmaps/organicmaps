@@ -2973,7 +2973,7 @@
     eu = Arropa
     fa = لباسهای قدیمی
     fi = Vanhat vaatteet
-    fr = Vêtement usagés
+    fr = Vêtements usagés
     hu = Régi ruhák
     id = Pakaian lama
     it = Vestiti usati
@@ -3113,7 +3113,7 @@
     eu = Plastikozko botilak
     fa = بطریهای پلاستیک
     fi = Muovipullot
-    fr = Collecte de bouteilles en plastique
+    fr = Bouteilles en plastique
     hu = Műanyag palackok
     id = Botol-botol plastik
     it = Bottiglie di plastica
@@ -3213,6 +3213,7 @@
     de = Karton
     es = Cartón
     eu = Kartoia
+    fr = Carton
     mr = पुठ्ठा
     ru = Картон
     tr = Karton
@@ -3224,6 +3225,7 @@
     de = Dosen
     es = Latas
     eu = Latak
+    fr = Emballages métalliques
     mr = कॅन
     ru = Жестяные и алюминиевые банки
     tr = Teneke ve alüminyum kutular
@@ -3235,6 +3237,7 @@
     de = Schuhe
     es = Calzado
     eu = Oinetakoak
+    fr = Chaussures
     mr = पादत्राणे
     ru = Обувь
     tr = Ayakkabılar
@@ -3246,6 +3249,7 @@
     de = Bio-Müll
     es = Orgánico
     eu = Organikoa
+    fr = Déchets organiques
     ru = Органика / Пищевые отходы
     tr = Yeşil/Organik Atık
     uk = Органіка / Харчові відходи
@@ -3256,6 +3260,7 @@
     de = Getränkekarton
     es = Cartones de bebida
     eu = Edateko kartoiak
+    fr = Briques alimentaires
     mr = पेय कार्टन
     ru = Тетрапак и аналоги
     tr = İçecek Kartonları
@@ -3707,7 +3712,7 @@
     de = Essensautomat
     es = Máquina expendedora de comida
     eu = Janaria saltzeko makina
-    fr = Distributeur de aliments
+    fr = Distributeur d'aliments
     it = Distributore di alimenti
     mr = अन्न विक्रीयंत्र
     ru = Автомат с едой
@@ -3815,6 +3820,7 @@
     de = Hundekotbeutelspender
     es = Maquina expendedora de bolsas para excrementos
     eu = Kaka poltsak saltzeko makina
+    fr = Distributeur de sacs à excréments
     mr = मलमूत्र पिशव्या विक्रीयंत्र
     ru = Пакеты для экскрементов
     tr = Dışkı Torbası Dağıtıcı
@@ -3826,6 +3832,7 @@
     de = Paketstation
     es = Taquilla de paquetes
     eu = Paketeen aldagela
+    fr = Consigne automatique pour colis
     mr = पार्सल लॉकर
     ru = Почтомат
     tr = Kilitlenebilen Kutu Dolaplar
@@ -4417,6 +4424,7 @@
     de = Grenze
     es = Frontera
     eu = Muga
+    fr = Frontière
     ja = 境界線
     mr = सीमा
     pl = Granica
@@ -4432,6 +4440,7 @@
     de = Verwaltungsgrenze
     es = Frontera administrativa
     eu = Muga administratiboa
+    fr = Frontière administrative
     ja = 行政境界
     mr = प्रशासकीय सीमा
     pl = Granica administracyjna
@@ -4485,6 +4494,7 @@
     en = City Boundary
     es = Frontera de ciudad
     eu = Hiriko muga
+    fr = Frontière de la ville
     mr = शहराची सीमा
     pl = Granica miasta
     pt = Fronteira de cidade
@@ -4498,6 +4508,7 @@
     en = National Border
     es = Frontera de país
     eu = Herrialdeko muga
+    fr = Frontière nationale
     mr = राष्ट्रीय सीमा
     pl = Granica państwa
     pt = Fronteira de país
@@ -4511,6 +4522,7 @@
     en = County Boundary
     es = Frontera de condado
     eu = Eskualdeko muga
+    fr = Frontière du comté
     mr = परगणा सीमा
     pl = Granica hrabstwa
     pt = Fronteira de condado
@@ -4524,6 +4536,7 @@
     en = Municipality Boundary
     es = Frontera de municipio
     eu = Udalerriko muga
+    fr = Frontière de la municipalité
     mr = नगरपालिकेची सीमा
     pl = Granica gminy
     pt = Fronteira de município
@@ -4543,6 +4556,7 @@
     en = Regional Boundary
     es = Frontera de región
     eu = Eskualdeko muga
+    fr = Frontière régionale
     mr = प्रादेशिक सीमा
     pl = Granica regionu
     pt = Fronteira de região
@@ -4568,6 +4582,7 @@
     en = Suburb Boundary
     es = Frontera de suburbio
     eu = Auzoko muga
+    fr = Frontière de quartier
     mr = उपनगर सीमा
     pl = Granica przedmieść
     pt = Fronteira de subúrbio
@@ -4803,7 +4818,7 @@
     eu = Hilobia
     fa = ﺮﺒﻗ
     fi = Hauta
-    fr = La tombe
+    fr = Tombe
     he = רבק
     hu = Sír
     id = Kuburan
@@ -4830,6 +4845,7 @@
   [type.craft]
     en = Craft
     fr = Artisanat
+    it = Artigianato
     ja = 工房
     mr = हस्तकला
     pl = Rzemiosło
@@ -4843,12 +4859,16 @@
   [type.craft.beekeeper]
     en = Beekeeper
     be = Пчаляр
+    fr = Apiculteur
+    it = Apicoltore
     ru = Пчеловод
     uk = Бджоляр
 
   [type.craft.blacksmith]
     en = Blacksmith
     be = Кузня
+    fr = Forgeron
+    it = Fabbro
     ru = Кузница
     uk = Кузня
 
@@ -4923,6 +4943,7 @@
 
   [type.craft.confectionery]
     en = Confectionery
+    fr = Confiseur
     ru = Кондитер
 
   [type.craft.electrician]
@@ -4960,6 +4981,8 @@
 
   [type.craft.electronics_repair]
     en = Electronics Repair
+    fr = Réparation d'appareils électroniques
+    it = Riparazioni elettroniche
     ru = Ремонт электроники
 
   [type.craft.gardener]
@@ -4998,6 +5021,7 @@
 
   [type.craft.handicraft]
     en = Handicraft
+    it = Artigiano
     ru = Ремесленная мастерская
 
   [type.craft.hvac]
@@ -5013,7 +5037,7 @@
     es = Aire acondicionado
     eu = Aire girotua
     fi = Ilmastointilaite
-    fr = Climatiseur
+    fr = Chauffage, ventilation et climatisation
     hu = Hűtés-fűtés szerelő
     it = Impianti HVAC
     ja = 冷暖房空調
@@ -5173,6 +5197,7 @@
 
   [type.craft.sawmill]
     en = Sawmill
+    fr = Scierie
     ru = Лесопилка
 
   [type.craft.shoemaker]
@@ -5211,6 +5236,7 @@
 
   [type.craft.winery]
     en = Winery
+    fr = Chai
     ru = Винодельня
 
   [type.craft.tailor]
@@ -9785,6 +9811,7 @@
   [type.historic.boundary_stone]
     en = Boundary Stone
     de = Grenzstein
+    fr = Borne frontière
     ja = 境界標
     pl = Historyczny kamień graniczny
     pt = Marco fronteiriço
@@ -10963,6 +10990,7 @@
   [type.landuse.retail]
     en = Retail Land
     de = Einzelhandelsgebiet
+    fr = Zone commerciale
     ja = 小売店エリア
     mr = किरकोळ जमीन
     pl = Obszar handlu
@@ -11953,6 +11981,7 @@
   [type.man_made.cutline]
     en = Cutline
     de = Schneise
+    fr = Layon
     ja = 森林の切れ目
     pl = Przecinka leśna
     pt = Atalhada
@@ -11977,6 +12006,7 @@
   [type.man_made.flagpole]
     en = Flagpole
     be = Флагшток
+    fr = Mât de drapeau
     mr = ध्वजस्तंभ
     ru = Флагшток
     tr = Bayrak Direği
@@ -12019,6 +12049,7 @@
   [type.man_made.mast]
     en = Mast
     be = Мачта/вышка
+    fr = Mât
     mr = डोलकाठी
     ru = Мачта/вышка
     tr = Direk
@@ -12469,6 +12500,7 @@
     en = Sandy Beach
     be = Пяшчаны пляж
     de = Sandstrand
+    fr = Plage de sable
     ru = Песчаный пляж
     tr = Kum Plajı
     uk = Піщаний пляж
@@ -12579,6 +12611,7 @@
     en = Embankment
     be = Насып
     cs = Násyp
+    fr = Talus
     hu = Töltés
     ru = Насыпь
     sk = Násyp
@@ -12781,7 +12814,7 @@
     eu = Sarraila Ganbera
     fa = ﻞﻔﻗ ﻕﺎﺗﺍ
     fi = Lukko kammio
-    fr = Chambre de verrouillage
+    fr = Écluse
     he = לוענמ את
     hu = Zsilipkamra
     id = Ruang Kunci
@@ -14160,6 +14193,7 @@
   [type.place.square]
     en = Square
     de = Platz
+    fr = Place
     ja = 広場
     mr = चौरस
     pl = Plac
@@ -14577,6 +14611,7 @@
   [type.railway.abandoned]
     en = Abandoned railway
     de = Ehemalige Eisenbahnstrecke
+    fr = Chemin de fer abandonné
     ja = 廃線
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
@@ -14588,6 +14623,7 @@
   [type.railway.abandoned.bridge]
     en = Abandoned railway
     de = Ehemalige Eisenbahnbrücke
+    fr = Chemin de fer abandonné
     ja = 廃線(橋)
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
@@ -14599,6 +14635,7 @@
   [type.railway.abandoned.tunnel]
     en = Abandoned Railway
     de = Ehemaliger Eisenbahntunnel
+    fr = Chemin de fer abandonné
     ja = 廃線(トンネル)
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
@@ -14610,6 +14647,7 @@
   [type.railway.construction]
     en = Railway's Construction
     de = Eisenbahnstrecke im Bau
+    fr = Chemin de fer en construction
     ja = 建設中の鉄道
     mr = रेल्वेचे बांधकाम
     pt = Ferrovia em construção
@@ -14622,6 +14660,7 @@
   [type.railway.crossing]
     en = Railway Crossing
     de = Bahnübergang
+    fr = Traversée de voie ferrée
     ja = 歩行者用踏切
     mr = रेल्वे ओलांडणी
     pt = Passagem pedestre
@@ -14633,6 +14672,7 @@
   [type.railway.disused]
     en = Disused railway
     de = Stillgelegte Bahnstrecke
+    fr = Chemin de fer désaffecté
     ja = 休止線
     pt = Ferrovia em desuso
     pt-BR = Ferrovia em desuso
@@ -14862,6 +14902,7 @@
     en = Railway Platform
     be = Чыгуначная платформа
     de = Bahnsteig
+    fr = Quai de gare
     ja = プラットホーム
     mr = रेल्वे फलाट
     pt = Plataforma ferroviária
@@ -14874,6 +14915,7 @@
   [type.railway.preserved]
     en = Preserved Rail
     de = Museumsbahn
+    fr = Chemin de fer touristique
     ja = 保存鉄道
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
@@ -14940,6 +14982,7 @@
   [type.railway.rail.bridge]
     en = Railway
     de = S-Bahn-Brücke
+    fr = Chemin de fer
     ja = 鉄道(橋)
     mr = रेल्वे
     pt = Ferrovia
@@ -14966,6 +15009,7 @@
   [type.railway.rail.tunnel]
     en = Railway
     de = S-Bahn-Tunnel
+    fr = Chemin de fer
     ja = 鉄道(鉄道)
     mr = रेल्वे
     pt = Ferrovia
@@ -15102,7 +15146,7 @@
     eu = Metroa
     fa = حمل و نقل
     fi = Metro
-    fr = Métro
+    fr = Station de métro
     hu = Földalatti
     id = Stasiun bawah tanah
     it = Metrò
@@ -15408,7 +15452,7 @@
     eu = Metroa
     fa = حمل و نقل
     fi = Metro
-    fr = Métro
+    fr = Station de métro
     hu = Földalatti
     id = Stasiun bawah tanah
     it = Metrò
@@ -15502,7 +15546,7 @@
   [type.railway.subway]
     en = Subway Line
     de = U-Bahn
-    fr = Ligne de métroo
+    fr = Ligne de métro
     mr = भुयारी मार्गिका
     pt = Metropolitano
     pt-BR = Metrô
@@ -16527,6 +16571,7 @@
   [type.shop.caravan]
     en = RV Dealership
     be = Продаж аўтадамоў
+    fr = Concessionnaire de caravanes et camping-cars
     ru = Продажа автодомов
     tr = Karavan Bayiliği
     uk = Продаж автобудинків
@@ -18871,7 +18916,7 @@
     eu = Hainbat kirol
     fa = ورزش های مختلف
     fi = Erilaisia urheilulajeja
-    fr = Sports divers
+    fr = Sports multiples
     he = ענפי ספורט שונים
     hu = Különféle sportágak
     id = Berbagai Olahraga
@@ -18947,7 +18992,7 @@
     eu = Tiroketa
     fa = ورزش تیراندازی
     fi = Ammunta
-    fr = Tournage
+    fr = Tir sportif
     he = ירי ספורטיבי
     hu = Lövés
     id = Penembakan
@@ -20154,7 +20199,7 @@
     en = Dam
     de = Staudamm
     fi = Pato
-    fr = Dam
+    fr = Barrage
     ja = ダム
     mr = धरण
     pt = Barragem
@@ -20544,6 +20589,7 @@
   [type.waterway.weir]
     en = Weir
     de = Wehr
+    fr = Seuil
     ja = 堰
     mr = अल्प धरण
     pt = Represa
@@ -20680,6 +20726,7 @@
     comment = en.wikipedia.org/wiki/Surface_lift
     en = Surface Lift
     de = Lift
+    fr = Téléski
     pt = Telesqui
     pt-BR = Telesqui
     ru = Бугельный подъёмник
@@ -20689,6 +20736,7 @@
   [type.piste_lift.j.bar]
     en = J-bar Lift
     de = Schlepplift
+    fr = Téléski
     pt = Telesqui de barra em J
     pt-BR = Telesqui de barra em J
     ru = Бугельный подъёмник
@@ -20698,6 +20746,7 @@
   [type.piste_lift.magic_carpet]
     en = Magic Carpet
     de = Laufband
+    fr = Tapis roulant
     pt = Tapete deslizante
     pt-BR = Tapete deslizante
     ru = Ленточный конвейер
@@ -20743,6 +20792,7 @@
     en = Downhill Ski Run
     de = Abfahrt
     fi = Laskettelurinne
+    fr = Piste de ski alpin
     pt = Esqui alpino
     pt-BR = Esqui alpino
     ru = Горнолыжная трасса
@@ -20806,6 +20856,7 @@
     en = Nordic Ski Trail
     de = Langlaufloipe
     fi = Latu
+    fr = Piste de ski de fond
     pt = Pista tipo nórdico
     pt-BR = Pista tipo nórdico
     ru = Лыжня
@@ -20815,6 +20866,7 @@
   [type.piste_type.sled]
     en = Sledding Piste
     de = Rodelbahn
+    fr = Piste de luge
     pt = Pista para trenós
     pt-BR = Pista para trenós
     ru = Трасса для саней

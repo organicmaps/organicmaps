@@ -503,6 +503,10 @@
 
 "history" = "Előzmények";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Zárva";
 
 "search_not_found" = "Sajnos, semmit nem találtam.";

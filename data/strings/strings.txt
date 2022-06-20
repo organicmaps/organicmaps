@@ -1859,7 +1859,7 @@
     eu = Mapak
     fa = نقشه ها
     fi = Kartat
-    fr = Cartes
+    fr = Cartes téléchargées
     he = מפות
     hu = Térképek
     id = Peta
@@ -1887,6 +1887,7 @@
     tags = android
     en = Internal private storage
     be = Унутранае прыватнае сховішча
+    fr = Stockage interne privé
     pt-BR = Armazenamento interno privado
     ru = Внутренний скрытый накопитель
     uk = Внутрішнє приватне сховище
@@ -1896,6 +1897,7 @@
     tags = android
     en = Internal shared storage
     be = Унутранае абагуленае сховішча
+    fr = Stockage interne partagé
     pt-BR = Armazenamento interno compartilhado
     ru = Внутренний общий накопитель
     uk = Внутрішнє спільне сховище
@@ -1905,6 +1907,7 @@
     tags = android
     en = SD card
     be = SD-карта
+    fr = Carte SD
     pt-BR = Cartão SD
     ru = SD-карта
     uk = SD-карта
@@ -1914,6 +1917,7 @@
     tags = android
     en = External shared storage
     be = Знешняе абагульнае сховішча
+    fr = Stockage externe partagé
     pt-BR = Armazenamento externo compartilhado
     ru = Внешний общий накопитель
     uk = Зовнiшне спільне сховище
@@ -1923,6 +1927,7 @@
     tags = android
     en = %1$@ free of %2$@
     be = %1$@ вольна з %2$@
+    fr = %1$@ libres sur %2$@
     pt-BR = %1$@ livre de %2$@
     ru = %1$@ свободно из %2$@
     uk = %1$@ вільно з %2$@
@@ -1970,6 +1975,7 @@
     comment = Error moving map files from one storage to another
     tags = android
     en = Error moving map files
+    fr = Erreur lors du déplacement des cartes
     pt-BR = Erro ao mover arquivos de mapas
     ru = Ошибка перемещения файлов карт
 
@@ -2226,7 +2232,7 @@
     eu = Erregai-geltokia
     fa = سوخت
     fi = Huoltoasema
-    fr = Essence
+    fr = Stations-service
     he = גז
     hu = Benzinkút
     id = Bahan bakar
@@ -2920,6 +2926,7 @@
     en = RV Facilities
     be = Для аўтадамоў
     eu = Karabanak
+    fr = Aménagements pour camping-car
     ro = Pentru rulote
     ru = Для автодомов
     tr = Karavan tesisleri
@@ -8541,6 +8548,22 @@
     vi = Lịch sử
     zh-Hans = 历史
     zh-Hant = 記錄
+
+  [opens_in]
+    en = Opens in %@
+    be = Адчыняецца праз %@
+    es = Abre en %@
+    fr = Ouvert dans %@
+    ru = Открывается через %@
+    uk = Відкривається через %@
+
+  [closes_in]
+    en = Closes in %@
+    be = Зачыняецца праз %@
+    es = Cierra en %@
+    fr = Fermé dans %@
+    ru = Закроется через %@
+    uk = Зачиняється через %@
 
   [closed]
     tags = android,ios
@@ -22971,6 +22994,7 @@
     tags = android
     comment = Used in DownloadResources startup screen
     en = Unable to create folder and move files on internal device's memory or sdcard
+    fr = Impossible de créer un dossier et de déplacer des fichiers sur la mémoire interne de l'appareil ou sur la carte SD
     mr = उपकरणाच्या अंतर्गत मेमरी किंवा SD-card वर फोल्डर तयार करण्यात आणि फायली हलविण्यात अक्षम
     pt-BR = Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo
     ru = Не могу создать папку и переместить файлы на устройстве
@@ -23078,7 +23102,7 @@
     eu = Gaituta dagoenean, pantailak lo egin ahal izango du jarduerarik gabe egon ondoren.
     fa = درصورت فعال بودن ، بعد از یک دوره عدم فعالیت به صفحه اجازه خواب داده می شود.
     fi = Kun tämä asetus on käytössä, näyttö menee lepotilaan käyttämättömyyden jälkeen.
-    fr = Lorsqu'il est activé, l'écran sera autorisé à dormir après une période d'inactivité.
+    fr = Lorsqu'il est activé, l'écran sera autorisé à s'éteindre après une période d'inactivité.
     he = כאשר מופעל המסך יורשה לישון לאחר תקופה של חוסר פעילות.
     hu = Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.
     id = Jika diaktifkan, layar akan diizinkan untuk tidur setelah beberapa saat tidak aktif.
@@ -23108,6 +23132,7 @@
     en = Show on the lock screen
     be = Паказваць на экране блакіроўкі
     de = Auf dem Sperrbildschirm anzeigen
+    fr = Afficher sur l'écran de verrouillage
     it = Mostra sulla schermata di blocco
     mr = लॉक पटलावर (स्क्रीनवर) दाखवा
     nl = Toon op vergrendelscherm
@@ -23124,6 +23149,7 @@
     en = When enabled, you don't need to unlock your device every time while the app is running.
     be = Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы дадатку.
     de = Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.
+    fr = Lorsqu'il est activé, vous n'avez pas besoin de déverrouiller votre appareil à chaque fois quand l'application fonctionne.
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
     mr = चालू असल्यास, ऍप चालू असताना प्रत्येक वेळी तुम्हाला तुमचे उपकरण अनलॉक करण्याची आवश्यकता नाही.
     nl = Indien ingeschakeld, hoeft het scherm niet te worden ontgrendeld wanneer de app actief is.

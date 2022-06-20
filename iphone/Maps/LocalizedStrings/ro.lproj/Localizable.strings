@@ -503,6 +503,10 @@
 
 "history" = "Cronologia";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Închis";
 
 "search_not_found" = "Nu s-a găsit nimic.";

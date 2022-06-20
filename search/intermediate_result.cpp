@@ -244,12 +244,22 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   std::string const openHours(ft.GetMetadata(feature::Metadata::FMD_OPEN_HOURS));
   if (!openHours.empty())
   {
-    osmoh::OpeningHours const oh((std::string(openHours)));
-    /// @todo We should check closed/open time for specific feature's timezone.
-    time_t const now = time(nullptr);
-    if (oh.IsValid() && !oh.IsUnknown(now))
-      details.m_isOpenNow = oh.IsOpen(now) ? osm::Yes : osm::No;
-    // In else case value us osm::Unknown, it's set in preview's constructor.
+    using namespace osmoh;
+    OpeningHours const oh((std::string(openHours)));
+    if (oh.IsValid())
+    {
+      /// @todo We should check closed/open time for specific feature's timezone.
+      time_t const now = time(nullptr);
+      auto const info = oh.GetInfo(now);
+      if (info.state != RuleState::Unknown)
+      {
+        // In else case value is osm::Unknown, it's set in preview's constructor.
+        details.m_isOpenNow = (info.state == RuleState::Open) ? osm::Yes : osm::No;
+
+        details.m_minutesUntilOpen = (info.nextTimeOpen - now) / 60;
+        details.m_minutesUntilClosed = (info.nextTimeClosed - now) / 60;
+      }
+    }
   }
 
   if (strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))

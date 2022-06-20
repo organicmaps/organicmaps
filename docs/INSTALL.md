@@ -389,7 +389,7 @@ You can install
 [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
 Android Studio. Please make sure that SDK for API Level 31,
-NDK version **23.1.7779620** and CMake version **3.18.1** are installed.
+NDK version **24.0.8215888** and CMake version **3.18.1** are installed.
 
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
 - in Android Studio enable "File > Power Save Mode";
