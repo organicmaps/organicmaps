@@ -389,11 +389,11 @@ public class MapFragment extends BaseMwmFragment
   public static native boolean nativeShowMapForUrl(String url);
   static native boolean nativeIsEngineCreated();
   static native boolean nativeDestroySurfaceOnDetach();
-  private static native boolean nativeCreateEngine(Surface surface, int density,
+  public static native boolean nativeCreateEngine(Surface surface, int density,
                                                    boolean firstLaunch,
                                                    boolean isLaunchByDeepLink,
                                                    int appVersionCode);
-  private static native boolean nativeAttachSurface(Surface surface);
+  public static native boolean nativeAttachSurface(Surface surface);
   private static native void nativeDetachSurface(boolean destroySurface);
   private static native void nativePauseSurfaceRendering();
   private static native void nativeResumeSurfaceRendering();
