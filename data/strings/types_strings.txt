@@ -4830,6 +4830,7 @@
   [type.craft]
     en = Craft
     fr = Artisanat
+    it = Artigianato
     ja = 工房
     mr = हस्तकला
     pl = Rzemiosło
@@ -4843,12 +4844,14 @@
   [type.craft.beekeeper]
     en = Beekeeper
     be = Пчаляр
+    it = Apicoltore
     ru = Пчеловод
     uk = Бджоляр
 
   [type.craft.blacksmith]
     en = Blacksmith
     be = Кузня
+    it = Fabbro
     ru = Кузница
     uk = Кузня
 
@@ -4960,6 +4963,7 @@
 
   [type.craft.electronics_repair]
     en = Electronics Repair
+    it = Riparazioni elettroniche
     ru = Ремонт электроники
 
   [type.craft.gardener]
@@ -4998,6 +5002,7 @@
 
   [type.craft.handicraft]
     en = Handicraft
+    it = Artigiano
     ru = Ремесленная мастерская
 
   [type.craft.hvac]
