@@ -8542,6 +8542,22 @@
     zh-Hans = 历史
     zh-Hant = 記錄
 
+  [opens_in]
+    en = Opens in %@
+    be = Адчыняецца праз %@
+    es = Abre en %@
+    fr = Ouvert dans %@
+    ru = Открывается через %@
+    uk = Відкривається через %@
+
+  [closes_in]
+    en = Closes in %@
+    be = Зачыняецца праз %@
+    es = Cierra en %@
+    fr = Fermé dans %@
+    ru = Закроется через %@
+    uk = Зачиняється через %@
+
   [closed]
     tags = android,ios
     en = Closed

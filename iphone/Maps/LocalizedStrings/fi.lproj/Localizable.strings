@@ -503,6 +503,10 @@
 
 "history" = "Historia";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Suljettu";
 
 "search_not_found" = "Pahoittelut, hakutuloksia ei ole.";

@@ -503,6 +503,10 @@
 
 "history" = "Riwayat";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Tutup";
 
 "search_not_found" = "Maaf, saya tidak menemukan apa pun.";

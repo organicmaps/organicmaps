@@ -1,4 +1,11 @@
-Bu bir hata düzeltme sürümüdür
-• Son sürümde indirilen haritaların gözükmemesine sebep olan hata düzeltildi.
-Eğer bu hatadan etkilendiyseniz, uygulama ayarlarından "Haritaları şuraya kaydet:" ayarını açın ve "Internal private storage" (/data/data/... yolu ile gözüken) seçeneğini seçin. Ardından haritaları taşımak için Tamam'a dokunun ve gözükmeyen tüm haritalarınız geri gelecektir! Sonrasında istediğiniz bir depolama seçeneğine geçebilirsiniz.
-• Artık place=region metinleri haritada çizilmiyor.
+• Yeni OSM harita verileri (13 Haz 2022)
+• Bölgeler arası ve diğer rota düzeltmeleri
+• Daha iyi çitler, uçak/gemi binme noktaları, sur, uçurum, patika ve raylar
+• İşaret direği, levha, bisiklet kiralama için simgeler
+• craft=* eklendi
+• İçme suyu, şelale ve çeşme artık daha büyük
+• Kategoriler artık ada göre arama yapmıyor
+• Bisiklet tamircisi, mezarlar, doğal su yolları eklendi
+• Kıbrıs için yol numara tabelaları
+• Sonraki dönüşteki sokak artık daha iyi
+• Günlükler dahili depolamaya kaydedilir

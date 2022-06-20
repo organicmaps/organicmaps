@@ -130,6 +130,7 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
                                                 dist.get(), cuisine.get(), brand.get(), airportIata.get(),
                                                 roadShields.get(),
                                                 static_cast<jint>(result.IsOpenNow()),
+                                                result.GetMinutesUntilOpen(),result.GetMinutesUntilClosed(),
                                                 static_cast<jboolean>(popularityHasHigherPriority)));
 
   jni::TScopedLocalRef name(env, jni::ToJavaString(env, result.GetString()));
@@ -267,13 +268,14 @@ extern "C"
     /*
         Description(FeatureId featureId, String featureType, String region, String distance,
                     String cuisine, String brand, String airportIata, String roadShields,
-                    int openNow, boolean hasPopularityHigherPriority)
+                    int openNow, int minutesUntilOpen, int minutesUntilClosed, 
+                    boolean hasPopularityHigherPriority)
     */
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass,
                                                      "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;"
                                                      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                                                      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
-                                                     "Ljava/lang/String;IZ)V");
+                                                     "Ljava/lang/String;IIIZ)V");
 
     g_popularityClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/Popularity");
     g_popularityConstructor = jni::GetConstructorID(env, g_popularityClass, "(I)V");
