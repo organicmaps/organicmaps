@@ -18426,8 +18426,8 @@
     nb = Sport
     nl = Sport
     pl = Sport
-    pt-BR = Esporte
     pt = Desporto
+    pt-BR = Esporte
     ro = Sport
     ru = Спорт
     sk = Šport
@@ -19124,15 +19124,15 @@
     th = การว่ายน้ำ
     tr = Yüzme
     uk = Плавання
-    vi =  Bơi
+    vi = Bơi
     zh-Hans = 游泳
     zh-Hant = 游泳
 
   [type.sport.tennis]
     en = Tennis Court
+    ar = ملعب تنس
     be = Тэнісны корт
     bg = Тенис корт
-    ar = ملعب تنس
     cs = Tenisový kurt
     da = Tennisbane
     de = Tennisspielfeld
