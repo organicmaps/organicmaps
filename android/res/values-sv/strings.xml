@@ -1261,9 +1261,25 @@
 	<string name="type.shop.video">Video butik</string>
 	<string name="type.shop.video_games">Videospel butik</string>
 	<string name="type.shop.wine">Vinhandel</string>
+	<string name="type.sport">Sport</string>
+	<string name="type.sport.american_football">Amerikansk fotboll</string>
+	<string name="type.sport.archery">Bågskytte</string>
 	<string name="type.sport.athletics">Friidrott</string>
+	<string name="type.sport.baseball">Baseboll</string>
 	<string name="type.sport.basketball">Basket</string>
+	<string name="type.sport.bowls">Bowls</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Ridsport</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Gymnastik</string>
+	<string name="type.sport.handball">Handboll</string>
+	<string name="type.sport.multi">Olika sporter</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Dykning</string>
+	<string name="type.sport.shooting">Skytte</string>
+	<string name="type.sport.skiing">Skidåkning</string>
+	<string name="type.sport.soccer">Fotboll</string>
+	<string name="type.sport.swimming">Simning</string>
 	<string name="type.sport.tennis">Tennisbana</string>
 	<string name="type.tourism.alpine_hut">Bergsboende</string>
 	<string name="type.tourism.apartment">Lägenheter</string>
@@ -1283,7 +1299,7 @@
 	<string name="type.tourism.hotel">Hotell</string>
 	<string name="type.tourism.information">Turistinformation</string>
 	<string name="type.tourism.information.board">Informationstavla</string>
-	<string name="type.tourism.information.guidepost">Turistinformation</string>
+	<string name="type.tourism.information.guidepost">Vägledning</string>
 	<string name="type.tourism.information.map">Turistkarta</string>
 	<string name="type.tourism.information.office">Turistcenter</string>
 	<string name="type.tourism.motel">Motell</string>

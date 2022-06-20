@@ -2854,49 +2854,48 @@
 
 "type.shop.wine" = "Wine Shop";
 
-"type.sport" = "sport";
+"type.sport" = "Спорт";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Амерыканскі футбол";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Стральба з лука";
 
 "type.sport.athletics" = "Athletics";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Аўстралійскі футбол";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "Бейсбол";
 
 "type.sport.basketball" = "Basketball";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "Боўлз";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.cricket" = "Крикет";
 
-"type.sport.curling" = "Сurling";
+"type.sport.curling" = "Кёрлінг";
 
-"type.sport.diving" = "Diving";
+"type.sport.equestrian" = "Конны спорт";
 
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.golf" = "Гольф";
 
-"type.sport.golf" = "Golf";
+"type.sport.gymnastics" = "Гімнастыка";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.handball" = "Гандбол";
 
-"type.sport.handball" = "Handball";
+"type.sport.multi" = "Розныя віды спорту";
 
-"type.sport.multi" = "Various Sport";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Месца для дайвінга";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+"type.sport.shooting" = "Стральба";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.skiing" = "Катанне на лыжах";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.soccer" = "Футбол";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.swimming" = "Плаванне";
 
-"type.sport.swimming" = "Swimming";
-
-"type.sport.tennis" = "Tennis Court";
+"type.sport.tennis" = "Тэнісны корт";
 
 "type.tourism" = "Tourism";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Information Board";
 
-"type.tourism.information.guidepost" = "Tourist Information";
+"type.tourism.information.guidepost" = "Даведнік";
 
 "type.tourism.information.map" = "Tourist Map";
 

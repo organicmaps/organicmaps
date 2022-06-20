@@ -814,10 +814,15 @@
 	<string name="type.building.has_parts">Edificio</string>
 	<string name="type.building.train_station">Stazione ferroviaria</string>
 	<string name="type.cemetery.grave">La tomba</string>
+	<string name="type.craft">Artigianato</string>
+	<string name="type.craft.beekeeper">Apicoltore</string>
+	<string name="type.craft.blacksmith">Fabbro</string>
 	<string name="type.craft.brewery">Birrificio</string>
 	<string name="type.craft.carpenter">Falegname</string>
 	<string name="type.craft.electrician">Elettricista</string>
+	<string name="type.craft.electronics_repair">Riparazioni elettroniche</string>
 	<string name="type.craft.gardener">Giardiniere</string>
+	<string name="type.craft.handicraft">Artigiano</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Impianti HVAC</string>
 	<string name="type.craft.metal_construction">Fabbro</string>
@@ -1302,9 +1307,27 @@
 	<string name="type.shop.video">Videoteca</string>
 	<string name="type.shop.video_games">Negozio di videogiochi</string>
 	<string name="type.shop.wine">Negozio di alcolici</string>
+	<string name="type.sport">Sport</string>
+	<string name="type.sport.american_football">Football americano</string>
+	<string name="type.sport.archery">Tiro con l\'arco</string>
 	<string name="type.sport.athletics">Atletica leggera</string>
+	<string name="type.sport.australian_football">Football australiano</string>
+	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Pallacanestro</string>
+	<string name="type.sport.bowls">Bowls</string>
+	<string name="type.sport.cricket">Cricket</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Equitazione</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Ginnastica</string>
+	<string name="type.sport.handball">Palla a mano</string>
+	<string name="type.sport.multi">Sport vari</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Immersioni in subacquea</string>
+	<string name="type.sport.shooting">Tiro</string>
+	<string name="type.sport.skiing">Sciare</string>
+	<string name="type.sport.soccer">Calcio</string>
+	<string name="type.sport.swimming">Nuoto</string>
 	<string name="type.sport.tennis">Campo da tennis</string>
 	<string name="type.tourism.alpine_hut">Hotel di montagna</string>
 	<string name="type.tourism.apartment">Residence</string>
@@ -1324,7 +1347,7 @@
 	<string name="type.tourism.hotel">Hôtel</string>
 	<string name="type.tourism.information">Informazione</string>
 	<string name="type.tourism.information.board">Tabellone informativo</string>
-	<string name="type.tourism.information.guidepost">Informazione</string>
+	<string name="type.tourism.information.guidepost">Guida</string>
 	<string name="type.tourism.information.map">Mappa turistica</string>
 	<string name="type.tourism.information.office">Ufficio turistico</string>
 	<string name="type.tourism.museum">Museo</string>

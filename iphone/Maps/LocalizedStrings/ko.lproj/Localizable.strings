@@ -2854,47 +2854,46 @@
 
 "type.shop.wine" = "와인 샵";
 
-"type.sport" = "sport";
+"type.sport" = "스포츠";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "미식 축구";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "양궁";
 
 "type.sport.athletics" = "육상 경기장";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "오스트레일리안 풋볼";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "야구";
 
 "type.sport.basketball" = "야구";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "론볼";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.cricket" = "크리켓";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "컬링";
 
 "type.sport.equestrian" = "승마 경기장";
 
-"type.sport.golf" = "Golf";
+"type.sport.golf" = "골프";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "체조";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "핸드볼";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "다양한 스포츠";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "스쿠버 다이빙";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "사격 경기";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "스키 타기";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "축구";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "수영";
 
 "type.sport.tennis" = "테니스 코트";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "정보 게시판";
 
-"type.tourism.information.guidepost" = "관광 정보";
+"type.tourism.information.guidepost" = "도표";
 
 "type.tourism.information.map" = "관광안내도";
 

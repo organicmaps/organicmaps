@@ -2856,25 +2856,23 @@
 
 "type.sport" = "Desporto";
 
-"type.sport.american_football" = "Futebol americano";
+"type.sport.american_football" = "Futebol Americano";
 
 "type.sport.archery" = "Tiro com arco";
 
 "type.sport.athletics" = "Atletismo";
 
-"type.sport.australian_football" = "Futebol australiano";
+"type.sport.australian_football" = "Futebol Australiano";
 
-"type.sport.baseball" = "Beisebol";
+"type.sport.baseball" = "Basebol";
 
 "type.sport.basketball" = "Basquetebol";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "Lawn bowls";
 
 "type.sport.cricket" = "Críquete";
 
 "type.sport.curling" = "Curling";
-
-"type.sport.diving" = "Mergulho";
 
 "type.sport.equestrian" = "Hipismo";
 
@@ -2886,7 +2884,8 @@
 
 "type.sport.multi" = "Vários desportos";
 
-"type.sport.scuba_diving" = "Mergulho autónomo";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Mergulho autônomo";
 
 "type.sport.shooting" = "Tiro desportivo";
 

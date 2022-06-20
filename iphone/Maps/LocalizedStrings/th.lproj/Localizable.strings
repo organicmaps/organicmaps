@@ -2854,17 +2854,17 @@
 
 "type.shop.wine" = "ร้านขายไวน์";
 
-"type.sport" = "sport";
+"type.sport" = "กีฬา";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "อเมริกันฟุตบอล";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "ยิงธนู";
 
 "type.sport.athletics" = "กรีฑา";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australian Football";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "เบสบอล";
 
 "type.sport.basketball" = "บาสเก็ตบอล";
 
@@ -2872,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "เคอร์ลิง";
 
 "type.sport.equestrian" = "กีฬาแข่งม้า";
 
-"type.sport.golf" = "Golf";
+"type.sport.golf" = "กอล์ฟ";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "ยิมนาสติก";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "แฮนด์บอล";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "กีฬาต่างๆ";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "ดำน้ำลึก";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "ยิงปืน";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "เล่นสกี";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "ฟุตบอล";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "การว่ายน้ำ";
 
 "type.sport.tennis" = "คอร์ทเทนนิส";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "บอร์ดประชาสัมพันธ์";
 
-"type.tourism.information.guidepost" = "ข้อมูลการท่องเที่ยว";
+"type.tourism.information.guidepost" = "ไกด์โพส";
 
 "type.tourism.information.map" = "แผนที่ท่องเที่ยว";
 

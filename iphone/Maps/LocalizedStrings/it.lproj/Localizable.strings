@@ -1577,11 +1577,11 @@
 
 "type.cemetery.grave" = "La tomba";
 
-"type.craft" = "Craft";
+"type.craft" = "Artigianato";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Apicoltore";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Fabbro";
 
 "type.craft.brewery" = "Birrificio";
 
@@ -1591,11 +1591,11 @@
 
 "type.craft.electrician" = "Elettricista";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Riparazioni elettroniche";
 
 "type.craft.gardener" = "Giardiniere";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Artigiano";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Impianti HVAC";
@@ -2854,15 +2854,15 @@
 
 "type.shop.wine" = "Negozio di alcolici";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Football americano";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Tiro con l'arco";
 
 "type.sport.athletics" = "Atletica leggera";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Football australiano";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2872,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Equitazione";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Ginnastica";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Palla a mano";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Sport vari";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Immersioni in subacquea";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Tiro";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Sciare";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Calcio";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Nuoto";
 
 "type.sport.tennis" = "Campo da tennis";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Tabellone informativo";
 
-"type.tourism.information.guidepost" = "Informazione";
+"type.tourism.information.guidepost" = "Guida";
 
 "type.tourism.information.map" = "Mappa turistica";
 

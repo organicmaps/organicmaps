@@ -1557,19 +1557,19 @@
 	<string name="type.sport.american_football">Американский футбол</string>
 	<string name="type.sport.archery">Стрельба из лука</string>
 	<string name="type.sport.athletics">Лёгкая атлетика</string>
-	<string name="type.sport.australian_football">Регби</string>
+	<string name="type.sport.australian_football">Австралийский футбол</string>
 	<string name="type.sport.baseball">Бейсбол</string>
 	<string name="type.sport.basketball">Баскетбол</string>
-	<string name="type.sport.bowls">Кегли</string>
+	<string name="type.sport.bowls">Боулз</string>
 	<string name="type.sport.cricket">Крикет</string>
-	<string name="type.sport.curling">Керлинг</string>
-	<string name="type.sport.diving">Подводное плавание</string>
+	<string name="type.sport.curling">Кёрлинг</string>
 	<string name="type.sport.equestrian">Конный спорт</string>
 	<string name="type.sport.golf">Гольф</string>
 	<string name="type.sport.gymnastics">Гимнастика</string>
 	<string name="type.sport.handball">Гандбол</string>
 	<string name="type.sport.multi">Различные виды спорта</string>
-	<string name="type.sport.scuba_diving">Акваланг</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Место для дайвинга</string>
 	<string name="type.sport.shooting">Стрельба</string>
 	<string name="type.sport.skiing">Лыжи</string>
 	<string name="type.sport.soccer">Футбол</string>
@@ -1595,7 +1595,7 @@
 	<string name="type.tourism.hotel">Гостиница</string>
 	<string name="type.tourism.information">Туринформация</string>
 	<string name="type.tourism.information.board">Информационный щит</string>
-	<string name="type.tourism.information.guidepost">Туринформация</string>
+	<string name="type.tourism.information.guidepost">Указательный столб</string>
 	<string name="type.tourism.information.map">Карта</string>
 	<string name="type.tourism.information.office">Туристический офис</string>
 	<string name="type.tourism.motel">Мотель</string>

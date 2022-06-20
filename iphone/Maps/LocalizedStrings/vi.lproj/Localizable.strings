@@ -2854,17 +2854,17 @@
 
 "type.shop.wine" = "Rượu";
 
-"type.sport" = "sport";
+"type.sport" = "Thể thao";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Bóng bầu dục Mỹ";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Bắn cung";
 
 "type.sport.athletics" = "Điền kinh";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Bóng bầu dục Úc";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "Bóng chày";
 
 "type.sport.basketball" = "Bóng rổ";
 
@@ -2872,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Bi đá trên băng";
 
 "type.sport.equestrian" = "Thể thao cưỡi ngựa";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Thể dục";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "bóng ném";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Các môn thể thao khác nhau";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Môn lặn";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Chụp";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Trượt tuyết";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Bóng đá";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Bơi";
 
 "type.sport.tennis" = "Sân tenis";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Bảng Thông Tin";
 
-"type.tourism.information.guidepost" = "Thông tin du lịch";
+"type.tourism.information.guidepost" = "Hướng dẫn";
 
 "type.tourism.information.map" = "Bản Đồ Du Lịch";
 

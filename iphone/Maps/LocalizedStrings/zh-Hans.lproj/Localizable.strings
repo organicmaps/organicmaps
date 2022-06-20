@@ -2854,27 +2854,25 @@
 
 "type.shop.wine" = "酒品商店";
 
-"type.sport" = "sport";
+"type.sport" = "体育运动";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "美式足球";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "射箭";
 
-"type.sport.athletics" = "田径";
+"type.sport.athletics" = "竞技";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "澳式足球";
 
 "type.sport.baseball" = "棒球";
 
 "type.sport.basketball" = "篮球";
 
-"type.sport.bowls" = "保龄球";
+"type.sport.bowls" = "草地滾球";
 
 "type.sport.cricket" = "板球";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "跳水";
+"type.sport.curling" = "冰壶";
 
 "type.sport.equestrian" = "马术运动";
 
@@ -2884,13 +2882,14 @@
 
 "type.sport.handball" = "手球";
 
-"type.sport.multi" = "多元";
+"type.sport.multi" = "各种运动";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "水肺潜水";
 
 "type.sport.shooting" = "射击";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "滑雪";
 
 "type.sport.soccer" = "足球";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "公告板";
 
-"type.tourism.information.guidepost" = "旅游信息";
+"type.tourism.information.guidepost" = "指路牌";
 
 "type.tourism.information.map" = "旅游地图";
 

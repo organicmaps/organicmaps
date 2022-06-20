@@ -2854,17 +2854,17 @@
 
 "type.shop.wine" = "Wijn";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Amerikaans voetbal";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Boogschieten";
 
 "type.sport.athletics" = "Atletiek";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australian football";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "Basketbal";
 
 "type.sport.basketball" = "Basketbal";
 
@@ -2872,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Paardesport";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gymnastiek";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Handbal";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Diverse sporten";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Duiken";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "schieten";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Skiën";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Voetbal";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Zwemmen";
 
 "type.sport.tennis" = "Tennisveld";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Informatiebord";
 
-"type.tourism.information.guidepost" = "Toeristische informatie";
+"type.tourism.information.guidepost" = "Wegwijzer";
 
 "type.tourism.information.map" = "Toeristische kaart";
 

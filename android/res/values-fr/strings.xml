@@ -79,9 +79,21 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Sélectionner l\'emplacement où les cartes devraient être téléchargées</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Cartes</string>
+	<string name="maps_storage_downloaded">Cartes téléchargées</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Stockage interne privé</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Stockage interne partagé</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">Carte SD</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">Stockage externe partagé</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">%1$s libres sur %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Déplacer les cartes ?</string>
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">Erreur lors du déplacement des cartes</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Ceci peut prendre plusieurs minutes.\nVeuillez patienter…</string>
 	<!-- Measurement units title in settings activity -->
@@ -97,7 +109,7 @@
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Transport</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Essence</string>
+	<string name="fuel">Stations-service</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">Stationnement</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
@@ -132,6 +144,8 @@
 	<string name="recycling">Recyclage</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Eau</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Aménagements pour camping-car</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notes</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -677,12 +691,18 @@
 	<string name="isolines_toast_zooms_1_10">Zoomez pour voir les courbes de niveaux</string>
 	<string name="download_map_title">Télécharger la carte du monde</string>
 	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">Impossible de créer un dossier et de déplacer des fichiers sur la mémoire interne de l\'appareil ou sur la carte SD</string>
+	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Erreur de connexion</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Déconnectez le câble USB</string>
 	<string name="enable_screen_sleep">Autoriser l\'écran à dormir</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Lorsqu\'il est activé, l\'écran sera autorisé à dormir après une période d\'inactivité.</string>
+	<string name="enable_screen_sleep_description">Lorsqu\'il est activé, l\'écran sera autorisé à s\'éteindre après une période d\'inactivité.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Afficher sur l\'écran de verrouillage</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Lorsqu\'il est activé, vous n\'avez pas besoin de déverrouiller votre appareil à chaque fois quand l\'application fonctionne.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Transport par câble aérien</string>
@@ -775,13 +795,18 @@
 	<string name="type.amenity.recycling">Conteneur de recyclage</string>
 	<string name="type.amenity.recycling.container">Conteneur de recyclage</string>
 	<string name="type.recycling.batteries">Batteries</string>
-	<string name="type.recycling.clothes">Vêtement usagés</string>
+	<string name="type.recycling.clothes">Vêtements usagés</string>
 	<string name="type.recycling.glass_bottles">Verre</string>
 	<string name="type.recycling.paper">Papier usagé</string>
 	<string name="type.recycling.plastic">Déchets plastiques</string>
-	<string name="type.recycling.plastic_bottles">Collecte de bouteilles en plastique</string>
+	<string name="type.recycling.plastic_bottles">Bouteilles en plastique</string>
 	<string name="type.recycling.scrap_metal">Ferraille</string>
 	<string name="type.recycling.small_appliances">Déchets d\'équipements électriques</string>
+	<string name="type.recycling.cardboard">Carton</string>
+	<string name="type.recycling.cans">Emballages métalliques</string>
+	<string name="type.recycling.shoes">Chaussures</string>
+	<string name="type.recycling.green_waste">Déchets organiques</string>
+	<string name="type.recycling.cartons">Briques alimentaires</string>
 	<string name="type.amenity.sanitary_dump_station">Station de vidange</string>
 	<string name="type.amenity.school">École</string>
 	<string name="type.amenity.shelter">Abri</string>
@@ -796,11 +821,13 @@
 	<string name="type.amenity.vending_machine.coffee">Distributeur de café</string>
 	<string name="type.amenity.vending_machine.condoms">Distributeur de préservatifs</string>
 	<string name="type.amenity.vending_machine.drinks">Distributeur de boissons</string>
-	<string name="type.amenity.vending_machine.food">Distributeur de aliments</string>
+	<string name="type.amenity.vending_machine.food">Distributeur d\'aliments</string>
 	<string name="type.amenity.vending_machine.newspapers">Distributeur de journaux</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Horodateur</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Distributeur de billets de transport en commun</string>
 	<string name="type.amenity.vending_machine.sweets">Distributeur de bonbons</string>
+	<string name="type.amenity.vending_machine.excrement_bags">Distributeur de sacs à excréments</string>
+	<string name="type.amenity.parcel_locker">Consigne automatique pour colis</string>
 	<string name="type.amenity.veterinary">Docteur vétérinaire</string>
 	<string name="type.amenity.waste_basket">Poubelle</string>
 	<string name="type.amenity.waste_disposal">Déchets</string>
@@ -821,25 +848,50 @@
 	<string name="type.barrier.swing_gate">Barrière tournante</string>
 	<string name="type.barrier.toll_booth">Poste de péage</string>
 	<string name="type.barrier.wall">Mur</string>
+	<string name="type.boundary">Frontière</string>
+	<string name="type.boundary.administrative">Frontière administrative</string>
+	<string name="type.boundary.administrative.10">Frontière administrative</string>
+	<string name="type.boundary.administrative.11">Frontière administrative</string>
+	<string name="type.boundary.administrative.2">Frontière nationale</string>
+	<string name="type.boundary.administrative.3">Frontière administrative</string>
+	<string name="type.boundary.administrative.4">Frontière administrative</string>
+	<string name="type.boundary.administrative.5">Frontière administrative</string>
+	<string name="type.boundary.administrative.6">Frontière administrative</string>
+	<string name="type.boundary.administrative.7">Frontière administrative</string>
+	<string name="type.boundary.administrative.8">Frontière administrative</string>
+	<string name="type.boundary.administrative.9">Frontière administrative</string>
+	<string name="type.boundary.administrative.city">Frontière de la ville</string>
+	<string name="type.boundary.administrative.country">Frontière nationale</string>
+	<string name="type.boundary.administrative.county">Frontière du comté</string>
+	<string name="type.boundary.administrative.municipality">Frontière de la municipalité</string>
+	<string name="type.boundary.administrative.nation">Frontière nationale</string>
+	<string name="type.boundary.administrative.region">Frontière régionale</string>
+	<string name="type.boundary.administrative.suburb">Frontière de quartier</string>
 	<string name="type.boundary.national_park">Parc national</string>
 	<string name="type.building">Bâtiment</string>
 	<string name="type.building.address">Bâtiment</string>
 	<string name="type.building.has_parts">Bâtiment</string>
 	<string name="type.building.train_station">Gare</string>
 	<string name="type.building.warehouse">Entrepôt</string>
-	<string name="type.cemetery.grave">La tombe</string>
+	<string name="type.cemetery.grave">Tombe</string>
 	<string name="type.craft">Artisanat</string>
+	<string name="type.craft.beekeeper">Apiculteur</string>
+	<string name="type.craft.blacksmith">Forgeron</string>
 	<string name="type.craft.brewery">Brasserie artisanale</string>
 	<string name="type.craft.carpenter">Charpentier</string>
+	<string name="type.craft.confectionery">Confiseur</string>
 	<string name="type.craft.electrician">Électricien</string>
+	<string name="type.craft.electronics_repair">Réparation d\'appareils électroniques</string>
 	<string name="type.craft.gardener">Paysagiste</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
-	<string name="type.craft.hvac">Climatiseur</string>
+	<string name="type.craft.hvac">Chauffage, ventilation et climatisation</string>
 	<string name="type.craft.metal_construction">Métallo</string>
 	<string name="type.craft.painter">Peintre</string>
 	<string name="type.craft.photographer">Photographe</string>
 	<string name="type.craft.plumber">Plombier</string>
+	<string name="type.craft.sawmill">Scierie</string>
 	<string name="type.craft.shoemaker">Cordonnier</string>
+	<string name="type.craft.winery">Chai</string>
 	<string name="type.craft.tailor">Tailleur</string>
 	<string name="type.cuisine.african">Cuisine africaine</string>
 	<string name="type.cuisine.american">Cuisine américaine</string>
@@ -1106,6 +1158,7 @@
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.archaeological_site">Site archéologique</string>
 	<string name="type.historic.battlefield">Champ de bataille</string>
+	<string name="type.historic.boundary_stone">Borne frontière</string>
 	<string name="type.historic.castle">Château</string>
 	<string name="type.historic.castle.defensive">Château</string>
 	<string name="type.historic.castle.stately">Château</string>
@@ -1152,6 +1205,7 @@
 	<string name="type.landuse.railway">Installations ferroviaires</string>
 	<string name="type.landuse.reservoir">Bassin de retenue</string>
 	<string name="type.landuse.residential">Zone résidentielle</string>
+	<string name="type.landuse.retail">Zone commerciale</string>
 	<string name="type.landuse.salt_pond">Marais salant</string>
 	<string name="type.landuse.vineyard">Vignes</string>
 	<string name="type.leisure.dog_park">Parc canin</string>
@@ -1182,8 +1236,11 @@
 	<string name="type.leisure.water_park">Centre aquatique</string>
 	<string name="type.man_made.breakwater">Brise-lames</string>
 	<string name="type.man_made.chimney">Cheminée d\'usine</string>
+	<string name="type.man_made.cutline">Layon</string>
 	<string name="type.man_made.survey_point">Borne géodésique</string>
+	<string name="type.man_made.flagpole">Mât de drapeau</string>
 	<string name="type.man_made.lighthouse">Phare</string>
+	<string name="type.man_made.mast">Mât</string>
 	<string name="type.man_made.pier">Jetée</string>
 	<string name="type.man_made.storage_tank">Réservoir</string>
 	<string name="type.man_made.surveillance">Caméra de surveillance</string>
@@ -1197,9 +1254,11 @@
 	<string name="type.natural.bare_rock">Zone rocheuse</string>
 	<string name="type.natural.bay">Baie</string>
 	<string name="type.natural.beach">Plage</string>
+	<string name="type.natural.beach.sand">Plage de sable</string>
 	<string name="type.natural.cape">Cap</string>
 	<string name="type.natural.cave_entrance">Grotte</string>
 	<string name="type.natural.cliff">Falaise</string>
+	<string name="type.man_made.embankment">Talus</string>
 	<string name="type.natural.coastline">Littoral</string>
 	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">Glacier</string>
@@ -1207,7 +1266,7 @@
 	<string name="type.natural.heath">Lande</string>
 	<string name="type.natural.hot_spring">Source chaude</string>
 	<string name="type.natural.water.lake">Lac</string>
-	<string name="type.natural.water.lock">Chambre de verrouillage</string>
+	<string name="type.natural.water.lock">Écluse</string>
 	<string name="type.natural.water.pond">Étang</string>
 	<string name="type.natural.water.reservoir">Réservoir</string>
 	<string name="type.natural.water.basin">Réservoir</string>
@@ -1258,6 +1317,7 @@
 	<string name="type.place.ocean">Océan</string>
 	<string name="type.place.region">Région</string>
 	<string name="type.place.sea">Mer</string>
+	<string name="type.place.square">Place</string>
 	<string name="type.place.state">État</string>
 	<string name="type.place.state.USA">État</string>
 	<string name="type.place.suburb">Quartier</string>
@@ -1266,6 +1326,12 @@
 	<string name="type.power.substation">Poste électrique</string>
 	<string name="type.power.tower">Poteau électrique</string>
 	<string name="type.railway">Chemin de fer</string>
+	<string name="type.railway.abandoned">Chemin de fer abandonné</string>
+	<string name="type.railway.abandoned.bridge">Chemin de fer abandonné</string>
+	<string name="type.railway.abandoned.tunnel">Chemin de fer abandonné</string>
+	<string name="type.railway.construction">Chemin de fer en construction</string>
+	<string name="type.railway.crossing">Traversée de voie ferrée</string>
+	<string name="type.railway.disused">Chemin de fer désaffecté</string>
 	<string name="type.railway.funicular">Funiculaire</string>
 	<string name="type.railway.funicular.bridge">Funiculaire</string>
 	<string name="type.railway.funicular.tunnel">Funiculaire</string>
@@ -1274,11 +1340,15 @@
 	<string name="type.railway.monorail">Monorail</string>
 	<string name="type.railway.monorail.bridge">Monorail</string>
 	<string name="type.railway.monorail.tunnel">Monorail</string>
+	<string name="type.railway.platform">Quai de gare</string>
+	<string name="type.railway.preserved">Chemin de fer touristique</string>
 	<string name="type.railway.rail">Chemin de fer</string>
+	<string name="type.railway.rail.bridge">Chemin de fer</string>
+	<string name="type.railway.rail.tunnel">Chemin de fer</string>
 	<string name="type.railway.station">Gare</string>
 	<string name="type.railway.station.light_rail">Gare</string>
 	<string name="type.railway.station.monorail">Gare</string>
-	<string name="type.railway.station.subway">Métro</string>
+	<string name="type.railway.station.subway">Station de métro</string>
 	<string name="type.railway.station.subway.barcelona">Métro</string>
 	<string name="type.railway.station.subway.berlin">Métro</string>
 	<string name="type.railway.station.subway.kiev">Métro</string>
@@ -1287,10 +1357,10 @@
 	<string name="type.railway.station.subway.minsk">Métro</string>
 	<string name="type.railway.station.subway.moscow">Métro</string>
 	<string name="type.railway.station.subway.newyork">Métro</string>
-	<string name="type.railway.station.subway.paris">Métro</string>
+	<string name="type.railway.station.subway.paris">Station de métro</string>
 	<string name="type.railway.station.subway.roma">Métro</string>
 	<string name="type.railway.station.subway.spb">Métro</string>
-	<string name="type.railway.subway">Ligne de métroo</string>
+	<string name="type.railway.subway">Ligne de métro</string>
 	<string name="type.railway.subway.bridge">Voie de métro</string>
 	<string name="type.railway.subway.tunnel">Voie de métro</string>
 	<string name="type.railway.subway_entrance">Entrée du métro</string>
@@ -1322,6 +1392,7 @@
 	<string name="type.shop.car_parts">Pièces de voiture</string>
 	<string name="type.shop.car_repair">Réparation d\'automobiles</string>
 	<string name="type.shop.car_repair.tyres">Réparation de pneus</string>
+	<string name="type.shop.caravan">Concessionnaire de caravanes et camping-cars</string>
 	<string name="type.shop.chemist">Droguerie</string>
 	<string name="type.shop.chocolate">Chocolatier</string>
 	<string name="type.shop.clothes">Boutique de vêtements</string>
@@ -1376,13 +1447,24 @@
 	<string name="type.shop.video">Boutique de vidéos</string>
 	<string name="type.shop.video_games">Boutique de jeux vidéo</string>
 	<string name="type.shop.wine">Caviste</string>
+	<string name="type.sport">Sport</string>
+	<string name="type.sport.american_football">Football américain</string>
 	<string name="type.sport.archery">Tir à l\'arc</string>
 	<string name="type.sport.athletics">Athlétisme</string>
+	<string name="type.sport.australian_football">Football australien</string>
+	<string name="type.sport.baseball">Base-ball</string>
 	<string name="type.sport.basketball">Basket-ball</string>
+	<string name="type.sport.bowls">Boulingrin</string>
+	<string name="type.sport.cricket">Cricket</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Sport hippique</string>
+	<string name="type.sport.golf">Le golf</string>
 	<string name="type.sport.gymnastics">Gymnastique</string>
+	<string name="type.sport.handball">Handball</string>
+	<string name="type.sport.multi">Sports multiples</string>
+	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Plongée sous-marine</string>
-	<string name="type.sport.shooting">Sports de tir</string>
+	<string name="type.sport.shooting">Tir sportif</string>
 	<string name="type.sport.skiing">Ski</string>
 	<string name="type.sport.soccer">Football</string>
 	<string name="type.sport.swimming">Natation</string>
@@ -1413,7 +1495,7 @@
 	<string name="type.tourism.wilderness_hut">Refuge non gardé</string>
 	<string name="type.traffic_calming.bump">Ralentisseur</string>
 	<string name="type.traffic_calming.hump">Ralentisseur</string>
-	<string name="type.waterway.dam">Dam</string>
+	<string name="type.waterway.dam">Barrage</string>
 	<string name="type.waterway.ditch">Fossé</string>
 	<string name="type.waterway.ditch.tunnel">Fossé</string>
 	<string name="type.waterway.dock">Cale</string>
@@ -1426,8 +1508,22 @@
 	<string name="type.waterway.stream.intermittent">Ruisseau</string>
 	<string name="type.waterway.stream.tunnel">Ruisseau</string>
 	<string name="type.waterway.waterfall">Cascade</string>
+	<string name="type.waterway.weir">Seuil</string>
 	<string name="type.wheelchair.limited">Partiellement équipé pour l\'usage des fauteuils roulants</string>
 	<string name="type.wheelchair.no">Non équipé pour l\'usage des fauteuils roulants</string>
 	<string name="type.wheelchair.yes">Équipé pour l\'usage des fauteuils roulants</string>
+	<!-- en.wikipedia.org/wiki/Surface_lift -->
+	<string name="type.piste_lift">Téléski</string>
+	<string name="type.piste_lift.j.bar">Téléski</string>
+	<string name="type.piste_lift.magic_carpet">Tapis roulant</string>
+	<string name="type.piste_type.downhill">Piste de ski alpin</string>
+	<string name="type.piste_type.downhill.advanced">Piste de ski alpin</string>
+	<string name="type.piste_type.downhill.easy">Piste de ski alpin</string>
+	<string name="type.piste_type.downhill.expert">Piste de ski alpin</string>
+	<string name="type.piste_type.downhill.freeride">Piste de ski alpin</string>
+	<string name="type.piste_type.downhill.intermediate">Piste de ski alpin</string>
+	<string name="type.piste_type.downhill.novice">Piste de ski alpin</string>
+	<string name="type.piste_type.nordic">Piste de ski de fond</string>
+	<string name="type.piste_type.sled">Piste de luge</string>
 	<string name="type.building_part">Bâtiment</string>
 </resources>

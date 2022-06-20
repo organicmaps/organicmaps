@@ -2854,17 +2854,17 @@
 
 "type.shop.wine" = "Οινοπωλείο";
 
-"type.sport" = "sport";
+"type.sport" = "Αθλητισμός";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "αμερικάνικο ποδόσφαιρο";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Τοξοβολία";
 
 "type.sport.athletics" = "Στίβος";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Αυστραλιανό ποδόσφαιρο";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "Μπέιζμπολ";
 
 "type.sport.basketball" = "Μπάσκετ";
 
@@ -2872,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Κέρλινγκ";
 
 "type.sport.equestrian" = "Ιππασία";
 
-"type.sport.golf" = "Golf";
+"type.sport.golf" = "Γκολφ";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Γυμναστική";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Τόπι";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Διάφορα αθλήματα";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Κατάδυση";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Κυνήγι";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Χιονοδρόμια";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Ποδόσφαιρο";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Κολύμβηση";
 
 "type.sport.tennis" = "Γήπεδο τένις";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Πίνακας πληροφοριών";
 
-"type.tourism.information.guidepost" = "Τουριστικές πληροφορίες";
+"type.tourism.information.guidepost" = "Οδηγός";
 
 "type.tourism.information.map" = "Τουριστικός χάρτης";
 

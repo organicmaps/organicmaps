@@ -1291,14 +1291,19 @@
 	<string name="type.sport.american_football">Amerikkalainen jalkapallo</string>
 	<string name="type.sport.archery">Jousiammunta</string>
 	<string name="type.sport.athletics">Yleisurheilu</string>
+	<string name="type.sport.australian_football">Australialainen jalkapallo</string>
+	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Koripallo</string>
-	<string name="type.sport.bowls">Bowls</string>
+	<string name="type.sport.bowls">Nurmikeilailu</string>
 	<string name="type.sport.cricket">Kriketti</string>
 	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Hevosurheilu</string>
 	<string name="type.sport.golf">Golf</string>
 	<string name="type.sport.gymnastics">Voimistelu</string>
 	<string name="type.sport.handball">Käsipallo</string>
+	<string name="type.sport.multi">Erilaisia urheilulajeja</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Sukellus</string>
 	<string name="type.sport.shooting">Ammunta</string>
 	<string name="type.sport.skiing">Hiihto</string>
 	<string name="type.sport.soccer">Jalkapallo</string>
@@ -1324,7 +1329,7 @@
 	<string name="type.tourism.hotel">Hotelli</string>
 	<string name="type.tourism.information">Turisti-informaatio</string>
 	<string name="type.tourism.information.board">Informaatio</string>
-	<string name="type.tourism.information.guidepost">Turisti-informaatio</string>
+	<string name="type.tourism.information.guidepost">Tienviitta</string>
 	<string name="type.tourism.information.map">Turistikartta</string>
 	<string name="type.tourism.information.office">Turistitoimisto</string>
 	<string name="type.tourism.motel">Motelli</string>

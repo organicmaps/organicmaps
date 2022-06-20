@@ -1269,9 +1269,24 @@
 	<string name="type.shop.video">Predajňa s videami</string>
 	<string name="type.shop.video_games">Predajňa s videohrami</string>
 	<string name="type.shop.wine">Vinotéka</string>
+	<string name="type.sport">Šport</string>
+	<string name="type.sport.american_football">Americký futbal</string>
+	<string name="type.sport.archery">Lukostreľba</string>
 	<string name="type.sport.athletics">Atletika</string>
+	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Basketbal</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Jazdecké športy</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Gymnastika</string>
+	<string name="type.sport.handball">Hádzaná</string>
+	<string name="type.sport.multi">Rôzne športy</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Potápanie</string>
+	<string name="type.sport.shooting">Streľba</string>
+	<string name="type.sport.skiing">Lyžovanie</string>
+	<string name="type.sport.soccer">Futbal</string>
+	<string name="type.sport.swimming">Plávanie</string>
 	<string name="type.sport.tennis">Tenisový kurt</string>
 	<string name="type.tourism.alpine_hut">Horská chata</string>
 	<string name="type.tourism.apartment">Apartmány</string>
@@ -1289,7 +1304,7 @@
 	<string name="type.tourism.guest_house">Penzión</string>
 	<string name="type.tourism.information">Infocentrum</string>
 	<string name="type.tourism.information.board">Informačné centrum</string>
-	<string name="type.tourism.information.guidepost">Infocentrum</string>
+	<string name="type.tourism.information.guidepost">Smerovník</string>
 	<string name="type.tourism.information.map">Turistická mapa</string>
 	<string name="type.tourism.information.office">Turistické informačné centrum</string>
 	<string name="type.tourism.museum">Múzeum</string>

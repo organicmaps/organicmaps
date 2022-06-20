@@ -1439,13 +1439,13 @@
 	<string name="type.sport.bowls">ローンボウルズ</string>
 	<string name="type.sport.cricket">クリケット</string>
 	<string name="type.sport.curling">カーリング</string>
-	<string name="type.sport.diving">ダイビング</string>
 	<string name="type.sport.equestrian">馬術</string>
 	<string name="type.sport.golf">ゴルフ</string>
-	<string name="type.sport.gymnastics">体操競技</string>
+	<string name="type.sport.gymnastics">体操</string>
 	<string name="type.sport.handball">ハンドボール</string>
 	<string name="type.sport.multi">複数</string>
-	<string name="type.sport.scuba_diving">スクーバダイビング</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">スキューバダイビング</string>
 	<string name="type.sport.shooting">射撃競技</string>
 	<string name="type.sport.skiing">スキー</string>
 	<string name="type.sport.soccer">サッカー</string>

@@ -2854,15 +2854,15 @@
 
 "type.shop.wine" = "Wine Shop";
 
-"type.sport" = "sport";
+"type.sport" = "Спорт";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Американски футбол";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Стрелба с лък";
 
 "type.sport.athletics" = "Athletics";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Австралийски футбол";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2872,11 +2872,9 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
+"type.sport.curling" = "Curling";
 
-"type.sport.diving" = "Diving";
-
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.equestrian" = "Конен спорт";
 
 "type.sport.golf" = "Golf";
 
@@ -2884,19 +2882,20 @@
 
 "type.sport.handball" = "Handball";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Различни спортове";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Scuba diving site";
 
 "type.sport.shooting" = "Shooting";
 
 "type.sport.skiing" = "Skiing";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Soccer";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Плуване";
 
-"type.sport.tennis" = "Tennis Court";
+"type.sport.tennis" = "Тенис корт";
 
 "type.tourism" = "Tourism";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Information Board";
 
-"type.tourism.information.guidepost" = "Tourist Information";
+"type.tourism.information.guidepost" = "Пътеводител";
 
 "type.tourism.information.map" = "Tourist Map";
 

@@ -2858,37 +2858,36 @@
 
 "type.sport.american_football" = "Американський футбол";
 
-"type.sport.archery" = "Стрiльба з лука";
+"type.sport.archery" = "Стрільба з лука";
 
 "type.sport.athletics" = "Легка атлетика";
 
-"type.sport.australian_football" = "Регбi";
+"type.sport.australian_football" = "Австралійський футбол";
 
 "type.sport.baseball" = "Бейсбол";
 
 "type.sport.basketball" = "Баскетбол";
 
-"type.sport.bowls" = "Кеглi";
+"type.sport.bowls" = "Боулз";
 
 "type.sport.cricket" = "Крикет";
 
-"type.sport.curling" = "Керлiнг";
-
-"type.sport.diving" = "Пiдводне плавання";
+"type.sport.curling" = "Керлінг";
 
 "type.sport.equestrian" = "Кінний спорт";
 
 "type.sport.golf" = "Гольф";
 
-"type.sport.gymnastics" = "Гiмнастика";
+"type.sport.gymnastics" = "Гімнастика";
 
 "type.sport.handball" = "Гандбол";
 
 "type.sport.multi" = "Рiзноманiтнi типи спорту";
 
-"type.sport.scuba_diving" = "Акваланг";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Місце для дайвінгу";
 
-"type.sport.shooting" = "Стрiльба";
+"type.sport.shooting" = "Стрільба";
 
 "type.sport.skiing" = "Лижi";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Інформаційний щит";
 
-"type.tourism.information.guidepost" = "Турінформація";
+"type.tourism.information.guidepost" = "Вказівний стовп";
 
 "type.tourism.information.map" = "Мапа";
 

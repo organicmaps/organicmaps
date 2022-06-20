@@ -1266,9 +1266,27 @@
 	<string name="type.shop.video">Videobutikken</string>
 	<string name="type.shop.video_games">Videospillbutikken</string>
 	<string name="type.shop.wine">Alkoholutsalg</string>
+	<string name="type.sport">Sport</string>
+	<string name="type.sport.american_football">Amerikansk fotball</string>
+	<string name="type.sport.archery">Bueskyting</string>
 	<string name="type.sport.athletics">Friidrett</string>
+	<string name="type.sport.australian_football">Australsk fotball</string>
+	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Basketball</string>
+	<string name="type.sport.bowls">Bowls</string>
+	<string name="type.sport.cricket">Cricket</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Hestesport</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Gymnastikk</string>
+	<string name="type.sport.handball">Håndball</string>
+	<string name="type.sport.multi">Ulike idretter</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Dykking</string>
+	<string name="type.sport.shooting">Skyting</string>
+	<string name="type.sport.skiing">Stå på ski</string>
+	<string name="type.sport.soccer">Fotball</string>
+	<string name="type.sport.swimming">Svømming</string>
 	<string name="type.sport.tennis">Tennisbane</string>
 	<string name="type.tourism.alpine_hut">Fjellstue</string>
 	<string name="type.tourism.apartment">Leiligheter</string>
@@ -1288,7 +1306,7 @@
 	<string name="type.tourism.hotel">Hotell</string>
 	<string name="type.tourism.information">Turistinformasjon</string>
 	<string name="type.tourism.information.board">Informasjonstavle</string>
-	<string name="type.tourism.information.guidepost">Turistinformasjon</string>
+	<string name="type.tourism.information.guidepost">Guidepost</string>
 	<string name="type.tourism.information.map">Turistkart</string>
 	<string name="type.tourism.information.office">Turistkontor</string>
 	<string name="type.tourism.motel">Motell</string>

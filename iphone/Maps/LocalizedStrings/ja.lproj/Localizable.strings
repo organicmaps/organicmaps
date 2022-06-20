@@ -2874,19 +2874,18 @@
 
 "type.sport.curling" = "カーリング";
 
-"type.sport.diving" = "ダイビング";
-
 "type.sport.equestrian" = "馬術";
 
 "type.sport.golf" = "ゴルフ";
 
-"type.sport.gymnastics" = "体操競技";
+"type.sport.gymnastics" = "体操";
 
 "type.sport.handball" = "ハンドボール";
 
 "type.sport.multi" = "複数";
 
-"type.sport.scuba_diving" = "スクーバダイビング";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "スキューバダイビング";
 
 "type.sport.shooting" = "射撃競技";
 

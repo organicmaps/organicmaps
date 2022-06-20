@@ -2854,15 +2854,15 @@
 
 "type.shop.wine" = "Alkoholutsalg";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Amerikansk fotball";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Bueskyting";
 
 "type.sport.athletics" = "Friidrett";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australsk fotball";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2872,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Hestesport";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gymnastikk";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Håndball";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Ulike idretter";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Dykking";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Skyting";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Stå på ski";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Fotball";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Svømming";
 
 "type.sport.tennis" = "Tennisbane";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Informasjonstavle";
 
-"type.tourism.information.guidepost" = "Turistinformasjon";
+"type.tourism.information.guidepost" = "Guidepost";
 
 "type.tourism.information.map" = "Turistkart";
 

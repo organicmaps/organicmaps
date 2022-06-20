@@ -2862,19 +2862,17 @@
 
 "type.sport.athletics" = "Yleisurheilu";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australialainen jalkapallo";
 
 "type.sport.baseball" = "Baseball";
 
 "type.sport.basketball" = "Koripallo";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "Nurmikeilailu";
 
 "type.sport.cricket" = "Kriketti";
 
 "type.sport.curling" = "Curling";
-
-"type.sport.diving" = "Diving";
 
 "type.sport.equestrian" = "Hevosurheilu";
 
@@ -2884,9 +2882,10 @@
 
 "type.sport.handball" = "Käsipallo";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Erilaisia urheilulajeja";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Sukellus";
 
 "type.sport.shooting" = "Ammunta";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Informaatio";
 
-"type.tourism.information.guidepost" = "Turisti-informaatio";
+"type.tourism.information.guidepost" = "Tienviitta";
 
 "type.tourism.information.map" = "Turistikartta";
 

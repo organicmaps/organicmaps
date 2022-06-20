@@ -2862,19 +2862,17 @@
 
 "type.sport.athletics" = "Лёгкая атлетика";
 
-"type.sport.australian_football" = "Регби";
+"type.sport.australian_football" = "Австралийский футбол";
 
 "type.sport.baseball" = "Бейсбол";
 
 "type.sport.basketball" = "Баскетбол";
 
-"type.sport.bowls" = "Кегли";
+"type.sport.bowls" = "Боулз";
 
 "type.sport.cricket" = "Крикет";
 
-"type.sport.curling" = "Керлинг";
-
-"type.sport.diving" = "Подводное плавание";
+"type.sport.curling" = "Кёрлинг";
 
 "type.sport.equestrian" = "Конный спорт";
 
@@ -2886,7 +2884,8 @@
 
 "type.sport.multi" = "Различные виды спорта";
 
-"type.sport.scuba_diving" = "Акваланг";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Место для дайвинга";
 
 "type.sport.shooting" = "Стрельба";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Информационный щит";
 
-"type.tourism.information.guidepost" = "Туринформация";
+"type.tourism.information.guidepost" = "Указательный столб";
 
 "type.tourism.information.map" = "Карта";
 

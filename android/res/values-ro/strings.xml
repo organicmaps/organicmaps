@@ -1288,9 +1288,25 @@
 	<string name="type.shop.video">Magazin video</string>
 	<string name="type.shop.video_games">Magazin de jocuri video</string>
 	<string name="type.shop.wine">Vinărie</string>
+	<string name="type.sport">Sport</string>
+	<string name="type.sport.american_football">Fotbal american</string>
+	<string name="type.sport.archery">TIR cu arcul</string>
 	<string name="type.sport.athletics">Atletica ușoară</string>
+	<string name="type.sport.australian_football">Fotbal australian</string>
+	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Baschetbal</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Sport ecvestru</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Gimnastică</string>
+	<string name="type.sport.handball">Handbal</string>
+	<string name="type.sport.multi">Sporturi Diverse</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Scufundări</string>
+	<string name="type.sport.shooting">Filmare</string>
+	<string name="type.sport.skiing">Schi</string>
+	<string name="type.sport.soccer">Fotbal</string>
+	<string name="type.sport.swimming">Natație</string>
 	<string name="type.sport.tennis">Teren de tenis</string>
 	<string name="type.tourism.alpine_hut">Cabană de munte</string>
 	<string name="type.tourism.apartment">Apartamente</string>
@@ -1308,7 +1324,7 @@
 	<string name="type.tourism.guest_house">Pensiune</string>
 	<string name="type.tourism.information">Informații turistice</string>
 	<string name="type.tourism.information.board">Panou de informații</string>
-	<string name="type.tourism.information.guidepost">Informații turistice</string>
+	<string name="type.tourism.information.guidepost">Postul de ghidare</string>
 	<string name="type.tourism.information.map">Hartă turistică</string>
 	<string name="type.tourism.information.office">Birou de informații turistice</string>
 	<string name="type.tourism.museum">Muzeu</string>

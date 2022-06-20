@@ -2868,13 +2868,11 @@
 
 "type.sport.basketball" = "Basquetebol";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "Lawn bowls";
 
 "type.sport.cricket" = "Críquete";
 
 "type.sport.curling" = "Curling";
-
-"type.sport.diving" = "Mergulho";
 
 "type.sport.equestrian" = "Esportes equestres";
 
@@ -2882,13 +2880,14 @@
 
 "type.sport.gymnastics" = "Ginástica";
 
-"type.sport.handball" = "Andebol";
+"type.sport.handball" = "Handebol";
 
 "type.sport.multi" = "Vários desportos";
 
+/* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Mergulho autônomo";
 
-"type.sport.shooting" = "Tiro esportivo";
+"type.sport.shooting" = "Tiro desportivo";
 
 "type.sport.skiing" = "Esqui";
 

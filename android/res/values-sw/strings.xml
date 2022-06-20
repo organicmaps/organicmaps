@@ -360,10 +360,26 @@
 	<string name="type.railway.subway_entrance">Lango la kuingilia stesheni ya reli</string>
 	<string name="type.shop.video">Duka la Video</string>
 	<string name="type.shop.video_games">Duka la Video za Michezo</string>
+	<string name="type.sport">Michezo</string>
+	<string name="type.sport.american_football">Soka ya Marekani</string>
+	<string name="type.sport.archery">Upigaji mishale</string>
 	<string name="type.sport.athletics">Riadha</string>
+	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Mpira wa kikapu</string>
+	<string name="type.sport.curling">Kukunja</string>
 	<string name="type.sport.equestrian">Michezo ya Farasi</string>
+	<string name="type.sport.golf">Gofu</string>
+	<string name="type.sport.gymnastics">Gymnastics</string>
+	<string name="type.sport.handball">Mpira wa mikono</string>
+	<string name="type.sport.multi">Michezo Mbalimbali</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Upigaji mbizi wa Scuba</string>
+	<string name="type.sport.shooting">Kupiga risasi</string>
+	<string name="type.sport.skiing">Skii</string>
+	<string name="type.sport.soccer">Soka</string>
+	<string name="type.sport.swimming">Kuogelea</string>
 	<string name="type.sport.tennis">Wanja wa tenisi</string>
+	<string name="type.tourism.information.guidepost">Chapisho la mwongozo</string>
 	<string name="type.wheelchair.limited">Viti vya magurudumu vinaruhusiwa vichache</string>
 	<string name="type.wheelchair.no">Viti vya magurudumu haviruhusiwi</string>
 	<string name="type.wheelchair.yes">Viti vya magurudumu vinaruhusiwa kabisa</string>

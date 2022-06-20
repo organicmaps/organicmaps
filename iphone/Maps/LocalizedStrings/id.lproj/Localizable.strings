@@ -2854,47 +2854,46 @@
 
 "type.shop.wine" = "Toko anggur";
 
-"type.sport" = "sport";
+"type.sport" = "Olahraga";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Sepak Bola Amerika";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Panahan";
 
 "type.sport.athletics" = "Atletik";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Sepak bola Australia";
 
 "type.sport.baseball" = "Baseball";
 
 "type.sport.basketball" = "Bola basket";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "Boling lapangan";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.cricket" = "Kriket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Olahraga Berkuda";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Olahraga senam";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Bola tangan";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Berbagai Olahraga";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Selam scuba";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Penembakan";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Bermain ski";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Sepak bola";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Berenang";
 
 "type.sport.tennis" = "Lapangan tenis";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Papan informasi";
 
-"type.tourism.information.guidepost" = "Informasi turis";
+"type.tourism.information.guidepost" = "Tongkat petunjuk jalan";
 
 "type.tourism.information.map" = "Peta wisata";
 

@@ -2858,7 +2858,7 @@
 
 "type.sport.american_football" = "Fútbol americano";
 
-"type.sport.archery" = "Tiro con arco";
+"type.sport.archery" = "Tiro al arco";
 
 "type.sport.athletics" = "Atletismo";
 
@@ -2868,13 +2868,11 @@
 
 "type.sport.basketball" = "Baloncesto";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "Bolos sobre hierba";
 
 "type.sport.cricket" = "Críquet";
 
 "type.sport.curling" = "Curling";
-
-"type.sport.diving" = "Salto";
 
 "type.sport.equestrian" = "Equitación";
 
@@ -2886,9 +2884,10 @@
 
 "type.sport.multi" = "Varios deportes";
 
+/* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Submarinismo";
 
-"type.sport.shooting" = "Tiro deportivo";
+"type.sport.shooting" = "Tiroteo";
 
 "type.sport.skiing" = "Esquí";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Tablón de información";
 
-"type.tourism.information.guidepost" = "Información";
+"type.tourism.information.guidepost" = "Poste indicador";
 
 "type.tourism.information.map" = "Mapa turístico";
 

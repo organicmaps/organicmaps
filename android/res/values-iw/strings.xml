@@ -411,4 +411,23 @@
 	<string name="type.natural.water.reservoir">מאגר</string>
 	<string name="type.natural.water.basin">אגן מים</string>
 	<string name="type.natural.water">גוף מים</string>
+	<string name="type.sport">ספורט</string>
+	<string name="type.sport.american_football">כדורגל אמריקאי</string>
+	<string name="type.sport.archery">קַשׁתוּת</string>
+	<string name="type.sport.australian_football">פוטבול אוסטרלי</string>
+	<string name="type.sport.baseball">בייסבול</string>
+	<string name="type.sport.bowls">כדורת דשא</string>
+	<string name="type.sport.cricket">קריקט</string>
+	<string name="type.sport.curling">קרלינג</string>
+	<string name="type.sport.equestrian">רכיבה</string>
+	<string name="type.sport.golf">גולף</string>
+	<string name="type.sport.gymnastics">התעמלות</string>
+	<string name="type.sport.handball">כדוריד</string>
+	<string name="type.sport.multi">ענפי ספורט שונים</string>
+	<string name="type.sport.shooting">ירי ספורטיבי</string>
+	<string name="type.sport.skiing">סקי</string>
+	<string name="type.sport.soccer">כדורגל</string>
+	<string name="type.sport.swimming">שחייה</string>
+	<string name="type.sport.tennis">טֶנִיס</string>
+	<string name="type.tourism.information.guidepost">מנחה</string>
 </resources>

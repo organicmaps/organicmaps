@@ -1276,9 +1276,25 @@
 	<string name="type.shop.video">Βίντεο Κλαμπ</string>
 	<string name="type.shop.video_games">Κατάστημα βιντεοπαιχνιδιών</string>
 	<string name="type.shop.wine">Οινοπωλείο</string>
+	<string name="type.sport">Αθλητισμός</string>
+	<string name="type.sport.american_football">αμερικάνικο ποδόσφαιρο</string>
+	<string name="type.sport.archery">Τοξοβολία</string>
 	<string name="type.sport.athletics">Στίβος</string>
+	<string name="type.sport.australian_football">Αυστραλιανό ποδόσφαιρο</string>
+	<string name="type.sport.baseball">Μπέιζμπολ</string>
 	<string name="type.sport.basketball">Μπάσκετ</string>
+	<string name="type.sport.curling">Κέρλινγκ</string>
 	<string name="type.sport.equestrian">Ιππασία</string>
+	<string name="type.sport.golf">Γκολφ</string>
+	<string name="type.sport.gymnastics">Γυμναστική</string>
+	<string name="type.sport.handball">Τόπι</string>
+	<string name="type.sport.multi">Διάφορα αθλήματα</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Κατάδυση</string>
+	<string name="type.sport.shooting">Κυνήγι</string>
+	<string name="type.sport.skiing">Χιονοδρόμια</string>
+	<string name="type.sport.soccer">Ποδόσφαιρο</string>
+	<string name="type.sport.swimming">Κολύμβηση</string>
 	<string name="type.sport.tennis">Γήπεδο τένις</string>
 	<string name="type.tourism.alpine_hut">Ορεινό καταφύγιο</string>
 	<string name="type.tourism.apartment">Διαμερίσματα</string>
@@ -1299,7 +1315,7 @@
 	<string name="type.tourism.hotel">Ξενοδοχείο</string>
 	<string name="type.tourism.information">Τουριστικές πληροφορίες</string>
 	<string name="type.tourism.information.board">Πίνακας πληροφοριών</string>
-	<string name="type.tourism.information.guidepost">Τουριστικές πληροφορίες</string>
+	<string name="type.tourism.information.guidepost">Οδηγός</string>
 	<string name="type.tourism.information.map">Τουριστικός χάρτης</string>
 	<string name="type.tourism.information.office">Ενημέρωση τουριστών</string>
 	<string name="type.tourism.motel">Μοτέλ</string>

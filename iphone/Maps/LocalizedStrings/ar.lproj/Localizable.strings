@@ -2854,47 +2854,46 @@
 
 "type.shop.wine" = "متجر مشروبات روحية";
 
-"type.sport" = "sport";
+"type.sport" = "رياضة";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "كرة القدم الأمريكية";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "الرماية";
 
 "type.sport.athletics" = "العاب رياضية";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "كرة القدم الأسترالية";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "البيسبول";
 
 "type.sport.basketball" = "كرة السلة";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "لعبة البولينج";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.cricket" = "كريكت";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "كيرلنغ";
 
 "type.sport.equestrian" = "رياضة الفروسية";
 
-"type.sport.golf" = "Golf";
+"type.sport.golf" = "الجولف";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "رياضة بدنية";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "كرة اليد";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "رياضات متنوعة";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "الغوص";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "رماية";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "التزحلق";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "كرة القدم";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "سباحة";
 
 "type.sport.tennis" = "ملعب تنس";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "لوحة معلومات";
 
-"type.tourism.information.guidepost" = "معلومات سياحية";
+"type.tourism.information.guidepost" = "دليل";
 
 "type.tourism.information.map" = "خريطة سياحية";
 

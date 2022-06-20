@@ -2874,8 +2874,6 @@
 
 "type.sport.curling" = "Curling";
 
-"type.sport.diving" = "Salto egin";
-
 "type.sport.equestrian" = "Zaldi-lasterketa";
 
 "type.sport.golf" = "Golfa";
@@ -2886,9 +2884,10 @@
 
 "type.sport.multi" = "Hainbat kirol";
 
+/* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Urpekaritza";
 
-"type.sport.shooting" = "Kirolaren jaurtiketa";
+"type.sport.shooting" = "Tiroketa";
 
 "type.sport.skiing" = "Eskia";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Informazio taula";
 
-"type.tourism.information.guidepost" = "Informazioa";
+"type.tourism.information.guidepost" = "Gida postua";
 
 "type.tourism.information.map" = "Mapa turistikoa";
 

@@ -1274,9 +1274,27 @@
 	<string name="type.shop.video">비디오 가게</string>
 	<string name="type.shop.video_games">비디오 게임 가게</string>
 	<string name="type.shop.wine">와인 샵</string>
+	<string name="type.sport">스포츠</string>
+	<string name="type.sport.american_football">미식 축구</string>
+	<string name="type.sport.archery">양궁</string>
 	<string name="type.sport.athletics">육상 경기장</string>
+	<string name="type.sport.australian_football">오스트레일리안 풋볼</string>
+	<string name="type.sport.baseball">야구</string>
 	<string name="type.sport.basketball">야구</string>
+	<string name="type.sport.bowls">론볼</string>
+	<string name="type.sport.cricket">크리켓</string>
+	<string name="type.sport.curling">컬링</string>
 	<string name="type.sport.equestrian">승마 경기장</string>
+	<string name="type.sport.golf">골프</string>
+	<string name="type.sport.gymnastics">체조</string>
+	<string name="type.sport.handball">핸드볼</string>
+	<string name="type.sport.multi">다양한 스포츠</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">스쿠버 다이빙</string>
+	<string name="type.sport.shooting">사격 경기</string>
+	<string name="type.sport.skiing">스키 타기</string>
+	<string name="type.sport.soccer">축구</string>
+	<string name="type.sport.swimming">수영</string>
 	<string name="type.sport.tennis">테니스 코트</string>
 	<string name="type.tourism.alpine_hut">고산 오두막</string>
 	<string name="type.tourism.apartment">아파트</string>
@@ -1297,7 +1315,7 @@
 	<string name="type.tourism.hotel">호텔</string>
 	<string name="type.tourism.information">관광 정보</string>
 	<string name="type.tourism.information.board">정보 게시판</string>
-	<string name="type.tourism.information.guidepost">관광 정보</string>
+	<string name="type.tourism.information.guidepost">도표</string>
 	<string name="type.tourism.information.map">관광안내도</string>
 	<string name="type.tourism.information.office">관광정보센터</string>
 	<string name="type.tourism.motel">모텔</string>

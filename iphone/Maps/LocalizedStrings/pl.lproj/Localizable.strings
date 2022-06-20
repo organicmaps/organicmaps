@@ -2854,15 +2854,15 @@
 
 "type.shop.wine" = "Sklep monopolowy";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
 "type.sport.american_football" = "Futbol amerykański";
 
-"type.sport.archery" = "Łucznictwo sportowe";
+"type.sport.archery" = "Łucznictwo";
 
 "type.sport.athletics" = "Lekka atletyka";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Futbol australijski";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2872,9 +2872,7 @@
 
 "type.sport.cricket" = "Krykiet";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Jeździectwo";
 
@@ -2882,17 +2880,18 @@
 
 "type.sport.gymnastics" = "Gimnastyka";
 
-"type.sport.handball" = "Piłka ręczna";
+"type.sport.handball" = "Gra w piłkę ręczną";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Różne sporty";
 
+/* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Nurkowanie";
 
 "type.sport.shooting" = "Strzelectwo sportowe";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Jazda na nartach";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Piłka nożna";
 
 "type.sport.swimming" = "Pływanie";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Tablica informacyjna";
 
-"type.tourism.information.guidepost" = "Informacja turystyczna";
+"type.tourism.information.guidepost" = "Drogowskaz";
 
 "type.tourism.information.map" = "Mapa turystyczna";
 

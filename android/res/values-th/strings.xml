@@ -1278,9 +1278,24 @@
 	<string name="type.shop.video">ร้านขายดีวีดี</string>
 	<string name="type.shop.video_games">ร้านขายวิดีโอเกม</string>
 	<string name="type.shop.wine">ร้านขายไวน์</string>
+	<string name="type.sport">กีฬา</string>
+	<string name="type.sport.american_football">อเมริกันฟุตบอล</string>
+	<string name="type.sport.archery">ยิงธนู</string>
 	<string name="type.sport.athletics">กรีฑา</string>
+	<string name="type.sport.baseball">เบสบอล</string>
 	<string name="type.sport.basketball">บาสเก็ตบอล</string>
+	<string name="type.sport.curling">เคอร์ลิง</string>
 	<string name="type.sport.equestrian">กีฬาแข่งม้า</string>
+	<string name="type.sport.golf">กอล์ฟ</string>
+	<string name="type.sport.gymnastics">ยิมนาสติก</string>
+	<string name="type.sport.handball">แฮนด์บอล</string>
+	<string name="type.sport.multi">กีฬาต่างๆ</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">ดำน้ำลึก</string>
+	<string name="type.sport.shooting">ยิงปืน</string>
+	<string name="type.sport.skiing">เล่นสกี</string>
+	<string name="type.sport.soccer">ฟุตบอล</string>
+	<string name="type.sport.swimming">การว่ายน้ำ</string>
 	<string name="type.sport.tennis">คอร์ทเทนนิส</string>
 	<string name="type.tourism.alpine_hut">ที่พักบนภูเขาโรงแรม</string>
 	<string name="type.tourism.apartment">อพาร์ตเมนต์</string>
@@ -1301,7 +1316,7 @@
 	<string name="type.tourism.hotel">โรงแรม</string>
 	<string name="type.tourism.information">ข้อมูลการท่องเที่ยว</string>
 	<string name="type.tourism.information.board">บอร์ดประชาสัมพันธ์</string>
-	<string name="type.tourism.information.guidepost">ข้อมูลการท่องเที่ยว</string>
+	<string name="type.tourism.information.guidepost">ไกด์โพส</string>
 	<string name="type.tourism.information.map">แผนที่ท่องเที่ยว</string>
 	<string name="type.tourism.information.office">ศูนย์บริการนักท่องเที่ยว</string>
 	<string name="type.tourism.motel">โมเทล</string>

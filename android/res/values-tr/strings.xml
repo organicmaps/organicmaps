@@ -1510,21 +1510,21 @@
 	<string name="type.sport.american_football">Amerikan Futbolu</string>
 	<string name="type.sport.archery">Okçuluk</string>
 	<string name="type.sport.athletics">Atletizm</string>
-	<string name="type.sport.australian_football">Ragbi</string>
+	<string name="type.sport.australian_football">Avustralya futbolu</string>
 	<string name="type.sport.baseball">Beyzbol</string>
 	<string name="type.sport.basketball">Basketbol</string>
 	<string name="type.sport.bowls">Kuka Oynu</string>
 	<string name="type.sport.cricket">Kriket</string>
-	<string name="type.sport.curling">Сurling</string>
-	<string name="type.sport.diving">Dalış</string>
+	<string name="type.sport.curling">Körling</string>
 	<string name="type.sport.equestrian">Binicilik Sporları</string>
 	<string name="type.sport.golf">Golf</string>
 	<string name="type.sport.gymnastics">Jimnastik</string>
 	<string name="type.sport.handball">Hentbol</string>
 	<string name="type.sport.multi">Çeşitli Sporlar</string>
+	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Tüplü Dalış</string>
-	<string name="type.sport.shooting">Atış Sporları</string>
-	<string name="type.sport.skiing">Kayak</string>
+	<string name="type.sport.shooting">Çekim</string>
+	<string name="type.sport.skiing">Kayak yapmak</string>
 	<string name="type.sport.soccer">Futbol</string>
 	<string name="type.sport.swimming">Yüzme</string>
 	<string name="type.sport.tennis">Tenis Kortu</string>
@@ -1548,7 +1548,7 @@
 	<string name="type.tourism.hotel">Otel</string>
 	<string name="type.tourism.information">Turist Bilgilendirme</string>
 	<string name="type.tourism.information.board">Bilgi Panosu</string>
-	<string name="type.tourism.information.guidepost">Turist Bilgilendirme</string>
+	<string name="type.tourism.information.guidepost">Kılavuz direği</string>
 	<string name="type.tourism.information.map">Turist Haritası</string>
 	<string name="type.tourism.information.office">Turizm Ofisi</string>
 	<string name="type.tourism.motel">Motel</string>

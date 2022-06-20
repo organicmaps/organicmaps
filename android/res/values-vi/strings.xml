@@ -1273,9 +1273,26 @@
 	<string name="type.shop.video">Cửa hàng bán/cho thuê bằng đĩa</string>
 	<string name="type.shop.video_games">Cửa hàng bán trò chơi điện tử</string>
 	<string name="type.shop.wine">Rượu</string>
+	<string name="type.sport">Thể thao</string>
+	<string name="type.sport.american_football">Bóng bầu dục Mỹ</string>
+	<string name="type.sport.archery">Bắn cung</string>
 	<string name="type.sport.athletics">Điền kinh</string>
+	<string name="type.sport.australian_football">Bóng bầu dục Úc</string>
+	<string name="type.sport.baseball">Bóng chày</string>
 	<string name="type.sport.basketball">Bóng rổ</string>
+	<string name="type.sport.cricket">Cricket</string>
+	<string name="type.sport.curling">Bi đá trên băng</string>
 	<string name="type.sport.equestrian">Thể thao cưỡi ngựa</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Thể dục</string>
+	<string name="type.sport.handball">bóng ném</string>
+	<string name="type.sport.multi">Các môn thể thao khác nhau</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Môn lặn</string>
+	<string name="type.sport.shooting">Chụp</string>
+	<string name="type.sport.skiing">Trượt tuyết</string>
+	<string name="type.sport.soccer">Bóng đá</string>
+	<string name="type.sport.swimming">Bơi</string>
 	<string name="type.sport.tennis">Sân tenis</string>
 	<string name="type.tourism.alpine_hut">Nhà ở trên núi</string>
 	<string name="type.tourism.apartment">Căn hộ</string>
@@ -1296,7 +1313,7 @@
 	<string name="type.tourism.hotel">Khách sạn</string>
 	<string name="type.tourism.information">Thông tin du lịch</string>
 	<string name="type.tourism.information.board">Bảng Thông Tin</string>
-	<string name="type.tourism.information.guidepost">Thông tin du lịch</string>
+	<string name="type.tourism.information.guidepost">Hướng dẫn</string>
 	<string name="type.tourism.information.map">Bản Đồ Du Lịch</string>
 	<string name="type.tourism.information.office">Văn Phòng Du Lịch</string>
 	<string name="type.tourism.motel">Nhà nghỉ</string>

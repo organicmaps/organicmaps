@@ -744,4 +744,13 @@
 	<string name="type.natural.water.basin">Резервоар</string>
 	<string name="type.natural.water">Воден басейн</string>
 	<string name="type.office.telecommunication">Телекомуникационна компания</string>
+	<string name="type.sport">Спорт</string>
+	<string name="type.sport.american_football">Американски футбол</string>
+	<string name="type.sport.archery">Стрелба с лък</string>
+	<string name="type.sport.australian_football">Австралийски футбол</string>
+	<string name="type.sport.equestrian">Конен спорт</string>
+	<string name="type.sport.multi">Различни спортове</string>
+	<string name="type.sport.swimming">Плуване</string>
+	<string name="type.sport.tennis">Тенис корт</string>
+	<string name="type.tourism.information.guidepost">Пътеводител</string>
 </resources>

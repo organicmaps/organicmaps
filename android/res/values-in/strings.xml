@@ -1263,9 +1263,27 @@
 	<string name="type.shop.video">Toko video</string>
 	<string name="type.shop.video_games">Toko permainan video</string>
 	<string name="type.shop.wine">Toko anggur</string>
+	<string name="type.sport">Olahraga</string>
+	<string name="type.sport.american_football">Sepak Bola Amerika</string>
+	<string name="type.sport.archery">Panahan</string>
 	<string name="type.sport.athletics">Atletik</string>
+	<string name="type.sport.australian_football">Sepak bola Australia</string>
+	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Bola basket</string>
+	<string name="type.sport.bowls">Boling lapangan</string>
+	<string name="type.sport.cricket">Kriket</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Olahraga Berkuda</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Olahraga senam</string>
+	<string name="type.sport.handball">Bola tangan</string>
+	<string name="type.sport.multi">Berbagai Olahraga</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Selam scuba</string>
+	<string name="type.sport.shooting">Penembakan</string>
+	<string name="type.sport.skiing">Bermain ski</string>
+	<string name="type.sport.soccer">Sepak bola</string>
+	<string name="type.sport.swimming">Berenang</string>
 	<string name="type.sport.tennis">Lapangan tenis</string>
 	<string name="type.tourism.alpine_hut">Penginapan di pegunungan</string>
 	<string name="type.tourism.apartment">Apartemen</string>
@@ -1283,7 +1301,7 @@
 	<string name="type.tourism.guest_house">Wisma tamu</string>
 	<string name="type.tourism.information">Informasi turis</string>
 	<string name="type.tourism.information.board">Papan informasi</string>
-	<string name="type.tourism.information.guidepost">Informasi turis</string>
+	<string name="type.tourism.information.guidepost">Tongkat petunjuk jalan</string>
 	<string name="type.tourism.information.map">Peta wisata</string>
 	<string name="type.tourism.information.office">Kantor wisata</string>
 	<string name="type.tourism.picnic_site">Lokasi piknik</string>

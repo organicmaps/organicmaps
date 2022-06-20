@@ -2854,15 +2854,15 @@
 
 "type.shop.wine" = "Vinotéka";
 
-"type.sport" = "sport";
+"type.sport" = "Šport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Americký futbal";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Lukostreľba";
 
 "type.sport.athletics" = "Atletika";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australian Football";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2872,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Jazdecké športy";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gymnastika";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Hádzaná";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Rôzne športy";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Potápanie";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Streľba";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Lyžovanie";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Futbal";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Plávanie";
 
 "type.sport.tennis" = "Tenisový kurt";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Informačné centrum";
 
-"type.tourism.information.guidepost" = "Infocentrum";
+"type.tourism.information.guidepost" = "Smerovník";
 
 "type.tourism.information.map" = "Turistická mapa";
 

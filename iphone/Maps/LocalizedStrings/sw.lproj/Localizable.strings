@@ -2854,15 +2854,15 @@
 
 "type.shop.wine" = "Wine Shop";
 
-"type.sport" = "sport";
+"type.sport" = "Michezo";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Soka ya Marekani";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Upigaji mishale";
 
 "type.sport.athletics" = "Riadha";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australian Football";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2872,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Kukunja";
 
 "type.sport.equestrian" = "Michezo ya Farasi";
 
-"type.sport.golf" = "Golf";
+"type.sport.golf" = "Gofu";
 
 "type.sport.gymnastics" = "Gymnastics";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Mpira wa mikono";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Michezo Mbalimbali";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Upigaji mbizi wa Scuba";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Kupiga risasi";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Skii";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Soka";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Kuogelea";
 
 "type.sport.tennis" = "Wanja wa tenisi";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Information Board";
 
-"type.tourism.information.guidepost" = "Tourist Information";
+"type.tourism.information.guidepost" = "Chapisho la mwongozo";
 
 "type.tourism.information.map" = "Tourist Map";
 

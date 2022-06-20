@@ -2862,7 +2862,7 @@
 
 "type.sport.athletics" = "Atletizm";
 
-"type.sport.australian_football" = "Ragbi";
+"type.sport.australian_football" = "Avustralya futbolu";
 
 "type.sport.baseball" = "Beyzbol";
 
@@ -2872,9 +2872,7 @@
 
 "type.sport.cricket" = "Kriket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Dalış";
+"type.sport.curling" = "Körling";
 
 "type.sport.equestrian" = "Binicilik Sporları";
 
@@ -2886,11 +2884,12 @@
 
 "type.sport.multi" = "Çeşitli Sporlar";
 
+/* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Tüplü Dalış";
 
-"type.sport.shooting" = "Atış Sporları";
+"type.sport.shooting" = "Çekim";
 
-"type.sport.skiing" = "Kayak";
+"type.sport.skiing" = "Kayak yapmak";
 
 "type.sport.soccer" = "Futbol";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Bilgi Panosu";
 
-"type.tourism.information.guidepost" = "Turist Bilgilendirme";
+"type.tourism.information.guidepost" = "Kılavuz direği";
 
 "type.tourism.information.map" = "Turist Haritası";
 

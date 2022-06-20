@@ -1360,21 +1360,22 @@
 	<string name="type.shop.wine">Tienda de vinos</string>
 	<string name="type.sport">Deporte</string>
 	<string name="type.sport.american_football">Fútbol americano</string>
-	<string name="type.sport.archery">Tiro con arco</string>
+	<string name="type.sport.archery">Tiro al arco</string>
 	<string name="type.sport.athletics">Atletismo</string>
 	<string name="type.sport.australian_football">Fútbol australiano</string>
 	<string name="type.sport.baseball">Béisbol</string>
 	<string name="type.sport.basketball">Baloncesto</string>
+	<string name="type.sport.bowls">Bolos sobre hierba</string>
 	<string name="type.sport.cricket">Críquet</string>
 	<string name="type.sport.curling">Curling</string>
-	<string name="type.sport.diving">Salto</string>
 	<string name="type.sport.equestrian">Equitación</string>
 	<string name="type.sport.golf">Golf</string>
 	<string name="type.sport.gymnastics">Gimnasia</string>
 	<string name="type.sport.handball">Balonmano</string>
 	<string name="type.sport.multi">Varios deportes</string>
+	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Submarinismo</string>
-	<string name="type.sport.shooting">Tiro deportivo</string>
+	<string name="type.sport.shooting">Tiroteo</string>
 	<string name="type.sport.skiing">Esquí</string>
 	<string name="type.sport.soccer">Fútbol</string>
 	<string name="type.sport.swimming">Natación</string>
@@ -1398,7 +1399,7 @@
 	<string name="type.tourism.hostel">Albergue juvenil</string>
 	<string name="type.tourism.information">Información</string>
 	<string name="type.tourism.information.board">Tablón de información</string>
-	<string name="type.tourism.information.guidepost">Información</string>
+	<string name="type.tourism.information.guidepost">Poste indicador</string>
 	<string name="type.tourism.information.map">Mapa turístico</string>
 	<string name="type.tourism.information.office">Oficina de turismo</string>
 	<string name="type.tourism.museum">Museo</string>

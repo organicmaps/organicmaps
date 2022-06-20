@@ -2854,15 +2854,15 @@
 
 "type.shop.wine" = "Vinărie";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Fotbal american";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "TIR cu arcul";
 
 "type.sport.athletics" = "Atletica ușoară";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Fotbal australian";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2872,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Sport ecvestru";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gimnastică";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Handbal";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Sporturi Diverse";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Scufundări";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Filmare";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Schi";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Fotbal";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Natație";
 
 "type.sport.tennis" = "Teren de tenis";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Panou de informații";
 
-"type.tourism.information.guidepost" = "Informații turistice";
+"type.tourism.information.guidepost" = "Postul de ghidare";
 
 "type.tourism.information.map" = "Hartă turistică";
 

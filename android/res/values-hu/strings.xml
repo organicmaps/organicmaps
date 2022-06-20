@@ -1274,9 +1274,26 @@
 	<string name="type.shop.video">Videotéka</string>
 	<string name="type.shop.video_games">Videojáték bolt</string>
 	<string name="type.shop.wine">Szeszesital-üzlet</string>
+	<string name="type.sport">Sport</string>
+	<string name="type.sport.american_football">Amerikai foci</string>
+	<string name="type.sport.archery">Íjászat</string>
 	<string name="type.sport.athletics">Atlétika</string>
+	<string name="type.sport.australian_football">Ausztrál futball</string>
+	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Kosárlabda</string>
+	<string name="type.sport.cricket">Krikett</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Lovas sportok</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Gimnasztika</string>
+	<string name="type.sport.handball">Kézilabda</string>
+	<string name="type.sport.multi">Különféle sportágak</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Búvárkodás</string>
+	<string name="type.sport.shooting">Lövés</string>
+	<string name="type.sport.skiing">Síelés</string>
+	<string name="type.sport.soccer">Futball</string>
+	<string name="type.sport.swimming">Úszás</string>
 	<string name="type.sport.tennis">Teniszpálya</string>
 	<string name="type.tourism.alpine_hut">Hegyi menedék</string>
 	<string name="type.tourism.apartment">Apartmanok</string>
@@ -1296,7 +1313,7 @@
 	<string name="type.tourism.hotel">Szálloda</string>
 	<string name="type.tourism.information">Túrista információ</string>
 	<string name="type.tourism.information.board">Információs tábla</string>
-	<string name="type.tourism.information.guidepost">Túrista információ</string>
+	<string name="type.tourism.information.guidepost">Útmutató</string>
 	<string name="type.tourism.information.map">Turistatérkép</string>
 	<string name="type.tourism.information.office">Idegenforgalmi iroda</string>
 	<string name="type.tourism.museum">Múzeum</string>

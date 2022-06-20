@@ -2854,49 +2854,48 @@
 
 "type.shop.wine" = "Wine Shop";
 
-"type.sport" = "sport";
+"type.sport" = "ספורט";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "כדורגל אמריקאי";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "קַשׁתוּת";
 
 "type.sport.athletics" = "Athletics";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "פוטבול אוסטרלי";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "בייסבול";
 
 "type.sport.basketball" = "Basketball";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "כדורת דשא";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.cricket" = "קריקט";
 
-"type.sport.curling" = "Сurling";
+"type.sport.curling" = "קרלינג";
 
-"type.sport.diving" = "Diving";
+"type.sport.equestrian" = "רכיבה";
 
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.golf" = "גולף";
 
-"type.sport.golf" = "Golf";
+"type.sport.gymnastics" = "התעמלות";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.handball" = "כדוריד";
 
-"type.sport.handball" = "Handball";
+"type.sport.multi" = "ענפי ספורט שונים";
 
-"type.sport.multi" = "Various Sport";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Scuba diving site";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+"type.sport.shooting" = "ירי ספורטיבי";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.skiing" = "סקי";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.soccer" = "כדורגל";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.swimming" = "שחייה";
 
-"type.sport.swimming" = "Swimming";
-
-"type.sport.tennis" = "Tennis Court";
+"type.sport.tennis" = "טֶנִיס";
 
 "type.tourism" = "Tourism";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "Information Board";
 
-"type.tourism.information.guidepost" = "Tourist Information";
+"type.tourism.information.guidepost" = "מנחה";
 
 "type.tourism.information.map" = "Tourist Map";
 

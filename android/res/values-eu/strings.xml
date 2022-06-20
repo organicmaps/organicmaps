@@ -1346,14 +1346,14 @@
 	<string name="type.sport.basketball">Saskibaloia</string>
 	<string name="type.sport.cricket">Kilkerra</string>
 	<string name="type.sport.curling">Curling</string>
-	<string name="type.sport.diving">Salto egin</string>
 	<string name="type.sport.equestrian">Zaldi-lasterketa</string>
 	<string name="type.sport.golf">Golfa</string>
 	<string name="type.sport.gymnastics">Gimnasia</string>
 	<string name="type.sport.handball">Eskubaloia</string>
 	<string name="type.sport.multi">Hainbat kirol</string>
+	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Urpekaritza</string>
-	<string name="type.sport.shooting">Kirolaren jaurtiketa</string>
+	<string name="type.sport.shooting">Tiroketa</string>
 	<string name="type.sport.skiing">Eskia</string>
 	<string name="type.sport.soccer">Futbola</string>
 	<string name="type.sport.swimming">Igeriketa</string>
@@ -1377,7 +1377,7 @@
 	<string name="type.tourism.hostel">Gazteen aterpetxea</string>
 	<string name="type.tourism.information">Informazioa</string>
 	<string name="type.tourism.information.board">Informazio taula</string>
-	<string name="type.tourism.information.guidepost">Informazioa</string>
+	<string name="type.tourism.information.guidepost">Gida postua</string>
 	<string name="type.tourism.information.map">Mapa turistikoa</string>
 	<string name="type.tourism.information.office">Turismo bulegoa</string>
 	<string name="type.tourism.museum">Museoa</string>

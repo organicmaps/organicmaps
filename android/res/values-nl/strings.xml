@@ -1283,9 +1283,27 @@
 	<string name="type.shop.video">Videowinkel</string>
 	<string name="type.shop.video_games">Winkel voor videogames</string>
 	<string name="type.shop.wine">Wijn</string>
+	<string name="type.sport">Sport</string>
+	<string name="type.sport.american_football">Amerikaans voetbal</string>
+	<string name="type.sport.archery">Boogschieten</string>
 	<string name="type.sport.athletics">Atletiek</string>
+	<string name="type.sport.australian_football">Australian football</string>
+	<string name="type.sport.baseball">Basketbal</string>
 	<string name="type.sport.basketball">Basketbal</string>
+	<string name="type.sport.bowls">Bowls</string>
+	<string name="type.sport.cricket">Cricket</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Paardesport</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Gymnastiek</string>
+	<string name="type.sport.handball">Handbal</string>
+	<string name="type.sport.multi">Diverse sporten</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Duiken</string>
+	<string name="type.sport.shooting">schieten</string>
+	<string name="type.sport.skiing">Skiën</string>
+	<string name="type.sport.soccer">Voetbal</string>
+	<string name="type.sport.swimming">Zwemmen</string>
 	<string name="type.sport.tennis">Tennisveld</string>
 	<string name="type.tourism.alpine_hut">Berghut</string>
 	<string name="type.tourism.apartment">Appartementen</string>
@@ -1302,7 +1320,7 @@
 	<string name="type.tourism.guest_house">Gasthuis</string>
 	<string name="type.tourism.information">Toeristische informatie</string>
 	<string name="type.tourism.information.board">Informatiebord</string>
-	<string name="type.tourism.information.guidepost">Toeristische informatie</string>
+	<string name="type.tourism.information.guidepost">Wegwijzer</string>
 	<string name="type.tourism.information.map">Toeristische kaart</string>
 	<string name="type.tourism.information.office">Toeristische informatie</string>
 	<string name="type.tourism.picnic_site">Picnicplaats</string>

@@ -1406,19 +1406,26 @@
 	<string name="type.shop.video">Wypożyczalnia wideo</string>
 	<string name="type.shop.video_games">Sklep z grami wideo</string>
 	<string name="type.shop.wine">Sklep monopolowy</string>
+	<string name="type.sport">Sport</string>
 	<string name="type.sport.american_football">Futbol amerykański</string>
-	<string name="type.sport.archery">Łucznictwo sportowe</string>
+	<string name="type.sport.archery">Łucznictwo</string>
 	<string name="type.sport.athletics">Lekka atletyka</string>
+	<string name="type.sport.australian_football">Futbol australijski</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Koszykówka</string>
 	<string name="type.sport.bowls">Kręgle</string>
 	<string name="type.sport.cricket">Krykiet</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Jeździectwo</string>
 	<string name="type.sport.golf">Golf</string>
 	<string name="type.sport.gymnastics">Gimnastyka</string>
-	<string name="type.sport.handball">Piłka ręczna</string>
+	<string name="type.sport.handball">Gra w piłkę ręczną</string>
+	<string name="type.sport.multi">Różne sporty</string>
+	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Nurkowanie</string>
 	<string name="type.sport.shooting">Strzelectwo sportowe</string>
+	<string name="type.sport.skiing">Jazda na nartach</string>
+	<string name="type.sport.soccer">Piłka nożna</string>
 	<string name="type.sport.swimming">Pływanie</string>
 	<string name="type.sport.tennis">Kort tenisowy</string>
 	<string name="type.tourism">Turystyka</string>
@@ -1439,7 +1446,7 @@
 	<string name="type.tourism.guest_house">Pensjonat</string>
 	<string name="type.tourism.information">Informacja turystyczna</string>
 	<string name="type.tourism.information.board">Tablica informacyjna</string>
-	<string name="type.tourism.information.guidepost">Informacja turystyczna</string>
+	<string name="type.tourism.information.guidepost">Drogowskaz</string>
 	<string name="type.tourism.information.map">Mapa turystyczna</string>
 	<string name="type.tourism.information.office">Biuro informacji turystycznej</string>
 	<string name="type.tourism.museum">Muzeum</string>

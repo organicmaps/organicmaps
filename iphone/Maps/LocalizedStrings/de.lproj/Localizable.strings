@@ -2862,7 +2862,7 @@
 
 "type.sport.athletics" = "Leichtathletik";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australian Football";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2874,9 +2874,7 @@
 
 "type.sport.curling" = "Curling";
 
-"type.sport.diving" = "Tauchen";
-
-"type.sport.equestrian" = "Reiten";
+"type.sport.equestrian" = "Reitsport";
 
 "type.sport.golf" = "Golf";
 
@@ -2884,13 +2882,14 @@
 
 "type.sport.handball" = "Handball";
 
-"type.sport.multi" = "verschiedene Sportarten";
+"type.sport.multi" = "Verschiedene Sportarten";
 
-"type.sport.scuba_diving" = "Sporttauchen";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Gerätetauchen";
 
-"type.sport.shooting" = "Sportschießen";
+"type.sport.shooting" = "Schießen";
 
-"type.sport.skiing" = "Skisport";
+"type.sport.skiing" = "Skifahren";
 
 "type.sport.soccer" = "Fußball";
 
@@ -2900,7 +2899,7 @@
 
 "type.tourism" = "Tourismus";
 
-"type.tourism.alpine_hut" = "Berghütte";
+"type.tourism.alpine_hut" = "bewirtschaftete Schutzhütte";
 
 "type.tourism.apartment" = "Ferienwohnung";
 
@@ -2956,7 +2955,7 @@
 
 "type.tourism.viewpoint" = "Aussichtspunkt";
 
-"type.tourism.wilderness_hut" = "Wildnishütte";
+"type.tourism.wilderness_hut" = "unbewirtschaftete Schutzhütte";
 
 "type.tourism.zoo" = "Zoo";
 

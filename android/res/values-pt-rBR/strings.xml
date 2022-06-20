@@ -1495,19 +1495,11 @@
 	<string name="type.sport.australian_football">Futebol australiano</string>
 	<string name="type.sport.baseball">Beisebol</string>
 	<string name="type.sport.basketball">Basquetebol</string>
-	<string name="type.sport.bowls">Bowls</string>
-	<string name="type.sport.cricket">Críquete</string>
-	<string name="type.sport.curling">Curling</string>
-	<string name="type.sport.diving">Mergulho</string>
 	<string name="type.sport.equestrian">Esportes equestres</string>
-	<string name="type.sport.golf">Golfe</string>
-	<string name="type.sport.gymnastics">Ginástica</string>
-	<string name="type.sport.handball">Andebol</string>
+	<string name="type.sport.handball">Handebol</string>
 	<string name="type.sport.multi">Vários desportos</string>
+	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Mergulho autônomo</string>
-	<string name="type.sport.shooting">Tiro esportivo</string>
-	<string name="type.sport.skiing">Esqui</string>
-	<string name="type.sport.soccer">Futebol</string>
 	<string name="type.sport.swimming">Natação esportiva</string>
 	<string name="type.sport.tennis">Quadra de tênis</string>
 	<string name="type.tourism">Turismo</string>

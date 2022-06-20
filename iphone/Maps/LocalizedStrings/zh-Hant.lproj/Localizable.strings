@@ -2854,47 +2854,46 @@
 
 "type.shop.wine" = "販酒處";
 
-"type.sport" = "sport";
+"type.sport" = "體育運動";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "美式足球";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "射箭";
 
-"type.sport.athletics" = "田徑";
+"type.sport.athletics" = "競技";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "澳式足球";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "棒球";
 
 "type.sport.basketball" = "籃球";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "草地滾球";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.cricket" = "板球";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "冰壺";
 
 "type.sport.equestrian" = "馬術運動";
 
-"type.sport.golf" = "Golf";
+"type.sport.golf" = "高爾夫球";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "體操";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "手球";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "各種運動";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "水肺潛水";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "射擊";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "滑雪";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "足球";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "游泳";
 
 "type.sport.tennis" = "網球場";
 
@@ -2938,7 +2937,7 @@
 
 "type.tourism.information.board" = "資訊中心";
 
-"type.tourism.information.guidepost" = "觀光諮詢";
+"type.tourism.information.guidepost" = "指路牌";
 
 "type.tourism.information.map" = "旅遊地圖";
 
