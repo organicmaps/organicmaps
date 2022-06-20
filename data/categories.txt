@@ -176,7 +176,7 @@ cs:2Čerpací stanice|Benzinová pumpa|benzinka
 da:Brændstof|Benzin
 nl:3Benzine
 fi:3Huoltoasema
-fr:3Essence
+fr:3Stations-service|4Essence|4Carburant
 de:3Tankstelle
 hu:Benzinkút
 id:Bahan bakar
@@ -292,7 +292,7 @@ cs:Hotel|Hotely
 da:Hotel|Hoteller
 nl:Hotel|Hotels
 fi:Hotelli|Hotellit
-fr:Hôtel|Hôtels
+fr:Hôtel|Hôtels|4Hébergement
 de:Hotel|Hotels
 hu:Szálloda|Szállodák|Hotel|Hotelek
 id:Hotel|Hotel
@@ -514,6 +514,7 @@ fa:خود پرداز
 @rv
 en:2RV Facilities|4Caravan|Vanlife|5Campervan|5Motorhome
 be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Дом на колах
+fr:3Aménagements pour camping-car|caravane|mobile home
 ru:Для автодомов|5Автодом|5Трейлер|Дом на колёсах
 ro:Pentru rulote|3Rulotă|RV
 tr:4Karavan Tesisleri
@@ -7928,7 +7929,7 @@ cs:4Veterinář
 da:Dyrlæge
 nl:Dierenarts
 fi:Eläinlääkäri
-fr:Docteur vétérinaire
+fr:Docteur vétérinaire|véto
 de:Tierarzt
 hu:Állatorvos
 id:Dokter Hewan
@@ -8525,7 +8526,7 @@ cs:Automat na nápoje
 da:Automat for drikkevarer|drikkevarer
 nl:Drankautomaat
 fi:Juoma-automaatti
-fr:Distributeur de boissons
+fr:Distributeur de boissons|cannettes
 de:Getränkeautomat
 hu:Italautomata
 id:Mesin penjual minuman
@@ -8557,7 +8558,7 @@ be:Аўтамат з ежай|5перакус|4снэкі
 de:Essensautomat
 es:Máquina expendedora de comida|Comida|Snacks
 eu:4Janaria saltzeko makina|Elikagaia|Askariak
-fr:Distributeur de aliments|Aliments
+fr:Distributeur d'aliments|Aliments
 it:Distributore automatico di alimenti|Macchinetta automatica|Snack
 ru:Автомат с едой|5перекус|4снэки
 uk:Автомат з їжею|5перекус|4снекі
@@ -8664,6 +8665,7 @@ amenity-vending_machine-excrement_bags
 en:5Excrement Bags Dispenser|4Poop Bags|3Dog Poop Bags|Animal Waste
 be:5Мяшкі дзеля экскрыментаў|Какашкі|5Пакеты для какашак
 de:Hundetütenspender|Hundekotsäckchenspender
+fr:5Distributeur de sacs à excréments
 ru:5Пакеты для экскрементов|Какашки|Пакеты для какашек
 tr:5Dışkı torbası dispenseri
 uk:5Мішки для екскрементів|Какашки|5Пакети для какашок
@@ -8673,6 +8675,7 @@ amenity-parcel_locker|@post
 en:4Parcel Locker|4Parcel Pickup
 be:3Паштамат|5Атрыманне пасылак
 de:Paketstation|Paket Abholstation|Paket SB|Paket Versandstation
+fr:Consigne automatique pour colis|3locker
 ru:3Почтомат|Постамат|5Получение посылок
 tr:4koli dolabı
 uk:3Поштомат|5Отримання посилок
@@ -8871,7 +8874,7 @@ cs:Prodej ryb
 da:Fiskehandler
 nl:Visboer|vismarkt|vis|zeevoedsel|schelpdier
 fi:Kalakauppias
-fr:Poissonnier
+fr:Poissonnier|fruits de mer
 de:Fischhändler|Fischmarkt|Fisch|Meeresfrüchte|Schaltier
 hu:Halüzlet
 id:Penjual Ikan
@@ -9082,7 +9085,7 @@ cs:Turistická mapa
 da:Turistkort
 nl:Toeristische kaart|toeristenkaart
 fi:Turistikartta
-fr:Carte touristique
+fr:Carte touristique|Plan
 de:Touristenkarte
 hu:Turistatérkép
 id:Peta wisata
@@ -9710,7 +9713,7 @@ cs:Byty
 da:Lejligheder
 nl:5Appartementen
 fi:Loma-asunnot
-fr:5Appart'hôtel
+fr:5Appart'hôtel|Meublé de tourisme
 de:5Appartements
 hu:5Apartmanok
 id:5Apartemen
@@ -9855,7 +9858,7 @@ el:Παγωτατζίδικο
 es:5Heladería
 eu:5Izozkitegia
 fi:5Jäätelökioski
-fr:Stand de crème glacée
+fr:Stand de crème glacée|Marchand de glaces
 hu:5Fagylaltárus
 id:Kios Es Krim
 it:Chiosco gelati
@@ -10145,7 +10148,7 @@ el:Γυμναστήριο
 es:Gimnasio
 eu:Gimnasioa
 fi:Kuntokeskus
-fr:Station de fitness
+fr:Station de fitness|Parcours de santé
 hu:3Fitneszpark
 id:Stasiun Kebugaran
 it:Centro fitness
@@ -10182,7 +10185,7 @@ el:Ασφαλιστικό γραφείο
 es:Oficina de seguros
 eu:Aseguru bulegoa
 fi:Vakuutuslaitos
-fr:Bureau d’assurance
+fr:Bureau d’assurance|assureur
 hu:Biztosító
 id:Kantor Asuransi
 it:Ufficio assicurazioni
@@ -10537,7 +10540,7 @@ cs:4Videopůjčovna
 da:4Videobutik
 nl:4Videowinkel
 fi:4Videokauppa
-fr:Boutique de vidéos
+fr:Boutique de vidéos|videostore
 de:4Videoshop
 hu:4Videotéka
 id:Toko video
