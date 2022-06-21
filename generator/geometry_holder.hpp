@@ -58,15 +58,24 @@ public:
 
   Points const & GetSourcePoints()
   {
+    // For short lines keep simplifying the previous version to ensure points visibility is consistent.
     return !m_current.empty() ? m_current : m_fb.GetOuterGeometry();
   }
 
+  // Its important AddPoints is called sequentially from upper scales to lower.
   void AddPoints(Points const & points, int scaleIndex)
   {
     if (m_ptsInner && points.size() <= m_maxNumTriangles)
     {
+      // Store small features inline and keep a mask for individual points scale visibility.
       if (m_buffer.m_innerPts.empty())
+      {
+        // If geometry is added for the most detailed scale 3 only then
+        // the mask is never updated and left == 0, which is fine as the feature
+        // will not be visible on lower scales. And for the style design case
+        // all points will be used as a fallback geometry anyway.
         m_buffer.m_innerPts = points;
+      }
       else
         FillInnerPointsMask(points, scaleIndex);
       m_current = points;

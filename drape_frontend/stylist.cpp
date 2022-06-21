@@ -149,6 +149,9 @@ private:
     else
     {
       m2::RectD const r = m_f.GetLimitRect(m_zoomLevel);
+      // TODO: m_priorityModifier is not used anywhere,
+      // but maybe could be used to draw small areas over large ones?
+      // See https://github.com/organicmaps/organicmaps/issues/2170
       m_priorityModifier = std::min(1.0, r.SizeX() * r.SizeY() * 10000.0);
     }
   }

@@ -153,6 +153,8 @@ bool GetBoundingBoxArea(FeatureType & ft, double & sqM)
   if (feature::GeomType::Area != ft.GetGeomType())
     return false;
 
+  // FIXME: the best geometry is loaded here always, use the current zoom level
+  // see https://github.com/organicmaps/organicmaps/issues/2840
   sqM = mercator::AreaOnEarth(ft.GetLimitRect(scales::GetUpperScale()));
   return true;
 }
