@@ -18,6 +18,7 @@ UNIT_TEST(EditableMapObject_ValidateFacebookPage)
   TEST(osm::ValidateFacebookPage("some.good.page"), ());
   TEST(osm::ValidateFacebookPage("Quaama-Volunteer-Bushfire-Brigade-526790054021506"), ());
   TEST(osm::ValidateFacebookPage("P\xE1ter-Bonif\xE1""c-Restaurant-Budapest-111001693867133"), ());
+  TEST(osm::ValidateFacebookPage("P\xc3\xa1ter-Bonif\xc3\xa1""c-Restaurant-Budapest-111001693867133"), ());
   TEST(osm::ValidateFacebookPage("@tree-house-interiors"), ());
   TEST(osm::ValidateFacebookPage("allow_underscore-1234567890"), ());
   TEST(osm::ValidateFacebookPage("alexander.net"), ());
