@@ -23,6 +23,7 @@ omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT REQUIRE_SERVER)
 
 target_link_libraries(${PROJECT_NAME}
   search_tests_support
+  platform_tests_support
   generator_tests_support
   map
 )

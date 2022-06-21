@@ -187,6 +187,20 @@ void BookmarkManager::DeleteUserMark(kml::MarkId markId)
 Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bmData)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  if (!bmData.m_iconPath.empty())
+  {
+    // Check that user icon file is actually present.
+    if (!GetPlatform().IsFileExistsByFullPath(base::JoinPath(GetBookmarksDirectory(), bmData.m_iconPath)))
+    {
+      LOG(LWARNING, ("Bookmark's icon file is not exist:", bmData.m_iconPath));
+
+      bmData.m_iconPath.clear();
+      if (bmData.m_color.m_predefinedColor == kml::PredefinedColor::None)
+        bmData.m_color.m_predefinedColor = kml::PredefinedColor::Red;
+    }
+  }
+
   return AddBookmark(std::make_unique<Bookmark>(std::move(bmData)));
 }
 

@@ -73,7 +73,9 @@ fileprivate func uiColorForBookmarkColor(_ color: BookmarkColor) -> UIColor {
   case .gray: return rgbColor(115, 115, 115);
   case .blueGray: return rgbColor(89, 115, 128);
   case .none, .count:
-    fatalError()
+    // Clear color (transparent) for custom symbols.
+    /// @todo Rewrite and show custom images in Bookmarls view.
+    return UIColor.clear
   @unknown default:
     fatalError()
   }
