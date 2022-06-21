@@ -49,8 +49,7 @@ std::string const kCompilationFooter = "</" + kCompilation + ">\n";
 
 auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
 
-auto const kDefaultTrackWidth = 5.0;
-auto const kDefaultTrackColor = 0x006ec7ff;
+uint32_t const kDefaultTrackColor = 0x006ec7ff;
 
 std::string Indent(size_t count)
 {
@@ -130,8 +129,7 @@ PredefinedColor ExtractPlacemarkPredefinedColor(std::string const & s)
   if (s == "#placemark-bluegray")
     return PredefinedColor::BlueGray;
 
-  // Default color.
-  return PredefinedColor::Red;
+  return PredefinedColor::None;
 }
 
 std::string GetStyleForPredefinedColor(PredefinedColor color)
@@ -191,8 +189,7 @@ void SaveStringWithCDATA(KmlWriter::WriterWrapper & writer, std::string const & 
     writer << s;
 }
 
-void SaveStyle(KmlWriter::WriterWrapper & writer, std::string const & style,
-               std::string const & offsetStr)
+void SaveStyle(KmlWriter::WriterWrapper & writer, std::string const & style, std::string const & offsetStr)
 {
   if (style.empty())
     return;
@@ -200,7 +197,7 @@ void SaveStyle(KmlWriter::WriterWrapper & writer, std::string const & style,
   writer << offsetStr << kIndent2 << "<Style id=\"" << style << "\">\n"
          << offsetStr << kIndent4 << "<IconStyle>\n"
          << offsetStr << kIndent6 << "<Icon>\n"
-         << offsetStr << kIndent8 << "<href>https://omaps.app/placemarks/" << style << ".png</href>\n"
+         << offsetStr << kIndent8 << "<href>" << style << "</href>\n"
          << offsetStr << kIndent6 << "</Icon>\n"
          << offsetStr << kIndent4 << "</IconStyle>\n"
          << offsetStr << kIndent2 << "</Style>\n";
@@ -270,10 +267,6 @@ void SaveStringsMap(KmlWriter::WriterWrapper & writer,
   }
   writer << offsetStr << "</mwm:" << tagName << ">\n";
 }
-
-void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & categoryData,
-                      std::string const & extendedServerId,
-                      std::vector<CategoryData> const * compilationData);
 
 void SaveCategoryExtendedData(KmlWriter::WriterWrapper & writer, CategoryData const & categoryData,
                               std::string const & extendedServerId,
@@ -355,9 +348,8 @@ void SaveCategoryExtendedData(KmlWriter::WriterWrapper & writer, CategoryData co
 
   if (compilationData)
   {
-    for (auto const & compilationDatum : *compilationData)
-      SaveCategoryData(writer, compilationDatum, {} /* extendedServerId */,
-                       nullptr /* compilationData */);
+    for (auto const & cd : *compilationData)
+      SaveCategoryExtendedData(writer, cd, {} /* extendedServerId */, nullptr /* compilationData */);
   }
 
   if (compilationData)
@@ -368,34 +360,23 @@ void SaveCategoryExtendedData(KmlWriter::WriterWrapper & writer, CategoryData co
 
 void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & categoryData,
                       std::string const & extendedServerId,
-                      std::vector<CategoryData> const * compilationData)
+                      std::vector<CategoryData> const & compilationData)
 {
-  if (compilationData)
+  // Use CDATA if we have special symbols in the name.
+  writer << kIndent2 << "<name>";
+  SaveStringWithCDATA(writer, GetLocalizableString(categoryData.m_name, kDefaultLang));
+  writer << "</name>\n";
+
+  if (!categoryData.m_description.empty())
   {
-    for (uint8_t i = 0; i < base::Underlying(PredefinedColor::Count); ++i)
-    {
-      SaveStyle(writer, GetStyleForPredefinedColor(static_cast<PredefinedColor>(i)),
-                compilationData ? kIndent0 : kIndent2);
-    }
-
-    auto const & indent = compilationData ? kIndent2 : kIndent4;
-
-    // Use CDATA if we have special symbols in the name.
-    writer << indent << "<name>";
-    SaveStringWithCDATA(writer, GetLocalizableString(categoryData.m_name, kDefaultLang));
-    writer << "</name>\n";
-
-    if (!categoryData.m_description.empty())
-    {
-      writer << indent << "<description>";
-      SaveStringWithCDATA(writer, GetLocalizableString(categoryData.m_description, kDefaultLang));
-      writer << "</description>\n";
-    }
-
-    writer << indent << "<visibility>" << (categoryData.m_visible ? "1" : "0") << "</visibility>\n";
+    writer << kIndent2 << "<description>";
+    SaveStringWithCDATA(writer, GetLocalizableString(categoryData.m_description, kDefaultLang));
+    writer << "</description>\n";
   }
 
-  SaveCategoryExtendedData(writer, categoryData, extendedServerId, compilationData);
+  writer << kIndent2 << "<visibility>" << (categoryData.m_visible ? "1" : "0") << "</visibility>\n";
+
+  SaveCategoryExtendedData(writer, categoryData, extendedServerId, &compilationData);
 }
 
 void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData const & bookmarkData)
@@ -491,7 +472,9 @@ void SaveBookmarkData(KmlWriter::WriterWrapper & writer, BookmarkData const & bo
            << "</when></TimeStamp>\n";
   }
 
-  auto const style = GetStyleForPredefinedColor(bookmarkData.m_color.m_predefinedColor);
+  auto style = bookmarkData.m_iconPath;
+  if (style.empty())
+    style = GetStyleForPredefinedColor(bookmarkData.m_color.m_predefinedColor);
   writer << kIndent4 << "<styleUrl>#" << style << "</styleUrl>\n"
          << kIndent4 << "<Point><coordinates>" << PointToString(bookmarkData.m_point)
          << "</coordinates></Point>\n";
@@ -633,9 +616,23 @@ void KmlWriter::Write(FileData const & fileData)
 {
   m_writer << kKmlHeader;
 
+  // Save predefined styles.
+  for (uint8_t i = 0; i < base::Underlying(PredefinedColor::Count); ++i)
+  {
+    auto const style = GetStyleForPredefinedColor(static_cast<PredefinedColor>(i));
+    if (!style.empty())
+      SaveStyle(m_writer, "https://omaps.app/placemarks/" + style + ".png", kIndent0);
+  }
+
+  // Save user styles.
+  for (auto const & bd : fileData.m_bookmarksData)
+  {
+    if (!bd.m_iconPath.empty())
+      SaveStyle(m_writer, bd.m_iconPath, kIndent0);
+  }
+
   // Save category.
-  SaveCategoryData(m_writer, fileData.m_categoryData, fileData.m_serverId,
-                   &fileData.m_compilationsData);
+  SaveCategoryData(m_writer, fileData.m_categoryData, fileData.m_serverId, fileData.m_compilationsData);
 
   // Save bookmarks.
   for (auto const & bookmarkData : fileData.m_bookmarksData)
@@ -661,14 +658,17 @@ void KmlParser::ResetPoint()
   m_name.clear();
   m_description.clear();
   m_org = {};
-  m_predefinedColor = PredefinedColor::None;
   m_viewportScale = 0;
   m_timestamp = {};
 
-  m_color = 0;
+  m_currStyle.Invalidate();
   m_styleId.clear();
   m_mapStyleId.clear();
   m_styleUrlKey.clear();
+
+  m_predefinedColor = PredefinedColor::None;
+  m_icon = BookmarkIcon::None;
+  m_iconPath.clear();
 
   m_featureTypes.clear();
   m_customName.clear();
@@ -679,8 +679,6 @@ void KmlParser::ResetPoint()
   m_properties.clear();
   m_localId = 0;
   m_trackLayers.clear();
-  m_trackWidth = kDefaultTrackWidth;
-  m_icon = BookmarkIcon::None;
 
   m_pointsWithAltitudes.clear();
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
@@ -721,13 +719,19 @@ bool KmlParser::MakeValid()
       if (m_name.empty() && m_featureTypes.empty())
         m_name[kDefaultLang] = PointToString(m_org);
 
-      // Set default pin.
-      if (m_predefinedColor == PredefinedColor::None)
+      if (m_predefinedColor != PredefinedColor::None)
+      {
+        // We use fixed predefined colors instead of their path like "https://omaps.app/placemarks/placemark-red.png".
+        m_iconPath.clear();
+      }
+      else if (m_iconPath.empty())
+      {
+        // Set default color if there is no icon path.
         m_predefinedColor = PredefinedColor::Red;
+      }
 
       return true;
     }
-    return false;
   }
   else if (GEOMETRY_TYPE_LINE == m_geometryType)
   {
@@ -744,35 +748,32 @@ void KmlParser::ParseColor(std::string const & value)
     return;
 
   // Color positions in HEX – aabbggrr.
-  m_color = ToRGBA(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
+  m_currStyle.color = ToRGBA(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
 }
 
-bool KmlParser::GetColorForStyle(std::string const & styleUrl, uint32_t & color) const
+KmlParser::StyleParams const * KmlParser::GetStyle(std::string styleUrl) const
 {
   if (styleUrl.empty())
-    return false;
+    return nullptr;
 
-  // Remove leading '#' symbol
-  auto const it = m_styleUrl2Color.find(styleUrl.substr(1));
-  if (it != m_styleUrl2Color.cend())
+  while (true)
   {
-    color = it->second;
-    return true;
+    // Remove leading '#' symbol
+    ASSERT(styleUrl[0] == '#', (styleUrl));
+    styleUrl = styleUrl.substr(1);
+
+    auto const it = m_styleParams.find(styleUrl);
+    if (it != m_styleParams.cend())
+      return &it->second;
+
+    auto st = m_mapStyle2Style.find(styleUrl);
+    if (st != m_mapStyle2Style.end())
+      styleUrl = st->second;
+    else
+      break;
   }
-  return false;
-}
 
-double KmlParser::GetTrackWidthForStyle(std::string const & styleUrl) const
-{
-  if (styleUrl.empty())
-    return kDefaultTrackWidth;
-
-  // Remove leading '#' symbol
-  auto const it = m_styleUrl2Width.find(styleUrl.substr(1));
-  if (it != m_styleUrl2Width.cend())
-    return it->second;
-
-  return kDefaultTrackWidth;
+  return nullptr;
 }
 
 bool KmlParser::Push(std::string const & tag)
@@ -857,9 +858,13 @@ void KmlParser::Pop(std::string const & tag)
         BookmarkData data;
         data.m_name = std::move(m_name);
         data.m_description = std::move(m_description);
+
         data.m_color.m_predefinedColor = m_predefinedColor;
-        data.m_color.m_rgba = m_color;
+        // Standalone color is not defined for point placemark, but return style color with default black (as before).
+        data.m_color.m_rgba = m_currStyle.GetColor(0 /* defaultColor */);
         data.m_icon = m_icon;
+        data.m_iconPath = std::move(m_iconPath);
+
         data.m_viewportScale = m_viewportScale;
         data.m_timestamp = m_timestamp;
         data.m_point = m_org;
@@ -889,7 +894,7 @@ void KmlParser::Pop(std::string const & tag)
         data.m_description = std::move(m_description);
         data.m_layers = std::move(m_trackLayers);
         data.m_timestamp = m_timestamp;
-        data.m_pointsWithAltitudes = m_pointsWithAltitudes;
+        data.m_pointsWithAltitudes = std::move(m_pointsWithAltitudes);
         data.m_visible = m_visible;
         data.m_nearestToponyms = std::move(m_nearestToponyms);
         data.m_properties = std::move(m_properties);
@@ -904,10 +909,8 @@ void KmlParser::Pop(std::string const & tag)
     {
       if (!m_styleId.empty())
       {
-        m_styleUrl2Color[m_styleId] = m_color;
-        m_styleUrl2Width[m_styleId] = m_trackWidth;
-        m_color = 0;
-        m_trackWidth = kDefaultTrackWidth;
+        m_styleParams[m_styleId] = m_currStyle;
+        m_currStyle.Invalidate();
       }
     }
   }
@@ -915,16 +918,15 @@ void KmlParser::Pop(std::string const & tag)
            (tag == "mwm:additionalLineStyle" && m_tags.size() > 3 && GetTagFromEnd(3) == kPlacemark))
   {
     // This code assumes that <Style> is stored inside <Placemark>.
-    // It is a violation of KML format, but it must be here to support
-    // loading of KML files which were stored by older versions of OMaps.
+    // It is a violation of KML format, but it must be here to support loading of KML files which are stored by OMaps.
+    /// @todo By VNG: Now app writes <Style><LineStyle> into Placemark, should rewrite on <styleUrl>?
     TrackLayer layer;
-    layer.m_lineWidth = m_trackWidth;
+    layer.m_lineWidth = m_currStyle.width;
     layer.m_color.m_predefinedColor = PredefinedColor::None;
-    layer.m_color.m_rgba = (m_color != 0 ? m_color : kDefaultTrackColor);
+    layer.m_color.m_rgba = m_currStyle.GetColor(kDefaultTrackColor);
     m_trackLayers.push_back(std::move(layer));
 
-    m_trackWidth = kDefaultTrackWidth;
-    m_color = 0;
+    m_currStyle.Invalidate();
   }
   else if (tag == kCompilation)
   {
@@ -942,6 +944,7 @@ void KmlParser::CharData(std::string value)
   size_t const count = m_tags.size();
   if (count > 1 && !value.empty())
   {
+    /// @todo Current parse state checking logic, based on [*p]Tag strings comparison is not a good approach.
     std::string const & currTag = m_tags[count - 1];
     std::string const & prevTag = m_tags[count - 2];
     std::string const ppTag = count > 2 ? m_tags[count - 3] : std::string();
@@ -1076,18 +1079,17 @@ void KmlParser::CharData(std::string value)
         }
 
         // Track draw style.
-        if (!GetColorForStyle(value, m_color))
+        StyleParams const * style = GetStyle(value);
+        if (style)
         {
-          // Remove leading '#' symbol.
-          std::string styleId = m_mapStyle2Style[value.substr(1)];
-          if (!styleId.empty())
-            GetColorForStyle(styleId, m_color);
+          m_iconPath = style->iconPath;
+
+          TrackLayer layer;
+          layer.m_lineWidth = style->width;
+          layer.m_color.m_predefinedColor = PredefinedColor::None;
+          layer.m_color.m_rgba = style->GetColor(kDefaultTrackColor);
+          m_trackLayers.push_back(std::move(layer));
         }
-        TrackLayer layer;
-        layer.m_lineWidth = GetTrackWidthForStyle(value);
-        layer.m_color.m_predefinedColor = PredefinedColor::None;
-        layer.m_color.m_rgba = (m_color != 0 ? m_color : kDefaultTrackColor);
-        m_trackLayers.push_back(std::move(layer));
       }
       else if (currTag == "description")
       {
@@ -1104,11 +1106,14 @@ void KmlParser::CharData(std::string value)
       {
         double val;
         if (strings::to_double(value, val))
-          m_trackWidth = val;
+          m_currStyle.width = val;
       }
     }
-    else if (ppTag == kStyleMap && prevTag == kPair && currTag == kStyleUrl &&
-             m_styleUrlKey == "normal")
+    else if (pppTag == kStyle && ppTag == "IconStyle" && prevTag == "Icon" && currTag == "href")
+    {
+      m_currStyle.iconPath = value;
+    }
+    else if (ppTag == kStyleMap && prevTag == kPair && currTag == kStyleUrl && m_styleUrlKey == "normal")
     {
       if (!m_mapStyleId.empty())
         m_mapStyle2Style[m_mapStyleId] = value;
@@ -1193,10 +1198,6 @@ void KmlParser::CharData(std::string value)
             m_timestamp = std::chrono::system_clock::from_time_t(ts);
         }
       }
-      else if (currTag == kStyleUrl)
-      {
-        GetColorForStyle(value, m_color);
-      }
     }
     else if (ppTag == "MultiGeometry")
     {
@@ -1273,7 +1274,7 @@ void KmlParser::CharData(std::string value)
 kml::TrackLayer KmlParser::GetDefaultTrackLayer()
 {
   kml::TrackLayer layer;
-  layer.m_lineWidth = kDefaultTrackWidth;
+  layer.m_lineWidth = StyleParams::kDefaultWidth;
   layer.m_color.m_rgba = kDefaultTrackColor;
   return layer;
 }

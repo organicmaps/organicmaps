@@ -207,12 +207,6 @@ void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
   }
 }
 
-// Returns extension with a dot in a lower case.
-std::string GetFileExt(std::string const & filePath)
-{
-  return strings::MakeLowerCase(base::GetFileExtension(filePath));
-}
-
 std::string GetFileName(std::string const & filePath)
 {
   std::string ret = filePath;
@@ -296,7 +290,9 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType
 
 std::string GetKMLPath(std::string const & filePath)
 {
-  std::string const fileExt = GetFileExt(filePath);
+  std::string fileExt = base::GetFileExtension(filePath);
+  strings::AsciiToLower(fileExt);
+
   std::string fileSavePath;
   if (fileExt == kKmlExtension)
   {
@@ -320,22 +316,35 @@ std::string GetKMLPath(std::string const & filePath)
     {
       ZipFileReader::FileList files;
       ZipFileReader::FilesList(filePath, files);
-      std::string kmlFileName;
-      std::string ext;
-      for (size_t i = 0; i < files.size(); ++i)
+
+      for (auto const & [file, _] : files)
       {
-        ext = GetFileExt(files[i].first);
-        if (ext == kKmlExtension)
+        std::string ext = base::GetFileExtension(file);
+        strings::AsciiToLower(ext);
+
+        if (ext == kKmlExtension && fileSavePath.empty())
         {
-          kmlFileName = files[i].first;
-          break;
+          fileSavePath = GenerateValidAndUniqueFilePathForKML(file);
+          ZipFileReader::UnzipFile(filePath, file, fileSavePath);
+        }
+        else if (ext == ".png")
+        {
+          std::string dir = base::GetDirectory(file);
+          if (dir != ".")
+          {
+            dir = base::JoinPath(GetBookmarksDirectory(), dir);
+            if (!Platform::MkDirRecursively(dir))
+            {
+              LOG(LERROR, ("Can't create folder:", dir));
+              continue;
+            }
+          }
+          else
+            dir = GetBookmarksDirectory();
+
+          ZipFileReader::UnzipFile(filePath, file, base::JoinPath(dir, base::GetNameFromFullPath(file)));
         }
       }
-      if (kmlFileName.empty())
-        return {};
-
-      fileSavePath = GenerateValidAndUniqueFilePathForKML(kmlFileName);
-      ZipFileReader::UnzipFile(filePath, kmlFileName, fileSavePath);
     }
     catch (RootException const & e)
     {
@@ -348,6 +357,7 @@ std::string GetKMLPath(std::string const & filePath)
     LOG(LWARNING, ("Unknown file type", filePath));
     return {};
   }
+
   return fileSavePath;
 }
 

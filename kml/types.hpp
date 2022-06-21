@@ -264,10 +264,14 @@ struct BookmarkData
   std::vector<uint32_t> m_featureTypes;
   // Custom bookmark's name.
   LocalizableString m_customName;
+
   // Bookmark's color.
   ColorData m_color;
   // Bookmark's icon.
   BookmarkIcon m_icon = BookmarkIcon::None;
+  // Bookmark's custom icon from file (e.g. images/icon.png).
+  std::string m_iconPath;
+
   // Viewport scale. 0 is a default value (no scale set).
   uint8_t m_viewportScale = 0;
   // Creation timestamp.
@@ -336,7 +340,7 @@ struct TrackData
   }
 
   bool operator!=(TrackData const & data) const { return !operator==(data); }
-  
+
   // Unique id (it will not be serialized in text files).
   TrackId m_id = kInvalidTrackId;
   // Local track id.
@@ -476,7 +480,7 @@ struct FileData
 };
 
 void SetBookmarksMinZoom(FileData & fileData, double countPerTile, int maxZoom);
-  
+
 inline std::string DebugPrint(BookmarkIcon icon)
 {
   return ToString(icon);

@@ -90,9 +90,7 @@ private:
   void ParseLineCoordinates(std::string const & s, char const * blockSeparator,
                             char const * coordSeparator);
   bool MakeValid();
-  void ParseColor(std::string const &value);
-  bool GetColorForStyle(std::string const & styleUrl, uint32_t & color) const;
-  double GetTrackWidthForStyle(std::string const & styleUrl) const;
+  void ParseColor(std::string const & value);
 
   FileData & m_data;
   CategoryData m_compilationData;
@@ -101,13 +99,33 @@ private:
   std::vector<std::string> m_tags;
   GeometryType m_geometryType;
   std::vector<geometry::PointWithAltitude> m_pointsWithAltitudes;
-  uint32_t m_color;
 
   std::string m_styleId;
   std::string m_mapStyleId;
   std::string m_styleUrlKey;
-  std::map<std::string, uint32_t> m_styleUrl2Color;
-  std::map<std::string, double> m_styleUrl2Width;
+
+  struct StyleParams
+  {
+    static uint32_t constexpr kInvalidColor = uint32_t(-1);
+    static double constexpr kDefaultWidth = 5.0;
+
+    uint32_t color = kInvalidColor;
+    double width = kDefaultWidth;
+    std::string iconPath;
+
+    void Invalidate()
+    {
+      color = kInvalidColor;
+      width = kDefaultWidth;
+      iconPath.clear();
+    }
+    uint32_t GetColor(uint32_t defColor) const { return color == kInvalidColor ? defColor : color; }
+  };
+
+  StyleParams const * GetStyle(std::string styleUrl) const;
+
+  StyleParams m_currStyle;
+  std::map<std::string, StyleParams> m_styleParams;
   std::map<std::string, std::string> m_mapStyle2Style;
 
   int8_t m_attrCode;
@@ -116,7 +134,11 @@ private:
 
   LocalizableString m_name;
   LocalizableString m_description;
+
   PredefinedColor m_predefinedColor;
+  BookmarkIcon m_icon;
+  std::string m_iconPath;
+
   Timestamp m_timestamp;
   m2::PointD m_org;
   uint8_t m_viewportScale;
@@ -124,7 +146,6 @@ private:
   LocalizableString m_customName;
   std::vector<LocalId> m_boundTracks;
   LocalId m_localId;
-  BookmarkIcon m_icon;
   std::vector<TrackLayer> m_trackLayers;
   bool m_visible;
   std::string m_nearestToponym;
@@ -132,7 +153,6 @@ private:
   int m_minZoom = 1;
   kml::Properties m_properties;
   std::vector<CompilationId> m_compilations;
-  double m_trackWidth;
 };
 
 class DeserializerKml

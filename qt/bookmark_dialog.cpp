@@ -137,10 +137,8 @@ void BookmarkDialog::OnImportClick()
   for (auto const & name : files)
   {
     auto const file = name.toStdString();
-    if (file.empty())
-      continue;
-
-    m_framework.GetBookmarkManager().LoadBookmark(file, false /* isTemporaryFile */);
+    if (!file.empty())
+      m_framework.AddBookmarksFile(file, false /* isTemporaryFile */);
   }
 }
 
