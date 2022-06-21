@@ -153,6 +153,7 @@ public:
 
     bool const isLine = fb.IsLine();
     bool const isArea = fb.IsArea();
+    CHECK(!isLine || !isArea, ("A feature can't have both points and triangles geometries:", fb.GetMostGenericOsmId()));
 
     int const scalesStart = static_cast<int>(m_header.GetScalesCount()) - 1;
     for (int i = scalesStart; i >= 0; --i)
@@ -165,12 +166,18 @@ public:
         m2::RectD const rect = fb.GetLimitRect();
 
         // Simplify and serialize geometry.
+        // The same line simplification algo is used both for lines
+        // and areas. For the latter polygon's outline is simplified and
+        // tesselated afterwards. But e.g. simplifying a circle from 50
+        // to 10 points will not produce 5 times less triangles.
+        // Hence difference between numbers of triangles between trg0 and trg1
+        // is much higher than between trg1 and trg2.
         Points points;
 
         // Do not change linear geometry for the upper scale.
         if (isLine && i == scalesStart && IsCountry() && routing::IsRoad(fb.GetTypes()))
           points = holder.GetSourcePoints();
-        else
+        else if (isLine || holder.NeedProcessTriangles())
           SimplifyPoints(level, isCoast, rect, holder.GetSourcePoints(), points);
 
         if (isLine)

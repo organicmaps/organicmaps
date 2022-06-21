@@ -89,10 +89,15 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
     int const lastScale = loadInfo.GetLastScale();
     if (scale > lastScale)
       scale = lastScale;
-    while (ind < count && scale > loadInfo.GetScale(ind))
+    // If there is no geometry for the requested scale
+    // fallback to the next more detailed one.
+    while (ind < count && (scale > loadInfo.GetScale(ind) || offsets[ind] == kInvalidOffset))
       ++ind;
+    // Some WorldCoasts features have idx == 0 geometry only and its possible
+    // other features to be visible on e.g. idx == 1 only,
+    // but then they shouldn't be attempted to be drawn using other geom scales.
     ASSERT_LESS(ind, count, ("No suitable geometry scale range in the map file."));
-    return (offsets[ind] != kInvalidOffset ? ind : -1);
+    return (ind < count ? ind : -1);
   }
   }
 
@@ -332,29 +337,18 @@ void FeatureType::ParseHeader2()
   CHECK(m_loadInfo, ());
   ParseCommon();
 
-  uint8_t ptsCount = 0, ptsMask = 0, trgCount = 0, trgMask = 0;
+  uint8_t elemsCount = 0, geomScalesMask = 0;
   BitSource bitSource(m_data.data() + m_offsets.m_header2);
   auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
 
-  if (headerGeomType == HeaderGeomType::Line)
+  if (headerGeomType == HeaderGeomType::Line || headerGeomType == HeaderGeomType::Area)
   {
-    ptsCount = bitSource.Read(4);
-    if (ptsCount == 0)
-    {
-      // Outer geometry: read offsets mask.
-      ptsMask = bitSource.Read(4);
-    }
+    elemsCount = bitSource.Read(4);
+    // For outer geometry read the geom scales (offsets) mask.
+    if (elemsCount == 0)
+      geomScalesMask = bitSource.Read(4);
     else
-      ASSERT_GREATER(ptsCount, 1, ());
-  }
-  else if (headerGeomType == HeaderGeomType::Area)
-  {
-    trgCount = bitSource.Read(4);
-    if (trgCount == 0)
-    {
-      // Outer geometry: read offsets mask.
-      trgMask = bitSource.Read(4);
-    }
+      ASSERT(headerGeomType == HeaderGeomType::Area || elemsCount > 1, ());
   }
 
   ArrayByteSource src(bitSource.RoundPtr());
@@ -362,14 +356,14 @@ void FeatureType::ParseHeader2()
 
   if (headerGeomType == HeaderGeomType::Line)
   {
-    if (ptsCount > 0)
+    if (elemsCount > 0)
     {
       // Inner geometry.
       // Number of bytes in simplification mask:
       // first and last points are never simplified/discarded,
       // 2 bits are used per each other point, i.e.
       // 3-6 pts - 1 byte, 7-10 pts - 2b, 11-14 pts - 3b.
-      int const count = ((ptsCount - 2) + 4 - 1) / 4;
+      int const count = ((elemsCount - 2) + 4 - 1) / 4;
       ASSERT_LESS(count, 4, ());
 
       for (int i = 0; i < count; ++i)
@@ -379,9 +373,9 @@ void FeatureType::ParseHeader2()
       }
 
       auto const * start = src.PtrUint8();
-      src = ArrayByteSource(serial::LoadInnerPath(start, ptsCount, cp, m_points));
+      src = ArrayByteSource(serial::LoadInnerPath(start, elemsCount, cp, m_points));
       // TODO: here and further m_innerStats is needed for stats calculation in generator_tool only
-      m_innerStats.m_points = static_cast<uint32_t>(src.PtrUint8() - start);
+      m_innerStats.m_points = CalcOffset(src, start);
     }
     else
     {
@@ -389,24 +383,24 @@ void FeatureType::ParseHeader2()
       auto const * start = src.PtrUint8();
       m_points.emplace_back(serial::LoadPoint(src, cp));
       m_innerStats.m_firstPoints = CalcOffset(src, start);
-      ReadOffsets(*m_loadInfo, src, ptsMask, m_offsets.m_pts);
+      ReadOffsets(*m_loadInfo, src, geomScalesMask, m_offsets.m_pts);
     }
   }
   else if (headerGeomType == HeaderGeomType::Area)
   {
-    if (trgCount > 0)
+    if (elemsCount > 0)
     {
       // Inner geometry (strips).
-      trgCount += 2;
+      elemsCount += 2;
 
       auto const * start = src.PtrUint8();
-      src = ArrayByteSource(serial::LoadInnerTriangles(start, trgCount, cp, m_triangles));
+      src = ArrayByteSource(serial::LoadInnerTriangles(start, elemsCount, cp, m_triangles));
       m_innerStats.m_strips = CalcOffset(src, start);
     }
     else
     {
       // Outer geometry.
-      ReadOffsets(*m_loadInfo, src, trgMask, m_offsets.m_trg);
+      ReadOffsets(*m_loadInfo, src, geomScalesMask, m_offsets.m_trg);
     }
   }
   // Size of the whole header incl. inner geometry / triangles.
@@ -486,8 +480,7 @@ void FeatureType::ParseGeometry(int scale)
 
 FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
 {
-  ASSERT(!m_parsed.m_points, ("Geometry had been parsed already!"));
-  CHECK(m_loadInfo, ());
+  CHECK(m_loadInfo && m_parsed.m_header2 && !m_parsed.m_points, ("Call geometry stats first and once!"));
   size_t const scalesCount = m_loadInfo->GetScalesCount();
   ASSERT_LESS_OR_EQUAL(scalesCount, DataHeader::kMaxScalesCount, ("MWM has too many geometry scales!"));
   FeatureType::GeomStat res;
@@ -563,8 +556,7 @@ void FeatureType::ParseTriangles(int scale)
 
 FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
 {
-  ASSERT(!m_parsed.m_triangles, ("Triangles had been parsed already!"));
-  CHECK(m_loadInfo, ());
+  CHECK(m_loadInfo && m_parsed.m_header2 && !m_parsed.m_triangles, ("Call geometry stats first and once!"));
   int const scalesCount = m_loadInfo->GetScalesCount();
   ASSERT_LESS_OR_EQUAL(scalesCount, static_cast<int>(DataHeader::kMaxScalesCount), ("MWM has too many geometry scales!"));
   FeatureType::GeomStat res;
@@ -641,7 +633,7 @@ StringUtf8Multilang const & FeatureType::GetNames()
   return m_params.name;
 }
 
-string FeatureType::DebugString(int scale)
+string FeatureType::DebugString(int scale, bool includeKeyPoint)
 {
   ParseCommon();
 
@@ -659,6 +651,9 @@ string FeatureType::DebugString(int scale)
     res += paramsStr;
     res += "\n";
   }
+
+  if (!includeKeyPoint)
+    return res;
 
   ParseGeometryAndTriangles(scale);
   m2::PointD keyPoint;
