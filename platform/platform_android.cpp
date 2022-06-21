@@ -49,7 +49,8 @@ private:
 
 unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchScope) const
 {
-  string const ext = base::GetFileExtension(file);
+  string ext = base::GetFileExtension(file);
+  strings::AsciiToLower(ext);
   ASSERT(!ext.empty(), ());
 
   uint32_t const logPageSize = (ext == DATA_FILE_EXTENSION) ? READER_CHUNK_LOG_SIZE : 10;
