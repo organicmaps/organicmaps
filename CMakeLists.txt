@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.18)
 
 set(LANGUAGES C CXX)
-if (APPLE)
+if (APPLE AND NOT ("${CMAKE_SYSTEM_NAME}" STREQUAL Android))
   # OBJC/OBJCXX are needed to skip m/mm files in Unity builds.
   # https://gitlab.kitware.com/cmake/cmake/-/issues/21963
   list(APPEND LANGUAGES OBJC OBJCXX)
