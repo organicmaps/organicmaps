@@ -1561,20 +1561,17 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   IndexRoadGraph roadGraph(starter, segments, junctions, m_dataSource);
   starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
 
-  Route::TTimes times;
+  vector<double> times;
   times.reserve(segments.size());
-
-  // Time at zero route point.
-  times.emplace_back(static_cast<uint32_t>(0), 0.0);
 
   // Time at first route point - weight of first segment.
   double time = starter.CalculateETAWithoutPenalty(segments.front());
-  times.emplace_back(static_cast<uint32_t>(1), time);
+  times.emplace_back(time);
 
   for (size_t i = 1; i < segments.size(); ++i)
   {
     time += starter.CalculateETA(segments[i - 1], segments[i]);
-    times.emplace_back(static_cast<uint32_t>(i + 1), time);
+    times.emplace_back(time);
   }
 
   m_directionsEngine->SetVehicleType(m_vehicleType);

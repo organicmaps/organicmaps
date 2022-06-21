@@ -24,14 +24,18 @@ size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & resul
                                    NumMwmIds const & numMwmIds,
                                    RoutingSettings const & vehicleSettings, TurnItem & turn)
 {
+  if (outgoingSegmentIndex == result.GetSegments().size())
+  {
+    turn.m_turn = CarDirection::ReachedYourDestination;
+    return 0;
+  }
+
   TurnInfo turnInfo;
   if (!GetTurnInfo(result, outgoingSegmentIndex, vehicleSettings, turnInfo))
     return 0;
 
   double const turnAngle = CalcTurnAngle(result, outgoingSegmentIndex, numMwmIds, vehicleSettings);
 
-  turn.m_sourceName = turnInfo.m_ingoing->m_roadNameInfo.m_name;
-  turn.m_targetName = turnInfo.m_outgoing->m_roadNameInfo.m_name;
   turn.m_pedestrianTurn = PedestrianDirection::None;
 
   ASSERT_GREATER(turnInfo.m_ingoing->m_path.size(), 1, ());
@@ -70,43 +74,44 @@ size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & resul
   // there is no possibility of leaving the route.
   if (nodes.candidates.size() <= 1)
     turn.m_pedestrianTurn = PedestrianDirection::None;
-  if (std::fabs(CalcOneSegmentTurnAngle(turnInfo)) < kMaxForwardAngleActual && HasSingleForwardTurn(nodes, kMaxForwardAngleCandidates))
+  if (fabs(CalcOneSegmentTurnAngle(turnInfo)) < kMaxForwardAngleActual && HasSingleForwardTurn(nodes, kMaxForwardAngleCandidates))
     turn.m_pedestrianTurn = PedestrianDirection::None;
 
   return 0;
 }
 
-void PedestrianDirectionsEngine::FixupTurns(std::vector<geometry::PointWithAltitude> const & junctions,
-                                            Route::TTurns & turnsDir)
+void PedestrianDirectionsEngine::FixupTurns(vector<RouteSegment> & routeSegments)
 {
-  uint32_t turn_index = base::asserted_cast<uint32_t>(junctions.size() - 1);
-  turnsDir.emplace_back(TurnItem(turn_index, PedestrianDirection::ReachedYourDestination));
-
   double const kMergeDistMeters = 15.0;
 
-  for (size_t idx = 0; idx < turnsDir.size();)
+  for (size_t idx = 0; idx < routeSegments.size(); ++idx)
   {
+    auto const & turn = routeSegments[idx].GetTurn();
+    if (turn.IsTurnNone())
+      continue;
+
     bool const prevStepNoTurn =
-        idx > 0 && turnsDir[idx - 1].m_pedestrianTurn == PedestrianDirection::GoStraight;
-    bool const needToTurn = turnsDir[idx].m_pedestrianTurn == PedestrianDirection::TurnLeft ||
-                            turnsDir[idx].m_pedestrianTurn == PedestrianDirection::TurnRight;
+        idx > 0 && routeSegments[idx - 1].GetTurn().m_pedestrianTurn == PedestrianDirection::GoStraight;
+    bool const needToTurn = routeSegments[idx].GetTurn().m_pedestrianTurn == PedestrianDirection::TurnLeft ||
+                            routeSegments[idx].GetTurn().m_pedestrianTurn == PedestrianDirection::TurnRight;
 
     // Merging turns which are closer to each other under some circumstance.
-    if (prevStepNoTurn && needToTurn &&
-        CalcRouteDistanceM(junctions, turnsDir[idx - 1].m_index, turnsDir[idx].m_index) <
-            kMergeDistMeters)
+    if (prevStepNoTurn && needToTurn)
     {
-      turnsDir.erase(turnsDir.begin() + idx - 1);
-      continue;
+      auto const & junction = routeSegments[idx].GetJunction();
+      auto const & prevJunction = routeSegments[idx - 1].GetJunction();
+      if (mercator::DistanceOnEarth(junction.GetPoint(), prevJunction.GetPoint()) < kMergeDistMeters)
+        routeSegments[idx - 1].ClearTurn();
     }
-
-    ++idx;
   }
 
 #ifdef DEBUG
-  for (auto const & t : turnsDir)
-    LOG(LDEBUG, (GetTurnString(t.m_turn), ":", t.m_index, t.m_sourceName, "-",
-                 t.m_targetName, "exit:", t.m_exitNum));
+  for (auto const & r : routeSegments)
+  {
+    auto const & t = r.GetTurn();
+    if (!t.IsTurnNone())
+      LOG(LDEBUG, (GetTurnString(t.m_turn), ":", t.m_index));
+  }
 #endif
 }
 

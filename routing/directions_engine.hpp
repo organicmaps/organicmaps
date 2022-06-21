@@ -45,10 +45,8 @@ public:
   /// \returns true if fields passed by reference are filled correctly and false otherwise.
   bool Generate(IndexRoadGraph const & graph,
                 std::vector<geometry::PointWithAltitude> const & path,
-                base::Cancellable const & cancellable, Route::TTurns & turns,
-                Route::TStreets & streetNames,
-                std::vector<geometry::PointWithAltitude> & routeGeometry,
-                std::vector<Segment> & segments);
+                base::Cancellable const & cancellable,
+                std::vector<RouteSegment> & routeSegments);
   void Clear();
 
   void SetVehicleType(VehicleType const & vehicleType) { m_vehicleType = vehicleType; }
@@ -62,8 +60,7 @@ protected:
   virtual size_t GetTurnDirection(turns::IRoutingResult const & result, size_t const outgoingSegmentIndex,
                                   NumMwmIds const & numMwmIds,
                                   RoutingSettings const & vehicleSettings, turns::TurnItem & turn) = 0;
-  virtual void FixupTurns(std::vector<geometry::PointWithAltitude> const & junctions,
-                          Route::TTurns & turnsDir) = 0;
+  virtual void FixupTurns(std::vector<RouteSegment> & routeSegments) = 0;
   std::unique_ptr<FeatureType> GetFeature(FeatureID const & featureId);
   void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment);
   void GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges,
@@ -89,10 +86,7 @@ protected:
   VehicleType m_vehicleType = VehicleType::Count;
 
 private:
-  RouterResultCode MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & routeEdges,
-                                      base::Cancellable const & cancellable,
-                                      std::vector<geometry::PointWithAltitude> & junctions,
-                                      Route::TTurns & turnsDir, Route::TStreets & streets,
-                                      std::vector<Segment> & segments);
+  void MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & routeEdges,
+                          std::vector<RouteSegment> & routeSegments);
 };
 }  // namespace routing
