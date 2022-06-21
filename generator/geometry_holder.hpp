@@ -25,7 +25,13 @@ namespace feature
 // (and the "0" value is reserved to indicate use of outer geometry).
 // But actually 16 inner triangles are stored or just 14 inner points,
 // because a 3-byte points simplification mask doesn't allow more.
-int constexpr kMaxInnerGeometryElements = 14;
+size_t constexpr kMaxInnerGeometryElements = 14;
+
+// Minimum difference and times to a more detailed geometry to store a simplified geom scale.
+// A geom level is discarded as too similar to a more detailed one
+// when its' number of elements is <kGeomMinDiff less or <kGeomMinFactor times less.
+size_t constexpr kGeomMinDiff = 2;
+double constexpr kGeomMinFactor = 1.5f;
 
 class GeometryHolder
 {
@@ -59,7 +65,7 @@ public:
 
   Points const & GetSourcePoints()
   {
-    // For short lines keep simplifying the previous version to ensure points visibility is consistent.
+    // For inner geometry lines keep simplifying the previous version to ensure points visibility is consistent.
     return !m_current.empty() ? m_current : m_fb.GetOuterGeometry();
   }
 
@@ -84,7 +90,12 @@ public:
     else
     {
       m_ptsInner = false;
-      WriteOuterPoints(points, scaleIndex);
+      if (m_ptsPrevCount == 0 ||
+          (points.size() + kGeomMinDiff <= m_ptsPrevCount && points.size() * kGeomMinFactor <= m_ptsPrevCount))
+      {
+        WriteOuterPoints(points, scaleIndex);
+        m_ptsPrevCount = points.size();
+      }
     }
   }
 
@@ -141,8 +152,15 @@ public:
   {
     CHECK(m_buffer.m_innerTrg.empty(), ());
     m_trgInner = false;
-
-    WriteOuterTriangles(polys, scaleIndex);
+    size_t trgPointsCount = 0;
+    for (auto const & points : polys)
+      trgPointsCount += points.size();
+    if (m_trgPrevCount == 0 ||
+        (trgPointsCount + kGeomMinDiff <= m_trgPrevCount && trgPointsCount * kGeomMinFactor <= m_trgPrevCount))
+    {
+      WriteOuterTriangles(polys, scaleIndex);
+      m_trgPrevCount = trgPointsCount;
+    }
   }
 
 private:
@@ -267,6 +285,7 @@ private:
 
   Points m_current;
   bool m_ptsInner, m_trgInner;
+  size_t m_ptsPrevCount = 0, m_trgPrevCount = 0;
 
   feature::DataHeader const & m_header;
 };

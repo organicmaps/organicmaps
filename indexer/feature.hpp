@@ -138,7 +138,7 @@ public:
   }
   //@}
 
-  std::string DebugString(int scale);
+  std::string DebugString(int scale, bool includeKeyPoint = true);
 
   std::string const & GetHouseNumber();
 
