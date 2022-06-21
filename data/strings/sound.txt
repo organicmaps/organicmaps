@@ -24,6 +24,7 @@
     nl = Rechts aanhouden.
     pl = Trzymaj się prawej strony.
     pt = Mantenha-se à direita.
+    pt-BR = Mantenha-se à direita.
     ro = Păstrați la dreapta.
     ru = Держитесь правее.
     sk = Uchovať napravo.
@@ -60,6 +61,7 @@
     nl = Sla rechtsaf.
     pl = Skręć w prawo.
     pt = Vire à direita.
+    pt-BR = Vire à direita.
     ro = Virați la dreapta.
     ru = Поверните направо.
     sk = Odbočte doprava.
@@ -96,6 +98,7 @@
     nl = Scherp rechtsaf.
     pl = Ostro w prawo.
     pt = Curva acentuada à direita.
+    pt-BR = Curva acentuada à direita.
     ro = Virați strâns la dreapta.
     ru = Резко поверните направо.
     sk = Ostro doprava.
@@ -132,6 +135,7 @@
     nl = Rij de rotonde op.
     pl = Wjedź na rondo.
     pt = Entre na rotunda.
+    pt-BR = Entre na rotatória.
     ro = Intrați în sensul giratoriu.
     ru = Поверните на кольцо.
     sk = Vojdite na kruhový objazd.
@@ -168,6 +172,7 @@
     nl = Verlaat de rotonde.
     pl = Zjazd z ronda.
     pt = Saia da rotunda.
+    pt-BR = Saia da rotatória.
     ro = Ieșiți din sensul giratoriu.
     ru = Сверните с кольца.
     sk = Výjazd z kruhového objazdu.
@@ -204,6 +209,7 @@
     nl = Links aanhouden.
     pl = Trzymaj się lewej strony.
     pt = Mantenha-se à esquerda.
+    pt-BR = Mantenha-se à esquerda.
     ro = Păstrați la stânga.
     ru = Держитесь левее.
     sk = Uchovať naľavo.
@@ -240,6 +246,7 @@
     nl = Sla linksaf.
     pl = Skręć w lewo.
     pt = Vire à esquerda.
+    pt-BR = Vire à esquerda.
     ro = Virați la stânga.
     ru = Поверните налево.
     sk = Odbočte doľava.
@@ -276,6 +283,7 @@
     nl = Scherp linksaf.
     pl = Ostro w lewo.
     pt = Curva acentuada à esquerda.
+    pt-BR = Curva acentuada à esquerda.
     ro = Virați strâns la stânga.
     ru = Резко поверните налево.
     sk = Ostro doľava.
@@ -312,6 +320,7 @@
     nl = Keer om.
     pl = Zawróć.
     pt = Faça inversão de marcha.
+    pt-BR = Faça o retorno.
     ro = Întoarceți-vă o sută optzeci de grade.
     ru = Развернитесь.
     sk = Otočte sa o stoosemdesiat stupňov.
@@ -348,6 +357,7 @@
     nl = Rij rechtdoor.
     pl = Jedź prosto.
     pt = Siga em frente.
+    pt-BR = Siga em frente.
     ro = Mergeți înainte.
     ru = Двигайтесь прямо.
     sk = Choďte rovno.
@@ -384,6 +394,7 @@
     nl = Verlaat.
     pl = Zjazd.
     pt = Saída.
+    pt-BR = Saída.
     ro = Ieșire.
     ru = Съезд.
     sk = Výjazd.
@@ -420,6 +431,7 @@
     nl = Arriveert u.
     pl = Dojedziesz.
     pt = Você vai chegar.
+    pt-BR = Você vai chegar.
     ro = Veți sosi.
     ru = Вы прибудете в пункт назначения.
     sk = Dorazíte.
@@ -456,6 +468,7 @@
     nl = Bestemming bereikt.
     pl = Jesteś u celu.
     pt = Chegou.
+    pt-BR = Chegou.
     ro = Ați ajuns.
     ru = Вы прибыли в пункт назначения.
     sk = Dorazili ste do cieľa.
@@ -492,6 +505,7 @@
     nl = Over vijftig meter
     pl = Za pięćdziesiąt metrów
     pt = A cinquenta metros
+    pt-BR = A cinquenta metros
     ro = După cincizeci de metri
     ru = Через пятьдесят метров
     sk = Po päťdesiatich metroch
@@ -528,6 +542,7 @@
     nl = Over honderd meter
     pl = Za sto metrów
     pt = A cem metros
+    pt-BR = A cem metros
     ro = După o sută de metri
     ru = Через сто метров
     sk = Po sto metroch
@@ -564,6 +579,7 @@
     nl = Over tweehonderd meter
     pl = Za dwieście metrów
     pt = A duzentos metros
+    pt-BR = A duzentos metros
     ro = După două sute de metri
     ru = Через двести метров
     sk = Po dvesto metroch
@@ -600,6 +616,7 @@
     nl = Over tweehonderdvijftig meter
     pl = Za dwieście pięćdziesiąt metrów
     pt = A duzentos e cinquenta metros
+    pt-BR = A duzentos e cinquenta metros
     ro = După două sute cincizeci de metri
     ru = Через двести пятьдесят метров
     sk = Po dvestopäťdesiatich metroch
@@ -636,6 +653,7 @@
     nl = Over driehonderd meter
     pl = Za trzysta metrów
     pt = A trezentos metros
+    pt-BR = A trezentos metros
     ro = După trei sute de metri
     ru = Через триста метров
     sk = Po tristo metroch
@@ -672,6 +690,7 @@
     nl = Over vierhonderd meter
     pl = Za czterysta metrów
     pt = A quatrocentos metros
+    pt-BR = A quatrocentos metros
     ro = După patru sute de metri
     ru = Через четыреста метров
     sk = Po štyristo metroch
@@ -708,6 +727,7 @@
     nl = Over vijfhonderd meter
     pl = Za pięćset metrów
     pt = A quinhentos metros
+    pt-BR = A quinhentos metros
     ro = După cinci sute de metri
     ru = Через пятьсот метров
     sk = Po päťsto metroch
@@ -744,6 +764,7 @@
     nl = Over zeshonderd meter
     pl = Za sześćset metrów
     pt = A seiscentos metros
+    pt-BR = A seiscentos metros
     ro = După șase sute de metri
     ru = Через шестьсот метров
     sk = Po šesťsto metroch
@@ -780,6 +801,7 @@
     nl = Over zevenhonderd meter
     pl = Za siedemset metrów
     pt = A setecentos metros
+    pt-BR = A setecentos metros
     ro = După șapte sute de metri
     ru = Через семьсот метров
     sk = Po sedemsto metroch
@@ -816,6 +838,7 @@
     nl = Over zevenhonderdvijftig meter
     pl = Za siedemset pięćdziesiąt metrów
     pt = A setecentos e cinquenta metros
+    pt-BR = A setecentos e cinquenta metros
     ro = După șapte sute cincizeci de metri
     ru = Через семьсот пятьдесят метров
     sk = Po sedemstopäťdesiatich metroch
@@ -852,6 +875,7 @@
     nl = Over achthonderd meter
     pl = Za osiemset metrów
     pt = A oitocentos metros
+    pt-BR = A oitocentos metros
     ro = După opt sute de metri
     ru = Через восемьсот метров
     sk = Po osemsto metroch
@@ -888,6 +912,7 @@
     nl = Over negenhonderd meter
     pl = Za dziewięćset metrów
     pt = A novecentos metros
+    pt-BR = A novecentos metros
     ro = După nouă sute de metri
     ru = Через девятьсот метров
     sk = Po deväťsto metroch
@@ -924,6 +949,7 @@
     nl = Over één kilometer
     pl = Za kilometr
     pt = A um quilómetro
+    pt-BR = A um quilômetro
     ro = După un kilometru
     ru = Через километр
     sk = Po jednom kilometri
@@ -960,6 +986,7 @@
     nl = Over anderhalve kilometer
     pl = Za półtora kilometra
     pt = A um quilómetro e meio
+    pt-BR = A um quilômetro e meio
     ro = După un kilometru și jumătate
     ru = Через полтора километра
     sk = Po jeden a pol kilometri
@@ -996,6 +1023,7 @@
     nl = Over twee kilometer
     pl = Za dwa kilometry
     pt = A dois quilómetros
+    pt-BR = A dois quilômetros
     ro = După doi kilometri
     ru = Через два километра
     sk = Po dvoch kilometroch
@@ -1032,6 +1060,7 @@
     nl = Over tweeëneenhalve kilometer
     pl = Za dwa i pół kilometra
     pt = A dois quilómetros e meio
+    pt-BR = A dois quilômetros e meio
     ro = După doi kilometri și jumătate
     ru = Через два с половиной километра
     sk = Po dva a pol kilometri
@@ -1067,7 +1096,8 @@
     mr = तीन किलोमीटर मध्ये
     nl = Over drie kilometer
     pl = Za trzy kilometry
-    pt = A três quilômetros
+    pt = A três quilómetros
+    pt-BR = A três quilômetros
     ro = După trei kilometri
     ru = Через три километра
     sk = Po troch kilometroch
@@ -1104,6 +1134,7 @@
     nl = Daarna
     pl = Następnie
     pt = Depois
+    pt-BR = Depois
     ro = Apoi
     ru = Затем
     sk = Potom
@@ -1140,6 +1171,7 @@
     nl = Neem de eerste afslag.
     pl = Zjedź pierwszym zjazdem.
     pt = Saia na primeira saída.
+    pt-BR = Saia na primeira saída.
     ro = Folosiți prima ieșire.
     ru = Сверните на первый съезд.
     sk = Opustite kruhový objazd na prvom výjazde.
@@ -1176,6 +1208,7 @@
     nl = Neem de tweede afslag.
     pl = Zjedź drugim zjazdem.
     pt = Saia na segunda saída.
+    pt-BR = Saia na segunda saída.
     ro = Folosiți a doua ieșire.
     ru = Сверните на второй съезд.
     sk = Opustite kruhový objazd na druhom výjazde.
@@ -1212,6 +1245,7 @@
     nl = Neem de derde afslag.
     pl = Zjedź trzecim zjazdem.
     pt = Saia na terceira saída.
+    pt-BR = Saia na terceira saída.
     ro = Folosiți a treia ieșire.
     ru = Сверните на третий съезд.
     sk = Opustite kruhový objazd na treťom výjazde.
@@ -1248,6 +1282,7 @@
     nl = Neem de vierde afslag.
     pl = Zjedź czwartym zjazdem.
     pt = Saia na quarta saída.
+    pt-BR = Saia na quarta saída.
     ro = Folosiți a patra ieșire.
     ru = Сверните на четвертый съезд.
     sk = Opustite kruhový objazd na štvrtom výjazde.
@@ -1284,6 +1319,7 @@
     nl = Neem de vijfde afslag.
     pl = Zjedź piątym zjazdem.
     pt = Saia na quinta saída.
+    pt-BR = Saia na quinta saída.
     ro = Folosiți a cincea ieșire.
     ru = Сверните на пятый съезд.
     sk = Opustite kruhový objazd na piatom výjazde.
@@ -1320,6 +1356,7 @@
     nl = Neem de zesde afslag.
     pl = Zjedź szóstym zjazdem.
     pt = Saia na sexta saída.
+    pt-BR = Saia na sexta saída.
     ro = Folosiți a șasea ieșire.
     ru = Сверните на шестой съезд.
     sk = Opustite kruhový objazd na šiestom výjazde.
@@ -1356,6 +1393,7 @@
     nl = Neem de zevende afslag.
     pl = Zjedź siódmym zjazdem.
     pt = Saia na sétima saída.
+    pt-BR = Saia na sétima saída.
     ro = Folosiți a șaptea ieșire.
     ru = Сверните на седьмой съезд.
     sk = Opustite kruhový objazd na siedmom výjazde.
@@ -1392,6 +1430,7 @@
     nl = Neem de achtste afslag.
     pl = Zjedź ósmym zjazdem.
     pt = Saia na oitava saída.
+    pt-BR = Saia na oitava saída.
     ro = Folosiți a opta ieșire.
     ru = Сверните на восьмой съезд.
     sk = Opustite kruhový objazd na ôsmom výjazde.
@@ -1428,6 +1467,7 @@
     nl = Neem de negende afslag.
     pl = Zjedź dziewiątym zjazdem.
     pt = Saia na nona saída.
+    pt-BR = Saia na nona saída.
     ro = Folosiți a noua ieșire.
     ru = Сверните на девятый съезд.
     sk = Opustite kruhový objazd na deviatom výjazde.
@@ -1464,6 +1504,7 @@
     nl = Neem de tiende afslag.
     pl = Zjedź dziesiątym zjazdem.
     pt = Saia na décima saída.
+    pt-BR = Saia na décima saída.
     ro = Folosiți a zecea ieșire.
     ru = Сверните на десятый съезд.
     sk = Opustite kruhový objazd na desiatom výjazde.
@@ -1500,6 +1541,7 @@
     nl = Neem de elfde afslag.
     pl = Zjedź jedenastym zjazdem.
     pt = Saia na décima primeira saída.
+    pt-BR = Saia na décima primeira saída.
     ro = Folosiți a unsprezecea ieșire.
     ru = Сверните на одиннадцатый съезд.
     sk = Opustite kruhový objazd na jedenástom výjazde.
@@ -1536,6 +1578,7 @@
     nl = Over vijftig voet
     pl = Za pięćdziesiąt stóp
     pt = A cinquenta pés
+    pt-BR = A cinquenta pés
     ro = După cincizeci de picioare
     ru = Через пятьдесят футов
     sk = Po päťdesiatich stopách
@@ -1572,6 +1615,7 @@
     nl = Over honderd voet
     pl = Za sto stóp
     pt = A cem pés
+    pt-BR = A cem pés
     ro = După o sută de picioare
     ru = Через сто футов
     sk = Po sto stopách
@@ -1608,6 +1652,7 @@
     nl = Over tweehonderd voet
     pl = Za dwieście stóp
     pt = A duzentos pés
+    pt-BR = A duzentos pés
     ro = După două sute de picioare
     ru = Через двести футов
     sk = Po dvesto stopách
@@ -1644,6 +1689,7 @@
     nl = Over driehonderd voet
     pl = Za trzysta stóp
     pt = A trezentos pés
+    pt-BR = A trezentos pés
     ro = După trei sute de picioare
     ru = Через триста футов
     sk = Po tristo stopách
@@ -1680,6 +1726,7 @@
     nl = Over vierhonderd voet
     pl = Za czterysta stóp
     pt = A quatrocentos pés
+    pt-BR = A quatrocentos pés
     ro = După patru sute de picioare
     ru = Через четыреста футов
     sk = Po štyristo stopách
@@ -1716,6 +1763,7 @@
     nl = Over vijfhonderd voet
     pl = Za pięćset stóp
     pt = A quinhentos pés
+    pt-BR = A quinhentos pés
     ro = După cinci sute de picioare
     ru = Через пятьсот футов
     sk = Po päťsto stopách
@@ -1752,6 +1800,7 @@
     nl = Over zeshonderd voet
     pl = Za sześćset stóp
     pt = A seiscentos pés
+    pt-BR = A seiscentos pés
     ro = După șase sute de picioare
     ru = Через шестьсот футов
     sk = Po šesťsto stopách
@@ -1788,6 +1837,7 @@
     nl = Over zevenhonderd voet
     pl = Za siedemset stóp
     pt = A setecentos pés
+    pt-BR = A setecentos pés
     ro = După șapte sute de picioare
     ru = Через семьсот футов
     sk = Po sedemsto stopách
@@ -1824,6 +1874,7 @@
     nl = Over achthonderd voet
     pl = Za osiemset stóp
     pt = A oitocentos pés
+    pt-BR = A oitocentos pés
     ro = După opt sute de picioare
     ru = Через восемьсот футов
     sk = Po osemsto stopách
@@ -1860,6 +1911,7 @@
     nl = Over negenhonderd voet
     pl = Za dziewięćset stóp
     pt = A novecentos pés
+    pt-BR = A novecentos pés
     ro = După nouă sute de picioare
     ru = Через девятьсот футов
     sk = Po deväťsto stopách
@@ -1896,6 +1948,7 @@
     nl = Over duizend voet
     pl = Za tysiąc stóp
     pt = A mil pés
+    pt-BR = A mil pés
     ro = După o mie de picioare
     ru = Через тысячу футов
     sk = Po tisíc stopách
@@ -1932,6 +1985,7 @@
     nl = Over vijftienhonderd voet
     pl = Za tysiąc pięćset stóp
     pt = A mil e quinhentos pés
+    pt-BR = A mil e quinhentos pés
     ro = După o mie cinci sute de picioare
     ru = Через тысячу пятьсот футов
     sk = Po tisícpäťsto stopách
@@ -1968,6 +2022,7 @@
     nl = Over tweeduizend voet
     pl = Za dwa tysiące stóp
     pt = A dois mil pés
+    pt-BR = A dois mil pés
     ro = După două mii de picioare
     ru = Через две тысячи футов
     sk = Po dvetisíc stopách
@@ -2004,6 +2059,7 @@
     nl = Over vijfentwintighonderd voet
     pl = Za dwa i pół tysiąca stóp
     pt = A dois mil e quinhentos pés
+    pt-BR = A dois mil e quinhentos pés
     ro = După două mii cinci sute de picioare
     ru = Через две тысячи пятьсот футов
     sk = Po dvetisícpäťsto stopách
@@ -2040,6 +2096,7 @@
     nl = Over drieduizend voet
     pl = Za trzy tysiące stóp
     pt = A três mil pés
+    pt-BR = A três mil pés
     ro = După trei mii de picioare
     ru = Через три тысячи футов
     sk = Po tritisíc stopách
@@ -2076,6 +2133,7 @@
     nl = Over vijfendertighonderd voet
     pl = Za trzy i pół tysiąca stóp
     pt = A três mil e quinhentos pés
+    pt-BR = A três mil e quinhentos pés
     ro = După trei mii cinci sute de picioare
     ru = Через три тысячи пятьсот футов
     sk = Po tritisícpäťsto stopách
@@ -2112,6 +2170,7 @@
     nl = Over vierduizend voet
     pl = Za cztery tysiące stóp
     pt = A quatro mil pés
+    pt-BR = A quatro mil pés
     ro = După patru mii de picioare
     ru = Через четыре тысячи футов
     sk = Po štyritisíc stopách
@@ -2148,6 +2207,7 @@
     nl = Over vijfenveertighonderd voet
     pl = Za cztery i pół tysiąca stóp
     pt = A quatro mil e quinhentos pés
+    pt-BR = A quatro mil e quinhentos pés
     ro = După patru mii cinci sute de picioare
     ru = Через четыре тысячи пятьсот футов
     sk = Po štyritisícpäťsto stopách
@@ -2184,6 +2244,7 @@
     nl = Over vijfduizend voet
     pl = Za pięć tysięcy stóp
     pt = A cinco mil pés
+    pt-BR = A cinco mil pés
     ro = După cinci mii de picioare
     ru = Через пять тысяч футов
     sk = Po päťtisíc stopách
@@ -2220,6 +2281,7 @@
     nl = Over één mijl
     pl = Za jedną milę
     pt = A uma milha
+    pt-BR = A uma milha
     ro = După o milă
     ru = Через одну милю
     sk = Po jednej míli
@@ -2256,6 +2318,7 @@
     nl = Over anderhalve mijl
     pl = Za półtorej mili
     pt = A uma milha e meia
+    pt-BR = A uma milha e meia
     ro = După o milă și jumătate
     ru = Через полторы мили
     sk = Po jeden a pol míli
@@ -2292,6 +2355,7 @@
     nl = Over twee mijl
     pl = Za dwie mile
     pt = A duas milhas
+    pt-BR = A duas milhas
     ro = După două mile
     ru = Через две мили
     sk = Po dvoch míľach
@@ -2340,3 +2404,4 @@
     vi = Máy ảnh phía trước
     zh-Hans = 在摄像头前
     zh-Hant = 在攝像頭前
+    
