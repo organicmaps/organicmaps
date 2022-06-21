@@ -2593,6 +2593,8 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
   if (desiredStyle != MapStyleCount)
   {
 #if defined(OMIM_OS_ANDROID)
+    // TODO: might not always work, sometimes SetMapStyle() is needed,
+    // see android/jni/com/mapswithme/maps/Framework.cpp::MarkMapStyle()
     MarkMapStyle(desiredStyle);
 #else
     SetMapStyle(desiredStyle);
@@ -2630,6 +2632,35 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
   if (query == "?no-isolines")
   {
     m_isolinesManager.SetEnabled(false /* enable */);
+    return true;
+  }
+  if (query == "?styles-override")
+  {
+    GetStyleReader().ToggleStylesOverride(true);
+    // The visibility override will be enabled automatically
+    // if there are any custom style files present.
+    GetStyleReader().ToggleVisibilityOverride(false);
+    // Reload in case style files were changed.
+    classificator::Load();
+    SetMapStyle(GetStyleReader().GetCurrentStyle());
+    return true;
+  }
+  if (query == "?no-styles-override")
+  {
+    GetStyleReader().ToggleStylesOverride(false);
+    GetStyleReader().ToggleVisibilityOverride(false);
+    classificator::Load();
+    SetMapStyle(GetStyleReader().GetCurrentStyle());
+    return true;
+  }
+  if (query == "?visibility-override")
+  {
+    GetStyleReader().ToggleVisibilityOverride(true);
+    return true;
+  }
+  if (query == "?no-visibility-override")
+  {
+    GetStyleReader().ToggleVisibilityOverride(false);
     return true;
   }
   if (query == "?debug-info")

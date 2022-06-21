@@ -2,10 +2,12 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/map_object.hpp"
+#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/shared_load_info.hpp"
 
@@ -344,6 +346,7 @@ void FeatureType::ParseHeader2()
   if (headerGeomType == HeaderGeomType::Line)
   {
     ptsCount = bitSource.Read(4);
+    // If a mask of outer geometry is present.
     if (ptsCount == 0)
       ptsMask = bitSource.Read(4);
     else
@@ -363,6 +366,7 @@ void FeatureType::ParseHeader2()
   {
     if (ptsCount > 0)
     {
+      // Inner geometry.
       int const count = ((ptsCount - 2) + 4 - 1) / 4;
       ASSERT_LESS(count, 4, ());
 
@@ -378,6 +382,7 @@ void FeatureType::ParseHeader2()
     }
     else
     {
+      // Outer geometry: first point is stored in the header (coding params).
       m_points.emplace_back(serial::LoadPoint(src, cp));
       ReadOffsets(*m_loadInfo, src, ptsMask, m_offsets.m_pts);
     }
@@ -435,8 +440,13 @@ uint32_t FeatureType::ParseGeometry(int scale)
       {
         ASSERT_EQUAL(count, 1, ());
 
-        // outer geometry
-        int const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_pts);
+        // Outer geometry.
+        int ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_pts);
+        // If there is no geometry for the requested scale, fallback to a closest available one.
+        // TODO: if there is need we can remove excess points by a primitive filter
+        // similar to the one used in apply_feature_functors.cpp::ApplyLineFeatureGeometry::operator()
+        if (ind == -1 && GetStyleReader().IsVisibilityOverrideEnabled())
+          ind = GetScaleIndex(*m_loadInfo, FeatureType::WORST_GEOMETRY, m_offsets.m_pts);
         if (ind != -1)
         {
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetGeometryReader(ind));
@@ -451,7 +461,7 @@ uint32_t FeatureType::ParseGeometry(int scale)
       }
       else
       {
-        // filter inner geometry
+        // Filter inner geometry.
 
         FeatureType::Points points;
         points.reserve(count);
@@ -460,11 +470,25 @@ uint32_t FeatureType::ParseGeometry(int scale)
         ASSERT_LESS(scaleIndex, m_loadInfo->GetScalesCount(), ());
 
         points.emplace_back(m_points.front());
+        int minScale = m_loadInfo->GetScalesCount() - 1;
+        int pointScale = 0;
         for (size_t i = 1; i + 1 < count; ++i)
         {
-          // check for point visibility in needed scaleIndex
-          if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= scaleIndex)
+          // Check for point visibility in needed scaleIndex.
+          pointScale = static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3);
+          if (pointScale <= scaleIndex)
             points.emplace_back(m_points[i]);
+          else if (points.size() == 1 && minScale > pointScale)
+            minScale = pointScale;
+        }
+        // Fallback to a closest available geometry.
+        if (points.size() == 1 && GetStyleReader().IsVisibilityOverrideEnabled())
+        {
+          for (size_t i = 1; i + 1 < count; ++i)
+          {
+            if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) == minScale)
+              points.emplace_back(m_points[i]);
+          }
         }
         points.emplace_back(m_points.back());
 
@@ -491,7 +515,10 @@ uint32_t FeatureType::ParseTriangles(int scale)
     {
       if (m_triangles.empty())
       {
-        auto const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_trg);
+        auto ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_trg);
+        // If there is no geometry for the requested scale, fallback to a closest available one.
+        if (ind == -1 && GetStyleReader().IsVisibilityOverrideEnabled())
+          ind = GetScaleIndex(*m_loadInfo, FeatureType::WORST_GEOMETRY, m_offsets.m_trg);
         if (ind != -1)
         {
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetTrianglesReader(ind));
@@ -503,6 +530,16 @@ uint32_t FeatureType::ParseTriangles(int scale)
       }
 
       CalcRect(m_triangles, m_limitRect);
+
+      // After scanning extra visibility/scale indices some too small
+      // area features (that were initially excluded from the index
+      // because of their small size) appear again - filter them out.
+      if (GetStyleReader().IsVisibilityOverrideEnabled()
+          && !IsDrawableForIndexGeometryOnly(TypesHolder(*this), m_limitRect, scale))
+      {
+        m_triangles.clear();
+        m_limitRect = m2::RectD();
+      }
     }
     m_parsed.m_triangles = true;
   }
