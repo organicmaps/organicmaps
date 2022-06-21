@@ -72,6 +72,8 @@ set(SRC
   overlay_tree.hpp
   pointers.cpp
   pointers.hpp
+  rect_packer.cpp
+  rect_packer.hpp
   render_bucket.cpp
   render_bucket.hpp
   render_state.cpp

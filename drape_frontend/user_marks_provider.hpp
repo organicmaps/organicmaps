@@ -38,10 +38,20 @@ struct IDCollections
 class UserPointMark
 {
 public:
-  using SymbolNameZoomInfo = std::map<int, std::string>;
+  struct SymbolNameZoomInfo
+  {
+    std::map<int, std::string> m_zoomInfo;
+    // Check symbol from file if not empty.
+    std::string m_pathPrefix;
+
+    bool IsEmpty() const { return m_zoomInfo.empty(); }
+    void Emplace(int zoom, std::string name) { m_zoomInfo.emplace(zoom, std::move(name)); }
+  };
+
   using TitlesInfo = std::vector<dp::TitleDecl>;
   using SymbolSizes = std::vector<m2::PointF>;
   using SymbolOffsets = std::vector<m2::PointF>;
+
   struct ColoredSymbolZoomInfo
   {
     std::map<int, df::ColoredSymbolViewParams> m_zoomInfo;

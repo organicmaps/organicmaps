@@ -26,6 +26,7 @@ namespace dp
 namespace
 {
 uint32_t constexpr kMaxTextureSize = 1024;
+uint32_t constexpr kUserSymbolsTextureSize = 512;
 uint32_t constexpr kStippleTextureWidth = 512;  /// @todo Should be equal with kMaxStipplePenLength?
 uint32_t constexpr kMinStippleTextureHeight = 64;
 uint32_t constexpr kMinColorTextureSize = 32;
@@ -65,6 +66,12 @@ void ParseColorsList(std::string const & colorsFile, ToDo toDo)
     is >> color;
     toDo(dp::Extract(color));
   }
+}
+
+m2::PointU UserSymbolsTextureSize(uint32_t maxTextureSize)
+{
+  uint32_t const sz = std::min(kUserSymbolsTextureSize, maxTextureSize);
+  return {sz, sz};
 }
 
 m2::PointU StipplePenTextureSize(size_t patternsCount, uint32_t maxTextureSize)
@@ -206,6 +213,7 @@ void TextureManager::Release()
   m_hybridGlyphGroups.clear();
 
   m_symbolTextures.clear();
+  m_userSymbolTexture.reset();
   m_stipplePenTexture.reset();
   m_colorTexture.reset();
 
@@ -254,6 +262,9 @@ bool TextureManager::UpdateDynamicTextures(ref_ptr<dp::GraphicsContext> context)
   CHECK(m_stipplePenTexture != nullptr, ());
   m_stipplePenTexture->UpdateState(context);
 
+  CHECK(m_userSymbolTexture != nullptr, ());
+  m_userSymbolTexture->UpdateState(context);
+
   UpdateGlyphTextures(context);
 
   CHECK(m_textureAllocator != nullptr, ());
@@ -285,15 +296,23 @@ ref_ptr<Texture> TextureManager::AllocateGlyphTexture()
   return make_ref(m_glyphTextures.back());
 }
 
-void TextureManager::GetRegionBase(ref_ptr<Texture> tex, TextureManager::BaseRegion & region,
-                                   Texture::Key const & key)
+bool TextureManager::GetRegionSafe(ref_ptr<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key)
 {
-  bool isNew = false;
-  region.SetResourceInfo(tex != nullptr ? tex->FindResource(key, isNew) : nullptr);
+  bool isNew;
+  auto const info = tex->FindResource(key, isNew);
+  if (!info)
+    return false;
+
+  region.SetResourceInfo(info);
   region.SetTexture(tex);
-  ASSERT(region.IsValid(), ());
   if (isNew)
     m_nothingToUpload.clear();
+  return true;
+}
+
+void TextureManager::GetRegionBase(ref_ptr<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key)
+{
+  VERIFY(GetRegionSafe(tex, region, key), ());
 }
 
 void TextureManager::GetGlyphsRegions(ref_ptr<FontTexture> tex, strings::UniString const & text,
@@ -409,6 +428,10 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
     m_symbolTextures.push_back(make_unique_dp<SymbolsTexture>(context, m_resPostfix, texName,
                                                               make_ref(m_textureAllocator)));
   }
+
+  m_userSymbolTexture = make_unique_dp<DynamicSymbolsTexture>(UserSymbolsTextureSize(m_maxTextureSize),
+                                                              make_ref(m_textureAllocator));
+  LOG(LDEBUG, ("User symbols texture size =", m_userSymbolTexture->GetWidth(), m_userSymbolTexture->GetHeight()));
 
   // Initialize static textures.
   m_trafficArrowTexture =
@@ -542,16 +565,29 @@ void TextureManager::GetTexturesToCleanup(std::vector<drape_ptr<HWTexture>> & te
 bool TextureManager::GetSymbolRegionSafe(std::string const & symbolName, SymbolRegion & region)
 {
   CHECK(m_isInitialized, ());
-  for (size_t i = 0; i < m_symbolTextures.size(); ++i)
+  ASSERT(!symbolName.empty(), ());
+
+  SymbolKey const key(symbolName);
+  for (uint32_t i = 0; i < m_symbolTextures.size(); ++i)
   {
-    ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTextures[i]);
-    ASSERT(symbolsTexture != nullptr, ());
-    if (symbolsTexture->IsSymbolContained(symbolName))
+    if (GetRegionSafe(make_ref(m_symbolTextures[i]), region, key))
     {
-      GetRegionBase(symbolsTexture, region, SymbolsTexture::SymbolKey(symbolName));
-      region.SetTextureIndex(static_cast<uint32_t>(i));
+      region.SetTextureIndex(i);
       return true;
     }
+  }
+  return false;
+}
+
+bool TextureManager::GetUserSymbolRegion(std::string const & symbolName, SymbolRegion & region)
+{
+  CHECK(m_isInitialized, ());
+  ASSERT(!symbolName.empty(), ());
+
+  if (GetRegionSafe(make_ref(m_userSymbolTexture), region, SymbolKey(symbolName)))
+  {
+    region.SetTextureIndex(m_symbolTextures.size());
+    return true;
   }
   return false;
 }

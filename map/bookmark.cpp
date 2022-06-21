@@ -109,10 +109,9 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() cons
 
   symbolNames = make_unique_dp<SymbolNameZoomInfo>();
 
-  symbolNames->insert(std::make_pair(1 /* zoomLevel */, "bookmark-default-xs"));
-  symbolNames->insert(std::make_pair(8 /* zoomLevel */, "bookmark-default-s"));
-  auto const iconType = GetBookmarkIconType(m_data.m_icon);
-  symbolNames->insert(std::make_pair(14 /* zoomLevel */, "bookmark-" + iconType + "-m"));
+  symbolNames->Emplace(1, "bookmark-default-xs");
+  symbolNames->Emplace(8, "bookmark-default-s");
+  symbolNames->Emplace(14, "bookmark-" + GetBookmarkIconType(m_data.m_icon) + "-m");
   return symbolNames;
 }
 
@@ -123,6 +122,8 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetCustomSymbolNames(
     return nullptr;
 
   auto symbolNames = make_unique_dp<SymbolNameZoomInfo>();
+  symbolNames->m_pathPrefix = GetBookmarksDirectory();
+
   strings::Tokenize(it->second, ";", [&](std::string_view token)
   {
     uint8_t zoomLevel = 1;
@@ -130,10 +131,10 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetCustomSymbolNames(
     if (pos != std::string::npos && strings::to_uint(token.substr(0, pos), zoomLevel))
       token = token.substr(pos + 1);
     if (!token.empty() && zoomLevel >= 1 && zoomLevel <= scales::GetUpperStyleScale())
-      symbolNames->emplace(zoomLevel, std::string(token));
+      symbolNames->Emplace(zoomLevel, std::string(token));
   });
 
-  if (symbolNames->empty())
+  if (symbolNames->IsEmpty())
     return nullptr;
 
   return symbolNames;

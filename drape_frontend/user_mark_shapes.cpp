@@ -21,6 +21,8 @@
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
 
+#include "base/file_name_utils.hpp"
+
 #include <array>
 #include <cmath>
 #include <vector>
@@ -118,10 +120,11 @@ std::string GetSymbolNameForZoomLevel(ref_ptr<UserPointMark::SymbolNameZoomInfo>
   if (!symbolNames)
     return {};
 
-  for (auto itName = symbolNames->crbegin(); itName != symbolNames->crend(); ++itName)
+  auto const & v = symbolNames->m_zoomInfo;
+  for (auto it = v.crbegin(); it != v.crend(); ++it)
   {
-    if (itName->first <= tileKey.m_zoomLevel)
-      return itName->second;
+    if (it->first <= tileKey.m_zoomLevel)
+      return it->second;
   }
   return {};
 }
@@ -397,24 +400,34 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
     m2::PointD const tileCenter = tileKey.GetGlobalRect().Center();
 
+    // Calculate symbol's region params.
     m2::PointF symbolSize(0.0f, 0.0f);
     dp::TextureManager::SymbolRegion symbolRegion;
-    auto const symbolName = GetSymbolNameForZoomLevel(make_ref(renderInfo.m_symbolNames), tileKey);
+    auto symbolName = GetSymbolNameForZoomLevel(make_ref(renderInfo.m_symbolNames), tileKey);
     if (!symbolName.empty())
     {
-      textures->GetSymbolRegion(symbolName, symbolRegion);
+      if (!textures->GetSymbolRegionSafe(symbolName, symbolRegion))
+      {
+        if (renderInfo.m_symbolNames->m_pathPrefix.empty() ||
+            !textures->GetUserSymbolRegion(base::JoinPath(renderInfo.m_symbolNames->m_pathPrefix, symbolName), symbolRegion))
+        {
+          LOG(LWARNING, ("Can't load symbol:", symbolName));
+
+          // Fallback to the default bookmark's icon if user icon's file was not loaded.
+          symbolName = "bookmark-default-m";
+          VERIFY(textures->GetSymbolRegionSafe(symbolName, symbolRegion), ());
+        }
+      }
+
       symbolSize = symbolRegion.GetPixelSize();
     }
 
-    m2::PointF symbolOffset = m2::PointF::Zero();
+    m2::PointF symbolOffset(0, 0);
     if (renderInfo.m_symbolIsPOI)
       symbolOffset = GetSymbolOffsetForZoomLevel(make_ref(renderInfo.m_symbolOffsets), tileKey);
 
     if (renderInfo.m_coloredSymbols != nullptr)
-    {
-      GenerateColoredSymbolShapes(context, textures, renderInfo, tileKey, tileCenter, symbolOffset, symbolSize,
-                                  batcher);
-    }
+      GenerateColoredSymbolShapes(context, textures, renderInfo, tileKey, tileCenter, symbolOffset, symbolSize, batcher);
 
     if (!symbolName.empty())
     {
@@ -437,8 +450,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         m2::RectF const & bgTexRect = backgroundRegion.GetTexRect();
         m2::PointF const pxSize = symbolRegion.GetPixelSize();
         dp::Anchor const anchor = renderInfo.m_anchor;
-        m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileCenter,
-                                                       kShapeCoordScalar);
+        m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileCenter, kShapeCoordScalar);
         glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
         bool const runAnim = renderInfo.m_hasCreationAnimation && renderInfo.m_justCreated;
 
@@ -449,12 +461,12 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         m2::PointD const pixelOffset = renderInfo.m_pixelOffset;
         glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
 
+        /// @todo Here we always have maskColor, which may conflict with custom user symbols.
         dp::Color color = dp::Color::White();
         if (!renderInfo.m_color.empty())
           color = df::GetColorConstant(renderInfo.m_color);
 
-        glsl::vec4 maskColor(color.GetRedF(), color.GetGreenF(), color.GetBlueF(),
-                             renderInfo.m_symbolOpacity);
+        glsl::vec4 const maskColor(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), renderInfo.m_symbolOpacity);
         float animateOrZ = 0.0f;
         if (!renderInfo.m_customDepth)
           animateOrZ = runAnim ? 1.0f : -1.0f;

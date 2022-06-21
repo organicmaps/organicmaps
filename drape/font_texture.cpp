@@ -15,75 +15,6 @@
 
 namespace dp
 {
-GlyphPacker::GlyphPacker(const m2::PointU & size)
-  : m_size(size)
-{}
-
-bool GlyphPacker::PackGlyph(uint32_t width, uint32_t height, m2::RectU & rect)
-{
-  ASSERT_LESS(width, m_size.x, ());
-  ASSERT_LESS(height, m_size.y, ());
-
-  if (m_cursor.x + width > m_size.x)
-  {
-    m_cursor.x = 0;
-    m_cursor.y += m_yStep;
-    m_yStep = 0;
-  }
-
-  if (m_cursor.y + height > m_size.y)
-  {
-    m_isFull = true;
-    return false;
-  }
-
-  rect = m2::RectU(m_cursor.x, m_cursor.y,
-                   m_cursor.x + width, m_cursor.y + height);
-
-  m_cursor.x += width;
-  m_yStep = std::max(height, m_yStep);
-  return true;
-}
-
-bool GlyphPacker::CanBePacked(uint32_t glyphsCount, uint32_t width, uint32_t height) const
-{
-  uint32_t x = m_cursor.x;
-  uint32_t y = m_cursor.y;
-  uint32_t step = m_yStep;
-  for (uint32_t i = 0; i < glyphsCount; i++)
-  {
-    if (x + width > m_size.x)
-    {
-      x = 0;
-      y += step;
-    }
-
-    if (y + height > m_size.y)
-      return false;
-
-    x += width;
-    step = std::max(height, step);
-  }
-  return true;
-}
-
-m2::RectF GlyphPacker::MapTextureCoords(const m2::RectU & pixelRect) const
-{
-  auto const width = static_cast<float>(m_size.x);
-  auto const height = static_cast<float>(m_size.y);
-
-  // Half-pixel offset to eliminate artefacts on fetching from texture.
-  float offset = 0.0f;
-  if (pixelRect.SizeX() != 0 && pixelRect.SizeY() != 0)
-    offset = 0.5f;
-
-  return {(pixelRect.minX() + offset) / width,
-          (pixelRect.minY() + offset) / height,
-          (pixelRect.maxX() - offset) / width,
-          (pixelRect.maxY() - offset) / height};
-}
-
-bool GlyphPacker::IsFull() const { return m_isFull; }
 
 GlyphIndex::GlyphIndex(m2::PointU const & size, ref_ptr<GlyphManager> mng,
                        ref_ptr<GlyphGenerator> generator)
@@ -164,7 +95,7 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
 
   GlyphManager::Glyph glyph = m_mng->GetGlyph(key.GetUnicodePoint(), key.GetFixedSize());
   m2::RectU r;
-  if (!m_packer.PackGlyph(glyph.m_image.m_width, glyph.m_image.m_height, r))
+  if (!m_packer.Pack(glyph.m_image.m_width, glyph.m_image.m_height, r))
   {
     glyph.m_image.Destroy();
     if (glyph.m_metrics.m_isValid)
@@ -241,10 +172,8 @@ void GlyphIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<T
   if (pendingNodes.empty())
     return;
 
-  for (size_t i = 0; i < pendingNodes.size(); ++i)
+  for (auto & [rect, glyph] : pendingNodes)
   {
-    GlyphManager::Glyph & glyph = pendingNodes[i].second;
-    m2::RectU const rect = pendingNodes[i].first;
     m2::PointU const zeroPoint = rect.LeftBottom();
     if (glyph.m_image.m_width == 0 || glyph.m_image.m_height == 0 || rect.SizeX() == 0 || rect.SizeY() == 0)
     {
