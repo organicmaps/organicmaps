@@ -345,6 +345,7 @@ void FeatureType::ParseHeader2()
   {
     ptsCount = bitSource.Read(4);
     if (ptsCount == 0)
+      // A mask of outer geometry present.
       ptsMask = bitSource.Read(4);
     else
       ASSERT_GREATER(ptsCount, 1, ());
@@ -363,6 +364,7 @@ void FeatureType::ParseHeader2()
   {
     if (ptsCount > 0)
     {
+      // Inner geometry.
       int const count = ((ptsCount - 2) + 4 - 1) / 4;
       ASSERT_LESS(count, 4, ());
 
@@ -378,6 +380,7 @@ void FeatureType::ParseHeader2()
     }
     else
     {
+      // Outer geometry: first point is stored in the header (coding params).
       m_points.emplace_back(serial::LoadPoint(src, cp));
       ReadOffsets(*m_loadInfo, src, ptsMask, m_offsets.m_pts);
     }
@@ -435,8 +438,12 @@ uint32_t FeatureType::ParseGeometry(int scale)
       {
         ASSERT_EQUAL(count, 1, ());
 
-        // outer geometry
-        int const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_pts);
+        // Outer geometry.
+        int ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_pts);
+        // If there is no geometry for the requested scale, fallback to a closest available one.
+        // TODO: add enable/disable flag and always keep disabled for the world map.
+        if (ind == -1)
+          ind = GetScaleIndex(*m_loadInfo, FeatureType::WORST_GEOMETRY, m_offsets.m_pts);
         if (ind != -1)
         {
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetGeometryReader(ind));
@@ -451,7 +458,7 @@ uint32_t FeatureType::ParseGeometry(int scale)
       }
       else
       {
-        // filter inner geometry
+        // Filter inner geometry.
 
         FeatureType::Points points;
         points.reserve(count);
@@ -460,11 +467,25 @@ uint32_t FeatureType::ParseGeometry(int scale)
         ASSERT_LESS(scaleIndex, m_loadInfo->GetScalesCount(), ());
 
         points.emplace_back(m_points.front());
+        int minScale = m_loadInfo->GetScalesCount() - 1;
+        int pointScale = 0;
         for (size_t i = 1; i + 1 < count; ++i)
         {
-          // check for point visibility in needed scaleIndex
-          if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= scaleIndex)
+          // Check for point visibility in needed scaleIndex.
+          pointScale = static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3);
+          if (pointScale <= scaleIndex)
             points.emplace_back(m_points[i]);
+          else if (points.size() == 1 && minScale > pointScale)
+            minScale = pointScale;
+        }
+        // Fallback to a closest available geometry.
+        if (points.size() == 1)
+        {
+          for (size_t i = 1; i + 1 < count; ++i)
+          {
+            if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) == minScale)
+              points.emplace_back(m_points[i]);
+          }
         }
         points.emplace_back(m_points.back());
 

@@ -47,6 +47,11 @@ public:
     m_cellsInBucket.resize(m_bucketsCount);
   }
 
+  // Every feature should be indexed at most once, namely for the smallest possible scale where
+  //   -- its geometry is non-empty;
+  //   -- it is visible;
+  //   -- it is allowed by the classificator.
+  // If the feature is invisible at all scales, do not index it.
   template <class Feature>
   void operator()(Feature & ft, uint32_t index) const
   {
@@ -56,12 +61,15 @@ public:
     // The classificator won't allow this feature to be drawable for smaller
     // scales so the first buckets can be safely skipped.
     // todo(@pimenov) Parallelizing this loop may be helpful.
+    // TODO: skip index building for scales [0,9] for country files and scales 10+ for the world file.
     for (uint32_t bucket = minScaleClassif; bucket < m_bucketsCount; ++bucket)
     {
       // There is a one-to-one correspondence between buckets and scales.
       // This is not immediately obvious and in fact there was an idea to map
       // a bucket to a contiguous range of scales.
       // todo(@pimenov): We probably should remove scale_index.hpp altogether.
+
+      // Check feature's geometry and visibility.
       if (!FeatureShouldBeIndexed(ft, static_cast<int>(bucket), bucket == minScaleClassif /* needReset */))
       {
         continue;
@@ -78,11 +86,6 @@ public:
   }
 
 private:
-  // Every feature should be indexed at most once, namely for the smallest possible scale where
-  //   -- its geometry is non-empty;
-  //   -- it is visible;
-  //   -- it is allowed by the classificator.
-  // If the feature is invisible at all scales, do not index it.
   template <class Feature>
   bool FeatureShouldBeIndexed(Feature & ft, int scale, bool needReset) const
   {
@@ -136,9 +139,10 @@ void IndexScales(feature::DataHeader const & header, FeaturesVector const & feat
     };
     using TDisplacementManager = DisplacementManager<decltype(PushCFT)>;
 
-    // Heuristically rearrange and filter single-point features to simplify
+    // Single-point features are heuristically rearranged and filtered to simplify
     // the runtime decision of whether we should draw a feature
-    // or sacrifice it for the sake of more important ones.
+    // or sacrifice it for the sake of more important ones ("displacement").
+    // Lines and areas are not displaceable and are just passed on to the index.
     TDisplacementManager manager(PushCFT);
     std::vector<uint32_t> featuresInBucket(bucketsCount);
     std::vector<uint32_t> cellsInBucket(bucketsCount);

@@ -49,6 +49,10 @@ public:
 
       // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
       auto const lastScale = header.GetLastScale();
+      // Read 3 additional scale indices to allow visibility changes
+      // for style designers and for custom style users.
+      // TODO: add enable/disable flag and always keep disabled for the world map.
+      scale += 3;
       if (scale > lastScale)
         scale = lastScale;
 
