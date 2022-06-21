@@ -6592,7 +6592,7 @@ sport-shooting
 en:Shooting
 ar:رماية
 be:Стральба
-cs:Střílení
+cs:Střílení|Střelba
 da:Skydning
 de:Schießen
 el:Κυνήγι
