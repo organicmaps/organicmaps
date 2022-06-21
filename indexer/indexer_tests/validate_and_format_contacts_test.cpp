@@ -17,13 +17,14 @@ UNIT_TEST(EditableMapObject_ValidateFacebookPage)
   TEST(osm::ValidateFacebookPage("OpenStreetMap"), ());
   TEST(osm::ValidateFacebookPage("some.good.page"), ());
   TEST(osm::ValidateFacebookPage("Quaama-Volunteer-Bushfire-Brigade-526790054021506"), ());
+  TEST(osm::ValidateFacebookPage("P\xE1ter-Bonif\xE1""c-Restaurant-Budapest-111001693867133"), ());
   TEST(osm::ValidateFacebookPage("@tree-house-interiors"), ());
+  TEST(osm::ValidateFacebookPage("allow_underscore-1234567890"), ());
   TEST(osm::ValidateFacebookPage("alexander.net"), ());
 
   TEST(!osm::ValidateFacebookPage("instagram.com/openstreetmapus"), ());
   TEST(!osm::ValidateFacebookPage("https://instagram.com/openstreetmapus"), ());
   TEST(!osm::ValidateFacebookPage("osm"), ());
-  TEST(!osm::ValidateFacebookPage("invalid_username"), ());
 }
 
 UNIT_TEST(EditableMapObject_ValidateInstagramPage)

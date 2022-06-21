@@ -10,7 +10,7 @@ using namespace std;
 
 namespace osm {
 
-static auto const s_fbRegex = regex(R"(^@?[a-zA-Z\d.\-]{5,}$)");
+static auto const s_fbRegex = regex(R"(^@?[a-zA-Z\xE1\d.\-_]{5,}$)");
 static auto const s_instaRegex = regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
 static auto const s_twitterRegex = regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
 static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
