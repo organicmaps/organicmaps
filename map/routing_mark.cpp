@@ -195,7 +195,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RouteMarkPoint::GetSymbolNames(
     }
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(1 /* zoomLevel */, name));
+  symbol->Emplace(1, std::move(name));
   return symbol;
 }
 
@@ -470,7 +470,7 @@ drape_ptr<df::UserPointMark::TitlesInfo> TransitMark::GetTitleDecl() const
   return titles;
 }
 
-void TransitMark::SetSymbolNames(std::map<int, std::string> const & symbolNames)
+void TransitMark::SetSymbolNames(df::UserPointMark::SymbolNameZoomInfo const & symbolNames)
 {
   SetDirty();
   m_symbolNames = symbolNames;
@@ -525,10 +525,10 @@ dp::Anchor TransitMark::GetAnchor() const
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TransitMark::GetSymbolNames() const
 {
-  if (m_symbolNames.empty())
+  if (m_symbolNames.IsEmpty())
     return nullptr;
   return make_unique_dp<SymbolNameZoomInfo>(m_symbolNames);
-};
+}
 
 // static
 void TransitMark::GetDefaultTransitTitle(dp::TitleDecl & titleDecl)
@@ -552,7 +552,7 @@ SpeedCameraMark::SpeedCameraMark(m2::PointD const & ptOrg)
   m_titleDecl.m_primaryOffset.x = kSpeedCameraOutlineWidth + kSpeedCameraMarkTextMargin;
   m_titleDecl.m_anchor = dp::Left;
 
-  m_symbolNames.insert(std::make_pair(kMinSpeedCameraZoom, "speedcam-alert-l"));
+  m_symbolNames.Emplace(kMinSpeedCameraZoom, "speedcam-alert-l");
 
   df::ColoredSymbolViewParams params;
   params.m_color = df::GetColorConstant(kSpeedCameraMarkBg);
@@ -669,7 +669,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RoadWarningMark::GetSymbolNames
   case RoadWarningMarkType::Count: CHECK(false, ()); break;
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(1 /* zoomLevel */, symbolName));
+  symbol->Emplace(1, std::move(symbolName));
   return symbol;
 }
 

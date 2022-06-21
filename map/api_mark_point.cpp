@@ -50,7 +50,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> ApiMarkPoint::GetSymbolNames() 
 {
   //TODO: use its own icon.
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(1 /* zoomLevel */, "coloredmark-default-s"));
+  symbol->Emplace(1, "coloredmark-default-s");
   return symbol;
 }
 

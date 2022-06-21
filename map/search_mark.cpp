@@ -207,12 +207,12 @@ m2::PointD SearchMarkPoint::GetPixelOffset() const
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames() const
 {
-  auto const symbolName = GetSymbolName();
+  auto symbolName = GetSymbolName();
   if (symbolName.empty())
     return nullptr;
 
   auto symbolZoomInfo = make_unique_dp<SymbolNameZoomInfo>();
-  symbolZoomInfo->emplace(1 /*kWorldZoomLevel*/, symbolName);
+  symbolZoomInfo->Emplace(1, std::move(symbolName));
   return symbolZoomInfo;
 }
 

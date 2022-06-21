@@ -139,6 +139,8 @@
 		6743D3451C3533AE0095054B /* support_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6743D3431C3533AE0095054B /* support_manager.hpp */; };
 		675D21991BFB876E00717E4F /* projection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D21971BFB876E00717E4F /* projection.cpp */; };
 		675D219A1BFB876E00717E4F /* projection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675D21981BFB876E00717E4F /* projection.hpp */; };
+		ACA9AB4D285F8BA4009FFFCD /* rect_packer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACA9AB4B285F8BA4009FFFCD /* rect_packer.cpp */; };
+		ACA9AB4E285F8BA4009FFFCD /* rect_packer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ACA9AB4C285F8BA4009FFFCD /* rect_packer.hpp */; };
 		BB035F6C1E3A2A5C00519962 /* drape_diagnostics.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB035F6B1E3A2A5C00519962 /* drape_diagnostics.hpp */; };
 		BBAD59F821258812005543FC /* debug_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBAD59F721258812005543FC /* debug_renderer.hpp */; };
 		BBB72E902110AF0F00249D4F /* oglcontext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB72E8F2110AF0F00249D4F /* oglcontext.cpp */; };
@@ -287,6 +289,8 @@
 		6743D3431C3533AE0095054B /* support_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = support_manager.hpp; sourceTree = "<group>"; };
 		675D21971BFB876E00717E4F /* projection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = projection.cpp; sourceTree = "<group>"; };
 		675D21981BFB876E00717E4F /* projection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = projection.hpp; sourceTree = "<group>"; };
+		ACA9AB4B285F8BA4009FFFCD /* rect_packer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rect_packer.cpp; sourceTree = "<group>"; };
+		ACA9AB4C285F8BA4009FFFCD /* rect_packer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rect_packer.hpp; sourceTree = "<group>"; };
 		BB035F6B1E3A2A5C00519962 /* drape_diagnostics.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_diagnostics.hpp; sourceTree = "<group>"; };
 		BBAD59F721258812005543FC /* debug_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = debug_renderer.hpp; sourceTree = "<group>"; };
 		BBB72E8F2110AF0F00249D4F /* oglcontext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = oglcontext.cpp; sourceTree = "<group>"; };
@@ -456,6 +460,8 @@
 				6729A5331A69213A007D5872 /* overlay_tree.hpp */,
 				6729A5341A69213A007D5872 /* pointers.cpp */,
 				6729A5351A69213A007D5872 /* pointers.hpp */,
+				ACA9AB4B285F8BA4009FFFCD /* rect_packer.cpp */,
+				ACA9AB4C285F8BA4009FFFCD /* rect_packer.hpp */,
 				6729A5361A69213A007D5872 /* render_bucket.cpp */,
 				6729A5371A69213A007D5872 /* render_bucket.hpp */,
 				45D7ADE12113535600160DE3 /* render_state.cpp */,
@@ -551,6 +557,7 @@
 				4560F5A92142A17B00CC736C /* metal_gpu_buffer_impl.hpp in Headers */,
 				45789EDA2133E14F009955CC /* metal_base_context.hpp in Headers */,
 				6743D3451C3533AE0095054B /* support_manager.hpp in Headers */,
+				ACA9AB4E285F8BA4009FFFCD /* rect_packer.hpp in Headers */,
 				6729A5B31A69213A007D5872 /* vertex_decl.hpp in Headers */,
 				6729A5721A69213A007D5872 /* cpu_buffer.hpp in Headers */,
 				4525F88522154BE800CAC51A /* vulkan_pipeline.hpp in Headers */,
@@ -678,6 +685,7 @@
 				457B536720358F7E00E4E752 /* glyph_generator.cpp in Sources */,
 				6729A5A21A69213A007D5872 /* stipple_pen_resource.cpp in Sources */,
 				6729A5691A69213A007D5872 /* batcher.cpp in Sources */,
+				ACA9AB4D285F8BA4009FFFCD /* rect_packer.cpp in Sources */,
 				670947251BDF9A4F005014C0 /* bidi.cpp in Sources */,
 				4577B25D21F2035D00864FAC /* vulkan_layers.cpp in Sources */,
 				6729A58C1A69213A007D5872 /* index_buffer_mutator.cpp in Sources */,

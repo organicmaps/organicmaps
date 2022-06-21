@@ -90,6 +90,7 @@ public:
 
   bool GetSymbolRegionSafe(std::string const & symbolName, SymbolRegion & region);
   void GetSymbolRegion(std::string const & symbolName, SymbolRegion & region);
+  bool GetUserSymbolRegion(std::string const & symbolName, SymbolRegion & region);
 
   void GetStippleRegion(PenPatternT const & pen, StippleRegion & region);
   void GetColorRegion(Color const & color, ColorRegion & region);
@@ -146,6 +147,7 @@ private:
   uint32_t m_maxGlypsCount;
 
   ref_ptr<Texture> AllocateGlyphTexture();
+  bool GetRegionSafe(ref_ptr<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key);
   void GetRegionBase(ref_ptr<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key);
 
   void GetGlyphsRegions(ref_ptr<FontTexture> tex, strings::UniString const & text,
@@ -216,7 +218,9 @@ private:
   bool m_isInitialized = false;
   ref_ptr<GlyphGenerator> m_glyphGenerator;
   std::string m_resPostfix;
+
   std::vector<drape_ptr<Texture>> m_symbolTextures;
+  drape_ptr<Texture> m_userSymbolTexture;
   drape_ptr<Texture> m_stipplePenTexture;
   drape_ptr<Texture> m_colorTexture;
   std::list<drape_ptr<Texture>> m_glyphTextures;

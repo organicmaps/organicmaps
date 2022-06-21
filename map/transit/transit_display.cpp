@@ -835,8 +835,8 @@ void TransitRouteDisplay::CreateTransitMarks()
         return name != kZeroIcon ? name + suffix : name;
       };
       df::UserPointMark::SymbolNameZoomInfo symbolNames;
-      symbolNames[kSmallIconZoom] = GetSymbolName(mark.m_symbolName, "-s");
-      symbolNames[kMediumIconZoom] = GetSymbolName(mark.m_symbolName, "-m");
+      symbolNames.Emplace(kSmallIconZoom, GetSymbolName(mark.m_symbolName, "-s"));
+      symbolNames.Emplace(kMediumIconZoom, GetSymbolName(mark.m_symbolName, "-m"));
       transitMark->SetSymbolNames(symbolNames);
 
       transitMark->SetPriority(UserMark::Priority::TransitGate);
@@ -863,7 +863,7 @@ void TransitRouteDisplay::CreateTransitMarks()
         titleTransitMark->AddTitle(titleDecl);
 
         titleTransitMark->SetAnchor(dp::Top);
-        titleTransitMark->SetSymbolNames({{1 /* minZoom */, "transfer_arrow"}});
+        titleTransitMark->SetSymbolNames({{{1 /* minZoom */, "transfer_arrow"}}, {}});
         titleTransitMark->SetSymbolOffsets(transferArrowOffsets);
         titleTransitMark->SetPriority(UserMark::Priority::TransitTransfer);
       }
@@ -899,19 +899,19 @@ void TransitRouteDisplay::CreateTransitMarks()
       if (mark.m_type == TransitMarkInfo::Type::KeyStop)
       {
         df::UserPointMark::SymbolNameZoomInfo symbolNames;
-        symbolNames[kSmallIconZoom] = mark.m_symbolName + "-s";
-        symbolNames[kMediumIconZoom] = mark.m_symbolName + "-m";
+        symbolNames.Emplace(kSmallIconZoom, mark.m_symbolName + "-s");
+        symbolNames.Emplace(kMediumIconZoom, mark.m_symbolName + "-m");
         transitMark->SetSymbolNames(symbolNames);
 
         df::UserPointMark::ColoredSymbolZoomInfo coloredSymbol;
         df::ColoredSymbolViewParams params;
         params.m_color = df::GetColorConstant(mark.m_color);
 
-        auto sz = m_symbolSizes.at(symbolNames[kSmallIconZoom]);
+        auto sz = m_symbolSizes.at(symbolNames.m_zoomInfo.at(kSmallIconZoom));
         params.m_radiusInPixels = max(sz.x, sz.y) * kGateBgScale * 0.5f;
         coloredSymbol.m_zoomInfo[kSmallIconZoom] = params;
 
-        sz = m_symbolSizes.at(symbolNames[kMediumIconZoom]);
+        sz = m_symbolSizes.at(symbolNames.m_zoomInfo.at(kMediumIconZoom));
         params.m_radiusInPixels = max(sz.x, sz.y) * kGateBgScale * 0.5f;
         coloredSymbol.m_zoomInfo[kMediumIconZoom] = params;
 
