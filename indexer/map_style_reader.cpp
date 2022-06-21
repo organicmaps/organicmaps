@@ -91,21 +91,28 @@ bool StyleReader::IsCarNavigationStyle() const
          m_mapStyle == MapStyle::MapStyleVehicleDark;
 }
 
-ReaderPtr<Reader> StyleReader::GetDrawingRulesReader() const
+ReaderPtr<Reader> StyleReader::GetDrawingRulesReader()
 {
   std::string rulesFile =
       std::string("drules_proto") + GetStyleRulesSuffix(GetCurrentStyle()) + ".bin";
 
-  auto overriddenRulesFile =
-      base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, rulesFile);
-  if (Platform::IsFileExistsByFullPath(overriddenRulesFile))
-    rulesFile = overriddenRulesFile;
+  Platform const & pl = GetPlatform();
+  if (m_isStylesOverrideEnabled)
+  {
+    auto overriddenRulesFile =
+        base::JoinPath(pl.WritableDir(), kStylesOverrideDir, rulesFile);
+    if (pl.IsFileExistsByFullPath(overriddenRulesFile))
+    {
+      rulesFile = overriddenRulesFile;
+      m_isVisibilityOverrideEnabled = true;
+    }
+  }
 
 #ifdef BUILD_DESIGNER
   // For Designer tool we have to look first into the resource folder.
-  return GetPlatform().GetReader(rulesFile, "rwf");
+  return pl.GetReader(rulesFile, "rwf");
 #else
-  return GetPlatform().GetReader(rulesFile);
+  return pl.GetReader(rulesFile);
 #endif
 }
 
@@ -116,15 +123,19 @@ ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file,
       std::string("resources-") + density + GetStyleResourcesSuffix(GetCurrentStyle());
   std::string resFile = base::JoinPath(resourceDir, file);
 
-  auto overriddenResFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, resFile);
-  if (GetPlatform().IsFileExistsByFullPath(overriddenResFile))
-    resFile = overriddenResFile;
+  Platform const & pl = GetPlatform();
+  if (m_isStylesOverrideEnabled)
+  {
+    auto overriddenResFile = base::JoinPath(pl.WritableDir(), kStylesOverrideDir, resFile);
+    if (pl.IsFileExistsByFullPath(overriddenResFile))
+      resFile = overriddenResFile;
+  }
 
 #ifdef BUILD_DESIGNER
   // For Designer tool we have to look first into the resource folder.
-  return GetPlatform().GetReader(resFile, "rwf");
+  return pl.GetReader(resFile, "rwf");
 #else
-  return GetPlatform().GetReader(resFile);
+  return pl.GetReader(resFile);
 #endif
 }
 

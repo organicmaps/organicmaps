@@ -353,7 +353,7 @@ public:
   /// \brief Fills |nodes| with CountryIds of topmost nodes for this |countryId|.
   /// \param level is distance from top level except root.
   /// For disputed territories all possible owners will be added.
-  /// Puts |countryId| to |nodes| when |level| is greater than the level of |countyId|.
+  /// Puts |countryId| to |nodes| when |level| is greater than the level of |countryId|.
   void GetTopmostNodesFor(CountryId const & countryId, CountriesVec & nodes,
                           size_t level = 0) const;
 
