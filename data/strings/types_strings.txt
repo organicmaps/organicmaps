@@ -8315,7 +8315,7 @@
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
     pt-BR = Túnel para cavaleiros
-    ru = Дорожный туннель для лошадей
+    ru = Конный тоннель
 
   [type.highway.bus_stop]
     en = Bus Stop
