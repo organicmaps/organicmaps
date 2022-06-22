@@ -141,7 +141,7 @@
 /* 5.5 Transport */
 
 @railway_light: #B2B1A2;
-@railway: #969586;
+@railway: #868576;
 @railway_dash: #EEEEEE;
 @railway_tunnel: #808080;
 @aerialway: #444444;

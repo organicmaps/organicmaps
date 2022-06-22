@@ -525,25 +525,25 @@ area[building=train_station],
 
 node|z10-[natural=volcano],
 area|z10-[natural=volcano],
-node|z11-[natural=cave_entrance],
-area|z11-[natural=cave_entrance],
-node|z11-[waterway=waterfall],
-area|z11-[waterway=waterfall],
-node|z13-[natural=peak],
-area|z13-[natural=peak],
-node|z14-[natural=saddle],
-area|z14-[natural=saddle],
-node|z14-[mountain_pass],
-area|z14-[mountain_pass],
-node|z14-[natural=spring],
-area|z14-[natural=spring],
-node|z14-[natural=hot_spring],
-area|z14-[natural=hot_spring],
-node|z14-[natural=geyser],
-area|z14-[natural=geyser],
-node|z16-[natural=beach],
-area|z16-[natural=beach],
-area|z14-[natural=bare_rock],
+node|z10-[natural=cave_entrance],
+area|z10-[natural=cave_entrance],
+node|z10-[waterway=waterfall],
+area|z10-[waterway=waterfall],
+node|z10-[natural=peak],
+area|z10-[natural=peak],
+node|z11-[natural=saddle],
+area|z11-[natural=saddle],
+node|z11-[mountain_pass],
+area|z11-[mountain_pass],
+node|z11-[natural=spring],
+area|z11-[natural=spring],
+node|z12-[natural=hot_spring],
+area|z12-[natural=hot_spring],
+node|z12-[natural=geyser],
+area|z12-[natural=geyser],
+node|z14-[natural=beach],
+area|z14-[natural=beach],
+area|z12-[natural=bare_rock],
 {text: name;text-color: @poi_label;text-position: center;text-offset: 1;text-optional: true;}
 
 node|z12-[boundary=national_park],
@@ -562,50 +562,50 @@ node|z18-[leisure=nature_reserve],
 area|z18-[leisure=nature_reserve]
 {text-optional: true;}
 
-node|z11[natural=cave_entrance],
-area|z11[natural=cave_entrance]
+node|z10-11[natural=cave_entrance],
+area|z1011[natural=cave_entrance]
 {icon-image: cave-s.svg;icon-min-distance: 20;text-optional: true;}
 node|z12-[natural=cave_entrance],
 area|z12-[natural=cave_entrance]
 {icon-image: cave-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
-node|z15-[natural=cave_entrance],
-area|z15-[natural=cave_entrance]
+node|z14-[natural=cave_entrance],
+area|z14-[natural=cave_entrance]
 {icon-image: cave-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
 node|z17-[natural=cave_entrance],
 area|z17-[natural=cave_entrance]
 {icon-image: cave-m.svg;text-offset: 1;font-size: 11;text-optional: true;}
 
-node|z11[waterway=waterfall],
-area|z11[waterway=waterfall]
+node|z10-11[waterway=waterfall],
+area|z10-11[waterway=waterfall]
 {icon-image: waterfall-s.svg;icon-min-distance: 15;text-optional: true;}
 node|z12-[waterway=waterfall],
 area|z12-[waterway=waterfall]
 {icon-image: waterfall-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
-node|z17-[waterway=waterfall],
-area|z17-[waterway=waterfall]
+node|z15-[waterway=waterfall],
+area|z15-[waterway=waterfall]
 {icon-image: waterfall-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
 
 node|z10-[natural=volcano],
 area|z10-[natural=volcano]
 {icon-image: volcano-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
-node|z15-[natural=volcano],
-area|z15-[natural=volcano]
+node|z14-[natural=volcano],
+area|z14-[natural=volcano]
 {icon-image: volcano-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
 
-node|z12[natural=peak][name],
-area|z12[natural=peak][name]
+node|z10-12[natural=peak][name],
+area|z10-12[natural=peak][name]
 {icon-image: peakt-s.svg;icon-min-distance: 10;text-offset: 1;text: name;text-color: @poi_label;text-position: center;text-optional: true;}
-node|z12-14[natural=peak][!name],
-node|z12-14[natural=rock][!name],
-area|z12-14[natural=peak][!name],
-area|z12-14[natural=rock][!name]
+node|z10-14[natural=peak][!name],
+node|z12-14[natural=bare_rock][!name],
+area|z10-14[natural=peak][!name],
+area|z12-14[natural=bare_rock][!name]
 {font-size: 0;}
-node|z13[natural=peak][name],
-area|z13[natural=peak][name]
+node|z12-13[natural=peak][name],
+area|z12-13[natural=peak][name]
 {icon-image: peakt-s.svg;text-offset: 1;font-size: 9;text-optional: true;}
 node|z14[natural=peak][name],
 area|z14[natural=peak][name]
-{icon-image: peakt-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
+{icon-image: peakt-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
 node|z15-[natural=peak],
 node|z15-[natural=rock],
 area|z15-[natural=peak],
@@ -613,11 +613,16 @@ area|z15-[natural=rock]
 {icon-image: peakt-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
 
 /* ToDo: Make the same as natural=peak when we will have -s,-m icons */
-node|z14-[natural=saddle],
-area|z14-[natural=saddle],
-node|z14-[mountain_pass],
-area|z14-[mountain_pass],
-{icon-image: mountain-pass.svg;text-offset: 1;font-size: 10;text-optional: true;}
+node|z11-[natural=saddle],
+area|z11-[natural=saddle],
+node|z11-[mountain_pass],
+area|z11-[mountain_pass],
+{icon-image: mountain-pass.svg;}
+node|z13-[natural=saddle],
+area|z13-[natural=saddle],
+node|z13-[mountain_pass],
+area|z13-[mountain_pass],
+{text-offset: 1;font-size: 10;text-optional: true;}
 
 node|z16[leisure=beach_resort],
 area|z16[leisure=beach_resort]
@@ -672,10 +677,10 @@ node|z12-[landuse=forest][!name],
 area|z12-[landuse=forest][!name]
 {}
 
-node|z14[natural=spring],
-area|z14[natural=spring],
-node|z14[natural=hot_spring],
-area|z14[natural=hot_spring]
+node|z11-14[natural=spring],
+area|z11-14[natural=spring],
+node|z12-14[natural=hot_spring],
+area|z12-14[natural=hot_spring]
 {icon-image: drinking-water-s.svg;text-offset:6;font-size: 10;icon-min-distance: 24;text-optional: true;}
 node|z15-[natural=spring],
 area|z15-[natural=spring],
@@ -683,13 +688,22 @@ node|z15-[natural=hot_spring],
 area|z15-[natural=hot_spring]
 {icon-image: drinking-water-m.svg;text-offset:8;font-size: 10;icon-min-distance: 24;text-optional: true;}
 
-node|z14[natural=geyser],
-area|z14[natural=geyser]
+node|z10-12[natural=geyser],
+area|z10-12[natural=geyser]
 {icon-image: geyser-s.svg;text-offset:6;font-size: 10;icon-min-distance: 24;text-optional: true;}
-node|z15-[natural=geyser],
-area|z15-[natural=geyser]
+node|z13-[natural=geyser],
+area|z13-[natural=geyser]
 {icon-image: geyser-m.svg;text-offset:8;font-size: 10;icon-min-distance: 24;text-optional: true;}
 
+node|z12-[amenity=water_point],
+area|z12-[amenity=water_point],
+node|z12-[amenity=drinking_water],
+area|z12-[amenity=drinking_water],
+node|z12-[man_made=water_tap],
+area|z12-[man_made=water_tap],
+node|z12-[man_made=water_well],
+area|z12-[man_made=water_well],
+{icon-image: drinking-water-s.svg;icon-min-distance: 36;text-optional: true;}
 node|z15-[amenity=water_point],
 area|z15-[amenity=water_point],
 node|z15-[amenity=drinking_water],
@@ -698,15 +712,6 @@ node|z15-[man_made=water_tap],
 area|z15-[man_made=water_tap],
 node|z15-[man_made=water_well],
 area|z15-[man_made=water_well],
-{icon-image: drinking-water-s.svg;icon-min-distance: 36;text-optional: true;}
-node|z19-[amenity=water_point],
-area|z19-[amenity=water_point],
-node|z19-[amenity=drinking_water],
-area|z19-[amenity=drinking_water],
-node|z19-[man_made=water_tap],
-area|z19-[man_made=water_tap],
-node|z19-[man_made=water_well],
-area|z19-[man_made=water_well],
 {icon-image: drinking-water-m.svg;icon-min-distance: 36;text-optional: true;}
 
 /* 3. TRANSPORT */
@@ -1234,12 +1239,12 @@ node|z16-[tourism=hotel],
 node|z16-[tourism=hostel],
 node|z16-[tourism=guest_house],
 area|z16-[tourism=guest_house],
-node|z16-[tourism=alpine_hut],
-area|z16-[tourism=alpine_hut],
-node|z16-[tourism=wilderness_hut],
-area|z16-[tourism=wilderness_hut],
-node|z16-[tourism=chalet],
-area|z16-[tourism=chalet],
+node|z13-[tourism=alpine_hut],
+area|z13-[tourism=alpine_hut],
+node|z13-[tourism=wilderness_hut],
+area|z13-[tourism=wilderness_hut],
+node|z15-[tourism=chalet],
+area|z15-[tourism=chalet],
 node|z16-[tourism=resort],
 area|z16-[tourism=resort],
 node|z16-[tourism=motel],
@@ -1247,18 +1252,18 @@ area|z16-[tourism=motel],
 node|z16-[tourism=apartment],
 area|z16-[tourism=apartment]
 {text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
-node|z15-[tourism=camp_site],
-area|z15-[tourism=camp_site],
-node|z16-[tourism=picnic_site],
-area|z16-[tourism=picnic_site],
-node|z16-[leisure=picnic_table],
-area|z16-[leisure=picnic_table],
-node|z16-[amenity=shelter],
-area|z16-[amenity=shelter],
+node|z14-[tourism=camp_site],
+area|z14-[tourism=camp_site],
+node|z14-[tourism=picnic_site],
+area|z14-[tourism=picnic_site],
+node|z15-[leisure=picnic_table],
+area|z15-[leisure=picnic_table],
+node|z13-[amenity=shelter],
+area|z13-[amenity=shelter],
 node|z16-[highway=rest_area],
 area|z16-[highway=rest_area],
-node|z16-[tourism=caravan_site],
-area|z16-[tourism=caravan_site]
+node|z15-[tourism=caravan_site],
+area|z15-[tourism=caravan_site]
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
 
 
@@ -1275,12 +1280,12 @@ area|z16[tourism=guest_house],
 node|z16[tourism=apartment],
 area|z16[tourism=apartment]
 {icon-image: apartment-m.svg;icon-min-distance: 24;text-halo-radius: 0;}
-node|z16[tourism=alpine_hut],
-area|z16[tourism=alpine_hut],
-node|z16[tourism=wilderness_hut],
-area|z16[tourism=wilderness_hut],
-node|z16[tourism=chalet],
-area|z16[tourism=chalet]
+node|z13-16[tourism=alpine_hut],
+area|z13-16[tourism=alpine_hut],
+node|z13-16[tourism=wilderness_hut],
+area|z13-16[tourism=wilderness_hut],
+node|z15-16[tourism=chalet],
+area|z15-16[tourism=chalet]
 {icon-image: alpine_hut-m.svg;icon-min-distance: 24;}
 
 node|z17-[tourism=hotel],
@@ -1296,12 +1301,12 @@ area|z17[tourism=guest_house],
 node|z17[tourism=apartment],
 area|z17[tourism=apartment]
 {icon-image: apartment-m.svg;text-halo-radius: 0;}
-node|z17-[tourism=alpine_hut],
-area|z17-[tourism=alpine_hut],
-node|z17-[tourism=wilderness_hut],
-area|z17-[tourism=wilderness_hut],
-node|z17-[tourism=chalet],
-area|z17-[tourism=chalet]
+node|z15-[tourism=alpine_hut],
+area|z15-[tourism=alpine_hut],
+node|z15-[tourism=wilderness_hut],
+area|z15-[tourism=wilderness_hut],
+node|z16-[tourism=chalet],
+area|z16-[tourism=chalet]
 {icon-image: alpine_hut-m.svg;icon-min-distance: 16;}
 
 node|z18-[tourism=guest_house],
@@ -1310,25 +1315,25 @@ node|z18-[tourism=apartment],
 area|z18-[tourism=apartment]
 {icon-image: apartment-m.svg;icon-min-distance: 16;}
 
-node|z15-[tourism=camp_site],
-area|z15-[tourism=camp_site]
+node|z14-[tourism=camp_site],
+area|z14-[tourism=camp_site]
 {icon-image: campsite-m.svg;icon-min-distance: 12;}
 
-node|z16-[tourism=picnic_site],
-area|z16-[tourism=picnic_site],
+node|z14-[tourism=picnic_site],
+area|z14-[tourism=picnic_site],
 node|z16-[highway=rest_area],
 area|z16-[highway=rest_area]
 {icon-image: picnic-m.svg;icon-min-distance: 10;}
-node|z16-[leisure=picnic_table],
-area|z16-[leisure=picnic_table]
+node|z15-[leisure=picnic_table],
+area|z15-[leisure=picnic_table]
 {icon-image: picnic_table-m.svg;icon-min-distance: 10;}
 
-node|z16-[amenity=shelter],
-area|z16-[amenity=shelter]
+node|z13-[amenity=shelter],
+area|z13-[amenity=shelter]
 {icon-image: shelter-m.svg;icon-min-distance: 10;}
 
-node|z16[tourism=caravan_site],
-area|z16[tourism=caravan_site]
+node|z15-16[tourism=caravan_site],
+area|z15-16[tourism=caravan_site]
 {icon-image: caravan_site-m.svg;font-size: 11;icon-min-distance: 30;}
 node|z17-[tourism=caravan_site],
 area|z17-[tourism=caravan_site]
@@ -1955,11 +1960,11 @@ node|z19-[amenity=fountain],
 area|z19-[amenity=fountain]
 {icon-image: fountain-m.svg;icon-min-distance: 20;}
 
-node|z14[man_made=lighthouse],
-area|z14[man_made=lighthouse]
-{icon-image: lighthouse-s.svg;text-offset: 1;icon-min-distance: 5;}
-node|z15-[man_made=lighthouse],
-area|z15-[man_made=lighthouse]
+node|z11-[man_made=lighthouse],
+area|z11-[man_made=lighthouse]
+{icon-image: lighthouse-s.svg;text-offset: 1;icon-min-distance: 10;}
+node|z13-[man_made=lighthouse],
+area|z13-[man_made=lighthouse]
 {icon-image: lighthouse-m.svg;}
 
 node|z12-14[barrier=toll_booth],
@@ -1969,7 +1974,7 @@ node|z15-[barrier=toll_booth],
 area|z15-[barrier=toll_booth]
 {icon-image: toll_booth-m.svg;icon-min-distance: 8;text-optional: true;}
 
-node|z15-[barrier=border_control]
+node|z14-[barrier=border_control]
 {icon-image:bcontrol-m.svg;}
 
 node|z16-[barrier=block],
@@ -1981,10 +1986,10 @@ node|z16-[barrier=kissing_gate],
 node|z16-[barrier=stile],
 {icon-image: dot-m.svg;font-size: 11;}
 
-node|z16-[highway=ford],
-node|z16-[power=tower],
-node|z15-[man_made=flagpole],
-node|z16-[man_made=mast],
+node|z14-[highway=ford],
+node|z14-[power=tower],
+node|z12-[man_made=flagpole],
+node|z13-[man_made=mast],
 {icon-image: dot-m.svg;}
 
 node|z16-[amenity=taxi],
