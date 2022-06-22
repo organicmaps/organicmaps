@@ -8475,7 +8475,7 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     zh-Hans = 步行道路
-    ru = Пешеходная тропа
+    ru = Тропа
 
   [type.highway.footway.area]
     ref = type.highway.footway
