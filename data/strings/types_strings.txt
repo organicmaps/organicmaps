@@ -8419,7 +8419,7 @@
     ja = 自転車道(トンネル)
     pl = Tunel drogowy dla rowerów
     pt-BR = Túnel para ciclistas
-    ru = Дорожный туннель для велосипедов
+    ru = Велотоннель
 
   [type.highway.elevator]
     en = Elevator
