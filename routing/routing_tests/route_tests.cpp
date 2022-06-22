@@ -6,6 +6,8 @@
 
 #include "routing/base/followed_polyline.hpp"
 
+#include "routing/routing_tests/tools.hpp"
+
 #include "platform/location.hpp"
 
 #include "geometry/mercator.hpp"

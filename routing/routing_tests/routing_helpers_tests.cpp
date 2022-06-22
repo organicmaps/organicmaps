@@ -7,6 +7,8 @@
 #include "routing/segment.hpp"
 #include "routing/turns.hpp"
 
+#include "routing/routing_tests/tools.hpp"
+
 #include "indexer/feature_altitude.hpp"
 
 #include "geometry/point2d.hpp"
