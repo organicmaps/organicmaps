@@ -112,7 +112,7 @@ pl:Produkty|Jedzenie|Sklep
 pt:Mercearias|Minimercados|Supermercados|Hipermercados|Comida|Alimentos|Loja
 pt-BR:Mercados|Alimentação|Loja
 ro:4Alimentare|Produse|Alimentație|Mâncare|Magazin
-es:Productos|Comer|Tienda
+es:Alimentación|Productos|Comer|Tienda
 eu:Produktuak|Jan|Denda
 sv:Produkter|Mat|Butik|Affär
 th:ซื้อของกินของใช้|อาหาร|ร้านค้า
@@ -457,7 +457,7 @@ pl:Wypoczynek z dziećmi
 pt:Atividades com crianças
 pt-BR:Feriados em família
 ro:Divertisment cu copiii|Divertisment cu familia|Vacanță cu copiii
-es:Descanso con niños
+es:Ocio en familia
 eu:Umeekin atseden hartu
 sv:Semester med barn
 th:วันหยุดสำหรับครอบครัว
@@ -515,6 +515,7 @@ fa:خود پرداز
 en:2RV Facilities|4Caravan|Vanlife|5Campervan|5Motorhome
 be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Дом на колах
 fr:3Aménagements pour camping-car|caravane|mobile home
+es:Caravanas|Autocaravanas
 ru:Для автодомов|5Автодом|5Трейлер|Дом на колёсах
 ro:Pentru rulote|3Rulotă|RV
 tr:4Karavan Tesisleri
@@ -651,9 +652,9 @@ pl:Recykling|Recyrkulacja|Utylizacja odpadów|Do recyklingu|Segregacja śmieci|S
 pt:Reciclagem|Ecoponto|Recicláveis|Separação de lixo|Reutilização
 pt-BR:Reciclagem|Utilização de resíduos|Recicláveis|Coleta de seletiva|Separação de lixo|Reuso
 ro:Reciclarea deșeurilor|Reciclare|Recepționarea reciclării|Colectarea separată a gunoiului|Sortarea gunoiului|Reutilizare
-es:Reciclaje de residuos|Eliminación de residuos|Materiales reciclables|Recogida selectiva de basura|Clasificación de residuos|Reutilización
+es:Reciclaje|Reciclaje de residuos|Eliminación de residuos|Materiales reciclables|Recogida selectiva de basura|Clasificación de residuos|Reutilización
 eu:Hondakinen birziklapena|Hondakinak ezabatzea|Material birziklagarriak|Zabor bilketa selektiboa|Hondakinak sailkatzea|Berrerabilpena
-es-MX:Reciclaje de desechos|Eliminación de desechos|Materiales reciclables|Recogida separada de basura|Clasificación de desechos|Reutilización
+es-MX:Reciclaje|Reciclaje de desechos|Eliminación de desechos|Materiales reciclables|Recogida separada de basura|Clasificación de desechos|Reutilización
 sv:Återvinning av avfall|Avfallsbehandling|Återvinningsbart avfall|Separat sopinsamling|Sopsortering|Återanvändning
 th:การรีไซเคิล|การใช้ประโยชน์จากขยะ|รีไซเคิลได้|ที่รวบรวมขยะแยกประเภท|การแยกขยะ|รียูส
 tr:4Geri dönüşüm|4Atık kullanımı|Geri dönüştürülebilir nesneler|Ayrı çöp toplama|Atık ayırma|Yeniden kullanım
@@ -1946,6 +1947,7 @@ fa:لباس فروشی|بوتیک
 shop-caravan|@rv
 en:2RV dealership|4Caravan dealership|Motorhome dealership
 be:Продаж аўтадамоў
+es:Venta de caravanas|Venta de autocaravanas
 ru:Продажа автодомов
 tr:Karavan galerisi
 uk:Продаж автобудинків
@@ -3061,6 +3063,7 @@ historic-ship|@tourism
 en:Ship|boat
 ru:Корабль|судно|лодка
 bg:Кораб|лодка|туризъм
+es:Barco|Navío
 fr:Bâteau|navire
 nl:Schip|boot
 ko:배|보트
@@ -3075,6 +3078,7 @@ historic-tomb|@tourism
 en:Tomb|grave|memorial
 ru:4Гробница|3склеп|захоронение|могила|кладбище
 bg:4Гробница|гробище|могила|погребани
+es:Tumba|Sepultura
 fr:Tombe
 nl:Tombe|graf|gedenkteken
 ko:무덤|묘지
@@ -3090,6 +3094,7 @@ en:3Dog area|Dog park
 ru:Место для выгула собак|3выгул собак|Площадка для собак|4Собачья площадка
 bg:Кучешка зона|домашни любимци
 cs:3Psí hřiště
+es:Parque para perros
 fr:Parc canin
 nl:4Hondenpark|Hondengebied
 ko:개 놀이 공원|도그 파크
@@ -4620,6 +4625,7 @@ en:2RV Dump Station|5Holding Tank Dump Station|4Dump Station|sanitary dump stati
 be:4Зліў нечыстотаў для аўтадамоў|сліў прыбіральні|сліў для туалета|нечыстоты|каналізація
 de:3VE-Station|4Entsorgungsstation|4Versorgungsstation|2RV Dump
 fr:Station de vidange|4Vidange
+es:Estación de vaciado para caravanas
 it:4Camper service
 ru:4Слив нечистот|слив туалета|слив для туалета|нечистоты|канализация
 tr:6Karavan Çöplüğü
@@ -7112,10 +7118,12 @@ mr:दूरसंचार कंपनी
 craft-beekeeper
 en:Beekeeper
 ru:Пчеловод
+es:Apicultor
 
 craft-blacksmith
 en:Blacksmith
 ru:Кузнец
+es:Herrero
 
 craft-brewery
 en:Craft brewery|4Brewery|brew house|beer|beer bar|craft beer
@@ -7339,6 +7347,7 @@ mr:चांभार
 craft-winery
 en:4Winery|Wine
 ru:4Винодельня|Вино
+es:4Bodega|Vino
 
 craft-tailor
 en:4Tailor|clothes alteration|alterations

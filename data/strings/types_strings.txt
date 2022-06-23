@@ -3298,6 +3298,7 @@
     en = Holding Tank Dump Station
     be = Зліў для прыбіральняў транспартных сродкаў
     de = VE-Station
+    es = Estación de vaciado para caravanas
     fr = Station de vidange
     it = Camper service
     ru = Слив для туалетов транспортных средств
@@ -3842,6 +3843,7 @@
     en = Fuel Dispenser
     be = Паліўная калонка
     de = Tankautomat
+    es = Maquina expendedora de combustible
     mr = इंधन विक्रीयंत्र
     ru = Топливная колонка
     tr = Yakıt Dağıtıcı
@@ -3953,6 +3955,7 @@
     en = Waste Transfer Station
     be = Станцыя перавалкі адходаў
     de = Müllumladestation
+    es = Estación de transferencia de residuos
     mr = कचरा हस्तांतरण केंद्र
     ru = Станция перевалки отходов
     tr = Atık Transfer İstasyonu
@@ -4844,6 +4847,7 @@
 
   [type.craft]
     en = Craft
+    es = Gremios
     fr = Artisanat
     it = Artigianato
     ja = 工房
@@ -4859,6 +4863,7 @@
   [type.craft.beekeeper]
     en = Beekeeper
     be = Пчаляр
+    es = Apicultor
     fr = Apiculteur
     it = Apicoltore
     ru = Пчеловод
@@ -4867,6 +4872,7 @@
   [type.craft.blacksmith]
     en = Blacksmith
     be = Кузня
+    es = Herrero
     fr = Forgeron
     it = Fabbro
     ru = Кузница
@@ -4943,6 +4949,7 @@
 
   [type.craft.confectionery]
     en = Confectionery
+    es = Confitería
     fr = Confiseur
     ru = Кондитер
 
@@ -4981,6 +4988,7 @@
 
   [type.craft.electronics_repair]
     en = Electronics Repair
+    es = Reparación de aparatos electrónicos
     fr = Réparation d'appareils électroniques
     it = Riparazioni elettroniche
     ru = Ремонт электроники
@@ -5021,6 +5029,7 @@
 
   [type.craft.handicraft]
     en = Handicraft
+    es = Artesanía
     it = Artigiano
     ru = Ремесленная мастерская
 
@@ -5197,6 +5206,7 @@
 
   [type.craft.sawmill]
     en = Sawmill
+    es = Serrería
     fr = Scierie
     ru = Лесопилка
 
@@ -5236,6 +5246,7 @@
 
   [type.craft.winery]
     en = Winery
+    es = Bodega
     fr = Chai
     ru = Винодельня
 
