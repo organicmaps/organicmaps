@@ -149,7 +149,7 @@ void Extract(::LineDefProto const * lineRule, df::LineViewParams & params)
     int const count = dd.dd_size();
     params.m_pattern.reserve(count);
     for (int i = 0; i < count; ++i)
-      params.m_pattern.push_back(static_cast<uint8_t>(dd.dd(i) * scale));
+      params.m_pattern.push_back(dp::PatternFloat2Pixel(dd.dd(i) * scale));
   }
 
   switch(lineRule->cap())

@@ -20,6 +20,11 @@ namespace dp
 // Based on ./data/patterns.txt, all paterns have 2 entries now.
 using PenPatternT = buffer_vector<uint8_t, 2>;
 
+inline uint8_t PatternFloat2Pixel(double d)
+{
+  return static_cast<uint8_t>(std::round(d));
+}
+
 inline bool IsTrianglePattern(PenPatternT const & p)
 {
   return p.size() == 4;
