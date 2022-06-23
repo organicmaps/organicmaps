@@ -415,7 +415,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   {
     PenPatternT toAdd;
     for (double d : pattern)
-      toAdd.push_back(impl::PatternFloat2Pixel(d * visualScale));
+      toAdd.push_back(PatternFloat2Pixel(d * visualScale));
 
     if (!patterns.insert(toAdd).second)
       return;

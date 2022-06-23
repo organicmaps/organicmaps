@@ -44,9 +44,4 @@ inline void ParsePatternsList(std::string const & patternsFile, ToDo && toDo)
   }
 }
 
-inline uint8_t PatternFloat2Pixel(double d)
-{
-  return static_cast<uint8_t>(std::round(d));
-}
-
 } // namespace dp::impl
