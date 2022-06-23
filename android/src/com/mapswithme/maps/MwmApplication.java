@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -104,6 +105,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   {
     super.onCreate();
     mLogger.i(TAG, "Initializing application");
+    Log.i("Native", "Initializing application");
     LoggerFactory.INSTANCE.initFileLogging(this);
 
     // Set configuration directory as early as possible.
