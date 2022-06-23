@@ -93,7 +93,7 @@
 "eat" = "Dónde comer";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Productos";
+"food" = "Alimentación";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "Transporte";
@@ -123,7 +123,7 @@
 "nightlife" = "Vida nocturna";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Descanso con niños";
+"children" = "Ocio en familia";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "Banco";
@@ -153,7 +153,7 @@
 "water" = "Agua";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "Caravanas";
 
 "share_bookmarks_email_body" = "Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábrelos si tienes instalado Organic Maps. O, si no lo tienes, descarga la aplicación para tu dispositivo iOS o Android siguiendo este link: https://omaps.app/get?kmz\n¡Disfruta viajando con Organic Maps!";
 
@@ -1431,7 +1431,7 @@
 
 "type.amenity.restaurant" = "Restaurante";
 
-"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.sanitary_dump_station" = "Estación de vaciado para caravanas";
 
 "type.amenity.school" = "Escuela";
 
@@ -1475,7 +1475,7 @@
 
 "type.amenity.parcel_locker" = "Taquilla de paquetes";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "Maquina expendedora de combustible";
 
 "type.amenity.veterinary" = "Clínica veterinaria";
 
@@ -1483,7 +1483,7 @@
 
 "type.amenity.waste_disposal" = "Basura";
 
-"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.waste_transfer_station" = "Estación de transferencia de residuos";
 
 "type.amenity.water_point" = "Fuente de agua";
 
@@ -1577,25 +1577,25 @@
 
 "type.cemetery.grave" = "Tumba";
 
-"type.craft" = "Craft";
+"type.craft" = "Gremios";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "Apicultor";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Herrero";
 
 "type.craft.brewery" = "Fábrica de cerveza";
 
 "type.craft.carpenter" = "Carpintero";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Confitería";
 
 "type.craft.electrician" = "Electricista";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "Reparación de aparatos electrónicos";
 
 "type.craft.gardener" = "Paisajista";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Artesanía";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Aire acondicionado";
@@ -1608,11 +1608,11 @@
 
 "type.craft.plumber" = "Fontanero";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Serrería";
 
 "type.craft.shoemaker" = "Zapatero";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Bodega";
 
 "type.craft.tailor" = "Sastre";
 

@@ -91,7 +91,7 @@
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
 	<string name="eat">Dónde comer</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Productos</string>
+	<string name="food">Alimentación</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Transporte</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
@@ -111,7 +111,7 @@
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
 	<string name="nightlife">Vida nocturna</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Descanso con niños</string>
+	<string name="children">Ocio en familia</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
 	<string name="bank">Banco</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
@@ -130,6 +130,8 @@
 	<string name="recycling">Reciclaje</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Agua</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<string name="rv">Caravanas</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notas</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -799,6 +801,7 @@
 	<string name="type.recycling.green_waste">Orgánico</string>
 	<string name="type.recycling.cartons">Cartones de bebida</string>
 	<string name="type.amenity.restaurant">Restaurante</string>
+	<string name="type.amenity.sanitary_dump_station">Estación de vaciado para caravanas</string>
 	<string name="type.amenity.school">Escuela</string>
 	<string name="type.amenity.shelter">Refugio</string>
 	<string name="type.amenity.shower">Ducha</string>
@@ -820,9 +823,11 @@
 	<string name="type.amenity.vending_machine.sweets">Máquina expendedora de dulces</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Maquina expendedora de bolsas para excrementos</string>
 	<string name="type.amenity.parcel_locker">Taquilla de paquetes</string>
+	<string name="type.amenity.vending_machine.fuel">Maquina expendedora de combustible</string>
 	<string name="type.amenity.veterinary">Clínica veterinaria</string>
 	<string name="type.amenity.waste_basket">Papelera</string>
 	<string name="type.amenity.waste_disposal">Basura</string>
+	<string name="type.amenity.waste_transfer_station">Estación de transferencia de residuos</string>
 	<string name="type.amenity.water_point">Fuente de agua</string>
 	<string name="type.barrier">Barrera</string>
 	<string name="type.barrier.block">Bloque</string>
@@ -869,17 +874,25 @@
 	<string name="type.building.train_station">Estación de tren</string>
 	<string name="type.building.warehouse">Almacén</string>
 	<string name="type.cemetery.grave">Tumba</string>
+	<string name="type.craft">Gremios</string>
+	<string name="type.craft.beekeeper">Apicultor</string>
+	<string name="type.craft.blacksmith">Herrero</string>
 	<string name="type.craft.brewery">Fábrica de cerveza</string>
 	<string name="type.craft.carpenter">Carpintero</string>
+	<string name="type.craft.confectionery">Confitería</string>
 	<string name="type.craft.electrician">Electricista</string>
+	<string name="type.craft.electronics_repair">Reparación de aparatos electrónicos</string>
 	<string name="type.craft.gardener">Paisajista</string>
+	<string name="type.craft.handicraft">Artesanía</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Aire acondicionado</string>
 	<string name="type.craft.metal_construction">Trabajador del metal</string>
 	<string name="type.craft.painter">Pintor</string>
 	<string name="type.craft.photographer">Fotógrafo</string>
 	<string name="type.craft.plumber">Fontanero</string>
+	<string name="type.craft.sawmill">Serrería</string>
 	<string name="type.craft.shoemaker">Zapatero</string>
+	<string name="type.craft.winery">Bodega</string>
 	<string name="type.craft.tailor">Sastre</string>
 	<string name="type.cuisine.african">Cocina africana</string>
 	<string name="type.cuisine.american">Cocina americana</string>
