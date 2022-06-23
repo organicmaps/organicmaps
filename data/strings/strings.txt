@@ -2149,7 +2149,7 @@
     da = Dagligvarer
     de = Lebensmittel
     el = Παντοπωλεία
-    es = Productos
+    es = Alimentación
     eu = Janariak
     fa = عطاری
     fi = Elintarvikkeet
@@ -2540,7 +2540,7 @@
     da = Familieferie
     de = Freizeit mit Kindern
     el = Οικογενειακές Διακοπές
-    es = Descanso con niños
+    es = Ocio en familia
     eu = Familiako jarduerak
     fa = تعطیلات خانوادگی
     fi = Vapaa-aikaa lasten kanssa
@@ -2925,6 +2925,7 @@
     tags = android,ios
     en = RV Facilities
     be = Для аўтадамоў
+    es = Caravanas
     eu = Karabanak
     fr = Aménagements pour camping-car
     ro = Pentru rulote
