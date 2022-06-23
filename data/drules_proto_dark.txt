@@ -52309,6 +52309,11 @@ cont {
   }
   element {
     scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16807
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
@@ -52321,6 +52326,11 @@ cont {
   }
   element {
     scale: 17
+    symbol {
+      name: "tourism-m"
+      priority: 16807
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
@@ -52333,6 +52343,11 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "tourism-m"
+      priority: 16807
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
@@ -52345,6 +52360,11 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "tourism-m"
+      priority: 16807
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
@@ -66905,7 +66925,7 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 16807
-      min_distance: 36
+      min_distance: 24
     }
     caption {
       primary {
@@ -66922,7 +66942,7 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 16807
-      min_distance: 36
+      min_distance: 24
     }
     caption {
       primary {
@@ -66939,7 +66959,7 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 16807
-      min_distance: 36
+      min_distance: 24
     }
     caption {
       primary {
@@ -66956,7 +66976,7 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 16807
-      min_distance: 36
+      min_distance: 24
     }
     caption {
       primary {
@@ -67010,7 +67030,7 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 16807
-      min_distance: 36
+      min_distance: 24
     }
     caption {
       primary {
@@ -67115,7 +67135,7 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 16807
-      min_distance: 36
+      min_distance: 24
     }
     caption {
       primary {
@@ -67132,7 +67152,7 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 16807
-      min_distance: 36
+      min_distance: 24
     }
     caption {
       primary {
@@ -67149,7 +67169,7 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 16807
-      min_distance: 36
+      min_distance: 24
     }
     caption {
       primary {
@@ -67166,7 +67186,7 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 16807
-      min_distance: 36
+      min_distance: 24
     }
     caption {
       primary {
