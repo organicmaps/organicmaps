@@ -54,7 +54,7 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
     int w = surfaceContainer.getWidth();
     Canvas canvas = null;
 
-    if (surfaceContainer.getSurface() != null)
+    if (surfaceContainer.getSurface() != null && MapFragment.nativeIsEngineCreated())
     {
       canvas = surfaceContainer.getSurface()
                                .lockCanvas(new Rect(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE));
