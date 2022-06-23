@@ -1044,7 +1044,7 @@
     de = Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen
     el = Ελευθερώσετε  χώρο αποθήκευσης στην SD κάρτα/USB πρώτα προκειμένου να χρησιμοποιήσετε την εφαρμογή
     es = Por favor liberar espacio en la memoria SD/almacenamiento USB para usar la aplicación
-    eu = Mesedez, askatu lekua SD memorian/USB biltegian aplikazioa erabiltzeko
+    eu = Mesedez, egin lekua SD memorian/USB biltegian aplikazioa erabiltzeko
     fa = لطفا مقداری از فضای ذخیره سازی را آزاد نمایید
     fi = Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta
     fr = Veuillez d'abord libérer de l'espace sur la carte SD/le stockage USB afin d'utiliser l'appli
@@ -1583,7 +1583,7 @@
     de = Meine Orte
     el = Οι τοποθεσίες μου
     es = Mis lugares
-    eu = Nire lekuak
+    eu = Nire tokiak
     fa = مکان من
     fi = Paikkani
     fr = Mes endroits
@@ -7236,7 +7236,7 @@
     de = — Bitte seien Sie vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten;
     el = — Προσέχετε τις διαδρομές στις παραμεθόριες ζώνες: οι διαδρομές που δημιουργούνται από την εφαρμογή μας μπορεί μερικές φορές να διαπερνούν τα εθνικά σύνορα σε απαγορευμένες περιοχές.
     es = — Actúe con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados;
-    eu = — Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko lekuetan;
+    eu = — Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko tokietan;    
     fa = —در مسیرهایی که از مناطق مرزی میگذرد احتیاط کنید:مسیر هایی که بوسیله اپلیکیشن ما ایجاد می شود گاهی اوقات ممکن است مرز های کشور ها را رد کند که این در بعضی مناطق غیر مجاز است.
     fi = — Ole varovainen reittien suhteen raja-alueilla: sovelluksemme luomat reitit voivat toisinaan ylittää maiden rajoja luvattomissa paikoissa;
     fr = — Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir des frontières étatiques dans des zones interdites;
@@ -8893,7 +8893,7 @@
     de = Von
     el = Διαδρομή από
     es = Desde
-    eu = Bertatik
+    eu = Hemendik
     fa = مسیر از
     fi = Lähtöpaikka
     fr = Depuis
@@ -8930,7 +8930,7 @@
     de = Nach
     el = Διαδρομή στο
     es = Ruta hacia
-    eu = Bidea
+    eu = Bidea hona
     fa = مسیر به
     fi = Reitin loppupiste
     fr = Itinéraire vers
@@ -9783,7 +9783,7 @@
     de = Der Ort existiert nicht
     el = Η τοποθεσία δεν υπάρχει
     es = El lugar no existe
-    eu = Lekua ez da existitzen
+    eu = Tokia ez da existitzen
     fa = مکان وجود ندارد
     fi = Paikkaa ei ole olemassa
     fr = Le lieu n'existe pas
@@ -9857,7 +9857,7 @@
     de = Doppelter Ort
     el = Διπλότυπη τοποθεσία
     es = Lugar duplicado
-    eu = Leku bikoiztua
+    eu = Toki bikoiztua
     fa = مکان تکراری
     fi = Paikan kaksoiskappale
     fr = Lieu doublon
@@ -10638,7 +10638,7 @@
     de = Platz bearbeiten
     el = Επεξεργασία μέρους
     es = Editar el lugar
-    eu = Editatu lekua
+    eu = Editatu tokia
     fa = ویرایش مکان
     fi = Muokkaa kohdetta
     fr = Modifier le lieu
@@ -10675,7 +10675,7 @@
     de = Name des Platzes
     el = Όνομα μέρους
     es = Nombre del lugar
-    eu = Lekuaren izena
+    eu = Tokiaren izena
     fa = نام مکان
     fi = Paikan nimi
     fr = Nom du lieu
@@ -11822,7 +11822,7 @@
     de = Name des Orts
     el = Το όνομα του τόπου
     es = Nombre del lugar
-    eu = Lekuaren izena
+    eu = Tokiaren izena
     fa = نام مکان
     fi = Paikan nimi
     fr = Nom du lieu
@@ -11970,7 +11970,7 @@
     de = Organisation hinzufügen
     el = Προσθήκη επιχείρησης
     es = Añadir organización
-    eu = Antolakuntza gehitu
+    eu = Negozioa gehitu
     fa = اضافه کردن یک تجارت
     fi = Lisää organisaatio
     fr = Ajouter une organisation
@@ -12527,7 +12527,7 @@
     de = Unbekannter Ort
     el = Άγνωστο μέρος
     es = Lugar desconocido
-    eu = Leku ezezaguna
+    eu = Toki ezezaguna
     fa = مکان ناشناس
     fi = Tuntematon paikka
     fr = Lieu inconnu
@@ -13997,7 +13997,7 @@
     de = Hinzugefügtes Objekt löschen?
     el = Διαγραφή της τοποθεσίας που προστέθηκε;
     es = ¿Eliminar el lugar añadido?
-    eu = Gehitutako lekua kendu?
+    eu = Gehitutako tokia ezabatu?
     fa = ایا مکان ثبت شده حذف شود؟
     fi = Poistetaanko lisätty paikka?
     fr = Supprimer le lieu ajouté ?
@@ -14071,7 +14071,7 @@
     de = Dieser Ort existiert nicht
     el = Η τοποθεσία δεν υπάρχει
     es = El lugar no existe
-    eu = Lekua ez da existitzen
+    eu = Tokia ez da existitzen
     fa = مکان وجود ندارد
     fi = Paikkaa ei ole olemassa
     fr = Ce lieu n'existe pas
@@ -15092,7 +15092,7 @@
     de = Mobiles Internet wird benötigt, um genauere Informationen über Orte anzuzeigen, wie Fotos, Preise und Bewertungen.
     el = Απαιτείται πρόσβαση στο Ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.
     es = Se necesita Internet móvil para mostrar información detallada de los lugares, como fotografías, precios y reseñas.
-    eu = Internet mugikorra behar da lekuei buruzko informazio zehatza bistaratzeko, hala nola argazkiak, prezioak eta iritziak.
+    eu = Internet mugikorra behar da tokiei buruzko informazio zehatza bistaratzeko, hala nola argazkiak, prezioak eta iritziak.
     fa = برای نمایش جزئیات مکان مانند تصاویر قیمت ها و بازخورد ها به اینترنت همراه نیاز است
     fi = Mobiili-internet vaaditaan paikkojen lisätietojen näyttämiseen, kuten valokuviin, hintoihin ja arvioihin.
     fr = L'Internet mobile est nécessaire pour afficher des informations détaillées sur les lieux, telles que les photos, les prix et les avis.
@@ -18124,7 +18124,7 @@
     el = Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι
     es = Para agregar un marcador, toque un lugar en el mapa y después toque el ícono de estrella
     es-MX = Para añadir un marcador, toque un lugar en el mapa y después toque el ícono de estrella
-    eu = Pin bat gehitzeko, ukitu mapako leku bat eta, ondoren, ukitu izar ikonoa
+    eu = Pin bat gehitzeko, ukitu mapako toki bat eta, ondoren, ukitu izarraren ikonoa
     fa = برای افزودن یک نشانه، روی یک مکان روی نقشه ضربه بزنید و سپس روی نماد ستاره ضربه بزنید
     fi = Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa
     fr = Pour ajouter un signet, appuyez sur un lieu sur la carte, puis appuyez sur l'icône étoile
@@ -18803,7 +18803,7 @@
     el = Περιγραφή μέρους
     es = Descripción del lugar
     es-MX = Descripción de lugares
-    eu = Leku deskribapena
+    eu = Tokiaren deskribapena
     fa = توضیحات محل
     fi = Paikan kuvaus
     fr = Description d'endroit
@@ -21599,7 +21599,7 @@
     el = Αξιοθέατα
     es = Sitios de interés
     es-MX = Sitios de interés
-    eu = Leku interesgarriak
+    eu = Toki interesgarriak
     fa = مناظر
     fi = Nähtävyydet
     fr = Choses à voir
@@ -22132,7 +22132,7 @@
     el = Άγιοι τόποι
     es = Lugares sagrados
     es-MX = Sitios religiosos
-    eu = Leku sakratuak
+    eu = Erlijio-guneak
     fa = اماکن مقدس
     fi = Pyhät paikat
     fr = Lieux saints

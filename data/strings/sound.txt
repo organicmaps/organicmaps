@@ -9,7 +9,7 @@
     de = Halten Sie sich rechts.
     el = Μείνετε δεξιά.
     es = Mantente a la derecha.
-    eu = Egon eskuinera.
+    eu = Mantendu eskuinera.
     fa = به راست برانید.
     fi = Pysy oikealla.
     fr = Serrez à droite.
@@ -194,7 +194,7 @@
     de = Halten Sie sich links.
     el = Μείνετε αριστερά.
     es = Mantente a la izquierda.
-    eu = Egon ezkerrera.
+    eu = Mantendu ezkerrean.
     fa = به چپ برانید.
     fi = Pysy vasemmalla.
     fr = Serrez à gauche.
@@ -305,7 +305,7 @@
     de = Wenden Sie.
     el = Κάντε στροφή 180 μοιρών.
     es = Cambie de sentido.
-    eu = Norabidea aldatu.
+    eu = Norabidea aldaketa egin.
     fa = دور بزنید.
     fi = Tee U-käännös.
     fr = Faites demi-tour.
@@ -490,7 +490,7 @@
     de = In fünfzig Metern
     el = Σε πενήντα μέτρα
     es = En cincuenta metros
-    eu = Berrogeita hamar metrotan
+    eu = Berrogeita hamar metrora
     fa = در پنجاه متری
     fi = Viidenkymmenen metrin päässä
     fr = Dans cinquante mètres
@@ -527,7 +527,7 @@
     de = In einhundert Metern
     el = Σε εκατό μέτρα
     es = En cien metros
-    eu = Ehun metrotan
+    eu = Ehun metrora
     fa = در صد متری
     fi = Sadan metrin päässä
     fr = Dans cents mètres
@@ -564,7 +564,7 @@
     de = In zweihundert Metern
     el = Σε διακόσια μέτρα
     es = En doscientos metros
-    eu = Berrehun metrotan
+    eu = Berrehun metrora
     fa = در دویست و پنجاه متری
     fi = Kahdensadan metrin päässä
     fr = Dans deux cents mètres
@@ -601,7 +601,7 @@
     de = In zweihundertfünfzig Metern
     el = Σε διακόσια πενήντα μέτρα
     es = En doscientos cincuenta metros
-    eu = Berrehun eta berrogeita hamar metrotan
+    eu = Berrehun eta berrogeita hamar metrora
     fa = در دوصد و پنجاه متر
     fi = Kahdensadanviidenkymmenen metrin päässä
     fr = Dans deux cents cinquante mètres
@@ -638,7 +638,7 @@
     de = In dreihundert Metern
     el = Σε τριακόσια μέτρα
     es = En trescientos metros
-    eu = Hirurehun metrotan
+    eu = Hirurehun metrora
     fa = در سیصد متری
     fi = Kolmensadan metrin päässä
     fr = Dans trois cents mètres
@@ -675,7 +675,7 @@
     de = In vierhundert Metern
     el = Σε τετρακόσια μέτρα
     es = En cuatrocientos metros
-    eu = Laurehun metrotan
+    eu = Laurehun metrora
     fa = در چهارصد متری
     fi = Neljänsadan metrin päässä
     fr = Dans quatre cents mètres
@@ -712,7 +712,7 @@
     de = In fünfhundert Metern
     el = Σε πεντακόσια μέτρα
     es = En quinientos metros
-    eu = Bostehun metrotan
+    eu = Bostehun metrora
     fa = در پانصد متری
     fi = Viidensadan metrin päässä
     fr = Dans cinq cents mètres
@@ -749,7 +749,7 @@
     de = In sechshundert Metern
     el = Σε εξακόσια μέτρα
     es = En seiscientos metros
-    eu = Seiehun metrotan
+    eu = Seiehun metrora
     fa = در ششصد متری
     fi = Kuudensadan metrin päässä
     fr = Dans six cents mètres
@@ -786,7 +786,7 @@
     de = In siebenhundert Metern
     el = Σε επτακόσια μέτρα
     es = En setecientos metros
-    eu = Zazpiehun metrotan
+    eu = Zazpiehun metrora
     fa = در هفتصد متری
     fi = Seitsemänsadan metrin päässä
     fr = Dans sept cents mètres
@@ -823,7 +823,7 @@
     de = In siebenhundertfünfzig Metern
     el = Σε επτακόσια πενήντα μέτρα
     es = En setecientos cincuenta metros
-    eu = Zazpiehun eta berrogeita hamar metrotan
+    eu = Zazpiehun eta berrogeita hamar metrora
     fa = در هفتصد و پنجاه متری
     fi = Seitsemänsadanviidenkymmenen metrin päässä
     fr = Dans sept cents cinquante mètres
@@ -860,7 +860,7 @@
     de = In achthundert Metern
     el = Σε οκτακόσια μέτρα
     es = En ochocientos metros
-    eu = Zortziehun metrotan
+    eu = Zortziehun metrora
     fa = در هشتصد متری
     fi = Kahdeksansadan metrin päässä
     fr = Dans huit cents mètres
@@ -897,7 +897,7 @@
     de = In neunhundert Metern
     el = Σε εννιακόσια μέτρα
     es = En novecientos metros
-    eu = Bederatziehun metrotan
+    eu = Bederatziehun metrora
     fa = در نهصد متری
     fi = Yhdeksänsadan metrin päässä
     fr = Dans neuf cents mètres
@@ -934,7 +934,7 @@
     de = In einem Kilometer
     el = Σε ένα χιλιόμετρο
     es = En un kilómetro
-    eu = Kilometro batean
+    eu = Kilometro batera
     fa = در یک کیلومتری
     fi = Yhden kilometrin päässä
     fr = Dans un kilomètre
@@ -971,7 +971,7 @@
     de = In anderthalb Kilometern
     el = Σε ενάμισυ χιλιόμετρο
     es = En un kilómetro y medio
-    eu = Kilometro eta erdian
+    eu = Kilometro eta erdira
     fa = در یک و نیم کیلومتری
     fi = Puolentoista kilomertin päässä
     fr = Dans un virgule cinq kilomètre
@@ -1008,7 +1008,7 @@
     de = In zwei Kilometern
     el = Σε δύο χιλιόμετρα
     es = En dos kilómetros
-    eu = Bi kilometrotan
+    eu = Bi kilometrora
     fa = در دو کیلومتری
     fi = Kahden kilometrin päässä
     fr = Dans deux kilomètres
@@ -1045,7 +1045,7 @@
     de = In zweieinhalb Kilometern
     el = Σε δυόμισι χιλιόμετρα
     es = En dos kilómetros y medio
-    eu = Bi kilometro eta erdian
+    eu = Bi kilometro eta erdira
     fa = در دو و نیم کیلومتری
     fi = Kahden ja puolen kilometrin päässä
     fr = Dans deux virgule cinq kilomètres
@@ -1082,7 +1082,7 @@
     de = In drei Kilometern
     el = Σε τρία χιλιόμετρα
     es = En tres kilómetros
-    eu = Hiru kilometrotan
+    eu = Hiru kilometrora
     fa = در سه کیلومتری
     fi = Kolmen kilometrin päässä
     fr = Dans trois kilomètres
@@ -1563,7 +1563,7 @@
     de = In fünfzig Fuß
     el = Σε πενήντα πόδια
     es = En cincuenta pies
-    eu = Berrogeita hamar oinetan
+    eu = Berrogeita hamar oinetara
     fa = در پنجاه قدمی
     fi = Viidenkymmenen jalan päässä
     fr = Dans cinquante pieds
@@ -1600,7 +1600,7 @@
     de = In einhundert Fuß
     el = Σε εκατό πόδια
     es = En cien pies
-    eu = Ehun oinetan
+    eu = Ehun oinetara
     fa = در یک صد قدمی
     fi = Sadan jalan päässä
     fr = Dans cent pieds
@@ -1637,7 +1637,7 @@
     de = In zweihundert Fuß
     el = Σε διακόσια πόδια
     es = En doscientos pies
-    eu = Berrehun oinetan
+    eu = Berrehun oinetara
     fa = در دویست قدمی
     fi = Kahdensadan jalan päässä
     fr = Dans deux cents pieds
@@ -1674,7 +1674,7 @@
     de = In dreihundert Fuß
     el = Στα τριακόσια πόδια
     es = En trescientos pies
-    eu = Hirurehun oinetan
+    eu = Hirurehun oinetara
     fa = در سیصد قدمی
     fi = Kolmensadan jalan päässä
     fr = Dans trois cents pieds
@@ -1711,7 +1711,7 @@
     de = In vierhundert Fuß
     el = Σε τετρακόσια πόδια
     es = En cuatrocientos pies
-    eu = Laurehun oinetan
+    eu = Laurehun oinetara
     fa = در چهارصد قدمی
     fi = Neljänsadan jalan päässä
     fr = Dans quatre cents pieds
@@ -1748,7 +1748,7 @@
     de = In fünfhundert Fuß
     el = Σε πεντακόσια πόδια
     es = En quinientos pies
-    eu = Bostehun oinetan
+    eu = Bostehun oinetara
     fa = در پانصد قدمی
     fi = Viidensadan jalan päässä
     fr = Dans cinq cents pieds
@@ -1785,7 +1785,7 @@
     de = In sechshundert Fuß
     el = Σε εξακόσια πόδια
     es = En seiscientos pies
-    eu = Seiehun oinetan
+    eu = Seiehun oinetara
     fa = در ششصد قدمی
     fi = Kuudensadan jalan päässä
     fr = Dans six cents pieds
@@ -1822,7 +1822,7 @@
     de = In siebenhundert Fuß
     el = Σε επτακόσια πόδια
     es = En setecientos pies
-    eu = Zazpiehun oinetan
+    eu = Zazpiehun oinetara
     fa = در هفتصد قدمی
     fi = Seitsemänsadan jalan päässä
     fr = Dans sept cents pieds
@@ -1859,7 +1859,7 @@
     de = In achthundert Fuß
     el = Σε οκτακόσια πόδια
     es = En ochocientos pies
-    eu = Zortziehun oinetan
+    eu = Zortziehun oinetara
     fa = در هشتصد قدمی
     fi = Kahdeksansadan jalan päässä
     fr = Dans huit cents pieds
@@ -1896,7 +1896,7 @@
     de = In neunhundert Fuß
     el = Σε εννιακόσια πόδια
     es = En novecientos pies
-    eu = Bederatziehun oinetan
+    eu = Bederatziehun oinetara
     fa = در نه صد قدمی
     fi = Yhdeksänsadan jalan päässä
     fr = Dans neuf cents pieds
@@ -1933,7 +1933,7 @@
     de = In eintausend Fuß
     el = Σε χίλια πόδια
     es = En mil pies
-    eu = Mila oinetan
+    eu = Mila oinetara
     fa = در یک هزار قدمی
     fi = Tuhannen jalan päässä
     fr = Dans mille pieds
@@ -1970,7 +1970,7 @@
     de = In eintausendfünfhundert Fuß
     el = Σε χίλια πεντακόσια πόδια
     es = En mil quinientos pies
-    eu = Mila bostehun oinetan
+    eu = Mila bostehun oinetara
     fa = در یک هزار و پانصد قدمی
     fi = Tuhannenviidensadan jalan päässä
     fr = Dans mille cinq cents pieds
@@ -2007,7 +2007,7 @@
     de = In zweitausend Fuß
     el = Σε δύο χιλιάδες πόδια
     es = En dos mil pies
-    eu = Bi mila oinetan
+    eu = Bi mila oinetara
     fa = در دو هزار قدمی
     fi = Kahdentuhannen jalan päässä
     fr = Dans deux mille pieds
@@ -2044,7 +2044,7 @@
     de = In zweitausendfünfhundert Fuß
     el = Σε δυόμισυ χιλιάδες πόδια
     es = En dos mil quinientos pies
-    eu = Bi mila bostehun oinetan
+    eu = Bi mila bostehun oinetara
     fa = در پانصد و بیست قدمی
     fi = Kahdentuhannenviidensadan jalan päässä
     fr = Dans deux mille cinq cents pieds
@@ -2081,7 +2081,7 @@
     de = In dreitausend Fuß
     el = Σε τρεις χιλιάδες πόδια
     es = En tres mil pies
-    eu = Hiru mila oinetan
+    eu = Hiru mila oinetara
     fa = در سه هزار قدمی
     fi = Kolmentuhannen jalan päässä
     fr = Dans trois mille pieds
@@ -2118,7 +2118,7 @@
     de = In dreitausendfünfhundert Fuß
     el = Σε τρισύμιση χιλιάδες πόδια
     es = En tres mil quinientos pies
-    eu = Hiru mila bostehun oinetan
+    eu = Hiru mila bostehun oinetara
     fa = در سه هزار و پانصد قدمی
     fi = Kolmentuhannenviidensadan jalan päässä
     fr = Dans trois mille cinq cents pieds
@@ -2155,7 +2155,7 @@
     de = In viertausend Fuß
     el = Σε τέσσερις χιλιάδες πόδια
     es = En cuatro mil pies
-    eu = Lau mila oinetan
+    eu = Lau mila oinetara
     fa = در چهار هزار قدمی
     fi = Neljäntuhannen jalan päässä
     fr = Dans quatre mille pieds
@@ -2192,7 +2192,7 @@
     de = In viertausendfünfhundert Fuß
     el = Σε τεσσερισήμισι χιλιάδες πόδια
     es = En cuatro mil quinientos pies
-    eu = Lau mila bostehun oinetan
+    eu = Lau mila bostehun oinetara
     fa = در چهار هزار و پانصد قدمی
     fi = Neljäntuhannenviidensadan jalan päässä
     fr = Dans quatre mille cinq cents pieds
@@ -2229,7 +2229,7 @@
     de = In fünftausend Fuß
     el = Σε πέντε χιλιάδες πόδια
     es = En cinco mil pies
-    eu = Bost mila oinetan
+    eu = Bost mila oinetara
     fa = در پنج هزار قدمی
     fi = Viidentuhannen jalan päässä
     fr = Dans cinq mille pieds
@@ -2266,7 +2266,7 @@
     de = In einer Meile
     el = Σε ένα μίλι
     es = En una milla
-    eu = Milia batean
+    eu = Milia batera
     fa = در یک مایلی
     fi = Mailin päässä
     fr = Dans un mile
@@ -2303,7 +2303,7 @@
     de = In anderthalb Meilen
     el = Σε ενάμισυ μίλι
     es = En una milla y media
-    eu = Milia eta erdian
+    eu = Milia eta erdira
     fa = در یک و نیم مایلی
     fi = Puolentoista mailin päässä
     fr = Dans un virgule cinq mile
@@ -2340,7 +2340,7 @@
     de = In zwei Meilen
     el = Σε δύο μίλια
     es = En dos millas
-    eu = Bi miliaetan
+    eu = Bi milietara
     fa = در دو مایلی
     fi = Kahden mailin päässä
     fr = Dans deux miles
