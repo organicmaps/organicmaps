@@ -311,11 +311,9 @@ public:
     , m_baseGtoPScale(params.m_baseGtoP)
   {}
 
-  float GetDashesRatio(float globalLength) const
+  float GetMaskLengthG() const
   {
-    // Use m_baseGtoPScale * 2, because we should return ratio according to the "longest" possible pixel length in current tile.
-    // In other words, if m_baseGtoPScale = Scale(tileLevel), we should use Scale(tileLevel + 1) here.
-    return m_texCoordGen.GetMaskLength() / (globalLength * m_baseGtoPScale * 2);
+    return m_texCoordGen.GetMaskLength() / m_baseGtoPScale;
   }
 
   dp::RenderState GetState() override
@@ -361,7 +359,16 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
   std::vector<m2::PointD> const & path = m_spline->GetPath();
   ASSERT_GREATER(path.size(), 1, ());
 
-  // build geometry
+  float const toShapeFactor = kShapeCoordScalar;  // the same as in ToShapeVertex2
+
+  // Each segment should lie in pattern mask according to the "longest" possible pixel length in current tile.
+  // Since, we calculate vertices once, usually for the "smallest" tile scale, need to apply divide factor here.
+  // In other words, if m_baseGtoPScale = Scale(tileLevel), we should use Scale(tileLevel + 1) to calculate 'maskLengthG'.
+  /// @todo Logically, the factor should be 2, but drawing artifacts still present.
+  /// Use 3 for the best quality, but need to review here, probably I missed something.
+  float const maskLengthG = builder.GetMaskLengthG() / 3;
+
+  float offset = 0;
   for (size_t i = 1; i < path.size(); ++i)
   {
     if (path[i].EqualDxDy(path[i - 1], kMwmPointAccuracy))
@@ -372,35 +379,41 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
     glsl::vec2 tangent, leftNormal, rightNormal;
     CalculateTangentAndNormals(p1, p2, tangent, leftNormal, rightNormal);
 
-    float const segmentLengthG = static_cast<float>((path[i] - path[i - 1]).Length());
-    float const ratio = builder.GetDashesRatio(segmentLengthG);
-    float const maskLengthG = ratio * segmentLengthG;
+    float toDraw = path[i].Length(path[i - 1]);
 
-    // Split segment if it is greater than texture mask, according to the tile's m_params.m_zoomLevel+1.
-    glsl::vec3 currPivot = glsl::vec3(p1, m_params.m_depth);
-    float sm = 0;
+    glsl::vec2 currPivot = p1;
     do
     {
-      glsl::vec3 newPivot;
-      float len = (1 - sm) * segmentLengthG;
-      sm += ratio;
-      if (sm >= 1)
+      glsl::vec2 nextPivot;
+      float nextOffset = offset + toDraw;
+      if (maskLengthG >= nextOffset)
       {
-        newPivot = glsl::vec3(p2, m_params.m_depth);
+        // Fast lane, where most of segments, that fit into mask, should draw.
+        nextPivot = p2;
+        toDraw = 0;
       }
       else
       {
-        newPivot = glsl::vec3(p2 * sm + p1 * (1 - sm), m_params.m_depth);
-        len = maskLengthG;
+        // Break path section here.
+        float const len = maskLengthG - offset;
+        ASSERT_GREATER(len, 0, ());
+        nextPivot = currPivot + tangent * (len * toShapeFactor);
+
+        nextOffset = maskLengthG;
+        toDraw -= len;
       }
 
-      builder.SubmitVertex(currPivot, rightNormal, false /* isLeft */, 0.0);
-      builder.SubmitVertex(currPivot, leftNormal, true /* isLeft */, 0.0);
-      builder.SubmitVertex(newPivot, rightNormal, false /* isLeft */, len);
-      builder.SubmitVertex(newPivot, leftNormal, true /* isLeft */, len);
+      builder.SubmitVertex({currPivot, m_params.m_depth}, rightNormal, false /* isLeft */, offset);
+      builder.SubmitVertex({currPivot, m_params.m_depth}, leftNormal, true /* isLeft */, offset);
+      builder.SubmitVertex({nextPivot, m_params.m_depth}, rightNormal, false /* isLeft */, nextOffset);
+      builder.SubmitVertex({nextPivot, m_params.m_depth}, leftNormal, true /* isLeft */, nextOffset);
 
-      currPivot = newPivot;
-    } while (sm < 1);
+      currPivot = nextPivot;
+      offset = nextOffset;
+      if (offset >= maskLengthG)
+        offset = 0;
+
+    } while (toDraw > 0);
   }
 }
 
