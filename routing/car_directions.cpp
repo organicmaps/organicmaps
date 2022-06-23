@@ -30,7 +30,8 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
   // (1) the route enters to the roundabout;
   // (2) the route leaves the roundabout;
   uint32_t exitNum = 0;
-  size_t currentEnterRoundAbout = routeSegments.size();
+  size_t const kInvalidEnter = routeSegments.size();
+  size_t currentEnterRoundAbout = kInvalidEnter;
 
   for (size_t idx = 0; idx < routeSegments.size(); ++idx)
   {
@@ -38,16 +39,16 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
     if (t.IsTurnNone())
       continue;
 
-    if (currentEnterRoundAbout < routeSegments.size() && t.m_turn != CarDirection::StayOnRoundAbout
+    if (currentEnterRoundAbout != kInvalidEnter && t.m_turn != CarDirection::StayOnRoundAbout
         && t.m_turn != CarDirection::LeaveRoundAbout && t.m_turn != CarDirection::ReachedYourDestination)
     {
       ASSERT(false, ("Only StayOnRoundAbout, LeaveRoundAbout or ReachedYourDestination are expected after EnterRoundAbout."));
       exitNum = 0;
-      currentEnterRoundAbout = routeSegments.size();
+      currentEnterRoundAbout = kInvalidEnter;
     }
     else if (t.m_turn == CarDirection::EnterRoundAbout)
     {
-      ASSERT(currentEnterRoundAbout == routeSegments.size(), ("It's not expected to find new EnterRoundAbout until previous EnterRoundAbout was leaved."));
+      ASSERT(currentEnterRoundAbout == kInvalidEnter, ("It's not expected to find new EnterRoundAbout until previous EnterRoundAbout was leaved."));
       currentEnterRoundAbout = idx;
       ASSERT(exitNum == 0, ("exitNum is reset at start and after LeaveRoundAbout."));
       exitNum = 0;
@@ -62,10 +63,10 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
     {
       // It's possible for car to be on roundabout without entering it
       // if route calculation started at roundabout (e.g. if user made full turn on roundabout).
-      if (currentEnterRoundAbout < routeSegments.size())
+      if (currentEnterRoundAbout != kInvalidEnter)
         routeSegments[currentEnterRoundAbout].SetTurnExits(exitNum + 1);
       routeSegments[idx].SetTurnExits(exitNum + 1); // For LeaveRoundAbout turn.
-      currentEnterRoundAbout = routeSegments.size();
+      currentEnterRoundAbout = kInvalidEnter;
       exitNum = 0;
     }
 

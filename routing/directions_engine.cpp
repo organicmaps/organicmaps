@@ -74,7 +74,8 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
   pathSegment.m_roadNameInfo.m_ref = ft->GetRoadNumber();
   pathSegment.m_roadNameInfo.m_name = ft->GetName(StringUtf8Multilang::kDefaultCode);
 
-  if (m_vehicleType == VehicleType::Car)
+  /// @todo Find a way to optimize it, e.g. by using speeds cache in GeometryLoader (GeometryLoaderImpl).
+  if (false && m_vehicleType == VehicleType::Car)
   {
     auto const & handle = m_dataSource.GetHandle(featureId.m_mwmId);
     auto const speeds = routing::LoadMaxspeeds(handle);
