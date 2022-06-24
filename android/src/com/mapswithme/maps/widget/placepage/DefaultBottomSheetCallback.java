@@ -3,13 +3,13 @@ package com.mapswithme.maps.widget.placepage;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapswithme.util.log.Logger;
-import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
-import static com.mapswithme.maps.widget.placepage.PlacePageUtils.isAnchoredState;
+import static com.mapswithme.maps.widget.placepage.PlacePageUtils.isHalfExpandedState;
 import static com.mapswithme.maps.widget.placepage.PlacePageUtils.isExpandedState;
 
-public class DefaultBottomSheetCallback extends AnchorBottomSheetBehavior.BottomSheetCallback
+public class DefaultBottomSheetCallback extends BottomSheetBehavior.BottomSheetCallback
 {
   private static final String TAG = DefaultBottomSheetCallback.class.getSimpleName();
   @NonNull
@@ -21,10 +21,9 @@ public class DefaultBottomSheetCallback extends AnchorBottomSheetBehavior.Bottom
   }
 
   @Override
-  public void onStateChanged(@NonNull View bottomSheet, int oldState, int newState)
+  public void onStateChanged(@NonNull View bottomSheet, int newState)
   {
-    Logger.d(TAG, "State change, new = " + PlacePageUtils.toString(newState) +
-             " old = " + PlacePageUtils.toString(oldState));
+    Logger.d(TAG, "State change, new = " + PlacePageUtils.toString(newState));
     if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
     {
       return;
@@ -38,7 +37,7 @@ public class DefaultBottomSheetCallback extends AnchorBottomSheetBehavior.Bottom
 
     mSheetChangedListener.onSheetDirectionIconChange();
 
-    if (isAnchoredState(newState) || isExpandedState(newState))
+    if (isHalfExpandedState(newState) || isExpandedState(newState))
     {
       mSheetChangedListener.onSheetDetailsOpened();
       return;

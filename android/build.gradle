@@ -89,7 +89,6 @@ dependencies {
   implementation 'com.google.android.material:material:1.7.0-alpha02'
   implementation 'com.google.code.gson:gson:2.9.0'
   implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
-  implementation 'com.trafi:anchor-bottom-sheet-behavior:0.14-alpha'
   implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
   implementation 'net.jcip:jcip-annotations:1.0'
 

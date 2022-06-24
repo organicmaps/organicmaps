@@ -86,17 +86,6 @@
   <attr name="bookmarkSubscriptionCardTextColor" format="color"/>
   <attr name="imgPromoBookingTitle" format="reference"/>
 
-  <declare-styleable name="AnchorBottomSheetBehavior_Layout">
-    <attr name="behavior_anchorOffset" format="dimension" />
-    <attr name="behavior_defaultState" format="enum">
-      <enum name="expanded" value="3" />
-      <enum name="collapsed" value="4" />
-      <enum name="hidden" value="5" />
-      <enum name="anchored" value="6" />
-    </attr>
-    <attr name="behavior_skipAnchored" format="boolean" />
-  </declare-styleable>
-
   <declare-styleable name="ParallaxViewPagerBg">
     <attr name="autoScroll" format="boolean" />
     <attr name="scrollPeriod" format="integer" />

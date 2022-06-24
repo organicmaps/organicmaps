@@ -10,11 +10,11 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
-import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 class PlacePageUtils
 {
@@ -66,20 +66,20 @@ class PlacePageUtils
     });
   }
 
-  static void setPullDrawable(@NonNull AnchorBottomSheetBehavior behavior, @NonNull View bottomSheet,
+  static void setPullDrawable(@NonNull BottomSheetBehavior behavior, @NonNull View bottomSheet,
                               @IdRes int pullDrawableId)
   {
     final ImageView img = bottomSheet.findViewById(pullDrawableId);
     if (img == null)
       return;
 
-    @AnchorBottomSheetBehavior.State
+    @BottomSheetBehavior.State
     int state = behavior.getState();
     @DrawableRes
     int drawableId = UiUtils.NO_ID;
     if (PlacePageUtils.isCollapsedState(state))
       drawableId = R.drawable.ic_disclosure_up;
-    else if (PlacePageUtils.isAnchoredState(state) || PlacePageUtils.isExpandedState(state))
+    else if (PlacePageUtils.isHalfExpandedState(state) || PlacePageUtils.isExpandedState(state))
       drawableId = R.drawable.ic_disclosure_down;
 
     if (drawableId == UiUtils.NO_ID)
@@ -90,52 +90,52 @@ class PlacePageUtils
     img.setImageDrawable(drawable);
   }
 
-  static boolean isSettlingState(@AnchorBottomSheetBehavior.State int state)
+  static boolean isSettlingState(@BottomSheetBehavior.State int state)
   {
-    return state == AnchorBottomSheetBehavior.STATE_SETTLING;
+    return state == BottomSheetBehavior.STATE_SETTLING;
   }
 
-  static boolean isDraggingState(@AnchorBottomSheetBehavior.State int state)
+  static boolean isDraggingState(@BottomSheetBehavior.State int state)
   {
-    return state == AnchorBottomSheetBehavior.STATE_DRAGGING;
+    return state == BottomSheetBehavior.STATE_DRAGGING;
   }
 
-  static boolean isCollapsedState(@AnchorBottomSheetBehavior.State int state)
+  static boolean isCollapsedState(@BottomSheetBehavior.State int state)
   {
-    return state == AnchorBottomSheetBehavior.STATE_COLLAPSED;
+    return state == BottomSheetBehavior.STATE_COLLAPSED;
   }
 
-  static boolean isAnchoredState(@AnchorBottomSheetBehavior.State int state)
+  static boolean isHalfExpandedState(@BottomSheetBehavior.State int state)
   {
-    return state == AnchorBottomSheetBehavior.STATE_ANCHORED;
+    return state == BottomSheetBehavior.STATE_HALF_EXPANDED;
   }
 
-  static boolean isExpandedState(@AnchorBottomSheetBehavior.State int state)
+  static boolean isExpandedState(@BottomSheetBehavior.State int state)
   {
-    return state == AnchorBottomSheetBehavior.STATE_EXPANDED;
+    return state == BottomSheetBehavior.STATE_EXPANDED;
   }
 
-  static boolean isHiddenState(@AnchorBottomSheetBehavior.State int state)
+  static boolean isHiddenState(@BottomSheetBehavior.State int state)
   {
-    return state == AnchorBottomSheetBehavior.STATE_HIDDEN;
+    return state == BottomSheetBehavior.STATE_HIDDEN;
   }
 
   @NonNull
-  static String toString(@AnchorBottomSheetBehavior.State int state)
+  static String toString(@BottomSheetBehavior.State int state)
   {
     switch (state)
     {
-      case AnchorBottomSheetBehavior.STATE_EXPANDED:
+      case BottomSheetBehavior.STATE_EXPANDED:
         return "EXPANDED";
-      case AnchorBottomSheetBehavior.STATE_COLLAPSED:
+      case BottomSheetBehavior.STATE_COLLAPSED:
         return "COLLAPSED";
-      case AnchorBottomSheetBehavior.STATE_ANCHORED:
-        return "ANCHORED";
-      case AnchorBottomSheetBehavior.STATE_DRAGGING:
+      case BottomSheetBehavior.STATE_HALF_EXPANDED:
+        return "HALF_EXPANDED";
+      case BottomSheetBehavior.STATE_DRAGGING:
         return "DRAGGING";
-      case AnchorBottomSheetBehavior.STATE_SETTLING:
+      case BottomSheetBehavior.STATE_SETTLING:
         return "SETTLING";
-      case AnchorBottomSheetBehavior.STATE_HIDDEN:
+      case BottomSheetBehavior.STATE_HIDDEN:
         return "HIDDEN";
       default:
         throw new AssertionError("Unsupported state detected: " + state);
