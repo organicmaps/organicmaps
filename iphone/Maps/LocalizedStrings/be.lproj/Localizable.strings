@@ -2933,15 +2933,15 @@
 
 "type.tourism.hotel" = "Hotel";
 
-"type.tourism.information" = "Tourist Information";
+"type.tourism.information" = "Турыстычная інфармацыя";
 
-"type.tourism.information.board" = "Information Board";
+"type.tourism.information.board" = "Інфармацыйны шчыт";
 
 "type.tourism.information.guidepost" = "Даведнік";
 
-"type.tourism.information.map" = "Tourist Map";
+"type.tourism.information.map" = "Карта";
 
-"type.tourism.information.office" = "Tourist Office";
+"type.tourism.information.office" = "Турыстычны офіс";
 
 "type.tourism.motel" = "Motel";
 

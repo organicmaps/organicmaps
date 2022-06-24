@@ -1366,7 +1366,7 @@
 	<string name="type.tourism.hostel">旅舍</string>
 	<string name="type.tourism.hotel">飯店</string>
 	<string name="type.tourism.information">觀光諮詢</string>
-	<string name="type.tourism.information.board">資訊中心</string>
+	<string name="type.tourism.information.board">標示</string>
 	<string name="type.tourism.information.guidepost">指路牌</string>
 	<string name="type.tourism.information.map">旅遊地圖</string>
 	<string name="type.tourism.information.office">旅遊辦事處</string>

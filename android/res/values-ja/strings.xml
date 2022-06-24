@@ -1470,7 +1470,7 @@
 	<string name="type.tourism.hostel">ホステル</string>
 	<string name="type.tourism.hotel">ホテル</string>
 	<string name="type.tourism.information">インフォメーション</string>
-	<string name="type.tourism.information.board">案内板</string>
+	<string name="type.tourism.information.board">情報板</string>
 	<string name="type.tourism.information.guidepost">道標</string>
 	<string name="type.tourism.information.map">観光マップ</string>
 	<string name="type.tourism.information.office">観光案内所</string>

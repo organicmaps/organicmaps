@@ -912,7 +912,11 @@
 	<string name="type.sport.swimming">Плаванне</string>
 	<string name="type.sport.tennis">Тэнісны корт</string>
 	<string name="type.tourism.caravan_site">Кемпінг для аўтадамоў</string>
+	<string name="type.tourism.information">Турыстычная інфармацыя</string>
+	<string name="type.tourism.information.board">Інфармацыйны шчыт</string>
 	<string name="type.tourism.information.guidepost">Даведнік</string>
+	<string name="type.tourism.information.map">Карта</string>
+	<string name="type.tourism.information.office">Турыстычны офіс</string>
 	<string name="type.waterway.river">Рака</string>
 	<string name="type.waterway.river.tunnel">Рака</string>
 	<string name="type.waterway.riverbank">Рака</string>
