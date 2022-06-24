@@ -1523,9 +1523,7 @@
 	<string name="type.tourism.hostel">Hostel</string>
 	<string name="type.tourism.hotel">Hotel</string>
 	<string name="type.tourism.information">Informações turísticas</string>
-	<string name="type.tourism.information.board">Painel de informações</string>
 	<string name="type.tourism.information.guidepost">Poste com direções</string>
-	<string name="type.tourism.information.map">Mapa turístico</string>
 	<string name="type.tourism.information.office">Escritório de turismo</string>
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Museu</string>

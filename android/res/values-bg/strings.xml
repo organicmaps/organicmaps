@@ -752,5 +752,9 @@
 	<string name="type.sport.multi">Различни спортове</string>
 	<string name="type.sport.swimming">Плуване</string>
 	<string name="type.sport.tennis">Тенис корт</string>
+	<string name="type.tourism.information">Туринформация</string>
+	<string name="type.tourism.information.board">Информационен щит</string>
 	<string name="type.tourism.information.guidepost">Пътеводител</string>
+	<string name="type.tourism.information.map">Карта</string>
+	<string name="type.tourism.information.office">Туристически офис</string>
 </resources>

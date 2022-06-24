@@ -2933,15 +2933,15 @@
 
 "type.tourism.hotel" = "Hotel";
 
-"type.tourism.information" = "Tourist Information";
+"type.tourism.information" = "Taarifa za Watalii";
 
-"type.tourism.information.board" = "Information Board";
+"type.tourism.information.board" = "Bodi ya habari";
 
 "type.tourism.information.guidepost" = "Chapisho la mwongozo";
 
-"type.tourism.information.map" = "Tourist Map";
+"type.tourism.information.map" = "Ramani ya Watalii";
 
-"type.tourism.information.office" = "Tourist Office";
+"type.tourism.information.office" = "Ofisi ya watalii";
 
 "type.tourism.motel" = "Motel";
 

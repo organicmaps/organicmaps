@@ -429,5 +429,9 @@
 	<string name="type.sport.soccer">כדורגל</string>
 	<string name="type.sport.swimming">שחייה</string>
 	<string name="type.sport.tennis">טֶנִיס</string>
+	<string name="type.tourism.information">מידע לתייר</string>
+	<string name="type.tourism.information.board">לוח מידע</string>
 	<string name="type.tourism.information.guidepost">מנחה</string>
+	<string name="type.tourism.information.map">מפת תיירות</string>
+	<string name="type.tourism.information.office">משרד תיירות</string>
 </resources>
