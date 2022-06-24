@@ -6,6 +6,8 @@
 
 #include "geometry/angles.hpp"
 
+#include <limits.h>
+
 namespace routing
 {
 using namespace std;
@@ -30,8 +32,8 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
   // (1) the route enters to the roundabout;
   // (2) the route leaves the roundabout;
   uint32_t exitNum = 0;
-  size_t const kInvalidEnter = routeSegments.size();
-  size_t currentEnterRoundAbout = kInvalidEnter;
+  size_t const kInvalidEnter = numeric_limits<size_t>::max();
+  size_t enterRoundAbout = kInvalidEnter;
 
   for (size_t idx = 0; idx < routeSegments.size(); ++idx)
   {
@@ -39,17 +41,17 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
     if (t.IsTurnNone())
       continue;
 
-    if (currentEnterRoundAbout != kInvalidEnter && t.m_turn != CarDirection::StayOnRoundAbout
+    if (enterRoundAbout != kInvalidEnter && t.m_turn != CarDirection::StayOnRoundAbout
         && t.m_turn != CarDirection::LeaveRoundAbout && t.m_turn != CarDirection::ReachedYourDestination)
     {
       ASSERT(false, ("Only StayOnRoundAbout, LeaveRoundAbout or ReachedYourDestination are expected after EnterRoundAbout."));
       exitNum = 0;
-      currentEnterRoundAbout = kInvalidEnter;
+      enterRoundAbout = kInvalidEnter;
     }
     else if (t.m_turn == CarDirection::EnterRoundAbout)
     {
-      ASSERT(currentEnterRoundAbout == kInvalidEnter, ("It's not expected to find new EnterRoundAbout until previous EnterRoundAbout was leaved."));
-      currentEnterRoundAbout = idx;
+      ASSERT(enterRoundAbout == kInvalidEnter, ("It's not expected to find new EnterRoundAbout until previous EnterRoundAbout was leaved."));
+      enterRoundAbout = idx;
       ASSERT(exitNum == 0, ("exitNum is reset at start and after LeaveRoundAbout."));
       exitNum = 0;
     }
@@ -63,10 +65,10 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
     {
       // It's possible for car to be on roundabout without entering it
       // if route calculation started at roundabout (e.g. if user made full turn on roundabout).
-      if (currentEnterRoundAbout != kInvalidEnter)
-        routeSegments[currentEnterRoundAbout].SetTurnExits(exitNum + 1);
+      if (enterRoundAbout != kInvalidEnter)
+        routeSegments[enterRoundAbout].SetTurnExits(exitNum + 1);
       routeSegments[idx].SetTurnExits(exitNum + 1); // For LeaveRoundAbout turn.
-      currentEnterRoundAbout = kInvalidEnter;
+      enterRoundAbout = kInvalidEnter;
       exitNum = 0;
     }
 

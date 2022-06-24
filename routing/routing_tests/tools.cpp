@@ -4,10 +4,10 @@ namespace routing
 {
 void AsyncGuiThreadTestWithRoutingSession::InitRoutingSession()
 {
-    m_session = std::make_unique<routing::RoutingSession>();
-    m_session->Init(nullptr /* pointCheckCallback */);
-    m_session->SetRoutingSettings(routing::GetRoutingSettings(routing::VehicleType::Car));
-    m_session->SetOnNewTurnCallback([this]() { ++m_onNewTurnCallbackCounter; });
+  m_session = std::make_unique<routing::RoutingSession>();
+  m_session->Init(nullptr /* pointCheckCallback */);
+  m_session->SetRoutingSettings(routing::GetRoutingSettings(routing::VehicleType::Car));
+  m_session->SetOnNewTurnCallback([this]() { ++m_onNewTurnCallbackCounter; });
 }
 
 void RouteSegmentsFrom(std::vector<Segment> const & segments, std::vector<m2::PointD> const & path,
@@ -44,10 +44,7 @@ void RouteSegmentsFrom(std::vector<Segment> const & segments, std::vector<m2::Po
     RouteSegment::RoadNameInfo name;
     if (names.size() > 0)
       name = names[i];
-    routeSegments.emplace_back(RouteSegment(
-      segment, turn,
-      point, name, SpeedInUnits(), traffic::SpeedGroup::Unknown)
-      );
+    routeSegments.emplace_back(segment, turn, point, name, SpeedInUnits(), traffic::SpeedGroup::Unknown);
   }
-};
+}
 }  // namespace routing

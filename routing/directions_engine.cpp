@@ -263,9 +263,8 @@ bool DirectionsEngine::Generate(IndexRoadGraph const & graph,
       TurnItem turn;
       if (i == routeEdges.size() - 2)
         turn.m_pedestrianTurn = turns::PedestrianDirection::ReachedYourDestination;
-      routeSegments.emplace_back(
-        RouteSegment(ConvertEdgeToSegment(*m_numMwmIds, routeEdges[i]), turn, pos, RouteSegment::RoadNameInfo(),
-                                  SpeedInUnits(), traffic::SpeedGroup::Unknown));
+      routeSegments.emplace_back(ConvertEdgeToSegment(*m_numMwmIds, routeEdges[i]), turn, pos, RouteSegment::RoadNameInfo(),
+                                 SpeedInUnits(), traffic::SpeedGroup::Unknown);
     }
     return true;
   }
@@ -353,10 +352,8 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
     for (size_t i = 0; i < loadedSegment.m_segments.size() - 1; ++i)
     {
       auto const & junction = loadedSegment.m_path[i + 1];
-      routeSegments.emplace_back(
-        RouteSegment(loadedSegment.m_segments[i], TurnItem(), junction, RouteSegment::RoadNameInfo(),
-                                  loadedSegment.m_maxSpeed, traffic::SpeedGroup::Unknown)
-      );
+      routeSegments.emplace_back(loadedSegment.m_segments[i], TurnItem(), junction, RouteSegment::RoadNameInfo(),
+                                 loadedSegment.m_maxSpeed, traffic::SpeedGroup::Unknown);
     }
 
     // For the last segment of current loadedSegment put info about turn
@@ -371,10 +368,8 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
       --skipTurnSegments;
 
     auto const & junction = loadedSegment.m_path.back();
-    routeSegments.emplace_back(
-      RouteSegment(loadedSegment.m_segments.back(), turnItem, junction, move(loadedSegment.m_roadNameInfo),
-                                loadedSegment.m_maxSpeed, traffic::SpeedGroup::Unknown)
-    );
+    routeSegments.emplace_back(loadedSegment.m_segments.back(), turnItem, junction, move(loadedSegment.m_roadNameInfo),
+                               loadedSegment.m_maxSpeed, traffic::SpeedGroup::Unknown);
   }
 
   ASSERT(routeSegments.front().GetJunction() == result.GetStartPoint(), ());
