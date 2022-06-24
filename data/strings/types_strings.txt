@@ -19682,6 +19682,8 @@
   [type.tourism.information]
     en = Tourist Information
     ar = معلومات سياحية
+    be = Турыстычная інфармацыя
+    bg = Туринформация
     cs = Infocentrum
     da = Turistinformation
     de = Touristeninformation
@@ -19691,6 +19693,7 @@
     fa = گردشگری
     fi = Turisti-informaatio
     fr = Informations touristiques
+    he = מידע לתייר
     hu = Túrista információ
     id = Informasi turis
     it = Informazione
@@ -19706,6 +19709,7 @@
     ru = Туринформация
     sk = Infocentrum
     sv = Turistinformation
+    sw = Taarifa za Watalii
     th = ข้อมูลการท่องเที่ยว
     tr = Turist Bilgilendirme
     uk = Турінформація
@@ -19716,6 +19720,8 @@
   [type.tourism.information.board]
     en = Information Board
     ar = لوحة معلومات
+    be = Інфармацыйны шчыт
+    bg = Информационен щит
     cs = Nástěnka
     da = Informationstavle
     de = Informationstafel
@@ -19725,27 +19731,28 @@
     fa = گردشگری
     fi = Informaatio
     fr = Panneau d'informations
+    he = לוח מידע
     hu = Információs tábla
     id = Papan informasi
     it = Tabellone informativo
-    ja = 案内板
+    ja = 情報板
     ko = 정보 게시판
     mr = माहिती फलक
     nb = Informasjonstavle
     nl = Informatiebord
     pl = Tablica informacyjna
     pt = Painel de informações
-    pt-BR = Painel de informações
     ro = Panou de informații
     ru = Информационный щит
     sk = Informačné centrum
     sv = Informationstavla
+    sw = Bodi ya habari
     th = บอร์ดประชาสัมพันธ์
     tr = Bilgi Panosu
     uk = Інформаційний щит
     vi = Bảng Thông Tin
-    zh-Hans = 公告板
-    zh-Hant = 資訊中心
+    zh-Hans = 标示
+    zh-Hant = 標示
 
   [type.tourism.information.guidepost]
     en = Guidepost
@@ -19788,6 +19795,8 @@
   [type.tourism.information.map]
     en = Tourist Map
     ar = خريطة سياحية
+    be = Карта
+    bg = Карта
     cs = Turistická mapa
     da = Turistkort
     de = Touristenkarte
@@ -19797,6 +19806,7 @@
     fa = گردشگری
     fi = Turistikartta
     fr = Carte touristique
+    he = מפת תיירות
     hu = Turistatérkép
     id = Peta wisata
     it = Mappa turistica
@@ -19807,11 +19817,11 @@
     nl = Toeristische kaart
     pl = Mapa turystyczna
     pt = Mapa turístico
-    pt-BR = Mapa turístico
     ro = Hartă turistică
     ru = Карта
     sk = Turistická mapa
     sv = Turistkarta
+    sw = Ramani ya Watalii
     th = แผนที่ท่องเที่ยว
     tr = Turist Haritası
     uk = Мапа
@@ -19822,6 +19832,8 @@
   [type.tourism.information.office]
     en = Tourist Office
     ar = مكتب سياحة
+    be = Турыстычны офіс
+    bg = Туристически офис
     cs = Informační centrum
     da = Turistkontor
     de = Fremdenverkehrsamt
@@ -19831,6 +19843,7 @@
     fa = گردشگری
     fi = Turistitoimisto
     fr = Office de tourisme
+    he = משרד תיירות
     hu = Idegenforgalmi iroda
     id = Kantor wisata
     it = Ufficio turistico
@@ -19846,6 +19859,7 @@
     ru = Туристический офис
     sk = Turistické informačné centrum
     sv = Turistcenter
+    sw = Ofisi ya watalii
     th = ศูนย์บริการนักท่องเที่ยว
     tr = Turizm Ofisi
     uk = Туристичний офіс
