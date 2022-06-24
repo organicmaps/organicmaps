@@ -12,10 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
-import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 import java.util.Objects;
 
@@ -29,7 +29,7 @@ public class SimplePlacePageController implements PlacePageController
   private View mSheet;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private AnchorBottomSheetBehavior<View> mSheetBehavior;
+  private BottomSheetBehavior<View> mSheetBehavior;
   @NonNull
   private final SlideListener mSlideListener;
   private int mViewportMinHeight;
@@ -96,7 +96,7 @@ public class SimplePlacePageController implements PlacePageController
         }
       };
 
-  private final AnchorBottomSheetBehavior.BottomSheetCallback mSheetCallback
+  private final BottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new DefaultBottomSheetCallback(mBottomSheetChangedListener);
 
   private boolean mDeactivateMapSelection = true;
@@ -119,16 +119,16 @@ public class SimplePlacePageController implements PlacePageController
     mDeactivateMapSelection = true;
     mViewRenderer.render(data);
     if (mSheetBehavior.getSkipCollapsed())
-      mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
+      mSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     else
-      mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);
+      mSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
   }
 
   @Override
   public void close(boolean deactivateMapSelection)
   {
     mDeactivateMapSelection = deactivateMapSelection;
-    mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_HIDDEN);
+    mSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
   }
 
   @Override
@@ -188,8 +188,10 @@ public class SimplePlacePageController implements PlacePageController
     mSheet = activity.findViewById(mSheetResId);
     mViewportMinHeight = mSheet.getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
     mViewPortMinWidth = mSheet.getResources().getDimensionPixelSize(R.dimen.viewport_min_width);
-    mSheetBehavior = AnchorBottomSheetBehavior.from(mSheet);
+    mSheetBehavior = BottomSheetBehavior.from(mSheet);
     mSheetBehavior.addBottomSheetCallback(mSheetCallback);
+    mSheetBehavior.setHideable(true);
+    mSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     boolean isLandscape = UiUtils.isLandscape(mApplication);
     GestureDetectorCompat gestureDetector = new GestureDetectorCompat(
         activity, new SimplePlacePageGestureListener(mSheetBehavior, isLandscape));
@@ -228,7 +230,7 @@ public class SimplePlacePageController implements PlacePageController
       // we should expand bottom sheet forcibly for horizontal orientation. It's by design.
       if (!PlacePageUtils.isHiddenState(mSheetBehavior.getState()))
       {
-        mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
+        mSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
       }
       return;
     }
@@ -261,7 +263,7 @@ public class SimplePlacePageController implements PlacePageController
   {
     private final boolean mLandscape;
 
-    SimplePlacePageGestureListener(@NonNull AnchorBottomSheetBehavior<View> bottomSheetBehavior,
+    SimplePlacePageGestureListener(@NonNull BottomSheetBehavior<View> bottomSheetBehavior,
                                    boolean landscape)
     {
       super(bottomSheetBehavior);
@@ -273,7 +275,7 @@ public class SimplePlacePageController implements PlacePageController
     {
       if (mLandscape)
       {
-        getBottomSheetBehavior().setState(AnchorBottomSheetBehavior.STATE_HIDDEN);
+        getBottomSheetBehavior().setState(BottomSheetBehavior.STATE_HIDDEN);
         return false;
       }
 

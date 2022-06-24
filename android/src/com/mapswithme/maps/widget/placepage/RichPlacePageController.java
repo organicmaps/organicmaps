@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -20,7 +21,6 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
-import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 import java.util.Objects;
 
@@ -35,7 +35,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   private static final int ANIM_CHANGE_PEEK_HEIGHT_MS = 100;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private AnchorBottomSheetBehavior<View> mPlacePageBehavior;
+  private BottomSheetBehavior<View> mPlacePageBehavior;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mButtonsLayout;
@@ -91,7 +91,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   };
 
   @NonNull
-  private final AnchorBottomSheetBehavior.BottomSheetCallback mSheetCallback
+  private final BottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new DefaultBottomSheetCallback(mBottomSheetChangedListener);
 
   private boolean mDeactivateMapSelection = true;
@@ -120,8 +120,10 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     Resources res = activity.getResources();
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mPlacePage = activity.findViewById(R.id.placepage);
-    mPlacePageBehavior = AnchorBottomSheetBehavior.from(mPlacePage);
+    mPlacePageBehavior = BottomSheetBehavior.from(mPlacePage);
     mPlacePageBehavior.addBottomSheetCallback(mSheetCallback);
+    mPlacePageBehavior.setHideable(true);
+    mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     PlacePageGestureListener ppGestureListener = new PlacePageGestureListener(mPlacePageBehavior);
     GestureDetectorCompat gestureDetector = new GestureDetectorCompat(activity, ppGestureListener);
     mPlacePage.addPlacePageGestureListener(ppGestureListener);
@@ -149,7 +151,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     mDeactivateMapSelection = true;
     MapObject object = (MapObject) data;
     mPlacePage.setMapObject(object, (isSameObject) -> {
-      @AnchorBottomSheetBehavior.State
+      @BottomSheetBehavior.State
       int state = mPlacePageBehavior.getState();
       if (isSameObject && !PlacePageUtils.isHiddenState(state))
         return;
@@ -158,7 +160,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
 
       if (object.getOpeningMode() == MapObject.OPENING_MODE_DETAILS)
       {
-        mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_ANCHORED);
+        mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
         return;
       }
 
@@ -172,7 +174,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   {
     mPlacePage.post(() -> {
       setPeekHeight();
-      mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);
+      mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
       setPlacePageAnchor();
     });
   }
@@ -189,7 +191,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     if (peekHeight == mPlacePageBehavior.getPeekHeight())
       return;
 
-    @AnchorBottomSheetBehavior.State
+    @BottomSheetBehavior.State
     int currentState = mPlacePageBehavior.getState();
     if (PlacePageUtils.isSettlingState(currentState) || PlacePageUtils.isDraggingState(currentState))
     {
@@ -218,7 +220,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       {
         mPeekHeightAnimating = true;
         mPlacePage.setScrollable(false);
-        mPlacePageBehavior.setAllowUserDragging(false);
+        mPlacePageBehavior.setDraggable(false);
       }
 
       @Override
@@ -227,7 +229,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
         mPlacePage.setTranslationY(0);
         mPeekHeightAnimating = false;
         mPlacePage.setScrollable(true);
-        mPlacePageBehavior.setAllowUserDragging(true);
+        mPlacePageBehavior.setDraggable(true);
         mPlacePageBehavior.setPeekHeight(peekHeight);
       }
     });
@@ -243,8 +245,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
 
   private void setPlacePageAnchor()
   {
-    View parent = (View) mPlacePage.getParent();
-    mPlacePageBehavior.setAnchorOffset((int) (parent.getHeight() * ANCHOR_RATIO));
+    mPlacePageBehavior.setHalfExpandedRatio(ANCHOR_RATIO);
   }
 
   private int calculatePeekHeight()
@@ -270,7 +271,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   public void close(boolean deactivateMapSelection)
   {
     mDeactivateMapSelection = deactivateMapSelection;
-    mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_HIDDEN);
+    mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     mPlacePage.reset();
   }
 
@@ -289,7 +290,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   @Override
   public void onCompassUpdated(long time, double north)
   {
-    @AnchorBottomSheetBehavior.State
+    @BottomSheetBehavior.State
     int currentState = mPlacePageBehavior.getState();
     if (PlacePageUtils.isHiddenState(currentState) || PlacePageUtils.isDraggingState(currentState)
         || PlacePageUtils.isSettlingState(currentState))
@@ -331,7 +332,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   @Override
   public void onRestore(@NonNull Bundle inState)
   {
-    if (mPlacePageBehavior.getState() == AnchorBottomSheetBehavior.STATE_HIDDEN)
+    if (mPlacePageBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
       return;
 
     if (!Framework.nativeHasPlacePageInfo())
@@ -344,14 +345,14 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     if (object == null)
       return;
 
-    @AnchorBottomSheetBehavior.State
+    @BottomSheetBehavior.State
     int state = mPlacePageBehavior.getState();
     mPlacePage.setMapObject(object, (isSameObject) -> {
       restorePlacePageState(object, state);
     });
   }
 
-  private void restorePlacePageState(@NonNull MapObject object, @AnchorBottomSheetBehavior.State int state)
+  private void restorePlacePageState(@NonNull MapObject object, @BottomSheetBehavior.State int state)
   {
     mPlacePage.post(() -> {
       setPlacePageAnchor();
