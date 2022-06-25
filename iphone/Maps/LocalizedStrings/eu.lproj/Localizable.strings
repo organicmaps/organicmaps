@@ -75,7 +75,7 @@
 "bookmarks" = "Markagailuak";
 
 /* Default bookmark list name */
-"core_my_places" = "Nire lekuak";
+"core_my_places" = "Nire tokiak";
 
 /* Editor title above street and house number */
 "address" = "Norabidea";
@@ -431,7 +431,7 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Iradokitako ibilbideak gomendio gisa soilik ulertu behar dira;";
 
-"dialog_routing_disclaimer_borders" = "— Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko lekuetan;";
+"dialog_routing_disclaimer_borders" = "— Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko tokietan;";
 
 "dialog_routing_disclaimer_beware" = "Egon adi eta seguru errepideetan!";
 
@@ -523,9 +523,9 @@
 
 "p2p_start" = "Hasi";
 
-"p2p_from_here" = "Bertatik";
+"p2p_from_here" = "Hemendik";
 
-"p2p_to_here" = "Bidea";
+"p2p_to_here" = "Bidea hona";
 
 "p2p_only_from_current" = "Nabigazioa zure uneko kokapenetik soilik dago erabilgarri.";
 
@@ -601,9 +601,9 @@
 
 "thank_you" = "Eskerrik asko";
 
-"edit_place" = "Editatu lekua";
+"edit_place" = "Editatu tokia";
 
-"place_name" = "Lekuaren izena";
+"place_name" = "Tokiaren izena";
 
 "add_language" = "Gehitu hizkuntza bat";
 
@@ -660,7 +660,7 @@
 
 "editor_add_place_title" = "Gehitu";
 
-"editor_edit_place_name_hint" = "Lekuaren izena";
+"editor_edit_place_name_hint" = "Tokiaren izena";
 
 "editor_edit_place_category_title" = "Kategoria";
 
@@ -696,7 +696,7 @@
 "error_enter_correct_zip_code" = "Mesedez, idatzi posta-kode zuzena";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Leku ezezaguna";
+"core_placepage_unknown_place" = "Toki ezezaguna";
 
 "editor_other_info" = "Bidali oharra OSM editoreei";
 
@@ -774,11 +774,11 @@
 
 "editor_reset_edits_button" = "Berreskuratu";
 
-"editor_remove_place_message" = "Gehitutako lekua kendu?";
+"editor_remove_place_message" = "Gehitutako tokia ezabatu?";
 
 "editor_remove_place_button" = "Kendu";
 
-"editor_place_doesnt_exist" = "Lekua ez da existitzen";
+"editor_place_doesnt_exist" = "Tokia ez da existitzen";
 
 "text_more_button" = "…gehi";
 
@@ -838,7 +838,7 @@
 "mobile_data" = "Internet mugikorra";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Internet mugikorra behar da lekuei buruzko informazio zehatza bistaratzeko, hala nola argazkiak, prezioak eta iritziak.";
+"mobile_data_description" = "Internet mugikorra behar da tokiei buruzko informazio zehatza bistaratzeko, hala nola argazkiak, prezioak eta iritziak.";
 
 "mobile_data_option_never" = "Inoiz erabili";
 
@@ -970,7 +970,7 @@
 
 "speedcam_option_never" = "Inoiz ez";
 
-"place_description_title" = "Leku deskribapena";
+"place_description_title" = "Tokiaren deskribapena";
 
 "speedcams_notice_message" = "Auto - abiadura-kamerei buruz ohartarazten du abiadura muga gainditzeko arriskua badago\nBeti - beti erne kamerei buruz\nInoiz - inoiz ez abisatu kamerari buruz";
 
@@ -1111,7 +1111,7 @@
 
 "food_places" = "Janari";
 
-"tourist_places" = "Leku interesgarriak";
+"tourist_places" = "Toki interesgarriak";
 
 "museums" = "Museoak";
 
@@ -1139,7 +1139,7 @@
 
 "search_in_the_list" = "Bilatu zerrendan";
 
-"religious_places" = "Leku sakratuak";
+"religious_places" = "Erlijio-guneak";
 
 "transit_not_found" = "Metro-nabigazioa oraindik ez dago erabilgarri eskualde honetan";
 
