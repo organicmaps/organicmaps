@@ -1,0 +1,11 @@
+- Nová data OSM k 13. červnu 2022
+- Opravy tras napříč regiony a další
+- Hezčí ploty, městské hradby, cesty, vodopády, fontány a pitná_voda
+- Přidány ikony pro rozcestník, pamětní desku, půjčovnu kol
+- Zadání kategorie jako "jídlo" do vyhledávání odpovídá také názvům prvků
+- Přidány skály, náspy, stanice pro opravu kol, hroby, vodní tunely, řemesla=*
+- Radnice a některá řemesla lze přidat v editoru
+- Silniční štíty pro Kypr
+- Lepší zobrazení další odbočující ulice
+- Vrstvy stylů oblastí se vykreslují správně
+- Přidána maráthská lokalizace
