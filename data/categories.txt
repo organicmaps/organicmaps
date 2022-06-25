@@ -6100,67 +6100,690 @@ sw:Bwawa la kuogelea
 fa:استخرشنا
 mr:जलतरण तलाव
 
-sport-equestrian
-en:Equestrian Sports
-ru:Конный спорт
-bg:Коне|спорт|езда
-nl:Paardensport|ruitersport
-ko:승마|마술 스포츠
-pl:Jazda konna
-fr:Sport équestre
-hu:Lovassportok
-de:Pferdesport
-it:Equitazione
-es:Deportes ecuestres
-eu:Zaldi-kirolak
-pt:Desportos equestres
-pt-BR:Esportes equestres
-tr:Binicilik
-el:Ιππασία
-mr:घोडेस्वार खेळ
+sport-american_football
+en:American Football
+ar:كرة القدم الأمريكية
+be:Амерыканскі футбол
+cs:Americký fotbal
+da:Amerikansk fodbold
+de:Amerikanischer Fußball
+el:αμερικάνικο ποδόσφαιρο
+es:Fútbol americano
+es-MX:Fútbol americano
+eu:Futbol amerikarra
+fa:فوتبال آمریکایی
+fi:Amerikkalainen jalkapallo
+fr:Football américain
+he:כדורגל אמריקאי
+hu:Amerikai foci
+id:Sepak Bola Amerika
+it:Football americano
+ja:アメリカンフットボール
+ko:미식 축구
+mr:अमेरिकन फुटबॉल
+nb:Amerikansk fotball
+nl:Amerikaans voetbal
+pl:Futbol amerykański
+pt:Futebol Americano
+pt-BR:Futebol americano
+ro:Fotbal american
+ru:Aмериканский футбол
+sk:Americký futbal
+sv:Amerikansk fotboll
+sw:Soka ya Marekani
+th:อเมริกันฟุตบอล
+tr:Amerikan futbolu
+uk:Американський футбол
+vi:Bóng bầu dục Mỹ
+zh-Hans:美式足球
+zh-Hant:美式足球
 
-sport-basketball
-en:Basketball
-ru:Баскетбол
-bg:баскетбол|игрище|
-de:Basketball
-es:Baloncesto
-eu:Saskibaloia
-nl:Basketbal
-ko:농구
-pl:Koszykówka|basketball
-fi:Koripallo
-fr:Basket-ball
-de:Basketball
-it:Pallacanestro
-hu:Kosárlabda
-pt:Basquetebol
-pt-BR:Basquetebol
-tr:Basketbol
-da:Basketball
-fa:بسکتبال
-el:Καλαθόσφαιρα
-mr:बास्केटबॉल
+sport-archery
+en:Archery
+ar:الرماية
+be:Стральба з лука
+cs:Lukostřelba
+da:Bueskydning
+de:Bogenschießen
+el:Τοξοβολία
+es:Tiro al arco
+es-MX:Tiro al arco
+eu:Arku-tiroa
+fa:تیراندازی با کمان
+fi:Jousiammunta
+fr:Tir à l'arc
+he:קַשׁתוּת
+hu:Íjászat
+id:Panahan
+it:Tiro con l'arco
+ja:アーチェリー
+ko:양궁
+mr:धनुर्विद्या
+nb:Bueskyting
+nl:Boogschieten
+pl:Łucznictwo
+pt:Tiro com arco
+pt-BR:Tiro com arco
+ro:TIR cu arcul
+ru:Стрельба из лука
+sk:Lukostreľba
+sv:Bågskytte
+sw:Upigaji mishale
+th:ยิงธนู
+tr:Okçuluk
+uk:Стрільба з лука
+vi:Bắn cung
+zh-Hans:射箭
+zh-Hant:射箭
 
 sport-athletics
 en:Athletics
-ru:Лёгкая атлетика
-bg:атклетика|лека
+ar:ألعاب القوى
+be:Лёгкая атлетыка
+bg:Атлетика|лека
+cs:Atletika
+da:Atletik
+de:Leichtathletik
+el:Στίβος
 es:Atletismo
 eu:Atletismoa
-nl:Atletiek
-ko:체육시설
-pl:Lekkoatletyka
+fa:ورزشکاری
 fi:Yleisurheilu
 fr:Athlétisme
-de:Leichtathletik
-it:Atletica leggera
+he:אַתלֵטִיקָה
 hu:Atlétika
+id:Atletik
+it:Atletica leggera
+ja:陸上競技
+ko:체육시설
+mr:शरीरिक कसरती|ऍथलेटिक्स
+nb:Friidrett
+nl:Atletiek
+pl:Lekkoatletyka
 pt:Atletismo
 pt-BR:Atletismo
+ro:Atletism
+ru:Лёгкая атлетика
 tr:Atletik
-el:Στίβος
-mr:शरीरिक कसरती|ऍथलेटिक्स
+uk:Легка атлетика
+vi:Thế vận hội
+zh-Hans:竞技
+zh-Hant:競技
+
+sport-australian_football
+en:Australian Football
+ar:كرة القدم الأسترالية
+be:Аўстралійскі футбол
+bg:Австралийски футбол
+cs:Australský fotbal
+da:Australsk fodbold
+de:Australian Football
+el:Αυστραλιανό ποδόσφαιρο
+es:Fútbol australiano
+eu:Australiako futbol araua
+fa:فوتبال استرالیایی
+fi:Australialainen jalkapallo
+fr:Football australien
+he:פוטבול אוסטרלי
+hu:Ausztrál futball
+id:Sepak bola Australia
+it:Football australiano
+ja:オーストラリアンフットボール
+ko:오스트레일리안 풋볼
+mr:रग्बी|ऑस्ट्रेलियन फुटबॉल
+nb:Australsk fotball
+nl:Australian football
+pl:Futbol australijski
+pt:Futebol Australiano
+pt-BR:Futebol australiano
+ro:Fotbal australian
+ru:Австралийский футбол
+tr:Avustralya futbolu
+uk:Австралійський футбол
+vi:Bóng bầu dục Úc
+zh-Hans:澳式足球
+zh-Hant:澳式足球
+
+sport-baseball
+en:Baseball
+ar:البيسبول
+be:Бейсбол
+cs:Baseball
+da:Baseball
+de:Baseball
+el:Μπέιζμπολ
+es:Béisbol
+es-MX:Béisbol
+eu:Beisbol
+fa:بیسبال
+fi:Baseball
+fr:Base-ball
+he:בייסבול
+hu:Baseball
+id:Baseball
+it:Baseball
+ja:野球
+ko:야구
+mr:बेसबॉल
+nb:Baseball
+nl:Basketbal
+pl:Baseball
+pt:Basebol
+pt-BR:Beisebol
+ro:Baseball
+ru:Бейсбол
+sk:Baseball
+sv:Baseboll
+sw:Baseball
+th:เบสบอล
+tr:Beyzbol
+uk:Бейсбол
+vi:Bóng chày
+zh-Hans:棒球
+zh-Hant:棒球
+
+sport-basketball
+en:Basketball
+ar:كرة سلة
+be:Баскетбол
+bg:Баскетбол|игрище
+da:Basketball
+de:Basketball
+el:Καλαθόσφαιρα
+es:Baloncesto
+eu:Saskibaloia
+fa:بسکتبال
+fi:Koripallo
+fr:Basket-ball
+he:כדורסל
+hu:Kosárlabda
+id:Bola basket
+it:Pallacanestro
+ja:バスケットボール
+ko:농구
+mr:बास्केटबॉल
+nb:Basketball
+nl:Basketbal
+pl:Koszykówka|basketball
+pt:Basquetebol
+pt-BR:Basquetebol
+ro:Baschet
+ru:Баскетбол
+tr:Basketbol
+uk:Баскетбол
+vi:Bóng rổ
+zh-Hans:篮球
+zh-Hant:籃球
+
+sport-bowls
+en:Bowls
+ar:لعبة البولينج
+be:Боўлз
+de:Bowls
+es:Bolos sobre hierba
+fa:لعبة البولينج
+fi:Nurmikeilailu
+fr:Boulingrin
+he:כדורת דשא
+id:Boling lapangan
+it:Bowls
+ja:ローンボウルズ
+ko:론볼
+mr:लॉन बोलिंग
+nb:Bowls
+nl:Bowls
+pl:Kręgle
+pt:Lawn bowls
+pt-BR:Lawn bowls
+ru:Боулз
+sv:Bowls
+tr:Kuka Oynu
+uk:Боулз
+zh-Hans:草地滾球
+zh-Hant:草地滾球
+
+sport-cricket
+en:Cricket
+ar:كريكت
+be:Крикет
+cs:Kriket
+de:Cricket
+es:Críquet
+eu:Kilkerra
+fa:کریکت
+fi:Kriketti
+fr:Cricket
+he:קריקט
+hu:Krikett
+id:Kriket
+it:Cricket
+ja:クリケット
+ko:크리켓
+mr:क्रिकेट
+nb:Cricket
+nl:Cricket
+pl:Krykiet
+pt:Críquete
+pt-BR:Críquete
+ru:Крикет
+tr:Kriket
+uk:Крикет
+vi:Cricket
+zh-Hans = 板球
+zh-Hant = 板球
+
+sport-curling
+en:Curling
+ar:كيرلنغ
+be:Кёрлінг
+cs:Curling
+da:Curling
+de:Eisstockschießen|Curling
+el:Κέρλινγκ
+es:Curling
+es-MX:Curling
+eu:Curling
+fa:کرلینگ
+fi:Curling
+fr:Curling
+he:קרלינג
+hu:Curling
+id:Curling
+it:Curling
+ja:カーリング
+ko:컬링
+mr:कर्लिंग
+nb:Curling
+nl:Curling
+pl:Curling
+pt:Curling
+pt-BR:Curling
+ro:Curling
+ru:Кёрлинг
+sk:Curling
+sv:Curling
+sw:Kukunja
+th:เคอร์ลิง
+tr:Körling
+uk:Керлінг
+vi:Bi đá trên băng
+zh-Hans:冰壶
+zh-Hant:冰壺
+
+sport-equestrian
+en:Equestrian Sports
+ar:فروسية
+be:Конны спорт
+bg:Коне|спорт|езда
+da:Ridesport
+de:Reitsport
+el:Ιππασία
+es:Deportes ecuestres
+eu:Zaldi-kirolak
+fa:سوارکاری
+fi:Ratsastus
+fr:Sport équestre
+he:רכיבה
+hu:Lovassportok
+id:Berkuda
+it:Equitazione
+ja:馬術
+ko:승마|마술 스포츠
+mr:घोडेस्वार खेळ
+nl:Paardensport|ruitersport
+pl:Jazda konna
+pt:Desportos Equestres
+pt-BR:Esportes equestres
+ro:Călărie
+ru:Конный спорт
+sv:Hästhållning
+tr:Binicilik
+uk:Кінний спорт
+vi:Môn cưỡi ngựa
+zh-Hans:马术运动
+zh-Hant:馬術運動
+
+sport-golf
+en:Golf
+ar:الجولف
+be:Гольф
+cs:Golf
+da:Golf
+de:Golf
+el:Γκολφ
+es:Golf
+es-MX:Golf
+eu:Golfa
+fa:گلف
+fi:Golf
+fr:Le golf
+he:גולף
+hu:Golf
+id:Golf
+it:Golf
+ja:ゴルフ
+ko:골프
+mr:गोल्फ
+nb:Golf
+nl:Golf
+pl:Golf
+pt:Golfe
+pt-BR:Golfe
+ro:Golf
+ru:Гольф
+sk:Golf
+sv:Golf
+sw:Gofu
+th:กอล์ฟ
+tr:Golf
+uk:Гольф
+vi:Golf
+zh-Hans:高尔夫球
+zh-Hant:高爾夫球
+
+sport-gymnastics
+en:Gymnastics
+ar:رياضة بدنية
+be:Гімнастыка
+cs:Gymnastika
+da:Gymnastik
+de:Gymnastik
+el:Γυμναστική
+es:Gimnasia
+es-MX:Gimnasia
+eu:Gimnasia
+fa:ژیمناستیک
+fi:Voimistelu
+fr:Gymnastique
+he:התעמלות
+hu:Gimnasztika
+id:Olahraga senam
+it:Ginnastica
+ja:体操
+ko:체조
+mr:जिम्नॅस्टिक्स
+nb:Gymnastikk
+nl:Gymnastiek
+pl:Gimnastyka
+pt:Ginástica
+pt-BR:Ginástica
+ro:Gimnastică
+ru:Гимнастика
+sk:Gymnastika
+sv:Gymnastik
+sw:Gymnastics
+th:ยิมนาสติก
+tr:Jimnastik
+uk:Гімнастика
+vi:Thể dục
+zh-Hans:体操
+zh-Hant:體操
+
+sport-handball
+en:Handball
+ar:كرة اليد
+be:Гандбол
+cs:Házená
+da:Håndbold
+de:Handball
+el:Τόπι
+es:Balonmano
+es-MX:Balonmano
+eu:Eskubaloia
+fa:هندبال
+fi:Käsipallo
+fr:Handball
+he:כדוריד
+hu:Kézilabda
+id:Bola tangan
+it:Palla a mano
+ja:ハンドボール
+ko:핸드볼
+mr:हँडबॉल
+nb:Håndball
+nl:Handbal
+pl:Gra w piłkę ręczną
+pt:Andebol
+pt-BR:Handebol
+ro:Handbal
+ru:Гандбол
+sk:Hádzaná
+sv:Handboll
+sw:Mpira wa mikono
+th:แฮนด์บอล
+tr:Hentbol
+uk:Гандбол
+vi:bóng ném
+zh-Hans:手球
+zh-Hant:手球
+
+# Used to tag a scuba diving site
+sport-scuba_diving
+en:Scuba diving site
+ar:الغوص
+be:Месца для дайвінга
+cs:Potápění
+da:Scuba dykning
+de:Gerätetauchen
+el:Κατάδυση
+es:Submarinismo
+es-MX:Submarinismo
+eu:Urpekaritza
+fa:غواصی
+fi:Sukellus
+fr:Plongée sous-marine
+hu:Búvárkodás
+id:Selam scuba
+it:Immersioni in subacquea
+ja:スキューバダイビング
+ko:스쿠버 다이빙
+mr:स्कूबा डायव्हिंग
+nb:Dykking
+nl:Duiken
+pl:Nurkowanie
+pt:Mergulho autônomo
+pt-BR:Mergulho autônomo
+ro:Scufundări
+ru:Место для дайвинга
+sk:Potápanie
+sv:Dykning
+sw:Upigaji mbizi wa Scuba
+th:ดำน้ำลึก
+tr:Dalma
+uk:Місце для дайвінгу
+vi:Môn lặn
+zh-Hans:水肺潜水
+zh-Hant:水肺潛水
+
+sport-shooting
+en:Shooting
+ar:رماية
+be:Стральба
+cs:Střílení|Střelba
+da:Skydning
+de:Schießen
+el:Κυνήγι
+es:Tiroteo
+es-MX:Tiroteo
+eu:Tiroketa
+fa:ورزش تیراندازی
+fi:Ammunta
+fr:Tournage
+he:ירי ספורטיבי
+hu:Lövés
+id:Penembakan
+it:Tiro
+ja:撮影
+ko:사격 경기
+mr:शूटिंग
+nb:Skyting
+nl:schieten
+pl:Strzelanie
+pt:Tiroteio|Esportes de tiro
+pt-BR:Tiroteio|Esportes de tiro
+ro:Filmare
+ru:Стрельба
+sk:Streľba
+sv:Skytte
+sw:Kupiga risasi
+th:ยิงปืน
+tr:Çekim
+uk:Стрільба
+vi:Chụp
+zh-Hans:射击
+zh-Hant:射擊
+
+sport-skiing
+en:Skiing
+ar:التزحلق
+be:Катанне на лыжах
+cs:Lyžování
+da:Stå på ski
+de:Skifahren
+el:Χιονοδρόμια
+es:Esquí
+es-MX:Esquí
+eu:Eskia
+fa:اسکی
+fi:Hiihto
+fr:Ski
+he:סקי
+hu:Síelés
+id:Bermain ski
+it:Sciare
+ja:スキー
+ko:스키 타기
+mr:स्कीइंग
+nb:Stå på ski
+nl:Skiën
+pl:Jazda na nartach
+pt:Esqui
+pt-BR:Esqui
+ro:Schi
+ru:Катание на лыжах
+sk:Lyžovanie
+sv:Skidåkning
+sw:Skii
+th:เล่นสกี
+tr:Kayak yapmak
+uk:Катання на лижах
+vi:Trượt tuyết
+zh-Hans:滑雪
+zh-Hant:滑雪
+
+sport-soccer
+en:Soccer
+ar:كرة القدم
+be:Футбол
+cs:Fotbal
+da:Fodbold
+de:Fußball
+el:Ποδόσφαιρο
+es:Fútbol
+es-MX:Fútbol
+eu:Futbola
+fa:فوتبال
+fi:Jalkapallo
+fr:Football
+he:כדורגל
+hu:Futball
+id:Sepak bola
+it:Calcio
+ja:サッカー
+ko:축구
+mr:सॉकर
+nb:Fotball
+nl:Voetbal
+pl:Piłka nożna
+pt:Futebol
+pt-BR:Futebol
+ro:Fotbal
+ru:Футбол
+sk:Futbal
+sv:Fotboll
+sw:Soka
+th:ฟุตบอล
+tr:Futbol
+uk:Футбол
+vi:Bóng đá
+zh-Hans:足球
+zh-Hant:足球
+
+sport-swimming
+en:Swimming
+ar:سباحة
+be:Плаванне
+bg:Плуване
+cs:Plavání
+da:Svømning
+de:Schwimmen
+el:Κολύμβηση
+es:Natación
+eu:Igeriketa
+fa:شنا
+fi:Uinti
+fr:Natation
+he:שחייה
+hu:Úszás
+id:Berenang
+it:Nuoto
+ja:水泳
+ko:수영
+mr:जलतरण
+nb:Svømming
+nl:Zwemmen
+pl:Pływanie
+pt:Natação desportiva
+pt-BR:Natação esportiva
+ro:Natație
+ru:Плавание
+sk:Plávanie
+sv:Simning
+sw:Kuogelea
+th:การว่ายน้ำ
+tr:Yüzme
+uk:Плавання
+vi: Bơi
+zh-Hans:游泳
+zh-Hant:游泳
+
+sport-tennis
+en:Tennis
+ar:تنس
+be:Тэніс
+cs:Tenis
+da:Tennis
+de:Tennis
+el:Τένις
+es:Tenis
+es-MX:Tenis
+eu:Tenisa
+fa:تنیس
+fi:Tennis
+fr:Tennis
+he:טֶנִיס
+hu:Tenisz
+id:Tenis
+it:Tennis
+ja:テニス
+ko:테니스
+mr:टेनिस
+nb:Tennis
+nl:Tennis
+pl:Tenis ziemny
+pt:Ténis
+pt-BR:Tênis
+ro:Tenis
+ru:Большой теннис
+sk:Tenis
+sv:Tennis
+sw:Tenisi
+th:เทนนิส
+tr:Tenis
+uk:Tеніс
+vi:Quần vợt
+zh-Hans:网球
+zh-Hant:網球
 
 building
 en:Building|U+1F3E0|U+1F3E1|U+1F3E2
