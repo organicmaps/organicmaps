@@ -1,18 +1,24 @@
 cmake_minimum_required(VERSION 3.18)
-
-set(LANGUAGES C CXX)
-if (APPLE AND NOT ("${CMAKE_SYSTEM_NAME}" STREQUAL Android))
-  # OBJC/OBJCXX are needed to skip m/mm files in Unity builds.
-  # https://gitlab.kitware.com/cmake/cmake/-/issues/21963
-  list(APPEND LANGUAGES OBJC OBJCXX)
-endif()
-project(omim ${LANGUAGES})
+project(omim C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
 # Our code does not rely on gnu extensions.
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_EXTENSIONS OFF)
+
+if (APPLE AND NOT ("${CMAKE_SYSTEM_NAME}" STREQUAL Android))
+  # OBJC/OBJCXX are needed to skip m/mm files in Unity builds.
+  # https://gitlab.kitware.com/cmake/cmake/-/issues/21963
+  enable_language(OBJC)
+  set(CMAKE_OBJC_EXTENSIONS OFF)
+  set(CMAKE_OBJC_STANDARD 11)
+  set(CMAKE_OBJC_FLAGS -fobjc-arc)
+  enable_language(OBJCXX)
+  set(CMAKE_OBJCXX_EXTENSIONS OFF)
+  set(CMAKE_OBJCXX_STANDARD 17)
+  set(CMAKE_OBJCXX_FLAGS -fobjc-arc)
+endif()
 
 option(UNITY_DISABLE "Disable unity build" OFF)
 
