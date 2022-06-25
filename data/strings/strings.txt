@@ -8557,6 +8557,7 @@
     fr = Ouvert dans %@
     pt-BR = Abre em %@
     ru = Открывается через %@
+    tr = %@ sonra açılıyor
     uk = Відкривається через %@
 
   [closes_in]
@@ -8566,6 +8567,7 @@
     fr = Fermé dans %@
     pt-BR = Fecha em %@
     ru = Закроется через %@
+    tr = %@ sonra kapanıyor
     uk = Зачиняється через %@
 
   [closed]
