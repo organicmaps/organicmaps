@@ -30,11 +30,11 @@ class PlacePageGestureListener extends GestureDetector.SimpleOnGestureListener
     int state = mBottomSheetBehavior.getState();
     if (PlacePageUtils.isCollapsedState(state))
     {
-      mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+      mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
       return true;
     }
 
-    if (PlacePageUtils.isHalfExpandedState(state) || PlacePageUtils.isExpandedState(state))
+    if (PlacePageUtils.isExpandedState(state))
     {
       mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
       return true;

@@ -79,7 +79,7 @@ class PlacePageUtils
     int drawableId = UiUtils.NO_ID;
     if (PlacePageUtils.isCollapsedState(state))
       drawableId = R.drawable.ic_disclosure_up;
-    else if (PlacePageUtils.isHalfExpandedState(state) || PlacePageUtils.isExpandedState(state))
+    else if (PlacePageUtils.isExpandedState(state))
       drawableId = R.drawable.ic_disclosure_down;
 
     if (drawableId == UiUtils.NO_ID)
@@ -103,11 +103,6 @@ class PlacePageUtils
   static boolean isCollapsedState(@BottomSheetBehavior.State int state)
   {
     return state == BottomSheetBehavior.STATE_COLLAPSED;
-  }
-
-  static boolean isHalfExpandedState(@BottomSheetBehavior.State int state)
-  {
-    return state == BottomSheetBehavior.STATE_HALF_EXPANDED;
   }
 
   static boolean isExpandedState(@BottomSheetBehavior.State int state)
