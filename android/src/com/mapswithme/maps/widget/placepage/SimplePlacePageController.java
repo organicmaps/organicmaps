@@ -53,10 +53,7 @@ public class SimplePlacePageController implements PlacePageController
         @Override
         public void onSheetDirectionIconChange()
         {
-          if (UiUtils.isLandscape(mApplication))
-            return;
-
-          PlacePageUtils.setPullDrawable(mSheetBehavior, mSheet, R.id.pull_icon);
+          // No op.
         }
 
         @Override
@@ -234,8 +231,6 @@ public class SimplePlacePageController implements PlacePageController
       }
       return;
     }
-
-    PlacePageUtils.setPullDrawable(mSheetBehavior, mSheet, R.id.pull_icon);
   }
 
   private void onHiddenInternal()

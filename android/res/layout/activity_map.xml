@@ -63,6 +63,7 @@
 </RelativeLayout>
   <com.mapswithme.maps.widget.placepage.PlacePageView
     android:id="@+id/placepage"
+    style="?attr/bottomSheetStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true"

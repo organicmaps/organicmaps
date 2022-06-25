@@ -60,7 +60,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     @Override
     public void onSheetDirectionIconChange()
     {
-      PlacePageUtils.setPullDrawable(mPlacePageBehavior, mPlacePage, R.id.pull_icon);
+      // No op.
     }
 
     @Override
@@ -352,7 +352,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       mPlacePageBehavior.setState(state);
       UiUtils.show(mButtonsLayout);
       setPeekHeight();
-      PlacePageUtils.setPullDrawable(mPlacePageBehavior, mPlacePage, R.id.pull_icon);
     });
   }
 
