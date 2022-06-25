@@ -1,0 +1,19 @@
+• Noves dades de l'OSM a 14 de març de 2022
+• Mostra articles de la Viquipèdia per a llocs coneguts
+• Aspecte fix dels selectors de dates en editar l'horari d'obertura
+• S'han corregit bloquejos rars després de descarregar mapes
+• Seleccioneu un tema carPlay clar/fosc adequat a l'inici
+• Canvia automàticament el mode fosc/clar del CarPlay en funció de la notificació del sistema
+• Afegeix data i hora a les adreces d'interès de La meva posició
+• S'ha corregit una fallada al clic del menú després d'amagar la interfície
+• Cerca botigues i restaurants ecològics!
+• Carreteres més lluminoses en mode nocturn
+• Terres de cultiu més fosques i zones d'aparcament
+• Mostrar adequadament els aparcaments i parcs sobre els recintes hospitalaris
+• Visibilitat sincronitzada per a passos i passarel·les
+• Visibilitat fixa de la community_centre
+• Bubble_tea afegit
+• S'han eliminat cercles transparents d'algunes icones
+• Icones fixes del museu
+• Algorisme d'encaminament millorat
+• Millora de les traduccions àrab, romanès i espanyol
