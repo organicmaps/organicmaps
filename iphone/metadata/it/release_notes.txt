@@ -1,0 +1,11 @@
+• Nuovi dati OSM al 13 giugno 2022
+• Correzioni di instradamento interregionale e di altro tipo
+• Recinzioni più belle, mura cittadine, sentieri/tracce, cascate, fontane e acqua_potabile
+• Aggiunte icone per guida, targa, noleggio biciclette
+• Digitando una categoria come "cibo" nella ricerca corrisponde anche ai nomi delle caratteristiche
+• Aggiunte scogliere, argini, stazioni di riparazione di biciclette, tombe, tunnel d'acqua, imbarcazioni=*
+• I municipi e alcuni mestieri possono essere aggiunti nell'editor
+• Scudi stradali per Cipro
+• Migliore visualizzazione della prossima strada in cui svoltare
+• I livelli degli stili di area vengono renderizzati correttamente
+• Aggiunta la localizzazione Marathi
