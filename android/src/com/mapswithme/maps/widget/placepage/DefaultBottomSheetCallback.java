@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapswithme.util.log.Logger;
 
-import static com.mapswithme.maps.widget.placepage.PlacePageUtils.isHalfExpandedState;
 import static com.mapswithme.maps.widget.placepage.PlacePageUtils.isExpandedState;
 
 public class DefaultBottomSheetCallback extends BottomSheetBehavior.BottomSheetCallback
@@ -37,7 +36,7 @@ public class DefaultBottomSheetCallback extends BottomSheetBehavior.BottomSheetC
 
     mSheetChangedListener.onSheetDirectionIconChange();
 
-    if (isHalfExpandedState(newState) || isExpandedState(newState))
+    if (isExpandedState(newState))
     {
       mSheetChangedListener.onSheetDetailsOpened();
       return;

@@ -160,7 +160,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
 
       if (object.getOpeningMode() == MapObject.OPENING_MODE_DETAILS)
       {
-        mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+        mPlacePageBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         return;
       }
 
@@ -175,7 +175,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     mPlacePage.post(() -> {
       setPeekHeight();
       mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-      setPlacePageAnchor();
     });
   }
 
@@ -241,11 +240,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   private void onUpdateTranslation()
   {
     mSlideListener.onPlacePageSlide((int) (mPlacePage.getTop() + mPlacePage.getTranslationY()));
-  }
-
-  private void setPlacePageAnchor()
-  {
-    mPlacePageBehavior.setHalfExpandedRatio(ANCHOR_RATIO);
   }
 
   private int calculatePeekHeight()
@@ -355,7 +349,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   private void restorePlacePageState(@NonNull MapObject object, @BottomSheetBehavior.State int state)
   {
     mPlacePage.post(() -> {
-      setPlacePageAnchor();
       mPlacePageBehavior.setState(state);
       UiUtils.show(mButtonsLayout);
       setPeekHeight();
