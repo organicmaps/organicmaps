@@ -8555,6 +8555,7 @@
     be = Адчыняецца праз %@
     es = Abre en %@
     fr = Ouvert dans %@
+    it = Apre tra %@
     pt-BR = Abre em %@
     ru = Открывается через %@
     tr = %@ sonra açılıyor
@@ -8565,6 +8566,7 @@
     be = Зачыняецца праз %@
     es = Cierra en %@
     fr = Fermé dans %@
+    it = Chiude tra %@
     pt-BR = Fecha em %@
     ru = Закроется через %@
     tr = %@ sonra kapanıyor
