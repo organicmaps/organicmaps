@@ -4071,6 +4071,45 @@ zh-Hant:成藥
 el:φαρμακείο|φαρμακοποιός|χορήγηση φαρμάκων
 fa:داروخانه
 
+# First keyword should match [post] definition in strings.txt!
+@post
+en:3Post
+ru:3Почта
+be:3Пошта
+bg:3Поща|пощенска кутия
+ar:بريد
+cs:3Pošta
+da:3Post
+nl:3Post
+fi:3Posti
+fr:3Poste
+de:3Post
+hu:3Posta
+id:Pos
+it:3Posta
+ja:1郵便局
+ko:1우편
+mr:टपाल|पोस्ट
+nb:3Post
+pl:4Poczta
+pt:3Correios
+pt-BR:3Correios
+ro:3Poştă
+es:4Oficina de correos
+eu:Posta bulegoa
+sv:3Post
+th:3ไปรษณีย์
+tr:3Posta
+uk:3Пошта
+vi:Bưu điện
+zh-Hans:1邮政
+zh-Hant:1郵局
+el:Ταχυδρομείο
+he:דואר
+sk:3Pošta
+sw:3Posta
+fa:پست
+
 amenity-post_box|@post
 en:3Post Box|Postbox|4Mailbox|Drop Box|U+2709|U+1F4E8|U+1F4E9|U+1F4EA|U+1F4EB|U+1F4EE|U+1F4EC|U+1F4ED
 ru:3Почтовый ящик
@@ -4108,45 +4147,6 @@ sk:3Poštová schránka|3schránka
 sw:Sanduku la posta
 fa:صندوق پست
 
-# First keyword should match [post] definition in strings.txt!
-@post
-en:3Post
-ru:3Почта
-be:3Пошта
-bg:3Поща|пощенска кутия
-ar:بريد
-cs:3Pošta
-da:3Post
-nl:3Post
-fi:3Posti
-fr:3Poste
-de:3Post
-hu:3Posta
-id:Pos
-it:3Posta
-ja:1郵便局
-ko:1우편
-mr:टपाल|पोस्ट
-nb:3Post
-pl:4Poczta
-pt:3Correios
-pt-BR:3Correios
-ro:3Poştă
-es:Oficina de correos
-eu:Posta bulegoa
-sv:3Post
-th:3ไปรษณีย์
-tr:3Posta
-uk:3Пошта
-vi:Bưu điện
-zh-Hans:1邮政
-zh-Hant:1郵局
-el:Ταχυδρομείο
-he:דואר
-sk:3Pošta
-sw:3Posta
-fa:پست
-
 amenity-post_office|@post
 en:3Post Office|U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
 ru:3Почтовое отделение
@@ -4163,7 +4163,7 @@ pl:Poczta|listy
 pt:Estação de correios|Posto de correios|Correios
 pt-BR:3Correios
 ro:Oficiu poștal
-es:4Oficina de correos|3post
+es:3post
 eu:4Posta bulegoa|3post
 sv:3Postkontor
 tr:3Postane
