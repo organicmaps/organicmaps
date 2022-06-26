@@ -6,6 +6,8 @@
 
 #include "geometry/angles.hpp"
 
+#include <limits.h>
+
 namespace routing
 {
 using namespace std;
@@ -17,61 +19,56 @@ CarDirectionsEngine::CarDirectionsEngine(MwmDataSource & dataSource, shared_ptr<
 {
 }
 
-void CarDirectionsEngine::FixupTurns(std::vector<geometry::PointWithAltitude> const & junctions, Route::TTurns & turnsDir)
+void CarDirectionsEngine::FixupTurns(vector<RouteSegment> & routeSegments)
 {
-  FixupCarTurns(junctions, turnsDir);
-
-#ifdef DEBUG
-  for (auto const & t : turnsDir)
-    LOG(LDEBUG, (GetTurnString(t.m_turn), ":", t.m_index, t.m_sourceName, "-",
-                 t.m_targetName, "exit:", t.m_exitNum));
-#endif
+  FixupCarTurns(routeSegments);
 }
 
-void FixupCarTurns(std::vector<geometry::PointWithAltitude> const & junctions, Route::TTurns & turnsDir)
+void FixupCarTurns(vector<RouteSegment> & routeSegments)
 {
-  uint32_t turn_index = base::asserted_cast<uint32_t>(junctions.size() - 1);
-  turnsDir.emplace_back(TurnItem(turn_index, CarDirection::ReachedYourDestination));
-
   double constexpr kMergeDistMeters = 15.0;
   // For turns that are not EnterRoundAbout/ExitRoundAbout exitNum is always equal to zero.
   // If a turn is EnterRoundAbout exitNum is a number of turns between two junctions:
   // (1) the route enters to the roundabout;
   // (2) the route leaves the roundabout;
   uint32_t exitNum = 0;
-  TurnItem * currentEnterRoundAbout = nullptr;
+  size_t const kInvalidEnter = numeric_limits<size_t>::max();
+  size_t enterRoundAbout = kInvalidEnter;
 
-  for (size_t idx = 0; idx < turnsDir.size(); )
+  for (size_t idx = 0; idx < routeSegments.size(); ++idx)
   {
-    TurnItem & t = turnsDir[idx];
-    if (currentEnterRoundAbout && t.m_turn != CarDirection::StayOnRoundAbout
+    auto & t = routeSegments[idx].GetTurn();
+    if (t.IsTurnNone())
+      continue;
+
+    if (enterRoundAbout != kInvalidEnter && t.m_turn != CarDirection::StayOnRoundAbout
         && t.m_turn != CarDirection::LeaveRoundAbout && t.m_turn != CarDirection::ReachedYourDestination)
     {
       ASSERT(false, ("Only StayOnRoundAbout, LeaveRoundAbout or ReachedYourDestination are expected after EnterRoundAbout."));
       exitNum = 0;
-      currentEnterRoundAbout = nullptr;
+      enterRoundAbout = kInvalidEnter;
     }
     else if (t.m_turn == CarDirection::EnterRoundAbout)
     {
-      ASSERT(!currentEnterRoundAbout, ("It's not expected to find new EnterRoundAbout until previous EnterRoundAbout was leaved."));
-      currentEnterRoundAbout = &t;
+      ASSERT(enterRoundAbout == kInvalidEnter, ("It's not expected to find new EnterRoundAbout until previous EnterRoundAbout was leaved."));
+      enterRoundAbout = idx;
       ASSERT(exitNum == 0, ("exitNum is reset at start and after LeaveRoundAbout."));
       exitNum = 0;
     }
     else if (t.m_turn == CarDirection::StayOnRoundAbout)
     {
       ++exitNum;
-      turnsDir.erase(turnsDir.begin() + idx);
+      routeSegments[idx].ClearTurn();
       continue;
     }
     else if (t.m_turn == CarDirection::LeaveRoundAbout)
     {
       // It's possible for car to be on roundabout without entering it
       // if route calculation started at roundabout (e.g. if user made full turn on roundabout).
-      if (currentEnterRoundAbout)
-        currentEnterRoundAbout->m_exitNum = exitNum + 1;
-      t.m_exitNum = exitNum + 1; // For LeaveRoundAbout turn.
-      currentEnterRoundAbout = nullptr;
+      if (enterRoundAbout != kInvalidEnter)
+        routeSegments[enterRoundAbout].SetTurnExits(exitNum + 1);
+      routeSegments[idx].SetTurnExits(exitNum + 1); // For LeaveRoundAbout turn.
+      enterRoundAbout = kInvalidEnter;
       exitNum = 0;
     }
 
@@ -79,18 +76,16 @@ void FixupCarTurns(std::vector<geometry::PointWithAltitude> const & junctions, R
     // distance(turnsDir[idx - 1].m_index, turnsDir[idx].m_index) < kMergeDistMeters
     // means the distance in meters between the former turn (idx - 1)
     // and the current turn (idx).
-    if (idx > 0 && IsStayOnRoad(turnsDir[idx - 1].m_turn) &&
-        IsLeftOrRightTurn(turnsDir[idx].m_turn) &&
-        CalcRouteDistanceM(junctions, turnsDir[idx - 1].m_index, turnsDir[idx].m_index) <
-            kMergeDistMeters)
+    if (idx > 0 && IsStayOnRoad(routeSegments[idx - 1].GetTurn().m_turn) &&
+        IsLeftOrRightTurn(t.m_turn))
     {
-      turnsDir.erase(turnsDir.begin() + idx - 1);
-      continue;
+      auto const & junction = routeSegments[idx].GetJunction();
+      auto const & prevJunction = routeSegments[idx - 1].GetJunction();
+      if (mercator::DistanceOnEarth(junction.GetPoint(), prevJunction.GetPoint()) < kMergeDistMeters)
+        routeSegments[idx - 1].ClearTurn();
     }
-
-    ++idx;
   }
-  SelectRecommendedLanes(turnsDir);
+  SelectRecommendedLanes(routeSegments);
 }
 
 void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingSegmentIndex,
@@ -101,11 +96,17 @@ size_t CarDirectionsEngine::GetTurnDirection(IRoutingResult const & result, size
                                              NumMwmIds const & numMwmIds,
                                              RoutingSettings const & vehicleSettings, TurnItem & turnItem)
 {
+  if (outgoingSegmentIndex == result.GetSegments().size())
+  {
+    turnItem.m_turn = CarDirection::ReachedYourDestination;
+    return 0;
+  }
+
   // This is for jump from initial point to start of the route. No direction is given.
   /// @todo Sometimes results of GetPossibleTurns are empty, sometimes are invalid.
   /// The best will be to fix GetPossibleTurns(). It will allow us to use following approach.
   /// E.g. Google Maps until you reach the destination will guide you to go to the left or to the right of the first road.
-  if (turnItem.m_index == 2)
+  if (outgoingSegmentIndex == 1) // The same as turnItem.m_index == 2.
     return 0;
 
   size_t skipTurnSegments = CheckUTurnOnRoute(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);
@@ -265,7 +266,7 @@ double constexpr kMinAbsAngleDiffForSameOrSmallerRoad = 35.0;
 /// \param turnInfo is information about ingoing and outgoing segments of the route.
 bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
                                           double const routeAngle,
-                                          std::vector<TurnCandidate> const & turnCandidates,
+                                          vector<TurnCandidate> const & turnCandidates,
                                           TurnInfo const & turnInfo,
                                           NumMwmIds const & numMwmIds)
 {
@@ -363,7 +364,7 @@ void CorrectGoStraight(TurnCandidate const & notRouteCandidate, double const rou
 // and there's another not sharp enough turn
 // GoStraight is corrected to TurnSlightRight/TurnSlightLeft
 // to avoid ambiguity for GoStraight direction: 2 or more almost straight turns.
-void CorrectRightmostAndLeftmost(std::vector<TurnCandidate> const & turnCandidates,
+void CorrectRightmostAndLeftmost(vector<TurnCandidate> const & turnCandidates,
                                  Segment const & firstOutgoingSeg, double const turnAngle,
                                  TurnItem & turn)
 {
@@ -425,8 +426,6 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
   if (!GetTurnInfo(result, outgoingSegmentIndex, vehicleSettings, turnInfo))
     return;
 
-  turn.m_sourceName = turnInfo.m_ingoing->m_roadNameInfo.m_name;
-  turn.m_targetName = turnInfo.m_outgoing->m_roadNameInfo.m_name;
   turn.m_turn = CarDirection::None;
 
   ASSERT_GREATER(turnInfo.m_ingoing->m_path.size(), 1, ());
@@ -598,7 +597,7 @@ size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSeg
   return 0;
 }
 
-bool FixupLaneSet(CarDirection turn, std::vector<SingleLaneInfo> & lanes,
+bool FixupLaneSet(CarDirection turn, vector<SingleLaneInfo> & lanes,
                   function<bool(LaneWay l, CarDirection t)> checker)
 {
   bool isLaneConformed = false;
@@ -620,21 +619,21 @@ bool FixupLaneSet(CarDirection turn, std::vector<SingleLaneInfo> & lanes,
   return isLaneConformed;
 }
 
-void SelectRecommendedLanes(Route::TTurns & turnsDir)
+void SelectRecommendedLanes(vector<RouteSegment> & routeSegments)
 {
-  for (auto & t : turnsDir)
+  for (size_t idx = 0; idx < routeSegments.size(); ++idx)
   {
-    std::vector<SingleLaneInfo> & lanes = t.m_lanes;
-    if (lanes.empty())
+    auto & t = routeSegments[idx].GetTurn();
+    if (t.IsTurnNone() || t.m_lanes.empty())
       continue;
-    CarDirection const turn = t.m_turn;
-    // Checking if threre are elements in lanes which correspond with the turn exactly.
+    auto & lanes = routeSegments[idx].GetTurnLanes();
+    // Checking if there are elements in lanes which correspond with the turn exactly.
     // If so fixing up all the elements in lanes which correspond with the turn.
-    if (FixupLaneSet(turn, lanes, &IsLaneWayConformedTurnDirection))
+    if (FixupLaneSet(t.m_turn, lanes, &IsLaneWayConformedTurnDirection))
       continue;
     // If not checking if there are elements in lanes which corresponds with the turn
     // approximately. If so fixing up all these elements.
-    FixupLaneSet(turn, lanes, &IsLaneWayConformedTurnDirectionApproximately);
+    FixupLaneSet(t.m_turn, lanes, &IsLaneWayConformedTurnDirectionApproximately);
   }
 }
 

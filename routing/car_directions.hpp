@@ -3,6 +3,7 @@
 #include "routing/directions_engine.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
+#include "routing/route.hpp"
 
 #include <map>
 #include <memory>
@@ -20,16 +21,15 @@ protected:
   virtual size_t GetTurnDirection(turns::IRoutingResult const & result, size_t const outgoingSegmentIndex,
                                   NumMwmIds const & numMwmIds,
                                   RoutingSettings const & vehicleSettings, turns::TurnItem & turn);
-  virtual void FixupTurns(std::vector<geometry::PointWithAltitude> const & junctions,
-                          Route::TTurns & turnsDir);
+  virtual void FixupTurns(std::vector<RouteSegment> & routeSegments);
 };
 
 /*!
  * \brief Selects lanes which are recommended for an end user.
  */
-void SelectRecommendedLanes(Route::TTurns & turnsDir);
+void SelectRecommendedLanes(std::vector<RouteSegment> & routeSegments);
 
-void FixupCarTurns(std::vector<geometry::PointWithAltitude> const & junctions, Route::TTurns & turnsDir);
+void FixupCarTurns(std::vector<RouteSegment> & routeSegments);
 
 /*!
  * \brief Finds an U-turn that starts from master segment and returns how many segments it lasts.

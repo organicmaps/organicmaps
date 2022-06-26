@@ -467,21 +467,25 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 
   if (m_framework.GetRoutingManager().IsRoutingActive())
   {
+    // Immidiate update of of position in Route. m_framework.OnLocationUpdate is too late.
+    m_framework.GetRoutingManager().RoutingSession().OnLocationPositionChanged(qt::common::MakeGpsInfo(point));
+
     routing::FollowingInfo loc;
     m_framework.GetRoutingManager().GetRouteFollowingInfo(loc);
     if (m_framework.GetRoutingManager().GetCurrentRouterType() == routing::RouterType::Pedestrian)
     {
-      LOG(LDEBUG, ("Distance:", loc.m_distToTarget, loc.m_targetUnitsSuffix, "Time:", loc.m_time,
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time,
                    DebugPrint(loc.m_pedestrianTurn),
-                   "in", loc.m_distToTurn, loc.m_turnUnitsSuffix,
-                   "to", loc.m_targetName));
+                   "in", loc.m_distToTurn + loc.m_turnUnitsSuffix,
+                   loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));
     }
     else
     {
-      LOG(LDEBUG, ("Distance:", loc.m_distToTarget, loc.m_targetUnitsSuffix, "Time:", loc.m_time,
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time,
+                   loc.m_speedLimitUnitsSuffix.empty() ? "" : "SpeedLimit: " + loc.m_speedLimit + loc.m_speedLimitUnitsSuffix,
                    GetTurnString(loc.m_turn), (loc.m_exitNum != 0 ? ":" + std::to_string(loc.m_exitNum) : ""),
-                   "in", loc.m_distToTurn, loc.m_turnUnitsSuffix,
-                   "to", loc.m_targetName));
+                   "in", loc.m_distToTurn + loc.m_turnUnitsSuffix,
+                   loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));
     }
   }
 }

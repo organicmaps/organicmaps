@@ -113,13 +113,24 @@ double Route::GetCurrentTimeToEndSec() const
 
   double const curSegSpeedMPerS = curSegLenMeters / curSegTimeS;
   CHECK_GREATER(curSegSpeedMPerS, 0, ("Route can't contain segments with zero speed."));
+  /// @todo GetDistFromCurPointTo!Next!RoutePointMeters should be used for calculalation of remaining segment length.
   return totalTimeS - (etaToLastPassedPointS +
                        m_poly.GetDistFromCurPointToRoutePointMeters() / curSegSpeedMPerS);
 }
 
+void Route::GetCurrentSpeedLimit(SpeedInUnits & speedLimit) const
+{
+  if (!IsValid())
+    return;
+
+  auto const idx = m_poly.GetCurrentIter().m_ind;
+  if (idx < m_routeSegments.size())
+    speedLimit = m_routeSegments[idx].GetSpeedLimit();
+}
+
 void Route::GetCurrentStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const
 {
-  GetStreetNameAfterIdx(static_cast<uint32_t>(m_poly.GetCurrentIter().m_ind), roadNameInfo);
+  GetClosestStreetNameAfterIdx(m_poly.GetCurrentIter().m_ind, roadNameInfo);
 }
 
 void Route::GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const
@@ -127,7 +138,7 @@ void Route::GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) con
   double distance;
   TurnItem turn;
   GetCurrentTurn(distance, turn);
-  GetStreetNameAfterIdx(turn.m_index, roadNameInfo);
+  GetClosestStreetNameAfterIdx(turn.m_index, roadNameInfo);
 }
 
 // If exit is false, returns ref and name.
@@ -144,23 +155,19 @@ void Route::GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) con
 // - Sometimes exit is not tagged as link (e.g. if new road starts here).
 // At the same time they can have all useful tags just like link.
 // Usually |destination:ref| = |ref| in such cases, or only 1st part of |destination:ref| can match.
-void Route::GetStreetNameAfterIdx(uint32_t idx, RouteSegment::RoadNameInfo & roadNameInfo) const
+void Route::GetClosestStreetNameAfterIdx(size_t segIdx, RouteSegment::RoadNameInfo & roadNameInfo) const
 {
-  auto const iterIdx = m_poly.GetIterToIndex(idx);
-  if (!IsValid() || !iterIdx.IsValid())
+  if (!IsValid())
     return;
 
   // Info about 1st segment with existing basic (non-link) info after link.
   RouteSegment::RoadNameInfo roadNameInfoNext;
 
-  for (size_t i = idx; i < m_poly.GetPolyline().GetSize(); ++i)
+  // Note. curIter.m_ind == 0 means route iter at zero point.
+  // No corresponding route segments at |m_routeSegments| in this case.
+  for (size_t i = segIdx; i < m_routeSegments.size(); ++i)
   {
-    // Note. curIter.m_ind == 0 means route iter at zero point. No corresponding route segments at
-    // |m_routeSegments| in this case. |name| should be cleared.
-    if (i == 0)
-      continue;
-
-    auto const & r = m_routeSegments[ConvertPointIdxToSegmentIdx(i)].GetRoadNameInfo();
+    auto const & r = m_routeSegments[i].GetRoadNameInfo();
 
     if (r.HasBasicTextInfo())
     {
@@ -175,10 +182,14 @@ void Route::GetStreetNameAfterIdx(uint32_t idx, RouteSegment::RoadNameInfo & roa
     // For exit wait for non-exit.
     else if (roadNameInfo.HasExitInfo() && !r.m_isLink)
       continue;
+
     // For non-exits check only during first |kSteetNameLinkMeters|.
+    // Note. |m_poly.GetCurrentIter().m_ind| is a point index of last passed point at |m_poly|.
+    auto const startIter = m_poly.GetIterToIndex(segIdx);
+    CHECK(startIter.IsValid(), ());
     auto const furtherIter = m_poly.GetIterToIndex(i);
     CHECK(furtherIter.IsValid(), ());
-    if (m_poly.GetDistanceM(iterIdx, furtherIter) > kSteetNameLinkMeters)
+    if (m_poly.GetDistanceM(startIter, furtherIter) > kSteetNameLinkMeters)
       break;
   }
 
@@ -187,20 +198,12 @@ void Route::GetStreetNameAfterIdx(uint32_t idx, RouteSegment::RoadNameInfo & roa
     // Use basic info from |roadNameInfoNext| to update |roadNameInfo|.
     if (roadNameInfo.m_destination_ref.empty())
       roadNameInfo.m_destination_ref = roadNameInfoNext.m_ref;
-    roadNameInfo.m_name = roadNameInfoNext.m_name;
+    if (!roadNameInfoNext.m_name.empty())
+      roadNameInfo.m_name = roadNameInfoNext.m_name;
   }
 }
 
-size_t Route::ConvertPointIdxToSegmentIdx(size_t pointIdx) const
-{
-  CHECK_GREATER(pointIdx, 0, ());
-  // Note. |pointIdx| is an index at |m_poly|. Properties of the point gets a segment at |m_routeSegments|
-  // which precedes the point. So to get segment index it's needed to subtract one.
-  CHECK_LESS(pointIdx, m_routeSegments.size() + 1, ());
-  return pointIdx - 1;
-}
-
-void Route::GetClosestTurn(size_t segIdx, TurnItem & turn) const
+void Route::GetClosestTurnAfterIdx(size_t segIdx, TurnItem & turn) const
 {
   CHECK_LESS(segIdx, m_routeSegments.size(), ());
 
@@ -218,7 +221,9 @@ void Route::GetClosestTurn(size_t segIdx, TurnItem & turn) const
 void Route::GetCurrentTurn(double & distanceToTurnMeters, TurnItem & turn) const
 {
   // Note. |m_poly.GetCurrentIter().m_ind| is a point index of last passed point at |m_poly|.
-  GetClosestTurn(m_poly.GetCurrentIter().m_ind, turn);
+  GetClosestTurnAfterIdx(m_poly.GetCurrentIter().m_ind, turn);
+  CHECK_LESS(m_poly.GetCurrentIter().m_ind, turn.m_index, ());
+
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
                                              m_poly.GetIterToIndex(turn.m_index));
 }
@@ -238,11 +243,11 @@ bool Route::GetNextTurn(double & distanceToTurnMeters, TurnItem & nextTurn) cons
   TurnItem curTurn;
   // Note. |m_poly.GetCurrentIter().m_ind| is a zero based index of last passed point at |m_poly|.
   size_t const curIdx = m_poly.GetCurrentIter().m_ind;
-  // Note. First param of GetClosestTurn() is a segment index at |m_routeSegments|.
+  // Note. First param of GetClosestTurnAfterIdx() is a segment index at |m_routeSegments|.
   // |curIdx| is an index of last passed point at |m_poly|.
   // |curIdx| + 1 is an index of next point.
   // |curIdx| + 1 - 1 is an index of segment to start look for the closest turn.
-  GetClosestTurn(curIdx, curTurn);
+  GetClosestTurnAfterIdx(curIdx, curTurn);
   CHECK_LESS(curIdx, curTurn.m_index, ());
   if (curTurn.IsTurnReachedYourDestination())
   {
@@ -254,7 +259,7 @@ bool Route::GetNextTurn(double & distanceToTurnMeters, TurnItem & nextTurn) cons
   // |curTurn.m_index| + 1 is an index of the next point after |curTurn|.
   // |curTurn.m_index| + 1 - 1 is an index of the segment next to the |curTurn| segment.
   CHECK_LESS(curTurn.m_index, m_routeSegments.size(), ());
-  GetClosestTurn(curTurn.m_index, nextTurn);
+  GetClosestTurnAfterIdx(curTurn.m_index, nextTurn);
   CHECK_LESS(curTurn.m_index, nextTurn.m_index, ());
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
                                              m_poly.GetIterToIndex(nextTurn.m_index));

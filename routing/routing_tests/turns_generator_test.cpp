@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "routing/routing_tests/tools.hpp"
+
 #include "routing/loaded_path_segment.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_result_graph.hpp"
@@ -168,51 +170,71 @@ UNIT_TEST(TestFixupTurns)
   m2::PointD const kSquareCenterLonLat = {0., 0.};
   m2::RectD const kSquareNearZero =
       mercator::MetersToXY(kSquareCenterLonLat.x, kSquareCenterLonLat.y, kHalfSquareSideMeters);
-  // Removing a turn in case staying on a roundabout.
-  vector<geometry::PointWithAltitude> const pointsMerc1 = {
-      {{kSquareNearZero.minX(), kSquareNearZero.minY()}, geometry::kDefaultAltitudeMeters},
-      {{kSquareNearZero.minX(), kSquareNearZero.maxY()}, geometry::kDefaultAltitudeMeters},
-      {{kSquareNearZero.maxX(), kSquareNearZero.maxY()}, geometry::kDefaultAltitudeMeters},
-      {{kSquareNearZero.maxX(), kSquareNearZero.minY()}, geometry::kDefaultAltitudeMeters},
-  };
-  // The constructor TurnItem(uint32_t idx, CarDirection t, uint32_t exitNum = 0)
-  // is used for initialization of vector<TurnItem> below.
-  Route::TTurns turnsDir1 = {{0, CarDirection::EnterRoundAbout},
-                             {1, CarDirection::StayOnRoundAbout},
-                             {2, CarDirection::LeaveRoundAbout}};
+  {
+    // Removing a turn in case staying on a roundabout.
+    vector<m2::PointD> const pointsMerc1 =
+        {{kSquareNearZero.minX(), kSquareNearZero.minY()},
+        {kSquareNearZero.minX(), kSquareNearZero.minY()},
+        {kSquareNearZero.maxX(), kSquareNearZero.maxY()},
+        {kSquareNearZero.maxX(), kSquareNearZero.minY()}};
+    // The constructor TurnItem(uint32_t idx, CarDirection t, uint32_t exitNum = 0)
+    // is used for initialization of vector<TurnItem> below.
+    vector<turns::TurnItem> turnsDir1 =
+        {{1, CarDirection::EnterRoundAbout},
+        {2, CarDirection::StayOnRoundAbout},
+        {3, CarDirection::LeaveRoundAbout}};
+    vector<RouteSegment> routeSegments;
+    RouteSegmentsFrom(vector<Segment>(), pointsMerc1, turnsDir1, vector<RouteSegment::RoadNameInfo>(), routeSegments);
+    FixupCarTurns(routeSegments);
+    vector<turns::TurnItem> const expectedTurnDir1 =
+        {{1, CarDirection::EnterRoundAbout, 2},
+        {2, CarDirection::None, 0},
+        {3, CarDirection::LeaveRoundAbout, 2}};
+    TEST_EQUAL(routeSegments[0].GetTurn(), expectedTurnDir1[0], ());
+    TEST_EQUAL(routeSegments[1].GetTurn(), expectedTurnDir1[1], ());
+    TEST_EQUAL(routeSegments[2].GetTurn(), expectedTurnDir1[2], ());
+  }
+  {
+    // Merging turns which are close to each other.
+    vector<m2::PointD> const pointsMerc2 =
+        {{kSquareNearZero.minX(), kSquareNearZero.minY()},
+        {kSquareNearZero.minX(), kSquareNearZero.minY()},
+        {kSquareCenterLonLat.x, kSquareCenterLonLat.y},
+        {kSquareNearZero.maxX(), kSquareNearZero.maxY()}};
+    vector<turns::TurnItem> turnsDir2 =
+        {{1, CarDirection::None},
+        {2, CarDirection::GoStraight},
+        {3, CarDirection::TurnLeft}};
+    vector<RouteSegment> routeSegments2;
+    RouteSegmentsFrom(vector<Segment>(), pointsMerc2, turnsDir2, vector<RouteSegment::RoadNameInfo>(), routeSegments2);
+    FixupCarTurns(routeSegments2);
+    vector<turns::TurnItem> const expectedTurnDir2 =
+        {{1, CarDirection::None},
+        {2, CarDirection::None},
+        {3, CarDirection::TurnLeft}};
+    TEST_EQUAL(routeSegments2[0].GetTurn(), expectedTurnDir2[0], ());
+    TEST_EQUAL(routeSegments2[1].GetTurn(), expectedTurnDir2[1], ());
+    TEST_EQUAL(routeSegments2[2].GetTurn(), expectedTurnDir2[2], ());
+  }
+  {
+    // No turn is removed.
+    vector<m2::PointD> const pointsMerc3 = {
+        {kSquareNearZero.minX(), kSquareNearZero.minY()},
+        {kSquareNearZero.minX(), kSquareNearZero.maxY()},
+        {kSquareNearZero.maxX(), kSquareNearZero.maxY()},
+    };
+    vector<turns::TurnItem> turnsDir3 = {{1, CarDirection::None},
+                                        {2, CarDirection::TurnRight}};
 
-  FixupCarTurns(pointsMerc1, turnsDir1);
-  Route::TTurns const expectedTurnDir1 = {{0, CarDirection::EnterRoundAbout, 2},
-                                          {2, CarDirection::LeaveRoundAbout, 2},
-                                          {3, CarDirection::ReachedYourDestination}};
-  TEST_EQUAL(turnsDir1, expectedTurnDir1, ());
+    vector<RouteSegment> routeSegments3;
+    RouteSegmentsFrom(vector<Segment>(), vector<m2::PointD>(), turnsDir3, vector<RouteSegment::RoadNameInfo>(), routeSegments3);
+    FixupCarTurns(routeSegments3);
+    vector<turns::TurnItem> const expectedTurnDir3 = {{1, CarDirection::None},
+                                                      {2, CarDirection::TurnRight}};
 
-  // Merging turns which are close to each other.
-  vector<geometry::PointWithAltitude> const pointsMerc2 = {
-      {{kSquareNearZero.minX(), kSquareNearZero.minY()}, geometry::kDefaultAltitudeMeters},
-      {{kSquareCenterLonLat.x, kSquareCenterLonLat.y}, geometry::kDefaultAltitudeMeters},
-      {{kSquareNearZero.maxX(), kSquareNearZero.maxY()}, geometry::kDefaultAltitudeMeters},
-  };
-  Route::TTurns turnsDir2 = {{0, CarDirection::GoStraight},
-                             {1, CarDirection::TurnLeft}};
-
-  FixupCarTurns(pointsMerc2, turnsDir2);
-  Route::TTurns const expectedTurnDir2 = {{1, CarDirection::TurnLeft},
-                                          {2, CarDirection::ReachedYourDestination}};
-  TEST_EQUAL(turnsDir2, expectedTurnDir2, ());
-
-  // No turn is removed.
-  vector<geometry::PointWithAltitude> const pointsMerc3 = {
-      {{kSquareNearZero.minX(), kSquareNearZero.minY()}, geometry::kDefaultAltitudeMeters},
-      {{kSquareNearZero.minX(), kSquareNearZero.maxY()}, geometry::kDefaultAltitudeMeters},
-      {{kSquareNearZero.maxX(), kSquareNearZero.maxY()}, geometry::kDefaultAltitudeMeters},
-  };
-  Route::TTurns turnsDir3 = {{1, CarDirection::TurnRight}};
-
-  FixupCarTurns(pointsMerc3, turnsDir3);
-  Route::TTurns const expectedTurnDir3 = {{1, CarDirection::TurnRight},
-                                          {2, CarDirection::ReachedYourDestination}};
-  TEST_EQUAL(turnsDir3, expectedTurnDir3, ());
+    TEST_EQUAL(routeSegments3[0].GetTurn(), expectedTurnDir3[0], ());
+    TEST_EQUAL(routeSegments3[1].GetTurn(), expectedTurnDir3[1], ());
+  }
 }
 
 UNIT_TEST(TestIsLaneWayConformedTurnDirection)
@@ -256,9 +278,11 @@ UNIT_TEST(TestIsLaneWayConformedTurnDirectionApproximately)
 
 UNIT_TEST(TestAddingActiveLaneInformation)
 {
-  Route::TTurns turns = {{0, CarDirection::GoStraight},
-                         {1, CarDirection::TurnLeft},
-                         {2, CarDirection::ReachedYourDestination}};
+  vector<turns::TurnItem> turns =
+      {{1, CarDirection::GoStraight},
+       {2, CarDirection::TurnLeft},
+       {3, CarDirection::ReachedYourDestination}};
+
   turns[0].m_lanes.push_back({LaneWay::Left, LaneWay::Through});
   turns[0].m_lanes.push_back({LaneWay::Right});
 
@@ -266,14 +290,16 @@ UNIT_TEST(TestAddingActiveLaneInformation)
   turns[1].m_lanes.push_back({LaneWay::Through});
   turns[1].m_lanes.push_back({LaneWay::Through});
 
-  SelectRecommendedLanes(turns);
+  vector<RouteSegment> routeSegments;
+  RouteSegmentsFrom(vector<Segment>(), vector<m2::PointD>(), turns, vector<RouteSegment::RoadNameInfo>(), routeSegments);
+  SelectRecommendedLanes(routeSegments);
 
-  TEST(turns[0].m_lanes[0].m_isRecommended, ());
-  TEST(!turns[0].m_lanes[1].m_isRecommended, ());
+  TEST(routeSegments[0].GetTurn().m_lanes[0].m_isRecommended, ());
+  TEST(!routeSegments[0].GetTurn().m_lanes[1].m_isRecommended, ());
 
-  TEST(turns[1].m_lanes[0].m_isRecommended, ());
-  TEST(!turns[1].m_lanes[1].m_isRecommended, ());
-  TEST(!turns[1].m_lanes[1].m_isRecommended, ());
+  TEST(routeSegments[1].GetTurn().m_lanes[0].m_isRecommended, ());
+  TEST(!routeSegments[1].GetTurn().m_lanes[1].m_isRecommended, ());
+  TEST(!routeSegments[1].GetTurn().m_lanes[1].m_isRecommended, ());
 }
 
 UNIT_TEST(TestGetRoundaboutDirection)
@@ -340,7 +366,6 @@ UNIT_TEST(TestCheckUTurnOnRoute)
 {
   TUnpackedPathSegments pathSegments(4, LoadedPathSegment());
   pathSegments[0].m_roadNameInfo = {"A road", "", "", "", "", false};
-  pathSegments[0].m_weight = 1;
   pathSegments[0].m_highwayClass = ftypes::HighwayClass::Trunk;
   pathSegments[0].m_onRoundabout = false;
   pathSegments[0].m_isLink = false;
