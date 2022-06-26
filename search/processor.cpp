@@ -314,12 +314,10 @@ void Processor::SetQuery(string const & query, bool categorialRequest /* = false
     }
   }
 
-  RemoveStopWordsIfNeeded(m_tokens, m_prefix);
+  QuerySliceOnRawStrings const tokenSlice(m_tokens, m_prefix);
 
   // Get preferred types to show in results.
   m_preferredTypes.clear();
-  auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
-
   m_isCategorialRequest = categorialRequest;
 
   auto const locales = GetCategoryLocales();
@@ -333,6 +331,9 @@ void Processor::SetQuery(string const & query, bool categorialRequest /* = false
       m_preferredTypes = ftypes::IsEatChecker::Instance().GetTypes();
     }
   }
+
+  // Remove stopwords *after* FillCategories call (it makes exact tokens match).
+  RemoveStopWordsIfNeeded(m_tokens, m_prefix);
 
   if (!m_isCategorialRequest)
   {
