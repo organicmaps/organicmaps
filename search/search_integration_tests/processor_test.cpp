@@ -2337,7 +2337,7 @@ UNIT_CLASS_TEST(ProcessorTest, StreetNumberEnriched)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorTest, Postbox)
+UNIT_CLASS_TEST(ProcessorTest, PostcodesErrorTest)
 {
   string const countryName = "Wonderland";
 
@@ -3053,4 +3053,37 @@ UNIT_CLASS_TEST(ProcessorTest, BurgerStreet)
   }
 }
 */
+
+UNIT_CLASS_TEST(ProcessorTest, PostCategoryTest)
+{
+  string const countryName = "Wonderland";
+
+  TestPOI office({0, 0}, "PO", "default");
+  office.SetTypes({{"amenity", "post_office"}});
+
+  TestPOI box({1, 1}, "PB", "default");
+  box.SetTypes({{"amenity", "post_box"}});
+
+  TestPOI locker({2, 2}, "PL", "default");
+  locker.SetTypes({{"amenity", "parcel_locker"}});
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
+    builder.Add(office);
+    builder.Add(box);
+    builder.Add(locker);
+  });
+
+  SetViewport(m2::RectD(0, 0, 3, 3));
+
+  {
+    Rules rules{ExactMatch(countryId, office), ExactMatch(countryId, box), ExactMatch(countryId, locker)};
+    TEST(ResultsMatch("Oficina de correos", "es", rules), ());
+  }
+
+  {
+    Rules rules{ExactMatch(countryId, office), ExactMatch(countryId, box), ExactMatch(countryId, locker)};
+    TEST(CategoryMatch("Oficina de correos", rules, "es"), ());
+  }
+}
 } // namespace processor_test
