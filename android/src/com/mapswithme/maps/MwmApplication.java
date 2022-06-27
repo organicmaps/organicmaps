@@ -98,6 +98,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     return context.getSharedPreferences(context.getString(R.string.pref_file_name), MODE_PRIVATE);
   }
 
+
   @Override
   public void onCreate()
   {
@@ -144,7 +145,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     initNativeFramework();
   }
 
-  private void initNativePlatform() throws IOException
+  public  void initNativePlatform() throws IOException
   {
     if (mPlatformInitialized)
       return;
@@ -175,7 +176,12 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
 
     Editor.init(this);
     mPlatformInitialized = true;
+<<<<<<< HEAD
     Logger.i(TAG, "Platform initialized");
+=======
+    Log.i("Native", "Initializing application");
+    mLogger.i(TAG, "Platform initialized");
+>>>>>>> ba402a4e26 (Minor Tweaks)
   }
 
   private void createPlatformDirectories(@NonNull String writablePath,
@@ -263,7 +269,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   }
 
   private static native void nativeSetSettingsDir(String settingsPath);
-  private native void nativeInitPlatform(String apkPath, String writablePath, String privatePath,
+  public native void nativeInitPlatform(String apkPath, String writablePath, String privatePath,
                                          String tmpPath, String flavorName, String buildType,
                                          boolean isTablet);
   private static native void nativeInitFramework();

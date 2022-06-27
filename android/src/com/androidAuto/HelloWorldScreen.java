@@ -18,6 +18,12 @@ import androidx.car.app.navigation.NavigationManager;
 import androidx.car.app.navigation.model.NavigationTemplate;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MapFragment;
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.settings.StoragePathManager;
+import com.mapswithme.util.StorageUtils;
+import com.mapswithme.util.UiUtils;
+
+import java.io.IOException;
 
 import static androidx.car.app.model.Action.BACK;
 
@@ -36,20 +42,29 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
   @NonNull
   @Override
   public Template onGetTemplate()
-  {
+  {  Log.e("Show Up","Shows Up");
     NavigationTemplate.Builder builder = new NavigationTemplate.Builder();
-    Action back = BACK;
     ActionStrip.Builder actionStripBuilder = new ActionStrip.Builder();
-    actionStripBuilder.addAction(back).addAction(new Action.Builder().setTitle("Test").build());
+    actionStripBuilder.addAction(new Action.Builder().setTitle("Exit").setOnClickListener(this::exit).build());
     builder.setActionStrip(actionStripBuilder.build());
     NavigationManager navigationManager = getCarContext().getCarService(NavigationManager.class);
     return builder.build();
   }
-
+  private void exit() {
+    getCarContext().finishCarApp();
+  }
   @Override
   public void onSurfaceAvailable(@NonNull SurfaceContainer surfaceContainer)
   {
-
+    MwmApplication cat = MwmApplication.from(getCarContext());
+    try
+    {
+      cat.initNativePlatform();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
     int h = surfaceContainer.getHeight();
     int w = surfaceContainer.getWidth();
     Canvas canvas = null;
