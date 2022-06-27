@@ -155,6 +155,7 @@ TagMapping const kDefaultTagMapping = {
     {OsmElement::Tag("access", "forestry"), RoadAccess::Type::Private},
 };
 
+/// @todo Looks controversial especially for primary/secondary.
 std::set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccess = {
     {OsmElement::Tag("highway", "motorway")},
     {OsmElement::Tag("highway", "motorway_link")},
@@ -173,6 +174,15 @@ std::set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccess = {
 // https://github.com/organicmaps/organicmaps/issues/1389
 std::set<OsmElement::Tag> const kIgnoreAccess = {
     {OsmElement::Tag("highway", "motorway_junction")}
+};
+
+std::set<OsmElement::Tag> const kHighwaysWhereIgnoreAccessDestination = {
+    {OsmElement::Tag("highway", "motorway")},
+    {OsmElement::Tag("highway", "motorway_link")},
+    {OsmElement::Tag("highway", "primary")},
+    {OsmElement::Tag("highway", "primary_link")},
+    {OsmElement::Tag("highway", "trunk")},
+    {OsmElement::Tag("highway", "trunk_link")}
 };
 
 auto const kEmptyAccess = RoadAccess::Type::Count;
@@ -492,12 +502,20 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
     if (op == RoadAccess::Type::Yes)
       return;
 
-    switch (elem.m_type)
+    if (op == RoadAccess::Type::Destination)
     {
-    case OsmElement::EntityType::Node: m_barriersWithAccessTag.emplace(elem.m_id, op); return;
-    case OsmElement::EntityType::Way: m_wayToAccess.emplace(elem.m_id, op); return;
-    default: return;
+      for (auto const & tag : elem.m_tags)
+      {
+        if (kHighwaysWhereIgnoreAccessDestination.count(tag))
+          return;
+      }
     }
+
+    if (elem.IsNode())
+      m_barriersWithAccessTag.emplace(elem.m_id, op);
+    else if (elem.IsWay())
+      m_wayToAccess.emplace(elem.m_id, op);
+    return;
   }
 
   if (!elem.IsNode())
@@ -613,10 +631,11 @@ std::shared_ptr<generator::CollectorInterface> RoadAccessWriter::Clone(
 void RoadAccessWriter::CollectFeature(FeatureBuilder const & fb, OsmElement const & elem)
 {
   for (auto const & tag : elem.m_tags)
+  {
     if (kIgnoreAccess.count(tag))
       return;
+  }
 
-  /// @todo Hm, should we process elem (access candidates) for non-roads?
   for (auto & p : m_tagProcessors)
   {
     p.Process(elem);
