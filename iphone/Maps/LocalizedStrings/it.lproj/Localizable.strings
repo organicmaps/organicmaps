@@ -503,9 +503,9 @@
 
 "history" = "Cronologia";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "Apre tra %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "Chiude tra %@";
 
 "closed" = "Chiuso";
 

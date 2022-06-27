@@ -503,9 +503,9 @@
 
 "history" = "Geçmiş";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "%@ sonra açılıyor";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "%@ sonra kapanıyor";
 
 "closed" = "Kapalı";
 
