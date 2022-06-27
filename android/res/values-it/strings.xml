@@ -338,6 +338,8 @@
 	<string name="routing_arrive">Arrivo a %s</string>
 	<string name="categories">Categorie</string>
 	<string name="history">Cronologia</string>
+	<string name="opens_in">Apre tra %s</string>
+	<string name="closes_in">Chiude tra %s</string>
 	<string name="closed">Chiuso</string>
 	<string name="search_not_found">Non ho trovato nulla.</string>
 	<string name="search_not_found_query">Prova con un\'altra ricerca.</string>
