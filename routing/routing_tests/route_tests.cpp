@@ -66,7 +66,7 @@ void GetTestRouteSegments(vector<m2::PointD> const & routePoints, vector<turns::
                           vector<RouteSegment::RoadNameInfo> const & streets, vector<double> const & times,
                           vector<RouteSegment> & routeSegments)
 {
-  RouteSegmentsFrom(vector<Segment>(), routePoints, turns, streets, routeSegments);
+  RouteSegmentsFrom({}, routePoints, turns, streets, routeSegments);
   FillSegmentInfo(kTestTimes, nullptr /* trafficStash */, routeSegments);
 }
 
@@ -365,7 +365,7 @@ UNIT_TEST(SelfIntersectedRouteMatchingTest)
   route.SetGeometry(kRouteGeometry.begin(), kRouteGeometry.end());
 
   vector<RouteSegment> routeSegments;
-  GetTestRouteSegments(kRouteGeometry, vector<turns::TurnItem>(), vector<RouteSegment::RoadNameInfo>(), vector<double>(), routeSegments);
+  GetTestRouteSegments(kRouteGeometry, {}, {}, {}, routeSegments);
   route.SetRouteSegments(move(routeSegments));
 
   auto const testMachedPos = [&](location::GpsInfo const & pos,

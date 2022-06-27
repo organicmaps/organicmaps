@@ -202,7 +202,7 @@ void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns /* =
     junctions.emplace_back(point, geometry::kDefaultAltitudeMeters);
 
   vector<RouteSegment> segmentInfo;
-  RouteSegmentsFrom(kTestSegments, kTestRoute, turns, vector<RouteSegment::RoadNameInfo>(), segmentInfo);
+  RouteSegmentsFrom(kTestSegments, kTestRoute, turns, {}, segmentInfo);
   FillSegmentInfo(kTestTimes, nullptr /* trafficStash */,
                   segmentInfo);
   route.SetRouteSegments(move(segmentInfo));

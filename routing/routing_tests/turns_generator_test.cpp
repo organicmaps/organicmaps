@@ -184,7 +184,7 @@ UNIT_TEST(TestFixupTurns)
         {2, CarDirection::StayOnRoundAbout},
         {3, CarDirection::LeaveRoundAbout}};
     vector<RouteSegment> routeSegments;
-    RouteSegmentsFrom(vector<Segment>(), pointsMerc1, turnsDir1, vector<RouteSegment::RoadNameInfo>(), routeSegments);
+    RouteSegmentsFrom({}, pointsMerc1, turnsDir1, {}, routeSegments);
     FixupCarTurns(routeSegments);
     vector<turns::TurnItem> const expectedTurnDir1 =
         {{1, CarDirection::EnterRoundAbout, 2},
@@ -206,7 +206,7 @@ UNIT_TEST(TestFixupTurns)
         {2, CarDirection::GoStraight},
         {3, CarDirection::TurnLeft}};
     vector<RouteSegment> routeSegments2;
-    RouteSegmentsFrom(vector<Segment>(), pointsMerc2, turnsDir2, vector<RouteSegment::RoadNameInfo>(), routeSegments2);
+    RouteSegmentsFrom({}, pointsMerc2, turnsDir2, {}, routeSegments2);
     FixupCarTurns(routeSegments2);
     vector<turns::TurnItem> const expectedTurnDir2 =
         {{1, CarDirection::None},
@@ -227,7 +227,7 @@ UNIT_TEST(TestFixupTurns)
                                         {2, CarDirection::TurnRight}};
 
     vector<RouteSegment> routeSegments3;
-    RouteSegmentsFrom(vector<Segment>(), vector<m2::PointD>(), turnsDir3, vector<RouteSegment::RoadNameInfo>(), routeSegments3);
+    RouteSegmentsFrom({}, {}, turnsDir3, {}, routeSegments3);
     FixupCarTurns(routeSegments3);
     vector<turns::TurnItem> const expectedTurnDir3 = {{1, CarDirection::None},
                                                       {2, CarDirection::TurnRight}};
@@ -291,7 +291,7 @@ UNIT_TEST(TestAddingActiveLaneInformation)
   turns[1].m_lanes.push_back({LaneWay::Through});
 
   vector<RouteSegment> routeSegments;
-  RouteSegmentsFrom(vector<Segment>(), vector<m2::PointD>(), turns, vector<RouteSegment::RoadNameInfo>(), routeSegments);
+  RouteSegmentsFrom({}, {}, turns, {}, routeSegments);
   SelectRecommendedLanes(routeSegments);
 
   TEST(routeSegments[0].GetTurn().m_lanes[0].m_isRecommended, ());

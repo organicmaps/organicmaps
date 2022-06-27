@@ -310,7 +310,7 @@ public:
   std::vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
 
   std::vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceMeters(); }
-  bool IsValid() const { return (m_poly.GetPolyline().GetSize() > 1); }
+  bool IsValid() const { return m_poly.IsValid(); }
 
   double GetTotalDistanceMeters() const;
   double GetCurrentDistanceFromBeginMeters() const;

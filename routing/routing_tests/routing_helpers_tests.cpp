@@ -34,7 +34,7 @@ UNIT_TEST(FillSegmentInfoSmokeTest)
   vector<double> const times = {0.0, 1.0};
 
   vector<RouteSegment> routeSegments;
-  RouteSegmentsFrom(segments, junctions, turnDirs, vector<RouteSegment::RoadNameInfo>(), routeSegments);
+  RouteSegmentsFrom(segments, junctions, turnDirs, {}, routeSegments);
   FillSegmentInfo(times, nullptr, routeSegments);
 
   TEST_EQUAL(routeSegments.size(), 1, ());

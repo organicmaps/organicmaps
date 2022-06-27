@@ -467,7 +467,11 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 
   if (m_framework.GetRoutingManager().IsRoutingActive())
   {
-    // Immidiate update of of position in Route. m_framework.OnLocationUpdate is too late.
+    /// Immidiate update of the position in Route to get updated FollowingInfo state for visual debug.
+    /// m_framework.OnLocationUpdate calls RoutingSession::OnLocationPositionChanged
+    /// with delay several times according to interpolation.
+    /// @todo Write log when the final point will be reached and
+    /// RoutingSession::OnLocationPositionChanged will be called the last time.
     m_framework.GetRoutingManager().RoutingSession().OnLocationPositionChanged(qt::common::MakeGpsInfo(point));
 
     routing::FollowingInfo loc;
