@@ -10,26 +10,40 @@ using namespace std;
 
 namespace osm {
 
-static auto const s_fbRegex = regex(R"(^@?[a-zA-Z\xE1\d.\-_]{5,}$)");
+static string const s_forbiddenFBSymbols = " !@^*()~@[]{}#$%&;,:+\"'/\\";
 static auto const s_instaRegex = regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
 static auto const s_twitterRegex = regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
 static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
 static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
 static auto const s_lineRegex = regex(R"(^[a-z0-9-_.]{4,20}$)");
 
+bool hasIntersections(string txtA, string txtB) {
+  auto txtASize = txtA.length();
+  for(size_t i=0; i<txtASize; i++) {
+    if (txtB.find(txtA[i]) != string::npos)
+      return true;
+  }
+  return false;
+}
+
 string ValidateAndFormat_facebook(string const & facebookPage)
 {
   if (facebookPage.empty())
     return {};
-  // Check that facebookPage contains valid username. See rules: https://www.facebook.com/help/105399436216001
-  if (strings::EndsWith(facebookPage, ".com") || strings::EndsWith(facebookPage, ".net"))
-    return {};
-  if (regex_match(facebookPage, s_fbRegex))
-  {
-    if (facebookPage.front() == '@')
+
+  if (facebookPage.front() == '@') {
+    // Validate facebookPage as username or page name
+    if (!hasIntersections(facebookPage.substr(1), s_forbiddenFBSymbols))
       return facebookPage.substr(1);
-    return facebookPage;
+    else
+      return {}; // Invalid symbol in Facebook username of page name
   }
+  else {
+    if (!hasIntersections(facebookPage, s_forbiddenFBSymbols))
+      return facebookPage;
+  }
+
+  // facebookPage is not a valid username it must be an URL
   if (!EditableMapObject::ValidateWebsite(facebookPage))
     return {};
 
@@ -230,8 +244,11 @@ bool ValidateFacebookPage(string const & page)
   if (page.empty())
     return true;
 
-  // Rules are defined here: https://www.facebook.com/help/105399436216001
-  if (regex_match(page, s_fbRegex))
+  // Check if 'page' contains valid Facebook username or page name.
+  // To do so check length and make sure there are no forbidden symbols in the string.
+  if (page.front() == '@')
+    return page.length() >= 6 && !hasIntersections(page.substr(1), s_forbiddenFBSymbols);
+  else if (page.length() >= 5 && !hasIntersections(page, s_forbiddenFBSymbols))
     return true;
 
   if (!EditableMapObject::ValidateWebsite(page))
