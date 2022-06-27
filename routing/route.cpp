@@ -50,21 +50,21 @@ void Route::AddAbsentCountry(string const & name)
 
 double Route::GetTotalDistanceMeters() const
 {
-  if (!m_poly.IsValid())
+  if (!IsValid())
     return 0.0;
   return m_poly.GetTotalDistanceMeters();
 }
 
 double Route::GetCurrentDistanceFromBeginMeters() const
 {
-  if (!m_poly.IsValid())
+  if (!IsValid())
     return 0.0;
   return m_poly.GetDistanceFromStartMeters();
 }
 
 double Route::GetCurrentDistanceToEndMeters() const
 {
-  if (!m_poly.IsValid())
+  if (!IsValid())
     return 0.0;
   return m_poly.GetDistanceToEndMeters();
 }
@@ -72,7 +72,7 @@ double Route::GetCurrentDistanceToEndMeters() const
 double Route::GetMercatorDistanceFromBegin() const
 {
   auto const & curIter = m_poly.GetCurrentIter();
-  if (!IsValid() || !curIter.IsValid())
+  if (!IsValid())
     return 0;
 
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
@@ -89,10 +89,10 @@ double Route::GetTotalTimeSec() const
 
 double Route::GetCurrentTimeToEndSec() const
 {
-  auto const & curIter = m_poly.GetCurrentIter();
-  if (!IsValid() || !curIter.IsValid())
+  if (!IsValid())
     return 0.0;
 
+  auto const & curIter = m_poly.GetCurrentIter();
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
   double const etaToLastPassedPointS = GetETAToLastPassedPointSec();
   double const curSegLenMeters = GetSegLenMeters(curIter.m_ind);
@@ -121,7 +121,10 @@ double Route::GetCurrentTimeToEndSec() const
 void Route::GetCurrentSpeedLimit(SpeedInUnits & speedLimit) const
 {
   if (!IsValid())
+  {
+    speedLimit = SpeedInUnits();
     return;
+  }
 
   auto const idx = m_poly.GetCurrentIter().m_ind;
   if (idx < m_routeSegments.size())
@@ -158,7 +161,10 @@ void Route::GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) con
 void Route::GetClosestStreetNameAfterIdx(size_t segIdx, RouteSegment::RoadNameInfo & roadNameInfo) const
 {
   if (!IsValid())
+  {
+    roadNameInfo = RouteSegment::RoadNameInfo();
     return;
+  }
 
   // Info about 1st segment with existing basic (non-link) info after link.
   RouteSegment::RoadNameInfo roadNameInfoNext;
@@ -186,9 +192,7 @@ void Route::GetClosestStreetNameAfterIdx(size_t segIdx, RouteSegment::RoadNameIn
     // For non-exits check only during first |kSteetNameLinkMeters|.
     // Note. |m_poly.GetCurrentIter().m_ind| is a point index of last passed point at |m_poly|.
     auto const startIter = m_poly.GetIterToIndex(segIdx);
-    CHECK(startIter.IsValid(), ());
     auto const furtherIter = m_poly.GetIterToIndex(i);
-    CHECK(furtherIter.IsValid(), ());
     if (m_poly.GetDistanceM(startIter, furtherIter) > kSteetNameLinkMeters)
       break;
   }
@@ -205,6 +209,12 @@ void Route::GetClosestStreetNameAfterIdx(size_t segIdx, RouteSegment::RoadNameIn
 
 void Route::GetClosestTurnAfterIdx(size_t segIdx, TurnItem & turn) const
 {
+  if (!IsValid())
+  {
+    turn = TurnItem();
+    return;
+  }
+
   CHECK_LESS(segIdx, m_routeSegments.size(), ());
 
   for (size_t i = segIdx; i < m_routeSegments.size(); ++i)
@@ -230,9 +240,10 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, TurnItem & turn) const
 
 optional<turns::TurnItem> Route::GetCurrentIteratorTurn() const
 {
-  auto const & iter = m_poly.GetCurrentIter();
-  if (!iter.IsValid())
+  if (!IsValid())
     return nullopt;
+
+  auto const & iter = m_poly.GetCurrentIter();
 
   CHECK_LESS(iter.m_ind, m_routeSegments.size(), ());
   return m_routeSegments[iter.m_ind].GetTurn();
@@ -338,7 +349,7 @@ double Route::GetPolySegAngle(size_t ind) const
 bool Route::MatchLocationToRoute(location::GpsInfo & location,
                                  location::RouteMatchingInfo & routeMatchingInfo) const
 {
-  if (!m_poly.IsValid())
+  if (!IsValid())
     return false;
 
   auto const & iter = m_poly.GetCurrentIter();
@@ -470,7 +481,6 @@ double Route::GetETAToLastPassedPointSec() const
 {
   CHECK(IsValid(), ());
   auto const & curIter = m_poly.GetCurrentIter();
-  CHECK(curIter.IsValid(), ());
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
 
   return curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetTimeFromBeginningSec();
