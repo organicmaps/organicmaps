@@ -1,11 +1,10 @@
-• Yeni OSM harita verileri (13 Haz 2022)
-• Bölgeler arası ve diğer rota düzeltmeleri
-• Daha iyi çitler, uçak/gemi binme noktaları, sur, uçurum, patika ve raylar
-• İşaret direği, levha, bisiklet kiralama için simgeler
-• craft=* eklendi
-• İçme suyu, şelale ve çeşme artık daha büyük
-• Kategoriler artık ada göre arama yapmıyor
-• Bisiklet tamircisi, mezarlar, doğal su yolları eklendi
-• Kıbrıs için yol numara tabelaları
-• Sonraki dönüşteki sokak artık daha iyi
-• Günlükler dahili depolamaya kaydedilir
+• Desen çizgileri güzelleştirildi (bazı eski cihazlarda çökmeyi de düzeltir)
+• Mekan Sayfası stili güncellendi
+• Harita/bilgi panoları için simgeler
+• Kategori aramasındaki gereksiz kelimeler düzeltildi
+• Arama sonuçlarında "süre sonra açılıyor/kapanıyor” gösteriliyor
+• Mevcut tüm sporlar aranabilir hale getirildi
+• amenity=parking, düzenleyici aracılığıyla haritaya eklenebilir
+• 16+ zum seviyesinde place=square görünürlüğü düzeltildi
+
+Daha fazla ayrıntı için organicmaps.app/news
