@@ -172,7 +172,10 @@
     <item name="chipTextColor">@color/bg_primary</item>
     <item name="android:popupMenuStyle">@style/PopupMenu</item>
 
+    <!-- Style used for bottom sheet behavior components -->
     <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
+    <!-- Theme used for bottom sheet dialog components -->
+    <item name="bottomSheetDialogTheme">@style/MwmTheme.BottomSheetDialog</item>
   </style>
 
   <!-- Night theme -->
@@ -341,5 +344,6 @@
     <item name="android:popupMenuStyle">@style/PopupMenu.Dark</item>
 
     <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
+    <item name="bottomSheetDialogTheme">@style/MwmTheme.BottomSheetDialog</item>
   </style>
 </resources>
