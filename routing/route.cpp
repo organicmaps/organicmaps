@@ -122,7 +122,7 @@ void Route::GetCurrentSpeedLimit(SpeedInUnits & speedLimit) const
 {
   if (!IsValid())
   {
-    speedLimit = SpeedInUnits();
+    speedLimit = {};
     return;
   }
 
@@ -162,7 +162,7 @@ void Route::GetClosestStreetNameAfterIdx(size_t segIdx, RouteSegment::RoadNameIn
 {
   if (!IsValid())
   {
-    roadNameInfo = RouteSegment::RoadNameInfo();
+    roadNameInfo = {};
     return;
   }
 
@@ -211,7 +211,7 @@ void Route::GetClosestTurnAfterIdx(size_t segIdx, TurnItem & turn) const
 {
   if (!IsValid())
   {
-    turn = TurnItem();
+    turn = {};
     return;
   }
 
