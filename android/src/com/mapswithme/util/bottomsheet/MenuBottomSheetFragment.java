@@ -56,14 +56,6 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
   }
 
   @Override
-  public int getTheme()
-  {
-    return ThemeUtils.isNightTheme(requireContext())
-        ? R.style.MwmWidget_Night_BottomSheetDialog
-        : R.style.MwmWidget_BottomSheetDialog;
-  }
-
-  @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);

@@ -5,6 +5,9 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
+  <include
+    layout="@layout/bottom_sheet_handle" />
+
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/bottom_sheet_menu_header"
     android:layout_width="match_parent"
