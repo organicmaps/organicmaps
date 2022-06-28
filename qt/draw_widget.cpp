@@ -467,7 +467,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 
   if (m_framework.GetRoutingManager().IsRoutingActive())
   {
-    /// Immidiate update of the position in Route to get updated FollowingInfo state for visual debug.
+    /// Immediate update of the position in Route to get updated FollowingInfo state for visual debugging.
     /// m_framework.OnLocationUpdate calls RoutingSession::OnLocationPositionChanged
     /// with delay several times according to interpolation.
     /// @todo Write log when the final point will be reached and
