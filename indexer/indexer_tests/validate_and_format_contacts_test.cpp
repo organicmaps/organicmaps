@@ -17,11 +17,11 @@ UNIT_TEST(EditableMapObject_ValidateFacebookPage)
   TEST(osm::ValidateFacebookPage("OpenStreetMap"), ());
   TEST(osm::ValidateFacebookPage("some.good.page"), ());
   TEST(osm::ValidateFacebookPage("Quaama-Volunteer-Bushfire-Brigade-526790054021506"), ());
-  TEST(osm::ValidateFacebookPage("P\xc3\xa1ter-Bonif\xc3\xa1""c-Restaurant-Budapest-111001693867133"), ());
-  TEST(osm::ValidateFacebookPage("M\xc3\x8aG\xc3\x85--C\xc3\x84""F\xc3\x8b-3141592653589793"), ());
-  TEST(osm::ValidateFacebookPage("\xd0\xb0\xd0\xb0\xd0\xb1\xd0\xb1\xd0\xb2\xd0\xb2"), ()); // Cyrillic
-  TEST(osm::ValidateFacebookPage("\xe1\x83\xa1\xe1\x83\x90\xe1\x83\xa5\xe1\x83\x90\xe1\x83\xa0\xe1\x83\x97\xe1\x83\x95\xe1\x83\x94\xe1\x83\x9a\xe1\x83\x9d"), ()); // Georgian
-  TEST(osm::ValidateFacebookPage("\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e"), ()); // Japanese
+  TEST(osm::ValidateFacebookPage(u8"Páter-Bonifác-Restaurant-Budapest-111001693867133"), ());
+  TEST(osm::ValidateFacebookPage(u8"MÊGÅ--CÄFË-3141592653589793"), ());
+  TEST(osm::ValidateFacebookPage(u8"ресторан"), ()); // Cyrillic
+  TEST(osm::ValidateFacebookPage(u8"საქართველო"), ()); // Georgian
+  TEST(osm::ValidateFacebookPage(u8"日本語"), ()); // Japanese
   TEST(osm::ValidateFacebookPage("@tree-house-interiors"), ());
   TEST(osm::ValidateFacebookPage("allow_underscore-1234567890"), ());
   TEST(osm::ValidateFacebookPage("alexander.net"), ());
@@ -31,9 +31,12 @@ UNIT_TEST(EditableMapObject_ValidateFacebookPage)
   TEST(!osm::ValidateFacebookPage("osm"), ());
   TEST(!osm::ValidateFacebookPage("@spaces are not welcome here"), ());
   TEST(!osm::ValidateFacebookPage("spaces are not welcome here"), ());
+  TEST(!osm::ValidateFacebookPage("slash/is_wrong"), ());
+  TEST(!osm::ValidateFacebookPage("special-symbols@forbidden"), ());
+  TEST(!osm::ValidateFacebookPage("special#symbols-forbidden"), ());
 
   // Symbols "£¤¥" are not allowed, but to check such cases it requires unicode magic. Not supported currently
-  //TEST(!osm::ValidateFacebookPage("you-shall-not-pass-\xc2\xa3\xc2\xa4\xc2\xa5"), ());
+  //TEST(!osm::ValidateFacebookPage(u8"you-shall-not-pass-£€¥"), ());
 }
 
 UNIT_TEST(EditableMapObject_ValidateInstagramPage)

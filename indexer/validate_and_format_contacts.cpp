@@ -10,21 +10,12 @@ using namespace std;
 
 namespace osm {
 
-static string const s_forbiddenFBSymbols = " !@^*()~@[]{}#$%&;,:+\"'/\\";
+constexpr char kForbiddenFBSymbols[] = " !@^*()~[]{}#$%&;,:+\"'/\\";
 static auto const s_instaRegex = regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
 static auto const s_twitterRegex = regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
 static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
 static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
 static auto const s_lineRegex = regex(R"(^[a-z0-9-_.]{4,20}$)");
-
-bool hasIntersections(string txtA, string txtB) {
-  auto txtASize = txtA.length();
-  for(size_t i=0; i<txtASize; i++) {
-    if (txtB.find(txtA[i]) != string::npos)
-      return true;
-  }
-  return false;
-}
 
 string ValidateAndFormat_facebook(string const & facebookPage)
 {
@@ -33,13 +24,13 @@ string ValidateAndFormat_facebook(string const & facebookPage)
 
   if (facebookPage.front() == '@') {
     // Validate facebookPage as username or page name
-    if (!hasIntersections(facebookPage.substr(1), s_forbiddenFBSymbols))
+    if (facebookPage.substr(1).find_first_of(kForbiddenFBSymbols) == string::npos)
       return facebookPage.substr(1);
     else
       return {}; // Invalid symbol in Facebook username of page name
   }
   else {
-    if (!hasIntersections(facebookPage, s_forbiddenFBSymbols))
+    if (facebookPage.find_first_of(kForbiddenFBSymbols) == string::npos)
       return facebookPage;
   }
 
@@ -245,10 +236,12 @@ bool ValidateFacebookPage(string const & page)
     return true;
 
   // Check if 'page' contains valid Facebook username or page name.
-  // To do so check length and make sure there are no forbidden symbols in the string.
+  // * length >= 5
+  // * no forbidden symbols in the string
+  // * optional '@' at the start
   if (page.front() == '@')
-    return page.length() >= 6 && !hasIntersections(page.substr(1), s_forbiddenFBSymbols);
-  else if (page.length() >= 5 && !hasIntersections(page, s_forbiddenFBSymbols))
+    return page.length() >= 6 && page.substr(1).find_first_of(kForbiddenFBSymbols) == string::npos;
+  else if (page.length() >= 5 && page.find_first_of(kForbiddenFBSymbols) == string::npos)
     return true;
 
   if (!EditableMapObject::ValidateWebsite(page))
