@@ -32,7 +32,6 @@ struct LoadedPathSegment
   bool m_onRoundabout = false;
   bool m_isLink = false;
   bool m_isOneWay = false;
-  routing::SpeedInUnits m_maxSpeed;
 
   bool IsValid() const { return m_path.size() > 1; }
 };

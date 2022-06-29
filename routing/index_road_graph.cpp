@@ -112,11 +112,6 @@ void IndexRoadGraph::GetRouteEdges(EdgeVector & edges) const
   }
 }
 
-void IndexRoadGraph::GetRouteSegments(std::vector<Segment> & segments) const
-{
-  segments = m_segments;
-}
-
 void IndexRoadGraph::GetEdges(geometry::PointWithAltitude const & junction, bool isOutgoing,
                               EdgeListT & edges) const
 {

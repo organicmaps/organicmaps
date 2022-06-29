@@ -49,14 +49,11 @@ bool IsRoad(Types const & types)
          IsBicycleRoad(types);
 }
 
-void FillSegmentInfo(std::vector<double> const & times,
-                     std::shared_ptr<TrafficStash> const & trafficStash,
-                     std::vector<RouteSegment> & routeSegments);
+void FillSegmentInfo(std::vector<double> const & times, std::vector<RouteSegment> & routeSegments);
 
 void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph,
-                      std::shared_ptr<TrafficStash> const & trafficStash,
                       base::Cancellable const & cancellable,
-                      std::vector<geometry::PointWithAltitude> const & path, std::vector<double> const && times,
+                      std::vector<geometry::PointWithAltitude> const & path, std::vector<double> const & times,
                       Route & route);
 
 /// \brief Converts |edge| to |segment|.

@@ -38,7 +38,7 @@ vector<turns::TurnItem> const kTestTurns =
                                  {turns::TurnItem(1, turns::CarDirection::None),
                                   turns::TurnItem(2, turns::CarDirection::TurnLeft),
                                   turns::TurnItem(3, turns::CarDirection::ReachedYourDestination)};
-vector<double> const kTestTimes = {0.0, 5.0, 10.0, 15.0};
+vector<double> const kTestTimes = {5.0, 10.0, 15.0};
 auto const kRouteBuildingMaxDuration = seconds(30);
 
 void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns = kTestTurnsReachOnly);
@@ -203,8 +203,7 @@ void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns /* =
 
   vector<RouteSegment> segmentInfo;
   RouteSegmentsFrom(kTestSegments, kTestRoute, turns, {}, segmentInfo);
-  FillSegmentInfo(kTestTimes, nullptr /* trafficStash */,
-                  segmentInfo);
+  FillSegmentInfo(kTestTimes, segmentInfo);
   route.SetRouteSegments(move(segmentInfo));
   route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
       {Route::SubrouteAttrs(junctions.front(), junctions.back(), 0, kTestSegments.size())}));

@@ -105,6 +105,9 @@ public:
 
   virtual void Load(uint32_t featureId, RoadGeometry & road) = 0;
 
+  /// Used in client-app only for the final route preparation.
+  virtual SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward);
+
   using VehicleModelPtrT = std::shared_ptr<VehicleModelInterface>;
 
   /// @param[in] handle should be alive, its caller responsibility to check it.
@@ -143,6 +146,11 @@ public:
   ms::LatLon const & GetPoint(RoadPoint const & rp)
   {
     return GetRoad(rp.GetFeatureId()).GetPoint(rp.GetPointId());
+  }
+
+  SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward)
+  {
+    return m_loader->GetSavedMaxspeed(featureId, forward);
   }
 
 private:

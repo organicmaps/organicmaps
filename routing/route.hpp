@@ -80,14 +80,11 @@ public:
   };
 
   RouteSegment(Segment const & segment, turns::TurnItem const & turn,
-               geometry::PointWithAltitude const & junction, RoadNameInfo const & roadNameInfo, SpeedInUnits speedLimit,
-               traffic::SpeedGroup traffic)
+               geometry::PointWithAltitude const & junction, RoadNameInfo const & roadNameInfo)
     : m_segment(segment)
     , m_turn(turn)
     , m_junction(junction)
     , m_roadNameInfo(roadNameInfo)
-    , m_speedLimit(speedLimit)
-    , m_traffic(traffic)
     , m_transitInfo(nullptr)
   {
   }
@@ -118,8 +115,6 @@ public:
   Segment & GetSegment() { return m_segment; }
   geometry::PointWithAltitude const & GetJunction() const { return m_junction; }
   RoadNameInfo const & GetRoadNameInfo() const { return m_roadNameInfo; }
-  SpeedInUnits const & GetSpeedLimit() const { return m_speedLimit; }
-  traffic::SpeedGroup GetTraffic() const { return m_traffic; }
   turns::TurnItem const & GetTurn() const { return m_turn; }
 
   double GetDistFromBeginningMeters() const { return m_distFromBeginningMeters; }
@@ -134,6 +129,12 @@ public:
 
   RoutingOptions GetRoadTypes() const { return m_roadTypes; }
   void SetRoadTypes(RoutingOptions types) { m_roadTypes = types; }
+
+  traffic::SpeedGroup GetTraffic() const { return m_traffic; }
+  void SetTraffic(traffic::SpeedGroup group) { m_traffic = group; }
+
+  SpeedInUnits const & GetSpeedLimit() const { return m_speedLimit; }
+  void SetSpeedLimit(SpeedInUnits const & speed) { m_speedLimit = speed; }
 
 private:
   Segment m_segment;
@@ -161,6 +162,7 @@ private:
   /// ETA from the route beginning (not the subroute) in seconds to reach the farthest from the route beginning
   /// end of |m_segment|.
   double m_timeFromBeginningS = 0.0;
+
   traffic::SpeedGroup m_traffic = traffic::SpeedGroup::Unknown;
 
   /// Information needed to display transit segments properly.

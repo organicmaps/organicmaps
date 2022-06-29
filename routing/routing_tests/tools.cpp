@@ -44,7 +44,7 @@ void RouteSegmentsFrom(std::vector<Segment> const & segments, std::vector<m2::Po
     RouteSegment::RoadNameInfo name;
     if (names.size() > 0)
       name = names[i];
-    routeSegments.emplace_back(segment, turn, point, name, SpeedInUnits(), traffic::SpeedGroup::Unknown);
+    routeSegments.emplace_back(segment, turn, point, name);
   }
 }
 }  // namespace routing

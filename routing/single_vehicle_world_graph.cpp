@@ -193,12 +193,16 @@ void SingleVehicleWorldGraph::ForEachTransition(NumMwmId numMwmId, bool isEnter,
   return m_crossMwmGraph->ForEachTransition(numMwmId, isEnter, fn);
 }
 
-unique_ptr<TransitInfo> SingleVehicleWorldGraph::GetTransitInfo(Segment const &) { return {}; }
-
 vector<RouteSegment::SpeedCamera> SingleVehicleWorldGraph::GetSpeedCamInfo(Segment const & segment)
 {
   ASSERT(segment.IsRealSegment(), ());
   return m_loader->GetSpeedCameraInfo(segment);
+}
+
+SpeedInUnits SingleVehicleWorldGraph::GetSpeedLimit(Segment const & segment)
+{
+  ASSERT(segment.IsRealSegment(), ());
+  return GetIndexGraph(segment.GetMwmId()).GetGeometry().GetSavedMaxspeed(segment.GetFeatureId(), segment.IsForward());
 }
 
 RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)
