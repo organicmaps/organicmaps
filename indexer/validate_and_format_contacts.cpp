@@ -22,19 +22,21 @@ string ValidateAndFormat_facebook(string const & facebookPage)
   if (facebookPage.empty())
     return {};
 
-  if (facebookPage.front() == '@') {
-    // Validate facebookPage as username or page name
-    if (facebookPage.substr(1).find_first_of(kForbiddenFBSymbols) == string::npos)
+  if (facebookPage.front() == '@')
+  {
+    // Validate facebookPage as username or page name.
+    if (facebookPage.find_first_of(kForbiddenFBSymbols, 1) == string::npos)
       return facebookPage.substr(1);
     else
-      return {}; // Invalid symbol in Facebook username of page name
+      return {}; // Invalid symbol in Facebook username of page name.
   }
-  else {
+  else
+  {
     if (facebookPage.find_first_of(kForbiddenFBSymbols) == string::npos)
       return facebookPage;
   }
 
-  // facebookPage is not a valid username it must be an URL
+  // facebookPage is not a valid username it must be an URL.
   if (!EditableMapObject::ValidateWebsite(facebookPage))
     return {};
 
@@ -240,7 +242,7 @@ bool ValidateFacebookPage(string const & page)
   // * no forbidden symbols in the string
   // * optional '@' at the start
   if (page.front() == '@')
-    return page.length() >= 6 && page.substr(1).find_first_of(kForbiddenFBSymbols) == string::npos;
+    return page.length() >= 6 && page.find_first_of(kForbiddenFBSymbols, 1) == string::npos;
   else if (page.length() >= 5 && page.find_first_of(kForbiddenFBSymbols) == string::npos)
     return true;
 
