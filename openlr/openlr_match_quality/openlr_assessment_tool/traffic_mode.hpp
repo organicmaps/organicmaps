@@ -10,7 +10,7 @@
 
 #include "base/exception.hpp"
 
-#include "3party/pugixml/pugixml/src/pugixml.hpp"
+#include <pugixml.hpp>
 
 #include <memory>
 #include <string>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pugixml/src/pugixml.hpp"
+#include <pugixml.hpp>
 
 #include <sstream>
 #include <string>

@@ -27,7 +27,7 @@
 #include <sstream>
 
 #include "3party/opening_hours/opening_hours.hpp"
-#include "3party/pugixml/pugixml/src/pugixml.hpp"
+#include <pugixml.hpp>
 
 namespace osm
 {

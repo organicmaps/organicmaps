@@ -11,7 +11,7 @@
 #include <iterator>
 #include <stdexcept>
 
-#include "3party/pugixml/pugixml/src/pugixml.hpp"
+#include <pugixml.hpp>
 
 namespace editor
 {
