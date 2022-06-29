@@ -75,8 +75,8 @@ public:
   bool IsRoutingOptionsGood(Segment const & segment) override;
   RoutingOptions GetRoutingOptions(Segment const & segment) override;
 
-  std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) override;
   std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment) override;
+  SpeedInUnits GetSpeedLimit(Segment const & segment) override;
 
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) override
   {

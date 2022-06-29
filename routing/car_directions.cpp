@@ -484,7 +484,7 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
 
     /// @todo Min abs angle of ingoing ones should be considered. If it's much bigger than route angle - ignore ingoing ones.
     /// Now this data is not available from IRoutingResult::GetPossibleTurns().
-    if (ingoingCount <= 1 + size_t(!turnInfo.m_outgoing->m_isOneWay))
+    if (ingoingCount <= 1 + (turnInfo.m_outgoing->m_isOneWay ? 0 : 1))
       return;
   }
 

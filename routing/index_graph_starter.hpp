@@ -46,7 +46,6 @@ public:
   friend class FakeEdgesContainer;
 
   static void CheckValidRoute(std::vector<Segment> const & segments);
-  static size_t GetRouteNumPoints(std::vector<Segment> const & route);
 
   static bool IsFakeSegment(Segment const & segment)
   {

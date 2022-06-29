@@ -46,7 +46,7 @@ static vector<RouteSegment::RoadNameInfo> const kTestNames =
      {"", "", "", "", "", false},
      {"Street3", "", "", "", "", false}};
 static vector<double> const kTestTimes =
-    {0.0, 5.0, 7.0, 10.0, 15.0, 20.0};
+    {5.0, 7.0, 10.0, 15.0, 20.0};
 static vector<turns::TurnItem> const kTestTurns2(
     {turns::TurnItem(1, turns::CarDirection::None),
      turns::TurnItem(2, turns::CarDirection::TurnLeft),
@@ -60,14 +60,14 @@ static vector<RouteSegment::RoadNameInfo> const kTestNames2 =
      {"", "", "", "", "", false},
      {"Street3", "", "", "", "", false}};
 static vector<double> const kTestTimes2 =
-    {0.0, 5.0, 6.0, 10.0, 15.0, 20.0};
+    {5.0, 6.0, 10.0, 15.0, 20.0};
 
 void GetTestRouteSegments(vector<m2::PointD> const & routePoints, vector<turns::TurnItem> const & turns,
                           vector<RouteSegment::RoadNameInfo> const & streets, vector<double> const & times,
                           vector<RouteSegment> & routeSegments)
 {
   RouteSegmentsFrom({}, routePoints, turns, streets, routeSegments);
-  FillSegmentInfo(kTestTimes, nullptr /* trafficStash */, routeSegments);
+  FillSegmentInfo(kTestTimes, routeSegments);
 }
 
 location::GpsInfo GetGps(double x, double y)
@@ -124,7 +124,7 @@ UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
 
       vector<RouteSegment> routeSegments;
       RouteSegmentsFrom(segments, kTestGeometry, kTestTurns, kTestNames, routeSegments);
-      FillSegmentInfo(kTestTimes, nullptr /* trafficStash */, routeSegments);
+      FillSegmentInfo(kTestTimes, routeSegments);
       route.SetRouteSegments(move(routeSegments));
 
       route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());

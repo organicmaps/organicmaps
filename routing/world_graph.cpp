@@ -38,7 +38,17 @@ bool WorldGraph::IsRoutingOptionsGood(Segment const & /* segment */)
   return true;
 }
 
-std::vector<RouteSegment::SpeedCamera> WorldGraph::GetSpeedCamInfo(Segment const & segment)
+std::unique_ptr<TransitInfo> WorldGraph::GetTransitInfo(Segment const &)
+{
+  return nullptr;
+}
+
+std::vector<RouteSegment::SpeedCamera> WorldGraph::GetSpeedCamInfo(Segment const &)
+{
+  return {};
+}
+
+SpeedInUnits WorldGraph::GetSpeedLimit(Segment const &)
 {
   return {};
 }

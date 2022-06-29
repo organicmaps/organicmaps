@@ -101,11 +101,6 @@ public:
     UNREACHABLE();
   }
 
-  std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) override
-  {
-    UNREACHABLE();
-  }
-
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) override
   {
     UNREACHABLE();

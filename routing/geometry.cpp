@@ -100,6 +100,12 @@ public:
     road.Load(*m_vehicleModel, *feature, altitudes.empty() ? nullptr : &altitudes, m_attrsGetter);
   }
 
+  SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward) override
+  {
+    auto const speed = m_attrsGetter.m_maxSpeeds.GetMaxspeed(featureId);
+    return { speed.GetSpeedInUnits(forward), speed.GetUnits() };
+  }
+
 private:
   VehicleModelPtrT m_vehicleModel;
   RoadAttrsGetter m_attrsGetter;
@@ -247,6 +253,11 @@ RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
   ASSERT(m_loader, ());
 
   return m_featureIdToRoad->GetValue(featureId);
+}
+
+SpeedInUnits GeometryLoader::GetSavedMaxspeed(uint32_t featureId, bool forward)
+{
+  UNREACHABLE();
 }
 
 // static

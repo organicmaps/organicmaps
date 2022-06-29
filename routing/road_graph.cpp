@@ -313,14 +313,11 @@ IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH
 
   return ri;
 }
+
 // RoadGraphBase ------------------------------------------------------------------
 void RoadGraphBase::GetRouteEdges(EdgeVector & routeEdges) const
 {
   NOTIMPLEMENTED()
 }
 
-void RoadGraphBase::GetRouteSegments(std::vector<Segment> &) const
-{
-  NOTIMPLEMENTED()
-}
 }  // namespace routing

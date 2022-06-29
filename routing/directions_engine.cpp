@@ -73,19 +73,6 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
   pathSegment.m_roadNameInfo.m_destination = ft->GetMetadata(feature::Metadata::FMD_DESTINATION);
   pathSegment.m_roadNameInfo.m_ref = ft->GetRoadNumber();
   pathSegment.m_roadNameInfo.m_name = ft->GetName(StringUtf8Multilang::kDefaultCode);
-
-  /// @todo Find a way to optimize it, e.g. by using speeds cache in GeometryLoader (GeometryLoaderImpl).
-  if (false && m_vehicleType == VehicleType::Car)
-  {
-    auto const & handle = m_dataSource.GetHandle(featureId.m_mwmId);
-    auto const speeds = routing::LoadMaxspeeds(handle);
-    if (speeds)
-    {
-      auto s = speeds->GetMaxspeed(featureId.m_index);
-      if (s.IsValid() && !pathSegment.m_segments.empty())
-        pathSegment.m_maxSpeed = routing::SpeedInUnits(s.GetSpeedInUnits(pathSegment.m_segments[0].IsForward()), s.GetUnits());
-    }
-  }
 }
 
 void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges,
@@ -228,8 +215,12 @@ void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
 
     if (!segmentRange.IsEmpty())
     {
-      auto const it = m_adjacentEdges.find(segmentRange);
-      m_adjacentEdges.insert(it, make_pair(segmentRange, move(adjacentEdges)));
+      /// @todo By VNG: Here was mostly investigational CHECK.
+      /// Entry already exists, when start-end points are on the same fake segments.
+
+      //bool const isEmpty = adjacentEdges.m_outgoingTurns.candidates.empty();
+      //CHECK(m_adjacentEdges.emplace(segmentRange, move(adjacentEdges)).second || isEmpty, ());
+      m_adjacentEdges.emplace(segmentRange, move(adjacentEdges));
     }
 
     m_pathSegments.push_back(move(pathSegment));
@@ -250,27 +241,26 @@ bool DirectionsEngine::Generate(IndexRoadGraph const & graph,
   m_adjacentEdges.clear();
   m_pathSegments.clear();
 
-  IndexRoadGraph::EdgeVector routeEdges;
-  graph.GetRouteEdges(routeEdges);
-
   CHECK_NOT_EQUAL(m_vehicleType, VehicleType::Count, (m_vehicleType));
 
   if (m_vehicleType == VehicleType::Transit)
   {
-    for (size_t i = 0; i < routeEdges.size(); ++i)
+    auto const & segments = graph.GetRouteSegments();
+    for (size_t i = 0; i < segments.size(); ++i)
     {
-      auto const & pos = path[i+1];
       TurnItem turn;
-      if (i == routeEdges.size() - 2)
+      if (i == segments.size() - 1)
         turn.m_pedestrianTurn = turns::PedestrianDirection::ReachedYourDestination;
-      routeSegments.emplace_back(ConvertEdgeToSegment(*m_numMwmIds, routeEdges[i]), turn, pos, RouteSegment::RoadNameInfo(),
-                                 SpeedInUnits(), traffic::SpeedGroup::Unknown);
+      routeSegments.emplace_back(segments[i], turn, path[i + 1], RouteSegment::RoadNameInfo());
     }
     return true;
   }
 
   if (path.size() <= 1)
     return false;
+
+  IndexRoadGraph::EdgeVector routeEdges;
+  graph.GetRouteEdges(routeEdges);
 
   if (routeEdges.empty())
     return false;
@@ -334,16 +324,15 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
 
   RoutingSettings const vehicleSettings = GetRoutingSettings(m_vehicleType);
 
-  auto const & loadedSegments = result.GetSegments();
+  auto const & loadedSegments = result.GetSegments(); // the same as m_pathSegments
 
   // First point of first loadedSegment is ignored. This is the reason for:
-  auto lastSegment = loadedSegments.front();
-  ASSERT(lastSegment.m_path.back() == lastSegment.m_path.front(), ());
+  ASSERT_EQUAL(loadedSegments.front().m_path.back(), loadedSegments.front().m_path.front(), ());
 
   size_t skipTurnSegments = 0;
   for (size_t idxLoadedSegment = 0; idxLoadedSegment < loadedSegments.size(); ++idxLoadedSegment)
   {
-    auto & loadedSegment = loadedSegments[idxLoadedSegment];
+    auto const & loadedSegment = loadedSegments[idxLoadedSegment];
 
     CHECK(loadedSegment.IsValid(), ());
     CHECK_GREATER_OR_EQUAL(loadedSegment.m_segments.size(), 1, ());
@@ -352,8 +341,7 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
     for (size_t i = 0; i < loadedSegment.m_segments.size() - 1; ++i)
     {
       auto const & junction = loadedSegment.m_path[i + 1];
-      routeSegments.emplace_back(loadedSegment.m_segments[i], TurnItem(), junction, RouteSegment::RoadNameInfo(),
-                                 loadedSegment.m_maxSpeed, traffic::SpeedGroup::Unknown);
+      routeSegments.emplace_back(loadedSegment.m_segments[i], TurnItem(), junction, RouteSegment::RoadNameInfo());
     }
 
     // For the last segment of current loadedSegment put info about turn
@@ -367,13 +355,12 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
     else
       --skipTurnSegments;
 
-    auto const & junction = loadedSegment.m_path.back();
-    routeSegments.emplace_back(loadedSegment.m_segments.back(), turnItem, junction, move(loadedSegment.m_roadNameInfo),
-                               loadedSegment.m_maxSpeed, traffic::SpeedGroup::Unknown);
+    routeSegments.emplace_back(loadedSegment.m_segments.back(), turnItem,
+                               loadedSegment.m_path.back(), loadedSegment.m_roadNameInfo);
   }
 
-  ASSERT(routeSegments.front().GetJunction() == result.GetStartPoint(), ());
-  ASSERT(routeSegments.back().GetJunction() == result.GetEndPoint(), ());
+  ASSERT_EQUAL(routeSegments.front().GetJunction(), result.GetStartPoint(), ());
+  ASSERT_EQUAL(routeSegments.back().GetJunction(), result.GetEndPoint(), ());
 
   FixupTurns(routeSegments);
 }

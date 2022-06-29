@@ -21,19 +21,16 @@ namespace routing
 using namespace std;
 using namespace traffic;
 
-void FillSegmentInfo(vector<double> const & times,
-                     shared_ptr<TrafficStash> const & trafficStash,
-                     vector<RouteSegment> & routeSegments)
+void FillSegmentInfo(vector<double> const & times, vector<RouteSegment> & routeSegments)
 {
-  CHECK(!times.empty(), ());
-  CHECK(is_sorted(times.cbegin(), times.cend()), ());
+  CHECK_EQUAL(times.size(), routeSegments.size(), ());
+  ASSERT(is_sorted(times.cbegin(), times.cend()), ());
 
   if (routeSegments.empty())
     return;
 
   double routeLengthMeters = 0.0;
   double routeLengthMerc = 0.0;
-  double timeFromBeginningS = 0.0;
   for (size_t i = 0; i < routeSegments.size(); ++i)
   {
     if (i > 0)
@@ -44,16 +41,13 @@ void FillSegmentInfo(vector<double> const & times,
       routeLengthMerc += junction.GetPoint().Length(prevJunction.GetPoint());
     }
 
-    timeFromBeginningS = times[i];
-
-    routeSegments[i].SetDistancesAndTime(routeLengthMeters, routeLengthMerc, timeFromBeginningS);
+    routeSegments[i].SetDistancesAndTime(routeLengthMeters, routeLengthMerc, times[i]);
   }
 }
 
 void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph,
-                      shared_ptr<TrafficStash> const & trafficStash,
                       base::Cancellable const & cancellable,
-                      vector<geometry::PointWithAltitude> const & path, vector<double> const && times,
+                      vector<geometry::PointWithAltitude> const & path, vector<double> const & times,
                       Route & route)
 {
   if (path.empty())
@@ -71,7 +65,7 @@ void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph,
   if (cancellable.IsCancelled())
     return;
 
-  FillSegmentInfo(times, trafficStash, routeSegments);
+  FillSegmentInfo(times, routeSegments);
   route.SetRouteSegments(move(routeSegments));
 
   vector<m2::PointD> routeGeometry;

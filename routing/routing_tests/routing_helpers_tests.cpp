@@ -31,11 +31,11 @@ UNIT_TEST(FillSegmentInfoSmokeTest)
       m2::PointD(0.0 /* x */, 0.0 /* y */),
       m2::PointD(0.0 /* x */, 0.0 /* y */)};
   vector<turns::TurnItem> const & turnDirs = {{1 /* point index */, CarDirection::ReachedYourDestination}};
-  vector<double> const times = {0.0, 1.0};
+  vector<double> const times = {1.0};
 
   vector<RouteSegment> routeSegments;
   RouteSegmentsFrom(segments, junctions, turnDirs, {}, routeSegments);
-  FillSegmentInfo(times, nullptr, routeSegments);
+  FillSegmentInfo(times, routeSegments);
 
   TEST_EQUAL(routeSegments.size(), 1, ());
   TEST_EQUAL(routeSegments[0].GetTurn().m_turn, CarDirection::ReachedYourDestination, ());
@@ -61,11 +61,11 @@ UNIT_TEST(FillSegmentInfoTest)
       {{"zero", "", "", "", "", false},
        {"first", "", "", "", "", false},
        {"second", "", "", "", "", false}};
-  vector<double> const times = {0.0, 1.0, 2.0, 3.0};
+  vector<double> const times = {1.0, 2.0, 3.0};
 
   vector<RouteSegment> segmentInfo;
   RouteSegmentsFrom(segments, junctions, turnDirs, streets, segmentInfo);
-  FillSegmentInfo(times, nullptr /* trafficStash */, segmentInfo);
+  FillSegmentInfo(times, segmentInfo);
 
   TEST_EQUAL(segmentInfo.size(), 3, ());
   TEST_EQUAL(segmentInfo[1].GetTurn().m_turn, CarDirection::TurnRight, ());

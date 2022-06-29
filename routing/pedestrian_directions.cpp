@@ -26,7 +26,7 @@ size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & resul
 {
   if (outgoingSegmentIndex == result.GetSegments().size())
   {
-    turn.m_turn = CarDirection::ReachedYourDestination;
+    turn.m_pedestrianTurn = PedestrianDirection::ReachedYourDestination;
     return 0;
   }
 

@@ -20,12 +20,11 @@
 #include <numeric>
 #include <utility>
 
-using namespace traffic;
+namespace routing
+{
 using namespace routing::turns;
 using namespace std;
 
-namespace routing
-{
 namespace
 {
 double constexpr kOnEndToleranceM = 10.0;

@@ -32,7 +32,8 @@ public:
   virtual void GetJunctionTypes(geometry::PointWithAltitude const & junction,
                                 feature::TypesHolder & types) const override;
   virtual void GetRouteEdges(EdgeVector & edges) const override;
-  virtual void GetRouteSegments(std::vector<Segment> & segments) const override;
+
+  std::vector<Segment> const & GetRouteSegments() const { return m_segments; }
 
 private:
   void GetEdges(geometry::PointWithAltitude const & junction, bool isOutgoing, EdgeListT & edges) const;
