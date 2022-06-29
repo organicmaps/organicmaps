@@ -428,7 +428,14 @@ namespace
             AddRule<Line>(p, de.scale(), line, de.lines(k), apply_if);
 
           if (de.has_area())
+          {
             AddRule<Area>(p, de.scale(), area, de.area(), apply_if);
+            for (int n = 10; n < de.scale(); ++n)
+            {
+              if (!p->IsDrawable(n))
+                AddRule<Area>(p, n, area, de.area(), apply_if);
+            }
+          }
 
           if (de.has_symbol())
             AddRule<Symbol>(p, de.scale(), symbol, de.symbol(), apply_if);

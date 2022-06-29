@@ -52,7 +52,7 @@ public:
       // Read 3 additional scale indices to allow visibility changes
       // for style designers and for custom style users.
       if (GetStyleReader().IsVisibilityOverrideEnabled())
-        scale += 3;
+        scale += 7;
       // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
       auto const lastScale = header.GetLastScale();
       if (scale > lastScale)
