@@ -22,7 +22,7 @@
 #include <sstream>
 #include <vector>
 
-#include "3party/pugixml/pugixml/src/pugixml.hpp"
+#include <pugixml.hpp>
 #include "3party/pugixml/utils.hpp"
 
 using namespace generator::tests_support;
