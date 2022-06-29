@@ -57,7 +57,7 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(3.0, 20.0))},
 };
 
-SpeedKMpH constexpr kSpeedOffroadKMpH = {3.0 /* weight */, 3.0 /* eta */};
+SpeedKMpH constexpr kSpeedOffroadKMpH = {1.5 /* weight */, 3.0 /* eta */};
 
 // Default
 VehicleModel::LimitsInitList const kBicycleOptionsDefault = {
