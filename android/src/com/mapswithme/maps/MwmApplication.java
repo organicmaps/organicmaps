@@ -195,7 +195,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     StorageUtils.requireDirectory(tempPath);
   }
 
-  private void initNativeFramework()
+  public void initNativeFramework()
   {
     if (mFrameworkInitialized)
       return;

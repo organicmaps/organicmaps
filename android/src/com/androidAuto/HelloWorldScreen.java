@@ -60,6 +60,7 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
     try
     {
       cat.initNativePlatform();
+      cat.initNativeFramework();
     }
     catch (IOException e)
     {
@@ -69,7 +70,7 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
     int w = surfaceContainer.getWidth();
     Canvas canvas = null;
 
-    if (surfaceContainer.getSurface() != null && MapFragment.nativeIsEngineCreated())
+    if (surfaceContainer.getSurface() != null)
     {
       canvas = surfaceContainer.getSurface()
                                .lockCanvas(new Rect(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE));
