@@ -23,6 +23,7 @@
   <a href="https://repology.org/project/organicmaps/versions">
     <img src="https://repology.org/badge/vertical-allrepos/organicmaps.svg" width="180" alt="Packaging status">
   </a>
+  <a href="https://github.com/gentoo/guru/tree/master/gui-apps/organicmaps">Gentoo Guru</a>
 </p>
 
 <p float="left">
