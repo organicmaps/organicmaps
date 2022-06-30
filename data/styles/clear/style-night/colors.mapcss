@@ -144,6 +144,7 @@
 @railway_tunnel: #222222;
 @railway_dash: #111111;
 @aerialway: #4E4E3D;
+@powerline: #333333;
 @tram: #5C5C51;
 @ferry: #2A4541;
 

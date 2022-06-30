@@ -1244,7 +1244,6 @@ line|z12-[aerialway=t-bar]::dash,
 line|z12-[aerialway=magic_carpet]::dash,
 line|z12-[aerialway=platter]::dash,
 line|z12-[aerialway=rope_tow]::dash,
-line|z18-[power=line],
 {color: @aerialway;opacity: 1;}
 
 /* 10.1 Lift 12-22 ZOOM */
@@ -1254,7 +1253,6 @@ line|z12-14[piste:lift=magic_carpet],
 line|z12-14[piste:lift=platter],
 line|z12-14[piste:lift=rope_tow],
 line|z12-14[piste:lift=t-bar],
-line|z19-[power=line],
 {width: 1;}
 line|z15-[piste:lift],
 line|z15-[piste:lift=j-bar],
@@ -1317,6 +1315,9 @@ line|z14-[aerialway=magic_carpet]::dash,
 line|z14-[aerialway=platter]::dash,
 line|z14-[aerialway=rope_tow]::dash,
 {width: 2.5;opacity: 0.6;dashes: 0.9,18;}
+
+line|z19-[power=line],
+{color: @powerline; width: 1; opacity: 0.6;}
 
 /* 10.3 Piste & Route 14-22 ZOOM */
 
