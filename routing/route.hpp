@@ -303,6 +303,12 @@ public:
   /// \returns estimated time to reach the route end.
   double GetCurrentTimeToEndSec() const;
 
+  /// \brief estimated time to reach segment.
+  double GetCurrentTimeToSegmentSec(size_t segIdx) const;
+
+  /// \brief estimated time to the nearest turn.
+  double GetCurrentTimeToNearestTurnSec() const;
+
   FollowedPolyline const & GetFollowedPolyline() const { return m_poly; }
 
   std::string const & GetRouterId() const { return m_router; }
@@ -322,7 +328,7 @@ public:
   /// \brief Extracts information about the nearest turn according to the route.
   /// \param distanceToTurnMeters is a distance from current position to the nearest turn.
   /// \param turn is information about the nearest turn.
-  void GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
+  void GetNearestTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
 
   /// \returns information about turn from RouteSegment according to current iterator
   /// set with MoveIterator() method. If it's not possible returns nullopt.
@@ -424,11 +430,8 @@ private:
   double GetPolySegAngle(size_t ind) const;
   void GetClosestTurnAfterIdx(size_t segIdx, turns::TurnItem & turn) const;
 
-  /// \returns Estimated time to pass the route segment with |segIdx|.
-  double GetTimeToPassSegSec(size_t segIdx) const;
-
-  /// \returns ETA to the last passed route point in seconds.
-  double GetETAToLastPassedPointSec() const;
+  /// \returns Estimated time from the beginning.
+  double GetCurrentTimeFromBeginSec() const;
 
   std::string m_router;
   RoutingSettings m_routingSettings;
