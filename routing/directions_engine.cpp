@@ -246,11 +246,12 @@ bool DirectionsEngine::Generate(IndexRoadGraph const & graph,
   if (m_vehicleType == VehicleType::Transit)
   {
     auto const & segments = graph.GetRouteSegments();
-    for (size_t i = 0; i < segments.size(); ++i)
+    size_t const segsCount = segments.size();
+    for (size_t i = 0; i < segsCount; ++i)
     {
       TurnItem turn;
-      if (i == segments.size() - 1)
-        turn.m_pedestrianTurn = turns::PedestrianDirection::ReachedYourDestination;
+      if (i == segsCount - 1)
+        turn = TurnItem(segsCount, turns::PedestrianDirection::ReachedYourDestination);
       routeSegments.emplace_back(segments[i], turn, path[i + 1], RouteSegment::RoadNameInfo());
     }
     return true;
