@@ -882,10 +882,14 @@
 	<string name="type.building.warehouse">Depo</string>
 	<string name="type.cemetery.grave">Mezar</string>
 	<string name="type.craft">Zanaat</string>
+	<string name="type.craft.beekeeper">Arıcı</string>
+	<string name="type.craft.blacksmith">Demirci</string>
 	<string name="type.craft.brewery">Bira Fabrikası</string>
 	<string name="type.craft.carpenter">Marangoz</string>
 	<string name="type.craft.electrician">Elektrikçi</string>
+	<string name="type.craft.electronics_repair">Elektronik Tamircisi</string>
 	<string name="type.craft.gardener">Bahçe Düzenleyici</string>
+	<string name="type.craft.handicraft">El İşi</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Klimacı</string>
 	<string name="type.craft.metal_construction">Dökümcü</string>
