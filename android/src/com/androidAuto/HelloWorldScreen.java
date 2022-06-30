@@ -19,13 +19,8 @@ import androidx.car.app.navigation.model.NavigationTemplate;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.settings.StoragePathManager;
-import com.mapswithme.util.StorageUtils;
-import com.mapswithme.util.UiUtils;
 
 import java.io.IOException;
-
-import static androidx.car.app.model.Action.BACK;
 
 public class HelloWorldScreen extends Screen implements SurfaceCallback
 {
@@ -42,17 +37,23 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
   @NonNull
   @Override
   public Template onGetTemplate()
-  {  Log.e("Show Up","Shows Up");
+  {
+    Log.e("Show Up", "Shows Up");
     NavigationTemplate.Builder builder = new NavigationTemplate.Builder();
     ActionStrip.Builder actionStripBuilder = new ActionStrip.Builder();
-    actionStripBuilder.addAction(new Action.Builder().setTitle("Exit").setOnClickListener(this::exit).build());
+    actionStripBuilder.addAction(new Action.Builder().setTitle("Exit")
+                                                     .setOnClickListener(this::exit)
+                                                     .build());
     builder.setActionStrip(actionStripBuilder.build());
     NavigationManager navigationManager = getCarContext().getCarService(NavigationManager.class);
     return builder.build();
   }
-  private void exit() {
+
+  private void exit()
+  {
     getCarContext().finishCarApp();
   }
+
   @Override
   public void onSurfaceAvailable(@NonNull SurfaceContainer surfaceContainer)
   {
@@ -72,25 +73,30 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
 
     if (surfaceContainer.getSurface() != null)
     {
+      Log.e("Create Engine", "!");
       canvas = surfaceContainer.getSurface()
                                .lockCanvas(new Rect(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE));
+
+      Surface surface = surfaceContainer.getSurface();
+      boolean cr = MapFragment.nativeCreateEngine(surface, surface.lockHardwareCanvas()
+                                                                  .getDensity(), false, false, BuildConfig.VERSION_CODE);
+      Log.e("Native Create Engine", String.valueOf(cr));
+      if (canvas == null && cat.arePlatformAndCoreInitialized())
+      {
+        Log.e("arePlatformAndCoreInitialized()", String.valueOf(cat.arePlatformAndCoreInitialized()));
+        Log.e("Nope", "Cannot draw onto the canvas as it's null");
+      }
+      else
+      {
+        Log.e("arePlatformAndCoreInitialized()", String.valueOf(cat.arePlatformAndCoreInitialized()));
+        Log.e("Draw", "Rendering Should be done successfully?");
+        MapFragment.nativeAttachSurface(surface);
+        surfaceContainer.getSurface().unlockCanvasAndPost(canvas);
+      }
     }
     else
     {
       Log.e("NPE", "Surface Not Available");
-    }
-    if (canvas == null)
-    {
-      Log.e("Nope", "Cannot draw onto the canvas as it's null");
-    }
-    else
-    {
-      Log.e("Draw", "Rendering Should be done successfully?");
-      Surface surface = surfaceContainer.getSurface();
-      MapFragment.nativeCreateEngine(surface, surface.lockHardwareCanvas()
-                                                     .getDensity(), false, true, BuildConfig.VERSION_CODE);
-      MapFragment.nativeAttachSurface(surface);
-      surfaceContainer.getSurface().unlockCanvasAndPost(canvas);
     }
   }
 
