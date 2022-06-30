@@ -79,7 +79,7 @@
 
 /* 4.3 Barriers */
 @fence: #888888;
-@hedge: #36831C;
+@hedge: #8DB880;
 @cliff: #8C5826;
 
 /* 4.4 Buildings */

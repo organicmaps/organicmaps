@@ -699,13 +699,13 @@ line|z19-[barrier=wall],
 
 
 line|z16-[barrier=hedge],
-{color: @hedge; width: 2; opacity: 0.6;}
+{color: @hedge; width: 1.6; opacity: 0.6;}
 line|z17[barrier=hedge],
-{width: 3; opacity: 0.7;}
+{width: 2.2; opacity: 0.7;}
 line|z18[barrier=hedge],
-{width: 4; opacity: 0.8;}
+{width: 3; opacity: 0.8;}
 line|z19-[barrier=hedge],
-{width: 5; opacity: 1;}
+{width: 4; opacity: 1;}
 
 
 /*
