@@ -9938,32 +9938,32 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.0
-      color: 1714848540
+      width: 1.6
+      color: 1720563840
       priority: 1461
     }
   }
   element {
     scale: 17
     lines {
-      width: 3.0
-      color: 1295418140
+      width: 2.2
+      color: 1301133440
       priority: 1461
     }
   }
   element {
     scale: 18
     lines {
-      width: 4.0
-      color: 859210524
+      width: 3.0
+      color: 864925824
       priority: 1461
     }
   }
   element {
     scale: 19
     lines {
-      width: 5.0
-      color: 3572508
+      width: 4.0
+      color: 9287808
       priority: 1461
     }
   }
@@ -53256,7 +53256,7 @@ cont {
     scale: 19
     lines {
       width: 1.0
-      color: 4473924
+      color: 1721144710
       priority: 1576
     }
   }

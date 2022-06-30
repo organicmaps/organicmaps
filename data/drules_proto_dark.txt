@@ -9728,32 +9728,32 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.0
-      color: 1712602132
+      width: 1.6
+      color: 1712861720
       priority: 1461
     }
   }
   element {
     scale: 17
     lines {
-      width: 3.0
-      color: 1293171732
+      width: 2.2
+      color: 1293431320
       priority: 1461
     }
   }
   element {
     scale: 18
     lines {
-      width: 4.0
-      color: 856964116
+      width: 3.0
+      color: 857223704
       priority: 1461
     }
   }
   element {
     scale: 19
     lines {
-      width: 5.0
-      color: 1326100
+      width: 4.0
+      color: 1585688
       priority: 1461
     }
   }
@@ -53003,7 +53003,7 @@ cont {
     scale: 19
     lines {
       width: 1.0
-      color: 5131837
+      color: 1714631475
       priority: 1576
     }
   }
