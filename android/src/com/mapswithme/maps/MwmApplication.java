@@ -176,12 +176,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
 
     Editor.init(this);
     mPlatformInitialized = true;
-<<<<<<< HEAD
     Logger.i(TAG, "Platform initialized");
-=======
-    Log.i("Native", "Initializing application");
-    mLogger.i(TAG, "Platform initialized");
->>>>>>> ba402a4e26 (Minor Tweaks)
   }
 
   private void createPlatformDirectories(@NonNull String writablePath,
