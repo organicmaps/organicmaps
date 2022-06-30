@@ -376,7 +376,7 @@
     be = З'езд.
     cs = výstup.
     da = Afkørsel.
-    de = Ausfahrt.
+    de = Nehmen Sie die Ausfahrt.
     el = Εξοδος.
     es = Salida.
     eu = Irteera.
