@@ -35,37 +35,61 @@ public class StorageUtils
   {
     final String path = dir.getPath();
     Logger.d(TAG, "Checking for writability " + path);
+
+    // Its better to be conservative here and don't allow to use the storage
+    // if any of the system calls behave unexpectedly,
+    // still we want extra logging to facilitate debugging possible fringe cases,
+    // e.g. https://github.com/organicmaps/organicmaps/issues/2684
+    boolean success = true;
     if (!dir.isDirectory())
     {
       Logger.w(TAG, "Not a directory: " + path);
-      return false;
+      success = false;
     }
-
-    // Extra logging to facilitate debugging writability issues,
-    // e.g. https://github.com/organicmaps/organicmaps/issues/2684
     if (!dir.exists())
+    {
       Logger.w(TAG, "Not exists: " + path);
+      success = false;
+    }
     if (!dir.canWrite())
+    {
       Logger.w(TAG, "Not writable: " + path);
+      success = false;
+    }
     if (!dir.canRead())
+    {
       Logger.w(TAG, "Not readable: " + path);
+      success = false;
+    }
     if (dir.list() == null)
+    {
       Logger.w(TAG, "Not listable: " + path);
+      success = false;
+    }
 
     final File newDir = new File(dir, "om_test_dir");
     final String newPath = newDir.getPath();
+    if (newDir.delete())
+      Logger.i(TAG, "Deleting existing test file/dir: " + newPath);
+    if (newDir.exists())
+      Logger.w(TAG, "Existing test file/dir is not deleted (not empty?): " + newPath);
     if (!newDir.mkdir())
+    {
       Logger.w(TAG, "Failed to create the test dir: " + newPath);
+      success = false;
+    }
     if (!newDir.exists())
     {
       Logger.w(TAG, "The test dir doesn't exist: " + newPath);
-      return false;
+      success = false;
+    }
+    if (!newDir.delete())
+    {
+      Logger.w(TAG, "Failed to delete the test dir: " + newPath);
+      success = false;
     }
 
-    if (!newDir.delete())
-      Logger.w(TAG, "Failed to delete the test dir: " + newPath);
-
-    return true;
+    return success;
   }
 
   @NonNull
