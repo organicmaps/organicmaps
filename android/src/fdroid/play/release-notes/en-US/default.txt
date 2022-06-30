@@ -3,9 +3,9 @@
 • Icons for information=board/map
 • Fixed categories search with stop words
 • Show "Opens in"/"Closes in" in search results
-• Made all existing sports searchable
-• amenity=parking can be added on the map via Editor
+• Made all sports searchable
+• amenity=parking can be added via Editor
 • Fixed place=square visibility at 16+ zoom level
-• Improved pt-BR, es, it, fr, and eu, enabled Marathi translations
-
-See organicmaps.app/news for more details in the previous update.
+• Made streams & rivers visible on the beach
+• Made hedges and power lines less contrast
+• Improved pt-BR, es, it, fr, eu, enabled Marathi translations
