@@ -4867,6 +4867,7 @@
     fr = Apiculteur
     it = Apicoltore
     ru = Пчеловод
+    tr = Arıcı
     uk = Бджоляр
 
   [type.craft.blacksmith]
@@ -4876,6 +4877,7 @@
     fr = Forgeron
     it = Fabbro
     ru = Кузница
+    tr = Demirci
     uk = Кузня
 
   [type.craft.brewery]
@@ -4992,6 +4994,7 @@
     fr = Réparation d'appareils électroniques
     it = Riparazioni elettroniche
     ru = Ремонт электроники
+    tr = Elektronik Tamircisi
 
   [type.craft.gardener]
     en = Gardener
@@ -5032,6 +5035,7 @@
     es = Artesanía
     it = Artigiano
     ru = Ремесленная мастерская
+    tr = El İşi
 
   [type.craft.hvac]
     comment = Heating, Ventilation, and Air Conditioning
