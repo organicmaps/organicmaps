@@ -1,9 +1,11 @@
-• Prettify pattern lines drawing (also fixes crash on some older devices)
+• Improved/fixed the drawing of pattern lines
 • Icons for information=board/map
 • Fixed categories search with stop words
 • Made all existing sports searchable
 • amenity=parking can be added on the map via Editor
-• Fixed place=square visibility at 16+ zoom level
+• Fixed place=square visibility at 16+ zoom
+• Made streams & rivers visible on the beach
+• Made hedges and power lines less contrast
 • Improved Portuguese (Brasil), Spanish, Italian, French, and Euskara, enabled Marathi translations
 
 See previous update or organicmaps.app/news for more details about our releases.
