@@ -31,11 +31,15 @@ UNIT_TEST(EditableMapObject_ValidateFacebookPage)
   TEST(!osm::ValidateFacebookPage("osm"), ());
   TEST(!osm::ValidateFacebookPage("@spaces are not welcome here"), ());
   TEST(!osm::ValidateFacebookPage("spaces are not welcome here"), ());
-  TEST(!osm::ValidateFacebookPage("slash/is_wrong"), ());
-  TEST(!osm::ValidateFacebookPage("special-symbols@forbidden"), ());
-  TEST(!osm::ValidateFacebookPage("special#symbols-forbidden"), ());
 
-  // Symbols "£¤¥" are not allowed, but to check such cases it requires unicode magic. Not supported currently
+  constexpr char kForbiddenFBSymbols[] = " !@^*()~[]{}#$%&;,:+\"'/\\";
+  for(size_t i=0; i<size(kForbiddenFBSymbols)-1; i++)
+  {
+    auto test_str = std::string("special-symbol-") + kForbiddenFBSymbols[i] + "-forbidden";
+    TEST(!osm::ValidateFacebookPage(test_str), (test_str));
+  }
+
+  // Symbols "£€¥" are not allowed, but to check such cases it requires unicode magic. Not supported currently.
   //TEST(!osm::ValidateFacebookPage(u8"you-shall-not-pass-£€¥"), ());
 }
 
