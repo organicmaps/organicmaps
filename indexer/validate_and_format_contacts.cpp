@@ -10,12 +10,32 @@ using namespace std;
 
 namespace osm {
 
-constexpr char kForbiddenFBSymbols[] = " !@^*()~[]{}#$%&;,:+\"'/\\";
 static auto const s_instaRegex = regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
 static auto const s_twitterRegex = regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
 static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
 static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
 static auto const s_lineRegex = regex(R"(^[a-z0-9-_.]{4,20}$)");
+
+
+bool containsInvalidFBSymbol(string const & facebookPage, int startIndex = 0)
+{
+  int size = facebookPage.size();
+  for (int i=startIndex; i<size; i++)
+  {
+    const char ch = facebookPage[i];
+    // Forbid all ASCII symbols except '-', '.', and '_'
+    if ((ch >= ' ' && ch <= ',')  ||
+        ch == '/' ||
+        (ch >= ':' && ch <= '@') ||
+        (ch >= '[' && ch <= '^') ||
+        ch == '`' ||
+        (ch >= '{' && ch <= '~') )
+    {
+      return true;
+    }
+  }
+  return false;
+}
 
 string ValidateAndFormat_facebook(string const & facebookPage)
 {
@@ -25,14 +45,14 @@ string ValidateAndFormat_facebook(string const & facebookPage)
   if (facebookPage.front() == '@')
   {
     // Validate facebookPage as username or page name.
-    if (facebookPage.find_first_of(kForbiddenFBSymbols, 1) == string::npos)
+    if (!containsInvalidFBSymbol(facebookPage, 1))
       return facebookPage.substr(1);
     else
       return {}; // Invalid symbol in Facebook username of page name.
   }
   else
   {
-    if (facebookPage.find_first_of(kForbiddenFBSymbols) == string::npos)
+    if (!containsInvalidFBSymbol(facebookPage))
       return facebookPage;
   }
 
@@ -242,9 +262,11 @@ bool ValidateFacebookPage(string const & page)
   // * no forbidden symbols in the string
   // * optional '@' at the start
   if (page.front() == '@')
-    return page.length() >= 6 && page.find_first_of(kForbiddenFBSymbols, 1) == string::npos;
-  else if (page.length() >= 5 && page.find_first_of(kForbiddenFBSymbols) == string::npos)
+    return page.length() >= 6 && !containsInvalidFBSymbol(page, 1);
+  else if (page.length() >= 5 && !containsInvalidFBSymbol(page))
     return true;
+  //else
+  //  LOG(LWARNING, ("containsInvalidFBSymbol == false"));
 
   if (!EditableMapObject::ValidateWebsite(page))
     return false;
