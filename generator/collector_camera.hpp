@@ -97,16 +97,14 @@ public:
   explicit CameraCollector(std::string const & filename);
 
   // generator::CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const & = {})
-      const override;
+  std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & = {}) const override;
   // We will process all nodes before ways because of o5m format:
   // all nodes are first, then all ways, then all relations.
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
   void Finish() override;
 
-  void Merge(generator::CollectorInterface const & collector) override;
-  void MergeInto(CameraCollector & collector) const override;
+  IMPLEMENT_COLLECTOR_IFACE(CameraCollector);
+  void MergeInto(CameraCollector & collector) const;
 
 protected:
   void Save() override;

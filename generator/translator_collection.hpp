@@ -20,7 +20,7 @@ public:
   void Finish() override;
   bool Save() override;
 
-  void Merge(TranslatorInterface const & other) override;
-  void MergeInto(TranslatorCollection & other) const override;
+  IMPLEMENT_TRANSLATOR_IFACE(TranslatorCollection);
+  void MergeInto(TranslatorCollection & other) const;
 };
 }  // namespace generator

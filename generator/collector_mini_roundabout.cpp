@@ -88,8 +88,7 @@ MiniRoundaboutCollector::MiniRoundaboutCollector(std::string const & filename)
 {
 }
 
-std::shared_ptr<generator::CollectorInterface> MiniRoundaboutCollector::Clone(
-    std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const
+std::shared_ptr<generator::CollectorInterface> MiniRoundaboutCollector::Clone(IDRInterfacePtr const &) const
 {
   return std::make_shared<MiniRoundaboutCollector>(GetFilename());
 }
@@ -140,11 +139,6 @@ void MiniRoundaboutCollector::OrderCollectedData()
   FileWriter writer(GetFilename());
   for (auto const & miniRoundabout : collectedData)
     WriteMiniRoundabout(writer, miniRoundabout);
-}
-
-void MiniRoundaboutCollector::Merge(generator::CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
 }
 
 void MiniRoundaboutCollector::MergeInto(MiniRoundaboutCollector & collector) const

@@ -188,7 +188,7 @@ std::set<OsmElement::Tag> const kHighwaysWhereIgnoreAccessDestination = {
 auto const kEmptyAccess = RoadAccess::Type::Count;
 
 bool ParseRoadAccess(string const & roadAccessPath, OsmIdToFeatureIds const & osmIdToFeatureIds,
-                     RoadAccessCollector::RoadAccessByVehicleType & roadAccessByVehicleType)
+                     RoadAccessByVehicleType & roadAccessByVehicleType)
 {
   std::ifstream stream(roadAccessPath);
   if (!stream)
@@ -287,9 +287,8 @@ bool ParseRoadAccess(string const & roadAccessPath, OsmIdToFeatureIds const & os
   return true;
 }
 
-void ParseRoadAccessConditional(
-    string const & roadAccessPath, OsmIdToFeatureIds const & osmIdToFeatureIds,
-    RoadAccessCollector::RoadAccessByVehicleType & roadAccessByVehicleType)
+void ParseRoadAccessConditional(string const & roadAccessPath, OsmIdToFeatureIds const & osmIdToFeatureIds,
+                                RoadAccessByVehicleType & roadAccessByVehicleType)
 {
   std::ifstream stream(roadAccessPath);
   if (!stream)
@@ -608,7 +607,7 @@ void RoadAccessTagProcessor::Merge(RoadAccessTagProcessor const & other)
 }
 
 // RoadAccessWriter ------------------------------------------------------------
-RoadAccessWriter::RoadAccessWriter(string const & filename)
+RoadAccessCollector::RoadAccessCollector(string const & filename)
     : generator::CollectorInterface(filename)
     , m_waysFilename(GetTmpFilename() + ".roads_ids")
     , m_waysWriter(std::make_unique<FileWriter>(m_waysFilename))
@@ -617,18 +616,17 @@ RoadAccessWriter::RoadAccessWriter(string const & filename)
     m_tagProcessors.emplace_back(static_cast<VehicleType>(i));
 }
 
-RoadAccessWriter::~RoadAccessWriter()
+RoadAccessCollector::~RoadAccessCollector()
 {
   CHECK(Platform::RemoveFileIfExists(m_waysFilename), ());
 }
 
-std::shared_ptr<generator::CollectorInterface> RoadAccessWriter::Clone(
-    std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const
+std::shared_ptr<generator::CollectorInterface> RoadAccessCollector::Clone(IDRInterfacePtr const &) const
 {
-  return std::make_shared<RoadAccessWriter>(GetFilename());
+  return std::make_shared<RoadAccessCollector>(GetFilename());
 }
 
-void RoadAccessWriter::CollectFeature(FeatureBuilder const & fb, OsmElement const & elem)
+void RoadAccessCollector::CollectFeature(FeatureBuilder const & fb, OsmElement const & elem)
 {
   for (auto const & tag : elem.m_tags)
   {
@@ -662,12 +660,12 @@ void RoadAccessWriter::CollectFeature(FeatureBuilder const & fb, OsmElement cons
   rw::WriteVectorOfPOD(*m_waysWriter, elem.m_nodes);
 }
 
-void RoadAccessWriter::Finish()
+void RoadAccessCollector::Finish()
 {
   m_waysWriter.reset({});
 }
 
-void RoadAccessWriter::Save()
+void RoadAccessCollector::Save()
 {
   CHECK(!m_waysWriter, ("Finish() has not been called."));
   std::ofstream out;
@@ -699,18 +697,13 @@ void RoadAccessWriter::Save()
     p.WriteWayToAccessConditional(outConditional);
 }
 
-void RoadAccessWriter::OrderCollectedData()
+void RoadAccessCollector::OrderCollectedData()
 {
   for (auto const & filename : {GetFilename(), GetFilename() + CONDITIONAL_EXT})
     OrderTextFileByLine(filename);
 }
 
-void RoadAccessWriter::Merge(generator::CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
-}
-
-void RoadAccessWriter::MergeInto(RoadAccessWriter & collector) const
+void RoadAccessCollector::MergeInto(RoadAccessCollector & collector) const
 {
   auto & otherProcessors = collector.m_tagProcessors;
   CHECK_EQUAL(m_tagProcessors.size(), otherProcessors.size(), ());
@@ -722,30 +715,24 @@ void RoadAccessWriter::MergeInto(RoadAccessWriter & collector) const
   base::AppendFileToFile(m_waysFilename, collector.m_waysFilename);
 }
 
-// RoadAccessCollector ----------------------------------------------------------
-RoadAccessCollector::RoadAccessCollector(string const & roadAccessPath,
-                                         string const & osmIdsToFeatureIdsPath)
+bool ReadRoadAccess(string const & roadAccessPath, string const & osmIdsToFeatureIdsPath,
+                    RoadAccessByVehicleType & roadAccessByVehicleType)
 {
-  m_valid = false;
-
   OsmIdToFeatureIds osmIdToFeatureIds;
   if (!ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
   {
-    LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",
-                   osmIdsToFeatureIdsPath));
-    return;
+    LOG(LERROR, ("An error happened while parsing feature id to osm ids mapping from file:", osmIdsToFeatureIdsPath));
+    return false;
   }
 
-  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureIds, m_roadAccessByVehicleType))
+  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureIds, roadAccessByVehicleType))
   {
-    LOG(LWARNING, ("An error happened while parsing road access from file:", roadAccessPath));
-    return;
+    LOG(LERROR, ("An error happened while parsing road access from file:", roadAccessPath));
+    return false;
   }
 
-  ParseRoadAccessConditional(roadAccessPath + CONDITIONAL_EXT,
-                             osmIdToFeatureIds, m_roadAccessByVehicleType);
-
-  m_valid = true;
+  ParseRoadAccessConditional(roadAccessPath + CONDITIONAL_EXT, osmIdToFeatureIds, roadAccessByVehicleType);
+  return true;
 }
 
 // AccessConditionalTagParser ----------------------------------------------------------------------
@@ -888,18 +875,14 @@ bool BuildRoadAccessInfo(string const & dataFilePath, string const & roadAccessP
 {
   LOG(LINFO, ("Generating road access info for", dataFilePath));
 
-  RoadAccessCollector collector(roadAccessPath, osmIdsToFeatureIdsPath);
-
-  if (!collector.IsValid())
-  {
-    LOG(LWARNING, ("Unable to parse road access in osm terms"));
+  RoadAccessByVehicleType roadAccessByVehicleType;
+  if (!ReadRoadAccess(roadAccessPath, osmIdsToFeatureIdsPath, roadAccessByVehicleType))
     return false;
-  }
 
   FilesContainerW cont(dataFilePath, FileWriter::OP_WRITE_EXISTING);
   auto writer = cont.GetWriter(ROAD_ACCESS_FILE_TAG);
 
-  RoadAccessSerializer::Serialize(*writer, collector.GetRoadAccessAllTypes());
+  RoadAccessSerializer::Serialize(*writer, roadAccessByVehicleType);
   return true;
 }
 }  // namespace routing_builder

@@ -22,10 +22,6 @@ class FeatureBuilder;
 
 namespace generator
 {
-namespace cache
-{
-class IntermediateDataReaderInterface;
-}  // namespace cache
 
 class MiniRoundaboutProcessor
 {
@@ -65,16 +61,14 @@ public:
   explicit MiniRoundaboutCollector(std::string const & filename);
 
   // CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const & = {})
-      const override;
+  std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & = {}) const override;
 
   void Collect(OsmElement const & element) override;
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
   void Finish() override;
 
-  void Merge(generator::CollectorInterface const & collector) override;
-  void MergeInto(MiniRoundaboutCollector & collector) const override;
+  IMPLEMENT_COLLECTOR_IFACE(MiniRoundaboutCollector);
+  void MergeInto(MiniRoundaboutCollector & collector) const;
 
 protected:
   void Save() override;

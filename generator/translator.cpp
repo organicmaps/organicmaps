@@ -6,8 +6,6 @@
 
 #include "base/assert.hpp"
 
-using namespace feature;
-
 namespace generator
 {
 Translator::Translator(std::shared_ptr<FeatureProcessorInterface> const & processor,
@@ -49,7 +47,7 @@ void Translator::Emit(OsmElement & element)
   m_tagsEnricher(element);
   m_collector->Collect(element);
   m_featureMaker->Add(element); // A feature is created from OSM tags.
-  FeatureBuilder feature;
+  feature::FeatureBuilder feature;
   while (m_featureMaker->GetNextFeature(feature))
   {
     if (!m_filter->IsAccepted(feature))

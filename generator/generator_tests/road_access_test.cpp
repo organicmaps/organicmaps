@@ -76,7 +76,7 @@ void LoadRoadAccess(string const & mwmFilePath, VehicleType vehicleType, RoadAcc
 }
 
 // todo(@m) This helper function is almost identical to the one in restriction_test.cpp.
-RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(
+RoadAccessByVehicleType SaveAndLoadRoadAccess(
     string const & raContent, string const & mappingContent, string const & raContitionalContent = {})
 {
   classificator::Load();
@@ -109,15 +109,15 @@ RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(
   BuildRoadAccessInfo(mwmFullPath, roadAccessFullPath, mappingFullPath);
 
   // Reading from mwm section and testing road access.
-  RoadAccessCollector::RoadAccessByVehicleType roadAccessFromMwm;
+  RoadAccessByVehicleType roadAccessFromMwm, roadAccessFromFile;
   for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
   {
     auto const vehicleType = static_cast<VehicleType>(i);
     LoadRoadAccess(mwmFullPath, vehicleType, roadAccessFromMwm[i]);
   }
-  RoadAccessCollector const collector(roadAccessFullPath, mappingFullPath);
-  TEST(collector.IsValid(), ());
-  TEST_EQUAL(roadAccessFromMwm, collector.GetRoadAccessAllTypes(), ());
+
+  TEST(ReadRoadAccess(roadAccessFullPath, mappingFullPath, roadAccessFromFile), ());
+  TEST_EQUAL(roadAccessFromMwm, roadAccessFromFile, ());
   return roadAccessFromMwm;
 }
 
@@ -202,7 +202,7 @@ UNIT_TEST(RoadAccessWriter_Permit)
                                          {{"highway", "motorway"}, {"access", "no"}, {"motor_vehicle", "permit"}},
                                          OsmElement::EntityType::Way, {1, 2});
 
-  auto c = make_shared<RoadAccessWriter>(filename);
+  auto c = make_shared<RoadAccessCollector>(filename);
   c->CollectFeature(MakeFbForTest(w), w);
 
   c->Finish();
@@ -245,9 +245,9 @@ UNIT_TEST(RoadAccessWriter_Merge)
       31 /* id */, {{"highway", "motorway_junction"}, {"access", "private"}},
       OsmElement::EntityType::Node);
 
-  auto c1 = std::make_shared<RoadAccessWriter>(filename);
-  auto c2 = c1->Clone(nullptr);
-  auto c3 = c1->Clone(nullptr);
+  auto c1 = std::make_shared<RoadAccessCollector>(filename);
+  auto c2 = c1->Clone();
+  auto c3 = c1->Clone();
 
   c1->CollectFeature(MakeFbForTest(p1), p1);
   c2->CollectFeature(MakeFbForTest(p2), p2);
@@ -381,9 +381,9 @@ UNIT_TEST(RoadAccessWriter_ConditionalMerge)
        {"vehicle:conditional", "private @ (12:00-19:00) ; no @ (Mo-Su)"}} /* tags */,
       OsmElement::EntityType::Way, {30, 31, 32, 33});
 
-  auto c1 = std::make_shared<RoadAccessWriter>(filename);
-  auto c2 = c1->Clone(nullptr);
-  auto c3 = c1->Clone(nullptr);
+  auto c1 = std::make_shared<RoadAccessCollector>(filename);
+  auto c2 = c1->Clone();
+  auto c3 = c1->Clone();
 
   c1->CollectFeature(MakeFbForTest(w1), w1);
   c2->CollectFeature(MakeFbForTest(w2), w2);
@@ -421,7 +421,7 @@ UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
       {{"highway", "service"}, {"winter_road", "yes"}} /* tags */,
       OsmElement::EntityType::Way, {20, 21, 22, 23});
 
-  auto c1 = std::make_shared<RoadAccessWriter>(filename);
+  auto c1 = std::make_shared<RoadAccessCollector>(filename);
 
   c1->CollectFeature(MakeFbForTest(w1), w1);
   c1->CollectFeature(MakeFbForTest(w2), w2);

@@ -21,14 +21,13 @@ public:
   explicit MaxspeedsCollector(std::string const & filename);
 
   // CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<cache::IntermediateDataReaderInterface> const &) const override;
+  std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & = {}) const override;
 
   void CollectFeature(feature::FeatureBuilder const &, OsmElement const & p) override;
   void Finish() override;
 
-  void Merge(CollectorInterface const & collector) override;
-  void MergeInto(MaxspeedsCollector & collector) const override;
+  IMPLEMENT_COLLECTOR_IFACE(MaxspeedsCollector);
+  void MergeInto(MaxspeedsCollector & collector) const;
 
 protected:
   void Save() override;

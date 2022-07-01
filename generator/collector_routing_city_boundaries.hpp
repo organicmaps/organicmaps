@@ -15,11 +15,6 @@
 
 namespace generator
 {
-namespace cache
-{
-class IntermediateDataReaderInterface;
-}  // namespace cache
-
 class RoutingCityBoundariesWriter;
 
 class RoutingCityBoundariesCollector : public CollectorInterface
@@ -49,17 +44,16 @@ public:
 
   RoutingCityBoundariesCollector(
       std::string const & filename, std::string const & dumpFilename,
-      std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache);
+      IDRInterfacePtr const & cache);
 
   // CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache = {}) const override;
+  std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & cache = {}) const override;
 
   void Collect(OsmElement const & osmElement) override;
   void Finish() override;
 
-  void Merge(generator::CollectorInterface const & collector) override;
-  void MergeInto(RoutingCityBoundariesCollector & collector) const override;
+  IMPLEMENT_COLLECTOR_IFACE(RoutingCityBoundariesCollector);
+  void MergeInto(RoutingCityBoundariesCollector & collector) const;
 
   static bool FilterOsmElement(OsmElement const & osmElement);
   void Process(feature::FeatureBuilder & feature, OsmElement const & osmElement);
