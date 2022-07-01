@@ -1,4 +1,4 @@
-‣ La nostra app gratuita non traccia gli utenti e non ha pubblicità.
+‣ La nostra app gratuita non traccia gli utenti e non ha pubblicità, ed è spinta dalle donazioni.
 ‣ Viene costantemente migliorata dal nostro piccolo team, nel nostro tempo libero, utilizzando i nostri soldi e le donazioni/contributi dei nostri utenti.
 ‣ Se qualcosa non va o manca sulla mappa, correggilo in <b>OpenStreetMap</b> e osserva le modifiche nel successivo aggiornamento delle mappe.
 ‣ Se la navigazione o la ricerca non funzionano, inviaci un'e-mail. Rispondiamo a <i>OGNI</i> email e risolveremo al più presto!
