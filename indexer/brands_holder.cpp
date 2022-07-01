@@ -15,8 +15,6 @@
 
 #include "defines.hpp"
 
-using namespace std;
-
 namespace
 {
 enum class State
@@ -40,10 +38,10 @@ bool BrandsHolder::Brand::Name::operator<(BrandsHolder::Brand::Name const & rhs)
   return m_name < rhs.m_name;
 }
 
-BrandsHolder::BrandsHolder(unique_ptr<Reader> && reader)
+BrandsHolder::BrandsHolder(std::unique_ptr<Reader> && reader)
 {
-  ReaderStreamBuf buffer(move(reader));
-  istream s(&buffer);
+  ReaderStreamBuf buffer(std::move(reader));
+  std::istream s(&buffer);
   LoadFromStream(s);
 }
 
@@ -68,24 +66,24 @@ void BrandsHolder::ForEachNameByKeyAndLang(std::string const & key, std::string 
   });
 }
 
-void BrandsHolder::LoadFromStream(istream & s)
+void BrandsHolder::LoadFromStream(std::istream & s)
 {
   m_keys.clear();
   m_keyToName.clear();
 
   State state = State::ParseBrand;
-  string line;
+  std::string line;
   Brand brand;
-  string key;
+  std::string key;
 
   char const kKeyPrefix[] = "brand.";
-  size_t const kKeyPrefixLength = strlen(kKeyPrefix);
+  size_t const kKeyPrefixLength = std::strlen(kKeyPrefix);
 
   int lineNumber = 0;
   while (s.good())
   {
     ++lineNumber;
-    getline(s, line);
+    std::getline(s, line);
     strings::Trim(line);
     // Allow comments starting with '#' character.
     if (!line.empty() && line[0] == '#')
@@ -126,21 +124,21 @@ void BrandsHolder::LoadFromStream(istream & s)
   AddBrand(brand, key);
 }
 
-void BrandsHolder::AddBrand(Brand & brand, string const & key)
+void BrandsHolder::AddBrand(Brand & brand, std::string const & key)
 {
   if (key.empty())
     return;
 
   CHECK(!brand.m_synonyms.empty(), ());
 
-  shared_ptr<Brand> p(new Brand());
+  std::shared_ptr<Brand> p(new Brand());
   p->Swap(brand);
 
   m_keyToName.emplace(key, p);
   CHECK(m_keys.insert(key).second, ("Key duplicate", key));
 }
 
-string DebugPrint(BrandsHolder::Brand::Name const & name)
+std::string DebugPrint(BrandsHolder::Brand::Name const & name)
 {
   std::ostringstream out;
   out << "BrandName[" << StringUtf8Multilang::GetLangByCode(name.m_locale) << ", " << name.m_name

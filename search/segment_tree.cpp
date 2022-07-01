@@ -7,10 +7,10 @@
 #include <functional>
 #include <sstream>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 size_t CeilPow2Minus1(size_t n)

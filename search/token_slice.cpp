@@ -2,10 +2,10 @@
 
 #include <sstream>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 template <typename Slice>

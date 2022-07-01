@@ -10,6 +10,8 @@
 #include <string>
 #include <unordered_map>
 
+namespace brands_loader_test
+{
 using namespace generator;
 using namespace std;
 using base::GeoObjectId;
@@ -59,3 +61,4 @@ UNIT_TEST(LoadBrands)
   TEST_EQUAL(brands[GeoObjectId(GeoObjectId::Type::ObsoleteOsmWay,      149816366)],  "subway", ());
   TEST_EQUAL(brands[GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 6228042)],    "subway", ());
 }
+}  // namespace brands_loader_test

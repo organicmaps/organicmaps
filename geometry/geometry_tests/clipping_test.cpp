@@ -6,10 +6,9 @@
 #include <utility>
 #include <vector>
 
-using namespace std;
-
-namespace
+namespace clipping_test
 {
+using namespace std;
 
 bool CompareTriangleLists(vector<m2::PointD> const & list1, vector<m2::PointD> const & list2)
 {
@@ -59,8 +58,6 @@ vector<m2::SharedSpline> ConstructSplineList(vector<vector<m2::PointD>> const & 
   }
   return result;
 }
-
-} // namespace
 
 UNIT_TEST(Clipping_ClipTriangleByRect)
 {
@@ -278,4 +275,4 @@ UNIT_TEST(Clipping_ClipSplineByRect)
                                                                    { m2::PointD(0.0, 1.0), m2::PointD(0.0, 0.0) } });
   TEST(CompareSplineLists(result6, expectedResult6), ());
 }
-
+} // namespace clipping_test

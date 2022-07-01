@@ -16,7 +16,6 @@
 #include <thread>
 #include <utility>
 
-using namespace std;
 using namespace feature;
 
 using RegionT = m2::RegionI;
@@ -134,8 +133,8 @@ namespace
 class DoDifference
 {
   RectT m_src;
-  vector<RegionT> m_res;
-  vector<m2::PointD> m_points;
+  std::vector<RegionT> m_res;
+  std::vector<m2::PointD> m_points;
 
 public:
   explicit DoDifference(RegionT const & rgn)
@@ -174,7 +173,7 @@ public:
     {
       m_points.clear();
       m_points.reserve(m_res[i].Size() + 1);
-      m_res[i].ForEachPoint(ref(*this));
+      m_res[i].ForEachPoint(std::ref(*this));
       fb.AddPolygon(m_points);
     }
   }
@@ -186,7 +185,7 @@ class RegionInCellSplitter final
 public:
   using TCell = RectId;
   using TIndex = m4::Tree<m2::RegionI>;
-  using TProcessResultFunc = function<void(TCell const &, DoDifference &)>;
+  using TProcessResultFunc = std::function<void(TCell const &, DoDifference &)>;
 
   static int constexpr kStartLevel = 4;
   static int constexpr kHighLevel = 10;
@@ -195,9 +194,9 @@ public:
 protected:
   struct Context
   {
-    mutex mutexTasks;
-    list<TCell> listTasks;
-    condition_variable listCondVar;
+    std::mutex mutexTasks;
+    std::list<TCell> listTasks;
+    std::condition_variable listCondVar;
     size_t inWork = 0;
     TProcessResultFunc processResultFunc;
   };
@@ -220,8 +219,8 @@ public:
 
     ctx.processResultFunc = funcResult;
 
-    vector<RegionInCellSplitter> instances;
-    vector<thread> threads;
+    std::vector<RegionInCellSplitter> instances;
+    std::vector<std::thread> threads;
     for (size_t i = 0; i < numThreads; ++i)
     {
       instances.emplace_back(RegionInCellSplitter(ctx, index));
@@ -249,7 +248,7 @@ public:
     // Do 'and' with all regions and accumulate the result, including bound region.
     // In 'odd' parts we will have an ocean.
     DoDifference doDiff(rectR);
-    m_index.ForEachInRect(GetLimitRect(rectR), bind<void>(ref(doDiff), placeholders::_1));
+    m_index.ForEachInRect(GetLimitRect(rectR), std::bind<void>(std::ref(doDiff), std::placeholders::_1));
 
     // Check if too many points for feature.
     if (cell.Level() < kHighLevel && doDiff.GetPointsCount() >= kMaxPoints)
@@ -264,7 +263,7 @@ public:
     // thread main loop
     while (true)
     {
-      unique_lock<mutex> lock(m_ctx.mutexTasks);
+      std::unique_lock<std::mutex> lock(m_ctx.mutexTasks);
       m_ctx.listCondVar.wait(lock, [&]{return (!m_ctx.listTasks.empty() || m_ctx.inWork == 0);});
       if (m_ctx.listTasks.empty())
         break;
@@ -289,12 +288,12 @@ public:
   }
 };
 
-void CoastlineFeaturesGenerator::GetFeatures(vector<FeatureBuilder> & features)
+void CoastlineFeaturesGenerator::GetFeatures(std::vector<FeatureBuilder> & features)
 {
-  size_t const maxThreads = thread::hardware_concurrency();
+  size_t const maxThreads = std::thread::hardware_concurrency();
   CHECK_GREATER(maxThreads, 0, ("Not supported platform"));
 
-  mutex featuresMutex;
+  std::mutex featuresMutex;
   RegionInCellSplitter::Process(
       maxThreads, RegionInCellSplitter::kStartLevel, m_tree,
       [&features, &featuresMutex](RegionInCellSplitter::TCell const & cell, DoDifference & cellData)
@@ -312,7 +311,7 @@ void CoastlineFeaturesGenerator::GetFeatures(vector<FeatureBuilder> & features)
         CHECK_GREATER_OR_EQUAL(fb.GetPointsCount(), 3, ());
 
         // save result
-        lock_guard<mutex> lock(featuresMutex);
-        features.emplace_back(move(fb));
+        std::lock_guard<std::mutex> lock(featuresMutex);
+        features.emplace_back(std::move(fb));
       });
 }

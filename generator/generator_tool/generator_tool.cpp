@@ -71,13 +71,11 @@
 
 #include "build_version.hpp"
 
-using namespace std;
-
 namespace
 {
 char const * GetDataPathHelp()
 {
-  static string const kHelp =
+  static std::string const kHelp =
       "Directory where the generated mwms are put into. Also used as the path for helper "
       "functions, such as those that calculate statistics and regenerate sections. "
       "Default: " +
@@ -209,10 +207,11 @@ DEFINE_uint64(threads_count, 0, "Desired count of threads. If count equals zero,
                                 "threads is set automatically.");
 DEFINE_bool(verbose, false, "Provide more detailed output.");
 
-using namespace generator;
-
 MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 {
+  using namespace generator;
+  using namespace std;
+
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
   gflags::SetUsageMessage(

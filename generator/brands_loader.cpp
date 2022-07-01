@@ -15,11 +15,13 @@
 #include <utility>
 #include <vector>
 
+namespace generator
+{
+namespace
+{
 using namespace std;
 using base::GeoObjectId;
 
-namespace
-{
 DECLARE_EXCEPTION(ParsingError, RootException);
 
 void ParseFeatureToBrand(json_t * root, string const & field, GeoObjectId::Type type,
@@ -83,8 +85,6 @@ void ParseTranslations(json_t * root, set<string> const & keys,
 }
 }  // namespace
 
-namespace generator
-{
 bool LoadBrands(string const & brandsFilename, string const & translationsFilename,
                 unordered_map<GeoObjectId, string> & brands)
 {

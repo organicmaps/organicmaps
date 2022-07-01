@@ -4,8 +4,6 @@
 
 #include "geometry/covering_utils.hpp"
 
-using namespace std;
-
 namespace
 {
 // This class should only be used with covering::CoverObject()!
@@ -20,8 +18,8 @@ public:
       : m_a(a), m_b(b), m_c(c) {}
   };
 
-  vector<m2::PointD> m_polyline;
-  vector<Trg> m_trg;
+  std::vector<m2::PointD> m_polyline;
+  std::vector<Trg> m_trg;
   m2::RectD m_rect;
 
   // Note:
@@ -35,7 +33,7 @@ public:
     m2::RectD cellRect;
     {
       // Check for limit rect intersection.
-      pair<uint32_t, uint32_t> const xy = cell.XY();
+      std::pair<uint32_t, uint32_t> const xy = cell.XY();
       uint32_t const r = cell.Radius();
       ASSERT_GREATER_OR_EQUAL(xy.first, r, ());
       ASSERT_GREATER_OR_EQUAL(xy.second, r, ());
@@ -125,23 +123,23 @@ void GetIntersection(FeatureType & f, FeatureIntersector<DEPTH_LEVELS> & fIsect)
 }
 
 template <int DEPTH_LEVELS>
-vector<int64_t> CoverIntersection(FeatureIntersector<DEPTH_LEVELS> const & fIsect, int cellDepth,
-                                  uint64_t cellPenaltyArea)
+std::vector<int64_t> CoverIntersection(FeatureIntersector<DEPTH_LEVELS> const & fIsect, int cellDepth,
+                                       uint64_t cellPenaltyArea)
 {
   if (fIsect.m_trg.empty() && fIsect.m_polyline.size() == 1)
   {
     m2::PointD const pt = fIsect.m_polyline[0];
-    return vector<int64_t>(
+    return std::vector<int64_t>(
         1, m2::CellId<DEPTH_LEVELS>::FromXY(static_cast<uint32_t>(pt.x),
                                             static_cast<uint32_t>(pt.y), DEPTH_LEVELS - 1)
                .ToInt64(cellDepth));
   }
 
-  vector<m2::CellId<DEPTH_LEVELS>> cells;
+  std::vector<m2::CellId<DEPTH_LEVELS>> cells;
   covering::CoverObject(fIsect, cellPenaltyArea, cells, cellDepth,
                         m2::CellId<DEPTH_LEVELS>::Root());
 
-  vector<int64_t> res(cells.size());
+  std::vector<int64_t> res(cells.size());
   for (size_t i = 0; i < cells.size(); ++i)
     res[i] = cells[i].ToInt64(cellDepth);
 
@@ -151,7 +149,7 @@ vector<int64_t> CoverIntersection(FeatureIntersector<DEPTH_LEVELS> const & fIsec
 
 namespace covering
 {
-vector<int64_t> CoverFeature(FeatureType & f, int cellDepth, uint64_t cellPenaltyArea)
+std::vector<int64_t> CoverFeature(FeatureType & f, int cellDepth, uint64_t cellPenaltyArea)
 {
   FeatureIntersector<RectId::DEPTH_LEVELS> fIsect;
   GetIntersection(f, fIsect);
@@ -166,7 +164,7 @@ void SortAndMergeIntervals(Intervals v, Intervals & res)
     ASSERT_LESS(v[i].first, v[i].second, (i));
 #endif
 
-  sort(v.begin(), v.end());
+  std::sort(v.begin(), v.end());
 
   res.reserve(v.size());
   for (size_t i = 0; i < v.size(); ++i)
@@ -174,7 +172,7 @@ void SortAndMergeIntervals(Intervals v, Intervals & res)
     if (i == 0 || res.back().second < v[i].first)
       res.push_back(v[i]);
     else
-      res.back().second = max(res.back().second, v[i].second);
+      res.back().second = std::max(res.back().second, v[i].second);
   }
 }
 

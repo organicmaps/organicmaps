@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+namespace cellid_test
+{
 using namespace std;
 
 UNIT_TEST(CellId_Parent)
@@ -252,3 +254,4 @@ UNIT_TEST(CellId_ToAndFromInt64ZOrder)
   for (uint64_t id = 1; id <= atDepth3.size(); ++id)
     TEST_EQUAL(Id::FromInt64(id, 3), Id(atDepth3[id - 1]), ());
 }
+}  // namespace cellid_test

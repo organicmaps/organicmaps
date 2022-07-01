@@ -11,10 +11,10 @@
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 StreetVicinityLoader::StreetVicinityLoader(int scale, double offsetMeters)
   : m_context(nullptr), m_scale(scale), m_offsetMeters(offsetMeters), m_cache("Streets")
 {

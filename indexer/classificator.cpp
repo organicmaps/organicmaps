@@ -10,7 +10,7 @@
 #include <functional>
 #include <iterator>
 
-using namespace std;
+using std::string;
 
 namespace
 {
@@ -58,7 +58,7 @@ void ClassifObject::AddDrawRule(drule::Key const & k)
   m_drawRule.insert(i, k);
 }
 
-ClassifObjectPtr ClassifObject::BinaryFind(string_view const s) const
+ClassifObjectPtr ClassifObject::BinaryFind(std::string_view const s) const
 {
   auto const i = lower_bound(m_objs.begin(), m_objs.end(), s, LessName());
   if ((i == m_objs.end()) || ((*i).m_name != s))
@@ -86,7 +86,7 @@ void ClassifObject::Sort()
 {
   sort(m_drawRule.begin(), m_drawRule.end(), less_scales());
   sort(m_objs.begin(), m_objs.end(), LessName());
-  for_each(m_objs.begin(), m_objs.end(), bind(&ClassifObject::Sort, placeholders::_1));
+  for_each(m_objs.begin(), m_objs.end(), std::bind(&ClassifObject::Sort, std::placeholders::_1));
 }
 
 void ClassifObject::Swap(ClassifObject & r)
@@ -238,7 +238,7 @@ namespace
 {
   class suitable_getter
   {
-    typedef vector<drule::Key> vec_t;
+    typedef std::vector<drule::Key> vec_t;
     typedef vec_t::const_iterator iter_t;
 
     vec_t const & m_rules;
@@ -328,10 +328,10 @@ bool ClassifObject::IsDrawableLike(feature::GeomType gt, bool emptyName) const
   return false;
 }
 
-pair<int, int> ClassifObject::GetDrawScaleRange() const
+std::pair<int, int> ClassifObject::GetDrawScaleRange() const
 {
   if (!IsDrawableAny())
-    return make_pair(-1, -1);
+    return std::make_pair(-1, -1);
 
   int const count = static_cast<int>(m_visibility.size());
 
@@ -353,10 +353,10 @@ pair<int, int> ClassifObject::GetDrawScaleRange() const
       break;
     }
 
-  return make_pair(left, right);
+  return std::make_pair(left, right);
 }
 
-void Classificator::ReadClassificator(istream & s)
+void Classificator::ReadClassificator(std::istream & s)
 {
   ClassifObject::LoadPolicy policy(&m_root);
   tree::LoadTreeAsText(s, policy);
@@ -387,39 +387,39 @@ uint32_t Classificator::GetTypeByPathImpl(Iter beg, Iter end) const
   return type;
 }
 
-uint32_t Classificator::GetTypeByPathSafe(vector<string_view> const & path) const
+uint32_t Classificator::GetTypeByPathSafe(std::vector<std::string_view> const & path) const
 {
   return GetTypeByPathImpl(path.begin(), path.end());
 }
 
-uint32_t Classificator::GetTypeByPath(vector<string> const & path) const
+uint32_t Classificator::GetTypeByPath(std::vector<std::string> const & path) const
 {
   uint32_t const type = GetTypeByPathImpl(path.cbegin(), path.cend());
   ASSERT_NOT_EQUAL(type, INVALID_TYPE, (path));
   return type;
 }
 
-uint32_t Classificator::GetTypeByPath(vector<string_view> const & path) const
+uint32_t Classificator::GetTypeByPath(std::vector<std::string_view> const & path) const
 {
   uint32_t const type = GetTypeByPathImpl(path.cbegin(), path.cend());
   ASSERT_NOT_EQUAL(type, INVALID_TYPE, (path));
   return type;
 }
 
-uint32_t Classificator::GetTypeByPath(initializer_list<char const *> const & lst) const
+uint32_t Classificator::GetTypeByPath(std::initializer_list<char const *> const & lst) const
 {
   uint32_t const type = GetTypeByPathImpl(lst.begin(), lst.end());
   ASSERT_NOT_EQUAL(type, INVALID_TYPE, (lst));
   return type;
 }
 
-uint32_t Classificator::GetTypeByReadableObjectName(string const & name) const
+uint32_t Classificator::GetTypeByReadableObjectName(std::string const & name) const
 {
   ASSERT(!name.empty(), ());
   return GetTypeByPathSafe(strings::Tokenize(name, "-"));
 }
 
-void Classificator::ReadTypesMapping(istream & s)
+void Classificator::ReadTypesMapping(std::istream & s)
 {
   m_mapping.Load(s);
 }

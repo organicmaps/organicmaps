@@ -31,12 +31,12 @@
 
 #include "defines.hpp"
 
-using namespace indexer;
-using namespace search;
-using namespace std;
-
 namespace generator
 {
+using namespace indexer;
+using namespace search;
+using std::string, std::vector;
+
 namespace
 {
 template <typename BoundariesTable, typename MappingReader>
@@ -74,9 +74,9 @@ bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
 bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeaturePath,
                            OsmIdToBoundariesTable & table)
 {
-  using Mapping = unordered_map<uint32_t, base::GeoObjectId>;
+  using Mapping = std::unordered_map<uint32_t, base::GeoObjectId>;
 
-  return BuildCitiesBoundaries(dataPath, table, [&]() -> unique_ptr<Mapping> {
+  return BuildCitiesBoundaries(dataPath, table, [&]() -> std::unique_ptr<Mapping> {
     Mapping mapping;
     // todo(@m) Use osmToFeaturePath?
     if (!ParseFeatureIdToOsmIdMapping(dataPath + OSM2FEATURE_FILE_EXTENSION, mapping))
@@ -84,22 +84,22 @@ bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeatureP
       LOG(LERROR, ("Can't parse feature id to osm id mapping."));
       return {};
     }
-    return make_unique<Mapping>(move(mapping));
+    return std::make_unique<Mapping>(move(mapping));
   });
 }
 
 bool BuildCitiesBoundariesForTesting(string const & dataPath, TestIdToBoundariesTable & table)
 {
-  using Mapping = unordered_map<uint32_t, uint64_t>;
+  using Mapping = std::unordered_map<uint32_t, uint64_t>;
 
-  return BuildCitiesBoundaries(dataPath, table, [&]() -> unique_ptr<Mapping> {
+  return BuildCitiesBoundaries(dataPath, table, [&]() -> std::unique_ptr<Mapping> {
     Mapping mapping;
     if (!ParseFeatureIdToTestIdMapping(dataPath, mapping))
     {
       LOG(LERROR, ("Can't parse feature id to test id mapping."));
       return {};
     }
-    return make_unique<Mapping>(move(mapping));
+    return std::make_unique<Mapping>(move(mapping));
   });
 }
 

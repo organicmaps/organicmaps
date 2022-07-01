@@ -3,8 +3,6 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-using namespace std;
-
 namespace m2
 {
 Packer::Packer()
@@ -67,7 +65,7 @@ Packer::handle_t Packer::pack(unsigned width, unsigned height)
   }
 
   /// can pack
-  m_yStep = max(height, m_yStep);
+  m_yStep = std::max(height, m_yStep);
   handle_t curHandle = m_currentHandle++;
   m_rects[curHandle] = m2::RectU(m_currentX, m_currentY, m_currentX + width, m_currentY + height);
   m_currentX += width;
@@ -108,7 +106,7 @@ bool Packer::hasRoom(m2::PointU const * sizes, size_t cnt) const
     {
       if (height <= m_height - currentY)
       {
-        yStep = max(height, yStep);
+        yStep = std::max(height, yStep);
         currentX += width;
       }
       else
@@ -124,7 +122,7 @@ bool Packer::hasRoom(m2::PointU const * sizes, size_t cnt) const
       {
         if (height <= m_height - currentY)
         {
-          yStep = max(height, yStep);
+          yStep = std::max(height, yStep);
           currentX += width;
         }
         else
