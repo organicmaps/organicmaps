@@ -1,7 +1,5 @@
 #include "generator/filter_roads.hpp"
 
-using namespace feature;
-
 namespace generator
 {
 std::shared_ptr<FilterInterface> FilterRoads::Clone() const

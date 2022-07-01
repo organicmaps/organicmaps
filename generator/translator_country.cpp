@@ -120,7 +120,7 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
       std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
   collectors->Append(std::make_shared<routing_builder::RestrictionWriter>(
       info.GetIntermediateFileName(RESTRICTIONS_FILENAME), cache->GetCache()));
-  collectors->Append(std::make_shared<routing_builder::RoadAccessWriter>(
+  collectors->Append(std::make_shared<routing_builder::RoadAccessCollector>(
       info.GetIntermediateFileName(ROAD_ACCESS_FILENAME)));
   collectors->Append(std::make_shared<routing_builder::CameraCollector>(
       info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME)));
@@ -156,8 +156,6 @@ void TranslatorCountry::Preprocess(OsmElement & element)
     m_osmTagMixer->Process(element);
   CollectFromRelations(element);
 }
-
-void TranslatorCountry::Merge(TranslatorInterface const & other) { other.MergeInto(*this); }
 
 void TranslatorCountry::MergeInto(TranslatorCountry & other) const { MergeIntoBase(other); }
 

@@ -27,25 +27,8 @@ namespace feature
 class MetalinesBuilder;
 }  // namespace feature
 
-namespace routing_builder
-{
-class CameraCollector;
-class RestrictionWriter;
-class RoadAccessWriter;
-}
-
 namespace generator
 {
-class BoundaryPostcodeCollector;
-class CollectorCollection;
-class CollectorTag;
-class MaxspeedsCollector;
-class MiniRoundaboutCollector;
-class CityAreaCollector;
-class CrossMwmOsmWaysCollector;
-class RoutingCityBoundariesCollector;
-class BuildingPartsCollector;
-
 namespace cache
 {
 class IntermediateDataReaderInterface;
@@ -61,8 +44,10 @@ public:
   CollectorInterface(std::string const & filename = {}) : m_id(CreateId()), m_filename(filename) {}
   virtual ~CollectorInterface() { CHECK(Platform::RemoveFileIfExists(GetTmpFilename()), (GetTmpFilename())); }
 
-  virtual std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<cache::IntermediateDataReaderInterface> const & = {}) const = 0;
+  using IDRInterfacePtr = std::shared_ptr<cache::IntermediateDataReaderInterface>;
+  /// @param[in] cache Use passed (not saved) cache to create a clone, because cache also may (should) be cloned.
+  /// Empty \a cache used in unit tests only. Generator's cache is always valid.
+  virtual std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & cache = {}) const = 0;
 
   virtual void Collect(OsmElement const &) {}
   virtual void CollectRelation(RelationElement const &) {}
@@ -70,20 +55,6 @@ public:
   virtual void Finish() {}
 
   virtual void Merge(CollectorInterface const &) = 0;
-
-  virtual void MergeInto(CollectorCollection &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(BoundaryPostcodeCollector &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(CityAreaCollector &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(routing_builder::CameraCollector &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(MiniRoundaboutCollector &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(routing_builder::RestrictionWriter &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(routing_builder::RoadAccessWriter &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(CollectorTag &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(MaxspeedsCollector &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(feature::MetalinesBuilder &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(CrossMwmOsmWaysCollector &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(RoutingCityBoundariesCollector &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(BuildingPartsCollector &) const { FailIfMethodUnsupported(); }
 
   virtual void Finalize(bool isStable = false)
   {
@@ -100,7 +71,6 @@ protected:
   virtual void OrderCollectedData() {}
 
 private:
-  void FailIfMethodUnsupported() const { CHECK(false, ("This method is unsupported.")); }
   int CreateId()
   {
     static std::atomic_int id{0};
@@ -111,3 +81,9 @@ private:
   std::string m_filename;
 };
 }  // namespace generator
+
+#define IMPLEMENT_COLLECTOR_IFACE(className)                \
+  void Merge(CollectorInterface const & ci) override        \
+  {                                                         \
+    dynamic_cast<className const &>(ci).MergeInto(*this);   \
+  }

@@ -9,24 +9,21 @@
 #include "routing/vehicle_mask.hpp"
 
 #include <array>
-#include <cstdint>
 #include <map>
 #include <memory>
 #include <optional>
-#include <ostream>
 #include <set>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
 
-// The road accessibility information is collected in the same manner
-// as the restrictions are.
-// See generator/restriction_generator.hpp for details.
 namespace routing_builder
 {
 using RoadAccess = routing::RoadAccess;
 using VehicleType = routing::VehicleType;
+
+using RoadAccessByVehicleType = std::array<RoadAccess, static_cast<size_t>(VehicleType::Count)>;
 
 struct AccessConditional
 {
@@ -82,22 +79,21 @@ private:
   std::unordered_map<uint64_t, std::vector<AccessConditional>> m_wayToAccessConditional;
 };
 
-class RoadAccessWriter : public generator::CollectorInterface
+class RoadAccessCollector : public generator::CollectorInterface
 {
 public:
-  explicit RoadAccessWriter(std::string const & filename);
+  explicit RoadAccessCollector(std::string const & filename);
 
   // CollectorInterface overrides:
-  ~RoadAccessWriter() override;
+  ~RoadAccessCollector() override;
 
-  std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const override;
+  std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & = {}) const override;
 
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & elem) override;
   void Finish() override;
 
-  void Merge(generator::CollectorInterface const & collector) override;
-  void MergeInto(RoadAccessWriter & collector) const override;
+  IMPLEMENT_COLLECTOR_IFACE(RoadAccessCollector);
+  void MergeInto(RoadAccessCollector & collector) const;
 
 protected:
   void Save() override;
@@ -107,26 +103,6 @@ private:
   std::string m_waysFilename;
   std::unique_ptr<FileWriter> m_waysWriter;
   std::vector<RoadAccessTagProcessor> m_tagProcessors;
-};
-
-class RoadAccessCollector
-{
-public:
-  using RoadAccessByVehicleType = std::array<RoadAccess, static_cast<size_t>(VehicleType::Count)>;
-
-  RoadAccessCollector(std::string const & roadAccessPath,
-                      std::string const & osmIdsToFeatureIdsPath);
-
-  RoadAccessByVehicleType const & GetRoadAccessAllTypes() const
-  {
-    return m_roadAccessByVehicleType;
-  }
-
-  bool IsValid() const { return m_valid; }
-
-private:
-  RoadAccessByVehicleType m_roadAccessByVehicleType;
-  bool m_valid;
 };
 
 class AccessConditionalTagParser
@@ -148,6 +124,9 @@ private:
 
   std::vector<RoadAccessTagProcessor::TagMapping> m_vehiclesToRoadAccess;
 };
+
+bool ReadRoadAccess(std::string const & roadAccessPath, std::string const & osmIdsToFeatureIdsPath,
+                    RoadAccessByVehicleType & roadAccessByVehicleType);
 
 // The generator tool's interface to writing the section with
 // road accessibility information for one mwm file.

@@ -16,12 +16,11 @@
 #include <algorithm>
 #include <iterator>
 
-using namespace feature;
-
 namespace generator
 {
-BoundaryPostcodeCollector::BoundaryPostcodeCollector(
-    std::string const & filename, std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
+using namespace feature;
+
+BoundaryPostcodeCollector::BoundaryPostcodeCollector(std::string const & filename, IDRInterfacePtr const & cache)
   : CollectorInterface(filename)
   , m_writer(std::make_unique<FileWriter>(GetTmpFilename()))
   , m_cache(cache)
@@ -29,8 +28,7 @@ BoundaryPostcodeCollector::BoundaryPostcodeCollector(
 {
 }
 
-std::shared_ptr<CollectorInterface> BoundaryPostcodeCollector::Clone(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache) const
+std::shared_ptr<CollectorInterface> BoundaryPostcodeCollector::Clone(IDRInterfacePtr const & cache) const
 {
   return std::make_shared<BoundaryPostcodeCollector>(GetFilename(), cache ? cache : m_cache);
 }
@@ -87,11 +85,6 @@ void BoundaryPostcodeCollector::OrderCollectedData()
     utils::WriteString(writer, p.first);
     rw::WriteVectorOfPOD(writer, p.second);
   }
-}
-
-void BoundaryPostcodeCollector::Merge(generator::CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
 }
 
 void BoundaryPostcodeCollector::MergeInto(BoundaryPostcodeCollector & collector) const

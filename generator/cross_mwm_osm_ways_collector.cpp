@@ -24,8 +24,7 @@ CrossMwmOsmWaysCollector::CrossMwmOsmWaysCollector(
 {
 }
 
-std::shared_ptr<CollectorInterface> CrossMwmOsmWaysCollector::Clone(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const &) const
+std::shared_ptr<CollectorInterface> CrossMwmOsmWaysCollector::Clone(IDRInterfacePtr const &) const
 {
   return std::make_shared<CrossMwmOsmWaysCollector>(m_intermediateDir, m_affiliation);
 }
@@ -140,11 +139,6 @@ void CrossMwmOsmWaysCollector::OrderCollectedData()
   auto const & crossMwmOsmWaysDir = base::JoinPath(m_intermediateDir, CROSS_MWM_OSM_WAYS_DIR);
   for (auto const & item : m_mwmToCrossMwmOsmIds)
     OrderTextFileByLine(base::JoinPath(crossMwmOsmWaysDir, item.first));
-}
-
-void CrossMwmOsmWaysCollector::Merge(generator::CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
 }
 
 void CrossMwmOsmWaysCollector::MergeInto(CrossMwmOsmWaysCollector & collector) const

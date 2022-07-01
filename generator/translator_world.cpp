@@ -64,7 +64,5 @@ void TranslatorWorld::Preprocess(OsmElement & element)
     m_osmTagMixer->Process(element);
 }
 
-void TranslatorWorld::Merge(TranslatorInterface const & other) { other.MergeInto(*this); }
-
 void TranslatorWorld::MergeInto(TranslatorWorld & other) const { MergeIntoBase(other); }
 }  // namespace generator

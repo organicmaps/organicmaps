@@ -34,8 +34,6 @@ bool TranslatorCollection::Save()
   return base::AllOf(m_collection, [](auto & t) { return t->Save(); });
 }
 
-void TranslatorCollection::Merge(TranslatorInterface const & other) { other.MergeInto(*this); }
-
 void TranslatorCollection::MergeInto(TranslatorCollection & other) const
 {
   auto & otherCollection = other.m_collection;

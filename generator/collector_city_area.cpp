@@ -24,8 +24,7 @@ CityAreaCollector::CityAreaCollector(std::string const & filename)
   : CollectorInterface(filename),
     m_writer(std::make_unique<FeatureBuilderWriter<MaxAccuracy>>(GetTmpFilename())) {}
 
-std::shared_ptr<CollectorInterface> CityAreaCollector::Clone(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const &) const
+std::shared_ptr<CollectorInterface> CityAreaCollector::Clone(IDRInterfacePtr const &) const
 {
   return std::make_shared<CityAreaCollector>(GetFilename());
 }
@@ -60,11 +59,6 @@ void CityAreaCollector::OrderCollectedData()
   FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(GetFilename());
   for (auto const & fb : fbs)
     writer.Write(fb);
-}
-
-void CityAreaCollector::Merge(generator::CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
 }
 
 void CityAreaCollector::MergeInto(CityAreaCollector & collector) const

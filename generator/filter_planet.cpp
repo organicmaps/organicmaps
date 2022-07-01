@@ -1,7 +1,5 @@
 #include "generator/filter_planet.hpp"
 
-using namespace feature;
-
 namespace generator
 {
 std::shared_ptr<FilterInterface> FilterPlanet::Clone() const
@@ -19,7 +17,7 @@ bool FilterPlanet::IsAccepted(OsmElement const & element) const
   return true;
 }
 
-bool FilterPlanet::IsAccepted(FeatureBuilder const & feature) const
+bool FilterPlanet::IsAccepted(feature::FeatureBuilder const & feature) const
 {
   auto const & params = feature.GetParams();
   return params.IsValid();

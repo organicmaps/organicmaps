@@ -27,8 +27,8 @@ public:
   // TranslatorInterface overrides:
   std::shared_ptr<TranslatorInterface> Clone() const override;
 
-  void Merge(TranslatorInterface const & other) override;
-  void MergeInto(TranslatorCoastline & other) const override;
+  IMPLEMENT_TRANSLATOR_IFACE(TranslatorCoastline);
+  void MergeInto(TranslatorCoastline & other) const;
 
 protected:
   using Translator::Translator;

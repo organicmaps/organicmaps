@@ -186,8 +186,7 @@ void CameraProcessor::OrderCollectedData(std::string const & filename)
 CameraCollector::CameraCollector(std::string const & filename) :
   generator::CollectorInterface(filename), m_processor(GetTmpFilename()) {}
 
-std::shared_ptr<generator::CollectorInterface> CameraCollector::Clone(
-    std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const
+std::shared_ptr<generator::CollectorInterface> CameraCollector::Clone(IDRInterfacePtr const &) const
 {
   return std::make_shared<CameraCollector>(GetFilename());
 }
@@ -221,11 +220,6 @@ void CameraCollector::Finish()
 void CameraCollector::Save() { m_processor.Save(GetFilename()); }
 
 void CameraCollector::OrderCollectedData() { m_processor.OrderCollectedData(GetFilename()); }
-
-void CameraCollector::Merge(generator::CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
-}
 
 void CameraCollector::MergeInto(CameraCollector & collector) const
 {

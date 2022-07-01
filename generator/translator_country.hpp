@@ -32,8 +32,8 @@ public:
 
   std::shared_ptr<TranslatorInterface> Clone() const override;
 
-  void Merge(TranslatorInterface const & other) override;
-  void MergeInto(TranslatorCountry & other) const override;
+  IMPLEMENT_TRANSLATOR_IFACE(TranslatorCountry);
+  void MergeInto(TranslatorCountry & other) const;
 
 protected:
   using Translator::Translator;

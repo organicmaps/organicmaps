@@ -40,8 +40,7 @@ MaxspeedsCollector::MaxspeedsCollector(std::string const & filename)
   m_stream.open(GetTmpFilename());
 }
 
-std::shared_ptr<CollectorInterface> MaxspeedsCollector::Clone(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const &) const
+std::shared_ptr<CollectorInterface> MaxspeedsCollector::Clone(IDRInterfacePtr const &) const
 {
   return std::make_shared<MaxspeedsCollector>(GetFilename());
 }
@@ -131,11 +130,6 @@ void MaxspeedsCollector::Save()
 }
 
 void MaxspeedsCollector::OrderCollectedData() { OrderTextFileByLine(GetFilename()); }
-
-void MaxspeedsCollector::Merge(CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
-}
 
 void MaxspeedsCollector::MergeInto(MaxspeedsCollector & collector) const
 {

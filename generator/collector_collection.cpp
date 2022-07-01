@@ -8,8 +8,7 @@ using namespace feature;
 
 namespace generator
 {
-std::shared_ptr<CollectorInterface> CollectorCollection::Clone(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache) const
+std::shared_ptr<CollectorInterface> CollectorCollection::Clone(IDRInterfacePtr const & cache) const
 {
   auto p = std::make_shared<CollectorCollection>();
   for (auto const & c : m_collection)
@@ -51,11 +50,6 @@ void CollectorCollection::OrderCollectedData()
 {
   for (auto & c : m_collection)
     c->OrderCollectedData();
-}
-
-void CollectorCollection::Merge(CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
 }
 
 void CollectorCollection::MergeInto(CollectorCollection & collector) const

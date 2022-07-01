@@ -45,13 +45,12 @@ public:
 
   // generator::CollectorInterface overrides:
   // @{
-  std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<cache::IntermediateDataReaderInterface> const & = {}) const override;
+  std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & = {}) const override;
 
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & element) override;
 
-  void Merge(generator::CollectorInterface const & collector) override;
-  void MergeInto(CrossMwmOsmWaysCollector & collector) const override;
+  IMPLEMENT_COLLECTOR_IFACE(CrossMwmOsmWaysCollector);
+  void MergeInto(CrossMwmOsmWaysCollector & collector) const;
   // @}
 
 protected:

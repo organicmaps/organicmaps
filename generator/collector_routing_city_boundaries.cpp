@@ -144,7 +144,7 @@ RoutingCityBoundariesCollector::LocalityData::Deserialize(ReaderSource<FileReade
 
 RoutingCityBoundariesCollector::RoutingCityBoundariesCollector(
     std::string const & filename, std::string const & dumpFilename,
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
+    IDRInterfacePtr const & cache)
   : CollectorInterface(filename)
   , m_writer(std::make_unique<RoutingCityBoundariesWriter>(GetTmpFilename()))
   , m_cache(cache)
@@ -153,8 +153,7 @@ RoutingCityBoundariesCollector::RoutingCityBoundariesCollector(
 {
 }
 
-std::shared_ptr<CollectorInterface> RoutingCityBoundariesCollector::Clone(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache) const
+std::shared_ptr<CollectorInterface> RoutingCityBoundariesCollector::Clone(IDRInterfacePtr const & cache) const
 {
   return std::make_shared<RoutingCityBoundariesCollector>(GetFilename(), m_dumpFilename,
                                                           cache ? cache : m_cache);
@@ -238,11 +237,6 @@ void RoutingCityBoundariesCollector::Save()
 void RoutingCityBoundariesCollector::OrderCollectedData()
 {
   m_writer->OrderCollectedData(GetFilename(), m_dumpFilename);
-}
-
-void RoutingCityBoundariesCollector::Merge(generator::CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
 }
 
 void RoutingCityBoundariesCollector::MergeInto(RoutingCityBoundariesCollector & collector) const
