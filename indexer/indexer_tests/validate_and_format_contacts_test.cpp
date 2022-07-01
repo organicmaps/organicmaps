@@ -33,7 +33,7 @@ UNIT_TEST(EditableMapObject_ValidateFacebookPage)
   TEST(!osm::ValidateFacebookPage("spaces are not welcome here"), ());
 
   constexpr char kForbiddenFBSymbols[] = " !@^*()~[]{}#$%&;,:+\"'/\\";
-  for(size_t i=0; i<size(kForbiddenFBSymbols)-1; i++)
+  for(size_t i=0; i<std::size(kForbiddenFBSymbols)-1; i++)
   {
     auto test_str = std::string("special-symbol-") + kForbiddenFBSymbols[i] + "-forbidden";
     TEST(!osm::ValidateFacebookPage(test_str), (test_str));
