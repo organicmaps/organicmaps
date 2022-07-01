@@ -42,8 +42,6 @@
 #include "3party/opening_hours/opening_hours.hpp"
 #include "3party/pugixml/pugixml/src/pugixml.hpp"
 
-using namespace std;
-
 using namespace pugi;
 using feature::GeomType;
 using feature::Metadata;
@@ -67,19 +65,19 @@ constexpr char const * kMatchedFeatureIsEmpty = "Matched feature has no tags";
 
 struct XmlSection
 {
-  XmlSection(FeatureStatus status, string const & sectionName)
+  XmlSection(FeatureStatus status, std::string const & sectionName)
     : m_status(status), m_sectionName(sectionName)
   {
   }
 
   FeatureStatus m_status = FeatureStatus::Untouched;
-  string m_sectionName;
+  std::string m_sectionName;
 };
 
-array<XmlSection, 4> const kXmlSections = {{{FeatureStatus::Deleted, kDeleteSection},
-                                            {FeatureStatus::Modified, kModifySection},
-                                            {FeatureStatus::Obsolete, kObsoleteSection},
-                                            {FeatureStatus::Created, kCreateSection}}};
+std::array<XmlSection, 4> const kXmlSections = {{{FeatureStatus::Deleted, kDeleteSection},
+                                                 {FeatureStatus::Modified, kModifySection},
+                                                 {FeatureStatus::Obsolete, kObsoleteSection},
+                                                 {FeatureStatus::Created, kCreateSection}}};
 
 struct LogHelper
 {
@@ -110,7 +108,7 @@ struct LogHelper
   MwmSet::MwmId const & m_mwmId;
 };
 
-bool NeedsUpload(string const & uploadStatus)
+bool NeedsUpload(std::string const & uploadStatus)
 {
   return uploadStatus != kUploaded && uploadStatus != kDeletedFromOSMServer &&
          uploadStatus != kMatchedFeatureIsEmpty;
@@ -173,6 +171,8 @@ namespace osm
 {
 // TODO(AlexZ): Normalize osm multivalue strings for correct merging
 // (e.g. insert/remove spaces after ';' delimeter);
+
+using namespace std;
 
 Editor::Editor()
   : m_configLoader(m_config)
@@ -565,7 +565,7 @@ EditableProperties Editor::GetEditableProperties(FeatureType & feature) const
     auto const & metadata = originalObjectPtr->GetMetadata();
 
     /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
-    std::string const featureOpeningHours(metadata.Get(feature::Metadata::FMD_OPEN_HOURS));
+    string const featureOpeningHours(metadata.Get(feature::Metadata::FMD_OPEN_HOURS));
     /// @note Empty string is parsed as a valid opening hours rule.
     if (!osmoh::OpeningHours(featureOpeningHours).IsValid())
     {

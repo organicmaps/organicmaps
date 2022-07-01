@@ -3,17 +3,15 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <cstring>
+#include <string>
 #include <unordered_map>
-
-using namespace std;
 
 namespace
 {
 using EType = feature::Metadata::EType;
 
 // TODO(mgsergio): It would be nice to have this map generated from editor.config.
-static unordered_map<string, EType> const kNamesToFMD = {
+static std::unordered_map<std::string, EType> const kNamesToFMD = {
     {"opening_hours", feature::Metadata::FMD_OPEN_HOURS},
     {"phone", feature::Metadata::FMD_PHONE_NUMBER},
     {"fax", feature::Metadata::FMD_FAX_NUMBER},
@@ -44,7 +42,7 @@ static unordered_map<string, EType> const kNamesToFMD = {
     // description
 };
 
-unordered_map<string, int> const kPriorityWeights = {{"high", 0}, {"", 1}, {"low", 2}};
+std::unordered_map<std::string, int> const kPriorityWeights = {{"high", 0}, {"", 1}, {"low", 2}};
 
 bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & node,
                             editor::TypeAggregatedDescription & outDesc)
@@ -52,7 +50,7 @@ bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & 
   if (!node || strcmp(node.attribute("editable").value(), "no") == 0)
     return false;
 
-  auto const handleField = [&outDesc](string const & fieldName) {
+  auto const handleField = [&outDesc](std::string const & fieldName) {
     if (fieldName == "name")
     {
       outDesc.m_name = true;
@@ -82,9 +80,9 @@ bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & 
   for (auto const & xNode : node.select_nodes("include[@group]"))
   {
     auto const node = xNode.node();
-    string const groupName = node.attribute("group").value();
+    std::string const groupName = node.attribute("group").value();
 
-    string const xpath = "/mapsme/editor/fields/field_group[@name='" + groupName + "']";
+    std::string const xpath = "/mapsme/editor/fields/field_group[@name='" + groupName + "']";
     auto const group = root.select_node(xpath.data()).node();
     ASSERT(group, ("No such group", groupName));
 
@@ -98,7 +96,7 @@ bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & 
   for (auto const & xNode : node.select_nodes("include[@field]"))
   {
     auto const node = xNode.node();
-    string const fieldName = node.attribute("field").value();
+    std::string const fieldName = node.attribute("field").value();
     handleField(fieldName);
   }
 
@@ -107,9 +105,9 @@ bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & 
 }
 
 /// The priority is defined by elems order, except elements with priority="high".
-vector<pugi::xml_node> GetPrioritizedTypes(pugi::xml_node const & node)
+std::vector<pugi::xml_node> GetPrioritizedTypes(pugi::xml_node const & node)
 {
-  vector<pugi::xml_node> result;
+  std::vector<pugi::xml_node> result;
   for (auto const & xNode : node.select_nodes("/mapsme/editor/types/type[@id]"))
     result.push_back(xNode.node());
   stable_sort(begin(result), end(result),
@@ -128,11 +126,11 @@ vector<pugi::xml_node> GetPrioritizedTypes(pugi::xml_node const & node)
 
 namespace editor
 {
-bool EditorConfig::GetTypeDescription(vector<string> classificatorTypes,
+bool EditorConfig::GetTypeDescription(std::vector<std::string> classificatorTypes,
                                       TypeAggregatedDescription & outDesc) const
 {
   bool isBuilding = false;
-  vector<string> addTypes;
+  std::vector<std::string> addTypes;
   for (auto it = classificatorTypes.begin(); it != classificatorTypes.end(); ++it)
   {
     if (*it == "building")
@@ -145,7 +143,7 @@ bool EditorConfig::GetTypeDescription(vector<string> classificatorTypes,
     }
     // Adding partial types for 2..N-1 parts of a N-part type.
     auto hyphenPos = it->find('-');
-    while ((hyphenPos = it->find('-', hyphenPos + 1)) != string::npos)
+    while ((hyphenPos = it->find('-', hyphenPos + 1)) != std::string::npos)
     {
       addTypes.push_back(it->substr(0, hyphenPos));
     }
@@ -164,12 +162,12 @@ bool EditorConfig::GetTypeDescription(vector<string> classificatorTypes,
   return TypeDescriptionFromXml(m_document, *it, outDesc);
 }
 
-vector<string> EditorConfig::GetTypesThatCanBeAdded() const
+std::vector<std::string> EditorConfig::GetTypesThatCanBeAdded() const
 {
   auto const xpathResult =
       m_document.select_nodes("/mapsme/editor/types/type[not(@can_add='no' or @editable='no')]");
 
-  vector<string> result;
+  std::vector<std::string> result;
   for (auto const & xNode : xpathResult)
     result.emplace_back(xNode.node().attribute("id").value());
   return result;

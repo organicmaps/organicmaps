@@ -23,10 +23,10 @@
 #include <functional>
 #include <limits>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 size_t constexpr kSimilarityThresholdPercent = 10;

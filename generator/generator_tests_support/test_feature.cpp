@@ -22,13 +22,13 @@
 #include <atomic>
 #include <sstream>
 
-using namespace std;
-using namespace feature;
-
 namespace generator
 {
 namespace tests_support
 {
+using namespace std;
+using namespace feature;
+
 namespace
 {
 uint64_t GenUniqueId()

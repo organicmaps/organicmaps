@@ -9,7 +9,8 @@
 
 #include "source_data.hpp"
 
-
+namespace osm_o5m_source_test
+{
 using namespace std;
 
 UNIT_TEST(OSM_O5M_Source_Node_read_test)
@@ -186,3 +187,4 @@ UNIT_TEST(OSM_O5M_Source_Relation_read_test)
     }
   }
 }
+}  // namespace osm_o5m_source_test

@@ -29,12 +29,10 @@
 
 #include "gflags/gflags.h"
 
-using namespace std;
-
 DEFINE_string(srtm_dir_path, "", "Path to directory with SRTM files");
 DEFINE_string(mwm_file_path, "", "Path to an mwm file.");
 
-namespace
+namespace feature_segments_checker
 {
 using namespace feature;
 
@@ -69,20 +67,20 @@ bool operator< (RoughPoint const & l, RoughPoint const & r)
 }
 
 template <typename Cont>
-void PrintCont(Cont const & cont, string const & title, string const & msgText1,
-               string const & msgText2)
+void PrintCont(Cont const & cont, std::string const & title, std::string const & msgText1,
+               std::string const & msgText2)
 {
-  cout << endl << title << endl;
+  std::cout << std::endl << title << std::endl;
   for (auto const & a : cont)
-    cout << a.second << msgText1 << a.first << msgText2 << endl;
+    std::cout << a.second << msgText1 << a.first << msgText2 << std::endl;
 }
 
 template <typename Cont>
-void WriteCSV(Cont const & cont, string const & fileName)
+void WriteCSV(Cont const & cont, std::string const & fileName)
 {
-  ofstream fout(fileName);
+  std::ofstream fout(fileName);
   for (auto const & a : cont)
-    fout << a.first << "," << a.second << endl;
+    fout << a.first << "," << a.second << std::endl;
 }
 
 /// \returns y = k * x + b. It's the expected altitude in meters.
@@ -91,7 +89,7 @@ double GetY(double k, double b, double x) { return k * x + b; }
 /// \brief Calculates factors |k| and |b| of a line using linear least squares method.
 /// \returns false in case of error (e.g. if the line is parallel to the vertical axis)
 /// and true otherwise.
-bool LinearLeastSquaresFactors(vector<double> const & xs, vector<double> const & ys, double & k,
+bool LinearLeastSquaresFactors(std::vector<double> const & xs, std::vector<double> const & ys, double & k,
                                double & b)
 {
   double constexpr kEpsilon = 1e-6;
@@ -117,34 +115,34 @@ class Processor
 {
 public:
   generator::SrtmTileManager & m_srtmManager;
-  set<RoughPoint> m_uniqueRoadPoints;
+  std::set<RoughPoint> m_uniqueRoadPoints;
   /// Key is an altitude difference for a feature in meters. If a feature goes up the key is greater then 0.
   /// Value is a number of features.
-  map<geometry::Altitude, uint32_t> m_altitudeDiffs;
+  std::map<geometry::Altitude, uint32_t> m_altitudeDiffs;
   /// Key is a length of a feature in meters. Value is a number of features.
-  map<uint32_t, uint32_t> m_featureLength;
+  std::map<uint32_t, uint32_t> m_featureLength;
   /// Key is a length of a feature segment in meters. Value is a segment counter.
-  map<uint32_t, uint32_t> m_segLength;
+  std::map<uint32_t, uint32_t> m_segLength;
   /// Key is difference between two values:
   /// 1. how many meters it's necessary to go up following the feature. If feature wavy
   ///   calculates only raise meters.
   /// 2. the difference in altitude between end and start of features.
   /// Value is a segment counter.
-  map<int32_t, uint32_t> m_featureWave;
+  std::map<int32_t, uint32_t> m_featureWave;
   /// Key is number of meters which is necessary to go up following the feature.
   /// Value is a number of features.
-  map<int32_t, uint32_t> m_featureUp;
+  std::map<int32_t, uint32_t> m_featureUp;
   /// Key is number of meters which is necessary to go down following the feature.
   /// Value is a number of features.
-  map<int32_t, uint32_t> m_featureDown;
+  std::map<int32_t, uint32_t> m_featureDown;
   /// Key is number of meters. It shows altitude deviation of intermediate feature points
   /// from linear model.
   /// Value is a number of features.
-  map<geometry::Altitude, uint32_t> m_diffFromLinear;
+  std::map<geometry::Altitude, uint32_t> m_diffFromLinear;
   /// Key is number of meters. It shows altitude deviation of intermediate feature points
   /// from line calculated base on least squares method for all feature points.
   /// Value is a number of features.
-  map<geometry::Altitude, uint32_t> m_leastSquaresDiff;
+  std::map<geometry::Altitude, uint32_t> m_leastSquaresDiff;
   /// Number of features for GetBicycleModel().IsRoad(feature) == true.
   uint32_t m_roadCount;
   /// Number of features for empty features with GetBicycleModel().IsRoad(feature).
@@ -191,7 +189,7 @@ public:
 
     // Preparing feature altitude and length.
     geometry::Altitudes pointAltitudes(numPoints);
-    vector<double> pointDists(numPoints);
+    std::vector<double> pointDists(numPoints);
     double distFromStartMeters = 0;
     for (uint32_t i = 0; i < numPoints; ++i)
     {
@@ -289,7 +287,7 @@ public:
     {
       double k;
       double b;
-      vector<double> const pointAltitudesMeters(pointAltitudes.begin(), pointAltitudes.end());
+      std::vector<double> const pointAltitudesMeters(pointAltitudes.begin(), pointAltitudes.end());
       if (!LinearLeastSquaresFactors(pointDists, pointAltitudesMeters, k, b))
         return;
 
@@ -303,7 +301,7 @@ public:
   }
 };
 
-double CalculateEntropy(map<geometry::Altitude, uint32_t> const & diffFromLinear)
+double CalculateEntropy(std::map<geometry::Altitude, uint32_t> const & diffFromLinear)
 {
   uint32_t innerPointCount = 0;
   for (auto const & f : diffFromLinear)
@@ -320,10 +318,12 @@ double CalculateEntropy(map<geometry::Altitude, uint32_t> const & diffFromLinear
   }
   return entropy;
 }
-}  // namespace
+}  // namespace feature_segments_checker
 
 int main(int argc, char ** argv)
 {
+  using namespace feature_segments_checker;
+
   gflags::SetUsageMessage("This tool extracts some staticstics about features and its altitudes.");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
@@ -362,6 +362,7 @@ int main(int argc, char ** argv)
             "Altitude deviation of feature points from least squares line.",
             " internal feature point(s) deviate from linear model with ", " meter(s)");
 
+  using std::cout, std::endl;
   cout << endl << FLAGS_mwm_file_path << endl;
   cout << "Road feature count = " << processor.m_roadCount << endl;
   cout << "Empty road feature count = " << processor.m_emptyRoadCount << endl;

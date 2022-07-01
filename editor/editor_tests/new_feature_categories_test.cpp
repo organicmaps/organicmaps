@@ -9,8 +9,6 @@
 #include <algorithm>
 #include <string>
 
-using namespace std;
-
 UNIT_TEST(NewFeatureCategories_UniqueNames)
 {
   classificator::Load();
@@ -22,13 +20,13 @@ UNIT_TEST(NewFeatureCategories_UniqueNames)
 
   for (auto const & locale : CategoriesHolder::kLocaleMapping)
   {
-    string const lang(locale.m_name);
-    if (find(disabled.begin(), disabled.end(), lang) != disabled.end())
+    std::string const lang(locale.m_name);
+    if (std::find(disabled.begin(), disabled.end(), lang) != disabled.end())
       continue;
     categories.AddLanguage(lang);
     auto names = categories.GetAllCreatableTypeNames();
-    sort(names.begin(), names.end());
-    auto result = unique(names.begin(), names.end());
+    std::sort(names.begin(), names.end());
+    auto result = std::unique(names.begin(), names.end());
 
     if (result != names.end())
     {

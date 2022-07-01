@@ -16,12 +16,13 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 namespace generator
 {
-namespace mwm_diff
+namespace diff_tests
 {
+using namespace mwm_diff;
+using namespace std;
+
 UNIT_TEST(IncrementalUpdates_Smoke)
 {
   base::ScopedLogAbortLevelChanger ignoreLogError(base::LogLevel::LCRITICAL);
@@ -92,5 +93,5 @@ UNIT_TEST(IncrementalUpdates_Smoke)
   TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable),
              DiffApplicationResult::Failed, ());
 }
-}  // namespace mwm_diff
+}  // namespace diff_tests
 }  // namespace generator
