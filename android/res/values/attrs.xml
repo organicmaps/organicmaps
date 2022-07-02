@@ -26,31 +26,6 @@
     <attr name="progress" format="integer"/>
   </declare-styleable>
 
-  <declare-styleable name="RatingView">
-    <attr name="android:textSize"/>
-    <attr name="android:text"/>
-    <attr name="android:alpha"/>
-    <attr name="rating" format="enum">
-      <enum name="none" value="0" />
-      <enum name="horrible" value="1"/>
-      <enum name="bad" value="2"/>
-      <enum name="normal" value="3"/>
-      <enum name="good" value="4"/>
-      <enum name="excellent" value="5"/>
-      <enum name="coming_soon" value="6"/>
-      <enum name="popular" value="7"/>
-      <enum name="discount" value="8"/>
-    </attr>
-    <attr name="drawSmile" format="boolean"/>
-    <attr name="forceDrawBg" format="boolean"/>
-    <attr name="android:ellipsize" format="enum">
-      <enum name="START" value="0" />
-      <enum name="MIDDLE" value="1"/>
-      <enum name="END" value="2"/>
-      <enum name="MARQUEE" value="3"/>
-    </attr>
-  </declare-styleable>
-
   <declare-styleable name="TransitStepView">
     <attr name="android:textSize"/>
     <attr name="android:textColor"/>
@@ -74,9 +49,7 @@
   <attr name="subwayMenuEnabled" format="reference"/>
   <attr name="isoLinesMenuEnabled" format="reference"/>
   <attr name="accentColorSelector" format="color"/>
-  <attr name="accentDot" format="reference"/>
   <attr name="bookingFilterTitleColor" format="color"/>
-  <attr name="filterPropertyTextColor" format="color"/>
   <attr name="adsRemovalOptionsBg" format="reference"/>
   <attr name="adsRemovalOptionsDivider" format="color"/>
   <attr name="icClearRounded" format="reference"/>
@@ -85,25 +58,4 @@
   <attr name="bookmarkSubscriptionCardBg" format="color"/>
   <attr name="bookmarkSubscriptionCardTextColor" format="color"/>
   <attr name="imgPromoBookingTitle" format="reference"/>
-
-  <declare-styleable name="ParallaxViewPagerBg">
-    <attr name="autoScroll" format="boolean" />
-    <attr name="scrollPeriod" format="integer" />
-  </declare-styleable>
-  <declare-styleable name="SubscriptionButton">
-    <attr name="buttonBackground" />
-    <attr name="buttonTextColor" />
-    <attr name="saleBackground" format="reference" />
-    <attr name="saleTextColor" format="color" />
-    <attr name="showSale" format="boolean" />
-    <attr name="progressColor" />
-  </declare-styleable>
-  <declare-styleable name="InteractiveCounterView">
-    <attr name="android:defaultValue" />
-    <attr name="android:src" />
-    <attr name="minValue" format="integer" />
-    <attr name="maxValue" format="integer" />
-    <attr name="title" format="string" />
-    <attr name="subtitle" format="string" />
-  </declare-styleable>
 </resources>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:shape="rectangle">
-  <solid android:color="@android:color/transparent" />
-  <stroke android:color="@color/routing_button_pressed_tint" android:width="@dimen/divider_width"/>
-  <corners android:radius="@dimen/button_small_corner_radius" />
-</shape>

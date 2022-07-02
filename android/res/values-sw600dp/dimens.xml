@@ -1,12 +1,8 @@
 <resources>
-  <dimen name="dialog_max_height">560dp</dimen>
-
   <!-- direction fragment -->
   <dimen name="margin_direction_small">12dp</dimen>
   <dimen name="margin_direction_big">80dp</dimen>
   <dimen name="margin_direction_side">40dp</dimen>
   <dimen name="margin_direction_mid">36dp</dimen>
   <dimen name="margin_direction_around_center">80dp</dimen>
-
-  <dimen name="info_page_image_size">360dp</dimen>
 </resources>

@@ -25,7 +25,7 @@
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
       android:layout_below="@id/title"
-      android:layout_toStartOf="@id/costopen"
+      android:layout_toStartOf="@id/open"
       android:layout_marginEnd="@dimen/margin_half"
       android:layout_marginTop="@dimen/margin_quarter"
       android:textAppearance="@style/MwmTextAppearance.Body3"
@@ -33,45 +33,14 @@
       android:ellipsize="end"
       tools:text="Hotel \u2022 \u2605\u2605\u2605\u2605\u2605"/>
 
-  <LinearLayout
-      android:id="@+id/costopen"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentEnd="true"
-      android:layout_alignTop="@id/description">
-
-    <LinearLayout
-        android:id="@+id/cost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="invisible"
-        android:gravity="center">
-
-      <TextView
-          android:id="@+id/price_category"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:singleLine="true"
-          tools:text="$$$"/>
-
-      <ImageView
-          android:id="@+id/sale"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/margin_quarter"
-          android:src="?saleIcon"/>
-
-    </LinearLayout>
-
-    <TextView
+  <TextView
       android:id="@+id/open"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_alignTop="@id/description"
       android:text="@string/closed"
       android:textAppearance="@style/MwmTextAppearance.Body3" />
-
-  </LinearLayout>
 
   <TextView
       android:id="@+id/region"
