@@ -444,16 +444,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
 
   Metadata::EType mdType;
   if (!Metadata::TypeFromString(k, mdType))
-  {
-    // Specific cases which do not map directly to our metadata types.
-    if (k == "building:min_level")
-    {
-      // Converting this attribute into height only if min_height has not been already set.
-      if (!md.Has(Metadata::FMD_MIN_HEIGHT))
-        md.Set(Metadata::FMD_MIN_HEIGHT, ValidateAndFormat_building_levels(v));
-    }
     return;
-  }
 
   std::string valid;
   switch (mdType)
@@ -485,6 +476,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_MIN_HEIGHT:  // The same validator as for height.
   case Metadata::FMD_HEIGHT: valid = ValidateAndFormat_height(v); break;
   case Metadata::FMD_DENOMINATION: valid = ValidateAndFormat_denomination(v); break;
+  case Metadata::FMD_BUILDING_MIN_LEVEL:  // The same validator as for building_levels.
   case Metadata::FMD_BUILDING_LEVELS: valid = ValidateAndFormat_building_levels(v); break;
   case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
   case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
