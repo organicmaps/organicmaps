@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Natura";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Harkaitz biluzi";
 
 "type.natural.bay" = "Badia";
 
 "type.natural.beach" = "Hondartza";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Hondartza hondartza";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Legar Hondartza";
 
 "type.natural.cape" = "Lurmuturra";
 
 "type.natural.cave_entrance" = "Haitzuloa";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Labar";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Labarra";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Lubeta";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Itsasertz";
 
 "type.natural.geyser" = "Geyser";
 
 "type.natural.glacier" = "Glaziarra";
 
-"type.natural.grassland" = "Landa";
+"type.natural.grassland" = "Belartza";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Zakardi";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Ur termal";
 
 "type.natural.water.lake" = "Lakua";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "Ibai";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Lur lehor";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Belardi";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Baratzea";
 
 "type.natural.peak" = "Goiena";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Mendiko jarlekua";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Arroka";
 
 "type.natural.scrub" = "Sastrakak";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Zuhaitza";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Zuhaitz ilara";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Mahasti";
 
 "type.natural.volcano" = "Sumendi";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Lur paduratsua";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Zohikaztegi";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Padura";
 
 "type.noexit" = "Dead End";
 

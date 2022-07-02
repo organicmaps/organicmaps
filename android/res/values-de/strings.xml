@@ -1239,7 +1239,7 @@
 	<string name="type.military.bunker">Bunker</string>
 	<string name="type.mountain_pass">Gebirgspass</string>
 	<string name="type.natural">Natur</string>
-	<string name="type.natural.bare_rock">Nackter Fels</string>
+	<string name="type.natural.bare_rock">Kahler Fels</string>
 	<string name="type.natural.bay">Bucht</string>
 	<string name="type.natural.beach">Strand</string>
 	<string name="type.natural.beach.sand">Sandstrand</string>
@@ -1247,7 +1247,9 @@
 	<string name="type.natural.cape">Kap</string>
 	<string name="type.natural.cave_entrance">Höhle</string>
 	<string name="type.natural.cliff">Klippe</string>
-	<string name="type.natural.coastline">Küstenlinie</string>
+	<string name="type.natural.earth_bank">Steilabhang</string>
+	<string name="type.man_made.embankment">Damm</string>
+	<string name="type.natural.coastline">Küste</string>
 	<string name="type.natural.geyser">Geysir</string>
 	<string name="type.natural.glacier">Gletscher</string>
 	<string name="type.natural.grassland">Grasland</string>
@@ -1259,6 +1261,7 @@
 	<string name="type.natural.water.reservoir">Reservoir</string>
 	<string name="type.natural.water.basin">Wasserbecken</string>
 	<string name="type.natural.water.river">Fluss</string>
+	<string name="type.natural.land">Land</string>
 	<string name="type.natural.meadow">Wiese</string>
 	<string name="type.natural.orchard">Garten</string>
 	<string name="type.natural.peak">Gipfel</string>

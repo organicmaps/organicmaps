@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Natur";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Bar stein";
 
 "type.natural.bay" = "Bukt";
 
 "type.natural.beach" = "Strand";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Sandstrand";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Grusstrand";
 
 "type.natural.cape" = "Kapp";
 
 "type.natural.cave_entrance" = "Grotte";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Klippe";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Klippe";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Fylling";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Kyst";
 
 "type.natural.geyser" = "Gaysir";
 
 "type.natural.glacier" = "Isbre";
 
-"type.natural.grassland" = "Slette";
+"type.natural.grassland" = "Sletteland";
 
 "type.natural.heath" = "Heath";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Varm kilde";
 
 "type.natural.water.lake" = "Innsjø";
 
@@ -2416,15 +2416,15 @@
 
 "type.natural.land" = "Land";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Eng";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Frukthage";
 
 "type.natural.peak" = "Høydepunkt";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Fjellsadel";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Bergart";
 
 "type.natural.scrub" = "Myr";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Tre";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Trerekke";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vingård";
 
 "type.natural.volcano" = "Vulkan";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Våtmarksområde";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Myr";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Sump";
 
 "type.noexit" = "Dead End";
 

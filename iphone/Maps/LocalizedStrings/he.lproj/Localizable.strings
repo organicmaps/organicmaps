@@ -2368,85 +2368,85 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "טבע";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "סלע חשוף";
 
-"type.natural.bay" = "Bay";
+"type.natural.bay" = "מפרץ";
 
-"type.natural.beach" = "Beach";
+"type.natural.beach" = "חוף חולי";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "חוף חולי";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "חוף חצץ";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "לשון יבשה";
 
-"type.natural.cave_entrance" = "Cave";
+"type.natural.cave_entrance" = "מערה";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "צוק";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "צוּק";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "סוֹלְלָה";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "חוף";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "גייזר";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "קרחון";
 
-"type.natural.grassland" = "Field";
+"type.natural.grassland" = "ערבה";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "עֲרָבָה";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "מעיין חם";
 
-"type.natural.water.lake" = "Lake";
+"type.natural.water.lake" = "אגם";
 
 "type.natural.water.lock" = "לוענמ את";
 
-"type.natural.water.pond" = "Pond";
+"type.natural.water.pond" = "בריכה";
 
 "type.natural.water.reservoir" = "מאגר";
 
 "type.natural.water.basin" = "אגן מים";
 
-"type.natural.water.river" = "River";
+"type.natural.water.river" = "נהר";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "ארץ";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "אָחוּ";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "פרדס";
 
-"type.natural.peak" = "Peak";
+"type.natural.peak" = "פסגה";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "אוכף הרים";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "סלע";
 
-"type.natural.scrub" = "Scrub";
+"type.natural.scrub" = "בתה";
 
-"type.natural.spring" = "Spring";
+"type.natural.spring" = "מעיין";
 
-"type.natural.strait" = "Strait";
+"type.natural.strait" = "מצר ים";
 
-"type.natural.tree" = "Tree";
+"type.natural.tree" = "עץ";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "שורת עצים";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "כרם";
 
-"type.natural.volcano" = "Volcano";
+"type.natural.volcano" = "הר געש";
 
 "type.natural.water" = "גוף מים";
 
-"type.natural.wetland" = "Wetland";
+"type.natural.wetland" = "ביצה";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "ביצת כבול";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "ביצת עשב";
 
 "type.noexit" = "Dead End";
 

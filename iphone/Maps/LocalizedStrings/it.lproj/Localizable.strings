@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Passo";
 
-"type.natural" = "Natural";
+"type.natural" = "Natura";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Roccia nuda";
 
 "type.natural.bay" = "Baia";
 
 "type.natural.beach" = "Spiaggia";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Spiaggia sabbiosa";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Spiaggia di ghiaia";
 
 "type.natural.cape" = "Capo";
 
 "type.natural.cave_entrance" = "Grotta";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Falesia";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Scogliera";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Rilevato";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Costa";
 
 "type.natural.geyser" = "Geyser";
 
 "type.natural.glacier" = "Ghiacciaio";
 
-"type.natural.grassland" = "Campo";
+"type.natural.grassland" = "Prateria";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Landa";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Sorgente calda";
 
 "type.natural.water.lake" = "Lago";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "Fiume";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Terra";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Prato";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Frutteto";
 
 "type.natural.peak" = "Monte";
 
 "type.natural.saddle" = "Sella";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Roccia";
 
 "type.natural.scrub" = "Boscaglia";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Albero";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Fila di alberi";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vigneto";
 
 "type.natural.volcano" = "Vulcano";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Terreno paludoso";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Torbiera";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Palude";
 
 "type.noexit" = "Dead End";
 

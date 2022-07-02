@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Natur";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Blottet klippe";
 
 "type.natural.bay" = "Bugt";
 
 "type.natural.beach" = "Strand";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Sandet strand";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Grus Strand";
 
 "type.natural.cape" = "Tange";
 
 "type.natural.cave_entrance" = "Hule";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Klippe";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Jordbanken";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Dæmning";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Kyst";
 
 "type.natural.geyser" = "Gejser";
 
 "type.natural.glacier" = "Gletsjer";
 
-"type.natural.grassland" = "Mark";
+"type.natural.grassland" = "Græsslette";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Hede";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Varm kilde";
 
 "type.natural.water.lake" = "Sø";
 
@@ -2416,15 +2416,15 @@
 
 "type.natural.land" = "Land";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Eng";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Frugthave";
 
 "type.natural.peak" = "Bjerg";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Bjergsadel";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Bjergart";
 
 "type.natural.scrub" = "Kratbevokset område";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Træ";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Trærækker";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vingård";
 
 "type.natural.volcano" = "Vulkan";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Vådområde";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Mose";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Marsk";
 
 "type.noexit" = "Dead End";
 

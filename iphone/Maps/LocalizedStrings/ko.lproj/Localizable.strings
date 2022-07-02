@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "자연";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "베어 락";
 
 "type.natural.bay" = "만";
 
 "type.natural.beach" = "바닷가";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "모래 사장";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "자갈 해변";
 
 "type.natural.cape" = "곶";
 
 "type.natural.cave_entrance" = "동굴";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "절벽";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "낭떠러지";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "둑";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "연안";
 
 "type.natural.geyser" = "간헐천";
 
 "type.natural.glacier" = "빙하";
 
-"type.natural.grassland" = "밭";
+"type.natural.grassland" = "초원";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "히스";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "온천";
 
 "type.natural.water.lake" = "호수";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "강";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "땅";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "초지";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "과수원";
 
 "type.natural.peak" = "산";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "산 안장";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "암석";
 
 "type.natural.scrub" = "관목지";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "나무";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "나무 행";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "포도원";
 
 "type.natural.volcano" = "화산";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "습지 구역";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "수렁";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "소택";
 
 "type.noexit" = "Dead End";
 

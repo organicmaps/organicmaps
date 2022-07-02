@@ -2376,19 +2376,19 @@
 
 "type.natural.beach" = "海滩";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "沙滩";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "砾石海滩";
 
 "type.natural.cape" = "海角";
 
 "type.natural.cave_entrance" = "洞口";
 
-"type.natural.cliff" = "峭壁";
+"type.natural.cliff" = "悬崖";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "悬崖";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "路堤";
 
 "type.natural.coastline" = "海岸线";
 
@@ -2398,13 +2398,13 @@
 
 "type.natural.grassland" = "草原";
 
-"type.natural.heath" = "荒野";
+"type.natural.heath" = "石楠荒原";
 
 "type.natural.hot_spring" = "温泉";
 
 "type.natural.water.lake" = "湖";
 
-"type.natural.water.lock" = "锁室";
+"type.natural.water.lock" = "船闸";
 
 "type.natural.water.pond" = "池塘";
 
@@ -2414,15 +2414,15 @@
 
 "type.natural.water.river" = "河流";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "陆地";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "草甸";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "果园";
 
 "type.natural.peak" = "峰";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "山坳";
 
 "type.natural.rock" = "岩石";
 
@@ -2436,7 +2436,7 @@
 
 "type.natural.tree_row" = "树列";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "葡萄园";
 
 "type.natural.volcano" = "火山";
 
@@ -2446,7 +2446,7 @@
 
 "type.natural.wetland.bog" = "泥炭地";
 
-"type.natural.wetland.marsh" = "沼泽地";
+"type.natural.wetland.marsh" = "草沼";
 
 "type.noexit" = "Dead End";
 

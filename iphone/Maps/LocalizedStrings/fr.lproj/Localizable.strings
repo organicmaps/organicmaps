@@ -2368,7 +2368,7 @@
 
 "type.mountain_pass" = "Col de montagne";
 
-"type.natural" = "Natural";
+"type.natural" = "Nature";
 
 "type.natural.bare_rock" = "Zone rocheuse";
 
@@ -2378,7 +2378,7 @@
 
 "type.natural.beach.sand" = "Plage de sable";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Plage de gravier";
 
 "type.natural.cape" = "Cap";
 
@@ -2386,7 +2386,7 @@
 
 "type.natural.cliff" = "Falaise";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Falaise";
 
 "type.man_made.embankment" = "Talus";
 
@@ -2396,7 +2396,7 @@
 
 "type.natural.glacier" = "Glacier";
 
-"type.natural.grassland" = "Champ";
+"type.natural.grassland" = "Pelouse";
 
 "type.natural.heath" = "Lande";
 
@@ -2414,11 +2414,11 @@
 
 "type.natural.water.river" = "Rivière";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Terrain";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Prairie";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Verger";
 
 "type.natural.peak" = "Sommet";
 
@@ -2436,7 +2436,7 @@
 
 "type.natural.tree_row" = "Rangée d'arbre";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vignoble";
 
 "type.natural.volcano" = "Volcan";
 

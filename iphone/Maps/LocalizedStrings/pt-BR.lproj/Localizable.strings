@@ -2376,9 +2376,9 @@
 
 "type.natural.beach" = "Praia";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Praia de areia";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Praia de Cascalho";
 
 "type.natural.cape" = "Cabo";
 
@@ -2386,9 +2386,9 @@
 
 "type.natural.cliff" = "Falésia";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Penhasco";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Aterro";
 
 "type.natural.coastline" = "Linha costeira";
 
@@ -2396,7 +2396,7 @@
 
 "type.natural.glacier" = "Geleira";
 
-"type.natural.grassland" = "Pradaria";
+"type.natural.grassland" = "Campo";
 
 "type.natural.heath" = "Charneca";
 
@@ -2404,7 +2404,7 @@
 
 "type.natural.water.lake" = "Lago";
 
-"type.natural.water.lock" = "Câmara de Bloqueio";
+"type.natural.water.lock" = "Câmara de Eclusa";
 
 "type.natural.water.pond" = "Lagoa";
 
@@ -2422,7 +2422,7 @@
 
 "type.natural.peak" = "Pico";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Sela da Montanha";
 
 "type.natural.rock" = "Rochedo";
 

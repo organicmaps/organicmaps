@@ -1278,7 +1278,7 @@
 	<string name="type.military">Askeri</string>
 	<string name="type.military.bunker">Sığınak</string>
 	<string name="type.mountain_pass">Boğaz</string>
-	<string name="type.natural">Doğal</string>
+	<string name="type.natural">Doğa</string>
 	<string name="type.natural.bare_rock">Çıplak Kaya</string>
 	<string name="type.natural.bay">Koy</string>
 	<string name="type.natural.beach">Plaj</string>
@@ -1287,10 +1287,12 @@
 	<string name="type.natural.cape">Burun</string>
 	<string name="type.natural.cave_entrance">Mağara</string>
 	<string name="type.natural.cliff">Uçurum</string>
+	<string name="type.natural.earth_bank">Uçurum</string>
+	<string name="type.man_made.embankment">Set</string>
 	<string name="type.natural.coastline">Kıyı Şeridi</string>
 	<string name="type.natural.geyser">Gayzer</string>
 	<string name="type.natural.glacier">Buzul</string>
-	<string name="type.natural.grassland">Yeşillik</string>
+	<string name="type.natural.grassland">Campo</string>
 	<string name="type.natural.heath">Çalı</string>
 	<string name="type.natural.hot_spring">Kaplıca</string>
 	<string name="type.natural.water.lake">Göl</string>

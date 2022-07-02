@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Natur";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Kala stenar";
 
 "type.natural.bay" = "Bukt";
 
 "type.natural.beach" = "Strand";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Sandig strand";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Grusstrand";
 
 "type.natural.cape" = "Udde";
 
 "type.natural.cave_entrance" = "Grotta";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Klint";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Klippa";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Vägbank";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Kust";
 
 "type.natural.geyser" = "Gejser";
 
 "type.natural.glacier" = "Glaciär";
 
-"type.natural.grassland" = "Fältet";
+"type.natural.grassland" = "Gräsmarker";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Hed";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Het källa";
 
 "type.natural.water.lake" = "Sjö";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "Flod";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Landa";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Äng";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Fruktodling";
 
 "type.natural.peak" = "Bergstopp";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Fjällsadel";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Bergart";
 
 "type.natural.scrub" = "Ruggen";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Träd";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Trädrad";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vingård";
 
 "type.natural.volcano" = "Vulkan";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Sumpmarken";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Myr";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Kärr";
 
 "type.noexit" = "Dead End";
 

@@ -2368,17 +2368,17 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Příroda";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Holá skála";
 
 "type.natural.bay" = "Záliv";
 
 "type.natural.beach" = "Pláž";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Písečná pláž";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Štěrková pláž";
 
 "type.natural.cape" = "Mys";
 
@@ -2386,21 +2386,21 @@
 
 "type.natural.cliff" = "Útes";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Útes";
 
 "type.man_made.embankment" = "Násyp";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Pobřeží";
 
 "type.natural.geyser" = "Gejzír";
 
 "type.natural.glacier" = "Ledovec";
 
-"type.natural.grassland" = "Pole";
+"type.natural.grassland" = "Louky a pastviny";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Vřesoviště";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Termální pramen";
 
 "type.natural.water.lake" = "Jezero";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "Řeka";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Země";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Louka";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Sad";
 
 "type.natural.peak" = "Hora";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Sedlo";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Hornina";
 
 "type.natural.scrub" = "Křoviny";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Strom";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Řada stromů";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vinice";
 
 "type.natural.volcano" = "Sopka";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Mokřadní oblast";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Rašeliniště";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Bažina";
 
 "type.noexit" = "Dead End";
 

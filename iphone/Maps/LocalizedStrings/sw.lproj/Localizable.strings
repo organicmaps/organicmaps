@@ -2368,85 +2368,85 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Uasilia";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Mwamba tupu";
 
-"type.natural.bay" = "Bay";
+"type.natural.bay" = "Hori";
 
-"type.natural.beach" = "Beach";
+"type.natural.beach" = "Pwani";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Pwani ya mchanga";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Pwani ya Gravel";
 
 "type.natural.cape" = "Rasi";
 
-"type.natural.cave_entrance" = "Cave";
+"type.natural.cave_entrance" = "Pango";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Mwamba";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Mwamba";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Tuta";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Pwani";
 
 "type.natural.geyser" = "Chemchem ya maji moto";
 
 "type.natural.glacier" = "Mto barafu";
 
-"type.natural.grassland" = "Shamba";
+"type.natural.grassland" = "Nyasi";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Afya";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Majira ya joto";
 
-"type.natural.water.lake" = "Lake";
+"type.natural.water.lake" = "Ziwa";
 
 "type.natural.water.lock" = "Chumba cha kufuli";
 
-"type.natural.water.pond" = "Pond";
+"type.natural.water.pond" = "Bwawa";
 
 "type.natural.water.reservoir" = "Hifadhi";
 
 "type.natural.water.basin" = "Bonde la Maji";
 
-"type.natural.water.river" = "River";
+"type.natural.water.river" = "Mto";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Nchi kavu";
 
 "type.natural.meadow" = "Meadow";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Bustani";
 
-"type.natural.peak" = "Peak";
+"type.natural.peak" = "Kilele";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Tandiko la mlima";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Mwamba";
 
 "type.natural.scrub" = "Eneo la Vichaka";
 
-"type.natural.spring" = "Spring";
+"type.natural.spring" = "Chemchemi";
 
 "type.natural.strait" = "Mlango Bahari";
 
-"type.natural.tree" = "Tree";
+"type.natural.tree" = "Mti";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Safu ya mti";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Shamba la mizabibu";
 
-"type.natural.volcano" = "Volcano";
+"type.natural.volcano" = "Volkeno";
 
-"type.natural.water" = "Waterbody";
+"type.natural.water" = "Maji";
 
 "type.natural.wetland" = "Maeneo yenye majimaji";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Bogi";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Marsh";
 
 "type.noexit" = "Dead End";
 

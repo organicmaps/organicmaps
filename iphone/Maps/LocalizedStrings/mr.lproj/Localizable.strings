@@ -2376,35 +2376,35 @@
 
 "type.natural.beach" = "समुद्रकिनारा";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "वालुकामय समुद्रकिनारा";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "रेव बीच";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "केप";
 
 "type.natural.cave_entrance" = "गुहा";
 
 "type.natural.cliff" = "कडा";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "उंच कडा";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "तटबंदी";
 
 "type.natural.coastline" = "किनारपट्टी";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "गिझर";
 
 "type.natural.glacier" = "हिमनदी";
 
-"type.natural.grassland" = "क्षेत्र";
+"type.natural.grassland" = "गवताळ प्रदेश";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "हिथ";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "गरम पाण्याचे झरे";
 
 "type.natural.water.lake" = "सरोवर";
 
-"type.natural.water.lock" = "Lock Chamber";
+"type.natural.water.lock" = "लॉक";
 
 "type.natural.water.pond" = "तलाव";
 
@@ -2422,7 +2422,7 @@
 
 "type.natural.peak" = "शिखर";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "माउंटन सॅडल";
 
 "type.natural.rock" = "खडक";
 

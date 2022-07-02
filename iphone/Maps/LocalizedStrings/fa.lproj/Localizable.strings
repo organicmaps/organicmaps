@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "طبیعت";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "سنگ برهنه";
 
 "type.natural.bay" = "خلیج";
 
 "type.natural.beach" = "ساحل";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "ساحل شنی";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "ساحل شن";
 
 "type.natural.cape" = "دماغه";
 
 "type.natural.cave_entrance" = "غار";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "پرتگاه";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "صخره";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "خاک‌ریز";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "کناره";
 
 "type.natural.geyser" = "چشمه آب گرم";
 
 "type.natural.glacier" = "یخچال طبیعی";
 
-"type.natural.grassland" = "کشتزار";
+"type.natural.grassland" = "علفزار";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "خلنگزار";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "چشمه آب‌گرم";
 
 "type.natural.water.lake" = "دریاچه";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "رودخانه";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "خشکی";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "چمنزار";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "باغ میوه";
 
 "type.natural.peak" = "قله";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "زین کوه";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "سنگ";
 
 "type.natural.scrub" = "بوته زار";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "درخت";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "ردیف درخت";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "تاکستان";
 
 "type.natural.volcano" = "اتشفشان";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "ناحیه تالابی";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "خلاش";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "مرداب";
 
 "type.noexit" = "Dead End";
 

@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Naturaleza";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Roca desnuda";
 
 "type.natural.bay" = "Bahía";
 
 "type.natural.beach" = "Playa";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Playa de arena";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Playa de grava";
 
 "type.natural.cape" = "Cabo";
 
 "type.natural.cave_entrance" = "Cueva";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Acantilado";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Acantilado";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Terraplén";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Costa";
 
 "type.natural.geyser" = "Geiser";
 
 "type.natural.glacier" = "Glaciar";
 
-"type.natural.grassland" = "Campo";
+"type.natural.grassland" = "Herbazal";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Brezal";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Aguas termales";
 
 "type.natural.water.lake" = "Lago";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "Río";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Tierra";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Prado";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Huerto frutal";
 
 "type.natural.peak" = "Cima";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Silla de montaña";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Roca";
 
 "type.natural.scrub" = "Matorrales";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Árbol";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Fila de árboles";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Viña";
 
 "type.natural.volcano" = "Volcán";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Terreno pantanoso";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Turbera";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Ciénaga";
 
 "type.noexit" = "Dead End";
 
