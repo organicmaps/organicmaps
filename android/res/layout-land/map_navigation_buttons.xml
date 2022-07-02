@@ -11,10 +11,11 @@
 
   <ImageButton
     android:id="@+id/layers_button"
-    style="@style/MwmWidget.MapButton.Layers"
+    style="@style/MwmWidget.MapButton"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
-    android:background="?toggleMapLayerBtnBg"
+    android:background="?nav_background"
+    android:src="@drawable/ic_layers"
     android:visibility="invisible"
     tools:visibility="visible" />
 
