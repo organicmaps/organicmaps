@@ -17,10 +17,6 @@
     <item name="android:tint">?iconTint</item>
   </style>
 
-  <style name="MwmWidget.MapButton.Layers">
-    <item name="android:tint">@null</item>
-  </style>
-
   <style name="MwmWidget.Button">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>

@@ -39,8 +39,8 @@ public class LayerBottomSheetItem
 
   public static LayerBottomSheetItem create(@NonNull Context mContext, Mode mode, @NonNull OnItemClickListener<LayerBottomSheetItem> layerItemClickListener)
   {
-    int disabledResource = R.attr.toggleMapLayerBtnBg;
-    int enabledResource = R.attr.toggleMapLayerBtnBg;
+    int disabledResource = 0;
+    int enabledResource = 0;
     int buttonTextResource = R.string.layers_title;
     switch (mode)
     {

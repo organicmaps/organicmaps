@@ -926,7 +926,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!PermissionsUtils.isLocationGranted(this))
     {
       Utils.showSnackbar(getActivity(), findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
-          R.string.location_is_disabled_long_text);
+                         R.string.location_is_disabled_long_text);
       return;
     }
 

@@ -120,7 +120,6 @@
     <item name="trafficMenuDisabled">@drawable/ic_layers_traffic_inactive</item>
     <item name="subwayMenuDisabled">@drawable/ic_layers_subway_inactive</item>
     <item name="isoLinesMenuDisabled">@drawable/ic_layers_isoline_inactive</item>
-    <item name="toggleMapLayerBtnBg">@drawable/bg_toggle_map_layer_btn</item>
     <item name="accentColorSelector">@color/accent_color_selector</item>
     <item name="tipsBgColor">@color/tips_and_triks_bg_night</item>
     <item name="tipsPrimaryTextColor">@color/tips_and_triks_primary_text</item>
@@ -295,7 +294,6 @@
     <item name="saleIcon">@drawable/ic_deal_dark</item>
     <item name="nav_bg_subway">@drawable/bg_subway_night</item>
     <item name="nav_bg_isolines">@drawable/bg_iso_lines_night</item>
-    <item name="toggleMapLayerBtnBg">@drawable/bg_toggle_map_layer_btn_dark</item>
     <item name="accentColorSelector">@color/accent_color_selector_night</item>
     <item name="tipsBgColor">@color/tips_and_triks_bg</item>
     <item name="tipsPrimaryTextColor">@color/tips_and_triks_primary_text_night</item>
