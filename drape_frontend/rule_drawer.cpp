@@ -49,10 +49,11 @@ std::array<size_t, 10> const kAverageSegmentsCount =
   10000, 5000, 10000, 5000, 2500, 5000, 2000, 1000, 500, 500
 };
 
+double constexpr kMetersPerLevel = 3.0;
+
 double GetBuildingHeightInMeters(FeatureType & f)
 {
   double constexpr kDefaultHeightInMeters = 3.0;
-  double constexpr kMetersPerLevel = 3.0;
 
   double heightInMeters = kDefaultHeightInMeters;
 
@@ -76,13 +77,25 @@ double GetBuildingHeightInMeters(FeatureType & f)
 
 double GetBuildingMinHeightInMeters(FeatureType & f)
 {
-  auto const value = f.GetMetadata(feature::Metadata::FMD_MIN_HEIGHT);
-  if (value.empty())
-    return 0.0;
+  double minHeightInMeters = 0.0;
 
-  double minHeightInMeters;
-  if (!strings::to_double(value, minHeightInMeters))
-    minHeightInMeters = 0.0;
+  auto value = f.GetMetadata(feature::Metadata::FMD_MIN_HEIGHT);
+  if (!value.empty())
+  {
+    if (!strings::to_double(value, minHeightInMeters))
+      minHeightInMeters = 0.0;
+  }
+  else
+  {
+    value = f.GetMetadata(feature::Metadata::FMD_BUILDING_MIN_LEVEL);
+    if (!value.empty())
+    {
+      if (!strings::to_double(value, minHeightInMeters))
+        minHeightInMeters = 0.0;
+      else
+        minHeightInMeters *= kMetersPerLevel;
+    }
+  }
 
   return minHeightInMeters;
 }
