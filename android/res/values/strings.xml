@@ -1341,11 +1341,11 @@
 	<string name="type.military">Military</string>
 	<string name="type.military.bunker">Bunker</string>
 	<string name="type.mountain_pass">Mountain Pass</string>
-	<string name="type.natural">Natural</string>
+	<string name="type.natural">Nature</string>
 	<string name="type.natural.bare_rock">Bare Rock</string>
 	<string name="type.natural.bay">Bay</string>
 	<string name="type.natural.beach">Beach</string>
-	<string name="type.natural.beach.sand">Sandy Beach</string>
+	<string name="type.natural.beach.sand">Sand Beach</string>
 	<string name="type.natural.beach.gravel">Gravel Beach</string>
 	<string name="type.natural.cape">Cape</string>
 	<string name="type.natural.cave_entrance">Cave</string>
@@ -1355,7 +1355,7 @@
 	<string name="type.natural.coastline">Coastline</string>
 	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">Glacier</string>
-	<string name="type.natural.grassland">Field</string>
+	<string name="type.natural.grassland">Grassland</string>
 	<string name="type.natural.heath">Heath</string>
 	<string name="type.natural.hot_spring">Hot Spring</string>
 	<string name="type.natural.water.lake">Lake</string>
@@ -1379,8 +1379,8 @@
 	<string name="type.natural.volcano">Volcano</string>
 	<string name="type.natural.water">Waterbody</string>
 	<string name="type.natural.wetland">Wetland</string>
-	<string name="type.natural.wetland.bog">Wetland</string>
-	<string name="type.natural.wetland.marsh">Wetland</string>
+	<string name="type.natural.wetland.bog">Bog</string>
+	<string name="type.natural.wetland.marsh">Marsh</string>
 	<string name="type.noexit">Dead End</string>
 	<string name="type.office">Office</string>
 	<string name="type.office.company">Company Office</string>

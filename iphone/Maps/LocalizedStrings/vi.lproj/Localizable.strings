@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Tự nhiên";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Đá trần";
 
 "type.natural.bay" = "Vịnh";
 
 "type.natural.beach" = "Bãi biển";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Bãi cát";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Bãi biển sỏi";
 
 "type.natural.cape" = "Áo choàng";
 
 "type.natural.cave_entrance" = "Hang động";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Vách đá";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Vách đá";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Kè";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Bờ biển";
 
 "type.natural.geyser" = "Suối nước nóng";
 
 "type.natural.glacier" = "Sông băng";
 
-"type.natural.grassland" = "Cánh đồng";
+"type.natural.grassland" = "Đồng cỏ";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Cây thạch thảo";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Suối nước nóng";
 
 "type.natural.water.lake" = "Hồ";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "Sông";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Đất liền";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Thảo điền";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Vườn cây ăn trái";
 
 "type.natural.peak" = "Đỉnh";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Col";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Đá";
 
 "type.natural.scrub" = "Bụi rậm";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Cây";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Hàng cây";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vườn nho";
 
 "type.natural.volcano" = "Núi lửa";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Khu vực đầm lầy";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Đầm lầy toan";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Đầm lầy cỏ";
 
 "type.noexit" = "Dead End";
 

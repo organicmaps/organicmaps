@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Luonto";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Paljas kallio";
 
 "type.natural.bay" = "Lahti";
 
 "type.natural.beach" = "Ranta";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Hiekkainen ranta";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Soraranta";
 
 "type.natural.cape" = "Niemeke";
 
 "type.natural.cave_entrance" = "Luola";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Jyrkänne";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Kallio";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Pengerrys";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Rannikko";
 
 "type.natural.geyser" = "Geysir";
 
 "type.natural.glacier" = "Jäätikkö";
 
-"type.natural.grassland" = "Pelto";
+"type.natural.grassland" = "Nurmi";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Nummi";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Kuuma lähde";
 
 "type.natural.water.lake" = "Järvi";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "Joki";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Maa";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Niitty";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Hedelmänviljely";
 
 "type.natural.peak" = "Huippu";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Vuoristo satula";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Kivi";
 
 "type.natural.scrub" = "Tiheiköt";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Puu";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Puurivi";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Viinitila";
 
 "type.natural.volcano" = "Tulivuori";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Suoperäinen seutu";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Suo";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Marsh";
 
 "type.noexit" = "Dead End";
 

@@ -2376,9 +2376,9 @@
 
 "type.natural.beach" = "ビーチ";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "砂浜";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "グラベルビーチ";
 
 "type.natural.cape" = "岬";
 
@@ -2386,9 +2386,9 @@
 
 "type.natural.cliff" = "崖";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "崖";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "盛土";
 
 "type.natural.coastline" = "海岸線";
 
@@ -2396,7 +2396,7 @@
 
 "type.natural.glacier" = "氷河";
 
-"type.natural.grassland" = "野原";
+"type.natural.grassland" = "草原";
 
 "type.natural.heath" = "ヒース";
 
@@ -2422,7 +2422,7 @@
 
 "type.natural.peak" = "山頂";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "鞍部";
 
 "type.natural.rock" = "岩";
 

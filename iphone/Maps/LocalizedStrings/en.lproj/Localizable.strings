@@ -2368,7 +2368,7 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Nature";
 
 "type.natural.bare_rock" = "Bare Rock";
 
@@ -2376,7 +2376,7 @@
 
 "type.natural.beach" = "Beach";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Sand Beach";
 
 "type.natural.beach.gravel" = "Gravel Beach";
 
@@ -2396,7 +2396,7 @@
 
 "type.natural.glacier" = "Glacier";
 
-"type.natural.grassland" = "Field";
+"type.natural.grassland" = "Grassland";
 
 "type.natural.heath" = "Heath";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Wetland";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Bog";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Marsh";
 
 "type.noexit" = "Dead End";
 

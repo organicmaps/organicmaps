@@ -2368,17 +2368,17 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Természet";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Csupasz szikla";
 
 "type.natural.bay" = "Öböl";
 
 "type.natural.beach" = "Strand";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Homokos part";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Kavicsos strand";
 
 "type.natural.cape" = "Hegytető";
 
@@ -2386,21 +2386,21 @@
 
 "type.natural.cliff" = "Szikla";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Szikla";
 
 "type.man_made.embankment" = "Töltés";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Tengerpart";
 
 "type.natural.geyser" = "Gejzír";
 
 "type.natural.glacier" = "Gleccser";
 
-"type.natural.grassland" = "Mező";
+"type.natural.grassland" = "Füves puszta";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Fenyér";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Termálvíz";
 
 "type.natural.water.lake" = "Tó";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "Folyó";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Föld";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Rét";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Gyümölcsöskert";
 
 "type.natural.peak" = "Csúcs";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Hegyi nyereg";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Kőzet";
 
 "type.natural.scrub" = "Cserjés";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Fa";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Fa sor";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Szőlőskert";
 
 "type.natural.volcano" = "Tűzhányó";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Vizes terület";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Láp";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Mocsár";
 
 "type.noexit" = "Dead End";
 

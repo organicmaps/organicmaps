@@ -2368,85 +2368,85 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Природа";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Гола скала";
 
-"type.natural.bay" = "Bay";
+"type.natural.bay" = "Залив";
 
-"type.natural.beach" = "Beach";
+"type.natural.beach" = "Плаж";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Пясъчен плаж";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Чакълест плаж";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Нос";
 
-"type.natural.cave_entrance" = "Cave";
+"type.natural.cave_entrance" = "Пещера";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Клиф";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Скала";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Насип";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Крайбрежие";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Гейзер";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Ледник";
 
-"type.natural.grassland" = "Field";
+"type.natural.grassland" = "Пасища";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Пустош";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Геотермален извор";
 
-"type.natural.water.lake" = "Lake";
+"type.natural.water.lake" = "Езеро";
 
 "type.natural.water.lock" = "Заключваща камера";
 
-"type.natural.water.pond" = "Pond";
+"type.natural.water.pond" = "Езерце";
 
 "type.natural.water.reservoir" = "Резервоар";
 
 "type.natural.water.basin" = "Резервоар";
 
-"type.natural.water.river" = "River";
+"type.natural.water.river" = "Река";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Суша";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Ливада";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Овощна градина";
 
-"type.natural.peak" = "Peak";
+"type.natural.peak" = "Връх";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Седло";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Скала";
 
-"type.natural.scrub" = "Scrub";
+"type.natural.scrub" = "Гъсталаци";
 
-"type.natural.spring" = "Spring";
+"type.natural.spring" = "Извор";
 
-"type.natural.strait" = "Strait";
+"type.natural.strait" = "Проток";
 
-"type.natural.tree" = "Tree";
+"type.natural.tree" = "Дърво";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Ред дървета";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Лозе";
 
-"type.natural.volcano" = "Volcano";
+"type.natural.volcano" = "Вулкан";
 
 "type.natural.water" = "Воден басейн";
 
-"type.natural.wetland" = "Wetland";
+"type.natural.wetland" = "Влажна зона";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Торфено блато";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Блато";
 
 "type.noexit" = "Dead End";
 

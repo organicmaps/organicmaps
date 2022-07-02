@@ -2370,7 +2370,7 @@
 
 "type.natural" = "Natur";
 
-"type.natural.bare_rock" = "Nackter Fels";
+"type.natural.bare_rock" = "Kahler Fels";
 
 "type.natural.bay" = "Bucht";
 
@@ -2386,11 +2386,11 @@
 
 "type.natural.cliff" = "Klippe";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Steilabhang";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Damm";
 
-"type.natural.coastline" = "Küstenlinie";
+"type.natural.coastline" = "Küste";
 
 "type.natural.geyser" = "Geysir";
 

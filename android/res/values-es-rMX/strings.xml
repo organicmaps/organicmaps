@@ -310,10 +310,8 @@
 	<string name="type.leisure.park.permissive">Parque</string>
 	<string name="type.leisure.park.private">Parque</string>
 	<string name="type.leisure.sauna">Sauna</string>
-	<string name="type.natural.cape">Cabo</string>
 	<string name="type.natural.geyser">Géiser</string>
 	<string name="type.natural.glacier">Glaciar</string>
-	<string name="type.natural.grassland">Campo</string>
 	<string name="type.natural.scrub">Maleza</string>
 	<string name="type.natural.strait">Estrecho</string>
 	<string name="type.natural.wetland">Tierra pantanosa</string>

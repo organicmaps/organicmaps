@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Natură";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Piatră goală";
 
 "type.natural.bay" = "Golf";
 
 "type.natural.beach" = "Plajă";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Plaja nisipoasa";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Plaja cu pietriș";
 
 "type.natural.cape" = "Mantie";
 
 "type.natural.cave_entrance" = "Peșteră";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Faleză";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Faleza";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Rambleu";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Relief litoral";
 
 "type.natural.geyser" = "Gheizer";
 
 "type.natural.glacier" = "Ghețar";
 
-"type.natural.grassland" = "Câmp";
+"type.natural.grassland" = "Pajiști";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Landă";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Izvor termal";
 
 "type.natural.water.lake" = "Lac";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "Râu";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Teren";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Fâneață";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Livadă";
 
 "type.natural.peak" = "Munte";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Sela da Montanha";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Rocă";
 
 "type.natural.scrub" = "Boschet";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Arbore";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Rândul de copaci";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vie";
 
 "type.natural.volcano" = "Vulcan";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Loc mlăștinos";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Turbărie";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Mlaştină";
 
 "type.noexit" = "Dead End";
 

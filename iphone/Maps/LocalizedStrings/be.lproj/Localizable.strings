@@ -2368,21 +2368,21 @@
 
 "type.mountain_pass" = "Перавал";
 
-"type.natural" = "Natural";
+"type.natural" = "Прырода";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Голая скала";
 
-"type.natural.bay" = "Bay";
+"type.natural.bay" = "Заліў";
 
-"type.natural.beach" = "Beach";
+"type.natural.beach" = "Пляж";
 
 "type.natural.beach.sand" = "Пяшчаны пляж";
 
 "type.natural.beach.gravel" = "Галечны пляж";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Мыс";
 
-"type.natural.cave_entrance" = "Cave";
+"type.natural.cave_entrance" = "Пячора";
 
 "type.natural.cliff" = "Уцёс";
 
@@ -2390,19 +2390,19 @@
 
 "type.man_made.embankment" = "Насып";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Узбярэжжа";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Гейзер";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Ледавік";
 
-"type.natural.grassland" = "Field";
+"type.natural.grassland" = "Луг";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Пустка";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Геатэрмальная крыніца";
 
-"type.natural.water.lake" = "Lake";
+"type.natural.water.lake" = "Возера";
 
 "type.natural.water.lock" = "Шлюзавая камера";
 
@@ -2424,29 +2424,29 @@
 
 "type.natural.saddle" = "Седлавіна";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Горная парода";
 
-"type.natural.scrub" = "Scrub";
+"type.natural.scrub" = "Зараснікі";
 
-"type.natural.spring" = "Spring";
+"type.natural.spring" = "Крыніца";
 
-"type.natural.strait" = "Strait";
+"type.natural.strait" = "Праліў";
 
-"type.natural.tree" = "Tree";
+"type.natural.tree" = "Дрэва";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Шэраг дрэў";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Вінаграднік";
 
-"type.natural.volcano" = "Volcano";
+"type.natural.volcano" = "Вулкан";
 
 "type.natural.water" = "Вадаём";
 
-"type.natural.wetland" = "Wetland";
+"type.natural.wetland" = "Балоцістая мясцовасць";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Тарфянік";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Балота";
 
 "type.noexit" = "Dead End";
 

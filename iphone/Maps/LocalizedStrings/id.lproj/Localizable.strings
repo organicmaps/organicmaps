@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Alam";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Batuan telanjang";
 
 "type.natural.bay" = "Teluk";
 
 "type.natural.beach" = "Pantai";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Pantai berpasir";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Pantai Kerikil";
 
 "type.natural.cape" = "Tanjung";
 
 "type.natural.cave_entrance" = "Gua";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Tebing";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Jurang";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Tanggul";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Pesisir";
 
 "type.natural.geyser" = "Geiser";
 
 "type.natural.glacier" = "Gletser";
 
-"type.natural.grassland" = "Ladang";
+"type.natural.grassland" = "Padang rumput";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Lahan kosong";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Mata air panas";
 
 "type.natural.water.lake" = "Danau";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "Sungai";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Daratan";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Padang rumput";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Kebun";
 
 "type.natural.peak" = "Puncak";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Pelana Gunung";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Batu";
 
 "type.natural.scrub" = "Semak";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Pohon";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Baris pohon";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Kebun anggur";
 
 "type.natural.volcano" = "Gunung berapi";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Area lahan basah";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Rawa gambut";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Paya";
 
 "type.noexit" = "Dead End";
 

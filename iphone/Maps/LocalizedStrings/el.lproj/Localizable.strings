@@ -2368,39 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Φύση";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Γυμνός βράχος";
 
 "type.natural.bay" = "Κόλπος";
 
 "type.natural.beach" = "Παραλία";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Αμμουδιά";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Παραλία Χαλίκι";
 
 "type.natural.cape" = "Ακρωτήρι";
 
 "type.natural.cave_entrance" = "Σπήλαιο";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Γκρεμός";
 
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.earth_bank" = "Γκρεμός";
 
-"type.man_made.embankment" = "Embankment";
+"type.man_made.embankment" = "Ανάχωμα";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Ακτή";
 
 "type.natural.geyser" = "Θερμοπίδακας";
 
 "type.natural.glacier" = "Παγετώνας";
 
-"type.natural.grassland" = "Λιβάδι";
+"type.natural.grassland" = "Βοσκότοποι";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Ρείκι";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Ιαματικές πηγές";
 
 "type.natural.water.lake" = "Λίμνη";
 
@@ -2414,17 +2414,17 @@
 
 "type.natural.water.river" = "Ποταμός";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Στεριά";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Λιβάδι";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Οπωρώνας";
 
 "type.natural.peak" = "Κορυφή";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Σέλα Βουνού";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Πέτρωμα";
 
 "type.natural.scrub" = "Θαμνώδες περιοχή";
 
@@ -2434,9 +2434,9 @@
 
 "type.natural.tree" = "Δέντρο";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Σειρά δέντρων";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Αμπελώνας";
 
 "type.natural.volcano" = "Ηφαίστειο";
 
@@ -2444,9 +2444,9 @@
 
 "type.natural.wetland" = "Υγρότοπος";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Βάλτος";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Έλος";
 
 "type.noexit" = "Dead End";
 

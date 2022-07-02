@@ -1117,13 +1117,17 @@
 	<string name="type.natural.bare_rock">Kale steen</string>
 	<string name="type.natural.bay">Baai</string>
 	<string name="type.natural.beach">Strand</string>
+	<string name="type.natural.beach.sand">Zandstrand</string>
+	<string name="type.natural.beach.gravel">Kiezelstrand</string>
 	<string name="type.natural.cape">Kaap</string>
 	<string name="type.natural.cave_entrance">Grot</string>
 	<string name="type.natural.cliff">Klif</string>
+	<string name="type.natural.earth_bank">Klif</string>
+	<string name="type.man_made.embankment">Baanlichaam</string>
 	<string name="type.natural.coastline">Kustlijn</string>
 	<string name="type.natural.geyser">Geiser</string>
 	<string name="type.natural.glacier">Gletsjer</string>
-	<string name="type.natural.grassland">Veld</string>
+	<string name="type.natural.grassland">Grasland</string>
 	<string name="type.natural.heath">Heide</string>
 	<string name="type.natural.hot_spring">Heetwaterbron</string>
 	<string name="type.natural.water.lake">Meer</string>
@@ -1136,6 +1140,7 @@
 	<string name="type.natural.meadow">Weiland</string>
 	<string name="type.natural.orchard">Boomgaard</string>
 	<string name="type.natural.peak">Top</string>
+	<string name="type.natural.saddle">Bergzadel</string>
 	<string name="type.natural.rock">Steen</string>
 	<string name="type.natural.scrub">Kreupel bos</string>
 	<string name="type.natural.spring">Bron</string>
