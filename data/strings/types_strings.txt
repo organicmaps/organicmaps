@@ -3342,7 +3342,7 @@
     en = Shelter
     ar = ملجأ
     cs = Přístřešek
-    de = Schutzhütte
+    de = Unterstand
     el = Καταφύγιο
     es = Refugio
     eu = Aterpea
@@ -5293,7 +5293,7 @@
     ar = مطبخ أفريقي
     cs = Africká kuchyně
     da = Afrikansk
-    de = Afrikanische Küche
+    de = Afrikanisch
     el = Αφρικανική
     es = Cocina africana
     eu = Afrikako sukaldaritza
@@ -5326,7 +5326,7 @@
     ar = مطبخ أمريكي
     cs = Americká kuchyně
     da = Amerikansk
-    de = Amerikanische Küche
+    de = Amerikanisch
     el = Αμερικάνικη
     es = Cocina americana
     eu = Sukalde amerikarra
@@ -5359,7 +5359,7 @@
     ar = مطبخ عربي
     cs = Arabská kuchyně
     da = Arabisk
-    de = Arabische Küche
+    de = Arabisch
     el = Αραβική
     es = Cocina árabe
     eu = Sukaldaritza arabiarra
@@ -5392,7 +5392,7 @@
     ar = مطبخ أرجنتيني
     cs = Argentinská kuchyně
     da = Argentinsk
-    de = Argentinische Küche
+    de = Argentinisch
     el = Αργεντίνικη
     es = Cocina argentina
     eu = Argentinako sukaldaritza
@@ -5425,7 +5425,7 @@
     ar = مطبخ آسيوي
     cs = Asijská kuchyně
     da = Asiatisk
-    de = Asiatische Küche
+    de = Asiatisch
     el = Ασιάτικη
     es = Cocina asiática
     eu = Asiar sukaldaritza
@@ -5458,7 +5458,7 @@
     ar = مطبخ نمساوي
     cs = Rakouská kuchyně
     da = Østrigsk
-    de = Österreichische Küche
+    de = Österreichisch
     el = Αυστριακή
     es = Cocina austriaca
     eu = Austriako sukaldaritza
@@ -5524,7 +5524,7 @@
     ar = مطبخ بلقاني
     cs = Balkánská kuchyně
     da = Balkansk
-    de = Balkanküche
+    de = Balkanisch
     el = Βαλκανίων
     es = Cocina balcánica
     eu = Balkanetako sukaldaritza
@@ -5591,7 +5591,7 @@
     ar = مطبخ بافاري
     cs = Bavorská kuchyně
     da = Bavarisk
-    de = Bayerische Küche
+    de = Bayerisch
     el = Βαυαρική
     es = Cocina bávara
     eu = Bavariako sukaldaritza
@@ -5657,7 +5657,7 @@
     ar = مطبخ برازيلي
     cs = Brazilská kuchyně
     da = Brasiliansk
-    de = Brasilianische Küche
+    de = Brasilianisch
     el = Βραζιλιάνικη
     es = Cocina brasileña
     eu = Brasilgo sukaldaritza
@@ -5833,7 +5833,7 @@
     ar = مطبخ كاريبي
     cs = Karibská kuchyně
     da = Caribisk
-    de = Karibische Küche
+    de = Karibisch
     el = Καραϊβική
     es = Cocina caribeña
     eu = Karibeko sukaldaritza
@@ -5900,7 +5900,7 @@
     ar = مطبخ صيني
     cs = Čínská kuchyně
     da = Kinesisk
-    de = Chinesische Küche
+    de = Chinesisch
     el = Κινέζικη
     es = Cocina china
     eu = Txinako sukaldaritza
@@ -6002,7 +6002,7 @@
     ar = مطبخ كرواتي
     cs = Chorvatská kuchyně
     da = Kroatisk
-    de = Kroatische Küche
+    de = Kroatisch
     el = Κροατική
     es = Cocina croata
     eu = Sukaldaritza croata
@@ -6069,7 +6069,7 @@
     ar = أطعمة مبردة
     cs = Lahůdky
     da = Deli
-    de = Deli-Küche
+    de = Delikatessen
     el = Εκλεκτά τρόφιμα
     es = Delicatesen
     eu = Delitua
@@ -6168,7 +6168,7 @@
     ar = مطبخ إثيوبي
     cs = Etiopská kuchyně
     da = Etiopisk
-    de = Äthiopische Küche
+    de = Äthiopisch
     el = Αιθιοπίας
     es = Cocina etíope
     eu = Etiopiako sukaldaritza
@@ -6201,7 +6201,7 @@
     ar = مطبخ فلبيني
     cs = Filipínská kuchyně
     da = Filippinsk
-    de = Philippinische Küche
+    de = Philippinisch
     el = Φιλιππινέζικη
     es = Cocina filipina
     eu = Filipinetako sukaldaritza
@@ -6234,7 +6234,7 @@
     ar = مطعم متكامل
     cs = Zážitková gastronomie
     da = Eksklusiv
-    de = Gehobene Küche
+    de = Gehoben
     el = Εκλεκτά εστιατόρια
     es = Restaurante elegante
     eu = Jatetxe dotorea
@@ -6334,7 +6334,7 @@
     ar = مطبخ فرنسي
     cs = Francouzská kuchyně
     da = Fransk
-    de = Französische Küche
+    de = Französisch
     el = Γαλλική
     es = Cocina francesa
     eu = Frantziako sukaldaritza
@@ -6400,7 +6400,7 @@
     ar = مطبخ جورجي
     cs = Gruzínská kuchyně
     da = Georgisk
-    de = Georgische Küche
+    de = Georgisch
     el = Γεωργιανή
     es = Cocina georgiana
     eu = Georgiako sukaldaritza
@@ -6433,7 +6433,7 @@
     ar = مطبخ ألماني
     cs = Německá kuchyně
     da = Tysk
-    de = Deutsche Küche
+    de = Deutsch
     el = Γερμανική
     es = Cocina alemana
     eu = Alemaniar sukaldaritza
@@ -6466,7 +6466,7 @@
     ar = مطبخ يوناني
     cs = Řecká kuchyně
     da = Græsk
-    de = Griechische Küche
+    de = Griechisch
     el = Ελληνική
     es = Cocina griega
     eu = Greziar sukaldaritza
@@ -6598,7 +6598,7 @@
     ar = مطبخ مجري
     cs = Maďarská kuchyně
     da = Ungarsk
-    de = Ungarische Küche
+    de = Ungarisch
     el = Ουγγρική
     es = Cocina húngara
     eu = Hungariako sukaldaritza
@@ -6665,7 +6665,7 @@
     ar = مطبخ هندي
     cs = Indická kuchyně
     da = Indisk
-    de = Indische Küche
+    de = Indisch
     el = Ινδική
     es = Cocina hindú
     eu = Indiako sukaldaritza
@@ -6699,7 +6699,7 @@
     ar = مطبخ إندونيسي
     cs = Indonéská kuchyně
     da = Indonesisk
-    de = Indonesische Küche
+    de = Indonesisch
     el = Ινδονησιακή
     es = Cocina indonesia
     eu = Indonesiako sukaldaritza
@@ -6732,7 +6732,7 @@
     ar = مطبخ عالمي
     cs = Mezinárodní kuchyně
     da = International
-    de = Internationale Küche
+    de = International
     el = Διεθνής
     es = Cocina internacional
     eu = Nazioarteko sukaldea
@@ -6766,7 +6766,7 @@
     ar = مطبخ إيرلندي
     cs = Irská kuchyně
     da = Irsk
-    de = Irische Küche
+    de = Irisch
     el = Ιρλανδέζικη
     es = Cocina irlandesa
     eu = Irlandar sukaldaritza
@@ -6799,7 +6799,7 @@
     ar = مطبخ إيطالي
     cs = Italská kuchyně
     da = Italiensk
-    de = Italienische Küche
+    de = Italienisch
     el = Ιταλική
     es = Cocina italiana
     eu = Italiako sukaldaritza
@@ -6833,7 +6833,7 @@
     ar = مطبخ إيطالي؛بيتزا
     cs = Italská, pizza
     da = Italiensk, pizza
-    de = Italienische Küche; Pizza
+    de = Italienisch; Pizza
     el = Ιταλική, Πίτσα
     es = Cocina italiana, pizzas
     eu = Italiako sukaldaritza, pizza
@@ -6867,7 +6867,7 @@
     ar = مطبخ ياباني
     cs = Japonská kuchyně
     da = Japansk
-    de = Japanische Küche
+    de = Japanisch
     el = Ιαπωνική
     es = Cocina japonesa
     eu = Japoniako sukaldaritza
@@ -6934,7 +6934,7 @@
     ar = مطبخ كوري
     cs = Korejská kuchyně
     da = Koreansk
-    de = Koreanische Küche
+    de = Koreanisch
     el = Κορεάτικη
     es = Cocina coreana
     eu = Koreako sukaldaritza
@@ -6967,7 +6967,7 @@
     ar = مطبخ لاوي
     cs = Laoská kuchyně
     da = Laotisk
-    de = Laotische Küche
+    de = Laotisch
     el = Λάος
     es = Cocina laosiana
     eu = Laosko sukaldaritza
@@ -7000,7 +7000,7 @@
     ar = مطبخ لبناني
     cs = Libanonská kuchyně
     da = Libanesisk
-    de = Libanesische Küche
+    de = Libanesisch
     el = Λιβανέζικη
     es = Cocina libanesa
     eu = Libanoko sukaldaritza
@@ -7033,7 +7033,7 @@
     ar = مطبخ محلي
     cs = Místní kuchyně
     da = Lokalt køkken
-    de = Lokale Küche
+    de = Regional
     el = Τοπική
     es = Cocina local
     eu = Bertako sukaldaritza
@@ -7067,7 +7067,7 @@
     ar = مدغشقر
     cs = Madagaskarská kuchyně
     da = Madagaskisk
-    de = Madegassische Küche
+    de = Madegassisch
     el = Μαδαγασκάρης
     es = Cocina malgache
     eu = Malgaxeko sukaldaritza
@@ -7100,7 +7100,7 @@
     ar = مطبخ ماليزي
     cs = Malajsijská kuchyně
     da = Malaysisk
-    de = Malaysische Küche
+    de = Malaysisch
     el = Μαλαισιανή
     es = Cocina malaya
     eu = Malay sukaldaritza
@@ -7133,7 +7133,7 @@
     ar = مطبخ شرق أوسطي
     cs = Středomořská kuchyně
     da = Middelhavskost
-    de = Mediterrane Küche
+    de = Mediterran
     el = Μεσογειακή
     es = Cocina mediterránea
     eu = Sukaldaritza mediterraneoa
@@ -7166,7 +7166,7 @@
     ar = مطبخ مكسيكي
     cs = Mexická kuchyně
     da = Mexicansk
-    de = Mexikanische Küche
+    de = Mexikanisch
     el = Μεξικάνικη
     es = Cocina mexicana
     eu = Mexikoko sukaldea
@@ -7199,7 +7199,7 @@
     ar = مطبخ مغربي
     cs = Marocká kuchyně
     da = Marokkansk
-    de = Marokkanische Küche
+    de = Marokkanisch
     el = Μαροκινή
     es = Cocina marroquí
     eu = Marokoko sukaldaritza
@@ -7266,7 +7266,7 @@
     ar = مطبخ شرقي
     cs = Orientální kuchyně
     da = Orientalsk
-    de = Orientalische Küche
+    de = Orientalisch
     el = Άπω Ανατολής
     es = Cocina oriental
     eu = Ekialdeko sukaldaritza
@@ -7366,7 +7366,7 @@
     ar = مطبخ إيراني
     cs = Perská kuchyně
     da = Persisk
-    de = Persische Küche
+    de = Persisch
     el = Περσική
     es = Cocina persa
     eu = Persiar sukaldaritza
@@ -7399,7 +7399,7 @@
     ar = بيرو
     cs = Peruánská kuchyně
     da = Peruviansk
-    de = Peruanische Küche
+    de = Peruanisch
     el = Περουβιανή
     es = Cocina peruana
     eu = Peruko sukaldaritza
@@ -7466,7 +7466,7 @@
     ar = مطبخ بولندي
     cs = Polská kuchyně
     da = Polsk
-    de = Polnische Küche
+    de = Polnisch
     el = Πολωνέζικη
     es = Cocina polaca
     eu = Poloniar sukaldaritza
@@ -7499,7 +7499,7 @@
     ar = مطبخ برتغالي
     cs = Portugalská kuchyně
     da = Portugisisk
-    de = Portugiesische Küche
+    de = Portugiesisch
     el = Πορτογαλική
     es = Cocina portuguesa
     eu = Portugalgo sukaldaritza
@@ -7565,7 +7565,7 @@
     ar = مطبخ إقليمي
     cs = Regionální kuchyně
     da = Regionalt køkken
-    de = Regionale Küche
+    de = Regional
     el = Περιφερειακή
     es = Cocina regional
     eu = Eskualdeko sukaldaritza
@@ -7599,7 +7599,7 @@
     ar = مطبخ روسي
     cs = Ruská kuchyně
     da = Russisk
-    de = Russische Küche
+    de = Russisch
     el = Ρώσσικη
     es = Cocina rusa
     eu = Errusiar sukaldaritza
@@ -7799,7 +7799,7 @@
     ar = مطبخ إسباني
     cs = Španělská kuchyně
     da = Spansk
-    de = Spanische Küche
+    de = Spanisch
     el = Ισπανική
     es = Cocina española
     eu = Espainiako Sukaldaritza
@@ -7965,7 +7965,7 @@
     ar = مطبخ تايلندي
     cs = Thajská kuchyně
     da = Thailandsk
-    de = Thailändische Küche
+    de = Thailändisch
     el = Ταϊλανδική
     es = Cocina tailandesa
     eu = Thai sukaldaritza
@@ -7998,7 +7998,7 @@
     ar = مطبخ تركي
     cs = Turecká kuchyně
     da = Tyrkisk
-    de = Türkische Küche
+    de = Türkisch
     el = Τουρκική
     es = Cocina turca
     eu = Turkiar sukaldaritza
@@ -8031,7 +8031,7 @@
     ar = مطبخ نباتي
     cs = Veganská kuchyně
     da = Vegansk
-    de = Vegane Küche
+    de = Vegan
     el = Για χορτοφάγους
     es = Cocina vegana
     eu = Sukaldaritza beganoa
@@ -8064,7 +8064,7 @@
     ar = مطبخ نباتي
     cs = Vegetariánská kuchyně
     da = Vegetarretter
-    de = Vegetarische Küche
+    de = Vegetarisch
     el = Χορτοφαγική
     es = Cocina vegetariana
     eu = Sukaldaritza begetarianoa
@@ -8098,7 +8098,7 @@
     ar = مطبخ فيتنامي
     cs = Vietnamská kuchyně
     da = Vietnamesisk
-    de = Vietnamesische Küche
+    de = Vietnamesisch
     el = Βιετναμέζικη
     es = Cocina vietnamita
     eu = Vietnamgo sukaldaritza
@@ -13624,7 +13624,7 @@
     ar = مكتب مؤسسة خيرية
     cs = Kancelář nevládní organizace
     da = NGO-kontor
-    de = Büro einer Nichtregierungsorganisation
+    de = Nichtregierungsorganisation
     el = Γραφείο ΜΚΟ
     es = Sede de ONG
     eu = GKEen egoitza

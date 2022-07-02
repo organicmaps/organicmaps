@@ -3270,7 +3270,7 @@
     bg = Изтеглянето на картата вече е в ход.
     cs = Právě probíhá stahování země.
     da = Download af kort over land er i gang nu.
-    de = Das Land wird gerade heruntergeladen.
+    de = Die Karte wird heruntergeladen.
     el = Λήψη χάρτη σε εξέλιξη.
     es = La descarga del mapa está en curso ahora.
     eu = Mapak deskargatzen ari dira.
@@ -5658,7 +5658,7 @@
     bg = Теглене:
     cs = Probíhá stahování:
     da = Downloader:
-    de = Gerade wird heruntergeladen:
+    de = Wird heruntergeladen:
     el = Λήψη:
     es = Descargando:
     eu = Deskargatzen:
@@ -8553,6 +8553,7 @@
   [opens_in]
     en = Opens in %@
     be = Адчыняецца праз %@
+    de = Öffnet in %@
     es = Abre en %@
     fr = Ouvert dans %@
     it = Apre tra %@
@@ -8564,6 +8565,7 @@
   [closes_in]
     en = Closes in %@
     be = Зачыняецца праз %@
+    de = Schließt in %@
     es = Cierra en %@
     fr = Fermé dans %@
     it = Chiude tra %@
@@ -10640,7 +10642,7 @@
     bg = Редакция на място
     cs = Upravit místo
     da = Redigér stedet
-    de = Platz bearbeiten
+    de = Eintrag bearbeiten
     el = Επεξεργασία μέρους
     es = Editar el lugar
     eu = Editatu tokia
@@ -14718,7 +14720,7 @@
     bg = Organic Maps е безплатно приложение за офлайн карти с отворен код. Без реклами. Без проследяване. Ако видите грешка на картата, моля, поправете я в OpenStreetMap. Проектът е създаден от ентусиасти в свободното ни време, така че имаме нужда от вашата отзиви и подкрепа.
     cs = Organic Maps jsou bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě vidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.
     da = Organic Maps er en gratis og open source offline kortapplikation. Ingen annoncer. Ingen sporing. Hvis du ser en fejl på kortet, skal du rette den i OpenStreetMap. Projektet er skabt af entusiaster i vores fritid, så vi har brug for din feedback og support.
-    de = Organic Maps ist eine kostenlose Open-Source-Offline-Kartenanwendung. Keine Werbung. Keine Verfolgung. Wenn Sie einen Fehler auf der Karte sehen, beheben Sie ihn bitte in OpenStreetMap. Das Projekt wird von Enthusiasten in unserer Freizeit erstellt, daher brauchen wir Ihr Feedback und Ihre Unterstützung.
+    de = Organic Maps ist eine schnelle und kostenlose Offline-Karten-App ohne Werbung und Tracking. Die Karten basieren auf den Daten von OpenStreetMap.org, so dass Sie selbst Kartenfehler beheben und Orte hinzufügen können. Organic Maps ist ein Open-Source-Projekt, das von Enthusiasten in ihrer Freizeit entwickelt wird. Ihr Feedback und Ihre Unterstützung sind sehr willkommen!
     el = Οι Organic Maps είναι μια δωρεάν και ανοιχτού κώδικα εφαρμογή χαρτών εκτός σύνδεσης. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Εάν δείτε κάποιο σφάλμα στον χάρτη, διορθώστε το στο OpenStreetMap. Το έργο δημιουργείται από λάτρεις στον ελεύθερο χρόνο μας, επομένως χρειαζόμαστε τα σχόλια και την υποστήριξή σας.
     es = Organic Maps es una aplicación de mapas sin conexión gratuita y de código abierto. Sin anuncios. Sin seguimiento. Si ve un error en el mapa, corríjalo en OpenStreetMap. El proyecto está creado por entusiastas en nuestro tiempo libre, por lo que necesitamos tus comentarios y tu apoyo.
     eu = Organic Maps lineaz kanpoko mapa aplikazio doako eta irekia da. Iragarkirik ez. Ez dago jarraipenik. Mapan errore bat ikusten baduzu, konpondu OpenStreetMap-en. Proiektua zaleek sortu dute gure aisialdian, beraz, zure iritzia eta laguntza behar dugu.
@@ -17735,7 +17737,7 @@
     bg = Настройки за проследяване
     cs = Natavení doprovodu
     da = Tracking-indstillinger
-    de = Einstellungen der Begleitung
+    de = Standortdienste
     el = Ρυθμίσεις διαδρομών
     es = Configuraciones de seguimiento
     es-MX = Configuraciones de rastreo
@@ -18648,7 +18650,7 @@
     bg = Камери за скорост
     cs = Detektory rychlosti
     da = Fartkameraer
-    de = Geschwindigkeitskameras
+    de = Blitzer
     el = Κάμερες Ταχύτητας
     es = Cámaras de velocidad
     es-MX = Cámaras de velocidad
@@ -18883,7 +18885,7 @@
     bg = Автоматично - Предупреждава се при камери за скорост, ако има риск от превишаване на ограничението на скоростта\nВинаги - Винаги се продупреждава при камери за скорост\nНикога - Никога не се предупреждава при камери за скорост
     cs = Automaticky - Upozorňovat na rychlostní radary, pokud hrozí riziko překročení rychlosti\nVždy - Vždy upozorňovat na rychlostní radary\nNikdy - Nikdy neupozorňovat na rychlostní radary
     da = Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer
-    de = Auto - Über Geschwindigkeitskameras bei Risiko einer Geschwindigkeitsüberschreitung informieren\nImmer - Immer über Geschwindigkeitskameras informieren\nNiemals - Nie über Geschwindigkeitskameras informieren
+    de = Auto - Vor Blitzern warnen, wenn die Gefahr einer Geschwindigkeitsüberschreitung besteht\nImmer - Immer vor Blitzern warnen\nNiemals - Niemals vor Blitzern warnen
     el = Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες
     es = Auto - advierte sobre las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - siempre alerta sobre las cámaras\nNunca - nunca advierte acerca de las cámaras
     es-MX = Automático - Aviso de las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - Siempre dar aviso de las cámaras de velocidad\nNunca - Nunca dar aviso de las cámaras de velocidad
