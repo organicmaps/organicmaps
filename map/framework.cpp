@@ -755,6 +755,12 @@ void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info &
   info.SetIntermediateIndex(rmp.GetIntermediateIndex());
 }
 
+void Framework::FillTransitMarkInfo(TransitMark const & transitMark, place_page::Info & info) const
+{
+  FillFeatureInfo(transitMark.GetFeatureID(), info);
+  /// @todo Add useful info in PP for TransitMark (public transport).
+}
+
 void Framework::FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place_page::Info & info) const
 {
   if (roadTypeMark.GetFeatureID().IsValid())
@@ -2176,7 +2182,7 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
       }
       case UserMark::Type::TRANSIT:
       {
-        /// @todo Add useful info in PP for TransitMark (public transport).
+        FillTransitMarkInfo(*static_cast<TransitMark const *>(mark), outInfo);
         break;
       }
       default:
