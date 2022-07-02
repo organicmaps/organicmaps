@@ -119,46 +119,45 @@
 
     </androidx.appcompat.widget.Toolbar>
   </FrameLayout>
-
   <FrameLayout
-    android:background="?attr/drivingOptionsViewBg"
     android:id="@+id/driving_options_btn_container"
-    android:visibility="gone"
-    android:foreground="@drawable/shadow_top"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?attr/drivingOptionsViewBg"
+    android:foreground="@drawable/shadow_top"
+    android:visibility="gone"
+    tools:visibility="visible">
     <RelativeLayout
       android:id="@+id/driving_options_btn"
-      android:background="?attr/selectableItemBackgroundBorderless"
       android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?attr/selectableItemBackgroundBorderless"
       android:gravity="center"
-      android:minHeight="@dimen/height_block_base"
-      android:layout_height="wrap_content">
+      android:minHeight="@dimen/height_block_base">
       <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
           android:id="@+id/driving_options_btn_img"
-          android:src="@drawable/ic_error_white"
-          android:layout_marginEnd="@dimen/margin_half_plus_eight"
-          android:layout_gravity="center"
           android:layout_width="@dimen/margin_base_plus"
-          android:layout_height="@dimen/margin_base_plus"/>
+          android:layout_height="@dimen/margin_base_plus"
+          android:layout_gravity="center"
+          android:layout_marginEnd="@dimen/margin_half_plus_eight"
+          android:src="@drawable/ic_error_white" />
         <TextView
           android:id="@+id/driving_options_btn_title"
-          android:textAppearance="?android:attr/textAppearanceSmall"
-          android:textColor="@color/tips_and_triks_primary_text"
-          android:textAllCaps="true"
-          android:layout_gravity="center"
-          android:gravity="center"
-          android:fontFamily="@string/robotoMedium"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          tools:ignore="UnusedAttribute"/>
+          android:layout_gravity="center"
+          android:fontFamily="@string/robotoMedium"
+          android:gravity="center"
+          android:textAllCaps="true"
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:textColor="@color/text_light"
+          tools:ignore="UnusedAttribute"
+          tools:text="test" />
       </LinearLayout>
-
     </RelativeLayout>
-
   </FrameLayout>
   <FrameLayout
     style="@style/MwmWidget.FrameLayout.Elevation"

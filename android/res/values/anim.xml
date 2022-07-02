@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <integer name="anim_default">160</integer>
-  <integer name="anim_placepage">@integer/anim_default</integer>
   <integer name="anim_panel">@integer/anim_default</integer>
   <integer name="anim_fade_main">@integer/anim_default</integer>
   <integer name="anim_menu">200</integer>

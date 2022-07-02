@@ -96,24 +96,6 @@
     <item name="android:gravity">center</item>
   </style>
 
-  <style name="MwmWidget.Button.Ghost">
-    <item name="android:background">@android:color/transparent</item>
-    <item name="android:foreground">?clickableBackground</item>
-    <item name="android:minHeight">@dimen/primary_button_min_height</item>
-    <item name="android:textColor">?colorAccent</item>
-    <item name="android:textSize">@dimen/text_size_body_3</item>
-    <item name="android:fontFamily">@string/robotoMedium</item>
-    <item name="textAllCaps">true</item>
-  </style>
-
-  <style name="MwmWidget.Button.LeaveReview">
-    <item name="android:background">?reviewButtonBackground</item>
-    <item name="android:minWidth">0dp</item>
-    <item name="android:minHeight">0dp</item>
-    <item name="android:textColor">?accentButtonTextColor</item>
-    <item name="android:textSize">@dimen/text_size_body_4</item>
-  </style>
-
   <style name="MwmWidget.ProgressWheel.RoutingPlan">
     <item name="android:layout_width">@dimen/routing_selector_wheel_size</item>
     <item name="android:layout_height">@dimen/routing_selector_wheel_size</item>
@@ -129,20 +111,12 @@
     <item name="android:elevation">@dimen/appbar_elevation</item>
   </style>
 
-  <style name="MwmWidget.Floating.Panel">
-    <item name="android:background">?ppBackground</item>
-  </style>
-
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage</item>
     <item name="android:textColorHint">?secondary</item>
     <item name="android:textCursorDrawable">@null</item>
     <item name="android:fontFamily">@string/robotoRegular</item>
-  </style>
-
-  <style name="MwmWidget.PopupMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
-    <item name="android:background">?cardBackground</item>
   </style>
 
   <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -277,19 +251,6 @@
     <item name="android:background">?windowBackgroundForced</item>
   </style>
 
-  <style name="MwmWidget.RatingBar" parent="android:Widget.RatingBar">
-    <item name="android:progressDrawable">@drawable/rating_bar</item>
-    <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
-  </style>
-
-  <style name="MwmWidget.RatingBarSmall" parent="android:Widget.RatingBar">
-    <item name="android:progressDrawable">@drawable/rating_bar_small</item>
-    <item name="android:indeterminateDrawable">@drawable/rating_bar_small</item>
-    <item name="android:minHeight">12dp</item>
-    <item name="android:maxHeight">12dp</item>
-    <item name="android:isIndicator">true</item>
-  </style>
-
   <style name="MwmWidget.Counter">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
@@ -329,43 +290,6 @@
     <item name="android:background">?selectableItemBackgroundBorderless</item>
     <item name="android:padding">@dimen/margin_half</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Toolbar.Title.Button</item>
-  </style>
-
-  <style name="MwmWidget.Discovery.Item.Button" parent="android:Widget.TextView">
-    <item name="android:minHeight">@dimen/discovery_button_min_height</item>
-    <item name="android:gravity">center</item>
-    <item name="android:paddingStart">@dimen/margin_base</item>
-    <item name="android:paddingEnd">@dimen/margin_base</item>
-    <item name="android:paddingTop">@dimen/margin_half_plus</item>
-    <item name="android:paddingBottom">@dimen/margin_half_plus</item>
-    <item name="android:background">?windowBackgroundForced</item>
-    <item name="android:letterSpacing">0.04</item>
-    <item name="android:minLines">1</item>
-    <item name="android:ellipsize">end</item>
-  </style>
-
-  <style name="MwmWidget.Discovery.Item.Title" parent="android:Widget.TextView">
-    <item name="android:maxLines">2</item>
-    <item name="android:minLines">2</item>
-    <item name="android:ellipsize">end</item>
-  </style>
-
-  <style name="MwmWidget.Discovery.Item.Subtitle" parent="android:Widget.TextView">
-    <item name="android:maxLines">1</item>
-    <item name="android:ellipsize">end</item>
-  </style>
-
-  <style name="MwmWidget.Discovery.Subtitle" parent="android:Widget.TextView">
-    <item name="android:ellipsize">end</item>
-    <item name="android:maxLines">2</item>
-  </style>
-
-  <style name="MwmWidget.Chip.Action" parent="Widget.MaterialComponents.Chip.Action">
-    <item name="android:textColor">?chipTextColor</item>
-    <item name="chipIconTint">?chipIconTintColor</item>
-    <item name="closeIconTint">?chipIconTintColor</item>
-    <item name="closeIconVisible">true</item>
-    <item name="chipBackgroundColor">?chipBackgroundColor</item>
   </style>
 
   <style name="MwmWidget.MaterialCalendar.Theme.FullScreen.Dark"

@@ -2,10 +2,6 @@
 <resources>
   <dimen name="tabs_height">48dp</dimen>
 
-  <dimen name="menu_line_button_inset_edge">-12dp</dimen>
-  <dimen name="menu_line_button_width_edge">72dp</dimen>
-  <dimen name="menu_line_button_width">88dp</dimen>
-
   <dimen name="map_buttons_bottom_margin">100dp</dimen>
 
   <!-- Nav menu -->
@@ -17,7 +13,4 @@
   <dimen name="altitude_chart_image_width">334dp</dimen>
 
   <dimen name="start_button_width">128dp</dimen>
-
-  <!-- Purchases-->
-  <dimen name="ads_removal_dialog_min_height">360dp</dimen>
 </resources>

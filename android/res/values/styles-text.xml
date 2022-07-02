@@ -179,58 +179,9 @@
     <item name="android:textColor">?colorAccent</item>
   </style>
 
-  <style name="MwmTextAppearance.PlacePage.Title" parent="MwmTextAppearance.Body3"/>
-
-  <style name="MwmTextAppearance.Editor">
-  </style>
-
-  <style name="MwmTextAppearance.Editor.Buttons">
-    <item name="android:textSize">@dimen/text_size_body_3</item>
-  </style>
-
   <style name="MwmTextAppearance.Tab" parent="MwmTextAppearance.Body3">
     <item name="android:textAllCaps">true</item>
     <item name="android:textColor">@color/white_secondary</item>
-  </style>
-
-  <style name="MwmTextAppearance.Discovery.Subtitle" parent="MwmTextAppearance.Body3">
-    <item name="android:fontFamily">@string/robotoMedium</item>
-    <item name="android:gravity">start</item>
-  </style>
-
-  <style name="MwmTextAppearance.Discovery.Item.Title" parent="MwmTextAppearance.Body3.Primary">
-    <item name="android:textStyle">bold</item>
-  </style>
-
-  <style name="MwmTextAppearance.Discovery.Item.Button" parent="MwmTextAppearance.Body3.Primary">
-    <item name="android:textStyle">bold</item>
-    <item name="android:textColor">?colorAccent</item>
-    <item name="android:textAllCaps">true</item>
-  </style>
-
-  <style name="MwmTextAppearance.Discovery.Item.Distance" parent="MwmTextAppearance.Body3.Primary">
-    <item name="android:textColor">?colorAccent</item>
-  </style>
-
-  <style name="MwmTextAppearance.BookingFilter.Title" parent="MwmTextAppearance.Body3">
-    <item name="android:fontFamily">@string/robotoMedium</item>
-  </style>
-
-  <style name="MwmTextAppearance.BookingFilter.Warning" parent="MwmTextAppearance.Body3">
-    <item name="android:fontFamily">@string/robotoRegular</item>
-    <item name="android:textColor">@color/dark_gray</item>
-  </style>
-
-  <style name="MwmTextAppearance.BookingFilter.DateTextView" parent="MwmTextAppearance.Body3">
-    <item name="android:singleLine">true</item>
-    <item name="android:ellipsize">end</item>
-    <item name="android:paddingStart">@dimen/margin_half</item>
-    <item name="android:paddingEnd">@dimen/margin_half</item>
-    <item name="android:paddingTop">@dimen/margin_half_plus_eight</item>
-    <item name="android:paddingBottom">@dimen/margin_half_plus_eight</item>
-    <item name="android:gravity">start|center_vertical</item>
-    <item name="android:textColor">?attr/filterPropertyTextColor</item>
-    <item name="android:background">?filterPropertyBackground</item>
   </style>
 
   <style name="TextAppearance.MdcTypographyStyles.Headline1"
