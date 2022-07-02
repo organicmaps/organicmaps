@@ -40,13 +40,13 @@
       <ImageButton
         android:id="@+id/nav_zoom_in"
         style="@style/MwmWidget.MapButton"
-        android:src="@drawable/ic_zoom_in"
+        android:src="@drawable/ic_plus"
         app:layout_constraintBottom_toTopOf="@+id/nav_zoom_out"
         app:layout_constraintEnd_toEndOf="parent" />
       <ImageButton
         android:id="@+id/nav_zoom_out"
         style="@style/MwmWidget.MapButton"
-        android:src="@drawable/ic_zoom_out"
+        android:src="@drawable/ic_minus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

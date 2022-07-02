@@ -112,8 +112,6 @@
     <item name="transitStepDivider">@drawable/dot_divider</item>
     <item name="filterPropertyBackground">@drawable/button_with_border</item>
     <item name="saleIcon">@drawable/ic_deal_light</item>
-    <item name="nav_bg_subway">@drawable/bg_subway_light</item>
-    <item name="nav_bg_isolines">@drawable/bg_iso_lines_light</item>
     <item name="trafficMenuEnabled">@drawable/ic_layers_traffic_active</item>
     <item name="subwayMenuEnabled">@drawable/ic_layers_subway_active</item>
     <item name="isoLinesMenuEnabled">@drawable/ic_layers_isoline_active</item>
@@ -292,8 +290,6 @@
     <item name="subwayMenuEnabled">@drawable/ic_layers_subway_active_night</item>
     <item name="isoLinesMenuEnabled">@drawable/ic_layers_isoline_active_night</item>
     <item name="saleIcon">@drawable/ic_deal_dark</item>
-    <item name="nav_bg_subway">@drawable/bg_subway_night</item>
-    <item name="nav_bg_isolines">@drawable/bg_iso_lines_night</item>
     <item name="accentColorSelector">@color/accent_color_selector_night</item>
     <item name="tipsBgColor">@color/tips_and_triks_bg</item>
     <item name="tipsPrimaryTextColor">@color/tips_and_triks_primary_text_night</item>
