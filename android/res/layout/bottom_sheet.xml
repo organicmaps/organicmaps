@@ -20,6 +20,8 @@
     android:layout_marginTop="@dimen/margin_base"
     android:layout_marginBottom="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
+    android:maxLines="3"
+    android:ellipsize="end"
     android:textAppearance="?fontHeadline6"
     tools:text="Title" />
 
