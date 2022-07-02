@@ -578,7 +578,14 @@ template <class T>
 void EditableMapObject::SetCuisinesImpl(vector<T> const & cuisines)
 {
   FeatureParams params;
-  params.m_types.assign(m_types.begin(), m_types.end());
+
+  // Ignore cuisine types as these will be set from the cuisines param
+  auto const & isCuisine = ftypes::IsCuisineChecker::Instance();
+  for (uint32_t const type : m_types)
+  {
+    if (!isCuisine(type))
+      params.m_types.push_back(type);
+  }
 
   Classificator const & cl = classif();
   for (auto const & cuisine : cuisines)
