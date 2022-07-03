@@ -1,14 +1,20 @@
 package com.mapswithme.maps.widget.recycler;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import androidx.annotation.DimenRes;
 import androidx.annotation.Dimension;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.Holders;
+
+import java.util.Objects;
 
 public class DividerItemDecorationWithPadding extends RecyclerView.ItemDecoration
 {
@@ -17,10 +23,10 @@ public class DividerItemDecorationWithPadding extends RecyclerView.ItemDecoratio
   @NonNull
   private final Drawable mDivider;
 
-  public DividerItemDecorationWithPadding(@NonNull Drawable divider, @Dimension int startMargin)
+  public DividerItemDecorationWithPadding(@NonNull Context context)
   {
-    mDivider = divider;
-    mStartMargin = startMargin;
+    mDivider = Objects.requireNonNull(context.getDrawable(R.drawable.divider_base));
+    mStartMargin =  context.getResources().getDimensionPixelSize(R.dimen.margin_quadruple_plus_half);
   }
 
   @Override

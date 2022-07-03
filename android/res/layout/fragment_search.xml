@@ -92,12 +92,7 @@
       android:layout_gravity="bottom|end"
       android:layout_margin="@dimen/margin_base"/>
 
-    <com.mapswithme.maps.widget.FadeView
-      android:id="@+id/fade_view"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="@android:color/black"
-      android:visibility="gone"/>
+
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>
 
