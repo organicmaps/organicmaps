@@ -93,8 +93,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
       new Factory.HttpMapsIntentProcessor(),
       new Factory.OpenCountryTaskProcessor(),
       new Factory.KmzKmlProcessor(this),
-      new Factory.ShowOnMapProcessor(),
-      new Factory.BuildRouteProcessor(),
   };
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
