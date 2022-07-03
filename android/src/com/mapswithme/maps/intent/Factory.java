@@ -230,9 +230,6 @@ public class Factory
       switch (result.getUrlType())
       {
         case ParsingResult.TYPE_INCORRECT:
-        case ParsingResult.TYPE_CATALOGUE:
-        case ParsingResult.TYPE_CATALOGUE_PATH:
-        case ParsingResult.TYPE_SUBSCRIPTION:
           return false;
 
         case ParsingResult.TYPE_MAP:
@@ -261,8 +258,6 @@ public class Factory
               Framework.nativeSetSearchViewport(request.mLat, request.mLon, SEARCH_IN_VIEWPORT_ZOOM);
           }
           SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap);
-          return true;
-        case ParsingResult.TYPE_LEAD:
           return true;
       }
 
