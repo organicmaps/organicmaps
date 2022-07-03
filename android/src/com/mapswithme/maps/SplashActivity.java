@@ -12,6 +12,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.location.LocationHelper;
@@ -29,6 +30,8 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
   public static final String EXTRA_INITIAL_INTENT = "extra_initial_intent";
   private static final int REQUEST_PERMISSIONS = 1;
+  private static final int REQ_CODE_API_RESULT = 10;
+
   private static final long DELAY = 100;
 
   private boolean mCanceled = false;
@@ -190,10 +193,30 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
                            input.getParcelableExtra(EXTRA_INITIAL_INTENT) :
                            input;
       result.putExtra(EXTRA_INITIAL_INTENT, initialIntent);
+      if (Const.ACTION_MWM_REQUEST.equals(initialIntent.getAction()))
+      {
+        // Wait for the result from MwmActivity for API callers.
+        startActivityForResult(result, REQ_CODE_API_RESULT);
+        return;
+      }
     }
     Counters.setFirstStartDialogSeen(this);
     startActivity(result);
     finish();
+  }
+
+  protected void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    switch (requestCode)
+    {
+    case REQ_CODE_API_RESULT:
+      // Propagate the result to API callers
+      setResult(resultCode, data);
+      finish();
+      break;
+    default:
+      super.onActivityResult(requestCode, resultCode, data);
+    }
   }
 
   @Override
