@@ -7,8 +7,6 @@ public class Const
   static final String AUTHORITY = "com.mapswithme.maps.api";
   public static final String EXTRA_URL = AUTHORITY + ".url";
   public static final String EXTRA_TITLE = AUTHORITY + ".title";
-  public static final String EXTRA_HAS_PENDING_INTENT = AUTHORITY + ".has_pen_intent";
-  public static final String EXTRA_CALLER_PENDING_INTENT = AUTHORITY + ".pending_intent";
   public static final String EXTRA_PICK_POINT = AUTHORITY + ".pick_point";
 
 

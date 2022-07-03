@@ -48,6 +48,9 @@ public class Factory
       final String scheme = intent.getScheme();
       if (!"geo".equals(scheme) && !"ge0".equals(scheme) && !"om".equals(scheme) && !"mapsme".equals(scheme))
         return null;
+      SearchEngine.INSTANCE.cancelInteractiveSearch();
+      final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
+      ParsedMwmRequest.setCurrentRequest(request);
       return new OpenUrlTask(uri.toString());
     }
   }
@@ -77,7 +80,7 @@ public class Factory
   /**
    * Use this to invoke API task.
    */
-  public static class MapsWithMeIntentProcessor implements IntentProcessor
+  public static class ApiIntentProcessor implements IntentProcessor
   {
     @Nullable
     @Override
@@ -94,7 +97,7 @@ public class Factory
         final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
         ParsedMwmRequest.setCurrentRequest(request);
 
-        if (!ParsedMwmRequest.isPickPointMode())
+        if (request.isPickPointMode())
           return new OpenUrlTask(apiUrl);
       }
 

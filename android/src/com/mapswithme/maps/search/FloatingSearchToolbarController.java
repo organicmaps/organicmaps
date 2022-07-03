@@ -56,8 +56,9 @@ public class FloatingSearchToolbarController extends SearchToolbarController
   public void refreshQuery()
   {
     showProgress(false);
-    CharSequence query = ParsedMwmRequest.hasRequest() ?
-            ParsedMwmRequest.getCurrentRequest().getTitle()
+    final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
+    CharSequence query = request != null ?
+              request.getTitle()
             : SearchEngine.INSTANCE.getQuery();
 
     if (!TextUtils.isEmpty(query))
