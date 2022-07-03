@@ -536,11 +536,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (request != null && request.isPickPointMode())
     {
       final Intent result = new Intent();
-      result.putExtra(Const.EXTRA_MWM_RESPONSE_POINT_LAT, mMapObject.getLat())
-          .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_LON, mMapObject.getLon())
-          .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_NAME, mMapObject.getTitle())
-          .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_ID, mMapObject.getApiId())
-          .putExtra(Const.EXTRA_MWM_RESPONSE_ZOOM, Framework.nativeGetDrawScale());
+      result.putExtra(Const.EXTRA_POINT_LAT, mMapObject.getLat())
+          .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
+          .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
+          .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
+          .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
       getActivity().setResult(Activity.RESULT_OK, result);
       ParsedMwmRequest.setCurrentRequest(null);
     }
