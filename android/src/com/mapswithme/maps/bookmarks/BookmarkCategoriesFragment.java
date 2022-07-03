@@ -27,7 +27,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.widget.PlaceholderView;
-import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
+import com.mapswithme.maps.widget.recycler.DividerItemDecorationWithPadding;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.bottomsheet.MenuBottomSheetFragment;
 import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
@@ -99,8 +99,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     if (rw == null) return;
 
     rw.setNestedScrollingEnabled(false);
-    RecyclerView.ItemDecoration decor = ItemDecoratorFactory
-        .createDecoratorWithPadding(getContext());
+    RecyclerView.ItemDecoration decor = new DividerItemDecorationWithPadding(getContext());
     rw.addItemDecoration(decor);
     mCategoriesAdapterObserver = new CategoriesAdapterObserver(this);
     BookmarkManager.INSTANCE.addCategoriesUpdatesListener(mCategoriesAdapterObserver);

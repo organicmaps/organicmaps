@@ -38,7 +38,7 @@ import com.mapswithme.maps.search.NativeBookmarkSearchListener;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
-import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
+import com.mapswithme.maps.widget.recycler.DividerItemDecorationWithPadding;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.SharingUtils;
 import com.mapswithme.util.UiUtils;
@@ -274,8 +274,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void configureRecyclerDividers()
   {
-    RecyclerView.ItemDecoration decorWithPadding = ItemDecoratorFactory
-        .createDecoratorWithPadding(requireContext());
+    RecyclerView.ItemDecoration decorWithPadding = new DividerItemDecorationWithPadding(requireContext());
     getRecyclerView().addItemDecoration(decorWithPadding);
     getRecyclerView().addOnScrollListener(mRecyclerListener);
   }
