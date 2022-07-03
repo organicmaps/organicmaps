@@ -15,13 +15,14 @@
     android:theme="@style/MwmWidget.ToolbarTheme"
     tools:ignore="UnusedAttribute">
     <ImageView
-      android:id="@+id/more"
+      android:id="@+id/logout"
       android:layout_width="?actionBarSize"
       android:layout_height="?actionBarSize"
       android:layout_gravity="end|center_vertical"
       android:background="?selectableItemBackgroundBorderless"
       android:scaleType="center"
-      android:src="@drawable/ic_more" />
+      android:src="@drawable/ic_logout"
+      android:contentDescription="@string/logout" />
   </androidx.appcompat.widget.Toolbar>
 
   <ScrollView
@@ -42,23 +43,35 @@
         android:animateLayoutChanges="true"
         android:background="?colorPrimary"
         android:orientation="vertical"
-        android:padding="@dimen/margin_base"
-        android:visibility="visible">
+        android:padding="@dimen/margin_base">
         <LinearLayout
           android:id="@+id/sent_edits"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingBottom="@dimen/margin_base"
           android:orientation="vertical">
-          <TextView
-            android:id="@+id/edits_count"
+          <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="112dp"
-            android:gravity="center"
-            android:textColor="@color/text_light"
-            android:textSize="96sp"
-            android:textStyle="bold"
-            tools:text="244"/>
+            android:layout_height="112dp">
+            <TextView
+              android:id="@+id/edits_count"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:textColor="@color/text_light"
+              android:textSize="96sp"
+              android:textStyle="bold"
+              tools:text="244"/>
+            <ProgressBar
+              android:id="@+id/edits_count_progress"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:padding="@dimen/margin_base"
+              android:indeterminateTint="@color/text_light"
+              android:visibility="gone"
+              tools:visibility="visible"/>
+          </FrameLayout>
 
           <TextView
             android:layout_width="match_parent"
