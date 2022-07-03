@@ -1128,7 +1128,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           return;
 
         request.setPointData(object.getLat(), object.getLon(), object.getTitle(), object.getApiId());
-        object.setSubtitle(request.getCallerName(MwmApplication.from(this)).toString());
+        object.setSubtitle(request.getTitle());
       }
     }
 

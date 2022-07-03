@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
@@ -15,18 +13,12 @@ public class ParsedMwmRequest
 
   private static volatile ParsedMwmRequest sCurrentRequest;
 
-  // caller info
-  private ApplicationInfo mCallerInfo;
   // title
   private String mTitle;
   // pending intent to call back
   private PendingIntent mPendingIntent;
-  // return on ballon click
-  private boolean mReturnOnBalloonClick;
   // pick point mode
   private boolean mPickPoint;
-  // custom button name
-  private String mCustomButtonName;
 
   // response data
   private boolean mHasPoint;
@@ -46,10 +38,6 @@ public class ParsedMwmRequest
 
   public static boolean isPickPointMode() { return hasRequest() && getCurrentRequest().mPickPoint; }
 
-  public boolean hasCustomButtonName() { return !TextUtils.isEmpty(mCustomButtonName); }
-
-  public String getCustomButtonName() { return mCustomButtonName; }
-
   public static ParsedMwmRequest getCurrentRequest() { return sCurrentRequest; }
 
   public static boolean hasRequest() { return sCurrentRequest != null; }
@@ -63,22 +51,13 @@ public class ParsedMwmRequest
   {
     final ParsedMwmRequest request = new ParsedMwmRequest();
 
-    request.mCallerInfo = data.getParcelableExtra(Const.EXTRA_CALLER_APP_INFO);
     request.mTitle = data.getStringExtra(Const.EXTRA_TITLE);
-    request.mReturnOnBalloonClick = data.getBooleanExtra(Const.EXTRA_RETURN_ON_BALLOON_CLICK, false);
     request.mPickPoint = data.getBooleanExtra(Const.EXTRA_PICK_POINT, false);
-    request.mCustomButtonName = data.getStringExtra(Const.EXTRA_CUSTOM_BUTTON_NAME);
 
     if (data.getBooleanExtra(Const.EXTRA_HAS_PENDING_INTENT, false))
       request.mPendingIntent = data.getParcelableExtra(Const.EXTRA_CALLER_PENDING_INTENT);
 
     return request;
-  }
-
-  // Response data
-  public ApplicationInfo getCallerInfo()
-  {
-    return mCallerInfo;
   }
 
   public boolean hasTitle() { return mTitle != null; }
@@ -95,24 +74,12 @@ public class ParsedMwmRequest
 
   public boolean hasPendingIntent() { return mPendingIntent != null; }
 
-  public boolean doReturnOnBalloonClick() { return mReturnOnBalloonClick; }
-
   public void setPointData(double lat, double lon, String name, String id)
   {
     mLat = lat;
     mLon = lon;
     mName = name;
     mId = id;
-  }
-
-  public Drawable getIcon(Context context)
-  {
-    return context.getPackageManager().getApplicationIcon(mCallerInfo);
-  }
-
-  public CharSequence getCallerName(Context context)
-  {
-    return context.getPackageManager().getApplicationLabel(mCallerInfo);
   }
 
   public boolean sendResponse(Context context, boolean success)
