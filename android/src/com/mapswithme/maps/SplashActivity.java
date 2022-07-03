@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapswithme.maps.api.Const;
+import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.location.LocationHelper;
@@ -193,7 +194,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
                            input.getParcelableExtra(EXTRA_INITIAL_INTENT) :
                            input;
       result.putExtra(EXTRA_INITIAL_INTENT, initialIntent);
-      if (Const.ACTION_MWM_REQUEST.equals(initialIntent.getAction()))
+      if (!initialIntent.hasCategory(Intent.CATEGORY_LAUNCHER))
       {
         // Wait for the result from MwmActivity for API callers.
         startActivityForResult(result, REQ_CODE_API_RESULT);
@@ -207,15 +208,11 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
 
   protected void onActivityResult(int requestCode, int resultCode, Intent data)
   {
-    switch (requestCode)
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == REQ_CODE_API_RESULT)
     {
-    case REQ_CODE_API_RESULT:
-      // Propagate the result to API callers
       setResult(resultCode, data);
       finish();
-      break;
-    default:
-      super.onActivityResult(requestCode, resultCode, data);
     }
   }
 

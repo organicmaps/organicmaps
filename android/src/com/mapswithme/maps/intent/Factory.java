@@ -14,7 +14,6 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
@@ -73,35 +72,11 @@ public class Factory
       if (uri.getPath() == null)
         return null;
       final String ge0Url = "om:/" + uri.getPath();
+
+      SearchEngine.INSTANCE.cancelInteractiveSearch();
+      final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
+      ParsedMwmRequest.setCurrentRequest(request);
       return new OpenUrlTask(ge0Url);
-    }
-  }
-
-  /**
-   * Use this to invoke API task.
-   */
-  public static class ApiIntentProcessor implements IntentProcessor
-  {
-    @Nullable
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      if (!Const.ACTION_MWM_REQUEST.equals(intent.getAction()))
-        return null;
-
-      final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
-      if (apiUrl != null)
-      {
-        SearchEngine.INSTANCE.cancelInteractiveSearch();
-
-        final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
-        ParsedMwmRequest.setCurrentRequest(request);
-
-        if (request.isPickPointMode())
-          return new OpenUrlTask(apiUrl);
-      }
-
-      throw new AssertionError("Url must be provided!");
     }
   }
 
