@@ -45,7 +45,7 @@
       tools:text="42000000" />
   </LinearLayout>
   <ImageView
-    android:id="@id/more"
+    android:id="@+id/more"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
