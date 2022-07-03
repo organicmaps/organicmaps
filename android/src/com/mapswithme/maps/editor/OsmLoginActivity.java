@@ -4,11 +4,11 @@ import androidx.fragment.app.Fragment;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
-public class OsmAuthActivity extends BaseMwmFragmentActivity
+public class OsmLoginActivity extends BaseMwmFragmentActivity
 {
   @Override
   protected Class<? extends Fragment> getFragmentClass()
   {
-    return OsmAuthFragment.class;
+    return OsmLoginFragment.class;
   }
 }

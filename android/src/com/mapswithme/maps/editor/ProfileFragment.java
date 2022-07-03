@@ -3,14 +3,16 @@ package com.mapswithme.maps.editor;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.bottomsheet.MenuBottomSheetFragment;
@@ -20,13 +22,9 @@ import com.mapswithme.util.concurrency.UiThread;
 
 import java.util.ArrayList;
 
-public class ProfileFragment extends AuthFragment implements View.OnClickListener
+public class ProfileFragment extends BaseMwmToolbarFragment implements View.OnClickListener
 {
-  private View mSentBlock;
   private TextView mEditsSent;
-  private View mMore;
-  private View mAuthBlock;
-  private View mRatingBlock;
 
   private void onLogoutActionSelected(final ProfileFragment fragment)
   {
@@ -42,6 +40,13 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
         .show();
   }
 
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  {
+    return inflater.inflate(R.layout.fragment_osm_profile, container, false);
+  }
+
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
@@ -53,14 +58,12 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
 
   private void initViews(View view)
   {
-    mMore = getToolbarController().getToolbar().findViewById(R.id.more);
-    mMore.setOnClickListener(this);
+    View more = getToolbarController().getToolbar().findViewById(R.id.more);
+    more.setOnClickListener(this);
     View editsBlock = view.findViewById(R.id.block_edits);
     UiUtils.show(editsBlock);
-    mSentBlock = editsBlock.findViewById(R.id.sent_edits);
-    mEditsSent = mSentBlock.findViewById(R.id.edits_count);
-    mAuthBlock = view.findViewById(R.id.block_auth);
-    mRatingBlock = view.findViewById(R.id.block_rating);
+    View sentBlock = editsBlock.findViewById(R.id.sent_edits);
+    mEditsSent = sentBlock.findViewById(R.id.edits_count);
     view.findViewById(R.id.about_osm).setOnClickListener(this);
     view.findViewById(R.id.osm_history).setOnClickListener(this);
   }
@@ -69,8 +72,6 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
   {
     if (OsmOAuth.isAuthorized(requireContext()))
     {
-      UiUtils.show(mMore, mRatingBlock, mSentBlock);
-      UiUtils.hide(mAuthBlock);
       // Update the number of uploaded changesets from OSM.
       ThreadPool.getWorker().execute(() -> {
         final int count = OsmOAuth.getOsmChangesetsCount(requireContext(), getParentFragmentManager());
@@ -79,8 +80,10 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     }
     else
     {
-      UiUtils.show(mAuthBlock);
-      UiUtils.hide(mMore, mRatingBlock, mSentBlock);
+      Intent intent = new Intent(getContext(), OsmLoginActivity.class);
+      intent.putExtra("redirectToProfile", true);
+      startActivity(intent);
+      requireActivity().finish();
     }
   }
 
@@ -89,15 +92,15 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
   {
     switch (v.getId())
     {
-    case R.id.more:
-      showBottomSheet();
-      break;
-    case R.id.about_osm:
-      startActivity(new Intent((Intent.ACTION_VIEW), Uri.parse(Constants.Url.OSM_ABOUT)));
-      break;
-    case R.id.osm_history:
-      startActivity(new Intent((Intent.ACTION_VIEW), Uri.parse(OsmOAuth.getHistoryUrl(requireContext()))));
-      break;
+      case R.id.more:
+        showBottomSheet();
+        break;
+      case R.id.about_osm:
+        startActivity(new Intent((Intent.ACTION_VIEW), Uri.parse(Constants.Url.OSM_ABOUT)));
+        break;
+      case R.id.osm_history:
+        startActivity(new Intent((Intent.ACTION_VIEW), Uri.parse(OsmOAuth.getHistoryUrl(requireContext()))));
+        break;
     }
   }
 
