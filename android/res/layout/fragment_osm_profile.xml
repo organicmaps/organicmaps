@@ -21,8 +21,7 @@
       android:layout_gravity="end|center_vertical"
       android:background="?selectableItemBackgroundBorderless"
       android:scaleType="center"
-      android:src="@drawable/ic_more"
-      android:visibility="gone"/>
+      android:src="@drawable/ic_more" />
   </androidx.appcompat.widget.Toolbar>
 
   <ScrollView
@@ -72,83 +71,24 @@
 
         </LinearLayout>
       </LinearLayout>
-
-      <LinearLayout
-        android:id="@+id/block_auth"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="?colorPrimary"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:paddingStart="@dimen/margin_base"
-        android:paddingEnd="@dimen/margin_base"
-        tools:visibility="gone">
-
-        <TextView
-          android:id="@+id/first_osm_edit"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="20dp"
-          android:text="@string/login_to_make_edits_visible"
-          android:textAppearance="@style/MwmTextAppearance.Body3.Light"
-          android:textColor="@color/text_light"/>
-
-        <Button
-          android:id="@+id/login_osm"
-          style="@style/MwmWidget.Button.Accent"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/editor_auth_btn_height"
-          android:fontFamily="@string/robotoMedium"
-          android:text="@string/openstreetmap"
-          android:textAllCaps="false"
-          android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
-
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_double"
-          android:text="@string/no_osm_account"
-          android:textAppearance="@style/MwmTextAppearance.Body3.Light"
-          android:textColor="@color/text_light"/>
-
-        <TextView
-          android:id="@+id/register"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_half"
-          android:background="?clickableBackground"
-          android:paddingTop="@dimen/margin_half"
-          android:paddingBottom="@dimen/margin_half"
-          android:text="@string/register_at_openstreetmap"
-          android:textAllCaps="true"
-          android:textAppearance="@style/MwmTextAppearance.Body1.Light"
-          android:textColor="@color/text_light"/>
-
-      </LinearLayout>
-
       <RelativeLayout
-        android:id="@+id/block_rating"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="@dimen/margin_base">
-
         <TextView
-            android:id="@+id/osm_history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:background="?clickableBackground"
-            android:gravity="center"
-            android:paddingBottom="@dimen/margin_half"
-            android:paddingTop="@dimen/margin_half"
-            android:text="@string/history"
-            android:textAppearance="@style/MwmTextAppearance.Body4"
-            android:textColor="?colorAccent"
-            android:textSize="@dimen/text_size_body_1"/>
-
+          android:id="@+id/osm_history"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"
+          android:background="?clickableBackground"
+          android:gravity="center"
+          android:paddingTop="@dimen/margin_half"
+          android:paddingBottom="@dimen/margin_half"
+          android:text="@string/history"
+          android:textAppearance="@style/MwmTextAppearance.Body4"
+          android:textColor="?colorAccent"
+          android:textSize="@dimen/text_size_body_1" />
         <TextView
           android:id="@+id/about_osm"
           android:layout_width="match_parent"
@@ -156,12 +96,12 @@
           android:layout_alignParentBottom="true"
           android:background="?clickableBackground"
           android:gravity="center"
-          android:paddingBottom="@dimen/margin_half"
           android:paddingTop="@dimen/margin_half"
+          android:paddingBottom="@dimen/margin_half"
           android:text="@string/editor_more_about_osm"
           android:textAppearance="@style/MwmTextAppearance.Body4"
           android:textColor="?colorAccent"
-          android:textSize="@dimen/text_size_body_4"/>
+          android:textSize="@dimen/text_size_body_4" />
       </RelativeLayout>
     </LinearLayout>
   </ScrollView>
