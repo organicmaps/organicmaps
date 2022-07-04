@@ -4,6 +4,100 @@
 
 #include <string>
 
+UNIT_TEST(EditableMapObject_ValidateAndFormat_facebook)
+{
+  TEST_EQUAL(osm::ValidateAndFormat_facebook(""), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("facebook.com/OpenStreetMap"), "OpenStreetMap", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("www.facebook.com/OpenStreetMap"), "OpenStreetMap", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("http://facebook.com/OpenStreetMap"), "OpenStreetMap", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/OpenStreetMap"), "OpenStreetMap", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("http://www.facebook.com/OpenStreetMap"), "OpenStreetMap", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://www.facebook.com/OpenStreetMap"), "OpenStreetMap", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://en-us.facebook.com/OpenStreetMap"), "OpenStreetMap", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("some.good.page"), "some.good.page", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("@tree-house-interiors"), "tree-house-interiors", ());
+
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("instagram.com/openstreetmapus"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://instagram.com/openstreetmapus"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("osm"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("@spaces are not welcome here"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("spaces are not welcome here"), "", ());
+}
+
+UNIT_TEST(EditableMapObject_ValidateAndFormat_instagram)
+{
+  TEST_EQUAL(osm::ValidateAndFormat_instagram(""), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("instagram.com/openstreetmapus"), "openstreetmapus", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("www.instagram.com/openstreetmapus"), "openstreetmapus", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("http://instagram.com/openstreetmapus"), "openstreetmapus", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("https://instagram.com/openstreetmapus"), "openstreetmapus", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("http://www.instagram.com/openstreetmapus"), "openstreetmapus", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("https://www.instagram.com/openstreetmapus"), "openstreetmapus", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("https://en-us.instagram.com/openstreetmapus"), "openstreetmapus", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("@open_street_map_us"), "open_street_map_us", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("https://www.instagram.com/explore/locations/358536820/trivium-sport-en-dance/"), "explore/locations/358536820/trivium-sport-en-dance", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("https://www.instagram.com/p/BvkgKZNDbqN/?ghid=UwPchX7B"), "p/BvkgKZNDbqN", ());
+
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("facebook.com/osm_us"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram(".dots_not_allowed."), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), "", ());
+}
+
+UNIT_TEST(EditableMapObject_ValidateAndFormat_twitter)
+{
+  TEST_EQUAL(osm::ValidateAndFormat_twitter("twitter.com/osm_tech"), "osm_tech", ());
+  TEST_EQUAL(osm::ValidateAndFormat_twitter("www.twitter.com/osm_tech"), "osm_tech", ());
+  TEST_EQUAL(osm::ValidateAndFormat_twitter("http://twitter.com/osm_tech"), "osm_tech", ());
+  TEST_EQUAL(osm::ValidateAndFormat_twitter("https://twitter.com/osm_tech"), "osm_tech", ());
+  TEST_EQUAL(osm::ValidateAndFormat_twitter("http://www.twitter.com/osm_tech"), "osm_tech", ());
+  TEST_EQUAL(osm::ValidateAndFormat_twitter("https://www.twitter.com/osm_tech"), "osm_tech", ());
+  TEST_EQUAL(osm::ValidateAndFormat_twitter("@_osm_tech_"), "_osm_tech_", ());
+
+  TEST_EQUAL(osm::ValidateAndFormat_twitter("instagram.com/osm_tech"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_twitter("dots.not.allowed"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_twitter("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), "", ());
+}
+
+UNIT_TEST(EditableMapObject_ValidateAndFormat_vk)
+{
+  TEST_EQUAL(osm::ValidateAndFormat_vk("vk.com/id404"), "id404", ());
+  TEST_EQUAL(osm::ValidateAndFormat_vk("vkontakte.ru/id404"), "id404", ());
+  TEST_EQUAL(osm::ValidateAndFormat_vk("www.vk.com/id404"), "id404", ());
+  TEST_EQUAL(osm::ValidateAndFormat_vk("http://vk.com/id404"), "id404", ());
+  TEST_EQUAL(osm::ValidateAndFormat_vk("https://vk.com/id404"), "id404", ());
+  TEST_EQUAL(osm::ValidateAndFormat_vk("https://vkontakte.ru/id404"), "id404", ());
+  TEST_EQUAL(osm::ValidateAndFormat_vk("http://www.vk.com/id404"), "id404", ());
+  TEST_EQUAL(osm::ValidateAndFormat_vk("https://www.vk.com/id404"), "id404", ());
+  TEST_EQUAL(osm::ValidateAndFormat_vk("https://www.vk.com/id405/"), "id405", ());
+  TEST_EQUAL(osm::ValidateAndFormat_vk("@22ab.cdef"), "22ab.cdef", ());
+
+  TEST_EQUAL(osm::ValidateAndFormat_vk("instagram.com/hello_world"), "", ());
+}
+
+UNIT_TEST(EditableMapObject_ValidateAndFormat_contactLine)
+{
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("http://line.me/ti/p/mzog4fnz24"), "mzog4fnz24", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/ti/p/xnv0g02rws"), "xnv0g02rws", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/ti/p/@dgxs9r6wad"), "dgxs9r6wad", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/ti/p/%40vne5uwke17"), "vne5uwke17", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("http://line.me/R/ti/p/bfsg1a8x9u"), "bfsg1a8x9u", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/ti/p/gdltt7s380"), "gdltt7s380", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/ti/p/@sdb2pb3lsg"), "sdb2pb3lsg", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/ti/p/%40b30h5mdj11"), "b30h5mdj11", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("http://line.me/R/home/public/main?id=hmczqsbav5"), "hmczqsbav5", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/main?id=wa1gvx91jb"), "wa1gvx91jb", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("http://line.me/R/home/public/profile?id=5qll5dyqqu"), "5qll5dyqqu", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/profile?id=r90ck7n1rq"), "r90ck7n1rq", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/profile?id=r90ck7n1rq"), "r90ck7n1rq", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://page.line.me/fom5198h"), "fom5198h", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://page.line.me/qn58n8g?web=mobile"), "qn58n8g", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://abc.line.me/en/some/page?id=xaladqv"), "abc.line.me/en/some/page?id=xaladqv", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("@abcd"), "abcd", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("@-hyphen-test-"), "-hyphen-test-", ());
+
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.com/ti/p/invalid-domain"), "", ());
+}
+
 UNIT_TEST(EditableMapObject_ValidateFacebookPage)
 {
   TEST(osm::ValidateFacebookPage(""), ());

@@ -49,14 +49,14 @@ string ValidateAndFormat_facebook(string const & facebookPage)
   if (facebookPage.front() == '@')
   {
     // Validate facebookPage as username or page name.
-    if (!containsInvalidFBSymbol(facebookPage, 1))
+    if (facebookPage.length() >= 6 && !containsInvalidFBSymbol(facebookPage, 1))
       return facebookPage.substr(1);
     else
       return {}; // Invalid symbol in Facebook username of page name.
   }
   else
   {
-    if (!containsInvalidFBSymbol(facebookPage))
+    if (facebookPage.length() >= 5 && !containsInvalidFBSymbol(facebookPage))
       return facebookPage;
   }
 
