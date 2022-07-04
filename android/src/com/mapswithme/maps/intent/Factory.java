@@ -237,6 +237,9 @@ public class Factory
           }
           SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap);
           return true;
+        case ParsingResult.TYPE_CROSSHAIR:
+            target.showPositionChooserForAPI();
+            return true;
       }
 
       return false;
