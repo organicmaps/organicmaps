@@ -19,6 +19,7 @@ import androidx.car.app.navigation.model.NavigationTemplate;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.location.LocationHelper;
 
 import java.io.IOException;
 
@@ -60,8 +61,7 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
     MwmApplication cat = MwmApplication.from(getCarContext());
     try
     {
-      cat.initNativePlatform();
-      cat.initNativeFramework();
+     cat.init();
     }
     catch (IOException e)
     {
@@ -73,13 +73,14 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
 
     if (surfaceContainer.getSurface() != null)
     {
+          final boolean firstStart = LocationHelper.INSTANCE.isInFirstRun();
       Log.e("Create Engine", "!");
       canvas = surfaceContainer.getSurface()
                                .lockCanvas(new Rect(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE));
 
       Surface surface = surfaceContainer.getSurface();
       boolean cr = MapFragment.nativeCreateEngine(surface, surface.lockHardwareCanvas()
-                                                                  .getDensity(), false, false, BuildConfig.VERSION_CODE);
+                                                                  .getDensity(), firstStart, false, BuildConfig.VERSION_CODE);
       Log.e("Native Create Engine", String.valueOf(cr));
       if (canvas == null && cat.arePlatformAndCoreInitialized())
       {
