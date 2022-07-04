@@ -50,10 +50,11 @@ class ParsedMapApi
 public:
   enum class UrlType
   {
-    Incorrect,
-    Map,
-    Route,
-    Search,
+    Incorrect = 0,
+    Map = 1,
+    Route = 2,
+    Search = 3,
+    Crosshair = 4,
   };
 
   struct ParsingResult

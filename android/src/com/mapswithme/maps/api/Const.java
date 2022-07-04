@@ -2,17 +2,16 @@ package com.mapswithme.maps.api;
 
 public class Const
 {
-  /* Common */
+  // Common
   static final String API_SCHEME = "om://";
   static final String AUTHORITY = "app.organicmaps.api";
   static final String EXTRA_PREFIX = AUTHORITY + ".extra";
 
-  /* Request extras */
+  // Request extras
   public static final String EXTRA_TITLE = EXTRA_PREFIX + ".TITLE";
   public static final String EXTRA_PICK_POINT = EXTRA_PREFIX + ".PICK_POINT";
 
-  /* Response extras */
-  /* Point part-by-part*/
+  // Response extras
   public static final String EXTRA_POINT_NAME = EXTRA_PREFIX + ".POINT_NAME";
   public static final String EXTRA_POINT_LAT = EXTRA_PREFIX + ".POINT_LAT";
   public static final String EXTRA_POINT_LON = EXTRA_PREFIX + ".POINT_LON";

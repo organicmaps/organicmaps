@@ -92,6 +92,8 @@ ParsedMapApi::UrlType GetUrlType(url::Url const & url)
     return ParsedMapApi::UrlType::Route;
   if (type == "search")
     return ParsedMapApi::UrlType::Search;
+  if (type == "crosshair")
+    return ParsedMapApi::UrlType::Crosshair;
 
   return ParsedMapApi::UrlType::Incorrect;
 }
@@ -201,6 +203,10 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
         return false;
 
       m_request = request;
+      return true;
+    }
+    case UrlType::Crosshair:
+    {
       return true;
     }
   }
@@ -415,6 +421,7 @@ std::string DebugPrint(ParsedMapApi::UrlType type)
   case ParsedMapApi::UrlType::Map: return "Map";
   case ParsedMapApi::UrlType::Route: return "Route";
   case ParsedMapApi::UrlType::Search: return "Search";
+  case ParsedMapApi::UrlType::Crosshair: return "Crosshair";
   }
   UNREACHABLE();
 }
