@@ -40,6 +40,8 @@ UNIT_TEST(EditableMapObject_ValidateFacebookPage)
   }
 
   // Symbols "£€¥" are not allowed, but to check such cases it requires unicode magic. Not supported currently.
+  // TODO: find all restricted *Unicode* symbols from https://www.facebook.com/pages/create page
+  //       and them to the test
   //TEST(!osm::ValidateFacebookPage(u8"you-shall-not-pass-£€¥"), ());
 }
 

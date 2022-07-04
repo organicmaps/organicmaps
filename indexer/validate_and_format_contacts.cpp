@@ -17,6 +17,10 @@ static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
 static auto const s_lineRegex = regex(R"(^[a-z0-9-_.]{4,20}$)");
 
 
+// TODO: Current implementation looks only for restricted symbols from ASCII block ignoring
+//       unicode. Need to find all restricted *Unicode* symbols
+//       from https://www.facebook.com/pages/create page and verify those symbols
+//       using MakeUniString or utf8cpp.
 bool containsInvalidFBSymbol(string const & facebookPage, int startIndex = 0)
 {
   int size = facebookPage.size();
