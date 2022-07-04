@@ -97,7 +97,7 @@ double Route::GetCurrentTimeToNearestTurnSec() const
   TurnItem turn;
   GetNearestTurn(distance, turn);
 
-  // |curTurn.m_index| - 1 is the index of |curTurn| segment.
+  // |turn.m_index| - 1 is the index of |turn| segment.
   CHECK_LESS_OR_EQUAL(turn.m_index, m_routeSegments.size(), ());
   CHECK_GREATER(turn.m_index, 0, ());
 

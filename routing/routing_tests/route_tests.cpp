@@ -65,16 +65,16 @@ location::GpsInfo GetGps(double x, double y)
   return info;
 }
 
-vector<vector<Segment>> GetSegments()
+vector<vector<Segment>> const GetSegments()
 {
   auto const segmentsAllReal = kTestSegments;
-  vector<Segment> segmentsAllFake =
+  vector<Segment> const segmentsAllFake =
       {{kFakeNumMwmId, 0, 0, true},
        {kFakeNumMwmId, 0, 1, true},
        {kFakeNumMwmId, 0, 2, true},
        {kFakeNumMwmId, 0, 3, true},
        {kFakeNumMwmId, 0, 4, true}};
-  vector<Segment> segmentsFakeHeadAndTail =
+  vector<Segment> const segmentsFakeHeadAndTail =
       {{kFakeNumMwmId, 0, 0, true},
        {0, 0, 1, true},
        {0, 0, 2, true},
@@ -164,74 +164,70 @@ UNIT_TEST(DistanceAndTimeToCurrentTurnTest)
 
     route.GetNearestTurn(distance, turn);
     size_t currentTurnIndex = 2; // Turn with m_index == 1 is None.
-    TEST(base::AlmostEqualAbs(distance,
-                              mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]), 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(distance, mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]), 0.1, ());
     TEST_EQUAL(turn, kTestTurns[currentTurnIndex - 1], ());
 
     double timePassed = 0;
 
     double time = route.GetCurrentTimeToEndSec();
-    TEST(base::AlmostEqualAbs(time, kTestTimes[4] - timePassed, 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(time, kTestTimes[4] - timePassed, 0.1, ());
 
     time = route.GetCurrentTimeToNearestTurnSec();
-    TEST(base::AlmostEqualAbs(time, kTestTimes[currentTurnIndex - 1] - timePassed, 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(time, kTestTimes[currentTurnIndex - 1] - timePassed, 0.1, ());
   }
   {
     // Move between points 1 and 2.
-    auto pos = (kTestGeometry[1] + kTestGeometry[2]) / 2;
+    auto const pos = (kTestGeometry[1] + kTestGeometry[2]) / 2;
     route.MoveIterator(GetGps(pos.x, pos.y));
 
     route.GetNearestTurn(distance, turn);
-    size_t currentTurnIndex = 2;
-    TEST(base::AlmostEqualAbs(distance,
-                              mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]), 0.1), ());
+    size_t const currentTurnIndex = 2;
+    TEST_ALMOST_EQUAL_ABS(distance, mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]), 0.1, ());
     TEST_EQUAL(turn, kTestTurns[currentTurnIndex - 1], ());
 
-    double timePassed = (kTestTimes[1 - 1] + kTestTimes[2 - 1]) / 2;
+    double const timePassed = (kTestTimes[1 - 1] + kTestTimes[2 - 1]) / 2;
 
     double time = route.GetCurrentTimeToEndSec();
-    TEST(base::AlmostEqualAbs(time, kTestTimes[4] - timePassed, 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(time, kTestTimes[4] - timePassed, 0.1, ());
 
     time = route.GetCurrentTimeToNearestTurnSec();
-    TEST(base::AlmostEqualAbs(time, kTestTimes[currentTurnIndex - 1] - timePassed, 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(time, kTestTimes[currentTurnIndex - 1] - timePassed, 0.1, ());
   }
   {
     // Move between points 2 and 3.
-    auto pos = kTestGeometry[2] * 0.8 + kTestGeometry[3] * 0.2;
+    auto const pos = kTestGeometry[2] * 0.8 + kTestGeometry[3] * 0.2;
     route.MoveIterator(GetGps(pos.x, pos.y));
 
     route.GetNearestTurn(distance, turn);
-    size_t currentTurnIndex = 3;
-    TEST(base::AlmostEqualAbs(distance,
-                              mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]), 0.1), ());
+    size_t const currentTurnIndex = 3;
+    TEST_ALMOST_EQUAL_ABS(distance, mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]), 0.1, ());
     TEST_EQUAL(turn, kTestTurns[currentTurnIndex - 1], ());
 
-    double timePassed = 0.8 * kTestTimes[2 - 1] + 0.2 * kTestTimes[3 - 1];
+    double const timePassed = 0.8 * kTestTimes[2 - 1] + 0.2 * kTestTimes[3 - 1];
 
     double time = route.GetCurrentTimeToEndSec();
-    TEST(base::AlmostEqualAbs(time, kTestTimes[4] - timePassed, 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(time, kTestTimes[4] - timePassed, 0.1, ());
 
     time = route.GetCurrentTimeToNearestTurnSec();
-    TEST(base::AlmostEqualAbs(time, kTestTimes[currentTurnIndex - 1] - timePassed, 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(time, kTestTimes[currentTurnIndex - 1] - timePassed, 0.1, ());
   }
   {
     // Move between points 3 and 4.
-    auto pos = kTestGeometry[3] * 0.3 + kTestGeometry[4] * 0.7;
+    auto const pos = kTestGeometry[3] * 0.3 + kTestGeometry[4] * 0.7;
     route.MoveIterator(GetGps(pos.x, pos.y));
 
     route.GetNearestTurn(distance, turn);
-    size_t currentTurnIndex = 5; // Turn with m_index == 4 is None.
-    TEST(base::AlmostEqualAbs(distance,
-                              mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]), 0.1), ());
+    size_t const currentTurnIndex = 5; // Turn with m_index == 4 is None.
+    TEST_ALMOST_EQUAL_ABS(distance, mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]), 0.1, ());
     TEST_EQUAL(turn, kTestTurns[currentTurnIndex - 1], ());
 
-    double timePassed = 0.3 * kTestTimes[3 - 1] + 0.7 * kTestTimes[4 - 1];
+    double const timePassed = 0.3 * kTestTimes[3 - 1] + 0.7 * kTestTimes[4 - 1];
 
     double time = route.GetCurrentTimeToEndSec();
-    TEST(base::AlmostEqualAbs(time, kTestTimes[4] - timePassed, 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(time, kTestTimes[4] - timePassed, 0.1, ());
 
     time = route.GetCurrentTimeToNearestTurnSec();
-    TEST(base::AlmostEqualAbs(time, kTestTimes[currentTurnIndex - 1] - timePassed, 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(time, kTestTimes[currentTurnIndex - 1] - timePassed, 0.1, ());
   }
 }
 
@@ -248,33 +244,33 @@ UNIT_TEST(NextTurnTest)
 
   {
     // Initial point.
-    size_t currentTurnIndex = 2; // Turn with m_index == 1 is None.
+    size_t const currentTurnIndex = 2; // Turn with m_index == 1 is None.
     route.GetNearestTurn(distance, turn);
     TEST_EQUAL(turn, kTestTurns[currentTurnIndex - 1], ());
 
-    size_t nextTurnIndex = 3;
+    size_t const nextTurnIndex = 3;
     route.GetNextTurn(nextDistance, nextTurn);
     TEST_EQUAL(nextTurn, kTestTurns[nextTurnIndex - 1], ());
   }
   {
     // Move between points 1 and 2.
-    auto pos = (kTestGeometry[1] + kTestGeometry[2]) / 2;
+    auto const pos = (kTestGeometry[1] + kTestGeometry[2]) / 2;
     route.MoveIterator(GetGps(pos.x, pos.y));
 
-    size_t currentTurnIndex = 2;
+    size_t const currentTurnIndex = 2;
     route.GetNearestTurn(distance, turn);
     TEST_EQUAL(turn, kTestTurns[currentTurnIndex - 1], ());
 
-    size_t nextTurnIndex = 3;
+    size_t const nextTurnIndex = 3;
     route.GetNextTurn(nextDistance, nextTurn);
     TEST_EQUAL(nextTurn, kTestTurns[nextTurnIndex - 1], ());
   }
   {
     // Move between points 3 and 4.
-    auto pos = (kTestGeometry[3] + kTestGeometry[4]) / 2;
+    auto const pos = (kTestGeometry[3] + kTestGeometry[4]) / 2;
     route.MoveIterator(GetGps(pos.x, pos.y));
 
-    size_t currentTurnIndex = 5; // Turn with m_index == 4 is None.
+    size_t const currentTurnIndex = 5; // Turn with m_index == 4 is None.
     route.GetNearestTurn(distance, turn);
     TEST_EQUAL(turn, kTestTurns[currentTurnIndex - 1], ());
 
@@ -297,63 +293,63 @@ UNIT_TEST(NextTurnsTest)
 
   {
     // Initial point.
-    auto pos = kTestGeometry[0];
+    auto const pos = kTestGeometry[0];
 
-    size_t currentTurnIndex = 2; // Turn with m_index == 1 is None.
-    size_t nextTurnIndex = 3;
+    size_t const currentTurnIndex = 2; // Turn with m_index == 1 is None.
+    size_t const nextTurnIndex = 3;
     TEST(route.GetNextTurns(turnsDist), ());
     TEST_EQUAL(turnsDist.size(), 2, ());
     double const firstSegLenM = mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]);
     double const secondSegLenM = mercator::DistanceOnEarth(kTestGeometry[currentTurnIndex], kTestGeometry[nextTurnIndex]);
     TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[currentTurnIndex - 1], ());
     TEST_EQUAL(turnsDist[1].m_turnItem, kTestTurns[nextTurnIndex - 1], ());
-    TEST(base::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
-    TEST(base::AlmostEqualAbs(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(turnsDist[0].m_distMeters, firstSegLenM, 0.1, ());
+    TEST_ALMOST_EQUAL_ABS(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1, ());
 
   }
   {
     // Move between points 1 and 2.
-    auto pos = (kTestGeometry[1] + kTestGeometry[2]) / 2;
+    auto const pos = (kTestGeometry[1] + kTestGeometry[2]) / 2;
     route.MoveIterator(GetGps(pos.x, pos.y));
 
-    size_t currentTurnIndex = 2;
-    size_t nextTurnIndex = 3;
+    size_t const currentTurnIndex = 2;
+    size_t const nextTurnIndex = 3;
     TEST(route.GetNextTurns(turnsDist), ());
     TEST_EQUAL(turnsDist.size(), 2, ());
     double const firstSegLenM = mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]);
     double const secondSegLenM = mercator::DistanceOnEarth(kTestGeometry[currentTurnIndex], kTestGeometry[nextTurnIndex]);
     TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[currentTurnIndex - 1], ());
     TEST_EQUAL(turnsDist[1].m_turnItem, kTestTurns[nextTurnIndex - 1], ());
-    TEST(base::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
-    TEST(base::AlmostEqualAbs(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(turnsDist[0].m_distMeters, firstSegLenM, 0.1, ());
+    TEST_ALMOST_EQUAL_ABS(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1, ());
   }
   {
     // Move between points 2 and 3.
-    auto pos = (kTestGeometry[2] + kTestGeometry[3]) / 2;
+    auto const pos = (kTestGeometry[2] + kTestGeometry[3]) / 2;
     route.MoveIterator(GetGps(pos.x, pos.y));
 
-    size_t currentTurnIndex = 3;
-    size_t nextTurnIndex = 5; // Turn with m_index == 4 is None.
+    size_t const currentTurnIndex = 3;
+    size_t const nextTurnIndex = 5; // Turn with m_index == 4 is None.
     TEST(route.GetNextTurns(turnsDist), ());
     TEST_EQUAL(turnsDist.size(), 2, ());
     double const firstSegLenM = mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]);
     double const secondSegLenM = mercator::DistanceOnEarth(kTestGeometry[currentTurnIndex], kTestGeometry[nextTurnIndex]);
     TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[currentTurnIndex - 1], ());
     TEST_EQUAL(turnsDist[1].m_turnItem, kTestTurns[nextTurnIndex - 1], ());
-    TEST(base::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
-    TEST(base::AlmostEqualAbs(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(turnsDist[0].m_distMeters, firstSegLenM, 0.1, ());
+    TEST_ALMOST_EQUAL_ABS(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1, ());
   }
   {
     // Move between points 3 and 4.
-    auto pos = (kTestGeometry[3] + kTestGeometry[4]) / 2;
+    auto const pos = (kTestGeometry[3] + kTestGeometry[4]) / 2;
     route.MoveIterator(GetGps(pos.x, pos.y));
 
-    size_t currentTurnIndex = 5; // Turn with m_index == 4 is None.
+    size_t const currentTurnIndex = 5; // Turn with m_index == 4 is None.
     // nextTurn is absent.
     TEST(route.GetNextTurns(turnsDist), ());
     double const firstSegLenM = mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]);
     TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[currentTurnIndex - 1], ());
-    TEST(base::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
+    TEST_ALMOST_EQUAL_ABS(turnsDist[0].m_distMeters, firstSegLenM, 0.1, ());
   }
 }
 
@@ -453,10 +449,8 @@ UNIT_TEST(RouteNameTest)
   route.GetClosestStreetNameAfterIdx(4, roadNameInfo);
   TEST_EQUAL(roadNameInfo.m_name, "Street3", (roadNameInfo.m_name));
 
-  location::GpsInfo info;
-  info.m_longitude = 1.0;
-  info.m_latitude = 2.0;
-  route.MoveIterator(info);
+  location::GpsInfo const pos(GetGps(1.0, 2.0));
+  route.MoveIterator(pos);
   route.GetCurrentStreetName(roadNameInfo);
   TEST_EQUAL(roadNameInfo.m_name, "Street2", (roadNameInfo.m_name));
 }

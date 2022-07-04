@@ -106,7 +106,7 @@ size_t CarDirectionsEngine::GetTurnDirection(IRoutingResult const & result, size
   /// @todo Sometimes results of GetPossibleTurns are empty, sometimes are invalid.
   /// The best will be to fix GetPossibleTurns(). It will allow us to use following approach.
   /// E.g. Google Maps until you reach the destination will guide you to go to the left or to the right of the first road.
-  if (outgoingSegmentIndex == 1) // The same as turnItem.m_index == 2.
+  if (outgoingSegmentIndex == 2) // The same as turnItem.m_index == 2.
     return 0;
 
   size_t skipTurnSegments = CheckUTurnOnRoute(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);

@@ -435,7 +435,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   info.m_completionPercent = GetCompletionPercent();
 
-  double timeToNearestTurnSec = m_route->GetCurrentTimeToNearestTurnSec();
+  double const timeToNearestTurnSec = m_route->GetCurrentTimeToNearestTurnSec();
 
   // Lane information and next street name.
   if (distanceToTurnMeters < kShowLanesMinDistInMeters || timeToNearestTurnSec < 60.0)
