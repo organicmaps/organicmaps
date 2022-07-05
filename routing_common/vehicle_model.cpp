@@ -12,7 +12,8 @@
 #include <algorithm>
 #include <sstream>
 
-using namespace routing;
+namespace routing
+{
 using namespace std;
 
 namespace
@@ -43,9 +44,6 @@ HighwayType GetHighwayTypeKey(HighwayType type)
   }
 }
 }  // namespace
-
-namespace routing
-{
 
 VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const & featureTypeLimits,
                            SurfaceInitList const & featureTypeSurface, HighwayBasedInfo const & info)
@@ -162,7 +160,9 @@ void VehicleModel::GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad,
   if (s)
   {
     auto const & res = isCityRoad ? s->m_inCity : s->m_outCity;
-    speed = speed ? Pick<min>(*speed, res) : res;
+    // Take max, because combination of highway=footway + bicycle=yes should emit best bicycle speed
+    // even if highway=footway is prohibited for cycling and has small dismount speed.
+    speed = speed ? Pick<max>(*speed, res) : res;
   }
 }
 
