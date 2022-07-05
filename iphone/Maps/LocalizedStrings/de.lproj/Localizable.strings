@@ -334,7 +334,7 @@
 
 "downloader_download_all_button" = "Alle herunterladen";
 
-"downloader_downloading" = "Gerade wird heruntergeladen:";
+"downloader_downloading" = "Wird heruntergeladen:";
 
 "downloader_search_results" = "Gefunden";
 
@@ -503,9 +503,9 @@
 
 "history" = "Verlauf";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "Öffnet in %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "Schließt in %@";
 
 "closed" = "Geschlossen";
 
@@ -601,7 +601,7 @@
 
 "thank_you" = "Danke";
 
-"edit_place" = "Platz bearbeiten";
+"edit_place" = "Eintrag bearbeiten";
 
 "place_name" = "Name des Platzes";
 
@@ -814,7 +814,7 @@
 "recent_track_background_dialog_message" = "Organic Maps verwendet Ihre Geoposition im Hintergrund, um Ihre kürzlich gefahrene Route aufzunehmen.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps ist eine kostenlose Open-Source-Offline-Kartenanwendung. Keine Werbung. Keine Verfolgung. Wenn Sie einen Fehler auf der Karte sehen, beheben Sie ihn bitte in OpenStreetMap. Das Projekt wird von Enthusiasten in unserer Freizeit erstellt, daher brauchen wir Ihr Feedback und Ihre Unterstützung.";
+"about_description" = "Organic Maps ist eine schnelle und kostenlose Offline-Karten-App ohne Werbung und Tracking. Die Karten basieren auf den Daten von OpenStreetMap.org, so dass Sie selbst Kartenfehler beheben und Orte hinzufügen können. Organic Maps ist ein Open-Source-Projekt, das von Enthusiasten in ihrer Freizeit entwickelt wird. Ihr Feedback und Ihre Unterstützung sind sehr willkommen!";
 
 "general_settings" = "Allgemeine Einstellungen";
 
@@ -962,7 +962,7 @@
 
 "download_button" = "Downloaden";
 
-"speedcams_alert_title" = "Geschwindigkeitskameras";
+"speedcams_alert_title" = "Blitzer";
 
 "speedcam_option_auto" = "Auto";
 
@@ -972,7 +972,7 @@
 
 "place_description_title" = "Ortsbeschreibung";
 
-"speedcams_notice_message" = "Auto - Über Geschwindigkeitskameras bei Risiko einer Geschwindigkeitsüberschreitung informieren\nImmer - Immer über Geschwindigkeitskameras informieren\nNiemals - Nie über Geschwindigkeitskameras informieren";
+"speedcams_notice_message" = "Auto - Vor Blitzern warnen, wenn die Gefahr einer Geschwindigkeitsüberschreitung besteht\nImmer - Immer vor Blitzern warnen\nNiemals - Niemals vor Blitzern warnen";
 
 "power_managment_title" = "Stromsparmodus";
 
@@ -1435,7 +1435,7 @@
 
 "type.amenity.school" = "Schule";
 
-"type.amenity.shelter" = "Schutzhütte";
+"type.amenity.shelter" = "Unterstand";
 
 "type.amenity.shower" = "Dusche";
 
@@ -1616,29 +1616,29 @@
 
 "type.craft.tailor" = "Schneider";
 
-"type.cuisine.african" = "Afrikanische Küche";
+"type.cuisine.african" = "Afrikanisch";
 
-"type.cuisine.american" = "Amerikanische Küche";
+"type.cuisine.american" = "Amerikanisch";
 
-"type.cuisine.arab" = "Arabische Küche";
+"type.cuisine.arab" = "Arabisch";
 
-"type.cuisine.argentinian" = "Argentinische Küche";
+"type.cuisine.argentinian" = "Argentinisch";
 
-"type.cuisine.asian" = "Asiatische Küche";
+"type.cuisine.asian" = "Asiatisch";
 
-"type.cuisine.austrian" = "Österreichische Küche";
+"type.cuisine.austrian" = "Österreichisch";
 
 "type.cuisine.bagel" = "Bagel";
 
-"type.cuisine.balkan" = "Balkanküche";
+"type.cuisine.balkan" = "Balkanisch";
 
 "type.cuisine.barbecue" = "Grill";
 
-"type.cuisine.bavarian" = "Bayerische Küche";
+"type.cuisine.bavarian" = "Bayerisch";
 
 "type.cuisine.beef_bowl" = "Gyūdon";
 
-"type.cuisine.brazilian" = "Brasilianische Küche";
+"type.cuisine.brazilian" = "Brasilianisch";
 
 "type.cuisine.breakfast" = "Frühstück";
 
@@ -1650,45 +1650,45 @@
 
 "type.cuisine.cake" = "Kuchen";
 
-"type.cuisine.caribbean" = "Karibische Küche";
+"type.cuisine.caribbean" = "Karibisch";
 
 "type.cuisine.chicken" = "Hühnchen";
 
-"type.cuisine.chinese" = "Chinesische Küche";
+"type.cuisine.chinese" = "Chinesisch";
 
 "type.cuisine.coffee_shop" = "Kaffee";
 
 "type.cuisine.crepe" = "Crêpe";
 
-"type.cuisine.croatian" = "Kroatische Küche";
+"type.cuisine.croatian" = "Kroatisch";
 
 "type.cuisine.curry" = "Curry";
 
-"type.cuisine.deli" = "Deli-Küche";
+"type.cuisine.deli" = "Delikatessen";
 
 "type.cuisine.diner" = "Diner";
 
 "type.cuisine.donut" = "Donuts";
 
-"type.cuisine.ethiopian" = "Äthiopische Küche";
+"type.cuisine.ethiopian" = "Äthiopisch";
 
-"type.cuisine.filipino" = "Philippinische Küche";
+"type.cuisine.filipino" = "Philippinisch";
 
-"type.cuisine.fine_dining" = "Gehobene Küche";
+"type.cuisine.fine_dining" = "Gehoben";
 
 "type.cuisine.fish" = "Fisch";
 
 "type.cuisine.fish_and_chips" = "Fish and Chips";
 
-"type.cuisine.french" = "Französische Küche";
+"type.cuisine.french" = "Französisch";
 
 "type.cuisine.friture" = "Pommes";
 
-"type.cuisine.georgian" = "Georgische Küche";
+"type.cuisine.georgian" = "Georgisch";
 
-"type.cuisine.german" = "Deutsche Küche";
+"type.cuisine.german" = "Deutsch";
 
-"type.cuisine.greek" = "Griechische Küche";
+"type.cuisine.greek" = "Griechisch";
 
 "type.cuisine.grill" = "Grill";
 
@@ -1696,67 +1696,67 @@
 
 "type.cuisine.hotdog" = "Hotdog";
 
-"type.cuisine.hungarian" = "Ungarische Küche";
+"type.cuisine.hungarian" = "Ungarisch";
 
 "type.cuisine.ice_cream" = "Eis";
 
-"type.cuisine.indian" = "Indische Küche";
+"type.cuisine.indian" = "Indisch";
 
-"type.cuisine.indonesian" = "Indonesische Küche";
+"type.cuisine.indonesian" = "Indonesisch";
 
-"type.cuisine.international" = "Internationale Küche";
+"type.cuisine.international" = "International";
 
-"type.cuisine.irish" = "Irische Küche";
+"type.cuisine.irish" = "Irisch";
 
-"type.cuisine.italian" = "Italienische Küche";
+"type.cuisine.italian" = "Italienisch";
 
-"type.cuisine.italian_pizza" = "Italienische Küche; Pizza";
+"type.cuisine.italian_pizza" = "Italienisch; Pizza";
 
-"type.cuisine.japanese" = "Japanische Küche";
+"type.cuisine.japanese" = "Japanisch";
 
 "type.cuisine.kebab" = "Kebap";
 
-"type.cuisine.korean" = "Koreanische Küche";
+"type.cuisine.korean" = "Koreanisch";
 
-"type.cuisine.lao" = "Laotische Küche";
+"type.cuisine.lao" = "Laotisch";
 
-"type.cuisine.lebanese" = "Libanesische Küche";
+"type.cuisine.lebanese" = "Libanesisch";
 
-"type.cuisine.local" = "Lokale Küche";
+"type.cuisine.local" = "Regional";
 
-"type.cuisine.malagasy" = "Madegassische Küche";
+"type.cuisine.malagasy" = "Madegassisch";
 
-"type.cuisine.malaysian" = "Malaysische Küche";
+"type.cuisine.malaysian" = "Malaysisch";
 
-"type.cuisine.mediterranean" = "Mediterrane Küche";
+"type.cuisine.mediterranean" = "Mediterran";
 
-"type.cuisine.mexican" = "Mexikanische Küche";
+"type.cuisine.mexican" = "Mexikanisch";
 
-"type.cuisine.moroccan" = "Marokkanische Küche";
+"type.cuisine.moroccan" = "Marokkanisch";
 
 "type.cuisine.noodles" = "Nudeln";
 
-"type.cuisine.oriental" = "Orientalische Küche";
+"type.cuisine.oriental" = "Orientalisch";
 
 "type.cuisine.pancake" = "Pfannkuchen";
 
 "type.cuisine.pasta" = "Pasta";
 
-"type.cuisine.persian" = "Persische Küche";
+"type.cuisine.persian" = "Persisch";
 
-"type.cuisine.peruvian" = "Peruanische Küche";
+"type.cuisine.peruvian" = "Peruanisch";
 
 "type.cuisine.pizza" = "Pizza";
 
-"type.cuisine.polish" = "Polnische Küche";
+"type.cuisine.polish" = "Polnisch";
 
-"type.cuisine.portuguese" = "Portugiesische Küche";
+"type.cuisine.portuguese" = "Portugiesisch";
 
 "type.cuisine.ramen" = "Ramen";
 
-"type.cuisine.regional" = "Regionale Küche";
+"type.cuisine.regional" = "Regional";
 
-"type.cuisine.russian" = "Russische Küche";
+"type.cuisine.russian" = "Russisch";
 
 "type.cuisine.sandwich" = "Sandwich";
 
@@ -1768,7 +1768,7 @@
 
 "type.cuisine.soba" = "Soba";
 
-"type.cuisine.spanish" = "Spanische Küche";
+"type.cuisine.spanish" = "Spanisch";
 
 "type.cuisine.steak_house" = "Steakhaus";
 
@@ -1778,15 +1778,15 @@
 
 "type.cuisine.tea" = "Tee";
 
-"type.cuisine.thai" = "Thailändische Küche";
+"type.cuisine.thai" = "Thailändisch";
 
-"type.cuisine.turkish" = "Türkische Küche";
+"type.cuisine.turkish" = "Türkisch";
 
-"type.cuisine.vegan" = "Vegane Küche";
+"type.cuisine.vegan" = "Vegan";
 
-"type.cuisine.vegetarian" = "Vegetarische Küche";
+"type.cuisine.vegetarian" = "Vegetarisch";
 
-"type.cuisine.vietnamese" = "Vietnamesische Küche";
+"type.cuisine.vietnamese" = "Vietnamesisch";
 
 "type.emergency" = "Notfall";
 
@@ -2462,7 +2462,7 @@
 
 "type.office.lawyer" = "Anwaltsbüro";
 
-"type.office.ngo" = "Büro einer Nichtregierungsorganisation";
+"type.office.ngo" = "Nichtregierungsorganisation";
 
 "type.office.telecommunication" = "Mobilfunkbetreiber";
 
