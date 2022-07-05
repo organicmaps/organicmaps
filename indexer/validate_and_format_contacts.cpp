@@ -21,22 +21,20 @@ static auto const s_lineRegex = regex(R"(^[a-z0-9-_.]{4,20}$)");
 //       unicode. Need to find all restricted *Unicode* symbols
 //       from https://www.facebook.com/pages/create page and verify those symbols
 //       using MakeUniString or utf8cpp.
-bool containsInvalidFBSymbol(string const & facebookPage, int startIndex = 0)
+bool containsInvalidFBSymbol(string const & facebookPage, size_t startIndex = 0)
 {
-  int size = facebookPage.size();
-  for (int i=startIndex; i<size; i++)
+  auto const size = facebookPage.size();
+  for (auto i=startIndex; i<size; ++i)
   {
     const char ch = facebookPage[i];
     // Forbid all ASCII symbols except '-', '.', and '_'
-    if ((ch >= ' ' && ch <= ',')  ||
+    if ((ch >= ' ' && ch <= ',') ||
         ch == '/' ||
         (ch >= ':' && ch <= '@') ||
         (ch >= '[' && ch <= '^') ||
         ch == '`' ||
-        (ch >= '{' && ch <= '~') )
-    {
+        (ch >= '{' && ch <= '~'))
       return true;
-    }
   }
   return false;
 }
@@ -269,8 +267,6 @@ bool ValidateFacebookPage(string const & page)
     return page.length() >= 6 && !containsInvalidFBSymbol(page, 1);
   else if (page.length() >= 5 && !containsInvalidFBSymbol(page))
     return true;
-  //else
-  //  LOG(LWARNING, ("containsInvalidFBSymbol == false"));
 
   if (!EditableMapObject::ValidateWebsite(page))
     return false;
