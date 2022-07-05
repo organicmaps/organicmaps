@@ -23,8 +23,7 @@ namespace
 
 int constexpr kOnRouteMissedCount = 10;
 
-// @TODO(vbykoianko) The distance should depend on the current speed.
-double constexpr kShowLanesDistInMeters = 500.;
+double constexpr kShowLanesMinDistInMeters = 500.0;
 
 // @TODO The distance may depend on the current speed.
 double constexpr kShowPedestrianTurnInMeters = 20.0;
@@ -411,7 +410,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   double distanceToTurnMeters = 0.;
   turns::TurnItem turn;
-  m_route->GetCurrentTurn(distanceToTurnMeters, turn);
+  m_route->GetNearestTurn(distanceToTurnMeters, turn);
   FormatDistance(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
   info.m_turn = turn.m_turn;
 
@@ -436,8 +435,10 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   info.m_completionPercent = GetCompletionPercent();
 
+  double const timeToNearestTurnSec = m_route->GetCurrentTimeToNearestTurnSec();
+
   // Lane information and next street name.
-  if (distanceToTurnMeters < kShowLanesDistInMeters)
+  if (distanceToTurnMeters < kShowLanesMinDistInMeters || timeToNearestTurnSec < 60.0)
   {
     info.m_displayedStreetName = info.m_targetName;
     // There are two nested loops below. Outer one is for lanes and inner one (ctor of

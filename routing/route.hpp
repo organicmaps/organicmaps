@@ -303,6 +303,12 @@ public:
   /// \returns estimated time to reach the route end.
   double GetCurrentTimeToEndSec() const;
 
+  /// \brief estimated time to reach segment.
+  double GetCurrentTimeToSegmentSec(size_t segIdx) const;
+
+  /// \brief estimated time to the nearest turn.
+  double GetCurrentTimeToNearestTurnSec() const;
+
   FollowedPolyline const & GetFollowedPolyline() const { return m_poly; }
 
   std::string const & GetRouterId() const { return m_router; }
@@ -319,10 +325,10 @@ public:
   double GetCurrentDistanceToEndMeters() const;
   double GetMercatorDistanceFromBegin() const;
 
-  /// \brief Extracts information about the nearest turn according to the route.
+  /// \brief Extracts information about the nearest turn from the remaining part of the route.
   /// \param distanceToTurnMeters is a distance from current position to the nearest turn.
   /// \param turn is information about the nearest turn.
-  void GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
+  void GetNearestTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
 
   /// \returns information about turn from RouteSegment according to current iterator
   /// set with MoveIterator() method. If it's not possible returns nullopt.
@@ -337,7 +343,7 @@ public:
   /// \brief Returns current speed limit
   void GetCurrentSpeedLimit(SpeedInUnits & speedLimit) const;
 
-  /// \brief Return name info of a street according to next turn.
+  /// \brief Return name info of a street according to the next turn.
   void GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const;
 
   /// \brief Gets turn information after the turn next to the nearest one.
@@ -352,15 +358,15 @@ public:
 
   bool MoveIterator(location::GpsInfo const & info);
 
-  /// \brief Finds projection of |location| to the nearest route and sets |routeMatchingInfo|
+  /// \brief Finds projection of |location| to the nearest route and sets |routeMatchingInfo|.
   /// fields accordingly.
   bool MatchLocationToRoute(location::GpsInfo & location,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
 
-  /// Add country name if we have no country filename to make route
+  /// Add country name if we have no country filename to make route.
   void AddAbsentCountry(std::string const & name);
 
-  /// Get absent file list of a routing files for shortest path finding
+  /// Get absent file list of a routing files for shortest path finding.
   std::set<std::string> const & GetAbsentCountries() const { return m_absentCountries; }
 
   inline void SetRoutingSettings(RoutingSettings const & routingSettings)
@@ -424,11 +430,8 @@ private:
   double GetPolySegAngle(size_t ind) const;
   void GetClosestTurnAfterIdx(size_t segIdx, turns::TurnItem & turn) const;
 
-  /// \returns Estimated time to pass the route segment with |segIdx|.
-  double GetTimeToPassSegSec(size_t segIdx) const;
-
-  /// \returns ETA to the last passed route point in seconds.
-  double GetETAToLastPassedPointSec() const;
+  /// \returns Estimated time from the beginning.
+  double GetCurrentTimeFromBeginSec() const;
 
   std::string m_router;
   RoutingSettings m_routingSettings;

@@ -88,33 +88,65 @@ double Route::GetTotalTimeSec() const
 
 double Route::GetCurrentTimeToEndSec() const
 {
+  return GetCurrentTimeToSegmentSec(m_routeSegments.size() - 1);
+}
+
+double Route::GetCurrentTimeToNearestTurnSec() const
+{
+  double distance;
+  TurnItem turn;
+  GetNearestTurn(distance, turn);
+
+  // |turn.m_index| - 1 is the index of |turn| segment.
+  CHECK_LESS_OR_EQUAL(turn.m_index, m_routeSegments.size(), ());
+  CHECK_GREATER(turn.m_index, 0, ());
+
+  return GetCurrentTimeToSegmentSec(turn.m_index - 1);
+}
+
+//           |     curSegLenMeters          |
+//           |                              |
+//           | passedSegMeters |            |
+// ----------*-----------------*------------*----> x
+//           |                 |            |
+//           LastPoint     CurrentPoint     NextPoint
+//
+//           | fromLastPassedPointToEndSec
+// ----------*-----------------*------------*----> t
+//           |                 |            |
+//           toLastPointSec    currentTime  toNextPointSec
+//
+// CurrentTime is calculated using equal proportions for distance and time at any segment.
+double Route::GetCurrentTimeFromBeginSec() const
+{
   if (!IsValid())
     return 0.0;
 
   auto const & curIter = m_poly.GetCurrentIter();
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
-  double const etaToLastPassedPointS = GetETAToLastPassedPointSec();
+
+  double const toLastPointSec = (curIter.m_ind == 0) ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetTimeFromBeginningSec();
+  double const toNextPointSec = m_routeSegments[curIter.m_ind].GetTimeFromBeginningSec();
+
   double const curSegLenMeters = GetSegLenMeters(curIter.m_ind);
-  double const totalTimeS = GetTotalTimeSec();
-  double const fromLastPassedPointToEndSec = totalTimeS - etaToLastPassedPointS;
-  // Note. If a segment is short it does not make any sense to take into account time needed
-  // to path its part.
-  if (base::AlmostEqualAbs(curSegLenMeters, 0.0, 1.0 /* meters */))
-    return fromLastPassedPointToEndSec;
 
-  CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
-  // Pure fake edges should not be taken into account while ETA calculation.
-  if (!m_routeSegments[curIter.m_ind].GetSegment().IsRealSegment())
-    return fromLastPassedPointToEndSec;
+  if (curSegLenMeters < 1.0)
+    return toLastPointSec;
 
-  double const curSegTimeS = GetTimeToPassSegSec(curIter.m_ind);
-  CHECK_GREATER(curSegTimeS, 0, ("Route can't contain segments with infinite speed."));
+  double const passedSegMeters = m_poly.GetDistFromCurPointToRoutePointMeters();
 
-  double const curSegSpeedMPerS = curSegLenMeters / curSegTimeS;
-  CHECK_GREATER(curSegSpeedMPerS, 0, ("Route can't contain segments with zero speed."));
-  /// @todo GetDistFromCurPointTo!Next!RoutePointMeters should be used for calculalation of remaining segment length.
-  return totalTimeS - (etaToLastPassedPointS +
-                       m_poly.GetDistFromCurPointToRoutePointMeters() / curSegSpeedMPerS);
+  return toLastPointSec + passedSegMeters / curSegLenMeters * (toNextPointSec - toLastPointSec);
+}
+
+double Route::GetCurrentTimeToSegmentSec(size_t segIdx) const
+{
+  if (!IsValid())
+    return 0.0;
+
+  double const endTimeSec = m_routeSegments[segIdx].GetTimeFromBeginningSec();
+  double const passedTimeSec = GetCurrentTimeFromBeginSec();
+
+  return endTimeSec - passedTimeSec;
 }
 
 void Route::GetCurrentSpeedLimit(SpeedInUnits & speedLimit) const
@@ -139,7 +171,7 @@ void Route::GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) con
 {
   double distance;
   TurnItem turn;
-  GetCurrentTurn(distance, turn);
+  GetNearestTurn(distance, turn);
   GetClosestStreetNameAfterIdx(turn.m_index, roadNameInfo);
 }
 
@@ -227,7 +259,7 @@ void Route::GetClosestTurnAfterIdx(size_t segIdx, TurnItem & turn) const
   CHECK(false, ("The last turn should be ReachedYourDestination."));
 }
 
-void Route::GetCurrentTurn(double & distanceToTurnMeters, TurnItem & turn) const
+void Route::GetNearestTurn(double & distanceToTurnMeters, TurnItem & turn) const
 {
   // Note. |m_poly.GetCurrentIter().m_ind| is a point index of last passed point at |m_poly|.
   GetClosestTurnAfterIdx(m_poly.GetCurrentIter().m_ind, turn);
@@ -279,7 +311,7 @@ bool Route::GetNextTurn(double & distanceToTurnMeters, TurnItem & nextTurn) cons
 bool Route::GetNextTurns(vector<TurnItemDist> & turns) const
 {
   TurnItemDist currentTurn;
-  GetCurrentTurn(currentTurn.m_distMeters, currentTurn.m_turnItem);
+  GetNearestTurn(currentTurn.m_distMeters, currentTurn.m_turnItem);
 
   turns.clear();
   turns.emplace_back(move(currentTurn));
@@ -447,13 +479,6 @@ void Route::GetTurnsForTesting(vector<TurnItem> & turns) const
   }
 }
 
-double Route::GetTimeToPassSegSec(size_t segIdx) const
-{
-  CHECK_LESS(segIdx, m_routeSegments.size(), ());
-  return m_routeSegments[segIdx].GetTimeFromBeginningSec() -
-         (segIdx == 0 ? 0.0 : m_routeSegments[segIdx - 1].GetTimeFromBeginningSec());
-}
-
 double Route::GetSegLenMeters(size_t segIdx) const
 {
   CHECK_LESS(segIdx, m_routeSegments.size(), ());
@@ -474,15 +499,6 @@ bool Route::CrossMwmsPartlyProhibitedForSpeedCams() const
 vector<platform::CountryFile> const & Route::GetMwmsPartlyProhibitedForSpeedCams() const
 {
   return m_speedCamPartlyProhibitedMwms;
-}
-
-double Route::GetETAToLastPassedPointSec() const
-{
-  CHECK(IsValid(), ());
-  auto const & curIter = m_poly.GetCurrentIter();
-  CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
-
-  return curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetTimeFromBeginningSec();
 }
 
 bool IsNormalTurn(TurnItem const & turn)
