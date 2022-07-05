@@ -134,6 +134,7 @@ private:
         {"amenity", "shelter"},
         {"amenity", "toilets"},
         {"amenity", "drinking_water"},
+        {"leisure", "pitch"}, // Give priority to tag "sport"=*.
         {"public_transport", "platform"},
         {"building", "address"},
         {"building", "has_parts"},
