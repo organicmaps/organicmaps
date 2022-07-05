@@ -44,7 +44,7 @@ Java_com_mapswithme_util_StringUtils_nativeFilterContainsNormalized(JNIEnv * env
   for (int i = 0; i < length; i++)
   {
     std::string str = jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(src, i));
-    if (search::ContainsNormalized(str, substr))
+    if (search::ContainsNormalized(str, substr) || search::ContainsNormalized(osm::Cuisines::Instance().Translate(str), substr))
       filtered.push_back(str);
   }
 
