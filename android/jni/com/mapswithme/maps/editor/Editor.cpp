@@ -571,12 +571,13 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeTranslateCuisines(JNIEnv * env, jclass clazz, jobjectArray jKeys)
 {
   int const length = env->GetArrayLength(jKeys);
+  auto const & cuisines = osm::Cuisines::Instance();
   std::vector<std::string> translations;
   translations.reserve(length);
   for (int i = 0; i < length; i++)
   {
     std::string const & key = jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(jKeys, i));
-    translations.push_back(osm::Cuisines::Instance().Translate(key));
+    translations.push_back(cuisines.Translate(key));
   }
   return jni::ToJavaStringArray(env, translations);
 }
