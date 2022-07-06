@@ -568,7 +568,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetSelectedCuisines(JNIEnv * env, j
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeFilterCuisinesNormalized(JNIEnv * env, jclass thiz, jobjectArray src, jstring jSubstr)
+Java_com_mapswithme_maps_editor_Editor_nativeFilterCuisinesKeys(JNIEnv * env, jclass thiz, jobjectArray src, jstring jSubstr)
 {
   std::string substr = jni::ToNativeString(env, jSubstr);
   int const length = env->GetArrayLength(src);
