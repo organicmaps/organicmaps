@@ -139,8 +139,8 @@ android {
   defaultConfig {
     // Default package name is taken from the manifest and should be app.organicmaps
     def ver = getVersion()
-    println('Version: ' + ver.first)
-    println('VersionCode: ' + ver.second)
+    println('Version: ' + ver.second)
+    println('VersionCode: ' + ver.first)
     versionCode = ver.first
     versionName = ver.second
     minSdkVersion propMinSdkVersion.toInteger()
