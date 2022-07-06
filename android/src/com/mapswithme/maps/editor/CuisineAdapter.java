@@ -66,7 +66,7 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
       return;
     mFilter = filter;
 
-    final String[] filteredKeys = StringUtils.nativeFilterContainsNormalized(Editor.nativeGetCuisines(), filter);
+    final String[] filteredKeys = Editor.nativeFilterCuisinesKeys(Editor.nativeGetCuisines(), filter);
     final String[] filteredValues = Editor.nativeTranslateCuisines(filteredKeys);
 
     mItems.clear();

@@ -568,6 +568,24 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetSelectedCuisines(JNIEnv * env, j
 }
 
 JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_util_StringUtils_nativeFilterCuisinesNormalized(JNIEnv * env, jclass thiz, jobjectArray src, jstring jSubstr)
+{
+  std::string substr = jni::ToNativeString(env, jSubstr);
+  int const length = env->GetArrayLength(src);
+  auto const & cuisines = osm::Cuisines::Instance();
+  std::vector<std::string> filtered;
+  filtered.reserve(length);
+  for (int i = 0; i < length; i++)
+  {
+    std::string str = jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(src, i));
+    if (search::ContainsNormalized(str, substr) || search::ContainsNormalized(cuisines.Translate(str), substr))
+      filtered.push_back(str);
+  }
+
+  return jni::ToJavaStringArray(env, filtered);
+}
+
+JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeTranslateCuisines(JNIEnv * env, jclass clazz, jobjectArray jKeys)
 {
   int const length = env->GetArrayLength(jKeys);

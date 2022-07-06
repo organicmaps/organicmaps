@@ -184,6 +184,7 @@ public final class Editor
    * @return selected cuisines keys.
    */
   public static native String[] nativeGetSelectedCuisines();
+  public static native String[] nativeFilterCuisinesKeys(String[] keys, String substr);
   public static native String[] nativeTranslateCuisines(String[] keys);
   public static native void nativeSetSelectedCuisines(String [] keys);
   /**
