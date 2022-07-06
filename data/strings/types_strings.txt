@@ -575,12 +575,12 @@
     pt = Estacionamento de bicicletas
     pt-BR = Bicicletário
     ro = Parcare biciclete
-    ru = Велостоянка
+    ru = Велопарковка
     sk = Stojan na bicykle
     sv = Cykelparkering
     th = ที่จอดจักรยาน
     tr = Bisiklet Park Yeri
-    uk = Велостоянка
+    uk = Велопарковка
     vi = Chỗ Đậu Xe Đạp
     zh-Hans = 自行车停车处
     zh-Hant = 腳踏車停放區
