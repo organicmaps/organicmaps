@@ -21433,3 +21433,8 @@
     vi = Tòa nhà
     zh-Hans = 建筑部分
     zh-Hant = 建築物
+
+  [type.amenity.events_venue]
+    en = Event venue
+    de = Veranstaltungszentrum 
+    gr = Κέντρο εκδηλώσεων

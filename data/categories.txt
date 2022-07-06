@@ -11531,3 +11531,8 @@ ru:4Причал|5пристань|3Марина
 tr:Yat Limanı
 uk:5Пристань|3Марина
 zh-Hans:游艇码头
+
+amenity-events_venue
+en:Event venue
+de:Veranstaltungszentrum 
+gr:Κέντρο εκδηλώσεων 
