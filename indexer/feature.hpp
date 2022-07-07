@@ -76,8 +76,8 @@ public:
   FeatureID const & GetID() const { return m_id; }
 
   void ResetGeometry();
-  uint32_t ParseGeometry(int scale);
-  uint32_t ParseTriangles(int scale);
+  void ParseGeometry(int scale);
+  void ParseTriangles(int scale);
   //@}
 
   /// @name Geometry.
