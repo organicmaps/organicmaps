@@ -421,9 +421,8 @@ void FeatureType::ResetGeometry()
   m_ptsSimpMask = 0;
 }
 
-uint32_t FeatureType::ParseGeometry(int scale)
+void FeatureType::ParseGeometry(int scale)
 {
-  uint32_t sz = 0;
   if (!m_parsed.m_points)
   {
     CHECK(m_loadInfo, ());
@@ -447,8 +446,6 @@ uint32_t FeatureType::ParseGeometry(int scale)
           serial::GeometryCodingParams cp = m_loadInfo->GetGeometryCodingParams(ind);
           cp.SetBasePoint(m_points[0]);
           serial::LoadOuterPath(src, cp, m_points);
-
-          sz = static_cast<uint32_t>(src.Pos() - m_offsets.m_pts[ind]);
         }
       }
       else
@@ -477,8 +474,6 @@ uint32_t FeatureType::ParseGeometry(int scale)
     }
     m_parsed.m_points = true;
   }
-  // TODO: return value is needed for stats calculation in generator_tool only
-  return sz;
 }
 
 FeatureType::GeomStat FeatureType::GetOuterGeometrySize()
@@ -524,9 +519,8 @@ FeatureType::GeomStat FeatureType::GetOuterGeometrySize()
   return GeomStat(sz, m_points.size());
 }
 
-uint32_t FeatureType::ParseTriangles(int scale)
+void FeatureType::ParseTriangles(int scale)
 {
-  uint32_t sz = 0;
   if (!m_parsed.m_triangles)
   {
     CHECK(m_loadInfo, ());
@@ -543,8 +537,6 @@ uint32_t FeatureType::ParseTriangles(int scale)
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetTrianglesReader(ind));
           src.Skip(m_offsets.m_trg[ind]);
           serial::LoadOuterTriangles(src, m_loadInfo->GetGeometryCodingParams(ind), m_triangles);
-
-          sz = static_cast<uint32_t>(src.Pos() - m_offsets.m_trg[ind]);
         }
       }
 
@@ -552,8 +544,6 @@ uint32_t FeatureType::ParseTriangles(int scale)
     }
     m_parsed.m_triangles = true;
   }
-  // TODO: return value is needed for stats calculation in generator_tool only
-  return sz;
 }
 
 FeatureType::GeomStat FeatureType::GetOuterTrianglesSize()
