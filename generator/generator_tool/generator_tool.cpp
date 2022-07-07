@@ -598,26 +598,23 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
   string const dataFile = base::JoinPath(path, FLAGS_output + DATA_FILE_EXTENSION);
 
-  if (FLAGS_calc_statistics)
+  if (FLAGS_calc_statistics || FLAGS_type_statistics)
   {
-    LOG(LINFO, ("Calculating statistics for", dataFile));
-
     auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
-    stats::FileContainerStatistic(file, dataFile);
-
     stats::MapInfo info;
-    stats::CalcStatistic(dataFile, info);
-    stats::PrintStatistic(file, info);
-  }
-
-  if (FLAGS_type_statistics)
-  {
-    LOG(LINFO, ("Calculating type statistics for", dataFile));
-
-    stats::MapInfo info;
-    stats::CalcStatistic(dataFile, info);
-    auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
-    stats::PrintTypeStatistic(file, info);
+    stats::CalcStatistics(dataFile, info);
+    
+    if (FLAGS_calc_statistics)
+    {
+      LOG(LINFO, ("Calculating statistics for", dataFile));
+      stats::FileContainerStatistics(file, dataFile);
+      stats::PrintStatistics(file, info);
+    }
+    else
+    {
+      LOG(LINFO, ("Calculating type statistics for", dataFile));
+      stats::PrintTypeStatistics(file, info);
+    }
   }
 
   if (FLAGS_dump_types)
