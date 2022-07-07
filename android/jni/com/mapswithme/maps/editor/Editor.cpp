@@ -570,14 +570,14 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetSelectedCuisines(JNIEnv * env, j
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeFilterCuisinesKeys(JNIEnv * env, jclass thiz, jobjectArray src, jstring jSubstr)
 {
-  std::string substr = jni::ToNativeString(env, jSubstr);
+  std::string const substr = jni::ToNativeString(env, jSubstr);
   int const length = env->GetArrayLength(src);
   auto const & cuisines = osm::Cuisines::Instance();
   std::vector<std::string> filtered;
   filtered.reserve(length);
   for (int i = 0; i < length; i++)
   {
-    std::string str = jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(src, i));
+    std::string const str = jni::ToNativeString(env, static_cast<jstring>(env->GetObjectArrayElement(src, i)));
     if (search::ContainsNormalized(str, substr) || search::ContainsNormalized(cuisines.Translate(str), substr))
       filtered.push_back(str);
   }
@@ -594,7 +594,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeTranslateCuisines(JNIEnv * env, jcl
   translations.reserve(length);
   for (int i = 0; i < length; i++)
   {
-    std::string const & key = jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(jKeys, i));
+    std::string const key = jni::ToNativeString(env, static_cast<jstring>(env->GetObjectArrayElement(jKeys, i)));
     translations.push_back(cuisines.Translate(key));
   }
   return jni::ToJavaStringArray(env, translations);
@@ -607,7 +607,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeSetSelectedCuisines(JNIEnv * env, j
   std::vector<std::string> cuisines;
   cuisines.reserve(length);
   for (int i = 0; i < length; i++)
-    cuisines.push_back(jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(jKeys, i)));
+    cuisines.push_back(jni::ToNativeString(env, static_cast<jstring>(env->GetObjectArrayElement(jKeys, i))));
   g_editableMapObject.SetCuisines(cuisines);
 }
 
