@@ -374,6 +374,7 @@ void FeatureType::ParseHeader2()
 
       auto const * start = src.PtrUint8();
       src = ArrayByteSource(serial::LoadInnerPath(start, ptsCount, cp, m_points));
+      // TODO: here and further m_innerStats is needed for stats calculation in generator_tool only
       m_innerStats.m_points = static_cast<uint32_t>(src.PtrUint8() - start);
     }
     else
@@ -397,6 +398,7 @@ void FeatureType::ParseHeader2()
       ReadOffsets(*m_loadInfo, src, trgMask, m_offsets.m_trg);
     }
   }
+  // Size of the whole header incl. inner geometry / triangles.
   m_innerStats.m_size = CalcOffset(src, m_data.data());
   m_parsed.m_header2 = true;
 }
@@ -475,7 +477,51 @@ uint32_t FeatureType::ParseGeometry(int scale)
     }
     m_parsed.m_points = true;
   }
+  // TODO: return value is needed for stats calculation in generator_tool only
   return sz;
+}
+
+FeatureType::GeomStat FeatureType::GetOuterGeometrySize()
+{
+  uint32_t sz = 0;
+
+  CHECK(m_loadInfo, ());
+
+  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
+  if (headerGeomType == HeaderGeomType::Line)
+  {
+    size_t const count = m_points.size();
+    if (count < 2)
+    {
+      ASSERT_EQUAL(count, 1, ());
+
+      FeatureType::Points points;
+      int const n = m_loadInfo->GetScalesCount();
+      for (int ind = 0; ind < n; ++ind)
+      {
+        if (m_offsets.m_pts[ind] != kInvalidOffset)
+        {
+          points.clear();
+          points.emplace_back(m_points.front());
+
+          ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetGeometryReader(ind));
+          src.Skip(m_offsets.m_pts[ind]);
+
+          serial::GeometryCodingParams cp = m_loadInfo->GetGeometryCodingParams(ind);
+          cp.SetBasePoint(points[0]);
+          serial::LoadOuterPath(src, cp, points);
+
+          sz += static_cast<uint32_t>(src.Pos() - m_offsets.m_pts[ind]);
+        }
+      }
+      // Retain best geometry.
+      m_points.swap(points);
+    }
+    CalcRect(m_points, m_limitRect);
+  }
+  m_parsed.m_points = true;
+
+  return GeomStat(sz, m_points.size());
 }
 
 uint32_t FeatureType::ParseTriangles(int scale)
@@ -506,7 +552,42 @@ uint32_t FeatureType::ParseTriangles(int scale)
     }
     m_parsed.m_triangles = true;
   }
+  // TODO: return value is needed for stats calculation in generator_tool only
   return sz;
+}
+
+FeatureType::GeomStat FeatureType::GetOuterTrianglesSize()
+{
+  uint32_t sz = 0;
+
+  CHECK(m_loadInfo, ());
+
+  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
+  if (headerGeomType == HeaderGeomType::Area)
+  {
+    if (m_triangles.empty())
+    {
+      int const n = m_loadInfo->GetScalesCount();
+      for (int ind = 0; ind < n; ++ind)
+      {
+        if (m_offsets.m_trg[ind] != kInvalidOffset)
+        {
+          m_triangles.clear();
+
+          ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetTrianglesReader(ind));
+          src.Skip(m_offsets.m_trg[ind]);
+          serial::LoadOuterTriangles(src, m_loadInfo->GetGeometryCodingParams(ind), m_triangles);
+
+          sz += static_cast<uint32_t>(src.Pos() - m_offsets.m_trg[ind]);
+        }
+      }
+      // The best geometry is retained in m_triangles.
+    }
+    CalcRect(m_triangles, m_limitRect);
+  }
+  m_parsed.m_triangles = true;
+
+  return GeomStat(sz, m_triangles.size() / 3);
 }
 
 void FeatureType::ParseMetadata()
@@ -668,24 +749,6 @@ void FeatureType::ParseGeometryAndTriangles(int scale)
 {
   ParseGeometry(scale);
   ParseTriangles(scale);
-}
-
-FeatureType::GeomStat FeatureType::GetGeometrySize(int scale)
-{
-  uint32_t sz = ParseGeometry(scale);
-  if (sz == 0 && !m_points.empty())
-    sz = m_innerStats.m_points;
-
-  return GeomStat(sz, m_points.size());
-}
-
-FeatureType::GeomStat FeatureType::GetTrianglesSize(int scale)
-{
-  uint32_t sz = ParseTriangles(scale);
-  if (sz == 0 && !m_triangles.empty())
-    sz = m_innerStats.m_strips;
-
-  return GeomStat(sz, m_triangles.size());
 }
 
 std::pair<std::string_view, std::string_view> FeatureType::GetPreferredNames()

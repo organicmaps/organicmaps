@@ -166,14 +166,9 @@ public:
   struct InnerGeomStat
   {
     uint32_t m_points = 0, m_strips = 0, m_size = 0;
-
-    void MakeZero()
-    {
-      m_points = m_strips = m_size = 0;
-    }
   };
 
-  InnerGeomStat GetInnerStatistic() const { return m_innerStats; }
+  InnerGeomStat GetInnerStats() const { return m_innerStats; }
 
   struct GeomStat
   {
@@ -182,8 +177,10 @@ public:
     GeomStat(uint32_t sz, size_t count) : m_size(sz), m_count(static_cast<uint32_t>(count)) {}
   };
 
-  GeomStat GetGeometrySize(int scale);
-  GeomStat GetTrianglesSize(int scale);
+  // Returns total outer geometry/triangles size for all geo levels and
+  // number of points/triangles in the best one. Loads the best geometry.
+  GeomStat GetOuterGeometrySize();
+  GeomStat GetOuterTrianglesSize();
   //@}
 
 private:

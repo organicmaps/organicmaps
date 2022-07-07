@@ -55,9 +55,9 @@ namespace stats
     GeneralInfo m_inner[3];
   };
 
-  void FileContainerStatistic(std::ostream & os, std::string const & fPath);
+  void FileContainerStatistics(std::ostream & os, std::string const & fPath);
 
-  void CalcStatistic(std::string const & fPath, MapInfo & info);
-  void PrintStatistic(std::ostream & os, MapInfo & info);
-  void PrintTypeStatistic(std::ostream & os, MapInfo & info);
+  void CalcStatistics(std::string const & fPath, MapInfo & info);
+  void PrintStatistics(std::ostream & os, MapInfo & info);
+  void PrintTypeStatistics(std::ostream & os, MapInfo & info);
 }
