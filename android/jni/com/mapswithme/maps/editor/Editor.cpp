@@ -568,21 +568,23 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetSelectedCuisines(JNIEnv * env, j
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeFilterCuisinesKeys(JNIEnv * env, jclass thiz, jobjectArray src, jstring jSubstr)
+Java_com_mapswithme_maps_editor_Editor_nativeFilterCuisinesKeys(JNIEnv * env, jclass thiz, jstring jSubstr)
 {
   std::string const substr = jni::ToNativeString(env, jSubstr);
-  int const length = env->GetArrayLength(src);
-  auto const & cuisines = osm::Cuisines::Instance();
-  std::vector<std::string> filtered;
-  filtered.reserve(length);
-  for (int i = 0; i < length; i++)
+  bool const noFilter = substr.length() == 0;
+  osm::AllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
+  std::vector<std::string> keys;
+  keys.reserve(cuisines.size());
+
+  for (TCuisine const & cuisine : cuisines)
   {
-    std::string const str = jni::ToNativeString(env, static_cast<jstring>(env->GetObjectArrayElement(src, i)));
-    if (search::ContainsNormalized(str, substr) || search::ContainsNormalized(cuisines.Translate(str), substr))
-      filtered.push_back(str);
+    std::string const & key = cuisine.first;
+    std::string const & label = cuisine.second;
+    if (noFilter || search::ContainsNormalized(key, substr) || search::ContainsNormalized(label, substr))
+      keys.push_back(key);
   }
 
-  return jni::ToJavaStringArray(env, filtered);
+  return jni::ToJavaStringArray(env, keys);
 }
 
 JNIEXPORT jobjectArray JNICALL
