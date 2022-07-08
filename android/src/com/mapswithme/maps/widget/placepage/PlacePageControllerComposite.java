@@ -29,6 +29,12 @@ class PlacePageControllerComposite implements PlacePageController
   }
 
   @Override
+  public int getPlacePageWidth()
+  {
+    return mActiveController.getPlacePageWidth();
+  }
+
+  @Override
   public void openFor(@NonNull PlacePageData data)
   {
     boolean support = mActiveController.support(data);

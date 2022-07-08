@@ -609,9 +609,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void initNavigationButtons()
   {
 
-    View frame = findViewById(R.id.navigation_buttons);
-    if (frame != null)
-      mMapButtonsController = new MapButtonsController(frame, this, this::onMapButtonClick);
+    final View frame = findViewById(R.id.navigation_buttons);
+    mMapButtonsController = new MapButtonsController(frame, this, this::onMapButtonClick, mPlacePageController);
   }
 
   void onMapButtonClick(MapButtonsController.MapButtons button)

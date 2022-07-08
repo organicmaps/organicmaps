@@ -18,6 +18,7 @@ public interface PlacePageController extends Initializable<Activity>,
   void openFor(@NonNull PlacePageData data);
   void close(boolean deactivateMapSelection);
   boolean isClosed();
+  int getPlacePageWidth();
 
   interface SlideListener
   {

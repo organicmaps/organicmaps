@@ -23,8 +23,8 @@
 
   <RelativeLayout
     android:id="@+id/search_frame"
-    android:layout_width="200dp"
-    android:layout_height="200dp"
+    android:layout_width="192dp"
+    android:layout_height="192dp"
     android:layout_alignParentStart="true"
     android:layout_marginTop="-68dp"
     android:layout_below="@id/btn_bookmarks"
