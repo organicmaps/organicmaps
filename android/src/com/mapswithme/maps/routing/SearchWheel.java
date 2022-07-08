@@ -23,7 +23,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 
 
-class SearchWheel implements View.OnClickListener
+public class SearchWheel implements View.OnClickListener
 {
   private static final String EXTRA_CURRENT_OPTION = "extra_current_option";
   private final View mFrame;
@@ -35,6 +35,8 @@ class SearchWheel implements View.OnClickListener
   private boolean mIsExpanded;
   @Nullable
   private SearchOption mCurrentOption;
+  @NonNull
+  private View.OnClickListener mOnSearchPressedListener;
 
   private static final long CLOSE_DELAY_MILLIS = 5000L;
   private final Runnable mCloseRunnable = new Runnable() {
@@ -100,10 +102,10 @@ class SearchWheel implements View.OnClickListener
     }
   }
 
-  SearchWheel(View frame)
+  public SearchWheel(View frame, View.OnClickListener onSearchPressedListener)
   {
     mFrame = frame;
-
+    mOnSearchPressedListener = onSearchPressedListener;
     mTouchInterceptor = mFrame.findViewById(R.id.touch_interceptor);
     mTouchInterceptor.setOnClickListener(this);
     mSearchButton = mFrame.findViewById(R.id.btn_search);
@@ -121,12 +123,12 @@ class SearchWheel implements View.OnClickListener
     refreshSearchVisibility();
   }
 
-  void saveState(@NonNull Bundle outState)
+  public void saveState(@NonNull Bundle outState)
   {
     outState.putSerializable(EXTRA_CURRENT_OPTION, mCurrentOption);
   }
 
-  void restoreState(@NonNull Bundle savedState)
+  public void restoreState(@NonNull Bundle savedState)
   {
     mCurrentOption = (SearchOption) savedState.getSerializable(EXTRA_CURRENT_OPTION);
   }
@@ -214,11 +216,6 @@ class SearchWheel implements View.OnClickListener
                                                  R.attr.colorAccent));
   }
 
-  public boolean performClick()
-  {
-    return mSearchButton.performClick();
-  }
-
   @Override
   public void onClick(View v)
   {
@@ -263,15 +260,7 @@ class SearchWheel implements View.OnClickListener
 
   private void showSearchInParent()
   {
-    Context context = mFrame.getContext();
-    final MwmActivity parent;
-    if (context instanceof ContextThemeWrapper)
-      parent = (MwmActivity)((ContextThemeWrapper)context).getBaseContext();
-    else if (context instanceof androidx.appcompat.view.ContextThemeWrapper)
-      parent = (MwmActivity)((androidx.appcompat.view.ContextThemeWrapper)context).getBaseContext();
-    else
-      parent = (MwmActivity) context;
-    parent.showSearch();
+    mOnSearchPressedListener.onClick(mSearchButton);
     mIsExpanded = false;
     refreshSearchVisibility();
   }

@@ -3,26 +3,29 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/search_button_frame"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
   android:theme="?navButtonsTheme"
-  android:layout_marginBottom="@dimen/nav_numbers_height"
   android:padding="@dimen/nav_frame_padding"
   android:layoutDirection="ltr"
   tools:background="@color/bg_primary">
 
-  <View
-    android:id="@+id/touch_interceptor"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="gone"/>
+  <ImageButton
+    android:id="@+id/btn_bookmarks"
+    style="@style/MwmWidget.SearchNavigationButton"
+    android:layout_width="@dimen/margin_quadruple"
+    android:layout_height="@dimen/margin_quadruple"
+    android:layout_alignParentStart="true"
+    android:background="?nav_background"
+    android:src="@drawable/ic_menu_bookmarks"
+    android:tint="@null"/>
 
   <LinearLayout
     android:id="@+id/search_frame"
     android:layout_width="286dp"
     android:layout_height="56dp"
-    android:layout_alignParentBottom="true"
-    android:layout_marginBottom="@dimen/nav_search_frame_offset"
+    android:layout_alignParentStart="true"
+    android:layout_below="@id/btn_bookmarks"
     android:background="?searchLayoutBackground"
     android:orientation="horizontal"
     android:padding="@dimen/margin_quarter"
@@ -62,22 +65,10 @@
     style="@style/MwmWidget.SearchNavigationButton"
     android:layout_width="@dimen/margin_quadruple"
     android:layout_height="@dimen/margin_quadruple"
-    android:layout_alignParentBottom="true"
+    android:layout_below="@id/btn_bookmarks"
     android:layout_alignParentStart="true"
-    android:layout_marginBottom="@dimen/margin_base_plus"
     android:background="?nav_background"
     android:src="@drawable/ic_menu_search"
-    android:tint="@null"/>
-
-  <ImageButton
-    android:id="@+id/btn_bookmarks"
-    style="@style/MwmWidget.SearchNavigationButton"
-    android:layout_width="@dimen/margin_quadruple"
-    android:layout_height="@dimen/margin_quadruple"
-    android:layout_above="@id/btn_search"
-    android:layout_alignParentStart="true"
-    android:background="?nav_background"
-    android:src="@drawable/ic_menu_bookmarks"
     android:tint="@null"/>
 
 </RelativeLayout>

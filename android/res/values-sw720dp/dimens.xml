@@ -12,7 +12,6 @@
   <dimen name="nav_next_next_turn_frame">48dp</dimen>
 
   <dimen name="nav_frame_padding">@dimen/margin_base</dimen>
-  <dimen name="nav_zoom_bottom">250dp</dimen>
   <dimen name="nav_menu_top_offset">-6dp</dimen>
 
   <!-- Altitude chart -->

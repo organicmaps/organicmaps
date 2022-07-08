@@ -1,11 +1,12 @@
 package com.mapswithme.maps.maplayer;
 
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.mapswithme.maps.R;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 
 import java.util.List;
@@ -17,13 +18,13 @@ public class MapLayersController
   @NonNull
   private final List<Mode> mLayers;
   @NonNull
-  private final View mLayersButton;
+  private final ImageButton mLayersButton;
   @NonNull
   OnShowMenuListener mOnShowMenuListener;
   @NonNull
   private Mode mCurrentLayer;
 
-  public MapLayersController(@NonNull View layersButton, @NonNull OnShowMenuListener onShowMenuListener, @NonNull AppCompatActivity activity)
+  public MapLayersController(@NonNull ImageButton layersButton, @NonNull OnShowMenuListener onShowMenuListener, @NonNull AppCompatActivity activity)
   {
     mActivity = activity;
     mLayersButton = layersButton;
@@ -37,7 +38,7 @@ public class MapLayersController
   private void initMode()
   {
     setEnabled(mCurrentLayer.isEnabled(mActivity));
-    showButton();
+    showButton(true);
   }
 
   @NonNull
@@ -66,6 +67,13 @@ public class MapLayersController
   {
     mLayersButton.setSelected(enabled);
     mCurrentLayer.setEnabled(mActivity, enabled);
+    int drawable = R.drawable.ic_layers;
+    if (enabled)
+    {
+      drawable = R.drawable.ic_layers_clear;
+    }
+    mLayersButton.setImageDrawable(Graphics.tint(mLayersButton.getContext(),
+                                                 drawable));
   }
 
   private void onLayersButtonClick()
@@ -79,18 +87,13 @@ public class MapLayersController
   public void toggleMode(@NonNull Mode mode)
   {
     setCurrentLayer(mode);
-    showButton();
+    showButton(true);
     setEnabled(!mode.isEnabled(mActivity));
   }
 
-  public void showButton()
+  public void showButton(boolean show)
   {
-    UiUtils.show(mLayersButton);
-  }
-
-  public void hideButton()
-  {
-    UiUtils.hide(mLayersButton);
+    UiUtils.showIf(show, mLayersButton);
   }
 
   public void adjust(int offsetX, int offsetY)
