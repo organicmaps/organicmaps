@@ -3020,7 +3020,7 @@
     tags = android,ios
     en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
     be = Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
-    en = Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!
+    de = Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!
     es = Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábrelos si tienes instalado Organic Maps. O, si no lo tienes, descarga la aplicación para tu dispositivo iOS o Android siguiendo este link: https://omaps.app/get?kmz\n¡Disfruta viajando con Organic Maps!
     eu = Kaixo!\nNire markatzaileak Mapak organikoak aplikaziotik erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!
     fr = Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps!
@@ -13318,7 +13318,7 @@
     be = км/г
     cs = km/h
     da = km/t
-    de = km/h 
+    de = km/h
     es = km/h
     eu = km/h
     fa = کیلومتربرساعت (km/h)
@@ -22303,7 +22303,7 @@
     bg = Моля, изберете начална или крайна точка по-близо до метростанция
     cs = Zvolte prosím počáteční nebo koncový bod blíže k stanici metra
     da = Vælg venligst et start- eller stoppunkt, tættere på metrostationen
-    de = Wählen Sie einen zu einer U-Bahn-Station nähergelegenen Start- oder Endpunkt 
+    de = Wählen Sie einen zu einer U-Bahn-Station nähergelegenen Start- oder Endpunkt
     el = Επιλέξτε το σημείο έναρξης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό
     es = Elige el punto de inicio o fin de ruta más cercano al metro
     es-MX = Elija el punto de inicio o fin de ruta más cercano al metro
