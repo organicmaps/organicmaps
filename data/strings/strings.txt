@@ -3109,13 +3109,13 @@
   [load_kmz_failed]
     comment = Kml file loading failed
     tags = android,ios
-    en = Bookmarks upload failed. The file may be corrupted or defective.
+    en = Failed to load bookmarks. The file may be corrupted or defective.
     ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف.
     be = Не атрамалася запампаваць закладкі. Файл можа быць пашкоджаны альбо дэфектыўны.
     bg = Качването на отметките се провали. Файлът може да бъде повреден или дефектен.
     cs = Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.
     da = Bogmærkerne kunne ikke indlæses. Fil kan være skadet eller defekte.
-    de = Hochladen der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.
+    de = Laden der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.
     el = Η μεταφόρτωση των αγαπημένων απέτυχε. Το αρχείο μπορεί να είναι κατεστραμμένο ή ελαττωματικό.
     es = La carga de favoritos ha fallado. El archivo puede estar corrupto o ser defectuoso.
     eu = Ezin izan da gogokoak kargatu. Fitxategia hondatuta edo akastuna izan daiteke.
