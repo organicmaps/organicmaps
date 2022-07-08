@@ -95,13 +95,8 @@ public class MyPositionButton
            || !mVisible;
   }
 
-  public void show()
+  public void showButton(boolean show)
   {
-    UiUtils.show(mButton);
-  }
-
-  public void hide()
-  {
-    UiUtils.hide(mButton);
+    UiUtils.showIf(show, mButton);
   }
 }

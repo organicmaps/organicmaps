@@ -26,7 +26,6 @@
     layout="@layout/position_chooser"/>
 
   <include
-    android:id="@+id/navigation_buttons"
     layout="@layout/map_navigation_buttons"/>
 
   <include
@@ -37,10 +36,6 @@
     android:layout_alignParentBottom="true"
     android:visibility="gone"
     tools:visibility="visible" />
-
-  <include layout="@layout/layout_nav_search"
-    android:visibility="gone"
-    tools:visibility="invisible"/>
 
    <include
     layout="@layout/layout_nav"
