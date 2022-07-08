@@ -1453,4 +1453,5 @@
 	<string name="type.wheelchair.no">No equipado para discapacitados</string>
 	<string name="type.wheelchair.yes">Equipado para discapacitados</string>
 	<string name="type.building_part">Edificio</string>
+	<string name="type.amenity.events_venue">Lugar de los eventos</string>
 </resources>

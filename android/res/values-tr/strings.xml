@@ -1610,4 +1610,5 @@
 	<string name="type.piste_type.nordic">İskandinav Kayak Pisti</string>
 	<string name="type.piste_type.sled">Kızak Pisti</string>
 	<string name="type.building_part">Bina</string>
+	<string name="type.amenity.events_venue">Etkinlik mekanı</string>
 </resources>

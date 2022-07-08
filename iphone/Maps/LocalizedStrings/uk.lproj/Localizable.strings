@@ -1252,7 +1252,7 @@
 
 "type.amenity.bench" = "Лавка";
 
-"type.amenity.bicycle_parking" = "Велостоянка";
+"type.amenity.bicycle_parking" = "Велопарковка";
 
 "type.amenity.bicycle_rental" = "Велопрокат";
 
@@ -3045,3 +3045,5 @@
 "type.piste_type.sled" = "Траса для санок";
 
 "type.building_part" = "Будівля";
+
+"type.amenity.events_venue" = "Місце проведення подій";

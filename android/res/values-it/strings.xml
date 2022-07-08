@@ -1390,4 +1390,5 @@
 	<string name="type.wheelchair.no">Non accessibile ai disabili</string>
 	<string name="type.wheelchair.yes">Accessibile ai disabili</string>
 	<string name="type.building_part">Edificio</string>
+	<string name="type.amenity.events_venue">Sede degli eventi</string>
 </resources>

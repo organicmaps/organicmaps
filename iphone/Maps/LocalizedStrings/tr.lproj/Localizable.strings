@@ -3045,3 +3045,5 @@
 "type.piste_type.sled" = "Kızak Pisti";
 
 "type.building_part" = "Bina";
+
+"type.amenity.events_venue" = "Etkinlik mekanı";

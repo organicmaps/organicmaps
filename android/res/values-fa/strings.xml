@@ -1266,4 +1266,5 @@
 	<string name="type.wheelchair.no">بدون دسترسی با صندلی چرخ دار</string>
 	<string name="type.wheelchair.yes">دسترسی کامل با صندلی چرخ دار</string>
 	<string name="type.building_part">ساختما</string>
+	<string name="type.amenity.events_venue">محل برگزاری رویدادها</string>
 </resources>

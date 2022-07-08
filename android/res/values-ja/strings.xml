@@ -1514,4 +1514,5 @@
 	<string name="type.wheelchair.no">車椅子でのアクセスなし</string>
 	<string name="type.wheelchair.yes">車椅子でのアクセスあり</string>
 	<string name="type.building_part">建物</string>
+	<string name="type.amenity.events_venue">イベント会場</string>
 </resources>

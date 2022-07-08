@@ -1544,4 +1544,5 @@
 	<string name="type.piste_type.nordic">Pista tipo nórdico</string>
 	<string name="type.piste_type.sled">Pista para trenós</string>
 	<string name="type.building_part">Parte de edifício</string>
+	<string name="type.amenity.events_venue">Local do evento</string>
 </resources>

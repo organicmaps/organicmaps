@@ -718,7 +718,7 @@
 	<string name="type.amenity.bar">Бар</string>
 	<string name="type.amenity.bbq">Пікнік</string>
 	<string name="type.amenity.bench">Лавка</string>
-	<string name="type.amenity.bicycle_parking">Велостоянка</string>
+	<string name="type.amenity.bicycle_parking">Велопарковка</string>
 	<string name="type.amenity.bicycle_rental">Велопрокат</string>
 	<string name="type.amenity.bicycle_repair_station">Станція ремонту велосипедів</string>
 	<string name="type.amenity.biergarten">Пивна під відкритим небом</string>
@@ -1606,4 +1606,5 @@
 	<string name="type.piste_type.nordic">Лижня</string>
 	<string name="type.piste_type.sled">Траса для санок</string>
 	<string name="type.building_part">Будівля</string>
+	<string name="type.amenity.events_venue">Місце проведення подій</string>
 </resources>

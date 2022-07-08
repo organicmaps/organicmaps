@@ -1388,4 +1388,5 @@
 	<string name="type.piste_type.downhill.novice">Laskettelurinne</string>
 	<string name="type.piste_type.nordic">Latu</string>
 	<string name="type.building_part">Rakennus</string>
+	<string name="type.amenity.events_venue">Tapahtumapaikka</string>
 </resources>

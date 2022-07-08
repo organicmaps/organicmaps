@@ -1350,4 +1350,5 @@
 	<string name="type.wheelchair.no">Ingen tilgang for rullestol</string>
 	<string name="type.wheelchair.yes">Full tilgang for rullestol</string>
 	<string name="type.building_part">Bygning</string>
+	<string name="type.amenity.events_venue">Arrangementssted</string>
 </resources>

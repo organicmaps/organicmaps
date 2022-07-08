@@ -1344,4 +1344,5 @@
 	<string name="type.wheelchair.no">Tidak ada akses kursi roda</string>
 	<string name="type.wheelchair.yes">Akses penuh kursi roda</string>
 	<string name="type.building_part">Gedung</string>
+	<string name="type.amenity.events_venue">Tempat acara</string>
 </resources>

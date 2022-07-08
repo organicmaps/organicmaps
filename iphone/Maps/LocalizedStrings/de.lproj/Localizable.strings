@@ -72,7 +72,7 @@
 "bookmark_sets" = "Lesezeichenmappe";
 
 /* "Bookmarks" dialog title */
-"bookmarks" = "Lesezeichengruppen";
+"bookmarks" = "Lesezeichen";
 
 /* Default bookmark list name */
 "core_my_places" = "Meine Orte";
@@ -153,9 +153,9 @@
 "water" = "Wasser";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "Einrichtungen für Wohnmobile";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Lesezeichen werden geladen";
@@ -164,7 +164,7 @@
 "load_kmz_successful" = "Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager anzeigen.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Hochladen der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.";
+"load_kmz_failed" = "Laden der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.";
 
 /* resource for context menu */
 "edit" = "Bearbeiten";
@@ -345,7 +345,7 @@
 "downloader_status_failed" = "Fehlgeschlagen";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "Um die Karte zu löschen, die Navigation unterbrechen.";
+"downloader_delete_map_while_routing_dialog" = "Zum Löschen der Karte bitte Navigation unterbrechen.";
 
 /* PointsInDifferentMWM */
 "routing_failed_cross_mwm_building" = "Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.";
@@ -427,7 +427,7 @@
 
 "dialog_routing_disclaimer_priority" = "– Straßenverhältnisse, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;";
 
-"dialog_routing_disclaimer_precision" = "– Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimalste Weg, um das Ziel zu erreichen;";
+"dialog_routing_disclaimer_precision" = "– Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimale Weg, um das Ziel zu erreichen;";
 
 "dialog_routing_disclaimer_recommendations" = "— Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;";
 
@@ -497,7 +497,7 @@
 "routing_arrive" = "Ankunft: %s";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Zum Erstellen einer Route müssen Sie alle Karten herunterladen und aktualisieren, auf der die Route liegt.";
+"dialog_routing_download_and_update_maps" = "Zum Erstellen einer Route müssen Sie alle Karten herunterladen und aktualisieren, auf denen die Route liegt.";
 
 "categories" = "Kategorien";
 
@@ -556,7 +556,7 @@
 
 "editor_add_select_location" = "Position";
 
-"editor_done_dialog_1" = "Sie haben die Weltkarte geändert. Blenden Sie das nicht aus! Erzählen Sie Ihren Freunden davon und bearbeiten Sie sie zusammen.";
+"editor_done_dialog_1" = "Sie haben die Weltkarte geändert. Behalten Sie das nicht für sich! Erzählen Sie Ihren Freunden davon und bearbeiten Sie sie zusammen.";
 
 "share_with_friends" = "Mit Freunden teilen";
 
@@ -603,7 +603,7 @@
 
 "edit_place" = "Eintrag bearbeiten";
 
-"place_name" = "Name des Platzes";
+"place_name" = "Name des Ortes";
 
 "add_language" = "Eine Sprache hinzufügen";
 
@@ -660,11 +660,11 @@
 
 "editor_add_place_title" = "Wird hinzugefügt";
 
-"editor_edit_place_name_hint" = "Name des Orts";
+"editor_edit_place_name_hint" = "Name des Ortes";
 
 "editor_edit_place_category_title" = "Kategorie";
 
-"whatsnew_editor_message_1" = "Fügen Sie auf der Karte einen neuen Ort hinzu und bearbeiten Sie existierende Ort direkt in der App.";
+"whatsnew_editor_message_1" = "Fügen Sie auf der Karte einen neuen Ort hinzu und bearbeiten Sie existierende Orte direkt in der App.";
 
 "dialog_incorrect_feature_position" = "Standort wechseln";
 
@@ -686,10 +686,10 @@
 
 "error_enter_correct_house_number" = "Richtige Hausnummer eingeben";
 
-"editor_storey_number" = "Anzahl der Etagen (%d maximal)";
+"editor_storey_number" = "Anzahl der Etagen (maximal %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
-"error_enter_correct_storey_number" = "Bearbeiten Sie die Gebäude mit maximal 25 Etagen";
+"error_enter_correct_storey_number" = "Das Gebäude kann nicht mehr als 25 Etagen haben";
 
 "editor_zip_code" = "Postleitzahl";
 
@@ -741,7 +741,7 @@
 
 "kilometer" = "km";
 
-"kilometers_per_hour" = "km / h";
+"kilometers_per_hour" = "km/h";
 
 "mile" = "mi";
 
@@ -783,7 +783,7 @@
 "text_more_button" = "…Mehr";
 
 /* Phone number error message */
-"error_enter_correct_phone" = "Geben Sie die richtige Telefonnummer ein";
+"error_enter_correct_phone" = "Geben Sie eine gültige Telefonnummer ein";
 
 "error_enter_correct_web" = "Geben Sie eine gültige Internetadresse ein";
 
@@ -794,14 +794,14 @@
 "placepage_add_place_button" = "Einen Ort zur Karte hinzufügen";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
-"editor_share_to_all_dialog_title" = "Wollen Sie sie an alle Benutzer senden?";
+"editor_share_to_all_dialog_title" = "An alle Benutzer senden?";
 
 /* iOS Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Stellen Sie sicher, dass Sie keine persönlichen Daten eingegeben haben.";
 
 "editor_share_to_all_dialog_message_2" = "Wir werden die Änderungen prüfen. Wenn wir Fragen haben, werden wir Sie per Email kontaktieren.";
 
-"navigation_stop_button" = "Stop";
+"navigation_stop_button" = "Stopp";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Aufzeichnung Ihrer kürzlich gefahrenen Route deaktivieren?";
@@ -838,7 +838,7 @@
 "mobile_data" = "Mobiles Internet";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Mobiles Internet wird benötigt, um genauere Informationen über Orte anzuzeigen, wie Fotos, Preise und Bewertungen.";
+"mobile_data_description" = "Es wird mobiles Internet benötigt, um über Kartenaktualisierungen informiert zu werden und genauere Informationen über Orte anzuzeigen.";
 
 "mobile_data_option_never" = "Nie verwenden";
 
@@ -846,10 +846,10 @@
 
 "traffic_update_maps_text" = "Um Verkehrsdaten anzuzeigen, müssen die Karten aktualisiert werden.";
 
-"big_font" = "Schriftgröße auf der Karte erhöhen";
+"big_font" = "Schrift auf der Karte vergrößern";
 
 /* "traffic" as in road congestion */
-"traffic_update_app_message" = "Um Verkehrsdaten anzuzeigen, muss die Anwendung aktualisiert werden.";
+"traffic_update_app_message" = "Zum Anzeigen von Verkehrsdaten muss die Anwendung aktualisiert werden.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Verkehrsdaten sind nicht verfügbar";
@@ -894,7 +894,7 @@
 
 "bookmark_lists_show_all" = "Alle anzeigen";
 
-"bookmarks_create_new_group" = "Erstelle eine neue Liste";
+"bookmarks_create_new_group" = "Neue Liste erstellen";
 
 "downloader_hide_screen" = "Bildschirm verbergen";
 
@@ -908,7 +908,7 @@
 
 "bookmarks_error_title_share_empty" = "Fehler bei der Freigabe";
 
-"bookmarks_error_message_share_empty" = "Es kann keine leere Liste freigegeben werden";
+"bookmarks_error_message_share_empty" = "Eine leere Liste kann nicht freigegeben werden";
 
 "bookmarks_error_message_empty_list_name" = "Bitte geben Sie den Listennamen ein";
 
@@ -922,7 +922,7 @@
 
 "button_convert" = "Konvertieren";
 
-"bookmarks_convert_error_title" = "Error";
+"bookmarks_convert_error_title" = "Fehler";
 
 "bookmarks_convert_error_message" = "Einige Dateien wurden nicht konvertiert.";
 
@@ -940,7 +940,7 @@
 
 "button_layer_subway" = "U-Bahn";
 
-"layers_title" = "Kartenschichten";
+"layers_title" = "Kartenebenen";
 
 "subway_data_unavailable" = "Die U-Bahnkarte steht nicht zur Verfügung";
 
@@ -958,9 +958,9 @@
 
 "bookmark_list_description_hint" = "Fügen Sie die Beschreibung hinzu (Text oder html)";
 
-"tags_loading_error_subtitle" = "Während dem Laden der Tags ist ein Fehler aufgetreten, bitte, versuchen Sie es erneut";
+"tags_loading_error_subtitle" = "Während dem Laden der Tags ist ein Fehler aufgetreten, bitte versuchen Sie es erneut";
 
-"download_button" = "Downloaden";
+"download_button" = "Herunterladen";
 
 "speedcams_alert_title" = "Blitzer";
 
@@ -976,7 +976,7 @@
 
 "power_managment_title" = "Stromsparmodus";
 
-"power_managment_description" = "Falls der Stromsparmodus aktiviert ist, wird die App stromintensive Prozesse je nach dem aktuellen Ladezustand deaktivieren";
+"power_managment_description" = "Wenn der Stromsparmodus aktiviert ist, wird die App stromintensive Funktionen je nach aktuellem Ladezustand des Akkus deaktivieren";
 
 "power_managment_setting_never" = "Niemals";
 
@@ -996,9 +996,9 @@
 
 "avoid_motorways" = "Autobahnen";
 
-"unable_to_calc_alert_title" = "Es ist unmöglich, eine Route zu planen";
+"unable_to_calc_alert_title" = "Route kann nicht berechnet werden";
 
-"unable_to_calc_alert_subtitle" = "Leider konnten wir keine Route mit ausgewählten Optionen planen. Ändern Sie die Einstellungen und versuchen Sie den Versuch erneut";
+"unable_to_calc_alert_subtitle" = "Leider konnten wir keine Route mit den gewählten Optionen erstellen. Ändern Sie die Einstellungen und versuchen Sie es erneut";
 
 "define_to_avoid_btn" = "Umwege einstellen";
 
@@ -1016,7 +1016,7 @@
 
 "avoid_ferry_crossing_placepage" = "Fährstellen vermeiden";
 
-"trip_start" = "Fahren wir";
+"trip_start" = "Losfahren";
 
 "pick_destination" = "Ziel";
 
@@ -1042,37 +1042,37 @@
 
 "trip_finished" = "Sie sind angekommen!";
 
-"keyboard_availability_alert" = "Die Tastatur ist während der Bewegung nicht zugänglich";
+"keyboard_availability_alert" = "Die Tastatur ist unterwegs nicht verfügbar";
 
-"dialog_routing_change_start_carplay" = "Es ist unmöglich eine Reiseroute vom aktuellen Standort planen";
+"dialog_routing_change_start_carplay" = "Vom aktuellen Standort aus kann keine Route erstellt werden";
 
-"dialog_routing_change_end_carplay" = "Es ist unmöglich eine Reiseroute bis zum Endpunkt planen. Wählen Sie einen anderen";
+"dialog_routing_change_end_carplay" = "Zu diesem Endpunkt kann keine Route erstellt werden. Bitte wählen Sie einen anderen Endpunkt";
 
 "dialog_routing_check_gps_carplay" = "Kein GPS-Signal. Gehen Sie in das offene Gelände";
 
-"dialog_routing_unable_locate_route_carplay" = "Es ist unmöglich, eine Route zu planen. Wählen Sie andere Routenpunkte";
+"dialog_routing_unable_locate_route_carplay" = "Es kann keine Route erstellt werden. Bitte wählen Sie andere Routenpunkte";
 
-"dialog_routing_download_files_carplay" = "Laden Sie die fehlenden Karten hoch, um die Route zu erstellen";
+"dialog_routing_download_files_carplay" = "Laden Sie die fehlenden Karten herunter, um die Route zu erstellen";
 
-"dialog_routing_system_error_carplay" = "Fehler aufgetreten. Starten Sie Applikation neu";
+"dialog_routing_system_error_carplay" = "Es ist ein Fehler aufgetreten. Bitte starten Sie die App neu";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Die Route wird von Ihrem derzeitigen Standpunkt geplant werden";
+"dialog_routing_rebuild_from_current_location_carplay" = "Die Route wird von Ihrem derzeitigen Standort aus neu erstellt werden";
 
-"dialog_routing_rebuild_for_vehicle_carplay" = "Reiseroute wird zur Route für Fahrzeug geändert sein";
+"dialog_routing_rebuild_for_vehicle_carplay" = "Die Route wird zu einer Route für Fahrzeuge geändert";
 
 "ok" = "Ok";
 
-"avoid_unpaved_carplay_1" = "Ohne Landstr";
+"avoid_unpaved_carplay_1" = "Keine Feldwege";
 
-"avoid_unpaved_carplay_2" = "Ohne Landstr.";
+"avoid_unpaved_carplay_2" = "unbefest. Wege vermeiden";
 
-"avoid_ferry_carplay_1" = "Ohne Fähren";
+"avoid_ferry_carplay_1" = "Keine Fähren";
 
-"avoid_ferry_carplay_2" = "Ohne Fähren";
+"avoid_ferry_carplay_2" = "Fähren vermeiden";
 
-"avoid_tolls_carplay_1" = "Ohne kpf Str";
+"avoid_tolls_carplay_1" = "Keine Mautstr.";
 
-"avoid_tolls_carplay_2" = "Ohne kpfl. Str.";
+"avoid_tolls_carplay_2" = "Mautstr. vermeiden";
 
 "speedcams_alert_title_carplay_1" = "Blitzer";
 
@@ -1139,21 +1139,21 @@
 
 "search_in_the_list" = "In der Liste suchen";
 
-"religious_places" = "Heilige Orte";
+"religious_places" = "Religiöse Stätten";
 
 "transit_not_found" = "Die U-Bahn-Navigation ist in dieser Region noch nicht verfügbar";
 
 "dialog_pedestrian_route_is_long_header" = "Keine U-Bahn-Route gefunden";
 
-"dialog_pedestrian_route_is_long_message" = "Wählen Sie den Start- und Endpunkt der Route, die am nächsten zur U-Bahn-Station liegen";
+"dialog_pedestrian_route_is_long_message" = "Wählen Sie einen zu einer U-Bahn-Station nähergelegenen Start- oder Endpunkt";
 
-"button_layer_isolines" = "Terrain";
+"button_layer_isolines" = "Gelände";
 
-"isolines_activation_error_dialog" = "Um den Topographie-Layer benutzen zu können, aktualisieren oder laden Sie die Karte der benötigten Gegend herunter";
+"isolines_activation_error_dialog" = "Um die Topographieebene nutzen zu können, aktualisieren Sie die Karte des betreffenden Gebiets oder laden Sie diese herunter";
 
-"isolines_location_error_dialog" = "Topographie-Layer sind in dieser Region noch nicht verfügbar";
+"isolines_location_error_dialog" = "Topographieebene ist für dieses Gebiet noch nicht verfügbar";
 
-"elevation_profile_diff_level" = "Komplexitätsniveau";
+"elevation_profile_diff_level" = "Anspruchsniveau";
 
 "elevation_profile_diff_level_easy" = "Leicht";
 
@@ -1173,11 +1173,11 @@
 
 "elevation_profile_time" = "Dauer:";
 
-"isolines_toast_zooms_1_10" = "Karte vergrößern, um Isolinien zu sehen";
+"isolines_toast_zooms_1_10" = "Karte vergrößern, um Höhenlinien sichtbar zu machen";
 
-"downloader_updating_ios" = "Update";
+"downloader_updating_ios" = "Aktualisierung";
 
-"downloader_loading_ios" = "Download";
+"downloader_loading_ios" = "Herunterladen";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Aktualisieren Sie Ihre heruntergeladenen Karten";
@@ -1195,13 +1195,13 @@
 "placepage_delete_track_button" = "Strecke löschen";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Name der Strecke";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "verschieben";
 
 /* edit track screen title */
-"track_title" = "Strecken";
+"track_title" = "Strecke";
 
 
 /********** Types **********/
@@ -3045,3 +3045,5 @@
 "type.piste_type.sled" = "Rodelbahn";
 
 "type.building_part" = "Gebäude";
+
+"type.amenity.events_venue" = "Veranstaltungszentrum";

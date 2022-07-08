@@ -1533,4 +1533,5 @@
 	<string name="type.piste_type.nordic">Piste de ski de fond</string>
 	<string name="type.piste_type.sled">Piste de luge</string>
 	<string name="type.building_part">Bâtiment</string>
+	<string name="type.amenity.events_venue">Lieu des événements</string>
 </resources>

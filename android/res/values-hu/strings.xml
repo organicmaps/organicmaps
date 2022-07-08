@@ -1355,4 +1355,5 @@
 	<string name="type.wheelchair.no">Nem akadálymentesített</string>
 	<string name="type.wheelchair.yes">Teljesen akadálymentesített</string>
 	<string name="type.building_part">Épület</string>
+	<string name="type.amenity.events_venue">Rendezvények helyszíne</string>
 </resources>
