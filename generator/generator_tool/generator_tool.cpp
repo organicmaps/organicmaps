@@ -180,8 +180,9 @@ DEFINE_string(uk_postcodes_dataset, "", "Path to dataset with UK postcodes.");
 DEFINE_string(us_postcodes_dataset, "", "Path to dataset with US postcodes.");
 
 // Printing stuff.
-DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");
-DEFINE_bool(type_statistics, false, "Calculate statistics by type for specified mwm bucket files.");
+DEFINE_bool(calc_stats, false, "Print file and feature stats.");
+DEFINE_bool(calc_geom_stats, false, "Print outer geometry stats.");
+DEFINE_bool(calc_type_stats, false, "Print feature stats by type.");
 DEFINE_bool(dump_types, false, "Prints all types combinations and their total count.");
 DEFINE_bool(dump_prefixes, false, "Prints statistics on feature's' name prefixes.");
 DEFINE_bool(dump_search_tokens, false, "Print statistics on search tokens.");
@@ -598,23 +599,30 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
   string const dataFile = base::JoinPath(path, FLAGS_output + DATA_FILE_EXTENSION);
 
-  if (FLAGS_calc_statistics || FLAGS_type_statistics)
+  if (FLAGS_calc_stats || FLAGS_calc_geom_stats || FLAGS_calc_type_stats)
   {
+    LOG(LINFO, ("Calculating statistics for", dataFile));
     auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
     stats::MapInfo info;
     stats::CalcStatistics(dataFile, info);
     
-    if (FLAGS_calc_statistics)
+    if (FLAGS_calc_stats)
     {
-      LOG(LINFO, ("Calculating statistics for", dataFile));
+      LOG(LINFO, ("Writing general statistics"));
       stats::FileContainerStatistics(file, dataFile);
       stats::PrintStatistics(file, info);
     }
-    else
+    if (FLAGS_calc_geom_stats)
     {
-      LOG(LINFO, ("Calculating type statistics for", dataFile));
+      LOG(LINFO, ("Writing geometry statistics"));
+      stats::PrintOuterGeometryStatistics(file, info);
+    }
+    if (FLAGS_calc_type_stats)
+    {
+      LOG(LINFO, ("Writing types statistics"));
       stats::PrintTypeStatistics(file, info);
     }
+    LOG(LINFO, ("Stats written to file", FLAGS_output + STATS_EXTENSION));
   }
 
   if (FLAGS_dump_types)
