@@ -166,8 +166,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private OnmapDownloader mOnmapDownloader;
 
   @NonNull
-  ToggleMapLayerFragment mToggleMapLayerFragment;
-  @NonNull
   private MenuBottomSheetFragment mLayersBottomSheet;
   @NonNull
   private MenuBottomSheetFragment mMainMenuBottomSheet;
@@ -417,9 +415,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initBottomSheets()
   {
-    mToggleMapLayerFragment = new ToggleMapLayerFragment(this::onLayerItemClicked);
-    mLayersBottomSheet = new MenuBottomSheetFragment(mToggleMapLayerFragment);
-    mMainMenuBottomSheet = new MenuBottomSheetFragment(mToggleMapLayerFragment, getMainMenuItems());
+    ToggleMapLayerFragment toggleMapLayerFragment = new ToggleMapLayerFragment(this::onLayerItemClicked);
+    mLayersBottomSheet = new MenuBottomSheetFragment(toggleMapLayerFragment);
+    mMainMenuBottomSheet = new MenuBottomSheetFragment(getMainMenuItems());
   }
 
   private int getDownloadMapsCounter()
@@ -667,7 +665,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void showMainMenuBottomSheet()
   {
-    mMainMenuBottomSheet = new MenuBottomSheetFragment(mToggleMapLayerFragment, getMainMenuItems());
+    mMainMenuBottomSheet = new MenuBottomSheetFragment(getMainMenuItems());
     mMainMenuBottomSheet.show(getSupportFragmentManager(), "mainMenuBottomSheet");
   }
 
