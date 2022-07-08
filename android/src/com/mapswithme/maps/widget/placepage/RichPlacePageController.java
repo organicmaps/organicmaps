@@ -139,6 +139,11 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     LocationHelper.INSTANCE.addListener(this);
   }
 
+  public int getPlacePageWidth()
+  {
+    return mPlacePage.getWidth();
+  }
+
   @Override
   public void destroy()
   {

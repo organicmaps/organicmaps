@@ -110,6 +110,11 @@ public class SimplePlacePageController implements PlacePageController
     mStateListener = stateListener;
   }
 
+  public int getPlacePageWidth()
+  {
+    return mSheet.getWidth();
+  }
+
   @Override
   public void openFor(@NonNull PlacePageData data)
   {

@@ -18,7 +18,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
@@ -31,10 +30,9 @@ import com.mapswithme.maps.widget.menu.NavMenu;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
-
 public class NavigationController implements Application.ActivityLifecycleCallbacks,
-    TrafficManager.TrafficCallback,
-    NavMenu.NavMenuListener
+                                             TrafficManager.TrafficCallback,
+                                             NavMenu.NavMenuListener
 {
   private static final String STATE_BOUND = "Bound";
 
@@ -106,7 +104,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     UiUtils.extendViewWithStatusBar(mStreetFrame);
     UiUtils.extendViewMarginWithStatusBar(turnFrame);
 
-    Application app = (Application) mFrame.getContext().getApplicationContext();
+    final Application app = (Application) mFrame.getContext().getApplicationContext();
     mSpeedCamSignalCompletionListener = new CameraWarningSignalCompletionListener(app);
   }
 
@@ -207,7 +205,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
       mNextStreet.setText(info.nextStreet);
   }
 
-
   private void playbackSpeedCamWarning(@NonNull RoutingInfo info)
   {
     if (!info.shouldPlayWarningSignal() || TtsPlayer.INSTANCE.isSpeaking())
@@ -227,7 +224,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     UiUtils.showIf(show, mFrame);
     mMapButtonsController.showButton(show, MapButtonsController.MapButtons.nav);
   }
-
 
   public boolean isNavMenuCollapsed()
   {

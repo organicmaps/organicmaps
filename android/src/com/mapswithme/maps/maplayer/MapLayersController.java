@@ -69,11 +69,8 @@ public class MapLayersController
     mCurrentLayer.setEnabled(mActivity, enabled);
     int drawable = R.drawable.ic_layers;
     if (enabled)
-    {
       drawable = R.drawable.ic_layers_clear;
-    }
-    mLayersButton.setImageDrawable(Graphics.tint(mLayersButton.getContext(),
-                                                 drawable));
+    mLayersButton.setImageDrawable(Graphics.tint(mLayersButton.getContext(), drawable));
   }
 
   private void onLayersButtonClick()
