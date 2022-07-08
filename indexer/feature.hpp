@@ -170,17 +170,15 @@ public:
 
   InnerGeomStat GetInnerStats() const { return m_innerStats; }
 
+  using GeomArr = uint32_t[feature::DataHeader::kMaxScalesCount];
   struct GeomStat
   {
-    uint32_t m_size = 0, m_count = 0;
-
-    GeomStat(uint32_t sz, size_t count) : m_size(sz), m_count(static_cast<uint32_t>(count)) {}
+    GeomArr m_sizes = {}, m_elements = {};
   };
 
-  // Returns total outer geometry/triangles size for all geo levels and
-  // number of points/triangles in the best one. Loads the best geometry.
-  GeomStat GetOuterGeometrySize();
-  GeomStat GetOuterTrianglesSize();
+  // Returns outer points/triangles stats for all geo levels and loads the best geometry.
+  GeomStat GetOuterGeometryStats();
+  GeomStat GetOuterTrianglesStats();
   //@}
 
 private:

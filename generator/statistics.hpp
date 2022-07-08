@@ -33,6 +33,25 @@ namespace stats
     double m_area;
   };
 
+  struct GeomInfo
+  {
+    GeomInfo() : m_count(0), m_size(0), m_elements(0) {}
+
+    void Add(uint64_t szBytes, uint32_t elements)
+    {
+      if (szBytes > 0)
+      {
+        ++m_count;
+        m_size += szBytes;
+        m_elements += elements;
+      }
+    }
+
+    uint64_t m_count, m_size, m_elements;
+  };
+
+  using GeomStats = GeomInfo[feature::DataHeader::kMaxScalesCount];
+
   template <class T, int Tag>
   struct IntegralType
   {
@@ -52,6 +71,10 @@ namespace stats
     std::map<CountType, GeneralInfo> m_byPointsCount, m_byTrgCount;
     std::map<AreaType, GeneralInfo> m_byAreaSize;
 
+    GeomStats m_byLineGeom, m_byAreaGeom,
+              m_byLineGeomCompared, m_byAreaGeomCompared,
+              m_byLineGeomDup, m_byAreaGeomDup;
+
     GeneralInfo m_inner[3];
   };
 
@@ -60,4 +83,5 @@ namespace stats
   void CalcStatistics(std::string const & fPath, MapInfo & info);
   void PrintStatistics(std::ostream & os, MapInfo & info);
   void PrintTypeStatistics(std::ostream & os, MapInfo & info);
+  void PrintOuterGeometryStatistics(std::ostream & os, MapInfo & info);
 }

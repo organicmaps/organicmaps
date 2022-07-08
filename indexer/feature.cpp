@@ -476,11 +476,13 @@ void FeatureType::ParseGeometry(int scale)
   }
 }
 
-FeatureType::GeomStat FeatureType::GetOuterGeometrySize()
+FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
 {
-  uint32_t sz = 0;
-
+  ASSERT(!m_parsed.m_points, ());
   CHECK(m_loadInfo, ());
+  size_t const n = m_loadInfo->GetScalesCount();
+  ASSERT_LESS_OR_EQUAL(n, feature::DataHeader::kMaxScalesCount, ());
+  FeatureType::GeomStat res;
 
   auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
   if (headerGeomType == HeaderGeomType::Line)
@@ -488,11 +490,12 @@ FeatureType::GeomStat FeatureType::GetOuterGeometrySize()
     size_t const count = m_points.size();
     if (count < 2)
     {
+      // Outer geometry present.
       ASSERT_EQUAL(count, 1, ());
 
       FeatureType::Points points;
-      int const n = m_loadInfo->GetScalesCount();
-      for (int ind = 0; ind < n; ++ind)
+
+      for (size_t ind = 0; ind < n; ++ind)
       {
         if (m_offsets.m_pts[ind] != kInvalidOffset)
         {
@@ -506,7 +509,8 @@ FeatureType::GeomStat FeatureType::GetOuterGeometrySize()
           cp.SetBasePoint(points[0]);
           serial::LoadOuterPath(src, cp, points);
 
-          sz += static_cast<uint32_t>(src.Pos() - m_offsets.m_pts[ind]);
+          res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - m_offsets.m_pts[ind]);
+          res.m_elements[ind] = points.size();
         }
       }
       // Retain best geometry.
@@ -516,7 +520,9 @@ FeatureType::GeomStat FeatureType::GetOuterGeometrySize()
   }
   m_parsed.m_points = true;
 
-  return GeomStat(sz, m_points.size());
+  // Points count can come from the inner geometry.
+  res.m_elements[n - 1] = m_points.size();
+  return res;
 }
 
 void FeatureType::ParseTriangles(int scale)
@@ -546,19 +552,20 @@ void FeatureType::ParseTriangles(int scale)
   }
 }
 
-FeatureType::GeomStat FeatureType::GetOuterTrianglesSize()
+FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
 {
-  uint32_t sz = 0;
-
+  ASSERT(!m_parsed.m_triangles, ());
   CHECK(m_loadInfo, ());
+  size_t const n = m_loadInfo->GetScalesCount();
+  ASSERT_LESS_OR_EQUAL(n, feature::DataHeader::kMaxScalesCount, ());
+  FeatureType::GeomStat res;
 
   auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
   if (headerGeomType == HeaderGeomType::Area)
   {
     if (m_triangles.empty())
     {
-      int const n = m_loadInfo->GetScalesCount();
-      for (int ind = 0; ind < n; ++ind)
+      for (size_t ind = 0; ind < n; ++ind)
       {
         if (m_offsets.m_trg[ind] != kInvalidOffset)
         {
@@ -568,7 +575,8 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesSize()
           src.Skip(m_offsets.m_trg[ind]);
           serial::LoadOuterTriangles(src, m_loadInfo->GetGeometryCodingParams(ind), m_triangles);
 
-          sz += static_cast<uint32_t>(src.Pos() - m_offsets.m_trg[ind]);
+          res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - m_offsets.m_trg[ind]);
+          res.m_elements[ind] = m_triangles.size() / 3;
         }
       }
       // The best geometry is retained in m_triangles.
@@ -577,7 +585,9 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesSize()
   }
   m_parsed.m_triangles = true;
 
-  return GeomStat(sz, m_triangles.size() / 3);
+  // Triangles count can come from the inner geometry.
+  res.m_elements[n - 1] = m_triangles.size() / 3;
+  return res;
 }
 
 void FeatureType::ParseMetadata()

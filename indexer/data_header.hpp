@@ -30,8 +30,8 @@ namespace feature
       Country
     };
 
-    /// Max possible scales. @see arrays in feature_impl.hpp
-    static const size_t kMaxScalesCount = 4;
+    /// Max possible geometry scales. @see arrays in feature_impl.hpp
+    static constexpr size_t kMaxScalesCount = 4;
 
     DataHeader() = default;
     explicit DataHeader(std::string const & fileName);
