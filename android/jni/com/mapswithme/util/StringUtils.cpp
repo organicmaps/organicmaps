@@ -37,15 +37,14 @@ Java_com_mapswithme_util_StringUtils_nativeContainsNormalized(JNIEnv * env, jcla
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_util_StringUtils_nativeFilterContainsNormalized(JNIEnv * env, jclass thiz, jobjectArray src, jstring jSubstr)
 {
-  std::string substr = jni::ToNativeString(env, jSubstr);
+  std::string const substr = jni::ToNativeString(env, jSubstr);
   int const length = env->GetArrayLength(src);
-  auto const & cuisines = osm::Cuisines::Instance();
   std::vector<std::string> filtered;
   filtered.reserve(length);
   for (int i = 0; i < length; i++)
   {
-    std::string str = jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(src, i));
-    if (search::ContainsNormalized(str, substr) || search::ContainsNormalized(cuisines.Translate(str), substr))
+    std::string const str = jni::ToNativeString(env, static_cast<jstring>(env->GetObjectArrayElement(src, i)));
+    if (search::ContainsNormalized(str, substr))
       filtered.push_back(str);
   }
 
