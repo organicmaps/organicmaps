@@ -11531,3 +11531,41 @@ ru:4Причал|5пристань|3Марина
 tr:Yat Limanı
 uk:5Пристань|3Марина
 zh-Hans:游艇码头
+
+amenity-events_venue
+en:Events Venue
+ar:مكان الأحداث
+be:Месца правядзення мерапрыемстваў
+bg:Място за провеждане на събития
+cs:Místo konání akcí
+da:Sted for arrangementer
+de:Veranstaltungszentrum
+el:Κέντρο εκδηλώσεων
+es:Lugar de los eventos
+eu:Ekitaldien Lekua
+fa:محل برگزاری رویدادها
+fi:Tapahtumapaikka
+fr:Lieu des événements
+he:מקום אירועים 
+hu:Rendezvények helyszíne
+id:Tempat acara
+it:Sede degli eventi
+ja:イベント会場
+ko:행사장
+mr:कार्यक्रमाचे ठिकाण
+nb:Arrangementssted
+nl:Evenementenlocatie
+pl:Miejsce wydarzeń
+pt:Local dos eventos
+pt-BR:Local do evento
+ro:Locul de desfășurare a evenimentelor
+ru:Место проведения мероприятий
+sk:Miesto konania podujatí
+sv:Evenemangslokal
+sw:Ukumbi wa Matukio
+th:สถานที่จัดงาน
+tr:Etkinlik mekanı
+uk:Місце проведення подій
+vi:Địa điểm tổ chức sự kiện
+zh-Hans:活动场所
+zh-Hant:活動場所
