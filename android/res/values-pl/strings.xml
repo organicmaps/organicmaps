@@ -1480,4 +1480,5 @@
 	<string name="type.wheelchair.no">Nie wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.wheelchair.yes">Wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.building_part">Część budynku</string>
+	<string name="type.amenity.events_venue">Miejsce wydarzeń</string>
 </resources>

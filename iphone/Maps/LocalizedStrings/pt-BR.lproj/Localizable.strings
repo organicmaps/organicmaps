@@ -3045,3 +3045,5 @@
 "type.piste_type.sled" = "Pista para trenós";
 
 "type.building_part" = "Parte de edifício";
+
+"type.amenity.events_venue" = "Local do evento";

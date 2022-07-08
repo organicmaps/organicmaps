@@ -1360,4 +1360,5 @@
 	<string name="type.wheelchair.no">Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες</string>
 	<string name="type.wheelchair.yes">Εξοπλισμένο για άτομα με ειδικές ανάγκες</string>
 	<string name="type.building_part">Κτίριο</string>
+	<string name="type.amenity.events_venue">Κέντρο εκδηλώσεων</string>
 </resources>

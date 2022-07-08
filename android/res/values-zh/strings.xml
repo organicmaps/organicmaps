@@ -1516,4 +1516,5 @@
 	<string name="type.wheelchair.no">未配备残疾人专用</string>
 	<string name="type.wheelchair.yes">配备残疾人专用</string>
 	<string name="type.building_part">建筑部分</string>
+	<string name="type.amenity.events_venue">活动场所</string>
 </resources>

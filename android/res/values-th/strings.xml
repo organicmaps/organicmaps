@@ -1361,4 +1361,5 @@
 	<string name="type.wheelchair.no">พื้นที่ไม่สามารถใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ</string>
 	<string name="type.wheelchair.yes">พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้</string>
 	<string name="type.building_part">อาคาร</string>
+	<string name="type.amenity.events_venue">สถานที่จัดงาน</string>
 </resources>

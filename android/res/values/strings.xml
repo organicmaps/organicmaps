@@ -157,7 +157,7 @@
 	<!-- Kmz file successful loading -->
 	<string name="load_kmz_successful">Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.</string>
 	<!-- Kml file loading failed -->
-	<string name="load_kmz_failed">Bookmarks upload failed. The file may be corrupted or defective.</string>
+	<string name="load_kmz_failed">Failed to load bookmarks. The file may be corrupted or defective.</string>
 	<!-- resource for context menu -->
 	<string name="edit">Edit</string>
 	<!-- Warning message when doing search around current position -->
@@ -1681,4 +1681,5 @@
 	<string name="type.piste_type.nordic">Nordic Ski Trail</string>
 	<string name="type.piste_type.sled">Sledding Piste</string>
 	<string name="type.building_part">Building</string>
+	<string name="type.amenity.events_venue">Events Venue</string>
 </resources>

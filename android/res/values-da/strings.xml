@@ -1338,4 +1338,5 @@
 	<string name="type.wheelchair.no">Ingen tilgængelighed for kørestol</string>
 	<string name="type.wheelchair.yes">Fuld tilgængelighed for kørestol</string>
 	<string name="type.building_part">Bygning</string>
+	<string name="type.amenity.events_venue">Sted for arrangementer</string>
 </resources>

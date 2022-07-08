@@ -1349,4 +1349,5 @@
 	<string name="type.wheelchair.no">Niet uitgerust voor gehandicapten</string>
 	<string name="type.wheelchair.yes">Uitgerust voor gehandicapten</string>
 	<string name="type.building_part">Gebouw</string>
+	<string name="type.amenity.events_venue">Evenementenlocatie</string>
 </resources>

@@ -1352,4 +1352,5 @@
 	<string name="type.wheelchair.no">Bez přístupu pro vozíčkáře</string>
 	<string name="type.wheelchair.yes">Plný vstup pro vozíčkáře</string>
 	<string name="type.building_part">Stavba</string>
+	<string name="type.amenity.events_venue">Místo konání akcí</string>
 </resources>

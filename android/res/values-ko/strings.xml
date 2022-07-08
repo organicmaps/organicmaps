@@ -1360,4 +1360,5 @@
 	<string name="type.wheelchair.no">휠체어 접근 금지</string>
 	<string name="type.wheelchair.yes">휠체어 접근 가능</string>
 	<string name="type.building_part">건물</string>
+	<string name="type.amenity.events_venue">행사장</string>
 </resources>

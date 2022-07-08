@@ -1366,4 +1366,5 @@
 	<string name="type.wheelchair.no">Nu este utilat pentru invalizi</string>
 	<string name="type.wheelchair.yes">Utilat pentru invalizi</string>
 	<string name="type.building_part">Clădire</string>
+	<string name="type.amenity.events_venue">Locul de desfășurare a evenimentelor</string>
 </resources>

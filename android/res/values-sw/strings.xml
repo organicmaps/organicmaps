@@ -417,4 +417,5 @@
 	<string name="type.wheelchair.limited">Viti vya magurudumu vinaruhusiwa vichache</string>
 	<string name="type.wheelchair.no">Viti vya magurudumu haviruhusiwi</string>
 	<string name="type.wheelchair.yes">Viti vya magurudumu vinaruhusiwa kabisa</string>
+	<string name="type.amenity.events_venue">Ukumbi wa Matukio</string>
 </resources>

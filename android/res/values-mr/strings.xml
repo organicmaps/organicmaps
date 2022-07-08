@@ -1467,4 +1467,5 @@
 	<string name="type.wheelchair.no">चाकखुर्चीसाठी प्रवेश नाही</string>
 	<string name="type.wheelchair.yes">चाकखुर्चीसाठी प्रवेश</string>
 	<string name="type.building_part">इमारत</string>
+	<string name="type.amenity.events_venue">कार्यक्रमाचे ठिकाण</string>
 </resources>

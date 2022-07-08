@@ -1418,4 +1418,5 @@
 	<string name="type.wheelchair.no">Ezinduentzako ekipatuta ez dago</string>
 	<string name="type.wheelchair.yes">Ezinduentzako hornitua</string>
 	<string name="type.building_part">Eraikin</string>
+	<string name="type.amenity.events_venue">Ekitaldien Lekua</string>
 </resources>

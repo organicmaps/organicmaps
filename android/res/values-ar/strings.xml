@@ -1366,4 +1366,5 @@
 	<string name="type.wheelchair.no">لا يدعم لكراسي المعاقين</string>
 	<string name="type.wheelchair.yes">دعم كامل لكراسي المعاقين</string>
 	<string name="type.building_part">مبنى</string>
+	<string name="type.amenity.events_venue">مكان الأحداث</string>
 </resources>

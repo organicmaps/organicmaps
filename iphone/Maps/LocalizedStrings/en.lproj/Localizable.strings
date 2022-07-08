@@ -164,7 +164,7 @@
 "load_kmz_successful" = "Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Bookmarks upload failed. The file may be corrupted or defective.";
+"load_kmz_failed" = "Failed to load bookmarks. The file may be corrupted or defective.";
 
 /* resource for context menu */
 "edit" = "Edit";
@@ -3045,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Building";
+
+"type.amenity.events_venue" = "Events Venue";

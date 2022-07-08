@@ -1358,4 +1358,5 @@
 	<string name="type.wheelchair.no">Không trang bị cho người khuyết tật</string>
 	<string name="type.wheelchair.yes">Được trang bị cho người khuyết tật</string>
 	<string name="type.building_part">Tòa nhà</string>
+	<string name="type.amenity.events_venue">Địa điểm tổ chức sự kiện</string>
 </resources>

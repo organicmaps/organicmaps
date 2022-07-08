@@ -1347,4 +1347,5 @@
 	<string name="type.wheelchair.no">Žiaden bezbariérový prístup</string>
 	<string name="type.wheelchair.yes">Úplný bezbariérový prístup</string>
 	<string name="type.building_part">Budova</string>
+	<string name="type.amenity.events_venue">Miesto konania podujatí</string>
 </resources>

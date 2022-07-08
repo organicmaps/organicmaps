@@ -3045,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Eraikin";
+
+"type.amenity.events_venue" = "Ekitaldien Lekua";
