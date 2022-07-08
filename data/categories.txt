@@ -8659,7 +8659,8 @@ mr:पाळणाघर|अंगणवाडी|बालवाडी
 
 amenity-bicycle_parking
 en:4Bicycle Parking
-ru:4Велостоянка|велопарковка
+ru:4Велопарковка|велостоянка
+be:4Велапаркоўка|веластаянка
 bg:4Велостоянка|паркинг|колело|велосипед
 ar:أماكن وقوف للدراجات
 cs:Parkování kol
@@ -8683,7 +8684,7 @@ eu:Bizikleta aparkalekua
 sv:4Cykelparkering
 th:ที่จอดจักรยาน
 tr:4Bisiklet park etme
-uk:4Велостоянка
+uk:4Велопарковка|велостоянка
 vi:Chỗ Đậu Xe Đạp
 zh-Hans:自行车存放处
 zh-Hant:腳踏車停放區
