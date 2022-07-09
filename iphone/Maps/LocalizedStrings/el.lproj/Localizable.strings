@@ -590,7 +590,7 @@
 
 "no_osm_account" = "Δεν έχετε λογαριασμό OpenStreetMap;";
 
-"register_at_openstreetmap" = "Εγγραφείτε στο OSM";
+"register_at_openstreetmap" = "Εγγραφείτε στο OpenStreetMap";
 
 "password_8_chars_min" = "Κωδικός πρόσβασης (8 χαρακτήρες ελάχιστο)";
 
@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Θέλετε να το στείλετε σε όλους τους χρήστες;";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.";
 
-"editor_share_to_all_dialog_message_2" = "Θα ελέγξουμε τις αλλαγές. Εάν έχουμε οποιαδήποτε απορία θα επικοινωνήσουμε μαζί σας μέσω email.";
+"editor_share_to_all_dialog_message_2" = "Οι συντάκτες του OpenStreetMap θα ελέγξουν τις αλλαγές και θα επικοινωνήσουν μαζί σας εάν έχουν απορίες.";
 
 "navigation_stop_button" = "stop";
 

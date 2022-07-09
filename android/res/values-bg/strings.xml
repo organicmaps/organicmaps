@@ -372,8 +372,9 @@
 	<string name="closed">Затворено</string>
 	<string name="edit_opening_hours">Редакция на работното време</string>
 	<string name="no_osm_account">Нямате акаунт в OpenStreetMap?</string>
-	<string name="register_at_openstreetmap">Регистриране в OSM</string>
+	<string name="register_at_openstreetmap">Регистриране в OpenStreetMap</string>
 	<string name="login">Вход</string>
+	<string name="login_osm">Влезте в OpenStreetMap</string>
 	<string name="password">Парола</string>
 	<string name="forgot_password">Забравили сте паролата си?</string>
 	<string name="logout">Изход</string>
@@ -414,6 +415,7 @@
 	<string name="editor_report_problem_other_title">Друг проблем</string>
 	<string name="placepage_add_business_button">Добавяне на бизнес</string>
 	<string name="message_invalid_feature_position">Тук не може да бъде намерен обект</string>
+	<string name="osm_presentation">Всички картографски данни идват от проекта OpenStreetMap. Това е като Wikipedia за карти, където можете да добавяте или редактирате места и те стават достъпни за милиони потребители по целия свят.</string>
 	<string name="login_to_make_edits_visible">Влезте в системата, за да могат другите потребители да видят направените от вас промени</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d от %2$d</string>
@@ -465,9 +467,9 @@
 	<string name="placepage_add_place_button">Добавяне на място в картата</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Искате ли да го изпратите на всички потребители?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Уверете се, че не сте въвели никакви лични данни.</string>
-	<string name="editor_share_to_all_dialog_message_2">Ще проверим промените. Ако имаме някакви въпроси, ще се свържем с вас по имейл.</string>
+	<string name="editor_share_to_all_dialog_message_2">Редакторите на OpenStreetMap ще проверят промените и ще се свържат с вас, ако имат въпроси.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps е безплатно приложение за офлайн карти с отворен код. Без реклами. Без проследяване. Ако видите грешка на картата, моля, поправете я в OpenStreetMap. Проектът е създаден от ентусиасти в свободното ни време, така че имаме нужда от вашата отзиви и подкрепа.</string>
 	<!-- For the first routing -->

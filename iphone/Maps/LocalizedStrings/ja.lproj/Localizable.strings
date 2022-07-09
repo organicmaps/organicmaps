@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "全てのユーザーに送信しますか？";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "個人情報を入力していないことを確認してください。";
 
-"editor_share_to_all_dialog_message_2" = "弊社で変更を確認します。質問がある場合はメールでご連絡します。";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap の編集者が変更を確認し、質問があれば連絡します。";
 
 "navigation_stop_button" = "停止";
 

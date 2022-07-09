@@ -590,7 +590,7 @@
 
 "no_osm_account" = "Não tem uma conta no OpenStreetMap?";
 
-"register_at_openstreetmap" = "Crie uma conta no OSM";
+"register_at_openstreetmap" = "Crie uma conta no OpenStreetMap";
 
 "password_8_chars_min" = "Palavra-chave (mínimo de 8 caracteres)";
 
@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Quer enviar para todos os utilizadores?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Certifique-se que não incluiu nenhuns dados pessoais.";
 
-"editor_share_to_all_dialog_message_2" = "Vamos verificar as alterações. Se tivermos alguma pergunta, vamos contactá-lo por email.";
+"editor_share_to_all_dialog_message_2" = "Os editores do OpenStreetMap verificarão as alterações e entrarão em contacto consigo se tiverem alguma dúvida.";
 
 "navigation_stop_button" = "parar";
 

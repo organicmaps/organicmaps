@@ -215,7 +215,10 @@
 	<string name="search_without_internet_advertisement">על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה ולא תזדקקו יותר לחיבור לאינטרנט.</string>
 	<string name="search_select_map">בחרו את המפה</string>
 	<string name="twentyfour_seven">יום ולילה</string>
+	<string name="login_osm">OpenStreetMap-ל סנכיה</string>
 	<string name="level">קוֹמָה</string>
+	<string name="osm_presentation">.םלועה יבחר לכב םישמתשמ ינוילימל תונימזל תוכפוה ןהו ,תומוקמ ךורעל וא ףיסוהל לו</string>
+	<string name="editor_share_to_all_dialog_message_2">.ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps היא אפליקציית מפות לא מקוונות בחינם ובקוד פתוח. ללא פרסומות. אין מעקב. אם אתה רואה שגיאה במפה, אנא תקן אותה ב-OpenStreetMap. הפרויקט נוצר על ידי חובבים בזמננו הפנוי, אז אנו זקוקים למשוב ולתמיכה שלכם.</string>
 	<string name="transliteration_title">תעתיק ללטינית</string>

@@ -392,8 +392,9 @@
 	<string name="closed">Itxita</string>
 	<string name="edit_opening_hours">Editatu ordutegia</string>
 	<string name="no_osm_account">Ez al duzu OpenStreetMap konturik?</string>
-	<string name="register_at_openstreetmap">Eman izena OSM</string>
+	<string name="register_at_openstreetmap">Eman izena OpenStreetMap</string>
 	<string name="login">Saioa hasi</string>
+	<string name="login_osm">Hasi saioa OpenStreetMap-en</string>
 	<string name="password">Pasahitza</string>
 	<string name="forgot_password">Pasahitza ahaztu al duzu?</string>
 	<string name="logout">Saioa itxi</string>
@@ -434,6 +435,7 @@
 	<string name="editor_report_problem_other_title">Beste arazo bat</string>
 	<string name="placepage_add_business_button">Negozioa gehitu</string>
 	<string name="message_invalid_feature_position">Hemen ezin da objekturik jarri</string>
+	<string name="osm_presentation">Maparen datu guztiak OpenStreetMap proiektutik datoz. Tokiak gehitu edo edita ditzakezun mapetarako Wikipedia bezalakoa da, eta mundu osoko milioika erabiltzaileren eskura jartzen dira.</string>
 	<string name="login_to_make_edits_visible">Hasi saioa beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -491,9 +493,9 @@
 	<string name="placepage_add_place_button">Gehitu toki bat mapan</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Erabiltzaile guztiei bidali nahi diezu?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Ziurtatu ez duzula datu pertsonalik sartu.</string>
-	<string name="editor_share_to_all_dialog_message_2">Aldaketak egiaztatuko ditugu. Edozein zalantza izanez gero, zurekin harremanetan jarriko gara posta elektronikoz.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps lineaz kanpoko mapa aplikazio doako eta irekia da. Iragarkirik ez. Ez dago jarraipenik. Mapan errore bat ikusten baduzu, konpondu OpenStreetMap-en. Proiektua zaleek sortu dute gure aisialdian, beraz, zure iritzia eta laguntza behar dugu.</string>
 	<!-- For the first routing -->

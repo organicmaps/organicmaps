@@ -384,8 +384,9 @@
 	<string name="closed">Κλειστό</string>
 	<string name="edit_opening_hours">Επεξεργαστείτε τις ώρες λειτουργίας</string>
 	<string name="no_osm_account">Δεν έχετε λογαριασμό OpenStreetMap;</string>
-	<string name="register_at_openstreetmap">Εγγραφείτε στο OSM</string>
+	<string name="register_at_openstreetmap">Εγγραφείτε στο OpenStreetMap</string>
 	<string name="login">Σύνδεση</string>
+	<string name="login_osm">Συνδεθείτε στο OpenStreetMap</string>
 	<string name="password">Κωδικός πρόσβασης</string>
 	<string name="forgot_password">Ξαχάσατε τον κωδικό πρόσβασης;</string>
 	<string name="logout">Αποσύνδεση</string>
@@ -425,6 +426,7 @@
 	<string name="editor_report_problem_other_title">Διαφορετικό πρόβλημα</string>
 	<string name="placepage_add_business_button">Προσθήκη επιχείρησης</string>
 	<string name="message_invalid_feature_position">Δε μπορεί να εντοπιστεί αντικείμενο εδώ</string>
+	<string name="osm_presentation">Όλα τα δεδομένα χάρτη προέρχονται από το έργο OpenStreetMap. Μοιάζει με τη Wikipedia για χάρτες όπου μπορείτε να προσθέσετε ή να επεξεργαστείτε μέρη και γίνονται διαθέσιμα σε εκατομμύρια χρήστες σε όλο τον κόσμο.</string>
 	<string name="login_to_make_edits_visible">Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d από %2$d</string>
@@ -468,9 +470,9 @@
 	<string name="placepage_add_place_button">Να προστεθεί η τοποθεσία στο χάρτη</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Θέλετε να το στείλετε σε όλους τους χρήστες;</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.</string>
-	<string name="editor_share_to_all_dialog_message_2">Θα ελέγξουμε τις αλλαγές. Εάν έχουμε οποιαδήποτε απορία θα επικοινωνήσουμε μαζί σας μέσω email.</string>
+	<string name="editor_share_to_all_dialog_message_2">Οι συντάκτες του OpenStreetMap θα ελέγξουν τις αλλαγές και θα επικοινωνήσουν μαζί σας εάν έχουν απορίες.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Οι Organic Maps είναι μια δωρεάν και ανοιχτού κώδικα εφαρμογή χαρτών εκτός σύνδεσης. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Εάν δείτε κάποιο σφάλμα στον χάρτη, διορθώστε το στο OpenStreetMap. Το έργο δημιουργείται από λάτρεις στον ελεύθερο χρόνο μας, επομένως χρειαζόμαστε τα σχόλια και την υποστήριξή σας.</string>
 	<!-- For the first routing -->

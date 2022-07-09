@@ -590,7 +590,7 @@
 
 "no_osm_account" = "Vous n'avez pas de compte sur OpenStreetMap?";
 
-"register_at_openstreetmap" = "Inscription";
+"register_at_openstreetmap" = "S'inscrire sur OpenStreetMap";
 
 "password_8_chars_min" = "Mot de passe (8 caractères minimum)";
 
@@ -680,7 +680,7 @@
 
 "message_invalid_feature_position" = "Aucun objet ne peut être localisé ici";
 
-"login_to_make_edits_visible" = "Se connecter pour que d'autres utilisateurs puissent voir les changements que vous avez effectués.";
+"login_to_make_edits_visible" = "Connectez vous à votre compte openstreetmap.org pour que d'autres utilisateurs puissent voir vos changements.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Pour télécharger, vous avez besoin de plus d'espace. Veuillez supprimer les données non nécessaires.";
@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Souhaitez-vous l’envoyer à tous les utilisateurs ?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Assurez-vous de n’avoir saisi aucunes données personnelles.";
 
-"editor_share_to_all_dialog_message_2" = "Nous vérifierons les changements. Si nous avons des questions quelles qu’elles soient, nous vous contacterons par courriel.";
+"editor_share_to_all_dialog_message_2" = "Les éditeurs d'OpenStreetMap vérifieront vos modifications et vous contacteront s'ils ont des questions.";
 
 "navigation_stop_button" = "stop";
 

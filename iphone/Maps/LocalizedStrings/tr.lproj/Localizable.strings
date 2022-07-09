@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Bunu tüm kullanıcılara göndermek ister misiniz?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Herhangi bir kişisel bilgi girmediğinizden emin olun.";
 
-"editor_share_to_all_dialog_message_2" = "Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla iletişime geçeceğiz.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap editörleri değişiklikleri kontrol edecek ve soruları olursa sizinle iletişime geçecektir.";
 
 "navigation_stop_button" = "dur";
 

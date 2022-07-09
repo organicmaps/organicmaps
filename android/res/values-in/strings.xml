@@ -383,6 +383,7 @@
 	<string name="no_osm_account">Tidak ada akun di OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Mendaftar</string>
 	<string name="login">Masuk</string>
+	<string name="login_osm">Masuk ke OpenStreetMap</string>
 	<string name="password">Kata sandi</string>
 	<string name="forgot_password">Lupa kata sandi?</string>
 	<string name="logout">Keluar</string>
@@ -421,6 +422,7 @@
 	<string name="editor_report_problem_other_title">Masalah yang berbeda</string>
 	<string name="placepage_add_business_button">Tambahkan organisasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
+	<string name="osm_presentation">Semua data peta berasal dari proyek OpenStreetMap. Ini seperti Wikipedia untuk peta tempat Anda dapat menambahkan atau mengedit tempat, dan peta tersebut tersedia bagi jutaan pengguna di seluruh Dunia.</string>
 	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d dari %2$d</string>
@@ -474,9 +476,9 @@
 	<string name="placepage_add_place_button">Tambahkan tempat ke peta</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Apakah Anda ingin mengirimkannya ke semua pengguna?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Pastikan Anda tidak memasukkan data pribadi apa pun.</string>
-	<string name="editor_share_to_all_dialog_message_2">Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.</string>
+	<string name="editor_share_to_all_dialog_message_2">Editor OpenStreetMap akan memeriksa perubahan dan menghubungi Anda jika ada pertanyaan.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps adalah aplikasi peta offline sumber terbuka dan gratis. Tanpa iklan. Tidak ada pelacakan. Jika Anda melihat kesalahan pada peta, harap perbaiki di OpenStreetMap. Proyek ini dibuat oleh para penggemar di waktu luang kami, jadi kami membutuhkan masukan dan dukungan Anda.</string>
 	<!-- For the first routing -->

@@ -392,6 +392,7 @@
 	<string name="no_osm_account">Nu ai un cont OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Înscrie-te</string>
 	<string name="login">Autentificare</string>
+	<string name="login_osm">Conectați-vă la OpenStreetMap</string>
 	<string name="password">Parola</string>
 	<string name="forgot_password">Ai uitat parola?</string>
 	<string name="logout">Deconectare</string>
@@ -433,6 +434,7 @@
 	<string name="editor_report_problem_other_title">Altă problemă</string>
 	<string name="placepage_add_business_button">Adaugă o firmă</string>
 	<string name="message_invalid_feature_position">Niciun obiect nu poate fi poziționat aici</string>
+	<string name="osm_presentation">Toate datele hărții provin din proiectul OpenStreetMap. Este ca Wikipedia pentru hărți în care puteți adăuga sau edita locuri și acestea devin disponibile pentru milioane de utilizatori din întreaga lume.</string>
 	<string name="login_to_make_edits_visible">Autentifică-te pentru ca modificările pe care le-ai făcut să poată fi văzute și de alți utilizatori.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d din %2$d</string>
@@ -490,9 +492,9 @@
 	<string name="placepage_add_place_button">Adaugă un loc pe hartă</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vrei să-l trimiți tuturor utilizatorilor?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Asigură-te că nu ai introdus niciun fel de date personale.</string>
-	<string name="editor_share_to_all_dialog_message_2">Vom verifica modificările. Dacă vor apărea întrebări, te vom contacta prin e-mail.</string>
+	<string name="editor_share_to_all_dialog_message_2">Editorii OpenStreetMap vor verifica modificările și vor lua legătura cu dvs. dacă au întrebări.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi</string>
 	<!-- For the first routing -->

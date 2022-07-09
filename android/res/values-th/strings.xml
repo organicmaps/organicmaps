@@ -385,6 +385,7 @@
 	<string name="no_osm_account">ไม่มีบัญชีใน OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">ลงทะเบียน</string>
 	<string name="login">ล็อกอิน</string>
+	<string name="login_osm">เข้าสู่ระบบ OpenStreetMap</string>
 	<string name="password">รหัสผ่าน</string>
 	<string name="forgot_password">ลืมรหัสผ่าน?</string>
 	<string name="logout">ออกจากระบบ</string>
@@ -423,6 +424,7 @@
 	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
 	<string name="placepage_add_business_button">เพิ่มองค์กร</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
+	<string name="osm_presentation">ข้อมูลแผนที่ทั้งหมดมาจากโครงการ OpenStreetMap เหมือนกับวิกิพีเดียสำหรับแผนที่ที่คุณสามารถเพิ่มหรือแก้ไขสถานที่ได้ และพวกเขาพร้อมให้ผู้ใช้หลายล้านคนทั่วโลกใช้งานได้</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d จาก %2$d</string>
@@ -476,9 +478,9 @@
 	<string name="placepage_add_place_button">เพิ่มสถานที่ไปยังแผนที่</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">คุณต้องการส่งมันให้ผู้ใช้ทั้งหมดหรือไม่?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ</string>
-	<string name="editor_share_to_all_dialog_message_2">เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล</string>
+	<string name="editor_share_to_all_dialog_message_2">ผู้แก้ไข OpenStreetMap จะตรวจสอบการเปลี่ยนแปลงและติดต่อคุณหากมีคำถามใดๆ</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps เป็นแอปพลิเคชันแผนที่ออฟไลน์แบบโอเพนซอร์สฟรี ไม่มีโฆษณา ไม่มีการติดตาม. หากคุณเห็นข้อผิดพลาดบนแผนที่ โปรดแก้ไขใน OpenStreetMap โครงการนี้สร้างขึ้นโดยผู้ที่ชื่นชอบในเวลาว่าง เราจึงต้องการความคิดเห็นและการสนับสนุนจากคุณ</string>
 	<!-- For the first routing -->

@@ -383,6 +383,7 @@
 	<string name="no_osm_account">Nemáte účet u OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registrace</string>
 	<string name="login">Přihlásit se</string>
+	<string name="login_osm">Přihlaste se do OpenStreetMap</string>
 	<string name="password">Heslo</string>
 	<string name="forgot_password">Zapomenuté heslo?</string>
 	<string name="logout">Odhlášení</string>
@@ -423,6 +424,7 @@
 	<string name="editor_report_problem_other_title">Jiný problém</string>
 	<string name="placepage_add_business_button">Přidat organizaci</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
+	<string name="osm_presentation">Všechna mapová data pocházejí z projektu OpenStreetMap. Je to jako Wikipedie s mapami, kde můžete přidávat nebo upravovat místa a jsou dostupné milionům uživatelů po celém světě.</string>
 	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
@@ -476,9 +478,9 @@
 	<string name="placepage_add_place_button">Přidat místo na mapu</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Chcete jej poslat všem uživatelům?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Ujistěte se, že jste nezadali žádná osobní data.</string>
-	<string name="editor_share_to_all_dialog_message_2">Změny ověříme. Budeme-li k vám mít jakékoli dotazy, budeme vás kontaktovat prostřednictvím emailu.</string>
+	<string name="editor_share_to_all_dialog_message_2">Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps jsou bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě vidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.</string>
 	<!-- For the first routing -->

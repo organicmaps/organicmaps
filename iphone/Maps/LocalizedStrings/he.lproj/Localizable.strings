@@ -590,7 +590,7 @@
 
 "no_osm_account" = "Don't have an OpenStreetMap account?";
 
-"register_at_openstreetmap" = "Register at OSM";
+"register_at_openstreetmap" = "Register at OpenStreetMap";
 
 "password_8_chars_min" = "Password (8 characters minimum)";
 
@@ -680,7 +680,7 @@
 
 "message_invalid_feature_position" = "No object can be located here";
 
-"login_to_make_edits_visible" = "Log in so other users can see the changes that you have made";
+"login_to_make_edits_visible" = "Log in to OpenStreetMap.org so other users can see the changes you have made.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "To download, you need more space. Please delete any unnecessary data.";
@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Do you want to send it to all users?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Make sure you did not enter any personal data.";
 
-"editor_share_to_all_dialog_message_2" = "We will check the changes. If we have any questions we will contact you via email.";
+"editor_share_to_all_dialog_message_2" = ".ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע";
 
 "navigation_stop_button" = "stop";
 

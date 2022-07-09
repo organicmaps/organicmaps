@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "이를 모든 사용자에게 전송하시겠습니까?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "개인 정보를 입력하지 않았는지 확인하십시오.";
 
-"editor_share_to_all_dialog_message_2" = "저희가 변경 사항을 확인할 것입니다. 질문이 있으신 경우, 저희에게 이메일을 통해 연락하십시오.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap 편집자가 변경 사항을 확인하고 질문이 있는 경우 귀하에게 연락할 것입니다.";
 
 "navigation_stop_button" = "중지";
 

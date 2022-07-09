@@ -412,6 +412,7 @@
 	<string name="no_osm_account">OpenStreetMap hesabınız yok mu?</string>
 	<string name="register_at_openstreetmap">Kaydol</string>
 	<string name="login">Oturum aç</string>
+	<string name="login_osm">OpenStreetMap\'e giriş yapın</string>
 	<string name="password">Şifre</string>
 	<string name="forgot_password">Şifreni mi unuttun?</string>
 	<string name="logout">Oturumu kapat</string>
@@ -453,6 +454,7 @@
 	<string name="editor_report_problem_other_title">Farklı bir sorun</string>
 	<string name="placepage_add_business_button">Kuruluş ekle</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
+	<string name="osm_presentation">Tüm harita verileri OpenStreetMap projesinden gelir. Yer ekleyebileceğiniz veya düzenleyebileceğiniz haritalar için Wikipedia gibidir ve bunlar tüm dünyada milyonlarca kullanıcı tarafından kullanılabilir hale gelir.</string>
 	<string name="login_to_make_edits_visible">Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için oturum açın</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -513,9 +515,9 @@
 	<string name="placepage_add_place_button">Haritaya bir yer ekle</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bunu tüm kullanıcılara göndermek ister misiniz?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Herhangi bir kişisel bilgi girmediğinizden emin olun.</string>
-	<string name="editor_share_to_all_dialog_message_2">Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla iletişime geçeceğiz.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editörleri değişiklikleri kontrol edecek ve soruları olursa sizinle iletişime geçecektir.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps, reklam ve izleyici içermeyen hızlı ve ücretsiz bir çevrimdışı harita uygulamasıdır. Haritalar kitle kaynaklı OpenStreetMap.org verilerine dayanmaktadır, böylece kendiniz harita hatalarını düzeltebilir ve haritaya yeni nesneler ekleyebilirsiniz. Organic Maps, teknoloji tutkunlarının boş zamanlarında oluşturduğu açık kaynaklı bir projedir. Geri bildirim ve desteğinize çok değer veriyoruz!</string>
 	<!-- For the first routing -->

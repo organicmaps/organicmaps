@@ -411,6 +411,7 @@
 	<string name="no_osm_account">ليس لديك حساب في خريطة الشارع المفتوحة؟</string>
 	<string name="register_at_openstreetmap">التسجيل في حريطة الشارع المفتوحة</string>
 	<string name="login">تسجيل الدخول</string>
+	<string name="login_osm">OpenStreetMap ﻰﻟﺇ ﻝﻮﺧﺪﻟﺍ ﻞﻴﺠﺴﺗ</string>
 	<string name="password">كلمة المرور</string>
 	<string name="forgot_password">هل نسيت كلمة المرور؟</string>
 	<string name="logout">تسجيل الخروج</string>
@@ -452,6 +453,7 @@
 	<string name="editor_report_problem_other_title">مشكلة أخرى</string>
 	<string name="placepage_add_business_button">إضافة مؤسسة</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
+	<string name="osm_presentation">.ﻢﻟﺎﻌﻟﺍ ءﺎﺤﻧﺃ ﻊﻴﻤﺟ ﻲﻓ ﻦﻴﻣﺪﺨﺘﺴﻤﻟﺍ ﻦﻴﻳﻼﻤﻟ ﺔﺣﺎﺘﻣ ﺢﺒﺼﺗﻭ ، ﺎﻬﻠﻳﺪﻌﺗ ﻭﺃ ﻦﻛﺎﻣﻷﺍ ﺔﻓﺎﺿﺇ</string>
 	<string name="login_to_make_edits_visible">قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d من%2$d</string>
@@ -512,9 +514,9 @@
 	<string name="placepage_add_place_button">إضافة مكان ما للخريطة</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">هل ترغب في إرساله لجميع المستخدمين؟</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">تأكد من أنك لم تقم بإدخال أية بيانات شخصية.</string>
-	<string name="editor_share_to_all_dialog_message_2">سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسننتواصل معك عبر البريد الإلكتروني.</string>
+	<string name="editor_share_to_all_dialog_message_2">.ﺔﻠﺌﺳﺃ ﻱﺃ ﻢﻬﻳﺪﻟ ﻥﺎﻛ ﺍﺫﺇ ﻚﻌﻣ ﻥﻮﻠﺻﺍﻮﺘﻳﻭ ﺕﺍﺮﻴﻴﻐﺘﻟﺍ ﻦﻣ OpenStreetMap ﻭﺭﺮﺤﻣ ﻖﻘﺤﺘﻴﺳ</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps هو تطبيق سريع ومجاني للوصول إلى الخرائط بدون اتصال بالانترنت، وهو بدون إعلانات ومتتبعات. إن الخرائط هي مصدرها بيانات خريطة الشارع المفتوحة التي يستطيع الجميع تعديلها، لذلك يمكنك إصلاح أخطاء الخريطة وإضافة الميزات بنفسك. Organic Maps هو مشروع مفتوح المصدر أُنشأ من قبل مجموعة من الهواة في وقت فراغهم. نقدّر جداً مساهماتك ودعمك.</string>
 	<!-- For the first routing -->

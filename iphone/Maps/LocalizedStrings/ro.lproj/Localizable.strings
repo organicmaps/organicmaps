@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Vrei să-l trimiți tuturor utilizatorilor?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Asigură-te că nu ai introdus niciun fel de date personale.";
 
-"editor_share_to_all_dialog_message_2" = "Vom verifica modificările. Dacă vor apărea întrebări, te vom contacta prin e-mail.";
+"editor_share_to_all_dialog_message_2" = "Editorii OpenStreetMap vor verifica modificările și vor lua legătura cu dvs. dacă au întrebări.";
 
 "navigation_stop_button" = "oprește";
 

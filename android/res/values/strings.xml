@@ -429,8 +429,9 @@
 	<string name="closed">Closed</string>
 	<string name="edit_opening_hours">Edit business hours</string>
 	<string name="no_osm_account">Don\'t have an OpenStreetMap account?</string>
-	<string name="register_at_openstreetmap">Register at OSM</string>
+	<string name="register_at_openstreetmap">Register at OpenStreetMap</string>
 	<string name="login">Log In</string>
+	<string name="login_osm">Login to OpenStreetMap</string>
 	<string name="password">Password</string>
 	<string name="forgot_password">Forgot your password?</string>
 	<string name="logout">Log Out</string>
@@ -472,7 +473,8 @@
 	<string name="editor_report_problem_other_title">Different problem</string>
 	<string name="placepage_add_business_button">Add business</string>
 	<string name="message_invalid_feature_position">No object can be located here</string>
-	<string name="login_to_make_edits_visible">Log in so other users can see the changes that you have made</string>
+	<string name="osm_presentation">All map data comes from the OpenStreetMap project. It is like Wikipedia for maps where you can add or edit places, and they become available to millions of users all over the World.</string>
+	<string name="login_to_make_edits_visible">Log in to OpenStreetMap.org so other users can see the changes you have made.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d of %2$d</string>
 	<string name="download_over_mobile_header">Download over a cellular network connection?</string>
@@ -532,9 +534,9 @@
 	<string name="placepage_add_place_button">Add a place to the map</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Do you want to send it to all users?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Make sure you did not enter any personal data.</string>
-	<string name="editor_share_to_all_dialog_message_2">We will check the changes. If we have any questions we will contact you via email.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editors will check the changes and get in contact with you if they have any questions.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps is a fast and free offline maps app without ads and tracking. Maps are based on crowd-sourced OpenStreetMap.org data, so you can fix mapping errors and add features there yourself. Organic Maps is an open-source project created by enthusiasts in their spare time. Your feedback and support are much appreciated!</string>
 	<!-- For the first routing -->

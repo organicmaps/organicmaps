@@ -590,7 +590,7 @@
 
 "no_osm_account" = "Sem conta no OpenStreetMap?";
 
-"register_at_openstreetmap" = "Abra uma conta no OSM";
+"register_at_openstreetmap" = "Abra uma conta no OpenStreetMap";
 
 "password_8_chars_min" = "Senha (mínimo de 8 caracteres)";
 
@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Deseja enviar para todos os usuários?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Certifique-se de não ter incluído nenhum dado pessoal.";
 
-"editor_share_to_all_dialog_message_2" = "Verificaremos as alterações. Se tivermos perguntas, entraremos em contato com você por email.";
+"editor_share_to_all_dialog_message_2" = "Os editores do OpenStreetMap verificarão as mudanças e entrarão em contato com você se tiverem alguma dúvida.";
 
 "navigation_stop_button" = "parar";
 
@@ -2991,7 +2991,7 @@
 
 "type.sport.volleyball" = "Voleibol";
 
-"type.sport.9pin" = "Bowling";
+"type.sport.9pin" = "Boliche";
 
 "type.sport.10pin" = "Boliche";
 

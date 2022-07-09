@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "您想要發給所有用戶嗎？";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "確保您沒有輸入任何個人資料。";
 
-"editor_share_to_all_dialog_message_2" = "我們會檢查更改。如果我們有任何問題，我們會郵件與您聯絡。";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap 編輯人員將檢查更改並在有任何問題時與您聯繫。";
 
 "navigation_stop_button" = "停止";
 

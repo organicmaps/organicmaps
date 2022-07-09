@@ -383,6 +383,7 @@
 	<string name="no_osm_account">OpenStreetMap에서 계정이 없습니까?</string>
 	<string name="register_at_openstreetmap">등록</string>
 	<string name="login">로그인</string>
+	<string name="login_osm">OpenStreetMap에 로그인</string>
 	<string name="password">암호</string>
 	<string name="forgot_password">암호를 잊으 셨나요?</string>
 	<string name="logout">로그 아웃</string>
@@ -421,6 +422,7 @@
 	<string name="editor_report_problem_other_title">다른 문제</string>
 	<string name="placepage_add_business_button">조직 추가</string>
 	<string name="message_invalid_feature_position">목적지를 이곳에서 찾을 수 없습니다</string>
+	<string name="osm_presentation">모든 지도 데이터는 OpenStreetMap 프로젝트에서 가져옵니다. \"\"장소를 추가하거나 편집할 수 있는 지도용 Wikipedia와 같으며 전 세계 수백만 사용자가 사용할 수 있습니다.</string>
 	<string name="login_to_make_edits_visible">로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%2$d중의 %1$d</string>
@@ -474,9 +476,9 @@
 	<string name="placepage_add_place_button">지도에 장소 추가</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">이를 모든 사용자에게 전송하시겠습니까?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">개인 정보를 입력하지 않았는지 확인하십시오.</string>
-	<string name="editor_share_to_all_dialog_message_2">저희가 변경 사항을 확인할 것입니다. 질문이 있으신 경우, 저희에게 이메일을 통해 연락하십시오.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 편집자가 변경 사항을 확인하고 질문이 있는 경우 귀하에게 연락할 것입니다.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps는 무료 오픈 소스 오프라인 지도 애플리케이션입니다. 광고 없음. 추적이 없습니다. 지도에 오류가 표시되면 OpenStreetMap에서 수정하세요. 이 프로젝트는 여가 시간에 열광자들에 의해 만들어지므로 여러분의 피드백과 지원이 필요합니다.</string>
 	<!-- For the first routing -->
