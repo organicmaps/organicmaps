@@ -12,41 +12,38 @@
 
 #include <iterator>
 
-using namespace feature;
-using namespace std;
-
 namespace stats
 {
-  static const double kAlmostDupElemsFactor = 1.5;
+  using namespace feature;
 
-  void FileContainerStatistics(std::ostream & os, string const & fPath)
+  void PrintFileContainerStats(std::ostream & os, std::string const & fPath)
   {
+    os << "File section sizes\n";
     try
     {
-      os << "File section sizes" << endl;
       FilesContainerR cont(fPath);
       cont.ForEachTag([&] (FilesContainerR::Tag const & tag)
       {
         os << std::setw(18) << tag << " : "
-           << std::setw(10) << cont.GetReader(tag).Size() << endl;
+           << std::setw(10) << cont.GetReader(tag).Size() << "\n";
       });
     }
     catch (Reader::Exception const & ex)
     {
       LOG(LWARNING, ("Error reading file:", fPath, ex.Msg()));
     }
-    os << endl;
+    os << "\n";
   }
 
   // 0.001 deg² ≈ 12.392 km² * cos(lat)
-  double arrAreas[] = { 10, 20, 50, 100, 200, 500, 1000, 5000, 360*360*12400 };
+  static constexpr double kAreas[] = { 10, 20, 50, 100, 200, 500, 1000, 5000, 360*360*12400 };
 
   size_t GetAreaIndex(double s)
   {
     double const sInKm2 = s / 1000000;
-    auto i = lower_bound(std::begin(arrAreas), std::end(arrAreas), sInKm2);
-    ASSERT(i != std::end(arrAreas), ());
-    return distance(arrAreas, i);
+    auto const i = std::lower_bound(std::begin(kAreas), std::end(kAreas), sInKm2);
+    ASSERT(i != std::end(kAreas), ());
+    return std::distance(kAreas, i);
   }
 
   class AccumulateStatistic
@@ -58,7 +55,7 @@ namespace stats
 
     void operator() (FeatureType & f, uint32_t)
     {
-      f.ParseBeforeStatistic();
+      f.ParseHeader2();
 
       FeatureType::InnerGeomStat const innerStats = f.GetInnerStats();
 
@@ -70,40 +67,43 @@ namespace stats
       FeatureType::GeomStat const geom = f.GetOuterGeometryStats();
       FeatureType::GeomStat const trg = f.GetOuterTrianglesStats();
 
-      uint32_t geomSize = 0, trgSize = 0;
-      int const n = feature::DataHeader::kMaxScalesCount;
-      for (int ind = 0; ind < n; ++ind)
+      uint32_t outerGeomSize = 0, outerTrgSize = 0;
+      for (size_t ind = 0; ind < DataHeader::kMaxScalesCount; ++ind)
       {
-        m_info.m_byLineGeom[ind].Add(geom.m_sizes[ind], geom.m_elements[ind]);
-        geomSize += geom.m_sizes[ind];
-        m_info.m_byAreaGeom[ind].Add(trg.m_sizes[ind], trg.m_elements[ind]);
-        trgSize += trg.m_sizes[ind];
+        auto const geomSize = geom.m_sizes[ind], geomElems = geom.m_elements[ind],
+                   trgSize = trg.m_sizes[ind], trgElems = trg.m_elements[ind];
+        m_info.m_byLineGeom[ind].Add(geomSize, geomElems);
+        outerGeomSize += geomSize;
+        m_info.m_byAreaGeom[ind].Add(trgSize, trgElems);
+        outerTrgSize += trgSize;
 
         if (ind > 0)
         {
           // If a feature has a more simplified version of current geometry.
           if (geom.m_elements[ind - 1] > 0)
-            m_info.m_byLineGeomCompared[ind].Add(geom.m_sizes[ind], geom.m_elements[ind]);
+            m_info.m_byLineGeomCompared[ind].Add(geomSize, geomElems);
           if (trg.m_elements[ind - 1] > 0)
-            m_info.m_byAreaGeomCompared[ind].Add(trg.m_sizes[ind], trg.m_elements[ind]);
+            m_info.m_byAreaGeomCompared[ind].Add(trgSize, trgElems);
         }
 
-        if (ind < n - 1)
+        if (ind < DataHeader::kMaxScalesCount - 1)
         {
           // If feature's current geometry almost duplicates a more detailed one
-          // (has <kAlmostDupElemsFactor less elements).
-          if (geom.m_elements[ind] > 0 && geom.m_elements[ind] * kAlmostDupElemsFactor > geom.m_elements[ind + 1])
-            m_info.m_byLineGeomDup[ind].Add(geom.m_sizes[ind], geom.m_elements[ind]);
-          if (trg.m_elements[ind] > 0 && trg.m_elements[ind] * kAlmostDupElemsFactor > trg.m_elements[ind + 1])
-            m_info.m_byAreaGeomDup[ind].Add(trg.m_sizes[ind], trg.m_elements[ind]);
+          // (has <geometryDupFactor less elements).
+          if (geomElems * m_info.m_geometryDupFactor > geom.m_elements[ind + 1])
+            m_info.m_byLineGeomDup[ind].Add(geomSize, geomElems);
+          if (trgElems * m_info.m_geometryDupFactor > trg.m_elements[ind + 1])
+            m_info.m_byAreaGeomDup[ind].Add(trgSize, trgElems);
         }
       }
 
-      m_info.m_byPointsCount[CountType(geom.m_elements[n - 1])].Add(innerStats.m_points + geomSize);
-      m_info.m_byTrgCount[CountType(trg.m_elements[n - 1])].Add(innerStats.m_strips + trgSize);
+      m_info.m_byPointsCount[CountType(geom.m_elements[DataHeader::kMaxScalesCount - 1])]
+        .Add(innerStats.m_points + outerGeomSize);
+      m_info.m_byTrgCount[CountType(trg.m_elements[DataHeader::kMaxScalesCount - 1])]
+        .Add(innerStats.m_strips + outerTrgSize);
 
       // Header size (incl. inner geometry) + outer geometry size.
-      uint32_t const allSize = innerStats.m_size + geomSize + trgSize;
+      uint32_t const allSize = innerStats.m_size + outerGeomSize + outerTrgSize;
 
       double len = 0.0;
       double area = 0.0;
@@ -142,7 +142,7 @@ namespace stats
     }
   };
 
-  void CalcStatistics(std::string const & fPath, MapInfo & info)
+  void CalcStats(std::string const & fPath, MapInfo & info)
   {
     AccumulateStatistic doProcess(info);
     feature::ForEachFeature(fPath, doProcess);
@@ -164,7 +164,7 @@ namespace stats
     if (names)
       os << "; w/names = " << std::setw(8) << info.m_names;
 
-    os << endl;
+    os << "\n";
   }
 
   std::string GetKey(GeomType type)
@@ -189,20 +189,20 @@ namespace stats
 
   std::string GetKey(AreaType t)
   {
-    return strings::to_string(arrAreas[t.m_val]);
+    return strings::to_string(kAreas[t.m_val]);
   }
 
   template <class TSortCr, class TSet>
   void PrintTop(std::ostream & os, char const * prefix, TSet const & theSet,
                 uint8_t prefixWidth = 5, bool names = false)
   {
-    os << endl << prefix << endl;
+    os << "\n" << prefix << "\n";
 
-    vector<pair<typename TSet::key_type, typename TSet::mapped_type>> vec(theSet.begin(), theSet.end());
+    std::vector<std::pair<typename TSet::key_type, typename TSet::mapped_type>> vec(theSet.begin(), theSet.end());
 
     sort(vec.begin(), vec.end(), TSortCr());
 
-    size_t const count = min(static_cast<size_t>(10), vec.size());
+    size_t const count = std::min(static_cast<size_t>(20), vec.size());
     for (size_t i = 0; i < count; ++i)
     {
       os << std::setw(2) << i << ". ";
@@ -228,7 +228,7 @@ namespace stats
     }
   };
 
-  void PrintStatistics(std::ostream & os, MapInfo & info)
+  void PrintStats(std::ostream & os, MapInfo & info)
   {
     PrintInfo(os, "Feature headers", info.m_inner[2], 30);
     PrintInfo(os, "incl. inner points", info.m_inner[0], 30);
@@ -241,26 +241,25 @@ namespace stats
     PrintTop<greater_size>(os, "Top SIZE by Points Count", info.m_byPointsCount);
     PrintTop<greater_size>(os, "Top SIZE by Triangles Count", info.m_byTrgCount);
     PrintTop<greater_size>(os, "Top SIZE by Area", info.m_byAreaSize, 5, true);
-    os << endl;
+    os << "\n";
   }
 
-  void PrintTypeStatistics(std::ostream & os, MapInfo & info)
+  void PrintTypeStats(std::ostream & os, MapInfo & info)
   {
-    os << "Feature stats by Classificator Type" << endl
-       << "(a single feature can contain several types and thus its size can be included in several type lines)"
-       << endl;
+    os << "Feature stats by Classificator Type\n"
+       << "(a single feature can contain several types and thus its size can be included in several type lines)\n";
     for (auto it = info.m_byClassifType.begin(); it != info.m_byClassifType.end(); ++it)
     {
       PrintInfo(os, GetKey(it->first), it->second, 30, true, true);
     }
-    os << endl;
+    os << "\n";
   }
 
-  void PrintGeometryInfo(std::ostream & os, char const * prefix, GeomStats const & geomStats,
+  void PrintGeometryInfo(std::ostream & os, char const * prefix,
+                         double geometryDupFactor,GeomStats const & geomStats,
                          GeomStats const & comparedStats, GeomStats const & dupStats)
   {
-    int const n = feature::DataHeader::kMaxScalesCount;
-    for (int ind = 0; ind < n; ++ind)
+    for (size_t ind = 0; ind < DataHeader::kMaxScalesCount; ++ind)
     {
       GeomInfo const & info = geomStats[ind];
       if (ind > 0)
@@ -277,7 +276,7 @@ namespace stats
            << compInfo.m_size / static_cast<double>(geomStats[ind - 1].m_size)
            << "x; elems factor = " << std::setw(4)
            << compInfo.m_elements / static_cast<double>(geomStats[ind - 1].m_elements)
-           << "x" << endl;
+           << "x\n";
       }
       os << "   " << prefix << ind
          << ": size = " << std::setw(9) << info.m_size
@@ -287,12 +286,12 @@ namespace stats
          << info.m_elements / static_cast<double>(info.m_count)
          << "; bytes/elems = " << std::setw(4)
          << info.m_size / static_cast<double>(info.m_elements)
-         << endl;
+         << "\n";
     }
 
-    os << "Geometry almost duplicating (<" << kAlmostDupElemsFactor
-       << "x less elements) a more detailed one" << endl;
-    for (int ind = 0; ind < n - 1; ++ind)
+    os << "Geometry almost duplicating (<" << geometryDupFactor
+       << "x less elements) a more detailed one\n";
+    for (size_t ind = 0; ind < DataHeader::kMaxScalesCount - 1; ++ind)
     {
       GeomInfo const & dupInfo = dupStats[ind];
       os << prefix << ind << "~=" << ind + 1
@@ -302,18 +301,19 @@ namespace stats
          << "; elems/feats = " << std::setw(5)
          << dupInfo.m_elements / static_cast<double>(dupInfo.m_count)
          << "; dups size % = " << std::setw(2)
-         << 100 * dupInfo.m_size / geomStats[ind].m_size << "%"
-         << endl;
+         << 100 * dupInfo.m_size / geomStats[ind].m_size << "%\n";
     }
   }
 
-  void PrintOuterGeometryStatistics(std::ostream & os, MapInfo & info)
+  void PrintOuterGeometryStats(std::ostream & os, MapInfo & info)
   {
-    os << "Outer LINE geometry" << fixed << setprecision(1) << endl;
-    PrintGeometryInfo(os, "geom", info.m_byLineGeom, info.m_byLineGeomCompared, info.m_byLineGeomDup);
+    os << std::fixed << std::setprecision(1) << "Outer LINE geometry\n";
+    PrintGeometryInfo(os, "geom", info.m_geometryDupFactor, info.m_byLineGeom,
+                      info.m_byLineGeomCompared, info.m_byLineGeomDup);
 
-    os << endl << "Outer AREA geometry" << endl;
-    PrintGeometryInfo(os, "trg", info.m_byAreaGeom, info.m_byAreaGeomCompared, info.m_byAreaGeomDup);
-    os << endl;
+    os << "\nOuter AREA geometry\n";
+    PrintGeometryInfo(os, "trg", info.m_geometryDupFactor, info.m_byAreaGeom,
+                      info.m_byAreaGeomCompared, info.m_byAreaGeomDup);
+    os << "\n";
   }
 }
