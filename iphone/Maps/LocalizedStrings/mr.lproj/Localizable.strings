@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "तुम्ही ते सर्व वापरकर्त्यांना पाठवू इच्छिता?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "आपण कोणतीही वैयक्तिक माहिती प्रविष्ट केला नाही याची खात्री करा.";
 
-"editor_share_to_all_dialog_message_2" = "आम्ही बदल तपासू. आम्हाला काही प्रश्न असल्यास आम्ही ईमेलद्वारे तुमच्याशी संपर्क साधू.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap editors will check the changes and get in contact with you if they have any questions.";
 
 "navigation_stop_button" = "थांबा";
 

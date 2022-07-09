@@ -383,6 +383,7 @@
 	<string name="no_osm_account">Ingen konto på OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Tilmeld dig</string>
 	<string name="login">Log ind</string>
+	<string name="login_osm">Log ind på OpenStreetMap</string>
 	<string name="password">Adgangskode</string>
 	<string name="forgot_password">Glemt adgangskode?</string>
 	<string name="logout">Log ud</string>
@@ -423,6 +424,7 @@
 	<string name="editor_report_problem_other_title">Et anderledes problem</string>
 	<string name="placepage_add_business_button">Tilføj organisationen</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke placeres her</string>
+	<string name="osm_presentation">Alle kortdata kommer fra OpenStreetMap-projektet. Det er ligesom Wikipedia for kort, hvor du kan tilføje eller redigere steder, og de bliver tilgængelige for millioner af brugere over hele verden.</string>
 	<string name="login_to_make_edits_visible">Log på så andre brugere kan se ændringerne som du har foretaget.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d af %2$d</string>
@@ -476,9 +478,9 @@
 	<string name="placepage_add_place_button">Tilføj et sted på kortet</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Ønsker du at sende det til alle brugere?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Sørg for at du ikke indtastede personlige oplysninger.</string>
-	<string name="editor_share_to_all_dialog_message_2">Vi vil kigge på ændringerne. Hvis vi har spørgsmål, vil vi kontakte dig via email.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-redaktører vil tjekke ændringerne og kontakte dig, hvis de har spørgsmål.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps er en gratis og open source offline kortapplikation. Ingen annoncer. Ingen sporing. Hvis du ser en fejl på kortet, skal du rette den i OpenStreetMap. Projektet er skabt af entusiaster i vores fritid, så vi har brug for din feedback og support.</string>
 	<!-- For the first routing -->

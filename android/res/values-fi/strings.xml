@@ -389,6 +389,7 @@
 	<string name="no_osm_account">Eikö sinulla ole OpenStreetMap tiliä?</string>
 	<string name="register_at_openstreetmap">Rekisteröidy</string>
 	<string name="login">Kirjaudu sisään</string>
+	<string name="login_osm">Kirjaudu OpenStreetMapiin</string>
 	<string name="password">Salasana</string>
 	<string name="forgot_password">Unohtuiko salasana?</string>
 	<string name="logout">Kirjaudu ulos</string>
@@ -427,6 +428,7 @@
 	<string name="editor_report_problem_other_title">Eri ongelma</string>
 	<string name="placepage_add_business_button">Lisää organisaatio</string>
 	<string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
+	<string name="osm_presentation">Kaikki karttatiedot tulevat OpenStreetMap-projektista. Se on kuin karttojen Wikipedia, jossa voit lisätä tai muokata paikkoja, ja ne ovat miljoonien käyttäjien saatavilla kaikkialla maailmassa.</string>
 	<string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -480,9 +482,9 @@
 	<string name="placepage_add_place_button">Lisää paikka kartalle</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Haluatko lähettää sen kaikille käyttäjille?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Varmistat, ettet syöttänyt henkilökohtaisia tietojasi.</string>
-	<string name="editor_share_to_all_dialog_message_2">Tarkistamme muutokset. Otamme sinuun yhteyttä sähköpostitse, jos meillä on kysyttävää.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps on ilmainen ja avoimen lähdekoodin offline-karttasovellus. Ei mainoksia. Ei seurantaa. Jos näet virheen kartalla, korjaa se OpenStreetMapissa. Hankkeen ovat luoneet harrastajat vapaa-ajallamme, joten tarvitsemme palautettasi ja tukeasi.</string>
 	<!-- For the first routing -->

@@ -394,6 +394,7 @@
 	<string name="no_osm_account">Non hai un account OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Iscriviti</string>
 	<string name="login">Accedi</string>
+	<string name="login_osm">Accedi a OpenStreetMap</string>
 	<string name="password">Password</string>
 	<string name="forgot_password">Hai dimenticato la password?</string>
 	<string name="logout">Esci</string>
@@ -435,6 +436,7 @@
 	<string name="editor_report_problem_other_title">Un problema diverso</string>
 	<string name="placepage_add_business_button">Aggiungi attività</string>
 	<string name="message_invalid_feature_position">Nessun oggetto può essere posizionato qui</string>
+	<string name="osm_presentation">Tutti i dati della mappa provengono dal progetto OpenStreetMap. È come Wikipedia per le mappe in cui puoi aggiungere o modificare luoghi e diventano disponibili per milioni di utenti in tutto il mondo.</string>
 	<string name="login_to_make_edits_visible">Accedi per consentire ad altri utenti di vedere le modifiche apportate.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d di %2$d</string>
@@ -492,9 +494,9 @@
 	<string name="placepage_add_place_button">Aggiungi un luogo sulla mappa</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vuoi inviarlo a tutti gli utenti?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Assicurati di non aver inserito alcun dato personale.</string>
-	<string name="editor_share_to_all_dialog_message_2">Controlleremo le modifiche. Se avremo delle domande, ti contatteremo via e-mail.</string>
+	<string name="editor_share_to_all_dialog_message_2">Gli editori di OpenStreetMap controlleranno le modifiche e si metteranno in contatto con te in caso di domande.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps è un\'applicazione gratuita e open-source di mappe offline. Nessuna pubblicità. Nessun tracciamento. Se vedi un errore sulla mappa, correggilo in OpenStreetMap. Il progetto è creato da appassionati nel nostro tempo libero, quindi abbiamo bisogno del vostro parere e sostegno.</string>
 	<!-- For the first routing -->

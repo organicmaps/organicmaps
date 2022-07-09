@@ -376,8 +376,9 @@
 	<string name="closed">تعطیل</string>
 	<string name="edit_opening_hours">ویرایش ساعت کاری</string>
 	<string name="no_osm_account">ایا حساب OpenStreetMap ندارید؟</string>
-	<string name="register_at_openstreetmap">ثبت نام در OSM</string>
+	<string name="register_at_openstreetmap">ثبت نام در OpenStreetMap</string>
 	<string name="login">ورود</string>
+	<string name="login_osm">ﺪﯾﻮﺷ OpenStreetMap ﺩﺭﺍﻭ</string>
 	<string name="password">رمز عبور</string>
 	<string name="forgot_password">رمز عبور خود را فراموش کردید؟</string>
 	<string name="logout">خروج از حساب</string>
@@ -418,6 +419,7 @@
 	<string name="editor_report_problem_other_title">مشکلی دیگر</string>
 	<string name="placepage_add_business_button">اضافه کردن یک تجارت</string>
 	<string name="message_invalid_feature_position">نمی توان شی ای در این مکان باشد</string>
+	<string name="osm_presentation">.ﺪﻧﺮﯿﮔu200cﯽﻣ ﺭﺍﺮﻗ ﺱﺮﺘﺳﺩ ﺭﺩ ﻥﺎﻬﺟ ﺮﺳﺍﺮﺳ ﺭﺩ ﺮﺑﺭﺎﮐ ﺎﻫu200cﻥﻮﯿﻠﯿﻣ ﯼﺍﺮﺑ ﺎﻫu200cﻥﺁ ﻭ</string>
 	<string name="login_to_make_edits_visible">وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d  از  %2$d</string>
@@ -471,9 +473,9 @@
 	<string name="placepage_add_place_button">اضافه کردن یک مکان به نقشه</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">ایا می خواهید ان را برای دیگر کاربران ارسال کنید؟</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.</string>
-	<string name="editor_share_to_all_dialog_message_2">ما تغییرات را بررسی می کنیم.اگر سوالی بود با ایمیل با شما تماس می گیریم.</string>
+	<string name="editor_share_to_all_dialog_message_2">.ﺖﻓﺮﮔ ﺪﻨﻫﺍﻮﺧ ﺱﺎﻤﺗ ﺎﻤﺷ ﺎﺑ ﻝﺍﻮﺳ ﻪﻧﻮﮔﺮﻫ ﻦﺘﺷﺍﺩ ﺕﺭﻮﺻ ﺭﺩ ﻭ ﻩﺩﺮﮐ ﯽﺳﺭﺮﺑ ﺍﺭ ﺕﺍﺮﯿﯿﻐﺗ Ope</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps یک برنامه نقشه آفلاین رایگان و منبع باز است. بدون تبلیغات بدون ردیابی اگر خطایی روی نقشه مشاهده کردید، لطفاً آن را در OpenStreetMap برطرف کنید. این پروژه توسط علاقه مندان در اوقات فراغت ما ایجاد می شود، بنابراین ما به بازخورد و پشتیبانی شما نیاز داریم.</string>
 	<!-- For the first routing -->

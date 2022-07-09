@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "คุณต้องการส่งมันให้ผู้ใช้ทั้งหมดหรือไม่?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ";
 
-"editor_share_to_all_dialog_message_2" = "เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล";
+"editor_share_to_all_dialog_message_2" = "ผู้แก้ไข OpenStreetMap จะตรวจสอบการเปลี่ยนแปลงและติดต่อคุณหากมีคำถามใดๆ";
 
 "navigation_stop_button" = "หยุด";
 

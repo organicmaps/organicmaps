@@ -590,7 +590,7 @@
 
 "no_osm_account" = "Ez al duzu OpenStreetMap konturik?";
 
-"register_at_openstreetmap" = "Eman izena OSM";
+"register_at_openstreetmap" = "Eman izena OpenStreetMap";
 
 "password_8_chars_min" = "Pasahitza (gutxienez 8 karaktere)";
 
@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Erabiltzaile guztiei bidali nahi diezu?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Ziurtatu ez duzula datu pertsonalik sartu.";
 
-"editor_share_to_all_dialog_message_2" = "Aldaketak egiaztatuko ditugu. Edozein zalantza izanez gero, zurekin harremanetan jarriko gara posta elektronikoz.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.";
 
 "navigation_stop_button" = "gelditu";
 

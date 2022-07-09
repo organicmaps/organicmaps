@@ -590,7 +590,7 @@
 
 "no_osm_account" = "Нямате акаунт в OpenStreetMap?";
 
-"register_at_openstreetmap" = "Регистриране в OSM";
+"register_at_openstreetmap" = "Регистриране в OpenStreetMap";
 
 "password_8_chars_min" = "Парола (поне 8 символа)";
 
@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Искате ли да го изпратите на всички потребители?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Уверете се, че не сте въвели никакви лични данни.";
 
-"editor_share_to_all_dialog_message_2" = "Ще проверим промените. Ако имаме някакви въпроси, ще се свържем с вас по имейл.";
+"editor_share_to_all_dialog_message_2" = "Редакторите на OpenStreetMap ще проверят промените и ще се свържат с вас, ако имат въпроси.";
 
 "navigation_stop_button" = "stop";
 

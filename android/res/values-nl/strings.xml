@@ -385,6 +385,7 @@
 	<string name="no_osm_account">Geen account bij OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registeren</string>
 	<string name="login">Log in</string>
+	<string name="login_osm">Inloggen op OpenStreetMap</string>
 	<string name="password">Wachtwoord</string>
 	<string name="forgot_password">Wachtwoord vergeten?</string>
 	<string name="logout">Uitloggen</string>
@@ -423,6 +424,7 @@
 	<string name="editor_report_problem_other_title">Een ander probleem</string>
 	<string name="placepage_add_business_button">Een organisatie toevoegen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
+	<string name="osm_presentation">Alle kaartgegevens komen uit het OpenStreetMap-project. Het is als Wikipedia voor kaarten waar je plaatsen kunt toevoegen of bewerken, en ze worden beschikbaar voor miljoenen gebruikers over de hele wereld.</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d van %2$d</string>
@@ -476,9 +478,9 @@
 	<string name="placepage_add_place_button">Een plek toevoegen aan de kaart</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Wil je het naar alle gebruikers sturen?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Controleer dat je geen persoonlijke gegevens hebt ingevoerd.</string>
-	<string name="editor_share_to_all_dialog_message_2">We zullen de wijzigingen controleren. Als we nog vragen hebben, zullen we contact met je opnemen via email.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editors zullen de wijzigingen controleren en contact met u opnemen als ze vragen hebben.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps is een gratis en open-source offline kaartentoepassing. Geen advertenties. Geen volgen. Als je een fout op de kaart ziet, corrigeer deze dan in OpenStreetMap. Het project is gemaakt door enthousiastelingen in onze vrije tijd, dus we hebben uw feedback en ondersteuning nodig.</string>
 	<!-- For the first routing -->

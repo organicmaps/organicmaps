@@ -393,6 +393,7 @@
 	<string name="no_osm_account">在OpenStreetMap上没有账户吗？</string>
 	<string name="register_at_openstreetmap">注册</string>
 	<string name="login">登录</string>
+	<string name="login_osm">登录 OpenStreetMap</string>
 	<string name="password">密码</string>
 	<string name="forgot_password">忘记密码</string>
 	<string name="logout">登出</string>
@@ -431,6 +432,7 @@
 	<string name="editor_report_problem_other_title">一个不同的问题</string>
 	<string name="placepage_add_business_button">添加组织</string>
 	<string name="message_invalid_feature_position">对象无法设置在这里</string>
+	<string name="osm_presentation">所有地图数据均来自 OpenStreetMap 项目。它就像 Wikipedia 中的地图，您可以在其中添加或编辑地点，并且它们可供全球数百万用户使用。</string>
 	<string name="login_to_make_edits_visible">登录，让其他用户能看到您所作出的修改。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d个/共%2$d个</string>
@@ -484,9 +486,9 @@
 	<string name="placepage_add_place_button">添加地点到地图上</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">您想要发给所有用户吗？</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">确保您没有输入任何个人数据。</string>
-	<string name="editor_share_to_all_dialog_message_2">我们会检查更改。如果我们有任何问题，我们会邮件与您联系。</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 编辑人员将检查更改并在有任何问题时与您联系。</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps 是一款免费的开源离线地图应用程序。无广告。没有跟踪。如果您在地图上看到错误，请在 OpenStreetMap 中修复它。该项目由爱好者在我们的空闲时间创建，因此我们需要您的反馈和支持。</string>
 	<!-- For the first routing -->

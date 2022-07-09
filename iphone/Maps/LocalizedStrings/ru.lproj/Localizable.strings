@@ -680,7 +680,7 @@
 
 "message_invalid_feature_position" = "Объект не может находиться в этом месте";
 
-"login_to_make_edits_visible" = "Войдите, чтобы ваши изменения увидели другие пользователи.";
+"login_to_make_edits_visible" = "Авторизуйтесь в OpenStreetMap.org, чтобы ваши изменения увидели другие пользователи.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.";
@@ -810,10 +810,10 @@
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Отправить всем пользователям?";
 
-/* iOS Dialog before publishing the modifications to the public map. */
+/* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Убедитесь, что вы не ввели личные данные.";
 
-"editor_share_to_all_dialog_message_2" = "Если при проверке изменений возникнут вопросы, мы напишем вам на email.";
+"editor_share_to_all_dialog_message_2" = "Редакторы OpenStreetMap проверят изменения и свяжутся с вами, если у них возникнут вопросы.";
 
 "navigation_stop_button" = "стоп";
 

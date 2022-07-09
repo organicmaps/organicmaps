@@ -383,6 +383,7 @@
 	<string name="no_osm_account">Bạn chưa có tài khoản tại OpenStreetMap ư?</string>
 	<string name="register_at_openstreetmap">Đăng ký</string>
 	<string name="login">Đăng nhập</string>
+	<string name="login_osm">Đăng nhập vào OpenStreetMap</string>
 	<string name="password">Mật khẩu</string>
 	<string name="forgot_password">Quên mật khẩu?</string>
 	<string name="logout">Đăng xuất</string>
@@ -421,6 +422,7 @@
 	<string name="editor_report_problem_other_title">Một vấn đề khác</string>
 	<string name="placepage_add_business_button">Thêm tổ chức</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
+	<string name="osm_presentation">Tất cả dữ liệu bản đồ đến từ dự án OpenStreetMap. Nó giống như Wikipedia dành cho bản đồ nơi bạn có thể thêm hoặc chỉnh sửa các địa điểm và chúng có sẵn cho hàng triệu người dùng trên khắp Thế giới.</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d trên %2$d</string>
@@ -474,9 +476,9 @@
 	<string name="placepage_add_place_button">Thêm địa điểm vào bản đồ</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bạn có muốn gửi cho toàn bộ người dùng?</string>
-	<!-- iOS Dialog before publishing the modifications to the public map. -->
+	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.</string>
-	<string name="editor_share_to_all_dialog_message_2">Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.</string>
+	<string name="editor_share_to_all_dialog_message_2">Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps là một ứng dụng bản đồ ngoại tuyến mã nguồn mở và miễn phí. Không quảng cáo. Không theo dõi. Nếu bạn thấy lỗi trên bản đồ, hãy sửa lỗi đó trong OpenStreetMap. Dự án được tạo ra bởi những người đam mê trong thời gian rảnh của chúng tôi, vì vậy chúng tôi cần phản hồi và hỗ trợ của bạn.</string>
 	<!-- For the first routing -->
