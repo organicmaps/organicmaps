@@ -431,10 +431,10 @@ void FeatureType::ParseGeometry(int scale)
     auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
     if (headerGeomType == HeaderGeomType::Line)
     {
-      size_t const count = m_points.size();
-      if (count < 2)
+      size_t const pointsCount = m_points.size();
+      if (pointsCount < 2)
       {
-        ASSERT_EQUAL(count, 1, ());
+        ASSERT_EQUAL(pointsCount, 1, ());
 
         // outer geometry
         int const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_pts);
@@ -453,13 +453,13 @@ void FeatureType::ParseGeometry(int scale)
         // filter inner geometry
 
         FeatureType::Points points;
-        points.reserve(count);
+        points.reserve(pointsCount);
 
         int const scaleIndex = GetScaleIndex(*m_loadInfo, scale);
         ASSERT_LESS(scaleIndex, m_loadInfo->GetScalesCount(), ());
 
         points.emplace_back(m_points.front());
-        for (size_t i = 1; i + 1 < count; ++i)
+        for (size_t i = 1; i + 1 < pointsCount; ++i)
         {
           // check for point visibility in needed scaleIndex
           if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= scaleIndex)
@@ -478,38 +478,39 @@ void FeatureType::ParseGeometry(int scale)
 
 FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
 {
-  ASSERT(!m_parsed.m_points, ());
+  ASSERT(!m_parsed.m_points, ("Geometry had been parsed already!"));
   CHECK(m_loadInfo, ());
-  size_t const n = m_loadInfo->GetScalesCount();
-  ASSERT_LESS_OR_EQUAL(n, feature::DataHeader::kMaxScalesCount, ());
+  size_t const scalesCount = m_loadInfo->GetScalesCount();
+  ASSERT_LESS_OR_EQUAL(scalesCount, DataHeader::kMaxScalesCount, ("MWM has too many geometry scales!"));
   FeatureType::GeomStat res;
 
   auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
   if (headerGeomType == HeaderGeomType::Line)
   {
-    size_t const count = m_points.size();
-    if (count < 2)
+    size_t const pointsCount = m_points.size();
+    if (pointsCount < 2)
     {
       // Outer geometry present.
-      ASSERT_EQUAL(count, 1, ());
+      ASSERT_EQUAL(pointsCount, 1, ());
 
       FeatureType::Points points;
 
-      for (size_t ind = 0; ind < n; ++ind)
+      for (size_t ind = 0; ind < scalesCount; ++ind)
       {
-        if (m_offsets.m_pts[ind] != kInvalidOffset)
+        auto const scaleOffset = m_offsets.m_pts[ind];
+        if (scaleOffset != kInvalidOffset)
         {
           points.clear();
           points.emplace_back(m_points.front());
 
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetGeometryReader(ind));
-          src.Skip(m_offsets.m_pts[ind]);
+          src.Skip(scaleOffset);
 
           serial::GeometryCodingParams cp = m_loadInfo->GetGeometryCodingParams(ind);
           cp.SetBasePoint(points[0]);
           serial::LoadOuterPath(src, cp, points);
 
-          res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - m_offsets.m_pts[ind]);
+          res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - scaleOffset);
           res.m_elements[ind] = points.size();
         }
       }
@@ -521,7 +522,7 @@ FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
   m_parsed.m_points = true;
 
   // Points count can come from the inner geometry.
-  res.m_elements[n - 1] = m_points.size();
+  res.m_elements[scalesCount - 1] = m_points.size();
   return res;
 }
 
@@ -554,10 +555,10 @@ void FeatureType::ParseTriangles(int scale)
 
 FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
 {
-  ASSERT(!m_parsed.m_triangles, ());
+  ASSERT(!m_parsed.m_triangles, ("Triangles had been parsed already!"));
   CHECK(m_loadInfo, ());
-  size_t const n = m_loadInfo->GetScalesCount();
-  ASSERT_LESS_OR_EQUAL(n, feature::DataHeader::kMaxScalesCount, ());
+  size_t const scalesCount = m_loadInfo->GetScalesCount();
+  ASSERT_LESS_OR_EQUAL(scalesCount, DataHeader::kMaxScalesCount, ("MWM has too many geometry scales!"));
   FeatureType::GeomStat res;
 
   auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
@@ -565,7 +566,7 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
   {
     if (m_triangles.empty())
     {
-      for (size_t ind = 0; ind < n; ++ind)
+      for (size_t ind = 0; ind < scalesCount; ++ind)
       {
         if (m_offsets.m_trg[ind] != kInvalidOffset)
         {
@@ -586,7 +587,7 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
   m_parsed.m_triangles = true;
 
   // Triangles count can come from the inner geometry.
-  res.m_elements[n - 1] = m_triangles.size() / 3;
+  res.m_elements[scalesCount - 1] = m_triangles.size() / 3;
   return res;
 }
 

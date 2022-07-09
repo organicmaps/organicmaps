@@ -35,8 +35,6 @@ namespace stats
 
   struct GeomInfo
   {
-    GeomInfo() : m_count(0), m_size(0), m_elements(0) {}
-
     void Add(uint64_t szBytes, uint32_t elements)
     {
       if (szBytes > 0)
@@ -47,7 +45,7 @@ namespace stats
       }
     }
 
-    uint64_t m_count, m_size, m_elements;
+    uint64_t m_count = 0, m_size = 0, m_elements = 0;
   };
 
   using GeomStats = GeomInfo[feature::DataHeader::kMaxScalesCount];
@@ -66,6 +64,10 @@ namespace stats
 
   struct MapInfo
   {
+    explicit MapInfo(double geometryDupFactor) : m_geometryDupFactor(geometryDupFactor) {}
+
+    double m_geometryDupFactor;
+
     std::map<feature::GeomType, GeneralInfo> m_byGeomType;
     std::map<ClassifType, GeneralInfo> m_byClassifType;
     std::map<CountType, GeneralInfo> m_byPointsCount, m_byTrgCount;
@@ -78,10 +80,10 @@ namespace stats
     GeneralInfo m_inner[3];
   };
 
-  void FileContainerStatistics(std::ostream & os, std::string const & fPath);
+  void PrintFileContainerStats(std::ostream & os, std::string const & fPath);
 
-  void CalcStatistics(std::string const & fPath, MapInfo & info);
-  void PrintStatistics(std::ostream & os, MapInfo & info);
-  void PrintTypeStatistics(std::ostream & os, MapInfo & info);
-  void PrintOuterGeometryStatistics(std::ostream & os, MapInfo & info);
+  void CalcStats(std::string const & fPath, MapInfo & info);
+  void PrintStats(std::ostream & os, MapInfo & info);
+  void PrintTypeStats(std::ostream & os, MapInfo & info);
+  void PrintOuterGeometryStats(std::ostream & os, MapInfo & info);
 }

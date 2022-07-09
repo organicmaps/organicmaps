@@ -75,6 +75,7 @@ public:
   void SetID(FeatureID id) { m_id = std::move(id); }
   FeatureID const & GetID() const { return m_id; }
 
+  void ParseHeader2();
   void ResetGeometry();
   void ParseGeometry(int scale);
   void ParseTriangles(int scale);
@@ -159,10 +160,8 @@ public:
   std::string_view GetMetadata(feature::Metadata::EType type);
   bool HasMetadata(feature::Metadata::EType type);
 
-  /// @name Statistic functions.
+  /// @name Stats functions.
   //@{
-  void ParseBeforeStatistic() { ParseHeader2(); }
-
   struct InnerGeomStat
   {
     uint32_t m_points = 0, m_strips = 0, m_size = 0;
@@ -216,7 +215,6 @@ private:
 
   void ParseTypes();
   void ParseCommon();
-  void ParseHeader2();
   void ParseMetadata();
   void ParseMetaIds();
   void ParseGeometryAndTriangles(int scale);
