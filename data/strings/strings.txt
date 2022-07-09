@@ -10662,20 +10662,20 @@
 
   [register_at_openstreetmap]
     tags = android,ios
-    en = Register at OSM
+    en = Register at OpenStreetMap
     ar = التسجيل في حريطة الشارع المفتوحة
     be = Зарэгістравацца на OpenStreetMap
-    bg = Регистриране в OSM
-    ca = Registre a OSM
+    bg = Регистриране в OpenStreetMap
+    ca = Registre a OpenStreetMap
     cs = Registrace
     da = Tilmeld dig
     de = Registrieren
-    el = Εγγραφείτε στο OSM
-    es = Registrarse en OSM
-    eu = Eman izena OSM
-    fa = ثبت نام در OSM
+    el = Εγγραφείτε στο OpenStreetMap
+    es = Registrarse en OpenStreetMap
+    eu = Eman izena OpenStreetMap
+    fa = ثبت نام در OpenStreetMap
     fi = Rekisteröidy
-    fr = Inscription
+    fr = S'inscrire sur OpenStreetMap
     hu = Regisztráció
     id = Mendaftar
     it = Iscriviti
@@ -10685,8 +10685,8 @@
     nb = Registrer deg
     nl = Registeren
     pl = Zarejestruj się
-    pt = Crie uma conta no OSM
-    pt-BR = Abra uma conta no OSM
+    pt = Crie uma conta no OpenStreetMap
+    pt-BR = Abra uma conta no OpenStreetMap
     ro = Înscrie-te
     ru = Зарегистрироваться
     sk = Zaregistrovať sa
@@ -10811,6 +10811,44 @@
     vi = Đăng nhập
     zh-Hans = 登录
     zh-Hant = 登入
+
+  [login_osm]
+    tags = android
+    en = Login to OpenStreetMap
+    ar = OpenStreetMap ﻰﻟﺇ ﻝﻮﺧﺪﻟﺍ ﻞﻴﺠﺴﺗ
+    be = Увайсці ў OpenStreetMap
+    bg = Влезте в OpenStreetMap
+    cs = Přihlaste se do OpenStreetMap
+    da = Log ind på OpenStreetMap
+    de = Melden Sie sich bei OpenStreetMap an
+    el = Συνδεθείτε στο OpenStreetMap
+    es = Iniciar sesión en OpenStreetMap
+    eu = Hasi saioa OpenStreetMap-en
+    fa = ﺪﯾﻮﺷ OpenStreetMap ﺩﺭﺍﻭ
+    fi = Kirjaudu OpenStreetMapiin
+    fr = Se connecter à OpenStreetMap
+    he = OpenStreetMap-ל סנכיה
+    hu = Jelentkezzen be az OpenStreetMap-be
+    id = Masuk ke OpenStreetMap
+    it = Accedi a OpenStreetMap
+    ja = OpenStreetMapにログイン
+    ko = OpenStreetMap에 로그인
+    nb = Logg på OpenStreetMap
+    nl = Inloggen op OpenStreetMap
+    pl = Zaloguj się do OpenStreetMap
+    pt = Entrar no OpenStreetMap
+    pt-BR = Entrar no OpenStreetMap
+    ro = Conectați-vă la OpenStreetMap
+    ru = Войти в OpenStreetMap
+    sk = Prihláste sa do OpenStreetMap
+    sv = Logga in på OpenStreetMap
+    sw = Ingia kwa OpenStreetMap
+    th = เข้าสู่ระบบ OpenStreetMap
+    tr = OpenStreetMap'e giriş yapın
+    uk = Увійдіть до OpenStreetMap
+    vi = Đăng nhập vào OpenStreetMap
+    zh-Hans = 登录 OpenStreetMap
+    zh-Hant = 登錄 OpenStreetMap
 
   [password]
     tags = android
@@ -12602,11 +12640,49 @@
     zh-Hans = 对象无法设置在这里
     zh-Hant = 物件無法設置在這裡
 
+  [osm_presentation]
+    tags = android
+    en = All map data comes from the OpenStreetMap project. It is like Wikipedia for maps where you can add or edit places, and they become available to millions of users all over the World.
+    ar = .ﻢﻟﺎﻌﻟﺍ ءﺎﺤﻧﺃ ﻊﻴﻤﺟ ﻲﻓ ﻦﻴﻣﺪﺨﺘﺴﻤﻟﺍ ﻦﻴﻳﻼﻤﻟ ﺔﺣﺎﺘﻣ ﺢﺒﺼﺗﻭ ، ﺎﻬﻠﻳﺪﻌﺗ ﻭﺃ ﻦﻛﺎﻣﻷﺍ ﺔﻓﺎﺿﺇ
+    be = Усе дадзеныя карты паходзяць з праекта OpenStreetMap. Гэта як Wikipedia для карт, дзе вы можаце дадаваць або рэдагаваць месцы, і яны становяцца даступнымі для мільёнаў карыстальнікаў па ўсім свеце.
+    bg = Всички картографски данни идват от проекта OpenStreetMap. Това е като Wikipedia за карти, където можете да добавяте или редактирате места и те стават достъпни за милиони потребители по целия свят.
+    cs = Všechna mapová data pocházejí z projektu OpenStreetMap. Je to jako Wikipedie s mapami, kde můžete přidávat nebo upravovat místa a jsou dostupné milionům uživatelů po celém světě.
+    da = Alle kortdata kommer fra OpenStreetMap-projektet. Det er ligesom Wikipedia for kort, hvor du kan tilføje eller redigere steder, og de bliver tilgængelige for millioner af brugere over hele verden.
+    de = Alle Kartendaten stammen aus dem OpenStreetMap-Projekt. Es ist wie Wikipedia für Karten, wo Sie Orte hinzufügen oder bearbeiten können, und sie werden Millionen von Benutzern auf der ganzen Welt zur Verfügung gestellt.
+    el = Όλα τα δεδομένα χάρτη προέρχονται από το έργο OpenStreetMap. Μοιάζει με τη Wikipedia για χάρτες όπου μπορείτε να προσθέσετε ή να επεξεργαστείτε μέρη και γίνονται διαθέσιμα σε εκατομμύρια χρήστες σε όλο τον κόσμο.
+    es = Todos los datos del mapa provienen del proyecto OpenStreetMap. Es como Wikipedia para mapas donde puedes agregar o editar lugares, y están disponibles para millones de usuarios en todo el mundo.
+    eu = Maparen datu guztiak OpenStreetMap proiektutik datoz. Tokiak gehitu edo edita ditzakezun mapetarako Wikipedia bezalakoa da, eta mundu osoko milioika erabiltzaileren eskura jartzen dira.
+    fa = .ﺪﻧﺮﯿﮔu200cﯽﻣ ﺭﺍﺮﻗ ﺱﺮﺘﺳﺩ ﺭﺩ ﻥﺎﻬﺟ ﺮﺳﺍﺮﺳ ﺭﺩ ﺮﺑﺭﺎﮐ ﺎﻫu200cﻥﻮﯿﻠﯿﻣ ﯼﺍﺮﺑ ﺎﻫu200cﻥﺁ ﻭ
+    fi = Kaikki karttatiedot tulevat OpenStreetMap-projektista. Se on kuin karttojen Wikipedia, jossa voit lisätä tai muokata paikkoja, ja ne ovat miljoonien käyttäjien saatavilla kaikkialla maailmassa.
+    fr = Toutes les données géographiques proviennent du projet OpenStreetMap. Le principe est similaire à Wikipedia: vous pouvez ajouter et modifier des lieux et ils deviendront accessibles à des millions d'utilisateurs partout dans le monde.
+    he = .םלועה יבחר לכב םישמתשמ ינוילימל תונימזל תוכפוה ןהו ,תומוקמ ךורעל וא ףיסוהל לו
+    hu = Minden térképadat az OpenStreetMap projektből származik. Olyan ez, mint a Wikipédia a térképekhez, ahol helyeket adhat hozzá vagy szerkeszthet, és a felhasználók milliói számára válnak elérhetővé szerte a világon.
+    id = Semua data peta berasal dari proyek OpenStreetMap. Ini seperti Wikipedia untuk peta tempat Anda dapat menambahkan atau mengedit tempat, dan peta tersebut tersedia bagi jutaan pengguna di seluruh Dunia.
+    it = Tutti i dati della mappa provengono dal progetto OpenStreetMap. È come Wikipedia per le mappe in cui puoi aggiungere o modificare luoghi e diventano disponibili per milioni di utenti in tutto il mondo.
+    ja = すべての地図データは、OpenStreetMap プロジェクトから取得されます。場所を追加または編集できる地図のウィキペディアのようなもので、世界中の何百万人ものユーザーが利用できるようになります。
+    ko = 모든 지도 데이터는 OpenStreetMap 프로젝트에서 가져옵니다. ""장소를 추가하거나 편집할 수 있는 지도용 Wikipedia와 같으며 전 세계 수백만 사용자가 사용할 수 있습니다.
+    nb = Alle kartdata kommer fra OpenStreetMap-prosjektet. Det er som Wikipedia for kart hvor du kan legge til eller redigere steder, og de blir tilgjengelige for millioner av brukere over hele verden.
+    nl = Alle kaartgegevens komen uit het OpenStreetMap-project. Het is als Wikipedia voor kaarten waar je plaatsen kunt toevoegen of bewerken, en ze worden beschikbaar voor miljoenen gebruikers over de hele wereld.
+    pl = Wszystkie dane mapy pochodzą z projektu OpenStreetMap. Przypomina Wikipedię z mapami, w których można dodawać lub edytować miejsca, a stają się one dostępne dla milionów użytkowników na całym świecie.
+    pt = Todos os dados cartográficos provêm do projecto OpenStreetMap. É como a Wikipedia para mapas onde se podem adicionar ou editar locais, e estes ficam disponíveis para milhões de utilizadores em todo o mundo.
+    pt-BR = Todos os dados do mapa são provenientes do projeto OpenStreetMap. É como a Wikipedia para mapas onde você pode adicionar ou editar lugares, e eles ficam disponíveis para milhões de usuários em todo o mundo.
+    ro = Toate datele hărții provin din proiectul OpenStreetMap. Este ca Wikipedia pentru hărți în care puteți adăuga sau edita locuri și acestea devin disponibile pentru milioane de utilizatori din întreaga lume.
+    ru = Все данные карты поступают из проекта OpenStreetMap. Это как Википедия для карт, где вы можете добавлять или редактировать места, и они становятся доступными для миллионов пользователей по всему миру.
+    sk = Všetky mapové podklady pochádzajú z projektu OpenStreetMap. Je to ako Wikipedia pre mapy, kde môžete pridávať alebo upravovať miesta a sú dostupné pre milióny používateľov na celom svete.
+    sv = All kartdata kommer från OpenStreetMap-projektet. Det är som Wikipedia för kartor där du kan lägga till eller redigera platser, och de blir tillgängliga för miljontals användare över hela världen.
+    sw = Data yote ya ramani inatoka kwa mradi wa OpenStreetMap. Ni kama Wikipedia ya ramani ambapo unaweza kuongeza au kuhariri maeneo, na yanapatikana kwa mamilioni ya watumiaji duniani kote.
+    th = ข้อมูลแผนที่ทั้งหมดมาจากโครงการ OpenStreetMap เหมือนกับวิกิพีเดียสำหรับแผนที่ที่คุณสามารถเพิ่มหรือแก้ไขสถานที่ได้ และพวกเขาพร้อมให้ผู้ใช้หลายล้านคนทั่วโลกใช้งานได้
+    tr = Tüm harita verileri OpenStreetMap projesinden gelir. Yer ekleyebileceğiniz veya düzenleyebileceğiniz haritalar için Wikipedia gibidir ve bunlar tüm dünyada milyonlarca kullanıcı tarafından kullanılabilir hale gelir.
+    uk = Усі картографічні дані надходять із проекту OpenStreetMap. Це як Wikipedia для карт, де ви можете додавати або редагувати місця, і вони стають доступними для мільйонів користувачів у всьому світі.
+    vi = Tất cả dữ liệu bản đồ đến từ dự án OpenStreetMap. Nó giống như Wikipedia dành cho bản đồ nơi bạn có thể thêm hoặc chỉnh sửa các địa điểm và chúng có sẵn cho hàng triệu người dùng trên khắp Thế giới.
+    zh-Hans = 所有地图数据均来自 OpenStreetMap 项目。它就像 Wikipedia 中的地图，您可以在其中添加或编辑地点，并且它们可供全球数百万用户使用。
+    zh-Hant = 所有地圖數據均來自 OpenStreetMap 項目。它就像 Wikipedia 中的地圖，您可以在其中添加或編輯地點，並且它們可供全球數百萬用戶使用。
+
   [login_to_make_edits_visible]
     tags = android,ios
-    en = Log in so other users can see the changes that you have made
+    en = Log in to OpenStreetMap.org so other users can see the changes you have made.
     ar = قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.
-    be = Аўтарызуйцеся, каб іншыя карыстальнікі бачылі вашыя змены.
+    be = Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.
     bg = Влезте в системата, за да могат другите потребители да видят направените от вас промени
     ca = Inicieu sessió perquè altres usuaris puguin veure els canvis que heu fet
     cs = Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.
@@ -12617,7 +12693,7 @@
     eu = Hasi saioa beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.
     fa = وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند
     fi = Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.
-    fr = Se connecter pour que d'autres utilisateurs puissent voir les changements que vous avez effectués.
+    fr = Connectez vous à votre compte openstreetmap.org pour que d'autres utilisateurs puissent voir vos changements.
     hu = Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.
     id = Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.
     it = Accedi per consentire ad altri utenti di vedere le modifiche apportate.
@@ -12630,12 +12706,12 @@
     pt = Inicie a sessão para que outros utilizadores vejam as alterações que fez.
     pt-BR = Fazer login para que outros usuários vejam as mudanças que você fez.
     ro = Autentifică-te pentru ca modificările pe care le-ai făcut să poată fi văzute și de alți utilizatori.
-    ru = Войдите, чтобы ваши изменения увидели другие пользователи.
+    ru = Авторизуйтесь в OpenStreetMap.org, чтобы ваши изменения увидели другие пользователи.
     sk = Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.
     sv = Logga in så att andra användare kan se de ändringar du gjort.
     th = ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้
     tr = Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için oturum açın
-    uk = Увійдіть, щоб ваші зміни побачили інші користувачі.
+    uk = Увійдіть у OpenStreetMap.org, щоб ваші зміни побачили інші користувачі.
     vi = Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.
     zh-Hans = 登录，让其他用户能看到您所作出的修改。
     zh-Hant = 登入來讓其他使用者能看到您所作出的修改。
@@ -15015,7 +15091,7 @@
     zh-Hant = 您想要發給所有用戶嗎？
 
   [editor_share_to_all_dialog_message_1]
-    comment = iOS Dialog before publishing the modifications to the public map.
+    comment = Dialog before publishing the modifications to the public map.
     tags = android,ios
     en = Make sure you did not enter any personal data.
     ar = تأكد من أنك لم تقم بإدخال أية بيانات شخصية.
@@ -15055,41 +15131,42 @@
 
   [editor_share_to_all_dialog_message_2]
     tags = android,ios
-    en = We will check the changes. If we have any questions we will contact you via email.
-    ar = سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسننتواصل معك عبر البريد الإلكتروني.
-    be = Мы праверым змены. Калі ў нас з'явяцца пытанні, мы з вамі звяжамся праз email.
-    bg = Ще проверим промените. Ако имаме някакви въпроси, ще се свържем с вас по имейл.
+    en = OpenStreetMap editors will check the changes and get in contact with you if they have any questions.
+    ar = .ﺔﻠﺌﺳﺃ ﻱﺃ ﻢﻬﻳﺪﻟ ﻥﺎﻛ ﺍﺫﺇ ﻚﻌﻣ ﻥﻮﻠﺻﺍﻮﺘﻳﻭ ﺕﺍﺮﻴﻴﻐﺘﻟﺍ ﻦﻣ OpenStreetMap ﻭﺭﺮﺤﻣ ﻖﻘﺤﺘﻴﺳ
+    be = Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.
+    bg = Редакторите на OpenStreetMap ще проверят промените и ще се свържат с вас, ако имат въпроси.
     ca = Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.
-    cs = Změny ověříme. Budeme-li k vám mít jakékoli dotazy, budeme vás kontaktovat prostřednictvím emailu.
-    da = Vi vil kigge på ændringerne. Hvis vi har spørgsmål, vil vi kontakte dig via email.
-    de = Wir werden die Änderungen prüfen. Wenn wir Fragen haben, werden wir Sie per Email kontaktieren.
-    el = Θα ελέγξουμε τις αλλαγές. Εάν έχουμε οποιαδήποτε απορία θα επικοινωνήσουμε μαζί σας μέσω email.
-    es = Comprobaremos los cambios. Si tenemos alguna pregunta, te contactaremos por correo electrónico.
-    eu = Aldaketak egiaztatuko ditugu. Edozein zalantza izanez gero, zurekin harremanetan jarriko gara posta elektronikoz.
-    fa = ما تغییرات را بررسی می کنیم.اگر سوالی بود با ایمیل با شما تماس می گیریم.
-    fi = Tarkistamme muutokset. Otamme sinuun yhteyttä sähköpostitse, jos meillä on kysyttävää.
-    fr = Nous vérifierons les changements. Si nous avons des questions quelles qu’elles soient, nous vous contacterons par courriel.
-    hu = Ellenőrizni fogjuk a változásokat. Ha bármilyen kérdésünk van, emailben keresünk.
-    id = Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.
-    it = Controlleremo le modifiche. Se avremo delle domande, ti contatteremo via e-mail.
-    ja = 弊社で変更を確認します。質問がある場合はメールでご連絡します。
-    ko = 저희가 변경 사항을 확인할 것입니다. 질문이 있으신 경우, 저희에게 이메일을 통해 연락하십시오.
-    mr = आम्ही बदल तपासू. आम्हाला काही प्रश्न असल्यास आम्ही ईमेलद्वारे तुमच्याशी संपर्क साधू.
-    nb = Vi vil sjekke endringene. Vi kontakter deg via e-post dersom vi har spørsmål.
-    nl = We zullen de wijzigingen controleren. Als we nog vragen hebben, zullen we contact met je opnemen via email.
-    pl = Zapoznamy się ze zmianami. W przypadku pytań skontaktujemy się z Tobą przez email.
-    pt = Vamos verificar as alterações. Se tivermos alguma pergunta, vamos contactá-lo por email.
-    pt-BR = Verificaremos as alterações. Se tivermos perguntas, entraremos em contato com você por email.
-    ro = Vom verifica modificările. Dacă vor apărea întrebări, te vom contacta prin e-mail.
-    ru = Если при проверке изменений возникнут вопросы, мы напишем вам на email.
-    sk = Skontrolujeme zmeny. V prípade otázok vás budeme kontaktovať emailom.
-    sv = Vi kommer att kontrollera ändringar. Om vi har några frågor kontaktar vi dig via e-post.
-    th = เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล
-    tr = Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla iletişime geçeceğiz.
-    uk = Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.
-    vi = Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.
-    zh-Hans = 我们会检查更改。如果我们有任何问题，我们会邮件与您联系。
-    zh-Hant = 我們會檢查更改。如果我們有任何問題，我們會郵件與您聯絡。
+    cs = Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.
+    da = OpenStreetMap-redaktører vil tjekke ændringerne og kontakte dig, hvis de har spørgsmål.
+    de = OpenStreetMap-Redakteure werden die Änderungen prüfen und sich bei Fragen mit Ihnen in Verbindung setzen.
+    el = Οι συντάκτες του OpenStreetMap θα ελέγξουν τις αλλαγές και θα επικοινωνήσουν μαζί σας εάν έχουν απορίες.
+    es = Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto contigo si tienen alguna pregunta.
+    eu = OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.
+    fa = .ﺖﻓﺮﮔ ﺪﻨﻫﺍﻮﺧ ﺱﺎﻤﺗ ﺎﻤﺷ ﺎﺑ ﻝﺍﻮﺳ ﻪﻧﻮﮔﺮﻫ ﻦﺘﺷﺍﺩ ﺕﺭﻮﺻ ﺭﺩ ﻭ ﻩﺩﺮﮐ ﯽﺳﺭﺮﺑ ﺍﺭ ﺕﺍﺮﯿﯿﻐﺗ Ope
+    fi = OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.
+    fr = Les éditeurs d'OpenStreetMap vérifieront vos modifications et vous contacteront s'ils ont des questions.
+    he = .ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע
+    hu = Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.
+    id = Editor OpenStreetMap akan memeriksa perubahan dan menghubungi Anda jika ada pertanyaan.
+    it = Gli editori di OpenStreetMap controlleranno le modifiche e si metteranno in contatto con te in caso di domande.
+    ja = OpenStreetMap の編集者が変更を確認し、質問があれば連絡します。
+    ko = OpenStreetMap 편집자가 변경 사항을 확인하고 질문이 있는 경우 귀하에게 연락할 것입니다.
+    nb = OpenStreetMap-redaktører vil sjekke endringene og ta kontakt med deg hvis de har spørsmål.
+    nl = OpenStreetMap-editors zullen de wijzigingen controleren en contact met u opnemen als ze vragen hebben.
+    pl = Redaktorzy OpenStreetMap sprawdzą zmiany i skontaktują się z Tobą, jeśli będą mieli jakiekolwiek pytania.
+    pt = Os editores do OpenStreetMap verificarão as alterações e entrarão em contacto consigo se tiverem alguma dúvida.
+    pt-BR = Os editores do OpenStreetMap verificarão as mudanças e entrarão em contato com você se tiverem alguma dúvida.
+    ro = Editorii OpenStreetMap vor verifica modificările și vor lua legătura cu dvs. dacă au întrebări.
+    ru = Редакторы OpenStreetMap проверят изменения и свяжутся с вами, если у них возникнут вопросы.
+    sk = Redaktori OpenStreetMap skontrolujú zmeny a budú vás kontaktovať, ak budú mať nejaké otázky.
+    sv = OpenStreetMap-redigerare kommer att kontrollera ändringarna och kontakta dig om de har några frågor.
+    sw = Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.
+    th = ผู้แก้ไข OpenStreetMap จะตรวจสอบการเปลี่ยนแปลงและติดต่อคุณหากมีคำถามใดๆ
+    tr = OpenStreetMap editörleri değişiklikleri kontrol edecek ve soruları olursa sizinle iletişime geçecektir.
+    uk = Редактори OpenStreetMap перевірять зміни та зв’яжуться з вами, якщо у них виникнуть запитання.
+    vi = Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.
+    zh-Hans = OpenStreetMap 编辑人员将检查更改并在有任何问题时与您联系。
+    zh-Hant = OpenStreetMap 編輯人員將檢查更改並在有任何問題時與您聯繫。
 
   [navigation_stop_button]
     tags = ios
