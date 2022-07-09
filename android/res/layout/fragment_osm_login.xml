@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
   <include
     android:id="@+id/toolbar"
-    layout="@layout/toolbar_default"/>
+    layout="@layout/toolbar_default" />
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?cardBackground"
+    android:fadeScrollbars="false"
     android:fillViewport="true"
     tools:ignore="DuplicateIds">
     <LinearLayout
@@ -22,24 +24,51 @@
       android:orientation="vertical"
       android:padding="@dimen/margin_base"
       tools:ignore="ScrollViewSize">
-
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+          android:id="@+id/imageView"
+          android:layout_width="@dimen/login_osm_logo"
+          android:layout_height="@dimen/login_osm_logo"
+          android:layout_gravity="center"
+          android:src="@drawable/ic_openstreetmap_color"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+          android:id="@+id/textView"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_base"
+          android:fontFamily="@string/robotoRegular"
+          android:text="@string/osm_presentation"
+          android:textAppearance="@style/MwmTextAppearance.Body2"
+          android:textColor="?android:textColorPrimary"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/imageView"
+          app:layout_constraintTop_toTopOf="parent" />
+      </androidx.constraintlayout.widget.ConstraintLayout>
       <TextView
-        android:id="@+id/first_osm_edit"
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:autoLink="web"
         android:fontFamily="@string/robotoMedium"
         android:text="@string/login_to_make_edits_visible"
-        android:textColor="?android:textColorPrimary"
-        android:textAppearance="@style/MwmTextAppearance.Body2"/>
+        android:textAppearance="@style/MwmTextAppearance.Body2"
+        android:textColor="?android:textColorPrimary" />
       <com.mapswithme.maps.widget.CustomTextInputLayout
         style="@style/MwmWidget.Editor.CustomTextInput"
-        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginTop="@dimen/margin_half"
         android:textColorHint="?android:textColorSecondary">
         <EditText
           android:id="@+id/osm_username"
           style="@style/MwmWidget.Editor.FieldLayout.EditText"
-          android:hint="@string/email_or_username"
-          android:autofillHints="emailAddress" />
+          android:autofillHints="emailAddress"
+          android:hint="@string/email_or_username" />
       </com.mapswithme.maps.widget.CustomTextInputLayout>
       <com.mapswithme.maps.widget.CustomTextInputLayout
         style="@style/MwmWidget.Editor.CustomTextInput"
@@ -48,9 +77,9 @@
         <EditText
           android:id="@+id/osm_password"
           style="@style/MwmWidget.Editor.FieldLayout.EditText"
+          android:autofillHints="password"
           android:hint="@string/password"
-          android:inputType="textPassword"
-          android:autofillHints="password" />
+          android:inputType="textPassword" />
       </com.mapswithme.maps.widget.CustomTextInputLayout>
       <FrameLayout
         android:layout_width="match_parent"
@@ -61,7 +90,7 @@
           style="@style/MwmWidget.Button.Accent"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="@string/login"
+          android:text="@string/login_osm"
           android:textAppearance="@style/MwmTextAppearance.Body2.Light" />
         <ProgressBar
           android:id="@+id/osm_login_progress"
@@ -69,19 +98,30 @@
           android:layout_height="@dimen/editor_auth_btn_height"
           android:layout_gravity="center"
           android:elevation="@dimen/design_fab_elevation"
-          android:visibility="gone"/>
+          android:visibility="gone" />
       </FrameLayout>
       <Button
         android:id="@+id/lost_password"
+        style="@style/MwmWidget.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/MwmWidget.Button"
         android:layout_gravity="end"
-        android:padding="@dimen/margin_half"
         android:background="?clickableBackground"
+        android:padding="@dimen/margin_half"
         android:text="@string/forgot_password"
         android:textAppearance="@style/MwmTextAppearance.Body3" />
-
+      <com.google.android.material.divider.MaterialDivider
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginBottom="@dimen/margin_base" />
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@string/robotoRegular"
+        android:text="@string/no_osm_account"
+        android:textAppearance="@style/MwmTextAppearance.Body2"
+        android:textColor="?android:textColorPrimary" />
       <Button
         android:id="@+id/register"
         style="@style/MwmWidget.Button.Accent"
@@ -93,7 +133,7 @@
         android:padding="@dimen/margin_quarter"
         android:text="@string/register_at_openstreetmap"
         android:textAppearance="@style/MwmTextAppearance.Body2"
-        android:textColor="@color/text_dark"/>
+        android:textColor="@color/text_dark" />
     </LinearLayout>
   </ScrollView>
 </LinearLayout>
