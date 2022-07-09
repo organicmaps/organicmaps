@@ -22303,7 +22303,7 @@
     bg = Моля, изберете начална или крайна точка по-близо до метростанция
     cs = Zvolte prosím počáteční nebo koncový bod blíže k stanici metra
     da = Vælg venligst et start- eller stoppunkt, tættere på metrostationen
-    de = Wählen Sie einen zur einer U-Bahn-Station nähergelegenen Start- oder Endpunkt 
+    de = Wählen Sie einen zu einer U-Bahn-Station nähergelegenen Start- oder Endpunkt 
     el = Επιλέξτε το σημείο έναρξης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό
     es = Elige el punto de inicio o fin de ruta más cercano al metro
     es-MX = Elija el punto de inicio o fin de ruta más cercano al metro
