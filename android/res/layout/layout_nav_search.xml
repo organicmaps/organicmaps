@@ -5,86 +5,75 @@
   android:id="@+id/search_button_frame"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:padding="@dimen/nav_frame_padding"
+  android:clipChildren="false"
   android:clipToPadding="false"
-  android:theme="?navButtonsTheme"
   android:layoutDirection="ltr"
+  android:theme="?navButtonsTheme"
   tools:background="@color/bg_primary">
-
-  <ImageButton
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/btn_bookmarks"
-    style="@style/MwmWidget.SearchNavigationButton"
-    android:layout_width="@dimen/margin_quadruple"
-    android:layout_height="@dimen/margin_quadruple"
+    style="@style/MwmWidget.MapButton"
     android:layout_alignParentStart="true"
-    android:background="?nav_background"
-    android:src="@drawable/ic_menu_bookmarks"
-    android:tint="@null"/>
-
+    android:layout_marginBottom="@dimen/margin_half"
+    android:contentDescription="@string/bookmarks"
+    android:src="@drawable/ic_bookmarks" />
   <RelativeLayout
     android:id="@+id/search_frame"
-    android:layout_width="192dp"
-    android:layout_height="192dp"
+    android:layout_width="160dp"
+    android:layout_height="160dp"
     android:layout_alignParentStart="true"
-    android:layout_marginTop="-68dp"
-    android:layout_below="@id/btn_bookmarks"
-    android:layout_marginStart="-68dp"
+    android:layout_marginStart="-56dp"
     android:background="?searchLayoutBackground"
+    android:elevation="6dp"
     android:visibility="invisible"
     tools:visibility="visible">
-
-    <ImageView
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_fuel"
-      android:layout_marginTop="@dimen/margin_half_plus"
-      android:layout_marginStart="@dimen/margin_half_plus"
-      style="@style/MwmWidget.SearchNavigationButton"
+      style="@style/MwmWidget.MapButton.Search"
       android:layout_alignParentTop="true"
       android:layout_centerHorizontal="true"
-      android:src="@drawable/ic_routing_fuel_on"/>
-
-    <ImageView
-      android:id="@+id/search_parking"
-      style="@style/MwmWidget.SearchNavigationButton"
-      android:layout_marginTop="@dimen/margin_double"
-      android:layout_toEndOf="@id/search_fuel"
-      android:src="@drawable/ic_routing_parking_on"/>
-
-    <ImageView
-      android:id="@+id/search_eat"
-      style="@style/MwmWidget.SearchNavigationButton"
-      android:layout_alignParentEnd="true"
-      android:layout_marginEnd="@dimen/margin_half_plus"
-      android:layout_centerVertical="true"
-      android:src="@drawable/ic_routing_eat_on"/>
-
-    <ImageView
-      android:id="@+id/search_food"
-      style="@style/MwmWidget.SearchNavigationButton"
-      android:layout_alignParentBottom="true"
-      android:layout_marginBottom="@dimen/margin_double"
-      android:layout_toEndOf="@id/search_fuel"
-      android:src="@drawable/ic_routing_food_on"/>
-
-    <ImageView
-      android:id="@+id/search_atm"
-      style="@style/MwmWidget.SearchNavigationButton"
-      android:layout_marginBottom="@dimen/margin_half_plus"
       android:layout_marginStart="@dimen/margin_half_plus"
+      android:layout_marginTop="@dimen/margin_half"
+      android:contentDescription="@string/fuel"
+      android:src="@drawable/ic_routing_fuel_on" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/search_parking"
+      style="@style/MwmWidget.MapButton.Search"
+      android:layout_marginTop="@dimen/margin_base_plus"
+      android:layout_toEndOf="@id/search_fuel"
+      android:contentDescription="@string/parkings"
+      android:src="@drawable/ic_routing_parking_on" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/search_eat"
+      style="@style/MwmWidget.MapButton.Search"
+      android:layout_alignParentEnd="true"
+      android:layout_centerVertical="true"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:contentDescription="@string/eat"
+      android:src="@drawable/ic_routing_eat_on" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/search_food"
+      style="@style/MwmWidget.MapButton.Search"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="@dimen/margin_base_plus"
+      android:layout_toEndOf="@id/search_fuel"
+      android:contentDescription="@string/shopping"
+      android:src="@drawable/ic_routing_food_on" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/search_atm"
+      style="@style/MwmWidget.MapButton.Search"
       android:layout_alignParentBottom="true"
       android:layout_centerHorizontal="true"
-      android:src="@drawable/ic_routing_atm_on"/>
-
+      android:layout_marginStart="@dimen/margin_half_plus"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:contentDescription="@string/atm"
+      android:src="@drawable/ic_routing_atm_on" />
   </RelativeLayout>
-
-  <ImageButton
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/btn_search"
-    style="@style/MwmWidget.SearchNavigationButton"
-    android:layout_width="@dimen/margin_quadruple"
-    android:layout_height="@dimen/margin_quadruple"
+    style="@style/MwmWidget.MapButton"
     android:layout_below="@id/btn_bookmarks"
     android:layout_alignParentStart="true"
-    android:background="?nav_background"
-    android:src="@drawable/ic_menu_search"
-    android:tint="@null"/>
-
+    android:contentDescription="@string/search"
+    android:src="@drawable/ic_search" />
 </RelativeLayout>

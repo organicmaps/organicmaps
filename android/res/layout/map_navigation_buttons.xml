@@ -18,6 +18,8 @@
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/action_bar_extended_height"
     android:layout_marginBottom="@dimen/nav_my_position_bottom"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:layoutDirection="ltr"
     android:padding="@dimen/nav_frame_padding"
     android:theme="?navButtonsTheme">
@@ -25,41 +27,27 @@
       layout="@layout/layout_nav_search"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_base"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       tools:visibility="visible" />
-    <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/zoom_buttons_container"
+    <include
+      layout="@layout/map_navigation_buttons_zoom"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      android:layout_marginBottom="@dimen/margin_base"
+      android:layout_marginBottom="@dimen/margin_half"
       app:layout_constraintBottom_toTopOf="@+id/layers_button"
-      app:layout_constraintEnd_toEndOf="parent">
-      <ImageButton
-        android:id="@+id/nav_zoom_in"
-        style="@style/MwmWidget.MapButton"
-        android:src="@drawable/ic_plus"
-        app:layout_constraintBottom_toTopOf="@+id/nav_zoom_out"
-        app:layout_constraintEnd_toEndOf="parent" />
-      <ImageButton
-        android:id="@+id/nav_zoom_out"
-        style="@style/MwmWidget.MapButton"
-        android:src="@drawable/ic_minus"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <ImageButton
+      app:layout_constraintEnd_toEndOf="parent" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/layers_button"
       style="@style/MwmWidget.MapButton"
-      android:layout_marginBottom="@dimen/margin_base"
-      android:background="?nav_background"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:contentDescription="@string/layers_title"
       android:src="@drawable/ic_layers"
       app:layout_constraintBottom_toTopOf="@+id/my_position"
       app:layout_constraintEnd_toEndOf="parent" />
-    <ImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/my_position"
       style="@style/MwmWidget.MapButton"
       android:contentDescription="@string/core_my_position"

@@ -161,12 +161,10 @@
   </style>
 
   <style name="MwmTheme.NavButtons">
-    <item name="nav_background">@drawable/button_navigation_circle</item>
     <item name="searchLayoutBackground">@drawable/bg_circle_panel</item>
   </style>
 
   <style name="MwmTheme.NavButtons.Night" parent="MwmTheme.Night">
-    <item name="nav_background">@drawable/button_navigation_circle_night</item>
     <item name="searchLayoutBackground">@drawable/bg_circle_panel_night</item>
   </style>
 
