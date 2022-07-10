@@ -147,7 +147,6 @@
     <item name="fontCaption">@style/TextAppearance.MdcTypographyStyles.Caption</item>
     <item name="fontOverline">@style/TextAppearance.MdcTypographyStyles.Overline</item>
     <item name="drivingOptionsViewBg">@color/light_green</item>
-    <item name="bgCrown">@drawable/bg_crown</item>
     <item name="bgDogBtn">@drawable/ic_dog_bg</item>
     <item name="elevationProfilePropertyBg">@drawable/bg_rounded_rect</item>
     <item name="elevationProfilePropIconTint">@color/black_secondary</item>
@@ -315,7 +314,6 @@
     <item name="fontCaption">@style/TextAppearance.MdcTypographyStyles.Caption</item>
     <item name="fontOverline">@style/TextAppearance.MdcTypographyStyles.Overline</item>
     <item name="drivingOptionsViewBg">@color/driving_options_bg_black</item>
-    <item name="bgCrown">@drawable/bg_crown_night</item>
     <item name="bgDogBtn">@drawable/ic_dog_bg_night</item>
     <item name="elevationProfilePropertyBg">@drawable/bg_rounded_rect_night</item>
     <item name="elevationProfilePropIconTint">@color/white_secondary</item>

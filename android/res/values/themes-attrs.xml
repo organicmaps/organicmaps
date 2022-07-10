@@ -73,7 +73,6 @@
     <attr name="tipsBgColor" format="color" />
     <attr name="tipsPrimaryTextColor" format="color" />
     <attr name="tipsSecondaryTextColor" format="color" />
-    <attr name="bgCrown" format="reference" />
     <attr name="bgDogBtn" format="reference" />
     <attr name="guidesTime" format="reference" />
     <attr name="guidesAltitude" format="reference" />
@@ -83,9 +82,6 @@
     <attr name="bgRectangleView" format="reference" />
     <attr name="bgRoundedCard" format="reference" />
     <attr name="tintLonelyPlanetLogo" format="color" />
-  </declare-styleable>
-  <declare-styleable name="ThemeAttrs.NavButtons">
-    <attr name="nav_background" format="reference" />
   </declare-styleable>
   <declare-styleable name="ThemeAttrs.Downloader">
     <attr name="status_done" format="reference" />

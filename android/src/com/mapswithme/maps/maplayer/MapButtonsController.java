@@ -1,22 +1,20 @@
 package com.mapswithme.maps.maplayer;
 
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.routing.SearchWheel;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.util.Config;
-import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 
 public class MapButtonsController
@@ -26,7 +24,7 @@ public class MapButtonsController
   @NonNull
   private final View mZoomFrame;
   @NonNull
-  private final ImageButton mLayersButton;
+  private final FloatingActionButton mLayersButton;
   @NonNull
   private final View myPosition;
   @NonNull
@@ -39,8 +37,7 @@ public class MapButtonsController
   private final SearchWheel mSearchWheel;
   private final PlacePageController mPlacePageController;
   private final float mBottomMargin;
-  private final int mButtonWidth;
-  private final float mInitialButtonMargin;
+  private final float mButtonWidth;
   private float mTopLimit;
   private float mContentHeight;
   private float mContentWidth;
@@ -63,15 +60,18 @@ public class MapButtonsController
 
     mSearchButtonFrame = activity.findViewById(R.id.search_button_frame);
     mSearchWheel = new SearchWheel(frame, (v) -> mapButtonClickListener.onClick(MapButtons.navSearch));
-    ImageView bookmarkButton = mSearchButtonFrame.findViewById(R.id.btn_bookmarks);
-    bookmarkButton.setOnClickListener((v) -> mapButtonClickListener.onClick(MapButtons.navBookmarks));
-    bookmarkButton.setImageDrawable(Graphics.tint(bookmarkButton.getContext(), R.drawable.ic_menu_bookmarks));
+    mSearchButtonFrame.findViewById(R.id.btn_bookmarks)
+                      .setOnClickListener((v) -> mapButtonClickListener.onClick(MapButtons.navBookmarks));
 
     // Used to get the maximum height the buttons will evolve in
     frame.addOnLayoutChangeListener(new MapButtonsController.ContentViewLayoutChangeListener(frame));
     mBottomMargin = ((RelativeLayout.LayoutParams) mButtonsFrame.getLayoutParams()).bottomMargin;
-    mInitialButtonMargin = ((ConstraintLayout.LayoutParams) mZoomFrame.getLayoutParams()).bottomMargin;
-    mButtonWidth = mLayersButton.getLayoutParams().width;
+
+    TypedArray a = frame.getContext().getTheme().obtainStyledAttributes(
+        R.style.MwmWidget_MapButton,
+        new int[] { R.attr.fabCustomSize });
+    mButtonWidth = a.getDimension(0, 0);
+    a.recycle();
   }
 
   public void showButton(boolean show, MapButtonsController.MapButtons button)
@@ -108,15 +108,6 @@ public class MapButtonsController
     final float translation = mBottomMargin + translationY - mContentHeight;
     final float appliedTranslation = translation <= 0 ? translation : 0;
     mButtonsFrame.setTranslationY(appliedTranslation);
-
-    // Reduce buttons margin to move them only if necessary
-    // Zoom frame is above the layers so if must move twice as much
-    final float appliedMarginTranslationLayers = Math.min(-appliedTranslation, mInitialButtonMargin);
-    final float maxZoomTranslation = UiUtils.isVisible(mLayersButton) ? 2 * mInitialButtonMargin : mInitialButtonMargin;
-    final float appliedMarginTranslationZoomFrame = Math.min(-appliedTranslation, maxZoomTranslation);
-    mLayersButton.setTranslationY(appliedMarginTranslationLayers);
-    mSearchButtonFrame.setTranslationY(appliedMarginTranslationLayers);
-    mZoomFrame.setTranslationY(appliedMarginTranslationZoomFrame);
 
     updateButtonsVisibility(appliedTranslation);
   }
