@@ -2,23 +2,18 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/final_processor_utils.hpp"
+#include "generator/intermediate_data.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/road_access.hpp"
 #include "routing/road_access_serialization.hpp"
 #include "routing/routing_helpers.hpp"
 
-#include "indexer/feature.hpp"
-#include "indexer/feature_data.hpp"
-#include "indexer/features_vector.hpp"
-
 #include "coding/file_writer.hpp"
 #include "coding/files_container.hpp"
-#include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"
 
 #include "base/assert.hpp"
-#include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
@@ -32,12 +27,10 @@
 
 #include "3party/opening_hours/opening_hours.hpp"
 
+
 namespace routing_builder
 {
-using namespace feature;
-using namespace routing;
-using namespace generator;
-using std::optional, std::string, std::vector;
+using std::string, std::vector;
 
 using TagMapping = RoadAccessTagProcessor::TagMapping;
 using ConditionalTagsList = RoadAccessTagProcessor::ConditionalTagsList;
@@ -155,223 +148,47 @@ TagMapping const kDefaultTagMapping = {
     {OsmElement::Tag("access", "forestry"), RoadAccess::Type::Private},
 };
 
-/// @todo Looks controversial especially for primary/secondary.
-std::set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccess = {
-    {OsmElement::Tag("highway", "motorway")},
-    {OsmElement::Tag("highway", "motorway_link")},
-    {OsmElement::Tag("highway", "primary")},
-    {OsmElement::Tag("highway", "primary_link")},
-    {OsmElement::Tag("highway", "secondary")},
-    {OsmElement::Tag("highway", "secondary_link")},
-    {OsmElement::Tag("highway", "tertiary")},
-    {OsmElement::Tag("highway", "tertiary_link")},
-    {OsmElement::Tag("highway", "trunk")},
-    {OsmElement::Tag("highway", "trunk_link")}
+// Removed secondary, tertiary from car list. Example https://www.openstreetmap.org/node/8169922700
+std::set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccessCar = {
+    {"highway", "motorway"},
+    {"highway", "motorway_link"},
+    {"highway", "trunk"},
+    {"highway", "trunk_link"},
+    {"highway", "primary"},
+    {"highway", "primary_link"},
+};
+
+/// @todo Looks controversial for secondary/tertiary, but leave as-is for bicycle.
+std::set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccessBicycle = {
+    {"highway", "motorway"},
+    {"highway", "motorway_link"},
+    {"highway", "trunk"},
+    {"highway", "trunk_link"},
+    {"highway", "primary"},
+    {"highway", "primary_link"},
+    {"highway", "secondary"},
+    {"highway", "secondary_link"},
+    {"highway", "tertiary"},
+    {"highway", "tertiary_link"},
 };
 
 // motorway_junction blocks not only highway link, but main road also.
 // Actually, tagging motorway_junction with access is not used, see https://overpass-turbo.eu/s/1d1t
 // https://github.com/organicmaps/organicmaps/issues/1389
 std::set<OsmElement::Tag> const kIgnoreAccess = {
-    {OsmElement::Tag("highway", "motorway_junction")}
+    {"highway", "motorway_junction"}
 };
 
 std::set<OsmElement::Tag> const kHighwaysWhereIgnoreAccessDestination = {
-    {OsmElement::Tag("highway", "motorway")},
-    {OsmElement::Tag("highway", "motorway_link")},
-    {OsmElement::Tag("highway", "primary")},
-    {OsmElement::Tag("highway", "primary_link")},
-    {OsmElement::Tag("highway", "trunk")},
-    {OsmElement::Tag("highway", "trunk_link")}
+    {"highway", "motorway"},
+    {"highway", "motorway_link"},
+    {"highway", "trunk"},
+    {"highway", "trunk_link"},
+    {"highway", "primary"},
+    {"highway", "primary_link"},
 };
 
 auto const kEmptyAccess = RoadAccess::Type::Count;
-
-bool ParseRoadAccess(string const & roadAccessPath, OsmIdToFeatureIds const & osmIdToFeatureIds,
-                     RoadAccessByVehicleType & roadAccessByVehicleType)
-{
-  std::ifstream stream(roadAccessPath);
-  if (!stream)
-  {
-    LOG(LWARNING, ("Could not open", roadAccessPath));
-    return false;
-  }
-
-  RoadAccess::WayToAccess featureType[static_cast<size_t>(VehicleType::Count)];
-  RoadAccess::PointToAccess pointType[static_cast<size_t>(VehicleType::Count)];
-
-  auto addFeature = [&](uint32_t featureId, VehicleType vehicleType,
-                        RoadAccess::Type roadAccessType, uint64_t osmId) {
-    auto & m = featureType[static_cast<size_t>(vehicleType)];
-    auto const emplaceRes = m.emplace(featureId, roadAccessType);
-    if (!emplaceRes.second && emplaceRes.first->second != roadAccessType)
-    {
-      LOG(LDEBUG, ("Duplicate road access info for OSM way", osmId, "vehicle:", vehicleType,
-                   "access is:", emplaceRes.first->second, "tried:", roadAccessType));
-    }
-  };
-
-  auto addPoint = [&](RoadPoint const & point, VehicleType vehicleType,
-                      RoadAccess::Type roadAccessType) {
-    auto & m = pointType[static_cast<size_t>(vehicleType)];
-    auto const emplaceRes = m.emplace(point, roadAccessType);
-    if (!emplaceRes.second && emplaceRes.first->second != roadAccessType)
-    {
-      LOG(LDEBUG, ("Duplicate road access info for road point", point, "vehicle:", vehicleType,
-                   "access is:", emplaceRes.first->second, "tried:", roadAccessType));
-    }
-  };
-
-  string line;
-  for (uint32_t lineNo = 1;; ++lineNo)
-  {
-    if (!getline(stream, line))
-      break;
-
-    strings::SimpleTokenizer iter(line, " \t\r\n");
-
-    if (!iter)
-    {
-      LOG(LERROR, ("Error when parsing road access: empty line", lineNo));
-      return false;
-    }
-    VehicleType vehicleType;
-    FromString(*iter, vehicleType);
-    ++iter;
-
-    if (!iter)
-    {
-      LOG(LERROR, ("Error when parsing road access: no road access type at line", lineNo, "Line contents:", line));
-      return false;
-    }
-    RoadAccess::Type roadAccessType;
-    FromString(*iter, roadAccessType);
-    ++iter;
-
-    uint64_t osmId;
-    if (!iter || !strings::to_uint(*iter, osmId))
-    {
-      LOG(LERROR, ("Error when parsing road access: bad osm id at line", lineNo, "Line contents:", line));
-      return false;
-    }
-    ++iter;
-
-    uint32_t pointIdx;
-    if (!iter || !strings::to_uint(*iter, pointIdx))
-    {
-      LOG(LERROR, ("Error when parsing road access: bad pointIdx at line", lineNo, "Line contents:", line));
-      return false;
-    }
-    ++iter;
-
-    auto const it = osmIdToFeatureIds.find(base::MakeOsmWay(osmId));
-    // Even though this osm element has a tag that is interesting for us,
-    // we have not created a feature from it. Possible reasons:
-    // no primary tag, unsupported type, etc.
-    if (it == osmIdToFeatureIds.cend())
-      continue;
-
-    // @TODO(bykoianko) All the feature ids should be used instead of |it->second.front()|.
-    CHECK(!it->second.empty(), ());
-    uint32_t const featureId = it->second.front();
-
-    if (pointIdx == 0)
-      addFeature(featureId, vehicleType, roadAccessType, osmId);
-    else
-      addPoint(RoadPoint(featureId, pointIdx - 1), vehicleType, roadAccessType);
-  }
-
-  for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
-    roadAccessByVehicleType[i].SetAccess(std::move(featureType[i]), std::move(pointType[i]));
-
-  return true;
-}
-
-void ParseRoadAccessConditional(string const & roadAccessPath, OsmIdToFeatureIds const & osmIdToFeatureIds,
-                                RoadAccessByVehicleType & roadAccessByVehicleType)
-{
-  std::ifstream stream(roadAccessPath);
-  if (!stream)
-  {
-    LOG(LWARNING, ("Could not open", roadAccessPath));
-    return;
-  }
-
-  auto constexpr kVehicleCount = static_cast<size_t>(VehicleType::Count);
-  CHECK_EQUAL(kVehicleCount, roadAccessByVehicleType.size(), ());
-  std::array<RoadAccess::WayToAccessConditional, kVehicleCount> wayToAccessConditional;
-  // TODO point is not supported yet.
-  std::array<RoadAccess::PointToAccessConditional, kVehicleCount> pointToAccessConditional;
-
-  string line;
-  VehicleType vehicleType = VehicleType::Count;
-  while (getline(stream, line))
-  {
-    strings::TokenizeIterator<strings::SimpleDelimiter, std::string::const_iterator, true /* KeepEmptyTokens */>
-        strIt(line.begin(), line.end(), strings::SimpleDelimiter('\t'));
-
-    CHECK(strIt, (line));
-    std::string_view buffer = *strIt;
-    strings::Trim(buffer);
-    FromString(buffer, vehicleType);
-    CHECK_NOT_EQUAL(vehicleType, VehicleType::Count, (line, buffer));
-
-    auto const moveIterAndCheck = [&]()
-    {
-      ++strIt;
-      CHECK(strIt, (line));
-      return *strIt;
-    };
-
-    uint64_t osmId = 0;
-    buffer = moveIterAndCheck();
-    strings::Trim(buffer);
-    CHECK(strings::to_uint(buffer, osmId), (line, buffer));
-
-    size_t accessNumber = 0;
-    buffer = moveIterAndCheck();
-    strings::Trim(buffer);
-    CHECK(strings::to_uint(buffer, accessNumber), (line, buffer));
-    CHECK_NOT_EQUAL(accessNumber, 0, (line));
-
-    RoadAccess::Conditional conditional;
-    for (size_t i = 0; i < accessNumber; ++i)
-    {
-      buffer = moveIterAndCheck();
-      strings::Trim(buffer);
-      RoadAccess::Type roadAccessType = kEmptyAccess;
-      FromString(buffer, roadAccessType);
-      CHECK_NOT_EQUAL(roadAccessType, kEmptyAccess, (line));
-
-      /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
-      string strBuffer(moveIterAndCheck());
-      strings::Trim(strBuffer);
-      osmoh::OpeningHours openingHours(strBuffer);
-      if (!openingHours.IsValid())
-        continue;
-
-      conditional.Insert(roadAccessType, std::move(openingHours));
-    }
-
-    if (conditional.IsEmpty())
-      continue;
-
-    auto const it = osmIdToFeatureIds.find(base::MakeOsmWay(osmId));
-    if (it == osmIdToFeatureIds.end())
-      continue;
-    // @TODO(bykoianko) All the feature ids should be used instead of |it->second.front()|.
-    CHECK(!osmIdToFeatureIds.empty(), ());
-    uint32_t const featureId = it->second.front();
-
-    wayToAccessConditional[static_cast<size_t>(vehicleType)].emplace(featureId, std::move(conditional));
-  }
-
-  for (size_t i = 0; i < roadAccessByVehicleType.size(); ++i)
-  {
-    roadAccessByVehicleType[i].SetAccessConditional(std::move(wayToAccessConditional[i]),
-                                                    std::move(pointToAccessConditional[i]));
-  }
-}
 
 // If |elem| has access tag from |mapping|, returns corresponding RoadAccess::Type.
 // Tags in |mapping| should be mutually exclusive. Caller is responsible for that. If there are
@@ -388,7 +205,7 @@ RoadAccess::Type GetAccessTypeFromMapping(OsmElement const & elem, TagMapping co
   return kEmptyAccess;
 }
 
-optional<std::pair<string, string>> GetTagValueConditionalAccess(
+std::optional<std::pair<string, string>> GetTagValueConditionalAccess(
     OsmElement const & elem, vector<ConditionalTagsList> const & tagsList)
 {
   if (tagsList.empty())
@@ -440,30 +257,34 @@ RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
     m_accessMappings.push_back(&kDefaultTagMapping);
 
     m_barrierMappings.push_back(&kCarBarriersTagMapping);
-    m_hwIgnoreBarriersWithoutAccess = kHighwaysWhereIgnoreBarriersWithoutAccess;
+    m_highwaysToIgnoreWABarriers = &kHighwaysWhereIgnoreBarriersWithoutAccessCar;
     m_conditionalTagsVector.push_back(kCarAccessConditionalTags);
     m_conditionalTagsVector.push_back(kDefaultAccessConditionalTags);
     break;
+
   case VehicleType::Pedestrian:
     m_accessMappings.push_back(&kPedestrianTagMapping);
     m_accessMappings.push_back(&kDefaultTagMapping);
     m_conditionalTagsVector.push_back(kPedestrianAccessConditionalTags);
     m_conditionalTagsVector.push_back(kDefaultAccessConditionalTags);
     break;
+
   case VehicleType::Bicycle:
     m_accessMappings.push_back(&kBicycleTagMapping);
     m_accessMappings.push_back(&kVehicleTagMapping);
     m_accessMappings.push_back(&kDefaultTagMapping);
     m_barrierMappings.push_back(&kBicycleBarriersTagMapping);
-    m_hwIgnoreBarriersWithoutAccess = kHighwaysWhereIgnoreBarriersWithoutAccess;
+    m_highwaysToIgnoreWABarriers = &kHighwaysWhereIgnoreBarriersWithoutAccessBicycle;
     m_conditionalTagsVector.push_back(kBycicleAccessConditionalTags);
     m_conditionalTagsVector.push_back(kDefaultAccessConditionalTags);
     break;
+
   case VehicleType::Transit:
     // Use kTransitTagMapping to keep transit section empty. We'll use pedestrian section for
     // transit + pedestrian combination.
     m_accessMappings.push_back(&kTransitTagMapping);
     break;
+
   case VehicleType::Count:
     CHECK(false, ("Bad vehicle type"));
     break;
@@ -511,9 +332,9 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
     }
 
     if (elem.IsNode())
-      m_barriersWithAccessTag.emplace(elem.m_id, op);
+      m_barriersWithAccessTag.Add(elem.m_id, {elem.m_lat, elem.m_lon}, op);
     else if (elem.IsWay())
-      m_wayToAccess.emplace(elem.m_id, op);
+      m_wayToAccess.Add(elem.m_id, op);
     return;
   }
 
@@ -523,7 +344,7 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
   // Apply barrier tags if we have no {vehicle = ...}, {access = ...} etc.
   op = getAccessType(m_barrierMappings);
   if (op != kEmptyAccess)
-    m_barriersWithoutAccessTag.emplace(elem.m_id, op);
+    m_barriersWithoutAccessTag.Add(elem.m_id, {elem.m_lat, elem.m_lon}, op);
 }
 
 void RoadAccessTagProcessor::ProcessConditional(OsmElement const & elem)
@@ -539,94 +360,64 @@ void RoadAccessTagProcessor::ProcessConditional(OsmElement const & elem)
   for (auto & access : parser.ParseAccessConditionalTag(op->first, op->second))
   {
     if (access.m_accessType != kEmptyAccess)
-      m_wayToAccessConditional[elem.m_id].emplace_back(std::move(access));
+      m_wayToAccessConditional.FindOrInsert(elem.m_id)->emplace_back(std::move(access));
   }
 }
 
-void RoadAccessTagProcessor::WriteWayToAccess(std::ostream & stream)
+void RoadAccessTagProcessor::SetIgnoreBarriers(OsmElement const & elem)
 {
-  // All feature tags.
-  for (auto const & i : m_wayToAccess)
-  {
-    stream << ToString(m_vehicleType) << " " << ToString(i.second) << " " << i.first << " "
-           << 0 /* wildcard segment Idx */ << std::endl;
-  }
-}
+  if (!m_highwaysToIgnoreWABarriers)
+    return;
 
-void RoadAccessTagProcessor::WriteWayToAccessConditional(std::ostream & stream)
-{
-  for (auto const & [osmId, accesses] : m_wayToAccessConditional)
+  for (auto const & tag : elem.m_tags)
   {
-    CHECK(!accesses.empty(), ());
-    stream << ToString(m_vehicleType) << '\t' << osmId << '\t' << accesses.size() << '\t';
-    for (auto const & access : accesses)
+    if (m_highwaysToIgnoreWABarriers->count(tag) > 0)
     {
-      string oh;
-      replace_copy(cbegin(access.m_openingHours), cend(access.m_openingHours), back_inserter(oh), '\t', ' ');
-      stream << ToString(access.m_accessType) << '\t' << oh << '\t';
+      m_ignoreWABarriers.push_back(true);
+      return;
     }
-    stream << std::endl;
   }
+
+  m_ignoreWABarriers.push_back(false);
 }
 
-void RoadAccessTagProcessor::WriteBarrierTags(std::ostream & stream, uint64_t id,
-                                              vector<uint64_t> const & points,
-                                              bool ignoreBarrierWithoutAccessOnThisWay)
+bool RoadAccessTagProcessor::IsIgnoreBarriers(size_t wayIdx) const
 {
-  for (size_t pointIdx = 0; pointIdx < points.size(); ++pointIdx)
+  if (m_highwaysToIgnoreWABarriers)
   {
-    auto it = m_barriersWithAccessTag.find(points[pointIdx]);
-    if (it == m_barriersWithAccessTag.cend())
-    {
-      it = m_barriersWithoutAccessTag.find(points[pointIdx]);
-      if (it == m_barriersWithoutAccessTag.cend())
-        continue;
-
-      if (m_hwIgnoreBarriersWithoutAccess && ignoreBarrierWithoutAccessOnThisWay)
-        continue;
-    }
-
-    RoadAccess::Type const roadAccessType = it->second;
-    // idx == 0 used as wildcard segment Idx, for nodes we store |pointIdx + 1| instead of |pointIdx|.
-    stream << ToString(m_vehicleType) << " " << ToString(roadAccessType) << " " << id << " "
-           << pointIdx + 1 << std::endl;
+    CHECK_LESS(wayIdx, m_ignoreWABarriers.size(), ());
+    return m_ignoreWABarriers[wayIdx];
   }
+  return false;
 }
 
-void RoadAccessTagProcessor::Merge(RoadAccessTagProcessor const & other)
+void RoadAccessTagProcessor::MergeInto(RoadAccessTagProcessor & processor) const
 {
-  CHECK_EQUAL(m_vehicleType, other.m_vehicleType, ());
+  CHECK_EQUAL(m_vehicleType, processor.m_vehicleType, ());
 
-  m_barriersWithAccessTag.insert(begin(other.m_barriersWithAccessTag),
-                                 end(other.m_barriersWithAccessTag));
-  m_barriersWithoutAccessTag.insert(begin(other.m_barriersWithoutAccessTag),
-                                    end(other.m_barriersWithoutAccessTag));
-  m_wayToAccess.insert(begin(other.m_wayToAccess), end(other.m_wayToAccess));
-  m_wayToAccessConditional.insert(begin(other.m_wayToAccessConditional),
-                                  end(other.m_wayToAccessConditional));
+  m_barriersWithAccessTag.MergeInto(processor.m_barriersWithAccessTag);
+  m_barriersWithoutAccessTag.MergeInto(processor.m_barriersWithoutAccessTag);
+  m_wayToAccess.MergeInto(processor.m_wayToAccess);
+  m_wayToAccessConditional.MergeInto(processor.m_wayToAccessConditional);
+
+  processor.m_ignoreWABarriers.insert(processor.m_ignoreWABarriers.end(),
+                                      m_ignoreWABarriers.begin(), m_ignoreWABarriers.end());
 }
 
-// RoadAccessWriter ------------------------------------------------------------
-RoadAccessCollector::RoadAccessCollector(string const & filename)
-    : generator::CollectorInterface(filename)
-    , m_waysFilename(GetTmpFilename() + ".roads_ids")
-    , m_waysWriter(std::make_unique<FileWriter>(m_waysFilename))
+// RoadAccessCollector ------------------------------------------------------------
+RoadAccessCollector::RoadAccessCollector(string const & filename, IDRInterfacePtr cache)
+  : generator::CollectorInterface(filename), m_cache(std::move(cache))
 {
-  for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
+  for (uint8_t i = 0; i < static_cast<uint8_t>(VehicleType::Count); ++i)
     m_tagProcessors.emplace_back(static_cast<VehicleType>(i));
 }
 
-RoadAccessCollector::~RoadAccessCollector()
+std::shared_ptr<generator::CollectorInterface> RoadAccessCollector::Clone(IDRInterfacePtr const & cache) const
 {
-  CHECK(Platform::RemoveFileIfExists(m_waysFilename), ());
+  return std::make_shared<RoadAccessCollector>(GetFilename(), cache);
 }
 
-std::shared_ptr<generator::CollectorInterface> RoadAccessCollector::Clone(IDRInterfacePtr const &) const
-{
-  return std::make_shared<RoadAccessCollector>(GetFilename());
-}
-
-void RoadAccessCollector::CollectFeature(FeatureBuilder const & fb, OsmElement const & elem)
+void RoadAccessCollector::CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & elem)
 {
   for (auto const & tag : elem.m_tags)
   {
@@ -640,99 +431,162 @@ void RoadAccessCollector::CollectFeature(FeatureBuilder const & fb, OsmElement c
     p.ProcessConditional(elem);
   }
 
-  if (!IsRoad(fb.GetTypes()))
-    return;
-
-  uint8_t ignoreBarrierWithoutAccessOnThisWay = 0;
-  for (auto const & tag : elem.m_tags)
+  if (routing::IsRoadWay(fb))
   {
-    if (kHighwaysWhereIgnoreBarriersWithoutAccess.count(tag))
-    {
-      ignoreBarrierWithoutAccessOnThisWay = 1;
-      break;
-    }
+    m_roads.AddWay(elem);
+
+    for (auto & p : m_tagProcessors)
+      p.SetIgnoreBarriers(elem);
   }
-
-  /// @todo Why do we write additional [way id -> nodes] temporary file if we can read
-  /// nodes by way id from preprocess stage index.
-  WriteToSink(*m_waysWriter, elem.m_id);
-  WriteToSink(*m_waysWriter, ignoreBarrierWithoutAccessOnThisWay);
-  rw::WriteVectorOfPOD(*m_waysWriter, elem.m_nodes);
 }
 
-void RoadAccessCollector::Finish()
-{
-  m_waysWriter.reset({});
-}
-
+/// @see correspondent ReadRoadAccess.
 void RoadAccessCollector::Save()
 {
-  CHECK(!m_waysWriter, ("Finish() has not been called."));
-  std::ofstream out;
-  out.exceptions(std::fstream::failbit | std::fstream::badbit);
-  out.open(GetFilename());
+  auto fileName = GetFilename();
+
+  LOG(LINFO, ("Saving road access values to", fileName));
+  FileWriter writer(fileName);
 
   for (auto & p : m_tagProcessors)
-    p.WriteWayToAccess(out);
-
-  FileReader reader(m_waysFilename);
-  ReaderSource<FileReader> src(reader);
-  while (src.Size() > 0)
   {
-    auto const wayId = ReadPrimitiveFromSource<uint64_t>(src);
-
-    auto const ignoreBarrierWithoutAccessOnThisWay =
-        static_cast<bool>(ReadPrimitiveFromSource<uint8_t>(src));
-
-    vector<uint64_t> nodes;
-    rw::ReadVectorOfPOD(src, nodes);
-    for (auto & p : m_tagProcessors)
-      p.WriteBarrierTags(out, wayId, nodes, ignoreBarrierWithoutAccessOnThisWay);
+    p.m_wayToAccess.Serialize(writer);
+    p.m_wayToAccessConditional.Serialize(writer);
   }
 
-  std::ofstream outConditional;
-  outConditional.exceptions(std::fstream::failbit | std::fstream::badbit);
-  outConditional.open(GetFilename() + CONDITIONAL_EXT);
-  for (auto & p : m_tagProcessors)
-    p.WriteWayToAccessConditional(outConditional);
-}
+  generator::SizeWriter<uint64_t> sizeWriter;
+  uint64_t count = 0;
+  sizeWriter.Reserve(writer);
 
-void RoadAccessCollector::OrderCollectedData()
-{
-  for (auto const & filename : {GetFilename(), GetFilename() + CONDITIONAL_EXT})
-    OrderTextFileByLine(filename);
+  m_roads.ForEachWayWithIndex([&](uint64_t wayID, std::vector<uint64_t> const & nodes, size_t idx)
+  {
+    for (auto & p : m_tagProcessors)
+    {
+      for (uint32_t nodeIdx = 0; nodeIdx < nodes.size(); ++nodeIdx)
+      {
+        uint64_t const nodeID = nodes[nodeIdx];
+        auto const * entry = p.m_barriersWithAccessTag.Find(nodeID);
+        if (entry == nullptr)
+        {
+          entry = p.m_barriersWithoutAccessTag.Find(nodeID);
+          if (entry == nullptr)
+            continue;
+
+          if (p.IsIgnoreBarriers(idx))
+          {
+            // Dump only bicycle profile with the most wide barriers set to ignore.
+            if (p.m_vehicleType == VehicleType::Bicycle)
+              LOG(LWARNING, ("Node barrier without access:", nodeID));
+            continue;
+          }
+        }
+
+        ++count;
+        // Write vehicle type for each entry to avoid multiple roads iterating.
+        WriteToSink(writer, static_cast<uint8_t>(p.m_vehicleType));
+        entry->Write(writer, wayID, nodeIdx);
+      }
+    }
+  }, m_cache);
+
+  sizeWriter.Write(writer, count);
 }
 
 void RoadAccessCollector::MergeInto(RoadAccessCollector & collector) const
 {
-  auto & otherProcessors = collector.m_tagProcessors;
-  CHECK_EQUAL(m_tagProcessors.size(), otherProcessors.size(), ());
+  auto & dest = collector.m_tagProcessors;
+  CHECK_EQUAL(m_tagProcessors.size(), dest.size(), ());
 
-  for (size_t i = 0; i < otherProcessors.size(); ++i)
-    otherProcessors[i].Merge(m_tagProcessors[i]);
+  for (size_t i = 0; i < dest.size(); ++i)
+    m_tagProcessors[i].MergeInto(dest[i]);
 
-  CHECK(!m_waysWriter || !collector.m_waysWriter, ("Finish() has not been called."));
-  base::AppendFileToFile(m_waysFilename, collector.m_waysFilename);
+  m_roads.MergeInto(collector.m_roads);
 }
 
-bool ReadRoadAccess(string const & roadAccessPath, string const & osmIdsToFeatureIdsPath,
+/// @see correspondent RoadAccessCollector::Save.
+void ReadRoadAccess(string const & roadAccessPath, routing::OsmWay2FeaturePoint & way2feature,
                     RoadAccessByVehicleType & roadAccessByVehicleType)
 {
-  OsmIdToFeatureIds osmIdToFeatureIds;
-  if (!ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
+  FileReader reader(roadAccessPath);
+  ReaderSource src(reader);
+
+  uint8_t constexpr vehiclesCount = static_cast<uint8_t>(VehicleType::Count);
+
+  for (uint8_t vehicleType = 0; vehicleType < vehiclesCount; ++vehicleType)
   {
-    LOG(LERROR, ("An error happened while parsing feature id to osm ids mapping from file:", osmIdsToFeatureIdsPath));
-    return false;
+    RoadAccess::WayToAccess wayAccess;
+    RoadAccess::WayToAccessConditional wayAccessConditional;
+
+    generator::WaysMapper<RoadAccess::Type>::Deserialize(src, [&](uint64_t id, RoadAccess::Type ra)
+    {
+      way2feature.ForEachFeature(id, [&](uint32_t featureID)
+      {
+        auto const res = wayAccess.emplace(featureID, ra);
+        if (!res.second && res.first->second != ra)
+        {
+          LOG(LWARNING, ("Duplicate road access info for OSM way", id, "vehicle:", vehicleType,
+                         "access is:", res.first->second, "tried:", ra));
+        }
+      });
+    });
+
+    generator::WaysMapper<ConditionalRAVectorT>::Deserialize(src, [&](uint64_t id, ConditionalRAVectorT const & vec)
+    {
+      way2feature.ForEachFeature(id, [&](uint32_t featureID)
+      {
+        auto const res = wayAccessConditional.insert({featureID, {}});
+        if (!res.second)
+        {
+          LOG(LWARNING, ("Duplicate conditional road access info for OSM way", id, "vehicle:", vehicleType,
+                         "access is:", res.first->second, "tried:", vec));
+          return;
+        }
+
+        auto & conditional = res.first->second;
+        for (auto const & e : vec)
+        {
+          osmoh::OpeningHours oh(e.m_openingHours);
+          if (oh.IsValid())
+            conditional.Insert(e.m_accessType, std::move(oh));
+        }
+
+        if (conditional.IsEmpty())
+        {
+          LOG(LWARNING, ("Invalid conditional access:", vec));
+          wayAccessConditional.erase(res.first);
+        }
+      });
+    });
+
+    roadAccessByVehicleType[vehicleType].SetWayAccess(std::move(wayAccess), std::move(wayAccessConditional));
   }
 
-  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureIds, roadAccessByVehicleType))
+  RoadAccess::PointToAccess pointAccess[vehiclesCount];
+
+  uint64_t count = ReadPrimitiveFromSource<uint64_t>(src);
+  while (count-- > 0)
   {
-    LOG(LERROR, ("An error happened while parsing road access from file:", roadAccessPath));
-    return false;
+    generator::WayNodesMapper<RoadAccess::Type>::Entry entry;
+
+    uint8_t const vehicleType = ReadPrimitiveFromSource<uint8_t>(src);
+    uint64_t wayID;
+    uint32_t candidateIdx;
+    entry.Read(src, wayID, candidateIdx);
+
+    way2feature.ForEachNodeIdx(wayID, candidateIdx, entry.m_coord, [&](uint32_t featureID, uint32_t nodeIdx)
+    {
+      auto const res = pointAccess[vehicleType].insert({{featureID, nodeIdx}, entry.m_t});
+      if (!res.second && res.first->second != entry.m_t)
+      {
+        LOG(LWARNING, ("Duplicate road access info for OSM way", wayID, "vehicle:", vehicleType,
+                       "access is:", res.first->second, "tried:", entry.m_t));
+      }
+    });
   }
 
-  ParseRoadAccessConditional(roadAccessPath + CONDITIONAL_EXT, osmIdToFeatureIds, roadAccessByVehicleType);
-  return true;
+  /// @todo We don't have point conditional access now.
+  for (uint8_t vehicleType = 0; vehicleType < vehiclesCount; ++vehicleType)
+    roadAccessByVehicleType[vehicleType].SetPointAccess(std::move(pointAccess[vehicleType]), {});
 }
 
 // AccessConditionalTagParser ----------------------------------------------------------------------
@@ -805,16 +659,18 @@ vector<AccessConditional> AccessConditionalTagParser::ParseAccessConditionalTag(
       }
     }
 
-    accessConditionals.emplace_back(std::move(access));
+    if (!access.m_openingHours.empty())
+      accessConditionals.emplace_back(std::move(access));
+    else
+      LOG(LWARNING, ("Error parsing OH for:", tag, value));
   }
 
   return accessConditionals;
 }
 
 // static
-optional<std::pair<size_t, string>> AccessConditionalTagParser::ReadUntilSymbol(string const & input,
-                                                                           size_t startPos,
-                                                                           char symbol)
+std::optional<std::pair<size_t, string>>
+AccessConditionalTagParser::ReadUntilSymbol(string const & input, size_t startPos, char symbol)
 {
   string result;
   while (startPos < input.size() && input[startPos] != symbol)
@@ -871,18 +727,26 @@ string AccessConditionalTagParser::TrimAndDropAroundParentheses(string input)
 
 // Functions ------------------------------------------------------------------
 bool BuildRoadAccessInfo(string const & dataFilePath, string const & roadAccessPath,
-                         string const & osmIdsToFeatureIdsPath)
+                         routing::OsmWay2FeaturePoint & way2feature)
 {
   LOG(LINFO, ("Generating road access info for", dataFilePath));
 
-  RoadAccessByVehicleType roadAccessByVehicleType;
-  if (!ReadRoadAccess(roadAccessPath, osmIdsToFeatureIdsPath, roadAccessByVehicleType))
+  try
+  {
+    RoadAccessByVehicleType roadAccessByVehicleType;
+    ReadRoadAccess(roadAccessPath, way2feature, roadAccessByVehicleType);
+
+    FilesContainerW cont(dataFilePath, FileWriter::OP_WRITE_EXISTING);
+    auto writer = cont.GetWriter(ROAD_ACCESS_FILE_TAG);
+
+    routing::RoadAccessSerializer::Serialize(*writer, roadAccessByVehicleType);
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LWARNING, ("No road access created:", ex.Msg()));
     return false;
+  }
 
-  FilesContainerW cont(dataFilePath, FileWriter::OP_WRITE_EXISTING);
-  auto writer = cont.GetWriter(ROAD_ACCESS_FILE_TAG);
-
-  RoadAccessSerializer::Serialize(*writer, roadAccessByVehicleType);
   return true;
 }
 }  // namespace routing_builder

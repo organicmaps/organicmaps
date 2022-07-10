@@ -26,6 +26,7 @@
 namespace routing
 {
 static uint8_t constexpr kMaxCameraSpeedKmpH = std::numeric_limits<uint8_t>::max();
+static_assert(kMaxCameraSpeedKmpH == routing::SpeedCameraOnRoute::kNoSpeedInfo);
 
 /// \brief |m_featureId| and |m_segmentId| identify the place where the camera is located.
 /// |m_coef| is a factor [0, 1] where the camera is placed at the segment. |m_coef| == 0
@@ -95,22 +96,7 @@ private:
 
 static_assert(sizeof(SpeedCameraMwmHeader) == 8, "Strange size of speed camera section header");
 
-struct SegmentCoord
-{
-  SegmentCoord() = default;
-  SegmentCoord(uint32_t fId, uint32_t sId) : m_featureId(fId), m_segmentId(sId) {}
-
-  bool operator<(SegmentCoord const & rhs) const
-  {
-    if (m_featureId != rhs.m_featureId)
-      return m_featureId < rhs.m_featureId;
-
-    return m_segmentId < rhs.m_segmentId;
-  }
-
-  uint32_t m_featureId = 0;
-  uint32_t m_segmentId = 0;
-};
+using SegmentCoord = RoadPoint;
 
 void SerializeSpeedCamera(FileWriter & writer, SpeedCameraMetadata const & data,
                           uint32_t & prevFeatureId);
@@ -147,25 +133,20 @@ std::pair<SegmentCoord, RouteSegment::SpeedCamera> DeserializeSpeedCamera(
           {coef, speed}          /* RouteSegment::SpeedCamera */};
 }
 
-template <typename Reader>
-void DeserializeSpeedCamsFromMwm(
-  ReaderSource<Reader> & src,
-  std::map<SegmentCoord, std::vector<RouteSegment::SpeedCamera>> & map)
+using SpeedCamerasMapT = std::map<SegmentCoord, std::vector<RouteSegment::SpeedCamera>>;
+template <typename Reader> void DeserializeSpeedCamsFromMwm(ReaderSource<Reader> & src, SpeedCamerasMapT & map)
 {
   SpeedCameraMwmHeader header;
   header.Deserialize(src);
   CHECK(header.IsValid(), ("Bad header of speed cam section"));
   uint32_t const amount = header.GetAmount();
 
-  SegmentCoord segment;
-  RouteSegment::SpeedCamera speedCamera;
   uint32_t prevFeatureId = 0;
   for (uint32_t i = 0; i < amount; ++i)
   {
-    std::tie(segment, speedCamera) = DeserializeSpeedCamera(src, prevFeatureId);
-    map[segment].emplace_back(speedCamera);
+    auto const res = DeserializeSpeedCamera(src, prevFeatureId);
+    map[res.first].emplace_back(res.second);
   }
 }
 
-std::string DebugPrint(SegmentCoord const & segment);
 }  // namespace routing

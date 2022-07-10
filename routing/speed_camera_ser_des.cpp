@@ -44,12 +44,4 @@ void SerializeSpeedCamera(FileWriter & writer, routing::SpeedCameraMetadata cons
   //    3. SpeedMacro in this time range.
   WriteVarInt(writer, 0 /* number of time conditions */);
 }
-
-std::string DebugPrint(SegmentCoord const & segment)
-{
-  std::stringstream ss;
-  ss << "SegmentCoord [ m_featureId == " << segment.m_featureId
-     << ", m_segmentId == " << segment.m_segmentId << "]";
-  return ss.str();
-}
 }  // namespace routing

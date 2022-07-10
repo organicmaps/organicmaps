@@ -273,8 +273,7 @@ void CalcCrossMwmTransitions(
 {
   VehicleMaskBuilder const maskMaker(country, countryParentNameGetterFn);
   std::map<uint32_t, base::GeoObjectId> featureIdToOsmId;
-  CHECK(ParseWaysFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
-        ("Can't parse feature id to osm id mapping. File:", mappingFile));
+  ParseWaysFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId);
 
   auto const & path = base::JoinPath(intermediateDir, CROSS_MWM_OSM_WAYS_DIR, country);
 

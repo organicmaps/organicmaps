@@ -7,109 +7,40 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/internal/file_data.hpp"
-#include "coding/reader_writer_ops.hpp"
-#include "coding/write_to_sink.hpp"
-
 #include "base/assert.hpp"
 
 #include <algorithm>
 #include <iterator>
 
-using namespace feature;
-
 namespace generator
 {
-MiniRoundaboutProcessor::MiniRoundaboutProcessor(std::string const & filename)
-  : m_waysFilename(filename + MINI_ROUNDABOUT_ROADS_EXTENSION)
-  , m_waysWriter(std::make_unique<FileWriter>(m_waysFilename))
+using namespace feature;
+
+MiniRoundaboutCollector::MiniRoundaboutCollector(std::string const & filename, IDRInterfacePtr cache)
+  : generator::CollectorInterface(filename), m_cache(std::move(cache))
 {
 }
 
-MiniRoundaboutProcessor::~MiniRoundaboutProcessor()
+std::shared_ptr<generator::CollectorInterface> MiniRoundaboutCollector::Clone(IDRInterfacePtr const & cache) const
 {
-  CHECK(Platform::RemoveFileIfExists(m_waysFilename), ());
-}
-
-void MiniRoundaboutProcessor::ProcessWay(OsmElement const & element)
-{
-  WriteToSink(*m_waysWriter, element.m_id);
-  rw::WriteVectorOfPOD(*m_waysWriter, element.m_nodes);
-}
-
-void MiniRoundaboutProcessor::FillMiniRoundaboutsInWays()
-{
-  FileReader reader(m_waysFilename);
-  ReaderSource<FileReader> src(reader);
-  while (src.Size() > 0)
-  {
-    uint64_t const wayId = ReadPrimitiveFromSource<uint64_t>(src);
-    std::vector<uint64_t> nodes;
-    rw::ReadVectorOfPOD(src, nodes);
-    for (auto const & node : nodes)
-    {
-      auto const itMiniRoundabout = m_miniRoundabouts.find(node);
-      if (itMiniRoundabout != m_miniRoundabouts.end())
-        itMiniRoundabout->second.m_ways.push_back(wayId);
-    }
-  }
-
-  ForEachMiniRoundabout([](auto & rb) { rb.Normalize(); });
-}
-
-void MiniRoundaboutProcessor::ProcessNode(OsmElement const & element)
-{
-  m_miniRoundabouts.emplace(element.m_id, MiniRoundaboutInfo(element));
-}
-
-void MiniRoundaboutProcessor::ProcessRestriction(uint64_t osmId)
-{
-  m_miniRoundaboutsExceptions.insert(osmId);
-}
-
-void MiniRoundaboutProcessor::Finish() { m_waysWriter.reset(); }
-
-void MiniRoundaboutProcessor::Merge(MiniRoundaboutProcessor const & miniRoundaboutProcessor)
-{
-  auto const & otherMiniRoundabouts = miniRoundaboutProcessor.m_miniRoundabouts;
-  m_miniRoundabouts.insert(otherMiniRoundabouts.begin(), otherMiniRoundabouts.end());
-
-  auto const & otherMiniRoundaboutsExceptions = miniRoundaboutProcessor.m_miniRoundaboutsExceptions;
-  m_miniRoundaboutsExceptions.insert(otherMiniRoundaboutsExceptions.begin(),
-                                     otherMiniRoundaboutsExceptions.end());
-
-  base::AppendFileToFile(miniRoundaboutProcessor.m_waysFilename, m_waysFilename);
-}
-
-// MiniRoundaboutCollector -------------------------------------------------------------------------
-
-MiniRoundaboutCollector::MiniRoundaboutCollector(std::string const & filename)
-  : generator::CollectorInterface(filename), m_processor(GetTmpFilename())
-{
-}
-
-std::shared_ptr<generator::CollectorInterface> MiniRoundaboutCollector::Clone(IDRInterfacePtr const &) const
-{
-  return std::make_shared<MiniRoundaboutCollector>(GetFilename());
+  return std::make_shared<MiniRoundaboutCollector>(GetFilename(), cache);
 }
 
 void MiniRoundaboutCollector::Collect(OsmElement const & element)
 {
   if (element.IsNode() && element.HasTag("highway", "mini_roundabout"))
   {
-    m_processor.ProcessNode(element);
-    return;
+    CHECK(m_miniRoundabouts.emplace(element.m_id, element).second, ());
   }
-
-  // Skip mini_roundabouts with role="via" in restrictions
-  if (element.IsRelation())
+  else if (element.IsRelation())
   {
+    // Skip mini_roundabouts with role="via" in restrictions
     for (auto const & member : element.m_members)
     {
       if (member.m_type == OsmElement::EntityType::Node && member.m_role == "via")
       {
-        m_processor.ProcessRestriction(member.m_ref);
-        return;
+        m_miniRoundaboutsExceptions.insert(member.m_ref);
+        break;
       }
     }
   }
@@ -119,30 +50,34 @@ void MiniRoundaboutCollector::CollectFeature(FeatureBuilder const & feature,
                                              OsmElement const & element)
 {
   if (feature.IsLine() && routing::IsCarRoad(feature.GetTypes()))
-    m_processor.ProcessWay(element);
+    m_roads.AddWay(element);
 }
-
-void MiniRoundaboutCollector::Finish() { m_processor.Finish(); }
 
 void MiniRoundaboutCollector::Save()
 {
-  m_processor.FillMiniRoundaboutsInWays();
-  FileWriter writer(GetFilename());
-  m_processor.ForEachMiniRoundabout(
-      [&](auto const & miniRoundabout) { WriteMiniRoundabout(writer, miniRoundabout); });
-}
+  m_roads.ForEachWay([this](uint64_t id, std::vector<uint64_t> const & nodes)
+  {
+    for (uint64_t node : nodes)
+    {
+      auto it = m_miniRoundabouts.find(node);
+      if (it != m_miniRoundabouts.end())
+        it->second.m_ways.push_back(id);
+    }
+  }, m_cache);
 
-void MiniRoundaboutCollector::OrderCollectedData()
-{
-  auto collectedData = ReadMiniRoundabouts(GetFilename());
-  std::sort(std::begin(collectedData), std::end(collectedData));
   FileWriter writer(GetFilename());
-  for (auto const & miniRoundabout : collectedData)
+  ForEachMiniRoundabout([&writer](MiniRoundaboutInfo & miniRoundabout)
+  {
+    miniRoundabout.Normalize();
     WriteMiniRoundabout(writer, miniRoundabout);
+  });
 }
 
 void MiniRoundaboutCollector::MergeInto(MiniRoundaboutCollector & collector) const
 {
-  collector.m_processor.Merge(m_processor);
+  m_roads.MergeInto(collector.m_roads);
+  collector.m_miniRoundabouts.insert(m_miniRoundabouts.begin(), m_miniRoundabouts.end());
+  collector.m_miniRoundaboutsExceptions.insert(m_miniRoundaboutsExceptions.begin(), m_miniRoundaboutsExceptions.end());
 }
+
 }  // namespace generator

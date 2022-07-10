@@ -4,6 +4,7 @@
 
 #include "search/cities_boundaries_table.hpp"
 
+#include "routing/index_graph_loader.hpp"
 #include "routing/maxspeeds.hpp"
 
 #include "indexer/classificator.hpp"
@@ -312,5 +313,71 @@ UNIT_CLASS_TEST(TestRawGenerator, Place_Region)
 
   TEST_EQUAL(worldRegions, 1, ());
   TEST_EQUAL(countryRegions, 0, ());
+}
+
+UNIT_CLASS_TEST(TestRawGenerator, MiniRoundabout)
+{
+  static uint32_t roadType = classif().GetTypeByPath({"highway", "secondary"});
+
+  std::string const mwmName = "MiniRoundabout";
+  BuildFB("./data/osm_test_data/mini_roundabout.osm", mwmName, false /* makeWorld */);
+
+  size_t roadsCount = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.HasType(roadType))
+      ++roadsCount;
+  });
+
+  // Splitted on 3 parts + 4 created roundabouts.
+  TEST_EQUAL(roadsCount, 4 + 3, ());
+
+  // Prepare features data source.
+  BuildFeatures(mwmName);
+  BuildRouting(mwmName, "United Kingdom");
+
+  FrozenDataSource dataSource;
+  platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
+  auto res = dataSource.RegisterMap(localFile);
+  TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+  std::vector<uint32_t> roads, rounds;
+
+  FeaturesLoaderGuard guard(dataSource, res.first);
+
+  size_t const numFeatures = guard.GetNumFeatures();
+  for (size_t id = 0; id < numFeatures; ++id)
+  {
+    auto ft = guard.GetFeatureByIndex(id);
+    if (feature::TypesHolder(*ft).Has(roadType))
+    {
+      TEST_EQUAL(ft->GetGeomType(), feature::GeomType::Line, ());
+
+      ft->ParseGeometry(FeatureType::BEST_GEOMETRY);
+      size_t const ptsCount = ft->GetPointsCount();
+      TEST_GREATER(ptsCount, 1, ());
+      auto const firstPt = ft->GetPoint(0);
+      auto const lastPt = ft->GetPoint(ptsCount - 1);
+      LOG(LINFO, ("==", id, firstPt, lastPt));
+
+      if ((lastPt.x - firstPt.x) > 0.2)
+        roads.push_back(id);
+      if (fabs(lastPt.x - firstPt.x) < 0.1)
+        rounds.push_back(id);
+    }
+  }
+
+  TEST_EQUAL(roads, std::vector<uint32_t>({1, 3, 5}), ());
+  TEST_EQUAL(rounds, std::vector<uint32_t>({0, 2, 4, 6}), ());
+
+  using namespace routing;
+
+  RoadAccess access;
+  ReadRoadAccessFromMwm(*(guard.GetHandle().GetValue()), VehicleType::Car, access);
+  LOG(LINFO, (access));
+
+  SpeedCamerasMapT camerasMap;
+  ReadSpeedCamsFromMwm(*(guard.GetHandle().GetValue()), camerasMap);
+  LOG(LINFO, (camerasMap));
 }
 } // namespace raw_generator_tests

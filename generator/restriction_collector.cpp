@@ -44,13 +44,10 @@ template <class TokenizerT> bool ParseLineOfWayIds(TokenizerT & iter, std::vecto
 
 m2::PointD constexpr RestrictionCollector::kNoCoords;
 
-RestrictionCollector::RestrictionCollector(std::string const & osmIdsToFeatureIdPath,
-                                           IndexGraph & graph)
+RestrictionCollector::RestrictionCollector(std::string const & osmIdsToFeatureIdPath, IndexGraph & graph)
   : m_indexGraph(graph)
 {
-  CHECK(ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureIds),
-        ("An error happened while parsing feature id to "
-         "osm ids mapping from file:", osmIdsToFeatureIdPath));
+  ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureIds);
 }
 
 bool RestrictionCollector::Process(std::string const & restrictionPath)

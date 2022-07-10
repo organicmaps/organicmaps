@@ -1,6 +1,5 @@
 #include "generator/mini_roundabout_transformer.hpp"
-
-#include "routing/routing_helpers.hpp"
+#include "generator/routing_helpers.hpp"
 
 #include "indexer/classificator.hpp"
 
@@ -221,15 +220,15 @@ bool MiniRoundaboutTransformer::AddRoundaboutToRoad(RoundaboutUnit const & round
   return true;
 }
 
-std::unordered_map<base::GeoObjectId, size_t> GetFeaturesHashMap(
-    std::vector<feature::FeatureBuilder> const & fbs)
+using GeoObj2IndexMapT = std::unordered_map<base::GeoObjectId, size_t>;
+GeoObj2IndexMapT GetFeaturesHashMap(std::vector<feature::FeatureBuilder> const & fbs)
 {
-  std::unordered_map<base::GeoObjectId, size_t> fbsIdToIndex;
+  GeoObj2IndexMapT fbsIdToIndex;
   fbsIdToIndex.reserve(fbs.size());
   for (size_t i = 0; i < fbs.size(); ++i)
   {
-    if (routing::IsRoad(fbs[i].GetTypes()))
-      fbsIdToIndex.insert(std::make_pair(fbs[i].GetMostGenericOsmId(), i));
+    if (routing::IsRoadWay(fbs[i]))
+      fbsIdToIndex.emplace(fbs[i].GetMostGenericOsmId(), i);
   }
   return fbsIdToIndex;
 }
@@ -248,7 +247,7 @@ std::vector<feature::FeatureBuilder> MiniRoundaboutTransformer::ProcessRoundabou
   std::vector<feature::FeatureBuilder> fbsRoads;
   fbsRoads.reserve(m_roundabouts.size());
 
-  std::unordered_map<base::GeoObjectId, size_t> fbsIdToIndex = GetFeaturesHashMap(m_roads);
+  auto const fbsIdToIndex = GetFeaturesHashMap(m_roads);
 
   for (auto const & rb : m_roundabouts)
   {

@@ -94,7 +94,7 @@ bool BuildRoadRestrictions(IndexGraph & graph,
                            std::string const & restrictionPath,
                            std::string const & osmIdsToFeatureIdsPath)
 {
-  LOG(LINFO, ("BuildRoadRestrictions(", restrictionPath, ", ", osmIdsToFeatureIdsPath, ");"));
+  LOG(LINFO, ("Generating restrictions for", restrictionPath));
 
   auto collector = std::make_unique<RestrictionCollector>(osmIdsToFeatureIdsPath, graph);
   if (!collector->Process(restrictionPath))

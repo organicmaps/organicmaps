@@ -85,10 +85,8 @@
 
 #define GPS_TRACK_FILENAME "gps_track.dat"
 #define RESTRICTIONS_FILENAME "restrictions.csv"
-#define ROAD_ACCESS_FILENAME "road_access.csv"
-#define CONDITIONAL_EXT ".conditional"
+#define ROAD_ACCESS_FILENAME "road_access.bin"
 
-#define MINI_ROUNDABOUT_ROADS_EXTENSION ".mini_roundabouts_roads_ids"
 #define METALINES_FILENAME "metalines.bin"
 #define CAMERAS_TO_WAYS_FILENAME "cameras_to_ways.bin"
 #define MINI_ROUNDABOUTS_FILENAME "mini_roundabouts.bin"

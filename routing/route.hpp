@@ -43,25 +43,32 @@ SubrouteUid constexpr kInvalidSubrouteId = std::numeric_limits<uint64_t>::max();
 class RouteSegment final
 {
 public:
-  // Store coefficient where camera placed at the segment (number from 0 to 1)
-  // and it's max speed.
   struct SpeedCamera
   {
     SpeedCamera() = default;
     SpeedCamera(double coef, uint8_t maxSpeedKmPH): m_coef(coef), m_maxSpeedKmPH(maxSpeedKmPH) {}
 
-    friend bool operator<(SpeedCamera const & lhs, SpeedCamera const & rhs)
+    bool EqualCoef(SpeedCamera const & rhs) const
     {
-      static auto constexpr kCoefEps = 1e-5;
-      if (!base::AlmostEqualAbs(lhs.m_coef, rhs.m_coef, kCoefEps))
-        return lhs.m_coef < rhs.m_coef;
+      return base::AlmostEqualAbs(m_coef, rhs.m_coef, 1.0E-5);
+    }
+
+    bool operator<(SpeedCamera const & rhs) const
+    {
+      if (!EqualCoef(rhs))
+        return m_coef < rhs.m_coef;
 
       // Cameras with same position on segment should be sorted in speed decrease order.
       // Thus camera with higher speed will be warned the first.
-      return lhs.m_maxSpeedKmPH > rhs.m_maxSpeedKmPH;
+      return m_maxSpeedKmPH > rhs.m_maxSpeedKmPH;
     }
 
+    friend std::string DebugPrint(SpeedCamera const & rhs);
+
+    /// @todo Can replace with uint16_t feature node index, assuming that all cameras are placed on nodes.
+    // Сoefficient where camera placed at the segment (number from 0 to 1).
     double m_coef = 0.0;
+    // Max speed
     uint8_t m_maxSpeedKmPH = 0;
   };
 

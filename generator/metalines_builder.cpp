@@ -253,8 +253,7 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
                            std::string const & osmIdsToFeatureIdsPath)
 {
   routing::OsmIdToFeatureIds osmIdToFeatureIds;
-  if (!routing::ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
-    return false;
+  routing::ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds);
 
   FileReader reader(metalinesPath);
   ReaderSource<FileReader> src(reader);
