@@ -101,8 +101,8 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
   filters->Append(std::make_shared<FilterRoads>());
-  filters->Append(std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(),
-      SKIPPED_ELEMENTS_FILE)));
+  filters->Append(std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
+
   SetFilter(filters);
 
   auto collectors = std::make_shared<CollectorCollection>();
@@ -110,22 +110,21 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
       info.GetIntermediateFileName(METALINES_FILENAME)));
   collectors->Append(std::make_shared<BoundaryPostcodeCollector>(
       info.GetIntermediateFileName(BOUNDARY_POSTCODE_TMP_FILENAME), cache->GetCache()));
-  collectors->Append(
-      std::make_shared<CityAreaCollector>(info.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME)));
+  collectors->Append(std::make_shared<CityAreaCollector>(info.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME)));
+
   // Collectors for gathering of additional information for the future building of routing section.
   collectors->Append(std::make_shared<RoutingCityBoundariesCollector>(
       info.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_TMP_FILENAME),
       info.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME), cache->GetCache()));
-  collectors->Append(
-      std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
+  collectors->Append(std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
   collectors->Append(std::make_shared<routing_builder::RestrictionWriter>(
       info.GetIntermediateFileName(RESTRICTIONS_FILENAME), cache->GetCache()));
   collectors->Append(std::make_shared<routing_builder::RoadAccessCollector>(
-      info.GetIntermediateFileName(ROAD_ACCESS_FILENAME)));
+      info.GetIntermediateFileName(ROAD_ACCESS_FILENAME), cache->GetCache()));
   collectors->Append(std::make_shared<routing_builder::CameraCollector>(
-      info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME)));
+      info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME), cache->GetCache()));
   collectors->Append(std::make_shared<MiniRoundaboutCollector>(
-      info.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME)));
+      info.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME), cache->GetCache()));
 
   if (affiliation)
     collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(info.m_intermediateDir, affiliation));
@@ -135,6 +134,7 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
     collectors->Append(std::make_shared<CollectorTag>(info.m_idToWikidataFilename,
                                                       "wikidata" /* tagKey */, WikiDataValidator));
   }
+
   SetCollector(collectors);
 }
 

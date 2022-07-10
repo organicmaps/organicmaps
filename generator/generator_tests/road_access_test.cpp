@@ -2,27 +2,19 @@
 
 #include "generator/generator_tests/common.hpp"
 #include "generator/generator_tests_support/routing_helpers.hpp"
-#include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
+#include "generator/intermediate_data.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/road_access_generator.hpp"
-
-#include "routing/road_access_serialization.hpp"
+#include "generator/routing_helpers.hpp"
 
 #include "indexer/classificator_loader.hpp"
 
-#include "platform/country_file.hpp"
 #include "platform/platform.hpp"
-#include "platform/platform_tests_support/scoped_dir.hpp"
-#include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "geometry/point2d.hpp"
 
 #include "coding/files_container.hpp"
-
-#include "base/file_name_utils.hpp"
-#include "base/scope_guard.hpp"
-#include "base/string_utils.hpp"
 
 #include <fstream>
 #include <iterator>
@@ -31,17 +23,17 @@
 
 namespace road_access_test
 {
-using namespace feature;
 using namespace generator;
-using namespace platform::tests_support;
+using namespace generator_tests;
 using namespace platform;
 using namespace routing;
 using namespace routing_builder;
 using std::fstream, std::ifstream, std::make_pair, std::string;
 
+/*
 string const kTestDir = "road_access_generation_test";
 string const kTestMwm = "test";
-string const kRoadAccessFilename = "road_access_in_osm_ids.csv";
+string const kRoadAccessFilename = "road_access_in_osm_ids.bin";
 string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
 
 void BuildTestMwmWithRoads(LocalCountryFile & country)
@@ -84,29 +76,27 @@ RoadAccessByVehicleType SaveAndLoadRoadAccess(
   Platform & platform = GetPlatform();
   string const & writableDir = platform.WritableDir();
 
+  using namespace platform::tests_support;
+
   // Building empty mwm.
-  LocalCountryFile country(base::JoinPath(writableDir, kTestDir), CountryFile(kTestMwm),
-                           0 /* version */);
+  LocalCountryFile country(base::JoinPath(writableDir, kTestDir), CountryFile(kTestMwm), 0);
   ScopedDir const scopedDir(kTestDir);
-  string const mwmRelativePath = base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
-  ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
+  ScopedFile const scopedMwm(base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION), ScopedFile::Mode::Create);
+  string const mwmFullPath = scopedMwm.GetFullPath();
   BuildTestMwmWithRoads(country);
 
   // Creating a file with road access.
-  string const roadAccessRelativePath = base::JoinPath(kTestDir, kRoadAccessFilename);
-  ScopedFile const raFile(roadAccessRelativePath, raContent);
-  ScopedFile const raConditionalFile(roadAccessRelativePath + CONDITIONAL_EXT, raContitionalContent);
+  ScopedFile const raFile(base::JoinPath(kTestDir, kRoadAccessFilename), raContent);
+  string const roadAccessFullPath = raFile.GetFullPath();
 
   // Creating osm ids to feature ids mapping.
-  string const mappingRelativePath = base::JoinPath(kTestDir, kOsmIdsToFeatureIdsName);
-  ScopedFile const mappingFile(mappingRelativePath, ScopedFile::Mode::Create);
-  string const & mappingFullPath = mappingFile.GetFullPath();
+  ScopedFile const mappingFile(base::JoinPath(kTestDir, kOsmIdsToFeatureIdsName), ScopedFile::Mode::Create);
+  string const mappingFullPath = mappingFile.GetFullPath();
   ReEncodeOsmIdsToFeatureIdsMapping(mappingContent, mappingFullPath);
 
   // Adding road access section to mwm.
-  string const roadAccessFullPath = base::JoinPath(writableDir, roadAccessRelativePath);
-  string const mwmFullPath = base::JoinPath(writableDir, mwmRelativePath);
-  BuildRoadAccessInfo(mwmFullPath, roadAccessFullPath, mappingFullPath);
+  auto osm2feature = CreateWay2FeatureMapper(mwmFullPath, mappingFullPath);
+  BuildRoadAccessInfo(mwmFullPath, roadAccessFullPath, *osm2feature);
 
   // Reading from mwm section and testing road access.
   RoadAccessByVehicleType roadAccessFromMwm, roadAccessFromFile;
@@ -116,10 +106,11 @@ RoadAccessByVehicleType SaveAndLoadRoadAccess(
     LoadRoadAccess(mwmFullPath, vehicleType, roadAccessFromMwm[i]);
   }
 
-  TEST(ReadRoadAccess(roadAccessFullPath, mappingFullPath, roadAccessFromFile), ());
+  ReadRoadAccess(roadAccessFullPath, *osm2feature, roadAccessFromFile);
   TEST_EQUAL(roadAccessFromMwm, roadAccessFromFile, ());
   return roadAccessFromMwm;
 }
+*/
 
 OsmElement MakeOsmElementWithNodes(uint64_t id, generator_tests::Tags const & tags,
                                    OsmElement::EntityType t, std::vector<uint64_t> const & nodes)
@@ -129,20 +120,32 @@ OsmElement MakeOsmElementWithNodes(uint64_t id, generator_tests::Tags const & ta
   return r;
 }
 
-feature::FeatureBuilder MakeFbForTest(OsmElement element)
+class IntermediateDataTest : public cache::IntermediateDataReaderInterface
 {
-  feature::FeatureBuilder result;
-  ftype::GetNameAndType(&element, result.GetParams());
-  return result;
-}
+  std::map<cache::Key, WayElement> m_map;
 
-string GetFileContent(string const & name)
-{
-  ifstream stream(name);
-  TEST(stream.is_open(), ());
-  return string(istreambuf_iterator<char>(stream), istreambuf_iterator<char>());
-}
+public:
+  virtual bool GetNode(cache::Key id, double & y, double & x) const { UNREACHABLE(); }
+  virtual bool GetWay(cache::Key id, WayElement & e)
+  {
+    auto it = m_map.find(id);
+    if (it != m_map.end())
+    {
+      e = it->second;
+      return true;
+    }
+    return false;
+  }
+  virtual bool GetRelation(cache::Key id, RelationElement & e) { UNREACHABLE(); }
 
+  void Add(OsmElement const & e)
+  {
+    TEST(m_map.try_emplace(e.m_id, e.m_id, e.m_nodes).second, ());
+  }
+};
+
+
+/*
 UNIT_TEST(RoadAccess_Smoke)
 {
   string const roadAccessContent;
@@ -157,11 +160,11 @@ UNIT_TEST(RoadAccess_AccessPrivate)
   auto const roadAccessAllTypes =
       SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
   auto const & carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
-  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(0 /* featureId */),
+  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(0),
              make_pair(RoadAccess::Type::Private, RoadAccess::Confidence::Sure), ());
 }
 
-UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
+UNIT_TEST(RoadAccess_Multiple_Vehicle_Types)
 {
   string const roadAccessContent = R"(Car Private 10 0
                                       Car Private 20 0
@@ -175,101 +178,162 @@ UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
       SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
   auto const & carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
   auto const & bicycleRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Bicycle)];
-  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(1 /* featureId */),
+  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(1),
              make_pair(RoadAccess::Type::Private, RoadAccess::Confidence::Sure), ());
 
-  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(2 /* featureId */),
+  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(2),
              make_pair(RoadAccess::Type::Private, RoadAccess::Confidence::Sure), ());
 
-  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(3 /* featureId */),
+  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(3),
              make_pair(RoadAccess::Type::Yes, RoadAccess::Confidence::Sure), ());
 
-  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(4 /* featureId */),
+  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(4),
              make_pair(RoadAccess::Type::Destination, RoadAccess::Confidence::Sure), ());
 
-  TEST_EQUAL(bicycleRoadAccess.GetAccessWithoutConditional(3 /* featureId */),
+  TEST_EQUAL(bicycleRoadAccess.GetAccessWithoutConditional(3),
              make_pair(RoadAccess::Type::No, RoadAccess::Confidence::Sure), ());
 }
+*/
 
-UNIT_TEST(RoadAccessWriter_Permit)
+class TestAccessFixture
 {
-  classificator::Load();
+  std::shared_ptr<IntermediateDataTest> m_cache;
+  std::vector<std::shared_ptr<RoadAccessCollector>> m_collectors;
+  std::string m_fileName;
 
-  auto const filename = generator_tests::GetFileName();
-  SCOPE_GUARD(_, bind(Platform::RemoveFileIfExists, cref(filename)));
+  class Way2Feature : public OsmWay2FeaturePoint
+  {
+  public:
+    virtual void ForEachFeature(uint64_t wayID, std::function<void (uint32_t)> const & fn) override
+    {
+      fn(base::checked_cast<uint32_t>(wayID));
+    }
+    virtual void ForEachNodeIdx(uint64_t wayID, uint32_t candidateIdx, m2::PointU pt,
+                                std::function<void (uint32_t, uint32_t)> const & fn) override
+    {
+      auto const ll = mercator::ToLatLon(PointUToPointD(pt, kPointCoordBits, mercator::Bounds::FullRect()));
 
-  auto const w = MakeOsmElementWithNodes(1 /* id */,
-                                         {{"highway", "motorway"}, {"access", "no"}, {"motor_vehicle", "permit"}},
-                                         OsmElement::EntityType::Way, {1, 2});
+      // We use nodes like id = 1 {10, 11, 12}; id = 2 {20, 21, 22} for ways.
+      uint32_t const node = round(ll.m_lon);
+      uint32_t const featureID = base::checked_cast<uint32_t>(wayID);
+      TEST_EQUAL(featureID, node / 10, ());
+      fn(featureID, node % 10);
+    }
+  } m_wya2feature;
 
-  auto c = make_shared<RoadAccessCollector>(filename);
-  c->CollectFeature(MakeFbForTest(w), w);
+  RoadAccessByVehicleType m_roadAccess;
 
-  c->Finish();
-  c->Finalize();
+public:
+  TestAccessFixture()
+    : m_cache(std::make_shared<IntermediateDataTest>())
+    , m_fileName(generator_tests::GetFileName(ROAD_ACCESS_FILENAME))
+  {
+    classificator::Load();
+  }
+  ~TestAccessFixture()
+  {
+    TEST(Platform::RemoveFileIfExists(m_fileName), ());
+  }
 
-  string const correctAnswer = "Pedestrian No 1 0\n"
-                               "Bicycle No 1 0\n"
-                               "Car Private 1 0\n";
-  TEST_EQUAL(GetFileContent(filename), correctAnswer, ());
+  void CreateCollectors(size_t count = 1)
+  {
+    for (size_t i = 0; i < count; ++i)
+      m_collectors.push_back(std::make_shared<RoadAccessCollector>(m_fileName, m_cache));
+  }
+
+  void AddWay(OsmElement way, size_t idx = 0)
+  {
+    feature::FeatureBuilder builder;
+    ftype::GetNameAndType(&way, builder.GetParams());
+    builder.SetLinear();
+
+    m_cache->Add(way);
+
+    m_collectors[idx]->CollectFeature(builder, way);
+  }
+
+  void AddNode(OsmElement node, size_t idx = 0)
+  {
+    // Assign unique coordinates as id.
+    node.m_lat = node.m_lon = node.m_id;
+
+    feature::FeatureBuilder builder;
+    ftype::GetNameAndType(&node, builder.GetParams());
+    builder.SetCenter(mercator::FromLatLon(node.m_lat, node.m_lon));
+
+    m_collectors[idx]->CollectFeature(builder, node);
+  }
+
+  void Finish()
+  {
+    for (auto const & c : m_collectors)
+      c->Finish();
+
+    for (size_t i = 1; i < m_collectors.size(); ++i)
+      m_collectors[0]->Merge(*m_collectors[i]);
+
+    m_collectors[0]->Finalize();
+
+    ReadRoadAccess(m_fileName, m_wya2feature, m_roadAccess);
+  }
+
+  RoadAccess const & Get(VehicleType vehicle) const
+  {
+    return m_roadAccess[static_cast<uint8_t>(vehicle)];
+  }
+};
+
+UNIT_CLASS_TEST(TestAccessFixture, CarPermit)
+{
+  CreateCollectors();
+  AddWay(MakeOsmElementWithNodes(1 /* id */,
+                                 {{"highway", "motorway"}, {"access", "no"}, {"motor_vehicle", "permit"}},
+                                 OsmElement::EntityType::Way, {1, 2}));
+  Finish();
+
+  auto const noSure = make_pair(RoadAccess::Type::No, RoadAccess::Confidence::Sure);
+  TEST_EQUAL(Get(VehicleType::Pedestrian).GetAccessWithoutConditional(1), noSure, ());
+  TEST_EQUAL(Get(VehicleType::Bicycle).GetAccessWithoutConditional(1), noSure, ());
+
+  TEST_EQUAL(Get(VehicleType::Car).GetAccessWithoutConditional(1),
+             make_pair(RoadAccess::Type::Private, RoadAccess::Confidence::Sure), ());
 }
 
-UNIT_TEST(RoadAccessWriter_Merge)
+UNIT_CLASS_TEST(TestAccessFixture, Merge)
 {
-  classificator::Load();
-  auto const filename = generator_tests::GetFileName();
-  SCOPE_GUARD(_, bind(Platform::RemoveFileIfExists, cref(filename)));
+  CreateCollectors(3);
 
-  auto const w1 = MakeOsmElementWithNodes(1 /* id */, {{"highway", "service"}} /* tags */,
-                                          OsmElement::EntityType::Way, {10, 11, 12, 13});
-  auto const w2 = MakeOsmElementWithNodes(2 /* id */, {{"highway", "service"}} /* tags */,
-                                          OsmElement::EntityType::Way, {20, 21, 22, 23});
-  auto const w3 = MakeOsmElementWithNodes(3 /* id */, {{"highway", "motorway"}} /* tags */,
-                                          OsmElement::EntityType::Way, {30, 31, 32, 33});
+  AddWay(MakeOsmElementWithNodes(1 /* id */, {{"highway", "service"}} /* tags */,
+                                 OsmElement::EntityType::Way, {10, 11, 12, 13}), 0);
+  AddWay(MakeOsmElementWithNodes(2 /* id */, {{"highway", "service"}} /* tags */,
+                                 OsmElement::EntityType::Way, {20, 21, 22, 23}), 1);
+  AddWay(MakeOsmElementWithNodes(3 /* id */, {{"highway", "motorway"}} /* tags */,
+                                 OsmElement::EntityType::Way, {30, 31, 32, 33}), 2);
 
-  auto const p1 = generator_tests::MakeOsmElement(
-      11 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}},
-      OsmElement::EntityType::Node);
+  AddNode(MakeOsmElement(11 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}},
+                         OsmElement::EntityType::Node), 0);
 
-  auto const p2 = generator_tests::MakeOsmElement(
-      22 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}},
-      OsmElement::EntityType::Node);
+  AddNode(MakeOsmElement(22 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}},
+                         OsmElement::EntityType::Node), 1);
 
   // We should ignore this barrier because it's without access tag and placed on highway-motorway.
-  auto const p3 = generator_tests::MakeOsmElement(
-      32 /* id */, {{"barrier", "lift_gate"}},
-      OsmElement::EntityType::Node);
+  AddNode(MakeOsmElement(32 /* id */, {{"barrier", "lift_gate"}},
+                         OsmElement::EntityType::Node), 2);
 
   // Ignore all motorway_junction access.
-  auto const p4 = generator_tests::MakeOsmElement(
-      31 /* id */, {{"highway", "motorway_junction"}, {"access", "private"}},
-      OsmElement::EntityType::Node);
+  AddNode(MakeOsmElement(31 /* id */, {{"highway", "motorway_junction"}, {"access", "private"}},
+                         OsmElement::EntityType::Node), 0);
 
-  auto c1 = std::make_shared<RoadAccessCollector>(filename);
-  auto c2 = c1->Clone();
-  auto c3 = c1->Clone();
+  Finish();
 
-  c1->CollectFeature(MakeFbForTest(p1), p1);
-  c2->CollectFeature(MakeFbForTest(p2), p2);
-  c3->CollectFeature(MakeFbForTest(p3), p3);
-  c1->CollectFeature(MakeFbForTest(p4), p4);
+  auto const privateSure = make_pair(RoadAccess::Type::Private, RoadAccess::Confidence::Sure);
+  auto const yesSure = make_pair(RoadAccess::Type::Yes, RoadAccess::Confidence::Sure);
 
-  c1->CollectFeature(MakeFbForTest(w1), w1);
-  c2->CollectFeature(MakeFbForTest(w2), w2);
-  c3->CollectFeature(MakeFbForTest(w3), w3);
-
-  c1->Finish();
-  c2->Finish();
-  c3->Finish();
-
-  c1->Merge(*c2);
-  c1->Merge(*c3);
-
-  c1->Finalize();
-
-  string const correctAnswer = "Car Private 1 2\n"
-                               "Car Private 2 3\n";
-  TEST_EQUAL(GetFileContent(filename), correctAnswer, ());
+  auto const & car = Get(VehicleType::Car);
+  TEST_EQUAL(car.GetAccessWithoutConditional({1, 1}), privateSure, ());
+  TEST_EQUAL(car.GetAccessWithoutConditional({2, 2}), privateSure, ());
+  TEST_EQUAL(car.GetAccessWithoutConditional({3, 1}), yesSure, ());
+  TEST_EQUAL(car.GetAccessWithoutConditional({3, 2}), yesSure, ());
 }
 
 UNIT_TEST(RoadAccessCoditional_Parse)
@@ -350,93 +414,75 @@ UNIT_TEST(RoadAccessCoditional_Parse)
   }
 }
 
-UNIT_TEST(RoadAccessCoditional_Collect)
+UNIT_CLASS_TEST(TestAccessFixture, ExoticConditionals)
 {
-  // Exotic cases
-  auto const roadAccessAllTypes = SaveAndLoadRoadAccess(
-        {}, R"(578127581, 0,)", R"(Car	578127581	1	No	wind_speed>=65)");
-  auto const carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
-  TEST_EQUAL(carRoadAccess.GetAccess(0 /* featureId */, RouteWeight{}),
-             make_pair(RoadAccess::Type::Yes, RoadAccess::Confidence::Sure), ());
+  CreateCollectors();
+
+  AddWay(MakeOsmElementWithNodes(1 /* id */, {{"highway", "motorway"}, {"access", "no @ (wind_speed>=65)"}},
+                                 OsmElement::EntityType::Way, {10, 11, 12, 13}));
+  Finish();
+
+  auto const yesSure = make_pair(RoadAccess::Type::Yes, RoadAccess::Confidence::Sure);
+  auto const & car = Get(VehicleType::Car);
+  TEST_EQUAL(car.GetAccess(1, RouteWeight()), yesSure, ());
+  TEST_EQUAL(car.GetAccessWithoutConditional(1), yesSure, ());
 }
 
-UNIT_TEST(RoadAccessWriter_ConditionalMerge)
+UNIT_CLASS_TEST(TestAccessFixture, ConditionalMerge)
 {
-  classificator::Load();
-  auto const filename = generator_tests::GetFileName();
-  SCOPE_GUARD(_, bind(Platform::RemoveFileIfExists, cref(filename)));
+  CreateCollectors(3);
 
-  auto const w1 = MakeOsmElementWithNodes(
+  AddWay(MakeOsmElementWithNodes(
       1 /* id */, {{"highway", "primary"}, {"vehicle:conditional", "no @ (Mo-Su)"}} /* tags */,
-      OsmElement::EntityType::Way, {10, 11, 12, 13});
+      OsmElement::EntityType::Way, {10, 11, 12, 13}), 0);
 
-  auto const w2 = MakeOsmElementWithNodes(
+  AddWay(MakeOsmElementWithNodes(
       2 /* id */,
       {{"highway", "service"}, {"vehicle:conditional", "private @ (10:00-20:00)"}} /* tags */,
-      OsmElement::EntityType::Way, {20, 21, 22, 23});
+      OsmElement::EntityType::Way, {20, 21, 22, 23}), 1);
 
-  auto const w3 = MakeOsmElementWithNodes(
+  AddWay(MakeOsmElementWithNodes(
       3 /* id */,
       {{"highway", "service"},
        {"vehicle:conditional", "private @ (12:00-19:00) ; no @ (Mo-Su)"}} /* tags */,
-      OsmElement::EntityType::Way, {30, 31, 32, 33});
+      OsmElement::EntityType::Way, {30, 31, 32, 33}), 2);
 
-  auto c1 = std::make_shared<RoadAccessCollector>(filename);
-  auto c2 = c1->Clone();
-  auto c3 = c1->Clone();
+  Finish();
 
-  c1->CollectFeature(MakeFbForTest(w1), w1);
-  c2->CollectFeature(MakeFbForTest(w2), w2);
-  c3->CollectFeature(MakeFbForTest(w3), w3);
+  auto const & car = Get(VehicleType::Car);
+  // Here can be any RouteWeight start time.
+  TEST_EQUAL(car.GetAccess(1, RouteWeight(666)), make_pair(RoadAccess::Type::No, RoadAccess::Confidence::Sure), ());
 
-  c1->Finish();
-  c2->Finish();
-  c3->Finish();
+  for (uint64_t id = 1; id <= 3; ++id)
+    TEST_GREATER(car.GetWayToAccessConditional().at(id).Size(), 0, ());
 
-  c1->Merge(*c2);
-  c1->Merge(*c3);
-
-  c1->Finalize(true /*isStable*/);
-
-  string const expectedFile =
-      "Car\t1\t1\tNo\tMo-Su\t\n"
-      "Car\t2\t1\tPrivate\t10:00-20:00\t\n"
-      "Car\t3\t2\tPrivate\t12:00-19:00\tNo\tMo-Su\t\n";
-
-  TEST_EQUAL(GetFileContent(filename + CONDITIONAL_EXT), expectedFile, ());
+  /// @todo Add more timing tests using
+  /// GetUnixtimeByDate(2020, Month::Apr, Weekday::Monday, 11 /* hh */, 50 /* mm */)
 }
 
-UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
+UNIT_CLASS_TEST(TestAccessFixture, WinterRoads)
 {
-  classificator::Load();
-  auto const filename = generator_tests::GetFileName();
-  SCOPE_GUARD(_, bind(Platform::RemoveFileIfExists, cref(filename)));
+  CreateCollectors();
 
-  auto const w1 = MakeOsmElementWithNodes(
+  AddWay(MakeOsmElementWithNodes(
       1 /* id */, {{"highway", "primary"}, {"ice_road", "yes"}} /* tags */,
-      OsmElement::EntityType::Way, {10, 11, 12, 13});
+      OsmElement::EntityType::Way, {10, 11, 12, 13}));
 
-  auto const w2 = MakeOsmElementWithNodes(
+  AddWay(MakeOsmElementWithNodes(
       2 /* id */,
       {{"highway", "service"}, {"winter_road", "yes"}} /* tags */,
-      OsmElement::EntityType::Way, {20, 21, 22, 23});
+      OsmElement::EntityType::Way, {20, 21, 22, 23}));
 
-  auto c1 = std::make_shared<RoadAccessCollector>(filename);
+  Finish();
 
-  c1->CollectFeature(MakeFbForTest(w1), w1);
-  c1->CollectFeature(MakeFbForTest(w2), w2);
+  for (auto vehicle : { VehicleType::Pedestrian, VehicleType::Bicycle, VehicleType::Car })
+  {
+    auto const & ra = Get(vehicle);
+    for (uint64_t id = 1; id <= 2; ++id)
+      TEST_GREATER(ra.GetWayToAccessConditional().at(id).Size(), 0, ());
+  }
 
-  c1->Finish();
-  c1->Finalize(true /*isStable*/);
-
-  string const expectedFile =
-      "Bicycle\t1\t1\tNo\tMar - Nov\t\n"
-      "Bicycle\t2\t1\tNo\tMar - Nov\t\n"
-      "Car\t1\t1\tNo\tMar - Nov\t\n"
-      "Car\t2\t1\tNo\tMar - Nov\t\n"
-      "Pedestrian\t1\t1\tNo\tMar - Nov\t\n"
-      "Pedestrian\t2\t1\tNo\tMar - Nov\t\n";
-
-  TEST_EQUAL(GetFileContent(filename + CONDITIONAL_EXT), expectedFile, ());
+  /// @todo Add more timing tests using
+  /// GetUnixtimeByDate(2020, Month::Apr, Weekday::Monday, 11 /* hh */, 50 /* mm */)
 }
 }  // namespace road_access_test

@@ -509,9 +509,11 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       auto routingGraph = CreateIndexGraph(dataFile, country, *countryParentGetter);
       CHECK(routingGraph, ());
 
+      auto osm2feature = routing::CreateWay2FeatureMapper(dataFile, osmToFeatureFilename);
+
       /// @todo CHECK return result doesn't work now for some small countries like Somalie.
       if (!BuildRoadRestrictions(*routingGraph, dataFile, restrictionsFilename, osmToFeatureFilename) ||
-          !BuildRoadAccessInfo(dataFile, roadAccessFilename, osmToFeatureFilename))
+          !BuildRoadAccessInfo(dataFile, roadAccessFilename, *osm2feature))
       {
         LOG(LERROR, ("Routing build failed for", dataFile));
       }

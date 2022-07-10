@@ -17,10 +17,7 @@
 #include "geometry/point2d.hpp"
 
 #include "base/file_name_utils.hpp"
-#include "base/logging.hpp"
-#include "base/macros.hpp"
 #include "base/math.hpp"
-#include "base/scope_guard.hpp"
 
 #include "defines.hpp"
 
@@ -50,7 +47,7 @@ double constexpr kCoefEqualityEpsilon = 1e-5;
 
 // Pair of featureId and segmentId.
 using routing::SegmentCoord;
-using CameraMap = std::map<SegmentCoord, std::vector<RouteSegment::SpeedCamera>>;
+using CameraMap = SpeedCamerasMapT;
 using CameraMapItem = std::pair<SegmentCoord, RouteSegment::SpeedCamera>;
 
 CameraMap LoadSpeedCameraFromMwm(string const & mwmFullPath)
@@ -80,21 +77,16 @@ std::vector<CameraMapItem> UnpackMapToVector(CameraMap const & cameraMap)
   for (auto const & mapIter : cameraMap)
   {
     for (auto const & vectorIter : mapIter.second)
-    {
-      result.push_back({{mapIter.first.m_featureId, mapIter.first.m_segmentId},
-                       {vectorIter.m_coef, vectorIter.m_maxSpeedKmPH}});
-    }
+      result.push_back({mapIter.first, vectorIter});
   }
 
   sort(result.begin(), result.end());
-
   return result;
 }
 
-bool CheckCameraMapsEquality(CameraMap const & lhs, CameraMap const & rhs, double epsilon)
+void CheckCameraMapsEquality(CameraMap const & lhs, CameraMap const & rhs, double epsilon)
 {
-  if (lhs.size() != rhs.size())
-    return false;
+  TEST_EQUAL(lhs.size(), rhs.size(), ());
 
   auto const & vectorL = UnpackMapToVector(lhs);
   auto const & vectorR = UnpackMapToVector(rhs);
@@ -102,20 +94,11 @@ bool CheckCameraMapsEquality(CameraMap const & lhs, CameraMap const & rhs, doubl
   for (size_t i = 0; i < vectorL.size(); ++i)
   {
     // Do not check feature id because of fake nodes. Data about them placed in ./data/
-    // It can differ on Jenkins and local computer.
-    if (!(vectorL[i].first.m_segmentId == vectorR[i].first.m_segmentId &&
-          vectorL[i].second.m_maxSpeedKmPH == vectorR[i].second.m_maxSpeedKmPH &&
-          base::AlmostEqualAbs(vectorL[i].second.m_coef, vectorR[i].second.m_coef, epsilon)))
-    {
-      LOG(LINFO, ("These should be equals:",
-                  "sId:", vectorL[i].first.m_segmentId, vectorR[i].first.m_segmentId,
-                  "speed:", vectorL[i].second.m_maxSpeedKmPH, vectorR[i].second.m_maxSpeedKmPH,
-                  "coef:", vectorL[i].second.m_coef, vectorR[i].second.m_coef));
-      return false;
-    }
+    // It can differ on Jenknins and local computer.
+    TEST_EQUAL(vectorL[i].first.GetPointId(), vectorR[i].first.GetPointId(), ());
+    TEST_EQUAL(vectorL[i].second.m_maxSpeedKmPH, vectorR[i].second.m_maxSpeedKmPH, ());
+    TEST(base::AlmostEqualAbs(vectorL[i].second.m_coef, vectorR[i].second.m_coef, epsilon), ());
   }
-
-  return true;
 }
 
 void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const & answer,
@@ -158,7 +141,7 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   BuildCamerasInfo(mwmFullPath, camerasFilename, osmToFeatureFilename);
 
   CameraMap const cameras = LoadSpeedCameraFromMwm(mwmFullPath);
-  TEST(CheckCameraMapsEquality(answer, cameras, epsilon), ("Test answer and parsed cameras are differ!"));
+  CheckCameraMapsEquality(answer, cameras, epsilon);
 }
 
 // Next unit tests check building of speed camera section in mwm.

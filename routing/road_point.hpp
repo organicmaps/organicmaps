@@ -62,7 +62,7 @@ private:
 inline std::string DebugPrint(RoadPoint const & rp)
 {
   std::ostringstream out;
-  out << "RoadPoint [" << rp.GetFeatureId() << ", " << rp.GetPointId() << "]";
+  out << "RoadPoint{" << rp.GetFeatureId() << ", " << rp.GetPointId() << "}";
   return out.str();
 }
 }  // namespace routing

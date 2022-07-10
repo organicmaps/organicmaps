@@ -123,8 +123,10 @@ void MaxspeedsCollector::Finish()
 
 void MaxspeedsCollector::Save()
 {
+  /// @todo Can keep calculated speeds in memory to avoid tmp files dumping and merging.
   CHECK(!m_stream.is_open(), ("Finish() has not been called."));
   LOG(LINFO, ("Saving maxspeed tag values to", GetFilename()));
+
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }

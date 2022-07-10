@@ -109,17 +109,14 @@ bool TestSerDesSpeedCamera(std::vector<SpeedCameraMetadata> const & speedCameras
   {
     FileReader reader(filePath);
     ReaderSource<FileReader> src(reader);
-    SegmentCoord segment;
-    RouteSegment::SpeedCamera speedCamera;
     uint32_t prevFeatureId = 0;
     for (auto const & metadata : speedCamerasMetadata)
     {
       auto const & way = metadata.m_ways.back();
-      std::tie(segment, speedCamera) = DeserializeSpeedCamera(src, prevFeatureId);
-      TEST_EQUAL(segment.m_featureId, way.m_featureId, ());
-      TEST_EQUAL(segment.m_segmentId, way.m_segmentId, ());
-      TEST(base::AlmostEqualAbs(speedCamera.m_coef, way.m_coef, 1e-5), ());
-      TEST_EQUAL(speedCamera.m_maxSpeedKmPH, metadata.m_maxSpeedKmPH, ());
+      auto const res = DeserializeSpeedCamera(src, prevFeatureId);
+      TEST_EQUAL(res.first, SegmentCoord(way.m_featureId, way.m_segmentId), ());
+      TEST(base::AlmostEqualAbs(res.second.m_coef, way.m_coef, 1e-5), ());
+      TEST_EQUAL(res.second.m_maxSpeedKmPH, metadata.m_maxSpeedKmPH, ());
     }
   }
 

@@ -1,6 +1,7 @@
 #include "test_generator.hpp"
 
 #include "generator/borders.hpp"
+#include "generator/camera_info_collector.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/raw_generator.hpp"
@@ -116,17 +117,19 @@ void TestRawGenerator::BuildRouting(std::string const & mwmName, std::string con
   };
 
   std::string const filePath = GetMwmPath(mwmName);
+  std::string const osmToFeatureFilename = filePath + OSM2FEATURE_FILE_EXTENSION;
+
   routing_builder::BuildRoutingIndex(filePath, countryName, parentGetter);
+
+  auto osm2feature = routing::CreateWay2FeatureMapper(filePath, osmToFeatureFilename);
+  BuildRoadAccessInfo(filePath, m_genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME), *osm2feature);
+  BuildCamerasInfo(filePath, m_genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME), osmToFeatureFilename);
 
   auto routingGraph = CreateIndexGraph(filePath, countryName, parentGetter);
   CHECK(routingGraph, ());
 
-  /// @todo Laod OsmID2FeatureID map once and pass it to generator functions.
-  std::string const osmToFeatureFilename = filePath + OSM2FEATURE_FILE_EXTENSION;
   BuildRoadRestrictions(*routingGraph, filePath, m_genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME),
                         osmToFeatureFilename);
-  BuildRoadAccessInfo(filePath, m_genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME),
-                      osmToFeatureFilename);
   BuildMaxspeedsSection(routingGraph.get(), filePath, osmToFeatureFilename,
                         m_genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME));
 }
@@ -134,7 +137,7 @@ void TestRawGenerator::BuildRouting(std::string const & mwmName, std::string con
 routing::FeatureIdToOsmId TestRawGenerator::LoadFID2OsmID(std::string const & mwmName)
 {
   routing::FeatureIdToOsmId ids;
-  CHECK(routing::ParseWaysFeatureIdToOsmIdMapping(GetMwmPath(mwmName) + OSM2FEATURE_FILE_EXTENSION, ids), ());
+  routing::ParseWaysFeatureIdToOsmIdMapping(GetMwmPath(mwmName) + OSM2FEATURE_FILE_EXTENSION, ids);
   return ids;
 }
 

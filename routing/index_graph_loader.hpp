@@ -3,6 +3,7 @@
 #include "routing/edge_estimator.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/route.hpp"
+#include "routing/speed_camera_ser_des.hpp"
 #include "routing/vehicle_mask.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
@@ -39,4 +40,7 @@ public:
 void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, IndexGraph & graph);
 
 uint32_t DeserializeIndexGraphNumRoads(MwmValue const & mwmValue, VehicleType vehicleType);
+
+bool ReadRoadAccessFromMwm(MwmValue const & mwmValue, VehicleType vehicleType, RoadAccess & roadAccess);
+bool ReadSpeedCamsFromMwm(MwmValue const & mwmValue, SpeedCamerasMapT & camerasMap);
 }  // namespace routing

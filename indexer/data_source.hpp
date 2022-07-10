@@ -93,6 +93,8 @@ public:
   }
 
   MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
+  MwmSet::MwmHandle const & GetHandle() const { return m_handle; }
+
   std::string GetCountryFileName() const;
   int64_t GetVersion() const;
 
@@ -105,6 +107,6 @@ public:
   size_t GetNumFeatures() const { return m_source->GetNumFeatures(); }
 
 private:
-  DataSource::MwmHandle m_handle;
+  MwmSet::MwmHandle m_handle;
   std::unique_ptr<FeatureSource> m_source;
 };

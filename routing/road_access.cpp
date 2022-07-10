@@ -14,20 +14,10 @@ namespace
 std::string const kNames[] = {"No", "Private", "Destination", "Yes", "Count"};
 
 template <typename KV>
-void PrintKV(std::ostringstream & oss, KV const & kvs, size_t maxKVToShow)
+std::string DebugPrintKV(KV const & kvs, size_t maxKVToShow)
 {
-  size_t i = 0;
-  for (auto const & kv : kvs)
-  {
-    if (i > 0)
-      oss << ", ";
-    oss << DebugPrint(kv.first) << " " << DebugPrint(kv.second);
-    ++i;
-    if (i == maxKVToShow)
-      break;
-  }
-  if (kvs.size() > maxKVToShow)
-    oss << ", ...";
+  // Print all range for now.
+  return DebugPrintSequence(kvs.begin(), kvs.end());
 }
 }  // namespace
 
@@ -168,14 +158,12 @@ void FromString(std::string_view s, RoadAccess::Type & result)
 
 std::string DebugPrint(RoadAccess::Conditional const & conditional)
 {
-  std::stringstream ss;
-  ss << " { ";
+  std::ostringstream oss;
+  oss << "Conditional { ";
   for (auto const & access : conditional.GetAccesses())
-  {
-    ss << DebugPrint(access.m_type) << " @ (" << access.m_openingHours.GetRule() << "), ";
-  }
-  ss << " } ";
-  return ss.str();
+    oss << DebugPrint(access.m_type) << " @ (" << access.m_openingHours.GetRule() << "), ";
+  oss << " }";
+  return oss.str();
 }
 
 std::string DebugPrint(RoadAccess::Confidence confidence)
@@ -192,17 +180,15 @@ std::string DebugPrint(RoadAccess::Type type) { return ToString(type); }
 
 std::string DebugPrint(RoadAccess const & r)
 {
-  size_t const kMaxIdsToShow = 10;
+  size_t constexpr kMaxIdsToShow = 10;
+
   std::ostringstream oss;
-  oss << "WayToAccess { FeatureTypes [";
-  PrintKV(oss, r.GetWayToAccess(), kMaxIdsToShow);
-  oss << "], PointToAccess [";
-  PrintKV(oss, r.GetPointToAccess(), kMaxIdsToShow);
-  oss << "], WayToAccessConditional [";
-  PrintKV(oss, r.GetWayToAccessConditional(), kMaxIdsToShow);
-  oss << "], PointToAccessConditional [";
-  PrintKV(oss, r.GetPointToAccessConditional(), kMaxIdsToShow);
-  oss << "] }";
+  oss << "RoadAccess { WayToAccess " << DebugPrintKV(r.GetWayToAccess(), kMaxIdsToShow)
+      << "; PointToAccess "<< DebugPrintKV(r.GetPointToAccess(), kMaxIdsToShow)
+      << "; WayToAccessConditional "<< DebugPrintKV(r.GetWayToAccessConditional(), kMaxIdsToShow)
+      << "; PointToAccessConditional " << DebugPrintKV(r.GetPointToAccessConditional(), kMaxIdsToShow)
+      << " }";
   return oss.str();
 }
+
 }  // namespace routing

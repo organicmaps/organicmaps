@@ -25,17 +25,10 @@
 
 #include "defines.hpp"
 
-#include <cstdint>
-#include <memory>
-#include <set>
-#include <string>
-#include <utility>
 
 namespace routing_builder
 {
 using namespace generator;
-using namespace feature;
-using namespace platform::tests_support;
 using std::pair, std::string;
 
 string const kSpeedCameraTag = R"(<tag k="highway" v="speed_camera"/>)";
@@ -89,6 +82,8 @@ public:
 
   static bool Test(string const & osmSourceXML, std::set<pair<uint64_t, uint64_t>> const & trueAnswers)
   {
+    using namespace platform::tests_support;
+
     Platform & platform = GetPlatform();
     WritableDirChanger writableDirChanger(kTestDir);
     auto const & writableDir = platform.WritableDir();
@@ -96,7 +91,7 @@ public:
     auto const osmRelativePath = base::JoinPath(kTestDir, kOsmFileName);
     ScopedFile const osmScopedFile(osmRelativePath, osmSourceXML);
 
-    GenerateInfo genInfo;
+    feature::GenerateInfo genInfo;
     // Generate intermediate data.
     genInfo.m_cacheDir = writableDir;
     genInfo.m_intermediateDir = writableDir;
@@ -108,95 +103,24 @@ public:
     CHECK(GenerateIntermediateData(genInfo), ());
 
     // Test load this data from cached file.
-    auto collector = std::make_shared<CameraCollector>(genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME));
     generator::cache::IntermediateDataObjectsCache objectsCache;
     auto cache = std::make_shared<generator::cache::IntermediateData>(objectsCache, genInfo);
+    auto collector = std::make_shared<CameraCollector>(genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME), cache->GetCache());
     auto processor = CreateProcessor(ProcessorType::Noop);
     auto translator = std::make_shared<TranslatorForTest>(processor, cache);
     translator->SetCollector(collector);
+
     RawGenerator rawGenerator(genInfo);
     rawGenerator.GenerateCustom(translator);
     CHECK(rawGenerator.Execute(), ());
     std::set<pair<uint64_t, uint64_t>> answers;
-    collector->m_processor.ForEachCamera([&](auto const & camera) {
+    collector->ForEachCamera([&](auto const & camera)
+    {
       for (auto const & w : camera.m_ways)
         answers.emplace(camera.m_id, w);
     });
 
     return answers == trueAnswers;
-  }
-
-  static void TestMergeCollectors()
-  {
-    Platform & platform = GetPlatform();
-    auto const & writableDir = platform.WritableDir();
-    feature::GenerateInfo genInfo;
-    // Generate intermediate data.
-    genInfo.m_intermediateDir = writableDir;
-    auto const filename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
-    auto collector1 = std::make_shared<CameraCollector>(filename);
-    auto collector2 = collector1->Clone();
-    {
-      OsmElement el;
-      el.m_id = 1;
-      el.m_type = OsmElement::EntityType::Node;
-      el.m_tags = {{"highway", "speed_camera"}};
-      collector1->CollectFeature(MakeFeatureBuilderWithParams(el), el);
-    }
-    {
-      OsmElement el;
-      el.m_id = 2;
-      el.m_type = OsmElement::EntityType::Node;
-      el.m_tags = {{"highway", "speed_camera"}};
-      collector2->CollectFeature(MakeFeatureBuilderWithParams(el), el);
-    }
-    {
-      OsmElement el;
-      el.m_id = 3;
-      el.m_type = OsmElement::EntityType::Node;
-      el.m_tags = {{"highway", "speed_camera"}};
-      collector1->CollectFeature(MakeFeatureBuilderWithParams(el), el);
-    }
-    {
-      OsmElement el;
-      el.m_id = 4;
-      el.m_type = OsmElement::EntityType::Node;
-      collector2->CollectFeature(MakeFeatureBuilderWithParams(el), el);
-    }
-    {
-      OsmElement el;
-      el.m_id = 10;
-      el.m_type = OsmElement::EntityType::Way;
-      el.m_tags = {{"highway", "unclassified"}};
-      el.AddNd(1 /* ref */);
-      el.AddNd(4 /* ref */);
-      collector1->CollectFeature(MakeFeatureBuilderWithParams(el), el);
-    }
-    {
-      OsmElement el;
-      el.m_id = 20;
-      el.m_type = OsmElement::EntityType::Way;
-      el.m_tags = {{"highway", "unclassified"}};
-      el.AddNd(1 /* ref */);
-      el.AddNd(2 /* ref */);
-      el.AddNd(3 /* ref */);
-      collector2->CollectFeature(MakeFeatureBuilderWithParams(el), el);
-    }
-
-    collector1->Finish();
-    collector2->Finish();
-    collector1->Merge(*collector2);
-    collector1->Save();
-    std::set<pair<uint64_t, uint64_t>> trueAnswers = {
-      {1, 10}, {1, 20}, {2, 20}, {3, 20}
-    };
-    std::set<pair<uint64_t, uint64_t>> answers;
-    collector1->m_processor.ForEachCamera([&](auto const & camera) {
-      for (auto const & w : camera.m_ways)
-        answers.emplace(camera.m_id, w);
-    });
-
-    TEST_EQUAL(answers, trueAnswers, ());
   }
 };
 
@@ -326,11 +250,6 @@ UNIT_CLASS_TEST(TestCameraCollector, test_5)
   std::set<pair<uint64_t, uint64_t>> trueAnswers = {};
 
   TEST(TestCameraCollector::Test(osmSourceXML, trueAnswers), ());
-}
-
-UNIT_CLASS_TEST(TestCameraCollector, Merge)
-{
-  TestCameraCollector::TestMergeCollectors();
 }
 
 } // namespace routing_builder

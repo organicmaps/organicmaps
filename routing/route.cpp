@@ -44,6 +44,11 @@ Route::Route(string const & router, vector<m2::PointD> const & points, uint64_t 
   , m_poly(points.begin(), points.end())
   , m_routeId(routeId)
 {
+} // namespace
+
+std::string DebugPrint(RouteSegment::SpeedCamera const & rhs)
+{
+  return "SpeedCamera{ " + std::to_string(rhs.m_coef) + ", " + std::to_string(int(rhs.m_maxSpeedKmPH)) + " }";
 }
 
 void Route::AddAbsentCountry(string const & name)
