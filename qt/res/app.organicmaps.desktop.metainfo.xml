@@ -107,6 +107,21 @@
   </screenshots>
 
   <releases>
+   <release version="2022.07.01-6" date="2022-07-01">
+     <description>
+       <ul>
+         <li>Improved/fixed the drawing of pattern lines</li>
+         <li>Icons for information=board/map</li>
+         <li>Fixed categories search with stop words</li>
+         <li>Made all existing sports searchable</li>
+         <li>amenity=parking can be added on the map via Editor</li>
+         <li>Fixed place=square visibility at 16+ zoom</li>
+         <li>Made streams &amp; rivers visible on the beach</li>
+         <li>Made hedges and power lines less contrast</li>
+         <li>Improved Portuguese (Brasil), Spanish, Italian, French, and Euskara, enabled Marathi translations</li>
+       </ul>
+     </description>
+   </release>
    <release version="2022.06.18-2" date="2022-06-18">
      <description>
        <ul>
