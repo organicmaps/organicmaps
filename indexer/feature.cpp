@@ -56,11 +56,28 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale)
     if (scale > lastScale)
       scale = lastScale;
 
-    for (int i = 0; i < count; ++i)
-    {
-      if (scale <= loadInfo.GetScale(i))
-        return i;
+    //if (!GetStyleReader().IsVisibilityOverrideEnabled())
+    //{
+      for (int i = 0; i < count; ++i)
+      {
+        if (scale <= loadInfo.GetScale(i))
+          return i;
+      }
+    /*
     }
+    else
+    {
+      for (int i = 0; i < count; ++i)
+      {
+        if (scale <= loadInfo.GetScale(i))
+        {
+          if (i < count - 1)
+            return i + 1;
+          else
+            return i;
+        }
+      }
+    }*/
     ASSERT(false, ("No suitable scale range in the map file."));
     return -1;
   }
@@ -108,15 +125,23 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
     }
     else
     {
+      while (ind < count && scale > loadInfo.GetScale(ind))
+        ++ind;
+      ASSERT_LESS(ind, count, ("No suitable scale range in the map file."));
+      if (ind < count - 1)
+        ++ind;
+      return (offsets[ind] != kInvalidOffset ? ind : -1);
       // If there is no geometry for the requested scale
       // fallback to the next more detailed one.
       // TODO: if there is need we can remove excess line points by a primitive filter
       // similar to the one used in apply_feature_functors.cpp::ApplyLineFeatureGeometry::operator()
+      /*
       while (ind < count && (scale > loadInfo.GetScale(ind) || offsets[ind] == kInvalidOffset))
         ++ind;
       // Some WorldCoasts features have idx == 0 geometry only,
       // so its possible there is no fallback geometry.
       return (ind < count ? ind : -1);
+      */
     }
   }
   }
@@ -490,6 +515,7 @@ void FeatureType::ParseGeometry(int scale)
             fallbackInd = pointInd;
         }
         // Fallback to a closest more detailed geometry.
+        /*
         if (GetStyleReader().IsVisibilityOverrideEnabled() && points.size() == 1)
         {
           for (size_t i = 1; i + 1 < pointsCount; ++i)
@@ -498,6 +524,7 @@ void FeatureType::ParseGeometry(int scale)
               points.emplace_back(m_points[i]);
           }
         }
+        */
         points.emplace_back(m_points.back());
 
         m_points.swap(points);
@@ -585,6 +612,7 @@ void FeatureType::ParseTriangles(int scale)
       // After scanning extra visibility/scale indices some too small
       // area features (that were initially excluded from the index
       // because of their small size) appear again - filter them out.
+      /*
       if (GetStyleReader().IsVisibilityOverrideEnabled()
           && scale >= 0 && scale < m_loadInfo->GetLastScale()
           && !IsDrawableForIndexGeometryOnly(TypesHolder(*this), m_limitRect, scale))
@@ -592,6 +620,7 @@ void FeatureType::ParseTriangles(int scale)
         m_triangles.clear();
         m_limitRect = m2::RectD();
       }
+      */
     }
     m_parsed.m_triangles = true;
   }
