@@ -110,7 +110,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
   public void stop(MwmActivity parent)
   {
-    mMapButtonsController.resetNavSearch();
+    mMapButtonsController.resetSearch();
 
     if (mBound)
     {
@@ -222,7 +222,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     else if (!show && UiUtils.isVisible(mFrame))
       mNavMenu.hideNavBottomSheet();
     UiUtils.showIf(show, mFrame);
-    mMapButtonsController.showButton(show, MapButtonsController.MapButtons.nav);
   }
 
   public boolean isNavMenuCollapsed()

@@ -36,7 +36,9 @@ public class SearchWheel implements View.OnClickListener
   @Nullable
   private SearchOption mCurrentOption;
   @NonNull
-  private View.OnClickListener mOnSearchPressedListener;
+  private final View.OnClickListener mOnSearchPressedListener;
+  @NonNull
+  private final View.OnClickListener mOnSearchCanceledListener;
 
   private static final long CLOSE_DELAY_MILLIS = 5000L;
   private final Runnable mCloseRunnable = new Runnable() {
@@ -102,10 +104,11 @@ public class SearchWheel implements View.OnClickListener
     }
   }
 
-  public SearchWheel(View frame, View.OnClickListener onSearchPressedListener)
+  public SearchWheel(View frame, @NonNull View.OnClickListener onSearchPressedListener, @NonNull View.OnClickListener onSearchCanceledListener)
   {
     mFrame = frame;
     mOnSearchPressedListener = onSearchPressedListener;
+    mOnSearchCanceledListener = onSearchCanceledListener;
     mTouchInterceptor = mFrame.findViewById(R.id.touch_interceptor);
     mTouchInterceptor.setOnClickListener(this);
     mSearchButton = mFrame.findViewById(R.id.btn_search);
@@ -137,7 +140,6 @@ public class SearchWheel implements View.OnClickListener
   {
     mIsExpanded = false;
     mCurrentOption = null;
-    SearchEngine.INSTANCE.cancelInteractiveSearch();
     resetSearchButtonImage();
   }
 
@@ -222,18 +224,18 @@ public class SearchWheel implements View.OnClickListener
     switch (v.getId())
     {
     case R.id.btn_search:
-      if (RoutingController.get().isPlanning())
+      if (!RoutingController.get().isNavigating())
       {
         if (TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
           showSearchInParent();
         else
-          reset();
+          mOnSearchCanceledListener.onClick(v);
         return;
       }
 
       if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
       {
-        reset();
+        mOnSearchCanceledListener.onClick(v);
         refreshSearchVisibility();
         return;
       }

@@ -75,8 +75,7 @@
   <!-- map widgets -->
   <dimen name="margin_compass">32dp</dimen>
   <dimen name="margin_compass_top">26dp</dimen>
-  <dimen name="margin_ruler_left">10dp</dimen>
-  <dimen name="margin_ruler_bottom">58dp</dimen>
+  <dimen name="margin_ruler">10dp</dimen>
   <dimen name="compass_height">40dp</dimen>
   <dimen name="button_big_corner_radius">20dp</dimen>
   <dimen name="button_small_corner_radius">2dp</dimen>

@@ -63,7 +63,6 @@ public class MapFragment extends BaseMwmFragment
   private boolean mSurfaceCreated;
   private boolean mSurfaceAttached;
   private boolean mLaunchByDeepLink;
-  private static boolean sWasCopyrightDisplayed;
   @Nullable
   private String mUiThemeOnPause;
   @SuppressWarnings("NullableProblems")
@@ -71,8 +70,6 @@ public class MapFragment extends BaseMwmFragment
   private SurfaceView mSurfaceView;
   @Nullable
   private MapRenderingListener mMapRenderingListener;
-  @Nullable
-  private MapWidgetOffsetsProvider mWidgetOffsetsProvider;
 
   private void setupWidgets(int width, int height)
   {
@@ -81,16 +78,7 @@ public class MapFragment extends BaseMwmFragment
     Context context = requireContext();
 
     nativeCleanWidgets();
-    if (!sWasCopyrightDisplayed)
-    {
-      nativeSetupWidget(WIDGET_COPYRIGHT,
-                        UiUtils.dimen(context, R.dimen.margin_ruler_left),
-                        mHeight - UiUtils.dimen(context, R.dimen.margin_ruler_bottom),
-                        ANCHOR_LEFT_BOTTOM);
-      sWasCopyrightDisplayed = true;
-    }
-
-    setupWidgetOffsets();
+    setupBottomWidgetsOffset(0);
 
     nativeSetupWidget(WIDGET_SCALE_FPS_LABEL,
                       UiUtils.dimen(context, R.dimen.margin_base),
@@ -98,16 +86,6 @@ public class MapFragment extends BaseMwmFragment
                       ANCHOR_LEFT_TOP);
 
     setupCompass(UiUtils.getCompassYOffset(requireContext()), false);
-  }
-
-  private void setupWidgetOffsets()
-  {
-    int rulerOffset = 0;
-    if (mWidgetOffsetsProvider != null)
-    {
-      rulerOffset = mWidgetOffsetsProvider.getRulerOffsetY();
-    }
-    setupRuler(rulerOffset, false);
   }
 
   void setupCompass(int offsetY, boolean forceRedraw)
@@ -124,12 +102,29 @@ public class MapFragment extends BaseMwmFragment
       nativeApplyWidgets();
   }
 
+  void setupBottomWidgetsOffset(int offset)
+  {
+    setupRuler(offset, true);
+    setupAttribution(offset, true);
+  }
+
   void setupRuler(int offsetY, boolean forceRedraw)
   {
     Context context = requireContext();
     nativeSetupWidget(WIDGET_RULER,
-                      UiUtils.dimen(context, R.dimen.margin_ruler_left),
-                      mHeight - UiUtils.dimen(context, R.dimen.margin_ruler_bottom) + offsetY,
+                      UiUtils.dimen(context, R.dimen.margin_ruler),
+                      mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
+                      ANCHOR_LEFT_BOTTOM);
+    if (forceRedraw && mSurfaceCreated)
+      nativeApplyWidgets();
+  }
+
+  void setupAttribution(int offsetY, boolean forceRedraw)
+  {
+    Context context = requireContext();
+    nativeSetupWidget(WIDGET_COPYRIGHT,
+                      UiUtils.dimen(context, R.dimen.margin_ruler),
+                      mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
                       ANCHOR_LEFT_BOTTOM);
     if (forceRedraw && mSurfaceCreated)
       nativeApplyWidgets();
@@ -257,7 +252,6 @@ public class MapFragment extends BaseMwmFragment
   {
     super.onAttach(context);
     mMapRenderingListener = (MapRenderingListener) context;
-    mWidgetOffsetsProvider = (MapWidgetOffsetsProvider) context;
   }
 
   @Override
@@ -265,7 +259,6 @@ public class MapFragment extends BaseMwmFragment
   {
     super.onDetach();
     mMapRenderingListener = null;
-    mWidgetOffsetsProvider = null;
   }
 
   @Override
