@@ -27,10 +27,8 @@
       layout="@layout/layout_nav_search"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      tools:visibility="visible" />
+      app:layout_constraintStart_toStartOf="parent" />
     <include
       layout="@layout/map_navigation_buttons_zoom"
       android:layout_width="wrap_content"
@@ -52,6 +50,14 @@
       style="@style/MwmWidget.MapButton"
       android:contentDescription="@string/core_my_position"
       android:tint="@null"
+      android:layout_marginBottom="@dimen/margin_half"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toTopOf="@+id/menu_button" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/menu_button"
+      style="@style/MwmWidget.MapButton"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:src="@drawable/ic_menu_open"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent" />
   </androidx.constraintlayout.widget.ConstraintLayout>

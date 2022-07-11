@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -86,7 +87,6 @@ import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
 import com.mapswithme.util.Counters;
-import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.SharingUtils;
 import com.mapswithme.util.ThemeSwitcher;
@@ -107,7 +107,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                CustomNavigateUpListener,
                RoutingController.Container,
                LocationHelper.UiCallback,
-               FloatingSearchToolbarController.VisibilityListener,
                RoutingPlanInplaceController.RoutingPlanListener,
                RoutingBottomMenuListener,
                BookmarkManager.BookmarksLoadingListener,
@@ -115,8 +114,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                PlacePageController.SlideListener,
                AlertDialogCallback, RoutingModeListener,
                AppBackgroundTracker.OnTransitionListener,
-               NoConnectionListener,
-               MapWidgetOffsetsProvider
+               NoConnectionListener
 {
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
@@ -394,7 +392,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.getToolbar()
                      .getViewTreeObserver()
                      .addOnGlobalLayoutListener(new ToolbarLayoutChangeListener());
-    mSearchController.setVisibilityListener(this);
 
     initBottomSheets();
 
@@ -429,6 +426,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private ArrayList<MenuBottomSheetItem> getMainMenuItems()
   {
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
+    items.add(new MenuBottomSheetItem(R.string.help, R.drawable.ic_question_mark, this::showHelp));
     items.add(new MenuBottomSheetItem(R.string.placepage_add_place_button, R.drawable.ic_plus, this::onAddPlaceOptionSelected));
     items.add(new MenuBottomSheetItem(
         R.string.download_maps,
@@ -602,7 +600,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
 
     final View frame = findViewById(R.id.navigation_buttons);
-    mMapButtonsController = new MapButtonsController(frame, this, this::onMapButtonClick, mPlacePageController);
+    mMapButtonsController = new MapButtonsController(frame,
+                                                     this,
+                                                     this::onMapButtonClick,
+                                                     (v) -> closeSearchToolbar(true, true),
+                                                     mPlacePageController);
+    // FIXME For some reason the first onResume does not make the badge appear
+    new Handler().postDelayed(() -> mMapButtonsController.updateMarker(this), 100);
   }
 
   void onMapButtonClick(MapButtonsController.MapButtons button)
@@ -631,6 +635,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         break;
       case navSearch:
         showSearch();
+        break;
+      case menu:
+        closeFloatingPanels();
+        showMainMenuBottomSheet();
         break;
     }
   }
@@ -737,7 +745,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (stopSearch)
       {
         mSearchController.cancelSearchApiAndHide(clearText);
-        mMapButtonsController.resetNavSearch();
+        mMapButtonsController.resetSearch();
       }
       else
       {
@@ -786,33 +794,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initMainMenu()
   {
-    mMainMenu = new MainMenu(findViewById(R.id.menu_frame), this::onMenuItemClick);
+    mMainMenu = new MainMenu(findViewById(R.id.menu_frame), this::adjustBottomWidgets);
 
     if (mIsTabletLayout)
     {
       mPanelAnimator = new PanelAnimator(this);
-    }
-  }
-
-  private void onMenuItemClick(@NonNull MainMenu.Item item)
-  {
-    switch (item)
-    {
-      case HELP:
-        showHelp();
-        break;
-      case SEARCH:
-        RoutingController.get().cancel();
-        closeFloatingPanels();
-        showSearch(mSearchController.getQuery());
-        break;
-      case BOOKMARKS:
-        showBookmarks();
-        break;
-      case MENU:
-        closeFloatingPanels();
-        showMainMenuBottomSheet();
-        break;
     }
   }
 
@@ -1017,7 +1003,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
     refreshSearchToolbar();
-    mMainMenu.onResume();
     if (Framework.nativeIsInChoosePositionMode())
     {
       UiUtils.show(mPointChooser);
@@ -1027,7 +1012,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.onResume();
 
     mNavigationController.onActivityResumed(this);
-    mMapButtonsController.onResume();
+    mMapButtonsController.onResume(this);
     mPlacePageController.onActivityResumed(this);
   }
 
@@ -1204,8 +1189,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mIsFullscreen = isFullscreen;
-
-    showMainMenu(!isFullscreen);
     mMapButtonsController.showMapButtons(!isFullscreen);
   }
 
@@ -1226,7 +1209,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (removeCurrentFragment(true))
     {
-      InputUtils.hideKeyboard(mMainMenu.getFrame());
       refreshSearchToolbar();
     }
   }
@@ -1243,30 +1225,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       MapFragment.nativeCompassUpdated(compass.getNorth(), true);
   }
 
-  private void adjustBottomWidgets(int offsetY)
+  public void adjustBottomWidgets(int offsetY)
   {
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
-    mMapFragment.setupRuler(offsetY, false);
-  }
-
-  @Override
-  public int getRulerOffsetY()
-  {
-    return getBottomMapWidgetOffsetY();
-  }
-
-  private int getBottomMapWidgetOffsetY()
-  {
-    View menuView = mMainMenu.getFrame();
-    return UiUtils.isVisible(menuView) ? 0 : menuView.getHeight();
-  }
-
-  @Override
-  public int getWaterMarkOffsetY()
-  {
-    return getBottomMapWidgetOffsetY();
+    mMapFragment.setupBottomWidgetsOffset(offsetY);
   }
 
   @Override
@@ -1287,10 +1251,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     boolean isVisible = adjustMenuLineFrameVisibility();
     if (!isVisible)
       return;
-
-    mMapButtonsController.showButton(RoutingController.get().isPlanning()
-                                     || RoutingController.get().isBuilt(),
-                                     MapButtonsController.MapButtons.nav);
 
     if (RoutingController.get().isNavigating())
     {
@@ -1417,7 +1377,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void showMainMenu(boolean show)
   {
     mMainMenu.show(show);
-    adjustBottomWidgets(show ? 0 : getBottomMapWidgetOffsetY());
   }
 
   @Override
@@ -1487,14 +1446,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         return true;
       }
     });
-  }
-
-  @Override
-  public void onSearchVisibilityChanged(boolean visible)
-  {
-    boolean show = visible && !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery())
-                   && !RoutingController.get().isNavigating();
-    mMainMenu.show(!show);
   }
 
   private int calcFloatingViewsOffset()
