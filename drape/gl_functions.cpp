@@ -255,8 +255,16 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
     glUnmapBufferFn = &::glUnmapBuffer;
 
 #elif defined(OMIM_OS_LINUX)
-
-    CHECK(false, ("OpenGLES2 is not yet supported"));
+    void *libhandle = dlopen("libGL.so.1", RTLD_NOW);
+    ASSERT(libhandle, ("Failed to open libGL.so.1:", dlerror()));
+    glGenVertexArraysFn = (TglGenVertexArraysFn)dlsym(libhandle,"glGenVertexArraysOES");
+    glBindVertexArrayFn = (TglBindVertexArrayFn)dlsym(libhandle, "glBindVertexArrayOES");
+    glDeleteVertexArrayFn = (TglDeleteVertexArrayFn)dlsym(libhandle,"glDeleteVertexArraysOES");
+    glMapBufferFn = (TglMapBufferFn)dlsym(libhandle, "glMapBufferOES");
+    glUnmapBufferFn = (TglUnmapBufferFn)dlsym(libhandle, "glUnmapBufferOES");
+    glMapBufferRangeFn = (TglMapBufferRangeFn)dlsym(libhandle, "glMapBufferRangeEXT");
+    glFlushMappedBufferRangeFn =
+        (TglFlushMappedBufferRangeFn)dlsym(libhandle, "glFlushMappedBufferRangeEXT");
 
 #elif defined(OMIM_OS_ANDROID)
 

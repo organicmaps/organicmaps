@@ -22,6 +22,9 @@
 
 #include <QtCore/QDir>
 #include <QtGui/QScreen>
+#include <QtGui/QOffscreenSurface>
+#include <QtGui/QOpenGLContext>
+#include <QtGui/QOpenGLFunctions>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFileDialog>
@@ -45,6 +48,7 @@ DEFINE_int32(width, 0, "Screenshot width.");
 DEFINE_int32(height, 0, "Screenshot height.");
 DEFINE_double(dpi_scale, 0.0, "Screenshot dpi scale (mdpi = 1.0, hdpi = 1.5, "
               "xhdpiScale = 2.0, 6plus = 2.4, xxhdpi = 3.0, xxxhdpi = 3.5).");
+
 
 using namespace std;
 
@@ -175,11 +179,55 @@ int main(int argc, char * argv[])
 #if defined(OMIM_OS_MAC)
     apiOpenGLES3 = app.arguments().contains("es3", Qt::CaseInsensitive);
 #elif defined(OMIM_OS_LINUX)
-    // TODO: Implement proper runtime version detection in a separate commit
-    // Currently on Linux in a maximum ES2 scenario,
-    // the GL function pointers wouldn't be properly resolved anyway,
-    // so here at least a possibly successful path is chosen.
-    apiOpenGLES3 = true;
+    { // Start of temporary scope for temporary surface
+      QOffscreenSurface temporarySurface;
+      temporarySurface.create();
+
+      QOpenGLContext ctx;
+      ctx.create();
+      ctx.makeCurrent(&temporarySurface);
+
+      const std::string vendor = QString::fromLatin1(
+        (const char*)ctx.functions()->glGetString(GL_VENDOR)).toStdString();
+      const std::string renderer = QString::fromLatin1(
+        (const char*)ctx.functions()->glGetString(GL_RENDERER)).toStdString();
+      const std::string version = QString::fromLatin1(
+        (const char*)ctx.functions()->glGetString(GL_VERSION)).toStdString();
+      const std::string glslVersion = QString::fromLatin1(
+        (const char*)ctx.functions()->glGetString(GL_SHADING_LANGUAGE_VERSION)).toStdString();
+      const std::string extensions = QString::fromLatin1(
+        (const char*)ctx.functions()->glGetString(GL_EXTENSIONS)).toStdString();
+
+      LOG(LINFO, ("Vendor:", vendor, "\nRenderer:", renderer,
+                  "\nVersion:", version, "\nShading language version:\n", glslVersion,
+                  "\nExtensions:", extensions));
+
+      if (ctx.isOpenGLES())
+      {
+        LOG(LINFO, ("Context is LibGLES"));
+        // TODO: Fix the ES3 code path with ES3 compatible shader code.
+        apiOpenGLES3 = false;
+        constexpr const char* requiredExtensions[3] =
+          { "GL_EXT_map_buffer_range", "GL_OES_mapbuffer", "GL_OES_vertex_array_object" };
+        for (auto &requiredExtension: requiredExtensions)
+        {
+          if(ctx.hasExtension(QByteArray::fromStdString(requiredExtension)))
+          {
+            LOG(LDEBUG, ("Found OpenGL ES 2.0 extension: ", requiredExtension));
+          }
+          else
+          {
+            LOG(LCRITICAL, ("A required OpenGL ES 2.0 extension is missing: ", requiredExtension));
+          }
+        }
+      }
+      else
+      {
+        LOG(LINFO, ("Contex is LibGL"));
+        // TODO: Separate apiOpenGL3 from apiOpenGLES3, and use that for the currend shader code.
+        apiOpenGLES3 = true;
+      }
+    }
 #endif
 
     if (!FLAGS_lang.empty())
