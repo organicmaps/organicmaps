@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Mỹ phẩm";
 
+"type.shop.deli" = "Cửa hàng đồ ăn ngon";
+
 "type.shop.department_store" = "Cửa hàng bách hóa";
 
 "type.shop.doityourself" = "Cửa hàng phần cứng";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Cửa hàng người lớn";
 
 "type.shop.fabric" = "Cửa hàng";
+
+"type.shop.farm" = "Cửa hàng thực phẩm nông trại";
 
 "type.shop.florist" = "Cửa hàng hoa";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Cửa hàng rau củ";
 
+"type.shop.grocery" = "Cửa hàng tạp hóa";
+
 "type.shop.hairdresser" = "Tiệm làm tóc";
 
 "type.shop.hardware" = "Cửa hàng phần cứng";
 
+"type.shop.health_food" = "Cửa hàng thực phẩm sức khỏe";
+
+"type.shop.houseware" = "Cửa hàng đồ gia dụng";
+
 "type.shop.jewelry" = "Đồ trang sức";
 
 "type.shop.kiosk" = "Cửa hàng";
+
+"type.shop.kitchen" = "Cửa hàng nhà bếp";
 
 "type.shop.laundry" = "Giặt là";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Thiết bị Ngoài trời";
 
+"type.shop.pastry" = "Bánh ngọt";
+
 "type.shop.pawnbroker" = "Cầm đồ";
 
 "type.shop.pet" = "Cửa Hàng Vật Nuôi";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Hiệu Ảnh";
 
 "type.shop.seafood" = "Người bán cá";
+
+"type.shop.second_hand" = "Cửa hàng bán đồ đã qua sử dụng";
 
 "type.shop.shoes" = "Cửa hàng giày";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Cửa hàng bán trò chơi điện tử";
 
 "type.shop.wine" = "Rượu";
+
+"type.shop.antiques" = "Đồ cổ";
+
+"type.shop.art" = "Cửa hàng nghệ thuật";
+
+"type.shop.baby_goods" = "Cửa hàng trẻ em";
+
+"type.shop.bag" = "Cửa hàng túi xách";
+
+"type.shop.boutique" = "Cửa hàng";
+
+"type.shop.charity" = "Cửa hàng từ thiện";
+
+"type.shop.cheese" = "Cửa hàng pho mát";
+
+"type.shop.craft" = "Nghệ thuật và thủ công";
+
+"type.shop.dairy" = "Sản phẩm từ sữa";
+
+"type.shop.electrical" = "Cửa hàng điện tử";
+
+"type.shop.fishing" = "Cửa hàng câu cá";
+
+"type.shop.interior_decoration" = "Đồ trang trí nội thất";
+
+"type.shop.lottery" = "Vé xổ số kiến thiết";
+
+"type.shop.medical_supply" = "Vật tư y tế";
+
+"type.shop.nutrition_supplements" = "Bổ sung dinh dưỡng";
+
+"type.shop.paint" = "Sơn";
+
+"type.shop.perfumery" = "Nước hoa";
+
+"type.shop.sewing" = "Nguồn cung cấp may";
+
+"type.shop.storage_rental" = "Cho thuê kho lưu trữ";
+
+"type.shop.tobacco" = "Thuốc lá";
+
+"type.shop.trade" = "Nguồn cung cấp Giao dịch";
+
+"type.shop.watches" = "Xem";
+
+"type.shop.wholesale" = "Cửa hàng bán buôn";
 
 "type.sport" = "Thể thao";
 

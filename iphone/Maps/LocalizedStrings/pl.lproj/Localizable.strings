@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Kosmetyki";
 
+"type.shop.deli" = "Sklep delikatesowy";
+
 "type.shop.department_store" = "Dom towarowy";
 
 "type.shop.doityourself" = "Sklep narzędziowy";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Sex shop";
 
 "type.shop.fabric" = "Sklep";
+
+"type.shop.farm" = "Sklep spożywczy dla gospodarstw rolnych";
 
 "type.shop.florist" = "Kwiaciarnia";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Warzywniak";
 
+"type.shop.grocery" = "Sklep spożywczy";
+
 "type.shop.hairdresser" = "Fryzjer";
 
-"type.shop.hardware" = "Sklep narzędziowy";
+"type.shop.hardware" = "Sklep z narzędziami";
+
+"type.shop.health_food" = "Sklep ze zdrową żywnością";
+
+"type.shop.houseware" = "Sklep AGD";
 
 "type.shop.jewelry" = "Jubiler";
 
 "type.shop.kiosk" = "Kiosk";
+
+"type.shop.kitchen" = "Sklep kuchenny";
 
 "type.shop.laundry" = "Pralnia samoobsługowa";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Sprzęt turystyczny";
 
+"type.shop.pastry" = "Ciasto";
+
 "type.shop.pawnbroker" = "Lombard";
 
 "type.shop.pet" = "Sklep zoologiczny";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Fotograf";
 
 "type.shop.seafood" = "Sklep rybny";
+
+"type.shop.second_hand" = "Sklep z używaną ręką";
 
 "type.shop.shoes" = "Sklep obuwniczy";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Sklep z grami wideo";
 
 "type.shop.wine" = "Sklep monopolowy";
+
+"type.shop.antiques" = "Antyki";
+
+"type.shop.art" = "Sklep artystyczny";
+
+"type.shop.baby_goods" = "Sklep dla dzieci";
+
+"type.shop.bag" = "Sklep z torbami";
+
+"type.shop.boutique" = "Butik";
+
+"type.shop.charity" = "Sklep charytatywny";
+
+"type.shop.cheese" = "Sklep z serami";
+
+"type.shop.craft" = "Sztuka i rzemiosło";
+
+"type.shop.dairy" = "Nabiał";
+
+"type.shop.electrical" = "Sklep elektryczny";
+
+"type.shop.fishing" = "Sklep wędkarski";
+
+"type.shop.interior_decoration" = "Dekoracje wnętrz";
+
+"type.shop.lottery" = "Bilety na loterię";
+
+"type.shop.medical_supply" = "Produkty medyczne";
+
+"type.shop.nutrition_supplements" = "Suplementy diety";
+
+"type.shop.paint" = "Malatura";
+
+"type.shop.perfumery" = "Perfumeria";
+
+"type.shop.sewing" = "Przybory do szycia";
+
+"type.shop.storage_rental" = "Wynajem magazynu";
+
+"type.shop.tobacco" = "Tytoń";
+
+"type.shop.trade" = "Zaopatrzenie handlowe";
+
+"type.shop.watches" = "Zegarki";
+
+"type.shop.wholesale" = "Hurtownia";
 
 "type.sport" = "Sport";
 

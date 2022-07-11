@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "เครื่องสำอาง";
 
+"type.shop.deli" = "ร้านขายอาหารสำเร็จรูป";
+
 "type.shop.department_store" = "ห้างสรรพสินค้า";
 
 "type.shop.doityourself" = "ร้านขายฮาร์ดแวร์";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "ร้านเฉพาะผู้ใหญ่";
 
 "type.shop.fabric" = "ร้านค้า";
+
+"type.shop.farm" = "ฟาร์มฟู้ดช็อป";
 
 "type.shop.florist" = "ร้านดอกไม้";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "ร้านขายผัด";
 
+"type.shop.grocery" = "ร้านขายของชำ";
+
 "type.shop.hairdresser" = "ช่างทำผม";
 
-"type.shop.hardware" = "ร้านขายฮาร์ดแวร์";
+"type.shop.hardware" = "ร้านฮาร์ดแวร์";
+
+"type.shop.health_food" = "ร้านอาหารเพื่อสุขภาพ";
+
+"type.shop.houseware" = "ร้านของใช้ในบ้าน";
 
 "type.shop.jewelry" = "ร้านขายเครื่องประดับ";
 
 "type.shop.kiosk" = "ร้าน";
+
+"type.shop.kitchen" = "ร้านครัว";
 
 "type.shop.laundry" = "ร้านซักรีด";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "อุปกรณ์กลางแจ้ง";
 
+"type.shop.pastry" = "ขนมอบ";
+
 "type.shop.pawnbroker" = "ผู้รับจำนำ";
 
 "type.shop.pet" = "เพ็ทชอป";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "ร้านถ่ายภาพ";
 
 "type.shop.seafood" = "ร้านขายปลา";
+
+"type.shop.second_hand" = "ร้านขายของมือสอง";
 
 "type.shop.shoes" = "ร้านขายรองเท้า";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "ร้านขายวิดีโอเกม";
 
 "type.shop.wine" = "ร้านขายไวน์";
+
+"type.shop.antiques" = "ของเก่า";
+
+"type.shop.art" = "ร้านศิลปะ";
+
+"type.shop.baby_goods" = "ร้านขายของสำหรับเด็ก";
+
+"type.shop.bag" = "ร้านกระเป๋า";
+
+"type.shop.boutique" = "บูติก";
+
+"type.shop.charity" = "ร้านการกุศล";
+
+"type.shop.cheese" = "ร้านชีส";
+
+"type.shop.craft" = "ศิลปะและงานฝีมือ";
+
+"type.shop.dairy" = "ผลิตภัณฑ์นม";
+
+"type.shop.electrical" = "ร้านขายเครื่องใช้ไฟฟ้า";
+
+"type.shop.fishing" = "ร้านตกปลา";
+
+"type.shop.interior_decoration" = "ตกแต่งภายใน";
+
+"type.shop.lottery" = "สลากกินแบ่ง";
+
+"type.shop.medical_supply" = "เวชภัณฑ์";
+
+"type.shop.nutrition_supplements" = "อาหารเสริม";
+
+"type.shop.paint" = "สี";
+
+"type.shop.perfumery" = "น้ำหอม";
+
+"type.shop.sewing" = "อุปกรณ์เย็บผ้า";
+
+"type.shop.storage_rental" = "ค่าเช่าห้องเก็บของ";
+
+"type.shop.tobacco" = "ยาสูบ";
+
+"type.shop.trade" = "อุปกรณ์การค้า";
+
+"type.shop.watches" = "นาฬิกา";
+
+"type.shop.wholesale" = "ร้านขายส่ง";
 
 "type.sport" = "กีฬา";
 

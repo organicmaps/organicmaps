@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Kosmetik";
 
+"type.shop.deli" = "Delikatessebutik";
+
 "type.shop.department_store" = "Stormagasin";
 
 "type.shop.doityourself" = "Isenkræmmer";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Erotisk butik";
 
 "type.shop.fabric" = "Butik";
+
+"type.shop.farm" = "Farm Food Shop";
 
 "type.shop.florist" = "Blomsterbutik";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Grønthandler";
 
+"type.shop.grocery" = "Købmand";
+
 "type.shop.hairdresser" = "Frisør";
 
 "type.shop.hardware" = "Isenkræmmer";
 
+"type.shop.health_food" = "Helsekostbutik";
+
+"type.shop.houseware" = "Husholdningsartikler butik";
+
 "type.shop.jewelry" = "Smykkebutik";
 
 "type.shop.kiosk" = "Kiosk";
+
+"type.shop.kitchen" = "Køkkenforretning";
 
 "type.shop.laundry" = "Vaskeri";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Fritidsudstyr";
 
+"type.shop.pastry" = "Bagværk";
+
 "type.shop.pawnbroker" = "Pantelåner";
 
 "type.shop.pet" = "Dyrehandel";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Fotobutik";
 
 "type.shop.seafood" = "Fiskehandler";
+
+"type.shop.second_hand" = "Genbrugsbutik";
 
 "type.shop.shoes" = "Skobutik";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Computerspilbutik";
 
 "type.shop.wine" = "Vinhandel";
+
+"type.shop.antiques" = "Antikviteter";
+
+"type.shop.art" = "Kunstbutik";
+
+"type.shop.baby_goods" = "Børnebutik";
+
+"type.shop.bag" = "Tasker butik";
+
+"type.shop.boutique" = "Boutique";
+
+"type.shop.charity" = "Velgørenhedsbutik";
+
+"type.shop.cheese" = "Ostebutik";
+
+"type.shop.craft" = "Kunst og kunsthåndværk";
+
+"type.shop.dairy" = "Mejeriprodukter";
+
+"type.shop.electrical" = "El-butik";
+
+"type.shop.fishing" = "Fiskeri butik";
+
+"type.shop.interior_decoration" = "Indvendige dekorationer";
+
+"type.shop.lottery" = "Lotterikuponer";
+
+"type.shop.medical_supply" = "Medicinske forsyninger";
+
+"type.shop.nutrition_supplements" = "Kosttilskud";
+
+"type.shop.paint" = "Maling";
+
+"type.shop.perfumery" = "Parfumeri";
+
+"type.shop.sewing" = "Syudstyr";
+
+"type.shop.storage_rental" = "Lagerudlejning";
+
+"type.shop.tobacco" = "Tobak";
+
+"type.shop.trade" = "Handler forsyninger";
+
+"type.shop.watches" = "Ure";
+
+"type.shop.wholesale" = "Engros butik";
 
 "type.sport" = "Sport";
 

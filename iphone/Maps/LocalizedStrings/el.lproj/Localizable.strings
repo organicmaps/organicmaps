@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Καλλυντικά";
 
+"type.shop.deli" = "Κατάστημα Delicatessen";
+
 "type.shop.department_store" = "Πολυκατάστημα";
 
 "type.shop.doityourself" = "Είδη κιγκαλερίας";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Κατάστημα ερωτικών ειδών";
 
 "type.shop.fabric" = "Κατάστημα";
+
+"type.shop.farm" = "Κατάστημα Αγροτικών Τροφίμων";
 
 "type.shop.florist" = "Ανθοπωλείο";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Μανάβικο";
 
+"type.shop.grocery" = "Παντοπωλείο";
+
 "type.shop.hairdresser" = "Κομμωτής";
 
-"type.shop.hardware" = "Είδη κιγκαλερίας";
+"type.shop.hardware" = "Κατάστημα υλικού";
+
+"type.shop.health_food" = "Κατάστημα υγιεινής διατροφής";
+
+"type.shop.houseware" = "Κατάστημα οικιακών ειδών";
 
 "type.shop.jewelry" = "Κοσμηματοπωλείο";
 
 "type.shop.kiosk" = "Περίπτερο";
+
+"type.shop.kitchen" = "Κατάστημα κουζίνας";
 
 "type.shop.laundry" = "Άπλυτα";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Εξοπλισμός υπαίθρου";
 
+"type.shop.pastry" = "Ζύμη";
+
 "type.shop.pawnbroker" = "Ενεχυροδανειστήριο";
 
 "type.shop.pet" = "Κατάστημα για κατοικίδια";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Φωτογραφείο";
 
 "type.shop.seafood" = "Κατάστημα με θαλασσινά";
+
+"type.shop.second_hand" = "Κατάστημα μεταχειρισμένων";
 
 "type.shop.shoes" = "Υποδηματοπωλείο";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Κατάστημα βιντεοπαιχνιδιών";
 
 "type.shop.wine" = "Οινοπωλείο";
+
+"type.shop.antiques" = "Αντίκες";
+
+"type.shop.art" = "Κατάστημα Τεχνών";
+
+"type.shop.baby_goods" = "Παιδικό κατάστημα";
+
+"type.shop.bag" = "Κατάστημα τσαντών";
+
+"type.shop.boutique" = "Μπουτίκ";
+
+"type.shop.charity" = "Φιλανθρωπικό κατάστημα";
+
+"type.shop.cheese" = "Τυροκομείο";
+
+"type.shop.craft" = "Τέχνες και χειροτεχνήματα";
+
+"type.shop.dairy" = "Γαλακτοκομικά προϊόντα";
+
+"type.shop.electrical" = "Μαγαζί ηλεκτρικών ειδών";
+
+"type.shop.fishing" = "Κατάστημα ψαρέματος";
+
+"type.shop.interior_decoration" = "Διακοσμήσεις εσωτερικών χώρων";
+
+"type.shop.lottery" = "Λαχεία";
+
+"type.shop.medical_supply" = "Ιατρικά Είδη";
+
+"type.shop.nutrition_supplements" = "Συμπληρώματα Διατροφής";
+
+"type.shop.paint" = "Βαφές";
+
+"type.shop.perfumery" = "Αρωματοποιία";
+
+"type.shop.sewing" = "Είδη Ραπτικής";
+
+"type.shop.storage_rental" = "Ενοικίαση αποθηκευτικού χώρου";
+
+"type.shop.tobacco" = "Καπνός";
+
+"type.shop.trade" = "Εμπόριο Προμήθειες";
+
+"type.shop.watches" = "Ρολόγια";
+
+"type.shop.wholesale" = "Κατάστημα χονδρικής";
 
 "type.sport" = "Αθλητισμός";
 
