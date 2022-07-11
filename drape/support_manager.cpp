@@ -106,7 +106,7 @@ bool SupportManager::IsVulkanForbidden() const
   bool forbidden;
   if (!settings::Get(kVulkanForbidden, forbidden))
     forbidden = false;
-  return forbidden;
+  return true;
 }
 
 bool SupportManager::IsVulkanForbidden(std::string const & deviceName,

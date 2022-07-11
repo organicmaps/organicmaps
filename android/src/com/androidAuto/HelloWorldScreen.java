@@ -91,6 +91,18 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
       {
         Log.e("arePlatformAndCoreInitialized()", String.valueOf(cat.arePlatformAndCoreInitialized()));
         Log.e("Draw", "Rendering Should be done successfully?");
+
+
+        try
+        {
+          Log.e("Attcing Surafce", "!!!");
+          MapFragment.nativeAttachSurface(surface);
+        }
+        catch (Exception e)
+        {
+          e.printStackTrace();
+        }
+
         MapFragment.nativeAttachSurface(surface);
         surfaceContainer.getSurface().unlockCanvasAndPost(canvas);
       }
