@@ -630,10 +630,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       case toggleMapLayer:
         toggleMapLayerBottomSheet();
         break;
-      case navBookmarks:
+      case bookmarks:
         showBookmarks();
         break;
-      case navSearch:
+      case search:
         showSearch();
         break;
       case menu:

@@ -1,11 +1,10 @@
-package com.mapswithme.maps.routing;
+package com.mapswithme.maps.maplayer;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,8 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
-import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
@@ -124,6 +123,12 @@ public class SearchWheel implements View.OnClickListener
     for (SearchOption searchOption : SearchOption.values())
       mFrame.findViewById(searchOption.mResId).setOnClickListener(this);
     refreshSearchVisibility();
+  }
+
+  public void show(boolean show)
+  {
+    UiUtils.showIf(show, mSearchButton);
+    UiUtils.showIf(show && mIsExpanded, mSearchLayout);
   }
 
   public void saveState(@NonNull Bundle outState)

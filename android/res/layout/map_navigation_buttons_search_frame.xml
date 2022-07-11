@@ -7,16 +7,9 @@
   android:layout_height="wrap_content"
   android:clipChildren="false"
   android:clipToPadding="false"
+  android:elevation="6dp"
   android:layoutDirection="ltr"
-  android:theme="?navButtonsTheme"
-  tools:background="@color/bg_primary">
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/btn_bookmarks"
-    style="@style/MwmWidget.MapButton"
-    android:layout_alignParentStart="true"
-    android:layout_marginBottom="@dimen/margin_half"
-    android:contentDescription="@string/bookmarks"
-    android:src="@drawable/ic_bookmarks" />
+  android:theme="?navButtonsTheme">
   <RelativeLayout
     android:id="@+id/search_frame"
     android:layout_width="160dp"
@@ -24,7 +17,7 @@
     android:layout_alignParentStart="true"
     android:layout_marginStart="-56dp"
     android:background="?searchLayoutBackground"
-    android:elevation="6dp"
+    android:elevation="5dp"
     android:visibility="invisible"
     tools:visibility="visible">
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -69,11 +62,4 @@
       android:contentDescription="@string/atm"
       android:src="@drawable/ic_routing_atm_on" />
   </RelativeLayout>
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/btn_search"
-    style="@style/MwmWidget.MapButton"
-    android:layout_below="@id/btn_bookmarks"
-    android:layout_alignParentStart="true"
-    android:contentDescription="@string/search"
-    android:src="@drawable/ic_search" />
 </RelativeLayout>
