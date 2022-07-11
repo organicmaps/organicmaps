@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -18,12 +17,10 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.routing.SearchWheel;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.log.Logger;
 
 public class MapButtonsController
 {
@@ -36,9 +33,11 @@ public class MapButtonsController
   @NonNull
   private final View myPosition;
   @NonNull
+  private final View mBookmarksButton;
+  @NonNull
   private final View mMenuButton;
   @NonNull
-  private final View mSearchButtonFrame;
+  private final View mSearchButton;
   @Nullable
   private final MyPositionButton mNavMyPosition;
   @NonNull
@@ -64,6 +63,8 @@ public class MapButtonsController
          .setOnClickListener((v) -> mapButtonClickListener.onClick(MapButtons.zoomIn));
     frame.findViewById(R.id.nav_zoom_out)
          .setOnClickListener((v) -> mapButtonClickListener.onClick(MapButtons.zoomOut));
+    mBookmarksButton = frame.findViewById(R.id.btn_bookmarks);
+    mBookmarksButton.setOnClickListener((v) -> mapButtonClickListener.onClick(MapButtons.bookmarks));
     mMenuButton = frame.findViewById(R.id.menu_button);
     mMenuButton.setOnClickListener((v) -> mapButtonClickListener.onClick(MapButtons.menu));
     myPosition = frame.findViewById(R.id.my_position);
@@ -73,10 +74,8 @@ public class MapButtonsController
     mToggleMapLayerController = new MapLayersController(mLayersButton,
                                                         () -> mapButtonClickListener.onClick(MapButtons.toggleMapLayer), activity);
 
-    mSearchButtonFrame = frame.findViewById(R.id.search_button_frame);
-    mSearchWheel = new SearchWheel(frame, (v) -> mapButtonClickListener.onClick(MapButtons.navSearch), onSearchCanceledListener);
-    mSearchButtonFrame.findViewById(R.id.btn_bookmarks)
-                      .setOnClickListener((v) -> mapButtonClickListener.onClick(MapButtons.navBookmarks));
+    mSearchWheel = new SearchWheel(frame, (v) -> mapButtonClickListener.onClick(MapButtons.search), onSearchCanceledListener);
+    mSearchButton = frame.findViewById(R.id.btn_search);
 
     // Used to get the maximum height the buttons will evolve in
     frame.addOnLayoutChangeListener(new MapButtonsController.ContentViewLayoutChangeListener(frame));
@@ -103,8 +102,10 @@ public class MapButtonsController
         if (mNavMyPosition != null)
           mNavMyPosition.showButton(show);
         break;
-      case nav:
-        UiUtils.showIf(show, mSearchButtonFrame);
+      case search:
+        mSearchWheel.show(show);
+      case bookmarks:
+        UiUtils.showIf(show, mBookmarksButton);
       case menu:
         UiUtils.showIf(show, mMenuButton);
     }
@@ -150,10 +151,11 @@ public class MapButtonsController
   private void updateButtonsVisibility(final float translation)
   {
     showButton(getViewTopOffset(translation, mZoomFrame) > 0, MapButtons.zoom);
-    showButton(getViewTopOffset(translation, mSearchButtonFrame) > 0, MapButtons.nav);
+    showButton(getViewTopOffset(translation, mSearchButton) > 0, MapButtons.search);
     showButton(getViewTopOffset(translation, mLayersButton) > 0, MapButtons.toggleMapLayer);
     showButton(getViewTopOffset(translation, myPosition) > 0, MapButtons.myPosition);
     showButton(getViewTopOffset(translation, mMenuButton) > 0, MapButtons.menu);
+    showButton(getViewTopOffset(translation, mBookmarksButton) > 0, MapButtons.bookmarks);
   }
 
   public void setTopLimit(float limit)
@@ -223,9 +225,8 @@ public class MapButtonsController
     zoomIn,
     zoomOut,
     zoom,
-    nav,
-    navSearch,
-    navBookmarks,
+    search,
+    bookmarks,
     menu
   }
 
