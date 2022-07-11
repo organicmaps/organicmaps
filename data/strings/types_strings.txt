@@ -17950,39 +17950,28 @@
 
   [type.shop.hardware]
     ref = type.shop.doityourself
-    en = Hardware Store
     ar = ﺕﺍﺪﻌﻣ ﻞﺤﻣ
     be = Будаўнічы магазін
     bg = Магазин за хардуер
-    cs = Železářství
-    da = Isenkræmmer
-    de = Baumarkt
     el = Κατάστημα υλικού
-    es = Ferretería
     eu = Hardware denda
     fa = ﺭﺍﺰﻓﺍ ﺖﺨﺳ ﻩﺎﮕﺷﻭﺮﻓ
-    fi = Rautakauppa
     fr = Quincaillerie
     he = ןיינב ירמוחל תונח
     hu = Hardver üzlet
-    id = Toko perangkat keras
     it = Negozio hardware
     ja = ホームセンター
-    ko = 철물점
-    nb = Jernvareforretning
     nl = Ijzerwaren
     pl = Sklep z narzędziami
     pt = Loja de ferragens
     pt-BR = Loja de ferragens
     ro = Magazin de hardware
     ru = Хозяйственный магазин
-    sk = Železiarstvo
     sv = Järnaffär
     sw = Duka la vifaa
     th = ร้านฮาร์ดแวร์
     tr = Donanım mağazası
     uk = Магазин побутової техніки
-    vi = Cửa hàng phần cứng
     zh-Hans = 五金店
     zh-Hant = 五金店
 
@@ -18058,7 +18047,6 @@
     tr = Ev Eşyaları Dükkanı
     uk = Магазин посуду
     vi = Cửa hàng đồ gia dụng
-    zh-Hans = 家居用品店
     zh-Hant = 家居用品店
 
   [type.shop.jewelry]

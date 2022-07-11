@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Kozmetikum";
 
+"type.shop.deli" = "Csemegebolt";
+
 "type.shop.department_store" = "Áruház";
 
 "type.shop.doityourself" = "Vaskereskedés";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Erotikus bolt";
 
 "type.shop.fabric" = "Bolt";
+
+"type.shop.farm" = "Farm Food Shop";
 
 "type.shop.florist" = "Virágos";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Zöldséges";
 
+"type.shop.grocery" = "Élelmiszerbolt";
+
 "type.shop.hairdresser" = "Fodrász";
 
-"type.shop.hardware" = "Vaskereskedés";
+"type.shop.hardware" = "Hardver üzlet";
+
+"type.shop.health_food" = "Egészségügyi élelmiszerbolt";
+
+"type.shop.houseware" = "Háztartási bolt";
 
 "type.shop.jewelry" = "Ékszer";
 
 "type.shop.kiosk" = "Trafik";
+
+"type.shop.kitchen" = "Konyhabolt";
 
 "type.shop.laundry" = "Mosoda";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Kültéri felszerelés";
 
+"type.shop.pastry" = "Cukrászsütemény";
+
 "type.shop.pawnbroker" = "Zálogház";
 
 "type.shop.pet" = "Házikedvenc-üzlet";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Fénykép üzlet";
 
 "type.shop.seafood" = "Halüzlet";
+
+"type.shop.second_hand" = "Second Hand Store";
 
 "type.shop.shoes" = "Cipőbolt";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Videojáték bolt";
 
 "type.shop.wine" = "Szeszesital-üzlet";
+
+"type.shop.antiques" = "Régiségek";
+
+"type.shop.art" = "Művészeti Bolt";
+
+"type.shop.baby_goods" = "Gyermekbolt";
+
+"type.shop.bag" = "Táskák bolt";
+
+"type.shop.boutique" = "Butik";
+
+"type.shop.charity" = "Jótékonysági Bolt";
+
+"type.shop.cheese" = "Sajtbolt";
+
+"type.shop.craft" = "Művészetek és kézművesség";
+
+"type.shop.dairy" = "Tejtermékek";
+
+"type.shop.electrical" = "Elektronikai üzlet";
+
+"type.shop.fishing" = "Horgászbolt";
+
+"type.shop.interior_decoration" = "Belső dekorációk";
+
+"type.shop.lottery" = "Sorsjegyek";
+
+"type.shop.medical_supply" = "Orvosi eszközök";
+
+"type.shop.nutrition_supplements" = "Táplálékkiegészítők";
+
+"type.shop.paint" = "Festékek";
+
+"type.shop.perfumery" = "Illatszerek";
+
+"type.shop.sewing" = "Varrás kellékek";
+
+"type.shop.storage_rental" = "Tárhely bérlés";
+
+"type.shop.tobacco" = "Dohány";
+
+"type.shop.trade" = "Kellékekkel kereskedik";
+
+"type.shop.watches" = "Órák";
+
+"type.shop.wholesale" = "Nagykereskedelmi üzlet";
 
 "type.sport" = "Sport";
 

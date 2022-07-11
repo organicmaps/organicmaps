@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "化粧品";
 
+"type.shop.deli" = "デリカテッセンショップ";
+
 "type.shop.department_store" = "デパート";
 
 "type.shop.doityourself" = "工具店";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "アダルトショップ";
 
 "type.shop.fabric" = "生地屋";
+
+"type.shop.farm" = "ファームフードショップ";
 
 "type.shop.florist" = "フローリスト/花屋";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "八百屋";
 
+"type.shop.grocery" = "買い物";
+
 "type.shop.hairdresser" = "美容院/理容店";
 
-"type.shop.hardware" = "工具店";
+"type.shop.hardware" = "ホームセンター";
+
+"type.shop.health_food" = "健康食品店";
+
+"type.shop.houseware" = "家庭用品店";
 
 "type.shop.jewelry" = "宝石店";
 
 "type.shop.kiosk" = "キオスク";
+
+"type.shop.kitchen" = "キッチンストア";
 
 "type.shop.laundry" = "ランドリー";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "アウトドア用品店";
 
+"type.shop.pastry" = "ペストリー";
+
 "type.shop.pawnbroker" = "質屋";
 
 "type.shop.pet" = "ペットショップ";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "写真屋";
 
 "type.shop.seafood" = "魚屋";
+
+"type.shop.second_hand" = "古物商";
 
 "type.shop.shoes" = "靴屋";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "ゲームショップ";
 
 "type.shop.wine" = "ワイン店";
+
+"type.shop.antiques" = "骨董品";
+
+"type.shop.art" = "アートショップ";
+
+"type.shop.baby_goods" = "キッズストア";
+
+"type.shop.bag" = "バッグストア";
+
+"type.shop.boutique" = "ブティック";
+
+"type.shop.charity" = "チャリティーショップ";
+
+"type.shop.cheese" = "チーズ店";
+
+"type.shop.craft" = "美術工芸";
+
+"type.shop.dairy" = "乳製品";
+
+"type.shop.electrical" = "電気店";
+
+"type.shop.fishing" = "フィッシングストア";
+
+"type.shop.interior_decoration" = "室内装飾";
+
+"type.shop.lottery" = "宝くじ";
+
+"type.shop.medical_supply" = "医療用品";
+
+"type.shop.nutrition_supplements" = "栄養補助食品";
+
+"type.shop.paint" = "塗料";
+
+"type.shop.perfumery" = "香水";
+
+"type.shop.sewing" = "ミシン用品";
+
+"type.shop.storage_rental" = "ストレージレンタル";
+
+"type.shop.tobacco" = "タバコ";
+
+"type.shop.trade" = "貿易用品";
+
+"type.shop.watches" = "時計";
+
+"type.shop.wholesale" = "問屋";
 
 "type.sport" = "スポーツ";
 

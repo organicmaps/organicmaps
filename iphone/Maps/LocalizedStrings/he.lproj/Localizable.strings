@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Cosmetics";
 
+"type.shop.deli" = "תוינדעמ תונח";
+
 "type.shop.department_store" = "Department Store";
 
 "type.shop.doityourself" = "Hardware Store";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Erotic Shop";
 
 "type.shop.fabric" = "Shop";
+
+"type.shop.farm" = "הווחל ןוזמ תונח";
 
 "type.shop.florist" = "Florist’s";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Greengrocer's";
 
+"type.shop.grocery" = "תלֶוֹכּמַ";
+
 "type.shop.hairdresser" = "Hairdresser";
 
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "ןיינב ירמוחל תונח";
+
+"type.shop.health_food" = "תואירב ןוזמ תונח";
+
+"type.shop.houseware" = "תיב ילכל תונח";
 
 "type.shop.jewelry" = "Jewelry";
 
 "type.shop.kiosk" = "Kiosk";
+
+"type.shop.kitchen" = "םיחבטמ תונח";
 
 "type.shop.laundry" = "Laundry";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Outdoor Equipment";
 
+"type.shop.pastry" = "הפאמ";
+
 "type.shop.pawnbroker" = "Pawnbroker";
 
 "type.shop.pet" = "Petshop";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Photo Shop";
 
 "type.shop.seafood" = "Seafood Shop";
+
+"type.shop.second_hand" = "היינש די תונח";
 
 "type.shop.shoes" = "Shoe Store";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Video Games Shop";
 
 "type.shop.wine" = "Wine Shop";
+
+"type.shop.antiques" = "תוֹקיתִעַ";
+
+"type.shop.art" = "תויונמוא תונח";
+
+"type.shop.baby_goods" = "םידליל תונח";
+
+"type.shop.bag" = "םיקית תונח";
+
+"type.shop.boutique" = "קיטוב";
+
+"type.shop.charity" = "הקדצ תונח";
+
+"type.shop.cheese" = "תוניבג תונח";
+
+"type.shop.craft" = "הריציו תונמוא";
+
+"type.shop.dairy" = "בלח ירצומ";
+
+"type.shop.electrical" = "למשח תונח";
+
+"type.shop.fishing" = "גייד תונח";
+
+"type.shop.interior_decoration" = "םינפ יטושיק";
+
+"type.shop.lottery" = "הלרגה יסיטרכ";
+
+"type.shop.medical_supply" = "יאופר דויצ";
+
+"type.shop.nutrition_supplements" = "הנוזת יפסות";
+
+"type.shop.paint" = "םיעבצ";
+
+"type.shop.perfumery" = "תמַשְׂבָּ";
+
+"type.shop.sewing" = "הריפת דויצ";
+
+"type.shop.storage_rental" = "ןוסחא תרכשה";
+
+"type.shop.tobacco" = "קבָּטַ";
+
+"type.shop.trade" = "הקפסאב רחוס";
+
+"type.shop.watches" = "םינועש";
+
+"type.shop.wholesale" = "תיאנוטיס תונח";
 
 "type.sport" = "ספורט";
 

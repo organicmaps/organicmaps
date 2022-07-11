@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Cosmetics";
 
+"type.shop.deli" = "Магазин за деликатеси";
+
 "type.shop.department_store" = "Department Store";
 
 "type.shop.doityourself" = "Hardware Store";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Erotic Shop";
 
 "type.shop.fabric" = "Shop";
+
+"type.shop.farm" = "Магазин за селскостопански храни";
 
 "type.shop.florist" = "Florist’s";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Greengrocer's";
 
+"type.shop.grocery" = "Хранителни стоки";
+
 "type.shop.hairdresser" = "Hairdresser";
 
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "Магазин за хардуер";
+
+"type.shop.health_food" = "Магазин за здравословни храни";
+
+"type.shop.houseware" = "Магазин за домакински принадлежности";
 
 "type.shop.jewelry" = "Jewelry";
 
 "type.shop.kiosk" = "Kiosk";
+
+"type.shop.kitchen" = "Магазин за кухня";
 
 "type.shop.laundry" = "Laundry";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Outdoor Equipment";
 
+"type.shop.pastry" = "Тестени изделия";
+
 "type.shop.pawnbroker" = "Pawnbroker";
 
 "type.shop.pet" = "Petshop";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Photo Shop";
 
 "type.shop.seafood" = "Seafood Shop";
+
+"type.shop.second_hand" = "Магазин втора употреба";
 
 "type.shop.shoes" = "Shoe Store";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Video Games Shop";
 
 "type.shop.wine" = "Wine Shop";
+
+"type.shop.antiques" = "Антики";
+
+"type.shop.art" = "Магазин за изкуства";
+
+"type.shop.baby_goods" = "Детски магазин";
+
+"type.shop.bag" = "Магазин за чанти";
+
+"type.shop.boutique" = "Бутик";
+
+"type.shop.charity" = "Благотворителен магазин";
+
+"type.shop.cheese" = "Магазин за сирене";
+
+"type.shop.craft" = "Изкуства и занаяти";
+
+"type.shop.dairy" = "Млечни продукти";
+
+"type.shop.electrical" = "Електрически магазин";
+
+"type.shop.fishing" = "Риболовен магазин";
+
+"type.shop.interior_decoration" = "Вътрешни декорации";
+
+"type.shop.lottery" = "Лотарийни билети";
+
+"type.shop.medical_supply" = "Медицински изделия";
+
+"type.shop.nutrition_supplements" = "Хранителни добавки";
+
+"type.shop.paint" = "Бои";
+
+"type.shop.perfumery" = "Парфюмерия";
+
+"type.shop.sewing" = "Шивашки консумативи";
+
+"type.shop.storage_rental" = "Склад под наем";
+
+"type.shop.tobacco" = "Тютюн";
+
+"type.shop.trade" = "Търговия с консумативи";
+
+"type.shop.watches" = "Часовници";
+
+"type.shop.wholesale" = "Магазин на едро";
 
 "type.sport" = "Спорт";
 

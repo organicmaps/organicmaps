@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Cosmetică";
 
+"type.shop.deli" = "Magazin de delicatese";
+
 "type.shop.department_store" = "Magazin universal";
 
 "type.shop.doityourself" = "Magazin de bricolaj";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Magazin erotic";
 
 "type.shop.fabric" = "Magazin";
+
+"type.shop.farm" = "Magazin alimentar la fermă";
 
 "type.shop.florist" = "Florărie";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Băcănie";
 
+"type.shop.grocery" = "Băcănie";
+
 "type.shop.hairdresser" = "Coafor";
 
-"type.shop.hardware" = "Magazin de bricolaj";
+"type.shop.hardware" = "Magazin de hardware";
+
+"type.shop.health_food" = "Magazin de alimente naturiste";
+
+"type.shop.houseware" = "Magazin de articole de uz casnic";
 
 "type.shop.jewelry" = "Bijutier";
 
 "type.shop.kiosk" = "Magazin";
+
+"type.shop.kitchen" = "Magazin de bucatarie";
 
 "type.shop.laundry" = "Spălătorie";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Echipament de exterior";
 
+"type.shop.pastry" = "Patiserie";
+
 "type.shop.pawnbroker" = "Amanet";
 
 "type.shop.pet" = "Pet shop";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Centru fotografii";
 
 "type.shop.seafood" = "Pescărie";
+
+"type.shop.second_hand" = "Magazin second-hand";
 
 "type.shop.shoes" = "Magazin de încălțăminte";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Magazin de jocuri video";
 
 "type.shop.wine" = "Vinărie";
+
+"type.shop.antiques" = "Antichități";
+
+"type.shop.art" = "Magazin de arte";
+
+"type.shop.baby_goods" = "Magazin pentru copii";
+
+"type.shop.bag" = "Magazin de genti";
+
+"type.shop.boutique" = "Butic";
+
+"type.shop.charity" = "Magazin de caritate";
+
+"type.shop.cheese" = "Magazin de branzeturi";
+
+"type.shop.craft" = "Arte și Meserii";
+
+"type.shop.dairy" = "Lactate";
+
+"type.shop.electrical" = "Magazin de electronice";
+
+"type.shop.fishing" = "Magazin de pescuit";
+
+"type.shop.interior_decoration" = "Decoratiuni interioare";
+
+"type.shop.lottery" = "Bilete la loterie";
+
+"type.shop.medical_supply" = "Consumabile medicale";
+
+"type.shop.nutrition_supplements" = "Suplimente nutritive";
+
+"type.shop.paint" = "Vopsele";
+
+"type.shop.perfumery" = "Parfumerie";
+
+"type.shop.sewing" = "Rechizite de cusut";
+
+"type.shop.storage_rental" = "Închiriere depozitare";
+
+"type.shop.tobacco" = "Tutun";
+
+"type.shop.trade" = "Comerțuri Rechizite";
+
+"type.shop.watches" = "Priveste";
+
+"type.shop.wholesale" = "Magazin cu ridicata";
 
 "type.sport" = "Sport";
 
