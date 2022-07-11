@@ -703,7 +703,7 @@ void DrawWidget::SetDefaultSurfaceFormat(bool apiOpenGLES3)
   else
   {
     fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
-    fmt.setVersion(2, 1);
+    fmt.setVersion(2, 0);
   }
   //fmt.setOption(QSurfaceFormat::DebugContext);
   QSurfaceFormat::setDefaultFormat(fmt);

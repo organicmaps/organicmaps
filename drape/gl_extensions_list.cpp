@@ -37,6 +37,20 @@ void GLExtensionsList::Init(dp::ApiVersion apiVersion)
     SetExtension(VertexArrayObject, true);
     SetExtension(UintIndices, true);
   }
+#elif defined(OMIM_OS_LINUX)
+  SetExtension(MapBuffer, true);
+  SetExtension(UintIndices, true);
+  if (apiVersion == dp::ApiVersion::OpenGLES2)
+  {
+    SetExtension(VertexArrayObject, true);
+    SetExtension(MapBuffer, true);
+    SetExtension(MapBufferRange, true);
+  }
+  else // OpenGLES3 branch
+  {
+    SetExtension(VertexArrayObject, true);
+    SetExtension(MapBufferRange, true);
+  }
 #elif defined(OMIM_OS_WINDOWS)
   SetExtension(MapBuffer, true);
   SetExtension(UintIndices, true);
