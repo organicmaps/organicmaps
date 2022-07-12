@@ -25,8 +25,10 @@
     android:id="@+id/position_chooser"
     layout="@layout/position_chooser"/>
 
-  <include
-    layout="@layout/map_navigation_buttons"/>
+  <androidx.fragment.app.FragmentContainerView
+    android:id="@+id/map_buttons"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
 
   <include
     android:id="@+id/toolbar"

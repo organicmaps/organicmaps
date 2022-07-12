@@ -27,8 +27,10 @@ public class SearchWheel implements View.OnClickListener
   private static final String EXTRA_CURRENT_OPTION = "extra_current_option";
   private final View mFrame;
 
-  private final View mSearchLayout;
+  @Nullable
+  private View mSearchLayout;
   private final ImageView mSearchButton;
+  @Nullable
   private final View mTouchInterceptor;
 
   private boolean mIsExpanded;
@@ -109,26 +111,40 @@ public class SearchWheel implements View.OnClickListener
     mOnSearchPressedListener = onSearchPressedListener;
     mOnSearchCanceledListener = onSearchCanceledListener;
     mTouchInterceptor = mFrame.findViewById(R.id.touch_interceptor);
-    mTouchInterceptor.setOnClickListener(this);
+    if (mTouchInterceptor != null)
+      mTouchInterceptor.setOnClickListener(this);
     mSearchButton = mFrame.findViewById(R.id.btn_search);
     mSearchButton.setOnClickListener(this);
-    mSearchLayout = mFrame.findViewById(R.id.search_frame);
-    if (UiUtils.isLandscape(mFrame.getContext()))
-    {
-      UiUtils.waitLayout(mSearchLayout, () -> {
-        mSearchLayout.setPivotX(0);
-        mSearchLayout.setPivotY(mSearchLayout.getMeasuredHeight() / 2);
-      });
-    }
-    for (SearchOption searchOption : SearchOption.values())
-      mFrame.findViewById(searchOption.mResId).setOnClickListener(this);
     refreshSearchVisibility();
+  }
+
+  private @Nullable View getSearchLayout()
+  {
+    if (mSearchLayout == null)
+    {
+      mSearchLayout = mFrame.findViewById(R.id.search_frame);
+      if (mSearchLayout != null)
+      {
+        if (UiUtils.isLandscape(mFrame.getContext()))
+        {
+          UiUtils.waitLayout(mSearchLayout, () -> {
+            mSearchLayout.setPivotX(0);
+            mSearchLayout.setPivotY(mSearchLayout.getMeasuredHeight() / 2);
+          });
+        }
+        for (SearchOption searchOption : SearchOption.values())
+          mFrame.findViewById(searchOption.mResId).setOnClickListener(this);
+      }
+    }
+    return mSearchLayout;
   }
 
   public void show(boolean show)
   {
     UiUtils.showIf(show, mSearchButton);
-    UiUtils.showIf(show && mIsExpanded, mSearchLayout);
+    View searchLayout = getSearchLayout();
+    if (searchLayout != null)
+      UiUtils.showIf(show && mIsExpanded, searchLayout);
   }
 
   public void saveState(@NonNull Bundle outState)
@@ -169,42 +185,52 @@ public class SearchWheel implements View.OnClickListener
 
   private void toggleSearchLayout()
   {
-    final int animRes;
-    if (mIsExpanded)
+    View searchLayout = getSearchLayout();
+    if (searchLayout != null)
     {
-      animRes = R.animator.show_zoom_out_alpha;
-    }
-    else
-    {
-      animRes = R.animator.show_zoom_in_alpha;
-      UiUtils.show(mSearchLayout);
-    }
-    mIsExpanded = !mIsExpanded;
-    final Animator animator = AnimatorInflater.loadAnimator(mSearchLayout.getContext(), animRes);
-    animator.setTarget(mSearchLayout);
-    animator.start();
-    UiUtils.visibleIf(mIsExpanded, mTouchInterceptor);
-    animator.addListener(new UiUtils.SimpleAnimatorListener()
-    {
-      @Override
-      public void onAnimationEnd(Animator animation)
+      final int animRes;
+      if (mIsExpanded)
       {
-        refreshSearchVisibility();
+        animRes = R.animator.show_zoom_out_alpha;
       }
-    });
+      else
+      {
+        animRes = R.animator.show_zoom_in_alpha;
+        UiUtils.show(mSearchLayout);
+      }
+      mIsExpanded = !mIsExpanded;
+      final Animator animator = AnimatorInflater.loadAnimator(mSearchLayout.getContext(), animRes);
+      animator.setTarget(mSearchLayout);
+      animator.start();
+      if (mTouchInterceptor != null)
+        UiUtils.visibleIf(mIsExpanded, mTouchInterceptor);
+      animator.addListener(new UiUtils.SimpleAnimatorListener()
+      {
+        @Override
+        public void onAnimationEnd(Animator animation)
+        {
+          refreshSearchVisibility();
+        }
+      });
+    }
   }
 
   private void refreshSearchVisibility()
   {
-    for (SearchOption searchOption : SearchOption.values())
-      UiUtils.visibleIf(mIsExpanded, mSearchLayout.findViewById(searchOption.mResId));
-
-    UiUtils.visibleIf(mIsExpanded, mSearchLayout, mTouchInterceptor);
-
-    if (mIsExpanded)
+    View searchLayout = getSearchLayout();
+    if (searchLayout != null)
     {
-      UiThread.cancelDelayedTasks(mCloseRunnable);
-      UiThread.runLater(mCloseRunnable, CLOSE_DELAY_MILLIS);
+      for (SearchOption searchOption : SearchOption.values())
+        UiUtils.visibleIf(mIsExpanded, searchLayout.findViewById(searchOption.mResId));
+
+      if (mTouchInterceptor != null)
+        UiUtils.visibleIf(mIsExpanded, mSearchLayout, mTouchInterceptor);
+
+      if (mIsExpanded)
+      {
+        UiThread.cancelDelayedTasks(mCloseRunnable);
+        UiThread.runLater(mCloseRunnable, CLOSE_DELAY_MILLIS);
+      }
     }
   }
 

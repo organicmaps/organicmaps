@@ -464,7 +464,7 @@ public class RoutingController implements Initializable<Void>
 
     setState(State.NAVIGATION);
 
-    cancelPlanning();
+    cancelPlanning(false);
     startNavigation();
 
     Framework.nativeFollowRoute();
@@ -477,7 +477,7 @@ public class RoutingController implements Initializable<Void>
     build();
     if (mContainer != null)
       mContainer.onAddedStop();
-    backToPlaningStateIfNavigating();
+    resetToPlanningStateIfNavigating();
   }
 
   public void removeStop(@NonNull MapObject mapObject)
@@ -491,7 +491,7 @@ public class RoutingController implements Initializable<Void>
     build();
     if (mContainer != null)
       mContainer.onRemovedStop();
-    backToPlaningStateIfNavigating();
+    resetToPlanningStateIfNavigating();
   }
 
   /**
@@ -502,26 +502,16 @@ public class RoutingController implements Initializable<Void>
     if (isNavigating())
     {
       build();
+      setState(State.PREPARE);
+      cancelNavigation(false);
+      startPlanning();
+      if (mContainer != null)
+        mContainer.updateMenu();
       if (mContainer != null)
         mContainer.onResetToPlanningState();
-      backToPlaningStateIfNavigating();
       return true;
     }
     return false;
-  }
-
-  private void backToPlaningStateIfNavigating()
-  {
-    if (!isNavigating())
-      return;
-
-    setState(State.PREPARE);
-    cancelNavigation();
-    startPlanning();
-    if (mContainer != null)
-    {
-      mContainer.updateMenu();
-    }
   }
 
   private void removeIntermediatePoints()
@@ -617,7 +607,7 @@ public class RoutingController implements Initializable<Void>
       Logger.d(TAG, "cancel: planning");
 
       cancelInternal();
-      cancelPlanning();
+      cancelPlanning(true);
       return true;
     }
 
@@ -626,7 +616,7 @@ public class RoutingController implements Initializable<Void>
       Logger.d(TAG, "cancel: navigating");
 
       cancelInternal();
-      cancelNavigation();
+      cancelNavigation(true);
       if (mContainer != null)
       {
         mContainer.updateMenu();
@@ -638,16 +628,15 @@ public class RoutingController implements Initializable<Void>
     return false;
   }
 
-  public void startPlanning()
+  private void startPlanning()
   {
     if (mContainer != null)
     {
       showRoutePlan();
-      mContainer.onPlanningStarted();
     }
   }
 
-  public void startPlanning(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint)
+  private void startPlanning(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint)
   {
     if (mContainer != null)
     {
@@ -656,16 +645,17 @@ public class RoutingController implements Initializable<Void>
     }
   }
 
-  public void cancelPlanning()
+  private void cancelPlanning(boolean fireEvent)
   {
     if (mContainer != null)
     {
       mContainer.showRoutePlan(false, null);
-      mContainer.onPlanningCancelled();
+      if (fireEvent)
+        mContainer.onPlanningCancelled();
     }
   }
 
-  public void startNavigation()
+  private void startNavigation()
   {
     if (mContainer != null)
     {
@@ -674,12 +664,13 @@ public class RoutingController implements Initializable<Void>
     }
   }
 
-  public void cancelNavigation()
+  private void cancelNavigation(boolean fireEvent)
   {
     if (mContainer != null)
     {
       mContainer.showNavigation(false);
-      mContainer.onNavigationCancelled();
+      if (fireEvent)
+        mContainer.onNavigationCancelled();
     }
   }
 

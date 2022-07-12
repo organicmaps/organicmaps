@@ -28,6 +28,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -129,6 +130,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                      ReportFragment.class.getName() };
 
   private static final String EXTRA_LOCATION_DIALOG_IS_ANNOYING = "LOCATION_DIALOG_IS_ANNOYING";
+  private static final String EXTRA_CURRENT_LAYOUT_MODE = "CURRENT_LAYOUT_MODE";
   private static final int REQ_CODE_LOCATION_PERMISSION = 1;
   private static final int REQ_CODE_LOCATION_PERMISSION_ON_CLICK = 2;
   public static final int REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG = 5;
@@ -169,7 +171,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private MenuBottomSheetFragment mMainMenuBottomSheet;
 
-  @NonNull
+  @Nullable
   private MapButtonsController mMapButtonsController;
 
   private boolean mIsTabletLayout;
@@ -188,6 +190,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private PlacePageController mPlacePageController;
+  private MapButtonsController.LayoutMode mCurrentLayoutMode;
 
   private String mDonatesUrl;
 
@@ -378,6 +381,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (savedInstanceState != null)
     {
       mLocationErrorDialogAnnoying = savedInstanceState.getBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING);
+      mCurrentLayoutMode = MapButtonsController.LayoutMode.values()[savedInstanceState.getInt(EXTRA_CURRENT_LAYOUT_MODE)];
+    }
+    else
+    {
+      mCurrentLayoutMode = MapButtonsController.LayoutMode.regular;
     }
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
 
@@ -429,7 +437,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private ArrayList<MenuBottomSheetItem> getMainMenuItems()
   {
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
-    items.add(new MenuBottomSheetItem(R.string.help, R.drawable.ic_question_mark, this::showHelp));
     items.add(new MenuBottomSheetItem(R.string.placepage_add_place_button, R.drawable.ic_plus, this::onAddPlaceOptionSelected));
     items.add(new MenuBottomSheetItem(
         R.string.download_maps,
@@ -602,17 +609,32 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return mMapFragment != null && mMapFragment.isAdded();
   }
 
+
   private void initNavigationButtons()
   {
+    initNavigationButtons(mCurrentLayoutMode);
+  }
 
-    final View frame = findViewById(R.id.navigation_buttons);
-    mMapButtonsController = new MapButtonsController(frame,
-                                                     this,
-                                                     this::onMapButtonClick,
-                                                     (v) -> closeSearchToolbar(true, true),
-                                                     mPlacePageController);
-    // FIXME For some reason the first onResume does not make the badge appear
-    new Handler().postDelayed(() -> mMapButtonsController.updateMarker(this), 100);
+  private void initNavigationButtons(MapButtonsController.LayoutMode layoutMode)
+  {
+    if (mMapButtonsController == null || mMapButtonsController.getLayoutMode() != layoutMode)
+    {
+      mCurrentLayoutMode = layoutMode;
+
+      mMapButtonsController = new MapButtonsController();
+      mMapButtonsController.init(
+          layoutMode,
+          LocationHelper.INSTANCE.getMyPositionMode(),
+          this::onMapButtonClick,
+          (v) -> closeSearchToolbar(true, true),
+          mPlacePageController,
+          this::adjustBottomWidgets);
+
+
+      FragmentTransaction transaction = getSupportFragmentManager()
+          .beginTransaction().replace(R.id.map_buttons, mMapButtonsController);
+      transaction.commit();
+    }
   }
 
   void onMapButtonClick(MapButtonsController.MapButtons button)
@@ -645,6 +667,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       case menu:
         closeFloatingPanels();
         showMainMenuBottomSheet();
+        break;
+      case help:
+        showHelp();
         break;
     }
   }
@@ -833,6 +858,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     RoutingController.get().onSaveState();
     outState.putBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING, mLocationErrorDialogAnnoying);
+    outState.putInt(EXTRA_CURRENT_LAYOUT_MODE, mCurrentLayoutMode.ordinal());
 
     if (!isChangingConfigurations())
       RoutingController.get().saveRoute();
@@ -1018,7 +1044,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mOnmapDownloader.onResume();
 
     mNavigationController.onActivityResumed(this);
-    mMapButtonsController.onResume(this);
+    mMapButtonsController.onResume();
     mPlacePageController.onActivityResumed(this);
   }
 
@@ -1231,10 +1257,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
       MapFragment.nativeCompassUpdated(compass.getNorth(), true);
   }
 
-  public void adjustBottomWidgets(int offsetY)
+  public void adjustBottomWidgets()
   {
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
+
+    int mapButtonsHeight = 0;
+    int mainMenuHeight = 0;
+    if (mMapButtonsController != null)
+      mapButtonsHeight = (int) mMapButtonsController.getBottomButtonsHeight();
+    if (mMainMenu != null)
+      mainMenuHeight = mMainMenu.getMenuHeight();
+
+    int offsetY = Math.max(mapButtonsHeight, mainMenuHeight);
 
     mMapFragment.setupBottomWidgetsOffset(offsetY);
   }
@@ -1389,8 +1424,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onRoutingPlanStartAnimate(boolean show)
   {
     int totalHeight = calcFloatingViewsOffset();
-
-    mMapButtonsController.setTopLimit(!show ? 0 : totalHeight);
     adjustCompassAndTraffic(!show ? UiUtils.getStatusBarHeight(getApplicationContext())
                                   : totalHeight);
   }
@@ -1425,7 +1458,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mIsTabletLayout)
       {
         adjustCompassAndTraffic(UiUtils.getStatusBarHeight(getApplicationContext()));
-        mMapButtonsController.setTopLimit(0);
       }
       else
       {
@@ -1508,6 +1540,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mRoutingPlanInplaceController.hideDrivingOptionsView();
     mNavigationController.stop(this);
+    initNavigationButtons(MapButtonsController.LayoutMode.regular);
   }
 
   @Override
@@ -1516,18 +1549,30 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     mNavigationController.start(this);
+    initNavigationButtons(MapButtonsController.LayoutMode.navigation);
   }
 
   @Override
   public void onPlanningCancelled()
   {
     closeFloatingToolbarsAndPanels(true);
+    initNavigationButtons(MapButtonsController.LayoutMode.regular);
   }
 
   @Override
   public void onPlanningStarted()
   {
     closeFloatingToolbarsAndPanels(true);
+    initNavigationButtons(MapButtonsController.LayoutMode.planning);
+  }
+
+  @Override
+  public void onResetToPlanningState()
+  {
+    closeFloatingToolbarsAndPanels(true);
+    ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
+    mNavigationController.stop(this);
+    initNavigationButtons(MapButtonsController.LayoutMode.planning);
   }
 
   @Override
@@ -1538,12 +1583,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Override
   public void onRemovedStop()
-  {
-    closePlacePage();
-  }
-
-  @Override
-  public void onResetToPlanningState()
   {
     closePlacePage();
   }

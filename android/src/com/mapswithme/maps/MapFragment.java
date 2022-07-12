@@ -59,6 +59,7 @@ public class MapFragment extends BaseMwmFragment
 
   private int mHeight;
   private int mWidth;
+  private int mBottomWidgetOffset;
   private boolean mRequireResize;
   private boolean mSurfaceCreated;
   private boolean mSurfaceAttached;
@@ -78,7 +79,7 @@ public class MapFragment extends BaseMwmFragment
     Context context = requireContext();
 
     nativeCleanWidgets();
-    setupBottomWidgetsOffset(0);
+    setupBottomWidgetsOffset(mBottomWidgetOffset);
 
     nativeSetupWidget(WIDGET_SCALE_FPS_LABEL,
                       UiUtils.dimen(context, R.dimen.margin_base),
@@ -104,6 +105,7 @@ public class MapFragment extends BaseMwmFragment
 
   void setupBottomWidgetsOffset(int offset)
   {
+    mBottomWidgetOffset = offset;
     setupRuler(offset, true);
     setupAttribution(offset, true);
   }

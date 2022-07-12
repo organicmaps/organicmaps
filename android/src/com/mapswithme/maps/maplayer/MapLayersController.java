@@ -1,10 +1,10 @@
 package com.mapswithme.maps.maplayer;
 
+import android.app.Activity;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
@@ -14,7 +14,7 @@ import java.util.List;
 public class MapLayersController
 {
   @NonNull
-  private final AppCompatActivity mActivity;
+  private final Activity mActivity;
   @NonNull
   private final List<Mode> mLayers;
   @NonNull
@@ -24,7 +24,7 @@ public class MapLayersController
   @NonNull
   private Mode mCurrentLayer;
 
-  public MapLayersController(@NonNull ImageButton layersButton, @NonNull OnShowMenuListener onShowMenuListener, @NonNull AppCompatActivity activity)
+  public MapLayersController(@NonNull ImageButton layersButton, @NonNull OnShowMenuListener onShowMenuListener, @NonNull Activity activity)
   {
     mActivity = activity;
     mLayersButton = layersButton;
