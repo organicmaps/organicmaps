@@ -7,13 +7,13 @@ import com.mapswithme.util.UiUtils;
 public class MainMenu
 {
   private final View mFrame;
-  private final OnMenuSizeChangeListener mOnMenuSizeChangeListener;
+  private final OnMenuSizeChangedListener mOnMenuSizeChangedListener;
   private int mMenuHeight;
 
-  public MainMenu(View frame, OnMenuSizeChangeListener onMenuSizeChangeListener)
+  public MainMenu(View frame, OnMenuSizeChangedListener onMenuSizeChangedListener)
   {
     mFrame = frame;
-    mOnMenuSizeChangeListener = onMenuSizeChangeListener;
+    mOnMenuSizeChangedListener = onMenuSizeChangedListener;
     mFrame.addOnLayoutChangeListener(new MainMenu.FrameLayoutChangeListener());
     setState(State.MENU, false);
   }
@@ -29,12 +29,12 @@ public class MainMenu
       return;
 
     UiUtils.showIf(show, mFrame);
-    notifyHeight();
+    mOnMenuSizeChangedListener.OnMenuSizeChange();
   }
 
-  private void notifyHeight()
+  public int getMenuHeight()
   {
-    mOnMenuSizeChangeListener.OnMenuSizeChange(UiUtils.isVisible(mFrame) ? mMenuHeight : 0);
+    return UiUtils.isVisible(mFrame) ? mMenuHeight : 0;
   }
 
   public View getFrame()
@@ -57,9 +57,9 @@ public class MainMenu
     BOOKMARKS
   }
 
-  public interface OnMenuSizeChangeListener
+  public interface OnMenuSizeChangedListener
   {
-    void OnMenuSizeChange(int newHeight);
+    void OnMenuSizeChange();
   }
 
   private class FrameLayoutChangeListener implements View.OnLayoutChangeListener
@@ -69,7 +69,7 @@ public class MainMenu
                                int oldTop, int oldRight, int oldBottom)
     {
       mMenuHeight = bottom - top;
-      notifyHeight();
+      mOnMenuSizeChangedListener.OnMenuSizeChange();
     }
   }
 }

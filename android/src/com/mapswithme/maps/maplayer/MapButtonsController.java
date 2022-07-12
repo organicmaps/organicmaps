@@ -1,15 +1,17 @@
 package com.mapswithme.maps.maplayer;
 
-import android.app.Activity;
-import android.content.res.TypedArray;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,81 +24,138 @@ import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
 
-public class MapButtonsController
-{
-  @NonNull
-  private final View mButtonsFrame;
-  @NonNull
-  private final View mZoomFrame;
-  @NonNull
-  private final FloatingActionButton mLayersButton;
-  @NonNull
-  private final View myPosition;
-  @NonNull
-  private final View mBookmarksButton;
-  @NonNull
-  private final View mMenuButton;
-  @NonNull
-  private final View mSearchButton;
-  @Nullable
-  private final MyPositionButton mNavMyPosition;
-  @NonNull
-  private final MapLayersController mToggleMapLayerController;
-  @NonNull
-  private final SearchWheel mSearchWheel;
-  @NonNull
-  private BadgeDrawable mBadgeDrawable;
+import java.util.HashMap;
+import java.util.Map;
 
-  private final PlacePageController mPlacePageController;
-  private final float mBottomMargin;
-  private final float mButtonWidth;
-  private float mTopLimit;
+public class MapButtonsController extends Fragment
+{
+  Map<MapButtons, View> mButtonsMap;
+  private View mFrame;
+  private View mInnerLeftButtonsFrame;
+  private View mInnerRightButtonsFrame;
+  @Nullable
+  private View mBottomButtonsFrame;
+  @Nullable
+  private MapLayersController mToggleMapLayerController;
+
+  @Nullable
+  private MyPositionButton mNavMyPosition;
+  private SearchWheel mSearchWheel;
+  private BadgeDrawable mBadgeDrawable;
   private float mContentHeight;
   private float mContentWidth;
 
-  public MapButtonsController(@NonNull View frame, AppCompatActivity activity, MapButtonClickListener mapButtonClickListener, @NonNull View.OnClickListener onSearchCanceledListener, PlacePageController placePageController)
+  private MapButtonClickListener mMapButtonClickListener;
+  private View.OnClickListener mOnSearchCanceledListener;
+  private PlacePageController mPlacePageController;
+  private OnBottomButtonsHeightChangedListener mOnBottomButtonsHeightChangedListener;
+
+  private LayoutMode mLayoutMode;
+  private int mMyPositionMode;
+
+  @Nullable
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    mButtonsFrame = frame.findViewById(R.id.navigation_buttons_inner);
-    mZoomFrame = frame.findViewById(R.id.zoom_buttons_container);
-    mPlacePageController = placePageController;
-    frame.findViewById(R.id.nav_zoom_in)
-         .setOnClickListener((v) -> mapButtonClickListener.onClick(MapButtons.zoomIn));
-    frame.findViewById(R.id.nav_zoom_out)
-         .setOnClickListener((v) -> mapButtonClickListener.onClick(MapButtons.zoomOut));
-    mBookmarksButton = frame.findViewById(R.id.btn_bookmarks);
-    mBookmarksButton.setOnClickListener((v) -> mapButtonClickListener.onClick(MapButtons.bookmarks));
-    mMenuButton = frame.findViewById(R.id.menu_button);
-    mMenuButton.setOnClickListener((v) -> mapButtonClickListener.onClick(MapButtons.menu));
-    myPosition = frame.findViewById(R.id.my_position);
-    mNavMyPosition = new MyPositionButton(myPosition, (v) -> mapButtonClickListener.onClick(MapButtons.myPosition));
+    if (mLayoutMode == LayoutMode.navigation)
+      mFrame = inflater.inflate(R.layout.map_buttons_layout_navigation, container, false);
+    else if (mLayoutMode == LayoutMode.planning)
+      mFrame = inflater.inflate(R.layout.map_buttons_layout_planning, container, false);
+    else
+      mFrame = inflater.inflate(R.layout.map_buttons_layout_regular, container, false);
 
-    mLayersButton = frame.findViewById(R.id.layers_button);
-    mToggleMapLayerController = new MapLayersController(mLayersButton,
-                                                        () -> mapButtonClickListener.onClick(MapButtons.toggleMapLayer), activity);
+    mInnerLeftButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_left);
+    mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
+    mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
+    View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
+    mFrame.findViewById(R.id.nav_zoom_in)
+          .setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.zoomIn));
+    mFrame.findViewById(R.id.nav_zoom_out)
+          .setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.zoomOut));
+    View bookmarksButton = mFrame.findViewById(R.id.btn_bookmarks);
+    bookmarksButton.setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.bookmarks));
+    View myPosition = mFrame.findViewById(R.id.my_position);
+    mNavMyPosition = new MyPositionButton(myPosition, mMyPositionMode, (v) -> mMapButtonClickListener.onClick(MapButtons.myPosition));
 
-    mSearchWheel = new SearchWheel(frame, (v) -> mapButtonClickListener.onClick(MapButtons.search), onSearchCanceledListener);
-    mSearchButton = frame.findViewById(R.id.btn_search);
+    // Some buttons do not exist in navigation mode
+    FloatingActionButton layersButton = mFrame.findViewById(R.id.layers_button);
+    if (layersButton != null)
+    {
+      mToggleMapLayerController = new MapLayersController(layersButton,
+                                                          () -> mMapButtonClickListener.onClick(MapButtons.toggleMapLayer), requireActivity());
+    }
+    View menuButton = mFrame.findViewById(R.id.menu_button);
+    if (menuButton != null)
+    {
+      menuButton.setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.menu));
+      menuButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
+          updateMenuBadge();
+          menuButton.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        }
+      });
+    }
+    View helpButton = mFrame.findViewById(R.id.help_button);
+    if (helpButton != null)
+      helpButton.setOnClickListener((v) -> mMapButtonClickListener.onClick(MapButtons.help));
+
+    mSearchWheel = new SearchWheel(mFrame, (v) -> mMapButtonClickListener.onClick(MapButtons.search), mOnSearchCanceledListener);
+    View searchButton = mFrame.findViewById(R.id.btn_search);
 
     // Used to get the maximum height the buttons will evolve in
-    frame.addOnLayoutChangeListener(new MapButtonsController.ContentViewLayoutChangeListener(frame));
-    mBottomMargin = ((RelativeLayout.LayoutParams) mButtonsFrame.getLayoutParams()).bottomMargin;
+    mFrame.addOnLayoutChangeListener(new MapButtonsController.ContentViewLayoutChangeListener(mFrame));
 
-    TypedArray a = frame.getContext().getTheme().obtainStyledAttributes(
-        R.style.MwmWidget_MapButton,
-        new int[] { R.attr.fabCustomSize });
-    mButtonWidth = a.getDimension(0, 0);
-    a.recycle();
+    mButtonsMap = new HashMap<>();
+    mButtonsMap.put(MapButtons.zoom, zoomFrame);
+    mButtonsMap.put(MapButtons.myPosition, myPosition);
+    mButtonsMap.put(MapButtons.bookmarks, bookmarksButton);
+    mButtonsMap.put(MapButtons.search, searchButton);
+
+    if (layersButton != null)
+      mButtonsMap.put(MapButtons.toggleMapLayer, layersButton);
+    if (menuButton != null)
+      mButtonsMap.put(MapButtons.menu, menuButton);
+    if (helpButton != null)
+      mButtonsMap.put(MapButtons.help, helpButton);
+    return mFrame;
+  }
+
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+    showMapButtons(true);
+  }
+
+  public LayoutMode getLayoutMode()
+  {
+    return mLayoutMode;
+  }
+
+  public void init(LayoutMode layoutMode, int myPositionMode, MapButtonClickListener mapButtonClickListener, @NonNull View.OnClickListener onSearchCanceledListener, PlacePageController placePageController, OnBottomButtonsHeightChangedListener onBottomButtonsHeightChangedListener)
+  {
+    mLayoutMode = layoutMode;
+    mMyPositionMode = myPositionMode;
+    mMapButtonClickListener = mapButtonClickListener;
+    mOnSearchCanceledListener = onSearchCanceledListener;
+    mPlacePageController = placePageController;
+    mOnBottomButtonsHeightChangedListener = onBottomButtonsHeightChangedListener;
   }
 
   public void showButton(boolean show, MapButtonsController.MapButtons button)
   {
+    View buttonView = mButtonsMap.get(button);
+    if (buttonView == null)
+      return;
     switch (button)
     {
       case zoom:
-        UiUtils.showIf(show && Config.showZoomButtons(), mZoomFrame);
+        UiUtils.showIf(show && Config.showZoomButtons(), buttonView);
         break;
       case toggleMapLayer:
-        mToggleMapLayerController.showButton(show && !isInNavigationMode());
+        if (mToggleMapLayerController != null)
+          mToggleMapLayerController.showButton(show && !isInNavigationMode());
         break;
       case myPosition:
         if (mNavMyPosition != null)
@@ -105,74 +164,106 @@ public class MapButtonsController
       case search:
         mSearchWheel.show(show);
       case bookmarks:
-        UiUtils.showIf(show, mBookmarksButton);
       case menu:
-        UiUtils.showIf(show, mMenuButton);
+        UiUtils.showIf(show, buttonView);
     }
   }
 
-  @OptIn(markerClass = com.google.android.material.badge.ExperimentalBadgeUtils.class)
-  public void updateMarker(@NonNull Activity activity)
+  private static int dpToPx(float dp, Context context)
   {
-    final UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
-    final int count = (info == null ? 0 : info.filesCount);
-    BadgeUtils.detachBadgeDrawable(mBadgeDrawable, mMenuButton);
-    mBadgeDrawable = BadgeDrawable.create(activity);
-    mBadgeDrawable.setHorizontalOffset(30);
-    mBadgeDrawable.setVerticalOffset(20);
-    mBadgeDrawable.setNumber(count);
-    mBadgeDrawable.setVisible(count > 0);
-    BadgeUtils.attachBadgeDrawable(mBadgeDrawable, mMenuButton);
+    return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
   }
 
-  private boolean isScreenWideEnough()
+  @OptIn(markerClass = com.google.android.material.badge.ExperimentalBadgeUtils.class)
+  public void updateMenuBadge()
   {
-    return mContentWidth > (mPlacePageController.getPlacePageWidth() + 2 * mButtonWidth);
+    View menuButton = mButtonsMap.get(MapButtons.menu);
+    Context context = getContext();
+    if (menuButton == null || context == null)
+      return;
+    final UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
+    final int count = (info == null ? 0 : info.filesCount);
+    final int verticalOffset = dpToPx(8, context) + dpToPx(Integer.toString(count).length() * 5, context);
+    BadgeUtils.detachBadgeDrawable(mBadgeDrawable, menuButton);
+    mBadgeDrawable = BadgeDrawable.create(context);
+    mBadgeDrawable.setMaxCharacterCount(3);
+    mBadgeDrawable.setHorizontalOffset(verticalOffset);
+    mBadgeDrawable.setVerticalOffset(dpToPx(9, context));
+    mBadgeDrawable.setNumber(count);
+    mBadgeDrawable.setVisible(count > 0);
+    BadgeUtils.attachBadgeDrawable(mBadgeDrawable, menuButton);
+  }
+
+  private boolean isBehindPlacePage(View v)
+  {
+    return !(mContentWidth / 2 > (mPlacePageController.getPlacePageWidth() / 2.0) + v.getWidth());
+  }
+
+  private boolean isMoving(View v)
+  {
+    return v.getTranslationY() < 0;
   }
 
   public void move(float translationY)
   {
-    if (mContentHeight == 0 || isScreenWideEnough())
+    if (mContentHeight == 0)
       return;
 
-    // Move the buttons container to follow the place page
-    final float translation = mBottomMargin + translationY - mContentHeight;
-    final float appliedTranslation = translation <= 0 ? translation : 0;
-    mButtonsFrame.setTranslationY(appliedTranslation);
+    // Move the buttons containers to follow the place page
+    if (mInnerRightButtonsFrame != null &&
+        (isBehindPlacePage(mInnerRightButtonsFrame) || isMoving(mInnerRightButtonsFrame)))
+      applyMove(mInnerRightButtonsFrame, translationY);
+    if (mInnerLeftButtonsFrame != null &&
+        (isBehindPlacePage(mInnerLeftButtonsFrame) || isMoving(mInnerLeftButtonsFrame)))
+      applyMove(mInnerLeftButtonsFrame, translationY);
+  }
 
-    updateButtonsVisibility(appliedTranslation);
+  private void applyMove(View frame, float translationY)
+  {
+    final float rightTranslation = translationY - frame.getBottom();
+    final float appliedTranslation = rightTranslation <= 0 ? rightTranslation : 0;
+    frame.setTranslationY(appliedTranslation);
+    updateButtonsVisibility(appliedTranslation, frame);
   }
 
   public void updateButtonsVisibility()
   {
-    updateButtonsVisibility(mButtonsFrame.getTranslationY());
+    updateButtonsVisibility(mInnerLeftButtonsFrame.getTranslationY(), mInnerLeftButtonsFrame);
+    updateButtonsVisibility(mInnerRightButtonsFrame.getTranslationY(), mInnerRightButtonsFrame);
   }
 
-  private void updateButtonsVisibility(final float translation)
+  private void updateButtonsVisibility(final float translation, @Nullable View parent)
   {
-    showButton(getViewTopOffset(translation, mZoomFrame) > 0, MapButtons.zoom);
-    showButton(getViewTopOffset(translation, mSearchButton) > 0, MapButtons.search);
-    showButton(getViewTopOffset(translation, mLayersButton) > 0, MapButtons.toggleMapLayer);
-    showButton(getViewTopOffset(translation, myPosition) > 0, MapButtons.myPosition);
-    showButton(getViewTopOffset(translation, mMenuButton) > 0, MapButtons.menu);
-    showButton(getViewTopOffset(translation, mBookmarksButton) > 0, MapButtons.bookmarks);
+    if (parent == null)
+      return;
+    for (Map.Entry<MapButtons, View> entry : mButtonsMap.entrySet())
+    {
+      final View button = entry.getValue();
+      if (button.getParent() == parent)
+        showButton(getViewTopOffset(translation, button) > 0, entry.getKey());
+    }
   }
 
-  public void setTopLimit(float limit)
+  public float getBottomButtonsHeight()
   {
-    mTopLimit = limit;
-    updateButtonsVisibility();
+    if (mBottomButtonsFrame != null && mFrame != null && UiUtils.isVisible(mFrame))
+    {
+      return mBottomButtonsFrame.getMeasuredHeight();
+    }
+    else
+      return 0;
   }
 
   public void showMapButtons(boolean show)
   {
     if (show)
     {
-      UiUtils.show(mButtonsFrame);
+      UiUtils.show(mFrame);
       showButton(true, MapButtons.zoom);
     }
     else
-      UiUtils.hide(mButtonsFrame);
+      UiUtils.hide(mFrame);
+    mOnBottomButtonsHeightChangedListener.OnBottomButtonsHeightChanged();
   }
 
   private boolean isInNavigationMode()
@@ -182,7 +273,8 @@ public class MapButtonsController
 
   public void toggleMapLayer(@NonNull Mode mode)
   {
-    mToggleMapLayerController.toggleMode(mode);
+    if (mToggleMapLayerController != null)
+      mToggleMapLayerController.toggleMode(mode);
   }
 
   public void updateNavMyPositionButton(int newMode)
@@ -193,14 +285,13 @@ public class MapButtonsController
 
   private int getViewTopOffset(float translation, View v)
   {
-    return (int) (translation + v.getTop() - mTopLimit);
+    return (int) (translation + v.getTop());
   }
 
-  public void onResume(@NonNull Activity activity)
+  public void onResume()
   {
-
+    super.onResume();
     mSearchWheel.onResume();
-    updateMarker(activity);
   }
 
   public void resetSearch()
@@ -218,6 +309,13 @@ public class MapButtonsController
     mSearchWheel.restoreState(savedInstanceState);
   }
 
+  public enum LayoutMode
+  {
+    regular,
+    planning,
+    navigation
+  }
+
   public enum MapButtons
   {
     myPosition,
@@ -227,12 +325,18 @@ public class MapButtonsController
     zoom,
     search,
     bookmarks,
-    menu
+    menu,
+    help
   }
 
   public interface MapButtonClickListener
   {
     void onClick(MapButtons button);
+  }
+
+  public interface OnBottomButtonsHeightChangedListener
+  {
+    void OnBottomButtonsHeightChanged();
   }
 
   private class ContentViewLayoutChangeListener implements View.OnLayoutChangeListener
@@ -251,6 +355,7 @@ public class MapButtonsController
     {
       mContentHeight = bottom - top;
       mContentWidth = right - left;
+      mOnBottomButtonsHeightChangedListener.OnBottomButtonsHeightChanged();
       mContentView.removeOnLayoutChangeListener(this);
     }
   }
