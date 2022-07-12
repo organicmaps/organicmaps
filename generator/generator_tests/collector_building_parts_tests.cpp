@@ -32,6 +32,7 @@ public:
   // OSMElementCacheReaderInterface overrides:
   bool Read(generator::cache::Key /* id */, WayElement & /* value */) override {
     CHECK(false, ("Should not be called"));
+    return false;
   }
 
   bool Read(generator::cache::Key id, RelationElement & value) override

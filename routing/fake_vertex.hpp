@@ -70,6 +70,7 @@ inline std::string DebugPrint(FakeVertex::Type type)
   {
   case FakeVertex::Type::PureFake: return "PureFake";
   case FakeVertex::Type::PartOfReal: return "PartOfReal";
+  default: return "UnkonwFakeVertexType";
   }
 }
 }  // namespace routing

@@ -108,6 +108,7 @@ osmoh::RuleState ModifierToRuleState(osmoh::RuleSequence::Modifier const modifie
 
     case Modifier::Unknown:
     case Modifier::Comment:
+    default:
       return osmoh::RuleState::Unknown;
   }
 }
