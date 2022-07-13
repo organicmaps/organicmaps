@@ -6331,6 +6331,43 @@ vi:Bóng rổ
 zh-Hans:篮球
 zh-Hant:籃球
 
+sport-beachvolleyball
+en:Beachvolleyball
+ar:كرة طائرة شاطئية
+be:Пляжны валейбол
+bg:Плажен волейбол
+cs:Plážový volejbal
+da:Beachvolley
+de:Beachvolleyball
+el:Μπιτς βόλεϊ
+es:Voleibol de playa
+eu:Hondartza-bolei
+fa:والیبال ساحلی
+fi:Rantalentopallo
+fr:Beach-volley
+he:כדורעף חופים
+hu:Strandröplabda
+id:Voli pantai
+it:Beach volley
+ja:ビーチバレー
+ko:비치발리볼
+mr:बीच व्हॉलीबॉल
+nb:Sandvolleyball
+nl:Beachvolleybal
+pl:Siatkówka plażowa
+pt:Voleibol de praia
+ro:Volei de plajă
+ru:Пляжный волейбол
+sk:Plážový volejbal
+sv:Beachvolleyboll
+sw:Mpira wa wavu wa pwani
+th:วอลเลย์บอลชายหาด
+tr:Plaj voleybolu
+uk:Пляжний волейбол
+vi:Bóng chuyền bãi biển
+zh-Hans:沙滩排球
+zh-Hant:沙灘排球
+
 sport-bowls
 en:Bowls
 ar:لعبة البولينج
@@ -6357,6 +6394,43 @@ tr:Kuka Oynu
 uk:Боулз
 zh-Hans:草地滾球
 zh-Hant:草地滾球
+
+sport-chess
+en:Chess
+ar:شطرنج
+be:Шахматы
+bg:Шахмат
+cs:Šachy
+da:Skak
+de:Schach
+el:Σκάκι
+es:Ajedrez
+eu:Xake
+fa:شطرنج
+fi:Shakki
+fr:Échecs
+he:שחמט
+hu:Sakk
+id:Catur
+it:Scacchi
+ja:チェス
+ko:체스
+mr:बुद्धिबळ
+nb:Sjakk
+nl:Schaken
+pl:Szachy
+pt:Xadrez
+ro:Șah
+ru:Шахматы
+sk:Šach
+sv:Schack
+sw:Sataranji
+th:หมากรุกสากล
+tr:Satranç
+uk:Шахи
+vi:Cờ vua
+zh-Hans:国际象棋
+zh-Hant:國際象棋
 
 sport-cricket
 en:Cricket
@@ -6649,6 +6723,43 @@ vi:Chụp
 zh-Hans:射击
 zh-Hant:射擊
 
+sport-skateboard
+en:Skateboarding
+ar:تزلج على اللوح
+be:Скейтбордынг
+bg:Скейтбординг
+cs:Skateboarding
+da:Skateboarding
+de:Skateboarding
+el:Σκέιτμπορντινγκ
+es:Monopatinaje
+eu:Skateboarding
+fa:اسکیت‌بردینگ
+fi:Rullalautailu
+fr:Skateboard
+he:סקייטבורדינג
+hu:Gördeszkázás
+id:Seluncur papan
+it:Skateboard
+ja:スケートボード
+ko:스케이트보딩
+mr:स्केट बोर्डिंग
+nb:Rullebrettkjøring
+nl:Skateboarden
+pl:Skateboarding
+pt:Skate
+ro:Skateboarding
+ru:Скейтбординг
+sk:Skejtbording
+sv:Skateboarding
+sw:Skateboarding
+th:สเกตบอร์ด
+tr:Kaykay
+uk:Скейтбординг
+vi:Trượt ván
+zh-Hans:滑板活动
+zh-Hant:滑板活動
+
 sport-skiing
 en:Skiing
 ar:التزحلق
@@ -6763,6 +6874,44 @@ vi: Bơi
 zh-Hans:游泳
 zh-Hant:游泳
 
+sport-table_tennis
+en:Table tennis
+ar:كرة الطاولة
+be:Настольны тэніс
+bg:Тенис на маса
+cs:Stolní tenis
+da:Bordtennis
+de:Tischtennis
+el:Επιτραπέζια αντισφαίριση
+es:Tenis de mesa
+eu:Mahai-tenis
+fa:تنیس روی میز
+fi:Pöytätennis
+fr:Tennis de table
+he:טניס שולחן
+hu:Asztalitenisz
+id:Tenis meja
+it:Tennistavolo
+ja:卓球
+ko:탁구
+mr:टेबल टेनिस
+nb:Bordtennis
+nl:Tafeltennis
+pl:Tenis stołowy
+pt:Ténis de mesa
+pt-BR:Tênis de mesa
+ro:Tenis de masă
+ru:Настольный теннис
+sk:Stolný tenis
+sv:Bordtennis
+sw:Tenisi ya meza
+th:เทเบิลเทนนิส
+tr:Masa tenisi
+uk:Настільний теніс
+vi:Bóng bàn
+zh-Hans:乒乓球
+zh-Hant:乒乓球
+
 sport-tennis
 en:Tennis
 ar:تنس
@@ -6800,6 +6949,80 @@ uk:Tеніс
 vi:Quần vợt
 zh-Hans:网球
 zh-Hant:網球
+
+sport-volleyball
+en:Volleyball
+ar:كرة الطائرة
+be:Валейбол
+bg:Волейбол
+cs:Volejbal
+da:Volleyball
+de:Volleyball
+el:Πετοσφαίριση
+es:Voleibol
+eu:Boleibol
+fa:والیبال
+fi:Lentopallo
+fr:Volley-ball
+he:כדורעף
+hu:Röplabda
+id:Bola voli
+it:Pallavolo
+ja:バレーボール
+ko:배구
+mr:व्हॉलीबॉल
+nb:Volleyball
+nl:Volleyball
+pl:Piłka siatkowa
+pt:Voleibol
+ro:Volei
+ru:Волейбол
+sk:Volejbal
+sv:Volleyboll
+sw:Voliboli
+th:วอลเลย์บอล
+tr:Voleybol
+uk:Волейбол
+vi:Bóng chuyền
+zh-Hans:排球
+zh-Hant:排球
+
+sport-9pin|sport-10pin
+en:Bowling
+ar:لعبة البولنج|بولينج بعشرة دبابيس
+be:Кеглі|Боўлінг
+bg:Skittles|Боулинг
+cs:Kuželky|Bowling
+da:Keglespil|Bowling
+de:Kegeln|Bowling
+el:Μπόουλινγκ με εννέα κορίνες|Μπόουλινγκ
+es:Bolos de nueve bolas|Bowling
+eu:Boloak|Bowling
+fa:اسکیت|بولینگ
+fi:Yhdeksän-pin keilailu|Keilailu
+fr:Ninepin Bowling Classic|Bowling
+he:כַּדוֹרֶת|בָּאוּלִינְג
+hu:Teke|Bowling
+id:Skittles|Boling
+it:Birilli|Bowling
+ja:スキットル|ボウリング
+ko:스키틀즈|볼링
+mr:स्किटल्स|गोलंदाजी
+nb:Kjeglespill|Bowling
+nl:Kegelen|Bowlen
+pl:Kręgle klasyczne|Bowling
+pt:Bolão|Boliche
+ro:Popice|Bowling
+ru:Кегельбан|Боулинг
+sk:Kuželky|Bowling
+sv:Kägel|Bowling
+sw:Wkittles|Bowling
+th:Skittles|โบว์ลิ่ง
+tr:Skittles|Bowling
+uk:Кеглі|Боулінг
+vi:Nhảy nhót|Bowling
+zh-Hans:九柱戏|保龄球
+zh-Hant:九柱戲|保齡球
 
 building
 en:Building|U+1F3E0|U+1F3E1|U+1F3E2

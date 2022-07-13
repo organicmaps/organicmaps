@@ -20315,6 +20315,43 @@
     zh-Hans = 篮球
     zh-Hant = 籃球
 
+  [type.sport.beachvolleyball]
+    en = Beachvolleyball
+    ar = كرة طائرة شاطئية
+    be = Пляжны валейбол
+    bg = Плажен волейбол
+    cs = Plážový volejbal
+    da = Beachvolley
+    de = Beachvolleyball
+    el = Μπιτς βόλεϊ
+    es = Voleibol de playa
+    eu = Hondartza-bolei
+    fa = والیبال ساحلی
+    fi = Rantalentopallo
+    fr = Beach-volley
+    he = כדורעף חופים
+    hu = Strandröplabda
+    id = Voli pantai
+    it = Beach volley
+    ja = ビーチバレー
+    ko = 비치발리볼
+    mr = बीच व्हॉलीबॉल
+    nb = Sandvolleyball
+    nl = Beachvolleybal
+    pl = Siatkówka plażowa
+    pt = Voleibol de praia
+    ro = Volei de plajă
+    ru = Пляжный волейбол
+    sk = Plážový volejbal
+    sv = Beachvolleyboll
+    sw = Mpira wa wavu wa pwani
+    th = วอลเลย์บอลชายหาด
+    tr = Plaj voleybolu
+    uk = Пляжний волейбол
+    vi = Bóng chuyền bãi biển
+    zh-Hans = 沙滩排球
+    zh-Hant = 沙灘排球
+
   [type.sport.bowls]
     en = Bowls
     ar = لعبة البولينج
@@ -20340,6 +20377,43 @@
     uk = Боулз
     zh-Hans = 草地滾球
     zh-Hant = 草地滾球
+
+  [type.sport.chess]
+    en = Chess
+    ar = شطرنج
+    be = Шахматы
+    bg = Шахмат
+    cs = Šachy
+    da = Skak
+    de = Schach
+    el = Σκάκι
+    es = Ajedrez
+    eu = Xake
+    fa = شطرنج
+    fi = Shakki
+    fr = Échecs
+    he = שחמט
+    hu = Sakk
+    id = Catur
+    it = Scacchi
+    ja = チェス
+    ko = 체스
+    mr = बुद्धिबळ
+    nb = Sjakk
+    nl = Schaken
+    pl = Szachy
+    pt = Xadrez
+    ro = Șah
+    ru = Шахматы
+    sk = Šach
+    sv = Schack
+    sw = Sataranji
+    th = หมากรุกสากล
+    tr = Satranç
+    uk = Шахи
+    vi = Cờ vua
+    zh-Hans = 国际象棋
+    zh-Hant = 國際象棋
 
   [type.sport.cricket]
     en = Cricket
@@ -20671,6 +20745,43 @@
     zh-Hans = 射击
     zh-Hant = 射擊
 
+  [type.sport.skateboard]
+    en = Skateboarding
+    ar = تزلج على اللوح
+    be = Скейтбордынг
+    bg = Скейтбординг
+    cs = Skateboarding
+    da = Skateboarding
+    de = Skateboarding
+    el = Σκέιτμπορντινγκ
+    es = Monopatinaje
+    eu = Skateboarding
+    fa = اسکیت‌بردینگ
+    fi = Rullalautailu
+    fr = Skateboard
+    he = סקייטבורדינג
+    hu = Gördeszkázás
+    id = Seluncur papan
+    it = Skateboard
+    ja = スケートボード
+    ko = 스케이트보딩
+    mr = स्केट बोर्डिंग
+    nb = Rullebrettkjøring
+    nl = Skateboarden
+    pl = Skateboarding
+    pt = Skate
+    ro = Skateboarding
+    ru = Скейтбординг
+    sk = Skejtbording
+    sv = Skateboarding
+    sw = Skateboarding
+    th = สเกตบอร์ด
+    tr = Kaykay
+    uk = Скейтбординг
+    vi = Trượt ván
+    zh-Hans = 滑板活动
+    zh-Hant = 滑板活動
+
   [type.sport.skiing]
     en = Skiing
     ar = التزحلق
@@ -20783,6 +20894,44 @@
     zh-Hans = 游泳
     zh-Hant = 游泳
 
+  [type.sport.table_tennis]
+    en = Table tennis
+    ar = كرة الطاولة
+    be = Настольны тэніс
+    bg = Тенис на маса
+    cs = Stolní tenis
+    da = Bordtennis
+    de = Tischtennis
+    el = Επιτραπέζια αντισφαίριση
+    es = Tenis de mesa
+    eu = Mahai-tenis
+    fa = تنیس روی میز
+    fi = Pöytätennis
+    fr = Tennis de table
+    he = טניס שולחן
+    hu = Asztalitenisz
+    id = Tenis meja
+    it = Tennistavolo
+    ja = 卓球
+    ko = 탁구
+    mr = टेबल टेनिस
+    nb = Bordtennis
+    nl = Tafeltennis
+    pl = Tenis stołowy
+    pt = Ténis de mesa
+    pt-BR = Tênis de mesa
+    ro = Tenis de masă
+    ru = Настольный теннис
+    sk = Stolný tenis
+    sv = Bordtennis
+    sw = Tenisi ya meza
+    th = เทเบิลเทนนิส
+    tr = Masa tenisi
+    uk = Настільний теніс
+    vi = Bóng bàn
+    zh-Hans = 乒乓球
+    zh-Hant = 乒乓球
+
   [type.sport.tennis]
     en = Tennis Court
     ar = ملعب تنس
@@ -20821,6 +20970,83 @@
     vi = Sân tenis
     zh-Hans = 网球场
     zh-Hant = 網球場
+
+  [type.sport.volleyball]
+    en = Volleyball
+    ar = كرة الطائرة
+    be = Валейбол
+    bg = Волейбол
+    cs = Volejbal
+    da = Volleyball
+    de = Volleyball
+    el = Πετοσφαίριση
+    es = Voleibol
+    eu = Boleibol
+    fa = والیبال
+    fi = Lentopallo
+    fr = Volley-ball
+    he = כדורעף
+    hu = Röplabda
+    id = Bola voli
+    it = Pallavolo
+    ja = バレーボール
+    ko = 배구
+    mr = व्हॉलीबॉल
+    nb = Volleyball
+    nl = Volleyball
+    pl = Piłka siatkowa
+    pt = Voleibol
+    ro = Volei
+    ru = Волейбол
+    sk = Volejbal
+    sv = Volleyboll
+    sw = Voliboli
+    th = วอลเลย์บอล
+    tr = Voleybol
+    uk = Волейбол
+    vi = Bóng chuyền
+    zh-Hans = 排球
+    zh-Hant = 排球
+
+  [type.sport.9pin]
+    ref = type.sport.10pin
+
+  [type.sport.10pin]
+    en = Bowling
+    ar = بولينج بعشرة دبابيس
+    be = Боўлінг
+    bg = Боулинг
+    cs = Bowling
+    da = Bowling
+    de = Bowling
+    el = Μπόουλινγκ
+    es = Bowling
+    eu = Bowling
+    fa = بولینگ
+    fi = Keilailu
+    fr = Bowling
+    he = בָּאוּלִינְג
+    hu = Bowling
+    id = Boling
+    it = Bowling
+    ja = ボウリング
+    ko = 볼링
+    mr = गोलंदाजी
+    nb = Bowling
+    nl = Bowlen
+    pl = Bowling
+    pt = Boliche
+    ro = Bowling
+    ru = Боулинг
+    sk = Bowling
+    sv = Bowling
+    sw = Bowling
+    th = โบว์ลิ่ง
+    tr = Bowling
+    uk = Боулінг
+    vi = Bowling
+    zh-Hans = 保龄球
+    zh-Hant = 保齡球
 
   [type.tourism]
     en = Tourism

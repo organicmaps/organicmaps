@@ -213,13 +213,13 @@ railway|rail|tunnel;[railway=rail][tunnel?];;name;int_name;212;
 man_made|wastewater_plant;213;
 man_made|flagpole;214;
 place|county;215;
-deprecated|deprecated;216;x
-deprecated|deprecated;217;x
-deprecated|deprecated;218;x
+sport|table_tennis;216;
+sport|beachvolleyball;217;
+sport|volleyball;218;
 power|station;219;
 sport|swimming;220;
 leisure|track;221;
-deprecated|deprecated;222;x
+sport|skateboard;222;
 barrier|retaining_wall;223;
 amenity|college;224;
 sport|baseball;225;
@@ -242,7 +242,7 @@ place|islet;241;
 sport|basketball;242;
 amenity|cinema;243;
 amenity|theatre;244;
-deprecated|deprecated;245;x
+sport|chess;245;
 railway|spur;246;
 aerialway|station;247;
 landuse|brownfield;248;
@@ -361,8 +361,8 @@ leisure|recreation_ground;360;
 highway|footway|mountain_hiking;[highway=footway][sac_scale=mountain_hiking];;name;int_name;361;
 highway|service|driveway|bridge;[highway=service][service=driveway][bridge?];x;name;int_name;362;highway|service|driveway
 amenity|parking|multi-storey|fee;[amenity=parking][parking=multi-storey][fee?];x;name;int_name;363;amenity|parking|multi-storey
-deprecated|deprecated;364;x
-deprecated|deprecated;365;x
+sport|9pin;364;
+sport|10pin;365;
 piste:type|downhill|novice;[piste:type=downhill][piste:difficulty=novice];;name;int_name;366;
 railway|narrow_gauge|bridge;[railway=narrow_gauge][bridge?];;name;int_name;367;
 deprecated|deprecated;368;x
@@ -739,7 +739,7 @@ building|address;[addr:housenumber][addr:street];;addr:housenumber;name;738;
 amenity|parking|no-access;[amenity=parking][access=no];;name;int_name;739;
 barrier|swing_gate;740;
 barrier|chain;741;
-deprecated|deprecated;742;x
+sport|climbing;742;
 deprecated|deprecated;743;x
 deprecated|deprecated;744;x
 deprecated|deprecated;745;x
