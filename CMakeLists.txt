@@ -202,10 +202,6 @@ if (NOT SKIP_TESTS)
   set(SKIP_TESTS FALSE)
 endif()
 
-if (NOT SKIP_TOOLS)
-  set(SKIP_TOOLS FALSE)
-endif()
-
 if (NOT PYTHON_VERSION)
   # FDroid build server has 3.5.3 Python installed.
   set(PYTHON_VERSION 3.5)
