@@ -25,5 +25,5 @@ target_link_libraries(${PROJECT_NAME}
   platform
 )
 
-add_subdirectory(track_analyzer)
+omim_add_tool_subdirectory(track_analyzer)
 omim_add_test_subdirectory(track_analyzing_tests)

@@ -44,7 +44,7 @@ target_link_libraries(${PROJECT_NAME}
   pugixml
 )
 
-add_subdirectory(openlr_match_quality)
-add_subdirectory(openlr_stat)
+omim_add_tool_subdirectory(openlr_match_quality)
+omim_add_tool_subdirectory(openlr_stat)
 
 omim_add_test_subdirectory(openlr_tests)
