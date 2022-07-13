@@ -202,12 +202,17 @@ node|z18-[sport=american_football],
 node|z18-[sport=athletics],
 node|z18-[sport=golf],
 node|z18-[sport=gymnastics]
+node|z18-[sport=chess]
+node|z18-[sport=skateboard]
+node|z18-[sport=volleyball]
+node|z18-[sport=beachvolleyball]
+node|z18-[sport=table_tennis]
 {z-index: 2460;}
 
 node[landuse=landfill],
 area[landuse=landfill],
 node|z17-[sport=tennis],
-node|z17-[leisure=skiing],
+node|z17-[sport=skiing],
 node[tourism=camp_site],
 area[tourism=camp_site],
 node[tourism=picnic_site],
@@ -1671,13 +1676,16 @@ area|z17-[leisure=golf_course]
 node|z17-[sport=soccer],
 area|z17-[sport=soccer]
 {icon-image: soccer-m.svg;icon-min-distance: 10;}
+area|z17-[sport=tennis]
 node|z17-[sport=tennis]
 {icon-image: tennis-m.svg;icon-min-distance: 10;}
-node|z17-[leisure=skiing]
+area|z17-[sport=skiing]
+node|z17-[sport=skiing]
 {icon-image: skiing-m.svg;icon-min-distance: 10;}
 
 node|z17-[sport=archery],
-area|z17-[sport=archery]{icon-image: archery-m.svg;font-size: 11;icon-min-distance: 10;}
+area|z17-[sport=archery]
+{icon-image: archery-m.svg;font-size: 11;icon-min-distance: 10;}
 node|z17-[sport=shooting],
 area|z17-[sport=shooting]
 {icon-image: archery-m.svg;font-size: 11;icon-min-distance: 10;}
@@ -1686,7 +1694,7 @@ area|z17-[sport=australian_football]
 {icon-image: australian-football-m.svg;font-size: 11;icon-min-distance: 10;}
 node|z17-[sport=bowls],
 area|z17-[sport=bowls]
-{icon-image: bowls-m.svg;font-size: 11;icon-min-distance: 10;}
+{icon-image: pitch-m.svg;font-size: 11;icon-min-distance: 10;}
 node|z17-[sport=cricket],
 area|z17-[sport=cricket]
 {icon-image: cricket-m.svg;font-size: 11;icon-min-distance: 10;}
@@ -1699,21 +1707,53 @@ area|z17-[sport=diving]
 node|z17-[sport=scuba_diving],
 area|z17-[sport=scuba_diving]
 {icon-image: diving-m.svg;font-size: 11;icon-min-distance: 10;}
+node|z17-[sport=9pin],
+area|z17-[sport=9pin]
+{icon-image: bowling-m.svg;font-size: 11;icon-min-distance: 10;}
+node|z17-[sport=10pin],
+area|z17-[sport=10pin]
+{icon-image: bowling-m.svg;font-size: 11;icon-min-distance: 10;}
 
 node|z18-[sport=swimming]
+area|z18-[sport=swimming]
 {icon-image: swimming-m.svg;font-size: 11;text-optional: true;}
 node|z18-[sport=baseball]
+area|z18-[sport=baseball]
 {icon-image: baseball-m.svg;font-size: 11;text-optional: true;}
 node|z18-[sport=basketball]
+area|z18-[sport=basketball]
 {icon-image: basketball-m.svg;font-size: 11;text-optional: true;}
 node|z18-[sport=american_football]
+area|z18-[sport=american_football]
 {icon-image: america-football-m.svg;font-size: 11;text-optional: true;}
 node|z18-[sport=athletics]
+area|z18-[sport=athletics]
 {icon-image: pitch-m.svg;font-size: 11;text-optional: true;}
 node|z18-[sport=golf]
+area|z18-[sport=golf]
 {icon-image: golf-m.svg;font-size: 11;text-optional: true;}
 node|z18-[sport=gymnastics]
+area|z18-[sport=gymnastics]
 {icon-image: pitch-m.svg;font-size: 11;text-optional: true;}
+node|z18-[sport=chess]
+area|z18-[sport=chess]
+{icon-image: chess-m.svg;font-size: 11;text-optional: true;}
+node|z18-[sport=skateboard]
+area|z18-[sport=skateboard]
+{icon-image: skateboard-m.svg;font-size: 11;text-optional: true;}
+node|z18-[sport=volleyball]
+area|z18-[sport=volleyball]
+{icon-image: volleyball-m.svg;font-size: 11;text-optional: true;}
+node|z18-[sport=beachvolleyball]
+area|z18-[sport=beachvolleyball]
+{icon-image: volleyball-m.svg;font-size: 11;text-optional: true;}
+node|z18-[sport=table_tennis]
+area|z18-[sport=table_tennis]
+{icon-image: table-tennis-m.svg;font-size: 11;text-optional: true;}
+node|z18-[sport=climbing]
+area|z18-[sport=climbing]
+{icon-image: climbing-m.svg;font-size: 11;text-optional: true;}
+
 
 node|z18-[sport=archery],
 area|z18-[sport=archery]
@@ -1726,7 +1766,7 @@ area|z18-[sport=australian_football]
 {icon-image: australian-football-m.svg;font-size: 11;text-optional: true;}
 node|z18-[sport=bowls],
 area|z18-[sport=bowls]
-{icon-image: bowls-m.svg;font-size: 11;text-optional: true;}
+{icon-image: pitch-m.svg;font-size: 11;text-optional: true;}
 node|z18-[sport=cricket],
 area|z18-[sport=cricket]
 {icon-image: cricket-m.svg;font-size: 11;text-optional: true;}
