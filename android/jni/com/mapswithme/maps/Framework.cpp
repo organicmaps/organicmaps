@@ -59,6 +59,8 @@
 #include <utility>
 #include <vector>
 
+#include <android/api-level.h>
+
 using namespace std;
 using namespace std::placeholders;
 
@@ -174,7 +176,8 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   // Vulkan is supported only since Android 8.0, because some Android devices with Android 7.x
   // have fatal driver issue, which can lead to process termination and whole OS destabilization.
   int constexpr kMinSdkVersionForVulkan = 26;
-  int const sdkVersion = GetAndroidSdkVersion();
+  int const sdkVersion = android_get_device_api_level();
+  LOG(LINFO, ("Android SDK version in the Drape Engine:", sdkVersion));
   auto const vulkanForbidden = sdkVersion < kMinSdkVersionForVulkan ||
                                dp::SupportManager::Instance().IsVulkanForbidden();
   if (vulkanForbidden)

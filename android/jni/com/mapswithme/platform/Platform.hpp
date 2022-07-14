@@ -55,7 +55,4 @@ private:
   jobject m_functorProcessObject = nullptr;
   AndroidSecureStorage m_secureStorage;
 };
-
-extern int GetAndroidSdkVersion();
-
 } // namespace android
