@@ -16,8 +16,6 @@
 #include <memory>
 #include <utility>
 
-#include <sys/system_properties.h>
-
 std::string Platform::GetMemoryInfo() const
 {
   JNIEnv * env = jni::GetEnv();
@@ -242,19 +240,6 @@ void Platform::AndroidSecureStorage::Remove(std::string const & key)
   jobject context = android::Platform::Instance().GetContext();
   env->CallStaticVoidMethod(m_secureStorageClass, removeMethodId, context,
                             jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get());
-}
-
-int GetAndroidSdkVersion()
-{
-  char osVersion[PROP_VALUE_MAX + 1];
-  if (__system_property_get("ro.build.version.sdk", osVersion) == 0)
-    return 0;
-
-  int version;
-  if (!strings::to_int(std::string(osVersion), version))
-    version = 0;
-
-  return version;
 }
 }  // namespace android
 
