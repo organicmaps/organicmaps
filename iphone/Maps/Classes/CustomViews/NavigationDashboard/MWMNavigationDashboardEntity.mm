@@ -21,6 +21,7 @@
 @property(copy, nonatomic, readwrite) NSString * targetDistance;
 @property(copy, nonatomic, readwrite) NSString * targetUnits;
 @property(copy, nonatomic, readwrite) NSString * turnUnits;
+@property(copy, nonatomic, readwrite) NSString * speedLimit;
 @property(nonatomic, readwrite) BOOL isValid;
 @property(nonatomic, readwrite) CGFloat progress;
 @property(nonatomic, readwrite) CLLocation * pedestrianDirectionPosition;
