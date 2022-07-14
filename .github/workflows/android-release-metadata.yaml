@@ -27,7 +27,10 @@ jobs:
       # Linter complains about an invalid symlink (we don't check out screenshots for FDroid).
       - name: Create symlink for GP screenshots
         shell: bash
-        run: ln -sf ../../../../../../screenshots/android/en-US/graphics android/src/google/play/listings/en-US/graphic
+        run: |
+          for locale in en-US tr-TR; do
+             ln -sf ../../../../../../screenshots/android/${locale}/graphics android/src/google/play/listings/${locale}/graphics
+          done
 
       - name: Checkout private keys
         uses: actions/checkout@v2

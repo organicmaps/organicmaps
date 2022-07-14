@@ -503,6 +503,10 @@
 
 "history" = "Гісторыя";
 
+"opens_in" = "Адчыняецца праз %@";
+
+"closes_in" = "Зачыняецца праз %@";
+
 "closed" = "Зачынена";
 
 "search_not_found" = "Нічога не знойдзена.";
@@ -1248,7 +1252,7 @@
 
 "type.amenity.bench" = "Bench";
 
-"type.amenity.bicycle_parking" = "Bicycle Parking";
+"type.amenity.bicycle_parking" = "Велапаркоўка";
 
 "type.amenity.bicycle_rental" = "Bicycle Rental";
 
@@ -1575,11 +1579,11 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Пчаляр";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Кузня";
 
-"type.craft.brewery" = "Craft Brewery";
+"type.craft.brewery" = "Крафтавы бровар";
 
 "type.craft.carpenter" = "Carpenter";
 
@@ -1587,13 +1591,14 @@
 
 "type.craft.electrician" = "Electrician";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Gardener";
 
 "type.craft.handicraft" = "Handicraft";
 
-"type.craft.hvac" = "Hvac";
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Ацяпленне, вентыляцыя і кандыцыянаванне";
 
 "type.craft.metal_construction" = "Металаканструкцыі";
 
@@ -2363,37 +2368,41 @@
 
 "type.mountain_pass" = "Перавал";
 
-"type.natural" = "Natural";
+"type.natural" = "Прырода";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Голая скала";
 
-"type.natural.bay" = "Bay";
+"type.natural.bay" = "Заліў";
 
-"type.natural.beach" = "Beach";
+"type.natural.beach" = "Пляж";
 
 "type.natural.beach.sand" = "Пяшчаны пляж";
 
 "type.natural.beach.gravel" = "Галечны пляж";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Мыс";
 
-"type.natural.cave_entrance" = "Cave";
+"type.natural.cave_entrance" = "Пячора";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Уцёс";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Абрыў";
 
-"type.natural.geyser" = "Geyser";
+"type.man_made.embankment" = "Насып";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.coastline" = "Узбярэжжа";
 
-"type.natural.grassland" = "Field";
+"type.natural.geyser" = "Гейзер";
 
-"type.natural.heath" = "Heath";
+"type.natural.glacier" = "Ледавік";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.grassland" = "Луг";
 
-"type.natural.water.lake" = "Lake";
+"type.natural.heath" = "Пустка";
+
+"type.natural.hot_spring" = "Геатэрмальная крыніца";
+
+"type.natural.water.lake" = "Возера";
 
 "type.natural.water.lock" = "Шлюзавая камера";
 
@@ -2415,29 +2424,29 @@
 
 "type.natural.saddle" = "Седлавіна";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Горная парода";
 
-"type.natural.scrub" = "Scrub";
+"type.natural.scrub" = "Зараснікі";
 
-"type.natural.spring" = "Spring";
+"type.natural.spring" = "Крыніца";
 
-"type.natural.strait" = "Strait";
+"type.natural.strait" = "Праліў";
 
-"type.natural.tree" = "Tree";
+"type.natural.tree" = "Дрэва";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Шэраг дрэў";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Вінаграднік";
 
-"type.natural.volcano" = "Volcano";
+"type.natural.volcano" = "Вулкан";
 
 "type.natural.water" = "Вадаём";
 
-"type.natural.wetland" = "Wetland";
+"type.natural.wetland" = "Балоцістая мясцовасць";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Тарфянік";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Балота";
 
 "type.noexit" = "Dead End";
 
@@ -2845,49 +2854,48 @@
 
 "type.shop.wine" = "Wine Shop";
 
-"type.sport" = "sport";
+"type.sport" = "Спорт";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Амерыканскі футбол";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Стральба з лука";
 
 "type.sport.athletics" = "Athletics";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Аўстралійскі футбол";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "Бейсбол";
 
 "type.sport.basketball" = "Basketball";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "Боўлз";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.cricket" = "Крикет";
 
-"type.sport.curling" = "Сurling";
+"type.sport.curling" = "Кёрлінг";
 
-"type.sport.diving" = "Diving";
+"type.sport.equestrian" = "Конны спорт";
 
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.golf" = "Гольф";
 
-"type.sport.golf" = "Golf";
+"type.sport.gymnastics" = "Гімнастыка";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.handball" = "Гандбол";
 
-"type.sport.handball" = "Handball";
+"type.sport.multi" = "Розныя віды спорту";
 
-"type.sport.multi" = "Various Sport";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Месца для дайвінга";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+"type.sport.shooting" = "Стральба";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.skiing" = "Катанне на лыжах";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.soccer" = "Футбол";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.swimming" = "Плаванне";
 
-"type.sport.swimming" = "Swimming";
-
-"type.sport.tennis" = "Tennis Court";
+"type.sport.tennis" = "Тэнісны корт";
 
 "type.tourism" = "Tourism";
 
@@ -2925,15 +2933,15 @@
 
 "type.tourism.hotel" = "Hotel";
 
-"type.tourism.information" = "Tourist Information";
+"type.tourism.information" = "Турыстычная інфармацыя";
 
-"type.tourism.information.board" = "Information Board";
+"type.tourism.information.board" = "Інфармацыйны шчыт";
 
-"type.tourism.information.guidepost" = "Tourist Information";
+"type.tourism.information.guidepost" = "Даведнік";
 
-"type.tourism.information.map" = "Tourist Map";
+"type.tourism.information.map" = "Карта";
 
-"type.tourism.information.office" = "Tourist Office";
+"type.tourism.information.office" = "Турыстычны офіс";
 
 "type.tourism.motel" = "Motel";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Building";
+
+"type.amenity.events_venue" = "Месца правядзення мерапрыемстваў";

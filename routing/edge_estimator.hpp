@@ -53,13 +53,13 @@ public:
 
   static std::shared_ptr<EdgeEstimator> Create(VehicleType vehicleType, double maxWeighSpeedKMpH,
                                                SpeedKMpH const & offroadSpeedKMpH,
-                                               std::shared_ptr<TrafficStash>,
+                                               std::shared_ptr<TrafficStash> trafficStash,
                                                DataSource * dataSourcePtr,
                                                std::shared_ptr<NumMwmIds> numMwmIds);
 
   static std::shared_ptr<EdgeEstimator> Create(VehicleType vehicleType,
                                                VehicleModelInterface const & vehicleModel,
-                                               std::shared_ptr<TrafficStash>,
+                                               std::shared_ptr<TrafficStash> trafficStash,
                                                DataSource * dataSourcePtr,
                                                std::shared_ptr<NumMwmIds> numMwmIds);
 
@@ -80,7 +80,7 @@ double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
                                  geometry::Altitude altitudeM);
 double GetBicycleClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
                               geometry::Altitude altitudeM);
-double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangent */,
-                          geometry::Altitude /* altitude */);
+double GetCarClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
+                          geometry::Altitude altitudeM);
 
 }  // namespace routing

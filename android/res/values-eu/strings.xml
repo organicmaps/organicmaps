@@ -42,7 +42,7 @@
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Mesedez, deskonektatu USB kablea edo sartu SD memoria Organic Maps erabiltzeko</string>
 	<!-- Used in DownloadResources startup screen -->
-	<string name="not_enough_free_space_on_sdcard">Mesedez, askatu lekua SD memorian/USB biltegian aplikazioa erabiltzeko</string>
+	<string name="not_enough_free_space_on_sdcard">Mesedez, egin lekua SD memorian/USB biltegian aplikazioa erabiltzeko</string>
 	<string name="download_resources">Hasi baino lehen, utzi mundu-mapa orokor bat zure gailura deskargatzeko.\nDatuen %s beharrezkoa da.</string>
 	<string name="download_resources_continue">Joan mapara</string>
 	<string name="downloading_country_can_proceed">%s deskargatzen. Orain mapara\n joan zaitezke.</string>
@@ -63,7 +63,7 @@
 	<!-- "Bookmarks" dialog title -->
 	<string name="bookmarks">Markagailuak</string>
 	<!-- Default bookmark list name -->
-	<string name="core_my_places">Nire lekuak</string>
+	<string name="core_my_places">Nire tokiak</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Izena</string>
 	<!-- Editor title above street and house number -->
@@ -305,7 +305,7 @@
 	<string name="dialog_routing_disclaimer_priority">— Ibilbideen baldintzek, zirkulazio arauek eta bide seinaleek lehentasuna dute beti nabigazio-iradokizunen gainetik;</string>
 	<string name="dialog_routing_disclaimer_precision">— Mapa zehaztugabea izan daiteke eta helmugara iristeko biderik onena ez den ibilbide bat iradoki dezake;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Iradokitako ibilbideak gomendio gisa soilik ulertu behar dira;</string>
-	<string name="dialog_routing_disclaimer_borders">— Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko lekuetan;</string>
+	<string name="dialog_routing_disclaimer_borders">— Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko tokietan;</string>
 	<string name="dialog_routing_disclaimer_beware">Egon adi eta seguru errepideetan!</string>
 	<string name="dialog_routing_check_gps">Egiaztatu GPS seinalea</string>
 	<string name="dialog_routing_error_location_not_found">Ezin da ibilbidea sortu. Ezin izan dira uneko GPS koordenatuak identifikatu.</string>
@@ -348,8 +348,8 @@
 	<string name="clear_search">Ezabatu bilaketa-historia</string>
 	<string name="p2p_your_location">Zure kokapena</string>
 	<string name="p2p_start">Hasi</string>
-	<string name="p2p_from_here">Bertatik</string>
-	<string name="p2p_to_here">Bidea</string>
+	<string name="p2p_from_here">Hemendik</string>
+	<string name="p2p_to_here">Bidea hona</string>
 	<string name="p2p_only_from_current">Nabigazioa zure uneko kokapenetik soilik dago erabilgarri.</string>
 	<string name="p2p_reroute_from_current">Zure uneko kokapenetik ibilbide bat antolatzea nahi duzu?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
@@ -372,9 +372,9 @@
 	<string name="editor_report_problem_desription_2">Edo egin ezazu zeure burua https://www.openstreetmap.org/ helbidean</string>
 	<string name="editor_report_problem_send_button">Bidali</string>
 	<string name="editor_report_problem_title">Arazoa</string>
-	<string name="editor_report_problem_no_place_title">Lekua ez da existitzen</string>
+	<string name="editor_report_problem_no_place_title">Tokia ez da existitzen</string>
 	<string name="editor_report_problem_under_construction_title">Mantentze-lanetarako itxita</string>
-	<string name="editor_report_problem_duplicate_place_title">Leku bikoiztua</string>
+	<string name="editor_report_problem_duplicate_place_title">Toki bikoiztua</string>
 	<string name="autodownload">Deskarga automatikoa</string>
 	<!-- Place Page opening hours text -->
 	<string name="daily">Egunero</string>
@@ -390,7 +390,7 @@
 	<string name="forgot_password">Pasahitza ahaztu al duzu?</string>
 	<string name="logout">Saioa itxi</string>
 	<string name="thank_you">Eskerrik asko</string>
-	<string name="edit_place">Editatu lekua</string>
+	<string name="edit_place">Editatu tokia</string>
 	<string name="add_language">Gehitu hizkuntza bat</string>
 	<string name="street">Kalea</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -419,11 +419,11 @@
 	<string name="editor_focus_map_on_location">Arrastatu mapa objektuaren kokapen zuzena hautatzeko.</string>
 	<string name="editor_edit_place_title">Editatu</string>
 	<string name="editor_add_place_title">Gehitu</string>
-	<string name="editor_edit_place_name_hint">Lekuaren izena</string>
+	<string name="editor_edit_place_name_hint">Tokiaren izena</string>
 	<string name="editor_edit_place_category_title">Kategoria</string>
 	<string name="detailed_problem_description">Arazoaren deskribapen zehatza</string>
 	<string name="editor_report_problem_other_title">Beste arazo bat</string>
-	<string name="placepage_add_business_button">Antolakuntza gehitu</string>
+	<string name="placepage_add_business_button">Negozioa gehitu</string>
 	<string name="message_invalid_feature_position">Hemen ezin da objekturik jarri</string>
 	<string name="login_to_make_edits_visible">Hasi saioa beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -437,7 +437,7 @@
 	<string name="editor_zip_code">Posta kodea</string>
 	<string name="error_enter_correct_zip_code">Mesedez, idatzi posta-kode zuzena</string>
 	<!-- Place Page title for long tap -->
-	<string name="core_placepage_unknown_place">Leku ezezaguna</string>
+	<string name="core_placepage_unknown_place">Toki ezezaguna</string>
 	<string name="editor_other_info">Bidali oharra OSM editoreei</string>
 	<string name="editor_detailed_description_hint">Iruzkin zehatza</string>
 	<string name="editor_detailed_description">Iradoki dituzun aldaketak OpenStreetMap komunitatean argitaratuko dira. Deskribatu mapa organikoetan editatu ezin diren xehetasunak.</string>
@@ -468,9 +468,9 @@
 	<string name="editor_comment_hint">Iruzkina…</string>
 	<string name="editor_reset_edits_message">Tokiko aldaketa guztiak berrezarri nahi dituzu?</string>
 	<string name="editor_reset_edits_button">Berreskuratu</string>
-	<string name="editor_remove_place_message">Gehitutako lekua kendu?</string>
+	<string name="editor_remove_place_message">Gehitutako tokia ezabatu?</string>
 	<string name="editor_remove_place_button">Kendu</string>
-	<string name="editor_place_doesnt_exist">Lekua ez da existitzen</string>
+	<string name="editor_place_doesnt_exist">Tokia ez da existitzen</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Mesedez, idatzi telefono-zenbaki zuzena</string>
 	<string name="error_enter_correct_web">Mesedez, sartu baliozko web-helbide bat</string>
@@ -499,7 +499,7 @@
 	<string name="mobile_data_option_not_today">Ez erabili gaur</string>
 	<string name="mobile_data">Internet mugikorra</string>
 	<!-- NOTE to translators: please synchronize your translation with the English one. -->
-	<string name="mobile_data_description">Internet mugikorra behar da lekuei buruzko informazio zehatza bistaratzeko, hala nola argazkiak, prezioak eta iritziak.</string>
+	<string name="mobile_data_description">Internet mugikorra behar da tokiei buruzko informazio zehatza bistaratzeko, hala nola argazkiak, prezioak eta iritziak.</string>
 	<string name="mobile_data_option_never">Inoiz erabili</string>
 	<string name="mobile_data_option_ask">Beti galdetu</string>
 	<string name="traffic_update_maps_text">Trafiko datuak bistaratzeko, mapak eguneratu behar dira.</string>
@@ -558,7 +558,7 @@
 	<string name="layers_title">Mapa geruzak</string>
 	<string name="subway_data_unavailable">Metroaren mapa ez dago erabilgarri</string>
 	<string name="bookmarks_empty_list_title">Zerrenda hau hutsik dago</string>
-	<string name="bookmarks_empty_list_message">Pin bat gehitzeko, ukitu mapako leku bat eta, ondoren, ukitu izar ikonoa</string>
+	<string name="bookmarks_empty_list_message">Pin bat gehitzeko, ukitu mapako toki bat eta, ondoren, ukitu izarraren ikonoa</string>
 	<string name="category_desc_more">…gehi</string>
 	<string name="export_file">Esportatu fitxategi gisa</string>
 	<string name="list_settings">Zerrenda konfiguratu</string>
@@ -571,7 +571,7 @@
 	<string name="speedcam_option_auto">Kotxea</string>
 	<string name="speedcam_option_always">Beti</string>
 	<string name="speedcam_option_never">Inoiz ez</string>
-	<string name="place_description_title">Leku deskribapena</string>
+	<string name="place_description_title">Tokiaren deskribapena</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Deskargatu mapak</string>
 	<string name="power_managment_title">Energia aurrezteko modua</string>
@@ -627,7 +627,7 @@
 
 	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="food_places">Janari</string>
-	<string name="tourist_places">Leku interesgarriak</string>
+	<string name="tourist_places">Toki interesgarriak</string>
 	<string name="museums">Museoak</string>
 	<string name="parks">Parkeak</string>
 	<string name="swim_places">Igeriketa</string>
@@ -641,7 +641,7 @@
 	<string name="fuel_places">Erregai-geltokia</string>
 	<string name="medicine">Medikuntza</string>
 	<string name="search_in_the_list">Bilatu zerrendan</string>
-	<string name="religious_places">Leku sakratuak</string>
+	<string name="religious_places">Erlijio-guneak</string>
 	<string name="select_list">Hautatu zerrenda</string>
 	<string name="transit_not_found">Metro-nabigazioa oraindik ez dago erabilgarri eskualde honetan</string>
 	<string name="dialog_pedestrian_route_is_long_header">Ez da aurkitu metroko ibilbidea</string>
@@ -853,6 +853,7 @@
 	<string name="type.craft.carpenter">Arotza</string>
 	<string name="type.craft.electrician">Elektrizista teknikaria</string>
 	<string name="type.craft.gardener">Paisaia</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Aire girotua</string>
 	<string name="type.craft.metal_construction">Metalgintzako langilea</string>
 	<string name="type.craft.painter">Margolaria</string>
@@ -1176,27 +1177,46 @@
 	<string name="type.man_made.water_well">Ur putzua</string>
 	<string name="type.man_made.windmill">Haize-errota</string>
 	<string name="type.military.bunker">Bunkerra</string>
+	<string name="type.natural">Natura</string>
+	<string name="type.natural.bare_rock">Harkaitz biluzi</string>
 	<string name="type.natural.bay">Badia</string>
 	<string name="type.natural.beach">Hondartza</string>
+	<string name="type.natural.beach.sand">Hondartza hondartza</string>
+	<string name="type.natural.beach.gravel">Legar Hondartza</string>
 	<string name="type.natural.cape">Lurmuturra</string>
 	<string name="type.natural.cave_entrance">Haitzuloa</string>
+	<string name="type.natural.cliff">Labar</string>
+	<string name="type.natural.earth_bank">Labarra</string>
+	<string name="type.man_made.embankment">Lubeta</string>
+	<string name="type.natural.coastline">Itsasertz</string>
 	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">Glaziarra</string>
-	<string name="type.natural.grassland">Landa</string>
+	<string name="type.natural.grassland">Belartza</string>
+	<string name="type.natural.heath">Zakardi</string>
+	<string name="type.natural.hot_spring">Ur termal</string>
 	<string name="type.natural.water.lake">Lakua</string>
 	<string name="type.natural.water.lock">Sarraila Ganbera</string>
 	<string name="type.natural.water.pond">Urmaela</string>
 	<string name="type.natural.water.reservoir">Urtegia</string>
 	<string name="type.natural.water.basin">Arroa</string>
 	<string name="type.natural.water.river">Ibai</string>
+	<string name="type.natural.land">Lur lehor</string>
+	<string name="type.natural.meadow">Belardi</string>
+	<string name="type.natural.orchard">Baratzea</string>
 	<string name="type.natural.peak">Goiena</string>
+	<string name="type.natural.saddle">Mendiko jarlekua</string>
+	<string name="type.natural.rock">Arroka</string>
 	<string name="type.natural.scrub">Sastrakak</string>
 	<string name="type.natural.spring">Udaberria</string>
 	<string name="type.natural.strait">Estua</string>
 	<string name="type.natural.tree">Zuhaitza</string>
+	<string name="type.natural.tree_row">Zuhaitz ilara</string>
+	<string name="type.natural.vineyard">Mahasti</string>
 	<string name="type.natural.volcano">Sumendi</string>
 	<string name="type.natural.water">Ur-masa</string>
 	<string name="type.natural.wetland">Lur paduratsua</string>
+	<string name="type.natural.wetland.bog">Zohikaztegi</string>
+	<string name="type.natural.wetland.marsh">Padura</string>
 	<string name="type.office">Bulegoa</string>
 	<string name="type.office.company">Bulegoa</string>
 	<string name="type.office.estate_agent">Higiezinen agentea</string>
@@ -1345,14 +1365,14 @@
 	<string name="type.sport.basketball">Saskibaloia</string>
 	<string name="type.sport.cricket">Kilkerra</string>
 	<string name="type.sport.curling">Curling</string>
-	<string name="type.sport.diving">Salto egin</string>
 	<string name="type.sport.equestrian">Zaldi-lasterketa</string>
 	<string name="type.sport.golf">Golfa</string>
 	<string name="type.sport.gymnastics">Gimnasia</string>
 	<string name="type.sport.handball">Eskubaloia</string>
 	<string name="type.sport.multi">Hainbat kirol</string>
+	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Urpekaritza</string>
-	<string name="type.sport.shooting">Kirolaren jaurtiketa</string>
+	<string name="type.sport.shooting">Tiroketa</string>
 	<string name="type.sport.skiing">Eskia</string>
 	<string name="type.sport.soccer">Futbola</string>
 	<string name="type.sport.swimming">Igeriketa</string>
@@ -1376,7 +1396,7 @@
 	<string name="type.tourism.hostel">Gazteen aterpetxea</string>
 	<string name="type.tourism.information">Informazioa</string>
 	<string name="type.tourism.information.board">Informazio taula</string>
-	<string name="type.tourism.information.guidepost">Informazioa</string>
+	<string name="type.tourism.information.guidepost">Gida postua</string>
 	<string name="type.tourism.information.map">Mapa turistikoa</string>
 	<string name="type.tourism.information.office">Turismo bulegoa</string>
 	<string name="type.tourism.museum">Museoa</string>
@@ -1398,4 +1418,5 @@
 	<string name="type.wheelchair.no">Ezinduentzako ekipatuta ez dago</string>
 	<string name="type.wheelchair.yes">Ezinduentzako hornitua</string>
 	<string name="type.building_part">Eraikin</string>
+	<string name="type.amenity.events_venue">Ekitaldien Lekua</string>
 </resources>

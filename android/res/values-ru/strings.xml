@@ -357,6 +357,8 @@
 	<string name="routing_arrive">Прибытие в %s</string>
 	<string name="categories">Категории</string>
 	<string name="history">История</string>
+	<string name="opens_in">Открывается через %s</string>
+	<string name="closes_in">Закроется через %s</string>
 	<string name="closed">Закрыто</string>
 	<string name="search_not_found">К сожалению, мы ничего не нашли.</string>
 	<string name="search_not_found_query">Попробуйте изменить условия поиска.</string>
@@ -509,7 +511,7 @@
 	<string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
 	<string name="editor_share_to_all_dialog_message_2">Если при проверке изменений возникнут вопросы, мы напишем вам на email.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора пресональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!</string>
+	<string name="about_description">Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора персональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!</string>
 	<!-- For the first routing -->
 	<string name="accept">Принять</string>
 	<!-- For the first routing -->
@@ -741,7 +743,7 @@
 	<string name="type.amenity.bar">Бар</string>
 	<string name="type.amenity.bbq">Место для пикника</string>
 	<string name="type.amenity.bench">Скамейка</string>
-	<string name="type.amenity.bicycle_parking">Велостоянка</string>
+	<string name="type.amenity.bicycle_parking">Велопарковка</string>
 	<string name="type.amenity.bicycle_rental">Велопрокат</string>
 	<string name="type.amenity.bicycle_repair_station">Станция ремонта велосипедов</string>
 	<string name="type.amenity.biergarten">Пивная под открытым небом</string>
@@ -907,15 +909,16 @@
 	<string name="type.cemetery.grave">Могила</string>
 	<string name="type.craft">Мастерская</string>
 	<string name="type.craft.beekeeper">Пчеловод</string>
-	<string name="type.craft.blacksmith">Кузнец</string>
-	<string name="type.craft.brewery">Крафтовое пиво</string>
+	<string name="type.craft.blacksmith">Кузница</string>
+	<string name="type.craft.brewery">Крафтовая пивоварня</string>
 	<string name="type.craft.carpenter">Столяр</string>
 	<string name="type.craft.confectionery">Кондитер</string>
 	<string name="type.craft.electrician">Электрик</string>
 	<string name="type.craft.electronics_repair">Ремонт электроники</string>
 	<string name="type.craft.gardener">Садовник</string>
-	<string name="type.craft.handicraft">Декоративный мастер</string>
-	<string name="type.craft.hvac">Кондиционеры</string>
+	<string name="type.craft.handicraft">Ремесленная мастерская</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">Отопление, вентиляция и кондиционирование</string>
 	<string name="type.craft.metal_construction">Металлоконструкции</string>
 	<string name="type.craft.painter">Маляр</string>
 	<string name="type.craft.photographer">Фотограф</string>
@@ -1315,11 +1318,13 @@
 	<string name="type.natural.beach.gravel">Галечный пляж</string>
 	<string name="type.natural.cape">Мыс</string>
 	<string name="type.natural.cave_entrance">Пещера</string>
-	<string name="type.natural.cliff">Обрыв</string>
+	<string name="type.natural.cliff">Утёс</string>
+	<string name="type.natural.earth_bank">Обрыв</string>
+	<string name="type.man_made.embankment">Насыпь</string>
 	<string name="type.natural.coastline">Береговая линия</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Ледник</string>
-	<string name="type.natural.grassland">Поле</string>
+	<string name="type.natural.grassland">Луг</string>
 	<string name="type.natural.heath">Пустошь</string>
 	<string name="type.natural.hot_spring">Горячий источник</string>
 	<string name="type.natural.water.lake">Озеро</string>
@@ -1552,19 +1557,19 @@
 	<string name="type.sport.american_football">Американский футбол</string>
 	<string name="type.sport.archery">Стрельба из лука</string>
 	<string name="type.sport.athletics">Лёгкая атлетика</string>
-	<string name="type.sport.australian_football">Регби</string>
+	<string name="type.sport.australian_football">Австралийский футбол</string>
 	<string name="type.sport.baseball">Бейсбол</string>
 	<string name="type.sport.basketball">Баскетбол</string>
-	<string name="type.sport.bowls">Кегли</string>
+	<string name="type.sport.bowls">Боулз</string>
 	<string name="type.sport.cricket">Крикет</string>
-	<string name="type.sport.curling">Керлинг</string>
-	<string name="type.sport.diving">Подводное плавание</string>
+	<string name="type.sport.curling">Кёрлинг</string>
 	<string name="type.sport.equestrian">Конный спорт</string>
 	<string name="type.sport.golf">Гольф</string>
 	<string name="type.sport.gymnastics">Гимнастика</string>
 	<string name="type.sport.handball">Гандбол</string>
 	<string name="type.sport.multi">Различные виды спорта</string>
-	<string name="type.sport.scuba_diving">Акваланг</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Место для дайвинга</string>
 	<string name="type.sport.shooting">Стрельба</string>
 	<string name="type.sport.skiing">Лыжи</string>
 	<string name="type.sport.soccer">Футбол</string>
@@ -1590,7 +1595,7 @@
 	<string name="type.tourism.hotel">Гостиница</string>
 	<string name="type.tourism.information">Туринформация</string>
 	<string name="type.tourism.information.board">Информационный щит</string>
-	<string name="type.tourism.information.guidepost">Туринформация</string>
+	<string name="type.tourism.information.guidepost">Указательный столб</string>
 	<string name="type.tourism.information.map">Карта</string>
 	<string name="type.tourism.information.office">Туристический офис</string>
 	<string name="type.tourism.motel">Мотель</string>
@@ -1645,4 +1650,5 @@
 	<string name="type.piste_type.nordic">Лыжня</string>
 	<string name="type.piste_type.sled">Трасса для саней</string>
 	<string name="type.building_part">Здание</string>
+	<string name="type.amenity.events_venue">Место проведения мероприятий</string>
 </resources>

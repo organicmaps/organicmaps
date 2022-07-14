@@ -6,10 +6,9 @@
 
 #include "std/target_os.hpp"
 
+#include <cstdlib>  // getenv
 #include <string>
 #include <vector>
-
-using namespace std;
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   #include <CoreFoundation/CFLocale.h>
@@ -22,7 +21,7 @@ using namespace std;
   #include <cstdlib>
 #elif defined(OMIM_OS_ANDROID)
   /// Body for this function is inside android/jni sources
-  string GetAndroidSystemLanguage();
+  std::string GetAndroidSystemLanguage();
 #else
   #error "Define language preferences for your platform"
 #endif
@@ -40,11 +39,11 @@ static const MSLocale gLocales[] = {{0x1,"ar"},{0x2,"bg"},{0x3,"ca"},{0x4,"zh-Ha
 
 namespace languages
 {
-void GetSystemPreferred(vector<string> & languages)
+void GetSystemPreferred(std::vector<std::string> & languages)
 {
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE) || defined(OMIM_OS_LINUX)
   // check environment variables
-  char const * p = getenv("LANGUAGE");
+  char const * p = std::getenv("LANGUAGE");
   if (p && strlen(p))  // LANGUAGE can contain several values divided by ':'
     languages = strings::Tokenize<std::string>(p, ":");
   else if ((p = getenv("LC_ALL")))
@@ -118,13 +117,13 @@ void GetSystemPreferred(vector<string> & languages)
 #endif
 }
 
-string GetPreferred()
+std::string GetPreferred()
 {
-  vector<string> arr;
+  std::vector<std::string> arr;
   GetSystemPreferred(arr);
 
   // generate output string
-  string result;
+  std::string result;
   for (size_t i = 0; i < arr.size(); ++i)
   {
     result.append(arr[i]);
@@ -138,9 +137,9 @@ string GetPreferred()
   return result;
 }
 
-string GetCurrentOrig()
+std::string GetCurrentOrig()
 {
-  vector<string> arr;
+  std::vector<std::string> arr;
   GetSystemPreferred(arr);
   if (arr.empty())
     return "en";
@@ -148,29 +147,29 @@ string GetCurrentOrig()
     return arr[0];
 }
 
-string Normalize(string const & lang)
+std::string Normalize(std::string const & lang)
 {
   return lang.substr(0, lang.find_first_of("-_ "));
 }
 
-string GetCurrentNorm()
+std::string GetCurrentNorm()
 {
   return Normalize(GetCurrentOrig());
 }
 
-string GetCurrentTwine()
+std::string GetCurrentTwine()
 {
-  string const lang = GetCurrentOrig();
+  std::string const lang = GetCurrentOrig();
   // Special cases for different Chinese variations.
   if (lang.find("zh") == 0)
   {
-    string lower = lang;
+    std::string lower = lang;
     strings::AsciiToLower(lower);
 
     // Traditional Chinese.
     for (char const * s : {"hant", "tw", "hk", "mo"})
     {
-      if (lower.find(s) != string::npos)
+      if (lower.find(s) != std::string::npos)
         return "zh-Hant";
     }
 

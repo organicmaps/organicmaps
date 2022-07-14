@@ -133,6 +133,10 @@ public:
 
   bool IsUTurnAndRestricted(Segment const & parent, Segment const & child, bool isOutgoing) const;
 
+  /// @param[in]  isOutgoing true, when movig from -> to, false otherwise.
+  /// @param[in]  prevWeight used for fetching access:conditional.
+  /// I suppose :) its time when user will be at the end of |from| (|to| if \a isOutgoing == false) segment.
+  /// @return Transition weight + |to| (|from| if \a isOutgoing == false) segment's weight.
   RouteWeight CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing,
                                   Segment const & from, Segment const & to,
                                   std::optional<RouteWeight const> const & prevWeight = std::nullopt) const;

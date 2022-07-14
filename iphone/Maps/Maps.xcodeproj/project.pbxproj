@@ -1554,6 +1554,9 @@
 		F6FE3C3A1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPlaceDoesntExistAlert.xib; sourceTree = "<group>"; };
 		F6FEA82B1C58E89B007223CC /* MWMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMButton.h; sourceTree = "<group>"; };
 		F6FEA82C1C58E89B007223CC /* MWMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMButton.m; sourceTree = "<group>"; };
+		FA00953E286A48A10094B3ED /* mr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = mr; path = mr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FA00953F286A48A20094B3ED /* mr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = mr; path = mr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FA009540286A48A30094B3ED /* mr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = mr; path = mr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FA14E683276014C10066E453 /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = usr/lib/libz.1.tbd; sourceTree = SDKROOT; };
 		FA1A4CF226AABBEC00026C44 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = bg; path = bg.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FA1A4CF326AABBED00026C44 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3610,7 +3613,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "OMaps" */;
 			buildPhases = (
-				47C7F96D2191A3B600C2760C /* ShellScript */,
 				FA456C4E26BDCCC300B83C20 /* CopyFiles */,
 				6741A9411BF340DE002C974C /* Resources */,
 				6741A9A01BF340DE002C974C /* Sources */,
@@ -3692,6 +3694,7 @@
 				"es-MX",
 				he,
 				eu,
+				mr,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
@@ -3893,26 +3896,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		47C7F96D2191A3B600C2760C /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n../../tools/unix/check_cert.sh\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6741A9A01BF340DE002C974C /* Sources */ = {
@@ -4399,6 +4382,7 @@
 				FAF8C67F278CEEA3006CAE66 /* es-MX */,
 				FAF8C681278CEEA3006CAE66 /* he */,
 				FA9730AB28049F5B008722AC /* eu */,
+				FA00953E286A48A10094B3ED /* mr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4443,6 +4427,7 @@
 				FAF8C679278CEEA2006CAE66 /* sw */,
 				FAF8C67E278CEEA3006CAE66 /* he */,
 				FA9730AC28049F5C008722AC /* eu */,
+				FA00953F286A48A20094B3ED /* mr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4487,6 +4472,7 @@
 				FAF8C67D278CEEA3006CAE66 /* he */,
 				FAF8C680278CEEA3006CAE66 /* es-MX */,
 				FA9730AD28049F5E008722AC /* eu */,
+				FA009540286A48A30094B3ED /* mr */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

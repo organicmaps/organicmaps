@@ -503,6 +503,10 @@
 
 "history" = "Cronologia";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Închis";
 
 "search_not_found" = "Nu s-a găsit nimic.";
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,13 +1591,14 @@
 
 "type.craft.electrician" = "Electrician";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Peisagist";
 
 "type.craft.handicraft" = "Handicraft";
 
-"type.craft.hvac" = "Hvac";
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "HVAC";
 
 "type.craft.metal_construction" = "Metalurgist";
 
@@ -2363,35 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Natură";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Piatră goală";
 
 "type.natural.bay" = "Golf";
 
 "type.natural.beach" = "Plajă";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Plaja nisipoasa";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Plaja cu pietriș";
 
 "type.natural.cape" = "Mantie";
 
 "type.natural.cave_entrance" = "Peșteră";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Faleză";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Faleza";
+
+"type.man_made.embankment" = "Rambleu";
+
+"type.natural.coastline" = "Relief litoral";
 
 "type.natural.geyser" = "Gheizer";
 
 "type.natural.glacier" = "Ghețar";
 
-"type.natural.grassland" = "Câmp";
+"type.natural.grassland" = "Pajiști";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Landă";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Izvor termal";
 
 "type.natural.water.lake" = "Lac";
 
@@ -2405,17 +2414,17 @@
 
 "type.natural.water.river" = "Râu";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Teren";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Fâneață";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Livadă";
 
 "type.natural.peak" = "Munte";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Sela da Montanha";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Rocă";
 
 "type.natural.scrub" = "Boschet";
 
@@ -2425,9 +2434,9 @@
 
 "type.natural.tree" = "Arbore";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Rândul de copaci";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vie";
 
 "type.natural.volcano" = "Vulcan";
 
@@ -2435,9 +2444,9 @@
 
 "type.natural.wetland" = "Loc mlăștinos";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Turbărie";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Mlaştină";
 
 "type.noexit" = "Dead End";
 
@@ -2845,15 +2854,15 @@
 
 "type.shop.wine" = "Vinărie";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Fotbal american";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "TIR cu arcul";
 
 "type.sport.athletics" = "Atletica ușoară";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Fotbal australian";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2863,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Sport ecvestru";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gimnastică";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Handbal";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Sporturi Diverse";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Scufundări";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Filmare";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Schi";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Fotbal";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Natație";
 
 "type.sport.tennis" = "Teren de tenis";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "Panou de informații";
 
-"type.tourism.information.guidepost" = "Informații turistice";
+"type.tourism.information.guidepost" = "Postul de ghidare";
 
 "type.tourism.information.map" = "Hartă turistică";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Clădire";
+
+"type.amenity.events_venue" = "Locul de desfășurare a evenimentelor";

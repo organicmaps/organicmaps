@@ -503,6 +503,10 @@
 
 "history" = "السجل";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "مغلق";
 
 "search_not_found" = "المعذرة، لم أعثر على أي شيء.";
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,12 +1591,13 @@
 
 "type.craft.electrician" = "كهربائي";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "مهندس مناظر";
 
 "type.craft.handicraft" = "Handicraft";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "تكييف";
 
 "type.craft.metal_construction" = "عامل معادن";
@@ -2363,35 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "طبيعة";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "الصخور العارية";
 
 "type.natural.bay" = "خليج";
 
 "type.natural.beach" = "شاطئ";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "شاطئ رملي";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "شاطئ جرافيل";
 
 "type.natural.cape" = "رأس";
 
 "type.natural.cave_entrance" = "كهف";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "جرف";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "بنك الأرض";
+
+"type.man_made.embankment" = "سد";
+
+"type.natural.coastline" = "ساحل";
 
 "type.natural.geyser" = "نبع ماء حار";
 
 "type.natural.glacier" = "كتلة جليدية";
 
-"type.natural.grassland" = "ملعب";
+"type.natural.grassland" = "أرض عشبية";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "براح";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "حمة";
 
 "type.natural.water.lake" = "بحيرة";
 
@@ -2405,17 +2414,17 @@
 
 "type.natural.water.river" = "نهر";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "بر";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "مرج";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "بستان";
 
 "type.natural.peak" = "قمة";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "سرج الجبل";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "صخر";
 
 "type.natural.scrub" = "أَيْكَة";
 
@@ -2425,9 +2434,9 @@
 
 "type.natural.tree" = "شجرة";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "صف الشجرة";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "كرم";
 
 "type.natural.volcano" = "بركان";
 
@@ -2435,9 +2444,9 @@
 
 "type.natural.wetland" = "منطقة رطبة";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "رخاخ";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "هور";
 
 "type.noexit" = "Dead End";
 
@@ -2845,47 +2854,46 @@
 
 "type.shop.wine" = "متجر مشروبات روحية";
 
-"type.sport" = "sport";
+"type.sport" = "رياضة";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "كرة القدم الأمريكية";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "الرماية";
 
 "type.sport.athletics" = "العاب رياضية";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "كرة القدم الأسترالية";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "البيسبول";
 
 "type.sport.basketball" = "كرة السلة";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "لعبة البولينج";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.cricket" = "كريكت";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "كيرلنغ";
 
 "type.sport.equestrian" = "رياضة الفروسية";
 
-"type.sport.golf" = "Golf";
+"type.sport.golf" = "الجولف";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "رياضة بدنية";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "كرة اليد";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "رياضات متنوعة";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "الغوص";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "رماية";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "التزحلق";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "كرة القدم";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "سباحة";
 
 "type.sport.tennis" = "ملعب تنس";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "لوحة معلومات";
 
-"type.tourism.information.guidepost" = "معلومات سياحية";
+"type.tourism.information.guidepost" = "دليل";
 
 "type.tourism.information.map" = "خريطة سياحية";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "مبنى";
+
+"type.amenity.events_venue" = "مكان الأحداث";

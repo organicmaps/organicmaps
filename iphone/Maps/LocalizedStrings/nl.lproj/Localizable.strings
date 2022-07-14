@@ -503,6 +503,10 @@
 
 "history" = "Geschiedenis";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Gesloten";
 
 "search_not_found" = "Sorry, ik heb niets gevonden.";
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,12 +1591,13 @@
 
 "type.craft.electrician" = "Elektricien";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Tuinarchitect";
 
 "type.craft.handicraft" = "Handicraft";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Airconditioning";
 
 "type.craft.metal_construction" = "Metaalarbeider";
@@ -2371,9 +2376,9 @@
 
 "type.natural.beach" = "Strand";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Zandstrand";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Kiezelstrand";
 
 "type.natural.cape" = "Kaap";
 
@@ -2381,13 +2386,17 @@
 
 "type.natural.cliff" = "Klif";
 
+"type.natural.earth_bank" = "Klif";
+
+"type.man_made.embankment" = "Baanlichaam";
+
 "type.natural.coastline" = "Kustlijn";
 
 "type.natural.geyser" = "Geiser";
 
 "type.natural.glacier" = "Gletsjer";
 
-"type.natural.grassland" = "Veld";
+"type.natural.grassland" = "Grasland";
 
 "type.natural.heath" = "Heide";
 
@@ -2413,7 +2422,7 @@
 
 "type.natural.peak" = "Top";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Bergzadel";
 
 "type.natural.rock" = "Steen";
 
@@ -2845,17 +2854,17 @@
 
 "type.shop.wine" = "Wijn";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Amerikaans voetbal";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Boogschieten";
 
 "type.sport.athletics" = "Atletiek";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australian football";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "Basketbal";
 
 "type.sport.basketball" = "Basketbal";
 
@@ -2863,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Paardesport";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gymnastiek";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Handbal";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Diverse sporten";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Duiken";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "schieten";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Skiën";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Voetbal";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Zwemmen";
 
 "type.sport.tennis" = "Tennisveld";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "Informatiebord";
 
-"type.tourism.information.guidepost" = "Toeristische informatie";
+"type.tourism.information.guidepost" = "Wegwijzer";
 
 "type.tourism.information.map" = "Toeristische kaart";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Gebouw";
+
+"type.amenity.events_venue" = "Evenementenlocatie";

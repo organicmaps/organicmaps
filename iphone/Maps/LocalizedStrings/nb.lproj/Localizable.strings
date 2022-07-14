@@ -503,6 +503,10 @@
 
 "history" = "Historikk";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Stengt";
 
 "search_not_found" = "Beklager, jeg fant ingenting.";
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,12 +1591,13 @@
 
 "type.craft.electrician" = "Elektriker";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Anleggsgartner";
 
 "type.craft.handicraft" = "Handicraft";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Klimaanlegg";
 
 "type.craft.metal_construction" = "Metallarbeider";
@@ -2363,35 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Natur";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Bar stein";
 
 "type.natural.bay" = "Bukt";
 
 "type.natural.beach" = "Strand";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Sandstrand";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Grusstrand";
 
 "type.natural.cape" = "Kapp";
 
 "type.natural.cave_entrance" = "Grotte";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Klippe";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Klippe";
+
+"type.man_made.embankment" = "Fylling";
+
+"type.natural.coastline" = "Kyst";
 
 "type.natural.geyser" = "Gaysir";
 
 "type.natural.glacier" = "Isbre";
 
-"type.natural.grassland" = "Slette";
+"type.natural.grassland" = "Sletteland";
 
 "type.natural.heath" = "Heath";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Varm kilde";
 
 "type.natural.water.lake" = "Innsjø";
 
@@ -2407,15 +2416,15 @@
 
 "type.natural.land" = "Land";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Eng";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Frukthage";
 
 "type.natural.peak" = "Høydepunkt";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Fjellsadel";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Bergart";
 
 "type.natural.scrub" = "Myr";
 
@@ -2425,9 +2434,9 @@
 
 "type.natural.tree" = "Tre";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Trerekke";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vingård";
 
 "type.natural.volcano" = "Vulkan";
 
@@ -2435,9 +2444,9 @@
 
 "type.natural.wetland" = "Våtmarksområde";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Myr";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Sump";
 
 "type.noexit" = "Dead End";
 
@@ -2845,15 +2854,15 @@
 
 "type.shop.wine" = "Alkoholutsalg";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Amerikansk fotball";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Bueskyting";
 
 "type.sport.athletics" = "Friidrett";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australsk fotball";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2863,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Hestesport";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gymnastikk";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Håndball";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Ulike idretter";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Dykking";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Skyting";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Stå på ski";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Fotball";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Svømming";
 
 "type.sport.tennis" = "Tennisbane";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "Informasjonstavle";
 
-"type.tourism.information.guidepost" = "Turistinformasjon";
+"type.tourism.information.guidepost" = "Guidepost";
 
 "type.tourism.information.map" = "Turistkart";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Bygning";
+
+"type.amenity.events_venue" = "Arrangementssted";

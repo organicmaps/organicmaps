@@ -122,8 +122,6 @@ node[vending=parking_tickets],
 area[vending=parking_tickets]
 {z-index: 2200;}
 
-node[natural=beach],
-area[natural=beach],
 node[shop],
 area[shop],
 node[amenity=marketplace],
@@ -525,12 +523,10 @@ area|z11[waterway=waterfall]
 node|z12-[waterway=waterfall],
 area|z12-[waterway=waterfall]
 {icon-image: waterfall-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
-node|z15-[waterway=waterfall],
-area|z15-[waterway=waterfall]
-{icon-image: waterfall-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
 node|z17-[waterway=waterfall],
 area|z17-[waterway=waterfall]
 {icon-image: waterfall-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
+
 node|z10-[natural=volcano],
 area|z10-[natural=volcano]
 {icon-image: volcano-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
@@ -644,6 +640,15 @@ node|z15-[man_made=water_tap],
 area|z15-[man_made=water_tap],
 node|z15-[man_made=water_well],
 area|z15-[man_made=water_well],
+{icon-image: drinking-water-s.svg;icon-min-distance: 36;text-optional: true;}
+node|z19-[amenity=water_point],
+area|z19-[amenity=water_point],
+node|z19-[amenity=drinking_water],
+area|z19-[amenity=drinking_water],
+node|z19-[man_made=water_tap],
+area|z19-[man_made=water_tap],
+node|z19-[man_made=water_well],
+area|z19-[man_made=water_well],
 {icon-image: drinking-water-m.svg;icon-min-distance: 36;text-optional: true;}
 
 /* 3. TRANSPORT */
@@ -1085,6 +1090,13 @@ node|z15-[tourism=viewpoint]
 
 node|z16-[tourism=information]
 {icon-image: information-m.svg;text-offset: 1;icon-min-distance: 10;}
+node|z16-[tourism=information][information=board]
+{icon-image: board.svg;text-offset: 1;icon-min-distance: 10;}
+node|z16-[tourism=information][information=guidepost]
+{icon-image: guidepost.svg;text-offset: 1;icon-min-distance: 10;}
+node|z16-[tourism=information][information=map]
+{icon-image: map.svg;text-offset: 1;icon-min-distance: 10;}
+
 
 node|z16[historic=boundary_stone],
 area|z16[historic=boundary_stone],
@@ -1119,29 +1131,33 @@ area|z17-[historic=wayside_shrine]
 node|z15[tourism=artwork],
 area|z15[tourism=artwork],
 {icon-image: tourism-m.svg;icon-min-distance: 8;}
+node|z16-[tourism=artwork],
 area|z16-[tourism=artwork],
 {icon-image: tourism-m.svg;icon-min-distance: 24;}
 
 node|z14[tourism=attraction],
 area|z14[tourism=attraction],
-area|z14[place=square]
+area|z14[place=square],
 {icon-image: tourism-s.svg;icon-min-distance: 12;}
+node|z15[tourism=attraction],
+area|z15[tourism=attraction],
+area|z15[place=square],
+{icon-image: tourism-m.svg;icon-min-distance: 36;}
+node|z16-[tourism=attraction],
+area|z16-[tourism=attraction],
+area|z16-[place=square],
+{icon-image: tourism-m.svg;icon-min-distance: 24;}
+
 node|z14[tourism=theme_park],
 area|z14[tourism=theme_park]
 {icon-image: theme_park-s.svg;icon-min-distance: 12;}
-node|z15[tourism=attraction],
-area|z15[tourism=attraction],
-area|z15[place=square]
-{icon-image: tourism-m.svg;icon-min-distance: 36;}
 node|z15[tourism=theme_park],
 area|z15[tourism=theme_park]
 {icon-image: theme_park-m.svg;icon-min-distance: 36;}
-node|z16-[tourism=attraction],
-area|z16-[tourism=attraction]
-{icon-image: tourism-m.svg;icon-min-distance: 36;}
 node|z16-[tourism=theme_park],
 area|z16-[tourism=theme_park]
 {icon-image: theme_park-m.svg;icon-min-distance: 24;}
+
 node|z17-[tourism=attraction][attraction=animal],
 area|z17-[tourism=attraction][attraction=animal]
 {icon-image: zoo-m.svg;icon-min-distance: 24;}
@@ -1834,6 +1850,9 @@ area|z17-[leisure=marina]
 
 node|z16-[amenity=fountain],
 area|z16-[amenity=fountain]
+{icon-image: fountain-s.svg;icon-min-distance: 20;}
+node|z19-[amenity=fountain],
+area|z19-[amenity=fountain]
 {icon-image: fountain-m.svg;icon-min-distance: 20;}
 
 node|z14[man_made=lighthouse],

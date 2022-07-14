@@ -137,7 +137,6 @@ public:
                                 feature::TypesHolder & types) const = 0;
 
   virtual void GetRouteEdges(EdgeVector & routeEdges) const;
-  virtual void GetRouteSegments(std::vector<Segment> & segments) const;
 
 protected:
   virtual ~RoadGraphBase() = default;

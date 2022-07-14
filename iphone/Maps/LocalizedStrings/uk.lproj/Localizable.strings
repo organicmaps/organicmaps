@@ -503,6 +503,10 @@
 
 "history" = "Історія";
 
+"opens_in" = "Відкривається через %@";
+
+"closes_in" = "Зачиняється через %@";
+
 "closed" = "Зачинено";
 
 "search_not_found" = "На жаль, нічого не знайдено.";
@@ -1248,7 +1252,7 @@
 
 "type.amenity.bench" = "Лавка";
 
-"type.amenity.bicycle_parking" = "Велостоянка";
+"type.amenity.bicycle_parking" = "Велопарковка";
 
 "type.amenity.bicycle_rental" = "Велопрокат";
 
@@ -1575,11 +1579,11 @@
 
 "type.craft" = "Майстерня";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Бджоляр";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Кузня";
 
-"type.craft.brewery" = "Пивоварня";
+"type.craft.brewery" = "Крафтова пивоварня";
 
 "type.craft.carpenter" = "Столяр";
 
@@ -1587,13 +1591,14 @@
 
 "type.craft.electrician" = "Електрик";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Садівник";
 
 "type.craft.handicraft" = "Handicraft";
 
-"type.craft.hvac" = "Кондиціонери";
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Опалення, вентиляція та кондиціювання повітря";
 
 "type.craft.metal_construction" = "Металоконструкції";
 
@@ -2379,7 +2384,11 @@
 
 "type.natural.cave_entrance" = "Печера";
 
-"type.natural.cliff" = "Обрив";
+"type.natural.cliff" = "Урвище";
+
+"type.natural.earth_bank" = "Обрив";
+
+"type.man_made.embankment" = "Насип";
 
 "type.natural.coastline" = "Берегова лiнiя";
 
@@ -2387,7 +2396,7 @@
 
 "type.natural.glacier" = "Льодовик";
 
-"type.natural.grassland" = "Поле";
+"type.natural.grassland" = "Луг";
 
 "type.natural.heath" = "Пустище";
 
@@ -2849,37 +2858,36 @@
 
 "type.sport.american_football" = "Американський футбол";
 
-"type.sport.archery" = "Стрiльба з лука";
+"type.sport.archery" = "Стрільба з лука";
 
 "type.sport.athletics" = "Легка атлетика";
 
-"type.sport.australian_football" = "Регбi";
+"type.sport.australian_football" = "Австралійський футбол";
 
 "type.sport.baseball" = "Бейсбол";
 
 "type.sport.basketball" = "Баскетбол";
 
-"type.sport.bowls" = "Кеглi";
+"type.sport.bowls" = "Боулз";
 
 "type.sport.cricket" = "Крикет";
 
-"type.sport.curling" = "Керлiнг";
-
-"type.sport.diving" = "Пiдводне плавання";
+"type.sport.curling" = "Керлінг";
 
 "type.sport.equestrian" = "Кінний спорт";
 
 "type.sport.golf" = "Гольф";
 
-"type.sport.gymnastics" = "Гiмнастика";
+"type.sport.gymnastics" = "Гімнастика";
 
 "type.sport.handball" = "Гандбол";
 
 "type.sport.multi" = "Рiзноманiтнi типи спорту";
 
-"type.sport.scuba_diving" = "Акваланг";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Місце для дайвінгу";
 
-"type.sport.shooting" = "Стрiльба";
+"type.sport.shooting" = "Стрільба";
 
 "type.sport.skiing" = "Лижi";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "Інформаційний щит";
 
-"type.tourism.information.guidepost" = "Турінформація";
+"type.tourism.information.guidepost" = "Вказівний стовп";
 
 "type.tourism.information.map" = "Мапа";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Траса для санок";
 
 "type.building_part" = "Будівля";
+
+"type.amenity.events_venue" = "Місце проведення подій";

@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,8 +29,68 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class StorageUtils
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
-  private final static String TAG = StorageUtils.class.getSimpleName();
+  private static final String TAG = StorageUtils.class.getSimpleName();
+
+  public static boolean isDirWritable(File dir)
+  {
+    final String path = dir.getPath();
+    Logger.d(TAG, "Checking for writability " + path);
+
+    // Its better to be conservative here and don't allow to use the storage
+    // if any of the system calls behave unexpectedly,
+    // still we want extra logging to facilitate debugging possible fringe cases,
+    // e.g. https://github.com/organicmaps/organicmaps/issues/2684
+    boolean success = true;
+    if (!dir.isDirectory())
+    {
+      Logger.w(TAG, "Not a directory: " + path);
+      success = false;
+    }
+    if (!dir.exists())
+    {
+      Logger.w(TAG, "Not exists: " + path);
+      success = false;
+    }
+    if (!dir.canWrite())
+    {
+      Logger.w(TAG, "Not writable: " + path);
+      success = false;
+    }
+    if (!dir.canRead())
+    {
+      Logger.w(TAG, "Not readable: " + path);
+      success = false;
+    }
+    if (dir.list() == null)
+    {
+      Logger.w(TAG, "Not listable: " + path);
+      success = false;
+    }
+
+    final File newDir = new File(dir, "om_test_dir");
+    final String newPath = newDir.getPath();
+    if (newDir.delete())
+      Logger.i(TAG, "Deleting existing test file/dir: " + newPath);
+    if (newDir.exists())
+      Logger.w(TAG, "Existing test file/dir is not deleted (not empty?): " + newPath);
+    if (!newDir.mkdir())
+    {
+      Logger.w(TAG, "Failed to create the test dir: " + newPath);
+      success = false;
+    }
+    if (!newDir.exists())
+    {
+      Logger.w(TAG, "The test dir doesn't exist: " + newPath);
+      success = false;
+    }
+    if (!newDir.delete())
+    {
+      Logger.w(TAG, "Failed to delete the test dir: " + newPath);
+      success = false;
+    }
+
+    return success;
+  }
 
   @NonNull
   public static String getApkPath(@NonNull Application application)
@@ -43,7 +102,7 @@ public class StorageUtils
     }
     catch (final PackageManager.NameNotFoundException e)
     {
-      LOGGER.e(TAG, "Can't get apk path from PackageManager", e);
+      Logger.e(TAG, "Can't get apk path from PackageManager", e);
       return "";
     }
   }
@@ -80,7 +139,7 @@ public class StorageUtils
     if (!directory.exists() && !directory.mkdirs())
     {
       final String errMsg = "Can't create directory " + path;
-      LOGGER.e(TAG, errMsg);
+      Logger.e(TAG, errMsg);
       CrashlyticsUtils.INSTANCE.logException(new IOException(errMsg));
       return false;
     }
@@ -168,7 +227,10 @@ public class StorageUtils
   {
     File[] list = dir.listFiles();
     if (list == null)
+    {
+      Logger.w(TAG, "listFilesRecursively listFiles() returned null for " + dir.getPath());
       return;
+    }
 
     for (File file : list)
     {
@@ -191,7 +253,7 @@ public class StorageUtils
     final File[] list = dir.listFiles();
     if (list == null)
     {
-      LOGGER.w(TAG, "getDirSizeRecursively dirFiles returned null");
+      Logger.w(TAG, "getDirSizeRecursively listFiles() returned null for " + dir.getPath());
       return 0;
     }
 
@@ -271,7 +333,7 @@ public class StorageUtils
           final String docId = cur.getString(0);
           final String name = cur.getString(1);
           final String mime = cur.getString(2);
-          LOGGER.d(TAG, "docId: " + docId + ", name: " + name + ", mime: " + mime);
+          Logger.d(TAG, "docId: " + docId + ", name: " + name + ", mime: " + mime);
 
           if (mime.equals(DocumentsContract.Document.MIME_TYPE_DIR))
           {

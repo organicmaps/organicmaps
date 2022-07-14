@@ -503,6 +503,10 @@
 
 "history" = "ประวัติ";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "ปิด";
 
 "search_not_found" = "ขออภัย ฉันไม่พบสิ่งใด";
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,12 +1591,13 @@
 
 "type.craft.electrician" = "ช่างไฟฟ้า";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "คนจัดสวน";
 
 "type.craft.handicraft" = "Handicraft";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "ระบบปรับอากาศ";
 
 "type.craft.metal_construction" = "ช่างเหล็ก";
@@ -2363,25 +2368,29 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "ธรรมชาติ";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "เปลือยร็อค";
 
 "type.natural.bay" = "อ่าว";
 
 "type.natural.beach" = "ชายหาด";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "หาดทราย";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "หาดกรวด";
 
 "type.natural.cape" = "พื้นที่ยื่นเข้าไปในน้ำ";
 
 "type.natural.cave_entrance" = "ถ้ำ";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "หน้าผา";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "หน้าผา";
+
+"type.man_made.embankment" = "เขื่อน";
+
+"type.natural.coastline" = "ชายฝั่ง";
 
 "type.natural.geyser" = "นำ้พุร้อน";
 
@@ -2389,9 +2398,9 @@
 
 "type.natural.grassland" = "ทุ่งหญ้า";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "เฮลธ์";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "บ่อน้ำร้อน";
 
 "type.natural.water.lake" = "ทะเลสาบ";
 
@@ -2405,17 +2414,17 @@
 
 "type.natural.water.river" = "แม่น้ำ";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "พื้นดิน";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "ทุ่งหญ้า";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "สวนผลไม้";
 
 "type.natural.peak" = "จุดสูงสุด";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "อานภูเขา";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "หิน";
 
 "type.natural.scrub" = "ป่าละเมาะ";
 
@@ -2425,9 +2434,9 @@
 
 "type.natural.tree" = "ต้นไม้";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "แถวต้นไม้";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "ไร่องุ่น";
 
 "type.natural.volcano" = "ภูเขาไฟ";
 
@@ -2435,9 +2444,9 @@
 
 "type.natural.wetland" = "พื้นที่น้ำท่วมขัง";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "พรุ";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "ที่ลุ่มชื้นแฉะ";
 
 "type.noexit" = "Dead End";
 
@@ -2845,17 +2854,17 @@
 
 "type.shop.wine" = "ร้านขายไวน์";
 
-"type.sport" = "sport";
+"type.sport" = "กีฬา";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "อเมริกันฟุตบอล";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "ยิงธนู";
 
 "type.sport.athletics" = "กรีฑา";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australian Football";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "เบสบอล";
 
 "type.sport.basketball" = "บาสเก็ตบอล";
 
@@ -2863,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "เคอร์ลิง";
 
 "type.sport.equestrian" = "กีฬาแข่งม้า";
 
-"type.sport.golf" = "Golf";
+"type.sport.golf" = "กอล์ฟ";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "ยิมนาสติก";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "แฮนด์บอล";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "กีฬาต่างๆ";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "ดำน้ำลึก";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "ยิงปืน";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "เล่นสกี";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "ฟุตบอล";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "การว่ายน้ำ";
 
 "type.sport.tennis" = "คอร์ทเทนนิส";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "บอร์ดประชาสัมพันธ์";
 
-"type.tourism.information.guidepost" = "ข้อมูลการท่องเที่ยว";
+"type.tourism.information.guidepost" = "ไกด์โพส";
 
 "type.tourism.information.map" = "แผนที่ท่องเที่ยว";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "อาคาร";
+
+"type.amenity.events_venue" = "สถานที่จัดงาน";

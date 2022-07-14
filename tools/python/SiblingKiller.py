@@ -4,7 +4,8 @@ import logging
 
 import os
 import re
-import urllib2
+from urllib.error import URLError
+from urllib.request import urlopen
 import socket
 from subprocess import Popen, PIPE
 from time import sleep
@@ -22,7 +23,7 @@ class SiblingKiller:
         self.__my_pid = self.my_process_id()
         self.port = port
         self.ping_timeout = ping_timeout
-        logging.debug("Sibling killer: my process id = {}".format(self.__my_pid))
+        logging.debug(f"Sibling killer: my process id = {self.__my_pid}")
         
         
     def allow_serving(self):
@@ -51,18 +52,18 @@ class SiblingKiller:
         logging.debug("There are no servers that are currently serving. Will try to kill our siblings.")
         
         
-        sibs = self.siblings()
+        sibs = list(self.siblings())
         
         for sibling in sibs:
-            logging.debug("Checking whether we should kill sibling id: {}".format(sibling))
+            logging.debug(f"Checking whether we should kill sibling id: {sibling}")
             
             self.give_process_time_to_kill_port_user()
             
             if self.wait_for_server():
                 serving_pid = self.serving_process_id()
                 if serving_pid:
-                    logging.debug("There is a serving sibling with process id: {}".format(serving_pid))
-                    self.kill(pids=map(lambda x: x != serving_pid, sibs))
+                    logging.debug(f"There is a serving sibling with process id: {serving_pid}")
+                    self.kill(pids=list(map(lambda x: x != serving_pid, sibs)))
                     self.__allow_serving = False
                     return
             else:
@@ -72,7 +73,7 @@ class SiblingKiller:
         
 
 
-    def kill(self, pid=0, pids=list()):
+    def kill(self, pid=0, pids=[]):
         if not pid and not pids:
             logging.debug("There are no siblings to kill")
             return
@@ -85,7 +86,7 @@ class SiblingKiller:
         if pids:
             hitlist = " ".join(map(str, pids))
 
-        command = "kill -9 {hitlist}".format(hitlist=hitlist)
+        command = f"kill -9 {hitlist}"
         self.exec_command(command)
         
 
@@ -110,12 +111,12 @@ class SiblingKiller:
 
 
     def process_using_port(self, port):
-        lsof = lambda x : (self.exec_command("lsof -a -p{process} -i4".format(process=str(x))), x) #ignore the return code
-        listenning_on_port = lambda (info_line, id) : info_line and info_line.endswith("(LISTEN)") and str(port) in info_line
-        ids = lambda (info_line, id) : id
+        def isListenOnPort(pid):
+            info_line = self.exec_command(f"lsof -a -p{pid} -i4")
+            return info_line.endswith("(LISTEN)") and str(port) in info_line
 
-        listening_process = map(ids, filter(listenning_on_port, map(lsof, self.all_pids)))
-        
+        listening_process = list(filter(isListenOnPort, self.all_pids))
+
         if len(listening_process) > 1:
             pass
             # We should panic here
@@ -136,7 +137,8 @@ class SiblingKiller:
 
     def ps_dash_w(self):
         not_header = lambda x: x and not x.startswith("UID")
-        return filter(not_header, self.gen_to_list(re.sub("\s{1,}", " ", x.strip()) for x in self.exec_command("ps -f").split("\n")))
+        output = self.exec_command("ps -f").split("\n")
+        return list(filter(not_header, list(re.sub("\s{1,}", " ", x.strip()) for x in output)))
 
 
     def wait_for_server(self):
@@ -147,22 +149,21 @@ class SiblingKiller:
     
     
     def ping(self):
-        html = str()
+        html = None
         try:
-            response = urllib2.urlopen('http://localhost:{port}/ping'.format(port=self.port), timeout=self.ping_timeout);
+            response = urlopen(f"http://localhost:{self.port}/ping", timeout=self.ping_timeout)
             html = response.read()
-        except (urllib2.URLError, socket.timeout):
+        except (URLError, socket.timeout):
             pass
 
-        logging.debug("Pinging returned html: {}".format(html))
+        logging.debug(f"Pinging returned html: {html}")
 
         return html == "pong"
 
 
     def serving_process_id(self):
-        resp = str()
         try:
-            response = urllib2.urlopen('http://localhost:{port}/id'.format(port=self.port), timeout=self.ping_timeout);
+            response = urlopen(f"http://localhost:{self.port}/id", timeout=self.ping_timeout)
             resp = response.read()
             id = int(resp)
             return id
@@ -171,17 +172,9 @@ class SiblingKiller:
             logging.info("Couldn't get id of a serving process (the PID of the server that responded to pinging)")
             return None
 
-
-    def gen_to_list(self, generator):
-        l = list()
-        for i in generator:
-            l.append(i)
-        return l
-    
-   
     def exec_command(self, command):
-        logging.debug(">> {}".format(command))
-        p = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
+        logging.debug(f">> {command}")
+        p = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, text=True)
         output, err = p.communicate()
         p.wait()
         return output

@@ -344,6 +344,8 @@
 	<string name="routing_arrive">Varış: %s</string>
 	<string name="categories">Kategoriler</string>
 	<string name="history">Geçmiş</string>
+	<string name="opens_in">%s sonra açılıyor</string>
+	<string name="closes_in">%s sonra kapanıyor</string>
 	<string name="closed">Kapalı</string>
 	<string name="search_not_found">Üzgünüz, hiç bir şey bulamadık.</string>
 	<string name="search_not_found_query">Lütfen başka bir sorgu girin.</string>
@@ -880,10 +882,15 @@
 	<string name="type.building.warehouse">Depo</string>
 	<string name="type.cemetery.grave">Mezar</string>
 	<string name="type.craft">Zanaat</string>
+	<string name="type.craft.beekeeper">Arıcı</string>
+	<string name="type.craft.blacksmith">Demirci</string>
 	<string name="type.craft.brewery">Bira Fabrikası</string>
 	<string name="type.craft.carpenter">Marangoz</string>
 	<string name="type.craft.electrician">Elektrikçi</string>
+	<string name="type.craft.electronics_repair">Elektronik Tamircisi</string>
 	<string name="type.craft.gardener">Bahçe Düzenleyici</string>
+	<string name="type.craft.handicraft">El İşi</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Klimacı</string>
 	<string name="type.craft.metal_construction">Dökümcü</string>
 	<string name="type.craft.painter">Boyacı</string>
@@ -1271,7 +1278,7 @@
 	<string name="type.military">Askeri</string>
 	<string name="type.military.bunker">Sığınak</string>
 	<string name="type.mountain_pass">Boğaz</string>
-	<string name="type.natural">Doğal</string>
+	<string name="type.natural">Doğa</string>
 	<string name="type.natural.bare_rock">Çıplak Kaya</string>
 	<string name="type.natural.bay">Koy</string>
 	<string name="type.natural.beach">Plaj</string>
@@ -1280,10 +1287,12 @@
 	<string name="type.natural.cape">Burun</string>
 	<string name="type.natural.cave_entrance">Mağara</string>
 	<string name="type.natural.cliff">Uçurum</string>
+	<string name="type.natural.earth_bank">Uçurum</string>
+	<string name="type.man_made.embankment">Set</string>
 	<string name="type.natural.coastline">Kıyı Şeridi</string>
 	<string name="type.natural.geyser">Gayzer</string>
 	<string name="type.natural.glacier">Buzul</string>
-	<string name="type.natural.grassland">Yeşillik</string>
+	<string name="type.natural.grassland">Campo</string>
 	<string name="type.natural.heath">Çalı</string>
 	<string name="type.natural.hot_spring">Kaplıca</string>
 	<string name="type.natural.water.lake">Göl</string>
@@ -1509,21 +1518,21 @@
 	<string name="type.sport.american_football">Amerikan Futbolu</string>
 	<string name="type.sport.archery">Okçuluk</string>
 	<string name="type.sport.athletics">Atletizm</string>
-	<string name="type.sport.australian_football">Ragbi</string>
+	<string name="type.sport.australian_football">Avustralya futbolu</string>
 	<string name="type.sport.baseball">Beyzbol</string>
 	<string name="type.sport.basketball">Basketbol</string>
 	<string name="type.sport.bowls">Kuka Oynu</string>
 	<string name="type.sport.cricket">Kriket</string>
-	<string name="type.sport.curling">Сurling</string>
-	<string name="type.sport.diving">Dalış</string>
+	<string name="type.sport.curling">Körling</string>
 	<string name="type.sport.equestrian">Binicilik Sporları</string>
 	<string name="type.sport.golf">Golf</string>
 	<string name="type.sport.gymnastics">Jimnastik</string>
 	<string name="type.sport.handball">Hentbol</string>
 	<string name="type.sport.multi">Çeşitli Sporlar</string>
+	<!-- Used to tag a scuba diving site. -->
 	<string name="type.sport.scuba_diving">Tüplü Dalış</string>
-	<string name="type.sport.shooting">Atış Sporları</string>
-	<string name="type.sport.skiing">Kayak</string>
+	<string name="type.sport.shooting">Çekim</string>
+	<string name="type.sport.skiing">Kayak yapmak</string>
 	<string name="type.sport.soccer">Futbol</string>
 	<string name="type.sport.swimming">Yüzme</string>
 	<string name="type.sport.tennis">Tenis Kortu</string>
@@ -1547,7 +1556,7 @@
 	<string name="type.tourism.hotel">Otel</string>
 	<string name="type.tourism.information">Turist Bilgilendirme</string>
 	<string name="type.tourism.information.board">Bilgi Panosu</string>
-	<string name="type.tourism.information.guidepost">Turist Bilgilendirme</string>
+	<string name="type.tourism.information.guidepost">Kılavuz direği</string>
 	<string name="type.tourism.information.map">Turist Haritası</string>
 	<string name="type.tourism.information.office">Turizm Ofisi</string>
 	<string name="type.tourism.motel">Motel</string>
@@ -1601,4 +1610,5 @@
 	<string name="type.piste_type.nordic">İskandinav Kayak Pisti</string>
 	<string name="type.piste_type.sled">Kızak Pisti</string>
 	<string name="type.building_part">Bina</string>
+	<string name="type.amenity.events_venue">Etkinlik mekanı</string>
 </resources>

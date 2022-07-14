@@ -12,7 +12,7 @@ char const * kValidOsmPassword = "12345678";
 namespace
 {
 constexpr char const * kInvalidOsmPassword = "123";
-constexpr char const * kForgotPasswordEmail = "osmtest@organicmaps.app";
+constexpr char const * kForgotPasswordEmail = "osmtest1@organicmaps.app";
 }  // namespace
 
 UNIT_TEST(OSM_Auth_InvalidLogin)

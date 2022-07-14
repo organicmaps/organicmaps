@@ -7,14 +7,14 @@ import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.log.Logger;
 
 import java.util.List;
 
 class AndroidNativeProvider extends BaseLocationProvider
 {
-  protected String TAG = AndroidNativeProvider.class.getSimpleName();
+  private static final String TAG = AndroidNativeProvider.class.getSimpleName();
 
   private class NativeLocationListener implements LocationListener {
     @Override
@@ -26,7 +26,7 @@ class AndroidNativeProvider extends BaseLocationProvider
     @Override
     public void onProviderDisabled(@NonNull String provider)
     {
-      LOGGER.d(TAG, "Disabled location provider: " + provider);
+      Logger.d(TAG, "Disabled location provider: " + provider);
       mProviderCount--;
       if (mProviderCount < MIN_PROVIDER_COUNT)
         mListener.onLocationError(LocationHelper.ERROR_GPS_OFF);
@@ -35,14 +35,14 @@ class AndroidNativeProvider extends BaseLocationProvider
     @Override
     public void onProviderEnabled(@NonNull String provider)
     {
-      LOGGER.d(TAG, "Enabled location provider: " + provider);
+      Logger.d(TAG, "Enabled location provider: " + provider);
       mProviderCount++;
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras)
     {
-      LOGGER.d(TAG, "Status changed for location provider: " + provider + "; new status = " + status);
+      Logger.d(TAG, "Status changed for location provider: " + provider + "; new status = " + status);
     }
   }
 
@@ -69,7 +69,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   @Override
   public void start(long interval)
   {
-    LOGGER.d(TAG, "start()");
+    Logger.d(TAG, "start()");
     if (mActive)
       throw new IllegalStateException("Already started");
     mActive = true;
@@ -83,12 +83,12 @@ class AndroidNativeProvider extends BaseLocationProvider
 
     for (String provider : providers)
     {
-      LOGGER.d(TAG, "Request Android native provider '" + provider
-                    + "' to get locations at this interval = " + interval + " ms");
+      Logger.d(TAG, "Request Android native provider '" + provider
+               + "' to get locations at this interval = " + interval + " ms");
       mLocationManager.requestLocationUpdates(provider, interval, 0, mNativeLocationListener);
 
       final Location location = mLocationManager.getLastKnownLocation(provider);
-      LOGGER.d(TAG, "provider = '" + provider + "' last location = " + location);
+      Logger.d(TAG, "provider = '" + provider + "' last location = " + location);
       if (location != null)
         mListener.onLocationChanged(location);
 
@@ -99,7 +99,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   @Override
   public void stop()
   {
-    LOGGER.d(TAG, "stop()");
+    Logger.d(TAG, "stop()");
     mLocationManager.removeUpdates(mNativeLocationListener);
     mActive = false;
   }

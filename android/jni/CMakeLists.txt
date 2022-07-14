@@ -64,7 +64,7 @@ set(SRC
   com/mapswithme/util/HttpUploader.cpp
   com/mapswithme/util/HttpUploaderUtils.cpp
   com/mapswithme/util/Language.cpp
-  com/mapswithme/util/LoggerFactory.cpp
+  com/mapswithme/util/LogsManager.cpp
   com/mapswithme/util/NetworkPolicy.cpp
   com/mapswithme/util/StringUtils.cpp
   com/mapswithme/vulkan/android_vulkan_context_factory.cpp

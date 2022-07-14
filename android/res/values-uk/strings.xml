@@ -350,6 +350,8 @@
 	<string name="routing_arrive">Прибуття в %s</string>
 	<string name="categories">Категорії</string>
 	<string name="history">Історія</string>
+	<string name="opens_in">Відкривається через %s</string>
+	<string name="closes_in">Зачиняється через %s</string>
 	<string name="closed">Зачинено</string>
 	<string name="search_not_found">На жаль, нічого не знайдено.</string>
 	<string name="search_not_found_query">Спробуйте змінити запит.</string>
@@ -716,7 +718,7 @@
 	<string name="type.amenity.bar">Бар</string>
 	<string name="type.amenity.bbq">Пікнік</string>
 	<string name="type.amenity.bench">Лавка</string>
-	<string name="type.amenity.bicycle_parking">Велостоянка</string>
+	<string name="type.amenity.bicycle_parking">Велопарковка</string>
 	<string name="type.amenity.bicycle_rental">Велопрокат</string>
 	<string name="type.amenity.bicycle_repair_station">Станція ремонту велосипедів</string>
 	<string name="type.amenity.biergarten">Пивна під відкритим небом</string>
@@ -877,11 +879,14 @@
 	<string name="type.building.warehouse">Склад</string>
 	<string name="type.cemetery.grave">Могила</string>
 	<string name="type.craft">Майстерня</string>
-	<string name="type.craft.brewery">Пивоварня</string>
+	<string name="type.craft.beekeeper">Бджоляр</string>
+	<string name="type.craft.blacksmith">Кузня</string>
+	<string name="type.craft.brewery">Крафтова пивоварня</string>
 	<string name="type.craft.carpenter">Столяр</string>
 	<string name="type.craft.electrician">Електрик</string>
 	<string name="type.craft.gardener">Садівник</string>
-	<string name="type.craft.hvac">Кондиціонери</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">Опалення, вентиляція та кондиціювання повітря</string>
 	<string name="type.craft.metal_construction">Металоконструкції</string>
 	<string name="type.craft.painter">Маляр</string>
 	<string name="type.craft.photographer">Фотограф</string>
@@ -1276,11 +1281,13 @@
 	<string name="type.natural.beach.gravel">Гальковий пляж</string>
 	<string name="type.natural.cape">Мис</string>
 	<string name="type.natural.cave_entrance">Печера</string>
-	<string name="type.natural.cliff">Обрив</string>
+	<string name="type.natural.cliff">Урвище</string>
+	<string name="type.natural.earth_bank">Обрив</string>
+	<string name="type.man_made.embankment">Насип</string>
 	<string name="type.natural.coastline">Берегова лiнiя</string>
 	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.glacier">Льодовик</string>
-	<string name="type.natural.grassland">Поле</string>
+	<string name="type.natural.grassland">Луг</string>
 	<string name="type.natural.heath">Пустище</string>
 	<string name="type.natural.hot_spring">Горяче джерело</string>
 	<string name="type.natural.water.lake">Озеро</string>
@@ -1504,22 +1511,22 @@
 	<string name="type.shop.wine">Винна крамниця</string>
 	<string name="type.sport">Спорт</string>
 	<string name="type.sport.american_football">Американський футбол</string>
-	<string name="type.sport.archery">Стрiльба з лука</string>
+	<string name="type.sport.archery">Стрільба з лука</string>
 	<string name="type.sport.athletics">Легка атлетика</string>
-	<string name="type.sport.australian_football">Регбi</string>
+	<string name="type.sport.australian_football">Австралійський футбол</string>
 	<string name="type.sport.baseball">Бейсбол</string>
 	<string name="type.sport.basketball">Баскетбол</string>
-	<string name="type.sport.bowls">Кеглi</string>
+	<string name="type.sport.bowls">Боулз</string>
 	<string name="type.sport.cricket">Крикет</string>
-	<string name="type.sport.curling">Керлiнг</string>
-	<string name="type.sport.diving">Пiдводне плавання</string>
+	<string name="type.sport.curling">Керлінг</string>
 	<string name="type.sport.equestrian">Кінний спорт</string>
 	<string name="type.sport.golf">Гольф</string>
-	<string name="type.sport.gymnastics">Гiмнастика</string>
+	<string name="type.sport.gymnastics">Гімнастика</string>
 	<string name="type.sport.handball">Гандбол</string>
 	<string name="type.sport.multi">Рiзноманiтнi типи спорту</string>
-	<string name="type.sport.scuba_diving">Акваланг</string>
-	<string name="type.sport.shooting">Стрiльба</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Місце для дайвінгу</string>
+	<string name="type.sport.shooting">Стрільба</string>
 	<string name="type.sport.skiing">Лижi</string>
 	<string name="type.sport.soccer">Футбол</string>
 	<string name="type.sport.swimming">Плавання</string>
@@ -1544,7 +1551,7 @@
 	<string name="type.tourism.hotel">Готель</string>
 	<string name="type.tourism.information">Турінформація</string>
 	<string name="type.tourism.information.board">Інформаційний щит</string>
-	<string name="type.tourism.information.guidepost">Турінформація</string>
+	<string name="type.tourism.information.guidepost">Вказівний стовп</string>
 	<string name="type.tourism.information.map">Мапа</string>
 	<string name="type.tourism.information.office">Туристичний офіс</string>
 	<string name="type.tourism.motel">Мотель</string>
@@ -1599,4 +1606,5 @@
 	<string name="type.piste_type.nordic">Лижня</string>
 	<string name="type.piste_type.sled">Траса для санок</string>
 	<string name="type.building_part">Будівля</string>
+	<string name="type.amenity.events_venue">Місце проведення подій</string>
 </resources>

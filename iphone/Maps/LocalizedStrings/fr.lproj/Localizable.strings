@@ -99,7 +99,7 @@
 "transport" = "Transport";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Essence";
+"fuel" = "Stations-service";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Stationnement";
@@ -153,7 +153,7 @@
 "water" = "Eau";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "Aménagements pour camping-car";
 
 "share_bookmarks_email_body" = "Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps!";
 
@@ -502,6 +502,10 @@
 "categories" = "Catégories";
 
 "history" = "Historique";
+
+"opens_in" = "Ouvert dans %@";
+
+"closes_in" = "Fermé dans %@";
 
 "closed" = "Fermé";
 
@@ -1401,7 +1405,7 @@
 
 "type.recycling.batteries" = "Batteries";
 
-"type.recycling.clothes" = "Vêtement usagés";
+"type.recycling.clothes" = "Vêtements usagés";
 
 "type.recycling.glass_bottles" = "Verre";
 
@@ -1409,21 +1413,21 @@
 
 "type.recycling.plastic" = "Déchets plastiques";
 
-"type.recycling.plastic_bottles" = "Collecte de bouteilles en plastique";
+"type.recycling.plastic_bottles" = "Bouteilles en plastique";
 
 "type.recycling.scrap_metal" = "Ferraille";
 
 "type.recycling.small_appliances" = "Déchets d'équipements électriques";
 
-"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cardboard" = "Carton";
 
-"type.recycling.cans" = "Cans";
+"type.recycling.cans" = "Emballages métalliques";
 
-"type.recycling.shoes" = "Shoes";
+"type.recycling.shoes" = "Chaussures";
 
-"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.green_waste" = "Déchets organiques";
 
-"type.recycling.cartons" = "Bewerage Cartons";
+"type.recycling.cartons" = "Briques alimentaires";
 
 "type.amenity.restaurant" = "Restaurant";
 
@@ -1457,7 +1461,7 @@
 
 "type.amenity.vending_machine.drinks" = "Distributeur de boissons";
 
-"type.amenity.vending_machine.food" = "Distributeur de aliments";
+"type.amenity.vending_machine.food" = "Distributeur d'aliments";
 
 "type.amenity.vending_machine.newspapers" = "Distributeur de journaux";
 
@@ -1467,9 +1471,9 @@
 
 "type.amenity.vending_machine.sweets" = "Distributeur de bonbons";
 
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "Distributeur de sacs à excréments";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Consigne automatique pour colis";
 
 "type.amenity.vending_machine.fuel" = "Fuel Dispenser";
 
@@ -1517,45 +1521,45 @@
 
 "type.barrier.wall" = "Mur";
 
-"type.boundary" = "Boundary";
+"type.boundary" = "Frontière";
 
-"type.boundary.administrative" = "Administrative Boundary";
+"type.boundary.administrative" = "Frontière administrative";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
+"type.boundary.administrative.10" = "Frontière administrative";
 
-"type.boundary.administrative.11" = "Administrative Boundary";
+"type.boundary.administrative.11" = "Frontière administrative";
 
-"type.boundary.administrative.2" = "National Border";
+"type.boundary.administrative.2" = "Frontière nationale";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+"type.boundary.administrative.3" = "Frontière administrative";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
+"type.boundary.administrative.4" = "Frontière administrative";
 
-"type.boundary.administrative.5" = "Administrative Boundary";
+"type.boundary.administrative.5" = "Frontière administrative";
 
-"type.boundary.administrative.6" = "Administrative Boundary";
+"type.boundary.administrative.6" = "Frontière administrative";
 
-"type.boundary.administrative.7" = "Administrative Boundary";
+"type.boundary.administrative.7" = "Frontière administrative";
 
-"type.boundary.administrative.8" = "Administrative Boundary";
+"type.boundary.administrative.8" = "Frontière administrative";
 
-"type.boundary.administrative.9" = "Administrative Boundary";
+"type.boundary.administrative.9" = "Frontière administrative";
 
-"type.boundary.administrative.city" = "City Boundary";
+"type.boundary.administrative.city" = "Frontière de la ville";
 
-"type.boundary.administrative.country" = "National Border";
+"type.boundary.administrative.country" = "Frontière nationale";
 
-"type.boundary.administrative.county" = "County Boundary";
+"type.boundary.administrative.county" = "Frontière du comté";
 
-"type.boundary.administrative.municipality" = "Municipality Boundary";
+"type.boundary.administrative.municipality" = "Frontière de la municipalité";
 
-"type.boundary.administrative.nation" = "National Border";
+"type.boundary.administrative.nation" = "Frontière nationale";
 
-"type.boundary.administrative.region" = "Regional Boundary";
+"type.boundary.administrative.region" = "Frontière régionale";
 
 "type.boundary.administrative.state" = "State Boundary";
 
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+"type.boundary.administrative.suburb" = "Frontière de quartier";
 
 "type.boundary.national_park" = "Parc national";
 
@@ -1571,29 +1575,30 @@
 
 "type.building.warehouse" = "Entrepôt";
 
-"type.cemetery.grave" = "La tombe";
+"type.cemetery.grave" = "Tombe";
 
 "type.craft" = "Artisanat";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Apiculteur";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Forgeron";
 
 "type.craft.brewery" = "Brasserie artisanale";
 
 "type.craft.carpenter" = "Charpentier";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Confiseur";
 
 "type.craft.electrician" = "Électricien";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Réparation d'appareils électroniques";
 
 "type.craft.gardener" = "Paysagiste";
 
 "type.craft.handicraft" = "Handicraft";
 
-"type.craft.hvac" = "Climatiseur";
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Chauffage, ventilation et climatisation";
 
 "type.craft.metal_construction" = "Métallo";
 
@@ -1603,11 +1608,11 @@
 
 "type.craft.plumber" = "Plombier";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Scierie";
 
 "type.craft.shoemaker" = "Cordonnier";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Chai";
 
 "type.craft.tailor" = "Tailleur";
 
@@ -2105,7 +2110,7 @@
 
 "type.historic.battlefield" = "Champ de bataille";
 
-"type.historic.boundary_stone" = "Boundary Stone";
+"type.historic.boundary_stone" = "Borne frontière";
 
 "type.historic.castle" = "Château";
 
@@ -2237,7 +2242,7 @@
 
 "type.landuse.residential" = "Zone résidentielle";
 
-"type.landuse.retail" = "Retail Land";
+"type.landuse.retail" = "Zone commerciale";
 
 "type.landuse.salt_pond" = "Marais salant";
 
@@ -2317,15 +2322,15 @@
 
 "type.man_made.chimney" = "Cheminée d'usine";
 
-"type.man_made.cutline" = "Cutline";
+"type.man_made.cutline" = "Layon";
 
 "type.man_made.survey_point" = "Borne géodésique";
 
-"type.man_made.flagpole" = "Flagpole";
+"type.man_made.flagpole" = "Mât de drapeau";
 
 "type.man_made.lighthouse" = "Phare";
 
-"type.man_made.mast" = "Mast";
+"type.man_made.mast" = "Mât";
 
 "type.man_made.pier" = "Jetée";
 
@@ -2363,7 +2368,7 @@
 
 "type.mountain_pass" = "Col de montagne";
 
-"type.natural" = "Natural";
+"type.natural" = "Nature";
 
 "type.natural.bare_rock" = "Zone rocheuse";
 
@@ -2371,9 +2376,9 @@
 
 "type.natural.beach" = "Plage";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Plage de sable";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Plage de gravier";
 
 "type.natural.cape" = "Cap";
 
@@ -2381,13 +2386,17 @@
 
 "type.natural.cliff" = "Falaise";
 
+"type.natural.earth_bank" = "Falaise";
+
+"type.man_made.embankment" = "Talus";
+
 "type.natural.coastline" = "Littoral";
 
 "type.natural.geyser" = "Geyser";
 
 "type.natural.glacier" = "Glacier";
 
-"type.natural.grassland" = "Champ";
+"type.natural.grassland" = "Pelouse";
 
 "type.natural.heath" = "Lande";
 
@@ -2395,7 +2404,7 @@
 
 "type.natural.water.lake" = "Lac";
 
-"type.natural.water.lock" = "Chambre de verrouillage";
+"type.natural.water.lock" = "Écluse";
 
 "type.natural.water.pond" = "Étang";
 
@@ -2405,11 +2414,11 @@
 
 "type.natural.water.river" = "Rivière";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Terrain";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Prairie";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Verger";
 
 "type.natural.peak" = "Sommet";
 
@@ -2427,7 +2436,7 @@
 
 "type.natural.tree_row" = "Rangée d'arbre";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vignoble";
 
 "type.natural.volcano" = "Volcan";
 
@@ -2513,7 +2522,7 @@
 
 "type.place.sea" = "Mer";
 
-"type.place.square" = "Square";
+"type.place.square" = "Place";
 
 "type.place.state" = "État";
 
@@ -2559,17 +2568,17 @@
 
 "type.railway" = "Chemin de fer";
 
-"type.railway.abandoned" = "Abandoned railway";
+"type.railway.abandoned" = "Chemin de fer abandonné";
 
-"type.railway.abandoned.bridge" = "Abandoned railway";
+"type.railway.abandoned.bridge" = "Chemin de fer abandonné";
 
-"type.railway.abandoned.tunnel" = "Abandoned Railway";
+"type.railway.abandoned.tunnel" = "Chemin de fer abandonné";
 
-"type.railway.construction" = "Railway's Construction";
+"type.railway.construction" = "Chemin de fer en construction";
 
-"type.railway.crossing" = "Railway Crossing";
+"type.railway.crossing" = "Traversée de voie ferrée";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Chemin de fer désaffecté";
 
 "type.railway.funicular" = "Funiculaire";
 
@@ -2599,9 +2608,9 @@
 
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
 
-"type.railway.platform" = "Railway Platform";
+"type.railway.platform" = "Quai de gare";
 
-"type.railway.preserved" = "Preserved Rail";
+"type.railway.preserved" = "Chemin de fer touristique";
 
 "type.railway.preserved.bridge" = "Preserved Rail";
 
@@ -2609,11 +2618,11 @@
 
 "type.railway.rail" = "Chemin de fer";
 
-"type.railway.rail.bridge" = "Railway";
+"type.railway.rail.bridge" = "Chemin de fer";
 
 "type.railway.rail.motor_vehicle" = "Railway";
 
-"type.railway.rail.tunnel" = "Railway";
+"type.railway.rail.tunnel" = "Chemin de fer";
 
 "type.railway.razed" = "Razed Rail";
 
@@ -2635,7 +2644,7 @@
 
 "type.railway.station.monorail" = "Gare";
 
-"type.railway.station.subway" = "Métro";
+"type.railway.station.subway" = "Station de métro";
 
 "type.railway.station.subway.barcelona" = "Métro";
 
@@ -2653,13 +2662,13 @@
 
 "type.railway.station.subway.newyork" = "Métro";
 
-"type.railway.station.subway.paris" = "Métro";
+"type.railway.station.subway.paris" = "Station de métro";
 
 "type.railway.station.subway.roma" = "Métro";
 
 "type.railway.station.subway.spb" = "Métro";
 
-"type.railway.subway" = "Ligne de métroo";
+"type.railway.subway" = "Ligne de métro";
 
 "type.railway.subway.bridge" = "Voie de métro";
 
@@ -2735,7 +2744,7 @@
 
 "type.shop.car_repair.tyres" = "Réparation de pneus";
 
-"type.shop.caravan" = "RV Dealership";
+"type.shop.caravan" = "Concessionnaire de caravanes et camping-cars";
 
 "type.shop.chemist" = "Droguerie";
 
@@ -2845,41 +2854,40 @@
 
 "type.shop.wine" = "Caviste";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Football américain";
 
 "type.sport.archery" = "Tir à l'arc";
 
 "type.sport.athletics" = "Athlétisme";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Football australien";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "Base-ball";
 
 "type.sport.basketball" = "Basket-ball";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "Boulingrin";
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Sport hippique";
 
-"type.sport.golf" = "Golf";
+"type.sport.golf" = "Le golf";
 
 "type.sport.gymnastics" = "Gymnastique";
 
 "type.sport.handball" = "Handball";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Sports multiples";
 
+/* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Plongée sous-marine";
 
-"type.sport.shooting" = "Sports de tir";
+"type.sport.shooting" = "Tir sportif";
 
 "type.sport.skiing" = "Ski";
 
@@ -2963,7 +2971,7 @@
 
 "type.waterway.canal.tunnel" = "Canal";
 
-"type.waterway.dam" = "Dam";
+"type.waterway.dam" = "Barrage";
 
 "type.waterway.ditch" = "Fossé";
 
@@ -2993,7 +3001,7 @@
 
 "type.waterway.waterfall" = "Cascade";
 
-"type.waterway.weir" = "Weir";
+"type.waterway.weir" = "Seuil";
 
 "type.wheelchair" = "Wheelchair";
 
@@ -3004,11 +3012,11 @@
 "type.wheelchair.yes" = "Équipé pour l'usage des fauteuils roulants";
 
 /* en.wikipedia.org/wiki/Surface_lift */
-"type.piste_lift" = "Surface Lift";
+"type.piste_lift" = "Téléski";
 
-"type.piste_lift.j.bar" = "J-bar Lift";
+"type.piste_lift.j.bar" = "Téléski";
 
-"type.piste_lift.magic_carpet" = "Magic Carpet";
+"type.piste_lift.magic_carpet" = "Tapis roulant";
 
 "type.piste_lift.platter" = "Platter Lift";
 
@@ -3018,22 +3026,24 @@
 
 "type.piste_type" = "Piste Type";
 
-"type.piste_type.downhill" = "Downhill Ski Run";
+"type.piste_type.downhill" = "Piste de ski alpin";
 
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Piste de ski alpin";
 
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Piste de ski alpin";
 
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Piste de ski alpin";
 
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Piste de ski alpin";
 
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Piste de ski alpin";
 
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Piste de ski alpin";
 
-"type.piste_type.nordic" = "Nordic Ski Trail";
+"type.piste_type.nordic" = "Piste de ski de fond";
 
-"type.piste_type.sled" = "Sledding Piste";
+"type.piste_type.sled" = "Piste de luge";
 
 "type.building_part" = "Bâtiment";
+
+"type.amenity.events_venue" = "Lieu des événements";

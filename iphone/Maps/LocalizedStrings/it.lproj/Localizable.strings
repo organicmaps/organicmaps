@@ -503,6 +503,10 @@
 
 "history" = "Cronologia";
 
+"opens_in" = "Apre tra %@";
+
+"closes_in" = "Chiude tra %@";
+
 "closed" = "Chiuso";
 
 "search_not_found" = "Non ho trovato nulla.";
@@ -1573,11 +1577,11 @@
 
 "type.cemetery.grave" = "La tomba";
 
-"type.craft" = "Craft";
+"type.craft" = "Artigianato";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Apicoltore";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Fabbro";
 
 "type.craft.brewery" = "Birrificio";
 
@@ -1587,12 +1591,13 @@
 
 "type.craft.electrician" = "Elettricista";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Riparazioni elettroniche";
 
 "type.craft.gardener" = "Giardiniere";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Artigiano";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Impianti HVAC";
 
 "type.craft.metal_construction" = "Fabbro";
@@ -2363,35 +2368,39 @@
 
 "type.mountain_pass" = "Passo";
 
-"type.natural" = "Natural";
+"type.natural" = "Natura";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Roccia nuda";
 
 "type.natural.bay" = "Baia";
 
 "type.natural.beach" = "Spiaggia";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Spiaggia sabbiosa";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Spiaggia di ghiaia";
 
 "type.natural.cape" = "Capo";
 
 "type.natural.cave_entrance" = "Grotta";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Falesia";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Scogliera";
+
+"type.man_made.embankment" = "Rilevato";
+
+"type.natural.coastline" = "Costa";
 
 "type.natural.geyser" = "Geyser";
 
 "type.natural.glacier" = "Ghiacciaio";
 
-"type.natural.grassland" = "Campo";
+"type.natural.grassland" = "Prateria";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Landa";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Sorgente calda";
 
 "type.natural.water.lake" = "Lago";
 
@@ -2405,17 +2414,17 @@
 
 "type.natural.water.river" = "Fiume";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Terra";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Prato";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Frutteto";
 
 "type.natural.peak" = "Monte";
 
 "type.natural.saddle" = "Sella";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Roccia";
 
 "type.natural.scrub" = "Boscaglia";
 
@@ -2425,9 +2434,9 @@
 
 "type.natural.tree" = "Albero";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Fila di alberi";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vigneto";
 
 "type.natural.volcano" = "Vulcano";
 
@@ -2435,9 +2444,9 @@
 
 "type.natural.wetland" = "Terreno paludoso";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Torbiera";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Palude";
 
 "type.noexit" = "Dead End";
 
@@ -2845,15 +2854,15 @@
 
 "type.shop.wine" = "Negozio di alcolici";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Football americano";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Tiro con l'arco";
 
 "type.sport.athletics" = "Atletica leggera";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Football australiano";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2863,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Equitazione";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Ginnastica";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Palla a mano";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Sport vari";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Immersioni in subacquea";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Tiro";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Sciare";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Calcio";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Nuoto";
 
 "type.sport.tennis" = "Campo da tennis";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "Tabellone informativo";
 
-"type.tourism.information.guidepost" = "Informazione";
+"type.tourism.information.guidepost" = "Guida";
 
 "type.tourism.information.map" = "Mappa turistica";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Edificio";
+
+"type.amenity.events_venue" = "Sede degli eventi";

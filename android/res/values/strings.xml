@@ -157,7 +157,7 @@
 	<!-- Kmz file successful loading -->
 	<string name="load_kmz_successful">Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.</string>
 	<!-- Kml file loading failed -->
-	<string name="load_kmz_failed">Bookmarks upload failed. The file may be corrupted or defective.</string>
+	<string name="load_kmz_failed">Failed to load bookmarks. The file may be corrupted or defective.</string>
 	<!-- resource for context menu -->
 	<string name="edit">Edit</string>
 	<!-- Warning message when doing search around current position -->
@@ -375,6 +375,8 @@
 	<string name="routing_arrive">Arrival at %s</string>
 	<string name="categories">Categories</string>
 	<string name="history">History</string>
+	<string name="opens_in">Opens in %s</string>
+	<string name="closes_in">Closes in %s</string>
 	<string name="closed">Closed</string>
 	<string name="search_not_found">Oops, no results found.</string>
 	<string name="search_not_found_query">Try changing your search criteria.</string>
@@ -920,16 +922,17 @@
 	<string name="type.building.warehouse">Warehouse</string>
 	<string name="type.cemetery.grave">Grave</string>
 	<string name="type.craft">Craft</string>
-	<string name="type.craft.beekeeper">beekeeper</string>
+	<string name="type.craft.beekeeper">Beekeeper</string>
 	<string name="type.craft.blacksmith">Blacksmith</string>
 	<string name="type.craft.brewery">Craft Brewery</string>
 	<string name="type.craft.carpenter">Carpenter</string>
 	<string name="type.craft.confectionery">Confectionery</string>
 	<string name="type.craft.electrician">Electrician</string>
-	<string name="type.craft.electronics_repair">Electronics repair</string>
+	<string name="type.craft.electronics_repair">Electronics Repair</string>
 	<string name="type.craft.gardener">Gardener</string>
 	<string name="type.craft.handicraft">Handicraft</string>
-	<string name="type.craft.hvac">Hvac</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
+	<string name="type.craft.hvac">HVAC</string>
 	<string name="type.craft.metal_construction">Metal Worker</string>
 	<string name="type.craft.painter">Painter</string>
 	<string name="type.craft.photographer">Photographer</string>
@@ -1338,19 +1341,21 @@
 	<string name="type.military">Military</string>
 	<string name="type.military.bunker">Bunker</string>
 	<string name="type.mountain_pass">Mountain Pass</string>
-	<string name="type.natural">Natural</string>
+	<string name="type.natural">Nature</string>
 	<string name="type.natural.bare_rock">Bare Rock</string>
 	<string name="type.natural.bay">Bay</string>
 	<string name="type.natural.beach">Beach</string>
-	<string name="type.natural.beach.sand">Sandy Beach</string>
+	<string name="type.natural.beach.sand">Sand Beach</string>
 	<string name="type.natural.beach.gravel">Gravel Beach</string>
 	<string name="type.natural.cape">Cape</string>
 	<string name="type.natural.cave_entrance">Cave</string>
 	<string name="type.natural.cliff">Cliff</string>
+	<string name="type.natural.earth_bank">Earth Bank</string>
+	<string name="type.man_made.embankment">Embankment</string>
 	<string name="type.natural.coastline">Coastline</string>
 	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">Glacier</string>
-	<string name="type.natural.grassland">Field</string>
+	<string name="type.natural.grassland">Grassland</string>
 	<string name="type.natural.heath">Heath</string>
 	<string name="type.natural.hot_spring">Hot Spring</string>
 	<string name="type.natural.water.lake">Lake</string>
@@ -1374,8 +1379,8 @@
 	<string name="type.natural.volcano">Volcano</string>
 	<string name="type.natural.water">Waterbody</string>
 	<string name="type.natural.wetland">Wetland</string>
-	<string name="type.natural.wetland.bog">Wetland</string>
-	<string name="type.natural.wetland.marsh">Wetland</string>
+	<string name="type.natural.wetland.bog">Bog</string>
+	<string name="type.natural.wetland.marsh">Marsh</string>
 	<string name="type.noexit">Dead End</string>
 	<string name="type.office">Office</string>
 	<string name="type.office.company">Company Office</string>
@@ -1579,26 +1584,26 @@
 	<string name="type.shop.video">Video Shop</string>
 	<string name="type.shop.video_games">Video Games Shop</string>
 	<string name="type.shop.wine">Wine Shop</string>
-	<string name="type.sport">sport</string>
+	<string name="type.sport">Sport</string>
 	<string name="type.sport.american_football">American Football</string>
 	<string name="type.sport.archery">Archery</string>
 	<string name="type.sport.athletics">Athletics</string>
-	<string name="type.sport.australian_football">Rugby</string>
+	<string name="type.sport.australian_football">Australian Football</string>
 	<string name="type.sport.baseball">Baseball</string>
 	<string name="type.sport.basketball">Basketball</string>
 	<string name="type.sport.bowls">Bowls</string>
 	<string name="type.sport.cricket">Cricket</string>
-	<string name="type.sport.curling">Сurling</string>
-	<string name="type.sport.diving">Diving</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Equestrian Sports</string>
 	<string name="type.sport.golf">Golf</string>
 	<string name="type.sport.gymnastics">Gymnastics</string>
 	<string name="type.sport.handball">Handball</string>
-	<string name="type.sport.multi">Various Sport</string>
-	<string name="type.sport.scuba_diving">Scuba Diving</string>
+	<string name="type.sport.multi">Various Sports</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">Scuba diving site</string>
 	<string name="type.sport.shooting">Shooting</string>
 	<string name="type.sport.skiing">Skiing</string>
-	<string name="type.sport.soccer">Soccer (Football)</string>
+	<string name="type.sport.soccer">Soccer</string>
 	<string name="type.sport.swimming">Swimming</string>
 	<string name="type.sport.tennis">Tennis Court</string>
 	<string name="type.tourism">Tourism</string>
@@ -1621,7 +1626,7 @@
 	<string name="type.tourism.hotel">Hotel</string>
 	<string name="type.tourism.information">Tourist Information</string>
 	<string name="type.tourism.information.board">Information Board</string>
-	<string name="type.tourism.information.guidepost">Tourist Information</string>
+	<string name="type.tourism.information.guidepost">Guidepost</string>
 	<string name="type.tourism.information.map">Tourist Map</string>
 	<string name="type.tourism.information.office">Tourist Office</string>
 	<string name="type.tourism.motel">Motel</string>
@@ -1676,4 +1681,5 @@
 	<string name="type.piste_type.nordic">Nordic Ski Trail</string>
 	<string name="type.piste_type.sled">Sledding Piste</string>
 	<string name="type.building_part">Building</string>
+	<string name="type.amenity.events_venue">Events Venue</string>
 </resources>

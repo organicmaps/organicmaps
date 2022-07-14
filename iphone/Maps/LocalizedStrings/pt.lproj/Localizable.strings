@@ -503,6 +503,10 @@
 
 "history" = "Histórico";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Fechado";
 
 "search_not_found" = "Lamento, mas não foram encontrados resultados.";
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "Ofícios";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,12 +1591,13 @@
 
 "type.craft.electrician" = "Eletricista";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Jardineiro";
 
 "type.craft.handicraft" = "Handicraft";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Instalador de ar-condicionado";
 
 "type.craft.metal_construction" = "Serralheiro metálico";
@@ -2371,9 +2376,9 @@
 
 "type.natural.beach" = "Praia";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Praia de areia";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Praia de Cascalho";
 
 "type.natural.cape" = "Cabo";
 
@@ -2381,13 +2386,17 @@
 
 "type.natural.cliff" = "Falésia";
 
+"type.natural.earth_bank" = "Penhasco";
+
+"type.man_made.embankment" = "Aterro";
+
 "type.natural.coastline" = "Linha costeira";
 
-"type.natural.geyser" = "Gêiser";
+"type.natural.geyser" = "Géiser";
 
 "type.natural.glacier" = "Glaciar";
 
-"type.natural.grassland" = "Pradaria";
+"type.natural.grassland" = "Campo";
 
 "type.natural.heath" = "Charneca";
 
@@ -2395,7 +2404,7 @@
 
 "type.natural.water.lake" = "Lago";
 
-"type.natural.water.lock" = "Câmara de Bloqueio";
+"type.natural.water.lock" = "Câmara de Eclusa";
 
 "type.natural.water.pond" = "Lagoa";
 
@@ -2413,7 +2422,7 @@
 
 "type.natural.peak" = "Pico";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Sela da Montanha";
 
 "type.natural.rock" = "Rochedo";
 
@@ -2847,25 +2856,23 @@
 
 "type.sport" = "Desporto";
 
-"type.sport.american_football" = "Futebol americano";
+"type.sport.american_football" = "Futebol Americano";
 
 "type.sport.archery" = "Tiro com arco";
 
 "type.sport.athletics" = "Atletismo";
 
-"type.sport.australian_football" = "Futebol australiano";
+"type.sport.australian_football" = "Futebol Australiano";
 
-"type.sport.baseball" = "Beisebol";
+"type.sport.baseball" = "Basebol";
 
 "type.sport.basketball" = "Basquetebol";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "Lawn bowls";
 
 "type.sport.cricket" = "Críquete";
 
 "type.sport.curling" = "Curling";
-
-"type.sport.diving" = "Mergulho";
 
 "type.sport.equestrian" = "Hipismo";
 
@@ -2877,7 +2884,8 @@
 
 "type.sport.multi" = "Vários desportos";
 
-"type.sport.scuba_diving" = "Mergulho autónomo";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Mergulho autônomo";
 
 "type.sport.shooting" = "Tiro desportivo";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Pista para trenós";
 
 "type.building_part" = "Parte de edifício";
+
+"type.amenity.events_venue" = "Local dos eventos";

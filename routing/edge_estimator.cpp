@@ -38,13 +38,12 @@ double CalcTrafficFactor(SpeedGroup speedGroup)
 {
   if (speedGroup == SpeedGroup::TempBlock)
   {
-    double constexpr kImpossibleDrivingFactor = 1e4;
-    return kImpossibleDrivingFactor;
+    // impossible driving factor
+    return 1.0E4;
   }
 
-  double const percentage =
-      0.01 * static_cast<double>(kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)]);
-  CHECK_GREATER(percentage, 0.0, ("Speed group:", speedGroup));
+  double const percentage = 0.01 * kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)];
+  CHECK_GREATER(percentage, 0.0, (speedGroup));
   return 1.0 / percentage;
 }
 
@@ -112,7 +111,7 @@ double GetBicycleClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
 }
 
 double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangent */,
-                          geometry::Altitude /* altitude */)
+                          geometry::Altitude /* altitudeM */)
 {
   return 1.0;
 }
@@ -276,13 +275,11 @@ public:
                SpeedKMpH const & offroadSpeedKMpH);
 
   // EdgeEstimator overrides:
-  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
-                           Purpose purpose) const override;
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override;
   double GetUTurnPenalty(Purpose /* purpose */) const override;
   double GetFerryLandingPenalty(Purpose purpose) const override;
 
 private:
-  double CalcSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road) const;
   shared_ptr<TrafficStash> m_trafficStash;
 };
 
@@ -292,12 +289,6 @@ CarEstimator::CarEstimator(DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds
   : EdgeEstimator(maxWeightSpeedKMpH, offroadSpeedKMpH, dataSourcePtr, numMwmIds)
   , m_trafficStash(move(trafficStash))
 {
-}
-
-double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
-                                       Purpose purpose) const
-{
-  return CalcSegment(purpose, segment, road);
 }
 
 double CarEstimator::GetUTurnPenalty(Purpose /* purpose */) const
@@ -319,8 +310,7 @@ double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
   UNREACHABLE();
 }
 
-double CarEstimator::CalcSegment(Purpose purpose, Segment const & segment,
-                                 RoadGeometry const & road) const
+double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const
 {
   double result = CalcClimbSegment(purpose, segment, road, GetCarClimbPenalty);
 
@@ -335,9 +325,8 @@ double CarEstimator::CalcSegment(Purpose purpose, Segment const & segment,
       // Current time estimation are too optimistic.
       // Need more accurate tuning: traffic lights, traffic jams, road models and so on.
       // Add some penalty to make estimation of a more realistic.
-      // TODO: make accurate tuning, remove penalty.
-      double constexpr kTimePenalty = 1.8;
-      result *= kTimePenalty;
+      /// @todo Make accurate tuning, remove penalty.
+      result *= 1.8;
     }
   }
 

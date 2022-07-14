@@ -16,23 +16,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
-import com.mapswithme.util.Counters;
-import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 public class MapFragment extends BaseMwmFragment
                       implements View.OnTouchListener,
                                  SurfaceHolder.Callback
 {
   public static final String ARG_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MapFragment.class.getSimpleName();
 
   // Should correspond to android::MultiTouchAction from Framework.cpp
@@ -158,61 +153,62 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
-//    if (isThemeChangingProcess())
-//    {
-//      LOGGER.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceCreated' callback");
-//      return;
-//    }
-//
-//    LOGGER.d(TAG, "surfaceCreated, mSurfaceCreated = " + mSurfaceCreated);
-//    final Surface surface = surfaceHolder.getSurface();
-//    if (nativeIsEngineCreated())
-//    {
-//      if (!nativeAttachSurface(surface))
-//      {
-//        reportUnsupported();
-//        return;
-//      }
-//      mSurfaceCreated = true;
-//      mSurfaceAttached = true;
-//      mRequireResize = true;
-//      nativeResumeSurfaceRendering();
-//      return;
-//    }
-//
-//    mRequireResize = false;
-//    final Rect rect = surfaceHolder.getSurfaceFrame();
-//    setupWidgets(rect.width(), rect.height());
-//
-//    final DisplayMetrics metrics = new DisplayMetrics();
-//    requireActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-//    final float exactDensityDpi = metrics.densityDpi;
-//
-//    final boolean firstStart = LocationHelper.INSTANCE.isInFirstRun();
-//    if (!nativeCreateEngine(surface, (int) exactDensityDpi, firstStart, mLaunchByDeepLink,
-//                            BuildConfig.VERSION_CODE))
-//    {
-//      reportUnsupported();
-//      return;
-//    }
-//
-//    if (firstStart)
-//    {
-//      UiThread.runLater(new Runnable()
-//      {
-//        @Override
-//        public void run()
-//        {
-//          LocationHelper.INSTANCE.onExitFromFirstRun();
-//        }
-//      });
-//    }
-//
-//    mSurfaceCreated = true;
-//    mSurfaceAttached = true;
-//    nativeResumeSurfaceRendering();
-//    if (mMapRenderingListener != null)
-//      mMapRenderingListener.onRenderingCreated();
+
+    if (isThemeChangingProcess())
+    {
+      Logger.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceCreated' callback");
+      return;
+    }
+
+    Logger.d(TAG, "surfaceCreated, mSurfaceCreated = " + mSurfaceCreated);
+    final Surface surface = surfaceHolder.getSurface();
+    if (nativeIsEngineCreated())
+    {
+      if (!nativeAttachSurface(surface))
+      {
+        reportUnsupported();
+        return;
+      }
+      mSurfaceCreated = true;
+      mSurfaceAttached = true;
+      mRequireResize = true;
+      nativeResumeSurfaceRendering();
+      return;
+    }
+
+    mRequireResize = false;
+    final Rect rect = surfaceHolder.getSurfaceFrame();
+    setupWidgets(rect.width(), rect.height());
+
+    final DisplayMetrics metrics = new DisplayMetrics();
+    requireActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    final float exactDensityDpi = metrics.densityDpi;
+
+    final boolean firstStart = LocationHelper.INSTANCE.isInFirstRun();
+    if (!nativeCreateEngine(surface, (int) exactDensityDpi, firstStart, mLaunchByDeepLink,
+                            BuildConfig.VERSION_CODE))
+    {
+      reportUnsupported();
+      return;
+    }
+
+    if (firstStart)
+    {
+      UiThread.runLater(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          LocationHelper.INSTANCE.onExitFromFirstRun();
+        }
+      });
+    }
+
+    mSurfaceCreated = true;
+    mSurfaceAttached = true;
+    nativeResumeSurfaceRendering();
+    if (mMapRenderingListener != null)
+      mMapRenderingListener.onRenderingCreated();
   }
 
   @Override
@@ -220,11 +216,11 @@ public class MapFragment extends BaseMwmFragment
   {
     if (isThemeChangingProcess())
     {
-      LOGGER.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceChanged' callback");
+      Logger.d(TAG, "Activity is being recreated due theme changing, skip 'surfaceChanged' callback");
       return;
     }
 
-    LOGGER.d(TAG, "surfaceChanged, mSurfaceCreated = " + mSurfaceCreated);
+    Logger.d(TAG, "surfaceChanged, mSurfaceCreated = " + mSurfaceCreated);
     if (!mSurfaceCreated || (!mRequireResize && surfaceHolder.isCreating()))
       return;
 
@@ -241,13 +237,13 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceDestroyed(SurfaceHolder surfaceHolder)
   {
-    LOGGER.d(TAG, "surfaceDestroyed");
+    Logger.d(TAG, "surfaceDestroyed");
     destroySurface();
   }
 
   void destroySurface()
   {
-    LOGGER.d(TAG, "destroySurface, mSurfaceCreated = " + mSurfaceCreated +
+    Logger.d(TAG, "destroySurface, mSurfaceCreated = " + mSurfaceCreated +
              ", mSurfaceAttached = " + mSurfaceAttached + ", isAdded = " + isAdded());
     if (!mSurfaceCreated || !mSurfaceAttached || !isAdded())
       return;
@@ -288,14 +284,14 @@ public class MapFragment extends BaseMwmFragment
   {
     super.onStart();
     nativeSetRenderingInitializationFinishedListener(mMapRenderingListener);
-    LOGGER.d(TAG, "onStart");
+    Logger.d(TAG, "onStart");
   }
 
   public void onStop()
   {
     super.onStop();
     nativeSetRenderingInitializationFinishedListener(null);
-    LOGGER.d(TAG, "onStop");
+    Logger.d(TAG, "onStop");
   }
 
   private boolean isThemeChangingProcess()

@@ -1551,35 +1551,47 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
                                            IndexGraphStarter & starter, Route & route)
 {
   CHECK(!segments.empty(), ());
-  vector<geometry::PointWithAltitude> junctions;
-  size_t const numPoints = IndexGraphStarter::GetRouteNumPoints(segments);
-  junctions.reserve(numPoints);
+  IndexGraphStarter::CheckValidRoute(segments);
 
-  for (size_t i = 0; i < numPoints; ++i)
+  size_t const segsCount = segments.size();
+  vector<geometry::PointWithAltitude> junctions;
+  junctions.reserve(segsCount + 1);
+
+  for (size_t i = 0; i <= segsCount; ++i)
     junctions.emplace_back(starter.GetRouteJunction(segments, i).ToPointWithAltitude());
 
   IndexRoadGraph roadGraph(starter, segments, junctions, m_dataSource);
   starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
 
-  Route::TTimes times;
+  vector<double> times;
   times.reserve(segments.size());
-
-  // Time at zero route point.
-  times.emplace_back(static_cast<uint32_t>(0), 0.0);
 
   // Time at first route point - weight of first segment.
   double time = starter.CalculateETAWithoutPenalty(segments.front());
-  times.emplace_back(static_cast<uint32_t>(1), time);
+  times.emplace_back(time);
 
   for (size_t i = 1; i < segments.size(); ++i)
   {
     time += starter.CalculateETA(segments[i - 1], segments[i]);
-    times.emplace_back(static_cast<uint32_t>(i + 1), time);
+    times.emplace_back(time);
   }
 
   m_directionsEngine->SetVehicleType(m_vehicleType);
-  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, cancellable, junctions,
-                   move(times), route);
+  ReconstructRoute(*m_directionsEngine, roadGraph, cancellable, junctions, times, route);
+
+  /// @todo I suspect that we can avoid calculating segments inside ReconstructRoute
+  /// and use original |segments| (IndexRoadGraph::GetRouteSegments).
+#ifdef DEBUG
+  {
+    auto const & rSegments = route.GetRouteSegments();
+    ASSERT_EQUAL(segsCount, rSegments.size(), ());
+    for (size_t i = 0; i < segsCount; ++i)
+    {
+      if (segments[i].IsRealSegment())
+        ASSERT_EQUAL(segments[i], rSegments[i].GetSegment(), ());
+    }
+  }
+#endif
 
   auto & worldGraph = starter.GetGraph();
   for (auto & routeSegment : route.GetRouteSegments())
@@ -1590,10 +1602,22 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     if (m_vehicleType == VehicleType::Car)
     {
       routeSegment.SetRoadTypes(starter.GetRoutingOptions(segment));
-      if (segment.IsRealSegment() && !AreSpeedCamerasProhibited(segment.GetMwmId()))
-        routeSegment.SetSpeedCameraInfo(worldGraph.GetSpeedCamInfo(segment));
+
+      if (segment.IsRealSegment())
+      {
+        if (!AreSpeedCamerasProhibited(segment.GetMwmId()))
+          routeSegment.SetSpeedCameraInfo(worldGraph.GetSpeedCamInfo(segment));
+
+        if (m_trafficStash)
+          routeSegment.SetTraffic(m_trafficStash->GetSpeedGroup(segment));
+
+        routeSegment.SetSpeedLimit(worldGraph.GetSpeedLimit(segment));
+      }
     }
 
+    /// @todo By VNG: I suspect that we should convert the |segment| to a real one first, and fetch
+    /// MaxSpeed, SpeedCamera, SpeedGroup, RoadTypes then, but current speed camera tests fail:
+    /// speed_camera_notifications_tests.cpp
     if (!segment.IsRealSegment())
       starter.ConvertToReal(segment);
   }

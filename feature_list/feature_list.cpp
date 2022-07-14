@@ -201,7 +201,7 @@ public:
 
   void Process(FeatureType & f, map<uint32_t, base::GeoObjectId> const & ft2osm)
   {
-    f.ParseBeforeStatistic();
+    f.ParseHeader2();
     string const & category = GetReadableType(f);
     auto const & meta = f.GetMetadata();
 

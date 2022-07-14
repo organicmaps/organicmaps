@@ -11,9 +11,6 @@
   android:clickable="true"
   android:focusable="true"
   android:fillViewport="true"
-  app:behavior_defaultState="hidden"
-  app:behavior_hideable="true"
-  app:behavior_skipAnchored="true"
   app:behavior_peekHeight="@dimen/elevation_profile_peek_height"
   app:layout_behavior="@string/placepage_behavior">
   <LinearLayout

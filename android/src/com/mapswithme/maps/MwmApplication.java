@@ -8,7 +8,6 @@ import android.os.Message;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.NotificationChannelFactory;
 import com.mapswithme.maps.background.NotificationChannelProvider;
@@ -35,7 +34,7 @@ import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.log.LogsManager;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,8 +43,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
 {
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private final Logger mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  public final static String TAG = "MwmApplication";
+  private static final String TAG = MwmApplication.class.getSimpleName();
 
   private AppBackgroundTracker mBackgroundTracker;
   @SuppressWarnings("NotNullFieldNotInitialized")
@@ -105,16 +103,16 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public void onCreate()
   {
     super.onCreate();
-    mLogger.i(TAG, "Initializing application");
+    Logger.i(TAG, "Initializing application");
+    LogsManager.INSTANCE.initFileLogging(this);
 
-    LoggerFactory.INSTANCE.initFileLogging(this);
 
     // Set configuration directory as early as possible.
     // Other methods may explicitly use Config, which requires settingsDir to be set.
     final String settingsPath = StorageUtils.getSettingsPath(this);
     if (!StorageUtils.createDirectory(settingsPath))
       throw new AssertionError("Can't create settingsDir " + settingsPath);
-    mLogger.d(TAG, "Settings path = " + settingsPath);
+    Logger.d(TAG, "Settings path = " + settingsPath);
     nativeSetSettingsDir(settingsPath);
 
     mMainLoopHandler = new Handler(getMainLooper());
@@ -154,14 +152,14 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
       return;
 
     final String apkPath = StorageUtils.getApkPath(this);
-    mLogger.d(TAG, "Apk path = " + apkPath);
-    // Note: StoragePathManager uses Config, which requires initConfig() to be called.
+    Logger.d(TAG, "Apk path = " + apkPath);
+    // Note: StoragePathManager uses Config, which requires SettingsDir to be set.
     final String writablePath = StoragePathManager.findMapsStorage(this);
-    mLogger.d(TAG, "Writable path = " + writablePath);
+    Logger.d(TAG, "Writable path = " + writablePath);
     final String privatePath = StorageUtils.getPrivatePath(this);
-    mLogger.d(TAG, "Private path = " + privatePath);
+    Logger.d(TAG, "Private path = " + privatePath);
     final String tempPath = StorageUtils.getTempPath(this);
-    mLogger.d(TAG, "Temp path = " + tempPath);
+    Logger.d(TAG, "Temp path = " + tempPath);
 
     // If platform directories are not created it means that native part of app will not be able
     // to work at all. So, we just ignore native part initialization in this case, e.g. when the
@@ -174,13 +172,12 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
                        tempPath,
                        BuildConfig.FLAVOR,
                        BuildConfig.BUILD_TYPE, UiUtils.isTablet(this));
-
+    Config.setStoragePath(writablePath);
     Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled(this));
 
     Editor.init(this);
     mPlatformInitialized = true;
-    Log.i("Native", "Initializing application");
-    mLogger.i(TAG, "Platform initialized");
+    Logger.i(TAG, "Platform initialized");
   }
 
   private void createPlatformDirectories(@NonNull String writablePath,
@@ -216,7 +213,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     IsolinesManager.from(this).initialize(null);
     mBackgroundTracker.addListener(this);
 
-    mLogger.i(TAG, "Framework initialized");
+    Logger.i(TAG, "Framework initialized");
     mFrameworkInitialized = true;
   }
 

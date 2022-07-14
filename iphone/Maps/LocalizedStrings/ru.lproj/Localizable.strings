@@ -503,6 +503,10 @@
 
 "history" = "История";
 
+"opens_in" = "Открывается через %@";
+
+"closes_in" = "Закроется через %@";
+
 "closed" = "Закрыто";
 
 "search_not_found" = "К сожалению, мы ничего не нашли.";
@@ -810,7 +814,7 @@
 "recent_track_background_dialog_message" = "Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора пресональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!";
+"about_description" = "Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора персональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!";
 
 "general_settings" = "Общие настройки";
 
@@ -1248,7 +1252,7 @@
 
 "type.amenity.bench" = "Скамейка";
 
-"type.amenity.bicycle_parking" = "Велостоянка";
+"type.amenity.bicycle_parking" = "Велопарковка";
 
 "type.amenity.bicycle_rental" = "Велопрокат";
 
@@ -1577,9 +1581,9 @@
 
 "type.craft.beekeeper" = "Пчеловод";
 
-"type.craft.blacksmith" = "Кузнец";
+"type.craft.blacksmith" = "Кузница";
 
-"type.craft.brewery" = "Крафтовое пиво";
+"type.craft.brewery" = "Крафтовая пивоварня";
 
 "type.craft.carpenter" = "Столяр";
 
@@ -1591,9 +1595,10 @@
 
 "type.craft.gardener" = "Садовник";
 
-"type.craft.handicraft" = "Декоративный мастер";
+"type.craft.handicraft" = "Ремесленная мастерская";
 
-"type.craft.hvac" = "Кондиционеры";
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Отопление, вентиляция и кондиционирование";
 
 "type.craft.metal_construction" = "Металлоконструкции";
 
@@ -2379,7 +2384,11 @@
 
 "type.natural.cave_entrance" = "Пещера";
 
-"type.natural.cliff" = "Обрыв";
+"type.natural.cliff" = "Утёс";
+
+"type.natural.earth_bank" = "Обрыв";
+
+"type.man_made.embankment" = "Насыпь";
 
 "type.natural.coastline" = "Береговая линия";
 
@@ -2387,7 +2396,7 @@
 
 "type.natural.glacier" = "Ледник";
 
-"type.natural.grassland" = "Поле";
+"type.natural.grassland" = "Луг";
 
 "type.natural.heath" = "Пустошь";
 
@@ -2853,19 +2862,17 @@
 
 "type.sport.athletics" = "Лёгкая атлетика";
 
-"type.sport.australian_football" = "Регби";
+"type.sport.australian_football" = "Австралийский футбол";
 
 "type.sport.baseball" = "Бейсбол";
 
 "type.sport.basketball" = "Баскетбол";
 
-"type.sport.bowls" = "Кегли";
+"type.sport.bowls" = "Боулз";
 
 "type.sport.cricket" = "Крикет";
 
-"type.sport.curling" = "Керлинг";
-
-"type.sport.diving" = "Подводное плавание";
+"type.sport.curling" = "Кёрлинг";
 
 "type.sport.equestrian" = "Конный спорт";
 
@@ -2877,7 +2884,8 @@
 
 "type.sport.multi" = "Различные виды спорта";
 
-"type.sport.scuba_diving" = "Акваланг";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Место для дайвинга";
 
 "type.sport.shooting" = "Стрельба";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "Информационный щит";
 
-"type.tourism.information.guidepost" = "Туринформация";
+"type.tourism.information.guidepost" = "Указательный столб";
 
 "type.tourism.information.map" = "Карта";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Трасса для саней";
 
 "type.building_part" = "Здание";
+
+"type.amenity.events_venue" = "Место проведения мероприятий";

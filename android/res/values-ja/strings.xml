@@ -824,6 +824,7 @@
 	<string name="type.craft.carpenter">大工</string>
 	<string name="type.craft.electrician">電気技師</string>
 	<string name="type.craft.gardener">造園家</string>
+	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">冷暖房空調</string>
 	<string name="type.craft.metal_construction">金属工</string>
 	<string name="type.craft.painter">塗装工</string>
@@ -1206,13 +1207,17 @@
 	<string name="type.natural.bare_rock">岩肌</string>
 	<string name="type.natural.bay">港湾</string>
 	<string name="type.natural.beach">ビーチ</string>
+	<string name="type.natural.beach.sand">砂浜</string>
+	<string name="type.natural.beach.gravel">グラベルビーチ</string>
 	<string name="type.natural.cape">岬</string>
 	<string name="type.natural.cave_entrance">洞窟</string>
 	<string name="type.natural.cliff">崖</string>
+	<string name="type.natural.earth_bank">崖</string>
+	<string name="type.man_made.embankment">盛土</string>
 	<string name="type.natural.coastline">海岸線</string>
 	<string name="type.natural.geyser">間欠泉</string>
 	<string name="type.natural.glacier">氷河</string>
-	<string name="type.natural.grassland">野原</string>
+	<string name="type.natural.grassland">草原</string>
 	<string name="type.natural.heath">ヒース</string>
 	<string name="type.natural.hot_spring">温泉</string>
 	<string name="type.natural.water.lake">湖</string>
@@ -1225,6 +1230,7 @@
 	<string name="type.natural.meadow">牧草地</string>
 	<string name="type.natural.orchard">果樹園</string>
 	<string name="type.natural.peak">山頂</string>
+	<string name="type.natural.saddle">鞍部</string>
 	<string name="type.natural.rock">岩</string>
 	<string name="type.natural.scrub">雑木林</string>
 	<string name="type.natural.spring">泉</string>
@@ -1438,13 +1444,13 @@
 	<string name="type.sport.bowls">ローンボウルズ</string>
 	<string name="type.sport.cricket">クリケット</string>
 	<string name="type.sport.curling">カーリング</string>
-	<string name="type.sport.diving">ダイビング</string>
 	<string name="type.sport.equestrian">馬術</string>
 	<string name="type.sport.golf">ゴルフ</string>
-	<string name="type.sport.gymnastics">体操競技</string>
+	<string name="type.sport.gymnastics">体操</string>
 	<string name="type.sport.handball">ハンドボール</string>
 	<string name="type.sport.multi">複数</string>
-	<string name="type.sport.scuba_diving">スクーバダイビング</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">スキューバダイビング</string>
 	<string name="type.sport.shooting">射撃競技</string>
 	<string name="type.sport.skiing">スキー</string>
 	<string name="type.sport.soccer">サッカー</string>
@@ -1469,7 +1475,7 @@
 	<string name="type.tourism.hostel">ホステル</string>
 	<string name="type.tourism.hotel">ホテル</string>
 	<string name="type.tourism.information">インフォメーション</string>
-	<string name="type.tourism.information.board">案内板</string>
+	<string name="type.tourism.information.board">情報板</string>
 	<string name="type.tourism.information.guidepost">道標</string>
 	<string name="type.tourism.information.map">観光マップ</string>
 	<string name="type.tourism.information.office">観光案内所</string>
@@ -1508,4 +1514,5 @@
 	<string name="type.wheelchair.no">車椅子でのアクセスなし</string>
 	<string name="type.wheelchair.yes">車椅子でのアクセスあり</string>
 	<string name="type.building_part">建物</string>
+	<string name="type.amenity.events_venue">イベント会場</string>
 </resources>

@@ -98,6 +98,8 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
     outType = Metadata::FMD_MIN_HEIGHT;
   else if (k == "building:levels")
     outType = Metadata::FMD_BUILDING_LEVELS;
+  else if (k == "building:min_level")
+    outType = Metadata::FMD_BUILDING_MIN_LEVEL;
   else if (k == "denomination")
     outType = Metadata::FMD_DENOMINATION;
   else if (k == "level")
@@ -189,6 +191,7 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_MIN_HEIGHT: return "min_height";
   case Metadata::FMD_DENOMINATION: return "denomination";
   case Metadata::FMD_BUILDING_LEVELS: return "building:levels";
+  case Metadata::FMD_BUILDING_MIN_LEVEL: return "building:min_level";
   case Metadata::FMD_TEST_ID: return "test_id";
   case Metadata::FMD_LEVEL: return "level";
   case Metadata::FMD_AIRPORT_IATA: return "iata";

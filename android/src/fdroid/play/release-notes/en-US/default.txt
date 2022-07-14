@@ -1,5 +1,11 @@
-This is a hotfix release. Please see previous release notes on our website for more details.
-
-• Fixed disappearing of downloaded maps files bug introduced in the last release.
-If you were affected, please open "Save maps to" in OM settings and switch to "Internal private storage" (with a /data/data/... path). Then tap OK to move maps, and all your disappeared maps will be back shortly! After that, you can switch to a storage option of your choice.
-• Do not draw place=region.
+• Prettify pattern lines drawing (also fixes crash on some older devices)
+• Updated Place Page style
+• Icons for information=board/map
+• Fixed categories search with stop words
+• Show "Opens in"/"Closes in" in search results
+• Made all sports searchable
+• amenity=parking can be added via Editor
+• Fixed place=square visibility at 16+ zoom level
+• Made streams & rivers visible on the beach
+• Made hedges and power lines less contrast
+• Improved pt-BR, es, it, fr, eu, enabled Marathi translations

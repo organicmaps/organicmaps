@@ -109,6 +109,7 @@ class MetadataField(enum.Enum):
     airport_iata = 29
     brand = 30
     duration = 31
+    building_min_level = 40
 
 
 class RegionDataField(enum.Enum):

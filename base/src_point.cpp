@@ -25,7 +25,7 @@ std::string DebugPrint(SrcPoint const & srcPoint)
   std::ostringstream out;
   if (srcPoint.Line() > 0)
     out << srcPoint.FileName() << ":" << srcPoint.Line() << " " << srcPoint.Function()
-        << srcPoint.Postfix() << " ";
+        << srcPoint.Postfix() << ": ";
   return out.str();
 }
 }  // namespace base

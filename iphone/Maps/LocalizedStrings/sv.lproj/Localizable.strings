@@ -503,6 +503,10 @@
 
 "history" = "Historik";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Stängt";
 
 "search_not_found" = "Ledsen, jag hittade ingenting.";
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,12 +1591,13 @@
 
 "type.craft.electrician" = "Elektriker";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Trädgårdsmästare";
 
 "type.craft.handicraft" = "Handicraft";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Vvs";
 
 "type.craft.metal_construction" = "Metallarbetare";
@@ -2363,35 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Natur";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Kala stenar";
 
 "type.natural.bay" = "Bukt";
 
 "type.natural.beach" = "Strand";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Sandig strand";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Grusstrand";
 
 "type.natural.cape" = "Udde";
 
 "type.natural.cave_entrance" = "Grotta";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Klint";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Klippa";
+
+"type.man_made.embankment" = "Vägbank";
+
+"type.natural.coastline" = "Kust";
 
 "type.natural.geyser" = "Gejser";
 
 "type.natural.glacier" = "Glaciär";
 
-"type.natural.grassland" = "Fältet";
+"type.natural.grassland" = "Gräsmarker";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Hed";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Het källa";
 
 "type.natural.water.lake" = "Sjö";
 
@@ -2405,17 +2414,17 @@
 
 "type.natural.water.river" = "Flod";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Landa";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Äng";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Fruktodling";
 
 "type.natural.peak" = "Bergstopp";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Fjällsadel";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Bergart";
 
 "type.natural.scrub" = "Ruggen";
 
@@ -2425,9 +2434,9 @@
 
 "type.natural.tree" = "Träd";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Trädrad";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vingård";
 
 "type.natural.volcano" = "Vulkan";
 
@@ -2435,9 +2444,9 @@
 
 "type.natural.wetland" = "Sumpmarken";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Myr";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Kärr";
 
 "type.noexit" = "Dead End";
 
@@ -2845,17 +2854,17 @@
 
 "type.shop.wine" = "Vinhandel";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Amerikansk fotboll";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Bågskytte";
 
 "type.sport.athletics" = "Friidrott";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australian Football";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "Baseboll";
 
 "type.sport.basketball" = "Basket";
 
@@ -2863,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Ridsport";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gymnastik";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Handboll";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Olika sporter";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Dykning";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Skytte";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Skidåkning";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Fotboll";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Simning";
 
 "type.sport.tennis" = "Tennisbana";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "Informationstavla";
 
-"type.tourism.information.guidepost" = "Turistinformation";
+"type.tourism.information.guidepost" = "Vägledning";
 
 "type.tourism.information.map" = "Turistkarta";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Byggnad";
+
+"type.amenity.events_venue" = "Evenemangslokal";

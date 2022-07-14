@@ -6,17 +6,14 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.mapswithme.util.Config;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 public class BaseActivityDelegate
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BaseActivityDelegate.class.getSimpleName();
   @NonNull
   private final BaseActivity mActivity;
@@ -97,6 +94,6 @@ public class BaseActivityDelegate
   {
     String msg = mActivity.getClass().getSimpleName() + ": " + method + " activity: " + mActivity;
     CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
-    LOGGER.i(TAG, msg);
+    Logger.i(TAG, msg);
   }
 }

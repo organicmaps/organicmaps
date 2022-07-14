@@ -17,10 +17,14 @@ and ["icons wanted" issues](https://github.com/organicmaps/organicmaps/issues?q=
 
 To work with styles first [clone the OM repository](INSTALL.md#getting-sources).
 
-To run some scripts additional libraries are needed:
+Install a `protobuf` python package, e.g.
 ```
-optipng
-protobuf 3.17.3 (3.18.0 doesn't work!)
+pip install protobuf
+```
+
+To run the `generate_symbols.sh` script install `optipng` also, e.g. for Ubuntu
+```
+sudo apt install optipng
 ```
 
 ## Files
@@ -46,6 +50,7 @@ preferably look for icons in [collections OM uses already](../data/copyright.htm
 2. Add icon rendering/visibility rules into `data/styles/clear/include/Icons.mapcss` and to "navigation style" `data/styles/vehicle/include/Icons.mapcss`
 3. Run `tools/unix/generate_symbols.sh` to add new icons into skin files
 4. Run `tools/unix/generate_drules.sh` to generate drawing rules for the new icons
+5. [Test](#testing-your-changes) your changes
 
 ## How to add a new map feature / POI type
 
@@ -57,12 +62,24 @@ preferably look for icons in [collections OM uses already](../data/copyright.htm
 6. Add search keywords into `data/categories.txt`
 7. Run `tools/unix/generate_localizations.sh` to validate and distribute translations into iOS and Android
 8. Add new or fix current classifier tests at `/generator/generator_tests/osm_type_tests.cpp` if you can
-9. Ideally, test the changes locally by [generating](MAPS.md) some small region map
+9. [Test](#testing-your-changes) your changes
 10. Relax and wait for the next maps update :)
 
+## Testing your changes
+
+The most convenient way is using [the desktop app](INSTALL.md#desktop-app).
+There is a Designer version of it also, which facilitates development
+by rebuilding styles and symbols quickly. Though building of the Designer tool
+is limited to macOS at the moment.
+
+To test on Android or iOS device either re-build the app or put
+the compiled style files (e.g. `drules_proto_clear.bin`) into
+a `styles/` subfolder of maps directory on the device
+(e.g. `Android/data/app.organicmaps/files/styles/`).
+
 Changing display zoom level for features (e.g. from z16- to z14-) might
-not take effect until map's geometry/scale index is rebuilt (or a whole map regenerated):
-1. [Build](INSTALL.md#building) the `generator_tool` binary
+not take effect until map's visibility/scale index is rebuilt:
+1. [Build](INSTALL.md#desktop-app) the `generator_tool` binary
 2. Put a map file, e.g. `Georgia.mwm` into the `data/` folder in the repo
 3. Run
 ```
@@ -70,8 +87,11 @@ not take effect until map's geometry/scale index is rebuilt (or a whole map rege
 ```
 4. The index of `Georgia.mwm` will be updated in place
 
-If e.g. `area` style rules are added for a feature that didn't have them before, then the rules
-won't take effect until map files are regenerated.
+Sometimes (if the visibility change crosses a geometry index boundary)
+a whole map needs to be [regenerated](MAPS.md) for the feature to become visible.
+
+If e.g. `area` style rules are added for a feature that didn't have them before,
+then the rules won't take effect until map files are regenerated.
 
 ## Technical details
 
@@ -83,6 +103,3 @@ stylesheet processor to compile MapCSS files into binary drawing rules files `da
 The processor also produces text versions of these files (`data/drules_proto*.txt`) to ease debugging.
 
 The `tools/unix/generate_symbols.sh` script assembles all icons into skin files in various resolutions (`data/resources-*/symbols.png` and `symbols.sdf`).
-
-There is a Designer version of the QT desktop app, which facilitates development
-by rebuilding styles and symbols quickly. Though building of the Designer tool is limited to macOS at the moment.

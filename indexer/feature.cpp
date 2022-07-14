@@ -374,6 +374,7 @@ void FeatureType::ParseHeader2()
 
       auto const * start = src.PtrUint8();
       src = ArrayByteSource(serial::LoadInnerPath(start, ptsCount, cp, m_points));
+      // TODO: here and further m_innerStats is needed for stats calculation in generator_tool only
       m_innerStats.m_points = static_cast<uint32_t>(src.PtrUint8() - start);
     }
     else
@@ -397,6 +398,7 @@ void FeatureType::ParseHeader2()
       ReadOffsets(*m_loadInfo, src, trgMask, m_offsets.m_trg);
     }
   }
+  // Size of the whole header incl. inner geometry / triangles.
   m_innerStats.m_size = CalcOffset(src, m_data.data());
   m_parsed.m_header2 = true;
 }
@@ -419,9 +421,8 @@ void FeatureType::ResetGeometry()
   m_ptsSimpMask = 0;
 }
 
-uint32_t FeatureType::ParseGeometry(int scale)
+void FeatureType::ParseGeometry(int scale)
 {
-  uint32_t sz = 0;
   if (!m_parsed.m_points)
   {
     CHECK(m_loadInfo, ());
@@ -430,10 +431,10 @@ uint32_t FeatureType::ParseGeometry(int scale)
     auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
     if (headerGeomType == HeaderGeomType::Line)
     {
-      size_t const count = m_points.size();
-      if (count < 2)
+      size_t const pointsCount = m_points.size();
+      if (pointsCount < 2)
       {
-        ASSERT_EQUAL(count, 1, ());
+        ASSERT_EQUAL(pointsCount, 1, ());
 
         // outer geometry
         int const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_pts);
@@ -445,8 +446,6 @@ uint32_t FeatureType::ParseGeometry(int scale)
           serial::GeometryCodingParams cp = m_loadInfo->GetGeometryCodingParams(ind);
           cp.SetBasePoint(m_points[0]);
           serial::LoadOuterPath(src, cp, m_points);
-
-          sz = static_cast<uint32_t>(src.Pos() - m_offsets.m_pts[ind]);
         }
       }
       else
@@ -454,13 +453,13 @@ uint32_t FeatureType::ParseGeometry(int scale)
         // filter inner geometry
 
         FeatureType::Points points;
-        points.reserve(count);
+        points.reserve(pointsCount);
 
         int const scaleIndex = GetScaleIndex(*m_loadInfo, scale);
         ASSERT_LESS(scaleIndex, m_loadInfo->GetScalesCount(), ());
 
         points.emplace_back(m_points.front());
-        for (size_t i = 1; i + 1 < count; ++i)
+        for (size_t i = 1; i + 1 < pointsCount; ++i)
         {
           // check for point visibility in needed scaleIndex
           if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= scaleIndex)
@@ -475,12 +474,60 @@ uint32_t FeatureType::ParseGeometry(int scale)
     }
     m_parsed.m_points = true;
   }
-  return sz;
 }
 
-uint32_t FeatureType::ParseTriangles(int scale)
+FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
 {
-  uint32_t sz = 0;
+  ASSERT(!m_parsed.m_points, ("Geometry had been parsed already!"));
+  CHECK(m_loadInfo, ());
+  size_t const scalesCount = m_loadInfo->GetScalesCount();
+  ASSERT_LESS_OR_EQUAL(scalesCount, DataHeader::kMaxScalesCount, ("MWM has too many geometry scales!"));
+  FeatureType::GeomStat res;
+
+  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
+  if (headerGeomType == HeaderGeomType::Line)
+  {
+    size_t const pointsCount = m_points.size();
+    if (pointsCount < 2)
+    {
+      // Outer geometry present.
+      ASSERT_EQUAL(pointsCount, 1, ());
+
+      FeatureType::Points points;
+
+      for (size_t ind = 0; ind < scalesCount; ++ind)
+      {
+        auto const scaleOffset = m_offsets.m_pts[ind];
+        if (scaleOffset != kInvalidOffset)
+        {
+          points.clear();
+          points.emplace_back(m_points.front());
+
+          ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetGeometryReader(ind));
+          src.Skip(scaleOffset);
+
+          serial::GeometryCodingParams cp = m_loadInfo->GetGeometryCodingParams(ind);
+          cp.SetBasePoint(points[0]);
+          serial::LoadOuterPath(src, cp, points);
+
+          res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - scaleOffset);
+          res.m_elements[ind] = points.size();
+        }
+      }
+      // Retain best geometry.
+      m_points.swap(points);
+    }
+    CalcRect(m_points, m_limitRect);
+  }
+  m_parsed.m_points = true;
+
+  // Points count can come from the inner geometry.
+  res.m_elements[scalesCount - 1] = m_points.size();
+  return res;
+}
+
+void FeatureType::ParseTriangles(int scale)
+{
   if (!m_parsed.m_triangles)
   {
     CHECK(m_loadInfo, ());
@@ -497,8 +544,6 @@ uint32_t FeatureType::ParseTriangles(int scale)
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetTrianglesReader(ind));
           src.Skip(m_offsets.m_trg[ind]);
           serial::LoadOuterTriangles(src, m_loadInfo->GetGeometryCodingParams(ind), m_triangles);
-
-          sz = static_cast<uint32_t>(src.Pos() - m_offsets.m_trg[ind]);
         }
       }
 
@@ -506,7 +551,44 @@ uint32_t FeatureType::ParseTriangles(int scale)
     }
     m_parsed.m_triangles = true;
   }
-  return sz;
+}
+
+FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
+{
+  ASSERT(!m_parsed.m_triangles, ("Triangles had been parsed already!"));
+  CHECK(m_loadInfo, ());
+  size_t const scalesCount = m_loadInfo->GetScalesCount();
+  ASSERT_LESS_OR_EQUAL(scalesCount, DataHeader::kMaxScalesCount, ("MWM has too many geometry scales!"));
+  FeatureType::GeomStat res;
+
+  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
+  if (headerGeomType == HeaderGeomType::Area)
+  {
+    if (m_triangles.empty())
+    {
+      for (size_t ind = 0; ind < scalesCount; ++ind)
+      {
+        if (m_offsets.m_trg[ind] != kInvalidOffset)
+        {
+          m_triangles.clear();
+
+          ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetTrianglesReader(ind));
+          src.Skip(m_offsets.m_trg[ind]);
+          serial::LoadOuterTriangles(src, m_loadInfo->GetGeometryCodingParams(ind), m_triangles);
+
+          res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - m_offsets.m_trg[ind]);
+          res.m_elements[ind] = m_triangles.size() / 3;
+        }
+      }
+      // The best geometry is retained in m_triangles.
+    }
+    CalcRect(m_triangles, m_limitRect);
+  }
+  m_parsed.m_triangles = true;
+
+  // Triangles count can come from the inner geometry.
+  res.m_elements[scalesCount - 1] = m_triangles.size() / 3;
+  return res;
 }
 
 void FeatureType::ParseMetadata()
@@ -668,24 +750,6 @@ void FeatureType::ParseGeometryAndTriangles(int scale)
 {
   ParseGeometry(scale);
   ParseTriangles(scale);
-}
-
-FeatureType::GeomStat FeatureType::GetGeometrySize(int scale)
-{
-  uint32_t sz = ParseGeometry(scale);
-  if (sz == 0 && !m_points.empty())
-    sz = m_innerStats.m_points;
-
-  return GeomStat(sz, m_points.size());
-}
-
-FeatureType::GeomStat FeatureType::GetTrianglesSize(int scale)
-{
-  uint32_t sz = ParseTriangles(scale);
-  if (sz == 0 && !m_triangles.empty())
-    sz = m_innerStats.m_strips;
-
-  return GeomStat(sz, m_triangles.size());
 }
 
 std::pair<std::string_view, std::string_view> FeatureType::GetPreferredNames()

@@ -180,8 +180,11 @@ DEFINE_string(uk_postcodes_dataset, "", "Path to dataset with UK postcodes.");
 DEFINE_string(us_postcodes_dataset, "", "Path to dataset with US postcodes.");
 
 // Printing stuff.
-DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");
-DEFINE_bool(type_statistics, false, "Calculate statistics by type for specified mwm bucket files.");
+DEFINE_bool(stats_general, false, "Print file and feature stats.");
+DEFINE_bool(stats_geometry, false, "Print outer geometry stats.");
+DEFINE_double(stats_geometry_dup_factor, 1.5, "Consider feature's geometry scale "
+              "duplicating a more detailed one if it has <dup_factor less elements.");
+DEFINE_bool(stats_types, false, "Print feature stats by type.");
 DEFINE_bool(dump_types, false, "Prints all types combinations and their total count.");
 DEFINE_bool(dump_prefixes, false, "Prints statistics on feature's' name prefixes.");
 DEFINE_bool(dump_search_tokens, false, "Print statistics on search tokens.");
@@ -598,26 +601,30 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
   string const dataFile = base::JoinPath(path, FLAGS_output + DATA_FILE_EXTENSION);
 
-  if (FLAGS_calc_statistics)
+  if (FLAGS_stats_general || FLAGS_stats_geometry || FLAGS_stats_types)
   {
     LOG(LINFO, ("Calculating statistics for", dataFile));
-
     auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
-    stats::FileContainerStatistic(file, dataFile);
-
-    stats::MapInfo info;
-    stats::CalcStatistic(dataFile, info);
-    stats::PrintStatistic(file, info);
-  }
-
-  if (FLAGS_type_statistics)
-  {
-    LOG(LINFO, ("Calculating type statistics for", dataFile));
-
-    stats::MapInfo info;
-    stats::CalcStatistic(dataFile, info);
-    auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
-    stats::PrintTypeStatistic(file, info);
+    stats::MapInfo info(FLAGS_stats_geometry_dup_factor);
+    stats::CalcStats(dataFile, info);
+    
+    if (FLAGS_stats_general)
+    {
+      LOG(LINFO, ("Writing general statistics"));
+      stats::PrintFileContainerStats(file, dataFile);
+      stats::PrintStats(file, info);
+    }
+    if (FLAGS_stats_geometry)
+    {
+      LOG(LINFO, ("Writing geometry statistics"));
+      stats::PrintOuterGeometryStats(file, info);
+    }
+    if (FLAGS_stats_types)
+    {
+      LOG(LINFO, ("Writing types statistics"));
+      stats::PrintTypeStats(file, info);
+    }
+    LOG(LINFO, ("Stats written to file", FLAGS_output + STATS_EXTENSION));
   }
 
   if (FLAGS_dump_types)

@@ -60,7 +60,7 @@ void TestSearchRequest::Run()
   Wait();
 }
 
-steady_clock::duration TestSearchRequest::ResponseTime() const
+TestSearchRequest::TimeDurationT TestSearchRequest::ResponseTime() const
 {
   lock_guard<mutex> lock(m_mu);
   CHECK(m_done, ("This function may be called only when request is processed."));

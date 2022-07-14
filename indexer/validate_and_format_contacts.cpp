@@ -10,26 +10,55 @@ using namespace std;
 
 namespace osm {
 
-static auto const s_fbRegex = regex(R"(^@?[a-zA-Z\d.\-]{5,}$)");
 static auto const s_instaRegex = regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
 static auto const s_twitterRegex = regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
 static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
 static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
 static auto const s_lineRegex = regex(R"(^[a-z0-9-_.]{4,20}$)");
 
+
+// TODO: Current implementation looks only for restricted symbols from ASCII block ignoring
+//       unicode. Need to find all restricted *Unicode* symbols
+//       from https://www.facebook.com/pages/create page and verify those symbols
+//       using MakeUniString or utf8cpp.
+bool containsInvalidFBSymbol(string const & facebookPage, size_t startIndex = 0)
+{
+  auto const size = facebookPage.size();
+  for (auto i=startIndex; i<size; ++i)
+  {
+    const char ch = facebookPage[i];
+    // Forbid all ASCII symbols except '-', '.', and '_'
+    if ((ch >= ' ' && ch <= ',') ||
+        ch == '/' ||
+        (ch >= ':' && ch <= '@') ||
+        (ch >= '[' && ch <= '^') ||
+        ch == '`' ||
+        (ch >= '{' && ch <= '~'))
+      return true;
+  }
+  return false;
+}
+
 string ValidateAndFormat_facebook(string const & facebookPage)
 {
   if (facebookPage.empty())
     return {};
-  // Check that facebookPage contains valid username. See rules: https://www.facebook.com/help/105399436216001
-  if (strings::EndsWith(facebookPage, ".com") || strings::EndsWith(facebookPage, ".net"))
-    return {};
-  if (regex_match(facebookPage, s_fbRegex))
+
+  if (facebookPage.front() == '@')
   {
-    if (facebookPage.front() == '@')
+    // Validate facebookPage as username or page name.
+    if (facebookPage.length() >= 6 && !containsInvalidFBSymbol(facebookPage, 1))
       return facebookPage.substr(1);
-    return facebookPage;
+    else
+      return {}; // Invalid symbol in Facebook username of page name.
   }
+  else
+  {
+    if (facebookPage.length() >= 5 && !containsInvalidFBSymbol(facebookPage))
+      return facebookPage;
+  }
+
+  // facebookPage is not a valid username it must be an URL.
   if (!EditableMapObject::ValidateWebsite(facebookPage))
     return {};
 
@@ -230,8 +259,13 @@ bool ValidateFacebookPage(string const & page)
   if (page.empty())
     return true;
 
-  // Rules are defined here: https://www.facebook.com/help/105399436216001
-  if (regex_match(page, s_fbRegex))
+  // Check if 'page' contains valid Facebook username or page name.
+  // * length >= 5
+  // * no forbidden symbols in the string
+  // * optional '@' at the start
+  if (page.front() == '@')
+    return page.length() >= 6 && !containsInvalidFBSymbol(page, 1);
+  else if (page.length() >= 5 && !containsInvalidFBSymbol(page))
     return true;
 
   if (!EditableMapObject::ValidateWebsite(page))

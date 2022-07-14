@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, MWMSearchManagerRoutingTooltipSearch) {
 
 @property(nonnull, nonatomic) IBOutletCollection(UIView) NSArray *topViews;
 
-- (void)searchText:(nonnull NSString *)text forInputLocale:(nullable NSString *)locale;
+- (void)searchText:(nonnull NSString *)text forInputLocale:(nullable NSString *)locale withCategory:(BOOL)isCategory;
 
 #pragma mark - Layout
 

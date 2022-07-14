@@ -6,10 +6,10 @@ import android.util.Base64;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,13 +24,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSocketFactory;
-
 public final class HttpUploader extends AbstractHttpUploader
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.NETWORK);
   private static final String TAG = HttpUploader.class.getSimpleName();
+
   private static final String LINE_FEED = "\r\n";
   private static final String CHARSET = "UTF-8";
   private static final int BUFFER = 8192;
@@ -85,8 +82,7 @@ public final class HttpUploader extends AbstractHttpUploader
       setStreamingMode(connection, bodyLength);
       setHeaders(connection, bodyLength);
       long startTime = System.currentTimeMillis();
-      LOGGER.d(
-          TAG, "Start bookmarks upload on url: '" + Utils.makeUrlSafe(getPayload().getUrl()) + "'");
+      Logger.d(TAG, "Start bookmarks upload on url: '" + Utils.makeUrlSafe(getPayload().getUrl()) + "'");
       OutputStream outputStream = connection.getOutputStream();
       writer = new PrintWriter(new OutputStreamWriter(outputStream, CHARSET));
       writeParams(writer, paramsBuilder);
@@ -94,12 +90,12 @@ public final class HttpUploader extends AbstractHttpUploader
       writeEndPart(writer);
 
       status = connection.getResponseCode();
-      LOGGER.d(TAG, "Upload bookmarks status code: " + status);
+      Logger.d(TAG, "Upload bookmarks status code: " + status);
       reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
       message = readResponse(reader);
       long duration = (System.currentTimeMillis() - startTime) / 1000;
-      LOGGER.d(TAG, "Upload bookmarks response: '" + message + "', " +
-                    "duration = " + duration + " sec, body size = " + bodyLength + " bytes.");
+      Logger.d(TAG, "Upload bookmarks response: '" + message + "', " +
+               "duration = " + duration + " sec, body size = " + bodyLength + " bytes.");
     }
     catch (IOException e)
     {
@@ -110,7 +106,7 @@ public final class HttpUploader extends AbstractHttpUploader
         if (!TextUtils.isEmpty(errMsg))
           message = errMsg;
       }
-      LOGGER.e(TAG, message, e);
+      Logger.e(TAG, message, e);
     }
     finally
     {
@@ -163,7 +159,7 @@ public final class HttpUploader extends AbstractHttpUploader
     }
     catch (IOException e)
     {
-      LOGGER.e(TAG, "Failed to read a error stream.");
+      Logger.e(TAG, "Failed to read a error stream.");
     }
     finally
     {

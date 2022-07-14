@@ -8,18 +8,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.CallSuper;
-import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
-import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
@@ -32,13 +28,12 @@ import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
-import com.mapswithme.util.bottomsheet.MenuBottomSheetFragment;
 import com.mapswithme.util.StorageUtils;
+import com.mapswithme.util.bottomsheet.MenuBottomSheetFragment;
 import com.mapswithme.util.bottomsheet.MenuBottomSheetItem;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,19 +42,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<BookmarkCategoriesAdapter>
     implements BookmarkManager.BookmarksLoadingListener,
-    CategoryListCallback,
-    OnItemClickListener<BookmarkCategory>,
-    OnItemMoreClickListener<BookmarkCategory>,
-    OnItemLongClickListener<BookmarkCategory>, BookmarkManager.BookmarksSharingListener
+               CategoryListCallback,
+               OnItemClickListener<BookmarkCategory>,
+               OnItemMoreClickListener<BookmarkCategory>,
+               OnItemLongClickListener<BookmarkCategory>, BookmarkManager.BookmarksSharingListener
 
 {
+  private static final String TAG = BookmarkCategoriesFragment.class.getSimpleName();
+
   static final int REQ_CODE_DELETE_CATEGORY = 102;
   static final int REQ_CODE_IMPORT_DIRECTORY = 103;
 
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
-
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = BookmarkCategoriesFragment.class.getSimpleName();
 
   @Nullable
   private BookmarkCategory mSelectedCategory;
@@ -286,7 +280,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
       final Uri rootUri = data.getData();
       final ProgressDialog dialog = DialogUtils.createModalProgressDialog(context, R.string.wait_several_minutes);
       dialog.show();
-      LOGGER.d(TAG, "Importing bookmarks from " + rootUri);
+      Logger.d(TAG, "Importing bookmarks from " + rootUri);
       MwmApplication app = MwmApplication.from(context);
       final File tempDir = new File(StorageUtils.getTempPath(app));
       final ContentResolver resolver = context.getContentResolver();

@@ -1,1 +1,8 @@
-../en-US/release_notes.txt
+• Desen çizgileri güzelleştirildi (bazı eski cihazlarda çökmeyi de düzeltir)
+• Harita/bilgi panoları için simgeler
+• Kategori aramasındaki gereksiz kelimeler düzeltildi
+• Mevcut tüm sporlar aranabilir hale getirildi
+• amenity=parking, düzenleyici aracılığıyla haritaya eklenebilir
+• 16+ yakınlaştırma seviyesinde place=square görünürlüğü düzeltildi
+
+Önceki güncellemedeki daha fazla ayrıntı için organicmaps.app/news adresine bakın

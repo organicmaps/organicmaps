@@ -305,7 +305,7 @@ string TestSquare::ToDebugString() const
 TestPOI::TestPOI(m2::PointD const & center, string const & name, string const & lang)
   : TestFeature(center, name, lang)
 {
-  m_types = {{"railway", "station"}};
+  SetTypes({{"railway", "station"}});
 }
 
 // static
@@ -329,14 +329,14 @@ pair<TestPOI, FeatureID> TestPOI::AddWithEditor(osm::Editor & editor, MwmSet::Mw
 void TestPOI::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
-  auto const & classificator = classif();
 
-  for (auto const & path : m_types)
-    fb.AddType(classificator.GetTypeByPath(path));
+  for (uint32_t t : m_types)
+    fb.AddType(t);
 
   auto & params = fb.GetParams();
   if (!m_houseNumber.empty())
     params.AddHouseNumber(m_houseNumber);
+
   if (!m_streetName.empty())
     params.AddStreet(m_streetName);
 }
@@ -356,9 +356,16 @@ string TestPOI::ToDebugString() const
 TypesHolder TestPOI::GetTypes() const
 {
   TypesHolder types;
-  for (auto const & path : m_types)
-    types.Add(classif().GetTypeByPath(path));
+  types.Assign(m_types.begin(), m_types.end());
   return types;
+}
+
+void TestPOI::SetTypes(initializer_list<base::StringIL> const & types)
+{
+  m_types.clear();
+  auto const & c = classif();
+  for (auto const & e : types)
+    m_types.push_back(c.GetTypeByPath(e));
 }
 
 // TestMultilingualPOI -----------------------------------------------------------------------------

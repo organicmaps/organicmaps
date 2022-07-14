@@ -39,7 +39,7 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.log.LogsManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -480,9 +480,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    ((TwoStatePreference) pref).setChecked(LoggerFactory.INSTANCE.isFileLoggingEnabled);
+    ((TwoStatePreference) pref).setChecked(LogsManager.INSTANCE.isFileLoggingEnabled());
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
-      if (!LoggerFactory.INSTANCE.setFileLoggingEnabled((Boolean) newValue))
+      if (!LogsManager.INSTANCE.setFileLoggingEnabled((Boolean) newValue))
       {
         // It's a very rare condition when debugging, so we can do without translation.
         Utils.showSnackbar(getView(), "ERROR: Can't create a logs folder!");

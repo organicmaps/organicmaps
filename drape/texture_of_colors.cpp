@@ -21,10 +21,8 @@ ColorPalette::ColorPalette(m2::PointU const & canvasSize)
 
 ref_ptr<Texture::ResourceInfo> ColorPalette::ReserveResource(bool predefined, ColorKey const & key, bool & newResource)
 {
-  std::lock_guard<std::mutex> lock(m_mappingLock);
-
   TPalette & palette = predefined ? m_predefinedPalette : m_palette;
-  TPalette::iterator itm = palette.find(key.m_color);
+  auto itm = palette.find(key.m_color);
   newResource = (itm == palette.end());
   if (newResource)
   {
@@ -61,12 +59,14 @@ ref_ptr<Texture::ResourceInfo> ColorPalette::ReserveResource(bool predefined, Co
 
 ref_ptr<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, bool & newResource)
 {
-  TPalette::iterator itm = m_predefinedPalette.find(key.m_color);
+  auto itm = m_predefinedPalette.find(key.m_color);
   if (itm != m_predefinedPalette.end())
   {
     newResource = false;
     return make_ref(&itm->second);
   }
+
+  std::lock_guard<std::mutex> lock(m_mappingLock);
   return ReserveResource(false /* predefined */, key, newResource);
 }
 
@@ -78,6 +78,7 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
     std::lock_guard<std::mutex> g(m_lock);
     if (m_pendingNodes.empty())
       return;
+
     if (context->HasPartialTextureUpdates())
     {
       pendingNodes.swap(m_pendingNodes);
@@ -197,4 +198,4 @@ int ColorTexture::GetColorSizeInPixels()
   return kResourceSize;
 }
 
-}
+} // namespace dp

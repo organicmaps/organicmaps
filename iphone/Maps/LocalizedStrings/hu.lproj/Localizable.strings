@@ -503,6 +503,10 @@
 
 "history" = "Előzmények";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Zárva";
 
 "search_not_found" = "Sajnos, semmit nem találtam.";
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,12 +1591,13 @@
 
 "type.craft.electrician" = "Villanyszerelő";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Kertész";
 
 "type.craft.handicraft" = "Handicraft";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Hűtés-fűtés szerelő";
 
 "type.craft.metal_construction" = "Lakatos";
@@ -2363,35 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Természet";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Csupasz szikla";
 
 "type.natural.bay" = "Öböl";
 
 "type.natural.beach" = "Strand";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Homokos part";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Kavicsos strand";
 
 "type.natural.cape" = "Hegytető";
 
 "type.natural.cave_entrance" = "Barlang";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Szikla";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Szikla";
+
+"type.man_made.embankment" = "Töltés";
+
+"type.natural.coastline" = "Tengerpart";
 
 "type.natural.geyser" = "Gejzír";
 
 "type.natural.glacier" = "Gleccser";
 
-"type.natural.grassland" = "Mező";
+"type.natural.grassland" = "Füves puszta";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Fenyér";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Termálvíz";
 
 "type.natural.water.lake" = "Tó";
 
@@ -2405,17 +2414,17 @@
 
 "type.natural.water.river" = "Folyó";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Föld";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Rét";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Gyümölcsöskert";
 
 "type.natural.peak" = "Csúcs";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Hegyi nyereg";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Kőzet";
 
 "type.natural.scrub" = "Cserjés";
 
@@ -2425,9 +2434,9 @@
 
 "type.natural.tree" = "Fa";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Fa sor";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Szőlőskert";
 
 "type.natural.volcano" = "Tűzhányó";
 
@@ -2435,9 +2444,9 @@
 
 "type.natural.wetland" = "Vizes terület";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Láp";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Mocsár";
 
 "type.noexit" = "Dead End";
 
@@ -2845,15 +2854,15 @@
 
 "type.shop.wine" = "Szeszesital-üzlet";
 
-"type.sport" = "sport";
+"type.sport" = "Sport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Amerikai foci";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Íjászat";
 
 "type.sport.athletics" = "Atlétika";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Ausztrál futball";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2861,31 +2870,30 @@
 
 "type.sport.bowls" = "Bowls";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.cricket" = "Krikett";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Lovas sportok";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gimnasztika";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Kézilabda";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Különféle sportágak";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Búvárkodás";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Lövés";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Síelés";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Futball";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Úszás";
 
 "type.sport.tennis" = "Teniszpálya";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "Információs tábla";
 
-"type.tourism.information.guidepost" = "Túrista információ";
+"type.tourism.information.guidepost" = "Útmutató";
 
 "type.tourism.information.map" = "Turistatérkép";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Épület";
+
+"type.amenity.events_venue" = "Rendezvények helyszíne";

@@ -93,7 +93,7 @@
 "eat" = "Dónde comer";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Productos";
+"food" = "Alimentación";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "Transporte";
@@ -123,7 +123,7 @@
 "nightlife" = "Vida nocturna";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Descanso con niños";
+"children" = "Ocio en familia";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
 "bank" = "Banco";
@@ -153,7 +153,7 @@
 "water" = "Agua";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"rv" = "Caravanas";
 
 "share_bookmarks_email_body" = "Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábrelos si tienes instalado Organic Maps. O, si no lo tienes, descarga la aplicación para tu dispositivo iOS o Android siguiendo este link: https://omaps.app/get?kmz\n¡Disfruta viajando con Organic Maps!";
 
@@ -502,6 +502,10 @@
 "categories" = "Categorías";
 
 "history" = "Historial";
+
+"opens_in" = "Abre en %@";
+
+"closes_in" = "Cierra en %@";
 
 "closed" = "Cerrado";
 
@@ -1427,7 +1431,7 @@
 
 "type.amenity.restaurant" = "Restaurante";
 
-"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.sanitary_dump_station" = "Estación de vaciado para caravanas";
 
 "type.amenity.school" = "Escuela";
 
@@ -1471,7 +1475,7 @@
 
 "type.amenity.parcel_locker" = "Taquilla de paquetes";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vending_machine.fuel" = "Maquina expendedora de combustible";
 
 "type.amenity.veterinary" = "Clínica veterinaria";
 
@@ -1479,7 +1483,7 @@
 
 "type.amenity.waste_disposal" = "Basura";
 
-"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.waste_transfer_station" = "Estación de transferencia de residuos";
 
 "type.amenity.water_point" = "Fuente de agua";
 
@@ -1573,26 +1577,27 @@
 
 "type.cemetery.grave" = "Tumba";
 
-"type.craft" = "Craft";
+"type.craft" = "Gremios";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Apicultor";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Herrero";
 
 "type.craft.brewery" = "Fábrica de cerveza";
 
 "type.craft.carpenter" = "Carpintero";
 
-"type.craft.confectionery" = "Confectionery";
+"type.craft.confectionery" = "Confitería";
 
 "type.craft.electrician" = "Electricista";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Reparación de aparatos electrónicos";
 
 "type.craft.gardener" = "Paisajista";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Artesanía";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Aire acondicionado";
 
 "type.craft.metal_construction" = "Trabajador del metal";
@@ -1603,11 +1608,11 @@
 
 "type.craft.plumber" = "Fontanero";
 
-"type.craft.sawmill" = "Sawmill";
+"type.craft.sawmill" = "Serrería";
 
 "type.craft.shoemaker" = "Zapatero";
 
-"type.craft.winery" = "Winery";
+"type.craft.winery" = "Bodega";
 
 "type.craft.tailor" = "Sastre";
 
@@ -2363,35 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Naturaleza";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Roca desnuda";
 
 "type.natural.bay" = "Bahía";
 
 "type.natural.beach" = "Playa";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Playa de arena";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Playa de grava";
 
 "type.natural.cape" = "Cabo";
 
 "type.natural.cave_entrance" = "Cueva";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Acantilado";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Acantilado";
+
+"type.man_made.embankment" = "Terraplén";
+
+"type.natural.coastline" = "Costa";
 
 "type.natural.geyser" = "Geiser";
 
 "type.natural.glacier" = "Glaciar";
 
-"type.natural.grassland" = "Campo";
+"type.natural.grassland" = "Herbazal";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Brezal";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Aguas termales";
 
 "type.natural.water.lake" = "Lago";
 
@@ -2405,17 +2414,17 @@
 
 "type.natural.water.river" = "Río";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Tierra";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Prado";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Huerto frutal";
 
 "type.natural.peak" = "Cima";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Silla de montaña";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Roca";
 
 "type.natural.scrub" = "Matorrales";
 
@@ -2425,9 +2434,9 @@
 
 "type.natural.tree" = "Árbol";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Fila de árboles";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Viña";
 
 "type.natural.volcano" = "Volcán";
 
@@ -2435,9 +2444,9 @@
 
 "type.natural.wetland" = "Terreno pantanoso";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Turbera";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Ciénaga";
 
 "type.noexit" = "Dead End";
 
@@ -2849,7 +2858,7 @@
 
 "type.sport.american_football" = "Fútbol americano";
 
-"type.sport.archery" = "Tiro con arco";
+"type.sport.archery" = "Tiro al arco";
 
 "type.sport.athletics" = "Atletismo";
 
@@ -2859,13 +2868,11 @@
 
 "type.sport.basketball" = "Baloncesto";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "Bolos sobre hierba";
 
 "type.sport.cricket" = "Críquet";
 
 "type.sport.curling" = "Curling";
-
-"type.sport.diving" = "Salto";
 
 "type.sport.equestrian" = "Equitación";
 
@@ -2877,9 +2884,10 @@
 
 "type.sport.multi" = "Varios deportes";
 
+/* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Submarinismo";
 
-"type.sport.shooting" = "Tiro deportivo";
+"type.sport.shooting" = "Tiroteo";
 
 "type.sport.skiing" = "Esquí";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "Tablón de información";
 
-"type.tourism.information.guidepost" = "Información";
+"type.tourism.information.guidepost" = "Poste indicador";
 
 "type.tourism.information.map" = "Mapa turístico";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Edificio";
+
+"type.amenity.events_venue" = "Lugar de los eventos";

@@ -17,14 +17,8 @@
 #include <vector>
 
 class FeatureType;
-namespace feature
-{
-class FeatureBuilder;
-}  // namespace feature
-namespace osm
-{
-class Editor;
-}
+namespace feature { class FeatureBuilder; }
+namespace osm { class Editor; }
 
 namespace generator
 {
@@ -181,12 +175,14 @@ public:
   feature::TypesHolder GetTypes() const;
   void SetHouseNumber(std::string const & houseNumber) { m_houseNumber = houseNumber; }
   void SetStreetName(std::string_view name) { m_streetName = name; }
-  void SetTypes(std::vector<std::vector<std::string>> const & types) { m_types = types; }
+
+  void SetType(uint32_t type) { m_types.assign(1 /* count */, type); }
+  void SetTypes(std::initializer_list<base::StringIL> const & types);
 
 protected:
   std::string m_houseNumber;
   std::string m_streetName;
-  std::vector<std::vector<std::string>> m_types;
+  std::vector<uint32_t> m_types;
 };
 
 class TestMultilingualPOI : public TestPOI

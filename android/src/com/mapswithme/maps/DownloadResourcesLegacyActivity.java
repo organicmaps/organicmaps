@@ -33,15 +33,13 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.List;
 
 @SuppressLint("StringFormatMatches")
 public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity implements AlertDialogCallback
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.DOWNLOADER);
-  private static final String TAG = DownloadResourcesLegacyActivity.class.getName();
+  private static final String TAG = DownloadResourcesLegacyActivity.class.getSimpleName();
 
   private static final String ERROR_LOADING_DIALOG_TAG = "error_loading_dialog";
   private static final int ERROR_LOADING_DIALOG_REQ_CODE = 234;
@@ -441,7 +439,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
       return null;
 
     String msg = "Incoming intent uri: " + intent;
-    LOGGER.i(TAG, msg);
+    Logger.i(TAG, msg);
     CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
 
     MapTask mapTaskToForward;

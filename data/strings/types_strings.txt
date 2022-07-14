@@ -554,6 +554,7 @@
   [type.amenity.bicycle_parking]
     en = Bicycle Parking
     ar = أماكن وقوف للدراجات
+    be = Велапаркоўка
     cs = Parkování kol
     da = Cykelparkering
     de = Fahrradständer
@@ -575,12 +576,12 @@
     pt = Estacionamento de bicicletas
     pt-BR = Bicicletário
     ro = Parcare biciclete
-    ru = Велостоянка
+    ru = Велопарковка
     sk = Stojan na bicykle
     sv = Cykelparkering
     th = ที่จอดจักรยาน
     tr = Bisiklet Park Yeri
-    uk = Велостоянка
+    uk = Велопарковка
     vi = Chỗ Đậu Xe Đạp
     zh-Hans = 自行车停车处
     zh-Hant = 腳踏車停放區
@@ -637,7 +638,7 @@
     nl = Fiets reparatie station
     pl = Stacja naprawy rowerów
     pt = Estação de conserto de bicicletas
-    pt-BR = Estação de conserto de bicicletas
+    pt-BR = Oficina de conserto de bicicletas
     ru = Станция ремонта велосипедов
     sw = Cykelreparationsstation
     th = สถานีซ่อมจักรยาน
@@ -2973,7 +2974,7 @@
     eu = Arropa
     fa = لباسهای قدیمی
     fi = Vanhat vaatteet
-    fr = Vêtement usagés
+    fr = Vêtements usagés
     hu = Régi ruhák
     id = Pakaian lama
     it = Vestiti usati
@@ -3113,7 +3114,7 @@
     eu = Plastikozko botilak
     fa = بطریهای پلاستیک
     fi = Muovipullot
-    fr = Collecte de bouteilles en plastique
+    fr = Bouteilles en plastique
     hu = Műanyag palackok
     id = Botol-botol plastik
     it = Bottiglie di plastica
@@ -3213,6 +3214,7 @@
     de = Karton
     es = Cartón
     eu = Kartoia
+    fr = Carton
     mr = पुठ्ठा
     ru = Картон
     tr = Karton
@@ -3224,6 +3226,7 @@
     de = Dosen
     es = Latas
     eu = Latak
+    fr = Emballages métalliques
     mr = कॅन
     ru = Жестяные и алюминиевые банки
     tr = Teneke ve alüminyum kutular
@@ -3235,6 +3238,7 @@
     de = Schuhe
     es = Calzado
     eu = Oinetakoak
+    fr = Chaussures
     mr = पादत्राणे
     ru = Обувь
     tr = Ayakkabılar
@@ -3246,6 +3250,7 @@
     de = Bio-Müll
     es = Orgánico
     eu = Organikoa
+    fr = Déchets organiques
     ru = Органика / Пищевые отходы
     tr = Yeşil/Organik Atık
     uk = Органіка / Харчові відходи
@@ -3256,6 +3261,7 @@
     de = Getränkekarton
     es = Cartones de bebida
     eu = Edateko kartoiak
+    fr = Briques alimentaires
     mr = पेय कार्टन
     ru = Тетрапак и аналоги
     tr = İçecek Kartonları
@@ -3293,6 +3299,7 @@
     en = Holding Tank Dump Station
     be = Зліў для прыбіральняў транспартных сродкаў
     de = VE-Station
+    es = Estación de vaciado para caravanas
     fr = Station de vidange
     it = Camper service
     ru = Слив для туалетов транспортных средств
@@ -3336,7 +3343,7 @@
     en = Shelter
     ar = ملجأ
     cs = Přístřešek
-    de = Schutzhütte
+    de = Unterstand
     el = Καταφύγιο
     es = Refugio
     eu = Aterpea
@@ -3707,7 +3714,7 @@
     de = Essensautomat
     es = Máquina expendedora de comida
     eu = Janaria saltzeko makina
-    fr = Distributeur de aliments
+    fr = Distributeur d'aliments
     it = Distributore di alimenti
     mr = अन्न विक्रीयंत्र
     ru = Автомат с едой
@@ -3815,6 +3822,7 @@
     de = Hundekotbeutelspender
     es = Maquina expendedora de bolsas para excrementos
     eu = Kaka poltsak saltzeko makina
+    fr = Distributeur de sacs à excréments
     mr = मलमूत्र पिशव्या विक्रीयंत्र
     ru = Пакеты для экскрементов
     tr = Dışkı Torbası Dağıtıcı
@@ -3826,6 +3834,7 @@
     de = Paketstation
     es = Taquilla de paquetes
     eu = Paketeen aldagela
+    fr = Consigne automatique pour colis
     mr = पार्सल लॉकर
     ru = Почтомат
     tr = Kilitlenebilen Kutu Dolaplar
@@ -3835,6 +3844,7 @@
     en = Fuel Dispenser
     be = Паліўная калонка
     de = Tankautomat
+    es = Maquina expendedora de combustible
     mr = इंधन विक्रीयंत्र
     ru = Топливная колонка
     tr = Yakıt Dağıtıcı
@@ -3946,6 +3956,7 @@
     en = Waste Transfer Station
     be = Станцыя перавалкі адходаў
     de = Müllumladestation
+    es = Estación de transferencia de residuos
     mr = कचरा हस्तांतरण केंद्र
     ru = Станция перевалки отходов
     tr = Atık Transfer İstasyonu
@@ -4417,6 +4428,7 @@
     de = Grenze
     es = Frontera
     eu = Muga
+    fr = Frontière
     ja = 境界線
     mr = सीमा
     pl = Granica
@@ -4432,6 +4444,7 @@
     de = Verwaltungsgrenze
     es = Frontera administrativa
     eu = Muga administratiboa
+    fr = Frontière administrative
     ja = 行政境界
     mr = प्रशासकीय सीमा
     pl = Granica administracyjna
@@ -4485,6 +4498,7 @@
     en = City Boundary
     es = Frontera de ciudad
     eu = Hiriko muga
+    fr = Frontière de la ville
     mr = शहराची सीमा
     pl = Granica miasta
     pt = Fronteira de cidade
@@ -4498,6 +4512,7 @@
     en = National Border
     es = Frontera de país
     eu = Herrialdeko muga
+    fr = Frontière nationale
     mr = राष्ट्रीय सीमा
     pl = Granica państwa
     pt = Fronteira de país
@@ -4511,6 +4526,7 @@
     en = County Boundary
     es = Frontera de condado
     eu = Eskualdeko muga
+    fr = Frontière du comté
     mr = परगणा सीमा
     pl = Granica hrabstwa
     pt = Fronteira de condado
@@ -4524,6 +4540,7 @@
     en = Municipality Boundary
     es = Frontera de municipio
     eu = Udalerriko muga
+    fr = Frontière de la municipalité
     mr = नगरपालिकेची सीमा
     pl = Granica gminy
     pt = Fronteira de município
@@ -4543,6 +4560,7 @@
     en = Regional Boundary
     es = Frontera de región
     eu = Eskualdeko muga
+    fr = Frontière régionale
     mr = प्रादेशिक सीमा
     pl = Granica regionu
     pt = Fronteira de região
@@ -4568,6 +4586,7 @@
     en = Suburb Boundary
     es = Frontera de suburbio
     eu = Auzoko muga
+    fr = Frontière de quartier
     mr = उपनगर सीमा
     pl = Granica przedmieść
     pt = Fronteira de subúrbio
@@ -4803,7 +4822,7 @@
     eu = Hilobia
     fa = ﺮﺒﻗ
     fi = Hauta
-    fr = La tombe
+    fr = Tombe
     he = רבק
     hu = Sír
     id = Kuburan
@@ -4829,7 +4848,9 @@
 
   [type.craft]
     en = Craft
+    es = Gremios
     fr = Artisanat
+    it = Artigianato
     ja = 工房
     mr = हस्तकला
     pl = Rzemiosło
@@ -4841,16 +4862,29 @@
     zh-Hans = 工艺作坊
 
   [type.craft.beekeeper]
-    en = beekeeper
+    en = Beekeeper
+    be = Пчаляр
+    es = Apicultor
+    fr = Apiculteur
+    it = Apicoltore
     ru = Пчеловод
+    tr = Arıcı
+    uk = Бджоляр
 
   [type.craft.blacksmith]
     en = Blacksmith
-    ru = Кузнец
+    be = Кузня
+    es = Herrero
+    fr = Forgeron
+    it = Fabbro
+    ru = Кузница
+    tr = Demirci
+    uk = Кузня
 
   [type.craft.brewery]
     en = Craft Brewery
     ar = مصنع جعة
+    be = Крафтавы бровар
     cs = Pivovar
     da = Bryggeri
     de = Brauerei
@@ -4872,12 +4906,12 @@
     pt = Cervejaria artesanal
     pt-BR = Cervejaria artesanal
     ro = Berărie
-    ru = Крафтовое пиво
+    ru = Крафтовая пивоварня
     sk = Pivovar
     sv = Bryggeri
     th = โรงเบียร์
     tr = Bira Fabrikası
-    uk = Пивоварня
+    uk = Крафтова пивоварня
     vi = Nhà máy bia
     zh-Hans = 酿酒厂
     zh-Hant = 釀酒廠
@@ -4918,6 +4952,8 @@
 
   [type.craft.confectionery]
     en = Confectionery
+    es = Confitería
+    fr = Confiseur
     ru = Кондитер
 
   [type.craft.electrician]
@@ -4954,8 +4990,12 @@
     zh-Hant = 電工
 
   [type.craft.electronics_repair]
-    en = Electronics repair
+    en = Electronics Repair
+    es = Reparación de aparatos electrónicos
+    fr = Réparation d'appareils électroniques
+    it = Riparazioni elettroniche
     ru = Ремонт электроники
+    tr = Elektronik Tamircisi
 
   [type.craft.gardener]
     en = Gardener
@@ -4993,11 +5033,17 @@
 
   [type.craft.handicraft]
     en = Handicraft
-    ru = Декоративный мастер
+    es = Artesanía
+    it = Artigiano
+    ru = Ремесленная мастерская
+    tr = El İşi
 
   [type.craft.hvac]
-    en = Hvac
+    comment = Heating, Ventilation, and Air Conditioning
+    en = HVAC
     ar = تكييف
+    be = Ацяпленне, вентыляцыя і кандыцыянаванне
+    bg = Отопление, вентилация и климатизация
     cs = HVAC
     da = Blikkenslager
     de = Heizung
@@ -5005,7 +5051,7 @@
     es = Aire acondicionado
     eu = Aire girotua
     fi = Ilmastointilaite
-    fr = Climatiseur
+    fr = Chauffage, ventilation et climatisation
     hu = Hűtés-fűtés szerelő
     it = Impianti HVAC
     ja = 冷暖房空調
@@ -5015,12 +5061,12 @@
     pl = Klimatyzacja
     pt = Instalador de ar-condicionado
     pt-BR = Ar-condicionado
-    ru = Кондиционеры
+    ru = Отопление, вентиляция и кондиционирование
     sk = Vzduchotechnika
     sv = Vvs
     th = ระบบปรับอากาศ
     tr = Klimacı
-    uk = Кондиціонери
+    uk = Опалення, вентиляція та кондиціювання повітря
     vi = Điều hòa nhiệt độ
     zh-Hans = 暖通工程师
     zh-Hant = 空調設備
@@ -5165,6 +5211,8 @@
 
   [type.craft.sawmill]
     en = Sawmill
+    es = Serrería
+    fr = Scierie
     ru = Лесопилка
 
   [type.craft.shoemaker]
@@ -5203,6 +5251,8 @@
 
   [type.craft.winery]
     en = Winery
+    es = Bodega
+    fr = Chai
     ru = Винодельня
 
   [type.craft.tailor]
@@ -5244,7 +5294,7 @@
     ar = مطبخ أفريقي
     cs = Africká kuchyně
     da = Afrikansk
-    de = Afrikanische Küche
+    de = Afrikanisch
     el = Αφρικανική
     es = Cocina africana
     eu = Afrikako sukaldaritza
@@ -5277,7 +5327,7 @@
     ar = مطبخ أمريكي
     cs = Americká kuchyně
     da = Amerikansk
-    de = Amerikanische Küche
+    de = Amerikanisch
     el = Αμερικάνικη
     es = Cocina americana
     eu = Sukalde amerikarra
@@ -5310,7 +5360,7 @@
     ar = مطبخ عربي
     cs = Arabská kuchyně
     da = Arabisk
-    de = Arabische Küche
+    de = Arabisch
     el = Αραβική
     es = Cocina árabe
     eu = Sukaldaritza arabiarra
@@ -5343,7 +5393,7 @@
     ar = مطبخ أرجنتيني
     cs = Argentinská kuchyně
     da = Argentinsk
-    de = Argentinische Küche
+    de = Argentinisch
     el = Αργεντίνικη
     es = Cocina argentina
     eu = Argentinako sukaldaritza
@@ -5376,7 +5426,7 @@
     ar = مطبخ آسيوي
     cs = Asijská kuchyně
     da = Asiatisk
-    de = Asiatische Küche
+    de = Asiatisch
     el = Ασιάτικη
     es = Cocina asiática
     eu = Asiar sukaldaritza
@@ -5409,7 +5459,7 @@
     ar = مطبخ نمساوي
     cs = Rakouská kuchyně
     da = Østrigsk
-    de = Österreichische Küche
+    de = Österreichisch
     el = Αυστριακή
     es = Cocina austriaca
     eu = Austriako sukaldaritza
@@ -5475,7 +5525,7 @@
     ar = مطبخ بلقاني
     cs = Balkánská kuchyně
     da = Balkansk
-    de = Balkanküche
+    de = Balkanisch
     el = Βαλκανίων
     es = Cocina balcánica
     eu = Balkanetako sukaldaritza
@@ -5542,7 +5592,7 @@
     ar = مطبخ بافاري
     cs = Bavorská kuchyně
     da = Bavarisk
-    de = Bayerische Küche
+    de = Bayerisch
     el = Βαυαρική
     es = Cocina bávara
     eu = Bavariako sukaldaritza
@@ -5608,7 +5658,7 @@
     ar = مطبخ برازيلي
     cs = Brazilská kuchyně
     da = Brasiliansk
-    de = Brasilianische Küche
+    de = Brasilianisch
     el = Βραζιλιάνικη
     es = Cocina brasileña
     eu = Brasilgo sukaldaritza
@@ -5784,7 +5834,7 @@
     ar = مطبخ كاريبي
     cs = Karibská kuchyně
     da = Caribisk
-    de = Karibische Küche
+    de = Karibisch
     el = Καραϊβική
     es = Cocina caribeña
     eu = Karibeko sukaldaritza
@@ -5851,7 +5901,7 @@
     ar = مطبخ صيني
     cs = Čínská kuchyně
     da = Kinesisk
-    de = Chinesische Küche
+    de = Chinesisch
     el = Κινέζικη
     es = Cocina china
     eu = Txinako sukaldaritza
@@ -5953,7 +6003,7 @@
     ar = مطبخ كرواتي
     cs = Chorvatská kuchyně
     da = Kroatisk
-    de = Kroatische Küche
+    de = Kroatisch
     el = Κροατική
     es = Cocina croata
     eu = Sukaldaritza croata
@@ -6020,7 +6070,7 @@
     ar = أطعمة مبردة
     cs = Lahůdky
     da = Deli
-    de = Deli-Küche
+    de = Delikatessen
     el = Εκλεκτά τρόφιμα
     es = Delicatesen
     eu = Delitua
@@ -6119,7 +6169,7 @@
     ar = مطبخ إثيوبي
     cs = Etiopská kuchyně
     da = Etiopisk
-    de = Äthiopische Küche
+    de = Äthiopisch
     el = Αιθιοπίας
     es = Cocina etíope
     eu = Etiopiako sukaldaritza
@@ -6152,7 +6202,7 @@
     ar = مطبخ فلبيني
     cs = Filipínská kuchyně
     da = Filippinsk
-    de = Philippinische Küche
+    de = Philippinisch
     el = Φιλιππινέζικη
     es = Cocina filipina
     eu = Filipinetako sukaldaritza
@@ -6185,7 +6235,7 @@
     ar = مطعم متكامل
     cs = Zážitková gastronomie
     da = Eksklusiv
-    de = Gehobene Küche
+    de = Gehoben
     el = Εκλεκτά εστιατόρια
     es = Restaurante elegante
     eu = Jatetxe dotorea
@@ -6285,7 +6335,7 @@
     ar = مطبخ فرنسي
     cs = Francouzská kuchyně
     da = Fransk
-    de = Französische Küche
+    de = Französisch
     el = Γαλλική
     es = Cocina francesa
     eu = Frantziako sukaldaritza
@@ -6351,7 +6401,7 @@
     ar = مطبخ جورجي
     cs = Gruzínská kuchyně
     da = Georgisk
-    de = Georgische Küche
+    de = Georgisch
     el = Γεωργιανή
     es = Cocina georgiana
     eu = Georgiako sukaldaritza
@@ -6384,7 +6434,7 @@
     ar = مطبخ ألماني
     cs = Německá kuchyně
     da = Tysk
-    de = Deutsche Küche
+    de = Deutsch
     el = Γερμανική
     es = Cocina alemana
     eu = Alemaniar sukaldaritza
@@ -6417,7 +6467,7 @@
     ar = مطبخ يوناني
     cs = Řecká kuchyně
     da = Græsk
-    de = Griechische Küche
+    de = Griechisch
     el = Ελληνική
     es = Cocina griega
     eu = Greziar sukaldaritza
@@ -6549,7 +6599,7 @@
     ar = مطبخ مجري
     cs = Maďarská kuchyně
     da = Ungarsk
-    de = Ungarische Küche
+    de = Ungarisch
     el = Ουγγρική
     es = Cocina húngara
     eu = Hungariako sukaldaritza
@@ -6616,7 +6666,7 @@
     ar = مطبخ هندي
     cs = Indická kuchyně
     da = Indisk
-    de = Indische Küche
+    de = Indisch
     el = Ινδική
     es = Cocina hindú
     eu = Indiako sukaldaritza
@@ -6650,7 +6700,7 @@
     ar = مطبخ إندونيسي
     cs = Indonéská kuchyně
     da = Indonesisk
-    de = Indonesische Küche
+    de = Indonesisch
     el = Ινδονησιακή
     es = Cocina indonesia
     eu = Indonesiako sukaldaritza
@@ -6683,7 +6733,7 @@
     ar = مطبخ عالمي
     cs = Mezinárodní kuchyně
     da = International
-    de = Internationale Küche
+    de = International
     el = Διεθνής
     es = Cocina internacional
     eu = Nazioarteko sukaldea
@@ -6717,7 +6767,7 @@
     ar = مطبخ إيرلندي
     cs = Irská kuchyně
     da = Irsk
-    de = Irische Küche
+    de = Irisch
     el = Ιρλανδέζικη
     es = Cocina irlandesa
     eu = Irlandar sukaldaritza
@@ -6750,7 +6800,7 @@
     ar = مطبخ إيطالي
     cs = Italská kuchyně
     da = Italiensk
-    de = Italienische Küche
+    de = Italienisch
     el = Ιταλική
     es = Cocina italiana
     eu = Italiako sukaldaritza
@@ -6784,7 +6834,7 @@
     ar = مطبخ إيطالي؛بيتزا
     cs = Italská, pizza
     da = Italiensk, pizza
-    de = Italienische Küche; Pizza
+    de = Italienisch; Pizza
     el = Ιταλική, Πίτσα
     es = Cocina italiana, pizzas
     eu = Italiako sukaldaritza, pizza
@@ -6818,7 +6868,7 @@
     ar = مطبخ ياباني
     cs = Japonská kuchyně
     da = Japansk
-    de = Japanische Küche
+    de = Japanisch
     el = Ιαπωνική
     es = Cocina japonesa
     eu = Japoniako sukaldaritza
@@ -6885,7 +6935,7 @@
     ar = مطبخ كوري
     cs = Korejská kuchyně
     da = Koreansk
-    de = Koreanische Küche
+    de = Koreanisch
     el = Κορεάτικη
     es = Cocina coreana
     eu = Koreako sukaldaritza
@@ -6918,7 +6968,7 @@
     ar = مطبخ لاوي
     cs = Laoská kuchyně
     da = Laotisk
-    de = Laotische Küche
+    de = Laotisch
     el = Λάος
     es = Cocina laosiana
     eu = Laosko sukaldaritza
@@ -6951,7 +7001,7 @@
     ar = مطبخ لبناني
     cs = Libanonská kuchyně
     da = Libanesisk
-    de = Libanesische Küche
+    de = Libanesisch
     el = Λιβανέζικη
     es = Cocina libanesa
     eu = Libanoko sukaldaritza
@@ -6984,7 +7034,7 @@
     ar = مطبخ محلي
     cs = Místní kuchyně
     da = Lokalt køkken
-    de = Lokale Küche
+    de = Regional
     el = Τοπική
     es = Cocina local
     eu = Bertako sukaldaritza
@@ -7018,7 +7068,7 @@
     ar = مدغشقر
     cs = Madagaskarská kuchyně
     da = Madagaskisk
-    de = Madegassische Küche
+    de = Madegassisch
     el = Μαδαγασκάρης
     es = Cocina malgache
     eu = Malgaxeko sukaldaritza
@@ -7051,7 +7101,7 @@
     ar = مطبخ ماليزي
     cs = Malajsijská kuchyně
     da = Malaysisk
-    de = Malaysische Küche
+    de = Malaysisch
     el = Μαλαισιανή
     es = Cocina malaya
     eu = Malay sukaldaritza
@@ -7084,7 +7134,7 @@
     ar = مطبخ شرق أوسطي
     cs = Středomořská kuchyně
     da = Middelhavskost
-    de = Mediterrane Küche
+    de = Mediterran
     el = Μεσογειακή
     es = Cocina mediterránea
     eu = Sukaldaritza mediterraneoa
@@ -7117,7 +7167,7 @@
     ar = مطبخ مكسيكي
     cs = Mexická kuchyně
     da = Mexicansk
-    de = Mexikanische Küche
+    de = Mexikanisch
     el = Μεξικάνικη
     es = Cocina mexicana
     eu = Mexikoko sukaldea
@@ -7150,7 +7200,7 @@
     ar = مطبخ مغربي
     cs = Marocká kuchyně
     da = Marokkansk
-    de = Marokkanische Küche
+    de = Marokkanisch
     el = Μαροκινή
     es = Cocina marroquí
     eu = Marokoko sukaldaritza
@@ -7217,7 +7267,7 @@
     ar = مطبخ شرقي
     cs = Orientální kuchyně
     da = Orientalsk
-    de = Orientalische Küche
+    de = Orientalisch
     el = Άπω Ανατολής
     es = Cocina oriental
     eu = Ekialdeko sukaldaritza
@@ -7317,7 +7367,7 @@
     ar = مطبخ إيراني
     cs = Perská kuchyně
     da = Persisk
-    de = Persische Küche
+    de = Persisch
     el = Περσική
     es = Cocina persa
     eu = Persiar sukaldaritza
@@ -7350,7 +7400,7 @@
     ar = بيرو
     cs = Peruánská kuchyně
     da = Peruviansk
-    de = Peruanische Küche
+    de = Peruanisch
     el = Περουβιανή
     es = Cocina peruana
     eu = Peruko sukaldaritza
@@ -7417,7 +7467,7 @@
     ar = مطبخ بولندي
     cs = Polská kuchyně
     da = Polsk
-    de = Polnische Küche
+    de = Polnisch
     el = Πολωνέζικη
     es = Cocina polaca
     eu = Poloniar sukaldaritza
@@ -7450,7 +7500,7 @@
     ar = مطبخ برتغالي
     cs = Portugalská kuchyně
     da = Portugisisk
-    de = Portugiesische Küche
+    de = Portugiesisch
     el = Πορτογαλική
     es = Cocina portuguesa
     eu = Portugalgo sukaldaritza
@@ -7516,7 +7566,7 @@
     ar = مطبخ إقليمي
     cs = Regionální kuchyně
     da = Regionalt køkken
-    de = Regionale Küche
+    de = Regional
     el = Περιφερειακή
     es = Cocina regional
     eu = Eskualdeko sukaldaritza
@@ -7550,7 +7600,7 @@
     ar = مطبخ روسي
     cs = Ruská kuchyně
     da = Russisk
-    de = Russische Küche
+    de = Russisch
     el = Ρώσσικη
     es = Cocina rusa
     eu = Errusiar sukaldaritza
@@ -7750,7 +7800,7 @@
     ar = مطبخ إسباني
     cs = Španělská kuchyně
     da = Spansk
-    de = Spanische Küche
+    de = Spanisch
     el = Ισπανική
     es = Cocina española
     eu = Espainiako Sukaldaritza
@@ -7916,7 +7966,7 @@
     ar = مطبخ تايلندي
     cs = Thajská kuchyně
     da = Thailandsk
-    de = Thailändische Küche
+    de = Thailändisch
     el = Ταϊλανδική
     es = Cocina tailandesa
     eu = Thai sukaldaritza
@@ -7949,7 +7999,7 @@
     ar = مطبخ تركي
     cs = Turecká kuchyně
     da = Tyrkisk
-    de = Türkische Küche
+    de = Türkisch
     el = Τουρκική
     es = Cocina turca
     eu = Turkiar sukaldaritza
@@ -7982,7 +8032,7 @@
     ar = مطبخ نباتي
     cs = Veganská kuchyně
     da = Vegansk
-    de = Vegane Küche
+    de = Vegan
     el = Για χορτοφάγους
     es = Cocina vegana
     eu = Sukaldaritza beganoa
@@ -8015,7 +8065,7 @@
     ar = مطبخ نباتي
     cs = Vegetariánská kuchyně
     da = Vegetarretter
-    de = Vegetarische Küche
+    de = Vegetarisch
     el = Χορτοφαγική
     es = Cocina vegetariana
     eu = Sukaldaritza begetarianoa
@@ -8049,7 +8099,7 @@
     ar = مطبخ فيتنامي
     cs = Vietnamská kuchyně
     da = Vietnamesisk
-    de = Vietnamesische Küche
+    de = Vietnamesisch
     el = Βιετναμέζικη
     es = Cocina vietnamita
     eu = Vietnamgo sukaldaritza
@@ -8295,15 +8345,18 @@
     ref = type.highway.road.bridge
     ja = 馬道(橋)
     pl = Most drogowy dla koni
+    pt-BR = Ponte para cavaleiros
 
   [type.highway.bridleway.permissive]
     ref = type.highway.bridleway
     pl = Droga dla koni ograniczona
+    pt-BR = Caminho para cavaleiros permissivo
 
   [type.highway.bridleway.tunnel]
     ref = type.highway.road.tunnel
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
+    pt-BR = Túnel para cavaleiros
 
   [type.highway.bus_stop]
     en = Bus Stop
@@ -8395,15 +8448,18 @@
     ref = type.highway.road.bridge
     ja = 自転車道(橋)
     pl = Most drogowy dla rowerów
+    pt-BR = Ponte para ciclistas
 
   [type.highway.cycleway.permissive]
     ref = type.highway.cycleway
     pl = Droga rowerowa ograniczona
+    pt-BR = Caminho para ciclistas permissivo
 
   [type.highway.cycleway.tunnel]
     ref = type.highway.road.tunnel
     ja = 自転車道(トンネル)
     pl = Tunel drogowy dla rowerów
+    pt-BR = Túnel para ciclistas
 
   [type.highway.elevator]
     en = Elevator
@@ -8413,6 +8469,7 @@
     eu = Igogailua
     fr = Ascenseur
     mr = उद्वाहक(लिफ्ट)
+    pt-BR = Elevador
     ru = Лифт
     tr = Asansör
     uk = Ліфт
@@ -8464,6 +8521,7 @@
     en = Pedestrian Zone
     mr = पादचारी झोन
     pl = Obszar chodnika
+    pt-BR = Área de pedestres
     ru = Пешеходная зона
     tr = Yaya Alanı
     uk = Пішохідна зона
@@ -8473,27 +8531,28 @@
     en = Pedestrian Bridge
     mr = पादचारी पूल
     pl = Most dla pieszych
+    pt-BR = Ponte para pedestres
     ru = Пешеходный мост
 
   [type.highway.footway.demanding_alpine_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Alpinwanderweg
     pt = Caminho pedonal
-    pt-BR = Caminho pedonal
+    pt-BR = Caminho pedonal difícil
     zh-Hans = 步行道路
 
   [type.highway.footway.demanding_mountain_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Bergwanderweg
     pt = Caminho pedonal
-    pt-BR = Caminho pedonal
+    pt-BR = Caminho pedonal difícil
     zh-Hans = 步行道路
 
   [type.highway.footway.difficult_alpine_hiking]
     ref = type.highway.path
     de = Schwieriger Alpinwanderweg
     pt = Caminho pedonal
-    pt-BR = Caminho pedonal
+    pt-BR = Caminho pedonal difícil
     zh-Hans = 步行道路
 
   [type.highway.footway.hiking]
@@ -8519,6 +8578,7 @@
     de = Fußgängertunnel
     mr = पादचारी बोगदा
     pl = Tunel dla pieszych
+    pt-BR = Túnel para pedestres
     ru = Пешеходный тоннель
 
   [type.highway.ford]
@@ -8596,6 +8656,7 @@
     ref = type.highway.road.tunnel
     de = Spielstraßentunnel
     pl = Tunel ulicy
+    pt-BR = Túnel rodoviário
 
   [type.highway.motorway]
     en = Motorway
@@ -8637,6 +8698,7 @@
     de = Autobahnbrücke
     mr = महामार्ग पूल
     pl = Most drogowy
+    pt-BR = Ponte rodoviária
     ru = Автомобильный мост
 
   [type.highway.motorway.tunnel]
@@ -8645,6 +8707,7 @@
     de = Autobahntunnel
     mr = महामार्ग बोगदा
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
     ru = Автомобильный тоннель
 
   [type.highway.motorway_junction]
@@ -8685,6 +8748,7 @@
     de = Autobahnauffahrt
     mr = महामार्ग उतार
     pt = Ligação a autoestrada
+    pt-BR = Acesso a rodovia
     ru = Съезд с автомагистрали
     tr = Otoyol Rampası
     uk = З'їзд з автомагістралі
@@ -8735,6 +8799,7 @@
     ref = type.highway.path
     de = Alpinwanderweg
     pl = Ścieżka wspinaczkowa
+    pt-BR = Caminho pedonal
 
   [type.highway.path.bicycle]
     ref = type.highway.path
@@ -8742,6 +8807,7 @@
     de = Radweg
     mr = सायकल आणि पाऊलवाट
     pl = Ścieżka dla rowerów
+    pt-BR = Caminho para ciclistas
     ru = Велопешеходная дорожка
     tr = Bisiklet ve Yürüyüş Yolu
     uk = Велопішохідна доріжка
@@ -8752,23 +8818,28 @@
   [type.highway.path.demanding_alpine_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Alpinwanderweg
+    pt-BR = Caminho pedonal difícil
 
   [type.highway.path.demanding_mountain_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Bergwanderweg
+    pt-BR = Caminho pedonal difícil
 
   [type.highway.path.difficult_alpine_hiking]
     ref = type.highway.path
     de = Schwieriger Alpinwanderweg
+    pt-BR = Caminho pedonal difícil
 
   [type.highway.path.hiking]
     ref = type.highway.path
     de = Wanderweg
+    pt-BR = Caminho pedonal
 
   [type.highway.path.horse]
     ref = type.highway.path
     en = Bridle Path
     de = Reitweg
+    pt-BR = Caminho para cavaleiros
     ru = Конная тропа
     tr = Atlı Yolu
     uk = Кінна стежка
@@ -8776,6 +8847,7 @@
   [type.highway.path.mountain_hiking]
     ref = type.highway.path
     de = Bergwanderweg
+    pt-BR = Caminho pedonal
 
   [type.highway.path.permissive]
     ref = type.highway.path
@@ -8831,6 +8903,7 @@
     en = Pedestrian Bridge
     mr = पादचारी पूल
     pl = Most pasażu pieszego
+    pt-BR = Ponte para pedestres
     ru = Пешеходный мост
 
   [type.highway.pedestrian.tunnel]
@@ -8839,6 +8912,7 @@
     de = Fußgängertunnel
     mr = पादचारी बोगदा
     pl = Tunel pasażu pieszego
+    pt-BR = Túnel para pedestres
     ru = Пешеходный тоннель
 
   [type.highway.primary]
@@ -8882,11 +8956,13 @@
     ref = type.highway.road.tunnel
     de = Hauptstraßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.primary_link]
     ref = type.highway.primary
     en = Primary Road Ramp
     mr = प्राथमिक मार्ग उतार
+    pt-BR = Saída de rodovia
     ru = Съезд с шоссе
     uk = З'їзд з шосе
     zh-Hans = 主要道路连接路
@@ -8975,6 +9051,7 @@
   [type.highway.residential.tunnel]
     ref = type.highway.road.tunnel
     de = Wohnstraßentunnel
+    pt-BR = Túnel residencial
 
   [type.highway.rest_area]
     en = Rest Area
@@ -9164,11 +9241,13 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.secondary_link]
     ref = type.highway.secondary
     en = Secondary Road Ramp
     mr = दुय्यम मार्ग उतार
+    pt-BR = Saída de rodovia
     ru = Съезд с автодороги
     uk = З'їзд з автодороги
     zh-Hans = 次要道路连接路
@@ -9181,6 +9260,7 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.service]
     en = Service Road
@@ -9228,6 +9308,7 @@
     en = Driveway
     de = Zufahrt
     mr = चालकमार्ग
+    pt-BR = Via de acesso
     ru = Подъезд
     uk = Під'їзд
     zh-Hans = 车道
@@ -9251,6 +9332,7 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.services]
     en = Service Area
@@ -9382,11 +9464,13 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.tertiary_link]
     ref = type.highway.tertiary
     en = Tertiary Road Ramp
     mr = तृतीयक मार्ग उतार
+    pt-BR = Saída de rodovia
     ru = Съезд с дороги
     tr = Üçüncül Yol Rampası
     uk = З'їзд з дороги
@@ -9400,6 +9484,7 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.track]
     en = Track
@@ -9466,6 +9551,7 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.highway.traffic_signals]
     en = Traffic Lights
@@ -9541,11 +9627,13 @@
   [type.highway.trunk.tunnel]
     ref = type.highway.road.tunnel
     de = Schnellstraßentunnel
+    pt-BR = Túnel rodoviário
 
   [type.highway.trunk_link]
     ref = type.highway.trunk
     en = National Highway Ramp
     mr = राष्ट्रीय महामार्ग उतार
+    pt-BR = Saída de rodovia
     ru = Съезд с трассы
     uk = З'їзд з траси
     zh-Hans = 干线道路连接路
@@ -9557,6 +9645,7 @@
   [type.highway.trunk_link.tunnel]
     ref = type.highway.road.tunnel
     de = Straßentunnel
+    pt-BR = Túnel rodoviário
 
   [type.highway.unclassified]
     en = Minor Road
@@ -9602,10 +9691,12 @@
     ref = type.highway.road.tunnel
     de = Straßentunnel
     pl = Tunel drogowy
+    pt-BR = Túnel rodoviário
 
   [type.area_highway.cycleway]
     ref = type.highway.cycleway
     fi = Pyörätie
+    pt-BR = Caminho para ciclistas
 
   [type.area_highway.footway]
     ref = type.highway.footway
@@ -9615,6 +9706,7 @@
   [type.area_highway.living_street]
     ref = type.highway.living_street
     de = Wohnstraße
+    pt-BR = Rua residencial
 
   [type.area_highway.motorway]
     ref = type.highway.motorway
@@ -9626,6 +9718,7 @@
   [type.area_highway.pedestrian]
     ref = type.highway.pedestrian
     fi = Kävelykatu
+    pt-BR = Caminho pedonal
 
   [type.area_highway.primary]
     ref = type.highway.primary
@@ -9645,6 +9738,7 @@
   [type.area_highway.steps]
     ref = type.highway.steps
     fi = Portaat
+    pt-BR = Travessia
 
   [type.area_highway.track]
     ref = type.highway.track
@@ -9733,6 +9827,7 @@
   [type.historic.boundary_stone]
     en = Boundary Stone
     de = Grenzstein
+    fr = Borne frontière
     ja = 境界標
     pl = Historyczny kamień graniczny
     pt = Marco fronteiriço
@@ -10416,6 +10511,7 @@
     fr = Établissements éducatifs
     it = Strutture didattiche
     mr = शैक्षणिक सुविधा
+    pt-BR = Instituições educacionais
     ru = Образовательные учреждения
     uk = Освітній заклади
 
@@ -10910,6 +11006,7 @@
   [type.landuse.retail]
     en = Retail Land
     de = Einzelhandelsgebiet
+    fr = Zone commerciale
     ja = 小売店エリア
     mr = किरकोळ जमीन
     pl = Obszar handlu
@@ -11900,6 +11997,7 @@
   [type.man_made.cutline]
     en = Cutline
     de = Schneise
+    fr = Layon
     ja = 森林の切れ目
     pl = Przecinka leśna
     pt = Atalhada
@@ -11924,6 +12022,7 @@
   [type.man_made.flagpole]
     en = Flagpole
     be = Флагшток
+    fr = Mât de drapeau
     mr = ध्वजस्तंभ
     ru = Флагшток
     tr = Bayrak Direği
@@ -11966,6 +12065,7 @@
   [type.man_made.mast]
     en = Mast
     be = Мачта/вышка
+    fr = Mât
     mr = डोलकाठी
     ru = Мачта/вышка
     tr = Direk
@@ -12016,6 +12116,7 @@
     be = Сілас
     de = Silo
     mr = पेव(धान्यसाठा)
+    pt-BR = Silo
     ru = Элеватор
     tr = Ambar
     uk = Силос
@@ -12026,6 +12127,7 @@
     de = Speichertank
     fr = Réservoir
     mr = साठवण टाकी
+    pt-BR = Tanque de armazenagem
     ru = Резервуар
     tr = Depolama Tankı
     uk = Резервуар
@@ -12315,37 +12417,84 @@
     uk = Перевал
 
   [type.natural]
-    en = Natural
+    en = Nature
+    ar = طبيعة
+    be = Прырода
+    bg = Природа
+    cs = Příroda
+    da = Natur
     de = Natur
+    el = Φύση
+    es = Naturaleza
+    eu = Natura
+    fa = طبیعت
+    fi = Luonto
+    fr = Nature
+    he = טבע
+    hu = Természet
+    id = Alam
+    it = Natura
     ja = 自然
+    ko = 자연
     mr = नैसर्गिक
+    nb = Natur
     nl = Natuurlijk
     pl = Natura
     pt = Natureza
-    pt-BR = Natureza
+    ro = Natură
     ru = Природа
-    tr = Doğal
+    sk = Príroda
+    sv = Natur
+    sw = Uasilia
+    th = ธรรมชาติ
+    tr = Doğa
     uk = Природа
+    vi = Tự nhiên
     zh-Hans = 自然
+    zh-Hant = 自然
 
   [type.natural.bare_rock]
     en = Bare Rock
-    de = Nackter Fels
+    ar = الصخور العارية
+    be = Голая скала
+    bg = Гола скала
+    cs = Holá skála
+    da = Blottet klippe
+    de = Kahler Fels
+    el = Γυμνός βράχος
+    es = Roca desnuda
+    eu = Harkaitz biluzi
+    fa = سنگ برهنه
+    fi = Paljas kallio
     fr = Zone rocheuse
+    he = סלע חשוף
+    hu = Csupasz szikla
+    id = Batuan telanjang
+    it = Roccia nuda
     ja = 岩肌
+    ko = 베어 락
     mr = खडक
+    nb = Bar stein
     nl = Kale steen
     pl = Skała macierzysta
     pt = Zona rochosa
-    pt-BR = Zona rochosa
+    ro = Piatră goală
     ru = Скалы
+    sk = Holá skala
+    sv = Kala stenar
+    sw = Mwamba tupu
+    th = เปลือยร็อค
     tr = Çıplak Kaya
     uk = Скелi
+    vi = Đá trần
     zh-Hans = 岩石
+    zh-Hant = 岩石
 
   [type.natural.bay]
     en = Bay
     ar = خليج
+    be = Заліў
+    bg = Залив
     cs = Záliv
     da = Bugt
     de = Bucht
@@ -12355,6 +12504,7 @@
     fa = خلیج
     fi = Lahti
     fr = Baie
+    he = מפרץ
     hu = Öböl
     id = Teluk
     it = Baia
@@ -12365,11 +12515,11 @@
     nl = Baai
     pl = Zatoka
     pt = Baía
-    pt-BR = Baía
     ro = Golf
     ru = Залив
     sk = Záliv
     sv = Bukt
+    sw = Hori
     th = อ่าว
     tr = Koy
     uk = Затока
@@ -12380,6 +12530,8 @@
   [type.natural.beach]
     en = Beach
     ar = شاطئ
+    be = Пляж
+    bg = Плаж
     cs = Pláž
     da = Strand
     de = Strand
@@ -12389,6 +12541,7 @@
     fa = ساحل
     fi = Ranta
     fr = Plage
+    he = חוף חולי
     hu = Strand
     id = Pantai
     it = Spiaggia
@@ -12399,10 +12552,11 @@
     nl = Strand
     pl = Plaża
     pt = Praia
-    pt-BR = Praia
     ro = Plajă
     ru = Пляж
+    sk = Pláž
     sv = Strand
+    sw = Pwani
     th = ชายหาด
     tr = Plaj
     uk = Пляж
@@ -12411,44 +12565,104 @@
     zh-Hant = 海灘
 
   [type.natural.beach.sand]
-    en = Sandy Beach
+    en = Sand Beach
+    ar = شاطئ رملي
     be = Пяшчаны пляж
+    bg = Пясъчен плаж
+    cs = Písečná pláž
+    da = Sandet strand
     de = Sandstrand
+    el = Αμμουδιά
+    es = Playa de arena
+    eu = Hondartza hondartza
+    fa = ساحل شنی
+    fi = Hiekkainen ranta
+    fr = Plage de sable
+    he = חוף חולי
+    hu = Homokos part
+    id = Pantai berpasir
+    it = Spiaggia sabbiosa
+    ja = 砂浜
+    ko = 모래 사장
+    mr = वालुकामय समुद्रकिनारा
+    nb = Sandstrand
+    nl = Zandstrand
+    pl = Piaszczysta plaża
+    pt = Praia de areia
+    ro = Plaja nisipoasa
     ru = Песчаный пляж
+    sk = Piesočná pláž
+    sv = Sandig strand
+    sw = Pwani ya mchanga
+    th = หาดทราย
     tr = Kum Plajı
     uk = Піщаний пляж
+    vi = Bãi cát
+    zh-Hans = 沙滩
+    zh-Hant = 沙灘
 
   [type.natural.beach.gravel]
     en = Gravel Beach
+    ar = شاطئ جرافيل
     be = Галечны пляж
+    bg = Чакълест плаж
+    cs = Štěrková pláž
+    da = Grus Strand
     de = Kiesstrand
+    el = Παραλία Χαλίκι
+    es = Playa de grava
+    eu = Legar Hondartza
+    fa = ساحل شن
+    fi = Soraranta
+    fr = Plage de gravier
+    he = חוף חצץ
+    hu = Kavicsos strand
+    id = Pantai Kerikil
+    it = Spiaggia di ghiaia
+    ja = グラベルビーチ
+    ko = 자갈 해변
+    mr = रेव बीच
+    nb = Grusstrand
+    nl = Kiezelstrand
+    pl = Żwirowa plaża
+    pt = Praia de Cascalho
+    ro = Plaja cu pietriș
     ru = Галечный пляж
+    sk = Štrková pláž
+    sv = Grusstrand
+    sw = Pwani ya Gravel
+    th = หาดกรวด
     tr = Çakıl Plajı
     uk = Гальковий пляж
+    vi = Bãi biển sỏi
+    zh-Hans = 砾石海滩
+    zh-Hant = 礫石海灘
 
   [type.natural.cape]
     en = Cape
     ar = رأس
+    be = Мыс
+    bg = Нос
     cs = Mys
     da = Tange
     de = Kap
     el = Ακρωτήρι
     es = Cabo
-    es-MX = Cabo
     eu = Lurmuturra
     fa = دماغه
     fi = Niemeke
     fr = Cap
+    he = לשון יבשה
     hu = Hegytető
     id = Tanjung
     it = Capo
     ja = 岬
     ko = 곶
+    mr = केप
     nb = Kapp
     nl = Kaap
     pl = Przylądek
     pt = Cabo
-    pt-BR = Cabo
     ro = Mantie
     ru = Мыс
     sk = Mys
@@ -12464,6 +12678,8 @@
   [type.natural.cave_entrance]
     en = Cave
     ar = كهف
+    be = Пячора
+    bg = Пещера
     cs = Jeskyně
     da = Hule
     de = Höhle
@@ -12473,6 +12689,7 @@
     fa = غار
     fi = Luola
     fr = Grotte
+    he = מערה
     hu = Barlang
     id = Gua
     it = Grotta
@@ -12483,11 +12700,11 @@
     nl = Grot
     pl = Jaskinia
     pt = Caverna
-    pt-BR = Caverna
     ro = Peșteră
     ru = Пещера
     sk = Jaskyňa
     sv = Grotta
+    sw = Pango
     th = ถ้ำ
     tr = Mağara
     uk = Печера
@@ -12497,37 +12714,157 @@
 
   [type.natural.cliff]
     en = Cliff
+    ar = جرف
+    be = Уцёс
+    bg = Клиф
+    cs = Útes
+    da = Klippe
     de = Klippe
+    el = Γκρεμός
+    es = Acantilado
+    eu = Labar
+    fa = پرتگاه
+    fi = Jyrkänne
     fr = Falaise
+    he = צוק
+    hu = Szikla
+    id = Tebing
+    it = Falesia
     ja = 崖
+    ko = 절벽
     mr = कडा
+    nb = Klippe
     nl = Klif
     pl = Klif
     pt = Falésia
-    pt-BR = Falésia
+    ro = Faleză
+    ru = Утёс
+    sk = Útes
+    sv = Klint
+    sw = Mwamba
+    th = หน้าผา
+    tr = Uçurum
+    uk = Урвище
+    vi = Vách đá
+    zh-Hans = 悬崖
+    zh-Hant = 懸崖
+
+  [type.natural.earth_bank]
+    en = Earth Bank
+    ar = بنك الأرض
+    be = Абрыў
+    bg = Скала
+    cs = Útes
+    da = Jordbanken
+    de = Steilabhang
+    el = Γκρεμός
+    es = Acantilado
+    eu = Labarra
+    fa = صخره
+    fi = Kallio
+    fr = Falaise
+    he = צוּק
+    hu = Szikla
+    id = Jurang
+    it = Scogliera
+    ja = 崖
+    ko = 낭떠러지
+    mr = उंच कडा
+    nb = Klippe
+    nl = Klif
+    pl = Żleb
+    pt = Penhasco
+    ro = Faleza
     ru = Обрыв
+    sk = Útes
+    sv = Klippa
+    sw = Mwamba
+    th = หน้าผา
     tr = Uçurum
     uk = Обрив
-    zh-Hans = 峭壁
+    vi = Vách đá
+    zh-Hans = 悬崖
+    zh-Hant = 懸崖
+
+  [type.man_made.embankment]
+    en = Embankment
+    ar = سد
+    be = Насып
+    bg = Насип
+    cs = Násyp
+    da = Dæmning
+    de = Damm
+    el = Ανάχωμα
+    es = Terraplén
+    eu = Lubeta
+    fa = خاک‌ریز
+    fi = Pengerrys
+    fr = Talus
+    he = סוֹלְלָה
+    hu = Töltés
+    id = Tanggul
+    it = Rilevato
+    ja = 盛土
+    ko = 둑
+    mr = तटबंदी
+    nb = Fylling
+    nl = Baanlichaam
+    pl = Nasyp
+    pt = Aterro
+    ro = Rambleu
+    ru = Насыпь
+    sk = Násyp
+    sv = Vägbank
+    sw = Tuta
+    th = เขื่อน
+    tr = Set
+    uk = Насип
+    vi = Kè
+    zh-Hans = 路堤
+    zh-Hant = 路堤
 
   [type.natural.coastline]
     en = Coastline
-    de = Küstenlinie
+    ar = ساحل
+    be = Узбярэжжа
+    bg = Крайбрежие
+    cs = Pobřeží
+    da = Kyst
+    de = Küste
+    el = Ακτή
+    es = Costa
+    eu = Itsasertz
+    fa = کناره
+    fi = Rannikko
     fr = Littoral
+    he = חוף
+    hu = Tengerpart
+    id = Pesisir
+    it = Costa
     ja = 海岸線
+    ko = 연안
     mr = किनारपट्टी
+    nb = Kyst
     nl = Kustlijn
     pl = Linia brzegowa
     pt = Linha costeira
-    pt-BR = Linha costeira
+    ro = Relief litoral
     ru = Береговая линия
+    sk = Pobrežie
+    sv = Kust
+    sw = Pwani
+    th = ชายฝั่ง
     tr = Kıyı Şeridi
     uk = Берегова лiнiя
+    vi = Bờ biển
     zh-Hans = 海岸线
+    zh-Hant = 海岸線
 
   [type.natural.geyser]
     en = Geyser
     ar = نبع ماء حار
+    be = Гейзер
+    bg = Гейзер
     cs = Gejzír
     da = Gejser
     de = Geysir
@@ -12538,15 +12875,17 @@
     fa = چشمه آب گرم
     fi = Geysir
     fr = Geyser
+    he = גייזר
     hu = Gejzír
     id = Geiser
     it = Geyser
     ja = 間欠泉
     ko = 간헐천
+    mr = गिझर
     nb = Gaysir
     nl = Geiser
     pl = Gejzer
-    pt = Gêiser
+    pt = Géiser
     pt-BR = Gêiser
     ro = Gheizer
     ru = Гейзер
@@ -12563,6 +12902,8 @@
   [type.natural.glacier]
     en = Glacier
     ar = كتلة جليدية
+    be = Ледавік
+    bg = Ледник
     cs = Ledovec
     da = Gletsjer
     de = Gletscher
@@ -12573,6 +12914,7 @@
     fa = یخچال طبیعی
     fi = Jäätikkö
     fr = Glacier
+    he = קרחון
     hu = Gleccser
     id = Gletser
     it = Ghiacciaio
@@ -12597,72 +12939,121 @@
     zh-Hant = 冰川
 
   [type.natural.grassland]
-    en = Field
-    ar = ملعب
-    cs = Pole
-    da = Mark
+    en = Grassland
+    ar = أرض عشبية
+    be = Луг
+    bg = Пасища
+    cs = Louky a pastviny
+    da = Græsslette
     de = Grasland
-    el = Λιβάδι
-    es = Campo
-    es-MX = Campo
-    eu = Landa
-    fa = کشتزار
-    fi = Pelto
-    fr = Champ
-    hu = Mező
-    id = Ladang
-    it = Campo
-    ja = 野原
-    ko = 밭
-    mr = क्षेत्र
-    nb = Slette
-    nl = Veld
-    pl = Pastwisko
-    pt = Pradaria
-    pt-BR = Pradaria
-    ro = Câmp
-    ru = Поле
-    sk = Lúka
-    sv = Fältet
-    sw = Shamba
+    el = Βοσκότοποι
+    es = Herbazal
+    eu = Belartza
+    fa = علفزار
+    fi = Nurmi
+    fr = Pelouse
+    he = ערבה
+    hu = Füves puszta
+    id = Padang rumput
+    it = Prateria
+    ja = 草原
+    ko = 초원
+    mr = गवताळ प्रदेश
+    nb = Sletteland
+    nl = Grasland
+    pl = Formacje trawiaste
+    pt = Campo
+    ro = Pajiști
+    ru = Луг
+    sk = Pasienky
+    sv = Gräsmarker
+    sw = Nyasi
     th = ทุ่งหญ้า
-    tr = Yeşillik
-    uk = Поле
-    vi = Cánh đồng
+    tr = Campo
+    uk = Луг
+    vi = Đồng cỏ
     zh-Hans = 草原
-    zh-Hant = 田野
+    zh-Hant = 草原
 
   [type.natural.heath]
     en = Heath
+    ar = براح
+    be = Пустка
+    bg = Пустош
+    cs = Vřesoviště
+    da = Hede
     de = Heide
+    el = Ρείκι
+    es = Brezal
+    eu = Zakardi
+    fa = خلنگزار
+    fi = Nummi
     fr = Lande
+    he = עֲרָבָה
+    hu = Fenyér
+    id = Lahan kosong
+    it = Landa
     ja = ヒース
+    ko = 히스
+    mr = हिथ
+    nb = Heath
     nl = Heide
     pl = Wrzosowisko
     pt = Charneca
-    pt-BR = Charneca
+    ro = Landă
     ru = Пустошь
+    sk = Heath
+    sv = Hed
+    sw = Afya
+    th = เฮลธ์
     tr = Çalı
     uk = Пустище
-    zh-Hans = 荒野
+    vi = Cây thạch thảo
+    zh-Hans = 石楠荒原
+    zh-Hant = 石楠荒原
 
   [type.natural.hot_spring]
     en = Hot Spring
+    ar = حمة
+    be = Геатэрмальная крыніца
+    bg = Геотермален извор
+    cs = Termální pramen
+    da = Varm kilde
     de = Thermalquelle
+    el = Ιαματικές πηγές
+    es = Aguas termales
+    eu = Ur termal
+    fa = چشمه آب‌گرم
+    fi = Kuuma lähde
     fr = Source chaude
+    he = מעיין חם
+    hu = Termálvíz
+    id = Mata air panas
+    it = Sorgente calda
     ja = 温泉
+    ko = 온천
+    mr = गरम पाण्याचे झरे
+    nb = Varm kilde
     nl = Heetwaterbron
     pl = Gorące źródło
     pt = Nascente de água quente
-    pt-BR = Nascente de água quente
+    ro = Izvor termal
     ru = Горячий источник
+    sk = Termálny prameň
+    sv = Het källa
+    sw = Majira ya joto
+    th = บ่อน้ำร้อน
     tr = Kaplıca
     uk = Горяче джерело
+    vi = Suối nước nóng
     zh-Hans = 温泉
+    zh-Hant = 溫泉
 
   [type.natural.water.lake]
     en = Lake
     ar = بحيرة
+    be = Возера
+    bg = Езеро
     cs = Jezero
     da = Sø
     de = See
@@ -12672,6 +13063,7 @@
     fa = دریاچه
     fi = Järvi
     fr = Lac
+    he = אגם
     hu = Tó
     id = Danau
     it = Lago
@@ -12682,11 +13074,11 @@
     nl = Meer
     pl = Jezioro
     pt = Lago
-    pt-BR = Lago
     ro = Lac
     ru = Озеро
     sk = Jazero
     sv = Sjö
+    sw = Ziwa
     th = ทะเลสาบ
     tr = Göl
     uk = Озеро
@@ -12707,18 +13099,18 @@
     eu = Sarraila Ganbera
     fa = ﻞﻔﻗ ﻕﺎﺗﺍ
     fi = Lukko kammio
-    fr = Chambre de verrouillage
+    fr = Écluse
     he = לוענמ את
     hu = Zsilipkamra
     id = Ruang Kunci
     it = Camera di blocco
     ja = ロックチャンバー
     ko = 잠금 챔버
+    mr = लॉक
     nb = Låsekammer
     nl = Slotkamer
     pl = Komora zamka
-    pt = Câmara de Bloqueio
-    pt-BR = Câmara de Bloqueio
+    pt = Câmara de Eclusa
     ro = Camera de blocare
     ru = Шлюзовая камера
     sk = Uzamykacia komora
@@ -12728,13 +13120,14 @@
     tr = Kilit Odası
     uk = Замкова камера
     vi = Khoang khóa
-    zh-Hans = 锁室
-    zh-Hant = 鎖室
+    zh-Hans = 船闸
+    zh-Hant = 船閘
 
   [type.natural.water.pond]
     en = Pond
     ar = بركة
     be = Сажалка
+    bg = Езерце
     cs = Rybník
     da = Dam
     de = Teich
@@ -12744,6 +13137,7 @@
     fa = تالاب
     fi = Lampi
     fr = Étang
+    he = בריכה
     hu = Tavacska
     id = Kolam
     it = Stagno
@@ -12754,11 +13148,11 @@
     nl = Plas
     pl = Staw
     pt = Lagoa
-    pt-BR = Lagoa
     ro = Heleșteu
     ru = Пруд
     sk = Rybník
     sv = Damm
+    sw = Bwawa
     th = บ่อ
     tr = Gölet
     uk = Ставок
@@ -12828,7 +13222,6 @@
     nl = Waterbassin
     pl = Zbiornik
     pt = Reservatório
-    pt-BR = Reservatório
     ro = Bazin de apă
     ru = Резервуар
     sk = Vodná nádrž
@@ -12845,6 +13238,7 @@
     en = River
     ar = نهر
     be = Рака
+    bg = Река
     cs = Řeka
     da = Flod
     de = Fluss
@@ -12854,6 +13248,7 @@
     fa = رودخانه
     fi = Joki
     fr = Rivière
+    he = נהר
     hu = Folyó
     id = Sungai
     it = Fiume
@@ -12864,11 +13259,11 @@
     nl = Rivier
     pl = Rzeka
     pt = Rio
-    pt-BR = Rio
     ro = Râu
     ru = Река
     sk = Rieka
     sv = Flod
+    sw = Mto
     th = แม่น้ำ
     tr = Nehir
     uk = Річка
@@ -12878,48 +13273,120 @@
 
   [type.natural.land]
     en = Land
+    ar = بر
     be = Суша
+    bg = Суша
+    cs = Země
+    da = Land
+    de = Land
+    el = Στεριά
+    es = Tierra
+    eu = Lur lehor
+    fa = خشکی
+    fi = Maa
+    fr = Terrain
+    he = ארץ
+    hu = Föld
+    id = Daratan
+    it = Terra
     ja = 陸地
+    ko = 땅
     mr = जमीन
+    nb = Land
     nl = Land
+    pl = Grunt
     pt = Campo
-    pt-BR = Campo
+    ro = Teren
     ru = Суша
+    sk = Pôda
+    sv = Landa
+    sw = Nchi kavu
+    th = พื้นดิน
     tr = Arazi
     uk = Суша
+    vi = Đất liền
+    zh-Hans = 陆地
+    zh-Hant = 陸地
 
   [type.natural.meadow]
     en = Meadow
+    ar = مرج
     be = Луг
+    bg = Ливада
+    cs = Louka
+    da = Eng
     de = Wiese
+    el = Λιβάδι
+    es = Prado
+    eu = Belardi
+    fa = چمنزار
+    fi = Niitty
+    fr = Prairie
+    he = אָחוּ
+    hu = Rét
+    id = Padang rumput
+    it = Prato
     ja = 牧草地
+    ko = 초지
     mr = कुरण
+    nb = Eng
     nl = Weiland
     pl = Łąka
     pt = Pradaria
-    pt-BR = Pradaria
+    ro = Fâneață
     ru = Луг
+    sk = Lúka
+    sv = Äng
+    sw = Meadow
+    th = ทุ่งหญ้า
     tr = Çayır
     uk = Луг
+    vi = Thảo điền
+    zh-Hans = 草甸
+    zh-Hant = 草甸
 
   [type.natural.orchard]
     en = Orchard
+    ar = بستان
     be = Сад
+    bg = Овощна градина
+    cs = Sad
+    da = Frugthave
     de = Garten
+    el = Οπωρώνας
+    es = Huerto frutal
+    eu = Baratzea
+    fa = باغ میوه
+    fi = Hedelmänviljely
+    fr = Verger
+    he = פרדס
+    hu = Gyümölcsöskert
+    id = Kebun
+    it = Frutteto
     ja = 果樹園
+    ko = 과수원
     mr = फळबागा
+    nb = Frukthage
     nl = Boomgaard
     pl = Sad
     pt = Pomar
-    pt-BR = Pomar
+    ro = Livadă
     ru = Сад
+    sk = Sad
+    sv = Fruktodling
+    sw = Bustani
+    th = สวนผลไม้
     tr = Meyve Bahçesi
     uk = Сад
+    vi = Vườn cây ăn trái
+    zh-Hans = 果园
+    zh-Hant = 果園
 
   [type.natural.peak]
     en = Peak
     ar = قمة
     be = Вяршыня
+    bg = Връх
     cs = Hora
     da = Bjerg
     de = Gipfel
@@ -12929,6 +13396,7 @@
     fa = قله
     fi = Huippu
     fr = Sommet
+    he = פסגה
     hu = Csúcs
     id = Puncak
     it = Monte
@@ -12939,11 +13407,11 @@
     nl = Top
     pl = Szczyt
     pt = Pico
-    pt-BR = Pico
     ro = Munte
     ru = Гора
     sk = Hora
     sv = Bergstopp
+    sw = Kilele
     th = จุดสูงสุด
     tr = Zirve
     uk = Гора
@@ -12953,32 +13421,83 @@
 
   [type.natural.saddle]
     en = Mountain Saddle
+    ar = سرج الجبل
     be = Седлавіна
+    bg = Седло
+    cs = Sedlo
+    da = Bjergsadel
     de = Bergsattel
+    el = Σέλα Βουνού
+    es = Silla de montaña
+    eu = Mendiko jarlekua
+    fa = زین کوه
+    fi = Vuoristo satula
     fr = Col de montagne
+    he = אוכף הרים
+    hu = Hegyi nyereg
+    id = Pelana Gunung
     it = Sella
+    ja = 鞍部
+    ko = 산 안장
+    mr = माउंटन सॅडल
+    nb = Fjellsadel
+    nl = Bergzadel
+    pl = Siodło
+    pt = Sela da Montanha
+    ro = Sela da Montanha
     ru = Седловина
+    sk = Sedlo
+    sv = Fjällsadel
+    sw = Tandiko la mlima
+    th = อานภูเขา
     tr = Dağ Eyeri
     uk = Сідловина
+    vi = Col
+    zh-Hans = 山坳
+    zh-Hant = 山坳
 
   [type.natural.rock]
     en = Rock
+    ar = صخر
+    be = Горная парода
+    bg = Скала
+    cs = Hornina
+    da = Bjergart
     de = Fels
+    el = Πέτρωμα
+    es = Roca
+    eu = Arroka
+    fa = سنگ
+    fi = Kivi
     fr = Rocher
+    he = סלע
+    hu = Kőzet
+    id = Batu
+    it = Roccia
     ja = 岩
+    ko = 암석
     mr = खडक
+    nb = Bergart
     nl = Steen
     pl = Skała
     pt = Rochedo
-    pt-BR = Rochedo
+    ro = Rocă
     ru = Камень
+    sk = Hornina
+    sv = Bergart
+    sw = Mwamba
+    th = หิน
     tr = Kaya
     uk = Камiнь
+    vi = Đá
     zh-Hans = 岩石
+    zh-Hant = 岩石
 
   [type.natural.scrub]
     en = Scrub
     ar = أَيْكَة
+    be = Зараснікі
+    bg = Гъсталаци
     cs = Křoviny
     da = Kratbevokset område
     de = Dickicht
@@ -12989,6 +13508,7 @@
     fa = بوته زار
     fi = Tiheiköt
     fr = Fourré
+    he = בתה
     hu = Cserjés
     id = Semak
     it = Boscaglia
@@ -12999,7 +13519,6 @@
     nl = Kreupel bos
     pl = Zarośla
     pt = Matagal
-    pt-BR = Matagal
     ro = Boschet
     ru = Заросли
     sk = Krovie
@@ -13015,6 +13534,8 @@
   [type.natural.spring]
     en = Spring
     ar = ينبوع
+    be = Крыніца
+    bg = Извор
     cs = Pramen
     da = Kilde
     de = Quelle
@@ -13024,6 +13545,7 @@
     fa = چشمه
     fi = Lähde
     fr = Source
+    he = מעיין
     hu = Forrás
     id = Mata air
     it = Sorgente
@@ -13034,11 +13556,11 @@
     nl = Bron
     pl = Źródło
     pt = Nascente
-    pt-BR = Nascente
     ro = Izvor
     ru = Родник
     sk = Prameň
     sv = Vattenkälla
+    sw = Chemchemi
     th = ฤดูใบไม้ผลิ
     tr = Pınar
     uk = Джерело
@@ -13049,6 +13571,8 @@
   [type.natural.strait]
     en = Strait
     ar = مضيق
+    be = Праліў
+    bg = Проток
     cs = Průliv
     da = Stræde
     de = Meerenge
@@ -13059,6 +13583,7 @@
     fa = تنگه
     fi = Salmi
     fr = Détroit
+    he = מצר ים
     hu = Szoros
     id = Selat
     it = Stretto
@@ -13069,7 +13594,6 @@
     nl = Zeestraat
     pl = Cieśnina
     pt = Estreito
-    pt-BR = Estreito
     ro = Strâmtoare
     ru = Пролив
     sk = Prieliv
@@ -13085,6 +13609,8 @@
   [type.natural.tree]
     en = Tree
     ar = شجرة
+    be = Дрэва
+    bg = Дърво
     cs = Strom
     da = Træ
     de = Baum
@@ -13094,6 +13620,7 @@
     fa = درخت
     fi = Puu
     fr = Arbre
+    he = עץ
     hu = Fa
     id = Pohon
     it = Albero
@@ -13104,11 +13631,11 @@
     nl = Boom
     pl = Drzewo
     pt = Árvore
-    pt-BR = Árvore
     ro = Arbore
     ru = Дерево
     sk = Strom
     sv = Träd
+    sw = Mti
     th = ต้นไม้
     tr = Ağaç
     uk = Дерево
@@ -13118,35 +13645,83 @@
 
   [type.natural.tree_row]
     en = Tree Row
+    ar = صف الشجرة
+    be = Шэраг дрэў
+    bg = Ред дървета
+    cs = Řada stromů
+    da = Trærækker
     de = Allee
+    el = Σειρά δέντρων
+    es = Fila de árboles
+    eu = Zuhaitz ilara
+    fa = ردیف درخت
+    fi = Puurivi
     fr = Rangée d'arbre
+    he = שורת עצים
+    hu = Fa sor
+    id = Baris pohon
+    it = Fila di alberi
     ja = 並木
+    ko = 나무 행
     mr = झाडाची रांग
+    nb = Trerekke
     nl = Bomenrij
     pl = Rząd drzew
     pt = Linha de árvores
-    pt-BR = Linha de árvores
+    ro = Rândul de copaci
     ru = Ряд деревьев
+    sk = Stromový rad
+    sv = Trädrad
+    sw = Safu ya mti
+    th = แถวต้นไม้
     tr = Ağaç Sırası
     uk = Ряд дерев
+    vi = Hàng cây
     zh-Hans = 树列
+    zh-Hant = 樹列
 
   [type.natural.vineyard]
     en = Vineyard
+    ar = كرم
+    be = Вінаграднік
+    bg = Лозе
+    cs = Vinice
+    da = Vingård
     de = Weinberg
+    el = Αμπελώνας
+    es = Viña
+    eu = Mahasti
+    fa = تاکستان
+    fi = Viinitila
+    fr = Vignoble
+    he = כרם
+    hu = Szőlőskert
+    id = Kebun anggur
+    it = Vigneto
     ja = ブドウ園
+    ko = 포도원
     mr = द्राक्षमळा
+    nb = Vingård
     nl = Wijngaard
     pl = Winnica
     pt = Vinha
-    pt-BR = Vinha
+    ro = Vie
     ru = Виноградник
+    sk = Vinohrad
+    sv = Vingård
+    sw = Shamba la mizabibu
+    th = ไร่องุ่น
     tr = Bağ
     uk = Виноградник
+    vi = Vườn nho
+    zh-Hans = 葡萄园
+    zh-Hant = 葡萄園
 
   [type.natural.volcano]
     en = Volcano
     ar = بركان
+    be = Вулкан
+    bg = Вулкан
     cs = Sopka
     da = Vulkan
     de = Vulkan
@@ -13156,6 +13731,7 @@
     fa = اتشفشان
     fi = Tulivuori
     fr = Volcan
+    he = הר געש
     hu = Tűzhányó
     id = Gunung berapi
     it = Vulcano
@@ -13166,11 +13742,11 @@
     nl = Vulkaan
     pl = Wulkan
     pt = Vulcão
-    pt-BR = Vulcão
     ro = Vulcan
     ru = Вулкан
     sk = Vulkán
     sv = Vulkan
+    sw = Volkeno
     th = ภูเขาไฟ
     tr = Volkan
     uk = Вулкан
@@ -13203,11 +13779,11 @@
     nl = Waterlichaam
     pl = Akwen
     pt = Corpo de água
-    pt-BR = Corpo de água
     ro = Apă
     ru = Водоём
     sk = Voda
     sv = Vatten
+    sw = Maji
     th = แหล่งน้ำ
     tr = Su Kaynağı
     uk = Водоймище
@@ -13218,6 +13794,8 @@
   [type.natural.wetland]
     en = Wetland
     ar = منطقة رطبة
+    be = Балоцістая мясцовасць
+    bg = Влажна зона
     cs = Mokřadní oblast
     da = Vådområde
     de = Feuchtgebiet
@@ -13228,6 +13806,7 @@
     fa = ناحیه تالابی
     fi = Suoperäinen seutu
     fr = Zone humide
+    he = ביצה
     hu = Vizes terület
     id = Area lahan basah
     it = Terreno paludoso
@@ -13238,7 +13817,6 @@
     nl = Moerasland
     pl = Tereny podmokłe
     pt = Zona úmida
-    pt-BR = Zona úmida
     ro = Loc mlăștinos
     ru = Болотистая местность
     sk = Oblasť mokradí
@@ -13252,34 +13830,78 @@
     zh-Hant = 沼澤
 
   [type.natural.wetland.bog]
-    en = Wetland
+    en = Bog
+    ar = رخاخ
+    be = Тарфянік
+    bg = Торфено блато
+    cs = Rašeliniště
+    da = Mose
     de = Moor
+    el = Βάλτος
+    es = Turbera
+    eu = Zohikaztegi
+    fa = خلاش
+    fi = Suo
     fr = Tourbière
+    he = ביצת כבול
+    hu = Láp
+    id = Rawa gambut
+    it = Torbiera
     ja = 泥炭地
+    ko = 수렁
     mr = ओलिताची जमीन
+    nb = Myr
     nl = Moeras
     pl = Torfowisko
     pt = Zona úmida
-    pt-BR = Zona úmida
+    ro = Turbărie
     ru = Торфяное болото
+    sk = Rašelinisko
+    sv = Myr
+    sw = Bogi
+    th = พรุ
     tr = Sulak Alan
     uk = Торф'яне болото
+    vi = Đầm lầy toan
     zh-Hans = 泥炭地
+    zh-Hant = 泥炭地
 
   [type.natural.wetland.marsh]
-    en = Wetland
+    en = Marsh
+    ar = هور
+    be = Балота
+    bg = Блато
+    cs = Bažina
+    da = Marsk
     de = Sumpf
+    el = Έλος
+    es = Ciénaga
+    eu = Padura
+    fa = مرداب
+    fi = Marsh
     fr = Marais
+    he = ביצת עשב
+    hu = Mocsár
+    id = Paya
+    it = Palude
     ja = 沼地
+    ko = 소택
     mr = ओलिताची जमीन
+    nb = Sump
     nl = Moeras
     pl = Moczary
     pt = Zona úmida
-    pt-BR = Zona úmida
+    ro = Mlaştină
     ru = Болотистая местность
+    sk = Močiar
+    sv = Kärr
+    sw = Marsh
+    th = ที่ลุ่มชื้นแฉะ
     tr = Sulak Alan
     uk = Болотиста мiсцевiсть
-    zh-Hans = 沼泽地
+    vi = Đầm lầy cỏ
+    zh-Hans = 草沼
+    zh-Hant = 草沼
 
   [type.noexit]
     en = Dead End
@@ -13501,7 +14123,7 @@
     ar = مكتب مؤسسة خيرية
     cs = Kancelář nevládní organizace
     da = NGO-kontor
-    de = Büro einer Nichtregierungsorganisation
+    de = Nichtregierungsorganisation
     el = Γραφείο ΜΚΟ
     es = Sede de ONG
     eu = GKEen egoitza
@@ -14085,6 +14707,7 @@
   [type.place.square]
     en = Square
     de = Platz
+    fr = Place
     ja = 広場
     mr = चौरस
     pl = Plac
@@ -14502,6 +15125,7 @@
   [type.railway.abandoned]
     en = Abandoned railway
     de = Ehemalige Eisenbahnstrecke
+    fr = Chemin de fer abandonné
     ja = 廃線
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
@@ -14513,6 +15137,7 @@
   [type.railway.abandoned.bridge]
     en = Abandoned railway
     de = Ehemalige Eisenbahnbrücke
+    fr = Chemin de fer abandonné
     ja = 廃線(橋)
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
@@ -14524,6 +15149,7 @@
   [type.railway.abandoned.tunnel]
     en = Abandoned Railway
     de = Ehemaliger Eisenbahntunnel
+    fr = Chemin de fer abandonné
     ja = 廃線(トンネル)
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
@@ -14535,6 +15161,7 @@
   [type.railway.construction]
     en = Railway's Construction
     de = Eisenbahnstrecke im Bau
+    fr = Chemin de fer en construction
     ja = 建設中の鉄道
     mr = रेल्वेचे बांधकाम
     pt = Ferrovia em construção
@@ -14547,6 +15174,7 @@
   [type.railway.crossing]
     en = Railway Crossing
     de = Bahnübergang
+    fr = Traversée de voie ferrée
     ja = 歩行者用踏切
     mr = रेल्वे ओलांडणी
     pt = Passagem pedestre
@@ -14558,6 +15186,7 @@
   [type.railway.disused]
     en = Disused railway
     de = Stillgelegte Bahnstrecke
+    fr = Chemin de fer désaffecté
     ja = 休止線
     pt = Ferrovia em desuso
     pt-BR = Ferrovia em desuso
@@ -14610,6 +15239,7 @@
     de = Haltepunkt
     pl = Przystanek kolejowy
     pt = Apeadeiro
+    pt-BR = Ponto de parada
     zh-Hans = 小站
     zh-Hant = 小站
 
@@ -14786,6 +15416,7 @@
     en = Railway Platform
     be = Чыгуначная платформа
     de = Bahnsteig
+    fr = Quai de gare
     ja = プラットホーム
     mr = रेल्वे फलाट
     pt = Plataforma ferroviária
@@ -14798,6 +15429,7 @@
   [type.railway.preserved]
     en = Preserved Rail
     de = Museumsbahn
+    fr = Chemin de fer touristique
     ja = 保存鉄道
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
@@ -14864,6 +15496,7 @@
   [type.railway.rail.bridge]
     en = Railway
     de = S-Bahn-Brücke
+    fr = Chemin de fer
     ja = 鉄道(橋)
     mr = रेल्वे
     pt = Ferrovia
@@ -14890,6 +15523,7 @@
   [type.railway.rail.tunnel]
     en = Railway
     de = S-Bahn-Tunnel
+    fr = Chemin de fer
     ja = 鉄道(鉄道)
     mr = रेल्वे
     pt = Ferrovia
@@ -15026,7 +15660,7 @@
     eu = Metroa
     fa = حمل و نقل
     fi = Metro
-    fr = Métro
+    fr = Station de métro
     hu = Földalatti
     id = Stasiun bawah tanah
     it = Metrò
@@ -15332,7 +15966,7 @@
     eu = Metroa
     fa = حمل و نقل
     fi = Metro
-    fr = Métro
+    fr = Station de métro
     hu = Földalatti
     id = Stasiun bawah tanah
     it = Metrò
@@ -15426,7 +16060,7 @@
   [type.railway.subway]
     en = Subway Line
     de = U-Bahn
-    fr = Ligne de métroo
+    fr = Ligne de métro
     mr = भुयारी मार्गिका
     pt = Metropolitano
     pt-BR = Metrô
@@ -16451,6 +17085,7 @@
   [type.shop.caravan]
     en = RV Dealership
     be = Продаж аўтадамоў
+    fr = Concessionnaire de caravanes et camping-cars
     ru = Продажа автодомов
     tr = Karavan Bayiliği
     uk = Продаж автобудинків
@@ -18282,48 +18917,119 @@
     zh-Hant = 販酒處
 
   [type.sport]
-    en = sport
+    en = Sport
+    ar = رياضة
+    be = Спорт
+    bg = Спорт
+    cs = Sport
+    da = Sport
     de = Sport
+    el = Αθλητισμός
     es = Deporte
     eu = Kirola
+    fa = ورزش
     fi = Urheilu
+    fr = Sport
+    he = ספורט
+    hu = Sport
+    id = Olahraga
+    it = Sport
     ja = スポーツ
+    ko = 스포츠
     mr = क्रीडा
+    nb = Sport
+    nl = Sport
+    pl = Sport
     pt = Desporto
     pt-BR = Esporte
+    ro = Sport
     ru = Спорт
+    sk = Šport
+    sv = Sport
+    sw = Michezo
+    th = กีฬา
     tr = Spor
     uk = Спорт
+    vi = Thể thao
+    zh-Hans = 体育运动
+    zh-Hant = 體育運動
 
   [type.sport.american_football]
     en = American Football
+    ar = كرة القدم الأمريكية
+    be = Амерыканскі футбол
+    bg = Американски футбол
+    cs = Americký fotbal
+    da = Amerikansk fodbold
     de = American Football
+    el = αμερικάνικο ποδόσφαιρο
     es = Fútbol americano
     eu = Futbola
+    fa = فوتبال آمریکایی
     fi = Amerikkalainen jalkapallo
+    fr = Football américain
+    he = כדורגל אמריקאי
+    hu = Amerikai foci
+    id = Sepak Bola Amerika
+    it = Football americano
     ja = アメリカンフットボール
+    ko = 미식 축구
+    mr = अमेरिकन फुटबॉल
+    nb = Amerikansk fotball
+    nl = Amerikaans voetbal
     pl = Futbol amerykański
-    pt = Futebol americano
+    pt = Futebol Americano
     pt-BR = Futebol americano
+    ro = Fotbal american
     ru = Американский футбол
+    sk = Americký futbal
+    sv = Amerikansk fotboll
+    sw = Soka ya Marekani
+    th = อเมริกันฟุตบอล
     tr = Amerikan Futbolu
     uk = Американський футбол
+    vi = Bóng bầu dục Mỹ
+    zh-Hans = 美式足球
+    zh-Hant = 美式足球
 
   [type.sport.archery]
     en = Archery
+    ar = الرماية
+    be = Стральба з лука
+    bg = Стрелба с лък
+    cs = Lukostřelba
+    da = Bueskydning
     de = Bogenschießen
-    es = Tiro con arco
+    el = Τοξοβολία
+    es = Tiro al arco
+    es-MX = Tiro al arco
     eu = Arku-tiroa
+    fa = تیراندازی با کمان
     fi = Jousiammunta
     fr = Tir à l'arc
+    he = קַשׁתוּת
+    hu = Íjászat
+    id = Panahan
+    it = Tiro con l'arco
     ja = アーチェリー
+    ko = 양궁
     mr = धनुर्विद्या
-    pl = Łucznictwo sportowe
+    nb = Bueskyting
+    nl = Boogschieten
+    pl = Łucznictwo
     pt = Tiro com arco
     pt-BR = Tiro com arco
+    ro = TIR cu arcul
     ru = Стрельба из лука
+    sk = Lukostreľba
+    sv = Bågskytte
+    sw = Upigaji mishale
+    th = ยิงธนู
     tr = Okçuluk
-    uk = Стрiльба з лука
+    uk = Стрільба з лука
+    vi = Bắn cung
+    zh-Hans = 射箭
+    zh-Hant = 射箭
 
   [type.sport.athletics]
     en = Athletics
@@ -18358,36 +19064,79 @@
     tr = Atletizm
     uk = Легка атлетика
     vi = Điền kinh
-    zh-Hans = 田径
-    zh-Hant = 田徑
+    zh-Hans = 竞技
+    zh-Hant = 競技
 
   [type.sport.australian_football]
-    en = Rugby
-    de = Rugby
+    en = Australian Football
+    ar = كرة القدم الأسترالية
+    be = Аўстралійскі футбол
+    bg = Австралийски футбол
+    cs = Australský fotbal
+    da = Australsk fodbold
+    de = Australian Football
+    el = Αυστραλιανό ποδόσφαιρο
     es = Fútbol australiano
     eu = Australiako futbol araua
+    fa = فوتبال استرالیایی
+    fi = Australialainen jalkapallo
+    fr = Football australien
+    he = פוטבול אוסטרלי
+    hu = Ausztrál futball
+    id = Sepak bola Australia
+    it = Football australiano
     ja = オーストラリアンフットボール
+    ko = 오스트레일리안 풋볼
     mr = रग्बी
-    pt = Futebol australiano
+    nb = Australsk fotball
+    nl = Australian football
+    pl = Futbol australijski
+    pt = Futebol Australiano
     pt-BR = Futebol australiano
-    ru = Регби
-    tr = Ragbi
-    uk = Регбi
+    ro = Fotbal australian
+    ru = Австралийский футбол
+    tr = Avustralya futbolu
+    uk = Австралійський футбол
+    vi = Bóng bầu dục Úc
+    zh-Hans = 澳式足球
+    zh-Hant = 澳式足球
 
   [type.sport.baseball]
     en = Baseball
+    ar = البيسبول
+    be = Бейсбол
+    cs = Baseball
+    da = Baseball
     de = Baseball
+    el = Μπέιζμπολ
     es = Béisbol
     eu = Beisbol
+    fa = بیسبال
+    fi = Baseball
+    fr = Base-ball
+    he = בייסבול
+    hu = Baseball
+    id = Baseball
+    it = Baseball
     ja = 野球
+    ko = 야구
     mr = बेसबॉल
+    nb = Baseball
+    nl = Basketbal
     pl = Baseball
-    pt = Beisebol
+    pt = Basebol
     pt-BR = Beisebol
+    ro = Baseball
     ru = Бейсбол
+    sk = Baseball
+    sv = Baseboll
+    sw = Baseball
+    th = เบสบอล
     tr = Beyzbol
     uk = Бейсбол
+    vi = Bóng chày
     zh-Hans = 棒球
+    zh-Hant = 棒球
 
   [type.sport.basketball]
     en = Basketball
@@ -18427,66 +19176,104 @@
 
   [type.sport.bowls]
     en = Bowls
+    ar = لعبة البولينج
+    be = Боўлз
     de = Bowls
-    fi = Bowls
+    es = Bolos sobre hierba
+    fa = لعبة البولينج
+    fi = Nurmikeilailu
+    fr = Boulingrin
+    he = כדורת דשא
+    id = Boling lapangan
+    it = Bowls
     ja = ローンボウルズ
+    ko = 론볼
+    mr = लॉन बोलिंग
+    nb = Bowls
+    nl = Bowls
     pl = Kręgle
-    pt = Bowls
-    pt-BR = Bowls
-    ru = Кегли
+    pt = Lawn bowls
+    ru = Боулз
+    sv = Bowls
     tr = Kuka Oynu
-    uk = Кеглi
-    zh-Hans = 保龄球
+    uk = Боулз
+    zh-Hans = 草地滾球
+    zh-Hant = 草地滾球
 
   [type.sport.cricket]
     en = Cricket
+    ar = كريكت
+    be = Крикет
+    cs = Kriket
     de = Cricket
     es = Críquet
     eu = Kilkerra
+    fa = کریکت
     fi = Kriketti
+    fr = Cricket
+    he = קריקט
+    hu = Krikett
+    id = Kriket
+    it = Cricket
     ja = クリケット
+    ko = 크리켓
     mr = क्रिकेट
+    nb = Cricket
+    nl = Cricket
     pl = Krykiet
     pt = Críquete
-    pt-BR = Críquete
     ru = Крикет
     tr = Kriket
     uk = Крикет
+    vi = Cricket
     zh-Hans = 板球
+    zh-Hant = 板球
 
   [type.sport.curling]
-    en = Сurling
+    en = Curling
+    ar = كيرلنغ
+    be = Кёрлінг
+    cs = Curling
+    da = Curling
     de = Curling
+    el = Κέρλινγκ
     es = Curling
+    es-MX = Curling
     eu = Curling
+    fa = کرلینگ
     fi = Curling
+    fr = Curling
+    he = קרלינג
+    hu = Curling
+    id = Curling
+    it = Curling
     ja = カーリング
+    ko = 컬링
+    mr = कर्लिंग
+    nb = Curling
+    nl = Curling
+    pl = Curling
     pt = Curling
-    pt-BR = Curling
-    ru = Керлинг
-    tr = Сurling
-    uk = Керлiнг
-
-  [type.sport.diving]
-    en = Diving
-    de = Tauchen
-    es = Salto
-    eu = Salto egin
-    ja = ダイビング
-    mr = डायव्हिंग
-    pt = Mergulho
-    pt-BR = Mergulho
-    ru = Подводное плавание
-    tr = Dalış
-    uk = Пiдводне плавання
-    zh-Hans = 跳水
+    ro = Curling
+    ru = Кёрлинг
+    sk = Curling
+    sv = Curling
+    sw = Kukunja
+    th = เคอร์ลิง
+    tr = Körling
+    uk = Керлінг
+    vi = Bi đá trên băng
+    zh-Hans = 冰壶
+    zh-Hant = 冰壺
 
   [type.sport.equestrian]
     en = Equestrian Sports
     ar = رياضة الفروسية
+    be = Конны спорт
+    bg = Конен спорт
     cs = Koňské sporty
     da = Ridesport
-    de = Reiten
+    de = Reitsport
     el = Ιππασία
     es = Equitación
     es-MX = Deporte hípico
@@ -18494,6 +19281,7 @@
     fa = ورزش های سوارکاری
     fi = Hevosurheilu
     fr = Sport hippique
+    he = רכיבה
     hu = Lovas sportok
     id = Olahraga Berkuda
     it = Equitazione
@@ -18519,149 +19307,346 @@
 
   [type.sport.golf]
     en = Golf
+    ar = الجولف
+    be = Гольф
+    cs = Golf
+    da = Golf
     de = Golf
+    el = Γκολφ
     es = Golf
+    es-MX = Golf
     eu = Golfa
+    fa = گلف
     fi = Golf
+    fr = Le golf
+    he = גולף
+    hu = Golf
+    id = Golf
+    it = Golf
     ja = ゴルフ
+    ko = 골프
     mr = गोल्फ
+    nb = Golf
+    nl = Golf
     pl = Golf
     pt = Golfe
-    pt-BR = Golfe
+    ro = Golf
     ru = Гольф
+    sk = Golf
+    sv = Golf
+    sw = Gofu
+    th = กอล์ฟ
     tr = Golf
     uk = Гольф
+    vi = Golf
     zh-Hans = 高尔夫球
+    zh-Hant = 高爾夫球
 
   [type.sport.gymnastics]
     en = Gymnastics
+    ar = رياضة بدنية
+    be = Гімнастыка
+    cs = Gymnastika
+    da = Gymnastik
     de = Gymnastik
+    el = Γυμναστική
     es = Gimnasia
     eu = Gimnasia
+    fa = ژیمناستیک
     fi = Voimistelu
     fr = Gymnastique
-    ja = 体操競技
-    mr = शारीरिक कसरती(जिम्नॅस्टिक्स)
+    he = התעמלות
+    hu = Gimnasztika
+    id = Olahraga senam
+    it = Ginnastica
+    ja = 体操
+    ko = 체조
+    mr = जिम्नॅस्टिक्स
+    nb = Gymnastikk
+    nl = Gymnastiek
     pl = Gimnastyka
     pt = Ginástica
-    pt-BR = Ginástica
+    ro = Gimnastică
     ru = Гимнастика
+    sk = Gymnastika
+    sv = Gymnastik
+    sw = Gymnastics
+    th = ยิมนาสติก
     tr = Jimnastik
-    uk = Гiмнастика
+    uk = Гімнастика
+    vi = Thể dục
     zh-Hans = 体操
+    zh-Hant = 體操
 
   [type.sport.handball]
     en = Handball
+    ar = كرة اليد
+    be = Гандбол
+    cs = Házená
+    da = Håndbold
     de = Handball
+    el = Τόπι
     es = Balonmano
+    es-MX = Balonmano
     eu = Eskubaloia
+    fa = هندبال
     fi = Käsipallo
+    fr = Handball
+    he = כדוריד
+    hu = Kézilabda
+    id = Bola tangan
+    it = Palla a mano
     ja = ハンドボール
-    pl = Piłka ręczna
+    ko = 핸드볼
+    mr = हँडबॉल
+    nb = Håndball
+    nl = Handbal
+    pl = Gra w piłkę ręczną
     pt = Andebol
-    pt-BR = Andebol
+    pt-BR = Handebol
+    ro = Handbal
     ru = Гандбол
+    sk = Hádzaná
+    sv = Handboll
+    sw = Mpira wa mikono
+    th = แฮนด์บอล
     tr = Hentbol
     uk = Гандбол
+    vi = bóng ném
     zh-Hans = 手球
+    zh-Hant = 手球
 
   [type.sport.multi]
-    en = Various Sport
-    de = verschiedene Sportarten
+    en = Various Sports
+    ar = رياضات متنوعة
+    be = Розныя віды спорту
+    bg = Различни спортове
+    cs = Různé sporty
+    da = Forskellige sportsgrene
+    de = Verschiedene Sportarten
+    el = Διάφορα αθλήματα
     es = Varios deportes
+    es-MX = Varios deportes
     eu = Hainbat kirol
+    fa = ورزش های مختلف
+    fi = Erilaisia urheilulajeja
+    fr = Sports multiples
+    he = ענפי ספורט שונים
+    hu = Különféle sportágak
+    id = Berbagai Olahraga
+    it = Sport vari
     ja = 複数
+    ko = 다양한 스포츠
     mr = विविध खेळ
+    nb = Ulike idretter
+    nl = Diverse sporten
+    pl = Różne sporty
     pt = Vários desportos
     pt-BR = Vários desportos
+    ro = Sporturi Diverse
     ru = Различные виды спорта
+    sk = Rôzne športy
+    sv = Olika sporter
+    sw = Michezo Mbalimbali
+    th = กีฬาต่างๆ
     tr = Çeşitli Sporlar
     uk = Рiзноманiтнi типи спорту
-    zh-Hans = 多元
+    vi = Các môn thể thao khác nhau
+    zh-Hans = 各种运动
+    zh-Hant = 各種運動
 
   [type.sport.scuba_diving]
-    en = Scuba Diving
-    de = Sporttauchen
+    comment = Used to tag a scuba diving site.
+    en = Scuba diving site
+    ar = الغوص
+    be = Месца для дайвінга
+    cs = Potápění
+    da = Scuba dykning
+    de = Gerätetauchen
+    el = Κατάδυση
     es = Submarinismo
+    es-MX = Submarinismo
     eu = Urpekaritza
+    fa = غواصی
+    fi = Sukellus
     fr = Plongée sous-marine
-    ja = スクーバダイビング
+    hu = Búvárkodás
+    id = Selam scuba
+    it = Immersioni in subacquea
+    ja = スキューバダイビング
+    ko = 스쿠버 다이빙
     mr = स्कूबा डायव्हिंग
+    nb = Dykking
+    nl = Duiken
     pl = Nurkowanie
-    pt = Mergulho autónomo
+    pt = Mergulho autônomo
     pt-BR = Mergulho autônomo
-    ru = Акваланг
+    ro = Scufundări
+    ru = Место для дайвинга
+    sk = Potápanie
+    sv = Dykning
+    sw = Upigaji mbizi wa Scuba
+    th = ดำน้ำลึก
     tr = Tüplü Dalış
-    uk = Акваланг
+    uk = Місце для дайвінгу
+    vi = Môn lặn
+    zh-Hans = 水肺潜水
+    zh-Hant = 水肺潛水
 
   [type.sport.shooting]
     en = Shooting
-    de = Sportschießen
-    es = Tiro deportivo
-    eu = Kirolaren jaurtiketa
+    ar = رماية
+    be = Стральба
+    cs = Střílení
+    da = Skydning
+    de = Schießen
+    el = Κυνήγι
+    es = Tiroteo
+    es-MX = Tiroteo
+    eu = Tiroketa
+    fa = ورزش تیراندازی
     fi = Ammunta
-    fr = Sports de tir
+    fr = Tir sportif
+    he = ירי ספורטיבי
+    hu = Lövés
+    id = Penembakan
+    it = Tiro
     ja = 射撃競技
-    mr = बंदूकबाजी
+    ko = 사격 경기
+    mr = शूटिंग
+    nb = Skyting
+    nl = schieten
     pl = Strzelectwo sportowe
     pt = Tiro desportivo
-    pt-BR = Tiro esportivo
+    ro = Filmare
     ru = Стрельба
-    tr = Atış Sporları
-    uk = Стрiльба
+    sk = Streľba
+    sv = Skytte
+    sw = Kupiga risasi
+    th = ยิงปืน
+    tr = Çekim
+    uk = Стрільба
+    vi = Chụp
     zh-Hans = 射击
+    zh-Hant = 射擊
 
   [type.sport.skiing]
     en = Skiing
-    de = Skisport
+    ar = التزحلق
+    be = Катанне на лыжах
+    cs = Lyžování
+    da = Stå på ski
+    de = Skifahren
+    el = Χιονοδρόμια
     es = Esquí
+    es-MX = Esquí
     eu = Eskia
+    fa = اسکی
     fi = Hiihto
     fr = Ski
+    he = סקי
+    hu = Síelés
+    id = Bermain ski
+    it = Sciare
     ja = スキー
-    mr = घसरजोडा
+    ko = 스키 타기
+    mr = स्कीइंग
+    nb = Stå på ski
+    nl = Skiën
+    pl = Jazda na nartach
     pt = Esqui
-    pt-BR = Esqui
+    ro = Schi
     ru = Лыжи
-    tr = Kayak
+    sk = Lyžovanie
+    sv = Skidåkning
+    sw = Skii
+    th = เล่นสกี
+    tr = Kayak yapmak
     uk = Лижi
+    vi = Trượt tuyết
+    zh-Hans = 滑雪
+    zh-Hant = 滑雪
 
   [type.sport.soccer]
-    en = Soccer (Football)
+    en = Soccer
+    ar = كرة القدم
+    be = Футбол
+    cs = Fotbal
+    da = Fodbold
     de = Fußball
+    el = Ποδόσφαιρο
     es = Fútbol
+    es-MX = Fútbol
     eu = Futbola
+    fa = فوتبال
     fi = Jalkapallo
     fr = Football
+    he = כדורגל
+    hu = Futball
+    id = Sepak bola
+    it = Calcio
     ja = サッカー
-    mr = फुटबॉल
+    ko = 축구
+    mr = सॉकर
+    nb = Fotball
+    nl = Voetbal
+    pl = Piłka nożna
     pt = Futebol
-    pt-BR = Futebol
+    ro = Fotbal
     ru = Футбол
+    sk = Futbal
+    sv = Fotboll
+    sw = Soka
+    th = ฟุตบอล
     tr = Futbol
     uk = Футбол
+    vi = Bóng đá
     zh-Hans = 足球
+    zh-Hant = 足球
 
   [type.sport.swimming]
     en = Swimming
+    ar = سباحة
+    be = Плаванне
+    bg = Плуване
+    cs = Plavání
+    da = Svømning
     de = Schwimmen
+    el = Κολύμβηση
     es = Natación
     eu = Igeriketa
+    fa = شنا
     fi = Uinti
     fr = Natation
+    he = שחייה
+    hu = Úszás
+    id = Berenang
+    it = Nuoto
     ja = 水泳
+    ko = 수영
     mr = जलतरण
+    nb = Svømming
+    nl = Zwemmen
     pl = Pływanie
     pt = Natação desportiva
     pt-BR = Natação esportiva
+    ro = Natație
     ru = Плавание
+    sk = Plávanie
+    sv = Simning
+    sw = Kuogelea
+    th = การว่ายน้ำ
     tr = Yüzme
     uk = Плавання
+    vi = Bơi
     zh-Hans = 游泳
+    zh-Hant = 游泳
 
   [type.sport.tennis]
     en = Tennis Court
     ar = ملعب تنس
+    be = Тэнісны корт
+    bg = Тенис корт
     cs = Tenisový kurt
     da = Tennisbane
     de = Tennisspielfeld
@@ -18672,6 +19657,7 @@
     fa = زمین تنیس
     fi = Tenniskenttä
     fr = Court de tennis
+    he = טֶנִיס
     hu = Teniszpálya
     id = Lapangan tenis
     it = Campo da tennis
@@ -18716,7 +19702,7 @@
     ar = مساكن جبلية
     cs = Ubytování v horách
     da = Bjerg logi
-    de = Berghütte
+    de = bewirtschaftete Schutzhütte
     el = Ορεινό καταφύγιο
     es = Cabaña
     eu = Kabina
@@ -19199,6 +20185,8 @@
   [type.tourism.information]
     en = Tourist Information
     ar = معلومات سياحية
+    be = Турыстычная інфармацыя
+    bg = Туринформация
     cs = Infocentrum
     da = Turistinformation
     de = Touristeninformation
@@ -19208,6 +20196,7 @@
     fa = گردشگری
     fi = Turisti-informaatio
     fr = Informations touristiques
+    he = מידע לתייר
     hu = Túrista információ
     id = Informasi turis
     it = Informazione
@@ -19223,6 +20212,7 @@
     ru = Туринформация
     sk = Infocentrum
     sv = Turistinformation
+    sw = Taarifa za Watalii
     th = ข้อมูลการท่องเที่ยว
     tr = Turist Bilgilendirme
     uk = Турінформація
@@ -19233,6 +20223,8 @@
   [type.tourism.information.board]
     en = Information Board
     ar = لوحة معلومات
+    be = Інфармацыйны шчыт
+    bg = Информационен щит
     cs = Nástěnka
     da = Informationstavle
     de = Informationstafel
@@ -19242,65 +20234,72 @@
     fa = گردشگری
     fi = Informaatio
     fr = Panneau d'informations
+    he = לוח מידע
     hu = Információs tábla
     id = Papan informasi
     it = Tabellone informativo
-    ja = 案内板
+    ja = 情報板
     ko = 정보 게시판
     mr = माहिती फलक
     nb = Informasjonstavle
     nl = Informatiebord
     pl = Tablica informacyjna
     pt = Painel de informações
-    pt-BR = Painel de informações
     ro = Panou de informații
     ru = Информационный щит
     sk = Informačné centrum
     sv = Informationstavla
+    sw = Bodi ya habari
     th = บอร์ดประชาสัมพันธ์
     tr = Bilgi Panosu
     uk = Інформаційний щит
     vi = Bảng Thông Tin
-    zh-Hans = 公告板
-    zh-Hant = 資訊中心
+    zh-Hans = 标示
+    zh-Hant = 標示
 
   [type.tourism.information.guidepost]
-    en = Tourist Information
-    ar = معلومات سياحية
-    cs = Infocentrum
-    da = Turistinformation
+    en = Guidepost
+    ar = دليل
+    be = Даведнік
+    bg = Пътеводител
+    cs = Rozcestník
+    da = Vejviser
     de = Wegweiser
-    el = Τουριστικές πληροφορίες
-    es = Información
-    eu = Informazioa
-    fa = گردشگری
-    fi = Turisti-informaatio
+    el = Οδηγός
+    es = Poste indicador
+    eu = Gida postua
+    fa = تابلو راهنما
+    fi = Tienviitta
     fr = Poteaux indicateurs
-    hu = Túrista információ
-    id = Informasi turis
-    it = Informazione
+    he = מנחה
+    hu = Útmutató
+    id = Tongkat petunjuk jalan
+    it = Guida
     ja = 道標
-    ko = 관광 정보
-    mr = पर्यटन माहिती
-    nb = Turistinformasjon
-    nl = Toeristische informatie
-    pl = Informacja turystyczna
+    ko = 도표
+    mr = गाईडपोस्ट
+    nb = Guidepost
+    nl = Wegwijzer
+    pl = Drogowskaz
     pt = Poste com direções
     pt-BR = Poste com direções
-    ro = Informații turistice
-    ru = Туринформация
-    sk = Infocentrum
-    sv = Turistinformation
-    th = ข้อมูลการท่องเที่ยว
-    tr = Turist Bilgilendirme
-    uk = Турінформація
-    vi = Thông tin du lịch
-    zh-Hans = 旅游信息
-    zh-Hant = 觀光諮詢
+    ro = Postul de ghidare
+    ru = Указательный столб
+    sk = Smerovník
+    sv = Vägledning
+    sw = Chapisho la mwongozo
+    th = ไกด์โพส
+    tr = Kılavuz direği
+    uk = Вказівний стовп
+    vi = Hướng dẫn
+    zh-Hans = 指路牌
+    zh-Hant = 指路牌
 
   [type.tourism.information.map]
     en = Tourist Map
     ar = خريطة سياحية
+    be = Карта
+    bg = Карта
     cs = Turistická mapa
     da = Turistkort
     de = Touristenkarte
@@ -19310,6 +20309,7 @@
     fa = گردشگری
     fi = Turistikartta
     fr = Carte touristique
+    he = מפת תיירות
     hu = Turistatérkép
     id = Peta wisata
     it = Mappa turistica
@@ -19320,11 +20320,11 @@
     nl = Toeristische kaart
     pl = Mapa turystyczna
     pt = Mapa turístico
-    pt-BR = Mapa turístico
     ro = Hartă turistică
     ru = Карта
     sk = Turistická mapa
     sv = Turistkarta
+    sw = Ramani ya Watalii
     th = แผนที่ท่องเที่ยว
     tr = Turist Haritası
     uk = Мапа
@@ -19335,6 +20335,8 @@
   [type.tourism.information.office]
     en = Tourist Office
     ar = مكتب سياحة
+    be = Турыстычны офіс
+    bg = Туристически офис
     cs = Informační centrum
     da = Turistkontor
     de = Fremdenverkehrsamt
@@ -19344,6 +20346,7 @@
     fa = گردشگری
     fi = Turistitoimisto
     fr = Office de tourisme
+    he = משרד תיירות
     hu = Idegenforgalmi iroda
     id = Kantor wisata
     it = Ufficio turistico
@@ -19359,6 +20362,7 @@
     ru = Туристический офис
     sk = Turistické informačné centrum
     sv = Turistcenter
+    sw = Ofisi ya watalii
     th = ศูนย์บริการนักท่องเที่ยว
     tr = Turizm Ofisi
     uk = Туристичний офіс
@@ -19553,7 +20557,7 @@
     ar = كوخ برية
     cs = Chata v divočině
     da = Vildmarkshytte
-    de = Wildnishütte
+    de = unbewirtschaftete Schutzhütte
     el = Καλύβα
     es = Cabaña
     eu = Kabina
@@ -19723,7 +20727,7 @@
     en = Dam
     de = Staudamm
     fi = Pato
-    fr = Dam
+    fr = Barrage
     ja = ダム
     mr = धरण
     pt = Barragem
@@ -20113,6 +21117,7 @@
   [type.waterway.weir]
     en = Weir
     de = Wehr
+    fr = Seuil
     ja = 堰
     mr = अल्प धरण
     pt = Represa
@@ -20249,6 +21254,7 @@
     comment = en.wikipedia.org/wiki/Surface_lift
     en = Surface Lift
     de = Lift
+    fr = Téléski
     pt = Telesqui
     pt-BR = Telesqui
     ru = Бугельный подъёмник
@@ -20258,6 +21264,7 @@
   [type.piste_lift.j.bar]
     en = J-bar Lift
     de = Schlepplift
+    fr = Téléski
     pt = Telesqui de barra em J
     pt-BR = Telesqui de barra em J
     ru = Бугельный подъёмник
@@ -20267,6 +21274,7 @@
   [type.piste_lift.magic_carpet]
     en = Magic Carpet
     de = Laufband
+    fr = Tapis roulant
     pt = Tapete deslizante
     pt-BR = Tapete deslizante
     ru = Ленточный конвейер
@@ -20312,6 +21320,7 @@
     en = Downhill Ski Run
     de = Abfahrt
     fi = Laskettelurinne
+    fr = Piste de ski alpin
     pt = Esqui alpino
     pt-BR = Esqui alpino
     ru = Горнолыжная трасса
@@ -20375,6 +21384,7 @@
     en = Nordic Ski Trail
     de = Langlaufloipe
     fi = Latu
+    fr = Piste de ski de fond
     pt = Pista tipo nórdico
     pt-BR = Pista tipo nórdico
     ru = Лыжня
@@ -20384,6 +21394,7 @@
   [type.piste_type.sled]
     en = Sledding Piste
     de = Rodelbahn
+    fr = Piste de luge
     pt = Pista para trenós
     pt-BR = Pista para trenós
     ru = Трасса для саней
@@ -20423,3 +21434,41 @@
     vi = Tòa nhà
     zh-Hans = 建筑部分
     zh-Hant = 建築物
+
+  [type.amenity.events_venue]
+    en = Events Venue
+    ar = مكان الأحداث
+    be = Месца правядзення мерапрыемстваў
+    bg = Място за провеждане на събития
+    cs = Místo konání akcí
+    da = Sted for arrangementer
+    de = Veranstaltungszentrum
+    el = Κέντρο εκδηλώσεων
+    es = Lugar de los eventos
+    eu = Ekitaldien Lekua
+    fa = محل برگزاری رویدادها
+    fi = Tapahtumapaikka
+    fr = Lieu des événements
+    he = מקום אירועים
+    hu = Rendezvények helyszíne
+    id = Tempat acara
+    it = Sede degli eventi
+    ja = イベント会場
+    ko = 행사장
+    mr = कार्यक्रमाचे ठिकाण
+    nb = Arrangementssted
+    nl = Evenementenlocatie
+    pl = Miejsce wydarzeń
+    pt = Local dos eventos
+    pt-BR = Local do evento
+    ro = Locul de desfășurare a evenimentelor
+    ru = Место проведения мероприятий
+    sk = Miesto konania podujatí
+    sv = Evenemangslokal
+    sw = Ukumbi wa Matukio
+    th = สถานที่จัดงาน
+    tr = Etkinlik mekanı
+    uk = Місце проведення подій
+    vi = Địa điểm tổ chức sự kiện
+    zh-Hans = 活动场所
+    zh-Hant = 活動場所

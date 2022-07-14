@@ -503,6 +503,10 @@
 
 "history" = "История";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Затворено";
 
 "search_not_found" = "За съжаление не са намерени резултати.";
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,13 +1591,14 @@
 
 "type.craft.electrician" = "Electrician";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Gardener";
 
 "type.craft.handicraft" = "Handicraft";
 
-"type.craft.hvac" = "Hvac";
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Отопление, вентилация и климатизация";
 
 "type.craft.metal_construction" = "Метални конструкции";
 
@@ -2363,81 +2368,85 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Природа";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Гола скала";
 
-"type.natural.bay" = "Bay";
+"type.natural.bay" = "Залив";
 
-"type.natural.beach" = "Beach";
+"type.natural.beach" = "Плаж";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Пясъчен плаж";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Чакълест плаж";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Нос";
 
-"type.natural.cave_entrance" = "Cave";
+"type.natural.cave_entrance" = "Пещера";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Клиф";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Скала";
 
-"type.natural.geyser" = "Geyser";
+"type.man_made.embankment" = "Насип";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.coastline" = "Крайбрежие";
 
-"type.natural.grassland" = "Field";
+"type.natural.geyser" = "Гейзер";
 
-"type.natural.heath" = "Heath";
+"type.natural.glacier" = "Ледник";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.grassland" = "Пасища";
 
-"type.natural.water.lake" = "Lake";
+"type.natural.heath" = "Пустош";
+
+"type.natural.hot_spring" = "Геотермален извор";
+
+"type.natural.water.lake" = "Езеро";
 
 "type.natural.water.lock" = "Заключваща камера";
 
-"type.natural.water.pond" = "Pond";
+"type.natural.water.pond" = "Езерце";
 
 "type.natural.water.reservoir" = "Резервоар";
 
 "type.natural.water.basin" = "Резервоар";
 
-"type.natural.water.river" = "River";
+"type.natural.water.river" = "Река";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Суша";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Ливада";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Овощна градина";
 
-"type.natural.peak" = "Peak";
+"type.natural.peak" = "Връх";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Седло";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Скала";
 
-"type.natural.scrub" = "Scrub";
+"type.natural.scrub" = "Гъсталаци";
 
-"type.natural.spring" = "Spring";
+"type.natural.spring" = "Извор";
 
-"type.natural.strait" = "Strait";
+"type.natural.strait" = "Проток";
 
-"type.natural.tree" = "Tree";
+"type.natural.tree" = "Дърво";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Ред дървета";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Лозе";
 
-"type.natural.volcano" = "Volcano";
+"type.natural.volcano" = "Вулкан";
 
 "type.natural.water" = "Воден басейн";
 
-"type.natural.wetland" = "Wetland";
+"type.natural.wetland" = "Влажна зона";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Торфено блато";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Блато";
 
 "type.noexit" = "Dead End";
 
@@ -2845,15 +2854,15 @@
 
 "type.shop.wine" = "Wine Shop";
 
-"type.sport" = "sport";
+"type.sport" = "Спорт";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Американски футбол";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Стрелба с лък";
 
 "type.sport.athletics" = "Athletics";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Австралийски футбол";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2863,11 +2872,9 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
+"type.sport.curling" = "Curling";
 
-"type.sport.diving" = "Diving";
-
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.equestrian" = "Конен спорт";
 
 "type.sport.golf" = "Golf";
 
@@ -2875,19 +2882,20 @@
 
 "type.sport.handball" = "Handball";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Различни спортове";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Scuba diving site";
 
 "type.sport.shooting" = "Shooting";
 
 "type.sport.skiing" = "Skiing";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Soccer";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Плуване";
 
-"type.sport.tennis" = "Tennis Court";
+"type.sport.tennis" = "Тенис корт";
 
 "type.tourism" = "Tourism";
 
@@ -2925,15 +2933,15 @@
 
 "type.tourism.hotel" = "Hotel";
 
-"type.tourism.information" = "Tourist Information";
+"type.tourism.information" = "Туринформация";
 
-"type.tourism.information.board" = "Information Board";
+"type.tourism.information.board" = "Информационен щит";
 
-"type.tourism.information.guidepost" = "Tourist Information";
+"type.tourism.information.guidepost" = "Пътеводител";
 
-"type.tourism.information.map" = "Tourist Map";
+"type.tourism.information.map" = "Карта";
 
-"type.tourism.information.office" = "Tourist Office";
+"type.tourism.information.office" = "Туристически офис";
 
 "type.tourism.motel" = "Motel";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Building";
+
+"type.amenity.events_venue" = "Място за провеждане на събития";

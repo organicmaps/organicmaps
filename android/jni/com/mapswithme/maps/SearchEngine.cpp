@@ -130,6 +130,7 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
                                                 dist.get(), cuisine.get(), brand.get(), airportIata.get(),
                                                 roadShields.get(),
                                                 static_cast<jint>(result.IsOpenNow()),
+                                                result.GetMinutesUntilOpen(),result.GetMinutesUntilClosed(),
                                                 static_cast<jboolean>(popularityHasHigherPriority)));
 
   jni::TScopedLocalRef name(env, jni::ToJavaString(env, result.GetString()));
@@ -267,13 +268,14 @@ extern "C"
     /*
         Description(FeatureId featureId, String featureType, String region, String distance,
                     String cuisine, String brand, String airportIata, String roadShields,
-                    int openNow, boolean hasPopularityHigherPriority)
+                    int openNow, int minutesUntilOpen, int minutesUntilClosed, 
+                    boolean hasPopularityHigherPriority)
     */
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass,
                                                      "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;"
                                                      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                                                      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
-                                                     "Ljava/lang/String;IZ)V");
+                                                     "Ljava/lang/String;IIIZ)V");
 
     g_popularityClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/Popularity");
     g_popularityConstructor = jni::GetConstructorID(env, g_popularityClass, "(I)V");
@@ -290,12 +292,13 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearch(
-      JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp,
-      jboolean hasPosition, jdouble lat, jdouble lon)
+      JNIEnv * env, jclass clazz, jbyteArray bytes, jboolean isCategory,
+      jstring lang, jlong timestamp, jboolean hasPosition, jdouble lat, jdouble lon)
   {
     search::EverywhereSearchParams params;
     params.m_query = jni::ToNativeString(env, bytes);
     params.m_inputLocale = jni::ToNativeString(env, lang);
+    params.m_isCategory = isCategory;
     params.m_onResults = bind(&OnResults, _1, _2, timestamp, false, hasPosition, lat, lon);
     bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(params);
     if (searchStarted)
@@ -304,12 +307,13 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL Java_com_mapswithme_maps_search_SearchEngine_nativeRunInteractiveSearch(
-      JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp,
-      jboolean isMapAndTable)
+      JNIEnv * env, jclass clazz, jbyteArray bytes, jboolean isCategory,
+      jstring lang, jlong timestamp, jboolean isMapAndTable)
   {
     search::ViewportSearchParams vparams;
     vparams.m_query = jni::ToNativeString(env, bytes);
     vparams.m_inputLocale = jni::ToNativeString(env, lang);
+    vparams.m_isCategory = isCategory;
 
     // TODO (@alexzatsepin): set up vparams.m_onCompleted here and use
     // HotelsClassifier for hotel queries detection.

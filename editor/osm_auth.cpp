@@ -92,8 +92,8 @@ OsmOAuth OsmOAuth::ServerAuth(KeySecret const & userKeySecret)
 OsmOAuth OsmOAuth::DevServerAuth()
 {
   constexpr char const * kOsmDevServer = "https://master.apis.dev.openstreetmap.org";
-  constexpr char const * kOsmDevConsumerKey = "eRtN6yKZZf34oVyBnyaVbsWtHIIeptLArQKdTwN3";
-  constexpr char const * kOsmDevConsumerSecret = "lC124mtm2VqvKJjSh35qBpKfrkeIjpKuGe38Hd1H";
+  constexpr char const * kOsmDevConsumerKey = "jOxkndim5PiuIlgsYxUH8H0broKt5qJM2enN5vF5";
+  constexpr char const * kOsmDevConsumerSecret = "g3jTJz6CUws3c04MHdAhbUTmnNH16ls8XxurQEIc";
   return OsmOAuth(kOsmDevConsumerKey, kOsmDevConsumerSecret, kOsmDevServer, kOsmDevServer);
 }
 // static

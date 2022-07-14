@@ -503,6 +503,10 @@
 
 "history" = "Archív";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Zatvorené";
 
 "search_not_found" = "Ľutujeme, ale nič sme nenašli.";
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,12 +1591,13 @@
 
 "type.craft.electrician" = "Elektrikár";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Záhradníctvo";
 
 "type.craft.handicraft" = "Handicraft";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Vzduchotechnika";
 
 "type.craft.metal_construction" = "Kovorobotník";
@@ -2363,35 +2368,39 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Príroda";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Holá skala";
 
 "type.natural.bay" = "Záliv";
 
-"type.natural.beach" = "Beach";
+"type.natural.beach" = "Pláž";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Piesočná pláž";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Štrková pláž";
 
 "type.natural.cape" = "Mys";
 
 "type.natural.cave_entrance" = "Jaskyňa";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Útes";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Útes";
+
+"type.man_made.embankment" = "Násyp";
+
+"type.natural.coastline" = "Pobrežie";
 
 "type.natural.geyser" = "Gejzír";
 
 "type.natural.glacier" = "Ľadovec";
 
-"type.natural.grassland" = "Lúka";
+"type.natural.grassland" = "Pasienky";
 
 "type.natural.heath" = "Heath";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Termálny prameň";
 
 "type.natural.water.lake" = "Jazero";
 
@@ -2405,17 +2414,17 @@
 
 "type.natural.water.river" = "Rieka";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Pôda";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Lúka";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Sad";
 
 "type.natural.peak" = "Hora";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Sedlo";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Hornina";
 
 "type.natural.scrub" = "Krovie";
 
@@ -2425,9 +2434,9 @@
 
 "type.natural.tree" = "Strom";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Stromový rad";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Vinohrad";
 
 "type.natural.volcano" = "Vulkán";
 
@@ -2435,9 +2444,9 @@
 
 "type.natural.wetland" = "Oblasť mokradí";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Rašelinisko";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Močiar";
 
 "type.noexit" = "Dead End";
 
@@ -2845,15 +2854,15 @@
 
 "type.shop.wine" = "Vinotéka";
 
-"type.sport" = "sport";
+"type.sport" = "Šport";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Americký futbal";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Lukostreľba";
 
 "type.sport.athletics" = "Atletika";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australian Football";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2863,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Curling";
 
 "type.sport.equestrian" = "Jazdecké športy";
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gymnastika";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Hádzaná";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Rôzne športy";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Potápanie";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Streľba";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Lyžovanie";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Futbal";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Plávanie";
 
 "type.sport.tennis" = "Tenisový kurt";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "Informačné centrum";
 
-"type.tourism.information.guidepost" = "Infocentrum";
+"type.tourism.information.guidepost" = "Smerovník";
 
 "type.tourism.information.map" = "Turistická mapa";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Budova";
+
+"type.amenity.events_venue" = "Miesto konania podujatí";

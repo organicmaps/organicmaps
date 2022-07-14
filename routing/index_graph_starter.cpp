@@ -44,13 +44,6 @@ void IndexGraphStarter::CheckValidRoute(vector<Segment> const & segments)
   CHECK(IsFakeSegment(segments.back()), ());
 }
 
-// static
-size_t IndexGraphStarter::GetRouteNumPoints(vector<Segment> const & segments)
-{
-  CheckValidRoute(segments);
-  return segments.size() + 1;
-}
-
 IndexGraphStarter::IndexGraphStarter(FakeEnding const & startEnding,
                                      FakeEnding const & finishEnding, uint32_t fakeNumerationStart,
                                      bool strictForward, WorldGraph & graph)

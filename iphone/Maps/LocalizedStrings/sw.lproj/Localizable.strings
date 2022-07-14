@@ -164,7 +164,7 @@
 "load_kmz_successful" = "Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Bookmarks upload failed. The file may be corrupted or defective.";
+"load_kmz_failed" = "Failed to load bookmarks. The file may be corrupted or defective.";
 
 /* resource for context menu */
 "edit" = "Edit";
@@ -502,6 +502,10 @@
 "categories" = "Categories";
 
 "history" = "History";
+
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
 
 "closed" = "Closed";
 
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,13 +1591,14 @@
 
 "type.craft.electrician" = "Electrician";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Gardener";
 
 "type.craft.handicraft" = "Handicraft";
 
-"type.craft.hvac" = "Hvac";
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "HVAC";
 
 "type.craft.metal_construction" = "Metal Worker";
 
@@ -2363,81 +2368,85 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "Uasilia";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Mwamba tupu";
 
-"type.natural.bay" = "Bay";
+"type.natural.bay" = "Hori";
 
-"type.natural.beach" = "Beach";
+"type.natural.beach" = "Pwani";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "Pwani ya mchanga";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "Pwani ya Gravel";
 
 "type.natural.cape" = "Rasi";
 
-"type.natural.cave_entrance" = "Cave";
+"type.natural.cave_entrance" = "Pango";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Mwamba";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "Mwamba";
+
+"type.man_made.embankment" = "Tuta";
+
+"type.natural.coastline" = "Pwani";
 
 "type.natural.geyser" = "Chemchem ya maji moto";
 
 "type.natural.glacier" = "Mto barafu";
 
-"type.natural.grassland" = "Shamba";
+"type.natural.grassland" = "Nyasi";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Afya";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Majira ya joto";
 
-"type.natural.water.lake" = "Lake";
+"type.natural.water.lake" = "Ziwa";
 
 "type.natural.water.lock" = "Chumba cha kufuli";
 
-"type.natural.water.pond" = "Pond";
+"type.natural.water.pond" = "Bwawa";
 
 "type.natural.water.reservoir" = "Hifadhi";
 
 "type.natural.water.basin" = "Bonde la Maji";
 
-"type.natural.water.river" = "River";
+"type.natural.water.river" = "Mto";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "Nchi kavu";
 
 "type.natural.meadow" = "Meadow";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Bustani";
 
-"type.natural.peak" = "Peak";
+"type.natural.peak" = "Kilele";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "Tandiko la mlima";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Mwamba";
 
 "type.natural.scrub" = "Eneo la Vichaka";
 
-"type.natural.spring" = "Spring";
+"type.natural.spring" = "Chemchemi";
 
 "type.natural.strait" = "Mlango Bahari";
 
-"type.natural.tree" = "Tree";
+"type.natural.tree" = "Mti";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Safu ya mti";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Shamba la mizabibu";
 
-"type.natural.volcano" = "Volcano";
+"type.natural.volcano" = "Volkeno";
 
-"type.natural.water" = "Waterbody";
+"type.natural.water" = "Maji";
 
 "type.natural.wetland" = "Maeneo yenye majimaji";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Bogi";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Marsh";
 
 "type.noexit" = "Dead End";
 
@@ -2845,15 +2854,15 @@
 
 "type.shop.wine" = "Wine Shop";
 
-"type.sport" = "sport";
+"type.sport" = "Michezo";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Soka ya Marekani";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Upigaji mishale";
 
 "type.sport.athletics" = "Riadha";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "Australian Football";
 
 "type.sport.baseball" = "Baseball";
 
@@ -2863,29 +2872,28 @@
 
 "type.sport.cricket" = "Cricket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Diving";
+"type.sport.curling" = "Kukunja";
 
 "type.sport.equestrian" = "Michezo ya Farasi";
 
-"type.sport.golf" = "Golf";
+"type.sport.golf" = "Gofu";
 
 "type.sport.gymnastics" = "Gymnastics";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Mpira wa mikono";
 
-"type.sport.multi" = "Various Sport";
+"type.sport.multi" = "Michezo Mbalimbali";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Upigaji mbizi wa Scuba";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Kupiga risasi";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Skii";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Soka";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Kuogelea";
 
 "type.sport.tennis" = "Wanja wa tenisi";
 
@@ -2925,15 +2933,15 @@
 
 "type.tourism.hotel" = "Hotel";
 
-"type.tourism.information" = "Tourist Information";
+"type.tourism.information" = "Taarifa za Watalii";
 
-"type.tourism.information.board" = "Information Board";
+"type.tourism.information.board" = "Bodi ya habari";
 
-"type.tourism.information.guidepost" = "Tourist Information";
+"type.tourism.information.guidepost" = "Chapisho la mwongozo";
 
-"type.tourism.information.map" = "Tourist Map";
+"type.tourism.information.map" = "Ramani ya Watalii";
 
-"type.tourism.information.office" = "Tourist Office";
+"type.tourism.information.office" = "Ofisi ya watalii";
 
 "type.tourism.motel" = "Motel";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Building";
+
+"type.amenity.events_venue" = "Ukumbi wa Matukio";

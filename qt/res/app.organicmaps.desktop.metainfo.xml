@@ -107,6 +107,37 @@
   </screenshots>
 
   <releases>
+   <release version="2022.07.01-6" date="2022-07-01">
+     <description>
+       <ul>
+         <li>Improved/fixed the drawing of pattern lines</li>
+         <li>Icons for information=board/map</li>
+         <li>Fixed categories search with stop words</li>
+         <li>Made all existing sports searchable</li>
+         <li>amenity=parking can be added on the map via Editor</li>
+         <li>Fixed place=square visibility at 16+ zoom</li>
+         <li>Made streams &amp; rivers visible on the beach</li>
+         <li>Made hedges and power lines less contrast</li>
+         <li>Improved Portuguese (Brasil), Spanish, Italian, French, and Euskara, enabled Marathi translations</li>
+       </ul>
+     </description>
+   </release>
+   <release version="2022.06.18-2" date="2022-06-18">
+     <description>
+       <ul>
+         <li></li>
+         <li>New OSM data as of June 13, 2022</li>
+         <li>Cross-region and other routing fixes</li>
+         <li>Nicer fences, city walls, paths/tracks, waterfalls, fountains, and drinking_water</li>
+         <li>Added icons for guidepost, plaque, bicycle rental</li>
+         <li>Typing category like "food" in the search also matches features' names</li>
+         <li>Added cliffs, embankments, bicycle repair stations, graves, water tunnels, craft=*</li>
+         <li>Road shields for Cyprus</li>
+         <li>Better displaying of the next turn street</li>
+         <li>Added Marathi localization</li>
+       </ul>
+     </description>
+   </release>
    <release version="2022.05.31-10" date="2022-05-31">
      <description>
        <ul>

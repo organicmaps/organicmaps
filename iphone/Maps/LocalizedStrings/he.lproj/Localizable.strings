@@ -503,6 +503,10 @@
 
 "history" = "History";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "Closed";
 
 "search_not_found" = "Oops, no results found.";
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,13 +1591,14 @@
 
 "type.craft.electrician" = "Electrician";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "Gardener";
 
 "type.craft.handicraft" = "Handicraft";
 
-"type.craft.hvac" = "Hvac";
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "HVAC";
 
 "type.craft.metal_construction" = "Metal Worker";
 
@@ -2363,81 +2368,85 @@
 
 "type.mountain_pass" = "Mountain Pass";
 
-"type.natural" = "Natural";
+"type.natural" = "טבע";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "סלע חשוף";
 
-"type.natural.bay" = "Bay";
+"type.natural.bay" = "מפרץ";
 
-"type.natural.beach" = "Beach";
+"type.natural.beach" = "חוף חולי";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "חוף חולי";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "חוף חצץ";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "לשון יבשה";
 
-"type.natural.cave_entrance" = "Cave";
+"type.natural.cave_entrance" = "מערה";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "צוק";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.earth_bank" = "צוּק";
 
-"type.natural.geyser" = "Geyser";
+"type.man_made.embankment" = "סוֹלְלָה";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.coastline" = "חוף";
 
-"type.natural.grassland" = "Field";
+"type.natural.geyser" = "גייזר";
 
-"type.natural.heath" = "Heath";
+"type.natural.glacier" = "קרחון";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.grassland" = "ערבה";
 
-"type.natural.water.lake" = "Lake";
+"type.natural.heath" = "עֲרָבָה";
+
+"type.natural.hot_spring" = "מעיין חם";
+
+"type.natural.water.lake" = "אגם";
 
 "type.natural.water.lock" = "לוענמ את";
 
-"type.natural.water.pond" = "Pond";
+"type.natural.water.pond" = "בריכה";
 
 "type.natural.water.reservoir" = "מאגר";
 
 "type.natural.water.basin" = "אגן מים";
 
-"type.natural.water.river" = "River";
+"type.natural.water.river" = "נהר";
 
-"type.natural.land" = "Land";
+"type.natural.land" = "ארץ";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "אָחוּ";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "פרדס";
 
-"type.natural.peak" = "Peak";
+"type.natural.peak" = "פסגה";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "אוכף הרים";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "סלע";
 
-"type.natural.scrub" = "Scrub";
+"type.natural.scrub" = "בתה";
 
-"type.natural.spring" = "Spring";
+"type.natural.spring" = "מעיין";
 
-"type.natural.strait" = "Strait";
+"type.natural.strait" = "מצר ים";
 
-"type.natural.tree" = "Tree";
+"type.natural.tree" = "עץ";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "שורת עצים";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "כרם";
 
-"type.natural.volcano" = "Volcano";
+"type.natural.volcano" = "הר געש";
 
 "type.natural.water" = "גוף מים";
 
-"type.natural.wetland" = "Wetland";
+"type.natural.wetland" = "ביצה";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "ביצת כבול";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "ביצת עשב";
 
 "type.noexit" = "Dead End";
 
@@ -2845,49 +2854,48 @@
 
 "type.shop.wine" = "Wine Shop";
 
-"type.sport" = "sport";
+"type.sport" = "ספורט";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "כדורגל אמריקאי";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "קַשׁתוּת";
 
 "type.sport.athletics" = "Athletics";
 
-"type.sport.australian_football" = "Rugby";
+"type.sport.australian_football" = "פוטבול אוסטרלי";
 
-"type.sport.baseball" = "Baseball";
+"type.sport.baseball" = "בייסבול";
 
 "type.sport.basketball" = "Basketball";
 
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "כדורת דשא";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.cricket" = "קריקט";
 
-"type.sport.curling" = "Сurling";
+"type.sport.curling" = "קרלינג";
 
-"type.sport.diving" = "Diving";
+"type.sport.equestrian" = "רכיבה";
 
-"type.sport.equestrian" = "Equestrian Sports";
+"type.sport.golf" = "גולף";
 
-"type.sport.golf" = "Golf";
+"type.sport.gymnastics" = "התעמלות";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.handball" = "כדוריד";
 
-"type.sport.handball" = "Handball";
+"type.sport.multi" = "ענפי ספורט שונים";
 
-"type.sport.multi" = "Various Sport";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Scuba diving site";
 
-"type.sport.scuba_diving" = "Scuba Diving";
+"type.sport.shooting" = "ירי ספורטיבי";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.skiing" = "סקי";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.soccer" = "כדורגל";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.swimming" = "שחייה";
 
-"type.sport.swimming" = "Swimming";
-
-"type.sport.tennis" = "Tennis Court";
+"type.sport.tennis" = "טֶנִיס";
 
 "type.tourism" = "Tourism";
 
@@ -2925,15 +2933,15 @@
 
 "type.tourism.hotel" = "Hotel";
 
-"type.tourism.information" = "Tourist Information";
+"type.tourism.information" = "מידע לתייר";
 
-"type.tourism.information.board" = "Information Board";
+"type.tourism.information.board" = "לוח מידע";
 
-"type.tourism.information.guidepost" = "Tourist Information";
+"type.tourism.information.guidepost" = "מנחה";
 
-"type.tourism.information.map" = "Tourist Map";
+"type.tourism.information.map" = "מפת תיירות";
 
-"type.tourism.information.office" = "Tourist Office";
+"type.tourism.information.office" = "משרד תיירות";
 
 "type.tourism.motel" = "Motel";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "Building";
+
+"type.amenity.events_venue" = "מקום אירועים";

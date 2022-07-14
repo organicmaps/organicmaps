@@ -1,7 +1,5 @@
 package com.mapswithme.util;
 
-import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
@@ -11,15 +9,10 @@ import android.view.Surface;
 
 import androidx.annotation.NonNull;
 
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
-
 public class LocationUtils
 {
   private LocationUtils() {}
 
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
-  private static final String TAG = LocationUtils.class.getSimpleName();
   private static final double DEFAULT_SPEED_MPS = 5;
 
   /**

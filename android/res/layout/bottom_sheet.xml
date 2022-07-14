@@ -5,6 +5,9 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
+  <include
+    layout="@layout/bottom_sheet_handle" />
+
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/bottom_sheet_menu_header"
     android:layout_width="match_parent"
@@ -17,6 +20,8 @@
     android:layout_marginTop="@dimen/margin_base"
     android:layout_marginBottom="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
+    android:maxLines="3"
+    android:ellipsize="end"
     android:textAppearance="?fontHeadline6"
     tools:text="Title" />
 

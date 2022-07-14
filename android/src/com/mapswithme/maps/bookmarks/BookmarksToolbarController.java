@@ -43,4 +43,10 @@ public class BookmarksToolbarController extends SearchToolbarController
     else
       mFragment.cancelSearch();
   }
+
+  @Override
+  protected boolean showBackButton()
+  {
+    return false;
+  }
 }

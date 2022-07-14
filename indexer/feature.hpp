@@ -75,9 +75,10 @@ public:
   void SetID(FeatureID id) { m_id = std::move(id); }
   FeatureID const & GetID() const { return m_id; }
 
+  void ParseHeader2();
   void ResetGeometry();
-  uint32_t ParseGeometry(int scale);
-  uint32_t ParseTriangles(int scale);
+  void ParseGeometry(int scale);
+  void ParseTriangles(int scale);
   //@}
 
   /// @name Geometry.
@@ -159,31 +160,24 @@ public:
   std::string_view GetMetadata(feature::Metadata::EType type);
   bool HasMetadata(feature::Metadata::EType type);
 
-  /// @name Statistic functions.
+  /// @name Stats functions.
   //@{
-  void ParseBeforeStatistic() { ParseHeader2(); }
-
   struct InnerGeomStat
   {
     uint32_t m_points = 0, m_strips = 0, m_size = 0;
-
-    void MakeZero()
-    {
-      m_points = m_strips = m_size = 0;
-    }
   };
 
-  InnerGeomStat GetInnerStatistic() const { return m_innerStats; }
+  InnerGeomStat GetInnerStats() const { return m_innerStats; }
 
+  using GeomArr = uint32_t[feature::DataHeader::kMaxScalesCount];
   struct GeomStat
   {
-    uint32_t m_size = 0, m_count = 0;
-
-    GeomStat(uint32_t sz, size_t count) : m_size(sz), m_count(static_cast<uint32_t>(count)) {}
+    GeomArr m_sizes = {}, m_elements = {};
   };
 
-  GeomStat GetGeometrySize(int scale);
-  GeomStat GetTrianglesSize(int scale);
+  // Returns outer points/triangles stats for all geo levels and loads the best geometry.
+  GeomStat GetOuterGeometryStats();
+  GeomStat GetOuterTrianglesStats();
   //@}
 
 private:
@@ -221,7 +215,6 @@ private:
 
   void ParseTypes();
   void ParseCommon();
-  void ParseHeader2();
   void ParseMetadata();
   void ParseMetaIds();
   void ParseGeometryAndTriangles(int scale);

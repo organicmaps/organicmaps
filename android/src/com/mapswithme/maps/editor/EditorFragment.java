@@ -531,36 +531,43 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mPhone.setOnClickListener(this);
     View blockWeb = view.findViewById(R.id.block_website);
     mWebsite = findInputAndInitBlock(blockWeb, R.drawable.ic_website, R.string.website);
-    mWebsite.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+    mWebsite.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI
+            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
     mInputWebsite = blockWeb.findViewById(R.id.custom_input);
     View blockEmail = view.findViewById(R.id.block_email);
     mEmail = findInputAndInitBlock(blockEmail, R.drawable.ic_email, R.string.email);
-    mEmail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+    mEmail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
     mInputEmail = blockEmail.findViewById(R.id.custom_input);
 
     View blockFacebookPage = view.findViewById(R.id.block_facebook);
     mFacebookPage = findInputAndInitBlock(blockFacebookPage, R.drawable.ic_facebook_white, R.string.facebook);
-    mFacebookPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+    mFacebookPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI
+            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
     mInputFacebookPage = blockFacebookPage.findViewById(R.id.custom_input);
 
     View blockInstagramPage = view.findViewById(R.id.block_instagram);
     mInstagramPage = findInputAndInitBlock(blockInstagramPage, R.drawable.ic_instagram_white, R.string.instagram);
-    mInstagramPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+    mInstagramPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI
+            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
     mInputInstagramPage = blockInstagramPage.findViewById(R.id.custom_input);
 
     View blockTwitterPage = view.findViewById(R.id.block_twitter);
     mTwitterPage = findInputAndInitBlock(blockTwitterPage, R.drawable.ic_twitter_white, R.string.twitter);
-    mTwitterPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+    mTwitterPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI
+            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
     mInputTwitterPage = blockTwitterPage.findViewById(R.id.custom_input);
 
     View blockVkPage = view.findViewById(R.id.block_vk);
     mVkPage = findInputAndInitBlock(blockVkPage, R.drawable.ic_vk_white, R.string.vk);
-    mVkPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+    mVkPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI
+            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
     mInputVkPage = blockVkPage.findViewById(R.id.custom_input);
 
     View blockLinePage = view.findViewById(R.id.block_line);
     mLinePage = findInputAndInitBlock(blockLinePage, R.drawable.ic_line_white, R.string.editor_line_social_network);
-    mLinePage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+    mLinePage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI
+            | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
     mInputLinePage = blockLinePage.findViewById(R.id.custom_input);
 
     View blockCuisine = view.findViewById(R.id.block_cuisine);

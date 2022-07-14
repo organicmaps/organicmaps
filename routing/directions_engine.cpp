@@ -2,6 +2,7 @@
 
 #include "routing/data_source.hpp"
 #include "routing/fake_feature_ids.hpp"
+#include "routing/maxspeeds.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_callbacks.hpp"
 
@@ -40,7 +41,7 @@ void DirectionsEngine::Clear()
   m_pathSegments.clear();
 }
 
-std::unique_ptr<FeatureType> DirectionsEngine::GetFeature(FeatureID const & featureId)
+unique_ptr<FeatureType> DirectionsEngine::GetFeature(FeatureID const & featureId)
 {
   if (IsFakeFeature(featureId.m_index))
     return nullptr;
@@ -202,7 +203,6 @@ void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
 
     size_t const prevJunctionSize = prevJunctions.size();
     LoadedPathSegment pathSegment;
-    LoadPathAttributes(segmentRange.GetFeature(), pathSegment);
     pathSegment.m_segmentRange = segmentRange;
     pathSegment.m_path = move(prevJunctions);
     // @TODO(bykoianko) |pathSegment.m_weight| should be filled here.
@@ -211,11 +211,16 @@ void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     // fake edge a fake segment is created.
     CHECK_EQUAL(prevSegments.size() + 1, prevJunctionSize, ());
     pathSegment.m_segments = move(prevSegments);
+    LoadPathAttributes(segmentRange.GetFeature(), pathSegment); // inEdge.IsForward()
 
     if (!segmentRange.IsEmpty())
     {
-      auto const it = m_adjacentEdges.find(segmentRange);
-      m_adjacentEdges.insert(it, make_pair(segmentRange, move(adjacentEdges)));
+      /// @todo By VNG: Here was mostly investigational CHECK.
+      /// Entry already exists, when start-end points are on the same fake segments.
+
+      //bool const isEmpty = adjacentEdges.m_outgoingTurns.candidates.empty();
+      //CHECK(m_adjacentEdges.emplace(segmentRange, move(adjacentEdges)).second || isEmpty, ());
+      m_adjacentEdges.emplace(segmentRange, move(adjacentEdges));
     }
 
     m_pathSegments.push_back(move(pathSegment));
@@ -228,37 +233,34 @@ void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
 
 bool DirectionsEngine::Generate(IndexRoadGraph const & graph,
                                 vector<geometry::PointWithAltitude> const & path,
-                                base::Cancellable const & cancellable, Route::TTurns & turns,
-                                Route::TStreets & streetNames,
-                                vector<geometry::PointWithAltitude> & routeGeometry,
-                                vector<Segment> & segments)
+                                base::Cancellable const & cancellable,
+                                vector<RouteSegment> & routeSegments)
 {
   CHECK(m_numMwmIds, ());
 
   m_adjacentEdges.clear();
   m_pathSegments.clear();
-  turns.clear();
-  streetNames.clear();
-  segments.clear();
-
-  IndexRoadGraph::EdgeVector routeEdges;
 
   CHECK_NOT_EQUAL(m_vehicleType, VehicleType::Count, (m_vehicleType));
 
   if (m_vehicleType == VehicleType::Transit)
   {
-    routeGeometry = path;
-    graph.GetRouteSegments(segments);
-    graph.GetRouteEdges(routeEdges);
-    turns.emplace_back(routeEdges.size(), turns::PedestrianDirection::ReachedYourDestination);
+    auto const & segments = graph.GetRouteSegments();
+    size_t const segsCount = segments.size();
+    for (size_t i = 0; i < segsCount; ++i)
+    {
+      TurnItem turn;
+      if (i == segsCount - 1)
+        turn = TurnItem(segsCount, turns::PedestrianDirection::ReachedYourDestination);
+      routeSegments.emplace_back(segments[i], turn, path[i + 1], RouteSegment::RoadNameInfo());
+    }
     return true;
   }
-
-  routeGeometry.clear();
 
   if (path.size() <= 1)
     return false;
 
+  IndexRoadGraph::EdgeVector routeEdges;
   graph.GetRouteEdges(routeEdges);
 
   if (routeEdges.empty())
@@ -272,23 +274,9 @@ bool DirectionsEngine::Generate(IndexRoadGraph const & graph,
   if (cancellable.IsCancelled())
     return false;
 
-  auto const res = MakeTurnAnnotation(routeEdges, cancellable,
-                                      routeGeometry, turns, streetNames, segments);
+  MakeTurnAnnotation(routeEdges, routeSegments);
 
-  if (res != RouterResultCode::NoError)
-    return false;
-
-  // In case of bicycle routing |m_pathSegments| may have an empty
-  // |LoadedPathSegment::m_segments| fields. In that case |segments| is empty
-  // so size of |segments| is not equal to size of |routeEdges|.
-  if (!segments.empty())
-    CHECK_EQUAL(segments.size(), routeEdges.size(), ());
-
-
-  CHECK_EQUAL(
-      routeGeometry.size(), path.size(),
-      ("routeGeometry and path have different sizes. routeGeometry size:", routeGeometry.size(),
-       "path size:", path.size(), "segments size:", segments.size(), "routeEdges size:", routeEdges.size()));
+  CHECK_EQUAL(routeSegments.size(), routeEdges.size(), ());
 
   return true;
 }
@@ -324,81 +312,58 @@ bool DirectionsEngine::Generate(IndexRoadGraph const & graph,
 // So minimum m_index of ReachedYourDestination is 5 (real route with single segment),
 // and minimal |turnsDir| is - single ReachedYourDestination with m_index == 5.
 
-RouterResultCode DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & routeEdges,
-                                                      base::Cancellable const & cancellable,
-                                                      std::vector<geometry::PointWithAltitude> & junctions,
-                                                      Route::TTurns & turnsDir, Route::TStreets & streets,
-                                                      std::vector<Segment> & segments)
+void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & routeEdges,
+                                          vector<RouteSegment> & routeSegments)
 {
+  CHECK_GREATER_OR_EQUAL(routeEdges.size(), 2, ());
+
   RoutingEngineResult result(routeEdges, m_adjacentEdges, m_pathSegments);
 
   LOG(LDEBUG, ("Shortest path length:", result.GetPathLength()));
 
-  if (cancellable.IsCancelled())
-    return RouterResultCode::Cancelled;
-
-  size_t skipTurnSegments = 0;
-  auto const & loadedSegments = result.GetSegments();
-  segments.reserve(loadedSegments.size());
+  routeSegments.reserve(routeEdges.size());
 
   RoutingSettings const vehicleSettings = GetRoutingSettings(m_vehicleType);
 
-  for (auto loadedSegmentIt = loadedSegments.cbegin(); loadedSegmentIt != loadedSegments.cend(); ++loadedSegmentIt)
+  auto const & loadedSegments = result.GetSegments(); // the same as m_pathSegments
+
+  // First point of first loadedSegment is ignored. This is the reason for:
+  ASSERT_EQUAL(loadedSegments.front().m_path.back(), loadedSegments.front().m_path.front(), ());
+
+  size_t skipTurnSegments = 0;
+  for (size_t idxLoadedSegment = 0; idxLoadedSegment < loadedSegments.size(); ++idxLoadedSegment)
   {
-    CHECK(loadedSegmentIt->IsValid(), ());
+    auto const & loadedSegment = loadedSegments[idxLoadedSegment];
 
-    // Street names contain empty names too for avoiding of freezing of old street name while
-    // moving along unnamed street.
-    streets.emplace_back(max(junctions.size(), static_cast<size_t>(1)) - 1, loadedSegmentIt->m_roadNameInfo);
+    CHECK(loadedSegment.IsValid(), ());
+    CHECK_GREATER_OR_EQUAL(loadedSegment.m_segments.size(), 1, ());
+    CHECK_EQUAL(loadedSegment.m_segments.size() + 1, loadedSegment.m_path.size(), ());
 
-    // Turns information.
-    if (!junctions.empty() && skipTurnSegments == 0)
+    for (size_t i = 0; i < loadedSegment.m_segments.size() - 1; ++i)
     {
-      size_t const outgoingSegmentIndex = base::asserted_cast<size_t>(distance(loadedSegments.begin(), loadedSegmentIt));
-
-      TurnItem turnItem;
-      turnItem.m_index = static_cast<uint32_t>(junctions.size() - 1);
-
-      skipTurnSegments = GetTurnDirection(result, outgoingSegmentIndex, *m_numMwmIds, vehicleSettings, turnItem);
-
-      if (!turnItem.IsTurnNone())
-        turnsDir.push_back(move(turnItem));
+      auto const & junction = loadedSegment.m_path[i + 1];
+      routeSegments.emplace_back(loadedSegment.m_segments[i], TurnItem(), junction, RouteSegment::RoadNameInfo());
     }
 
-    if (skipTurnSegments > 0)
+    // For the last segment of current loadedSegment put info about turn
+    // from current loadedSegment to the next one.
+    TurnItem turnItem;
+    if (skipTurnSegments == 0)
+    {
+      turnItem.m_index = routeSegments.size() + 1;
+      skipTurnSegments = GetTurnDirection(result, idxLoadedSegment + 1, *m_numMwmIds, vehicleSettings, turnItem);
+    }
+    else
       --skipTurnSegments;
 
-    // Path geometry.
-    CHECK_GREATER_OR_EQUAL(loadedSegmentIt->m_path.size(), 2, ());
-    // Note. Every LoadedPathSegment in TUnpackedPathSegments contains LoadedPathSegment::m_path
-    // of several Junctions. Last PointWithAltitude in a LoadedPathSegment::m_path is equal to first
-    // junction in next LoadedPathSegment::m_path in vector TUnpackedPathSegments:
-    // *---*---*---*---*       *---*           *---*---*---*
-    //                 *---*---*   *---*---*---*
-    // To prevent having repetitions in |junctions| list it's necessary to take the first point only
-    // from the first item of |loadedSegments|. The beginning should be ignored for the rest
-    // |m_path|.
-    junctions.insert(junctions.end(), loadedSegmentIt == loadedSegments.cbegin()
-                                          ? loadedSegmentIt->m_path.cbegin()
-                                          : loadedSegmentIt->m_path.cbegin() + 1,
-                     loadedSegmentIt->m_path.cend());
-    segments.insert(segments.end(), loadedSegmentIt->m_segments.cbegin(),
-                    loadedSegmentIt->m_segments.cend());
+    routeSegments.emplace_back(loadedSegment.m_segments.back(), turnItem,
+                               loadedSegment.m_path.back(), loadedSegment.m_roadNameInfo);
   }
 
-  // Path found. Points will be replaced by start and end edges junctions.
-  if (junctions.size() == 1)
-    junctions.push_back(junctions.front());
+  ASSERT_EQUAL(routeSegments.front().GetJunction(), result.GetStartPoint(), ());
+  ASSERT_EQUAL(routeSegments.back().GetJunction(), result.GetEndPoint(), ());
 
-  if (junctions.size() < 2)
-    return RouterResultCode::RouteNotFound;
-
-  junctions.front() = result.GetStartPoint();
-  junctions.back() = result.GetEndPoint();
-
-  FixupTurns(junctions, turnsDir);
-
-  return RouterResultCode::NoError;
+  FixupTurns(routeSegments);
 }
 
 }  // namespace routing

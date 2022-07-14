@@ -503,6 +503,10 @@
 
 "history" = "Geçmiş";
 
+"opens_in" = "%@ sonra açılıyor";
+
+"closes_in" = "%@ sonra kapanıyor";
+
 "closed" = "Kapalı";
 
 "search_not_found" = "Üzgünüz, hiç bir şey bulamadık.";
@@ -1575,9 +1579,9 @@
 
 "type.craft" = "Zanaat";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Arıcı";
 
-"type.craft.blacksmith" = "Blacksmith";
+"type.craft.blacksmith" = "Demirci";
 
 "type.craft.brewery" = "Bira Fabrikası";
 
@@ -1587,12 +1591,13 @@
 
 "type.craft.electrician" = "Elektrikçi";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Elektronik Tamircisi";
 
 "type.craft.gardener" = "Bahçe Düzenleyici";
 
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "El İşi";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Klimacı";
 
 "type.craft.metal_construction" = "Dökümcü";
@@ -2363,7 +2368,7 @@
 
 "type.mountain_pass" = "Boğaz";
 
-"type.natural" = "Doğal";
+"type.natural" = "Doğa";
 
 "type.natural.bare_rock" = "Çıplak Kaya";
 
@@ -2381,13 +2386,17 @@
 
 "type.natural.cliff" = "Uçurum";
 
+"type.natural.earth_bank" = "Uçurum";
+
+"type.man_made.embankment" = "Set";
+
 "type.natural.coastline" = "Kıyı Şeridi";
 
 "type.natural.geyser" = "Gayzer";
 
 "type.natural.glacier" = "Buzul";
 
-"type.natural.grassland" = "Yeşillik";
+"type.natural.grassland" = "Campo";
 
 "type.natural.heath" = "Çalı";
 
@@ -2853,7 +2862,7 @@
 
 "type.sport.athletics" = "Atletizm";
 
-"type.sport.australian_football" = "Ragbi";
+"type.sport.australian_football" = "Avustralya futbolu";
 
 "type.sport.baseball" = "Beyzbol";
 
@@ -2863,9 +2872,7 @@
 
 "type.sport.cricket" = "Kriket";
 
-"type.sport.curling" = "Сurling";
-
-"type.sport.diving" = "Dalış";
+"type.sport.curling" = "Körling";
 
 "type.sport.equestrian" = "Binicilik Sporları";
 
@@ -2877,11 +2884,12 @@
 
 "type.sport.multi" = "Çeşitli Sporlar";
 
+/* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Tüplü Dalış";
 
-"type.sport.shooting" = "Atış Sporları";
+"type.sport.shooting" = "Çekim";
 
-"type.sport.skiing" = "Kayak";
+"type.sport.skiing" = "Kayak yapmak";
 
 "type.sport.soccer" = "Futbol";
 
@@ -2929,7 +2937,7 @@
 
 "type.tourism.information.board" = "Bilgi Panosu";
 
-"type.tourism.information.guidepost" = "Turist Bilgilendirme";
+"type.tourism.information.guidepost" = "Kılavuz direği";
 
 "type.tourism.information.map" = "Turist Haritası";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Kızak Pisti";
 
 "type.building_part" = "Bina";
+
+"type.amenity.events_venue" = "Etkinlik mekanı";

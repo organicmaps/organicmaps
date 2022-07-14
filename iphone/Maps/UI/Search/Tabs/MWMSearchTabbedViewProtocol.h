@@ -6,7 +6,7 @@
 
 @property(nonatomic) MWMSearchManagerState state;
 
-- (void)searchText:(NSString *)text forInputLocale:(NSString *)locale;
+- (void)searchText:(NSString *)text forInputLocale:(NSString *)locale withCategory:(BOOL)isCategory;
 - (void)dismissKeyboard;
 
 @end

@@ -503,6 +503,10 @@
 
 "history" = "履歴";
 
+"opens_in" = "Opens in %@";
+
+"closes_in" = "Closes in %@";
+
 "closed" = "閉鎖";
 
 "search_not_found" = "申し訳ありませんが該当するものは見つかりませんでした。";
@@ -1575,7 +1579,7 @@
 
 "type.craft" = "工房";
 
-"type.craft.beekeeper" = "beekeeper";
+"type.craft.beekeeper" = "Beekeeper";
 
 "type.craft.blacksmith" = "Blacksmith";
 
@@ -1587,12 +1591,13 @@
 
 "type.craft.electrician" = "電気技師";
 
-"type.craft.electronics_repair" = "Electronics repair";
+"type.craft.electronics_repair" = "Electronics Repair";
 
 "type.craft.gardener" = "造園家";
 
 "type.craft.handicraft" = "Handicraft";
 
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "冷暖房空調";
 
 "type.craft.metal_construction" = "金属工";
@@ -2371,9 +2376,9 @@
 
 "type.natural.beach" = "ビーチ";
 
-"type.natural.beach.sand" = "Sandy Beach";
+"type.natural.beach.sand" = "砂浜";
 
-"type.natural.beach.gravel" = "Gravel Beach";
+"type.natural.beach.gravel" = "グラベルビーチ";
 
 "type.natural.cape" = "岬";
 
@@ -2381,13 +2386,17 @@
 
 "type.natural.cliff" = "崖";
 
+"type.natural.earth_bank" = "崖";
+
+"type.man_made.embankment" = "盛土";
+
 "type.natural.coastline" = "海岸線";
 
 "type.natural.geyser" = "間欠泉";
 
 "type.natural.glacier" = "氷河";
 
-"type.natural.grassland" = "野原";
+"type.natural.grassland" = "草原";
 
 "type.natural.heath" = "ヒース";
 
@@ -2413,7 +2422,7 @@
 
 "type.natural.peak" = "山頂";
 
-"type.natural.saddle" = "Mountain Saddle";
+"type.natural.saddle" = "鞍部";
 
 "type.natural.rock" = "岩";
 
@@ -2865,19 +2874,18 @@
 
 "type.sport.curling" = "カーリング";
 
-"type.sport.diving" = "ダイビング";
-
 "type.sport.equestrian" = "馬術";
 
 "type.sport.golf" = "ゴルフ";
 
-"type.sport.gymnastics" = "体操競技";
+"type.sport.gymnastics" = "体操";
 
 "type.sport.handball" = "ハンドボール";
 
 "type.sport.multi" = "複数";
 
-"type.sport.scuba_diving" = "スクーバダイビング";
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "スキューバダイビング";
 
 "type.sport.shooting" = "射撃競技";
 
@@ -2927,7 +2935,7 @@
 
 "type.tourism.information" = "インフォメーション";
 
-"type.tourism.information.board" = "案内板";
+"type.tourism.information.board" = "情報板";
 
 "type.tourism.information.guidepost" = "道標";
 
@@ -3037,3 +3045,5 @@
 "type.piste_type.sled" = "Sledding Piste";
 
 "type.building_part" = "建物";
+
+"type.amenity.events_venue" = "イベント会場";

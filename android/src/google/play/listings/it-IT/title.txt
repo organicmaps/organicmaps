@@ -1,1 +1,1 @@
-../../../../fdroid/play/listings/it-IT/title.txt
+Organic Maps: Mappe Offline

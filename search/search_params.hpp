@@ -21,18 +21,18 @@ class Tracer;
 
 struct SearchParams
 {
-  inline static size_t const kDefaultNumBookmarksResults = 1000;
-  inline static size_t const kDefaultBatchSizeEverywhere = 10;
-  inline static size_t const kDefaultNumResultsEverywhere = 30;
-  inline static size_t const kDefaultNumResultsInViewport = 200;
-  inline static size_t const kPreResultsCount = 200;
-  inline static double const kDefaultStreetSearchRadiusM = 8e4;
-  inline static double const kDefaultVillageSearchRadiusM = 2e5;
-  // TODO: Short timeouts leads to a non-working search on slow devices. Design a better solution.
-  inline static std::chrono::steady_clock::duration const kDefaultTimeout =
-      std::chrono::seconds(8);
-  inline static std::chrono::steady_clock::duration const kDefaultDesktopTimeout =
-      std::chrono::seconds(8);
+  static size_t constexpr kDefaultNumBookmarksResults = 1000;
+  static size_t constexpr kDefaultBatchSizeEverywhere = 10;
+  static size_t constexpr kDefaultNumResultsEverywhere = 30;
+  static size_t constexpr kDefaultNumResultsInViewport = 200;
+  static size_t constexpr kPreResultsCount = 200;
+  static double constexpr kDefaultStreetSearchRadiusM = 8e4;
+  static double constexpr kDefaultVillageSearchRadiusM = 2e5;
+
+  using TimeDurationT = base::Timer::DurationT;
+  /// @todo Short timeouts lead to a non-working search on slow devices. Design a better solution.
+  static TimeDurationT constexpr kDefaultTimeout = std::chrono::seconds(8);
+  static TimeDurationT constexpr kDefaultDesktopTimeout = std::chrono::seconds(8);
 
   using OnStarted = std::function<void()>;
   using OnResults = std::function<void(Results const &)>;
@@ -92,10 +92,13 @@ struct SearchParams
   // Needed to highlight matching parts of search result names.
   bool m_needHighlighting = false;
 
+  /// True if you need *pure* category results, without names/addresses/etc matching.
+  bool m_categorialRequest = false;
+
   bookmarks::GroupId m_bookmarksGroupId = bookmarks::kInvalidGroupId;
 
   // Amount of time after which the search is aborted.
-  std::chrono::steady_clock::duration m_timeout = kDefaultTimeout;
+  TimeDurationT m_timeout = kDefaultTimeout;
 
   std::shared_ptr<Tracer> m_tracer;
 };
