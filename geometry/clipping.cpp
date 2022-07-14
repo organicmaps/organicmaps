@@ -206,8 +206,8 @@ vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpli
   case RectCase::Inside: return {spline};
   case RectCase::Outside: return {};
   case RectCase::Intersect: return ClipPathByRectImpl(rect, spline->GetPath());
-  default: return {};
   }
+  return {};
 }
 
 std::vector<m2::SharedSpline> ClipPathByRect(m2::RectD const & rect,
@@ -218,8 +218,8 @@ std::vector<m2::SharedSpline> ClipPathByRect(m2::RectD const & rect,
   case RectCase::Inside: return {m2::SharedSpline(path)};
   case RectCase::Outside: return {};
   case RectCase::Intersect: return ClipPathByRectImpl(rect, path);
-  default: return {};
   }
+  return {};
 }
 
 void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> const & path,

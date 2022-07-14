@@ -209,8 +209,8 @@ CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId, string c
   case MwmDataSource::MwmNotLoaded: return MwmStatus::NotLoaded;
   case MwmDataSource::SectionExists: return MwmStatus::SectionExists;
   case MwmDataSource::NoSection: return MwmStatus::NoSection;
-  default: return MwmStatus::NoSection;
   }
+  return MwmStatus::NoSection;
 }
 
 CrossMwmGraph::MwmStatus CrossMwmGraph::GetCrossMwmStatus(NumMwmId numMwmId) const

@@ -108,9 +108,9 @@ osmoh::RuleState ModifierToRuleState(osmoh::RuleSequence::Modifier const modifie
 
     case Modifier::Unknown:
     case Modifier::Comment:
-    default:
       return osmoh::RuleState::Unknown;
   }
+  return osmoh::RuleState::Unknown;
 }
 
 // Transform timspan with extended end of the form of
