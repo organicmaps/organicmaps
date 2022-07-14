@@ -39,7 +39,7 @@ FeatureID const kEmptyFeatureId;
 Results g_results;
 
 // Timestamp of last search query. Results with older stamps are ignored.
-uint64_t g_queryTimestamp;
+jlong g_queryTimestamp;
 // Implements 'NativeSearchListener' java interface.
 jobject g_javaListener;
 jmethodID g_updateResultsId;
@@ -74,7 +74,7 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
   jni::TScopedLocalIntArrayRef ranges(
       env, env->NewIntArray(static_cast<jsize>(result.GetHighlightRangesCount() * 2)));
   jint * rawArr = env->GetIntArrayElements(ranges, nullptr);
-  for (int i = 0; i < result.GetHighlightRangesCount(); i++)
+  for (size_t i = 0; i < result.GetHighlightRangesCount(); i++)
   {
     auto const & range = result.GetHighlightRange(i);
     rawArr[2 * i] = range.first;
@@ -146,7 +146,7 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
 }
 
 void OnResults(Results const & results, vector<search::ProductInfo> const & productInfo,
-               long long timestamp, bool isMapAndTable, bool hasPosition, double lat, double lon)
+               jlong timestamp, bool isMapAndTable, bool hasPosition, double lat, double lon)
 {
   // Ignore results from obsolete searches.
   if (g_queryTimestamp > timestamp)
@@ -158,13 +158,12 @@ void OnResults(Results const & results, vector<search::ProductInfo> const & prod
   {
     jni::TScopedLocalObjectArrayRef jResults(
         env, BuildSearchResults(results, productInfo, hasPosition, lat, lon));
-    env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults.get(),
-                        static_cast<jlong>(timestamp));
+    env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults.get(), timestamp);
   }
 
   if (results.IsEndMarker())
   {
-    env->CallVoidMethod(g_javaListener, g_endResultsId, static_cast<jlong>(timestamp));
+    env->CallVoidMethod(g_javaListener, g_endResultsId, timestamp);
     if (isMapAndTable && results.IsEndedNormal())
       g_framework->NativeFramework()->GetSearchAPI().PokeSearchInViewport();
   }
