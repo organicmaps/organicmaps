@@ -106,6 +106,7 @@ NSAttributedString *estimate(NSTimeInterval time, NSAttributedString *dot, NSStr
 @property(copy, nonatomic, readwrite) NSString *targetDistance;
 @property(copy, nonatomic, readwrite) NSString *targetUnits;
 @property(copy, nonatomic, readwrite) NSString *turnUnits;
+@property(copy, nonatomic, readwrite) NSString *speedLimit;
 @property(nonatomic, readwrite) BOOL isValid;
 @property(nonatomic, readwrite) CGFloat progress;
 @property(nonatomic, readwrite) CLLocation *pedestrianDirectionPosition;
@@ -150,6 +151,7 @@ NSAttributedString *estimate(NSTimeInterval time, NSAttributedString *dot, NSStr
     entity.distanceToTurn = @(info.m_distToTurn.c_str());
     entity.turnUnits = [self localizedUnitLength:@(info.m_turnUnitsSuffix.c_str())];
     entity.streetName = @(info.m_displayedStreetName.c_str());
+    entity.speedLimit = @(info.m_speedLimit.c_str());
 
     entity.estimate = estimate(entity.timeToTarget, entity.estimateDot, entity.targetDistance, entity.targetUnits,
                                self.etaAttributes, self.etaSecondaryAttributes, NO);
