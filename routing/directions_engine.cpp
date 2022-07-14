@@ -246,8 +246,8 @@ bool DirectionsEngine::Generate(IndexRoadGraph const & graph,
   if (m_vehicleType == VehicleType::Transit)
   {
     auto const & segments = graph.GetRouteSegments();
-    size_t const segsCount = segments.size();
-    for (size_t i = 0; i < segsCount; ++i)
+    uint32_t const segsCount = base::asserted_cast<uint32_t>(segments.size());
+    for (uint32_t i = 0; i < segsCount; ++i)
     {
       TurnItem turn;
       if (i == segsCount - 1)
@@ -350,7 +350,7 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
     TurnItem turnItem;
     if (skipTurnSegments == 0)
     {
-      turnItem.m_index = routeSegments.size() + 1;
+      turnItem.m_index = base::asserted_cast<uint32_t>(routeSegments.size() + 1);
       skipTurnSegments = GetTurnDirection(result, idxLoadedSegment + 1, *m_numMwmIds, vehicleSettings, turnItem);
     }
     else
