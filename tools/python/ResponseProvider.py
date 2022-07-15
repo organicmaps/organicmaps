@@ -209,17 +209,17 @@ class ResponseProvider:
         self.check_byterange(BIG_FILE_SIZE)
         headers = self.chunked_response_header(BIG_FILE_SIZE)
         message = self.trim_message(self.message_for_47kb_file())
-            
+
         return Payload(message, self.response_code, headers)
 
     
     def message_for_47kb_file(self):
         message = []
         for i in range(0, BIG_FILE_SIZE + 1):
-            message.append(chr(i // 256))
-            message.append(chr(i % 256))
+            message.append(i // 256)
+            message.append(i % 256)
 
-        return "".join(message)
+        return bytes(message)
 
 
     # Partners_api_tests
