@@ -249,7 +249,7 @@ string FormatSpeedUnits(Units units)
 
 string FormatOsmLink(double lat, double lon, int zoom)
 {
-  static char char_array[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_~";
+  static constexpr char chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_~";
 
   // Same as (lon + 180) / 360 * 1UL << 32, but without warnings.
   double constexpr factor = (1 << 30) / 90.0;
@@ -260,8 +260,9 @@ string FormatOsmLink(double lat, double lon, int zoom)
 
   for (int i = 0; i < (zoom + 10) / 3; ++i)
   {
-    int digit = (code >> (58 - 6 * i)) & 0x3f;
-    osmUrl += char_array[digit];
+    const uint64_t digit = (code >> (58 - 6 * i)) & 0x3f;
+    ASSERT_LESS(digit, ARRAY_SIZE(chars), ());
+    osmUrl += chars[digit];
   }
 
   for (int i = 0; i < (zoom + 8) % 3; ++i)
