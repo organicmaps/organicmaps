@@ -19,8 +19,6 @@ set(SRC
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-target_link_libraries(${PROJECT_NAME} base)
-
 target_include_directories(${PROJECT_NAME} INTERFACE .)
 
 target_compile_options(${PROJECT_NAME} PRIVATE -Wno-deprecated-copy)
