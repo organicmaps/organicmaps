@@ -61,7 +61,7 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
     MwmApplication cat = MwmApplication.from(getCarContext());
     try
     {
-     cat.init();
+      cat.init();
     }
     catch (IOException e)
     {
@@ -69,20 +69,18 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
     }
     int h = surfaceContainer.getHeight();
     int w = surfaceContainer.getWidth();
-    Canvas canvas = null;
 
     if (surfaceContainer.getSurface() != null)
     {
-          final boolean firstStart = LocationHelper.INSTANCE.isInFirstRun();
+      final boolean firstStart = LocationHelper.INSTANCE.isInFirstRun();
       Log.e("Create Engine", "!");
-      canvas = surfaceContainer.getSurface()
-                               .lockCanvas(new Rect(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE));
 
+      //Getting the surface to
       Surface surface = surfaceContainer.getSurface();
       boolean cr = MapFragment.nativeCreateEngine(surface, surface.lockHardwareCanvas()
                                                                   .getDensity(), firstStart, false, BuildConfig.VERSION_CODE);
       Log.e("Native Create Engine", String.valueOf(cr));
-      if (canvas == null && cat.arePlatformAndCoreInitialized())
+      if (!cat.arePlatformAndCoreInitialized())
       {
         Log.e("arePlatformAndCoreInitialized()", String.valueOf(cat.arePlatformAndCoreInitialized()));
         Log.e("Nope", "Cannot draw onto the canvas as it's null");
@@ -91,7 +89,6 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
       {
         Log.e("arePlatformAndCoreInitialized()", String.valueOf(cat.arePlatformAndCoreInitialized()));
         Log.e("Draw", "Rendering Should be done successfully?");
-
 
         try
         {
@@ -102,9 +99,6 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
         {
           e.printStackTrace();
         }
-
-        MapFragment.nativeAttachSurface(surface);
-        surfaceContainer.getSurface().unlockCanvasAndPost(canvas);
       }
     }
     else
