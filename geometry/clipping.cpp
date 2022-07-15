@@ -207,6 +207,7 @@ vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpli
   case RectCase::Outside: return {};
   case RectCase::Intersect: return ClipPathByRectImpl(rect, spline->GetPath());
   }
+  CHECK(false, ("Unreachable"));
   return {};
 }
 
@@ -219,6 +220,7 @@ std::vector<m2::SharedSpline> ClipPathByRect(m2::RectD const & rect,
   case RectCase::Outside: return {};
   case RectCase::Intersect: return ClipPathByRectImpl(rect, path);
   }
+  CHECK(false, ("Unreachable"));
   return {};
 }
 

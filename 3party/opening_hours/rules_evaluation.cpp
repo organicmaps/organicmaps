@@ -1,6 +1,8 @@
 #include "rules_evaluation.hpp"
 #include "rules_evaluation_private.hpp"
 
+#include "base/assert.hpp"
+
 #include <algorithm>
 #include <ctime>
 #include <iomanip>
@@ -110,6 +112,7 @@ osmoh::RuleState ModifierToRuleState(osmoh::RuleSequence::Modifier const modifie
     case Modifier::Comment:
       return osmoh::RuleState::Unknown;
   }
+  CHECK(false, ("Unreachable"));
   return osmoh::RuleState::Unknown;
 }
 

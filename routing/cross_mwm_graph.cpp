@@ -210,6 +210,7 @@ CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId, string c
   case MwmDataSource::SectionExists: return MwmStatus::SectionExists;
   case MwmDataSource::NoSection: return MwmStatus::NoSection;
   }
+  CHECK(false, ("Unreachable"));
   return MwmStatus::NoSection;
 }
 
