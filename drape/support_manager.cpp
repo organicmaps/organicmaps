@@ -141,13 +141,15 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
   return false;
 }
 
+// Finally, the result of this function is used in GraphicsContext::HasPartialTextureUpdates.
 bool SupportManager::IsVulkanTexturePartialUpdateBuggy(int sdkVersion,
                                                        std::string const & deviceName,
                                                        Version apiVersion,
                                                        Version driverVersion) const
 {
-  int constexpr kMinSdkVersionForVulkan10 = 29;
-  if (sdkVersion >= kMinSdkVersionForVulkan10)
+  /// @todo Assume that all Android 10+ (API 29) doesn't support Vulkan partial texture updates.
+  /// Can't say for sure is it right or not ..
+  if (sdkVersion >= 29)
     return true;
 
   // For these configurations partial updates of texture clears whole texture except part updated

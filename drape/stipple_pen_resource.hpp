@@ -123,6 +123,8 @@ private:
 
   std::mutex m_lock;
   std::mutex m_mappingLock;
+
+  bool m_uploadCalled = false;
 };
 
 class StipplePenTexture : public DynamicTexture<StipplePenIndex, StipplePenKey,
