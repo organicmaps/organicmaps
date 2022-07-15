@@ -118,10 +118,14 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
   };
 
   // On these configurations we've detected fatal driver-specific Vulkan errors.
-  static std::array<Configuration, 3> const kBannedConfigurations = {
+  static Configuration const kBannedConfigurations[] = {
       Configuration{"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
       Configuration{"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
-      Configuration{"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}}
+      Configuration{"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}},
+
+      /// @todo Dashed lines stopped drawing after updating LineShape::Construct<DashedLineBuilder>.
+      /// Should obtain a device (Huawei P20) for better investigation.
+      Configuration{"Mali-G72", {1, 1, 97}, {18, 0, 0}},
   };
 
   for (auto const & d : kBannedDevices)
