@@ -5,7 +5,7 @@
 
 #include <cstring>
 
-namespace  dp
+namespace dp
 {
 
 namespace
@@ -73,25 +73,28 @@ ref_ptr<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, b
 void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture)
 {
   ASSERT(texture->GetFormat() == dp::TextureFormat::RGBA8, ());
-  buffer_vector<PendingColor, 16> pendingNodes;
+  bool const hasPartialTextureUpdate = context->HasPartialTextureUpdates();
+
+  std::vector<PendingColor> pendingNodes;
   {
     std::lock_guard<std::mutex> g(m_lock);
     if (m_pendingNodes.empty())
       return;
 
-    if (context->HasPartialTextureUpdates())
+    if (hasPartialTextureUpdate)
     {
       pendingNodes.swap(m_pendingNodes);
     }
     else
     {
+      // Store all colors in m_nodes, because we should update *whole* texture, if partial update is not available.
       m_nodes.insert(m_nodes.end(), m_pendingNodes.begin(), m_pendingNodes.end());
       m_pendingNodes.clear();
       pendingNodes = m_nodes;
     }
   }
 
-  if (!context->HasPartialTextureUpdates())
+  if (!hasPartialTextureUpdate)
   {
     PendingColor lastPendingColor = pendingNodes.back();
     lastPendingColor.m_color = Color::Transparent();
@@ -102,7 +105,7 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
     }
   }
 
-  buffer_vector<size_t, 3> ranges;
+  buffer_vector<size_t, 4> ranges;
   ranges.push_back(0);
 
   uint32_t minX = pendingNodes[0].m_rect.minX();
@@ -116,10 +119,9 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
     }
   }
 
-  ASSERT(context->HasPartialTextureUpdates() || ranges.size() == 1, ());
+  ASSERT(hasPartialTextureUpdate || ranges.size() == 1, ());
 
   ranges.push_back(pendingNodes.size());
-
   for (size_t i = 1; i < ranges.size(); ++i)
   {
     size_t startRange = ranges[i - 1];

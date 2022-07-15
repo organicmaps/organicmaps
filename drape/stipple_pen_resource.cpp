@@ -2,6 +2,7 @@
 
 #include "drape/texture.hpp"
 
+#include "base/logging.hpp"
 #include "base/shared_buffer_manager.hpp"
 
 #include <cstring>
@@ -184,6 +185,12 @@ void StipplePenIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_
       return;
     m_pendingNodes.swap(pendingNodes);
   }
+
+  // Assume that all patterns are initialized when creating texture (ReserveResource) and uploaded once.
+  // Should provide additional logic like in ColorPalette::UploadResources, if we want multiple uploads.
+  if (m_uploadCalled)
+    LOG(LERROR, ("Multiple stipple pen texture uploads are not supported"));
+  m_uploadCalled = true;
 
   uint32_t height = 0;
   for (auto const & n : pendingNodes)

@@ -49,8 +49,9 @@ private:
 
   TPalette m_palette;
   TPalette m_predefinedPalette;
-  buffer_vector<PendingColor, 16> m_nodes;
-  buffer_vector<PendingColor, 16> m_pendingNodes;
+  // We have > 400 colors, no need to use buffer_vector here.
+  std::vector<PendingColor> m_nodes;
+  std::vector<PendingColor> m_pendingNodes;
   m2::PointU m_textureSize;
   m2::PointU m_cursor;
   bool m_isDebug = false;
