@@ -5,6 +5,7 @@ on:
     paths-ignore:
       - .gitignore
       - .github/**
+      - '!.github/workflows/linux-check.yaml'  # Run check on self change
       - CONTRIBUTORS
       - LICENSE
       - NOTICE
@@ -16,6 +17,9 @@ on:
       - packaging/**
       - pyhelpers/**
       - tools/**
+      - '!tools/python/run_desktop_tests.py'
+      - '!tools/python/testserver.py'
+      - '!tools/python/SiblingKiller.py'
       - xcode/**
 
 jobs:
