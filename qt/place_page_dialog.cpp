@@ -184,6 +184,11 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
       v = info.GetWikipediaLink();
       link = true;
       break;
+    case osm::Props::WikimediaCommons:
+      k = "Wikimedia Commons";
+      v = info.GetWikimediaCommonsLink();
+      link = true;
+      break;
     case osm::Props::Flats:
       k = "Flats";
       v = info.GetFlats();

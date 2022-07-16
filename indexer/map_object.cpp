@@ -281,6 +281,8 @@ bool MapObject::GetElevation(double & outElevationInMeters) const
 
 string MapObject::GetWikipediaLink() const { return m_metadata.GetWikiURL(); }
 
+string MapObject::GetWikimediaCommonsLink() const { return m_metadata.GetWikimediaCommonsURL(); }
+
 string_view MapObject::GetFlats() const { return m_metadata.Get(feature::Metadata::FMD_FLATS); }
 
 string_view MapObject::GetLevel() const { return m_metadata.Get(feature::Metadata::FMD_LEVEL); }

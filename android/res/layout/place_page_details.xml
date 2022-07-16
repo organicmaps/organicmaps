@@ -62,6 +62,8 @@
 
     <include layout="@layout/place_page_wiki"/>
 
+    <include layout="@layout/place_page_wikimedia"/>
+
     <include layout="@layout/place_page_email"/>
 
     <include layout="@layout/place_page_wifi"/>

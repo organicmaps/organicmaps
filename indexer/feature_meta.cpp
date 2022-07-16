@@ -41,6 +41,15 @@ string Metadata::GetWikiURL() const
   return "https://" + v.substr(0, colon) + kBaseWikiUrl + v.substr(colon + 1);
 }
 
+string Metadata::GetWikimediaCommonsURL() const
+{
+  string v(this->Get(FMD_WIKIMEDIA_COMMONS));
+  if (v.empty())
+    return v;
+
+  return "https://commons.wikimedia.org/wiki/" + v;
+}
+
 // static
 bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
 {
@@ -90,6 +99,8 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
     outType = Metadata::FMD_POSTCODE;
   else if (k == "wikipedia")
     outType = Metadata::FMD_WIKIPEDIA;
+  else if (k == "wikimedia_commons")
+    outType = Metadata::FMD_WIKIMEDIA_COMMONS;
   else if (k == "addr:flats")
     outType = Metadata::FMD_FLATS;
   else if (k == "height")
@@ -186,6 +197,7 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_EMAIL: return "email";
   case Metadata::FMD_POSTCODE: return "addr:postcode";
   case Metadata::FMD_WIKIPEDIA: return "wikipedia";
+  case Metadata::FMD_WIKIMEDIA_COMMONS: return "wikimedia_commons";
   case Metadata::FMD_FLATS: return "addr:flats";
   case Metadata::FMD_HEIGHT: return "height";
   case Metadata::FMD_MIN_HEIGHT: return "min_height";
