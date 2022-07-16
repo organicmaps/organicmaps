@@ -287,6 +287,19 @@ string MetadataTagProcessorImpl::ValidateAndFormat_wikipedia(string v) const
   return normalized;
 }
 
+string MetadataTagProcessorImpl::ValidateAndFormat_wikimedia_commons(string v) const
+{
+    if(strings::StartsWith(v, "File:") || strings::StartsWith(v, "Category:"))
+    {
+        return v;
+    }
+    else
+    {
+        LOG(LDEBUG, ("Invalid Wikimedia Commons tag value:", v));
+        return string();
+    }
+}
+
 string MetadataTagProcessorImpl::ValidateAndFormat_airport_iata(string const & v) const
 {
   if (!ftypes::IsAirportChecker::Instance()(m_params.m_types))
@@ -472,6 +485,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_EMAIL: valid = ValidateAndFormat_email(v); break;
   case Metadata::FMD_POSTCODE: valid = ValidateAndFormat_postcode(v); break;
   case Metadata::FMD_WIKIPEDIA: valid = ValidateAndFormat_wikipedia(v); break;
+  case Metadata::FMD_WIKIMEDIA_COMMONS: valid = ValidateAndFormat_wikimedia_commons(v); break;
   case Metadata::FMD_FLATS: valid = ValidateAndFormat_flats(v); break;
   case Metadata::FMD_MIN_HEIGHT:  // The same validator as for height.
   case Metadata::FMD_HEIGHT: valid = ValidateAndFormat_height(v); break;

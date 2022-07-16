@@ -38,7 +38,8 @@ public class MapObject implements PopularityProvider, PlacePageData
     Wikipedia,
     Flats,
     BuildingLevels,
-    Level
+    Level,
+    WikimediaCommons
   }
 
   @Retention(RetentionPolicy.SOURCE)

@@ -132,6 +132,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private TextView mTvWiFi;
   private View mEmail;
   private TextView mTvEmail;
+  private View mWikimedia;
+  private TextView mTvWikimedia;
   private View mOperator;
   private TextView mTvOperator;
   private View mCuisine;
@@ -337,6 +339,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mWebsite = findViewById(R.id.ll__place_website);
     mWebsite.setOnClickListener(this);
     mTvWebsite = findViewById(R.id.tv__place_website);
+    // Wikimedia Commons link
+    mWikimedia = findViewById(R.id.ll__place_wikimedia);
+    mTvWikimedia = findViewById(R.id.tv__place_wikimedia);
+    mWikimedia.setOnClickListener(this);
     //Social links
     mFacebookPage = findViewById(R.id.ll__place_facebook);
     mFacebookPage.setOnClickListener(this);
@@ -396,6 +402,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mWebsite.setOnLongClickListener(this);
+    mWikimedia.setOnLongClickListener(this);
     mOpeningHours.setOnLongClickListener(this);
     mEmail.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
@@ -849,6 +856,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
     String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
     String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
     refreshMetadataOrHide(TextUtils.isEmpty(website) ? url : website, mWebsite, mTvWebsite);
+    String wikimedia_commons = mapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
+    String wikimedia_commons_text =  TextUtils.isEmpty(wikimedia_commons) ? "" : "WIKIMEDIA COMMONS";
+    refreshMetadataOrHide(wikimedia_commons_text, mWikimedia, mTvWikimedia);
     refreshPhoneNumberList(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
@@ -1254,6 +1264,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
       metaLayout.setVisibility(View.GONE);
   }
 
+  public String getWikimediaLink(String wikimedia)
+  {
+    return "https://commons.wikimedia.org/wiki/" + wikimedia;
+  }
+
   public void refreshAzimuth(double northAzimuth)
   {
     if (mMapObject == null || MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
@@ -1326,6 +1341,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_website:
         Utils.openUrl(getContext(), mTvWebsite.getText().toString());
+        break;
+      case R.id.ll__place_wikimedia:
+        String wikimedia_commons = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
+        Utils.openUrl(getContext(), getWikimediaLink(wikimedia_commons));
         break;
       case R.id.ll__place_facebook:
         final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
@@ -1418,6 +1437,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_website:
         items.add(mTvWebsite.getText().toString());
+        break;
+      case R.id.ll__place_wikimedia:
+        String wikimedia_commons = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
+        items.add(getWikimediaLink(wikimedia_commons));
         break;
       case R.id.ll__place_facebook:
         final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);

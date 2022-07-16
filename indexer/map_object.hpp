@@ -56,7 +56,8 @@ enum class Props : uint8_t
   ContactInstagram = 15,
   ContactTwitter = 16,
   ContactVk = 17,
-  ContactLine = 18
+  ContactLine = 18,
+  WikimediaCommons = 19
 };
 std::string DebugPrint(Props props);
 
@@ -112,6 +113,7 @@ public:
   bool GetElevation(double & outElevationInMeters) const;
   /// @returns URL to Wikipedia or empty string.
   std::string GetWikipediaLink() const;
+  std::string GetWikimediaCommonsLink() const;
   std::string_view GetFlats() const;
   std::string_view GetBuildingLevels() const;
   std::string_view GetLevel() const;
@@ -175,6 +177,7 @@ std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
     case Metadata::FMD_ELE: res.push_back(Props::Elevation); break;
     case Metadata::FMD_EMAIL: res.push_back(Props::Email); break;
     case Metadata::FMD_WIKIPEDIA: res.push_back(Props::Wikipedia); break;
+    case Metadata::FMD_WIKIMEDIA_COMMONS: res.push_back(Props::WikimediaCommons); break;
     case Metadata::FMD_FLATS: res.push_back(Props::Flats); break;
     case Metadata::FMD_BUILDING_LEVELS: res.push_back(Props::BuildingLevels); break;
     case Metadata::FMD_LEVEL: res.push_back(Props::Level); break;

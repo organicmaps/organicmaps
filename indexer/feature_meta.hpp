@@ -157,6 +157,7 @@ public:
     FMD_DESTINATION_REF = 38,
     FMD_JUNCTION_REF = 39,
     FMD_BUILDING_MIN_LEVEL = 40,
+    FMD_WIKIMEDIA_COMMONS = 41,
     FMD_COUNT
   };
 
@@ -179,6 +180,7 @@ public:
   void Drop(EType type) { Set(type, std::string()); }
 
   std::string GetWikiURL() const;
+  std::string GetWikimediaCommonsURL() const;
 };
 
 class AddressData : public MetadataBase
