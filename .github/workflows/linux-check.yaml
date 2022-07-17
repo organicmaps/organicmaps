@@ -15,6 +15,7 @@ on:
       - docs/**
       - packaging/**
       - pyhelpers/**
+      - tools/**
       - xcode/**
 
 jobs:
