@@ -1,15 +1,67 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>america-football-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="america-football-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#717065" cx="12" cy="12" r="11"></circle>
-            <g id="Group" transform="translate(6.000000, 9.607143)" fill="#FFFFFF">
-                <path d="M0,2.4375 C0.377678571,3.375 0.969642857,4.20535714 1.71428571,4.86428571 L1.71428571,0.0107142857 C0.969642857,0.669642857 0.377678571,1.5 0,2.4375 Z" id="Path"></path>
-                <path d="M12,2.4375 C11.6223214,1.5 11.0303571,0.669642857 10.2857143,0.0107142857 L10.2857143,4.86428571 C11.0303571,4.20535714 11.6223214,3.375 12,2.4375 Z" id="Path"></path>
-            </g>
-            <path d="M12,8 C10.7383929,8 9.5625,8.35892857 8.57142857,8.97767857 L8.57142857,11.0482143 L8.57142857,11.6160714 L8.57142857,12.4732143 L8.57142857,13.2098214 L8.57142857,15.1089286 C9.5625,15.7276786 10.7383929,16.0866071 12,16.0866071 C13.2616071,16.0866071 14.4375,15.7276786 15.4285714,15.1089286 L15.4285714,13.2098214 L15.4285714,12.4732143 L15.4285714,11.6160714 L15.4285714,11.0482143 L15.4285714,8.97767857 C14.4375,8.35892857 13.2616071,8 12,8 Z M14.5714286,11.6160714 L14.5714286,12.4732143 L14.5714286,13.3303571 L13.7142857,13.3303571 L13.7142857,12.4732143 L12.4285714,12.4732143 L12.4285714,13.3303571 L11.5714286,13.3303571 L11.5714286,12.4732143 L10.2857143,12.4732143 L10.2857143,13.3303571 L9.42857143,13.3303571 L9.42857143,12.4732143 L9.42857143,11.6160714 L9.42857143,10.7589286 L10.2857143,10.7589286 L10.2857143,11.6160714 L11.5714286,11.6160714 L11.5714286,10.7589286 L12.4285714,10.7589286 L12.4285714,11.6160714 L13.7142857,11.6160714 L13.7142857,10.7589286 L14.5714286,10.7589286 L14.5714286,11.6160714 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg14"
+   sodipodi:docname="america-football-m.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs18" />
+  <sodipodi:namedview
+     id="namedview16"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="31.5"
+     inkscape:cx="12.095238"
+     inkscape:cy="12"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg14" />
+  <title
+     id="title2">america-football-m</title>
+  <g
+     id="Page-1"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd"
+     inkscape:label="Page-2:-Night">
+    <g
+       id="america-football-m"
+       fill-rule="nonzero">
+      <g
+         id="Group"
+         transform="translate(6,9.607143)"
+         fill="#ffffff">
+        <path
+           d="m -3,2.392857 c 0.5665179,1.40625 1.4544644,2.6517857 2.57142855,3.6401786 V -1.2473216 C -1.5455356,-0.25892872 -2.4334821,0.98660698 -3,2.392857 Z"
+           id="Path"
+           style="opacity:0.6;fill:#ffffff;fill-opacity:1;stroke-width:1.5" />
+        <path
+           d="M 15,2.392857 C 14.433482,0.98660698 13.545536,-0.25892872 12.428571,-1.2473216 V 6.0330356 C 13.545536,5.0446426 14.433482,3.799107 15,2.392857 Z"
+           id="path8"
+           style="opacity:0.6;fill:#ffffff;fill-opacity:1;stroke-width:1.5" />
+      </g>
+      <path
+         d="m 12,5.935045 c -1.892411,0 -3.65625,0.5383929 -5.1428571,1.4665179 v 3.1058031 0.851786 1.285714 1.104911 2.848662 C 8.34375,17.526563 10.107589,18.064955 12,18.064955 c 1.892411,0 3.65625,-0.538392 5.142856,-1.466517 V 13.749777 12.644866 11.359152 10.507366 7.4015629 C 15.65625,6.4734379 13.892411,5.935045 12,5.935045 Z m 3.857143,5.424107 v 1.285714 1.285715 h -1.285714 v -1.285715 h -1.928572 v 1.285715 H 11.357143 V 12.644866 H 9.4285715 v 1.285715 H 8.1428571 v -1.285715 -1.285714 -1.285714 h 1.2857144 v 1.285714 h 1.9285715 v -1.285714 h 1.285714 v 1.285714 h 1.928572 v -1.285714 h 1.285715 z"
+         id="Shape"
+         fill="#FFFFFF"
+         style="opacity:0.6;fill:#ffffff;fill-opacity:1;stroke-width:1.5" />
     </g>
+  </g>
 </svg>

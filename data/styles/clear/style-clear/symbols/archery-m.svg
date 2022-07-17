@@ -1,11 +1,52 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>archery-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="archery-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#717065" cx="12" cy="12" r="11"></circle>
-            <path d="M12,5 C8.134005,5 5,8.13404 5,12 C5,15.86596 8.134005,19 12,19 C15.86596,19 19,15.86596 19,12 C19,8.13404 15.86596,5 12,5 Z M12,6.4 C15.09281,6.4 17.6,8.90719 17.6,12 C17.6,15.09281 15.09281,17.6 12,17.6 C8.907204,17.6 6.4,15.09281 6.4,12 C6.4,8.90719 8.907204,6.4 12,6.4 Z M12,7.8 C9.680403,7.8 7.8,9.68041 7.8,12 C7.8,14.31959 9.680403,16.2 12,16.2 C14.31959,16.2 16.2,14.31959 16.2,12 C16.2,9.68041 14.31959,7.8 12,7.8 Z M12,9.2 C13.54637,9.2 14.8,10.45363 14.8,12 C14.8,13.54637 13.54637,14.8 12,14.8 C10.453602,14.8 9.2,13.54637 9.2,12 C9.2,10.45363 10.453602,9.2 12,9.2 Z M12,10.6 C11.22678,10.6 10.6,11.22678 10.6,12 C10.6,12.77322 11.22678,13.4 12,13.4 C12.77322,13.4 13.4,12.77322 13.4,12 C13.4,11.22678 12.77322,10.6 12,10.6 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="archery-m.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     id="namedview12"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="31.5"
+     inkscape:cx="12.047619"
+     inkscape:cy="12"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10" />
+  <title
+     id="title2">archery-m</title>
+  <g
+     id="Page-1"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd">
+    <g
+       id="archery-m"
+       fill-rule="nonzero">
+      <path
+         d="m 12,3 c -4.970565,0 -9,4.02948 -9,9 0,4.97052 4.029435,9 9,9 4.97052,0 9,-4.02948 9,-9 0,-4.97052 -4.02948,-9 -9,-9 z m 0,1.8 c 3.97647,0 7.2,3.22353 7.2,7.2 0,3.97647 -3.22353,7.2 -7.2,7.2 C 8.023548,19.2 4.8,15.97647 4.8,12 4.8,8.02353 8.023548,4.8 12,4.8 Z m 0,1.8 c -2.982339,0 -5.4,2.41767 -5.4,5.4 0,2.98233 2.417661,5.4 5.4,5.4 2.98233,0 5.4,-2.41767 5.4,-5.4 0,-2.98233 -2.41767,-5.4 -5.4,-5.4 z m 0,1.8 c 1.98819,0 3.6,1.61181 3.6,3.6 0,1.98819 -1.61181,3.6 -3.6,3.6 -1.988226,0 -3.6,-1.61181 -3.6,-3.6 0,-1.98819 1.611774,-3.6 3.6,-3.6 z m 0,1.8 c -0.99414,0 -1.8,0.80586 -1.8,1.8 0,0.99414 0.80586,1.8 1.8,1.8 0.99414,0 1.8,-0.80586 1.8,-1.8 0,-0.99414 -0.80586,-1.8 -1.8,-1.8 z"
+         id="Shape"
+         fill="#717065" />
     </g>
+  </g>
 </svg>
