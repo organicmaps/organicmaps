@@ -22,7 +22,7 @@ public:
   }
 
   // OSMElementCacheReaderInterface overrides:
-  bool Read(Key /* id */, WayElement & /* value */) override {
+  [[noreturn]] bool Read(Key /* id */, WayElement & /* value */) override {
     CHECK(false, ("Should not be called"));
   }
 
