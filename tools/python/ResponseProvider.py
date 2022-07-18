@@ -11,7 +11,7 @@ BIG_FILE_SIZE = 47684
 class Payload:
     def __init__(self, message, response_code=200, headers={}):
         self.__response_code = response_code
-        self.__message = message
+        self.__message = message if type(message) is bytes else message.encode('utf8')
         self.__headers = headers
         
     
@@ -155,8 +155,9 @@ class ResponseProvider:
                 "/gallery/v2/map": self.guides_on_map_gallery,
                 "/partners/get_supported_tariffs": self.citymobil_supported_tariffs,
                 "/partners/calculate_price": self.citymobil_calculate_price,
-            }[url]()
-        except:
+            }.get(url, self.test_404)()
+        except Exception as e:
+            logging.error("test_server: Can't build server response", exc_info=e)
             return self.test_404()
 
 
@@ -208,17 +209,17 @@ class ResponseProvider:
         self.check_byterange(BIG_FILE_SIZE)
         headers = self.chunked_response_header(BIG_FILE_SIZE)
         message = self.trim_message(self.message_for_47kb_file())
-            
+
         return Payload(message, self.response_code, headers)
 
     
     def message_for_47kb_file(self):
         message = []
         for i in range(0, BIG_FILE_SIZE + 1):
-            message.append(chr(i / 256))
-            message.append(chr(i % 256))
+            message.append(i // 256)
+            message.append(i % 256)
 
-        return "".join(message)
+        return bytes(message)
 
 
     # Partners_api_tests
