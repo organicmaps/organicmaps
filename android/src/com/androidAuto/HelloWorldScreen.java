@@ -4,7 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.Surface;
-
+import android.opengl.GLUtils;
+import com.mapswithme.util.log.Logger;
 import androidx.annotation.NonNull;
 import androidx.car.app.AppManager;
 import androidx.car.app.CarContext;
@@ -20,6 +21,11 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.location.LocationHelper;
+import javax.microedition.khronos.egl.EGL10;
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.egl.EGLContext;
+import javax.microedition.khronos.egl.EGLDisplay;
+import javax.microedition.khronos.egl.EGLSurface;
 
 import java.io.IOException;
 
@@ -79,6 +85,59 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
       Surface surface = surfaceContainer.getSurface();
       boolean cr = MapFragment.nativeCreateEngine(surface, surface.lockHardwareCanvas()
                                                                   .getDensity(), firstStart, false, BuildConfig.VERSION_CODE);
+
+//
+//      EGL10 egl = (EGL10) EGLContext.getEGL();
+//      EGLDisplay eglDisplay = egl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
+//      if (eglDisplay == EGL10.EGL_NO_DISPLAY) {
+//        throw new RuntimeException("eglGetDisplay failed: " + GLUtils.getEGLErrorString(egl.eglGetError()));
+//      }
+//      int[] version = new int[2];
+//      if(!egl.eglInitialize(eglDisplay, version)) {
+//        throw new RuntimeException("eglInitialize failed: " + GLUtils.getEGLErrorString(egl.eglGetError()));
+//      }
+//      final int EGL_CONTEXT_CLIENT_VERSION = 0x3098;
+//      final int EGL_OPENGL_ES2_BIT = 0x0004;
+//      final int MAX_CONFIG_COUNT = 40;
+//      int[] configsCount = new int[1];
+//      EGLConfig[] configs = new EGLConfig[MAX_CONFIG_COUNT];
+//      int[] configSpec = new int[] {
+//          EGL10.EGL_RED_SIZE, 8,
+//          EGL10.EGL_GREEN_SIZE, 8,
+//          EGL10.EGL_BLUE_SIZE, 8,
+//          EGL10.EGL_ALPHA_SIZE, 0,
+//          EGL10.EGL_STENCIL_SIZE, 0,
+//          EGL10.EGL_DEPTH_SIZE, 16,
+//          EGL10.EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
+//          EGL10.EGL_SURFACE_TYPE, EGL10.EGL_PBUFFER_BIT | EGL10.EGL_WINDOW_BIT,
+//          EGL10.EGL_NONE
+//      };
+//      if (!egl.eglChooseConfig(eglDisplay, configSpec, configs, MAX_CONFIG_COUNT, configsCount)) {
+//        throw new IllegalArgumentException("eglChooseConfig failed " +
+//                                           GLUtils.getEGLErrorString(egl.eglGetError()));
+//      } else if (configsCount[0] == 0) {
+//        throw new RuntimeException("eglConfig not initialized");
+//      }
+//      Log.i(TAG, "Backbuffer format: RGB8");
+//      EGLConfig eglConfig = configs[0];
+//      int[] contextAttributes = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL10.EGL_NONE };
+//      EGLContext eglContext = egl.eglCreateContext(eglDisplay,
+//                                                   eglConfig,
+//                                                   EGL10.EGL_NO_CONTEXT,
+//                                                   contextAttributes);
+//      int[] surfaceAttributes = { EGL10.EGL_NONE };
+//      EGLSurface eglSurface = egl.eglCreateWindowSurface(eglDisplay,
+//                                                         eglConfig,
+//                                                         surface,
+//                                                         surfaceAttributes);
+//      if (eglSurface == null || eglSurface == EGL10.EGL_NO_SURFACE) {
+//        int error = egl.eglGetError();
+//        String errorString = GLUtils.getEGLErrorString(error);
+//        throw new RuntimeException("createWindowSurface failed "
+//                                   + GLUtils.getEGLErrorString(error));
+//      }
+//      Log.i(TAG, "egl success");
+
       Log.e("Native Create Engine", String.valueOf(cr));
       if (!cat.arePlatformAndCoreInitialized())
       {
