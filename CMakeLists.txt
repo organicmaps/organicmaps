@@ -86,9 +86,10 @@ endif()
 # Global compile options for all configurations.
 add_compile_options(-ffast-math)
 
+# Built-in CMake configurations: Debug, Release, RelWithDebInfo, MinSizeRel
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   add_definitions(-DDEBUG -fno-omit-frame-pointer)
-elseif (${CMAKE_BUILD_TYPE} MATCHES "^Rel")
+elseif (${CMAKE_BUILD_TYPE} MATCHES "Rel")
   add_definitions(-DRELEASE)
   add_compile_options(-Ofast)
 else()
