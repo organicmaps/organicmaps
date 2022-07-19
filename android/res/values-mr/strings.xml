@@ -1364,6 +1364,7 @@
 	<string name="type.shop.greengrocer">भाजीवाला</string>
 	<string name="type.shop.hairdresser">न्हावी</string>
 	<string name="type.shop.hardware">हार्डवेअर दुकान</string>
+	<string name="type.shop.houseware">हार्डवेअर दुकान</string>
 	<string name="type.shop.jewelry">दागिने</string>
 	<string name="type.shop.kiosk">टपरी</string>
 	<string name="type.shop.laundry">धुलाईघर</string>
@@ -1377,6 +1378,7 @@
 	<string name="type.shop.newsagent">वृत्तपत्र विक्री</string>
 	<string name="type.shop.optician">चष्मेविक्रेता</string>
 	<string name="type.shop.outdoor">भटकंतीचे साहित्य</string>
+	<string name="type.shop.pastry">बेकरी</string>
 	<string name="type.shop.pet">पाळीव प्राण्यांचे दुकान</string>
 	<string name="type.shop.photo">फोटोचे दुकान</string>
 	<string name="type.shop.seafood">मासळी उपहारगृह</string>

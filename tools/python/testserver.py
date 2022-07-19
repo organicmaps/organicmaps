@@ -171,7 +171,7 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
             self.send_header(h, payload.headers()[h])
         self.send_header("Content-Length", payload.length())
         self.end_headers()
-        self.wfile.write(payload.message().encode('utf8'))
+        self.wfile.write(payload.message())
     
     
     def init_vars(self):
@@ -184,7 +184,7 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
         headers = self.prepare_headers()
         payload = self.response_provider.response_for_url_and_headers(self.path, headers)
         if payload.response_code() >= 300:
-            length = int(self.headers.getheader('content-length'))
+            length = int(self.headers.get('content-length'))
             self.dispatch_response(Payload(self.rfile.read(length)))
         else:
             self.dispatch_response(payload)
@@ -199,7 +199,7 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
     def prepare_headers(self):
         ret = dict()
         for h in self.headers:
-            ret[h] = self.headers.get(h)
+            ret[h.lower()] = self.headers.get(h)
         return ret
         
 

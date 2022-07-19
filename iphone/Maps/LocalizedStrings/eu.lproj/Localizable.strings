@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Produktu kosmetikoak";
 
+"type.shop.deli" = "Delicatesen Denda";
+
 "type.shop.department_store" = "Denda handiak";
 
 "type.shop.doityourself" = "Burdindegia";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Sexu denda";
 
 "type.shop.fabric" = "Denda";
+
+"type.shop.farm" = "Baserriko Janari Denda";
 
 "type.shop.florist" = "Loradenda";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Fruta denda";
 
+"type.shop.grocery" = "Janariak";
+
 "type.shop.hairdresser" = "Barber-denda";
 
-"type.shop.hardware" = "Burdindegia";
+"type.shop.hardware" = "Hardware denda";
+
+"type.shop.health_food" = "Osasuneko Elikagaien Denda";
+
+"type.shop.houseware" = "Etxeko tresneria denda";
 
 "type.shop.jewelry" = "Bitxiak";
 
 "type.shop.kiosk" = "Kioskoa";
+
+"type.shop.kitchen" = "Sukalde-denda";
 
 "type.shop.laundry" = "Garbitegia";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Ekipamendua";
 
+"type.shop.pastry" = "Gozogintza";
+
 "type.shop.pawnbroker" = "Peoia";
 
 "type.shop.pet" = "Animali denda";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Argazkilaritza artikuluak";
 
 "type.shop.seafood" = "Arrain-denda";
+
+"type.shop.second_hand" = "Bigarren eskuko denda";
 
 "type.shop.shoes" = "Zapata-denda";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Bideo-jokoen denda";
 
 "type.shop.wine" = "Ardo-denda";
+
+"type.shop.antiques" = "Antigoalekoak";
+
+"type.shop.art" = "Arte Denda";
+
+"type.shop.baby_goods" = "Haurrentzako denda";
+
+"type.shop.bag" = "Poltsen Denda";
+
+"type.shop.boutique" = "Boutique";
+
+"type.shop.charity" = "Ongintzazko Denda";
+
+"type.shop.cheese" = "Gazta Denda";
+
+"type.shop.craft" = "Arteak eta Eskulanak";
+
+"type.shop.dairy" = "Esnekiak";
+
+"type.shop.electrical" = "Elektrizitate Denda";
+
+"type.shop.fishing" = "Arrantza Denda";
+
+"type.shop.interior_decoration" = "Barruko Apaingarriak";
+
+"type.shop.lottery" = "Loteria Sarrerak";
+
+"type.shop.medical_supply" = "Medikuntza-hornidura";
+
+"type.shop.nutrition_supplements" = "Nutrizio osagarriak";
+
+"type.shop.paint" = "Margoak";
+
+"type.shop.perfumery" = "Lurringintza";
+
+"type.shop.sewing" = "Josteko hornigaiak";
+
+"type.shop.storage_rental" = "Biltegiratzeko alokairua";
+
+"type.shop.tobacco" = "Tabakoa";
+
+"type.shop.trade" = "Lanbideen hornidurak";
+
+"type.shop.watches" = "Erlojuak";
+
+"type.shop.wholesale" = "Handizkako denda";
 
 "type.sport" = "Kirola";
 

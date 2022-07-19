@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "सौंदर्य(कॉस्मेटिक)";
 
+"type.shop.deli" = "Delicatessen Shop";
+
 "type.shop.department_store" = "विभागीय भांडार";
 
 "type.shop.doityourself" = "हार्डवेअर दुकान";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Erotic Shop";
 
 "type.shop.fabric" = "दुकान";
+
+"type.shop.farm" = "Farm Food Shop";
 
 "type.shop.florist" = "फुलवाला";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "भाजीवाला";
 
+"type.shop.grocery" = "Grocery";
+
 "type.shop.hairdresser" = "न्हावी";
 
 "type.shop.hardware" = "हार्डवेअर दुकान";
 
+"type.shop.health_food" = "Health Food Shop";
+
+"type.shop.houseware" = "हार्डवेअर दुकान";
+
 "type.shop.jewelry" = "दागिने";
 
 "type.shop.kiosk" = "टपरी";
+
+"type.shop.kitchen" = "Kitchen Store";
 
 "type.shop.laundry" = "धुलाईघर";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "भटकंतीचे साहित्य";
 
+"type.shop.pastry" = "बेकरी";
+
 "type.shop.pawnbroker" = "Pawnbroker";
 
 "type.shop.pet" = "पाळीव प्राण्यांचे दुकान";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "फोटोचे दुकान";
 
 "type.shop.seafood" = "मासळी उपहारगृह";
+
+"type.shop.second_hand" = "Second Hand";
 
 "type.shop.shoes" = "चपलाचे दूकान";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "व्हिडिओ गेम्स दुकान";
 
 "type.shop.wine" = "वाईन विक्रेता";
+
+"type.shop.antiques" = "Antiques";
+
+"type.shop.art" = "Arts Shop";
+
+"type.shop.baby_goods" = "Baby Goods";
+
+"type.shop.bag" = "Bags Store";
+
+"type.shop.boutique" = "Boutique";
+
+"type.shop.charity" = "Charity Shop";
+
+"type.shop.cheese" = "Cheese Store";
+
+"type.shop.craft" = "Arts and Crafts";
+
+"type.shop.dairy" = "Dairy Products";
+
+"type.shop.electrical" = "Electrical Store";
+
+"type.shop.fishing" = "Fishing Store";
+
+"type.shop.interior_decoration" = "Interior Decorations";
+
+"type.shop.lottery" = "Lottery Tickets";
+
+"type.shop.medical_supply" = "Medical Supplies";
+
+"type.shop.nutrition_supplements" = "Nutrition Supplements";
+
+"type.shop.paint" = "Paints";
+
+"type.shop.perfumery" = "Perfumery";
+
+"type.shop.sewing" = "Sewing Supplies";
+
+"type.shop.storage_rental" = "Storage Rental";
+
+"type.shop.tobacco" = "Tobacco";
+
+"type.shop.trade" = "Trades Supplies";
+
+"type.shop.watches" = "Watches";
+
+"type.shop.wholesale" = "Wholesale Store";
 
 "type.sport" = "क्रीडा";
 

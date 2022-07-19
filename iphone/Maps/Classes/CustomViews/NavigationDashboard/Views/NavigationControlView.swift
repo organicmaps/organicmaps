@@ -155,7 +155,11 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
       }
     }
 
-    let speed = info.speed ?? "0"
+    var speed = info.speed ?? "0"
+    if (info.speedLimit != "") {
+      speed += " / " + info.speedLimit;
+    }
+    
     speedLabel.text = speed
     speedLegendLabel.text = info.speedUnits
     let speedWithLegend = NSMutableAttributedString(string: speed, attributes: routingNumberAttributes)

@@ -3,8 +3,10 @@ on:
   workflow_dispatch: # Manual trigger
   pull_request:
     paths:
+      - .github/workflows/android-check-metadata.yaml  # Run check on self change
       - android/src/fdroid/**
       - android/src/google/**
+      - tools/python/check_store_metadata.py
 
 jobs:
   android-check-metadata:

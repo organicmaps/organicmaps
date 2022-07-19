@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Kosmetikgeschäft";
 
+"type.shop.deli" = "Feinkostgeschäft";
+
 "type.shop.department_store" = "Kaufhaus";
 
 "type.shop.doityourself" = "Baumarkt";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Erotikladen";
 
 "type.shop.fabric" = "Textilgeschäft";
+
+"type.shop.farm" = "Hoflebensmittelladen";
 
 "type.shop.florist" = "Florist";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Gemüseladen";
 
+"type.shop.grocery" = "Lebensmittelgeschäft";
+
 "type.shop.hairdresser" = "Friseur";
 
-"type.shop.hardware" = "Eisenwarengeschäft";
+"type.shop.hardware" = "Baumarkt";
+
+"type.shop.health_food" = "Reformhaus";
+
+"type.shop.houseware" = "Haushaltswarengeschäft";
 
 "type.shop.jewelry" = "Juweliergeschäft";
 
 "type.shop.kiosk" = "Kiosk";
+
+"type.shop.kitchen" = "Küchengeschäft";
 
 "type.shop.laundry" = "Wäscherei";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Outdoor-Ausrüstung";
 
+"type.shop.pastry" = "Gebäck";
+
 "type.shop.pawnbroker" = "Pfandleihe";
 
 "type.shop.pet" = "Tierhandlung";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Fotofachgeschäft";
 
 "type.shop.seafood" = "Fischhändler";
+
+"type.shop.second_hand" = "Second-Hand-Laden";
 
 "type.shop.shoes" = "Schuhgeschäft";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Gameshop";
 
 "type.shop.wine" = "Wein- und Spirituosengeschäft";
+
+"type.shop.antiques" = "Antiquitäten";
+
+"type.shop.art" = "Kunstgeschäft";
+
+"type.shop.baby_goods" = "Kinderladen";
+
+"type.shop.bag" = "Taschen Shop";
+
+"type.shop.boutique" = "Boutique";
+
+"type.shop.charity" = "Wohltätigkeitsladen";
+
+"type.shop.cheese" = "Käseladen";
+
+"type.shop.craft" = "Kunst und Handwerk";
+
+"type.shop.dairy" = "Milchprodukte";
+
+"type.shop.electrical" = "Elektrogeschäft";
+
+"type.shop.fishing" = "Angelgeschäft";
+
+"type.shop.interior_decoration" = "Innendekorationen";
+
+"type.shop.lottery" = "Lotteriescheine";
+
+"type.shop.medical_supply" = "Medizinische Versorgung";
+
+"type.shop.nutrition_supplements" = "Nahrungsergänzungsmittel";
+
+"type.shop.paint" = "Farben";
+
+"type.shop.perfumery" = "Parfümerie";
+
+"type.shop.sewing" = "Nähzubehör";
+
+"type.shop.storage_rental" = "Speichermiete";
+
+"type.shop.tobacco" = "Tabak";
+
+"type.shop.trade" = "Handelsbedarf";
+
+"type.shop.watches" = "Uhren";
+
+"type.shop.wholesale" = "Großhandelsgeschäft";
 
 "type.sport" = "Sport";
 

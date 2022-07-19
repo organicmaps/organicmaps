@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Kosmetika";
 
+"type.shop.deli" = "Delikatessbutik";
+
 "type.shop.department_store" = "Varuhus";
 
 "type.shop.doityourself" = "Järnhandel";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Erotisk butik";
 
 "type.shop.fabric" = "Butik";
+
+"type.shop.farm" = "Gårdsmataffär";
 
 "type.shop.florist" = "Blomsteraffär";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Grönsakshandlare";
 
+"type.shop.grocery" = "Livsmedel";
+
 "type.shop.hairdresser" = "Frisör";
 
-"type.shop.hardware" = "Järnhandel";
+"type.shop.hardware" = "Järnaffär";
+
+"type.shop.health_food" = "Hälsokostbutik";
+
+"type.shop.houseware" = "Husgerådsbutik";
 
 "type.shop.jewelry" = "Smycken";
 
 "type.shop.kiosk" = "Kiosk";
+
+"type.shop.kitchen" = "Köksbutik";
 
 "type.shop.laundry" = "Tvättstuga";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Fritidsutrustning";
 
+"type.shop.pastry" = "Bakverk";
+
 "type.shop.pawnbroker" = "Pantbank";
 
 "type.shop.pet" = "Djuraffär";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Fotoaffär";
 
 "type.shop.seafood" = "Fiskhandlare";
+
+"type.shop.second_hand" = "Andrahandsaffär";
 
 "type.shop.shoes" = "Skobutik";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Videospel butik";
 
 "type.shop.wine" = "Vinhandel";
+
+"type.shop.antiques" = "Antikviteter";
+
+"type.shop.art" = "Konstaffär";
+
+"type.shop.baby_goods" = "Barnbutik";
+
+"type.shop.bag" = "Väskor butik";
+
+"type.shop.boutique" = "Boutique";
+
+"type.shop.charity" = "Välgörenhetsbutik";
+
+"type.shop.cheese" = "Ostaffär";
+
+"type.shop.craft" = "Konst och hantverk";
+
+"type.shop.dairy" = "Mejeriprodukter";
+
+"type.shop.electrical" = "Elektronik affär";
+
+"type.shop.fishing" = "Fiskeaffär";
+
+"type.shop.interior_decoration" = "Inredningsdekorationer";
+
+"type.shop.lottery" = "Lotter";
+
+"type.shop.medical_supply" = "Medicinska förnödenheter";
+
+"type.shop.nutrition_supplements" = "Kosttillskott";
+
+"type.shop.paint" = "Färger";
+
+"type.shop.perfumery" = "Parfymer";
+
+"type.shop.sewing" = "Sytillbehör";
+
+"type.shop.storage_rental" = "Uthyrning av förråd";
+
+"type.shop.tobacco" = "Tobak";
+
+"type.shop.trade" = "Handlar förnödenheter";
+
+"type.shop.watches" = "Klockor";
+
+"type.shop.wholesale" = "Grossistbutik";
 
 "type.sport" = "Sport";
 

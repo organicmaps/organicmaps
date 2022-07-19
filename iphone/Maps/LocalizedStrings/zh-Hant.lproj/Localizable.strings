@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "化妆品";
 
+"type.shop.deli" = "熟食店";
+
 "type.shop.department_store" = "百貨公司";
 
 "type.shop.doityourself" = "五金行";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "情趣用品店";
 
 "type.shop.fabric" = "購物";
+
+"type.shop.farm" = "農場食品店";
 
 "type.shop.florist" = "花店";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "蔬果零售店";
 
+"type.shop.grocery" = "雜貨店";
+
 "type.shop.hairdresser" = "理髮師";
 
-"type.shop.hardware" = "五金行";
+"type.shop.hardware" = "五金店";
+
+"type.shop.health_food" = "保健食品店";
+
+"type.shop.houseware" = "家居用品店";
 
 "type.shop.jewelry" = "珠寶店";
 
 "type.shop.kiosk" = "小舖";
+
+"type.shop.kitchen" = "廚房用品店";
 
 "type.shop.laundry" = "洗衣店";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "室外設備";
 
+"type.shop.pastry" = "糕點";
+
 "type.shop.pawnbroker" = "當舖";
 
 "type.shop.pet" = "寵物店";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "照片店";
 
 "type.shop.seafood" = "魚販";
+
+"type.shop.second_hand" = "二手店";
 
 "type.shop.shoes" = "鞋店";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "電子遊戲商城";
 
 "type.shop.wine" = "販酒處";
+
+"type.shop.antiques" = "古董";
+
+"type.shop.art" = "藝術商店";
+
+"type.shop.baby_goods" = "兒童商店";
+
+"type.shop.bag" = "箱包店";
+
+"type.shop.boutique" = "精品店";
+
+"type.shop.charity" = "慈善商店";
+
+"type.shop.cheese" = "奶酪店c";
+
+"type.shop.craft" = "美術和工藝";
+
+"type.shop.dairy" = "乳製品";
+
+"type.shop.electrical" = "電器商城";
+
+"type.shop.fishing" = "釣魚店";
+
+"type.shop.interior_decoration" = "室內裝飾";
+
+"type.shop.lottery" = "彩票";
+
+"type.shop.medical_supply" = "醫療用品";
+
+"type.shop.nutrition_supplements" = "營養補充劑";
+
+"type.shop.paint" = "油漆";
+
+"type.shop.perfumery" = "香水";
+
+"type.shop.sewing" = "縫紉用品";
+
+"type.shop.storage_rental" = "存儲租賃";
+
+"type.shop.tobacco" = "煙草";
+
+"type.shop.trade" = "貿易用品";
+
+"type.shop.watches" = "手錶";
+
+"type.shop.wholesale" = "批髮店";
 
 "type.sport" = "體育運動";
 

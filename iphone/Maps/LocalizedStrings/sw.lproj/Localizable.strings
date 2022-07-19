@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Cosmetics";
 
+"type.shop.deli" = "Duka la Delicatessen";
+
 "type.shop.department_store" = "Department Store";
 
 "type.shop.doityourself" = "Hardware Store";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Erotic Shop";
 
 "type.shop.fabric" = "Shop";
+
+"type.shop.farm" = "Duka la Chakula cha shambani";
 
 "type.shop.florist" = "Florist’s";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Greengrocer's";
 
+"type.shop.grocery" = "Chakula cha mboga";
+
 "type.shop.hairdresser" = "Hairdresser";
 
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "Duka la vifaa";
+
+"type.shop.health_food" = "Duka la Chakula cha Afya";
+
+"type.shop.houseware" = "Duka la Vifaa vya Nyumbani";
 
 "type.shop.jewelry" = "Jewelry";
 
 "type.shop.kiosk" = "Kiosk";
+
+"type.shop.kitchen" = "Duka la Jikoni";
 
 "type.shop.laundry" = "Laundry";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Outdoor Equipment";
 
+"type.shop.pastry" = "Keki";
+
 "type.shop.pawnbroker" = "Pawnbroker";
 
 "type.shop.pet" = "Petshop";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Photo Shop";
 
 "type.shop.seafood" = "Seafood Shop";
+
+"type.shop.second_hand" = "Duka la Mitumba";
 
 "type.shop.shoes" = "Shoe Store";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Duka la Video za Michezo";
 
 "type.shop.wine" = "Wine Shop";
+
+"type.shop.antiques" = "Mambo ya kale";
+
+"type.shop.art" = "Duka la Sanaa";
+
+"type.shop.baby_goods" = "Duka la watoto";
+
+"type.shop.bag" = "Hifadhi ya Mifuko";
+
+"type.shop.boutique" = "Boutique";
+
+"type.shop.charity" = "Duka la msaada";
+
+"type.shop.cheese" = "Duka la Jibini";
+
+"type.shop.craft" = "Sanaa na Ufundi";
+
+"type.shop.dairy" = "Bidhaa za Maziwa";
+
+"type.shop.electrical" = "Duka la Umeme";
+
+"type.shop.fishing" = "Duka la Uvuvi";
+
+"type.shop.interior_decoration" = "Mapambo ya Ndani";
+
+"type.shop.lottery" = "Tikiti za Bahati nasibu";
+
+"type.shop.medical_supply" = "Vifaa vya Matibabu";
+
+"type.shop.nutrition_supplements" = "Virutubisho vya Lishe";
+
+"type.shop.paint" = "Rangi";
+
+"type.shop.perfumery" = "Perfumery";
+
+"type.shop.sewing" = "Vifaa vya kushona";
+
+"type.shop.storage_rental" = "Kukodisha Hifadhi";
+
+"type.shop.tobacco" = "Tumbaku";
+
+"type.shop.trade" = "Ugavi wa Biashara";
+
+"type.shop.watches" = "Saa";
+
+"type.shop.wholesale" = "Duka la Jumla";
 
 "type.sport" = "Michezo";
 

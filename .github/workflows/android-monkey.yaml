@@ -72,10 +72,6 @@ jobs:
           ./configure.sh ./private.git
           rm -rf ./private.git
 
-      - name: Set up SDK
-        shell: bash
-        run: (cd tools/android; ./set_up_android.py --sdk $ANDROID_SDK_ROOT)
-
       - name: Compile
         shell: bash
         working-directory: android

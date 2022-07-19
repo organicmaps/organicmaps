@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Schoonheidsmiddelen";
 
+"type.shop.deli" = "Delicatessenwinkel";
+
 "type.shop.department_store" = "Warenhuis";
 
 "type.shop.doityourself" = "Ijzerhandel";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Erotiekwinkel";
 
 "type.shop.fabric" = "Winkel";
+
+"type.shop.farm" = "Boerderijwinkel";
 
 "type.shop.florist" = "Bloemist";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Groentenwinkel";
 
+"type.shop.grocery" = "Boodschap";
+
 "type.shop.hairdresser" = "Kapper";
 
-"type.shop.hardware" = "Ijzerhandel";
+"type.shop.hardware" = "Ijzerwaren";
+
+"type.shop.health_food" = "Natuurvoedingswinkel";
+
+"type.shop.houseware" = "Huishoudelijke winkel";
 
 "type.shop.jewelry" = "Juwelier";
 
 "type.shop.kiosk" = "Kiosk";
+
+"type.shop.kitchen" = "Keukenwinkel";
 
 "type.shop.laundry" = "Wasserette";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Outdooruitrusting";
 
+"type.shop.pastry" = "Gebakje";
+
 "type.shop.pawnbroker" = "Pandjesbaas";
 
 "type.shop.pet" = "Dierenwinkel";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Fotowinkel";
 
 "type.shop.seafood" = "Visboer";
+
+"type.shop.second_hand" = "Tweedehandswinkel";
 
 "type.shop.shoes" = "Schoenenwinkel";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Winkel voor videogames";
 
 "type.shop.wine" = "Wijn";
+
+"type.shop.antiques" = "Antiek";
+
+"type.shop.art" = "Kunstwinkel";
+
+"type.shop.baby_goods" = "Kinderwinkel";
+
+"type.shop.bag" = "Tassenwinkel";
+
+"type.shop.boutique" = "Boetiek";
+
+"type.shop.charity" = "Kringloopwinkel";
+
+"type.shop.cheese" = "Kaaswinkel";
+
+"type.shop.craft" = "Kunst en ambacht";
+
+"type.shop.dairy" = "Zuivelproducten";
+
+"type.shop.electrical" = "Witgoed winkel";
+
+"type.shop.fishing" = "Viswinkel";
+
+"type.shop.interior_decoration" = "Interieurdecoraties";
+
+"type.shop.lottery" = "Loten";
+
+"type.shop.medical_supply" = "Medische benodigdheden";
+
+"type.shop.nutrition_supplements" = "Voedingssupplementen";
+
+"type.shop.paint" = "Verven";
+
+"type.shop.perfumery" = "Parfumerie";
+
+"type.shop.sewing" = "Naaibenodigdheden";
+
+"type.shop.storage_rental" = "Opslag verhuur";
+
+"type.shop.tobacco" = "Tabak";
+
+"type.shop.trade" = "Handelsbenodigdheden";
+
+"type.shop.watches" = "Horloges";
+
+"type.shop.wholesale" = "Groothandel winkel";
 
 "type.sport" = "Sport";
 

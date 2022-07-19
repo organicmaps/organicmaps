@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Kosmetik";
 
+"type.shop.deli" = "Toko Kue";
+
 "type.shop.department_store" = "Toko serba ada";
 
 "type.shop.doityourself" = "Toko perangkat keras";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Toko Erotik";
 
 "type.shop.fabric" = "Toko";
+
+"type.shop.farm" = "Toko Makanan Pertanian";
 
 "type.shop.florist" = "Tukang bunga";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Penjual sayuran";
 
+"type.shop.grocery" = "Kebutuhan sehari-hari";
+
 "type.shop.hairdresser" = "Penata rambut";
 
 "type.shop.hardware" = "Toko perangkat keras";
 
+"type.shop.health_food" = "Toko Makanan Kesehatan";
+
+"type.shop.houseware" = "Toko Peralatan Rumah Tangga";
+
 "type.shop.jewelry" = "Perhiasan";
 
 "type.shop.kiosk" = "Toko";
+
+"type.shop.kitchen" = "Toko Dapur";
 
 "type.shop.laundry" = "Londri";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Peralatan Outdoor";
 
+"type.shop.pastry" = "Kue-kue";
+
 "type.shop.pawnbroker" = "Rumah Gadai";
 
 "type.shop.pet" = "Toko hewan";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Studio Foto";
 
 "type.shop.seafood" = "Penjual Ikan";
+
+"type.shop.second_hand" = "Toko Barang bekas";
 
 "type.shop.shoes" = "Toko sepatu";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Toko permainan video";
 
 "type.shop.wine" = "Toko anggur";
+
+"type.shop.antiques" = "Barang antik";
+
+"type.shop.art" = "Toko Seni";
+
+"type.shop.baby_goods" = "Toko anak-anak";
+
+"type.shop.bag" = "Toko Tas";
+
+"type.shop.boutique" = "Butik";
+
+"type.shop.charity" = "Toko Amal";
+
+"type.shop.cheese" = "Toko Keju";
+
+"type.shop.craft" = "Seni dan kerajinan";
+
+"type.shop.dairy" = "Produk susu";
+
+"type.shop.electrical" = "Toko elektronik";
+
+"type.shop.fishing" = "Toko Memancing";
+
+"type.shop.interior_decoration" = "Dekorasi Interior";
+
+"type.shop.lottery" = "Tiket Lotere";
+
+"type.shop.medical_supply" = "Suplai medis";
+
+"type.shop.nutrition_supplements" = "Suplemen Nutrisi";
+
+"type.shop.paint" = "Cat";
+
+"type.shop.perfumery" = "Wewangian";
+
+"type.shop.sewing" = "Perlengkapan Jahit";
+
+"type.shop.storage_rental" = "Sewa Penyimpanan";
+
+"type.shop.tobacco" = "Tembakau";
+
+"type.shop.trade" = "Perlengkapan Perdagangan";
+
+"type.shop.watches" = "Jam tangan";
+
+"type.shop.wholesale" = "Toko Grosir";
 
 "type.sport" = "Olahraga";
 

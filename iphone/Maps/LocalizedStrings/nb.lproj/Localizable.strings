@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Kosmetikk";
 
+"type.shop.deli" = "Delikatessebutikk";
+
 "type.shop.department_store" = "Varehus";
 
 "type.shop.doityourself" = "Jernvareforretning";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Erotisk butikk";
 
 "type.shop.fabric" = "Butikk";
+
+"type.shop.farm" = "Gårdsmatbutikk";
 
 "type.shop.florist" = "Blomsterhandler";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Frukt- og grønnsakshandler";
 
+"type.shop.grocery" = "Dagligvare";
+
 "type.shop.hairdresser" = "Frisør";
 
 "type.shop.hardware" = "Jernvareforretning";
 
+"type.shop.health_food" = "Helsekostbutikk";
+
+"type.shop.houseware" = "Husholdningsbutikk";
+
 "type.shop.jewelry" = "Gullsmed";
 
 "type.shop.kiosk" = "Butikk";
+
+"type.shop.kitchen" = "Kjøkkenbutikk";
 
 "type.shop.laundry" = "Vaskeri";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Fritidsutstyr";
 
+"type.shop.pastry" = "Kake";
+
 "type.shop.pawnbroker" = "Pantelåner";
 
 "type.shop.pet" = "Dyrebutikk";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Fotobutikk";
 
 "type.shop.seafood" = "Fiskehandler";
+
+"type.shop.second_hand" = "Bruktbutikk";
 
 "type.shop.shoes" = "Skobutikk";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Videospillbutikken";
 
 "type.shop.wine" = "Alkoholutsalg";
+
+"type.shop.antiques" = "Antikviteter";
+
+"type.shop.art" = "Kunstbutikk";
+
+"type.shop.baby_goods" = "Barnebutikk";
+
+"type.shop.bag" = "Veskerbutikk";
+
+"type.shop.boutique" = "Boutique";
+
+"type.shop.charity" = "Veldedighetsbutikk";
+
+"type.shop.cheese" = "Ostebutikk";
+
+"type.shop.craft" = "Kunst og Håndverk";
+
+"type.shop.dairy" = "Meieriprodukter";
+
+"type.shop.electrical" = "Elektronisk butikk";
+
+"type.shop.fishing" = "Fiskebutikk";
+
+"type.shop.interior_decoration" = "Interiørdekorasjoner";
+
+"type.shop.lottery" = "Lotteribilletter";
+
+"type.shop.medical_supply" = "Medisinsk utstyr";
+
+"type.shop.nutrition_supplements" = "Kosttilskudd";
+
+"type.shop.paint" = "Maling";
+
+"type.shop.perfumery" = "Parfymeri";
+
+"type.shop.sewing" = "Syutstyr";
+
+"type.shop.storage_rental" = "Utleie av lager";
+
+"type.shop.tobacco" = "Tobakk";
+
+"type.shop.trade" = "Handler rekvisita";
+
+"type.shop.watches" = "Klokker";
+
+"type.shop.wholesale" = "Engrosbutikk";
 
 "type.sport" = "Sport";
 

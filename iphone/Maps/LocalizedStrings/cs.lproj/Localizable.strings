@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Kosmetika";
 
+"type.shop.deli" = "Prodejna lahůdek";
+
 "type.shop.department_store" = "Obchodní dům";
 
 "type.shop.doityourself" = "Železářství";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Obchod s erotickými pomůckami";
 
 "type.shop.fabric" = "Obchod";
+
+"type.shop.farm" = "Prodejna farmářských potravin";
 
 "type.shop.florist" = "Květinářství";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Ovoce a zelenina";
 
+"type.shop.grocery" = "Potraviny";
+
 "type.shop.hairdresser" = "Kadeřnictví";
 
 "type.shop.hardware" = "Železářství";
 
+"type.shop.health_food" = "Prodejna zdravé výživy";
+
+"type.shop.houseware" = "Obchod s domácími potřebami";
+
 "type.shop.jewelry" = "Klenotnictví";
 
 "type.shop.kiosk" = "Kiosk";
+
+"type.shop.kitchen" = "Prodejna kuchyní";
 
 "type.shop.laundry" = "Prádelna";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Venkovní vybavení";
 
+"type.shop.pastry" = "Pečivo";
+
 "type.shop.pawnbroker" = "Zastavárna";
 
 "type.shop.pet" = "Zverimex";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Fotografický obchod";
 
 "type.shop.seafood" = "Prodej ryb";
+
+"type.shop.second_hand" = "Obchod z druhé ruky";
 
 "type.shop.shoes" = "Obuv";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Obchod s videohrami";
 
 "type.shop.wine" = "Vinařství";
+
+"type.shop.antiques" = "Starožitnosti";
+
+"type.shop.art" = "Obchod s uměním";
+
+"type.shop.baby_goods" = "Dětský obchod";
+
+"type.shop.bag" = "Obchod s taškami";
+
+"type.shop.boutique" = "Butik";
+
+"type.shop.charity" = "Charitativní obchod";
+
+"type.shop.cheese" = "Prodejna sýrů";
+
+"type.shop.craft" = "Umění a řemesla";
+
+"type.shop.dairy" = "Mléčné výrobky";
+
+"type.shop.electrical" = "Elektro obchod";
+
+"type.shop.fishing" = "Rybářský obchod";
+
+"type.shop.interior_decoration" = "Interiérové dekorace";
+
+"type.shop.lottery" = "Loterijní lístky";
+
+"type.shop.medical_supply" = "Zdravotní zásoby";
+
+"type.shop.nutrition_supplements" = "Doplňky výživy";
+
+"type.shop.paint" = "Barvy";
+
+"type.shop.perfumery" = "Parfumerie";
+
+"type.shop.sewing" = "Šicí potřeby";
+
+"type.shop.storage_rental" = "Pronájem skladu";
+
+"type.shop.tobacco" = "Tabák";
+
+"type.shop.trade" = "Obchod se zásobami";
+
+"type.shop.watches" = "Hodinky";
+
+"type.shop.wholesale" = "Velkoobchodní prodejna";
 
 "type.sport" = "Sport";
 

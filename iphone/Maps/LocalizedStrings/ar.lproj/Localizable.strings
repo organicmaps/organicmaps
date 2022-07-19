@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "مستحضرات تجميل";
 
+"type.shop.deli" = "ﺔﺒﻠﻌﻤﻟﺍ ﺔﻤﻌﻃﻷﺍ ﻊﻴﺒﻟ ﻞﺤﻣ";
+
 "type.shop.department_store" = "متجر شامل";
 
 "type.shop.doityourself" = "متجر عدد وأدوات";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "متجر منتجات جنسية";
 
 "type.shop.fabric" = "متجر";
+
+"type.shop.farm" = "ﺔﻋﺭﺰﻤﻟﺍ ﺔﻳﺬﻏﺃ ﺮﺠﺘﻣ";
 
 "type.shop.florist" = "متجر زهور";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "متجر خضروات وفواكه";
 
+"type.shop.grocery" = "ﺕﺍﻭﺮﻀﺧ";
+
 "type.shop.hairdresser" = "مصفف شعر";
 
-"type.shop.hardware" = "متجر عدد وأدوات";
+"type.shop.hardware" = "ﺕﺍﺪﻌﻣ ﻞﺤﻣ";
+
+"type.shop.health_food" = "ﺔﻴﺤﺼﻟﺍ ﺔﻳﺬﻏﻼﻟ ﺮﺠﺘﻣ";
+
+"type.shop.houseware" = "ﺔﻴﻟﺰﻨﻣ ﺕﺍﻭﺩﺃ ﻞﺤﻣ";
 
 "type.shop.jewelry" = "مجوهرات";
 
 "type.shop.kiosk" = "كشك";
+
+"type.shop.kitchen" = "ﺦﺒﻄﻤﻟﺍ ﺮﺠﺘﻣ";
 
 "type.shop.laundry" = "مغسلة ملابس";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "معدات خارجية";
 
+"type.shop.pastry" = "ﺕﺎﻨﺠﻌﻣ";
+
 "type.shop.pawnbroker" = "سمسار تسليف";
 
 "type.shop.pet" = "متجر للحيوانات الأليفة";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "محل صور";
 
 "type.shop.seafood" = "سماك";
+
+"type.shop.second_hand" = "ﺔﻠﻤﻌﺘﺴﻣ ﺕﺍﻭﺩﺍ ﺮﺠﺘﻣ";
 
 "type.shop.shoes" = "متجر أحذية";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "متجر ألعاب فيديو";
 
 "type.shop.wine" = "متجر مشروبات روحية";
+
+"type.shop.antiques" = "ﻒﺤﺘﻟﺍ";
+
+"type.shop.art" = "ﻥﻮﻨﻔﻟﺍ ﺮﺠﺘﻣ";
+
+"type.shop.baby_goods" = "ﻝﺎﻔﻃﻸﻟ ﺮﺠﺘﻣ";
+
+"type.shop.bag" = "ﺐﺋﺎﻘﺤﻟﺍ ﺮﺠﺘﻣ";
+
+"type.shop.boutique" = "ﺮﺠﺘﻣ";
+
+"type.shop.charity" = "ﻱﺮﻴﺧ ﺮﺠﺘﻣ";
+
+"type.shop.cheese" = "ﻦﺒﺠﻟﺍ ﺮﺠﺘﻣ";
+
+"type.shop.craft" = "ﺔﻳﻭﺪﻴﻟﺍ ﻑﺮﺤﻟﺍﻭ ﻥﻮﻨﻔﻟﺍ";
+
+"type.shop.dairy" = "ﻥﺎﺒﻟﻷﺍ ﺕﺎﺠﺘﻨﻣ";
+
+"type.shop.electrical" = "ﺔﻴﺋﺎﺑﺮﻬﻜﻟﺍ ﺕﺍﻭﺩﻷﺍ ﺮﺠﺘﻣ";
+
+"type.shop.fishing" = "ﺪﻴﺻ ﺮﺠﺘﻣ";
+
+"type.shop.interior_decoration" = "ﺔﻴﻠﺧﺍﺩ ﺕﺍﺭﻮﻜﻳﺩ";
+
+"type.shop.lottery" = "ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ";
+
+"type.shop.medical_supply" = "ﺔﻴﺒﻄﻟﺍ ﺕﺍﺩﺍﺪﻣﻹﺍ";
+
+"type.shop.nutrition_supplements" = "ﺔﻴﺋﺍﺬﻏ ﺕﻼﻤﻜﻣ";
+
+"type.shop.paint" = "ﺕﺎﻧﺎﻫﺪﻟﺍ";
+
+"type.shop.perfumery" = "ﺭﻮﻄﻌﻟﺍ";
+
+"type.shop.sewing" = "ﺔﻃﺎﻴﺨﻟﺍ ﺕﺍﺪﻌﻣ";
+
+"type.shop.storage_rental" = "ﻦﻳﺰﺨﺘﻟﺍ ﺕﺍﺪﺣﻭ ﺮﻴﺟﺄﺗ";
+
+"type.shop.tobacco" = "ﻎﺒﺗ";
+
+"type.shop.trade" = "ﺔﻳﺭﺎﺠﺘﻟﺍ ﺕﺍﺪﻳﺭﻮﺘﻟﺍ";
+
+"type.shop.watches" = "ﺕﺎﻋﺎﺳ";
+
+"type.shop.wholesale" = "ﺔﻠﻤﺠﻟﺎﺑ ﺔﻴﺋﺍﺬﻐﻟﺍ ﺩﺍﻮﻤﻟﺍ ﺓﺭﺎﺠﺗ";
 
 "type.sport" = "رياضة";
 

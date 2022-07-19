@@ -3,8 +3,10 @@ on:
   workflow_dispatch: # Manual trigger
   pull_request:
     paths:
-      - data/strings/strings.txt
-      - data/strings/types_strings.txt
+      - .github/workflows/strings-check.yaml  # Run check on self change
+      - data/countries_names.txt
+      - data/strings/*
+      - tools/python/strings_utils.py
 
 jobs:
   validate-translation-strings:

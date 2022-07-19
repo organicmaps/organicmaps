@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Kosmetiikka";
 
+"type.shop.deli" = "Herkkukauppa";
+
 "type.shop.department_store" = "Tavaratalo";
 
 "type.shop.doityourself" = "Rautakauppa";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Erotiikkaliike";
 
 "type.shop.fabric" = "Kauppa";
+
+"type.shop.farm" = "Maatilaruokakauppa";
 
 "type.shop.florist" = "Floristi";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Vihanneskauppias";
 
+"type.shop.grocery" = "Päivittäistavarakauppa";
+
 "type.shop.hairdresser" = "Kampaamo";
 
 "type.shop.hardware" = "Rautakauppa";
 
+"type.shop.health_food" = "Terveysruokakauppa";
+
+"type.shop.houseware" = "Taloustavarakauppa";
+
 "type.shop.jewelry" = "Korukauppa";
 
 "type.shop.kiosk" = "Kioski";
+
+"type.shop.kitchen" = "Keittiökauppa";
 
 "type.shop.laundry" = "Pesula";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Ulkoiluvarusteet";
 
+"type.shop.pastry" = "Leivonnainen";
+
 "type.shop.pawnbroker" = "Panttilainaamo";
 
 "type.shop.pet" = "Eläinkauppa";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Valokuvakauppa";
 
 "type.shop.seafood" = "Kalakauppias";
+
+"type.shop.second_hand" = "Second Hand Store";
 
 "type.shop.shoes" = "Kenkäkauppa";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Videopelikauppa";
 
 "type.shop.wine" = "Alkoholimyymälä";
+
+"type.shop.antiques" = "Antiikkia";
+
+"type.shop.art" = "Taidekauppa";
+
+"type.shop.baby_goods" = "Lasten kauppa";
+
+"type.shop.bag" = "Laukkukauppa";
+
+"type.shop.boutique" = "Boutique";
+
+"type.shop.charity" = "Hyväntekeväisyysmyymälä";
+
+"type.shop.cheese" = "Juustokauppa";
+
+"type.shop.craft" = "Käsityöt";
+
+"type.shop.dairy" = "Maitotuotteet";
+
+"type.shop.electrical" = "Sähköliike";
+
+"type.shop.fishing" = "Kalastuskauppa";
+
+"type.shop.interior_decoration" = "Sisustuskoristeet";
+
+"type.shop.lottery" = "Lottoliput";
+
+"type.shop.medical_supply" = "Lääketieteellisiä tarvikkeita";
+
+"type.shop.nutrition_supplements" = "Ravintolisät";
+
+"type.shop.paint" = "Maalit";
+
+"type.shop.perfumery" = "Hajuvedet";
+
+"type.shop.sewing" = "Ompelutarvikkeet";
+
+"type.shop.storage_rental" = "Varastoinnin vuokraus";
+
+"type.shop.tobacco" = "Tupakka";
+
+"type.shop.trade" = "Kauppa tarvikkeita";
+
+"type.shop.watches" = "Kellot";
+
+"type.shop.wholesale" = "Tukkukauppa";
 
 "type.sport" = "Urheilu";
 

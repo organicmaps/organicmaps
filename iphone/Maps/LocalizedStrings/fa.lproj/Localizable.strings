@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "فروشگاه";
 
+"type.shop.deli" = "ﯽﺷﻭﺮﻓ ﻪﯾﺬﻏﺍ ﻩﺎﮕﺷﻭﺮﻓ";
+
 "type.shop.department_store" = "مرکز خرید";
 
 "type.shop.doityourself" = "فروشگاه";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "فروشگاه";
 
 "type.shop.fabric" = "فروشگاه";
+
+"type.shop.farm" = "ﻪﻋﺭﺰﻣ ﯽﯾﺍﺬﻏ ﺩﺍﻮﻣ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.florist" = "فروشگاه";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "فروشگاه";
 
+"type.shop.grocery" = "ﺭﺎﺑﺭﺍﻮﺧ";
+
 "type.shop.hairdresser" = "ارایشگاه";
 
-"type.shop.hardware" = "فروشگاه";
+"type.shop.hardware" = "ﺭﺍﺰﻓﺍ ﺖﺨﺳ ﻩﺎﮕﺷﻭﺮﻓ";
+
+"type.shop.health_food" = "ﯽﺘﺷﺍﺪﻬﺑ ﯽﯾﺍﺬﻏ ﺩﺍﻮﻣ ﻩﺎﮕﺷﻭﺮﻓ";
+
+"type.shop.houseware" = "ﯽﮕﻧﺎﺧ ﻡﺯﺍﻮﻟ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.jewelry" = "طلا فروشی";
 
 "type.shop.kiosk" = "دَکهِ";
+
+"type.shop.kitchen" = "ﻪﻧﺎﺧﺰﭙﺷﺁ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.laundry" = "لباس شویی";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "فروشگاه";
 
+"type.shop.pastry" = "ﯽﻨﯾﺮﯿﺷ";
+
 "type.shop.pawnbroker" = "عتیقه فروشی";
 
 "type.shop.pet" = "فروشگاه";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "فروشگاه";
 
 "type.shop.seafood" = "فروشگاه";
+
+"type.shop.second_hand" = "ﻡﻭﺩ ﺖﺳﺩ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.shoes" = "فروشگاه";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "فروشگاه بازی‌های رایانه‌ای";
 
 "type.shop.wine" = "فروشگاه";
+
+"type.shop.antiques" = "ﺕﺎﺟ ﻪﻘﯿﺘﻋ";
+
+"type.shop.art" = "ﺮﻨﻫ ﻩﺎﮕﺷﻭﺮﻓ";
+
+"type.shop.baby_goods" = "ﻥﺎﮐﺩﻮﮐ ﻩﺎﮕﺷﻭﺮﻓ";
+
+"type.shop.bag" = "ﻒﯿﮐ ﻩﺎﮕﺷﻭﺮﻓ";
+
+"type.shop.boutique" = "ﮏﯿﺗﻮﺑ";
+
+"type.shop.charity" = "ﻪﯾﺮﯿﺧ ﻩﺎﮕﺷﻭﺮﻓ";
+
+"type.shop.cheese" = "ﺮﯿﻨﭘ ﻩﺎﮕﺷﻭﺮﻓ";
+
+"type.shop.craft" = "ﯽﺘﺳﺩ ﻊﯾﺎﻨﺻ ﻭ ﺮﻨﻫ";
+
+"type.shop.dairy" = "ﯽﻨﺒﻟ ﺕﻻﻮﺼﺤﻣ";
+
+"type.shop.electrical" = "ﯽﮑﯾﺮﺘﮑﻟﺍ ﻡﺯﺍﻮﻟ ﻩﺯﺎﻐﻣ";
+
+"type.shop.fishing" = "ﯼﺮﯿﮕﯿﻫﺎﻣ ﻩﺎﮕﺷﻭﺮﻓ";
+
+"type.shop.interior_decoration" = "ﯽﻠﺧﺍﺩ ﻥﻮﯿﺳﺍﺭﻮﮐﺩ";
+
+"type.shop.lottery" = "ﯽﯾﺎﻣﺯﺁ ﺖﺨﺑ ﻂﯿﻠﺑ";
+
+"type.shop.medical_supply" = "ﯽﮑﺷﺰﭘ ﻡﺯﺍﻮﻟ";
+
+"type.shop.nutrition_supplements" = "ﯽﯾﺍﺬﻏ ﯼﺎﻫ ﻞﻤﮑﻣ";
+
+"type.shop.paint" = "ﺪﻨﮐ ﯽﻣ ﮓﻧﺭ";
+
+"type.shop.perfumery" = "ﯼﺯﺎﺳﺮﻄﻋ";
+
+"type.shop.sewing" = "ﯽﻃﺎﯿﺧ ﻡﺯﺍﻮﻟ";
+
+"type.shop.storage_rental" = "ﺭﺎﺒﻧﺍ ﻩﺭﺎﺟﺍ";
+
+"type.shop.tobacco" = "ﻮﮐﺎﺒﻨﺗ";
+
+"type.shop.trade" = "ﻡﺯﺍﻮﻟ ﺕﺭﺎﺠﺗ";
+
+"type.shop.watches" = "ﺖﻋﺎﺳ";
+
+"type.shop.wholesale" = "ﯽﺷﻭﺮﻓ ﻩﺪﻤﻋ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.sport" = "ورزش";
 

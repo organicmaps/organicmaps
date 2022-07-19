@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Cosmetici";
 
+"type.shop.deli" = "Negozio di specialità gastronomiche";
+
 "type.shop.department_store" = "Grandi magazzini";
 
 "type.shop.doityourself" = "Ferramenta";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Sexy Shop";
 
 "type.shop.fabric" = "Negozio";
+
+"type.shop.farm" = "Negozio di prodotti alimentari della fattoria";
 
 "type.shop.florist" = "Fiorista";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Fruttivendolo";
 
+"type.shop.grocery" = "Drogheria";
+
 "type.shop.hairdresser" = "Parrucchiera";
 
-"type.shop.hardware" = "Ferramenta";
+"type.shop.hardware" = "Negozio hardware";
+
+"type.shop.health_food" = "Negozio di alimenti naturali";
+
+"type.shop.houseware" = "Negozio di casalinghi";
 
 "type.shop.jewelry" = "Gioielleria";
 
 "type.shop.kiosk" = "Chiosco";
+
+"type.shop.kitchen" = "Negozio di cucina";
 
 "type.shop.laundry" = "Lavanderia";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Attrezzatura sportiva";
 
+"type.shop.pastry" = "Pasticcino";
+
 "type.shop.pawnbroker" = "Pegni";
 
 "type.shop.pet" = "Negozio di animali";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Negozio di fotografia";
 
 "type.shop.seafood" = "Pescivendolo";
+
+"type.shop.second_hand" = "Negozio di articoli usati";
 
 "type.shop.shoes" = "Negozio di scarpe";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Negozio di videogiochi";
 
 "type.shop.wine" = "Negozio di alcolici";
+
+"type.shop.antiques" = "Oggetti d'antiquariato";
+
+"type.shop.art" = "Negozio d'arte";
+
+"type.shop.baby_goods" = "Negozio per bambini";
+
+"type.shop.bag" = "Negozio di borse";
+
+"type.shop.boutique" = "Boutique";
+
+"type.shop.charity" = "Negozio di beneficenza";
+
+"type.shop.cheese" = "Negozio di formaggi";
+
+"type.shop.craft" = "Arti e mestieri";
+
+"type.shop.dairy" = "Latticini";
+
+"type.shop.electrical" = "Negozio di articoli elettrici";
+
+"type.shop.fishing" = "Negozio di pesca";
+
+"type.shop.interior_decoration" = "Decorazioni per interni";
+
+"type.shop.lottery" = "Biglietti della lotteria";
+
+"type.shop.medical_supply" = "Forniture mediche";
+
+"type.shop.nutrition_supplements" = "Integratori Alimentari";
+
+"type.shop.paint" = "Vernici";
+
+"type.shop.perfumery" = "Profumeria";
+
+"type.shop.sewing" = "Forniture per il cucito";
+
+"type.shop.storage_rental" = "Noleggio deposito";
+
+"type.shop.tobacco" = "Tabacco";
+
+"type.shop.trade" = "Forniture commerciali";
+
+"type.shop.watches" = "Orologi";
+
+"type.shop.wholesale" = "Negozio all'ingrosso";
 
 "type.sport" = "Sport";
 

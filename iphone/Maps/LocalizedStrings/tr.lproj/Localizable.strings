@@ -2764,6 +2764,8 @@
 
 "type.shop.cosmetics" = "Bakım ürünleri";
 
+"type.shop.deli" = "Şarküteri Dükkanı";
+
 "type.shop.department_store" = "Büyük Mağaza";
 
 "type.shop.doityourself" = "Hırdavatçı";
@@ -2775,6 +2777,8 @@
 "type.shop.erotic" = "Erotik Ürünler Mağazası";
 
 "type.shop.fabric" = "Mağaza";
+
+"type.shop.farm" = "Çiftlik Gıda Dükkanı";
 
 "type.shop.florist" = "Çiçekçi";
 
@@ -2788,13 +2792,21 @@
 
 "type.shop.greengrocer" = "Manav";
 
+"type.shop.grocery" = "Bakkal";
+
 "type.shop.hairdresser" = "Kuaför";
 
-"type.shop.hardware" = "Hırdavatçı";
+"type.shop.hardware" = "Donanım mağazası";
+
+"type.shop.health_food" = "Sağlık Gıda Mağazası";
+
+"type.shop.houseware" = "Ev Eşyaları Dükkanı";
 
 "type.shop.jewelry" = "Kuyumcu";
 
 "type.shop.kiosk" = "Büfe";
+
+"type.shop.kitchen" = "Mutfak Mağazası";
 
 "type.shop.laundry" = "Çamaşırhane";
 
@@ -2818,6 +2830,8 @@
 
 "type.shop.outdoor" = "Dış Mekan Ekipmanları";
 
+"type.shop.pastry" = "Hamur işi";
+
 "type.shop.pawnbroker" = "Tefeci";
 
 "type.shop.pet" = "Evcil Hayvan Mağazası";
@@ -2825,6 +2839,8 @@
 "type.shop.photo" = "Fotoğrafçı";
 
 "type.shop.seafood" = "Deniz Ürünleri Mağazası";
+
+"type.shop.second_hand" = "İkinci El Mağazası";
 
 "type.shop.shoes" = "Ayakkabı Mağazası";
 
@@ -2853,6 +2869,52 @@
 "type.shop.video_games" = "Video Oyunları Mağazası";
 
 "type.shop.wine" = "Şarap Mağazası";
+
+"type.shop.antiques" = "Antikalar";
+
+"type.shop.art" = "Sanat Mağazası";
+
+"type.shop.baby_goods" = "Çocuk mağazası";
+
+"type.shop.bag" = "Çanta Mağazası";
+
+"type.shop.boutique" = "Butik";
+
+"type.shop.charity" = "Hayır Dükkanı";
+
+"type.shop.cheese" = "Peynir Dükkanı";
+
+"type.shop.craft" = "Sanat ve El işi";
+
+"type.shop.dairy" = "Süt Ürünleri";
+
+"type.shop.electrical" = "Elektirikli eşya dükkanı";
+
+"type.shop.fishing" = "Balıkçı Dükkanı";
+
+"type.shop.interior_decoration" = "İç Dekorasyon";
+
+"type.shop.lottery" = "Piyango bileti";
+
+"type.shop.medical_supply" = "Tıbbi malzemeler";
+
+"type.shop.nutrition_supplements" = "Besin Takviyeleri";
+
+"type.shop.paint" = "Boyalar";
+
+"type.shop.perfumery" = "Parfümeri";
+
+"type.shop.sewing" = "Dikiş malzemeleri";
+
+"type.shop.storage_rental" = "Depolama Kiralama";
+
+"type.shop.tobacco" = "Tütün";
+
+"type.shop.trade" = "Esnaf Malzemeleri";
+
+"type.shop.watches" = "Saatler";
+
+"type.shop.wholesale" = "Toptan satış mağazası";
 
 "type.sport" = "Spor";
 
