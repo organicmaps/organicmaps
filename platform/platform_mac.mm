@@ -137,7 +137,7 @@ Platform::Platform()
   if (tempDir == nil)
       tempDir = @"/tmp";
   m_tmpDir = tempDir.UTF8String;
-  m_tmpDir += '/';
+  base::AddSlashIfNeeded(m_tmpDir);
 
   m_guiThread = std::make_unique<platform::GuiThread>();
 
