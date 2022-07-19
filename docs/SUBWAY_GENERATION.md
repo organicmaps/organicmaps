@@ -3,7 +3,7 @@
 For the subway layer to be available in Organic Maps a `SUBWAY_URL`
 parameter ought to be provided to the
 [map generator](https://github.com/organicmaps/organicmaps/tree/master/tools/python/maps_generator).
-Normally you can specify the link http://osm-subway.maps.me/mapsme/latest.json
+Normally you can specify the link https://cdn.organicmaps.app/subway.json
 to a regularily updatable file.
 This instruction describes how to manually build subway layer file.
 

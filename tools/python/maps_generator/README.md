@@ -110,7 +110,7 @@ DIFF_VERSION_DEPTH: 2
 # the https://somesite.com/download/latest_coasts.rawgeom url will be used to download latest_coasts.rawgeom.
 # PLANET_COASTS_URL:
 # The url to the subway file.
-SUBWAY_URL: http://osm-subway.maps.me/mapsme/latest.json
+SUBWAY_URL: https://cdn.organicmaps.app/subway.json
 
 # Urls for production maps generation.
 # UGC_URL:
