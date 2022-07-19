@@ -226,13 +226,11 @@ string FormatSpeed(double metersPerSecond)
 
 string FormatSpeedNumeric(double metersPerSecond, Units units)
 {
-  double constexpr kSecondsPerHour = 3600;
-  double constexpr metersPerKilometer = 1000;
   double unitsPerHour;
   switch (units)
   {
-  case Units::Imperial: unitsPerHour = MetersToMiles(metersPerSecond) * kSecondsPerHour; break;
-  case Units::Metric: unitsPerHour = metersPerSecond * kSecondsPerHour / metersPerKilometer; break;
+  case Units::Imperial: unitsPerHour = KmphToMph(MpsToKmph(metersPerSecond)); break;
+  case Units::Metric: unitsPerHour = MpsToKmph(metersPerSecond); break;
   }
   return ToStringPrecision(unitsPerHour, unitsPerHour >= 10.0 ? 0 : 1);
 }

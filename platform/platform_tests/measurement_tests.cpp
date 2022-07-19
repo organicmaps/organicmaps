@@ -258,4 +258,7 @@ UNIT_TEST(UnitsConversion)
 
   TEST(base::AlmostEqualAbs(ToSpeedKmPH(100.0, Units::Imperial), 160.9344, kEps), ());
   TEST(base::AlmostEqualAbs(ToSpeedKmPH(100.0, Units::Metric), 100.0, kEps), ());
+
+  TEST(base::AlmostEqualAbs(KmphToMps(3.6), 1.0, kEps), ());
+  TEST(base::AlmostEqualAbs(MpsToKmph(1.0), 3.6, kEps), ());
 }

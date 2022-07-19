@@ -13,6 +13,8 @@
 
 #include "base/math.hpp"
 
+#include "platform/measurement_utils.hpp"
+
 
 #include <algorithm>
 #include <array>
@@ -53,7 +55,7 @@ int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double 
 }
 
 // Calculate zoom value in meters per pixel
-double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
+double CalculateZoomBySpeed(double speedMpS, bool isPerspectiveAllowed)
 {
   using TSpeedScale = std::pair<double, double>;
   static std::array<TSpeedScale, 6> const scales3d = {
@@ -76,15 +78,12 @@ double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 
   std::array<TSpeedScale, 6> const & scales = isPerspectiveAllowed ? scales3d : scales2d;
 
-  double const kDefaultSpeed = 80.0;
-  if (speed < 0.0)
-    speed = kDefaultSpeed;
-  else
-    speed *= 3.6; // convert speed from m/s to km/h.
+  double constexpr kDefaultSpeedKmpH = 80.0;
+  double const speedKmpH = speedMpS >= 0 ? measurement_utils::MpsToKmph(speedMpS) : kDefaultSpeedKmpH;
 
   size_t i = 0;
   for (size_t sz = scales.size(); i < sz; ++i)
-    if (scales[i].first >= speed)
+    if (scales[i].first >= speedKmpH)
       break;
 
   double const vs = df::VisualParams::Instance().GetVisualScale();
@@ -96,7 +95,7 @@ double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 
   double const minSpeed = scales[i - 1].first;
   double const maxSpeed = scales[i].first;
-  double const k = (speed - minSpeed) / (maxSpeed - minSpeed);
+  double const k = (speedKmpH - minSpeed) / (maxSpeed - minSpeed);
 
   double const minScale = scales[i - 1].second;
   double const maxScale = scales[i].second;

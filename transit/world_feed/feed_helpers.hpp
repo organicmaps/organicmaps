@@ -78,9 +78,6 @@ void DeleteAllEntriesByIds(C & container, S const & keysForDel)
     DeleteIfExists(container, key);
 }
 
-inline double KmphToMps(double kmph) { return kmph * 1'000.0 / (60.0 * 60.0); }
-inline double MpsToKmph(double mps) { return mps / 1'000.0 * 60.0 * 60.0; }
-
 // We have routes with multiple lines. Each line corresponds to the geometric polyline. Lines may
 // be parallel in some segments. |LinePart| represents these operlapping segments for each line.
 struct LinePart
