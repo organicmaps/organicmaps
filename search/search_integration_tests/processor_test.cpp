@@ -3086,4 +3086,42 @@ UNIT_CLASS_TEST(ProcessorTest, PostCategoryTest)
     TEST(CategoryMatch("Oficina de correos", rules, "es"), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, SportTest)
+{
+  string const countryName = "Wonderland";
+
+  TestPOI tennis({0, 0}, "xxx", "uk");
+  tennis.SetTypes({{"leisure", "pitch"}, {"sport", "tennis"}});
+
+  TestPOI soccer({1, 1}, "yyy", "be");
+  soccer.SetTypes({{"leisure", "pitch"}, {"sport", "soccer"}});
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
+    builder.Add(tennis);
+    builder.Add(soccer);
+  });
+
+  SetViewport(m2::RectD(0, 0, 3, 3));
+
+  {
+    Rules rules{ExactMatch(countryId, tennis), ExactMatch(countryId, soccer)};
+    TEST(ResultsMatch("sportplatz", "de", rules), ());
+  }
+
+  {
+    Rules rules{ExactMatch(countryId, tennis)};
+    TEST(ResultsMatch("теннис", "ru", rules), ());
+  }
+
+  {
+    // Categories match accepts full category name only.
+    TEST(CategoryMatch("Большой", {}, "ru"), ());
+
+    Rules rules{ExactMatch(countryId, soccer)};
+    TEST(CategoryMatch("Piłka nożna", rules, "pl"), ());
+  }
+}
+
 } // namespace processor_test
