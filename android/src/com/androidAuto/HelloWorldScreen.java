@@ -1,6 +1,6 @@
 package com.androidAuto;
 
-import android.graphics.Canvas;
+import android.content.Context;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.Surface;
@@ -16,21 +16,32 @@ import androidx.car.app.model.ActionStrip;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.NavigationManager;
 import androidx.car.app.navigation.model.NavigationTemplate;
+
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.R;
 
 import java.io.IOException;
 
 public class HelloWorldScreen extends Screen implements SurfaceCallback
 {
-  private static final String TAG = "error";
+  private static final String TAG = HelloWorldScreen.class.getSimpleName();
   private SurfaceCallback mSurfaceCallback;
 
   public HelloWorldScreen(@NonNull CarContext carContext)
   {
     super(carContext);
+
+    MwmApplication cat = MwmApplication.from(carContext);
+    try
+    {
+      cat.init();
+    } catch (IOException e)
+    {
+      e.printStackTrace();
+      return;
+    }
 
     carContext.getCarService(AppManager.class).setSurfaceCallback(this);
   }
@@ -58,53 +69,36 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
   @Override
   public void onSurfaceAvailable(@NonNull SurfaceContainer surfaceContainer)
   {
-    MwmApplication cat = MwmApplication.from(getCarContext());
-    try
-    {
-      cat.init();
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-    }
-    int h = surfaceContainer.getHeight();
-    int w = surfaceContainer.getWidth();
+    Log.i(TAG, "Surface available " + surfaceContainer);
 
-    if (surfaceContainer.getSurface() != null)
+    final Surface surface = surfaceContainer.getSurface();
+    if (surface == null)
     {
-      final boolean firstStart = LocationHelper.INSTANCE.isInFirstRun();
-      Log.e("Create Engine", "!");
+      Log.e(TAG, "Surface is NULL");
+      return;
+    }
 
-      //Getting the surface to
-      Surface surface = surfaceContainer.getSurface();
-      boolean cr = MapFragment.nativeCreateEngine(surface, surface.lockHardwareCanvas()
-                                                                  .getDensity(), firstStart, false, BuildConfig.VERSION_CODE);
-      Log.e("Native Create Engine", String.valueOf(cr));
-      if (!cat.arePlatformAndCoreInitialized())
+    if (MapFragment.nativeIsEngineCreated())
+    {
+      if (!MapFragment.nativeAttachSurface(surface))
       {
-        Log.e("arePlatformAndCoreInitialized()", String.valueOf(cat.arePlatformAndCoreInitialized()));
-        Log.e("Nope", "Cannot draw onto the canvas as it's null");
+        reportUnsupported();
+        return;
       }
-      else
-      {
-        Log.e("arePlatformAndCoreInitialized()", String.valueOf(cat.arePlatformAndCoreInitialized()));
-        Log.e("Draw", "Rendering Should be done successfully?");
+      MapFragment.nativeResumeSurfaceRendering();
+      return;
+    }
 
-        try
-        {
-          Log.e("Attcing Surafce", "!!!");
-          MapFragment.nativeAttachSurface(surface);
-        }
-        catch (Exception e)
-        {
-          e.printStackTrace();
-        }
-      }
-    }
-    else
+    final int WIDGET_COPYRIGHT = 0x04;
+    MapFragment.nativeSetupWidget(WIDGET_COPYRIGHT, 0.0f, 0.0f, 0);
+
+    if (!MapFragment.nativeCreateEngine(surface, surfaceContainer.getDpi(), true, false, BuildConfig.VERSION_CODE))
     {
-      Log.e("NPE", "Surface Not Available");
+      reportUnsupported();
+      return;
     }
+
+    MapFragment.nativeResumeSurfaceRendering();
   }
 
   @Override
@@ -124,6 +118,8 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
   public void onSurfaceDestroyed(@NonNull SurfaceContainer surfaceContainer)
   {
     SurfaceCallback.super.onSurfaceDestroyed(surfaceContainer);
+
+    Log.i(TAG, "Surface destroyed");
   }
 
   @Override
@@ -148,5 +144,11 @@ public class HelloWorldScreen extends Screen implements SurfaceCallback
   public void onClick(float x, float y)
   {
     SurfaceCallback.super.onClick(x, y);
+  }
+
+  private void reportUnsupported()
+  {
+    final Context context = getCarContext();
+    Log.e(TAG, context.getString(R.string.unsupported_phone));
   }
 }
