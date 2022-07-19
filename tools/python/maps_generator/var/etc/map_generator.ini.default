@@ -61,7 +61,7 @@ DIFF_VERSION_DEPTH: 2
 # route can't be built.
 NEED_BUILD_WORLD_ROADS: true
 # The url to the subway file.
-SUBWAY_URL: http://osm-subway.maps.me/mapsme/latest.json
+SUBWAY_URL: https://cdn.organicmaps.app/subway.json
 
 # The url of the location with the transit files extracted from GTFS.
 # TRANSIT_URL:
