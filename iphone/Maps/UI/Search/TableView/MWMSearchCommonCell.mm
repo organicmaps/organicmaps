@@ -21,7 +21,7 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
 @property(weak, nonatomic) IBOutlet UILabel * infoLabel;
 @property(weak, nonatomic) IBOutlet UILabel * locationLabel;
 @property(weak, nonatomic) IBOutlet UILabel * typeLabel;
-@property(weak, nonatomic) IBOutlet UIView * closedView;
+@property(weak, nonatomic) IBOutlet UILabel * openLabel;
 @property(weak, nonatomic) IBOutlet UIView * infoView;
 @property(weak, nonatomic) IBOutlet UIView * popularView;
 
@@ -80,19 +80,40 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
     }
   }
 
-  bool popularityHasHigherPriority = PopularityHasHigherPriority(lastLocation, distanceInMeters);
-  bool showClosed = result.IsOpenNow() == osm::No;
   bool showPopular = result.GetRankingInfo().m_popularity > 0;
-
-  if (showClosed && showPopular)
+  self.popularView.hidden = !showPopular;
+  self.openLabel.hidden = true;
+  
+  if (result.IsOpenNow() == osm::Yes)
   {
-    self.closedView.hidden = popularityHasHigherPriority;
-    self.popularView.hidden = !popularityHasHigherPriority;
+    int minutes = result.GetMinutesUntilClosed();
+    if (minutes < 60) // less than 1 hour
+    {
+      self.openLabel.textColor = UIColor.systemYellowColor;
+      NSString *time = [NSString stringWithFormat: @"%d %@", minutes, L(@"minute")];
+      self.openLabel.text = [NSString stringWithFormat: L(@"closes_in"), time];
+    }
+    else
+    {
+      self.openLabel.textColor = UIColor.systemGreenColor;
+      self.openLabel.text = L(@"editor_time_open");
+    }
+    self.openLabel.hidden = false;
   }
-  else
+  else if (result.IsOpenNow() == osm::No)
   {
-    self.closedView.hidden = !showClosed;
-    self.popularView.hidden = !showPopular;
+    self.openLabel.textColor = UIColor.systemRedColor;
+    int minutes = result.GetMinutesUntilOpen();
+    if (minutes < 60) // less than 1 hour
+    {
+      NSString *time = [NSString stringWithFormat: @"%d %@", minutes, L(@"minute")];
+      self.openLabel.text = [NSString stringWithFormat: L(@"opens_in"), time];
+    }
+    else
+    {
+      self.openLabel.text = L(@"closed");
+    }
+    self.openLabel.hidden = false;
   }
 
   [self setStyleAndApply: @"Background"];
