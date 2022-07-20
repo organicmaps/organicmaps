@@ -109,7 +109,6 @@ NSAttributedString *estimate(NSTimeInterval time, NSAttributedString *dot, NSStr
 @property(copy, nonatomic, readwrite) NSString *speedLimit;
 @property(nonatomic, readwrite) BOOL isValid;
 @property(nonatomic, readwrite) CGFloat progress;
-@property(nonatomic, readwrite) CLLocation *pedestrianDirectionPosition;
 @property(nonatomic, readwrite) NSUInteger roundExitNumber;
 @property(nonatomic, readwrite) NSUInteger timeToTarget;
 @property(nonatomic, readwrite) UIImage *nextTurnImage;
