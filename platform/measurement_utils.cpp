@@ -77,7 +77,7 @@ double ToSpeedKmPH(double speed, measurement_utils::Units units)
 {
   switch (units)
   {
-  case Units::Imperial: return MphToKmph(speed);
+  case Units::Imperial: return MiphToKmph(speed);
   case Units::Metric: return speed;
   }
   UNREACHABLE();
@@ -229,7 +229,7 @@ string FormatSpeedNumeric(double metersPerSecond, Units units)
   double unitsPerHour;
   switch (units)
   {
-  case Units::Imperial: unitsPerHour = KmphToMph(MpsToKmph(metersPerSecond)); break;
+  case Units::Imperial: unitsPerHour = KmphToMiph(MpsToKmph(metersPerSecond)); break;
   case Units::Metric: unitsPerHour = MpsToKmph(metersPerSecond); break;
   }
   return ToStringPrecision(unitsPerHour, unitsPerHour >= 10.0 ? 0 : 1);

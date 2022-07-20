@@ -371,7 +371,7 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
       settings::Get(settings::kMeasurementUnits, units);
 
       if (units == measurement_utils::Units::Imperial)
-        speed = measurement_utils::KmphToMph(cameraSpeedKmPH);
+        speed = measurement_utils::KmphToMiph(cameraSpeedKmPH);
 
       mark->SetTitle(strings::to_string(static_cast<int>(speed + 0.5)));
     });
