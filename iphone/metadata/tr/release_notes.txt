@@ -1,8 +1,11 @@
-• Desen çizgileri güzelleştirildi (bazı eski cihazlarda çökmeyi de düzeltir)
-• Harita/bilgi panoları için simgeler
-• Kategori aramasındaki gereksiz kelimeler düzeltildi
-• Mevcut tüm sporlar aranabilir hale getirildi
-• amenity=parking, düzenleyici aracılığıyla haritaya eklenebilir
-• 16+ yakınlaştırma seviyesinde place=square görünürlüğü düzeltildi
-
-Önceki güncellemedeki daha fazla ayrıntı için organicmaps.app/news adresine bakın
+• Yeni OSM harita verileri (18 Temmuz)
+• Artık arama sonuçlarında "Açık", "... süre sonra açılıyor/kapanıyor" bilgisi gösteriliyor
+• Popüler OSM etiketlerinden bazı eksik mağaza türleri eklendi: antiques, art, baby_goods, bag, boutique, charity, cheese, craft, dairy, deli, electrical, farm, fishing, grocery, health_food, houseware, interior_decoration, kitchen, lottery, medical_supply, nutrition_supplements, paint, pastry, perfumery, second_hand, sewing, storage_rental, tobacco, trade, watches, wholesale
+• Navigasyon modunda anlık hızın yanında hız sınırı da gösteriliyor
+• Bazı rotalar için maksimum hız artık daha doğru seçiliyor
+• Artık sport=* etiketleri leisure=pitch etiketlerinden daha yüksek önceliğe sahip
+• Transit işareti mekan sayfası özellik bilgileri ile dolduruldu
+• Sonraki dönüşteki sokak hakkında daha uzun bilgi metni gösteriliyor
+• 3D yapılar için building:min_level kullanılıyor
+• Düzenleyicide mutfaklar seçimden kaldırılabiliyor
+• OSM natural=* ve amenity=events_venue türleri için eksik çeviriler eklendi
