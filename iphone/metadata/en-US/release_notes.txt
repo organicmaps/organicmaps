@@ -1,11 +1,12 @@
-• Improved/fixed the drawing of pattern lines
-• Icons for information=board/map
-• Fixed categories search with stop words
-• Made all existing sports searchable
-• amenity=parking can be added on the map via Editor
-• Fixed place=square visibility at 16+ zoom
-• Made streams & rivers visible on the beach
-• Made hedges and power lines less contrast
-• Improved Portuguese (Brasil), Spanish, Italian, French, and Euskara, enabled Marathi translations
-
-See previous update or organicmaps.app/news for more details about our releases.
+• New OSM data as of July 18
+• Show "Open"/"Opens in"/"Closes in" in search results
+• Added missing shop types from top OSM tags: antiques, art, baby_goods, bag, boutique, charity, cheese, craft, dairy, deli, electrical, farm, fishing, grocery, health_food, houseware, interior_decoration, kitchen, lottery, medical_supply, nutrition_supplements, paint, pastry, perfumery, second_hand, sewing, storage_rental, tobacco, trade, watches, wholesale
+• Show speed limit near the current speed in navigation mode
+• Properly select max speed in some routing cases
+• sport=* tags have higher priority than leisure=pitch
+• Fill transit mark place page with feature info
+• Show text info about the next turn's street longer
+• Use building:min_level for 3D buildings
+• Allow removing cuisines from selection in the Editor
+• Fix Belarusian, German, Russian, Ukrainian translations
+• Add missing translations for OSM natural=* and amenity=events_venue types
