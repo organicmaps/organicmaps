@@ -366,10 +366,10 @@ UNIT_TEST(BatchListOfStript_partial)
 
   using IndexVertexCount = std::pair<uint32_t, uint32_t>;
   std::vector<IndexVertexCount> srcData;
-  srcData.emplace_back(std::make_pair(30, 12));
-  srcData.emplace_back(std::make_pair(30, 13));
-  srcData.emplace_back(std::make_pair(18, 30));
-  srcData.emplace_back(std::make_pair(19, 30));
+  srcData.emplace_back(30, 12);
+  srcData.emplace_back(30, 13);
+  srcData.emplace_back(18, 30);
+  srcData.emplace_back(19, 30);
 
   for (size_t i = 0; i < srcData.size(); ++i)
   {

@@ -48,8 +48,7 @@ double CalcTrackLength(MatchedTrack const & track, Geometry & geometry)
 double CalcSpeedKMpH(double meters, uint64_t secondsElapsed)
 {
   CHECK_GREATER(secondsElapsed, 0, ());
-  double constexpr kMPS2KMPH = 60.0 * 60.0 / 1000.0;
-  return kMPS2KMPH * meters / static_cast<double>(secondsElapsed);
+  return measurement_utils::MpsToKmph(meters / static_cast<double>(secondsElapsed));
 }
 
 void ReadTracks(shared_ptr<NumMwmIds> numMwmIds, string const & filename,

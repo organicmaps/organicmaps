@@ -4,6 +4,7 @@
 #include "transit/world_feed/date_time_helpers.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/measurement_utils.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -1239,7 +1240,7 @@ bool WorldFeed::SpeedExceedsMaxVal(EdgeId const & edgeId, EdgeData const & edgeD
   m2::PointD const & stop1 = m_stops.m_data.at(edgeId.m_fromStopId).m_point;
   m2::PointD const & stop2 = m_stops.m_data.at(edgeId.m_toStopId).m_point;
 
-  static double const maxSpeedMpS = KmphToMps(routing::kTransitMaxSpeedKMpH);
+  static double const maxSpeedMpS = measurement_utils::KmphToMps(routing::kTransitMaxSpeedKMpH);
   double const speedMpS = mercator::DistanceOnEarth(stop1, stop2) / edgeData.m_weight;
 
   bool speedExceedsMaxVal = speedMpS > maxSpeedMpS;
@@ -1247,7 +1248,7 @@ bool WorldFeed::SpeedExceedsMaxVal(EdgeId const & edgeId, EdgeData const & edgeD
   {
     LOG(LWARNING,
         ("Invalid edge weight conflicting with kTransitMaxSpeedKMpH:", edgeId.m_fromStopId,
-         edgeId.m_toStopId, edgeId.m_lineId, "speed (km/h):", MpsToKmph(speedMpS),
+         edgeId.m_toStopId, edgeId.m_lineId, "speed (km/h):", measurement_utils::MpsToKmph(speedMpS),
          "maxSpeed (km/h):", routing::kTransitMaxSpeedKMpH));
   }
 

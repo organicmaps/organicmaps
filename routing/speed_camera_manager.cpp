@@ -233,14 +233,14 @@ bool SpeedCameraManager::IsSpeedHigh(double distanceToCameraMeters, double speed
     if (distToDangerousZone < -kInfluenceZoneMeters)
       return false;
 
-    return speedMpS > routing::KMPH2MPS(camera.m_maxSpeedKmH);
+    return speedMpS > measurement_utils::KmphToMps(camera.m_maxSpeedKmH);
   }
 
-  if (speedMpS < routing::KMPH2MPS(camera.m_maxSpeedKmH))
+  if (speedMpS < measurement_utils::KmphToMps(camera.m_maxSpeedKmH))
     return false;
 
   double timeToSlowSpeed =
-    (routing::KMPH2MPS(camera.m_maxSpeedKmH) - speedMpS) / kAverageAccelerationOfBraking;
+    (measurement_utils::KmphToMps(camera.m_maxSpeedKmH) - speedMpS) / kAverageAccelerationOfBraking;
 
   // Look to: https://en.wikipedia.org/wiki/Acceleration#Uniform_acceleration
   // S = V_0 * t + at^2 / 2, where
@@ -395,7 +395,7 @@ std::string DebugPrint(SpeedCameraManager::Interval interval)
   case SpeedCameraManager::Interval::VoiceNotificationZone: return "VoiceNotificationZone";
   case SpeedCameraManager::Interval::ImpactZone: return "ImpactZone";
   }
-  
+
   UNREACHABLE();
 }
 

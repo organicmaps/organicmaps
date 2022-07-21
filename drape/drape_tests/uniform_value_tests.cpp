@@ -56,15 +56,15 @@ void mock_glGetActiveUniform(uint32_t programID, uint32_t index, int32_t * size,
   {
     static std::pair<std::string, glConst> mockUniforms[9] =
     {
-      std::make_pair("position0", gl_const::GLIntType),
-      std::make_pair("position1", gl_const::GLIntVec2),
-      std::make_pair("position2", gl_const::GLIntVec3),
-      std::make_pair("position3", gl_const::GLIntVec4),
-      std::make_pair("position4", gl_const::GLFloatType),
-      std::make_pair("position5", gl_const::GLFloatVec2),
-      std::make_pair("position6", gl_const::GLFloatVec3),
-      std::make_pair("position7", gl_const::GLFloatVec4),
-      std::make_pair("viewModel", gl_const::GLFloatMat4)
+      {"position0", gl_const::GLIntType},
+      {"position1", gl_const::GLIntVec2},
+      {"position2", gl_const::GLIntVec3},
+      {"position3", gl_const::GLIntVec4},
+      {"position4", gl_const::GLFloatType},
+      {"position5", gl_const::GLFloatVec2},
+      {"position6", gl_const::GLFloatVec3},
+      {"position7", gl_const::GLFloatVec4},
+      {"viewModel", gl_const::GLFloatMat4}
     };
     name = mockUniforms[index].first;
     *type = mockUniforms[index].second;
