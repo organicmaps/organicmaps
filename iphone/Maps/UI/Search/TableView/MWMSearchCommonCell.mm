@@ -82,38 +82,49 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
 
   bool showPopular = result.GetRankingInfo().m_popularity > 0;
   self.popularView.hidden = !showPopular;
-  self.openLabel.hidden = true;
   
-  if (result.IsOpenNow() == osm::Yes)
+  switch (result.IsOpenNow())
   {
-    int minutes = result.GetMinutesUntilClosed();
-    if (minutes < 60) // less than 1 hour
+    case osm::Yes:
     {
-      self.openLabel.textColor = UIColor.systemYellowColor;
-      NSString *time = [NSString stringWithFormat: @"%d %@", minutes, L(@"minute")];
-      self.openLabel.text = [NSString stringWithFormat: L(@"closes_in"), time];
+      int const minutes = result.GetMinutesUntilClosed();
+      if (minutes < 60) // less than 1 hour
+      {
+        self.openLabel.textColor = UIColor.systemYellowColor;
+        NSString *time = [NSString stringWithFormat: @"%d %@", minutes, L(@"minute")];
+        self.openLabel.text = [NSString stringWithFormat: L(@"closes_in"), time];
+      }
+      else
+      {
+        self.openLabel.textColor = UIColor.systemGreenColor;
+        self.openLabel.text = L(@"editor_time_open");
+      }
+      self.openLabel.hidden = false;
+      break;
     }
-    else
+      
+    case osm::No:
     {
-      self.openLabel.textColor = UIColor.systemGreenColor;
-      self.openLabel.text = L(@"editor_time_open");
+      self.openLabel.textColor = UIColor.systemRedColor;
+      int const minutes = result.GetMinutesUntilOpen();
+      if (minutes < 60) // less than 1 hour
+      {
+        NSString *time = [NSString stringWithFormat: @"%d %@", minutes, L(@"minute")];
+        self.openLabel.text = [NSString stringWithFormat: L(@"opens_in"), time];
+      }
+      else
+      {
+        self.openLabel.text = L(@"closed");
+      }
+      self.openLabel.hidden = false;
+      break;
     }
-    self.openLabel.hidden = false;
-  }
-  else if (result.IsOpenNow() == osm::No)
-  {
-    self.openLabel.textColor = UIColor.systemRedColor;
-    int minutes = result.GetMinutesUntilOpen();
-    if (minutes < 60) // less than 1 hour
+      
+    case osm::Unknown:
     {
-      NSString *time = [NSString stringWithFormat: @"%d %@", minutes, L(@"minute")];
-      self.openLabel.text = [NSString stringWithFormat: L(@"opens_in"), time];
+      self.openLabel.hidden = true;
+      break;
     }
-    else
-    {
-      self.openLabel.text = L(@"closed");
-    }
-    self.openLabel.hidden = false;
   }
 
   [self setStyleAndApply: @"Background"];
