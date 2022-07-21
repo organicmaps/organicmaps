@@ -16,4 +16,4 @@ target_link_libraries(${PROJECT_NAME}
   storage
 )
 
-add_subdirectory(routes_builder_tool)
+omim_add_tool_subdirectory(routes_builder_tool)
