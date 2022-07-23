@@ -245,6 +245,10 @@ using namespace storage;
   [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://vk.com/%@", data.infoData.vk]];
 }
 
+- (void)openEmail:(PlacePageData *)data {
+  [UIApplication.sharedApplication openURL:data.infoData.emailUrl options:@{} completionHandler:nil];
+}
+
 - (void)openElevationDifficultPopup:(PlacePageData *)data {
   auto difficultyPopup = [ElevationDetailsBuilder buildWithData:data];
   [[MapViewController sharedController] presentViewController:difficultyPopup animated:YES completion:nil];

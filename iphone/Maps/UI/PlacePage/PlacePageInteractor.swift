@@ -50,7 +50,7 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
   }
   
   func didPressEmail() {
-
+    MWMPlacePageManagerHelper.openEmail(placePageData)
   }
 }
 

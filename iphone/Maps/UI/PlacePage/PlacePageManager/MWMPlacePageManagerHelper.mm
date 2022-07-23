@@ -15,6 +15,7 @@
 - (void)addBusiness;
 - (void)addPlace:(CLLocationCoordinate2D)coordinate;
 - (void)openWebsite:(PlacePageData *)data;
+- (void)openEmail:(PlacePageData *)data;
 - (void)openFacebook:(PlacePageData *)data;
 - (void)openInstagram:(PlacePageData *)data;
 - (void)openTwitter:(PlacePageData *)data;
@@ -65,6 +66,10 @@
 
 + (void)openWebsite:(PlacePageData *)data {
   [[MWMMapViewControlsManager manager].placePageManager openWebsite:data];
+}
+
++ (void)openEmail:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openEmail:data];
 }
 
 + (void)openFacebook:(PlacePageData *)data {
