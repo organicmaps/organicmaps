@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *rawCoordinates;
 @property(nonatomic, readonly, nullable) NSString *formattedCoordinates;
 @property(nonatomic, readonly, nullable) NSString *wifiAvailable;
+@property(nonatomic, readonly, nullable) NSString *level;
 
 @end
 

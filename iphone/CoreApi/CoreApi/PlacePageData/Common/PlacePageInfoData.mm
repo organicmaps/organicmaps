@@ -51,6 +51,9 @@ using namespace osm;
           _wifiAvailable = (rawData.GetInternet() == osm::Internet::No)
               ? NSLocalizedString(@"no_available", nil) : NSLocalizedString(@"yes_available", nil);
           break;
+        case Props::Level:
+          _level = ToNSString(rawData.GetLevel());
+          break;
         default:
           break;
       }
