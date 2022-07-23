@@ -40,6 +40,7 @@ using namespace osm;
           break;
         case Props::Email:
           _email = ToNSString(rawData.GetEmail());
+          _emailUrl = [NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", _email]];
           break;
         case Props::ContactFacebook:
           _facebook = ToNSString(rawData.GetFacebookPage());
