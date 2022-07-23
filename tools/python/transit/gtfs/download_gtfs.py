@@ -60,7 +60,7 @@ def get_feeds_links(data):
     gtfs_feeds_urls = []
 
     for feed in data:
-        if feed["spec"] != "gtfs":
+        if feed["spec"].lower() != "gtfs":
             continue
 
         if "urls" in feed and feed["urls"] is not None and feed["urls"]:
