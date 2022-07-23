@@ -229,6 +229,22 @@ using namespace storage;
   [self.ownerViewController openUrl:data.infoData.website];
 }
 
+- (void)openFacebook:(PlacePageData *)data {
+  [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://m.facebook.com/%@", data.infoData.facebook]];
+}
+
+- (void)openInstagram:(PlacePageData *)data {
+  [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://instagram.com/%@", data.infoData.instagram]];
+}
+
+- (void)openTwitter:(PlacePageData *)data {
+  [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://mobile.twitter.com/%@", data.infoData.twitter]];
+}
+
+- (void)openVk:(PlacePageData *)data {
+  [self.ownerViewController openUrl:[NSString stringWithFormat:@"https://vk.com/%@", data.infoData.vk]];
+}
+
 - (void)openElevationDifficultPopup:(PlacePageData *)data {
   auto difficultyPopup = [ElevationDetailsBuilder buildWithData:data];
   [[MapViewController sharedController] presentViewController:difficultyPopup animated:YES completion:nil];

@@ -15,6 +15,10 @@
 - (void)addBusiness;
 - (void)addPlace:(CLLocationCoordinate2D)coordinate;
 - (void)openWebsite:(PlacePageData *)data;
+- (void)openFacebook:(PlacePageData *)data;
+- (void)openInstagram:(PlacePageData *)data;
+- (void)openTwitter:(PlacePageData *)data;
+- (void)openVk:(PlacePageData *)data;
 - (void)call:(PlacePageData *)data;
 - (void)showAllFacilities:(PlacePageData *)data;
 - (void)showPlaceDescription:(NSString *)htmlString;
@@ -61,6 +65,22 @@
 
 + (void)openWebsite:(PlacePageData *)data {
   [[MWMMapViewControlsManager manager].placePageManager openWebsite:data];
+}
+
++ (void)openFacebook:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openFacebook:data];
+}
+
++ (void)openInstagram:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openInstagram:data];
+}
+
++ (void)openTwitter:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openTwitter:data];
+}
+
++ (void)openVk:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openVk:data];
 }
 
 + (void)call:(PlacePageData *)data {
