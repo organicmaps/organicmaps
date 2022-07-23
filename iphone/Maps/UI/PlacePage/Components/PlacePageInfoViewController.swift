@@ -76,6 +76,7 @@ class PlacePageInfoViewController: UIViewController {
   private var operatorView: InfoItemViewController?
   private var wifiView: InfoItemViewController?
   private var addressView: InfoItemViewController?
+  private var levelView: InfoItemViewController?
   private var coordinatesView: InfoItemViewController?
 
   var placePageInfoData: PlacePageInfoData!
@@ -137,6 +138,10 @@ class PlacePageInfoViewController: UIViewController {
     if let address = placePageInfoData.address {
       addressView = createInfoItem(address, icon: UIImage(named: "ic_placepage_adress"))
       addressView?.canShowMenu = true
+    }
+    
+    if let level = placePageInfoData.level {
+      levelView = createInfoItem(level, icon: UIImage(named: "ic_placepage_level"))
     }
 
     if let formattedCoordinates = placePageInfoData.formattedCoordinates,
