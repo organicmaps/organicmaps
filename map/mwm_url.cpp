@@ -207,6 +207,10 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
     }
     case UrlType::Crosshair:
     {
+      url.ForEachParam([this](auto const & key, auto const & value)
+      {
+         ParseCrosshairParam(key, value);
+      });
       return true;
     }
   }
@@ -286,7 +290,7 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
   }
   else if (key == kAppName)
   {
-    m_appTitle = value;
+    m_appName = value;
   }
   else if (key == kBalloonAction)
   {
@@ -364,12 +368,18 @@ void ParsedMapApi::ParseSearchParam(std::string const & key, std::string const &
   }
 }
 
+void ParsedMapApi::ParseCrosshairParam(std::string const & key, std::string const & value)
+{
+  if (key == map::kAppName)
+    m_appName = value;
+}
+
 void ParsedMapApi::Reset()
 {
   m_routePoints = {};
   m_request = {};
   m_globalBackUrl ={};
-  m_appTitle = {};
+  m_appName = {};
   m_routingType = {};
   m_version = 0;
   m_zoomLevel = 0.0;

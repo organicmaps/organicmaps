@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -238,8 +239,9 @@ public class Factory
           SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap);
           return true;
         case ParsingResult.TYPE_CROSSHAIR:
-            target.showPositionChooserForAPI();
-            return true;
+          final String appName = Framework.nativeGetParsedAppName();
+          target.showPositionChooserForAPI(appName);
+          return true;
       }
 
       return false;
