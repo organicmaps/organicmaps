@@ -131,25 +131,25 @@ class PlacePageInfoViewController: UIViewController {
     }
     
     if let facebook = placePageInfoData.facebook {
-      facebookView = createInfoItem(facebook, icon: UIImage(named: "ic_placepage_facebook"), style: .link) { [weak self] in
+      facebookView = createInfoItem("@" + facebook, icon: UIImage(named: "ic_placepage_facebook"), style: .link) { [weak self] in
         self?.delegate?.didPressFacebook()
       }
     }
     
     if let instagram = placePageInfoData.instagram {
-      instagramView = createInfoItem(instagram, icon: UIImage(named: "ic_placepage_instagram"), style: .link) { [weak self] in
+      instagramView = createInfoItem("@" + instagram, icon: UIImage(named: "ic_placepage_instagram"), style: .link) { [weak self] in
         self?.delegate?.didPressInstagram()
       }
     }
     
     if let twitter = placePageInfoData.twitter {
-      twitterView = createInfoItem(twitter, icon: UIImage(named: "ic_placepage_twitter"), style: .link) { [weak self] in
+      twitterView = createInfoItem("@" + twitter, icon: UIImage(named: "ic_placepage_twitter"), style: .link) { [weak self] in
         self?.delegate?.didPressTwitter()
       }
     }
     
     if let vk = placePageInfoData.vk {
-      vkView = createInfoItem(vk, icon: UIImage(named: "ic_placepage_vk"), style: .link) { [weak self] in
+      vkView = createInfoItem("@" + vk, icon: UIImage(named: "ic_placepage_vk"), style: .link) { [weak self] in
         self?.delegate?.didPressVk()
       }
     }
