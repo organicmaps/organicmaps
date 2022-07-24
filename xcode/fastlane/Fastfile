@@ -50,7 +50,7 @@ platform :ios do
   end
 
   private_lane :generate_testflight_changelog do
-    changelog = sh('git --no-pager show -s --format=%s%n%n%b HEAD')
+    changelog = sh('git --no-pager show -s --format=%s%n%n%b HEAD|tr -dc \'\0-\177\'')
     lane_context[SharedValues::FL_CHANGELOG] = changelog
   end
 
