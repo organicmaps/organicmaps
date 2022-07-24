@@ -578,6 +578,7 @@ public:
 
   ParsedRoutingData GetParsedRoutingData() const;
   url_scheme::SearchRequest GetParsedSearchRequest() const;
+  std::string const & GetParsedAppName() const;
 
   using FeatureMatcher = std::function<bool(FeatureType & ft)>;
 

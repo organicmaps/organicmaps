@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -28,7 +29,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
 import com.mapswithme.maps.api.Const;
-import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
@@ -525,9 +525,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void refreshSearchToolbar()
   {
-    mSearchController.refreshQuery();
-    if (!TextUtils.isEmpty(mSearchController.getQuery()))
+    mSearchController.showProgress(false);
+    final CharSequence query = SearchEngine.INSTANCE.getQuery();
+    if (!TextUtils.isEmpty(query))
     {
+      mSearchController.setQuery(query);
       // Close all panels and tool bars (including search) but do not stop search backend
       closeFloatingToolbars(false, false);
       // Do not show the search tool bar if we are planning or navigating
@@ -547,9 +549,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.show();
   }
 
-  public void showPositionChooserForAPI()
+  public void showPositionChooserForAPI(String appName)
   {
     showPositionChooser(PointChooserMode.API, false, false);
+    if (!TextUtils.isEmpty(appName))
+    {
+      setTitle(appName);
+      ((TextView) mPointChooser.findViewById(R.id.title)).setText(appName);
+    }
   }
 
   public void showPositionChooserForEditor(boolean isBusiness, boolean applyPosition)
@@ -1161,19 +1168,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageActivated(@NonNull PlacePageData data)
   {
-    if (data instanceof MapObject)
-    {
-      MapObject object = (MapObject) data;
-      if (MapObject.isOfType(MapObject.API_POINT, object))
-      {
-        final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-        if (request == null)
-          return;
-
-        object.setSubtitle(request.getTitle());
-      }
-    }
-
     setFullscreen(false);
 
     mPlacePageController.openFor(data);

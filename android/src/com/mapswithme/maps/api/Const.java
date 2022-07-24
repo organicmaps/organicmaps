@@ -8,7 +8,6 @@ public class Const
   static final String EXTRA_PREFIX = AUTHORITY + ".extra";
 
   // Request extras
-  public static final String EXTRA_TITLE = EXTRA_PREFIX + ".TITLE";
   public static final String EXTRA_PICK_POINT = EXTRA_PREFIX + ".PICK_POINT";
 
   // Response extras
