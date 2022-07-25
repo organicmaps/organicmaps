@@ -185,7 +185,7 @@ string DebugPrint(TurnItemDist const & turnItemDist)
   return out.str();
 }
 
-string const GetTurnString(CarDirection turn)
+string GetTurnString(CarDirection turn)
 {
   for (auto const & p : g_turnNames)
   {
@@ -193,9 +193,8 @@ string const GetTurnString(CarDirection turn)
       return p.second;
   }
 
-  stringstream out;
-  out << "unknown CarDirection (" << static_cast<int>(turn) << ")";
-  return out.str();
+  ASSERT(false, (static_cast<int>(turn)));
+  return "unknown CarDirection";
 }
 
 bool IsLeftTurn(CarDirection t)
@@ -348,9 +347,7 @@ string DebugPrint(LaneWay const l)
 
 string DebugPrint(CarDirection const turn)
 {
-  stringstream out;
-  out << "[ " << GetTurnString(turn) << " ]";
-  return out.str();
+  return GetTurnString(turn);
 }
 
 string DebugPrint(PedestrianDirection const l)
@@ -368,9 +365,8 @@ string DebugPrint(PedestrianDirection const l)
     break;
   }
 
-  stringstream out;
-  out << "unknown PedestrianDirection (" << static_cast<int>(l) << ")";
-  return out.str();
+  ASSERT(false, (static_cast<int>(l)));
+  return "unknown PedestrianDirection";
 }
 
 string DebugPrint(SingleLaneInfo const & singleLaneInfo)
