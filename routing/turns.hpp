@@ -219,7 +219,7 @@ struct TurnItemDist
 
 std::string DebugPrint(TurnItemDist const & turnItemDist);
 
-std::string const GetTurnString(CarDirection turn);
+std::string GetTurnString(CarDirection turn);
 
 bool IsLeftTurn(CarDirection t);
 bool IsRightTurn(CarDirection t);

@@ -1,10 +1,6 @@
 #include "routing/route.hpp"
 
-#include "routing/turns_generator.hpp"
-
 #include "traffic/speed_groups.hpp"
-
-#include "indexer/feature_altitude.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -12,13 +8,8 @@
 
 #include "geometry/angles.hpp"
 #include "geometry/point2d.hpp"
-#include "geometry/simplification.hpp"
-
-#include "base/logging.hpp"
 
 #include <algorithm>
-#include <numeric>
-#include <utility>
 
 namespace routing
 {
@@ -30,6 +21,19 @@ namespace
 double constexpr kOnEndToleranceM = 10.0;
 double constexpr kSteetNameLinkMeters = 400.;
 }  //  namespace
+
+std::string DebugPrint(RouteSegment::RoadNameInfo const & rni)
+{
+  stringstream out;
+  out << "RoadNameInfo [ m_name = " << rni.m_name
+      << ", m_ref = " << rni.m_ref
+      << ", m_junction_ref = " << rni.m_junction_ref
+      << ", m_destination_ref = " << rni.m_destination_ref
+      << ", m_destination = " << rni.m_destination
+      << ", m_isLink = " << rni.m_isLink
+      << " ]" << endl;
+  return out.str();
+}
 
 Route::Route(string const & router, vector<m2::PointD> const & points, uint64_t routeId,
              string const & name)
@@ -499,6 +503,28 @@ bool Route::CrossMwmsPartlyProhibitedForSpeedCams() const
 vector<platform::CountryFile> const & Route::GetMwmsPartlyProhibitedForSpeedCams() const
 {
   return m_speedCamPartlyProhibitedMwms;
+}
+
+std::string Route::DebugPrintTurns() const
+{
+  std::string res;
+
+  for (size_t i = 0; i < m_routeSegments.size(); ++i)
+  {
+    auto const & turn = m_routeSegments[i].GetTurn();
+
+    // Always print first elemenst as Start.
+    if (i == 0 || !turn.IsTurnNone())
+    {
+      res += DebugPrint(turn);
+
+      RouteSegment::RoadNameInfo rni;
+      GetClosestStreetNameAfterIdx(turn.m_index, rni);
+      res += DebugPrint(rni);
+    }
+  }
+
+  return res;
 }
 
 bool IsNormalTurn(TurnItem const & turn)
