@@ -402,6 +402,7 @@
 	<string name="select_cuisine">Vælg køkken</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email eller brugernavn</string>
+	<string name="level">Etage</string>
 	<string name="downloader_delete_map_dialog">Alle kortændringer vil blive slettet sammen med kortet.</string>
 	<string name="downloader_update_maps">Opdatér kort</string>
 	<string name="downloader_mwm_migration_dialog">For at oprette en rute skal du opdatere alle kort og så planlægge ruten igen.</string>

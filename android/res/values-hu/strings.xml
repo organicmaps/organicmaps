@@ -400,6 +400,7 @@
 	<string name="select_cuisine">Válassz Konyhát</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email vagy felhasználónév</string>
+	<string name="level">Szint</string>
 	<string name="downloader_delete_map_dialog">A térképekkel együtt minden rajtuk végzett módosítás is törlésre kerül.</string>
 	<string name="downloader_update_maps">Térképek frissítése</string>
 	<string name="downloader_mwm_migration_dialog">Útvonal létrehozásához frissítsd az összes térképet, majd tervezd meg újra az útvonalat.</string>

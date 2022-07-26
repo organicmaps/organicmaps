@@ -393,6 +393,7 @@
 	<string name="select_cuisine">Избор на кухня</string>
 	<!-- login text field -->
 	<string name="email_or_username">Имейл или потребителско име</string>
+	<string name="level">Етаж</string>
 	<string name="downloader_delete_map_dialog">Всички ваши редакции на картата ще бъдат изтрити заедно с нея.</string>
 	<string name="downloader_update_maps">Обновяване на карти</string>
 	<string name="downloader_mwm_migration_dialog">За да създадете маршрут, трябва да актуализирате всички карти и след това да планирате маршрута отново.</string>

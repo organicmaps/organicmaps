@@ -410,6 +410,7 @@
 	<string name="select_cuisine">选择菜肴</string>
 	<!-- login text field -->
 	<string name="email_or_username">邮箱或用户名</string>
+	<string name="level">楼层</string>
 	<string name="downloader_delete_map_dialog">所有对地图的修改都将与地图一起被删除。</string>
 	<string name="downloader_update_maps">更新地图</string>
 	<string name="downloader_mwm_migration_dialog">为了创建路线，您需要更新全部地图并重新规划路线。</string>

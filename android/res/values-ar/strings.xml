@@ -431,6 +431,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">البريد الإلكتروني أو اسم المستخدم</string>
 	<string name="editor_add_phone">إضافة رقم هاتف</string>
+	<string name="level">طابق</string>
 	<string name="downloader_delete_map_dialog">سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.</string>
 	<string name="downloader_update_maps">تحديث الخرائط</string>
 	<string name="downloader_mwm_migration_dialog">لإنشاء مسار، فأنت تحتاج إلى تحديث كافة الخرائط ثم إعادة تخطيط المسار مرة أخرى.</string>

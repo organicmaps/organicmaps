@@ -630,6 +630,8 @@
 
 "phone" = "Puhelinnumero";
 
+"level" = "Kerros";
+
 "please_note" = "Huomaathan, että";
 
 "downloader_delete_map_dialog" = "Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.";

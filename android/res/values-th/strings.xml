@@ -402,6 +402,7 @@
 	<string name="select_cuisine">เลือกประเภทอาหาร</string>
 	<!-- login text field -->
 	<string name="email_or_username">อีเมลหรือชื่อผู้ใช้</string>
+	<string name="level">ชั้น</string>
 	<string name="downloader_delete_map_dialog">การเปลี่ยนแปลงแผนที่ทั้งหมดจะถูกลบไปพร้อมกับแผนที่</string>
 	<string name="downloader_update_maps">อัปเดตแผนที่</string>
 	<string name="downloader_mwm_migration_dialog">ในการสร้างเส้นทาง คุณต้องอัปเดตแผนที่ทั้งหมดแล้ววางแผนเส้นทางอีกครั้ง</string>

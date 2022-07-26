@@ -398,6 +398,7 @@
 	<string name="select_cuisine">Välj kök</string>
 	<!-- login text field -->
 	<string name="email_or_username">E-postadress eller användarnamn</string>
+	<string name="level">Våningsplan</string>
 	<string name="downloader_delete_map_dialog">Alla kartändringar kommer att raderas tillsammans med kartan.</string>
 	<string name="downloader_update_maps">Uppdatera kartor</string>
 	<string name="downloader_mwm_migration_dialog">För att skapa en rutt måste du uppdatera alla kartor och sedan planera rutten igen.</string>

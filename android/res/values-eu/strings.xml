@@ -407,6 +407,7 @@
 	<string name="select_cuisine">Aukeratu sukaldea</string>
 	<!-- login text field -->
 	<string name="email_or_username">Posta elektronikoa edo erabiltzailea</string>
+	<string name="level">Solairua</string>
 	<string name="downloader_delete_map_dialog">Maparen aldaketa guztiak maparekin batera ezabatuko dira.</string>
 	<string name="downloader_update_maps">Mapak deskargatu automatikoki</string>
 	<string name="downloader_mwm_migration_dialog">Ibilbide bat sortzeko, beharrezkoa da mapa guztiak eguneratzea eta ibilbidea berriro planifikatzea.</string>

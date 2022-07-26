@@ -630,6 +630,8 @@
 
 "phone" = "Telefonoa";
 
+"level" = "Solairua";
+
 "please_note" = "Abisua";
 
 "downloader_delete_map_dialog" = "Maparen aldaketa guztiak maparekin batera ezabatuko dira.";

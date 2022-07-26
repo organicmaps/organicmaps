@@ -406,6 +406,7 @@
 	<string name="select_cuisine">Valitse ruokalaji</string>
 	<!-- login text field -->
 	<string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
+	<string name="level">Kerros</string>
 	<string name="downloader_delete_map_dialog">Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.</string>
 	<string name="downloader_update_maps">Päivitä kartat</string>
 	<string name="downloader_mwm_migration_dialog">Sinun täytyy päivittää kaikki kartat ja suunnitella reitti uudelleen luodaksesi uuden reitin.</string>

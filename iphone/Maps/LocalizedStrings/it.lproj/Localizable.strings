@@ -630,6 +630,8 @@
 
 "phone" = "Telefono";
 
+"level" = "Piano";
+
 "please_note" = "Avviso";
 
 "downloader_delete_map_dialog" = "Tutte le tue modifiche alla mappa saranno cancellate insieme alla mappa.";

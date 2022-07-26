@@ -421,6 +421,7 @@
 	<string name="select_cuisine">Вибрати кухню</string>
 	<!-- login text field -->
 	<string name="email_or_username">Ел. пошта або ім\'я користувача</string>
+	<string name="level">Поверх</string>
 	<string name="downloader_delete_map_dialog">Разом з мапою будуть видалені й внесені Вами правки на цій мапі.</string>
 	<string name="downloader_update_maps">Оновити мапи</string>
 	<string name="downloader_mwm_migration_dialog">Для побудови маршруту необхідно оновити усі мапи та побудувати маршрут заново.</string>

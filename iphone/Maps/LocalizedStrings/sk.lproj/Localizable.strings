@@ -630,6 +630,8 @@
 
 "phone" = "Telefón";
 
+"level" = "Podlaha";
+
 "please_note" = "Upozorňujeme vás, že";
 
 "downloader_delete_map_dialog" = "Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.";
