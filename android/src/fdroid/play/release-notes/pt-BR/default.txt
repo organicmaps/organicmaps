@@ -1,0 +1,12 @@
+• Novos dados do mapa OSM (18 de julho)
+• Caminhos e trilhas são renderizados corretamente no Mali-G72 Huawei
+• Adicionados alguns tipos de loja ausentes das principais etiquetas OSM
+• Pequena melhoria de rotas
+• Usa min_level para construções 3D
+• Permite a remoção de culinárias da seleção no Editor
+• Corrige traduções be, de, ru, uk
+• Corrige a validação de URLs do FB
+• Título do menu inferior limitado a 3 linhas
+• Mostra apenas uma seta para trás na busca de favoritos
+• Preenchimento fixo de categorias de favoritos
+…veja o registro detalhado em organicmaps.app/news
