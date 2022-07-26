@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/routing_options.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -46,6 +47,9 @@ public:
   // Estimates time in seconds it takes to go from point |from| to point |to| along direct fake edge.
   double CalcOffroad(ms::LatLon const & from, ms::LatLon const & to, Purpose purpose) const;
 
+  RoutingOptions GetAvoidRoutingOptions() const;
+  void SetAvoidRoutingOptions(RoutingOptions avoidRoutingOptions);
+
   virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
                                    Purpose purpose) const = 0;
   virtual double GetUTurnPenalty(Purpose purpose) const = 0;
@@ -66,6 +70,7 @@ public:
 private:
   double const m_maxWeightSpeedMpS;
   SpeedKMpH const m_offroadSpeedKMpH;
+  RoutingOptions m_avoidRoutingOptions;
 
   //DataSource * m_dataSourcePtr;
   //std::shared_ptr<NumMwmIds> m_numMwmIds;

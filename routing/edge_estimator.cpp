@@ -4,6 +4,7 @@
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/routing_helpers.hpp"
+#include "routing/routing_options.hpp"
 #include "routing/traffic_stash.hpp"
 
 #include "traffic/speed_groups.hpp"
@@ -209,6 +210,16 @@ double EdgeEstimator::CalcOffroad(ms::LatLon const & from, ms::LatLon const & to
   return TimeBetweenSec(from, to, KmphToMps(offroadSpeedKMpH));
 }
 
+RoutingOptions EdgeEstimator::GetAvoidRoutingOptions() const
+{
+    return m_avoidRoutingOptions;
+}
+
+void EdgeEstimator::SetAvoidRoutingOptions(RoutingOptions avoidRoutingOptions)
+{
+    m_avoidRoutingOptions = avoidRoutingOptions;
+}
+
 // PedestrianEstimator -----------------------------------------------------------------------------
 class PedestrianEstimator final : public EdgeEstimator
 {
@@ -314,6 +325,11 @@ double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
 double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const
 {
   double result = CalcClimbSegment(purpose, segment, road, GetCarClimbPenalty);
+
+  if (!road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
+  {
+    result += (24 * 60 * 60);
+  }
 
   if (m_trafficStash)
   {

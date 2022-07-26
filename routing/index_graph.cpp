@@ -254,8 +254,8 @@ void IndexGraph::GetNeighboringEdges(astar::VertexData<Segment, RouteWeight> con
   if (!road.IsValid())
     return;
 
-  if (useRoutingOptions && !road.SuitableForOptions(m_avoidRoutingOptions))
-    return;
+//  if (useRoutingOptions && !road.SuitableForOptions(m_avoidRoutingOptions))
+//    return;
 
   bool const bidirectional = !road.IsOneWay();
   auto const & from = fromVertexData.m_vertex;
@@ -282,8 +282,8 @@ void IndexGraph::GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId 
   if (!road.IsValid())
     return;
 
-  if (!road.SuitableForOptions(m_avoidRoutingOptions))
-    return;
+//  if (!road.SuitableForOptions(m_avoidRoutingOptions))
+//    return;
 
   bool const bidirectional = !road.IsOneWay();
   auto const pointId = rp.GetPointId();
@@ -555,6 +555,8 @@ RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool
 {
   auto const & segment = isOutgoing ? to : from;
   auto const & road = GetRoadGeometry(segment.GetFeatureId());
+
+  m_estimator->SetAvoidRoutingOptions(this->m_avoidRoutingOptions);
 
   auto const weight = RouteWeight(m_estimator->CalcSegmentWeight(segment, road, purpose));
   auto const penalties = GetPenalties(purpose, isOutgoing ? from : to, isOutgoing ? to : from, prevWeight);
