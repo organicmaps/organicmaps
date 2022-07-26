@@ -2,7 +2,7 @@
 • Rotas de ciclismo, trilhas para caminhadas e caminhos para pedestres
 • Curvas de nível, perfis de elevação, picos e encostas
 • Navegação passo a passo a pé, bicicleta e carro, com orientação por voz
-• Pesquisa offline rápida no mapa e marcadores
+• Busca rápida offline no mapa e marcadores
 • Modo escuro para proteger seus olhos
 
 O Organic Maps é puro e orgânico, feito com amor:
