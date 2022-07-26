@@ -1,0 +1,13 @@
+• Novos dados do mapa OSM (18 de julho)
+• Adicionados alguns tipos de loja ausentes das principais etiquetas OSM: alimentos saudáveis, aluguel de armazenamento,antiguidades, arte, artesanato, artigos para bebês, atacado, bolsa, butique, caridade, comércio, costura, cozinha, decoração de interiores, delicatessen, elétrica, fazenda, laticínios, loteria, mercearia, pastelaria, perfumaria, pesca, queijo, relógios, segunda mão, suplementos nutricionais, suprimentos médicos, tabaco, tintas, utilidades domésticas
+• No modo de navegação, o limite de velocidade é exibido ao lado da velocidade instantânea
+• A velocidade máxima agora é selecionada com maior precisão para algumas rotas
+• Etiquetas sport=* têm prioridade maior que leisure=pitch
+• A página do local do sinal de trânsito tem informações sobre o recurso
+• Informações sobre a rua da próxima curva é mostrada por mais tempo
+• Em construções 3D, building:min_level é utilizado
+• Permite a remoção de culinárias da seleção no Editor
+• Corrige traduções de bielorrusso, alemão, russo e ucraniano
+• Adiciona traduções ausentes para as etiquetas natural=* e os tipos de amenity=events_venue
+• Esportes adicionados: vôlei de praia, xadrez, skate, tênis de mesa, vôlei, boliche
+• Mostra se determinado recurso está aberto ou fechado nos resultados da pesquisa
